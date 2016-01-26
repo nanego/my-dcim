@@ -15,6 +15,8 @@ group :development do
 end
 gem 'administrate'
 gem 'bootstrap-sass'
+# gem 'bootstrap-generators', git: 'git://github.com/decioferreira/bootstrap-generators.git'
+gem 'bootstrap-generators', '~> 3.3.4'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise_invitable'

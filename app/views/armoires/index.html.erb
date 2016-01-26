@@ -1,0 +1,50 @@
+<!-- Page Content -->
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-md-3">
+      <%= render 'pages/params_menu' %>
+    </div>
+
+    <div class="col-md-9">
+
+      <div class="page-header">
+        <%= link_to new_armoire_path, class: 'btn btn-primary' do %>
+          <span class="glyphicon glyphicon-plus"></span>
+          New Armoire
+        <% end %>
+        <h1>Listing armoires</h1>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+          <thead>
+            <tr>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Published</th>
+                  <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <%= content_tag_for(:tr, @armoires) do |armoire| %>
+                  <td><%= armoire.title %></td>
+                  <td><%= armoire.description %></td>
+                  <td><%= armoire.published %></td>
+                  <td><%= link_to 'Show', armoire %></td>
+              <td><%= link_to 'Edit', edit_armoire_path(armoire) %></td>
+              <td><%= link_to 'Destroy', armoire, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,2 @@
+module ArmoiresHelper
+end
