@@ -45,3 +45,31 @@ group :development do
   gem 'spring'
 end
 
+
+gem 'administrate'
+gem 'bootstrap-sass'
+gem 'devise'
+gem 'devise-i18n'
+gem 'devise_invitable'
+gem 'high_voltage'
+gem 'pg'
+gem 'simple_form'
+
+group :development do
+  gem 'better_errors'
+  gem 'quiet_assets'
+  gem 'rails_apps_pages'
+  gem 'rails_layout'
+end
+
+group :development, :test do
+  gem 'pry-rails'
+  gem 'pry-rescue'
+  gem 'puma'
+  gem 'rubocop'
+end
+
+group :production do
+  gem 'passenger'
+end
+
