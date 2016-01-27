@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160127144838) do
+ActiveRecord::Schema.define(version: 20160127162934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(version: 20160127144838) do
     t.boolean  "cluster"
     t.boolean  "critique"
     t.integer  "domaine_id"
-    t.integer  "gestin_id"
+    t.integer  "gestion_id"
     t.integer  "acte_id"
     t.integer  "phase"
     t.integer  "salle_id"
@@ -123,10 +123,18 @@ ActiveRecord::Schema.define(version: 20160127144838) do
     t.integer  "rj45_futur"
     t.integer  "ipmi_utilise"
     t.integer  "ipmi_futur"
-    t.integer  "rg45_cm"
+    t.integer  "rj45_cm"
     t.integer  "ipmi_dedie"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "slots", force: :cascade do |t|
+    t.integer  "numero"
+    t.integer  "serveur_id"
+    t.string   "valeur"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

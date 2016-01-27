@@ -15,7 +15,7 @@ class CreateServeurs < ActiveRecord::Migration
       t.boolean :cluster
       t.boolean :critique
       t.integer :domaine_id
-      t.integer :gestin_id
+      t.integer :gestion_id
       t.integer :acte_id
       t.integer :phase
       t.integer :salle_id
@@ -27,7 +27,7 @@ class CreateServeurs < ActiveRecord::Migration
       t.integer :rj45_futur
       t.integer :ipmi_utilise
       t.integer :ipmi_futur
-      t.integer :rg45_cm
+      t.integer :rj45_cm
       t.integer :ipmi_dedie
 
       t.timestamps null: false

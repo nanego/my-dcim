@@ -15,19 +15,19 @@
   <div class="form-group">
     <%= f.label :localisation_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.number_field :localisation_id, class: "form-control" %>
+      <%= f.collection_select(:localisation_id, Localisation.all, :id, :title, {}, {class: "form-control"}) %>
     </div>
   </div>
   <div class="form-group">
     <%= f.label :armoire_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.number_field :armoire_id, class: "form-control" %>
+      <%= f.collection_select(:armoire_id, Armoire.all, :id, :title, {}, {class: "form-control"}) %>
     </div>
   </div>
   <div class="form-group">
     <%= f.label :categorie_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.number_field :categorie_id, class: "form-control" %>
+      <%= f.collection_select(:categorie_id, Categorie.all, :id, :title, {}, {class: "form-control"}) %>
     </div>
   </div>
   <div class="form-group">
@@ -45,7 +45,7 @@
   <div class="form-group">
     <%= f.label :architecture_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.number_field :architecture_id, class: "form-control" %>
+      <%= f.collection_select(:architecture_id, Architecture.all, :id, :title, {}, {class: "form-control"}) %>
     </div>
   </div>
   <div class="form-group">
@@ -57,13 +57,13 @@
   <div class="form-group">
     <%= f.label :marque_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.number_field :marque_id, class: "form-control" %>
+      <%= f.collection_select(:marque_id, Marque.all, :id, :title, {}, {class: "form-control"}) %>
     </div>
   </div>
   <div class="form-group">
     <%= f.label :modele_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.number_field :modele_id, class: "form-control" %>
+      <%= f.collection_select(:modele_id, Modele.all, :id, :title, {}, {class: "form-control"}) %>
     </div>
   </div>
   <div class="form-group">
@@ -93,19 +93,19 @@
   <div class="form-group">
     <%= f.label :domaine_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.number_field :domaine_id, class: "form-control" %>
+      <%= f.collection_select(:domaine_id, Domaine.all, :id, :title, {}, {class: "form-control"}) %>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :gestin_id, class: "col-sm-2 control-label" %>
+    <%= f.label :gestion_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.number_field :gestin_id, class: "form-control" %>
+      <%= f.collection_select(:gestion_id, Gestion.all, :id, :title, {}, {class: "form-control"}) %>
     </div>
   </div>
   <div class="form-group">
     <%= f.label :acte_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.number_field :acte_id, class: "form-control" %>
+      <%= f.collection_select(:acte_id, Acte.all, :id, :title, {}, {class: "form-control"}) %>
     </div>
   </div>
   <div class="form-group">
@@ -117,7 +117,7 @@
   <div class="form-group">
     <%= f.label :salle_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.number_field :salle_id, class: "form-control" %>
+      <%= f.collection_select(:salle_id, Salle.all, :id, :title, {}, {class: "form-control"}) %>
     </div>
   </div>
   <div class="form-group">
@@ -169,9 +169,9 @@
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :rg45_cm, class: "col-sm-2 control-label" %>
+    <%= f.label :rj45_cm, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.number_field :rg45_cm, class: "form-control" %>
+      <%= f.number_field :rj45_cm, class: "form-control" %>
     </div>
   </div>
   <div class="form-group">

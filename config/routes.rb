@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :slots
   resources :serveurs
   resources :actes
   resources :salles
@@ -16,7 +17,7 @@ Rails.application.routes.draw do
     end
     root controller: DashboardManifest::ROOT_DASHBOARD, action: :index
   end
-  root to: 'pages#index'
+  root to: 'serveurs#index'
   devise_for :users
   resources :users
 end

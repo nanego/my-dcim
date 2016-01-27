@@ -12,13 +12,13 @@
 
 <dl class="dl-horizontal">
   <dt>Localisation:</dt>
-  <dd><%= @serveur.localisation_id %></dd>
+  <dd><%= @serveur.localisation %></dd>
 
   <dt>Armoire:</dt>
-  <dd><%= @serveur.armoire_id %></dd>
+  <dd><%= @serveur.armoire %></dd>
 
   <dt>Categorie:</dt>
-  <dd><%= @serveur.categorie_id %></dd>
+  <dd><%= @serveur.categorie %></dd>
 
   <dt>Nom:</dt>
   <dd><%= @serveur.nom %></dd>
@@ -27,16 +27,16 @@
   <dd><%= @serveur.nb_elts %></dd>
 
   <dt>Architecture:</dt>
-  <dd><%= @serveur.architecture_id %></dd>
+  <dd><%= @serveur.architecture %></dd>
 
   <dt>U:</dt>
   <dd><%= @serveur.u %></dd>
 
   <dt>Marque:</dt>
-  <dd><%= @serveur.marque_id %></dd>
+  <dd><%= @serveur.marque %></dd>
 
   <dt>Modele:</dt>
-  <dd><%= @serveur.modele_id %></dd>
+  <dd><%= @serveur.modele %></dd>
 
   <dt>Numero:</dt>
   <dd><%= @serveur.numero %></dd>
@@ -51,19 +51,19 @@
   <dd><%= @serveur.critique %></dd>
 
   <dt>Domaine:</dt>
-  <dd><%= @serveur.domaine_id %></dd>
+  <dd><%= @serveur.domaine %></dd>
 
   <dt>Gestin:</dt>
-  <dd><%= @serveur.gestin_id %></dd>
+  <dd><%= @serveur.gestion %></dd>
 
   <dt>Acte:</dt>
-  <dd><%= @serveur.acte_id %></dd>
+  <dd><%= @serveur.acte %></dd>
 
   <dt>Phase:</dt>
   <dd><%= @serveur.phase %></dd>
 
   <dt>Salle:</dt>
-  <dd><%= @serveur.salle_id %></dd>
+  <dd><%= @serveur.salle %></dd>
 
   <dt>Ilot:</dt>
   <dd><%= @serveur.ilot %></dd>
@@ -90,9 +90,12 @@
   <dd><%= @serveur.ipmi_futur %></dd>
 
   <dt>Rg45 cm:</dt>
-  <dd><%= @serveur.rg45_cm %></dd>
+  <dd><%= @serveur.rj45_cm %></dd>
 
   <dt>Ipmi dedie:</dt>
   <dd><%= @serveur.ipmi_dedie %></dd>
+
+  <dt>Slots:</dt>
+  <dd><%= @serveur.slots.map{ |slot| slot.valeur.present? ? slot.valeur : "" } %></dd>
 
 </dl>
