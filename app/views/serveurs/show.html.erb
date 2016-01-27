@@ -1,0 +1,98 @@
+<div class="page-header">
+  <%= link_to serveurs_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_serveur_path(@serveur), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1>Show serveur</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Localisation:</dt>
+  <dd><%= @serveur.localisation_id %></dd>
+
+  <dt>Armoire:</dt>
+  <dd><%= @serveur.armoire_id %></dd>
+
+  <dt>Categorie:</dt>
+  <dd><%= @serveur.categorie_id %></dd>
+
+  <dt>Nom:</dt>
+  <dd><%= @serveur.nom %></dd>
+
+  <dt>Nb elts:</dt>
+  <dd><%= @serveur.nb_elts %></dd>
+
+  <dt>Architecture:</dt>
+  <dd><%= @serveur.architecture_id %></dd>
+
+  <dt>U:</dt>
+  <dd><%= @serveur.u %></dd>
+
+  <dt>Marque:</dt>
+  <dd><%= @serveur.marque_id %></dd>
+
+  <dt>Modele:</dt>
+  <dd><%= @serveur.modele_id %></dd>
+
+  <dt>Numero:</dt>
+  <dd><%= @serveur.numero %></dd>
+
+  <dt>Conso:</dt>
+  <dd><%= @serveur.conso %></dd>
+
+  <dt>Cluster:</dt>
+  <dd><%= @serveur.cluster %></dd>
+
+  <dt>Critique:</dt>
+  <dd><%= @serveur.critique %></dd>
+
+  <dt>Domaine:</dt>
+  <dd><%= @serveur.domaine_id %></dd>
+
+  <dt>Gestin:</dt>
+  <dd><%= @serveur.gestin_id %></dd>
+
+  <dt>Acte:</dt>
+  <dd><%= @serveur.acte_id %></dd>
+
+  <dt>Phase:</dt>
+  <dd><%= @serveur.phase %></dd>
+
+  <dt>Salle:</dt>
+  <dd><%= @serveur.salle_id %></dd>
+
+  <dt>Ilot:</dt>
+  <dd><%= @serveur.ilot %></dd>
+
+  <dt>Fc total:</dt>
+  <dd><%= @serveur.fc_total %></dd>
+
+  <dt>Fc utilise:</dt>
+  <dd><%= @serveur.fc_utilise %></dd>
+
+  <dt>Rj45 total:</dt>
+  <dd><%= @serveur.rj45_total %></dd>
+
+  <dt>Rj45 utilise:</dt>
+  <dd><%= @serveur.rj45_utilise %></dd>
+
+  <dt>Rj45 futur:</dt>
+  <dd><%= @serveur.rj45_futur %></dd>
+
+  <dt>Ipmi utilise:</dt>
+  <dd><%= @serveur.ipmi_utilise %></dd>
+
+  <dt>Ipmi futur:</dt>
+  <dd><%= @serveur.ipmi_futur %></dd>
+
+  <dt>Rg45 cm:</dt>
+  <dd><%= @serveur.rg45_cm %></dd>
+
+  <dt>Ipmi dedie:</dt>
+  <dd><%= @serveur.ipmi_dedie %></dd>
+
+</dl>

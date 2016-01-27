@@ -1,0 +1,188 @@
+<%= form_for(@serveur, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <% if @serveur.errors.any? %>
+    <div class="alert alert-danger alert-dismissable" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <h4><%= pluralize(@serveur.errors.count, "error") %> prohibited this serveur from being saved:</h4>
+
+      <ul>
+      <% @serveur.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :localisation_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :localisation_id, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :armoire_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :armoire_id, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :categorie_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :categorie_id, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :nom, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :nom, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :nb_elts, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :nb_elts, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :architecture_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :architecture_id, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :u, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :u, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :marque_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :marque_id, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :modele_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :modele_id, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :numero, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :numero, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :conso, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :conso, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :cluster, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.check_box :cluster, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :critique, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.check_box :critique, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :domaine_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :domaine_id, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :gestin_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :gestin_id, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :acte_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :acte_id, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :phase, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :phase, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :salle_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :salle_id, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :ilot, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :ilot, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :fc_total, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :fc_total, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :fc_utilise, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :fc_utilise, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :rj45_total, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :rj45_total, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :rj45_utilise, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :rj45_utilise, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :rj45_futur, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :rj45_futur, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :ipmi_utilise, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :ipmi_utilise, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :ipmi_futur, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :ipmi_futur, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :rg45_cm, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :rg45_cm, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :ipmi_dedie, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :ipmi_dedie, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

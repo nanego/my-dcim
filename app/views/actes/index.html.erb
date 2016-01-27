@@ -9,11 +9,11 @@
     <div class="col-md-9">
 
       <div class="page-header">
-        <%= link_to new_localisation_path, class: 'btn btn-primary' do %>
+        <%= link_to new_acte_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
-          Ajouter une localisation
+          Ajouter une action
         <% end %>
-        <h1>Localisations</h1>
+        <h1>Actions</h1>
       </div>
 
       <div class="table-responsive">
@@ -29,12 +29,12 @@
           </thead>
 
           <tbody>
-          <%= content_tag_for(:tr, @localisations) do |localisation| %>
-            <td><%= localisation.title %></td>
-            <td><%= localisation.description %></td>
-            <td><input type="checkbox" <%= localisation.published ? "checked" : "" %> disabled></td>
-            <td><%= link_to 'Modifier', edit_localisation_path(localisation) %></td>
-            <td><%= link_to 'Supprimer', localisation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%= content_tag_for(:tr, @actes) do |acte| %>
+            <td><%= acte.title %></td>
+            <td><%= acte.description %></td>
+            <td><input type="checkbox" <%= acte.published ? "checked" : "" %> disabled></td>
+            <td><%= link_to 'Modifier', edit_acte_path(acte) %></td>
+            <td><%= link_to 'Supprimer', acte, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <% end %>
           </tbody>
         </table>

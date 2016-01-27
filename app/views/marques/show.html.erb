@@ -1,0 +1,23 @@
+<div class="page-header">
+  <%= link_to marques_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_marque_path(@marque), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1>Show marque</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Title:</dt>
+  <dd><%= @marque.title %></dd>
+
+  <dt>Description:</dt>
+  <dd><%= @marque.description %></dd>
+
+  <dt>Published:</dt>
+  <dd><%= @marque.published %></dd>
+
+</dl>

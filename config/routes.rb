@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  resources :serveurs
+  resources :actes
+  resources :salles
+  resources :gestions
+  resources :domaines
+  resources :modeles
+  resources :marques
+  resources :architectures
+  resources :categories
   resources :armoires
   resources :localisations
   namespace :admin do
@@ -7,7 +16,7 @@ Rails.application.routes.draw do
     end
     root controller: DashboardManifest::ROOT_DASHBOARD, action: :index
   end
-  root to: 'visitors#index'
+  root to: 'pages#index'
   devise_for :users
   resources :users
 end

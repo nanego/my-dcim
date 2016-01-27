@@ -11,12 +11,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126142236) do
+ActiveRecord::Schema.define(version: 20160127144838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "actes", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.boolean  "published"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "architectures", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.boolean  "published"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "armoires", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.boolean  "published"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.boolean  "published"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "domaines", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.boolean  "published"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "gestions", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
     t.boolean  "published"
@@ -30,6 +70,63 @@ ActiveRecord::Schema.define(version: 20160126142236) do
     t.boolean  "published"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "marques", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.boolean  "published"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "modeles", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.boolean  "published"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "salles", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.boolean  "published"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "serveurs", force: :cascade do |t|
+    t.integer  "localisation_id"
+    t.integer  "armoire_id"
+    t.integer  "categorie_id"
+    t.string   "nom"
+    t.integer  "nb_elts"
+    t.integer  "architecture_id"
+    t.integer  "u"
+    t.integer  "marque_id"
+    t.integer  "modele_id"
+    t.string   "numero"
+    t.integer  "conso"
+    t.boolean  "cluster"
+    t.boolean  "critique"
+    t.integer  "domaine_id"
+    t.integer  "gestin_id"
+    t.integer  "acte_id"
+    t.integer  "phase"
+    t.integer  "salle_id"
+    t.integer  "ilot"
+    t.integer  "fc_total"
+    t.integer  "fc_utilise"
+    t.integer  "rj45_total"
+    t.integer  "rj45_utilise"
+    t.integer  "rj45_futur"
+    t.integer  "ipmi_utilise"
+    t.integer  "ipmi_futur"
+    t.integer  "rg45_cm"
+    t.integer  "ipmi_dedie"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "users", force: :cascade do |t|

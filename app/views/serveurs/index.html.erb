@@ -1,0 +1,83 @@
+<div class="page-header">
+  <%= link_to new_serveur_path, class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-plus"></span>
+    New Serveur
+  <% end %>
+  <h1>Listing serveurs</h1>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+            <th>Localisation</th>
+            <th>Armoire</th>
+            <th>Categorie</th>
+            <th>Nom</th>
+            <th>Nb elts</th>
+            <th>Architecture</th>
+            <th>U</th>
+            <th>Marque</th>
+            <th>Modele</th>
+            <th>Numero</th>
+            <th>Conso</th>
+            <th>Cluster</th>
+            <th>Critique</th>
+            <th>Domaine</th>
+            <th>Gestin</th>
+            <th>Acte</th>
+            <th>Phase</th>
+            <th>Salle</th>
+            <th>Ilot</th>
+            <th>Fc total</th>
+            <th>Fc utilise</th>
+            <th>Rj45 total</th>
+            <th>Rj45 utilise</th>
+            <th>Rj45 futur</th>
+            <th>Ipmi utilise</th>
+            <th>Ipmi futur</th>
+            <th>Rg45 cm</th>
+            <th>Ipmi dedie</th>
+            <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= content_tag_for(:tr, @serveurs) do |serveur| %>
+            <td><%= serveur.localisation_id %></td>
+            <td><%= serveur.armoire_id %></td>
+            <td><%= serveur.categorie_id %></td>
+            <td><%= serveur.nom %></td>
+            <td><%= serveur.nb_elts %></td>
+            <td><%= serveur.architecture_id %></td>
+            <td><%= serveur.u %></td>
+            <td><%= serveur.marque_id %></td>
+            <td><%= serveur.modele_id %></td>
+            <td><%= serveur.numero %></td>
+            <td><%= serveur.conso %></td>
+            <td><%= serveur.cluster %></td>
+            <td><%= serveur.critique %></td>
+            <td><%= serveur.domaine_id %></td>
+            <td><%= serveur.gestin_id %></td>
+            <td><%= serveur.acte_id %></td>
+            <td><%= serveur.phase %></td>
+            <td><%= serveur.salle_id %></td>
+            <td><%= serveur.ilot %></td>
+            <td><%= serveur.fc_total %></td>
+            <td><%= serveur.fc_utilise %></td>
+            <td><%= serveur.rj45_total %></td>
+            <td><%= serveur.rj45_utilise %></td>
+            <td><%= serveur.rj45_futur %></td>
+            <td><%= serveur.ipmi_utilise %></td>
+            <td><%= serveur.ipmi_futur %></td>
+            <td><%= serveur.rg45_cm %></td>
+            <td><%= serveur.ipmi_dedie %></td>
+            <td><%= link_to 'Show', serveur %></td>
+        <td><%= link_to 'Edit', edit_serveur_path(serveur) %></td>
+        <td><%= link_to 'Destroy', serveur, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+    </tbody>
+  </table>
+</div>
