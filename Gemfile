@@ -23,6 +23,8 @@ gem 'devise_invitable'
 gem 'high_voltage'
 gem 'pg'
 gem 'simple_form'
+gem 'datagrid', :git => 'git://github.com/bogdan/datagrid.git'
+gem 'kaminari'
 group :development do
   gem 'better_errors'
   gem 'quiet_assets'
@@ -36,4 +38,5 @@ group :development, :test do
 end
 group :production do
   gem 'passenger'
+  gem 'therubyracer'
 end

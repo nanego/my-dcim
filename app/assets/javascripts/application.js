@@ -15,3 +15,14 @@
 //= require bootstrap-sprockets
 //= require bootstrap
 //= require_tree .
+
+function hideFilters(){
+  $('.hide-filters').hide();
+  $('.show-filters').show();
+  $('.panel-body').hide();
+}
+function showFilters(){
+  $('.hide-filters').show();
+  $('.show-filters').hide();
+  $('.panel-body').show();
+}

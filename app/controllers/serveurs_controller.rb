@@ -4,7 +4,11 @@ class ServeursController < ApplicationController
   # GET /serveurs
   # GET /serveurs.json
   def index
-    @serveurs = Serveur.all
+    redirect_to controller: :serveurs_grids, action: :index
+  end
+
+  def grid
+    @serveurs = ServeursGrid.new(params[:serveurs_grid])
   end
 
   # GET /serveurs/1

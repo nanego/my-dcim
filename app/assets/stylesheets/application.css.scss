@@ -10,6 +10,17 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require datagrid
  *= require_tree .
  *= require_self
  */
+
+.datagrid-form {
+  background-color: white;
+  padding: 0;
+}
+
+a.hide-filters, a.show-filters{
+  color: white;
+  text-decoration: underline;
+}

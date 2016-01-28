@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   resources :slots
-  resources :serveurs
+  resources :serveurs do
+    collection do
+      get :grid
+    end
+  end
+  resources :serveurs_grids, only: [:index]
   resources :actes
   resources :salles
   resources :gestions

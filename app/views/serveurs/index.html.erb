@@ -2,6 +2,7 @@
 
   <div class="row-fluid">
 
+    <!--
     <div class="col-md-3 col-lg-2">
       <p class="lead">Vues</p>
       <div class="list-group">
@@ -10,8 +11,9 @@
         <a href="#" class="list-group-item disabled">Vue par baies</a>
       </div>
     </div>
+    -->
 
-    <div class="col-md-9 col-lg-10">
+    <div class="col-md-12">
 
       <div class="page-header">
         <%= link_to new_serveur_path, class: 'btn btn-primary' do %>
@@ -56,7 +58,6 @@
               <th>Ipmi dédié</th>
               <th></th>
               <th></th>
-              <th></th>
             </tr>
           </thead>
 
@@ -91,7 +92,6 @@
               <td><%= serveur.ipmi_futur %></td>
               <td><%= serveur.rj45_cm %></td>
               <td><%= serveur.ipmi_dedie %></td>
-              <td><%= link_to 'Show', serveur %></td>
               <td><%= link_to 'Modifier', edit_serveur_path(serveur) %></td>
               <td><%= link_to 'Supprimer', serveur, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <% end %>
