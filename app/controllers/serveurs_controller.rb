@@ -4,7 +4,12 @@ class ServeursController < ApplicationController
   # GET /serveurs
   # GET /serveurs.json
   def index
-    redirect_to controller: :serveurs_grids, action: :index
+    unless params[:serveurs_grid].present?
+      params[:serveurs_grid] = {"column_names"=>["id", "localisation", "rack", "nom", "type"]}
+    end
+
+    @serveurs = ServeursGrid.new(params[:serveurs_grid])
+    render "serveurs_grids/index"
   end
 
   def grid
