@@ -60,10 +60,14 @@ class ServeursGrid
       link_to value, model
     end
   end
-  column(:localisation) do |record|
+  column(:localisation, :order => proc { |scope|
+    scope.joins(:localisation).order("localisations.title")
+  }) do |record|
     record.localisation
   end
-  column(:rack) do |record|
+  column(:rack, :order => proc { |scope|
+    scope.joins(:armoire).order("armoires.title")
+  }) do |record|
     record.armoire
   end
   column(:nom) do |model|
@@ -71,18 +75,26 @@ class ServeursGrid
       link_to value, model
     end
   end
-  column(:type) do |record|
+  column(:type, :order => proc { |scope|
+    scope.joins(:categorie).order("categories.title")
+  }) do |record|
     record.categorie
   end
   column(:nb_elts)
-  column(:architecture) do |record|
+  column(:architecture, :order => proc { |scope|
+    scope.joins(:architecture).order("architectures.title")
+  }) do |record|
     record.architecture
   end
   column(:u)
-  column(:marque) do |record|
+  column(:marque, :order => proc { |scope|
+    scope.joins(:marque).order("marques.title")
+  }) do |record|
     record.marque
   end
-  column(:modele) do |record|
+  column(:modele, :order => proc { |scope|
+    scope.joins(:modele).order("modeles.title")
+  }) do |record|
     record.modele
   end
   column(:numero)
@@ -93,17 +105,25 @@ class ServeursGrid
   column(:cluster, :mandatory => false) do
     cluster ? "Oui" : "Non"
   end
-  column(:domaine) do |record|
+  column(:domaine, :order => proc { |scope|
+    scope.joins(:domaine).order("domaines.title")
+  }) do |record|
     record.domaine
   end
-  column(:gestionnaire) do |record|
+  column(:gestionnaire, :order => proc { |scope|
+    scope.joins(:gestion).order("gestions.title")
+  }) do |record|
     record.gestion
   end
-  column("Action à réaliser") do |record|
+  column("Action à réaliser", :order => proc { |scope|
+    scope.joins(:acte).order("actes.title")
+  }) do |record|
     record.acte
   end
   column(:phase)
-  column(:salle) do |record|
+  column(:salle, :order => proc { |scope|
+    scope.joins(:salle).order("salles.title")
+  }) do |record|
     record.salle
   end
   column(:ilot)
@@ -118,17 +138,19 @@ class ServeursGrid
   column(:ipmi_dedie)
 
   column(:slots, :html => true, :mandatory => false) do |r|
-    r.slots.map{ |slot| slot.valeur.present? ? slot.valeur : "" }
-    table = "<table BORDER='1' style='text-align: center;'><tr>"
-    r.slots.each do |s|
-      table << "<td>#{s.numero}</td>"
+    if r.slots.present?
+      r.slots.map{ |slot| slot.valeur.present? ? slot.valeur : "" }
+      table = "<table BORDER='1' style='text-align: center;'><tr>"
+      r.slots.each do |s|
+        table << "<td>#{s.numero}</td>"
+      end
+      table << "</tr><tr>"
+      r.slots.each do |s|
+        table << "<td>#{s.valeur}</td>"
+      end
+      table << "</tr></table>"
+      table.html_safe
     end
-    table << "</tr><tr>"
-    r.slots.each do |s|
-      table << "<td>#{s.valeur}</td>"
-    end
-    table << "</tr></table>"
-    table.html_safe
   end
 
   column("Boutons", :html => true, :mandatory => false) do |record|
