@@ -138,11 +138,11 @@ class ServeursGrid
   column(:ipmi_dedie)
 
   column(:slots, :html => true, :mandatory => false) do |r|
-    if r.slots.present?
+    if r.slots.map(&:valeur).reject!{|v| v.blank?}.present?
       r.slots.map{ |slot| slot.valeur.present? ? slot.valeur : "" }
-      table = "<table BORDER='1' style='text-align: center;'><tr>"
+      table = "<table BORDER='1' style='text-align: center;'><tr style=\"background-color:#DDDDDD \">"
       r.slots.each do |s|
-        table << "<td>#{s.numero}</td>"
+        table << "<td style=\"min-width:27px;\">#{s.numero}</td>"
       end
       table << "</tr><tr>"
       r.slots.each do |s|

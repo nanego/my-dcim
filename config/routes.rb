@@ -5,7 +5,11 @@ Rails.application.routes.draw do
       get :grid
     end
   end
-  resources :serveurs_grids, only: [:index]
+  resources :serveurs_grids, only: [:index] do
+    collection do
+      get :reseau
+    end
+  end
   resources :actes
   resources :salles
   resources :gestions
