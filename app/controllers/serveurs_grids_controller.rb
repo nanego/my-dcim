@@ -36,9 +36,6 @@ class ServeursGridsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        @serveurs.columns_array.each do |c|
-          c.options[:order] = false
-        end
         render layout: 'pdf.html',
                show_as_html: params[:debug].present?,
                pdf: 'serveurs'
