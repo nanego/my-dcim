@@ -27,7 +27,7 @@ gem 'datagrid', :git => 'git://github.com/bogdan/datagrid.git'
 gem 'kaminari'
 group :development do
   gem 'better_errors'
-  gem 'quiet_assets'
+  # gem 'quiet_assets'
   gem 'rails_layout'
 end
 group :development, :test do
@@ -40,3 +40,5 @@ group :production do
   gem 'passenger'
   gem 'therubyracer'
 end
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'

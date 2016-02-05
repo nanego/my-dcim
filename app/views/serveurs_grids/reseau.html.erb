@@ -1,5 +1,6 @@
 <div class="page-header">
-  <h1>Tous les serveurs - Vue Réseau</h1>
+  <h1 style="display: inline">Tous les serveurs - Vue Réseau</h1>
+  <span><%= link_to 'Export HTML', reseau_serveurs_grids_path(:format => 'pdf', :debug=>'true') %> | <%= link_to 'Export PDF', reseau_serveurs_grids_path(:format => 'pdf') %> </span>
 </div>
 
 <div class="table-responsive">

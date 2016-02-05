@@ -1,0 +1,17 @@
+<style>
+  thead {display: table-header-group;}
+  tr, td, th, thead, tfoot {
+    page-break-inside: avoid !important;
+  }
+  tr div, td div, th div {
+    page-break-inside: avoid !important;
+  }
+</style>
+
+<div class="page-header">
+  <h1>Tous les serveurs</h1>
+</div>
+
+<div class="table-responsive">
+  <%= datagrid_table(@serveurs, html:{ class: "table table-striped table-bordered table-hover"}) %>
+</div>

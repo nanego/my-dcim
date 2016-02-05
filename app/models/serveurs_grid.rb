@@ -57,7 +57,11 @@ class ServeursGrid
 
   column(:id) do |model|
     format(model.id) do |value|
-      link_to value, model
+      if request.format.to_sym == :pdf
+        value
+      else
+        link_to value, model
+      end
     end
   end
   column(:localisation, :order => proc { |scope|
@@ -72,7 +76,11 @@ class ServeursGrid
   end
   column(:nom) do |model|
     format(model.nom) do |value|
-      link_to value, model
+      if request.format.to_sym == :pdf
+        value
+      else
+        link_to value, model
+      end
     end
   end
   column(:type, :order => proc { |scope|
