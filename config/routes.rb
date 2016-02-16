@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     collection do
       get :grid
       get :baies
+      post :sort
     end
   end
   resources :serveurs_grids, only: [:index] do

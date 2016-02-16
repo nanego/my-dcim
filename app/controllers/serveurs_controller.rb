@@ -16,6 +16,23 @@ class ServeursController < ApplicationController
     @serveurs = ServeursGrid.new(params[:serveurs_grid])
   end
 
+  def baies
+    @serveurs_par_baies = Hash.new
+    Serveur.order('baie ASC, position asc').each do |s|
+      if s.baie.present?
+        @serveurs_par_baies[s.baie] = [] if @serveurs_par_baies[s.baie].nil?
+        @serveurs_par_baies[s.baie] << s
+      end
+    end
+  end
+
+  def sort
+    params[:serveur].each_with_index do |id, index|
+      Serveur.where(id: id).update_all(position: index+1)
+    end
+    render nothing: true
+  end
+
   # GET /serveurs/1
   # GET /serveurs/1.json
   def show
@@ -78,6 +95,6 @@ class ServeursController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def serveur_params
-      params.require(:serveur).permit(:localisation_id, :armoire_id, :categorie_id, :nom, :nb_elts, :architecture_id, :u, :marque_id, :modele_id, :numero, :conso, :cluster, :critique, :domaine_id, :gestin_id, :acte_id, :phase, :salle_id, :ilot, :fc_total, :fc_utilise, :rj45_total, :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur, :rg45_cm, :ipmi_dedie)
+      params.require(:serveur).permit(:localisation_id, :armoire_id, :categorie_id, :nom, :nb_elts, :architecture_id, :u, :marque_id, :modele_id, :numero, :conso, :cluster, :critique, :domaine_id, :gestin_id, :acte_id, :phase, :salle_id, :ilot, :fc_total, :fc_utilise, :rj45_total, :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur, :rg45_cm, :ipmi_dedie, :baie)
     end
 end

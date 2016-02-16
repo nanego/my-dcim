@@ -1,0 +1,14 @@
+<h1>Baies</h1>
+
+<% @serveurs_par_baies.each do |baie| %>
+  <h5>Baie <%= baie.first %></h5>
+  <ul class='baie' id="baie_<%= baie.first %>" data-update-url="<%= sort_serveurs_url %>">
+    <% baie.second.each do |serveur| %>
+      <%= content_tag_for :li, serveur do %>
+        <!-- <span class="handle">[drag]</span> -->
+        <%= link_to h(serveur.nom), serveur %>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>
+

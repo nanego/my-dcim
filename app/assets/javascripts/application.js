@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
 //= require_tree .
 //= require bootstrap-sprockets
@@ -27,3 +28,5 @@ function showFilters(){
   $('.show-filters').hide();
   $('.panel-body').show();
 }
+
+

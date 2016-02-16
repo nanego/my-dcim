@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160216152504) do
+ActiveRecord::Schema.define(version: 20160216164052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 20160216152504) do
     t.string   "hostname"
     t.string   "etat_conf_reseau"
     t.string   "action_conf_reseau"
+    t.integer  "position"
   end
 
   create_table "slots", force: :cascade do |t|
