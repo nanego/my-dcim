@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :serveurs do
     collection do
       get :grid
+      get :baies
     end
   end
   resources :serveurs_grids, only: [:index] do

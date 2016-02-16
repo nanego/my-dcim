@@ -37,6 +37,7 @@ csv.each_with_index do |row, i|
 
   # Localisation,Rack,Nom du matériel,Type,Nb Elts,Architecture,U,MARQUE,MODELE,numéro de série,CONSO(Watt),I,PDUOndulé,PDUNormal,cluster,critique,domaine,gestion,Action,Phase,Salle,Îlot,"FCTotal","FCUtilisé","RJ45Total","RJ45Utilisé","RJ45Futur","IPMIUtilisé","IPMIFutur","RJ45CM","IPMIDédié",Slot 1,Slot 2,Slot 3,Slot 4,Slot 5,Slot 6,Slot 7,,,,,,
 
+  id = row[0]
   localisation = Localisation.find_or_create_by(title: row[1], published: true)
   rack = Armoire.find_or_create_by(title: row[2], published: true)
   nom = row[3]
@@ -90,6 +91,7 @@ csv.each_with_index do |row, i|
 
 
   Serveur.create!(
+      id: id,
       ip: ip,
       hostname: hostname,
       etat_conf_reseau: etat_conf_reseau,

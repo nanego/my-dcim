@@ -28,7 +28,7 @@ class ServeursGridsController < ApplicationController
                                                ipmi_dedie
                                                slots
                                                ip
-                                               conf_reseau
+                                               etat_conf_reseau
                                                action_conf_reseau)
     }
     @serveurs = ServeursGrid.new(params[:serveurs_grid])

@@ -145,6 +145,20 @@ class ServeursGrid
   column(:rj45_cm)
   column(:ipmi_dedie)
 
+  column(:pdu_ondule)
+  column(:pdu_normal)
+  column(:baie)
+  column(:id_baie)
+  column(:fc_calcule)
+  column(:fc_futur)
+  column(:i)
+  column(:rj45_calcule)
+  column(:tenGbps_futur)
+  column(:ip)
+  column(:hostname)
+  column(:etat_conf_reseau)
+  column(:action_conf_reseau)
+
   column(:slots, :html => true, :mandatory => false) do |r|
     if r.slots.map(&:valeur).reject!{|v| v.blank?}.present?
       r.slots.map{ |slot| slot.valeur.present? ? slot.valeur : "" }
