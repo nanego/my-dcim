@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160127162934) do
+ActiveRecord::Schema.define(version: 20160216152504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,8 +125,21 @@ ActiveRecord::Schema.define(version: 20160127162934) do
     t.integer  "ipmi_futur"
     t.integer  "rj45_cm"
     t.integer  "ipmi_dedie"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "pdu_ondule"
+    t.string   "pdu_normal"
+    t.integer  "baie"
+    t.string   "id_baie"
+    t.integer  "fc_calcule"
+    t.integer  "fc_futur"
+    t.string   "i"
+    t.integer  "rj45_calcule"
+    t.integer  "tenGbps_futur"
+    t.string   "ip"
+    t.string   "hostname"
+    t.string   "etat_conf_reseau"
+    t.string   "action_conf_reseau"
   end
 
   create_table "slots", force: :cascade do |t|

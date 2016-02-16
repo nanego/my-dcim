@@ -54,7 +54,7 @@ production:
   adapter:  postgresql
   host:     localhost
   encoding: unicode
-  database: demenagement_production
+  database: demenagement_development
   pool:     5
   username: redmine
   password: red
