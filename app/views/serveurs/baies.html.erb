@@ -1,14 +1,49 @@
-<h1>Baies</h1>
+<h1>Vue par salle et par baie</h1>
 
-<% @serveurs_par_baies.each do |baie| %>
-  <h5>Baie <%= baie.first %></h5>
-  <ul class='baie' id="baie_<%= baie.first %>" data-update-url="<%= sort_serveurs_url %>">
-    <% baie.second.each do |serveur| %>
-      <%= content_tag_for :li, serveur do %>
-        <!-- <span class="handle">[drag]</span> -->
-        <%= link_to h(serveur.nom), serveur %>
-      <% end %>
-    <% end %>
-  </ul>
+Raccourcis vers les salles :
+<% @serveurs_par_baies.each do |salle, ilots| %>
+  <li>
+    <%= link_to salle, "##{salle.parameterize.underscore}" %>
+  </li>
 <% end %>
+
+<br>
+
+<% @serveurs_par_baies.each do |salle, ilots| %>
+
+  <div class="panel panel-default" id="<%= salle.parameterize.underscore %>">
+    <div class="panel-heading"><h3>Salle <%= salle %></h3></div>
+
+    <% ilots.each do |ilot, baies| %>
+      <div class="panel panel-default" style="margin:10px;">
+        <div class="panel-heading"><h5>Ilot <%= ilot %></h5></div>
+
+
+        <% baies.each do |baie, serveurs| %>
+          <div style="float: left;margin:10px;" class="panel panel-default">
+            <div style="text-align: center;width: 100%;padding: 0 10px;"><h5>Baie <%= baie %></h5></div>
+            <div style="padding: 0 10px;">
+              <ul class='baie' id="baie_<%= baie.first %>" data-update-url="<%= sort_serveurs_url %>">
+                <% serveurs.each do |serveur| %>
+                  <%= content_tag_for :li, serveur do %>
+                    <%= link_to h(serveur.nom), serveur %>
+                  <% end %>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+
+        <% end %>
+        <div style="clear: both;"></div>
+      </div>
+
+    <% end %>
+  </div>
+
+<% end %>
+
+
+
+
+
 

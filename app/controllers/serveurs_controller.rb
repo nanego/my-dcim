@@ -17,12 +17,16 @@ class ServeursController < ApplicationController
   end
 
   def baies
-    @serveurs_par_baies = Hash.new
-    Serveur.order('baie ASC, position asc').each do |s|
-      if s.baie.present?
-        @serveurs_par_baies[s.baie] = [] if @serveurs_par_baies[s.baie].nil?
-        @serveurs_par_baies[s.baie] << s
-      end
+    @serveurs_par_baies = {}
+    Serveur.joins(:salle).order('salles.title ASC, ilot ASC, baie ASC, position asc').each do |s|
+      salle = (s.salle.title.present? ? s.salle.title : "non précisée")
+      ilot = (s.ilot.present? ? s.ilot.to_s : "non précisé")
+      baie = (s.baie.present? ? s.baie.to_s : "non précisée")
+      @serveurs_par_baies[salle] ||= {}
+      @serveurs_par_baies[salle][ilot] ||= {}
+      @serveurs_par_baies[salle][ilot][baie] ||= []
+
+      @serveurs_par_baies[salle][ilot][baie] << s
     end
   end
 
