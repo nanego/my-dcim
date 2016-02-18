@@ -7,9 +7,19 @@ class SallesController < ApplicationController
     @salles = Salle.all
   end
 
-  # GET /salles/1
-  # GET /salles/1.json
   def show
+    @serveurs_par_baies ||= {}
+
+    @salle.serveurs.order('ilot ASC, baie ASC, position asc').each do |s|
+
+
+
+      ilot = (s.ilot.present? ? s.ilot.to_s : "non précisé")
+      baie = (s.baie.present? ? s.baie.to_s : "non précisée")
+      @serveurs_par_baies[ilot] ||= {}
+      @serveurs_par_baies[ilot][baie] ||= []
+      @serveurs_par_baies[ilot][baie] << s
+    end
   end
 
   # GET /salles/new
