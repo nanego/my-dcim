@@ -1,48 +1,68 @@
+<div class="container-fluid">
+
 <h1>Vue par salle et par baie</h1>
 
+<div class="well">
 Raccourcis vers les salles :
 <% @serveurs_par_baies.each do |salle, ilots| %>
   <li>
     <%= link_to salle, "##{salle.parameterize.underscore}" %>
   </li>
 <% end %>
-
-<br>
+</div>
 
 <% @serveurs_par_baies.each do |salle, ilots| %>
 
-  <div class="panel panel-default" id="<%= salle.parameterize.underscore %>">
-    <div class="panel-heading"><h3>Salle <%= salle %></h3></div>
+  <div class="row">
 
-    <% ilots.each do |ilot, baies| %>
-      <div class="panel panel-default" style="margin:10px;">
-        <div class="panel-heading"><h5>Ilot <%= ilot %></h5></div>
+    <div class="col-xs-12">
 
+      <div class="panel panel-default" id="<%= salle.parameterize.underscore %>">
+        <div class="panel-heading"><h3>Salle <%= salle %></h3></div>
 
-        <% baies.each do |baie, serveurs| %>
-          <div style="float: left;margin:10px;" class="panel panel-default">
-            <div style="text-align: center;width: 100%;padding: 0 10px;"><h5>Baie <%= baie %></h5></div>
-            <div style="padding: 0 10px;">
-              <ul class='baie' id="baie_<%= baie.first %>" data-update-url="<%= sort_serveurs_url %>">
-                <% serveurs.each do |serveur| %>
-                  <%= content_tag_for :li, serveur do %>
-                    <%= link_to h(serveur.nom), serveur %>
+        <% ilots.each do |ilot, baies| %>
+
+          <div class="row">
+
+            <div class="col-sm-12">
+
+              <div class="panel panel-default" style="margin:10px;">
+                <div class="panel-heading"><h5>Ilot <%= ilot %></h5></div>
+
+                <div class="row">
+
+                  <% baies.each do |baie, serveurs| %>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                      <div class="panel panel-default" style="margin: 10px;">
+                        <div class="panel-heading"><h5 class="panel-title">Baie <%= baie %></h5></div>
+                        <ul class='baie list-group' id="baie_<%= baie.first %>" data-update-url="<%= sort_serveurs_url %>">
+                          <% serveurs.each do |serveur| %>
+                            <%= content_tag_for :li, serveur, class: "list-group-item" do %>
+                              <%= link_to h(serveur.nom), serveur %>
+                            <% end %>
+                          <% end %>
+                        </ul>
+                      </div>
+                    </div>
                   <% end %>
-                <% end %>
-              </ul>
+                </div>
+
             </div>
+
+            </div>
+
           </div>
 
         <% end %>
-        <div style="clear: both;"></div>
       </div>
 
-    <% end %>
+    </div>
+
   </div>
 
 <% end %>
 
-
+</div>
 
 
 
