@@ -31,9 +31,10 @@ class ServeursController < ApplicationController
   end
 
   def sort
+    salle = Salle.find_by_title(params[:salle]) unless params[:salle].include?('non ')
     params[:serveur].each_with_index do |id, index|
-      Serveur.where(id: id).update_all(position: index+1)
-    end
+      Serveur.where(id: id).update_all(position: index+1, salle_id: (salle.present? ? salle.id : ''), ilot: params[:ilot], baie: params[:baie])
+    end if params[:serveur].present?
     render nothing: true
   end
 

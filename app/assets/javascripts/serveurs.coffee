@@ -4,8 +4,9 @@
 
 jQuery ->
   $('.baie').sortable(
-    axis: 'y'
+    # axis: 'y'
     # handle: '.handle'
+    connectWith: ".connectedBaies"
     update: ->
-      $.post($(this).data('update-url'), $(this).sortable('serialize'))
+      $.post($(this).data('update-url'), $(this).sortable('serialize')+ '&salle=' +  $(this).data('salle') + '&ilot=' +  $(this).data('ilot') + '&baie=' +  $(this).data('baie'))
   );

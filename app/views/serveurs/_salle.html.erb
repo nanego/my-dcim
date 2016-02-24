@@ -20,7 +20,12 @@
                   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="panel panel-default" style="margin: 10px;">
                       <div class="panel-heading"><h5 class="panel-title">Baie <%= baie %></h5></div>
-                      <ul class='baie list-group' id="baie_<%= baie.first %>" data-update-url="<%= sort_serveurs_url %>">
+                      <ul class='baie connectedBaies list-group'
+                          id="baie_<%= baie %>"
+                          data-salle="<%= salle %>"
+                          data-ilot="<%= ilot %>"
+                          data-baie="<%= baie %>"
+                          data-update-url="<%= sort_serveurs_url %>">
                         <% serveurs.each do |serveur| %>
                           <%= content_tag_for :li, serveur, class: "list-group-item" do %>
                             <span class="badge alert-success"><%= serveur.fc_utilise %></span>
