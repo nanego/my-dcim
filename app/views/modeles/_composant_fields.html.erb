@@ -1,0 +1,15 @@
+<li class="list-group-item">
+  <fieldset>
+    <% label = (f.object.position? ? "Composant #{f.object.position}" : "Nouveau composant" ) %>
+    <div class="col-sm-3">
+      <%= f.label label, class: "control-label" %>
+    </div>
+    <div class="col-sm-6">
+      <%= f.select :type_composant_id, TypeComposant.all.map{ |c| [c.title, c.id] }, {}, {class: 'form-control'} %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.hidden_field :_destroy %>
+      <%= link_to "Supprimer", '#', class: "remove_fields btn btn-danger" %>
+    </div>
+  </fieldset>
+</li>

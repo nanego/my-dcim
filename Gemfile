@@ -43,3 +43,4 @@ group :production do
 end
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'acts_as_list'

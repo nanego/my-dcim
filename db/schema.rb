@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160216164052) do
+ActiveRecord::Schema.define(version: 20160224155811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,14 @@ ActiveRecord::Schema.define(version: 20160216164052) do
     t.boolean  "published"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "composants", force: :cascade do |t|
+    t.integer  "modele_id"
+    t.integer  "type_composant_id"
+    t.integer  "position"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "domaines", force: :cascade do |t|
@@ -149,6 +157,10 @@ ActiveRecord::Schema.define(version: 20160216164052) do
     t.string   "valeur"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "type_composants", force: :cascade do |t|
+    t.string "title"
   end
 
   create_table "users", force: :cascade do |t|

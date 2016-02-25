@@ -1,28 +1,20 @@
 class ModelesController < ApplicationController
   before_action :set_modele, only: [:show, :edit, :update, :destroy]
 
-  # GET /modeles
-  # GET /modeles.json
   def index
     @modeles = Modele.all
   end
 
-  # GET /modeles/1
-  # GET /modeles/1.json
   def show
   end
 
-  # GET /modeles/new
   def new
     @modele = Modele.new
   end
 
-  # GET /modeles/1/edit
   def edit
   end
 
-  # POST /modeles
-  # POST /modeles.json
   def create
     @modele = Modele.new(modele_params)
 
@@ -37,12 +29,10 @@ class ModelesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /modeles/1
-  # PATCH/PUT /modeles/1.json
   def update
     respond_to do |format|
       if @modele.update(modele_params)
-        format.html { redirect_to @modele, notice: 'Modele was successfully updated.' }
+        format.html { redirect_to edit_modele_path(@modele), notice: 'Modele was successfully updated.' }
         format.json { render :show, status: :ok, location: @modele }
       else
         format.html { render :edit }
@@ -51,8 +41,6 @@ class ModelesController < ApplicationController
     end
   end
 
-  # DELETE /modeles/1
-  # DELETE /modeles/1.json
   def destroy
     @modele.destroy
     respond_to do |format|
@@ -69,6 +57,6 @@ class ModelesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def modele_params
-      params.require(:modele).permit(:title, :description, :published)
+      params.require(:modele).permit(:title, :description, :published, composants_attributes: [:type_composant_id, :modele_id, :position, :_destroy, :id])
     end
 end
