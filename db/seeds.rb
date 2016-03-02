@@ -50,7 +50,6 @@ csv.each_with_index do |row, i|
   archi = Architecture.find_or_create_by(title: row[6], published: true)
   u = row[7]
   marque = Marque.find_or_create_by(title: row[8], published: true)
-
   numero = row[10]
   conso = row[11]
   i = row[12]
@@ -80,22 +79,13 @@ csv.each_with_index do |row, i|
   ipmi_utilise = row[36]
   ipmi_futur = row[37]
 
-=begin
-  slot1 = Slot.create!(numero: 1, valeur: row[38])
-  slot2 = Slot.create!(numero: 2, valeur: row[39])
-  slot3 = Slot.create!(numero: 3, valeur: row[40])
-  slot4 = Slot.create!(numero: 4, valeur: row[41])
-  slot5 = Slot.create!(numero: 5, valeur: row[42])
-  slot6 = Slot.create!(numero: 6, valeur: row[43])
-  slot7 = Slot.create!(numero: 7, valeur: row[44])
-=end
-
   ip = row[52]
   hostname = row[53]
   etat_conf_reseau = row[54]
   action_conf_reseau = row[55]
 
-
+  #########
+  ## MODELE
   modele = Modele.find_or_create_by(title: row[9],
                                     published: true,
                                     categorie: type,
@@ -125,7 +115,16 @@ csv.each_with_index do |row, i|
     )
   end unless modele.composants.to_a.reject!{|c| c.type_composant != type_composant_ipmi}.present?
 
-  Serveur.create!(
+  type_composant_slot = TypeComposant.find_by_title('SLOT')
+  7.times do
+    Composant.create(modele: modele,
+                     type_composant: type_composant_slot
+    )
+  end unless modele.composants.to_a.reject!{|c| c.type_composant != type_composant_slot}.present?
+
+  ##########
+  ## SERVEUR
+  serveur = Serveur.create!(
       id: id,
       ip: ip,
       hostname: hostname,
@@ -143,11 +142,6 @@ csv.each_with_index do |row, i|
       localisation: localisation,
       armoire: rack,
       nom: nom,
-      # categorie: type,
-      # nb_elts: nb_elts,
-      # architecture: archi,
-      # u: u,
-      # marque: marque,
       modele: modele,
       numero: numero,
       conso: conso,
@@ -167,6 +161,42 @@ csv.each_with_index do |row, i|
       ipmi_dedie: ipmi_dedie,
       ipmi_futur: ipmi_futur,
       ipmi_utilise: ipmi_utilise
-      # slots: [slot1, slot2, slot3, slot4, slot5, slot6, slot7]
   )
+
+  ########
+  ## SLOTS
+
+  slots = []
+  7.times do |i|
+    slots[i] = Composant.where(modele_id: modele.id, type_composant_id: type_composant_slot.id, position:i+1).first
+  end
+
+  valeurs_slots = []
+  7.times do |i|
+    valeurs_slots[i] = row[38+i]
+  end
+
+  class String
+    def is_integer?
+      self.to_i.to_s == self
+    end
+  end
+
+  7.times do |i|
+    if valeurs_slots[i].present?
+      if valeurs_slots[i][0].is_integer?
+        valeur = valeurs_slots[i][1..-1]
+        nb_ports = valeurs_slots[i][0].to_i
+      else
+        valeur = valeurs_slots[i]
+        nb_ports = 1
+      end
+      nb_ports.times do |y|
+        Slot.create!(valeur: valeur,
+                     composant: slots[i],
+                     serveur: serveur)
+      end
+    end
+  end
+
 end

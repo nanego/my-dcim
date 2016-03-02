@@ -2,7 +2,7 @@ class ModelesController < ApplicationController
   before_action :set_modele, only: [:show, :edit, :update, :destroy]
 
   def index
-    @modeles = Modele.all
+    @modeles = Modele.order(:title)
   end
 
   def show

@@ -160,17 +160,28 @@ class ServeursGrid
   column(:action_conf_reseau)
 
   column(:slots, :html => true, :mandatory => false) do |r|
-    if r.slots.map(&:valeur).reject!{|v| v.blank?}.present?
-      r.slots.map{ |slot| slot.valeur.present? ? slot.valeur : "" }
+    if r.slots.map(&:valeur).reject{|v| v.blank?}.present?
       table = "<table BORDER='1' style='text-align: center;'><tr style=\"background-color:#DDDDDD \">"
-      r.slots.each do |s|
-        table << "<td style=\"min-width:27px;\">#{s.numero}</td>"
+      r.modele.composants.where(type_composant_id: 4).each do |composant_slot|
+        table << "<th style=\"min-width:27px;\">Slot #{composant_slot.position}</th>"
       end
-      table << "</tr><tr>"
-      r.slots.each do |s|
-        table << "<td>#{s.valeur}</td>"
+      table << "</tr>"
+      4.times do |i|
+        slots_sur_modele = r.modele.composants.where(type_composant_id: 4)
+        ports_utilises = r.slots.where(composant: slots_sur_modele, position: i+1)
+        if ports_utilises.present?
+          table << "<tr>"
+          slots_sur_modele.each do |composant_slot|
+            table << "<td>"
+            ports_utilises.each do |s|
+              table << "#{s.valeur}" if s.composant == composant_slot
+            end
+            table << "</td>"
+          end
+          table << "</tr>"
+        end
       end
-      table << "</tr></table>"
+      table << "</table>"
       table.html_safe
     end
   end

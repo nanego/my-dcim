@@ -9,28 +9,28 @@
     <div class="col-md-9">
 
       <div class="page-header">
-        <%= link_to new_modele_path, class: 'btn btn-primary' do %>
+        <%= link_to new_card_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
-          Ajouter un modèle
+          Ajouter une carte
         <% end %>
-        <h1>Modèles de serveur</h1>
+        <h1>Cartes</h1>
       </div>
 
       <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">
           <thead>
           <tr>
-            <th>Title</th>
+            <th>Nom</th>
             <th></th>
             <th></th>
           </tr>
           </thead>
 
           <tbody>
-          <%= content_tag_for(:tr, @modeles) do |modele| %>
-            <td><%= modele.title %></td>
-            <td><%= link_to 'Modifier', edit_modele_path(modele) %></td>
-            <td><%= link_to 'Supprimer', modele, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%= content_tag_for(:tr, @cards) do |card| %>
+            <td><%= card.name %></td>
+            <td><%= link_to 'Modifier', edit_card_path(card) %></td>
+            <td><%= link_to 'Supprimer', card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <% end %>
           </tbody>
         </table>

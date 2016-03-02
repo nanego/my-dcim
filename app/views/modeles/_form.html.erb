@@ -71,7 +71,7 @@
       <div class="panel panel-default">
         <ul class="list-group">
           <%= f.fields_for :composants do |builder| %>
-            <%= render "composant_slot_fields", :f => builder %>
+            <%= render "composant_alim_fields", :f => builder, :type_composant => 'SLOT' %>
           <% end %>
         </ul>
         <div class="panel-footer"><%= link_to_add_fields_with_prefilled_data "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter un slot".html_safe, f, :composants, 'SLOT' %></div>

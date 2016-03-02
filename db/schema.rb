@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301154248) do
+ActiveRecord::Schema.define(version: 20160302145755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,18 @@ ActiveRecord::Schema.define(version: 20160301154248) do
     t.boolean  "published"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "cards", force: :cascade do |t|
+    t.string  "name"
+    t.integer "port_type_id"
+    t.integer "port_quantity"
+  end
+
+  create_table "cards_serveurs", force: :cascade do |t|
+    t.integer "card_id"
+    t.integer "serveur_id"
+    t.integer "composant_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -101,6 +113,10 @@ ActiveRecord::Schema.define(version: 20160301154248) do
     t.integer  "marque_id"
   end
 
+  create_table "port_types", force: :cascade do |t|
+    t.string "name"
+  end
+
   create_table "salles", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -157,6 +173,7 @@ ActiveRecord::Schema.define(version: 20160301154248) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "composant_id"
+    t.integer  "serveur_id"
   end
 
   create_table "type_composants", force: :cascade do |t|

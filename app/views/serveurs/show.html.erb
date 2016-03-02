@@ -96,6 +96,35 @@
   <dd><%= @serveur.ipmi_dedie %></dd>
 
   <dt>Slots:</dt>
-  <dd><%= @serveur.slots.map{ |slot| slot.valeur.present? ? slot.valeur : "" } %></dd>
+  <% @serveur.cards_serveurs.each do |card_serveur| %>
+    <dd>Slot <%= card_serveur.composant.position %> : <%= "#{card_serveur.card.name} (#{card_serveur.card.port_quantity}#{card_serveur.card.port_type.name})" %></dd>
+  <% end %>
+
+  <dd><%=
+    if @serveur.slots.map(&:valeur).reject{|v| v.blank?}.present?
+      table = "<table BORDER='1' style='text-align: center;'><tr style=\"background-color:#DDDDDD \">"
+      @serveur.modele.composants.where(type_composant_id: 4).each do |composant_slot|
+        table << "<th style=\"min-width:27px;\">Slot #{composant_slot.position}</th>"
+      end
+      table << "</tr>"
+      4.times do |i|
+        slots_sur_modele = @serveur.modele.composants.where(type_composant_id: 4)
+        ports_utilises = @serveur.slots.where(composant: slots_sur_modele, position: i+1)
+        if ports_utilises.present?
+          table << "<tr>"
+          slots_sur_modele.each do |composant_slot|
+            table << "<td>"
+            ports_utilises.each do |s|
+              table << "#{s.valeur}" if s.composant == composant_slot
+            end
+            table << "</td>"
+          end
+          table << "</tr>"
+        end
+      end
+      table << "</table>"
+      table.html_safe
+    end
+  %></dd>
 
 </dl>

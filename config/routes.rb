@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     end
   end
   resources :actes
+  resources :cards
   resources :salles
   resources :gestions
   resources :domaines
