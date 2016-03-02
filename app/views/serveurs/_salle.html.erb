@@ -25,7 +25,7 @@
                           data-salle="<%= salle %>"
                           data-ilot="<%= ilot %>"
                           data-baie="<%= baie %>"
-                          data-update-url="<%= sort_serveurs_url %>">
+                          data-update-url="<%= sort_serveurs_path %>">
                         <% serveurs.each do |serveur| %>
                           <%= content_tag_for :li, serveur, class: "list-group-item" do %>
                             <span class="badge alert-success"><%= serveur.fc_utilise %></span>
