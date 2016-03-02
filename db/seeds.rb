@@ -80,6 +80,7 @@ csv.each_with_index do |row, i|
   ipmi_utilise = row[36]
   ipmi_futur = row[37]
 
+=begin
   slot1 = Slot.create!(numero: 1, valeur: row[38])
   slot2 = Slot.create!(numero: 2, valeur: row[39])
   slot3 = Slot.create!(numero: 3, valeur: row[40])
@@ -87,6 +88,7 @@ csv.each_with_index do |row, i|
   slot5 = Slot.create!(numero: 5, valeur: row[42])
   slot6 = Slot.create!(numero: 6, valeur: row[43])
   slot7 = Slot.create!(numero: 7, valeur: row[44])
+=end
 
   ip = row[52]
   hostname = row[53]
@@ -102,11 +104,26 @@ csv.each_with_index do |row, i|
                                     u: u,
                                     marque: marque)
 
+  type_composant_alim = TypeComposant.find_by_title('ALIM')
   nb_elts.to_i.times do
     Composant.create(modele: modele,
-                      type_composant: TypeComposant.find_by_title('ALIM')
+                      type_composant: type_composant_alim
     )
-  end unless modele.composants.present?
+  end unless modele.composants.to_a.reject!{|c| c.type_composant != type_composant_alim}.present?
+
+  type_composant_cm = TypeComposant.find_by_title('CM')
+  rj45_cm.to_i.times do
+    Composant.create(modele: modele,
+                     type_composant: type_composant_cm
+    )
+  end unless modele.composants.to_a.reject!{|c| c.type_composant != type_composant_cm}.present?
+
+  type_composant_ipmi = TypeComposant.find_by_title('IPMI')
+  ipmi_futur.to_i.times do
+    Composant.create(modele: modele,
+                     type_composant: type_composant_ipmi
+    )
+  end unless modele.composants.to_a.reject!{|c| c.type_composant != type_composant_ipmi}.present?
 
   Serveur.create!(
       id: id,
@@ -149,7 +166,7 @@ csv.each_with_index do |row, i|
       rj45_cm: rj45_cm,
       ipmi_dedie: ipmi_dedie,
       ipmi_futur: ipmi_futur,
-      ipmi_utilise: ipmi_utilise,
-      slots: [slot1, slot2, slot3, slot4, slot5, slot6, slot7]
+      ipmi_utilise: ipmi_utilise
+      # slots: [slot1, slot2, slot3, slot4, slot5, slot6, slot7]
   )
 end
