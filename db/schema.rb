@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224155811) do
+ActiveRecord::Schema.define(version: 20160301154248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,8 +92,13 @@ ActiveRecord::Schema.define(version: 20160224155811) do
     t.string   "title"
     t.text     "description"
     t.boolean  "published"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "categorie_id"
+    t.integer  "nb_elts"
+    t.integer  "architecture_id"
+    t.integer  "u"
+    t.integer  "marque_id"
   end
 
   create_table "salles", force: :cascade do |t|
@@ -107,12 +112,7 @@ ActiveRecord::Schema.define(version: 20160224155811) do
   create_table "serveurs", force: :cascade do |t|
     t.integer  "localisation_id"
     t.integer  "armoire_id"
-    t.integer  "categorie_id"
     t.string   "nom"
-    t.integer  "nb_elts"
-    t.integer  "architecture_id"
-    t.integer  "u"
-    t.integer  "marque_id"
     t.integer  "modele_id"
     t.string   "numero"
     t.integer  "conso"
@@ -152,11 +152,11 @@ ActiveRecord::Schema.define(version: 20160224155811) do
   end
 
   create_table "slots", force: :cascade do |t|
-    t.integer  "numero"
-    t.integer  "serveur_id"
+    t.integer  "position"
     t.string   "valeur"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "composant_id"
   end
 
   create_table "type_composants", force: :cascade do |t|

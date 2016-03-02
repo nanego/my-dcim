@@ -37,7 +37,7 @@
                       <div class="panel-footer">
                         <span class="label label-primary">&Sigma; RJ futur : <%= serveurs.map(&:rj45_futur).compact.sum %></span>
                         <span class="label label-success">&Sigma; FC utilisé : <%= serveurs.map(&:fc_utilise).compact.sum %></span>
-                        <span class="label label-default">&Sigma; U : <%= serveurs.map(&:u).sum %></span>
+                        <span class="label label-default">&Sigma; U : <%= serveurs.sum { |s| s.modele.try(:u) || 0 } %></span>
                         <span class="label label-default">&Sigma; IPMI futur : <%= serveurs.map(&:ipmi_futur).compact.sum %></span>
                       </div>
                     </div>

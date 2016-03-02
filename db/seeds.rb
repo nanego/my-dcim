@@ -13,16 +13,20 @@
 require 'open-uri'
 require 'csv'
 
+Modele.delete_all
 Serveur.delete_all
 Slot.delete_all
+Composant.delete_all
 
 case ActiveRecord::Base.connection.adapter_name
   when 'SQLite'
     update_seq_sql = "update sqlite_sequence set seq = 0 where name = 'serveurs';"
     ActiveRecord::Base.connection.execute(update_seq_sql)
   when 'PostgreSQL'
+    ActiveRecord::Base.connection.reset_pk_sequence!("modeles")
     ActiveRecord::Base.connection.reset_pk_sequence!("serveurs")
     ActiveRecord::Base.connection.reset_pk_sequence!("slots")
+    ActiveRecord::Base.connection.reset_pk_sequence!("composants")
   else
     raise "Task not implemented for this DB adapter"
 end
@@ -46,7 +50,7 @@ csv.each_with_index do |row, i|
   archi = Architecture.find_or_create_by(title: row[6], published: true)
   u = row[7]
   marque = Marque.find_or_create_by(title: row[8], published: true)
-  modele = Modele.find_or_create_by(title: row[9], published: true)
+
   numero = row[10]
   conso = row[11]
   i = row[12]
@@ -90,6 +94,20 @@ csv.each_with_index do |row, i|
   action_conf_reseau = row[55]
 
 
+  modele = Modele.find_or_create_by(title: row[9],
+                                    published: true,
+                                    categorie: type,
+                                    nb_elts: nb_elts,
+                                    architecture: archi,
+                                    u: u,
+                                    marque: marque)
+
+  nb_elts.to_i.times do
+    Composant.create(modele: modele,
+                      type_composant: TypeComposant.find_by_title('ALIM')
+    )
+  end unless modele.composants.present?
+
   Serveur.create!(
       id: id,
       ip: ip,
@@ -108,11 +126,11 @@ csv.each_with_index do |row, i|
       localisation: localisation,
       armoire: rack,
       nom: nom,
-      categorie: type,
-      nb_elts: nb_elts,
-      architecture: archi,
-      u: u,
-      marque: marque,
+      # categorie: type,
+      # nb_elts: nb_elts,
+      # architecture: archi,
+      # u: u,
+      # marque: marque,
       modele: modele,
       numero: numero,
       conso: conso,

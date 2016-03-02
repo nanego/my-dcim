@@ -1,0 +1,17 @@
+<li class="list-group-item">
+  <fieldset>
+    <% label = (f.object.position ? "#{f.object.valeur} #{f.object.position}" : "Nouveau port" ) %>
+
+    <%= f.hidden_field :_destroy %>
+    <%= link_to "X", '#', class: "remove_fields pull-right" %>
+    <span class="col-sm-5">
+      <%= label %>
+    </span>
+    <% unless f.object.persisted? %>
+      <span class="col-sm-5">
+        <%= f.select :valeur, ['FC','RJ45'], {}, {class: 'form-control'} %>
+      </span>
+    <% end %>
+
+  </fieldset>
+</li>

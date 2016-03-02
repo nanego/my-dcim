@@ -1,15 +1,26 @@
+<%  if @prefilled_data.present?
+      options = TypeComposant.where(title: @prefilled_data).map{ |c| [c.title, c.id] }
+    else
+      options = TypeComposant.all.map{ |c| [c.title, c.id] }
+    end %>
+
 <li class="list-group-item">
   <fieldset>
-    <% label = (f.object.position? ? "Composant #{f.object.position}" : "Nouveau composant" ) %>
+    <% label = (f.object.position? ? "Composant #{f.object.position}" : "Nouvel emplacement" ) %>
     <div class="col-sm-3">
       <%= f.label label, class: "control-label" %>
     </div>
-    <div class="col-sm-6">
-      <%= f.select :type_composant_id, TypeComposant.all.map{ |c| [c.title, c.id] }, {}, {class: 'form-control'} %>
-    </div>
+    <% if options.size == 1 %>
+        <%= f.hidden_field :type_composant_id, value: options.first[1].to_s %>
+    <% else %>
+      <div class="col-sm-6">
+        <%= f.select :type_composant_id, options, {}, {class: 'form-control'} %>
+      </div>
+    <% end %>
+
     <div class="col-sm-3">
       <%= f.hidden_field :_destroy %>
-      <%= link_to "Supprimer", '#', class: "remove_fields btn btn-danger" %>
+      <%= link_to "X", '#', class: "remove_fields btn btn-danger" %>
     </div>
   </fieldset>
 </li>

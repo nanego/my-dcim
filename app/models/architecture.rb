@@ -1,6 +1,6 @@
 class Architecture < ActiveRecord::Base
 
-  has_many :serveurs
+  has_many :modeles
 
   def to_s
     title

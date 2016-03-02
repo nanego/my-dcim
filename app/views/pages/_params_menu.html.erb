@@ -1,11 +1,15 @@
 <p class="lead">Paramètres</p>
 <div class="list-group">
+
+  <a href="<%= modeles_path %>" class="list-group-item <%= controller.controller_name == "modeles" ? 'active' : '' %>">Modèles de serveur</a>
+
+</div>
+<div class="list-group">
   <a href="<%= localisations_path %>" class="list-group-item <%= controller.controller_name == "localisations" ? 'active' : '' %>">Localisations</a>
   <a href="<%= armoires_path %>" class="list-group-item <%= controller.controller_name == "armoires" ? 'active' : '' %>">Racks</a>
   <a href="<%= categories_path %>" class="list-group-item <%= controller.controller_name == "categories" ? 'active' : '' %>">Types</a>
   <a href="<%= architectures_path %>" class="list-group-item <%= controller.controller_name == "architectures" ? 'active' : '' %>">Architectures</a>
   <a href="<%= marques_path %>" class="list-group-item <%= controller.controller_name == "marques" ? 'active' : '' %>">Marques</a>
-  <a href="<%= modeles_path %>" class="list-group-item <%= controller.controller_name == "modeles" ? 'active' : '' %>">Modèles</a>
   <a href="<%= domaines_path %>" class="list-group-item <%= controller.controller_name == "domaines" ? 'active' : '' %>">Domaines</a>
   <a href="<%= gestions_path %>" class="list-group-item <%= controller.controller_name == "gestions" ? 'active' : '' %>">Gestions</a>
   <a href="<%= actes_path %>" class="list-group-item <%= controller.controller_name == "actes" ? 'active' : '' %>">Actions</a>

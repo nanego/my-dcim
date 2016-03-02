@@ -13,38 +13,103 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label 'Nom', class: "col-sm-1 control-label" %>
-    <div class="col-sm-11">
+    <%= f.label 'Nom', class: "col-sm-2 col-md-1 control-label" %>
+    <div class="col-sm-10 col-md-11">
       <%= f.text_field :title, class: "form-control" %>
     </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :description, class: "col-sm-1 control-label" %>
-    <div class="col-sm-11">
-      <%= f.text_area :description, class: "form-control" %>
+    <%= f.label :categorie_id, class: "col-sm-2 col-md-1 control-label" %>
+    <div class="col-sm-10 col-md-5">
+      <%= f.collection_select(:categorie_id, Categorie.all, :id, :title, {}, {class: "form-control"}) %>
     </div>
-  </div>
-  <div class="form-group">
-    <%= f.label 'Actif ?', class: "col-sm-1 control-label" %>
-    <div class="col-sm-11">
-      <%= f.check_box :published, class: "form-control" %>
+    <%= f.label :architecture_id, class: "col-sm-2 col-md-1 control-label" %>
+    <div class="col-sm-10  col-md-5">
+      <%= f.collection_select(:architecture_id, Architecture.all, :id, :title, {}, {class: "form-control"}) %>
+    </div>
+    <%= f.label :u, class: "col-sm-2 col-md-1 control-label" %>
+    <div class="col-sm-10 col-md-5">
+      <%= f.number_field :u, class: "form-control" %>
+    </div>
+    <%= f.label :marque_id, class: "col-sm-2 col-md-1 control-label" %>
+    <div class="col-sm-10 col-md-5">
+      <%= f.collection_select(:marque_id, Marque.all, :id, :title, {}, {class: "form-control"}) %>
+    </div>
+    <%= f.label :nb_elts, class: "col-sm-2 col-md-1 control-label" %>
+    <div class="col-sm-10 col-md-5">
+      <%= f.number_field :nb_elts, class: "form-control" %>
     </div>
   </div>
 
+  <div class="form-group">
+    <%= content_tag :span, 'Emplacements Alims', class: "col-sm-2 control-label" %>
+    <div class="col-sm-10  col-md-4">
+      <div class="panel panel-default">
+        <ul class="list-group">
+          <%= f.fields_for :composants do |builder| %>
+            <%= render "composant_alim_fields", :f => builder, :type_composant => 'ALIM' %>
+          <% end %>
+        </ul>
+        <div class="panel-footer"><%= link_to_add_fields_with_prefilled_data "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter un emplacement d'alim".html_safe, f, :composants, 'ALIM' %></div>
+      </div>
+    </div>
+
+    <%= content_tag :span, 'Emplacements CM', class: "col-sm-2 control-label" %>
+    <div class="col-sm-10  col-md-4">
+      <div class="panel panel-default">
+        <ul class="list-group">
+          <%= f.fields_for :composants do |builder| %>
+            <%= render "composant_alim_fields", :f => builder, :type_composant => 'CM' %>
+          <% end %>
+        </ul>
+        <div class="panel-footer"><%= link_to_add_fields_with_prefilled_data "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter un emplacement sur la CM".html_safe, f, :composants, 'CM' %></div>
+      </div>
+    </div>
+
+    <span class="clearfix"></span>
+
+    <%= content_tag :span, 'Emplacements Slots', class: "col-sm-2 control-label" %>
+    <div class="col-sm-10  col-md-4">
+      <div class="panel panel-default">
+        <ul class="list-group">
+          <%= f.fields_for :composants do |builder| %>
+            <%= render "composant_slot_fields", :f => builder %>
+          <% end %>
+        </ul>
+        <div class="panel-footer"><%= link_to_add_fields_with_prefilled_data "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter un slot".html_safe, f, :composants, 'SLOT' %></div>
+      </div>
+    </div>
+
+    <%= content_tag :span, 'Emplacement IPMI', class: "col-sm-2 control-label" %>
+    <div class="col-sm-10  col-md-4">
+      <div class="panel panel-default">
+        <ul class="list-group">
+          <%= f.fields_for :composants do |builder| %>
+            <%= render "composant_alim_fields", :f => builder, :type_composant => 'IPMI' %>
+          <% end %>
+        </ul>
+        <% unless f.object.composants.map {|comp| comp.type_composant.title}.include?('IPMI') %>
+          <div class="panel-footer"><%= link_to_add_fields_with_prefilled_data "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter une sortie IPMI".html_safe, f, :composants, 'IPMI' %></div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+
+  <!--
   <div class="col-sm-5 col-sm-offset-2">
     <div class="panel panel-default">
-      <div class="panel-heading"><h4>Composants</h4></div>
+      <div class="panel-heading"><h4>Groupes d'interfaces</h4></div>
       <ul class="list-group">
-        <%= f.fields_for :composants do |builder| %>
-          <%= render "composant_fields", :f => builder %>
-        <% end %>
+        < f.fields_for :composants do |builder| %>
+          < render "composant_fields", :f => builder %>
+        < end %>
       </ul>
-      <div class="panel-footer"><%= link_to_add_fields "Ajouter un composant", f, :composants %></div>
+      <div class="panel-footer">< link_to_add_fields "Ajouter un groupe", f, :composants %></div>
     </div>
   </div>
+  -->
 
   <div class="form-group">
-    <div class="col-sm-offset-1 col-sm-11">
+    <div class="col-sm-12">
       <%= f.submit 'Sauvegarder', class: "btn btn-primary" %>
     </div>
   </div>

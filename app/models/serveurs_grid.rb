@@ -86,19 +86,19 @@ class ServeursGrid
   column(:type, :order => proc { |scope|
     scope.joins(:categorie).order("categories.title")
   }) do |record|
-    record.categorie
+    record.modele.try(:categorie)
   end
   column(:nb_elts)
   column(:architecture, :order => proc { |scope|
     scope.joins(:architecture).order("architectures.title")
   }) do |record|
-    record.architecture
+    record.modele.try(:architecture)
   end
   column(:u)
   column(:marque, :order => proc { |scope|
     scope.joins(:marque).order("marques.title")
   }) do |record|
-    record.marque
+    record.modele.try(:marque)
   end
   column(:modele, :order => proc { |scope|
     scope.joins(:modele).order("modeles.title")

@@ -32,7 +32,7 @@ class ModelesController < ApplicationController
   def update
     respond_to do |format|
       if @modele.update(modele_params)
-        format.html { redirect_to edit_modele_path(@modele), notice: 'Modele was successfully updated.' }
+        format.html { redirect_to edit_modele_path(@modele), notice: 'Le modèle a été mis à jour.' }
         format.json { render :show, status: :ok, location: @modele }
       else
         format.html { render :edit }
@@ -57,6 +57,6 @@ class ModelesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def modele_params
-      params.require(:modele).permit(:title, :description, :published, composants_attributes: [:type_composant_id, :modele_id, :position, :_destroy, :id])
+      params.require(:modele).permit(:title, :description, :published, :categorie_id, :architecture_id, :u, :marque_id, :nb_elts, composants_attributes: [:type_composant_id, :modele_id, :position, :_destroy, :id, slots_attributes: [:valeur, :_destroy, :id, :position]])
     end
 end

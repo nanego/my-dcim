@@ -5,6 +5,11 @@ class Modele < ActiveRecord::Base
   has_many :serveurs
   has_many :composants, -> { order(position: :asc) }
 
+  belongs_to :marque
+  belongs_to :architecture
+  belongs_to :categorie
+
+
   accepts_nested_attributes_for :composants,
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank

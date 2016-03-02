@@ -1,0 +1,24 @@
+<% if f.object.type_composant.title == 'SLOT' %>
+  <li class="list-group-item">
+    <fieldset>
+      <% label = (f.object.position? ? "Slot #{f.object.position}" : "Nouvel emplacement" ) %>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <span>
+            <%= f.hidden_field :_destroy %>
+            <%= link_to "Supprimer", '#', class: "remove_fields pull-right" %>
+          </span>
+          <span><%= label %></span>
+        </div>
+        <ul class="list-group">
+          <%= f.fields_for :slots do |builder| %>
+            <%= render "slot_fields", :f => builder %>
+          <% end %>
+        </ul>
+        <div class="panel-footer"><%= link_to_add_fields "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter un port".html_safe, f, :slots %></div>
+      </div>
+
+    </fieldset>
+  </li>
+<% end %>
