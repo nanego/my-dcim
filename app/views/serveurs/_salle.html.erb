@@ -18,9 +18,12 @@
 
                 <% baies.each do |baie, serveurs| %>
                   <% sum_u = serveurs.sum { |s| s.modele.try(:u) || 0 } %>
+                  <% sum_elements = serveurs.sum { |s| s.modele.try(:nb_elts) || 0 } %>
+                  <% sum_rj45_futur = serveurs.sum { |s| s.try(:rj45_futur) || 0 } %>
+                  <% sum_fc_futur = serveurs.sum { |s| s.try(:fc_futur) || 0 } %>
                   <div class="col-sm-12 col-md-3">
-                    <div class="panel <%= sum_u > 38 ? 'panel-danger' : 'panel-default' %>" style="margin: 10px;">
-                      <div class="panel-heading"><h5 class="panel-title">Baie <%= baie %></h5></div>
+                    <div class="panel <%= sum_u > 38 || sum_elements > 24 || sum_rj45_futur > 48 || sum_fc_futur > 12 ? 'panel-danger' : 'panel-default' %>" style="margin: 10px;">
+                      <div class="panel-heading"><h5 class="panel-title"><%= link_to "Baie #{baie}", baie_serveurs_path(baie: baie, ilot: ilot, salle: salle) %></h5></div>
                       <ul class='baie connectedBaies list-group'
                           id="baie_<%= baie %>"
                           data-salle="<%= salle %>"
@@ -28,7 +31,7 @@
                           data-baie="<%= baie %>"
                           data-update-url="<%= sort_serveurs_path %>">
                         <% serveurs.each do |serveur| %>
-                          <%= content_tag_for :li, serveur, class: "list-group-item truncate", style: "height: #{41*(serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1)}px;" do %>
+                          <%= content_tag_for :li, serveur, class: "list-group-item truncate", style: "height: #{27*(serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1)}px;" do %>
                             <span class="badge alert-success"><%= serveur.fc_utilise %></span>
                             <span class="badge alert-info"><%= serveur.rj45_futur %></span>
                             <%= link_to h(serveur.nom), serveur %>
@@ -36,13 +39,21 @@
                         <% end %>
                       </ul>
                       <div class="panel-footer">
-                        <span class="label label-primary">&Sigma; RJ futur : <%= serveurs.map(&:rj45_futur).compact.sum %></span>
-                        <span class="label label-success">&Sigma; FC utilisé : <%= serveurs.map(&:fc_utilise).compact.sum %></span>
-
+                        <span class="label <%= sum_rj45_futur > 48 ? 'label-danger' : 'label-primary' %>">&Sigma; RJ futur : <%= sum_rj45_futur %></span>
+                        <span class="label <%= sum_fc_futur > 12 ? 'label-danger' : 'label-success' %>">&Sigma; FC futur : <%= sum_fc_futur %></span>
                         <span class="label <%= sum_u > 38 ? 'label-danger' : 'label-default' %>">&Sigma; U : <%= sum_u %></span>
                         <span class="label label-default">&Sigma; IPMI futur : <%= serveurs.map(&:ipmi_futur).compact.sum %></span>
                         <% if sum_u > 38 %>
                           <div style="color:red;">Somme des U supérieure à 38 !</div>
+                        <% end %>
+                        <% if sum_elements > 24 %>
+                          <div style="color:red;">Somme des éléments supérieure à 24 !</div>
+                        <% end %>
+                        <% if sum_rj45_futur > 48 %>
+                          <div style="color:red;">Somme des rj45 futurs supérieure à 48 !</div>
+                        <% end %>
+                        <% if sum_fc_futur > 12 %>
+                          <div style="color:red;">Somme des fc futurs supérieure à 12 !</div>
                         <% end %>
                       </div>
                     </div>

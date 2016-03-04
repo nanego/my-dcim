@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     collection do
       get :grid
       get :baies
+      get :baie
       post :sort
     end
   end

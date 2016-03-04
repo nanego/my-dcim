@@ -34,10 +34,15 @@ a.hide-filters, a.show-filters{
 }
 
 .baie .serveur { color: #777; cursor: move; }
+.baie li.serveur.list-group-item {
+  padding: 3px 15px;
+}
 
 // Forms
 .add_fields { margin-top: 10px;}
 .form-group div, .form-group label { margin-bottom: 10px;}
 .form-group div.panel-footer { margin-bottom: 0px;}
 .control-label { font-weight: bold; }
+
+
 
