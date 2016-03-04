@@ -16,6 +16,13 @@
  *= require_self
  */
 
+.truncate {
+  // width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .datagrid-form {
   background-color: white;
   padding: 0;
