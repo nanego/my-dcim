@@ -1,8 +1,6 @@
 class ServeursController < ApplicationController
   before_action :set_serveur, only: [:show, :edit, :update, :destroy]
 
-  # GET /serveurs
-  # GET /serveurs.json
   def index
     unless params[:serveurs_grid].present?
       params[:serveurs_grid] = {"column_names"=>["id", "localisation", "rack", "nom", "type"]}
@@ -25,9 +23,22 @@ class ServeursController < ApplicationController
       @serveurs_par_baies[salle] ||= {}
       @serveurs_par_baies[salle][ilot] ||= {}
       @serveurs_par_baies[salle][ilot][baie] ||= []
-
       @serveurs_par_baies[salle][ilot][baie] << s
     end
+  end
+
+  def baie
+    @baie = params[:baie]
+    @ilot = params[:ilot]
+    @salle = Salle.find_by_title(params[:salle])
+    @serveurs = Serveur.where('salle_id = ? AND ilot = ? AND baie = ?',
+                                            @salle.id,
+                                            @ilot,
+                                            @baie).order('position asc')
+    @sum_u = @serveurs.to_a.sum { |s| s.modele.try(:u) || 0 }
+    @sum_elements = @serveurs.to_a.sum { |s| s.modele.try(:nb_elts) || 0 }
+    @sum_rj45_futur = @serveurs.to_a.sum { |s| s.try(:rj45_futur) || 0 }
+    @sum_fc_futur = @serveurs.to_a.sum { |s| s.try(:fc_futur) || 0 }
   end
 
   def sort
@@ -38,22 +49,16 @@ class ServeursController < ApplicationController
     render nothing: true
   end
 
-  # GET /serveurs/1
-  # GET /serveurs/1.json
   def show
   end
 
-  # GET /serveurs/new
   def new
     @serveur = Serveur.new
   end
 
-  # GET /serveurs/1/edit
   def edit
   end
 
-  # POST /serveurs
-  # POST /serveurs.json
   def create
     @serveur = Serveur.new(serveur_params)
 
@@ -68,8 +73,6 @@ class ServeursController < ApplicationController
     end
   end
 
-  # PATCH/PUT /serveurs/1
-  # PATCH/PUT /serveurs/1.json
   def update
     respond_to do |format|
       if @serveur.update(serveur_params)
@@ -82,8 +85,6 @@ class ServeursController < ApplicationController
     end
   end
 
-  # DELETE /serveurs/1
-  # DELETE /serveurs/1.json
   def destroy
     @serveur.destroy
     respond_to do |format|

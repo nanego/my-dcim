@@ -1,0 +1,103 @@
+<%= link_to "<< Salle #{@salle.title}, ilôt #{@ilot}", salle_path(@salle.id), class: 'btn btn-default prev' %>
+
+<div class="col-sm-12">
+  <div class="panel <%= @sum_u > 38 || @sum_elements > 24 || @sum_rj45_futur > 48 || @sum_fc_futur > 12 ? 'panel-danger' : 'panel-default' %>" style="margin: 10px;">
+    <div class="panel-heading"><h5 class="panel-title"><%= link_to "Baie #{@baie}", baie_serveurs_path(baie: @baie, ilot: @ilot, salle: @salle.title), style: 'text-decoration: underline;' %></h5></div>
+    <ul class='baie connectedBaies list-group'
+        id="baie_<%= @baie %>"
+        data-salle="<%= @salle.title %>"
+        data-ilot="<%= @ilot %>"
+        data-baie="<%= @baie %>"
+        data-update-url="<%= sort_serveurs_path %>">
+      <% @serveurs.each do |serveur| %>
+
+
+        <%= content_tag_for :li, serveur, class: "list-group-item truncate", style: "min-height: #{41*(serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1)}px;" do %>
+
+          <b><%= link_to h(serveur.nom), serveur %></b>
+
+          <div class="pull-right">
+            <% slots_sur_modele = serveur.modele.composants.where(type_composant_id: 4) %>
+            <table class="slots">
+              <thead>
+              <% slots_sur_modele.each do |slot| %>
+                <th><%= "Slot #{slot.position}" %></th>
+              <% end %>
+              </thead>
+              <tbody>
+              <tr>
+                <% slots_sur_modele.each do |slot| %>
+                  <td>
+                    <% serveur.cards_serveurs.where(:composant_id => slot.id).each do |card_serveur| %>
+                      <% card_serveur.card.port_quantity.to_i.times do %>
+                        <% case card_serveur.card.port_type_id
+                             when PortType.find_by_name('RJ').id %>
+
+                          <i class="portRJ label-primary"></i><br>
+
+                        <% when PortType.find_by_name('FC').id %>
+
+                          <i class="portFC label-success"></i><br>
+
+                        <% else %>
+
+                          <i class="portSCSI"><%= card_serveur.card.port_type.name %></i><br>
+
+                        <% end %>
+                      <% end %>
+
+                    <% end %>
+                  </td>
+                <% end %>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="alims">
+            <% alims_sur_modele = serveur.modele.composants.where(type_composant_id: 1) %>
+            <% alims_sur_modele.each do |composant_alim| %>
+              <span class="alim">ALIM</span>
+            <% end %>
+          </div>
+
+          <div class="ipmis">
+            <% ipmi_sur_modele = serveur.modele.composants.where(type_composant_id: 2) %>
+            <% ipmi_sur_modele.each do |composant_ipmi| %>
+              <span class="ipmi">IPMI</span>
+            <% end %>
+          </div>
+
+          <div class="cm">
+            CM :
+            <% rj_sur_cm = serveur.modele.composants.where(type_composant_id: 3) %>
+            <% rj_sur_cm.each do |composant_cm_rj| %>
+              <i class="portRJ label-primary"></i>
+            <% end %>
+          </div>
+
+        <% end %>
+
+
+      <% end %>
+    </ul>
+    <div class="panel-footer">
+      <span class="label <%= @sum_rj45_futur > 48 ? 'label-danger' : 'label-primary' %>">&Sigma; RJ futur : <%= @sum_rj45_futur %></span>
+      <span class="label <%= @sum_fc_futur > 12 ? 'label-danger' : 'label-success' %>">&Sigma; FC futur : <%= @sum_fc_futur %></span>
+      <span class="label <%= @sum_u > 38 ? 'label-danger' : 'label-default' %>">&Sigma; U : <%= @sum_u %></span>
+      <span class="label label-default">&Sigma; IPMI futur : <%= @serveurs.map(&:ipmi_futur).compact.sum %></span>
+      <% if @sum_u > 38 %>
+        <div style="color:red;">Somme des U supérieure à 38 !</div>
+      <% end %>
+      <% if @sum_elements > 24 %>
+        <div style="color:red;">Somme des éléments supérieure à 24 !</div>
+      <% end %>
+      <% if @sum_rj45_futur > 48 %>
+        <div style="color:red;">Somme des rj45 futurs supérieure à 48 !</div>
+      <% end %>
+      <% if @sum_fc_futur > 12 %>
+        <div style="color:red;">Somme des fc futurs supérieure à 12 !</div>
+      <% end %>
+    </div>
+  </div>
+</div>

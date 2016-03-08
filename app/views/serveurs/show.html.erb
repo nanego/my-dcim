@@ -36,7 +36,7 @@
   <dd><%= @serveur.modele.marque %></dd>
 
   <dt>Modele:</dt>
-  <dd><%= @serveur.modele %></dd>
+  <dd><%= link_to @serveur.modele, edit_modele_path(@serveur.modele) %></dd>
 
   <dt>Numero:</dt>
   <dd><%= @serveur.numero %></dd>

@@ -37,6 +37,42 @@ a.hide-filters, a.show-filters{
 .baie li.serveur.list-group-item {
   padding: 3px 15px;
 }
+.baie table.slots, .baie table.slots th, .baie table.slots td {
+  border: 1px #999999 solid;
+  width: 10px;
+  height: 10px;
+  padding: 1px 5px;
+  text-align: center;
+}
+.baie .portRJ {
+  border: 1px #555555 solid;
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+}
+.baie .portSCSI {
+  border: 1px #555555 solid;
+  display: inline-block;
+  background-color: #DDD;
+  padding: 1px 5px;
+}
+.baie table.slots .portFC {
+  border: 1px #555555 solid;
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.baie .alims, .baie .ipmis, .baie .cm {margin-top: 5px;}
+.baie .alim, .baie .ipmi, .baie .cm{
+  border: 1px #999999 solid;
+  padding: 1px 5px;
+}
+.baie .cm{
+  width: 91px;
+}
 
 // Forms
 .add_fields { margin-top: 10px;}
