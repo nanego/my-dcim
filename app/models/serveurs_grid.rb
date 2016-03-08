@@ -20,11 +20,21 @@ class ServeursGrid
   filter :nom do |value|
     where("nom LIKE ?", value)
   end
-  filter(:categorie, :enum, :select => Categorie.where(published: true).map {|r| [r.to_s, r.id]})
-  filter :nb_elts, :integer, :range => true #, :default => proc { [Serveur.minimum(:nb_elts), Serveur.maximum(:nb_elts)] }
-  filter(:architecture, :enum, :select => Architecture.where(published: true).map {|r| [r.to_s, r.id]})
-  filter :u, :integer, :range => true #, :default => proc { [Serveur.minimum(:u), Serveur.maximum(:u)] }
-  filter(:marque, :enum, :select => Marque.where(published: true).map {|r| [r.to_s, r.id]})
+  filter :categorie, :enum, :select => Categorie.where(published: true).map {|r| [r.to_s, r.id]}  do |value|
+    joins(:modele).where("modeles.categorie_id = ?", value)
+  end
+  filter :nb_elts, :integer do |value|
+    joins(:modele).where("modeles.nb_elts = ?", value)
+  end
+  filter :architecture, :enum, :select => Architecture.where(published: true).map {|r| [r.to_s, r.id]} do |value|
+    joins(:modele).where("modeles.architecture_id = ?", value)
+  end
+  filter :u, :integer do |value|
+    joins(:modele).where("modeles.u = ?", value)
+  end
+  filter :marque, :enum, :select => Marque.where(published: true).map {|r| [r.to_s, r.id]} do |value|
+    joins(:modele).where("modeles.marque_id = ?", value)
+  end
   filter(:modele, :enum, :select => Modele.where(published: true).map {|r| [r.to_s, r.id]})
   filter(:numero, :string)
   filter :conso, :integer, :range => true #, :default => proc { [Serveur.minimum(:conso), Serveur.maximum(:conso)] }
@@ -88,13 +98,17 @@ class ServeursGrid
   }) do |record|
     record.modele.try(:categorie)
   end
-  column(:nb_elts)
+  column(:nb_elts) do |record|
+    record.modele.try(:nb_elts)
+  end
   column(:architecture, :order => proc { |scope|
     scope.joins(:architecture).order("architectures.title")
   }) do |record|
     record.modele.try(:architecture)
   end
-  column(:u)
+  column(:u) do |record|
+    record.modele.try(:u)
+  end
   column(:marque, :order => proc { |scope|
     scope.joins(:marque).order("marques.title")
   }) do |record|
