@@ -20,8 +20,8 @@ class ServeursGrid
   filter :nom do |value|
     where("nom LIKE ?", value)
   end
-  filter :categorie, :enum, :select => Categorie.where(published: true).map {|r| [r.to_s, r.id]}  do |value|
-    joins(:modele).where("modeles.categorie_id = ?", value)
+  filter :category, :enum, :select => Category.where(published: true).map {|r| [r.to_s, r.id]}  do |value|
+    joins(:modele).where("modeles.category_id = ?", value)
   end
   filter :nb_elts, :integer do |value|
     joins(:modele).where("modeles.nb_elts = ?", value)
@@ -94,9 +94,9 @@ class ServeursGrid
     end
   end
   column(:type, :order => proc { |scope|
-    scope.joins(:categorie).order("categories.title")
+    scope.joins(:category).order("categories.title")
   }) do |record|
-    record.modele.try(:categorie)
+    record.modele.try(:category)
   end
   column(:nb_elts) do |record|
     record.modele.try(:nb_elts)

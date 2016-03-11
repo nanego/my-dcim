@@ -14,5 +14,6 @@ class CreateCards < ActiveRecord::Migration
     PortType.create!(name:'SCSI')
     PortType.create!(name:'ISCI')
     PortType.create!(name:'SAS')
+    PortType.create!(name:'IPMI')
   end
 end

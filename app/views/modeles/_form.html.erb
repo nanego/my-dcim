@@ -17,9 +17,9 @@
     <div class="col-sm-10 col-md-11">
       <%= f.text_field :title, class: "form-control" %>
     </div>
-    <%= f.label :categorie_id, class: "col-sm-2 col-md-1 control-label" %>
+    <%= f.label :category_id, class: "col-sm-2 col-md-1 control-label" %>
     <div class="col-sm-10 col-md-5">
-      <%= f.collection_select(:categorie_id, Categorie.all, :id, :title, {}, {class: "form-control"}) %>
+      <%= f.collection_select(:category_id, Category.all, :id, :title, {}, {class: "form-control"}) %>
     </div>
     <%= f.label :architecture_id, class: "col-sm-2 col-md-1 control-label" %>
     <div class="col-sm-10  col-md-5">

@@ -3,7 +3,7 @@
 one:
   localisation_id: 1
   armoire_id: 1
-  categorie_id: 1
+  category_id: 1
   nom: MyString
   nb_elts: 1
   architecture_id: 1
@@ -33,7 +33,7 @@ one:
 two:
   localisation_id: 1
   armoire_id: 1
-  categorie_id: 1
+  category_id: 1
   nom: MyString
   nb_elts: 1
   architecture_id: 1

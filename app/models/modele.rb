@@ -7,8 +7,7 @@ class Modele < ActiveRecord::Base
 
   belongs_to :marque
   belongs_to :architecture
-  belongs_to :categorie
-
+  belongs_to :category
 
   accepts_nested_attributes_for :composants,
                                 :allow_destroy => true,

@@ -1,61 +1,54 @@
-<b><%= link_to h(serveur.nom), serveur %></b>
 
-<div class="pull-right">
-  <% slots_sur_modele = serveur.modele.composants.where(type_composant_id: 4) %>
-  <table class="slots">
-    <thead>
-    <% slots_sur_modele.each do |slot| %>
-      <th><%= "Slot #{slot.position}" %></th>
-    <% end %>
-    </thead>
-    <tbody>
-    <tr>
+  <div class="pull-right">
+    <% slots_sur_modele = serveur.modele.composants.where(type_composant_id: 4) %>
+    <table class="slots">
+      <thead>
       <% slots_sur_modele.each do |slot| %>
-        <td>
-          <% serveur.cards_serveurs.where(:composant_id => slot.id).each do |card_serveur| %>
-            <% card_serveur.card.port_quantity.to_i.times do %>
-              <% case card_serveur.card.port_type_id
-                   when PortType.find_by_name('RJ').id %>
-
-                <i class="portRJ label-primary"></i><br>
-
-              <% when PortType.find_by_name('FC').id %>
-
-                <i class="portFC label-success"></i><br>
-
-              <% else %>
-
-                <i class="portSCSI"><%= card_serveur.card.port_type.name %></i><br>
-
-              <% end %>
-            <% end %>
-
-          <% end %>
-        </td>
+        <th><%= "Slot #{slot.position}" %></th>
       <% end %>
-    </tr>
-    </tbody>
-  </table>
-</div>
+      </thead>
+      <tbody>
+      <tr>
+        <% slots_sur_modele.each do |slot| %>
+          <td>
+            <% serveur.cards_serveurs.where(:composant_id => slot.id).each do |card_serveur| %>
+              <%= render 'card_ports', port_type: card_serveur.card.port_type, port_quantity: card_serveur.card.port_quantity %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
-<div class="alims">
-  <% alims_sur_modele = serveur.modele.composants.where(type_composant_id: 1) %>
-  <% alims_sur_modele.each do |composant_alim| %>
-    <span class="alim">ALIM</span>
-  <% end %>
-</div>
+  <div class="pull-right">
+    <table class="cm">
+      <thead>
+      <th>CM</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <%= render 'card_ports', port_type: PortType.find_by_name('RJ'), port_quantity: serveur.modele.composants.where(type_composant_id: 3).count %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
-<div class="ipmis">
-  <% ipmi_sur_modele = serveur.modele.composants.where(type_composant_id: 2) %>
-  <% ipmi_sur_modele.each do |composant_ipmi| %>
-    <span class="ipmi">IPMI</span>
+  <% if serveur.modele.composants.where(type_composant_id: 2).count > 0 %>
+    <div class="pull-right">
+      <%= render 'card_ports', port_type: PortType.find_by_name('IPMI'), port_quantity: 1 %>
+    </div>
   <% end %>
-</div>
 
-<div class="cm">
-  CM :
-  <% rj_sur_cm = serveur.modele.composants.where(type_composant_id: 3) %>
-  <% rj_sur_cm.each do |composant_cm_rj| %>
-    <i class="portRJ label-primary"></i>
-  <% end %>
-</div>
+  <b><%= link_to h(serveur.nom), serveur %></b>
+  <br>
+  <i><%= link_to serveur.modele.title, edit_modele_path(serveur.modele) %></i>
+
+  <div class="alims">
+    <% alims_sur_modele = serveur.modele.composants.where(type_composant_id: 1) %>
+    <% alims_sur_modele.each_with_index do |composant_alim, i| %>
+      <span class="alim">ALIM <%= i+1 %></span>
+    <% end %>
+  </div>

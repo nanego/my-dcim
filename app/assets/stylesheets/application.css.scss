@@ -37,10 +37,12 @@ a.hide-filters, a.show-filters{
 .baie li.serveur.list-group-item {
   padding: 3px 15px;
 }
-table.slots, table.slots th, table.slots td {
+table.slots, table.cm, table.ipmi {
+  margin-left: 8px;
+}
+table.slots, table.slots th, table.slots td,
+table.cm, table.cm th, table.cm td{
   border: 1px #999999 solid;
-  width: 10px;
-  height: 10px;
   padding: 1px 5px;
   text-align: center;
 }
@@ -65,18 +67,24 @@ table.slots .portFC {
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
-.alims, .ipmis, .cm {margin-top: 5px;}
-.alim, .ipmi, .cm{
+.alims {margin-top: 5px;}
+.alim {
   border: 1px #999999 solid;
   padding: 1px 5px;
-}
-.cm{
-  width: 91px;
 }
 
 .detailed_server{
   border:1px solid #999999;
   padding:10px;
+  background-color: white;
+  margin-bottom: 10px;
+}
+
+.blank-panel, .blank_panel{
+  // border:1px solid #999999;
+  padding:10px;
+  background-color: lightgrey;
+  padding: 10px;
 }
 
 // Forms

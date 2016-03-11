@@ -45,7 +45,7 @@ csv.each_with_index do |row, i|
   localisation = Localisation.find_or_create_by(title: row[1], published: true)
   rack = Armoire.find_or_create_by(title: row[2], published: true)
   nom = row[3]
-  type = Categorie.find_or_create_by(title: row[4], published: true)
+  type = Category.find_or_create_by(title: row[4], published: true)
   nb_elts = row[5]
   archi = Architecture.find_or_create_by(title: row[6], published: true)
   u = row[7]
@@ -88,7 +88,7 @@ csv.each_with_index do |row, i|
   ## MODELE
   modele = Modele.find_or_create_by(title: row[9],
                                     published: true,
-                                    categorie: type,
+                                    category: type,
                                     nb_elts: nb_elts,
                                     architecture: archi,
                                     u: u,
@@ -200,3 +200,5 @@ csv.each_with_index do |row, i|
   end
 
 end
+
+ActiveRecord::Base.connection.set_pk_sequence!("serveurs", 1000)

@@ -10,11 +10,14 @@
         data-baie="<%= @baie %>"
         data-update-url="<%= sort_serveurs_path %>">
       <% @serveurs.each do |serveur| %>
-
-        <%= content_tag_for :li, serveur, class: "list-group-item truncate", style: "min-height: #{41*(serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1)}px;" do %>
-          <%= render 'draw_server', serveur: serveur %>
+        <% case serveur.modele.category_id %>
+        <% when Category.find_by_title('Blank Panel').id %>
+          <%= render 'draw_blank_panel', serveur: serveur %>
+        <% else %>
+          <%= content_tag_for :li, serveur, class: "list-group-item truncate", style: "min-height: #{41*(serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1)}px;" do %>
+            <%= render 'draw_server', serveur: serveur %>
+          <% end %>
         <% end %>
-
       <% end %>
     </ul>
     <div class="panel-footer">

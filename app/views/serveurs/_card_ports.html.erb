@@ -1,0 +1,16 @@
+<% port_quantity.to_i.times do %>
+  <% case port_type
+       when PortType.find_by_name('RJ') %>
+
+    <i class="portRJ label-primary"></i><br>
+
+  <% when PortType.find_by_name('FC') %>
+
+    <i class="portFC label-success"></i><br>
+
+  <% else %>
+
+    <i class="portSCSI"><%= port_type.name %></i><br>
+
+  <% end %>
+<% end %>

@@ -17,7 +17,7 @@ class CategoriesControllerTest < ActionController::TestCase
   end
 
   test "should create category" do
-    assert_difference('Categorie.count') do
+    assert_difference('Category.count') do
       post :create, category: { description: @category.description, published: @category.published, title: @category.title }
     end
 
@@ -40,7 +40,7 @@ class CategoriesControllerTest < ActionController::TestCase
   end
 
   test "should destroy category" do
-    assert_difference('Categorie.count', -1) do
+    assert_difference('Category.count', -1) do
       delete :destroy, id: @category
     end
 
