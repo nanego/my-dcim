@@ -1,6 +1,6 @@
 class Composant < ActiveRecord::Base
 
-  validates_presence_of :modele_id, :type_composant_id
+  validates_presence_of :type_composant_id
 
   belongs_to :modele
   belongs_to :type_composant

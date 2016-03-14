@@ -2,15 +2,17 @@
   <% case port_type
        when PortType.find_by_name('RJ') %>
 
-    <i class="portRJ label-primary"></i><br>
+    <i class="portRJ label-primary"></i>
 
   <% when PortType.find_by_name('FC') %>
 
-    <i class="portFC label-success"></i><br>
+    <i class="portFC label-success"></i>
 
   <% else %>
 
-    <i class="portSCSI"><%= port_type.name %></i><br>
+    <i class="portSCSI"><%= port_type.name %></i>
 
   <% end %>
+
+  <%= '<br>'.html_safe unless alignment == 'horizontal' %>
 <% end %>

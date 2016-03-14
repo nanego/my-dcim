@@ -16,6 +16,8 @@
 <% case @serveur.modele.category_id %>
 <% when Category.find_by_title('Blank Panel').id %>
   <%= render 'draw_blank_panel', serveur: @serveur %>
+<% when Category.find_by_title('Patch Panel').id %>
+  <%= render 'draw_patch_panel', serveur: @serveur %>
 <% else %>
   <div class="detailed_server">
     <%= render 'draw_server', serveur: @serveur %>

@@ -40,11 +40,11 @@
                             <% end %>
                             <% case serveur.modele.try(:category_id) %>
                             <% when Category.find_by_title('Blank Panel').id %>
-                              <br>
+                              <span class="pull-left"><%= link_to h("#{serveur.nom}"), serveur %></span>
                             <% else %>
                               <span class="badge alert-success"><%= serveur.fc_utilise %></span>
                               <span class="badge alert-info"><%= serveur.rj45_futur %></span>
-                              <span class="pull-left"><%= link_to h("#{serveur.nom} #{serveur.modele.try(:category)}"), serveur %></span>
+                              <span class="pull-left"><%= link_to h("#{serveur.nom}"), serveur %></span>
                             <% end %>
                           <% end %>
                         <% end %>
