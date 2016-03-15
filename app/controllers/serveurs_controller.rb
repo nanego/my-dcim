@@ -16,10 +16,10 @@ class ServeursController < ApplicationController
 
   def baies
     @serveurs_par_baies = {}
-    Serveur.joins(:salle).order('salles.title ASC, ilot ASC, baie ASC, position asc').each do |s|
+    Serveur.joins(:salle, :baie).order('salles.title ASC, baies.ilot ASC, baies.title ASC, position desc').each do |s|
       salle = (s.salle.title.present? ? s.salle.title : "non précisée")
-      ilot = (s.ilot.present? ? s.ilot.to_s : "non précisé")
-      baie = (s.baie.present? ? s.baie.to_s : "non précisée")
+      ilot = (s.baie.try(:ilot).present? ? s.baie.ilot.to_s : "non précisé")
+      baie = (s.baie.title.present? ? s.baie.title.to_s : "non précisée")
       @serveurs_par_baies[salle] ||= {}
       @serveurs_par_baies[salle][ilot] ||= {}
       @serveurs_par_baies[salle][ilot][baie] ||= []
@@ -43,8 +43,9 @@ class ServeursController < ApplicationController
 
   def sort
     salle = Salle.find_by_title(params[:salle]) unless params[:salle].include?('non ')
+    baie = Baie.where(salle_id: salle.id, ilot: params[:ilot], title: params[:baie]).first
     params[:serveur].each_with_index do |id, index|
-      Serveur.where(id: id).update_all(position: index+1, salle_id: (salle.present? ? salle.id : ''), ilot: params[:ilot], baie: params[:baie])
+      Serveur.where(id: id).update_all(position: index+1, salle_id: (salle.present? ? salle.id : ''), baie_id: baie.id)
     end if params[:serveur].present?
     render nothing: true
   end

@@ -8,7 +8,7 @@ jQuery ->
     # handle: '.handle'
     connectWith: ".connectedBaies"
     update: ->
-      $.post($(this).data('update-url'), $(this).sortable('serialize')+ '&salle=' +  $(this).data('salle') + '&ilot=' +  $(this).data('ilot') + '&baie=' +  $(this).data('baie'))
+      $.post($(this).data('update-url'), $(this).sortable('serialize').split("&").reverse().join("&") + '&salle=' +  $(this).data('salle') + '&ilot=' +  $(this).data('ilot') + '&baie=' +  $(this).data('baie'))
   );
 
   $('form').on 'click', '.remove_fields', (event) ->

@@ -63,8 +63,8 @@ csv.each_with_index do |row, i|
   phase = row[20]
   salle = Salle.find_or_create_by(title: row[21], published: true)
   ilot = row[22]
-  baie = row[23]
-  id_baie = row[24]
+  baie = Baie.find_or_create_by(title: row[23], salle: salle, ilot: ilot)
+  # id_baie = row[24]
   fc_total = row[25]
   fc_calcule  = row[26]
   fc_utilise  = row[27]
@@ -135,7 +135,6 @@ csv.each_with_index do |row, i|
       rj45_total: rj45_total,
       fc_futur: fc_futur,
       fc_calcule: fc_calcule,
-      id_baie: id_baie,
       baie: baie,
       pdu_ondule: pdu_ondule,
       pdu_normal: pdu_normal,

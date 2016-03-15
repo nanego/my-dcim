@@ -2,8 +2,7 @@ class AddMissingFieldsToServeurs < ActiveRecord::Migration
   def change
     add_column :serveurs, :pdu_ondule, :string
     add_column :serveurs, :pdu_normal, :string
-    add_column :serveurs, :baie, :integer
-    add_column :serveurs, :id_baie, :string
+    add_column :serveurs, :baie_id, :integer
     add_column :serveurs, :fc_calcule, :integer
     add_column :serveurs, :fc_futur, :integer
     add_column :serveurs, :i, :string

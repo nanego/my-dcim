@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160315123843) do
+ActiveRecord::Schema.define(version: 20160315143441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,15 @@ ActiveRecord::Schema.define(version: 20160315123843) do
     t.boolean  "published"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "baies", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "u",          default: 41
+    t.integer  "salle_id"
+    t.integer  "ilot"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "cards", force: :cascade do |t|
@@ -154,8 +163,7 @@ ActiveRecord::Schema.define(version: 20160315123843) do
     t.datetime "updated_at",         null: false
     t.string   "pdu_ondule"
     t.string   "pdu_normal"
-    t.integer  "baie"
-    t.string   "id_baie"
+    t.integer  "baie_id"
     t.integer  "fc_calcule"
     t.integer  "fc_futur"
     t.string   "i"
