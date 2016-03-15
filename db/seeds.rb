@@ -32,7 +32,7 @@ case ActiveRecord::Base.connection.adapter_name
 end
 puts "Table Serveurs vide et pk_sequence = 0"
 
-file = File.read(Rails.root.join('lib', 'seeds', 'inventaire_160216.csv'))
+file = File.read(Rails.root.join('lib', 'seeds', 'inventaire_160304.csv'))
 csv = CSV.parse(file, :headers => true)
 
 puts "Importation en cours"
@@ -45,11 +45,11 @@ csv.each_with_index do |row, i|
   localisation = Localisation.find_or_create_by(title: row[1], published: true)
   rack = Armoire.find_or_create_by(title: row[2], published: true)
   nom = row[3]
-  type = Category.find_or_create_by(title: row[4], published: true)
-  nb_elts = row[5]
-  archi = Architecture.find_or_create_by(title: row[6], published: true)
-  u = row[7]
-  marque = Marque.find_or_create_by(title: row[8], published: true)
+  type = Category.find_or_create_by(title: row[5], published: true)
+  nb_elts = row[6]
+  archi = Architecture.find_or_create_by(title: row[7], published: true)
+  u = row[8]
+  marque = Marque.find_or_create_by(title: row[9], published: true)
   numero = row[10]
   conso = row[11]
   i = row[12]
@@ -86,7 +86,7 @@ csv.each_with_index do |row, i|
 
   #########
   ## MODELE
-  modele = Modele.find_or_create_by(title: row[9],
+  modele = Modele.find_or_create_by(title: row[4],
                                     published: true,
                                     category: type,
                                     nb_elts: nb_elts,
