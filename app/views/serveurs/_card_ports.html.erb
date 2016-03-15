@@ -10,7 +10,7 @@
 
   <% else %>
 
-    <i class="portSCSI"><%= port_type.name %></i>
+    <i class="portSCSI"><%= port_type.try(:name) %></i>
 
   <% end %>
 
