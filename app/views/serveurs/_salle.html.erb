@@ -33,8 +33,7 @@
                         <% u_disponibles = 41 %>
                         <% serveurs.each do |serveur| %>
 
-                          <% bgModeleColor = Digest::MD5.hexdigest(serveur.modele.try(:title) || 'test')[0..5] %>
-                          <% bgModeleColor = lighten_color("##{bgModeleColor}", 0.4) %>
+                          <% bgModeleColor = serveur.modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(serveur.modele.try(:title) || 'test')[0..5]}", 0.4) %>
 
                           <% u_serveur = serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1 %>
                           <%= content_tag_for :li, serveur, class: "list-group-item truncate #{serveur.modele.try(:category).try(:title).try(:parameterize)}", style: "height: #{27*u_serveur}px;background-color:#{bgModeleColor}" do %>

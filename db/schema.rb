@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160311164516) do
+ActiveRecord::Schema.define(version: 20160315123843) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 20160311164516) do
     t.integer  "architecture_id"
     t.integer  "u"
     t.integer  "marque_id"
+    t.string   "color"
   end
 
   create_table "port_types", force: :cascade do |t|
