@@ -7,6 +7,12 @@ jQuery ->
     # axis: 'y'
     # handle: '.handle'
     connectWith: ".connectedBaies"
+    stop: (event, ui) ->
+      count = ui.item.parent().find('span.u_scale').length
+      ui.item.parent().find('span.u_scale').map(->
+        $(this).html "#{count}"
+        count = count - 1;
+      )
     update: ->
       $.post($(this).data('update-url'), $(this).sortable('serialize').split("&").reverse().join("&") + '&salle=' +  $(this).data('salle') + '&ilot=' +  $(this).data('ilot') + '&baie=' +  $(this).data('baie'))
   );
