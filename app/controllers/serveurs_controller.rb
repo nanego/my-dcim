@@ -28,13 +28,12 @@ class ServeursController < ApplicationController
   end
 
   def baie
-    @baie = params[:baie]
     @ilot = params[:ilot]
     @salle = Salle.find_by_title(params[:salle])
-    @serveurs = Serveur.where('salle_id = ? AND ilot = ? AND baie = ?',
+    @baie = Baie.where(salle_id: @salle.id, ilot: params[:ilot], title: params[:baie]).first
+    @serveurs = Serveur.where('salle_id = ? AND baie_id = ?',
                                             @salle.id,
-                                            @ilot,
-                                            @baie).order('position asc')
+                                            @baie.id).order('position asc')
     @sum_u = @serveurs.to_a.sum { |s| s.modele.try(:u) || 0 }
     @sum_elements = @serveurs.to_a.sum { |s| s.modele.try(:nb_elts) || 0 }
     @sum_rj45_futur = @serveurs.to_a.sum { |s| s.try(:rj45_futur) || 0 }
@@ -44,8 +43,9 @@ class ServeursController < ApplicationController
   def sort
     salle = Salle.find_by_title(params[:salle]) unless params[:salle].include?('non ')
     baie = Baie.where(salle_id: salle.id, ilot: params[:ilot], title: params[:baie]).first
+    positions = params[:positions].split(',')
     params[:serveur].each_with_index do |id, index|
-      Serveur.where(id: id).update_all(position: index+1, salle_id: (salle.present? ? salle.id : ''), baie_id: baie.id)
+      Serveur.where(id: id).update_all(position: positions[index], salle_id: (salle.present? ? salle.id : ''), baie_id: baie.id)
     end if params[:serveur].present?
     render nothing: true
   end

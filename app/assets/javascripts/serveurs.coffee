@@ -14,7 +14,20 @@ jQuery ->
         count = count - 1;
       )
     update: ->
-      $.post($(this).data('update-url'), $(this).sortable('serialize').split("&").reverse().join("&") + '&salle=' +  $(this).data('salle') + '&ilot=' +  $(this).data('ilot') + '&baie=' +  $(this).data('baie'))
+      # Take in account last change
+      count = $(this).find('span.u_scale').length
+      $(this).find('span.u_scale').map(->
+        $(this).html "#{count}"
+        count = count - 1;
+      )
+      # Get positions in U
+      positions = []
+      $(this).find('li.serveur').map(->
+        if ($(this).attr("id")!=undefined)
+          positions.push($(this).find('span.u_scale')[0].innerText)
+      )
+      # Update db data
+      $.post($(this).data('update-url'), $(this).sortable('serialize') + '&salle=' +  $(this).data('salle') + '&ilot=' +  $(this).data('ilot') + '&baie=' +  $(this).data('baie') + '&positions=' + positions)
   );
 
   $('form').on 'click', '.remove_fields', (event) ->
