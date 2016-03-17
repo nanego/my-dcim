@@ -1,6 +1,6 @@
 class Modele < ActiveRecord::Base
 
-  validates_presence_of :title
+  # validates_presence_of :title
 
   has_many :serveurs
   has_many :composants, -> { order(position: :asc) }

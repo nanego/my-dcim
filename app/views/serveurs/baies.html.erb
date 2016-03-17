@@ -1,21 +1,23 @@
 <div class="container-fluid">
 
-<h1>Vue par salle et par baie</h1>
+  <span class="pull-right"><%= link_to (params[:view]=='back' ? 'Vue avant' : 'Vue arrière'), baies_serveurs_path(:view => params[:view]=='back' ? :front : :back), class: 'btn btn-warning' %></span>
 
-<div class="well">
-Raccourcis vers les salles :
-<% @serveurs_par_baies.each do |salle, ilots| %>
-  <li>
-    <%= link_to salle, salle.include?('non précisée') ? "##{salle.parameterize.underscore}" : salle_path(Salle.find_by_title(salle)) %>
-  </li>
-<% end %>
-</div>
+  <h1>Vue par salle et par baie</h1>
 
-<% @serveurs_par_baies.each do |salle, ilots| %>
+  <div class="well">
+  Raccourcis vers les salles :
+  <% @serveurs_par_baies.each do |salle, ilots| %>
+    <li>
+      <%= link_to salle, salle.include?('non précisée') ? "##{salle.parameterize.underscore}" : salle_path(Salle.find_by_title(salle)) %>
+    </li>
+  <% end %>
+  </div>
 
-  <%= render 'salle', salle: salle, ilots: ilots %>
+  <% @serveurs_par_baies.each do |salle, ilots| %>
 
-<% end %>
+    <%= render 'salle', salle: salle, ilots: ilots %>
+
+  <% end %>
 
 </div>
 

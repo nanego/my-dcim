@@ -30,38 +30,58 @@
                           data-ilot="<%= ilot %>"
                           data-baie="<%= baie %>"
                           data-update-url="<%= sort_serveurs_path %>">
-                        <% u_disponibles = Baie.joins(:salle).where('salles.title = ? AND ilot = ? AND baies.title = ?', salle, ilot.to_i, baie).first.try(:u) || 41 %>
-                        <% serveurs.each do |serveur| %>
-                          <% while serveur.position.present? && serveur.position < u_disponibles && u_disponibles>0 %>
-                            <li class="serveur list-group-item truncate" style="height: 27px;">
-                              <span class="pull-left u_scale <%= u_disponibles.even? ? 'even': 'odd' %>" title="<%= u_disponibles %>"><%= u_disponibles %></span>
-                            </li>
-                            <% u_disponibles -= 1 %>
-                          <% end %>
 
-                          <% bgModeleColor = serveur.modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(serveur.modele.try(:title) || 'test')[0..5]}", 0.4) %>
 
-                          <% u_serveur = serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1 %>
-                          <%= content_tag_for :li, serveur, class: "list-group-item truncate #{serveur.modele.try(:category).try(:title).try(:parameterize)}", style: "height: #{27*u_serveur}px;background-color:#{bgModeleColor}" do %>
-                            <% u_serveur.times do |i| %>
-                              <span class="pull-left u_scale <%= u_disponibles.even? ? 'even': 'odd' %>" title="<%= u_disponibles %>" style="margin:<%= -3 + (27*(i)) %>px -15px;"><%= u_disponibles %></span>
+
+                          <% u_disponibles = Baie.joins(:salle).where('salles.title = ? AND ilot = ? AND baies.title = ?', salle, ilot.to_i, baie).first.try(:u) || 41 %>
+                          <% serveurs.each do |serveur| %>
+                            <% while serveur.position.present? && serveur.position < u_disponibles && u_disponibles>0 %>
+                              <li class="serveur list-group-item truncate" style="height: 27px;">
+                                <span class="pull-left u_scale <%= u_disponibles.even? ? 'even': 'odd' %>" title="<%= u_disponibles %>"><%= u_disponibles %></span>
+                              </li>
                               <% u_disponibles -= 1 %>
                             <% end %>
-                            <% case serveur.modele.try(:category_id) %>
-                            <% when Category.find_by_title('Blank Panel').id %>
-                              <span class="pull-left"><%= link_to h("#{serveur.nom}"), serveur %></span>
+
+                            <% bgModeleColor = serveur.modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(serveur.modele.try(:title) || 'test')[0..5]}", 0.4) %>
+
+                            <% u_serveur = serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1 %>
+
+                            <% if params[:view] == 'back' %>
+                              <%= content_tag_for :li, serveur, class: "list-group-item truncate", style: "min-height: #{41*(serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1)}px;" do %>
+                                <% u_serveur.times do |i| %>
+                                  <span class="pull-left u_scale hide <%= u_disponibles.even? ? 'even': 'odd' %>" title="<%= u_disponibles %>" style="margin:<%= -3 + (27*(i)) %>px -15px;"><%= u_disponibles %></span>
+                                  <% u_disponibles -= 1 %>
+                                <% end %>
+                                <%= render 'serveurs/draw_server_compact', serveur: serveur %>
+                              <% end %>
                             <% else %>
-                              <span class="pull-left" style="padding-left: 14px;"><%= link_to h("#{serveur.nom}"), serveur %></span>
-                              <span class="pull-right"><em><%= serveur.modele.try(:title) %></em></span>
+
+                              <%= content_tag_for :li, serveur, class: "list-group-item truncate #{serveur.modele.try(:category).try(:title).try(:parameterize)}", style: "height: #{27*u_serveur}px;background-color:#{bgModeleColor}" do %>
+                                <% u_serveur.times do |i| %>
+                                  <span class="pull-left u_scale <%= u_disponibles.even? ? 'even': 'odd' %>" title="<%= u_disponibles %>" style="margin:<%= -3 + (27*(i)) %>px -15px;"><%= u_disponibles %></span>
+                                  <% u_disponibles -= 1 %>
+                                <% end %>
+                                <% case serveur.modele.try(:category_id) %>
+                                <% when Category.find_by_title('Blank Panel').id %>
+                                  <span class="pull-left"><%= link_to h("#{serveur.nom}"), serveur %></span>
+                                <% else %>
+                                  <span class="pull-left" style="padding-left: 14px;"><%= link_to h("#{serveur.nom}"), serveur %></span>
+                                  <span class="pull-right"><em><%= serveur.modele.try(:title) %></em></span>
+                                <% end %>
+                              <% end %>
+
                             <% end %>
+
                           <% end %>
-                        <% end %>
                         <% u_disponibles.times do |u| %>
                           <li class="serveur list-group-item truncate" style="height: 27px;">
                             <span class="pull-left u_scale <%= u_disponibles.even? ? 'even': 'odd' %>" title="<%= u_disponibles %>"><%= u_disponibles %></span>
                           </li>
                           <% u_disponibles -= 1 %>
                         <% end %>
+
+
+
                       </ul>
                       <div class="panel-footer">
                         <!--

@@ -13,6 +13,8 @@
 require 'open-uri'
 require 'csv'
 
+=begin
+
 Modele.delete_all
 Serveur.delete_all
 Slot.delete_all
@@ -31,6 +33,8 @@ case ActiveRecord::Base.connection.adapter_name
     raise "Task not implemented for this DB adapter"
 end
 puts "Table Serveurs vide et pk_sequence = 0"
+
+=end
 
 file = File.read(Rails.root.join('lib', 'seeds', 'inventaire_160304.csv'))
 csv = CSV.parse(file, :headers => true)
@@ -86,7 +90,7 @@ csv.each_with_index do |row, i|
 
   #########
   ## MODELE
-  modele = Modele.find_or_create_by(title: row[4],
+  modele = Modele.find_or_create_by!(title: row[4],
                                     published: true,
                                     category: type,
                                     nb_elts: nb_elts,
@@ -96,71 +100,74 @@ csv.each_with_index do |row, i|
 
   type_composant_alim = TypeComposant.find_by_title('ALIM')
   nb_elts.to_i.times do
-    Composant.create(modele: modele,
+    Composant.find_or_create_by!(modele: modele,
                       type_composant: type_composant_alim
     )
   end unless modele.composants.to_a.reject!{|c| c.type_composant != type_composant_alim}.present?
 
   type_composant_cm = TypeComposant.find_by_title('CM')
   rj45_cm.to_i.times do
-    Composant.create(modele: modele,
+    Composant.find_or_create_by!(modele: modele,
                      type_composant: type_composant_cm
     )
   end unless modele.composants.to_a.reject!{|c| c.type_composant != type_composant_cm}.present?
 
   type_composant_ipmi = TypeComposant.find_by_title('IPMI')
   ipmi_futur.to_i.times do
-    Composant.create(modele: modele,
+    Composant.find_or_create_by!(modele: modele,
                      type_composant: type_composant_ipmi
     )
   end unless modele.composants.to_a.reject!{|c| c.type_composant != type_composant_ipmi}.present?
 
   type_composant_slot = TypeComposant.find_by_title('SLOT')
   7.times do
-    Composant.create(modele: modele,
+    Composant.find_or_create_by!(modele: modele,
                      type_composant: type_composant_slot
     )
   end unless modele.composants.to_a.reject!{|c| c.type_composant != type_composant_slot}.present?
 
   ##########
   ## SERVEUR
-  serveur = Serveur.create!(
-      id: id,
-      ip: ip,
-      hostname: hostname,
-      etat_conf_reseau: etat_conf_reseau,
-      action_conf_reseau: action_conf_reseau,
-      tenGbps_futur: tenGbps_futur,
-      rj45_calcule: rj45_calcule,
-      rj45_total: rj45_total,
-      fc_futur: fc_futur,
-      fc_calcule: fc_calcule,
-      baie: baie,
-      pdu_ondule: pdu_ondule,
-      pdu_normal: pdu_normal,
-      localisation: localisation,
-      armoire: rack,
-      nom: nom,
-      modele: modele,
-      numero: numero,
-      conso: conso,
-      cluster: cluster,
-      critique: critique,
-      domaine: domaine,
-      gestion: gestion,
-      acte: action,
-      phase: phase,
-      salle: salle,
-      ilot: ilot,
-      fc_total: fc_total,
-      fc_utilise: fc_utilise,
-      rj45_utilise: rj45_utilise,
-      rj45_futur: rj45_futur,
-      rj45_cm: rj45_cm,
-      ipmi_dedie: ipmi_dedie,
-      ipmi_futur: ipmi_futur,
-      ipmi_utilise: ipmi_utilise
-  )
+  serveur = Serveur.where(id: id).first
+  unless serveur
+    serveur = Serveur.create!(
+        id: id,
+        ip: ip,
+        hostname: hostname,
+        etat_conf_reseau: etat_conf_reseau,
+        action_conf_reseau: action_conf_reseau,
+        tenGbps_futur: tenGbps_futur,
+        rj45_calcule: rj45_calcule,
+        rj45_total: rj45_total,
+        fc_futur: fc_futur,
+        fc_calcule: fc_calcule,
+        baie: baie,
+        pdu_ondule: pdu_ondule,
+        pdu_normal: pdu_normal,
+        localisation: localisation,
+        armoire: rack,
+        nom: nom,
+        modele: modele,
+        numero: numero,
+        conso: conso,
+        cluster: cluster,
+        critique: critique,
+        domaine: domaine,
+        gestion: gestion,
+        acte: action,
+        phase: phase,
+        salle: salle,
+        ilot: ilot,
+        fc_total: fc_total,
+        fc_utilise: fc_utilise,
+        rj45_utilise: rj45_utilise,
+        rj45_futur: rj45_futur,
+        rj45_cm: rj45_cm,
+        ipmi_dedie: ipmi_dedie,
+        ipmi_futur: ipmi_futur,
+        ipmi_utilise: ipmi_utilise
+    )
+  end
 
   ########
   ## SLOTS
@@ -190,8 +197,13 @@ csv.each_with_index do |row, i|
         valeur = valeurs_slots[i]
         nb_ports = 1
       end
+      port_type = PortType.find_or_create_by!(name: valeur)
+      card = Card.find_or_create_by!(name: valeurs_slots[i], port_quantity: nb_ports, port_type: port_type)
+      CardsServeur.find_or_create_by!(card: card, serveur: serveur, composant: slots[i])
+
+      # ports ....
       nb_ports.times do |y|
-        Slot.create!(valeur: valeur,
+        Slot.find_or_create_by!(valeur: valeur,
                      composant: slots[i],
                      serveur: serveur)
       end

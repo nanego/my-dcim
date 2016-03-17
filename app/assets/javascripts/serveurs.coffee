@@ -27,7 +27,7 @@ jQuery ->
       # Get positions in U
       positions = []
       $(this).find('li.serveur').map(->
-        if ($(this).attr("id")!=undefined)
+        if ( $(this).attr("id")!=undefined && $(this).find('span.u_scale')[0]!=undefined )
           positions.push($(this).find('span.u_scale')[0].innerText)
       )
       # Update db data

@@ -33,7 +33,7 @@ class ServeursController < ApplicationController
     @baie = Baie.where(salle_id: @salle.id, ilot: params[:ilot], title: params[:baie]).first
     @serveurs = Serveur.where('salle_id = ? AND baie_id = ?',
                                             @salle.id,
-                                            @baie.id).order('position asc')
+                                            @baie.try(:id)).order('position asc')
     @sum_u = @serveurs.to_a.sum { |s| s.modele.try(:u) || 0 }
     @sum_elements = @serveurs.to_a.sum { |s| s.modele.try(:nb_elts) || 0 }
     @sum_rj45_futur = @serveurs.to_a.sum { |s| s.try(:rj45_futur) || 0 }

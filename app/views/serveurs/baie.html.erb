@@ -2,7 +2,7 @@
 
 <div class="col-sm-12">
   <div class="panel <%= @sum_u > 38 || @sum_elements > 24 || @sum_rj45_futur > 48 || @sum_fc_futur > 12 ? 'panel-danger' : 'panel-default' %>" style="margin: 10px;">
-    <div class="panel-heading"><h5 class="panel-title"><%= link_to "Baie #{@baie}", baie_serveurs_path(baie: @baie, ilot: @ilot, salle: @salle.title), style: 'text-decoration: underline;' %></h5></div>
+    <div class="panel-heading"><h5 class="panel-title"><%= link_to "Baie #{@baie.title}", baie_serveurs_path(baie: @baie, ilot: @ilot, salle: @salle.title), style: 'text-decoration: underline;' %></h5></div>
     <ul class='baie connectedBaies list-group'
         id="baie_<%= @baie %>"
         data-salle="<%= @salle.title %>"

@@ -1,5 +1,7 @@
 <div class="container-fluid">
 
+  <span class="pull-right"><%= link_to (params[:view]=='back' ? 'Vue avant' : 'Vue arrière'), salle_path(@salle, :view => params[:view]=='back' ? :front : :back), class: 'btn btn-warning' %></span>
+
   <h1>Vue par salle</h1>
 
   <div class="well">
