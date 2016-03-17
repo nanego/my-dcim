@@ -1,6 +1,11 @@
 <div class="container-fluid">
 
-  <span class="pull-right"><%= link_to (params[:view]=='back' ? 'Vue avant' : 'Vue arrière'), salle_path(@salle, :view => params[:view]=='back' ? :front : :back), class: 'btn btn-warning' %></span>
+  <span class="pull-right">
+    <%= link_to salle_path(@salle, :view => params[:view]=='back' ? :front : :back), class: 'btn btn-warning' do %>
+      <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+      <%= (params[:view]=='back' ? 'Vue avant' : 'Vue arrière') %>
+    <% end %>
+  </span>
 
   <h1>Vue par salle</h1>
 
