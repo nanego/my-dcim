@@ -32,7 +32,7 @@
                           data-update-url="<%= sort_serveurs_path %>">
                         <% u_disponibles = Baie.joins(:salle).where('salles.title = ? AND ilot = ? AND baies.title = ?', salle, ilot.to_i, baie).first.try(:u) || 41 %>
                         <% serveurs.each do |serveur| %>
-                          <% while serveur.position.present? && serveur.position != u_disponibles && u_disponibles>0 %>
+                          <% while serveur.position.present? && serveur.position < u_disponibles && u_disponibles>0 %>
                             <li class="serveur list-group-item truncate" style="height: 27px;">
                               <span class="pull-left u_scale" title="<%= u_disponibles %>" style="width:24px;text-align:center;background-color: <%= u_disponibles.even? ? '#E9E9E9' : '#D0D0D0' %>;height: 27px;padding: 3px 1px;margin:-3px -15px;"><%= u_disponibles %></span>
                             </li>
