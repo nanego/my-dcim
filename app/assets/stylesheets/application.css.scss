@@ -88,6 +88,20 @@ table.slots .portFC {
   padding: 10px;
 }
 
+.u_scale{
+  width:24px;
+  text-align:center;
+  height: 27px;
+  padding: 3px 1px;
+  margin:-3px -15px;
+  &.even{
+    background-color:#E9E9E9;  // '#E9E9E9'
+  }
+  &.odd{
+    background-color:#D0D0D0; //  '#D0D0D0'
+  }
+}
+
 // Forms
 .add_fields { margin-top: 10px;}
 .form-group div, .form-group label { margin-bottom: 10px;}

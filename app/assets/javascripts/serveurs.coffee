@@ -11,6 +11,10 @@ jQuery ->
       count = ui.item.parent().find('span.u_scale').length
       ui.item.parent().find('span.u_scale').map(->
         $(this).html "#{count}"
+        if (count % 2 == 0)
+          $(this).removeClass('odd').addClass('even')
+        else
+          $(this).removeClass('even').addClass('odd')
         count = count - 1;
       )
     update: ->

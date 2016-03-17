@@ -34,7 +34,7 @@
                         <% serveurs.each do |serveur| %>
                           <% while serveur.position.present? && serveur.position < u_disponibles && u_disponibles>0 %>
                             <li class="serveur list-group-item truncate" style="height: 27px;">
-                              <span class="pull-left u_scale" title="<%= u_disponibles %>" style="width:24px;text-align:center;background-color: <%= u_disponibles.even? ? '#E9E9E9' : '#D0D0D0' %>;height: 27px;padding: 3px 1px;margin:-3px -15px;"><%= u_disponibles %></span>
+                              <span class="pull-left u_scale <%= u_disponibles.even? ? 'even': 'odd' %>" title="<%= u_disponibles %>"><%= u_disponibles %></span>
                             </li>
                             <% u_disponibles -= 1 %>
                           <% end %>
@@ -44,7 +44,7 @@
                           <% u_serveur = serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1 %>
                           <%= content_tag_for :li, serveur, class: "list-group-item truncate #{serveur.modele.try(:category).try(:title).try(:parameterize)}", style: "height: #{27*u_serveur}px;background-color:#{bgModeleColor}" do %>
                             <% u_serveur.times do |i| %>
-                              <span class="pull-left u_scale" title="<%= u_disponibles %>" style="width:24px;text-align:center;background-color: <%= u_disponibles.even? ? '#E9E9E9' : '#D0D0D0' %>;height: 27px;padding: 3px 1px;margin:<%= -3 + (27*(i)) %>px -15px;"><%= u_disponibles %></span>
+                              <span class="pull-left u_scale <%= u_disponibles.even? ? 'even': 'odd' %>" title="<%= u_disponibles %>" style="margin:<%= -3 + (27*(i)) %>px -15px;"><%= u_disponibles %></span>
                               <% u_disponibles -= 1 %>
                             <% end %>
                             <% case serveur.modele.try(:category_id) %>
@@ -58,15 +58,17 @@
                         <% end %>
                         <% u_disponibles.times do |u| %>
                           <li class="serveur list-group-item truncate" style="height: 27px;">
-                            <span class="pull-left u_scale" title="<%= u_disponibles %>" style="width:24px;text-align:center;background-color: <%= u_disponibles.even? ? '#E9E9E9' : '#D0D0D0' %>;height: 27px;padding: 3px 1px;margin:-3px -15px;"><%= u_disponibles %></span>
+                            <span class="pull-left u_scale <%= u_disponibles.even? ? 'even': 'odd' %>" title="<%= u_disponibles %>"><%= u_disponibles %></span>
                           </li>
                           <% u_disponibles -= 1 %>
                         <% end %>
                       </ul>
                       <div class="panel-footer">
+                        <!--
                         <span class="pull-right">
                           <button type="button" class="btn btn-default glyphicon glyphicon-plus" data-toggle="modal" data-target=".bs-example-modal-sm"></button>
                         </span>
+                        -->
                         <span class="label <%= sum_rj45_futur > 48 ? 'label-danger' : 'label-primary' %>">&Sigma; RJ futur : <%= sum_rj45_futur %></span>
                         <span class="label <%= sum_fc_futur > 12 ? 'label-danger' : 'label-success' %>">&Sigma; FC futur : <%= sum_fc_futur %></span>
                         <span class="label <%= sum_u > 38 ? 'label-danger' : 'label-default' %>">&Sigma; U : <%= sum_u %></span>
