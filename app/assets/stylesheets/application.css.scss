@@ -40,12 +40,16 @@ a.hide-filters, a.show-filters{
 }
 table.slots, table.cm, table.ipmi {
   margin-left: 8px;
+  cursor: default;
 }
 table.slots, table.slots th, table.slots td,
 table.cm, table.cm th, table.cm td{
   border: 1px #999999 solid;
   padding: 1px 5px;
   text-align: center;
+}
+.portRJ, .portFC, .portSCSI{
+  cursor: pointer;
 }
 .portRJ {
   border: 1px #555555 solid;
@@ -59,7 +63,7 @@ table.cm, table.cm th, table.cm td{
   background-color: #DDD;
   padding: 1px 5px;
 }
-table.slots .portFC {
+.portFC {
   border: 1px #555555 solid;
   width: 8px;
   height: 8px;
@@ -100,6 +104,14 @@ table.slots .portFC {
   &.odd{
     background-color:#D0D0D0; //  '#D0D0D0'
   }
+}
+
+.port_selection { position: fixed;
+  top: 11em;
+  left: 0;
+  right: 0;
+  width: 300px;
+  margin: 0 auto;
 }
 
 // Forms

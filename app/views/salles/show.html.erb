@@ -35,3 +35,15 @@
 <% end %>
 
 <%= render 'serveurs/modal_add_element_in_baie' %>
+
+<div class="panel panel-warning fade port_selection">
+  <%= form_for Connection.new, url: {action: "create", controller: "connections"}, remote: true do |f| %>
+    <div class="panel-heading">Lien entre 2 ports</div>
+    <div class="panel-body">
+      <p class="from"></p>
+      <p class="to"></p>
+    </div>
+    <div class="panel-footer">
+      <%= f.submit "Valider", class: 'btn btn-warning submit_btn' %><a href="#" class="btn btn-default cancel_btn" role="button">Annuler</a></div>
+  <% end %>
+</div>

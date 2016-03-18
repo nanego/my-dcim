@@ -33,4 +33,6 @@ Rails.application.routes.draw do
   root to: 'serveurs#index'
   devise_for :users
   resources :users
+
+  resources :connections
 end

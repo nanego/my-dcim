@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160315143441) do
+ActiveRecord::Schema.define(version: 20160318103009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,13 @@ ActiveRecord::Schema.define(version: 20160315143441) do
     t.datetime "updated_at",        null: false
   end
 
+  create_table "connections", force: :cascade do |t|
+    t.integer  "source_port_id"
+    t.integer  "destination_port_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
   create_table "domaines", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -125,6 +132,14 @@ ActiveRecord::Schema.define(version: 20160315143441) do
 
   create_table "port_types", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "ports", force: :cascade do |t|
+    t.integer  "position"
+    t.integer  "parent_id"
+    t.string   "parent_type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "salles", force: :cascade do |t|

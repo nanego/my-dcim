@@ -212,4 +212,4 @@ csv.each_with_index do |row, i|
 
 end
 
-ActiveRecord::Base.connection.set_pk_sequence!("serveurs", 1000)
+# ActiveRecord::Base.connection.set_pk_sequence!("serveurs", 1000)

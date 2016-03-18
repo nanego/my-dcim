@@ -1,16 +1,16 @@
-<% port_quantity.to_i.times do %>
+<% port_quantity.to_i.times do |index| %>
   <% case port_type
        when PortType.find_by_name('RJ') %>
 
-    <i class="portRJ label-primary"></i>
+    <i class="port portRJ label-primary" data-position="<%= index+1 %>" data-type="RJ"></i>
 
   <% when PortType.find_by_name('FC') %>
 
-    <i class="portFC label-success"></i>
+    <i class="port portFC label-success" data-position="<%= index+1 %>" data-type="FC"></i>
 
   <% else %>
 
-    <i class="portSCSI"><%= port_type.try(:name) %></i>
+    <i class="port portSCSI" data-position="<%= index+1 %>" data-type="<%= port_type.try(:name) %>"><%= port_type.try(:name) %></i>
 
   <% end %>
 
