@@ -23,7 +23,6 @@ class ConnectionsController < ApplicationController
 
     connections = Connection.where("(source_port_id = ? AND destination_port_id = ?) OR (source_port_id = ? AND destination_port_id = ?)", ports['from'], ports['to'], ports['to'], ports['from'])
     if connections.empty?
-      puts "INSERTION ---- Connection.find_or_create_by!(source_port_id: #{ports['from'].id}, destination_port_id: #{ports['to'].id})}"
       Connection.find_or_create_by!(source_port_id: ports['from'].id, destination_port_id: ports['to'].id)
     end
 
