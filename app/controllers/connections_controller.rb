@@ -1,5 +1,7 @@
 class ConnectionsController < ApplicationController
 
+  skip_before_action :verify_authenticity_token
+
   def create
 
     cards = {}
@@ -11,9 +13,9 @@ class ConnectionsController < ApplicationController
       if params[destination]['composant_type'] == CardsServeur.name
         cards[destination] = CardsServeur.find(params[destination]['composant_id'])
       else
-        cards[destination] = CardsServeur.find_or_create_by!(card_id: params[destination]['card_id'],
+        cards[destination] = CardsServeur.find_or_create_by!(card_id: nil,
                                                              serveur_id: params[destination]['server_id'],
-                                                             composant_id: server.modele.composants.joins(:type_composant).where('type_composants.title = ? AND composants.position = ?', params[destination]['composant_type'], params[destination]['port_position']) )
+                                                             composant_id: server.modele.composants.joins(:type_composant).where('type_composants.title = ? AND composants.position = ?', params[destination]['composant_type'], params[destination]['port_position']).first.id )
       end
       ports[destination] = Port.find_or_create_by!(parent_id: cards[destination].id,
                                      parent_type: cards[destination].class.name,
