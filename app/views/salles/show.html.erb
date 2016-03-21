@@ -5,6 +5,7 @@
       <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
       <%= (params[:view]=='back' ? 'Vue avant' : 'Vue arrière') %>
     <% end %>
+    <%= link_to "Masquer les connexions", '#', id: 'hide_or_show_connections', class: 'btn btn-default' %>
   </span>
 
   <h1>Vue par salle</h1>
@@ -37,13 +38,18 @@
 <%= render 'serveurs/modal_add_element_in_baie' %>
 
 <div class="panel panel-warning fade port_selection">
-  <%= form_for Connection.new, url: {action: "create", controller: "connections"}, remote: true do |f| %>
-    <div class="panel-heading">Lien entre 2 ports</div>
-    <div class="panel-body">
-      <p class="from"></p>
-      <p class="to"></p>
+
+  <div class="panel-heading">Connexions</div>
+  <div class="panel-body">
+    <div>
+      <%= form_for Connection.new, url: {action: "create", controller: "connections"}, remote: true do |f| %>
+        <h5>Nouvelle connexion</h5>
+        <p class="from"></p>
+        <p class="to">Sélectionnez un port de destination</p>
+        <%= f.submit "Valider", class: 'btn btn-warning submit_btn' %>
+        <a href="#" class="btn btn-default cancel_btn" role="button">Annuler</a>
+      <% end %>
     </div>
-    <div class="panel-footer">
-      <%= f.submit "Valider", class: 'btn btn-warning submit_btn' %><a href="#" class="btn btn-default cancel_btn" role="button">Annuler</a></div>
-  <% end %>
+  </div>
+
 </div>

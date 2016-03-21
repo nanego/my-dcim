@@ -65,3 +65,13 @@ jQuery ->
 
   $('.port_selection .cancel_btn').on "click", ->
     $('.port_selection').removeClass('in');
+
+  # Hide or Show connections
+  $('#hide_or_show_connections').on "click", ->
+    if ($(".connector") && $(".connector").is( ":visible" ))
+      $(".connector").hide()
+      $('#hide_or_show_connections').html 'Montrer les connexions'
+    else
+      $(".connector").show()
+      $('#hide_or_show_connections').html 'Masquer les connexions'
+    event.preventDefault();
