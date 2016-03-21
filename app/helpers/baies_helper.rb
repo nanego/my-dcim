@@ -1,0 +1,2 @@
+module BaiesHelper
+end

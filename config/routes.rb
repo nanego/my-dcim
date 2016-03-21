@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :baies, only: [:edit, :update]
+
+  resources :clusters
   resources :slots
   resources :serveurs do
     collection do

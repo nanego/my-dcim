@@ -36,8 +36,10 @@ puts "Table Serveurs vide et pk_sequence = 0"
 
 =end
 
-file = File.read(Rails.root.join('lib', 'seeds', 'inventaire_160304.csv'))
+file = File.read(Rails.root.join('lib', 'seeds', 'inventaire_160318.csv'))
 csv = CSV.parse(file, :headers => true)
+
+ActiveRecord::Base.connection.set_pk_sequence!("serveurs", Serveur.maximum(:id)+1)
 
 puts "Importation en cours"
 csv.each_with_index do |row, i|
@@ -59,7 +61,7 @@ csv.each_with_index do |row, i|
   i = row[12]
   pdu_ondule = row[13]
   pdu_normal = row[14]
-  cluster = row[15].present?
+  cluster = row[15].present? ? Cluster.find_or_create_by(title: row[15]) : nil
   critique = row[16].present?
   domaine = Domaine.find_or_create_by(title: row[17], published: true)
   gestion = Gestion.find_or_create_by(title: row[18], published: true)

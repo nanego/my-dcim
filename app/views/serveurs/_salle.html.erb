@@ -23,15 +23,18 @@
                   <% sum_fc_futur = serveurs.sum { |s| s.try(:fc_futur) || 0 } %>
                   <div class="col-sm-12 col-md-3">
                     <div class="panel <%= sum_u > 38 || sum_elements > 24 || sum_rj45_futur > 48 || sum_fc_futur > 12 ? 'panel-danger' : 'panel-default' %>" style="margin: 10px;">
-                      <div class="panel-heading"><h5 class="panel-title"><%= link_to "Baie #{baie}", baie_serveurs_path(baie: baie, ilot: ilot, salle: salle), style: 'text-decoration: underline;' %></h5></div>
+                      <div class="panel-heading">
+                          <h5 class="panel-title" style="display: inline;">
+                            <%= link_to "Baie #{baie}", baie_serveurs_path(baie: baie, ilot: ilot, salle: salle), style: 'text-decoration: underline;' %>
+                          </h5>
+                          <%= link_to "modifier", edit_baie_path(serveurs.first.baie) %>
+                      </div>
                       <ul class='baie connectedBaies list-group'
                           id="baie_<%= baie %>"
                           data-salle="<%= salle %>"
                           data-ilot="<%= ilot %>"
                           data-baie="<%= baie %>"
                           data-update-url="<%= sort_serveurs_path %>">
-
-
 
                           <% u_disponibles = Baie.joins(:salle).where('salles.title = ? AND ilot = ? AND baies.title = ?', salle, ilot.to_i, baie).first.try(:u) || 41 %>
                           <% serveurs.each do |serveur| %>

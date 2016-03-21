@@ -8,6 +8,7 @@ class Serveur < ActiveRecord::Base
   belongs_to :modele
   belongs_to :armoire
   belongs_to :localisation
+  belongs_to :cluster
 
   has_many :slots
   has_many :cards_serveurs, -> { joins(:composant).order("position asc") }
