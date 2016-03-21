@@ -76,6 +76,9 @@ table.cm, table.cm th, table.cm td{
 .alim {
   border: 1px #999999 solid;
   padding: 1px 5px;
+  float: left;
+  clear: left;
+  margin-bottom: 5px;
 }
 
 .detailed_server{

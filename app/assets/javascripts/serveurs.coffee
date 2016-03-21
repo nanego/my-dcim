@@ -49,11 +49,11 @@ jQuery ->
   # Add connection between ports
   port_overview = (port, destination)->
     field_server_id = "<input type='hidden' name='#{destination}[server_id]' value='#{port.parent().data('server-id')}' />"
-    field_card_id = "<input type='hidden' name='#{destination}[card_id]' value='#{port.parent().data('card-id')}' />"
+    # field_card_id = "<input type='hidden' name='#{destination}[card_id]' value='#{port.parent().data('card-id')}' />"
     field_composant_type = "<input type='hidden' name='#{destination}[composant_type]' value='#{port.parent().data('composant-type')}' />"
     field_composant_id = "<input type='hidden' name='#{destination}[composant_id]' value='#{port.parent().data('composant-id')}' />"
     field_port_position = "<input type='hidden' name='#{destination}[port_position]' value='#{port.data('position')}' />"
-    "<p>#{field_server_id}#{field_card_id}#{field_composant_type}#{field_composant_id}#{field_port_position}<i class='port port#{port.data('type')} label-primary'></i><span style='margin-left: 5px;'>#{port.parent().data('server-name')} : #{port.data('type')} #{port.data('position')}</span></p>"
+    "<p>#{field_server_id}#{field_composant_type}#{field_composant_id}#{field_port_position}<i class='port port#{port.data('type')} label-primary'></i><span style='margin-left: 5px;'>#{port.parent().data('server-name')} : #{port.data('type')} #{port.data('position')}</span></p>"
   $('.server_back').on "click", ".port", ->
     console.log("this.data.position = " + $(this).data('position'))
     console.log("this.parent.data.composant = " + $(this).parent().data('composant') + '-' + $(this).parent().data('id'))

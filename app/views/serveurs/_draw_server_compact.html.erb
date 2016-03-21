@@ -61,3 +61,58 @@
     <% end %>
   </div>
 <% end %>
+
+
+<%
+  serveur.cards_serveurs.each do |card_serveur|
+
+    if card_serveur.card.present? && card_serveur.card_id > 0
+      composant_type = 'CardsServeur'
+      composant_id = card_serveur.id
+    else
+      composant_type = card_serveur.composant.type_composant.title
+      composant_id = serveur.id
+    end
+
+    card_serveur.ports.each do |port|
+      port.connections.each do |conn| %>
+
+
+      <script type="text/javascript">
+
+        // Draw connection line
+        var elemFrom = $('#serveur_<%= serveur.id %> span[data-composant-id="<%=composant_id%>"][data-composant-type="<%=composant_type%>"] i[data-position="<%=port.position%>"]');
+
+        <% other_port = ([conn.source_port, conn.destination_port] - [port]).first %>
+
+        <% if other_port.present? %>
+
+          <% other_port_card_server = CardsServeur.where(id: other_port.parent_id).first %>
+
+          <% if other_port_card_server.present?
+              if other_port_card_server.card_id.present? && other_port_card_server.card_id>0
+                other_port_composant_type = 'CardsServeur'
+                other_port_composant_id = other_port_card_server.id
+              else
+                other_port_composant_type = other_port_card_server.composant.type_composant.title
+                other_port_composant_id = other_port_card_server.serveur_id
+              end %>
+
+              var elemTo = $('#serveur_<%= other_port_card_server.serveur_id %> span[data-composant-id="<%=other_port_composant_id%>"][data-composant-type="<%=other_port_composant_type%>"] i[data-position="<%=other_port.position%>"]');
+
+              if (elemFrom.length>0 && elemTo.length>0){
+                new $.connect(elemFrom, elemTo);
+              }
+
+          <% end %>
+        <% end %>
+
+      </script>
+
+
+<%    end
+    end
+  end
+
+%>
+
