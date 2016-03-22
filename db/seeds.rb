@@ -131,7 +131,44 @@ csv.each_with_index do |row, i|
   ##########
   ## SERVEUR
   serveur = Serveur.where(id: id).first
-  unless serveur.present?
+  if serveur.present?
+    serveur.update_attributes(
+        ip: ip,
+        hostname: hostname,
+        etat_conf_reseau: etat_conf_reseau,
+        action_conf_reseau: action_conf_reseau,
+        tenGbps_futur: tenGbps_futur,
+        rj45_calcule: rj45_calcule,
+        rj45_total: rj45_total,
+        fc_futur: fc_futur,
+        fc_calcule: fc_calcule,
+        baie: baie,
+        pdu_ondule: pdu_ondule,
+        pdu_normal: pdu_normal,
+        localisation: localisation,
+        armoire: rack,
+        nom: nom,
+        modele: modele,
+        numero: numero,
+        conso: conso,
+        cluster: cluster,
+        critique: critique,
+        domaine: domaine,
+        gestion: gestion,
+        acte: action,
+        phase: phase,
+        salle: salle,
+        ilot: ilot,
+        fc_total: fc_total,
+        fc_utilise: fc_utilise,
+        rj45_utilise: rj45_utilise,
+        rj45_futur: rj45_futur,
+        rj45_cm: rj45_cm,
+        ipmi_dedie: ipmi_dedie,
+        ipmi_futur: ipmi_futur,
+        ipmi_utilise: ipmi_utilise
+    )
+  else
     serveur = Serveur.create!(
         id: id,
         ip: ip,
