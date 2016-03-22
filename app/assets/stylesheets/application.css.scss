@@ -110,12 +110,16 @@ table.cm, table.cm th, table.cm td{
 }
 
 .port_selection { position: fixed;
-  top: 11em;
+  top: -11em;
   left: 0;
   right: 0;
   width: 300px;
   margin: 0 auto;
+  &.in{
+    top: 11em;
+  }
 }
+
 
 // Forms
 .add_fields { margin-top: 10px;}
