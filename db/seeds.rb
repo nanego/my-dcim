@@ -131,7 +131,7 @@ csv.each_with_index do |row, i|
   ##########
   ## SERVEUR
   serveur = Serveur.where(id: id).first
-  unless serveur
+  unless serveur.present?
     serveur = Serveur.create!(
         id: id,
         ip: ip,
