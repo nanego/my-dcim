@@ -1,3 +1,8 @@
+<% max_u = 38 %>
+<% max_elts = 24 %>
+<% max_rj45 = 48 %>
+<% max_fc = 12 %>
+
 <div class="row">
 
   <div class="col-xs-12">
@@ -16,15 +21,21 @@
 
               <div class="row">
 
-                <ul class="baies" style="padding: 0;" data-update-url="<%= sort_baies_path %>">
+                <ul class="baies"
+                    style="padding: 0;"
+                    data-update-url="<%= sort_baies_path %>"
+                    data-max-u='<%= max_u %>'
+                    data-max-elts='<%= max_elts %>'
+                    data-max-rj45='<%= max_rj45 %>'
+                    data-max-fc='<%= max_fc %>' >
 
                   <% baies.each_with_index do |(baie, serveurs), index| %>
                     <% sum_u = serveurs.sum { |s| s.modele.try(:u) || 0 } %>
                     <% sum_elements = serveurs.sum { |s| s.modele.try(:nb_elts) || 0 } %>
                     <% sum_rj45_futur = serveurs.sum { |s| s.try(:rj45_futur) || 0 } %>
                     <% sum_fc_futur = serveurs.sum { |s| s.try(:fc_futur) || 0 } %>
-                    <div class="baie col-sm-12 col-md-3" id="baie_<%= @salle.baies.where("baies.title = ?", baie).first.id %>">
-                      <div class="panel <%= sum_u > 38 || sum_elements > 24 || sum_rj45_futur > 48 || sum_fc_futur > 12 ? 'panel-danger' : 'panel-default' %>" style="margin: 10px;">
+                    <div class="baie col-sm-12 col-md-3" id="baie_<%= @salle.present? ? @salle.baies.where("baies.title = ?", baie).first.id : baie %>">
+                      <div class="panel <%= sum_u > max_u || sum_elements > max_elts || sum_rj45_futur > max_rj45 || sum_fc_futur > max_fc ? 'panel-danger' : 'panel-default' %>" style="margin: 10px;">
                         <div class="panel-heading">
                             <h5 class="panel-title" style="display: inline;">
                               <%= link_to "Baie #{baie}", baie_serveurs_path(baie: baie, ilot: ilot, salle: salle), style: 'text-decoration: underline;' %>
@@ -51,8 +62,15 @@
 
                               <% u_serveur = serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1 %>
 
+                              <% data = {:u => u_serveur,
+                                         :rj45_futur => serveur.try(:rj45_futur) || 0,
+                                         :fc_futur => serveur.try(:fc_futur)} %>
+
                               <% if params[:view] == 'back' %>
-                                <%= content_tag_for :li, serveur, class: "list-group-item truncate server_back", style: "min-height: #{41*(serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1)}px;" do %>
+                                <%= content_tag_for :li, serveur,
+                                                    class: "list-group-item truncate server_back",
+                                                    style: "min-height: #{41*(serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1)}px;",
+                                                    :data => data do %>
                                   <% u_serveur.times do |i| %>
                                     <span class="pull-left u_scale hide <%= u_disponibles.even? ? 'even': 'odd' %>" title="<%= u_disponibles %>" style="margin:<%= -3 + (27*(i)) %>px -15px;"><%= u_disponibles %></span>
                                     <% u_disponibles -= 1 %>
@@ -61,7 +79,10 @@
                                 <% end %>
                               <% else %>
 
-                                <%= content_tag_for :li, serveur, class: "list-group-item truncate #{serveur.modele.try(:category).try(:title).try(:parameterize)}", style: "height: #{27*u_serveur}px;background-color:#{bgModeleColor}" do %>
+                                <%= content_tag_for :li, serveur,
+                                                    class: "list-group-item truncate #{serveur.modele.try(:category).try(:title).try(:parameterize)}",
+                                                    style: "height: #{27*u_serveur}px;background-color:#{bgModeleColor}",
+                                                    :data => data do %>
                                   <% u_serveur.times do |i| %>
                                     <span class="pull-left u_scale <%= u_disponibles.even? ? 'even': 'odd' %>" title="<%= u_disponibles %>" style="margin:<%= -3 + (27*(i)) %>px -15px;"><%= u_disponibles %></span>
                                     <% u_disponibles -= 1 %>
@@ -94,21 +115,21 @@
                             <button type="button" class="btn btn-default glyphicon glyphicon-plus" data-toggle="modal" data-target=".bs-example-modal-sm"></button>
                           </span>
                           -->
-                          <span class="label <%= sum_rj45_futur > 48 ? 'label-danger' : 'label-primary' %>">&Sigma; RJ futur : <%= sum_rj45_futur %></span>
-                          <span class="label <%= sum_fc_futur > 12 ? 'label-danger' : 'label-success' %>">&Sigma; FC futur : <%= sum_fc_futur %></span>
-                          <span class="label <%= sum_u > 38 ? 'label-danger' : 'label-default' %>">&Sigma; U : <%= sum_u %></span>
+                          <span class="label <%= sum_rj45_futur > max_rj45 ? 'label-danger' : 'label-primary' %>">&Sigma; RJ futur : <%= sum_rj45_futur %></span>
+                          <span class="label <%= sum_fc_futur > max_fc ? 'label-danger' : 'label-success' %>">&Sigma; FC futur : <%= sum_fc_futur %></span>
+                          <span class="label <%= sum_u > max_u ? 'label-danger' : 'label-default' %>">&Sigma; U : <%= sum_u %></span>
                           <span class="label label-default">&Sigma; IPMI futur : <%= serveurs.map(&:ipmi_futur).compact.sum %></span>
-                          <% if sum_u > 38 %>
-                            <div style="color:red;">Somme des U supérieure à 38 !</div>
+                          <% if sum_u > max_u %>
+                            <div style="color:red;">Somme des U supérieure à <%= max_u %> !</div>
                           <% end %>
-                          <% if sum_elements > 24 %>
-                            <div style="color:red;">Somme des éléments supérieure à 24 !</div>
+                          <% if sum_elements > max_elts %>
+                            <div style="color:red;">Somme des éléments supérieure à <%= max_elts %> !</div>
                           <% end %>
-                          <% if sum_rj45_futur > 48 %>
-                            <div style="color:red;">Somme des rj45 futurs supérieure à 48 !</div>
+                          <% if sum_rj45_futur > max_rj45 %>
+                            <div style="color:red;">Somme des rj45 futurs supérieure à <%= max_rj45 %> !</div>
                           <% end %>
-                          <% if sum_fc_futur > 12 %>
-                            <div style="color:red;">Somme des fc futurs supérieure à 12 !</div>
+                          <% if sum_fc_futur > max_fc %>
+                            <div style="color:red;">Somme des fc futurs supérieure à <%= max_fc %> !</div>
                           <% end %>
                           <span class="clearfix"></span>
                         </div>
