@@ -10,7 +10,7 @@ class SallesController < ApplicationController
   def show
     @serveurs_par_baies ||= {}
 
-    @salle.serveurs.joins(:baie).order('baies.ilot ASC, baies.title ASC, position desc').each do |s|
+    @salle.serveurs.joins(:baie).order('baies.ilot ASC, baies.position ASC, position desc').each do |s|
       ilot = (s.baie.try(:ilot).present? ? s.baie.ilot.to_s : "non précisé")
       baie = (s.baie.title.present? ? s.baie.title.to_s : "non précisée")
       @serveurs_par_baies[ilot] ||= {}

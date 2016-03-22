@@ -3,7 +3,11 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery ->
-  $('.baie').sortable(
+  $('.baies').sortable(
+    update: (event, ui) ->
+      $.post($(this).data('update-url'), $(this).sortable('serialize'))
+  );
+  $('.servers').sortable(
     # axis: 'y'
     # handle: '.handle'
     connectWith: ".connectedBaies"

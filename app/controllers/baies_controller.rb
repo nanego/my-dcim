@@ -16,6 +16,13 @@ class BaiesController < ApplicationController
     end
   end
 
+  def sort
+    params[:baie].each_with_index do |id, index|
+      Baie.where(id: id).update_all(position: index+1)
+    end if params[:baie].present?
+    render nothing: true
+  end
+
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
