@@ -3,42 +3,52 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery ->
-  $('.baies').sortable(
-    update: (event, ui) ->
-      $.post($(this).data('update-url'), $(this).sortable('serialize'))
-  );
-  source_connected_list = source_baie = undefined
-  $('.servers').sortable(
-    # axis: 'y'
-    # handle: '.handle'
-    connectWith: ".connectedBaies"
-    start: (event, ui) ->
-      source_connected_list = ui.item.parent()
-      source_baie = ui.item.closest('.baie')
-    stop: (event, ui) ->
-      if source_connected_list
-        update_u_scale(source_connected_list)
-      update_u_scale(ui.item.parent())
-      # Update alerts if above limit max
-      if source_baie
-        update_warning_messages(source_baie)
-      update_warning_messages(ui.item.closest('.baie'))
-    update: ->
-      # Take in account last change
-      count = $(this).find('span.u_scale').length
-      $(this).find('span.u_scale').map(->
-        $(this).html "#{count}"
-        count = count - 1;
-      )
-      # Get positions in U
-      positions = []
-      $(this).find('li.serveur').map(->
-        if ( $(this).attr("id")!=undefined && $(this).find('span.u_scale')[0]!=undefined )
-          positions.push($(this).find('span.u_scale')[0].innerText)
-      )
-      # Update db data
-      $.post($(this).data('update-url'), $(this).sortable('serialize') + '&salle=' +  $(this).data('salle') + '&ilot=' +  $(this).data('ilot') + '&baie=' +  $(this).data('baie') + '&positions=' + positions)
-  );
+  drag_n_drop_activated = false
+  $('#drag-n-drop-switcher').on "click", ->
+    if drag_n_drop_activated
+      drag_n_drop_activated = false
+      $('#drag-n-drop-switcher').html "<span class='glyphicon glyphicon-move' aria-hidden='true'></span> Activer le drag'n drop"
+      $('.baies').sortable('destroy')
+      $('.servers').sortable('destroy')
+    else
+      drag_n_drop_activated = true
+      $('#drag-n-drop-switcher').html "<span class='glyphicon glyphicon-move' aria-hidden='true'></span> Le drag'n drop est activé !"
+      $('.baies').sortable(
+        update: (event, ui) ->
+          $.post($(this).data('update-url'), $(this).sortable('serialize'))
+      );
+      source_connected_list = source_baie = undefined
+      $('.servers').sortable(
+        # axis: 'y'
+        # handle: '.handle'
+        connectWith: ".connectedBaies"
+        start: (event, ui) ->
+          source_connected_list = ui.item.parent()
+          source_baie = ui.item.closest('.baie')
+        stop: (event, ui) ->
+          if source_connected_list
+            update_u_scale(source_connected_list)
+          update_u_scale(ui.item.parent())
+          # Update alerts if above limit max
+          if source_baie
+            update_warning_messages(source_baie)
+          update_warning_messages(ui.item.closest('.baie'))
+        update: ->
+          # Take in account last change
+          count = $(this).find('span.u_scale').length
+          $(this).find('span.u_scale').map(->
+            $(this).html "#{count}"
+            count = count - 1;
+          )
+          # Get positions in U
+          positions = []
+          $(this).find('li.serveur').map(->
+            if ( $(this).attr("id")!=undefined && $(this).find('span.u_scale')[0]!=undefined )
+              positions.push($(this).find('span.u_scale')[0].innerText)
+          )
+          # Update db data
+          $.post($(this).data('update-url'), $(this).sortable('serialize') + '&salle=' +  $(this).data('salle') + '&ilot=' +  $(this).data('ilot') + '&baie=' +  $(this).data('baie') + '&positions=' + positions)
+      );
   update_u_scale = (list) ->
     count = list.find('span.u_scale').length
     list.find('span.u_scale').map(->
@@ -126,3 +136,4 @@ jQuery ->
     $(this).addClass 'hover'
   ), ->
     $(this).removeClass 'hover'
+

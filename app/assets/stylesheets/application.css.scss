@@ -33,7 +33,8 @@ a.hide-filters, a.show-filters{
   text-decoration: underline;
 }
 
-.baie .serveur { color: #777; cursor: move; }
+.baie .serveur { color: #777; }
+.baie .serveur.ui-sortable-handle { cursor: move; }
 .baie .serveur a { color: #333; }
 .baie li.serveur.list-group-item {
   padding: 3px 15px;

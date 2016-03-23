@@ -1,14 +1,20 @@
 <div class="container-fluid">
 
   <span class="pull-right">
-    <%= link_to salle_path(@salle, :view => params[:view]=='back' ? :front : :back), class: 'btn btn-warning' do %>
+    <!-- Vues AVANT / ARRIERE -->
+    <%= link_to salle_path(@salle, :view => params[:view]=='back' ? :front : :back), class: 'btn btn-success' do %>
       <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
       <%= (params[:view]=='back' ? 'Vue avant' : 'Vue arrière') %>
     <% end %>
+    <%= link_to "#", class: 'btn btn-warning', id: 'drag-n-drop-switcher' do %>
+      <span class="glyphicon glyphicon-move" aria-hidden="true"></span>
+      Activer le drag'n drop
+    <% end %>
     <% if params[:view]=='back' %>
+      <!-- Vue AVEC OU SANS LES CONNEXIONS -->
       <%= link_to "Masquer les connexions", '#', id: 'hide_or_show_connections', class: 'btn btn-default' %>
     <% else %>
-
+      <!-- Choix de la couleur de fond des serveurs -->
       <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Couleur de fond <span class="caret"></span>
@@ -18,7 +24,6 @@
           <li><%= link_to 'Phase', salle_path(@salle, :view => 'front', bg: 'phase') %></li>
         </ul>
       </div>
-
     <% end %>
   </span>
 
@@ -33,8 +38,7 @@
             <%= salle.title %>
             <% else %>
             <%= link_to salle.title, salle_path(salle) %>
-            <% end %>
-
+          <% end %>
         </li>
       <% end %>
     <% end %>

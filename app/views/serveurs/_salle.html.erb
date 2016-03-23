@@ -101,8 +101,10 @@
                                     <span class="pull-left"><%= link_to h("#{serveur.nom}"), serveur %></span>
                                   <% else %>
                                     <span class="pull-left" style="padding-left: 14px;"><%= link_to h("#{serveur.nom}"), serveur %></span>
-                                    <span class="badge <%= serveur.rj45_futur.to_i > 0 ? 'alert-info' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= serveur.rj45_futur.to_i > 0 ? serveur.rj45_futur : '' %></span>
-                                    <span class="badge <%= serveur.fc_futur.to_i > 0 ? 'alert-success' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= serveur.fc_futur.to_i > 0 ? serveur.fc_futur : '' %></span>
+                                    <% if serveur.rj45_futur.to_i > 0 || serveur.fc_futur.to_i > 0 %>
+                                      <span class="badge <%= serveur.rj45_futur.to_i > 0 ? 'alert-info' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= serveur.rj45_futur.to_i > 0 ? serveur.rj45_futur : '' %></span>
+                                      <span class="badge <%= serveur.fc_futur.to_i > 0 ? 'alert-success' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= serveur.fc_futur.to_i > 0 ? serveur.fc_futur : '' %></span>
+                                    <% end %>
                                     <span class="pull-right" style="margin-right: 6px;"><em><%= serveur.modele.try(:title) %></em></span>
                                   <% end %>
                                 <% end %>
@@ -126,8 +128,8 @@
                             <button type="button" class="btn btn-default glyphicon glyphicon-plus" data-toggle="modal" data-target=".bs-example-modal-sm"></button>
                           </span>
                           -->
-                          <span class="rj45 label label-primary <%= sum_rj45_futur > max_rj45 ? 'label-danger' : '' %>">&Sigma; RJ futur : <%= sum_rj45_futur %></span>
                           <span class="fc label label-success <%= sum_fc_futur > max_fc ? 'label-danger' : '' %>">&Sigma; FC futur : <%= sum_fc_futur %></span>
+                          <span class="rj45 label label-primary <%= sum_rj45_futur > max_rj45 ? 'label-danger' : '' %>">&Sigma; RJ futur : <%= sum_rj45_futur %></span>
                           <span class="u label label-default <%= sum_u > max_u ? 'label-danger' : '' %>">&Sigma; U : <%= sum_u %></span>
                           <span class="ipmi label label-default">&Sigma; IPMI futur : <%= serveurs.map(&:ipmi_futur).compact.sum %></span>
                           <span class="warning-messages">
