@@ -7,6 +7,11 @@
     <% end %>
     <% if params[:view]=='back' %>
       <%= link_to "Masquer les connexions", '#', id: 'hide_or_show_connections', class: 'btn btn-default' %>
+    <% else %>
+      <%= link_to salle_path(@salle, :view => 'front', bg: (params['bg']=='modele' ? 'phase' : 'modele')), class: 'btn btn-default' do %>
+        <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
+        <%= (params['bg']=='modele' ? 'Voir la phase' : 'Voir le modèle') %>
+      <% end %>
     <% end %>
   </span>
 

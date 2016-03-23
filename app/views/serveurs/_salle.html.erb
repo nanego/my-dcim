@@ -58,7 +58,11 @@
                                 <% u_disponibles -= 1 %>
                               <% end %>
 
-                              <% bgModeleColor = serveur.modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(serveur.modele.try(:title) || 'test')[0..5]}", 0.4) %>
+                              <% if params['bg']=='phase' %>
+                                <% bgModeleColor = lighten_color("##{Digest::MD5.hexdigest(serveur.phase.to_s || 'test')[0..5]}", 0.4) %>
+                              <% else %>
+                                <% bgModeleColor = serveur.modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(serveur.modele.try(:title) || 'test')[0..5]}", 0.4) %>
+                              <% end %>
 
                               <% u_serveur = serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1 %>
 
