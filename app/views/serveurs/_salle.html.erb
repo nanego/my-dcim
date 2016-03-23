@@ -34,7 +34,7 @@
                     <% sum_elements = serveurs.sum { |s| s.modele.try(:nb_elts) || 0 } %>
                     <% sum_rj45_futur = serveurs.sum { |s| s.try(:rj45_futur) || 0 } %>
                     <% sum_fc_futur = serveurs.sum { |s| s.try(:fc_futur) || 0 } %>
-                    <% baie_id = @salle.present? ? @salle.baies.where("baies.title = ?", baie).first.try(:id) : baie %>
+                    <% baie_id = @salle.present? ? @salle.baies.where("baies.title = ? AND baies.ilot = ?", baie, ilot).first.try(:id) : baie %>
                     <div class="baie col-sm-12 col-md-3" id="baie_<%= baie_id %>">
                       <div class="panel <%= sum_u > max_u || sum_elements > max_elts || sum_rj45_futur > max_rj45 || sum_fc_futur > max_fc ? 'panel-danger' : 'panel-default' %>" style="margin: 10px;">
                         <div class="panel-heading">
