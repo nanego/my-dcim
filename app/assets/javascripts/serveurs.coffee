@@ -125,3 +125,8 @@ jQuery ->
       $(".connector").show()
       $('#hide_or_show_connections').html 'Masquer les connexions'
     event.preventDefault();
+
+  $('.serveur').hover (->
+    $(this).addClass 'hover'
+  ), ->
+    $(this).removeClass 'hover'

@@ -132,6 +132,7 @@ csv.each_with_index do |row, i|
   ## SERVEUR
   serveur = Serveur.where(id: id).first
   if serveur.present?
+=begin
     serveur.update_attributes(
         ip: ip,
         hostname: hostname,
@@ -168,6 +169,7 @@ csv.each_with_index do |row, i|
         ipmi_futur: ipmi_futur,
         ipmi_utilise: ipmi_utilise
     )
+=end
   else
     serveur = Serveur.create!(
         id: id,

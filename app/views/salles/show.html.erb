@@ -5,7 +5,9 @@
       <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
       <%= (params[:view]=='back' ? 'Vue avant' : 'Vue arrière') %>
     <% end %>
-    <%= link_to "Masquer les connexions", '#', id: 'hide_or_show_connections', class: 'btn btn-default' %>
+    <% if params[:view]=='back' %>
+      <%= link_to "Masquer les connexions", '#', id: 'hide_or_show_connections', class: 'btn btn-default' %>
+    <% end %>
   </span>
 
   <h1>Vue par salle</h1>

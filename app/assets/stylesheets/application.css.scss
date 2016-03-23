@@ -120,6 +120,13 @@ table.cm, table.cm th, table.cm td{
   }
 }
 
+.show-on-mouseover{
+  display: none;
+}
+.serveur.hover .show-on-mouseover{
+  display: inline;
+}
+
 
 // Forms
 .add_fields { margin-top: 10px;}

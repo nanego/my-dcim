@@ -93,6 +93,8 @@
                                   <% else %>
                                     <span class="pull-left" style="padding-left: 14px;"><%= link_to h("#{serveur.nom}"), serveur %></span>
                                     <span class="pull-right"><em><%= serveur.modele.try(:title) %></em></span>
+                                    <span class="badge alert-success show-on-mouseover"><%= serveur.fc_futur %></span>
+                                    <span class="badge alert-info show-on-mouseover"><%= serveur.rj45_futur %></span>
                                   <% end %>
                                 <% end %>
 

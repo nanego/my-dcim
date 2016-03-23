@@ -13,17 +13,18 @@
 <p><%= link_to "<< Baie #{@serveur.baie.try(:title)}", baie_serveurs_path(baie: @serveur.baie.title, ilot: @serveur.baie.ilot, salle: @serveur.salle.title), class: 'btn btn-default', style: 'text-decoration: underline;' %></p>
 
 <div class="detailed_server">
-<% case @serveur.modele.category_id %>
-<% when Category.find_by_title('Blank Panel').id %>
-  <%= render 'draw_blank_panel', serveur: @serveur %>
-<% when Category.find_by_title('Patch Panel').id %>
-  <%= render 'draw_patch_panel', serveur: @serveur %>
-<% else %>
-  <div class="detailed_server">
-    <%= render 'draw_server', serveur: @serveur %>
-    <span class="clearfix"></span>
-  </div>
-<% end %>
+  <% case @serveur.modele.category_id %>
+  <% when Category.find_by_title('Blank Panel').id %>
+    <%= render 'draw_blank_panel', serveur: @serveur %>
+  <% when Category.find_by_title('Patch Panel').id %>
+    <%= render 'draw_patch_panel', serveur: @serveur %>
+  <% else %>
+    <div class="detailed_server">
+      <%= render 'draw_server', serveur: @serveur %>
+      <span class="clearfix"></span>
+    </div>
+  <% end %>
+</div>
 
 
 <dl class="dl-horizontal">
