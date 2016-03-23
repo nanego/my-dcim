@@ -96,8 +96,8 @@
                                     <span class="pull-left"><%= link_to h("#{serveur.nom}"), serveur %></span>
                                   <% else %>
                                     <span class="pull-left" style="padding-left: 14px;"><%= link_to h("#{serveur.nom}"), serveur %></span>
-                                    <span class="badge alert-success"><%= serveur.fc_futur %></span>
-                                    <span class="badge alert-info"><%= serveur.rj45_futur %></span>
+                                    <span class="badge <%= serveur.rj45_futur.to_i > 0 ? 'alert-info' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= serveur.rj45_futur.to_i > 0 ? serveur.rj45_futur : '' %></span>
+                                    <span class="badge <%= serveur.fc_futur.to_i > 0 ? 'alert-success' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= serveur.fc_futur.to_i > 0 ? serveur.fc_futur : '' %></span>
                                     <span class="pull-right" style="margin-right: 6px;"><em><%= serveur.modele.try(:title) %></em></span>
                                   <% end %>
                                 <% end %>

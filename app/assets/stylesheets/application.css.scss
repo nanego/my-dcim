@@ -127,6 +127,10 @@ table.cm, table.cm th, table.cm td{
   display: inline;
 }
 
+.alert-transparent {
+  background-color: transparent;
+  border-color: transparent;
+}
 
 // Forms
 .add_fields { margin-top: 10px;}
