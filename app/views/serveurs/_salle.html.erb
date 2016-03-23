@@ -39,9 +39,9 @@
                       <div class="panel <%= sum_u > max_u || sum_elements > max_elts || sum_rj45_futur > max_rj45 || sum_fc_futur > max_fc ? 'panel-danger' : 'panel-default' %>" style="margin: 10px;">
                         <div class="panel-heading">
                             <h5 class="panel-title" style="display: inline;">
-                              <%= link_to "Baie #{baie}", baie_serveurs_path(baie: baie, ilot: ilot, salle: salle), style: 'text-decoration: underline;' %>
+                              <%= link_to "#{baie}", baie_serveurs_path(baie: baie, ilot: ilot, salle: salle), style: 'text-decoration: underline;' %>
                             </h5>
-                            <%= link_to "modifier", edit_baie_path(serveurs.first.baie) %>
+                            <%= link_to "modifier", edit_baie_path(serveurs.first.baie), class: 'pull-right' %>
                         </div>
                         <ul class='servers connectedBaies list-group'
                             data-salle="<%= salle %>"
