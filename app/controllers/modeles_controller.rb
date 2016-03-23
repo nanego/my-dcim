@@ -6,6 +6,7 @@ class ModelesController < ApplicationController
 
   def index
     @modeles = Modele.order(:title)
+    @types = @modeles.group_by { |m| m.category.title }.sort_by { |categorie, modeles| categorie.to_s }
   end
 
   def show

@@ -16,25 +16,22 @@
         <h1>Modèles de serveur</h1>
       </div>
 
-      <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover">
-          <thead>
-          <tr>
-            <th>Title</th>
-            <th></th>
-            <th></th>
-          </tr>
-          </thead>
+      <% @types.each do |category, modeles| %>
+        <h4><%= category %></h4>
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered table-hover">
+            <tbody>
+            <%= content_tag_for(:tr, modeles) do |modele| %>
+              <% bgModeleColor = modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(modele.try(:title) || 'test')[0..5]}", 0.4) %>
+              <td style="background-color:<%= bgModeleColor %>"><%= modele.title %></td>
+              <td><%= link_to 'Modifier', edit_modele_path(modele) %></td>
+              <td><%= link_to 'Supprimer', modele, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
 
-          <tbody>
-          <%= content_tag_for(:tr, @modeles) do |modele| %>
-            <td><%= modele.title %></td>
-            <td><%= link_to 'Modifier', edit_modele_path(modele) %></td>
-            <td><%= link_to 'Supprimer', modele, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <% end %>
-          </tbody>
-        </table>
-      </div>
+      <% end %>
 
     </div>
 
