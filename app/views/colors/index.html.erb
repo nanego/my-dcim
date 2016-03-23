@@ -1,0 +1,49 @@
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-md-3">
+      <%= render 'pages/params_menu' %>
+    </div>
+
+    <div class="col-md-9">
+
+      <div class="page-header">
+        <%= link_to new_color_path, class: 'btn btn-primary' do %>
+          <span class="glyphicon glyphicon-plus"></span>
+          Ajouter une couleur
+        <% end %>
+        <h1>Couleurs</h1>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+          <thead>
+          <tr>
+            <th></th>
+            <th>Type</th>
+            <th>Id</th>
+            <th>Code</th>
+            <th></th>
+            <th></th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <%= content_tag_for(:tr, @colors) do |color| %>
+            <td style="background-color: <%= color.code %>;"></td>
+            <td><%= color.parent_type %></td>
+            <td><%= color.parent_id %></td>
+            <td><%= color.code %></td>
+            <td><%= link_to 'Modifier', edit_color_path(color) %></td>
+            <td><%= link_to 'Supprimer', color, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

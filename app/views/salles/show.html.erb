@@ -8,10 +8,17 @@
     <% if params[:view]=='back' %>
       <%= link_to "Masquer les connexions", '#', id: 'hide_or_show_connections', class: 'btn btn-default' %>
     <% else %>
-      <%= link_to salle_path(@salle, :view => 'front', bg: (params['bg']!='phase' ? 'phase' : 'modele')), class: 'btn btn-default' do %>
-        <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
-        <%= (params['bg']!='phase' ? 'Voir la phase' : 'Voir le modèle') %>
-      <% end %>
+
+      <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Couleur de fond <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><%= link_to 'Modèle', salle_path(@salle, :view => 'front', bg: 'modele') %></li>
+          <li><%= link_to 'Phase', salle_path(@salle, :view => 'front', bg: 'phase') %></li>
+        </ul>
+      </div>
+
     <% end %>
   </span>
 
