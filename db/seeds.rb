@@ -90,6 +90,13 @@ csv.each_with_index do |row, i|
   etat_conf_reseau = row[54]
   action_conf_reseau = row[55]
 
+  ipmi_futur_bis = row[56]
+  rj_futur_bis = row[57]
+  rj_a_brancher = row[58]
+  couleur_cable = row[59]
+  confswitch = row[60]
+
+
   #########
   ## MODELE
   modele = Modele.find_or_create_by!(title: row[4],
@@ -127,6 +134,7 @@ csv.each_with_index do |row, i|
                      type_composant: type_composant_slot
     )
   end unless modele.composants.to_a.reject!{|c| c.type_composant != type_composant_slot}.present?
+
 
   ##########
   ## SERVEUR
@@ -250,6 +258,56 @@ csv.each_with_index do |row, i|
       end
     end
   end
+
+  rjs_a_brancher = rj_a_brancher.split(';') if rj_a_brancher.present?
+  couleurs = couleur_cable.split(';')  if couleur_cable.present?
+  confs = confswitch.split(';') if confswitch.present?
+
+  rjs_a_brancher.each_with_index do |type_port, index|
+    type_port = type_port.gsub(/[[:space:]]+/, "")
+
+    case type_port
+      when 'ipmi'
+        composant = Composant.find_or_create_by!(modele: modele,
+                                                 type_composant: type_composant_ipmi,
+                                                 position: 1)
+        # card = Card.find_or_create_by!(name: "1IPMI", port_type: PortType.find_by_name('IPMI'), port_quantity: 1)
+        cards_serveurs = CardsServeur.find_or_create_by!(serveur: serveur, composant: composant)
+        port = Port.find_or_create_by!(position: 1,
+                                       parent_type: CardsServeur.name,
+                                       parent_id: cards_serveurs.id,
+                                       vlans: confs ? confs[index] : nil,
+                                       color: couleurs ? couleurs[index] : nil
+        )
+      when /^cm/
+        position = type_port[2]
+        composant = Composant.find_or_create_by!(modele: modele,
+                                                 type_composant: type_composant_cm,
+                                                 position: position)
+        # card = Card.find_or_create_by!(name: "1IPMI", port_type: PortType.find_by_name('IPMI'), port_quantity: 1)
+        cards_serveurs = CardsServeur.find_or_create_by!(serveur: serveur, composant: composant)
+        port = Port.find_or_create_by!(position: 1,
+                                       parent_type: CardsServeur.name,
+                                       parent_id: cards_serveurs.id,
+                                       vlans: confs ? confs[index] : nil,
+                                       color: couleurs ? couleurs[index] : nil
+        )
+      when /^slot/
+        position_slot = type_port[4]
+        position_port_in_slot = type_port[6]
+        composant = Composant.find_or_create_by!(modele: modele,
+                                                 type_composant: type_composant_slot,
+                                                 position: position_slot)
+        cards_serveurs = CardsServeur.find_or_create_by!(serveur: serveur, composant: composant)
+        port = Port.find_or_create_by!(position: position_port_in_slot,
+                                       parent_type: CardsServeur.name,
+                                       parent_id: cards_serveurs.id,
+                                       vlans: confs ? confs[index] : nil,
+                                       color: couleurs ? couleurs[index] : nil
+        )
+    end
+
+  end if rjs_a_brancher.present?
 
 end
 

@@ -1,4 +1,5 @@
 <% if serveur.modele.present? %>
+
   <div class="pull-right">
     <% slots_sur_modele = serveur.modele.composants.where(type_composant_id: 4) %>
     <table class="slots">
@@ -13,7 +14,7 @@
           <td>
             <% serveur.cards_serveurs.where(:composant_id => slot.id).each do |card_serveur| %>
               <span data-server-name="<%= serveur.nom %>" data-server-id="<%= serveur.id %>" data-composant-id="<%= card_serveur.id %>" data-composant-type="<%= card_serveur.class %>">
-                <%= render 'serveurs/card_ports', port_type: card_serveur.card.port_type, port_quantity: card_serveur.card.port_quantity, alignment: 'vertical' %>
+                <%= render 'serveurs/card_ports', port_type: card_serveur.card.try(:port_type), port_quantity: card_serveur.card.try(:port_quantity), alignment: 'vertical', ports_data: Port.where(parent: card_serveur) %>
               </span>
             <% end %>
           </td>
@@ -32,7 +33,7 @@
       <tr>
         <td>
           <span data-server-name="<%= serveur.nom %>" data-server-id="<%= serveur.id %>" data-composant-id="<%= serveur.id %>" data-composant-type="<%= 'CM' %>">
-            <%= render 'serveurs/card_ports', port_type: PortType.find_by_name('RJ'), port_quantity: serveur.modele.composants.where(type_composant_id: 3).count, alignment: 'vertical' %>
+            <%= render 'serveurs/card_ports', port_type: PortType.find_by_name('RJ'), port_quantity: serveur.modele.composants.where(type_composant_id: 3).count, alignment: 'vertical', ports_data: Port.where(parent: serveur.cards_serveurs.joins(:composant => :type_composant).where('type_composants.title = ?', 'CM')) %>
           </span>
         </td>
       </tr>
@@ -43,7 +44,7 @@
   <% if serveur.modele.composants.where(type_composant_id: 2).count > 0 %>
     <div class="pull-right">
       <span data-server-name="<%= serveur.nom %>" data-server-id="<%= serveur.id %>" data-composant-id="<%= serveur.id %>" data-composant-type="<%= 'IPMI' %>">
-        <%= render 'serveurs/card_ports', port_type: PortType.find_by_name('IPMI'), port_quantity: 1, alignment: 'vertical' %>
+        <%= render 'serveurs/card_ports', port_type: PortType.find_by_name('IPMI'), port_quantity: 1, alignment: 'vertical', ports_data: Port.where(parent: serveur.cards_serveurs.joins(:composant => :type_composant).where('type_composants.title = ?', 'IPMI')) %>
       </span>
     </div>
   <% end %>

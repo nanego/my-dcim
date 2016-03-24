@@ -3,6 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery ->
+  $('[data-toggle="tooltip"]').tooltip()
+
   drag_n_drop_activated = false
   $('#drag-n-drop-switcher').on "click", ->
     if drag_n_drop_activated
