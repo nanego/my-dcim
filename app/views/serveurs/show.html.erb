@@ -59,7 +59,7 @@
   <dd><%= @serveur.conso %></dd>
 
   <dt>Cluster:</dt>
-  <dd><%= @serveur.cluster.title %></dd>
+  <dd><%= @serveur.cluster.try(:title) %></dd>
 
   <dt>Critique:</dt>
   <dd><%= @serveur.critique %></dd>
