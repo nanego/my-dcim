@@ -114,7 +114,7 @@
 
   <dt>Cartes :</dt>
   <% @serveur.cards_serveurs.each do |card_serveur| %>
-    <dd>Slot <%= card_serveur.composant.position %> : <%= "#{card_serveur.card.name} (#{card_serveur.card.port_quantity}#{card_serveur.card.port_type.name})" %></dd>
+    <dd>Slot <%= card_serveur.composant.position %> : <%= "#{card_serveur.card.try(:name)} (#{card_serveur.card.try(:port_quantity)}#{card_serveur.card.try(:port_type).try(:name)})" %></dd>
   <% end %>
 
   <dd><%=
