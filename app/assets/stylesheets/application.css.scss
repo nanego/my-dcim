@@ -61,13 +61,13 @@ table.cm, table.cm th, table.cm td{
   cursor: pointer;
   position: relative;
   &.R{
-    background-color: red;
+    background-color: red !important;
   }
   &.G{
-    background-color: #DDDDDD;
+    background-color: #DDDDDD !important;;
   }
   &.V{
-    background-color: green;
+    background-color: green !important;;
   }
 }
 .portRJ {
@@ -121,10 +121,10 @@ table.cm, table.cm th, table.cm td{
   padding: 3px 1px;
   margin:-3px -15px;
   &.even{
-    background-color:#E9E9E9;  // '#E9E9E9'
+    background-color:#E9E9E9 !important;;  // '#E9E9E9'
   }
   &.odd{
-    background-color:#D0D0D0; //  '#D0D0D0'
+    background-color:#D0D0D0 !important;; //  '#D0D0D0'
   }
 }
 
@@ -147,7 +147,7 @@ table.cm, table.cm th, table.cm td{
 }
 
 .alert-transparent {
-  background-color: transparent;
+  background-color: transparent !important;;
   border-color: transparent;
   padding: 0;
   margin-top: -10px;

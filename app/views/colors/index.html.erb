@@ -31,7 +31,7 @@
 
           <tbody>
           <%= content_tag_for(:tr, @colors) do |color| %>
-            <td style="background-color: <%= color.code %>;"></td>
+            <td style="background-color: <%= color.code %> !important;"></td>
             <td><%= color.parent_type %></td>
             <td><%= color.parent_id %></td>
             <td><%= color.code %></td>
