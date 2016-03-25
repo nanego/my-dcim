@@ -15,7 +15,17 @@ class BaiesController < ApplicationController
       @serveurs_par_baies[ilot][baie] << s
     end
 
-    render 'salles/show'
+    respond_to do |format|
+      format.html do
+        render 'salles/show'
+      end
+      format.pdf do
+        render layout: 'pdf.html',
+               template: "salles/show.html.erb",
+               show_as_html: params[:debug].present?,
+               pdf: 'baie'
+      end
+    end
   end
 
   def edit
