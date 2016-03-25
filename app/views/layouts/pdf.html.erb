@@ -13,6 +13,11 @@
   <%= csrf_meta_tags %>
 
   <style>
+    @media print {
+      a[href]:after {
+        content: none !important;
+      }
+    }
     body {
       padding-top: 0;
     }
