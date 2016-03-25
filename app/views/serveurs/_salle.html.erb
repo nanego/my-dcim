@@ -44,6 +44,7 @@
                           <% if formats != [:pdf] %>
                           <% if controller_name=='baies' %>
                             <%= link_to "Imprimer", baie_path(serveurs.first.baie, format: :pdf, debug: 1, bg: params[:bg]), class: 'btn btn-primary pull-right' %>
+                              <%= link_to "PDF", baie_path(serveurs.first.baie, format: :pdf, bg: params[:bg]), class: 'btn btn-primary pull-right' %>
                           <% end %>
                           <%= link_to "modifier", edit_baie_path(serveurs.first.baie), class: 'btn btn-default pull-right' %>
                           <% end %>
@@ -108,8 +109,8 @@
                                   <% else %>
                                     <span class="pull-left" style="padding-left: 14px;"><%= link_to h("#{serveur.nom}"), serveur %></span>
                                     <% if serveur.rj45_futur.to_i > 0 || serveur.fc_futur.to_i > 0 || serveur.ipmi_futur.to_i > 0 %>
-                                      <span class="badge <%= serveur.rj45_futur.to_i > 0 ? 'alert-info' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= serveur.rj45_futur.to_i > 0 ? serveur.rj45_futur : '' %></span>
-                                      <span class="badge <%= serveur.ipmi_futur.to_i > 0 ? 'alert-default' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= serveur.ipmi_futur.to_i > 0 ? serveur.ipmi_futur : '' %></span>
+                                      <span class="badge badgeRJ45 <%= serveur.rj45_futur.to_i > 0 ? 'alert-info' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= serveur.rj45_futur.to_i > 0 ? serveur.rj45_futur : '' %></span>
+                                      <span class="badge badgeRJ45 <%= serveur.ipmi_futur.to_i > 0 ? 'alert-default' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= serveur.ipmi_futur.to_i > 0 ? serveur.ipmi_futur : '' %></span>
                                       <span class="badge <%= serveur.fc_futur.to_i > 0 ? 'alert-success' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= serveur.fc_futur.to_i > 0 ? serveur.fc_futur : '' %></span>
                                     <% end %>
                                     <span class="pull-right" style="margin-right: 6px;"><em><%= serveur.modele.try(:title) %></em></span>

@@ -43,6 +43,9 @@ a.hide-filters, a.show-filters{
 .baie li.serveur.list-group-item {
   padding: 3px 15px;
 }
+.badge.badgeRJ45 {
+  border-radius: 0;
+}
 table.slots, table.cm, table.ipmi {
   margin-left: 8px;
   cursor: default;
