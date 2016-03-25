@@ -5,6 +5,10 @@
   <title><%= content_for?(:title) ? yield(:title) : "Inventaire #{Rails.env.development? ? '(dev)' : 'déménagement'}" %></title>
   <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Demenagement" %>">
   <%= stylesheet_link_tag 'application', media: 'all' %>
+
+  <%= wicked_pdf_stylesheet_link_tag "application" -%>
+  <%= wicked_pdf_javascript_include_tag "application" %>
+
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>

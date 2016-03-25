@@ -21,7 +21,7 @@ class BaiesController < ApplicationController
       end
       format.pdf do
         render layout: 'pdf.html',
-               template: "salles/show.html.erb",
+               template: "salles/show.pdf.erb",
                show_as_html: params[:debug].present?,
                pdf: 'baie'
       end
