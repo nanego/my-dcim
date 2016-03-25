@@ -12,7 +12,7 @@
         <% slots_sur_modele.each do |slot| %>
           <td>
             <% serveur.cards_serveurs.where(:composant_id => slot.id).each do |card_serveur| %>
-              <%= render 'serveurs/card_ports', port_type: card_serveur.card.port_type, port_quantity: card_serveur.card.port_quantity, alignment: 'vertical' %>
+              <%= render 'serveurs/card_ports', port_type: card_serveur.card.port_type, port_quantity: card_serveur.card.port_quantity, alignment: 'vertical', ports_data: Port.where(parent: card_serveur) %>
             <% end %>
           </td>
         <% end %>
@@ -29,7 +29,7 @@
       <tbody>
       <tr>
         <td>
-          <%= render 'serveurs/card_ports', port_type: PortType.find_by_name('RJ'), port_quantity: serveur.modele.composants.where(type_composant_id: 3).count, alignment: 'vertical' %>
+          <%= render 'serveurs/card_ports', port_type: PortType.find_by_name('RJ'), port_quantity: serveur.modele.composants.where(type_composant_id: 3).count, alignment: 'vertical', ports_data: Port.where(parent: serveur.cards_serveurs.joins(:composant => :type_composant).where('type_composants.title = ?', 'CM')) %>
         </td>
       </tr>
       </tbody>
@@ -38,7 +38,7 @@
 
   <% if serveur.modele.composants.where(type_composant_id: 2).count > 0 %>
     <div class="pull-right">
-      <%= render 'serveurs/card_ports', port_type: PortType.find_by_name('IPMI'), port_quantity: 1, alignment: 'vertical' %>
+      <%= render 'serveurs/card_ports', port_type: PortType.find_by_name('IPMI'), port_quantity: 1, alignment: 'vertical', ports_data: Port.where(parent: serveur.cards_serveurs.joins(:composant => :type_composant).where('type_composants.title = ?', 'IPMI')) %>
     </div>
   <% end %>
 <% end %>
