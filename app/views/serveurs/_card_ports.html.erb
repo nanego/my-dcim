@@ -8,7 +8,7 @@
     <i class="port portRJ <%= port_data.present? ? port_data.color : ''%>"
        data-position="<%= index+1 %>"
        data-type="RJ"
-       data-toggle="tooltip" data-placement="bottom" title="<%= port_data.present? ? port_data.vlans : '' %>">
+       data-toggle="tooltip" data-placement="top" title="<%= port_data.present? ? port_data.vlans : '' %>">
     </i>
 
   <% when PortType.find_by_name('FC') %>
@@ -16,7 +16,7 @@
     <i class="port portFC <%= port_data.present? ? port_data.color : ''%>"
        data-position="<%= index+1 %>"
        data-type="FC"
-       data-toggle="tooltip" data-placement="bottom" title="<%= port_data.present? ? port_data.vlans : '' %>">
+       data-toggle="tooltip" data-placement="top" title="<%= port_data.present? ? port_data.vlans : '' %>">
     </i>
 
   <% else %>
@@ -24,7 +24,7 @@
     <i class="port portSCSI <%= port_data.present? ? port_data.color : ''%>"
        data-position="<%= index+1 %>"
        data-type="<%= port_type.try(:name) %>"
-       data-toggle="tooltip" data-placement="bottom" title="<%= port_data.present? ? port_data.vlans : '' %>">
+       data-toggle="tooltip" data-placement="top" title="<%= port_data.present? ? port_data.vlans : '' %>">
       <%= port_type.try(:name) %>
     </i>
 
