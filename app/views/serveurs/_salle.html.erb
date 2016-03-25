@@ -8,7 +8,9 @@
   <div class="col-xs-12">
 
     <div class="panel panel-default" id="<%= salle.try(:parameterize).try(:underscore) %>">
-      <div class="panel-heading"><h3>Salle <%= salle %></h3></div>
+      <% if formats!=[:pdf] %>
+        <div class="panel-heading"><h3>Salle <%= salle %></h3></div>
+      <% end %>
 
       <% ilots.each do |ilot, baies| %>
 
