@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :baies, only: [:edit, :update] do
+  resources :baies, only: [:edit, :update, :show] do
     collection do
       post :sort
     end

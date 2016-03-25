@@ -1,4 +1,23 @@
 class BaiesController < ApplicationController
+
+  def show
+    @baie = Baie.find(params[:id])
+    @salle = @baie.salle
+    @serveurs_par_baies ||= {}
+
+    Serveur.joins(:baie)
+        .where(baie: @baie)
+        .order('baies.ilot ASC, baies.position ASC, serveurs.position desc, serveurs.id desc').each do |s|
+      ilot = (s.baie.try(:ilot).present? ? s.baie.ilot.to_s : "non précisé")
+      baie = (s.baie.title.present? ? s.baie.title.to_s : "non précisée")
+      @serveurs_par_baies[ilot] ||= {}
+      @serveurs_par_baies[ilot][baie] ||= []
+      @serveurs_par_baies[ilot][baie] << s
+    end
+
+    render 'salles/show'
+  end
+
   def edit
     @baie = Baie.find(params[:id])
   end

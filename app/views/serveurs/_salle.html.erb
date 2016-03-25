@@ -35,11 +35,11 @@
                     <% sum_rj45_futur = serveurs.sum { |s| s.try(:rj45_futur) || 0 } %>
                     <% sum_fc_futur = serveurs.sum { |s| s.try(:fc_futur) || 0 } %>
                     <% baie_id = @salle.present? ? Baie.where(title: baie, salle_id: @salle.id, ilot:ilot).first.try(:id) : baie %>
-                    <div class="baie col-sm-12 col-md-3" id="baie_<%= baie_id %>">
+                    <div class="baie col-sm-12 col-md-<%= baies.count>1 ? '3':'6 col-md-offset-3' %>" id="baie_<%= baie_id %>">
                       <div class="panel <%= sum_u > max_u || sum_elements > max_elts || sum_rj45_futur > max_rj45 || sum_fc_futur > max_fc ? 'panel-danger' : 'panel-default' %>" style="margin: 10px;">
                         <div class="panel-heading">
                             <h5 class="panel-title" style="display: inline;">
-                              <%= link_to "#{baie}", baie_serveurs_path(baie: baie, ilot: ilot, salle: salle), style: 'text-decoration: underline;' %>
+                              <%= link_to "#{baie}", baie_id ? baie_path(baie_id) : '#', style: 'text-decoration: underline;' %>
                             </h5>
                             <%= link_to "modifier", edit_baie_path(serveurs.first.baie), class: 'pull-right' %>
                         </div>
