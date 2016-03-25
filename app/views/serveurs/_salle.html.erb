@@ -7,7 +7,7 @@
 
   <div class="col-xs-12">
 
-    <div class="panel panel-default" id="<%= salle.try(:parameterize).try(:underscore) %>">
+    <div class="panel panel-default panel-salle" id="<%= salle.try(:parameterize).try(:underscore) %>">
       <% if formats!=[:pdf] %>
         <div class="panel-heading"><h3>Salle <%= salle %></h3></div>
       <% end %>
@@ -18,7 +18,7 @@
 
           <div class="col-sm-12">
 
-            <div class="panel panel-default" style="margin:10px;">
+            <div class="panel panel-default panel-ilot">
               <div class="panel-heading"><h5>Ilot <%= ilot %></h5></div>
 
               <div class="row">
@@ -38,7 +38,7 @@
                     <% sum_fc_futur = serveurs.sum { |s| s.try(:fc_futur) || 0 } %>
                     <% baie_id = @salle.present? ? Baie.where(title: baie, salle_id: @salle.id, ilot:ilot).first.try(:id) : baie %>
                     <div class="baie col-sm-12 col-md-<%= baies.count>1 ? '3':'6 col-md-offset-3' %>" id="baie_<%= baie_id %>">
-                      <div class="panel <%= sum_u > max_u || sum_elements > max_elts || sum_rj45_futur > max_rj45 || sum_fc_futur > max_fc ? 'panel-danger' : 'panel-default' %>" style="margin: 10px;">
+                      <div class="panel <%= sum_u > max_u || sum_elements > max_elts || sum_rj45_futur > max_rj45 || sum_fc_futur > max_fc ? 'panel-danger' : 'panel-default' %> panel-baie">
                         <div class="panel-heading">
                           <h5 class="panel-title" style="display: inline;">
                             <%= link_to "#{baie}", baie_id ? baie_path(baie_id) : '#', style: 'text-decoration: underline;' %>
