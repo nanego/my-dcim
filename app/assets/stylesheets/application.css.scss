@@ -16,6 +16,10 @@
  *= require_self
  */
 
+body {
+  -webkit-print-color-adjust: exact;
+}
+
 .truncate {
   // width: 250px;
   white-space: nowrap;
