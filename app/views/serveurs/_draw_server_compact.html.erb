@@ -9,7 +9,7 @@
     <table class="slots">
       <thead>
       <% slots_sur_modele.each do |slot| %>
-        <th><%= "#{slot.name.include?('SL') ? slot.name[2] : slot.name}" %></th>
+        <th><%= slot.name ? "#{slot.name.include?('SL') ? slot.name[2] : slot.name}" : slot.position %></th>
       <% end %>
       </thead>
       <tbody>
