@@ -13,30 +13,33 @@
 require 'open-uri'
 require 'csv'
 
+Composant.delete_all
+
 =begin
 
 Modele.delete_all
 Serveur.delete_all
 Slot.delete_all
-Composant.delete_all
+
+=end
 
 case ActiveRecord::Base.connection.adapter_name
   when 'SQLite'
-    update_seq_sql = "update sqlite_sequence set seq = 0 where name = 'serveurs';"
-    ActiveRecord::Base.connection.execute(update_seq_sql)
+    #update_seq_sql = "update sqlite_sequence set seq = 0 where name = 'serveurs';"
+    #ActiveRecord::Base.connection.execute(update_seq_sql)
   when 'PostgreSQL'
-    ActiveRecord::Base.connection.reset_pk_sequence!("modeles")
-    ActiveRecord::Base.connection.reset_pk_sequence!("serveurs")
-    ActiveRecord::Base.connection.reset_pk_sequence!("slots")
+    #ActiveRecord::Base.connection.reset_pk_sequence!("modeles")
+    #ActiveRecord::Base.connection.reset_pk_sequence!("serveurs")
+    #ActiveRecord::Base.connection.reset_pk_sequence!("slots")
     ActiveRecord::Base.connection.reset_pk_sequence!("composants")
   else
     raise "Task not implemented for this DB adapter"
 end
-puts "Table Serveurs vide et pk_sequence = 0"
+puts "Table Composants vide et pk_sequence = 0"
 
-=end
 
-file = File.read(Rails.root.join('lib', 'seeds', 'inventaire_160318.csv'))
+
+file = File.read(Rails.root.join('lib', 'seeds', 'inventaire_160326.csv'))
 csv = CSV.parse(file, :headers => true)
 
 ActiveRecord::Base.connection.set_pk_sequence!("serveurs", Serveur.maximum(:id)+1)
@@ -95,6 +98,9 @@ csv.each_with_index do |row, i|
   rj_a_brancher = row[58]
   couleur_cable = row[59]
   confswitch = row[60]
+  noms_cables = row[61]
+
+  puts noms_cables
 
 
   #########
@@ -107,41 +113,58 @@ csv.each_with_index do |row, i|
                                     u: u,
                                     marque: marque)
 
-  type_composant_alim = TypeComposant.find_by_title('ALIM')
-  nb_elts.to_i.times do
-    Composant.find_or_create_by!(modele: modele,
-                      type_composant: type_composant_alim
+  type_composant_slot = TypeComposant.find_by_title('SLOT')
+
+  7.times do |i|
+    composant_slot = Composant.find_or_create_by!(modele: modele,
+                                                  type_composant: type_composant_slot,
+                                                  name: "SL#{i+1}"
     )
-  end unless modele.composants.to_a.reject!{|c| c.type_composant != type_composant_alim}.present?
+  end
+
+  type_composant_alim = TypeComposant.find_by_title('ALIM')
+  nb_elts.to_i.times do |i|
+    Composant.find_or_create_by!(modele: modele,
+                                 type_composant: type_composant_alim,
+                                 position: i+1
+    )
+  end
+  composant_slot_alim = Composant.find_or_create_by!(modele: modele,
+                                                type_composant: type_composant_slot,
+                                                name: "ALIM")
+
 
   type_composant_cm = TypeComposant.find_by_title('CM')
-  rj45_cm.to_i.times do
+  rj45_cm.to_i.times do |i|
     Composant.find_or_create_by!(modele: modele,
-                     type_composant: type_composant_cm
+                                 type_composant: type_composant_cm,
+                                 position: i+1
     )
-  end unless modele.composants.to_a.reject!{|c| c.type_composant != type_composant_cm}.present?
+  end
+  composant_slot_cm = Composant.find_or_create_by!(modele: modele,
+                                                     type_composant: type_composant_slot,
+                                                     name: "CM"
+  )
 
   type_composant_ipmi = TypeComposant.find_by_title('IPMI')
-  ipmi_futur.to_i.times do
+  ipmi_futur.to_i.times do |i|
     Composant.find_or_create_by!(modele: modele,
-                     type_composant: type_composant_ipmi
+                                 type_composant: type_composant_ipmi,
+                                 position: i+1
     )
-  end unless modele.composants.to_a.reject!{|c| c.type_composant != type_composant_ipmi}.present?
-
-  type_composant_slot = TypeComposant.find_by_title('SLOT')
-  7.times do
-    Composant.find_or_create_by!(modele: modele,
-                     type_composant: type_composant_slot
-    )
-  end unless modele.composants.to_a.reject!{|c| c.type_composant != type_composant_slot}.present?
+  end
+  composant_slot_ipmi = Composant.find_or_create_by!(modele: modele,
+                                                   type_composant: type_composant_slot,
+                                                   name: "IPMI"
+  )
 
 
   ##########
   ## SERVEUR
   serveur = Serveur.where(id: id).first
   if serveur.present?
-=begin
     serveur.update_attributes(
+=begin
         ip: ip,
         hostname: hostname,
         etat_conf_reseau: etat_conf_reseau,
@@ -165,7 +188,9 @@ csv.each_with_index do |row, i|
         domaine: domaine,
         gestion: gestion,
         acte: action,
-        phase: phase,
+=end
+        phase: phase
+=begin
         salle: salle,
         ilot: ilot,
         fc_total: fc_total,
@@ -176,8 +201,8 @@ csv.each_with_index do |row, i|
         ipmi_dedie: ipmi_dedie,
         ipmi_futur: ipmi_futur,
         ipmi_utilise: ipmi_utilise
-    )
 =end
+    )
   else
     serveur = Serveur.create!(
         id: id,
@@ -221,11 +246,8 @@ csv.each_with_index do |row, i|
   ########
   ## SLOTS
 
-  slots = []
-  7.times do |i|
-    slots[i] = Composant.where(modele_id: modele.id, type_composant_id: type_composant_slot.id, position:i+1).first
-  end
-
+  slots = Composant.where(modele_id: modele.id, type_composant_id: type_composant_slot.id).order("name asc, position asc")
+  slots_SL_only = slots.where("name LIKE 'SL%'").to_a
   valeurs_slots = []
   7.times do |i|
     valeurs_slots[i] = row[38+i]
@@ -237,6 +259,7 @@ csv.each_with_index do |row, i|
     end
   end
 
+  # SLOTS SL
   7.times do |i|
     if valeurs_slots[i].present?
       if valeurs_slots[i][0].is_integer?
@@ -248,62 +271,82 @@ csv.each_with_index do |row, i|
       end
       port_type = PortType.find_or_create_by!(name: valeur)
       card = Card.find_or_create_by!(name: valeurs_slots[i], port_quantity: nb_ports, port_type: port_type)
-      CardsServeur.find_or_create_by!(card: card, serveur: serveur, composant: slots[i])
+      CardsServeur.find_or_create_by!(card: card, serveur: serveur, composant: slots_SL_only[i])
 
       # ports ....
       nb_ports.times do |y|
         Slot.find_or_create_by!(valeur: valeur,
-                     composant: slots[i],
+                     composant: slots_SL_only[i],
                      serveur: serveur)
       end
     end
   end
 
+  # SLOTS CM
+  valeur = 'RJ'
+  nb_ports = rj45_cm.to_i
+  port_type = PortType.find_or_create_by!(name: valeur)
+  card_cm = Card.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
+  CardsServeur.find_or_create_by!(card: card_cm, serveur: serveur, composant: composant_slot_cm)
+
+  # SLOTS IPMI
+  valeur = 'RJ'
+  nb_ports = ipmi_futur.to_i
+  port_type = PortType.find_or_create_by!(name: valeur)
+  card_ipmi = Card.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
+  CardsServeur.find_or_create_by!(card: card_ipmi, serveur: serveur, composant: composant_slot_ipmi)
+
+  # SLOTS ALIM
+  valeur = 'ALIM'
+  nb_ports = nb_elts.to_i
+  port_type = PortType.find_or_create_by!(name: valeur)
+  card_alim = Card.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
+  CardsServeur.find_or_create_by!(card: card_alim, serveur: serveur, composant: composant_slot_alim)
+
+
+  # Init confs vlans and colors
   rjs_a_brancher = rj_a_brancher.split(';') if rj_a_brancher.present?
   couleurs = couleur_cable.split(';')  if couleur_cable.present?
   confs = confswitch.split(';') if confswitch.present?
+  nomscables = noms_cables.split(';') if noms_cables.present?
+
 
   rjs_a_brancher.each_with_index do |type_port, index|
     type_port = type_port.gsub(/[[:space:]]+/, "")
 
     case type_port
       when 'ipmi'
-        composant = Composant.find_or_create_by!(modele: modele,
-                                                 type_composant: type_composant_ipmi,
-                                                 position: 1)
-        # card = Card.find_or_create_by!(name: "1IPMI", port_type: PortType.find_by_name('IPMI'), port_quantity: 1)
-        cards_serveurs = CardsServeur.find_or_create_by!(serveur: serveur, composant: composant)
+        cards_serveurs = CardsServeur.find_or_create_by!(card: card_ipmi, serveur: serveur, composant: composant_slot_ipmi)
         port = Port.find_or_create_by!(position: 1,
                                        parent_type: CardsServeur.name,
                                        parent_id: cards_serveurs.id,
                                        vlans: confs ? confs[index] : nil,
-                                       color: couleurs ? couleurs[index] : nil
+                                       color: couleurs ? couleurs[index] : nil,
+                                       cablename: nomscables ? nomscables[index] : nil
         )
       when /^cm/
-        position = type_port[2]
-        composant = Composant.find_or_create_by!(modele: modele,
-                                                 type_composant: type_composant_cm,
-                                                 position: position)
-        # card = Card.find_or_create_by!(name: "1IPMI", port_type: PortType.find_by_name('IPMI'), port_quantity: 1)
-        cards_serveurs = CardsServeur.find_or_create_by!(serveur: serveur, composant: composant)
-        port = Port.find_or_create_by!(position: 1,
+        cards_serveurs = CardsServeur.find_or_create_by!(card: card_cm, serveur: serveur, composant: composant_slot_cm)
+        port = Port.find_or_create_by!(position: type_port[2],
                                        parent_type: CardsServeur.name,
                                        parent_id: cards_serveurs.id,
                                        vlans: confs ? confs[index] : nil,
-                                       color: couleurs ? couleurs[index] : nil
+                                       color: couleurs ? couleurs[index] : nil,
+                                       cablename: nomscables ? nomscables[index] : nil
         )
       when /^slot/
         position_slot = type_port[4]
         position_port_in_slot = type_port[6]
         composant = Composant.find_or_create_by!(modele: modele,
                                                  type_composant: type_composant_slot,
-                                                 position: position_slot)
+                                                 name: 'SL'+position_slot
+        )
         cards_serveurs = CardsServeur.find_or_create_by!(serveur: serveur, composant: composant)
         port = Port.find_or_create_by!(position: position_port_in_slot,
                                        parent_type: CardsServeur.name,
                                        parent_id: cards_serveurs.id,
                                        vlans: confs ? confs[index] : nil,
-                                       color: couleurs ? couleurs[index] : nil
+                                       color: couleurs ? couleurs[index] : nil,
+                                       cablename: nomscables ? nomscables[index] : nil
         )
     end
 

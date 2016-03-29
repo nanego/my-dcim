@@ -8,7 +8,7 @@
     <i class="port portRJ <%= port_data.present? ? port_data.color : ''%>"
        data-position="<%= index+1 %>"
        data-type="RJ"
-       data-toggle="tooltip" data-placement="top" title="<%= port_data.present? ? port_data.vlans : '' %>">
+       data-toggle="tooltip" data-placement="top" title="<%= port_data.present? ? "#{port_data.cablename} - #{port_data.vlans}" : '' %>">
     </i>
 
   <% when PortType.find_by_name('FC') %>

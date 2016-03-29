@@ -3,7 +3,7 @@ class Modele < ActiveRecord::Base
   # validates_presence_of :title
 
   has_many :serveurs
-  has_many :composants, -> { order(position: :asc) }
+  has_many :composants, -> { order(name: :asc, position: :asc) }
 
   belongs_to :marque
   belongs_to :architecture
