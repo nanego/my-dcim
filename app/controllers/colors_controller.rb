@@ -2,7 +2,7 @@ class ColorsController < ApplicationController
   before_action :set_color, only: [:show, :edit, :update, :destroy]
 
   def index
-    @colors = Color.all
+    @colors = Color.order('parent_type asc, parent_id asc')
   end
 
   def show

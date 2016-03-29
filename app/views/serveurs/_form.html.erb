@@ -15,13 +15,13 @@
   <div class="form-group">
     <%= f.label :localisation_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.collection_select(:localisation_id, Localisation.all, :id, :title, {}, {class: "form-control"}) %>
+      <%= f.collection_select(:localisation_id, Localisation.all, :id, :title, {:prompt => true}, {class: "form-control"}) %>
     </div>
   </div>
   <div class="form-group">
     <%= f.label :armoire_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.collection_select(:armoire_id, Armoire.all, :id, :title, {}, {class: "form-control"}) %>
+      <%= f.collection_select(:armoire_id, Armoire.all, :id, :title, {:prompt => true}, {class: "form-control"}) %>
     </div>
   </div>
   <div class="form-group">
@@ -33,7 +33,7 @@
   <div class="form-group">
     <%= f.label :modele_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.collection_select(:modele_id, Modele.order(:title), :id, :title, {}, {class: "form-control"}) %>
+      <%= f.collection_select(:modele_id, Modele.order(:title), :id, :title, {:prompt => true}, {class: "form-control"}) %>
     </div>
   </div>
   <div class="form-group">
@@ -51,7 +51,7 @@
   <div class="form-group">
     <%= f.label :cluster_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.collection_select(:cluster_id, Cluster.all, :id, :title, {}, {class: "form-control"}) %>
+      <%= f.collection_select(:cluster_id, Cluster.all, :id, :title, {:prompt => true}, {class: "form-control"}) %>
     </div>
   </div>
   <div class="form-group">
@@ -63,19 +63,19 @@
   <div class="form-group">
     <%= f.label :domaine_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.collection_select(:domaine_id, Domaine.all, :id, :title, {}, {class: "form-control"}) %>
+      <%= f.collection_select(:domaine_id, Domaine.all, :id, :title, {:prompt => true}, {class: "form-control"}) %>
     </div>
   </div>
   <div class="form-group">
     <%= f.label :gestion_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.collection_select(:gestion_id, Gestion.all, :id, :title, {}, {class: "form-control"}) %>
+      <%= f.collection_select(:gestion_id, Gestion.all, :id, :title, {:prompt => true}, {class: "form-control"}) %>
     </div>
   </div>
   <div class="form-group">
     <%= f.label :acte_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.collection_select(:acte_id, Acte.all, :id, :title, {}, {class: "form-control"}) %>
+      <%= f.collection_select(:acte_id, Acte.all, :id, :title, {:prompt => true}, {class: "form-control"}) %>
     </div>
   </div>
   <div class="form-group">
@@ -87,7 +87,7 @@
   <div class="form-group">
     <%= f.label :salle_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.collection_select(:salle_id, Salle.all, :id, :title, {}, {class: "form-control"}) %>
+      <%= f.collection_select(:salle_id, Salle.all, :id, :title, {:prompt => true}, {class: "form-control"}) %>
     </div>
   </div>
   <div class="form-group">
@@ -164,7 +164,7 @@
   <div class="form-group">
     <%= f.label :baie, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.collection_select(:baie_id, Baie.sorted, :id,:name_with_salle_and_ilot, {}, {class: "form-control"}) %>
+      <%= f.collection_select(:baie_id, Baie.sorted, :id,:name_with_salle_and_ilot, {:prompt => true}, {class: "form-control"}) %>
     </div>
   </div>
 
@@ -175,13 +175,15 @@
     </div>
   </div>
 
-  <% if f.object.persisted? %>
+  <% if f.object.persisted? && @serveur.modele%>
     <%= content_tag :span, 'Slots', class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <div class="panel panel-default">
         <ul class="list-group">
           <%= f.fields_for :cards_serveurs do |builder| %>
-            <%= render "cards_serveur_fields", :f => builder %>
+
+              <%= render "cards_serveur_fields", :f => builder %>
+
           <% end %>
         </ul>
         <div class="panel-footer"><%= link_to_add_fields "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter une carte".html_safe, f, :cards_serveurs %></div>

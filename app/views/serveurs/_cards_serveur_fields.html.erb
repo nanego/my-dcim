@@ -1,4 +1,6 @@
-  <li class="list-group-item">
+<% if @serveur.modele %>
+
+<li class="list-group-item">
     <fieldset>
       <div class="col-sm-4">
       <%= f.select :composant_id, options_for_select(@serveur.modele.composants.where(type_composant_id: 4).map{|c| ["Slot #{c.position}", c.id]}, f.object.composant_id) %>
@@ -12,3 +14,5 @@
       </span>
     </fieldset>
   </li>
+
+<% end %>

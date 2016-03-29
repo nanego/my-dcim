@@ -7,13 +7,13 @@
     <span class="glyphicon glyphicon-pencil"></span>
     Edit
   <% end %>
-  <h1><%= "#{@serveur.modele.category.try(:title)} #{@serveur.nom}" %></h1>
+  <h1><%= "#{@serveur.modele.try(:category).try(:title)} #{@serveur.nom}" %></h1>
 </div>
 
-<p><%= link_to "<< Baie #{@serveur.baie.try(:title)}", baie_serveurs_path(baie: @serveur.baie.title, ilot: @serveur.baie.ilot, salle: @serveur.salle.title), class: 'btn btn-default', style: 'text-decoration: underline;' %></p>
+<p><%= link_to "<< Baie #{@serveur.baie.try(:title)}", baie_serveurs_path(baie: @serveur.baie.try(:title), ilot: @serveur.baie.try(:ilot), salle: @serveur.salle.try(:title)), class: 'btn btn-default', style: 'text-decoration: underline;' %></p>
 
 <div class="detailed_server">
-  <% case @serveur.modele.category_id %>
+  <% case @serveur.modele.try(:category_id) %>
   <% when Category.find_by_title('Blank Panel').id %>
     <%= render 'draw_blank_panel', serveur: @serveur %>
   <% when Category.find_by_title('Patch Panel').id %>
@@ -35,25 +35,25 @@
   <dd><%= @serveur.armoire %></dd>
 
   <dt>Categorie:</dt>
-  <dd><%= @serveur.modele.category %></dd>
+  <dd><%= @serveur.modele.try(:category) %></dd>
 
   <dt>Nb elts:</dt>
-  <dd><%= @serveur.modele.nb_elts %></dd>
+  <dd><%= @serveur.modele.try(:nb_elts) %></dd>
 
   <dt>Architecture:</dt>
-  <dd><%= @serveur.modele.architecture %></dd>
+  <dd><%= @serveur.modele.try(:architecture) %></dd>
 
   <dt>U:</dt>
-  <dd><%= @serveur.modele.u %></dd>
+  <dd><%= @serveur.modele.try(:u) %></dd>
 
   <dt>Marque:</dt>
-  <dd><%= @serveur.modele.marque %></dd>
+  <dd><%= @serveur.modele.try(:marque) %></dd>
 
   <dt>Modele:</dt>
-  <dd><%= link_to @serveur.modele, edit_modele_path(@serveur.modele) %></dd>
+  <dd><%= link_to @serveur.modele, edit_modele_path(@serveur.modele) if @serveur.modele %></dd>
 
   <dt>Numero:</dt>
-  <dd><%= @serveur.numero %></dd>
+  <dd><%= @serveur.try(:numero) %></dd>
 
   <dt>Conso:</dt>
   <dd><%= @serveur.conso %></dd>

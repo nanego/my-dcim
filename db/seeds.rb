@@ -13,15 +13,19 @@
 require 'open-uri'
 require 'csv'
 
-Composant.delete_all
+Composant.joins(:modele).where('title NOT LIKE ?', 'Panel').destroy_all
+
+
+
 
 =begin
 
 Modele.delete_all
 Serveur.delete_all
 Slot.delete_all
+Composant.delete_all
 
-=end
+
 
 case ActiveRecord::Base.connection.adapter_name
   when 'SQLite'
@@ -31,13 +35,13 @@ case ActiveRecord::Base.connection.adapter_name
     #ActiveRecord::Base.connection.reset_pk_sequence!("modeles")
     #ActiveRecord::Base.connection.reset_pk_sequence!("serveurs")
     #ActiveRecord::Base.connection.reset_pk_sequence!("slots")
-    ActiveRecord::Base.connection.reset_pk_sequence!("composants")
+    # ActiveRecord::Base.connection.reset_pk_sequence!("composants")
   else
     raise "Task not implemented for this DB adapter"
 end
 puts "Table Composants vide et pk_sequence = 0"
 
-
+=end
 
 file = File.read(Rails.root.join('lib', 'seeds', 'inventaire_160326.csv'))
 csv = CSV.parse(file, :headers => true)
