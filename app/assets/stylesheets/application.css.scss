@@ -42,6 +42,7 @@ a.hide-filters, a.show-filters{
 .baie .serveur a { color: #333; }
 .baie li.serveur.list-group-item {
   padding: 3px 15px;
+  overflow: visible;
 }
 .badge.badgeRJ45 {
   border-radius: 0;
@@ -155,6 +156,11 @@ table.cm, table.cm th, table.cm td{
 
 .panel-salle, .panel-ilot, .panel-baie {
   margin:10px;
+}
+
+.tooltip-inner {
+  max-width: 350px;
+  width: auto;
 }
 
 // Forms

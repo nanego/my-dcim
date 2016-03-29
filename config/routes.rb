@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :ports, only: [:index]
+
   resources :clusters
   resources :slots
   resources :serveurs do
