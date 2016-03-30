@@ -40,7 +40,7 @@ Rails.application.routes.draw do
     end
     root controller: DashboardManifest::ROOT_DASHBOARD, action: :index
   end
-  root to: 'serveurs#index'
+  root to: 'serveurs#baies'
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
   resources :users
 
