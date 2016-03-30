@@ -45,7 +45,7 @@
                           </h5>
                           <% if formats != [:pdf] %>
                           <% if controller_name=='baies' %>
-                              <%= link_to "Liste des ports", ports_path(serveurs.first.baie), class: 'btn btn-success pull-right', style: 'margin-left:10px;' %>
+                              <%= link_to "Liste des ports", ports_path(baie_id: serveurs.first.baie.id), class: 'btn btn-success pull-right', style: 'margin-left:10px;' %>
                               <%= link_to "Impression", baie_path(serveurs.first.baie, format: :pdf, debug: 1, bg: params[:bg]), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
                               <%= link_to "Export PDF", baie_path(serveurs.first.baie, format: :pdf, bg: params[:bg]), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
                           <% end %>

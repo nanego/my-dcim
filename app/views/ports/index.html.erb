@@ -1,0 +1,44 @@
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-md-12 well">
+
+      <div class="page-header">
+        <h1>Liste des ports cablés</h1>
+        <h2>
+          <% if @baie %>
+            <%= link_to "#{@baie.name_with_salle_and_ilot}", baie_path(@baie), style: 'text-decoration: underline;' %>
+          <% else %>
+            <%= link_to "Salle #{@salle}", salle_path(@salle), style: 'text-decoration: underline;' %>
+          <% end %>
+        </h2>
+      </div>
+
+      <% @serveurs.each do |s| %>
+
+        <h4 style="display: inline;"><%= s.nom %></h4><span> (<%= s.modele.title %>)</span>
+
+        <p>
+          <% s.cards_serveurs.each do |c| %>
+
+            <% c.ports.each do |port| %>
+              <% if port && port.cablename %>
+                <%= "#{c.composant.name}#{c.composant.name.include?('SL') ? "/#{port.position}" : port.position} : #{port.network_conf}" %>
+                <br>
+              <% end %>
+            <% end %>
+
+          <% end %>
+
+
+        </p>
+
+
+      <% end %>
+
+    </div>
+
+  </div>
+
+</div>

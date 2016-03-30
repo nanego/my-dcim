@@ -8,4 +8,11 @@ class Port < ActiveRecord::Base
     connections_from + connections_to
   end
 
+  def network_conf
+    "#{cablename} - #{color}"
+  end
+  def network_conf_with_vlans
+    "#{network_conf} - #{vlans}"
+  end
+
 end

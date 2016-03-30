@@ -167,8 +167,8 @@ csv.each_with_index do |row, i|
   ## SERVEUR
   serveur = Serveur.where(id: id).first
   if serveur.present?
-    serveur.update_attributes(
 =begin
+    serveur.update_attributes(
         ip: ip,
         hostname: hostname,
         etat_conf_reseau: etat_conf_reseau,
@@ -192,9 +192,9 @@ csv.each_with_index do |row, i|
         domaine: domaine,
         gestion: gestion,
         acte: action,
-=end
-        phase: phase
-=begin
+
+        phase: phase,
+
         salle: salle,
         ilot: ilot,
         fc_total: fc_total,
@@ -205,8 +205,8 @@ csv.each_with_index do |row, i|
         ipmi_dedie: ipmi_dedie,
         ipmi_futur: ipmi_futur,
         ipmi_utilise: ipmi_utilise
+        )
 =end
-    )
   else
     serveur = Serveur.create!(
         id: id,
