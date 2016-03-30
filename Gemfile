@@ -18,9 +18,14 @@ gem 'administrate'
 gem 'bootstrap-sass'
 # gem 'bootstrap-generators', git: 'git://github.com/decioferreira/bootstrap-generators.git'
 gem 'bootstrap-generators', '~> 3.3.4'
+
+# Authentication
+gem 'omniauth', '>= 1.0.0'
+gem 'omniauth-cas', '>= 0.0.6'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise_invitable'
+
 gem 'high_voltage'
 gem 'pg'
 gem 'simple_form'
