@@ -1,0 +1,17 @@
+class Users::RegistrationsController < Devise::RegistrationsController
+
+  protected
+
+  # The path used after sign up. You need to overwrite this method
+  # in your own RegistrationsController.
+  def after_sign_up_path_for(resource)
+    return new_user_session_path
+  end
+
+  # Signs in a user on sign up. You can overwrite this method in your own
+  # RegistrationsController.
+  def sign_up(resource_name, resource)
+    # DO NOT sign_in(resource_name, resource)
+  end
+
+end

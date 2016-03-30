@@ -1,1 +1,11 @@
 fr:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              invalid: L'adresse email est invalide
+  devise:
+    registrations:
+      signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'
