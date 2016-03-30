@@ -23,7 +23,8 @@ class BaiesController < ApplicationController
         render layout: 'pdf.html',
                template: "salles/show.pdf.erb",
                show_as_html: params[:debug].present?,
-               pdf: 'baie'
+               pdf: 'baie',
+               :page_height => '15in', :page_width => '8in'
       end
     end
   end

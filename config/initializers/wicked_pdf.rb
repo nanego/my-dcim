@@ -20,7 +20,7 @@ WickedPdf.config = {
   # layout: 'pdf.html',
   # :layout => "pdf.html",
   layout: 'pdf.html',
-  margin: {:top=> 15, :bottom => 15}
+  margin: {:top=> 10, :bottom => 10},
   #:header => {:html => { :template=> 'layouts/pdf_header.html'}},
   #:footer => {:html => { :template=> 'layouts/pdf_footer.html'}},
   #:exe_path => '/usr/bin/wkhtmltopdf'
