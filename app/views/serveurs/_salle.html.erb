@@ -61,67 +61,70 @@
 
                             <% u_disponibles = Baie.joins(:salle).where('salles.title = ? AND ilot = ? AND baies.title = ?', salle, ilot.to_i, baie).first.try(:u) || 41 %>
                             <% serveurs.each do |serveur| %>
-                              <% while serveur.position.present? && serveur.position < u_disponibles && u_disponibles>0 %>
-                                <li class="serveur list-group-item truncate" style="height: 27px;">
-                                  <span class="pull-left u_scale <%= u_disponibles.even? ? 'even': 'odd' %>" title="<%= u_disponibles %>"><%= u_disponibles %></span>
-                                </li>
-                                <% u_disponibles -= 1 %>
-                              <% end %>
 
-                              <% if params['bg']=='phase' %>
-                                <% color = Color.where(parent_type: 'Phase', parent_id: serveur.phase).first
-                                   if color.blank? || color.code.blank?
-                                     color = Color.create!(parent_type: 'Phase', parent_id: serveur.phase, code: lighten_color("##{Digest::MD5.hexdigest(serveur.phase.to_s || 'test')[0..5]}", 0.4))
-                                   end
-                                   bgModeleColor = color.code
-                                %>
-                              <% else %>
-                                <% bgModeleColor = serveur.modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(serveur.modele.try(:title) || 'test')[0..5]}", 0.4) %>
-                              <% end %>
+                              <% if serveur.modele.try(:title).present? %>
 
-                              <% u_serveur = serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1 %>
-
-                              <% data = {:u => u_serveur,
-                                         :rj45_futur => serveur.try(:rj45_futur) || 0,
-                                         :fc_futur => serveur.try(:fc_futur)} %>
-
-                              <% if params[:view] == 'back' %>
-                                <%= content_tag_for :li, serveur,
-                                                    class: "list-group-item truncate server_back",
-                                                    style: "min-height: #{41*(serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1)}px;",
-                                                    :data => data do %>
-                                  <% u_serveur.times do |i| %>
-                                    <span class="pull-left u_scale hide <%= u_disponibles.even? ? 'even': 'odd' %>" title="<%= u_disponibles %>" style="margin:<%= -3 + (27*(i)) %>px -15px;"><%= u_disponibles %></span>
-                                    <% u_disponibles -= 1 %>
-                                  <% end %>
-                                  <%= render 'serveurs/draw_server_compact', serveur: serveur %>
+                                <% while serveur.position.present? && serveur.position < u_disponibles && u_disponibles>0 %>
+                                  <li class="serveur list-group-item truncate" style="height: 27px;">
+                                    <span class="pull-left u_scale <%= u_disponibles.even? ? 'even': 'odd' %>" title="<%= u_disponibles %>"><%= u_disponibles %></span>
+                                  </li>
+                                  <% u_disponibles -= 1 %>
                                 <% end %>
-                              <% else %>
 
-                                <%= content_tag_for :li, serveur,
-                                                    class: "list-group-item truncate #{serveur.modele.try(:category).try(:title).try(:parameterize)}",
-                                                    style: "height: #{27*u_serveur}px;background-color:#{bgModeleColor} !important",
-                                                    :data => data do %>
-                                  <% u_serveur.times do |i| %>
-                                    <span class="pull-left u_scale <%= u_disponibles.even? ? 'even': 'odd' %>" title="<%= u_disponibles %>" style="margin:<%= -3 + (27*(i)) %>px -15px;"><%= u_disponibles %></span>
-                                    <% u_disponibles -= 1 %>
-                                  <% end %>
-                                  <% case serveur.modele.try(:category_id) %>
-                                  <% when Category.find_by_title('Blank Panel').id %>
-                                    <span class="pull-left"><%= link_to h("#{serveur.nom}"), serveur %></span>
-                                  <% else %>
-                                    <span class="pull-left" style="padding-left: 14px;"><%= link_to h("#{serveur.nom}"), serveur %></span>
-                                    <% if serveur.rj45_futur.to_i > 0 || serveur.fc_futur.to_i > 0 || serveur.ipmi_futur.to_i > 0 %>
-                                      <span class="badge badgeRJ45 <%= serveur.rj45_futur.to_i > 0 ? 'alert-info' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= serveur.rj45_futur.to_i > 0 ? serveur.rj45_futur : '' %></span>
-                                      <span class="badge badgeRJ45 <%= serveur.ipmi_futur.to_i > 0 ? 'alert-default' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= serveur.ipmi_futur.to_i > 0 ? serveur.ipmi_futur : '' %></span>
-                                      <span class="badge <%= serveur.fc_futur.to_i > 0 ? 'alert-success' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= serveur.fc_futur.to_i > 0 ? serveur.fc_futur : '' %></span>
+                                <% if params['bg']=='phase' %>
+                                  <% color = Color.where(parent_type: 'Phase', parent_id: serveur.phase).first
+                                     if color.blank? || color.code.blank?
+                                       color = Color.create!(parent_type: 'Phase', parent_id: serveur.phase, code: lighten_color("##{Digest::MD5.hexdigest(serveur.phase.to_s || 'test')[0..5]}", 0.4))
+                                     end
+                                     bgModeleColor = color.code
+                                  %>
+                                <% else %>
+                                  <% bgModeleColor = serveur.modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(serveur.modele.try(:title) || 'test')[0..5]}", 0.4) %>
+                                <% end %>
+
+                                <% u_serveur = serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1 %>
+
+                                <% data = {:u => u_serveur,
+                                           :rj45_futur => serveur.try(:rj45_futur) || 0,
+                                           :fc_futur => serveur.try(:fc_futur)} %>
+
+                                <% if params[:view] == 'back' %>
+                                  <%= content_tag_for :li, serveur,
+                                                      class: "list-group-item truncate server_back",
+                                                      style: "min-height: #{41*(serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1)}px;",
+                                                      :data => data do %>
+                                    <% u_serveur.times do |i| %>
+                                      <span class="pull-left u_scale hide <%= u_disponibles.even? ? 'even': 'odd' %>" title="<%= u_disponibles %>" style="margin:<%= -3 + (27*(i)) %>px -15px;"><%= u_disponibles %></span>
+                                      <% u_disponibles -= 1 %>
                                     <% end %>
-                                    <span class="pull-right" style="margin-right: 6px;"><em><%= serveur.modele.try(:title) %></em></span>
+                                    <%= render 'serveurs/draw_server_compact', serveur: serveur %>
                                   <% end %>
+                                <% else %>
+
+                                  <%= content_tag_for :li, serveur,
+                                                      class: "list-group-item truncate #{serveur.modele.try(:category).try(:title).try(:parameterize)}",
+                                                      style: "height: #{27*u_serveur}px;background-color:#{bgModeleColor} !important",
+                                                      :data => data do %>
+                                    <% u_serveur.times do |i| %>
+                                      <span class="pull-left u_scale <%= u_disponibles.even? ? 'even': 'odd' %>" title="<%= u_disponibles %>" style="margin:<%= -3 + (27*(i)) %>px -15px;"><%= u_disponibles %></span>
+                                      <% u_disponibles -= 1 %>
+                                    <% end %>
+                                    <% case serveur.modele.try(:category_id) %>
+                                    <% when @modele_blank_panel_id %>
+                                      <span class="pull-left"><%= link_to h("#{serveur.nom}"), serveur %></span>
+                                    <% else %>
+                                      <span class="pull-left" style="padding-left: 14px;"><%= link_to h("#{serveur.nom}"), serveur %></span>
+                                      <% if serveur.rj45_futur.to_i > 0 || serveur.fc_futur.to_i > 0 || serveur.ipmi_futur.to_i > 0 %>
+                                        <span class="badge badgeRJ45 <%= serveur.rj45_futur.to_i > 0 ? 'alert-info' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= serveur.rj45_futur.to_i > 0 ? serveur.rj45_futur : '' %></span>
+                                        <span class="badge badgeRJ45 <%= serveur.ipmi_futur.to_i > 0 ? 'alert-default' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= serveur.ipmi_futur.to_i > 0 ? serveur.ipmi_futur : '' %></span>
+                                        <span class="badge <%= serveur.fc_futur.to_i > 0 ? 'alert-success' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= serveur.fc_futur.to_i > 0 ? serveur.fc_futur : '' %></span>
+                                      <% end %>
+                                      <span class="pull-right" style="margin-right: 6px;"><em><%= serveur.modele.try(:title) %></em></span>
+                                    <% end %>
+                                  <% end %>
+
                                 <% end %>
-
                               <% end %>
-
                             <% end %>
                           <% u_disponibles.times do |u| %>
                             <li class="serveur list-group-item truncate" style="height: 27px;">

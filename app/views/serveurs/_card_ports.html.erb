@@ -2,8 +2,8 @@
 
   <% port_data = ports_data.where(position: index+1).first %>
 
-  <% case port_type
-       when PortType.find_by_name('RJ') %>
+  <% case port_type.name
+       when 'RJ' %>
 
     <i class="port portRJ <%= port_data.present? ? port_data.color : ''%>"
        data-position="<%= index+1 %>"
@@ -11,7 +11,7 @@
        data-toggle="tooltip" data-placement="top" title="<%= port_data.present? ? "#{port_data.cablename} - #{port_data.vlans}" : '' %>">
     </i>
 
-  <% when PortType.find_by_name('FC') %>
+  <% when 'FC' %>
 
     <i class="port portFC <%= port_data.present? ? port_data.color : ''%>"
        data-position="<%= index+1 %>"

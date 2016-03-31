@@ -11,7 +11,7 @@ class Serveur < ActiveRecord::Base
   belongs_to :cluster
 
   has_many :slots
-  has_many :cards_serveurs, -> { joins(:composant).order("name asc, position asc") }
+  has_many :cards_serveurs, -> { joins(:composant).order("composants.name asc, composants.position asc") }
   has_many :cards, through: :cards_serveurs
 
   accepts_nested_attributes_for :cards_serveurs,

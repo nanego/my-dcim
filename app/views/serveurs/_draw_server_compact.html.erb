@@ -36,7 +36,7 @@
 
 
 <%
-  serveur.cards_serveurs.each do |card_serveur|
+  serveur.cards_serveurs.includes(:composant => [:type_composant]).includes(:card).includes(:ports => [:connections_from, :connections_to]).each do |card_serveur|
 
     if card_serveur.card.present? && card_serveur.card_id > 0
       composant_type = 'CardsServeur'

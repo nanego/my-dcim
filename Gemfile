@@ -41,6 +41,8 @@ group :development, :test do
   gem 'pry-rescue'
   gem 'puma'
   gem 'rubocop'
+  gem 'bullet'
+  gem 'rack-mini-profiler'
 end
 group :production do
   gem 'passenger'

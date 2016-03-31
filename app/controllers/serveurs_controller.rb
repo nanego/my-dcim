@@ -15,8 +15,9 @@ class ServeursController < ApplicationController
   end
 
   def baies
+    @modele_blank_panel_id = Category.find_by_title('Blank Panel').id
     @serveurs_par_baies = {}
-    Serveur.joins(:salle, :baie).order('salles.title ASC, baies.ilot ASC, baies.title ASC, position desc').each do |s|
+    Serveur.includes(:salle, :baie, :modele => [:category]).joins(:salle, :baie).order('salles.title ASC, baies.ilot ASC, baies.position ASC, serveurs.position desc').each do |s|
       salle = (s.salle.title.present? ? s.salle.title : "non précisée")
       ilot = (s.baie.try(:ilot).present? ? s.baie.ilot.to_s : "non précisé")
       baie = (s.baie.title.present? ? s.baie.title.to_s : "non précisée")
