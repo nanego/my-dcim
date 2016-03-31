@@ -13,11 +13,6 @@
 require 'open-uri'
 require 'csv'
 
-Composant.joins(:modele).where('title NOT LIKE ?', 'Panel').destroy_all
-
-
-
-
 =begin
 
 Modele.delete_all
@@ -43,10 +38,10 @@ puts "Table Composants vide et pk_sequence = 0"
 
 =end
 
-file = File.read(Rails.root.join('lib', 'seeds', 'inventaire_160326.csv'))
+file = File.read(Rails.root.join('lib', 'seeds', 'inventaire_160331.csv'))
 csv = CSV.parse(file, :headers => true)
 
-ActiveRecord::Base.connection.set_pk_sequence!("serveurs", Serveur.maximum(:id)+1)
+# ActiveRecord::Base.connection.set_pk_sequence!("serveurs", Serveur.maximum(:id)+1)
 
 puts "Importation en cours"
 csv.each_with_index do |row, i|
@@ -167,9 +162,9 @@ csv.each_with_index do |row, i|
   ## SERVEUR
   serveur = Serveur.where(id: id).first
   if serveur.present?
-=begin
+
     serveur.update_attributes(
-        ip: ip,
+        # ip: ip,
         hostname: hostname,
         etat_conf_reseau: etat_conf_reseau,
         action_conf_reseau: action_conf_reseau,
@@ -178,13 +173,13 @@ csv.each_with_index do |row, i|
         rj45_total: rj45_total,
         fc_futur: fc_futur,
         fc_calcule: fc_calcule,
-        baie: baie,
+        # baie: baie,
         pdu_ondule: pdu_ondule,
         pdu_normal: pdu_normal,
         localisation: localisation,
-        armoire: rack,
+        # armoire: rack,
         nom: nom,
-        modele: modele,
+        # modele: modele,
         numero: numero,
         conso: conso,
         cluster: cluster,
@@ -195,8 +190,8 @@ csv.each_with_index do |row, i|
 
         phase: phase,
 
-        salle: salle,
-        ilot: ilot,
+        # salle: salle,
+        # ilot: ilot,
         fc_total: fc_total,
         fc_utilise: fc_utilise,
         rj45_utilise: rj45_utilise,
@@ -206,7 +201,6 @@ csv.each_with_index do |row, i|
         ipmi_futur: ipmi_futur,
         ipmi_utilise: ipmi_utilise
         )
-=end
   else
     serveur = Serveur.create!(
         id: id,

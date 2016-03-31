@@ -50,7 +50,7 @@
   <dd><%= @serveur.modele.try(:marque) %></dd>
 
   <dt>Modele:</dt>
-  <dd><%= link_to @serveur.modele, edit_modele_path(@serveur.modele) if @serveur.modele %></dd>
+  <dd><%= link_to @serveur.modele, edit_modele_path(@serveur.modele) if @serveur.modele.try(:title) %></dd>
 
   <dt>Numero:</dt>
   <dd><%= @serveur.try(:numero) %></dd>
