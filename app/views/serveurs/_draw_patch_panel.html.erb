@@ -6,29 +6,13 @@
   <% half_slots = slots_sur_modele.length / 2 %>
 
   <% slots_sur_modele.slice(0, half_slots).each do |slot| %>
-    <% serveur.cards_serveurs.where(:composant_id => slot.id).each do |card_serveur| %>
-      <span class="pull-left" style="margin-right: 2em;">
-        <%= render :partial => 'serveurs/card_ports',
-                   :locals => {
-                        port_type: card_serveur.card.port_type,
-                        port_quantity: card_serveur.card.port_quantity,
-                        alignment: 'horizontal', ports_data: Port.where(parent: card_serveur) } %>
-      </span>
-    <% end %>
+    <%= render 'draw_patch_panel_slot', serveur: serveur, slot: slot %>
   <% end %>
 
   <span class="clearfix"></span>
 
   <% slots_sur_modele.slice(half_slots, slots_sur_modele.length).each do |slot| %>
-    <% serveur.cards_serveurs.where(:composant_id => slot.id).each do |card_serveur| %>
-      <span class="pull-left" style="margin-right: 2em;">
-        <%= render :partial => 'serveurs/card_ports',
-                   :locals => {
-                       port_type: card_serveur.card.port_type,
-                       port_quantity: card_serveur.card.port_quantity,
-                       alignment: 'horizontal', ports_data: Port.where(parent: card_serveur) } %>
-      </span>
-    <% end %>
+    <%= render 'draw_patch_panel_slot', serveur: serveur, slot: slot %>
   <% end %>
 
   <span class="clearfix"></span>

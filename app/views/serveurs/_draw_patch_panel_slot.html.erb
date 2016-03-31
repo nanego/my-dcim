@@ -1,0 +1,11 @@
+<% serveur.cards_serveurs.where(:composant_id => slot.id).each do |card_serveur| %>
+  <span class="pull-left" style="margin-right: 2em;">
+    <% cache(["card_ports", card_serveur.id, Port.maximum(:updated_at)]) do %>
+      <%= render :partial => 'serveurs/card_ports',
+                 :locals => {
+                     port_type: card_serveur.card.port_type,
+                     port_quantity: card_serveur.card.port_quantity,
+                     alignment: 'horizontal', ports_data: Port.where(parent: card_serveur) } %>
+    <% end %>
+  </span>
+<% end %>
