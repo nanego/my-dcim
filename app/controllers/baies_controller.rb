@@ -5,7 +5,8 @@ class BaiesController < ApplicationController
     @salle = @baie.salle
     @serveurs_par_baies ||= {}
 
-    Serveur.joins(:baie)
+    Serveur.includes(:baie, :modele => :category)
+        .joins(:baie)
         .where(baie: @baie)
         .order('baies.ilot ASC, baies.position ASC, serveurs.position desc, serveurs.id desc').each do |s|
       ilot = (s.baie.try(:ilot).present? ? s.baie.ilot.to_s : "non précisé")

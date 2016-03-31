@@ -10,7 +10,7 @@
   <h1><%= "#{@serveur.modele.try(:category).try(:title)} #{@serveur.nom}" %></h1>
 </div>
 
-<p><%= link_to "<< Baie #{@serveur.baie.try(:title)}", baie_path(baie: @serveur.baie), class: 'btn btn-default', style: 'text-decoration: underline;' %></p>
+<p><%= link_to "<< Baie #{@serveur.baie.try(:title)}", baie_path(@serveur.baie), class: 'btn btn-default', style: 'text-decoration: underline;' %></p>
 
 <div class="detailed_server">
   <% case @serveur.modele.try(:category_id) %>

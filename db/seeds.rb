@@ -13,6 +13,9 @@
 require 'open-uri'
 require 'csv'
 
+CardsServeur.delete_all
+Port.delete_all
+
 =begin
 
 Modele.delete_all
@@ -99,7 +102,7 @@ csv.each_with_index do |row, i|
   confswitch = row[60]
   noms_cables = row[61]
 
-  puts noms_cables
+  puts "#{nom} (#{numero}) : #{noms_cables}"
 
 
   #########
@@ -164,7 +167,7 @@ csv.each_with_index do |row, i|
   if serveur.present?
 
     serveur.update_attributes(
-        # ip: ip,
+        ip: ip,
         hostname: hostname,
         etat_conf_reseau: etat_conf_reseau,
         action_conf_reseau: action_conf_reseau,
@@ -179,7 +182,7 @@ csv.each_with_index do |row, i|
         localisation: localisation,
         # armoire: rack,
         nom: nom,
-        # modele: modele,
+        modele: modele,
         numero: numero,
         conso: conso,
         cluster: cluster,
@@ -313,9 +316,14 @@ csv.each_with_index do |row, i|
     type_port = type_port.gsub(/[[:space:]]+/, "")
 
     case type_port
-      when 'ipmi'
+      when /^ipmi/
         cards_serveurs = CardsServeur.find_or_create_by!(card: card_ipmi, serveur: serveur, composant: composant_slot_ipmi)
-        port = Port.find_or_create_by!(position: 1,
+        if type_port.size>4
+          position = type_port[4]
+        else
+          position = 1
+        end
+        port = Port.find_or_create_by!(position: position,
                                        parent_type: CardsServeur.name,
                                        parent_id: cards_serveurs.id,
                                        vlans: confs ? confs[index] : nil,
