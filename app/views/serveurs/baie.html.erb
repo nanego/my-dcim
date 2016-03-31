@@ -17,7 +17,7 @@
           <%= render 'draw_patch_panel', serveur: serveur %>
         <% else %>
           <%= content_tag_for :li, serveur, class: "list-group-item truncate", style: "min-height: #{41*(serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1)}px;" do %>
-            <%= render 'draw_server', serveur: serveur %>
+            <%= render 'draw_server_compact', serveur: serveur %>
           <% end %>
         <% end %>
       <% end %>
