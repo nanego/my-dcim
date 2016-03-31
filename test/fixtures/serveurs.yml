@@ -15,7 +15,7 @@ one:
   cluster: false
   critique: false
   domaine_id: 1
-  gestin_id: 1
+  gestion_id: 1
   acte_id: 1
   phase: 1
   salle_id: 1
@@ -45,7 +45,7 @@ two:
   cluster: false
   critique: false
   domaine_id: 1
-  gestin_id: 1
+  gestion_id: 1
   acte_id: 1
   phase: 1
   salle_id: 1
