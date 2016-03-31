@@ -115,7 +115,7 @@
 
                                   <%= content_tag_for :li, serveur,
                                                       class: "list-group-item truncate #{serveur.modele.try(:category).try(:title).try(:parameterize)}",
-                                                      style: "height: #{27*u_serveur}px;background-color:#{bgModeleColor} !important",
+                                                      style: "height: #{27*u_serveur}px;background-color:#{bgModeleColor} !important;overflow:hidden;",
                                                       :data => data do %>
                                     <% u_serveur.times do |i| %>
                                       <span class="pull-left u_scale <%= u_disponibles.even? ? 'even': 'odd' %>" title="<%= u_disponibles %>" style="margin:<%= -3 + (27*(i)) %>px -15px;"><%= u_disponibles %></span>
