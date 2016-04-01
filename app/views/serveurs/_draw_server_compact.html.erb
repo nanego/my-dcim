@@ -1,9 +1,6 @@
 <b class="pull-left"><%= link_to h(serveur.nom), serveur %></b>
 
 <% if serveur.modele.present? %>
-  <br>
-  <i class="pull-left"><%= link_to serveur.modele.try(:title), edit_modele_path(serveur.modele), style: 'font-weight:normal;' %></i>
-
   <div class="pull-right">
     <% slots_sur_modele = serveur.modele.composants.where(type_composant_id: 4) %>
     <table class="slots">
@@ -27,6 +24,11 @@
       </tbody>
     </table>
   </div>
+
+  <br>
+  <i class="pull-left"><%= link_to serveur.modele.try(:title), edit_modele_path(serveur.modele), style: 'font-weight:normal;' %></i>
+
+
 
   <div class="clearfix"></div>
 

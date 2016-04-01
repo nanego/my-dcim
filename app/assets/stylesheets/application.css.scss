@@ -42,7 +42,7 @@ a.hide-filters, a.show-filters{
 .baie .serveur a { color: #333; font-weight: 600; }
 .baie li.serveur.list-group-item {
   padding: 3px 15px;
-  overflow: hidden;
+  overflow: visible;
 }
 .baie .panel-footer{
   min-height: 60px;
