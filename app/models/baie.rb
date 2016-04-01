@@ -14,10 +14,10 @@ class Baie < ActiveRecord::Base
     if servers_per_bay.present?
       servers_per_bay.each do |ilot, baies|
         baies.each_with_index do |(baie, serveurs), index|
-          txt << "\n#{baie}\n"
-          txt << "---------------\n"
+          txt << "\r\n#{baie}\r\n"
+          txt << "---------------\r\n"
           serveurs.each do |serveur|
-            txt << "[#{serveur.position}] #{serveur.nom}\n"
+            txt << "[#{serveur.position}] #{serveur.nom}\r\n"
           end
         end
       end

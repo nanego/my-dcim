@@ -327,20 +327,23 @@ csv.each_with_index do |row, i|
         end
         port = Port.find_or_create_by!(position: position,
                                        parent_type: CardsServeur.name,
-                                       parent_id: cards_serveurs.id,
-                                       vlans: confs ? confs[index] : nil,
-                                       color: couleurs ? couleurs[index] : nil,
-                                       cablename: nomscables ? nomscables[index] : nil
+                                       parent_id: cards_serveurs.id
+
         )
+        port.vlans = (confs ? confs[index] : nil)
+        port.color = (couleurs ? couleurs[index] : nil)
+        port.cablename = (nomscables ? nomscables[index] : nil)
+        port.save
       when /^cm/
         cards_serveurs = CardsServeur.find_or_create_by!(card: card_cm, serveur: serveur, composant: composant_slot_cm)
         port = Port.find_or_create_by!(position: type_port[2],
                                        parent_type: CardsServeur.name,
-                                       parent_id: cards_serveurs.id,
-                                       vlans: confs ? confs[index] : nil,
-                                       color: couleurs ? couleurs[index] : nil,
-                                       cablename: nomscables ? nomscables[index] : nil
+                                       parent_id: cards_serveurs.id
         )
+        port.vlans = (confs ? confs[index] : nil)
+        port.color = (couleurs ? couleurs[index] : nil)
+        port.cablename = (nomscables ? nomscables[index] : nil)
+        port.save
       when /^slot/
         position_slot = type_port[4]
         position_port_in_slot = type_port[6]
@@ -351,11 +354,11 @@ csv.each_with_index do |row, i|
         cards_serveurs = CardsServeur.find_or_create_by!(serveur: serveur, composant: composant)
         port = Port.find_or_create_by!(position: position_port_in_slot,
                                        parent_type: CardsServeur.name,
-                                       parent_id: cards_serveurs.id,
-                                       vlans: confs ? confs[index] : nil,
-                                       color: couleurs ? couleurs[index] : nil,
-                                       cablename: nomscables ? nomscables[index] : nil
-        )
+                                       parent_id: cards_serveurs.id)
+        port.vlans = (confs ? confs[index] : nil)
+        port.color = (couleurs ? couleurs[index] : nil)
+        port.cablename = (nomscables ? nomscables[index] : nil)
+        port.save
     end
 
   end if rjs_a_brancher.present?
