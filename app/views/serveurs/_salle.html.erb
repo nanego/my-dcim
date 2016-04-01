@@ -10,7 +10,7 @@
     <div class="panel panel-default panel-salle" id="<%= salle.try(:parameterize).try(:underscore) %>">
       <% if formats!=[:pdf] %>
         <div class="panel-heading">
-          <%= link_to "Export txt", salle_path(@salle, format: :txt, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
+          <%= link_to "Export txt", salle_path(salle, format: :txt, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
           <h3>Salle <%= salle %></h3>
         </div>
       <% end %>
