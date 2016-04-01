@@ -25,7 +25,7 @@ class BaiesController < ApplicationController
                template: "salles/show.pdf.erb",
                show_as_html: params[:debug].present?,
                pdf: 'baie',
-               :page_height => '15in', :page_width => '8in'
+               zoom: 0.8
       end
     end
   end

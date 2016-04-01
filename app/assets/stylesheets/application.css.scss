@@ -16,13 +16,6 @@
  *= require_self
  */
 
-@media print
-{
-  div{
-    page-break-inside: avoid;
-  }
-}
-
 body {
   -webkit-print-color-adjust: exact;
 }
@@ -44,12 +37,12 @@ a.hide-filters, a.show-filters{
   text-decoration: underline;
 }
 
-.baie .serveur { color: #777; }
+.baie .serveur { color: #777;page-break-inside: avoid; }
 .baie .serveur.ui-sortable-handle { cursor: move; }
 .baie .serveur a { color: #333; font-weight: 600; }
 .baie li.serveur.list-group-item {
   padding: 3px 15px;
-  overflow: visible;
+  overflow: hidden;
 }
 .baie .panel-footer{
   min-height: 60px;
