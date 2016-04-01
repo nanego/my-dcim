@@ -13,9 +13,6 @@
 require 'open-uri'
 require 'csv'
 
-CardsServeur.delete_all
-Port.delete_all
-
 =begin
 
 Modele.delete_all
