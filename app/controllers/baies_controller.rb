@@ -27,6 +27,7 @@ class BaiesController < ApplicationController
                pdf: 'baie',
                zoom: 0.8
       end
+      format.txt { send_data Baie.to_txt(@serveurs_par_baies) }
     end
   end
 

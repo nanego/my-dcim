@@ -9,4 +9,20 @@ class Baie < ActiveRecord::Base
     "#{salle.title.present? ? "Salle #{salle.title} " : ''} #{ilot.present? ? "Ilot #{ilot}" : ''} Baie #{title.present? ? title : 'non précisée' }"
   end
 
+  def self.to_txt(servers_per_bay)
+    txt = ""
+    if servers_per_bay.present?
+      servers_per_bay.each do |ilot, baies|
+        baies.each_with_index do |(baie, serveurs), index|
+          txt << "\n#{baie}\n"
+          txt << "---------------\n"
+          serveurs.each do |serveur|
+            txt << "[#{serveur.position}] #{serveur.nom}\n"
+          end
+        end
+      end
+    end
+    txt
+  end
+
 end

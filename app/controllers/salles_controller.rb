@@ -17,6 +17,20 @@ class SallesController < ApplicationController
       @serveurs_par_baies[ilot][baie] ||= []
       @serveurs_par_baies[ilot][baie] << s
     end
+
+    respond_to do |format|
+      format.html do
+        render 'salles/show'
+      end
+      #format.pdf do
+      #  render layout: 'pdf.html',
+      #         template: "salles/show.pdf.erb",
+      #         show_as_html: params[:debug].present?,
+      #         pdf: 'baie',
+      #         zoom: 0.8
+      #end
+      format.txt { send_data Baie.to_txt(@serveurs_par_baies) }
+    end
   end
 
   # GET /salles/new

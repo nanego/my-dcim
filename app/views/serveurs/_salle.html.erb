@@ -9,7 +9,10 @@
 
     <div class="panel panel-default panel-salle" id="<%= salle.try(:parameterize).try(:underscore) %>">
       <% if formats!=[:pdf] %>
-        <div class="panel-heading"><h3>Salle <%= salle %></h3></div>
+        <div class="panel-heading">
+          <%= link_to "Export txt", salle_path(@salle, format: :txt, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
+          <h3>Salle <%= salle %></h3>
+        </div>
       <% end %>
 
       <% ilots.each do |ilot, baies| %>
@@ -48,6 +51,7 @@
                               <%= link_to "Liste des ports", ports_path(baie_id: serveurs.first.baie.id), class: 'btn btn-success pull-right', style: 'margin-left:10px;' %>
                               <%= link_to "Impression", baie_path(serveurs.first.baie, format: :pdf, debug: 1, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
                               <%= link_to "Export PDF", baie_path(serveurs.first.baie, format: :pdf, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
+                              <%= link_to "Export txt", baie_path(serveurs.first.baie, format: :txt, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
                           <% end %>
                           <%= link_to "modifier", edit_baie_path(serveurs.first.baie), class: 'btn btn-default pull-right' %>
                           <% end %>
