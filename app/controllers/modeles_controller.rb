@@ -5,11 +5,12 @@ class ModelesController < ApplicationController
   before_action :set_modele, only: [:show, :edit, :update, :destroy]
 
   def index
-    @modeles = Modele.includes(:category).order(:title)
+    @modeles = Modele.includes(:category, :serveurs).order(:title)
     @types = @modeles.group_by { |m| m.category.title }.sort_by { |categorie, modeles| categorie.to_s }
   end
 
   def show
+    @serveurs = @modele.serveurs
   end
 
   def new

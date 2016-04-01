@@ -7,17 +7,14 @@
     <span class="glyphicon glyphicon-pencil"></span>
     Edit
   <% end %>
-  <h1>Show modele</h1>
+  <h1><%= @modele.title %></h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt>Title:</dt>
-  <dd><%= @modele.title %></dd>
 
-  <dt>Description:</dt>
-  <dd><%= @modele.description %></dd>
-
-  <dt>Published:</dt>
-  <dd><%= @modele.published %></dd>
+  <dt>Serveurs :</dt>
+  <% @serveurs.each do |s| %>
+    <dd><%= link_to s.nom, serveur_path(s) %></dd>
+  <% end %>
 
 </dl>
