@@ -41,7 +41,7 @@ puts "Table Composants vide et pk_sequence = 0"
 
 =end
 
-file = File.read(Rails.root.join('lib', 'seeds', 'inventaire_160331.csv'))
+file = File.read(Rails.root.join('lib', 'seeds', 'inventaire_160401.csv'))
 csv = CSV.parse(file, :headers => true)
 
 # ActiveRecord::Base.connection.set_pk_sequence!("serveurs", Serveur.maximum(:id)+1)
@@ -166,6 +166,8 @@ csv.each_with_index do |row, i|
   serveur = Serveur.where(id: id).first
   if serveur.present?
 
+=begin
+
     serveur.update_attributes(
         ip: ip,
         hostname: hostname,
@@ -204,6 +206,9 @@ csv.each_with_index do |row, i|
         ipmi_futur: ipmi_futur,
         ipmi_utilise: ipmi_utilise
         )
+
+=end
+
   else
     serveur = Serveur.create!(
         id: id,
