@@ -5,7 +5,7 @@ class BaiesController < ApplicationController
     @salle = @baie.salle
     @serveurs_par_baies ||= {}
 
-    Serveur.includes(:baie, :modele => :category)
+    Serveur.includes(:baie, :gestion, :modele => :category)
         .joins(:baie)
         .where(baie: @baie)
         .order('baies.ilot ASC, baies.position ASC, serveurs.position desc, serveurs.id desc').each do |s|
