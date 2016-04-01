@@ -67,7 +67,7 @@ table.cm, table.cm th, table.cm td{
   font-size: small;
   display: inline-block;
   text-align: center;
-  margin-bottom: 2px;
+  margin-bottom: -2px;
   overflow: hidden;
   margin-left: 4px;
   &.R{
@@ -85,9 +85,9 @@ table.cm, table.cm th, table.cm td{
 }
 .portRJ {
   border: 1px #555555 solid;
-  width: 28px;
-  height: 28px;
-  line-height: 26px;
+  width: 32px;
+  height: 20px;
+  line-height: 20px;
 }
 .portSCSI {
   border: 1px #555555 solid;
