@@ -44,6 +44,9 @@ a.hide-filters, a.show-filters{
   padding: 3px 15px;
   overflow: visible;
 }
+.baie .panel-footer{
+  min-height: 60px;
+}
 .badge.badgeRJ45 {
   border-radius: 0;
 }
@@ -61,21 +64,27 @@ table.cm, table.cm th, table.cm td{
 .portRJ, .portFC, .portSCSI{
   cursor: pointer;
   position: relative;
+  font-size: small;
   &.R{
+    color: #FFFFFF;
     background-color: red !important;
   }
   &.G{
+    color: #333333;
     background-color: #DDDDDD !important;;
   }
   &.V{
+    color: #FFFFFF;
     background-color: green !important;;
   }
 }
 .portRJ {
   border: 1px #555555 solid;
-  width: 8px;
-  height: 8px;
-  display: inline-block;
+  width: 28px;
+  height: 28px;
+  display: inline-table;
+  line-height: 26px;
+  text-align: center;
 }
 .portSCSI {
   border: 1px #555555 solid;
@@ -85,9 +94,11 @@ table.cm, table.cm th, table.cm td{
 }
 .portFC {
   border: 1px #555555 solid;
-  width: 8px;
-  height: 8px;
-  display: inline-block;
+  width: 2px;
+  height: 28px;
+  display: inline-table;
+  line-height: 26px;
+  text-align: center;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;

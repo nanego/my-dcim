@@ -8,7 +8,8 @@
     <i class="port portRJ <%= port_data.present? ? port_data.color : ''%>"
        data-position="<%= index+1 %>"
        data-type="RJ"
-       data-toggle="tooltip" data-placement="top" title="<%= port_data.present? ? "#{port_data.cablename} - #{port_data.vlans}" : '' %>">
+       data-toggle="tooltip" data-placement="top" title="<%= port_data.present? ? "#{port_data.vlans}" : '' %>">
+      <%= port_data.try(:cablename) %>
     </i>
 
   <% when 'FC' %>
@@ -17,6 +18,7 @@
        data-position="<%= index+1 %>"
        data-type="FC"
        data-toggle="tooltip" data-placement="top" title="<%= port_data.present? ? port_data.vlans : '' %>">
+      <%= port_data.try(:cablename) %>
     </i>
 
   <% else %>
@@ -25,7 +27,8 @@
        data-position="<%= index+1 %>"
        data-type="<%= port_type.try(:name) %>"
        data-toggle="tooltip" data-placement="top" title="<%= port_data.present? ? port_data.vlans : '' %>">
-      <%= port_type.try(:name) %>
+      <%= port_type.try(:name) %><br>
+      <%= port_data.try(:cablename) %>
     </i>
 
   <% end %>
