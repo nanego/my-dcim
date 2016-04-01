@@ -38,7 +38,7 @@ puts "Table Composants vide et pk_sequence = 0"
 
 =end
 
-file = File.read(Rails.root.join('lib', 'seeds', 'inventaire_160401.csv'))
+file = File.read(Rails.root.join('lib', 'seeds', 'inventaire_160402_FC_only.csv'))
 csv = CSV.parse(file, :headers => true)
 
 # ActiveRecord::Base.connection.set_pk_sequence!("serveurs", Serveur.maximum(:id)+1)
