@@ -1,14 +1,14 @@
 class BaiesController < ApplicationController
 
   def show
-    @baie = Baie.find(params[:id])
+    @baie = Baie.find_by_id(params[:id])
     @salle = @baie.salle
     @serveurs_par_baies ||= {}
 
-    Serveur.includes(:baie, :gestion, :modele => :category)
+    Serveur.includes(:gestion, :baie => :salle, :modele => :category)
         .joins(:baie)
         .where(baie: @baie)
-        .order('baies.ilot ASC, baies.position ASC, serveurs.position desc, serveurs.id desc').each do |s|
+        .order('baies.ilot ASC, baies.position ASC, serveurs.position desc').each do |s|
       ilot = (s.baie.try(:ilot).present? ? s.baie.ilot.to_s : "non précisé")
       baie = (s.baie.title.present? ? s.baie.title.to_s : "non précisée")
       @serveurs_par_baies[ilot] ||= {}
@@ -18,7 +18,7 @@ class BaiesController < ApplicationController
 
     respond_to do |format|
       format.html do
-        render 'salles/show'
+        render 'salles/show.html.erb'
       end
       format.pdf do
         render layout: 'pdf.html',
@@ -32,11 +32,11 @@ class BaiesController < ApplicationController
   end
 
   def edit
-    @baie = Baie.find(params[:id])
+    @baie = Baie.find_by_id(params[:id])
   end
 
   def update
-    @baie = Baie.find(params[:id])
+    @baie = Baie.find_by_id(params[:id])
     respond_to do |format|
       if @baie.update(baie_params)
         format.html { redirect_to salle_path(@baie.salle), notice: 'baie was successfully updated.' }
