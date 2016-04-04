@@ -70,24 +70,25 @@ table.cm, table.cm th, table.cm td{
   margin-bottom: -2px;
   overflow: hidden;
   margin-left: 4px;
+  // Colors are !important so we can print them
   &.R{
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     background-color: red !important;
   }
   &.G{
-    color: #333333;
+    color: #333333 !important;
     background-color: #DDDDDD !important;
   }
   &.V{
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     background-color: green !important;
   }
   &.T{
-    color: #000000;
+    color: #000000 !important;
     background-color: darkturquoise !important;
   }
   &.Vi{
-    color: #FFFFFF;
+    color: #FFFFFF !important;
     background-color: rebeccapurple !important;
   }
 }
