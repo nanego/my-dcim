@@ -137,11 +137,13 @@ table.cm, table.cm th, table.cm td{
 }
 
 .u_scale{
+  position: absolute;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width:24px;
-  text-align:center;
-  height: 27px;
   padding: 3px 1px;
-  margin:-3px -15px;
   &.even{
     background-color:#E9E9E9 !important;;  // '#E9E9E9'
   }
