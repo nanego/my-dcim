@@ -153,6 +153,21 @@ table.cm, table.cm th, table.cm td{
   }
 }
 
+.badge_phase{
+  position: absolute;
+  left: -30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:26px;
+  top: 0;
+  height: 26px;
+  padding: 4px 9px;
+  -webkit-border-radius: 13px;
+  -moz-border-radius: 13px;
+  border-radius: 13px;
+}
+
 .port_selection { position: fixed;
   top: -11em;
   left: 0;
