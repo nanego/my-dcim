@@ -33,6 +33,38 @@ class SallesController < ApplicationController
     end
   end
 
+  def ilot
+    @baie = Baie.find_by_id(params[:id])
+    @ilot = @baie.ilot
+    @salle = @baie.salle
+    @serveurs_par_baies ||= {}
+
+    Serveur.includes(:gestion, :baie => :salle, :modele => :category)
+        .joins(:baie)
+        .where("baies.ilot = ?", @ilot)
+        .order('baies.position ASC, serveurs.position desc').each do |s|
+      ilot = (s.baie.try(:ilot).present? ? s.baie.ilot.to_s : "non précisé")
+      baie = (s.baie.title.present? ? s.baie.title.to_s : "non précisée")
+      @serveurs_par_baies[ilot] ||= {}
+      @serveurs_par_baies[ilot][baie] ||= []
+      @serveurs_par_baies[ilot][baie] << s
+    end
+
+    respond_to do |format|
+      format.html do
+        render 'salles/show.html.erb'
+      end
+      format.pdf do
+        render layout: 'pdf.html',
+               template: "salles/show.pdf.erb",
+               show_as_html: params[:debug].present?,
+               pdf: 'baie',
+               zoom: 0.8
+      end
+      format.txt { send_data Baie.to_txt(@serveurs_par_baies) }
+    end
+  end
+
   # GET /salles/new
   def new
     @salle = Salle.new

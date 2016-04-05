@@ -13,7 +13,6 @@ Rails.application.routes.draw do
     collection do
       get :grid
       get :baies
-      get :baie
       post :sort
     end
   end
@@ -25,7 +24,11 @@ Rails.application.routes.draw do
   resources :actes
   resources :cards
   resources :colors
-  resources :salles
+  resources :salles do
+    collection do
+      get :ilot
+    end
+  end
   resources :gestions
   resources :domaines
   resources :modeles
