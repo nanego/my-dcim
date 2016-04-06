@@ -25,7 +25,7 @@ class BaiesController < ApplicationController
                template: "salles/show.pdf.erb",
                show_as_html: params[:debug].present?,
                pdf: 'baie',
-               zoom: 0.8
+               zoom: 0.75
       end
       format.txt { send_data Baie.to_txt(@serveurs_par_baies) }
     end
