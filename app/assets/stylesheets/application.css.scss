@@ -61,6 +61,8 @@ table.cm, table.cm th, table.cm td{
   border: 1px #999999 solid;
   padding: 1px 3px;
   text-align: center;
+  table-layout: fixed;
+  width: 3.1em;
 }
 .portRJ, .portFC, .portSCSI{
   cursor: pointer;
