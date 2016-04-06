@@ -1,5 +1,5 @@
 class SallesController < ApplicationController
-  before_action :set_salle, only: [:show, :edit, :update, :destroy]
+  before_action :set_salle, only: [:show, :edit, :update, :destroy, :ilot]
 
   # GET /salles
   # GET /salles.json
@@ -34,15 +34,15 @@ class SallesController < ApplicationController
   end
 
   def ilot
-    @baie = Baie.find_by_id(params[:id])
-    @ilot = @baie.ilot
-    @salle = @baie.salle
+    ilot = params[:ilot]
     @serveurs_par_baies ||= {}
 
-    Serveur.includes(:gestion, :baie => :salle, :modele => :category)
+    @salle.serveurs
+        .includes(:baie, :gestion, :modele => :category)
         .joins(:baie)
-        .where("baies.ilot = ?", @ilot)
-        .order('baies.position ASC, serveurs.position desc').each do |s|
+        .where(ilot: ilot)
+        .order('baies.ilot ASC, baies.position ASC, serveurs.position desc, serveurs.id desc')
+        .each do |s|
       ilot = (s.baie.try(:ilot).present? ? s.baie.ilot.to_s : "non précisé")
       baie = (s.baie.title.present? ? s.baie.title.to_s : "non précisée")
       @serveurs_par_baies[ilot] ||= {}
@@ -54,13 +54,13 @@ class SallesController < ApplicationController
       format.html do
         render 'salles/show.html.erb'
       end
-      format.pdf do
-        render layout: 'pdf.html',
-               template: "salles/show.pdf.erb",
-               show_as_html: params[:debug].present?,
-               pdf: 'baie',
-               zoom: 0.8
-      end
+      #format.pdf do
+      #  render layout: 'pdf.html',
+      #         template: "salles/show.pdf.erb",
+      #         show_as_html: params[:debug].present?,
+      #         pdf: 'baie',
+      #         zoom: 0.8
+      #end
       format.txt { send_data Baie.to_txt(@serveurs_par_baies) }
     end
   end
@@ -117,7 +117,7 @@ class SallesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_salle
-      @salle = Salle.find(params[:id])
+      @salle = Salle.find_by_id(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

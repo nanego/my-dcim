@@ -9,14 +9,7 @@
 
   <h1>Vue par salle et par baie</h1>
 
-  <div class="well">
-  Raccourcis vers les salles :
-  <% @serveurs_par_baies.each do |salle, ilots| %>
-    <li>
-      <%= link_to salle, salle.include?('non précisée') ? "##{salle.parameterize.underscore}" : salle_path(Salle.find_by_title(salle)) %>
-    </li>
-  <% end %>
-  </div>
+  <%= render 'salles/links_to_rooms.html.erb' %>
 
   <% @serveurs_par_baies.each do |salle, ilots| %>
 

@@ -1,0 +1,33 @@
+<div class="well">
+  Salles et ilots :
+  <% Salle.includes(:serveurs, :baies).order("salles.title").each do |salle| %>
+    <% if salle.title.present? && salle.serveurs.present? %>
+      <% ilots = (salle.baies.map(&:ilot).uniq - ["", nil]) %>
+      <div class="btn-group">
+        <button type="button" class="btn btn-default"><% if salle == @salle && controller_name == "salles" %>
+            <%= salle.title %>
+          <% else %>
+            <%= link_to salle.title, salle_path(salle) %>
+          <% end %>
+        </button>
+        <% if ilots.present? %>
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+        <% end %>
+        <% if ilots.present? %>
+          <ul class="dropdown-menu">
+            <% ilots.each do |ilot| %>
+              <% if ilot.present? %>
+                <li>
+                  <%= link_to "Ilot #{ilot}", ilot_salles_path(id: salle.id, ilot: ilot, :view => params[:view], bg: params[:bg]) %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
