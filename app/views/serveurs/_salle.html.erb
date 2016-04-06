@@ -113,6 +113,7 @@
                                       <%= render 'serveurs/draw_u_scale_unit.html.erb', i:i, u_disponibles:u_disponibles, u_serveur:u_serveur %>
                                       <% u_disponibles -= 1 %>
                                     <% end %>
+                                    <%= render 'serveurs/draw_badge_phase.html.erb', serveur: serveur %>
                                     <%= render 'serveurs/draw_server_compact.html.erb', serveur: serveur %>
                                   <% end %>
                                 <% else %>
@@ -122,13 +123,10 @@
                                                       style: "height: #{27*u_serveur}px;background-color:#{bgModeleColor} !important;",
                                                       :data => data do %>
                                     <% u_serveur.times do |i| %>
-                                      <%= render 'serveurs/draw_u_scale_unit.html.erb', i:i, u_disponibles:u_disponibles, u_serveur:u_serveur %>
+                                      <%= render 'serveurs/draw_u_scale_unit.html.erb', i: i, u_disponibles: u_disponibles, u_serveur: u_serveur %>
                                       <% u_disponibles -= 1 %>
-                                    <span class="badge_phase" title="Phase <%= serveur.phase %>"
-                                          style="background-color:<%= Color.find_by(parent_type: 'Phase', parent_id: serveur.phase).try(:code) %> !important;" >
-                                      <%= serveur.phase %>
-                                    </span>
                                     <% end %>
+                                    <%= render 'serveurs/draw_badge_phase.html.erb', serveur: serveur %>
                                     <% case serveur.modele.try(:category_id) %>
                                     <% when @modele_blank_panel_id %>
                                       <span class="pull-left"><%= link_to h("#{serveur.nom}"), serveur %></span>
