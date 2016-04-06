@@ -2,6 +2,7 @@
 <% max_elts = 24 %>
 <% max_rj45 = 48 %>
 <% max_fc = 12 %>
+<% min_height = params[:view]=='back' ? 20 : 27 %>
 
 <div class="row">
 
@@ -69,7 +70,7 @@
                               <% if serveur.modele.try(:title).present? %>
 
                                 <% while serveur.position.present? && serveur.position < u_disponibles && u_disponibles>0 %>
-                                  <li class="serveur list-group-item truncate" style="height: 27px;">
+                                  <li class="serveur list-group-item truncate" style="height: <%= min_height %>px;">
                                     <%= render 'serveurs/draw_u_scale_unit.html.erb', i:0, u_disponibles:u_disponibles, u_serveur:1 %>
                                   </li>
                                   <% u_disponibles -= 1 %>
@@ -119,7 +120,7 @@
 
                                   <%= content_tag_for :li, serveur,
                                                       class: "list-group-item truncate #{serveur.modele.try(:category).try(:title).try(:parameterize)}",
-                                                      style: "height: #{27*u_serveur}px;background-color:#{bgModeleColor} !important;",
+                                                      style: "height: #{min_height*u_serveur}px;background-color:#{bgModeleColor} !important;",
                                                       :data => data do %>
                                     <% u_serveur.times do |i| %>
                                       <%= render 'serveurs/draw_u_scale_unit.html.erb', i: i, u_disponibles: u_disponibles, u_serveur: u_serveur %>
@@ -144,7 +145,7 @@
                               <% end %>
                             <% end %>
                           <% u_disponibles.times do |u| %>
-                            <li class="serveur list-group-item truncate" style="height: 27px;">
+                            <li class="serveur list-group-item truncate" style="height: <%= min_height %>px;">
                               <%= render 'serveurs/draw_u_scale_unit.html.erb', i:0, u_disponibles:u_disponibles, u_serveur:1 %>
                             </li>
                             <% u_disponibles -= 1 %>
