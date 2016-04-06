@@ -107,8 +107,7 @@
                                 <% if params[:view] == 'back' %>
                                   <%= content_tag_for :li, serveur,
                                                       class: "list-group-item truncate server_back #{serveur.modele.try(:category).try(:title).try(:parameterize)}",
-                                                      style: "min-height: #{41*(serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1)}px;",
-                                                      :data => data do %>
+                                                      data: data do %>
                                     <% u_serveur.times do |i| %>
                                       <%= render 'serveurs/draw_u_scale_unit.html.erb', i:i, u_disponibles:u_disponibles, u_serveur:u_serveur %>
                                       <% u_disponibles -= 1 %>
