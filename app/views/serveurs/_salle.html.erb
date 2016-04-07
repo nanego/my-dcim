@@ -129,7 +129,7 @@
                                     <%= render 'serveurs/draw_badge_phase.html.erb', serveur: serveur %>
                                     <% case serveur.modele.try(:category_id) %>
                                     <% when @modele_blank_panel_id %>
-                                      <span class="pull-left"><%= link_to h("#{serveur.nom}"), serveur %></span>
+                                      <span class="pull-left"><%= link_to h(serveur.nom), serveur %></span>
                                     <% else %>
                                       <span class="pull-left" style="padding-left: 14px;"><%= link_to h("#{serveur.nom}"), serveur %></span>
                                       <% if serveur.rj45_futur.to_i > 0 || serveur.fc_futur.to_i > 0 || serveur.ipmi_futur.to_i > 0 %>

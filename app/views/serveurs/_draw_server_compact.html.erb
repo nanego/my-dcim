@@ -1,4 +1,4 @@
-<b class="pull-left" style="padding-left: 14px;"><%= link_to h(serveur.nom), serveur %></b>
+<%= link_to h(serveur.nom), serveur, class: 'pull-left serveur_name', style: 'padding-left: 14px;' %>
 
 <% if serveur.modele.present? %>
   <div class="pull-right">
