@@ -95,6 +95,22 @@ table.cm, table.cm th, table.cm td{
     color: #FFFFFF !important;
     background-color: #663399 !important;
   }
+  &.N{
+    color: #FFFFFF !important;
+    background-color: #000000 !important;
+  }
+  &.O{
+    color: #FFFFFF !important;
+    background-color: #FF9000 !important;
+  }
+  &.W{
+    color: #000000 !important;
+    background-color: #FFFFFF !important;
+  }
+  &.J{
+    color: #000000 !important;
+    background-color: #EEEE00 !important;
+  }
 }
 .portRJ {
   border: 1px #555555 solid;
