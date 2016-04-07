@@ -1,38 +1,36 @@
 <% port_quantity.to_i.times do |index| %>
 
-  <% port_data = ports_data.where(position: index+1).first %>
+  <% port_data = ports_data.find_by(position: index+1) %>
 
   <% case port_type.name
        when 'RJ' %>
 
-    <i class="port portRJ <%= port_data.present? ? port_data.color : '' %>"
+    <a href="<%= port_data.try(:id) ? edit_port_path(port_data) : edit_port_path(id: 0, parent_id: card_serveur.id, parent_type: CardsServeur.name, position: index+1) %>" class="port pull-left portRJ <%= port_data.present? ? port_data.color : '' %>"
        style="page-break-inside: avoid;"
        data-position="<%= index+1 %>"
        data-type="RJ"
        data-toggle="tooltip" data-placement="top" title="<%= port_data.present? ? "#{port_data.vlans}" : '' %>">
       <%= port_data.try(:cablename) %>
-    </i>
+    </a>
 
   <% when 'FC' %>
 
-    <i class="port portFC <%= port_data.present? ? port_data.color : ''%>"
+    <a href="<%= port_data.try(:id) ? edit_port_path(port_data) : edit_port_path(id: 0, parent_id: card_serveur.id, parent_type: CardsServeur.name, position: index+1) %>" class="port pull-left portFC <%= port_data.present? ? port_data.color : ''%>"
        data-position="<%= index+1 %>"
        data-type="FC"
        data-toggle="tooltip" data-placement="top" title="<%= port_data.present? ? port_data.vlans : '' %>">
       <%= port_data.try(:cablename) %>
-    </i>
+    </a>
 
   <% else %>
 
-    <i class="port portSCSI <%= port_data.present? ? port_data.color : ''%>"
+    <a href="<%= port_data.try(:id) ? edit_port_path(port_data) : edit_port_path(id: 0, parent_id: card_serveur.id, parent_type: CardsServeur.name, position: index+1) %>" class="port pull-left portSCSI <%= port_data.present? ? port_data.color : ''%>"
        data-position="<%= index+1 %>"
        data-type="<%= port_type.try(:name) %>"
        data-toggle="tooltip" data-placement="top" title="<%= port_data.present? ? port_data.vlans : '' %>">
       <%= port_type.try(:name) %><br>
       <%= port_data.try(:cablename) %>
-    </i>
+    </a>
 
   <% end %>
-
-  <%= '<br>'.html_safe unless alignment == 'horizontal' %>
 <% end %>

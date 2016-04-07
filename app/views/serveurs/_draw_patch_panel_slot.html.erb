@@ -5,7 +5,9 @@
                  :locals => {
                      port_type: card_serveur.card.port_type,
                      port_quantity: card_serveur.card.port_quantity,
-                     alignment: 'horizontal', ports_data: Port.where(parent: card_serveur) } %>
+                     alignment: 'horizontal',
+                     card_serveur: card_serveur,
+                     ports_data: Port.where(parent: card_serveur) } %>
     <% end %>
   </span>
 <% end %>

@@ -113,8 +113,6 @@
 
   <dt>Cartes :</dt>
 
-
-
   <% @serveur.modele.composants.where(type_composant_id: 4).each do |slot| %>
 
     <% @serveur.cards_serveurs.where(:composant_id => slot.id).each do |card_serveur| %>

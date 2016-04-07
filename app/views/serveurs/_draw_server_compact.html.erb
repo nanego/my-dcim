@@ -15,7 +15,12 @@
           <td>
             <% serveur.cards_serveurs.where(:composant_id => slot.id).each do |card_serveur| %>
               <span data-server-name="<%= serveur.nom %>" data-server-id="<%= serveur.id %>" data-composant-id="<%= card_serveur.id %>" data-composant-type="<%= card_serveur.class %>">
-                <%= render 'serveurs/card_ports.html.erb', port_type: card_serveur.card.try(:port_type), port_quantity: card_serveur.card.try(:port_quantity), alignment: 'vertical', ports_data: Port.where(parent: card_serveur) %>
+                <%= render 'serveurs/card_ports.html.erb',
+                           port_type: card_serveur.card.try(:port_type),
+                           port_quantity: card_serveur.card.try(:port_quantity),
+                           alignment: 'vertical',
+                           card_serveur: card_serveur,
+                           ports_data: Port.where(parent: card_serveur) %>
               </span>
             <% end %>
           </td>
@@ -27,8 +32,6 @@
 
   <br>
   <i class="pull-left" style="padding-left: 14px;"><%= link_to serveur.modele.try(:title), edit_modele_path(serveur.modele), style: 'font-weight:normal;' %></i>
-
-
 
   <div class="clearfix"></div>
 
