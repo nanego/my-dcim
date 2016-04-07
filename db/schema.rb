@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329120027) do
+ActiveRecord::Schema.define(version: 20160407131319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,12 +42,13 @@ ActiveRecord::Schema.define(version: 20160329120027) do
 
   create_table "baies", force: :cascade do |t|
     t.string   "title"
-    t.integer  "u",          default: 41
+    t.integer  "u",           default: 41
     t.integer  "salle_id"
     t.integer  "ilot"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "position"
+    t.integer  "switch_slot"
   end
 
   create_table "cards", force: :cascade do |t|

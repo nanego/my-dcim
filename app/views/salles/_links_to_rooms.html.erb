@@ -4,12 +4,9 @@
     <% if salle.title.present? && salle.serveurs.present? %>
       <% ilots = (salle.baies.map(&:ilot).uniq - ["", nil]) %>
       <div class="btn-group">
-        <button type="button" class="btn btn-default"><% if salle == @salle && controller_name == "salles" %>
-            <%= salle.title %>
-          <% else %>
-            <%= link_to salle.title, salle_path(salle) %>
-          <% end %>
-        </button>
+        <a href="<%= salle_path(salle) %>" class="btn btn-default">
+          <%= salle.title %>
+        </a>
         <% if ilots.present? %>
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="caret"></span>
