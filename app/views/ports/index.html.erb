@@ -6,35 +6,25 @@
 
       <div style="margin-bottom: 20px;">
         <h2>Liste des ports cablés</h2>
-        <h3>
-          <% if @baie %>
-            <%= link_to "#{@baie.name_with_salle_and_ilot}", baie_path(@baie), style: 'text-decoration: underline;' %>
-          <% else %>
-            <%= link_to "Salle #{@salle}", salle_path(@salle), style: 'text-decoration: underline;' %>
-          <% end %>
-        </h3>
       </div>
 
-      <% @serveurs.each do |s| %>
-
-        <h4 style="display: inline;"><%= s.nom %></h4><span> (<%= s.modele.title %>)</span>
-
-        <p>
-          <% s.cards_serveurs.each do |c| %>
-
-            <% c.ports.each do |port| %>
-              <% if port && port.cablename %>
-                <%= "#{c.composant.name}#{c.composant.name.include?('SL') ? "/#{port.position}" : port.position} - #{port.network_conf(s.baie.switch_slot)}" %>
-                <br>
+      <% @baies.each do |baie| %>
+        <h3>
+          <%= link_to "#{baie.name_with_salle_and_ilot}", baie_path(baie), style: 'text-decoration: underline;' %>
+        </h3>
+        <% baie.serveurs.includes(:modele, :cards_serveurs => [:ports, :composant]).order('position desc').each do |s| %>
+          <h4 style="display: inline;"><%= s.nom %></h4><span> (<%= s.modele.title %>)</span>
+          <p>
+            <% s.cards_serveurs.each do |c| %>
+              <% c.ports.each do |port| %>
+                <% if port && port.cablename %>
+                  <%= "#{c.composant.name}#{c.composant.name.include?('SL') ? "/#{port.position}" : port.position} - #{port.network_conf(s.baie.switch_slot)}" %>
+                  <br>
+                <% end %>
               <% end %>
             <% end %>
-
-          <% end %>
-
-
-        </p>
-
-
+          </p>
+        <% end %>
       <% end %>
 
     </div>

@@ -1,9 +1,14 @@
 class PortsController < ApplicationController
 
   def index
-    @baie = Baie.find_by_id(params[:baie_id])
-    @salle = @baie.salle
-    @serveurs = @baie.serveurs.includes(:cards_serveurs => [:ports, :composant]).order('position desc')
+    if params[:baie_id].present?
+      @baie = Baie.find_by_id(params[:baie_id])
+      @baies = [@baie]
+    else
+      @salle = Salle.find_by_id(params[:salle_id])
+      @ilot = params[:ilot]
+      @baies = Baie.includes(:salle).joins(:salle).where('salles.id = ? AND baies.ilot = ?', @salle.id, @ilot)
+    end
   end
 
   def edit
