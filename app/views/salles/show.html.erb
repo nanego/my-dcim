@@ -2,7 +2,7 @@
 
   <span class="pull-right">
     <!-- Vues AVANT / ARRIERE -->
-    <%= link_to url_for( :view => params[:view]=='back' ? :front : :back), class: 'btn btn-success' do %>
+    <%= link_to url_for(:view => (params[:view]=='back' ? :front : :back), ilot: params['ilot'], id: params['id']), class: 'btn btn-success' do %>
       <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
       <%= (params[:view]=='back' ? 'Vue avant' : 'Vue arrière') %>
     <% end %>

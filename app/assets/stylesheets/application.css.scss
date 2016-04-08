@@ -63,7 +63,7 @@ table.cm, table.cm th, table.cm td{
   padding: 1px 3px;
   text-align: center;
   table-layout: fixed;
-  width: 3.1em;
+  min-width: 2.4em;
 }
 .portRJ, .portFC, .portSCSI{
   cursor: pointer;
@@ -71,10 +71,8 @@ table.cm, table.cm th, table.cm td{
   font-size: 10px;
   display: inline-block;
   text-align: center;
-  margin-bottom: -2px;
   overflow: hidden;
-  margin-left: 4px;
-  margin-bottom: 2px;
+  margin: 0 2px 2px 2px;
   // Colors are !important so we can print them
   &.R{
     color: #FFFFFF !important;
