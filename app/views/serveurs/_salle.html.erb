@@ -25,11 +25,13 @@
           <div class="col-sm-12">
 
             <div class="panel panel-default panel-ilot">
+              <% if current_salle.present? %>
               <div class="panel-heading">
                 <%= link_to "Liste des ports", ports_path(salle_id: current_salle.id, ilot: ilot), class: 'btn btn-success pull-right', style: 'margin-left:10px;' %>
                 <%= link_to "Export PDF", ilot_salles_path(id: current_salle.id, format: :pdf, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front), ilot: ilot), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
                 <h5>Ilot <%= ilot %></h5>
               </div>
+              <% end %>
 
               <div class="row">
 
