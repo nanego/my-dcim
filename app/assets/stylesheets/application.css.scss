@@ -63,7 +63,10 @@ table.cm, table.cm th, table.cm td{
   padding: 1px 3px;
   text-align: center;
   table-layout: fixed;
-  min-width: 2.4em;
+  min-width: 2.5em;
+}
+table.slots thead {
+  font-size: 12px;
 }
 .portRJ, .portFC, .portSCSI{
   cursor: pointer;

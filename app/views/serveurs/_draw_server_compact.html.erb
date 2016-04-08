@@ -12,7 +12,7 @@
       <tbody>
       <tr>
         <% slots_sur_modele.each do |slot| %>
-          <td>
+          <td style="<%= serveur.modele.category.title != 'Patch Panel' ? 'max-width: 2.5em;' : '' %>">
             <% serveur.cards_serveurs.where(:composant_id => slot.id).each do |card_serveur| %>
               <span data-server-name="<%= serveur.nom %>" data-server-id="<%= serveur.id %>" data-composant-id="<%= card_serveur.id %>" data-composant-type="<%= card_serveur.class %>">
                 <%= render 'serveurs/card_ports.html.erb',
