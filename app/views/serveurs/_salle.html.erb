@@ -3,6 +3,7 @@
 <% max_rj45 = 48 %>
 <% max_fc = 12 %>
 <% min_height = params[:view]=='back' ? 20 : 27 %>
+<% current_salle = @salle || Salle.find_by_title(salle) %>
 
 <div class="row">
 
@@ -11,7 +12,8 @@
     <div class="panel panel-default panel-salle" id="<%= salle.try(:parameterize).try(:underscore) %>">
       <% if formats!=[:pdf] %>
         <div class="panel-heading">
-          <%= link_to "Export txt", salle_path(Salle.find_by_title(salle), format: :txt, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
+          <%= link_to "Export PDF", salle_path(current_salle, format: :pdf, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
+          <%= link_to "Export txt", salle_path(current_salle, format: :txt, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
           <h3>Salle <%= salle %></h3>
         </div>
       <% end %>

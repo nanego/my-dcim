@@ -20,6 +20,18 @@ body {
   -webkit-print-color-adjust: exact;
 }
 
+.pdf_body {
+  .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
+    float: initial !important;
+  }
+  .baie .serveur .serveur_name { font-size: 16px; }
+  .baie {
+    clear: both;
+    page-break-after: always;
+    page-break-inside: avoid;
+  }
+}
+
 .truncate {
   // width: 250px;
   white-space: nowrap;
@@ -41,7 +53,7 @@ a.hide-filters, a.show-filters{
 .baie .serveur.ui-sortable-handle { cursor: move; }
 .baie .serveur a {color: #333}
 .baie .serveur .serveur_name { font-weight: 600; }
-.pdf_body .baie .serveur .serveur_name { font-size: 16px; }
+
 .baie li.serveur.list-group-item {
   padding: 3px 15px;
   overflow: visible;
