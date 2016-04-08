@@ -17,7 +17,7 @@ class Baie < ActiveRecord::Base
           txt << "\r\n#{baie}\r\n"
           txt << "---------------\r\n"
           serveurs.each do |serveur|
-            txt << "[#{serveur.position}] #{serveur.nom}\r\n"
+            txt << "[#{serveur.position.to_s.rjust(2, "0")}] #{serveur.nom}\r\n"
           end
         end
       end

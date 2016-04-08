@@ -85,7 +85,7 @@
                                           parent_id = serveur.phase
                                         when 'gestionnaire'
                                           parent_type = 'Gestionnaire'
-                                          parent_id = serveur.gestion.title
+                                          parent_id = serveur.gestion.try(:title)
                                       end
                                     end
 

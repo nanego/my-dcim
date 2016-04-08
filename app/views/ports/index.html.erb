@@ -4,15 +4,15 @@
 
     <div class="col-md-12 well">
 
-      <div class="page-header">
-        <h1>Liste des ports cablés</h1>
-        <h2>
+      <div style="margin-bottom: 20px;">
+        <h2>Liste des ports cablés</h2>
+        <h3>
           <% if @baie %>
             <%= link_to "#{@baie.name_with_salle_and_ilot}", baie_path(@baie), style: 'text-decoration: underline;' %>
           <% else %>
             <%= link_to "Salle #{@salle}", salle_path(@salle), style: 'text-decoration: underline;' %>
           <% end %>
-        </h2>
+        </h3>
       </div>
 
       <% @serveurs.each do |s| %>
