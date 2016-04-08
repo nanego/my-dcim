@@ -24,7 +24,7 @@
 
             <% c.ports.each do |port| %>
               <% if port && port.cablename %>
-                <%= "#{c.composant.name}#{c.composant.name.include?('SL') ? "/#{port.position}" : port.position} : #{port.network_conf}" %>
+                <%= "#{c.composant.name}#{c.composant.name.include?('SL') ? "/#{port.position}" : port.position} - #{port.network_conf(s.baie.switch_slot)}" %>
                 <br>
               <% end %>
             <% end %>

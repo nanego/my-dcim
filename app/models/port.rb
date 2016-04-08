@@ -8,11 +8,10 @@ class Port < ActiveRecord::Base
     connections_from + connections_to
   end
 
-  def network_conf
-    "#{cablename} - #{color}"
-  end
-  def network_conf_with_vlans
-    "#{network_conf} - #{vlans}"
+  def network_conf(switch_slot)
+    if cablename.present?
+      "#{color} - #{cablename} - Switch #{cablename[0]} - Port #{switch_slot}:#{cablename[1..-1]} - #{vlans}"
+    end
   end
 
 end
