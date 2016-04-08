@@ -25,9 +25,9 @@ body {
     float: initial !important;
   }
   .baie .serveur .serveur_name { font-size: 16px; }
-  .baie {
+  .baies.front .baie {
     clear: both;
-    page-break-after: always;
+    // page-break-after: always;
     page-break-inside: avoid;
   }
 }
