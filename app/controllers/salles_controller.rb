@@ -8,7 +8,7 @@ class SallesController < ApplicationController
   end
 
   def show
-    @serveurs_par_baies ||= {}
+    @serveurs_par_baies = {}
 
     @salle.serveurs.includes(:baie, :gestion, :modele => :category).joins(:baie).order('baies.ilot ASC, baies.position ASC, serveurs.position desc, serveurs.id desc').each do |s|
       ilot = (s.baie.try(:ilot).present? ? s.baie.ilot.to_s : "non précisé")
