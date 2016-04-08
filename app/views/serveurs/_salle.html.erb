@@ -25,7 +25,10 @@
           <div class="col-sm-12">
 
             <div class="panel panel-default panel-ilot">
-              <div class="panel-heading"><h5>Ilot <%= ilot %></h5></div>
+              <div class="panel-heading">
+                <%= link_to "Export PDF", ilot_salles_path(id: current_salle.id, format: :pdf, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front), ilot: ilot), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
+                <h5>Ilot <%= ilot %></h5>
+              </div>
 
               <div class="row">
 

@@ -35,7 +35,7 @@ class SallesController < ApplicationController
 
   def ilot
     ilot = params[:ilot]
-    @serveurs_par_baies ||= {}
+    @serveurs_par_baies = {}
 
     @salle.serveurs
         .includes(:baie, :gestion, :modele => :category)
@@ -54,13 +54,13 @@ class SallesController < ApplicationController
       format.html do
         render 'salles/show.html.erb'
       end
-      #format.pdf do
-      #  render layout: 'pdf.html',
-      #         template: "salles/show.pdf.erb",
-      #         show_as_html: params[:debug].present?,
-      #         pdf: 'baie',
-      #         zoom: 0.8
-      #end
+      format.pdf do
+        render layout: 'pdf.html',
+               template: "salles/show.pdf.erb",
+               show_as_html: params[:debug].present?,
+               pdf: 'baie',
+               zoom: 0.75
+      end
       format.txt { send_data Baie.to_txt(@serveurs_par_baies) }
     end
   end
