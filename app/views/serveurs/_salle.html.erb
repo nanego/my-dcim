@@ -10,7 +10,7 @@
   <div class="col-xs-12">
 
     <div class="panel panel-default panel-salle" id="<%= salle.try(:parameterize).try(:underscore) %>">
-      <% if formats!=[:pdf] %>
+      <% if formats!=[:pdf] && current_salle.present? %>
         <div class="panel-heading">
           <%= link_to "Export PDF", salle_path(current_salle, format: :pdf, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
           <%= link_to "Export txt", salle_path(current_salle, format: :txt, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
