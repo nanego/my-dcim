@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :couple_baies
   resources :baies, only: [:edit, :update, :show] do
     collection do
       post :sort
