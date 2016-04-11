@@ -44,8 +44,7 @@ class ServeursGrid
   filter(:gestion, :enum, :select => Gestion.where(published: true).map {|r| [r.to_s, r.id]})
   filter(:acte, :enum, :select => Acte.where(published: true).map {|r| [r.to_s, r.id]})
   filter :phase, :integer, :range => true #, :default => proc { [Serveur.minimum(:phase), Serveur.maximum(:phase)] }
-  filter(:salle, :enum, :select => Salle.where(published: true).map {|r| [r.to_s, r.id]})
-  filter :ilot, :integer, :range => true #, :default => proc { [Serveur.minimum(:ilot), Serveur.maximum(:ilot)] }
+  filter(:baie, :enum, :select => Baie.all.map {|r| [r.to_s, r.id]})
   filter :fc_total, :integer, :range => true
   filter :fc_utilise, :integer, :range => true
   filter :rj45_total, :integer, :range => true
@@ -143,10 +142,10 @@ class ServeursGrid
     record.acte
   end
   column(:phase)
-  column(:salle, :order => proc { |scope|
-    scope.joins(:salle).order("salles.title")
+  column(:baie, :order => proc { |scope|
+    scope.joins(:baies).order("baies.title")
   }) do |record|
-    record.salle
+    record.baie
   end
   column(:ilot)
   column(:fc_total)
@@ -161,8 +160,6 @@ class ServeursGrid
 
   column(:pdu_ondule)
   column(:pdu_normal)
-  column(:baie)
-  column(:id_baie)
   column(:fc_calcule)
   column(:fc_futur)
   column(:i)

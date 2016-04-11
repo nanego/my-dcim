@@ -18,7 +18,7 @@ class ServeursController < ApplicationController
     @modele_blank_panel_id = Category.find_by_title('Blank Panel').id
     @serveurs_par_baies = {}
     Serveur.includes(:baie => :salle).includes(:modele => :category).joins(:baie => :salle).order('salles.title ASC, baies.ilot ASC, baies.position ASC, serveurs.position desc').each do |s|
-      salle = (s.baie.salle.title.present? ? s.salle.title : "non précisée")
+      salle = (s.baie.salle.title.present? ? s.baie.salle.title : "non précisée")
       ilot = (s.baie.try(:ilot).present? ? s.baie.ilot.to_s : "non précisé")
       baie = (s.baie.title.present? ? s.baie.title.to_s : "non précisée")
       @serveurs_par_baies[salle] ||= {}
@@ -44,7 +44,7 @@ class ServeursController < ApplicationController
     baie = Baie.where(salle_id: salle.id, ilot: params[:ilot], title: params[:baie]).first
     positions = params[:positions].split(',')
     params[:serveur].each_with_index do |id, index|
-      Serveur.where(id: id).update_all(position: positions[index], salle_id: (salle.present? ? salle.id : ''), baie_id: baie.id)
+      Serveur.where(id: id).update_all(position: positions[index], baie_id: (baie.present? ? baie.id : ''))
     end if params[:serveur].present?
     render nothing: true
   end

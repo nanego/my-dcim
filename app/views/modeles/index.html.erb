@@ -24,9 +24,8 @@
             <%= content_tag_for(:tr, modeles) do |modele| %>
               <% bgModeleColor = modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(modele.try(:title) || 'test')[0..5]}", 0.4) %>
               <td style="width: 40px;background-color:<%= bgModeleColor %> !important;"></td>
-              <td><%= link_to modele.title, modele_path(modele) %></td>
+              <td><%= link_to modele.title, edit_modele_path(modele) %></td>
               <td style="width: 106px;"><%= pluralize(modele.serveurs.count, modele.category.title.try(:downcase), "#{modele.category.title.try(:downcase)}#{ modele.category.title.blank? || modele.category.title[-1] == 's' || modele.category.title=='San' ? '' : 's' }") %></td>
-              <td style="width: 75px;text-align: center;"><%= link_to 'Modifier', edit_modele_path(modele) %></td>
               <td style="width: 75px;text-align: center;"><%= link_to 'Supprimer', modele, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <% end %>
             </tbody>
