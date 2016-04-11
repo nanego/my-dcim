@@ -1,6 +1,6 @@
 <div class="well">
   Salles et ilots :
-  <% Salle.includes(:serveurs, :baies).order("salles.title").each do |salle| %>
+  <% Salle.includes(:baies, :serveurs).order("salles.title").each do |salle| %>
     <% if salle.title.present? && salle.serveurs.present? %>
       <% ilots = (salle.baies.map(&:ilot).uniq - ["", nil]) %>
       <div class="btn-group">

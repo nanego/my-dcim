@@ -17,8 +17,8 @@ class ServeursController < ApplicationController
   def baies
     @modele_blank_panel_id = Category.find_by_title('Blank Panel').id
     @serveurs_par_baies = {}
-    Serveur.includes(:salle, :baie).includes(:modele => :category).joins(:salle, :baie).order('salles.title ASC, baies.ilot ASC, baies.position ASC, serveurs.position desc').each do |s|
-      salle = (s.salle.title.present? ? s.salle.title : "non précisée")
+    Serveur.includes(:baie => :salle).includes(:modele => :category).joins(:baie => :salle).order('salles.title ASC, baies.ilot ASC, baies.position ASC, serveurs.position desc').each do |s|
+      salle = (s.baie.salle.title.present? ? s.salle.title : "non précisée")
       ilot = (s.baie.try(:ilot).present? ? s.baie.ilot.to_s : "non précisé")
       baie = (s.baie.title.present? ? s.baie.title.to_s : "non précisée")
       @serveurs_par_baies[salle] ||= {}
@@ -32,9 +32,7 @@ class ServeursController < ApplicationController
     @ilot = params[:ilot]
     @salle = Salle.find_by_title(params[:salle])
     @baie = Baie.where(salle_id: @salle.id, ilot: params[:ilot], title: params[:baie]).first
-    @serveurs = Serveur.where('salle_id = ? AND baie_id = ?',
-                                            @salle.id,
-                                            @baie.try(:id)).order('position desc')
+    @serveurs = @baie.serveurs
     @sum_u = @serveurs.to_a.sum { |s| s.modele.try(:u) || 0 }
     @sum_elements = @serveurs.to_a.sum { |s| s.modele.try(:nb_elts) || 0 }
     @sum_rj45_futur = @serveurs.to_a.sum { |s| s.try(:rj45_futur) || 0 }
@@ -103,6 +101,6 @@ class ServeursController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def serveur_params
-      params.require(:serveur).permit(:cluster_id, :position, :baie_id, :localisation_id, :armoire_id, :gestion_id, :fc_futur, :rj45_cm, :category_id, :nom, :nb_elts, :architecture_id, :u, :marque_id, :modele_id, :numero, :conso, :cluster, :critique, :domaine_id, :gestion_id, :acte_id, :phase, :salle_id, :ilot, :fc_total, :fc_utilise, :rj45_total, :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur, :rg45_cm, :ipmi_dedie, :baie, :cards_serveurs_attributes => [:composant_id, :card_id, :_destroy, :id])
+      params.require(:serveur).permit(:cluster_id, :position, :baie_id, :localisation_id, :armoire_id, :gestion_id, :fc_futur, :rj45_cm, :category_id, :nom, :nb_elts, :architecture_id, :u, :marque_id, :modele_id, :numero, :conso, :cluster, :critique, :domaine_id, :gestion_id, :acte_id, :phase, :fc_total, :fc_utilise, :rj45_total, :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur, :rg45_cm, :ipmi_dedie, :baie, :cards_serveurs_attributes => [:composant_id, :card_id, :_destroy, :id])
     end
 end

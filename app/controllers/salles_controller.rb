@@ -40,7 +40,7 @@ class SallesController < ApplicationController
     @salle.serveurs
         .includes(:baie, :gestion, :modele => :category)
         .joins(:baie)
-        .where(ilot: ilot)
+        .where('baies.ilot = ?', ilot)
         .order('baies.ilot ASC, baies.position ASC, serveurs.position desc, serveurs.id desc')
         .each do |s|
       ilot = (s.baie.try(:ilot).present? ? s.baie.ilot.to_s : "non précisé")

@@ -20,9 +20,9 @@
   <% when Category.find_by_title('Patch Panel').id %>
     <%= render 'draw_patch_panel', serveur: @serveur %>
   <% else %>
-    <%= render 'draw_server_compact_front', serveur: @serveur %>
+    <%= render 'draw_server_compact_front.html.erb', serveur: @serveur %>
     <span class="clearfix"></span>
-    <%= render 'draw_server_compact', serveur: @serveur, show_general_informations: false %>
+    <%= render 'draw_server_compact.html.erb', serveur: @serveur, show_general_informations: false %>
     <span class="clearfix"></span>
   <% end %>
 </div>
@@ -78,12 +78,6 @@
 
   <dt>Phase:</dt>
   <dd><%= @serveur.phase %></dd>
-
-  <dt>Salle:</dt>
-  <dd><%= @serveur.salle %></dd>
-
-  <dt>Ilot:</dt>
-  <dd><%= @serveur.ilot %></dd>
 
   <dt>Fc futur:</dt>
   <dd><%= @serveur.fc_futur %></dd>

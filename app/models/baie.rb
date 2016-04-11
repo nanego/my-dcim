@@ -1,6 +1,6 @@
 class Baie < ActiveRecord::Base
 
-  has_many :serveurs
+  has_many :serveurs, -> { order("serveurs.position asc") }
   belongs_to :salle
 
   scope :sorted, -> {joins(:salle).order("salles.title asc", "baies.ilot asc", "baies.title asc")}
