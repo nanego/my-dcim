@@ -12,17 +12,18 @@
 
 <p><%= link_to "<< Baie #{@serveur.baie.try(:title)}", baie_path(@serveur.baie), class: 'btn btn-default', style: 'text-decoration: underline;' %></p>
 
-<div class="detailed_server">
+<% bgModeleColor = @serveur.modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(@serveur.modele.try(:title) || 'test')[0..5]}", 0.4) %>
+<div class="detailed_server list-group-item" style="background-color:<%= bgModeleColor %> !important;">
   <% case @serveur.modele.try(:category_id) %>
   <% when Category.find_by_title('Blank Panel').id %>
     <%= render 'draw_blank_panel', serveur: @serveur %>
   <% when Category.find_by_title('Patch Panel').id %>
     <%= render 'draw_patch_panel', serveur: @serveur %>
   <% else %>
-    <div class="detailed_server">
-      <%= render 'draw_server_compact', serveur: @serveur %>
-      <span class="clearfix"></span>
-    </div>
+    <%= render 'draw_server_compact_front', serveur: @serveur %>
+    <span class="clearfix"></span>
+    <%= render 'draw_server_compact', serveur: @serveur, show_general_informations: false %>
+    <span class="clearfix"></span>
   <% end %>
 </div>
 
@@ -44,6 +45,9 @@
 
   <dt>U:</dt>
   <dd><%= @serveur.modele.try(:u) %></dd>
+
+  <dt>Position:</dt>
+  <dd><%= @serveur.position %></dd>
 
   <dt>Marque:</dt>
   <dd><%= @serveur.modele.try(:marque) %></dd>
