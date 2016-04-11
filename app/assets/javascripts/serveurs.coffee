@@ -125,6 +125,7 @@ jQuery ->
     $('.port_selection').removeClass('in');
 
   # Hide or Show connections
+  ### Temporarily disabled
   $('#hide_or_show_connections').on "click", ->
     if ($(".connector") && $(".connector").is( ":visible" ))
       $(".connector").hide()
@@ -133,6 +134,7 @@ jQuery ->
       $(".connector").show()
       $('#hide_or_show_connections').html 'Masquer les connexions'
     event.preventDefault();
+  ###
 
   $('.serveur').hover (->
     $(this).addClass 'hover'
