@@ -1,6 +1,6 @@
 class Baie < ActiveRecord::Base
 
-  has_many :serveurs, -> { order("serveurs.position asc") }
+  has_many :serveurs, -> { order("serveurs.position desc") }
   belongs_to :salle
   has_one :couple_baie
   has_one :coupled_baie, through: :couple_baie, foreign_key: :baie_two_id
