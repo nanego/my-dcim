@@ -41,12 +41,30 @@
                     data-max-rj45='<%= max_rj45 %>'
                     data-max-fc='<%= max_fc %>' >
 
+                  <% previous_baie = nil %>
                   <% baies.each_with_index do |(baie, serveurs), index| %>
+
+                    <% if baie.other_baie.present?
+                         if baie.other_baie==previous_baie
+                           second_baie = true
+                         else
+                           %>
+                        <div class="col-sm-12 col-lg-6" style='overflow: auto;'> <div class="well" style='overflow: auto;'>
+                        <% second_baie = false
+                         end
+                       else
+                         second_baie = false
+                       end
+                      %>
+                    <% previous_baie = baie %>
+
+
                     <% sum_u = serveurs.sum { |s| s.modele.try(:u) || 0 } %>
                     <% sum_elements = serveurs.sum { |s| s.modele.try(:nb_elts) || 0 } %>
                     <% sum_rj45_futur = serveurs.sum { |s| s.try(:rj45_futur) || 0 } %>
                     <% sum_fc_futur = serveurs.sum { |s| s.try(:fc_futur) || 0 } %>
-                    <div class="baie col-xs-12 col-sm-6 <%= baies.count>1 ? 'col-lg-3':'col-md-offset-3' %>" id="baie_<%= baie.id %>">
+                    <% col_params = baie.other_baie.present? ? 'col-lg-6' : 'col-lg-3' %>
+                    <div class="baie col-xs-12 col-sm-6 <%= baies.count>1 ? col_params:'col-md-offset-3' %>" id="baie_<%= baie.id %>">
                       <div class="panel <%= sum_u > max_u || sum_elements > max_elts || sum_rj45_futur > max_rj45 || sum_fc_futur > max_fc ? 'panel-danger' : 'panel-default' %> panel-baie">
                         <div class="panel-heading">
                           <h5 class="panel-title" style="display: inline;">
@@ -172,6 +190,8 @@
                         </div>
                       </div>
                     </div>
+
+                    <% if second_baie %></div></div><%end%>
                     <% if (index+1) % 4 == 0 %>
                       <span class="clearfix"></span>
                     <% end %>
