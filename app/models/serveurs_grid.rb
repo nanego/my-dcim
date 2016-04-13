@@ -7,7 +7,7 @@ class ServeursGrid
   #########
 
   scope do
-    Serveur
+    Serveur.includes(:localisation, :armoire, :modele => :category, :baie => :salle)
   end
 
   #########
@@ -44,7 +44,7 @@ class ServeursGrid
   filter(:gestion, :enum, :select => Gestion.where(published: true).map {|r| [r.to_s, r.id]})
   filter(:acte, :enum, :select => Acte.where(published: true).map {|r| [r.to_s, r.id]})
   filter :phase, :integer, :range => true #, :default => proc { [Serveur.minimum(:phase), Serveur.maximum(:phase)] }
-  filter(:baie, :enum, :select => Baie.all.map {|r| [r.to_s, r.id]})
+  filter(:baie, :enum, :select => Baie.all.map {|b| [b.name_with_salle_and_ilot, b.id]})
   filter :fc_total, :integer, :range => true
   filter :fc_utilise, :integer, :range => true
   filter :rj45_total, :integer, :range => true
@@ -145,7 +145,7 @@ class ServeursGrid
   column(:baie, :order => proc { |scope|
     scope.joins(:baies).order("baies.title")
   }) do |record|
-    record.baie
+    record.baie.try(:name_with_salle_and_ilot)
   end
   column(:ilot)
   column(:fc_total)
