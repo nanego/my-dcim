@@ -3,17 +3,17 @@
 <% max_rj45 = 48 %>
 <% max_fc = 12 %>
 <% min_height = params[:view]=='back' ? 20 : 27 %>
-<% current_salle = @salle || Salle.find_by_title(salle) %>
+<% @salle ||= salle %>
 
 <div class="row">
 
   <div class="col-xs-12">
 
     <div class="panel panel-default panel-salle" id="<%= salle.try(:parameterize).try(:underscore) %>">
-      <% if formats!=[:pdf] && current_salle.present? %>
+      <% if formats!=[:pdf] && @salle.present? %>
         <div class="panel-heading">
-          <%= link_to "Export PDF", salle_path(current_salle, format: :pdf, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
-          <%= link_to "Export txt", salle_path(current_salle, format: :txt, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
+          <%= link_to "Export PDF", salle_path(@salle, format: :pdf, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
+          <%= link_to "Export txt", salle_path(@salle, format: :txt, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
           <h3>Salle <%= salle %></h3>
         </div>
       <% end %>
@@ -25,10 +25,10 @@
           <div class="col-sm-12">
 
             <div class="panel panel-default panel-ilot">
-              <% if current_salle.present? %>
+              <% if @salle.present? %>
               <div class="panel-heading">
-                <%= link_to "Liste des ports", ports_path(salle_id: current_salle.id, ilot: ilot), class: 'btn btn-success pull-right', style: 'margin-left:10px;' %>
-                <%= link_to "Export PDF", ilot_salles_path(id: current_salle.id, format: :pdf, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front), ilot: ilot), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
+                <%= link_to "Liste des ports", ports_path(salle_id: @salle.id, ilot: ilot), class: 'btn btn-success pull-right', style: 'margin-left:10px;' %>
+                <%= link_to "Export PDF", ilot_salles_path(id: @salle.id, format: :pdf, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front), ilot: ilot), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
                 <h5>Ilot <%= ilot %></h5>
               </div>
               <% end %>
@@ -43,36 +43,35 @@
                     data-max-rj45='<%= max_rj45 %>'
                     data-max-fc='<%= max_fc %>' >
 
-                  <% baies.each_with_index do |(baie_name, serveurs), index| %>
+                  <% baies.each_with_index do |(baie, serveurs), index| %>
                     <% sum_u = serveurs.sum { |s| s.modele.try(:u) || 0 } %>
                     <% sum_elements = serveurs.sum { |s| s.modele.try(:nb_elts) || 0 } %>
                     <% sum_rj45_futur = serveurs.sum { |s| s.try(:rj45_futur) || 0 } %>
                     <% sum_fc_futur = serveurs.sum { |s| s.try(:fc_futur) || 0 } %>
-                    <% current_baie = @baie.present?  ? @baie : serveurs.first.baie %>
-                    <div class="baie col-xs-12 col-sm-6 <%= baies.count>1 ? 'col-lg-3':'col-md-offset-3' %>" id="baie_<%= current_baie.id %>">
+                    <div class="baie col-xs-12 col-sm-6 <%= baies.count>1 ? 'col-lg-3':'col-md-offset-3' %>" id="baie_<%= baie.id %>">
                       <div class="panel <%= sum_u > max_u || sum_elements > max_elts || sum_rj45_futur > max_rj45 || sum_fc_futur > max_fc ? 'panel-danger' : 'panel-default' %> panel-baie">
                         <div class="panel-heading">
                           <h5 class="panel-title" style="display: inline;">
-                            <%= link_to "#{baie_name}", baie_path(current_baie, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' %>
+                            <%= link_to "#{baie.title}", baie_path(baie, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' %>
                           </h5>
                           <% if formats != [:pdf] %>
                             <% if controller_name=='baies' %>
-                                <%= link_to "Liste des ports", ports_path(baie_id: current_baie.id), class: 'btn btn-success pull-right', style: 'margin-left:10px;' %>
-                                <%= link_to "Impression", baie_path(current_baie, format: :pdf, debug: 1, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
-                                <%= link_to "Export PDF", baie_path(current_baie, format: :pdf, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
-                                <%= link_to "Export txt", baie_path(current_baie, format: :txt, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
+                                <%= link_to "Liste des ports", ports_path(baie_id: baie.id), class: 'btn btn-success pull-right', style: 'margin-left:10px;' %>
+                                <%= link_to "Impression", baie_path(baie, format: :pdf, debug: 1, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
+                                <%= link_to "Export PDF", baie_path(baie, format: :pdf, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
+                                <%= link_to "Export txt", baie_path(baie, format: :txt, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
                             <% end %>
-                            <%= link_to "modifier", edit_baie_path(current_baie), class: 'btn btn-default pull-right' %>
+                            <%= link_to "modifier", edit_baie_path(baie, :view => params[:view]), class: 'btn btn-default pull-right' %>
                           <% end %>
                           <div class="clearfix"></div>
                         </div>
                         <ul class='servers connectedBaies list-group'
                             data-salle="<%= salle %>"
                             data-ilot="<%= ilot %>"
-                            data-baie="<%= baie_name %>"
+                            data-baie="<%= baie.title %>"
                             data-update-url="<%= sort_serveurs_path %>">
 
-                            <% u_disponibles = Baie.joins(:salle).where('salles.title = ? AND ilot = ? AND baies.title = ?', salle, ilot.to_i, baie_name).first.try(:u) || 41 %>
+                            <% u_disponibles = baie.u || 41 %>
                             <% serveurs.each do |serveur| %>
 
                               <% if serveur.modele.try(:title).present? %>

@@ -4,7 +4,7 @@
     <% if salle.title.present? && salle.serveurs.present? %>
       <% ilots = (salle.baies.map(&:ilot).uniq - ["", nil]) %>
       <div class="btn-group">
-        <a href="<%= salle_path(salle) %>" class="btn btn-default">
+        <a href="<%= salle_path(salle, :view => params[:view]) %>" class="btn btn-default">
           <%= salle.title %>
         </a>
         <% if ilots.present? %>

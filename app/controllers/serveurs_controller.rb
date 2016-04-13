@@ -17,14 +17,14 @@ class ServeursController < ApplicationController
   def baies
     @modele_blank_panel_id = Category.find_by_title('Blank Panel').id
     @serveurs_par_baies = {}
-    Serveur.includes(:baie => :salle).includes(:modele => :category).joins(:baie => :salle).order('salles.title ASC, baies.ilot ASC, baies.position ASC, serveurs.position desc').each do |s|
-      salle = (s.baie.salle.title.present? ? s.baie.salle.title : "non précisée")
-      ilot = (s.baie.try(:ilot).present? ? s.baie.ilot.to_s : "non précisé")
-      baie = (s.baie.title.present? ? s.baie.title.to_s : "non précisée")
-      @serveurs_par_baies[salle] ||= {}
-      @serveurs_par_baies[salle][ilot] ||= {}
-      @serveurs_par_baies[salle][ilot][baie] ||= []
-      @serveurs_par_baies[salle][ilot][baie] << s
+    Baie.includes(:salle).joins(:salle).order('salles.title asc, ilot asc, baies.position asc').each do |baie|
+      @serveurs_par_baies[baie.salle] ||= {}
+      @serveurs_par_baies[baie.salle][baie.ilot] ||= {}
+      @serveurs_par_baies[baie.salle][baie.ilot][baie] ||= []
+    end
+    Serveur.includes(:baie, :gestion, :modele => :category).order('serveurs.position desc').each do |server|
+      baie = server.baie
+      @serveurs_par_baies[baie.salle][baie.ilot][baie] << server if baie
     end
   end
 

@@ -9,13 +9,13 @@ class SallesController < ApplicationController
 
   def show
     @serveurs_par_baies = {}
-
-    @salle.serveurs.includes(:baie, :gestion, :modele => :category).joins(:baie).order('baies.ilot ASC, baies.position ASC, serveurs.position desc, serveurs.id desc').each do |s|
-      ilot = (s.baie.try(:ilot).present? ? s.baie.ilot.to_s : "non précisé")
-      baie = (s.baie.title.present? ? s.baie.title.to_s : "non précisée")
-      @serveurs_par_baies[ilot] ||= {}
-      @serveurs_par_baies[ilot][baie] ||= []
-      @serveurs_par_baies[ilot][baie] << s
+    @salle.baies.includes(:serveurs).order('ilot asc, baies.position asc').each do |baie|
+      baie.serveurs.includes(:gestion, :modele => :category).each do |s|
+        ilot = baie.ilot
+        @serveurs_par_baies[ilot] ||= {}
+        @serveurs_par_baies[ilot][baie] ||= []
+        @serveurs_par_baies[ilot][baie] << s
+      end
     end
 
     respond_to do |format|
@@ -36,18 +36,12 @@ class SallesController < ApplicationController
   def ilot
     ilot = params[:ilot]
     @serveurs_par_baies = {}
-
-    @salle.serveurs
-        .includes(:baie, :gestion, :modele => :category)
-        .joins(:baie)
-        .where('baies.ilot = ?', ilot)
-        .order('baies.ilot ASC, baies.position ASC, serveurs.position desc, serveurs.id desc')
-        .each do |s|
-      ilot = (s.baie.try(:ilot).present? ? s.baie.ilot.to_s : "non précisé")
-      baie = (s.baie.title.present? ? s.baie.title.to_s : "non précisée")
-      @serveurs_par_baies[ilot] ||= {}
-      @serveurs_par_baies[ilot][baie] ||= []
-      @serveurs_par_baies[ilot][baie] << s
+    @salle.baies.includes(:serveurs).where('baies.ilot = ?', ilot).order('ilot asc, baies.position asc').each do |baie|
+      baie.serveurs.includes(:gestion, :modele => :category).each do |s|
+        @serveurs_par_baies[baie.ilot] ||= {}
+        @serveurs_par_baies[baie.ilot][baie] ||= []
+        @serveurs_par_baies[baie.ilot][baie] << s
+      end
     end
 
     respond_to do |format|

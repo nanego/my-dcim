@@ -1,8 +1,4 @@
-<% show_general_informations = true if local_assigns[:show_general_informations].nil? %>
-
-<% if (show_general_informations.nil? || show_general_informations!=false) %>
-  <%= link_to h(serveur.nom), serveur, class: 'pull-left serveur_name', style: 'padding-left: 14px;' %>
-<% end %>
+<%= link_to h(serveur.nom), serveur_path(serveur, :view => params[:view]), class: 'pull-left serveur_name', style: 'padding-left: 14px;' %>
 
 <% if serveur.modele.present? %>
   <div class="pull-right">
@@ -35,9 +31,7 @@
   </div>
 
   <br>
-  <% if (show_general_informations.nil? || show_general_informations!=false) %>
-    <i class='pull-left' style="clear:left;padding-left: 14px;"><%= link_to serveur.modele.try(:title), edit_modele_path(serveur.modele), style: 'font-weight:normal;' %></i>
-  <% end %>
+  <i class='pull-left' style="clear:left;padding-left: 14px;"><%= link_to serveur.modele.try(:title), edit_modele_path(serveur.modele), style: 'font-weight:normal;' %></i>
 
   <div class="clearfix"></div>
 

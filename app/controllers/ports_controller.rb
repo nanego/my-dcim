@@ -17,6 +17,7 @@ class PortsController < ApplicationController
     else
       @port = Port.create(position: params['position'], parent_id: params['parent_id'], parent_type: params['parent_type'], vlans: params['vlans'], color: params['color'], cablename: params['cablename'])
     end
+
   end
 
   def update
@@ -29,6 +30,16 @@ class PortsController < ApplicationController
         format.html { render :edit }
         format.json { render json: @port.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def destroy
+    @port = Port.find_by_id(params[:id])
+    serveur = @port.parent.serveur
+    @port.destroy
+    respond_to do |format|
+      format.html { redirect_to serveur_path(serveur), notice: 'Le port a été supprimé' }
+      format.json { head :no_content }
     end
   end
 

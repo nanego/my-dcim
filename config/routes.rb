@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :ports, only: [:index, :edit, :update]
+  resources :ports, only: [:index, :edit, :update, :destroy]
 
   resources :clusters
   resources :slots

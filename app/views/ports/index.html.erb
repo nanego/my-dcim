@@ -10,7 +10,7 @@
 
       <% @baies.each do |baie| %>
         <h3>
-          <%= link_to "#{baie.name_with_salle_and_ilot}", baie_path(baie), style: 'text-decoration: underline;' %>
+          <%= link_to "#{baie.name_with_salle_and_ilot}", baie_path(baie, :view => params[:view]), style: 'text-decoration: underline;' %>
         </h3>
         <% baie.serveurs.includes(:modele, :cards_serveurs => [:ports, :composant]).order('position desc').each do |s| %>
           <h4 style="display: inline;"><%= s.nom %></h4><span> (<%= s.modele.title %>)</span>

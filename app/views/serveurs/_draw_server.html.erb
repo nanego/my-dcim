@@ -43,7 +43,7 @@
   <% end %>
 <% end %>
 
-  <b><%= link_to h(serveur.nom), serveur %></b>
+  <b><%= link_to h(serveur.nom), serveur_path(serveur, :view => params[:view]) %></b>
 
 <% if serveur.modele.present? %>
   <br>
