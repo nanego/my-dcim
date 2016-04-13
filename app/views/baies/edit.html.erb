@@ -61,7 +61,7 @@
   <div class="form-group">
     <%= f.label :coupled_baie, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= link_to(f.object.other_baie.title, baie_path(f.object.other_baie)) || "Aucune baie couplée" %>
+      <%= f.object.other_baie.present? ? link_to(f.object.other_baie.title, baie_path(f.object.other_baie)) : "Aucune baie couplée" %>
     </div>
   </div>
 
