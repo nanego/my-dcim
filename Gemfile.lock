@@ -82,6 +82,7 @@ GEM
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.9.0)
     byebug (8.2.1)
+    callsite (0.0.11)
     coderay (1.1.0)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
@@ -107,6 +108,7 @@ GEM
       devise (>= 3.2.0)
     erubis (2.7.0)
     execjs (2.6.0)
+    git-version-bump (0.15.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     hashie (2.1.2)
@@ -131,6 +133,10 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    meta_request (0.4.0)
+      callsite (~> 0.0, >= 0.0.11)
+      rack-contrib (~> 1.1)
+      railties (>= 3.0.0, < 5.1.0)
     method_source (0.8.2)
     mime-types (2.99)
     mini_portile2 (2.0.0)
@@ -170,6 +176,9 @@ GEM
       pry
     puma (2.15.3)
     rack (1.6.4)
+    rack-contrib (1.4.0)
+      git-version-bump (~> 0.15)
+      rack (~> 1.4)
     rack-mini-profiler (0.9.9.2)
       rack (>= 1.2.0)
     rack-test (0.6.3)
@@ -273,6 +282,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   kaminari
+  meta_request
   omniauth (>= 1.0.0)
   omniauth-cas (>= 0.0.6)
   passenger

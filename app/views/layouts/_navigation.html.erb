@@ -21,8 +21,8 @@
             <li><%= link_to 'Réseau', reseau_serveurs_grids_path %></li>
             <li role="separator" class="divider"></li>
             <li><%= link_to 'Toutes les salles', baies_serveurs_path %></li>
-            <% Salle.includes(:serveurs).order('title asc').each do |salle| %>
-              <% if salle.title.present? && salle.serveurs.present? %>
+            <% Salle.order('title asc').each do |salle| %>
+              <% if salle.title.present? && salle.serveurs.exists? %>
                 <li><%= link_to salle.title, salle_path(salle) %></li>
               <% end %>
             <% end %>

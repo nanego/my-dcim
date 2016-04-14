@@ -1,8 +1,8 @@
 <div class="well">
   <span>
     Salles et ilots :
-    <% Salle.includes(:baies, :serveurs).order("salles.title").each do |salle| %>
-      <% if salle.title.present? && salle.serveurs.present? %>
+    <% Salle.includes(:baies).order("salles.title").each do |salle| %>
+      <% if salle.title.present? && salle.serveurs.exists? %>
         <% ilots = (salle.baies.map(&:ilot).uniq - ["", nil]) %>
         <div class="btn-group">
           <a href="<%= salle_path(salle, :view => params[:view]) %>" class="btn btn-default">
