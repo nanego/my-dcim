@@ -4,7 +4,7 @@ class ClustersController < ApplicationController
   # GET /clusters
   # GET /clusters.json
   def index
-    @clusters = Cluster.all
+    @clusters = Cluster.includes(:serveurs).all
   end
 
   # GET /clusters/1

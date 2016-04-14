@@ -16,16 +16,25 @@ class ServeursController < ApplicationController
 
   def baies
     @modele_blank_panel_id = Category.find_by_title('Blank Panel').id
+
+    @baies = Baie.includes(:salle).joins(:salle).order('salles.title asc, ilot asc, baies.position asc')
+    @baies = @baies.joins(:serveurs).where('serveurs.cluster_id = ? ', params[:cluster_id]) if params[:cluster_id].present?
+
+    @serveurs = Serveur.includes(:baie, :gestion, :modele => :category)
+                    .where('baie_id IN (?)', @baies.map(&:id))
+                    .order('serveurs.position desc')
+
     @serveurs_par_baies = {}
-    Baie.includes(:salle).joins(:salle).order('salles.title asc, ilot asc, baies.position asc').each do |baie|
+    @baies.each do |baie|
       @serveurs_par_baies[baie.salle] ||= {}
       @serveurs_par_baies[baie.salle][baie.ilot] ||= {}
       @serveurs_par_baies[baie.salle][baie.ilot][baie] ||= []
     end
-    Serveur.includes(:baie, :gestion, :modele => :category).order('serveurs.position desc').each do |server|
+    @serveurs.each do |server|
       baie = server.baie
       @serveurs_par_baies[baie.salle][baie.ilot][baie] << server if baie
     end
+
   end
 
   def baie
