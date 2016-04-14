@@ -41,7 +41,7 @@ class ServeursController < ApplicationController
       end
       format.pdf do
         render layout: 'pdf.html',
-               template: "salles/show.pdf.erb",
+               template: "serveurs/baies.pdf.erb",
                show_as_html: params[:debug].present?,
                pdf: 'baie',
                zoom: 0.75

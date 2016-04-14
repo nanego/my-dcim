@@ -9,12 +9,12 @@
 
   <div>
 
-    <div id="<%= @salle.title.try(:parameterize).try(:underscore) %>">
+    <div id="<%= @salle.try(:title).try(:parameterize).try(:underscore) %>">
       <% if formats!=[:pdf] && @salle.present? %>
         <div>
-          <%= link_to "Export PDF", url_for(format: :pdf, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;', target: :_blank %>
-          <%= link_to "Export txt", url_for(format: :txt, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
-          <%= link_to "Impression", url_for(format: :pdf, debug: 1, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;', target: :_blank %>
+          <%= link_to "Export PDF", url_for(format: :pdf, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front), cluster_id: params[:cluster_id]), class: 'btn btn-primary pull-right', style: 'margin-left:10px;', target: :_blank %>
+          <%= link_to "Export txt", url_for(format: :txt, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front), cluster_id: params[:cluster_id]), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
+          <%= link_to "Impression", url_for(format: :pdf, debug: 1, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front), cluster_id: params[:cluster_id]), class: 'btn btn-primary pull-right', style: 'margin-left:10px;', target: :_blank %>
           <%= link_to "Liste des ports", ports_path(salle_id: @salle.id, baie_id: @baie.try(:id)), class: 'btn btn-success pull-right', style: 'margin-left:10px;' %>
         </div>
       <% end %>
