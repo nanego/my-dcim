@@ -142,7 +142,7 @@
 
                                   <%= content_tag_for :li, serveur,
                                                       class: "list-group-item truncate #{serveur.modele.try(:category).try(:title).try(:parameterize)}",
-                                                      style: "height: #{min_height*u_serveur}px;background-color:#{bgModeleColor} !important;",
+                                                      style: "height: #{min_height*u_serveur - (u_serveur-1)}px;background-color:#{bgModeleColor} !important;",
                                                       :data => data do %>
                                     <% u_serveur.times do |i| %>
                                       <%= render 'serveurs/draw_u_scale_unit.html.erb', i: i, u_disponibles: u_disponibles, u_serveur: u_serveur %>
