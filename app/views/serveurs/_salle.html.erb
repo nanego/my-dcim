@@ -69,7 +69,7 @@
                         <div class="panel-heading">
                           <h5 class="panel-title" style="display: inline;">
                             <%= link_to "#{baie.title}", baie_path(baie, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' %>
-                            <% if baie.other_baie.present? %>
+                            <% if baie.other_baie.present? && formats != [:pdf] %>
                               <%= " couplée à la baie" %>
                               <%= link_to(baie.other_baie.title, baie_path(baie.other_baie, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;').html_safe %>
                             <% end %>
@@ -165,9 +165,11 @@
                         </ul>
                         <div class="panel-footer">
 
-                          <span class="pull-right">
-                            <button type="button" class="btn btn-default glyphicon glyphicon-plus" data-toggle="modal" data-target=".bs-example-modal-sm"></button>
-                          </span>
+                          <% if formats != [:pdf] %>
+                            <span class="pull-right">
+                              <button type="button" class="btn btn-default glyphicon glyphicon-plus" data-toggle="modal" data-target=".bs-example-modal-sm"></button>
+                            </span>
+                          <% end %>
 
                           <span class="fc label label-success <%= sum_fc_futur > max_fc ? 'label-danger' : '' %>">&Sigma; FC : <%= sum_fc_futur %></span>
                           <span class="rj45 label label-primary <%= sum_rj45_futur > max_rj45 ? 'label-danger' : '' %>">&Sigma; RJ : <%= sum_rj45_futur %></span>
