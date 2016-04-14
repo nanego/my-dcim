@@ -3,13 +3,13 @@
 <% max_rj45 = 48 %>
 <% max_fc = 12 %>
 <% min_height = params[:view]=='back' ? 20 : 27 %>
-<% @salle ||= salle %>
+<% @salle = salle || @salle %>
 
 <div>
 
   <div>
 
-    <div id="<%= salle.try(:parameterize).try(:underscore) %>">
+    <div id="<%= @salle.title.try(:parameterize).try(:underscore) %>">
       <% if formats!=[:pdf] && @salle.present? %>
         <div>
           <%= link_to "Export PDF", url_for(format: :pdf, bg: params[:bg], :view => (params[:view]=='back' ? :back : :front)), class: 'btn btn-primary pull-right', style: 'margin-left:10px;', target: :_blank %>
@@ -27,7 +27,7 @@
               <% if @salle.present? %>
               <div>
 
-                <h3>Salle <%= salle %> - Ilot <%= ilot %></h3>
+                <h3>Salle <%= @salle.title %> - Ilot <%= ilot %></h3>
               </div>
               <% end %>
 
@@ -80,7 +80,7 @@
                           <div class="clearfix"></div>
                         </div>
                         <ul class='servers connectedBaies list-group'
-                            data-salle="<%= salle %>"
+                            data-salle="<%= @salle.title %>"
                             data-ilot="<%= ilot %>"
                             data-baie="<%= baie.title %>"
                             data-update-url="<%= sort_serveurs_path %>">

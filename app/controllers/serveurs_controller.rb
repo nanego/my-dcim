@@ -35,6 +35,20 @@ class ServeursController < ApplicationController
       @serveurs_par_baies[baie.salle][baie.ilot][baie] << server if baie
     end
 
+    respond_to do |format|
+      format.html do
+        render 'baies.html.erb'
+      end
+      format.pdf do
+        render layout: 'pdf.html',
+               template: "salles/show.pdf.erb",
+               show_as_html: params[:debug].present?,
+               pdf: 'baie',
+               zoom: 0.75
+      end
+      format.txt { txt = ""; @serveurs_par_baies.each { |salle, ilots| txt << Baie.to_txt(ilots) }; send_data txt; }
+    end
+
   end
 
   def baie
