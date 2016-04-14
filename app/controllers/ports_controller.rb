@@ -6,8 +6,10 @@ class PortsController < ApplicationController
       @baies = [@baie]
     else
       @salle = Salle.find_by_id(params[:salle_id])
-      @ilot = params[:ilot]
-      @baies = Baie.includes(:salle).joins(:salle).where('salles.id = ? AND baies.ilot = ?', @salle.id, @ilot)
+      @baies = Baie.includes(:salle).where(salle_id: @salle.id)
+      if params[:ilot].present?
+        @baies = @baies.where('baies.ilot = ?', params[:ilot])
+      end
     end
   end
 
