@@ -44,7 +44,7 @@
                   <% previous_baie = nil %>
                   <% baies.each_with_index do |(baie, serveurs), index| %>
 
-                    <% if baie.other_baie.present?
+                    <% if baie.other_baie.present? && formats != [:pdf]
                          if baie.other_baie==previous_baie
                            second_baie = true
                          else
