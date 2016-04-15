@@ -41,21 +41,21 @@
                     data-max-rj45='<%= max_rj45 %>'
                     data-max-fc='<%= max_fc %>' >
 
-                  <% previous_baie = nil %>
+                  <% previous_baie, second_baie = nil %>
                   <% baies.each_with_index do |(baie, serveurs), index| %>
 
-                    <% if baie.other_baie.present? && formats != [:pdf]
+                    <% if baie.other_baie.present? && baies.include?(baie.other_baie) && formats != [:pdf]
                          if baie.other_baie==previous_baie
                            second_baie = true
                          else
-                           %>
+                         %>
                         <div class="col-sm-12 col-lg-6" style='overflow: auto;'> <div class="well" style='overflow: auto;'>
                         <% second_baie = false
                          end
                        else
                          second_baie = false
                        end
-                      %>
+                    %>
                     <% previous_baie = baie %>
 
 
