@@ -105,7 +105,7 @@ GEM
     git-version-bump (0.15.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
-    hashie (3.4.3)
+    hashie (2.1.2)
     high_voltage (2.4.0)
     i18n (0.7.0)
     interception (0.5)
@@ -146,13 +146,13 @@ GEM
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     normalize-rails (3.0.3)
-    omniauth (1.2.2)
-      hashie (>= 1.2, < 4)
-      rack (~> 1.0)
-    omniauth-cas (1.1.0)
+    omniauth (1.1.4)
+      hashie (>= 1.2, < 3)
+      rack
+    omniauth-cas (1.0.1)
       addressable (~> 2.3)
       nokogiri (~> 1.5)
-      omniauth (~> 1.2.0)
+      omniauth (~> 1.1.0)
     orm_adapter (0.5.0)
     parser (2.3.0.7)
       ast (~> 2.2)
@@ -280,8 +280,8 @@ DEPENDENCIES
   jquery-ui-rails
   kaminari
   meta_request
-  omniauth (>= 1.0.0)
-  omniauth-cas (>= 0.0.6)
+  omniauth (>= 1.1.1)
+  omniauth-cas (= 1.0.1)
   passenger
   pg
   pry-rails
