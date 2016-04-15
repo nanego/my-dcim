@@ -38,7 +38,7 @@ class ServeursGrid
   filter(:modele, :enum, :select => Modele.where(published: true).map {|r| [r.to_s, r.id]})
   filter(:numero, :string)
   filter :conso, :integer, :range => true #, :default => proc { [Serveur.minimum(:conso), Serveur.maximum(:conso)] }
-  filter(:cluster, :enum, :select => Cluster.where(published: true).map {|r| [r.to_s, r.id]})
+  filter(:cluster, :enum, :select => Cluster.all.map {|r| [r.to_s, r.id]})
   filter(:critique, :xboolean)
   filter(:domaine, :enum, :select => Domaine.where(published: true).map {|r| [r.to_s, r.id]})
   filter(:gestion, :enum, :select => Gestion.where(published: true).map {|r| [r.to_s, r.id]})
