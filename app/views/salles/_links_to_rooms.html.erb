@@ -35,7 +35,7 @@
        Clusters <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
-        <% Cluster.all.each do |c| %>
+        <% Cluster.order('LOWER(title) asc').each do |c| %>
           <li <%= "class=active" if params[:cluster_id]==c.id.to_s %> >
             <%= link_to c.title, baies_serveurs_path(cluster_id: c.id, :view => params[:view], bg: params[:bg]) %>
           </li>
