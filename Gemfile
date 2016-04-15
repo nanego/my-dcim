@@ -29,7 +29,7 @@ gem 'devise_invitable'
 gem 'high_voltage'
 gem 'pg'
 gem 'simple_form'
-gem 'datagrid', :git => 'git://github.com/bogdan/datagrid.git'
+gem 'datagrid'
 gem 'kaminari'
 group :development do
   gem 'better_errors'
