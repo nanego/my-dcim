@@ -38,7 +38,7 @@ class ServeursGrid
   filter(:modele, :enum, :select => Modele.where(published: true).map {|r| [r.to_s, r.id]})
   filter(:numero, :string)
   filter :conso, :integer, :range => true #, :default => proc { [Serveur.minimum(:conso), Serveur.maximum(:conso)] }
-  filter(:cluster, :xboolean)
+  filter(:cluster, :enum, :select => Cluster.where(published: true).map {|r| [r.to_s, r.id]})
   filter(:critique, :xboolean)
   filter(:domaine, :enum, :select => Domaine.where(published: true).map {|r| [r.to_s, r.id]})
   filter(:gestion, :enum, :select => Gestion.where(published: true).map {|r| [r.to_s, r.id]})
@@ -123,8 +123,10 @@ class ServeursGrid
   column(:critique, :mandatory => false) do
     critique ? "Oui" : "Non"
   end
-  column(:cluster, :mandatory => false) do
-    cluster ? "Oui" : "Non"
+  column(:cluster, :order => proc { |scope|
+    scope.joins(:cluster).order("clusters.title")
+  }) do |record|
+    record.cluster
   end
   column(:domaine, :order => proc { |scope|
     scope.joins(:domaine).order("domaines.title")

@@ -1,11 +1,17 @@
 <div class="container-fluid">
 
-
   <span class="pull-right">
-    <%= link_to baies_serveurs_path(:view => params[:view]=='back' ? :front : :back, :cluster_id => params[:cluster_id]), class: 'btn btn-warning' do %>
-      <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-      <%= (params[:view]=='back' ? 'Vue avant' : 'Vue arrière') %>
-    <% end %>
+    <div class="btn-group">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Couleur de fond : <%= params[:bg] || 'modèle' %> <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><%= link_to 'Modèle', url_for( :view => 'front', bg: 'modele', cluster_id: params[:cluster_id], ilot: params[:ilot], id: params[:id]) %></li>
+        <li><%= link_to 'Phase', url_for( :view => 'front', bg: 'phase', cluster_id: params[:cluster_id], ilot: params[:ilot], id: params[:id]) %></li>
+        <li><%= link_to 'Gestionnaire', url_for( :view => 'front', bg: 'gestionnaire', cluster_id: params[:cluster_id], ilot: params[:ilot], id: params[:id]) %></li>
+        <li><%= link_to 'Cluster', url_for( :view => 'front', bg: 'cluster', cluster_id: params[:cluster_id], ilot: params[:ilot], id: params[:id]) %></li>
+      </ul>
+    </div>
   </span>
 
   <h1>Vue par salle et par baie</h1>

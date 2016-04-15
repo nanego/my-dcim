@@ -97,7 +97,7 @@
                                   <% u_disponibles -= 1 %>
                                 <% end %>
 
-                                <% if params['bg']=='phase' || params['bg']=='gestionnaire'
+                                <% if %w(phase gestionnaire cluster).include?(params['bg'])
 
                                     if params['bg'].present?
                                       case params['bg']
@@ -107,6 +107,9 @@
                                         when 'gestionnaire'
                                           parent_type = 'Gestionnaire'
                                           parent_id = serveur.gestion.try(:title)
+                                        when 'cluster'
+                                          parent_type = 'Cluster'
+                                          parent_id = serveur.cluster.try(:title)
                                       end
                                     end
 
