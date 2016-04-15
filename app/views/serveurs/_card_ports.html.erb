@@ -6,7 +6,6 @@
        when 'RJ' %>
 
     <a href="<%= port_data.try(:id) ? edit_port_path(port_data) : edit_port_path(id: 0, parent_id: card_serveur.id, parent_type: CardsServeur.name, position: index+1) %>" class="port pull-left portRJ <%= port_data.present? ? port_data.color : '' %>"
-       style="page-break-inside: avoid;"
        data-position="<%= index+1 %>"
        data-type="RJ"
        data-toggle="tooltip" data-placement="top" title="<%= port_data.present? ? "#{port_data.vlans}" : '' %>">

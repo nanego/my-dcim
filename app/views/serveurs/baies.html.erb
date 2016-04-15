@@ -2,7 +2,7 @@
 
 
   <span class="pull-right">
-    <%= link_to baies_serveurs_path(:view => params[:view]=='back' ? :front : :back), class: 'btn btn-warning' do %>
+    <%= link_to baies_serveurs_path(:view => params[:view]=='back' ? :front : :back, :cluster_id => params[:cluster_id]), class: 'btn btn-warning' do %>
       <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
       <%= (params[:view]=='back' ? 'Vue avant' : 'Vue arrière') %>
     <% end %>

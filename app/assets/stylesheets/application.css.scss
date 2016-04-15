@@ -25,11 +25,14 @@ body {
     float: initial !important;
   }
   .baie .serveur .serveur_name { font-size: 16px; }
-  .baies.front .baie {
-    clear: both;
-    // page-break-after: always;
-    page-break-inside: avoid;
+  .panel-ilot{
+    page-break-after: always;
+    .baies .baie {
+      clear: both;
+      page-break-after: always;
+    }
   }
+
 }
 
 .truncate {
