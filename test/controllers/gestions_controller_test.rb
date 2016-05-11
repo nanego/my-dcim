@@ -2,6 +2,7 @@ require 'test_helper'
 
 class GestionsControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @gestion = gestions(:one)
   end
 

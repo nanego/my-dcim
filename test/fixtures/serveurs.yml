@@ -3,12 +3,8 @@
 one:
   localisation_id: 1
   armoire_id: 1
-  category_id: 1
+  baie_id: 1
   nom: MyString
-  nb_elts: 1
-  architecture_id: 1
-  u: 1
-  marque_id: 1
   modele_id: 1
   numero: MyString
   conso: 1
@@ -18,8 +14,6 @@ one:
   gestion_id: 1
   acte_id: 1
   phase: 1
-  salle_id: 1
-  ilot: 1
   fc_total: 1
   fc_utilise: 1
   rj45_total: 1
@@ -27,18 +21,14 @@ one:
   rj45_futur: 1
   ipmi_utilise: 1
   ipmi_futur: 1
-  rg45_cm: 1
+  rj45_cm: 1
   ipmi_dedie: 1
 
 two:
   localisation_id: 1
   armoire_id: 1
-  category_id: 1
+  baie_id: 1
   nom: MyString
-  nb_elts: 1
-  architecture_id: 1
-  u: 1
-  marque_id: 1
   modele_id: 1
   numero: MyString
   conso: 1
@@ -48,8 +38,6 @@ two:
   gestion_id: 1
   acte_id: 1
   phase: 1
-  salle_id: 1
-  ilot: 1
   fc_total: 1
   fc_utilise: 1
   rj45_total: 1
@@ -57,5 +45,5 @@ two:
   rj45_futur: 1
   ipmi_utilise: 1
   ipmi_futur: 1
-  rg45_cm: 1
+  rj45_cm: 1
   ipmi_dedie: 1

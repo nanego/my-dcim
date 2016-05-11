@@ -2,6 +2,7 @@ require 'test_helper'
 
 class SlotsControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @slot = slots(:one)
   end
 
@@ -18,7 +19,7 @@ class SlotsControllerTest < ActionController::TestCase
 
   test "should create slot" do
     assert_difference('Slot.count') do
-      post :create, slot: { numero: @slot.numero, serveur_id: @slot.serveur_id, valeur: @slot.valeur }
+      post :create, slot: { serveur_id: @slot.serveur_id, valeur: @slot.valeur }
     end
 
     assert_redirected_to slot_path(assigns(:slot))
@@ -35,7 +36,7 @@ class SlotsControllerTest < ActionController::TestCase
   end
 
   test "should update slot" do
-    patch :update, id: @slot, slot: { numero: @slot.numero, serveur_id: @slot.serveur_id, valeur: @slot.valeur }
+    patch :update, id: @slot, slot: { serveur_id: @slot.serveur_id, valeur: @slot.valeur }
     assert_redirected_to slot_path(assigns(:slot))
   end
 

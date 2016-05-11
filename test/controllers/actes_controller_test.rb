@@ -2,6 +2,7 @@ require 'test_helper'
 
 class ActesControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @acte = actes(:one)
   end
 

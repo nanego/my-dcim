@@ -2,6 +2,7 @@ require 'test_helper'
 
 class ClustersControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @cluster = clusters(:one)
   end
 

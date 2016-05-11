@@ -4,8 +4,16 @@ one:
   title: MyString
   description: MyText
   published: false
+  nb_elts: 1
+  u: 1
+  architecture_id: 1
+  marque_id: 1
 
 two:
   title: MyString
   description: MyText
   published: false
+  nb_elts: 1
+  u: 1
+  architecture_id: 1
+  marque_id: 1

@@ -2,6 +2,7 @@ require 'test_helper'
 
 class ArmoiresControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @armoire = armoires(:one)
   end
 

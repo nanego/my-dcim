@@ -2,6 +2,7 @@ require 'test_helper'
 
 class ArchitecturesControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @architecture = architectures(:one)
   end
 

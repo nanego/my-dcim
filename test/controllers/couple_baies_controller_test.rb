@@ -2,6 +2,7 @@ require 'test_helper'
 
 class CoupleBaiesControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @couple_baie = couple_baies(:one)
   end
 

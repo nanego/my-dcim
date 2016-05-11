@@ -2,6 +2,7 @@ require 'test_helper'
 
 class MarquesControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @marque = marques(:one)
   end
 

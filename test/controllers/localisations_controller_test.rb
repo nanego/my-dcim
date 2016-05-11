@@ -2,6 +2,7 @@ require 'test_helper'
 
 class LocalisationsControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @localisation = localisations(:one)
   end
 

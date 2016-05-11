@@ -2,6 +2,7 @@ require 'test_helper'
 
 class ServeursControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @serveur = serveurs(:one)
   end
 

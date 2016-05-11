@@ -2,6 +2,7 @@ require 'test_helper'
 
 class DomainesControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @domaine = domaines(:one)
   end
 
