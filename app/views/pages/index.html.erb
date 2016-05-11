@@ -5,16 +5,20 @@
     <div class="col-md-12">
 
       <div class="thumbnail">
-        <img class="img-responsive" src="<%= asset_path('data_center.jpg') %>" alt="">
         <div class="caption-full text-center">
           <h4>Gestion de salle</h4>
         </div>
+        <img class="img-responsive" src="<%= asset_path('data_center.jpg') %>" alt="">
       </div>
 
       <div class="row">
           <div class="col-md-12">
             <%= render 'salles/links_to_rooms.html.erb' %>
           </div>
+      </div>
+
+      <div class="well">
+        Nombre d'éléments (serveurs, switchs, patch panels) : <%= Serveur.count %>
       </div>
 
     </div>

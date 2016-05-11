@@ -30,11 +30,14 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt>Localisation:</dt>
-  <dd><%= @serveur.localisation %></dd>
+  <dt>Baie:</dt>
+  <dd><%= @serveur.baie.try(:title) %></dd>
 
-  <dt>Armoire:</dt>
-  <dd><%= @serveur.armoire %></dd>
+  <dt>Ilot:</dt>
+  <dd><%= @serveur.baie.try(:ilot) %></dd>
+
+  <dt>Salle:</dt>
+  <dd><%= @serveur.baie.try(:salle).try(:title) %></dd>
 
   <dt>Categorie:</dt>
   <dd><%= @serveur.modele.try(:category) %></dd>
@@ -67,7 +70,7 @@
   <dd><%= @serveur.cluster.try(:title) %></dd>
 
   <dt>Critique:</dt>
-  <dd><%= @serveur.critique %></dd>
+  <dd><%= @serveur.critique ? 'OUI' : 'non' %></dd>
 
   <dt>Domaine:</dt>
   <dd><%= @serveur.domaine %></dd>

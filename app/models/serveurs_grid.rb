@@ -149,7 +149,6 @@ class ServeursGrid
   }) do |record|
     record.baie.try(:name_with_salle_and_ilot)
   end
-  column(:ilot)
   column(:fc_total)
   column(:fc_utilise)
   column(:rj45_total)
