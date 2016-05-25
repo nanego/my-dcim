@@ -17,7 +17,6 @@ class CreateServeurs < ActiveRecord::Migration
       t.integer :domaine_id
       t.integer :gestion_id
       t.integer :acte_id
-      t.integer :phase
       t.integer :salle_id
       t.integer :ilot
       t.integer :fc_total

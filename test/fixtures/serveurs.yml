@@ -13,7 +13,6 @@ one:
   domaine_id: 1
   gestion_id: 1
   acte_id: 1
-  phase: 1
   fc_total: 1
   fc_utilise: 1
   rj45_total: 1
@@ -37,7 +36,6 @@ two:
   domaine_id: 1
   gestion_id: 1
   acte_id: 1
-  phase: 1
   fc_total: 1
   fc_utilise: 1
   rj45_total: 1

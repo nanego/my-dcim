@@ -97,13 +97,10 @@
                                   <% u_disponibles -= 1 %>
                                 <% end %>
 
-                                <% if %w(phase gestionnaire cluster).include?(params['bg'])
+                                <% if %w(gestionnaire cluster).include?(params['bg'])
 
                                     if params['bg'].present?
                                       case params['bg']
-                                        when 'phase'
-                                          parent_type = 'Phase'
-                                          parent_id = serveur.phase
                                         when 'gestionnaire'
                                           parent_type = 'Gestionnaire'
                                           parent_id = serveur.gestion.try(:title)
@@ -138,7 +135,7 @@
                                       <%= render 'serveurs/draw_u_scale_unit.html.erb', i:i, u_disponibles:u_disponibles, u_serveur:u_serveur %>
                                       <% u_disponibles -= 1 %>
                                     <% end %>
-                                    <%= render 'serveurs/draw_badge_phase.html.erb', serveur: serveur %>
+                                    <%= render 'serveurs/draw_server_badge.html.erb', serveur: serveur %>
                                     <%= render 'serveurs/draw_server_compact.html.erb', serveur: serveur %>
                                   <% end %>
                                 <% else %>
@@ -151,7 +148,7 @@
                                       <%= render 'serveurs/draw_u_scale_unit.html.erb', i: i, u_disponibles: u_disponibles, u_serveur: u_serveur %>
                                       <% u_disponibles -= 1 %>
                                     <% end %>
-                                    <%= render 'serveurs/draw_badge_phase.html.erb', serveur: serveur %>
+                                    <%= render 'serveurs/draw_server_badge.html.erb', serveur: serveur %>
                                     <%= render 'serveurs/draw_server_compact_front.html.erb', serveur: serveur %>
                                   <% end %>
 

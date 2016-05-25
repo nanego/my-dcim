@@ -6,7 +6,7 @@
         <h4 class="modal-title" id="myModalLabel">Ajouter un élément</h4>
       </div>
       <div class="modal-body">
-        <%= form_for(Serveur.new(:phase => 1, :nom => "PatchPanel", :modele => Modele.where("title LIKE ?", '%Panel%').first, baie: (@baie ? @baie : nil)), html: { class: "form-horizontal", role: "form" }) do |f| %>
+        <%= form_for(Serveur.new(:nom => "PatchPanel", :modele => Modele.where("title LIKE ?", '%Panel%').first, baie: (@baie ? @baie : nil)), html: { class: "form-horizontal", role: "form" }) do |f| %>
           <% if @serveur.try(:errors).try(:any?) %>
             <div class="alert alert-danger alert-dismissable" role="alert">
               <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>

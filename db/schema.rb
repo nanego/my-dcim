@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160411154022) do
+ActiveRecord::Schema.define(version: 20160525150228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -189,7 +189,6 @@ ActiveRecord::Schema.define(version: 20160411154022) do
     t.integer  "domaine_id"
     t.integer  "gestion_id"
     t.integer  "acte_id"
-    t.integer  "phase"
     t.integer  "fc_total"
     t.integer  "fc_utilise"
     t.integer  "rj45_total"

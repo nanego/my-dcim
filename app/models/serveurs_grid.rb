@@ -43,7 +43,6 @@ class ServeursGrid
   filter(:domaine, :enum, :select => Domaine.where(published: true).map {|r| [r.to_s, r.id]})
   filter(:gestion, :enum, :select => Gestion.where(published: true).map {|r| [r.to_s, r.id]})
   filter(:acte, :enum, :select => Acte.where(published: true).map {|r| [r.to_s, r.id]})
-  filter :phase, :integer, :range => true #, :default => proc { [Serveur.minimum(:phase), Serveur.maximum(:phase)] }
   filter(:baie, :enum, :select => Baie.all.map {|b| [b.name_with_salle_and_ilot, b.id]})
   filter :fc_total, :integer, :range => true
   filter :fc_utilise, :integer, :range => true
@@ -143,7 +142,6 @@ class ServeursGrid
   }) do |record|
     record.acte
   end
-  column(:phase)
   column(:baie, :order => proc { |scope|
     scope.joins(:baies).order("baies.title")
   }) do |record|

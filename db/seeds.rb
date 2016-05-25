@@ -190,8 +190,6 @@ csv.each_with_index do |row, i|
         gestion: gestion,
         acte: action,
 
-        phase: phase,
-
         # salle: salle,
         # ilot: ilot,
         fc_total: fc_total,
@@ -232,7 +230,6 @@ csv.each_with_index do |row, i|
         domaine: domaine,
         gestion: gestion,
         acte: action,
-        phase: phase,
         salle: salle,
         ilot: ilot,
         fc_total: fc_total,
