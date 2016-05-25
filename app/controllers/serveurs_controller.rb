@@ -19,6 +19,7 @@ class ServeursController < ApplicationController
 
     @baies = Baie.includes(:salle).joins(:salle).order('salles.title asc, ilot asc, baies.position asc')
     @baies = @baies.joins(:serveurs).where('serveurs.cluster_id = ? ', params[:cluster_id]) if params[:cluster_id].present?
+    @baies = @baies.joins(:serveurs).where('serveurs.gestion_id = ? ', params[:gestion_id]) if params[:gestion_id].present?
 
     @serveurs = Serveur.includes(:baie, :gestion, :modele => :category)
                     .where('baie_id IN (?)', @baies.map(&:id))

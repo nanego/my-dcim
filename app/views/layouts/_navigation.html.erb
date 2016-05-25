@@ -18,11 +18,39 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Salles <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><%= link_to 'Afficher toutes les salles', baies_serveurs_path %></li>
-            <li class="dropdown-header">Voir la salle :</li>
-            <% Salle.order('title asc').each do |salle| %>
-              <% if salle.title.present? && salle.serveurs.exists? %>
-                <li><%= link_to salle.title, salle_path(salle) %></li>
-              <% end %>
+            <li role="separator" class="divider"></li>
+            <% s1 = Salle.find_by_title('S1') %>
+            <li><%= link_to 'S1', salle_path(s1) %></li>
+            <li><%= link_to 'S1-ilot1', ilot_salles_path(id: s1.id, ilot: 1, :view => params[:view], bg: params[:bg]) %></li>
+            <li><%= link_to 'S1-ilot2', ilot_salles_path(id: s1.id, ilot: 2, :view => params[:view], bg: params[:bg]) %></li>
+            <li><%= link_to 'S1-ilot3', ilot_salles_path(id: s1.id, ilot: 3, :view => params[:view], bg: params[:bg]) %></li>
+            <li><%= link_to 'S2', salle_path(Salle.find_by_title('S2')) %></li>
+            <li role="separator" class="divider"></li>
+            <li><%= link_to 'Stock', salle_path(Salle.find_by_title('Stock')) %></li>
+            <li role="separator" class="divider"></li>
+            <li><%= link_to 'A dégager', salle_path(Salle.find_by_title('A dégager')) %></li>
+            <li><%= link_to 'TPB -2', salle_path(Salle.find_by_title('TPB -2')) %></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Clusters <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <% Cluster.order('LOWER(title) asc').each do |c| %>
+              <li <%= "class=active" if params[:cluster_id]==c.id.to_s %> >
+                <%= link_to c.title, baies_serveurs_path(cluster_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestionnaires <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <% Gestion.order('LOWER(title) asc').each do |c| %>
+              <li <%= "class=active" if params[:gestion_id]==c.id.to_s %> >
+                <%= link_to c.title, baies_serveurs_path(gestion_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
+              </li>
             <% end %>
           </ul>
         </li>
@@ -32,8 +60,10 @@
           <ul class="dropdown-menu">
             <li><%= link_to 'Afficher tous les serveurs', serveurs_grids_path %></li>
             <li><%= link_to '+ ajouter un serveur', new_serveur_path %></li>
+            <li role="separator" class="divider"></li>
             <li class="dropdown-header">Vues spécifiques :</li>
             <li><%= link_to 'Réseau', reseau_serveurs_grids_path %></li>
+
           </ul>
         </li>
 
