@@ -41,9 +41,11 @@
                 <% Cluster.order('LOWER(title) asc').in_groups(3).each do |clusters| %>
                   <ul class="list-unstyled col-md-4">
                     <% clusters.each do |c| %>
-                      <li <%= "class=active" if params[:cluster_id]==c.id.to_s %> >
-                        <%= link_to c.title, baies_serveurs_path(cluster_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
-                      </li>
+                      <% if c.present? %>
+                        <li <%= "class=active" if params[:cluster_id]==c.id.to_s %> >
+                          <%= link_to c.title, baies_serveurs_path(cluster_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
+                        </li>
+                      <% end %>
                     <% end %>
                   </ul>
                 <% end %>
