@@ -16,7 +16,6 @@
 //= require_tree .
 //= require bootstrap
 
-
 function hideFilters(){
   $('.hide-filters').hide();
   $('.show-filters').show();

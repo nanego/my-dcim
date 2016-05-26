@@ -36,11 +36,19 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Clusters <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <% Cluster.order('LOWER(title) asc').each do |c| %>
-              <li <%= "class=active" if params[:cluster_id]==c.id.to_s %> >
-                <%= link_to c.title, baies_serveurs_path(cluster_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
-              </li>
-            <% end %>
+            <li>
+              <div class="row" style="width: 600px;">
+                <% Cluster.order('LOWER(title) asc').in_groups(3).each do |clusters| %>
+                  <ul class="list-unstyled col-md-4">
+                    <% clusters.each do |c| %>
+                      <li <%= "class=active" if params[:cluster_id]==c.id.to_s %> >
+                        <%= link_to c.title, baies_serveurs_path(cluster_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
+                      </li>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </div>
+            </li>
           </ul>
         </li>
 
