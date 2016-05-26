@@ -15,8 +15,6 @@
 
   <h1>Vue par salle et par baie</h1>
 
-  <%= render 'salles/links_to_rooms.html.erb' %>
-
   <% @serveurs_par_baies.each do |salle, ilots| %>
 
     <%= render 'salle', salle: salle, ilots: ilots %>
