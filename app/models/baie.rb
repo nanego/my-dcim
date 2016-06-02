@@ -1,5 +1,8 @@
 class Baie < ActiveRecord::Base
 
+  include PublicActivity::Model
+  tracked owner: ->(controller, model) { controller && controller.current_user }
+
   has_many :serveurs, -> { order("serveurs.position desc") }
   belongs_to :salle
   has_one :couple_baie, :foreign_key => :baie_one_id

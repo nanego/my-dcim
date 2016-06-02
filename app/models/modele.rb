@@ -1,6 +1,7 @@
 class Modele < ActiveRecord::Base
 
-  # validates_presence_of :title
+  include PublicActivity::Model
+  tracked owner: ->(controller, model) { controller && controller.current_user }
 
   has_many :serveurs
   has_many :composants, -> { order(name: :asc, position: :asc) }

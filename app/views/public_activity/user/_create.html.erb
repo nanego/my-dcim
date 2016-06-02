@@ -1,0 +1,6 @@
+L'utilisateur suivant a été ajouté :
+<% if activity.trackable %>
+  <%= link_to activity.trackable.to_s, activity.trackable %>
+<% else %>
+  (a été supprimé depuis)
+<% end %>

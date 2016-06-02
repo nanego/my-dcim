@@ -1,5 +1,8 @@
 class Port < ActiveRecord::Base
 
+  include PublicActivity::Model
+  tracked owner: ->(controller, model) { controller && controller.current_user }
+
   belongs_to :parent, :polymorphic => true
 
   has_many :connections_from, :class_name => 'Connection', :foreign_key => 'source_port_id'

@@ -9,3 +9,29 @@ fr:
   devise:
     registrations:
       signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'
+
+  activity:
+    user:
+      destroy: a supprimé un utilisateur
+      update: a modifié les données d'un utilisateur
+      create: a ajouté un utilisateur
+    acte:
+      destroy: a supprimé une action
+      update: a modifié une action
+      create: a ajouté une action
+    baie:
+      destroy: a supprimé une baie
+      update: a modifié une baie
+      create: a ajouté une baie
+    color:
+      destroy: a supprimé une couleur
+      update: a modifié une couleur
+      create: a ajouté une couleur
+    port:
+      destroy: a supprimé un port
+      update: a modifié un port
+      create: a ajouté un port
+    salle:
+      destroy: a supprimé une salle
+      update: a modifié une salle
+      create: a ajouté une salle

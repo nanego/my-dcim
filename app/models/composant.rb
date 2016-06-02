@@ -1,5 +1,8 @@
 class Composant < ActiveRecord::Base
 
+  include PublicActivity::Model
+  tracked owner: ->(controller, model) { controller && controller.current_user }
+
   validates_presence_of :type_composant_id
 
   belongs_to :modele
