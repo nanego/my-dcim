@@ -7,13 +7,6 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jbuilder', '~> 2.0'
-group :development, :test do
-  gem 'byebug'
-end
-group :development do
-  gem 'web-console', '~> 2.0'
-  gem 'spring'
-end
 gem 'administrate'
 gem 'bootstrap-sass'
 # gem 'bootstrap-generators', git: 'git://github.com/decioferreira/bootstrap-generators.git'
@@ -32,6 +25,8 @@ gem 'simple_form'
 gem 'datagrid'
 gem 'kaminari'
 group :development do
+  gem 'web-console', '~> 2.0'
+  gem 'spring'
   gem 'better_errors'
   # gem 'quiet_assets'
   gem 'rails_layout'
@@ -44,12 +39,12 @@ group :development, :test do
   gem 'rubocop'
   gem 'bullet'
   gem 'rack-mini-profiler'
+  gem 'byebug'
 end
 group :production do
   gem 'passenger'
-  gem 'therubyracer'
 end
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'acts_as_list'
-gem 'public_activity', github: 'pokonski/public_activity'
+gem 'public_activity', git: 'http://github.com/pokonski/public_activity.git'
