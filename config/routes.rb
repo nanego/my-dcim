@@ -49,4 +49,6 @@ Rails.application.routes.draw do
   resources :users
 
   resources :connections
+
+  resources :activities
 end

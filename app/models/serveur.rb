@@ -1,5 +1,7 @@
 class Serveur < ActiveRecord::Base
 
+  include PublicActivity::Model
+
   belongs_to :acte
   belongs_to :baie
   has_one :salle, through: :baie

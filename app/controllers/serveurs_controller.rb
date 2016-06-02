@@ -68,7 +68,12 @@ class ServeursController < ApplicationController
     baie = Baie.where(salle_id: salle.id, ilot: params[:ilot], title: params[:baie]).first
     positions = params[:positions].split(',')
     params[:serveur].each_with_index do |id, index|
-      Serveur.where(id: id).update_all(position: positions[index], baie_id: (baie.present? ? baie.id : ''))
+      serveur = Serveur.find_by_id(id)
+      new_params = {position: positions[index], baie_id: (baie.present? ? baie.id : '')}
+      updated_values = track_updated_values(serveur, new_params)
+      if serveur.save && updated_values.present?
+        serveur.create_activity action: 'update', parameters: updated_values, owner: current_user
+      end
     end if params[:serveur].present?
     render nothing: true
   end
@@ -88,6 +93,7 @@ class ServeursController < ApplicationController
 
     respond_to do |format|
       if @serveur.save
+        @serveur.create_activity action: 'create', owner: current_user
         format.html { redirect_to @serveur, notice: 'Serveur was successfully created.' }
         format.json { render :show, status: :created, location: @serveur }
       else
@@ -99,7 +105,9 @@ class ServeursController < ApplicationController
 
   def update
     respond_to do |format|
-      if @serveur.update(serveur_params)
+      updated_values = track_updated_values(@serveur, serveur_params)
+      if @serveur.save
+        @serveur.create_activity action: 'update', parameters: updated_values, owner: current_user
         format.html { redirect_to @serveur, notice: 'Serveur was successfully updated.' }
         format.json { render :show, status: :ok, location: @serveur }
       else
@@ -110,6 +118,7 @@ class ServeursController < ApplicationController
   end
 
   def destroy
+    @serveur.create_activity action: 'destroy', parameters: @serveur.attributes, owner: current_user
     @serveur.destroy
     respond_to do |format|
       format.html { redirect_to serveurs_url, notice: 'Serveur was successfully destroyed.' }
@@ -125,6 +134,6 @@ class ServeursController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def serveur_params
-      params.require(:serveur).permit(:cluster_id, :position, :baie_id, :localisation_id, :armoire_id, :gestion_id, :fc_futur, :rj45_cm, :category_id, :nom, :nb_elts, :architecture_id, :u, :marque_id, :modele_id, :numero, :conso, :cluster, :critique, :domaine_id, :gestion_id, :acte_id, :fc_total, :fc_utilise, :rj45_total, :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur, :rg45_cm, :ipmi_dedie, :baie, :cards_serveurs_attributes => [:composant_id, :card_id, :_destroy, :id])
+      params.require(:serveur).permit(:cluster_id, :position, :baie_id, :localisation_id, :armoire_id, :gestion_id, :fc_futur, :rj45_cm, :category_id, :nom, :nb_elts, :architecture_id, :u, :marque_id, :modele_id, :numero, :conso, :critique, :domaine_id, :gestion_id, :acte_id, :fc_total, :fc_utilise, :rj45_total, :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur, :rg45_cm, :ipmi_dedie, :baie, :cards_serveurs_attributes => [:composant_id, :card_id, :_destroy, :id])
     end
 end

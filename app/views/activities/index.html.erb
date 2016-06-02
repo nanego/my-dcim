@@ -1,0 +1,38 @@
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-md-3">
+      <%= render 'pages/params_menu' %>
+    </div>
+
+    <div class="col-md-9">
+
+      <h1>Activité</h1>
+
+      <% @activities.each do |activity| %>
+        <p>
+          <%= link_to activity.owner.name, activity.owner if activity.owner %>
+          <%= render_activity(activity, fallback: :text) %>
+          <i>(<%= activity.created_at.getlocal.strftime("%d/%m/%Y %H:%M") %>)</i>
+          <br/>
+          <ul>
+            <% activity.parameters.to_h.each do |key, values| %>
+              <li><%= key %> :
+                <% if values && values.respond_to?(:each)  %>
+                  <% values.each do |v| %>
+                    <%= v.present? ? v : v.inspect %> <%= ' => ' if v!=values.to_a.last %>
+                  <% end %>
+                <% else %>
+                  <%= values %>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </p>
+      <% end %>
+    </div>
+
+  </div>
+
+</div>

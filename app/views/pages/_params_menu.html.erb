@@ -1,4 +1,4 @@
-<p class="lead">Paramètres</p>
+<p class="lead">Configuration</p>
 <div class="list-group">
 
   <a href="<%= modeles_path %>" class="list-group-item <%= controller.controller_name == "modeles" ? 'active' : '' %>">Modèles de serveur</a>
@@ -17,4 +17,8 @@
   <a href="<%= clusters_path %>" class="list-group-item <%= controller.controller_name == "clusters" ? 'active' : '' %>">Clusters</a>
   <a href="<%= cards_path %>" class="list-group-item <%= controller.controller_name == "cards" ? 'active' : '' %>">Cartes</a>
   <a href="<%= colors_path %>" class="list-group-item <%= controller.controller_name == "colors" ? 'active' : '' %>">Couleurs</a>
+</div>
+
+<div class="list-group">
+  <a href="<%= activities_path %>" class="list-group-item <%= controller.controller_name == "activities" ? 'active' : '' %>">Activité</a>
 </div>

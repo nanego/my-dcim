@@ -52,3 +52,4 @@ end
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'acts_as_list'
+gem 'public_activity', github: 'pokonski/public_activity'

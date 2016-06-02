@@ -1,0 +1,7 @@
+a modifié le serveur
+
+<% if activity.trackable %>
+  <%= link_to activity.trackable.nom, activity.trackable %>
+<% else %>
+  (qui a été supprimé depuis)
+<% end %>
