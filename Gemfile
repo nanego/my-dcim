@@ -47,4 +47,4 @@ end
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'acts_as_list'
-gem 'public_activity', git: 'http://github.com/pokonski/public_activity.git'
+gem 'public_activity', git: 'https://github.com/pokonski/public_activity.git'

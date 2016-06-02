@@ -1,5 +1,5 @@
 GIT
-  remote: http://github.com/pokonski/public_activity.git
+  remote: https://github.com/pokonski/public_activity.git
   revision: 5533b4d6cd80c59b233536203094b2b90db53870
   specs:
     public_activity (2.0)
