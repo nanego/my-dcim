@@ -20,4 +20,24 @@ class Serveur < ActiveRecord::Base
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
 
+  require 'csv'
+  def self.import(csv_file)
+    salle = Salle.find_or_create_by!(title: 'Stock')
+    baie = Baie.create!(title: csv_file.original_filename.sub('.csv', ''),
+                        salle: salle)
+    CSV.foreach(csv_file.path, {headers: true, col_sep: ';' }) do |row|
+      server_data = row.to_hash
+      modele = Modele.find_by_title(server_data['Modele'])
+      raise "Modèle inconnu - #{server_data['Modele']}" if modele.blank?
+      server = Serveur.new(baie: baie)
+      server.modele = modele
+      server.nom = server_data['Nom']
+      server.critique = (server_data['Critique'] == 'oui')
+      unless server.save
+        raise "Problème lors de l'ajout par fichier CSV"
+      end
+    end
+    return baie
+  end
+
 end

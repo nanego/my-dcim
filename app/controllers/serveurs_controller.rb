@@ -118,6 +118,15 @@ class ServeursController < ApplicationController
     end
   end
 
+  def import_csv
+
+  end
+
+  def import
+    new_baie = Serveur.import(params[:file])
+    redirect_to baie_path(new_baie), notice: 'Les nouveaux serveurs ont été ajoutés' # baie_url()
+  end
+
   def destroy
     @serveur.create_activity action: 'destroy', parameters: @serveur.attributes, owner: current_user
     @serveur.destroy

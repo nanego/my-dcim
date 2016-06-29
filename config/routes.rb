@@ -15,6 +15,8 @@ Rails.application.routes.draw do
       get :grid
       get :baies
       post :sort
+      get :import_csv
+      post :import
     end
   end
   resources :serveurs_grids, only: [:index] do

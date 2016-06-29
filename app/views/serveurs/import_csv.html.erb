@@ -1,0 +1,26 @@
+<ol class="breadcrumb" style="margin-bottom: 5px;">
+  <li><a href="#">Accueil</a></li>
+  <li><%= link_to 'Serveurs', serveurs_grids_path  %></li>
+  <li class="active">Ajout par fichier CSV</li>
+</ol>
+
+<%= flash[:notice] %>
+
+<div class="row">
+  <div class="col-lg-4 col-lg-offset-4">
+
+    <div class="panel panel-primary">
+      <%= form_tag import_serveurs_path, multipart: true do %>
+        <div class="panel-heading">
+          <h4 class="panel-title">Importation de serveurs par fichier CSV</h4>
+        </div>
+
+        <div class="panel-body"><%= file_field_tag :file %></div>
+
+        <div class="panel-footer">
+          <%= submit_tag "Importer ce CSV", class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
