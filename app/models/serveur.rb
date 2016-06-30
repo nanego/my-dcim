@@ -22,7 +22,7 @@ class Serveur < ActiveRecord::Base
 
   require 'csv'
   def self.import(csv_file)
-    salle = Salle.find_or_create_by!(title: 'Stock')
+    salle = Salle.find_or_create_by!(title: 'Atelier')
     baie = Baie.create!(title: csv_file.original_filename.sub('.csv', ''),
                         salle: salle)
     CSV.foreach(csv_file.path, {headers: true, col_sep: ';' }) do |row|
