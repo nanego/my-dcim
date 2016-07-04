@@ -13,16 +13,24 @@
   <% end %>
 
   <div class="form-group">
+    <%= f.label :nom, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :nom, class: "form-control" %>
+    </div>
     <%= f.label :baie, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.collection_select(:baie_id, Baie.includes(:salle).sorted, :id,:name_with_salle_and_ilot, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
     </div>
-  </div>
-
-  <div class="form-group">
     <%= f.label :position, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.number_field :position, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label 'Commentaire', class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_area :comment, :style => 'width: 98%', class: "form-control" %>
     </div>
   </div>
 
@@ -31,17 +39,9 @@
     <div class="col-sm-10">
       <%= f.collection_select(:localisation_id, Localisation.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
     </div>
-  </div>
-  <div class="form-group">
     <%= f.label :armoire_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.collection_select(:armoire_id, Armoire.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :nom, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :nom, class: "form-control" %>
     </div>
   </div>
   <div class="form-group">
@@ -174,6 +174,7 @@
       </div>
     </div>
   <% end %>
+
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">

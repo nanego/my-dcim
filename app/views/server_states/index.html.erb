@@ -1,0 +1,29 @@
+<div class="page-header">
+  <%= link_to new_server_state_path, class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-plus"></span>
+    New Server state
+  <% end %>
+  <h1>Listing server_states</h1>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+            <th>Title</th>
+            <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= content_tag_for(:tr, @server_states) do |server_state| %>
+            <td><%= server_state.title %></td>
+            <td><%= link_to 'Show', server_state %></td>
+        <td><%= link_to 'Edit', edit_server_state_path(server_state) %></td>
+        <td><%= link_to 'Destroy', server_state, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+    </tbody>
+  </table>
+</div>

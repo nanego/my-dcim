@@ -35,3 +35,4 @@ fr:
       destroy: a supprimé une salle
       update: a modifié une salle
       create: a ajouté une salle
+  order-in-progress: 'Commande en cours'

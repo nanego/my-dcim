@@ -1,0 +1,6 @@
+<ol class="breadcrumb" style="margin-bottom: 5px;">
+  <li><%= link_to 'Accueil', root_path %></li>
+  <% params.each do |key, value| %>
+    <li class="<%= 'active' if value.present? %>"><%= value.present? ? (link_to key, value) : key %></li>
+  <% end %>
+</ol>

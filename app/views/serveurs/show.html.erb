@@ -29,6 +29,13 @@
   <% end %>
 </div>
 
+
+<% if @serveur.comment.present? %>
+  <div class="panel alert-warning">
+      <%= @serveur.comment %>
+  </div>
+<% end %>
+
 <dl class="dl-horizontal">
   <dt>Baie:</dt>
   <dd><%= @serveur.baie.try(:title) %></dd>

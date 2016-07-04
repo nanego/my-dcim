@@ -11,6 +11,7 @@ class Serveur < ActiveRecord::Base
   belongs_to :armoire
   belongs_to :localisation
   belongs_to :cluster
+  belongs_to :server_state
 
   has_many :slots
   has_many :cards_serveurs, -> { joins(:composant).order("composants.name asc, composants.position asc") }
@@ -21,8 +22,8 @@ class Serveur < ActiveRecord::Base
                                 :reject_if     => :all_blank
 
   require 'csv'
-  def self.import(csv_file)
-    salle = Salle.find_or_create_by!(title: 'Atelier')
+  def self.import(csv_file, salle, server_state)
+    salle = salle || Salle.find_or_create_by!(title: 'Atelier')
     baie = Baie.create!(title: csv_file.original_filename.sub('.csv', ''),
                         salle: salle)
     CSV.foreach(csv_file.path, {headers: true, col_sep: ';' }) do |row|
@@ -30,9 +31,12 @@ class Serveur < ActiveRecord::Base
       modele = Modele.find_by_title(server_data['Modele'])
       raise "Modèle inconnu - #{server_data['Modele']}" if modele.blank?
       server = Serveur.new(baie: baie)
+      server.server_state = server_state
       server.modele = modele
       server.nom = server_data['Nom']
       server.critique = (server_data['Critique'] == 'oui')
+      server.cluster = Cluster.find_or_create_by!(title: server_data['Cluster'])
+      server.domaine = Domaine.find_or_create_by!(title: server_data['Domaine'])
       unless server.save
         raise "Problème lors de l'ajout par fichier CSV"
       end
