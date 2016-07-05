@@ -9,8 +9,8 @@ class SallesController < ApplicationController
 
   def show
     @serveurs_par_baies = {}
-    @salle.baies.includes(:serveurs).order('ilot asc, baies.position asc').each do |baie|
-      baie.serveurs.includes(:gestion, :modele => :category).each do |s|
+    @salle.baies.includes(:coupled_baie, :inverse_coupled_baie).order('ilot asc, baies.position asc').each do |baie|
+      baie.serveurs.includes(:gestion, :cluster, :modele => :category).each do |s|
         ilot = baie.ilot
         @serveurs_par_baies[ilot] ||= {}
         @serveurs_par_baies[ilot][baie] ||= []

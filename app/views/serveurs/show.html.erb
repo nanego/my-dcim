@@ -1,3 +1,8 @@
+<%= render 'layouts/breadcrumb', params: {"Salles" => salles_path,
+                                          @serveur.baie.salle.title => salle_path(@serveur.baie.salle),
+                                          "Baie #{@serveur.baie.title}" => baie_path(@serveur.baie),
+                                          @serveur.nom => ''} %>
+
 <div class="page-header">
   <%= link_to serveurs_path, class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>

@@ -1,3 +1,10 @@
+<%
+  breadcrumb_variables = {}
+  breadcrumb_variables['Salles'] = '' # {'Salles' => salles_url, @salle.title => (@baie.present? ? salle_path(@salle):'')}
+  breadcrumb_variables["Baie #{@baie.title}"] = '' if @baie.present?
+%>
+<%= render 'layouts/breadcrumb', params: breadcrumb_variables %>
+
 <div class="container-fluid">
 
   <span class="pull-right">
