@@ -24,8 +24,8 @@
               <% activity.parameters.to_h.each do |key, values| %>
                 <li><%= key %> :
                   <% if values && values.respond_to?(:each)  %>
-                    <% values.each do |v| %>
-                      <%= v.present? ? v : v.inspect %> <%= ' => ' if v!=values.to_a.last %>
+                    <% values.each_with_index do |v, index| %>
+                      <%= v.present? ? v : v.inspect %> <%= ' => ' unless index == values.size-1 %>
                     <% end %>
                   <% else %>
                     <%= values %>

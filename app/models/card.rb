@@ -7,4 +7,8 @@ class Card < ActiveRecord::Base
   has_many :cards_serveurs
   has_many :serveurs, through: :cards_serveurs
 
+  def to_s
+    name
+  end
+
 end

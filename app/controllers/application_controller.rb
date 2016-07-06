@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     old_values = object.attributes
     object.attributes = object.attributes.merge(new_params)
     object.changed.each do |attribute|
-      updated_values[attribute] = [old_values[attribute].to_s, new_params[attribute]]
+      updated_values[attribute] = [old_values[attribute].to_s, new_params[attribute]] if old_values[attribute] != new_params[attribute]
     end
     return updated_values
   end

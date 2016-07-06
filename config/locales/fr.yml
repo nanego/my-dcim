@@ -35,4 +35,16 @@ fr:
       destroy: a supprimé une salle
       update: a modifié une salle
       create: a ajouté une salle
+    composant:
+      destroy: a supprimé un composant
+      update: a modifié un composant
+      create: a ajouté un composant
+    modele:
+      destroy: a supprimé un modèle
+      update: a modifié un modèle
+      create: a ajouté un modèle
+    cards_serveur:
+      destroy: a supprimé une carte sur un serveur
+      update: a modifié une carte sur un serveur
+      create: a ajouté une carte sur un serveur
   order-in-progress: 'Commande en cours'

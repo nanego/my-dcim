@@ -106,8 +106,10 @@ class ServeursController < ApplicationController
 
   def update
     respond_to do |format|
+      old_values = @serveur.attributes
       updated_values = track_updated_values(@serveur, serveur_params)
       if @serveur.save
+        updated_values.merge!(track_baie_and_position(old_values, @serveur.attributes)) if updated_values.key?("position") || updated_values.key?("baie_id")
         @serveur.create_activity action: 'update', parameters: updated_values, owner: current_user
         format.html { redirect_to @serveur, notice: 'Serveur was successfully updated.' }
         format.json { render :show, status: :ok, location: @serveur }
@@ -146,4 +148,15 @@ class ServeursController < ApplicationController
     def serveur_params
       params.require(:serveur).permit(:comment, :cluster_id, :position, :baie_id, :localisation_id, :armoire_id, :gestion_id, :fc_futur, :rj45_cm, :category_id, :nom, :nb_elts, :architecture_id, :u, :marque_id, :modele_id, :numero, :conso, :critique, :domaine_id, :gestion_id, :acte_id, :fc_total, :fc_utilise, :rj45_total, :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur, :rg45_cm, :ipmi_dedie, :baie, :cards_serveurs_attributes => [:composant_id, :card_id, :_destroy, :id])
     end
+
+    def track_baie_and_position(old_values, new_values)
+      new_params = {}
+      new_params['baie'] = [Baie.find_by_id(old_values['baie_id']).to_s, Baie.find_by_id(new_values['baie_id']).to_s]
+      new_params['position'] = [old_values['position'].to_s, new_values['position'].to_s]
+      #%W"position baie_id".each do |attribute|
+      #  new_params[attribute] = [old_values[attribute].to_s, new_values[attribute]]
+      #end
+      return new_params
+    end
+
 end

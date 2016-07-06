@@ -12,6 +12,10 @@ class Baie < ActiveRecord::Base
 
   scope :sorted, -> {joins(:salle).order("salles.title asc", "baies.ilot asc", "baies.title asc")}
 
+  def to_s
+    title
+  end
+
   def name_with_salle_and_ilot
     "#{salle.try(:title).present? ? "Salle #{salle.title} " : ''} #{ilot.present? ? "Ilot #{ilot}" : ''} Baie #{title.present? ? title : 'non précisée' }"
   end

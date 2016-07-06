@@ -21,6 +21,10 @@ class Serveur < ActiveRecord::Base
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
 
+  def to_s
+    nom
+  end
+
   require 'csv'
   def self.import(csv_file, salle, server_state)
     salle = salle || Salle.find_or_create_by!(title: 'Atelier')

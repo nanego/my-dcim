@@ -2,6 +2,11 @@ class Modele < ActiveRecord::Base
 
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
+  tracked :parameters => {
+      :nom => :title,
+      :categorie => :category,
+      :nb_elts => :nb_elts
+  }
 
   has_many :serveurs
   has_many :composants, -> { order(name: :asc, position: :asc) }

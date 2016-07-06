@@ -1,10 +1,14 @@
 <% if activity.trackable == activity.owner %>
 s'est connecté
 <% else %>
-a modifié les données d'un utilisateur
-  <% if activity.trackable %>
-    <%= link_to activity.trackable.to_s, activity.trackable %>
+  <% if activity.owner.present? %>
+    a modifié les données
   <% else %>
-    (qui a été supprimé depuis)
+    Modification des données
+  <% end %>
+  <% if activity.trackable %>
+    de l'utilisateur <%= link_to activity.trackable.to_s, activity.trackable %>
+  <% else %>
+    d'un utilisateur (qui a été supprimé depuis)
   <% end %>
 <% end %>
