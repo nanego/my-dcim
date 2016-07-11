@@ -15,6 +15,12 @@ class ModelesController < ApplicationController
 
   def new
     @modele = Modele.new
+    @modele.composants.build(:name => 'ALIM', type_composant_id: 4)
+    @modele.composants.build(:name => 'IPMI', type_composant_id: 4)
+    @modele.composants.build(:name => 'CM', type_composant_id: 4)
+    7.times do |i|
+      @modele.composants.build(:name => "SL#{i+1}", type_composant_id: 4)
+    end
   end
 
   def edit
@@ -28,7 +34,7 @@ class ModelesController < ApplicationController
 
     respond_to do |format|
       if @modele.save
-        format.html { redirect_to @modele, notice: 'Modele was successfully created.' }
+        format.html { redirect_to edit_modele_path(@modele), notice: 'Nouveau modèle ajouté.' }
         format.json { render :show, status: :created, location: @modele }
       else
         format.html { render :new }
@@ -65,6 +71,6 @@ class ModelesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def modele_params
-      params.require(:modele).permit(:title, :color, :description, :published, :category_id, :architecture_id, :u, :marque_id, :nb_elts, composants_attributes: [:type_composant_id, :modele_id, :position, :_destroy, :id, slots_attributes: [:valeur, :_destroy, :id, :position]])
+      params.require(:modele).permit(:title, :color, :description, :published, :category_id, :architecture_id, :u, :marque_id, :nb_elts, composants_attributes: [:type_composant_id, :modele_id, :name, :position, :_destroy, :id, slots_attributes: [:valeur, :_destroy, :id, :position]])
     end
 end

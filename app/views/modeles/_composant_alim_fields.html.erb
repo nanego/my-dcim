@@ -11,10 +11,10 @@
   end
 %>
 
-<% if f.object.type_composant.title == type_composant %>
+<% if f.object.type_composant.try(:title) == type_composant %>
   <li class="list-group-item">
     <fieldset>
-      <% label = (f.object.position? ? label : "Nouvel emplacement" ) %>
+      <% label = (label.present? ? label : "Nouvel emplacement" ) %>
       <%= label %>
       <span>
         <%= f.hidden_field :_destroy %>

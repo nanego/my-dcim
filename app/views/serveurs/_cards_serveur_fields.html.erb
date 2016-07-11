@@ -3,7 +3,7 @@
 <li class="list-group-item">
     <fieldset>
       <div class="col-sm-4">
-      <%= f.select :composant_id, options_for_select(@serveur.modele.composants.where(type_composant_id: 4).map{|c| ["Slot #{c.position}", c.id]}, f.object.composant_id) %>
+      <%= f.select :composant_id, options_for_select(@serveur.modele.composants.where(type_composant_id: 4).map{|c| [c.name, c.id]}, f.object.composant_id) %>
       </div>
       <div class="col-sm-4">
         <%= f.select :card_id, options_for_select(Card.all.map{|card| [card.name, card.id]}, f.object.card_id) %>

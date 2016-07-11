@@ -1,4 +1,4 @@
-<%= render 'layouts/breadcrumb', params: {'Modèles' => modeles_url, @modele.title => ''} %>
+<%= render 'layouts/breadcrumb', params: {'Configuration' => modeles_url, 'Modèles' => modeles_url, "#{@modele.try(:title).present? ? @modele.title : 'Nouveau modèle' }" => ''} %>
 
 <div class="page-header">
   <%= link_to modeles_path, class: 'btn btn-default' do %>
