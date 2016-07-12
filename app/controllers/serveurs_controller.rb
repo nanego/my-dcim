@@ -68,12 +68,14 @@ class ServeursController < ApplicationController
     baie = Baie.where(salle_id: salle.id, ilot: params[:ilot], title: params[:baie]).first
     positions = params[:positions].split(',')
     params[:serveur].each_with_index do |id, index|
-      serveur = Serveur.find_by_id(id)
-      new_params = {position: positions[index]}
-      new_params.merge!({baie_id: baie.id}) if baie.present?
-      updated_values = track_updated_values(serveur, new_params)
-      if serveur.save && updated_values.present?
-        serveur.create_activity action: 'update', parameters: updated_values, owner: current_user
+      if positions[index].present?
+        serveur = Serveur.find_by_id(id)
+        new_params = {position: positions[index]}
+        new_params.merge!({baie_id: baie.id}) if baie.present?
+        updated_values = track_updated_values(serveur, new_params)
+        if serveur.save && updated_values.present?
+          serveur.create_activity action: 'update', parameters: updated_values, owner: current_user
+        end
       end
     end if params[:serveur].present?
     render nothing: true
