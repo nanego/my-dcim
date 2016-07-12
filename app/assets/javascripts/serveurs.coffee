@@ -46,7 +46,7 @@ jQuery ->
           positions = []
           $(this).find('li.serveur').map(->
             if ( $(this).attr("id")!=undefined && $(this).find('span.u_scale')[0]!=undefined )
-              positions.push($(this).find('span.u_scale')[0].innerText)
+              positions.push($(this).find('span.u_scale')[0].textContent)
           )
           # Update db data
           $.post($(this).data('update-url'), $(this).sortable('serialize') + '&salle=' +  $(this).data('salle') + '&ilot=' +  $(this).data('ilot') + '&baie=' +  $(this).data('baie') + '&positions=' + positions)
