@@ -1,7 +1,13 @@
-<!-- TODO : Display cluster or owner -->
-<!--
-<span class="server_badge" title="Cluster <%= serveur.cluster %>"
-      style="background-color:<%= Color.find_by(parent_type: 'Cluster', parent_id: serveur.cluster).try(:code) %> !important;" >
-  <%= serveur.cluster %>
+<!-- Display badge on server how have current cluster or owner -->
+<% if @cluster && serveur.cluster == @cluster
+     current_filter_object = @cluster
+     parent_type = current_filter_object.class.name
+   elsif @gestion && serveur.gestion == @gestion
+     current_filter_object = @gestion
+     parent_type = "Gestionnaire"
+   end
+  if current_filter_object %>
+<span class="server_badge" title="<%= @current_filter_object %>"
+      style="background-color:<%= Color.find_by(parent_type: parent_type, parent_id: current_filter_object.to_s).try(:code) %> !important;" >
 </span>
--->
+<% end %>
