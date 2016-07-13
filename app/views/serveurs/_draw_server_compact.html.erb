@@ -1,4 +1,4 @@
-<%= link_to h(serveur.nom), serveur_path(serveur, :view => params[:view]), class: 'pull-left serveur_name', style: 'padding-left: 14px;' %>
+<%= link_to h(serveur.nom), serveur_path(serveur, :view => params[:view]), {class: 'pull-left serveur_name', style: 'padding-left: 14px;', :data => { 'toggle': "tooltip", 'placement': "top"}, title: serveur.numero} %>
 
 <% if serveur.modele.present? %>
   <div class="pull-right">
