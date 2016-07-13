@@ -1,5 +1,8 @@
 class Serveur < ActiveRecord::Base
 
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :history]
+
   include PublicActivity::Model
 
   belongs_to :acte
@@ -47,5 +50,14 @@ class Serveur < ActiveRecord::Base
     end
     return baie
   end
+
+  private
+
+    def slug_candidates
+      [
+          :nom,
+          [:nom, :id]
+      ]
+    end
 
 end

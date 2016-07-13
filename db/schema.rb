@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160704142957) do
+ActiveRecord::Schema.define(version: 20160713084337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,7 +66,10 @@ ActiveRecord::Schema.define(version: 20160704142957) do
     t.datetime "updated_at",               null: false
     t.integer  "position"
     t.integer  "switch_slot"
+    t.string   "slug"
   end
+
+  add_index "baies", ["slug"], name: "index_baies_on_slug", unique: true, using: :btree
 
   create_table "cards", force: :cascade do |t|
     t.string  "name"
@@ -133,6 +136,19 @@ ActiveRecord::Schema.define(version: 20160704142957) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string   "slug",                      null: false
+    t.integer  "sluggable_id",              null: false
+    t.string   "sluggable_type", limit: 50
+    t.string   "scope"
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+
   create_table "gestions", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -169,7 +185,10 @@ ActiveRecord::Schema.define(version: 20160704142957) do
     t.integer  "u"
     t.integer  "marque_id"
     t.string   "color"
+    t.string   "slug"
   end
+
+  add_index "modeles", ["slug"], name: "index_modeles_on_slug", unique: true, using: :btree
 
   create_table "port_types", force: :cascade do |t|
     t.string "name"
@@ -192,7 +211,10 @@ ActiveRecord::Schema.define(version: 20160704142957) do
     t.boolean  "published"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "slug"
   end
+
+  add_index "salles", ["slug"], name: "index_salles_on_slug", unique: true, using: :btree
 
   create_table "server_states", force: :cascade do |t|
     t.string   "title"
@@ -238,7 +260,10 @@ ActiveRecord::Schema.define(version: 20160704142957) do
     t.integer  "cluster_id"
     t.integer  "server_state_id"
     t.string   "comment"
+    t.string   "slug"
   end
+
+  add_index "serveurs", ["slug"], name: "index_serveurs_on_slug", unique: true, using: :btree
 
   create_table "slots", force: :cascade do |t|
     t.integer  "position"

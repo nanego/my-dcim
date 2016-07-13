@@ -8,7 +8,7 @@ class ConnectionsController < ApplicationController
     ports = {}
     ['from', 'to'].each do |destination|
 
-      server = Serveur.find(params[destination]['server_id'])
+      server = Serveur.find_by_id(params[destination]['server_id'])
 
       if params[destination]['composant_type'] == CardsServeur.name
         cards[destination] = CardsServeur.find(params[destination]['composant_id'])

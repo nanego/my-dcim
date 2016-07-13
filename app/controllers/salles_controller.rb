@@ -111,7 +111,7 @@ class SallesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_salle
-      @salle = Salle.find_by_id(params[:id])
+      @salle = Salle.friendly.find(params[:id].to_s.downcase)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

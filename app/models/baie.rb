@@ -1,5 +1,8 @@
 class Baie < ActiveRecord::Base
 
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :history]
+
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
 
@@ -43,5 +46,15 @@ class Baie < ActiveRecord::Base
   def has_no_coupled_baie?
     ([coupled_baie] | [inverse_coupled_baie]).compact.empty?
   end
+
+  private
+
+    def slug_candidates
+      [
+          :title,
+          [self.salle.try(:title), :title],
+          [self.salle.try(:title), :title, :id]
+      ]
+    end
 
 end

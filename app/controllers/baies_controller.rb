@@ -1,7 +1,7 @@
 class BaiesController < ApplicationController
 
   def show
-    @baie = Baie.find_by_id(params[:id])
+    @baie = Baie.friendly.find(params[:id].to_s.downcase)
     @salle = @baie.salle
     @serveurs_par_baies = {}
     @baie.serveurs.includes(:gestion, :modele => :category).each do |s|
@@ -27,11 +27,11 @@ class BaiesController < ApplicationController
   end
 
   def edit
-    @baie = Baie.find_by_id(params[:id])
+    @baie = Baie.friendly.find(params[:id].to_s.downcase)
   end
 
   def update
-    @baie = Baie.find_by_id(params[:id])
+    @baie = Baie.friendly.find(params[:id].to_s.downcase)
     respond_to do |format|
       if @baie.update(baie_params)
         format.html { redirect_to salle_path(@baie.salle), notice: 'baie was successfully updated.' }
