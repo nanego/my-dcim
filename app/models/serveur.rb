@@ -49,6 +49,7 @@ class Serveur < ActiveRecord::Base
         raise "Problème lors de l'ajout par fichier CSV"
       end
     end
+    baie.compact_u.save
     return baie
   end
 

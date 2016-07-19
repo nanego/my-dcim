@@ -50,6 +50,19 @@ class BaiesController < ApplicationController
     render nothing: true
   end
 
+  def index
+    @baies = Baie.all
+  end
+
+  def destroy
+    @baie = Baie.friendly.find(params[:id].to_s.downcase)
+    @baie.destroy
+    respond_to do |format|
+      format.html { redirect_to baies_url, notice: 'Baie was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :server_states
   resources :couple_baies
-  resources :baies, only: [:edit, :update, :show] do
+  resources :baies, only: [:edit, :update, :show, :index, :destroy] do
     collection do
       post :sort
     end

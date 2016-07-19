@@ -6,7 +6,7 @@ class Baie < ActiveRecord::Base
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
 
-  has_many :serveurs, -> { order("serveurs.position desc") }
+  has_many :serveurs, -> { order("serveurs.position desc") }, dependent: :destroy
   belongs_to :salle
   has_one :couple_baie, :foreign_key => :baie_one_id
   has_one :coupled_baie, through: :couple_baie, :source => :baie_two
@@ -45,6 +45,11 @@ class Baie < ActiveRecord::Base
 
   def has_no_coupled_baie?
     ([coupled_baie] | [inverse_coupled_baie]).compact.empty?
+  end
+
+  def compact_u
+    self.u = serveurs.map{|s|s.modele.u}.sum
+    self
   end
 
   private
