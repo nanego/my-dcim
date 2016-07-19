@@ -51,7 +51,7 @@ class BaiesController < ApplicationController
   end
 
   def index
-    @baies = Baie.all
+    @baies = Baie.order("baies.salle_id, baies.position asc")
   end
 
   def destroy
