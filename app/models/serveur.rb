@@ -44,11 +44,72 @@ class Serveur < ActiveRecord::Base
       server.critique = (server_data['Critique'] == 'oui')
       server.cluster = Cluster.find_or_create_by!(title: server_data['Cluster'])
       server.domaine = Domaine.find_or_create_by!(title: server_data['Domaine'])
+      server.init_slots(server_data)
       unless server.save
         raise "Problème lors de l'ajout par fichier CSV"
       end
     end
     return baie
+  end
+
+  def init_slots(server_data)
+    type_composant_slot = TypeComposant.find_by_title('SLOT')
+    7.times do |i|
+      Composant.find_or_create_by!(modele: self.modele,
+                                   type_composant: type_composant_slot,
+                                   name: "SL#{i+1}"
+      )
+    end
+    composant_slot_alim = Composant.find_or_create_by!(modele: self.modele,
+                                                       type_composant: type_composant_slot,
+                                                       name: "ALIM")
+    composant_slot_cm = Composant.find_or_create_by!(modele: self.modele,
+                                                     type_composant: type_composant_slot,
+                                                     name: "CM")
+    composant_slot_ipmi = Composant.find_or_create_by!(modele: self.modele,
+                                                       type_composant: type_composant_slot,
+                                                       name: "IPMI")
+
+    # SLOTS SL
+    slots = Composant.where(modele_id: self.modele_id, type_composant_id: type_composant_slot.id)
+    7.times do |index|
+      slot_name = "SL#{index+1}"
+      slot_data = server_data[slot_name]
+      if slot_data.present?
+        if slot_data[0].is_integer?
+          valeur = slot_data[1..-1]
+          nb_ports = slot_data[0].to_i
+        else
+          valeur = slot_data
+          nb_ports = 1
+        end
+        port_type = PortType.find_or_create_by!(name: valeur)
+        card = Card.find_or_create_by!(name: slot_data, port_quantity: nb_ports, port_type: port_type)
+        CardsServeur.find_or_create_by!(card: card, serveur: self, composant: slots.where("name = ?", slot_name).first)
+      end
+    end
+
+    # SLOTS CM
+    valeur = 'RJ'
+    nb_ports = server_data['CM'].gsub(valeur, '').to_i
+    port_type = PortType.find_or_create_by!(name: valeur)
+    card_cm = Card.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
+    CardsServeur.find_or_create_by!(card: card_cm, serveur: self, composant: composant_slot_cm)
+
+    # SLOTS IPMI
+    valeur = 'RJ'
+    nb_ports = server_data['IPMI'].gsub(valeur, '').to_i
+    port_type = PortType.find_or_create_by!(name: valeur)
+    card_ipmi = Card.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
+    CardsServeur.find_or_create_by!(card: card_ipmi, serveur: self, composant: composant_slot_ipmi)
+
+    # SLOTS ALIM
+    valeur = 'ALIM'
+    nb_ports = server_data['Alim'].gsub(valeur, '').to_i
+    port_type = PortType.find_or_create_by!(name: valeur)
+    card_alim = Card.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
+    CardsServeur.find_or_create_by!(card: card_alim, serveur: self, composant: composant_slot_alim)
+
   end
 
   private
@@ -60,4 +121,10 @@ class Serveur < ActiveRecord::Base
       ]
     end
 
+end
+
+class String
+  def is_integer?
+    self.to_i.to_s == self
+  end
 end
