@@ -8,6 +8,8 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'administrate'
+
+gem 'bourbon'
 gem 'bootstrap-sass'
 # gem 'bootstrap-generators', git: 'git://github.com/decioferreira/bootstrap-generators.git'
 gem 'bootstrap-generators', '~> 3.3.4'

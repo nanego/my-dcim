@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   resources :salles do
     collection do
       get :ilot
+      get :overview
     end
   end
   resources :gestions

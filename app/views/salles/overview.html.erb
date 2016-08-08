@@ -1,0 +1,18 @@
+<%= render 'layouts/breadcrumb', params: {'Aperçu des salles' => nil} %>
+
+<div class="container-fluid">
+
+  <% @salles.each do |salle| %>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= salle.title %></h3>
+      </div>
+      <div class="panel-body">
+        Panel content
+      </div>
+    </div>
+
+  <% end %>
+
+</div>

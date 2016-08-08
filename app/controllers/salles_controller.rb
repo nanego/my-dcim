@@ -59,6 +59,10 @@ class SallesController < ApplicationController
     end
   end
 
+  def overview
+    @salles = Salle.joins(:baies).uniq.sort_by(&:title)
+  end
+
   # GET /salles/new
   def new
     @salle = Salle.new

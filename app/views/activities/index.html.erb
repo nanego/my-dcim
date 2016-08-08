@@ -17,7 +17,10 @@
         <p>
           <% if activity.trackable_type != activity.owner_type && activity.trackable_id != activity.owner_id %>
             <%= link_to activity.owner.name, activity.owner if activity.owner %>
-            <%= render_activity(activity, fallback: :text) %>
+            <% begin %>
+              <%= render_activity(activity, fallback: :text) %>
+            <% rescue %>
+            <% end %>
             <i>(<%= activity.created_at.getlocal.strftime("%d/%m/%Y %H:%M") %>)</i>
             <br/>
             <ul>

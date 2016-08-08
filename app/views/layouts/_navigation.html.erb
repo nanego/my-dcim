@@ -17,7 +17,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Salles <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><%= link_to 'Afficher toutes les salles', baies_serveurs_path %></li>
+            <li><%= link_to 'Afficher toutes les salles', overview_salles_path %></li>
             <li role="separator" class="divider"></li>
             <% s1 = Salle.find_by_title('S1') %>
             <li><%= link_to 'S1', salle_path(s1) %></li>
