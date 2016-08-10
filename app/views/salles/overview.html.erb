@@ -1,6 +1,8 @@
 <%= render 'layouts/breadcrumb', params: {'Aperçu des salles' => nil} %>
 
-<div class="container-fluid">
+<div class="container-fluid rooms-overview">
+
+  <div class="row" %>
 
   <% @salles.each do |salle| %>
 
@@ -9,10 +11,30 @@
         <h3 class="panel-title"><%= salle.title %></h3>
       </div>
       <div class="panel-body">
-        Panel content
+        <div class="row" >
+          <% current_ilot = nil %>
+          <% baies = salle.baies.order('ilot asc, baies.position asc') %>
+          <% baies.order('ilot asc, baies.position asc').each_with_index do |baie, index| %>
+            <% last_baie = baies.count == index+1 %>
+            <% first_ilot = current_ilot.nil? %>
+            <% new_ilot = first_ilot || current_ilot != baie.ilot.to_s %>
+            <% if !first_ilot && new_ilot %></div></div><% end %>
+            <% if new_ilot %>
+              <div class=" col-md-6 col-sm-12">
+                <h5><%= baie.ilot.present? ? "Ilot #{baie.ilot}" : 'Ilot sans nom' %></h5>
+                <div class="row ilot">
+            <% end %>
+            <div class="baie pull-left">
+              <%= link_to baie.title, baie_path(baie) %>
+            </div>
+            <% if last_baie %></div></div><% end %>
+            <% current_ilot = baie.ilot.to_s %>
+          <% end %>
+        </div>
       </div>
     </div>
 
   <% end %>
 
+  </div>
 </div>
