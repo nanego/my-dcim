@@ -13,8 +13,9 @@
       <div class="panel-body">
         <div class="row" >
           <% current_ilot = nil %>
-          <% baies = salle.baies.order('ilot asc, baies.position asc') %>
-          <% baies.order('ilot asc, baies.position asc').each_with_index do |baie, index| %>
+
+          <% baies = salle.baies.order("baies.ilot asc, baies.position asc") & (salle.coupled_baies | salle.isolated_baies) %>
+          <% baies.each_with_index do |baie, index| %>
             <% last_baie = baies.count == index+1 %>
             <% first_ilot = current_ilot.nil? %>
             <% new_ilot = first_ilot || current_ilot != baie.ilot.to_s %>
@@ -24,8 +25,15 @@
                 <h5><%= baie.ilot.present? ? "Ilot #{baie.ilot}" : 'Ilot sans nom' %></h5>
                 <div class="row ilot">
             <% end %>
-            <div class="baie pull-left">
-              <%= link_to baie.title, baie_path(baie) %>
+            <div class="pull-left">
+              <div class="baie">
+                <%= link_to baie.title, baie_path(baie) %>
+              </div>
+              <% if salle.coupled_baies.include?(baie) %>
+                <div class="baie no-margin">
+                  <%= link_to baie.coupled_baie.title, baie_path(baie.coupled_baie) %>
+                </div>
+              <% end %>
             </div>
             <% if last_baie %></div></div><% end %>
             <% current_ilot = baie.ilot.to_s %>

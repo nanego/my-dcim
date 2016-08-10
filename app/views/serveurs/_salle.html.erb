@@ -70,8 +70,9 @@
                           <h5 class="panel-title" style="display: inline;">
                             <%= link_to "#{baie.title}", baie_path(baie, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' %>
                             <% if baie.other_baie.present? && formats != [:pdf] %>
-                              <%= " couplée à la baie" %>
-                              <%= link_to(baie.other_baie.title, baie_path(baie.other_baie, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;').html_safe %>
+                              <%= link_to baie_path(baie.other_baie, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' do %>
+                                <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
+                              <% end %>
                             <% end %>
                           </h5>
                           <% if formats != [:pdf] %>

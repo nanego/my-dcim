@@ -13,6 +13,26 @@ class Salle < ActiveRecord::Base
     title
   end
 
+  def coupled_baies
+    coupled_baies = []
+    self.baies.each do |baie|
+      if baie.couple_baie.present?
+        coupled_baies << baie
+      end
+    end
+    coupled_baies
+  end
+
+  def isolated_baies
+    isolated_baies = []
+    self.baies.each do |baie|
+      if baie.has_no_coupled_baie?
+        isolated_baies << baie
+      end
+    end
+    isolated_baies
+  end
+
   private
 
     def slug_candidates

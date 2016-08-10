@@ -43,6 +43,10 @@ class Baie < ActiveRecord::Base
     coupled_baie || inverse_coupled_baie
   end
 
+  def has_coupled_baie?
+    ([coupled_baie] | [inverse_coupled_baie]).present?
+  end
+
   def has_no_coupled_baie?
     ([coupled_baie] | [inverse_coupled_baie]).compact.empty?
   end

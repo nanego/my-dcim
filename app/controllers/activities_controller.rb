@@ -1,4 +1,6 @@
 require 'card'
+require 'serveur'
+require 'composant'
 
 class ActivitiesController < ApplicationController
   def index
