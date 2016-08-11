@@ -1,5 +1,5 @@
 <%
-  breadcrumb_variables = {'Salles' => salles_url, @salle.title => ((@baie.present? || params[:ilot].present?) ? salle_path(@salle):'')}
+  breadcrumb_variables = {'Salles' => overview_salles_path, @salle.title => ((@baie.present? || params[:ilot].present?) ? salle_path(@salle):'')}
   if @baie.present?
     breadcrumb_variables["Ilot #{@baie.ilot}"] = ilot_salles_path(id: @salle.id, ilot: @baie.ilot)
   elsif params[:ilot].present?

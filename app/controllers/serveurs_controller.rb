@@ -52,17 +52,6 @@ class ServeursController < ApplicationController
 
   end
 
-  def baie
-    @ilot = params[:ilot]
-    @salle = Salle.find_by_title(params[:salle])
-    @baie = Baie.where(salle_id: @salle.id, ilot: params[:ilot], title: params[:baie]).first
-    @serveurs = @baie.serveurs
-    @sum_u = @serveurs.to_a.sum { |s| s.modele.try(:u) || 0 }
-    @sum_elements = @serveurs.to_a.sum { |s| s.modele.try(:nb_elts) || 0 }
-    @sum_rj45_futur = @serveurs.to_a.sum { |s| s.try(:rj45_futur) || 0 }
-    @sum_fc_futur = @serveurs.to_a.sum { |s| s.try(:fc_futur) || 0 }
-  end
-
   def sort
     salle = Salle.find_by_title(params[:salle]) unless params[:salle].include?('non ')
     baie = Baie.where(salle_id: salle.id, ilot: params[:ilot], title: params[:baie]).first

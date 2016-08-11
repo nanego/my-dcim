@@ -48,14 +48,12 @@
                 %>
                 <% previous_baie = baie %>
 
-
+                <% sums = @sums[baie.id] %>
                 <% sum_u = serveurs.sum { |s| s.modele.try(:u) || 0 } %>
                 <% sum_elements = serveurs.sum { |s| s.modele.try(:nb_elts) || 0 } %>
-                <% sum_rj45_futur = serveurs.sum { |s| s.try(:rj45_futur) || 0 } %>
-                <% sum_fc_futur = serveurs.sum { |s| s.try(:fc_futur) || 0 } %>
                 <% col_params = baie.other_baie.present? ? 'col-lg-6' : 'col-lg-3' %>
                 <div class="baie col-xs-12 col-sm-6 <%= baies.count>1 ? col_params:'col-sm-offset-3' %>" id="baie_<%= baie.id %>">
-                  <div class="panel <%= sum_u > max_u || sum_elements > max_elts || sum_rj45_futur > max_rj45 || sum_fc_futur > max_fc ? 'panel-danger' : 'panel-default' %> panel-baie">
+                  <div class="panel <%= sum_u > max_u || sum_elements > max_elts || sums['RJ'] > max_rj45 || sums['FC'] > max_fc ? 'panel-danger' : 'panel-default' %> panel-baie">
                     <div class="panel-heading">
                       <h5 class="panel-title" style="display: inline;">
                         <%= link_to "#{baie.title}", baie_path(baie, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' %>
@@ -132,7 +130,7 @@
                             <% else %>
 
                               <%= content_tag_for :li, serveur,
-                                                  class: "list-group-item truncate #{serveur.modele.try(:category).try(:title).try(:parameterize)}",
+                                                  class: "list-group-item truncate #{serveur.modele.try(:category).try(:title).try(:parameterize)} #{serveur.server_state_id==1 ? 'striped' : ''}",
                                                   style: "height: #{min_height*u_serveur - (u_serveur-1)}px;background-color:#{bgModeleColor} !important;",
                                                   :data => data do %>
                                 <% u_serveur.times do |i| %>
@@ -162,10 +160,12 @@
                         </span>
                       <% end %>
 
-                      <span class="fc label label-success <%= sum_fc_futur > max_fc ? 'label-danger' : '' %>">&Sigma; FC : <%= sum_fc_futur %></span>
-                      <span class="rj45 label label-primary <%= sum_rj45_futur > max_rj45 ? 'label-danger' : '' %>">&Sigma; RJ : <%= sum_rj45_futur %></span>
+                      <span class="fc label label-default <%= sums['FC'] > max_fc ? 'label-danger' : '' %>">&Sigma; FC : <%= sums['FC'] %></span>
+                      <span class="rj45 label label-primary <%= sums['RJ'] > max_rj45 ? 'label-danger' : '' %>">&Sigma; RJ : <%= sums['RJ'] %></span>
+                      <span class="xrj45 label label-primary <%= sums['XRJ'] > max_rj45 ? 'label-danger' : '' %>">&Sigma; XRJ : <%= sums['XRJ'] %></span>
                       <span class="u label label-default <%= sum_u > max_u ? 'label-danger' : '' %>">&Sigma; U : <%= sum_u %></span>
-                      <span class="ipmi label label-default">&Sigma; IPMI : <%= serveurs.map(&:ipmi_futur).compact.sum %></span>
+                      <span class="ipmi label label-default">&Sigma; IPMI : <%= sums['IPMI'] %></span>
+
                       <span class="warning-messages">
                         <% if sum_u > max_u %>
                           <div style="color:red;">Somme des U supérieure à <%= max_u %> !</div>
@@ -173,11 +173,11 @@
                         <% if sum_elements > max_elts %>
                           <div style="color:red;">Somme des éléments supérieure à <%= max_elts %> !</div>
                         <% end %>
-                        <% if sum_rj45_futur > max_rj45 %>
-                          <div style="color:red;">Somme des rj45 futurs supérieure à <%= max_rj45 %> !</div>
+                        <% if sums['RJ'] > max_rj45 %>
+                          <div style="color:red;">Somme des rj45 supérieure à <%= max_rj45 %> !</div>
                         <% end %>
-                        <% if sum_fc_futur > max_fc %>
-                          <div style="color:red;">Somme des fc futurs supérieure à <%= max_fc %> !</div>
+                        <% if sums['FC'] > max_fc %>
+                          <div style="color:red;">Somme des fc supérieure à <%= max_fc %> !</div>
                         <% end %>
                       </span>
                     </div>

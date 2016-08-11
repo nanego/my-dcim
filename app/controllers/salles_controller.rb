@@ -1,4 +1,6 @@
 class SallesController < ApplicationController
+  include ServeursHelper
+
   before_action :set_salle, only: [:show, :edit, :update, :destroy, :ilot]
 
   # GET /salles
@@ -9,13 +11,16 @@ class SallesController < ApplicationController
 
   def show
     @serveurs_par_baies = {}
+    @sums = {}
     @salle.baies.includes(:coupled_baie, :inverse_coupled_baie).order('ilot asc, baies.position asc').each do |baie|
-      baie.serveurs.includes(:gestion, :cluster, :modele => :category).each do |s|
+      serveurs = baie.serveurs.includes(:gestion, :cluster, :modele => :category, :cards => :port_type, :cards_serveurs => [:composant, :ports])
+      serveurs.each do |s|
         ilot = baie.ilot
         @serveurs_par_baies[ilot] ||= {}
         @serveurs_par_baies[ilot][baie] ||= []
         @serveurs_par_baies[ilot][baie] << s
       end
+      @sums.merge!(calculate_ports_sums(baie, serveurs))
     end
 
     respond_to do |format|
@@ -36,12 +41,15 @@ class SallesController < ApplicationController
   def ilot
     ilot = params[:ilot]
     @serveurs_par_baies = {}
-    @salle.baies.includes(:coupled_baie, :inverse_coupled_baie).where('baies.ilot = ?', ilot).order('ilot asc, baies.position asc').each do |baie|
-      baie.serveurs.includes(:gestion, :modele => :category).each do |s|
+    @sums = {}
+    @salle.baies.includes(:serveurs, :coupled_baie, :inverse_coupled_baie).where('baies.ilot = ?', ilot).order('ilot asc, baies.position asc').each do |baie|
+      serveurs = baie.serveurs.includes(:gestion, :modele => :category, :cards => :port_type, :cards_serveurs => [:composant, :ports])
+      serveurs.each do |s|
         @serveurs_par_baies[baie.ilot] ||= {}
         @serveurs_par_baies[baie.ilot][baie] ||= []
         @serveurs_par_baies[baie.ilot][baie] << s
       end
+      @sums.merge!(calculate_ports_sums(baie, serveurs))
     end
 
     respond_to do |format|

@@ -1,5 +1,5 @@
 <%
-  breadcrumb_variables = {'Salles' => salles_url,
+  breadcrumb_variables = {'Salles' => overview_salles_path,
                           @baie.salle.title => (@baie.present? ? salle_path(@baie.salle):''),
                           "Baie #{@baie.title}" => baie_path(@baie),
                           "Edition" => ''}

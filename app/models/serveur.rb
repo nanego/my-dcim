@@ -19,6 +19,7 @@ class Serveur < ActiveRecord::Base
   has_many :slots
   has_many :cards_serveurs, -> { joins(:composant).order("composants.name asc, composants.position asc") }
   has_many :cards, through: :cards_serveurs
+  has_many :ports, through: :cards_serveurs
 
   accepts_nested_attributes_for :cards_serveurs,
                                 :allow_destroy => true,
@@ -111,6 +112,20 @@ class Serveur < ActiveRecord::Base
     card_alim = Card.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
     CardsServeur.find_or_create_by!(card: card_alim, serveur: self, composant: composant_slot_alim)
 
+  end
+
+  def ports_per_type
+    # Number of ports per type
+    sums = {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0}
+    self.cards_serveurs.each do |card_server|
+      if card_server.composant.name == 'IPMI'
+        port_type = 'IPMI'
+      else
+        port_type = card_server.card.port_type.name
+      end
+      sums[port_type] = sums[port_type].to_i + card_server.ports.map(&:cablename).compact.uniq.size
+    end
+    sums
   end
 
   private
