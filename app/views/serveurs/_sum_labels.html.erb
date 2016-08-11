@@ -1,0 +1,22 @@
+<span class="fc label label-default <%= sums['FC'] > max_fc ? 'label-danger' : '' %>">&Sigma; FC : <%= sums['FC'] %></span>
+<span class="rj45 label label-primary <%= sums['RJ'] > max_rj45 ? 'label-danger' : '' %>">&Sigma; RJ : <%= sums['RJ'] %></span>
+<span class="xrj45 label label-primary <%= sums['XRJ'] > max_rj45 ? 'label-danger' : '' %>">&Sigma; XRJ : <%= sums['XRJ'] %></span>
+<% if sum_u %>
+  <span class="u label label-default <%= sum_u > max_u ? 'label-danger' : '' %>">&Sigma; U : <%= sum_u %></span>
+<% end %>
+<span class="ipmi label label-default">&Sigma; IPMI : <%= sums['IPMI'] %></span>
+
+<span class="warning-messages">
+<% if sum_u && sum_u > max_u %>
+  <div style="color:red;">Somme des U supérieure à <%= max_u %> !</div>
+<% end %>
+<% if sum_elements && sum_elements > max_elts %>
+  <div style="color:red;">Somme des éléments supérieure à <%= max_elts %> !</div>
+<% end %>
+<% if sums['RJ'] > max_rj45 %>
+  <div style="color:red;">Somme des rj45 supérieure à <%= max_rj45 %> !</div>
+<% end %>
+<% if sums['FC'] > max_fc %>
+  <div style="color:red;">Somme des fc supérieure à <%= max_fc %> !</div>
+<% end %>
+</span>
