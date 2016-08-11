@@ -5,213 +5,199 @@
 <% min_height = params[:view]=='back' ? 20 : 27 %>
 <% @salle = salle || @salle %>
 
-<div>
+<%= render 'salles/action_buttons' %>
 
-  <div>
+<div id="<%= @salle.try(:title).try(:parameterize).try(:underscore) %>">
 
-    <div id="<%= @salle.try(:title).try(:parameterize).try(:underscore) %>">
-      <% if formats!=[:pdf] && @salle.present? %>
-        <div>
-          <%= link_to "Export PDF", url_for(params.except(:controller, :action).merge({'format' => 'pdf'})), class: 'btn btn-primary pull-right', style: 'margin-left:10px;', target: :_blank %>
-          <%= link_to "Export txt", url_for(params.except(:controller, :action).merge({'format' => 'txt'})), class: 'btn btn-primary pull-right', style: 'margin-left:10px;' %>
-          <%= link_to "Impression", url_for(params.except(:controller, :action).merge({'format' => 'pdf', 'debug' => '1'})), class: 'btn btn-primary pull-right', style: 'margin-left:10px;', target: :_blank %>
-          <%= link_to "Liste des ports", ports_path(salle_id: @salle.id, baie_id: @baie.try(:id)), class: 'btn btn-success pull-right', style: 'margin-left:10px;' %>
-        </div>
-      <% end %>
+  <% ilots.each do |ilot, baies| %>
 
-      <% ilots.each do |ilot, baies| %>
-
-        <div>
+    <div>
+      <div>
+        <div class="panel-ilot">
+          <% if @salle.present? %>
           <div>
-            <div class="panel-ilot">
-              <% if @salle.present? %>
-              <div>
 
-                <h3>Salle <%= @salle.title %> - Ilot <%= ilot %></h3>
-              </div>
-              <% end %>
+            <h3>Salle <%= @salle.title %> - Ilot <%= ilot %></h3>
+          </div>
+          <% end %>
 
-              <div class="row">
+          <div class="row">
 
-                <ul class="baies <%= params[:view] %>"
-                    style="padding: 0;"
-                    data-update-url="<%= sort_baies_path %>"
-                    data-max-u='<%= max_u %>'
-                    data-max-elts='<%= max_elts %>'
-                    data-max-rj45='<%= max_rj45 %>'
-                    data-max-fc='<%= max_fc %>' >
+            <ul class="baies <%= params[:view] %>"
+                style="padding: 0;"
+                data-update-url="<%= sort_baies_path %>"
+                data-max-u='<%= max_u %>'
+                data-max-elts='<%= max_elts %>'
+                data-max-rj45='<%= max_rj45 %>'
+                data-max-fc='<%= max_fc %>' >
 
-                  <% previous_baie, second_baie = nil %>
-                  <% baies.each_with_index do |(baie, serveurs), index| %>
+              <% previous_baie, second_baie = nil %>
+              <% baies.each_with_index do |(baie, serveurs), index| %>
 
-                    <% if baie.other_baie.present? && baies.include?(baie.other_baie) && formats != [:pdf]
-                         if baie.other_baie==previous_baie
-                           second_baie = true
-                         else
-                         %>
-                        <div class="col-sm-12 col-lg-6" style='overflow: auto;'> <div class="well" style='overflow: auto;'>
-                        <% second_baie = false
-                         end
-                       else
-                         second_baie = false
-                       end
-                    %>
-                    <% previous_baie = baie %>
+                <% if baie.other_baie.present? && baies.include?(baie.other_baie) && formats != [:pdf]
+                     if baie.other_baie==previous_baie
+                       second_baie = true
+                     else
+                     %>
+                    <div class="col-sm-12 col-lg-6" style='overflow: auto;'> <div class="well" style='overflow: auto;'>
+                    <% second_baie = false
+                     end
+                   else
+                     second_baie = false
+                   end
+                %>
+                <% previous_baie = baie %>
 
 
-                    <% sum_u = serveurs.sum { |s| s.modele.try(:u) || 0 } %>
-                    <% sum_elements = serveurs.sum { |s| s.modele.try(:nb_elts) || 0 } %>
-                    <% sum_rj45_futur = serveurs.sum { |s| s.try(:rj45_futur) || 0 } %>
-                    <% sum_fc_futur = serveurs.sum { |s| s.try(:fc_futur) || 0 } %>
-                    <% col_params = baie.other_baie.present? ? 'col-lg-6' : 'col-lg-3' %>
-                    <div class="baie col-xs-12 col-sm-6 <%= baies.count>1 ? col_params:'col-sm-offset-3' %>" id="baie_<%= baie.id %>">
-                      <div class="panel <%= sum_u > max_u || sum_elements > max_elts || sum_rj45_futur > max_rj45 || sum_fc_futur > max_fc ? 'panel-danger' : 'panel-default' %> panel-baie">
-                        <div class="panel-heading">
-                          <h5 class="panel-title" style="display: inline;">
-                            <%= link_to "#{baie.title}", baie_path(baie, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' %>
-                            <% if baie.other_baie.present? && formats != [:pdf] %>
-                              <%= link_to baie_path(baie.other_baie, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' do %>
-                                <span class="glyphicon glyphicon-link" aria-hidden="true"></span>
-                              <% end %>
-                            <% end %>
-                          </h5>
-                          <% if formats != [:pdf] %>
-                            <%= link_to "modifier", edit_baie_path(baie, :view => params[:view]), class: 'btn btn-default pull-right' %>
+                <% sum_u = serveurs.sum { |s| s.modele.try(:u) || 0 } %>
+                <% sum_elements = serveurs.sum { |s| s.modele.try(:nb_elts) || 0 } %>
+                <% sum_rj45_futur = serveurs.sum { |s| s.try(:rj45_futur) || 0 } %>
+                <% sum_fc_futur = serveurs.sum { |s| s.try(:fc_futur) || 0 } %>
+                <% col_params = baie.other_baie.present? ? 'col-lg-6' : 'col-lg-3' %>
+                <div class="baie col-xs-12 col-sm-6 <%= baies.count>1 ? col_params:'col-sm-offset-3' %>" id="baie_<%= baie.id %>">
+                  <div class="panel <%= sum_u > max_u || sum_elements > max_elts || sum_rj45_futur > max_rj45 || sum_fc_futur > max_fc ? 'panel-danger' : 'panel-default' %> panel-baie">
+                    <div class="panel-heading">
+                      <h5 class="panel-title" style="display: inline;">
+                        <%= link_to "#{baie.title}", baie_path(baie, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' %>
+                        <% if baie.other_baie.present? && formats != [:pdf] %>
+                          <%= link_to baie_path(baie.other_baie, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' do %>
+                            <span class="glyphicon glyphicon-link" aria-hidden="true" title="Couplée à la baie <%= baie.other_baie.title %>"></span>
                           <% end %>
-                          <div class="clearfix"></div>
-                        </div>
-                        <ul class='servers connectedBaies list-group'
-                            data-salle="<%= @salle.title %>"
-                            data-ilot="<%= ilot %>"
-                            data-baie="<%= baie.title %>"
-                            data-update-url="<%= sort_serveurs_path %>">
+                        <% end %>
+                      </h5>
+                      <% if formats != [:pdf] %>
+                        <%= link_to "modifier", edit_baie_path(baie, :view => params[:view]), class: 'btn btn-default pull-right' %>
+                      <% end %>
+                      <div class="clearfix"></div>
+                    </div>
+                    <ul class='servers connectedBaies list-group'
+                        data-salle="<%= @salle.title %>"
+                        data-ilot="<%= ilot %>"
+                        data-baie="<%= baie.title %>"
+                        data-update-url="<%= sort_serveurs_path %>">
 
-                            <% u_disponibles = baie.u || 41 %>
-                            <% serveurs.each do |serveur| %>
+                        <% u_disponibles = baie.u || 41 %>
+                        <% serveurs.each do |serveur| %>
 
-                              <% if serveur.modele.try(:title).present? %>
+                          <% if serveur.modele.try(:title).present? %>
 
-                                <% while serveur.position.present? && serveur.position < u_disponibles && u_disponibles>0 %>
-                                  <li class="serveur list-group-item truncate" style="height: <%= min_height %>px;">
-                                    <%= render 'serveurs/draw_u_scale_unit.html.erb', i:0, u_disponibles:u_disponibles, u_serveur:1 %>
-                                  </li>
+                            <% while serveur.position.present? && serveur.position < u_disponibles && u_disponibles>0 %>
+                              <li class="serveur list-group-item truncate" style="height: <%= min_height %>px;">
+                                <%= render 'serveurs/draw_u_scale_unit.html.erb', i:0, u_disponibles:u_disponibles, u_serveur:1 %>
+                              </li>
+                              <% u_disponibles -= 1 %>
+                            <% end %>
+
+                            <% if %w(gestionnaire cluster).include?(params['bg'])
+
+                                if params['bg'].present?
+                                  case params['bg']
+                                    when 'gestionnaire'
+                                      parent_type = 'Gestionnaire'
+                                      parent_id = serveur.gestion.try(:title)
+                                    when 'cluster'
+                                      parent_type = 'Cluster'
+                                      parent_id = serveur.cluster.try(:title)
+                                  end
+                                end
+
+                                color = Color.where(parent_type: parent_type, parent_id: parent_id).first
+                                if color.blank? || color.code.blank?
+                                  color = Color.create!(parent_type: parent_type, parent_id: parent_id, code: lighten_color("##{Digest::MD5.hexdigest(parent_id.to_s || 'test')[0..5]}", 0.4))
+                                end
+                                bgModeleColor = color.code
+                              %>
+                            <% else %>
+                              <% bgModeleColor = serveur.modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(serveur.modele.try(:title) || 'test')[0..5]}", 0.4) %>
+                            <% end %>
+
+                            <% u_serveur = serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1 %>
+
+                            <% data = {:u => u_serveur,
+                                       :rj45_futur => serveur.try(:rj45_futur) || 0,
+                                       :fc_futur => serveur.try(:fc_futur)} %>
+
+                            <% if params[:view] == 'back' %>
+                              <%= content_tag_for :li, serveur,
+                                                  class: "list-group-item truncate server_back #{serveur.modele.try(:category).try(:title).try(:parameterize)}",
+                                                  style: "min-height: #{min_height*(serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1)}px;padding: 3px 5px 3px 20px;",
+                                                  data: data do %>
+                                <% u_serveur.times do |i| %>
+                                  <%= render 'serveurs/draw_u_scale_unit.html.erb', i:i, u_disponibles:u_disponibles, u_serveur:u_serveur %>
                                   <% u_disponibles -= 1 %>
                                 <% end %>
-
-                                <% if %w(gestionnaire cluster).include?(params['bg'])
-
-                                    if params['bg'].present?
-                                      case params['bg']
-                                        when 'gestionnaire'
-                                          parent_type = 'Gestionnaire'
-                                          parent_id = serveur.gestion.try(:title)
-                                        when 'cluster'
-                                          parent_type = 'Cluster'
-                                          parent_id = serveur.cluster.try(:title)
-                                      end
-                                    end
-
-                                    color = Color.where(parent_type: parent_type, parent_id: parent_id).first
-                                    if color.blank? || color.code.blank?
-                                      color = Color.create!(parent_type: parent_type, parent_id: parent_id, code: lighten_color("##{Digest::MD5.hexdigest(parent_id.to_s || 'test')[0..5]}", 0.4))
-                                    end
-                                    bgModeleColor = color.code
-                                  %>
-                                <% else %>
-                                  <% bgModeleColor = serveur.modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(serveur.modele.try(:title) || 'test')[0..5]}", 0.4) %>
-                                <% end %>
-
-                                <% u_serveur = serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1 %>
-
-                                <% data = {:u => u_serveur,
-                                           :rj45_futur => serveur.try(:rj45_futur) || 0,
-                                           :fc_futur => serveur.try(:fc_futur)} %>
-
-                                <% if params[:view] == 'back' %>
-                                  <%= content_tag_for :li, serveur,
-                                                      class: "list-group-item truncate server_back #{serveur.modele.try(:category).try(:title).try(:parameterize)}",
-                                                      style: "min-height: #{min_height*(serveur.modele.try(:u).to_i > 0 ? serveur.modele.u : 1)}px;padding: 3px 5px 3px 20px;",
-                                                      data: data do %>
-                                    <% u_serveur.times do |i| %>
-                                      <%= render 'serveurs/draw_u_scale_unit.html.erb', i:i, u_disponibles:u_disponibles, u_serveur:u_serveur %>
-                                      <% u_disponibles -= 1 %>
-                                    <% end %>
-                                    <%= render 'serveurs/draw_server_badge.html.erb', serveur: serveur %>
-                                    <%= render 'serveurs/draw_server_compact.html.erb', serveur: serveur %>
-                                  <% end %>
-                                <% else %>
-
-                                  <%= content_tag_for :li, serveur,
-                                                      class: "list-group-item truncate #{serveur.modele.try(:category).try(:title).try(:parameterize)}",
-                                                      style: "height: #{min_height*u_serveur - (u_serveur-1)}px;background-color:#{bgModeleColor} !important;",
-                                                      :data => data do %>
-                                    <% u_serveur.times do |i| %>
-                                      <%= render 'serveurs/draw_u_scale_unit.html.erb', i: i, u_disponibles: u_disponibles, u_serveur: u_serveur %>
-                                      <% u_disponibles -= 1 %>
-                                    <% end %>
-                                    <%= render 'serveurs/draw_server_badge.html.erb', serveur: serveur %>
-                                    <%= render 'serveurs/draw_server_compact_front.html.erb', serveur: serveur %>
-                                  <% end %>
-
-                                <% end %>
+                                <%= render 'serveurs/draw_server_badge.html.erb', serveur: serveur %>
+                                <%= render 'serveurs/draw_server_compact.html.erb', serveur: serveur %>
                               <% end %>
+                            <% else %>
+
+                              <%= content_tag_for :li, serveur,
+                                                  class: "list-group-item truncate #{serveur.modele.try(:category).try(:title).try(:parameterize)}",
+                                                  style: "height: #{min_height*u_serveur - (u_serveur-1)}px;background-color:#{bgModeleColor} !important;",
+                                                  :data => data do %>
+                                <% u_serveur.times do |i| %>
+                                  <%= render 'serveurs/draw_u_scale_unit.html.erb', i: i, u_disponibles: u_disponibles, u_serveur: u_serveur %>
+                                  <% u_disponibles -= 1 %>
+                                <% end %>
+                                <%= render 'serveurs/draw_server_badge.html.erb', serveur: serveur %>
+                                <%= render 'serveurs/draw_server_compact_front.html.erb', serveur: serveur %>
+                              <% end %>
+
                             <% end %>
-                          <% u_disponibles.times do |u| %>
-                            <li class="serveur list-group-item truncate" style="height: <%= min_height %>px;">
-                              <%= render 'serveurs/draw_u_scale_unit.html.erb', i:0, u_disponibles:u_disponibles, u_serveur:1 %>
-                            </li>
-                            <% u_disponibles -= 1 %>
                           <% end %>
+                        <% end %>
+                      <% u_disponibles.times do |u| %>
+                        <li class="serveur list-group-item truncate" style="height: <%= min_height %>px;">
+                          <%= render 'serveurs/draw_u_scale_unit.html.erb', i:0, u_disponibles:u_disponibles, u_serveur:1 %>
+                        </li>
+                        <% u_disponibles -= 1 %>
+                      <% end %>
 
-                        </ul>
-                        <div class="panel-footer">
+                    </ul>
+                    <div class="panel-footer">
 
-                          <% if formats != [:pdf] %>
-                            <span class="pull-right">
-                              <button type="button" class="btn btn-default glyphicon glyphicon-plus" data-toggle="modal" data-target=".bs-example-modal-sm"></button>
-                            </span>
-                          <% end %>
+                      <% if formats != [:pdf] %>
+                        <span class="pull-right">
+                          <button type="button" class="btn btn-default glyphicon glyphicon-plus" data-toggle="modal" data-target=".bs-example-modal-sm"></button>
+                        </span>
+                      <% end %>
 
-                          <span class="fc label label-success <%= sum_fc_futur > max_fc ? 'label-danger' : '' %>">&Sigma; FC : <%= sum_fc_futur %></span>
-                          <span class="rj45 label label-primary <%= sum_rj45_futur > max_rj45 ? 'label-danger' : '' %>">&Sigma; RJ : <%= sum_rj45_futur %></span>
-                          <span class="u label label-default <%= sum_u > max_u ? 'label-danger' : '' %>">&Sigma; U : <%= sum_u %></span>
-                          <span class="ipmi label label-default">&Sigma; IPMI : <%= serveurs.map(&:ipmi_futur).compact.sum %></span>
-                          <span class="warning-messages">
-                            <% if sum_u > max_u %>
-                              <div style="color:red;">Somme des U supérieure à <%= max_u %> !</div>
-                            <% end %>
-                            <% if sum_elements > max_elts %>
-                              <div style="color:red;">Somme des éléments supérieure à <%= max_elts %> !</div>
-                            <% end %>
-                            <% if sum_rj45_futur > max_rj45 %>
-                              <div style="color:red;">Somme des rj45 futurs supérieure à <%= max_rj45 %> !</div>
-                            <% end %>
-                            <% if sum_fc_futur > max_fc %>
-                              <div style="color:red;">Somme des fc futurs supérieure à <%= max_fc %> !</div>
-                            <% end %>
-                          </span>
-                        </div>
-                      </div>
+                      <span class="fc label label-success <%= sum_fc_futur > max_fc ? 'label-danger' : '' %>">&Sigma; FC : <%= sum_fc_futur %></span>
+                      <span class="rj45 label label-primary <%= sum_rj45_futur > max_rj45 ? 'label-danger' : '' %>">&Sigma; RJ : <%= sum_rj45_futur %></span>
+                      <span class="u label label-default <%= sum_u > max_u ? 'label-danger' : '' %>">&Sigma; U : <%= sum_u %></span>
+                      <span class="ipmi label label-default">&Sigma; IPMI : <%= serveurs.map(&:ipmi_futur).compact.sum %></span>
+                      <span class="warning-messages">
+                        <% if sum_u > max_u %>
+                          <div style="color:red;">Somme des U supérieure à <%= max_u %> !</div>
+                        <% end %>
+                        <% if sum_elements > max_elts %>
+                          <div style="color:red;">Somme des éléments supérieure à <%= max_elts %> !</div>
+                        <% end %>
+                        <% if sum_rj45_futur > max_rj45 %>
+                          <div style="color:red;">Somme des rj45 futurs supérieure à <%= max_rj45 %> !</div>
+                        <% end %>
+                        <% if sum_fc_futur > max_fc %>
+                          <div style="color:red;">Somme des fc futurs supérieure à <%= max_fc %> !</div>
+                        <% end %>
+                      </span>
                     </div>
+                  </div>
+                </div>
 
-                    <% if second_baie %></div></div><%end%>
-                    <% if (index+1) % 4 == 0 %>
-                      <span class="clearfix"></span>
-                    <% end %>
-                  <% end %>
+                <% if second_baie %></div></div><%end%>
+                <% if (index+1) % 4 == 0 %>
+                  <span class="clearfix"></span>
+                <% end %>
+              <% end %>
 
-                </ul>
-              </div>
-
-            </div>
-
+            </ul>
           </div>
 
         </div>
 
-      <% end %>
+      </div>
+
     </div>
 
-  </div>
-
+  <% end %>
 </div>

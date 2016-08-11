@@ -36,7 +36,7 @@ class SallesController < ApplicationController
   def ilot
     ilot = params[:ilot]
     @serveurs_par_baies = {}
-    @salle.baies.includes(:serveurs).where('baies.ilot = ?', ilot).order('ilot asc, baies.position asc').each do |baie|
+    @salle.baies.includes(:coupled_baie, :inverse_coupled_baie).where('baies.ilot = ?', ilot).order('ilot asc, baies.position asc').each do |baie|
       baie.serveurs.includes(:gestion, :modele => :category).each do |s|
         @serveurs_par_baies[baie.ilot] ||= {}
         @serveurs_par_baies[baie.ilot][baie] ||= []

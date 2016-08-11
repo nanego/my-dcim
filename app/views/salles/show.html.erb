@@ -1,40 +1,15 @@
 <%
-  breadcrumb_variables = {'Salles' => salles_url, @salle.title => (@baie.present? ? salle_path(@salle):'')}
+  breadcrumb_variables = {'Salles' => salles_url, @salle.title => ((@baie.present? || params[:ilot].present?) ? salle_path(@salle):'')}
+  if @baie.present?
+    breadcrumb_variables["Ilot #{@baie.ilot}"] = ilot_salles_path(id: @salle.id, ilot: @baie.ilot)
+  elsif params[:ilot].present?
+    breadcrumb_variables["Ilot #{params[:ilot]}"] = ''
+  end
   breadcrumb_variables["Baie #{@baie.title}"] = '' if @baie.present?
 %>
 <%= render 'layouts/breadcrumb', params: breadcrumb_variables %>
 
 <div class="container-fluid">
-
-  <span class="pull-right">
-    <!-- Vues AVANT / ARRIERE -->
-    <%= link_to url_for(:view => (params[:view]=='back' ? :front : :back), ilot: params['ilot'], id: params['id']), class: 'btn btn-success' do %>
-      <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-      <%= (params[:view]=='back' ? 'Vue avant' : 'Vue arrière') %>
-    <% end %>
-    <%= link_to "#", class: 'btn btn-warning', id: 'drag-n-drop-switcher' do %>
-      <span class="glyphicon glyphicon-move" aria-hidden="true"></span>
-      Activer le drag'n drop
-    <% end %>
-    <% if params[:view]=='back' %>
-      <!-- Vue AVEC OU SANS LES CONNEXIONS -->
-      <!-- link_to "Masquer les connexions", '#', id: 'hide_or_show_connections', class: 'btn btn-default' -->
-    <% else %>
-      <!-- Choix de la couleur de fond des serveurs -->
-      <div class="btn-group">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Couleur de fond : <%= params[:bg] || 'modèle' %> <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-          <li><%= link_to 'Modèle', url_for( :view => 'front', bg: 'modele', ilot: params[:ilot], id: params[:id]) %></li>
-          <li><%= link_to 'Gestionnaire', url_for( :view => 'front', bg: 'gestionnaire', ilot: params[:ilot], id: params[:id]) %></li>
-          <li><%= link_to 'Cluster', url_for( :view => 'front', bg: 'cluster', ilot: params[:ilot], id: params[:id]) %></li>
-        </ul>
-      </div>
-    <% end %>
-  </span>
-
-  <h1>Vue par <%= controller_name %></h1>
 
   <%= render 'serveurs/salle', salle: @salle, ilots: @serveurs_par_baies %>
 

@@ -17,7 +17,7 @@ class ServeursController < ApplicationController
   def baies
     @modele_blank_panel_id = Category.find_by_title('Blank Panel').id
 
-    @baies = Baie.includes(:salle).joins(:salle).order('salles.title asc, ilot asc, baies.position asc')
+    @baies = Baie.includes(:salle, :coupled_baie).joins(:salle).order('salles.title asc, ilot asc, baies.position asc')
     @baies = @baies.joins(:serveurs).where('serveurs.cluster_id = ? ', params[:cluster_id]) if params[:cluster_id].present?
     @baies = @baies.joins(:serveurs).where('serveurs.gestion_id = ? ', params[:gestion_id]) if params[:gestion_id].present?
 
