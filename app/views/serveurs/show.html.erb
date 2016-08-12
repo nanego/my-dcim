@@ -90,6 +90,21 @@
   <dt>Gestionnaire:</dt>
   <dd><%= @serveur.gestion %></dd>
 
+  <dt>Cartes :</dt>
+
+  <% @serveur.modele.composants.where(type_composant_id: 4).each do |slot| %>
+
+    <% @serveur.cards_serveurs.where(:composant_id => slot.id).each do |card_serveur| %>
+      <dd><%= card_serveur.composant.name ? card_serveur.composant.name : card_serveur.composant.position %> : <%= "#{card_serveur.card.try(:name)} (#{card_serveur.card.try(:port_quantity)}#{card_serveur.card.try(:port_type).try(:name)})" %></dd>
+    <% end %>
+  <% end %>
+
+  <dt>Commentaire :</dt>
+  <dd><%= @serveur.comment %></dd>
+
+
+  <H5>Champs obsolètes - Bientôt supprimés</H5>
+
   <dt>Acte:</dt>
   <dd><%= @serveur.acte %></dd>
 
@@ -122,14 +137,5 @@
 
   <dt>Ipmi dedie:</dt>
   <dd><%= @serveur.ipmi_dedie %></dd>
-
-  <dt>Cartes :</dt>
-
-  <% @serveur.modele.composants.where(type_composant_id: 4).each do |slot| %>
-
-    <% @serveur.cards_serveurs.where(:composant_id => slot.id).each do |card_serveur| %>
-      <dd><%= card_serveur.composant.name ? card_serveur.composant.name : card_serveur.composant.position %> : <%= "#{card_serveur.card.try(:name)} (#{card_serveur.card.try(:port_quantity)}#{card_serveur.card.try(:port_type).try(:name)})" %></dd>
-    <% end %>
-  <% end %>
 
 </dl>

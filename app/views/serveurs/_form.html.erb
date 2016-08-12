@@ -28,23 +28,6 @@
   </div>
 
   <div class="form-group">
-    <%= f.label 'Commentaire', class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_area :comment, :style => 'width: 98%', class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :localisation_id, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.collection_select(:localisation_id, Localisation.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
-    </div>
-    <%= f.label :armoire_id, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.collection_select(:armoire_id, Armoire.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
-    </div>
-  </div>
-  <div class="form-group">
     <%= f.label :modele_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.collection_select(:modele_id, Modele.order(:title), :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
@@ -86,77 +69,6 @@
       <%= f.collection_select(:gestion_id, Gestion.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
     </div>
   </div>
-  <div class="form-group">
-    <%= f.label :acte_id, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.collection_select(:acte_id, Acte.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :rj45_futur, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :rj45_futur, class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :fc_futur, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :fc_futur, class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :fc_total, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :fc_total, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :fc_utilise, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :fc_utilise, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :rj45_total, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :rj45_total, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :rj45_utilise, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :rj45_utilise, class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :ipmi_utilise, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :ipmi_utilise, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :ipmi_futur, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :ipmi_futur, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :rj45_cm, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :rj45_cm, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :ipmi_dedie, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :ipmi_dedie, class: "form-control" %>
-    </div>
-  </div>
-
 
 
   <% if f.object.persisted? && @serveur.modele %>
@@ -175,6 +87,27 @@
     </div>
   <% end %>
 
+  <div class="form-group">
+    <%= f.label 'Commentaire', class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_area :comment, :style => 'width: 98%', class: "form-control" %>
+    </div>
+  </div>
+
+
+  <h5>Champs obsolètes ?</h5>
+
+  <div class="form-group">
+    <%= f.label :localisation_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.collection_select(:localisation_id, Localisation.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
+    </div>
+    <%= f.label :armoire_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.collection_select(:armoire_id, Armoire.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
+    </div>
+  </div>
+
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
@@ -182,3 +115,79 @@
     </div>
   </div>
 <% end %>
+
+
+<!--
+
+  <div class="form-group">
+    <= f.label :acte_id, class: "col-sm-2 control-label" %>
+<div class="col-sm-10">
+  <= f.collection_select(:acte_id, Acte.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
+</div>
+</div>
+
+<div class="form-group">
+  <= f.label :rj45_futur, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <= f.number_field :rj45_futur, class: "form-control" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <= f.label :fc_futur, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <= f.number_field :fc_futur, class: "form-control" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <= f.label :fc_total, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <= f.number_field :fc_total, class: "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <= f.label :fc_utilise, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <= f.number_field :fc_utilise, class: "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <= f.label :rj45_total, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <= f.number_field :rj45_total, class: "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <= f.label :rj45_utilise, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <= f.number_field :rj45_utilise, class: "form-control" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <= f.label :ipmi_utilise, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <= f.number_field :ipmi_utilise, class: "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <= f.label :ipmi_futur, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <= f.number_field :ipmi_futur, class: "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <= f.label :rj45_cm, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <= f.number_field :rj45_cm, class: "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <= f.label :ipmi_dedie, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <= f.number_field :ipmi_dedie, class: "form-control" %>
+  </div>
+</div>
+
+-->
