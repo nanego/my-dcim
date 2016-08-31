@@ -1,4 +1,6 @@
 class ServeursController < ApplicationController
+  include ServeursHelper
+
   before_action :set_serveur, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -17,7 +19,7 @@ class ServeursController < ApplicationController
   def baies
     @modele_blank_panel_id = Category.find_by_title('Blank Panel').id
 
-    @baies = Baie.includes(:salle, :coupled_baie).joins(:salle).order('salles.title asc, ilot asc, baies.position asc')
+    @baies = Baie.includes(:salle, :coupled_baie).joins(:salle).order('salles.title asc, baies.ilot asc, baies.position asc')
     @baies = @baies.joins(:serveurs).where('serveurs.cluster_id = ? ', params[:cluster_id]) if params[:cluster_id].present?
     @baies = @baies.joins(:serveurs).where('serveurs.gestion_id = ? ', params[:gestion_id]) if params[:gestion_id].present?
 
@@ -26,14 +28,19 @@ class ServeursController < ApplicationController
                     .order('serveurs.position desc')
 
     @serveurs_par_baies = {}
+    @sums = {}
     @baies.each do |baie|
       @serveurs_par_baies[baie.salle] ||= {}
       @serveurs_par_baies[baie.salle][baie.ilot] ||= {}
       @serveurs_par_baies[baie.salle][baie.ilot][baie] ||= []
+
+      # preload sums per baie
+      serveurs = baie.serveurs.includes(:gestion, :cluster, :modele => :category, :cards => :port_type, :cards_serveurs => [:composant, :ports])
+      @sums.merge!(calculate_ports_sums(baie, serveurs))
     end
     @serveurs.each do |server|
       baie = server.baie
-      @serveurs_par_baies[baie.salle][baie.ilot][baie] << server if baie
+      @serveurs_par_baies[baie.salle][baie.ilot][baie] << server if baie.present?
     end
 
     respond_to do |format|

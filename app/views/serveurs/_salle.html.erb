@@ -5,7 +5,7 @@
 <% min_height = params[:view]=='back' ? 20 : 27 %>
 <% @salle = salle || @salle %>
 
-<%= render 'salles/action_buttons' %>
+<%= render 'salles/action_buttons' if formats != [:pdf] %>
 
 <div id="<%= @salle.try(:title).try(:parameterize).try(:underscore) %>">
 
@@ -157,7 +157,7 @@
                           <button type="button" class="btn btn-default glyphicon glyphicon-plus" data-toggle="modal" data-target=".bs-example-modal-sm"></button>
                         </span>
                       <% end %>
-                      <%= render 'serveurs/sum_labels',
+                      <%= render 'serveurs/sum_labels.html.erb',
                                  sums: sums,
                                  sum_u: sum_u,
                                  sum_elements: sum_elements,
@@ -171,7 +171,7 @@
 
                 <% if second_baie %>
                   </div><div class="panel-footer">
-                    <%= render 'serveurs/sum_labels',
+                    <%= render 'serveurs/sum_labels.html.erb',
                          sums: (@sums[baie.id].merge(@sums[previous_baie.id]){|_,a,b|a+b}),
                          sum_u: nil,
                          sum_elements: nil,

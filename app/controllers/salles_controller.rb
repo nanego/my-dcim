@@ -12,7 +12,7 @@ class SallesController < ApplicationController
   def show
     @serveurs_par_baies = {}
     @sums = {}
-    @salle.baies.includes(:coupled_baie, :inverse_coupled_baie).order('ilot asc, baies.position asc').each do |baie|
+    @salle.baies.includes(:coupled_baie, :inverse_coupled_baie).order('baies.ilot asc, baies.position asc').each do |baie|
       serveurs = baie.serveurs.includes(:gestion, :cluster, :modele => :category, :cards => :port_type, :cards_serveurs => [:composant, :ports])
       serveurs.each do |s|
         ilot = baie.ilot
@@ -42,7 +42,7 @@ class SallesController < ApplicationController
     ilot = params[:ilot]
     @serveurs_par_baies = {}
     @sums = {}
-    @salle.baies.includes(:serveurs, :coupled_baie, :inverse_coupled_baie).where('baies.ilot = ?', ilot).order('ilot asc, baies.position asc').each do |baie|
+    @salle.baies.includes(:serveurs, :coupled_baie, :inverse_coupled_baie).where('baies.ilot = ?', ilot).order('baies.ilot asc, baies.position asc').each do |baie|
       serveurs = baie.serveurs.includes(:gestion, :modele => :category, :cards => :port_type, :cards_serveurs => [:composant, :ports])
       serveurs.each do |s|
         @serveurs_par_baies[baie.ilot] ||= {}
