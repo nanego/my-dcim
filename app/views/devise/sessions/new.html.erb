@@ -3,7 +3,7 @@
     <h3 style="width: 100%;text-align: center;">Connexion</h3>
     <%= devise_error_messages! %>
     <div id="cas-login">
-      <%= link_to 'Authentification via CERBERE', user_omniauth_authorize_path(:cas), class: 'btn btn-success', style: 'width: 100%;' %>
+      <%= link_to 'Authentification via CERBERE', user_cas_omniauth_authorize_path, class: 'btn btn-success', style: 'width: 100%;' %>
     </div>
     <% if Rails.env.development? %>
       <br>
