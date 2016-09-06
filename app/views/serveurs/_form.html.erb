@@ -25,6 +25,10 @@
     <div class="col-sm-10">
       <%= f.number_field :position, class: "form-control" %>
     </div>
+    <%= f.label 'Etat', class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.collection_select(:server_state_id, ServerState.order(:title), :id, :title, {:prompt => false, :include_blank => true}, {class: "form-control"}) %>
+    </div>
   </div>
 
   <div class="form-group">

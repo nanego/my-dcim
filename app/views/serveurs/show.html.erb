@@ -90,6 +90,9 @@
   <dt>Gestionnaire:</dt>
   <dd><%= @serveur.gestion %></dd>
 
+  <dt>Etat :</dt>
+  <dd><%= @serveur.server_state %></dd>
+
   <dt>Cartes :</dt>
 
   <% @serveur.modele.composants.where(type_composant_id: 4).each do |slot| %>

@@ -144,7 +144,7 @@ class ServeursController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def serveur_params
-      params.require(:serveur).permit(:comment, :cluster_id, :position, :baie_id, :localisation_id, :armoire_id, :gestion_id, :fc_futur, :rj45_cm, :category_id, :nom, :nb_elts, :architecture_id, :u, :marque_id, :modele_id, :numero, :conso, :critique, :domaine_id, :gestion_id, :acte_id, :fc_total, :fc_utilise, :rj45_total, :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur, :rg45_cm, :ipmi_dedie, :baie, :cards_serveurs_attributes => [:composant_id, :card_id, :_destroy, :id])
+      params.require(:serveur).permit(:server_state_id, :comment, :cluster_id, :position, :baie_id, :localisation_id, :armoire_id, :gestion_id, :fc_futur, :rj45_cm, :category_id, :nom, :nb_elts, :architecture_id, :u, :marque_id, :modele_id, :numero, :conso, :critique, :domaine_id, :gestion_id, :acte_id, :fc_total, :fc_utilise, :rj45_total, :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur, :rg45_cm, :ipmi_dedie, :baie, :cards_serveurs_attributes => [:composant_id, :card_id, :_destroy, :id])
     end
 
     def track_baie_and_position(old_values, new_values)
