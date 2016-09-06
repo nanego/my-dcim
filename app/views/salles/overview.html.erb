@@ -5,39 +5,40 @@
   <div class="row" %>
 
   <% @salles.each do |salle| %>
+    <div class="col-md-6 col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= link_to salle.title, salle %></h3>
+        </div>
+        <div class="panel-body">
+          <div class="row" >
+            <% current_ilot = nil %>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= salle.title %></h3>
-      </div>
-      <div class="panel-body">
-        <div class="row" >
-          <% current_ilot = nil %>
-
-          <% baies = salle.baies.order("baies.ilot asc, baies.position asc") & (salle.coupled_baies | salle.isolated_baies) %>
-          <% baies.each_with_index do |baie, index| %>
-            <% last_baie = baies.count == index+1 %>
-            <% first_ilot = current_ilot.nil? %>
-            <% new_ilot = first_ilot || current_ilot != baie.ilot.to_s %>
-            <% if !first_ilot && new_ilot %></div></div><% end %>
-            <% if new_ilot %>
-              <div class=" col-md-6 col-sm-12">
-                <h5><%= baie.ilot.present? ? "Ilot #{baie.ilot}" : 'Ilot sans nom' %></h5>
-                <div class="row ilot">
-            <% end %>
-            <div class="pull-left">
-              <div class="baie">
-                <%= link_to baie.title, baie_path(baie) %>
-              </div>
-              <% if salle.coupled_baies.include?(baie) %>
-                <div class="baie no-margin">
-                  <%= link_to baie.coupled_baie.title, baie_path(baie.coupled_baie) %>
-                </div>
+            <% baies = salle.baies.order("baies.ilot asc, baies.position asc") & (salle.coupled_baies | salle.isolated_baies) %>
+            <% baies.each_with_index do |baie, index| %>
+              <% last_baie = baies.count == index+1 %>
+              <% first_ilot = current_ilot.nil? %>
+              <% new_ilot = first_ilot || current_ilot != baie.ilot.to_s %>
+              <% if !first_ilot && new_ilot %></div></div><% end %>
+              <% if new_ilot %>
+                <div class="col-md-12">
+                  <h5><%= baie.ilot.present? ? link_to("Ilot #{baie.ilot}", ilot_salles_path(id: salle.id, ilot: baie.ilot, :view => params[:view], bg: params[:bg])) : 'Ilot sans nom' %></h5>
+                  <div class="row ilot">
               <% end %>
-            </div>
-            <% if last_baie %></div></div><% end %>
-            <% current_ilot = baie.ilot.to_s %>
-          <% end %>
+              <div class="pull-left">
+                <div class="baie">
+                  <%= link_to baie.title, baie_path(baie) %>
+                </div>
+                <% if salle.coupled_baies.include?(baie) %>
+                  <div class="baie no-margin">
+                    <%= link_to baie.coupled_baie.title, baie_path(baie.coupled_baie) %>
+                  </div>
+                <% end %>
+              </div>
+              <% if last_baie %></div></div><% end %>
+              <% current_ilot = baie.ilot.to_s %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
