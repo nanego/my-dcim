@@ -78,7 +78,7 @@
               <td><%= serveur.rj45_cm %></td>
               <td><%= serveur.ipmi_dedie %></td>
               <td><%= link_to 'Modifier', edit_serveur_path(serveur) %></td>
-              <td><%= link_to 'Supprimer', serveur, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><%= link_to 'Supprimer', serveur, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
             <% end %>
           </tbody>
         </table>

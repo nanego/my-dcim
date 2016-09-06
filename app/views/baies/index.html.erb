@@ -34,7 +34,7 @@
             <td><%= baie.u %></td>
             <td><%= baie.salle.present? ? (link_to baie.salle, baie.salle) : baie.salle %></td>
             <td><%= baie.ilot %></td>
-            <td><%= link_to 'Supprimer', baie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to 'Supprimer', baie, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
           <% end %>
           </tbody>
         </table>

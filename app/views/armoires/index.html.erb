@@ -22,9 +22,8 @@
         <table class="table table-striped table-bordered table-hover">
           <thead>
             <tr>
-              <th>Title</th>
-              <th>Description</th>
-              <th>Activé</th>
+              <th>Nom</th>
+              <th>Usage</th>
               <th></th>
               <th></th>
             </tr>
@@ -33,10 +32,9 @@
           <tbody>
             <%= content_tag_for(:tr, @armoires) do |armoire| %>
               <td><%= armoire.title %></td>
-              <td><%= armoire.description %></td>
-              <td><input type="checkbox" <%= armoire.published ? "checked" : "" %> disabled></td>
-              <td><%= link_to 'Modifier', edit_armoire_path(armoire) %></td>
-              <td><%= link_to 'Supprimer', armoire, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><%= pluralize(armoire.serveurs.count, 'serveur') %> </td>
+              <td><%= link_to 'Modifier', edit_armoire_path(armoire), class: 'btn btn-primary' %></td>
+              <td><%= link_to 'Supprimer', armoire, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
             <% end %>
           </tbody>
         </table>

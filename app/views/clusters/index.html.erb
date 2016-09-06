@@ -22,7 +22,7 @@
         <table class="table table-striped table-bordered table-hover">
           <thead>
             <tr>
-                  <th>Title</th>
+                  <th>Nom</th>
                   <th></th>
               <th></th>
               <th></th>
@@ -33,8 +33,8 @@
             <%= content_tag_for(:tr, @clusters) do |cluster| %>
                   <td><%= cluster.title %></td>
                   <td><%= cluster.serveurs.count %> serveurs</td>
-              <td><%= link_to 'Edit', edit_cluster_path(cluster) %></td>
-              <td><%= link_to 'Destroy', cluster, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <td><%= link_to 'Modifier', edit_cluster_path(cluster), class: 'btn btn-primary' %></td>
+              <td><%= link_to 'Supprimer', cluster, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
             <% end %>
           </tbody>
         </table>

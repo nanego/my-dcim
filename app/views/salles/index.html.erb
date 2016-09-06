@@ -22,9 +22,8 @@
         <table class="table table-striped table-bordered table-hover">
           <thead>
           <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Activé</th>
+            <th>Nom</th>
+            <th></th>
             <th></th>
             <th></th>
           </tr>
@@ -33,10 +32,9 @@
           <tbody>
           <%= content_tag_for(:tr, @salles) do |salle| %>
             <td><%= salle.title %></td>
-            <td><%= salle.description %></td>
-            <td><input type="checkbox" <%= salle.published ? "checked" : "" %> disabled></td>
-            <td><%= link_to 'Modifier', edit_salle_path(salle) %></td>
-            <td><%= link_to 'Supprimer', salle, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= pluralize salle.baies.count, 'baie' %></td>
+            <td><%= link_to 'Modifier', edit_salle_path(salle), class: 'btn btn-primary' %></td>
+            <td><%= link_to 'Supprimer', salle, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
           <% end %>
           </tbody>
         </table>

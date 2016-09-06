@@ -22,9 +22,8 @@
         <table class="table table-striped table-bordered table-hover">
           <thead>
           <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Activé</th>
+            <th>Nom</th>
+            <th>Usage</th>
             <th></th>
             <th></th>
           </tr>
@@ -33,10 +32,9 @@
           <tbody>
           <%= content_tag_for(:tr, @marques) do |marque| %>
             <td><%= marque.title %></td>
-            <td><%= marque.description %></td>
-            <td><input type="checkbox" <%= marque.published ? "checked" : "" %> disabled></td>
-            <td><%= link_to 'Modifier', edit_marque_path(marque) %></td>
-            <td><%= link_to 'Supprimer', marque, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= pluralize(marque.modeles.count, 'modeles') %> </td>
+            <td><%= link_to 'Modifier', edit_marque_path(marque), class: 'btn btn-primary' %></td>
+            <td><%= link_to 'Supprimer', marque, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
           <% end %>
           </tbody>
         </table>

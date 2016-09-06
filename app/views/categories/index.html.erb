@@ -34,7 +34,7 @@
             <td><%= category.title %></td>
             <td><%= link_to "#{pluralize(category.modeles.count, 'modèle')} de serveur", modeles_path %> </td>
             <td><%= link_to 'Modifier', edit_category_path(category), class: 'btn btn-primary' %></td>
-            <td><%= link_to 'Supprimer', category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' %></td>
+            <td><%= link_to 'Supprimer', category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
           <% end %>
           </tbody>
         </table>

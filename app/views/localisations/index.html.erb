@@ -22,9 +22,8 @@
         <table class="table table-striped table-bordered table-hover">
           <thead>
           <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Activé</th>
+            <th>Nom</th>
+            <th>Usage</th>
             <th></th>
             <th></th>
           </tr>
@@ -33,10 +32,9 @@
           <tbody>
           <%= content_tag_for(:tr, @localisations) do |localisation| %>
             <td><%= localisation.title %></td>
-            <td><%= localisation.description %></td>
-            <td><input type="checkbox" <%= localisation.published ? "checked" : "" %> disabled></td>
-            <td><%= link_to 'Modifier', edit_localisation_path(localisation) %></td>
-            <td><%= link_to 'Supprimer', localisation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= pluralize(localisation.serveurs.count, 'serveurs') %> </td>
+            <td><%= link_to 'Modifier', edit_localisation_path(localisation), class: 'btn btn-primary' %></td>
+            <td><%= link_to 'Supprimer', localisation, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
           <% end %>
           </tbody>
         </table>
