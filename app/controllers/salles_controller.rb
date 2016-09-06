@@ -128,6 +128,6 @@ class SallesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def salle_params
-      params.require(:salle).permit(:title, :description, :published)
+      params.require(:salle).permit(:title, :description, :published, :display_on_home_page, :position)
     end
 end

@@ -23,7 +23,8 @@
           <thead>
           <tr>
             <th>Nom</th>
-            <th></th>
+            <th>Contenu</th>
+            <th>Afficher sur la page d'accueil</th>
             <th></th>
             <th></th>
           </tr>
@@ -33,6 +34,7 @@
           <%= content_tag_for(:tr, @salles) do |salle| %>
             <td><%= salle.title %></td>
             <td><%= pluralize salle.baies.count, 'baie' %></td>
+            <td><input type="checkbox" <%= salle.display_on_home_page ? "checked" : "" %> disabled></td>
             <td><%= link_to 'Modifier', edit_salle_path(salle), class: 'btn btn-primary' %></td>
             <td><%= link_to 'Supprimer', salle, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
           <% end %>
