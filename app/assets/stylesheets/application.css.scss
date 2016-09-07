@@ -24,7 +24,7 @@ body {
   .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
     float: initial !important;
   }
-  .baie .serveur .serveur_name { font-size: 16px; }
+  .baie .server .server_name { font-size: 16px; }
   .panel-ilot{
     page-break-after: always;
     .baies .baie {
@@ -52,12 +52,12 @@ a.hide-filters, a.show-filters{
   text-decoration: underline;
 }
 
-.baie .serveur { color: #777;page-break-inside: avoid; }
-.baie .serveur.ui-sortable-handle { cursor: move; }
-.baie .serveur a {color: #333}
-.baie .serveur .serveur_name { font-weight: 600; }
+.baie .server { color: #777;page-break-inside: avoid; }
+.baie .server.ui-sortable-handle { cursor: move; }
+.baie .server a {color: #333}
+.baie .server .server_name { font-weight: 600; }
 
-.baie li.serveur.list-group-item {
+.baie li.server.list-group-item {
   padding: 3px 15px;
   overflow: visible;
 }
@@ -67,7 +67,7 @@ a.hide-filters, a.show-filters{
 .badge.badgeRJ45 {
   border-radius: 0;
 }
-.baie li.serveur{
+.baie li.server{
   &.striped{
     background: repeating-linear-gradient(
                     -45deg,
@@ -229,7 +229,7 @@ table.slots thead {
 .show-on-mouseover{
   display: none;
 }
-.serveur.hover .show-on-mouseover{
+.server.hover .show-on-mouseover{
   display: inline;
 }
 

@@ -12,7 +12,7 @@ class CreateFriendlyIdSlugs < ActiveRecord::Migration
     add_index :friendly_id_slugs, [:slug, :sluggable_type, :scope], :unique => true
     add_index :friendly_id_slugs, :sluggable_type
 
-    # Serveurs table
+    # Servers table
     add_column :serveurs, :slug, :string
     add_index :serveurs, :slug, unique: true
 

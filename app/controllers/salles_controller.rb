@@ -1,5 +1,5 @@
 class SallesController < ApplicationController
-  include ServeursHelper
+  include ServersHelper
 
   before_action :set_salle, only: [:show, :edit, :update, :destroy, :ilot]
 
@@ -10,17 +10,17 @@ class SallesController < ApplicationController
   end
 
   def show
-    @serveurs_par_baies = {}
+    @servers_par_baies = {}
     @sums = {}
     @salle.baies.includes(:coupled_baie, :inverse_coupled_baie).order('baies.ilot asc, baies.position asc').each do |baie|
-      serveurs = baie.serveurs.includes(:gestion, :cluster, :modele => :category, :cards => :port_type, :cards_serveurs => [:composant, :ports])
-      serveurs.each do |s|
+      servers = baie.servers.includes(:gestion, :cluster, :modele => :category, :cards => :port_type, :cards_servers => [:composant, :ports])
+      servers.each do |s|
         ilot = baie.ilot
-        @serveurs_par_baies[ilot] ||= {}
-        @serveurs_par_baies[ilot][baie] ||= []
-        @serveurs_par_baies[ilot][baie] << s
+        @servers_par_baies[ilot] ||= {}
+        @servers_par_baies[ilot][baie] ||= []
+        @servers_par_baies[ilot][baie] << s
       end
-      @sums.merge!(calculate_ports_sums(baie, serveurs))
+      @sums.merge!(calculate_ports_sums(baie, servers))
     end
 
     respond_to do |format|
@@ -34,22 +34,22 @@ class SallesController < ApplicationController
                pdf: 'baie',
                zoom: 0.75
       end
-      format.txt { send_data Baie.to_txt(@serveurs_par_baies) }
+      format.txt { send_data Baie.to_txt(@servers_par_baies) }
     end
   end
 
   def ilot
     ilot = params[:ilot]
-    @serveurs_par_baies = {}
+    @servers_par_baies = {}
     @sums = {}
-    @salle.baies.includes(:serveurs, :coupled_baie, :inverse_coupled_baie).where('baies.ilot = ?', ilot).order('baies.ilot asc, baies.position asc').each do |baie|
-      serveurs = baie.serveurs.includes(:gestion, :modele => :category, :cards => :port_type, :cards_serveurs => [:composant, :ports])
-      serveurs.each do |s|
-        @serveurs_par_baies[baie.ilot] ||= {}
-        @serveurs_par_baies[baie.ilot][baie] ||= []
-        @serveurs_par_baies[baie.ilot][baie] << s
+    @salle.baies.includes(:servers, :coupled_baie, :inverse_coupled_baie).where('baies.ilot = ?', ilot).order('baies.ilot asc, baies.position asc').each do |baie|
+      servers = baie.servers.includes(:gestion, :modele => :category, :cards => :port_type, :cards_servers => [:composant, :ports])
+      servers.each do |s|
+        @servers_par_baies[baie.ilot] ||= {}
+        @servers_par_baies[baie.ilot][baie] ||= []
+        @servers_par_baies[baie.ilot][baie] << s
       end
-      @sums.merge!(calculate_ports_sums(baie, serveurs))
+      @sums.merge!(calculate_ports_sums(baie, servers))
     end
 
     respond_to do |format|
@@ -63,7 +63,7 @@ class SallesController < ApplicationController
                pdf: 'baie',
                zoom: 0.75
       end
-      format.txt { send_data Baie.to_txt(@serveurs_par_baies) }
+      format.txt { send_data Baie.to_txt(@servers_par_baies) }
     end
   end
 

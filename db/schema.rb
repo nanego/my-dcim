@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160906100059) do
+ActiveRecord::Schema.define(version: 20160907173500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,9 +77,9 @@ ActiveRecord::Schema.define(version: 20160906100059) do
     t.integer "port_quantity"
   end
 
-  create_table "cards_serveurs", force: :cascade do |t|
+  create_table "cards_servers", force: :cascade do |t|
     t.integer "card_id"
-    t.integer "serveur_id"
+    t.integer "server_id"
     t.integer "composant_id"
   end
 
@@ -126,6 +126,8 @@ ActiveRecord::Schema.define(version: 20160906100059) do
     t.integer  "baie_two_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "position"
+    t.integer  "lane"
   end
 
   create_table "domaines", force: :cascade do |t|
@@ -224,7 +226,7 @@ ActiveRecord::Schema.define(version: 20160906100059) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "serveurs", force: :cascade do |t|
+  create_table "servers", force: :cascade do |t|
     t.integer  "localisation_id"
     t.integer  "armoire_id"
     t.string   "nom"
@@ -265,7 +267,7 @@ ActiveRecord::Schema.define(version: 20160906100059) do
     t.string   "slug"
   end
 
-  add_index "serveurs", ["slug"], name: "index_serveurs_on_slug", unique: true, using: :btree
+  add_index "servers", ["slug"], name: "index_servers_on_slug", unique: true, using: :btree
 
   create_table "slots", force: :cascade do |t|
     t.integer  "position"
@@ -273,7 +275,7 @@ ActiveRecord::Schema.define(version: 20160906100059) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "composant_id"
-    t.integer  "serveur_id"
+    t.integer  "server_id"
   end
 
   create_table "type_composants", force: :cascade do |t|

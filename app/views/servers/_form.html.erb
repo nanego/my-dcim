@@ -1,0 +1,197 @@
+<%= form_for(@server, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <% if @server.errors.any? %>
+    <div class="alert alert-danger alert-dismissable" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <h4><%= pluralize(@server.errors.count, "error") %> prohibited this server from being saved:</h4>
+
+      <ul>
+      <% @server.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :nom, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :nom, class: "form-control" %>
+    </div>
+    <%= f.label :baie, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.collection_select(:baie_id, Baie.includes(:salle).sorted, :id,:name_with_salle_and_ilot, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
+    </div>
+    <%= f.label :position, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :position, class: "form-control" %>
+    </div>
+    <%= f.label 'Etat', class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.collection_select(:server_state_id, ServerState.order(:title), :id, :title, {:prompt => false, :include_blank => true}, {class: "form-control"}) %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :modele_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.collection_select(:modele_id, Modele.order(:title), :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :numero, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :numero, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :conso, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :conso, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :cluster_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.collection_select(:cluster_id, Cluster.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :critique, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.check_box :critique, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :domaine_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.collection_select(:domaine_id, Domaine.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :gestion_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.collection_select(:gestion_id, Gestion.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
+    </div>
+  </div>
+
+
+  <% if f.object.persisted? && @server.modele %>
+    <%= content_tag :span, 'Slots', class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <div class="panel panel-default">
+        <ul class="list-group">
+          <%= f.fields_for :cards_servers do |builder| %>
+
+              <%= render "cards_server_fields", :f => builder %>
+
+          <% end %>
+        </ul>
+        <div class="panel-footer"><%= link_to_add_fields "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter une carte".html_safe, f, :cards_servers %></div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label 'Commentaire', class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_area :comment, :style => 'width: 98%', class: "form-control" %>
+    </div>
+  </div>
+
+
+  <h5>Champs obsolètes ?</h5>
+
+  <div class="form-group">
+    <%= f.label :localisation_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.collection_select(:localisation_id, Localisation.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
+    </div>
+    <%= f.label :armoire_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.collection_select(:armoire_id, Armoire.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+
+
+<!--
+
+  <div class="form-group">
+    <= f.label :acte_id, class: "col-sm-2 control-label" %>
+<div class="col-sm-10">
+  <= f.collection_select(:acte_id, Acte.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
+</div>
+</div>
+
+<div class="form-group">
+  <= f.label :rj45_futur, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <= f.number_field :rj45_futur, class: "form-control" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <= f.label :fc_futur, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <= f.number_field :fc_futur, class: "form-control" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <= f.label :fc_total, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <= f.number_field :fc_total, class: "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <= f.label :fc_utilise, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <= f.number_field :fc_utilise, class: "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <= f.label :rj45_total, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <= f.number_field :rj45_total, class: "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <= f.label :rj45_utilise, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <= f.number_field :rj45_utilise, class: "form-control" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <= f.label :ipmi_utilise, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <= f.number_field :ipmi_utilise, class: "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <= f.label :ipmi_futur, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <= f.number_field :ipmi_futur, class: "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <= f.label :rj45_cm, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <= f.number_field :rj45_cm, class: "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <= f.label :ipmi_dedie, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <= f.number_field :ipmi_dedie, class: "form-control" %>
+  </div>
+</div>
+
+-->

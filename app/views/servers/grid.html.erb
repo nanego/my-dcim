@@ -1,0 +1,8 @@
+<h3>Users Report</h3>
+
+<%= datagrid_form_for @servers %>
+
+
+<div class='total'>Total: <%= @servers.assets.total_count %></div>
+<%= datagrid_table(@servers) %>
+<%= paginate @servers.assets %>

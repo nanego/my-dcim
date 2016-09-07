@@ -1,0 +1,36 @@
+<%= render 'layouts/breadcrumb', params: {'Servers' => servers_grids_path, 'Ajout par fichier CSV' => ''} %>
+
+<%= flash[:notice] %>
+
+<div class="row">
+  <div class="col-lg-4 col-lg-offset-4">
+
+    <div class="panel panel-primary">
+      <%= form_for :import, url: import_servers_path, multipart: true do |f| %>
+        <div class="panel-heading">
+          <h4 class="panel-title">Importation de servers par fichier CSV</h4>
+        </div>
+
+        <div class="panel-body">
+          <p>
+            <%= f.label "Salle où importer les servers :" %>
+            <%= f.select :server_state_id, Salle.order('id').all.collect { |p| [ p.title, p.id ] }, include_blank: false, selected: Salle.find_by_title('Atelier').try(:id) %>
+          </p>
+          <p>
+            <%= f.label "Etat des serveurs importés :" %>
+            <%= f.select :server_state_id, ServerState.all.collect { |p| [ t(p.title.parameterize), p.id ] }, include_blank: true, selected: ServerState.first.id %>
+          </p>
+          <p>
+            <%= f.label "Fichier CSV :" %>
+            <%= f.file_field :file %>
+          </p>
+
+        </div>
+
+        <div class="panel-footer">
+          <%= f.submit "Importer ce CSV", class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

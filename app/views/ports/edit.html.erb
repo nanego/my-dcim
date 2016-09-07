@@ -1,10 +1,10 @@
 <%= render 'layouts/breadcrumb', params: {"Salles" => salles_path,
-                                          @port.parent.serveur.baie.salle.title => salle_path(@port.parent.serveur.baie.salle),
-                                          "Baie #{@port.parent.serveur.baie.title}" => baie_path(@port.parent.serveur.baie),
-                                          @port.parent.serveur.nom => serveur_path(@port.parent.serveur),
+                                          @port.parent.server.baie.salle.title => salle_path(@port.parent.server.baie.salle),
+                                          "Baie #{@port.parent.server.baie.title}" => baie_path(@port.parent.server.baie),
+                                          @port.parent.server.nom => server_path(@port.parent.server),
                                           "Port #{@port.parent.try(:composant).try(:name)} #{@port.position}" => ''} %>
 
-<h3> <%= "#{@port.parent.serveur.nom}" %></h3>
+<h3> <%= "#{@port.parent.server.nom}" %></h3>
 
 <div class="pull-right"><%= link_to 'Supprimer', @port, method: :delete, data: { confirm: 'Supprimer ce port ?' }, class: 'btn btn-danger' %></div>
 

@@ -12,7 +12,7 @@ class Composant < ActiveRecord::Base
   belongs_to :type_composant
 
   has_many :slots
-  has_many :cards_serveurs
+  has_many :cards_servers
 
   acts_as_list scope: [:modele_id, :type_composant_id]
 

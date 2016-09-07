@@ -1,0 +1,26 @@
+<div class="page-header">
+  <%= link_to new_server_path, class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-plus"></span>
+    Ajouter un server
+  <% end %>
+  <h1>Tous les servers</h1>
+</div>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <span style="margin-right: 5px;">Filtres</span>
+    (
+    <a href='#' class='hide-filters' title='Click to hide filters' onClick="hideFilters();" style="display: none;">Masquer les filtres</a>
+    <a href='#' class='show-filters' title='Click to show filters' onClick="showFilters();">Afficher les filtres</a>
+    )
+  </div>
+  <div class="panel-body" style="display: none;">
+    <%= datagrid_form_for @servers %>
+  </div>
+  <div class='panel-footer total'>Total : <%= @servers.assets.count %></div>
+</div>
+
+
+<div class="table-responsive">
+  <%= datagrid_table(@servers, html:{ class: "table table-striped table-bordered table-hover"}) %>
+</div>

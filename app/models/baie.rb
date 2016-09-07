@@ -6,7 +6,7 @@ class Baie < ActiveRecord::Base
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
 
-  has_many :serveurs, -> { order("serveurs.position desc") }, dependent: :destroy
+  has_many :servers, -> { order("servers.position desc") }, dependent: :destroy
   belongs_to :salle
   has_one :couple_baie, :foreign_key => :baie_one_id
   has_one :coupled_baie, through: :couple_baie, :source => :baie_two
@@ -27,11 +27,11 @@ class Baie < ActiveRecord::Base
     txt = ""
     if servers_per_bay.present?
       servers_per_bay.each do |ilot, baies|
-        baies.each_with_index do |(baie, serveurs), index|
+        baies.each_with_index do |(baie, servers), index|
           txt << "\r\n#{baie.title}\r\n"
           txt << "---------------\r\n"
-          serveurs.each do |serveur|
-            txt << "[#{serveur.position.to_s.rjust(2, "0")}] #{serveur.nom}\r\n"
+          servers.each do |server|
+            txt << "[#{server.position.to_s.rjust(2, "0")}] #{server.nom}\r\n"
           end
         end
       end
@@ -52,7 +52,7 @@ class Baie < ActiveRecord::Base
   end
 
   def compact_u
-    self.u = serveurs.map{|s|s.modele.u}.sum
+    self.u = servers.map{|s|s.modele.u}.sum
     self
   end
 

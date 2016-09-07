@@ -32,7 +32,7 @@
           <tbody>
           <%= content_tag_for(:tr, @cards) do |card| %>
             <td><%= card.name %></td>
-            <td><%= pluralize card.serveurs.count, 'serveur' %></td>
+            <td><%= pluralize card.servers.count, 'server' %></td>
             <td><%= link_to 'Modifier', edit_card_path(card), class: 'btn btn-primary' %></td>
             <td><%= link_to 'Supprimer', card, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
           <% end %>

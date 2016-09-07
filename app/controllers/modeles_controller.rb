@@ -10,7 +10,7 @@ class ModelesController < ApplicationController
   end
 
   def show
-    @serveurs = @modele.serveurs
+    @servers = @modele.servers
   end
 
   def new

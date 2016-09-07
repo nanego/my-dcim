@@ -12,10 +12,10 @@
         <h3>
           <%= link_to "#{baie.name_with_salle_and_ilot}", baie_path(baie, :view => params[:view]), style: 'text-decoration: underline;' %>
         </h3>
-        <% baie.serveurs.includes(:modele, :cards_serveurs => [:ports, :composant]).order('position desc').each do |s| %>
+        <% baie.servers.includes(:modele, :cards_servers => [:ports, :composant]).order('position desc').each do |s| %>
           <h4 style="display: inline;"><%= s.nom %></h4><span> (<%= s.modele.title %>)</span>
           <p>
-            <% s.cards_serveurs.each do |c| %>
+            <% s.cards_servers.each do |c| %>
               <% c.ports.each do |port| %>
                 <% if port && port.cablename && c.composant.name.present? %>
                   <%= "#{c.composant.name}#{c.composant.name.include?('SL') ? "/#{port.position}" : port.position} - #{port.network_conf(s.baie.switch_slot)}" %>

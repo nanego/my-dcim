@@ -1,6 +1,6 @@
 class ServerState < ActiveRecord::Base
 
-  has_many :serveurs
+  has_many :servers
 
   def to_s
     title

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :clusters
   resources :slots
-  resources :serveurs do
+  resources :servers do
     collection do
       get :grid
       get :baies
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       post :import
     end
   end
-  resources :serveurs_grids, only: [:index] do
+  resources :servers_grids, only: [:index] do
     collection do
       get :reseau
     end

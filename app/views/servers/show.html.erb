@@ -1,0 +1,144 @@
+<%= render 'layouts/breadcrumb', params: {"Salles" => overview_salles_path,
+                                          @server.baie.salle.title => salle_path(@server.baie.salle),
+                                          "Baie #{@server.baie.title}" => baie_path(@server.baie),
+                                          @server.nom => ''} %>
+
+<div class="page-header">
+  <%= link_to servers_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_server_path(@server), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1><%= "#{@server.modele.try(:category).try(:title)} #{@server.nom}" %></h1>
+</div>
+
+<p><%= link_to "<< Baie #{@server.baie.try(:title)}", baie_path(@server.baie, :view => params[:view]), class: 'btn btn-default', style: 'text-decoration: underline;' if @server.baie %></p>
+
+<div class="detailed_server list-group-item">
+  <%= render 'draw_server_compact_front.html.erb', server: @server %>
+  <span class="clearfix"></span>
+</div>
+
+<div class="detailed_server list-group-item">
+  <% case @server.modele.try(:category_id) %>
+  <% when Category.find_by_title('Blank Panel').id %>
+    <%= render 'draw_blank_panel', server: @server %>
+  <% when Category.find_by_title('Patch Panel').id %>
+    <%= render 'draw_patch_panel', server: @server %>
+  <% else %>
+    <%= render 'draw_server_compact.html.erb', server: @server %>
+    <span class="clearfix"></span>
+  <% end %>
+</div>
+
+
+<% if @server.comment.present? %>
+  <div class="panel alert-warning">
+      <%= @server.comment %>
+  </div>
+<% end %>
+
+<dl class="dl-horizontal">
+  <dt>Baie:</dt>
+  <dd><%= @server.baie.try(:title) %></dd>
+
+  <dt>Ilot:</dt>
+  <dd><%= @server.baie.try(:ilot) %></dd>
+
+  <dt>Salle:</dt>
+  <dd><%= @server.baie.try(:salle).try(:title) %></dd>
+
+  <dt>Categorie:</dt>
+  <dd><%= @server.modele.try(:category) %></dd>
+
+  <dt>Nb elts:</dt>
+  <dd><%= @server.modele.try(:nb_elts) %></dd>
+
+  <dt>Architecture:</dt>
+  <dd><%= @server.modele.try(:architecture) %></dd>
+
+  <dt>U:</dt>
+  <dd><%= @server.modele.try(:u) %></dd>
+
+  <dt>Position:</dt>
+  <dd><%= @server.position %></dd>
+
+  <dt>Marque:</dt>
+  <dd><%= @server.modele.try(:marque) %></dd>
+
+  <dt>Modele:</dt>
+  <dd><%= link_to @server.modele, edit_modele_path(@server.modele) if @server.modele.try(:title) %></dd>
+
+  <dt>Numero:</dt>
+  <dd><%= @server.try(:numero) %></dd>
+
+  <dt>Conso:</dt>
+  <dd><%= @server.conso %></dd>
+
+  <dt>Cluster:</dt>
+  <dd><%= @server.cluster.try(:title) %></dd>
+
+  <dt>Critique:</dt>
+  <dd><%= @server.critique ? 'OUI' : 'non' %></dd>
+
+  <dt>Domaine:</dt>
+  <dd><%= @server.domaine %></dd>
+
+  <dt>Gestionnaire:</dt>
+  <dd><%= @server.gestion %></dd>
+
+  <dt>Etat :</dt>
+  <dd><%= @server.server_state %></dd>
+
+  <dt>Cartes :</dt>
+
+  <% @server.modele.composants.where(type_composant_id: 4).each do |slot| %>
+
+    <% @server.cards_servers.where(:composant_id => slot.id).each do |card_server| %>
+      <dd><%= card_server.composant.name ? card_server.composant.name : card_server.composant.position %> : <%= "#{card_server.card.try(:name)} (#{card_server.card.try(:port_quantity)}#{card_server.card.try(:port_type).try(:name)})" %></dd>
+    <% end %>
+  <% end %>
+
+  <dt>Commentaire :</dt>
+  <dd><%= @server.comment %></dd>
+
+
+  <H5>Champs obsolètes - Bientôt supprimés</H5>
+
+  <dt>Acte:</dt>
+  <dd><%= @server.acte %></dd>
+
+  <dt>Fc futur:</dt>
+  <dd><%= @server.fc_futur %></dd>
+
+  <dt>Fc total:</dt>
+  <dd><%= @server.fc_total %></dd>
+
+  <dt>Fc utilise:</dt>
+  <dd><%= @server.fc_utilise %></dd>
+
+  <dt>Rj45 total:</dt>
+  <dd><%= @server.rj45_total %></dd>
+
+  <dt>Rj45 utilise:</dt>
+  <dd><%= @server.rj45_utilise %></dd>
+
+  <dt>Rj45 futur:</dt>
+  <dd><%= @server.rj45_futur %></dd>
+
+  <dt>Ipmi utilise:</dt>
+  <dd><%= @server.ipmi_utilise %></dd>
+
+  <dt>Ipmi futur:</dt>
+  <dd><%= @server.ipmi_futur %></dd>
+
+  <dt>Rg45 cm:</dt>
+  <dd><%= @server.rj45_cm %></dd>
+
+  <dt>Ipmi dedie:</dt>
+  <dd><%= @server.ipmi_dedie %></dd>
+
+</dl>

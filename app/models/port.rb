@@ -3,7 +3,7 @@ class Port < ActiveRecord::Base
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
   tracked :parameters => {
-      :serveur => proc { |controller, model_instance| model_instance.parent.try(:serveur)},
+      :server => proc { |controller, model_instance| model_instance.parent.try(:server)},
       :carte => proc { |controller, model_instance| "#{model_instance.parent.try(:composant)} #{model_instance.parent.try(:card)}"},
       :vlans => :vlans,
       :color => :color,

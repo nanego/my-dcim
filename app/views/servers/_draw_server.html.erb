@@ -1,0 +1,57 @@
+<% if server.modele.present? %>
+  <div class="pull-right">
+    <% slots_sur_modele = server.modele.composants.where(type_composant_id: 4) %>
+    <table class="slots">
+      <thead>
+      <% slots_sur_modele.each do |slot| %>
+        <th><%= "Slot #{slot.position}" %></th>
+      <% end %>
+      </thead>
+      <tbody>
+      <tr>
+        <% slots_sur_modele.each do |slot| %>
+          <td>
+            <% server.cards_servers.where(:composant_id => slot.id).each do |card_server| %>
+              <%= render 'servers/card_ports', port_type: card_server.card.port_type, port_quantity: card_server.card.port_quantity, alignment: 'vertical', ports_data: Port.where(parent: card_server) %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pull-right">
+    <table class="cm">
+      <thead>
+      <th>CM</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <%= render 'servers/card_ports', port_type: PortType.find_by_name('RJ'), port_quantity: server.modele.composants.where(type_composant_id: 3).count, alignment: 'vertical', ports_data: Port.where(parent: server.cards_servers.joins(:composant => :type_composant).where('type_composants.title = ?', 'CM')) %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <% if server.modele.composants.where(type_composant_id: 2).count > 0 %>
+    <div class="pull-right">
+      <%= render 'servers/card_ports', port_type: PortType.find_by_name('IPMI'), port_quantity: 1, alignment: 'vertical', ports_data: Port.where(parent: server.cards_servers.joins(:composant => :type_composant).where('type_composants.title = ?', 'IPMI')) %>
+    </div>
+  <% end %>
+<% end %>
+
+  <b><%= link_to h(server.nom), server_path(server, :view => params[:view]), {:data => {'toggle': "tooltip", 'placement': "top"}, title: server.numero} %></b>
+
+<% if server.modele.present? %>
+  <br>
+  <i><%= link_to server.modele.try(:title), edit_modele_path(server.modele) %></i>
+  <div class="alims">
+    <% alims_sur_modele = server.modele.composants.where(type_composant_id: 1) %>
+    <% alims_sur_modele.each_with_index do |composant_alim, i| %>
+      <span class="alim">ALIM <%= i+1 %></span>
+    <% end %>
+  </div>
+<% end %>

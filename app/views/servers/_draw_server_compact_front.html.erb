@@ -1,0 +1,13 @@
+<% case server.modele.try(:category_id) %>
+<% when @modele_blank_panel_id %>
+  <span class="pull-left server_name"><%= link_to h(server.nom), server_path(server, :view => params[:view]) %></span>
+<% else %>
+  <% port_nb = server.ports_per_type %>
+  <span class="pull-left server_name" style="padding-left: 14px;"><%= link_to h("#{server.nom}"), server_path(server, :view => params[:view]), {:data => {'toggle': "tooltip", 'placement': "top"}, title: server.numero} %></span>
+  <% if port_nb['RJ'] > 0 || port_nb['FC'] > 0 || port_nb['IPMI'] > 0 %>
+    <span class="badge badgeRJ45 <%= port_nb['RJ'] > 0 ? 'alert-info' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= port_nb['RJ'] > 0 ? port_nb['RJ'] : '' %></span>
+    <span class="badge badgeRJ45 <%= port_nb['IPMI'] > 0 ? 'alert-default' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= port_nb['IPMI'] > 0 ? port_nb['IPMI'] : '' %></span>
+    <span class="badge <%= port_nb['FC'] > 0 ? 'alert-success' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= port_nb['FC'] > 0 ? port_nb['FC'] : '' %></span>
+  <% end %>
+  <span class="pull-right" style="margin-right: 6px;"><em><%= server.modele.try(:title) %></em></span>
+<% end %>

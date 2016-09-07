@@ -1,0 +1,95 @@
+<%= link_to h(server.nom), server_path(server, :view => params[:view]), {class: 'pull-left server_name', style: 'padding-left: 14px;', :data => {'toggle': "tooltip", 'placement': "top"}, title: server.numero} %>
+
+<% if server.modele.present? %>
+  <div class="pull-right">
+    <% slots_sur_modele = server.modele.composants.where(type_composant_id: 4) %>
+    <table class="slots">
+      <thead>
+      <% slots_sur_modele.each do |slot| %>
+        <th><%= slot.name ? "#{slot.name.include?('SL') ? slot.name[2] : slot.name}" : slot.position %></th>
+      <% end %>
+      </thead>
+      <tbody>
+      <tr>
+        <% slots_sur_modele.each do |slot| %>
+          <td style="<%= server.modele.category.title != 'Patch Panel' ? 'max-width: 2.5em;' : '' %>">
+            <% server.cards_servers.where(:composant_id => slot.id).each do |card_server| %>
+              <span data-server-name="<%= server.nom %>" data-server-id="<%= server.id %>" data-composant-id="<%= card_server.id %>" data-composant-type="<%= card_server.class %>">
+                <%= render 'servers/card_ports.html.erb',
+                           port_type: card_server.card.try(:port_type),
+                           port_quantity: card_server.card.try(:port_quantity),
+                           alignment: 'vertical',
+                           card_server: card_server,
+                           ports_data: Port.where(parent: card_server) %>
+              </span>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <br>
+  <i class='pull-left' style="clear:left;padding-left: 14px;"><%= link_to server.modele.try(:title), edit_modele_path(server.modele), style: 'font-weight:normal;' %></i>
+
+  <div class="clearfix"></div>
+
+<% end %>
+
+
+
+
+<%
+  server.cards_servers.includes(:card, :ports => [:connections_from, :connections_to], :composant => :type_composant).each do |card_server|
+
+    if card_server.card.present? && card_server.card_id > 0
+      composant_type = 'CardsServer'
+      composant_id = card_server.id
+    else
+      composant_type = card_server.composant.type_composant.title
+      composant_id = server.id
+    end
+
+    card_server.ports.each do |port|
+      port.connections.each do |conn| %>
+
+
+      <script type="text/javascript">
+
+        // Draw connection line
+        var elemFrom = $('#server_<%= server.id %> span[data-composant-id="<%=composant_id%>"][data-composant-type="<%=composant_type%>"] i[data-position="<%=port.position%>"]');
+
+        <% other_port = ([conn.source_port, conn.destination_port] - [port]).first %>
+
+        <% if other_port.present? %>
+
+          <% other_port_card_server = CardsServer.where(id: other_port.parent_id).first %>
+
+          <% if other_port_card_server.present?
+              if other_port_card_server.card_id.present? && other_port_card_server.card_id>0
+                other_port_composant_type = 'CardsServer'
+                other_port_composant_id = other_port_card_server.id
+              else
+                other_port_composant_type = other_port_card_server.composant.type_composant.title
+                other_port_composant_id = other_port_card_server.server_id
+              end %>
+
+              var elemTo = $('#server_<%= other_port_card_server.server_id %> span[data-composant-id="<%=other_port_composant_id%>"][data-composant-type="<%=other_port_composant_type%>"] i[data-position="<%=other_port.position%>"]');
+
+              if (elemFrom.length>0 && elemTo.length>0){
+                new $.connect(elemFrom, elemTo);
+              }
+
+          <% end %>
+        <% end %>
+
+      </script>
+
+
+<%    end
+    end
+  end
+
+%>
+

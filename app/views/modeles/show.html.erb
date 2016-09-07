@@ -12,9 +12,9 @@
 
 <dl class="dl-horizontal">
 
-  <dt>Serveurs :</dt>
-  <% @serveurs.each do |s| %>
-    <dd><%= link_to s.nom, serveur_path(s) %></dd>
+  <dt>Servers :</dt>
+  <% @servers.each do |s| %>
+    <dd><%= link_to s.nom, server_path(s) %></dd>
   <% end %>
 
 </dl>

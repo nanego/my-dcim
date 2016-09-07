@@ -11,7 +11,7 @@ class Modele < ActiveRecord::Base
       :nb_elts => :nb_elts
   }
 
-  has_many :serveurs
+  has_many :servers
   has_many :composants, -> { order(name: :asc, position: :asc) }
 
   belongs_to :marque

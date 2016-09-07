@@ -1,0 +1,18 @@
+<%= render 'layouts/breadcrumb', params: {"Salles" => overview_salles_path,
+                                          @server.baie.salle.title => salle_path(@server.baie.salle),
+                                          "Baie #{@server.baie.title}" => baie_path(@server.baie),
+                                          @server.nom => server_path(@server),
+                                          'Edition' => ''} %>
+<div class="page-header">
+  <%= link_to servers_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to @server, class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-info-sign"></span>
+    Show
+  <% end %>
+  <h1>Server <%= @server.nom %></h1>
+</div>
+
+<%= render 'form' %>

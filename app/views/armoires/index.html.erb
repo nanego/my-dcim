@@ -32,7 +32,7 @@
           <tbody>
             <%= content_tag_for(:tr, @armoires) do |armoire| %>
               <td><%= armoire.title %></td>
-              <td><%= pluralize(armoire.serveurs.count, 'serveur') %> </td>
+              <td><%= pluralize(armoire.servers.count, 'server') %> </td>
               <td><%= link_to 'Modifier', edit_armoire_path(armoire), class: 'btn btn-primary' %></td>
               <td><%= link_to 'Supprimer', armoire, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
             <% end %>

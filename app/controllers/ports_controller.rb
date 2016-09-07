@@ -26,8 +26,8 @@ class PortsController < ApplicationController
     @port = Port.find_by_id(params[:id])
     respond_to do |format|
       if @port.update(port_params)
-        format.html { redirect_to @port.parent.serveur, notice: 'Le port a été mis à jour.' }
-        format.json { render :show, status: :ok, location: @port.serveur }
+        format.html { redirect_to @port.parent.server, notice: 'Le port a été mis à jour.' }
+        format.json { render :show, status: :ok, location: @port.server }
       else
         format.html { render :edit }
         format.json { render json: @port.errors, status: :unprocessable_entity }
@@ -37,10 +37,10 @@ class PortsController < ApplicationController
 
   def destroy
     @port = Port.find_by_id(params[:id])
-    serveur = @port.parent.serveur
+    server = @port.parent.server
     @port.destroy
     respond_to do |format|
-      format.html { redirect_to serveur_path(serveur), notice: 'Le port a été supprimé' }
+      format.html { redirect_to server_path(server), notice: 'Le port a été supprimé' }
       format.json { head :no_content }
     end
   end

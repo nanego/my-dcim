@@ -1,0 +1,91 @@
+<div class="container-fluid">
+
+  <div class="row-fluid">
+
+    <div class="col-md-12">
+
+      <div class="page-header">
+        <%= link_to new_server_path, class: 'btn btn-primary' do %>
+          <span class="glyphicon glyphicon-plus"></span>
+          Ajouter un serveur
+        <% end %>
+        <h1>Tous les serveurs</h1>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>Localisation</th>
+              <th>Rack</th>
+              <th>Type</th>
+              <th>Nom</th>
+              <th>Nb elts</th>
+              <th>Architecture</th>
+              <th>U</th>
+              <th>Marque</th>
+              <th>Modèle</th>
+              <th>Numéro</th>
+              <th>Conso</th>
+              <th>Cluster</th>
+              <th>Critique</th>
+              <th>Domaine</th>
+              <th>Gestionnaire</th>
+              <th>Action</th>
+              <th>Baie</th>
+              <th>Fc total</th>
+              <th>Fc utilisé</th>
+              <th>Rj45 total</th>
+              <th>Rj45 utilisé</th>
+              <th>Rj45 futur</th>
+              <th>Ipmi utilisé</th>
+              <th>Ipmi futur</th>
+              <th>Rj45 cm</th>
+              <th>Ipmi dédié</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <%= content_tag_for(:tr, @servers) do |server| %>
+              <td><%= server.id %></td>
+              <td><%= server.localisation %></td>
+              <td><%= server.armoire %></td>
+              <td><%= server.category %></td>
+              <td><%= server.nom %></td>
+              <td><%= server.nb_elts %></td>
+              <td><%= server.architecture %></td>
+              <td><%= server.u %></td>
+              <td><%= server.marque %></td>
+              <td><%= server.modele %></td>
+              <td><%= server.numero %></td>
+              <td><%= server.conso %></td>
+              <td><%= server.cluster %></td>
+              <td><%= server.critique %></td>
+              <td><%= server.domaine %></td>
+              <td><%= server.gestion %></td>
+              <td><%= server.acte %></td>
+              <td><%= server.baie %></td>
+              <td><%= server.fc_total %></td>
+              <td><%= server.fc_utilise %></td>
+              <td><%= server.rj45_total %></td>
+              <td><%= server.rj45_utilise %></td>
+              <td><%= server.rj45_futur %></td>
+              <td><%= server.ipmi_utilise %></td>
+              <td><%= server.ipmi_futur %></td>
+              <td><%= server.rj45_cm %></td>
+              <td><%= server.ipmi_dedie %></td>
+              <td><%= link_to 'Modifier', edit_server_path(server) %></td>
+              <td><%= link_to 'Supprimer', server, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

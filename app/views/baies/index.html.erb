@@ -19,7 +19,7 @@
           <thead>
           <tr>
             <th>Nom</th>
-            <th>Serveurs</th>
+            <th>Servers</th>
             <th>Nombre de U</th>
             <th>Salle</th>
             <th>Ilot</th>
@@ -30,7 +30,7 @@
           <tbody>
           <%= content_tag_for(:tr, @baies) do |baie| %>
             <td><%= link_to baie.title, baie %></td>
-            <td><%= baie.serveurs.map{|s| link_to s.nom, s }.join(' ').html_safe %></td>
+            <td><%= baie.servers.map{|s| link_to s.nom, s }.join(' ').html_safe %></td>
             <td><%= baie.u %></td>
             <td><%= baie.salle.present? ? (link_to baie.salle, baie.salle) : baie.salle %></td>
             <td><%= baie.ilot %></td>

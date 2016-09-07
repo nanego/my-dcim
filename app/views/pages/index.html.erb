@@ -19,7 +19,7 @@
                   <div style="text-align: center;font-size: x-large;margin-bottom: 5px;"><%= link_to salle.title, salle %></div>
                   <ul>
                     <% Category.all.each do |cat| %>
-                      <li><%= "#{cat} : #{salle.serveurs.joins(:modele).where("modeles.category_id = ?", cat.id).count}" %></li>
+                      <li><%= "#{cat} : #{salle.servers.joins(:modele).where("modeles.category_id = ?", cat.id).count}" %></li>
                     <% end %>
                   </ul>
                 </div>

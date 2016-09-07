@@ -1,0 +1,5 @@
+<div class="container-fluid">
+  <% @servers_par_baies.each do |salle, ilots| %>
+    <%= render 'servers/salle.html.erb', salle: salle, ilots: ilots %>
+  <% end %>
+</div>

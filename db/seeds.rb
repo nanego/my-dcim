@@ -16,7 +16,7 @@ require 'csv'
 =begin
 
 Modele.delete_all
-Serveur.delete_all
+Server.delete_all
 Slot.delete_all
 Composant.delete_all
 
@@ -24,11 +24,11 @@ Composant.delete_all
 
 case ActiveRecord::Base.connection.adapter_name
   when 'SQLite'
-    #update_seq_sql = "update sqlite_sequence set seq = 0 where name = 'serveurs';"
+    #update_seq_sql = "update sqlite_sequence set seq = 0 where name = 'servers';"
     #ActiveRecord::Base.connection.execute(update_seq_sql)
   when 'PostgreSQL'
     #ActiveRecord::Base.connection.reset_pk_sequence!("modeles")
-    #ActiveRecord::Base.connection.reset_pk_sequence!("serveurs")
+    #ActiveRecord::Base.connection.reset_pk_sequence!("servers")
     #ActiveRecord::Base.connection.reset_pk_sequence!("slots")
     # ActiveRecord::Base.connection.reset_pk_sequence!("composants")
   else
@@ -41,7 +41,7 @@ puts "Table Composants vide et pk_sequence = 0"
 file = File.read(Rails.root.join('lib', 'seeds', 'inventaire_160402_FC_only.csv'))
 csv = CSV.parse(file, :headers => true)
 
-# ActiveRecord::Base.connection.set_pk_sequence!("serveurs", Serveur.maximum(:id)+1)
+# ActiveRecord::Base.connection.set_pk_sequence!("servers", Server.maximum(:id)+1)
 
 puts "Importation en cours"
 csv.each_with_index do |row, i|
@@ -159,13 +159,13 @@ csv.each_with_index do |row, i|
 
 
   ##########
-  ## SERVEUR
-  serveur = Serveur.where(id: id).first
-  if serveur.present?
+  ## server
+  server = Server.where(id: id).first
+  if server.present?
 
 =begin
 
-    serveur.update_attributes(
+    server.update_attributes(
         ip: ip,
         hostname: hostname,
         etat_conf_reseau: etat_conf_reseau,
@@ -205,7 +205,7 @@ csv.each_with_index do |row, i|
 =end
 
   else
-    serveur = Serveur.create!(
+    server = Server.create!(
         id: id,
         ip: ip,
         hostname: hostname,
@@ -271,13 +271,13 @@ csv.each_with_index do |row, i|
       end
       port_type = PortType.find_or_create_by!(name: valeur)
       card = Card.find_or_create_by!(name: valeurs_slots[i], port_quantity: nb_ports, port_type: port_type)
-      CardsServeur.find_or_create_by!(card: card, serveur: serveur, composant: slots_SL_only[i])
+      CardsServer.find_or_create_by!(card: card, server: server, composant: slots_SL_only[i])
 
       # ports ....
       nb_ports.times do |y|
         Slot.find_or_create_by!(valeur: valeur,
                      composant: slots_SL_only[i],
-                     serveur: serveur)
+                     server: server)
       end
     end
   end
@@ -287,21 +287,21 @@ csv.each_with_index do |row, i|
   nb_ports = rj45_cm.to_i
   port_type = PortType.find_or_create_by!(name: valeur)
   card_cm = Card.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
-  CardsServeur.find_or_create_by!(card: card_cm, serveur: serveur, composant: composant_slot_cm)
+  CardsServer.find_or_create_by!(card: card_cm, server: server, composant: composant_slot_cm)
 
   # SLOTS IPMI
   valeur = 'RJ'
   nb_ports = ipmi_futur.to_i
   port_type = PortType.find_or_create_by!(name: valeur)
   card_ipmi = Card.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
-  CardsServeur.find_or_create_by!(card: card_ipmi, serveur: serveur, composant: composant_slot_ipmi)
+  CardsServer.find_or_create_by!(card: card_ipmi, server: server, composant: composant_slot_ipmi)
 
   # SLOTS ALIM
   valeur = 'ALIM'
   nb_ports = nb_elts.to_i
   port_type = PortType.find_or_create_by!(name: valeur)
   card_alim = Card.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
-  CardsServeur.find_or_create_by!(card: card_alim, serveur: serveur, composant: composant_slot_alim)
+  CardsServer.find_or_create_by!(card: card_alim, server: server, composant: composant_slot_alim)
 
 
   # Init confs vlans and colors
@@ -316,15 +316,15 @@ csv.each_with_index do |row, i|
 
     case type_port
       when /^ipmi/
-        cards_serveurs = CardsServeur.find_or_create_by!(card: card_ipmi, serveur: serveur, composant: composant_slot_ipmi)
+        cards_servers = CardsServer.find_or_create_by!(card: card_ipmi, server: server, composant: composant_slot_ipmi)
         if type_port.size>4
           position = type_port[4]
         else
           position = 1
         end
         port = Port.find_or_create_by!(position: position,
-                                       parent_type: CardsServeur.name,
-                                       parent_id: cards_serveurs.id
+                                       parent_type: CardsServer.name,
+                                       parent_id: cards_servers.id
 
         )
         port.vlans = (confs ? confs[index] : nil)
@@ -332,10 +332,10 @@ csv.each_with_index do |row, i|
         port.cablename = (nomscables ? nomscables[index] : nil)
         port.save
       when /^cm/
-        cards_serveurs = CardsServeur.find_or_create_by!(card: card_cm, serveur: serveur, composant: composant_slot_cm)
+        cards_servers = CardsServer.find_or_create_by!(card: card_cm, server: server, composant: composant_slot_cm)
         port = Port.find_or_create_by!(position: type_port[2],
-                                       parent_type: CardsServeur.name,
-                                       parent_id: cards_serveurs.id
+                                       parent_type: CardsServer.name,
+                                       parent_id: cards_servers.id
         )
         port.vlans = (confs ? confs[index] : nil)
         port.color = (couleurs ? couleurs[index] : nil)
@@ -348,10 +348,10 @@ csv.each_with_index do |row, i|
                                                  type_composant: type_composant_slot,
                                                  name: 'SL'+position_slot
         )
-        cards_serveurs = CardsServeur.find_or_create_by!(serveur: serveur, composant: composant)
+        cards_servers = CardsServer.find_or_create_by!(server: server, composant: composant)
         port = Port.find_or_create_by!(position: position_port_in_slot,
-                                       parent_type: CardsServeur.name,
-                                       parent_id: cards_serveurs.id)
+                                       parent_type: CardsServer.name,
+                                       parent_id: cards_servers.id)
         port.vlans = (confs ? confs[index] : nil)
         port.color = (couleurs ? couleurs[index] : nil)
         port.cablename = (nomscables ? nomscables[index] : nil)
@@ -362,4 +362,4 @@ csv.each_with_index do |row, i|
 
 end
 
-# ActiveRecord::Base.connection.set_pk_sequence!("serveurs", 1000)
+# ActiveRecord::Base.connection.set_pk_sequence!("servers", 1000)

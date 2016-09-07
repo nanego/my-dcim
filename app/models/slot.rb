@@ -4,9 +4,9 @@ class Slot < ActiveRecord::Base
   tracked owner: ->(controller, model) { controller && controller.current_user }
 
   belongs_to :composant
-  belongs_to :serveur
+  belongs_to :server
 
-  acts_as_list scope: [:composant_id, :serveur_id]
+  acts_as_list scope: [:composant_id, :server_id]
 
   def to_s
     valeur

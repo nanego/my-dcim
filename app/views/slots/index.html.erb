@@ -11,7 +11,7 @@
     <thead>
       <tr>
             <th>Numero</th>
-            <th>Serveur</th>
+            <th>Server</th>
             <th>Valeur</th>
             <th></th>
         <th></th>
@@ -22,7 +22,7 @@
     <tbody>
       <%= content_tag_for(:tr, @slots) do |slot| %>
             <td><%= slot.numero %></td>
-            <td><%= slot.serveur_id %></td>
+            <td><%= slot.server_id %></td>
             <td><%= slot.valeur %></td>
             <td><%= link_to 'Show', slot %></td>
         <td><%= link_to 'Edit', edit_slot_path(slot) %></td>

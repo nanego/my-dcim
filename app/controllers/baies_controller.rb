@@ -1,18 +1,18 @@
 class BaiesController < ApplicationController
-  include ServeursHelper
+  include ServersHelper
 
   def show
     @baie = Baie.friendly.find(params[:id].to_s.downcase)
     @salle = @baie.salle
-    @serveurs_par_baies = {}
-    @serveurs = @baie.serveurs.includes(:gestion, :modele => :category, :cards => :port_type, :cards_serveurs => [:composant, :ports])
-    @serveurs.each do |s|
+    @servers_par_baies = {}
+    @servers = @baie.servers.includes(:gestion, :modele => :category, :cards => :port_type, :cards_servers => [:composant, :ports])
+    @servers.each do |s|
       ilot = @baie.ilot
-      @serveurs_par_baies[ilot] ||= {}
-      @serveurs_par_baies[ilot][@baie] ||= []
-      @serveurs_par_baies[ilot][@baie] << s
+      @servers_par_baies[ilot] ||= {}
+      @servers_par_baies[ilot][@baie] ||= []
+      @servers_par_baies[ilot][@baie] << s
     end
-    @sums = calculate_ports_sums(@baie, @serveurs)
+    @sums = calculate_ports_sums(@baie, @servers)
 
     respond_to do |format|
       format.html do
@@ -25,7 +25,7 @@ class BaiesController < ApplicationController
                pdf: 'baie',
                zoom: 0.75
       end
-      format.txt { send_data Baie.to_txt(@serveurs_par_baies) }
+      format.txt { send_data Baie.to_txt(@servers_par_baies) }
     end
   end
 

@@ -1,5 +1,5 @@
 require 'card'
-require 'serveur'
+require 'server'
 require 'composant'
 require 'category'
 
