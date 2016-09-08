@@ -6,6 +6,8 @@ class Room < ActiveRecord::Base
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
 
+  has_many :islets
+
   has_many :servers, through: :frames
   has_many :frames, -> { order("frames.ilot asc, frames.position asc") }
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908103000) do
+ActiveRecord::Schema.define(version: 20160908124955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,21 @@ ActiveRecord::Schema.define(version: 20160908103000) do
     t.string   "title"
     t.text     "description"
     t.boolean  "published"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "bay_types", force: :cascade do |t|
+    t.string  "name"
+    t.integer "size"
+  end
+
+  create_table "bays", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "lane"
+    t.integer  "position"
+    t.integer  "bay_type_id"
+    t.integer  "islet_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -134,6 +149,7 @@ ActiveRecord::Schema.define(version: 20160908103000) do
     t.integer  "position"
     t.integer  "switch_slot"
     t.string   "slug"
+    t.integer  "bay_id"
   end
 
   add_index "frames", ["slug"], name: "index_frames_on_slug", unique: true, using: :btree
@@ -157,6 +173,13 @@ ActiveRecord::Schema.define(version: 20160908103000) do
     t.boolean  "published"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "islets", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "room_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "localisations", force: :cascade do |t|

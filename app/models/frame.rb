@@ -6,6 +6,8 @@ class Frame < ActiveRecord::Base
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
 
+  belongs_to :bay
+
   has_many :servers, -> { order("servers.position desc") }, dependent: :destroy
   belongs_to :room
   has_one :couple_frame, :class_name => "CoupleBaie", :foreign_key => :baie_one_id
@@ -20,7 +22,7 @@ class Frame < ActiveRecord::Base
   end
 
   def name_with_room_and_ilot
-    "#{room.try(:title).present? ? "Room #{room.title} " : ''} #{ilot.present? ? "Ilot #{ilot}" : ''} Baie #{title.present? ? title : 'non précisée' }"
+    "#{room.try(:title).present? ? "Salle #{room.title} " : ''} #{ilot.present? ? "Ilot #{ilot}" : ''} Baie #{title.present? ? title : 'non précisée' }"
   end
 
   def self.to_txt(servers_per_bay)
@@ -44,7 +46,7 @@ class Frame < ActiveRecord::Base
   end
 
   def has_coupled_frame?
-    ([coupled_frame] | [inverse_coupled_frame]).present?
+    ([coupled_frame] | [inverse_coupled_frame]).compact.present?
   end
 
   def has_no_coupled_frame?
