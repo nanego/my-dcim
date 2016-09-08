@@ -1,4 +1,4 @@
-module SallesHelper
+module RoomsHelper
 
   def current_filters
     html = "<h5>"

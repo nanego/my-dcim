@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160907173500) do
+ActiveRecord::Schema.define(version: 20160908103000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,20 +56,6 @@ ActiveRecord::Schema.define(version: 20160907173500) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
-
-  create_table "baies", force: :cascade do |t|
-    t.string   "title"
-    t.integer  "u",           default: 41
-    t.integer  "salle_id"
-    t.integer  "ilot"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.integer  "position"
-    t.integer  "switch_slot"
-    t.string   "slug"
-  end
-
-  add_index "baies", ["slug"], name: "index_baies_on_slug", unique: true, using: :btree
 
   create_table "cards", force: :cascade do |t|
     t.string  "name"
@@ -137,6 +123,20 @@ ActiveRecord::Schema.define(version: 20160907173500) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "frames", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "u",           default: 41
+    t.integer  "room_id"
+    t.integer  "ilot"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "position"
+    t.integer  "switch_slot"
+    t.string   "slug"
+  end
+
+  add_index "frames", ["slug"], name: "index_frames_on_slug", unique: true, using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -207,7 +207,7 @@ ActiveRecord::Schema.define(version: 20160907173500) do
     t.string   "cablename"
   end
 
-  create_table "salles", force: :cascade do |t|
+  create_table "rooms", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
     t.boolean  "published"
@@ -218,7 +218,7 @@ ActiveRecord::Schema.define(version: 20160907173500) do
     t.boolean  "display_on_home_page"
   end
 
-  add_index "salles", ["slug"], name: "index_salles_on_slug", unique: true, using: :btree
+  add_index "rooms", ["slug"], name: "index_rooms_on_slug", unique: true, using: :btree
 
   create_table "server_states", force: :cascade do |t|
     t.string   "title"
@@ -250,7 +250,7 @@ ActiveRecord::Schema.define(version: 20160907173500) do
     t.datetime "updated_at",         null: false
     t.string   "pdu_ondule"
     t.string   "pdu_normal"
-    t.integer  "baie_id"
+    t.integer  "frame_id"
     t.integer  "fc_calcule"
     t.integer  "fc_futur"
     t.string   "i"

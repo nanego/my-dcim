@@ -69,9 +69,9 @@ csv.each_with_index do |row, i|
   gestion = Gestion.find_or_create_by(title: row[18], published: true)
   action = Acte.find_or_create_by(title: row[19], published: true)
   phase = row[20]
-  salle = Salle.find_or_create_by(title: row[21], published: true)
+  salle = Room.find_or_create_by(title: row[21], published: true)
   ilot = row[22]
-  baie = Baie.find_or_create_by(title: row[23], salle: salle, ilot: ilot)
+  baie = Frame.find_or_create_by(title: row[23], salle: salle, ilot: ilot)
   # id_baie = row[24]
   fc_total = row[25]
   fc_calcule  = row[26]

@@ -17,19 +17,19 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Salles <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><%= link_to 'Afficher toutes les salles', overview_salles_path %></li>
+            <li><%= link_to 'Afficher toutes les salles', overview_rooms_path %></li>
             <li role="separator" class="divider"></li>
-            <% s1 = Salle.find_by_title('S1') %>
-            <li><%= link_to 'S1', salle_path(s1) %></li>
-            <li><%= link_to 'S1-ilot1', ilot_salles_path(id: s1.id, ilot: 1, :view => params[:view], bg: params[:bg]) %></li>
-            <li><%= link_to 'S1-ilot2', ilot_salles_path(id: s1.id, ilot: 2, :view => params[:view], bg: params[:bg]) %></li>
-            <li><%= link_to 'S1-ilot3', ilot_salles_path(id: s1.id, ilot: 3, :view => params[:view], bg: params[:bg]) %></li>
-            <li><%= link_to 'S2', salle_path(Salle.find_by_title('S2')) %></li>
+            <% s1 = Room.find_by_title('S1') %>
+            <li><%= link_to 'S1', room_path(s1) %></li>
+            <li><%= link_to 'S1-ilot1', ilot_rooms_path(id: s1.id, ilot: 1, :view => params[:view], bg: params[:bg]) %></li>
+            <li><%= link_to 'S1-ilot2', ilot_rooms_path(id: s1.id, ilot: 2, :view => params[:view], bg: params[:bg]) %></li>
+            <li><%= link_to 'S1-ilot3', ilot_rooms_path(id: s1.id, ilot: 3, :view => params[:view], bg: params[:bg]) %></li>
+            <li><%= link_to 'S2', room_path(Room.find_by_title('S2')) %></li>
             <li role="separator" class="divider"></li>
-            <li><%= link_to 'Atelier', salle_path(Salle.find_by_title('Atelier')) %></li>
+            <li><%= link_to 'Atelier', room_path(Room.find_by_title('Atelier')) %></li>
             <li role="separator" class="divider"></li>
-            <li><%= link_to 'A dégager', salle_path(Salle.find_by_title('A dégager')) %></li>
-            <li><%= link_to 'TPB -2', salle_path(Salle.find_by_title('TPB -2')) %></li>
+            <li><%= link_to 'A dégager', room_path(Room.find_by_title('A dégager')) %></li>
+            <li><%= link_to 'TPB -2', room_path(Room.find_by_title('TPB -2')) %></li>
           </ul>
         </li>
 
@@ -43,7 +43,7 @@
                     <% clusters.each do |c| %>
                       <% if c.present? %>
                         <li <%= "class=active" if params[:cluster_id]==c.id.to_s %> >
-                          <%= link_to c.title, baies_servers_path(cluster_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
+                          <%= link_to c.title, frames_servers_path(cluster_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
                         </li>
                       <% end %>
                     <% end %>
@@ -59,7 +59,7 @@
           <ul class="dropdown-menu">
             <% Gestion.order('LOWER(title) asc').each do |c| %>
               <li <%= "class=active" if params[:gestion_id]==c.id.to_s %> >
-                <%= link_to c.title, baies_servers_path(gestion_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
+                <%= link_to c.title, frames_servers_path(gestion_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
               </li>
             <% end %>
           </ul>

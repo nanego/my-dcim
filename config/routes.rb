@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :server_states
   resources :couple_baies
-  resources :baies, only: [:edit, :update, :show, :index, :destroy] do
+  resources :frames, only: [:edit, :update, :show, :index, :destroy] do
     collection do
       post :sort
     end
@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :servers do
     collection do
       get :grid
-      get :baies
+      get :frames
       post :sort
       get :import_csv
       post :import
@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   resources :actes
   resources :cards
   resources :colors
-  resources :salles do
+  resources :rooms do
     collection do
       get :ilot
       get :overview

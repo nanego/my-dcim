@@ -1,0 +1,47 @@
+<div class="container">
+
+  <%= render 'layouts/breadcrumb', params: {'Configuration' => modeles_url, 'Frames' => ''} %>
+
+  <div class="row">
+
+    <div class="col-md-3">
+      <%= render 'pages/params_menu' %>
+    </div>
+
+    <div class="col-md-9">
+
+      <div class="page-header">
+        <h1>Toutes les frames</h1>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+          <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Servers</th>
+            <th>Nombre de U</th>
+            <th>Room</th>
+            <th>Ilot</th>
+            <th></th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <%= content_tag_for(:tr, @frames) do |frame| %>
+            <td><%= link_to frame.title, frame %></td>
+            <td><%= frame.servers.map{|s| link_to s.nom, s }.join(' ').html_safe %></td>
+            <td><%= frame.u %></td>
+            <td><%= frame.room.present? ? (link_to frame.room, frame.room) : frame.room %></td>
+            <td><%= frame.ilot %></td>
+            <td><%= link_to 'Supprimer', frame, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

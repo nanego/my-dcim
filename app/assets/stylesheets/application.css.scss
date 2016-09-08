@@ -24,10 +24,10 @@ body {
   .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
     float: initial !important;
   }
-  .baie .server .server_name { font-size: 16px; }
+  .frame .server .server_name { font-size: 16px; }
   .panel-ilot{
     page-break-after: always;
-    .baies .baie {
+    .frames .frame {
       clear: both;
       page-break-after: always;
     }
@@ -52,22 +52,22 @@ a.hide-filters, a.show-filters{
   text-decoration: underline;
 }
 
-.baie .server { color: #777;page-break-inside: avoid; }
-.baie .server.ui-sortable-handle { cursor: move; }
-.baie .server a {color: #333}
-.baie .server .server_name { font-weight: 600; }
+.frame .server { color: #777;page-break-inside: avoid; }
+.frame .server.ui-sortable-handle { cursor: move; }
+.frame .server a {color: #333}
+.frame .server .server_name { font-weight: 600; }
 
-.baie li.server.list-group-item {
+.frame li.server.list-group-item {
   padding: 3px 15px;
   overflow: visible;
 }
-.baie .panel-footer{
+.frame .panel-footer{
   min-height: 60px;
 }
 .badge.badgeRJ45 {
   border-radius: 0;
 }
-.baie li.server{
+.frame li.server{
   &.striped{
     background: repeating-linear-gradient(
                     -45deg,

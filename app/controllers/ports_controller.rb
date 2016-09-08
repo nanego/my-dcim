@@ -1,14 +1,14 @@
 class PortsController < ApplicationController
 
   def index
-    if params[:baie_id].present?
-      @baie = Baie.find_by_id(params[:baie_id])
-      @baies = [@baie]
+    if params[:frame_id].present?
+      @frame = Frame.find_by_id(params[:frame_id])
+      @frames = [@frame]
     else
-      @salle = Salle.find_by_id(params[:salle_id])
-      @baies = Baie.includes(:salle).where(salle_id: @salle.id)
+      @room = Room.find_by_id(params[:room_id])
+      @frames = Frame.includes(:room).where(room_id: @room.id)
       if params[:ilot].present?
-        @baies = @baies.where('baies.ilot = ?', params[:ilot])
+        @frames = @frames.where('frames.ilot = ?', params[:ilot])
       end
     end
   end

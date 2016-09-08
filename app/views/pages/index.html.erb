@@ -13,13 +13,13 @@
             -webkit-background-size: cover;
             background-size: cover;">
           <div class="row">
-            <% Salle.where(display_on_home_page: true).each do |salle| %>
+            <% Room.where(display_on_home_page: true).each do |room| %>
               <div class="col-md-4">
                 <div class="well" style="background-color: rgba(255, 255, 255, 0.75);">
-                  <div style="text-align: center;font-size: x-large;margin-bottom: 5px;"><%= link_to salle.title, salle %></div>
+                  <div style="text-align: center;font-size: x-large;margin-bottom: 5px;"><%= link_to room.title, room %></div>
                   <ul>
                     <% Category.all.each do |cat| %>
-                      <li><%= "#{cat} : #{salle.servers.joins(:modele).where("modeles.category_id = ?", cat.id).count}" %></li>
+                      <li><%= "#{cat} : #{room.servers.joins(:modele).where("modeles.category_id = ?", cat.id).count}" %></li>
                     <% end %>
                   </ul>
                 </div>

@@ -25,7 +25,7 @@
     </div>
   <% end %>
 
-  <% if formats!=[:pdf] && @salle.present? %>
+  <% if formats!=[:pdf] && @room.present? %>
     <div class="btn-group">
       <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Exports <span class="caret"></span>
@@ -48,7 +48,7 @@
           <% end %>
         </li>
         <li role="separator" class="divider"></li>
-        <li><%= link_to ports_path(salle_id: @salle.id, baie_id: @baie.try(:id)) do %>
+        <li><%= link_to ports_path(room_id: @room.id, frame_id: @frame.try(:id)) do %>
           <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
             Liste des ports
           <% end %>

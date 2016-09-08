@@ -7,7 +7,7 @@ class ServersGrid
   #########
 
   scope do
-    Server.includes(:localisation, :armoire, :modele => :category, :baie => :salle)
+    Server.includes(:localisation, :armoire, :modele => :category, :frame => :room)
   end
 
   #########
@@ -43,7 +43,7 @@ class ServersGrid
   filter(:domaine, :enum, :select => Domaine.where(published: true).map {|r| [r.to_s, r.id]})
   filter(:gestion, :enum, :select => Gestion.where(published: true).map {|r| [r.to_s, r.id]})
   filter(:acte, :enum, :select => Acte.where(published: true).map {|r| [r.to_s, r.id]})
-  filter(:baie, :enum, :select => Baie.all.map {|b| [b.name_with_salle_and_ilot, b.id]})
+  filter(:frame, :enum, :select => Frame.all.map {|b| [b.name_with_room_and_ilot, b.id]})
   filter :fc_total, :integer, :range => true
   filter :fc_utilise, :integer, :range => true
   filter :rj45_total, :integer, :range => true
@@ -142,10 +142,10 @@ class ServersGrid
   }) do |record|
     record.acte
   end
-  column(:baie, :order => proc { |scope|
-    scope.joins(:baies).order("baies.title")
+  column(:frame, :order => proc { |scope|
+    scope.joins(:frames).order("frames.title")
   }) do |record|
-    record.baie.try(:name_with_salle_and_ilot)
+    record.frame.try(:name_with_room_and_ilot)
   end
   column(:fc_total)
   column(:fc_utilise)

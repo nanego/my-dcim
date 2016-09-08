@@ -6,8 +6,8 @@ class Server < ActiveRecord::Base
   include PublicActivity::Model
 
   belongs_to :acte
-  belongs_to :baie
-  has_one :salle, through: :baie
+  belongs_to :frame
+  has_one :room, through: :frame
   belongs_to :gestion
   belongs_to :domaine
   belongs_to :modele
@@ -30,15 +30,15 @@ class Server < ActiveRecord::Base
   end
 
   require 'csv'
-  def self.import(csv_file, salle, server_state)
-    salle = salle || Salle.find_or_create_by!(title: 'Atelier')
-    baie = Baie.create!(title: csv_file.original_filename.sub('.csv', ''),
-                        salle: salle)
+  def self.import(csv_file, room, server_state)
+    room = room || Room.find_or_create_by!(title: 'Atelier')
+    frame = Frame.create!(title: csv_file.original_filename.sub('.csv', ''),
+                         room: room)
     CSV.foreach(csv_file.path, {headers: true, col_sep: ';' }) do |row|
       server_data = row.to_hash
       modele = Modele.find_by_title(server_data['Modele'])
       raise "Modèle inconnu - #{server_data['Modele']}" if modele.blank?
-      server = Server.new(baie: baie)
+      server = Server.new(frame: frame)
       server.server_state = server_state
       server.modele = modele
       server.nom = server_data['Nom']
@@ -50,8 +50,8 @@ class Server < ActiveRecord::Base
         raise "Problème lors de l'ajout par fichier CSV"
       end
     end
-    baie.compact_u.save
-    return baie
+    frame.compact_u.save
+    return frame
   end
 
   def init_slots(server_data)

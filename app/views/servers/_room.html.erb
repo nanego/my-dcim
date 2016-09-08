@@ -3,77 +3,77 @@
 <% max_rj45 = 48 %>
 <% max_fc = 12 %>
 <% min_height = params[:view]=='back' ? 20 : 27 %>
-<% @salle = salle || @salle %>
+<% @room = room || @room %>
 
-<%= render 'salles/action_buttons' if formats != [:pdf] %>
+<%= render 'rooms/action_buttons' if formats != [:pdf] %>
 
-<div id="<%= @salle.try(:title).try(:parameterize).try(:underscore) %>">
+<div id="<%= @room.try(:title).try(:parameterize).try(:underscore) %>">
 
-  <% ilots.each do |ilot, baies| %>
+  <% ilots.each do |ilot, frames| %>
 
     <div>
       <div>
         <div class="panel-ilot">
-          <% if @salle.present? %>
+          <% if @room.present? %>
           <div>
 
-            <h3>Salle <%= @salle.title %> - Ilot <%= ilot %></h3>
+            <h3>Room <%= @room.title %> - Ilot <%= ilot %></h3>
           </div>
           <% end %>
 
           <div class="row">
 
-            <ul class="baies <%= params[:view] %>"
+            <ul class="frames <%= params[:view] %>"
                 style="padding: 0;"
-                data-update-url="<%= sort_baies_path %>"
+                data-update-url="<%= sort_frames_path %>"
                 data-max-u='<%= max_u %>'
                 data-max-elts='<%= max_elts %>'
                 data-max-rj45='<%= max_rj45 %>'
                 data-max-fc='<%= max_fc %>' >
 
-              <% previous_baie, second_baie = nil %>
-              <% baies.each_with_index do |(baie, servers), index| %>
+              <% previous_frame, second_frame = nil %>
+              <% frames.each_with_index do |(frame, servers), index| %>
 
-                <% if baie.other_baie.present? && baies.include?(baie.other_baie) && formats != [:pdf]
-                     if baie.other_baie==previous_baie
-                       second_baie = true
+                <% if frame.other_frame.present? && frames.include?(frame.other_frame) && formats != [:pdf]
+                     if frame.other_frame==previous_frame
+                       second_frame = true
                      else
                      %>
                     <div class="col-sm-12 col-lg-6" style='overflow: auto;'> <div class="panel well" style='overflow: auto;'><div class="panel-body">
-                    <% second_baie = false
+                    <% second_frame = false
                      end
                    else
-                     second_baie = false
+                     second_frame = false
                    end
                 %>
 
-                <% sums = @sums[baie.id] %>
+                <% sums = @sums[frame.id] %>
                 <% sum_u = servers.sum { |s| s.modele.try(:u) || 0 } %>
                 <% sum_elements = servers.sum { |s| s.modele.try(:nb_elts) || 0 } %>
-                <% col_params = baie.other_baie.present? ? 'col-lg-6' : 'col-lg-3' %>
-                <div class="baie col-xs-12 col-sm-6 <%= baies.count>1 ? col_params:'col-sm-offset-3' %>" id="baie_<%= baie.id %>">
-                  <div class="panel <%= sum_u > max_u || sum_elements > max_elts || sums['RJ'] > max_rj45 || sums['FC'] > max_fc ? 'panel-danger' : 'panel-default' %> panel-baie">
+                <% col_params = frame.other_frame.present? ? 'col-lg-6' : 'col-lg-3' %>
+                <div class="frame col-xs-12 col-sm-6 <%= frames.count>1 ? col_params:'col-sm-offset-3' %>" id="frame_<%= frame.id %>">
+                  <div class="panel <%= sum_u > max_u || sum_elements > max_elts || sums['RJ'] > max_rj45 || sums['FC'] > max_fc ? 'panel-danger' : 'panel-default' %> panel-frame">
                     <div class="panel-heading">
                       <h5 class="panel-title" style="display: inline;">
-                        <%= link_to "#{baie.title}", baie_path(baie, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' %>
-                        <% if baie.other_baie.present? && formats != [:pdf] %>
-                          <%= link_to baie_path(baie.other_baie, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' do %>
-                            <span class="glyphicon glyphicon-link" aria-hidden="true" title="Couplée à la baie <%= baie.other_baie.title %>"></span>
+                        <%= link_to "#{frame.title}", frame_path(frame, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' %>
+                        <% if frame.other_frame.present? && formats != [:pdf] %>
+                          <%= link_to frame_path(frame.other_frame, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' do %>
+                            <span class="glyphicon glyphicon-link" aria-hidden="true" title="Couplée à la frame <%= frame.other_frame.title %>"></span>
                           <% end %>
                         <% end %>
                       </h5>
                       <% if formats != [:pdf] %>
-                        <%= link_to "modifier", edit_baie_path(baie, :view => params[:view]), class: 'btn btn-default pull-right' %>
+                        <%= link_to "modifier", edit_frame_path(frame, :view => params[:view]), class: 'btn btn-default pull-right' %>
                       <% end %>
                       <div class="clearfix"></div>
                     </div>
-                    <ul class='servers connectedBaies list-group'
-                        data-salle="<%= @salle.title %>"
+                    <ul class='servers connectedFrames list-group'
+                        data-room="<%= @room.title %>"
                         data-ilot="<%= ilot %>"
-                        data-baie="<%= baie.title %>"
+                        data-frame="<%= frame.title %>"
                         data-update-url="<%= sort_servers_path %>">
 
-                        <% u_disponibles = baie.u || 41 %>
+                        <% u_disponibles = frame.u || 41 %>
                         <% servers.each do |server| %>
 
                           <% if server.modele.try(:title).present? %>
@@ -169,10 +169,10 @@
                   </div>
                 </div>
 
-                <% if second_baie %>
+                <% if second_frame %>
                   </div><div class="panel-footer">
                     <%= render 'servers/sum_labels.html.erb',
-                               sums: (@sums[baie.id].merge(@sums[previous_baie.id]){|_,a,b|a+b}),
+                               sums: (@sums[frame.id].merge(@sums[previous_frame.id]){|_,a,b|a+b}),
                                sum_u: nil,
                                sum_elements: nil,
                                max_u: max_u*2,
@@ -185,7 +185,7 @@
                 <% if (index+1) % 4 == 0 %>
                   <span class="clearfix"></span>
                 <% end %>
-                <% previous_baie = baie %>
+                <% previous_frame = frame %>
               <% end %>
 
             </ul>

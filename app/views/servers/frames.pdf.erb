@@ -1,0 +1,5 @@
+<div class="container-fluid">
+  <% @servers_per_frames.each do |room, ilots| %>
+    <%= render 'servers/room.html.erb', room: room, ilots: ilots %>
+  <% end %>
+</div>

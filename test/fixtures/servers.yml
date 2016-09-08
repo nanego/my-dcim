@@ -26,7 +26,7 @@ one:
 two:
   localisation_id: 1
   armoire_id: 1
-  baie_id: 1
+  frame_id: 1
   nom: MyString
   modele_id: 1
   numero: MyString

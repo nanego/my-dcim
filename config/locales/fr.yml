@@ -19,7 +19,7 @@ fr:
       destroy: a supprimé une action
       update: a modifié une action
       create: a ajouté une action
-    baie:
+    frame:
       destroy: a supprimé une baie
       update: a modifié une baie
       create: a ajouté une baie
@@ -31,7 +31,7 @@ fr:
       destroy: a supprimé un port
       update: a modifié un port
       create: a ajouté un port
-    salle:
+    room:
       destroy: a supprimé une salle
       update: a modifié une salle
       create: a ajouté une salle

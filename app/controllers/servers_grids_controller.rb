@@ -14,7 +14,7 @@ class ServersGridsController < ApplicationController
                                                localisation
                                                nom
                                                modele
-                                               salle
+                                               room
                                                fc_total
                                                fc_calcule
                                                fc_utilise

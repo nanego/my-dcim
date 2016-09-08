@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class BaieTest < ActiveSupport::TestCase
+class FrameTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

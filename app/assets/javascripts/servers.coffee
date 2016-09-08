@@ -10,31 +10,31 @@ jQuery ->
     if drag_n_drop_activated
       drag_n_drop_activated = false
       $('#drag-n-drop-switcher').html "<span class='glyphicon glyphicon-move' aria-hidden='true'></span> Activer le drag'n drop"
-      $('.baies').sortable('destroy')
+      $('.frames').sortable('destroy')
       $('.servers').sortable('destroy')
     else
       drag_n_drop_activated = true
       $('#drag-n-drop-switcher').html "<span class='glyphicon glyphicon-move' aria-hidden='true'></span> Le drag'n drop est activé !"
-      $('.baies').sortable(
+      $('.frames').sortable(
         update: (event, ui) ->
           $.post($(this).data('update-url'), $(this).sortable('serialize'))
       );
-      source_connected_list = source_baie = undefined
+      source_connected_list = source_frame = undefined
       $('.servers').sortable(
         # axis: 'y'
         # handle: '.handle'
-        connectWith: ".connectedBaies"
+        connectWith: ".connectedFrames"
         start: (event, ui) ->
           source_connected_list = ui.item.parent()
-          source_baie = ui.item.closest('.baie')
+          source_frame = ui.item.closest('.frame')
         stop: (event, ui) ->
           if source_connected_list
             update_u_scale(source_connected_list)
           update_u_scale(ui.item.parent())
           # Update alerts if above limit max
-          if source_baie
-            update_warning_messages(source_baie)
-          update_warning_messages(ui.item.closest('.baie'))
+          if source_frame
+            update_warning_messages(source_frame)
+          update_warning_messages(ui.item.closest('.frame'))
         update: ->
           # Take in account last change
           count = $(this).find('span.u_scale').length
@@ -49,7 +49,7 @@ jQuery ->
               positions.push($(this).find('span.u_scale')[0].textContent)
           )
           # Update db data
-          $.post($(this).data('update-url'), $(this).sortable('serialize') + '&salle=' +  $(this).data('salle') + '&ilot=' +  $(this).data('ilot') + '&baie=' +  $(this).data('baie') + '&positions=' + positions)
+          $.post($(this).data('update-url'), $(this).sortable('serialize') + '&room=' +  $(this).data('room') + '&ilot=' +  $(this).data('ilot') + '&frame=' +  $(this).data('frame') + '&positions=' + positions)
       );
   update_u_scale = (list) ->
     count = list.find('span.u_scale').length
@@ -61,37 +61,37 @@ jQuery ->
         $(this).removeClass('even').addClass('odd')
       count = count - 1;
     )
-  update_warning_messages = (baie) ->
-    max_u = baie.closest('.baies').data('max-u')
-    max_rj45 = baie.closest('.baies').data('max-rj45')
-    max_fc = baie.closest('.baies').data('max-fc')
+  update_warning_messages = (frame) ->
+    max_u = frame.closest('.frames').data('max-u')
+    max_rj45 = frame.closest('.frames').data('max-rj45')
+    max_fc = frame.closest('.frames').data('max-fc')
     total_u = total_rj45 = total_fc = 0
-    baie.find('.servers li.server').each ->
+    frame.find('.servers li.server').each ->
       if $(this).data('u')
         total_u += $(this).data('u')
       if $(this).data('rj45-futur')
         total_rj45 += $(this).data('rj45-futur')
       if $(this).data('fc-futur')
         total_fc += $(this).data('fc-futur')
-    baie.find('.panel-footer .warning-messages').html "" # reset warning messages
-    baie.find('.panel-footer .label').each ->
+    frame.find('.panel-footer .warning-messages').html "" # reset warning messages
+    frame.find('.panel-footer .label').each ->
       $(this).removeClass('label-danger')
-    baie.find('.panel-footer .u').html "Σ U : " + total_u
-    baie.find('.panel-footer .rj45').html "Σ RJ45 : " + total_rj45
-    baie.find('.panel-footer .fc').html "Σ FC : " + total_fc
+    frame.find('.panel-footer .u').html "Σ U : " + total_u
+    frame.find('.panel-footer .rj45').html "Σ RJ45 : " + total_rj45
+    frame.find('.panel-footer .fc').html "Σ FC : " + total_fc
     if total_u>max_u || total_rj45>max_rj45 || total_fc>max_fc
-      baie.find('.panel').addClass('panel-danger')
+      frame.find('.panel').addClass('panel-danger')
       if total_u>max_u
-        baie.find('.panel-footer .warning-messages').append "<div style='color:red;'>Somme des U supérieure à "+max_u+" !</div>"
-        baie.find('.panel-footer .u').addClass('label-danger');
+        frame.find('.panel-footer .warning-messages').append "<div style='color:red;'>Somme des U supérieure à "+max_u+" !</div>"
+        frame.find('.panel-footer .u').addClass('label-danger');
       if total_rj45>max_rj45
-        baie.find('.panel-footer .warning-messages').append "<div style='color:red;'>Somme des RJ45 supérieure à "+max_rj45+" !</div>"
-        baie.find('.panel-footer .rj45').addClass('label-danger');
+        frame.find('.panel-footer .warning-messages').append "<div style='color:red;'>Somme des RJ45 supérieure à "+max_rj45+" !</div>"
+        frame.find('.panel-footer .rj45').addClass('label-danger');
       if total_fc>max_fc
-        baie.find('.panel-footer .warning-messages').append "<div style='color:red;'>Somme des FC supérieure à "+max_fc+" !</div>"
-        baie.find('.panel-footer .fc').addClass('label-danger');
+        frame.find('.panel-footer .warning-messages').append "<div style='color:red;'>Somme des FC supérieure à "+max_fc+" !</div>"
+        frame.find('.panel-footer .fc').addClass('label-danger');
     else
-      baie.find('.panel').removeClass('panel-danger').addClass('panel-default')
+      frame.find('.panel').removeClass('panel-danger').addClass('panel-default')
 
 
   # Nested forms

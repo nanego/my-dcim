@@ -1,6 +1,6 @@
-<%= render 'layouts/breadcrumb', params: {"Salles" => overview_salles_path,
-                                          @server.baie.salle.title => salle_path(@server.baie.salle),
-                                          "Baie #{@server.baie.title}" => baie_path(@server.baie),
+<%= render 'layouts/breadcrumb', params: {"Salles" => overview_rooms_path,
+                                          @server.frame.room.title => room_path(@server.frame.room),
+                                          "Frame #{@server.frame.title}" => frame_path(@server.frame),
                                           @server.nom => ''} %>
 
 <div class="page-header">
@@ -15,7 +15,7 @@
   <h1><%= "#{@server.modele.try(:category).try(:title)} #{@server.nom}" %></h1>
 </div>
 
-<p><%= link_to "<< Baie #{@server.baie.try(:title)}", baie_path(@server.baie, :view => params[:view]), class: 'btn btn-default', style: 'text-decoration: underline;' if @server.baie %></p>
+<p><%= link_to "<< Frame #{@server.frame.try(:title)}", frame_path(@server.frame, :view => params[:view]), class: 'btn btn-default', style: 'text-decoration: underline;' if @server.frame %></p>
 
 <div class="detailed_server list-group-item">
   <%= render 'draw_server_compact_front.html.erb', server: @server %>
@@ -42,14 +42,14 @@
 <% end %>
 
 <dl class="dl-horizontal">
-  <dt>Baie:</dt>
-  <dd><%= @server.baie.try(:title) %></dd>
+  <dt>Frame:</dt>
+  <dd><%= @server.frame.try(:title) %></dd>
 
   <dt>Ilot:</dt>
-  <dd><%= @server.baie.try(:ilot) %></dd>
+  <dd><%= @server.frame.try(:ilot) %></dd>
 
-  <dt>Salle:</dt>
-  <dd><%= @server.baie.try(:salle).try(:title) %></dd>
+  <dt>Room:</dt>
+  <dd><%= @server.frame.try(:room).try(:title) %></dd>
 
   <dt>Categorie:</dt>
   <dd><%= @server.modele.try(:category) %></dd>

@@ -1,0 +1,49 @@
+<%= render 'layouts/breadcrumb', params: {'Aperçu des salles' => nil} %>
+
+<div class="container-fluid rooms-overview">
+
+  <div class="row" %>
+
+  <% @rooms.each do |room| %>
+    <div class="col-md-6 col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= link_to room.title, room %></h3>
+        </div>
+        <div class="panel-body">
+          <div class="row" >
+            <% current_ilot = nil %>
+
+            <% frames = room.frames.order("frames.ilot asc, frames.position asc") & (room.coupled_frames | room.isolated_frames) %>
+            <% frames.each_with_index do |frame, index| %>
+              <% last_frame = frames.count == index+1 %>
+              <% first_ilot = current_ilot.nil? %>
+              <% new_ilot = first_ilot || current_ilot != frame.ilot.to_s %>
+              <% if !first_ilot && new_ilot %></div></div><% end %>
+              <% if new_ilot %>
+                <div class="col-md-12">
+                  <h5><%= frame.ilot.present? ? link_to("Ilot #{frame.ilot}", ilot_rooms_path(id: room.id, ilot: frame.ilot, :view => params[:view], bg: params[:bg])) : 'Ilot sans nom' %></h5>
+                  <div class="row ilot">
+              <% end %>
+              <div class="pull-left">
+                <div class="frame">
+                  <%= link_to frame.title, frame_path(frame) %>
+                </div>
+                <% if room.coupled_frames.include?(frame) %>
+                  <div class="frame no-margin">
+                    <%= link_to frame.coupled_frame.title, frame_path(frame.coupled_frame) %>
+                  </div>
+                <% end %>
+              </div>
+              <% if last_frame %></div></div><% end %>
+              <% current_ilot = frame.ilot.to_s %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <% end %>
+
+  </div>
+</div>

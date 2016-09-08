@@ -1,0 +1,25 @@
+<%
+  breadcrumb_variables = {}
+  breadcrumb_variables['Rooms'] = '' # {'Rooms' => overview_rooms_path, @room.title => (@frame.present? ? room_path(@room):'')}
+  breadcrumb_variables["Frame #{@frame.title}"] = '' if @frame.present?
+%>
+<%= render 'layouts/breadcrumb', params: breadcrumb_variables %>
+
+<div class="container-fluid">
+
+  <h1><%= current_filters %></h1>
+
+  <% @servers_per_frames.each do |room, ilots| %>
+
+    <%= render 'room', room: room, ilots: ilots %>
+
+  <% end %>
+
+</div>
+
+
+<%= render 'modal_add_element_in_frame' %>
+
+
+
+

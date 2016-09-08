@@ -1,6 +1,6 @@
-<%= render 'layouts/breadcrumb', params: {"Salles" => overview_salles_path,
-                                          @server.baie.salle.title => salle_path(@server.baie.salle),
-                                          "Baie #{@server.baie.title}" => baie_path(@server.baie),
+<%= render 'layouts/breadcrumb', params: {"Rooms" => overview_rooms_path,
+                                          @server.frame.room.title => room_path(@server.frame.room),
+                                          "Frame #{@server.frame.title}" => frame_path(@server.frame),
                                           @server.nom => server_path(@server),
                                           'Edition' => ''} %>
 <div class="page-header">

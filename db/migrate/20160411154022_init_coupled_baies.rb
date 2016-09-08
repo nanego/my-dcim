@@ -2,10 +2,10 @@ class InitCoupledBaies < ActiveRecord::Migration
   def up
 
     previous_baie = nil
-    Baie.order(:salle_id, :ilot, :position).each do |baie|
+    Frame.order(:salle_id, :ilot, :position).each do |baie|
 
       if previous_baie.present? &&
-          previous_baie.has_no_coupled_baie? &&
+          previous_baie.has_no_coupled_frame? &&
           previous_baie.salle == baie.salle &&
           previous_baie.ilot == baie.ilot
 
