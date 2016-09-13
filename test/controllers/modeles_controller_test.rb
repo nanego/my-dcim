@@ -19,7 +19,7 @@ class ModelesControllerTest < ActionController::TestCase
 
   test "should create modele" do
     assert_difference('Modele.count') do
-      post :create, modele: { description: @modele.description, published: @modele.published, title: @modele.title }
+      post :create, modele: { description: @modele.description, published: @modele.published, title: @modele.title, architecture_id: @modele.architecture_id, category_id: @server.categorie_id, u: @server.u }
     end
 
     assert_redirected_to modele_path(assigns(:modele))
@@ -36,7 +36,7 @@ class ModelesControllerTest < ActionController::TestCase
   end
 
   test "should update modele" do
-    patch :update, id: @modele, modele: { description: @modele.description, published: @modele.published, title: @modele.title }
+    patch :update, id: @modele, modele: { description: @modele.description, published: @modele.published, title: @modele.title, architecture_id: @modele.architecture_id, category_id: @server.categorie_id, u: @server.u }
     assert_redirected_to modele_path(assigns(:modele))
   end
 

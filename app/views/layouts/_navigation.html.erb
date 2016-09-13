@@ -21,9 +21,9 @@
             <li role="separator" class="divider"></li>
             <% s1 = Room.find_by_title('S1') %>
             <li><%= link_to 'S1', room_path(s1) %></li>
-            <li><%= link_to 'S1-ilot1', ilot_rooms_path(id: s1.id, ilot: 1, :view => params[:view], bg: params[:bg]) %></li>
-            <li><%= link_to 'S1-ilot2', ilot_rooms_path(id: s1.id, ilot: 2, :view => params[:view], bg: params[:bg]) %></li>
-            <li><%= link_to 'S1-ilot3', ilot_rooms_path(id: s1.id, ilot: 3, :view => params[:view], bg: params[:bg]) %></li>
+            <li><%= link_to 'S1-ilot1', islet_rooms_path(id: s1.id, islet: 1, :view => params[:view], bg: params[:bg]) %></li>
+            <li><%= link_to 'S1-ilot2', islet_rooms_path(id: s1.id, islet: 2, :view => params[:view], bg: params[:bg]) %></li>
+            <li><%= link_to 'S1-ilot3', islet_rooms_path(id: s1.id, islet: 3, :view => params[:view], bg: params[:bg]) %></li>
             <li><%= link_to 'S2', room_path(Room.find_by_title('S2')) %></li>
             <li role="separator" class="divider"></li>
             <li><%= link_to 'Atelier', room_path(Room.find_by_title('Atelier')) %></li>

@@ -6,29 +6,25 @@ class Frame < ActiveRecord::Base
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
 
-  belongs_to :bay
-
   has_many :servers, -> { order("servers.position desc") }, dependent: :destroy
-  belongs_to :room
-  has_one :couple_frame, :class_name => "CoupleBaie", :foreign_key => :baie_one_id
-  has_one :coupled_frame, through: :couple_frame, :source => :baie_two
-  has_one :inverse_couple_frame, :class_name => "CoupleBaie", :foreign_key => "baie_two_id"
-  has_one :inverse_coupled_frame, :through => :inverse_couple_frame, :source => :baie_one
+  belongs_to :bay
+  has_one :islet, through: :bay
+  delegate :room, :to => :islet, :allow_nil => true
 
-  scope :sorted, -> {joins(:room).order("rooms.title asc", "frames.ilot asc", "frames.title asc")}
+  default_scope { order(:position) }
 
   def to_s
     title
   end
 
-  def name_with_room_and_ilot
-    "#{room.try(:title).present? ? "Salle #{room.title} " : ''} #{ilot.present? ? "Ilot #{ilot}" : ''} Baie #{title.present? ? title : 'non précisée' }"
+  def name_with_room_and_islet
+    "#{room.try(:title).present? ? "Salle #{room.title} " : ''} #{bay.present? ? "Ilot #{bay.islet.name}" : ''} Baie #{title.present? ? title : 'non précisée' }"
   end
 
   def self.to_txt(servers_per_bay)
     txt = ""
     if servers_per_bay.present?
-      servers_per_bay.each do |ilot, frames|
+      servers_per_bay.each do |islet, frames|
         frames.each_with_index do |(frame, servers), index|
           txt << "\r\n#{frame.title}\r\n"
           txt << "---------------\r\n"
@@ -41,16 +37,27 @@ class Frame < ActiveRecord::Base
     txt
   end
 
+  def other_frame_through_couple_baie #Temp legacy code
+    couples = CoupleBaie.where('baie_one_id = ? OR baie_two_id = ?', self.id, self.id)
+    frames = couples.collect(&:baie_one)
+    frames << couples.collect(&:baie_two)
+    (frames - [self]).first
+  end
+
   def other_frame
-    coupled_frame || inverse_coupled_frame
+    (bay.frames - [self]).first
+  end
+
+  def other_frames
+    bay.frames - [self]
   end
 
   def has_coupled_frame?
-    ([coupled_frame] | [inverse_coupled_frame]).compact.present?
+    bay.frames.count > 1
   end
 
   def has_no_coupled_frame?
-    ([coupled_frame] | [inverse_coupled_frame]).compact.empty?
+    bay.frames.count == 1
   end
 
   def compact_u

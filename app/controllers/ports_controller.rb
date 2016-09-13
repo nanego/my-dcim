@@ -6,9 +6,9 @@ class PortsController < ApplicationController
       @frames = [@frame]
     else
       @room = Room.find_by_id(params[:room_id])
-      @frames = Frame.includes(:room).where(room_id: @room.id)
-      if params[:ilot].present?
-        @frames = @frames.where('frames.ilot = ?', params[:ilot])
+      @frames = @room.frames
+      if params[:islet].present?
+        @frames = @frames.joins(:bay => :islet).where('islets.name = ?', params[:islet])
       end
     end
   end

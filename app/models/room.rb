@@ -6,33 +6,15 @@ class Room < ActiveRecord::Base
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
 
-  has_many :islets
+  has_many :islets #, -> { order("islets.position asc") }
+  has_many :bays, -> { order("bays.position asc") }, through: :islets
+  has_many :frames, -> { order("frames.position asc") }, through: :bays
+  has_many :servers, -> { order("servers.position asc") }, through: :frames
 
-  has_many :servers, through: :frames
-  has_many :frames, -> { order("frames.ilot asc, frames.position asc") }
+  default_scope { order(:position) }
 
   def to_s
     title
-  end
-
-  def coupled_frames
-    coupled_frames = []
-    self.frames.each do |frame|
-      if frame.couple_frame.present?
-        coupled_frames << frame
-      end
-    end
-    coupled_frames
-  end
-
-  def isolated_frames
-    isolated_frames = []
-    self.frames.each do |frame|
-      if frame.has_no_coupled_frame?
-        isolated_frames << frame
-      end
-    end
-    isolated_frames
   end
 
   private

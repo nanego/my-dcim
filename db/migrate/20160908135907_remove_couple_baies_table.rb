@@ -1,5 +1,5 @@
 class RemoveCoupleBaiesTable < ActiveRecord::Migration
-  def change
-    drop_table :couple_baies
+  def up
+    drop_table :couple_baies if table_exists? :couple_baies
   end
 end

@@ -9,15 +9,15 @@
 
 <div id="<%= @room.try(:title).try(:parameterize).try(:underscore) %>">
 
-  <% ilots.each do |ilot, frames| %>
+  <% islets.each do |islet, frames| %>
 
     <div>
       <div>
-        <div class="panel-ilot">
+        <div class="panel-islet">
           <% if @room.present? %>
           <div>
 
-            <h3>Room <%= @room.title %> - Ilot <%= ilot %></h3>
+            <h3>Room <%= @room.title %> - Ilot <%= islet %></h3>
           </div>
           <% end %>
 
@@ -69,7 +69,7 @@
                     </div>
                     <ul class='servers connectedFrames list-group'
                         data-room="<%= @room.title %>"
-                        data-ilot="<%= ilot %>"
+                        data-islet="<%= islet %>"
                         data-frame="<%= frame.title %>"
                         data-update-url="<%= sort_servers_path %>">
 

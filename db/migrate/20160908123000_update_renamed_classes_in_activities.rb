@@ -14,9 +14,6 @@ class UpdateRenamedClassesInActivities< ActiveRecord::Migration
     PublicActivity::Activity.where(key: 'salle.create').update_all(key: 'room.create')
     PublicActivity::Activity.where(key: 'salle.update').update_all(key: 'room.update')
 
-    PublicActivity::Activity.all.each do |activity|
-      activity.parameters = {}
-      activity.save
-    end
+    PublicActivity::Activity.update_all(parameters: {})
   end
 end

@@ -12,6 +12,12 @@ class RoomsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:rooms)
   end
 
+  test "should get overview" do
+    get :overview
+    assert_response :success
+    assert_not_nil assigns(:rooms)
+  end
+
   test "should get new" do
     get :new
     assert_response :success

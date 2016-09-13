@@ -4,12 +4,11 @@ class UpdateForeignIds < ActiveRecord::Migration
     has_been_migrated = []
     frames.each do |frame|
       if has_been_migrated.exclude? frame
-        islet = Islet.find_or_create_by(name: frame.ilot, room: frame.room)
+        islet = Islet.find_or_create_by(name: frame.ilot, room_id: frame.room_id)
 
         bay = Bay.new(islet: islet)
         bay.position = frame.title[-1].to_i
-        # puts "001 : bay.position = #{bay.position}"
-        if frame.has_coupled_frame?
+        if frame.other_frame_through_couple_baie.present?
           bay.bay_type_id = 2
         else
           bay.bay_type_id = 1
@@ -24,14 +23,13 @@ class UpdateForeignIds < ActiveRecord::Migration
         frame.bay_id = bay.id
         frame.save
 
-        if frame.has_coupled_frame?
+        other_frame = frame.other_frame_through_couple_baie.first
+        if other_frame.present?
 
-          # puts "002 - #{frame.other_frame.inspect}"
+          other_frame.bay_id = bay.id
+          other_frame.save
 
-          frame.other_frame.bay_id = bay.id
-          frame.other_frame.save
-
-          has_been_migrated << frame.other_frame
+          has_been_migrated << other_frame
         end
 
         has_been_migrated << frame

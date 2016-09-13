@@ -1,11 +1,31 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
+  id: 1
+  title: S1
   description: MyText
   published: false
 
 two:
-  title: MyString
+  id: 2
+  title: S2
+  description: MyText
+  published: false
+
+three:
+  id: 3
+  title: Atelier
+  description: MyText
+  published: false
+
+four:
+  id: 4
+  title: A dégager
+  description: MyText
+  published: false
+
+five:
+  id: 5
+  title: TPB -2
   description: MyText
   published: false

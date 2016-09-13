@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   title: MyString
-  u: 1
+  u: 48
+  bay_id: 1
 
 two:
+  id: 2
   title: MyString
-  u: 1
+  u: 48
+  bay_id: 2

@@ -33,7 +33,7 @@
             <td><%= frame.servers.map{|s| link_to s.nom, s }.join(' ').html_safe %></td>
             <td><%= frame.u %></td>
             <td><%= frame.room.present? ? (link_to frame.room, frame.room) : frame.room %></td>
-            <td><%= frame.ilot %></td>
+            <td><%= frame.bay.islet %></td>
             <td><%= link_to 'Supprimer', frame, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
           <% end %>
           </tbody>

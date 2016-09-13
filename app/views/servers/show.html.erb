@@ -1,6 +1,6 @@
 <%= render 'layouts/breadcrumb', params: {"Salles" => overview_rooms_path,
                                           @server.frame.room.title => room_path(@server.frame.room),
-                                          "Frame #{@server.frame.title}" => frame_path(@server.frame),
+                                          "Salle #{@server.frame.title}" => frame_path(@server.frame),
                                           @server.nom => ''} %>
 
 <div class="page-header">
@@ -46,7 +46,7 @@
   <dd><%= @server.frame.try(:title) %></dd>
 
   <dt>Ilot:</dt>
-  <dd><%= @server.frame.try(:ilot) %></dd>
+  <dd><%= @server.frame.try(:islet) %></dd>
 
   <dt>Room:</dt>
   <dd><%= @server.frame.try(:room).try(:title) %></dd>

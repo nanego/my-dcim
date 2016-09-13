@@ -16,7 +16,7 @@ development:
   adapter:  postgresql
   host:     localhost
   encoding: unicode
-  database: demenagement_20160705
+  database: demenagement_20160913
   pool:     5
   username: redmine
   password: red
@@ -54,7 +54,7 @@ production:
   adapter:  postgresql
   host:     localhost
   encoding: unicode
-  database: demenagement_20160705
+  database: demenagement_20160913
   pool:     5
   username: redmine
   password: red

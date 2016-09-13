@@ -17,9 +17,9 @@
     <div class="col-sm-10">
       <%= f.text_field :nom, class: "form-control" %>
     </div>
-    <%= f.label :frame, class: "col-sm-2 control-label" %>
+    <%= f.label 'Baie', class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.collection_select(:frame_id, Frame.includes(:room).sorted, :id, :name_with_room_and_ilot, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
+      <%= f.collection_select(:frame_id, Frame.all, :id, :name_with_room_and_islet, {:prompt => true, :include_blank => false}, {class: "form-control"}) %>
     </div>
     <%= f.label :position, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
@@ -34,7 +34,7 @@
   <div class="form-group">
     <%= f.label :modele_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.collection_select(:modele_id, Modele.order(:title), :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
+      <%= f.collection_select(:modele_id, Modele.order(:title), :id, :title, {:prompt => true, :include_blank => false}, {class: "form-control"}) %>
     </div>
   </div>
   <div class="form-group">

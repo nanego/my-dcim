@@ -9,9 +9,9 @@
 
   <h1><%= current_filters %></h1>
 
-  <% @servers_per_frames.each do |room, ilots| %>
+  <% @servers_per_frames.each do |room, islets| %>
 
-    <%= render 'room', room: room, ilots: ilots %>
+    <%= render 'room', room: room, islets: islets %>
 
   <% end %>
 

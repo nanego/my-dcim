@@ -1,17 +1,17 @@
 <%
-  breadcrumb_variables = {'Salles' => overview_rooms_path, @room.title => ((@frame.present? || params[:ilot].present?) ? room_path(@room):'')}
-  if @frame.present?
-    breadcrumb_variables["Ilot #{@frame.ilot}"] = ilot_rooms_path(id: @room.id, ilot: @frame.ilot)
-  elsif params[:ilot].present?
-    breadcrumb_variables["Ilot #{params[:ilot]}"] = ''
+  breadcrumb_variables = {'Salles' => overview_rooms_path, @room.title => ((@frame.present? || params[:islet].present?) ? room_path(@room):'')}
+  if @frame.present? && @frame.islet.name.present?
+    breadcrumb_variables["Ilot #{@frame.islet.name}"] = islet_rooms_path(id: @room.id, islet: @frame.islet.name)
+  elsif params[:islet].present?
+    breadcrumb_variables["Ilot #{params[:islet]}"] = ''
   end
-  breadcrumb_variables["Frame #{@frame.title}"] = '' if @frame.present?
+  breadcrumb_variables["Baie #{@frame.title}"] = '' if @frame.present?
 %>
 <%= render 'layouts/breadcrumb', params: breadcrumb_variables %>
 
 <div class="container-fluid">
 
-  <%= render 'servers/room', room: @room, ilots: @servers_per_frames %>
+  <%= render 'servers/room', room: @room, islets: @servers_per_frames %>
 
 </div>
 

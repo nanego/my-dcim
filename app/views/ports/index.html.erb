@@ -2,6 +2,19 @@
 
   <div class="row">
 
+    <%
+      breadcrumb_variables = {}
+      breadcrumb_variables['Salles'] = overview_rooms_path
+      if @room.present?
+        breadcrumb_variables["Salle #{@room.title}"] = room_path(@room)
+      elsif @frame.present?
+        breadcrumb_variables["Salle #{@frame.room.title}"] = room_path(@frame.room)
+      end
+      breadcrumb_variables["Baie #{@frame.title}"] = frame_path(@frame) if @frame.present?
+      breadcrumb_variables["Liste des ports cablés"] = ''
+    %>
+    <%= render 'layouts/breadcrumb', params: breadcrumb_variables %>
+
     <div class="col-md-12 well">
 
       <div style="margin-bottom: 20px;">
@@ -10,7 +23,7 @@
 
       <% @frames.each do |frame| %>
         <h3>
-          <%= link_to "#{frame.name_with_room_and_ilot}", frame_path(frame, :view => params[:view]), style: 'text-decoration: underline;' %>
+          <%= link_to "#{frame.name_with_room_and_islet}", frame_path(frame, :view => params[:view]), style: 'text-decoration: underline;' %>
         </h3>
         <% frame.servers.includes(:modele, :cards_servers => [:ports, :composant]).order('position desc').each do |s| %>
           <h4 style="display: inline;"><%= s.nom %></h4><span> (<%= s.modele.title %>)</span>

@@ -19,7 +19,7 @@ class ServersController < ApplicationController
   def frames
     @modele_blank_panel_id = Category.find_by_title('Blank Panel').id
 
-    @frames = Frame.includes(:room, :coupled_frame).joins(:room).order('rooms.title asc, frames.ilot asc, frames.position asc')
+    @frames = Frame.includes(:bay => {:islet => :room}).order('rooms.title asc, islets.name asc, frames.position asc')
     @frames = @frames.joins(:servers).where('servers.cluster_id = ? ', params[:cluster_id]) if params[:cluster_id].present?
     @frames = @frames.joins(:servers).where('servers.gestion_id = ? ', params[:gestion_id]) if params[:gestion_id].present?
 
@@ -31,8 +31,8 @@ class ServersController < ApplicationController
     @sums = {}
     @frames.each do |frame|
       @servers_per_frames[frame.room] ||= {}
-      @servers_per_frames[frame.room][frame.ilot] ||= {}
-      @servers_per_frames[frame.room][frame.ilot][frame] ||= []
+      @servers_per_frames[frame.room][frame.islet] ||= {}
+      @servers_per_frames[frame.room][frame.islet][frame] ||= []
 
       # preload sums per frame
       servers = frame.servers.includes(:gestion, :cluster, :modele => :category, :cards => :port_type, :cards_servers => [:composant, :ports])
@@ -40,7 +40,7 @@ class ServersController < ApplicationController
     end
     @servers.each do |server|
       frame = server.frame
-      @servers_per_frames[frame.room][frame.ilot][frame] << server if frame.present?
+      @servers_per_frames[frame.room][frame.islet][frame] << server if frame.present?
     end
 
     respond_to do |format|
@@ -54,14 +54,14 @@ class ServersController < ApplicationController
                pdf: 'frame',
                zoom: 0.75
       end
-      format.txt { txt = ""; @servers_per_frames.each { |room, ilots| txt << Frame.to_txt(ilots) }; send_data txt; }
+      format.txt { txt = ""; @servers_per_frames.each { |room, islets| txt << Frame.to_txt(islets) }; send_data txt; }
     end
 
   end
 
   def sort
     room = Room.find_by_title(params[:room]) unless params[:room].include?('non ')
-    frame = Frame.where(room_id: room.id, ilot: params[:ilot], title: params[:frame]).first
+    frame = room.frames.where('islets.name = ? AND frames.title = ?', params[:islet], params[:frame]).first
     positions = params[:positions].split(',')
     params[:server].each_with_index do |id, index|
       if positions[index].present?

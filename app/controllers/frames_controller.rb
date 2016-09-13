@@ -7,10 +7,10 @@ class FramesController < ApplicationController
     @servers_per_frames = {}
     @servers = @frame.servers.includes(:gestion, :modele => :category, :cards => :port_type, :cards_servers => [:composant, :ports])
     @servers.each do |s|
-      ilot = @frame.ilot
-      @servers_per_frames[ilot] ||= {}
-      @servers_per_frames[ilot][@frame] ||= []
-      @servers_per_frames[ilot][@frame] << s
+      islet = @frame.islet
+      @servers_per_frames[islet] ||= {}
+      @servers_per_frames[islet][@frame] ||= []
+      @servers_per_frames[islet][@frame] << s
     end
     @sums = calculate_ports_sums(@frame, @servers)
 
@@ -54,7 +54,7 @@ class FramesController < ApplicationController
   end
 
   def index
-    @frames = Frame.order("frames.room_id, frames.position asc")
+    @frames = Frame.includes(:bay => {:islet => :room})
   end
 
   def destroy

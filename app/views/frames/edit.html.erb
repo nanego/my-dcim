@@ -1,7 +1,7 @@
 <%
   breadcrumb_variables = {'Rooms' => overview_rooms_path,
                           @frame.room.title => (@frame.present? ? room_path(@frame.room):''),
-                          "Frame #{@frame.title}" => frame_path(@frame),
+                          "Baie #{@frame.title}" => frame_path(@frame),
                           "Edition" => ''}
 %>
 <%= render 'layouts/breadcrumb', params: breadcrumb_variables %>
@@ -39,16 +39,16 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :room_id, class: "col-sm-2 control-label" %>
+    <%= f.label :room, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.text_field :room_id, class: "form-control" %>
+      <%= f.text_field :room, class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group">
-    <%= f.label :ilot, class: "col-sm-2 control-label" %>
+    <%= f.label :islet, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.text_field :ilot, class: "form-control" %>
+      <%= f.text_field :islet, class: "form-control" %>
     </div>
   </div>
 
@@ -67,7 +67,7 @@
   </div>
 
   <div class="form-group">
-    <%= f.label 'Frame couplée à', class: "col-sm-2 control-label" %>
+    <%= f.label 'Baie couplée à', class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.object.other_frame.present? ? link_to(f.object.other_frame.title, frame_path(f.object.other_frame)) : "Aucune baie couplée" %>
     </div>

@@ -1,7 +1,7 @@
 class RoomsController < ApplicationController
   include ServersHelper
 
-  before_action :set_room, only: [:show, :edit, :update, :destroy, :ilot]
+  before_action :set_room, only: [:show, :edit, :update, :destroy, :islet]
 
   # GET /rooms
   # GET /rooms.json
@@ -12,13 +12,13 @@ class RoomsController < ApplicationController
   def show
     @servers_per_frames = {}
     @sums = {}
-    @room.frames.includes(:coupled_frame, :inverse_coupled_frame).order('frames.ilot asc, frames.position asc').each do |frame|
+    @room.frames.includes(:islet, :bay => :frames).each do |frame|
       servers = frame.servers.includes(:gestion, :cluster, :modele => :category, :cards => :port_type, :cards_servers => [:composant, :ports])
       servers.each do |s|
-        ilot = frame.ilot
-        @servers_per_frames[ilot] ||= {}
-        @servers_per_frames[ilot][frame] ||= []
-        @servers_per_frames[ilot][frame] << s
+        islet = frame.islet.name
+        @servers_per_frames[islet] ||= {}
+        @servers_per_frames[islet][frame] ||= []
+        @servers_per_frames[islet][frame] << s
       end
       @sums.merge!(calculate_ports_sums(frame, servers))
     end
@@ -38,16 +38,16 @@ class RoomsController < ApplicationController
     end
   end
 
-  def ilot
-    ilot = params[:ilot]
+  def islet
+    islet = params[:islet]
     @servers_per_frames = {}
     @sums = {}
-    @room.frames.includes(:servers, :coupled_frame, :inverse_coupled_frame).where('frames.ilot = ?', ilot).order('frames.ilot asc, frames.position asc').each do |frame|
-      servers = frame.servers.includes(:gestion, :modele => :category, :cards => :port_type, :cards_servers => [:composant, :ports])
+    @room.frames.includes(:islet, :bay => :frames).where('islets.name = ?', islet).each do |frame|
+      servers = frame.servers.includes(:gestion, :modele => :category, :cards => :port_type, :cards_servers => :composant)
       servers.each do |s|
-        @servers_per_frames[frame.ilot] ||= {}
-        @servers_per_frames[frame.ilot][frame] ||= []
-        @servers_per_frames[frame.ilot][frame] << s
+        @servers_per_frames[frame.islet] ||= {}
+        @servers_per_frames[frame.islet][frame] ||= []
+        @servers_per_frames[frame.islet][frame] << s
       end
       @sums.merge!(calculate_ports_sums(frame, servers))
     end

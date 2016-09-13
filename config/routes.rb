@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :server_states
-  resources :couple_baies
+
   resources :frames, only: [:edit, :update, :show, :index, :destroy] do
     collection do
       post :sort
@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   resources :colors
   resources :rooms do
     collection do
-      get :ilot
+      get :islet
       get :overview
     end
   end

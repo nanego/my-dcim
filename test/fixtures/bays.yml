@@ -1,13 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   name: MyString
   lane: 1
   position: 1
-  bay_type_id: 
+  bay_type_id: 1
+  islet_id: 1
 
 two:
+  id : 2
   name: MyString
   lane: 1
   position: 1
-  bay_type_id: 
+  bay_type_id: 2
+  islet_id: 1

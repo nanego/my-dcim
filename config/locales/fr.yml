@@ -47,6 +47,10 @@ fr:
       destroy: a supprimé une carte sur un serveur
       update: a modifié une carte sur un serveur
       create: a ajouté une carte sur un serveur
+    server:
+      update: a modifié un serveur
+      create: a ajouté un serveur
+      destroy: a supprimé un serveur
   order-in-progress: 'Commande en cours'
 
   views:

@@ -25,6 +25,12 @@ class Server < ActiveRecord::Base
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
 
+  default_scope { order(:position => :desc) }
+
+  validates :frame_id, presence: true
+  validates :modele_id, presence: true
+  validates :nom , presence: true
+
   def to_s
     nom
   end
@@ -32,8 +38,9 @@ class Server < ActiveRecord::Base
   require 'csv'
   def self.import(csv_file, room, server_state)
     room = room || Room.find_or_create_by!(title: 'Atelier')
-    frame = Frame.create!(title: csv_file.original_filename.sub('.csv', ''),
-                         room: room)
+    islet = room.islets.first
+    bay = islet.bays.create!
+    frame = bay.frames.create!(title: csv_file.original_filename.sub('.csv', ''))
     CSV.foreach(csv_file.path, {headers: true, col_sep: ';' }) do |row|
       server_data = row.to_hash
       modele = Modele.find_by_title(server_data['Modele'])

@@ -49,7 +49,7 @@ jQuery ->
               positions.push($(this).find('span.u_scale')[0].textContent)
           )
           # Update db data
-          $.post($(this).data('update-url'), $(this).sortable('serialize') + '&room=' +  $(this).data('room') + '&ilot=' +  $(this).data('ilot') + '&frame=' +  $(this).data('frame') + '&positions=' + positions)
+          $.post($(this).data('update-url'), $(this).sortable('serialize') + '&room=' +  $(this).data('room') + '&islet=' +  $(this).data('islet') + '&frame=' +  $(this).data('frame') + '&positions=' + positions)
       );
   update_u_scale = (list) ->
     count = list.find('span.u_scale').length

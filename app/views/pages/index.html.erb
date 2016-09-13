@@ -19,7 +19,10 @@
                   <div style="text-align: center;font-size: x-large;margin-bottom: 5px;"><%= link_to room.title, room %></div>
                   <ul>
                     <% Category.all.each do |cat| %>
-                      <li><%= "#{cat} : #{room.servers.joins(:modele).where("modeles.category_id = ?", cat.id).count}" %></li>
+                      <% count = room.servers.joins(:modele).where("modeles.category_id = ?", cat.id).count %>
+                      <% if count > 0 %>
+                        <li><%= "#{cat} : #{room.servers.joins(:modele).where("modeles.category_id = ?", cat.id).count}" %></li>
+                      <% end %>
                     <% end %>
                   </ul>
                 </div>
