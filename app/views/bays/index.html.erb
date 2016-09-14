@@ -1,0 +1,66 @@
+<div class="container">
+
+  <%= render 'layouts/breadcrumb', params: {'Configuration' => modeles_url, 'Baies et doubles-baies' => ''} %>
+
+  <div class="row">
+
+    <div class="col-md-3">
+      <%= render 'pages/params_menu' %>
+    </div>
+
+    <div class="col-md-9">
+
+      <div class="page-header">
+        <%= link_to new_bay_path, class: 'btn btn-primary btn-disabled' do %>
+          <span class="glyphicon glyphicon-plus"></span>
+          Ajouter un couple
+        <% end %>
+        <h1>Baies et doubles-baies</h1>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Salle</th>
+              <th>Ilot</th>
+              <th>Baies</th>
+              <th>Ligne</th>
+              <th>Position</th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @bays.group_by(&:room).sort.each do |key, bays| %>
+              <% bays.group_by(&:islet).sort.each do |islet, bays_per_islet| %>
+                <% bays_per_islet.each do |bay| %>
+                  <tr>
+                    <td><%= bay.room %> </td>
+                    <td><%= bay.islet %> </td>
+
+                    <td><%= bay.frames.map(&:title).join(' / ') %></td>
+
+                    <td><%= bay.lane %> </td>
+                    <td><%= bay.position %> </td>
+
+                    <td><%= pluralize(bay.servers.count, 'serveur') %> </td>
+
+
+                    <td><%= link_to 'Modifier', edit_bay_path(bay), class: 'btn btn-primary' %></td>
+                    <td><%= link_to 'Supprimer', bay, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+                  </tr>
+                <% end %>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

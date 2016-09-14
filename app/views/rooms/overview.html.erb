@@ -1,6 +1,6 @@
-<%= render 'layouts/breadcrumb', params: {'Aperçu des salles' => nil} %>
-
 <div class="container-fluid rooms-overview">
+
+  <%= render 'layouts/breadcrumb', params: {'Aperçu des salles' => nil} %>
 
   <div class="row" %>
 
@@ -16,16 +16,21 @@
               <div class="col-md-12">
                 <h5><%= islet.name.present? ? link_to("Islet #{islet}", islet_rooms_path(id: room.id, islet: islet, :view => params[:view], bg: params[:bg])) : 'Ilot sans nom' %></h5>
                 <div class="row islet">
-                  <% islet.bays.each do |bay| %>
-                    <% bay.frames.each_with_index do |frame, index| %>
-                      <div class="pull-left">
-                        <div class="frame <%= 'no-margin' if index > 0 %>">
-                          <%= link_to frame.title, frame_path(frame) %>
-                        </div>
-                      </div>
-                    <% end %>
+                  <% islet.bays.group_by(&:lane).each do |lane, bays| %>
+                    <div style="clear: both;">
+                      <% bays.each do |bay| %>
+                        <% bay.frames.each_with_index do |frame, index| %>
+                          <div class="pull-left">
+                            <div class="frame <%= 'no-margin' if index > 0 %>">
+                              <%= link_to frame.title, frame_path(frame) %>
+                            </div>
+                          </div>
+                        <% end %>
+                      <% end %>
+                    </div>
                   <% end %>
-              </div></div>
+                </div>
+              </div>
             <% end %>
           </div>
         </div>

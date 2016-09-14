@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       get :overview
     end
   end
+  resources :bays
   resources :gestions
   resources :domaines
   resources :modeles
