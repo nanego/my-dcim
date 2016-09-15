@@ -6,7 +6,7 @@ class Bay < ActiveRecord::Base
   has_many :frames
   has_many :servers, through: :frames
 
-  default_scope { order( :lane, :position ) }
+  scope :sorted, -> { order( :lane, :position ) }
 
   def to_s
     name

@@ -9,8 +9,9 @@ class FramesController < ApplicationController
     @servers.each do |s|
       islet = @frame.islet
       @servers_per_frames[islet] ||= {}
-      @servers_per_frames[islet][@frame] ||= []
-      @servers_per_frames[islet][@frame] << s
+      @servers_per_frames[islet][@frame.bay] ||= {}
+      @servers_per_frames[islet][@frame.bay][@frame] ||= []
+      @servers_per_frames[islet][@frame.bay][@frame] << s
     end
     @sums = calculate_ports_sums(@frame, @servers)
 
@@ -70,7 +71,7 @@ class FramesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def frame_params
-    params.require(:frame).permit(:title)
+    params.require(:frame).permit(:title, :u, :room, :islet, :position, :switch_slot)
   end
 
 end

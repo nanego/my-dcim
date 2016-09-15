@@ -17,8 +17,9 @@ class RoomsController < ApplicationController
       servers.each do |s|
         islet = frame.islet.name
         @servers_per_frames[islet] ||= {}
-        @servers_per_frames[islet][frame] ||= []
-        @servers_per_frames[islet][frame] << s
+        @servers_per_frames[islet][frame.bay] ||= {}
+        @servers_per_frames[islet][frame.bay][frame] ||= []
+        @servers_per_frames[islet][frame.bay][frame] << s
       end
       @sums.merge!(calculate_ports_sums(frame, servers))
     end
@@ -45,9 +46,11 @@ class RoomsController < ApplicationController
     @room.frames.includes(:islet, :bay => :frames).where('islets.name = ?', islet).each do |frame|
       servers = frame.servers.includes(:gestion, :modele => :category, :cards => :port_type, :cards_servers => :composant)
       servers.each do |s|
-        @servers_per_frames[frame.islet] ||= {}
-        @servers_per_frames[frame.islet][frame] ||= []
-        @servers_per_frames[frame.islet][frame] << s
+        islet = frame.islet.name
+        @servers_per_frames[islet] ||= {}
+        @servers_per_frames[islet][frame.bay] ||= {}
+        @servers_per_frames[islet][frame.bay][frame] ||= []
+        @servers_per_frames[islet][frame.bay][frame] << s
       end
       @sums.merge!(calculate_ports_sums(frame, servers))
     end

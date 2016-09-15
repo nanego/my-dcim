@@ -25,7 +25,7 @@ class Server < ActiveRecord::Base
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
 
-  default_scope { order(:position => :desc) }
+  scope :sorted, -> { order( :position => :desc) }
 
   validates :frame_id, presence: true
   validates :modele_id, presence: true

@@ -11,7 +11,7 @@ class Room < ActiveRecord::Base
   has_many :frames, -> { order("frames.position asc") }, through: :bays
   has_many :servers, -> { order("servers.position asc") }, through: :frames
 
-  default_scope { order(:position) }
+  scope :sorted, -> { order( :position ) }
 
   def to_s
     title

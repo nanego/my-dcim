@@ -9,16 +9,13 @@
 
 <div id="<%= @room.try(:title).try(:parameterize).try(:underscore) %>">
 
-  <% islets.each do |islet, frames| %>
+  <% islets.each do |islet, bays| %>
 
     <div>
       <div>
         <div class="panel-islet">
           <% if @room.present? %>
-          <div>
-
-            <h3>Room <%= @room.title %> - Ilot <%= islet %></h3>
-          </div>
+            <div><h3>Salle <%= @room.title %> - Ilot <%= islet %></h3></div>
           <% end %>
 
           <div class="row">
@@ -31,47 +28,38 @@
                 data-max-rj45='<%= max_rj45 %>'
                 data-max-fc='<%= max_fc %>' >
 
-              <% previous_frame, second_frame = nil %>
-              <% frames.each_with_index do |(frame, servers), index| %>
+              <% bays.each_with_index do |(bay, frames), index| %>
 
-                <% if frame.other_frame.present? && frames.include?(frame.other_frame) && formats != [:pdf]
-                     if frame.other_frame==previous_frame
-                       second_frame = true
-                     else
-                     %>
-                    <div class="col-sm-12 col-lg-6" style='overflow: auto;'> <div class="panel well" style='overflow: auto;'><div class="panel-body">
-                    <% second_frame = false
-                     end
-                   else
-                     second_frame = false
-                   end
-                %>
+                <% if frames.size > 1 && formats != [:pdf] # double bay && not a PDF %>
+                  <div class="col-sm-12 col-lg-6" style='overflow: auto;'> <div class="panel well" style='overflow: auto;'><div class="panel-body">
+                <% end %>
 
-                <% sums = @sums[frame.id] %>
-                <% sum_u = servers.sum { |s| s.modele.try(:u) || 0 } %>
-                <% sum_elements = servers.sum { |s| s.modele.try(:nb_elts) || 0 } %>
-                <% col_params = frame.other_frame.present? ? 'col-lg-6' : 'col-lg-3' %>
-                <div class="frame col-xs-12 col-sm-6 <%= frames.count>1 ? col_params:'col-sm-offset-3' %>" id="frame_<%= frame.id %>">
-                  <div class="panel <%= sum_u > max_u || sum_elements > max_elts || sums['RJ'] > max_rj45 || sums['FC'] > max_fc ? 'panel-danger' : 'panel-default' %> panel-frame">
-                    <div class="panel-heading">
-                      <h5 class="panel-title" style="display: inline;">
-                        <%= link_to "#{frame.title}", frame_path(frame, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' %>
-                        <% if frame.other_frame.present? && formats != [:pdf] %>
-                          <%= link_to frame_path(frame.other_frame, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' do %>
-                            <span class="glyphicon glyphicon-link" aria-hidden="true" title="Couplée à la frame <%= frame.other_frame.title %>"></span>
+                <% frames.each do |frame, servers| %>
+                  <% sums = @sums[frame.id] %>
+                  <% sum_u = servers.sum { |s| s.modele.try(:u) || 0 } %>
+                  <% sum_elements = servers.sum { |s| s.modele.try(:nb_elts) || 0 } %>
+                  <% col_params = frame.other_frame.present? ? 'col-lg-6' : 'col-lg-3' %>
+                  <div class="frame col-xs-12 col-sm-6 <%= frames.count>1 ? col_params:'col-sm-offset-3' %>" id="frame_<%= frame.id %>">
+                    <div class="panel <%= sum_u > max_u || sum_elements > max_elts || sums['RJ'] > max_rj45 || sums['FC'] > max_fc ? 'panel-danger' : 'panel-default' %> panel-frame">
+                      <div class="panel-heading">
+                        <h5 class="panel-title" style="display: inline;">
+                          <%= link_to "#{frame.title}", frame_path(frame, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' %>
+                          <% if frame.other_frame.present? && formats != [:pdf] %>
+                            <%= link_to frame_path(frame.other_frame, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' do %>
+                              <span class="glyphicon glyphicon-link" aria-hidden="true" title="Couplée à la frame <%= frame.other_frame.title %>"></span>
+                            <% end %>
                           <% end %>
+                        </h5>
+                        <% if formats != [:pdf] %>
+                          <%= link_to "modifier", edit_frame_path(frame, :view => params[:view]), class: 'btn btn-default pull-right' %>
                         <% end %>
-                      </h5>
-                      <% if formats != [:pdf] %>
-                        <%= link_to "modifier", edit_frame_path(frame, :view => params[:view]), class: 'btn btn-default pull-right' %>
-                      <% end %>
-                      <div class="clearfix"></div>
-                    </div>
-                    <ul class='servers connectedFrames list-group'
-                        data-room="<%= @room.title %>"
-                        data-islet="<%= islet %>"
-                        data-frame="<%= frame.title %>"
-                        data-update-url="<%= sort_servers_path %>">
+                        <div class="clearfix"></div>
+                      </div>
+                      <ul class='servers connectedFrames list-group'
+                          data-room="<%= @room.title %>"
+                          data-islet="<%= islet %>"
+                          data-frame="<%= frame.title %>"
+                          data-update-url="<%= sort_servers_path %>">
 
                         <% u_disponibles = frame.u || 41 %>
                         <% servers.each do |server| %>
@@ -87,23 +75,23 @@
 
                             <% if %w(gestionnaire cluster).include?(params['bg'])
 
-                                if params['bg'].present?
-                                  case params['bg']
-                                    when 'gestionnaire'
-                                      parent_type = 'Gestionnaire'
-                                      parent_id = server.gestion.try(:title)
-                                    when 'cluster'
-                                      parent_type = 'Cluster'
-                                      parent_id = server.cluster.try(:title)
-                                  end
-                                end
+                                 if params['bg'].present?
+                                   case params['bg']
+                                     when 'gestionnaire'
+                                       parent_type = 'Gestionnaire'
+                                       parent_id = server.gestion.try(:title)
+                                     when 'cluster'
+                                       parent_type = 'Cluster'
+                                       parent_id = server.cluster.try(:title)
+                                   end
+                                 end
 
-                                color = Color.where(parent_type: parent_type, parent_id: parent_id).first
-                                if color.blank? || color.code.blank?
-                                  color = Color.create!(parent_type: parent_type, parent_id: parent_id, code: lighten_color("##{Digest::MD5.hexdigest(parent_id.to_s || 'test')[0..5]}", 0.4))
-                                end
-                                bgModeleColor = color.code
-                              %>
+                                 color = Color.where(parent_type: parent_type, parent_id: parent_id).first
+                                 if color.blank? || color.code.blank?
+                                   color = Color.create!(parent_type: parent_type, parent_id: parent_id, code: lighten_color("##{Digest::MD5.hexdigest(parent_id.to_s || 'test')[0..5]}", 0.4))
+                                 end
+                                 bgModeleColor = color.code
+                            %>
                             <% else %>
                               <% bgModeleColor = server.modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(server.modele.try(:title) || 'test')[0..5]}", 0.4) %>
                             <% end %>
@@ -143,36 +131,38 @@
                             <% end %>
                           <% end %>
                         <% end %>
-                      <% u_disponibles.times do |u| %>
-                        <li class="server list-group-item truncate" style="height: <%= min_height %>px;">
-                          <%= render 'servers/draw_u_scale_unit.html.erb', i:0, u_disponibles:u_disponibles, u_server:1 %>
-                        </li>
-                        <% u_disponibles -= 1 %>
-                      <% end %>
+                        <% u_disponibles.times do |u| %>
+                          <li class="server list-group-item truncate" style="height: <%= min_height %>px;">
+                            <%= render 'servers/draw_u_scale_unit.html.erb', i:0, u_disponibles:u_disponibles, u_server:1 %>
+                          </li>
+                          <% u_disponibles -= 1 %>
+                        <% end %>
 
-                    </ul>
-                    <div class="panel-footer">
-                      <% if formats != [:pdf] %>
+                      </ul>
+                      <div class="panel-footer">
+                        <% if formats != [:pdf] %>
                         <span class="pull-right">
                           <button type="button" class="btn btn-default glyphicon glyphicon-plus" data-toggle="modal" data-target=".bs-example-modal-sm"></button>
                         </span>
-                      <% end %>
-                      <%= render 'servers/sum_labels.html.erb',
-                                 sums: sums,
-                                 sum_u: sum_u,
-                                 sum_elements: sum_elements,
-                                 max_u: max_u,
-                                 max_elts: max_elts,
-                                 max_rj45: max_rj45,
-                                 max_fc: max_fc %>
+                        <% end %>
+                        <%= render 'servers/sum_labels.html.erb',
+                                   sums: sums,
+                                   sum_u: sum_u,
+                                   sum_elements: sum_elements,
+                                   max_u: max_u,
+                                   max_elts: max_elts,
+                                   max_rj45: max_rj45,
+                                   max_fc: max_fc %>
+                      </div>
                     </div>
                   </div>
-                </div>
+                <% end %>
 
-                <% if second_frame %>
-                  </div><div class="panel-footer">
+                <% if frames.size > 1 && formats != [:pdf] # double bay && not a PDF %>
+                  </div>
+                  <div class="panel-footer">
                     <%= render 'servers/sum_labels.html.erb',
-                               sums: (@sums[frame.id].merge(@sums[previous_frame.id]){|_,a,b|a+b}),
+                               sums: (@sums[bay.frames.first.id].merge(@sums[bay.frames.last.id]){|_,a,b|a+b}),
                                sum_u: nil,
                                sum_elements: nil,
                                max_u: max_u*2,
@@ -180,13 +170,16 @@
                                max_rj45: max_rj45*2,
                                max_fc: max_fc*2 %>
                   </div>
-                  </div></div>
-                <%end%>
+                  </div>
+                  </div>
+                <% end %>
                 <% if (index+1) % 4 == 0 %>
                   <span class="clearfix"></span>
                 <% end %>
-                <% previous_frame = frame %>
+
               <% end %>
+
+
 
             </ul>
           </div>
