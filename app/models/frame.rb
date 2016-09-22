@@ -17,6 +17,10 @@ class Frame < ActiveRecord::Base
     title
   end
 
+  def should_generate_new_friendly_id?
+    slug.blank? || title_changed?
+  end
+
   def name_with_room_and_islet
     "#{room.try(:title).present? ? "Salle #{room.title} " : ''} #{bay.present? ? "Ilot #{bay.islet.name}" : ''} Baie #{title.present? ? title : 'non précisée' }"
   end

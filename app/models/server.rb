@@ -35,6 +35,10 @@ class Server < ActiveRecord::Base
     nom
   end
 
+  def should_generate_new_friendly_id?
+    slug.blank? || nom_changed?
+  end
+
   require 'csv'
   def self.import(csv_file, room, server_state)
     room = room || Room.find_or_create_by!(title: 'Atelier')
