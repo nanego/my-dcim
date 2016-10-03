@@ -10,11 +10,11 @@ class CreateActivities < ActiveRecord::Migration
       t.belongs_to :recipient, :polymorphic => true
 
       t.timestamps
-    end
+    end unless table_exists? 'activities'
 
-    add_index :activities, [:trackable_id, :trackable_type]
-    add_index :activities, [:owner_id, :owner_type]
-    add_index :activities, [:recipient_id, :recipient_type]
+    add_index :activities, [:trackable_id, :trackable_type] unless index_exists?(:activities, [:trackable_id, :trackable_type])
+    add_index :activities, [:owner_id, :owner_type] unless index_exists?(:activities, [:owner_id, :owner_type])
+    add_index :activities, [:recipient_id, :recipient_type] unless index_exists?(:activities, [:recipient_id, :recipient_type])
   end
   # Drop table
   def self.down
