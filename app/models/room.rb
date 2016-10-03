@@ -12,6 +12,7 @@ class Room < ActiveRecord::Base
   has_many :servers, -> { order("servers.position asc") }, through: :frames
 
   scope :sorted, -> { order( :position ) }
+  scope :not_empty, -> { joins(:servers) }
 
   def to_s
     title
