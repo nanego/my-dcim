@@ -92,23 +92,27 @@ class ServersGrid
     end
   end
   column(:type, :order => proc { |scope|
-    scope.joins(:category).order("categories.title")
+    scope.joins(:modele => :category).order("categories.title")
   }) do |record|
     record.modele.try(:category)
   end
-  column(:nb_elts) do |record|
+  column(:nb_elts, :order => proc { |scope|
+    scope.joins(:modele).order("nb_elts")
+  }) do |record|
     record.modele.try(:nb_elts)
   end
   column(:architecture, :order => proc { |scope|
-    scope.joins(:architecture).order("architectures.title")
+    scope.joins(:modele => :architecture).order("architectures.title")
   }) do |record|
     record.modele.try(:architecture)
   end
-  column(:u) do |record|
+  column(:u, :order => proc { |scope|
+    scope.joins(:modele).order("u")
+  }) do |record|
     record.modele.try(:u)
   end
   column(:marque, :order => proc { |scope|
-    scope.joins(:marque).order("marques.title")
+    scope.joins(:modele => :marque).order("marques.title")
   }) do |record|
     record.modele.try(:marque)
   end
