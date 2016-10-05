@@ -1,9 +1,13 @@
 <div class="page-header">
+  <%= link_to url_for(format: :csv, params: params), class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-export"></span>
+    Exporter au format CSV
+  <% end %>
   <%= link_to new_server_path, class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-plus"></span>
-    Ajouter un server
+    Ajouter un serveur
   <% end %>
-  <h1>Tous les servers</h1>
+  <h1>Tous les serveurs</h1>
 </div>
 
 <div class="panel panel-primary">

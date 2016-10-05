@@ -7,6 +7,11 @@ class ServersGridsController < ApplicationController
     end
 
     @servers = ServersGrid.new(params[:servers_grid])
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @servers.to_csv }
+    end
   end
 
   def reseau
