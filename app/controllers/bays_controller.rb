@@ -1,28 +1,20 @@
 class BaysController < ApplicationController
   before_action :set_bay, only: [:show, :edit, :update, :destroy]
 
-  # GET /bays
-  # GET /bays.json
   def index
-    @bays = Bay.all
+    @bays = Bay.joins(:islet => :room).order('rooms.position, islets.name, bays.lane, bays.position')
   end
 
-  # GET /bays/1
-  # GET /bays/1.json
   def show
   end
 
-  # GET /bays/new
   def new
     @bay = Bay.new
   end
 
-  # GET /bays/1/edit
   def edit
   end
 
-  # POST /bays
-  # POST /bays.json
   def create
     @bay = Bay.new(bay_params)
 
@@ -37,8 +29,6 @@ class BaysController < ApplicationController
     end
   end
 
-  # PATCH/PUT /bays/1
-  # PATCH/PUT /bays/1.json
   def update
     respond_to do |format|
       if @bay.update(bay_params)
@@ -51,8 +41,6 @@ class BaysController < ApplicationController
     end
   end
 
-  # DELETE /bays/1
-  # DELETE /bays/1.json
   def destroy
     @bay.destroy
     respond_to do |format|

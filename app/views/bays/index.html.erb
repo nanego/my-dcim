@@ -34,26 +34,22 @@
           </thead>
 
           <tbody>
-            <% @bays.group_by(&:room).sort.each do |key, bays| %>
-              <% bays.group_by(&:islet).sort.each do |islet, bays_per_islet| %>
-                <% bays_per_islet.each do |bay| %>
-                  <tr>
-                    <td><%= bay.room %> </td>
-                    <td><%= bay.islet %> </td>
+            <% @bays.each do |bay| %>
+              <tr>
+                <td><%= bay.room %> </td>
+                <td><%= bay.islet %> </td>
 
-                    <td><%= bay.frames.map(&:title).join(' / ') %></td>
+                <td><%= bay.frames.map(&:title).join(' / ') %></td>
 
-                    <td><%= bay.lane %> </td>
-                    <td><%= bay.position %> </td>
+                <td><%= bay.lane %> </td>
+                <td><%= bay.position %> </td>
 
-                    <td><%= pluralize(bay.servers.count, 'serveur') %> </td>
+                <td><%= pluralize(bay.servers.count, 'serveur') %> </td>
 
 
-                    <td><%= link_to 'Modifier', edit_bay_path(bay), class: 'btn btn-primary' %></td>
-                    <td><%= link_to 'Supprimer', bay, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
-                  </tr>
-                <% end %>
-              <% end %>
+                <td><%= link_to 'Modifier', edit_bay_path(bay), class: 'btn btn-primary' %></td>
+                <td><%= link_to 'Supprimer', bay, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+              </tr>
             <% end %>
           </tbody>
         </table>
