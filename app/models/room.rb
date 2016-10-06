@@ -7,9 +7,9 @@ class Room < ActiveRecord::Base
   tracked owner: ->(controller, model) { controller && controller.current_user }
 
   has_many :islets #, -> { order("islets.position asc") }
-  has_many :bays, -> { order("bays.position asc") }, through: :islets
-  has_many :frames, -> { order("frames.position asc") }, through: :bays
-  has_many :servers, -> { order("servers.position asc") }, through: :frames
+  has_many :bays, through: :islets
+  has_many :frames, through: :bays
+  has_many :servers, through: :frames
 
   scope :sorted, -> { order( :position ) }
   scope :not_empty, -> { joins(:servers) }

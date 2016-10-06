@@ -2,8 +2,8 @@ class Islet < ActiveRecord::Base
 
   belongs_to :room
   has_many :bays
-  has_many :frames, -> { order("frames.position asc") }, through: :bays
-  has_many :servers, -> { order("servers.position asc") }, through: :frames
+  has_many :frames, through: :bays
+  has_many :servers, through: :frames
 
   scope :sorted, -> { order( :name ) }
   scope :not_empty, -> { joins(:servers) }

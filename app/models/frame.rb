@@ -28,13 +28,15 @@ class Frame < ActiveRecord::Base
   def self.to_txt(servers_per_bay)
     txt = ""
     if servers_per_bay.present?
-      servers_per_bay.each do |islet, bays|
-        bays.each do |bay, frames|
-          frames.each_with_index do |(frame, servers), index|
-            txt << "\r\n#{frame.title}\r\n"
-            txt << "---------------\r\n"
-            servers.each do |server|
-              txt << "[#{server.position.to_s.rjust(2, "0")}] #{server.nom}\r\n"
+      servers_per_bay.each do |islet, lanes|
+        lanes.each do |lane, bays|
+          bays.each do |bay, frames|
+            frames.each do |frame, servers|
+              txt << "\r\n#{frame.title}\r\n"
+              txt << "---------------\r\n"
+              servers.each do |server|
+                txt << "[#{server.position.to_s.rjust(2, "0")}] #{server.nom}\r\n"
+              end
             end
           end
         end

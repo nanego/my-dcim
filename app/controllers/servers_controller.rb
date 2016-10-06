@@ -32,8 +32,9 @@ class ServersController < ApplicationController
     @frames.each do |frame|
       @servers_per_frames[frame.room] ||= {}
       @servers_per_frames[frame.room][frame.islet] ||= {}
-      @servers_per_frames[frame.room][frame.islet][frame.bay] ||= {}
-      @servers_per_frames[frame.room][frame.islet][frame.bay][frame] ||= []
+      @servers_per_frames[frame.room][frame.islet][frame.bay.lane] ||= {}
+      @servers_per_frames[frame.room][frame.islet][frame.bay.lane][frame.bay] ||= {}
+      @servers_per_frames[frame.room][frame.islet][frame.bay.lane][frame.bay][frame] ||= []
 
       # preload sums per frame
       servers = frame.servers.includes(:gestion, :cluster, :modele => :category, :cards => :port_type, :cards_servers => [:composant, :ports])

@@ -9,9 +9,10 @@ class FramesController < ApplicationController
     @servers.each do |s|
       islet = @frame.islet
       @servers_per_frames[islet] ||= {}
-      @servers_per_frames[islet][@frame.bay] ||= {}
-      @servers_per_frames[islet][@frame.bay][@frame] ||= []
-      @servers_per_frames[islet][@frame.bay][@frame] << s
+      @servers_per_frames[islet][@frame.bay.lane] ||= {}
+      @servers_per_frames[islet][@frame.bay.lane][@frame.bay] ||= {}
+      @servers_per_frames[islet][@frame.bay.lane][@frame.bay][@frame] ||= []
+      @servers_per_frames[islet][@frame.bay.lane][@frame.bay][@frame] << s
     end
     @sums = calculate_ports_sums(@frame, @servers)
 
