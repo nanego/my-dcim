@@ -106,10 +106,6 @@
     <div class="col-sm-10">
       <%= f.collection_select(:localisation_id, Localisation.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
     </div>
-    <%= f.label :armoire_id, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.collection_select(:armoire_id, Armoire.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
-    </div>
   </div>
 
 

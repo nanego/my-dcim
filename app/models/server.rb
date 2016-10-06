@@ -11,7 +11,6 @@ class Server < ActiveRecord::Base
   belongs_to :gestion
   belongs_to :domaine
   belongs_to :modele
-  belongs_to :armoire
   belongs_to :localisation
   belongs_to :cluster
   belongs_to :server_state

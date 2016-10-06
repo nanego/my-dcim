@@ -179,7 +179,6 @@ csv.each_with_index do |row, i|
         pdu_ondule: pdu_ondule,
         pdu_normal: pdu_normal,
         localisation: localisation,
-        # armoire: rack,
         nom: nom,
         modele: modele,
         numero: numero,

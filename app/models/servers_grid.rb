@@ -7,7 +7,7 @@ class ServersGrid
   #########
 
   scope do
-    Server.includes(:localisation, :armoire, :modele => :category, :frame => {:bay => {:islet => :room}})
+    Server.includes(:localisation, :modele => :category, :frame => {:bay => {:islet => :room}})
   end
 
   #########
@@ -16,7 +16,6 @@ class ServersGrid
 
   filter(:id, :string, :multiple => ',')
   filter(:localisation, :enum, :select => Localisation.where(published: true).map {|r| [r.to_s, r.id]})
-  filter :armoire, :enum, :select => Armoire.where(published: true).map {|r| [r.to_s, r.id]}
   filter :nom do |value|
     where("nom LIKE ?", value)
   end
@@ -76,11 +75,6 @@ class ServersGrid
     scope.joins(:localisation).order("localisations.title")
   }) do |record|
     record.localisation
-  end
-  column(:rack, :order => proc { |scope|
-    scope.joins(:armoire).order("armoires.title")
-  }) do |record|
-    record.armoire
   end
   column(:nom) do |model|
     format(model.nom) do |value|
