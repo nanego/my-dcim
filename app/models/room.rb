@@ -15,7 +15,7 @@ class Room < ActiveRecord::Base
   scope :not_empty, -> { joins(:servers) }
 
   def to_s
-    title
+    title.nil? ? "" : title
   end
 
   def should_generate_new_friendly_id?

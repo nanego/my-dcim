@@ -6,6 +6,6 @@ class Category < ActiveRecord::Base
   has_many :modeles
 
   def to_s
-    title
+    title.nil? ? "" : title
   end
 end

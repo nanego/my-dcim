@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   end
 
   def to_s
-    self.name
+    name.nil? ? email.to_s : name
   end
 
   # Include default devise modules. Others available are:

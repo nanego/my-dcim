@@ -9,7 +9,7 @@ class Bay < ActiveRecord::Base
   scope :sorted, -> { order( :lane, :position ) }
 
   def to_s
-    name
+    name.nil? ? "" : name
   end
 
 end

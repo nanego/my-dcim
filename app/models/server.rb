@@ -30,7 +30,7 @@ class Server < ActiveRecord::Base
   validates :nom , presence: true
 
   def to_s
-    nom
+    nom.nil? ? "" : nom
   end
 
   def should_generate_new_friendly_id?

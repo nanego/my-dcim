@@ -8,7 +8,7 @@ class Card < ActiveRecord::Base
   has_many :servers, through: :cards_servers
 
   def to_s
-    name
+    name.nil? ? "" : name
   end
 
 end

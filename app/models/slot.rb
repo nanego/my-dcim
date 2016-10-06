@@ -9,6 +9,6 @@ class Slot < ActiveRecord::Base
   acts_as_list scope: [:composant_id, :server_id]
 
   def to_s
-    valeur
+    valeur.nil? ? "" : valeur
   end
 end

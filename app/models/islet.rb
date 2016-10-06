@@ -10,7 +10,7 @@ class Islet < ActiveRecord::Base
   scope :has_name, -> { where.not(name: nil) }
 
   def to_s
-    name
+    name.nil? ? "" : name
   end
 
 end

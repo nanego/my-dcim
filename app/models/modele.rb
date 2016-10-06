@@ -23,7 +23,7 @@ class Modele < ActiveRecord::Base
                                 :reject_if     => :all_blank
 
   def to_s
-    title
+    title.nil? ? "" : title
   end
 
   def should_generate_new_friendly_id?

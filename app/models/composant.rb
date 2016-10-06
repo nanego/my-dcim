@@ -21,7 +21,7 @@ class Composant < ActiveRecord::Base
                                 :reject_if     => :all_blank
 
   def to_s
-    name
+    name.nil? ? "" : name
   end
 
 end

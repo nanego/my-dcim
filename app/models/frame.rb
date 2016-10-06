@@ -14,7 +14,7 @@ class Frame < ActiveRecord::Base
   scope :sorted, -> { order( :position ) }
 
   def to_s
-    title
+    title.nil? ? "" : title
   end
 
   def should_generate_new_friendly_id?

@@ -18,7 +18,7 @@ class ServersGrid
   filter :nom do |value|
     where("nom LIKE ?", value)
   end
-  filter :category, :enum, :select => Category.where(published: true).map {|r| [r.to_s, r.id]}  do |value|
+  filter 'Catégorie', :enum, :select => Category.where(published: true).map {|r| [r.to_s, r.id]}  do |value|
     joins(:modele).where("modeles.category_id = ?", value)
   end
   filter :nb_elts, :integer do |value|
@@ -35,6 +35,7 @@ class ServersGrid
   end
   filter(:modele, :enum, :select => Modele.where(published: true).map {|r| [r.to_s, r.id]})
   filter(:numero, :string)
+  filter(:position, :integer)
   filter :conso, :integer, :range => true #, :default => proc { [Server.minimum(:conso), Server.maximum(:conso)] }
   filter(:cluster, :enum, :select => Cluster.all.map {|r| [r.to_s, r.id]})
   filter(:critique, :xboolean)
@@ -110,6 +111,7 @@ class ServersGrid
     record.modele
   end
   column(:numero)
+  column(:position)
   column(:conso)
   column(:critique, :mandatory => false) do
     critique ? "Oui" : "Non"
