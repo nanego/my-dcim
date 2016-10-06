@@ -47,7 +47,7 @@ puts "Importation en cours"
 csv.each_with_index do |row, i|
   # puts ((i/369).to_i).to_s+'%' if i % 50 == 0
 
-  # Localisation,Rack,Nom du matériel,Type,Nb Elts,Architecture,U,MARQUE,MODELE,numéro de série,CONSO(Watt),I,PDUOndulé,PDUNormal,cluster,critique,domaine,gestion,Action,Phase,Salle,Îlot,"FCTotal","FCUtilisé","RJ45Total","RJ45Utilisé","RJ45Futur","IPMIUtilisé","IPMIFutur","RJ45CM","IPMIDédié",Slot 1,Slot 2,Slot 3,Slot 4,Slot 5,Slot 6,Slot 7,,,,,,
+  # Rack,Nom du matériel,Type,Nb Elts,Architecture,U,MARQUE,MODELE,numéro de série,CONSO(Watt),I,PDUOndulé,PDUNormal,cluster,critique,domaine,gestion,Action,Phase,Salle,Îlot,"FCTotal","FCUtilisé","RJ45Total","RJ45Utilisé","RJ45Futur","IPMIUtilisé","IPMIFutur","RJ45CM","IPMIDédié",Slot 1,Slot 2,Slot 3,Slot 4,Slot 5,Slot 6,Slot 7,,,,,,
 
   id = row[0]
   localisation = Localisation.find_or_create_by(title: row[1], published: true)
@@ -178,7 +178,6 @@ csv.each_with_index do |row, i|
         # baie: baie,
         pdu_ondule: pdu_ondule,
         pdu_normal: pdu_normal,
-        localisation: localisation,
         nom: nom,
         modele: modele,
         numero: numero,

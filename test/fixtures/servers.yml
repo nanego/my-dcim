@@ -1,7 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  localisation_id: 1
   frame_id: 1
   nom: MyString
   modele_id: 1
@@ -23,7 +22,6 @@ one:
   ipmi_dedie: 1
 
 two:
-  localisation_id: 1
   frame_id: 1
   nom: MyString
   modele_id: 1

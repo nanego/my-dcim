@@ -5,7 +5,7 @@ class ServersController < ApplicationController
 
   def index
     unless params[:servers_grid].present?
-      params[:servers_grid] = {"column_names"=>["id", "localisation", "rack", "nom", "type"]}
+      params[:servers_grid] = {"column_names"=>["id", "nom", "type"]}
     end
 
     @servers = ServersGrid.new(params[:servers_grid])
@@ -146,7 +146,7 @@ class ServersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def server_params
-      params.require(:server).permit(:server_state_id, :comment, :cluster_id, :position, :frame_id, :localisation_id, :gestion_id, :fc_futur, :rj45_cm, :category_id, :nom, :nb_elts, :architecture_id, :u, :marque_id, :modele_id, :numero, :conso, :critique, :domaine_id, :gestion_id, :acte_id, :fc_total, :fc_utilise, :rj45_total, :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur, :rg45_cm, :ipmi_dedie, :frame, :cards_servers_attributes => [:composant_id, :card_id, :_destroy, :id])
+      params.require(:server).permit(:server_state_id, :comment, :cluster_id, :position, :frame_id, :gestion_id, :fc_futur, :rj45_cm, :category_id, :nom, :nb_elts, :architecture_id, :u, :marque_id, :modele_id, :numero, :conso, :critique, :domaine_id, :gestion_id, :acte_id, :fc_total, :fc_utilise, :rj45_total, :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur, :rg45_cm, :ipmi_dedie, :frame, :cards_servers_attributes => [:composant_id, :card_id, :_destroy, :id])
     end
 
     def track_frame_and_position(old_values, new_values)

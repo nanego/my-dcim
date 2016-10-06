@@ -3,7 +3,7 @@ class ServersGridsController < ApplicationController
   def index
 
     unless params[:servers_grid].present?
-      params[:servers_grid] = {"column_names"=>["id", "localisation", "rack", "nom", "type"]}
+      params[:servers_grid] = {"column_names"=>["id", "nom", "type"]}
     end
 
     @servers = ServersGrid.new(params[:servers_grid])
@@ -16,7 +16,6 @@ class ServersGridsController < ApplicationController
 
   def reseau
     params[:servers_grid] = {"column_names"=>%W(id
-                                               localisation
                                                nom
                                                modele
                                                room

@@ -98,17 +98,6 @@
     </div>
   </div>
 
-
-  <h5>Champs obsolètes ?</h5>
-
-  <div class="form-group">
-    <%= f.label :localisation_id, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.collection_select(:localisation_id, Localisation.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
-    </div>
-  </div>
-
-
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <%= f.submit class: "btn btn-primary" %>

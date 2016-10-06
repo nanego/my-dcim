@@ -41,7 +41,6 @@ Rails.application.routes.draw do
   resources :marques
   resources :architectures
   resources :categories
-  resources :localisations
   namespace :admin do
     DashboardManifest::DASHBOARDS.each do |dashboard_resource|
       resources dashboard_resource
