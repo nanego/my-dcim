@@ -42,7 +42,7 @@ class ServersController < ApplicationController
     end
     @servers.each do |server|
       frame = server.frame
-      @servers_per_frames[frame.room][frame.islet][frame.bay][frame] << server if frame.present?
+      @servers_per_frames[frame.room][frame.islet][frame.bay.lane][frame.bay][frame] << server if frame.present?
     end
 
     respond_to do |format|
