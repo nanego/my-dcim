@@ -1,10 +1,9 @@
-require 'test_helper'
+require File.expand_path("../../test_helper", __FILE__)
 
 class FramesControllerTest < ActionController::TestCase
   test "should get show" do
     sign_in users(:one)
-    get :show
+    get :index
     assert_response :success
   end
-
 end

@@ -1,4 +1,5 @@
-require 'test_helper'
+require File.expand_path("../../test_helper", __FILE__)
+# require 'test_helper'
 
 class ActesControllerTest < ActionController::TestCase
   setup do

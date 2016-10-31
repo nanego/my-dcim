@@ -24,9 +24,9 @@
 
 <div class="detailed_server list-group-item">
   <% case @server.modele.try(:category_id) %>
-  <% when Category.find_by_title('Blank Panel').id %>
+  <% when Category.find_by_title('Blank Panel').try(:id) %>
     <%= render 'draw_blank_panel', server: @server %>
-  <% when Category.find_by_title('Patch Panel').id %>
+  <% when Category.find_by_title('Patch Panel').try(:id) %>
     <%= render 'draw_patch_panel', server: @server %>
   <% else %>
     <%= render 'draw_server_compact.html.erb', server: @server %>
@@ -100,7 +100,7 @@
     <% @server.cards_servers.where(:composant_id => slot.id).each do |card_server| %>
       <dd><%= card_server.composant.name ? card_server.composant.name : card_server.composant.position %> : <%= "#{card_server.card.try(:name)} (#{card_server.card.try(:port_quantity)}#{card_server.card.try(:port_type).try(:name)})" %></dd>
     <% end %>
-  <% end %>
+  <% end if @server.modele.present? %>
 
   <dt>Commentaire :</dt>
   <dd><%= @server.comment %></dd>

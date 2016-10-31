@@ -8,6 +8,8 @@ one:
   u: 1
   architecture_id: 1
   marque_id: 1
+  category_id: 1
+  nb_elts: 1
 
 two:
   title: MyString
@@ -17,3 +19,5 @@ two:
   u: 1
   architecture_id: 1
   marque_id: 1
+  category_id: 2
+  nb_elts: 1

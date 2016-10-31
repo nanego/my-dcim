@@ -1,7 +1,8 @@
-require 'test_helper'
+require File.expand_path("../../test_helper", __FILE__)
 
 class ServerStatesControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @server_state = server_states(:one)
   end
 
