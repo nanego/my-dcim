@@ -57,6 +57,23 @@ class ServersControllerTest < ActionController::TestCase
     assert_redirected_to server_path(assigns(:server))
   end
 
+  test "should rename a server" do
+    new_name = "NewServerName"
+    old_name = @server.nom
+    patch :update, id: @server, server: { nom: new_name }
+    assert_redirected_to server_path(assigns(:server))
+
+    # test new name
+    response = get :show, id: new_name
+    assert_response :success
+    assert_equal assigns(:server), @server
+
+    #old name should continue to work
+    get :show, id: old_name
+    assert_response :success
+    assert_equal assigns(:server), @server
+  end
+
   test "should destroy server" do
     assert_difference('Server.count', -1) do
       delete :destroy, id: @server
