@@ -3,6 +3,7 @@ require File.expand_path("../../test_helper", __FILE__)
 class ServersControllerTest < ActionController::TestCase
   setup do
     sign_in users(:one)
+    Server.find_each(&:save)
     @server = servers(:one)
   end
 
@@ -33,6 +34,11 @@ class ServersControllerTest < ActionController::TestCase
 
   test "should show server using id" do
     get :show, id: @server.id
+    assert_response :success
+  end
+
+  test "should show server using their name" do
+    get :show, id: @server.nom
     assert_response :success
   end
 
