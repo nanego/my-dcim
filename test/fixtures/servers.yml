@@ -1,10 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   frame_id: 1
-  nom: MyString
+  nom: ServerName1
   modele_id: 1
-  numero: MyString
+  numero: CZ31535FEY
   conso: 1
   cluster: false
   critique: false
@@ -22,10 +23,11 @@ one:
   ipmi_dedie: 1
 
 two:
+  id: 2
   frame_id: 1
-  nom: MyString
+  nom: ServerName1
   modele_id: 1
-  numero: MyString
+  numero: ABCDEFG32
   conso: 1
   cluster: false
   critique: false

@@ -30,6 +30,16 @@ class ServersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should show server using id" do
+    get :show, id: @server.id
+    assert_response :success
+  end
+
+  test "should show server using serial number" do
+    get :show, id: @server.numero
+    assert_response :success
+  end
+
   test "should get edit" do
     get :edit, id: @server
     assert_response :success
