@@ -45,7 +45,7 @@
                     <% clusters.each do |c| %>
                       <% if c.present? %>
                         <li <%= "class=active" if params[:cluster_id]==c.id.to_s %> >
-                          <%= link_to c.title, frames_servers_path(cluster_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
+                          <%= link_to c.title, overview_rooms_path(cluster_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
                         </li>
                       <% end %>
                     <% end %>
@@ -61,7 +61,7 @@
           <ul class="dropdown-menu">
             <% Gestion.order('LOWER(title) asc').each do |c| %>
               <li <%= "class=active" if params[:gestion_id]==c.id.to_s %> >
-                <%= link_to c.title, frames_servers_path(gestion_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
+                <%= link_to c.title, overview_rooms_path(gestion_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
               </li>
             <% end %>
           </ul>

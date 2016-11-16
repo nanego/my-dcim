@@ -2,7 +2,7 @@
 
   <%= render 'layouts/breadcrumb', params: {'Aperçu des salles' => nil} %>
 
-  <div class="row" %>
+  <div class="row">
 
   <% @rooms.each do |room| %>
     <div class="col-md-6 col-sm-12">
@@ -21,7 +21,7 @@
                       <% bays.each do |bay| %>
                         <% bay.frames.sorted.each_with_index do |frame, index| %>
                           <div class="pull-left">
-                            <div class="frame <%= 'no-margin' if index > 0 %>">
+                            <div class="overviewed_frame <%= 'no-margin' if index > 0 %>">
                               <%= link_to frame.title, frame_path(frame) %>
                             </div>
                           </div>

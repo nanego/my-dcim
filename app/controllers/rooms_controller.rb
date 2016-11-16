@@ -74,6 +74,27 @@ class RoomsController < ApplicationController
 
   def overview
     @rooms = Room.order(:position).joins(:frames).includes(:frames).uniq
+
+    if params[:cluster_id].present? || params[:gestion_id].present?
+      @frames = Frame.includes(:bay => {:islet => :room}).order('rooms.title asc, islets.name asc, frames.position asc')
+      @sums = {}
+      @frames.each do |frame|
+        @sums.merge!(calculate_ports_sums(frame, frame.servers))
+      end
+      @current_filters = ''
+      if params[:cluster_id].present?
+        @frames = @frames.joins(:servers).where('servers.cluster_id = ? ', params[:cluster_id])
+        @current_filters << "Cluster #{Cluster.find_by_id(params[:cluster_id])} "
+      end
+      if params[:gestion_id].present?
+        @frames = @frames.joins(:servers).where('servers.gestion_id = ? ', params[:gestion_id])
+        @current_filters << "Gestionnaire #{Gestion.find_by_id(params[:gestion_id])} "
+      end
+      render :filtered_overview
+    end
+  end
+
+  def filtered_overview
   end
 
   # GET /rooms/new

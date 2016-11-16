@@ -1,8 +1,8 @@
-<% max_u = 38 %>
-<% max_elts = 24 %>
-<% max_rj45 = 48 %>
-<% max_fc = 12 %>
-<% min_height = params[:view]=='back' ? 20 : 27 %>
+<% settings = {:max_u => 38,
+               :max_elts => 24,
+               :max_rj45 => 48,
+               :max_fc => 12,
+               :min_height => params[:view]=='back' ? 20 : 27 } %>
 <% @room = room || @room %>
 
 <%= render 'rooms/action_buttons' if formats != [:pdf] %>
@@ -23,10 +23,10 @@
             <ul class="frames <%= params[:view] %>"
                 style="padding: 0;"
                 data-update-url="<%= sort_frames_path %>"
-                data-max-u='<%= max_u %>'
-                data-max-elts='<%= max_elts %>'
-                data-max-rj45='<%= max_rj45 %>'
-                data-max-fc='<%= max_fc %>' >
+                data-max-u='<%= settings[:max_u] %>'
+                data-max-elts='<%= settings[:max_elts] %>'
+                data-max-rj45='<%= settings[:max_rj45] %>'
+                data-max-fc='<%= settings[:max_fc] %>' >
 
               <% lanes.each do |lane, bays| %>
 
@@ -37,127 +37,7 @@
                   <% end %>
 
                   <% frames.each do |frame, servers| %>
-                    <% sums = @sums[frame.id] %>
-                    <% sum_u = servers.sum { |s| s.modele.try(:u) || 0 } %>
-                    <% sum_elements = servers.sum { |s| s.modele.try(:nb_elts) || 0 } %>
-                    <% col_params = frame.other_frame.present? ? 'col-lg-6' : 'col-lg-3' %>
-                    <div class="frame col-xs-12 col-sm-6 <%= frames.count>1 ? col_params:'col-sm-offset-3' %>" id="frame_<%= frame.id %>">
-                      <div class="panel <%= sum_u > max_u || sum_elements > max_elts || sums['RJ'] > max_rj45 || sums['FC'] > max_fc ? 'panel-danger' : 'panel-default' %> panel-frame">
-                        <div class="panel-heading">
-                          <h5 class="panel-title" style="display: inline;">
-                            <%= link_to "#{frame.title}", frame_path(frame, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' %>
-                            <% if frame.other_frame.present? && formats != [:pdf] %>
-                              <%= link_to frame_path(frame.other_frame, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' do %>
-                                <span class="glyphicon glyphicon-link" aria-hidden="true" title="Couplée à la frame <%= frame.other_frame.title %>"></span>
-                              <% end %>
-                            <% end %>
-                          </h5>
-                          <% if formats != [:pdf] %>
-                            <%= link_to "modifier", edit_frame_path(frame, :view => params[:view]), class: 'btn btn-default pull-right' %>
-                          <% end %>
-                          <div class="clearfix"></div>
-                        </div>
-                        <ul class='servers connectedFrames list-group'
-                            data-room="<%= @room.title %>"
-                            data-islet="<%= islet %>"
-                            data-frame="<%= frame.title %>"
-                            data-update-url="<%= sort_servers_path %>">
-
-                          <% u_disponibles = frame.u || 41 %>
-                          <% servers.each do |server| %>
-
-                            <% if server.modele.try(:title).present? %>
-
-                              <% while server.position.present? && server.position < u_disponibles && u_disponibles>0 %>
-                                <li class="server list-group-item truncate" style="height: <%= min_height %>px;">
-                                  <%= render 'servers/draw_u_scale_unit.html.erb', i:0, u_disponibles:u_disponibles, u_server:1 %>
-                                </li>
-                                <% u_disponibles -= 1 %>
-                              <% end %>
-
-                              <% if %w(gestionnaire cluster).include?(params['bg'])
-
-                                   if params['bg'].present?
-                                     case params['bg']
-                                       when 'gestionnaire'
-                                         parent_type = 'Gestionnaire'
-                                         parent_id = server.gestion.try(:title)
-                                       when 'cluster'
-                                         parent_type = 'Cluster'
-                                         parent_id = server.cluster.try(:title)
-                                     end
-                                   end
-
-                                   color = Color.where(parent_type: parent_type, parent_id: parent_id).first
-                                   if color.blank? || color.code.blank?
-                                     color = Color.create!(parent_type: parent_type, parent_id: parent_id, code: lighten_color("##{Digest::MD5.hexdigest(parent_id.to_s || 'test')[0..5]}", 0.4))
-                                   end
-                                   bgModeleColor = color.code
-                              %>
-                              <% else %>
-                                <% bgModeleColor = server.modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(server.modele.try(:title) || 'test')[0..5]}", 0.4) %>
-                              <% end %>
-
-                              <% u_server = server.modele.try(:u).to_i > 0 ? server.modele.u : 1 %>
-
-                              <% data = {:u => u_server,
-                                         :rj45_futur => server.try(:rj45_futur) || 0,
-                                         :fc_futur => server.try(:fc_futur)} %>
-
-                              <% if params[:view] == 'back' %>
-                                <%= content_tag_for :li, server,
-                                                    class: "list-group-item truncate server_back #{server.modele.try(:category).try(:title).try(:parameterize)}",
-                                                    style: "min-height: #{min_height*(server.modele.try(:u).to_i > 0 ? server.modele.u : 1)}px;padding: 3px 5px 3px 20px;",
-                                                    data: data do %>
-                                  <% u_server.times do |i| %>
-                                    <%= render 'servers/draw_u_scale_unit.html.erb', i:i, u_disponibles:u_disponibles, u_server:u_server %>
-                                    <% u_disponibles -= 1 %>
-                                  <% end %>
-                                  <%= render 'servers/draw_server_badge.html.erb', server: server %>
-                                  <%= render 'servers/draw_server_compact.html.erb', server: server %>
-                                <% end %>
-                              <% else %>
-
-                                <%= content_tag_for :li, server,
-                                                    class: "list-group-item truncate #{server.modele.try(:category).try(:title).try(:parameterize)} #{server.server_state_id==1 ? 'striped' : ''}",
-                                                    style: "height: #{min_height*u_server - (u_server-1)}px;background-color:#{bgModeleColor} !important;",
-                                                    :data => data do %>
-                                  <% u_server.times do |i| %>
-                                    <%= render 'servers/draw_u_scale_unit.html.erb', i: i, u_disponibles: u_disponibles, u_server: u_server %>
-                                    <% u_disponibles -= 1 %>
-                                  <% end %>
-                                  <%= render 'servers/draw_server_badge.html.erb', server: server %>
-                                  <%= render 'servers/draw_server_compact_front.html.erb', server: server %>
-                                <% end %>
-
-                              <% end %>
-                            <% end %>
-                          <% end %>
-                          <% u_disponibles.times do |u| %>
-                            <li class="server list-group-item truncate" style="height: <%= min_height %>px;">
-                              <%= render 'servers/draw_u_scale_unit.html.erb', i:0, u_disponibles:u_disponibles, u_server:1 %>
-                            </li>
-                            <% u_disponibles -= 1 %>
-                          <% end %>
-
-                        </ul>
-                        <div class="panel-footer">
-                          <% if formats != [:pdf] %>
-                          <span class="pull-right">
-                            <button type="button" class="btn btn-default glyphicon glyphicon-plus" data-toggle="modal" data-target=".bs-example-modal-sm"></button>
-                          </span>
-                          <% end %>
-                          <%= render 'servers/sum_labels.html.erb',
-                                     sums: sums,
-                                     sum_u: sum_u,
-                                     sum_elements: sum_elements,
-                                     max_u: max_u,
-                                     max_elts: max_elts,
-                                     max_rj45: max_rj45,
-                                     max_fc: max_fc %>
-                        </div>
-                      </div>
-                    </div>
+                    <%= render 'frames/show', frame: frame, servers: servers, settings: settings %>
                   <% end %>
 
                   <% if formats != [:pdf] %>
@@ -168,10 +48,10 @@
                                    sums: (@sums[bay.frames.first.id].merge(@sums[bay.frames.last.id]){|_,a,b|a+b}),
                                    sum_u: nil,
                                    sum_elements: nil,
-                                   max_u: max_u*2,
-                                   max_elts: max_elts*2,
-                                   max_rj45: max_rj45*2,
-                                   max_fc: max_fc*2 %>
+                                   max_u: settings[:max_u]*2,
+                                   max_elts: settings[:max_elts]*2,
+                                   max_rj45: settings[:max_rj45]*2,
+                                   max_fc: settings[:max_fc]*2 %>
                       </div>
                     <% else %>
                       <div style="height: 41px;"></div>
