@@ -15,7 +15,7 @@ class RoomsController < ApplicationController
     @room.frames.order('islets.name, bays.lane, bays.position, frames.position').each do |frame|
       servers = frame.servers.includes(:gestion, :cluster, :modele => :category, :cards => :port_type, :cards_servers => [:composant, :ports])
       servers.each do |s|
-        islet = frame.islet.name
+        islet = frame.bay.islet.name
         @servers_per_frames[islet] ||= {}
         @servers_per_frames[islet][frame.bay.lane] ||= {}
         @servers_per_frames[islet][frame.bay.lane][frame.bay] ||= {}
@@ -47,7 +47,7 @@ class RoomsController < ApplicationController
     @room.frames.includes(:islet, :bay => :frames).where('islets.name = ?', islet).each do |frame|
       servers = frame.servers.includes(:gestion, :modele => :category, :cards => :port_type, :cards_servers => :composant)
       servers.each do |s|
-        islet = frame.islet.name
+        islet = frame.bay.islet.name
         @servers_per_frames[islet] ||= {}
         @servers_per_frames[islet][frame.bay.lane] ||= {}
         @servers_per_frames[islet][frame.bay.lane][frame.bay] ||= {}
@@ -76,11 +76,13 @@ class RoomsController < ApplicationController
     @rooms = Room.order(:position).joins(:frames).includes(:frames).uniq
 
     if params[:cluster_id].present? || params[:gestion_id].present?
-      @frames = Frame.includes(:bay => {:islet => :room}).order('rooms.title asc, islets.name asc, frames.position asc')
-      @sums = {}
-      @frames.each do |frame|
-        @sums.merge!(calculate_ports_sums(frame, frame.servers))
-      end
+      @frames = Frame.preload(:servers => [:gestion, :cluster, :modele => :category, :cards => :port_type, :cards_servers => [:composant, :ports] ])
+                    .includes(:bay => [:frames, {:islet => :room}])
+                    .order('rooms.position asc, islets.name asc, bays.position asc, frames.position asc')
+      # @sums = {}
+      # @frames.each do |frame|
+      #   @sums.merge!(calculate_ports_sums(frame, frame.servers))
+      # end
       @current_filters = ''
       if params[:cluster_id].present?
         @frames = @frames.joins(:servers).where('servers.cluster_id = ? ', params[:cluster_id])

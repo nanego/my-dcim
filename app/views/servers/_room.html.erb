@@ -37,7 +37,9 @@
                   <% end %>
 
                   <% frames.each do |frame, servers| %>
-                    <%= render 'frames/show', frame: frame, servers: servers, settings: settings %>
+                    <div class="col-xs-12 col-sm-6">
+                      <%= render 'frames/show', frame: frame, servers: servers, settings: settings %>
+                    </div>
                   <% end %>
 
                   <% if formats != [:pdf] %>

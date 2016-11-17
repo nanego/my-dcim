@@ -19,7 +19,7 @@ class ServersController < ApplicationController
   def frames
     @modele_blank_panel_id = Category.find_by_title('Blank Panel').id
 
-    @frames = Frame.includes(:bay => {:islet => :room}).order('rooms.title asc, islets.name asc, frames.position asc')
+    @frames = Frame.includes(:bay => {:islet => :room}).order('rooms.position asc, islets.name asc, bays.position asc, frames.position asc')
     @frames = @frames.joins(:servers).where('servers.cluster_id = ? ', params[:cluster_id]) if params[:cluster_id].present?
     @frames = @frames.joins(:servers).where('servers.gestion_id = ? ', params[:gestion_id]) if params[:gestion_id].present?
 

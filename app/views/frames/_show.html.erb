@@ -1,8 +1,18 @@
-<% sums = @sums[frame.id] %>
-<% sum_u = servers.sum { |s| s.modele.try(:u) || 0 } %>
-<% sum_elements = servers.sum { |s| s.modele.try(:nb_elts) || 0 } %>
+<% panel_class = 'panel-default' %>
+<% editable = true if local_assigns[:editable].nil? %>
+
+<% if @sums.present? %>
+  <% sums = @sums[frame.id] %>
+  <% sum_u = servers.sum { |s| s.modele.try(:u) || 0 } %>
+  <% sum_elements = servers.sum { |s| s.modele.try(:nb_elts) || 0 } %>
+  <% panel_class = 'panel-danger' if (sum_u > settings[:max_u] ||
+                                      sum_elements > settings[:max_elts] ||
+                                      sums['RJ'] > settings[:max_rj45] ||
+                                      sums['FC'] > settings[:max_fc] ) %>
+<% end %>
+
 <div class="frame" id="frame_<%= frame.id %>">
-  <div class="panel <%= sum_u > settings[:max_u] || sum_elements > settings[:max_elts] || sums['RJ'] > settings[:max_rj45] || sums['FC'] > settings[:max_fc] ? 'panel-danger' : 'panel-default' %> panel-frame">
+  <div class="panel panel-frame <%= panel_class %>">
     <div class="panel-heading">
       <h5 class="panel-title" style="display: inline;">
         <%= link_to "#{frame.title}", frame_path(frame, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' %>
@@ -19,7 +29,7 @@
     </div>
     <ul class='servers connectedFrames list-group'
         data-room="<%= frame.room.title %>"
-        data-islet="<%= frame.islet.name %>"
+        data-islet="<%= frame.bay.islet.name %>"
         data-frame="<%= frame.title %>"
         data-update-url="<%= sort_servers_path %>">
 
@@ -101,20 +111,22 @@
       <% end %>
 
     </ul>
-    <div class="panel-footer">
-      <% if formats != [:pdf] %>
-                          <span class="pull-right">
-                            <button type="button" class="btn btn-default glyphicon glyphicon-plus" data-toggle="modal" data-target=".bs-example-modal-sm"></button>
-                          </span>
-      <% end %>
-      <%= render 'servers/sum_labels.html.erb',
-                 sums: sums,
-                 sum_u: sum_u,
-                 sum_elements: sum_elements,
-                 max_u: settings[:max_u],
-                 max_elts: settings[:max_elts],
-                 max_rj45: settings[:max_rj45],
-                 max_fc: settings[:max_fc] %>
-    </div>
+    <% if editable != false || @sums.present? %>
+      <div class="panel-footer">
+        <% if formats != [:pdf] && editable != false %>
+          <span class="pull-right">
+            <button type="button" class="btn btn-default glyphicon glyphicon-plus" data-toggle="modal" data-target=".bs-example-modal-sm"></button>
+          </span>
+        <% end %>
+        <%= render 'servers/sum_labels.html.erb',
+                   sums: sums,
+                   sum_u: sum_u,
+                   sum_elements: sum_elements,
+                   max_u: settings[:max_u],
+                   max_elts: settings[:max_elts],
+                   max_rj45: settings[:max_rj45],
+                   max_fc: settings[:max_fc] if @sums.present? %>
+      </div>
+    <% end %>
   </div>
 </div>

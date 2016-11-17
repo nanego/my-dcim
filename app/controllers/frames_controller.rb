@@ -7,7 +7,7 @@ class FramesController < ApplicationController
     @servers_per_frames = {}
     @servers = @frame.servers.includes(:gestion, :modele => :category, :cards => :port_type, :cards_servers => [:composant, :ports])
     @servers.each do |s|
-      islet = @frame.islet
+      islet = @frame.bay.islet
       @servers_per_frames[islet] ||= {}
       @servers_per_frames[islet][@frame.bay.lane] ||= {}
       @servers_per_frames[islet][@frame.bay.lane][@frame.bay] ||= {}
