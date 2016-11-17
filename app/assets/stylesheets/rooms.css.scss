@@ -1,23 +1,25 @@
 .rooms-overview{
   margin-top: 10px;
+  .panel{
+    margin-bottom: 10px;
+  }
   .islet{
-    margin: 10px;
-    padding: 19px;
+    margin: 0;
+    padding: 0;
     background-color: #ffffff;
-    border: 1px solid #e3e3e3;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid #e3e3e3;
     h5{
-      margin:0 0 10px 0;
+      margin:10px 0 10px 15px;
     }
   }
   .overviewed_frame{
     display: inline-flex;
-    margin: 10px 0 10px 15px;
+    margin: 0 0 10px 15px;
     padding: 10px;
     background-color: #F5F5F5;
     border: 1px solid #e3e3e3;
     &.no-margin{
-      margin: 10px 0 10px -5px;
+      margin: 0 0 10px -5px;
     }
     &.highlighted{
       background-color: lightblue;
