@@ -18,11 +18,7 @@
 
     <div class="col-md-6 col-sm-12">
       <% @frames.each do |frame| %>
-        <% settings = {:max_u => 38,
-                       :max_elts => 24,
-                       :max_rj45 => 48,
-                       :max_fc => 12,
-                       :min_height => params[:view]=='back' ? 20 : 27 } %>
+        <% settings = Frame.settings.merge({:min_height => params[:view]=='back' ? 20 : 27 }) %>
         <%= render 'frames/show', frame: frame, servers: frame.servers.to_a, settings: settings, editable: false, highlighted_servers: @filtered_servers %>
       <% end %>
     </div>

@@ -1,8 +1,4 @@
-<% settings = {:max_u => 38,
-               :max_elts => 24,
-               :max_rj45 => 48,
-               :max_fc => 12,
-               :min_height => params[:view]=='back' ? 20 : 27 } %>
+<% settings = Frame.settings.merge({:min_height => params[:view]=='back' ? 20 : 27 }) %>
 <% @room = room || @room %>
 
 <%= render 'rooms/action_buttons' if formats != [:pdf] %>
