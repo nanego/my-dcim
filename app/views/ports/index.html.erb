@@ -26,7 +26,7 @@
           <%= link_to "#{frame.name_with_room_and_islet}", frame_path(frame, :view => params[:view]), style: 'text-decoration: underline;' %>
         </h3>
         <% frame.servers.includes(:modele, :cards_servers => [:ports, :composant]).order('position desc').each do |s| %>
-          <h4 style="display: inline;"><%= s.nom %></h4><span> (<%= s.modele.title %>)</span>
+          <h4 style="display: inline;"><%= s.nom %></h4><span> (<%= s.modele.try(:title) %>)</span>
           <p>
             <% s.cards_servers.each do |c| %>
               <% c.ports.each do |port| %>
