@@ -86,10 +86,11 @@ class RoomsController < ApplicationController
       @current_filters = ''
       if params[:cluster_id].present?
         @frames = @frames.joins(:servers).where('servers.cluster_id = ? ', params[:cluster_id])
+        @filtered_servers = Server.where('servers.cluster_id = ? ', params[:cluster_id])
         @current_filters << "Cluster #{Cluster.find_by_id(params[:cluster_id])} "
-      end
-      if params[:gestion_id].present?
+      elsif params[:gestion_id].present?
         @frames = @frames.joins(:servers).where('servers.gestion_id = ? ', params[:gestion_id])
+        @filtered_servers = Server.where('servers.gestion_id = ? ', params[:gestion_id])
         @current_filters << "Gestionnaire #{Gestion.find_by_id(params[:gestion_id])} "
       end
       render :filtered_overview

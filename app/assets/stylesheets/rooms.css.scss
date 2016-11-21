@@ -25,4 +25,26 @@
       background-color: lightblue;
     }
   }
+  .server{
+    &.relegated{
+      filter:alpha(opacity=30);
+      -moz-opacity:0.3;
+      -khtml-opacity: 0.3;
+      opacity: 0.3;
+    }
+  }
+}
+
+@media (min-width: 1199px) {
+  #rooms-overview.affix {
+    top:60px;
+    padding-right: 30px;
+  }
+}
+@media (max-width: 1198px) {
+  #rooms-overview.affix {
+    position: static;
+    width: auto;
+    top: 0;
+  }
 }

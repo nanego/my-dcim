@@ -4,7 +4,7 @@
 
   <div class="row">
 
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-6 col-sm-12" id="rooms-overview" data-spy="affix" data-offset-top="53" data-offset-bottom="20">
 
       <% @rooms.each do |room| %>
         <div>
@@ -14,6 +14,8 @@
 
     </div>
 
+    <div class="col-md-6 col-sm-12"></div>
+
     <div class="col-md-6 col-sm-12">
       <% @frames.each do |frame| %>
         <% settings = {:max_u => 38,
@@ -21,7 +23,7 @@
                        :max_rj45 => 48,
                        :max_fc => 12,
                        :min_height => params[:view]=='back' ? 20 : 27 } %>
-        <%= render 'frames/show', frame: frame, servers: frame.servers.to_a, settings: settings, editable: false %>
+        <%= render 'frames/show', frame: frame, servers: frame.servers.to_a, settings: settings, editable: false, highlighted_servers: @filtered_servers %>
       <% end %>
     </div>
 
