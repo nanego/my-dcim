@@ -1,6 +1,7 @@
 <%= render 'layouts/breadcrumb', params: {"Salles" => overview_rooms_path,
                                           @server.frame.room.title => room_path(@server.frame.room),
-                                          "Salle #{@server.frame.title}" => frame_path(@server.frame),
+                                          "Ilot #{@server.frame.islet.name}" => islet_rooms_path(id: @server.frame.room.id, islet: @server.frame.islet.name, :view => params[:view], bg: params[:bg]),
+                                          "Baie #{@server.frame.title}" => frame_path(@server.frame),
                                           @server.nom => ''} %>
 
 <div class="page-header">
