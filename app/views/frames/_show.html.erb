@@ -7,11 +7,12 @@
      highlighted_servers_ids = highlighted_servers.map(&:id)
    end
 %>
+<% view_type = 'front' if local_assigns[:view_type].nil? %>
 
 <% if @sums.present? %>
   <% sums = @sums[frame.id] %>
-  <% sum_u = servers.sum { |s| s.modele.try(:u) || 0 } %>
-  <% sum_elements = servers.sum { |s| s.modele.try(:nb_elts) || 0 } %>
+  <% sum_u = frame.servers.to_a.sum { |s| s.modele.try(:u) || 0 } %>
+  <% sum_elements = frame.servers.to_a.sum { |s| s.modele.try(:nb_elts) || 0 } %>
   <% panel_class = 'panel-danger' if (sum_u > settings[:max_u] ||
                                       sum_elements > settings[:max_elts] ||
                                       sums['RJ'] > settings[:max_rj45] ||
@@ -22,15 +23,15 @@
   <div class="panel panel-frame <%= panel_class %>">
     <div class="panel-heading">
       <h5 class="panel-title" style="display: inline;">
-        <%= link_to "#{frame.title}", frame_path(frame, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' %>
+        <%= link_to "#{frame.title}", frame_path(frame, :view => view_type, bg: params[:bg]), style: 'text-decoration: underline;' %>
         <% if frame.other_frame.present? && formats != [:pdf] %>
-          <%= link_to frame_path(frame.other_frame, :view => params[:view], bg: params[:bg]), style: 'text-decoration: underline;' do %>
+          <%= link_to frame_path(frame.other_frame, :view => view_type, bg: params[:bg]), style: 'text-decoration: underline;' do %>
             <span class="glyphicon glyphicon-link" aria-hidden="true" title="Couplée à la frame <%= frame.other_frame.title %>"></span>
           <% end %>
         <% end %>
       </h5>
       <% if formats != [:pdf] %>
-        <%= link_to "modifier", edit_frame_path(frame, :view => params[:view]), class: 'btn btn-default pull-right' %>
+        <%= link_to "modifier", edit_frame_path(frame, :view => view_type), class: 'btn btn-default pull-right' %>
       <% end %>
       <div class="clearfix"></div>
     </div>
@@ -81,7 +82,7 @@
                      :rj45_futur => server.try(:rj45_futur) || 0,
                      :fc_futur => server.try(:fc_futur)} %>
 
-          <% if params[:view] == 'back' %>
+          <% if view_type == 'back' %>
             <%= content_tag_for :li, server,
                                 class: "list-group-item truncate server_back #{server.modele.try(:category).try(:title).try(:parameterize)} #{'relegated' if highlighted_servers_ids.exclude?(server.id)}",
                                 style: "min-height: #{settings[:min_height]*(server.modele.try(:u).to_i > 0 ? server.modele.u : 1)}px;padding: 3px 5px 3px 20px;",

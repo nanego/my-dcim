@@ -18,7 +18,7 @@ class FramesController < ApplicationController
 
     respond_to do |format|
       format.html do
-        render 'rooms/show.html.erb'
+        render 'frames/show.html.erb'
       end
       format.pdf do
         render layout: 'pdf.html',

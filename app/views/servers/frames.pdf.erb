@@ -1,5 +1,5 @@
 <div class="container-fluid">
   <% @servers_per_frames.each do |room, islets| %>
-    <%= render 'servers/room.html.erb', room: room, islets: islets %>
+    <%= render 'servers/room.html.erb', room: room, islets: islets, view_side: params[:view] %>
   <% end %>
 </div>

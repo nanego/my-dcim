@@ -1,9 +1,7 @@
 class Frame < ActiveRecord::Base
 
-  MAX_U = 38.freeze
-  MAX_ELTS = 24.freeze
-  MAX_RJ45 = 48.freeze
-  MAX_FC = 12.freeze
+  enum settings: { max_u: 38, max_elts: 24, max_rj45: 48, max_fc: 12 }
+  enum view_sides: { both: 'both', front: 'front', back: 'back' }
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
@@ -17,13 +15,6 @@ class Frame < ActiveRecord::Base
   delegate :room, :to => :islet, :allow_nil => true
 
   scope :sorted, -> { order( :position ) }
-
-  def self.settings
-    {:max_u => MAX_U,
-     :max_elts => MAX_ELTS,
-     :max_rj45 => MAX_RJ45,
-     :max_fc => MAX_FC }
-  end
 
   def to_s
     title.nil? ? "" : title

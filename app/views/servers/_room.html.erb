@@ -1,7 +1,8 @@
-<% settings = Frame.settings.merge({:min_height => params[:view]=='back' ? 20 : 27 }) %>
+<% view_side = 'front' if local_assigns[:view_side].nil? %>
+<% settings = Frame.settings.merge({:min_height => view_side=='back' ? 20 : 27 }) %>
 <% @room = room || @room %>
 
-<%= render 'rooms/action_buttons' if formats != [:pdf] %>
+<%= render 'rooms/action_buttons', view_side: params[:view] if formats != [:pdf] %>
 
 <div id="<%= @room.try(:title).try(:parameterize).try(:underscore) %>">
 
@@ -16,7 +17,7 @@
 
           <div class="row">
 
-            <ul class="frames <%= params[:view] %>"
+            <ul class="frames <%= view_side %>"
                 style="padding: 0;"
                 data-update-url="<%= sort_frames_path %>"
                 data-max-u='<%= settings[:max_u] %>'
@@ -34,7 +35,7 @@
 
                   <% frames.each do |frame, servers| %>
                     <div class="col-xs-12 col-sm-6">
-                      <%= render 'frames/show', frame: frame, servers: servers, settings: settings %>
+                      <%= render 'frames/show', frame: frame, servers: servers, settings: settings, view_type: view_side %>
                     </div>
                   <% end %>
 

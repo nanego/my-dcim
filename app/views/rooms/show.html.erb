@@ -11,7 +11,7 @@
 
 <div class="container-fluid">
 
-  <%= render 'servers/room', room: @room, islets: @servers_per_frames %>
+  <%= render 'servers/room', room: @room, islets: @servers_per_frames, view_side: params[:view] %>
 
 </div>
 
