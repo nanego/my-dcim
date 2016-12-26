@@ -1,0 +1,21 @@
+<div class="modal fade edit_port" id="edit_port_modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>Chargement en cours ...</p>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/javascript">
+  $("a.port").on("click", function(event) {
+    event.preventDefault();
+    var url = $(this).data("url");
+    if(url.length>0) {
+      $("#edit_port_modal modal-body").html("<p>Chargement en cours ...</p>");
+      $("#edit_port_modal").modal("show");
+      return $.getScript(url);
+    }
+  });
+</script>

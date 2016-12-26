@@ -20,13 +20,18 @@ class PortsController < ApplicationController
       @port = Port.create(position: params['position'], parent_id: params['parent_id'], parent_type: params['parent_type'], vlans: params['vlans'], color: params['color'], cablename: params['cablename'])
     end
 
+    respond_to do |format|
+      format.js {render layout: false, content_type: 'text/javascript' }
+      format.html
+    end
+
   end
 
   def update
     @port = Port.find_by_id(params[:id])
     respond_to do |format|
       if @port.update(port_params)
-        format.html { redirect_to @port.parent.server, notice: 'Le port a été mis à jour.' }
+        format.html { redirect_to @port.parent.server.frame, notice: 'Le port a été mis à jour.' }
         format.json { render :show, status: :ok, location: @port.server }
       else
         format.html { render :edit }

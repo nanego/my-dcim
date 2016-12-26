@@ -15,6 +15,9 @@ class Port < ActiveRecord::Base
   has_many :connections_from, :class_name => 'Connection', :foreign_key => 'source_port_id'
   has_many :connections_to, :class_name => 'Connection', :foreign_key => 'destination_port_id'
 
+  # Callbacks
+  after_save :update_pdus_elements
+
   def connections
     connections_from + connections_to
   end
@@ -22,6 +25,18 @@ class Port < ActiveRecord::Base
   def network_conf(switch_slot)
     if cablename.present?
       "#{color} - #{cablename} - Switch #{cablename[0]} - Port #{switch_slot}:#{cablename[1..-1]} - #{vlans}"
+    end
+  end
+
+  private
+
+  def update_pdus_elements
+    if parent.server.present? && parent.server.frame.present?
+      frame = parent.server.frame
+      if cablename =~ /L..../
+        frame.pdu = Pdu.create(name: "PDU #{frame.to_s}") if frame.pdu.blank?
+        frame.pdu.create_pdu_elements_by_cablename(cablename)
+      end
     end
   end
 

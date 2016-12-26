@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161006111953) do
+ActiveRecord::Schema.define(version: 20161208151822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,6 +187,28 @@ ActiveRecord::Schema.define(version: 20161006111953) do
   end
 
   add_index "modeles", ["slug"], name: "index_modeles_on_slug", unique: true, using: :btree
+
+  create_table "pdu_lines", force: :cascade do |t|
+    t.integer  "pdu_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pdu_outlet_groups", force: :cascade do |t|
+    t.integer  "pdu_line_id"
+    t.string   "name"
+    t.integer  "nb_of_outlets", default: 12
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  create_table "pdus", force: :cascade do |t|
+    t.integer  "frame_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "port_types", force: :cascade do |t|
     t.string "name"

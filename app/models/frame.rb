@@ -13,6 +13,7 @@ class Frame < ActiveRecord::Base
   belongs_to :bay
   has_one :islet, through: :bay
   delegate :room, :to => :islet, :allow_nil => true
+  has_one :pdu
 
   scope :sorted, -> { order( :position ) }
 

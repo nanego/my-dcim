@@ -33,13 +33,15 @@
                   data-max-rj45='<%= settings[:max_rj45] %>'
                   data-max-fc='<%= settings[:max_fc] %>' >
 
-                  <div class="col-xs-12 col-sm-6">
+                  <div class="col-xs-12 col-sm-5">
                     <%= render 'frames/show', frame: @frame, servers: @frame.servers, settings: settings, view_type: 'front' %>
                   </div>
-                  <div class="col-xs-12 col-sm-6">
+                  <div class="col-xs-12 col-sm-5">
                     <%= render 'frames/show', frame: @frame, servers: @frame.servers, settings: settings, view_type: 'back' %>
                   </div>
-
+                  <div class="hidden-xs col-sm-2">
+                    <%= render 'pdus/show', frame: @frame %>
+                  </div>
 
               </ul>
             </div>
@@ -57,3 +59,4 @@
 <%= render 'servers/modal_add_element_in_frame' %>
 
 <% # render 'ports/modal_add_connection' %>
+<%= render 'ports/modal_edit_port' %>

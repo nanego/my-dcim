@@ -15,7 +15,7 @@ class Server < ActiveRecord::Base
   belongs_to :server_state
 
   has_many :slots
-  has_many :cards_servers, -> { joins(:composant).order("composants.name asc, composants.position asc") }
+  has_many :cards_servers, -> { joins(:composant).includes(:composant).order("composants.name asc, composants.position asc") }
   has_many :cards, through: :cards_servers
   has_many :ports, through: :cards_servers
 
