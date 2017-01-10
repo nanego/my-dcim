@@ -6,7 +6,7 @@
   </div>
   <div class="panel-body">
     <% frame.pdu.pdu_lines.each do |line| %>
-      <div style="width: 50%;float: left;padding: 15px;">
+      <div style="width: 50%;float: left;padding: 0 15px;">
         <h5 style="text-align: center;"><%= line.name %></h5>
         <% line.pdu_outlet_groups.each do |group| %>
 
@@ -18,10 +18,12 @@
             end
           end %>
 
-          <% group.nb_of_outlets.times do |index| %>
+          <div class="pdu_outlet_group">
 
-            <% port_data = ports.select{|p| p.cablename =~ /L#{group.name}#{line.name}#{(index+1).to_s.rjust(2, "0")}/ }.first %>
-            <% part_type = port_data.try(:parent).try(:card).try(:port_type).try(:name) %>
+            <% group.nb_of_outlets.times do |index| %>
+
+              <% port_data = ports.select{|p| p.cablename =~ /L#{group.name}#{line.name}#{(index+1).to_s.rjust(2, "0")}/ }.first %>
+              <% part_type = port_data.try(:parent).try(:card).try(:port_type).try(:name) %>
 
               <% if port_data.try(:parent_id)
                    edit_port_url = port_data.try(:id) ? edit_port_path(port_data) : edit_port_path(id: 0, parent_id: port_data.try(:parent_id), parent_type: CardsServer.name, position: index+1)
@@ -40,9 +42,11 @@
                                  placement: "top",
                                  url: edit_port_url},
                           title: port_data.present? ? port_data.vlans : '',
-                          style: "text-align: center;width: 100%;margin: auto;min-height: 26px;padding-top: 5px;"  %>
+                          style: "text-align: center;width: 100%;margin: auto;min-height: 26px;padding-top: 5px;#{index>0 ? 'margin-top:-1px;' : ''}"  %>
 
-          <% end %>
+            <% end %>
+
+          </div>
 
         <% end %>
       </div>

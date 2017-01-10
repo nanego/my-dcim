@@ -10,8 +10,14 @@ namespace :init_pdus do
       server = port.parent.try(:server)
       if server.frame
         frame = server.frame
-        frame.pdu = Pdu.create(name: "PDU #{frame.to_s}") if frame.pdu.blank?
+        frame.pdu = Pdu.create(name: "PDUs #{frame.to_s}") if frame.pdu.blank?
         frame.pdu.create_pdu_elements(line, group)
+        group = group.to_i
+        if group.odd? #Impair
+          frame.pdu.create_pdu_elements(line, group+1)
+        else
+          frame.pdu.create_pdu_elements(line, group-1)
+        end
       end
     end
   end

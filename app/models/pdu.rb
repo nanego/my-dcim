@@ -12,6 +12,12 @@ class Pdu < ActiveRecord::Base
     line = cablename[2]
     group = cablename[1]
     create_pdu_elements(line, group)
+    group = group.to_i
+    if group.odd? #Impair
+      create_pdu_elements(line, group+1)
+    else
+      create_pdu_elements(line, group-1)
+    end
   end
 
   def create_pdu_elements(line, group)
