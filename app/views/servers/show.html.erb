@@ -42,104 +42,135 @@
   </div>
 <% end %>
 
-<dl class="dl-horizontal">
-  <dt>Frame:</dt>
-  <dd><%= @server.frame.try(:title) %></dd>
+<div class="col-lg-6">
+  <div class="panel panel-body">
+    <dl class="dl-horizontal">
+      <dt>Frame:</dt>
+      <dd><%= @server.frame.try(:title) %></dd>
 
-  <dt>Ilot:</dt>
-  <dd><%= @server.frame.try(:islet) %></dd>
+      <dt>Ilot:</dt>
+      <dd><%= @server.frame.try(:islet) %></dd>
 
-  <dt>Room:</dt>
-  <dd><%= @server.frame.try(:room).try(:title) %></dd>
+      <dt>Room:</dt>
+      <dd><%= @server.frame.try(:room).try(:title) %></dd>
 
-  <dt>Categorie:</dt>
-  <dd><%= @server.modele.try(:category) %></dd>
+      <dt>Categorie:</dt>
+      <dd><%= @server.modele.try(:category) %></dd>
 
-  <dt>Nb elts:</dt>
-  <dd><%= @server.modele.try(:nb_elts) %></dd>
+      <dt>Nb elts:</dt>
+      <dd><%= @server.modele.try(:nb_elts) %></dd>
 
-  <dt>Architecture:</dt>
-  <dd><%= @server.modele.try(:architecture) %></dd>
+      <dt>Architecture:</dt>
+      <dd><%= @server.modele.try(:architecture) %></dd>
 
-  <dt>U:</dt>
-  <dd><%= @server.modele.try(:u) %></dd>
+      <dt>U:</dt>
+      <dd><%= @server.modele.try(:u) %></dd>
 
-  <dt>Position:</dt>
-  <dd><%= @server.position %></dd>
+      <dt>Position:</dt>
+      <dd><%= @server.position %></dd>
 
-  <dt>Marque:</dt>
-  <dd><%= @server.modele.try(:marque) %></dd>
+      <dt>Marque:</dt>
+      <dd><%= @server.modele.try(:marque) %></dd>
 
-  <dt>Modele:</dt>
-  <dd><%= link_to @server.modele, edit_modele_path(@server.modele) if @server.modele.try(:title) %></dd>
+      <dt>Modele:</dt>
+      <dd><%= link_to @server.modele, edit_modele_path(@server.modele) if @server.modele.try(:title) %></dd>
 
-  <dt>Numero:</dt>
-  <dd><%= @server.try(:numero) %></dd>
+      <dt>Numero:</dt>
+      <dd><%= @server.try(:numero) %></dd>
 
-  <dt>Conso:</dt>
-  <dd><%= @server.conso %></dd>
+      <dt>Conso:</dt>
+      <dd><%= @server.conso %></dd>
 
-  <dt>Cluster:</dt>
-  <dd><%= @server.cluster.try(:title) %></dd>
+      <dt>Cluster:</dt>
+      <dd><%= @server.cluster.try(:title) %></dd>
 
-  <dt>Critique:</dt>
-  <dd><%= @server.critique ? 'OUI' : 'non' %></dd>
+      <dt>Critique:</dt>
+      <dd><%= @server.critique ? 'OUI' : 'non' %></dd>
 
-  <dt>Domaine:</dt>
-  <dd><%= @server.domaine %></dd>
+      <dt>Domaine:</dt>
+      <dd><%= @server.domaine %></dd>
 
-  <dt>Gestionnaire:</dt>
-  <dd><%= @server.gestion %></dd>
+      <dt>Gestionnaire:</dt>
+      <dd><%= @server.gestion %></dd>
 
-  <dt>Etat :</dt>
-  <dd><%= @server.server_state %></dd>
+      <dt>Etat :</dt>
+      <dd><%= @server.server_state %></dd>
 
-  <dt>Cartes :</dt>
+      <dt>Cartes :</dt>
 
-  <% @server.modele.composants.where(type_composant_id: 4).each do |slot| %>
+      <% @server.modele.composants.where(type_composant_id: 4).each do |slot| %>
 
-    <% @server.cards_servers.where(:composant_id => slot.id).each do |card_server| %>
-      <dd><%= card_server.composant.name ? card_server.composant.name : card_server.composant.position %> : <%= "#{card_server.card.try(:name)} (#{card_server.card.try(:port_quantity)}#{card_server.card.try(:port_type).try(:name)})" %></dd>
+        <% @server.cards_servers.where(:composant_id => slot.id).each do |card_server| %>
+          <dd><%= card_server.composant.name ? card_server.composant.name : card_server.composant.position %> : <%= "#{card_server.card.try(:name)} (#{card_server.card.try(:port_quantity)}#{card_server.card.try(:port_type).try(:name)})" %></dd>
+        <% end %>
+      <% end if @server.modele.present? %>
+
+      <dt>Commentaire :</dt>
+      <dd><%= @server.comment %></dd>
+
+    </dl>
+
+  </div>
+</div>
+
+<div class="col-lg-6">
+  <div class="panel panel-body">
+
+    <H5>Contrat de maintenance :</H5>
+
+    <% if @server.maintenance_contract.present? %>
+      <dl class="dl-horizontal">
+        <dt>Mainteneur :</dt>
+        <dd><%= @server.maintenance_contract.maintainer %></dd>
+        <dt>Type de contrat : </dt>
+        <dd><%= @server.maintenance_contract.contract_type %></dd>
+        <dt>Date de début : </dt>
+        <dd><%= @server.maintenance_contract.start_date %></dd>
+        <dt>Date de fin : </dt>
+        <dd><%= @server.maintenance_contract.end_date %></dd>
+      </dl>
+      <%= link_to 'Modifier le contrat de maintenance', edit_maintenance_contract_path(id: @server.maintenance_contract.id) %>
+    <% else %>
+      <%= link_to 'Ajouter un contrat de maintenance', new_maintenance_contract_path(server_id: @server.id) %>
     <% end %>
-  <% end if @server.modele.present? %>
 
-  <dt>Commentaire :</dt>
-  <dd><%= @server.comment %></dd>
+  </div>
+</div>
 
+<div style="clear:both;font-size: smaller;">
 
-  <H5>Champs obsolètes - Bientôt supprimés</H5>
+<H5>Champs obsolètes (bientôt supprimés) :</H5>
+  <dl class="dl-horizontal">
+<dt>Acte:</dt>
+<dd><%= @server.acte %></dd>
 
-  <dt>Acte:</dt>
-  <dd><%= @server.acte %></dd>
+<dt>Fc futur:</dt>
+<dd><%= @server.fc_futur %></dd>
 
-  <dt>Fc futur:</dt>
-  <dd><%= @server.fc_futur %></dd>
+<dt>Fc total:</dt>
+<dd><%= @server.fc_total %></dd>
 
-  <dt>Fc total:</dt>
-  <dd><%= @server.fc_total %></dd>
+<dt>Fc utilise:</dt>
+<dd><%= @server.fc_utilise %></dd>
 
-  <dt>Fc utilise:</dt>
-  <dd><%= @server.fc_utilise %></dd>
+<dt>Rj45 total:</dt>
+<dd><%= @server.rj45_total %></dd>
 
-  <dt>Rj45 total:</dt>
-  <dd><%= @server.rj45_total %></dd>
+<dt>Rj45 utilise:</dt>
+<dd><%= @server.rj45_utilise %></dd>
 
-  <dt>Rj45 utilise:</dt>
-  <dd><%= @server.rj45_utilise %></dd>
+<dt>Rj45 futur:</dt>
+<dd><%= @server.rj45_futur %></dd>
 
-  <dt>Rj45 futur:</dt>
-  <dd><%= @server.rj45_futur %></dd>
+<dt>Ipmi utilise:</dt>
+<dd><%= @server.ipmi_utilise %></dd>
 
-  <dt>Ipmi utilise:</dt>
-  <dd><%= @server.ipmi_utilise %></dd>
+<dt>Ipmi futur:</dt>
+<dd><%= @server.ipmi_futur %></dd>
 
-  <dt>Ipmi futur:</dt>
-  <dd><%= @server.ipmi_futur %></dd>
+<dt>Rg45 cm:</dt>
+<dd><%= @server.rj45_cm %></dd>
 
-  <dt>Rg45 cm:</dt>
-  <dd><%= @server.rj45_cm %></dd>
-
-  <dt>Ipmi dedie:</dt>
-  <dd><%= @server.ipmi_dedie %></dd>
-
-</dl>
+<dt>Ipmi dedie:</dt>
+    <dd><%= @server.ipmi_dedie %></dd>   </dl>
+</div>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start_date: 2017-01-24
+  end_date: 2017-01-24
+  maintainer_id: 1
+  contract_type_id: 1
+
+two:
+  start_date: 2017-01-24
+  end_date: 2017-01-24
+  maintainer_id: 1
+  contract_type_id: 1

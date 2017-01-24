@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :maintainers
+  resources :contract_types
+  resources :maintenance_contracts
   resources :server_states
 
   resources :frames, only: [:edit, :update, :show, :index, :destroy] do

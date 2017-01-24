@@ -1,0 +1,1 @@
+json.array! @maintenance_contracts, partial: 'maintenance_contracts/maintenance_contract', as: :maintenance_contract

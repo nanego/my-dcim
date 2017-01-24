@@ -21,4 +21,9 @@
     <a href="<%= cards_path %>" class="list-group-item <%= controller.controller_name == "cards" ? 'active' : '' %>">Cartes</a>
     <a href="<%= colors_path %>" class="list-group-item <%= controller.controller_name == "colors" ? 'active' : '' %>">Couleurs</a>
   </div>
+
+  <div class="list-group">
+    <a href="<%= maintainers_path %>" class="list-group-item <%= controller.controller_name == "maintainers" ? 'active' : '' %>">Mainteneurs</a>
+    <a href="<%= contract_types_path %>" class="list-group-item <%= controller.controller_name == "contract_types" ? 'active' : '' %>">Contrats de maintenance</a>
+  </div>
 </p>

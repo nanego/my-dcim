@@ -1,0 +1,52 @@
+<%= form_for(@maintenance_contract, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <% if @maintenance_contract.errors.any? %>
+    <div class="alert alert-danger alert-dismissable" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <h4><%= pluralize(@maintenance_contract.errors.count, "error") %> prohibited this maintenance_contract from being saved:</h4>
+
+      <ul>
+      <% @maintenance_contract.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :server_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.hidden_field :server_id %>
+      <%= f.text_field :server, class: "form-control", disabled: :disabled, value: @maintenance_contract.server %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :start_date, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.date_select :start_date, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :end_date, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.date_select :end_date, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :maintainer_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.collection_select :maintainer_id, Maintainer.all, :id, :name, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :contract_type_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.collection_select :contract_type_id, ContractType.all, :id, :name, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit "Enregistrer",class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
