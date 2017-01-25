@@ -12,7 +12,7 @@
     </div>
   <% end %>
 
-  <div class="form-group">
+  <div class="form-group col-md-6">
     <%= f.label :nom, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.text_field :nom, class: "form-control" %>
@@ -29,55 +29,41 @@
     <div class="col-sm-10">
       <%= f.collection_select(:server_state_id, ServerState.order(:title), :id, :title, {:prompt => false, :include_blank => true}, {class: "form-control"}) %>
     </div>
-  </div>
-
-  <div class="form-group">
     <%= f.label :modele_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.collection_select(:modele_id, Modele.order(:title), :id, :title, {:prompt => true, :include_blank => false}, {class: "form-control"}) %>
+      <%= f.collection_select(:modele_id, Modele.order(:title), :id, :name_with_brand, {:prompt => true, :include_blank => false}, {class: "form-control"}) %>
     </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :numero, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :numero, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :conso, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :conso, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :cluster_id, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.collection_select(:cluster_id, Cluster.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
-    </div>
-  </div>
-  <div class="form-group">
     <%= f.label :critique, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.check_box :critique, class: "form-control" %>
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group col-md-6">
+    <%= f.label 'Service Tag', class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :numero, class: "form-control" %>
+    </div>
+    <%= f.label :conso, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :conso, class: "form-control" %>
+    </div>
+    <%= f.label :cluster_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.collection_select(:cluster_id, Cluster.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
+    </div>
     <%= f.label :domaine_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.collection_select(:domaine_id, Domaine.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
     </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :gestion_id, class: "col-sm-2 control-label" %>
+    <%= f.label 'Gestionnaire', class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.collection_select(:gestion_id, Gestion.all, :id, :title, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
     </div>
   </div>
 
-
   <% if f.object.persisted? && @server.modele %>
-    <%= content_tag :span, 'Slots', class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
+    <%= content_tag :span, 'Slots', class: "col-sm-1 control-label", style: "clear:both;" %>
+    <div class="col-sm-11">
       <div class="panel panel-default">
         <ul class="list-group">
           <%= f.fields_for :cards_servers do |builder| %>
@@ -91,15 +77,39 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label 'Commentaire', class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
+  <% if f.object.persisted? %>
+    <%= content_tag :span, 'Mémoire', class: "col-sm-1 control-label", style: "clear:both;" %>
+    <div class="col-sm-5">
+      <div class="panel panel-default">
+        <ul class="list-group">
+          <%= f.fields_for :disks do |builder| %>
+            <%= render "disk_fields", :f => builder %>
+          <% end %>
+        </ul>
+        <div class="panel-footer"><%= link_to_add_fields "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter des disques".html_safe, f, :disks %></div>
+      </div>
+    </div>
+    <div class="col-sm-5">
+      <div class="panel panel-default">
+        <ul class="list-group">
+          <%= f.fields_for :memory_components do |builder| %>
+            <%= render "memory_component_fields", :f => builder %>
+          <% end %>
+        </ul>
+        <div class="panel-footer"><%= link_to_add_fields "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter de la RAM".html_safe, f, :memory_components %></div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group" style="clear:both;">
+    <%= f.label 'Commentaire', class: "col-sm-1 control-label" %>
+    <div class="col-sm-11">
       <%= f.text_area :comment, :style => 'width: 98%', class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
+    <div class="col-sm-offset-1 col-sm-11">
       <%= f.submit class: "btn btn-primary" %>
     </div>
   </div>

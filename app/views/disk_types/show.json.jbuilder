@@ -1,0 +1,1 @@
+json.partial! "disk_types/disk_type", disk_type: @disk_type

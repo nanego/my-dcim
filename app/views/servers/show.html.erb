@@ -105,6 +105,16 @@
         <% end %>
       <% end if @server.modele.present? %>
 
+      <dt>Disques :</dt>
+      <% @server.disks.each do |disk| %>
+        <dd><%= disk %></dd>
+      <% end %>
+
+      <dt>RAM :</dt>
+      <% @server.memory_components.each do |memory_component| %>
+        <dd><%= memory_component %></dd>
+      <% end %>
+
       <dt>Commentaire :</dt>
       <dd><%= @server.comment %></dd>
 
@@ -139,38 +149,39 @@
 
 <div style="clear:both;font-size: smaller;">
 
-<H5>Champs obsolètes (bientôt supprimés) :</H5>
+  <H5>Champs obsolètes (bientôt supprimés) :</H5>
   <dl class="dl-horizontal">
-<dt>Acte:</dt>
-<dd><%= @server.acte %></dd>
+  <dt>Acte:</dt>
+  <dd><%= @server.acte %></dd>
 
-<dt>Fc futur:</dt>
-<dd><%= @server.fc_futur %></dd>
+  <dt>Fc futur:</dt>
+  <dd><%= @server.fc_futur %></dd>
 
-<dt>Fc total:</dt>
-<dd><%= @server.fc_total %></dd>
+  <dt>Fc total:</dt>
+  <dd><%= @server.fc_total %></dd>
 
-<dt>Fc utilise:</dt>
-<dd><%= @server.fc_utilise %></dd>
+  <dt>Fc utilise:</dt>
+  <dd><%= @server.fc_utilise %></dd>
 
-<dt>Rj45 total:</dt>
-<dd><%= @server.rj45_total %></dd>
+  <dt>Rj45 total:</dt>
+  <dd><%= @server.rj45_total %></dd>
 
-<dt>Rj45 utilise:</dt>
-<dd><%= @server.rj45_utilise %></dd>
+  <dt>Rj45 utilise:</dt>
+  <dd><%= @server.rj45_utilise %></dd>
 
-<dt>Rj45 futur:</dt>
-<dd><%= @server.rj45_futur %></dd>
+  <dt>Rj45 futur:</dt>
+  <dd><%= @server.rj45_futur %></dd>
 
-<dt>Ipmi utilise:</dt>
-<dd><%= @server.ipmi_utilise %></dd>
+  <dt>Ipmi utilise:</dt>
+  <dd><%= @server.ipmi_utilise %></dd>
 
-<dt>Ipmi futur:</dt>
-<dd><%= @server.ipmi_futur %></dd>
+  <dt>Ipmi futur:</dt>
+  <dd><%= @server.ipmi_futur %></dd>
 
-<dt>Rg45 cm:</dt>
-<dd><%= @server.rj45_cm %></dd>
+  <dt>Rg45 cm:</dt>
+  <dd><%= @server.rj45_cm %></dd>
 
-<dt>Ipmi dedie:</dt>
-    <dd><%= @server.ipmi_dedie %></dd>   </dl>
+  <dt>Ipmi dedie:</dt>
+  <dd><%= @server.ipmi_dedie %></dd>
+  </dl>
 </div>

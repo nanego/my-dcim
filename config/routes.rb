@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :disk_types
+  resources :memory_types
+  resources :memory_components
+  resources :disks
   resources :maintainers
   resources :contract_types
   resources :maintenance_contracts

@@ -30,6 +30,10 @@ class Modele < ActiveRecord::Base
     slug.blank? || title_changed?
   end
 
+  def name_with_brand
+    "#{marque} #{title}"
+  end
+
   private
 
     def slug_candidates

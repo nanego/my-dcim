@@ -15,6 +15,8 @@ class Server < ActiveRecord::Base
   belongs_to :server_state
 
   has_one :maintenance_contract
+  has_many :memory_components
+  has_many :disks
 
   has_many :slots
   has_many :cards_servers, -> { joins(:composant).includes(:composant).order("composants.name asc, composants.position asc") }
@@ -22,6 +24,12 @@ class Server < ActiveRecord::Base
   has_many :ports, through: :cards_servers
 
   accepts_nested_attributes_for :cards_servers,
+                                :allow_destroy => true,
+                                :reject_if     => :all_blank
+  accepts_nested_attributes_for :disks,
+                                :allow_destroy => true,
+                                :reject_if     => :all_blank
+  accepts_nested_attributes_for :memory_components,
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
 

@@ -1,0 +1,2 @@
+module DiskTypesHelper
+end

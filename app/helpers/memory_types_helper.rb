@@ -1,0 +1,2 @@
+module MemoryTypesHelper
+end

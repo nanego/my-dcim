@@ -1,0 +1,2 @@
+module MemoryComponentsHelper
+end

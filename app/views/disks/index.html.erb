@@ -1,0 +1,33 @@
+<div class="page-header">
+  <%= link_to new_disk_path, class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-plus"></span>
+    New Disk
+  <% end %>
+  <h1>Listing disks</h1>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+            <th>Server</th>
+            <th>Disk type</th>
+            <th>Quantity</th>
+            <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= content_tag_for(:tr, @disks) do |disk| %>
+            <td><%= disk.server_id %></td>
+            <td><%= disk.disk_type_id %></td>
+            <td><%= disk.quantity %></td>
+            <td><%= link_to 'Show', disk %></td>
+        <td><%= link_to 'Edit', edit_disk_path(disk) %></td>
+        <td><%= link_to 'Destroy', disk, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' %></td>
+      <% end %>
+    </tbody>
+  </table>
+</div>

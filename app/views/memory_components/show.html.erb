@@ -1,0 +1,23 @@
+<div class="page-header">
+  <%= link_to memory_components_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_memory_component_path(@memory_component), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1>Show memory_component</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Server:</dt>
+  <dd><%= @memory_component.server_id %></dd>
+
+  <dt>Memory type:</dt>
+  <dd><%= @memory_component.memory_type_id %></dd>
+
+  <dt>Quantity:</dt>
+  <dd><%= @memory_component.quantity %></dd>
+
+</dl>
