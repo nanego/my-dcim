@@ -126,8 +126,11 @@
 <div class="col-lg-6">
   <div class="panel panel-body">
 
-    <H5>Contrat de maintenance :</H5>
+    <H5>CMDB / GLPI :</H5>
 
+    <%= link_to 'Voir la page du serveur sur GLPI', (@server.nom.present? ? "https://cmdb.cs.e2.rie.gouv.fr/serveurs/#{@server.nom.downcase}" : "https://cmdb.cs.e2.rie.gouv.fr/serial/#{@server.numero}" ), target: '_blank' %>
+
+    <!--
     <% if @server.maintenance_contract.present? %>
       <dl class="dl-horizontal">
         <dt>Mainteneur :</dt>
@@ -143,6 +146,7 @@
     <% else %>
       <%= link_to 'Ajouter un contrat de maintenance', new_maintenance_contract_path(server_id: @server.id) %>
     <% end %>
+    -->
 
   </div>
 </div>
