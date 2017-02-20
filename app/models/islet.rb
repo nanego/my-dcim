@@ -13,4 +13,8 @@ class Islet < ActiveRecord::Base
     name.nil? ? "" : name
   end
 
+  def name_with_room
+    "#{room} #{name.blank? ? "" : 'Ilot ' + name}"
+  end
+
 end

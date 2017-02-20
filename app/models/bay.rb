@@ -12,4 +12,12 @@ class Bay < ActiveRecord::Base
     name.nil? ? "" : name
   end
 
+  def detailed_name
+    "#{room} #{islet.blank? ? '' : "Ilot #{islet.name}"}#{lane.blank? ? '' : " Ligne #{lane}"}#{position.blank? ? '':" Position #{position}"}#{frames.any? ? " (#{list_frames})" : ''}"
+  end
+
+  def list_frames
+    frames.map(&:title).join(' / ')
+  end
+
 end

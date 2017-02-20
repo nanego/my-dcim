@@ -11,7 +11,11 @@
     <div class="col-md-9">
 
       <div class="page-header">
-        <h1>Toutes les frames</h1>
+        <%= link_to new_frame_path, class: 'btn btn-primary' do %>
+          <span class="glyphicon glyphicon-plus"></span>
+          Ajouter un châssis
+        <% end %>
+        <h1>Tous les châssis</h1>
       </div>
 
       <div class="table-responsive">
@@ -33,7 +37,8 @@
             <td><%= frame.servers.map{|s| link_to s.nom, s }.join(' ').html_safe %></td>
             <td><%= frame.u %></td>
             <td><%= frame.room.present? ? (link_to frame.room, frame.room) : frame.room %></td>
-            <td><%= frame.bay.islet %></td>
+            <td><%= frame.bay.present? ? frame.bay.islet : '' %></td>
+            <td><%= link_to 'Modifier', edit_frame_path(frame), class: 'btn btn-primary' %></td>
             <td><%= link_to 'Supprimer', frame, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
           <% end %>
           </tbody>

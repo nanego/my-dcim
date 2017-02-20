@@ -17,6 +17,8 @@ class Frame < ActiveRecord::Base
 
   scope :sorted, -> { order( :position ) }
 
+  validates_presence_of :bay_id
+
   def to_s
     title.nil? ? "" : title
   end

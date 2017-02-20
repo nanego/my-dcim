@@ -20,7 +20,7 @@ class BaysController < ApplicationController
 
     respond_to do |format|
       if @bay.save
-        format.html { redirect_to @bay, notice: 'Bay was successfully created.' }
+        format.html { redirect_to bays_path, notice: 'la baie a été ajoutée.' }
         format.json { render :show, status: :created, location: @bay }
       else
         format.html { render :new }

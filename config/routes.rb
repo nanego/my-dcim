@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :maintenance_contracts
   resources :server_states
 
-  resources :frames, only: [:edit, :update, :show, :index, :destroy] do
+  resources :frames do
     collection do
       post :sort
     end

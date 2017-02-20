@@ -1,0 +1,12 @@
+<%
+  breadcrumb_variables = {'Rooms' => overview_rooms_path,
+                          "Nouveau chassis" => ''}
+%>
+<%= render 'layouts/breadcrumb', params: breadcrumb_variables %>
+
+<div class="page-header">
+  <h1>Nouveau châssis</h1>
+</div>
+
+<%= render 'form' %>
+

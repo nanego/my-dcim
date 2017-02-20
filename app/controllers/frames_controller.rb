@@ -31,6 +31,10 @@ class FramesController < ApplicationController
     end
   end
 
+  def new
+    @frame = Frame.new
+  end
+
   def edit
     @frame = Frame.friendly.find(params[:id].to_s.downcase)
   end
@@ -39,10 +43,24 @@ class FramesController < ApplicationController
     @frame = Frame.friendly.find(params[:id].to_s.downcase)
     respond_to do |format|
       if @frame.update(frame_params)
-        format.html { redirect_to room_path(@frame.room), notice: 'frame was successfully updated.' }
+        format.html { redirect_to room_path(@frame.room), notice: 'Le châssis a été mis à jour.' }
         format.json { render :show, status: :ok, location: @frame }
       else
         format.html { render :edit }
+        format.json { render json: @frame.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def create
+    @frame = Frame.new(frame_params)
+
+    respond_to do |format|
+      if @frame.save
+        format.html { redirect_to frames_path, notice: 'Le châssis a été ajouté.' }
+        format.json { render :show, status: :created, location: @frame }
+      else
+        format.html { render :new }
         format.json { render json: @frame.errors, status: :unprocessable_entity }
       end
     end
@@ -72,7 +90,7 @@ class FramesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def frame_params
-    params.require(:frame).permit(:title, :u, :room, :islet, :position, :switch_slot)
+    params.require(:frame).permit(:title, :u, :room, :islet, :position, :switch_slot, :bay_id)
   end
 
 end
