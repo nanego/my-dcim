@@ -15,12 +15,7 @@
           <td style="<%= server.modele.category.title != 'Patch Panel' ? 'max-width: 2.5em;' : '' %>">
             <% server.cards_servers.where(:composant_id => slot.id).each do |card_server| %>
               <span data-server-name="<%= server.nom %>" data-server-id="<%= server.id %>" data-composant-id="<%= card_server.id %>" data-composant-type="<%= card_server.class %>">
-                <%= render 'servers/card_ports.html.erb',
-                           port_type: card_server.card.try(:port_type),
-                           port_quantity: card_server.card.try(:port_quantity),
-                           alignment: 'vertical',
-                           card_server: card_server,
-                           ports_data: Port.where(parent: card_server) %>
+                <%= ports_by_card(port_type: card_server.card.try(:port_type), port_quantity: card_server.card.try(:port_quantity), card_server_id: card_server.id, ports_data: Port.where(parent: card_server)) %>
               </span>
             <% end %>
           </td>
