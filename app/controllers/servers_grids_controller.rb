@@ -2,11 +2,18 @@ class ServersGridsController < ApplicationController
 
   def index
 
-    unless params[:servers_grid].present?
+    if params[:servers_grid].present?
+      session[:servers_grid_params] = {current_user.id => params[:servers_grid]}
+    else
       params[:servers_grid] = {"column_names"=>["id", "nom", "type"]}
     end
 
-    @servers = ServersGrid.new(params[:servers_grid])
+    if session[:servers_grid_params].present? && session[:servers_grid_params][current_user.id.to_s].present?
+      merged_params = params.fetch(:servers_grid, {}).merge(session[:servers_grid_params][current_user.id.to_s])
+    else
+      merged_params = params.fetch(:servers_grid, {})
+    end
+    @servers = ServersGrid.new(merged_params)
 
     respond_to do |format|
       format.html

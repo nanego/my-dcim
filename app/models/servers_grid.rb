@@ -43,15 +43,6 @@ class ServersGrid
   filter(:gestion, :enum, :select => Gestion.where(published: true).map {|r| [r.to_s, r.id]})
   filter(:acte, :enum, :select => Acte.where(published: true).map {|r| [r.to_s, r.id]})
   filter(:frame, :enum, :select => Frame.all.map {|b| [b.name_with_room_and_islet, b.id]})
-  filter :fc_total, :integer, :range => true
-  filter :fc_utilise, :integer, :range => true
-  filter :rj45_total, :integer, :range => true
-  filter :rj45_utilise, :integer, :range => true
-  filter :rj45_futur, :integer, :range => true
-  filter :ipmi_utilise, :integer, :range => true
-  filter :ipmi_futur, :integer, :range => true
-  filter :rj45_cm, :integer, :range => true
-  filter :ipmi_dedie, :integer, :range => true
 
   filter(:condition, :dynamic, :header => "Condition dynamique")
 
@@ -141,22 +132,7 @@ class ServersGrid
   }) do |record|
     record.frame.try(:name_with_room_and_islet)
   end
-  column(:fc_total)
-  column(:fc_utilise)
-  column(:rj45_total)
-  column(:rj45_utilise)
-  column(:rj45_futur)
-  column(:ipmi_utilise)
-  column(:ipmi_futur)
-  column(:rj45_cm)
-  column(:ipmi_dedie)
 
-  column(:pdu_ondule)
-  column(:pdu_normal)
-  column(:fc_calcule)
-  column(:fc_futur)
-  column(:i)
-  column(:rj45_calcule)
   column(:tenGbps_futur)
   column(:ip)
   column(:hostname)
