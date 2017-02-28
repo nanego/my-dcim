@@ -60,7 +60,7 @@ module ServersHelper
 
         else
 
-          html += link_to "#{port_type.try(:name)} <BR> #{port_cablename(port_data)}".html_safe,
+          html += link_to "#{port_type.try(:name)}<BR>#{port_cablename(port_data)}".html_safe,
                   edit_port_url,
                   class: "port pull-left portSCSI #{port_data.present? ? port_data.color : '' }",
                   data: {url: edit_port_url,
