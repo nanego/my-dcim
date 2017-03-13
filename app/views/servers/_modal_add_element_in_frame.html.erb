@@ -36,7 +36,7 @@
           <div class="form-group">
             <%= f.label :frame, class: "col-sm-2 control-label" %>
             <div class="col-sm-10">
-              <%= f.collection_select(:frame_id, Frame.includes(:islet => :room, :bay => :frames).all, :id, :name_with_room_and_islet, {:prompt => true}, {class: "form-control"}) %>
+              <%= f.collection_select(:frame_id, Frame.includes(:bay, :islet => :room).all, :id, :name_with_room_and_islet, {:prompt => true}, {class: "form-control"}) %>
             </div>
           </div>
 

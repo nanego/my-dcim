@@ -12,7 +12,7 @@ class RoomsController < ApplicationController
   def show
     @servers_per_frames = {}
     @sums = {}
-    @room.frames.order('islets.name, bays.lane, bays.position, frames.position').each do |frame|
+    @room.frames.includes(:servers, :islet, :bay => :frames).order('islets.name, bays.lane, bays.position, frames.position').each do |frame|
       servers = frame.servers.includes(:gestion, :cluster, :modele => :category, :cards => :port_type, :cards_servers => [:composant, :ports])
       servers.each do |s|
         islet = frame.bay.islet.name
@@ -44,7 +44,7 @@ class RoomsController < ApplicationController
     islet = params[:islet]
     @servers_per_frames = {}
     @sums = {}
-    @room.frames.includes(:islet, :bay => :frames).where('islets.name = ?', islet).each do |frame|
+    @room.frames.includes(:servers, :islet, :bay).where('islets.name = ?', islet).each do |frame|
       servers = frame.servers.includes(:gestion, :modele => :category, :cards => :port_type, :cards_servers => :composant)
       servers.each do |s|
         islet = frame.bay.islet.name
@@ -73,7 +73,7 @@ class RoomsController < ApplicationController
   end
 
   def overview
-    @rooms = Room.order(:position).joins(:frames).includes(:frames).uniq
+    @rooms = Room.order(:position).joins(:frames).uniq
 
     if params[:cluster_id].present? || params[:gestion_id].present?
       @frames = Frame.preload(:servers => [:gestion, :cluster, :modele => :category, :cards => :port_type, :cards_servers => [:composant, :ports] ])

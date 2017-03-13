@@ -23,6 +23,8 @@ class Server < ActiveRecord::Base
   has_many :cards, through: :cards_servers
   has_many :ports, through: :cards_servers
 
+  validates_uniqueness_of :numero
+
   accepts_nested_attributes_for :cards_servers,
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
@@ -136,7 +138,7 @@ class Server < ActiveRecord::Base
   def ports_per_type
     # Number of ports per type
     sums = {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0}
-    self.cards_servers.each do |card_server|
+    self.cards_servers.includes(:ports, :card).each do |card_server|
       if card_server.composant.name == 'IPMI'
         port_type = 'IPMI'
       else
