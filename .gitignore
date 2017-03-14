@@ -87,3 +87,8 @@ pickle-email-*.html
 *~
 log/
 tmp/
+
+backups/
+
+.ruby-gemset
+.ruby-version
