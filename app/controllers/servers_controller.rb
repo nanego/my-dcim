@@ -133,7 +133,7 @@ class ServersController < ApplicationController
     @server.create_activity action: 'destroy', parameters: @server.attributes, owner: current_user
     @server.destroy
     respond_to do |format|
-      format.html { redirect_to servers_url, notice: 'Server was successfully destroyed.' }
+      format.html { redirect_to servers_grids_path, notice: 'Server was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
