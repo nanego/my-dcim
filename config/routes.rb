@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :sites
   resources :islets
   resources :disk_types
   resources :memory_types

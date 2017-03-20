@@ -11,6 +11,8 @@ class Room < ActiveRecord::Base
   has_many :frames, through: :bays
   has_many :servers, through: :frames
 
+  belongs_to :site
+
   scope :sorted, -> { order( :position ) }
   scope :not_empty, -> { joins(:servers) }
 

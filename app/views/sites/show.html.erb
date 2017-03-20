@@ -1,0 +1,21 @@
+<div class="page-header">
+  <%= link_to sites_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Retour
+  <% end %>
+  <%= link_to edit_site_path(@site), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Modifier
+  <% end %>
+  <h1>Site</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Nom :</dt>
+  <dd><%= @site.name %></dd>
+</dl>
+
+<dl class="dl-horizontal">
+  <dt>Position :</dt>
+  <dd><%= @site.position %></dd>
+</dl>
