@@ -12,23 +12,34 @@
             background: url(<%= asset_path('data_center.jpg') %>) no-repeat center;
             -webkit-background-size: cover;
             background-size: cover;">
-          <div class="row">
-            <% Room.where(display_on_home_page: true).order(:position).each do |room| %>
-              <div class="col-md-4">
+          <% Site.joins(:rooms).where('display_on_home_page = ?', true).uniq.order(:position).each do |site| %>
+            <div class="row">
+              <div class="col-md-12">
                 <div class="well" style="background-color: rgba(255, 255, 255, 0.75);">
-                  <div style="text-align: center;font-size: x-large;margin-bottom: 5px;"><%= link_to room.title, room %></div>
-                  <ul>
-                    <% Category.all.each do |cat| %>
-                      <% count = room.servers.joins(:modele).where("modeles.category_id = ?", cat.id).count %>
-                      <% if count > 0 %>
-                        <li><%= "#{cat} : #{room.servers.joins(:modele).where("modeles.category_id = ?", cat.id).count}" %></li>
-                      <% end %>
-                    <% end %>
-                  </ul>
+                  <div style="text-align: center;font-size: x-large;margin-bottom: 10px;"><%= site %></div>
+                  <% rooms = site.rooms.where(display_on_home_page: true).order(:position) %>
+                  <% rooms.each do |room| %>
+                    <div class="col-md-<%= rooms.size <= 3 ? (12/rooms.size).to_i : "4" %>">
+                      <div class="well" style="background-color: transparent;">
+                        <ul>
+                          <div style="text-align: left;font-size: large;margin-bottom: 5px;"><%= link_to room.title, room %></div>
+                          <% Category.all.each do |cat| %>
+                            <% count = room.servers.joins(:modele).where("modeles.category_id = ?", cat.id).count %>
+                            <% if count > 0 %>
+                              <li><%= "#{cat} : #{room.servers.joins(:modele).where("modeles.category_id = ?", cat.id).count}" %></li>
+                            <% end %>
+                          <% end %>
+                        </ul>
+                      </div>
+                    </div>
+                  <% end %>
+                  <div style="clear:both;"></div>
                 </div>
               </div>
-            <% end %>
-          </div>
+            </div>
+
+          <% end %>
+
         </div>
       </div>
     </div>

@@ -20,6 +20,10 @@ class Room < ActiveRecord::Base
     title.nil? ? "" : title
   end
 
+  def name_with_site
+    title.nil? ? site : "#{site} - #{title}"
+  end
+
   def should_generate_new_friendly_id?
     slug.blank? || title_changed?
   end

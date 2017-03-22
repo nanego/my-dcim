@@ -18,18 +18,19 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Salles <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><%= link_to 'Afficher toutes les salles', overview_rooms_path %></li>
-            <li role="separator" class="divider"></li>
-            <% rooms = Room.sorted.not_empty.uniq %>
-            <% rooms.each do |room| %>
-              <li><%= link_to room.title, room_path(room) %></li>
-              <% islets = room.islets.sorted.not_empty.has_name.uniq %>
-              <% if islets.size > 1 %>
-                <% islets.each do |islet| %>
-                  <li><%= link_to "#{room.title}-ilot#{islet.name}", islet_rooms_path(id: room.id, islet: islet.name, :view => params[:view], bg: params[:bg]) %></li>
-                <% end %>
-              <% end %>
-              <% unless room == rooms.last %>
-                <li role="separator" class="divider"></li>
+            <% sites = Site.order(:position).joins(:rooms).uniq %>
+            <% sites.each do |site| %>
+              <li role="separator" class="divider"></li>
+              <li class="dropdown-header"><%= site %></li>
+              <% rooms = site.rooms.sorted.uniq %>
+              <% rooms.each do |room| %>
+                  <li><%= link_to room.title, room_path(room) %></li>
+                  <% islets = room.islets.sorted.not_empty.has_name.uniq %>
+                  <% if islets.size > 1 %>
+                      <% islets.each do |islet| %>
+                          <li><%= link_to "#{room.title}-ilot#{islet.name}", islet_rooms_path(id: room.id, islet: islet.name, :view => params[:view], bg: params[:bg]) %></li>
+                      <% end %>
+                  <% end %>
               <% end %>
             <% end %>
           </ul>
@@ -45,7 +46,7 @@
                     <% clusters.each do |c| %>
                       <% if c.present? %>
                         <li <%= "class=active" if params[:cluster_id]==c.id.to_s %> >
-                          <%= link_to c.title, overview_rooms_path(cluster_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
+                          <%= link_to c.to_s, overview_rooms_path(cluster_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
                         </li>
                       <% end %>
                     <% end %>
