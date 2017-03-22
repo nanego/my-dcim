@@ -73,7 +73,7 @@ class RoomsController < ApplicationController
   end
 
   def overview
-    @rooms = Room.order(:position).joins(:frames).uniq
+    @sites = Site.order(:position).joins(:rooms => :frames).uniq
 
     if params[:cluster_id].present? || params[:gestion_id].present?
       @frames = Frame.preload(:servers => [:gestion, :cluster, :modele => :category, :cards => :port_type, :cards_servers => [:composant, :ports] ])

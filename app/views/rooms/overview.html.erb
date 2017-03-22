@@ -4,11 +4,17 @@
 
   <div class="row">
 
-  <% @rooms.each do |room| %>
-    <div class="col-md-6 col-sm-12">
-      <%= render 'rooms/room_overview', room: room %>
-    </div>
-  <% end %>
+    <% @sites.each do |site| %>
+      <div class="col-sm-12" style="text-align: center;">
+        <h3><%= site %></h3>
+      </div>
+      <% rooms = site.rooms.order(:position).joins(:frames).uniq %>
+      <% rooms.each do |room| %>
+        <div class="col-md-6 col-sm-12">
+          <%= render 'rooms/room_overview', room: room %>
+        </div>
+      <% end %>
+    <% end %>
 
   </div>
 </div>

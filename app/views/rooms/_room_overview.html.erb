@@ -5,7 +5,7 @@
   <div class="panel-body" style="padding: 0;">
     <% room.islets.sorted.each do |islet| %>
       <div class="islet">
-        <h5><%= islet.name.present? ? link_to("Ilot #{islet}", islet_rooms_path(id: room.id, islet: islet.name, :view => params[:view], bg: params[:bg])) : 'Ilot sans nom' %></h5>
+        <h5><%= islet.name.present? ? link_to("Ilot #{islet}", islet_rooms_path(id: room.id, islet: islet.name, :view => params[:view], bg: params[:bg])) : '' %></h5>
         <% islet.bays.sorted.group_by(&:lane).each do |lane, bays| %>
           <div style="clear: both;">
             <% bays.each do |bay| %>
