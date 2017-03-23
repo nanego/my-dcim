@@ -6,10 +6,14 @@
 
     <div class="col-md-6 col-sm-12" id="rooms-overview" data-spy="affix" data-offset-top="53" data-offset-bottom="20">
 
-      <% @rooms.each do |room| %>
-        <div>
-          <%= render 'rooms/room_overview', room: room %>
+      <% @sites.each do |site| %>
+        <div style="text-align: center;">
+          <h3><%= site %></h3>
         </div>
+        <% rooms = site.rooms.order(:position).joins(:frames).uniq %>
+        <% rooms.each do |room| %>
+          <%= render 'rooms/room_overview', room: room %>
+        <% end %>
       <% end %>
 
     </div>
