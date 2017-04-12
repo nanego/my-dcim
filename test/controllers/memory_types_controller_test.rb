@@ -2,6 +2,7 @@ require 'test_helper'
 
 class MemoryTypesControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @memory_type = memory_types(:one)
   end
 
@@ -18,7 +19,7 @@ class MemoryTypesControllerTest < ActionController::TestCase
 
   test "should create memory_type" do
     assert_difference('MemoryType.count') do
-      post :create, memory_type: { name: @memory_type.name }
+      post :create, memory_type: { unit: "Mb", quantity: 189 }
     end
 
     assert_redirected_to memory_type_path(assigns(:memory_type))
@@ -35,7 +36,7 @@ class MemoryTypesControllerTest < ActionController::TestCase
   end
 
   test "should update memory_type" do
-    patch :update, id: @memory_type, memory_type: { name: @memory_type.name }
+    patch :update, id: @memory_type, memory_type: { unit: @memory_type.unit }
     assert_redirected_to memory_type_path(assigns(:memory_type))
   end
 

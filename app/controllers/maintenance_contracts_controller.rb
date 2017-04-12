@@ -18,6 +18,8 @@ class MaintenanceContractsController < ApplicationController
     if params[:server_id]
       @server = Server.find_by_id(params[:server_id])
       @maintenance_contract.server = @server if @server
+    else
+      redirect_to maintenance_contracts_path
     end
   end
 

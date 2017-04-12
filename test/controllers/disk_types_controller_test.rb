@@ -2,6 +2,7 @@ require 'test_helper'
 
 class DiskTypesControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @disk_type = disk_types(:one)
   end
 
@@ -18,7 +19,7 @@ class DiskTypesControllerTest < ActionController::TestCase
 
   test "should create disk_type" do
     assert_difference('DiskType.count') do
-      post :create, disk_type: { name: @disk_type.name }
+      post :create, disk_type: { technology: @disk_type.technology }
     end
 
     assert_redirected_to disk_type_path(assigns(:disk_type))
@@ -35,7 +36,7 @@ class DiskTypesControllerTest < ActionController::TestCase
   end
 
   test "should update disk_type" do
-    patch :update, id: @disk_type, disk_type: { name: @disk_type.name }
+    patch :update, id: @disk_type, disk_type: { technology: @disk_type.technology }
     assert_redirected_to disk_type_path(assigns(:disk_type))
   end
 

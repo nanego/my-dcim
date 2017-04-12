@@ -2,6 +2,7 @@ require 'test_helper'
 
 class SitesControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @site = sites(:one)
   end
 
@@ -21,7 +22,7 @@ class SitesControllerTest < ActionController::TestCase
       post :create, site: { name: @site.name }
     end
 
-    assert_redirected_to site_path(assigns(:site))
+    assert_redirected_to sites_path
   end
 
   test "should show site" do
@@ -36,7 +37,7 @@ class SitesControllerTest < ActionController::TestCase
 
   test "should update site" do
     patch :update, id: @site, site: { name: @site.name }
-    assert_redirected_to site_path(assigns(:site))
+    assert_redirected_to sites_path
   end
 
   test "should destroy site" do

@@ -2,6 +2,7 @@ require 'test_helper'
 
 class MemoryComponentsControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @memory_component = memory_components(:one)
   end
 
@@ -21,7 +22,7 @@ class MemoryComponentsControllerTest < ActionController::TestCase
       post :create, memory_component: { memory_type_id: @memory_component.memory_type_id, quantity: @memory_component.quantity, server_id: @memory_component.server_id }
     end
 
-    assert_redirected_to memory_component_path(assigns(:memory_component))
+    assert_redirected_to server_path(@memory_component.server_id)
   end
 
   test "should show memory_component" do
@@ -36,7 +37,7 @@ class MemoryComponentsControllerTest < ActionController::TestCase
 
   test "should update memory_component" do
     patch :update, id: @memory_component, memory_component: { memory_type_id: @memory_component.memory_type_id, quantity: @memory_component.quantity, server_id: @memory_component.server_id }
-    assert_redirected_to memory_component_path(assigns(:memory_component))
+    assert_redirected_to server_path(@memory_component.server_id)
   end
 
   test "should destroy memory_component" do

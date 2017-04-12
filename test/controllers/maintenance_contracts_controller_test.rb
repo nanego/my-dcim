@@ -2,6 +2,7 @@ require 'test_helper'
 
 class MaintenanceContractsControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @maintenance_contract = maintenance_contracts(:one)
   end
 
@@ -12,16 +13,16 @@ class MaintenanceContractsControllerTest < ActionController::TestCase
   end
 
   test "should get new" do
-    get :new
+    get :new, server_id: 1
     assert_response :success
   end
 
   test "should create maintenance_contract" do
     assert_difference('MaintenanceContract.count') do
-      post :create, maintenance_contract: { contract_type_id: @maintenance_contract.contract_type_id, end_date: @maintenance_contract.end_date, maintainer_id: @maintenance_contract.maintainer_id, start_date: @maintenance_contract.start_date }
+      post :create, maintenance_contract: { contract_type_id: @maintenance_contract.contract_type_id, end_date: @maintenance_contract.end_date, maintainer_id: @maintenance_contract.maintainer_id, start_date: @maintenance_contract.start_date, server_id: 2 }
     end
 
-    assert_redirected_to maintenance_contract_path(assigns(:maintenance_contract))
+    assert_redirected_to server_path(2)
   end
 
   test "should show maintenance_contract" do
@@ -35,8 +36,8 @@ class MaintenanceContractsControllerTest < ActionController::TestCase
   end
 
   test "should update maintenance_contract" do
-    patch :update, id: @maintenance_contract, maintenance_contract: { contract_type_id: @maintenance_contract.contract_type_id, end_date: @maintenance_contract.end_date, maintainer_id: @maintenance_contract.maintainer_id, start_date: @maintenance_contract.start_date }
-    assert_redirected_to maintenance_contract_path(assigns(:maintenance_contract))
+    patch :update, id: @maintenance_contract, maintenance_contract: { contract_type_id: @maintenance_contract.contract_type_id, end_date: @maintenance_contract.end_date, maintainer_id: @maintenance_contract.maintainer_id, start_date: @maintenance_contract.start_date, server_id: 2 }
+    assert_redirected_to server_path(2)
   end
 
   test "should destroy maintenance_contract" do

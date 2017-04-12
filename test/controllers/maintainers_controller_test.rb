@@ -2,6 +2,7 @@ require 'test_helper'
 
 class MaintainersControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @maintainer = maintainers(:one)
   end
 

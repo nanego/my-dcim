@@ -5,9 +5,11 @@ one:
   end_date: 2017-01-24
   maintainer_id: 1
   contract_type_id: 1
+  server_id: 1
 
 two:
   start_date: 2017-01-24
   end_date: 2017-01-24
   maintainer_id: 1
   contract_type_id: 1
+  server_id: 1

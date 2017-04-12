@@ -15,7 +15,7 @@ class RoomsControllerTest < ActionController::TestCase
   test "should get overview" do
     get :overview
     assert_response :success
-    assert_not_nil assigns(:rooms)
+    assert_not_nil assigns(:sites)
   end
 
   test "should get new" do
@@ -28,7 +28,7 @@ class RoomsControllerTest < ActionController::TestCase
       post :create, room: { description: @room.description, published: @room.published, title: @room.title }
     end
 
-    assert_redirected_to room_path(assigns(:room))
+    assert_redirected_to rooms_path
   end
 
   test "should show room" do
@@ -43,7 +43,7 @@ class RoomsControllerTest < ActionController::TestCase
 
   test "should update room" do
     patch :update, id: @room, room: { description: @room.description, published: @room.published, title: @room.title }
-    assert_redirected_to room_path(assigns(:room))
+    assert_redirected_to rooms_path
   end
 
   test "should destroy room" do

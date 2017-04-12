@@ -2,6 +2,7 @@ require 'test_helper'
 
 class DisksControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @disk = disks(:one)
   end
 
@@ -21,7 +22,7 @@ class DisksControllerTest < ActionController::TestCase
       post :create, disk: { disk_type_id: @disk.disk_type_id, quantity: @disk.quantity, server_id: @disk.server_id }
     end
 
-    assert_redirected_to disk_path(assigns(:disk))
+    assert_redirected_to server_path(@disk.server_id)
   end
 
   test "should show disk" do
@@ -36,7 +37,7 @@ class DisksControllerTest < ActionController::TestCase
 
   test "should update disk" do
     patch :update, id: @disk, disk: { disk_type_id: @disk.disk_type_id, quantity: @disk.quantity, server_id: @disk.server_id }
-    assert_redirected_to disk_path(assigns(:disk))
+    assert_redirected_to server_path(@disk.server_id)
   end
 
   test "should destroy disk" do

@@ -2,10 +2,8 @@
 
 one:
   frame_id: 1
-  pdu_line_id: 1
   name: MyString
 
 two:
   frame_id: 1
-  pdu_line_id: 1
   name: MyString

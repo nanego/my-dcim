@@ -2,6 +2,7 @@ require 'test_helper'
 
 class ContractTypesControllerTest < ActionController::TestCase
   setup do
+    sign_in users(:one)
     @contract_type = contract_types(:one)
   end
 
