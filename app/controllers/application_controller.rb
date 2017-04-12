@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include PublicActivity::StoreController
 
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.

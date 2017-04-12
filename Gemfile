@@ -17,7 +17,7 @@ gem 'bootstrap-generators', '~> 3.3.4'
 
 # Authentication
 gem 'omniauth', '>= 1.1.1'
-gem 'omniauth-cas', '= 1.0.1'
+gem 'omniauth-cas', '= 1.1.1'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise_invitable'

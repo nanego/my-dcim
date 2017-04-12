@@ -1,4 +1,3 @@
-require 'omniauth/patches'
 require 'omniauth/dynamic_full_host'
 
 # a setup app that handles dynamic config of CAS server
