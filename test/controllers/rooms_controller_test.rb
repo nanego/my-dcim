@@ -32,7 +32,7 @@ class RoomsControllerTest < ActionController::TestCase
   end
 
   test "should show room" do
-    get :show, id: @room
+    get :show, params:{id: @room}
     assert_response :success
   end
 

@@ -26,7 +26,7 @@ class DiskTypesControllerTest < ActionController::TestCase
   end
 
   test "should show disk_type" do
-    get :show, id: @disk_type
+    get :show, params: { id: @disk_type }
     assert_response :success
   end
 

@@ -27,23 +27,23 @@ class ActesControllerTest < ActionController::TestCase
   end
 
   test "should show acte" do
-    get :show, id: @acte
+    get :show, params: { id: @acte }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @acte
+    get :edit, params: { id: @acte }
     assert_response :success
   end
 
   test "should update acte" do
-    patch :update, id: @acte, acte: { description: @acte.description, published: @acte.published, title: @acte.title }
+    patch :update, params: { id: @acte, acte: { description: @acte.description, published: @acte.published, title: @acte.title } }
     assert_redirected_to acte_path(assigns(:acte))
   end
 
   test "should destroy acte" do
     assert_difference('Acte.count', -1) do
-      delete :destroy, id: @acte
+      delete :destroy, params: { id: @acte }
     end
 
     assert_redirected_to actes_path

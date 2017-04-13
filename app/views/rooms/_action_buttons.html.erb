@@ -7,7 +7,7 @@
       Vue avant & arrière
     <% end %>
   <% else %>
-    <%= link_to url_for(params.except(:controller, :action).merge({:view => (view_side == Frame.view_sides[:back] ? Frame.view_sides[:front] : Frame.view_sides[:back]), islet: params['islet'], id: params['id']})), class: 'btn btn-success' do %>
+    <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => (view_side == Frame.view_sides[:back] ? Frame.view_sides[:front] : Frame.view_sides[:back]), islet: params['islet'], id: params['id']})), class: 'btn btn-success' do %>
       <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
       <%= (view_side==Frame.view_sides[:back] ? 'Vue avant' : 'Vue arrière') %>
     <% end %>
@@ -27,9 +27,9 @@
         Couleur de fond : <%= params[:bg] || 'modèle' %> <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
-        <li><%= link_to 'Modèle', url_for( params.except(:controller, :action).merge({:view => 'front', bg: 'modele', islet: params[:islet], id: params[:id]})) %></li>
-        <li><%= link_to 'Gestionnaire', url_for( params.except(:controller, :action).merge({:view => 'front', bg: 'gestionnaire', islet: params[:islet], id: params[:id]})) %></li>
-        <li><%= link_to 'Cluster', url_for( params.except(:controller, :action).merge({:view => 'front', bg: 'cluster', islet: params[:islet], id: params[:id]})) %></li>
+        <li><%= link_to 'Modèle', url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: 'modele', islet: params[:islet], id: params[:id]})) %></li>
+        <li><%= link_to 'Gestionnaire', url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: 'gestionnaire', islet: params[:islet], id: params[:id]})) %></li>
+        <li><%= link_to 'Cluster', url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: 'cluster', islet: params[:islet], id: params[:id]})) %></li>
       </ul>
     </div>
   <% end %>
@@ -41,17 +41,17 @@
       </button>
       <ul class="dropdown-menu dropdown-menu-right">
         <li>
-          <%= link_to url_for(params.except(:controller, :action).merge({'format' => 'pdf'})), target: :_blank do %>
+          <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'pdf'})), target: :_blank do %>
             <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
             Export PDF
           <% end %>
         </li>
-        <li><%= link_to url_for(params.except(:controller, :action).merge({'format' => 'txt'})) do %>
+        <li><%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'txt'})) do %>
           <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
             Export Txt
           <% end %>
         </li>
-        <li><%= link_to url_for(params.except(:controller, :action).merge({'format' => 'pdf', 'debug' => '1'})), target: :_blank do %>
+        <li><%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'pdf', 'debug' => '1'})), target: :_blank do %>
           <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
             Impression
           <% end %>

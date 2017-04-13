@@ -36,7 +36,7 @@ class SitesControllerTest < ActionController::TestCase
   end
 
   test "should update site" do
-    patch :update, id: @site, site: { name: @site.name }
+    patch :update, params: { id: @site, site: { name: @site.name } }
     assert_redirected_to sites_path
   end
 
