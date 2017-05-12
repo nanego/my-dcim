@@ -1,23 +1,28 @@
 class ServersGridsController < ApplicationController
 
+  DEFAULT_PARAMS = {"column_names"=>["id", "nom", "type"]}
+
   def index
-
-    if params[:servers_grid].present?
-      session[:servers_grid_params] = {current_user.id => params[:servers_grid]}
-    else
-      params[:servers_grid] = {"column_names"=>["id", "nom", "type"]}
-    end
-
-    if session[:servers_grid_params].present? && session[:servers_grid_params][current_user.id.to_s].present?
-      merged_params = params.fetch(:servers_grid, {}).merge(session[:servers_grid_params][current_user.id.to_s])
-    else
-      merged_params = params.fetch(:servers_grid, {})
-    end
-    @servers = ServersGrid.new(merged_params)
-
     respond_to do |format|
-      format.html
-      format.csv { send_data @servers.to_csv }
+      format.html do
+        if params[:servers_grid].present?
+          save_request_in_session(params.to_unsafe_h.slice(:servers_grid))
+        else
+          params[:servers_grid] = DEFAULT_PARAMS
+        end
+
+        if session[:servers_grid_params].present? && session[:servers_grid_params][current_user.id.to_s].present?
+          @merged_params = params.to_unsafe_h.slice(:servers_grid).merge(session[:servers_grid_params][current_user.id.to_s])
+        else
+          @merged_params = params.to_unsafe_h.slice(:servers_grid)
+        end
+
+        @servers = ServersGrid.new(@merged_params[:servers_grid])
+      end
+      format.csv do
+        @servers = ServersGrid.new(params.to_unsafe_h[:servers_grid])
+        send_data @servers.to_csv
+      end
     end
   end
 
@@ -53,4 +58,11 @@ class ServersGridsController < ApplicationController
       end
     end
   end
+
+  private
+
+    def save_request_in_session(params)
+      session[:servers_grid_params] = {current_user.id => params}
+    end
+
 end

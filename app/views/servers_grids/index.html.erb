@@ -1,5 +1,5 @@
 <div class="page-header">
-  <%= link_to url_for(format: :csv, params: params), class: 'btn btn-default' do %>
+  <%= link_to url_for(format: :csv, params: @merged_params), class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-export"></span>
     Exporter au format CSV
   <% end %>
