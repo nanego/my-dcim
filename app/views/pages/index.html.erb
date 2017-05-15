@@ -9,18 +9,18 @@
           <h4>Gestion de salle</h4>
         </div>
         <div class="img-responsive" style="margin:0;padding:70px 10px;
-            background: url(<%= asset_path('data_center.jpg') %>) no-repeat center;
+            background: url(<%= asset_path('_78A0587-nb.jpg') %>) no-repeat center;
             -webkit-background-size: cover;
             background-size: cover;">
           <% Site.joins(:rooms).where('display_on_home_page = ?', true).uniq.order(:position).each do |site| %>
             <div class="row">
               <div class="col-md-12">
-                <div class="well" style="background-color: rgba(255, 255, 255, 0.75);">
+                <div class="well" style="background-color: rgba(255, 255, 255, 0.80);border-color: #BBBBBB;">
                   <div style="text-align: center;font-size: x-large;margin-bottom: 10px;"><%= site %></div>
                   <% rooms = site.rooms.where(display_on_home_page: true).order(:position) %>
                   <% rooms.each do |room| %>
                     <div class="col-md-<%= rooms.size <= 3 ? (12/rooms.size).to_i : "4" %>">
-                      <div class="well" style="background-color: transparent;">
+                      <div class="well" style="background-color: transparent;border-color: #BBBBBB;">
                         <ul>
                           <div style="text-align: left;font-size: large;margin-bottom: 5px;"><%= link_to room.title, room %></div>
                           <% Category.all.each do |cat| %>
