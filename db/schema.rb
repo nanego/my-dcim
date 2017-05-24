@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -35,11 +34,10 @@ ActiveRecord::Schema.define(version: 20170320134606) do
     t.string   "recipient_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
+    t.index ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
+    t.index ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
   end
-
-  add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
-  add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
-  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
 
   create_table "architectures", force: :cascade do |t|
     t.string   "title"
@@ -153,9 +151,8 @@ ActiveRecord::Schema.define(version: 20170320134606) do
     t.integer  "switch_slot"
     t.string   "slug"
     t.integer  "bay_id"
+    t.index ["slug"], name: "index_frames_on_slug", unique: true, using: :btree
   end
-
-  add_index "frames", ["slug"], name: "index_frames_on_slug", unique: true, using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -163,12 +160,11 @@ ActiveRecord::Schema.define(version: 20170320134606) do
     t.string   "sluggable_type", limit: 50
     t.string   "scope"
     t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
+    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
   end
-
-  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "gestions", force: :cascade do |t|
     t.string   "title"
@@ -237,9 +233,8 @@ ActiveRecord::Schema.define(version: 20170320134606) do
     t.integer  "marque_id"
     t.string   "color"
     t.string   "slug"
+    t.index ["slug"], name: "index_modeles_on_slug", unique: true, using: :btree
   end
-
-  add_index "modeles", ["slug"], name: "index_modeles_on_slug", unique: true, using: :btree
 
   create_table "pdu_lines", force: :cascade do |t|
     t.integer  "pdu_id"
@@ -288,9 +283,8 @@ ActiveRecord::Schema.define(version: 20170320134606) do
     t.integer  "position"
     t.boolean  "display_on_home_page"
     t.integer  "site_id"
+    t.index ["slug"], name: "index_rooms_on_slug", unique: true, using: :btree
   end
-
-  add_index "rooms", ["slug"], name: "index_rooms_on_slug", unique: true, using: :btree
 
   create_table "server_states", force: :cascade do |t|
     t.string   "title"
@@ -335,9 +329,8 @@ ActiveRecord::Schema.define(version: 20170320134606) do
     t.integer  "server_state_id"
     t.string   "comment"
     t.string   "slug"
+    t.index ["slug"], name: "index_servers_on_slug", unique: true, using: :btree
   end
-
-  add_index "servers", ["slug"], name: "index_servers_on_slug", unique: true, using: :btree
 
   create_table "sites", force: :cascade do |t|
     t.string   "name"
@@ -386,12 +379,11 @@ ActiveRecord::Schema.define(version: 20170320134606) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "invitations_count",      default: 0
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
+    t.index ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
-  add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
-  add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
