@@ -1,0 +1,17 @@
+one:
+  id: 1
+  name: Card1
+  port_type_id: 3
+  port_quantity: 2
+
+two:
+  id: 2
+  name: Card2
+  port_type_id: 2
+  port_quantity: 2
+
+three:
+  id: 3
+  name: Card3
+  port_type_id: 1
+  port_quantity: 2

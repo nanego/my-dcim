@@ -3,9 +3,23 @@
 one:
   position: 1
   parent_id: 1
-  parent_type: MyString
+  parent_type: CardsServer
+  vlans: 123a
+  color: P
+  cablename: v32r
 
 two:
-  position: 1
+  position: 2
   parent_id: 1
-  parent_type: MyString
+  parent_type: CardsServer
+  vlans: 123z
+  color: B
+  cablename: v33R
+
+three:
+  position: 1
+  parent_id: 2
+  parent_type: CardsServer
+  vlans: 123e
+  color: W
+  cablename: v31F

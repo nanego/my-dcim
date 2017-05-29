@@ -3,29 +3,32 @@
 one:
   id: 1
   title: S1
-  description: MyText
+  description: Room n°1
   published: false
+  site_id: 1
 
 two:
   id: 2
   title: S2
-  description: MyText
+  description: Room n°2
   published: false
+  site_id: 1
 
 three:
   id: 3
   title: Atelier
-  description: MyText
+  description: Room n°3
   published: false
+  site_id: 2
 
 four:
   id: 4
   title: A dégager
-  description: MyText
+  description: Room n°4
   published: false
 
 five:
   id: 5
   title: TPB -2
-  description: MyText
+  description: Room n°5
   published: false

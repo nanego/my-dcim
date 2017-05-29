@@ -1,0 +1,9 @@
+one:
+  card_id: 1
+  server_id: 1
+  composant_id: 1
+
+two:
+  card_id: 2
+  server_id: 1
+  composant_id: 2

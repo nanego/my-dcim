@@ -2,10 +2,10 @@
 
 one:
   id: 1
-  name: MyString
+  name: Islet1
   room_id: 1
 
 two:
   id: 2
-  name: MyString
+  name: Islet2
   room_id: 1
