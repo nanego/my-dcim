@@ -14,10 +14,10 @@ class ApplicationController < ActionController::Base
   end
 
   def track_updated_values(object, new_params)
-    new_params.to_h.stringify_keys! # Avoid symbol keys
+    new_params = new_params.to_unsafe_h.stringify_keys! # Avoid symbol keys
     updated_values = {}
     old_values = object.attributes
-    object.attributes = object.attributes.merge(new_params)
+    object.assign_attributes(new_params)
     object.changed.each do |attribute|
       updated_values[attribute] = [old_values[attribute].to_s, new_params[attribute]] if old_values[attribute] != new_params[attribute]
     end
