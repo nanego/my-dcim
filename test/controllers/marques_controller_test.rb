@@ -19,30 +19,30 @@ class MarquesControllerTest < ActionController::TestCase
 
   test "should create marque" do
     assert_difference('Marque.count') do
-      post :create, marque: { description: @marque.description, published: @marque.published, title: @marque.title }
+      post :create, params: {marque: { description: @marque.description, published: @marque.published, title: @marque.title }}
     end
 
     assert_redirected_to marque_path(assigns(:marque))
   end
 
   test "should show marque" do
-    get :show, id: @marque
+    get :show, params: {id: @marque}
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @marque
+    get :edit, params: {id: @marque}
     assert_response :success
   end
 
   test "should update marque" do
-    patch :update, id: @marque, marque: { description: @marque.description, published: @marque.published, title: @marque.title }
+    patch :update, params: {id: @marque, marque: { description: @marque.description, published: @marque.published, title: @marque.title }}
     assert_redirected_to marque_path(assigns(:marque))
   end
 
   test "should destroy marque" do
     assert_difference('Marque.count', -1) do
-      delete :destroy, id: @marque
+      delete :destroy, params: {id: @marque}
     end
 
     assert_redirected_to marques_path

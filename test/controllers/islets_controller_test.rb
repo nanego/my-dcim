@@ -13,22 +13,22 @@ class IsletsControllerTest < ActionController::TestCase
   end
 
   test "should get create" do
-    post :create, islet: {name:'test'}
+    post :create, params: {islet: {name:'test'}}
     assert_redirected_to islets_path
   end
 
   test "should get edit" do
-    get :edit, id: @islet
+    get :edit, params: {id: @islet}
     assert_response :success
   end
 
   test "should update" do
-    patch :update, id: @islet, islet: {name:"updated_name"}
+    patch :update, params: {id: @islet, islet: {name:"updated_name"}}
     assert_redirected_to islets_path
   end
 
   test "should get destroy" do
-    delete :destroy, id: @islet
+    delete :destroy, params: {id: @islet}
     assert_redirected_to islets_url
   end
 

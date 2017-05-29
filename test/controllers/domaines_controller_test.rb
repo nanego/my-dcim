@@ -19,24 +19,24 @@ class DomainesControllerTest < ActionController::TestCase
 
   test "should create domaine" do
     assert_difference('Domaine.count') do
-      post :create, domaine: { description: @domaine.description, published: @domaine.published, title: @domaine.title }
+      post :create, params:{domaine: { description: @domaine.description, published: @domaine.published, title: @domaine.title }}
     end
 
     assert_redirected_to domaine_path(assigns(:domaine))
   end
 
   test "should show domaine" do
-    get :show, id: @domaine
+    get :show, params: {id: @domaine}
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @domaine
+    get :edit, params: {id: @domaine}
     assert_response :success
   end
 
   test "should update domaine" do
-    patch :update, id: @domaine, domaine: { description: @domaine.description, published: @domaine.published, title: @domaine.title }
+    patch :update, params: {id: @domaine, domaine: { description: @domaine.description, published: @domaine.published, title: @domaine.title }}
     assert_redirected_to domaine_path(assigns(:domaine))
   end
 

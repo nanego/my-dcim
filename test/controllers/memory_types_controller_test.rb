@@ -19,30 +19,30 @@ class MemoryTypesControllerTest < ActionController::TestCase
 
   test "should create memory_type" do
     assert_difference('MemoryType.count') do
-      post :create, memory_type: { unit: "Mb", quantity: 189 }
+      post :create, params: {memory_type: { unit: "Mb", quantity: 189 }}
     end
 
     assert_redirected_to memory_type_path(assigns(:memory_type))
   end
 
   test "should show memory_type" do
-    get :show, id: @memory_type
+    get :show, params: {id: @memory_type}
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @memory_type
+    get :edit, params: {id: @memory_type}
     assert_response :success
   end
 
   test "should update memory_type" do
-    patch :update, id: @memory_type, memory_type: { unit: @memory_type.unit }
+    patch :update, params: {id: @memory_type, memory_type: { unit: @memory_type.unit }}
     assert_redirected_to memory_type_path(assigns(:memory_type))
   end
 
   test "should destroy memory_type" do
     assert_difference('MemoryType.count', -1) do
-      delete :destroy, id: @memory_type
+      delete :destroy, params: {id: @memory_type}
     end
 
     assert_redirected_to memory_types_path

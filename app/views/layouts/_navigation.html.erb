@@ -18,14 +18,14 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Salles <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><%= link_to 'Afficher toutes les salles', overview_rooms_path %></li>
-            <% sites = Site.order(:position).joins(:rooms).uniq %>
+            <% sites = Site.order(:position).joins(:rooms).distinct %>
             <% sites.each do |site| %>
               <li role="separator" class="divider"></li>
               <li class="dropdown-header"><%= site %></li>
-              <% rooms = site.rooms.sorted.uniq %>
+              <% rooms = site.rooms.sorted.distinct %>
               <% rooms.each do |room| %>
                   <li><%= link_to room.title, room_path(room) %></li>
-                  <% islets = room.islets.sorted.not_empty.has_name.uniq %>
+                  <% islets = room.islets.sorted.not_empty.has_name.distinct %>
                   <% if islets.size > 1 %>
                       <% islets.each do |islet| %>
                           <li><%= link_to "#{room.title}-ilot#{islet.name}", islet_rooms_path(id: room.id, islet: islet.name, :view => params[:view], bg: params[:bg]) %></li>

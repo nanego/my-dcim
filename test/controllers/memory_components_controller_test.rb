@@ -19,30 +19,30 @@ class MemoryComponentsControllerTest < ActionController::TestCase
 
   test "should create memory_component" do
     assert_difference('MemoryComponent.count') do
-      post :create, memory_component: { memory_type_id: @memory_component.memory_type_id, quantity: @memory_component.quantity, server_id: @memory_component.server_id }
+      post :create, params:{memory_component: { memory_type_id: @memory_component.memory_type_id, quantity: @memory_component.quantity, server_id: @memory_component.server_id }}
     end
 
     assert_redirected_to server_path(@memory_component.server_id)
   end
 
   test "should show memory_component" do
-    get :show, id: @memory_component
+    get :show, params: {id: @memory_component}
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @memory_component
+    get :edit, params: {id: @memory_component}
     assert_response :success
   end
 
   test "should update memory_component" do
-    patch :update, id: @memory_component, memory_component: { memory_type_id: @memory_component.memory_type_id, quantity: @memory_component.quantity, server_id: @memory_component.server_id }
+    patch :update, params:{ id: @memory_component, memory_component: { memory_type_id: @memory_component.memory_type_id, quantity: @memory_component.quantity, server_id: @memory_component.server_id }}
     assert_redirected_to server_path(@memory_component.server_id)
   end
 
   test "should destroy memory_component" do
     assert_difference('MemoryComponent.count', -1) do
-      delete :destroy, id: @memory_component
+      delete :destroy, params: {id: @memory_component}
     end
 
     assert_redirected_to memory_components_path

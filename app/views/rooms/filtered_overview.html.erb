@@ -10,7 +10,7 @@
         <div style="text-align: center;">
           <h3><%= site %></h3>
         </div>
-        <% rooms = site.rooms.order(:position).joins(:frames).uniq %>
+        <% rooms = site.rooms.order(:position).joins(:frames).distinct %>
         <% rooms.each do |room| %>
           <%= render 'rooms/room_overview', room: room %>
         <% end %>

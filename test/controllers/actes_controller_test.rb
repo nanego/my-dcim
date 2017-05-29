@@ -20,7 +20,7 @@ class ActesControllerTest < ActionController::TestCase
 
   test "should create acte" do
     assert_difference('Acte.count') do
-      post :create, acte: { description: @acte.description, published: @acte.published, title: @acte.title }
+      post :create, params: {acte: { description: @acte.description, published: @acte.published, title: @acte.title }}
     end
 
     assert_redirected_to acte_path(assigns(:acte))

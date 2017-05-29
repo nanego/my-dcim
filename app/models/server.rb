@@ -144,7 +144,7 @@ class Server < ActiveRecord::Base
       else
         port_type = card_server.card.port_type.name
       end
-      sums[port_type] = sums[port_type].to_i + card_server.ports.map(&:cablename).compact.uniq.size
+      sums[port_type] = sums[port_type].to_i + card_server.ports.map(&:cablename).compact.distinct.size
     end
     sums
   end

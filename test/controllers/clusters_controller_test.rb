@@ -19,30 +19,30 @@ class ClustersControllerTest < ActionController::TestCase
 
   test "should create cluster" do
     assert_difference('Cluster.count') do
-      post :create, cluster: { title: @cluster.title }
+      post :create, params: {cluster: { title: @cluster.title }}
     end
 
     assert_redirected_to cluster_path(assigns(:cluster))
   end
 
   test "should show cluster" do
-    get :show, id: @cluster
+    get :show, params: {id: @cluster}
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @cluster
+    get :edit, params: {id: @cluster}
     assert_response :success
   end
 
   test "should update cluster" do
-    patch :update, id: @cluster, cluster: { title: @cluster.title }
+    patch :update, params: {id: @cluster, cluster: { title: @cluster.title }}
     assert_redirected_to cluster_path(assigns(:cluster))
   end
 
   test "should destroy cluster" do
     assert_difference('Cluster.count', -1) do
-      delete :destroy, id: @cluster
+      delete :destroy, params: {id: @cluster}
     end
 
     assert_redirected_to clusters_path

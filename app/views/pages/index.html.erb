@@ -12,7 +12,7 @@
             background: url(<%= asset_path('_78A0587-nb.jpg') %>) no-repeat center;
             -webkit-background-size: cover;
             background-size: cover;">
-          <% Site.joins(:rooms).where('display_on_home_page = ?', true).uniq.order(:position).each do |site| %>
+          <% Site.joins(:rooms).where('display_on_home_page = ?', true).distinct.order(:position).each do |site| %>
             <div class="row">
               <div class="col-md-12">
                 <div class="well" style="background-color: rgba(255, 255, 255, 0.80);border-color: #BBBBBB;">

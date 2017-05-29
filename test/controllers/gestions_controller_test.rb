@@ -19,30 +19,30 @@ class GestionsControllerTest < ActionController::TestCase
 
   test "should create gestion" do
     assert_difference('Gestion.count') do
-      post :create, gestion: { description: @gestion.description, published: @gestion.published, title: @gestion.title }
+      post :create, params:{ gestion: { description: @gestion.description, published: @gestion.published, title: @gestion.title }}
     end
 
     assert_redirected_to gestion_path(assigns(:gestion))
   end
 
   test "should show gestion" do
-    get :show, id: @gestion
+    get :show, params: {id: @gestion}
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @gestion
+    get :edit, params: {id: @gestion}
     assert_response :success
   end
 
   test "should update gestion" do
-    patch :update, id: @gestion, gestion: { description: @gestion.description, published: @gestion.published, title: @gestion.title }
+    patch :update, params: {id: @gestion, gestion: { description: @gestion.description, published: @gestion.published, title: @gestion.title }}
     assert_redirected_to gestion_path(assigns(:gestion))
   end
 
   test "should destroy gestion" do
     assert_difference('Gestion.count', -1) do
-      delete :destroy, id: @gestion
+      delete :destroy, params: {id: @gestion}
     end
 
     assert_redirected_to gestions_path
