@@ -17,10 +17,7 @@
     <span class="glyphicon glyphicon-move" aria-hidden="true"></span>
     Activer le drag'n drop
   <% end %>
-  <% if view_side == Frame.view_sides[:back] %>
-    <!-- Vue AVEC OU SANS LES CONNEXIONS -->
-    <!-- link_to "Masquer les connexions", '#', id: 'hide_or_show_connections', class: 'btn btn-default' -->
-  <% else %>
+  <% if view_side != Frame.view_sides[:back] %>
     <!-- Choix de la couleur de fond des serveurs -->
     <div class="btn-group">
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

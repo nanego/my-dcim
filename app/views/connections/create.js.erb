@@ -1,6 +1,0 @@
-$('.port_selection').removeClass('in');
-
-// Draw connection line
-var elemFrom = $('#server_<%= params['from']['server_id'] %> span[data-composant-id="<%=params['from']['composant_id']%>"][data-composant-type="<%=params['from']['composant_type']%>"] i[data-position="<%=params['from']['port_position']%>"]');
-var elemTo = $('#server_<%= params['to']['server_id'] %> span[data-composant-id="<%=params['to']['composant_id']%>"][data-composant-type="<%=params['to']['composant_type']%>"] i[data-position="<%=params['to']['port_position']%>"]');
-new $.connect(elemFrom, elemTo);
