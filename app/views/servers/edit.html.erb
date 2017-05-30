@@ -4,7 +4,7 @@
 <%= render 'layouts/breadcrumb', params: {"Salles" => overview_rooms_path,
                                           @server.frame.room.title => room_path(@server.frame.room),
                                           "Frame #{@server.frame.title}" => frame_path(@server.frame),
-                                          @server.nom => server_path(@server),
+                                          @server.name => server_path(@server),
                                           'Edition' => ''} %>
 <div class="page-header">
   <%= link_to servers_path, class: 'btn btn-default' do %>
@@ -15,7 +15,7 @@
     <span class="glyphicon glyphicon-info-sign"></span>
     Show
   <% end %>
-  <h1>Server <%= @server.nom %></h1>
+  <h1>Server <%= @server.name %></h1>
 </div>
 
 <%= render 'form' %>

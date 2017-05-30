@@ -3,7 +3,7 @@
 one:
   id: 1
   frame_id: 1
-  nom: ServerName1
+  name: ServerName1
   modele_id: 1
   numero: CZ31535FEY
   conso: 1
@@ -25,7 +25,7 @@ one:
 two:
   id: 2
   frame_id: 1
-  nom: ServerName1
+  name: ServerName1
   modele_id: 1
   numero: ABCDEFG32
   conso: 1

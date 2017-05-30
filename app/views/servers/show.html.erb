@@ -2,7 +2,7 @@
                                           @server.frame.room.title => room_path(@server.frame.room),
                                           "Ilot #{@server.frame.islet.name}" => islet_rooms_path(id: @server.frame.room.id, islet: @server.frame.islet.name, :view => params[:view], bg: params[:bg]),
                                           "Baie #{@server.frame.title}" => frame_path(@server.frame),
-                                          @server.nom => ''} %>
+                                          @server.name => ''} %>
 
 <div class="page-header">
   <%= link_to servers_path, class: 'btn btn-default' do %>
@@ -13,7 +13,7 @@
     <span class="glyphicon glyphicon-pencil"></span>
     Edit
   <% end %>
-  <h1><%= "#{@server.modele.try(:category).try(:title)} #{@server.nom}" %></h1>
+  <h1><%= "#{@server.modele.try(:category).try(:title)} #{@server.name}" %></h1>
 </div>
 
 <p><%= link_to "<< Frame #{@server.frame.try(:title)}", frame_path(@server.frame, :view => params[:view]), class: 'btn btn-default', style: 'text-decoration: underline;' if @server.frame %></p>
@@ -131,7 +131,7 @@
 
     <H5>CMDB / GLPI :</H5>
 
-    <%= link_to 'Voir la page du serveur sur GLPI', (@server.nom.present? ? "https://cmdb.cs.e2.rie.gouv.fr/serveurs/#{@server.nom.downcase}" : "https://cmdb.cs.e2.rie.gouv.fr/serial/#{@server.numero}" ), target: '_blank' %>
+    <%= link_to 'Voir la page du serveur sur GLPI', (@server.name.present? ? "https://cmdb.cs.e2.rie.gouv.fr/serveurs/#{@server.name.downcase}" : "https://cmdb.cs.e2.rie.gouv.fr/serial/#{@server.numero}" ), target: '_blank' %>
 
     <!--
     <% if @server.maintenance_contract.present? %>

@@ -44,7 +44,7 @@
   <% end %>
 <% end %>
 
-  <b><%= link_to h(server.nom), server_path(server, :view => params[:view]), {:data => {'toggle': "tooltip", 'placement': "top"}, title: server.numero} %></b>
+  <b><%= link_to h(server.name), server_path(server, :view => params[:view]), {:data => {'toggle': "tooltip", 'placement': "top"}, title: server.numero} %></b>
 
 <% if server.modele.present? %>
   <br>

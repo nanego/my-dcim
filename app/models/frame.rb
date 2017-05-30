@@ -41,7 +41,7 @@ class Frame < ActiveRecord::Base
               txt << "\r\n#{frame.title}\r\n"
               txt << "---------------\r\n"
               servers.each do |server|
-                txt << "[#{server.position.to_s.rjust(2, "0")}] #{server.nom}\r\n"
+                txt << "[#{server.position.to_s.rjust(2, "0")}] #{server.name}\r\n"
               end
             end
           end

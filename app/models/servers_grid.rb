@@ -15,8 +15,8 @@ class ServersGrid
   #########
 
   filter(:id, :string, :multiple => ',')
-  filter :nom do |value|
-    where("nom LIKE ?", value)
+  filter :name do |value|
+    where("name LIKE ?", value)
   end
   filter 'Catégorie', :enum, :select => Category.where(published: true).map {|r| [r.to_s, r.id]}  do |value|
     joins(:modele).where("modeles.category_id = ?", value)
@@ -62,8 +62,8 @@ class ServersGrid
       end
     end
   end
-  column(:nom) do |model|
-    format(model.nom) do |value|
+  column(:name) do |model|
+    format(model.name) do |value|
       if request.format.to_sym == :pdf
         value
       else

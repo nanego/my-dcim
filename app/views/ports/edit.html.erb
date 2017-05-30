@@ -1,7 +1,7 @@
 <%= render 'layouts/breadcrumb', params: {"Salles" => rooms_path,
                                           @port.parent.server.frame.room.title => room_path(@port.parent.server.frame.room),
                                           "Baie #{@port.parent.server.frame.title}" => frame_path(@port.parent.server.frame),
-                                          @port.parent.server.nom => server_path(@port.parent.server),
+                                          @port.parent.server.name => server_path(@port.parent.server),
                                           "Port #{@port.parent.try(:composant).try(:name)} #{@port.position}" => ''} %>
 
 <%= render 'ports/form' %>

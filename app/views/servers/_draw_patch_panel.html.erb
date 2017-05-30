@@ -1,5 +1,5 @@
 <div class="patch_panel list-group-item server">
-  <b><%= link_to h(server.nom), server_path(server, :view => params[:view]) %></b>
+  <b><%= link_to h(server.name), server_path(server, :view => params[:view]) %></b>
   <br>
 
   <% slots_sur_modele = server.modele.composants.where(type_composant_id: 4) %>

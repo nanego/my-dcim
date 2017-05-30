@@ -6,7 +6,7 @@ class Modele < ActiveRecord::Base
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
   tracked :parameters => {
-      :nom => :title,
+      :name => :title,
       :categorie => :category,
       :nb_elts => :nb_elts
   }

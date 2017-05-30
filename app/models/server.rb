@@ -39,14 +39,14 @@ class Server < ActiveRecord::Base
 
   validates :frame_id, presence: true
   validates :modele_id, presence: true
-  validates :nom , presence: true
+  validates :name , presence: true
 
   def to_s
-    nom.nil? ? "" : nom
+    name.nil? ? "" : name
   end
 
   def should_generate_new_friendly_id?
-    slug.blank? || nom_changed?
+    slug.blank? || name_changed?
   end
 
   require 'csv'
@@ -62,7 +62,7 @@ class Server < ActiveRecord::Base
       server = Server.new(frame: frame)
       server.server_state = server_state
       server.modele = modele
-      server.nom = server_data['Nom']
+      server.name = server_data['Nom']
       server.critique = (server_data['Critique'] == 'oui')
       server.cluster = Cluster.find_or_create_by!(title: server_data['Cluster'])
       server.domaine = Domaine.find_or_create_by!(title: server_data['Domaine'])
@@ -153,8 +153,8 @@ class Server < ActiveRecord::Base
 
     def slug_candidates
       [
-          :nom,
-          [:nom, :id]
+          :name,
+          [:name, :id]
       ]
     end
 

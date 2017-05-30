@@ -1,6 +1,6 @@
 class ServersGridsController < ApplicationController
 
-  DEFAULT_PARAMS = {"column_names"=>["id", "nom", "type"]}
+  DEFAULT_PARAMS = {"column_names"=>["id", "name", "type"]}
 
   def index
     respond_to do |format|
@@ -28,7 +28,7 @@ class ServersGridsController < ApplicationController
 
   def reseau
     params[:servers_grid] = {"column_names"=>%W(id
-                                               nom
+                                               name
                                                modele
                                                room
                                                fc_total
