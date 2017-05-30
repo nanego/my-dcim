@@ -24,11 +24,11 @@
               <li class="dropdown-header"><%= site %></li>
               <% rooms = site.rooms.sorted.distinct %>
               <% rooms.each do |room| %>
-                  <li><%= link_to room.title, room_path(room) %></li>
+                  <li><%= link_to room.name, room_path(room) %></li>
                   <% islets = room.islets.sorted.not_empty.has_name.distinct %>
                   <% if islets.size > 1 %>
                       <% islets.each do |islet| %>
-                          <li><%= link_to "#{room.title}-ilot#{islet.name}", islet_rooms_path(id: room.id, islet: islet.name, :view => params[:view], bg: params[:bg]) %></li>
+                          <li><%= link_to "#{room.name}-ilot#{islet.name}", islet_rooms_path(id: room.id, islet: islet.name, :view => params[:view], bg: params[:bg]) %></li>
                       <% end %>
                   <% end %>
               <% end %>
@@ -41,7 +41,7 @@
           <ul class="dropdown-menu">
             <li>
               <div class="row" style="width: 600px;">
-                <% Cluster.order('LOWER(title) asc').in_groups(3).each do |clusters| %>
+                <% Cluster.order('LOWER(name) asc').in_groups(3).each do |clusters| %>
                   <ul class="list-unstyled col-md-4">
                     <% clusters.each do |c| %>
                       <% if c.present? %>
@@ -60,9 +60,9 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestionnaires <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <% Gestion.order('LOWER(title) asc').each do |c| %>
+            <% Gestion.order('LOWER(name) asc').each do |c| %>
               <li <%= "class=active" if params[:gestion_id]==c.id.to_s %> >
-                <%= link_to c.title, overview_rooms_path(gestion_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
+                <%= link_to c.name, overview_rooms_path(gestion_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
               </li>
             <% end %>
           </ul>

@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170530092154) do
+ActiveRecord::Schema.define(version: 20170530112006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "actes", force: :cascade do |t|
-    t.string   "title"
+    t.string   "name"
     t.text     "description"
     t.boolean  "published"
     t.datetime "created_at",  null: false
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20170530092154) do
   end
 
   create_table "architectures", force: :cascade do |t|
-    t.string   "title"
+    t.string   "name"
     t.text     "description"
     t.boolean  "published"
     t.datetime "created_at",  null: false
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 20170530092154) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string   "title"
+    t.string   "name"
     t.text     "description"
     t.boolean  "published"
     t.datetime "created_at",  null: false
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20170530092154) do
   end
 
   create_table "clusters", force: :cascade do |t|
-    t.string   "title"
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 20170530092154) do
   end
 
   create_table "domaines", force: :cascade do |t|
-    t.string   "title"
+    t.string   "name"
     t.text     "description"
     t.boolean  "published"
     t.datetime "created_at",  null: false
@@ -143,7 +143,7 @@ ActiveRecord::Schema.define(version: 20170530092154) do
   end
 
   create_table "frames", force: :cascade do |t|
-    t.string   "title"
+    t.string   "name"
     t.integer  "u",           default: 41
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
@@ -167,7 +167,7 @@ ActiveRecord::Schema.define(version: 20170530092154) do
   end
 
   create_table "gestions", force: :cascade do |t|
-    t.string   "title"
+    t.string   "name"
     t.text     "description"
     t.boolean  "published"
     t.datetime "created_at",  null: false
@@ -198,7 +198,7 @@ ActiveRecord::Schema.define(version: 20170530092154) do
   end
 
   create_table "marques", force: :cascade do |t|
-    t.string   "title"
+    t.string   "name"
     t.text     "description"
     t.boolean  "published"
     t.datetime "created_at",  null: false
@@ -221,7 +221,7 @@ ActiveRecord::Schema.define(version: 20170530092154) do
   end
 
   create_table "modeles", force: :cascade do |t|
-    t.string   "title"
+    t.string   "name"
     t.text     "description"
     t.boolean  "published"
     t.datetime "created_at",      null: false
@@ -274,7 +274,7 @@ ActiveRecord::Schema.define(version: 20170530092154) do
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.string   "title"
+    t.string   "name"
     t.text     "description"
     t.boolean  "published"
     t.datetime "created_at",           null: false
@@ -287,7 +287,7 @@ ActiveRecord::Schema.define(version: 20170530092154) do
   end
 
   create_table "server_states", force: :cascade do |t|
-    t.string   "title"
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -349,7 +349,7 @@ ActiveRecord::Schema.define(version: 20170530092154) do
   end
 
   create_table "type_composants", force: :cascade do |t|
-    t.string "title"
+    t.string "name"
   end
 
   create_table "users", force: :cascade do |t|

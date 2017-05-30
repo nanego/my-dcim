@@ -20,15 +20,15 @@ class Frame < ActiveRecord::Base
   validates_presence_of :bay_id
 
   def to_s
-    title.nil? ? "" : title
+    name.nil? ? "" : name
   end
 
   def should_generate_new_friendly_id?
-    slug.blank? || title_changed?
+    slug.blank? || name_changed?
   end
 
   def name_with_room_and_islet
-    "#{room.try(:title).present? ? "Salle #{room.title} " : ''} #{bay.present? ? "Ilot #{bay.islet.name}" : ''} Baie #{title.present? ? title : 'non précisée' }"
+    "#{room.try(:name).present? ? "Salle #{room.name} " : ''} #{bay.present? ? "Ilot #{bay.islet.name}" : ''} Baie #{name.present? ? name : 'non précisée' }"
   end
 
   def self.to_txt(servers_per_bay)
@@ -38,7 +38,7 @@ class Frame < ActiveRecord::Base
         lanes.each do |lane, bays|
           bays.each do |bay, frames|
             frames.each do |frame, servers|
-              txt << "\r\n#{frame.title}\r\n"
+              txt << "\r\n#{frame.name}\r\n"
               txt << "---------------\r\n"
               servers.each do |server|
                 txt << "[#{server.position.to_s.rjust(2, "0")}] #{server.name}\r\n"
@@ -83,9 +83,9 @@ class Frame < ActiveRecord::Base
 
     def slug_candidates
       [
-          :title,
-          [self.room.try(:title), :title],
-          [self.room.try(:title), :title, :id]
+          :name,
+          [self.room.try(:name), :name],
+          [self.room.try(:name), :name, :id]
       ]
     end
 

@@ -17,23 +17,23 @@ class Room < ActiveRecord::Base
   scope :not_empty, -> { joins(:servers) }
 
   def to_s
-    title.nil? ? "" : title
+    name.nil? ? "" : name
   end
 
   def name_with_site
-    title.nil? ? site : "#{site} - #{title}"
+    name.nil? ? site : "#{site} - #{name}"
   end
 
   def should_generate_new_friendly_id?
-    slug.blank? || title_changed?
+    slug.blank? || name_changed?
   end
 
   private
 
     def slug_candidates
       [
-          :title,
-          [:title, :id]
+          :name,
+          [:name, :id]
       ]
     end
 

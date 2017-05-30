@@ -34,7 +34,7 @@
 
           <tbody>
           <%= content_tag_for(:tr, @frames) do |frame| %>
-            <td><%= link_to frame.title, frame %></td>
+            <td><%= link_to frame.name, frame %></td>
             <td><%= frame.servers.map{|s| link_to s.name, s }.join(' ').html_safe %></td>
             <td><%= frame.u %></td>
             <td><%= frame.room.present? ? (link_to frame.room, frame.room) : frame.room %></td>

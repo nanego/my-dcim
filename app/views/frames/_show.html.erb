@@ -23,10 +23,10 @@
   <div class="panel panel-frame <%= panel_class %>">
     <div class="panel-heading">
       <h5 class="panel-title" style="display: inline;">
-        <%= link_to "#{frame.title}", frame_path(frame, :view => view_type, bg: params[:bg]), style: 'text-decoration: underline;' %>
+        <%= link_to "#{frame.name}", frame_path(frame, :view => view_type, bg: params[:bg]), style: 'text-decoration: underline;' %>
         <% if frame.other_frame.present? && formats != [:pdf] %>
           <%= link_to frame_path(frame.other_frame, :view => view_type, bg: params[:bg]), style: 'text-decoration: underline;' do %>
-            <span class="glyphicon glyphicon-link" aria-hidden="true" title="Couplée à la frame <%= frame.other_frame.title %>"></span>
+            <span class="glyphicon glyphicon-link" aria-hidden="true" title="Couplée à la frame <%= frame.other_frame.name %>"></span>
           <% end %>
         <% end %>
       </h5>
@@ -36,15 +36,15 @@
       <div class="clearfix"></div>
     </div>
     <ul class='servers connectedFrames list-group'
-        data-room="<%= frame.room.title %>"
+        data-room="<%= frame.room.name %>"
         data-islet="<%= frame.bay.islet.name %>"
-        data-frame="<%= frame.title %>"
+        data-frame="<%= frame.name %>"
         data-update-url="<%= sort_servers_path %>">
 
       <% u_disponibles = frame.u || 41 %>
       <% servers.each do |server| %>
 
-        <% if server.modele.try(:title).present? %>
+        <% if server.modele.try(:name).present? %>
 
           <% while server.position.present? && server.position < u_disponibles && u_disponibles>0 %>
             <li class="server list-group-item truncate <%= 'relegated' if highlighted_servers_ids != servers_ids %>" style="height: <%= settings[:min_height] %>px;">
@@ -59,10 +59,10 @@
                  case params['bg']
                    when 'gestionnaire'
                      parent_type = 'Gestionnaire'
-                     parent_id = server.gestion.try(:title)
+                     parent_id = server.gestion.try(:name)
                    when 'cluster'
                      parent_type = 'Cluster'
-                     parent_id = server.cluster.try(:title)
+                     parent_id = server.cluster.try(:name)
                  end
                end
 
@@ -73,7 +73,7 @@
                bgModeleColor = color.code
           %>
           <% else %>
-            <% bgModeleColor = server.modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(server.modele.try(:title) || 'test')[0..5]}", 0.4) %>
+            <% bgModeleColor = server.modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(server.modele.try(:name) || 'test')[0..5]}", 0.4) %>
           <% end %>
 
           <% u_server = server.modele.try(:u).to_i > 0 ? server.modele.u : 1 %>
@@ -85,7 +85,7 @@
 
           <% if view_type == 'back' %>
             <%= content_tag_for :li, server,
-                                class: "list-group-item truncate server_back #{server.modele.try(:category).try(:title).try(:parameterize)} #{'relegated' if highlighted_servers_ids.exclude?(server.id)}",
+                                class: "list-group-item truncate server_back #{server.modele.try(:category).try(:name).try(:parameterize)} #{'relegated' if highlighted_servers_ids.exclude?(server.id)}",
                                 style: "min-height: #{settings[:min_height]*(server.modele.try(:u).to_i > 0 ? server.modele.u : 1)}px;padding: 3px 5px 3px 20px;",
                                 data: data do %>
               <% u_server.times do |i| %>
@@ -98,7 +98,7 @@
           <% else %>
 
             <%= content_tag_for :li, server,
-                                class: "list-group-item truncate #{server.modele.try(:category).try(:title).try(:parameterize)} #{server.server_state_id==1 ? 'striped' : ''}  #{'relegated' if highlighted_servers_ids.exclude?(server.id)}",
+                                class: "list-group-item truncate #{server.modele.try(:category).try(:name).try(:parameterize)} #{server.server_state_id==1 ? 'striped' : ''}  #{'relegated' if highlighted_servers_ids.exclude?(server.id)}",
                                 style: "height: #{settings[:min_height]*u_server - (u_server-1)}px;background-color:#{bgModeleColor} !important;",
                                 :data => data do %>
               <% u_server.times do |i| %>

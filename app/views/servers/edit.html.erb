@@ -2,8 +2,8 @@
 
 
 <%= render 'layouts/breadcrumb', params: {"Salles" => overview_rooms_path,
-                                          @server.frame.room.title => room_path(@server.frame.room),
-                                          "Frame #{@server.frame.title}" => frame_path(@server.frame),
+                                          @server.frame.room.name => room_path(@server.frame.room),
+                                          "Frame #{@server.frame.name}" => frame_path(@server.frame),
                                           @server.name => server_path(@server),
                                           'Edition' => ''} %>
 <div class="page-header">

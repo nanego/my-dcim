@@ -69,6 +69,6 @@ class MarquesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def marque_params
-      params.require(:marque).permit(:title, :description, :published)
+      params.require(:marque).permit(:name, :description, :published)
     end
 end

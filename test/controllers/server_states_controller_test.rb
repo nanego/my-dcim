@@ -19,7 +19,7 @@ class ServerStatesControllerTest < ActionController::TestCase
 
   test "should create server_state" do
     assert_difference('ServerState.count') do
-      post :create, params: {server_state: { title: @server_state.title }}
+      post :create, params: {server_state: { name: @server_state.name }}
     end
 
     assert_redirected_to server_state_path(assigns(:server_state))
@@ -36,7 +36,7 @@ class ServerStatesControllerTest < ActionController::TestCase
   end
 
   test "should update server_state" do
-    patch :update, params: {id: @server_state, server_state: { title: @server_state.title }}
+    patch :update, params: {id: @server_state, server_state: { name: @server_state.name }}
     assert_redirected_to server_state_path(assigns(:server_state))
   end
 

@@ -1,13 +1,13 @@
 <%
   breadcrumb_variables = {'Rooms' => overview_rooms_path,
-                          @frame.room.title => (@frame.present? ? room_path(@frame.room):''),
-                          "Baie #{@frame.title}" => frame_path(@frame),
+                          @frame.room.name => (@frame.present? ? room_path(@frame.room):''),
+                          "Baie #{@frame.name}" => frame_path(@frame),
                           "Edition" => ''}
 %>
 <%= render 'layouts/breadcrumb', params: breadcrumb_variables %>
 
 <div class="page-header">
-  <h1>Modifier la baie <%= @frame.title %></h1>
+  <h1>Modifier la baie <%= @frame.name %></h1>
 </div>
 
 <%= render 'form' %>

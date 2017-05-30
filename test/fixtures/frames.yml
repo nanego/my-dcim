@@ -2,12 +2,12 @@
 
 one:
   id: 1
-  title: MyString
+  name: MyString
   u: 48
   bay_id: 1
 
 two:
   id: 2
-  title: MyString
+  name: MyString
   u: 48
   bay_id: 2

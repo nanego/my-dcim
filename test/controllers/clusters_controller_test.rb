@@ -19,7 +19,7 @@ class ClustersControllerTest < ActionController::TestCase
 
   test "should create cluster" do
     assert_difference('Cluster.count') do
-      post :create, params: {cluster: { title: @cluster.title }}
+      post :create, params: {cluster: { name: @cluster.name }}
     end
 
     assert_redirected_to cluster_path(assigns(:cluster))
@@ -36,7 +36,7 @@ class ClustersControllerTest < ActionController::TestCase
   end
 
   test "should update cluster" do
-    patch :update, params: {id: @cluster, cluster: { title: @cluster.title }}
+    patch :update, params: {id: @cluster, cluster: { name: @cluster.name }}
     assert_redirected_to cluster_path(assigns(:cluster))
   end
 

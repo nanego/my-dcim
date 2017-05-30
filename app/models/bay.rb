@@ -17,7 +17,7 @@ class Bay < ActiveRecord::Base
   end
 
   def list_frames
-    frames.map(&:title).join(' / ')
+    frames.map(&:name).join(' / ')
   end
 
 end

@@ -9,5 +9,5 @@
     <span class="badge badgeRJ45 <%= port_nb['IPMI'] > 0 ? 'alert-default' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= port_nb['IPMI'] > 0 ? port_nb['IPMI'] : '' %></span>
     <span class="badge <%= port_nb['FC'] > 0 ? 'alert-success' : 'alert-transparent' %>" style="min-width: 21px;display: block;"><%= port_nb['FC'] > 0 ? port_nb['FC'] : '' %></span>
   <% end %>
-  <span class="pull-right" style="margin-right: 6px;"><em><%= server.modele.try(:title) %></em></span>
+  <span class="pull-right" style="margin-right: 6px;"><em><%= server.modele.try(:name) %></em></span>
 <% end %>

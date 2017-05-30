@@ -20,7 +20,7 @@ class ActesControllerTest < ActionController::TestCase
 
   test "should create acte" do
     assert_difference('Acte.count') do
-      post :create, params: {acte: { description: @acte.description, published: @acte.published, title: @acte.title }}
+      post :create, params: {acte: { description: @acte.description, published: @acte.published, name: @acte.name }}
     end
 
     assert_redirected_to acte_path(assigns(:acte))
@@ -37,7 +37,7 @@ class ActesControllerTest < ActionController::TestCase
   end
 
   test "should update acte" do
-    patch :update, params: { id: @acte, acte: { description: @acte.description, published: @acte.published, title: @acte.title } }
+    patch :update, params: { id: @acte, acte: { description: @acte.description, published: @acte.published, name: @acte.name } }
     assert_redirected_to acte_path(assigns(:acte))
   end
 

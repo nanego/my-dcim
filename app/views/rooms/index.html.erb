@@ -33,7 +33,7 @@
 
           <tbody>
           <%= content_tag_for(:tr, @rooms) do |room| %>
-            <td><%= room.title %></td>
+            <td><%= room.name %></td>
             <td><%= room.site %></td>
             <td><%= pluralize room.frames.count, 'frame' %></td>
             <td><input type="checkbox" <%= room.display_on_home_page ? "checked" : "" %> disabled></td>

@@ -1,1 +1,1 @@
-json.extract! @architecture, :id, :title, :description, :published, :created_at, :updated_at
+json.extract! @architecture, :id, :name, :description, :published, :created_at, :updated_at

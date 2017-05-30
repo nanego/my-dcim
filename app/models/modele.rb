@@ -6,7 +6,7 @@ class Modele < ActiveRecord::Base
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
   tracked :parameters => {
-      :name => :title,
+      :name => :name,
       :categorie => :category,
       :nb_elts => :nb_elts
   }
@@ -23,23 +23,23 @@ class Modele < ActiveRecord::Base
                                 :reject_if     => :all_blank
 
   def to_s
-    title.nil? ? "" : title
+    name.nil? ? "" : name
   end
 
   def should_generate_new_friendly_id?
-    slug.blank? || title_changed?
+    slug.blank? || name_changed?
   end
 
   def name_with_brand
-    "#{marque} #{title}"
+    "#{marque} #{name}"
   end
 
   private
 
     def slug_candidates
       [
-          :title,
-          [:title, :id]
+          :name,
+          [:name, :id]
       ]
     end
 

@@ -4,7 +4,7 @@
 
 <%= render 'rooms/action_buttons', view_side: params[:view] if formats != [:pdf] %>
 
-<div id="<%= @room.try(:title).try(:parameterize).try(:underscore) %>">
+<div id="<%= @room.try(:name).try(:parameterize).try(:underscore) %>">
 
   <% islets.each do |islet, lanes| %>
 
@@ -12,7 +12,7 @@
       <div>
         <div class="panel-islet">
           <% if @room.present? %>
-            <div><h3>Salle <%= @room.title %> - Ilot <%= islet %></h3></div>
+            <div><h3>Salle <%= @room.name %> - Ilot <%= islet %></h3></div>
           <% end %>
 
           <div class="row">

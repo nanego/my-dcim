@@ -19,7 +19,7 @@ class ArchitecturesControllerTest < ActionController::TestCase
 
   test "should create architecture" do
     assert_difference('Architecture.count') do
-      post :create, params: {architecture: { description: @architecture.description, published: @architecture.published, title: @architecture.title }}
+      post :create, params: {architecture: { description: @architecture.description, published: @architecture.published, name: @architecture.name }}
     end
 
     assert_redirected_to architecture_path(assigns(:architecture))
@@ -36,7 +36,7 @@ class ArchitecturesControllerTest < ActionController::TestCase
   end
 
   test "should update architecture" do
-    patch :update, params: {id: @architecture, architecture: { description: @architecture.description, published: @architecture.published, title: @architecture.title }}
+    patch :update, params: {id: @architecture, architecture: { description: @architecture.description, published: @architecture.published, name: @architecture.name }}
     assert_redirected_to architecture_path(assigns(:architecture))
   end
 

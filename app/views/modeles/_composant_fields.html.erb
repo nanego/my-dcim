@@ -1,8 +1,8 @@
 <%  @prefilled_data = type_composant if local_assigns[:type_composant].present? && @prefilled_data.blank?
     if @prefilled_data.present?
-      options = TypeComposant.where(title: @prefilled_data).map{ |c| [c.title, c.id] }
+      options = TypeComposant.where(name: @prefilled_data).map{ |c| [c.name, c.id] }
     else
-      options = TypeComposant.all.map{ |c| [c.title, c.id] }
+      options = TypeComposant.all.map{ |c| [c.name, c.id] }
     end %>
 
 <li class="list-group-item">

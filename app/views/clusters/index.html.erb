@@ -31,7 +31,7 @@
 
           <tbody>
             <%= content_tag_for(:tr, @clusters) do |cluster| %>
-                  <td><%= cluster.title %></td>
+                  <td><%= cluster.name %></td>
                   <td><%= cluster.servers.count %> serveurs</td>
               <td><%= link_to 'Modifier', edit_cluster_path(cluster), class: 'btn btn-primary' %></td>
               <td><%= link_to 'Supprimer', cluster, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>

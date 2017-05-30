@@ -14,11 +14,11 @@
         <div class="panel-body">
           <p>
             <%= f.label "Salle où importer les serveurs :" %>
-            <%= f.select :server_state_id, Room.order('id').all.collect { |p| [p.title, p.id ] }, include_blank: false, selected: Room.find_by_title('Atelier').try(:id) %>
+            <%= f.select :server_state_id, Room.order('id').all.collect { |p| [p.name, p.id ] }, include_blank: false, selected: Room.find_by_name('Atelier').try(:id) %>
           </p>
           <p>
             <%= f.label "Etat des serveurs importés :" %>
-            <%= f.select :server_state_id, ServerState.all.collect { |p| [ t(p.title.parameterize), p.id ] }, include_blank: true, selected: ServerState.first.id %>
+            <%= f.select :server_state_id, ServerState.all.collect { |p| [ t(p.name.parameterize), p.id ] }, include_blank: true, selected: ServerState.first.id %>
           </p>
           <p>
             <%= f.label "Fichier CSV :" %>

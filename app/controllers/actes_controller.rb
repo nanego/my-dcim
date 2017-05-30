@@ -69,6 +69,6 @@ class ActesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def acte_params
-      params.require(:acte).permit(:title, :description, :published)
+      params.require(:acte).permit(:name, :description, :published)
     end
 end

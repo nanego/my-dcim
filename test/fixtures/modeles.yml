@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
+  name: MyString
   description: MyText
   published: false
   nb_elts: 1
@@ -12,7 +12,7 @@ one:
   nb_elts: 1
 
 two:
-  title: MyString
+  name: MyString
   description: MyText
   published: false
   nb_elts: 1

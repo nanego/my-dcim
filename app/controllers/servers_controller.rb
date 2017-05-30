@@ -17,7 +17,7 @@ class ServersController < ApplicationController
   end
 
   def frames
-    @modele_blank_panel_id = Category.find_by_title('Blank Panel').id
+    @modele_blank_panel_id = Category.find_by_name('Blank Panel').id
 
     @frames = Frame.includes(:bay => {:islet => :room}).order('rooms.position asc, islets.name asc, bays.position asc, frames.position asc')
     @frames = @frames.joins(:servers).where('servers.cluster_id = ? ', params[:cluster_id]) if params[:cluster_id].present?
@@ -62,8 +62,8 @@ class ServersController < ApplicationController
   end
 
   def sort
-    room = Room.find_by_title(params[:room]) unless params[:room].include?('non ')
-    frame = room.frames.where('islets.name = ? AND frames.title = ?', params[:islet], params[:frame]).first
+    room = Room.find_by_name(params[:room]) unless params[:room].include?('non ')
+    frame = room.frames.where('islets.name = ? AND frames.name = ?', params[:islet], params[:frame]).first
     positions = params[:positions].split(',')
     params[:server].each_with_index do |id, index|
       if positions[index].present?

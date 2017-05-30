@@ -15,15 +15,15 @@
   <div class="form-group">
     <%= f.label 'Nom', class: "col-sm-2 col-md-1 control-label" %>
     <div class="col-sm-10 col-md-11">
-      <%= f.text_field :title, class: "form-control" %>
+      <%= f.text_field :name, class: "form-control" %>
     </div>
     <%= f.label :category_id, class: "col-sm-2 col-md-1 control-label" %>
     <div class="col-sm-10 col-md-5">
-      <%= f.collection_select(:category_id, Category.all, :id, :title, {}, {class: "form-control"}) %>
+      <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {class: "form-control"}) %>
     </div>
     <%= f.label :architecture_id, class: "col-sm-2 col-md-1 control-label" %>
     <div class="col-sm-10  col-md-5">
-      <%= f.collection_select(:architecture_id, Architecture.all, :id, :title, {}, {class: "form-control"}) %>
+      <%= f.collection_select(:architecture_id, Architecture.all, :id, :name, {}, {class: "form-control"}) %>
     </div>
     <%= f.label :u, class: "col-sm-2 col-md-1 control-label" %>
     <div class="col-sm-10 col-md-5">
@@ -31,7 +31,7 @@
     </div>
     <%= f.label :marque_id, class: "col-sm-2 col-md-1 control-label" %>
     <div class="col-sm-10 col-md-5">
-      <%= f.collection_select(:marque_id, Marque.all, :id, :title, {}, {class: "form-control"}) %>
+      <%= f.collection_select(:marque_id, Marque.all, :id, :name, {}, {class: "form-control"}) %>
     </div>
     <%= f.label :nb_elts, class: "col-sm-2 col-md-1 control-label" %>
     <div class="col-sm-10 col-md-5">

@@ -12,7 +12,7 @@
       <tbody>
       <tr>
         <% slots_sur_modele.each do |slot| %>
-          <td style="<%= server.modele.category.title != 'Patch Panel' ? 'max-width: 2.5em;' : '' %>">
+          <td style="<%= server.modele.category.name != 'Patch Panel' ? 'max-width: 2.5em;' : '' %>">
             <% server.cards_servers.where(:composant_id => slot.id).each do |card_server| %>
               <span data-server-name="<%= server.name %>" data-server-id="<%= server.id %>" data-composant-id="<%= card_server.id %>" data-composant-type="<%= card_server.class %>">
                 <%= ports_by_card(port_type: card_server.card.try(:port_type), port_quantity: card_server.card.try(:port_quantity), card_server_id: card_server.id, ports_data: Port.where(parent: card_server)) %>
@@ -26,7 +26,7 @@
   </div>
 
   <br>
-  <i class='pull-left' style="clear:left;padding-left: 14px;"><%= link_to server.modele.try(:title), edit_modele_path(server.modele), style: 'font-weight:normal;' %></i>
+  <i class='pull-left' style="clear:left;padding-left: 14px;"><%= link_to server.modele.try(:name), edit_modele_path(server.modele), style: 'font-weight:normal;' %></i>
 
   <div class="clearfix"></div>
 
@@ -42,7 +42,7 @@
       composant_type = 'CardsServer'
       composant_id = card_server.id
     else
-      composant_type = card_server.composant.type_composant.title
+      composant_type = card_server.composant.type_composant.name
       composant_id = server.id
     end
 
@@ -66,7 +66,7 @@
                 other_port_composant_type = 'CardsServer'
                 other_port_composant_id = other_port_card_server.id
               else
-                other_port_composant_type = other_port_card_server.composant.type_composant.title
+                other_port_composant_type = other_port_card_server.composant.type_composant.name
                 other_port_composant_id = other_port_card_server.server_id
               end %>
 

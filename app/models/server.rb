@@ -51,21 +51,21 @@ class Server < ActiveRecord::Base
 
   require 'csv'
   def self.import(csv_file, room, server_state)
-    room = room || Room.find_or_create_by!(title: 'Atelier')
+    room = room || Room.find_or_create_by!(name: 'Atelier')
     islet = room.islets.first
     bay = islet.bays.create!
-    frame = bay.frames.create!(title: csv_file.original_filename.sub('.csv', ''))
+    frame = bay.frames.create!(name: csv_file.original_filename.sub('.csv', ''))
     CSV.foreach(csv_file.path, {headers: true, col_sep: ';' }) do |row|
       server_data = row.to_hash
-      modele = Modele.find_by_title(server_data['Modele'])
+      modele = Modele.find_by_name(server_data['Modele'])
       raise "Modèle inconnu - #{server_data['Modele']}" if modele.blank?
       server = Server.new(frame: frame)
       server.server_state = server_state
       server.modele = modele
       server.name = server_data['Nom']
       server.critique = (server_data['Critique'] == 'oui')
-      server.cluster = Cluster.find_or_create_by!(title: server_data['Cluster'])
-      server.domaine = Domaine.find_or_create_by!(title: server_data['Domaine'])
+      server.cluster = Cluster.find_or_create_by!(name: server_data['Cluster'])
+      server.domaine = Domaine.find_or_create_by!(name: server_data['Domaine'])
       server.init_slots(server_data)
       unless server.save
         raise "Problème lors de l'ajout par fichier CSV"
@@ -76,7 +76,7 @@ class Server < ActiveRecord::Base
   end
 
   def init_slots(server_data)
-    type_composant_slot = TypeComposant.find_by_title('SLOT')
+    type_composant_slot = TypeComposant.find_by_name('SLOT')
     7.times do |i|
       Composant.find_or_create_by!(modele: self.modele,
                                    type_composant: type_composant_slot,

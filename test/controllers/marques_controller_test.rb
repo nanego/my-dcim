@@ -19,7 +19,7 @@ class MarquesControllerTest < ActionController::TestCase
 
   test "should create marque" do
     assert_difference('Marque.count') do
-      post :create, params: {marque: { description: @marque.description, published: @marque.published, title: @marque.title }}
+      post :create, params: {marque: { description: @marque.description, published: @marque.published, name: @marque.name }}
     end
 
     assert_redirected_to marque_path(assigns(:marque))
@@ -36,7 +36,7 @@ class MarquesControllerTest < ActionController::TestCase
   end
 
   test "should update marque" do
-    patch :update, params: {id: @marque, marque: { description: @marque.description, published: @marque.published, title: @marque.title }}
+    patch :update, params: {id: @marque, marque: { description: @marque.description, published: @marque.published, name: @marque.name }}
     assert_redirected_to marque_path(assigns(:marque))
   end
 

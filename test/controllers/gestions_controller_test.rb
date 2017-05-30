@@ -19,7 +19,7 @@ class GestionsControllerTest < ActionController::TestCase
 
   test "should create gestion" do
     assert_difference('Gestion.count') do
-      post :create, params:{ gestion: { description: @gestion.description, published: @gestion.published, title: @gestion.title }}
+      post :create, params:{ gestion: { description: @gestion.description, published: @gestion.published, name: @gestion.name }}
     end
 
     assert_redirected_to gestion_path(assigns(:gestion))
@@ -36,7 +36,7 @@ class GestionsControllerTest < ActionController::TestCase
   end
 
   test "should update gestion" do
-    patch :update, params: {id: @gestion, gestion: { description: @gestion.description, published: @gestion.published, title: @gestion.title }}
+    patch :update, params: {id: @gestion, gestion: { description: @gestion.description, published: @gestion.published, name: @gestion.name }}
     assert_redirected_to gestion_path(assigns(:gestion))
   end
 

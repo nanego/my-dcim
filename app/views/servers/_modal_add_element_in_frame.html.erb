@@ -6,7 +6,7 @@
         <h4 class="modal-title" id="myModalLabel">Ajouter un élément</h4>
       </div>
       <div class="modal-body">
-        <%= form_for(Server.new(:name => "PatchPanel", :modele => Modele.where("title LIKE ?", '%Panel%').first, frame: (@frame ? @frame : nil)), html: { class: "form-horizontal", role: "form" }) do |f| %>
+        <%= form_for(Server.new(:name => "PatchPanel", :modele => Modele.where("name LIKE ?", '%Panel%').first, frame: (@frame ? @frame : nil)), html: { class: "form-horizontal", role: "form" }) do |f| %>
           <% if @server.try(:errors).try(:any?) %>
             <div class="alert alert-danger alert-dismissable" role="alert">
               <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -29,7 +29,7 @@
           <div class="form-group">
             <%= f.label :modele_id, class: "col-sm-2 control-label" %>
             <div class="col-sm-10">
-              <%= f.collection_select(:modele_id, Modele.order(:title), :id, :title, {:prompt => true}, {class: "form-control"}) %>
+              <%= f.collection_select(:modele_id, Modele.order(:name), :id, :name, {:prompt => true}, {class: "form-control"}) %>
             </div>
           </div>
 

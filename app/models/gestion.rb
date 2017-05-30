@@ -6,6 +6,6 @@ class Gestion < ActiveRecord::Base
   has_many :servers
 
   def to_s
-    title.nil? ? "" : title
+    name.nil? ? "" : name
   end
 end

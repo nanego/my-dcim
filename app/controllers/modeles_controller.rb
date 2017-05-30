@@ -5,8 +5,8 @@ class ModelesController < ApplicationController
   before_action :set_modele, only: [:show, :edit, :update, :destroy]
 
   def index
-    @modeles = Modele.includes(:category).order(:title)
-    @types = @modeles.group_by { |m| m.category.title }.sort_by { |categorie, modeles| categorie.to_s }
+    @modeles = Modele.includes(:category).order(:name)
+    @types = @modeles.group_by { |m| m.category.name }.sort_by { |categorie, modeles| categorie.to_s }
   end
 
   def show
@@ -25,7 +25,7 @@ class ModelesController < ApplicationController
 
   def edit
     unless @modele.color.present?
-      @modele.color = lighten_color("##{Digest::MD5.hexdigest(@modele.try(:title) || 'test')[0..5]}", 0.4)
+      @modele.color = lighten_color("##{Digest::MD5.hexdigest(@modele.try(:name) || 'test')[0..5]}", 0.4)
     end
   end
 
@@ -71,6 +71,6 @@ class ModelesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def modele_params
-      params.require(:modele).permit(:title, :color, :description, :published, :category_id, :architecture_id, :u, :marque_id, :nb_elts, composants_attributes: [:type_composant_id, :modele_id, :name, :position, :_destroy, :id, slots_attributes: [:valeur, :_destroy, :id, :position]])
+      params.require(:modele).permit(:name, :color, :description, :published, :category_id, :architecture_id, :u, :marque_id, :nb_elts, composants_attributes: [:type_composant_id, :modele_id, :name, :position, :_destroy, :id, slots_attributes: [:valeur, :_destroy, :id, :position]])
     end
 end

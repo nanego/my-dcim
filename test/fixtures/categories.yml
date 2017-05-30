@@ -2,12 +2,12 @@
 
 one:
   id: 1
-  title: MyString
+  name: MyString
   description: MyText
   published: false
 
 two:
   id: 2
-  title: MyString
+  name: MyString
   description: MyText
   published: false

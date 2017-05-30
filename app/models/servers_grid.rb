@@ -72,7 +72,7 @@ class ServersGrid
     end
   end
   column(:type, :order => proc { |scope|
-    scope.joins(:modele => :category).order("categories.title")
+    scope.joins(:modele => :category).order("categories.name")
   }) do |record|
     record.modele.try(:category)
   end
@@ -82,7 +82,7 @@ class ServersGrid
     record.modele.try(:nb_elts)
   end
   column(:architecture, :order => proc { |scope|
-    scope.joins(:modele => :architecture).order("architectures.title")
+    scope.joins(:modele => :architecture).order("architectures.name")
   }) do |record|
     record.modele.try(:architecture)
   end
@@ -92,12 +92,12 @@ class ServersGrid
     record.modele.try(:u)
   end
   column(:marque, :order => proc { |scope|
-    scope.joins(:modele => :marque).order("marques.title")
+    scope.joins(:modele => :marque).order("marques.name")
   }) do |record|
     record.modele.try(:marque)
   end
   column(:modele, :order => proc { |scope|
-    scope.joins(:modele).order("modeles.title")
+    scope.joins(:modele).order("modeles.name")
   }) do |record|
     record.modele
   end
@@ -108,27 +108,27 @@ class ServersGrid
     critique ? "Oui" : "Non"
   end
   column(:cluster, :order => proc { |scope|
-    scope.joins(:cluster).order("clusters.title")
+    scope.joins(:cluster).order("clusters.name")
   }) do |record|
     record.cluster
   end
   column(:domaine, :order => proc { |scope|
-    scope.joins(:domaine).order("domaines.title")
+    scope.joins(:domaine).order("domaines.name")
   }) do |record|
     record.domaine
   end
   column(:gestionnaire, :order => proc { |scope|
-    scope.joins(:gestion).order("gestions.title")
+    scope.joins(:gestion).order("gestions.name")
   }) do |record|
     record.gestion
   end
   column("Action à réaliser", :order => proc { |scope|
-    scope.joins(:acte).order("actes.title")
+    scope.joins(:acte).order("actes.name")
   }) do |record|
     record.acte
   end
   column(:frame, :order => proc { |scope|
-    scope.joins(:frames).order("frames.title")
+    scope.joins(:frames).order("frames.name")
   }) do |record|
     record.frame.try(:name_with_room_and_islet)
   end

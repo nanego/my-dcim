@@ -2,7 +2,7 @@ require File.expand_path("../../test_helper", __FILE__)
 
 class ActeTest < ActiveSupport::TestCase
   def setup
-    @acte = Acte.new(title: "Le titre")
+    @acte = Acte.new(name: "Le titre")
   end
 
   def test_to_s_method

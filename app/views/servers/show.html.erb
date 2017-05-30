@@ -1,7 +1,7 @@
 <%= render 'layouts/breadcrumb', params: {"Salles" => overview_rooms_path,
-                                          @server.frame.room.title => room_path(@server.frame.room),
+                                          @server.frame.room.name => room_path(@server.frame.room),
                                           "Ilot #{@server.frame.islet.name}" => islet_rooms_path(id: @server.frame.room.id, islet: @server.frame.islet.name, :view => params[:view], bg: params[:bg]),
-                                          "Baie #{@server.frame.title}" => frame_path(@server.frame),
+                                          "Baie #{@server.frame.name}" => frame_path(@server.frame),
                                           @server.name => ''} %>
 
 <div class="page-header">
@@ -13,10 +13,10 @@
     <span class="glyphicon glyphicon-pencil"></span>
     Edit
   <% end %>
-  <h1><%= "#{@server.modele.try(:category).try(:title)} #{@server.name}" %></h1>
+  <h1><%= "#{@server.modele.try(:category).try(:name)} #{@server.name}" %></h1>
 </div>
 
-<p><%= link_to "<< Frame #{@server.frame.try(:title)}", frame_path(@server.frame, :view => params[:view]), class: 'btn btn-default', style: 'text-decoration: underline;' if @server.frame %></p>
+<p><%= link_to "<< Frame #{@server.frame.try(:name)}", frame_path(@server.frame, :view => params[:view]), class: 'btn btn-default', style: 'text-decoration: underline;' if @server.frame %></p>
 
 <div class="detailed_server list-group-item">
   <%= render 'draw_server_compact_front.html.erb', server: @server %>
@@ -25,9 +25,9 @@
 
 <div class="detailed_server list-group-item">
   <% case @server.modele.try(:category_id) %>
-  <% when Category.find_by_title('Blank Panel').try(:id) %>
+  <% when Category.find_by_name('Blank Panel').try(:id) %>
     <%= render 'draw_blank_panel', server: @server %>
-  <% when Category.find_by_title('Patch Panel').try(:id) %>
+  <% when Category.find_by_name('Patch Panel').try(:id) %>
     <%= render 'draw_patch_panel', server: @server %>
   <% else %>
     <%= render 'draw_server_compact.html.erb', server: @server %>
@@ -46,13 +46,13 @@
   <div class="panel panel-body">
     <dl class="dl-horizontal">
       <dt>Frame:</dt>
-      <dd><%= @server.frame.try(:title) %></dd>
+      <dd><%= @server.frame.try(:name) %></dd>
 
       <dt>Ilot:</dt>
       <dd><%= @server.frame.try(:islet) %></dd>
 
       <dt>Room:</dt>
-      <dd><%= @server.frame.try(:room).try(:title) %></dd>
+      <dd><%= @server.frame.try(:room).try(:name) %></dd>
 
       <dt>Categorie:</dt>
       <dd><%= @server.modele.try(:category) %></dd>
@@ -73,7 +73,7 @@
       <dd><%= @server.modele.try(:marque) %></dd>
 
       <dt>Modele:</dt>
-      <dd><%= link_to @server.modele, edit_modele_path(@server.modele) if @server.modele.try(:title) %></dd>
+      <dd><%= link_to @server.modele, edit_modele_path(@server.modele) if @server.modele.try(:name) %></dd>
 
       <dt>Numero:</dt>
       <dd><%= @server.try(:numero) %></dd>
@@ -82,7 +82,7 @@
       <dd><%= @server.conso %></dd>
 
       <dt>Cluster:</dt>
-      <dd><%= @server.cluster.try(:title) %></dd>
+      <dd><%= @server.cluster.try(:name) %></dd>
 
       <dt>Critique:</dt>
       <dd><%= @server.critique ? 'OUI' : 'non' %></dd>

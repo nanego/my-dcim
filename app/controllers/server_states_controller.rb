@@ -69,6 +69,6 @@ class ServerStatesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def server_state_params
-      params.require(:server_state).permit(:title)
+      params.require(:server_state).permit(:name)
     end
 end
