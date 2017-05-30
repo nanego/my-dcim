@@ -2,7 +2,7 @@
   <b><%= link_to h(server.name), server_path(server, :view => params[:view]) %></b>
   <br>
 
-  <% slots_sur_modele = server.modele.composants.where(type_composant_id: 4) %>
+  <% slots_sur_modele = server.modele.composants.where(type_composant_id: 4).to_a %>
   <% half_slots = slots_sur_modele.length / 2 %>
 
   <% slots_sur_modele.slice(0, half_slots).each do |slot| %>
