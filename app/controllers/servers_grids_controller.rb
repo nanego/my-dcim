@@ -17,7 +17,13 @@ class ServersGridsController < ApplicationController
           @merged_params = params.to_unsafe_h.slice(:servers_grid)
         end
 
-        @servers = ServersGrid.new(@merged_params[:servers_grid])
+        begin
+          @servers = ServersGrid.new(@merged_params[:servers_grid])
+        rescue => ex
+          @servers = ServersGrid.new(params[:servers_grid])
+          logger.error ex.message
+        end
+
       end
       format.csv do
         @servers = ServersGrid.new(params.to_unsafe_h[:servers_grid])
