@@ -32,6 +32,7 @@ class PortsController < ApplicationController
     respond_to do |format|
       if @port.update(port_params)
         format.html { redirect_to @port.parent.server.frame, notice: 'Le port a été mis à jour.' }
+        format.js
         format.json { render :show, status: :ok, location: @port.server }
       else
         format.html { render :edit }

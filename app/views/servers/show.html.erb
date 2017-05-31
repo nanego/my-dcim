@@ -30,7 +30,9 @@
   <% when Category.find_by_name('Patch Panel').try(:id) %>
     <%= render 'draw_patch_panel', server: @server %>
   <% else %>
-    <%= render 'draw_server_compact.html.erb', server: @server %>
+    <span id="back_server_<%= @server.id %>">
+       <%= render 'servers/draw_server_compact.html.erb', server: @server %>
+    </span>
     <span class="clearfix"></span>
   <% end %>
 </div>
@@ -192,3 +194,5 @@
   <dd><%= @server.ipmi_dedie %></dd>
   </dl>
 </div>
+
+<%= render 'ports/modal_edit_port' %>
