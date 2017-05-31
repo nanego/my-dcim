@@ -42,7 +42,7 @@ module ServersHelper
                          type: "RJ",
                          toggle: 'tooltip',
                          placement: 'top',
-                         name: port_data.present? ? "#{port_data.vlans}" : ""
+                         title: port_data.present? ? "#{port_data.vlans}" : ""
                   }
 
         when 'FC'
@@ -55,7 +55,7 @@ module ServersHelper
                          type: "FC",
                          toggle: 'tooltip',
                          placement: 'top',
-                         name: port_data.present? ? "#{port_data.vlans}" : ""
+                         title: port_data.present? ? "#{port_data.vlans}" : ""
                   }
 
         else
@@ -68,7 +68,7 @@ module ServersHelper
                          type: port_type.try(:name),
                          toggle: 'tooltip',
                          placement: 'top',
-                         name: port_data.present? ? "#{port_data.vlans}" : ""
+                         title: port_data.present? ? "#{port_data.vlans}" : ""
                   }
 
 
