@@ -9,7 +9,7 @@
 </div><!-- /.modal -->
 
 <script type="text/javascript">
-  $(".server").on("click", "a.port", function(event) {
+  $("body").on("click", "a.port", function(event) {
     event.preventDefault();
     var url = $(this).data("url");
     if(url.length>0) {
