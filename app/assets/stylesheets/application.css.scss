@@ -105,7 +105,7 @@ table.slots thead {
   // Colors are !important so we can print them
   &.R{
     color: #FFFFFF !important;
-    background-color: red !important;
+    background-color: #ee3b3b !important;
   }
   &.G{
     color: #333333 !important;
@@ -122,6 +122,14 @@ table.slots thead {
   &.Vi{
     color: #FFFFFF !important;
     background-color: #663399 !important;
+  }
+  &.M{
+    color: #FFFFFF !important;
+    background-color: #8b4c39 !important;
+  }
+  &.B{
+    color: #FFFFFF !important;
+    background-color: #4876ff !important;
   }
   &.N{
     color: #FFFFFF !important;
