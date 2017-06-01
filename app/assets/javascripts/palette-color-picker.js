@@ -19,7 +19,7 @@
                 .addClass(ns+'-button')
                 .attr('data-target', target),
             $bubble = $('<div>')
-                .addClass(ns+'-bubble'),
+                .addClass(ns+'-bubble active'),
             // Final settings will be stored here
             settings = {},
             // Default settings
@@ -83,7 +83,7 @@
 
                 if ( key === current_value ) {
                     $sw.addClass('active');
-                    $button.css('background', col);
+                    // $button.css('background', col);
                 }
 
                 $sw.appendTo( $bubble );
@@ -127,34 +127,7 @@
 
             // Events
             // Simple click
-            $button.append( $bubble ).on( click_handler, function(e){
-                e.preventDefault();
-                e.stopPropagation();
-                var $b = $( this );
-                $b.toggleClass('active').find('.'+ns+'-bubble').fadeToggle();
-                if ($b.hasClass('active')) {
-                    clearTimeout(plugin.timer);
-                    plugin.timer = setTimeout(function(){
-                        $b.trigger('pcp.fadeout');
-                    }, plugin.settings.timeout);
-                }
-            })
-            // Fade timer
-                .on('pcp.fadeout', function() {
-                    $( this ).removeClass('active').find('.'+ns+'-bubble').fadeOut();
-                })
-                // Enter bubble
-                .on('mouseenter', '.'+ns+'-bubble', function() {
-                    clearTimeout(plugin.timer);
-                })
-                // Leave bubble
-                .on('mouseleave', '.'+ns+'-bubble', function() {
-                    plugin.timer = setTimeout(function(){
-                        $button.trigger('pcp.fadeout');
-                    }, plugin.settings.timeout);
-                })
-                // Click on swatches
-                .on( click_handler, 'span.swatch', function(e){
+            $button.append( $bubble ).on( click_handler, 'span.swatch', function(e){
                     e.preventDefault();
                     e.stopPropagation();
                     var
@@ -174,7 +147,7 @@
                         col = '';
                     } else {
                         $(this).addClass('active');
-                        $button.css('background', col);
+                        // $button.css('background', col);
                     }
                     $( '[name="'+$button.attr('data-target')+'"]' ).val( name );
                 })['insert'+plugin.settings.insert]( $el );
