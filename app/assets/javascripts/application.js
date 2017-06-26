@@ -47,3 +47,7 @@ function loadPaletteColorPicker(selector){
         position: 'upside'
     });
 }
+
+$(document).ready(function(){
+    $('.dropdown-toggle').dropdown();
+});
