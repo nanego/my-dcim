@@ -27,7 +27,7 @@ function showFilters(){
   $('.panel-body').show();
 }
 
-function loadPaletteColorPicker(selector){
+var loadPaletteColorPicker = function(selector){
     $(selector).paletteColorPicker({
         colors: [
             {"N": "#000000"},
