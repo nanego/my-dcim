@@ -18,4 +18,8 @@
       return $.getScript(url);
     }
   });
+  $("body").on("click", "a#close_modal", function(event) {
+      event.preventDefault();
+      $("#edit_port_modal").modal("hide");
+  });
 </script>
