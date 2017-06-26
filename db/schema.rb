@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170530134603) do
+ActiveRecord::Schema.define(version: 20170626123240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,18 +60,24 @@ ActiveRecord::Schema.define(version: 20170530134603) do
     t.integer  "islet_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["bay_type_id"], name: "index_bays_on_bay_type_id", using: :btree
+    t.index ["islet_id"], name: "index_bays_on_islet_id", using: :btree
   end
 
   create_table "cards", force: :cascade do |t|
     t.string  "name"
     t.integer "port_type_id"
     t.integer "port_quantity"
+    t.index ["port_type_id"], name: "index_cards_on_port_type_id", using: :btree
   end
 
   create_table "cards_servers", force: :cascade do |t|
     t.integer "card_id"
     t.integer "server_id"
     t.integer "composant_id"
+    t.index ["card_id"], name: "index_cards_servers_on_card_id", using: :btree
+    t.index ["composant_id"], name: "index_cards_servers_on_composant_id", using: :btree
+    t.index ["server_id"], name: "index_cards_servers_on_server_id", using: :btree
   end
 
   create_table "categories", force: :cascade do |t|
@@ -103,6 +109,8 @@ ActiveRecord::Schema.define(version: 20170530134603) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.string   "name"
+    t.index ["modele_id"], name: "index_composants_on_modele_id", using: :btree
+    t.index ["type_composant_id"], name: "index_composants_on_type_composant_id", using: :btree
   end
 
   create_table "contract_types", force: :cascade do |t|
@@ -125,6 +133,8 @@ ActiveRecord::Schema.define(version: 20170530134603) do
     t.integer  "quantity"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.index ["disk_type_id"], name: "index_disks_on_disk_type_id", using: :btree
+    t.index ["server_id"], name: "index_disks_on_server_id", using: :btree
   end
 
   create_table "domaines", force: :cascade do |t|
@@ -144,6 +154,7 @@ ActiveRecord::Schema.define(version: 20170530134603) do
     t.integer  "switch_slot"
     t.string   "slug"
     t.integer  "bay_id"
+    t.index ["bay_id"], name: "index_frames_on_bay_id", using: :btree
     t.index ["slug"], name: "index_frames_on_slug", unique: true, using: :btree
   end
 
@@ -172,6 +183,7 @@ ActiveRecord::Schema.define(version: 20170530134603) do
     t.integer  "room_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_islets_on_room_id", using: :btree
   end
 
   create_table "maintainers", force: :cascade do |t|
@@ -188,6 +200,9 @@ ActiveRecord::Schema.define(version: 20170530134603) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.integer  "server_id"
+    t.index ["contract_type_id"], name: "index_maintenance_contracts_on_contract_type_id", using: :btree
+    t.index ["maintainer_id"], name: "index_maintenance_contracts_on_maintainer_id", using: :btree
+    t.index ["server_id"], name: "index_maintenance_contracts_on_server_id", using: :btree
   end
 
   create_table "marques", force: :cascade do |t|
@@ -204,6 +219,8 @@ ActiveRecord::Schema.define(version: 20170530134603) do
     t.integer  "quantity"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.index ["memory_type_id"], name: "index_memory_components_on_memory_type_id", using: :btree
+    t.index ["server_id"], name: "index_memory_components_on_server_id", using: :btree
   end
 
   create_table "memory_types", force: :cascade do |t|
@@ -226,6 +243,9 @@ ActiveRecord::Schema.define(version: 20170530134603) do
     t.integer  "marque_id"
     t.string   "color"
     t.string   "slug"
+    t.index ["architecture_id"], name: "index_modeles_on_architecture_id", using: :btree
+    t.index ["category_id"], name: "index_modeles_on_category_id", using: :btree
+    t.index ["marque_id"], name: "index_modeles_on_marque_id", using: :btree
     t.index ["slug"], name: "index_modeles_on_slug", unique: true, using: :btree
   end
 
@@ -234,6 +254,7 @@ ActiveRecord::Schema.define(version: 20170530134603) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["pdu_id"], name: "index_pdu_lines_on_pdu_id", using: :btree
   end
 
   create_table "pdu_outlet_groups", force: :cascade do |t|
@@ -242,6 +263,7 @@ ActiveRecord::Schema.define(version: 20170530134603) do
     t.integer  "nb_of_outlets", default: 12
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.index ["pdu_line_id"], name: "index_pdu_outlet_groups_on_pdu_line_id", using: :btree
   end
 
   create_table "pdus", force: :cascade do |t|
@@ -249,6 +271,7 @@ ActiveRecord::Schema.define(version: 20170530134603) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["frame_id"], name: "index_pdus_on_frame_id", using: :btree
   end
 
   create_table "port_types", force: :cascade do |t|
@@ -264,6 +287,7 @@ ActiveRecord::Schema.define(version: 20170530134603) do
     t.string   "vlans"
     t.string   "color"
     t.string   "cablename"
+    t.index ["parent_id", "parent_type"], name: "index_ports_on_parent_id_and_parent_type", using: :btree
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -276,6 +300,7 @@ ActiveRecord::Schema.define(version: 20170530134603) do
     t.integer  "position"
     t.boolean  "display_on_home_page"
     t.integer  "site_id"
+    t.index ["site_id"], name: "index_rooms_on_site_id", using: :btree
     t.index ["slug"], name: "index_rooms_on_slug", unique: true, using: :btree
   end
 
@@ -322,6 +347,14 @@ ActiveRecord::Schema.define(version: 20170530134603) do
     t.integer  "server_state_id"
     t.string   "comment"
     t.string   "slug"
+    t.string   "port_color"
+    t.index ["acte_id"], name: "index_servers_on_acte_id", using: :btree
+    t.index ["cluster_id"], name: "index_servers_on_cluster_id", using: :btree
+    t.index ["domaine_id"], name: "index_servers_on_domaine_id", using: :btree
+    t.index ["frame_id"], name: "index_servers_on_frame_id", using: :btree
+    t.index ["gestion_id"], name: "index_servers_on_gestion_id", using: :btree
+    t.index ["modele_id"], name: "index_servers_on_modele_id", using: :btree
+    t.index ["server_state_id"], name: "index_servers_on_server_state_id", using: :btree
     t.index ["slug"], name: "index_servers_on_slug", unique: true, using: :btree
   end
 
@@ -339,6 +372,8 @@ ActiveRecord::Schema.define(version: 20170530134603) do
     t.datetime "updated_at",   null: false
     t.integer  "composant_id"
     t.integer  "server_id"
+    t.index ["composant_id"], name: "index_slots_on_composant_id", using: :btree
+    t.index ["server_id"], name: "index_slots_on_server_id", using: :btree
   end
 
   create_table "type_composants", force: :cascade do |t|
@@ -375,6 +410,7 @@ ActiveRecord::Schema.define(version: 20170530134603) do
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
+    t.index ["invited_by_id", "invited_by_type"], name: "index_users_on_invited_by_id_and_invited_by_type", using: :btree
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

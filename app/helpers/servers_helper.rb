@@ -20,62 +20,66 @@ module ServersHelper
     end
   end
 
-  def ports_by_card(port_type:, port_quantity:,
-                    ports_data:, card_server_id:)
-
+  def ports_by_card(port_type:, port_quantity:, ports_data:, card_server_id:)
     html = ""
-
     port_quantity.to_i.times do |index|
-
-      port_data = ports_data.find_by(position: index+1)
-
-      edit_port_url = port_data.try(:id) ? edit_port_path(port_data) : edit_port_path(id: 0, parent_id: card_server_id, parent_type: CardsServer.name, position: index+1)
-
-      case port_type.name
-        when 'RJ'
-
-          html += link_to port_cablename(port_data),
-                  edit_port_url,
-                  class: "port pull-left portRJ #{port_data.present? ? port_data.color : '' }",
-                  data: {url: edit_port_url,
-                         position: index+1,
-                         type: "RJ",
-                         toggle: 'tooltip',
-                         placement: 'top',
-                         title: port_data.present? ? "#{port_data.vlans}" : ""
-                  }
-
-        when 'FC'
-
-          html += link_to port_cablename(port_data),
-                  edit_port_url,
-                  class: "port pull-left portFC #{port_data.present? ? port_data.color : '' }",
-                  data: {url: edit_port_url,
-                         position: index+1,
-                         type: "FC",
-                         toggle: 'tooltip',
-                         placement: 'top',
-                         title: port_data.present? ? "#{port_data.vlans}" : ""
-                  }
-
-        else
-
-          html += link_to "#{port_type.try(:name)}<BR>#{port_cablename(port_data)}".html_safe,
-                  edit_port_url,
-                  class: "port pull-left portSCSI #{port_data.present? ? port_data.color : '' }",
-                  data: {url: edit_port_url,
-                         position: index+1,
-                         type: port_type.try(:name),
-                         toggle: 'tooltip',
-                         placement: 'top',
-                         title: port_data.present? ? "#{port_data.vlans}" : ""
-                  }
-
-
-      end
+      port_data = ports_data.detect {|p| p.position == index+1}
+      html += link_to_port(index+1, port_data, port_type, card_server_id)
     end
-
     html.html_safe
-
   end
+
+  def link_to_port(position, port_data, port_type, card_server_id)
+    edit_port_url = port_data.try(:id) ? edit_port_path(port_data) : edit_port_path(id: 0, parent_id: card_server_id, parent_type: CardsServer.name, position: position)
+
+    case port_type.name
+      when 'RJ'
+        link_to port_cablename(port_data),
+                        edit_port_url,
+                        class: "port pull-left portRJ #{port_data.present? ? port_data.color : '' }",
+                        data: {url: edit_port_url,
+                               position: position,
+                               type: "RJ",
+                               toggle: 'tooltip',
+                               placement: 'top',
+                               title: port_data.present? ? "#{port_data.vlans}" : ""
+                        }
+
+      when 'FC'
+        link_to port_cablename(port_data),
+                        edit_port_url,
+                        class: "port pull-left portFC #{port_data.present? ? port_data.color : '' }",
+                        data: {url: edit_port_url,
+                               position: position,
+                               type: "FC",
+                               toggle: 'tooltip',
+                               placement: 'top',
+                               title: port_data.present? ? "#{port_data.vlans}" : ""
+                        }
+
+      else
+        link_to "#{port_type.try(:name)}<BR>#{port_cablename(port_data)}".html_safe,
+                        edit_port_url,
+                        class: "port pull-left portSCSI #{port_data.present? ? port_data.color : '' }",
+                        data: {url: edit_port_url,
+                               position: position,
+                               type: port_type.try(:name),
+                               toggle: 'tooltip',
+                               placement: 'top',
+                               title: port_data.present? ? "#{port_data.vlans}" : ""
+                        }
+
+
+    end
+  end
+
+  def get_ports_per_bay_and_color(bay_id:, color:)
+    Port.joins('INNER JOIN "cards_servers" ON "ports"."parent_id" = "cards_servers"."id"')
+        .joins('INNER JOIN "servers" ON "servers".id = "cards_servers"."server_id"')
+        .joins('INNER JOIN "frames" ON "frames".id = "servers"."frame_id" AND "bay_id" = '+ bay_id.to_s)
+        .where(parent_type: 'CardsServer')
+        .where(color: color)
+        .order('cablename asc')
+  end
+
 end

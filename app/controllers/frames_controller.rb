@@ -6,6 +6,7 @@ class FramesController < ApplicationController
     @room = @frame.room
     @servers_per_frames = {}
     @servers = @frame.servers.includes(:gestion, :modele => :category, :cards => :port_type, :cards_servers => [:composant, :ports])
+    @agregated_ports_per_server = {}
     @servers.each do |s|
       islet = @frame.bay.islet
       @servers_per_frames[islet] ||= {}
@@ -13,6 +14,8 @@ class FramesController < ApplicationController
       @servers_per_frames[islet][@frame.bay.lane][@frame.bay] ||= {}
       @servers_per_frames[islet][@frame.bay.lane][@frame.bay][@frame] ||= []
       @servers_per_frames[islet][@frame.bay.lane][@frame.bay][@frame] << s
+
+      @agregated_ports_per_server[s.id] = get_ports_per_bay_and_color(bay_id: s.frame.bay_id, color: s.port_color) if s.aggregate_ports?
     end
     @sums = calculate_ports_sums(@frame, @servers)
 

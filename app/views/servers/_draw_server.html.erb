@@ -12,7 +12,10 @@
         <% slots_sur_modele.each do |slot| %>
           <td>
             <% server.cards_servers.where(:composant_id => slot.id).each do |card_server| %>
-              <%= ports_by_card(port_type: card_server.card.port_type, port_quantity: card_server.card.port_quantity, ports_data: Port.where(parent: card_server), card_server_id: card_server.id) %>
+              <%= ports_by_card(port_type: card_server.card.port_type,
+                                port_quantity: card_server.card.port_quantity,
+                                ports_data: Port.where(parent: card_server),
+                                card_server_id: card_server.id) %>
             <% end %>
           </td>
         <% end %>
@@ -29,7 +32,9 @@
       <tbody>
       <tr>
         <td>
-          <%= ports_by_card(port_type: PortType.find_by_name('RJ'), port_quantity: server.modele.composants.where(type_composant_id: 3).count, ports_data: Port.where(parent: server.cards_servers.joins(:composant => :type_composant).where('type_composants.name = ?', 'CM')) )%>
+          <%= ports_by_card(port_type: PortType.find_by_name('RJ'),
+                            port_quantity: server.modele.composants.where(type_composant_id: 3).count,
+                            ports_data: Port.where(parent: server.cards_servers.joins(:composant => :type_composant).where('type_composants.name = ?', 'CM')) )%>
         </td>
       </tr>
       </tbody>
@@ -38,7 +43,9 @@
 
   <% if server.modele.composants.where(type_composant_id: 2).count > 0 %>
     <div class="pull-right">
-      <%= ports_by_card(port_type: PortType.find_by_name('IPMI'), port_quantity: 1, ports_data: Port.where(parent: server.cards_servers.joins(:composant => :type_composant).where('type_composants.name = ?', 'IPMI'))) %>
+      <%= ports_by_card(port_type: PortType.find_by_name('IPMI'),
+                        port_quantity: 1,
+                        ports_data: Port.where(parent: server.cards_servers.joins(:composant => :type_composant).where('type_composants.name = ?', 'IPMI')) ) %>
       <!-- TODO verif generated link without card_server_id -->
     </div>
   <% end %>

@@ -149,6 +149,10 @@ class Server < ActiveRecord::Base
     sums
   end
 
+  def aggregate_ports?
+    self.port_color.present?
+  end
+
   private
 
     def slug_candidates

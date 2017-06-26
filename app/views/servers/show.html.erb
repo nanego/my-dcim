@@ -12,7 +12,7 @@
   <h1><%= "#{@server.modele.try(:category).try(:name)} #{@server.name}" %></h1>
 </div>
 
-<p><%= link_to "<< Frame #{@server.frame.try(:name)}", frame_path(@server.frame, :view => params[:view]), class: 'btn btn-default', style: 'text-decoration: underline;' if @server.frame %></p>
+<p><%= link_to "<< Baie #{@server.frame.try(:name)}", frame_path(@server.frame, :view => params[:view]), class: 'btn btn-default', style: 'text-decoration: underline;' if @server.frame %></p>
 
 <div class="detailed_server list-group-item">
   <%= render 'draw_server_compact_front.html.erb', server: @server %>
@@ -114,7 +114,12 @@
       <dt>RAM :</dt>
       <% @server.memory_components.each do |memory_component| %>
         <dd><%= memory_component %></dd>
+      <% end.empty? && begin %>
+          <dd/>
       <% end %>
+
+      <dt>Couleur des ports :</dt>
+      <dd><%= @server.port_color %></dd>
 
       <dt>Commentaire :</dt>
       <dd><%= @server.comment %></dd>
@@ -150,45 +155,6 @@
     -->
 
   </div>
-</div>
-
-<div style="clear:both;font-size: smaller;">
-
-  <H5>Champs obsolètes (bientôt supprimés) :</H5>
-  <dl class="dl-horizontal">
-  <dt>Acte:</dt>
-  <dd><%= @server.acte %></dd>
-
-  <dt>Fc futur:</dt>
-  <dd><%= @server.fc_futur %></dd>
-
-  <dt>Fc total:</dt>
-  <dd><%= @server.fc_total %></dd>
-
-  <dt>Fc utilise:</dt>
-  <dd><%= @server.fc_utilise %></dd>
-
-  <dt>Rj45 total:</dt>
-  <dd><%= @server.rj45_total %></dd>
-
-  <dt>Rj45 utilise:</dt>
-  <dd><%= @server.rj45_utilise %></dd>
-
-  <dt>Rj45 futur:</dt>
-  <dd><%= @server.rj45_futur %></dd>
-
-  <dt>Ipmi utilise:</dt>
-  <dd><%= @server.ipmi_utilise %></dd>
-
-  <dt>Ipmi futur:</dt>
-  <dd><%= @server.ipmi_futur %></dd>
-
-  <dt>Rg45 cm:</dt>
-  <dd><%= @server.rj45_cm %></dd>
-
-  <dt>Ipmi dedie:</dt>
-  <dd><%= @server.ipmi_dedie %></dd>
-  </dl>
 </div>
 
 <%= render 'ports/modal_edit_port' %>

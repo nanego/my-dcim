@@ -12,6 +12,7 @@ class RoomsController < ApplicationController
   def show
     @servers_per_frames = {}
     @sums = {}
+    @agregated_ports_per_server = {}
     @room.frames.includes(:servers, :islet, :bay => :frames).order('islets.name, bays.lane, bays.position, frames.position').each do |frame|
       servers = frame.servers.includes(:gestion, :cluster, :modele => :category, :cards => :port_type, :cards_servers => [:composant, :ports])
       servers.each do |s|
@@ -21,6 +22,9 @@ class RoomsController < ApplicationController
         @servers_per_frames[islet][frame.bay.lane][frame.bay] ||= {}
         @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] ||= []
         @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] << s
+
+        @agregated_ports_per_server[s.id] = get_ports_per_bay_and_color(bay_id: s.frame.bay_id, color: s.port_color) if s.aggregate_ports?
+
       end
       @sums.merge!(calculate_ports_sums(frame, servers))
     end
@@ -44,6 +48,7 @@ class RoomsController < ApplicationController
     islet = params[:islet]
     @servers_per_frames = {}
     @sums = {}
+    @agregated_ports_per_server = {}
     @room.frames.includes(:servers, :islet, :bay).where('islets.name = ?', islet).each do |frame|
       servers = frame.servers.includes(:gestion, :modele => :category, :cards => :port_type, :cards_servers => :composant)
       servers.each do |s|
@@ -53,6 +58,9 @@ class RoomsController < ApplicationController
         @servers_per_frames[islet][frame.bay.lane][frame.bay] ||= {}
         @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] ||= []
         @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] << s
+
+        @agregated_ports_per_server[s.id] = get_ports_per_bay_and_color(bay_id: s.frame.bay_id, color: s.port_color) if s.aggregate_ports?
+
       end
       @sums.merge!(calculate_ports_sums(frame, servers))
     end
