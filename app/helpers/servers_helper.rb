@@ -79,8 +79,10 @@ module ServersHelper
         .joins('INNER JOIN "port_types" ON "cards"."port_type_id" = "port_types"."id" AND  "port_types".name <> \'SAS\'')
         .joins('INNER JOIN "servers" ON "servers".id = "cards_servers"."server_id"')
         .joins('INNER JOIN "frames" ON "frames".id = "servers"."frame_id" AND "bay_id" = '+ bay_id.to_s)
+        .includes(:cards_server)
         .where('substring(cablename from \'.\') IN (?)', server.cards_servers.map(&:connections_identifier).uniq.compact)
         .order('cablename asc')
+
   end
 
 end

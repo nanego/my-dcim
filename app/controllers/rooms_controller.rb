@@ -14,7 +14,7 @@ class RoomsController < ApplicationController
     @sums = {}
     @agregated_ports_per_server = {}
     @room.frames.includes(:servers, :islet, :bay => :frames).order('islets.name, bays.lane, bays.position, frames.position').each do |frame|
-      servers = frame.servers.includes(:gestion, :cluster, :modele => :category, :cards => :port_type, :cards_servers => [:composant, :ports])
+      servers = frame.servers.includes(:frame, :gestion, :cluster, :modele => :category, :cards => :port_type, :cards_servers => [:composant, :ports])
       servers.each do |s|
         islet = frame.bay.islet.name
         @servers_per_frames[islet] ||= {}
