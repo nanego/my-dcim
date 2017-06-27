@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170627145535) do
+ActiveRecord::Schema.define(version: 20170627153923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -287,6 +287,7 @@ ActiveRecord::Schema.define(version: 20170627145535) do
     t.string   "vlans"
     t.string   "color"
     t.string   "cablename"
+    t.index ["cards_server_id"], name: "index_ports_on_cards_server_id", using: :btree
   end
 
   create_table "rooms", force: :cascade do |t|
