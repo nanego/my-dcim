@@ -1,7 +1,7 @@
 <%= render 'layouts/breadcrumb', params: {"Salles" => rooms_path,
-                                          @port.parent.server.frame.room.name => room_path(@port.parent.server.frame.room),
-                                          "Baie #{@port.parent.server.frame.name}" => frame_path(@port.parent.server.frame),
-                                          @port.parent.server.name => server_path(@port.parent.server),
-                                          "Port #{@port.parent.try(:composant).try(:name)} #{@port.position}" => ''} %>
+                                          @port.cards_server.server.frame.room.name => room_path(@port.cards_server.server.frame.room),
+                                          "Baie #{@port.cards_server.server.frame.name}" => frame_path(@port.cards_server.server.frame),
+                                          @port.cards_server.server.name => server_path(@port.cards_server.server),
+                                          "Port #{@port.cards_server.try(:composant).try(:name)} #{@port.position}" => ''} %>
 
 <%= render 'ports/form' %>

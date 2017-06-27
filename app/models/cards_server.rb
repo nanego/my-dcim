@@ -12,6 +12,6 @@ class CardsServer < ActiveRecord::Base
   belongs_to :server
   belongs_to :composant
 
-  has_many :ports, :as => :parent
+  has_many :ports
 
 end

@@ -30,7 +30,7 @@ module ServersHelper
   end
 
   def link_to_port(position, port_data, port_type, card_server_id)
-    edit_port_url = port_data.try(:id) ? edit_port_path(port_data) : edit_port_path(id: 0, parent_id: card_server_id, parent_type: CardsServer.name, position: position)
+    edit_port_url = port_data.try(:id) ? edit_port_path(port_data) : edit_port_path(id: 0, card_server_id: card_server_id, position: position)
 
     case port_type.name
       when 'RJ'
@@ -74,12 +74,11 @@ module ServersHelper
   end
 
   def get_ports_per_bay_on_a_server(bay_id:, server:)
-    Port.joins('INNER JOIN "cards_servers" ON "ports"."parent_id" = "cards_servers"."id"')
+    Port.joins('INNER JOIN "cards_servers" ON "ports"."cards_server_id" = "cards_servers"."id"')
         .joins('INNER JOIN "cards" ON "cards_servers"."card_id" = "cards"."id"')
         .joins('INNER JOIN "port_types" ON "cards"."port_type_id" = "port_types"."id" AND  "port_types".name <> \'SAS\'')
         .joins('INNER JOIN "servers" ON "servers".id = "cards_servers"."server_id"')
         .joins('INNER JOIN "frames" ON "frames".id = "servers"."frame_id" AND "bay_id" = '+ bay_id.to_s)
-        .where(parent_type: 'CardsServer')
         .where('substring(cablename from \'.\') IN (?)', server.cards_servers.map(&:connections_identifier).uniq.compact)
         .order('cablename asc')
   end

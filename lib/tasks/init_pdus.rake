@@ -7,7 +7,7 @@ namespace :init_pdus do
       line = port.cablename[2]
       group = port.cablename[1]
 
-      server = port.parent.try(:server)
+      server = port.cards_server.try(:server)
       if server.frame
         frame = server.frame
         frame.pdu = Pdu.create(name: "PDUs #{frame.to_s}") if frame.pdu.blank?
