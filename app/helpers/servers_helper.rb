@@ -73,12 +73,14 @@ module ServersHelper
     end
   end
 
-  def get_ports_per_bay_and_color(bay_id:, color:)
+  def get_ports_per_bay_on_a_server(bay_id:, server:)
     Port.joins('INNER JOIN "cards_servers" ON "ports"."parent_id" = "cards_servers"."id"')
+        .joins('INNER JOIN "cards" ON "cards_servers"."card_id" = "cards"."id"')
+        .joins('INNER JOIN "port_types" ON "cards"."port_type_id" = "port_types"."id" AND  "port_types".name <> \'SAS\'')
         .joins('INNER JOIN "servers" ON "servers".id = "cards_servers"."server_id"')
         .joins('INNER JOIN "frames" ON "frames".id = "servers"."frame_id" AND "bay_id" = '+ bay_id.to_s)
         .where(parent_type: 'CardsServer')
-        .where(color: color)
+        .where('substring(cablename from \'.\') IN (?)', server.cards_servers.map(&:connections_identifier).uniq.compact)
         .order('cablename asc')
   end
 

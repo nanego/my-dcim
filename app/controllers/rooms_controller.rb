@@ -23,7 +23,7 @@ class RoomsController < ApplicationController
         @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] ||= []
         @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] << s
 
-        @agregated_ports_per_server[s.id] = get_ports_per_bay_and_color(bay_id: s.frame.bay_id, color: s.port_color) if s.aggregate_ports?
+        @agregated_ports_per_server[s.id] = get_ports_per_bay_on_a_server(bay_id: s.frame.bay_id, server: s) if s.aggregate_ports?
 
       end
       @sums.merge!(calculate_ports_sums(frame, servers))
@@ -59,7 +59,7 @@ class RoomsController < ApplicationController
         @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] ||= []
         @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] << s
 
-        @agregated_ports_per_server[s.id] = get_ports_per_bay_and_color(bay_id: s.frame.bay_id, color: s.port_color) if s.aggregate_ports?
+        @agregated_ports_per_server[s.id] = get_ports_per_bay_on_a_server(bay_id: s.frame.bay_id, server: s) if s.aggregate_ports?
 
       end
       @sums.merge!(calculate_ports_sums(frame, servers))

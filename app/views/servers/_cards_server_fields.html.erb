@@ -8,6 +8,9 @@
       <div class="col-sm-4">
         <%= f.select :card_id, options_for_select(Card.sorted.map{|card| [card.name, card.id]}, f.object.card_id) %>
       </div>
+      <div class="col-sm-1">
+        <%= f.select :connections_identifier, options_for_select(%w(A B  C D E F L S T V Z)), include_blank: true %>
+      </div>
       <span>
         <%= f.hidden_field :_destroy %>
         <%= link_to "Supprimer", '#', class: "remove_fields pull-right" %>

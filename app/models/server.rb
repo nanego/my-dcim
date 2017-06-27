@@ -150,7 +150,9 @@ class Server < ActiveRecord::Base
   end
 
   def aggregate_ports?
-    self.port_color.present?
+    true
+    # TODO specify which server aggregate ports and which not
+    # TODO remove port_color from servers
   end
 
   private
