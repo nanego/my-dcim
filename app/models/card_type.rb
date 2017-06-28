@@ -4,8 +4,8 @@ class CardType < ActiveRecord::Base
   tracked owner: ->(controller, model) { controller && controller.current_user }
 
   belongs_to :port_type
-  has_many :cards_servers
-  has_many :servers, through: :cards_servers
+  has_many :cards
+  has_many :servers, through: :cards
 
   scope :sorted, -> { order('port_type_id', 'port_quantity asc') }
 

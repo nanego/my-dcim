@@ -1,10 +1,10 @@
-<% server.cards_servers.where(:composant_id => slot.id).each do |cards_server| %>
+<% server.cards.where(:composant_id => slot.id).each do |card| %>
   <span class="pull-left" style="margin-right: 2em;">
-    <% cache(["card_ports", cards_server.id, Port.maximum(:updated_at)]) do %>
-      <%= ports_by_card(port_type: cards_server.card_type.port_type,
-                        port_quantity: cards_server.card_type.port_quantity,
-                        ports_data: Port.where(cards_server: cards_server),
-                        cards_server_id: cards_server.id) %>
+    <% cache(["card_ports", card.id, Port.maximum(:updated_at)]) do %>
+      <%= ports_by_card(port_type: card.card_type.port_type,
+                        port_quantity: card.card_type.port_quantity,
+                        ports_data: Port.where(card: card),
+                        card_id: card.id) %>
     <% end %>
   </span>
 <% end %>

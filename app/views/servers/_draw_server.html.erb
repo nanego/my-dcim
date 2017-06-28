@@ -11,11 +11,11 @@
       <tr>
         <% slots_sur_modele.each do |slot| %>
           <td>
-            <% server.cards_servers.where(:composant_id => slot.id).each do |cards_server| %>
-              <%= ports_by_card(port_type: cards_server.card_type.port_type,
-                                port_quantity: cards_server.card_type.port_quantity,
-                                ports_data: Port.where(cards_server: cards_server),
-                                cards_server_id: cards_server.id) %>
+            <% server.cards.where(:composant_id => slot.id).each do |card| %>
+              <%= ports_by_card(port_type: card.card_type.port_type,
+                                port_quantity: card.card_type.port_quantity,
+                                ports_data: Port.where(card: card),
+                                card_id: card.id) %>
             <% end %>
           </td>
         <% end %>
@@ -34,7 +34,7 @@
         <td>
           <%= ports_by_card(port_type: PortType.find_by_name('RJ'),
                             port_quantity: server.modele.composants.where(type_composant_id: 3).count,
-                            ports_data: Port.where(cards_server: server.cards_servers.joins(:composant => :type_composant).where('type_composants.name = ?', 'CM')) )%>
+                            ports_data: Port.where(card: server.cards.joins(:composant => :type_composant).where('type_composants.name = ?', 'CM')) )%>
         </td>
       </tr>
       </tbody>
@@ -45,8 +45,8 @@
     <div class="pull-right">
       <%= ports_by_card(port_type: PortType.find_by_name('IPMI'),
                         port_quantity: 1,
-                        ports_data: Port.where(cards_server: server.cards_servers.joins(:composant => :type_composant).where('type_composants.name = ?', 'IPMI')) ) %>
-      <!-- TODO verif generated link without cards_server_id -->
+                        ports_data: Port.where(card: server.cards.joins(:composant => :type_composant).where('type_composants.name = ?', 'IPMI')) ) %>
+      <!-- TODO verif generated link without card_id -->
     </div>
   <% end %>
 <% end %>

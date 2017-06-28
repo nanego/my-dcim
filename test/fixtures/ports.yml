@@ -2,21 +2,21 @@
 
 one:
   position: 1
-  cards_server_id: 1
+  card_id: 1
   vlans: 123a
   color: P
   cablename: v32r
 
 two:
   position: 2
-  cards_server_id: 1
+  card_id: 1
   vlans: 123z
   color: B
   cablename: v33R
 
 three:
   position: 1
-  cards_server_id: 2
+  card_id: 2
   vlans: 123e
   color: W
   cablename: v31F

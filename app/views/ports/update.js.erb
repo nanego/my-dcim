@@ -1,3 +1,3 @@
 $("#edit_port_modal").modal("hide");
-<% server = @port.cards_server.try(:server) %>
+<% server = @port.card.try(:server) %>
 $("#back_server_<%= server.id %>").html("<%= escape_javascript(render 'servers/draw_server_compact.html.erb', server: server) %>");

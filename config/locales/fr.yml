@@ -55,7 +55,7 @@ fr:
       destroy: a supprimé un modèle
       update: a modifié un modèle
       create: a ajouté un modèle
-    cards_server:
+    card:
       destroy: a supprimé une carte sur un serveur
       update: a modifié une carte sur un serveur
       create: a ajouté une carte sur un serveur

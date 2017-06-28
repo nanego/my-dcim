@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170628093055) do
+ActiveRecord::Schema.define(version: 20170628134311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,14 +71,14 @@ ActiveRecord::Schema.define(version: 20170628093055) do
     t.index ["port_type_id"], name: "index_card_types_on_port_type_id", using: :btree
   end
 
-  create_table "cards_servers", force: :cascade do |t|
+  create_table "cards", force: :cascade do |t|
     t.integer "card_type_id"
     t.integer "server_id"
     t.integer "composant_id"
     t.string  "connections_identifier"
-    t.index ["card_type_id"], name: "index_cards_servers_on_card_type_id", using: :btree
-    t.index ["composant_id"], name: "index_cards_servers_on_composant_id", using: :btree
-    t.index ["server_id"], name: "index_cards_servers_on_server_id", using: :btree
+    t.index ["card_type_id"], name: "index_cards_on_card_type_id", using: :btree
+    t.index ["composant_id"], name: "index_cards_on_composant_id", using: :btree
+    t.index ["server_id"], name: "index_cards_on_server_id", using: :btree
   end
 
   create_table "categories", force: :cascade do |t|
@@ -281,13 +281,13 @@ ActiveRecord::Schema.define(version: 20170628093055) do
 
   create_table "ports", force: :cascade do |t|
     t.integer  "position"
-    t.integer  "cards_server_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer  "card_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "vlans"
     t.string   "color"
     t.string   "cablename"
-    t.index ["cards_server_id"], name: "index_ports_on_cards_server_id", using: :btree
+    t.index ["card_id"], name: "index_ports_on_card_id", using: :btree
   end
 
   create_table "rooms", force: :cascade do |t|

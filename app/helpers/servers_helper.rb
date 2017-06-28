@@ -20,17 +20,17 @@ module ServersHelper
     end
   end
 
-  def ports_by_card(port_type:, port_quantity:, ports_data:, cards_server_id:)
+  def ports_by_card(port_type:, port_quantity:, ports_data:, card_id:)
     html = ""
     port_quantity.to_i.times do |index|
       port_data = ports_data.detect {|p| p.position == index+1}
-      html += link_to_port(index+1, port_data, port_type, cards_server_id)
+      html += link_to_port(index+1, port_data, port_type, card_id)
     end
     html.html_safe
   end
 
-  def link_to_port(position, port_data, port_type, cards_server_id)
-    edit_port_url = port_data.try(:id) ? edit_port_path(port_data) : edit_port_path(id: 0, cards_server_id: cards_server_id, position: position)
+  def link_to_port(position, port_data, port_type, card_id)
+    edit_port_url = port_data.try(:id) ? edit_port_path(port_data) : edit_port_path(id: 0, card_id: card_id, position: position)
 
     case port_type.name
       when 'RJ'
@@ -74,12 +74,11 @@ module ServersHelper
   end
 
   def get_ports_per_bay_on_a_server(bay_id:, server:)
-    Port.joins(:cards_server => :card_type)
+    Port.joins(:card => [:card_type, :server])
         .joins('INNER JOIN "port_types" ON "card_types"."port_type_id" = "port_types"."id" AND "port_types".name <> \'SAS\'')
-        .joins('INNER JOIN "servers" ON "servers".id = "cards_servers"."server_id"')
         .joins('INNER JOIN "frames" ON "frames".id = "servers"."frame_id" AND "bay_id" = '+ bay_id.to_s)
-        .includes(:cards_server)
-        .where('substring(cablename from \'.\') IN (?)', server.cards_servers.map(&:connections_identifier).uniq.compact)
+        .includes(:card)
+        .where('substring(cablename from \'.\') IN (?)', server.cards.map(&:connections_identifier).uniq.compact)
         .order('cablename asc')
 
   end

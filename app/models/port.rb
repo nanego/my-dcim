@@ -3,14 +3,14 @@ class Port < ActiveRecord::Base
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
   tracked :parameters => {
-      :server => proc { |controller, model_instance| model_instance.cards_server.try(:server)},
-      :card_type => proc { |controller, model_instance| "#{model_instance.cards_server.try(:composant)} #{model_instance.cards_server.try(:card_type)}"},
+      :server => proc { |controller, model_instance| model_instance.card.try(:server)},
+      :card_type => proc { |controller, model_instance| "#{model_instance.card.try(:composant)} #{model_instance.card.try(:card_type)}"},
       :vlans => :vlans,
       :color => :color,
       :cablename => :cablename
   }
 
-  belongs_to :cards_server
+  belongs_to :card
 
   # Callbacks
   after_save :update_pdus_elements
@@ -24,8 +24,8 @@ class Port < ActiveRecord::Base
   private
 
   def update_pdus_elements
-    if cards_server.present? &&  cards_server.server.present? && cards_server.server.frame.present?
-      frame = cards_server.server.frame
+    if card.present? &&  card.server.present? && card.server.frame.present?
+      frame = card.server.frame
       if cablename =~ /L..../
         frame.pdu = Pdu.create(name: "PDU #{frame.to_s}") if frame.pdu.blank?
         frame.pdu.create_pdu_elements_by_cablename(cablename)

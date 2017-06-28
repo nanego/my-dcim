@@ -12,7 +12,7 @@
 
           <% ports = [] %>
           <% frame.servers.each do |server|
-            server.cards_servers.each do |cs|
+            server.cards.each do |cs|
               ports << cs.ports
               ports.flatten!
             end
@@ -23,10 +23,10 @@
             <% group.nb_of_outlets.times do |index| %>
 
               <% port_data = ports.select{|p| p.cablename =~ /L#{group.name}#{line.name}#{(index+1).to_s.rjust(2, "0")}/ }.first %>
-              <% part_type = port_data.try(:cards_server).try(:card_type).try(:port_type).try(:name) %>
+              <% part_type = port_data.try(:card).try(:card_type).try(:port_type).try(:name) %>
 
-              <% if port_data.try(:cards_server_id)
-                   edit_port_url = port_data.try(:id) ? edit_port_path(port_data) : edit_port_path(id: 0, cards_server_id: port_data.try(:cards_server_id), position: index+1)
+              <% if port_data.try(:card_id)
+                   edit_port_url = port_data.try(:id) ? edit_port_path(port_data) : edit_port_path(id: 0, card_id: port_data.try(:card_id), position: index+1)
                  else
                    edit_port_url = ''
                  end

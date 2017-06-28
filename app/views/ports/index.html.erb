@@ -25,10 +25,10 @@
         <h3>
           <%= link_to "#{frame.name_with_room_and_islet}", frame_path(frame, :view => params[:view]), style: 'text-decoration: underline;' %>
         </h3>
-        <% frame.servers.includes(:modele, :cards_servers => [:ports, :composant]).order('position desc').each do |s| %>
+        <% frame.servers.includes(:modele, :cards => [:ports, :composant]).order('position desc').each do |s| %>
           <h4 style="display: inline;"><%= s.name %></h4><span> (<%= s.modele.try(:name) %>)</span>
           <p>
-            <% s.cards_servers.each do |c| %>
+            <% s.cards.each do |c| %>
               <% c.ports.each do |port| %>
                 <% if port && port.cablename && c.composant.name.present? %>
                   <%= "#{c.composant.name}#{c.composant.name.include?('SL') ? "/#{port.position}" : port.position} - #{port.network_conf(s.frame.switch_slot)}" %>

@@ -4,7 +4,7 @@
 
   <% if @agregated_ports_per_server[server.id].present? %>
     <% @agregated_ports_per_server[server.id].each do |port| %>
-      <%= link_to_port(port.position, port, port.cards_server.try(:card_type).try(:port_type), port.cards_server_id) %>
+      <%= link_to_port(port.position, port, port.card.try(:card_type).try(:port_type), port.card_id) %>
     <% end %>
   <% else %>
       <% slots_sur_modele = server.modele.composants.where(type_composant_id: 4).to_a %>

@@ -1,11 +1,11 @@
 <% remote |= false %>
 
-<h3> <%= "#{@port.cards_server.try(:server)}" %></h3>
+<h3> <%= "#{@port.card.try(:server)}" %></h3>
 
 <div class="pull-right"><%= link_to 'Supprimer', @port, method: :delete, data: { confirm: 'Supprimer ce port ?' }, class: 'btn btn-danger' %></div>
 
-<h4> <%= "Slot: #{@port.cards_server.try(:composant)}" %></h4>
-<h4> <%= "Carte: #{@port.cards_server.try(:card_type)}" %></h4>
+<h4> <%= "Slot: #{@port.card.try(:composant)}" %></h4>
+<h4> <%= "Carte: #{@port.card.try(:card_type)}" %></h4>
 
 <%= form_for(@port, remote: (remote ? true : false), html: { class: "form-horizontal", role: "form" }) do |f| %>
   <% if @port.errors.any? %>
@@ -21,7 +21,7 @@
     </div>
   <% end %>
 
-  <%= f.hidden_field :cards_server_id %>
+  <%= f.hidden_field :card_id %>
 
   <div class="form-group">
     <%= f.label :position, class: "col-sm-2 control-label" %>

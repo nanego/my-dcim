@@ -38,7 +38,7 @@ class ServersController < ApplicationController
       @servers_per_frames[frame.room][frame.islet][frame.bay.lane][frame.bay][frame] ||= []
 
       # preload sums per frame
-      servers = frame.servers.includes(:gestion, :cluster, :modele => :category, :card_types => :port_type, :cards_servers => [:composant, :ports])
+      servers = frame.servers.includes(:gestion, :cluster, :modele => :category, :card_types => :port_type, :cards => [:composant, :ports])
       @sums.merge!(calculate_ports_sums(frame, servers))
     end
     @servers.each do |server|
@@ -153,7 +153,7 @@ class ServersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def server_params
-      params.require(:server).permit(:server_state_id, :port_color, :comment, :cluster_id, :position, :frame_id, :gestion_id, :fc_futur, :rj45_cm, :category_id, :name, :nb_elts, :architecture_id, :u, :marque_id, :modele_id, :numero, :conso, :critique, :domaine_id, :gestion_id, :acte_id, :fc_total, :fc_utilise, :rj45_total, :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur, :rg45_cm, :ipmi_dedie, :frame, :cards_servers_attributes => [:composant_id, :card_type_id, :_destroy, :id, :connections_identifier], :disks_attributes => [:quantity, :disk_type_id, :_destroy, :id], :memory_components_attributes => [:quantity, :memory_type_id, :_destroy, :id])
+      params.require(:server).permit(:server_state_id, :port_color, :comment, :cluster_id, :position, :frame_id, :gestion_id, :fc_futur, :rj45_cm, :category_id, :name, :nb_elts, :architecture_id, :u, :marque_id, :modele_id, :numero, :conso, :critique, :domaine_id, :gestion_id, :acte_id, :fc_total, :fc_utilise, :rj45_total, :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur, :rg45_cm, :ipmi_dedie, :frame, :cards_attributes => [:composant_id, :card_type_id, :_destroy, :id, :connections_identifier], :disks_attributes => [:quantity, :disk_type_id, :_destroy, :id], :memory_components_attributes => [:quantity, :memory_type_id, :_destroy, :id])
     end
 
     def track_frame_and_position(old_values, new_values)

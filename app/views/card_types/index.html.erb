@@ -1,6 +1,6 @@
 <div class="container">
 
-  <%= render 'layouts/breadcrumb', params: {'Configuration' => modeles_url, 'Cartes' => ''} %>
+  <%= render 'layouts/breadcrumb', params: {'Configuration' => modeles_url, 'Types de cartes' => ''} %>
 
   <div class="row">
 
@@ -11,11 +11,11 @@
     <div class="col-md-9">
 
       <div class="page-header">
-        <%= link_to new_card_path, class: 'btn btn-primary' do %>
+        <%= link_to new_card_type_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
           Ajouter une carte
         <% end %>
-        <h1>Cartes</h1>
+        <h1>Types de cartes</h1>
       </div>
 
       <div class="table-responsive">
@@ -33,7 +33,7 @@
           <%= content_tag_for(:tr, @card_types) do |card_type| %>
             <td><%= card_type.name %></td>
             <td><%= pluralize card_type.servers.count, 'server' %></td>
-            <td><%= link_to 'Modifier', edit_card_path(card_type), class: 'btn btn-primary' %></td>
+            <td><%= link_to 'Modifier', edit_card_type_path(card_type), class: 'btn btn-primary' %></td>
             <td><%= link_to 'Supprimer', card_type, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
           <% end %>
           </tbody>

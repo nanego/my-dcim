@@ -5,7 +5,7 @@ class FramesController < ApplicationController
     @frame = Frame.friendly.find(params[:id].to_s.downcase)
     @room = @frame.room
     @servers_per_frames = {}
-    @servers = @frame.servers.includes(:gestion, :modele => :category, :card_types => :port_type, :cards_servers => [:composant, :ports])
+    @servers = @frame.servers.includes(:gestion, :modele => :category, :card_types => :port_type, :cards => [:composant, :ports])
     @agregated_ports_per_server = {}
     @servers.each do |s|
       islet = @frame.bay.islet

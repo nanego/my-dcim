@@ -18,7 +18,7 @@ class PortsController < ApplicationController
       @port = Port.find_by_id(params[:id])
     else
       @port = Port.create(position: params['position'],
-                          cards_server_id: params['cards_server_id'],
+                          card_id: params['card_id'],
                           vlans: params['vlans'],
                           color: params['color'],
                           cablename: params['cablename'])
@@ -35,7 +35,7 @@ class PortsController < ApplicationController
     @port = Port.find_by_id(params[:id])
     respond_to do |format|
       if @port.update(port_params)
-        format.html { redirect_to @port.cards_server.server.frame, notice: 'Le port a été mis à jour.' }
+        format.html { redirect_to @port.card.server.frame, notice: 'Le port a été mis à jour.' }
         format.js
         format.json { render :show, status: :ok, location: @port.server }
       else
@@ -47,7 +47,7 @@ class PortsController < ApplicationController
 
   def destroy
     @port = Port.find_by_id(params[:id])
-    server = @port.cards_server.server
+    server = @port.card.server
     @port.destroy
     respond_to do |format|
       format.html { redirect_to server_path(server), notice: 'Le port a été supprimé' }
@@ -59,7 +59,7 @@ class PortsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def port_params
-      params.required(:port).permit(:position, :cards_server_id, :vlans, :color, :cablename)
+      params.required(:port).permit(:position, :card_id, :vlans, :color, :cablename)
     end
 
 end
