@@ -2,7 +2,7 @@
 
 <% if server.modele.present? && ( @agregated_ports_per_server.blank? || @agregated_ports_per_server[server.id].blank? ) %>
     <div class="pull-right">
-      <% slots_sur_modele = server.modele.composants.where(type_composant_id: 4) %>
+      <% slots_sur_modele = server.modele.composants.select{|composant| composant.type_composant_id == 4} %>
       <table class="slots">
         <thead>
         <% slots_sur_modele.each do |slot| %>
@@ -13,13 +13,14 @@
         <tr>
           <% slots_sur_modele.each do |slot| %>
               <td style="<%= server.modele.category.name != 'Patch Panel' ? 'max-width: 2.5em;' : '' %>">
-                <% server.cards.where(:composant_id => slot.id).each do |card| %>
-              <span data-server-name="<%= server.name %>" data-server-id="<%= server.id %>" data-composant-id="<%= card.id %>" data-composant-type="<%= card.class %>">
-                <%= ports_by_card(port_type: card.card_type.try(:port_type),
-                                  port_quantity: card.card_type.try(:port_quantity),
-                                  card_id: card.id,
-                                  ports_data: Port.where(card: card)) %>
-              </span>
+                <% card = server.cards.select{|card| card.composant_id == slot.id}.first %>
+                <% if card %>
+                <span data-server-name="<%= server.name %>" data-server-id="<%= server.id %>" data-composant-id="<%= card.id %>" data-composant-type="<%= card.class %>">
+                  <%= ports_by_card(port_type: card.card_type.try(:port_type),
+                                    port_quantity: card.card_type.try(:port_quantity),
+                                    card_id: card.id,
+                                    ports_data: card.ports) %>
+                </span>
                 <% end %>
               </td>
           <% end %>

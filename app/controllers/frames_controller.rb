@@ -2,22 +2,16 @@ class FramesController < ApplicationController
   include ServersHelper
 
   def show
-    @frame = Frame.friendly.find(params[:id].to_s.downcase)
+    @frame = Frame.all.includes(:servers => [:modele => [:category, :composants], :cards => [:composant, :ports, :card_type => [:port_type]]], :bay => [:islet => [:room]]).friendly.find(params[:id].to_s.downcase)
     @room = @frame.room
-    @servers_per_frames = {}
-    @servers = @frame.servers.includes(:gestion, :modele => :category, :card_types => :port_type, :cards => [:composant, :ports])
+    @sums = { @frame.id => {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0} }
     @agregated_ports_per_server = {}
-    @servers.each do |s|
-      islet = @frame.bay.islet
-      @servers_per_frames[islet] ||= {}
-      @servers_per_frames[islet][@frame.bay.lane] ||= {}
-      @servers_per_frames[islet][@frame.bay.lane][@frame.bay] ||= {}
-      @servers_per_frames[islet][@frame.bay.lane][@frame.bay][@frame] ||= []
-      @servers_per_frames[islet][@frame.bay.lane][@frame.bay][@frame] << s
-
-      @agregated_ports_per_server[s.id] = get_ports_per_bay_on_a_server(bay_id: s.frame.bay_id, server: s) if s.aggregate_ports?
+    @frame.servers.each do |s|
+      s.ports_per_type.each do |type, sum|
+        @sums[@frame.id][type] = @sums[@frame.id][type].to_i + sum
+      end
+      @agregated_ports_per_server[s.id] = get_ports_per_bay_on_a_server(bay_id: @frame.bay_id, server: s) if s.aggregate_ports?
     end
-    @sums = calculate_ports_sums(@frame, @servers)
 
     respond_to do |format|
       format.html do
