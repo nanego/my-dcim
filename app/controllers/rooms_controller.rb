@@ -14,7 +14,7 @@ class RoomsController < ApplicationController
     @sums = {}
     @agregated_ports_per_server = {}
     @room.frames.includes(:servers, :islet, :bay => :frames).order('islets.name, bays.lane, bays.position, frames.position').each do |frame|
-      servers = frame.servers.includes(:frame, :gestion, :cluster, :modele => :category, :cards => :port_type, :cards_servers => [:composant, :ports])
+      servers = frame.servers.includes(:frame, :gestion, :cluster, :modele => :category, :card_types => :port_type, :cards_servers => [:composant, :ports])
       servers.each do |s|
         islet = frame.bay.islet.name
         @servers_per_frames[islet] ||= {}
@@ -50,7 +50,7 @@ class RoomsController < ApplicationController
     @sums = {}
     @agregated_ports_per_server = {}
     @room.frames.includes(:servers, :islet, :bay).where('islets.name = ?', islet).each do |frame|
-      servers = frame.servers.includes(:gestion, :modele => :category, :cards => :port_type, :cards_servers => :composant)
+      servers = frame.servers.includes(:gestion, :modele => :category, :card_types => :port_type, :cards_servers => :composant)
       servers.each do |s|
         islet = frame.bay.islet.name
         @servers_per_frames[islet] ||= {}
@@ -84,7 +84,7 @@ class RoomsController < ApplicationController
     @sites = Site.order(:position).joins(:rooms => :frames).distinct
 
     if params[:cluster_id].present? || params[:gestion_id].present?
-      @frames = Frame.preload(:servers => [:gestion, :cluster, :modele => :category, :cards => :port_type, :cards_servers => [:composant, :ports] ])
+      @frames = Frame.preload(:servers => [:gestion, :cluster, :modele => :category, :card_types => :port_type, :cards_servers => [:composant, :ports] ])
                     .includes(:bay => [:frames, {:islet => :room}])
                     .order('rooms.position asc, islets.name asc, bays.position asc, frames.position asc')
       # @sums = {}

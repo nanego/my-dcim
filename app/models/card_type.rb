@@ -1,4 +1,4 @@
-class Card < ActiveRecord::Base
+class CardType < ActiveRecord::Base
 
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }

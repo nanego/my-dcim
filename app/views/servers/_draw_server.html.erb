@@ -12,8 +12,8 @@
         <% slots_sur_modele.each do |slot| %>
           <td>
             <% server.cards_servers.where(:composant_id => slot.id).each do |cards_server| %>
-              <%= ports_by_card(port_type: cards_server.card.port_type,
-                                port_quantity: cards_server.card.port_quantity,
+              <%= ports_by_card(port_type: cards_server.card_type.port_type,
+                                port_quantity: cards_server.card_type.port_quantity,
                                 ports_data: Port.where(cards_server: cards_server),
                                 cards_server_id: cards_server.id) %>
             <% end %>

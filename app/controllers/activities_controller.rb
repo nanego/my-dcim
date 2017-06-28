@@ -1,4 +1,4 @@
-require 'card'
+require 'card_type'
 require 'server'
 require 'composant'
 require 'category'

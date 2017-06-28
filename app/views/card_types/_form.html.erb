@@ -1,11 +1,11 @@
-<%= form_for(@card, html: { class: "form-horizontal", role: "form" }) do |f| %>
-  <% if @card.errors.any? %>
+<%= form_for(@card_type, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <% if @card_type.errors.any? %>
     <div class="alert alert-danger alert-dismissable" role="alert">
       <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <h4><%= pluralize(@card.errors.count, "error") %> prohibited this card from being saved:</h4>
+      <h4><%= pluralize(@card_type.errors.count, "error") %> prohibited this card_type from being saved:</h4>
 
       <ul>
-      <% @card.errors.full_messages.each do |msg| %>
+      <% @card_type.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>

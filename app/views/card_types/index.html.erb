@@ -30,11 +30,11 @@
           </thead>
 
           <tbody>
-          <%= content_tag_for(:tr, @cards) do |card| %>
-            <td><%= card.name %></td>
-            <td><%= pluralize card.servers.count, 'server' %></td>
-            <td><%= link_to 'Modifier', edit_card_path(card), class: 'btn btn-primary' %></td>
-            <td><%= link_to 'Supprimer', card, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+          <%= content_tag_for(:tr, @card_types) do |card_type| %>
+            <td><%= card_type.name %></td>
+            <td><%= pluralize card_type.servers.count, 'server' %></td>
+            <td><%= link_to 'Modifier', edit_card_path(card_type), class: 'btn btn-primary' %></td>
+            <td><%= link_to 'Supprimer', card_type, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
           <% end %>
           </tbody>
         </table>

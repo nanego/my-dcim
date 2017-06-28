@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     end
   end
   resources :actes
-  resources :cards
+  resources :card_types
   resources :colors
   resources :rooms do
     collection do

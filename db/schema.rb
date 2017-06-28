@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170627153923) do
+ActiveRecord::Schema.define(version: 20170628093055) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,19 +64,19 @@ ActiveRecord::Schema.define(version: 20170627153923) do
     t.index ["islet_id"], name: "index_bays_on_islet_id", using: :btree
   end
 
-  create_table "cards", force: :cascade do |t|
+  create_table "card_types", force: :cascade do |t|
     t.string  "name"
     t.integer "port_type_id"
     t.integer "port_quantity"
-    t.index ["port_type_id"], name: "index_cards_on_port_type_id", using: :btree
+    t.index ["port_type_id"], name: "index_card_types_on_port_type_id", using: :btree
   end
 
   create_table "cards_servers", force: :cascade do |t|
-    t.integer "card_id"
+    t.integer "card_type_id"
     t.integer "server_id"
     t.integer "composant_id"
     t.string  "connections_identifier"
-    t.index ["card_id"], name: "index_cards_servers_on_card_id", using: :btree
+    t.index ["card_type_id"], name: "index_cards_servers_on_card_type_id", using: :btree
     t.index ["composant_id"], name: "index_cards_servers_on_composant_id", using: :btree
     t.index ["server_id"], name: "index_cards_servers_on_server_id", using: :btree
   end

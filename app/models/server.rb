@@ -20,7 +20,7 @@ class Server < ActiveRecord::Base
 
   has_many :slots
   has_many :cards_servers, -> { joins(:composant).includes(:composant).order("composants.name asc, composants.position asc") }
-  has_many :cards, through: :cards_servers
+  has_many :card_types, through: :cards_servers
   has_many :ports, through: :cards_servers
 
   validates_uniqueness_of :numero
@@ -107,8 +107,8 @@ class Server < ActiveRecord::Base
           nb_ports = 1
         end
         port_type = PortType.find_or_create_by!(name: valeur)
-        card = Card.find_or_create_by!(name: slot_data, port_quantity: nb_ports, port_type: port_type)
-        CardsServer.find_or_create_by!(card: card, server: self, composant: slots.where("name = ?", slot_name).first)
+        card_type = CardType.find_or_create_by!(name: slot_data, port_quantity: nb_ports, port_type: port_type)
+        CardsServer.find_or_create_by!(card_type: card_type, server: self, composant: slots.where("name = ?", slot_name).first)
       end
     end
 
@@ -116,33 +116,33 @@ class Server < ActiveRecord::Base
     valeur = 'RJ'
     nb_ports = server_data['CM'].gsub(valeur, '').to_i
     port_type = PortType.find_or_create_by!(name: valeur)
-    card_cm = Card.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
-    CardsServer.find_or_create_by!(card: card_cm, server: self, composant: composant_slot_cm)
+    card_cm = CardType.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
+    CardsServer.find_or_create_by!(card_type: card_cm, server: self, composant: composant_slot_cm)
 
     # SLOTS IPMI
     valeur = 'RJ'
     nb_ports = server_data['IPMI'].gsub(valeur, '').to_i
     port_type = PortType.find_or_create_by!(name: valeur)
-    card_ipmi = Card.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
-    CardsServer.find_or_create_by!(card: card_ipmi, server: self, composant: composant_slot_ipmi)
+    card_ipmi = CardType.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
+    CardsServer.find_or_create_by!(card_type: card_ipmi, server: self, composant: composant_slot_ipmi)
 
     # SLOTS ALIM
     valeur = 'ALIM'
     nb_ports = server_data['Alim'].gsub(valeur, '').to_i
     port_type = PortType.find_or_create_by!(name: valeur)
-    card_alim = Card.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
-    CardsServer.find_or_create_by!(card: card_alim, server: self, composant: composant_slot_alim)
+    card_alim = CardType.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
+    CardsServer.find_or_create_by!(card_type: card_alim, server: self, composant: composant_slot_alim)
 
   end
 
   def ports_per_type
     # Number of ports per type
     sums = {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0}
-    self.cards_servers.includes(:ports, :card).each do |cards_server|
+    self.cards_servers.includes(:ports, :card_type).each do |cards_server|
       if cards_server.composant.name == 'IPMI'
         port_type = 'IPMI'
       else
-        port_type = cards_server.card.port_type.name
+        port_type = cards_server.card_type.port_type.name
       end
       sums[port_type] = sums[port_type].to_i + cards_server.ports.map(&:cablename).compact.uniq.size
     end

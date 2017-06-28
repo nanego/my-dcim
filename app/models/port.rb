@@ -4,7 +4,7 @@ class Port < ActiveRecord::Base
   tracked owner: ->(controller, model) { controller && controller.current_user }
   tracked :parameters => {
       :server => proc { |controller, model_instance| model_instance.cards_server.try(:server)},
-      :carte => proc { |controller, model_instance| "#{model_instance.cards_server.try(:composant)} #{model_instance.cards_server.try(:card)}"},
+      :card_type => proc { |controller, model_instance| "#{model_instance.cards_server.try(:composant)} #{model_instance.cards_server.try(:card_type)}"},
       :vlans => :vlans,
       :color => :color,
       :cablename => :cablename

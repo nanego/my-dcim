@@ -24,16 +24,20 @@
             <i>(<%= activity.created_at.getlocal.strftime("%d/%m/%Y %H:%M") %>)</i>
             <br/>
             <ul>
-              <% activity.parameters.to_h.each do |key, values| %>
-                <li><%= key %> :
-                  <% if values && values.respond_to?(:each)  %>
-                    <% values.each_with_index do |v, index| %>
-                      <%= v.present? ? v : v.inspect %> <%= ' => ' unless index == values.size-1 %>
+              <% begin %>
+                <% activity.parameters.to_h.each do |key, values| %>
+                  <li><%= key %> :
+                    <% if values && values.respond_to?(:each)  %>
+                      <% values.each_with_index do |v, index| %>
+                        <%= v.present? ? v : v.inspect %> <%= ' => ' unless index == values.size-1 %>
+                      <% end %>
+                    <% else %>
+                      <%= values %>
                     <% end %>
-                  <% else %>
-                    <%= values %>
-                  <% end %>
-                </li>
+                  </li>
+                <% end %>
+              <% rescue Exception => ex %>
+                <li><%= ex %></li>
               <% end %>
             </ul>
           <% end %>

@@ -15,8 +15,8 @@
               <td style="<%= server.modele.category.name != 'Patch Panel' ? 'max-width: 2.5em;' : '' %>">
                 <% server.cards_servers.where(:composant_id => slot.id).each do |cards_server| %>
               <span data-server-name="<%= server.name %>" data-server-id="<%= server.id %>" data-composant-id="<%= cards_server.id %>" data-composant-type="<%= cards_server.class %>">
-                <%= ports_by_card(port_type: cards_server.card.try(:port_type),
-                                  port_quantity: cards_server.card.try(:port_quantity),
+                <%= ports_by_card(port_type: cards_server.card_type.try(:port_type),
+                                  port_quantity: cards_server.card_type.try(:port_quantity),
                                   cards_server_id: cards_server.id,
                                   ports_data: Port.where(cards_server: cards_server)) %>
               </span>
@@ -38,7 +38,7 @@
     <div style="clear: left;"></div>
     <div style="padding-left: 14px;display: table;">
       <% @agregated_ports_per_server[server.id].each do |port| %>
-          <%= link_to_port(port.position, port, port.cards_server.try(:card).try(:port_type), port.cards_server_id) %>
+          <%= link_to_port(port.position, port, port.cards_server.try(:card_type).try(:port_type), port.cards_server_id) %>
       <% end %>
     </div>
 

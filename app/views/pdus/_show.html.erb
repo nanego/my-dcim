@@ -23,7 +23,7 @@
             <% group.nb_of_outlets.times do |index| %>
 
               <% port_data = ports.select{|p| p.cablename =~ /L#{group.name}#{line.name}#{(index+1).to_s.rjust(2, "0")}/ }.first %>
-              <% part_type = port_data.try(:cards_server).try(:card).try(:port_type).try(:name) %>
+              <% part_type = port_data.try(:cards_server).try(:card_type).try(:port_type).try(:name) %>
 
               <% if port_data.try(:cards_server_id)
                    edit_port_url = port_data.try(:id) ? edit_port_path(port_data) : edit_port_path(id: 0, cards_server_id: port_data.try(:cards_server_id), position: index+1)

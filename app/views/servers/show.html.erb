@@ -98,7 +98,7 @@
       <% nb_cards = 0 %>
       <% @server.modele.composants.where(type_composant_id: 4).each do |slot| %>
         <% @server.cards_servers.where(:composant_id => slot.id).each do |cards_server| %>
-          <dd><%= cards_server.composant.name ? cards_server.composant.name : cards_server.composant.position %> : <%= "#{cards_server.card.try(:name)} (#{cards_server.card.try(:port_quantity)}#{cards_server.card.try(:port_type).try(:name)})" %></dd>
+          <dd><%= cards_server.composant.name ? cards_server.composant.name : cards_server.composant.position %> : <%= "#{cards_server.card_type.try(:name)} (#{cards_server.card_type.try(:port_quantity)}#{cards_server.card_type.try(:port_type).try(:name)})" %></dd>
           <% nb_cards+=1 %>
         <% end %>
       <% end if @server.modele.present? %>
