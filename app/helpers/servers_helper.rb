@@ -20,17 +20,17 @@ module ServersHelper
     end
   end
 
-  def ports_by_card(port_type:, port_quantity:, ports_data:, card_server_id:)
+  def ports_by_card(port_type:, port_quantity:, ports_data:, cards_server_id:)
     html = ""
     port_quantity.to_i.times do |index|
       port_data = ports_data.detect {|p| p.position == index+1}
-      html += link_to_port(index+1, port_data, port_type, card_server_id)
+      html += link_to_port(index+1, port_data, port_type, cards_server_id)
     end
     html.html_safe
   end
 
-  def link_to_port(position, port_data, port_type, card_server_id)
-    edit_port_url = port_data.try(:id) ? edit_port_path(port_data) : edit_port_path(id: 0, card_server_id: card_server_id, position: position)
+  def link_to_port(position, port_data, port_type, cards_server_id)
+    edit_port_url = port_data.try(:id) ? edit_port_path(port_data) : edit_port_path(id: 0, cards_server_id: cards_server_id, position: position)
 
     case port_type.name
       when 'RJ'

@@ -24,7 +24,7 @@ class Port < ActiveRecord::Base
   private
 
   def update_pdus_elements
-    if cards_server.server.present? && cards_server.server.frame.present?
+    if cards_server.present? &&  cards_server.server.present? && cards_server.server.frame.present?
       frame = cards_server.server.frame
       if cablename =~ /L..../
         frame.pdu = Pdu.create(name: "PDU #{frame.to_s}") if frame.pdu.blank?

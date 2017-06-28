@@ -17,7 +17,11 @@ class PortsController < ApplicationController
     if params[:id].present? && params[:id].to_i > 0
       @port = Port.find_by_id(params[:id])
     else
-      @port = Port.create(position: params['position'], cards_server_id: params['cards_server_id'], vlans: params['vlans'], color: params['color'], cablename: params['cablename'])
+      @port = Port.create(position: params['position'],
+                          cards_server_id: params['cards_server_id'],
+                          vlans: params['vlans'],
+                          color: params['color'],
+                          cablename: params['cablename'])
     end
 
     respond_to do |format|

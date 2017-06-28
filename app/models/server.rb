@@ -138,13 +138,13 @@ class Server < ActiveRecord::Base
   def ports_per_type
     # Number of ports per type
     sums = {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0}
-    self.cards_servers.includes(:ports, :card).each do |card_server|
-      if card_server.composant.name == 'IPMI'
+    self.cards_servers.includes(:ports, :card).each do |cards_server|
+      if cards_server.composant.name == 'IPMI'
         port_type = 'IPMI'
       else
-        port_type = card_server.card.port_type.name
+        port_type = cards_server.card.port_type.name
       end
-      sums[port_type] = sums[port_type].to_i + card_server.ports.map(&:cablename).compact.uniq.size
+      sums[port_type] = sums[port_type].to_i + cards_server.ports.map(&:cablename).compact.uniq.size
     end
     sums
   end
