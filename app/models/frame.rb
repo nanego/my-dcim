@@ -38,14 +38,22 @@ class Frame < ActiveRecord::Base
         lanes.each do |lane, bays|
           bays.each do |bay, frames|
             frames.each do |frame, servers|
-              txt << "\r\n#{frame.name}\r\n"
-              txt << "---------------\r\n"
-              servers.each do |server|
-                txt << "[#{server.position.to_s.rjust(2, "0")}] #{server.name}\r\n"
-              end
+              txt << frame.to_txt
             end
           end
         end
+      end
+    end
+    txt
+  end
+
+  def to_txt
+    txt = ""
+    if self.present?
+      txt << "\r\n#{self.name}\r\n"
+      txt << "---------------\r\n"
+      self.servers.each do |server|
+        txt << "[#{server.position.to_s.rjust(2, "0")}] #{server.name}\r\n"
       end
     end
     txt

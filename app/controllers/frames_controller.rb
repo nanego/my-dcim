@@ -19,12 +19,12 @@ class FramesController < ApplicationController
       end
       format.pdf do
         render layout: 'pdf.html',
-               template: "rooms/show.pdf.erb",
+               template: "frames/show.pdf.erb",
                show_as_html: params[:debug].present?,
                pdf: 'frame',
                zoom: 0.75
       end
-      format.txt { send_data Frame.to_txt(@servers_per_frames) }
+      format.txt { send_data @frame.to_txt }
     end
   end
 

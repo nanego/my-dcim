@@ -74,13 +74,18 @@ module ServersHelper
   end
 
   def get_ports_per_bay_on_a_server(bay_id:, server:)
-    Port.joins(:card => [:card_type, :server])
-        .joins('INNER JOIN "port_types" ON "card_types"."port_type_id" = "port_types"."id" AND "port_types".name <> \'SAS\'')
-        .joins('INNER JOIN "frames" ON "frames".id = "servers"."frame_id" AND "bay_id" = '+ bay_id.to_s)
-        .includes(:card)
-        .where('substring(cablename from \'.\') IN (?)', server.cards.map(&:connections_identifier).uniq.compact)
-        .order('cablename asc')
-
+    connections_identifier = server.cards.map(&:connections_identifier)
+    if connections_identifier.any?
+      Port.joins(:card => [:card_type, :server])
+          .joins('INNER JOIN "port_types" ON "card_types"."port_type_id" = "port_types"."id" AND "port_types".name <> \'SAS\'')
+          .joins('INNER JOIN "frames" ON "frames".id = "servers"."frame_id" AND "bay_id" = '+ bay_id.to_s)
+          .includes(:card)
+          .where('substring(cablename from \'.\') IN (?)', connections_identifier.uniq.compact)
+          .order('cablename asc')
+          .to_a
+    else
+      []
+    end
   end
 
 end

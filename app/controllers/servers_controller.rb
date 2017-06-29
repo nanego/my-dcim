@@ -16,55 +16,6 @@ class ServersController < ApplicationController
     @servers = ServersGrid.new(params[:servers_grid])
   end
 
-  def frames
-    @modele_blank_panel_id = Category.find_by_name('Blank Panel').id
-
-    @frames = Frame.includes(:bay => {:islet => :room}).order('rooms.position asc, islets.name asc, bays.position asc, frames.position asc')
-    @frames = @frames.joins(:servers).where('servers.cluster_id = ? ', params[:cluster_id]) if params[:cluster_id].present?
-    @frames = @frames.joins(:servers).where('servers.gestion_id = ? ', params[:gestion_id]) if params[:gestion_id].present?
-
-    @servers = Server.includes(:frame, :gestion, :modele => :category)
-                    .where('frame_id IN (?)', @frames.map(&:id))
-                    .order('servers.position desc')
-
-    @servers_per_frames = {}
-    @sums = {}
-    @agregated_ports_per_server = {}
-    @frames.each do |frame|
-      @servers_per_frames[frame.room] ||= {}
-      @servers_per_frames[frame.room][frame.islet] ||= {}
-      @servers_per_frames[frame.room][frame.islet][frame.bay.lane] ||= {}
-      @servers_per_frames[frame.room][frame.islet][frame.bay.lane][frame.bay] ||= {}
-      @servers_per_frames[frame.room][frame.islet][frame.bay.lane][frame.bay][frame] ||= []
-
-      # preload sums per frame
-      servers = frame.servers.includes(:gestion, :cluster, :modele => :category, :card_types => :port_type, :cards => [:composant, :ports])
-      @sums.merge!(calculate_ports_sums(frame, servers))
-    end
-    @servers.each do |server|
-      frame = server.frame
-      @servers_per_frames[frame.room][frame.islet][frame.bay.lane][frame.bay][frame] << server if frame.present?
-
-      @agregated_ports_per_server[s.id] = get_ports_per_bay_on_a_server(bay_id: s.frame.bay_id, server: s) if s.aggregate_ports?
-
-    end
-
-    respond_to do |format|
-      format.html do
-        render 'frames.html.erb'
-      end
-      format.pdf do
-        render layout: 'pdf.html',
-               template: "servers/frames.pdf.erb",
-               show_as_html: params[:debug].present?,
-               pdf: 'frame',
-               zoom: 0.75
-      end
-      format.txt { txt = ""; @servers_per_frames.each { |room, islets| txt << Frame.to_txt(islets) }; send_data txt; }
-    end
-
-  end
-
   def sort
     room = Room.find_by_name(params[:room]) unless params[:room].include?('non ')
     frame = room.frames.where('islets.name = ? AND frames.name = ?', params[:islet], params[:frame]).first

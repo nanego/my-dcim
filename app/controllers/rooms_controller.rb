@@ -13,9 +13,17 @@ class RoomsController < ApplicationController
     @servers_per_frames = {}
     @sums = {}
     @agregated_ports_per_server = {}
-    @room.frames.includes(:servers, :islet, :bay => :frames).order('islets.name, bays.lane, bays.position, frames.position').each do |frame|
-      servers = frame.servers.includes(:frame, :gestion, :cluster, :modele => :category, :card_types => :port_type, :cards => [:composant, :ports])
-      servers.each do |s|
+    @room.frames
+        .includes(:islet => [:room],
+                  :bay => [:frames],
+                  :servers => [:frame,
+                               :gestion,
+                               :cluster,
+                               :modele => [:category, :composants],
+                               :cards => [:composant, :ports, :card_type => :port_type]])
+        .order('islets.name, bays.lane, bays.position, frames.position').each do |frame|
+
+      frame.servers.each do |s|
         islet = frame.bay.islet.name
         @servers_per_frames[islet] ||= {}
         @servers_per_frames[islet][frame.bay.lane] ||= {}
@@ -26,7 +34,7 @@ class RoomsController < ApplicationController
         @agregated_ports_per_server[s.id] = get_ports_per_bay_on_a_server(bay_id: s.frame.bay_id, server: s) if s.aggregate_ports?
 
       end
-      @sums.merge!(calculate_ports_sums(frame, servers))
+      @sums.merge!(calculate_ports_sums(frame, frame.servers))
     end
 
     respond_to do |format|
@@ -49,7 +57,15 @@ class RoomsController < ApplicationController
     @servers_per_frames = {}
     @sums = {}
     @agregated_ports_per_server = {}
-    @room.frames.includes(:islet, :bay, servers: [:frame, :gestion, :modele => :category, :cards => [:composant, :ports, :card_type => :port_type]]).where('islets.name = ?', islet).each do |frame|
+    @room.frames
+        .includes(:islet => [:room],
+                  :bay => [:frames],
+                  :servers => [:frame,
+                               :gestion,
+                               :modele => [:category, :composants],
+                               :cards => [:composant, :ports, :card_type => :port_type]])
+        .where('islets.name = ?', islet)
+        .each do |frame|
 
       # sums per frame and per type of port
       @sums[frame.id] = {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0}
