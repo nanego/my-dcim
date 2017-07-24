@@ -1,0 +1,30 @@
+<div class="container">
+
+  <%= render 'layouts/breadcrumb', params: {'Configuration' => modeles_url, 'Types de contrat' => ''} %>
+
+  <div class="row">
+
+    <div class="col-md-3">
+      <%= render 'pages/params_menu' %>
+    </div>
+
+    <div class="col-md-9">
+
+      <div class="page-header">
+        <h1>Importation de données</h1>
+      </div>
+
+      <h3>Ansible</h3>
+      <% # Content-Type JSON %>
+      <%= form_for :ansible, url: 'data_import/ansible', remote: true do |f| %>
+          <p><%= f.file_field :file %></p>
+          <p>
+            <%= f.submit "Envoyer", class: "btn btn-primary" %>
+          </p>
+      <% end %>
+
+    </div>
+
+  </div>
+
+</div>

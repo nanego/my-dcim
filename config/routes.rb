@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'data_import', action: 'index', controller: 'data_import'
+  post 'data_import/ansible'
+
   resources :sites
   resources :islets
   resources :disk_types
