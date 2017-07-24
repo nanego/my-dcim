@@ -16,7 +16,7 @@ class ServersGrid
 
   filter(:id, :string, :multiple => ',')
   filter :name do |value|
-    where("name LIKE ?", value)
+    where("servers.name LIKE ?", value)
   end
   filter 'Catégorie', :enum, :select => Category.where(published: true).map {|r| [r.to_s, r.id]}  do |value|
     joins(:modele).where("modeles.category_id = ?", value)
