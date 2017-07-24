@@ -1,4 +1,4 @@
-Demenagement
+My DCIM
 ================
 
-This Rails app is just a quickly build prototype.
+This Ruby On Rails app is a tool build to effectively manage data center infrastructures.
