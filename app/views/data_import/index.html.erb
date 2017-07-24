@@ -16,7 +16,7 @@
 
       <h3>Ansible</h3>
       <% # Content-Type JSON %>
-      <%= form_for :ansible, url: 'data_import/ansible', remote: true do |f| %>
+      <%= form_for :ansible, url: 'ansible', remote: true do |f| %>
           <p><%= f.file_field :file %></p>
           <p>
             <%= f.submit "Envoyer", class: "btn btn-primary" %>

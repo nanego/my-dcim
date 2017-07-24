@@ -21,6 +21,7 @@ gem 'omniauth-cas', '= 1.1.1'
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise_invitable'
+gem 'simple_token_authentication', '~> 1.0'
 
 gem 'high_voltage'
 gem 'pg'

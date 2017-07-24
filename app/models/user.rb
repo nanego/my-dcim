@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+  acts_as_token_authenticatable
+
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
 
