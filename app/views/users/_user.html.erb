@@ -1,5 +1,9 @@
 <td>
   <%= link_to user.email, user %>
+  <br/>
+  <p>
+    <%= user.authentication_token %>
+  </p>
 </td>
 <td>
   <%= user.sign_in_count %>
