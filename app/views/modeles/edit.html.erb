@@ -1,4 +1,4 @@
-<%= render 'layouts/breadcrumb', params: {'Configuration' => modeles_url, 'Modèles' => modeles_url, "#{@modele.try(:name).present? ? @modele.name : 'Nouveau modèle' }" => ''} %>
+<%= render 'layouts/breadcrumb', params: {'Paramètres' => modeles_url, 'Modèles' => modeles_url, "#{@modele.try(:name).present? ? @modele.name : 'Nouveau modèle' }" => ''} %>
 
 <div class="page-header">
   <%= link_to modeles_path, class: 'btn btn-default' do %>
@@ -9,7 +9,7 @@
     <span class="glyphicon glyphicon-info-sign"></span>
     Vue non modifiable
   <% end %>
-  <h3>Modification d'un modèle de serveur</h3>
+  <h3>Modification d'un modèle</h3>
 </div>
 
 <%= render 'form' %>

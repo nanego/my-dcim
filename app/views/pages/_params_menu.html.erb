@@ -1,34 +1,33 @@
 <p>
 
   <div class="list-group">
-    <a href="<%= modeles_path %>" class="list-group-item <%= controller.controller_name == "modeles" ? 'active' : '' %>">Modèles de serveur</a>
-  </div>
-
-  <div class="list-group">
+    <a href="#" class="list-group-item disabled">
+      Localisation
+    </a>
     <a href="<%= sites_path %>" class="list-group-item <%= controller.controller_name == "sites" ? 'active' : '' %>">Sites</a>
     <a href="<%= rooms_path %>" class="list-group-item <%= controller.controller_name == "rooms" ? 'active' : '' %>">Salles</a>
     <a href="<%= islets_path %>" class="list-group-item <%= controller.controller_name == "islets" ? 'active' : '' %>">Ilots</a>
     <a href="<%= bays_path %>" class="list-group-item <%= controller.controller_name == "bays" ? 'active' : '' %>">Baies / Doubles-baies</a>
     <a href="<%= frames_path %>" class="list-group-item <%= controller.controller_name == "frames" ? 'active' : '' %>">Châssis</a>
+  </div>
+
+  <div class="list-group">
+    <a href="#" class="list-group-item disabled">
+      Gestion du matériel
+    </a>
+    <a href="<%= modeles_path %>" class="list-group-item <%= controller.controller_name == "modeles" ? 'active' : '' %>">Modèles</a>
     <a href="<%= categories_path %>" class="list-group-item <%= controller.controller_name == "categories" ? 'active' : '' %>">Types de matériel</a>
     <a href="<%= architectures_path %>" class="list-group-item <%= controller.controller_name == "architectures" ? 'active' : '' %>">Architectures</a>
     <a href="<%= marques_path %>" class="list-group-item <%= controller.controller_name == "marques" ? 'active' : '' %>">Marques</a>
     <a href="<%= domaines_path %>" class="list-group-item <%= controller.controller_name == "domaines" ? 'active' : '' %>">Domaines</a>
     <a href="<%= gestions_path %>" class="list-group-item <%= controller.controller_name == "gestions" ? 'active' : '' %>">Gestionnaires</a>
-    <a href="<%= actes_path %>" class="list-group-item <%= controller.controller_name == "actes" ? 'active' : '' %>">Actions</a>
     <a href="<%= clusters_path %>" class="list-group-item <%= controller.controller_name == "clusters" ? 'active' : '' %>">Clusters</a>
     <a href="<%= card_types_path %>" class="list-group-item <%= controller.controller_name == "card_types" ? 'active' : '' %>">Types de carte</a>
     <a href="<%= colors_path %>" class="list-group-item <%= controller.controller_name == "colors" ? 'active' : '' %>">Couleurs</a>
-  </div>
-
-  <div class="list-group">
     <a href="<%= maintainers_path %>" class="list-group-item <%= controller.controller_name == "maintainers" ? 'active' : '' %>">Mainteneurs</a>
     <a href="<%= contract_types_path %>" class="list-group-item <%= controller.controller_name == "contract_types" ? 'active' : '' %>">Contrats de maintenance</a>
     <a href="<%= disk_types_path %>" class="list-group-item <%= controller.controller_name == "disk_types" ? 'active' : '' %>">Types de disque</a>
     <a href="<%= memory_types_path %>" class="list-group-item <%= controller.controller_name == "memory_types" ? 'active' : '' %>">Types de RAM</a>
   </div>
 
-  <div class="list-group">
-    <a href="<%= data_import_path %>" class="list-group-item <%= controller.controller_name == "data-import" ? 'active' : '' %>">Import de données</a>
-  </div>
 </p>

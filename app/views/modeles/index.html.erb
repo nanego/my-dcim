@@ -1,6 +1,6 @@
 <div class="container">
 
-  <%= render 'layouts/breadcrumb', params: {'Configuration' => modeles_url, 'Modèles' => ''} %>
+  <%= render 'layouts/breadcrumb', params: {'Paramètres' => modeles_url, 'Modèles' => ''} %>
 
   <div class="row">
 
@@ -15,7 +15,7 @@
           <span class="glyphicon glyphicon-plus"></span>
           Ajouter un modèle
         <% end %>
-        <h1>Modèles de serveur</h1>
+        <h1>Modèles</h1>
       </div>
 
       <% @types.each do |category, modeles| %>
