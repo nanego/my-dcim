@@ -1,14 +1,8 @@
 <div class="container">
 
-  <%= render 'layouts/breadcrumb', params: {'Paramètres' => modeles_url, 'Types de contrat' => ''} %>
+  <%= render 'layouts/breadcrumb', params: {'Importation de données' => ''} %>
 
   <div class="row">
-
-    <div class="col-md-3">
-      <%= render 'pages/params_menu' %>
-    </div>
-
-    <div class="col-md-9">
 
       <div class="page-header">
         <h1>Importation de données</h1>
@@ -22,8 +16,6 @@
             <%= f.submit "Envoyer", class: "btn btn-primary" %>
           </p>
       <% end %>
-
-    </div>
 
   </div>
 

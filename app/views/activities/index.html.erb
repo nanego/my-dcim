@@ -1,50 +1,43 @@
 <div class="container">
 
-  <%= render 'layouts/breadcrumb', params: {'Paramètres' => modeles_url, 'Activité' => ''} %>
+  <%= render 'layouts/breadcrumb', params: {'Activité' => ''} %>
 
   <div class="row">
 
-    <div class="col-md-3">
-      <%= render 'pages/params_menu' %>
-    </div>
+    <h1>Activité</h1>
 
-    <div class="col-md-9">
-
-      <h1>Activité</h1>
-
-      <%= paginate @activities %>
-      <% @activities.each do |activity| %>
-        <p>
-          <% if activity.trackable_type != activity.owner_type && activity.trackable_id != activity.owner_id %>
-            <%= link_to activity.owner.name, activity.owner if activity.owner %>
-            <% begin %>
-              <%= render_activity(activity, fallback: :text) %>
-            <% rescue %>
-            <% end %>
-            <i>(<%= activity.created_at.getlocal.strftime("%d/%m/%Y %H:%M") %>)</i>
-            <br/>
-            <ul>
-              <% begin %>
-                <% activity.parameters.to_h.each do |key, values| %>
-                  <li><%= key %> :
-                    <% if values && values.respond_to?(:each)  %>
-                      <% values.each_with_index do |v, index| %>
-                        <%= v.present? ? v : v.inspect %> <%= ' => ' unless index == values.size-1 %>
-                      <% end %>
-                    <% else %>
-                      <%= values %>
-                    <% end %>
-                  </li>
-                <% end %>
-              <% rescue Exception => ex %>
-                <li><%= ex %></li>
-              <% end %>
-            </ul>
+    <%= paginate @activities %>
+    <% @activities.each do |activity| %>
+      <p>
+        <% if activity.trackable_type != activity.owner_type && activity.trackable_id != activity.owner_id %>
+          <%= link_to activity.owner.name, activity.owner if activity.owner %>
+          <% begin %>
+            <%= render_activity(activity, fallback: :text) %>
+          <% rescue %>
           <% end %>
-        </p>
-      <% end %>
-      <%= paginate @activities %>
-    </div>
+          <i>(<%= activity.created_at.getlocal.strftime("%d/%m/%Y %H:%M") %>)</i>
+          <br/>
+          <ul>
+            <% begin %>
+              <% activity.parameters.to_h.each do |key, values| %>
+                <li><%= key %> :
+                  <% if values && values.respond_to?(:each)  %>
+                    <% values.each_with_index do |v, index| %>
+                      <%= v.present? ? v : v.inspect %> <%= ' => ' unless index == values.size-1 %>
+                    <% end %>
+                  <% else %>
+                    <%= values %>
+                  <% end %>
+                </li>
+              <% end %>
+            <% rescue Exception => ex %>
+              <li><%= ex %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </p>
+    <% end %>
+    <%= paginate @activities %>
 
   </div>
 
