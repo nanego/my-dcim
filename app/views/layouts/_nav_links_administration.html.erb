@@ -1,0 +1,21 @@
+<% if user_signed_in? %>
+
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        Administration <span class="caret">
+      </span></a>
+      <ul class="dropdown-menu">
+        <% if current_user.try(:admin?) %>
+            <li><%= link_to 'Utilisateurs', users_path %></li>
+        <% end %>
+        <li><%= link_to 'Activité', activities_path %></li>
+        <li><%= link_to 'Mon compte', edit_user_registration_path %></li>
+        <li><%= link_to 'Déconnexion', destroy_user_session_path, :method=>'delete' %></li>
+
+      </ul>
+    </li>
+
+<% else %>
+  <li><%= link_to 'Connexion', new_user_session_path %></li>
+  <li><%= link_to 'Inscription', new_user_registration_path %></li>
+<% end %>

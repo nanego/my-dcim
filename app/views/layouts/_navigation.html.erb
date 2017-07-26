@@ -14,106 +14,57 @@
 
         <a href="/" class="navbar-left"><%= image_tag 'datacenter-02.png', style: 'height: 40px;margin-top:5px;margin-right:5px;' %></a>
 
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Salles <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><%= link_to 'Afficher toutes les salles', overview_rooms_path %></li>
-            <% sites = Site.joins(:rooms).includes(:rooms => [:bays => :frames]).order(:position).distinct %>
-            <% sites.each do |site| %>
-              <li role="separator" class="divider"></li>
-              <li class="dropdown-header"><%= site %></li>
-              <% rooms = site.rooms.sorted.distinct %>
-              <% rooms.each do |room| %>
-                <% islets = room.islets.sorted.not_empty.has_name.distinct %>
-                  <li class="<%= islets.present? ? 'dropdown-submenu':'' %>">
-                    <%= link_to room.name, room_path(room) %>
-                    <ul class="dropdown-menu">
-                      <% if islets.size > 1 %>
-                          <% islets.each do |islet| %>
-                              <li class="dropdown-submenu">
-                                <%= link_to "#{room.name}-ilot#{islet.name}", islet_rooms_path(id: room.id, islet: islet.name, :view => params[:view], bg: params[:bg]) %>
-                                <ul class="dropdown-menu">
-                                  <% if islet.bays.present? %>
-                                    <% islet.bays.sort_by(&:position).each_with_index do |bay, index| %>
-                                      <% if index > 0 %>
-                                        <li role="separator" class="divider"></li>
-                                      <% end %>
-                                      <% bay.frames.sort_by(&:position).each do |frame| %>
-                                        <li><%= link_to frame.name, frame_path(frame) %></li>
-                                      <% end %>
-                                    <% end %>
-                                  <% end %>
-                                </ul>
-                              </li>
-                          <% end %>
-                      <% else %>
-                          <% if islets.present? && islets.first.bays.present? %>
-                              <% islets.first.bays.sort_by(&:position).each_with_index do |bay, index| %>
-                                  <% if index > 0 %>
-                                      <li role="separator" class="divider"></li>
-                                  <% end %>
-                                  <% bay.frames.sort_by(&:position).each do |frame| %>
-                                      <li><%= link_to frame.name, frame_path(frame) %></li>
-                                  <% end %>
-                              <% end %>
-                          <% end %>
-                      <% end %>
-                    </ul>
-                  </li>
-              <% end %>
-            <% end %>
-          </ul>
-        </li>
+        <%= render 'layouts/rooms_dropdown' %>
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Clusters <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Matériels <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li>
-              <div class="row" style="width: 600px;">
-                <% Cluster.order('LOWER(name) asc').in_groups(3).each do |clusters| %>
-                  <ul class="list-unstyled col-md-4">
-                    <% clusters.each do |c| %>
-                      <% if c.present? %>
-                        <li <%= "class=active" if params[:cluster_id]==c.id.to_s %> >
-                          <%= link_to c.to_s, overview_rooms_path(cluster_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
-                        </li>
-                      <% end %>
-                    <% end %>
-                  </ul>
+            <li><%= link_to 'Rechercher un matériel', servers_grids_path %></li>
+            <li><%= link_to '+ ajout manuel', new_server_path %></li>
+            <li><%= link_to '+ ajout par fichier CSV', import_csv_servers_path %></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">Filtrer par :</li>
+            <li class="dropdown-submenu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Gestionnaire
+              </a>
+              <ul class="dropdown-menu">
+                <% Gestion.order('LOWER(name) asc').each do |c| %>
+                    <li <%= "class=active" if params[:gestion_id]==c.id.to_s %> >
+                      <%= link_to c.name, overview_rooms_path(gestion_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
+                    </li>
                 <% end %>
-              </div>
+              </ul>
+            </li>
+            <li class="dropdown-submenu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                Cluster
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <div class="row" style="width: 600px;">
+                    <% Cluster.order('LOWER(name) asc').in_groups(3).each do |clusters| %>
+                        <ul class="list-unstyled col-md-4">
+                          <% clusters.each do |c| %>
+                              <% if c.present? %>
+                                  <li <%= "class=active" if params[:cluster_id]==c.id.to_s %> >
+                                    <%= link_to c.to_s, overview_rooms_path(cluster_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
+                                  </li>
+                              <% end %>
+                          <% end %>
+                        </ul>
+                    <% end %>
+                  </div>
+                </li>
+              </ul>
             </li>
           </ul>
         </li>
 
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestionnaires <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <% Gestion.order('LOWER(name) asc').each do |c| %>
-              <li <%= "class=active" if params[:gestion_id]==c.id.to_s %> >
-                <%= link_to c.name, overview_rooms_path(gestion_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
-              </li>
-            <% end %>
-          </ul>
-        </li>
-
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Serveurs <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><%= link_to 'Afficher tous les serveurs', servers_grids_path %></li>
-            <li><%= link_to '+ ajout manuel', new_server_path %></li>
-            <li><%= link_to '+ ajout par fichier CSV', import_csv_servers_path %></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">Vues spécifiques :</li>
-            <li><%= link_to 'Réseau', reseau_servers_grids_path %></li>
-
-          </ul>
-        </li>
-
-        <%= render 'layouts/navigation_links' %>
+        <li><%= link_to 'Paramètres', modeles_path %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <%= render 'layouts/nav_links_for_auth' %>
+        <%= render 'layouts/nav_links_administration' %>
       </ul>
     </div>
   </div>
