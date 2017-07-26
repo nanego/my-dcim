@@ -1,8 +1,13 @@
 require 'test_helper'
 
-class DataImportControllerTest < ActionDispatch::IntegrationTest
+class DataImportControllerTest <  ActionController::TestCase
+
+  setup do
+    sign_in users(:one)
+  end
+
   test "should get ansible" do
-    get data_import_ansible_url
+    get :index
     assert_response :success
   end
 
