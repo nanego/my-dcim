@@ -30,47 +30,35 @@ module ServersHelper
   end
 
   def link_to_port(position, port_data, port_type, card_id)
-    edit_port_url = port_data.try(:id) ? edit_port_path(port_data) : edit_port_path(id: 0, card_id: card_id, position: position)
-
     case port_type.name
       when 'RJ'
-        link_to port_cablename(port_data),
-                        edit_port_url,
-                        class: "port pull-left portRJ #{port_data.present? ? port_data.color : '' }",
-                        data: {url: edit_port_url,
-                               position: position,
-                               type: "RJ",
-                               toggle: 'tooltip',
-                               placement: 'top',
-                               title: port_data.present? ? "#{port_data.vlans}" : ""
-                        }
-
+        link_to_port_by_type(port_cablename(port_data), "RJ", port_data, position, card_id)
+      when 'XRJ'
+        link_to_port_by_type(port_cablename(port_data), "RJ", port_data, position, card_id)
       when 'FC'
-        link_to port_cablename(port_data),
-                        edit_port_url,
-                        class: "port pull-left portFC #{port_data.present? ? port_data.color : '' }",
-                        data: {url: edit_port_url,
-                               position: position,
-                               type: "FC",
-                               toggle: 'tooltip',
-                               placement: 'top',
-                               title: port_data.present? ? "#{port_data.vlans}" : ""
-                        }
-
+        link_to_port_by_type(port_cablename(port_data), "FC", port_data, position, card_id)
       else
-        link_to "#{port_type.try(:name)}<BR>#{port_cablename(port_data)}".html_safe,
-                        edit_port_url,
-                        class: "port pull-left portSCSI #{port_data.present? ? port_data.color : '' }",
-                        data: {url: edit_port_url,
-                               position: position,
-                               type: port_type.try(:name),
-                               toggle: 'tooltip',
-                               placement: 'top',
-                               title: port_data.present? ? "#{port_data.vlans}" : ""
-                        }
-
-
+        link_to_port_by_type("#{port_type.try(:name)}<BR>#{port_cablename(port_data)}".html_safe, port_type.name, port_data, position, card_id)
     end
+  end
+
+  def link_to_port_by_type(label, type, port_data, position, card_id)
+    edit_port_url = port_data.try(:id) ? edit_port_path(port_data) : edit_port_path(id: 0, card_id: card_id, position: position)
+    if ['RJ', 'XRJ', 'FC'].include? type
+      port_class = type
+    else
+      port_class = "SCSI"
+    end
+    link_to label,
+        edit_port_url,
+        class: "port pull-left port#{port_class} #{port_data.present? ? port_data.color : '' }",
+        data: {url: edit_port_url,
+               position: position,
+               type: type,
+               toggle: 'tooltip',
+               placement: 'top',
+               title: port_data.present? ? "#{port_data.vlans}" : ""
+    }
   end
 
   def get_ports_per_bay_on_a_server(bay_id:, server:)
