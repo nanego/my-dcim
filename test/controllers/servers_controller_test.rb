@@ -20,7 +20,7 @@ class ServersControllerTest < ActionController::TestCase
 
   test "should create server" do
     assert_difference('Server.count') do
-      post :create, params:{server: { acte_id: @server.acte_id, cluster_id: @server.cluster_id, conso: @server.conso, critique: @server.critique, domaine_id: @server.domaine_id, fc_total: @server.fc_total, fc_utilise: @server.fc_utilise, gestion_id: @server.gestion_id, ipmi_dedie: @server.ipmi_dedie, ipmi_futur: @server.ipmi_futur, ipmi_utilise: @server.ipmi_utilise, modele_id: @server.modele_id, name: @server.name, numero: @server.numero.to_s+'_bis', rj45_cm: @server.rj45_cm, rj45_futur: @server.rj45_futur, rj45_total: @server.rj45_total, rj45_utilise: @server.rj45_utilise, frame_id: @server.frame_id }}
+      post :create, params:{server: { cluster_id: @server.cluster_id, conso: @server.conso, critique: @server.critique, domaine_id: @server.domaine_id, fc_total: @server.fc_total, fc_utilise: @server.fc_utilise, gestion_id: @server.gestion_id, ipmi_dedie: @server.ipmi_dedie, ipmi_futur: @server.ipmi_futur, ipmi_utilise: @server.ipmi_utilise, modele_id: @server.modele_id, name: @server.name, numero: @server.numero.to_s+'_bis', rj45_cm: @server.rj45_cm, rj45_futur: @server.rj45_futur, rj45_total: @server.rj45_total, rj45_utilise: @server.rj45_utilise, frame_id: @server.frame_id }}
     end
 
     assert_redirected_to server_path(assigns(:server))
@@ -28,7 +28,7 @@ class ServersControllerTest < ActionController::TestCase
 
   test "should NOT create server with existing serial number" do
     assert_no_difference('Server.count') do
-      post :create, params: {server: { acte_id: @server.acte_id, cluster_id: @server.cluster_id, conso: @server.conso, critique: @server.critique, domaine_id: @server.domaine_id, fc_total: @server.fc_total, fc_utilise: @server.fc_utilise, gestion_id: @server.gestion_id, ipmi_dedie: @server.ipmi_dedie, ipmi_futur: @server.ipmi_futur, ipmi_utilise: @server.ipmi_utilise, modele_id: @server.modele_id, name: @server.name, numero: @server.numero, rj45_cm: @server.rj45_cm, rj45_futur: @server.rj45_futur, rj45_total: @server.rj45_total, rj45_utilise: @server.rj45_utilise, frame_id: @server.frame_id }}
+      post :create, params: {server: { cluster_id: @server.cluster_id, conso: @server.conso, critique: @server.critique, domaine_id: @server.domaine_id, fc_total: @server.fc_total, fc_utilise: @server.fc_utilise, gestion_id: @server.gestion_id, ipmi_dedie: @server.ipmi_dedie, ipmi_futur: @server.ipmi_futur, ipmi_utilise: @server.ipmi_utilise, modele_id: @server.modele_id, name: @server.name, numero: @server.numero, rj45_cm: @server.rj45_cm, rj45_futur: @server.rj45_futur, rj45_total: @server.rj45_total, rj45_utilise: @server.rj45_utilise, frame_id: @server.frame_id }}
     end
   end
 
@@ -59,7 +59,7 @@ class ServersControllerTest < ActionController::TestCase
   end
 
   test "should update server" do
-    patch :update, params: {id: @server, server: { acte_id: @server.acte_id, cluster: @server.cluster, conso: @server.conso, critique: @server.critique, domaine_id: @server.domaine_id, fc_total: @server.fc_total, fc_utilise: @server.fc_utilise, gestion_id: @server.gestion_id, ipmi_dedie: @server.ipmi_dedie, ipmi_futur: @server.ipmi_futur, ipmi_utilise: @server.ipmi_utilise, modele_id: @server.modele_id, name: @server.name, numero: @server.numero, rj45_cm: @server.rj45_cm, rj45_futur: @server.rj45_futur, rj45_total: @server.rj45_total, rj45_utilise: @server.rj45_utilise, frame_id: @server.frame_id }}
+    patch :update, params: {id: @server, server: { cluster: @server.cluster, conso: @server.conso, critique: @server.critique, domaine_id: @server.domaine_id, fc_total: @server.fc_total, fc_utilise: @server.fc_utilise, gestion_id: @server.gestion_id, ipmi_dedie: @server.ipmi_dedie, ipmi_futur: @server.ipmi_futur, ipmi_utilise: @server.ipmi_utilise, modele_id: @server.modele_id, name: @server.name, numero: @server.numero, rj45_cm: @server.rj45_cm, rj45_futur: @server.rj45_futur, rj45_total: @server.rj45_total, rj45_utilise: @server.rj45_utilise, frame_id: @server.frame_id }}
     assert_redirected_to server_path(assigns(:server))
   end
 

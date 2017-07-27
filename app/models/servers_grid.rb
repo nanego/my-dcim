@@ -41,7 +41,6 @@ class ServersGrid
   filter(:critique, :xboolean)
   filter(:domaine, :enum, :select => Domaine.where(published: true).map {|r| [r.to_s, r.id]})
   filter(:gestion, :enum, :select => Gestion.where(published: true).map {|r| [r.to_s, r.id]})
-  filter(:acte, :enum, :select => Acte.where(published: true).map {|r| [r.to_s, r.id]})
   filter(:frame, :enum, :select => Frame.all.map {|b| [b.name_with_room_and_islet, b.id]})
 
   filter(:condition, :dynamic, :header => "Condition dynamique")
@@ -121,11 +120,6 @@ class ServersGrid
     scope.joins(:gestion).order("gestions.name")
   }) do |record|
     record.gestion
-  end
-  column("Action à réaliser", :order => proc { |scope|
-    scope.joins(:acte).order("actes.name")
-  }) do |record|
-    record.acte
   end
   column(:frame, :order => proc { |scope|
     scope.joins(:frames).order("frames.name")

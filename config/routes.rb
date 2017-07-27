@@ -37,7 +37,6 @@ Rails.application.routes.draw do
       get :reseau
     end
   end
-  resources :actes
   resources :card_types
   resources :colors
   resources :rooms do

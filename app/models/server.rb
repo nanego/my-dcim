@@ -5,7 +5,6 @@ class Server < ActiveRecord::Base
 
   include PublicActivity::Model
 
-  belongs_to :acte
   belongs_to :frame
   has_one :room, through: :frame
   belongs_to :gestion

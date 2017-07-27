@@ -27,10 +27,6 @@ fr:
       destroy: a supprimé un utilisateur
       update: a modifié les données d'un utilisateur
       create: a ajouté un utilisateur
-    acte:
-      destroy: a supprimé une action
-      update: a modifié une action
-      create: a ajouté une action
     frame:
       destroy: a supprimé une baie
       update: a modifié une baie
