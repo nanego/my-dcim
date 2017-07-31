@@ -1,13 +1,13 @@
 one:
   id: 1
   name: compo1
-  modele_id: 1
+  enclosure_id: 1
   type_composant_id: 1
   position: 1
 
 one:
   id: 2
   name: compo2
-  modele_id: 1
+  enclosure_id: 1
   type_composant_id: 2
   position: 2

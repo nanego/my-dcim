@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170727124018) do
+ActiveRecord::Schema.define(version: 20170727132107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,13 +96,12 @@ ActiveRecord::Schema.define(version: 20170727124018) do
   end
 
   create_table "composants", force: :cascade do |t|
-    t.integer  "modele_id"
     t.integer  "type_composant_id"
     t.integer  "position"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.string   "name"
-    t.index ["modele_id"], name: "index_composants_on_modele_id", using: :btree
+    t.integer  "enclosure_id"
     t.index ["type_composant_id"], name: "index_composants_on_type_composant_id", using: :btree
   end
 
@@ -136,6 +135,13 @@ ActiveRecord::Schema.define(version: 20170727124018) do
     t.boolean  "published"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "enclosures", force: :cascade do |t|
+    t.integer  "modele_id"
+    t.integer  "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "frames", force: :cascade do |t|

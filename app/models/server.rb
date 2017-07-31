@@ -93,7 +93,7 @@ class Server < ActiveRecord::Base
                                                        name: "IPMI")
 
     # SLOTS SL
-    slots = Composant.where(modele_id: self.modele_id, type_composant_id: type_composant_slot.id)
+    slots = Composant.where(enclosure_id: Enclosure.where(modele_id: self.modele_id).order(:position).first.id, type_composant_id: type_composant_slot.id)
     7.times do |index|
       slot_name = "SL#{index+1}"
       slot_data = server_data[slot_name]

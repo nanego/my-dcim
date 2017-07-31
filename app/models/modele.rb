@@ -12,13 +12,14 @@ class Modele < ActiveRecord::Base
   }
 
   has_many :servers
-  has_many :composants, -> { order(name: :asc, position: :asc) }
+  has_many :enclosures
+  has_many :composants, through: :enclosures
 
   belongs_to :marque
   belongs_to :architecture
   belongs_to :category
 
-  accepts_nested_attributes_for :composants,
+  accepts_nested_attributes_for :enclosures,
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
 

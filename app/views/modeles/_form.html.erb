@@ -37,26 +37,19 @@
     <div class="col-sm-10 col-md-5">
       <%= f.number_field :nb_elts, class: "form-control" %>
     </div>
-    <%= f.label :color, class: "col-sm-2 col-md-1 control-label" %>
+    <%= f.label 'Couleur', class: "col-sm-2 col-md-1 control-label" %>
     <div class="col-sm-10 col-md-5">
-      <%= f.text_field :color, class: "form-control" %>
+      <%= f.text_field :color, class: "form-control", style: "background-color:#{f.object.color};" %>
     </div>
   </div>
 
   <div>
 
-    <%= content_tag :span, 'Emplacements Slots', class: "col-sm-2 control-label" %>
-    <div class="col-sm-10  col-md-4">
-      <div class="panel panel-default">
-        <ul class="list-group">
-          <%= f.fields_for :composants do |builder| %>
-            <%= render "composant_fields", :f => builder, :type_composant => 'SLOT' %>
-          <% end %>
-        </ul>
-        <div class="panel-footer"><%= link_to_add_fields_with_prefilled_data "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter un slot".html_safe, f, :composants, 'SLOT' %></div>
-      </div>
-    </div>
-
+    <%= content_tag :span, 'Composants', class: "col-sm-2 control-label" %>
+    <%= f.fields_for :enclosures do |builder| %>
+        <%= render "enclosure_fields", :f => builder %>
+    <% end %>
+    <div><%= link_to_add_fields "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter une enclosure".html_safe, f, :enclosures %></div>
   </div>
 
   <!--

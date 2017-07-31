@@ -8,13 +8,14 @@ class Composant < ActiveRecord::Base
 
   validates_presence_of :type_composant_id
 
-  belongs_to :modele
+  belongs_to :enclosure
+  has_one :modele, through: :enclosure
   belongs_to :type_composant
 
   has_many :slots
   has_many :cards
 
-  acts_as_list scope: [:modele_id, :type_composant_id]
+  acts_as_list scope: [:enclosure_id, :type_composant_id]
 
   accepts_nested_attributes_for :slots,
                                 :allow_destroy => true,
