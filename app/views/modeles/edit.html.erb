@@ -1,3 +1,4 @@
+<% provide(:title, @modele.name) %>
 <%= render 'layouts/breadcrumb', params: {'Paramètres' => modeles_url, 'Modèles' => modeles_url, "#{@modele.try(:name).present? ? @modele.name : 'Nouveau modèle' }" => ''} %>
 
 <div class="page-header">

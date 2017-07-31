@@ -8,6 +8,7 @@
   breadcrumb_variables["Baie #{@frame.name}"] = '' if @frame.present?
 %>
 <%= render 'layouts/breadcrumb', params: breadcrumb_variables %>
+<% provide(:title, "Baie #{@frame.name}") %>
 
 <div class="container-fluid">
 
