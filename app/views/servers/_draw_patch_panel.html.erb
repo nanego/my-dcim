@@ -7,7 +7,7 @@
       <%= link_to_port(port.position, port, port.card.try(:card_type).try(:port_type), port.card_id) %>
     <% end %>
   <% else %>
-      <% slots_sur_modele = server.modele.composants.where(type_composant_id: 4).to_a %>
+      <% slots_sur_modele = server.modele.composants.slots.to_a %>
       <% half_slots = slots_sur_modele.length / 2 %>
 
       <% slots_sur_modele.slice(0, half_slots).each do |slot| %>

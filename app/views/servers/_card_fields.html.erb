@@ -1,21 +1,34 @@
+<%
+  if @prefilled_data && @prefilled_data[:enclosure]
+    puts "prefilled data : #{@prefilled_data[:enclosure].inspect}"
+    composants = @prefilled_data[:enclosure].composants.slots
+  else
+    if local_assigns[:enclosure].present?
+      composants = enclosure.composants.slots
+    else
+      composants = @server.modele.composants.slots
+    end
+  end
+%>
+
 <% if @server.modele %>
 
 <li class="list-group-item">
-    <fieldset>
-      <div class="col-sm-4">
-      <%= f.select :composant_id, options_for_select(@server.modele.composants.where(type_composant_id: 4).map{|c| [c.name, c.id]}, f.object.composant_id) %>
-      </div>
-      <div class="col-sm-4">
-        <%= f.select :card_type_id, options_for_select(CardType.sorted.map{|card_type| [card_type.name, card_type.id]}, f.object.card_type_id) %>
-      </div>
-      <div class="col-sm-1">
-        <%= f.select :connections_identifier, options_for_select(%w(A B  C D E F L S T V Z), f.object.connections_identifier), include_blank: true %>
-      </div>
-      <span>
-        <%= f.hidden_field :_destroy %>
-        <%= link_to "Supprimer", '#', class: "remove_fields pull-right" %>
-      </span>
-    </fieldset>
-  </li>
+  <fieldset>
+    <div class="col-sm-4">
+      <%= f.select :composant_id, options_for_select(composants.map{|c| [c.name, c.id]}, f.object.composant_id) %>
+    </div>
+    <div class="col-sm-4">
+      <%= f.select :card_type_id, options_for_select(CardType.sorted.map{|card_type| [card_type.name, card_type.id]}, f.object.card_type_id) %>
+    </div>
+    <div class="col-sm-1">
+      <%= f.select :connections_identifier, options_for_select(%w(A B C D E F L S T V Z), f.object.connections_identifier), include_blank: true %>
+    </div>
+    <span>
+      <%= f.hidden_field :_destroy %>
+      <%= link_to "Supprimer", '#', class: "remove_fields pull-right" %>
+    </span>
+  </fieldset>
+</li>
 
 <% end %>

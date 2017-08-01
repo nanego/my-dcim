@@ -1,3 +1,5 @@
+<% provide(:title, "#{@server.modele.try(:category).try(:name)} #{@server.name} - Edition") %>
+
 <%= render 'layouts/breadcrumb', params: {"Salles" => overview_rooms_path,
                                           @server.frame.room.name => room_path(@server.frame.room),
                                           "Frame #{@server.frame.name}" => frame_path(@server.frame),

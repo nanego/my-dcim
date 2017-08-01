@@ -23,7 +23,6 @@ Rails.application.routes.draw do
   resources :ports, only: [:index, :edit, :update, :destroy]
 
   resources :clusters
-  resources :slots
   resources :servers do
     collection do
       get :grid

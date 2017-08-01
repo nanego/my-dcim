@@ -136,12 +136,12 @@ class ServersGrid
   column(:slots, :html => true, :mandatory => false) do |r|
     if r.slots.map(&:valeur).reject{|v| v.blank?}.present?
       table = "<table BORDER='1' style='text-align: center;'><tr style=\"background-color:#DDDDDD \">"
-      r.modele.composants.where(type_composant_id: 4).each do |composant_slot|
+      r.modele.composants.slots.each do |composant_slot|
         table << "<th style=\"min-width:27px;\">Slot #{composant_slot.position}</th>"
       end
       table << "</tr>"
       4.times do |i|
-        slots_sur_modele = r.modele.composants.where(type_composant_id: 4)
+        slots_sur_modele = r.modele.composants.slots
         ports_utilises = r.slots.where(composant: slots_sur_modele, position: i+1)
         if ports_utilises.present?
           table << "<tr>"

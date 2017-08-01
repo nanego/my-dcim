@@ -62,19 +62,32 @@
   </div>
 
   <% if f.object.persisted? && @server.modele %>
-    <%= content_tag :span, 'Slots', class: "col-sm-1 control-label", style: "clear:both;" %>
-    <div class="col-sm-11">
-      <div class="panel panel-default">
-        <ul class="list-group">
-          <%= f.fields_for :cards do |builder| %>
-
-              <%= render "card_fields", :f => builder %>
-
-          <% end %>
-        </ul>
-        <div class="panel-footer"><%= link_to_add_fields "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter une carte".html_safe, f, :cards %></div>
+    <% @server.modele.enclosures.each do |enclosure| %>
+      <%= content_tag :span, "Enclosure #{enclosure.position}", class: "col-sm-1 control-label", style: "clear:both;" %>
+      <div class="col-sm-11">
+        <div class="panel panel-default">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <fieldset class="header">
+                <div class="col-sm-4">
+                  Composant du modèle
+                </div>
+                <div class="col-sm-4">
+                  Type de carte
+                </div>
+                <div class="col-sm-1">
+                  Identifiant de connexion
+                </div>
+              </fieldset>
+            </li>
+            <%= f.fields_for :cards, @server.cards.for_enclosure(enclosure.id) do |builder| %>
+              <%= render partial: "card_fields", locals: {f: builder, enclosure: enclosure} %>
+            <% end %>
+          </ul>
+          <div class="panel-footer"><%= link_to_add_fields_with_prefilled_data "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter une carte".html_safe, f, :cards, {enclosure: enclosure} %></div>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 
   <!--

@@ -12,14 +12,11 @@ class Composant < ActiveRecord::Base
   has_one :modele, through: :enclosure
   belongs_to :type_composant
 
-  has_many :slots
   has_many :cards
 
   acts_as_list scope: [:enclosure_id, :type_composant_id]
-
-  accepts_nested_attributes_for :slots,
-                                :allow_destroy => true,
-                                :reject_if     => :all_blank
+  
+  scope :slots, -> { where(type_composant: TypeComposant.find_by_name('SLOT')) }
 
   def to_s
     name.nil? ? "" : name

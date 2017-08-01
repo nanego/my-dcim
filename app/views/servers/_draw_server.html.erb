@@ -1,6 +1,6 @@
 <% if server.modele.present? %>
   <div class="pull-right">
-    <% slots_sur_modele = server.modele.composants.where(type_composant_id: 4) %>
+    <% slots_sur_modele = server.modele.composants.slots %>
     <table class="slots">
       <thead>
       <% slots_sur_modele.each do |slot| %>

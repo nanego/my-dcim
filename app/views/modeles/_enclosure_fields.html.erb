@@ -4,7 +4,7 @@
       <%= f.object.position.present? ? "Enclosure #{f.object.position}" : "Nouvelle enclosure" %>
     </div>
     <ul class="list-group panel-body">
-      <%= f.fields_for :composants do |builder| %>
+      <%= f.fields_for :composants, f.object.composants.slots do |builder| %>
           <%= render "composant_fields", :f => builder, :type_composant => 'SLOT' %>
       <% end %>
     </ul>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170727132107) do
+ActiveRecord::Schema.define(version: 20170801173353) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -359,17 +359,6 @@ ActiveRecord::Schema.define(version: 20170727132107) do
     t.integer  "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "slots", force: :cascade do |t|
-    t.integer  "position"
-    t.string   "valeur"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "composant_id"
-    t.integer  "server_id"
-    t.index ["composant_id"], name: "index_slots_on_composant_id", using: :btree
-    t.index ["server_id"], name: "index_slots_on_server_id", using: :btree
   end
 
   create_table "type_composants", force: :cascade do |t|
