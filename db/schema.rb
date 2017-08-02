@@ -393,7 +393,6 @@ ActiveRecord::Schema.define(version: 20170801180732) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "invitations_count",                 default: 0
-    t.json     "tokens",                            default: {}
     t.string   "authentication_token",   limit: 30
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree

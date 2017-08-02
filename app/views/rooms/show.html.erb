@@ -1,3 +1,4 @@
+<% provide :title, "Salle #{@room.name} #{@islet ? "- Ilot #{@islet}" : "" }" %>
 <%
   breadcrumb_variables = {'Salles' => overview_rooms_path, @room.name => ((@frame.present? || params[:islet].present?) ? room_path(@room):'')}
   if @frame.present? && @frame.bay.islet.name.present?
