@@ -7,26 +7,33 @@
 
         <% composants_per_enclosure = enclosure.composants.slots %>
         <table class="slots" style="<%= index > 0 ? 'margin-top:7px;' : '' %>">
-          <thead>
-          <% composants_per_enclosure.each do |slot| %>
-              <th><%= slot.name ? "#{slot.name.include?('SL') ? slot.name[2] : slot.name}" : slot.position %></th>
-          <% end %>
-          </thead>
           <tbody>
-          <tr>
-            <% composants_per_enclosure.each do |slot| %>
-                <td style="<%= enclosure.display != 'horizontal' ? 'max-width: 2.5em;' : '' %>">
-                  <% server.cards.select{|card| card.composant_id == slot.id}.each do |card| %>
-                    <span data-server-name="<%= server.name %>" data-server-id="<%= server.id %>" data-composant-id="<%= card.id %>" data-composant-type="<%= card.class %>">
-                      <%= ports_by_card(port_type: card.card_type.try(:port_type),
-                                        port_quantity: card.card_type.try(:port_quantity),
-                                        card_id: card.id,
-                                        ports_data: card.ports) %>
-                    </span>
-                  <% end %>
+
+          <% if enclosure.display != 'horizontal' %>
+
+            <tr>
+              <% composants_per_enclosure.each do |component| %>
+                <th><%= component.name.present? ? "#{component.name.include?('SL') ? component.name[2] : component.name}" : component.position %></th>
+              <% end %>
+            </tr>
+            <tr>
+              <% composants_per_enclosure.each do |component| %>
+                <td style="max-width: 2.5em;">
+                  <%= render 'servers/draw_component', server: server, component: component %>
                 </td>
+              <% end %>
+            </tr>
+
+          <% else %>
+
+            <% composants_per_enclosure.each do |component| %>
+              <tr>
+                <th><%= component.name.present? ? "#{component.name.include?('SL') ? component.name[2] : component.name}" : component.position %></th>
+                <td><%= render 'servers/draw_component', server: server, component: component %></td>
+              </tr>
             <% end %>
-          </tr>
+
+          <% end %>
           </tbody>
         </table>
 
