@@ -15,7 +15,7 @@ class Composant < ActiveRecord::Base
   has_many :cards
 
   acts_as_list scope: [:enclosure_id, :type_composant_id]
-  
+
   scope :slots, -> { where(type_composant: TypeComposant.find_by_name('SLOT')) }
 
   def to_s

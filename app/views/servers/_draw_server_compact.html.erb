@@ -15,7 +15,7 @@
           <tbody>
           <tr>
             <% composants_per_enclosure.each do |slot| %>
-                <td style="<%= server.modele.category.name != 'Patch Panel' ? 'max-width: 2.5em;' : '' %>">
+                <td style="<%= enclosure.display != 'horizontal' ? 'max-width: 2.5em;' : '' %>">
                   <% server.cards.select{|card| card.composant_id == slot.id}.each do |card| %>
                     <span data-server-name="<%= server.name %>" data-server-id="<%= server.id %>" data-composant-id="<%= card.id %>" data-composant-type="<%= card.class %>">
                       <%= ports_by_card(port_type: card.card_type.try(:port_type),

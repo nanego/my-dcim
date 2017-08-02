@@ -4,6 +4,12 @@
       <%= f.object.position.present? ? "Enclosure #{f.object.position}" : "Nouvelle enclosure" %>
     </div>
     <ul class="list-group panel-body">
+      <div class="list-group-item">
+        <fieldset>
+          <%= f.label "Type d'affchage : " %>
+          <%= f.select :display, options_for_select([:vertical, :horizontal], f.object.display) %>
+        </fieldset>
+      </div>
       <%= f.fields_for :composants, f.object.composants.slots do |builder| %>
           <%= render "composant_fields", :f => builder, :type_composant => 'SLOT' %>
       <% end %>

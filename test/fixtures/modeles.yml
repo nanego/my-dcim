@@ -1,6 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   name: MyString
   description: MyText
   published: false
@@ -12,6 +13,7 @@ one:
   nb_elts: 1
 
 two:
+  id: 2
   name: MyString
   description: MyText
   published: false

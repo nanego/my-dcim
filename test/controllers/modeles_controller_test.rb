@@ -1,6 +1,7 @@
 require File.expand_path("../../test_helper", __FILE__)
 
 class ModelesControllerTest < ActionController::TestCase
+
   setup do
     sign_in users(:one)
     @modele = modeles(:one)
@@ -22,11 +23,13 @@ class ModelesControllerTest < ActionController::TestCase
       post :create, params: {modele: { description: @modele.description, published: @modele.published, name: @modele.name, architecture_id: @modele.architecture_id, category_id: @modele.category_id, u: @modele.u }}
     end
     assert_redirected_to edit_modele_path(assigns(:modele))
+    assert_not_nil(assigns(:modele))
   end
 
   test "should show modele" do
-    get :show, params: {id: @modele}
+    get :show, params: { id: @modele }
     assert_response :success
+    assert_equal(2, @modele.enclosures.length)
   end
 
   test "should get edit" do
