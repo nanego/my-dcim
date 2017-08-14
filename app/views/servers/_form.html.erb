@@ -113,13 +113,6 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label "Couleur des connexions", class: "col-sm-2 control-label" %>
-    <div class="col-lg-6">
-      <%= f.hidden_field :port_color%>
-    </div>
-  </div>
-
   -->
 
   <div class="form-group" style="clear:both;">
@@ -135,9 +128,3 @@
     </div>
   </div>
 <% end %>
-
-<script>
-    $(document).ready(function(){
-        loadPaletteColorPicker('[name="server[port_color]"]');
-    });
-</script>

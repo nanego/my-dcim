@@ -153,12 +153,6 @@ class Server < ActiveRecord::Base
     cards.each { |card| card.create_missing_ports}
   end
 
-  def aggregate_ports?
-    true
-    # TODO specify which server aggregate ports and which not
-    # TODO remove port_color from servers
-  end
-
   private
 
     def slug_candidates
