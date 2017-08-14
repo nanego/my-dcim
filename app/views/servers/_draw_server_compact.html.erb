@@ -47,15 +47,4 @@
 <br>
 <i class='pull-left' style="clear:left;padding-left: 14px;"><%= link_to server.modele.try(:name), edit_modele_path(server.modele), style: 'font-weight:normal;' %></i>
 
-<% if @agregated_ports_per_server && @agregated_ports_per_server[server.id].present? %>
-
-    <div style="clear: left;"></div>
-    <div style="padding-left: 14px;display: table;">
-      <% @agregated_ports_per_server[server.id].each do |port| %>
-          <%= link_to_port(port.position, port, port.card.try(:card_type).try(:port_type), port.card_id) %>
-      <% end %>
-    </div>
-
-<% end %>
-
 <div class="clearfix"></div>

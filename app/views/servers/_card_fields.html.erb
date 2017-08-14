@@ -16,13 +16,10 @@
 <li class="list-group-item">
   <fieldset>
     <div class="col-sm-4">
-      <%= f.select :composant_id, options_for_select(composants.map{|c| [c.name, c.id]}, f.object.composant_id) %>
+      <%= f.select :composant_id, options_for_select(composants.map{|c| [c.name || c.position, c.id]}, f.object.composant_id) %>
     </div>
     <div class="col-sm-4">
       <%= f.select :card_type_id, options_for_select(CardType.sorted.map{|card_type| [card_type.name, card_type.id]}, f.object.card_type_id) %>
-    </div>
-    <div class="col-sm-1">
-      <%= f.select :connections_identifier, options_for_select(%w(A B C D E F L S T V Z), f.object.connections_identifier), include_blank: true %>
     </div>
     <span>
       <%= f.hidden_field :_destroy %>

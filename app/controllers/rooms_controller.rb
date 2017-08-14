@@ -12,7 +12,6 @@ class RoomsController < ApplicationController
   def show
     @servers_per_frames = {}
     @sums = {}
-    @agregated_ports_per_server = {}
     @room.frames
         .includes(:islet => [:room],
                   :bay => [:frames],
@@ -30,9 +29,6 @@ class RoomsController < ApplicationController
         @servers_per_frames[islet][frame.bay.lane][frame.bay] ||= {}
         @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] ||= []
         @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] << s
-
-        @agregated_ports_per_server[s.id] = get_ports_per_bay_on_a_server(bay_id: s.frame.bay_id, server: s) if s.aggregate_ports?
-
       end
       @sums.merge!(calculate_ports_sums(frame, frame.servers))
     end
@@ -56,7 +52,6 @@ class RoomsController < ApplicationController
     islet = params[:islet]
     @servers_per_frames = {}
     @sums = {}
-    @agregated_ports_per_server = {}
     @room.frames
         .includes(:islet => [:room],
                   :bay => [:frames],
@@ -77,8 +72,6 @@ class RoomsController < ApplicationController
         @servers_per_frames[islet][frame.bay.lane][frame.bay] ||= {}
         @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] ||= []
         @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] << s
-
-        @agregated_ports_per_server[s.id] = get_ports_per_bay_on_a_server(bay_id: s.frame.bay_id, server: s) if s.aggregate_ports?
         s.ports_per_type.each do |type, sum|
           @sums[frame.id][type] = @sums[frame.id][type].to_i + sum
         end

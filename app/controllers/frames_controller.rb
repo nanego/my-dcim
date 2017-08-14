@@ -5,12 +5,10 @@ class FramesController < ApplicationController
     @frame = Frame.all.includes(:servers => [:modele => [:category, :composants], :cards => [:composant, :ports, :card_type => [:port_type]]], :bay => [:islet => [:room]]).friendly.find(params[:id].to_s.downcase)
     @room = @frame.room
     @sums = { @frame.id => {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0} }
-    @agregated_ports_per_server = {}
     @frame.servers.each do |s|
       s.ports_per_type.each do |type, sum|
         @sums[@frame.id][type] = @sums[@frame.id][type].to_i + sum
       end
-      @agregated_ports_per_server[s.id] = get_ports_per_bay_on_a_server(bay_id: @frame.bay_id, server: s) if s.aggregate_ports?
     end
 
     respond_to do |format|

@@ -2,23 +2,17 @@
   <b><%= link_to h(server.name), server_path(server, :view => params[:view]) %></b>
   <br>
 
-  <% if @agregated_ports_per_server[server.id].present? %>
-    <% @agregated_ports_per_server[server.id].each do |port| %>
-      <%= link_to_port(port.position, port, port.card.try(:card_type).try(:port_type), port.card_id) %>
-    <% end %>
-  <% else %>
-      <% slots_sur_modele = server.modele.composants.slots.to_a %>
-      <% half_slots = slots_sur_modele.length / 2 %>
+  <% slots_sur_modele = server.modele.composants.slots.to_a %>
+  <% half_slots = slots_sur_modele.length / 2 %>
 
-      <% slots_sur_modele.slice(0, half_slots).each do |slot| %>
-          <%= render 'servers/draw_patch_panel_slot', server: server, slot: slot %>
-      <% end %>
+  <% slots_sur_modele.slice(0, half_slots).each do |slot| %>
+      <%= render 'servers/draw_patch_panel_slot', server: server, slot: slot %>
+  <% end %>
 
-      <span class="clearfix"></span>
+  <span class="clearfix"></span>
 
-      <% slots_sur_modele.slice(half_slots, slots_sur_modele.length).each do |slot| %>
-          <%= render 'servers/draw_patch_panel_slot', server: server, slot: slot %>
-      <% end %>
+  <% slots_sur_modele.slice(half_slots, slots_sur_modele.length).each do |slot| %>
+      <%= render 'servers/draw_patch_panel_slot', server: server, slot: slot %>
   <% end %>
 
   <span class="clearfix"></span>

@@ -75,9 +75,6 @@
                 <div class="col-sm-4">
                   Type de carte
                 </div>
-                <div class="col-sm-1">
-                  Identifiant de connexion
-                </div>
               </fieldset>
             </li>
             <%= f.fields_for :cards, @server.cards.for_enclosure(enclosure.id) do |builder| %>
