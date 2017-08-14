@@ -285,5 +285,20 @@ table.slots th {
   clear: both;
 }
 
-
-
+.connection_form {
+  .back_server{
+    background-color: white ;
+    max-width:600px;
+    margin:10px auto;
+    padding: 5px;
+    border: 1px #CCCCCC solid;
+    .port_container{
+      margin-left: -2px;
+      display: inline-block;
+    }
+    .selected{
+      padding:2px 1px;
+      background-color: #ee3b3b;
+    }
+  }
+}

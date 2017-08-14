@@ -13,18 +13,20 @@ module ServersHelper
   end
 
   def port_cablename(port_data)
-    if port_data.present? && port_data.cablename.present?
-      port_data.cablename
+    if port_data.present? && port_data.connection.present? && port_data.connection.cable.present? && port_data.connection.cable.name.present?
+      port_data.connection.cable.name
     else
       ""
     end
   end
 
-  def ports_by_card(port_type:, port_quantity:, ports_data:, card_id:)
+  def ports_by_card(port_type:, port_quantity:, ports_data:, card_id:, selected_port:)
     html = ""
     port_quantity.to_i.times do |index|
       port_data = ports_data.detect {|p| p.position == index+1}
-      html += link_to_port(index+1, port_data, port_type, card_id)
+      html += content_tag( :span,
+                           link_to_port(index+1, port_data, port_type, card_id),
+                           class: "port_container #{selected_port.present? && port_data.try(:id) == selected_port.try(:id) ? "selected" : ""}")
     end
     html.html_safe
   end
@@ -43,7 +45,7 @@ module ServersHelper
   end
 
   def link_to_port_by_type(label, type, port_data, position, card_id)
-    edit_port_url = port_data.try(:id) ? edit_port_path(port_data) : edit_port_path(id: 0, card_id: card_id, position: position)
+    edit_port_url = port_data.try(:id) ? connections_edit_path(from_port_id: port_data.id) : edit_port_path(id: 0, card_id: card_id, position: position)
     if ['RJ', 'XRJ', 'FC'].include? type
       port_class = type
     else
@@ -51,13 +53,14 @@ module ServersHelper
     end
     link_to label,
         edit_port_url,
-        class: "port pull-left port#{port_class} #{port_data.present? ? port_data.color : '' }",
+        {class: "port pull-left port#{port_class} #{port_data.try(:connection).try(:cable).present? ? port_data.connection.cable.color : '' }",
+        id: port_data.try(:id),
         data: {url: edit_port_url,
                position: position,
                type: type,
                toggle: 'tooltip',
                placement: 'top',
-               title: port_data.present? ? "#{port_data.vlans}" : ""
+               title: port_data.present? ? "#{port_data.vlans}" : ""}
     }
   end
 

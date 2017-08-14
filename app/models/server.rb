@@ -6,6 +6,7 @@ class Server < ActiveRecord::Base
   include PublicActivity::Model
 
   belongs_to :frame
+  has_one :bay, through: :frame
   has_one :room, through: :frame
   belongs_to :gestion
   belongs_to :domaine
@@ -18,7 +19,7 @@ class Server < ActiveRecord::Base
   has_many :disks
 
   has_many :slots
-  has_many :cards, -> { joins(:composant).includes(:composant).order("composants.name asc, composants.position asc") }
+  has_many :cards, -> { joins(:composant).includes(:composant) }
   has_many :card_types, through: :cards
   has_many :ports, through: :cards
 
@@ -146,6 +147,10 @@ class Server < ActiveRecord::Base
       sums[port_type] = sums[port_type].to_i + card.ports.map(&:cablename).compact.uniq.size
     end
     sums
+  end
+
+  def create_missing_ports
+    cards.each { |card| card.create_missing_ports}
   end
 
   def aggregate_ports?

@@ -1,6 +1,8 @@
+<% selected_port ||= nil %>
+
 <%= link_to h(server.name), server_path(server, :view => params[:view]), {class: 'pull-left server_name', style: 'padding-left: 14px;', :data => {'toggle': "tooltip", 'placement': "top"}, title: server.numero} %>
 
-<% if server.modele.present? && ( @agregated_ports_per_server.blank? || @agregated_ports_per_server[server.id].blank? ) %>
+<% if server.modele.present? %>
     <div class="pull-right">
 
       <% server.modele.enclosures.each_with_index do |enclosure, index| %>
@@ -19,7 +21,7 @@
             <tr>
               <% composants_per_enclosure.each do |component| %>
                 <td style="max-width: 2.5em;">
-                  <%= render 'servers/draw_component', server: server, component: component %>
+                  <%= render 'servers/draw_component', server: server, component: component, selected_port: selected_port %>
                 </td>
               <% end %>
             </tr>
@@ -29,7 +31,7 @@
             <% composants_per_enclosure.each do |component| %>
               <tr>
                 <th><%= component.name.present? ? "#{component.name.include?('SL') ? component.name[2] : component.name}" : component.position %></th>
-                <td><%= render 'servers/draw_component', server: server, component: component %></td>
+                <td><%= render 'servers/draw_component', server: server, component: component, selected_port: selected_port %></td>
               </tr>
             <% end %>
 

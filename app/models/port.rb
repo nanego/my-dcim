@@ -12,6 +12,12 @@ class Port < ActiveRecord::Base
 
   belongs_to :card
 
+  has_one :connection
+  has_one :cable, through: :connection
+  has_one :server, through: :card
+
+  scope :sorted, -> {order(:position)}
+
   # Callbacks
   after_save :update_pdus_elements
 
@@ -19,6 +25,32 @@ class Port < ActiveRecord::Base
     if cablename.present?
       "#{color} - #{cablename} - Switch #{cablename[0]} - Port #{switch_slot}:#{cablename[1..-1]} - #{vlans}"
     end
+  end
+
+  def connect_to_port(other_port, cable_name, cable_color, vlans)
+    remove_unused_connections(self, other_port)
+
+    cable = nil
+    if self.connection.present?
+      cable ||= self.connection.cable
+    end
+    if other_port.connection.present?
+      cable ||= other_port.connection.cable
+    end
+    if cable.present? and !cable.destroyed?
+      cable.name = cable_name
+      cable.color = cable_color
+      cable.save
+    else
+      cable = Cable.create(name: cable_name, color: cable_color)
+    end
+
+    self.connection = Connection.find_or_create_by(port: self, cable: cable)
+    other_port.connection = Connection.find_or_create_by(port: other_port, cable: cable)
+    self.vlans = vlans
+    other_port.vlans = self.vlans
+
+    self.save && other_port.save
   end
 
   private
@@ -30,6 +62,17 @@ class Port < ActiveRecord::Base
         frame.pdu = Pdu.create(name: "PDU #{frame.to_s}") if frame.pdu.blank?
         frame.pdu.create_pdu_elements_by_cablename(cablename)
       end
+    end
+  end
+
+  def remove_unused_connections(port1, port2)
+    old_port1_destination = port1.connection.try(:paired_connection).try(:port)
+    if old_port1_destination.present? && old_port1_destination != port2
+      old_port1_destination.connection.cable.destroy
+    end
+    old_port2_destination = port2.connection.try(:paired_connection).try(:port)
+    if old_port2_destination.present? && old_port2_destination != port1
+      old_port2_destination.connection.cable.destroy
     end
   end
 

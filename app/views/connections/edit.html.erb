@@ -1,0 +1,6 @@
+<%= render 'layouts/breadcrumb', params: {"Salles" => rooms_path,
+                                          @room.name => room_path(@room),
+                                          "Baie #{@frame.name}" => frame_path(@frame),
+                                          "Modification des connexions" => ''} %>
+
+<%= render 'connections/form' %>
