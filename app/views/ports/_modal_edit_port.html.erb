@@ -13,7 +13,7 @@
     event.preventDefault();
     var url = $(this).data("url");
     if(url.length>0) {
-      $("#edit_port_modal modal-body").html("<p>Chargement en cours ...</p>");
+      $("#edit_port_modal .modal-body").html("<p>Chargement en cours ...</p>");
       $("#edit_port_modal").modal("show");
       return $.getScript(url);
     }
@@ -22,4 +22,7 @@
       event.preventDefault();
       $("#edit_port_modal").modal("hide");
   });
+  $("#edit_port_modal").on('hidden.bs.modal', function () {
+      $("#edit_port_modal .modal-body").html("<p>Chargement en cours ...</p>");
+  })
 </script>

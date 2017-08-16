@@ -29,7 +29,7 @@ class ConnectionsController < ApplicationController
     @to_port = @cable.connections.reject{|conn| conn.port_id.to_i == @from_port.id }.first.try(:port) if @cable.present?
 
     # Destination server
-    @to_server = @to_port.present? ? @to_port.server : @frame.servers.first
+    @to_server = @to_port.present? ? @to_port.server : @frame.servers.where.not(position: nil, modele_id: nil).order(:position).first
     @to_server.create_missing_ports
     @to_server.reload
 

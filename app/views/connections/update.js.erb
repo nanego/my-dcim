@@ -1,3 +1,5 @@
 $("#edit_port_modal").modal("hide");
 $("#back_server_<%= @from_server.id %>").html("<%= escape_javascript(render 'servers/draw_server_compact.html.erb', server: @from_server) %>");
 $("#back_server_<%= @to_server.id %>").html("<%= escape_javascript(render 'servers/draw_server_compact.html.erb', server: @to_server) %>");
+$('[data-toggle="tooltip"]').tooltip();
+$("#edit_port_modal .modal-body").html("<p>Chargement en cours ...</p>");

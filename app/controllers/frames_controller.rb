@@ -2,7 +2,7 @@ class FramesController < ApplicationController
   include ServersHelper
 
   def show
-    @frame = Frame.all.includes(:servers => [:modele => [:category, :composants], :cards => [:composant, :ports, :card_type => [:port_type]]], :bay => [:islet => [:room]]).friendly.find(params[:id].to_s.downcase)
+    @frame = Frame.all.includes(:servers => [:modele => [:category, :composants], :cards => [:composant, :ports => [:connection => :cable], :card_type => [:port_type]]], :bay => [:islet => [:room]]).friendly.find(params[:id].to_s.downcase)
     @room = @frame.room
     @sums = { @frame.id => {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0} }
     @frame.servers.each do |s|

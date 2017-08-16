@@ -5,9 +5,7 @@ class Port < ActiveRecord::Base
   tracked :parameters => {
       :server => proc { |controller, model_instance| model_instance.card.try(:server)},
       :card_type => proc { |controller, model_instance| "#{model_instance.card.try(:composant)} #{model_instance.card.try(:card_type)}"},
-      :vlans => :vlans,
-      :color => :color,
-      :cablename => :cablename
+      :vlans => :vlans
   }
 
   belongs_to :card
@@ -22,8 +20,9 @@ class Port < ActiveRecord::Base
   after_save :update_pdus_elements
 
   def network_conf(switch_slot)
-    if cablename.present?
-      "#{color} - #{cablename} - Switch #{cablename[0]} - Port #{switch_slot}:#{cablename[1..-1]} - #{vlans}"
+    cable_name = connection.try(:cable).try(:name)
+    if cable_name.present?
+      "#{connection.cable.try(:color)} - #{cable_name} - Switch #{cable_name[0]} - Port #{switch_slot}:#{cable_name[1..-1]} - #{vlans}"
     end
   end
 

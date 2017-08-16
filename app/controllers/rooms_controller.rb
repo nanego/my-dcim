@@ -19,7 +19,7 @@ class RoomsController < ApplicationController
                                :gestion,
                                :cluster,
                                :modele => [:category, :composants],
-                               :cards => [:composant, :ports, :card_type => :port_type]])
+                               :cards => [:composant, :ports => [:connection => :cable], :card_type => :port_type]])
         .order('islets.name, bays.lane, bays.position, frames.position').each do |frame|
 
       frame.servers.each do |s|
@@ -58,7 +58,7 @@ class RoomsController < ApplicationController
                   :servers => [:frame,
                                :gestion,
                                :modele => [:category, :composants],
-                               :cards => [:composant, :ports, :card_type => :port_type]])
+                               :cards => [:composant, :ports => [:connection => :cable], :card_type => :port_type]])
         .where('islets.name = ?', islet)
         .each do |frame|
 
@@ -97,7 +97,7 @@ class RoomsController < ApplicationController
     @sites = Site.order(:position).joins(:rooms => :frames).distinct
 
     if params[:cluster_id].present? || params[:gestion_id].present?
-      @frames = Frame.preload(:servers => [:gestion, :cluster, :modele => :category, :card_types => :port_type, :cards => [:composant, :ports] ])
+      @frames = Frame.preload(:servers => [:gestion, :cluster, :modele => :category, :card_types => :port_type, :cards => [:composant, :ports => [:connection => :cable]] ])
                     .includes(:bay => [:frames, {:islet => :room}])
                     .order('rooms.position asc, islets.name asc, bays.position asc, frames.position asc')
       # @sums = {}
