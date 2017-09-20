@@ -12,6 +12,8 @@ fr:
         end_date: Date de fin
         maintainer_id: Mainteneur
         contract_type_id: Type de contrat
+      server:
+        numero: Numéro de série
     errors:
       models:
         user:
