@@ -20,6 +20,10 @@ class ConnectionsController < ApplicationController
     @coupled_frames.each do |frame|
       @possible_destination_servers << [frame.name, frame.servers.collect {|v| [ v.name, v.id ] }]
     end
+    @all_servers_per_frame = []
+    Frame.order(:name).each do |frame|
+      @all_servers_per_frame << [frame.name, frame.servers.collect {|v| [ v.name, v.id ] }]
+    end
 
     # Destination port
     if @from_port.connection.present? && @from_port.connection.cable.present?

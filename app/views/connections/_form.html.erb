@@ -27,8 +27,21 @@
           <% end %>
         </div>
         <div class="col-sm-10">
-          <div class="" style="text-align: center;">
-            <%= select_tag 'to_server', grouped_options_for_select(@possible_destination_servers, { :selected => @to_server.id }), :onchange => 'select_destination_server()' %>
+          <div class="" style="text-align: center;" id="select_destination_bay">
+            <span id="restricted_destinations">
+              <%= select_tag 'to_server',
+                             grouped_options_for_select(@possible_destination_servers, { :selected => @to_server.id }),
+                             onchange: 'select_destination_server()' %>
+              <%= link_to 'Voir plus de baies', '#', onClick: 'toggle_destination_bays_visibility(1)' %>
+            </span>
+            <span id="all_destinations">
+              <%= select_tag 'to_server',
+                             grouped_options_for_select(@all_servers_per_frame, { :selected => @to_server.id }),
+                             onchange: 'select_destination_server()',
+                             style: 'max-width: 185px;'
+              %>
+              <%= link_to 'Voir moins de baies', '#', onClick: 'toggle_destination_bays_visibility(0)' %>
+            </span>
           </div>
           <div id="back_destination_server" class="back_server">
             <%= render 'servers/draw_server_compact.html.erb', server: @to_server, selected_port: @to_port %>
@@ -82,8 +95,19 @@
             data: { server_id: $("select[name='to_server']").val() }
         });
     }
+    function toggle_destination_bays_visibility(see_more){
+        if(see_more==1) {
+            $('#restricted_destinations').hide();
+            $('#all_destinations').show();
+        }else{
+            $('#restricted_destinations').show();
+            $('#all_destinations').hide();
+        }
+    }
     $(document).ready(function(){
         loadPaletteColorPicker('[name="connection[color]"]');
+
+        toggle_destination_bays_visibility(0);
 
         $("#back_departure_server").on('click', 'a.port', function(e) {
             e.preventDefault();
