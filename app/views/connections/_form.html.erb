@@ -31,13 +31,13 @@
             <span id="restricted_destinations">
               <%= select_tag 'to_server',
                              grouped_options_for_select(@possible_destination_servers, { :selected => @to_server.id }),
-                             onchange: 'select_destination_server()' %>
+                             onchange: 'select_destination_server(0)' %>
               <%= link_to 'Voir plus de baies', '#', onClick: 'toggle_destination_bays_visibility(1)' %>
             </span>
             <span id="all_destinations">
               <%= select_tag 'to_server',
                              grouped_options_for_select(@all_servers_per_frame, { :selected => @to_server.id }),
-                             onchange: 'select_destination_server()',
+                             onchange: 'select_destination_server(1)',
                              style: 'max-width: 185px;'
               %>
               <%= link_to 'Voir moins de baies', '#', onClick: 'toggle_destination_bays_visibility(0)' %>
@@ -88,20 +88,27 @@
 </div>
 
 <script>
-    function select_destination_server(){
+    function select_destination_server(see_all){
+        if(see_all==1){
+            selected_server = $("#all_destinations select[name='to_server']").val();
+        }else{
+            selected_server = $("#restricted_destinations select[name='to_server']").val();
+        }
         $.ajax({
             method: "POST",
             url: "<%= connections_update_destination_server_path %>",
-            data: { server_id: $("select[name='to_server']").val() }
+            data: { server_id: selected_server }
         });
     }
     function toggle_destination_bays_visibility(see_more){
         if(see_more==1) {
             $('#restricted_destinations').hide();
             $('#all_destinations').show();
+            select_destination_server(1);
         }else{
             $('#restricted_destinations').show();
             $('#all_destinations').hide();
+            select_destination_server(0);
         }
     }
     $(document).ready(function(){
