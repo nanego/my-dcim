@@ -111,10 +111,28 @@
             select_destination_server(0);
         }
     }
+
+    function updateConnectionState(frame, cablename){
+        url = "http://supervision-reseau.ac.i2/macip/port_status.php?baie="+frame+"&cable="+cablename;
+        $.getJSON(url, function( data ) {
+            var items = [];
+            $.each( data, function( key, val ) {
+                items.push( "<li id='" + key + "'>" + val + "</li>" );
+            });
+
+            $( "<ul/>", {
+                "class": "my-new-list",
+                html: items.join( "" )
+            }).appendTo( "body" );
+        });
+    }
+
     $(document).ready(function(){
         loadPaletteColorPicker('[name="connection[color]"]');
 
         toggle_destination_bays_visibility(0);
+
+        updateConnectionState("<%= @frame.name %>", "<%=@from_port.cable.try(:name)%>");
 
         $("#back_departure_server").on('click', 'a.port', function(e) {
             e.preventDefault();
