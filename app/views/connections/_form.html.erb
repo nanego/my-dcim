@@ -2,6 +2,10 @@
 
 <div class="connection_form">
 
+  <div id="port_status">
+
+  </div>
+
   <%= form_for("connection", url:connections_update_path, remote: (remote ? true : false), html: { class: "form-horizontal", role: "form" }) do |f| %>
 
       <div  style="clear:both;margin-top: 5px;" >
@@ -114,17 +118,37 @@
 
     function updateConnectionState(frame, cablename){
         url = "http://supervision-reseau.ac.i2/macip/port_status.php?baie="+frame+"&cable="+cablename;
-        $.getJSON(url, function( data ) {
-            var items = [];
-            $.each( data, function( key, val ) {
-                items.push( "<li id='" + key + "'>" + val + "</li>" );
-            });
 
-            $( "<ul/>", {
-                "class": "my-new-list",
-                html: items.join( "" )
-            }).appendTo( "body" );
-        });
+        $.ajax(url, {dataType: 'json', jsonp: false})
+            .done(function(data){
+              var ratio = data['speed'] / data['maxspeed'];
+              var badge_class = "";
+              switch(ratio) {
+                  case 1:
+                      badge_class = "alert-success";
+                      break;
+                  case 0:
+                      badge_class = "alert-danger";
+                      break;
+                  default:
+                      badge_class = "alert-warning";
+              }
+              var badge = " <span class=\"badge "+badge_class+"\">"+data['speed']+' / '+data['maxspeed']+"</span>";
+              var value = "<b>Etat actuel de la connexion " + frame + " cable " + cablename + " : </b> " + badge;
+              $( "<span/>", {
+                  "class": 'state_' + ratio ,
+                  html: value
+              }).appendTo( "#port_status" );
+            })
+            .fail(function(data) {
+                console.log("Error in ajax call");
+                var badge = " <span class=\"badge alert-danger\">Pas d'informations. Script php : "+data['statusText']+"</span>";
+                var value = "<b>Etat actuel de la connexion " + frame + " cable " + cablename + " : </b> " + badge;
+                $( "<span/>", {
+                    "class": 'error' ,
+                    html: value
+                }).appendTo( "#port_status" );
+            });
     }
 
     $(document).ready(function(){
