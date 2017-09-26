@@ -119,7 +119,9 @@
     function updateConnectionState(frame, cablename){
         url = "http://supervision-reseau.ac.i2/macip/port_status.php?baie="+frame+"&cable="+cablename;
 
-        $.ajax(url, {dataType: 'json', jsonp: false})
+        $.ajax(url, {dataType: 'json', jsonp: false, beforeSend: function(xhr){
+            xhr.withCredentials = true;
+        }})
             .done(function(data){
               var ratio = data['speed'] / data['maxspeed'];
               var badge_class = "";
