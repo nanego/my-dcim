@@ -102,6 +102,8 @@
             method: "POST",
             url: "<%= connections_update_destination_server_path %>",
             data: { server_id: selected_server }
+        }).done(function(){
+            select_destination_port($('input[name="connection[to_port_id]"]').val());
         });
     }
     function toggle_destination_bays_visibility(see_more){
@@ -116,7 +118,7 @@
         }
     }
 
-    function updateConnectionState(frame, cablename){
+    function updateConnectionStateMessage(frame, cablename){
         url = "http://supervision-reseau.ac.i2/macip/port_status.php?baie="+frame+"&cable="+cablename;
 
         $.ajax(url, {dataType: 'json', jsonp: false, beforeSend: function(xhr){
@@ -153,27 +155,31 @@
             });
     }
 
+    function select_destination_port(port_id){
+        var selected_ports = $("#back_destination_server #"+port_id);
+        selected_ports.closest("table").find("span.selected").removeClass("selected");
+        selected_ports.closest("span").addClass("selected");
+        var server_name = $("#back_destination_server .server_name").text();
+        var component_name = selected_ports.closest("td").find("span:first").data("composant-name");
+        var position = selected_ports.data("position");
+        $('#to_port').val(server_name + " - Slot: " + component_name + " - Position : " + position);
+        $('[name="connection[to_port_id]"]').val(port_id);
+        selected_ports.closest("form").find('input[type="submit"]').prop('disabled', false);
+    }
+
     $(document).ready(function(){
         loadPaletteColorPicker('[name="connection[color]"]');
 
-        toggle_destination_bays_visibility(0);
+        $('#all_destinations').hide(); // TODO show it if destination server is not in the couple of bays
 
-        updateConnectionState("<%= @frame.name %>", "<%=@from_port.cable.try(:name)%>");
+        updateConnectionStateMessage("<%= @frame.name %>", "<%=@from_port.cable.try(:name)%>");
 
         $("#back_departure_server").on('click', 'a.port', function(e) {
             e.preventDefault();
         });
         $("#back_destination_server").on('click', 'a.port', function(e){
             e.preventDefault();
-            var selected_ports = $("#back_destination_server #"+e.target.id);
-            selected_ports.closest("table").find("span.selected").removeClass("selected");
-            selected_ports.closest("span").addClass("selected");
-            var server_name = $("#back_destination_server .server_name").text();
-            var component_name = selected_ports.closest("td").find("span:first").data("composant-name");
-            var position = selected_ports.data("position");
-            $('#to_port').val(server_name + " - Slot: " + component_name + " - Position : " + position);
-            $('[name="connection[to_port_id]"]').val(e.target.id);
-            selected_ports.closest("form").find('input[type="submit"]').prop('disabled', false);
+            select_destination_port(e.target.id);
         });
     });
 </script>
