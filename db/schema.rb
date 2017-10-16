@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170814160707) do
+ActiveRecord::Schema.define(version: 20171016085547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -261,6 +261,17 @@ ActiveRecord::Schema.define(version: 20170814160707) do
     t.index ["category_id"], name: "index_modeles_on_category_id", using: :btree
     t.index ["marque_id"], name: "index_modeles_on_marque_id", using: :btree
     t.index ["slug"], name: "index_modeles_on_slug", unique: true, using: :btree
+  end
+
+  create_table "moves", force: :cascade do |t|
+    t.string   "moveable_type"
+    t.integer  "moveable_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "prev_frame_id"
+    t.integer  "frame_id"
+    t.integer  "position"
+    t.index ["moveable_type", "moveable_id"], name: "index_moves_on_moveable_type_and_moveable_id", using: :btree
   end
 
   create_table "pdu_lines", force: :cascade do |t|

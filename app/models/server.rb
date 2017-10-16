@@ -23,6 +23,8 @@ class Server < ActiveRecord::Base
   has_many :card_types, through: :cards
   has_many :ports, through: :cards
 
+  has_many :moves, as: :moveable, dependent: :destroy
+
   validates_presence_of :numero
   validates_uniqueness_of :numero
 

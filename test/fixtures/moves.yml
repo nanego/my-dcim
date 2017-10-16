@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  moveable: one
+  moveable_type: Moveable
+
+two:
+  moveable: two
+  moveable_type: Moveable

@@ -1,0 +1,16 @@
+.moves_form{
+  .server{
+    &.relegated{
+      filter:alpha(opacity=40);
+      -moz-opacity:0.4;
+      -khtml-opacity: 0.4;
+      opacity: 0.4;
+    }
+  }
+
+  .frame{
+    .panel-heading{
+      margin-bottom: 0;
+    }
+  }
+}

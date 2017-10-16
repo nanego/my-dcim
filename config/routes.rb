@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :moves
   get 'data_import', action: 'index', controller: 'data_import'
   post 'data_import/ansible'
 
