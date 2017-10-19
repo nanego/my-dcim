@@ -1,0 +1,6 @@
+if ($('.connection_form_fields').is(":visible")){
+    target = $(".moves_form #connection_server_container")
+}else{
+    target = $(".moves_form #servers_server_container")
+}
+target.html("<%= escape_javascript(render 'servers/draw_server_compact.html.erb', server: @server) %>");

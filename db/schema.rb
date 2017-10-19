@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016085547) do
+ActiveRecord::Schema.define(version: 20171018161926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -261,6 +261,16 @@ ActiveRecord::Schema.define(version: 20171016085547) do
     t.index ["category_id"], name: "index_modeles_on_category_id", using: :btree
     t.index ["marque_id"], name: "index_modeles_on_marque_id", using: :btree
     t.index ["slug"], name: "index_modeles_on_slug", unique: true, using: :btree
+  end
+
+  create_table "moved_connections", force: :cascade do |t|
+    t.integer  "port_from_id"
+    t.integer  "port_to_id"
+    t.string   "vlans"
+    t.string   "cablename"
+    t.string   "color"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "moves", force: :cascade do |t|

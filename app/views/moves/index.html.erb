@@ -10,18 +10,23 @@
 
 <div class="table-responsive">
   <table class="table table-striped table-bordered table-hover">
-    <thead>
-      <tr>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-
     <tbody>
       <%= content_tag_for(:tr, @moves) do |move| %>
         <td><%= link_to "#{move.moveable.try(:modele).try(:category)} #{move.moveable} vers la baie #{move.frame}", edit_move_path(move) %></td>
         <td><%= link_to 'Supprimer', move, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' %></td>
       <% end %>
+    </tbody>
+  </table>
+</div>
+
+<h1>Baies après déplacements</h1>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <tbody>
+    <%= content_tag_for(:tr, @frames) do |frame| %>
+        <td><%= link_to "#{frame}", "/moves/frames/#{frame.id}" %></td>
+    <% end %>
     </tbody>
   </table>
 </div>

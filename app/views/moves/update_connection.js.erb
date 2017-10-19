@@ -1,0 +1,3 @@
+console.log('Connection updated !');
+$(".frame #back_server_<%= @selected_port.server.id %>").html("<%= escape_javascript(render 'servers/draw_server_compact.html.erb', server: @selected_port.server) %>");
+$("#connection_form").html("<%= escape_javascript(render partial: 'moves/moved_connection_form') %>");

@@ -30,7 +30,7 @@
           <% end %>
         <% end %>
       </h5>
-      <% if formats != [:pdf] %>
+      <% if editable != false && formats != [:pdf] %>
         <%= link_to "modifier", edit_frame_path(frame, :view => view_type), class: 'btn btn-default pull-right' %>
       <% end %>
       <div class="clearfix"></div>

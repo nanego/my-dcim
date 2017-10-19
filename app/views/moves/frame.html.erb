@@ -1,0 +1,64 @@
+<%= render 'layouts/breadcrumb', params: {"Déplacements prévus" => moves_path,
+                                          "Baie #{@frame}" => ''} %>
+
+<div class="container-fluid">
+
+  <div class="panel-islet">
+    <% if @room.present? %>
+        <div><h3>Salle <%= @room.name %> - Ilot <%= @frame.islet %></h3></div>
+    <% end %>
+
+    <div class="row">
+      <ul class="frames" style="padding: 0;">
+
+        <div class="col-xs-12 col-sm-5 view-back">
+          <%= render partial: 'frames/show', locals: {frame: @frame, servers: @servers, settings: Frame.settings.merge({:min_height => 20 }), editable: false, view_type: 'back'} %>
+        </div>
+
+        <div class="col-xs-12 col-sm-7 moved_connection_form" id="connection_form">
+        </div>
+
+      </ul>
+    </div>
+
+  </div>
+
+</div>
+
+<h3>Déplacements appliqués</h3>
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <tbody>
+    <%= content_tag_for(:tr, @moves) do |move| %>
+        <td><%= link_to "#{move.moveable.try(:modele).try(:category)} #{move.moveable} vers la baie #{move.frame}", edit_move_path(move) %></td>
+        <td><%= link_to 'Supprimer', move, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' %></td>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<script>
+    $(document).ready(function(){
+        loadPaletteColorPicker('[name="move[color]"]');
+        $(".frame").on('click', '.port', function(e){
+            e.preventDefault();
+            loadConnectionForm(e.target.id);
+        });
+    });
+
+    function loadConnectionForm(port_id){
+        if(port_id != undefined && port_id != ''){
+            console.log("Selected port : " + JSON.stringify(port_id));
+            $.ajax({
+                method: "GET",
+                url: "<%= load_connection_moves_path %>",
+                data: { port_id: port_id }
+            }).done(function(){
+                $('.connection_form').show();
+            });
+        }else{
+            $('.connection_form').hide();
+        }
+    }
+</script>
