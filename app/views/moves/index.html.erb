@@ -26,6 +26,8 @@
     <tbody>
     <%= content_tag_for(:tr, @frames) do |frame| %>
         <td><%= link_to "#{frame}", "/moves/frames/#{frame.id}" %></td>
+        <td><%= link_to "Consulter / Modifier les connexions", "/moves/frames/#{frame.id}", class: 'btn btn-default' %></td>
+        <td><%= link_to "Imprimer", "#", class: 'btn btn-primary' %></td>
     <% end %>
     </tbody>
   </table>

@@ -34,8 +34,10 @@ class ConnectionsController < ApplicationController
 
     # Destination server
     @to_server = @to_port.present? ? @to_port.server : @frame.servers.where.not(position: nil, modele_id: nil).order(:position).first
-    @to_server.create_missing_ports
-    @to_server.reload
+    if @to_server
+      @to_server.create_missing_ports
+      @to_server.reload
+    end
 
   end
 

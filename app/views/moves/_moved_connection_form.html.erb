@@ -65,8 +65,8 @@
   </div>
 
   <div>
-    <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit 'Enregistrer', class: "btn btn-primary", disabled: :disabled %>
+    <div class="col-sm-offset-2 col-sm-10 field">
+      <%= f.submit 'Enregistrer', class: "btn btn-primary", disabled: (@destination_port.present? ? false : :disabled) %>
     </div>
   </div>
 

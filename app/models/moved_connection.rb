@@ -8,5 +8,9 @@ class MovedConnection < ApplicationRecord
   def ports
     [self.port_from, self.port_to]
   end
+  
+  def cablecolor
+    color
+  end
 
 end

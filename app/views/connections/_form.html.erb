@@ -34,13 +34,15 @@
           <div class="" style="text-align: center;" id="select_destination_bay">
             <span id="restricted_destinations">
               <%= select_tag 'to_server',
-                             grouped_options_for_select(@possible_destination_servers, { :selected => @to_server.id }),
+                             grouped_options_for_select(@possible_destination_servers, { :selected => @to_server.try(:id) }),
+                             include_blank: true,
                              onchange: 'select_destination_server(0)' %>
               <%= link_to 'Voir plus de baies', '#', onClick: 'toggle_destination_bays_visibility(1)' %>
             </span>
             <span id="all_destinations">
               <%= select_tag 'to_server',
-                             grouped_options_for_select(@all_servers_per_frame, { :selected => @to_server.id }),
+                             grouped_options_for_select(@all_servers_per_frame, { :selected => @to_server.try(:id) }),
+                             include_blank: true,
                              onchange: 'select_destination_server(1)',
                              style: 'max-width: 185px;'
               %>
@@ -48,7 +50,7 @@
             </span>
           </div>
           <div id="back_destination_server" class="back_server">
-            <%= render 'servers/draw_server_compact.html.erb', server: @to_server, selected_port: @to_port %>
+            <%= render('servers/draw_server_compact.html.erb', server: @to_server, selected_port: @to_port) if @to_server %>
           </div>
           <%= f.hidden_field :to_port_id, value: @to_port.try(:id) %>
         </div>

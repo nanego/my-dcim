@@ -1,17 +1,5 @@
 <div class="moves_form">
 
-  <div class="form-group row select_moveable_type">
-    <div class="col-sm-3"  style="text-align: right;">
-      <span>Quel type d'objet sera déplacé ?</span>
-    </div>
-    <div class="col-sm-9">
-      <div class="btn-group" role="group" aria-label="...">
-        <button type="button" class="btn btn-default moveable_type active" id="moveable_type_server">Matériel</button>
-        <button type="button" class="btn btn-default moveable_type" id="moveable_type_connection">Connexion</button>
-      </div>
-    </div>
-  </div>
-
   <%= form_for(@move, html: { class: "form-horizontal moves_form server_form_fields col-sm-6", role: "form" }) do |f| %>
     <% if @move.errors.any? %>
       <div class="alert alert-danger alert-dismissable" role="alert">
@@ -74,76 +62,6 @@
     </div>
   <% end %>
 
-  <%= form_for(@move, html: { class: "form-horizontal moves_form connection_form_fields col-sm-6", role: "form" }) do |f| %>
-      <% if @move.errors.any? %>
-          <div class="alert alert-danger alert-dismissable" role="alert">
-            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            <h4><%= pluralize(@move.errors.count, "error") %> prohibited this move from being saved:</h4>
-
-            <ul>
-              <% @move.errors.full_messages.each do |msg| %>
-                  <li><%= msg %></li>
-              <% end %>
-            </ul>
-          </div>
-      <% end %>
-
-      <div class="form-group row">
-
-        <%= f.hidden_field :moveable_type, value: @move.moveable_type %>
-
-        <div class="col-sm-6"  style="text-align: right;">
-          <span>Matériel de départ</span>
-        </div>
-        <div class="col-sm-6">
-          <%= f.select :moveable_id,
-                         grouped_options_for_select(@all_servers_per_frame, { :selected => @move.moveable_id }),
-                         {include_blank: true},
-                         {onchange: 'select_server(this.value)',
-                         style: 'max-width: 185px;'}
-          %>
-        </div>
-        <div class="col-sm-12 server_container" id="connection_server_container"></div>
-
-        <div class="col-sm-6"  style="text-align: right;">
-          <span>Baie de destination</span>
-        </div>
-        <div class="col-sm-6">
-          <%= f.select :frame_id,
-                         grouped_options_for_select(@all_frames_per_room, { :selected => @move.frame_id }),
-                         {include_blank: true},
-                         {onchange: 'select_frame(this.value, "back")',
-                         style: 'max-width: 185px;'}
-          %>
-        </div>
-
-        <div class="col-sm-6" style="text-align: right;">
-          <span>Vlans</span>
-        </div>
-        <div class="col-sm-6">
-          <%= f.text_field :vlans, class: "form-control", value: nil %>
-        </div>
-
-        <div class="col-sm-6" style="text-align: right;">
-          <span>Couleur</span>
-        </div>
-        <div class="col-sm-6">
-          <%= f.hidden_field :color, value: nil %>
-        </div>
-
-        <div class="col-sm-6" style="text-align: right;">
-          <span>Nom du cable</span>
-        </div>
-        <div class="col-sm-6">
-          <%= f.text_field :cablename, class: "form-control", value: nil %>
-        </div>
-
-        <div class="col-sm-offset-6 col-sm-6">
-          <%= f.submit 'Enregistrer', class: "btn btn-primary" %>
-        </div>
-      </div>
-  <% end %>
-
   <div class="col-sm-6" id="frame">
     <% if @move.persisted? %>
         <% @move.moveable.position = @move.position %>
@@ -162,31 +80,9 @@
 <script>
     $(document).ready(function(){
         loadPaletteColorPicker('[name="move[color]"]');
-        $('.connection_form_fields').hide();
         $('.server_container').hide();
-        <% if @move.moveable_type=='Server'%>
-          select_server(<%= @move.moveable_id %>);
-        <% end %>
-        $(".select_moveable_type").on('click', 'button.moveable_type', function(e){
-            select_moveable_type(e.target.id);
-        });
+        select_server(<%= @move.moveable_id %>);
     });
-
-    function select_moveable_type(moveable_type){
-        if(moveable_type == 'moveable_type_server'){
-            $('#moveable_type_connection').removeClass("active");
-            $('#moveable_type_server').addClass("active");
-            $('.connection_form_fields').hide();
-            $('.server_form_fields').show();
-            $('#move_moveable_type').val('Server');
-        }else{
-            $('#moveable_type_server').removeClass("active");
-            $('#moveable_type_connection').addClass("active");
-            $('.connection_form_fields').show();
-            $('.server_form_fields').hide();
-            $('#move_moveable_type').val('Connection');
-        }
-    }
 
     function select_server(server_id){
         if(server_id != undefined && server_id != ''){

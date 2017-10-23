@@ -15,7 +15,9 @@
           <%= render partial: 'frames/show', locals: {frame: @frame, servers: @servers, settings: Frame.settings.merge({:min_height => 20 }), editable: false, view_type: 'back'} %>
         </div>
 
+        <div class="col-xs-12 col-sm-7 moved_connection_form_loading">CHARGEMENT EN COURS</div>
         <div class="col-xs-12 col-sm-7 moved_connection_form" id="connection_form">
+
         </div>
 
       </ul>
@@ -33,6 +35,9 @@
         <td><%= link_to "#{move.moveable.try(:modele).try(:category)} #{move.moveable} vers la baie #{move.frame}", edit_move_path(move) %></td>
         <td><%= link_to 'Supprimer', move, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' %></td>
     <% end %>
+    <%= content_tag_for(:tr, @moved_connections) do |connection| %>
+        <td><%= "Connexion entre #{connection.port_from.server.try(:modele).try(:category)} #{connection.port_from.server} (port ##{connection.port_from_id}) et #{connection.port_to.server.try(:modele).try(:category)} #{connection.port_to.server} (port ##{connection.port_to_id}) => vlans:#{connection.vlans} cablename:#{connection.cablename} couleur:#{connection.color}" %></td>
+    <% end %>
     </tbody>
   </table>
 </div>
@@ -40,6 +45,7 @@
 
 <script>
     $(document).ready(function(){
+        $('.moved_connection_form_loading').hide();
         loadPaletteColorPicker('[name="move[color]"]');
         $(".frame").on('click', '.port', function(e){
             e.preventDefault();
@@ -49,6 +55,7 @@
 
     function loadConnectionForm(port_id){
         if(port_id != undefined && port_id != ''){
+            $('.moved_connection_form_loading').show();
             console.log("Selected port : " + JSON.stringify(port_id));
             $.ajax({
                 method: "GET",
@@ -56,6 +63,7 @@
                 data: { port_id: port_id }
             }).done(function(){
                 $('.connection_form').show();
+                $('.moved_connection_form_loading').hide();
             });
         }else{
             $('.connection_form').hide();

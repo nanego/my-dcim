@@ -107,8 +107,10 @@ class MovesController < ApplicationController
     @frame = Frame.find(params[:id])
     @moves = Move.where(frame: @frame, moveable_type: 'Server')
     @moved_servers = @moves.map { |move| server = move.moveable; server.position = move.position; server}
-    @moved_connections = nil # TODO
     @servers = (@frame.servers | @moved_servers).sort_by { |server| server.position.present? ? server.position : 0}.reverse
+
+    @servers_ports_ids = @servers.map(&:ports).flatten.map(&:id)
+    @moved_connections = MovedConnection.where('port_from_id IN (?) OR port_to_id IN (?)', @servers_ports_ids, @servers_ports_ids)
   end
 
   private

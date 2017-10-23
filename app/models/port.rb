@@ -52,6 +52,18 @@ class Port < ActiveRecord::Base
     self.save && other_port.save
   end
 
+  def cablename
+    if connection.present? && connection.try(:cable).present? && connection.try(:cable).try(:name).present?
+      connection.cable.name
+    else
+      ""
+    end
+  end
+
+  def cablecolor
+    self.try(:connection).try(:cable).present? ? self.connection.cable.color : ''
+  end
+
   private
 
   def update_pdus_elements
