@@ -1,0 +1,17 @@
+<div class="container-fluid">
+
+  <div class="panel-islet">
+
+    <div class="row">
+      <ul class="frames" style="padding: 0;">
+
+        <div class="col-xs-12 view-back">
+          <%= render partial: 'frames/show.html.erb', locals: {frame: @frame, servers: @servers, settings: Frame.settings.merge({:min_height => 20 }), editable: false, view_type: 'back'} %>
+        </div>
+
+      </ul>
+    </div>
+
+  </div>
+
+</div>

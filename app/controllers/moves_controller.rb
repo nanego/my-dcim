@@ -115,6 +115,19 @@ class MovesController < ApplicationController
     @moved_servers = @moves.map { |move| server = move.moveable; server.position = move.position; server}
     @servers = (@frame.servers | @moved_servers).sort_by { |server| server.position.present? ? server.position : 0}.reverse
     @moved_connections = MovedConnection.per_servers(@servers)
+
+    respond_to do |format|
+      format.html do
+        render 'moves/frame.html.erb'
+      end
+      format.pdf do
+        render layout: 'pdf.html',
+               template: "moves/frame.pdf.erb",
+               show_as_html: params[:debug].present?,
+               pdf: 'frame',
+               zoom: 0.75
+      end
+    end
   end
 
   private

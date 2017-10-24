@@ -5,7 +5,7 @@
     <span class="glyphicon glyphicon-plus"></span>
     Prévoir un nouveau déplacement
   <% end %>
-  <h1>Déplacements prévus</h1>
+  <h2>Déplacements prévus</h2>
 </div>
 
 <div class="table-responsive">
@@ -19,15 +19,23 @@
   </table>
 </div>
 
-<h1>Baies après déplacements</h1>
+<h2>Baies après déplacements</h2>
 
 <div class="table-responsive">
   <table class="table table-striped table-bordered table-hover">
     <tbody>
     <%= content_tag_for(:tr, @frames) do |frame| %>
         <td><%= link_to "#{frame}", "/moves/frames/#{frame.id}" %></td>
-        <td><%= link_to "Consulter / Modifier les connexions", "/moves/frames/#{frame.id}", class: 'btn btn-default' %></td>
-        <td><%= link_to "Imprimer", "#", class: 'btn btn-primary' %></td>
+        <td><%= link_to "Modifier les connexions", "/moves/frames/#{frame.id}", class: 'btn btn-default' %></td>
+        <td><%= link_to "/moves/frames/#{frame.id}.pdf?debug=1", class: 'btn btn-primary' do %>
+              <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+              Impression
+          <% end %>
+          <%= link_to "/moves/frames/#{frame.id}.pdf", class: 'btn btn-primary' do %>
+              <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+              Export PDF
+          <% end %>
+        </td>
     <% end %>
     </tbody>
   </table>

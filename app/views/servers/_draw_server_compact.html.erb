@@ -21,7 +21,7 @@
             <tr>
               <% composants_per_enclosure.each do |component| %>
                 <td style="max-width: 2.5em;">
-                  <%= render 'servers/draw_component', server: server, component: component, selected_port: selected_port %>
+                  <%= render 'servers/draw_component.html.erb', server: server, component: component, selected_port: selected_port %>
                 </td>
               <% end %>
             </tr>
@@ -31,7 +31,7 @@
             <% composants_per_enclosure.each do |component| %>
               <tr>
                 <th><%= component.name.present? ? "#{component.name.include?('SL') ? component.name[2] : component.name}" : component.position %></th>
-                <td><%= render 'servers/draw_component', server: server, component: component, selected_port: selected_port %></td>
+                <td><%= render 'servers/draw_component.html.erb', server: server, component: component, selected_port: selected_port %></td>
               </tr>
             <% end %>
 
