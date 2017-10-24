@@ -63,6 +63,9 @@ class ConnectionsController < ApplicationController
     @server = Server.find_by_id(params[:server_id])
     @server.create_missing_ports
     @server.reload
+    if params[:with_moved_connection]
+      @moved_connections = MovedConnection.per_servers([@server])
+    end
   end
 
 end

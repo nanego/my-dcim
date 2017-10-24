@@ -67,6 +67,7 @@ class MovesController < ApplicationController
 
   def load_server
     @server = Server.includes(:cards => [:card_type => :port_type], :ports => [:connection => :cable] ).find(params[:server_id])
+    @moved_connections = MovedConnection.per_servers([@server])
   end
 
   def load_frame
@@ -76,10 +77,11 @@ class MovesController < ApplicationController
 
   def load_connection
     @selected_port = Port.find(params[:port_id])
-    @moved_connections = MovedConnection.where(port_from_id: params[:port_id]).or(MovedConnection.where(port_to_id: params[:port_id]))
+    @server = @selected_port.server
+    @moved_connections = MovedConnection.per_servers([@server])
     # TODO Deal with conflicts if there is more than 1 result
-    if @moved_connections.present?
-      @moved_connection = @moved_connections.first
+    @moved_connection = @moved_connections.where(port_from_id: params[:port_id]).or(MovedConnection.where(port_to_id: params[:port_id])).first
+    if @moved_connection.present?
       @destination_port = (@moved_connection.ports - [@selected_port]).first
     else
       @moved_connection = MovedConnection.new(port_from_id: params[:port_id])
@@ -108,9 +110,7 @@ class MovesController < ApplicationController
     @moves = Move.where(frame: @frame, moveable_type: 'Server')
     @moved_servers = @moves.map { |move| server = move.moveable; server.position = move.position; server}
     @servers = (@frame.servers | @moved_servers).sort_by { |server| server.position.present? ? server.position : 0}.reverse
-
-    @servers_ports_ids = @servers.map(&:ports).flatten.map(&:id)
-    @moved_connections = MovedConnection.where('port_from_id IN (?) OR port_to_id IN (?)', @servers_ports_ids, @servers_ports_ids)
+    @moved_connections = MovedConnection.per_servers(@servers)
   end
 
   private

@@ -13,4 +13,9 @@ class MovedConnection < ApplicationRecord
     color
   end
 
+  def self.per_servers(servers)
+    servers_ports_ids = servers.map(&:ports).flatten.map(&:id)
+    MovedConnection.where('port_from_id IN (?) OR port_to_id IN (?)', servers_ports_ids, servers_ports_ids)
+  end
+
 end

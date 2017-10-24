@@ -20,9 +20,21 @@
 }
 
 .moved_connection_form{
+  .well{
+    background-color: white;
+    display: inline-block;
+  }
   .field{
     clear:both;
     padding-top:10px;
+  }
+  .port_container{
+    margin-left: -2px;
+    display: inline-block;
+  }
+  .selected{
+    padding:2px 1px;
+    background-color: #ee3b3b;
   }
 }
 

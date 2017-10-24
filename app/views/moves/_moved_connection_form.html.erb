@@ -1,13 +1,16 @@
+<div class="well">
+
 <%= form_for(@moved_connection, url:update_connection_moves_path, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
 
   <div style="clear:both;margin-top: 5px;" >
     <%= f.label 'Port de départ', class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= text_field_tag 'from_port',"#{@selected_port.server} - Slot: #{@selected_port.card.try(:composant)}#{@selected_port.card.try(:composant).try(:position)} - Carte: #{@selected_port.card.try(:card_type)} - Position: #{@selected_port.position}" , {class: "form-control", disabled: true} %>
-    </div>
-    <div class="col-sm-10">
-      <div id="back_departure_server" class="back_server">
-        <%= render 'servers/draw_server_compact.html.erb', server: @selected_port.server, selected_port: @selected_port %>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div id="back_departure_server" class="back_server">
+            <%= render 'servers/draw_server_compact.html.erb', server: @selected_port.server, selected_port: @selected_port %>
+          </div>
+        </div>
       </div>
       <%= f.hidden_field :port_from_id, value: @selected_port.id %>
     </div>
@@ -17,27 +20,27 @@
   <div class="field">
     <%= f.label 'Port de destination', class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <% if @destination_port.present? %>
-          <%= text_field_tag 'to_port',"#{@destination_port.server} - Slot: #{@destination_port.try(:card).try(:composant)}#{@destination_port.try(:card).try(:composant).try(:position)} - Carte: #{@destination_port.try(:card).try(:card_type)} - Position: #{@destination_port.try(:position)}" , {class: "form-control", disabled: true} %>
-      <% else %>
-          <%= text_field_tag 'to_port', "Sélectionnez un port de destination", {class: "form-control", disabled: true} %>
-      <% end %>
-    </div>
-    <div class="col-sm-10">
-      <div class="" style="text-align: center;" id="select_destination_bay">
-        <span id="all_destinations">
-          <%= select_tag 'to_server',
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="" style="text-align: center;" id="select_destination_bay">
+            <span id="all_destinations">
+              <%= select_tag 'to_server',
                          grouped_options_for_select(@all_servers_per_frame, { :selected => @destination_port.present? ? @destination_port.server.id : nil }),
                          include_blank: true,
                          onchange: 'select_destination_server(this.value)',
                          style: 'max-width: 185px;'
-          %>
-        </span>
-      </div>
-      <div id="back_destination_server" class="back_server">
-        <% if @destination_port %>
-          <%= render 'servers/draw_server_compact.html.erb', server: @destination_port.server, selected_port: @destination_port %>
-        <% end %>
+              %>
+            </span>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div id="back_destination_server" class="back_server">
+            <% if @destination_port %>
+                <%= render 'servers/draw_server_compact.html.erb', server: @destination_port.server, selected_port: @destination_port %>
+            <% end %>
+          </div>
+        </div>
       </div>
       <%= f.hidden_field :port_to_id, value: @destination_port.try(:id) %>
     </div>
@@ -92,7 +95,7 @@
           $.ajax({
               method: "POST",
               url: "<%= connections_update_destination_server_path %>",
-              data: { server_id: server_id }
+              data: { server_id: server_id, with_moved_connection: 1 }
           }).done(function(){
               select_destination_port($('input[name="moved_connection[port_to_id]"]').val());
           });
@@ -107,10 +110,11 @@
           var server_name = $("#back_destination_server .server_name").text();
           var component_name = selected_port.closest("td").find("span:first").data("composant-name");
           var position = selected_port.data("position");
-          $('#to_port').val(server_name + " - Slot: " + component_name + " - Position : " + position);
           $('[name="moved_connection[port_to_id]"]').val(port_id);
           selected_port.closest("form").find('input[type="submit"]').prop('disabled', false);
       }
   }
 
 </script>
+
+</div>
