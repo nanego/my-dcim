@@ -37,6 +37,7 @@
     <% end %>
     <%= content_tag_for(:tr, @moved_connections) do |connection| %>
         <td><%= "Connexion entre #{connection.port_from.server.try(:modele).try(:category)} #{connection.port_from.server} (port ##{connection.port_from_id}) et #{connection.port_to.server.try(:modele).try(:category)} #{connection.port_to.server} (port ##{connection.port_to_id}) => vlans:#{connection.vlans} cablename:#{connection.cablename} couleur:#{connection.color}" %></td>
+        <td></td>
     <% end %>
     </tbody>
   </table>

@@ -85,18 +85,22 @@ class MovesController < ApplicationController
       @destination_port = (@moved_connection.ports - [@selected_port]).first
     else
       @moved_connection = MovedConnection.new(port_from_id: params[:port_id])
+      @destination_port = @selected_port.connection.try(:paired_connection).try(:port)
     end
     get_all_servers_per_frame
   end
 
   def update_connection
-    @moved_connections = MovedConnection.where('port_from_id IN (?) OR port_to_id IN (?)',
-                                               [params[:moved_connection][:port_from_id], params[:moved_connection][:port_to_id]],
-                                               [params[:moved_connection][:port_from_id], params[:moved_connection][:port_to_id]])
+    @port_from = Port.find(params[:moved_connection][:port_from_id])
+    @port_to = Port.find(params[:moved_connection][:port_to_id])
+    @servers = [@port_from.server, @port_to.server]
+    @moved_connections = MovedConnection.per_servers(@servers)
+
     # TODO Deal with conflicts if there is more than 1 result
-    if @moved_connections.present?
-      @moved_connection = @moved_connections.first
-    else
+    @moved_connection = @moved_connections.where('port_from_id IN (?) OR port_to_id IN (?)',
+                                                 [params[:moved_connection][:port_from_id], params[:moved_connection][:port_to_id]],
+                                                 [params[:moved_connection][:port_from_id], params[:moved_connection][:port_to_id]]).first
+    if @moved_connection.blank?
       @moved_connection = MovedConnection.new
     end
     @moved_connection.update(moved_connection_params)
