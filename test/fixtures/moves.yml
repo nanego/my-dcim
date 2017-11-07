@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  moveable: one
-  moveable_type: Moveable
+  moveable_type: Server
+  moveable_id: 1
+  position: 40
+  frame_id: 1
 
 two:
-  moveable: two
-  moveable_type: Moveable
+  moveable_type: Server
+  moveable_id: 1
+  position: 40
+  frame_id: 1

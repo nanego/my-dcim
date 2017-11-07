@@ -1,6 +1,5 @@
 <%
   if @prefilled_data && @prefilled_data[:enclosure]
-    puts "prefilled data : #{@prefilled_data[:enclosure].inspect}"
     composants = @prefilled_data[:enclosure].composants.slots
   else
     if local_assigns[:enclosure].present?

@@ -20,6 +20,7 @@ one:
   ipmi_futur: 1
   rj45_cm: 1
   ipmi_dedie: 1
+  position: 39
 
 two:
   id: 2
@@ -41,3 +42,4 @@ two:
   ipmi_futur: 1
   rj45_cm: 1
   ipmi_dedie: 1
+  position: 38

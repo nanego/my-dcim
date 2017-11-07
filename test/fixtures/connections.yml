@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  cable_id: MyString
-  port_id: MyString
+  cable_id: 1
+  port_id: 1
 
 two:
-  cable_id: MyString
-  port_id: MyString
+  cable_id: 1
+  port_id: 2

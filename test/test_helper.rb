@@ -12,3 +12,9 @@ end
 class ActionController::TestCase
   include Devise::Test::ControllerHelpers
 end
+
+module ActionDispatch
+  class IntegrationTest
+    include Devise::Test::IntegrationHelpers
+  end
+end

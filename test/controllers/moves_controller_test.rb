@@ -1,7 +1,16 @@
 require 'test_helper'
 
 class MovesControllerTest < ActionDispatch::IntegrationTest
+
+  def test_params
+    { :moveable_type => 'Server',
+                  :moveable_id => servers(:one).id,
+                  :frame_id => frames(:one).id,
+                  :position => 40 }
+  end
+
   setup do
+    sign_in users(:one)
     @move = moves(:one)
   end
 
@@ -17,10 +26,10 @@ class MovesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create move" do
     assert_difference('Move.count') do
-      post moves_url, params: { move: {  } }
+      post moves_url, params: { move: test_params }
     end
 
-    assert_redirected_to move_url(Move.last)
+    assert_redirected_to edit_move_url(Move.last)
   end
 
   test "should show move" do
@@ -34,8 +43,8 @@ class MovesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update move" do
-    patch move_url(@move), params: { move: {  } }
-    assert_redirected_to move_url(@move)
+    patch move_url(@move), params: { move: test_params }
+    assert_redirected_to edit_move_url(@move)
   end
 
   test "should destroy move" do
