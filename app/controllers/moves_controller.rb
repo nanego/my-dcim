@@ -6,7 +6,7 @@ class MovesController < ApplicationController
   # GET /moves.json
   def index
     @moves = Move.all
-    @frames = @moves.map(&:frame).compact.uniq
+    @frames = (@moves.map(&:frame) | @moves.map(&:prev_frame)).compact.uniq
   end
 
   # GET /moves/1
@@ -28,6 +28,8 @@ class MovesController < ApplicationController
   def create
     @move = Move.new(move_params)
 
+    @move.prev_frame_id = @move.moveable.try(:frame_id)
+
     respond_to do |format|
       if @move.save
         format.html { redirect_to edit_move_path(@move), notice: 'Move was successfully created.' }
@@ -43,6 +45,9 @@ class MovesController < ApplicationController
   # PATCH/PUT /moves/1
   # PATCH/PUT /moves/1.json
   def update
+
+    @move.prev_frame_id = @move.moveable.try(:frame_id)
+
     respond_to do |format|
       if @move.update(move_params)
         format.html { redirect_to edit_move_path(@move), notice: 'Move was successfully updated.' }
@@ -111,9 +116,13 @@ class MovesController < ApplicationController
 
   def frame
     @frame = Frame.find(params[:id])
+
     @moves = Move.where(frame: @frame, moveable_type: 'Server')
     @moved_servers = @moves.map { |move| server = move.moveable; server.position = move.position; server}
-    @servers = (@frame.servers | @moved_servers).sort_by { |server| server.position.present? ? server.position : 0}.reverse
+
+    @removed_servers = Move.where(prev_frame_id: @frame.id, moveable_type: 'Server').map(&:moveable)
+
+    @servers = ((@frame.servers - @removed_servers) | @moved_servers).sort_by { |server| server.position.present? ? server.position : 0}.reverse
     @moved_connections = MovedConnection.per_servers(@servers)
 
     respond_to do |format|
@@ -138,7 +147,7 @@ class MovesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def move_params
-      params.require(:move).permit(:moveable_type, :moveable_id, :frame_id, :position )
+      params.require(:move).permit(:moveable_type, :moveable_id, :frame_id, :position, :prev_frame_id )
     end
     def moved_connection_params
       params.require(:moved_connection).permit(:port_from_id, :port_to_id, :vlans, :color, :cablename )
