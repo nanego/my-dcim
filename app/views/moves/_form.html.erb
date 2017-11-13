@@ -56,6 +56,17 @@
         %>
       </div>
 
+      <div class="col-sm-6"  style="text-align: right;">
+        <span>Supprimer toutes les connexions vers ce matériel ?</span>
+      </div>
+      <div class="col-sm-6">
+        <%= f.select :remove_connections,
+                     options_for_select(['Oui', 'Non'], { :selected => 'Non' }),
+                     {include_blank: false},
+                     {style: 'max-width: 185px;'}
+        %>
+      </div>
+
       <div class="col-sm-offset-6 col-sm-6">
         <%= f.submit 'Enregistrer', class: "btn btn-primary" %>
       </div>

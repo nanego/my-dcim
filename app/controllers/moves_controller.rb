@@ -30,6 +30,10 @@ class MovesController < ApplicationController
 
     @move.prev_frame_id = @move.moveable.try(:frame_id)
 
+    if params[:move][:remove_connections] == 'Oui'
+      @move.reinit_connections
+    end
+
     respond_to do |format|
       if @move.save
         format.html { redirect_to edit_move_path(@move), notice: 'Move was successfully created.' }
@@ -47,6 +51,10 @@ class MovesController < ApplicationController
   def update
 
     @move.prev_frame_id = @move.moveable.try(:frame_id)
+
+    if params[:move][:remove_connections] == 'Oui'
+      @move.reinit_connections
+    end
 
     respond_to do |format|
       if @move.update(move_params)
@@ -98,7 +106,7 @@ class MovesController < ApplicationController
   def update_connection
     @port_from = Port.find(params[:moved_connection][:port_from_id])
     @port_to = Port.find(params[:moved_connection][:port_to_id])
-    @servers = [@port_from.server, @port_to.server]
+    @servers = [@port_from.server, @port_to.try(:server)].compact
 
     # Current connections for all servers, necessary to refresh visible servers ports
     @moved_connections = MovedConnection.per_servers(@servers)
@@ -123,7 +131,7 @@ class MovesController < ApplicationController
                                  cablename: "",
                                  color: "",
                                  port_from_id: @port_from.id,
-                                 port_to_id: @port_to.id})
+                                 port_to_id: @port_to.try(:id)})
     else
       @moved_connection.update(moved_connection_params)
     end
