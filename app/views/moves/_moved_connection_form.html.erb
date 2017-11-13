@@ -1,6 +1,6 @@
 <div class="well">
 
-<%= form_for(@moved_connection, url:update_connection_moves_path, remote: true, html: { class: "form-horizontal", role: "form" }) do |f| %>
+<%= form_for(@moved_connection, url:update_connection_moves_path, remote: true, html: { class: "form-horizontal moved_connection", role: "form" }) do |f| %>
 
   <div style="clear:both;margin-top: 5px;" >
     <%= f.label 'Port de départ', class: "col-sm-2 control-label" %>
@@ -68,8 +68,12 @@
   </div>
 
   <div>
-    <div class="col-sm-offset-2 col-sm-10 field">
+    <div class="col-sm-offset-2 col-sm-6 field">
       <%= f.submit 'Enregistrer', class: "btn btn-primary", disabled: (@destination_port.present? ? false : :disabled) %>
+    </div>
+    <div class="col-sm-4" style="text-align: right;margin-top: 20px;">
+      <%= f.hidden_field :remove_connection, value: '0' %>
+      <%= link_to 'Supprimer cette connexion', '#', onclick: 'remove_connection()' %>
     </div>
   </div>
 
@@ -113,6 +117,11 @@
           $('[name="moved_connection[port_to_id]"]').val(port_id);
           selected_port.closest("form").find('input[type="submit"]').prop('disabled', false);
       }
+  }
+
+  function remove_connection(){
+    $('form #moved_connection_remove_connection')[0].value = '1';
+    $('form.moved_connection').trigger('submit.rails');
   }
 
 </script>
