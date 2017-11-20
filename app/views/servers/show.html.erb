@@ -149,4 +149,22 @@
   </div>
 </div>
 
+<div class="col-lg-6">
+  <div class="panel panel-body">
+
+    <H5>Documents attachés :</H5>
+
+    <ul>
+
+    <% @server.documents.each do |doc| %>
+
+      <li><%= link_to(doc.document.metadata['filename'], doc.document_url, {target: '_blank'}) if doc.document.present? %></li>
+
+    <% end %>
+
+    </ul>
+
+  </div>
+</div>
+
 <%= render 'ports/modal_edit_port' %>

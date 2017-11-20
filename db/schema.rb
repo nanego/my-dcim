@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171018161926) do
+ActiveRecord::Schema.define(version: 20171116160102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,6 +141,13 @@ ActiveRecord::Schema.define(version: 20171018161926) do
     t.datetime "updated_at",   null: false
     t.index ["disk_type_id"], name: "index_disks_on_disk_type_id", using: :btree
     t.index ["server_id"], name: "index_disks_on_server_id", using: :btree
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.integer  "server_id"
+    t.text     "document_data"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "domaines", force: :cascade do |t|

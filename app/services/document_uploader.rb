@@ -1,0 +1,3 @@
+class DocumentUploader < Shrine
+  
+end

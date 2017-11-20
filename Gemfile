@@ -55,3 +55,6 @@ gem 'acts_as_list'
 gem 'public_activity', git: 'https://github.com/pokonski/public_activity.git'
 gem 'friendly_id', '~> 5.1.0'
 gem 'record_tag_helper', '~> 1.0' # Add helpers removed from Rails core in Rails 5
+
+# Manage file uploads
+gem 'shrine', '~> 2.8'

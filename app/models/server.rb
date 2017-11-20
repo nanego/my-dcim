@@ -25,6 +25,8 @@ class Server < ActiveRecord::Base
 
   has_many :moves, as: :moveable, dependent: :destroy
 
+  has_many :documents
+
   validates_presence_of :numero
   validates_uniqueness_of :numero
 
@@ -35,6 +37,9 @@ class Server < ActiveRecord::Base
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
   accepts_nested_attributes_for :memory_components,
+                                :allow_destroy => true,
+                                :reject_if     => :all_blank
+  accepts_nested_attributes_for :documents,
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
 

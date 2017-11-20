@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :documents
   resources :moves do
     collection do
       get :load_server
