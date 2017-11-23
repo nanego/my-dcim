@@ -63,4 +63,12 @@ Rails.application.configure do
   end
 =end
 
+  Rails.application.config.middleware.use ExceptionNotification::Rack,
+                                          :email => {
+                                            :email_prefix => "[DCIM] ",
+                                            :sender_address => [Rails.application.secrets.sender_address],
+                                            :exception_recipients => [Rails.application.secrets.exception_recipients]
+                                          }
+  config.action_mailer.delivery_method = :letter_opener
+
 end

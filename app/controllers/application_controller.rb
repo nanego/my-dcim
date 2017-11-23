@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
 
+  before_filter :prepare_exception_notifier
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -24,6 +26,14 @@ class ApplicationController < ActionController::Base
       updated_values[attribute] = [old_values[attribute].to_s, new_params[attribute]] if old_values[attribute] != new_params[attribute]
     end
     return updated_values
+  end
+
+  private
+
+  def prepare_exception_notifier
+    request.env["exception_notifier.exception_data"] = {
+      :current_user => current_user
+    }
   end
 
 end

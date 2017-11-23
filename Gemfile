@@ -58,3 +58,7 @@ gem 'record_tag_helper', '~> 1.0' # Add helpers removed from Rails core in Rails
 
 # Manage file uploads
 gem 'shrine', '~> 2.8'
+
+# Add email notifications on errors
+gem 'exception_notification'
+gem 'letter_opener', group: :development
