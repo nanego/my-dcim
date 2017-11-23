@@ -48,6 +48,7 @@ group :development, :test do
 end
 group :production do
   gem 'passenger'
+  gem 'therubyracer'
 end
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
