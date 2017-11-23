@@ -1,7 +1,11 @@
-<div class="col-sm-10 col-md-4">
+<fieldset class="col-sm-10 col-md-4">
   <div class="panel panel-default">
     <div class="panel-heading">
       <%= f.object.position.present? ? "Enclosure #{f.object.position}" : "Nouvelle enclosure" %>
+      <span class="pull-right">
+        <%= f.hidden_field :_destroy %>
+        <%= link_to "Supprimer", '#', class: "remove_fields" %>
+      </span>
     </div>
     <ul class="list-group panel-body">
       <div class="list-group-item">
@@ -16,4 +20,4 @@
     </ul>
     <div class="panel-footer"><%= link_to_add_fields_with_prefilled_data "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter un slot".html_safe, f, :composants, 'SLOT' %></div>
   </div>
-</div>
+</fieldset>
