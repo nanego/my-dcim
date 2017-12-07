@@ -72,7 +72,9 @@ Rails.application.routes.draw do
     root controller: DashboardManifest::ROOT_DASHBOARD, action: :index
   end
   root to: 'pages#index'
-  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks", :registrations => "users/registrations" }
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks',
+                                              registrations: 'users/registrations',
+                                              sessions: 'users/sessions'}
   resources :users
 
   resources :activities
