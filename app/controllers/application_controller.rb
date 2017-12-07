@@ -4,8 +4,7 @@ class ApplicationController < ActionController::Base
   acts_as_token_authentication_handler_for User
 
   before_action :authenticate_user!
-
-  before_filter :prepare_exception_notifier
+  before_action :prepare_exception_notifier
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
