@@ -35,7 +35,7 @@
   </div>
 <% end %>
 
-<div class="col-lg-12">
+<div class="col-lg-6">
   <div class="panel panel-body">
     <dl class="dl-horizontal">
       <dt>Frame:</dt>
@@ -123,11 +123,19 @@
 
 <div class="col-lg-6">
   <div class="panel panel-body">
+    <H5>Documents attachés :</H5>
+    <ul>
+      <% @server.documents.each do |doc| %>
+        <li><%= link_to(doc.document.metadata['filename'], doc.document_url, {target: '_blank'}) if doc.document.present? %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
 
+<div class="col-lg-6">
+  <div class="panel panel-body">
     <H5>CMDB / GLPI :</H5>
-
     <%= link_to 'Voir la page du serveur sur GLPI', (@server.name.present? ? "https://cmdb.cs.e2.rie.gouv.fr/serveurs/#{@server.name.downcase}" : "https://cmdb.cs.e2.rie.gouv.fr/serial/#{@server.numero}" ), target: '_blank' %>
-
     <!--
     <% if @server.maintenance_contract.present? %>
       <dl class="dl-horizontal">
@@ -145,26 +153,9 @@
       <%= link_to 'Ajouter un contrat de maintenance', new_maintenance_contract_path(server_id: @server.id) %>
     <% end %>
     -->
-
   </div>
 </div>
 
-<div class="col-lg-6">
-  <div class="panel panel-body">
 
-    <H5>Documents attachés :</H5>
-
-    <ul>
-
-    <% @server.documents.each do |doc| %>
-
-      <li><%= link_to(doc.document.metadata['filename'], doc.document_url, {target: '_blank'}) if doc.document.present? %></li>
-
-    <% end %>
-
-    </ul>
-
-  </div>
-</div>
 
 <%= render 'ports/modal_edit_port' %>
