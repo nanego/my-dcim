@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171116160102) do
+ActiveRecord::Schema.define(version: 20171207133055) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 20171116160102) do
     t.string   "code"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["parent_id"], name: "index_colors_on_parent_id", using: :btree
   end
 
   create_table "composants", force: :cascade do |t|
@@ -108,6 +109,7 @@ ActiveRecord::Schema.define(version: 20171116160102) do
     t.datetime "updated_at",        null: false
     t.string   "name"
     t.integer  "enclosure_id"
+    t.index ["enclosure_id"], name: "index_composants_on_enclosure_id", using: :btree
     t.index ["type_composant_id"], name: "index_composants_on_type_composant_id", using: :btree
   end
 
@@ -117,6 +119,7 @@ ActiveRecord::Schema.define(version: 20171116160102) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cable_id", "port_id"], name: "index_connections_on_cable_id_and_port_id", unique: true, using: :btree
+    t.index ["port_id"], name: "index_connections_on_port_id", using: :btree
   end
 
   create_table "contract_types", force: :cascade do |t|
@@ -148,6 +151,7 @@ ActiveRecord::Schema.define(version: 20171116160102) do
     t.text     "document_data"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.index ["server_id"], name: "index_documents_on_server_id", using: :btree
   end
 
   create_table "domaines", force: :cascade do |t|
@@ -164,6 +168,7 @@ ActiveRecord::Schema.define(version: 20171116160102) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "display"
+    t.index ["modele_id"], name: "index_enclosures_on_modele_id", using: :btree
   end
 
   create_table "frames", force: :cascade do |t|
@@ -278,6 +283,8 @@ ActiveRecord::Schema.define(version: 20171116160102) do
     t.string   "color"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.index ["port_from_id"], name: "index_moved_connections_on_port_from_id", using: :btree
+    t.index ["port_to_id"], name: "index_moved_connections_on_port_to_id", using: :btree
   end
 
   create_table "moves", force: :cascade do |t|
@@ -288,7 +295,9 @@ ActiveRecord::Schema.define(version: 20171116160102) do
     t.integer  "prev_frame_id"
     t.integer  "frame_id"
     t.integer  "position"
+    t.index ["frame_id"], name: "index_moves_on_frame_id", using: :btree
     t.index ["moveable_type", "moveable_id"], name: "index_moves_on_moveable_type_and_moveable_id", using: :btree
+    t.index ["prev_frame_id"], name: "index_moves_on_prev_frame_id", using: :btree
   end
 
   create_table "pdu_lines", force: :cascade do |t|

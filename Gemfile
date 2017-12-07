@@ -45,6 +45,7 @@ group :development, :test do
   gem 'rack-mini-profiler'
   gem 'byebug'
   gem 'rails-controller-testing'
+  gem 'active_record_doctor'
 end
 group :production do
   gem 'passenger'
