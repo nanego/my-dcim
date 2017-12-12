@@ -73,26 +73,11 @@ jQuery ->
         total_rj45 += $(this).data('rj45-futur')
       if $(this).data('fc-futur')
         total_fc += $(this).data('fc-futur')
-    frame.find('.panel-footer .warning-messages').html "" # reset warning messages
     frame.find('.panel-footer .label').each ->
       $(this).removeClass('label-danger')
     frame.find('.panel-footer .u').html "Σ U : " + total_u
     frame.find('.panel-footer .rj45').html "Σ RJ45 : " + total_rj45
     frame.find('.panel-footer .fc').html "Σ FC : " + total_fc
-    if total_u>max_u || total_rj45>max_rj45 || total_fc>max_fc
-      frame.find('.panel').addClass('panel-danger')
-      if total_u>max_u
-        frame.find('.panel-footer .warning-messages').append "<div style='color:red;'>Somme des U supérieure à "+max_u+" !</div>"
-        frame.find('.panel-footer .u').addClass('label-danger');
-      if total_rj45>max_rj45
-        frame.find('.panel-footer .warning-messages').append "<div style='color:red;'>Somme des RJ45 supérieure à "+max_rj45+" !</div>"
-        frame.find('.panel-footer .rj45').addClass('label-danger');
-      if total_fc>max_fc
-        frame.find('.panel-footer .warning-messages').append "<div style='color:red;'>Somme des FC supérieure à "+max_fc+" !</div>"
-        frame.find('.panel-footer .fc').addClass('label-danger');
-    else
-      frame.find('.panel').removeClass('panel-danger').addClass('panel-default')
-
 
   # Nested forms
   $('form').on 'click', '.remove_fields', (event) ->

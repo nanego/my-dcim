@@ -1,4 +1,3 @@
-<% panel_class = 'panel-default' %>
 <% editable = true if local_assigns[:editable].nil? %>
 <% servers_ids = servers.map(&:id) %>
 <% if local_assigns[:highlighted_servers].nil?
@@ -9,18 +8,8 @@
 %>
 <% view_type = 'front' if local_assigns[:view_type].nil? %>
 
-<% if @sums.present? %>
-  <% sums = @sums[frame.id] %>
-  <% sum_u = frame.servers.to_a.sum { |s| s.modele.try(:u) || 0 } %>
-  <% sum_elements = frame.servers.to_a.sum { |s| s.modele.try(:nb_elts) || 0 } %>
-  <% panel_class = 'panel-danger' if (sum_u > settings[:max_u] ||
-                                      sum_elements > settings[:max_elts] ||
-                                      sums['RJ'] > settings[:max_rj45] ||
-                                      sums['FC'] > settings[:max_fc] ) %>
-<% end %>
-
 <div class="frame" id="frame_<%= frame.id %>">
-  <div class="panel panel-frame <%= panel_class %>">
+  <div class="panel panel-frame panel-default">
     <div class="panel-heading">
       <h5 class="panel-title" style="display: inline;">
         <%= link_to "#{frame.name}", frame_path(frame, :view => view_type, bg: params[:bg]), style: 'text-decoration: underline;' %>
@@ -129,6 +118,9 @@
             <button type="button" class="btn btn-default glyphicon glyphicon-plus" data-toggle="modal" data-target=".bs-example-modal-sm"></button>
           </span>
         <% end %>
+        <% sums = @sums[frame.id] %>
+        <% sum_u = frame.servers.to_a.sum { |s| s.modele.try(:u) || 0 } %>
+        <% sum_elements = frame.servers.to_a.sum { |s| s.modele.try(:nb_elts) || 0 } %>
         <%= render 'servers/sum_labels.html.erb',
                    sums: sums,
                    sum_u: sum_u,
