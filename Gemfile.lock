@@ -155,10 +155,6 @@ GEM
       activerecord
       kaminari-core (= 1.1.1)
     kaminari-core (1.1.1)
-    launchy (2.4.3)
-      addressable (~> 2.3)
-    letter_opener (1.4.1)
-      launchy (~> 2.2)
     libv8 (3.16.14.19)
     loofah (2.1.1)
       crass (~> 1.0.2)
@@ -343,7 +339,6 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   kaminari
-  letter_opener
   meta_request
   omniauth (>= 1.1.1)
   omniauth-cas (= 1.1.1)
@@ -372,7 +367,7 @@ DEPENDENCIES
   wkhtmltopdf-binary
 
 RUBY VERSION
-   ruby 2.3.4p301
+   ruby 2.4.2p198
 
 BUNDLED WITH
    1.16.0

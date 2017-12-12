@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.4'
+ruby '2.4.2'
 gem 'rails', '5.0.6'
 gem 'rails-i18n'
 gem 'sass-rails', '~> 5.0'
@@ -63,4 +63,4 @@ gem 'shrine', '~> 2.8'
 
 # Add email notifications on errors
 gem 'exception_notification'
-gem 'letter_opener', group: :development
+# gem 'letter_opener', group: :development
