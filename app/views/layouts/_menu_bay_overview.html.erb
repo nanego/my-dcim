@@ -1,0 +1,20 @@
+<% bays_by_lane = bays.sorted.group_by(&:lane)
+   nb_of_lanes = bays.sorted.group_by(&:lane).size
+   columns_style = "grid-template-columns:"
+   nb_of_lanes.times{ |index| columns_style << "100px "; }
+   columns_style << ";"
+%>
+<div class="overview-menu" style="<%= columns_style %>" >
+  <% bays_by_lane.each do |lane, bays| %>
+    <% bays.each do |bay| %>
+      <div class="overviewed_bay"
+           style="grid-column: <%= "#{lane}/#{lane+1}" %>; grid-row: <%= "#{bay.position}/#{bay.position+1}" %>;">
+        <% bay.frames.sorted.each_with_index do |frame, index| %>
+          <div class="overviewed_frame <%= 'no-margin' if index == 0 && bay.bay_type.size > 1 %>">
+            <%= link_to frame.name, frame_path(frame) %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

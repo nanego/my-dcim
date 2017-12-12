@@ -15,6 +15,8 @@ class Frame < ActiveRecord::Base
   delegate :room, :to => :islet, :allow_nil => true
   has_one :pdu
 
+  acts_as_list scope: [:bay_id]
+
   scope :sorted, -> { order( :position ) }
 
   validates_presence_of :bay_id

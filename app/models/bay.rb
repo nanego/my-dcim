@@ -6,6 +6,8 @@ class Bay < ActiveRecord::Base
   has_many :frames
   has_many :servers, through: :frames
 
+  acts_as_list scope: [:lane, :islet_id]
+
   scope :sorted, -> { order( :lane, :position ) }
 
   def to_s
