@@ -1,6 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   position: 1
   card_id: 1
   vlans: 123a
@@ -8,6 +9,7 @@ one:
   cablename: v32r
 
 two:
+  id: 2
   position: 2
   card_id: 1
   vlans: 123z
@@ -15,6 +17,7 @@ two:
   cablename: v33R
 
 three:
+  id: 3
   position: 1
   card_id: 2
   vlans: 123e

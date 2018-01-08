@@ -1,9 +1,11 @@
 one:
+  id: 1
   card_type_id: 1
   server_id: 1
   composant_id: 1
 
 two:
+  id: 2
   card_type_id: 2
   server_id: 1
   composant_id: 2

@@ -31,7 +31,7 @@ class MovesController < ApplicationController
     @move.prev_frame_id = @move.moveable.try(:frame_id)
 
     if params[:move][:remove_connections] == 'Oui'
-      @move.reinit_connections
+      @move.clear_connections
     end
 
     respond_to do |format|
@@ -53,7 +53,7 @@ class MovesController < ApplicationController
     @move.prev_frame_id = @move.moveable.try(:frame_id)
 
     if params[:move][:remove_connections] == 'Oui'
-      @move.reinit_connections
+      @move.clear_connections
     end
 
     respond_to do |format|

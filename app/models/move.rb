@@ -8,7 +8,7 @@ class Move < ApplicationRecord
 
   attr_accessor :remove_connections
 
-  def reinit_connections
+  def clear_connections
     server = self.moveable
     # Delete current moved connections
     MovedConnection.per_servers([server]).delete_all
@@ -18,6 +18,18 @@ class Move < ApplicationRecord
                               vlans: "",
                               color: "",
                               cablename: ""})
+    end
+  end
+
+  def execute_movement(apply_connections: true)
+    equipment = self.moveable
+    equipment.frame = self.frame
+    equipment.position = self.position
+    if equipment.save
+      if apply_connections
+
+      end
+      self.delete
     end
   end
 
