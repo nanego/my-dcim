@@ -55,4 +55,10 @@ class MovesControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to moves_url
   end
+
+  test "should execute move" do
+    get execute_move_url(@move)
+    assert_response :redirect
+    # assert_not_nil assigns(:moves)
+  end
 end

@@ -18,4 +18,9 @@ class MovedConnection < ApplicationRecord
     MovedConnection.where('port_from_id IN (?) OR port_to_id IN (?)', servers_ports_ids, servers_ports_ids)
   end
 
+  def execute_movement
+    self.port_from.connect_to_port(self.port_to, self.cablename, self.color, self.vlans)
+    self.delete
+  end
+
 end

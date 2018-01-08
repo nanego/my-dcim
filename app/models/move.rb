@@ -27,7 +27,7 @@ class Move < ApplicationRecord
     equipment.position = self.position
     if equipment.save
       if apply_connections
-
+        MovedConnection.per_servers([equipment]).map(&:execute_movement)
       end
       self.delete
     end

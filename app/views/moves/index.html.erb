@@ -13,6 +13,7 @@
     <tbody>
       <%= content_tag_for(:tr, @moves) do |move| %>
         <td><%= link_to "#{move.moveable.try(:modele).try(:category)} #{move.moveable} vers la baie #{move.frame}", edit_move_path(move) %></td>
+        <td><%= link_to "Exécuter le déplacement du serveur et de ses connexions", execute_move_path(move), class: 'btn btn-success' %></td>
         <td><%= link_to 'Supprimer', move, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' %></td>
       <% end %>
     </tbody>
@@ -26,7 +27,7 @@
     <tbody>
     <%= content_tag_for(:tr, @frames) do |frame| %>
         <td><%= link_to "#{frame}", "/moves/frames/#{frame.id}" %></td>
-        <td><%= link_to "Modifier les connexions", "/moves/frames/#{frame.id}", class: 'btn btn-default' %></td>
+        <td><%= link_to "Modifier les connexions", "/moves/frames/#{frame.id}", class: 'btn btn-primary' %></td>
         <td><%= link_to "/moves/frames/#{frame.id}.pdf?debug=1", class: 'btn btn-primary' do %>
               <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
               Impression

@@ -3,13 +3,13 @@
 one:
   port_from_id: 1
   port_to_id: 1
-  vlans: MyString
-  cablename: MyString
-  color: MyString
+  vlans: vlan01
+  cablename: NouveauNomDuCableUn
+  color: Blue
 
 two:
   port_from_id: 1
   port_to_id: 1
-  vlans: MyString
-  cablename: MyString
-  color: MyString
+  vlans: VlanXZZ
+  cablename: NouveauNomDuCableDeux
+  color: Yellow

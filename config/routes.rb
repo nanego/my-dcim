@@ -2,6 +2,9 @@ Rails.application.routes.draw do
 
   resources :documents
   resources :moves do
+    member do
+      get :execute, to: 'moves#execute_movement'
+    end
     collection do
       get :load_server
       get :load_frame

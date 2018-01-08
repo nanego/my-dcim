@@ -1,30 +1,22 @@
 class MovesController < ApplicationController
-  before_action :set_move, only: [:show, :edit, :update, :destroy]
+  before_action :set_move, only: [:show, :edit, :update, :destroy, :execute_movement]
   before_action :load_form_data, only: [:new, :edit]
 
-  # GET /moves
-  # GET /moves.json
   def index
     @moves = Move.all
     @frames = (@moves.map(&:frame) | @moves.map(&:prev_frame)).compact.uniq
   end
 
-  # GET /moves/1
-  # GET /moves/1.json
   def show
   end
 
-  # GET /moves/new
   def new
     @move = Move.new(moveable_type: 'Server')
   end
 
-  # GET /moves/1/edit
   def edit
   end
 
-  # POST /moves
-  # POST /moves.json
   def create
     @move = Move.new(move_params)
 
@@ -46,8 +38,6 @@ class MovesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /moves/1
-  # PATCH/PUT /moves/1.json
   def update
 
     @move.prev_frame_id = @move.moveable.try(:frame_id)
@@ -68,12 +58,18 @@ class MovesController < ApplicationController
     end
   end
 
-  # DELETE /moves/1
-  # DELETE /moves/1.json
   def destroy
     @move.destroy
     respond_to do |format|
       format.html { redirect_to moves_url, notice: 'Move was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def execute_movement
+    @move.execute_movement
+    respond_to do |format|
+      format.html { redirect_to moves_url, notice: 'Move has been successfully executed.' }
       format.json { head :no_content }
     end
   end

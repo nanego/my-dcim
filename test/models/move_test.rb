@@ -47,5 +47,19 @@ class MoveTest < ActiveSupport::TestCase
     assert @move.moveable.reload.position == @move.position
     assert_empty Move.where(id: @move.id)
   end
-  
+
+  test 'execution of a movement with connections' do
+    @moved_connection = MovedConnection.per_servers([@move.moveable]).first
+    @port_from = @moved_connection.port_from
+    assert @port_from.cablename != @moved_connection.cablename
+
+    @move.execute_movement
+
+    assert @move.moveable.reload.frame == @move.frame
+    assert @port_from.reload.cablename == @moved_connection.cablename
+
+    assert_empty Move.where(id: @move.id)
+    assert_empty MovedConnection.where(id: @moved_connection.id)
+  end
+
 end
