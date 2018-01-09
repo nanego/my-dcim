@@ -102,7 +102,7 @@ table.slots th {
   display: inline-block;
   text-align: center;
   overflow: hidden;
-  margin: 0 2px 2px 2px;
+  margin: 0 1px 1px 0;
   // Colors are !important so we can print them
   &.R{
     color: #FFFFFF !important;
@@ -155,9 +155,9 @@ table.slots th {
 }
 .portRJ {
   border: 1px #555555 solid;
-  width: 28px;
-  height: 20px;
-  line-height: 18px;
+  width: 24px;
+  height: 18px;
+  line-height: 16px;
 }
 .portSCSI {
   border: 1px #555555 solid;
@@ -166,9 +166,9 @@ table.slots th {
 }
 .portFC {
   border: 1px #555555 solid;
-  width: 26px;
-  height: 20px;
-  line-height: 18px;
+  width: 24px;
+  height: 18px;
+  line-height: 16px;
   text-align: center;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
