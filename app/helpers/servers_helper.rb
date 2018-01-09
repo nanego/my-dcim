@@ -28,7 +28,7 @@ module ServersHelper
                            link_to_port(index+1, port_data, port_type, card_id, port_id),
                            class: "port_container #{selected_port.present? && port_id == selected_port.try(:id) ? "selected" : ""}")
 
-      if (index+1)%24 == 0 # Every 24 ports do
+      if (index+1)%12 == 0 # Every 12 ports do
         html += '<div style="clear:both;" />'
       end
     end
