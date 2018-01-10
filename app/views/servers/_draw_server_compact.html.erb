@@ -20,7 +20,7 @@
             </tr>
             <tr>
               <% composants_per_enclosure.each do |component| %>
-                <td style="max-width: 2.5em;">
+                <td class="slot_column">
                   <%= render 'servers/draw_component.html.erb', server: server, component: component, selected_port: selected_port %>
                 </td>
               <% end %>

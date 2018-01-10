@@ -89,11 +89,13 @@ table.cm, table.cm th, table.cm td{
   padding: 1px 3px;
   text-align: center;
   table-layout: fixed;
-  min-width: 2.5em;
   min-height: 40px;
 }
 table.slots th {
   font-size: 12px;
+}
+table.slots .slot_column{
+  width:32px;
 }
 .portRJ, .portFC, .portSCSI{
   cursor: pointer;
