@@ -119,8 +119,8 @@
           </span>
         <% end %>
         <% sums = @sums[frame.id] %>
-        <% sum_u = frame.servers.no_pdus.to_a.sum { |s| s.modele.try(:u) || 0 } %>
-        <% sum_elements = frame.servers.no_pdus.to_a.sum { |s| s.modele.try(:nb_elts) || 0 } %>
+        <% sum_u = frame.servers.to_a.sum { |s| s.modele.try(:u) || 0 } %>
+        <% sum_elements = frame.servers.to_a.sum { |s| s.modele.try(:nb_elts) || 0 } %>
         <%= render 'servers/sum_labels.html.erb',
                    sums: sums,
                    sum_u: sum_u,

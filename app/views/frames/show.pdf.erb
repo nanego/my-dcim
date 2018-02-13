@@ -1,6 +1,6 @@
 <%# TODO Remove this temporary variable as soons as @servers_per_frames references are removed in servers/room.html.erb %>
 <% @servers_per_frames = {}
-  @frame.servers.no_pdus.each do |s|
+  @frame.servers.each do |s|
     islet = @frame.bay.islet.name
     @servers_per_frames[islet] ||= {}
     @servers_per_frames[islet][@frame.bay.lane] ||= {}

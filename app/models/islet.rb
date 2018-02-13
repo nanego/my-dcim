@@ -4,9 +4,10 @@ class Islet < ActiveRecord::Base
   has_many :bays
   has_many :frames, through: :bays
   has_many :servers, through: :frames
+  has_many :materials, through: :frames
 
   scope :sorted, -> { order( :name ) }
-  scope :not_empty, -> { joins(:servers) }
+  scope :not_empty, -> { joins(:materials) }
   scope :has_name, -> { where.not(name: nil) }
 
   def to_s

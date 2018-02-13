@@ -9,7 +9,9 @@ class Frame < ActiveRecord::Base
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
 
-  has_many :servers, -> { order("servers.position desc") }, dependent: :destroy
+  has_many :materials, -> { order("servers.position desc") }, class_name: "Server"
+  has_many :pdus, -> { only_pdus }, class_name: "Server"
+  has_many :servers, -> { no_pdus.order("servers.position desc") }, class_name: "Server"
   belongs_to :bay
   has_one :islet, through: :bay
   delegate :room, :to => :islet, :allow_nil => true
@@ -53,17 +55,11 @@ class Frame < ActiveRecord::Base
     if self.present?
       txt << "\r\n#{self.name}\r\n"
       txt << "---------------\r\n"
-      self.servers.no_pdus.each do |server|
+      self.servers.each do |server|
         txt << "[#{server.position.to_s.rjust(2, "0")}] #{server.name}\r\n"
       end
     end
     txt
-  end
-
-  def pdus
-    pdus = Server.only_pdus.where(frame: self)
-    puts "pdus : #{pdus.inspect}"
-    pdus
   end
 
   def other_frame_through_couple_baie #Temp legacy code
