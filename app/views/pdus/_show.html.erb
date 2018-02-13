@@ -6,13 +6,10 @@
   </div>
   <div class="panel-body">
     <% frame.pdus.each do |pdu| %>
-      <div style="width: 50%;float: left;padding: 0 15px;">
-        <h5 style="text-align: center;"><%= pdu.name[-1] %></h5>
-        <% pdu.modele.enclosures.first.composants.each do |component| %>
-          <div style="margin-bottom: 10px;display: inline-block;">
-            <%= render 'servers/draw_component.html.erb', server: pdu, component: component, selected_port: nil %>
-          </div>
-      <% end %>
+      <div style="width: 50%;float: left;padding: 0 15px;max-width:60px;"
+           class="pdu <%= pdu.color %>"
+           id="pdu-<%= pdu.id %>" >
+        <%= render :partial => 'pdus/pdu', locals: {pdu: pdu} %>
       </div>
     <% end %>
   </div>

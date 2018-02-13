@@ -11,11 +11,12 @@
       <div  style="clear:both;margin-top: 5px;" >
         <%= f.label 'Port de départ', class: "col-sm-2 control-label" %>
         <div class="col-sm-10">
-          <%= text_field_tag 'from_port',"#{@from_server} - Slot: #{@from_port.card.try(:composant)}#{@from_port.card.try(:composant).try(:position)} - Carte: #{@from_port.card.try(:card_type)} - Position: #{@from_port.position}" , {class: "form-control", disabled: true} %>
-        </div>
-        <div class="col-sm-10">
-          <div id="back_departure_server" class="back_server">
-            <%= render 'servers/draw_server_compact.html.erb', server: @from_server, selected_port: @from_port %>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div id="back_departure_server" class="back_server">
+                <%= render 'servers/draw_server_compact.html.erb', server: @from_server, selected_port: @from_port %>
+              </div>
+            </div>
           </div>
           <%= f.hidden_field :from_port_id, value: @from_port.id %>
         </div>
@@ -24,35 +25,34 @@
       <div  style="clear:both;" >
         <%= f.label 'Port de destination', class: "col-sm-2 control-label" %>
         <div class="col-sm-10">
-          <% if @to_port.present? %>
-              <%= text_field_tag 'to_port',"#{@to_server} - Slot: #{@to_port.try(:card).try(:composant)}#{@to_port.try(:card).try(:composant).try(:position)} - Carte: #{@to_port.try(:card).try(:card_type)} - Position: #{@to_port.try(:position)}" , {class: "form-control", disabled: true} %>
-          <% else %>
-              <%= text_field_tag 'to_port', "Sélectionnez un port de destination", {class: "form-control", disabled: true} %>
-          <% end %>
-        </div>
-        <div class="col-sm-10">
-          <div class="" style="text-align: center;" id="select_destination_bay">
-            <span id="restricted_destinations">
-              <%= select_tag 'to_server',
-                             grouped_options_for_select(@possible_destination_servers, { :selected => @to_server.try(:id) }),
-                             include_blank: true,
-                             onchange: 'select_destination_server(0)' %>
-              <%= link_to 'Voir plus de baies', '#', onClick: 'toggle_destination_bays_visibility(1)' %>
-            </span>
-            <span id="all_destinations">
-              <%= select_tag 'to_server',
-                             grouped_options_for_select(@all_servers_per_frame, { :selected => @to_server.try(:id) }),
-                             include_blank: true,
-                             onchange: 'select_destination_server(1)',
-                             style: 'max-width: 185px;'
-              %>
-              <%= link_to 'Voir moins de baies', '#', onClick: 'toggle_destination_bays_visibility(0)' %>
-            </span>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <div class="" style="text-align: center;" id="select_destination_bay">
+                <span id="restricted_destinations">
+                  <%= select_tag 'to_server',
+                                 grouped_options_for_select(@possible_destination_servers, { :selected => @to_server.try(:id) }),
+                                 include_blank: true,
+                                 onchange: 'select_destination_server(0)' %>
+                  <%= link_to 'Voir plus de baies', '#', onClick: 'toggle_destination_bays_visibility(1)' %>
+                </span>
+                <span id="all_destinations">
+                  <%= select_tag 'to_server',
+                                 grouped_options_for_select(@all_servers_per_frame, { :selected => @to_server.try(:id) }),
+                                 include_blank: true,
+                                 onchange: 'select_destination_server(1)',
+                                 style: 'max-width: 185px;'
+                  %>
+                  <%= link_to 'Voir moins de baies', '#', onClick: 'toggle_destination_bays_visibility(0)' %>
+                </span>
+              </div>
+            </div>
+            <div class="panel-body">
+              <div id="back_destination_server" class="back_server">
+                <%= render('servers/draw_server_compact.html.erb', server: @to_server, selected_port: @to_port) if @to_server %>
+              </div>
+              <%= f.hidden_field :to_port_id, value: @to_port.try(:id) %>
+            </div>
           </div>
-          <div id="back_destination_server" class="back_server">
-            <%= render('servers/draw_server_compact.html.erb', server: @to_server, selected_port: @to_port) if @to_server %>
-          </div>
-          <%= f.hidden_field :to_port_id, value: @to_port.try(:id) %>
         </div>
       </div>
 

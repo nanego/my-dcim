@@ -1,7 +1,7 @@
 class Enclosure < ApplicationRecord
 
   belongs_to :modele
-  has_many :composants, -> { order(name: :asc, position: :asc) }
+  has_many :composants, -> { order(position: :asc) }
 
   acts_as_list scope: [:modele_id]
 

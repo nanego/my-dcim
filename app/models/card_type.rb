@@ -13,4 +13,8 @@ class CardType < ActiveRecord::Base
     name.nil? ? "" : name
   end
 
+  def is_power_input?
+    port_type.is_power_input?
+  end
+
 end

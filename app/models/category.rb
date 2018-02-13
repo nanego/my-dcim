@@ -8,4 +8,8 @@ class Category < ActiveRecord::Base
   def to_s
     name.nil? ? "" : name
   end
+
+  def pdu?
+    name=='Pdu'
+  end
 end

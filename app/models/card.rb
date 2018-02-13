@@ -20,6 +20,10 @@ class Card < ActiveRecord::Base
     "Carte #{server} / #{card_type} / #{composant}"
   end
 
+  def is_power_input?
+    card_type.is_power_input?
+  end
+
   def create_missing_ports
     # port_type = self.card_type.try(:port_type)
     port_quantity = self.card_type.try(:port_quantity)

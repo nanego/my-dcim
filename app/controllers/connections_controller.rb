@@ -17,12 +17,13 @@ class ConnectionsController < ApplicationController
 
     @coupled_frames = @frame.bay.frames
     @possible_destination_servers = []
-    @coupled_frames.each do |frame|
-      @possible_destination_servers << [frame.name, frame.servers.collect {|v| [ v.name, v.id ] }]
-    end
     @all_servers_per_frame = []
-    Frame.order(:name).each do |frame|
-      @all_servers_per_frame << [frame.name, frame.servers.collect {|v| [ v.name, v.id ] }]
+    if @from_port.is_power_input?
+      @coupled_frames.each { |frame| @possible_destination_servers << [frame.name, frame.pdus.collect {|v| [ v.name, v.id ] }] }
+      Frame.order(:name).each { |frame| @all_servers_per_frame << [frame.name, frame.pdus.collect {|v| [ v.name, v.id ] }] }
+    else
+      @coupled_frames.each { |frame| @possible_destination_servers << [frame.name, frame.servers.collect {|v| [ v.name, v.id ] }] }
+      Frame.order(:name).each { |frame| @all_servers_per_frame << [frame.name, frame.servers.collect {|v| [ v.name, v.id ] }] }
     end
 
     # Destination port
@@ -33,12 +34,15 @@ class ConnectionsController < ApplicationController
     @to_port = @cable.connections.reject{|conn| conn.port_id.to_i == @from_port.id }.first.try(:port) if @cable.present?
 
     # Destination server
-    @to_server = @to_port.present? ? @to_port.server : @frame.servers.where.not(position: nil, modele_id: nil).order(:position).first
+    if @from_port.is_power_input?
+      @to_server = @to_port.present? ? @to_port.server : @frame.pdus.first
+    else
+      @to_server = @to_port.present? ? @to_port.server : @frame.servers.where.not(position: nil, modele_id: nil).order(:position).first
+    end
     if @to_server
       @to_server.create_missing_ports
       @to_server.reload
     end
-
   end
 
   def update

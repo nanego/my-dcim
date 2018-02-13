@@ -199,6 +199,10 @@ table.slots .slot_column{
   padding: 10px;
 }
 
+.panel-pdu{
+  max-width: 150px;
+}
+
 .u_scale{
   position: absolute;
   left: 0;
@@ -291,9 +295,6 @@ table.slots .slot_column{
   .back_server{
     background-color: white ;
     max-width:600px;
-    margin:10px auto;
-    padding: 5px;
-    border: 1px #CCCCCC solid;
     .port_container{
       margin-left: -2px;
       display: inline-block;

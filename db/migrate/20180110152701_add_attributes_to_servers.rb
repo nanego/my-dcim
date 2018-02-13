@@ -23,10 +23,10 @@ class AddAttributesToServers < ActiveRecord::Migration[5.0]
                                  position: 1,
                                  display: 'vertical')
     puts "ERROR: #{enclosure}" unless enclosure.valid?
-    type_composant = TypeComposant.find_by_name('ALIM')
+    type_composant = TypeComposant.find_by_name('SLOT')
     puts "ERROR: #{type_composant}" unless type_composant.valid?
     4.times do |i|
-      line = i.odd? ? 'L1' : 'L2'
+      line = (i+1).odd? ? 'L1' : 'L2'
       composant = Composant.create(type_composant: type_composant,
                        position: i+1,
                        enclosure: enclosure,

@@ -16,7 +16,7 @@ class Composant < ActiveRecord::Base
 
   acts_as_list scope: [:enclosure_id, :type_composant_id]
 
-  scope :slots, -> { where(type_composant: TypeComposant.find_by_name('SLOT')) }
+  scope :slots, -> { where(type_composant: TypeComposant.find_by_name('SLOT')).order("composants.position ASC") }
 
   def to_s
     name.nil? ? "" : name
