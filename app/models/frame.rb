@@ -13,7 +13,6 @@ class Frame < ActiveRecord::Base
   belongs_to :bay
   has_one :islet, through: :bay
   delegate :room, :to => :islet, :allow_nil => true
-  has_one :pdu
 
   acts_as_list scope: [:bay_id]
 
@@ -54,11 +53,17 @@ class Frame < ActiveRecord::Base
     if self.present?
       txt << "\r\n#{self.name}\r\n"
       txt << "---------------\r\n"
-      self.servers.each do |server|
+      self.servers.no_pdus.each do |server|
         txt << "[#{server.position.to_s.rjust(2, "0")}] #{server.name}\r\n"
       end
     end
     txt
+  end
+
+  def pdus
+    pdus = Server.only_pdus.where(frame: self)
+    puts "pdus : #{pdus.inspect}"
+    pdus
   end
 
   def other_frame_through_couple_baie #Temp legacy code

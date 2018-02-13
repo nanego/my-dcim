@@ -23,7 +23,7 @@
     <div class="col-md-6 col-sm-12">
       <% @frames.each do |frame| %>
         <% settings = Frame.settings.merge({:min_height => params[:view]=='back' ? 20 : 27 }) %>
-        <%= render 'frames/show', frame: frame, servers: frame.servers.to_a, settings: settings, view_type: params[:view], editable: false, highlighted_servers: @filtered_servers %>
+        <%= render 'frames/show', frame: frame, servers: frame.servers.no_pdus.to_a, settings: settings, view_type: params[:view], editable: false, highlighted_servers: @filtered_servers %>
       <% end %>
     </div>
 

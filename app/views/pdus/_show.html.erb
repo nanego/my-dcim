@@ -1,55 +1,19 @@
 <div class="panel panel-pdu panel-default">
   <div class="panel-heading">
     <h5 class="panel-title" style="display: inline;">
-      <%= frame.pdu %>
+      PDU <%= frame %>
     </h5>
   </div>
   <div class="panel-body">
-    <% frame.pdu.pdu_lines.each do |line| %>
+    <% frame.pdus.each do |pdu| %>
       <div style="width: 50%;float: left;padding: 0 15px;">
-        <h5 style="text-align: center;"><%= line.name %></h5>
-        <% line.pdu_outlet_groups.each do |group| %>
-
-          <% ports = [] %>
-          <% frame.servers.each do |server|
-            server.cards.each do |cs|
-              ports << cs.ports
-              ports.flatten!
-            end
-          end %>
-
-          <div class="pdu_outlet_group">
-
-            <% group.nb_of_outlets.times do |index| %>
-
-              <% port_data = ports.select{|p| p.cablename =~ /L#{group.name}#{line.name}#{(index+1).to_s.rjust(2, "0")}/ }.first %>
-              <% part_type = port_data.try(:card).try(:card_type).try(:port_type).try(:name) %>
-
-              <% if port_data.try(:card_id)
-                   edit_port_url = port_data.try(:id) ? edit_port_path(port_data) : edit_port_path(id: 0, card_id: port_data.try(:card_id), position: index+1)
-                 else
-                   edit_port_url = ''
-                 end
-              %>
-
-              <%= link_to port_data.try(:cablename) || '',
-                          edit_port_url,
-                          class: "port pull-left portSCSI #{port_data.present? ? port_data.color : ''}",
-                          disabled: :disabled,
-                          data: {position: index+1,
-                                 type: part_type,
-                                 toggle: "tooltip",
-                                 placement: "top",
-                                 url: edit_port_url},
-                          title: port_data.present? ? port_data.vlans : '',
-                          style: "text-align: center;width: 100%;margin: auto;min-height: 26px;padding-top: 5px;#{index>0 ? 'margin-top:-1px;' : ''}"  %>
-
-            <% end %>
-
+        <h5 style="text-align: center;"><%= pdu.name[-1] %></h5>
+        <% pdu.modele.enclosures.first.composants.each do |component| %>
+          <div style="margin-bottom: 10px;display: inline-block;">
+            <%= render 'servers/draw_component.html.erb', server: pdu, component: component, selected_port: nil %>
           </div>
-
-        <% end %>
+      <% end %>
       </div>
-    <% end if frame.pdu.present? %>
+    <% end %>
   </div>
 </div>

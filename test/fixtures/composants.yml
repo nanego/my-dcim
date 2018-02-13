@@ -5,9 +5,16 @@ one:
   type_composant_id: 1
   position: 1
 
-one:
+two:
   id: 2
   name: compo2
   enclosure_id: 1
   type_composant_id: 2
   position: 2
+
+three:
+  id: 3
+  name: ALIM_L1
+  enclosure_id: 3
+  type_composant_id: 3
+  position: 3

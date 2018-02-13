@@ -45,6 +45,9 @@ class Server < ActiveRecord::Base
 
   scope :sorted, -> { order( :position => :desc) }
 
+  scope :no_pdus, -> { joins(:modele => :category).where("categories.name<>'Pdu'") }
+  scope :only_pdus, -> { joins(:modele => :category).where("categories.name='Pdu'") }
+
   validates :frame_id, presence: true
   validates :modele_id, presence: true
   validates :name , presence: true

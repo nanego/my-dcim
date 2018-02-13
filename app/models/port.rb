@@ -16,9 +16,6 @@ class Port < ActiveRecord::Base
 
   scope :sorted, -> {order(:position)}
 
-  # Callbacks
-  after_save :update_pdus_elements
-
   def network_conf(switch_slot)
     cable_name = connection.try(:cable).try(:name)
     if cable_name.present?
@@ -65,16 +62,6 @@ class Port < ActiveRecord::Base
   end
 
   private
-
-  def update_pdus_elements
-    if card.present? &&  card.server.present? && card.server.frame.present?
-      frame = card.server.frame
-      if cablename =~ /L..../
-        frame.pdu = Pdu.create(name: "PDU #{frame.to_s}") if frame.pdu.blank?
-        frame.pdu.create_pdu_elements_by_cablename(cablename)
-      end
-    end
-  end
 
   def remove_unused_connections(port1, port2)
     old_port1_destination = port1.connection.try(:paired_connection).try(:port)

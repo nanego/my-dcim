@@ -2,6 +2,9 @@ namespace :init_pdus do
 
   desc "From Ports#cable_names to Pdus details"
   task :from_cablenames => :environment do
+
+    # TODO Refactor if we want to use it
+    #
     Port.where("cablename ~ 'L....'").each do |port|
       puts "Cable #{port.cablename}"
       line = port.cablename[2]

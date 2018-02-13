@@ -7,3 +7,8 @@ one:
 two:
   modele_id: 1
   position: 2
+
+three:
+  modele_id: 3
+  position: 3
+  display: vertical

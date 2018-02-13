@@ -5,3 +5,7 @@ one:
 two:
   id: 2
   name: type_compo_2
+
+three:
+  id: 3
+  name: ALIM

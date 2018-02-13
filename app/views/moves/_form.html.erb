@@ -78,7 +78,7 @@
         <% @move.moveable.position = @move.position %>
 
         <%= render partial: 'frames/show', locals: {frame: @move.frame,
-                                                    servers: (@move.frame.servers | [@move.moveable]).sort_by { |server| server.position.present? ? server.position : 0}.reverse,
+                                                    servers: (@move.frame.servers.no_pdus | [@move.moveable]).sort_by { |server| server.position.present? ? server.position : 0}.reverse,
                                                     settings: Frame.settings.merge({:min_height => 27 }),
                                                     view_type: 'front',
                                                     editable: false,

@@ -5,7 +5,7 @@ var loadPaletteColorPicker = function(selector){
             {"M": "#8b4c39"},
             {"R": "#ee3b3b"},
             {"O": "#FF9000"},
-            {"J": "#EEEE00"},
+            {"J": "#FFDD00"},
             {"V": "#008000"},
             {"T": "#3B9C9C"},
             {"B": "#4876ff"},

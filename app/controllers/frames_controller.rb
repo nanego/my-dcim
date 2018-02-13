@@ -5,7 +5,7 @@ class FramesController < ApplicationController
     @frame = Frame.all.includes(:servers => [:modele => [:category, :composants], :cards => [:composant, :ports => [:connection => :cable], :card_type => [:port_type]]], :bay => [:islet => [:room]]).friendly.find(params[:id].to_s.downcase)
     @room = @frame.room
     @sums = { @frame.id => {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0} }
-    @frame.servers.each do |s|
+    @frame.servers.no_pdus.each do |s|
       s.ports_per_type.each do |type, sum|
         @sums[@frame.id][type] = @sums[@frame.id][type].to_i + sum
       end

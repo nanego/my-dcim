@@ -43,3 +43,13 @@ two:
   rj45_cm: 1
   ipmi_dedie: 1
   position: 38
+
+pdu:
+  id: 3
+  frame_id: 1
+  name: PDU_FRAME-1_A
+  modele_id: 3
+  side: right
+  color: B
+  numero: PDU_FRAME-1_A
+

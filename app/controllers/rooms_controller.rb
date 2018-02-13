@@ -65,7 +65,7 @@ class RoomsController < ApplicationController
       # sums per frame and per type of port
       @sums[frame.id] = {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0}
 
-      frame.servers.each do |s|
+      frame.servers.no_pdus.each do |s|
         islet = frame.bay.islet.name
         @servers_per_frames[islet] ||= {}
         @servers_per_frames[islet][frame.bay.lane] ||= {}

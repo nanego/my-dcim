@@ -12,7 +12,7 @@ module ServersHelper
     sums
   end
 
-  def ports_by_card(port_type:, port_quantity:, ports_data:, card_id:, selected_port:, moved_connections: [])
+  def ports_by_card(port_type:, port_quantity:, ports_data:, card_id: nil, selected_port: nil, moved_connections: [])
     html = ""
     port_quantity.to_i.times do |index|
       port_data = ports_data.detect {|p| p.position == index+1}

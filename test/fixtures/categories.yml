@@ -11,3 +11,8 @@ two:
   name: MyString
   description: MyText
   published: false
+
+three:
+  id: 3
+  name: Pdu
+  description: Pour les PDUs
