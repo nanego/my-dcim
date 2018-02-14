@@ -54,7 +54,7 @@ a.hide-filters, a.show-filters{
 
 .frame .server { color: #777;page-break-inside: avoid; }
 .frame .server.ui-sortable-handle { cursor: move; }
-.frame .server a {color: #333}
+.frame .server a, .pdu a {color: #333}
 .frame .server .server_name { font-weight: 600; }
 
 .frame li.server.list-group-item {

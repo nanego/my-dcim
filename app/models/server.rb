@@ -64,6 +64,10 @@ class Server < ActiveRecord::Base
     modele.is_a_pdu?
   end
 
+  def is_not_a_pdu?
+    !is_a_pdu?
+  end
+
   require 'csv'
   def self.import(csv_file, room, server_state)
     room = room || Room.find_or_create_by!(name: 'Atelier')

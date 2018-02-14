@@ -18,7 +18,7 @@ class ConnectionsController < ApplicationController
     @coupled_frames = @frame.bay.frames
     @possible_destination_servers = []
     @all_servers_per_frame = []
-    if @from_port.is_power_input?
+    if @from_port.is_power_input? && @from_server.is_not_a_pdu?
       @coupled_frames.each { |frame| @possible_destination_servers << [frame.name, frame.pdus.collect {|v| [ v.name, v.id ] }] }
       Frame.order(:name).each { |frame| @all_servers_per_frame << [frame.name, frame.pdus.collect {|v| [ v.name, v.id ] }] }
     else
