@@ -9,7 +9,7 @@ class Room < ActiveRecord::Base
   has_many :islets #, -> { order("islets.position asc") }
   has_many :bays, through: :islets
   has_many :frames, through: :bays
-  has_many :servers, through: :frames
+  has_many :materials, through: :frames
 
   belongs_to :site
 

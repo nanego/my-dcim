@@ -18,6 +18,18 @@ class RoomsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:sites)
   end
 
+  test "should get overview with gestion_id" do
+    get :overview, params: {gestion_id: 1}
+    assert_response :success
+    assert_not_nil assigns(:sites)
+  end
+
+  test "should get overview with cluster_id" do
+    get :overview, params: {cluster_id: 1}
+    assert_response :success
+    assert_not_nil assigns(:sites)
+  end
+
   test "should get new" do
     get :new
     assert_response :success

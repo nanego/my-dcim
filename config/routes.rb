@@ -61,7 +61,7 @@ Rails.application.routes.draw do
       get :overview
     end
   end
-  resources :bays
+  resources :bays, except: [:show]
   resources :gestions
   resources :domaines
   resources :modeles

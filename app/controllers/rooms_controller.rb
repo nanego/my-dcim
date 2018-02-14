@@ -60,7 +60,7 @@ class RoomsController < ApplicationController
                                :modele => [:category, :composants],
                                :cards => [:composant, :ports => [:connection => :cable], :card_type => :port_type]])
         .where('islets.name = ?', islet)
-        .each do |frame|
+        .order('islets.name, bays.lane, bays.position, frames.position').each do |frame|
 
       # sums per frame and per type of port
       @sums[frame.id] = {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0}
@@ -106,11 +106,11 @@ class RoomsController < ApplicationController
       # end
       @current_filters = ''
       if params[:cluster_id].present?
-        @frames = @frames.joins(:servers).where('servers.cluster_id = ? ', params[:cluster_id])
+        @frames = @frames.joins(:materials).where('servers.cluster_id = ? ', params[:cluster_id])
         @filtered_servers = Server.where('servers.cluster_id = ? ', params[:cluster_id])
         @current_filters << "Cluster #{Cluster.find_by_id(params[:cluster_id])} "
       elsif params[:gestion_id].present?
-        @frames = @frames.joins(:servers).where('servers.gestion_id = ? ', params[:gestion_id])
+        @frames = @frames.joins(:materials).where('servers.gestion_id = ? ', params[:gestion_id])
         @filtered_servers = Server.where('servers.gestion_id = ? ', params[:gestion_id])
         @current_filters << "Gestionnaire #{Gestion.find_by_id(params[:gestion_id])} "
       end

@@ -15,20 +15,15 @@ class PortsController < ApplicationController
 
   def edit
     if params[:id].present? && params[:id].to_i > 0
-      @port = Port.find_by_id(params[:id])
+      redirect_to connections_edit_path(from_port_id: params[:id])
     else
       @port = Port.create(position: params['position'],
                           card_id: params['card_id'],
                           vlans: params['vlans'],
                           color: params['color'],
                           cablename: params['cablename'])
+      redirect_to connections_edit_path(from_port_id: @port)
     end
-
-    respond_to do |format|
-      format.js {render layout: false, content_type: 'text/javascript' }
-      format.html
-    end
-
   end
 
   def update

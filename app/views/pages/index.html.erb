@@ -24,9 +24,9 @@
                         <ul>
                           <div style="text-align: left;font-size: large;margin-bottom: 5px;"><%= link_to room.name, room %></div>
                           <% Category.all.each do |cat| %>
-                            <% count = room.servers.joins(:modele).where("modeles.category_id = ?", cat.id).count %>
+                            <% count = room.materials.joins(:modele).where("modeles.category_id = ?", cat.id).count %>
                             <% if count > 0 %>
-                              <li><%= "#{cat} : #{room.servers.joins(:modele).where("modeles.category_id = ?", cat.id).count}" %></li>
+                              <li><%= "#{cat} : #{room.materials.joins(:modele).where("modeles.category_id = ?", cat.id).count}" %></li>
                             <% end %>
                           <% end %>
                         </ul>

@@ -4,7 +4,7 @@ class Bay < ActiveRecord::Base
   belongs_to :islet
   has_one :room, through: :islet
   has_many :frames
-  has_many :servers, through: :frames
+  has_many :materials, through: :frames
 
   acts_as_list scope: [:lane, :islet_id]
 
