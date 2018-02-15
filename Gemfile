@@ -64,4 +64,4 @@ gem 'shrine', '~> 2.8'
 
 # Add email notifications on errors
 gem 'exception_notification'
-# gem 'letter_opener', group: :development
+gem 'letter_opener', group: :development

@@ -24,29 +24,30 @@ class Port < ActiveRecord::Base
   end
 
   def connect_to_port(other_port, cable_name, cable_color, vlans)
-    remove_unused_connections(self, other_port)
+    remove_unused_connections([self, other_port])
+    if other_port
+      cable = nil
+      if self.connection.present?
+        cable ||= self.connection.cable
+      end
+      if other_port.connection.present?
+        cable ||= other_port.connection.cable
+      end
+      if cable.present? and !cable.destroyed?
+        cable.name = cable_name
+        cable.color = cable_color
+        cable.save
+      else
+        cable = Cable.create(name: cable_name, color: cable_color)
+      end
 
-    cable = nil
-    if self.connection.present?
-      cable ||= self.connection.cable
-    end
-    if other_port.connection.present?
-      cable ||= other_port.connection.cable
-    end
-    if cable.present? and !cable.destroyed?
-      cable.name = cable_name
-      cable.color = cable_color
-      cable.save
-    else
-      cable = Cable.create(name: cable_name, color: cable_color)
-    end
+      self.connection = Connection.find_or_create_by(port: self, cable: cable)
+      other_port.connection = Connection.find_or_create_by(port: other_port, cable: cable)
+      self.vlans = vlans
+      other_port.vlans = self.vlans
 
-    self.connection = Connection.find_or_create_by(port: self, cable: cable)
-    other_port.connection = Connection.find_or_create_by(port: other_port, cable: cable)
-    self.vlans = vlans
-    other_port.vlans = self.vlans
-
-    self.save && other_port.save
+      self.save && other_port.save
+    end
   end
 
   def cablename
@@ -67,14 +68,12 @@ class Port < ActiveRecord::Base
 
   private
 
-  def remove_unused_connections(port1, port2)
-    old_port1_destination = port1.connection.try(:paired_connection).try(:port)
-    if old_port1_destination.present? && old_port1_destination != port2
-      old_port1_destination.connection.cable.destroy
-    end
-    old_port2_destination = port2.connection.try(:paired_connection).try(:port)
-    if old_port2_destination.present? && old_port2_destination != port1
-      old_port2_destination.connection.cable.destroy
+  def remove_unused_connections(ports)
+    ports.reject(&:blank?).each do |port|
+      old_port_destination = port.connection.try(:paired_connection).try(:port)
+      if old_port_destination.present? && !ports.include?(old_port_destination)
+        old_port_destination.connection.cable.destroy
+      end
     end
   end
 
