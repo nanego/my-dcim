@@ -14,7 +14,7 @@ class Card < ActiveRecord::Base
 
   has_many :ports
 
-  scope :for_enclosure, ->  (enclosure_id) { joins(:composant).where("composants.enclosure_id = ?", enclosure_id)}
+  scope :for_enclosure, ->  (enclosure_id) { joins(:composant).where("composants.enclosure_id = ?", enclosure_id).order("composants.position ASC")}
 
   def to_s
     "Carte #{server} / #{card_type} / #{composant}"
