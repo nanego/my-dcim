@@ -66,6 +66,10 @@ class Port < ActiveRecord::Base
     card.is_power_input?
   end
 
+  def cablename
+    self.try(:connection).try(:cable).present? ? self.connection.cable.name : ''
+  end
+
   private
 
   def remove_unused_connections(ports)
