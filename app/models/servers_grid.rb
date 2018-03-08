@@ -133,33 +133,6 @@ class ServersGrid
   column(:etat_conf_reseau)
   column(:action_conf_reseau)
 
-  column(:slots, :html => true, :mandatory => false) do |r|
-    if r.slots.map(&:valeur).reject{|v| v.blank?}.present?
-      table = "<table BORDER='1' style='text-align: center;'><tr style=\"background-color:#DDDDDD \">"
-      r.modele.composants.slots.each do |composant_slot|
-        table << "<th style=\"min-width:27px;\">Slot #{composant_slot.position}</th>"
-      end
-      table << "</tr>"
-      4.times do |i|
-        slots_sur_modele = r.modele.composants.slots
-        ports_utilises = r.slots.where(composant: slots_sur_modele, position: i+1)
-        if ports_utilises.present?
-          table << "<tr>"
-          slots_sur_modele.each do |composant_slot|
-            table << "<td>"
-            ports_utilises.each do |s|
-              table << "#{s.valeur}" if s.composant == composant_slot
-            end
-            table << "</td>"
-          end
-          table << "</tr>"
-        end
-      end
-      table << "</table>"
-      table.html_safe
-    end
-  end
-
   column("Boutons", :html => true, :mandatory => false) do |record|
     link_to('Modifier', edit_server_path(record)).to_s + '<span style="margin-left:10px">'.html_safe + link_to('Supprimer', record, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning').to_s + '</span>'.html_safe
   end
