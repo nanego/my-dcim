@@ -1,4 +1,7 @@
 module ServersHelper
+
+  MAX_PORTS_PER_LINE = 24
+
   def calculate_ports_sums(frame, servers)
     # sums per frame and per type of port
     sums = { frame.id => {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0} }
@@ -28,7 +31,7 @@ module ServersHelper
                            link_to_port(index+1, port_data, port_type, card_id, port_id),
                            class: "port_container #{selected_port.present? && port_id == selected_port.try(:id) ? "selected" : ""}")
 
-      if (index+1)%12 == 0 # Every 12 ports do
+      if (index+1)%MAX_PORTS_PER_LINE == 0 # Every XX ports do
         html += '<div style="clear:both;" />'
       end
     end

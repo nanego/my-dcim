@@ -11,5 +11,5 @@
 %>
 
 <div class="container-fluid">
-  <%= render 'servers/room.html.erb', room: @room, islets: @servers_per_frames, view_side: params[:view] %>
+  <%= render 'servers/room.html.erb', room: @room, islets: @servers_per_frames, view_side: (params[:view].present? ? params[:view] : 'back') %>
 </div>
