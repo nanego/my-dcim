@@ -11,7 +11,9 @@
     <div>
       <div>
         <div class="panel-islet">
-          <% if @room.present? %>
+          <% if local_assigns[:title].present? %>
+            <div><h3><%= title %></h3></div>
+          <% elsif @room.present? %>
             <div><h3>Salle <%= @room.name %> - Ilot <%= islet %></h3></div>
           <% end %>
 
@@ -30,7 +32,13 @@
                 <% bays.each do |bay, frames| %>
 
                   <% if formats != [:pdf] %>
-                    <div class="<%= frames.size>1 ? 'col-sm-12 col-lg-6' : 'col-sm-6 col-lg-3' %>" style='overflow: auto;'> <div class="panel well" style='overflow: auto;'><div class="panel-body">
+                    <%  if bays.size==1 && lanes.size==1
+                          layout_classes = 'col-sm-12 col-lg-12'
+                        else
+                          layout_classes = frames.size>1 ? 'col-sm-12 col-lg-6' : 'col-sm-6 col-lg-3'
+                        end
+                    %>
+                    <div class="<%= layout_classes %>" style='overflow: auto;'> <div class="panel well" style='overflow: auto;'><div class="panel-body">
                   <% end %>
 
                   <% frames.each do |frame, servers| %>

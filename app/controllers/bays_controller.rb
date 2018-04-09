@@ -1,8 +1,52 @@
 class BaysController < ApplicationController
-  before_action :set_bay, only: [:edit, :update, :destroy]
+  before_action :set_bay, only: [:edit, :update, :destroy, :show]
 
   def index
     @bays = Bay.joins(:islet => :room).order('rooms.position, islets.name, bays.lane, bays.position')
+  end
+
+  def show
+    @servers_per_frames = {}
+    @sums = {}
+    @bay.frames
+        .includes(:islet => [:room],
+                  :bay => [:frames],
+                  :servers => [:frame,
+                               :gestion,
+                               :modele => [:category, :composants],
+                               :cards => [:composant, :ports => [:connection => :cable], :card_type => :port_type]])
+        .order('frames.position').each do |frame|
+
+      # sums per frame and per type of port
+      @sums[frame.id] = {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0}
+
+      frame.servers.each do |s|
+        islet = frame.bay.islet.name
+        @servers_per_frames[islet] ||= {}
+        @servers_per_frames[islet][frame.bay.lane] ||= {}
+        @servers_per_frames[islet][frame.bay.lane][frame.bay] ||= {}
+        @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] ||= []
+        @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] << s
+        s.ports_per_type.each do |type, sum|
+          @sums[frame.id][type] = @sums[frame.id][type].to_i + sum
+        end
+      end
+    end
+
+    respond_to do |format|
+      format.html do
+        render 'bays/show.html.erb'
+      end
+      format.pdf do
+        render layout: 'pdf.html',
+               template: "rooms/show.pdf.erb",
+               show_as_html: params[:debug].present?,
+               pdf: 'frame',
+               zoom: 0.75
+      end
+      format.txt { send_data Frame.to_txt(@servers_per_frames) }
+    end
+
   end
 
   def new

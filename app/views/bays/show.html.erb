@@ -1,0 +1,23 @@
+<% provide :title, "Salle #{@bay.room.name} - Double baie #{@bay}" %>
+<%
+  breadcrumb_variables = {'Salles' => overview_rooms_path, @bay.room.name => room_path(@bay.room)}
+  if @bay.islet.name.present?
+    breadcrumb_variables["Ilot #{@bay.islet.name}"] = islet_rooms_path(id: @bay.room.id, islet: @bay.islet.name)
+  elsif params[:islet].present?
+    breadcrumb_variables["Ilot #{params[:islet]}"] = ''
+  end
+  breadcrumb_variables["Double baie #{@bay}"] = ''
+%>
+<%= render 'layouts/breadcrumb', params: breadcrumb_variables %>
+
+<div class="container-fluid">
+  <%= render 'servers/room',
+             room: @bay.room,
+             islets: @servers_per_frames,
+             title: "Double baie #{@bay}",
+             view_side: params[:view] %>
+</div>
+
+<%= render 'servers/modal_add_element_in_frame' %>
+
+<%= render 'ports/modal_edit_port' %>

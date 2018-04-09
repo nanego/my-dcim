@@ -11,7 +11,7 @@ class Bay < ActiveRecord::Base
   scope :sorted, -> { order( :lane, :position ) }
 
   def to_s
-    name.nil? ? "" : name
+    frames.sorted.map(&:name).join('/')
   end
 
   def detailed_name

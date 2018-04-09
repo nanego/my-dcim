@@ -11,7 +11,10 @@
 <%= render 'layouts/breadcrumb', params: breadcrumb_variables %>
 
 <div class="container-fluid">
-  <%= render 'servers/room', room: @room, islets: @servers_per_frames, view_side: params[:view] %>
+  <%= render 'servers/room',
+             room: @room,
+             islets: @servers_per_frames,
+             view_side: params[:view] %>
 </div>
 
 <%= render 'servers/modal_add_element_in_frame' %>
