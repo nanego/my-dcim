@@ -36,10 +36,10 @@
                   data-max-fc='<%= settings[:max_fc] %>' >
 
                   <div class="col-xs-12 col-sm-5 view-front">
-                    <%= render partial: 'frames/show', locals: {frame: @frame, servers: @frame.servers, settings: settings, view_type: 'front'} %>
+                    <%= render partial: 'frames/show_frame', locals: {frame: @frame, servers: @frame.servers, settings: settings, view_type: 'front'} %>
                   </div>
                   <div class="col-xs-12 col-sm-5 view-back">
-                    <%= render partial: 'frames/show', locals: {frame: @frame, servers: @frame.servers, settings: settings, view_type: 'back'} %>
+                    <%= render partial: 'frames/show_frame', locals: {frame: @frame, servers: @frame.servers, settings: settings, view_type: 'back'} %>
                   </div>
                   <div class="hidden-xs col-sm-2">
                     <%= render partial: 'pdus/show', locals: {frame: @frame} %>

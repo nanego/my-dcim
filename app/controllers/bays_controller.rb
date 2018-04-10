@@ -1,4 +1,6 @@
 class BaysController < ApplicationController
+  include RoomsHelper
+
   before_action :set_bay, only: [:edit, :update, :destroy, :show]
 
   def index
@@ -6,6 +8,7 @@ class BaysController < ApplicationController
   end
 
   def show
+    @sort_order = frames_sort_order(params[:view], @bay.lane)
     @servers_per_frames = {}
     @sums = {}
     @bay.frames
@@ -15,7 +18,7 @@ class BaysController < ApplicationController
                                :gestion,
                                :modele => [:category, :composants],
                                :cards => [:composant, :ports => [:connection => :cable], :card_type => :port_type]])
-        .order('frames.position').each do |frame|
+        .order("frames.position #{@sort_order}").each do |frame|
 
       # sums per frame and per type of port
       @sums[frame.id] = {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0}

@@ -1,4 +1,4 @@
-$("#frame").html("<%= escape_javascript(render partial: 'frames/show', locals: {frame: @frame,
+$("#frame").html("<%= escape_javascript(render partial: 'frames/show_frame', locals: {frame: @frame,
                                             servers: (@frame.servers).sort_by { |server| server.position.present? ? server.position : 0}.reverse,
                                             settings: Frame.settings.merge({:min_height => 27 }),
                                             view_type: @view,

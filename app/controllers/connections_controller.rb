@@ -65,7 +65,7 @@ class ConnectionsController < ApplicationController
 
   def update_destination_server
     @server = Server.find_by_id(params[:server_id])
-    @server.create_missing_ports
+    @server.create_missing_ports if @server
     @server.reload
     if params[:with_moved_connection]
       @moved_connections = MovedConnection.per_servers([@server])

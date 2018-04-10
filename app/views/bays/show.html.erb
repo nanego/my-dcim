@@ -1,4 +1,4 @@
-<% provide :title, "Salle #{@bay.room.name} - Double baie #{@bay}" %>
+<% provide :title, "Double baie #{@bay}" %>
 <%
   breadcrumb_variables = {'Salles' => overview_rooms_path, @bay.room.name => room_path(@bay.room)}
   if @bay.islet.name.present?

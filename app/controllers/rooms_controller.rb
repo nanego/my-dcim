@@ -1,5 +1,6 @@
 class RoomsController < ApplicationController
   include ServersHelper
+  include RoomsHelper
 
   before_action :set_room, only: [:show, :edit, :update, :destroy, :islet]
 
@@ -10,9 +11,8 @@ class RoomsController < ApplicationController
   end
 
   def show
-    @servers_per_frames = {}
     @sums = {}
-    @room.frames
+    frames = @room.frames
         .includes(:islet => [:room],
                   :bay => [:frames],
                   :servers => [:frame,
@@ -20,14 +20,16 @@ class RoomsController < ApplicationController
                                :cluster,
                                :modele => [:category, :composants],
                                :cards => [:composant, :ports => [:connection => :cable], :card_type => :port_type]])
-        .order('islets.name, bays.lane, bays.position, frames.position').each do |frame|
+        .order('islets.name, bays.lane')
 
+    @servers_per_frames = {}
+    sorted_frames_per_islet(frames, params[:view]).each do |frame|
+      islet = frame.bay.islet.name
+      @servers_per_frames[islet] ||= {}
+      @servers_per_frames[islet][frame.bay.lane] ||= {}
+      @servers_per_frames[islet][frame.bay.lane][frame.bay] ||= {}
+      @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] ||= []
       frame.servers.each do |s|
-        islet = frame.bay.islet.name
-        @servers_per_frames[islet] ||= {}
-        @servers_per_frames[islet][frame.bay.lane] ||= {}
-        @servers_per_frames[islet][frame.bay.lane][frame.bay] ||= {}
-        @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] ||= []
         @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] << s
       end
       @sums.merge!(calculate_ports_sums(frame, frame.servers))
@@ -35,7 +37,7 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        render 'rooms/show'
+        render 'rooms/show.html.erb'
       end
       format.pdf do
         render layout: 'pdf.html',
@@ -49,28 +51,31 @@ class RoomsController < ApplicationController
   end
 
   def islet
-    islet = params[:islet]
-    @servers_per_frames = {}
+    @islet = params[:islet]
     @sums = {}
-    @room.frames
+    frames = @room.frames
         .includes(:islet => [:room],
                   :bay => [:frames],
                   :servers => [:frame,
                                :gestion,
                                :modele => [:category, :composants],
                                :cards => [:composant, :ports => [:connection => :cable], :card_type => :port_type]])
-        .where('islets.name = ?', islet)
-        .order('islets.name, bays.lane, bays.position, frames.position').each do |frame|
+        .where('islets.name = ?', @islet)
+        .order("islets.name, bays.lane")
+
+    @servers_per_frames = {}
+    sorted_frames_per_islet(frames, params[:view]).each do |frame|
+
+      islet = frame.bay.islet.name
+      @servers_per_frames[islet] ||= {}
+      @servers_per_frames[islet][frame.bay.lane] ||= {}
+      @servers_per_frames[islet][frame.bay.lane][frame.bay] ||= {}
+      @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] ||= []
 
       # sums per frame and per type of port
       @sums[frame.id] = {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0}
 
       frame.servers.each do |s|
-        islet = frame.bay.islet.name
-        @servers_per_frames[islet] ||= {}
-        @servers_per_frames[islet][frame.bay.lane] ||= {}
-        @servers_per_frames[islet][frame.bay.lane][frame.bay] ||= {}
-        @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] ||= []
         @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] << s
         s.ports_per_type.each do |type, sum|
           @sums[frame.id][type] = @sums[frame.id][type].to_i + sum

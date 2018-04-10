@@ -14,4 +14,24 @@ module RoomsHelper
     html.html_safe
   end
 
+  def frames_sort_order(type_of_view, lane_index = 2)
+    if type_of_view == 'back'
+      if lane_index.even? #pair
+        "desc"
+      else
+        "asc"
+      end
+    else
+      if lane_index.even? #pair
+        "asc"
+      else
+        "desc"
+      end
+    end
+  end
+
+  def sorted_frames_per_islet(frames, type_of_view)
+    frames.sort_by { |f| frames_sort_order(type_of_view,f.bay.lane)=='asc' ? [ f.bay.islet.name, f.bay.lane, f.bay.position, f.position ] : [ f.bay.islet.name, f.bay.lane, -f.bay.position, -f.position ] }
+  end
+
 end

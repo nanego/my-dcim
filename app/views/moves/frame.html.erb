@@ -12,7 +12,7 @@
       <ul class="frames" style="padding: 0;">
 
         <div class="col-xs-12 col-sm-5 view-back">
-          <%= render partial: 'frames/show', locals: {frame: @frame, servers: @servers, settings: Frame.settings.merge({:min_height => 20 }), editable: false, view_type: 'back'} %>
+          <%= render partial: 'frames/show_frame', locals: {frame: @frame, servers: @servers, settings: Frame.settings.merge({:min_height => 20 }), editable: false, view_type: 'back'} %>
         </div>
 
         <div class="col-xs-12 col-sm-7 moved_connection_form_loading">CHARGEMENT EN COURS</div>

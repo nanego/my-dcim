@@ -43,7 +43,7 @@
 
                   <% frames.each do |frame, servers| %>
                     <div class="col-xs-12 <%= frames.size>1 ? 'col-sm-6' : '' %>">
-                      <%= render 'frames/show.html.erb', frame: frame, servers: servers, settings: settings, view_type: view_side %>
+                      <%= render 'frames/show_frame.html.erb', frame: frame, servers: servers, settings: settings, view_type: view_side %>
                     </div>
                   <% end %>
 
