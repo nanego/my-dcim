@@ -31,7 +31,13 @@ module RoomsHelper
   end
 
   def sorted_frames_per_islet(frames, type_of_view)
-    frames.sort_by { |f| frames_sort_order(type_of_view,f.bay.lane)=='asc' ? [ f.bay.islet.name, f.bay.lane, f.bay.position, f.position ] : [ f.bay.islet.name, f.bay.lane, -f.bay.position, -f.position ] }
+    frames.sort_by do |f|
+      if frames_sort_order(type_of_view, f.bay.lane) == 'asc'
+        [ f.bay.islet.name, f.bay.lane, f.bay.position, f.position ]
+      else
+        [ f.bay.islet.name, f.bay.lane, -(f.bay.position.to_i), -(f.position.to_i) ]
+      end
+    end
   end
 
 end
