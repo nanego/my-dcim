@@ -24,7 +24,7 @@ class Modele < ActiveRecord::Base
                                 :reject_if     => :all_blank
 
   def to_s
-    name.nil? ? "" : name
+    name.to_s
   end
 
   def is_a_pdu?

@@ -11,7 +11,7 @@ class Islet < ActiveRecord::Base
   scope :has_name, -> { where.not(name: nil) }
 
   def to_s
-    name.nil? ? "" : name
+    name.to_s
   end
 
   def name_with_room

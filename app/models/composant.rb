@@ -19,7 +19,7 @@ class Composant < ActiveRecord::Base
   scope :slots, -> { where(type_composant: TypeComposant.find_by_name('SLOT')).order("composants.position ASC") }
 
   def to_s
-    name.nil? ? "" : name
+    name.to_s
   end
 
 end

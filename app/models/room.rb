@@ -17,11 +17,11 @@ class Room < ActiveRecord::Base
   scope :not_empty, -> { joins(:servers) }
 
   def to_s
-    name.nil? ? "" : name
+    name.to_s
   end
 
   def name_with_site
-    name.nil? ? site : "#{site} - #{name}"
+    [site, name].join(' - ')
   end
 
   def should_generate_new_friendly_id?

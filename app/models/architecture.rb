@@ -6,6 +6,6 @@ class Architecture < ActiveRecord::Base
   has_many :modeles
 
   def to_s
-    name.nil? ? "" : name
+    name.to_s
   end
 end

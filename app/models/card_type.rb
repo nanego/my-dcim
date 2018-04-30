@@ -10,7 +10,7 @@ class CardType < ActiveRecord::Base
   scope :sorted, -> { order('port_type_id', 'port_quantity asc') }
 
   def to_s
-    name.nil? ? "" : name
+    name.to_s
   end
 
   def is_power_input?
