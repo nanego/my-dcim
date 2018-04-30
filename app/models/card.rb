@@ -24,14 +24,17 @@ class Card < ActiveRecord::Base
     card_type.is_power_input?
   end
 
+  def number_of_ports
+    card_type.try(:port_quantity).to_i
+  end
+
+  def positions_with_ports
+    ports.map {|port| port.position }
+  end
+
   def create_missing_ports
-    # port_type = self.card_type.try(:port_type)
-    port_quantity = self.card_type.try(:port_quantity)
-    existing_ports = self.ports
-    port_quantity.to_i.times do |index|
-      current_position = index+1
-      current_port = existing_ports.detect {|p| p.position == current_position}
-      if current_port.nil?
+    (1..number_of_ports).each do |current_position|
+      unless positions_with_ports.include?(current_position)
         puts "create port #{current_position}"
         Port.create(position: current_position,
                     card_id: self.id,

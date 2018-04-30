@@ -1,7 +1,6 @@
 require File.expand_path("../../test_helper", __FILE__)
 
 class RoomTest < ActiveSupport::TestCase
-
   setup do
     @room = rooms(:one)
   end
