@@ -62,13 +62,6 @@ class Frame < ActiveRecord::Base
     txt
   end
 
-  def other_frame_through_couple_baie #Temp legacy code
-    couples = CoupleBaie.where('baie_one_id = ? OR baie_two_id = ?', self.id, self.id)
-    frames = couples.collect(&:baie_one)
-    frames << couples.collect(&:baie_two)
-    (frames - [self]).first
-  end
-
   def other_frame
     (bay.frames - [self]).first
   end
