@@ -16,6 +16,7 @@ class Card < ActiveRecord::Base
   belongs_to :composant
 
   has_many :ports
+  has_many :cables, through: :ports
 
   scope :for_enclosure, ->  (enclosure_id) { joins(:composant).where("composants.enclosure_id = ?", enclosure_id).order("composants.position ASC")}
 

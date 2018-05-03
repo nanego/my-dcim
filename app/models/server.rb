@@ -1,5 +1,7 @@
 class Server < ActiveRecord::Base
 
+  DEFAULT_NB_OF_SLOTS = 7
+
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
@@ -95,8 +97,9 @@ class Server < ActiveRecord::Base
   end
 
   def init_slots(server_data)
+    ## TODO Refactor this method
     type_composant_slot = TypeComposant.find_by_name('SLOT')
-    7.times do |i|
+    DEFAULT_NB_OF_SLOTS.times do |i|
       Composant.find_or_create_by!(modele: self.modele,
                                    type_composant: type_composant_slot,
                                    name: "SL#{i+1}"
@@ -114,7 +117,7 @@ class Server < ActiveRecord::Base
 
     # SLOTS SL
     slots = Composant.where(enclosure_id: Enclosure.where(modele_id: self.modele_id).order(:position).first.id, type_composant_id: type_composant_slot.id)
-    7.times do |index|
+    DEFAULT_NB_OF_SLOTS.times do |index|
       slot_name = "SL#{index+1}"
       slot_data = server_data[slot_name]
       if slot_data.present?
@@ -163,7 +166,7 @@ class Server < ActiveRecord::Base
       else
         port_type = card.card_type.port_type.name
       end
-      sums[port_type] = sums[port_type].to_i + card.ports.map{ |p| p.connection.try(:cable) }.compact.size
+      sums[port_type] = sums[port_type].to_i + card.ports.map{ |port| port.connection.try(:cable) }.compact.size
     end
     sums
   end
