@@ -47,6 +47,7 @@ group :development, :test do
   gem 'byebug'
   gem 'rails-controller-testing'
   gem 'active_record_doctor'
+  gem 'simplecov', require: false
 end
 group :production do
   gem 'passenger'
