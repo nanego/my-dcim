@@ -9,7 +9,7 @@ class MovedConnection < ApplicationRecord
     [self.port_from, self.port_to].compact
   end
   
-  def cablecolor
+  def cable_color
     color
   end
 

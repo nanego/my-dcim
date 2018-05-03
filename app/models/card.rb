@@ -9,6 +9,9 @@ class Card < ActiveRecord::Base
   }
 
   belongs_to :card_type
+  delegate :port_quantity, :to => :card_type, :allow_nil => true
+  delegate :is_power_input?, to: :card_type, :allow_nil => true
+
   belongs_to :server
   belongs_to :composant
 
@@ -20,20 +23,12 @@ class Card < ActiveRecord::Base
     "Carte #{server} / #{card_type} / #{composant}"
   end
 
-  def is_power_input?
-    card_type.is_power_input?
-  end
-
-  def number_of_ports
-    card_type.try(:port_quantity).to_i
-  end
-
   def positions_with_ports
     ports.map {|port| port.position }
   end
 
   def create_missing_ports
-    (1..number_of_ports).each do |current_position|
+    (1..port_quantity).each do |current_position|
       unless positions_with_ports.include?(current_position)
         puts "create port #{current_position}"
         Port.create(position: current_position,

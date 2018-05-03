@@ -15,6 +15,7 @@ class Frame < ActiveRecord::Base
   belongs_to :bay
   has_one :islet, through: :bay
   delegate :room, :to => :islet, :allow_nil => true
+  delegate :name, :to => :room, :prefix => true, :allow_nil => true
 
   acts_as_list scope: [:bay_id]
 
@@ -31,7 +32,10 @@ class Frame < ActiveRecord::Base
   end
 
   def name_with_room_and_islet
-    "#{room.try(:name).present? ? "Salle #{room.name} " : ''} #{bay.present? ? "Ilot #{bay.islet.name}" : ''} Baie #{name.present? ? name : 'non précisée' }"
+    [room_name.present? ? "Salle #{room_name}" : '',
+     bay.present? ? "Ilot #{bay.islet.name}" : '',
+     "Baie " + (name.present? ? name : 'non précisée')
+    ].reject(&:blank?).join(' ')
   end
 
   def self.to_txt(servers_per_bay)
@@ -88,8 +92,7 @@ class Frame < ActiveRecord::Base
     def slug_candidates
       [
           :name,
-          [self.room.try(:name), :name],
-          [self.room.try(:name), :name, :id]
+          [:name, :id]
       ]
     end
 

@@ -2,10 +2,10 @@
 
 one:
   id: 1
-  name: MyString
-  color: MyString
+  name: cableXYZ
+  color: 990034
 
 two:
   id: 2
-  name: MyString
-  color: MyString
+  name: otherCable
+  color: 140H4A

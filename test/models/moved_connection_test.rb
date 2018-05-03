@@ -16,7 +16,7 @@ class MovedConnectionTest < ActiveSupport::TestCase
   end
 
   test 'cablecolor should return the color attribute' do
-    assert @connection.color == @connection.cablecolor
+    assert @connection.color == @connection.cable_color
   end
 
   test 'execution of a movement' do
@@ -26,7 +26,7 @@ class MovedConnectionTest < ActiveSupport::TestCase
     @connection.execute_movement
 
     port_from.reload
-    assert port_from.cablename == @connection.cablename
+    assert port_from.cable_name == @connection.cablename
     assert_empty MovedConnection.where(id: @connection.id)
   end
 

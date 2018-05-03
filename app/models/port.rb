@@ -9,9 +9,14 @@ class Port < ActiveRecord::Base
   }
 
   belongs_to :card
+  delegate :is_power_input?, to: :card, :allow_nil => true
 
   has_one :connection
+  delegate :paired_connection, to: :connection, allow_nil: true
+
   has_one :cable, through: :connection
+  delegate :color, to: :cable, prefix: true, allow_nil: true
+  delegate :name, to: :cable, prefix: true, allow_nil: true
   has_one :server, through: :card
 
   scope :sorted, -> {order(:position)}
@@ -50,31 +55,11 @@ class Port < ActiveRecord::Base
     end
   end
 
-  def cablename
-    if connection.present? && connection.try(:cable).present? && connection.try(:cable).try(:name).present?
-      connection.cable.name
-    else
-      ""
-    end
-  end
-
-  def cablecolor
-    self.try(:connection).try(:cable).present? ? self.connection.cable.color : ''
-  end
-
-  def is_power_input?
-    card.is_power_input?
-  end
-
-  def cablename
-    self.try(:connection).try(:cable).present? ? self.connection.cable.name : ''
-  end
-
   private
 
   def remove_unused_connections(ports)
     ports.reject(&:blank?).each do |port|
-      old_port_destination = port.connection.try(:paired_connection).try(:port)
+      old_port_destination = port.paired_connection.try(:port)
       if old_port_destination.present? && !ports.include?(old_port_destination)
         old_port_destination.connection.cable.destroy
       end

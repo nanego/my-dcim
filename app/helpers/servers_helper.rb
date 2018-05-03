@@ -41,13 +41,13 @@ module ServersHelper
   def link_to_port(position, port_data, port_type, card_id, port_id)
     case port_type.name
       when 'RJ'
-        link_to_port_by_type(port_data.present? ? port_data.cablename : '', "RJ", port_data, position, card_id, port_id)
+        link_to_port_by_type(port_data.present? ? port_data.cable_name : '', "RJ", port_data, position, card_id, port_id)
       when 'XRJ'
-        link_to_port_by_type(port_data.present? ? port_data.cablename : '', "RJ", port_data, position, card_id, port_id)
+        link_to_port_by_type(port_data.present? ? port_data.cable_name : '', "RJ", port_data, position, card_id, port_id)
       when 'FC'
-        link_to_port_by_type(port_data.present? ? port_data.cablename : '', "FC", port_data, position, card_id, port_id)
+        link_to_port_by_type(port_data.present? ? port_data.cable_name : '', "FC", port_data, position, card_id, port_id)
       else
-        link_to_port_by_type("#{port_type.try(:name)}<BR>#{port_data.try(:cablename)}".html_safe, port_type.name, port_data, position, card_id, port_id)
+        link_to_port_by_type("#{port_type.try(:name)}<BR>#{port_data.try(:cable_name)}".html_safe, port_type.name, port_data, position, card_id, port_id)
     end
   end
 
@@ -60,7 +60,7 @@ module ServersHelper
     end
     link_to label,
         edit_port_url,
-        {class: "port pull-left port#{port_class} #{port_data.try(:cablecolor)}",
+        {class: "port pull-left port#{port_class} #{port_data.try(:cable_color)}",
         id: port_id,
         data: {url: edit_port_url,
                position: position,

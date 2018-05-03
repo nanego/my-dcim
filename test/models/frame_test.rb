@@ -6,4 +6,8 @@ class FrameTest < ActiveSupport::TestCase
     assert_includes frames(:one).pdus, servers(:pdu)
   end
 
+  test "name_with_room_and_islet" do
+    assert_equal frames(:one).name_with_room_and_islet, "Salle S1 Ilot Islet1 Baie MyString"
+  end
+
 end

@@ -24,8 +24,8 @@ class ModelesController < ApplicationController
   end
 
   def edit
-    unless @modele.color.present?
-      @modele.color = lighten_color("##{Digest::MD5.hexdigest(@modele.try(:name) || 'test')[0..5]}", 0.4)
+    if @modele.color.blank?
+      @modele.color = lighten_color("##{Digest::MD5.hexdigest(@modele.name || 'test')[0..5]}", 0.4)
     end
   end
 

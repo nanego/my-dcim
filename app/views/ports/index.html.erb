@@ -30,7 +30,7 @@
           <p>
             <% s.cards.each do |c| %>
               <% c.ports.each do |port| %>
-                <% if port && port.cablename && c.composant.name.present? %>
+                <% if port && port.cable_name && c.composant.name.present? %>
                   <%= "#{c.composant.name}#{c.composant.name.include?('SL') ? "/#{port.position}" : port.position} - #{port.network_conf(s.frame.switch_slot)}" %>
                   <br>
                 <% end %>

@@ -35,6 +35,7 @@ class ModelesControllerTest < ActionController::TestCase
   test "should get edit" do
     get :edit, params: {id: @modele}
     assert_response :success
+    assert_not_nil assigns(:modele).color
   end
 
   test "should update modele" do
