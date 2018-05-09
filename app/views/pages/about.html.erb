@@ -16,6 +16,12 @@
           <div class="row">
             <div class="col-md-12">
 
+              <h3>Version de l'application</h3>
+
+              <p class="version">
+                <%= simple_format(`git show --pretty=short --quiet`) %>
+              </p>
+
               <h3>Environnement :</h3>
 
               <p class="version">
