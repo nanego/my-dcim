@@ -58,7 +58,7 @@ module ServersHelper
     else
       port_class = "SCSI"
     end
-    link_to label,
+    link_to label.to_s,
         edit_port_url,
         {class: "port pull-left port#{port_class} #{port_data.try(:cable_color)}",
         id: port_id,
