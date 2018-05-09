@@ -11,15 +11,7 @@ class BaysController < ApplicationController
     @sort_order = frames_sort_order(params[:view], @bay.lane)
     @servers_per_frames = {}
     @sums = {}
-    @bay.frames
-        .includes(:islet => [:room],
-                  :bay => [:frames],
-                  :servers => [:frame,
-                               :gestion,
-                               :modele => [:category, :composants],
-                               :cards => [:composant, :ports => [:connection => :cable], :card_type => :port_type]])
-        .order("frames.position #{@sort_order}").each do |frame|
-
+    Frames::IncludingServersQuery.call(@bay.frames, @sort_order).each do |frame|
       # sums per frame and per type of port
       @sums[frame.id] = {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0}
 

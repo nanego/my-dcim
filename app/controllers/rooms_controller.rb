@@ -11,18 +11,10 @@ class RoomsController < ApplicationController
   end
 
   def show
-    @sums = {}
-    frames = @room.frames
-        .includes(:islet => [:room],
-                  :bay => [:frames],
-                  :servers => [:frame,
-                               :gestion,
-                               :cluster,
-                               :modele => [:category, :composants],
-                               :cards => [:composant, :ports => [:connection => :cable], :card_type => :port_type]])
-        .order('islets.name, bays.lane')
-
+    frames = Frames::IncludingServersQuery.call(@room.frames, 'islets.name, bays.lane')
     @servers_per_frames = {}
+    @sums = {}
+
     sorted_frames_per_islet(frames, params[:view]).each do |frame|
       islet = frame.bay.islet.name
       @servers_per_frames[islet] ||= {}
@@ -53,17 +45,9 @@ class RoomsController < ApplicationController
   def islet
     @islet = params[:islet]
     @sums = {}
-    frames = @room.frames
-        .includes(:islet => [:room],
-                  :bay => [:frames],
-                  :servers => [:frame,
-                               :gestion,
-                               :modele => [:category, :composants],
-                               :cards => [:composant, :ports => [:connection => :cable], :card_type => :port_type]])
-        .where('islets.name = ?', @islet)
-        .order("islets.name, bays.lane")
-
+    frames = Frames::IncludingServersQuery.call(@room.frames.where('islets.name = ?', @islet), 'islets.name, bays.lane')
     @servers_per_frames = {}
+
     sorted_frames_per_islet(frames, params[:view]).each do |frame|
 
       islet = frame.bay.islet.name
