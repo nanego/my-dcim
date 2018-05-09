@@ -91,10 +91,15 @@ class ServersControllerTest < ActionController::TestCase
   test "csv import" do
     test_file = Rails.root + "test/files/orders.csv"
     file = Rack::Test::UploadedFile.new(test_file)
-    post :import, params: { import: { file: file,
-                                                room_id: Room.first.id,
-                                                server_state_id: ServerState.first.id}}
-
+    assert_difference('Bay.count') do
+      assert_difference('Frame.count') do
+        assert_difference('Server.count', 26) do
+          post :import, params: { import: { file: file,
+                                            room_id: Room.first.id,
+                                            server_state_id: ServerState.first.id}}
+        end
+      end
+    end
     assert_response 302
     assert_redirected_to :controller => "frames", :action => "show", :id => "orders"
   end

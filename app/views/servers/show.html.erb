@@ -62,8 +62,8 @@
       <dt>Position:</dt>
       <dd><%= @server.position %></dd>
 
-      <dt>Marque:</dt>
-      <dd><%= @server.modele.try(:marque) %></dd>
+      <dt>Fabricant:</dt>
+      <dd><%= @server.modele.try(:manufacturer) %></dd>
 
       <dt>Modele:</dt>
       <dd><%= link_to @server.modele, edit_modele_path(@server.modele) if @server.modele.try(:name) %></dd>

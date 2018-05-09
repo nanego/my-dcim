@@ -30,8 +30,8 @@ class ServersGrid
   filter :u, :integer do |value|
     joins(:modele).where("modeles.u = ?", value)
   end
-  filter :marque, :enum, :select => Marque.where(published: true).map {|r| [r.to_s, r.id]} do |value|
-    joins(:modele).where("modeles.marque_id = ?", value)
+  filter :manufacturer, :enum, :select => Manufacturer.where(published: true).map {|r| [r.to_s, r.id]} do |value|
+    joins(:modele).where("modeles.manufacturer_id = ?", value)
   end
   filter(:modele, :enum, :select => Modele.where(published: true).map {|r| [r.to_s, r.id]})
   filter(:numero, :string)
@@ -90,10 +90,10 @@ class ServersGrid
   }) do |record|
     record.modele.try(:u)
   end
-  column(:marque, :order => proc { |scope|
-    scope.joins(:modele => :marque).order("marques.name")
+  column(:manufacturer, :order => proc { |scope|
+    scope.joins(:modele => :manufacturer).order("manufacturers.name")
   }) do |record|
-    record.modele.try(:marque)
+    record.modele.try(:manufacturer)
   end
   column(:modele, :order => proc { |scope|
     scope.joins(:modele).order("modeles.name")

@@ -65,7 +65,7 @@ Rails.application.routes.draw do
   resources :gestions
   resources :domaines
   resources :modeles
-  resources :marques
+  resources :manufacturers
   resources :architectures
   resources :categories
   namespace :admin do

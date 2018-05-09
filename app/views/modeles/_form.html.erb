@@ -29,9 +29,9 @@
     <div class="col-sm-10 col-md-5">
       <%= f.number_field :u, class: "form-control" %>
     </div>
-    <%= f.label :marque_id, class: "col-sm-2 col-md-1 control-label" %>
+    <%= f.label :manufacturer_id, class: "col-sm-2 col-md-1 control-label" %>
     <div class="col-sm-10 col-md-5">
-      <%= f.collection_select(:marque_id, Marque.all, :id, :name, {}, {class: "form-control"}) %>
+      <%= f.collection_select(:manufacturer_id, Manufacturer.all, :id, :name, {}, {class: "form-control"}) %>
     </div>
     <%= f.label :nb_elts, class: "col-sm-2 col-md-1 control-label" %>
     <div class="col-sm-10 col-md-5">

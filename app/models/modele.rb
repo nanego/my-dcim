@@ -15,7 +15,7 @@ class Modele < ActiveRecord::Base
   has_many :enclosures
   has_many :composants, through: :enclosures
 
-  belongs_to :marque
+  belongs_to :manufacturer
   belongs_to :architecture
   belongs_to :category
 
@@ -36,7 +36,7 @@ class Modele < ActiveRecord::Base
   end
 
   def name_with_brand
-    "#{marque} #{name}"
+    "#{manufacturer} #{name}"
   end
 
   private

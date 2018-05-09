@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180110152701) do
+ActiveRecord::Schema.define(version: 20180509085330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -231,7 +231,7 @@ ActiveRecord::Schema.define(version: 20180110152701) do
     t.index ["server_id"], name: "index_maintenance_contracts_on_server_id"
   end
 
-  create_table "marques", id: :serial, force: :cascade do |t|
+  create_table "manufacturers", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.boolean "published"
@@ -266,12 +266,12 @@ ActiveRecord::Schema.define(version: 20180110152701) do
     t.integer "nb_elts"
     t.integer "architecture_id"
     t.integer "u"
-    t.integer "marque_id"
+    t.integer "manufacturer_id"
     t.string "color"
     t.string "slug"
     t.index ["architecture_id"], name: "index_modeles_on_architecture_id"
     t.index ["category_id"], name: "index_modeles_on_category_id"
-    t.index ["marque_id"], name: "index_modeles_on_marque_id"
+    t.index ["manufacturer_id"], name: "index_modeles_on_manufacturer_id"
     t.index ["slug"], name: "index_modeles_on_slug", unique: true
   end
 
