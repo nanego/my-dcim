@@ -31,7 +31,7 @@
 
           <tbody>
             <%= content_tag_for(:tr, @architectures) do |architecture| %>
-              <td><%= architecture.name %></td>
+              <td><%= architecture %></td>
               <td><%= pluralize(architecture.modeles.count, 'modeles') %> </td>
               <td><%= link_to 'Modifier', edit_architecture_path(architecture), class: 'btn btn-primary' %></td>
               <td><%= link_to 'Supprimer', architecture, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>

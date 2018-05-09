@@ -1,0 +1,29 @@
+Nom;Modele;Cluster;Critique;Domaine
+relternet-05;PowerEdge R730;relternet;oui;Cluster Messagerie
+relternet-06;PowerEdge R730;relternet;oui;Cluster Messagerie
+reltranet-05;PowerEdge R730;reltranet;oui;Cluster Messagerie
+reltranet-06;PowerEdge R730;reltranet;oui;Cluster Messagerie
+relgreyng-03;PowerEdge R430;relgrey;oui;Cluster Messagerie
+relgreyng-04;PowerEdge R430;relgrey;oui;Cluster Messagerie
+clamavis-01;PowerEdge R730;clamavis;oui;Cluster Messagerie
+clamavis-02;PowerEdge R730;clamavis;oui;Cluster Messagerie
+ldapmaha-03;PowerEdge R730;ldapmaha;oui;Cluster Messagerie
+ldapmaha-04;PowerEdge R730;ldapmaha;oui;Cluster Messagerie
+ldapba-03;PowerEdge R430;ldapba;oui;Cluster Messagerie
+ldapba-04;PowerEdge R430;ldapba;oui;Cluster Messagerie
+ldapcl-03;PowerEdge R430;ldapcl;oui;Cluster Messagerie
+ldapcl-04;PowerEdge R430;ldapcl;oui;Cluster Messagerie
+ldapap-03;PowerEdge R430;ldapap;oui;Cluster Messagerie
+ldapap-04;PowerEdge R430;ldapap;oui;Cluster Messagerie
+rcube-03;PowerEdge R730;horde;oui;Cluster Messagerie
+rcube-04;PowerEdge R730;horde;oui;Cluster Messagerie
+zp-03;PowerEdge R730;zp;oui;Cluster Messagerie
+zp-04;PowerEdge R730;zp;oui;Cluster Messagerie
+davy-05;PowerEdge R730;davyval;oui;Cluster Messagerie
+davy-06;PowerEdge R730;davycal;oui;Cluster Messagerie
+h-infra-03;PowerEdge R730;H-infra;oui;Cluster admin
+h-infra-04;PowerEdge R730;H-infra;oui;Cluster admin
+stock_2001607_01;PowerEdge R730;;non;
+stock_2001607_02;PowerEdge R730;;non;
+pne-ref-geo-01;PowerEdge R730;;non;pne-ref-geo
+pne-ref-geo-02;PowerEdge R730;;non;pne-ref-geo

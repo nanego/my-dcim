@@ -1,11 +1,15 @@
 one:
   id: 1
-  name: type_compo_1
+  name: SLOT
 
 two:
   id: 2
-  name: type_compo_2
+  name: CM
 
 three:
   id: 3
   name: ALIM
+
+four:
+  id: 4
+  name: IPMI

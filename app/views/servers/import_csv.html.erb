@@ -14,7 +14,7 @@
         <div class="panel-body">
           <p>
             <%= f.label "Salle où importer les serveurs :" %>
-            <%= f.select :server_state_id, Room.order('id').all.collect { |p| [p.name, p.id ] }, include_blank: false, selected: Room.find_by_name('Atelier').try(:id) %>
+            <%= f.select :room_id, Room.order('id').all.collect { |p| [p.name, p.id ] }, include_blank: false, selected: Room.find_by_name('Atelier').try(:id) %>
           </p>
           <p>
             <%= f.label "Etat des serveurs importés :" %>

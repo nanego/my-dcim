@@ -12,6 +12,11 @@ class BaysControllerTest < ActionController::TestCase
     assert_not_nil assigns(:bays)
   end
 
+  test "should show bay" do
+    get :show, params: {id: @bay}
+    assert_response :success
+  end
+
   test "should get new" do
     get :new
     assert_response :success

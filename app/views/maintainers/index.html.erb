@@ -30,7 +30,7 @@
 
           <tbody>
             <%= content_tag_for(:tr, @maintainers) do |maintainer| %>
-              <td><%= maintainer.name %></td>
+              <td><%= maintainer %></td>
               <td><%= link_to 'Modifier', edit_maintainer_path(maintainer) %></td>
               <td><%= link_to 'Supprimer', maintainer, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' %></td>
             <% end %>

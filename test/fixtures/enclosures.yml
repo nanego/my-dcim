@@ -12,3 +12,8 @@ three:
   modele_id: 3
   position: 3
   display: vertical
+
+four:
+  modele_id: 2
+  position: 1
+  display: horizontal

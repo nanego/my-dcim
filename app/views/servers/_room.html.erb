@@ -14,7 +14,7 @@
           <% if local_assigns[:title].present? %>
             <div><h3><%= title %></h3></div>
           <% elsif @room.present? %>
-            <div><h3>Salle <%= @room.name %> - Ilot <%= islet %></h3></div>
+            <div><h3>Salle <%= @room %> - Ilot <%= islet %></h3></div>
           <% end %>
 
           <div class="row">

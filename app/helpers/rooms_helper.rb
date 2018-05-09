@@ -15,6 +15,7 @@ module RoomsHelper
   end
 
   def frames_sort_order(type_of_view, lane_index = 2)
+    lane_index = 2 if lane_index.nil?
     if type_of_view == 'back'
       if lane_index.even? #pair
         "desc"

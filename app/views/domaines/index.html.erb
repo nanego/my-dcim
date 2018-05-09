@@ -31,7 +31,7 @@
 
           <tbody>
           <%= content_tag_for(:tr, @domaines) do |domaine| %>
-            <td><%= domaine.name %></td>
+            <td><%= domaine %></td>
             <td><%= pluralize(domaine.servers.count, 'serveur') %> </td>
             <td><%= link_to 'Modifier', edit_domaine_path(domaine), class: 'btn btn-primary' %></td>
             <td><%= link_to 'Supprimer', domaine, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>

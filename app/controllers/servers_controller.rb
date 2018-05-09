@@ -80,8 +80,10 @@ class ServersController < ApplicationController
   end
 
   def import
-    new_frame = Server.import(params[:import][:file], Room.find_by_id(params[:import][:room_id]), ServerState.find_by_id(params[:import][:server_state_id]))
-    redirect_to frame_path(new_frame), notice: 'Les nouveaux servers ont été ajoutés'
+    new_frame = ImportEquipmentByCSV.call(file: params[:import][:file],
+                                          room_id: params[:import][:room_id],
+                                          equipment_status_id: params[:import][:server_state_id])
+    redirect_to frame_path(new_frame), notice: 'Les nouveaux serveurs ont été ajoutés'
   end
 
   def destroy

@@ -1,7 +1,4 @@
 class Server < ActiveRecord::Base
-
-  DEFAULT_NB_OF_SLOTS = 7
-
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
@@ -68,93 +65,6 @@ class Server < ActiveRecord::Base
 
   def is_not_a_pdu?
     !is_a_pdu?
-  end
-
-  require 'csv'
-  def self.import(csv_file, room, server_state)
-    room = room || Room.find_or_create_by!(name: 'Atelier')
-    islet = room.islets.first
-    bay = islet.bays.create!
-    frame = bay.frames.create!(name: csv_file.original_filename.sub('.csv', ''))
-    CSV.foreach(csv_file.path, {headers: true, col_sep: ';' }) do |row|
-      server_data = row.to_hash
-      modele = Modele.find_by_name(server_data['Modele'])
-      raise "Modèle inconnu - #{server_data['Modele']}" if modele.blank?
-      server = Server.new(frame: frame)
-      server.server_state = server_state
-      server.modele = modele
-      server.name = server_data['Nom']
-      server.critique = (server_data['Critique'] == 'oui')
-      server.cluster = Cluster.find_or_create_by!(name: server_data['Cluster'])
-      server.domaine = Domaine.find_or_create_by!(name: server_data['Domaine'])
-      server.init_slots(server_data)
-      unless server.save
-        raise "Problème lors de l'ajout par fichier CSV"
-      end
-    end
-    frame.compact_u.save
-    return frame
-  end
-
-  def init_slots(server_data)
-    ## TODO Refactor this method
-    type_composant_slot = TypeComposant.find_by_name('SLOT')
-    DEFAULT_NB_OF_SLOTS.times do |i|
-      Composant.find_or_create_by!(modele: self.modele,
-                                   type_composant: type_composant_slot,
-                                   name: "SL#{i+1}"
-      )
-    end
-    composant_slot_alim = Composant.find_or_create_by!(modele: self.modele,
-                                                       type_composant: type_composant_slot,
-                                                       name: "ALIM")
-    composant_slot_cm = Composant.find_or_create_by!(modele: self.modele,
-                                                     type_composant: type_composant_slot,
-                                                     name: "CM")
-    composant_slot_ipmi = Composant.find_or_create_by!(modele: self.modele,
-                                                       type_composant: type_composant_slot,
-                                                       name: "IPMI")
-
-    # SLOTS SL
-    slots = Composant.where(enclosure_id: Enclosure.where(modele_id: self.modele_id).order(:position).first.id, type_composant_id: type_composant_slot.id)
-    DEFAULT_NB_OF_SLOTS.times do |index|
-      slot_name = "SL#{index+1}"
-      slot_data = server_data[slot_name]
-      if slot_data.present?
-        if slot_data[0].is_integer?
-          valeur = slot_data[1..-1]
-          nb_ports = slot_data[0].to_i
-        else
-          valeur = slot_data
-          nb_ports = 1
-        end
-        port_type = PortType.find_or_create_by!(name: valeur)
-        card_type = CardType.find_or_create_by!(name: slot_data, port_quantity: nb_ports, port_type: port_type)
-        Card.find_or_create_by!(card_type: card_type, server: self, composant: slots.where("name = ?", slot_name).first)
-      end
-    end
-
-    # SLOTS CM
-    valeur = 'RJ'
-    nb_ports = server_data['CM'].gsub(valeur, '').to_i
-    port_type = PortType.find_or_create_by!(name: valeur)
-    card_cm = CardType.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
-    Card.find_or_create_by!(card_type: card_cm, server: self, composant: composant_slot_cm)
-
-    # SLOTS IPMI
-    valeur = 'RJ'
-    nb_ports = server_data['IPMI'].gsub(valeur, '').to_i
-    port_type = PortType.find_or_create_by!(name: valeur)
-    card_ipmi = CardType.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
-    Card.find_or_create_by!(card_type: card_ipmi, server: self, composant: composant_slot_ipmi)
-
-    # SLOTS ALIM
-    valeur = 'ALIM'
-    nb_ports = server_data['Alim'].gsub(valeur, '').to_i
-    port_type = PortType.find_or_create_by!(name: valeur)
-    card_alim = CardType.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
-    Card.find_or_create_by!(card_type: card_alim, server: self, composant: composant_slot_alim)
-
   end
 
   def ports_per_type

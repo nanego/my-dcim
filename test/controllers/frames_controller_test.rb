@@ -26,6 +26,11 @@ class FramesControllerTest < ActionController::TestCase
     assert_redirected_to frames_path
   end
 
+  test "should get show" do
+    get :show, params: {id: @frame}
+    assert_response :success
+  end
+
   test "should get edit" do
     get :edit, params: {id: @frame}
     assert_response :success

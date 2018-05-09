@@ -1,7 +1,7 @@
 <%
   breadcrumb_variables = {}
   breadcrumb_variables['Rooms'] = '' # {'Rooms' => overview_rooms_path, @room.name => (@frame.present? ? room_path(@room):'')}
-  breadcrumb_variables["Frame #{@frame.name}"] = '' if @frame.present?
+  breadcrumb_variables["Frame #{@frame}"] = '' if @frame.present?
 %>
 <%= render 'layouts/breadcrumb', params: breadcrumb_variables %>
 

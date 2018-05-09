@@ -32,7 +32,7 @@
 
           <tbody>
             <%= content_tag_for(:tr, @sites) do |site| %>
-                  <td><%= site.name %></td>
+                  <td><%= site %></td>
                   <td><%= site.position %></td>
               <td><%= pluralize site.rooms.count, 'salle' %></td>
               <td><%= link_to 'Modifier', edit_site_path(site), class: 'btn btn-default' %></td>

@@ -2,7 +2,7 @@
 
 one:
   id: 1
-  name: MyString
+  name: PowerEdge R730
   description: MyText
   published: false
   nb_elts: 1
@@ -14,7 +14,7 @@ one:
 
 two:
   id: 2
-  name: MyString
+  name: PowerEdge R430
   description: MyText
   published: false
   nb_elts: 1

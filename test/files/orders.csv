@@ -1,0 +1,27 @@
+Nom;Marque;Numero;Modele;U;Cluster;Critique;Domaine;SL1;SL2;SL3;SL4;SL5;SL6;SL7;Alim;CM;IPMI
+ternet-05;DELL;1234567AB;PowerEdge R730;2;relternet;oui;Cluster Ouic;;;;;;;;2;4RJ;1RJ
+ternet-06;DELL;1234567AC;PowerEdge R730;2;relternet;oui;Cluster Ouic;;;;;;;;2;4RJ;1RJ
+tranet-05;DELL;1234567AD;PowerEdge R730;2;reltranet;oui;Cluster Ouic;;;;;;;;2;4RJ;1RJ
+tranet-06;DELL;1234567AE;PowerEdge R730;2;reltranet;oui;Cluster Ouic;;;;;;;;2;4RJ;1RJ
+greyng-03;DELL;1234567AF;PowerEdge R430;1;relgrey;oui;Cluster Ouic;;;;;;;;2;2RJ;1RJ
+greyng-04;DELL;1234567AG;PowerEdge R430;1;relgrey;oui;Cluster Ouic;;;;;;;;2;2RJ;1RJ
+mavis-01;DELL;1234567AH;PowerEdge R730;2;clamavis;oui;Cluster Ouic;;;;;;;;2;4RJ;1RJ
+mavis-02;DELL;1234567AI;PowerEdge R730;2;clamavis;oui;Cluster Ouic;;;;;;;;2;4RJ;1RJ
+pmaha-03;DELL;1234567AJ;PowerEdge R730;2;ldapmaha;oui;Cluster Ouic;;;;;;;;2;4RJ;1RJ
+pmaha-04;DELL;1234567AK;PowerEdge R730;2;ldapmaha;oui;Cluster Ouic;;;;;;;;2;4RJ;1RJ
+pba-03;DELL;1234567AL;PowerEdge R430;1;ldapba;oui;Cluster Ouic;;;;;;;;2;2RJ;1RJ
+pba-04;DELL;1234567AM;PowerEdge R430;1;ldapba;oui;Cluster Ouic;;;;;;;;2;2RJ;1RJ
+apcl-03;DELL;1234567AN;PowerEdge R430;1;ldapcl;oui;Cluster Ouic;;;;;;;;2;2RJ;1RJ
+pcl-04;DELL;1234567AO;PowerEdge R430;1;ldapcl;oui;Cluster Ouic;;;;;;;;2;2RJ;1RJ
+pap-03;DELL;1234567AP;PowerEdge R430;1;ldapap;oui;Cluster Ouic;;;;;;;;2;2RJ;1RJ
+pap-04;DELL;1234567AQ;PowerEdge R430;1;ldapap;oui;Cluster Ouic;;;;;;;;2;2RJ;1RJ
+be-03;DELL;1234567AR;PowerEdge R730;2;horde;oui;Cluster Ouic;;;;;;;;2;4RJ;1RJ
+ube-04;DELL;1234567AS;PowerEdge R730;2;horde;oui;Cluster Ouic;;;;;;;;2;4RJ;1RJ
+rtes03;DELL;1234567AT;PowerEdge R730;2;zp;oui;Cluster Ouic;;;;;;;;2;4RJ;1RJ
+oiuytzp-04;DELL;1234567AU;PowerEdge R730;2;zp;oui;Cluster Ouic;;;;;;;;2;4RJ;1RJ
+avy-05;DELL;1234567AV;PowerEdge R730;2;davyval;oui;Cluster Ouic;;;;;;;;2;4RJ;1RJ
+avy-06;DELL;1234567AW;PowerEdge R730;2;davycal;oui;Cluster Ouic;;;;;;;;2;4RJ;1RJ
+infra-03;DELL;1234567AX;PowerEdge R730;2;H-infra;oui;Cluster admin;;;;;2FC;2RJ;2FC;2;4RJ;1RJ
+infra-04;DELL;1234567AY;PowerEdge R730;2;H-infra;oui;Cluster admin;;;;;2FC;2RJ;2FC;2;4RJ;1RJ
+ck_2001607_01;DELL;1234567AZ;PowerEdge R730;2;;non;;;;;;;;;2;4RJ;1RJ
+ck_2001607_02;DELL;1234567AA;PowerEdge R730;2;;non;;;;;;;;;2;4RJ;1RJ

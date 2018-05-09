@@ -5,7 +5,7 @@
             width: fit-content;">
   <% bays.each do |bay| %>
     <div style="grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
-                grid-row:<%= "#{bay.lane}/#{bay.lane+1}" %>;
+                grid-row:<%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;
                 max-width: 195px;">
       <% bay.frames.sorted.each_with_index do |frame, index| %>
         <div class="overviewed_frame <%= 'no-margin' if index > 0 %> <%= 'highlighted' if @frames && @frames.include?(frame) %>">
