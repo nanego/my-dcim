@@ -8,10 +8,10 @@ class BaysController < ApplicationController
   end
 
   def show
-    @sort_order = frames_sort_order(params[:view], @bay.lane)
     @servers_per_frames = {}
     @sums = {}
-    Frames::IncludingServersQuery.call(@bay.frames, @sort_order).each do |frame|
+    sort_order = frames_sort_order(params[:view], @bay.lane)
+    Frames::IncludingServersQuery.call(@bay.frames, "frames.position #{sort_order}").each do |frame|
       # sums per frame and per type of port
       @sums[frame.id] = {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0}
 
