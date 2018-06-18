@@ -7,4 +7,4 @@ test:
 production:
   adapter: redis
   url: redis://localhost:6379/1
-  channel_prefix: demenagement_production
+  channel_prefix: dcim_production

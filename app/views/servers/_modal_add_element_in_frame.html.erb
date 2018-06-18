@@ -29,7 +29,7 @@
           <div class="form-group">
             <%= f.label :modele_id, class: "col-sm-2 control-label" %>
             <div class="col-sm-10">
-              <%= f.collection_select(:modele_id, Modele.order(:name), :id, :name, {:prompt => true}, {class: "form-control"}) %>
+              <%= f.collection_select(:modele_id, Modele.order('LOWER(name)'), :id, :name, {:prompt => true}, {class: "form-control"}) %>
             </div>
           </div>
 
