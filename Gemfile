@@ -28,6 +28,7 @@ gem 'pg'
 gem 'simple_form'
 gem 'datagrid'
 gem 'kaminari'
+gem 'virtus'
 group :development do
   gem 'web-console', '~> 2.0'
   # gem 'spring'
