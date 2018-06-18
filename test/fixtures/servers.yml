@@ -25,7 +25,7 @@ one:
 two:
   id: 2
   frame_id: 1
-  name: ServerName1
+  name: ServerName2
   modele_id: 1
   numero: ABCDEFG32
   conso: 1

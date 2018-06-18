@@ -28,6 +28,7 @@ class Server < ActiveRecord::Base
 
   validates_presence_of :numero
   validates_uniqueness_of :numero
+  validate :numero_cannot_be_a_current_server_name
 
   accepts_nested_attributes_for :cards,
                                 :allow_destroy => true,
@@ -92,6 +93,13 @@ class Server < ActiveRecord::Base
           :name,
           [:name, :id]
       ]
+    end
+
+    def numero_cannot_be_a_current_server_name
+      servers = Server.friendly.where(slug: numero.to_s.downcase)
+      if servers.present?
+        errors.add(:numero, "ne peut pas être identique à un nom de machine")
+      end
     end
 
 end
