@@ -86,7 +86,31 @@ class ServersControllerTest < ActionController::TestCase
         frame_id: @server.frame_id}}
     assert_response 200
     assert_equal assigns(:server), @server
-    assert assigns(:server).errors.details[:numero]
+    assert_not_empty assigns(:server).errors.details[:numero]
+  end
+
+  test "should update server if numero is equal to own server name" do
+    patch :update, params: {id: @server, server: {
+        cluster: @server.cluster,
+        conso: @server.conso,
+        critique: @server.critique,
+        domaine_id: @server.domaine_id,
+        fc_total: @server.fc_total,
+        fc_utilise: @server.fc_utilise,
+        gestion_id: @server.gestion_id,
+        ipmi_dedie: @server.ipmi_dedie,
+        ipmi_futur: @server.ipmi_futur,
+        ipmi_utilise: @server.ipmi_utilise,
+        modele_id: @server.modele_id,
+        name: @server.name,
+        numero: @server.name, # his name as a service number
+        rj45_cm: @server.rj45_cm,
+        rj45_futur: @server.rj45_futur,
+        rj45_total: @server.rj45_total,
+        rj45_utilise: @server.rj45_utilise,
+        frame_id: @server.frame_id}}
+    assert_redirected_to server_path(assigns(:server))
+    assert_empty assigns(:server).errors.details[:numero]
   end
 
   test "should rename a server" do
