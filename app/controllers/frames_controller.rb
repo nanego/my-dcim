@@ -65,7 +65,7 @@ class FramesController < ApplicationController
     params[:frame].each_with_index do |id, index|
       Frame.where(id: id).update_all(position: index+1)
     end if params[:frame].present?
-    render nothing: true
+    head :ok
   end
 
   def index

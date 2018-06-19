@@ -23,15 +23,16 @@ class ServersController < ApplicationController
     params[:server].each_with_index do |id, index|
       if positions[index].present?
         server = Server.find_by_id(id)
-        new_params = {position: positions[index]}
-        new_params.merge!({frame_id: frame.id}) if frame.present?
+        new_params_hash = {position: positions[index]}
+        new_params_hash.merge!({frame_id: frame.id}) if frame.present?
+        new_params = ActionController::Parameters.new(new_params_hash)
         updated_values = track_updated_values(server, new_params)
         if server.save && updated_values.present?
           server.create_activity action: 'update', parameters: updated_values, owner: current_user
         end
       end
     end if params[:server].present?
-    render nothing: true
+    head :ok #render empty body, status only
   end
 
   def show
