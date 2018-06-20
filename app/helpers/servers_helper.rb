@@ -15,7 +15,7 @@ module ServersHelper
     sums
   end
 
-  def ports_by_card(port_type:, port_quantity:, ports_data:, card_id: nil, selected_port: nil, moved_connections: [])
+  def ports_by_card(port_type:, port_quantity:, ports_data:, card_id: nil, selected_port: nil, moved_connections: [], linked_card_used_ports: [])
     html = ""
     port_quantity.to_i.times do |index|
       port_data = ports_data.detect {|p| p.position == index+1}
@@ -29,7 +29,7 @@ module ServersHelper
 
       html += content_tag( :span,
                            link_to_port(index+1, port_data, port_type, card_id, port_id),
-                           class: "port_container #{selected_port.present? && port_id == selected_port.try(:id) ? "selected" : ""}")
+                           class: "port_container #{linked_card_used_ports && port_data && port_data.cable_name && linked_card_used_ports.exclude?(port_data.position) ? "no_client" : ""} #{selected_port.present? && port_id == selected_port.try(:id) ? "selected" : ""}")
 
       if (index+1)%MAX_PORTS_PER_LINE == 0 # Every XX ports do
         html += '<div style="clear:both;" />'

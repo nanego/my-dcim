@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180509085330) do
+ActiveRecord::Schema.define(version: 20180620150547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20180509085330) do
     t.integer "card_type_id"
     t.integer "server_id"
     t.integer "composant_id"
+    t.integer "linked_card_id"
     t.index ["card_type_id"], name: "index_cards_on_card_type_id"
     t.index ["composant_id"], name: "index_cards_on_composant_id"
     t.index ["server_id"], name: "index_cards_on_server_id"

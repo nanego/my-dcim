@@ -20,6 +20,10 @@
     <div class="col-sm-4">
       <%= f.select :card_type_id, options_for_select(CardType.sorted.map{|card_type| [card_type.name, card_type.id]}, f.object.card_type_id) %>
     </div>
+    <div class="col-sm-2">
+      <%= f.select :linked_card_id, options_for_select( Card.includes(:server).on_patch_panels.sort{|f1,f2|f1.to_s <=> f2.to_s}.map{|card| [card.to_s, card.id]}, f.object.linked_card_id), :include_blank => true %>
+    </div>
+
     <span>
       <%= f.hidden_field :_destroy %>
       <%= link_to "Supprimer", '#', class: "remove_fields pull-right" %>

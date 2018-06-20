@@ -20,6 +20,8 @@ class Card < ActiveRecord::Base
 
   scope :for_enclosure, ->  (enclosure_id) { joins(:composant).where("composants.enclosure_id = ?", enclosure_id).order("composants.position ASC")}
 
+  scope :on_patch_panels, -> () {joins(:server).where("servers.name LIKE 'PP-%'")}
+
   def to_s
     "Carte #{server} / #{card_type} / #{composant}"
   end
