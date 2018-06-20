@@ -17,7 +17,7 @@ class PortsController < ApplicationController
     if params[:id].present? && params[:id].to_i > 0
       redirect_to connections_edit_path(from_port_id: params[:id])
     else
-      @port = Port.create(position: params['position'],
+      @port = Port.find_or_create_by(position: params['position'],
                           card_id: params['card_id'],
                           vlans: params['vlans'],
                           color: params['color'],
