@@ -1,0 +1,16 @@
+<% provide :title, "Synthèse des Patch-Panels" %>
+
+<div class="container-fluid">
+
+  <%= render 'layouts/breadcrumb', params: {'Synthèse des Patch-Panels' => ''} %>
+
+  <div class="row">
+
+    <ul class="">
+      <% @patch_panels_by_frame.each do |server, patch_panel| %>
+        <li role="presentation"><a href="<%= patch_panel_path(patch_panel) %>"><%= server %></a></li>
+      <% end %>
+    </ul>
+
+  </div>
+</div>

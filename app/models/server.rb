@@ -6,7 +6,8 @@ class Server < ActiveRecord::Base
 
   belongs_to :frame
   has_one :bay, through: :frame
-  has_one :room, through: :frame
+  has_one :islet, through: :frame
+  has_one :room, through: :islet
   belongs_to :gestion
   belongs_to :domaine
   belongs_to :modele
@@ -47,6 +48,7 @@ class Server < ActiveRecord::Base
 
   scope :no_pdus, -> { joins(:modele => :category).where("categories.name<>'Pdu'") }
   scope :only_pdus, -> { joins(:modele => :category).where("categories.name='Pdu'").order(:name) }
+  scope :patch_panels, -> { joins(:modele => :category).where("categories.name='Patch Panel'").order(:name) }
 
   validates :frame_id, presence: true
   validates :modele_id, presence: true
