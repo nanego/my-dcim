@@ -36,19 +36,21 @@
 
 <script>
     (function () {
-        <% @patch_panel_ports.each_with_index do |pp_port, index| %>
-        new LeaderLine(
+      <% @patch_panel_ports.each_with_index do |pp_port, index| %>
+        <% if @destination_ports[index].present? %>
+          new LeaderLine(
             document.getElementById('<%= @destination_ports[index].id %>'),
             document.getElementById('<%= pp_port.id %>'),
             {
-                color: colors_hash['<%= pp_port.cable.color %>'],
+                color: colors_hash['<%= pp_port.cable_color %>'],
                 size: 2,
-                middleLabel: '<%= pp_port.cable.name %>',
+                middleLabel: '<%= pp_port.cable_name %>',
                 endPlug: 'behind',
                 endSocket: 'bottom',
                 path: 'fluid'
             }
-        );
+          );
         <% end %>
+      <% end %>
     })();
 </script>

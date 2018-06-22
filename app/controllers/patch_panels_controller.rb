@@ -7,7 +7,7 @@ class PatchPanelsController < ApplicationController
   def show
     @patch_panel = Server.friendly.patch_panels.find(params[:id].to_s.downcase)
     @patch_panel_ports = @patch_panel.ports
-    @destination_ports = @patch_panel_ports.map(&:paired_connection).map(&:port)
-    @destination_servers = @destination_ports.map(&:server).uniq.sort{|a,b|b.position<=>a.position}
+    @destination_ports = @patch_panel_ports.map(&:paired_connection).map{|c|c ? c.port : nil}
+    @destination_servers = @destination_ports.reject{|p|p.nil?}.map(&:server).uniq.sort{|a,b|b.position<=>a.position}
   end
 end
