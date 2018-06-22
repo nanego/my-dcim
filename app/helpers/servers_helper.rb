@@ -29,7 +29,10 @@ module ServersHelper
 
       html += content_tag( :span,
                            link_to_port(index+1, port_data, port_type, card_id, port_id),
-                           class: "port_container #{linked_card_used_ports && port_data && port_data.cable_name && linked_card_used_ports.exclude?(port_data.position) ? "no_client" : ""} #{selected_port.present? && port_id == selected_port.try(:id) ? "selected" : ""}")
+                           class: "port_container
+                                  #{linked_card_used_ports && port_data && port_data.cable_name && linked_card_used_ports.exclude?(port_data.position) ? "no_client" : ""}
+                           #{linked_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && linked_card_used_ports.include?(index+1) ? "unreferenced_client" : ""}
+                           #{selected_port.present? && port_id == selected_port.try(:id) ? "selected" : ""}")
 
       if (index+1)%MAX_PORTS_PER_LINE == 0 # Every XX ports do
         html += '<div style="clear:both;" />'
