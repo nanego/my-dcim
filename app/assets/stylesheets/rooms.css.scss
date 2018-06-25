@@ -50,6 +50,15 @@
   }
 }
 
+.frames{
+  .couple{
+    cursor: pointer;
+  }
+  .frame{
+    cursor: auto;
+  }
+}
+
 @media (min-width: 1199px) {
   #rooms-overview.affix {
     top:60px;
