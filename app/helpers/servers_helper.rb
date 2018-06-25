@@ -50,7 +50,7 @@ module ServersHelper
       when 'FC'
         link_to_port_by_type(port_data.present? ? port_data.cable_name : '', "FC", port_data, position, card_id, port_id)
       else
-        link_to_port_by_type("#{port_type.try(:name)}<BR>#{port_data.try(:cable_name)}".html_safe, port_type.name, port_data, position, card_id, port_id)
+        link_to_port_by_type("#{port_data.try(:cable_name).present? ? port_data.try(:cable_name) : port_type.try(:name)}".html_safe, port_type.name, port_data, position, card_id, port_id)
     end
   end
 
