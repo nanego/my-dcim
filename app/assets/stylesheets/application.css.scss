@@ -97,6 +97,27 @@ table.slots th {
 table.slots .slot_column{
   width:32px;
 }
+
+.pdu{
+  &.J{
+    .pdu-line .label{
+      color: rgba(0,0,0, 1);
+      background-color: rgba(255,221,0, 1);
+    }
+  }
+  &.B{
+    .pdu-line .label{
+      // color: rgba(255,255,255, 1);;
+      background-color: rgba(72,118,255, 1);
+    }
+  }
+  .empty {
+    background-color: #FFFFFF;
+  }
+}
+
+
+
 .portRJ, .portFC, .portSCSI{
   cursor: pointer;
   position: relative;

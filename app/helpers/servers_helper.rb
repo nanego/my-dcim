@@ -63,7 +63,7 @@ module ServersHelper
     end
     link_to label.to_s,
         edit_port_url,
-        {class: "port pull-left port#{port_class} #{port_data.try(:cable_color)}",
+        {class: "port pull-left port#{port_class} #{port_data.try(:cable_color) ? port_data.try(:cable_color) : "empty"}",
         id: port_id,
         data: {url: edit_port_url,
                position: position,
