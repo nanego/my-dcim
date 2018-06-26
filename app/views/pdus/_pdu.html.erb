@@ -2,7 +2,7 @@
 <% pdu.modele.enclosures.first.composants.each do |component| %>
   <div style="margin-bottom: 10px;display: inline-block;margin-left: -5px;">
     <%= link_to '#', class: 'pdu-line', style: "float: left;margin-left: 2px;opacity: 0.45;" do %>
-      <span class="label label-default"><%= component.name[-2..-1] %></span>
+      <span class="label label-default"><%= component.name ? component.name[-2..-1] : ' ' %></span>
     <% end %>
     <%= render 'servers/draw_component.html.erb', server: pdu, component: component, selected_port: nil %>
   </div>

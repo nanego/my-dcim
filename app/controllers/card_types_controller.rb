@@ -2,7 +2,7 @@ class CardTypesController < ApplicationController
   before_action :set_card_type, only: [:show, :edit, :update, :destroy]
 
   def index
-    @card_types = CardType.all
+    @card_types = CardType.sorted
   end
 
   def show
