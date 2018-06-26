@@ -53,9 +53,12 @@
 .frames{
   .couple{
     cursor: pointer;
-  }
-  .frame{
-    cursor: auto;
+    .panel-body, .panel-footer{
+      cursor: auto;
+    }
+    .panel-body{
+      padding: 0;
+    }
   }
 }
 
