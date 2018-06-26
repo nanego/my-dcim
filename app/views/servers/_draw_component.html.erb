@@ -1,11 +1,11 @@
-<% server.cards.select{|card| card.composant_id == component.id}.each do |card| %>
+<% server.cards.select {|card| card.composant_id == component.id}.each do |card| %>
 
   <% if card.linked_card_id
        linked_card = Card.find(card.linked_card_id)
        connections = linked_card.ports.map(&:connection)
        linked_card_used_ports = []
-       connections.each { |c| linked_card_used_ports << c.port.position if c && c.port}
-       end %>
+       connections.each {|c| linked_card_used_ports << c.port.position if c && c.port}
+     end %>
 
 
   <span data-server-name="<%= server.name %>"
@@ -13,12 +13,24 @@
         data-composant-id="<%= card.id %>"
         data-composant-type="<%= card.class %>"
         data-composant-name="<%= component.name.present? ? component.name : component.position %>">
-    <%= ports_by_card(port_type: card.card_type.try(:port_type),
-                      port_quantity: card.card_type.try(:port_quantity),
-                      card_id: card.id,
-                      ports_data: card.ports,
-                      selected_port: selected_port,
-                      moved_connections: @moved_connections,
-                      linked_card_used_ports: linked_card_used_ports) %>
+
+    <% if card.card_type && card.card_type.name == "96FC" %>
+      <%= ports_by_card_with_presentation(card_type: card.card_type,
+                                          ports_data: card.ports,
+                                          card_id: card.id,
+                                          selected_port: selected_port,
+                                          moved_connections: @moved_connections,
+                                          linked_card_used_ports: linked_card_used_ports) %>
+    <% else %>
+      <%= ports_by_card(port_type: card.card_type.try(:port_type),
+                        port_quantity: card.card_type.try(:port_quantity),
+                        card_id: card.id,
+                        ports_data: card.ports,
+                        selected_port: selected_port,
+                        moved_connections: @moved_connections,
+                        linked_card_used_ports: linked_card_used_ports) %>
+    <% end %>
+
+
   </span>
 <% end %>
