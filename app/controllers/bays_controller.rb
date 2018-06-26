@@ -11,16 +11,18 @@ class BaysController < ApplicationController
     @servers_per_frames = {}
     @sums = {}
     sort_order = frames_sort_order(params[:view], @bay.lane)
+
     Frames::IncludingServersQuery.call(@bay.frames, "frames.position #{sort_order}").each do |frame|
       # sums per frame and per type of port
       @sums[frame.id] = {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0}
 
+      islet = frame.bay.islet.name
+      @servers_per_frames[islet] ||= {}
+      @servers_per_frames[islet][frame.bay.lane] ||= {}
+      @servers_per_frames[islet][frame.bay.lane][frame.bay] ||= {}
+      @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] ||= []
+
       frame.servers.each do |s|
-        islet = frame.bay.islet.name
-        @servers_per_frames[islet] ||= {}
-        @servers_per_frames[islet][frame.bay.lane] ||= {}
-        @servers_per_frames[islet][frame.bay.lane][frame.bay] ||= {}
-        @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] ||= []
         @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] << s
         s.ports_per_type.each do |type, sum|
           @sums[frame.id][type] = @sums[frame.id][type].to_i + sum
