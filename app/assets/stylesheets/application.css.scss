@@ -97,6 +97,13 @@ table.slots th {
 table.slots .slot_column{
   width:32px;
 }
+table.card_layout{
+  border-collapse: collapse;
+  border-style: hidden;
+  td, th {
+    border: 1px solid #999999;
+  }
+}
 
 .pdu{
   &.J{

@@ -14,7 +14,7 @@
         data-composant-type="<%= card.class %>"
         data-composant-name="<%= component.name.present? ? component.name : component.position %>">
 
-    <% if card.card_type && card.card_type.name == "96FC" %>
+    <% if card.card_type && card.card_type.columns && card.card_type.rows %>
       <%= ports_by_card_with_presentation(card_type: card.card_type,
                                           ports_data: card.ports,
                                           card_id: card.id,
