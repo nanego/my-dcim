@@ -14,11 +14,15 @@
 
 <li class="list-group-item">
   <fieldset>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <%= f.select :composant_id, options_for_select(composants.map{|c| [c.name || c.position, c.id]}, f.object.composant_id) %>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <%= f.select :card_type_id, options_for_select(CardType.sorted.map{|card_type| [card_type.name, card_type.id]}, f.object.card_type_id) %>
+    </div>
+    <div class="col-sm-3">
+      <%= f.select :orientation, [["De Gauche à Droite, puis de Haut en Bas", "lr-td"],
+                                  ["De Bas en Haut, puis de Gauche à Droite", "dt-lr"]], class: "form-control" %>
     </div>
     <div class="col-sm-2">
       <%= f.select :linked_card_id, options_for_select( Card.includes(:server).on_patch_panels.sort{|f1,f2|f1.to_s <=> f2.to_s}.map{|card| [card.to_s, card.id]}, f.object.linked_card_id), :include_blank => true %>

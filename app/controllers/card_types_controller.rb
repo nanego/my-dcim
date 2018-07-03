@@ -63,6 +63,6 @@ class CardTypesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def card_type_params
     params.require(:card_type).permit(:name, :port_type_id, :port_quantity,
-                                      :columns, :rows, :orientation, :max_aligned_ports)
+                                      :columns, :rows, :first_position, :max_aligned_ports)
   end
 end

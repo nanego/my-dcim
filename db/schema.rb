@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180702084112) do
+ActiveRecord::Schema.define(version: 20180703065120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,8 +69,8 @@ ActiveRecord::Schema.define(version: 20180702084112) do
     t.integer "port_quantity"
     t.integer "columns"
     t.integer "rows"
-    t.string "orientation"
     t.integer "max_aligned_ports"
+    t.integer "first_position"
     t.index ["port_type_id"], name: "index_card_types_on_port_type_id"
   end
 
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20180702084112) do
     t.integer "server_id"
     t.integer "composant_id"
     t.integer "linked_card_id"
+    t.string "orientation"
     t.index ["card_type_id"], name: "index_cards_on_card_type_id"
     t.index ["composant_id"], name: "index_cards_on_composant_id"
     t.index ["server_id"], name: "index_cards_on_server_id"

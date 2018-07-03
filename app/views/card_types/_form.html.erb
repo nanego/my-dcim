@@ -44,16 +44,15 @@
     </div>
   </div>
   <div class="form-group">
-    <%= f.label 'Orientation', class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.select :orientation, [["De Gauche à Droite, puis de Haut en Bas", "lr-td"],
-                                  ["De Bas en Haut, puis de Gauche à Droite", "dt-lr"]], class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
     <%= f.label 'Nbr max de ports alignés', class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.text_field :max_aligned_ports, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label 'Position du premier port', class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.select :first_position, [0, 1], class: "form-control" %>
     </div>
   </div>
   <div class="form-group">
