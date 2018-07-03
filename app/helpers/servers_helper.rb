@@ -6,7 +6,11 @@ module ServersHelper
     cards = server.cards.where('composant_id = ?', component.id)
     cards_names = cards.map {|card| card.name}.reject(&:blank?)
     if cards_names.present?
-      cards_names.join('-')
+      if cards.first.linked_card_id.present?
+        link_to cards_names.join('-'), server_path(Card.find(cards.first.linked_card_id).server)
+      else
+        cards_names.join('-')
+      end
     else
       component.name.present? ? "#{component.name.include?('SL') ? component.name[2] : component.name}" : component.position
     end
