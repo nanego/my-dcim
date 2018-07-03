@@ -2,8 +2,9 @@ module ServersHelper
 
   MAX_PORTS_PER_LINE = 24
 
-  def slot_label(component)
-    cards_names = component.cards.map {|card| card.name}.reject(&:blank?)
+  def slot_label(server, component)
+    cards = server.cards.where('composant_id = ?', component.id)
+    cards_names = cards.map {|card| card.name}.reject(&:blank?)
     if cards_names.present?
       cards_names.join('-')
     else

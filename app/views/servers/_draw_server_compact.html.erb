@@ -15,7 +15,7 @@
 
           <tr>
             <% composants_per_enclosure.each do |component| %>
-              <th><%= slot_label(component) %></th>
+              <th><%= slot_label(server, component) %></th>
             <% end %>
           </tr>
           <tr>
@@ -30,7 +30,7 @@
 
           <% composants_per_enclosure.each do |component| %>
             <tr>
-              <th><%= slot_label(component) %></th>
+              <th><%= slot_label(server, component) %></th>
               <td><%= render 'servers/draw_component.html.erb', server: server, component: component, selected_port: selected_port %></td>
             </tr>
           <% end %>
