@@ -3,44 +3,44 @@
 <%= link_to h(server.name), server_path(server, :view => params[:view]), {class: 'pull-left server_name', style: 'padding-left: 14px;', :data => {'toggle': "tooltip", 'placement': "top"}, title: server.numero} %>
 
 <% if server.modele.present? %>
-    <div class="pull-right">
+  <div class="pull-right">
 
-      <% server.modele.enclosures.each_with_index do |enclosure, index| %>
+    <% server.modele.enclosures.each_with_index do |enclosure, index| %>
 
-        <% composants_per_enclosure = enclosure.composants.slots %>
-        <table class="slots" style="<%= index > 0 ? 'margin-top:7px;' : '' %>">
-          <tbody>
+      <% composants_per_enclosure = enclosure.composants.slots %>
+      <table class="slots" style="<%= index > 0 ? 'margin-top:7px;' : '' %>">
+        <tbody>
 
-          <% if enclosure.display != 'horizontal' %>
+        <% if enclosure.display != 'horizontal' %>
 
-            <tr>
-              <% composants_per_enclosure.each do |component| %>
-                <th><%= component.name.present? ? "#{component.name.include?('SL') ? component.name[2] : component.name}" : component.position %></th>
-              <% end %>
-            </tr>
-            <tr>
-              <% composants_per_enclosure.each do |component| %>
-                <td class="slot_column">
-                  <%= render 'servers/draw_component.html.erb', server: server, component: component, selected_port: selected_port %>
-                </td>
-              <% end %>
-            </tr>
-
-          <% else %>
-
+          <tr>
             <% composants_per_enclosure.each do |component| %>
-              <tr>
-                <th><%= component.name.present? ? "#{component.name.include?('SL') ? component.name[2] : component.name}" : component.position %></th>
-                <td><%= render 'servers/draw_component.html.erb', server: server, component: component, selected_port: selected_port %></td>
-              </tr>
+              <th><%= slot_label(component) %></th>
             <% end %>
+          </tr>
+          <tr>
+            <% composants_per_enclosure.each do |component| %>
+              <td class="slot_column">
+                <%= render 'servers/draw_component.html.erb', server: server, component: component, selected_port: selected_port %>
+              </td>
+            <% end %>
+          </tr>
 
+        <% else %>
+
+          <% composants_per_enclosure.each do |component| %>
+            <tr>
+              <th><%= slot_label(component) %></th>
+              <td><%= render 'servers/draw_component.html.erb', server: server, component: component, selected_port: selected_port %></td>
+            </tr>
           <% end %>
-          </tbody>
-        </table>
 
-      <% end %>
-    </div>
+        <% end %>
+        </tbody>
+      </table>
+
+    <% end %>
+  </div>
 
 <% end %>
 

@@ -2,6 +2,15 @@ module ServersHelper
 
   MAX_PORTS_PER_LINE = 24
 
+  def slot_label(component)
+    cards_names = component.cards.map {|card| card.name}.reject(&:blank?)
+    if cards_names.present?
+      cards_names.join('-')
+    else
+      component.name.present? ? "#{component.name.include?('SL') ? component.name[2] : component.name}" : component.position
+    end
+  end
+
   def calculate_ports_sums(frame, servers)
     # sums per frame and per type of port
     sums = {frame.id => {'XRJ' => 0, 'RJ' => 0, 'FC' => 0, 'IPMI' => 0}}
@@ -36,8 +45,8 @@ module ServersHelper
                               link_to_port(position, port_data, card_type.port_type, card.id, port_id, position - (card_type.first_position == 0 ? 1 : 0)),
                               class: "port_container
                                       #{linked_card_used_ports && port_data && port_data.cable_name && linked_card_used_ports.exclude?(port_data.position) ? "no_client" : ""}
-                                      #{linked_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && linked_card_used_ports.include?(position) ? "unreferenced_client" : ""}
-                                      #{selected_port.present? && port_id == selected_port.try(:id) ? "selected" : ""}")
+                              #{linked_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && linked_card_used_ports.include?(position) ? "unreferenced_client" : ""}
+                              #{selected_port.present? && port_id == selected_port.try(:id) ? "selected" : ""}")
 
           number_of_columns_in_cell = card.orientation == 'dt-lr' ? (card_type.port_quantity.to_i / card_type.max_aligned_ports.to_i).to_i : card_type.max_aligned_ports.to_i
           if (cell_index + 1) % number_of_columns_in_cell == 0 # Every XX ports do
