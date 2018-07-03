@@ -53,7 +53,7 @@ module ServersHelper
                               #{linked_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && linked_card_used_ports.include?(position) ? "unreferenced_client" : ""}
                               #{selected_port.present? && port_id == selected_port.try(:id) ? "selected" : ""}")
 
-          number_of_columns_in_cell = card.orientation == 'dt-lr' ? (card_type.port_quantity.to_i / card_type.max_aligned_ports.to_i).to_i : card_type.max_aligned_ports.to_i
+          number_of_columns_in_cell = card.orientation == 'dt-lr' ? (ports_per_cell.to_i / card_type.max_aligned_ports.to_i).to_i : card_type.max_aligned_ports.to_i
           if (cell_index + 1) % number_of_columns_in_cell == 0 # Every XX ports do
             html += '</div><div style="clear:both;" /><div style="display: flex;">'
           end
@@ -62,6 +62,7 @@ module ServersHelper
 
         html += "</div></td>"
       end
+
       html += "</tr>"
     end
     html += "</table>"
@@ -126,7 +127,7 @@ module ServersHelper
 
   def get_current_position(card_orientation, card_type, cell_index, row_index, column_index, ports_per_cell)
     if card_orientation == 'dt-lr'
-      number_of_columns_in_cell = card_type.port_quantity.to_i / card_type.max_aligned_ports.to_i
+      number_of_columns_in_cell = ports_per_cell.to_i / card_type.max_aligned_ports.to_i
       column_index_in_cell = cell_index % number_of_columns_in_cell
       line_index_in_cell = cell_index / number_of_columns_in_cell
       number_of_ports_in_previous_columns = column_index_in_cell * card_type.max_aligned_ports.to_i
