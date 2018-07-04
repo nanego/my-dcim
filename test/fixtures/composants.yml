@@ -9,7 +9,7 @@ two:
   id: 2
   name: compo2
   enclosure_id: 1
-  type_composant_id: 2
+  type_composant_id: 1
   position: 2
 
 three:
@@ -18,3 +18,10 @@ three:
   enclosure_id: 3
   type_composant_id: 3
   position: 3
+
+four:
+  id: 4
+  name: SL3
+  enclosure_id: 1
+  type_composant_id: 1
+  position: 1

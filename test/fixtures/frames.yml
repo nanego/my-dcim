@@ -2,14 +2,14 @@
 
 one:
   id: 1
-  name: MyString
+  name: MyFrame1
   u: 48
   bay_id: 1
   position: 1
 
 two:
   id: 2
-  name: MyString
+  name: MyFrame2
   u: 48
-  bay_id: 2
+  bay_id: 1
   position: 1

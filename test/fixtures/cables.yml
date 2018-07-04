@@ -3,9 +3,14 @@
 one:
   id: 1
   name: cableXYZ
-  color: 990034
+  color: N
 
 two:
   id: 2
   name: otherCable
-  color: 140H4A
+  color: R
+
+three:
+  id: 3
+  name: T00
+  color: T

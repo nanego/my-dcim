@@ -14,3 +14,8 @@ three:
   id: 3
   cable_id: 2
   port_id: 1
+
+four:
+  id: 4
+  cable_id: 3
+  port_id: 3

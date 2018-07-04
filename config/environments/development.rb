@@ -63,7 +63,6 @@ Rails.application.configure do
   end
 =end
 
-=begin
   Rails.application.config.middleware.use ExceptionNotification::Rack,
                                           :email => {
                                             :email_prefix => "[DCIM] ",
@@ -71,7 +70,7 @@ Rails.application.configure do
                                             :exception_recipients => [Rails.application.secrets.exception_recipients]
                                           }
   config.action_mailer.delivery_method = :letter_opener
-=end
+  config.action_mailer.default_url_options = { :host => Rails.application.secrets.domain_name }
 
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 

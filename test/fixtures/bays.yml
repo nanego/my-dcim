@@ -2,7 +2,7 @@
 
 one:
   id: 1
-  name: MyString
+  name: MyBay1
   lane: 1
   position: 1
   bay_type_id: 1
@@ -10,7 +10,7 @@ one:
 
 two:
   id : 2
-  name: MyString
+  name: MyBay2
   lane: 1
   position: 1
   bay_type_id: 2

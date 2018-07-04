@@ -6,8 +6,8 @@
 #
 one:
   email: contact1@yopmail.com
-# column: value
-#
+  encrypted_password: $2a$10$5iKaHrlajUNurPi/N7cHduDiufXpCz/9Aug3L660HdPpfUWgTeXju
+
 two:
   email: contact2@yopmail.com
-#  column: value
+  encrypted_password: $2a$10$5iKaHrlajUNurPi/N7cHduDiufXpCz/9Aug3L660HdPpfUWgTeXju

@@ -23,3 +23,11 @@ three:
   vlans: 123e
   color: W
   cablename: v31F
+
+four:
+  id: 4
+  position: 6
+  card_id: 3
+  vlans: u123
+  color: R
+  cablename: v32F

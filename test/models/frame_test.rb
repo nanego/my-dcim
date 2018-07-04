@@ -7,11 +7,11 @@ class FrameTest < ActiveSupport::TestCase
   end
 
   test "name_with_room_and_islet" do
-    assert_equal frames(:one).name_with_room_and_islet, "Salle S1 Ilot Islet1 Baie MyString"
+    assert_equal frames(:one).name_with_room_and_islet, "Salle S1 Ilot Islet1 Baie MyFrame1"
   end
 
   test "has_no_coupled_frame?" do
-    assert_equal frames(:one).has_no_coupled_frame?, true
+    assert_equal frames(:one).has_coupled_frame?, true
   end
 
 end

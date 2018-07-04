@@ -3,15 +3,24 @@ one:
   card_type_id: 1
   server_id: 1
   composant_id: 1
+  name: Card1
+  linked_card_id: 2
+  orientation:
 
 two:
   id: 2
   card_type_id: 2
   server_id: 1
   composant_id: 2
+  name: Card2
+  linked_card_id: 1
+  orientation:
 
 three:
   id: 3
   card_type_id: 4
-  server_id: 3
-  composant_id: 3
+  server_id: 1
+  composant_id: 4
+  name: CardIPMI
+  linked_card_id:
+  orientation:

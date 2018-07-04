@@ -1,19 +1,23 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  modele_id: 1
+  id: 1
+  modele_id: 1 # PowerEdge R730
   position: 1
 
 two:
-  modele_id: 1
+  id: 2
+  modele_id: 1 # PowerEdge R730
   position: 2
 
 three:
+  id: 3
   modele_id: 3
   position: 3
   display: vertical
 
 four:
+  id: 4
   modele_id: 2
   position: 1
   display: horizontal
