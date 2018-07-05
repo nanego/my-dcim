@@ -57,3 +57,11 @@ function findByAttribute(array, attr, value) {
         return undefined;
     }
 }
+
+function exists(value){
+    if( value != undefined && (value > 0 || value.length > 0 || typeof value === "boolean" || typeof value === "object") ){
+        return true;
+    }else{
+        return false;
+    }
+}

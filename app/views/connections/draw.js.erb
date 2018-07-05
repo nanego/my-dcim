@@ -1,47 +1,55 @@
-if (all_lines == undefined) {
-    var all_lines = []
-}
-
-<% @server.ports.each_with_index do |pp_port, index| %>
-<% if pp_port.paired_connection.present? %>
-
-var elt_start = document.getElementById('<%= pp_port.paired_connection.port_id %>')
-var elt_end = document.getElementById('<%= pp_port.id %>')
-
-if (elt_start !== undefined && elt_end !== undefined) {
-
-    var existing_line = false;
-    for (var i = 0; i < all_lines.length; i += 1) {
-        if (all_lines[i]['start'] == elt_start ||
-            all_lines[i]['start'] == elt_end ||
-            all_lines[i]['end'] == elt_start ||
-            all_lines[i]['end'] == elt_end) {
-              existing_line = true
-              all_lines[i].hide()
-              all_lines.splice(i, 1)
-        }
-    }
-
-    if (existing_line === false) {
-        all_lines.push(new LeaderLine(
-            elt_start,
-            elt_end,
-            {
-                color: colors_hash['<%= pp_port.cable_color %>'],
-                size: 2,
-                middleLabel: '<%= pp_port.cable_name %>',
-                endPlug: 'behind',
-                endSocket: 'auto',
-                path: 'fluid', //'fluid',
-                hide: true
-            }
-        ))
-        all_lines[all_lines.length - 1].show()
-    }
-
-}
-
-<% end %>
-<% end %>
-
 $("#draw_connections_link_<%= @server.id %> button").html('<span class="glyphicon glyphicon-random" aria-hidden="true"></span>')
+$("#draw_connections_link_<%= @server.id %> button").toggleClass('btn-warning')
+
+var activated_servers = activated_servers || {}
+var elt_start, elt_end
+
+function create_lines() {
+    <% @server.ports.each do |port| %>
+    <% if port.paired_connection.present? %>
+    elt_start = document.getElementById('<%= port.id %>')
+    elt_end = document.getElementById('<%= port.paired_connection.port_id %>')
+    if (exists(elt_start) && exists(elt_end)) {
+        activated_servers = create_line(activated_servers, <%= @server.id %>, <%= port.id %>, elt_start, elt_end, '<%= port.cable_color %>', '<%= port.cable_name %>')
+    }
+    <% end %>
+    <% end %>
+    return activated_servers
+}
+
+if (exists(activated_servers[<%= @server.id %>])) { // TOGGLE
+    console.log("DELETE LINES")
+    activated_servers = delete_lines(activated_servers, <%= @server.id %>)
+} else {
+    console.log("CREATE LINES")
+    activated_servers = create_lines(activated_servers, <%= @server.id %>)
+}
+
+function create_line(activated_servers, server_id, port_id, elt_start, elt_end, cable_color, cable_name) {
+    activated_servers[server_id] = activated_servers[server_id] || {}
+    activated_servers[server_id][port_id] = new LeaderLine(
+        elt_start,
+        elt_end,
+        {
+            color: colors_hash[cable_color],
+            size: 2,
+            middleLabel: cable_name,
+            endPlug: 'behind',
+            endSocket: 'auto',
+            path: 'fluid', //'fluid',
+            hide: true
+        }
+    )
+    activated_servers[server_id][port_id].show()
+    return activated_servers
+}
+
+function delete_lines(activated_servers, server_id) {
+    var ports = activated_servers[server_id]
+    for (var key of Object.keys(ports)) {
+        ports[key].hide()
+        delete ports[key]
+    }
+    delete activated_servers[server_id]
+    return activated_servers
+}
