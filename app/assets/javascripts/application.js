@@ -32,3 +32,7 @@ function showFilters(){
 $(document).ready(function(){
   $('.dropdown-toggle').dropdown();
 });
+
+$( document ).on( "click", ".draw_connections_link", function(event) {
+    $(event.target).html('<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>')
+});

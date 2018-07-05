@@ -32,3 +32,28 @@ var loadPaletteColorPicker = function(selector){
         position: 'upside'
     });
 };
+
+function findByAttribute(array, attr, value) {
+    if(array != undefined){
+
+        if(Array.isArray(array)){
+            for(var i = 0; i < array.length; i += 1) {
+                if(array[i][attr] === value) {
+                    return i;
+                }
+            }
+        }else{
+            for (var key of Object.keys(array)) {
+
+                if(array[key][attr] === value) {
+
+                    return key;
+                }
+            }
+        }
+
+
+    }else{
+        return undefined;
+    }
+}

@@ -72,4 +72,11 @@ class ConnectionsController < ApplicationController
     end
   end
 
+  def draw
+    @server = Server.find_by_id(params[:server_id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end

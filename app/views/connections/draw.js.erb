@@ -1,0 +1,47 @@
+if (all_lines == undefined) {
+    var all_lines = []
+}
+
+<% @server.ports.each_with_index do |pp_port, index| %>
+<% if pp_port.paired_connection.present? %>
+
+var elt_start = document.getElementById('<%= pp_port.paired_connection.port_id %>')
+var elt_end = document.getElementById('<%= pp_port.id %>')
+
+if (elt_start !== undefined && elt_end !== undefined) {
+
+    var existing_line = false;
+    for (var i = 0; i < all_lines.length; i += 1) {
+        if (all_lines[i]['start'] == elt_start ||
+            all_lines[i]['start'] == elt_end ||
+            all_lines[i]['end'] == elt_start ||
+            all_lines[i]['end'] == elt_end) {
+              existing_line = true
+              all_lines[i].hide()
+              all_lines.splice(i, 1)
+        }
+    }
+
+    if (existing_line === false) {
+        all_lines.push(new LeaderLine(
+            elt_start,
+            elt_end,
+            {
+                color: colors_hash['<%= pp_port.cable_color %>'],
+                size: 2,
+                middleLabel: '<%= pp_port.cable_name %>',
+                endPlug: 'behind',
+                endSocket: 'auto',
+                path: 'fluid', //'fluid',
+                hide: true
+            }
+        ))
+        all_lines[all_lines.length - 1].show()
+    }
+
+}
+
+<% end %>
+<% end %>
+
+$("#draw_connections_link_<%= @server.id %> button").html('<span class="glyphicon glyphicon-random" aria-hidden="true"></span>')
