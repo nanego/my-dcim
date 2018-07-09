@@ -78,6 +78,20 @@
     </div>
 
     <div class="form-group">
+      <%= f.label "Backbone Réseau", class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+        <%= f.check_box :special_case, class: "form-control", checked: @from_port.cable.try(:special_case)  %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label "Commentaires", class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+        <%= f.text_field :comments, class: "form-control", value: @from_port.cable.try(:comments) %>
+      </div>
+    </div>
+
+    <div class="form-group">
       <div class="col-sm-offset-2 col-sm-6">
         <%= f.submit 'Enregistrer', class: "btn btn-primary", disabled: (@to_port.present? ? false : :disabled) %>
         <%= link_to 'Annuler', '#', class: "btn btn-default", id: "close_modal" %>

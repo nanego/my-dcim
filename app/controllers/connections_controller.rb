@@ -52,7 +52,9 @@ class ConnectionsController < ApplicationController
     from_port.connect_to_port(to_port,
                               params[:connection][:cablename],
                               params[:connection][:color],
-                              params[:connection][:vlans])
+                              params[:connection][:vlans],
+                              params[:connection][:special_case],
+                              params[:connection][:comments])
 
     @from_server = from_port.server
     @to_server = to_port.server

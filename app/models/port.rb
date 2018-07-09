@@ -29,7 +29,7 @@ class Port < ActiveRecord::Base
     end
   end
 
-  def connect_to_port(other_port, cable_name, cable_color, vlans)
+  def connect_to_port(other_port, cable_name, cable_color, vlans, special_case, comments)
     remove_unused_connections([self, other_port])
     if other_port
       cable = nil
@@ -42,6 +42,8 @@ class Port < ActiveRecord::Base
       if cable.present? and !cable.destroyed?
         cable.name = cable_name
         cable.color = cable_color
+        cable.special_case = special_case
+        cable.comments = comments
         cable.save
       else
         cable = Cable.create(name: cable_name, color: cable_color)
