@@ -27,7 +27,8 @@ if (exists(activated_servers[<%= @server.id %>])) { // TOGGLE
 
 function create_line(activated_servers, server_id, port_id, elt_start, elt_end, cable_color, cable_name) {
     activated_servers[server_id] = activated_servers[server_id] || {}
-    activated_servers[server_id][port_id] = new LeaderLine(
+
+    var line = new LeaderLine(
         elt_start,
         elt_end,
         {
@@ -40,7 +41,28 @@ function create_line(activated_servers, server_id, port_id, elt_start, elt_end, 
             hide: true
         }
     )
-    activated_servers[server_id][port_id].show()
+
+    elt_start.addEventListener('mouseenter', function () {
+        line.dash = {animation: true}
+        line.size = 4
+    }, false);
+    elt_end.addEventListener('mouseenter', function () {
+        line.dash = {animation: true}
+        line.size = 4
+    }, false);
+
+    elt_start.addEventListener('mouseleave', function () {
+        line.dash = false
+        line.size = 2
+    }, false);
+    elt_end.addEventListener('mouseleave', function () {
+        line.dash = false
+        line.size = 2
+    }, false);
+
+
+    line.show()
+    activated_servers[server_id][port_id] = line
     return activated_servers
 }
 
