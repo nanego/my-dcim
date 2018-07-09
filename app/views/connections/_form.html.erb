@@ -6,182 +6,185 @@
 
   </div>
 
-  <%= form_for("connection", url:connections_update_path, remote: (remote ? true : false), html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <%= form_for("connection", url: connections_update_path, remote: (remote ? true : false), html: {class: "form-horizontal", role: "form"}) do |f| %>
 
-      <div  style="clear:both;margin-top: 5px;" >
-        <%= f.label 'Port de départ', class: "col-sm-2 control-label" %>
-        <div class="col-sm-10">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <div id="back_departure_server" class="back_server">
-                <%= render 'servers/draw_server_compact.html.erb', server: @from_server, selected_port: @from_port %>
-              </div>
+    <div style="clear:both;margin-top: 5px;">
+      <%= f.label 'Port de départ', class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div id="back_departure_server" class="back_server">
+              <%= render 'servers/draw_server_compact.html.erb', server: @from_server, selected_port: @from_port %>
             </div>
           </div>
-          <%= f.hidden_field :from_port_id, value: @from_port.id %>
         </div>
+        <%= f.hidden_field :from_port_id, value: @from_port.id %>
       </div>
+    </div>
 
-      <div  style="clear:both;" >
-        <%= f.label 'Port de destination', class: "col-sm-2 control-label" %>
-        <div class="col-sm-10">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <div class="" style="text-align: center;" id="select_destination_bay">
+    <div style="clear:both;">
+      <%= f.label 'Port de destination', class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="" style="text-align: center;" id="select_destination_bay">
                 <span id="restricted_destinations">
                   <%= select_tag 'to_server',
-                                 grouped_options_for_select(@possible_destination_servers, { :selected => @to_server.try(:id) }),
+                                 grouped_options_for_select(@possible_destination_servers, {:selected => @to_server.try(:id)}),
                                  include_blank: true,
                                  onchange: 'select_destination_server(0)' %>
                   <%= link_to 'Voir plus de baies', '#', onClick: 'toggle_destination_bays_visibility(1)' %>
                 </span>
-                <span id="all_destinations">
+              <span id="all_destinations">
                   <%= select_tag 'to_server',
-                                 grouped_options_for_select(@all_servers_per_frame, { :selected => @to_server.try(:id) }),
+                                 grouped_options_for_select(@all_servers_per_frame, {:selected => @to_server.try(:id)}),
                                  include_blank: true,
                                  onchange: 'select_destination_server(1)',
                                  style: 'max-width: 185px;'
                   %>
-                  <%= link_to 'Voir moins de baies', '#', onClick: 'toggle_destination_bays_visibility(0)' %>
+                <%= link_to 'Voir moins de baies', '#', onClick: 'toggle_destination_bays_visibility(0)' %>
                 </span>
-              </div>
             </div>
-            <div class="panel-body">
-              <div id="back_destination_server" class="back_server">
-                <%= render('servers/draw_server_compact.html.erb', server: @to_server, selected_port: @to_port) if @to_server %>
-              </div>
-              <%= f.hidden_field :to_port_id, value: @to_port.try(:id) %>
+          </div>
+          <div class="panel-body">
+            <div id="back_destination_server" class="back_server">
+              <%= render('servers/draw_server_compact.html.erb', server: @to_server, selected_port: @to_port) if @to_server %>
             </div>
+            <%= f.hidden_field :to_port_id, value: @to_port.try(:id) %>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="form-group">
-        <%= f.label :vlans, class: "col-sm-2 control-label" %>
-        <div class="col-sm-10">
-          <%= f.text_area :vlans, class: "form-control", value: @from_port.vlans %>
-        </div>
+    <div class="form-group">
+      <%= f.label 'Couleur', class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+        <%= f.hidden_field :color, value: @from_port.cable.try(:color) %>
       </div>
+    </div>
 
-      <div class="form-group">
-        <%= f.label 'Couleur', class: "col-sm-2 control-label" %>
-        <div class="col-sm-10">
-          <%= f.hidden_field :color, value: @from_port.cable.try(:color) %>
-        </div>
+    <div class="form-group">
+      <%= f.label 'Nom du cable', class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+        <%= f.text_field :cablename, class: "form-control", value: @from_port.cable.try(:name) %>
       </div>
+    </div>
 
-      <div class="form-group">
-        <%= f.label 'Nom du cable', class: "col-sm-2 control-label" %>
-        <div class="col-sm-10">
-          <%= f.text_field :cablename, class: "form-control", value: @from_port.cable.try(:name) %>
-        </div>
+    <div class="form-group">
+      <%= f.label :vlans, class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+        <%= f.text_field :vlans, class: "form-control", value: @from_port.vlans %>
       </div>
+    </div>
 
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-6">
-          <%= f.submit 'Enregistrer', class: "btn btn-primary", disabled: (@to_port.present? ? false : :disabled) %>
-          <%= link_to 'Annuler', '#', class: "btn btn-default", id:"close_modal" %>
-        </div>
-        <div class="col-sm-4" style="text-align:right;">
-          <%= link_to('Supprimer la connexion', cable_path(id: @cable.id, redirect_to_port_id: @from_port.id), method: :delete, data: { confirm: 'Supprimer cette connexion ?' }, class: 'btn btn-danger') if @cable %>
-        </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-6">
+        <%= f.submit 'Enregistrer', class: "btn btn-primary", disabled: (@to_port.present? ? false : :disabled) %>
+        <%= link_to 'Annuler', '#', class: "btn btn-default", id: "close_modal" %>
       </div>
+      <div class="col-sm-4" style="text-align:right;">
+        <%= link_to('Supprimer la connexion', cable_path(id: @cable.id, redirect_to_port_id: @from_port.id), method: :delete, data: {confirm: 'Supprimer cette connexion ?'}, class: 'btn btn-danger') if @cable %>
+      </div>
+    </div>
 
     </div>
 
   <% end %>
 
-</div>
+  </div>
 
-<script>
-    function select_destination_server(see_all){
-        if(see_all==1){
-            selected_server = $("#all_destinations select[name='to_server']").val();
-        }else{
-            selected_server = $("#restricted_destinations select[name='to_server']").val();
-        }
-        $.ajax({
-            method: "POST",
-            url: "<%= connections_update_destination_server_path %>",
-            data: { server_id: selected_server }
-        }).done(function(){
-            select_destination_port($('input[name="connection[to_port_id]"]').val());
-        });
-    }
-    function toggle_destination_bays_visibility(see_more){
-        if(see_more==1) {
-            $('#restricted_destinations').hide();
-            $('#all_destinations').show();
-            select_destination_server(1);
-        }else{
-            $('#restricted_destinations').show();
-            $('#all_destinations').hide();
-            select_destination_server(0);
-        }
-    }
+  <script>
+      function select_destination_server(see_all) {
+          if (see_all == 1) {
+              selected_server = $("#all_destinations select[name='to_server']").val();
+          } else {
+              selected_server = $("#restricted_destinations select[name='to_server']").val();
+          }
+          $.ajax({
+              method: "POST",
+              url: "<%= connections_update_destination_server_path %>",
+              data: {server_id: selected_server}
+          }).done(function () {
+              select_destination_port($('input[name="connection[to_port_id]"]').val());
+          });
+      }
 
-    function updateConnectionStateMessage(frame, cablename){
-        url = "http://supervision-reseau.ac.i2/macip/port_status.php?baie="+frame+"&cable="+cablename;
+      function toggle_destination_bays_visibility(see_more) {
+          if (see_more == 1) {
+              $('#restricted_destinations').hide();
+              $('#all_destinations').show();
+              select_destination_server(1);
+          } else {
+              $('#restricted_destinations').show();
+              $('#all_destinations').hide();
+              select_destination_server(0);
+          }
+      }
 
-        $.ajax(url, {dataType: 'json', jsonp: false, beforeSend: function(xhr){
-            xhr.withCredentials = true;
-        }})
-            .done(function(data){
-              var ratio = data['speed'] / data['maxspeed'];
-              var badge_class = "";
-              switch(ratio) {
-                  case 1:
-                      badge_class = "alert-success";
-                      break;
-                  case 0:
-                      badge_class = "alert-danger";
-                      break;
-                  default:
-                      badge_class = "alert-warning";
+      function updateConnectionStateMessage(frame, cablename) {
+          url = "http://supervision-reseau.ac.i2/macip/port_status.php?baie=" + frame + "&cable=" + cablename;
+
+          $.ajax(url, {
+              dataType: 'json', jsonp: false, beforeSend: function (xhr) {
+                  xhr.withCredentials = true;
               }
-              var badge = " <span class=\"badge "+badge_class+"\">"+data['speed']+' / '+data['maxspeed']+"</span>";
-              var value = "<b>Etat actuel de la connexion " + frame + " cable " + cablename + " : </b> " + badge;
-              $( "<span/>", {
-                  "class": 'state_' + ratio ,
-                  html: value
-              }).appendTo( "#port_status" );
-            })
-            .fail(function(data) {
-                console.log("Error in ajax call");
-                var badge = " <span class=\"badge alert-danger\">Pas d'informations. Script php : "+data['statusText']+"</span>";
-                var value = "<b>Etat actuel de la connexion " + frame + " cable " + cablename + " : </b> " + badge;
-                $( "<span/>", {
-                    "class": 'error' ,
-                    html: value
-                }).appendTo( "#port_status" );
-            });
-    }
+          })
+              .done(function (data) {
+                  var ratio = data['speed'] / data['maxspeed'];
+                  var badge_class = "";
+                  switch (ratio) {
+                      case 1:
+                          badge_class = "alert-success";
+                          break;
+                      case 0:
+                          badge_class = "alert-danger";
+                          break;
+                      default:
+                          badge_class = "alert-warning";
+                  }
+                  var badge = " <span class=\"badge " + badge_class + "\">" + data['speed'] + ' / ' + data['maxspeed'] + "</span>";
+                  var value = "<b>Etat actuel de la connexion " + frame + " cable " + cablename + " : </b> " + badge;
+                  $("<span/>", {
+                      "class": 'state_' + ratio,
+                      html: value
+                  }).appendTo("#port_status");
+              })
+              .fail(function (data) {
+                  console.log("Error in ajax call");
+                  var badge = " <span class=\"badge alert-danger\">Pas d'informations. Script php : " + data['statusText'] + "</span>";
+                  var value = "<b>Etat actuel de la connexion " + frame + " cable " + cablename + " : </b> " + badge;
+                  $("<span/>", {
+                      "class": 'error',
+                      html: value
+                  }).appendTo("#port_status");
+              });
+      }
 
-    function select_destination_port(port_id){
-        var selected_ports = $("#back_destination_server #"+port_id);
-        selected_ports.closest("table").find("span.selected").removeClass("selected");
-        selected_ports.closest("span").addClass("selected");
-        var server_name = $("#back_destination_server .server_name").text();
-        var component_name = selected_ports.closest("td").find("span:first").data("composant-name");
-        var position = selected_ports.data("position");
-        $('#to_port').val(server_name + " - Slot: " + component_name + " - Position : " + position);
-        $('[name="connection[to_port_id]"]').val(port_id);
-        selected_ports.closest("form").find('input[type="submit"]').prop('disabled', false);
-    }
+      function select_destination_port(port_id) {
+          var selected_ports = $("#back_destination_server #" + port_id);
+          selected_ports.closest("table").find("span.selected").removeClass("selected");
+          selected_ports.closest("span").addClass("selected");
+          var server_name = $("#back_destination_server .server_name").text();
+          var component_name = selected_ports.closest("td").find("span:first").data("composant-name");
+          var position = selected_ports.data("position");
+          $('#to_port').val(server_name + " - Slot: " + component_name + " - Position : " + position);
+          $('[name="connection[to_port_id]"]').val(port_id);
+          selected_ports.closest("form").find('input[type="submit"]').prop('disabled', false);
+      }
 
-    $(document).ready(function(){
-        loadPaletteColorPicker('[name="connection[color]"]');
+      $(document).ready(function () {
+          loadPaletteColorPicker('[name="connection[color]"]');
 
-        $('#all_destinations').hide(); // TODO show it if destination server is not in the couple of bays
+          $('#all_destinations').hide(); // TODO show it if destination server is not in the couple of bays
 
-        updateConnectionStateMessage("<%= @frame.name %>", "<%=@from_port.cable.try(:name)%>");
+          updateConnectionStateMessage("<%= @frame.name %>", "<%=@from_port.cable.try(:name)%>");
 
-        $("#back_departure_server").on('click', 'a.port', function(e) {
-            e.preventDefault();
-        });
-        $("#back_destination_server").on('click', 'a.port', function(e){
-            e.preventDefault();
-            select_destination_port(e.target.id);
-        });
-    });
-</script>
+          $("#back_departure_server").on('click', 'a.port', function (e) {
+              e.preventDefault();
+          });
+          $("#back_destination_server").on('click', 'a.port', function (e) {
+              e.preventDefault();
+              select_destination_port(e.target.id);
+          });
+      });
+  </script>

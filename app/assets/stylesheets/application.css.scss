@@ -322,7 +322,7 @@ table.card_layout{
 .connection_form {
   .back_server{
     background-color: white ;
-    max-width:600px;
+    // max-width:600px;
     .port_container{
       margin-left: -2px;
       display: inline-block;
@@ -330,6 +330,9 @@ table.card_layout{
     .selected{
       padding:2px 1px;
       background-color: #ee3b3b;
+    }
+    .draw_connections_link{
+      display: none;
     }
   }
 }
