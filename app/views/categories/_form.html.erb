@@ -2,7 +2,7 @@
   <% if @category.errors.any? %>
     <div class="alert alert-danger alert-dismissable" role="alert">
       <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <h4><%= pluralize(@category.errors.count, "error") %> prohibited this category from being saved:</h4>
+      <h4><%= pluralize(@category.errors.count, "erreur", "erreurs") %> lors de la sauvegarde :</h4>
 
       <ul>
       <% @category.errors.full_messages.each do |msg| %>

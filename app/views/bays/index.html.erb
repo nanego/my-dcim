@@ -44,7 +44,7 @@
                 <td><%= bay.lane %> </td>
                 <td><%= bay.position %> </td>
 
-                <td><%= pluralize(bay.materials.count, 'serveur') %> </td>
+                <td><%= pluralize(bay.materials.count, 'serveur', 'serveurs') %> </td>
 
 
                 <td><%= link_to 'Modifier', edit_bay_path(bay), class: 'btn btn-primary' %></td>

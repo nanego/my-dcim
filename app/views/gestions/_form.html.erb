@@ -2,7 +2,7 @@
   <% if @gestion.errors.any? %>
     <div class="alert alert-danger alert-dismissable" role="alert">
       <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <h4><%= pluralize(@gestion.errors.count, "error") %> prohibited this gestion from being saved:</h4>
+      <h4><%= pluralize(@gestion.errors.count, "erreur", "erreurs") %> lors de la sauvegarde :</h4>
 
       <ul>
       <% @gestion.errors.full_messages.each do |msg| %>

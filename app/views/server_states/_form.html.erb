@@ -2,7 +2,7 @@
   <% if @server_state.errors.any? %>
     <div class="alert alert-danger alert-dismissable" role="alert">
       <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <h4><%= pluralize(@server_state.errors.count, "error") %> prohibited this server_state from being saved:</h4>
+      <h4><%= pluralize(@server_state.errors.count, "erreur", "erreurs") %> lors de la sauvegarde :</h4>
 
       <ul>
       <% @server_state.errors.full_messages.each do |msg| %>

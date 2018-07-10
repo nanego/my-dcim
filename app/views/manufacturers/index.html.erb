@@ -32,7 +32,7 @@
           <tbody>
           <%= content_tag_for(:tr, @manufacturers) do |manufacturer| %>
             <td><%= manufacturer %></td>
-            <td><%= pluralize(manufacturer.modeles.count, 'modeles') %> </td>
+            <td><%= pluralize(manufacturer.modeles.count, 'modèle', 'modèles') %> </td>
             <td><%= link_to 'Modifier', edit_manufacturer_path(manufacturer), class: 'btn btn-primary' %></td>
             <td><%= link_to 'Supprimer', manufacturer, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
           <% end %>
