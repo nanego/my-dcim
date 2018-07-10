@@ -28,7 +28,7 @@
                                   ["Vertical, de bas en haut", "dt-lr"]], class: "form-control" %>
     </div>
     <div class="col-sm-2">
-      <%= f.select :linked_card_id, options_for_select( Card.includes(:server).on_patch_panels.sort{|f1,f2|f1.to_s <=> f2.to_s}.map{|card| [card.to_s, card.id]}, f.object.linked_card_id), :include_blank => true %>
+      <%= f.select :twin_card_id, options_for_select( Card.includes(:server).on_patch_panels.sort{|f1,f2|f1.to_s <=> f2.to_s}.map{|card| [card.to_s, card.id]}, f.object.twin_card_id), :include_blank => true %>
     </div>
 
     <span>

@@ -1,10 +1,10 @@
 <% server.cards.select {|card| card.composant_id == component.id}.each do |card| %>
 
-  <% if card.linked_card_id
-       linked_card = Card.find(card.linked_card_id)
-       connections = linked_card.ports.map(&:connection)
-       linked_card_used_ports = []
-       connections.each {|c| linked_card_used_ports << c.port.position if c && c.port}
+  <% if card.twin_card_id
+       twin_card = Card.find(card.twin_card_id)
+       connections = twin_card.ports.map(&:connection)
+       twin_card_used_ports = []
+       connections.each {|c| twin_card_used_ports << c.port.position if c && c.port}
      end %>
 
   <span data-server-name="<%= server.name %>"
@@ -17,7 +17,7 @@
       <%= ports_by_card_with_presentation(card: card,
                                           selected_port: selected_port,
                                           moved_connections: @moved_connections,
-                                          linked_card_used_ports: linked_card_used_ports) %>
+                                          twin_card_used_ports: twin_card_used_ports) %>
     <% else %>
       <%= ports_by_card(port_type: card.card_type.try(:port_type),
                         port_quantity: card.card_type.try(:port_quantity),
@@ -25,7 +25,7 @@
                         ports_data: card.ports,
                         selected_port: selected_port,
                         moved_connections: @moved_connections,
-                        linked_card_used_ports: linked_card_used_ports) %>
+                        twin_card_used_ports: twin_card_used_ports) %>
     <% end %>
 
 

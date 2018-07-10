@@ -6,8 +6,8 @@ module ServersHelper
     cards = server.cards.where('composant_id = ?', component.id)
     cards_names = cards.map {|card| card.name}.reject(&:blank?)
     if cards_names.present?
-      if cards.first.linked_card_id.present?
-        link_to cards_names.join('-'), server_path(Card.find(cards.first.linked_card_id).server)
+      if cards.first.twin_card_id.present?
+        link_to cards_names.join('-'), server_path(Card.find(cards.first.twin_card_id).server)
       else
         cards_names.join('-')
       end
@@ -29,7 +29,7 @@ module ServersHelper
     sums
   end
 
-  def ports_by_card_with_presentation(card:, selected_port: nil, moved_connections: [], linked_card_used_ports: [])
+  def ports_by_card_with_presentation(card:, selected_port: nil, moved_connections: [], twin_card_used_ports: [])
     card_type = card.card_type
     ports_per_cell = card_type.port_quantity.to_i / (card_type.rows * card_type.columns)
 
@@ -49,8 +49,8 @@ module ServersHelper
           html += content_tag(:span,
                               link_to_port(position, port_data, card_type.port_type, card.id, port_id, position - (card_type.first_position == 0 ? 1 : 0)),
                               class: "port_container
-                                      #{linked_card_used_ports && port_data && port_data.cable_name && linked_card_used_ports.exclude?(port_data.position) ? "no_client" : ""}
-                              #{linked_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && linked_card_used_ports.include?(position) ? "unreferenced_client" : ""}
+                                      #{twin_card_used_ports && port_data && port_data.cable_name && twin_card_used_ports.exclude?(port_data.position) ? "no_client" : ""}
+                              #{twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(position) ? "unreferenced_client" : ""}
                               #{selected_port.present? && port_id == selected_port.try(:id) ? "selected" : ""}")
 
           number_of_columns_in_cell = card.orientation == 'dt-lr' ? (ports_per_cell.to_i / card_type.max_aligned_ports.to_i).to_i : card_type.max_aligned_ports.to_i
@@ -69,7 +69,7 @@ module ServersHelper
     html.html_safe
   end
 
-  def ports_by_card(port_type:, port_quantity:, ports_data:, card_id: nil, selected_port: nil, moved_connections: [], linked_card_used_ports: [])
+  def ports_by_card(port_type:, port_quantity:, ports_data:, card_id: nil, selected_port: nil, moved_connections: [], twin_card_used_ports: [])
     html = ""
     port_quantity.to_i.times do |index|
       port_data = ports_data.detect {|p| p.position == index + 1}
@@ -79,8 +79,8 @@ module ServersHelper
       html += content_tag(:span,
                           link_to_port(index + 1, port_data, port_type, card_id, port_id),
                           class: "port_container
-                                  #{linked_card_used_ports && port_data && port_data.cable_name && linked_card_used_ports.exclude?(port_data.position) ? "no_client" : ""}
-                          #{linked_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && linked_card_used_ports.include?(index + 1) ? "unreferenced_client" : ""}
+                                  #{twin_card_used_ports && port_data && port_data.cable_name && twin_card_used_ports.exclude?(port_data.position) ? "no_client" : ""}
+                          #{twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(index + 1) ? "unreferenced_client" : ""}
                           #{selected_port.present? && port_id == selected_port.try(:id) ? "selected" : ""}")
 
       if (index + 1) % MAX_PORTS_PER_LINE == 0 # Every XX ports do
