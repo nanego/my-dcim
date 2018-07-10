@@ -8,7 +8,7 @@ var colors_hash = {"N": "#000000",
     "B": "#4876ff",
     "Vi": "#663399",
     "P": "#ff9ee5",
-    "G": "#DDDDDD",
+    "G": "#AAAAAA",
     "W": "#FFFFFF"
 };
 
@@ -25,7 +25,7 @@ var loadPaletteColorPicker = function(selector){
             {"B": "#4876ff"},
             {"Vi": "#663399"},
             {"P": "#ff9ee5"},
-            {"G": "#DDDDDD"},
+            {"G": "#AAAAAA"},
             {"W": "#FFFFFF"}
         ],
         timeout: 2000,

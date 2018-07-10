@@ -45,19 +45,27 @@ function create_line(activated_servers, server_id, port_id, elt_start, elt_end, 
     elt_start.addEventListener('mouseenter', function () {
         line.dash = {animation: true}
         line.size = 4
+        line.startPlug = 'hand'
+        line.endPlug = 'hand'
     }, false);
     elt_end.addEventListener('mouseenter', function () {
         line.dash = {animation: true}
         line.size = 4
+        line.startPlug = 'hand'
+        line.endPlug = 'hand'
     }, false);
 
     elt_start.addEventListener('mouseleave', function () {
         line.dash = false
         line.size = 2
+        line.startPlug = 'behind'
+        line.endPlug = 'behind'
     }, false);
     elt_end.addEventListener('mouseleave', function () {
         line.dash = false
         line.size = 2
+        line.startPlug = 'behind'
+        line.endPlug = 'behind'
     }, false);
 
 
