@@ -10,7 +10,7 @@
   <table class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
-            <th>Server</th>
+            <th>Matériel</th>
             <th></th>
         <th></th>
         <th></th>
@@ -20,7 +20,7 @@
     <tbody>
       <%= content_tag_for(:tr, @documents) do |document| %>
             <td><%= document.server_id %></td>
-            <td><%= link_to 'Show', document %></td>
+            <td><%= link_to 'Voir', document %></td>
         <td><%= link_to 'Edit', edit_document_path(document) %></td>
         <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' %></td>
       <% end %>

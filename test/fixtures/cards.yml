@@ -4,8 +4,8 @@ one:
   server_id: 1
   composant_id: 1
   name: Card1
-  twin_card_id: 2
-  orientation:
+  twin_card_id:
+  orientation: "lr-td"
 
 two:
   id: 2
@@ -13,8 +13,8 @@ two:
   server_id: 1
   composant_id: 2
   name: Card2
-  twin_card_id: 1
-  orientation:
+  twin_card_id:
+  orientation: "lr-td"
 
 three:
   id: 3
@@ -23,4 +23,4 @@ three:
   composant_id: 4
   name: CardIPMI
   twin_card_id:
-  orientation:
+  orientation: "lr-td"

@@ -10,7 +10,7 @@
   <table class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
-            <th>Server</th>
+            <th>Matériel</th>
             <th>Disk type</th>
             <th>Quantity</th>
             <th></th>
@@ -24,7 +24,7 @@
             <td><%= disk.server_id %></td>
             <td><%= disk.disk_type_id %></td>
             <td><%= disk.quantity %></td>
-            <td><%= link_to 'Show', disk %></td>
+            <td><%= link_to 'Voir', disk %></td>
         <td><%= link_to 'Edit', edit_disk_path(disk) %></td>
         <td><%= link_to 'Destroy', disk, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' %></td>
       <% end %>

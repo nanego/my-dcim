@@ -22,7 +22,7 @@
     <tbody>
       <%= content_tag_for(:tr, @server_states) do |server_state| %>
             <td><%= server_state %></td>
-            <td><%= link_to 'Show', server_state %></td>
+            <td><%= link_to 'Voir', server_state %></td>
         <td><%= link_to 'Edit', edit_server_state_path(server_state) %></td>
         <td><%= link_to 'Destroy', server_state, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
       <% end %>

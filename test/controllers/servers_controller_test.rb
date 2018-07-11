@@ -130,6 +130,26 @@ class ServersControllerTest < ActionController::TestCase
     assert_equal assigns(:server), @server
   end
 
+  test "should update cards in a server" do
+    patch :update, params: {id: @server, server: {cards_attributes: {id:1,
+                                                                     composant_id: 1,
+                                                                     twin_card_id:2,
+                                                                     orientation:"lr-td"}}}
+    assert_redirected_to server_path(assigns(:server))
+
+    # test new card
+    response = get :show, params: {id: @server.name}
+    assert_response :success
+    assert_equal assigns(:server), @server
+
+    card = Card.find(1)
+    assert card.twin_card_id, 2
+
+    # test twin card
+    twin_card = Card.find(2)
+    assert twin_card.twin_card_id, 1
+  end
+
   test "should destroy server" do
     assert_difference('Server.count', -1) do
       delete :destroy, params: {id: @server}
