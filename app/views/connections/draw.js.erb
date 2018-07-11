@@ -42,36 +42,51 @@ function create_line(activated_servers, server_id, port_id, elt_start, elt_end, 
         }
     )
 
-    elt_start.addEventListener('mouseenter', function () {
-        line.dash = {animation: true}
-        line.size = 4
-        line.startPlug = 'hand'
-        line.endPlug = 'hand'
-    }, false);
-    elt_end.addEventListener('mouseenter', function () {
-        line.dash = {animation: true}
-        line.size = 4
-        line.startPlug = 'hand'
-        line.endPlug = 'hand'
-    }, false);
-
-    elt_start.addEventListener('mouseleave', function () {
-        line.dash = false
-        line.size = 2
-        line.startPlug = 'behind'
-        line.endPlug = 'behind'
-    }, false);
-    elt_end.addEventListener('mouseleave', function () {
-        line.dash = false
-        line.size = 2
-        line.startPlug = 'behind'
-        line.endPlug = 'behind'
-    }, false);
-
+    var ports_elts = [elt_start, elt_end]
+    ports_elts.forEach(function (elem) {
+        elem.addEventListener('mouseenter', function () {
+            set_line_options(line, 'hover')
+            outline_elements(ports_elts, true)
+        }, false)
+    })
+    ports_elts.forEach(function (elem) {
+        elem.addEventListener('mouseleave', function () {
+            set_line_options(line, 'leave')
+            outline_elements(ports_elts, false)
+        }, false);
+    })
 
     line.show()
     activated_servers[server_id][port_id] = line
     return activated_servers
+}
+
+function set_line_options(line, status) {
+    if (status === 'hover') {
+        line.dash = {animation: true}
+        line.size = 4
+        // line.startPlug = 'square'
+        // line.endPlug = 'square'
+        // line.startPlugColor = '#f0ad4e'
+        // line.endPlugColor = '#f0ad4e'
+    } else {
+        line.dash = false
+        line.size = 2
+        // line.startPlug = 'behind'
+        // line.endPlug = 'behind'
+    }
+}
+
+function outline_elements(elts, status) {
+    console.log(outline_elements)
+    elts.forEach(function (elt) {
+        console.log("STATUS = " + status)
+        if (status) {
+            $(elt).addClass('outlined')
+        } else {
+            $(elt).removeClass('outlined')
+        }
+    })
 }
 
 function delete_lines(activated_servers, server_id) {

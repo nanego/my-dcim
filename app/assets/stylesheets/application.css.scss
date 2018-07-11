@@ -182,6 +182,9 @@ table.card_layout{
     color: #000000 !important;
     background-color: #ff9ee5 !important;
   }
+  &.outlined{
+    outline: 3px solid #eea236;
+  }
 }
 .portRJ {
   border: 1px #555555 solid;
