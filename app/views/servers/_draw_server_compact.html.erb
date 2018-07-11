@@ -3,10 +3,24 @@
 <%= link_to h(server.name), server_path(server, :view => params[:view]), {class: 'pull-left server_name', style: 'padding-left: 14px;', :data => {'toggle': "tooltip", 'placement': "top"}, title: server.numero} %>
 <br>
 <span class='pull-left' style="clear:left;padding-left: 14px;">
-  <%= link_to draw_connections_path(server_id: server.id), class: 'draw_connections_link', id:"draw_connections_link_#{server.id}", :remote => true do %>
+  <%= link_to draw_connections_path(server_id: server.id),
+              class: 'draw_connections_link',
+              id: "draw_connections_link_#{server.id}",
+              title: "Dessiner les liaisons",
+              remote: true do %>
     <button type="button" class="btn btn-default btn-xs" aria-label="Draw connections">
       <span class="glyphicon glyphicon-random" aria-hidden="true"></span>
     </button>
+  <% end %>
+</span>
+<span class='pull-left' style="padding-left: 8px;">
+  <% twin_cards_ids = server.cards.map(&:twin_card_id).uniq.reject{|c|c.blank?} %>
+  <% twin_cards_ids.map{|id| Card.find(id).frame}.uniq.each do |frame| %>
+    <%= link_to frame_path(frame), title: "#{frame.to_s}" do %>
+      <button type="button" class="btn btn-default btn-xs" aria-label="Link to twin card">
+        <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span>
+      </button>
+    <% end %>
   <% end %>
 </span>
 

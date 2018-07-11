@@ -16,6 +16,7 @@ class Card < ActiveRecord::Base
 
   belongs_to :server
   belongs_to :composant
+  delegate :frame, to: :server
 
   has_many :ports
   has_many :cables, through: :ports

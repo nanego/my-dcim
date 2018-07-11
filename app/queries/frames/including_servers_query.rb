@@ -9,7 +9,7 @@ module Frames
                                  :gestion,
                                  :cluster,
                                  :modele => [:category, :composants],
-                                 :cards => [:composant, :ports => [:connection => :cable], :card_type => :port_type]]).order(order)
+                                 :cards => [:composant, :ports => [:cable, :connection => :cable], :card_type => :port_type]]).order(order)
     end
 
   end
