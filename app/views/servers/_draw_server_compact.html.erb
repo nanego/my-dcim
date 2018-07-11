@@ -25,12 +25,13 @@
 </span>
 
 <% if server.modele.present? %>
-  <div class="pull-right">
+  <div class="pull-right very-specific-design" id="very-specific-design">
 
     <% server.modele.enclosures.each_with_index do |enclosure, index| %>
 
       <% composants_per_enclosure = enclosure.composants.slots %>
-      <table class="slots" style="<%= index > 0 ? 'margin-top:7px;' : '' %>">
+
+      <table class="slots" style="<%= index > 0 ? 'margin-top:7px;' : '' %>" >
         <tbody>
 
         <% if enclosure.display != 'horizontal' %>

@@ -347,3 +347,20 @@ span.port_container.no_client a {
 span.port_container.unreferenced_client a {
   border: solid 2px red !important;
 }
+
+
+.very-specific-design {
+  position: relative;
+  left: 0;
+  top: 50%;
+  transform-origin: top right;
+}
+
+.scaleable-wrapper {
+  resize: both;
+  position: relative;
+}
+
+.ui-resizable-se {
+  display: none !important;
+}
