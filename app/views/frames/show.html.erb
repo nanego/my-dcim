@@ -35,10 +35,10 @@
                 data-max-rj45='<%= settings[:max_rj45] %>'
                 data-max-fc='<%= settings[:max_fc] %>'>
 
-              <div class="col-xs-12 col-sm-5 view-front">
+              <div class="col-xs-12 col-sm-4 view-front">
                 <%= render partial: 'frames/show_frame', locals: {frame: @frame, servers: @frame.servers, settings: settings, view_type: 'front'} %>
               </div>
-              <div class="col-xs-12 col-sm-5 view-back">
+              <div class="col-xs-12 col-sm-6 view-back">
                 <%= render partial: 'frames/show_frame', locals: {frame: @frame, servers: @frame.servers, settings: settings, view_type: 'back'} %>
               </div>
               <div class="hidden-xs col-sm-2">
