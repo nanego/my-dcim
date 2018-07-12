@@ -13,16 +13,18 @@
     </button>
   <% end %>
 </span>
+<!--
 <span class='pull-left' style="padding-left: 8px;">
-  <% twin_cards_ids = server.cards.map(&:twin_card_id).uniq.reject{|c|c.blank?} %>
+  <% twin_cards_ids = server.cards.map(&:twin_card_id).uniq.reject{|c|c.blank?} if false %>
   <% twin_cards_ids.map{|id| Card.find(id).frame}.uniq.each do |frame| %>
     <%= link_to frame_path(frame), title: "#{frame.to_s}" do %>
       <button type="button" class="btn btn-default btn-xs" aria-label="Link to twin card">
         <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span>
       </button>
     <% end %>
-  <% end %>
+  <% end if false %>
 </span>
+-->
 
 <% if server.modele.present? %>
   <div class="pull-right very-specific-design" id="very-specific-design">
