@@ -55,7 +55,7 @@
                   <% if formats != [:pdf] %>
                     </div>
                     <% if frames.size > 1 %>
-                      <div class="panel-footer">
+                      <div class="couple-panel-footer panel-footer">
                         <%= render 'servers/sum_labels.html.erb',
                                    sums: (@sums[bay.frames.first.id].merge(@sums[bay.frames.last.id]){|_,a,b|a+b}),
                                    sum_u: nil,

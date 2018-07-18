@@ -55,8 +55,11 @@
     cursor: pointer;
     &.hover{
       background-color: white;
+      .couple-panel-footer{
+        background-color: white;
+      }
     }
-    .panel-body, .panel-footer{
+    .frame{
       cursor: auto;
     }
     .panel-body{
