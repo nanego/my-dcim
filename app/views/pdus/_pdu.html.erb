@@ -1,4 +1,4 @@
-<h5 style="text-align: center;"><%= link_to pdu.name[-1], edit_server_path(pdu) %></h5>
+<h5 style="text-align: center;"><%= link_to pdu.name[-1], edit_server_path(pdu.id) %></h5>
 <% pdu.modele.enclosures.first.composants.each do |component| %>
   <div style="margin-bottom: 10px;display: inline-block;margin-left: -5px;">
     <%= link_to '#', class: 'pdu-line', style: "float: left;margin-left: 2px;opacity: 0.45;" do %>
