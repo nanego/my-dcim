@@ -134,7 +134,7 @@ class ServersGrid
   column(:action_conf_reseau)
 
   column("Boutons", :html => true, :mandatory => false) do |record|
-    link_to('Modifier', edit_server_path(record)).to_s + '<span style="margin-left:10px">'.html_safe + link_to('Supprimer', record, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning').to_s + '</span>'.html_safe
+    link_to('Modifier', edit_server_path(record.id)).to_s + '<span style="margin-left:10px">'.html_safe + link_to('Supprimer', server_path(record.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning').to_s + '</span>'.html_safe
   end
 
 end
