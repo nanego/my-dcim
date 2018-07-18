@@ -53,6 +53,9 @@
 .frames{
   .couple{
     cursor: pointer;
+    &.hover{
+      background-color: white;
+    }
     .panel-body, .panel-footer{
       cursor: auto;
     }
