@@ -24,6 +24,7 @@
           <tr>
             <th>Salle</th>
             <th>Ilot</th>
+            <th>Position</th>
             <th></th>
             <th></th>
             <th></th>
@@ -34,6 +35,7 @@
           <%= content_tag_for(:tr, @islets) do |islet| %>
               <td><%= islet.room %> </td>
               <td><%= islet.name %></td>
+              <td><%= islet.position %></td>
               <td><%= islet.frames.count.to_s + ' chassis' %></td>
               <td><%= link_to 'Modifier', edit_islet_path(islet), class: 'btn btn-primary' %></td>
               <td><%= link_to 'Supprimer', islet, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
