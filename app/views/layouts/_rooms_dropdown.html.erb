@@ -1,36 +1,40 @@
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Salles <span class="caret"></span></a>
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Salles
+    <span class="caret"></span></a>
   <ul class="dropdown-menu">
     <li><%= link_to 'Afficher toutes les salles', overview_rooms_path %></li>
     <% sites = Site.joins(:rooms).includes(:rooms => [:bays => [:bay_type]]).order(:position).distinct %>
     <% sites.each do |site| %>
-        <li role="separator" class="divider"></li>
-        <li class="dropdown-header"><%= site %></li>
-        <% rooms = site.rooms.sorted.distinct %>
-        <% rooms.each do |room| %>
-            <% islets = room.islets.sorted.not_empty.has_name.distinct %>
-            <li class="<%= islets.present? ? 'dropdown-submenu':'' %>">
-              <%= link_to room.name, room_path(room) %>
-              <ul class="dropdown-menu">
-                <% if islets.size > 1 %>
-                    <% islets.each do |islet| %>
-                        <li class="dropdown-submenu">
-                          <%= link_to "#{room.name}-ilot#{islet.name}", islet_rooms_path(id: room.id, islet: islet.name, :view => params[:view], bg: params[:bg]) %>
-                          <div class="dropdown-menu">
-                            <% if islet.bays.present? %>
-                              <%= render 'layouts/menu_bay_overview', bays: islet.bays %>
-                            <% end %>
-                          </div>
-                        </li>
+      <li role="separator" class="divider"></li>
+      <li class="dropdown-header"><%= site %></li>
+      <% rooms = site.rooms.sorted.distinct %>
+      <% rooms.each do |room| %>
+        <% islets = room.islets.sorted.not_empty.has_name.distinct %>
+        <li class="<%= islets.present? ? 'dropdown-submenu' : '' %>">
+          <%= link_to room.name, room_path(room) %>
+          <% if islets.size > 1 %>
+            <ul class="dropdown-menu">
+              <% islets.each do |islet| %>
+                <li class="dropdown-submenu">
+                  <%= link_to "#{room.name}-ilot#{islet.name}", islet_rooms_path(id: room.id, islet: islet.name, :view => params[:view], bg: params[:bg]) %>
+                  <div class="dropdown-menu" style="width: <%= calculated_menu_width(islet) %>px;">
+                    <% if islet.bays.present? %>
+                      <%= render 'bays/overview', bays: islet.bays.sorted %>
                     <% end %>
-                <% else %>
-                  <% if islets.present? && islets.first.bays.present? %>
-                    <%= render 'layouts/menu_bay_overview', bays: islets.first.bays %>
-                  <% end %>
-                <% end %>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <% islet = islets.first if islets.present? && islets.first.bays.present? %>
+            <% if islet %>
+              <ul class="dropdown-menu" style="width: <%= calculated_menu_width(islet) %>px;">
+                <%= render 'bays/overview', bays: islet.bays.sorted %>
               </ul>
-            </li>
-        <% end %>
+            <% end %>
+          <% end %>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 </li>
