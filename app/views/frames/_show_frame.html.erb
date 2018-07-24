@@ -36,7 +36,9 @@
         <% if server.modele.try(:name).present? %>
 
           <% while server.position.present? && server.position < u_disponibles && u_disponibles > 0 %>
-            <li class="server list-group-item truncate <%= 'relegated' if highlighted_servers_ids != servers_ids %>" style="height: <%= settings[:min_height] %>px;">
+            <li class="server list-group-item truncate <%= 'relegated' if highlighted_servers_ids != servers_ids %>"
+                style="height: <%= settings[:min_height] %>px;"
+                data-num-u="<%= u_disponibles %>">
               <%= render 'servers/draw_u_scale_unit.html.erb', i: 0, u_disponibles: u_disponibles, u_server: 1 %>
             </li>
             <% u_disponibles -= 1 %>
@@ -106,7 +108,7 @@
         <% end %>
       <% end %>
       <% u_disponibles.times do |u| %>
-        <li class="server list-group-item truncate <%= 'relegated' if highlighted_servers_ids != servers_ids %>" style="height: <%= settings[:min_height] %>px;">
+        <li class="server list-group-item truncate <%= 'relegated' if highlighted_servers_ids != servers_ids %>" style="height: <%= settings[:min_height] %>px;" data-num-u="<%= u_disponibles %>">
           <%= render 'servers/draw_u_scale_unit.html.erb', i: 0, u_disponibles: u_disponibles, u_server: 1 %>
         </li>
         <% u_disponibles -= 1 %>
