@@ -1,15 +1,16 @@
 module Frames
   class IncludingServersQuery
-    DEFAULT_ORDER = 'asc'
 
-    def self.call(relation = Frame.all, order = DEFAULT_ORDER)
-      relation.includes(:islet => [:room],
+    def self.call(relation = Frame.all, order = nil)
+      ar_relation = relation.includes(:islet => [:room],
                     :bay => [:frames],
                     :servers => [:frame,
                                  :gestion,
                                  :cluster,
                                  :modele => [:category, :composants],
-                                 :cards => [:composant, :ports => [:cable, :connection => :cable], :card_type => :port_type]]).order(order)
+                                 :cards => [:composant, :ports => [:cable, :connection => :cable], :card_type => :port_type]])
+      ar_relation = ar_relation.order(order) if order
+      ar_relation
     end
 
   end

@@ -1,0 +1,13 @@
+<% provide :title, "Vue Réseau" %>
+
+<div class="container-fluid">
+  <%= render 'servers/room',
+             room: "Vue réseau",
+             islets: @servers_per_frames,
+             view_side: 'back',
+             title: "Vue réseau" %>
+</div>
+
+<%= render 'servers/modal_add_element_in_frame' %>
+
+<%= render 'ports/modal_edit_port' %>

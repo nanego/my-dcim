@@ -31,6 +31,9 @@ Rails.application.routes.draw do
     collection do
       post :sort
     end
+    member do
+      get :network
+    end
   end
 
   resources :ports, only: [:index, :edit, :update, :destroy]

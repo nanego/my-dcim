@@ -31,7 +31,7 @@
     </div>
   <% end %>
 
-  <% if formats!=[:pdf] && @room.present? %>
+  <% if formats!=[:pdf] && @room.present? && !@room.kind_of?(String) %>
     <div class="btn-group">
       <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Exports <span class="caret"></span>

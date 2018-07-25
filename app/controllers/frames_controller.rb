@@ -1,5 +1,6 @@
 class FramesController < ApplicationController
   include ServersHelper
+  include RoomsHelper
 
   def show
     @frame = Frame.all.includes(:servers => [:modele => [:category, :composants], :cards => [:composant, :ports => [:connection => [:cable => :connections]], :card_type => [:port_type]]], :bay => [:islet => [:room]]).friendly.find(params[:id].to_s.downcase)
@@ -78,6 +79,49 @@ class FramesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to frames_url, notice: 'Frame was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def network
+    # Set frames for this network
+    @frame = Frames::IncludingServersQuery.call(Frame).friendly.find(params[:id].to_s.downcase)
+    @coupled_frame = @frame.other_frame
+    if @coupled_frame.present?
+      @network_frame = Frames::IncludingServersQuery.call(Frame).friendly.find(params[:network_frame_id].to_s.downcase)
+    else
+      @network_frame = @frame
+      @frame = Frames::IncludingServersQuery.call(Frame).friendly.find(params[:network_frame_id].to_s.downcase)
+      @coupled_frame = @frame.other_frame
+    end
+
+    @frames = [@frame, @coupled_frame, @network_frame]
+    @servers_per_frames = {}
+    @sums = {}
+
+    @frames.each do |frame|
+      islet = "Vue réseau"
+      @servers_per_frames[islet] ||= {}
+      @servers_per_frames[islet][0] ||= {}
+      @servers_per_frames[islet][0][frame.bay] ||= {}
+      @servers_per_frames[islet][0][frame.bay][frame] ||= []
+      frame.servers.each do |s|
+        @servers_per_frames[islet][0][frame.bay][frame] << s
+      end
+      @sums.merge!(calculate_ports_sums(frame, frame.servers))
+    end
+
+    respond_to do |format|
+      format.html do
+        render 'frames/network.html.erb'
+      end
+      format.pdf do
+        render layout: 'pdf.html',
+               template: "rooms/show.pdf.erb",
+               show_as_html: params[:debug].present?,
+               pdf: 'frame',
+               zoom: 0.75
+      end
+      format.txt { send_data Frame.to_txt(@servers_per_frames) }
     end
   end
 

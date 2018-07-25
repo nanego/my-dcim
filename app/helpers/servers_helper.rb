@@ -7,7 +7,9 @@ module ServersHelper
     cards_names = cards.map {|card| card.name}.reject(&:blank?)
     if cards_names.present?
       if cards.first.twin_card_id.present?
-        link_to cards_names.join('-'), server_path(Card.find(cards.first.twin_card_id).server)
+        link_to network_frame_path(server.frame, network_frame_id: Card.find(cards.first.twin_card_id).server.frame_id) do
+          "<span class='glyphicon glyphicon-open' aria-hidden='true'></span>#{cards_names.join('-')}".html_safe
+        end
       else
         cards_names.join('-')
       end
