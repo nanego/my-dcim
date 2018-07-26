@@ -184,7 +184,7 @@ table.card_layout{
   }
   &.outlined{
     outline: 3px solid #eea236;
-    z-index: 1000;
+    z-index: 99999;
   }
 }
 .portRJ {

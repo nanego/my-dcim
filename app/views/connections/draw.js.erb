@@ -2,30 +2,58 @@ $("#draw_connections_link_<%= @server.id %> button").html('<span class="glyphico
 $("#draw_connections_link_<%= @server.id %> button").toggleClass('btn-warning')
 
 var activated_servers = activated_servers || {}
-var elt_start, elt_end
-
-function create_lines() {
-    <% @server.ports.each do |port| %>
-    <% if port.paired_connection.present? %>
-    elt_start = document.getElementById('<%= port.id %>')
-    elt_end = document.getElementById('<%= port.paired_connection.port_id %>')
-    if (exists(elt_start) && exists(elt_end)) {
-        activated_servers = create_line(activated_servers, <%= @server.id %>, <%= port.id %>, elt_start, elt_end, '<%= port.cable_color %>', '<%= port.cable_name %>')
-    }
-    <% end %>
-    <% end %>
-    return activated_servers
-}
 
 if (exists(activated_servers[<%= @server.id %>])) { // TOGGLE
     console.log("DELETE LINES")
-    activated_servers = delete_lines(activated_servers, <%= @server.id %>)
+    delete_lines(<%= @server.id %>)
 } else {
     console.log("CREATE LINES")
-    activated_servers = create_lines(activated_servers, <%= @server.id %>)
+    create_lines('<%= @server.id %>')
 }
 
-function create_line(activated_servers, server_id, port_id, elt_start, elt_end, cable_color, cable_name) {
+function create_lines(server_id) {
+    <% @server.ports.each do |port| %>
+    <% if port.paired_connection.present? %>
+      draw_connection(server_id,
+          '<%= port.id %>',
+          '<%= port.paired_connection.port_id %>',
+          '<%= port.cable_color %>',
+          '<%= port.cable_name %>'
+      )
+    <% end %>
+    <% end %>
+    create_links_to_twin_cards()
+}
+
+function create_links_to_twin_cards() {
+    <% @server.cards.each do |card| %>
+      <% if card.twin_card_id.present? %>
+        <% twin_card_ports = Port.where(card_id: card.twin_card_id) %>
+        <% card.ports.each do |port| %>
+          <% if port.connection.present? %>
+            <% twin_card_port = twin_card_ports.select{|p| p.position == port.position}.first %>
+            draw_connection('<%= @server.id %>',
+                '<%= port.id %>',
+                '<%= twin_card_port.id %>',
+                '<%= port.cable_color %>',
+                '<%= port.cable_name %>'
+            )
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+}
+
+function draw_connection(server_id, port_id, destination_port_id, cable_color, cable_name){
+    let elt_start, elt_end
+    elt_start = document.getElementById(port_id)
+    elt_end = document.getElementById(destination_port_id)
+    if (exists(elt_start) && exists(elt_end)) {
+        create_line(server_id, port_id, elt_start, elt_end, cable_color, cable_name)
+    }
+}
+
+function create_line(server_id, port_id, elt_start, elt_end, cable_color, cable_name) {
     activated_servers[server_id] = activated_servers[server_id] || {}
 
     var line = new LeaderLine(
@@ -57,8 +85,8 @@ function create_line(activated_servers, server_id, port_id, elt_start, elt_end, 
     })
 
     line.show()
-    activated_servers[server_id][port_id] = line
-    return activated_servers
+    activated_servers[server_id][port_id] = activated_servers[server_id][port_id] || []
+    activated_servers[server_id][port_id].push(line)
 }
 
 function set_line_options(line, status) {
@@ -78,9 +106,7 @@ function set_line_options(line, status) {
 }
 
 function outline_elements(elts, status) {
-    console.log(outline_elements)
     elts.forEach(function (elt) {
-        console.log("STATUS = " + status)
         if (status) {
             $(elt).addClass('outlined')
         } else {
@@ -89,12 +115,14 @@ function outline_elements(elts, status) {
     })
 }
 
-function delete_lines(activated_servers, server_id) {
+function delete_lines(server_id) {
     var ports = activated_servers[server_id]
     for (var key of Object.keys(ports)) {
-        ports[key].hide()
+        ports[key].forEach(function (line){
+            line.hide()
+            delete line
+        })
         delete ports[key]
     }
     delete activated_servers[server_id]
-    return activated_servers
 }
