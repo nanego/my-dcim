@@ -11,7 +11,7 @@
       <% rooms.each do |room| %>
         <% islets = room.islets.sorted.not_empty.has_name.distinct %>
         <li class="<%= islets.present? ? 'dropdown-submenu' : '' %>">
-          <%= link_to room.name, room_path(room) %>
+          <%= link_to room.name, room_path(room, :view => params[:view]) %>
           <% if islets.size > 1 %>
             <ul class="dropdown-menu">
               <% islets.each do |islet| %>
