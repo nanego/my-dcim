@@ -52,9 +52,7 @@ Rails.application.routes.draw do
       post :import
     end
   end
-
-  resources :patch_panels, only: [:index, :show]
-
+  
   resources :servers_grids, only: [:index] do
     collection do
       get :reseau
