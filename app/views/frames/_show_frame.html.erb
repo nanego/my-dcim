@@ -13,11 +13,6 @@
     <div class="panel-heading">
       <h5 class="panel-title" style="display: inline;">
         <%= link_to "#{frame.name}", frame_path(frame, :view => view_type, bg: params[:bg]), style: 'text-decoration: underline;' %>
-        <% if frame.other_frame.present? && formats != [:pdf] %>
-          <%= link_to frame_path(frame.other_frame, :view => view_type, bg: params[:bg]), style: 'text-decoration: underline;' do %>
-            <span class="glyphicon glyphicon-link" aria-hidden="true" title="Couplée à la baie <%= frame.other_frame.name %>"></span>
-          <% end %>
-        <% end %>
       </h5>
       <% if editable != false && formats != [:pdf] %>
         <%= link_to "modifier", edit_frame_path(frame, :view => view_type), class: 'btn btn-default pull-right' %>
