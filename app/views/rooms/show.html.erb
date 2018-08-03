@@ -1,6 +1,6 @@
 <% provide :title, "Salle #{@room.name} #{@islet ? "- Ilot #{@islet}" : "" }" %>
 <%
-  breadcrumb_variables = {'Salles' => overview_rooms_path, @room.name => ((@frame.present? || params[:islet].present?) ? room_path(@room, view: params[:view]):'')}
+  breadcrumb_variables = {'Salles' => overview_rooms_path, @room.name => ((@frame.present? || params[:islet].present?) ? room_path(@room, view: params[:view]) : '')}
   if @frame.present? && @frame.bay.islet.name.present?
     breadcrumb_variables["Ilot #{@frame.bay.islet.name}"] = islet_rooms_path(id: @room.id, islet: @frame.bay.islet.name, view: params[:view])
   elsif params[:islet].present?
@@ -9,6 +9,40 @@
   breadcrumb_variables["Baie #{@frame.name}"] = '' if @frame.present?
 %>
 <%= render 'layouts/breadcrumb', params: breadcrumb_variables %>
+
+<div class="container-fluid room_overview">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"><%= link_to @room.name, @room %></h3>
+    </div>
+    <div class="panel-body" style="padding: 0;">
+      <% @room.islets.sorted.each do |islet| %>
+        <div class="islet">
+          <h5><%= islet.name.present? ? link_to("Ilot #{islet}", islet_rooms_path(id: @room.id, islet: islet.name, :view => params[:view], bg: params[:bg])) : '' %></h5>
+          <div class="rooms-overview"
+               style="clear: both;
+                   display:grid;
+                   width: -moz-fit-content;
+                   width: fit-content;">
+            <% islet.bays.sorted.each do |bay| %>
+              <div style="grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
+                  grid-row:<%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;
+                  max-width: 195px;">
+                <% bay.frames.sorted.each_with_index do |frame, index| %>
+                  <div class="overviewed_frame <%= 'no-margin' if index > 0 %> <%= 'highlighted' if @frames && @frames.include?(frame) %>">
+                    <%= link_to frame.name, frame_path(frame, view: (params[:view])) %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <div class="container-fluid">
   <%= render 'servers/room',
