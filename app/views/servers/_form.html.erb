@@ -19,7 +19,7 @@
     </div>
     <%= f.label 'Baie', class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.collection_select(:frame_id, Frame.includes(:islet => :room, :bay => :islet).sort{|f1,f2|f1.name_with_room_and_islet <=> f2.name_with_room_and_islet}, :id, :name_with_room_and_islet, {:prompt => true, :include_blank => false}, {class: "form-control"}) %>
+      <%= f.collection_select(:frame_id, Frame.all_sorted, :id, :name_with_room_and_islet, {:prompt => true, :include_blank => false}, {class: "form-control"}) %>
     </div>
     <%= f.label :position, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
@@ -27,11 +27,11 @@
     </div>
     <%= f.label 'Etat', class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.collection_select(:server_state_id, ServerState.order(:name), :id, :name, {:prompt => false, :include_blank => true}, {class: "form-control"}) %>
+      <%= f.collection_select(:server_state_id, ServerState.sorted, :id, :name, {:prompt => false, :include_blank => true}, {class: "form-control"}) %>
     </div>
     <%= f.label :modele_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.collection_select(:modele_id, Modele.includes(:manufacturer).all.sort{|f1,f2|f1.name_with_brand <=> f2.name_with_brand}, :id, :name_with_brand, {:prompt => true, :include_blank => false}, {class: "form-control"}) %>
+      <%= f.collection_select(:modele_id, Modele.all_sorted, :id, :name_with_brand, {:prompt => true, :include_blank => false}, {class: "form-control"}) %>
     </div>
     <%= f.label :critique, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
@@ -49,15 +49,15 @@
     </div>
     <%= f.label :cluster_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.collection_select(:cluster_id, Cluster.order('LOWER(name)'), :id, :name, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
+      <%= f.collection_select(:cluster_id, Cluster.sorted, :id, :name, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
     </div>
     <%= f.label :domaine_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.collection_select(:domaine_id, Domaine.order('LOWER(name)'), :id, :name, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
+      <%= f.collection_select(:domaine_id, Domaine.sorted, :id, :name, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
     </div>
     <%= f.label 'Gestionnaire', class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.collection_select(:gestion_id, Gestion.order('LOWER(name)'), :id, :name, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
+      <%= f.collection_select(:gestion_id, Gestion.sorted, :id, :name, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
     </div>
   </div>
 

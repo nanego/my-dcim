@@ -36,7 +36,15 @@ class Modele < ActiveRecord::Base
   end
 
   def name_with_brand
-    "#{manufacturer} #{name}"
+    if manufacturer.present?
+      "#{manufacturer} #{name}"
+    else
+      "#{name}"
+    end
+  end
+
+  def self.all_sorted
+    Modele.includes(:manufacturer).all.sort{|f1,f2|f1.name_with_brand.capitalize <=> f2.name_with_brand.capitalize}
   end
 
   private

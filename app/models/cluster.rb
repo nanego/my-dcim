@@ -5,6 +5,8 @@ class Cluster < ActiveRecord::Base
 
   has_many :servers
 
+  scope :sorted, -> { order('LOWER(name)') }
+
   def to_s
     name.present? ? name : " "
   end
