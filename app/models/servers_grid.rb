@@ -19,19 +19,19 @@ class ServersGrid
     where("servers.name LIKE ?", value)
   end
   filter 'Catégorie', :enum, multiple: true, :select => Category.sorted.where(published: true).map {|r| [r.to_s, r.id]} do |value|
-    joins(:modele).where("modeles.category_id = ?", value)
+    joins(:modele).where("modeles.category_id IN (?)", value)
   end
   filter :nb_elts, :integer do |value|
     joins(:modele).where("modeles.nb_elts = ?", value)
   end
   filter :architecture, :enum, multiple: true, checkboxes: true, :select => Architecture.sorted.where(published: true).map {|r| [r.to_s, r.id]} do |value|
-    joins(:modele).where("modeles.architecture_id = ?", value)
+    joins(:modele).where("modeles.architecture_id IN (?)", value)
   end
   filter :u, :integer do |value|
     joins(:modele).where("modeles.u = ?", value)
   end
   filter :manufacturer, :enum, multiple: true, :select => Manufacturer.sorted.where(published: true).map {|r| [r.to_s, r.id]} do |value|
-    joins(:modele).where("modeles.manufacturer_id = ?", value)
+    joins(:modele).where("modeles.manufacturer_id IN (?)", value)
   end
   filter(:modele, :enum, multiple: true, :select => Modele.all_sorted.map {|r| [r.name_with_brand, r.id]})
   filter(:numero, :string)
