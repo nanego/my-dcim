@@ -122,7 +122,7 @@ class ServersGrid
     record.gestion
   end
   column(:frame, :order => proc {|scope|
-    scope.joins(:frames).order("frames.name")
+    scope.joins(:frame).order("frames.name")
   }) do |record|
     record.frame.try(:name_with_room_and_islet)
   end
