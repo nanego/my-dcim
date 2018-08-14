@@ -1,87 +1,127 @@
-.rooms-overview{
+.rooms-overview {
   margin-top: 10px;
-  .panel{
+  .panel {
     margin-bottom: 10px;
   }
-  .islet{
+  .islet {
     margin: 0;
     padding: 0;
     background-color: #ffffff;
     border-bottom: 1px solid #e3e3e3;
-    h5{
-      margin:10px 0 10px 15px;
+    h5 {
+      margin: 10px 0 10px 15px;
     }
   }
-  .overviewed_frame{
+  .overviewed_frame {
     display: inline-flex;
     margin: 0 0 10px 10px;
     padding: 8px 6px;
     background-color: #F5F5F5;
     border: 1px solid #e3e3e3;
-    &.no-margin{
+    &.no-margin {
       margin: 0 0 10px -5px;
     }
-    &.highlighted{
+    &.highlighted {
       background-color: lightblue;
     }
   }
-  .server{
-    &.relegated{
-      filter:alpha(opacity=30);
-      -moz-opacity:0.3;
+  .server {
+    &.relegated {
+      filter: alpha(opacity=30);
+      -moz-opacity: 0.3;
       -khtml-opacity: 0.3;
       opacity: 0.3;
     }
   }
 }
 
-.overview-menu{
+.overview-menu {
   display: grid;
   // grid-gap: 10px;
-  .overviewed_frame{
+  .overviewed_frame {
     display: inline-flex;
     margin: 0 0 10px 10px;
     padding: 8px 6px;
     background-color: #F5F5F5;
     border: 1px solid #e3e3e3;
-    &.no-margin{
+    &.no-margin {
       margin-bottom: 0;
     }
   }
 }
 
-.frames{
-  .couple{
+.frames {
+  .couple {
     cursor: pointer;
-    &.hover{
+    &.hover {
       background-color: white;
-      .couple-panel-footer{
+      .couple-panel-footer {
         background-color: white;
       }
     }
-    .frame{
+    .frame {
       cursor: auto;
     }
-    .panel-body{
+    .panel-body {
       padding: 0;
     }
   }
 }
 
-.room_overview h5{
-  margin:10px 0 10px 15px;
+.room_overview h5 {
+  margin: 10px 0 10px 15px;
 }
 
 @media (min-width: 1199px) {
   #rooms-overview.affix {
-    top:60px;
+    top: 60px;
     padding-right: 30px;
   }
 }
+
 @media (max-width: 1198px) {
   #rooms-overview.affix {
     position: static;
     width: auto;
     top: 0;
   }
+}
+
+.show_room {
+  .panel-body {
+    padding: 0;
+  }
+  .islet h5 {
+    text-align: center
+  }
+  .rooms-overview {
+    clear: both;
+    display: grid;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .overviewed_frame {
+    width: 90px;
+    text-align: center;
+    padding: 8px 6px 0 6px;
+    &.hover {
+      background-color: #FFDD99;
+      cursor: pointer;
+    }
+    .title {
+      text-align: center;
+      min-width: 100%;
+      margin-bottom: 0;
+    }
+    ul {
+      padding-left: 0;
+      border: 1px #777777 solid;
+      margin-top: 28px;
+      margin-left: -100%;
+      min-width: 100%;
+    }
+  }
+
 }

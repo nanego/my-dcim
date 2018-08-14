@@ -1,0 +1,42 @@
+<% settings = Frame.settings.merge({:min_height => params[:view] == 'back' ? 20 : 27}) %>
+<%= render 'rooms/action_buttons', view_side: Frame.view_sides[:both] if formats != [:pdf] %>
+
+<div id="<%= @room.try(:name).try(:parameterize).try(:underscore) %>">
+
+  <div>
+    <div>
+      <div class="panel-islet">
+        <% if @room.present? %>
+          <div><h3>Salle <%= @room.name %> - Ilot <%= @frame.islet %></h3></div>
+        <% end %>
+
+        <div class="row">
+
+          <ul class="frames <%= params[:view] %>"
+              style="padding: 0;"
+              data-update-url="<%= sort_frames_path %>"
+              data-max-u='<%= settings[:max_u] %>'
+              data-max-elts='<%= settings[:max_elts] %>'
+              data-max-rj45='<%= settings[:max_rj45] %>'
+              data-max-fc='<%= settings[:max_fc] %>'>
+
+            <div class="col-xs-12 col-sm-4 view-front">
+              <%= render partial: 'frames/show_frame', locals: {frame: @frame, servers: @frame.servers, settings: settings, view_type: 'front'} %>
+            </div>
+            <div class="col-xs-12 col-sm-6 view-back">
+              <%= render partial: 'frames/show_frame', locals: {frame: @frame, servers: @frame.servers, settings: settings, view_type: 'back'} %>
+            </div>
+            <div class="hidden-xs col-sm-2">
+              <%= render partial: 'pdus/show', locals: {frame: @frame} %>
+            </div>
+
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

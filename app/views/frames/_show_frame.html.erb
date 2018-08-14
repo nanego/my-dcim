@@ -39,28 +39,7 @@
             <% u_disponibles -= 1 %>
           <% end %>
 
-          <% if %w(gestionnaire cluster).include?(params['bg'])
-
-               if params['bg'].present?
-                 case params['bg']
-                 when 'gestionnaire'
-                   parent_type = 'Gestionnaire'
-                   parent_id = server.gestion.try(:name)
-                 when 'cluster'
-                   parent_type = 'Cluster'
-                   parent_id = server.cluster.try(:name)
-                 end
-               end
-
-               color = Color.where(parent_type: parent_type, parent_id: parent_id).first
-               if color.blank? || color.code.blank?
-                 color = Color.create!(parent_type: parent_type, parent_id: parent_id, code: lighten_color("##{Digest::MD5.hexdigest(parent_id.to_s || 'test')[0..5]}", 0.4))
-               end
-               bgModeleColor = color.code
-          %>
-          <% else %>
-            <% bgModeleColor = server.modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(server.modele.try(:name) || 'test')[0..5]}", 0.4) %>
-          <% end %>
+          <% bgModeleColor = define_background_color(server: server, mode: params['bg']) %>
 
           <% u_server = server.modele.try(:u).to_i > 0 ? server.modele.u : 1 %>
 

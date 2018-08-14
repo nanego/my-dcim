@@ -153,4 +153,25 @@ module ServersHelper
     port_data
   end
 
+  def define_background_color(server:, mode: nil)
+    if %w(gestionnaire cluster).include?(mode)
+      case mode
+      when 'gestionnaire'
+        parent_type = 'Gestionnaire'
+        parent_id = server.gestion.try(:name)
+      when 'cluster'
+        parent_type = 'Cluster'
+        parent_id = server.cluster.try(:name)
+      end
+      color = Color.where(parent_type: parent_type, parent_id: parent_id).first
+      if color.blank? || color.code.blank?
+        color = Color.create!(parent_type: parent_type, parent_id: parent_id, code: lighten_color("##{Digest::MD5.hexdigest(parent_id.to_s || 'test')[0..5]}", 0.4))
+      end
+      bg_color = color.code
+    else
+      bg_color = server.modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(server.modele.try(:name) || 'test')[0..5]}", 0.4)
+    end
+    return bg_color
+  end
+
 end

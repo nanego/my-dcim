@@ -16,6 +16,9 @@ class FramesController < ApplicationController
       format.html do
         render 'frames/show.html.erb'
       end
+      format.js do
+        render 'frames/show.js.erb'
+      end
       format.pdf do
         render layout: 'pdf.html',
                template: "frames/show.pdf.erb",

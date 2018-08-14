@@ -6,7 +6,7 @@ jQuery ->
   $('[data-toggle="tooltip"]').tooltip()
 
   drag_n_drop_activated = false
-  $('#drag-n-drop-switcher').on "click", ->
+  $('body').on "click", '#drag-n-drop-switcher', ->
     if drag_n_drop_activated
       drag_n_drop_activated = false
       $('#drag-n-drop-switcher').html "<span class='glyphicon glyphicon-move' aria-hidden='true'></span> Activer le drag'n drop"

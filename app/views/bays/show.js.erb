@@ -1,0 +1,11 @@
+$('#bay-container').html("<%= escape_javascript(render 'servers/room',
+             room: @bay.room,
+             islets: @servers_per_frames,
+             title: "Double baie #{@bay}",
+             view_side: params[:view]) %>")
+
+var searchParams = new URLSearchParams(window.location.search)
+var view = '<%= params[:view] %>'
+searchParams.set('view', view)
+window.history.replaceState({}, '', location.pathname + '?' + searchParams)
+

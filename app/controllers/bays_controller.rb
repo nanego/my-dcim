@@ -34,6 +34,9 @@ class BaysController < ApplicationController
       format.html do
         render 'bays/show.html.erb'
       end
+      format.js do
+        render 'bays/show.js.erb'
+      end
       format.pdf do
         render layout: 'pdf.html',
                template: "rooms/show.pdf.erb",

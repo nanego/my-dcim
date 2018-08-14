@@ -43,9 +43,9 @@ class RoomsController < ApplicationController
   end
 
   def islet
-    @islet = params[:islet]
+    @islet = Islet.find_by(name: params[:islet], room_id: @room.id)
     @sums = {}
-    frames = Frames::IncludingServersQuery.call(@room.frames.where('islets.name = ?', @islet), 'islets.name, bays.lane')
+    frames = Frames::IncludingServersQuery.call(@room.frames.where('islets.name = ?', @islet.name), 'islets.name, bays.lane')
     @servers_per_frames = {}
 
     sorted_frames_per_islet(frames, params[:view]).each do |frame|

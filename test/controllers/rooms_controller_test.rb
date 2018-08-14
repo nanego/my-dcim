@@ -13,7 +13,7 @@ class RoomsControllerTest < ActionController::TestCase
   end
 
   test "should get islets" do
-    get :islet, params:{id: @room, islet: '1'}
+    get :islet, params:{id: @room, islet: 'Islet1'}
     assert_response :success
     assert_not_nil assigns(:room)
     assert_not_nil assigns(:islet)
