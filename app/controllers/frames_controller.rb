@@ -97,7 +97,7 @@ class FramesController < ApplicationController
       @coupled_frame = @frame.other_frame
     end
 
-    @frames = [@frame, @coupled_frame, @network_frame]
+    @frames = [@frame, @coupled_frame, @network_frame].reject(&:blank?)
     @servers_per_frames = {}
     @sums = {}
 
