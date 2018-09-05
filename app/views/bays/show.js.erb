@@ -9,3 +9,5 @@ var view = '<%= params[:view] %>'
 searchParams.set('view', view)
 window.history.replaceState({}, '', location.pathname + '?' + searchParams)
 
+$('.couple .overviewed_frame').removeClass('selected')
+$('.couple .overviewed_frame[data-bay-id=<%= @bay.id %>]').addClass('selected')

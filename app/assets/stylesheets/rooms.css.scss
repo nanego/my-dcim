@@ -110,6 +110,9 @@
       background-color: #FFDD99;
       cursor: pointer;
     }
+    &.selected {
+      background-color: #FFCC77;
+    }
     .title {
       text-align: center;
       min-width: 100%;
