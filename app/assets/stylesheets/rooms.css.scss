@@ -94,6 +94,12 @@
   .islet h5 {
     text-align: center
   }
+  .nav-tabs > li > a{
+    border-radius: 0;
+  }
+  .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus{
+    background-color: #FFDD99;
+  }
   .rooms-overview {
     clear: both;
     display: grid;
