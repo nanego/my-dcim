@@ -10,7 +10,7 @@
 %>
 <%= render 'layouts/breadcrumb', params: breadcrumb_variables %>
 
-<% server_height = 4 %>
+<% server_height = 2.5 %>
 
 <div class="container-fluid room_overview show_room">
   <div class="panel panel-default">
@@ -31,10 +31,7 @@
         <% @room.islets.sorted.each_with_index do |islet, index| %>
           <% if @islet.blank? || islet == @islet %>
 
-            <div class="islet tab-pane <%= 'active' if islet == @islet || (@islet.blank? && index == 0) %>" role="tabpanel" id="<%= islet %>">
-              <% if @room.islets.size > 1 %>
-                <h5><%= islet.name.present? ? link_to("Ilot #{islet}", islet_rooms_path(id: @room.id, islet: islet.name, :view => params[:view], bg: params[:bg])) : '' %></h5>
-              <% end %>
+            <div class="islet tab-pane fade <%= 'in active' if islet == @islet || (@islet.blank? && index == 0) %>" role="tabpanel" id="<%= islet %>">
               <div class="rooms-overview">
 
                 <% islet.bays.sorted.each do |bay| %>

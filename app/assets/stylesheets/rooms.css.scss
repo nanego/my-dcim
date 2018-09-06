@@ -109,7 +109,6 @@
     margin-right: auto;
   }
   .overviewed_frame {
-    width: 90px;
     text-align: center;
     padding: 8px 6px 0 6px;
     &.hover {
@@ -123,11 +122,12 @@
       text-align: center;
       min-width: 100%;
       margin-bottom: 0;
+      font-size: small;
     }
     ul {
       padding-left: 0;
       border: 1px #777777 solid;
-      margin-top: 28px;
+      margin-top: 25px;
       margin-left: -100%;
       min-width: 100%;
     }
