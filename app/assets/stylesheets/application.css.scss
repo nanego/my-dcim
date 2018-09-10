@@ -24,8 +24,10 @@ body {
   .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
     float: initial !important;
   }
-  .frame .server .server_name { font-size: 16px; }
-  .panel-islet{
+  .frame .server .server_name {
+    font-size: 16px;
+  }
+  .panel-islet {
     page-break-after: always;
     .frames .frame {
       clear: both;
@@ -42,33 +44,66 @@ body {
   text-overflow: ellipsis;
 }
 
+.breadcrumb {
+  background-color: #333;
+  margin-left: -15px;
+  margin-right: -15px;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  a {
+    color: #9d9d9d;
+    &:hover {
+      color: #ffffff;
+    }
+  }
+  li {
+    color: #ffffff;
+  }
+}
+
 .datagrid-form {
   background-color: white;
   padding: 0;
 }
 
-a.hide-filters, a.show-filters{
+a.hide-filters, a.show-filters {
   color: white;
   text-decoration: underline;
 }
 
-.frame .server { color: #777;page-break-inside: avoid; }
-.frame .server.ui-sortable-handle { cursor: move; }
-.frame .server a, .pdu a {color: #333}
-.frame .server .server_name { font-weight: 600; }
+.frame .server {
+  color: #777;
+  page-break-inside: avoid;
+}
+
+.frame .server.ui-sortable-handle {
+  cursor: move;
+}
+
+.frame .server a, .pdu a {
+  color: #333
+}
+
+.frame .server .server_name {
+  font-weight: 600;
+}
 
 .frame li.server.list-group-item {
   padding: 3px 15px;
   overflow: visible;
 }
-.frame .panel-footer{
+
+.frame .panel-footer {
   min-height: 60px;
 }
+
 .badge.badgeRJ45 {
   border-radius: 0;
 }
-.frame li.server{
-  &.striped{
+
+.frame li.server {
+  &.striped {
     background: repeating-linear-gradient(
                     -45deg,
                     #E5E5E5,
@@ -78,26 +113,31 @@ a.hide-filters, a.show-filters{
     );
   }
 }
+
 table.slots, table.cm, table.ipmi {
   margin-left: 8px;
   cursor: default;
   position: relative;
 }
+
 table.slots, table.slots th, table.slots td,
-table.cm, table.cm th, table.cm td{
+table.cm, table.cm th, table.cm td {
   border: 1px #999999 solid;
   padding: 1px 3px;
   text-align: center;
   table-layout: fixed;
   min-height: 40px;
 }
+
 table.slots th {
   font-size: 12px;
 }
-table.slots .slot_column{
-  width:32px;
+
+table.slots .slot_column {
+  width: 32px;
 }
-table.card_layout{
+
+table.card_layout {
   border-collapse: collapse;
   border-style: hidden;
   td, th {
@@ -105,17 +145,17 @@ table.card_layout{
   }
 }
 
-.pdu{
-  &.J{
-    .pdu-line .label{
-      color: rgba(0,0,0, 1);
-      background-color: rgba(255,221,0, 1);
+.pdu {
+  &.J {
+    .pdu-line .label {
+      color: rgba(0, 0, 0, 1);
+      background-color: rgba(255, 221, 0, 1);
     }
   }
-  &.B{
-    .pdu-line .label{
+  &.B {
+    .pdu-line .label {
       // color: rgba(255,255,255, 1);;
-      background-color: rgba(72,118,255, 1);
+      background-color: rgba(72, 118, 255, 1);
     }
   }
   .empty {
@@ -123,9 +163,7 @@ table.card_layout{
   }
 }
 
-
-
-.portRJ, .portFC, .portSCSI{
+.portRJ, .portFC, .portSCSI {
   cursor: pointer;
   position: relative;
   font-size: 10px;
@@ -134,70 +172,73 @@ table.card_layout{
   overflow: hidden;
   margin: 0 1px 1px 0;
   // Colors are !important so we can print them
-  &.R{
+  &.R {
     color: #FFFFFF !important;
     background-color: #ee3b3b !important;
   }
-  &.G{
+  &.G {
     color: #333333 !important;
     background-color: #AAAAAA !important;
   }
-  &.V{
+  &.V {
     color: #FFFFFF !important;
     background-color: green !important;
   }
-  &.T{
+  &.T {
     color: #FFFFFF !important;
     background-color: #3B9C9C !important;
   }
-  &.Vi{
+  &.Vi {
     color: #FFFFFF !important;
     background-color: #663399 !important;
   }
-  &.M{
+  &.M {
     color: #FFFFFF !important;
     background-color: #8b4c39 !important;
   }
-  &.B{
+  &.B {
     color: #FFFFFF !important;
     background-color: #4876ff !important;
   }
-  &.N{
+  &.N {
     color: #FFFFFF !important;
     background-color: #000000 !important;
   }
-  &.O{
+  &.O {
     color: #FFFFFF !important;
     background-color: #FF9000 !important;
   }
-  &.W{
+  &.W {
     color: #000000 !important;
     background-color: #FFFFFF !important;
   }
-  &.J{
+  &.J {
     color: #000000 !important;
     background-color: #FFDD00 !important;
   }
-  &.P{
+  &.P {
     color: #000000 !important;
     background-color: #ff9ee5 !important;
   }
-  &.outlined{
+  &.outlined {
     outline: 3px solid #eea236;
     z-index: 99999;
   }
 }
+
 .portRJ {
   border: 1px #555555 solid;
   width: 24px;
   height: 18px;
   line-height: 16px;
 }
+
 .portSCSI {
   border: 1px #555555 solid;
   /* background-color: #DDD; */
   padding: 1px 2px;
 }
+
 .portFC {
   border: 1px #555555 solid;
   width: 24px;
@@ -208,7 +249,11 @@ table.card_layout{
   -moz-border-radius: 10px;
   border-radius: 10px;
 }
-.alims {margin-top: 5px;}
+
+.alims {
+  margin-top: 5px;
+}
+
 .alim {
   border: 1px #999999 solid;
   padding: 1px 5px;
@@ -217,47 +262,47 @@ table.card_layout{
   margin-bottom: 5px;
 }
 
-.detailed_server{
-  border:1px solid #999999;
-  padding:10px;
+.detailed_server {
+  border: 1px solid #999999;
+  padding: 10px;
   background-color: white;
   margin-bottom: 10px;
 }
 
-.blank-panel, .blank_panel{
+.blank-panel, .blank_panel {
   // border:1px solid #999999;
-  padding:10px;
+  padding: 10px;
   background-color: lightgrey;
   padding: 10px;
 }
 
-.panel-pdu{
+.panel-pdu {
   max-width: 150px;
 }
 
-.u_scale{
+.u_scale {
   position: absolute;
   left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  width:24px;
+  width: 24px;
   padding: 3px 1px;
-  &.even{
-    background-color:#E9E9E9 !important;;  // '#E9E9E9'
+  &.even {
+    background-color: #E9E9E9 !important;; // '#E9E9E9'
   }
-  &.odd{
-    background-color:#D0D0D0 !important;; //  '#D0D0D0'
+  &.odd {
+    background-color: #D0D0D0 !important;; //  '#D0D0D0'
   }
 }
 
-.server_badge{
+.server_badge {
   position: absolute;
   left: -29px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width:26px;
+  width: 26px;
   top: 0;
   height: 26px;
   padding: 4px 9px;
@@ -266,21 +311,23 @@ table.card_layout{
   border-radius: 13px;
 }
 
-.port_selection { position: fixed;
+.port_selection {
+  position: fixed;
   top: -11em;
   left: 0;
   right: 0;
   width: 300px;
   margin: 0 auto;
-  &.in{
+  &.in {
     top: 11em;
   }
 }
 
-.show-on-mouseover{
+.show-on-mouseover {
   display: none;
 }
-.server.hover .show-on-mouseover{
+
+.server.hover .show-on-mouseover {
   display: inline;
 }
 
@@ -297,13 +344,24 @@ table.card_layout{
 }
 
 // Forms
-.add_fields { margin-top: 10px;}
-.form-group div, .form-group label { margin-bottom: 10px;}
-.form-group div.panel-footer { margin-bottom: 0px;}
-.control-label { font-weight: bold; }
+.add_fields {
+  margin-top: 10px;
+}
+
+.form-group div, .form-group label {
+  margin-bottom: 10px;
+}
+
+.form-group div.panel-footer {
+  margin-bottom: 0px;
+}
+
+.control-label {
+  font-weight: bold;
+}
 
 // Custom dropdown menu when using custom multi-column
-.dropdown-menu >li >div >ul > li > a {
+.dropdown-menu > li > div > ul > li > a {
   display: block;
   padding: 3px 20px;
   clear: both;
@@ -311,31 +369,32 @@ table.card_layout{
   line-height: 1.42857143;
   color: #333333;
 }
-.dropdown-menu >li >div >ul > li > a:hover, .dropdown-menu >li >div >ul > li > a:focus {
+
+.dropdown-menu > li > div > ul > li > a:hover, .dropdown-menu > li > div > ul > li > a:focus {
   text-decoration: none;
   color: #262626;
   background-color: #f5f5f5;
 }
 
 // PDUs
-.pdu_outlet_group{
+.pdu_outlet_group {
   padding-top: 20px;
   clear: both;
 }
 
 .connection_form {
-  .back_server{
-    background-color: white ;
+  .back_server {
+    background-color: white;
     // max-width:600px;
-    .port_container{
+    .port_container {
       margin-left: -2px;
       display: inline-block;
     }
-    .selected{
-      padding:2px 1px;
+    .selected {
+      padding: 2px 1px;
       background-color: #ee3b3b;
     }
-    .draw_connections_link{
+    .draw_connections_link {
       display: none;
     }
   }
@@ -344,10 +403,10 @@ table.card_layout{
 span.port_container.no_client a {
   border: solid 2px #FF9000 !important;
 }
+
 span.port_container.unreferenced_client a {
   border: solid 2px red !important;
 }
-
 
 .very-specific-design {
   position: relative;

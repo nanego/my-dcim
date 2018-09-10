@@ -1,19 +1,19 @@
-<div class="container">
+<%
+  breadcrumb_variables = {}
+  breadcrumb_variables['Salles'] = overview_rooms_path
+  if @room.present?
+    breadcrumb_variables["Salle #{@room.name}"] = room_path(@room)
+  elsif @frame.present?
+    breadcrumb_variables["Salle #{@frame.room.name}"] = room_path(@frame.room)
+  end
+  breadcrumb_variables["Baie #{@frame.name}"] = frame_path(@frame) if @frame.present?
+  breadcrumb_variables["Liste des ports cablés"] = ''
+%>
+<%= render 'layouts/breadcrumb', params: breadcrumb_variables %>
+
+<div class="container-fluid">
 
   <div class="row">
-
-    <%
-      breadcrumb_variables = {}
-      breadcrumb_variables['Salles'] = overview_rooms_path
-      if @room.present?
-        breadcrumb_variables["Salle #{@room.name}"] = room_path(@room)
-      elsif @frame.present?
-        breadcrumb_variables["Salle #{@frame.room.name}"] = room_path(@frame.room)
-      end
-      breadcrumb_variables["Baie #{@frame.name}"] = frame_path(@frame) if @frame.present?
-      breadcrumb_variables["Liste des ports cablés"] = ''
-    %>
-    <%= render 'layouts/breadcrumb', params: breadcrumb_variables %>
 
     <div class="col-md-12 well">
 
