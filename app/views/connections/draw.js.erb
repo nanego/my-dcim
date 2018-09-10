@@ -4,56 +4,62 @@ $("#draw_connections_link_<%= @server.id %> button").toggleClass('btn-warning')
 var activated_servers = activated_servers || {}
 
 if (exists(activated_servers[<%= @server.id %>])) { // TOGGLE
-    console.log("DELETE LINES")
+    console.log("*** DELETE LINES")
     delete_lines(<%= @server.id %>)
 } else {
-    console.log("CREATE LINES")
+    console.log("*** CREATE LINES")
     create_lines('<%= @server.id %>')
 }
 
 function create_lines(server_id) {
-    <% @server.ports.each do |port| %>
-    <% if port.paired_connection.present? %>
-      draw_connection(server_id,
-          '<%= port.id %>',
-          '<%= port.paired_connection.port_id %>',
-          '<%= port.cable_color %>',
-          '<%= port.cable_name %>'
-      )
-    <% end %>
-    <% end %>
-    create_links_to_twin_cards()
-}
+    // First, set potential twin card data
+    var twin_card_data = get_twin_cards()
 
-function create_links_to_twin_cards() {
-    <% @server.cards.each do |card| %>
-      <% if card.twin_card_id.present? %>
-        <% twin_card_ports = Port.where(card_id: card.twin_card_id) %>
-        <% card.ports.each do |port| %>
-          <% if port.connection.present? %>
-            <% twin_card_port = twin_card_ports.select{|p| p.position == port.position}.first %>
-            draw_connection('<%= @server.id %>',
-                '<%= port.id %>',
-                '<%= twin_card_port.id %>',
-                '<%= port.cable_color %>',
-                '<%= port.cable_name %>'
-            )
-          <% end %>
-        <% end %>
+    <% @server.ports.each do |port| %>
+      <% if port.paired_connection.present? %>
+        draw_connection(server_id,
+            '<%= port.id %>',
+            '<%= port.paired_connection.port_id %>',
+            '<%= port.cable_color %>',
+            '<%= port.cable_name %>',
+            twin_card_data['<%= port.id %>']
+        )
       <% end %>
     <% end %>
 }
 
-function draw_connection(server_id, port_id, destination_port_id, cable_color, cable_name){
+function get_twin_cards() {
+  var twin_cards = {}
+  <% @server.cards.each do |card| %>
+    <% if card.twin_card_id.present? %>
+      <% twin_card_ports = Port.where(card_id: card.twin_card_id) %>
+      <% card.ports.each do |port| %>
+        <% if port.connection.present? %>
+          <% twin_card_port = twin_card_ports.select{|p| p.position == port.position}.first %>
+          <% twin_card_paired_connection = twin_card_port.paired_connection %>
+          <% if twin_card_paired_connection.present? %>
+              twin_cards['<%= port.id %>'] = {twin_card_port_id: '<%= twin_card_port.id %>',
+                                     twin_card_paired_port_id: <%= twin_card_paired_connection.port_id %>,
+                                     cable_color: '<%= twin_card_port.cable_color %>',
+                                     cable_name: '<%= twin_card_port.cable_name %>'}
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+  return twin_cards
+}
+
+function draw_connection(server_id, port_id, destination_port_id, cable_color, cable_name, twin_card_data){
     let elt_start, elt_end
     elt_start = document.getElementById(port_id)
     elt_end = document.getElementById(destination_port_id)
     if (exists(elt_start) && exists(elt_end)) {
-        create_line(server_id, port_id, elt_start, elt_end, cable_color, cable_name)
+        create_line(server_id, port_id, elt_start, elt_end, cable_color, cable_name, twin_card_data)
     }
 }
 
-function create_line(server_id, port_id, elt_start, elt_end, cable_color, cable_name) {
+function create_line(server_id, port_id, elt_start, elt_end, cable_color, cable_name, twin_card_data) {
     activated_servers[server_id] = activated_servers[server_id] || {}
 
     var line = new LeaderLine(
@@ -70,23 +76,54 @@ function create_line(server_id, port_id, elt_start, elt_end, cable_color, cable_
         }
     )
 
-    var ports_elts = [elt_start, elt_end]
+    // Twin card line
+    if(exists(twin_card_data)){
+        var twin_elt_start = document.getElementById(twin_card_data['twin_card_port_id'])
+        var twin_elt_end = document.getElementById(twin_card_data['twin_card_paired_port_id'])
+        if (exists(twin_elt_start) && exists(twin_elt_end)) {
+            var twin_line = new LeaderLine(
+                twin_elt_start,
+                twin_elt_end,
+                {
+                    color: colors_hash[twin_card_data['cable_color']],
+                    size: 2,
+                    middleLabel: twin_card_data['cable_name'],
+                    endPlug: 'behind',
+                    endSocket: 'auto',
+                    path: 'fluid', //'fluid',
+                    hide: true
+                }
+            )
+        }
+    }
+
+    var ports_elts = [elt_start, elt_end, twin_elt_start, twin_elt_end]
     ports_elts.forEach(function (elem) {
-        elem.addEventListener('mouseenter', function () {
-            set_line_options(line, 'hover')
-            outline_elements(ports_elts, true)
-        }, false)
+        if(exists(elem)){
+            elem.addEventListener('mouseenter', function () {
+                set_line_options(line, 'hover')
+                set_line_options(twin_line, 'hover')
+                outline_elements(ports_elts, true)
+            }, false)
+        }
     })
     ports_elts.forEach(function (elem) {
-        elem.addEventListener('mouseleave', function () {
-            set_line_options(line, 'leave')
-            outline_elements(ports_elts, false)
-        }, false);
+        if(exists(elem)){
+            elem.addEventListener('mouseleave', function () {
+                set_line_options(line, 'leave')
+                set_line_options(twin_line, 'leave')
+                outline_elements(ports_elts, false)
+            }, false)
+        }
     })
 
     line.show()
     activated_servers[server_id][port_id] = activated_servers[server_id][port_id] || []
     activated_servers[server_id][port_id].push(line)
+    if(twin_line){
+        twin_line.show()
+        activated_servers[server_id][port_id].push(twin_line)
+    }
 }
 
 function set_line_options(line, status) {
