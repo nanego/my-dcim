@@ -5,10 +5,8 @@ $("#back_server_<%= @server.id %>").toggleClass('connections-activated')
 var activated_servers = activated_servers || {}
 
 if (exists(activated_servers[<%= @server.id %>])) { // TOGGLE
-    console.log("*** DELETE LINES")
     delete_lines(<%= @server.id %>)
 } else {
-    console.log("*** CREATE LINES")
     create_lines('<%= @server.id %>')
 }
 
@@ -109,28 +107,39 @@ function create_line(server_id, port_id, elt_start, elt_end, cable_color, cable_
         if(twin_line){set_line_options(twin_line, 'leave')}
         outline_elements(ports_elts, false)
     }
+    var handleClickOnPort = function(e){
+        if($("#back_server_<%= @server.id %>").hasClass('connections-activated')){
+            e.preventDefault()
+            e.stopPropagation()
+            $(e.target).toggleClass('connection-activated')
+            if($(e.target).hasClass('connection-activated')){
+                highlightLines()
+                $(e.target).off('mouseleave')
+            }else{
+                donotHighlightLines()
+                $(e.target).on('mouseleave', donotHighlightLines)
+            }
+        }else{
+            return true // Do not prevent default ; Do not stop propagation
+        }
+    }
+    var removePreviousEventListeners = function(elem){
+        $(elem).off()
+    }
+    var addNewEventListeners = function(elem){
+        $(elem).on({
+            click: handleClickOnPort,
+            mouseenter: highlightLines,
+            mouseleave: donotHighlightLines
+        })
+    }
     ports_elts.forEach(function (elem) {
         if(exists(elem)){
-            elem.addEventListener('mouseenter', highlightLines, false)
-            elem.addEventListener('mouseleave', donotHighlightLines, false)
-            $(elem).on('click', function(e){
-                if($("#back_server_<%= @server.id %>").hasClass('connections-activated')){
-                    e.preventDefault()
-                    e.stopPropagation()
-                    $(e.target).toggleClass('connection-activated')
-                    if($(e.target).hasClass('connection-activated')){
-                        e.target.removeEventListener('mouseleave', donotHighlightLines, false)
-                    }else{
-                        donotHighlightLines()
-                        e.target.addEventListener('mouseleave', donotHighlightLines, false)
-                    }
-                }else{
-                    return true // Do not prevent default ; Do not stop propagation
-                }
-            })
+            removePreviousEventListeners(elem)
+            addNewEventListeners(elem)
         }
     })
-    
+
     line.show()
     activated_servers[server_id][port_id] = activated_servers[server_id][port_id] || []
     activated_servers[server_id][port_id].push(line)
@@ -169,6 +178,8 @@ function outline_elements(elts, status) {
 function delete_lines(server_id) {
     var ports = activated_servers[server_id]
     for (var key of Object.keys(ports)) {
+        $('#'+key+'.port').removeClass('outlined')
+        $('#'+key+'.port').removeClass('connection-activated')
         ports[key].forEach(function (line){
             line.hide()
             delete line

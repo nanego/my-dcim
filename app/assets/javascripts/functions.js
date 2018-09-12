@@ -65,3 +65,14 @@ function exists(value){
         return false;
     }
 }
+
+function log(string, object = undefined){
+    let print = "";
+    if(object){
+        print = string + " : " + JSON.stringify(object);
+    }else{
+        print = string;
+    }
+    console.log(print);
+    return print;
+}
