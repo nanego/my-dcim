@@ -1,7 +1,7 @@
 <%
   breadcrumb_variables = {'Salles' => overview_rooms_path, @room.name => ((@frame.present? || params[:islet].present?) ? room_path(@room, view: params[:view]) : '')}
   if @frame.present? && @frame.bay.islet.name.present?
-    breadcrumb_variables["Ilot #{@frame.bay.islet.name}"] = islet_rooms_path(id: @room.id, islet: @frame.bay.islet.name, view: params[:view])
+    breadcrumb_variables["Ilot #{@frame.bay.islet.name}"] = room_path(@room, islet: @frame.bay.islet.name, view: params[:view])
   elsif params[:islet].present?
     breadcrumb_variables["Ilot #{params[:islet]}"] = ''
   end

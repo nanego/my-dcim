@@ -1,6 +1,6 @@
 <%= render 'layouts/breadcrumb', params: {"Salles" => overview_rooms_path,
                                           @maintenance_contract.server.frame.room.name => room_path(@maintenance_contract.server.frame.room),
-                                          "Ilot #{@maintenance_contract.server.frame.islet.name}" => islet_rooms_path(id: @maintenance_contract.server.frame.room.id, islet: @maintenance_contract.server.frame.islet.name, :view => params[:view], bg: params[:bg]),
+                                          "Ilot #{@maintenance_contract.server.frame.islet.name}" => room_path(@maintenance_contract.server.frame.room, islet: @maintenance_contract.server.frame.islet.name, :view => params[:view], bg: params[:bg]),
                                           "Baie #{@maintenance_contract.server.frame.name}" => frame_path(@maintenance_contract.server.frame),
                                           @maintenance_contract.server.name => server_path(@maintenance_contract.server),
                                           "Contrat de maintenance" => '' } %>

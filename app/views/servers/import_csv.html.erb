@@ -1,4 +1,4 @@
-<%= render 'layouts/breadcrumb', params: {'Servers' => servers_grids_path, 'Ajout par fichier CSV' => ''} %>
+<%= render 'layouts/breadcrumb', params: {'Serveurs' => servers_grids_path, 'Ajout par fichier CSV' => ''} %>
 
 <%= flash[:notice] %>
 
@@ -8,7 +8,7 @@
     <div class="panel panel-primary">
       <%= form_for :import, url: import_servers_path, multipart: true do |f| %>
         <div class="panel-heading">
-          <h4 class="panel-title">Importation de servers par fichier CSV</h4>
+          <h4 class="panel-title">Importation de serveurs par fichier CSV</h4>
         </div>
 
         <div class="panel-body">

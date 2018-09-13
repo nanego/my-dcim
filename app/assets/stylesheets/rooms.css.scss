@@ -94,10 +94,10 @@
   .islet h5 {
     text-align: center
   }
-  .nav-tabs > li > a{
+  .nav-tabs > li > a {
     border-radius: 0;
   }
-  .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus{
+  .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus {
     background-color: #FFDD99;
   }
   .rooms-overview {
@@ -130,6 +130,15 @@
       margin-top: 25px;
       margin-left: -100%;
       min-width: 100%;
+    }
+  }
+  .menu-rooms {
+    border-right: solid 1px #EAEAEA;
+    background-color: #F4F4F4;
+    padding-top: 15px;
+    margin-bottom: 0;
+    li.active{
+      // text-decoration: underline;
     }
   }
 

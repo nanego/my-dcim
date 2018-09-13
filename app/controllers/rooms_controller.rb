@@ -11,20 +11,22 @@ class RoomsController < ApplicationController
   end
 
   def show
-    frames = Frames::IncludingServersQuery.call(@room.frames, 'islets.name, bays.lane')
+    @sites = Site.joins(:rooms).includes(:rooms => [:bays => [:bay_type]]).order(:position).distinct
+    @islet = Islet.find_by(name: params[:islet], room_id: @room.id) if params[:islet].present?
+    frames = Frames::IncludingServersQuery.call
     @servers_per_frames = {}
-    @sums = {}
 
     sorted_frames_per_islet(frames, params[:view]).each do |frame|
+      room = frame.bay.islet.room_id
       islet = frame.bay.islet.name
-      @servers_per_frames[islet] ||= {}
-      @servers_per_frames[islet][frame.bay.lane] ||= {}
-      @servers_per_frames[islet][frame.bay.lane][frame.bay] ||= {}
-      @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] ||= []
+      @servers_per_frames[room] ||= {}
+      @servers_per_frames[room][islet] ||= {}
+      @servers_per_frames[room][islet][frame.bay.lane] ||= {}
+      @servers_per_frames[room][islet][frame.bay.lane][frame.bay] ||= {}
+      @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] ||= []
       frame.servers.each do |s|
-        @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] << s
+        @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] << s
       end
-      @sums.merge!(calculate_ports_sums(frame, frame.servers))
     end
 
     respond_to do |format|
@@ -32,6 +34,8 @@ class RoomsController < ApplicationController
         render 'rooms/show.html.erb'
       end
       format.pdf do
+        @sums = {}
+        @sums.merge!(calculate_ports_sums(frame, frame.servers))
         render layout: 'pdf.html',
                template: "rooms/show.pdf.erb",
                show_as_html: params[:debug].present?,
@@ -42,6 +46,7 @@ class RoomsController < ApplicationController
     end
   end
 
+  # TODO Remove this action when possible
   def islet
     @islet = Islet.find_by(name: params[:islet], room_id: @room.id)
     @sums = {}
