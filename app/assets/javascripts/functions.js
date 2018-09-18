@@ -76,3 +76,11 @@ function log(string, object = undefined){
     console.log(print);
     return print;
 }
+
+function rewriteURL(path, params){
+    var searchParams = new URLSearchParams(window.location.search)
+    for (var key of Object.keys(params)) {
+        searchParams.set(key, params[key])
+    }
+    window.history.replaceState({}, '', path + '?' + searchParams)
+}

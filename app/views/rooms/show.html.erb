@@ -18,11 +18,11 @@
               <% islets.each do |islet| %>
                 <li role="presentation">
                   <% if islets.size == 1 %>
-                    <a href="#<%= room.id %>-" aria-controls="room-<%= room %>" role="tab" data-toggle="tab">
+                    <a href="#<%= room.id %>-" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': ''})" aria-controls="room-<%= room %>" role="tab" data-toggle="tab">
                       <%= room.name %>
                     </a>
                   <% else %>
-                    <a href="#<%= room.id %>-<%= islet %>" aria-controls="islet-<%= islet %>" role="tab" data-toggle="tab">
+                    <a href="#<%= room.id %>-<%= islet %>" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': '<%= islet.name %>'})" aria-controls="islet-<%= islet %>" role="tab" data-toggle="tab">
                       <%= room.name %> Ilot <%= islet.name %>
                     </a>
                   <% end %>
@@ -139,6 +139,7 @@
     $(".show_room .overviewed_frame").on('click', function (e) {
         e.preventDefault()
         $('#bay-container').html('<div class="animationload"><div class="osahanloading"></div></div>')
+        if (typeof delete_all_lines === "function") {delete_all_lines()}
 
         var searchParams = new URLSearchParams(window.location.search)
         var view = 'front'
