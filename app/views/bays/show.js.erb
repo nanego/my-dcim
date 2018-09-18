@@ -1,3 +1,7 @@
+if (typeof delete_all_lines === "function") {
+    delete_all_lines()
+}
+
 $('#bay-container').html("<%= escape_javascript(render 'servers/room',
              room: @bay.room,
              islets: @servers_per_frames,

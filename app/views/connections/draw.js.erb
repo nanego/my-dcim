@@ -188,3 +188,9 @@ function delete_lines(server_id) {
     }
     delete activated_servers[server_id]
 }
+
+function delete_all_lines(){
+    for (var server_id of Object.keys(activated_servers)) {
+        delete_lines(server_id)
+    }
+}

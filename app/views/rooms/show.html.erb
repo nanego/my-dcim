@@ -15,24 +15,22 @@
             <% rooms = site.rooms.sorted.distinct %>
             <% rooms.each do |room| %>
               <% islets = room.islets.sorted.not_empty.has_name.distinct %>
-              <li>
-                <% if islets.size == 1 %>
-                  <a href="#<%= room.id %>-" aria-controls="room-<%= room %>" role="tab" data-toggle="tab">
-                    <%= room.name %>
-                  </a>
-                <% else %>
-                  <%= room.name %>
-                  <ul>
-                    <% islets.each do |islet| %>
-                      <li role="presentation">
-                        <a href="#<%= room.id %>-<%= islet %>" aria-controls="islet-<%= islet %>" role="tab" data-toggle="tab">
-                          Ilot <%= islet.name %>
-                        </a>
-                      </li>
-                    <% end %>
-                  </ul>
-                <% end %>
-              </li>
+              <% islets.each do |islet| %>
+                <li role="presentation">
+                  <% if islets.size == 1 %>
+                    <a href="#<%= room.id %>-" aria-controls="room-<%= room %>" role="tab" data-toggle="tab">
+                      <%= room.name %>
+                    </a>
+                  <% else %>
+                    <a href="#<%= room.id %>-<%= islet %>" aria-controls="islet-<%= islet %>" role="tab" data-toggle="tab">
+                      <%= room.name %> Ilot <%= islet.name %>
+                    </a>
+                  <% end %>
+                </li>
+              <% end %>
+              <% if islets.empty? %>
+                <li><%= room.name %></li>
+              <% end %>
             <% end %>
           </ul>
         <% end %>
@@ -162,7 +160,7 @@
         $('ol.breadcrumb').replaceWith("<ol class=\"breadcrumb\" style=\"margin-bottom: 5px;\">\n" +
             "  <li><a href=\"/\">Accueil</a></li>\n" +
             "    <li class=\"active\"><a href=\"/rooms/overview\">Salles</a></li>\n" +
-            "    <li class=\"\">"+$(this).text()+"</li>\n" +
+            "    <li class=\"\">" + $(this).text() + "</li>\n" +
             "</ol>");
     })
 </script>
