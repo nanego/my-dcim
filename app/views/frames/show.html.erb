@@ -8,7 +8,7 @@
   breadcrumb_variables["Double baie #{@frame.bay}"] = bay_path(@frame.bay, view: params[:view]) if @frame.has_coupled_frame?
   breadcrumb_variables["Baie #{@frame.name}"] = '' if @frame.present?
 %>
-<%= render 'layouts/breadcrumb', params: breadcrumb_variables %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: breadcrumb_variables %>
 <% provide(:title, "Baie #{@frame.name}") %>
 
 <div class="container-fluid" id="frame-container">

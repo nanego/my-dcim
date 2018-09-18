@@ -1,4 +1,4 @@
-<%= render 'layouts/breadcrumb', params: {'Paramètres' => modeles_url, 'Etats des serveurs' => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Paramètres' => modeles_url, 'Etats des serveurs' => ''} %>
 
 <div class="page-header">
   <%= link_to new_server_state_path, class: 'btn btn-primary' do %>

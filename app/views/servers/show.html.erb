@@ -1,6 +1,6 @@
 <% title = "#{@server.modele.try(:category).try(:name)} #{@server.name}" %>
 <% provide(:title, title) %>
-<%= render 'layouts/breadcrumb', params: {"Salles" => overview_rooms_path,
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {"Salles" => overview_rooms_path,
                                           @server.frame.room.name => room_path(@server.frame.room, view: params[:view]),
                                           "Ilot #{@server.frame.islet.name}" => room_path(@server.frame.room, islet: @server.frame.islet.name, :view => params[:view], bg: params[:bg]),
                                           "Double baie #{@server.frame.bay}" => bay_path(@server.frame.bay, view: params[:view]),

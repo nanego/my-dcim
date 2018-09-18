@@ -62,7 +62,6 @@ Rails.application.routes.draw do
   resources :colors
   resources :rooms do
     collection do
-      get :islet
       get :overview
     end
   end

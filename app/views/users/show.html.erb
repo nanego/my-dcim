@@ -1,4 +1,4 @@
-<%= render 'layouts/breadcrumb', params: {'Utilisateurs' => users_url, @user.name => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Utilisateurs' => users_url, @user.name => ''} %>
 
 <h3>User</h3>
 <p>Name: <%= @user.name if @user.name %></p>

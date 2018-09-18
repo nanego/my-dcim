@@ -1,4 +1,4 @@
-<%= render 'layouts/breadcrumb', params: {'Paramètres' => modeles_url, 'Baies et doubles-baies' => bays_path, @bay.frames.map(&:name).join(' - ') => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Paramètres' => modeles_url, 'Baies et doubles-baies' => bays_path, @bay.frames.map(&:name).join(' - ') => ''} %>
 
 <div class="page-header">
   <%= link_to bays_path, class: 'btn btn-default' do %>

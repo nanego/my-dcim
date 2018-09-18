@@ -1,4 +1,4 @@
-<%= render 'layouts/breadcrumb', params: {"Salles" => rooms_path,
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {"Salles" => rooms_path,
                                           @port.card.server.frame.room.name => room_path(@port.card.server.frame.room),
                                           "Baie #{@port.card.server.frame.name}" => frame_path(@port.card.server.frame),
                                           @port.card.server.name => server_path(@port.card.server),

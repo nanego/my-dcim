@@ -9,7 +9,7 @@
   breadcrumb_variables["Baie #{@frame.name}"] = frame_path(@frame) if @frame.present?
   breadcrumb_variables["Liste des ports cablés"] = ''
 %>
-<%= render 'layouts/breadcrumb', params: breadcrumb_variables %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: breadcrumb_variables %>
 
 <div class="container-fluid">
 

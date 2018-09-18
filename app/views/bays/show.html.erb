@@ -8,7 +8,7 @@
   end
   breadcrumb_variables["Double baie #{@bay}"] = ''
 %>
-<%= render 'layouts/breadcrumb', params: breadcrumb_variables %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: breadcrumb_variables %>
 
 <div class="container-fluid" id="bay-container">
   <%= render 'servers/room',
