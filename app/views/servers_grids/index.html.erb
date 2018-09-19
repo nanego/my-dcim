@@ -18,6 +18,10 @@
     <a href='#' class='hide-filters' title='Click to hide filters' onClick="hideFilters();" style="display: none;">Masquer les filtres</a>
     <a href='#' class='show-filters' title='Click to show filters' onClick="showFilters();">Afficher les filtres</a>
     )
+    <%= link_to servers_grids_path(reset: 't'), style: 'color: white;float:right;' do %>
+      <i class="glyphicon glyphicon-glyphicon-remove" data-unicode="e014"></i>
+      Réinitialiser
+  <% end %>
   </div>
   <div class="panel-body" style="display: none;">
     <%= datagrid_form_for @servers %>
