@@ -8,7 +8,7 @@
   <div class="panel panel-default">
     <div class="panel-body" style="display: flex;">
 
-      <ul class="list-unstyled col-xs-2 menu-rooms">
+      <ul class="list-unstyled col-xs-2 hidden-sm menu-rooms">
         <% @sites.each do |site| %>
           <li><%= site %></li>
           <ul>
@@ -36,7 +36,7 @@
         <% end %>
       </ul>
 
-      <div class="tab-content col-xs-10">
+      <div class="tab-content col-xs-8">
 
         <% @sites.each do |site| %>
 
@@ -52,7 +52,7 @@
                   <% islet.bays.sorted.each do |bay| %>
 
                     <div class="couple" style="grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
-                        grid-row:<%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;">
+                        grid-row: <%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;">
 
                       <% bay.frames.sorted.each_with_index do |frame, index| %>
                         <div class="overviewed_frame <%= 'no-margin' if index > 0 %> <%= 'highlighted' if @frames && @frames.include?(frame) %>"
@@ -97,7 +97,6 @@
                       <% end %>
                     </div>
 
-
                   <% end %>
 
                 </div>
@@ -108,8 +107,21 @@
 
         <% end %>
 
-
       </div>
+
+      <ul class="col-md-2 hidden-sm room-actions">
+        <!-- Choix de la couleur de fond des serveurs -->
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Couleur de fond : <%= params[:bg] || 'modèle' %> <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><%= link_to 'Modèle', url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: 'modele', islet: params[:islet], id: params[:id]})) %></li>
+            <li><%= link_to 'Gestionnaire', url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: 'gestionnaire', islet: params[:islet], id: params[:id]})) %></li>
+            <li><%= link_to 'Cluster', url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: 'cluster', islet: params[:islet], id: params[:id]})) %></li>
+          </ul>
+        </div>
+      </ul>
 
     </div>
   </div>
@@ -129,6 +141,12 @@
 <%= render 'ports/modal_edit_port' %>
 
 <script>
+    (function () {
+        var searchParams = new URLSearchParams(window.location.search)
+        var bay_id = searchParams.get('bay-id')
+        if(bay_id){loadBay(bay_id)}
+    })();
+
     $(".show_room .overviewed_frame").hover(
         function () {
             $(this).closest('.couple').find(".overviewed_frame").addClass("hover")
@@ -138,24 +156,7 @@
     );
     $(".show_room .overviewed_frame").on('click', function (e) {
         e.preventDefault()
-        $('#bay-container').html('<div class="animationload"><div class="osahanloading"></div></div>')
-        if (typeof delete_all_lines === "function") {delete_all_lines()}
-
-        var searchParams = new URLSearchParams(window.location.search)
-        var view = 'front'
-        if (searchParams.has('view')) {
-            view = searchParams.get('view')
-        } else {
-            searchParams.set('view', view)
-            window.history.replaceState({}, '', location.pathname + '?' + searchParams);
-        }
-
-        $.ajax({
-            method: "GET",
-            url: "/bays/" + $(this).data('bay-id') + ".js",
-            data: {bay_id: $(this).data('bay-id'), view: view}
-        });
-
+        loadBay($(this).data('bay-id'))
     })
     $(".menu-rooms").on('click', 'a', function (e) {
         $('ol.breadcrumb').replaceWith("<ol class=\"breadcrumb\" style=\"margin-bottom: 5px;\">\n" +
@@ -164,4 +165,28 @@
             "    <li class=\"\">" + $(this).text() + "</li>\n" +
             "</ol>");
     })
+
+    function loadBay(bay_id) {
+        $('#bay-container').html('<div class="animationload"><div class="osahanloading"></div></div>')
+        if (typeof delete_all_lines === "function") {
+            delete_all_lines()
+        }
+
+        var searchParams = new URLSearchParams(window.location.search)
+        var view = 'front'
+        if (searchParams.has('view')) {
+            view = searchParams.get('view')
+        } else {
+            searchParams.set('view', view)
+        }
+        searchParams.set('bay-id', bay_id)
+        window.history.replaceState({}, '', location.pathname + '?' + searchParams);
+
+        $.ajax({
+            method: "GET",
+            url: "/bays/" + bay_id + ".js",
+            data: {bay_id: bay_id, view: view, bg: searchParams.get('bg')}
+        });
+    }
+
 </script>
