@@ -5,10 +5,10 @@ class ConnectionsController < ApplicationController
       @from_port = Port.find_by_id(params[:from_port_id])
     else
       @from_port = Port.create(position: params['position'],
-                          card_id: params['card_id'],
-                          vlans: params['vlans'],
-                          color: params['color'],
-                          cablename: params['cablename'])
+                               card_id: params['card_id'],
+                               vlans: params['vlans'],
+                               color: params['color'],
+                               cablename: params['cablename'])
     end
 
     @frame = @from_port.server.frame
@@ -19,11 +19,11 @@ class ConnectionsController < ApplicationController
     @possible_destination_servers = []
     @all_servers_per_frame = []
     if @from_port.is_power_input? && @from_server.is_not_a_pdu?
-      @coupled_frames.each { |frame| @possible_destination_servers << [frame.name, frame.pdus.collect {|v| [ v.name, v.id ] }] }
-      Frame.order(:name).each { |frame| @all_servers_per_frame << [frame.name, frame.pdus.collect {|v| [ v.name, v.id ] }] }
+      @coupled_frames.each {|frame| @possible_destination_servers << [frame.name, frame.pdus.collect {|v| [v.name, v.id]}]}
+      Frame.order(:name).each {|frame| @all_servers_per_frame << [frame.name, frame.pdus.collect {|v| [v.name, v.id]}]}
     else
-      @coupled_frames.each { |frame| @possible_destination_servers << [frame.name, frame.servers.collect {|v| [ v.name, v.id ] }] }
-      Frame.order(:name).each { |frame| @all_servers_per_frame << [frame.name, frame.servers.collect {|v| [ v.name, v.id ] }] }
+      @coupled_frames.each {|frame| @possible_destination_servers << [frame.name, frame.servers.collect {|v| [v.name, v.id]}]}
+      Frame.order(:name).each {|frame| @all_servers_per_frame << [frame.name, frame.servers.collect {|v| [v.name, v.id]}]}
     end
 
     # Destination port
@@ -31,7 +31,7 @@ class ConnectionsController < ApplicationController
       @cable = @from_port.connection.cable
     end
 
-    @to_port = @cable.connections.reject{|conn| conn.port_id.to_i == @from_port.id }.first.try(:port) if @cable.present?
+    @to_port = @cable.connections.reject {|conn| conn.port_id.to_i == @from_port.id}.first.try(:port) if @cable.present?
 
     # Destination server
     if @from_port.is_power_input?
@@ -60,7 +60,7 @@ class ConnectionsController < ApplicationController
     @to_server = to_port.server
 
     respond_to do |format|
-      format.html { redirect_to connections_edit_path(from_port_id: from_port.id), notice: 'La connexion a été mise à jour.' }
+      format.html {redirect_to connections_edit_path(from_port_id: from_port.id), notice: 'La connexion a été mise à jour.'}
       format.js
     end
   end
@@ -76,9 +76,34 @@ class ConnectionsController < ApplicationController
 
   def draw
     @server = Server.find_by_id(params[:server_id])
+    @connections_through_twin_cards = {}
+    @server.cards.each do |card|
+      twin_card_id = card.try(:twin_card_id)
+      card.ports.each do |port|
+        twin_card_ports = []
+        if twin_card_id.present?
+          twin_card_ports << Port.where(card_id: twin_card_id, position: port.position).first
+        end
+        if port.paired_connection.present?
+          paired_connection_port = port.paired_connection.port
+          twin_card_id_through_connection = paired_connection_port.card.try(:twin_card_id)
+          twin_card_ports << Port.where(card_id: twin_card_id_through_connection, position: paired_connection_port.position).first
+        end
+        twin_card_ports.compact.uniq.each do |twin_card_port|
+          if twin_card_port.present? && twin_card_port.connection.present?
+            twin_card_paired_connection = twin_card_port.paired_connection
+            if twin_card_paired_connection.present?
+              @connections_through_twin_cards[port.id] = {twin_card_port_id: twin_card_port.id,
+                                                          twin_card_paired_port_id: twin_card_paired_connection.port_id,
+                                                          cable_color: twin_card_port.cable_color,
+                                                          cable_name: twin_card_port.cable_name}
+            end
+          end
+        end
+      end
+    end
     respond_to do |format|
       format.js
     end
   end
-
 end

@@ -6,8 +6,10 @@ var activated_servers = activated_servers || {}
 
 if (exists(activated_servers[<%= @server.id %>])) { // TOGGLE
     delete_lines(<%= @server.id %>)
+    log("activated_servers", activated_servers)
 } else {
     create_lines('<%= @server.id %>')
+    log("activated_servers", activated_servers)
 }
 
 function create_lines(server_id) {
@@ -15,41 +17,32 @@ function create_lines(server_id) {
     var twin_card_data = get_twin_cards()
 
     <% @server.ports.each do |port| %>
-      <% if port.paired_connection.present? %>
-        draw_connection(server_id,
-            '<%= port.id %>',
-            '<%= port.paired_connection.port_id %>',
-            '<%= port.cable_color %>',
-            '<%= port.cable_name %>',
-            twin_card_data['<%= port.id %>']
-        )
-      <% end %>
+    <% if port.paired_connection.present? %>
+    draw_connection(server_id,
+        '<%= port.id %>',
+        '<%= port.paired_connection.port_id %>',
+        '<%= port.cable_color %>',
+        '<%= port.cable_name %>',
+        twin_card_data['<%= port.id %>']
+    )
+    <% end %>
     <% end %>
 }
 
 function get_twin_cards() {
-  var twin_cards = {}
-  <% @server.cards.each do |card| %>
-    <% if card.twin_card_id.present? %>
-      <% twin_card_ports = Port.where(card_id: card.twin_card_id) %>
-      <% card.ports.each do |port| %>
-        <% if port.connection.present? %>
-          <% twin_card_port = twin_card_ports.select{|p| p.position == port.position}.first %>
-          <% twin_card_paired_connection = twin_card_port.paired_connection %>
-          <% if twin_card_paired_connection.present? %>
-              twin_cards['<%= port.id %>'] = {twin_card_port_id: '<%= twin_card_port.id %>',
-                                     twin_card_paired_port_id: <%= twin_card_paired_connection.port_id %>,
-                                     cable_color: '<%= twin_card_port.cable_color %>',
-                                     cable_name: '<%= twin_card_port.cable_name %>'}
-          <% end %>
-        <% end %>
-      <% end %>
+    var twin_cards = {}
+    <% @connections_through_twin_cards.each do |port_id, data_by_port| %>
+    twin_cards['<%= port_id %>'] = {
+        twin_card_port_id: <%= data_by_port[:twin_card_port_id] %>,
+        twin_card_paired_port_id: <%= data_by_port[:twin_card_paired_port_id] %>,
+        cable_color: '<%= data_by_port[:cable_color] %>',
+        cable_name: '<%= data_by_port[:cable_name] %>'
+    }
     <% end %>
-  <% end %>
-  return twin_cards
+    return twin_cards
 }
 
-function draw_connection(server_id, port_id, destination_port_id, cable_color, cable_name, twin_card_data){
+function draw_connection(server_id, port_id, destination_port_id, cable_color, cable_name, twin_card_data) {
     let elt_start, elt_end
     elt_start = document.getElementById(port_id)
     elt_end = document.getElementById(destination_port_id)
@@ -61,72 +54,53 @@ function draw_connection(server_id, port_id, destination_port_id, cable_color, c
 function create_line(server_id, port_id, elt_start, elt_end, cable_color, cable_name, twin_card_data) {
     activated_servers[server_id] = activated_servers[server_id] || {}
 
-    var line = new LeaderLine(
-        elt_start,
-        elt_end,
-        {
-            color: colors_hash[cable_color],
-            size: 2,
-            middleLabel: cable_name,
-            endPlug: 'behind',
-            endSocket: 'auto',
-            path: 'fluid', //'fluid',
-            hide: true
-        }
-    )
+    var line = create_leader_line(elt_start, elt_end, cable_name, colors_hash[cable_color])
 
     // Twin card line
-    if(exists(twin_card_data)){
+    if (exists(twin_card_data)) {
         var twin_elt_start = document.getElementById(twin_card_data['twin_card_port_id'])
         var twin_elt_end = document.getElementById(twin_card_data['twin_card_paired_port_id'])
         if (exists(twin_elt_start) && exists(twin_elt_end)) {
-            var twin_line = new LeaderLine(
-                twin_elt_start,
-                twin_elt_end,
-                {
-                    color: colors_hash[twin_card_data['cable_color']],
-                    size: 2,
-                    middleLabel: twin_card_data['cable_name'],
-                    endPlug: 'behind',
-                    endSocket: 'auto',
-                    path: 'fluid', //'fluid',
-                    hide: true
-                }
-            )
+            var twin_line = create_leader_line(twin_elt_start, twin_elt_end, twin_card_data['cable_name'], colors_hash[twin_card_data['cable_color']])
+            log('twin_line', twin_line)
         }
     }
 
     var ports_elts = [elt_start, elt_end, twin_elt_start, twin_elt_end]
-    var highlightLines = function(){
+    var highlightLines = function () {
         set_line_options(line, 'hover')
-        if(twin_line){set_line_options(twin_line, 'hover')}
+        if (twin_line) {
+            set_line_options(twin_line, 'hover')
+        }
         outline_elements(ports_elts, true)
     }
     var donotHighlightLines = function () {
         set_line_options(line, 'leave')
-        if(twin_line){set_line_options(twin_line, 'leave')}
+        if (twin_line) {
+            set_line_options(twin_line, 'leave')
+        }
         outline_elements(ports_elts, false)
     }
-    var handleClickOnPort = function(e){
-        if($("#back_server_<%= @server.id %>").hasClass('connections-activated')){
+    var handleClickOnPort = function (e) {
+        if ($("#back_server_<%= @server.id %>").hasClass('connections-activated')) {
             e.preventDefault()
             e.stopPropagation()
             $(e.target).toggleClass('connection-activated')
-            if($(e.target).hasClass('connection-activated')){
+            if ($(e.target).hasClass('connection-activated')) {
                 highlightLines()
                 $(e.target).off('mouseleave')
-            }else{
+            } else {
                 donotHighlightLines()
                 $(e.target).on('mouseleave', donotHighlightLines)
             }
-        }else{
+        } else {
             return true // Do not prevent default ; Do not stop propagation
         }
     }
-    var removePreviousEventListeners = function(elem){
+    var removePreviousEventListeners = function (elem) {
         $(elem).off()
     }
-    var addNewEventListeners = function(elem){
+    var addNewEventListeners = function (elem) {
         $(elem).on({
             click: handleClickOnPort,
             mouseenter: highlightLines,
@@ -134,16 +108,16 @@ function create_line(server_id, port_id, elt_start, elt_end, cable_color, cable_
         })
     }
     ports_elts.forEach(function (elem) {
-        if(exists(elem)){
+        if (exists(elem)) {
             removePreviousEventListeners(elem)
             addNewEventListeners(elem)
         }
     })
-
+    
     line.show()
     activated_servers[server_id][port_id] = activated_servers[server_id][port_id] || []
     activated_servers[server_id][port_id].push(line)
-    if(twin_line){
+    if (twin_line) {
         twin_line.show()
         activated_servers[server_id][port_id].push(twin_line)
     }
@@ -178,9 +152,9 @@ function outline_elements(elts, status) {
 function delete_lines(server_id) {
     var ports = activated_servers[server_id]
     for (var key of Object.keys(ports)) {
-        $('#'+key+'.port').removeClass('outlined')
-        $('#'+key+'.port').removeClass('connection-activated')
-        ports[key].forEach(function (line){
+        $('#' + key + '.port').removeClass('outlined')
+        $('#' + key + '.port').removeClass('connection-activated')
+        ports[key].forEach(function (line) {
             line.hide()
             delete line
         })
@@ -189,8 +163,25 @@ function delete_lines(server_id) {
     delete activated_servers[server_id]
 }
 
-function delete_all_lines(){
+function delete_all_lines() {
     for (var server_id of Object.keys(activated_servers)) {
         delete_lines(server_id)
     }
+}
+
+function create_leader_line(elt_start, elt_end, cable_name, cable_color) {
+    var line = new LeaderLine(
+        elt_start,
+        elt_end,
+        {
+            color: cable_color,
+            size: 2,
+            // middleLabel: cable_name,
+            endPlug: 'behind',
+            endSocket: 'auto',
+            path: 'fluid',
+            hide: true
+        }
+    )
+    return line
 }
