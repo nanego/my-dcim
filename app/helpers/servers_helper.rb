@@ -55,8 +55,7 @@ module ServersHelper
                               #{twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(position) ? "unreferenced_client" : ""}
                               #{selected_port.present? && port_id == selected_port.try(:id) ? "selected" : ""}")
 
-          number_of_columns_in_cell = card.orientation == 'dt-lr' ? (ports_per_cell.to_i / card_type.max_aligned_ports.to_i).to_i : card_type.max_aligned_ports.to_i
-          if (cell_index + 1) % number_of_columns_in_cell == 0 # Every XX ports do
+          if (cell_index + 1) % number_of_columns_in_cell(card.orientation, ports_per_cell, card_type.max_aligned_ports) == 0 # Every XX ports do
             html += '</div><div style="clear:both;" /><div style="display: flex;">'
           end
 
@@ -128,7 +127,8 @@ module ServersHelper
   private
 
   def get_current_position(card_orientation, card_type, cell_index, row_index, column_index, ports_per_cell)
-    if card_orientation == 'dt-lr'
+    case card_orientation
+    when 'dt-lr'
       number_of_columns_in_cell = ports_per_cell.to_i / card_type.max_aligned_ports.to_i
       column_index_in_cell = cell_index % number_of_columns_in_cell
       line_index_in_cell = cell_index / number_of_columns_in_cell
@@ -137,13 +137,32 @@ module ServersHelper
       position = (row_index * card_type.columns * ports_per_cell) +
           (column_index * ports_per_cell) +
           position_in_cell
-    else
+    when 'td-lr'
+      number_of_columns_in_cell = ports_per_cell.to_i / card_type.max_aligned_ports.to_i
+      column_index_in_cell = cell_index % number_of_columns_in_cell
+      line_index_in_cell = cell_index / number_of_columns_in_cell
+      number_of_ports_in_previous_columns = column_index_in_cell * card_type.max_aligned_ports.to_i
+      position_in_cell = 1 + line_index_in_cell + number_of_ports_in_previous_columns
+      position = (row_index * card_type.columns * ports_per_cell) +
+          (column_index * ports_per_cell) +
+          position_in_cell
+    else #'lr-td'
       position = (row_index * card_type.columns * ports_per_cell) +
           (column_index * ports_per_cell) +
           cell_index + 1
     end
     position
   end
+
+  def number_of_columns_in_cell(orientation, ports_per_cell, max_aligned_ports)
+    case orientation
+    when 'dt-lr', 'td-lr'
+      (ports_per_cell.to_i / max_aligned_ports.to_i).to_i
+    else # lr-td
+      max_aligned_ports.to_i
+    end
+  end
+
 
   def include_moved_connections(moved_connections, port_data, port_id)
     if port_data.present? && moved_connections.present?

@@ -88,10 +88,11 @@ function create_line(server_id, port_id, elt_start, elt_end, cable_color, cable_
             $(e.target).toggleClass('connection-activated')
             if ($(e.target).hasClass('connection-activated')) {
                 highlightLines()
-                $(e.target).off('mouseleave')
+                $(ports_elts).off('mouseleave')
             } else {
                 donotHighlightLines()
-                $(e.target).on('mouseleave', donotHighlightLines)
+                $(ports_elts).on('mouseleave', donotHighlightLines)
+
             }
         } else {
             return true // Do not prevent default ; Do not stop propagation
@@ -113,7 +114,7 @@ function create_line(server_id, port_id, elt_start, elt_end, cable_color, cable_
             addNewEventListeners(elem)
         }
     })
-    
+
     line.show()
     activated_servers[server_id][port_id] = activated_servers[server_id][port_id] || []
     activated_servers[server_id][port_id].push(line)
