@@ -19,39 +19,39 @@
 //= require bootstrap
 
 function hideFilters() {
-    $('.hide-filters').hide();
-    $('.show-filters').show();
-    $('.panel-body').hide();
+    $('.hide-filters').hide()
+    $('.show-filters').show()
+    $('.panel-body').hide()
 }
 
 function showFilters() {
-    $('.hide-filters').show();
-    $('.show-filters').hide();
-    $('.panel-body').show();
+    $('.hide-filters').show()
+    $('.show-filters').hide()
+    $('.panel-body').show()
 }
 
 $(document).ready(function () {
-    $('.dropdown-toggle').dropdown();
-});
+    $('.dropdown-toggle').dropdown()
+})
 
 $(document).on("click", ".draw_connections_link", function (event) {
     $(event.target).html('<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>')
-});
+})
 
 $(document).ready(function () {
-    scale_large_slots();
+    scale_large_slots()
     window.addEventListener('resize', function (event) {
         scale_large_slots()
     })
-});
+})
 
 function scale_large_slots(){
     $(".very-specific-design").each(function (index) {
-        var $el = $(this);
-        var elHeight = $el.outerHeight();
-        var elWidth = $el.outerWidth();
+        var $el = $(this)
+        var elHeight = $el.outerHeight()
+        var elWidth = $el.outerWidth()
 
-        var $wrapper = $el.closest(".scaleable-wrapper");
+        var $wrapper = $el.closest(".scaleable-wrapper")
         // $el.css('width', $wrapper.width());
 
         $wrapper.resizable({
@@ -66,15 +66,15 @@ function scale_large_slots(){
                 scale = Math.min(
                     ui.size.width / elWidth,
                     ui.size.height / elHeight
-                );
+                )
 
                 $el.css({
                     transform: "translate(0,0) " + "scale(" + scale + ")"
-                });
+                })
             } else {
                 $el.css({
                     transform: "translate(0,0) " + "scale(1)"
-                });
+                })
             }
 
         }
@@ -85,7 +85,7 @@ function scale_large_slots(){
                 height: $wrapper.height()
             }
         }
-        doResize(null, starterData);
+        doResize(null, starterData)
 
-    });
+    })
 }
