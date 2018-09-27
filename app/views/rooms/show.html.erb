@@ -4,7 +4,7 @@
 
 <% server_height = 2.5 %>
 
-<div class="container-fluid room_overview show_room">
+<div class="container-fluid room_overview show_room" id="full-overview">
   <div class="panel panel-default">
     <div class="panel-body" style="display: flex;">
 
@@ -121,6 +121,30 @@
             <li><%= link_to 'Cluster', url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: 'cluster', islet: params[:islet], id: params[:id]})) %></li>
           </ul>
         </div>
+
+        <button id="hide-overview" type="button" class="btn btn-default" aria-label="Left Align" style="position: absolute;bottom: 1px;right: 1px;padding: 0 10px;">
+          <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+        </button>
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid room_overview show_room" id="retracted-overview" style="display: none;">
+  <div class="panel panel-default">
+    <div class="panel-body" style="display: flex;">
+
+      <ul class="list-unstyled col-xs-2 hidden-sm menu-rooms">
+      </ul>
+
+      <div class="tab-content col-xs-8">
+      </div>
+
+      <ul class="col-md-2 hidden-sm room-actions">
+        <button id="show-overview" type="button" class="btn btn-default" aria-label="Left Align" style="position: absolute;bottom: 1px;right: 1px;padding: 0 10px;">
+          <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+        </button>
       </ul>
 
     </div>
@@ -188,5 +212,15 @@
             data: {bay_id: bay_id, view: view, bg: searchParams.get('bg')}
         });
     }
+
+    $("#full-overview").on('click', 'button#hide-overview', function(){
+        $("#full-overview").slideUp(100)
+        $("#retracted-overview").show()
+    })
+    $("#retracted-overview").on('click', 'button#show-overview', function(){
+        $("#retracted-overview").hide()
+        $("#full-overview").slideDown(100)
+    })
+
 
 </script>

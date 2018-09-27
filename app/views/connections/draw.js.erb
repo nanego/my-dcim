@@ -82,7 +82,7 @@ function create_line(server_id, port_id, elt_start, elt_end, cable_color, cable_
         outline_elements(ports_elts, false)
     }
     var handleClickOnPort = function (e) {
-        if ($("#back_server_<%= @server.id %>").hasClass('connections-activated')) {
+        if ($(e.target).hasClass('connected')) {
             e.preventDefault()
             e.stopPropagation()
             $(e.target).toggleClass('connection-activated')
@@ -112,6 +112,7 @@ function create_line(server_id, port_id, elt_start, elt_end, cable_color, cable_
         if (exists(elem)) {
             removePreviousEventListeners(elem)
             addNewEventListeners(elem)
+            $(elem).addClass('connected')
         }
     })
 
@@ -155,6 +156,7 @@ function delete_lines(server_id) {
     for (var key of Object.keys(ports)) {
         $('#' + key + '.port').removeClass('outlined')
         $('#' + key + '.port').removeClass('connection-activated')
+        $('#' + key + '.port').removeClass('connected')
         ports[key].forEach(function (line) {
             line.hide()
             delete line
