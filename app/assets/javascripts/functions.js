@@ -52,7 +52,6 @@ function findByAttribute(array, attr, value) {
             }
         }
 
-
     }else{
         return undefined;
     }
@@ -67,14 +66,14 @@ function exists(value){
 }
 
 function log(string, object = undefined){
-    let print = "";
+    let print = ""
     if(object){
-        print = string + " : " + JSON.stringify(object);
+        print = string + " : " + JSON.stringify(object)
     }else{
-        print = string;
+        print = string
     }
-    console.log(print);
-    return print;
+    console.log(print)
+    return print
 }
 
 function rewriteURL(path, params){
