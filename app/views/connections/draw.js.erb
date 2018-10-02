@@ -2,14 +2,20 @@ $("#draw_connections_link_<%= @server.id %> button").html('<span class="glyphico
 $("#draw_connections_link_<%= @server.id %> button").toggleClass('btn-warning')
 $("#back_server_<%= @server.id %>").toggleClass('connections-activated')
 
-var activated_servers = activated_servers || {}
+var currently_activated_servers = currently_activated_servers || {} // server => ports
+var currently_connected_ports = currently_connected_ports || {} // port => servers
+var currently_activated_connections = currently_activated_connections || [] // activated ports, grouped by connection
 
-if (exists(activated_servers[<%= @server.id %>])) { // TOGGLE
+if (exists(currently_activated_servers[<%= @server.id %>])) { // TOGGLE
     delete_lines(<%= @server.id %>)
-    log("activated_servers", activated_servers)
+    log("currently_activated_servers", currently_activated_servers)
+    log("currently_connected_ports", currently_connected_ports)
+    log("currently_activated_connections", currently_activated_connections)
 } else {
     create_lines('<%= @server.id %>')
-    log("activated_servers", activated_servers)
+    log("currently_activated_servers", currently_activated_servers)
+    log("currently_connected_ports", currently_connected_ports)
+    log("currently_activated_connections", currently_activated_connections)
 }
 
 function create_lines(server_id) {
@@ -52,7 +58,7 @@ function draw_connection(server_id, port_id, destination_port_id, cable_color, c
 }
 
 function create_line(server_id, port_id, elt_start, elt_end, cable_color, cable_name, twin_card_data) {
-    activated_servers[server_id] = activated_servers[server_id] || {}
+    currently_activated_servers[server_id] = currently_activated_servers[server_id] || {}
 
     var line = create_leader_line(elt_start, elt_end, cable_name, colors_hash[cable_color])
 
@@ -67,32 +73,33 @@ function create_line(server_id, port_id, elt_start, elt_end, cable_color, cable_
     }
 
     var ports_elts = [elt_start, elt_end, twin_elt_start, twin_elt_end]
-    var highlightLines = function () {
-        set_line_options(line, 'hover')
-        if (twin_line) {
-            set_line_options(twin_line, 'hover')
-        }
-        outline_elements(ports_elts, true)
+    var ports_elts_ids = ids_of(ports_elts)
+
+    var highlightLinesEvent = function (e) {
+        highlightLines(e.data.switcher)
     }
-    var donotHighlightLines = function () {
-        set_line_options(line, 'leave')
+    var highlightLines = function (switcher) {
+        log("switcher", switcher)
+        set_line_options(line, switcher ? 'hover' : 'leave')
         if (twin_line) {
-            set_line_options(twin_line, 'leave')
+            set_line_options(twin_line, switcher ? 'hover' : 'leave')
         }
-        outline_elements(ports_elts, false)
+        outline_elements(ports_elts, switcher)
     }
     var handleClickOnPort = function (e) {
-        if ($(e.target).hasClass('connected')) {
+        if (exists(currently_connected_ports[e.target.id])) {
             e.preventDefault()
             e.stopPropagation()
-            $(e.target).toggleClass('connection-activated')
-            if ($(e.target).hasClass('connection-activated')) {
-                highlightLines()
-                $(ports_elts).off('mouseleave')
+            if (index_in(currently_activated_connections, e.target.id) >= 0) {
+                log("DESACTIVATE CONNECTION")
+                highlightLines(false)
+                $(ports_elts).on('mouseleave', {switcher: false}, highlightLinesEvent)
+                remove_from_activated_connections(e.target.id)
             } else {
-                donotHighlightLines()
-                $(ports_elts).on('mouseleave', donotHighlightLines)
-
+                log("ACTIVATE CONNECTION")
+                highlightLines(true)
+                $(ports_elts).off('mouseleave')
+                add_to_activated_connections(ports_elts_ids)
             }
         } else {
             return true // Do not prevent default ; Do not stop propagation
@@ -102,27 +109,50 @@ function create_line(server_id, port_id, elt_start, elt_end, cable_color, cable_
         $(elem).off()
     }
     var addNewEventListeners = function (elem) {
-        $(elem).on({
-            click: handleClickOnPort,
-            mouseenter: highlightLines,
-            mouseleave: donotHighlightLines
-        })
+        $(elem).on('click', handleClickOnPort)
+        $(elem).on('mouseenter', {switcher: true}, highlightLinesEvent)
+        $(elem).on('mouseleave', {switcher: false}, highlightLinesEvent)
     }
     ports_elts.forEach(function (elem) {
         if (exists(elem)) {
             removePreviousEventListeners(elem)
             addNewEventListeners(elem)
-            $(elem).addClass('connected')
+            element_id = elem.id
+            currently_connected_ports[element_id] = currently_connected_ports[element_id] || []
+            currently_connected_ports[element_id].push(server_id)
+            currently_connected_ports[element_id] = uniq(currently_connected_ports[element_id])
         }
     })
 
     line.show()
-    activated_servers[server_id][port_id] = activated_servers[server_id][port_id] || []
-    activated_servers[server_id][port_id].push(line)
+    currently_activated_servers[server_id][port_id] = currently_activated_servers[server_id][port_id] || []
+    currently_activated_servers[server_id][port_id].push(line)
     if (twin_line) {
         twin_line.show()
-        activated_servers[server_id][port_id].push(twin_line)
+        currently_activated_servers[server_id][port_id].push(twin_line)
     }
+}
+
+function index_in(array_of_arrays, value) {
+    for (var index in array_of_arrays) {
+        let array = array_of_arrays[index]
+        if (array.indexOf(value) >= 0) {
+            return array_of_arrays.indexOf(array)
+        }
+    }
+    return -1
+}
+
+function add_to_activated_connections(elts_ids) {
+    currently_activated_connections.push(elts_ids)
+}
+
+function remove_from_activated_connections(elt_id) {
+    index = index_in(currently_activated_connections, elt_id)
+    if (index >= 0) {
+        currently_activated_connections.splice(index, 1)
+    }
+
 }
 
 function set_line_options(line, status) {
@@ -152,28 +182,43 @@ function outline_elements(elts, status) {
 }
 
 function delete_lines(server_id) {
-    var ports = activated_servers[server_id]
-    for (var key of Object.keys(ports)) {
-        $('#' + key + '.port').removeClass('outlined')
-        $('#' + key + '.port').removeClass('connection-activated')
-        $('#' + key + '.port').removeClass('connected')
-        ports[key].forEach(function (line) {
+    var ports = currently_activated_servers[server_id]
+    for (var port_id of Object.keys(ports)) {
+        var port_element = $('#' + port_id + '.port')
+        port_element.removeClass('outlined')
+
+        clear_currently_connected_ports(server_id)
+        ports[port_id].forEach(function (line) {
             line.hide()
             delete line
         })
-        delete ports[key]
+        delete ports[port_id]
     }
-    delete activated_servers[server_id]
+    delete currently_activated_servers[server_id]
+}
+
+function clear_currently_connected_ports(server_id) {
+    for (var port_id of Object.keys(currently_connected_ports)) {
+        server_id_index = currently_connected_ports[port_id].indexOf(server_id.toString())
+        if (server_id_index >= 0) {
+            currently_connected_ports[port_id].splice(server_id_index, 1)
+        }
+        if (currently_connected_ports[port_id].length == 0) {
+            delete currently_connected_ports[port_id]
+            remove_from_activated_connections(port_id)
+        }
+    }
+
 }
 
 function delete_all_lines() {
-    for (var server_id of Object.keys(activated_servers)) {
+    for (var server_id of Object.keys(currently_activated_servers)) {
         delete_lines(server_id)
     }
 }
 
 function create_leader_line(elt_start, elt_end, cable_name, cable_color) {
-    var line = new LeaderLine(
+    return new LeaderLine(
         elt_start,
         elt_end,
         {
@@ -186,5 +231,4 @@ function create_leader_line(elt_start, elt_end, cable_name, cable_color) {
             hide: true
         }
     )
-    return line
 }

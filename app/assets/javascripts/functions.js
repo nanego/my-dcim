@@ -84,3 +84,15 @@ function rewriteURL(path, params){
     }
     window.history.replaceState({}, '', path + '?' + searchParams)
 }
+
+function uniq(a) {
+    return Array.from(new Set(a))
+}
+
+function compact(array){
+    return array.filter(function(obj) { return obj })
+}
+
+function ids_of(array_of_elements){
+    return compact(array_of_elements).map(function(elt) {return elt.id})
+}
