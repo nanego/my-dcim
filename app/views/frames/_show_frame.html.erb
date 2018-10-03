@@ -14,10 +14,6 @@
       <h5 class="panel-title" style="display: inline;">
         <%= link_to "#{frame.name}", frame_path(frame, :view => view_type, bg: params[:bg]), style: 'text-decoration: underline;' %>
       </h5>
-      <% if editable != false && formats != [:pdf] %>
-        <%= link_to "modifier", edit_frame_path(frame, :view => view_type), class: 'btn btn-default pull-right' %>
-      <% end %>
-      <div class="clearfix"></div>
     </div>
     <ul class='servers connectedFrames list-group'
         data-room="<%= frame.room.name %>"
@@ -51,7 +47,7 @@
           <% if view_type == 'back' %>
             <%= content_tag_for :li, server,
                                 class: "list-group-item truncate server_back #{server.modele.try(:category).try(:name).try(:parameterize)} #{'relegated' if highlighted_servers_ids.exclude?(server.id)}",
-                                style: "min-height: #{settings[:min_height] * (server.modele.try(:u).to_i > 0 ? server.modele.u : 1)}px;padding: 3px 5px 3px 20px;",
+                                style: "min-height: #{settings[:min_height] * (server.modele.try(:u).to_i > 0 ? server.modele.u : 1)}px;padding: 3px 3px 3px 20px;",
                                 data: data do %>
               <% u_server.times do |i| %>
                 <%= render 'servers/draw_u_scale_unit.html.erb', i: i, u_disponibles: u_disponibles, u_server: u_server %>

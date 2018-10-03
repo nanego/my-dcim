@@ -1,13 +1,40 @@
 <% provide :title, "Vue Réseau" %>
 
 <div class="container-fluid">
-  <%= render 'servers/room',
-             room: "Vue réseau",
-             islets: @servers_per_frames,
-             view_side: 'back',
-             title: "Vue réseau" %>
+
+  <% view_side = 'back' %>
+  <% settings = Frame.settings.merge({:min_height => view_side == 'back' ? 20 : 27}) %>
+  <% @room = "Vue réseau" %>
+
+  <%= render 'rooms/action_buttons', view_side: params[:view] if formats != [:pdf] %>
+
+  <div id="<%= @room.try(:name).try(:parameterize).try(:underscore) %>">
+    <% @servers_per_frames.each do |islet, lanes| %>
+
+      <h3><%= "Vue réseau" %></h3>
+      <div class="row">
+        <ul class="frames <%= view_side %>"
+            style="padding: 0;"
+            data-update-url="<%= sort_frames_path %>"
+            data-max-u='<%= settings[:max_u] %>'
+            data-max-elts='<%= settings[:max_elts] %>'
+            data-max-rj45='<%= settings[:max_rj45] %>'
+            data-max-fc='<%= settings[:max_fc] %>'>
+          <% lanes.each do |lane, bays| %>
+            <% bays.each do |bay, frames| %>
+              <% frames.each do |frame, servers| %>
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                  <%= render 'frames/show_frame.html.erb', frame: frame, servers: servers, settings: settings, view_type: view_side %>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+
+    <% end %>
+  </div>
 </div>
 
 <%= render 'servers/modal_add_element_in_frame' %>
-
 <%= render 'ports/modal_edit_port' %>
