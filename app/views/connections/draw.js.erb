@@ -55,7 +55,8 @@ function create_line(server_id, port_id, destination_port_id, cable_color, cable
     var elt_start = document.getElementById(port_id)
     var elt_end = document.getElementById(destination_port_id)
     if (each_exists([elt_start, elt_end])) {
-        var line = create_leader_line(elt_start, elt_end, cable_name, colors_hash[cable_color])
+
+        var line = find_or_create_leader_line(elt_start, elt_end, cable_name, colors_hash[cable_color], destination_port_id)
 
         // Twin card line
         if (exists(twin_card_data)) {
@@ -75,6 +76,16 @@ function create_line(server_id, port_id, destination_port_id, cable_color, cable
         save_activated_servers_state(server_id, port_id, [line, twin_line])
 
         show_lines([line, twin_line])
+    }
+}
+
+function find_or_create_leader_line(elt_start, elt_end, cable_name, cable_color, destination_port_id) {
+    if (exists(currently_connected_ports[destination_port_id])) {
+        destination_server_id = currently_connected_ports[destination_port_id][0]
+        current_lines = currently_activated_servers[destination_server_id][destination_port_id]
+        return current_lines[0]
+    } else {
+        return create_leader_line(elt_start, elt_end, cable_name, cable_color)
     }
 }
 
@@ -102,6 +113,10 @@ function highlightLines(lines, ports_elts, switcher) {
         set_line_options(line, switcher ? 'hover' : 'leave')
     })
     outline_elements(ports_elts, switcher)
+}
+
+function outline_elements(elts, status) {
+    status ? $(elts).addClass('outlined') : $(elts).removeClass('outlined')
 }
 
 function removePreviousEventListeners(ports_elts) {
@@ -175,7 +190,7 @@ function add_to_activated_connections(elts_ids) {
 function remove_from_activated_connections(elt_id) {
     index = index_in(currently_activated_connections, elt_id)
     if (index >= 0) {
-        currently_activated_connections[index].forEach(function(port_id){
+        currently_activated_connections[index].forEach(function (port_id) {
             $('#' + port_id + '.port').removeClass('outlined')
         })
         currently_activated_connections.splice(index, 1)
@@ -198,18 +213,10 @@ function set_line_options(line, status) {
     }
 }
 
-function outline_elements(elts, status) {
-    status ? $(elts).addClass('outlined') : $(elts).removeClass('outlined')
-}
-
 function delete_lines(server_id) {
     var ports = currently_activated_servers[server_id]
     for (var port_id of Object.keys(ports)) {
         clear_currently_connected_ports(server_id)
-        ports[port_id].forEach(function (line) {
-            line.hide()
-            delete line
-        })
         delete ports[port_id]
     }
     delete currently_activated_servers[server_id]
@@ -225,6 +232,13 @@ function clear_currently_connected_ports(server_id) {
             removePreviousEventListeners($('#' + port_id + '.port'))
             delete currently_connected_ports[port_id]
             remove_from_activated_connections(port_id)
+            var lines = currently_activated_servers[server_id][port_id]
+            if (exists(lines)) {
+                lines.forEach(function (line) {
+                    line.hide()
+                    delete line
+                })
+            }
         }
     }
 
