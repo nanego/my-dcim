@@ -199,13 +199,7 @@ function set_line_options(line, status) {
 }
 
 function outline_elements(elts, status) {
-    elts.forEach(function (elt) {
-        if (status) {
-            $(elt).addClass('outlined')
-        } else {
-            $(elt).removeClass('outlined')
-        }
-    })
+    status ? $(elts).addClass('outlined') : $(elts).removeClass('outlined')
 }
 
 function delete_lines(server_id) {
