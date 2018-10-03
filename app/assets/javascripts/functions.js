@@ -66,8 +66,8 @@ function exists(value){
 }
 
 function each_exists(array){
-    for(let value in array){
-        if(exists(value)==false){
+    for(let index in array){
+        if(exists(array[index])==false){
             return false
         }
     }
