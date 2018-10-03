@@ -59,10 +59,19 @@ function findByAttribute(array, attr, value) {
 
 function exists(value){
     if( value != undefined && (value > 0 || value.length > 0 || typeof value === "boolean" || typeof value === "object") ){
-        return true;
+        return true
     }else{
-        return false;
+        return false
     }
+}
+
+function each_exists(array){
+    for(let value in array){
+        if(exists(value)==false){
+            return false
+        }
+    }
+    return true
 }
 
 function log(string, object = undefined){

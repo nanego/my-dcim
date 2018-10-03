@@ -54,14 +54,14 @@ function get_twin_cards() {
 function create_line(server_id, port_id, destination_port_id, cable_color, cable_name, twin_card_data) {
     var elt_start = document.getElementById(port_id)
     var elt_end = document.getElementById(destination_port_id)
-    if (exists(elt_start) && exists(elt_end)) {
+    if (each_exists([elt_start, elt_end])) {
         var line = create_leader_line(elt_start, elt_end, cable_name, colors_hash[cable_color])
 
         // Twin card line
         if (exists(twin_card_data)) {
             var twin_elt_start = document.getElementById(twin_card_data['twin_card_port_id'])
             var twin_elt_end = document.getElementById(twin_card_data['twin_card_paired_port_id'])
-            if (exists(twin_elt_start) && exists(twin_elt_end)) {
+            if (each_exists([twin_elt_start, twin_elt_end])) {
                 var twin_line = create_leader_line(twin_elt_start, twin_elt_end, twin_card_data['cable_name'], colors_hash[twin_card_data['cable_color']])
             }
         }
@@ -70,22 +70,23 @@ function create_line(server_id, port_id, destination_port_id, cable_color, cable
 
         removePreviousEventListeners(ports_elts)
         addNewEventListeners(ports_elts, compact([line, twin_line]))
+
         save_connected_ports_state(ports_elts, server_id)
+        save_activated_servers_state(server_id, port_id, [line, twin_line])
 
         show_lines([line, twin_line])
-        save_activated_servers_state(server_id, port_id, [line, twin_line])
     }
 }
 
 function addNewEventListeners(ports_elts, lines) {
     ports_elts.forEach(function (port_elt) {
-        $(port_elt).on('click', {ports_elts: ports_elts, lines: lines}, handleClickOnPort)
-        $(port_elt).on('mouseenter', {
+        $(port_elt).on('click.port', {ports_elts: ports_elts, lines: lines}, handleClickOnPort)
+        $(port_elt).on('mouseenter.port', {
             lines: lines,
             ports_elts: ports_elts,
             switcher: true
         }, highlightLinesEvent)
-        $(port_elt).on('mouseleave', {
+        $(port_elt).on('mouseleave.port', {
             lines: lines,
             ports_elts: ports_elts,
             switcher: false
@@ -104,7 +105,7 @@ function highlightLines(lines, ports_elts, switcher) {
 }
 
 function removePreviousEventListeners(ports_elts) {
-    $(ports_elts).off()
+    $(ports_elts).off('.port')
 }
 
 function handleClickOnPort(e) {
@@ -114,7 +115,7 @@ function handleClickOnPort(e) {
         if (index_in(currently_activated_connections, e.target.id) >= 0) {
             // log("DESACTIVATE CONNECTION")
             highlightLines(e.data.lines, e.data.ports_elts, false)
-            $(e.data.ports_elts).on('mouseleave', {
+            $(e.data.ports_elts).on('mouseleave.port', {
                 lines: e.data.lines,
                 ports_elts: e.data.ports_elts,
                 switcher: false
@@ -123,7 +124,7 @@ function handleClickOnPort(e) {
         } else {
             // log("ACTIVATE CONNECTION")
             highlightLines(e.data.lines, e.data.ports_elts, true)
-            $(e.data.ports_elts).off('mouseleave')
+            $(e.data.ports_elts).off('mouseleave.port')
             add_to_activated_connections(ids_of(e.data.ports_elts))
         }
     } else {
@@ -174,9 +175,11 @@ function add_to_activated_connections(elts_ids) {
 function remove_from_activated_connections(elt_id) {
     index = index_in(currently_activated_connections, elt_id)
     if (index >= 0) {
+        currently_activated_connections[index].forEach(function(port_id){
+            $('#' + port_id + '.port').removeClass('outlined')
+        })
         currently_activated_connections.splice(index, 1)
     }
-
 }
 
 function set_line_options(line, status) {
@@ -208,9 +211,6 @@ function outline_elements(elts, status) {
 function delete_lines(server_id) {
     var ports = currently_activated_servers[server_id]
     for (var port_id of Object.keys(ports)) {
-        var port_element = $('#' + port_id + '.port')
-        port_element.removeClass('outlined')
-
         clear_currently_connected_ports(server_id)
         ports[port_id].forEach(function (line) {
             line.hide()
@@ -228,6 +228,7 @@ function clear_currently_connected_ports(server_id) {
             currently_connected_ports[port_id].splice(server_id_index, 1)
         }
         if (currently_connected_ports[port_id].length == 0) {
+            removePreviousEventListeners($('#' + port_id + '.port'))
             delete currently_connected_ports[port_id]
             remove_from_activated_connections(port_id)
         }
