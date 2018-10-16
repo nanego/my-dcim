@@ -23,4 +23,8 @@ class MovedConnection < ApplicationRecord
     self.delete
   end
 
+  def cable_name
+    cablename
+  end
+
 end
