@@ -14,8 +14,10 @@ var colors_hash = {"N": "#000000",
 
 var loadPaletteColorPicker = function(selector){
     let colors = []
-    for(let key in colors_hash){
-        colors.push({key: colors_hash[key]})
+    for(let color_key in colors_hash){
+        let tmp_hash = {}
+        tmp_hash[color_key] = colors_hash[color_key]
+        colors.push(tmp_hash)
     }
     $(selector).paletteColorPicker({
         colors: colors,
