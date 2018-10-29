@@ -50,6 +50,9 @@ group :development, :test do
   gem 'active_record_doctor'
   gem 'simplecov', require: false
 end
+group :test do
+  gem 'minitest-rails-capybara'
+end
 group :production do
   gem 'passenger'
   gem 'therubyracer'

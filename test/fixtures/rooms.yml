@@ -6,6 +6,7 @@ one:
   description: Room n°1
   published: false
   site_id: 1
+  display_on_home_page: true
 
 two:
   id: 2
@@ -13,22 +14,24 @@ two:
   description: Room n°2
   published: false
   site_id: 1
+  display_on_home_page: true
 
 three:
   id: 3
-  name: Atelier
+  name: S3
   description: Room n°3
   published: false
   site_id: 2
+  display_on_home_page: false
 
 four:
   id: 4
-  name: A dégager
+  name: S4
   description: Room n°4
   published: false
 
 five:
   id: 5
-  name: TPB -2
+  name: S5
   description: Room n°5
   published: false
