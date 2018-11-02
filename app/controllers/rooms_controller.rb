@@ -42,7 +42,7 @@ class RoomsController < ApplicationController
                pdf: 'frame',
                zoom: 0.75
       end
-      format.txt { send_data Frame.to_txt(@servers_per_frames) }
+      format.txt { send_data Frame.to_txt(@servers_per_frames[@room]) }
     end
   end
 
