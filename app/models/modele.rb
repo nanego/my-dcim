@@ -23,6 +23,8 @@ class Modele < ActiveRecord::Base
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
 
+  scope :with_servers, -> { joins(:servers).uniq }
+
   def to_s
     name.to_s
   end
@@ -45,6 +47,10 @@ class Modele < ActiveRecord::Base
 
   def self.all_sorted
     Modele.includes(:manufacturer).all.sort{|f1,f2|f1.name_with_brand.capitalize <=> f2.name_with_brand.capitalize}
+  end
+
+  def self.all_sorted_with_servers
+    Modele.includes(:manufacturer).with_servers.sort{|f1,f2|f1.name_with_brand.capitalize <=> f2.name_with_brand.capitalize}
   end
 
   private

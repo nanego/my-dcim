@@ -40,5 +40,27 @@
         </li>
       </ul>
     </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        Modèles de machine
+      </a>
+      <ul class="dropdown-menu">
+        <li>
+          <div class="row" style="width: 1000px;">
+            <% Modele.all_sorted_with_servers.in_groups(4).each do |modeles| %>
+              <ul class="list-unstyled col-md-3">
+                <% modeles.each do |modele| %>
+                  <% if modele.present? %>
+                    <li <%= "class=active" if params[:modele_id]==modele.id.to_s %> >
+                      <%= link_to modele.to_s, overview_rooms_path(modele_id: modele.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
+                    </li>
+                  <% end %>
+                <% end %>
+              </ul>
+            <% end %>
+          </div>
+        </li>
+      </ul>
+    </li>
   </ul>
 </li>
