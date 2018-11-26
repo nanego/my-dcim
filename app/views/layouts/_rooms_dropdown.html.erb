@@ -4,6 +4,7 @@
   </a>
   <ul class="dropdown-menu">
     <li><%= link_to 'Afficher toutes les salles', overview_rooms_path %></li>
+    <li><%= link_to 'Vue infrastructure', infrastructure_rooms_path %></li>
     <% sites = Site.joins(:rooms).includes(:rooms => [:bays => [:bay_type]]).order(:position).distinct %>
     <% sites.each do |site| %>
       <li role="separator" class="divider"></li>

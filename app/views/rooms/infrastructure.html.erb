@@ -1,0 +1,558 @@
+<% provide :title, "Vue infrastructure" %>
+
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Salles' => overview_rooms_path, 'Infrastructure' => nil} %>
+
+<div class="container-fluid room_overview show_room" id="full-overview">
+  <div class="panel panel-default">
+    <div class="panel-body" style="display: flex;">
+
+      <ul class="list-unstyled col-xs-2 hidden-sm menu-rooms">
+
+        <!-- Choix de la couleur de fond des serveurs -->
+        <div class="btn-group" style="width: 100%">
+          <button style="width: 100%;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= params[:view_infra] == 'core' ? 'Réseau Gb' : 'Réseau 10Gb' %> <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" style="width: 100%;">
+            <li><%= link_to 'Réseau Gb', url_for(params.except(:controller, :action).permit(:room, :islet, :id, :view_infra, :format).merge({:view_infra => 'core', islet: params[:islet], id: params[:id]})) %></li>
+            <li><%= link_to 'Réseau 10Gb', url_for(params.except(:controller, :action).permit(:room, :islet, :id, :view_infra, :format).merge({:view_infra => 'core', islet: params[:islet], id: params[:id]})) %></li>
+          </ul>
+        </div>
+
+        <li class="divider" style="border-bottom: 1px lightgray solid;margin:10px -10px 8px -10px;"></li>
+
+        <% @sites.each do |site| %>
+          <li><%= site %></li>
+          <ul>
+            <% rooms = site.rooms.sorted.distinct %>
+            <% rooms.each do |room| %>
+              <% islets = room.islets.sorted.not_empty.has_name.distinct %>
+              <% islets.each do |islet| %>
+                <li role="presentation">
+                  <% if islets.size == 1 %>
+                    <a href="#<%= room.id %>-"
+                       onclick="rewriteURL('/rooms/infrastructure', {'room': '<%= room.slug %>', 'islet': ''})"
+                       aria-controls="room-<%= room %>"
+                       role="tab"
+                       data-toggle="tab"
+                       data-room-id="<%= room.id %>"
+                       data-islet="<%= islet.name %>">
+                      <%= room.name %>
+                    </a>
+                  <% else %>
+                    <a href="#<%= room.id %>-<%= islet %>"
+                       onclick="rewriteURL('/rooms/infrastructure', {'room': '<%= room.slug %>', 'islet': '<%= islet.name %>'})"
+                       aria-controls="islet-<%= islet %>"
+                       role="tab"
+                       data-toggle="tab"
+                       data-room-id="<%= room.id %>"
+                       data-islet="<%= islet.name %>">
+                      <%= room.name %> Ilot <%= islet.name %>
+                    </a>
+                  <% end %>
+                </li>
+              <% end %>
+              <% if islets.empty? %>
+                <li><%= room.name %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        <% end %>
+      </ul>
+
+      <div class="tab-content col-xs-10 infrastructure">
+
+        <% @sites.each do |site| %>
+
+          <% site.rooms.each do |room| %>
+
+            <% room.islets.sorted.each do |islet| %>
+
+              <div class="islet tab-pane fade <%= 'in active' if islet == @islet || (@islet.blank? && @room == room) %>"
+                   role="tabpanel"
+                   id="<%= room.id %>-<%= islet if room.islets.size > 1 %>">
+
+                <% if room.id == 4 || room.id == 3 %>
+                  <% second_room_id = room.id == 4 ? 3 : 4 %>
+                  <div class="hubs">
+                    <div class="hub_material hub-top server_<%= @hubs[:one_giga][room.id].id %>" id="hub1-<%= room.id %>-<%= islet %>" style="text-align: center;">
+                      <%= link_to ("Concentrateur<br>#{@hubs[:one_giga][room.id]}").html_safe, server_path(@hubs[:one_giga][room.id]) %>
+                    </div>
+                    <div style="border: 1px lightgray solid;position: absolute;bottom:100px;padding: 0 10px 10px 4px;margin: -10px;">
+                      <span style="color: grey;"><%= Room.find(second_room_id) %></span>
+                      <div class="hub_material hub-bottom server_<%= @hubs[:one_giga][second_room_id].id %>" id="hub2-<%= room.id %>-<%= islet %>" style="margin-left: 6px;text-align: center;">
+                        <%= link_to ("Concentrateur<br>#{@hubs[:one_giga][second_room_id]}").html_safe, server_path(@hubs[:one_giga][second_room_id]) %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+
+                <div style="display: inline-block;">
+
+                  <div class="rooms-overview">
+
+                    <% islet.bays.sorted.each do |bay| %>
+
+                      <div class="couple" style="grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
+                          grid-row: <%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;">
+
+                        <% bay.frames.sorted.each_with_index do |frame, index| %>
+
+                          <div class="overviewed_frame <%= 'no-margin' if index > 0 %> <%= 'highlighted' if @frames && @frames.include?(frame) %>"
+                               data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.id %>">
+
+                            <div id="frame-<%= frame.id %>-pre" class="intermediate-point pre <%= bay.lane.to_i.even? ? 'even' : 'odd' %>" style="z-index: -3000;">.</div>
+
+                            <div class="title">
+                              <%= link_to frame.name, frame_path(frame, view: (params[:view])) %>
+                            </div>
+
+                            <div id="frame-<%= frame.id %>-post" class="intermediate-point post <%= bay.lane.to_i.even? ? 'even' : 'odd' %>" style="z-index: -3000;">.</div>
+
+                            <ul>
+                              <% servers = frame.servers.joins(:modele).includes(:modele => :category).where('modeles.category_id = ?', 14) # Switch LAN %>
+                              <% server_height = 10 %>
+
+                              <% servers.each do |server| %>
+
+                                <% bgModeleColor = define_background_color(server: server, mode: params['bg']) %>
+
+                                <% u_server = server.modele.try(:u).to_i > 0 ? server.modele.u : 1 %>
+
+                                <% data = {:u => u_server,
+                                           :rj45_futur => server.try(:rj45_futur) || 0,
+                                           :fc_futur => server.try(:fc_futur)} %>
+
+                                <%= content_tag_for :li, server,
+                                                    class: "server_#{server.id} truncate #{server.modele.try(:category).try(:name).try(:parameterize)} #{server.server_state_id == 1 ? 'striped' : ''}",
+                                                    style: "height: #{server_height * u_server}px;background-color:#{bgModeleColor} !important;",
+                                                    title: h("#{server.name}"),
+                                                    :data => data %>
+
+                              <% end %>
+
+                            </ul>
+
+                          </div>
+
+
+                        <% end %>
+                      </div>
+
+                    <% end %>
+
+                  </div>
+                </div>
+              </div>
+            <% end %>
+
+          <% end %>
+
+        <% end %>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+
+    var current_room_id = "<%= @room.id %>"
+    var current_islet = "<%= @islet.name %>"
+
+    var frames_green_1 = [17, 18, 135, 137]
+    var inter_hubs_color = 'lightgrey'
+    var lines = []
+    var current_connections = []
+
+    <% @connections.each do |server_id, destinations_ids| %>
+    <% destinations_ids.each do |dest_id| %>
+    drawTest('<%= server_id %>', '<%= dest_id %>')
+    <% end %>
+    <% end %>
+
+    function drawTest(start_id, end_id) {
+        if (current_connections.indexOf(end_id + "-" + start_id) < 0) {
+            var start_element = $('.server_' + start_id + ':visible')[0]
+            var end_element = $('.server_' + end_id + ':visible')[0]
+            // var start_anchor = LeaderLine.pointAnchor(start_element, {x: 42 + i * 20, y: 57})
+            // var end_anchor = LeaderLine.pointAnchor(end_element, {x: 42 + i * 20, y: 0})
+            if (start_element && end_element) {
+                setParamsAndDraw(start_element, end_element)
+                current_connections.push(start_id + "-" + end_id)
+                log(start_id + ' <-> ' + end_id)
+            }
+        }
+    }
+
+    drawCurrentLines()
+
+    function setParamsAndDraw(start_element, end_element) {
+        var params;
+        start_parent = start_element.closest('.overviewed_frame')
+        end_parent = end_element.closest('.overviewed_frame')
+        if ($(start_element).hasClass('hub-top')) {
+            end_parent = LeaderLine.pointAnchor(end_element.closest('.overviewed_frame'), {x: 5, y: 0})
+            params = {
+                path: 'fluid',
+                startPlug: 'behind',
+                endPlug: 'behind',
+                startSocket: 'top',
+                endSocket: 'top',
+                color: 'orange',
+                size: 3,
+                dash: true
+            }
+        } else {
+            params = {
+                path: 'fluid',
+                startPlug: 'behind',
+                endPlug: 'arrow',
+                startSocket: 'right',
+                endSocket: 'bottom',
+                // color: inter_hubs_color,
+                size: 2
+            }
+        }
+        drawLine((start_parent ? start_parent : start_element),
+            (end_parent ? end_parent : end_element),
+            params)
+    }
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        log(e.target.dataset)
+        current_room_id = e.target.dataset['roomId']
+        current_islet = e.target.dataset['islet']
+        log(current_room_id)
+        log(current_islet)
+        resetLines()
+    })
+
+    function resetLines() {
+        deleteOldLines()
+        drawCurrentLines()
+    }
+
+    function deleteOldLines() {
+        console.log("DELETE ALL LINES")
+        lines.forEach(function (line) {
+            line.hide()
+        })
+        lines = []
+        current_connections = []
+    }
+
+    function drawCurrentLines() {
+        console.log("CREATE LINES")
+        // TOP
+        document.querySelectorAll("[data-frame-id='19']")[0].style.borderColor = 'rgb(248, 205, 30)'
+        document.querySelectorAll("[data-frame-id='136']")[0].style.borderColor = 'rgb(248, 205, 30)'
+        lines.push(new LeaderLine(
+            LeaderLine.pointAnchor(document.querySelectorAll("[data-frame-id='19']")[0], {x: 45, y: 0}),
+            document.getElementById('frame-136-pre'),
+            {
+                path: 'grid',
+                endPlug: 'behind',
+                startSocket: 'top',
+                endSocket: 'left',
+                color: 'rgb(248, 205, 30)'
+            }
+        ))
+        lines.push(new LeaderLine(
+            document.getElementById('frame-136-pre'),
+            document.querySelectorAll("[data-frame-id='136']")[0],
+            {
+                path: 'grid',
+                endPlug: 'behind',
+                startSocket: 'right',
+                endSocket: 'top',
+                color: 'rgb(248, 205, 30)'
+            }
+        ))
+
+        // BOTTOM & GREEN
+        var color = 'rgb(32, 208, 154)'
+        // 1
+        var start_id = 21
+        var end_id = 123
+        var start_element = document.querySelectorAll("[data-frame-id='" + start_id + "']")[0]
+        var end_element = document.querySelectorAll("[data-frame-id='" + end_id + "']")[0]
+        var intermediate_element = document.getElementById('frame-' + end_id + '-pre')
+        start_element.style.borderColor = color
+        end_element.style.borderColor = color
+        intermediate_element.style.bottom = '-96px'
+        lines.push(new LeaderLine(
+            start_element,
+            intermediate_element,
+            {
+                path: 'grid',
+                endPlug: 'behind',
+                startSocket: 'bottom',
+                endSocket: 'left',
+                color: color
+            }
+        ))
+        lines.push(new LeaderLine(
+            intermediate_element,
+            end_element,
+            {
+                path: 'grid',
+                endPlug: 'behind',
+                startSocket: 'right',
+                endSocket: 'bottom',
+                color: color
+            }
+        ))
+        // TOP GREEN
+        frames_green_1.forEach(function (frame_id, index) {
+            if (index + 1 < frames_green_1.length) {
+                var start_id = frame_id
+                var end_id = frames_green_1[index + 1]
+                var start_element = document.querySelectorAll("[data-frame-id='" + start_id + "']")[0]
+                var end_element = document.querySelectorAll("[data-frame-id='" + end_id + "']")[0]
+                var start_anchor = LeaderLine.pointAnchor(start_element, {x: 45, y: 0})
+                var end_anchor = LeaderLine.pointAnchor(end_element, {x: 25, y: 0})
+                var intermediate_element = document.getElementById('frame-' + end_id + '-pre')
+                start_element.style.borderColor = color
+                end_element.style.borderColor = color
+                intermediate_element.style.top = '-50px'
+                lines.push(new LeaderLine(
+                    start_anchor,
+                    intermediate_element,
+                    {
+                        path: 'grid',
+                        endPlug: 'behind',
+                        startSocket: 'top',
+                        endSocket: 'left',
+                        color: color
+                    }
+                ))
+                lines.push(new LeaderLine(
+                    intermediate_element,
+                    end_anchor,
+                    {
+                        path: 'grid',
+                        endPlug: 'behind',
+                        startSocket: 'right',
+                        endSocket: 'top',
+                        color: color
+                    }
+                ))
+            }
+        })
+
+        // RIGHT
+        var color = 'indianred'
+        var start_id = 137
+        var end_id = 124
+        var last_element_id_first_line = 137
+        var last_element_second_line_id = 125
+        var start_element = document.querySelectorAll("[data-frame-id='" + start_id + "']")[0]
+        var end_element = document.querySelectorAll("[data-frame-id='" + end_id + "']")[0]
+        start_element.style.borderColor = color
+        end_element.style.borderColor = color
+        lines.push(new LeaderLine(
+            start_element,
+            document.getElementById('frame-' + last_element_id_first_line + '-post'),
+            {
+                path: 'grid',
+                endPlug: 'behind',
+                startSocket: 'top',
+                endSocket: 'left',
+                color: color
+            }
+        ))
+        lines.push(new LeaderLine(
+            document.getElementById('frame-' + last_element_id_first_line + '-post'),
+            document.getElementById('frame-' + last_element_second_line_id + '-post'),
+            {
+                path: 'grid',
+                endPlug: 'behind',
+                startSocket: 'bottom',
+                endSocket: 'top',
+                color: color
+            }
+        ))
+        lines.push(new LeaderLine(
+            document.getElementById('frame-' + last_element_second_line_id + '-post'),
+            end_element,
+            {
+                path: 'grid',
+                endPlug: 'behind',
+                startSocket: 'left',
+                endSocket: 'bottom',
+                color: color
+            }
+        ))
+        // LEFT
+        var color = 'rgb(248, 205, 30)'
+        var start_id = 19
+        var end_id = 11
+        var first_element_id_first_line = 19
+        var first_element_second_line_id = 11
+        var start_element = document.querySelectorAll("[data-frame-id='" + start_id + "']")[0]
+        var end_element = document.querySelectorAll("[data-frame-id='" + end_id + "']")[0]
+        start_element.style.borderColor = color
+        end_element.style.borderColor = color
+        lines.push(new LeaderLine(
+            LeaderLine.pointAnchor(start_element, {x: 25, y: 0}),
+            document.getElementById('frame-' + first_element_id_first_line + '-pre'),
+            {
+                path: 'grid',
+                endPlug: 'behind',
+                startSocket: 'top',
+                endSocket: 'right',
+                color: color
+            }
+        ))
+        lines.push(new LeaderLine(
+            document.getElementById('frame-' + first_element_id_first_line + '-pre'),
+            document.getElementById('frame-' + first_element_second_line_id + '-pre'),
+            {
+                path: 'grid',
+                endPlug: 'behind',
+                startSocket: 'bottom',
+                endSocket: 'top',
+                color: color
+            }
+        ))
+        lines.push(new LeaderLine(
+            document.getElementById('frame-' + first_element_second_line_id + '-pre'),
+            end_element,
+            {
+                path: 'grid',
+                endPlug: 'behind',
+                startSocket: 'right',
+                endSocket: 'bottom',
+                color: color
+            }
+        ))
+
+
+        // Inter-switchs
+        var color = 'grey'
+        var start_id = 19
+        var end_id = 20
+        var start_element = document.querySelectorAll("[data-frame-id='" + start_id + "']")[0]
+        var end_element = document.querySelectorAll("[data-frame-id='" + end_id + "']")[0]
+        lines.push(new LeaderLine(start_element, end_element, {
+            path: 'fluid',
+            endPlug: 'behind',
+            startSocket: 'bottom',
+            endSocket: 'top',
+            dash: true,
+            color: color,
+            size: 2
+        }))
+        // Inter-switchs (BIS)
+        var start_id = 17
+        var end_id = 11
+        var start_element = document.querySelectorAll("[data-frame-id='" + start_id + "']")[0]
+        var end_element = document.querySelectorAll("[data-frame-id='" + end_id + "']")[0]
+        lines.push(new LeaderLine(start_element, end_element, {
+            path: 'fluid',
+            endPlug: 'behind',
+            startSocket: 'bottom',
+            endSocket: 'top',
+            dash: true,
+            color: color,
+            size: 2
+        }))
+
+        // HUBS
+        drawInterHubsConnections()
+
+        // HUBS ORANGE
+        var color = 'orange'
+        var start_element = document.getElementById('hub1-4-1')
+        var end_element = document.querySelectorAll("[data-frame-id='19']")[0]
+        var end_anchor = LeaderLine.pointAnchor(end_element, {x: 5, y: 0})
+        lines.push(new LeaderLine(
+            start_element,
+            end_anchor,
+            {
+                path: 'fluid',
+                endPlug: 'behind',
+                startSocket: 'top',
+                endSocket: 'top',
+                color: color,
+                size: 3,
+                dash: true
+            }
+        ))
+        var end_element = document.querySelectorAll("[data-frame-id='11']")[0]
+        var end_anchor = LeaderLine.pointAnchor(end_element, {x: 5, y: 1})
+        lines.push(new LeaderLine(
+            start_element,
+            end_anchor,
+            {
+                path: 'fluid',
+                endPlug: 'behind',
+                startSocket: 'top',
+                endSocket: 'top',
+                color: color,
+                size: 3,
+                dash: true
+            }
+        ))
+        // HUBS VERT
+        var color = 'green'
+        var start_element = document.getElementById('hub2-4-1')
+        var end_element = document.querySelectorAll("[data-frame-id='17']")[0]
+        var end_anchor = LeaderLine.pointAnchor(end_element, {x: 5, y: 0})
+        lines.push(new LeaderLine(
+            start_element,
+            end_anchor,
+            {
+                path: 'fluid',
+                endPlug: 'behind',
+                startSocket: 'bottom',
+                endSocket: 'top',
+                color: color,
+                size: 3,
+                dash: true
+            }
+        ))
+        var end_element = document.querySelectorAll("[data-frame-id='20']")[0]
+        var end_anchor = LeaderLine.pointAnchor(end_element, {x: 5, y: 1})
+        lines.push(new LeaderLine(
+            start_element,
+            end_anchor,
+            {
+                path: 'fluid',
+                endPlug: 'behind',
+                startSocket: 'bottom',
+                endSocket: 'top',
+                color: color,
+                size: 3,
+                dash: true
+            }
+        ))
+    }
+
+    function drawLine(startElement, endElement, params) {
+        lines.push(new LeaderLine(startElement, endElement, params))
+    }
+
+    function drawInterHubsConnections() {
+        var start_element = $('#hub1-' + current_room_id + '-' + current_islet + ':visible')[0]
+        var end_element = $('#hub2-' + current_room_id + '-' + current_islet + ':visible')[0]
+        for (var i = 0; i < 2; i++) { // TODO Check real connections in db
+            var start_anchor = LeaderLine.pointAnchor(start_element, {x: 42 + i * 20, y: 57})
+            var end_anchor = LeaderLine.pointAnchor(end_element, {x: 42 + i * 20, y: 0})
+            drawLine(start_anchor, end_anchor,
+                {
+                    path: 'straight',
+                    startPlug: 'behind',
+                    endPlug: 'behind',
+                    startSocket: 'bottom',
+                    endSocket: 'top',
+                    color: inter_hubs_color,
+                    size: 2
+                }
+            )
+        }
+    }
+
+</script>

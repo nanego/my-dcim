@@ -63,6 +63,7 @@ Rails.application.routes.draw do
   resources :rooms do
     collection do
       get :overview
+      get :infrastructure
     end
   end
   resources :bays

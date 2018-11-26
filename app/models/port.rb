@@ -18,6 +18,7 @@ class Port < ActiveRecord::Base
   delegate :color, to: :cable, prefix: true, allow_nil: true
   delegate :name, to: :cable, prefix: true, allow_nil: true
   has_one :server, through: :card
+  delegate :server_id, to: :card, prefix: false
 
   scope :sorted, -> {order(:position)}
   scope :with_connection, -> {joins(:connection)}

@@ -4,8 +4,6 @@ class RoomsController < ApplicationController
 
   before_action :set_room, only: [:show, :edit, :update, :destroy, :islet]
 
-  # GET /rooms
-  # GET /rooms.json
   def index
     @rooms = Room.order(:position)
   end
@@ -42,7 +40,7 @@ class RoomsController < ApplicationController
                pdf: 'frame',
                zoom: 0.75
       end
-      format.txt { send_data Frame.to_txt(@servers_per_frames[@room]) }
+      format.txt {send_data Frame.to_txt(@servers_per_frames[@room])}
     end
   end
 
@@ -62,7 +60,7 @@ class RoomsController < ApplicationController
       @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] ||= []
 
       # sums per frame and per type of port
-      @sums[frame.id] = {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0}
+      @sums[frame.id] = {'XRJ' => 0, 'RJ' => 0, 'FC' => 0, 'IPMI' => 0}
 
       frame.servers.each do |s|
         @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] << s
@@ -83,7 +81,7 @@ class RoomsController < ApplicationController
                pdf: 'frame',
                zoom: 0.75
       end
-      format.txt { send_data Frame.to_txt(@servers_per_frames) }
+      format.txt {send_data Frame.to_txt(@servers_per_frames)}
     end
   end
 
@@ -93,7 +91,7 @@ class RoomsController < ApplicationController
     if params[:cluster_id].present? ||
         params[:gestion_id].present? ||
         params[:modele_id].present?
-      @frames = Frame.preload(:servers => [:gestion, :cluster, :modele => :category, :card_types => :port_type, :cards => [:composant, :ports => [:connection => :cable]] ])
+      @frames = Frame.preload(:servers => [:gestion, :cluster, :modele => :category, :card_types => :port_type, :cards => [:composant, :ports => [:connection => :cable]]])
                     .includes(:bay => [:frames, {:islet => :room}])
                     .order('rooms.position asc, islets.name asc, bays.position asc, frames.position asc')
       # @sums = {}
@@ -118,6 +116,31 @@ class RoomsController < ApplicationController
     end
   end
 
+  def infrastructure
+    @sites = Site.joins(:rooms).includes(:rooms => [:bays => [:bay_type]]).order(:position).distinct
+    @room = @sites.first.rooms.first
+    @islet = @room.islets.first
+
+    @concentrateurs = Server.where(id: [383, 384, 1043, 1044]).includes(:modele, :cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]])
+    @switchs_lan_ids = Server.joins(:modele).where('modeles.category_id = ?', 14).map(&:id) # Switch LAN
+    @hubs = {:one_giga => {4 => Server.find(383), 3 => Server.find(384)}, :ten_giga => {4 => Server.find(1043), 3 => Server.find(1044)}} # Concentrateurs per room
+
+    @connections = {}
+    @servers = Server.joins(:modele).
+        includes(:modele, :cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
+        where('servers.id IN (?)', @islet.materials.map(&:id)).
+        where('modeles.category_id = ?', 14) # Switch LAN
+    @servers.each do |server|
+      @connections[server.id] = server.directly_connected_servers_ids.reject{|id| @switchs_lan_ids.exclude?(id)}
+    end
+    @concentrateurs.each do |hub|
+      @connections[hub.id] = hub.connected_servers_ids_through_twin_cards.reject{|id| @switchs_lan_ids.exclude?(id)}
+    end
+
+
+    puts "@@@connections : #{@connections.inspect}"
+  end
+
   def filtered_overview
   end
 
@@ -137,11 +160,11 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       if @room.save
-        format.html { redirect_to rooms_path, notice: 'Room was successfully created.' }
-        format.json { render :show, status: :created, location: @room }
+        format.html {redirect_to rooms_path, notice: 'Room was successfully created.'}
+        format.json {render :show, status: :created, location: @room}
       else
-        format.html { render :new }
-        format.json { render json: @room.errors, status: :unprocessable_entity }
+        format.html {render :new}
+        format.json {render json: @room.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -151,11 +174,11 @@ class RoomsController < ApplicationController
   def update
     respond_to do |format|
       if @room.update(room_params)
-        format.html { redirect_to rooms_path, notice: 'Room was successfully updated.' }
-        format.json { render :show, status: :ok, location: @room }
+        format.html {redirect_to rooms_path, notice: 'Room was successfully updated.'}
+        format.json {render :show, status: :ok, location: @room}
       else
-        format.html { render :edit }
-        format.json { render json: @room.errors, status: :unprocessable_entity }
+        format.html {render :edit}
+        format.json {render json: @room.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -165,19 +188,20 @@ class RoomsController < ApplicationController
   def destroy
     @room.destroy
     respond_to do |format|
-      format.html { redirect_to rooms_url, notice: 'Room was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html {redirect_to rooms_url, notice: 'Room was successfully destroyed.'}
+      format.json {head :no_content}
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_room
-      @room = Room.friendly.find(params[:id].to_s.downcase)
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def room_params
-      params.require(:room).permit(:name, :description, :published, :display_on_home_page, :position, :site_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_room
+    @room = Room.friendly.find(params[:id].to_s.downcase)
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def room_params
+    params.require(:room).permit(:name, :description, :published, :display_on_home_page, :position, :site_id)
+  end
 end

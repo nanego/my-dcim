@@ -88,6 +88,29 @@ class Server < ActiveRecord::Base
     cards.each { |card| card.create_missing_ports}
   end
 
+  def connected_servers_ids_through_twin_cards
+    @servers_ids = directly_connected_servers_ids
+    connected_ports.each do |port|
+      if port.card && port.card.twin_card_id
+        twin_card = Card.find(port.card.twin_card_id)
+        twin_card_port = twin_card.ports.where(position: port.position).first
+        if twin_card_port
+          @servers_ids << twin_card_port.paired_connection.port.server_id if twin_card_port.paired_connection
+        end
+        @servers_ids << twin_card.server_id
+      end
+    end
+    @servers_ids
+  end
+
+  def directly_connected_servers_ids
+    connected_ports.map(&:server_id)
+  end
+
+  def connected_ports
+    ports.map(&:paired_connection).reject(&:nil?).map(&:port).reject(&:nil?)
+  end
+
   private
 
     def slug_candidates
