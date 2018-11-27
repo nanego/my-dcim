@@ -4,7 +4,7 @@ class Connection < ApplicationRecord
   belongs_to :port
 
   def paired_connection
-    cable.connections.reject{|connection|connection==self}.first
+    cable.connections.where.not(id: self.id).first
   end
 
 end

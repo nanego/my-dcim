@@ -117,26 +117,23 @@ class RoomsController < ApplicationController
   end
 
   def infrastructure
-    @sites = Site.joins(:rooms).includes(:rooms => [:bays => [:bay_type]]).order(:position).distinct
-    @room = @sites.first.rooms.first
+    @sites = Site.joins(:rooms).includes(:rooms).order(:position).distinct
+    @room = @sites.first.rooms.order(:position).first
     @islet = @room.islets.first
 
-    @concentrateurs = Server.where(id: [383, 384, 1043, 1044]).includes(:modele, :cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]])
+    @concentrateurs = Server.where(id: [383, 384, 1043, 1044]).includes(:ports => :connection, :cards => [:ports => :connection])
     @switchs_lan_ids = Server.joins(:modele).where('modeles.category_id = ?', 14).map(&:id) # Switch LAN
     @hubs = {:one_giga => {4 => Server.find(383), 3 => Server.find(384)}, :ten_giga => {4 => Server.find(1043), 3 => Server.find(1044)}} # Concentrateurs per room
 
     @connections = {}
-    @servers = Server.joins(:modele).
-        includes(:modele, :cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
-        where('servers.id IN (?)', @islet.materials.map(&:id)).
-        where('modeles.category_id = ?', 14) # Switch LAN
+    @servers = Server.includes(:ports, :cards => [:ports]). #includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
+        where('servers.id IN (?)', @switchs_lan_ids)
     @servers.each do |server|
       @connections[server.id] = server.directly_connected_servers_ids.reject{|id| @switchs_lan_ids.exclude?(id)}
     end
     @concentrateurs.each do |hub|
       @connections[hub.id] = hub.connected_servers_ids_through_twin_cards.reject{|id| @switchs_lan_ids.exclude?(id)}
     end
-
 
     puts "@@@connections : #{@connections.inspect}"
   end

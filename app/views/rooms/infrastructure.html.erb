@@ -11,7 +11,7 @@
         <!-- Choix de la couleur de fond des serveurs -->
         <div class="btn-group" style="width: 100%">
           <button style="width: 100%;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= params[:view_infra] == 'core' ? 'Réseau Gb' : 'Réseau 10Gb' %> <span class="caret"></span>
+            <%= params[:view_infra] == 'core' ? 'Réseau Gb et Réseau 10Gb' : 'Réseau Gb et Réseau 10Gb' %> <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" style="width: 100%;">
             <li><%= link_to 'Réseau Gb', url_for(params.except(:controller, :action).permit(:room, :islet, :id, :view_infra, :format).merge({:view_infra => 'core', islet: params[:islet], id: params[:id]})) %></li>
@@ -110,7 +110,7 @@
                             <div id="frame-<%= frame.id %>-post" class="intermediate-point post <%= bay.lane.to_i.even? ? 'even' : 'odd' %>" style="z-index: -3000;">.</div>
 
                             <ul>
-                              <% servers = frame.servers.joins(:modele).includes(:modele => :category).where('modeles.category_id = ?', 14) # Switch LAN %>
+                              <% servers = frame.servers.joins(:modele).includes(:bay, :modele => :category).where('modeles.category_id = ?', 14) # Switch LAN %>
                               <% server_height = 10 %>
 
                               <% servers.each do |server| %>
@@ -124,7 +124,7 @@
                                            :fc_futur => server.try(:fc_futur)} %>
 
                                 <%= content_tag_for :li, server,
-                                                    class: "server_#{server.id} truncate #{server.modele.try(:category).try(:name).try(:parameterize)} #{server.server_state_id == 1 ? 'striped' : ''}",
+                                                    class: "server_#{server.id} lane-#{server.bay.lane} truncate #{server.modele.try(:category).try(:name).try(:parameterize)}",
                                                     style: "height: #{server_height * u_server}px;background-color:#{bgModeleColor} !important;",
                                                     title: h("#{server.name}"),
                                                     :data => data %>
@@ -157,6 +157,7 @@
 </div>
 
 <script>
+    var samples = false;
 
     var current_room_id = "<%= @room.id %>"
     var current_islet = "<%= @islet.name %>"
@@ -166,66 +167,14 @@
     var lines = []
     var current_connections = []
 
-    <% @connections.each do |server_id, destinations_ids| %>
-    <% destinations_ids.each do |dest_id| %>
-    drawTest('<%= server_id %>', '<%= dest_id %>')
-    <% end %>
-    <% end %>
-
-    function drawTest(start_id, end_id) {
-        if (current_connections.indexOf(end_id + "-" + start_id) < 0) {
-            var start_element = $('.server_' + start_id + ':visible')[0]
-            var end_element = $('.server_' + end_id + ':visible')[0]
-            // var start_anchor = LeaderLine.pointAnchor(start_element, {x: 42 + i * 20, y: 57})
-            // var end_anchor = LeaderLine.pointAnchor(end_element, {x: 42 + i * 20, y: 0})
-            if (start_element && end_element) {
-                setParamsAndDraw(start_element, end_element)
-                current_connections.push(start_id + "-" + end_id)
-                log(start_id + ' <-> ' + end_id)
-            }
-        }
-    }
-
     drawCurrentLines()
 
-    function setParamsAndDraw(start_element, end_element) {
-        var params;
-        start_parent = start_element.closest('.overviewed_frame')
-        end_parent = end_element.closest('.overviewed_frame')
-        if ($(start_element).hasClass('hub-top')) {
-            end_parent = LeaderLine.pointAnchor(end_element.closest('.overviewed_frame'), {x: 5, y: 0})
-            params = {
-                path: 'fluid',
-                startPlug: 'behind',
-                endPlug: 'behind',
-                startSocket: 'top',
-                endSocket: 'top',
-                color: 'orange',
-                size: 3,
-                dash: true
-            }
-        } else {
-            params = {
-                path: 'fluid',
-                startPlug: 'behind',
-                endPlug: 'arrow',
-                startSocket: 'right',
-                endSocket: 'bottom',
-                // color: inter_hubs_color,
-                size: 2
-            }
-        }
-        drawLine((start_parent ? start_parent : start_element),
-            (end_parent ? end_parent : end_element),
-            params)
-    }
-
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        log(e.target.dataset)
+        // log(e.target.dataset)
         current_room_id = e.target.dataset['roomId']
         current_islet = e.target.dataset['islet']
-        log(current_room_id)
-        log(current_islet)
+        // log(current_room_id)
+        // log(current_islet)
         resetLines()
     })
 
@@ -245,294 +194,241 @@
 
     function drawCurrentLines() {
         console.log("CREATE LINES")
-        // TOP
-        document.querySelectorAll("[data-frame-id='19']")[0].style.borderColor = 'rgb(248, 205, 30)'
-        document.querySelectorAll("[data-frame-id='136']")[0].style.borderColor = 'rgb(248, 205, 30)'
-        lines.push(new LeaderLine(
-            LeaderLine.pointAnchor(document.querySelectorAll("[data-frame-id='19']")[0], {x: 45, y: 0}),
-            document.getElementById('frame-136-pre'),
-            {
-                path: 'grid',
-                endPlug: 'behind',
-                startSocket: 'top',
-                endSocket: 'left',
-                color: 'rgb(248, 205, 30)'
-            }
-        ))
-        lines.push(new LeaderLine(
-            document.getElementById('frame-136-pre'),
-            document.querySelectorAll("[data-frame-id='136']")[0],
-            {
-                path: 'grid',
-                endPlug: 'behind',
-                startSocket: 'right',
-                endSocket: 'top',
-                color: 'rgb(248, 205, 30)'
-            }
-        ))
 
-        // BOTTOM & GREEN
-        var color = 'rgb(32, 208, 154)'
-        // 1
-        var start_id = 21
-        var end_id = 123
-        var start_element = document.querySelectorAll("[data-frame-id='" + start_id + "']")[0]
-        var end_element = document.querySelectorAll("[data-frame-id='" + end_id + "']")[0]
-        var intermediate_element = document.getElementById('frame-' + end_id + '-pre')
-        start_element.style.borderColor = color
-        end_element.style.borderColor = color
-        intermediate_element.style.bottom = '-96px'
-        lines.push(new LeaderLine(
-            start_element,
-            intermediate_element,
-            {
-                path: 'grid',
+        if (samples) {
+
+
+            // TOP
+            document.querySelectorAll("[data-frame-id='19']")[0].style.borderColor = 'rgb(248, 205, 30)'
+            document.querySelectorAll("[data-frame-id='136']")[0].style.borderColor = 'rgb(248, 205, 30)'
+            lines.push(new LeaderLine(
+                LeaderLine.pointAnchor(document.querySelectorAll("[data-frame-id='19']")[0], {x: 45, y: 0}),
+                document.getElementById('frame-136-pre'),
+                {
+                    path: 'grid',
+                    endPlug: 'behind',
+                    startSocket: 'top',
+                    endSocket: 'left',
+                    color: 'rgb(248, 205, 30)'
+                }
+            ))
+            lines.push(new LeaderLine(
+                document.getElementById('frame-136-pre'),
+                document.querySelectorAll("[data-frame-id='136']")[0],
+                {
+                    path: 'grid',
+                    endPlug: 'behind',
+                    startSocket: 'right',
+                    endSocket: 'top',
+                    color: 'rgb(248, 205, 30)'
+                }
+            ))
+
+            // BOTTOM & GREEN
+            var color = 'rgb(32, 208, 154)'
+            // 1
+            var start_id = 21
+            var end_id = 123
+            var start_element = document.querySelectorAll("[data-frame-id='" + start_id + "']")[0]
+            var end_element = document.querySelectorAll("[data-frame-id='" + end_id + "']")[0]
+            var intermediate_element = document.getElementById('frame-' + end_id + '-pre')
+            start_element.style.borderColor = color
+            end_element.style.borderColor = color
+            intermediate_element.style.bottom = '-96px'
+            lines.push(new LeaderLine(
+                start_element,
+                intermediate_element,
+                {
+                    path: 'grid',
+                    endPlug: 'behind',
+                    startSocket: 'bottom',
+                    endSocket: 'left',
+                    color: color
+                }
+            ))
+            lines.push(new LeaderLine(
+                intermediate_element,
+                end_element,
+                {
+                    path: 'grid',
+                    endPlug: 'behind',
+                    startSocket: 'right',
+                    endSocket: 'bottom',
+                    color: color
+                }
+            ))
+            // TOP GREEN
+            frames_green_1.forEach(function (frame_id, index) {
+                if (index + 1 < frames_green_1.length) {
+                    var start_id = frame_id
+                    var end_id = frames_green_1[index + 1]
+                    var start_element = document.querySelectorAll("[data-frame-id='" + start_id + "']")[0]
+                    var end_element = document.querySelectorAll("[data-frame-id='" + end_id + "']")[0]
+                    var start_anchor = LeaderLine.pointAnchor(start_element, {x: 45, y: 0})
+                    var end_anchor = LeaderLine.pointAnchor(end_element, {x: 25, y: 0})
+                    var intermediate_element = document.getElementById('frame-' + end_id + '-pre')
+                    start_element.style.borderColor = color
+                    end_element.style.borderColor = color
+                    intermediate_element.style.top = '-50px'
+                    lines.push(new LeaderLine(
+                        start_anchor,
+                        intermediate_element,
+                        {
+                            path: 'grid',
+                            endPlug: 'behind',
+                            startSocket: 'top',
+                            endSocket: 'left',
+                            color: color
+                        }
+                    ))
+                    lines.push(new LeaderLine(
+                        intermediate_element,
+                        end_anchor,
+                        {
+                            path: 'grid',
+                            endPlug: 'behind',
+                            startSocket: 'right',
+                            endSocket: 'top',
+                            color: color
+                        }
+                    ))
+                }
+            })
+
+            // RIGHT
+            var color = 'indianred'
+            var start_id = 137
+            var end_id = 124
+            var last_element_id_first_line = 137
+            var last_element_second_line_id = 125
+            var start_element = document.querySelectorAll("[data-frame-id='" + start_id + "']")[0]
+            var end_element = document.querySelectorAll("[data-frame-id='" + end_id + "']")[0]
+            start_element.style.borderColor = color
+            end_element.style.borderColor = color
+            lines.push(new LeaderLine(
+                start_element,
+                document.getElementById('frame-' + last_element_id_first_line + '-post'),
+                {
+                    path: 'grid',
+                    endPlug: 'behind',
+                    startSocket: 'top',
+                    endSocket: 'left',
+                    color: color
+                }
+            ))
+            lines.push(new LeaderLine(
+                document.getElementById('frame-' + last_element_id_first_line + '-post'),
+                document.getElementById('frame-' + last_element_second_line_id + '-post'),
+                {
+                    path: 'grid',
+                    endPlug: 'behind',
+                    startSocket: 'bottom',
+                    endSocket: 'top',
+                    color: color
+                }
+            ))
+            lines.push(new LeaderLine(
+                document.getElementById('frame-' + last_element_second_line_id + '-post'),
+                end_element,
+                {
+                    path: 'grid',
+                    endPlug: 'behind',
+                    startSocket: 'left',
+                    endSocket: 'bottom',
+                    color: color
+                }
+            ))
+            // LEFT
+            var color = 'rgb(248, 205, 30)'
+            var start_id = 19
+            var end_id = 11
+            var first_element_id_first_line = 19
+            var first_element_second_line_id = 11
+            var start_element = document.querySelectorAll("[data-frame-id='" + start_id + "']")[0]
+            var end_element = document.querySelectorAll("[data-frame-id='" + end_id + "']")[0]
+            start_element.style.borderColor = color
+            end_element.style.borderColor = color
+            lines.push(new LeaderLine(
+                LeaderLine.pointAnchor(start_element, {x: 25, y: 0}),
+                document.getElementById('frame-' + first_element_id_first_line + '-pre'),
+                {
+                    path: 'grid',
+                    endPlug: 'behind',
+                    startSocket: 'top',
+                    endSocket: 'right',
+                    color: color
+                }
+            ))
+            lines.push(new LeaderLine(
+                document.getElementById('frame-' + first_element_id_first_line + '-pre'),
+                document.getElementById('frame-' + first_element_second_line_id + '-pre'),
+                {
+                    path: 'grid',
+                    endPlug: 'behind',
+                    startSocket: 'bottom',
+                    endSocket: 'top',
+                    color: color
+                }
+            ))
+            lines.push(new LeaderLine(
+                document.getElementById('frame-' + first_element_second_line_id + '-pre'),
+                end_element,
+                {
+                    path: 'grid',
+                    endPlug: 'behind',
+                    startSocket: 'right',
+                    endSocket: 'bottom',
+                    color: color
+                }
+            ))
+
+
+            // Inter-switchs
+            var color = 'grey'
+            var start_id = 19
+            var end_id = 20
+            var start_element = document.querySelectorAll("[data-frame-id='" + start_id + "']")[0]
+            var end_element = document.querySelectorAll("[data-frame-id='" + end_id + "']")[0]
+            lines.push(new LeaderLine(start_element, end_element, {
+                path: 'fluid',
                 endPlug: 'behind',
                 startSocket: 'bottom',
-                endSocket: 'left',
-                color: color
-            }
-        ))
-        lines.push(new LeaderLine(
-            intermediate_element,
-            end_element,
-            {
-                path: 'grid',
-                endPlug: 'behind',
-                startSocket: 'right',
-                endSocket: 'bottom',
-                color: color
-            }
-        ))
-        // TOP GREEN
-        frames_green_1.forEach(function (frame_id, index) {
-            if (index + 1 < frames_green_1.length) {
-                var start_id = frame_id
-                var end_id = frames_green_1[index + 1]
-                var start_element = document.querySelectorAll("[data-frame-id='" + start_id + "']")[0]
-                var end_element = document.querySelectorAll("[data-frame-id='" + end_id + "']")[0]
-                var start_anchor = LeaderLine.pointAnchor(start_element, {x: 45, y: 0})
-                var end_anchor = LeaderLine.pointAnchor(end_element, {x: 25, y: 0})
-                var intermediate_element = document.getElementById('frame-' + end_id + '-pre')
-                start_element.style.borderColor = color
-                end_element.style.borderColor = color
-                intermediate_element.style.top = '-50px'
-                lines.push(new LeaderLine(
-                    start_anchor,
-                    intermediate_element,
-                    {
-                        path: 'grid',
-                        endPlug: 'behind',
-                        startSocket: 'top',
-                        endSocket: 'left',
-                        color: color
-                    }
-                ))
-                lines.push(new LeaderLine(
-                    intermediate_element,
-                    end_anchor,
-                    {
-                        path: 'grid',
-                        endPlug: 'behind',
-                        startSocket: 'right',
-                        endSocket: 'top',
-                        color: color
-                    }
-                ))
-            }
-        })
-
-        // RIGHT
-        var color = 'indianred'
-        var start_id = 137
-        var end_id = 124
-        var last_element_id_first_line = 137
-        var last_element_second_line_id = 125
-        var start_element = document.querySelectorAll("[data-frame-id='" + start_id + "']")[0]
-        var end_element = document.querySelectorAll("[data-frame-id='" + end_id + "']")[0]
-        start_element.style.borderColor = color
-        end_element.style.borderColor = color
-        lines.push(new LeaderLine(
-            start_element,
-            document.getElementById('frame-' + last_element_id_first_line + '-post'),
-            {
-                path: 'grid',
-                endPlug: 'behind',
-                startSocket: 'top',
-                endSocket: 'left',
-                color: color
-            }
-        ))
-        lines.push(new LeaderLine(
-            document.getElementById('frame-' + last_element_id_first_line + '-post'),
-            document.getElementById('frame-' + last_element_second_line_id + '-post'),
-            {
-                path: 'grid',
+                endSocket: 'top',
+                dash: true,
+                color: color,
+                size: 2
+            }))
+            // Inter-switchs (BIS)
+            var start_id = 17
+            var end_id = 11
+            var start_element = document.querySelectorAll("[data-frame-id='" + start_id + "']")[0]
+            var end_element = document.querySelectorAll("[data-frame-id='" + end_id + "']")[0]
+            lines.push(new LeaderLine(start_element, end_element, {
+                path: 'fluid',
                 endPlug: 'behind',
                 startSocket: 'bottom',
                 endSocket: 'top',
-                color: color
-            }
-        ))
-        lines.push(new LeaderLine(
-            document.getElementById('frame-' + last_element_second_line_id + '-post'),
-            end_element,
-            {
-                path: 'grid',
-                endPlug: 'behind',
-                startSocket: 'left',
-                endSocket: 'bottom',
-                color: color
-            }
-        ))
-        // LEFT
-        var color = 'rgb(248, 205, 30)'
-        var start_id = 19
-        var end_id = 11
-        var first_element_id_first_line = 19
-        var first_element_second_line_id = 11
-        var start_element = document.querySelectorAll("[data-frame-id='" + start_id + "']")[0]
-        var end_element = document.querySelectorAll("[data-frame-id='" + end_id + "']")[0]
-        start_element.style.borderColor = color
-        end_element.style.borderColor = color
-        lines.push(new LeaderLine(
-            LeaderLine.pointAnchor(start_element, {x: 25, y: 0}),
-            document.getElementById('frame-' + first_element_id_first_line + '-pre'),
-            {
-                path: 'grid',
-                endPlug: 'behind',
-                startSocket: 'top',
-                endSocket: 'right',
-                color: color
-            }
-        ))
-        lines.push(new LeaderLine(
-            document.getElementById('frame-' + first_element_id_first_line + '-pre'),
-            document.getElementById('frame-' + first_element_second_line_id + '-pre'),
-            {
-                path: 'grid',
-                endPlug: 'behind',
-                startSocket: 'bottom',
-                endSocket: 'top',
-                color: color
-            }
-        ))
-        lines.push(new LeaderLine(
-            document.getElementById('frame-' + first_element_second_line_id + '-pre'),
-            end_element,
-            {
-                path: 'grid',
-                endPlug: 'behind',
-                startSocket: 'right',
-                endSocket: 'bottom',
-                color: color
-            }
-        ))
-
-
-        // Inter-switchs
-        var color = 'grey'
-        var start_id = 19
-        var end_id = 20
-        var start_element = document.querySelectorAll("[data-frame-id='" + start_id + "']")[0]
-        var end_element = document.querySelectorAll("[data-frame-id='" + end_id + "']")[0]
-        lines.push(new LeaderLine(start_element, end_element, {
-            path: 'fluid',
-            endPlug: 'behind',
-            startSocket: 'bottom',
-            endSocket: 'top',
-            dash: true,
-            color: color,
-            size: 2
-        }))
-        // Inter-switchs (BIS)
-        var start_id = 17
-        var end_id = 11
-        var start_element = document.querySelectorAll("[data-frame-id='" + start_id + "']")[0]
-        var end_element = document.querySelectorAll("[data-frame-id='" + end_id + "']")[0]
-        lines.push(new LeaderLine(start_element, end_element, {
-            path: 'fluid',
-            endPlug: 'behind',
-            startSocket: 'bottom',
-            endSocket: 'top',
-            dash: true,
-            color: color,
-            size: 2
-        }))
+                dash: true,
+                color: color,
+                size: 2
+            }))
+        }
 
         // HUBS
         drawInterHubsConnections()
 
-        // HUBS ORANGE
-        var color = 'orange'
-        var start_element = document.getElementById('hub1-4-1')
-        var end_element = document.querySelectorAll("[data-frame-id='19']")[0]
-        var end_anchor = LeaderLine.pointAnchor(end_element, {x: 5, y: 0})
-        lines.push(new LeaderLine(
-            start_element,
-            end_anchor,
-            {
-                path: 'fluid',
-                endPlug: 'behind',
-                startSocket: 'top',
-                endSocket: 'top',
-                color: color,
-                size: 3,
-                dash: true
-            }
-        ))
-        var end_element = document.querySelectorAll("[data-frame-id='11']")[0]
-        var end_anchor = LeaderLine.pointAnchor(end_element, {x: 5, y: 1})
-        lines.push(new LeaderLine(
-            start_element,
-            end_anchor,
-            {
-                path: 'fluid',
-                endPlug: 'behind',
-                startSocket: 'top',
-                endSocket: 'top',
-                color: color,
-                size: 3,
-                dash: true
-            }
-        ))
-        // HUBS VERT
-        var color = 'green'
-        var start_element = document.getElementById('hub2-4-1')
-        var end_element = document.querySelectorAll("[data-frame-id='17']")[0]
-        var end_anchor = LeaderLine.pointAnchor(end_element, {x: 5, y: 0})
-        lines.push(new LeaderLine(
-            start_element,
-            end_anchor,
-            {
-                path: 'fluid',
-                endPlug: 'behind',
-                startSocket: 'bottom',
-                endSocket: 'top',
-                color: color,
-                size: 3,
-                dash: true
-            }
-        ))
-        var end_element = document.querySelectorAll("[data-frame-id='20']")[0]
-        var end_anchor = LeaderLine.pointAnchor(end_element, {x: 5, y: 1})
-        lines.push(new LeaderLine(
-            start_element,
-            end_anchor,
-            {
-                path: 'fluid',
-                endPlug: 'behind',
-                startSocket: 'bottom',
-                endSocket: 'top',
-                color: color,
-                size: 3,
-                dash: true
-            }
-        ))
+        <% @connections.each do |server_id, destinations_ids| %>
+        <% destinations_ids.each do |dest_id| %>
+        drawInterSwitchsConnections('<%= server_id %>', '<%= dest_id %>')
+        <% end %>
+        <% end %>
+
     }
 
     function drawLine(startElement, endElement, params) {
-        lines.push(new LeaderLine(startElement, endElement, params))
+        if(startElement && endElement){
+            lines.push(new LeaderLine(startElement, endElement, params))
+        }
     }
 
     function drawInterHubsConnections() {
@@ -553,6 +449,108 @@
                 }
             )
         }
+    }
+
+    function drawInterSwitchsConnections(start_id, end_id) {
+        if (start_id!=end_id && current_connections.indexOf(end_id + "-" + start_id) < 0) {
+            var start_element = $('.server_' + start_id + ':visible')[0]
+            var end_element = $('.server_' + end_id + ':visible')[0]
+            // var start_anchor = LeaderLine.pointAnchor(start_element, {x: 42 + i * 20, y: 57})
+            // var end_anchor = LeaderLine.pointAnchor(end_element, {x: 42 + i * 20, y: 0})
+
+            // log("drawInterSwitchsConnections")
+            // log(start_id)
+            // log(start_element)
+            // log(end_id)
+            // log(end_element)
+
+
+            if (start_element && end_element) {
+                setParamsAndDraw(start_element, end_element)
+                current_connections.push(start_id + "-" + end_id)
+                log(start_id + ' <-> ' + end_id)
+            }
+        }
+    }
+
+    function setParamsAndDraw(start_element, end_element) {
+        var params;
+        start_parent = start_element.closest('.overviewed_frame')
+        end_parent = end_element.closest('.overviewed_frame')
+
+        if ($(start_element).hasClass('hub-top') && !($(end_element).hasClass('hub-bottom'))) {
+            // HUB 1 - ORANGE LINES
+            end_parent = LeaderLine.pointAnchor(end_element.closest('.overviewed_frame'), {x: 5, y: 0})
+            params = {
+                path: 'fluid',
+                startPlug: 'behind',
+                endPlug: 'behind',
+                startSocket: 'top',
+                endSocket: 'top',
+                color: 'orange',
+                size: 3,
+                dash: true
+            }
+        }
+        if ($(start_element).hasClass('hub-bottom') && !($(end_element).hasClass('hub-top'))) {
+            // HUB 2 - GREEN LINES
+            end_parent = LeaderLine.pointAnchor(end_element.closest('.overviewed_frame'), {x: 5, y: 0})
+            params = {
+                path: 'fluid',
+                startPlug: 'behind',
+                endPlug: 'behind',
+                startSocket: 'bottom',
+                endSocket: 'top',
+                color: 'green',
+                size: 3,
+                dash: true
+            }
+        }
+
+        if ($(start_element).hasClass('lane-1') && $(end_element).hasClass('lane-1')) {
+            // LANE 1 - INTER SWITCHS - 2 AT TOP
+            params = {
+                path: 'fluid',
+                startPlug: 'behind',
+                endPlug: 'behind',
+                startSocket: 'bottom',
+                endSocket: 'bottom',
+                color: 'grey',
+                size: 2,
+                dash: true
+            }
+        }
+
+        if ($(start_element).hasClass('lane-2') && $(end_element).hasClass('lane-2')) {
+            // LANE 2 - INTER SWITCHS - 2 AT BOTTOM
+            params = {
+                path: 'fluid',
+                startPlug: 'behind',
+                endPlug: 'behind',
+                startSocket: 'top',
+                endSocket: 'top',
+                color: 'grey',
+                size: 2,
+                dash: true
+            }
+        }
+
+        // Default
+        if (!params) {
+            params = {
+                path: 'fluid',
+                startPlug: 'behind',
+                endPlug: 'arrow',
+                startSocket: 'right',
+                endSocket: 'bottom',
+                color: 'transparent',
+                size: 2
+            }
+        }
+
+        drawLine((start_parent ? start_parent : start_element),
+            (end_parent ? end_parent : end_element),
+            params)
     }
 
 </script>

@@ -93,7 +93,7 @@ class Server < ActiveRecord::Base
     connected_ports.each do |port|
       if port.card && port.card.twin_card_id
         twin_card = Card.find(port.card.twin_card_id)
-        twin_card_port = twin_card.ports.where(position: port.position).first
+        twin_card_port = twin_card.ports.includes(:connection).where(position: port.position).first
         if twin_card_port
           @servers_ids << twin_card_port.paired_connection.port.server_id if twin_card_port.paired_connection
         end
@@ -105,10 +105,12 @@ class Server < ActiveRecord::Base
 
   def directly_connected_servers_ids
     connected_ports.map(&:server_id)
-  end
+  end   
 
   def connected_ports
-    ports.map(&:paired_connection).reject(&:nil?).map(&:port).reject(&:nil?)
+    cables_ids = ports.includes(:connection => [:cable]).map(&:connection).reject(&:nil?).map(&:cable).map(&:id)
+    connections = Connection.includes(:port => [:card]).joins(:cable).where(cable_id: cables_ids).where.not(port_id: ports.map(&:id))
+    connections.map(&:port).reject(&:nil?)
   end
 
   private
