@@ -138,9 +138,8 @@
     padding-top: 15px;
     padding-bottom: 15px;
     margin-bottom: 0;
-    li.active a{
-      // color: #555555;
-      // text-decoration: underline;
+    li.active{
+      list-style-type: disc;
     }
   }
   .room-actions {
