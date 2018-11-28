@@ -123,6 +123,7 @@ class RoomsController < ApplicationController
 
     @concentrateurs = Server.where(id: [383, 384, 1043, 1044]).includes(:ports => :connection, :cards => [:ports => :connection])
     @switchs_lan_ids = Server.joins(:modele).where('modeles.category_id = ?', 14).map(&:id) # Switch LAN
+
     @hubs = {:one_giga => {4 => Server.find(383), 3 => Server.find(384)}, :ten_giga => {4 => Server.find(1043), 3 => Server.find(1044)}} # Concentrateurs per room
 
     @connections = {}
