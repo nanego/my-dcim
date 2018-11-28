@@ -1,6 +1,6 @@
 class Islet < ActiveRecord::Base
 
-  belongs_to :room
+  belongs_to :room, counter_cache: true
   has_many :bays
   has_many :frames, through: :bays
   has_many :servers, through: :frames

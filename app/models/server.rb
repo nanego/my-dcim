@@ -105,7 +105,7 @@ class Server < ActiveRecord::Base
 
   def directly_connected_servers_ids
     connected_ports.map(&:server_id)
-  end   
+  end
 
   def connected_ports
     cables_ids = ports.includes(:connection => [:cable]).map(&:connection).reject(&:nil?).map(&:cable).map(&:id)

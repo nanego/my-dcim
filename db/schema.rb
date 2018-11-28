@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180719140426) do
+ActiveRecord::Schema.define(version: 20181128085630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -335,6 +335,7 @@ ActiveRecord::Schema.define(version: 20180719140426) do
     t.integer "position"
     t.boolean "display_on_home_page"
     t.integer "site_id"
+    t.integer "islets_count", default: 0
     t.index ["site_id"], name: "index_rooms_on_site_id"
     t.index ["slug"], name: "index_rooms_on_slug", unique: true
   end
