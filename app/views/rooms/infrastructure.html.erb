@@ -8,15 +8,9 @@
 
       <ul class="list-unstyled col-xs-2 hidden-sm menu-rooms">
 
-        <!-- Choix de la couleur de fond des serveurs -->
-        <div class="btn-group" style="width: 100%">
-          <button style="width: 100%;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= params[:view_infra] == 'core' ? 'Réseau Gb et Réseau 10Gb' : 'Réseau Gb et Réseau 10Gb' %> <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" style="width: 100%;">
-            <li><%= link_to 'Réseau Gb', url_for(params.except(:controller, :action).permit(:room, :islet, :id, :view_infra, :format).merge({:view_infra => 'core', islet: params[:islet], id: params[:id]})) %></li>
-            <li><%= link_to 'Réseau 10Gb', url_for(params.except(:controller, :action).permit(:room, :islet, :id, :view_infra, :format).merge({:view_infra => 'core', islet: params[:islet], id: params[:id]})) %></li>
-          </ul>
+        <div class="btn-group btn-toggle">
+          <button class="btn btn-primary active" data-toggle="tab" role="tab">Réseau Gb</button>
+          <button class="btn btn-default" data-toggle="tab" role="tab">Réseau 10Gb</button>
         </div>
 
         <li class="divider" style="border-bottom: 1px lightgray solid;margin:10px -10px 8px -10px;"></li>
@@ -552,5 +546,15 @@
             (end_parent ? end_parent : end_element),
             params)
     }
+
+
+    $('.btn-toggle').click(function() {
+        $(this).find('.btn').toggleClass('active');
+        if ($(this).find('.btn-primary').size()>0) {
+            $(this).find('.btn').toggleClass('btn-primary');
+        }
+        $(this).find('.btn').toggleClass('btn-default');
+
+    });
 
 </script>
