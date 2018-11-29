@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181128085630) do
+ActiveRecord::Schema.define(version: 20181128151255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -384,6 +384,7 @@ ActiveRecord::Schema.define(version: 20181128085630) do
     t.string "slug"
     t.string "side"
     t.string "color"
+    t.integer "network_id"
     t.index ["cluster_id"], name: "index_servers_on_cluster_id"
     t.index ["domaine_id"], name: "index_servers_on_domaine_id"
     t.index ["frame_id"], name: "index_servers_on_frame_id"

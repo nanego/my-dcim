@@ -121,14 +121,14 @@ class RoomsController < ApplicationController
     @room = @sites.first.rooms.order(:position).first
     @islet = @room.islets.first
 
-    @concentrateurs = Server.where(id: [383, 384, 1043, 1044]).includes(:ports => :connection, :cards => [:ports => :connection])
-    @switchs_lan_ids = Server.joins(:modele).where('modeles.category_id = ?', 14).map(&:id) # Switch LAN
-
-    @hubs = {:one_giga => {4 => Server.find(383), 3 => Server.find(384)}, :ten_giga => {4 => Server.find(1043), 3 => Server.find(1044)}} # Concentrateurs per room
+    @concentrateurs_ids = [383, 384, 1043, 1044]
+    @concentrateurs = Server.where(id: @concentrateurs_ids).includes(:ports => :connection, :cards => [:ports => :connection])
+    @switchs_lan_ids = @concentrateurs_ids | Server.where("network_id IS NOT NULL").map(&:id) # Switch LAN
+    @hubs = {1 => {4 => Server.find(383), 3 => Server.find(384)}, 2 => {4 => Server.find(1043), 3 => Server.find(1044)}} # Concentrateurs per room
 
     @connections = {}
     @servers = Server.includes(:ports, :cards => [:ports]). #includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
-        where('servers.id IN (?)', @switchs_lan_ids)
+                   where("network_id IS NOT NULL")
     @servers.each do |server|
       @connections[server.id] = server.directly_connected_servers_ids.reject{|id| @switchs_lan_ids.exclude?(id)}
     end
@@ -136,23 +136,19 @@ class RoomsController < ApplicationController
       @connections[hub.id] = hub.connected_servers_ids_through_twin_cards.reject{|id| @switchs_lan_ids.exclude?(id)}
     end
 
-    puts "@@@connections : #{@connections.inspect}"
+    # puts "@@@connections : #{@connections.inspect}"
   end
 
   def filtered_overview
   end
 
-  # GET /rooms/new
   def new
     @room = Room.new
   end
 
-  # GET /rooms/1/edit
   def edit
   end
 
-  # POST /rooms
-  # POST /rooms.json
   def create
     @room = Room.new(room_params)
 
@@ -167,8 +163,6 @@ class RoomsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /rooms/1
-  # PATCH/PUT /rooms/1.json
   def update
     respond_to do |format|
       if @room.update(room_params)
@@ -181,8 +175,6 @@ class RoomsController < ApplicationController
     end
   end
 
-  # DELETE /rooms/1
-  # DELETE /rooms/1.json
   def destroy
     @room.destroy
     respond_to do |format|

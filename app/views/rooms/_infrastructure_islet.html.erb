@@ -5,13 +5,13 @@
   <% if room.id == 4 || room.id == 3 %>
     <% second_room_id = room.id == 4 ? 3 : 4 %>
     <div class="hubs">
-      <div class="hub_material hub-top server_<%= @hubs[:one_giga][room.id].id %>" id="hub1-<%= room.id %>-<%= islet %>" style="text-align: center;">
-        <%= link_to ("Concentrateur<br>#{@hubs[:one_giga][room.id]}").html_safe, server_path(@hubs[:one_giga][room.id]) %>
+      <div class="hub_material hub-top server_<%= @hubs[network][room.id].id %>" id="hub1-<%= room.id %>-<%= islet %>" style="text-align: center;">
+        <%= link_to ("Concentrateur<br>#{@hubs[network][room.id]}").html_safe, server_path(@hubs[network][room.id]) %>
       </div>
       <div style="border: 1px lightgray solid;position: absolute;bottom:100px;padding: 0 10px 10px 4px;margin: -10px;">
         <span style="color: grey;"><%= Room.find(second_room_id) %></span>
-        <div class="hub_material hub-bottom server_<%= @hubs[:one_giga][second_room_id].id %>" id="hub2-<%= room.id %>-<%= islet %>" style="margin-left: 6px;text-align: center;">
-          <%= link_to ("Concentrateur<br>#{@hubs[:one_giga][second_room_id]}").html_safe, server_path(@hubs[:one_giga][second_room_id]) %>
+        <div class="hub_material hub-bottom server_<%= @hubs[network][second_room_id].id %>" id="hub2-<%= room.id %>-<%= islet %>" style="margin-left: 6px;text-align: center;">
+          <%= link_to ("Concentrateur<br>#{@hubs[network][second_room_id]}").html_safe, server_path(@hubs[network][second_room_id]) %>
         </div>
       </div>
     </div>
@@ -40,7 +40,7 @@
               <div id="frame-<%= frame.id %>-post" class="intermediate-point post <%= bay.lane.to_i.even? ? 'even' : 'odd' %>" style="z-index: -3000;">.</div>
 
               <ul>
-                <% servers = frame.servers.joins(:modele).includes(:bay, :modele => :category).where('modeles.category_id = ?', 14) # Switch LAN %>
+                <% servers = frame.servers.includes(:bay, :modele).where(network_id: network) # Switch LAN %>
                 <% server_height = 10 %>
 
                 <% servers.each do |server| %>

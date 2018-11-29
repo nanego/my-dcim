@@ -331,11 +331,13 @@
         }
 
         // HUBS
-        drawInterHubsConnections()
+        // drawInterHubsConnections()
 
         <% @connections.each do |server_id, destinations_ids| %>
         <% destinations_ids.each do |dest_id| %>
-        drawInterSwitchsConnections('<%= server_id %>', '<%= dest_id %>')
+        <% unless @concentrateurs_ids.include?(dest_id) && @concentrateurs_ids.exclude?(server_id)  %>
+          drawInterSwitchsConnections('<%= server_id %>', '<%= dest_id %>')
+        <% end %>
         <% end %>
         <% end %>
 
@@ -373,23 +375,16 @@
             var end_element = $('.server_' + end_id + ':visible')[0]
             // var start_anchor = LeaderLine.pointAnchor(start_element, {x: 42 + i * 20, y: 57})
             // var end_anchor = LeaderLine.pointAnchor(end_element, {x: 42 + i * 20, y: 0})
-
-            // log("drawInterSwitchsConnections")
-            // log(start_id)
-            // log(start_element)
-            // log(end_id)
-            // log(end_element)
-
             if (start_element && end_element) {
                 setParamsAndDraw(start_element, end_element)
-                current_connections.push(start_id + "-" + end_id)
+                // current_connections.push(start_id + "-" + end_id)
                 log(start_id + ' <-> ' + end_id)
             }
         }
     }
 
     function setParamsAndDraw(start_element, end_element) {
-        var params;
+        var params
         start_parent = start_element.closest('.overviewed_frame')
         end_parent = end_element.closest('.overviewed_frame')
 
@@ -452,13 +447,16 @@
 
         // Default
         if (!params) {
+            log('GREY LINK')
+            log(start_element)
+            log(end_element)
             params = {
-                path: 'fluid',
+                path: 'straight',
                 startPlug: 'behind',
-                endPlug: 'arrow',
-                startSocket: 'right',
-                endSocket: 'bottom',
-                color: 'transparent',
+                endPlug: 'behind',
+                startSocket: 'bottom',
+                endSocket: 'top',
+                color: inter_hubs_color,
                 size: 2
             }
         }
