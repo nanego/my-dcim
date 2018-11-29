@@ -468,6 +468,7 @@
             params)
     }
 
+    // Network switcher
     $('.btn-toggle').click(function (e) {
         e.preventDefault()
         // Update switcher state
@@ -483,6 +484,15 @@
             $(this).parent('li').removeClass('active')
         })
         current_tab.tab('show')
+    })
+    // Room selection
+    $('.show_room li a.tab').click(function(e){
+        e.preventDefault()
+        var tabs = $('.show_room li a.tab')
+        tabs.each(function () { // Remove all active class
+            $(this).parent('li').removeClass('active')
+        })
+        $(this).tab('show')
     })
 
 </script>
