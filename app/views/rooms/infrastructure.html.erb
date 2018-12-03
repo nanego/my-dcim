@@ -336,7 +336,7 @@
         <% @connections.each do |server_id, destinations_ids| %>
         <% destinations_ids.each do |dest_id| %>
         <% unless @concentrateurs_ids.include?(dest_id) && @concentrateurs_ids.exclude?(server_id)  %>
-          drawInterSwitchsConnections('<%= server_id %>', '<%= dest_id %>')
+        drawInterSwitchsConnections('<%= server_id %>', '<%= dest_id %>')
         <% end %>
         <% end %>
         <% end %>
@@ -385,12 +385,10 @@
 
     function setParamsAndDraw(start_element, end_element) {
         var params
-        start_parent = start_element.closest('.overviewed_frame')
-        end_parent = end_element.closest('.overviewed_frame')
 
         if ($(start_element).hasClass('hub-top') && !($(end_element).hasClass('hub-bottom'))) {
             // HUB 1 - ORANGE LINES
-            end_parent = LeaderLine.pointAnchor(end_element.closest('.overviewed_frame'), {x: 5, y: 0})
+            end_element = LeaderLine.pointAnchor(end_element, {x: 5, y: 0})
             params = {
                 path: 'fluid',
                 startPlug: 'behind',
@@ -404,7 +402,7 @@
         }
         if ($(start_element).hasClass('hub-bottom') && !($(end_element).hasClass('hub-top'))) {
             // HUB 2 - GREEN LINES
-            end_parent = LeaderLine.pointAnchor(end_element.closest('.overviewed_frame'), {x: 5, y: 0})
+            end_element = LeaderLine.pointAnchor(end_element, {x: 5, y: 0})
             params = {
                 path: 'fluid',
                 startPlug: 'behind',
@@ -437,8 +435,8 @@
                 path: 'fluid',
                 startPlug: 'behind',
                 endPlug: 'behind',
-                startSocket: 'top',
-                endSocket: 'top',
+                startSocket: 'bottom',
+                endSocket: 'bottom',
                 color: 'grey',
                 size: 2,
                 dash: true
@@ -461,9 +459,7 @@
             }
         }
 
-        drawLine((start_parent ? start_parent : start_element),
-            (end_parent ? end_parent : end_element),
-            params)
+        drawLine(start_element, end_element, params)
     }
 
     // Network switcher
@@ -484,7 +480,7 @@
         current_tab.tab('show')
     })
     // Room selection
-    $('.show_room li a.tab').click(function(e){
+    $('.show_room li a.tab').click(function (e) {
         e.preventDefault()
         var tabs = $('.show_room li a.tab')
         tabs.each(function () { // Remove all active class
@@ -492,5 +488,11 @@
         })
         $(this).tab('show')
     })
+    // Click on switchs
+    $('.overviewed_frame .server').click(function () {
+        var url = $(this).data('url')
+        window.open(url, '_blank');
+    })
+
 
 </script>

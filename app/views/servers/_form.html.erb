@@ -63,6 +63,10 @@
     <div class="col-sm-10">
       <%= f.select(:network_id, [["Réseau Gb", 1], ["Réseau 10Gb", 2]], {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
     </div>
+    <%= f.label 'Stack', class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.select(:stack_id, [["Bleu", 1], ["Rouge", 2]], {:prompt => true, :include_blank => true}, {class: "form-control"}) %>
+    </div>
   </div>
 
   <% if f.object.persisted? && @server.modele %>

@@ -51,10 +51,15 @@
 
                   <% data = {:u => u_server,
                              :rj45_futur => server.try(:rj45_futur) || 0,
-                             :fc_futur => server.try(:fc_futur)} %>
+                             :fc_futur => server.try(:fc_futur),
+                             :url => server_url(server)
+                  } %>
 
                   <%= content_tag_for :li, server,
-                                      class: "server_#{server.id} lane-#{server.bay.lane} truncate #{server.modele.try(:category).try(:name).try(:parameterize)}",
+                                      class: "server_#{server.id}
+                                      lane-#{server.bay.lane}
+                                      truncate #{server.modele.try(:category).try(:name).try(:parameterize)}
+                                      #{"bordered" if server != servers.last}",
                                       style: "height: #{server_height * u_server}px;background-color:#{bgModeleColor} !important;",
                                       title: h("#{server.name}"),
                                       :data => data %>

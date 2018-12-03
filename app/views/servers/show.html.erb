@@ -17,7 +17,8 @@
 
 <p><%= link_to "<< Baie #{@server.frame.try(:name)}", frame_path(@server.frame, :view => params[:view]), class: 'btn btn-default', style: 'text-decoration: underline;' if @server.frame %></p>
 
-<div class="detailed_server list-group-item">
+<% bgModeleColor = define_background_color(server: @server, mode: params['bg']) %>
+<div class="detailed_server list-group-item" style="background-color:<%= bgModeleColor %> !important;">
   <%= render 'draw_server_compact_front.html.erb', server: @server %>
   <span class="clearfix"></span>
 </div>
