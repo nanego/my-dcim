@@ -29,6 +29,10 @@ gem 'simple_form'
 gem 'datagrid'
 gem 'kaminari'
 gem 'virtus'
+
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.1.0', require: false
+
 group :development do
   gem 'web-console', '~> 2.0'
   # gem 'spring'
