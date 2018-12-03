@@ -58,7 +58,7 @@
                   <%= content_tag_for :li, server,
                                       class: "server_#{server.id}
                                       lane-#{server.bay.lane}
-                                      truncate #{server.modele.try(:category).try(:name).try(:parameterize)}
+                                      truncate
                                       #{"bordered" if server != servers.last}",
                                       style: "height: #{server_height * u_server}px;background-color:#{bgModeleColor} !important;",
                                       title: h("#{server.name}"),
