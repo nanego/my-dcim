@@ -124,6 +124,10 @@
 </div>
 
 <div class="col-lg-6">
+  <% if @server.photo.attached? %>
+    <%= image_tag @server.photo.variant(geometry: "x220"), class: "server_photo", style: "margin-left:0;" %>
+    <br/>
+  <% end %>
   <div class="panel panel-body">
     <H5>Documents attachés :</H5>
     <ul>

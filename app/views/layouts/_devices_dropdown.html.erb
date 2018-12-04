@@ -11,7 +11,7 @@
         Gestionnaire
       </a>
       <ul class="dropdown-menu">
-        <% Gestion.order('LOWER(name) asc').each do |c| %>
+        <% Gestion.order(Gestion.arel_table[:name].lower).each do |c| %>
             <li <%= "class=active" if params[:gestion_id]==c.id.to_s %> >
               <%= link_to c.name, overview_rooms_path(gestion_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
             </li>
@@ -25,7 +25,7 @@
       <ul class="dropdown-menu">
         <li>
           <div class="row" style="width: 600px;">
-            <% Cluster.order('LOWER(name) asc').in_groups(3).each do |clusters| %>
+            <% Cluster.order(Cluster.arel_table[:name].lower).in_groups(3).each do |clusters| %>
                 <ul class="list-unstyled col-md-4">
                   <% clusters.each do |c| %>
                       <% if c.present? %>

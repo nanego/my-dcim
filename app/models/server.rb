@@ -26,6 +26,7 @@ class Server < ActiveRecord::Base
   has_many :moves, as: :moveable, dependent: :destroy
 
   has_many :documents
+  has_one_attached :photo
 
   validates_presence_of :numero
   validates_uniqueness_of :numero

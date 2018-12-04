@@ -1,13 +1,14 @@
-<%= form_for(@server, html: { class: "form-horizontal", role: "form" }) do |f| %>
+<%= form_for(@server, html: {class: "form-horizontal", role: "form"}) do |f| %>
   <% if @server.errors.any? %>
     <div class="alert alert-danger alert-dismissable" role="alert">
-      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
       <h4><%= pluralize(@server.errors.count, "erreur", "erreurs") %> lors de la sauvegarde :</h4>
 
       <ul>
-      <% @server.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @server.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
@@ -112,8 +113,8 @@
       <div class="panel panel-default">
         <ul class="list-group">
           <%= f.fields_for :disks do |builder| %>
-            <%= render "disk_fields", :f => builder %>
-          <% end %>
+      <%= render "disk_fields", :f => builder %>
+    <% end %>
         </ul>
         <div class="panel-footer"><%= link_to_add_fields "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter des disques".html_safe, f, :disks %></div>
       </div>
@@ -122,8 +123,8 @@
       <div class="panel panel-default">
         <ul class="list-group">
           <%= f.fields_for :memory_components do |builder| %>
-            <%= render "memory_component_fields", :f => builder %>
-          <% end %>
+      <%= render "memory_component_fields", :f => builder %>
+    <% end %>
         </ul>
         <div class="panel-footer"><%= link_to_add_fields "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter de la RAM".html_safe, f, :memory_components %></div>
       </div>
@@ -143,7 +144,7 @@
       <div class="panel panel-default">
         <div class="col-sm-12">
           <%= f.fields_for :documents do |builder| %>
-              <%= render "document_fields", :f => builder %>
+            <%= render "document_fields", :f => builder %>
           <% end %>
         </div>
         <div class="panel-footer">
@@ -152,11 +153,20 @@
       </div>
     </div>
 
+    <%= f.label 'Photo', class: "col-sm-1 control-label" %>
+    <div class="col-sm-11">
+      <%= f.file_field :photo %>
+      <% if @server.photo.attached? %>
+        <%= image_tag @server.photo.variant(geometry: "x200"), class: "server_photo", style: "margin-left:0;" %>
+        <br/>
+      <% end %>
+    </div>
+
   </div>
 
   <div class="form-group" style="clear:both;">
     <div class="col-sm-offset-1 col-sm-11">
-      <%= f.submit "Modifier ce matériel",class: "btn btn-primary" %>
+      <%= f.submit "Modifier ce matériel", class: "btn btn-primary" %>
     </div>
   </div>
 <% end %>
