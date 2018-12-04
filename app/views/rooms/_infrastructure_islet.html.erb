@@ -28,7 +28,11 @@
 
           <% bay.frames.sorted.each_with_index do |frame, index| %>
 
-            <div class="overviewed_frame <%= 'no-margin' if index > 0 %> <%= 'highlighted' if @frames && @frames.include?(frame) %>"
+            <% server_height = 10 %>
+            <% servers = frame.servers.includes(:bay, :modele).where(network_id: network) # Switch LAN %>
+            <% stacks = servers.map(&:stack_id).uniq.sort %>
+
+            <div class="overviewed_frame <%= 'no-margin' if index > 0 %> stack-<%= stacks.join('-') %> <%= 'highlighted' if @frames && @frames.include?(frame) %>"
                  data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.id %>">
 
               <div id="frame-<%= frame.id %>-pre" class="intermediate-point pre <%= bay.lane.to_i.even? ? 'even' : 'odd' %>" style="z-index: -3000;">.</div>
@@ -40,9 +44,6 @@
               <div id="frame-<%= frame.id %>-post" class="intermediate-point post <%= bay.lane.to_i.even? ? 'even' : 'odd' %>" style="z-index: -3000;">.</div>
 
               <ul>
-                <% servers = frame.servers.includes(:bay, :modele).where(network_id: network) # Switch LAN %>
-                <% server_height = 10 %>
-
                 <% servers.each do |server| %>
 
                   <% bgModeleColor = define_background_color(server: server, mode: params['bg']) %>

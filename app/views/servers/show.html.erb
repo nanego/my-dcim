@@ -91,6 +91,9 @@
       <dt>Etat :</dt>
       <dd><%= @server.server_state %></dd>
 
+      <dt>Stack :</dt>
+      <dd><span class="glyphicon glyphicon-stop <%= @server.stack_id == 1 ? 'red' : "green" %>" aria-hidden="true"></span></dd>
+
       <dt>Cartes :</dt>
       <% nb_cards = 0 %>
       <% @server.modele.composants.slots.each do |slot| %>

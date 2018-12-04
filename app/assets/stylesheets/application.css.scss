@@ -423,3 +423,12 @@ span.port_container.unreferenced_client a {
 .ui-resizable-se {
   display: none !important;
 }
+
+.glyphicon{
+  &.red{
+    color: #ee3b3b;
+  }
+  &.green{
+    color: #008000;
+  }
+}
