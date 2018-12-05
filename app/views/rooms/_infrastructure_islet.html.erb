@@ -30,7 +30,7 @@
 
             <% server_height = 10 %>
             <% servers = frame.servers.includes(:bay, :modele).where(network_id: network) # Switch LAN %>
-            <% stacks = servers.map(&:stack_id).uniq.sort %>
+            <% stacks = servers.map(&:stack_id).uniq.reject{|s|s.nil?}.sort %>
 
             <div class="overviewed_frame <%= 'no-margin' if index > 0 %> stack-<%= stacks.join('-') %> <%= 'highlighted' if @frames && @frames.include?(frame) %>"
                  data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.id %>">
