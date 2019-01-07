@@ -5,7 +5,7 @@ class ServersController < ApplicationController
 
   def index
     unless params[:servers_grid].present?
-      params[:servers_grid] = {"column_names"=>["id", "name", "type"]}
+      params[:servers_grid] = {"column_names" => ["id", "name", "type"]}
     end
 
     @servers = ServersGrid.new(params[:servers_grid])
@@ -51,11 +51,11 @@ class ServersController < ApplicationController
     respond_to do |format|
       if @server.save
         @server.create_activity action: 'create', owner: current_user
-        format.html { redirect_to @server, notice: 'Server was successfully created.' }
-        format.json { render :show, status: :created, location: @server }
+        format.html {redirect_to @server, notice: 'Server was successfully created.'}
+        format.json {render :show, status: :created, location: @server}
       else
-        format.html { render :new }
-        format.json { render json: @server.errors, status: :unprocessable_entity }
+        format.html {render :new}
+        format.json {render json: @server.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -67,11 +67,11 @@ class ServersController < ApplicationController
       if @server.save
         updated_values.merge!(track_frame_and_position(old_values, @server.attributes)) if updated_values.key?("position") || updated_values.key?("frame_id")
         @server.create_activity action: 'update', parameters: updated_values, owner: current_user
-        format.html { redirect_to @server, notice: 'Server was successfully updated.' }
-        format.json { render :show, status: :ok, location: @server }
+        format.html {redirect_to @server, notice: 'Server was successfully updated.'}
+        format.json {render :show, status: :ok, location: @server}
       else
-        format.html { render :edit }
-        format.json { render json: @server.errors, status: :unprocessable_entity }
+        format.html {render :edit}
+        format.json {render json: @server.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -81,46 +81,53 @@ class ServersController < ApplicationController
   end
 
   def import
-    new_frame = ImportEquipmentByCSV.call(file: params[:import][:file],
-                                          room_id: params[:import][:room_id],
-                                          equipment_status_id: params[:import][:server_state_id])
-    redirect_to frame_path(new_frame), notice: 'Les nouveaux serveurs ont été ajoutés'
+    value = ImportEquipmentByCSV.call(file: params[:import][:file],
+                                      room_id: params[:import][:room_id],
+                                      equipment_status_id: params[:import][:server_state_id])
+    if value.is_a?(Frame)
+      redirect_to frame_path(value), notice: 'Les nouveaux serveurs ont été ajoutés'
+    else
+      @import_error = value
+      render :import_csv
+    end
+
   end
 
   def destroy
     @server.create_activity action: 'destroy', parameters: @server.attributes, owner: current_user
     @server.destroy
     respond_to do |format|
-      format.html { redirect_to servers_grids_path, notice: 'Server was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html {redirect_to servers_grids_path, notice: 'Server was successfully destroyed.'}
+      format.json {head :no_content}
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_server
-      @server = Server.where('lower(numero) = ?', params[:id].to_s.downcase).includes(:cards => [:ports => [:connection, :cable], :card_type => [:port_type]]).first
-      @server = Server.friendly.find(params[:id].to_s.downcase) unless @server
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def server_params
-      params.require(:server).permit(:photo, :stack_id, :network_id, :server_state_id, :comment, :cluster_id, :position, :frame_id, :gestion_id, :fc_futur, :rj45_cm, :category_id, :name, :nb_elts, :architecture_id, :u, :manufacturer_id, :modele_id, :numero, :conso, :critique, :domaine_id, :gestion_id, :fc_total, :fc_utilise, :rj45_total, :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur, :rg45_cm, :ipmi_dedie, :frame,
-                                     :cards_attributes => [:composant_id, :card_type_id, :_destroy, :id, :twin_card_id, :orientation, :name],
-                                     :disks_attributes => [:quantity, :disk_type_id, :_destroy, :id],
-                                     :memory_components_attributes => [:quantity, :memory_type_id, :_destroy, :id],
-                                     :documents_attributes => [:document, :id, :_destroy]
-      )
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_server
+    @server = Server.where('lower(numero) = ?', params[:id].to_s.downcase).includes(:cards => [:ports => [:connection, :cable], :card_type => [:port_type]]).first
+    @server = Server.friendly.find(params[:id].to_s.downcase) unless @server
+  end
 
-    def track_frame_and_position(old_values, new_values)
-      new_params = {}
-      new_params['frame'] = [Frame.find_by_id(old_values['frame_id']).to_s, Frame.find_by_id(new_values['frame_id']).to_s]
-      new_params['position'] = [old_values['position'].to_s, new_values['position'].to_s]
-      #%W"position frame_id".each do |attribute|
-      #  new_params[attribute] = [old_values[attribute].to_s, new_values[attribute]]
-      #end
-      return new_params
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def server_params
+    params.require(:server).permit(:photo, :stack_id, :network_id, :server_state_id, :comment, :cluster_id, :position, :frame_id, :gestion_id, :fc_futur, :rj45_cm, :category_id, :name, :nb_elts, :architecture_id, :u, :manufacturer_id, :modele_id, :numero, :conso, :critique, :domaine_id, :gestion_id, :fc_total, :fc_utilise, :rj45_total, :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur, :rg45_cm, :ipmi_dedie, :frame,
+                                   :cards_attributes => [:composant_id, :card_type_id, :_destroy, :id, :twin_card_id, :orientation, :name],
+                                   :disks_attributes => [:quantity, :disk_type_id, :_destroy, :id],
+                                   :memory_components_attributes => [:quantity, :memory_type_id, :_destroy, :id],
+                                   :documents_attributes => [:document, :id, :_destroy]
+    )
+  end
+
+  def track_frame_and_position(old_values, new_values)
+    new_params = {}
+    new_params['frame'] = [Frame.find_by_id(old_values['frame_id']).to_s, Frame.find_by_id(new_values['frame_id']).to_s]
+    new_params['position'] = [old_values['position'].to_s, new_values['position'].to_s]
+    #%W"position frame_id".each do |attribute|
+    #  new_params[attribute] = [old_values[attribute].to_s, new_values[attribute]]
+    #end
+    return new_params
+  end
 
 end

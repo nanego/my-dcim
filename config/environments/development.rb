@@ -74,7 +74,7 @@ Rails.application.configure do
                                             :sender_address => [Rails.application.secrets.sender_address],
                                             :exception_recipients => [Rails.application.secrets.exception_recipients]
                                           }
-  config.action_mailer.delivery_method = :letter_opener
+  # config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.default_url_options = { :host => Rails.application.secrets.domain_name }
 
 end

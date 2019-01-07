@@ -15,32 +15,40 @@ class ImportEquipmentByCSV
   end
 
   def call
-    islet = room.islets.first
-    bay = islet.bays.create!(lane: 1, name: file.original_filename.sub('.csv', ''))
-    frame = bay.frames.create!(name: bay.name)
-    CSV.foreach(file.path, {headers: true, col_sep: ';' }) do |row|
-      data = row.to_hash
-      if data.present?
-        modele = Modele.find_by_name(data['Modele'])
-        raise "Modèle inconnu - #{data['Modele']}" if modele.blank?
-        raise "Modèle incomplet : Pas d'enclosure - #{data['Modele']}" if modele.enclosures.empty?
-        server = Server.new(frame: frame)
-        server.server_state = equipment_status
-        server.modele = modele
-        server.name = data['Nom']
-        server.numero = data['Numero']
-        raise "Les numéros de série doivent être présent - #{data['Numero']}" if server.numero.blank?
-        server.critique = (data['Critique'] == 'oui')
-        server.cluster = Cluster.find_or_create_by!(name: data['Cluster'])
-        server.domaine = Domaine.find_or_create_by!(name: data['Domaine'])
-        init_slots(data, server)
-        unless server.save
-          raise "Problème lors de l'ajout par fichier CSV : #{server.errors.messages}"
+    begin
+      ApplicationRecord.transaction do
+      islet = room.islets.first
+      bay = islet.bays.create!(lane: 1,
+                               name: file.original_filename.sub('.csv', ''),
+                               bay_type_id: 1)
+      frame = bay.frames.create!(name: bay.name)
+        CSV.foreach(file.path, {headers: true, col_sep: ';' }) do |row|
+          data = row.to_hash
+          if data.present?
+            modele = Modele.find_by_name(data['Modele'])
+            raise "Modèle inconnu - #{data['Modele']}" if modele.blank?
+            raise "Modèle incomplet : Pas d'enclosure - #{data['Modele']}" if modele.enclosures.empty?
+            server = Server.new(frame: frame)
+            server.server_state = equipment_status
+            server.modele = modele
+            server.name = data['Nom']
+            server.numero = data['Numero']
+            raise "Les numéros de série doivent être présent" if server.numero.blank?
+            server.critique = (data['Critique'] == 'oui')
+            server.cluster = Cluster.find_or_create_by!(name: data['Cluster'])
+            server.domaine = Domaine.find_or_create_by!(name: data['Domaine'])
+            init_slots(data, server)
+            unless server.save
+              raise "Erreur lors de l'ajout d'une machine - Les numéros de série doivent être uniques"
+            end
+          end
         end
+        frame.compact_u.save
+        return frame
       end
+    rescue Exception => e
+      return e.message
     end
-    frame.compact_u.save
-    return frame
   end
 
   private

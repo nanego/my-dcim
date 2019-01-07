@@ -1,5 +1,12 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {'Serveurs' => servers_grids_path, 'Ajout par fichier CSV' => ''} %>
 
+<% if @import_error %>
+  <div class="alert alert-danger alert-dismissable" role="alert">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4><%= @import_error %></h4>
+  </div>
+<% end %>
+
 <%= flash[:notice] %>
 
 <div class="row">
