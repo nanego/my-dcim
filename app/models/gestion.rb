@@ -5,7 +5,7 @@ class Gestion < ActiveRecord::Base
 
   has_many :servers
 
-  scope :sorted, -> { order('LOWER(name)') }
+  scope :sorted, -> { order(Arel.sql('LOWER(name)')) }
 
   def to_s
     name.to_s
