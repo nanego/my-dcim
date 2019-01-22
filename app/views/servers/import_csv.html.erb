@@ -2,7 +2,8 @@
 
 <% if @import_error %>
   <div class="alert alert-danger alert-dismissable" role="alert">
-    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <button type="button" class="close" data-dismiss="alert">
+      <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
     <h4><%= @import_error %></h4>
   </div>
 <% end %>
@@ -21,11 +22,14 @@
         <div class="panel-body">
           <p>
             <%= f.label "Salle où importer les serveurs :" %>
-            <%= f.select :room_id, Room.order('id').all.collect { |p| [p.name, p.id ] }, include_blank: false, selected: Room.find_by_name('Atelier').try(:id) %>
+            <%= f.select :room_id, Room.order('id').all.collect {|p| [p.name, p.id]}, include_blank: false, selected: Room.find_by_name('Atelier').try(:id) %>
+            <br>
+            <span class="hint">(utilisé seulement si la baie n'est pas précisée)</span>
           </p>
+
           <p>
             <%= f.label "Etat des serveurs importés :" %>
-            <%= f.select :server_state_id, ServerState.all.collect { |p| [ t(p.name.parameterize), p.id ] }, include_blank: true, selected: ServerState.first.id %>
+            <%= f.select :server_state_id, ServerState.all.collect {|p| [t(p.name.parameterize), p.id]}, include_blank: true %>
           </p>
           <p>
             <%= f.label "Fichier CSV :" %>

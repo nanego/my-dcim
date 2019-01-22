@@ -161,16 +161,28 @@ class ServersControllerTest < ActionController::TestCase
   test "csv import" do
     test_file = Rails.root + "test/files/orders.csv"
     file = Rack::Test::UploadedFile.new(test_file)
+
+    destination_frame = Frame.find_by_name('MyFrame2')
+    assert destination_frame
+    nb_of_servers_in_frame = destination_frame.servers.count
+
     assert_difference('Bay.count') do
       assert_difference('Frame.count') do
+
         assert_difference('Server.count', 26) do
           post :import, params: {import: {file: file,
                                           room_id: Room.first.id,
                                           server_state_id: ServerState.first.id}}
         end
+
       end
     end
+
     assert_response 302
     assert_redirected_to :controller => "frames", :action => "show", :id => "orders"
+    assert_equal Server.find_by_numero('1234567AS').comment, "This is a comment"
+    assert_equal destination_frame.reload.servers.count, nb_of_servers_in_frame + 4
+    assert_equal destination_frame.servers.first.position, 30
+    assert_equal Frame.where(name: 'orders').last.servers.count, 22
   end
 end
