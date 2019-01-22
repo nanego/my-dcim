@@ -18,19 +18,19 @@ class ServersGrid
   filter :name do |value|
     where("servers.name LIKE ?", value)
   end
-  filter 'Catégorie', :enum, multiple: true, :select => Category.sorted.where(published: true).map {|r| [r.to_s, r.id]} do |value|
+  filter 'Catégorie', :enum, multiple: true, :select => Category.sorted.map {|r| [r.to_s, r.id]} do |value|
     joins(:modele).where("modeles.category_id IN (?)", value)
   end
   filter :nb_elts, :integer do |value|
     joins(:modele).where("modeles.nb_elts = ?", value)
   end
-  filter :architecture, :enum, multiple: true, checkboxes: true, :select => Architecture.sorted.where(published: true).map {|r| [r.to_s, r.id]} do |value|
+  filter :architecture, :enum, multiple: true, checkboxes: true, :select => Architecture.sorted.map {|r| [r.to_s, r.id]} do |value|
     joins(:modele).where("modeles.architecture_id IN (?)", value)
   end
   filter :u, :integer do |value|
     joins(:modele).where("modeles.u = ?", value)
   end
-  filter :manufacturer, :enum, multiple: true, :select => Manufacturer.sorted.where(published: true).map {|r| [r.to_s, r.id]} do |value|
+  filter :manufacturer, :enum, multiple: true, :select => Manufacturer.sorted.map {|r| [r.to_s, r.id]} do |value|
     joins(:modele).where("modeles.manufacturer_id IN (?)", value)
   end
   filter(:modele, :enum, multiple: true, :select => Modele.all_sorted.map {|r| [r.name_with_brand, r.id]})
@@ -39,8 +39,8 @@ class ServersGrid
   filter :conso, :integer, :range => true #, :default => proc { [Server.minimum(:conso), Server.maximum(:conso)] }
   filter(:cluster, :enum, multiple: true, :select => Cluster.sorted.map {|r| [r.to_s, r.id]})
   filter(:critique, :xboolean)
-  filter(:domaine, :enum, multiple: true, :select => Domaine.sorted.where(published: true).map {|r| [r.to_s, r.id]})
-  filter(:gestion, :enum, multiple: true, :select => Gestion.sorted.where(published: true).map {|r| [r.to_s, r.id]})
+  filter(:domaine, :enum, multiple: true, :select => Domaine.sorted.map {|r| [r.to_s, r.id]})
+  filter(:gestion, :enum, multiple: true, :select => Gestion.sorted.map {|r| [r.to_s, r.id]})
   filter(:frame, :enum, multiple: true, :select => Frame.all_sorted.map {|b| [b.name_with_room_and_islet, b.id]})
 
   filter(:condition, :dynamic, :header => "Condition dynamique")
