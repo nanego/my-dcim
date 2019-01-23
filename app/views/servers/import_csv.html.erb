@@ -10,13 +10,13 @@
 
 <%= flash[:notice] %>
 
-<div class="row">
+<p class="row">
   <div class="col-lg-4 col-lg-offset-4">
 
     <div class="panel panel-primary">
       <%= form_for :import, url: import_servers_path, multipart: true do |f| %>
         <div class="panel-heading">
-          <h4 class="panel-title">Importation de serveurs par fichier CSV</h4>
+          <h4 class="panel-title text-center">Importation de matériel par fichier CSV</h4>
         </div>
 
         <div class="panel-body">
@@ -24,7 +24,7 @@
             <%= f.label "Salle où importer les serveurs :" %>
             <%= f.select :room_id, Room.order('id').all.collect {|p| [p.name, p.id]}, include_blank: false, selected: Room.find_by_name('Atelier').try(:id) %>
             <br>
-            <span class="hint">(utilisé seulement si la baie n'est pas précisée)</span>
+            <span class="hint">(utilisé seulement si la baie n'est pas précisée dans le fichier CSV)</span>
           </p>
 
           <p>
@@ -39,9 +39,12 @@
         </div>
 
         <div class="panel-footer">
-          <%= f.submit "Importer ce CSV", class: 'btn btn-primary' %>
+          <%= f.submit "Importer ce CSV", class: 'btn btn-primary', style: "width:100%;" %>
         </div>
       <% end %>
     </div>
+
+    Télécharger un exemple de fichier CSV compatible : <%= link_to 'fichier_exemple.csv', root_url + 'files/format_exemple.csv' %>
+
   </div>
-</div>
+</p>
