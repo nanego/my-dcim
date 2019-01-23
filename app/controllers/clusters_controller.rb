@@ -56,7 +56,7 @@ class ClustersController < ApplicationController
   def destroy
     @cluster.destroy
     respond_to do |format|
-      format.html { redirect_to clusters_url, notice: 'Cluster was successfully destroyed.' }
+      format.html { redirect_to clusters_url, notice: 'Cluster a bien été supprimé.' }
       format.json { head :no_content }
     end
   end

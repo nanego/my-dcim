@@ -56,7 +56,7 @@ class GestionsController < ApplicationController
   def destroy
     @gestion.destroy
     respond_to do |format|
-      format.html { redirect_to gestions_url, notice: 'Gestion was successfully destroyed.' }
+      format.html { redirect_to gestions_url, notice: 'Gestion a bien été supprimé.' }
       format.json { head :no_content }
     end
   end

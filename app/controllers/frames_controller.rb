@@ -80,7 +80,7 @@ class FramesController < ApplicationController
     @frame = Frame.friendly.find(params[:id].to_s.downcase)
     @frame.destroy
     respond_to do |format|
-      format.html { redirect_to frames_url, notice: 'Frame was successfully destroyed.' }
+      format.html { redirect_to frames_url, notice: 'Frame a bien été supprimé.' }
       format.json { head :no_content }
     end
   end

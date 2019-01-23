@@ -62,7 +62,7 @@ class MaintenanceContractsController < ApplicationController
   def destroy
     @maintenance_contract.destroy
     respond_to do |format|
-      format.html { redirect_to maintenance_contracts_url, notice: 'Maintenance contract was successfully destroyed.' }
+      format.html { redirect_to maintenance_contracts_url, notice: 'Maintenance contract a bien été supprimé.' }
       format.json { head :no_content }
     end
   end

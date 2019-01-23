@@ -44,7 +44,7 @@ class DocumentsController < ApplicationController
   def destroy
     @document.destroy
     respond_to do |format|
-      format.html { redirect_to documents_url, notice: 'Document was successfully destroyed.' }
+      format.html { redirect_to documents_url, notice: 'Document a bien été supprimé.' }
       format.json { head :no_content }
     end
   end

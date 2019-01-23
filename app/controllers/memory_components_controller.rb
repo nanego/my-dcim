@@ -56,7 +56,7 @@ class MemoryComponentsController < ApplicationController
   def destroy
     @memory_component.destroy
     respond_to do |format|
-      format.html { redirect_to memory_components_url, notice: 'Memory component was successfully destroyed.' }
+      format.html { redirect_to memory_components_url, notice: 'Memory component a bien été supprimé.' }
       format.json { head :no_content }
     end
   end

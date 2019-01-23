@@ -56,7 +56,7 @@ class ContractTypesController < ApplicationController
   def destroy
     @contract_type.destroy
     respond_to do |format|
-      format.html { redirect_to contract_types_url, notice: 'Contract type was successfully destroyed.' }
+      format.html { redirect_to contract_types_url, notice: 'Contract type a bien été supprimé.' }
       format.json { head :no_content }
     end
   end

@@ -56,7 +56,7 @@ class ArchitecturesController < ApplicationController
   def destroy
     @architecture.destroy
     respond_to do |format|
-      format.html { redirect_to architectures_url, notice: 'Architecture was successfully destroyed.' }
+      format.html { redirect_to architectures_url, notice: 'Architecture a bien été supprimé.' }
       format.json { head :no_content }
     end
   end

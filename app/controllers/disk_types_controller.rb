@@ -56,7 +56,7 @@ class DiskTypesController < ApplicationController
   def destroy
     @disk_type.destroy
     respond_to do |format|
-      format.html { redirect_to disk_types_url, notice: 'Disk type was successfully destroyed.' }
+      format.html { redirect_to disk_types_url, notice: 'Disk type a bien été supprimé.' }
       format.json { head :no_content }
     end
   end

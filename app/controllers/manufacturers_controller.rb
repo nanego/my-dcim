@@ -56,7 +56,7 @@ class ManufacturersController < ApplicationController
   def destroy
     @manufacturer.destroy
     respond_to do |format|
-      format.html { redirect_to manufacturers_url, notice: 'Manufacturer was successfully destroyed.' }
+      format.html { redirect_to manufacturers_url, notice: 'Manufacturer a bien été supprimé.' }
       format.json { head :no_content }
     end
   end

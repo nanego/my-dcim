@@ -56,7 +56,7 @@ class ServerStatesController < ApplicationController
   def destroy
     @server_state.destroy
     respond_to do |format|
-      format.html { redirect_to server_states_url, notice: 'Server state was successfully destroyed.' }
+      format.html { redirect_to server_states_url, notice: 'Server state a bien été supprimé.' }
       format.json { head :no_content }
     end
   end

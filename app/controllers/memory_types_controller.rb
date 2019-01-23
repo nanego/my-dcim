@@ -56,7 +56,7 @@ class MemoryTypesController < ApplicationController
   def destroy
     @memory_type.destroy
     respond_to do |format|
-      format.html { redirect_to memory_types_url, notice: 'Memory type was successfully destroyed.' }
+      format.html { redirect_to memory_types_url, notice: 'Memory type a bien été supprimé.' }
       format.json { head :no_content }
     end
   end

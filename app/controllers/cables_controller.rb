@@ -12,7 +12,7 @@ class CablesController < ApplicationController
     end
     @cable.destroy
     respond_to do |format|
-      format.html { redirect_to connections_edit_path(from_port_id: port_id), notice: 'Connection was successfully destroyed.' }
+      format.html { redirect_to connections_edit_path(from_port_id: port_id), notice: 'Connection a bien été supprimé.' }
       format.js {render 'connections/update'}
     end
   end

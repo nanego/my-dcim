@@ -56,7 +56,7 @@ class DomainesController < ApplicationController
   def destroy
     @domaine.destroy
     respond_to do |format|
-      format.html { redirect_to domaines_url, notice: 'Domaine was successfully destroyed.' }
+      format.html { redirect_to domaines_url, notice: 'Domaine a bien été supprimé.' }
       format.json { head :no_content }
     end
   end

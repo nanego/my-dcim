@@ -56,7 +56,7 @@ class MaintainersController < ApplicationController
   def destroy
     @maintainer.destroy
     respond_to do |format|
-      format.html { redirect_to maintainers_url, notice: 'Maintainer was successfully destroyed.' }
+      format.html { redirect_to maintainers_url, notice: 'Maintainer a bien été supprimé.' }
       format.json { head :no_content }
     end
   end

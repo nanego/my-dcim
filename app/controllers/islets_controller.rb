@@ -49,7 +49,7 @@ class IsletsController < ApplicationController
   def destroy
     @islet.destroy
     respond_to do |format|
-      format.html { redirect_to islets_url, notice: 'Islet was successfully destroyed.' }
+      format.html { redirect_to islets_url, notice: 'Islet a bien été supprimé.' }
       format.json { head :no_content }
     end
   end

@@ -85,7 +85,7 @@ class BaysController < ApplicationController
   def destroy
     @bay.destroy
     respond_to do |format|
-      format.html { redirect_to bays_url, notice: 'Bay was successfully destroyed.' }
+      format.html { redirect_to bays_url, notice: 'Bay a bien été supprimé.' }
       format.json { head :no_content }
     end
   end

@@ -61,7 +61,7 @@ class MovesController < ApplicationController
   def destroy
     @move.destroy
     respond_to do |format|
-      format.html { redirect_to moves_url, notice: 'Move was successfully destroyed.' }
+      format.html { redirect_to moves_url, notice: 'Move a bien été supprimé.' }
       format.json { head :no_content }
     end
   end

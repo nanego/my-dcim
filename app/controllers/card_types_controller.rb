@@ -48,7 +48,7 @@ class CardTypesController < ApplicationController
   def destroy
     @card_type.destroy
     respond_to do |format|
-      format.html {redirect_to({action: 'index'}, notice: 'card_type was successfully destroyed.')}
+      format.html {redirect_to({action: 'index'}, notice: 'card_type a bien été supprimé.')}
       format.json {head :no_content}
     end
   end
