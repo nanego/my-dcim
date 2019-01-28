@@ -127,21 +127,24 @@ module ServersHelper
   private
 
   def get_current_position(card_orientation, card_type, cell_index, row_index, column_index, ports_per_cell)
+
+    max_aligned_ports = (card_type.max_aligned_ports.to_i > 0 ? card_type.max_aligned_ports.to_i : MAX_PORTS_PER_LINE)
+    
     case card_orientation
     when 'dt-lr'
-      number_of_columns_in_cell = ports_per_cell.to_i / card_type.max_aligned_ports.to_i
+      number_of_columns_in_cell = ports_per_cell.to_i / max_aligned_ports
       column_index_in_cell = cell_index % number_of_columns_in_cell
       line_index_in_cell = cell_index / number_of_columns_in_cell
-      number_of_ports_in_previous_columns = column_index_in_cell * card_type.max_aligned_ports.to_i
-      position_in_cell = card_type.max_aligned_ports.to_i - line_index_in_cell + number_of_ports_in_previous_columns
+      number_of_ports_in_previous_columns = column_index_in_cell * max_aligned_ports
+      position_in_cell = max_aligned_ports - line_index_in_cell + number_of_ports_in_previous_columns
       position = (row_index * card_type.columns * ports_per_cell) +
           (column_index * ports_per_cell) +
           position_in_cell
     when 'td-lr'
-      number_of_columns_in_cell = ports_per_cell.to_i / card_type.max_aligned_ports.to_i
+      number_of_columns_in_cell = ports_per_cell.to_i / max_aligned_ports
       column_index_in_cell = cell_index % number_of_columns_in_cell
       line_index_in_cell = cell_index / number_of_columns_in_cell
-      number_of_ports_in_previous_columns = column_index_in_cell * card_type.max_aligned_ports.to_i
+      number_of_ports_in_previous_columns = column_index_in_cell * max_aligned_ports
       position_in_cell = 1 + line_index_in_cell + number_of_ports_in_previous_columns
       position = (row_index * card_type.columns * ports_per_cell) +
           (column_index * ports_per_cell) +
