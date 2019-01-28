@@ -128,8 +128,10 @@ module ServersHelper
 
   def get_current_position(card_orientation, card_type, cell_index, row_index, column_index, ports_per_cell)
 
+    return 0 if ports_per_cell == 0
+
     max_aligned_ports = (card_type.max_aligned_ports.to_i > 0 ? card_type.max_aligned_ports.to_i : MAX_PORTS_PER_LINE)
-    
+
     case card_orientation
     when 'dt-lr'
       number_of_columns_in_cell = ports_per_cell.to_i / max_aligned_ports
