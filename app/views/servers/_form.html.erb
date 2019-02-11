@@ -44,10 +44,6 @@
     <div class="col-sm-10">
       <%= f.text_field :numero, class: "form-control" %>
     </div>
-    <%= f.label :conso, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :conso, class: "form-control" %>
-    </div>
     <%= f.label :cluster_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.collection_select(:cluster_id, Cluster.sorted, :id, :name, {:prompt => true, :include_blank => true}, {class: "form-control"}) %>

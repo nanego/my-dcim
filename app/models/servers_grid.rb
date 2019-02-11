@@ -36,7 +36,6 @@ class ServersGrid
   filter(:modele, :enum, multiple: true, :select => Modele.all_sorted.map {|r| [r.name_with_brand, r.id]})
   filter(:numero, :string)
   filter(:position, :integer)
-  filter :conso, :integer, :range => true #, :default => proc { [Server.minimum(:conso), Server.maximum(:conso)] }
   filter(:cluster, :enum, multiple: true, :select => Cluster.sorted.map {|r| [r.to_s, r.id]})
   filter(:critique, :xboolean)
   filter(:domaine, :enum, multiple: true, :select => Domaine.sorted.map {|r| [r.to_s, r.id]})
@@ -102,7 +101,6 @@ class ServersGrid
   end
   column(:numero)
   column(:position)
-  column(:conso)
   column(:critique, :mandatory => false) do
     critique ? "Oui" : "Non"
   end

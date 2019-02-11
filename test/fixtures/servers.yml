@@ -6,7 +6,6 @@ one:
   name: ServerName1
   modele_id: 1
   numero: CZ31535FEY
-  conso: 1
   cluster: false
   critique: false
   domaine_id: 1
@@ -28,7 +27,6 @@ two:
   name: ServerName2
   modele_id: 1
   numero: ABCDEFG32
-  conso: 1
   cluster: false
   critique: false
   domaine_id: 1
