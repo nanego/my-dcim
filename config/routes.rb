@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   resources :cables, only: [:destroy]
 
   resources :clusters
+  resources :stacks
   resources :servers do
     collection do
       get :grid

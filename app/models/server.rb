@@ -13,6 +13,7 @@ class Server < ActiveRecord::Base
   belongs_to :modele
   belongs_to :cluster
   belongs_to :server_state
+  belongs_to :stack
 
   has_one :maintenance_contract
   has_many :memory_components

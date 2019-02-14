@@ -34,9 +34,10 @@
 
             <% server_height = 10 %>
             <% servers = frame.servers.includes(:bay, :modele).where(network_id: network) # Switch LAN %>
-            <% stacks = servers.map(&:stack_id).uniq.reject{|s|s.nil?}.sort %>
+            <% stacks = servers.map(&:stack).uniq.reject{|s|s.nil?} %>
 
-            <div class="overviewed_frame <%= 'no-margin' if index > 0 %> stack-<%= stacks.join('-') %> <%= 'highlighted' if @frames && @frames.include?(frame) %>"
+            <div class="overviewed_frame <%= 'no-margin' if index > 0 %> <%= 'highlighted' if @frames && @frames.include?(frame) %>"
+                 style="<%= "border-color: ##{stacks.first.color}" if stacks.size == 1 %>;"
                  data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.id %>">
 
               <div id="frame-<%= frame.id %>-pre" class="intermediate-point pre <%= bay.lane.to_i.even? ? 'even' : 'odd' %>" style="z-index: -3000;">.</div>

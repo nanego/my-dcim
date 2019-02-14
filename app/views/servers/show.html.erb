@@ -91,7 +91,7 @@
       <dt>Stack :</dt>
       <dd>
         <% if @server.stack_id.present? %>
-          <span class="glyphicon glyphicon-stop <%= @server.stack_id == 1 ? 'red' : "green" %>" aria-hidden="true"></span>
+          <span style="<%= "color: ##{@server.stack.try(:color)}" %>" class="glyphicon glyphicon-stop" aria-hidden="true"></span>
         <% end %>
       </dd>
 
