@@ -130,10 +130,10 @@ class RoomsController < ApplicationController
     @servers = Server.includes(:ports, :cards => [:ports]). #includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
                    where("network_id IS NOT NULL")
     @servers.each do |server|
-      @connections[server.id] = server.directly_connected_servers_ids.reject{|id| @switchs_lan_ids.exclude?(id)}
+      @connections[server.id] = server.directly_connected_servers_ids_with_color.reject{|conn| @switchs_lan_ids.exclude?(conn[:server_id])}
     end
     @concentrateurs.each do |hub|
-      @connections[hub.id] = hub.connected_servers_ids_through_twin_cards.reject{|id| @switchs_lan_ids.exclude?(id)}
+      @connections[hub.id] = hub.connected_servers_ids_through_twin_cards_with_color.reject{|conn| @switchs_lan_ids.exclude?(conn[:server_id])}
     end
 
     # puts "@@@connections : #{@connections.inspect}"

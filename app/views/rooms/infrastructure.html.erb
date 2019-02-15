@@ -333,12 +333,12 @@
         // HUBS
         // drawInterHubsConnections()
 
-        <% @connections.each do |server_id, destinations_ids| %>
-        <% destinations_ids.each do |dest_id| %>
-        <% unless @concentrateurs_ids.include?(dest_id) && @concentrateurs_ids.exclude?(server_id)  %>
-        drawInterSwitchsConnections('<%= server_id %>', '<%= dest_id %>')
-        <% end %>
-        <% end %>
+        <% @connections.each do |server_id, connections| %>
+          <% connections.each do |connection| %>
+            <% unless @concentrateurs_ids.include?(connection[:server_id]) && @concentrateurs_ids.exclude?(server_id)  %>
+              drawInterSwitchsConnections('<%= server_id %>', '<%= connection[:server_id] %>', '<%= connection[:cable_color] %>')
+            <% end %>
+          <% end %>
         <% end %>
 
     }
@@ -369,22 +369,28 @@
         }
     }
 
-    function drawInterSwitchsConnections(start_id, end_id) {
+    function drawInterSwitchsConnections(start_id, end_id, color) {
         if (start_id != end_id && current_connections.indexOf(end_id + "-" + start_id) < 0) {
             var start_element = $('.server_' + start_id + ':visible')[0]
             var end_element = $('.server_' + end_id + ':visible')[0]
             // var start_anchor = LeaderLine.pointAnchor(start_element, {x: 42 + i * 20, y: 57})
             // var end_anchor = LeaderLine.pointAnchor(end_element, {x: 42 + i * 20, y: 0})
             if (start_element && end_element) {
-                setParamsAndDraw(start_element, end_element)
+                setParamsAndDraw(start_element, end_element, color)
                 // current_connections.push(start_id + "-" + end_id)
                 log(start_id + ' <-> ' + end_id)
             }
         }
     }
 
-    function setParamsAndDraw(start_element, end_element) {
+    function setParamsAndDraw(start_element, end_element, color) {
         var params
+
+        if(color){
+            color = colors_hash[color]
+        }else{
+            color = 'gray'
+        }
 
         if ($(start_element).hasClass('hub-top') && !($(end_element).hasClass('hub-bottom'))) {
             // HUB 1 - ORANGE LINES
@@ -395,7 +401,7 @@
                 endPlug: 'behind',
                 startSocket: 'bottom',
                 endSocket: 'top',
-                color: 'orange',
+                color: color,
                 size: 3,
                 dash: true
             }
@@ -409,7 +415,7 @@
                 endPlug: 'behind',
                 startSocket: 'bottom',
                 endSocket: 'top',
-                color: 'green',
+                color: color,
                 size: 3,
                 dash: true
             }
@@ -423,9 +429,9 @@
                 endPlug: 'behind',
                 startSocket: 'bottom',
                 endSocket: 'bottom',
-                color: 'grey',
+                color: color,
                 size: 2,
-                dash: true
+                dash: false
             }
         }
 
@@ -437,9 +443,9 @@
                 endPlug: 'behind',
                 startSocket: 'bottom',
                 endSocket: 'bottom',
-                color: 'grey',
+                color: color,
                 size: 2,
-                dash: true
+                dash: false
             }
         }
 

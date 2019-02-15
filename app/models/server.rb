@@ -90,23 +90,29 @@ class Server < ActiveRecord::Base
     cards.each { |card| card.create_missing_ports}
   end
 
-  def connected_servers_ids_through_twin_cards
-    @servers_ids = directly_connected_servers_ids
+  def connected_servers_ids_through_twin_cards_with_color
+    connections = directly_connected_servers_ids_with_color
     connected_ports.each do |port|
       if port.card && port.card.twin_card_id
         twin_card = Card.find(port.card.twin_card_id)
         twin_card_port = twin_card.ports.includes(:connection).where(position: port.position).first
         if twin_card_port
-          @servers_ids << twin_card_port.paired_connection.port.server_id if twin_card_port.paired_connection
+          connections << {server_id: twin_card_port.paired_connection.port.server_id, cable_color: twin_card_port.paired_connection.try(:cable).try(:color)} if twin_card_port.paired_connection
         end
-        @servers_ids << twin_card.server_id
+        connections << {server_id: twin_card.server_id, cable_color: twin_card_port.try(:connection).try(:cable).try(:color)}
       end
     end
-    @servers_ids
+    connections
   end
 
   def directly_connected_servers_ids
     connected_ports.map(&:server_id)
+  end
+
+  def directly_connected_servers_ids_with_color
+    connected_ports.map do |port|
+      {server_id: port.server_id, cable_color: port.connection.try(:cable).try(:color)}
+    end
   end
 
   def connected_ports
