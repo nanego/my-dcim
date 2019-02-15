@@ -5,15 +5,19 @@
   <% if room.id == 4 || room.id == 3 %>
     <% second_room_id = room.id == 4 ? 3 : 4 %>
     <div class="hubs">
+      <% bgColorHub1 = define_background_color(server: @hubs[network][room.id], mode: params['bg']) %>
       <div class="hub_material hub-top server_<%= @hubs[network][room.id].id %>"
            id="hub1-<%= room.id %>-<%= islet %>"
+           style="background-color: <%= bgColorHub1 %>"
            data-url="<%= server_path(@hubs[network][room.id]) %>">
         Concentrateur<br><%= @hubs[network][room.id] %>
       </div>
-      <div style="border: 1px lightgray solid;position: absolute;bottom:100px;padding: 0 10px 10px 4px;margin: -10px;">
+      <div class="other_room_hub">
+        <% bgColorHub2 = define_background_color(server: @hubs[network][second_room_id], mode: params['bg']) %>
         <span style="color: grey;"><%= Room.find(second_room_id) %></span>
         <div class="hub_material hub-bottom server_<%= @hubs[network][second_room_id].id %>"
              data-url="<%= server_path(@hubs[network][second_room_id]) %>"
+             style="background-color: <%= bgColorHub2 %>"
              id="hub2-<%= room.id %>-<%= islet %>" style="margin-left: 6px;">
           Concentrateur<br><%= @hubs[network][second_room_id] %>
         </div>
@@ -21,7 +25,7 @@
     </div>
   <% end %>
 
-  <div style="display: inline-block;">
+  <div>
 
     <div class="rooms-overview">
 
@@ -32,12 +36,9 @@
 
           <% bay.frames.sorted.each_with_index do |frame, index| %>
 
-            <% server_height = 10 %>
             <% servers = frame.servers.includes(:bay, :modele).where(network_id: network) # Switch LAN %>
-            <% stacks = servers.map(&:stack).uniq.reject{|s|s.nil?} %>
 
             <div class="overviewed_frame <%= 'no-margin' if index > 0 %> <%= 'highlighted' if @frames && @frames.include?(frame) %>"
-                 style="<%= "border-color: ##{stacks.first.color}" if stacks.size == 1 %>;"
                  data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.id %>">
 
               <div id="frame-<%= frame.id %>-pre" class="intermediate-point pre <%= bay.lane.to_i.even? ? 'even' : 'odd' %>" style="z-index: -3000;">.</div>
@@ -50,32 +51,22 @@
 
               <ul>
                 <% servers.each do |server| %>
-
                   <% bgModeleColor = define_background_color(server: server, mode: params['bg']) %>
-
-                  <% u_server = server.modele.try(:u).to_i > 0 ? server.modele.u : 1 %>
-
-                  <% data = {:u => u_server,
-                             :rj45_futur => server.try(:rj45_futur) || 0,
-                             :fc_futur => server.try(:fc_futur),
-                             :url => server_url(server)
-                  } %>
-
-                  <%= content_tag_for :li, server,
-                                      class: "server_#{server.id}
-                                      lane-#{server.bay.lane}
-                                      truncate
-                                      #{"bordered" if server != servers.last}",
-                                      style: "height: #{server_height * u_server}px;background-color:#{bgModeleColor} !important;",
-                                      title: h("#{server.name}"),
-                                      :data => data %>
-
+                  <% data = {:url => server_url(server)} %>
+                  <%= tag.li class: "server_#{server.id}
+                               lane-#{server.bay.lane}
+                               truncate
+                               #{"bordered" if server != servers.last}",
+                             style: "background-color:#{bgModeleColor} !important;
+                                     #{"border: 2px solid ##{server.stack.color};" if server.stack.present?}",
+                             title: h("#{server.name}"),
+                             data: data do
+                    link_to server.name, server_path(server), target: "_blank"
+                  end %>
                 <% end %>
-
               </ul>
 
             </div>
-
 
           <% end %>
         </div>

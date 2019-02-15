@@ -357,7 +357,7 @@
             var end_anchor = LeaderLine.pointAnchor(end_element, {x: 42 + i * 20, y: 0})
             drawLine(start_anchor, end_anchor,
                 {
-                    path: 'straight',
+                    path: 'fluid',
                     startPlug: 'behind',
                     endPlug: 'behind',
                     startSocket: 'bottom',
@@ -393,7 +393,7 @@
                 path: 'fluid',
                 startPlug: 'behind',
                 endPlug: 'behind',
-                startSocket: 'top',
+                startSocket: 'bottom',
                 endSocket: 'top',
                 color: 'orange',
                 size: 3,
@@ -452,8 +452,8 @@
                 path: 'straight',
                 startPlug: 'behind',
                 endPlug: 'behind',
-                startSocket: 'bottom',
-                endSocket: 'top',
+                startSocket: 'top',
+                endSocket: 'bottom',
                 color: inter_hubs_color,
                 size: 2
             }
@@ -487,11 +487,6 @@
             $(this).parent('li').removeClass('active')
         })
         $(this).tab('show')
-    })
-    // Click on switchs
-    $('.overviewed_frame .server, .hub_material').click(function () {
-        var url = $(this).data('url')
-        window.open(url, '_blank');
     })
 
 </script>
