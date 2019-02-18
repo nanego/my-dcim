@@ -11,13 +11,34 @@
       <div class="list-group-item">
         <fieldset>
           <%= f.label "Type d'affchage : " %>
-          <%= f.select :display, options_for_select([:vertical, :horizontal], f.object.display) %>
+          <%= f.select :display, options_for_select([:vertical, :horizontal, :grid], f.object.display) %>
+        </fieldset>
+      </div>
+      <div class="list-group-item">
+        <fieldset>
+          <%= f.label "Grid Areas :" %>
+          <%= f.text_area :grid_areas, style: "font-family: monospace;width: 100%; height: 110px;" %>
         </fieldset>
       </div>
       <%= f.fields_for :composants, f.object.composants.slots do |builder| %>
-          <%= render "composant_fields", :f => builder, :type_composant => 'SLOT' %>
+        <%= render "composant_fields", :f => builder, :type_composant => 'SLOT' %>
       <% end %>
     </ul>
     <div class="panel-footer"><%= link_to_add_fields_with_prefilled_data "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter un slot".html_safe, f, :composants, 'SLOT' %></div>
   </div>
 </fieldset>
+<script>
+    var display_select = $('#modele_enclosures_attributes_<%= f.object.position.to_i - 1 %>_display')
+    var grid_text_area = $('#modele_enclosures_attributes_<%= f.object.position.to_i - 1 %>_grid_areas').closest('.list-group-item')
+    var toggle_grid_text_area = (function f() {
+        var val = display_select.val()
+        grid_text_area.hide()
+        if (val == "grid") {
+            grid_text_area.show()
+        }
+        return f
+    })()
+    display_select.change(function () {
+        toggle_grid_text_area()
+    })
+</script>

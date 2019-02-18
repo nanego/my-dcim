@@ -7,36 +7,64 @@
 
       <% composants_per_enclosure = enclosure.composants.slots %>
 
-      <table class="slots" style="<%= index > 0 ? 'margin-top:7px;' : '' %>" >
-        <tbody>
-
-        <% if enclosure.display != 'horizontal' %>
-
-          <tr>
-            <% composants_per_enclosure.each do |component| %>
-              <th><%= slot_label(server, component) %></th>
-            <% end %>
-          </tr>
-          <tr>
-            <% composants_per_enclosure.each do |component| %>
-              <td class="slot_column">
-                <%= render 'servers/draw_component.html.erb', server: server, component: component, selected_port: selected_port %>
-              </td>
-            <% end %>
-          </tr>
-
-        <% else %>
-
+      <% if enclosure.display == 'grid' %>
+        <style type="text/css">
+          .enclosure-container {
+            grid-template-areas: <%= raw enclosure.grid_areas.split(/\r\n/).map{|s|'"'+s+'"'}.join(' ') %>;
+          }
+        </style>
+        <div class="container enclosure-container">
           <% composants_per_enclosure.each do |component| %>
-            <tr>
-              <th><%= slot_label(server, component) %></th>
-              <td><%= render 'servers/draw_component.html.erb', server: server, component: component, selected_port: selected_port %></td>
-            </tr>
+            <% slot_label = slot_label(server, component) %>
+            <% class_name = "item-#{slot_label}" %>
+            <% area_name = slot_label.to_i.to_s == slot_label ? "S#{slot_label}" : slot_label %>
+            <style>
+              .<%= class_name %> {
+                grid-column: <%= area_name %>;
+                grid-row: <%= area_name %>;
+              }
+            </style>
+            <div class="component-label <%= class_name %>">
+              <%= slot_label %>
+            </div>
+            <div class="item <%= class_name %>">
+              <%= render 'servers/draw_component.html.erb', server: server, component: component, selected_port: selected_port %>
+            </div>
           <% end %>
+        </div>
 
-        <% end %>
-        </tbody>
-      </table>
+      <% else %>
+        <table class="slots" style="<%= index > 0 ? 'margin-top:7px;' : '' %>">
+          <tbody>
+
+          <% if enclosure.display != 'horizontal' %>
+
+            <tr>
+              <% composants_per_enclosure.each do |component| %>
+                <th><%= slot_label(server, component) %></th>
+              <% end %>
+            </tr>
+            <tr>
+              <% composants_per_enclosure.each do |component| %>
+                <td class="slot_column">
+                  <%= render 'servers/draw_component.html.erb', server: server, component: component, selected_port: selected_port %>
+                </td>
+              <% end %>
+            </tr>
+
+          <% else %>
+
+            <% composants_per_enclosure.each do |component| %>
+              <tr>
+                <th><%= slot_label(server, component) %></th>
+                <td><%= render 'servers/draw_component.html.erb', server: server, component: component, selected_port: selected_port %></td>
+              </tr>
+            <% end %>
+
+          <% end %>
+          </tbody>
+        </table>
+      <% end %>
 
     <% end %>
   </div>
@@ -58,8 +86,8 @@
 </span>
 <!--
 <span class='pull-left' style="padding-left: 8px;">
-  <% twin_cards_ids = server.cards.map(&:twin_card_id).uniq.reject{|c|c.blank?} if false %>
-<% twin_cards_ids.map{|id| Card.find(id).frame}.uniq.each do |frame| %>
+  <% twin_cards_ids = server.cards.map(&:twin_card_id).uniq.reject {|c| c.blank?} if false %>
+<% twin_cards_ids.map {|id| Card.find(id).frame}.uniq.each do |frame| %>
   <%= link_to frame_path(frame), title: "#{frame.to_s}" do %>
       <button type="button" class="btn btn-default btn-xs" aria-label="Link to twin card">
         <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span>
