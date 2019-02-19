@@ -19,7 +19,8 @@
               <h3>Version de l'application</h3>
 
               <p class="version">
-                <%= simple_format(`git show --pretty=short --quiet`) %>
+                <%= truncate(simple_format(`git hist`), length: 1600, escape: false) %>
+                <br>...
               </p>
 
               <h3>Environnement :</h3>
