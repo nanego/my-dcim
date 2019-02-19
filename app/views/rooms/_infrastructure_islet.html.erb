@@ -1,4 +1,4 @@
-<div class="islet tab-pane fade <%= 'in active' if network == 1 && (islet == @islet || (@islet.blank? && @room == room)) %>"
+<div class="islet tab-pane <%= 'in active' if network == 1 && (islet == @islet || (@islet.blank? && @room == room)) %>"
      role="tabpanel"
      id="<%= room.id %>-<%= islet %>-<%= network %>">
 
@@ -40,7 +40,7 @@
 
           <% bay.frames.sorted.each_with_index do |frame, index| %>
 
-            <% servers = frame.servers.includes(:bay, :modele).where(network_id: network) # Switch LAN %>
+            <% servers = frame.servers.includes(:bay, :modele, :stack).where(network_id: network) # Switch LAN %>
 
             <div class="overviewed_frame <%= 'no-margin' if index > 0 %> <%= 'highlighted' if @frames && @frames.include?(frame) %>"
                  data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.id %>">

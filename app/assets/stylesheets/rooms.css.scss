@@ -156,11 +156,16 @@
   padding-top: 60px;
   .rooms-overview {
     margin-top: 80px;
+    .couple{
+      width:280px;
+      height:160px;
+    }
   }
   .overviewed_frame{
     padding: 0;
     display: inline-grid;
     border: none;
+    width: 125px;
     .title{
       padding: 8px 6px;
       font-size: small;
@@ -183,6 +188,7 @@
       width: auto;
       a{
         color: #555555;
+        font-size: small;
       }
     }
     .server{
