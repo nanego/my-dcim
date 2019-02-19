@@ -15,20 +15,21 @@
 
           <div class="row">
             <div class="col-md-12">
-
-              <h3>Version de l'application</h3>
-
-              <p class="version">
-                <%= truncate(simple_format(`git hist`), length: 1600, escape: false) %>
-                <br>...
-              </p>
-
+              
               <h3>Environnement :</h3>
 
               <p class="version">
                 <strong>Rails version:</strong> <%= Rails.version %><br />
                 <strong>Ruby version:</strong> <%= RUBY_VERSION %> (<%= RUBY_PLATFORM %>)
               </p>
+
+              <h3>Version de l'application</h3>
+
+              <div class="version" style="font-family: monospace;font-size:small;">
+                <%= truncate(simple_format(`git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short`), length: 1600, escape: false) %>
+                <br>...
+              </div>
+
             </div>
           </div>
 
