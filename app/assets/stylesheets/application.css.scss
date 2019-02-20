@@ -67,6 +67,13 @@ body {
   padding: 0;
 }
 
+.datagrid-form input[type="submit"]{
+  padding-left: 90px;
+  padding-right: 90px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 a.hide-filters, a.show-filters {
   color: white;
   text-decoration: underline;

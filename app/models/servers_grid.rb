@@ -14,9 +14,12 @@ class ServersGrid
   # Filters
   #########
 
-  filter(:id, :string, :multiple => ',')
+  filter :id, :string, :multiple => ','
   filter :name do |value|
-    where("servers.name LIKE ?", value)
+    where("LOWER(servers.name) LIKE ?", "%#{value.downcase}%")
+  end
+  filter :numero do |value|
+    where('LOWER(servers.numero) LIKE ?', "%#{value.downcase}%")
   end
   filter 'Catégorie', :enum, multiple: true, :select => Category.sorted.map {|r| [r.to_s, r.id]} do |value|
     joins(:modele).where("modeles.category_id IN (?)", value)
@@ -34,7 +37,6 @@ class ServersGrid
     joins(:modele).where("modeles.manufacturer_id IN (?)", value)
   end
   filter(:modele, :enum, multiple: true, :select => Modele.all_sorted.map {|r| [r.name_with_brand, r.id]})
-  filter(:numero, :string)
   filter(:position, :integer)
   filter(:cluster, :enum, multiple: true, :select => Cluster.sorted.map {|r| [r.to_s, r.id]})
   filter(:critique, :xboolean)
@@ -44,7 +46,7 @@ class ServersGrid
 
   filter(:condition, :dynamic, :header => "Condition dynamique")
 
-  column_names_filter(:header => "Colonnes à afficher :", checkboxes: true)
+  column_names_filter(:header => "Colonnes affichées :", checkboxes: true)
 
 
   #########
@@ -125,14 +127,11 @@ class ServersGrid
     record.frame.try(:name_with_room_and_islet)
   end
 
-  column(:tenGbps_futur)
-  column(:ip)
-  column(:hostname)
-  column(:etat_conf_reseau)
-  column(:action_conf_reseau)
+  column(:stack)
+  # column(:network)
 
-  column("Boutons", :html => true, :mandatory => false) do |record|
-    link_to('Modifier', edit_server_path(record.id)).to_s + '<span style="margin-left:10px">'.html_safe + link_to('Supprimer', server_path(record.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-warning').to_s + '</span>'.html_safe
+  column("Actions", :html => true, :mandatory => false) do |record|
+    link_to('Modifier', edit_server_path(record.id), class: 'btn btn-primary').to_s + '<span style="margin-left:10px">'.html_safe + link_to('Supprimer', server_path(record.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger').to_s + '</span>'.html_safe
   end
 
 end
