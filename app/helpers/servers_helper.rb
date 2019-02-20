@@ -4,7 +4,7 @@ module ServersHelper
 
   def slot_label(server, component)
     cards = server.cards.where('composant_id = ?', component.id)
-    cards_names = cards.map {|card| card.name}.reject(&:blank?)
+    cards_names = cards.pluck(:name).reject(&:blank?)
     if cards_names.present?
       if cards.first.twin_card_id.present?
         link_to network_frame_path(server.frame, network_frame_id: Card.find(cards.first.twin_card_id).server.frame_id) do

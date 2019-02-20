@@ -15,17 +15,15 @@
         </style>
         <div class="container enclosure-container">
           <% composants_per_enclosure.each do |component| %>
-            <% slot_label = slot_label(server, component) %>
-            <% class_name = "item-#{slot_label}" %>
-            <% area_name = slot_label.to_i.to_s == slot_label ? "S#{slot_label}" : slot_label %>
+            <% class_name = "item-#{component.name}" %>
             <style>
               .<%= class_name %> {
-                grid-column: <%= area_name %>;
-                grid-row: <%= area_name %>;
+                grid-column: <%= component.name %>;
+                grid-row: <%= component.name %>;
               }
             </style>
             <div class="component-label <%= class_name %>">
-              <%= slot_label %>
+              <%= slot_label(server, component) %>
             </div>
             <div class="item <%= class_name %>">
               <%= render 'servers/draw_component.html.erb', server: server, component: component, selected_port: selected_port %>
