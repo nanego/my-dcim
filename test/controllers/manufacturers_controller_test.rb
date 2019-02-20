@@ -19,7 +19,7 @@ class ManufacturersControllerTest < ActionController::TestCase
 
   test "should create manufacturer" do
     assert_difference('Manufacturer.count') do
-      post :create, params: {manufacturer: { description: @manufacturer.description, published: @manufacturer.published, name: @manufacturer.name }}
+      post :create, params: {manufacturer: { description: @manufacturer.description, name: @manufacturer.name }}
     end
 
     assert_redirected_to manufacturer_path(assigns(:manufacturer))
@@ -36,7 +36,7 @@ class ManufacturersControllerTest < ActionController::TestCase
   end
 
   test "should update manufacturer" do
-    patch :update, params: {id: @manufacturer, manufacturer: { description: @manufacturer.description, published: @manufacturer.published, name: @manufacturer.name }}
+    patch :update, params: {id: @manufacturer, manufacturer: { description: @manufacturer.description, name: @manufacturer.name }}
     assert_redirected_to manufacturer_path(assigns(:manufacturer))
   end
 

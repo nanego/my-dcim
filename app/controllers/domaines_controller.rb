@@ -69,6 +69,6 @@ class DomainesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def domaine_params
-      params.require(:domaine).permit(:name, :description, :published)
+      params.require(:domaine).permit(:name, :description)
     end
 end

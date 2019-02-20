@@ -4,7 +4,6 @@ one:
   id: 1
   name: PowerEdge R730
   description: MyText
-  published: false
   nb_elts: 1
   u: 1
   architecture_id: 1
@@ -16,7 +15,6 @@ two:
   id: 2
   name: PowerEdge R430
   description: MyText
-  published: false
   nb_elts: 1
   u: 1
   architecture_id: 1

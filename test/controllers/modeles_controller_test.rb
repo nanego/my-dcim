@@ -20,7 +20,7 @@ class ModelesControllerTest < ActionController::TestCase
 
   test "should create modele" do
     assert_difference('Modele.count') do
-      post :create, params: {modele: { description: @modele.description, published: @modele.published, name: @modele.name, architecture_id: @modele.architecture_id, category_id: @modele.category_id, u: @modele.u }}
+      post :create, params: {modele: { description: @modele.description, name: @modele.name, architecture_id: @modele.architecture_id, category_id: @modele.category_id, u: @modele.u }}
     end
     assert_redirected_to edit_modele_path(assigns(:modele))
     assert_not_nil(assigns(:modele))
@@ -39,7 +39,7 @@ class ModelesControllerTest < ActionController::TestCase
   end
 
   test "should update modele" do
-    patch :update, params:{id: @modele, modele: { description: @modele.description, published: @modele.published, name: @modele.name, architecture_id: @modele.architecture_id, category_id: @modele.category_id, u: @modele.u }}
+    patch :update, params:{id: @modele, modele: { description: @modele.description, name: @modele.name, architecture_id: @modele.architecture_id, category_id: @modele.category_id, u: @modele.u }}
     assert_redirected_to edit_modele_path(assigns(:modele))
   end
 

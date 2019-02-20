@@ -19,7 +19,7 @@ class DomainesControllerTest < ActionController::TestCase
 
   test "should create domaine" do
     assert_difference('Domaine.count') do
-      post :create, params:{domaine: { description: @domaine.description, published: @domaine.published, name: @domaine.name }}
+      post :create, params:{domaine: { description: @domaine.description, name: @domaine.name }}
     end
 
     assert_redirected_to domaine_path(assigns(:domaine))
@@ -36,7 +36,7 @@ class DomainesControllerTest < ActionController::TestCase
   end
 
   test "should update domaine" do
-    patch :update, params: {id: @domaine, domaine: { description: @domaine.description, published: @domaine.published, name: @domaine.name }}
+    patch :update, params: {id: @domaine, domaine: { description: @domaine.description, name: @domaine.name }}
     assert_redirected_to domaine_path(assigns(:domaine))
   end
 

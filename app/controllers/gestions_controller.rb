@@ -69,6 +69,6 @@ class GestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def gestion_params
-      params.require(:gestion).permit(:name, :description, :published)
+      params.require(:gestion).permit(:name, :description)
     end
 end
