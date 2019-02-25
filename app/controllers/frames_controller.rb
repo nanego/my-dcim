@@ -5,12 +5,6 @@ class FramesController < ApplicationController
   def show
     @frame = Frame.all.includes(:servers => [:modele => [:category, :composants], :cards => [:composant, :ports => [:connection => [:cable => :connections]], :card_type => [:port_type]]], :bay => [:islet => [:room]]).friendly.find(params[:id].to_s.downcase)
     @room = @frame.room
-    @sums = { @frame.id => {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0} }
-    @frame.servers.each do |s|
-      s.ports_per_type.each do |type, sum|
-        @sums[@frame.id][type] = @sums[@frame.id][type].to_i + sum
-      end
-    end
 
     respond_to do |format|
       format.html do
@@ -99,7 +93,6 @@ class FramesController < ApplicationController
 
     @frames = [@frame, @coupled_frame, @network_frame].reject(&:blank?)
     @servers_per_frames = {}
-    @sums = {}
 
     @frames.each do |frame|
       islet = "Vue réseau"
@@ -110,7 +103,6 @@ class FramesController < ApplicationController
       frame.servers.each do |s|
         @servers_per_frames[islet][0][frame.bay][frame] << s
       end
-      @sums.merge!(calculate_ports_sums(frame, frame.servers))
     end
 
     respond_to do |format|

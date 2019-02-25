@@ -32,8 +32,6 @@ class RoomsController < ApplicationController
         render 'rooms/show.html.erb'
       end
       format.pdf do
-        @sums = {}
-        @sums.merge!(calculate_ports_sums(frame, frame.servers))
         render layout: 'pdf.html',
                template: "rooms/show.pdf.erb",
                show_as_html: params[:debug].present?,
@@ -47,26 +45,17 @@ class RoomsController < ApplicationController
   # TODO Remove this action when possible
   def islet
     @islet = Islet.find_by(name: params[:islet], room_id: @room.id)
-    @sums = {}
     frames = Frames::IncludingServersQuery.call(@room.frames.where('islets.name = ?', @islet.name), 'islets.name, bays.lane')
     @servers_per_frames = {}
 
     sorted_frames_per_islet(frames, params[:view]).each do |frame|
-
       islet = frame.bay.islet.name
       @servers_per_frames[islet] ||= {}
       @servers_per_frames[islet][frame.bay.lane] ||= {}
       @servers_per_frames[islet][frame.bay.lane][frame.bay] ||= {}
       @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] ||= []
-
-      # sums per frame and per type of port
-      @sums[frame.id] = {'XRJ' => 0, 'RJ' => 0, 'FC' => 0, 'IPMI' => 0}
-
       frame.servers.each do |s|
         @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] << s
-        s.ports_per_type.each do |type, sum|
-          @sums[frame.id][type] = @sums[frame.id][type].to_i + sum
-        end
       end
     end
 
@@ -94,10 +83,6 @@ class RoomsController < ApplicationController
       @frames = Frame.preload(:servers => [:gestion, :cluster, :modele => :category, :card_types => :port_type, :cards => [:composant, :ports => [:connection => :cable]]])
                     .includes(:bay => [:frames, {:islet => :room}])
                     .order('rooms.position asc, islets.name asc, bays.position asc, frames.position asc')
-      # @sums = {}
-      # @frames.each do |frame|
-      #   @sums.merge!(calculate_ports_sums(frame, frame.servers))
-      # end
       @current_filters = ''
       if params[:cluster_id].present?
         @frames = @frames.joins(:materials).where('servers.cluster_id = ? ', params[:cluster_id])

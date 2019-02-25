@@ -18,19 +18,6 @@ module ServersHelper
     end
   end
 
-  def calculate_ports_sums(frame, servers)
-    # sums per frame and per type of port
-    sums = {frame.id => {'XRJ' => 0, 'RJ' => 0, 'FC' => 0, 'IPMI' => 0}}
-
-    servers.each do |server|
-      server.ports_per_type.each do |type, sum|
-        sums[frame.id][type] = sums[frame.id][type].to_i + sum
-      end
-    end
-
-    sums
-  end
-
   def ports_by_card_with_presentation(card:, selected_port: nil, moved_connections: [], twin_card_used_ports: [])
     card_type = card.card_type
     ports_per_cell = card_type.port_quantity.to_i / (card_type.rows * card_type.columns)

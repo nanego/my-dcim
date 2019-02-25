@@ -46,30 +46,17 @@
                   <% end %>
 
                   <% frames.each do |frame, servers| %>
-                    <div class="col-xs-12 <%= frames.size > 1 ? 'col-sm-6' : '' %>">
+                    <div class="col-xs-12 <%= frames.size > 1 ? 'col-sm-6' : '' %>" style="<%= frame == frames.first[0] ? 'padding-left:0;' : 'padding-right:0;' %>">
                       <%= render 'frames/show_frame.html.erb', frame: frame, servers: servers, settings: settings, view_type: view_side %>
                     </div>
                   <% end %>
 
                   <% if formats != [:pdf] %>
-                    </div>
-                    <% if frames.size > 1 %>
-                      <div class="couple-panel-footer panel-footer">
-                        <%= render 'servers/sum_labels.html.erb',
-                                   sums: (@sums[bay.frames.first.id].merge(@sums[bay.frames.last.id]) {|_, a, b| a + b}),
-                                   sum_u: nil,
-                                   sum_elements: nil,
-                                   max_u: settings[:max_u] * 2,
-                                   max_elts: settings[:max_elts] * 2,
-                                   max_rj45: settings[:max_rj45] * 2,
-                                   max_fc: settings[:max_fc] * 2 %>
+                        </div>
                       </div>
-                    <% else %>
-                      <div style="height: 41px;"></div>
-                    <% end %>
-                    </div>
                     </div>
                   <% end %>
+
                   <% if bay == bays.keys.last %>
                     <span class="clearfix"></span>
                   <% end %>

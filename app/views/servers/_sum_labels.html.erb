@@ -1,7 +1,0 @@
-<span class="fc label label-default <%= sums['FC'] > max_fc ? 'label-danger' : '' %>">&Sigma; FC : <%= sums['FC'] %></span>
-<span class="rj45 label label-primary <%= sums['RJ'] > max_rj45 ? 'label-danger' : '' %>">&Sigma; RJ : <%= sums['RJ'] %></span>
-<span class="xrj45 label label-primary <%= sums['XRJ'] > max_rj45 ? 'label-danger' : '' %>">&Sigma; XRJ : <%= sums['XRJ'] %></span>
-<% if sum_u %>
-  <span class="u label label-default <%= sum_u > max_u ? 'label-danger' : '' %>">&Sigma; U : <%= sum_u %></span>
-<% end %>
-<span class="ipmi label label-default">&Sigma; IPMI : <%= sums['IPMI'] %></span>

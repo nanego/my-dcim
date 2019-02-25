@@ -85,25 +85,5 @@
       <% end %>
 
     </ul>
-    <% if editable != false || @sums.present? %>
-      <div class="panel-footer">
-        <% if formats != [:pdf] && editable != false %>
-          <span class="pull-right">
-            <button type="button" class="btn btn-default glyphicon glyphicon-plus" data-toggle="modal" data-target=".bs-example-modal-sm"></button>
-          </span>
-        <% end %>
-        <% sums = @sums[frame.id] %>
-        <% sum_u = frame.servers.to_a.sum {|s| s.modele.try(:u) || 0} %>
-        <% sum_elements = frame.servers.to_a.sum {|s| s.modele.try(:nb_elts) || 0} %>
-        <%= render 'servers/sum_labels.html.erb',
-                   sums: sums,
-                   sum_u: sum_u,
-                   sum_elements: sum_elements,
-                   max_u: settings[:max_u],
-                   max_elts: settings[:max_elts],
-                   max_rj45: settings[:max_rj45],
-                   max_fc: settings[:max_fc] if @sums.present? %>
-      </div>
-    <% end %>
   </div>
 </div>
