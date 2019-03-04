@@ -83,7 +83,9 @@
     var lines = []
     var current_connections = []
 
-    drawCurrentLines()
+    $(document).ready(function () {
+        drawCurrentLines()
+    })
 
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         // log(e.target.dataset)
@@ -330,15 +332,12 @@
             }))
         }
 
-        // HUBS
-        // drawInterHubsConnections()
-
         <% @connections.each do |server_id, connections| %>
-          <% connections.each do |connection| %>
-            <% unless @concentrateurs_ids.include?(connection[:server_id]) && @concentrateurs_ids.exclude?(server_id)  %>
-              drawInterSwitchsConnections('<%= server_id %>', '<%= connection[:server_id] %>', '<%= connection[:cable_color] %>')
-            <% end %>
-          <% end %>
+        <% connections.each do |connection| %>
+        <% unless @concentrateurs_ids.include?(connection[:server_id]) && @concentrateurs_ids.exclude?(server_id)  %>
+        drawInterSwitchsConnections('<%= server_id %>', '<%= connection[:server_id] %>', '<%= connection[:cable_color] %>')
+        <% end %>
+        <% end %>
         <% end %>
 
     }
@@ -346,26 +345,6 @@
     function drawLine(startElement, endElement, params) {
         if (startElement && endElement) {
             lines.push(new LeaderLine(startElement, endElement, params))
-        }
-    }
-
-    function drawInterHubsConnections() {
-        var start_element = $('#hub1-' + current_room_id + '-' + current_islet + ':visible')[0]
-        var end_element = $('#hub2-' + current_room_id + '-' + current_islet + ':visible')[0]
-        for (var i = 0; i < 2; i++) { // TODO Check real connections in db
-            var start_anchor = LeaderLine.pointAnchor(start_element, {x: 42 + i * 20, y: 57})
-            var end_anchor = LeaderLine.pointAnchor(end_element, {x: 42 + i * 20, y: 0})
-            drawLine(start_anchor, end_anchor,
-                {
-                    path: 'fluid',
-                    startPlug: 'behind',
-                    endPlug: 'behind',
-                    startSocket: 'bottom',
-                    endSocket: 'top',
-                    color: inter_hubs_color,
-                    size: 2
-                }
-            )
         }
     }
 
@@ -377,7 +356,9 @@
             // var end_anchor = LeaderLine.pointAnchor(end_element, {x: 42 + i * 20, y: 0})
             if (start_element && end_element) {
                 setParamsAndDraw(start_element, end_element, color)
-                // current_connections.push(start_id + "-" + end_id)
+                if (!$(start_element).hasClass('hub_material')) {
+                    current_connections.push(start_id + "-" + end_id)
+                }
                 log(start_id + ' <-> ' + end_id)
             }
         }
@@ -386,28 +367,15 @@
     function setParamsAndDraw(start_element, end_element, color) {
         var params
 
-        if(color){
+        if (color) {
             color = colors_hash[color]
-        }else{
+        } else {
             color = 'gray'
         }
 
-        if ($(start_element).hasClass('hub-top') && !($(end_element).hasClass('hub-bottom'))) {
-            // HUB 1 - ORANGE LINES
-            end_element = LeaderLine.pointAnchor(end_element, {x: 5, y: 0})
-            params = {
-                path: 'fluid',
-                startPlug: 'behind',
-                endPlug: 'behind',
-                startSocket: 'bottom',
-                endSocket: 'top',
-                color: color,
-                size: 3,
-                dash: true
-            }
-        }
-        if ($(start_element).hasClass('hub-bottom') && !($(end_element).hasClass('hub-top'))) {
-            // HUB 2 - GREEN LINES
+        if ($(start_element).hasClass('hub-top') && !($(end_element).hasClass('hub-bottom')) ||
+            $(start_element).hasClass('hub-bottom') && !($(end_element).hasClass('hub-top'))) {
+            // HUB TO SWITCHS
             end_element = LeaderLine.pointAnchor(end_element, {x: 5, y: 0})
             params = {
                 path: 'fluid',
@@ -421,8 +389,9 @@
             }
         }
 
-        if ($(start_element).hasClass('lane-1') && $(end_element).hasClass('lane-1')) {
-            // LANE 1 - INTER SWITCHS - 2 AT TOP
+        if ($(start_element).hasClass('lane-1') && $(end_element).hasClass('lane-1') ||
+            $(start_element).hasClass('lane-2') && $(end_element).hasClass('lane-2')) {
+            // SWITCH TO SWITCH - SAME LINE
             params = {
                 path: 'fluid',
                 startPlug: 'behind',
@@ -435,17 +404,22 @@
             }
         }
 
-        if ($(start_element).hasClass('lane-2') && $(end_element).hasClass('lane-2')) {
-            // LANE 2 - INTER SWITCHS - 2 AT BOTTOM
+        if ($(start_element).hasClass('hub-top') && ($(end_element).hasClass('hub-bottom')) ||
+            $(start_element).hasClass('hub-bottom') && ($(end_element).hasClass('hub-top'))) {
+            // HUB TO HUB
+            if ($(start_element).hasClass('hub-top')) {
+                start_element = LeaderLine.pointAnchor(start_element, {x: $(start_element).outerWidth(), y: 19})
+                end_element = LeaderLine.pointAnchor(end_element, {x: 0, y: 19})
+            } else {
+                start_element = LeaderLine.pointAnchor(start_element, {x: 0, y: 38})
+                end_element = LeaderLine.pointAnchor(end_element, {x: $(end_element).outerWidth(), y: 38})
+            }
             params = {
-                path: 'fluid',
+                path: 'straight',
                 startPlug: 'behind',
                 endPlug: 'behind',
-                startSocket: 'bottom',
-                endSocket: 'bottom',
                 color: color,
-                size: 2,
-                dash: false
+                size: 2
             }
         }
 
