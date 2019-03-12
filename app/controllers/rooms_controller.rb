@@ -112,8 +112,9 @@ class RoomsController < ApplicationController
     @hubs = {1 => {4 => Server.find(383), 3 => Server.find(384)}, 2 => {4 => Server.find(1043), 3 => Server.find(1044)}} # Concentrateurs per room
 
     @connections = {}
-    @servers = Server.includes(:frame, :ports, :cards => [:ports]). #includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
+    @servers = Server.includes(:frame, :stack, :ports, :cards => [:ports]). #includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
                    where("network_id IS NOT NULL")
+    @stacks = @servers.map(&:stack).uniq.compact
     @servers.each do |server|
       @connections[server.id] = server.directly_connected_servers_ids_with_color.reject{|conn| @switchs_lan_ids.exclude?(conn[:server_id])}
     end
