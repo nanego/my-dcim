@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.6.1'
 gem 'rails', '5.2.2.1'
 gem 'rails-i18n'
-gem 'sassc-rails', '~> 1.3'
+gem 'sassc-rails', '~> 2.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
@@ -11,7 +11,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'administrate'
 
 gem 'bourbon'
-gem 'bootstrap-sass'
+gem "bootstrap-sass", ">= 3.4.1"
 # gem 'bootstrap-generators', git: 'git://github.com/decioferreira/bootstrap-generators.git'
 gem 'bootstrap-generators', '~> 3.3.4'
 
