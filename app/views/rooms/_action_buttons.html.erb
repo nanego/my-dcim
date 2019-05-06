@@ -39,28 +39,60 @@
         Exports <span class="caret"></span>
       </button>
       <ul class="dropdown-menu dropdown-menu-right">
-        <li>
+        
+        <li class="dropdown-submenu pull-left">
           <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'pdf'})), target: :_blank do %>
             <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
             Export PDF
           <% end %>
+          <ul class="dropdown-menu dropdown-menu-left">
+            <li>
+              <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'pdf', 'view' => 'front'})), target: :_blank do %>
+                <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                Face avant
+              <% end %>
+            </li>
+            <li>
+              <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'pdf', 'view' => 'back'})), target: :_blank do %>
+                <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                Face arrière
+              <% end %>
+            </li>
+            <li>
+              <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'pdf', 'view' => 'front', 'bg' => 'cablage'})), target: :_blank do %>
+                <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                Cablage - Face avant
+              <% end %>
+            </li>
+            <li>
+              <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'pdf', 'view' => 'back', 'bg' => 'cablage'})), target: :_blank do %>
+                <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                Cablage - Face arrière
+              <% end %>
+            </li>
+          </ul>
         </li>
+
         <li><%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'txt'})) do %>
           <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
             Export Txt
           <% end %>
         </li>
+
         <li><%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'pdf', 'debug' => '1'})), target: :_blank do %>
           <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
             Impression
           <% end %>
         </li>
+
         <li role="separator" class="divider"></li>
+
         <li><%= link_to ports_path(room_id: @room.id, frame_id: @frame.try(:id)) do %>
           <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
             Liste des ports
           <% end %>
         </li>
+
       </ul>
     </div>
   <% end %>

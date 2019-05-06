@@ -1,4 +1,4 @@
-<% editable = true if local_assigns[:editable].nil? %>
+  <% editable = true if local_assigns[:editable].nil? %>
 <% servers_ids = servers.map(&:id) %>
 <% if local_assigns[:highlighted_servers].nil?
      highlighted_servers_ids = servers_ids
@@ -15,7 +15,7 @@
         <%= link_to "#{frame.name}", frame_path(frame, :view => view_type, bg: params[:bg]), style: 'text-decoration: underline;' %>
       </h5>
     </div>
-    <ul class='servers connectedFrames list-group'
+    <ul class="servers connectedFrames list-group"
         data-room="<%= frame.room.name %>"
         data-islet="<%= frame.bay.islet.name %>"
         data-frame="<%= frame.name %>"
@@ -27,7 +27,9 @@
         <% if server.modele.try(:name).present? %>
 
           <% while server.position.present? && server.position < u_disponibles && u_disponibles > 0 %>
-            <li class="server list-group-item truncate <%= 'relegated' if highlighted_servers_ids != servers_ids %>"
+            <li class="server list-group-item truncate
+                        <%= 'relegated' if highlighted_servers_ids != servers_ids %>
+                        <%= 'relegated' if params[:bg]=='cablage' && request.format.pdf? %>"
                 style="height: <%= settings[:min_height] %>px;"
                 data-num-u="<%= u_disponibles %>">
               <%= render 'servers/draw_u_scale_unit.html.erb', i: 0, u_disponibles: u_disponibles, u_server: 1 %>
@@ -46,7 +48,12 @@
 
           <% if view_type == 'back' %>
             <%= content_tag_for :li, server,
-                                class: "list-group-item truncate server_back #{server.modele.try(:category).try(:name).try(:parameterize)} #{'relegated' if highlighted_servers_ids.exclude?(server.id)}",
+                                class: "list-group-item truncate server_back
+                                        #{server.modele.try(:category).try(:name).try(:parameterize)}
+                                        #{server.server_state_id == 1 ? 'striped' : ''}
+                                        #{'relegated' if highlighted_servers_ids.exclude?(server.id)}
+                                        #{'relegated' if params[:bg]=='cablage' && request.format.pdf? && server.server_state_id != 1 }
+                                ",
                                 style: "min-height: #{settings[:min_height] * (server.modele.try(:u).to_i > 0 ? server.modele.u : 1)}px;padding: 3px 3px 3px 20px;",
                                 data: data do %>
               <% u_server.times do |i| %>
@@ -61,9 +68,13 @@
               </span>
             <% end %>
           <% else %>
-
             <%= content_tag_for :li, server,
-                                class: "list-group-item truncate #{server.modele.try(:category).try(:name).try(:parameterize)} #{server.server_state_id == 1 ? 'striped' : ''}  #{'relegated' if highlighted_servers_ids.exclude?(server.id)}",
+                                class: "list-group-item truncate
+                                        #{server.modele.try(:category).try(:name).try(:parameterize)}
+                                        #{server.server_state_id == 1 ? 'striped' : ''}
+                                        #{'relegated' if highlighted_servers_ids.exclude?(server.id)}
+                                        #{'relegated' if params[:bg]=='cablage' && request.format.pdf? && server.server_state_id != 1 }
+                                ",
                                 style: "height: #{settings[:min_height] * u_server - (u_server - 1)}px;background-color:#{bgModeleColor} !important;",
                                 :data => data do %>
               <% u_server.times do |i| %>
@@ -78,7 +89,10 @@
         <% end %>
       <% end %>
       <% u_disponibles.times do |u| %>
-        <li class="server list-group-item truncate <%= 'relegated' if highlighted_servers_ids != servers_ids %>" style="height: <%= settings[:min_height] %>px;" data-num-u="<%= u_disponibles %>">
+        <li class="server list-group-item truncate
+                    <%= 'relegated' if highlighted_servers_ids != servers_ids %>
+                    <%= 'relegated' if params[:bg]=='cablage' && request.format.pdf? %>
+                  " style="height: <%= settings[:min_height] %>px;" data-num-u="<%= u_disponibles %>">
           <%= render 'servers/draw_u_scale_unit.html.erb', i: 0, u_disponibles: u_disponibles, u_server: 1 %>
         </li>
         <% u_disponibles -= 1 %>

@@ -27,10 +27,10 @@
   }
   .server {
     &.relegated {
-      filter: alpha(opacity=30);
-      -moz-opacity: 0.3;
-      -khtml-opacity: 0.3;
-      opacity: 0.3;
+      filter: alpha(opacity=30) !important;
+      -moz-opacity: 0.3 !important;
+      -khtml-opacity: 0.3 !important;
+      opacity: 0.3 !important;
     }
   }
 }

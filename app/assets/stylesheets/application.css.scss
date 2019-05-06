@@ -84,6 +84,15 @@ a.hide-filters, a.show-filters {
   page-break-inside: avoid;
 }
 
+.frame {
+  .relegated {
+    filter: alpha(opacity=30) !important;
+    -moz-opacity: 0.3 !important;
+    -khtml-opacity: 0.3 !important;
+    opacity: 0.3 !important;
+  }
+}
+
 .frame .server.ui-sortable-handle {
   cursor: move;
 }
@@ -117,7 +126,7 @@ a.hide-filters, a.show-filters {
                     #E5E5E5 10px,
                     #F0F0F0 10px,
                     #F0F0F0 20px
-    );
+    ) !important;
   }
 }
 
