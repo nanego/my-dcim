@@ -3,7 +3,7 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {"Salles" => overview_rooms_path,
                                           @server.frame.room.name => room_path(@server.frame.room, view: params[:view]),
                                           "Ilot #{@server.frame.islet.name}" => room_path(@server.frame.room, islet: @server.frame.islet.name, :view => params[:view], bg: params[:bg]),
-                                          "Double baie #{@server.frame.bay}" => bay_path(@server.frame.bay, view: params[:view]),
+                                          "Double baie #{@server.frame.bay}" => room_path(@server.frame.room, islet: @server.frame.islet.name, 'bay-id': @server.frame.bay_id, view: params[:view]),
                                           "Baie #{@server.frame.name}" => frame_path(@server.frame, view: params[:view]),
                                           @server.name => ''} %>
 

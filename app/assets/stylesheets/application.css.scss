@@ -392,6 +392,10 @@ table.card_layout {
   background-color: #f5f5f5;
 }
 
+.dropdown-submenu.pull-left > .dropdown-menu {
+  left: -150%;
+}
+
 // PDUs
 .pdu_outlet_group {
   padding-top: 20px;

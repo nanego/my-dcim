@@ -41,7 +41,7 @@
                     <div class="<%= layout_classes %>" style='overflow: auto;'>
                       <div class="panel well couple"
                            style='overflow: auto;'
-                           data-url="<%= bay_path(bay, view: params[:view]) %>">
+                           data-url="<%= room_path(@room, islet: islet, 'bay-id': bay, view: params[:view]) %>">
                         <div class="panel-body">
                   <% end %>
 
