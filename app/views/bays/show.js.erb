@@ -2,6 +2,9 @@ if (typeof delete_all_lines === "function") {
     delete_all_lines()
 }
 
+$('.couple .overviewed_frame').removeClass('selected')
+$('.couple .overviewed_frame[data-bay-id=<%= @bay.id %>]').addClass('selected')
+
 $('#bay-container').html("<%= escape_javascript(render 'servers/room',
              room: @bay.room,
              islets: @servers_per_frames,
@@ -11,10 +14,13 @@ $('#bay-container').html("<%= escape_javascript(render 'servers/room',
 var searchParams = new URLSearchParams(window.location.search)
 var view = '<%= params[:view] %>'
 searchParams.set('view', view)
+searchParams.set('bay-id', '<%= @bay.id %>')
+searchParams.set('frame-id', '')
 window.history.replaceState({}, '', location.pathname + '?' + searchParams)
-
-$('.couple .overviewed_frame').removeClass('selected')
-$('.couple .overviewed_frame[data-bay-id=<%= @bay.id %>]').addClass('selected')
 
 scale_large_slots()
 $('[data-toggle="tooltip"]').tooltip()
+reset_u_heights()
+window.addEventListener('resize', function (event) {
+    reset_u_heights()
+})

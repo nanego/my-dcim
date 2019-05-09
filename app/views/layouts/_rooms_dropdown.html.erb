@@ -21,7 +21,7 @@
                   <%= link_to "#{room.name}-ilot#{islet.name}", room_path(room, islet: islet.name, :view => params[:view], bg: params[:bg]) %>
                   <div class="dropdown-menu" style="width: <%= calculated_menu_width(islet) %>px;">
                     <% if islet.bays.present? %>
-                      <%= render 'bays/overview', bays: islet.bays.sorted %>
+                      <%= render 'bays/overview', bays: islet.bays.sorted, islet: islet.name %>
                     <% end %>
                   </div>
                 </li>
@@ -31,7 +31,7 @@
             <% islet = islets.first if islets.present? && islets.first.bays.present? %>
             <% if islet %>
               <ul class="dropdown-menu" style="width: <%= calculated_menu_width(islet) %>px;">
-                <%= render 'bays/overview', bays: islet.bays.sorted %>
+                <%= render 'bays/overview', bays: islet.bays.sorted, islet: islet.name %>
               </ul>
             <% end %>
           <% end %>

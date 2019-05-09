@@ -11,7 +11,7 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: breadcrumb_variables %>
 <% provide(:title, "Baie #{@frame.name}") %>
 
-<div class="container-fluid" id="frame-container">
+<div class="container-fluid" id="bay-container">
   <%= render 'frames/show_complete_frame' %>
 </div>
 
@@ -20,19 +20,7 @@
 <%= render 'ports/modal_edit_port' %>
 
 
-<script>
-    // UI hack
-    // Get height of all back U, and set front U accordingly
-    function reset_u_heights() {
-        let heights = {};
-        $(".frames .view-back li").each(function (index, value) {
-            heights[$(this).data('num-u')] = $(this).height();
-            // console.log('li' + index + ':' + $(this).data('num-u') + ' -> ' + $(this).height());
-        });
-        jQuery.each(heights, function (index, value) {
-            $(".frames .view-front li[data-num-u='" + index + "']").height(value + 'px');
-        });
-    }
+<script type="javascript">
     reset_u_heights()
     window.addEventListener('resize', function (event) {
         reset_u_heights()

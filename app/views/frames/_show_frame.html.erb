@@ -12,7 +12,14 @@
   <div class="panel panel-frame panel-default">
     <div class="panel-heading">
       <h5 class="panel-title" style="display: inline;">
-        <%= link_to "#{frame.name}", frame_path(frame, :view => view_type, bg: params[:bg]), style: 'text-decoration: underline;' %>
+        <%= link_to frame.name,
+                    room_path(@room,
+                              view: view_type,
+                              islet: @frame.islet.name,
+                              'bay-id': @frame.bay_id,
+                              'frame-id': @frame,
+                              bg: params[:bg]),
+                    style: 'text-decoration: underline;' %>
       </h5>
     </div>
     <ul class="servers connectedFrames list-group"

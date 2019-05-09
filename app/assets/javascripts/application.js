@@ -89,3 +89,16 @@ function scale_large_slots(){
 
     })
 }
+
+// UI hack
+// Get height of all back U, and set front U accordingly
+function reset_u_heights() {
+    let heights = {};
+    $(".frames .view-back li").each(function (index, value) {
+        heights[$(this).data('num-u')] = $(this).height();
+        // console.log('li' + index + ':' + $(this).data('num-u') + ' -> ' + $(this).height());
+    });
+    jQuery.each(heights, function (index, value) {
+        $(".frames .view-front li[data-num-u='" + index + "']").height(value + 'px');
+    });
+}
