@@ -13,11 +13,11 @@
     <div class="panel-heading">
       <h5 class="panel-title" style="display: inline;">
         <%= link_to frame.name,
-                    room_path(@room,
+                    room_path(frame.room,
                               view: view_type,
-                              islet: @frame.islet.name,
-                              'bay-id': @frame.bay_id,
-                              'frame-id': @frame,
+                              islet: frame.islet.name,
+                              'bay-id': frame.bay_id,
+                              'frame-id': frame,
                               bg: params[:bg]),
                     style: 'text-decoration: underline;' %>
       </h5>
