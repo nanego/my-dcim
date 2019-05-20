@@ -14,7 +14,7 @@
   <%= render 'servers/room',
              room: @bay.room,
              islets: @servers_per_frames,
-             title: "Double baie #{@bay}",
+             title: @bay.frames.size > 1 ? "Double baie #{@bay}" : @bay,
              view_side: params[:view] %>
 </div>
 

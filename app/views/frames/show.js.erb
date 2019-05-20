@@ -3,7 +3,7 @@ if (typeof delete_all_lines === "function") {
 }
 
 $('.couple .overviewed_frame').removeClass('selected')
-$('.couple .overviewed_frame[data-frame-id=<%= @frame.to_s %>]').addClass('selected')
+$('.couple .overviewed_frame[data-frame-id=<%= @frame.slug %>]').addClass('selected')
 
 $('#bay-container').html("<%= escape_javascript(render 'frames/show_complete_frame') %>")
 
@@ -15,7 +15,7 @@ if (searchParams.has('view')) {
     searchParams.set('view', view)
 }
 searchParams.set('bay-id', '<%= @frame.bay_id %>')
-searchParams.set('frame-id', '<%= @frame.to_s %>')
+searchParams.set('frame-id', '<%= @frame.slug %>')
 window.history.replaceState({}, '', location.pathname + '?' + searchParams)
 
 scale_large_slots()

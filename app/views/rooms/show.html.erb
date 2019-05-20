@@ -57,9 +57,9 @@
 
                       <% bay.frames.sorted.each_with_index do |frame, index| %>
                         <div class="overviewed_frame <%= 'no-margin' if index > 0 %> <%= 'highlighted' if @frames && @frames.include?(frame) %>"
-                             data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.to_s %>">
+                             data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.slug %>">
                           <div class="title">
-                            <%= link_to frame.name, frame_path(frame, view: (params[:view])), data: {'frame-id': frame.to_s} %>
+                            <%= link_to frame.name, frame_path(frame, view: (params[:view])), data: {'frame-id': frame.slug} %>
                           </div>
                           <ul>
                             <% u_disponibles = frame.u || 41 %>
@@ -164,7 +164,7 @@
         var bay_id = searchParams.get('bay-id')
         var frame_id = searchParams.get('frame-id')
         if (frame_id) {
-            loadFrame(frame_id, bay_id)
+            loadFrame(frame_id, bay_id, "")
         } else {
             if (bay_id) {
                 loadBay(bay_id)
@@ -187,7 +187,7 @@
     })
     $(".show_room .overviewed_frame .title a").on('click', function (e) {
         e.preventDefault()
-        loadFrame($(this).data('frame-id'), $(this).data('bay-id'))
+        loadFrame($(this).data('frame-id'), $(this).data('bay-id'), $(this).text())
     })
     $(".menu-rooms").on('click', 'a', function (e) {
         $('ol.breadcrumb').replaceWith("<ol class=\"breadcrumb\" style=\"margin-bottom: 5px;\">\n" +
@@ -223,8 +223,8 @@
         });
     }
 
-    function loadFrame(frame_id, bay_id) {
-        $('#bay-container').html('<div class="animationload"><div class="osahanloading"></div>Chargement de la baie '+frame_id+'</div>')
+    function loadFrame(frame_id, bay_id, frame_title) {
+        $('#bay-container').html('<div class="animationload"><div class="osahanloading"></div>Chargement de la baie '+frame_title+'</div>')
         if (typeof delete_all_lines === "function") {
             delete_all_lines()
         }
