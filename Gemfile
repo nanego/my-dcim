@@ -34,7 +34,7 @@ gem 'virtus'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # Use ActiveStorage variant
-gem 'mini_magick', '~> 4.8'
+gem 'mini_magick', '~> 4.9'
 
 group :development do
   gem 'web-console', '~> 2.0'
