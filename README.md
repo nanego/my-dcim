@@ -90,7 +90,21 @@ You can also configure Apache, Nginx or any other web/application server of your
 Contributing
 ------------
 
-1. Fork it
+Here are some of the ways you can contribute:
+
+### Report or fix Bugs
+
+### Improve test coverage
+
+As with any large and growing codebase, test coverage is not always as good as it could be. Help improving test coverage is always welcome and will help you learn how My-DCIM works.
+    
+### Refactor code
+
+### Translate the project
+
+### Build new features
+
+1. Fork the Github repository
 2. Create your feature branch (`git checkout -b my-awesome-feature`)
 3. Commit your changes (`git commit -am 'Added some feature'`)
 4. Push to the branch (`git push origin my-awesome-feature`)
