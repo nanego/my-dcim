@@ -46,18 +46,14 @@
       </a>
       <ul class="dropdown-menu">
         <li>
-          <div class="row" style="width: 1000px;">
-            <% Modele.all_sorted_with_servers.in_groups(4).each do |modeles| %>
-              <ul class="list-unstyled col-md-3">
-                <% modeles.each do |modele| %>
-                  <% if modele.present? %>
-                    <li <%= "class=active" if params[:modele_id]==modele.id.to_s %> >
-                      <%= link_to modele.to_s, overview_rooms_path(modele_id: modele.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
-                    </li>
-                  <% end %>
-                <% end %>
-              </ul>
-            <% end %>
+          <div>
+            <ul style="width:860px;max-height: 600px;overflow: auto;display: flex;flex-direction: column;flex-wrap: wrap;" class="list-unstyled modeles">
+              <% Modele.all_sorted_with_servers.each do |modele| %>
+                <li class="<%= "active" if params[:modele_id] == modele.id.to_s %>" style="max-width: 265px;">
+                  <%= link_to modele.name_with_brand, overview_rooms_path(modele_id: modele.id, :view => params[:view], bg: (params[:bg] || 'modele')) %>
+                </li>
+              <% end %>
+            </ul>
           </div>
         </li>
       </ul>
