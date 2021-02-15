@@ -9,7 +9,6 @@ one:
   architecture_id: 1
   manufacturer_id: 1
   category_id: 1
-  nb_elts: 1
 
 two:
   id: 2
@@ -20,7 +19,6 @@ two:
   architecture_id: 1
   manufacturer_id: 1
   category_id: 2
-  nb_elts: 1
 
 three:
   id: 3
