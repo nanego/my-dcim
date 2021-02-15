@@ -21,9 +21,9 @@ Run the following commands to install stable version:
 
     source ~/.rvm/scripts/rvm
 
-    rvm install 2.6.1
+    rvm install 2.6.6
 
-    rvm use 2.6.1 --default
+    rvm use 2.6.6 --default
 
 #### 2.2 Installing Bundler
 Bundler is a tool that allows you to install multiple gem versions, run this command to install bundler:
