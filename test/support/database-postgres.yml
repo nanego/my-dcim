@@ -1,0 +1,23 @@
+production:
+  adapter: postgresql
+  host: localhost
+  database: dcim_test
+  username: postgres
+  password: postgres
+  encoding: utf8
+
+development:
+  adapter: postgresql
+  host: localhost
+  database: dcim_test
+  username: postgres
+  password: postgres
+  encoding: utf8
+
+test:
+  adapter: postgresql
+  host: localhost
+  database: dcim_test
+  username: postgres
+  password: postgres
+  encoding: utf8

@@ -36,13 +36,8 @@ jobs:
       - name: Update package archives
         run: sudo apt-get update --yes --quiet
 
-      - name: Install package dependencies
-        run: >
-          sudo apt-get install --yes --quiet
-          build-essential
-          cmake
-          libicu-dev
-          libpq-dev
+      - name: Install library for postgres
+        run: sudo apt-get install libpq-dev
 
       - name: Set up Ruby
         uses: actions/setup-ruby@v1
@@ -50,7 +45,7 @@ jobs:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
-      - name: Setup Bundler
+      - name: Set up Bundler
         run: |
           gem install bundler -v '~> 1.0'
 
@@ -58,11 +53,14 @@ jobs:
         run: |
           bundle install --jobs=4 --retry=3 --without development
 
-      - name: Create DB and run migration tasks
+      - name: Set up Database
         env:
           RAILS_ENV: test
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
         run: |
-          bundle exec rake db:create db:migrate
+          cp test/support/database-postgres.yml config/database.yml
+          bundle exec rails db:setup
 
       - name: Run tests
         env:
