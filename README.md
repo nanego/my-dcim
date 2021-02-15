@@ -3,6 +3,8 @@ My DCIM
 
 This Ruby On Rails app is a tool built to effectively manage data center infrastructures.
 
+![Super-Linter](https://github.com/nanego/my-dcim/workflows/Super-Linter/badge.svg?branch=master)
+
 ## Installation steps
 ### Step 1. Dependencies
 #####  1.1 PostgreSQL
