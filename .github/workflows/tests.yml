@@ -58,12 +58,6 @@ jobs:
         run: |
           bundle install --jobs=4 --retry=3 --without development
 
-      - name: Generate session store secret
-        env:
-          RAILS_ENV: test
-        run: |
-          bundle exec rake generate_secret_token
-
       - name: Create DB and run migration tasks
         env:
           RAILS_ENV: test
