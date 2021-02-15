@@ -1,0 +1,84 @@
+name: Run all tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    name: ruby-${{ matrix.ruby-version }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        ruby-version: ['2.6']
+      fail-fast: false
+
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_DB: redmine
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout main app
+        uses: actions/checkout@v2
+
+      - name: Update package archives
+        run: sudo apt-get update --yes --quiet
+
+      - name: Install package dependencies
+        run: >
+          sudo apt-get install --yes --quiet
+          build-essential
+          cmake
+          libicu-dev
+          libpq-dev
+
+      - name: Set up Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+
+      - name: Setup Cache
+        uses: actions/cache@v1
+        with:
+          path: vendor
+          key: v1-ruby-${{ matrix.ruby }}-redmine-${{ matrix.redmine }}
+
+      - name: Setup Bundler
+        run: |
+          gem install bundler -v '~> 1.0'
+          bundle config path "$(pwd)/vendor/bundle"
+
+      - name: Install Ruby dependencies
+        working-directory: redmine
+        run: |
+          bundle install --jobs=4 --retry=3 --without development
+
+      - name: Generate session store secret
+        env:
+          RAILS_ENV: test
+        run: |
+          bundle exec rake generate_secret_token
+
+      - name: Create DB and run migration tasks
+        env:
+          RAILS_ENV: test
+        run: |
+          bundle exec rake db:create db:migrate
+
+      - name: Run tests
+        env:
+          RAILS_ENV: test
+        run: bundle exec rails test
