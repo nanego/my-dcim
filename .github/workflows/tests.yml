@@ -1,4 +1,4 @@
-name: Run all tests
+name: Tests
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
       postgres:
         image: postgres:13
         env:
-          POSTGRES_DB: redmine
+          POSTGRES_DB: dcim_test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         ports:
@@ -50,19 +50,11 @@ jobs:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
-      - name: Setup Cache
-        uses: actions/cache@v1
-        with:
-          path: vendor
-          key: v1-ruby-${{ matrix.ruby }}-redmine-${{ matrix.redmine }}
-
       - name: Setup Bundler
         run: |
           gem install bundler -v '~> 1.0'
-          bundle config path "$(pwd)/vendor/bundle"
 
       - name: Install Ruby dependencies
-        working-directory: redmine
         run: |
           bundle install --jobs=4 --retry=3 --without development
 
