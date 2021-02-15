@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.6.6'
-gem 'rails', '5.2.3'
+gem 'rails', '5.2.4.5'
 gem 'rails-i18n'
 gem 'sassc-rails', '~> 2.0'
 gem 'uglifier', '>= 1.3.0'
