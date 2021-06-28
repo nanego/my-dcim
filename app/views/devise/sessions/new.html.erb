@@ -1,7 +1,7 @@
 <div class="authform">
   <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f| %>
     <h3 style="width: 100%;text-align: center;">Connexion</h3>
-    <%= devise_error_messages! %>
+    <%= render "devise/shared/error_messages", resource: resource %>
     <div id="cas-login">
       <%= link_to 'Authentification via CERBERE', user_cas_omniauth_authorize_path, class: 'btn btn-success', style: 'width: 100%;' %>
     </div>

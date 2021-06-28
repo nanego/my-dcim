@@ -36,7 +36,7 @@ module ServersHelper
           port_data = include_moved_connections(moved_connections, port_data, port_id) # Add moved connections if any
 
           html += content_tag(:span,
-                              link_to_port(position, port_data, card_type.port_type, card.id, port_id, (position - (card_type.first_position == 0 ? 1 : 0)).to_s.rjust(2, "0")),
+                              link_to_port(position, port_data, card_type.port_type, card.id, port_id, (position - 1 + card.first_port_position).to_s.rjust(2, "0")),
                               class: "port_container
                                       #{twin_card_used_ports && port_data && port_data.cable_name && twin_card_used_ports.exclude?(port_data.position) ? "no_client" : ""}
                               #{twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(position) ? "unreferenced_client" : ""}

@@ -29,6 +29,18 @@ class Card < ActiveRecord::Base
     "Carte #{server} / #{card_type} / #{composant}"
   end
 
+  def first_port_position
+    if first_position.present?
+      first_position
+    else
+      if card_type.present? && card_type.first_position.present?
+        card_type.first_position
+      else
+        1
+      end
+    end
+  end
+
   def positions_with_ports
     ports.map {|port| port.position }
   end
