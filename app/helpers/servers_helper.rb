@@ -84,7 +84,7 @@ module ServersHelper
       link_to_port_by_type(port_data && port_data.cable_name ? port_data.cable_name : default_label, "RJ", port_data, position, card_id, port_id)
     when 'XRJ'
       link_to_port_by_type(port_data && port_data.cable_name ? port_data.cable_name : default_label, "RJ", port_data, position, card_id, port_id)
-    when 'FC'
+    when 'FC', 'SC'
       link_to_port_by_type(port_data && port_data.cable_name ? port_data.cable_name : default_label, "FC", port_data, position, card_id, port_id)
     else
       link_to_port_by_type("#{port_data.try(:cable_name).present? ? port_data.try(:cable_name) : port_type.try(:name)}".html_safe, port_type.name, port_data, position, card_id, port_id)
