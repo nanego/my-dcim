@@ -1,19 +1,26 @@
-<div class="page-header">
-  <%= link_to gestions_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Back
-  <% end %>
-  <%= link_to edit_gestion_path(@gestion), class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    Edit
-  <% end %>
-  <h1>Voir gestion</h1>
+<div class="container">
+
+  <div class="page-header">
+    <%= link_to gestions_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Retour
+    <% end %>
+    <%= link_to edit_gestion_path(@gestion), class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+      Edit
+    <% end %>
+    <h1>Gestionnaire <%= @gestion %></h1>
+  </div>
+
+  <dl class="dl-horizontal">
+    <dt>Description:</dt>
+    <dd><%= @gestion.description %></dd>
+  </dl>
+
+  <ul>
+    <% @gestion.servers.sorted_by_name.each do |server| %>
+      <li><%= link_to server, server %></li>
+    <% end %>
+  </ul>
+
 </div>
-
-<dl class="dl-horizontal">
-  <dt>Nom :</dt>
-  <dd><%= @gestion %></dd>
-
-  <dt>Description:</dt>
-  <dd><%= @gestion.description %></dd>
-</dl>

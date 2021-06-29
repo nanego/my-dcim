@@ -35,18 +35,19 @@ class Server < ActiveRecord::Base
 
   accepts_nested_attributes_for :cards,
                                 :allow_destroy => true,
-                                :reject_if     => :all_blank
+                                :reject_if => :all_blank
   accepts_nested_attributes_for :disks,
                                 :allow_destroy => true,
-                                :reject_if     => :all_blank
+                                :reject_if => :all_blank
   accepts_nested_attributes_for :memory_components,
                                 :allow_destroy => true,
-                                :reject_if     => :all_blank
+                                :reject_if => :all_blank
   accepts_nested_attributes_for :documents,
                                 :allow_destroy => true,
-                                :reject_if     => :all_blank
+                                :reject_if => :all_blank
 
-  scope :sorted, -> { order( :position => :desc) }
+  scope :sorted, -> { order(:position => :desc) }
+  scope :sorted_by_name, -> { order('LOWER(name) ASC') }
 
   scope :no_pdus, -> { joins(:modele => :category).where("categories.name<>'Pdu'") }
   scope :only_pdus, -> { joins(:modele => :category).where("categories.name='Pdu'").order(:name) }
@@ -54,7 +55,7 @@ class Server < ActiveRecord::Base
 
   validates :frame_id, presence: true
   validates :modele_id, presence: true
-  validates :name , presence: true
+  validates :name, presence: true
 
   def to_s
     name.to_s
@@ -74,20 +75,20 @@ class Server < ActiveRecord::Base
 
   def ports_per_type
     # Number of ports per type
-    sums = {'XRJ' => 0,'RJ' => 0,'FC' => 0,'IPMI' => 0}
+    sums = { 'XRJ' => 0, 'RJ' => 0, 'FC' => 0, 'IPMI' => 0 }
     cards.each do |card|
       if card.composant.name == 'IPMI'
         port_type = 'IPMI'
       else
         port_type = card.card_type.port_type.name
       end
-      sums[port_type] = sums[port_type].to_i + card.ports.map{ |port| port.connection.try(:cable) }.compact.size
+      sums[port_type] = sums[port_type].to_i + card.ports.map { |port| port.connection.try(:cable) }.compact.size
     end
     sums
   end
 
   def create_missing_ports
-    cards.each { |card| card.create_missing_ports}
+    cards.each { |card| card.create_missing_ports }
   end
 
   def connected_servers_ids_through_twin_cards_with_color
@@ -97,9 +98,9 @@ class Server < ActiveRecord::Base
         twin_card = Card.find(port.card.twin_card_id)
         twin_card_port = twin_card.ports.includes(:connection).where(position: port.position).first
         if twin_card_port
-          connections << {server_id: twin_card_port.paired_connection.port.server_id, cable_color: twin_card_port.paired_connection.try(:cable).try(:color)} if twin_card_port.paired_connection
+          connections << { server_id: twin_card_port.paired_connection.port.server_id, cable_color: twin_card_port.paired_connection.try(:cable).try(:color) } if twin_card_port.paired_connection
         end
-        connections << {server_id: twin_card.server_id, cable_color: twin_card_port.try(:connection).try(:cable).try(:color)}
+        connections << { server_id: twin_card.server_id, cable_color: twin_card_port.try(:connection).try(:cable).try(:color) }
       end
     end
     connections
@@ -111,7 +112,7 @@ class Server < ActiveRecord::Base
 
   def directly_connected_servers_ids_with_color
     connected_ports.map do |port|
-      {server_id: port.server_id, cable_color: port.connection.try(:cable).try(:color)}
+      { server_id: port.server_id, cable_color: port.connection.try(:cable).try(:color) }
     end
   end
 
@@ -126,19 +127,19 @@ class Server < ActiveRecord::Base
 
   private
 
-    def slug_candidates
-      [
-          :name,
-          [:name, :id]
-      ]
-    end
+  def slug_candidates
+    [
+      :name,
+      [:name, :id]
+    ]
+  end
 
-    def numero_cannot_be_a_current_server_name
-      servers = Server.friendly.where(slug: numero.to_s.downcase) - [self]
-      if servers.present?
-        errors.add(:numero, "ne peut pas être identique à un nom de machine")
-      end
+  def numero_cannot_be_a_current_server_name
+    servers = Server.friendly.where(slug: numero.to_s.downcase) - [self]
+    if servers.present?
+      errors.add(:numero, "ne peut pas être identique à un nom de machine")
     end
+  end
 
 end
 

@@ -1,13 +1,15 @@
-<div class="page-header">
-  <%= link_to domaines_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Back
-  <% end %>
-  <%= link_to @domaine, class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-info-sign"></span>
-    Voir
-  <% end %>
-  <h1>Editing domaine</h1>
-</div>
+<div class="container">
+  <div class="page-header">
+    <%= link_to domaines_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Retour
+    <% end %>
+    <%= link_to @domaine, class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-info-sign"></span>
+      Voir
+    <% end %>
+    <h1>Modifier le domaine</h1>
+  </div>
 
-<%= render 'form' %>
+  <%= render 'form' %>
+</div>

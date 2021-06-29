@@ -26,6 +26,7 @@
             <th>Usage</th>
             <th></th>
             <th></th>
+            <th></th>
           </tr>
           </thead>
 
@@ -33,6 +34,7 @@
           <%= content_tag_for(:tr, @domaines) do |domaine| %>
             <td><%= domaine %></td>
             <td><%= pluralize(domaine.servers.count, 'serveur', "serveurs") %> </td>
+            <td><%= link_to 'Voir', domaine_path(domaine), class: 'btn btn-primary' %></td>
             <td><%= link_to 'Modifier', edit_domaine_path(domaine), class: 'btn btn-primary' %></td>
             <td><%= link_to 'Supprimer', domaine, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
           <% end %>

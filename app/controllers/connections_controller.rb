@@ -19,11 +19,11 @@ class ConnectionsController < ApplicationController
     @possible_destination_servers = []
     @all_servers_per_frame = []
     if @from_port.is_power_input? && @from_server.is_not_a_pdu?
-      @coupled_frames.each {|frame| @possible_destination_servers << [frame.name, frame.pdus.collect {|v| [v.name, v.id]}]}
-      Frame.order(:name).each {|frame| @all_servers_per_frame << [frame.name, frame.pdus.collect {|v| [v.name, v.id]}]}
+      @coupled_frames.each { |frame| @possible_destination_servers << [frame.name, frame.pdus.collect { |v| [v.name, v.id] }] }
+      Frame.order(:name).each { |frame| @all_servers_per_frame << [frame.name, frame.pdus.collect { |v| [v.name, v.id] }] }
     else
-      @coupled_frames.each {|frame| @possible_destination_servers << [frame.name, frame.servers.collect {|v| [v.name, v.id]}]}
-      Frame.order(:name).each {|frame| @all_servers_per_frame << [frame.name, frame.servers.collect {|v| [v.name, v.id]}]}
+      @coupled_frames.each { |frame| @possible_destination_servers << [frame.name, frame.servers.collect { |v| [v.name, v.id] }] }
+      Frame.order(:name).each { |frame| @all_servers_per_frame << [frame.name, frame.servers.collect { |v| [v.name, v.id] }] }
     end
 
     # Destination port
@@ -31,7 +31,7 @@ class ConnectionsController < ApplicationController
       @cable = @from_port.connection.cable
     end
 
-    @to_port = @cable.connections.reject {|conn| conn.port_id.to_i == @from_port.id}.first.try(:port) if @cable.present?
+    @to_port = @cable.connections.reject { |conn| conn.port_id.to_i == @from_port.id }.first.try(:port) if @cable.present?
 
     # Destination server
     if @from_port.is_power_input?
@@ -60,15 +60,17 @@ class ConnectionsController < ApplicationController
     @to_server = to_port.server
 
     respond_to do |format|
-      format.html {redirect_to connections_edit_path(from_port_id: from_port.id), notice: 'La connexion a été mise à jour.'}
+      format.html { redirect_to connections_edit_path(from_port_id: from_port.id), notice: 'La connexion a été mise à jour.' }
       format.js
     end
   end
 
   def update_destination_server
     @server = Server.find_by_id(params[:server_id])
-    @server.create_missing_ports if @server
-    @server.reload
+    if @server
+      @server.create_missing_ports
+      @server.reload
+    end
     if params[:with_moved_connection]
       @moved_connections = MovedConnection.per_servers([@server])
     end
@@ -93,10 +95,10 @@ class ConnectionsController < ApplicationController
           if twin_card_port.present? && twin_card_port.connection.present?
             twin_card_paired_connection = twin_card_port.paired_connection
             if twin_card_paired_connection.present?
-              @connections_through_twin_cards[port.id] = {twin_card_port_id: twin_card_port.id,
-                                                          twin_card_paired_port_id: twin_card_paired_connection.port_id,
-                                                          cable_color: twin_card_port.cable_color,
-                                                          cable_name: twin_card_port.cable_name}
+              @connections_through_twin_cards[port.id] = { twin_card_port_id: twin_card_port.id,
+                                                           twin_card_paired_port_id: twin_card_paired_connection.port_id,
+                                                           cable_color: twin_card_port.cable_color,
+                                                           cable_name: twin_card_port.cable_name }
             end
           end
         end

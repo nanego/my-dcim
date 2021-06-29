@@ -1,13 +1,15 @@
-<div class="page-header">
-  <%= link_to clusters_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Back
-  <% end %>
-  <%= link_to @cluster, class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-info-sign"></span>
-    Voir
-  <% end %>
-  <h1>Editing cluster</h1>
-</div>
+<div class="container">
+  <div class="page-header">
+    <%= link_to clusters_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Retour
+    <% end %>
+    <%= link_to @cluster, class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-info-sign"></span>
+      Voir
+    <% end %>
+    <h1>Modifier le cluster</h1>
+  </div>
 
-<%= render 'form' %>
+  <%= render 'form' %>
+</div>

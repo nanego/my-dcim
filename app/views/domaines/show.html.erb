@@ -1,19 +1,26 @@
-<div class="page-header">
-  <%= link_to domaines_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Back
-  <% end %>
-  <%= link_to edit_domaine_path(@domaine), class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    Edit
-  <% end %>
-  <h1>Voir domaine</h1>
+<div class="container">
+
+  <div class="page-header">
+    <%= link_to domaines_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Retour
+    <% end %>
+    <%= link_to edit_domaine_path(@domaine), class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+      Modifier
+    <% end %>
+    <h1>Domaine <%= @domaine %></h1>
+  </div>
+
+  <dl class="dl-horizontal">
+    <dt>Description:</dt>
+    <dd><%= @domaine.description %></dd>
+  </dl>
+
+  <ul>
+    <% @domaine.servers.sorted_by_name.each do |server| %>
+      <li><%= link_to server, server %></li>
+    <% end %>
+  </ul>
+
 </div>
-
-<dl class="dl-horizontal">
-  <dt>Nom :</dt>
-  <dd><%= @domaine %></dd>
-
-  <dt>Description:</dt>
-  <dd><%= @domaine.description %></dd>
-</dl>
