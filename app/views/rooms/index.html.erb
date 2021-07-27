@@ -1,4 +1,4 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Paramètres' => modeles_url, 'Salles' => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: { 'Paramètres' => modeles_url, 'Salles' => '' } %>
 
 <div class="container-fluid">
 
@@ -37,6 +37,7 @@
             <td><%= room.site %></td>
             <td><%= pluralize room.frames.count, 'frame' %></td>
             <td><input type="checkbox" <%= room.display_on_home_page ? "checked" : "" %> disabled></td>
+            <td><%= render partial: "rooms/export_button", locals: { room: room } %></td>
             <td><%= link_to 'Modifier', edit_room_path(room), class: 'btn btn-primary' %></td>
             <td><%= link_to 'Supprimer', room, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
           <% end %>
