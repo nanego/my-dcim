@@ -11,7 +11,7 @@ class RoomsController < ApplicationController
   def show
     @sites = Site.joins(:rooms).includes(:rooms => [:bays => [:bay_type]]).order(:position).distinct
     @islet = Islet.find_by(name: params[:islet], room_id: @room.id) if params[:islet].present?
-    frames = Frames::IncludingServersQuery.call
+    frames = Frames::IncludingServersQuery.call(Frame.joins(:bay => :islet).where('islets.room_id= ?', @room.id))
     @servers_per_frames = {}
 
     sorted_frames_per_islet(frames, params[:view]).each do |frame|
@@ -38,7 +38,7 @@ class RoomsController < ApplicationController
                pdf: 'frame',
                zoom: 0.75
       end
-      format.txt {send_data Frame.to_txt(@servers_per_frames[@room])}
+      format.txt {send_data Frame.to_txt(@servers_per_frames[@room.id])}
     end
   end
 
