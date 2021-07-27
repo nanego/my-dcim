@@ -19,11 +19,11 @@
                               'bay-id': frame.bay_id,
                               'frame-id': frame.id,
                               bg: params[:bg]),
-                    style: 'text-decoration: underline;' %>
+                    style: 'text-decoration: underline;' if frame.room.present? %>
       </h5>
     </div>
     <ul class="servers connectedFrames list-group"
-        data-room="<%= frame.room.name %>"
+        data-room="<%= frame.room&.name %>"
         data-islet="<%= frame.bay.islet.name %>"
         data-frame="<%= frame.name %>"
         data-update-url="<%= sort_servers_path %>">
