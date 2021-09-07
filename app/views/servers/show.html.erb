@@ -1,11 +1,11 @@
 <% title = "#{@server.modele.try(:category).try(:name)} #{@server.name}" %>
 <% provide(:title, title) %>
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {"Salles" => overview_rooms_path,
-                                          @server.frame.room.name => room_path(@server.frame.room, view: params[:view]),
-                                          "Ilot #{@server.frame.islet.name}" => room_path(@server.frame.room, islet: @server.frame.islet.name, :view => params[:view], bg: params[:bg]),
-                                          "Double baie #{@server.frame.bay}" => room_path(@server.frame.room, islet: @server.frame.islet.name, 'bay-id': @server.frame.bay_id, view: params[:view]),
-                                          "Baie #{@server.frame.name}" => frame_path(@server.frame, view: params[:view]),
-                                          @server.name => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: { "Salles" => overview_rooms_path,
+                                                         @server.frame.room.name => room_path(@server.frame.room, view: params[:view]),
+                                                         "Ilot #{@server.frame.islet.name}" => room_path(@server.frame.room, islet: @server.frame.islet.name, :view => params[:view], bg: params[:bg]),
+                                                         "Double baie #{@server.frame.bay}" => room_path(@server.frame.room, islet: @server.frame.islet.name, 'bay-id': @server.frame.bay_id, view: params[:view]),
+                                                         "Baie #{@server.frame.name}" => frame_path(@server.frame, view: params[:view]),
+                                                         @server.name => '' } %>
 
 <div class="page-header">
   <%= link_to edit_server_path(@server.id), class: 'btn btn-primary' do %>
@@ -33,7 +33,7 @@
 
 <% if @server.comment.present? %>
   <div class="alert alert-warning">
-      <%= @server.comment %>
+    <%= @server.comment %>
   </div>
 <% end %>
 
@@ -99,8 +99,9 @@
       <% nb_cards = 0 %>
       <% @server.modele.composants.slots.each do |slot| %>
         <% @server.cards.where(:composant_id => slot.id).each do |card| %>
-          <dd><%= card.composant.name ? card.composant.name : card.composant.position %> : <%= "#{card.card_type.try(:name)} (#{card.card_type.try(:port_quantity)}#{card.card_type.try(:port_type).try(:name)})" %></dd>
-          <% nb_cards+=1 %>
+          <dd><%= card.composant.name ? card.composant.name : card.composant.position %>
+            : <%= "#{card.card_type.try(:name)} (#{card.card_type.try(:port_quantity)}#{card.card_type.try(:port_type).try(:name)})" %></dd>
+          <% nb_cards += 1 %>
         <% end %>
       <% end if @server.modele.present? %>
       <%= '<dd/>'.html_safe if nb_cards == 0 %>
@@ -116,7 +117,7 @@
       <% @server.memory_components.each do |memory_component| %>
         <dd><%= memory_component %></dd>
       <% end.empty? && begin %>
-          <dd/>
+        <dd/>
       <% end %>
 
       <dt>Commentaire :</dt>
@@ -136,7 +137,7 @@
     <H5>Documents attachés :</H5>
     <ul>
       <% @server.documents.each do |doc| %>
-        <li><%= link_to(doc.document.metadata['filename'], doc.document_url, {target: '_blank'}) if doc.document.present? %></li>
+        <li><%= link_to(doc.document.metadata['filename'], doc.document_url, { target: '_blank' }) if doc.document.present? %></li>
       <% end %>
     </ul>
   </div>
@@ -145,7 +146,16 @@
 <div class="col-lg-6">
   <div class="panel panel-body">
     <H5>CMDB / GLPI :</H5>
-    <%= link_to 'Voir la page du serveur sur GLPI', (@server.name.present? ? "https://cmdb.cs.e2.rie.gouv.fr/serveurs/#{@server.name.downcase}" : "https://cmdb.cs.e2.rie.gouv.fr/serial/#{@server.numero}" ), target: '_blank' %>
+    <%= link_to 'Voir la page du serveur sur GLPI', (@server.name.present? ? "#{Rails.application.credentials.glpi_url}/serveurs/#{@server.name.downcase}" : "#{Rails.application.credentials.glpi_url}/serial/#{@server.numero}"), target: '_blank' %>
+    <p>
+      <% client = GlpiClient.new %>
+      <%= client.connection.inspect %>
+    <hr>
+    <% computer = client.computer(serial: Rails.env.prod? ? @server.numero : "AZERTY") %>
+    <%= computer.id %><br>
+    <%= computer.serial %><br>
+    <%= computer.name %><br>
+    </p>
     <!--
     <% if @server.maintenance_contract.present? %>
       <dl class="dl-horizontal">

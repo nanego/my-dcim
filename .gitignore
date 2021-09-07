@@ -97,3 +97,6 @@ backups/
 # Ignore uploaded files in development
 /storage/*
 public/uploads/
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
