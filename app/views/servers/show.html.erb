@@ -145,25 +145,15 @@
 
 <div class="col-lg-6">
   <div class="panel panel-body">
-    <H5>CMDB / GLPI :</H5>
+    <H5>Données GLPI :</H5>
+    <p>
+      <% client = GlpiClient.new
+         computer = client.computer(serial: Rails.env.prod? ? @server.numero : "AZERTY") %>
+      Id GLPI : <b><%= computer.id %></b><br>
+      Numéro de série : <b><%= computer.serial %></b><br>
+      Nom : <b><%= computer.name %></b><br>
+    </p>
     <%= link_to 'Voir la page du serveur sur GLPI', (@server.name.present? ? "#{Rails.application.credentials.glpi_url}/serveurs/#{@server.name.downcase}" : "#{Rails.application.credentials.glpi_url}/serial/#{@server.numero}"), target: '_blank' %>
-    <!--
-    <% if @server.maintenance_contract.present? %>
-      <dl class="dl-horizontal">
-        <dt>Mainteneur :</dt>
-        <dd><%= @server.maintenance_contract.maintainer %></dd>
-        <dt>Type de contrat : </dt>
-        <dd><%= @server.maintenance_contract.contract_type %></dd>
-        <dt>Date de début : </dt>
-        <dd><%= @server.maintenance_contract.start_date %></dd>
-        <dt>Date de fin : </dt>
-        <dd><%= @server.maintenance_contract.end_date %></dd>
-      </dl>
-      <%= link_to 'Modifier le contrat de maintenance', edit_maintenance_contract_path(id: @server.maintenance_contract.id) %>
-    <% else %>
-      <%= link_to 'Ajouter un contrat de maintenance', new_maintenance_contract_path(server_id: @server.id) %>
-    <% end %>
-    -->
   </div>
 </div>
 
