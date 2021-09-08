@@ -19,12 +19,14 @@ class GlpiClient
 
   def computer(serial:)
     resp = @connection.get("Computer?searchText[serial]=#{serial}") do |request|
-      request.headers["Session-Token"] = @session_token
+      request.headers["Session-Token"] = session_token
       request.headers["App-Token"] = API_KEY
     end
     computer_params = JSON.parse(resp.body).first
-    computer_params.deep_transform_keys(&:underscore)
-    Computer.new(computer_params)
+    if computer_params.present?
+      computer_params.deep_transform_keys(&:underscore)
+      Computer.new(computer_params)
+    end
   end
 
   def init_session
