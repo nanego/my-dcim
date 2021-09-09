@@ -158,9 +158,9 @@
         Contact : <b><%= computer.contact %></b><br>
       </div>
       <div class="panel-body">
-        Nombre de disques : <b><%= computer.hard_drives.size %></b><br>
+        Nombre de disques : <b><%= computer.hard_drives&.size %></b><br>
         Capacité disques : <b><%= number_to_human_size(computer.hard_drives_total_capacity * 1048576) %></b><br>
-        Nombre de barettes : <b><%= computer.memories.size %></b><br>
+        Nombre de barettes : <b><%= computer.memories&.size %></b><br>
         Ram totale : <b><%= number_to_human_size(computer.memories_total_size * 1048576) %></b><br>
         Processeurs :
         <b><%= computer.processors.group_by { |p| p[1]['designation'] }.map { |designation, processors| "#{processors.size} x #{designation}" }.join(', ') %></b><br>
