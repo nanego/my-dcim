@@ -47,8 +47,8 @@ class GlpiClient
       if computer_params.present?
         computer_params.deep_transform_keys(&:underscore)
         computer = Computer.new(computer_params)
-        computer.hard_drives = computer_params['_devices']['Item_DeviceHardDrive']
-        computer.memories = computer_params['_devices']['Item_DeviceMemory']
+        computer.hard_drives = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceHardDrive'] : {}
+        computer.memories = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceMemory'] : {}
       end
     end
     return computer
