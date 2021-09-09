@@ -114,10 +114,12 @@ class GlpiClient::Computer
   attribute :processors, Hash
 
   def hard_drives_total_capacity
+    return 0 if hard_drives.blank?
     hard_drives.sum { |key, value| value['capacity'] }
   end
 
   def memories_total_size
+    return 0 if memories.blank?
     memories.sum { |key, value| value['size'] }
   end
 
