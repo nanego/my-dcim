@@ -5,10 +5,14 @@ class GlpiClientTest < ActiveSupport::TestCase
 
   def test_load_computer_details_by_serial
     client = GlpiClient.new
-    response = client.computer(serial: 'AZERTY')
-    assert response.id, 4090
-    assert response.serial, "c27xmq1"
-    assert response.name, "argoli"
+    computer = client.computer(serial: 'AZERTY')
+    assert computer.id == 4090
+    assert computer.serial == "c27xmq1"
+    assert computer.name == "argoli"
+    assert computer.hard_drives.size == 17
+    assert computer.memories.size == 16
+    assert computer.hard_drives_total_capacity == 20441348
+    assert computer.memories_total_size == 262144
   end
 
 end

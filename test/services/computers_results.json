@@ -1,0 +1,150 @@
+[
+  {
+    "id": 4090,
+    "is_recursive": 1,
+    "date_creation": "2020-06-15 16:00:19",
+    "entities_id": 10,
+    "name": "algori",
+    "serial": "c2XMQ",
+    "otherserial": "",
+    "contact": "",
+    "contact_num": "",
+    "users_id_tech": 0,
+    "groups_id_tech": 0,
+    "comment": "",
+    "date_mod": "2020-09-04 16:12:15",
+    "autoupdatesystems_id": 0,
+    "locations_id": 0,
+    "networks_id": 0,
+    "computermodels_id": 99,
+    "computertypes_id": 12,
+    "is_template": 0,
+    "template_name": "Dell PowerEdge r330",
+    "manufacturers_id": 32,
+    "is_deleted": 0,
+    "is_dynamic": 0,
+    "users_id": 0,
+    "groups_id": 0,
+    "states_id": 2,
+    "ticket_tco": "0.0000",
+    "uuid": "",
+    "links": [
+      {
+        "rel": "Entity",
+        "href": "https://apirest.php/Entity/10"
+      },
+      {
+        "rel": "ComputerModel",
+        "href": "https://apirest.php/ComputerModel/99"
+      },
+      {
+        "rel": "ComputerType",
+        "href": "https://apirest.php/ComputerType/12"
+      },
+      {
+        "rel": "Manufacturer",
+        "href": "https://apirest.php/Manufacturer/32"
+      },
+      {
+        "rel": "State",
+        "href": "https://apirest.php/State/2"
+      },
+      {
+        "rel": "ReservationItem",
+        "href": "https://apirest.php/Computer/4090/ReservationItem/"
+      },
+      {
+        "rel": "Document_Item",
+        "href": "https://apirest.php/Computer/4090/Document_Item/"
+      },
+      {
+        "rel": "Contract_Item",
+        "href": "https://apirest.php/Computer/4090/Contract_Item/"
+      },
+      {
+        "rel": "Infocom",
+        "href": "https://apirest.php/Computer/4090/Infocom/"
+      },
+      {
+        "rel": "Item_Ticket",
+        "href": "https://apirest.php/Computer/4090/Item_Ticket/"
+      },
+      {
+        "rel": "Item_Project",
+        "href": "https://apirest.php/Computer/4090/Item_Project/"
+      },
+      {
+        "rel": "NetworkPort",
+        "href": "https://apirest.php/Computer/4090/NetworkPort/"
+      },
+      {
+        "rel": "Item_DeviceMotherboard",
+        "href": "https://apirest.php/Computer/4090/Item_DeviceMotherboard/"
+      },
+      {
+        "rel": "Item_DeviceFirmware",
+        "href": "https://apirest.php/Computer/4090/Item_DeviceFirmware/"
+      },
+      {
+        "rel": "Item_DeviceProcessor",
+        "href": "https://apirest.php/Computer/4090/Item_DeviceProcessor/"
+      },
+      {
+        "rel": "Item_DeviceMemory",
+        "href": "https://apirest.php/Computer/4090/Item_DeviceMemory/"
+      },
+      {
+        "rel": "Item_DeviceHardDrive",
+        "href": "https://apirest.php/Computer/4090/Item_DeviceHardDrive/"
+      },
+      {
+        "rel": "Item_DeviceNetworkCard",
+        "href": "https://apirest.php/Computer/4090/Item_DeviceNetworkCard/"
+      },
+      {
+        "rel": "Item_DeviceDrive",
+        "href": "https://apirest.php/Computer/4090/Item_DeviceDrive/"
+      },
+      {
+        "rel": "Item_DeviceBattery",
+        "href": "https://apirest.php/Computer/4090/Item_DeviceBattery/"
+      },
+      {
+        "rel": "Item_DeviceGraphicCard",
+        "href": "https://apirest.php/Computer/4090/Item_DeviceGraphicCard/"
+      },
+      {
+        "rel": "Item_DeviceSoundCard",
+        "href": "https://apirest.php/Computer/4090/Item_DeviceSoundCard/"
+      },
+      {
+        "rel": "Item_DeviceControl",
+        "href": "https://apirest.php/Computer/4090/Item_DeviceControl/"
+      },
+      {
+        "rel": "Item_DevicePci",
+        "href": "https://apirest.php/Computer/4090/Item_DevicePci/"
+      },
+      {
+        "rel": "Item_DeviceCase",
+        "href": "https://apirest.php/Computer/4090/Item_DeviceCase/"
+      },
+      {
+        "rel": "Item_DevicePowerSupply",
+        "href": "https://apirest.php/Computer/4090/Item_DevicePowerSupply/"
+      },
+      {
+        "rel": "Item_DeviceGeneric",
+        "href": "https://apirest.php/Computer/4090/Item_DeviceGeneric/"
+      },
+      {
+        "rel": "Item_DeviceSimcard",
+        "href": "https://apirest.php/Computer/4090/Item_DeviceSimcard/"
+      },
+      {
+        "rel": "Item_DeviceSensor",
+        "href": "https://apirest.php/Computer/4090/Item_DeviceSensor/"
+      }
+    ]
+  }
+]

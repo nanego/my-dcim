@@ -144,20 +144,32 @@
 </div>
 
 <div class="col-lg-6">
-  <div class="panel panel-body">
-    <H5>Données GLPI :</H5>
-    <p>
-      <% client = GlpiClient.new
-         computer = client.computer(serial: Rails.env.production? ? @server.numero : "AZERTY") %>
-      <% if computer.present? %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      Données GLPI
+    </div>
+    <% client = GlpiClient.new
+       computer = client.computer(serial: Rails.env.production? ? @server.numero : "AZERTY") %>
+    <% if computer.present? %>
+      <div class="panel-body">
+        Nom : <b><%= computer.name %></b><br>
         Id GLPI : <b><%= computer.id %></b><br>
         Numéro de série : <b><%= computer.serial %></b><br>
-        Nom : <b><%= computer.name %></b><br>
-      <% else %>
+      </div>
+      <div class="panel-body">
+        Nombre de disques : <b><%= computer.hard_drives.size %></b><br>
+        Capacité disques : <b><%= number_to_human_size(computer.hard_drives_total_capacity * 1000000) %></b><br>
+        Nombre de barettes : <b><%= computer.memories.size %></b><br>
+        Ram totale : <b><%= number_to_human_size(computer.memories_total_size * 1000000) %></b><br>
+      </div>
+    <% else %>
+      <div class="panel-body">
         Aucune correspondance pour ce numéro de série : <%= @server.numero %>
-      <% end %>
-    </p>
-    <%= link_to 'Voir la page du serveur sur GLPI', (@server.name.present? ? "#{Rails.application.credentials.glpi_url}/serveurs/#{@server.name.downcase}" : "#{Rails.application.credentials.glpi_url}/serial/#{@server.numero}"), target: '_blank' %>
+      </div>
+    <% end %>
+    <div class="panel-footer">
+      <%= link_to 'Voir la page du serveur sur GLPI', (@server.name.present? ? "#{Rails.application.credentials.glpi_url}/serveurs/#{@server.name.downcase}" : "#{Rails.application.credentials.glpi_url}/serial/#{@server.numero}"), target: '_blank' %>
+    </div>
   </div>
 </div>
 
