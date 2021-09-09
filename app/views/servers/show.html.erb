@@ -168,7 +168,7 @@
       </div>
     <% end %>
     <div class="panel-footer">
-      <%= link_to 'Voir la page du serveur sur GLPI', (@server.name.present? ? "#{Rails.application.credentials.glpi_url}/serveurs/#{@server.name.downcase}" : "#{Rails.application.credentials.glpi_url}/serial/#{@server.numero}"), target: '_blank' %>
+      <%= link_to 'Voir la page de la machine sur GLPI', (@server.name.present? ? "#{Rails.application.credentials.glpi_url}/serveurs/#{@server.name.downcase}" : "#{Rails.application.credentials.glpi_url}/serial/#{@server.numero}"), target: '_blank' %>
     </div>
   </div>
 </div>

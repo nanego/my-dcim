@@ -3,7 +3,7 @@ require 'json'
 
 class GlpiClient
 
-  API_URL = Rails.application.credentials.glpi_url
+  API_URL = Rails.application.credentials.glpi_api_url
   API_KEY = Rails.application.credentials.glpi_apikey
 
   attr_reader :connection, :session_token
