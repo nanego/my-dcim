@@ -7,175 +7,183 @@
                                                          "Baie #{@server.frame.name}" => frame_path(@server.frame, view: params[:view]),
                                                          @server.name => '' } %>
 
-<div class="page-header">
-  <%= link_to edit_server_path(@server.id), class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    Editer
-  <% end %>
-  <h1><%= title %></h1>
-</div>
+<div class="container">
 
-<p><%= link_to "<< Baie #{@server.frame.try(:name)}", frame_path(@server.frame, :view => params[:view]), class: 'btn btn-default', style: 'text-decoration: underline;' if @server.frame %></p>
-
-<% bgModeleColor = define_background_color(server: @server, mode: params['bg']) %>
-<div class="detailed_server list-group-item" style="background-color:<%= bgModeleColor %> !important;">
-  <%= render 'draw_server_compact_front.html.erb', server: @server %>
-  <span class="clearfix"></span>
-</div>
-
-<div class="detailed_server list-group-item">
-  <span id="back_server_<%= @server.id %>">
-     <%= render 'servers/draw_server_compact.html.erb', server: @server %>
-  </span>
-  <span class="clearfix"></span>
-</div>
-
-
-<% if @server.comment.present? %>
-  <div class="alert alert-warning">
-    <%= @server.comment %>
-  </div>
-<% end %>
-
-<div class="col-lg-6">
-  <div class="panel panel-body">
-    <dl class="dl-horizontal">
-      <dt>Frame:</dt>
-      <dd><%= @server.frame.try(:name) %></dd>
-
-      <dt>Ilot:</dt>
-      <dd><%= @server.frame.try(:islet) %></dd>
-
-      <dt>Room:</dt>
-      <dd><%= @server.frame.try(:room).try(:name) %></dd>
-
-      <dt>Categorie:</dt>
-      <dd><%= @server.modele.try(:category) %></dd>
-
-      <dt>Nb elts:</dt>
-      <dd><%= @server.modele.try(:nb_elts) %></dd>
-
-      <dt>Architecture:</dt>
-      <dd><%= @server.modele.try(:architecture) %></dd>
-
-      <dt>U:</dt>
-      <dd><%= @server.modele.try(:u) %></dd>
-
-      <dt>Position:</dt>
-      <dd><%= @server.position %></dd>
-
-      <dt>Fabricant:</dt>
-      <dd><%= @server.modele.try(:manufacturer) %></dd>
-
-      <dt>Modele:</dt>
-      <dd><%= link_to @server.modele, edit_modele_path(@server.modele) if @server.modele.try(:name) %></dd>
-
-      <dt>Numero:</dt>
-      <dd><%= @server.try(:numero) %></dd>
-
-      <dt>Cluster:</dt>
-      <dd><%= @server.cluster.try(:name) %></dd>
-
-      <dt>Critique:</dt>
-      <dd><%= @server.critique ? 'OUI' : 'non' %></dd>
-
-      <dt>Domaine:</dt>
-      <dd><%= @server.domaine %></dd>
-
-      <dt>Gestionnaire:</dt>
-      <dd><%= @server.gestion %></dd>
-
-      <dt>Etat :</dt>
-      <dd><%= @server.server_state %></dd>
-
-      <dt>Stack :</dt>
-      <dd>
-        <% if @server.stack_id.present? %>
-          <span style="<%= "color: ##{@server.stack.try(:color)}" %>" class="glyphicon glyphicon-stop" aria-hidden="true"></span>
-        <% end %>
-      </dd>
-
-      <dt>Cartes :</dt>
-      <% nb_cards = 0 %>
-      <% @server.modele.composants.slots.each do |slot| %>
-        <% @server.cards.where(:composant_id => slot.id).each do |card| %>
-          <dd><%= card.composant.name ? card.composant.name : card.composant.position %>
-            : <%= "#{card.card_type.try(:name)} (#{card.card_type.try(:port_quantity)}#{card.card_type.try(:port_type).try(:name)})" %></dd>
-          <% nb_cards += 1 %>
-        <% end %>
-      <% end if @server.modele.present? %>
-      <%= '<dd/>'.html_safe if nb_cards == 0 %>
-
-      <dt>Disques :</dt>
-      <% @server.disks.each do |disk| %>
-        <dd><%= disk %></dd>
-      <% end.empty? && begin %>
-        <dd/>
+  <div class="col-12" style="margin-bottom: 2em">
+    <div class="page-header">
+      <%= link_to edit_server_path(@server.id), class: 'btn btn-primary' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Éditer
       <% end %>
-
-      <dt>RAM :</dt>
-      <% @server.memory_components.each do |memory_component| %>
-        <dd><%= memory_component %></dd>
-      <% end.empty? && begin %>
-        <dd/>
-      <% end %>
-
-      <dt>Commentaire :</dt>
-      <dd><%= @server.comment %></dd>
-
-    </dl>
-
-  </div>
-</div>
-
-<div class="col-lg-6">
-  <% if @server.photo.attached? %>
-    <%= image_tag @server.photo.variant(geometry: "x220"), class: "server_photo", style: "margin-left:0;" %>
-    <br/>
-  <% end %>
-  <div class="panel panel-body">
-    <H5>Documents attachés :</H5>
-    <ul>
-      <% @server.documents.each do |doc| %>
-        <li><%= link_to(doc.document.metadata['filename'], doc.document_url, { target: '_blank' }) if doc.document.present? %></li>
-      <% end %>
-    </ul>
-  </div>
-</div>
-
-<div class="col-lg-6">
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      Données GLPI
+      <h1><%= title %></h1>
     </div>
-    <% client = GlpiClient.new
-       computer = client.computer(serial: Rails.env.production? ? @server.numero : "AZERTY") %>
-    <% if computer.present? %>
-      <div class="panel-body">
-        Nom : <b><%= computer.name %></b><br>
-        Id GLPI : <b><%= computer.id %></b><br>
-        Numéro de série : <b><%= computer.serial %></b><br>
-        Contact : <b><%= computer.contact %></b><br>
+    <%= link_to "<< Baie #{@server.frame.try(:name)}", frame_path(@server.frame, :view => params[:view]), class: 'btn btn-default', style: 'text-decoration: underline;' if @server.frame %>
+  </div>
+
+  <div class="col-12" style="margin-bottom: 2em;padding-right: 15px;padding-left: 15px;">
+    <% bgModeleColor = define_background_color(server: @server, mode: params['bg']) %>
+    <div class="detailed_server list-group-item" style="background-color:<%= bgModeleColor %> !important;">
+      <%= render 'draw_server_compact_front.html.erb', server: @server %>
+      <span class="clearfix"></span>
+    </div>
+
+    <div class="detailed_server list-group-item">
+      <span id="back_server_<%= @server.id %>">
+         <%= render 'servers/draw_server_compact.html.erb', server: @server %>
+      </span>
+    </div>
+  </div>
+
+  <% if @server.comment.present? %>
+    <div class="col-12" style="margin-bottom: 2em;padding-right: 15px;padding-left: 15px;">
+      <div class="alert alert-warning">
+        <%= @server.comment %>
       </div>
+    </div>
+  <% end %>
+
+  <div class="col-lg-6">
+    <div class="panel panel-primary">
       <div class="panel-body">
-        Nombre de disques : <b><%= computer.hard_drives&.size %></b><br>
-        Capacité disques : <b><%= number_to_human_size(computer.hard_drives_total_capacity * 1048576) %></b><br>
-        Nombre de barettes : <b><%= computer.memories&.size %></b><br>
-        Ram totale : <b><%= number_to_human_size(computer.memories_total_size * 1048576) %></b><br>
-        Processeurs :
-        <b><%= computer.processors.group_by { |p| p[1]['designation'] }.map { |designation, processors| "#{processors.size} x #{designation}" }.join(', ') %></b><br>
+        <dl class="dl-horizontal">
+          <dt>Baie :</dt>
+          <dd><%= @server.frame.try(:name) %></dd>
+
+          <dt>Ilot :</dt>
+          <dd><%= @server.frame.try(:islet) %></dd>
+
+          <dt>Salle :</dt>
+          <dd><%= @server.frame.try(:room).try(:name) %></dd>
+
+          <dt>Catégorie :</dt>
+          <dd><%= @server.modele.try(:category) %></dd>
+
+          <dt>Nb d'éléments :</dt>
+          <dd><%= @server.modele.try(:nb_elts) %></dd>
+
+          <dt>Architecture :</dt>
+          <dd><%= @server.modele.try(:architecture) %></dd>
+
+          <dt>Nb de U :</dt>
+          <dd><%= @server.modele.try(:u) %></dd>
+
+          <dt>Position :</dt>
+          <dd><%= @server.position %></dd>
+
+          <dt>Fabricant :</dt>
+          <dd><%= @server.modele.try(:manufacturer) %></dd>
+
+          <dt>Modèle :</dt>
+          <dd><%= link_to @server.modele, edit_modele_path(@server.modele) if @server.modele.try(:name) %></dd>
+
+          <dt>Numéro :</dt>
+          <dd><%= @server.try(:numero) %></dd>
+
+          <dt>Cluster :</dt>
+          <dd><%= @server.cluster.try(:name) %></dd>
+
+          <dt>Critique :</dt>
+          <dd><%= @server.critique ? 'OUI' : 'non' %></dd>
+
+          <dt>Domaine :</dt>
+          <dd><%= @server.domaine %></dd>
+
+          <dt>Gestionnaire :</dt>
+          <dd><%= @server.gestion %></dd>
+
+          <dt>Statut :</dt>
+          <dd><%= @server.server_state %></dd>
+
+          <dt>Stack :</dt>
+          <dd>
+            <% if @server.stack_id.present? %>
+              <span style="<%= "color: ##{@server.stack.try(:color)}" %>" class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+            <% end %>
+          </dd>
+
+          <dt>Cartes :</dt>
+          <% nb_cards = 0 %>
+          <% @server.modele.composants.slots.each do |slot| %>
+            <% @server.cards.where(:composant_id => slot.id).each do |card| %>
+              <dd><%= card.composant.name ? card.composant.name : card.composant.position %>
+                : <%= "#{card.card_type.try(:name)} (#{card.card_type.try(:port_quantity)}#{card.card_type.try(:port_type).try(:name)})" %></dd>
+              <% nb_cards += 1 %>
+            <% end %>
+          <% end if @server.modele.present? %>
+          <%= '<dd/>'.html_safe if nb_cards == 0 %>
+
+          <dt>Disques :</dt>
+          <% @server.disks.each do |disk| %>
+            <dd><%= disk %></dd>
+          <% end.empty? && begin %>
+            <dd/>
+          <% end %>
+
+          <dt>RAM :</dt>
+          <% @server.memory_components.each do |memory_component| %>
+            <dd><%= memory_component %></dd>
+          <% end.empty? && begin %>
+            <dd/>
+          <% end %>
+
+        </dl>
       </div>
-    <% else %>
-      <div class="panel-body">
-        Aucune correspondance pour ce numéro de série : <%= @server.numero %>
+    </div>
+  </div>
+
+
+  <div class="col-lg-6">
+    <% if @server.photo.attached? %>
+      <%= image_tag @server.photo.variant(geometry: "x220"), class: "server_photo", style: "margin-left:0;" %>
+      <br/>
+    <% end %>
+    <% if @server.documents.present? %>
+      <div class="panel panel-primary">
+        <div class="panel-body">
+          <H5>Documents attachés :</H5>
+          <ul>
+            <% @server.documents.each do |doc| %>
+              <li><%= link_to(doc.document.metadata['filename'], doc.document_url, { target: '_blank' }) if doc.document.present? %></li>
+            <% end %>
+          </ul>
+        </div>
       </div>
     <% end %>
-    <div class="panel-footer">
-      <%= link_to 'Voir la page de la machine sur GLPI', (@server.name.present? ? "#{Rails.application.credentials.glpi_url}/serveurs/#{@server.name.downcase}" : "#{Rails.application.credentials.glpi_url}/serial/#{@server.numero}"), target: '_blank' %>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        Données GLPI
+      </div>
+      <% client = GlpiClient.new
+         computer = client.computer(serial: Rails.env.production? ? @server.numero : "AZERTY") %>
+      <% if computer.present? %>
+        <div class="panel-body">
+          Nom : <b><%= computer.name %></b><br>
+          Id GLPI : <b><%= computer.id %></b><br>
+          Numéro de série : <b><%= computer.serial %></b><br>
+          Contact : <b><%= computer.contact %></b><br>
+        </div>
+        <div class="panel-body">
+          Nombre de disques : <b><%= computer.hard_drives&.size %></b><br>
+          Capacité disques : <b><%= number_to_human_size(computer.hard_drives_total_capacity * 1048576) %></b><br>
+          Nombre de barettes : <b><%= computer.memories&.size %></b><br>
+          Ram totale : <b><%= number_to_human_size(computer.memories_total_size * 1048576) %></b><br>
+          Processeurs :
+          <b><%= computer.processors.group_by { |p| p[1]['designation'] }.map { |designation, processors| "#{processors.size} x #{designation}" }.join(', ') %></b><br>
+        </div>
+      <% else %>
+        <div class="panel-body">
+          Aucune correspondance pour ce numéro de série : <%= @server.numero %>
+        </div>
+      <% end %>
+      <div class="panel-footer">
+        <%= link_to 'Voir la page de la machine sur GLPI', (@server.name.present? ? "#{Rails.application.credentials.glpi_url}/serveurs/#{@server.name.downcase}" : "#{Rails.application.credentials.glpi_url}/serial/#{@server.numero}"), target: '_blank' %>
+      </div>
     </div>
   </div>
+
 </div>
-
-
 
 <%= render 'ports/modal_edit_port' %>
