@@ -13,6 +13,8 @@ class GlpiClientTest < ActiveSupport::TestCase
     assert computer.memories.size == 16
     assert computer.hard_drives_total_capacity == 20441348
     assert computer.memories_total_size == 262144
+    assert computer.processors.size == 2
+    assert computer.processors.first[1]["designation"] == "Intel(R) Xeon(R) CPU E5-2660 0 @ 2.20GHz"
   end
 
 end

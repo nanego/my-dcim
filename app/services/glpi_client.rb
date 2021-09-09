@@ -18,7 +18,7 @@ class GlpiClient
   end
 
   def computer(serial:)
-    glpi_id = get_glpi_id(serial: serial)
+    glpi_id = get_computer_id_from_glpi(serial: serial)
     if glpi_id.present?
       params = [
         "expand_dropdowns=false", # (default: false) Show dropdown name instead of id. Optional.
@@ -49,12 +49,29 @@ class GlpiClient
         computer = Computer.new(computer_params)
         computer.hard_drives = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceHardDrive'] : {}
         computer.memories = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceMemory'] : {}
+        computer.processors = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceProcessor'] : {}
+        computer.processors.each do |proc_id, proc_details|
+          proc_details["designation"] = get_processor_designation_from_glpi(id: proc_details["deviceprocessors_id"])
+        end
       end
     end
+
     return computer
   end
 
-  def get_glpi_id(serial:)
+  def get_processor_designation_from_glpi(id:)
+    return if id.blank?
+    resp = @connection.get("DeviceProcessor/#{id}") do |request|
+      request.headers["Session-Token"] = session_token
+      request.headers["App-Token"] = API_KEY
+    end
+    processor_params = JSON.parse(resp.body)
+    if processor_params.present?
+      return processor_params["designation"]
+    end
+  end
+
+  def get_computer_id_from_glpi(serial:)
     resp = @connection.get("Computer?searchText[serial]=#{serial}") do |request|
       request.headers["Session-Token"] = session_token
       request.headers["App-Token"] = API_KEY
@@ -77,6 +94,7 @@ class GlpiClient
     Faraday::Adapter::Test::Stubs.new do |stub|
       stub.get('/Computer?searchText%5Bserial%5D=AZERTY') { |env| [200, {}, File.read(Rails.root.join('test', 'services', 'computers_results.json'))] }
       stub.get(/\/Computer\/4090?.*/) { |env| [200, {}, File.read(Rails.root.join('test', 'services', 'computer_4090_algori.json'))] }
+      stub.get(/\/DeviceProcessor\/28?.*/) { |env| [200, {}, File.read(Rails.root.join('test', 'services', 'processor_28.json'))] }
       stub.get('/initSession') { |env| [200, {}, '{"session_token":"kuji8uh4v77lgghqoj2c0r2848"}'] }
     end
   end
@@ -89,9 +107,11 @@ class GlpiClient::Computer
   attribute :id, Integer
   attribute :serial, String
   attribute :name, String
+  attribute :contact, String
   attribute :disks, Hash
   attribute :hard_drives, Hash
   attribute :memories, Hash
+  attribute :processors, Hash
 
   def hard_drives_total_capacity
     hard_drives.sum { |key, value| value['capacity'] }
@@ -101,4 +121,10 @@ class GlpiClient::Computer
     memories.sum { |key, value| value['size'] }
   end
 
+end
+
+class GlpiClient::DeviceProcessor
+  include Virtus.model
+
+  attribute :designation, String
 end

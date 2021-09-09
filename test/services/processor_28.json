@@ -1,0 +1,29 @@
+{
+  "date_creation": null,
+  "date_mod": null,
+  "id": 28,
+  "designation": "Intel(R) Xeon(R) CPU E5-2660 0 @ 2.20GHz",
+  "frequence": 2200,
+  "comment": null,
+  "manufacturers_id": 6,
+  "frequency_default": 2200,
+  "nbcores_default": null,
+  "nbthreads_default": null,
+  "entities_id": 0,
+  "is_recursive": 1,
+  "deviceprocessormodels_id": null,
+  "links": [
+    {
+      "rel": "Manufacturer",
+      "href": "https://apirest.php/Manufacturer/6"
+    },
+    {
+      "rel": "Entity",
+      "href": "https://apirest.php/Entity/0"
+    },
+    {
+      "rel": "Item_Project",
+      "href": "https://apirest.php/DeviceProcessor/28/Item_Project/"
+    }
+  ]
+}
