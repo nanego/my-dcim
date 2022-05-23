@@ -1,4 +1,4 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Paramètres' => modeles_url, 'Salles' => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: { 'Paramètres' => modeles_url, 'Salles' => '' } %>
 
 <div class="container-fluid">
 
@@ -21,23 +21,23 @@
       <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">
           <thead>
-            <tr>
-              <th>Nom</th>
-              <th>Position</th>
-              <th></th>
-              <th></th>
-              <th></th>
-            </tr>
+          <tr>
+            <th>Nom</th>
+            <th>Position</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
           </thead>
 
           <tbody>
-            <%= content_tag_for(:tr, @sites) do |site| %>
-                  <td><%= site %></td>
-                  <td><%= site.position %></td>
-              <td><%= pluralize site.rooms.count, 'salle' %></td>
-              <td><%= link_to 'Modifier', edit_site_path(site), class: 'btn btn-default' %></td>
-              <td><%= link_to 'Supprimer', site, method: :delete, data: { confirm: 'Est-ce que vous confirmez la suppression définitive de ce site ?' }, class: 'btn btn-warning' %></td>
-            <% end %>
+          <%= content_tag_for(:tr, @sites) do |site| %>
+            <td><b><%= site %></b></td>
+            <td><%= site.position %></td>
+            <td><%= pluralize site.rooms.count, 'salle', 'salles' %></td>
+            <td><%= link_to 'Modifier', edit_site_path(site), class: 'btn btn-default' %></td>
+            <td><%= link_to 'Supprimer', site, method: :delete, data: { confirm: 'Est-ce que vous confirmez la suppression définitive de ce site ?' }, class: 'btn btn-warning' %></td>
+          <% end %>
           </tbody>
         </table>
       </div>

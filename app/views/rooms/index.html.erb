@@ -22,9 +22,9 @@
         <table class="table table-striped table-bordered table-hover">
           <thead>
           <tr>
-            <th>Position</th>
-            <th>Nom</th>
             <th>Site</th>
+            <th>Nom</th>
+            <th>Position</th>
             <th>Contenu</th>
             <th>Afficher sur la page d'accueil</th>
             <th></th>
@@ -34,10 +34,10 @@
 
           <tbody>
           <%= content_tag_for(:tr, @rooms) do |room| %>
-            <td><%= room.position %></td>
-            <td><b><%= room %></b></td>
             <td><%= room.site %></td>
-            <td><%= pluralize room.frames.count, 'frame' %></td>
+            <td><b><%= room %></b></td>
+            <td><%= room.position %></td>
+            <td><%= pluralize room.islets.count, 'îlot', 'îlots' %> / <%= pluralize room.frames.count, 'chassis' %></td>
             <td><input type="checkbox" <%= room.display_on_home_page ? "checked" : "" %> disabled></td>
             <td><%= render partial: "rooms/export_button", locals: { room: room } %></td>
             <td><%= link_to 'Modifier', edit_room_path(room), class: 'btn btn-primary' %></td>

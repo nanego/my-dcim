@@ -1,4 +1,4 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Paramètres' => islets_url, 'Ilots' => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: { 'Paramètres' => islets_url, 'Ilots' => '' } %>
 
 <div class="container-fluid">
 
@@ -12,8 +12,8 @@
 
       <div class="page-header">
         <%= link_to new_islet_path, class: 'btn btn-primary' do %>
-            <span class="glyphicon glyphicon-plus"></span>
-            Ajouter un ilot
+          <span class="glyphicon glyphicon-plus"></span>
+          Ajouter un ilot
         <% end %>
         <h1>Ilots</h1>
       </div>
@@ -22,6 +22,7 @@
         <table class="table table-striped table-bordered table-hover">
           <thead>
           <tr>
+            <th>Site</th>
             <th>Salle</th>
             <th>Ilot</th>
             <th>Position</th>
@@ -33,12 +34,13 @@
 
           <tbody>
           <%= content_tag_for(:tr, @islets) do |islet| %>
-              <td><%= islet.room %> </td>
-              <td><%= islet.name %></td>
-              <td><%= islet.position %></td>
-              <td><%= islet.frames.count.to_s + ' chassis' %></td>
-              <td><%= link_to 'Modifier', edit_islet_path(islet), class: 'btn btn-primary' %></td>
-              <td><%= link_to 'Supprimer', islet, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+            <td><%= islet.site %></td>
+            <td><%= islet.room %> </td>
+            <td><b><%= islet.name %></b></td>
+            <td><%= islet.position %></td>
+            <td><%= islet.frames.count.to_s + ' chassis' %></td>
+            <td><%= link_to 'Modifier', edit_islet_path(islet), class: 'btn btn-primary' %></td>
+            <td><%= link_to 'Supprimer', islet, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
           <% end %>
           </tbody>
         </table>

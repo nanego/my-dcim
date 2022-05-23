@@ -5,8 +5,9 @@ class Islet < ActiveRecord::Base
   has_many :frames, through: :bays
   has_many :servers, through: :frames
   has_many :materials, through: :frames
+  has_one :site, through: :room
 
-  scope :sorted, -> { order( :position, :name ) }
+  scope :sorted, -> { order( :room_id, :position, :name ) }
   scope :not_empty, -> { joins(:materials) }
   scope :has_name, -> { where.not(name: nil) }
 

@@ -2,7 +2,7 @@ class IsletsController < ApplicationController
   before_action :set_islet, only: [:show, :edit, :update, :destroy]
 
   def index
-    @islets = Islet.joins(:room).order('rooms.name asc, islets.name asc')
+    @islets = Islet.joins(:room).order('rooms.site_id asc, rooms.position asc, islets.name asc')
   end
 
   # GET /islets/new
