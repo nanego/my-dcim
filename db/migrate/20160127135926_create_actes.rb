@@ -1,4 +1,4 @@
-class CreateActes < ActiveRecord::Migration
+class CreateActes < ActiveRecord::Migration[4.2]
   def change
     create_table :actes do |t|
       t.string :title

@@ -1,4 +1,4 @@
-class CreateBays < ActiveRecord::Migration
+class CreateBays < ActiveRecord::Migration[4.2]
   def change
     create_table :bays do |t|
       t.string :name

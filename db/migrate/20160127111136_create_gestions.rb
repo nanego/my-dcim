@@ -1,4 +1,4 @@
-class CreateGestions < ActiveRecord::Migration
+class CreateGestions < ActiveRecord::Migration[4.2]
   def change
     create_table :gestions do |t|
       t.string :title

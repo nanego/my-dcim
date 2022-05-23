@@ -1,4 +1,4 @@
-class UpdateRenamedClassesInActivities< ActiveRecord::Migration
+class UpdateRenamedClassesInActivities< ActiveRecord::Migration[4.2]
   def up
     PublicActivity::Activity.where(trackable_type: 'Serveur').update_all(trackable_type: 'Server')
     PublicActivity::Activity.where(trackable_type: 'CardsServeur').update_all(trackable_type: 'CardsServer')

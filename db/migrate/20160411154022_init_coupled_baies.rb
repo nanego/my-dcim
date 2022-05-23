@@ -1,4 +1,4 @@
-class InitCoupledBaies < ActiveRecord::Migration
+class InitCoupledBaies < ActiveRecord::Migration[4.2]
   def up
 
     previous_baie = nil

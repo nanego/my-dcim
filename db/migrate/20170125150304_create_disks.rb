@@ -1,4 +1,4 @@
-class CreateDisks < ActiveRecord::Migration
+class CreateDisks < ActiveRecord::Migration[4.2]
   def change
     create_table :disks do |t|
       t.integer :server_id

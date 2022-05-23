@@ -1,4 +1,4 @@
-class CreateBaies < ActiveRecord::Migration
+class CreateBaies < ActiveRecord::Migration[4.2]
   def change
     create_table :baies do |t|
       t.string :title

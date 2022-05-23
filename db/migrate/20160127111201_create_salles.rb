@@ -1,4 +1,4 @@
-class CreateSalles < ActiveRecord::Migration
+class CreateSalles < ActiveRecord::Migration[4.2]
   def change
     create_table :salles do |t|
       t.string :title

@@ -1,4 +1,4 @@
-class CreateCardsServeurs < ActiveRecord::Migration
+class CreateCardsServeurs < ActiveRecord::Migration[4.2]
   def change
     create_table :cards_serveurs do |t|
       t.integer :card_id

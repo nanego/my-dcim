@@ -1,4 +1,4 @@
-class CreateComposants < ActiveRecord::Migration
+class CreateComposants < ActiveRecord::Migration[4.2]
   def change
     create_table :type_composants do |t|
       t.string :title

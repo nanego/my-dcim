@@ -1,4 +1,4 @@
-class CreateCoupleBaies < ActiveRecord::Migration
+class CreateCoupleBaies < ActiveRecord::Migration[4.2]
   def change
     create_table :couple_baies do |t|
       t.integer :baie_one_id

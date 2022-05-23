@@ -1,4 +1,4 @@
-class AddColorToModeles < ActiveRecord::Migration
+class AddColorToModeles < ActiveRecord::Migration[4.2]
   def change
     add_column :modeles, :color, :string
   end

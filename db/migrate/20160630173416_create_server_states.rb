@@ -1,4 +1,4 @@
-class CreateServerStates < ActiveRecord::Migration
+class CreateServerStates < ActiveRecord::Migration[4.2]
   def change
     create_table :server_states do |t|
       t.string :title

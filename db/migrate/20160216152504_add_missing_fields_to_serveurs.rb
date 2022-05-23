@@ -1,4 +1,4 @@
-class AddMissingFieldsToServeurs < ActiveRecord::Migration
+class AddMissingFieldsToServeurs < ActiveRecord::Migration[4.2]
   def change
     add_column :serveurs, :pdu_ondule, :string
     add_column :serveurs, :pdu_normal, :string

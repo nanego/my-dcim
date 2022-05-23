@@ -1,4 +1,4 @@
-class CreateIslets < ActiveRecord::Migration
+class CreateIslets < ActiveRecord::Migration[4.2]
   def change
     create_table :islets do |t|
       t.string :name

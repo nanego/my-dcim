@@ -1,4 +1,4 @@
-class CreatePorts < ActiveRecord::Migration
+class CreatePorts < ActiveRecord::Migration[4.2]
   def change
     create_table :ports do |t|
 

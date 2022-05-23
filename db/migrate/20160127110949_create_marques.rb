@@ -1,4 +1,4 @@
-class CreateMarques < ActiveRecord::Migration
+class CreateMarques < ActiveRecord::Migration[4.2]
   def change
     create_table :marques do |t|
       t.string :title

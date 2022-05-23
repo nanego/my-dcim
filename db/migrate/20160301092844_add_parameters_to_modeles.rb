@@ -1,4 +1,4 @@
-class AddParametersToModeles < ActiveRecord::Migration
+class AddParametersToModeles < ActiveRecord::Migration[4.2]
   def change
     add_column :modeles, :categorie_id, :integer
     add_column :modeles, :nb_elts, :integer

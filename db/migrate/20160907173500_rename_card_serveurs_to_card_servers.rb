@@ -1,4 +1,4 @@
-class RenameCardServeursToCardServers< ActiveRecord::Migration
+class RenameCardServeursToCardServers< ActiveRecord::Migration[4.2]
   def change
     rename_table :cards_serveurs, :cards_servers
   end

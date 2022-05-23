@@ -1,4 +1,4 @@
-class RemoveLocalisationsTable < ActiveRecord::Migration
+class RemoveLocalisationsTable < ActiveRecord::Migration[4.2]
   def up
     drop_table :localisations
     remove_column :servers, :localisation_id

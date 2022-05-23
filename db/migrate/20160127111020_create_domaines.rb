@@ -1,4 +1,4 @@
-class CreateDomaines < ActiveRecord::Migration
+class CreateDomaines < ActiveRecord::Migration[4.2]
   def change
     create_table :domaines do |t|
       t.string :title

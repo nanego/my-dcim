@@ -1,4 +1,4 @@
-class CreateServeurs < ActiveRecord::Migration
+class CreateServeurs < ActiveRecord::Migration[4.2]
   def change
     create_table :serveurs do |t|
       t.integer :localisation_id

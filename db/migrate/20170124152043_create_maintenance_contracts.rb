@@ -1,4 +1,4 @@
-class CreateMaintenanceContracts < ActiveRecord::Migration
+class CreateMaintenanceContracts < ActiveRecord::Migration[4.2]
   def change
     create_table :maintenance_contracts do |t|
       t.date :start_date

@@ -1,4 +1,4 @@
-class RenameServeurToServer< ActiveRecord::Migration
+class RenameServeurToServer< ActiveRecord::Migration[4.2]
   def change
     rename_table :serveurs, :servers
     rename_column :slots, :serveur_id, :server_id

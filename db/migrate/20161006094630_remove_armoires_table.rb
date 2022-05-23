@@ -1,4 +1,4 @@
-class RemoveArmoiresTable < ActiveRecord::Migration
+class RemoveArmoiresTable < ActiveRecord::Migration[4.2]
   def up
     drop_table :armoires
     remove_column :servers, :armoire_id

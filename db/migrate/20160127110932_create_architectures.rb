@@ -1,4 +1,4 @@
-class CreateArchitectures < ActiveRecord::Migration
+class CreateArchitectures < ActiveRecord::Migration[4.2]
   def change
     create_table :architectures do |t|
       t.string :title

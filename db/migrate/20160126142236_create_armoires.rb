@@ -1,4 +1,4 @@
-class CreateArmoires < ActiveRecord::Migration
+class CreateArmoires < ActiveRecord::Migration[4.2]
   def change
     create_table :armoires do |t|
       t.string :title
