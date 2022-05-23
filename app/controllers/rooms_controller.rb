@@ -5,7 +5,7 @@ class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :edit, :update, :destroy, :islet]
 
   def index
-    @rooms = Room.sorted
+    @rooms = Room.joins(:site).order('sites.position asc, rooms.position asc, rooms.name asc')
   end
 
   def show
