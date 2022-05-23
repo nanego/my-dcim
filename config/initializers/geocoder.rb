@@ -5,8 +5,8 @@ Geocoder.configure(
   # ip_lookup: :ipinfo_io,      # name of IP address geocoding service (symbol)
   # language: :en,              # ISO-639 language code
   # use_https: false,           # use HTTPS for lookup requests? (if supported)
-  http_proxy: Rails.application.credentials.http_proxy,            # HTTP proxy server (user:pass@host:port)
-  https_proxy: Rails.application.credentials.http_proxy,           # HTTPS proxy server (user:pass@host:port)
+  http_proxy: Rails.env.production? ? Rails.application.credentials.http_proxy : "",            # HTTP proxy server (user:pass@host:port)
+  https_proxy: Rails.env.production? ? Rails.application.credentials.http_proxy : "",           # HTTPS proxy server (user:pass@host:port)
   # api_key: nil,               # API key for geocoding service
   # cache: nil,                 # cache object (must respond to #[], #[]=, and #del)
 
