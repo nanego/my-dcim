@@ -13,7 +13,7 @@ class Room < ActiveRecord::Base
 
   belongs_to :site
 
-  scope :sorted, -> { order( :position ) }
+  scope :sorted, -> { order( :position, :site_id, :name ) }
   scope :not_empty, -> { joins(:servers) }
 
   def to_s
