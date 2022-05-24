@@ -156,33 +156,45 @@
       <div class="panel-heading">
         Données GLPI
       </div>
-      <% client = GlpiClient.new
-         computer = client.computer(serial: Rails.env.production? ? @server.numero : "AZERTY") %>
-      <% if computer.present? %>
+      <%
+        begin
+          Timeout.timeout(3) do
+            client = GlpiClient.new
+            computer = client.computer(serial: Rails.env.production? ? @server.numero : "AZERTY") %>
+          <% if computer.present? %>
+            <div class="panel-body">
+              Nom : <b><%= computer.name %></b><br>
+              Id GLPI : <b><%= computer.id %></b><br>
+              Numéro de série : <b><%= computer.serial %></b><br>
+              Contact : <b><%= computer.contact %></b><br>
+            </div>
+            <div class="panel-body">
+              Nombre de disques : <b><%= computer.hard_drives&.size %></b><br>
+              Capacité disques : <b><%= number_to_human_size(computer.hard_drives_total_capacity * 1048576) %></b><br>
+              Nombre de barettes : <b><%= computer.memories&.size %></b><br>
+              Ram totale : <b><%= number_to_human_size(computer.memories_total_size * 1048576) %></b><br>
+              Processeurs :
+              <b><%= computer.processors.group_by { |p| p[1]['designation'] }.map { |designation, processors| "#{processors.size} x #{designation}" }.join(', ') %></b><br>
+            </div>
+            <div class="panel-footer">
+              <%= link_to 'Voir la page de la machine sur GLPI',
+                          "#{Rails.application.credentials.glpi_url}/front/computer.form.php?id=#{computer.id}",
+                          target: '_blank' %>
+            </div>
+          <% else %>
+            <div class="panel-body">
+              Aucune correspondance pour ce numéro de série : <%= @server.numero %>
+            </div>
+          <% end %>
+        <% end
+           rescue Timeout::Error => e
+             Rails.logger.warn "WARNING: couldn't get GLPI data because the operation timed out" %>
         <div class="panel-body">
-          Nom : <b><%= computer.name %></b><br>
-          Id GLPI : <b><%= computer.id %></b><br>
-          Numéro de série : <b><%= computer.serial %></b><br>
-          Contact : <b><%= computer.contact %></b><br>
+          Problème lors de la connexion à GLPI
         </div>
-        <div class="panel-body">
-          Nombre de disques : <b><%= computer.hard_drives&.size %></b><br>
-          Capacité disques : <b><%= number_to_human_size(computer.hard_drives_total_capacity * 1048576) %></b><br>
-          Nombre de barettes : <b><%= computer.memories&.size %></b><br>
-          Ram totale : <b><%= number_to_human_size(computer.memories_total_size * 1048576) %></b><br>
-          Processeurs :
-          <b><%= computer.processors.group_by { |p| p[1]['designation'] }.map { |designation, processors| "#{processors.size} x #{designation}" }.join(', ') %></b><br>
-        </div>
-        <div class="panel-footer">
-          <%= link_to 'Voir la page de la machine sur GLPI',
-                      "#{Rails.application.credentials.glpi_url}/front/computer.form.php?id=#{computer.id}",
-                      target: '_blank' %>
-        </div>
-      <% else %>
-        <div class="panel-body">
-          Aucune correspondance pour ce numéro de série : <%= @server.numero %>
-        </div>
-      <% end %>
+      <% end
+      %>
+
     </div>
   </div>
 
