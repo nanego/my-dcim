@@ -350,9 +350,9 @@ GEM
       sprockets-rails
       tilt
     selectize-rails (0.12.6)
-    shrine (2.19.4)
+    shrine (3.3.0)
       content_disposition (~> 1.0)
-      down (>= 4.1, < 6)
+      down (~> 5.1)
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -457,7 +457,7 @@ DEPENDENCIES
   rubocop
   rubocop-performance
   sassc-rails (~> 2.0)
-  shrine (~> 2.9)
+  shrine (~> 3.3)
   simple_form
   simple_token_authentication (~> 1.0)
   simplecov
