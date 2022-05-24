@@ -222,7 +222,7 @@ GEM
       rake
     mini_magick (4.11.0)
     mini_mime (1.0.2)
-    mini_portile2 (2.4.0)
+    mini_portile2 (2.8.0)
     minitest (5.14.3)
     minitest-capybara (0.9.0)
       capybara
@@ -243,8 +243,9 @@ GEM
     msgpack (1.4.2)
     multipart-post (2.1.1)
     nio4r (2.5.5)
-    nokogiri (1.10.10)
-      mini_portile2 (~> 2.4.0)
+    nokogiri (1.13.6)
+      mini_portile2 (~> 2.8.0)
+      racc (~> 1.4)
     omniauth (1.9.1)
       hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
@@ -271,6 +272,7 @@ GEM
     public_suffix (4.0.6)
     puma (5.2.1)
       nio4r (~> 2.0)
+    racc (1.6.0)
     rack (2.2.3)
     rack-contrib (2.3.0)
       rack (~> 2.0)
@@ -437,7 +439,7 @@ DEPENDENCIES
   meta_request
   mini_magick (~> 4.8)
   minitest-rails-capybara
-  nokogiri (~> 1.10.0)
+  nokogiri (~> 1.13, >= 1.13.6)
   omniauth (>= 1.1.1)
   omniauth-cas (= 1.1.1)
   passenger
