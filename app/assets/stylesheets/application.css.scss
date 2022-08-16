@@ -74,6 +74,12 @@ body {
   margin-bottom: 20px;
 }
 
+.datagrid-filter select[multiple],
+.datagrid-filter input[class*="filter"] {
+  width: 275px;
+  max-width: 100%;
+}
+
 a.hide-filters, a.show-filters {
   color: white;
   text-decoration: underline;
