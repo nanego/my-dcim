@@ -42,14 +42,14 @@ class Frame < ActiveRecord::Base
     ].reject(&:blank?).join(' ')
   end
 
-  def self.to_txt(servers_per_bay)
+  def self.to_txt(servers_per_bay, detail)
     txt = ""
     if servers_per_bay.present?
       servers_per_bay.each do |islet, lanes|
         lanes.each do |lane, bays|
           bays.each do |bay, frames|
             frames.each do |frame, servers|
-              txt << frame.to_txt
+              txt << frame.to_txt(detail)
             end
           end
         end
@@ -58,13 +58,19 @@ class Frame < ActiveRecord::Base
     txt
   end
 
-  def to_txt
+  def to_txt(detail)
     txt = ""
     if self.present?
       txt << "\r\n#{self.name}\r\n"
       txt << "---------------\r\n"
       self.servers.each do |server|
-        txt << "[#{server.position.to_s.rjust(2, "0")}] #{server.name}\r\n"
+        case detail
+        when 'gestionnaire'
+          addition = server.gestion.try(:name)
+        when 'cluster'
+          addition = server.cluster.try(:name)
+        end
+        txt << "[#{server.position.to_s.rjust(2, "0")}] #{server.name} #{"(#{addition})" if addition.present?}\r\n"
       end
     end
     txt

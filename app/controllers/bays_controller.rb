@@ -37,7 +37,7 @@ class BaysController < ApplicationController
                pdf: 'frame',
                zoom: 0.75
       end
-      format.txt { send_data Frame.to_txt(@servers_per_frames) }
+      format.txt { send_data Frame.to_txt(@servers_per_frames, params[:bg]) }
     end
 
   end
@@ -84,13 +84,14 @@ class BaysController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_bay
-      @bay = Bay.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def bay_params
-      params.require(:bay).permit(:name, :lane, :position, :bay_type_id, :islet_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_bay
+    @bay = Bay.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def bay_params
+    params.require(:bay).permit(:name, :lane, :position, :bay_type_id, :islet_id)
+  end
 end

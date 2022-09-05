@@ -20,7 +20,7 @@ class FramesController < ApplicationController
                pdf: 'frame',
                zoom: 0.75
       end
-      format.txt { send_data @frame.to_txt }
+      format.txt { send_data @frame.to_txt(params[:bg]) }
     end
   end
 
@@ -61,13 +61,13 @@ class FramesController < ApplicationController
 
   def sort
     params[:frame].each_with_index do |id, index|
-      Frame.where(id: id).update_all(position: index+1)
+      Frame.where(id: id).update_all(position: index + 1)
     end if params[:frame].present?
     head :ok
   end
 
   def index
-    @frames = Frame.includes(:bay => {:islet => :room})
+    @frames = Frame.includes(:bay => { :islet => :room })
   end
 
   def destroy
@@ -116,7 +116,7 @@ class FramesController < ApplicationController
                pdf: 'frame',
                zoom: 0.75
       end
-      format.txt { send_data Frame.to_txt(@servers_per_frames) }
+      format.txt { send_data Frame.to_txt(@servers_per_frames, params[:bg]) }
     end
   end
 

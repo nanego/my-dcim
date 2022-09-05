@@ -38,7 +38,7 @@ class RoomsController < ApplicationController
                pdf: 'frame',
                zoom: 0.75
       end
-      format.txt {send_data Frame.to_txt(@servers_per_frames[@room.id])}
+      format.txt { send_data Frame.to_txt(@servers_per_frames[@room.id], params[:bg]) }
     end
   end
 
@@ -70,7 +70,7 @@ class RoomsController < ApplicationController
                pdf: 'frame',
                zoom: 0.75
       end
-      format.txt {send_data Frame.to_txt(@servers_per_frames)}
+      format.txt { send_data Frame.to_txt(@servers_per_frames, params[:bg]) }
     end
   end
 
@@ -78,11 +78,11 @@ class RoomsController < ApplicationController
     @sites = Site.order(:position).joins(:rooms => :frames).distinct
 
     if params[:cluster_id].present? ||
-        params[:gestion_id].present? ||
-        params[:modele_id].present?
+      params[:gestion_id].present? ||
+      params[:modele_id].present?
       @frames = Frame.preload(:servers => [:gestion, :cluster, :modele => :category, :card_types => :port_type, :cards => [:composant, :ports => [:connection => :cable]]])
-                    .includes(:bay => [:frames, {:islet => :room}])
-                    .order('rooms.position asc, islets.name asc, bays.position asc, frames.position asc')
+                     .includes(:bay => [:frames, { :islet => :room }])
+                     .order('rooms.position asc, islets.name asc, bays.position asc, frames.position asc')
       @current_filters = ''
       if params[:cluster_id].present?
         @frames = @frames.joins(:materials).where('servers.cluster_id = ? ', params[:cluster_id])
@@ -109,17 +109,17 @@ class RoomsController < ApplicationController
     @concentrateurs_ids = [383, 384, 1043, 1044]
     @concentrateurs = Server.where(id: @concentrateurs_ids).includes(:ports => :connection, :cards => [:ports => :connection])
     @switchs_lan_ids = @concentrateurs_ids | Server.where("network_id IS NOT NULL").map(&:id) # Switch LAN
-    @hubs = {1 => {4 => Server.find(383), 3 => Server.find(384)}, 2 => {4 => Server.find(1043), 3 => Server.find(1044)}} # Concentrateurs per room
+    @hubs = { 1 => { 4 => Server.find(383), 3 => Server.find(384) }, 2 => { 4 => Server.find(1043), 3 => Server.find(1044) } } # Concentrateurs per room
 
     @connections = {}
-    @servers = Server.includes(:frame, :stack, :ports, :cards => [:ports]). #includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
-                   where("network_id IS NOT NULL")
+    @servers = Server.includes(:frame, :stack, :ports, :cards => [:ports]).#includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
+    where("network_id IS NOT NULL")
     @stacks = @servers.map(&:stack).uniq.compact
     @servers.each do |server|
-      @connections[server.id] = server.directly_connected_servers_ids_with_color.reject{|conn| @switchs_lan_ids.exclude?(conn[:server_id])}
+      @connections[server.id] = server.directly_connected_servers_ids_with_color.reject { |conn| @switchs_lan_ids.exclude?(conn[:server_id]) }
     end
     @concentrateurs.each do |hub|
-      @connections[hub.id] = hub.connected_servers_ids_through_twin_cards_with_color.reject{|conn| @switchs_lan_ids.exclude?(conn[:server_id])}
+      @connections[hub.id] = hub.connected_servers_ids_through_twin_cards_with_color.reject { |conn| @switchs_lan_ids.exclude?(conn[:server_id]) }
     end
 
     # puts "@@@connections : #{@connections.inspect}"
@@ -140,11 +140,11 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       if @room.save
-        format.html {redirect_to rooms_path, notice: 'Room was successfully created.'}
-        format.json {render :show, status: :created, location: @room}
+        format.html { redirect_to rooms_path, notice: 'Room was successfully created.' }
+        format.json { render :show, status: :created, location: @room }
       else
-        format.html {render :new}
-        format.json {render json: @room.errors, status: :unprocessable_entity}
+        format.html { render :new }
+        format.json { render json: @room.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -152,11 +152,11 @@ class RoomsController < ApplicationController
   def update
     respond_to do |format|
       if @room.update(room_params)
-        format.html {redirect_to rooms_path, notice: 'Room was successfully updated.'}
-        format.json {render :show, status: :ok, location: @room}
+        format.html { redirect_to rooms_path, notice: 'Room was successfully updated.' }
+        format.json { render :show, status: :ok, location: @room }
       else
-        format.html {render :edit}
-        format.json {render json: @room.errors, status: :unprocessable_entity}
+        format.html { render :edit }
+        format.json { render json: @room.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -164,8 +164,8 @@ class RoomsController < ApplicationController
   def destroy
     @room.destroy
     respond_to do |format|
-      format.html {redirect_to rooms_url, notice: 'Room a bien été supprimé.'}
-      format.json {head :no_content}
+      format.html { redirect_to rooms_url, notice: 'Room a bien été supprimé.' }
+      format.json { head :no_content }
     end
   end
 
