@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
-ruby '2.7.5'
-gem 'rails', '~> 5.2', '>= 5.2.8'
+ruby File.read(".ruby-version").strip
+gem "rails", "~> 6.0.x"
 gem 'rails-i18n'
 gem 'sassc-rails', '~> 2.0'
 gem 'uglifier', '>= 1.3.0'
@@ -61,11 +61,12 @@ group :development, :test do
   gem 'simplecov', require: false
 end
 group :test do
-  gem 'minitest-rails-capybara'
+  # gem 'minitest-rails-capybara'
+  gem "capybara"
 end
 group :production do
   gem 'passenger'
-  gem 'therubyracer'
+  # gem 'therubyracer'
 end
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
