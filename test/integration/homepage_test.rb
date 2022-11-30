@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class HomepageTest < Capybara::Rails::TestCase
+class HomepageTest < ActionDispatch::IntegrationTest
   test 'anonymous user visits homepage' do
     visit root_url
     assert page.has_content?("Vous devez vous connecter ou vous inscrire pour continuer.")

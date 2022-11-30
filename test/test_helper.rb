@@ -4,7 +4,8 @@ SimpleCov.start
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require 'minitest/rails/capybara'
+require 'capybara/rails'
+require 'capybara/minitest'
 
 ActiveRecord::Migration.maintain_test_schema!
 
@@ -25,8 +26,17 @@ module ActionDispatch
   end
 end
 
-module Capybara::Rails
-  class TestCase
-    include Devise::Test::IntegrationHelpers
+class ActionDispatch::IntegrationTest
+  # Make the Capybara DSL available in all integration tests
+  include Capybara::DSL
+  # Make `assert_*` methods behave like Minitest assertions
+  include Capybara::Minitest::Assertions
+
+  include Devise::Test::IntegrationHelpers
+
+  # Reset sessions and driver between tests
+  teardown do
+    Capybara.reset_sessions!
+    Capybara.use_default_driver
   end
 end
