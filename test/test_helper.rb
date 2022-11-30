@@ -25,7 +25,7 @@ end
 
 module ActionController
   class TestCase
-  include Devise::Test::ControllerHelpers
+    include Devise::Test::ControllerHelpers
   end
 end
 
@@ -37,17 +37,17 @@ end
 
 module ActionDispatch
   class IntegrationTest
-  # Make the Capybara DSL available in all integration tests
-  include Capybara::DSL
-  # Make `assert_*` methods behave like Minitest assertions
-  include Capybara::Minitest::Assertions
+    # Make the Capybara DSL available in all integration tests
+    include Capybara::DSL
+    # Make `assert_*` methods behave like Minitest assertions
+    include Capybara::Minitest::Assertions
 
-  include Devise::Test::IntegrationHelpers
+    include Devise::Test::IntegrationHelpers
 
-  # Reset sessions and driver between tests
-  teardown do
-    Capybara.reset_sessions!
-    Capybara.use_default_driver
-  end
+    # Reset sessions and driver between tests
+    teardown do
+      Capybara.reset_sessions!
+      Capybara.use_default_driver
+    end
   end
 end
