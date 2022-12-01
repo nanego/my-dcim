@@ -7,7 +7,7 @@ Geocoder.configure(
   # use_https: false,           # use HTTPS for lookup requests? (if supported)
   http_proxy: Rails.env.production? ? Rails.application.credentials.proxy_url : "",            # HTTP proxy server (user:pass@host:port)
   https_proxy: Rails.env.production? ? Rails.application.credentials.proxy_url : "",           # HTTPS proxy server (user:pass@host:port)
-  api_key: Rails.application.credentials.mapbox[:access_token],               # API key for geocoding service
+  api_key: Rails.env.production? ? Rails.application.credentials.mapbox[:access_token] : "",               # API key for geocoding service
   # cache: nil,                 # cache object (must respond to #[], #[]=, and #del)
 
   # Exceptions that should not be rescued by default

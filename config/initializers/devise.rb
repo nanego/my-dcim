@@ -1,11 +1,13 @@
 require 'omniauth/dynamic_full_host'
 
 # a setup app that handles dynamic config of CAS server
-setup_app = Proc.new do |env|
-  env['omniauth.strategy'].options.merge! host: Rails.application.secrets.cas_server_host,
-                                          port: Rails.application.secrets.cas_server_port,
-                                          path: (Rails.application.secrets.cas_server_path != "/" ? Rails.application.secrets.cas_server_path : nil),
-                                          ssl: Rails.application.secrets.cas_server_scheme == "https"
+if Rails.env.production?
+  setup_app = Proc.new do |env|
+    env['omniauth.strategy'].options.merge! host: Rails.application.secrets.cas_server_host,
+                                            port: Rails.application.secrets.cas_server_port,
+                                            path: (Rails.application.secrets.cas_server_path != "/" ? Rails.application.secrets.cas_server_path : nil),
+                                            ssl: Rails.application.secrets.cas_server_scheme == "https"
+  end
 end
 
 # Use this hook to configure devise mailer, warden hooks and so forth.
@@ -22,7 +24,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'no-reply@' + Rails.application.secrets.domain_name
+  config.mailer_sender = "no-reply@#{Rails.application.secrets.domain_name}"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
