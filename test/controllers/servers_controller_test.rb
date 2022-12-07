@@ -36,7 +36,7 @@ class ServersControllerTest < ActionController::TestCase
   test "should show server" do
     get :show, params: {id: @server}
     assert_response :success
-    assert_select 'dt', "Position:"
+    assert_select 'dt', "Position :"
   end
 
   test "should show server using id" do
