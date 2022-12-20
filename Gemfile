@@ -42,6 +42,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'image_processing', '~> 1.2'
 
 group :development do
+  gem 'web-console', '~> 2.0'
   gem 'better_errors'
   gem 'web-console', '~> 2.0'
   # gem 'quiet_assets'
