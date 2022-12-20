@@ -4,8 +4,8 @@ class ImportEquipmentByCSV
 
   DEFAULT_NB_OF_SLOTS = 7
 
-  def self.call(*args)
-    new(*args).call
+  def self.call(**args)
+    new(**args).call
   end
 
   def initialize(file:, room_id:, equipment_status_id:)
@@ -19,7 +19,7 @@ class ImportEquipmentByCSV
       ApplicationRecord.transaction do
         new_frame = nil
         f = nil
-        CSV.foreach(file.path, {headers: true, col_sep: ';'}) do |row|
+        CSV.foreach(file.path, headers: true, col_sep: ';') do |row|
           data = row.to_hash
           if data.present?
             modele = Modele.find_by_name(data['Modele'])

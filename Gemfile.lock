@@ -1,13 +1,3 @@
-GIT
-  remote: https://github.com/pokonski/public_activity.git
-  revision: aff5b50ff474c9434e619c0fb0f8daa6acf47655
-  specs:
-    public_activity (2.0)
-      actionpack (>= 3.0.0)
-      activerecord (>= 3.0)
-      i18n (>= 0.5.0)
-      railties (>= 3.0.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -256,7 +246,12 @@ GEM
     pry-rescue (1.5.2)
       interception (>= 0.5)
       pry (>= 0.12.0)
-    public_suffix (5.0.0)
+    public_activity (2.0.2)
+      actionpack (>= 5.0.0)
+      activerecord (>= 5.0)
+      i18n (>= 0.5.0)
+      railties (>= 5.0.0)
+    public_suffix (5.0.1)
     puma (6.0.0)
       nio4r (~> 2.0)
     racc (1.6.1)
@@ -347,9 +342,9 @@ GEM
       sprockets-rails
       tilt
     selectize-rails (0.12.6)
-    shrine (2.19.4)
+    shrine (3.0.1)
       content_disposition (~> 1.0)
-      down (>= 4.1, < 6)
+      down (~> 5.0)
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -440,7 +435,7 @@ DEPENDENCIES
   pg
   pry-rails
   pry-rescue
-  public_activity!
+  public_activity
   puma
   rack-mini-profiler
   rails (~> 6.0.x)
@@ -453,7 +448,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rake
   sassc-rails (~> 2.0)
-  shrine (~> 2.9)
+  shrine (~> 3.0.0)
   simple_form
   simple_token_authentication (~> 1.0)
   simplecov
