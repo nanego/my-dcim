@@ -5,7 +5,7 @@ ruby File.read('.ruby-version').strip
 gem 'rails', '~> 6.0.x'
 
 gem 'administrate'
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder', '~> 2.7'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'nokogiri', '~> 1.13', '>= 1.13.6'
@@ -36,17 +36,16 @@ gem 'simple_form'
 gem 'virtus'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootsnap', '>= 1.4.2', require: false
 
 # Use ActiveStorage variant
-gem 'mini_magick', '~> 4.8'
+gem 'image_processing', '~> 1.2'
 
 group :development do
   gem 'web-console', '~> 2.0'
-  # gem 'spring'
   gem 'better_errors'
   # gem 'quiet_assets'
-  gem 'listen'
+  gem 'listen', '~> 3.2'
   gem 'meta_request'
   gem 'rails_layout'
 end
@@ -67,7 +66,7 @@ group :development, :test do
 end
 group :test do
   # gem 'minitest-rails-capybara'
-  gem 'capybara'
+  gem 'capybara', '>= 2.15'
 end
 group :production do
   gem 'passenger'
