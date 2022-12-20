@@ -74,13 +74,13 @@ group :production do
 end
 gem 'acts_as_list'
 gem 'friendly_id', '~> 5.2'
-gem 'public_activity', git: 'https://github.com/pokonski/public_activity.git'
+gem 'public_activity'
 gem 'record_tag_helper', '~> 1.0' # Add helpers removed from Rails core in Rails 5
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
 # Manage file uploads
-gem 'shrine', '~> 2.9'
+gem 'shrine', '~> 3.0.0'
 
 # Add email notifications on errors
 gem 'exception_notification'
