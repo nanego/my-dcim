@@ -1,5 +1,9 @@
+require:
+  - rubocop-performance
+  - rubocop-rake
+  - rubocop-rails
+
 AllCops:
-  RunRailsCops: true
   Include:
     - '**/Gemfile'
     - '**/Rakefile'
@@ -8,4 +12,6 @@ AllCops:
    - 'db/seeds.rb'
    - 'db/schema.rb'
    - 'vendor/bundle/**/*'
-require: rubocop-performance
+
+Rails:
+  Enabled: true
