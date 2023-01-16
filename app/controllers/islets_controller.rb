@@ -1,8 +1,40 @@
 class IsletsController < ApplicationController
+  include RoomsHelper
+
   before_action :set_islet, only: [:show, :edit, :update, :destroy]
 
   def index
     @islets = Islet.joins(:room).order('rooms.site_id asc, rooms.position asc, islets.name asc')
+  end
+
+  def show
+    frames = Frames::IncludingServersQuery.call(@islet.frames)
+    @room = @islet.room
+    @servers_per_frames = {}
+
+    sorted_frames_per_islet(frames, params[:view]).each do |frame|
+      room = frame.bay.islet.room_id
+      islet = frame.bay.islet.name
+      @servers_per_frames[room] ||= {}
+      @servers_per_frames[room][islet] ||= {}
+      @servers_per_frames[room][islet][frame.bay.lane] ||= {}
+      @servers_per_frames[room][islet][frame.bay.lane][frame.bay] ||= {}
+      @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] ||= []
+      frame.servers.each do |s|
+        @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] << s
+      end
+    end
+
+    respond_to do |format|
+      format.pdf do
+        render layout: 'pdf.html',
+               template: "rooms/show.pdf.erb",
+               show_as_html: params[:debug].present?,
+               pdf: 'frame',
+               zoom: 0.75
+      end
+      format.txt { send_data Frame.to_txt(@servers_per_frames[@room.id], params[:bg]) }
+    end
   end
 
   # GET /islets/new
