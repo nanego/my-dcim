@@ -3,7 +3,7 @@
 </div>
 <div class="col-sm-6">
   <%= f.select :position,
-                options_for_select(Array(1..46).reverse, { :selected => move.position }),
+                options_for_select(Array(1..frame_size).reverse, { :selected => move.position }),
                 # onchange: 'select_destination_server(1)',
                 {include_blank: true},
                 {style: 'max-width: 185px;'}
