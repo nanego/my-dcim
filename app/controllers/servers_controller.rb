@@ -27,6 +27,8 @@ class ServersController < ApplicationController
         new_params_hash.merge!({frame_id: frame.id}) if frame.present?
         new_params = ActionController::Parameters.new(new_params_hash)
         updated_values = track_updated_values(server, new_params)
+        # Issue at saving step if the server service tag (attribute numero) doesn't respect the validation numero_cannot_be_a_current_server_name
+        # Potentially need to edit the server service tag first exp http://localhost:3000/servers/1354/edit
         if server.save && updated_values.present?
           server.create_activity action: 'update', parameters: updated_values, owner: current_user
         end

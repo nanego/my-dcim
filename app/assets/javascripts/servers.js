@@ -1,6 +1,8 @@
 $(document).ready(function() {
   var drag_n_drop_activated, update_u_scale, update_warning_messages;
   $('[data-toggle="tooltip"]').tooltip();
+
+  // See usage in http://localhost:3000/bays/YOUR_BAY_ID
   drag_n_drop_activated = false;
   $('body').on("click", '#drag-n-drop-switcher', function() {
     var source_connected_list, source_frame;
@@ -52,6 +54,7 @@ $(document).ready(function() {
       });
     }
   });
+
   update_u_scale = function(list) {
     var count;
     count = list.find('span.u_scale').length;
@@ -90,6 +93,8 @@ $(document).ready(function() {
     frame.find('.panel-footer .rj45').html("Σ RJ45 : " + total_rj45);
     return frame.find('.panel-footer .fc').html("Σ FC : " + total_fc);
   };
+
+  // Nested forms see exp http://localhost:3000/servers/YOUR_SERVER_ID/edit
   $('form').on('click', '.remove_fields', function(event) {
     $(this).prev('input[type=hidden]').val('1');
     $(this).closest('fieldset').hide();
