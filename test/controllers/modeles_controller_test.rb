@@ -43,8 +43,8 @@ class ModelesControllerTest < ActionController::TestCase
     assert_redirected_to edit_modele_path(assigns(:modele))
   end
 
-  test "should destroy modele" do
-    assert_difference('Modele.count', -1) do
+  test "should not destroy modele it has many servers Server n°1 & 2 and pdu Pdu n°1" do
+    assert_difference('Modele.count', 0) do
       delete :destroy, params: {id: @modele}
     end
 

@@ -40,8 +40,8 @@ class GestionsControllerTest < ActionController::TestCase
     assert_redirected_to gestion_path(assigns(:gestion))
   end
 
-  test "should destroy gestion" do
-    assert_difference('Gestion.count', -1) do
+  test "should not destroy gestion it has many servers Server n°1 & 2" do
+    assert_difference('Gestion.count', 0) do
       delete :destroy, params: {id: @gestion}
     end
 

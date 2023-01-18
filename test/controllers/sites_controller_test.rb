@@ -40,8 +40,8 @@ class SitesControllerTest < ActionController::TestCase
     assert_redirected_to sites_path
   end
 
-  test "should destroy site" do
-    assert_difference('Site.count', -1) do
+  test "should not destroy the site it has many rooms Room n°1 & 2" do
+    assert_difference('Site.count', 0) do
       delete :destroy, params: {id: @site}
     end
 
