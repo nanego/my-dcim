@@ -1,4 +1,6 @@
-class Server < ActiveRecord::Base
+# frozen_string_literal: true
+
+class Server < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
@@ -140,7 +142,6 @@ class Server < ActiveRecord::Base
       errors.add(:numero, "ne peut pas être identique à un nom de machine")
     end
   end
-
 end
 
 class String

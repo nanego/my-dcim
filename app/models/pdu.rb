@@ -1,5 +1,6 @@
-class Pdu
+# frozen_string_literal: true
 
+class Pdu
   SIDES = {:right => "right", :left => "left"}
 
   def self.calculated_side(frame, name)
@@ -17,5 +18,4 @@ class Pdu
       end
     end
   end
-
 end

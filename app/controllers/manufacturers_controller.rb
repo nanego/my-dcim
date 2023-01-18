@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ManufacturersController < ApplicationController
   before_action :set_manufacturer, only: [:show, :edit, :update, :destroy]
 
@@ -62,6 +64,7 @@ class ManufacturersController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_manufacturer
       @manufacturer = Manufacturer.find(params[:id])

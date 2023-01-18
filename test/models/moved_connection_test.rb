@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class MovedConnectionTest < ActiveSupport::TestCase
@@ -29,5 +31,4 @@ class MovedConnectionTest < ActiveSupport::TestCase
     assert port_from.cable_name == @connection.cablename
     assert_empty MovedConnection.where(id: @connection.id)
   end
-
 end

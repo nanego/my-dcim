@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class IndexForeignKeysInColors < ActiveRecord::Migration[4.2]
   def change
     add_index :colors, :parent_id

@@ -1,5 +1,6 @@
-class Port < ActiveRecord::Base
+# frozen_string_literal: true
 
+class Port < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
   tracked :parameters => {
@@ -69,5 +70,4 @@ class Port < ActiveRecord::Base
       end
     end
   end
-
 end

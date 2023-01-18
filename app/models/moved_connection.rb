@@ -1,5 +1,6 @@
-class MovedConnection < ApplicationRecord
+# frozen_string_literal: true
 
+class MovedConnection < ApplicationRecord
   belongs_to :port_from, class_name: 'Port'
   belongs_to :port_to, class_name: 'Port'
 
@@ -8,7 +9,7 @@ class MovedConnection < ApplicationRecord
   def ports
     [self.port_from, self.port_to].compact
   end
-  
+
   def cable_color
     color
   end
@@ -26,5 +27,4 @@ class MovedConnection < ApplicationRecord
   def cable_name
     cablename
   end
-
 end

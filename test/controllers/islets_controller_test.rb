@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require File.expand_path("../../test_helper", __FILE__)
 
 class IsletsControllerTest < ActionController::TestCase
-
   setup do
     sign_in users(:one)
     @islet = islets(:one)
@@ -31,5 +32,4 @@ class IsletsControllerTest < ActionController::TestCase
     delete :destroy, params: {id: @islet}
     assert_redirected_to islets_url
   end
-
 end

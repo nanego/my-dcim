@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   include PublicActivity::StoreController
 
@@ -34,5 +36,4 @@ class ApplicationController < ActionController::Base
       :current_user => current_user
     }
   end
-
 end

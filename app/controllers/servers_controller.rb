@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class ServersController < ApplicationController
   include ServersHelper
 
   before_action :set_server, only: [:show, :edit, :update, :destroy]
 
   def index
-    unless params[:servers_grid].present?
+    if params[:servers_grid].blank?
       params[:servers_grid] = {"column_names" => ["id", "name", "type"]}
     end
 
@@ -77,11 +79,10 @@ class ServersController < ApplicationController
   end
 
   def import_csv
-
   end
 
   def import
-    value = ImportEquipmentByCSV.call(file: params[:import][:file],
+    value = ImportEquipmentByCsv.call(file: params[:import][:file],
                                       room_id: params[:import][:room_id],
                                       equipment_status_id: params[:import][:server_state_id])
     if value.is_a?(Frame)
@@ -90,7 +91,6 @@ class ServersController < ApplicationController
       @import_error = value
       render :import_csv
     end
-
   end
 
   def destroy
@@ -129,5 +129,4 @@ class ServersController < ApplicationController
     #end
     return new_params
   end
-
 end

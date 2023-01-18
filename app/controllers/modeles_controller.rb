@@ -1,5 +1,6 @@
-class ModelesController < ApplicationController
+# frozen_string_literal: true
 
+class ModelesController < ApplicationController
   include ModelesHelper
 
   before_action :set_modele, only: [:show, :edit, :update, :destroy]
@@ -25,7 +26,7 @@ class ModelesController < ApplicationController
 
   def edit
     if @modele.color.blank?
-      @modele.color = lighten_color("##{Digest::MD5.hexdigest(@modele.name || 'test')[0..5]}", 0.4)
+      @modele.color = lighten_color("##{Digest::MD5.hexdigest(@modele.name || "test")[0..5]}", 0.4)
     end
   end
 
@@ -64,6 +65,7 @@ class ModelesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_modele
       @modele = Modele.friendly.find(params[:id].to_s.downcase)

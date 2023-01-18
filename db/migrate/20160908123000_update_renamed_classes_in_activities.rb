@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UpdateRenamedClassesInActivities< ActiveRecord::Migration[4.2]
   def up
     PublicActivity::Activity.where(trackable_type: 'Serveur').update_all(trackable_type: 'Server')

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FramesController < ApplicationController
   include ServersHelper
   include RoomsHelper
@@ -126,5 +128,4 @@ class FramesController < ApplicationController
   def frame_params
     params.require(:frame).permit(:name, :u, :room, :islet, :position, :switch_slot, :bay_id)
   end
-
 end

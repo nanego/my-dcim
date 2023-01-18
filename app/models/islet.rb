@@ -1,5 +1,6 @@
-class Islet < ActiveRecord::Base
+# frozen_string_literal: true
 
+class Islet < ApplicationRecord
   belongs_to :room, counter_cache: true
   has_many :bays
   has_many :frames, through: :bays
@@ -18,5 +19,4 @@ class Islet < ActiveRecord::Base
   def name_with_room
     "#{room} #{name.blank? ? "" : 'Ilot ' + name}"
   end
-
 end

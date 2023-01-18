@@ -1,5 +1,6 @@
-class PortsController < ApplicationController
+# frozen_string_literal: true
 
+class PortsController < ApplicationController
   def index
     if params[:frame_id].present?
       @frame = Frame.find_by_id(params[:frame_id])
@@ -56,5 +57,4 @@ class PortsController < ApplicationController
     def port_params
       params.required(:port).permit(:position, :card_id, :vlans, :color, :cablename)
     end
-
 end

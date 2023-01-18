@@ -1,5 +1,6 @@
-class Site < ActiveRecord::Base
+# frozen_string_literal: true
 
+class Site < ApplicationRecord
   geocoded_by :address
   after_validation :geocode
 
@@ -14,5 +15,4 @@ class Site < ActiveRecord::Base
   def address
     [street, city, country].compact.join(', ')
   end
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
 
   resources :documents
@@ -53,7 +55,7 @@ Rails.application.routes.draw do
       post :import
     end
   end
-  
+
   resources :servers_grids, only: [:index] do
     collection do
       get :reseau

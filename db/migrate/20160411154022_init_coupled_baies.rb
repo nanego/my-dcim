@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 class InitCoupledBaies < ActiveRecord::Migration[4.2]
   def up
-
     previous_baie = nil
     Baie.order(:salle_id, :ilot, :position).each do |baie|
 
@@ -15,7 +16,6 @@ class InitCoupledBaies < ActiveRecord::Migration[4.2]
 
       previous_baie = baie
     end if defined? Baie
-
   end
 
   def down
