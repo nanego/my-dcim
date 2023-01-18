@@ -54,10 +54,15 @@ class DiskTypesController < ApplicationController
   # DELETE /disk_types/1
   # DELETE /disk_types/1.json
   def destroy
-    @disk_type.destroy
-    respond_to do |format|
-      format.html { redirect_to disk_types_url, notice: 'Disk type a bien été supprimé.' }
-      format.json { head :no_content }
+    if @disk_type.destroy
+      respond_to do |format|
+        format.html { redirect_to disk_types_url, notice: 'Disk type a bien été supprimé.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to disk_types_url, alert: @disk_type.errors.full_messages_for(:base).join(", ") }
+      end
     end
   end
 

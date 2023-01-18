@@ -54,10 +54,15 @@ class StacksController < ApplicationController
   # DELETE /stacks/1
   # DELETE /stacks/1.json
   def destroy
-    @stack.destroy
-    respond_to do |format|
-      format.html { redirect_to stacks_url, notice: 'Stack a bien été supprimé.' }
-      format.json { head :no_content }
+    if @stack.destroy
+      respond_to do |format|
+        format.html { redirect_to stacks_url, notice: 'Stack a bien été supprimé.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to stacks_url, alert: @stack.errors.full_messages_for(:base).join(", ") }
+      end
     end
   end
 

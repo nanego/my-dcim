@@ -11,8 +11,8 @@ class Modele < ActiveRecord::Base
       :nb_elts => :nb_elts
   }
 
-  has_many :servers
-  has_many :enclosures
+  has_many :servers, dependent: :restrict_with_error
+  has_many :enclosures, dependent: :restrict_with_error
   has_many :composants, through: :enclosures
 
   belongs_to :manufacturer

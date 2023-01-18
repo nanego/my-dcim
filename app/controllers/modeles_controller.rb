@@ -56,10 +56,15 @@ class ModelesController < ApplicationController
   end
 
   def destroy
-    @modele.destroy
-    respond_to do |format|
-      format.html { redirect_to modeles_url, notice: 'Modele a bien été supprimé.' }
-      format.json { head :no_content }
+    if @modele.destroy
+      respond_to do |format|
+        format.html { redirect_to modeles_url, notice: 'Modele a bien été supprimé.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to({action: 'index'}, alert: @modele.errors.full_messages_for(:base).join(", ")) }
+      end
     end
   end
 
