@@ -92,7 +92,6 @@ tmp/
 backups/
 
 .ruby-gemset
-.ruby-version
 
 # Ignore uploaded files in development
 /storage/*
