@@ -14,7 +14,8 @@ class PortsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.txt { send_data Port.to_txt(@frames) }
+      format.txt { send_data Port.to_txt(@frames), filename: "#{DateTime.now.strftime("%Y%m%d")}-ports.txt" }
+      format.csv { send_data Port.to_csv(@frames), filename: "#{DateTime.now.strftime("%Y%m%d")}-ports.csv"}
     end
   end
 
