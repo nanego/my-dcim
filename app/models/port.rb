@@ -98,6 +98,7 @@ class Port < ActiveRecord::Base
               end
             end
           end
+          # Print one time the server if no port used
           if used_port_present == false
             csv << frame_server_info + [nil]
           end
