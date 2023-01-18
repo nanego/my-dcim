@@ -11,6 +11,11 @@ class PortsController < ApplicationController
         @frames = @frames.joins(:bay => :islet).where('islets.name = ?', params[:islet])
       end
     end
+
+    respond_to do |format|
+      format.html
+      format.txt { send_data Port.to_txt(@frames) }
+    end
   end
 
   def edit

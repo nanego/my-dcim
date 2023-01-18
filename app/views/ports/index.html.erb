@@ -21,6 +21,13 @@
         <h2>Liste des ports cablés</h2>
       </div>
 
+      <div style="margin-bottom: 10px;">
+        <%= link_to ports_path(room_id: @room.id, format: 'txt') do %>
+          <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
+          Export Txt
+        <% end %>
+      </div>
+
       <% @frames.each do |frame| %>
         <h3>
           <%= link_to "#{frame.name_with_room_and_islet}", frame_path(frame, :view => params[:view]), style: 'text-decoration: underline;' %>

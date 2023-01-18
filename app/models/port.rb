@@ -59,6 +59,27 @@ class Port < ActiveRecord::Base
     end
   end
 
+  def self.to_txt(frames)
+    txt = ""
+    if frames.present?
+      frames.each do |frame|
+        txt << "\r\n#{frame.name_with_room_and_islet}\r\n"
+        txt << "---------------\r\n"
+        frame.servers.includes(:modele, :cards => [:ports, :composant]).order('position desc').each do |server|
+          txt << "#{server.name} (#{server.modele.try(:name)})\r\n"
+          server.cards.each do |card|
+            card.ports.each do |port|
+              if port && port.cable_name && card.composant.name.present?
+                txt << "    * #{card.composant.name}#{card.composant.name.include?('SL') ? "/#{port.position}" : port.position} - #{port.network_conf(server.frame.switch_slot)}\r\n"
+              end
+            end
+          end
+        end
+      end
+    end
+    txt
+  end
+
   private
 
   def remove_unused_connections(ports)
