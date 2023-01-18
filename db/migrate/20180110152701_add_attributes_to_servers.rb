@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddAttributesToServers < ActiveRecord::Migration[5.0]
   def up
     add_column :servers, :side, :string
@@ -60,5 +62,4 @@ class AddAttributesToServers < ActiveRecord::Migration[5.0]
       end
     end
   end
-
 end

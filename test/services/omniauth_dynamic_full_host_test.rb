@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require File.expand_path("../../test_helper", __FILE__)
 
 class DynamicFullHostTest < ActiveSupport::TestCase
-
   def make_env(path = '/auth/test', props = {})
     {
         'REQUEST_METHOD' => 'GET',
@@ -10,7 +11,6 @@ class DynamicFullHostTest < ActiveSupport::TestCase
         'rack.input' => StringIO.new('test=true')
     }.merge(props)
   end
-
 
   def setup
     app = lambda {|_env| [404, {}, ['Awesome']]}
@@ -27,12 +27,12 @@ class DynamicFullHostTest < ActiveSupport::TestCase
     @strategy.call(make_env('/auth/test/callback', env))
     assert @strategy.full_host, 'http://example.com'
   end
-
 end
 
 class ExampleStrategy
   include OmniAuth::Strategy
   attr_reader :last_env
+
   option :name, 'test'
 
   def call(env)

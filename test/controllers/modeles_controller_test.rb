@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require File.expand_path("../../test_helper", __FILE__)
 
 class ModelesControllerTest < ActionController::TestCase
-
   setup do
     sign_in users(:one)
     @modele = modeles(:one)

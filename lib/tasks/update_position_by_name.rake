@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Update ports position when the model is 6520 [SAN Switch - Network Bay]
 
 namespace :update_ports_position do

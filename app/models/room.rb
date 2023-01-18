@@ -1,5 +1,6 @@
-class Room < ActiveRecord::Base
+# frozen_string_literal: true
 
+class Room < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
@@ -36,5 +37,4 @@ class Room < ActiveRecord::Base
           [:name, :id]
       ]
     end
-
 end

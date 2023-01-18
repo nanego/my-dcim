@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'simplecov'
 SimpleCov.start
 
@@ -9,18 +11,22 @@ require 'capybara/minitest'
 
 ActiveRecord::Migration.maintain_test_schema!
 
-class ActiveSupport::TestCase
+module ActiveSupport
+  class TestCase
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
-  # Add more helper methods to be used by all tests here...
+    # Add more helper methods to be used by all tests here...
+  end
 end
 
-class ActionController::TestCase
+module ActionController
+  class TestCase
   include Devise::Test::ControllerHelpers
+  end
 end
 
 module ActionDispatch
@@ -29,7 +35,8 @@ module ActionDispatch
   end
 end
 
-class ActionDispatch::IntegrationTest
+module ActionDispatch
+  class IntegrationTest
   # Make the Capybara DSL available in all integration tests
   include Capybara::DSL
   # Make `assert_*` methods behave like Minitest assertions
@@ -41,5 +48,6 @@ class ActionDispatch::IntegrationTest
   teardown do
     Capybara.reset_sessions!
     Capybara.use_default_driver
+  end
   end
 end

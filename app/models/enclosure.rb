@@ -1,5 +1,6 @@
-class Enclosure < ApplicationRecord
+# frozen_string_literal: true
 
+class Enclosure < ApplicationRecord
   belongs_to :modele
   has_many :composants, -> { order(position: :asc) }
 
@@ -8,5 +9,4 @@ class Enclosure < ApplicationRecord
   accepts_nested_attributes_for :composants,
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateMovedConnections < ActiveRecord::Migration[5.0]
   def change
     create_table :moved_connections do |t|

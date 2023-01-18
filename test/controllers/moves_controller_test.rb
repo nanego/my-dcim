@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class MovesControllerTest < ActionDispatch::IntegrationTest
-
   def test_params
     { :moveable_type => 'Server',
                   :moveable_id => servers(:one).id,

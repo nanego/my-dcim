@@ -1,10 +1,12 @@
-class Users::RegistrationsController < Devise::RegistrationsController
+# frozen_string_literal: true
 
-  protected
+module Users
+  class RegistrationsController < Devise::RegistrationsController
+    protected
 
   # The path used after sign up. You need to overwrite this method
   # in your own RegistrationsController.
-  def after_sign_up_path_for(resource)
+  def after_sign_up_path_for(_resource)
     return new_user_session_path
   end
 
@@ -13,5 +15,5 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def sign_up(resource_name, resource)
     # DO NOT sign_in(resource_name, resource)
   end
-
+  end
 end

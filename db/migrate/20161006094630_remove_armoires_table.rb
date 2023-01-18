@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 class RemoveArmoiresTable < ActiveRecord::Migration[4.2]
   def up
     drop_table :armoires
     remove_column :servers, :armoire_id
   end
+
   def down
     create_table :armoires do |t|
       t.string :title

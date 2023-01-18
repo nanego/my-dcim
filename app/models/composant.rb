@@ -1,5 +1,6 @@
-class Composant < ActiveRecord::Base
+# frozen_string_literal: true
 
+class Composant < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
   tracked :parameters => {
@@ -21,5 +22,4 @@ class Composant < ActiveRecord::Base
   def to_s
     name.to_s
   end
-
 end

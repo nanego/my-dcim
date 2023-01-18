@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddMissingFieldsToServeurs < ActiveRecord::Migration[4.2]
   def change
     add_column :serveurs, :pdu_ondule, :string

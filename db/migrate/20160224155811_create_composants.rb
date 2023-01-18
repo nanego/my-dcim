@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateComposants < ActiveRecord::Migration[4.2]
   def change
     create_table :type_composants do |t|

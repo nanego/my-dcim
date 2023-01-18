@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class MoveTest < ActiveSupport::TestCase
-
   def setup
     @move = moves(:one)
   end
@@ -61,5 +62,4 @@ class MoveTest < ActiveSupport::TestCase
     assert_empty Move.where(id: @move.id)
     assert_empty MovedConnection.where(id: @moved_connection.id)
   end
-
 end

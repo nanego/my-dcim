@@ -1,5 +1,6 @@
-class Domaine < ActiveRecord::Base
+# frozen_string_literal: true
 
+class Domaine < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
 

@@ -1,5 +1,6 @@
-module ModelesHelper
+# frozen_string_literal: true
 
+module ModelesHelper
   def lighten_color(hex_color, amount=0.6)
     if hex_color
       hex_color = hex_color.gsub('#','')
@@ -10,5 +11,4 @@ module ModelesHelper
       "#%02x%02x%02x" % rgb
     end
   end
-
 end

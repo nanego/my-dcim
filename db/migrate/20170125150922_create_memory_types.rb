@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateMemoryTypes < ActiveRecord::Migration[4.2]
   def change
     create_table :memory_types do |t|

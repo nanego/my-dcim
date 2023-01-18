@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DisksController < ApplicationController
   before_action :set_disk, only: [:show, :edit, :update, :destroy]
 
@@ -62,6 +64,7 @@ class DisksController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_disk
       @disk = Disk.find(params[:id])

@@ -1,5 +1,6 @@
-class Islet < ActiveRecord::Base
+# frozen_string_literal: true
 
+class Islet < ApplicationRecord
   belongs_to :room, counter_cache: true
   has_many :bays, dependent: :restrict_with_error
   has_many :frames, through: :bays

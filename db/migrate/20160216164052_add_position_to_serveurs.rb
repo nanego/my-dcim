@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddPositionToServeurs < ActiveRecord::Migration[4.2]
   def change
     add_column :serveurs, :position, :integer

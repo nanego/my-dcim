@@ -1,5 +1,6 @@
-class ConnectionsController < ApplicationController
+# frozen_string_literal: true
 
+class ConnectionsController < ApplicationController
   def edit
     if params[:from_port_id].present? && params[:from_port_id].to_i > 0
       @from_port = Port.find_by_id(params[:from_port_id])

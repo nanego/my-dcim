@@ -1,5 +1,6 @@
-module ServersHelper
+# frozen_string_literal: true
 
+module ServersHelper
   MAX_PORTS_PER_LINE = 24
 
   def slot_label(server, component)
@@ -114,7 +115,6 @@ module ServersHelper
   private
 
   def get_current_position(card_orientation, card_type, cell_index, row_index, column_index, ports_per_cell)
-
     return 0 if ports_per_cell == 0
 
     max_aligned_ports = (card_type.max_aligned_ports.to_i > 0 ? card_type.max_aligned_ports.to_i : MAX_PORTS_PER_LINE)
@@ -158,7 +158,6 @@ module ServersHelper
     end
   end
 
-
   def include_moved_connections(moved_connections, port_data, port_id)
     if port_data.present? && moved_connections.present?
       connection = moved_connections.select {|c| c.port_from_id == port_id || c.port_to_id == port_id}.first
@@ -187,5 +186,4 @@ module ServersHelper
     end
     return bg_color
   end
-
 end

@@ -1,5 +1,6 @@
-class Frame < ActiveRecord::Base
+# frozen_string_literal: true
 
+class Frame < ApplicationRecord
   enum settings: {max_u: 38, max_elts: 24, max_rj45: 48, max_fc: 12}
   enum view_sides: {both: 'both', front: 'front', back: 'back'}
 
@@ -38,8 +39,7 @@ class Frame < ActiveRecord::Base
   def name_with_room_and_islet
     [room_name.present? ? "Salle #{room_name}" : '',
      bay.present? ? "Ilot #{bay.islet.name}" : '',
-     "Baie " + (name.present? ? name : 'non précisée')
-    ].reject(&:blank?).join(' ')
+     "Baie " + (name.present? ? name : 'non précisée')].reject(&:blank?).join(' ')
   end
 
   def self.to_txt(servers_per_bay, detail)
@@ -153,5 +153,4 @@ class Frame < ActiveRecord::Base
         [:name, :id]
     ]
   end
-
 end

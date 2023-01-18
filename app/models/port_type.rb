@@ -1,5 +1,6 @@
-class PortType < ActiveRecord::Base
+# frozen_string_literal: true
 
+class PortType < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
 
@@ -8,5 +9,4 @@ class PortType < ActiveRecord::Base
   def is_power_input?
     name=='ALIM'
   end
-
 end

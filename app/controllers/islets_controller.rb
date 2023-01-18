@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class IsletsController < ApplicationController
   include RoomsHelper
 
@@ -92,6 +94,7 @@ class IsletsController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_islet
     @islet = Islet.find(params[:id])

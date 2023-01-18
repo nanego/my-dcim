@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddOrientationToCards < ActiveRecord::Migration[5.1]
   def change
     add_column :cards, :orientation, :string
