@@ -82,6 +82,7 @@ class MovesController < ApplicationController
   def load_frame
     @frame = Frame.find(params[:frame_id])
     @view = params[:view]
+    @move = Move.new(moveable_type: 'Server')
   end
 
   def load_connection

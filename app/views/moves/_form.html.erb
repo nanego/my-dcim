@@ -44,16 +44,8 @@
         %>
       </div>
 
-      <div class="col-sm-6"  style="text-align: right;">
-        <span>Position dans la baie</span>
-      </div>
-      <div class="col-sm-6">
-        <%= f.select :position,
-                       options_for_select(Array(1..46).reverse, { :selected => @move.position }),
-                       # onchange: 'select_destination_server(1)',
-                       {include_blank: true},
-                       {style: 'max-width: 185px;'}
-        %>
+      <div class="col-sm-12" id="bay_size_container">
+        <%= f.hidden_field :position, value: "" %>
       </div>
 
       <div class="col-sm-6"  style="text-align: right;">
