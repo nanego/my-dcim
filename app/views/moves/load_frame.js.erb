@@ -6,3 +6,11 @@ $("#frame").html("<%= escape_javascript(render partial: 'frames/show_frame', loc
                                             # , highlighted_servers: [@move.moveable]
 }) %>");
 
+<% f = ActionView::Base.default_form_builder.new(:frame, @frame, self, {}) %>
+
+$("#bay_size_container").html("<%=
+                                  escape_javascript(
+                                    render partial: 'moves/select_bay_position',
+                                    locals: { f: f, move: @move, frame_size: @frame.u }
+                                  )
+                                %>");
