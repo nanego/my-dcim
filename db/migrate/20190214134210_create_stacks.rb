@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateStacks < ActiveRecord::Migration[5.2]
   def up
     create_table :stacks do |t|

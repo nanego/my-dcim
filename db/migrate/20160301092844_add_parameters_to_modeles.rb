@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddParametersToModeles < ActiveRecord::Migration[4.2]
   def change
     add_column :modeles, :categorie_id, :integer

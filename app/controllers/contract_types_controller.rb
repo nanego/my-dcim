@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ContractTypesController < ApplicationController
   before_action :set_contract_type, only: [:show, :edit, :update, :destroy]
 
@@ -62,6 +64,7 @@ class ContractTypesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_contract_type
       @contract_type = ContractType.find(params[:id])

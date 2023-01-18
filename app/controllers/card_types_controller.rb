@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CardTypesController < ApplicationController
   before_action :set_card_type, only: [:show, :edit, :update, :destroy]
 

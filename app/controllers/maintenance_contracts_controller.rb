@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MaintenanceContractsController < ApplicationController
   before_action :set_maintenance_contract, only: [:show, :edit, :update, :destroy]
 
@@ -68,6 +70,7 @@ class MaintenanceContractsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_maintenance_contract
       @maintenance_contract = MaintenanceContract.find(params[:id])

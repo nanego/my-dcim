@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :init_pdus do
 
   desc "From Ports#cable_names to Pdus details"

@@ -1,5 +1,6 @@
-class DataImportController < ApplicationController
+# frozen_string_literal: true
 
+class DataImportController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:ansible]
 
   def index

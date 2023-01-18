@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'csv'
 
-class Port < ActiveRecord::Base
+class Port < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
   tracked :parameters => {
@@ -118,5 +120,4 @@ class Port < ActiveRecord::Base
       end
     end
   end
-
 end

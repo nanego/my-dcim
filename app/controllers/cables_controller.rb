@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CablesController < ApplicationController
   before_action :set_cable, only: [:destroy]
 
@@ -18,9 +20,9 @@ class CablesController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_cable
     @cable = Cable.find(params[:id])
   end
-
 end

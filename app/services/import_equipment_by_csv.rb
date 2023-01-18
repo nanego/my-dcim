@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'csv'
 
-class ImportEquipmentByCSV
-
+class ImportEquipmentByCsv
   DEFAULT_NB_OF_SLOTS = 7
 
   def self.call(**args)
@@ -24,8 +25,8 @@ class ImportEquipmentByCSV
           if data.present?
             modele = Modele.find_by_name(data['Modele'])
 
-            raise "Modèle inconnu - #{data['Modele']}" if modele.blank?
-            raise "Modèle incomplet : Pas d'enclosure - #{data['Modele']}" if modele.enclosures.empty?
+            raise "Modèle inconnu - #{data["Modele"]}" if modele.blank?
+            raise "Modèle incomplet : Pas d'enclosure - #{data["Modele"]}" if modele.enclosures.empty?
             raise "Les numéros de série doivent être présent" if data['Numero'].blank?
 
             server = Server.new
@@ -92,7 +93,7 @@ class ImportEquipmentByCSV
       Composant.find_or_create_by!(enclosure_id: enclosure.id,
                                    type_composant: type_composant_slot,
                                    name: "SL#{i + 1}"
-      )
+                                  )
     end
     composant_slot_alim = Composant.find_or_create_by!(enclosure_id: enclosure.id,
                                                        type_composant: type_composant_slot,
@@ -143,6 +144,5 @@ class ImportEquipmentByCSV
     port_type = PortType.find_or_create_by!(name: valeur)
     card_alim = CardType.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
     Card.find_or_create_by!(card_type: card_alim, server: server, composant: composant_slot_alim)
-
   end
 end

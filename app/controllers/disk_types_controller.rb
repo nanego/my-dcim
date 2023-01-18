@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DiskTypesController < ApplicationController
   before_action :set_disk_type, only: [:show, :edit, :update, :destroy]
 
@@ -67,6 +69,7 @@ class DiskTypesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_disk_type
       @disk_type = DiskType.find(params[:id])

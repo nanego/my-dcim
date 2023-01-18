@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateFriendlyIdSlugs < ActiveRecord::Migration[4.2]
   def change
     create_table :friendly_id_slugs do |t|
@@ -27,6 +29,5 @@ class CreateFriendlyIdSlugs < ActiveRecord::Migration[4.2]
     # Modeles table
     add_column :modeles, :slug, :string
     add_index :modeles, :slug, unique: true
-
   end
 end

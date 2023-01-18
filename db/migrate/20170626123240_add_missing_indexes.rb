@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddMissingIndexes < ActiveRecord::Migration[5.0]
   def change
     add_index :bays, :bay_type_id

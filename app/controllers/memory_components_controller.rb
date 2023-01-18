@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MemoryComponentsController < ApplicationController
   before_action :set_memory_component, only: [:show, :edit, :update, :destroy]
 
@@ -62,6 +64,7 @@ class MemoryComponentsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_memory_component
       @memory_component = MemoryComponent.find(params[:id])
