@@ -3,7 +3,7 @@ class Bay < ActiveRecord::Base
   belongs_to :bay_type
   belongs_to :islet
   has_one :room, through: :islet
-  has_many :frames
+  has_many :frames, dependent: :restrict_with_error
   has_many :materials, through: :frames
 
   acts_as_list scope: [:lane, :islet_id]

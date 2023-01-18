@@ -79,10 +79,15 @@ class IsletsController < ApplicationController
   # DELETE /islets/1
   # DELETE /islets/1.json
   def destroy
-    @islet.destroy
-    respond_to do |format|
-      format.html { redirect_to islets_url, notice: 'Islet a bien été supprimé.' }
-      format.json { head :no_content }
+    if @islet.destroy
+      respond_to do |format|
+        format.html { redirect_to islets_url, notice: 'Islet a bien été supprimé.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to islets_url, alert: @islet.errors.full_messages_for(:base).join(", ") }
+      end
     end
   end
 

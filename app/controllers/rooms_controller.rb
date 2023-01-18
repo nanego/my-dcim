@@ -162,10 +162,15 @@ class RoomsController < ApplicationController
   end
 
   def destroy
-    @room.destroy
-    respond_to do |format|
-      format.html { redirect_to rooms_url, notice: 'Room a bien été supprimé.' }
-      format.json { head :no_content }
+    if @room.destroy
+      respond_to do |format|
+        format.html { redirect_to rooms_url, notice: 'Room a bien été supprimé.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to rooms_url, alert: @room.errors.full_messages_for(:base).join(", ") }
+      end
     end
   end
 
