@@ -43,7 +43,7 @@ class Frame < ApplicationRecord
   end
 
   def self.to_txt(servers_per_bay, detail)
-    txt = ""
+    txt = []
     if servers_per_bay.present?
       servers_per_bay.each do |islet, lanes|
         lanes.each do |lane, bays|
@@ -55,11 +55,11 @@ class Frame < ApplicationRecord
         end
       end
     end
-    txt
+    txt.join
   end
 
   def to_txt(detail)
-    txt = ""
+    txt = []
     if self.present?
       txt << "\r\n#{self.name}\r\n"
       txt << "---------------\r\n"
@@ -73,7 +73,7 @@ class Frame < ApplicationRecord
         txt << "[#{server.position.to_s.rjust(2, "0")}] #{server.name} #{"(#{addition})" if addition.present?}\r\n"
       end
     end
-    txt
+    txt.join
   end
 
   def other_frame
