@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RenameCardsToCardTypes < ActiveRecord::Migration[5.0]
   def change
     rename_table :cards, :card_types

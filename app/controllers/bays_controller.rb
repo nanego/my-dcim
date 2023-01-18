@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BaysController < ApplicationController
   include RoomsHelper
 
@@ -41,7 +43,6 @@ class BaysController < ApplicationController
       end
       format.txt { send_data Frame.to_txt(@servers_per_frames[@bay.islet.room_id], params[:bg]) }
     end
-
   end
 
   def new

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreatePduLines < ActiveRecord::Migration[4.2]
   def change
     create_table :pdu_lines do |t|

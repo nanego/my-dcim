@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Fix duplicated slots
 # When duplicated slots have been created without "SL" prefix, we move all cards from wrong slots "1", "2", etc. to correct slots "SL1", "SL2", etc.
 

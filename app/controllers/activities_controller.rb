@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'card_type'
 require 'server'
 require 'composant'

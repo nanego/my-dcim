@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'omniauth/dynamic_full_host'
 
 # a setup app that handles dynamic config of CAS server
@@ -303,7 +305,6 @@ Devise.setup do |config|
                   port: "80",
                   ssl: false,
                   setup: setup_app
-
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

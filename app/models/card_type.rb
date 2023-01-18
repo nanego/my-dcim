@@ -1,5 +1,6 @@
-class CardType < ActiveRecord::Base
+# frozen_string_literal: true
 
+class CardType < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
 
@@ -14,5 +15,4 @@ class CardType < ActiveRecord::Base
   def to_s
     name.to_s
   end
-
 end

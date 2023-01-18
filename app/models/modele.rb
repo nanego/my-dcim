@@ -1,5 +1,6 @@
-class Modele < ActiveRecord::Base
+# frozen_string_literal: true
 
+class Modele < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
@@ -61,5 +62,4 @@ class Modele < ActiveRecord::Base
           [:name, :id]
       ]
     end
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MovesController < ApplicationController
   before_action :set_move, only: [:show, :edit, :update, :destroy, :execute_movement]
   before_action :load_form_data, only: [:new, :edit]
@@ -39,7 +41,6 @@ class MovesController < ApplicationController
   end
 
   def update
-
     @move.prev_frame_id = @move.moveable.try(:frame_id)
 
     if params[:move][:remove_connections] == 'Oui'
@@ -165,6 +166,7 @@ class MovesController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_move
     @move = Move.find(params[:id])
