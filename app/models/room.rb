@@ -12,7 +12,7 @@ class Room < ApplicationRecord
   has_many :frames, through: :bays
   has_many :materials, through: :frames
 
-  belongs_to :site
+  belongs_to :site, optional: true
 
   scope :sorted, -> { order( :position, :site_id, :name ) }
   scope :not_empty, -> { joins(:servers) }

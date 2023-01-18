@@ -30,9 +30,7 @@ class RoomsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html do
-        render 'rooms/show.html.erb'
-      end
+      format.html
       format.pdf do
         render layout: 'pdf.html',
                template: "rooms/show.pdf.erb",
@@ -63,7 +61,7 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        render 'rooms/show.html.erb'
+        render :show
       end
       format.pdf do
         render layout: 'pdf.html',
@@ -85,7 +83,7 @@ class RoomsController < ApplicationController
       @frames = Frame.preload(:servers => [:gestion, :cluster, :modele => :category, :card_types => :port_type, :cards => [:composant, :ports => [:connection => :cable]]])
                      .includes(:bay => [:frames, { :islet => :room }])
                      .order('rooms.position asc, islets.name asc, bays.position asc, frames.position asc')
-      @current_filters = ''
+      @current_filters = []
       if params[:cluster_id].present?
         @frames = @frames.joins(:materials).where('servers.cluster_id = ? ', params[:cluster_id])
         @filtered_servers = Server.where('servers.cluster_id = ? ', params[:cluster_id])

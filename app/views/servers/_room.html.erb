@@ -47,7 +47,7 @@
 
                   <% frames.each do |frame, servers| %>
                     <div class="col-xs-12 <%= frames.size > 1 ? 'col-sm-6' : '' %>" style="<%= frame == frames.first[0] ? 'padding-left:0;' : 'padding-right:0;' %>">
-                      <%= render 'frames/show_frame.html.erb', frame: frame, servers: servers, settings: settings, view_type: view_side %>
+                      <%= render partial: 'frames/show_frame', locals: { frame: frame, servers: servers, settings: settings, view_type: view_side } %>
                     </div>
                   <% end %>
 

@@ -26,7 +26,7 @@
               <%= slot_label(server, component) %>
             </div>
             <div class="item <%= class_name %>">
-              <%= render 'servers/draw_component.html.erb', server: server, component: component, selected_port: selected_port %>
+              <%= render partial: 'servers/draw_component', locals: { server: server, component: component, selected_port: selected_port } %>
             </div>
           <% end %>
         </div>
@@ -45,7 +45,7 @@
             <tr>
               <% composants_per_enclosure.each do |component| %>
                 <td class="slot_column">
-                  <%= render 'servers/draw_component.html.erb', server: server, component: component, selected_port: selected_port %>
+                  <%= render partial: 'servers/draw_component', locals: { server: server, component: component, selected_port: selected_port } %>
                 </td>
               <% end %>
             </tr>
@@ -55,7 +55,7 @@
             <% composants_per_enclosure.each do |component| %>
               <tr>
                 <th><%= slot_label(server, component) %></th>
-                <td><%= render 'servers/draw_component.html.erb', server: server, component: component, selected_port: selected_port %></td>
+                <td><%= render partial: 'servers/draw_component', locals: { server: server, component: component, selected_port: selected_port } %></td>
               </tr>
             <% end %>
 

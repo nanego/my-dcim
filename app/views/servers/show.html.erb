@@ -23,13 +23,13 @@
   <div class="col-12" style="margin-bottom: 2em;padding-right: 15px;padding-left: 15px;">
     <% bgModeleColor = define_background_color(server: @server, mode: params['bg']) %>
     <div class="detailed_server list-group-item" style="background-color:<%= bgModeleColor %> !important;">
-      <%= render 'draw_server_compact_front.html.erb', server: @server %>
+      <%= render partial: 'draw_server_compact_front', locals: { server: @server } %>
       <span class="clearfix"></span>
     </div>
 
     <div class="detailed_server list-group-item">
       <span id="back_server_<%= @server.id %>">
-         <%= render 'servers/draw_server_compact.html.erb', server: @server %>
+         <%= render partial: 'servers/draw_server_compact', locals: { server: @server } %>
       </span>
     </div>
   </div>

@@ -9,12 +9,8 @@ class FramesController < ApplicationController
     @room = @frame.room
 
     respond_to do |format|
-      format.html do
-        render 'frames/show.html.erb'
-      end
-      format.js do
-        render 'frames/show.js.erb'
-      end
+      format.html
+      format.js
       format.pdf do
         render layout: 'pdf.html',
                template: "frames/show.pdf.erb",
@@ -113,9 +109,7 @@ class FramesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html do
-        render 'frames/network.html.erb'
-      end
+      format.html
       format.pdf do
         render layout: 'pdf.html',
                template: "rooms/show.pdf.erb",
