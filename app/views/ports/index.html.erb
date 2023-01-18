@@ -22,12 +22,13 @@
       </div>
 
       <div style="margin-bottom: 10px;">
-        <% room_id = @room.present? ? @room.id : @frame.room.id %>
-        <%= link_to ports_path(room_id: room_id, format: 'txt'), class: 'btn btn-default' do %>
+        <% text_action = @room.present? ? ports_path(room_id: @room.id, format: 'txt') : ports_path(frame_id: @frame.id, format: 'txt') %>
+        <%= link_to text_action, class: 'btn btn-default' do %>
           <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
           Export Txt
         <% end %>
-        <%= link_to ports_path(room_id: room_id, format: 'csv'), class: 'btn btn-default' do %>
+        <% csv_action = @room.present? ? ports_path(room_id: @room.id, format: 'csv') : ports_path(frame_id: @frame.id, format: 'csv') %>
+        <%= link_to csv_action, class: 'btn btn-default' do %>
           <span class="glyphicon glyphicon-export"></span>
           Exporter au format CSV
         <% end %>

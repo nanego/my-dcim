@@ -1,5 +1,6 @@
+require 'csv'
+
 class Port < ActiveRecord::Base
-  require 'csv'
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
   tracked :parameters => {
@@ -60,7 +61,7 @@ class Port < ActiveRecord::Base
   end
 
   def self.to_txt(frames)
-    txt = ""
+    txt = []
     if frames.present?
       frames.each do |frame|
         txt << "\r\n#{frame.name_with_room_and_islet}\r\n"
@@ -77,7 +78,7 @@ class Port < ActiveRecord::Base
         end
       end
     end
-    txt
+    txt.join
   end
 
   def self.to_csv(frames)
@@ -86,7 +87,7 @@ class Port < ActiveRecord::Base
     CSV.generate(headers: true) do |csv|
       csv << attributes
 
-      frames.find_each do |frame|
+      frames.each do |frame|
         frame.servers.includes(:modele, :cards => [:ports, :composant]).order('position desc').each do |server|
           frame_server_info = [frame.name_with_room_and_islet, server.slug, server.name, server.modele.try(:name)]
           used_port_present = false
