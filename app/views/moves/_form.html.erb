@@ -134,4 +134,8 @@
       $('#initial_bay_name').text(label);
     }
 
+    $("#frame").on("click", ".position_in_frame", function(e) {
+      $("#move_position").val(e.target.title).change()
+    });
+
 </script>
