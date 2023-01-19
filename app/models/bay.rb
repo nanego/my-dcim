@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Bay < ApplicationRecord
-  belongs_to :bay_type
-  belongs_to :islet
+  belongs_to :bay_type, optional: true
+  belongs_to :islet, optional: true
   has_one :room, through: :islet
   has_many :frames, dependent: :restrict_with_error
   has_many :materials, through: :frames
