@@ -6,16 +6,16 @@ class Server < ApplicationRecord
 
   include PublicActivity::Model
 
-  belongs_to :frame
+  belongs_to :frame, optional: true
   has_one :bay, through: :frame
   has_one :islet, through: :frame
   has_one :room, through: :islet
-  belongs_to :gestion
-  belongs_to :domaine
-  belongs_to :modele
-  belongs_to :cluster
-  belongs_to :server_state
-  belongs_to :stack
+  belongs_to :gestion, optional: true
+  belongs_to :domaine, optional: true
+  belongs_to :modele, optional: true
+  belongs_to :cluster, optional: true
+  belongs_to :server_state, optional: true
+  belongs_to :stack, optional: true
 
   has_one :maintenance_contract
   has_many :memory_components
