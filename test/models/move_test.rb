@@ -34,7 +34,7 @@ class MoveTest < ActiveSupport::TestCase
     # After
     @moved_connections = MovedConnection.per_servers([@move.moveable])
 
-    # Fixme problem the moved_connections are not created, why... I don't know... fixture should work
+    # FIXME: problem the moved_connections are not created, why... I don't know... fixture should work
     # so MovedConnection.all => #<ActiveRecord::Relation []>
     assert_empty @moved_connections
 

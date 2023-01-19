@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Connection < ApplicationRecord
-  # Fixme This optional: true is needed for time being to solve
+  # FIXME: This optional: true is needed for time being to solve
   # the execute_movement (model MovedConnection) which call a port change
   # with the method connect_to_port (model Port)
   # there were the following issue

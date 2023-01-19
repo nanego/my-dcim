@@ -181,7 +181,7 @@ class ServersControllerTest < ActionController::TestCase
       end
     end
 
-    # Fixme problem in the class ImportEquipmentByCsv see comment
+    # FIXME: problem in the class ImportEquipmentByCsv see comment
     # The import is throwing an error so it is going through the else branch and below test can't pass
     # assert_response 302
     # assert_redirected_to :controller => "frames", :action => "show", :id => "orders"
