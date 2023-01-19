@@ -152,9 +152,7 @@ class MovesController < ApplicationController
     @moved_connections = MovedConnection.per_servers(@servers)
 
     respond_to do |format|
-      format.html do
-        render 'moves/frame.html.erb'
-      end
+      format.html
       format.pdf do
         render layout: 'pdf.html',
                template: "moves/frame.pdf.erb",
