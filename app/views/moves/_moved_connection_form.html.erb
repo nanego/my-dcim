@@ -8,7 +8,7 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <div id="back_departure_server" class="back_server">
-            <%= render 'servers/draw_server_compact.html.erb', server: @selected_port.server, selected_port: @selected_port %>
+            <%= render partial: 'servers/draw_server_compact', locals: { server: @selected_port.server, selected_port: @selected_port } %>
           </div>
         </div>
       </div>
@@ -38,7 +38,7 @@
         <div class="panel-body">
           <div id="back_destination_server" class="back_server">
             <% if @destination_port %>
-                <%= render 'servers/draw_server_compact.html.erb', server: @destination_port.server, selected_port: @destination_port %>
+                <%= render partial: 'servers/draw_server_compact', locals: { server: @destination_port.server, selected_port: @destination_port } %>
             <% end %>
           </div>
         </div>
