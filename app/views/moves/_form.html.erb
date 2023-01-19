@@ -25,9 +25,19 @@
         <%= f.select :moveable_id,
                        grouped_options_for_select(@all_servers_per_frame, { :selected => @move.moveable_id }),
                        {include_blank: true},
-                       {onchange: 'select_server(this.value)',
+                       {onchange: "select_server(this.value); display_initial_bay();",
                        style: 'max-width: 185px;'}
         %>
+      </div>
+
+      <div class="col-sm-12" id="initial_bay">
+        <div class="col-sm-6"  style="text-align: right;">
+          <span>Baie de départ</span>
+        </div>
+
+        <div class="col-sm-6">
+          <span id="initial_bay_name"></span>
+        </div>
       </div>
 
       <div class="col-sm-12 server_container" id="servers_server_container"></div>
@@ -84,6 +94,7 @@
     $(document).ready(function(){
         loadPaletteColorPicker('[name="move[color]"]');
         $('.server_container').hide();
+        $('#initial_bay').hide();
         select_server(<%= @move.moveable_id %>);
     });
 
@@ -115,6 +126,12 @@
         }else{
             $('#frame').html('');
         }
+    }
+
+    function display_initial_bay() {
+      var label=$('#move_moveable_id :selected').parent().attr('label');
+      $('#initial_bay').show();
+      $('#initial_bay_name').text(label);
     }
 
 </script>
