@@ -13,7 +13,7 @@
 <div class="container-fluid" id="bay-container">
   <%= render 'servers/room',
              room: @bay.room,
-             islets: @servers_per_frames,
+             islets: @servers_per_frames[@bay.islet.room_id],
              title: @bay.frames.size > 1 ? "Double baie #{@bay}" : @bay,
              view_side: params[:view] %>
 </div>

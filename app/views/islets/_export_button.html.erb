@@ -1,0 +1,61 @@
+<div class="btn-group">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Exports <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-right">
+
+    <li class="dropdown-submenu pull-left">
+      <%= link_to islet_path(islet, format: 'pdf', view: 'front', bg: ''), target: :_blank do %>
+        <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+        Export PDF
+      <% end %>
+      <ul class="dropdown-menu dropdown-menu-left">
+        <li>
+          <%= link_to islet_path(islet, format: 'pdf', view: 'front', bg: ''), target: :_blank do %>
+            <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+            Face avant
+          <% end %>
+        </li>
+        <li>
+          <%= link_to islet_path(islet, format: 'pdf', view: 'back', bg: ''), target: :_blank do %>
+            <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+            Face arrière
+          <% end %>
+        </li>
+        <li>
+          <%= link_to islet_path(islet, format: 'pdf', view: 'front', bg: 'cablage'), target: :_blank do %>
+            <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+            Cablage - Face avant
+          <% end %>
+        </li>
+        <li>
+          <%= link_to islet_path(islet, format: 'pdf', view: 'back', bg: 'cablage'), target: :_blank do %>
+            <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+            Cablage - Face arrière
+          <% end %>
+        </li>
+      </ul>
+    </li>
+
+    <li><%= link_to islet_path(islet, format: 'txt', view: '', bg: '') do %>
+        <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
+        Export Txt
+      <% end %>
+    </li>
+
+    <li><%= link_to islet_path(islet, format: 'pdf', view: 'front', bg: '', debug: '1'), target: :_blank do %>
+        <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+        Impression
+      <% end %>
+    </li>
+
+    <li role="separator" class="divider"></li>
+
+    <li><%= link_to ports_path(room_id: islet.room.id, islet: islet.name) do %>
+        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+        Liste des ports
+      <% end %>
+    </li>
+
+  </ul>
+</div>

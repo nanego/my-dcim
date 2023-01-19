@@ -29,6 +29,7 @@
             <th></th>
             <th></th>
             <th></th>
+            <th></th>
           </tr>
           </thead>
 
@@ -39,6 +40,7 @@
             <td><b><%= islet.name %></b></td>
             <td><%= islet.position %></td>
             <td><%= islet.frames.count.to_s + ' chassis' %></td>
+            <td><%= render partial: "islets/export_button", locals: { islet: islet } %></td>
             <td><%= link_to 'Modifier', edit_islet_path(islet), class: 'btn btn-primary' %></td>
             <td><%= link_to 'Supprimer', islet, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
           <% end %>
@@ -51,6 +53,3 @@
   </div>
 
 </div>
-
-
-

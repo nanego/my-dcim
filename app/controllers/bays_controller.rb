@@ -12,14 +12,16 @@ class BaysController < ApplicationController
     sort_order = frames_sort_order(params[:view], @bay.lane)
 
     Frames::IncludingServersQuery.call(@bay.frames, "frames.position #{sort_order}").each do |frame|
+      room = @bay.islet.room_id
       islet = frame.bay.islet.name
-      @servers_per_frames[islet] ||= {}
-      @servers_per_frames[islet][frame.bay.lane] ||= {}
-      @servers_per_frames[islet][frame.bay.lane][frame.bay] ||= {}
-      @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] ||= []
+      @servers_per_frames[room] ||= {}
+      @servers_per_frames[room][islet] ||= {}
+      @servers_per_frames[room][islet][frame.bay.lane] ||= {}
+      @servers_per_frames[room][islet][frame.bay.lane][frame.bay] ||= {}
+      @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] ||= []
 
       frame.servers.each do |s|
-        @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] << s
+        @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] << s
       end
     end
 
@@ -37,7 +39,7 @@ class BaysController < ApplicationController
                pdf: 'frame',
                zoom: 0.75
       end
-      format.txt { send_data Frame.to_txt(@servers_per_frames, params[:bg]) }
+      format.txt { send_data Frame.to_txt(@servers_per_frames[@bay.islet.room_id], params[:bg]) }
     end
 
   end

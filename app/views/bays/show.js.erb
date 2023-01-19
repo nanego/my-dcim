@@ -7,7 +7,7 @@ $('.couple .overviewed_frame[data-bay-id=<%= @bay.id %>]').addClass('selected')
 
 $('#bay-container').html("<%= escape_javascript(render 'servers/room',
              room: @bay.room,
-             islets: @servers_per_frames,
+             islets: @servers_per_frames[@bay.islet.room_id],
              title: @bay.frames.size > 1 ? "Double baie #{@bay}" : @bay,
              view_side: params[:view]) %>")
 

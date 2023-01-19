@@ -30,6 +30,7 @@
               <th></th>
               <th></th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
 
@@ -46,6 +47,7 @@
 
                 <td><%= pluralize(bay.materials.count, 'serveur', 'serveurs') %> </td>
 
+                <td><%= render partial: "bays/export_button", locals: { bay: bay } %></td>
 
                 <td><%= link_to 'Modifier', edit_bay_path(bay), class: 'btn btn-primary' %></td>
                 <td><%= link_to 'Supprimer', bay, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
