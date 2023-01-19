@@ -24,7 +24,7 @@
             <% bays.each do |bay, frames| %>
               <% frames.each do |frame, servers| %>
                 <div class="col-sm-12 col-md-6 col-lg-4">
-                  <%= render 'frames/show_frame.html.erb', frame: frame, servers: servers, settings: settings, view_type: view_side %>
+                  <%= render partial: 'frames/show_frame', locals: { frame: frame, servers: servers, settings: settings, view_type: view_side } %>
                 </div>
               <% end %>
             <% end %>
