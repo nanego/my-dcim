@@ -17,7 +17,7 @@ class ImportEquipmentByCsv
 
   def call
     begin
-      # Fixme "DEPRECATION WARNING: Using `return`, `break` or `throw` to exit a transaction block is
+      # FIXME: "DEPRECATION WARNING: Using `return`, `break` or `throw` to exit a transaction block is
       # deprecated without replacement. If the `throw` came from
       # `Timeout.timeout(duration)`, pass an exception class as a second
       # argument so it doesn't use `throw` to abort its block. This results
