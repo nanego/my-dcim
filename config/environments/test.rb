@@ -49,4 +49,9 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.active_support.deprecation = :raise
+
+  unless ENV["RAILS_ENABLE_TEST_LOG"]
+    config.logger = Logger.new(nil)
+    config.log_level = :fatal
+  end
 end
