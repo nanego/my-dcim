@@ -96,7 +96,7 @@ class ServersController < ApplicationController
   end
 
   def destroy
-    # Fixme issue with the @server.create_activity in the action destroy for server
+    # FIXME:: issue with the @server.create_activity in the action destroy for server
     # Psych::DisallowedClass: Tried to load unspecified class: ActiveSupport::TimeWithZone
     # https://stackoverflow.com/questions/72970170/upgrading-to-rails-6-1-6-1-causes-psychdisallowedclass-tried-to-load-unspecif
     # Question: why the create activity doesn't trigger issue in the update?
