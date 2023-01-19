@@ -62,16 +62,29 @@ group :development, :test do
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rake'
-  gem 'simplecov', require: false
+
+  # gem "formulaic"
+  gem "rails-controller-testing"
+  gem "rspec-rails", "~> 4.0"
+  gem "simplecov", require: false
+  gem "simplecov-console", require: false
+  # gem "sinatra", require: false
+  # gem "vcr"
+  # gem "webmock"
 end
+
 group :test do
   # gem 'minitest-rails-capybara'
+
   gem 'capybara', '>= 2.15'
+  gem "shoulda-matchers", "~> 4.0"
 end
+
 group :production do
   gem 'passenger'
   # gem 'therubyracer'
 end
+
 gem 'acts_as_list'
 gem 'friendly_id', '~> 5.2'
 gem 'public_activity'
