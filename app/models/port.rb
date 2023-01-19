@@ -1,5 +1,6 @@
-class Port < ActiveRecord::Base
+require 'csv'
 
+class Port < ActiveRecord::Base
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
   tracked :parameters => {
@@ -56,6 +57,54 @@ class Port < ActiveRecord::Base
       other_port.vlans = self.vlans
 
       self.save && other_port.save
+    end
+  end
+
+  def self.to_txt(frames)
+    txt = []
+    if frames.present?
+      frames.each do |frame|
+        txt << "\r\n#{frame.name_with_room_and_islet}\r\n"
+        txt << "---------------\r\n"
+        frame.servers.includes(:modele, :cards => [:ports, :composant]).order('position desc').each do |server|
+          txt << "#{server.name} (#{server.modele.try(:name)})\r\n"
+          server.cards.each do |card|
+            card.ports.each do |port|
+              if port && port.cable_name && card.composant.name.present?
+                txt << "    * #{card.composant.name}#{card.composant.name.include?('SL') ? "/#{port.position}" : port.position} - #{port.network_conf(server.frame.switch_slot)}\r\n"
+              end
+            end
+          end
+        end
+      end
+    end
+    txt.join
+  end
+
+  def self.to_csv(frames)
+    attributes = %w{name_with_room_and_islet server_slug server_name server_modele port_info}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      frames.each do |frame|
+        frame.servers.includes(:modele, :cards => [:ports, :composant]).order('position desc').each do |server|
+          frame_server_info = [frame.name_with_room_and_islet, server.slug, server.name, server.modele.try(:name)]
+          used_port_present = false
+          server.cards.each do |card|
+            card.ports.each do |port|
+              if port && port.cable_name && card.composant.name.present?
+                used_port_present = true
+                csv << frame_server_info + ["#{card.composant.name}#{card.composant.name.include?('SL') ? "/#{port.position}" : port.position} - #{port.network_conf(server.frame.switch_slot)}"]
+              end
+            end
+          end
+          # Print one time the server if no port used
+          if used_port_present == false
+            csv << frame_server_info + [nil]
+          end
+        end
+      end
     end
   end
 
