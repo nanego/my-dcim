@@ -142,10 +142,3 @@ class Server < ApplicationRecord
     end
   end
 end
-
-# TODO: To remove and used regular is_a? ?
-class String
-  def is_integer?
-    self.to_i.to_s == self
-  end
-end

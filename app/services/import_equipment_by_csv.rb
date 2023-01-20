@@ -117,7 +117,7 @@ class ImportEquipmentByCsv
       slot_name = "SL#{index + 1}"
       slot_data = data[slot_name]
       if slot_data.present?
-        if slot_data[0].is_integer?
+        if slot_data[0].is_a?(Integer)
           valeur = slot_data[1..-1]
           nb_ports = slot_data[0].to_i
         else
