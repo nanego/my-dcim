@@ -21,7 +21,6 @@ class Server < ApplicationRecord
   has_many :memory_components
   has_many :disks
 
-  has_many :slots
   has_many :cards, -> { joins(:composant).includes(:composant) }
   has_many :card_types, through: :cards
   has_many :ports, through: :cards
@@ -29,9 +28,13 @@ class Server < ApplicationRecord
   has_many :moves, as: :moveable, dependent: :destroy
 
   has_many :documents
+
   has_one_attached :photo
 
   validates_presence_of :numero
+  validates :frame_id, presence: true
+  validates :modele_id, presence: true
+  validates :name, presence: true
   validates_uniqueness_of :numero
   validate :numero_cannot_be_a_current_server_name
 
@@ -54,10 +57,6 @@ class Server < ApplicationRecord
   scope :no_pdus, -> { joins(:modele => :category).where("categories.name<>'Pdu'") }
   scope :only_pdus, -> { joins(:modele => :category).where("categories.name='Pdu'").order(:name) }
   scope :patch_panels, -> { joins(:modele => :category).where("categories.name='Patch Panel'").order(:name) }
-
-  validates :frame_id, presence: true
-  validates :modele_id, presence: true
-  validates :name, presence: true
 
   def to_s
     name.to_s
@@ -144,6 +143,7 @@ class Server < ApplicationRecord
   end
 end
 
+# TODO: To remove and used regular is_a? ?
 class String
   def is_integer?
     self.to_i.to_s == self
