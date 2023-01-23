@@ -1,14 +1,16 @@
 <% provide(:title, "#{@server.modele.try(:category).try(:name)} #{@server.name} - Edition") %>
 
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {"Salles" => overview_rooms_path,
-                                                        @server.frame.room.name => room_path(@server.frame.room),
-                                                        "Frame #{@server.frame.name}" => frame_path(@server.frame),
-                                                        @server.name => server_path(@server),
-                                                        'Edition' => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: { "Salles" => overview_rooms_path,
+                                                         @server.frame.room.name => room_path(@server.frame.room, view: params[:view]),
+                                                         "Ilot #{@server.frame.islet.name}" => room_path(@server.frame.room, islet: @server.frame.islet.name, :view => params[:view], bg: params[:bg]),
+                                                         "Double baie #{@server.frame.bay}" => room_path(@server.frame.room, islet: @server.frame.islet.name, 'bay-id': @server.frame.bay_id, view: params[:view]),
+                                                         "Baie #{@server.frame.name}" => frame_path(@server.frame, view: params[:view]),
+                                                         @server.name => server_path(@server),
+                                                         'Edition' => '' } %>
 <div class="page-header">
-  <%= link_to(server_path(@server.id),
+  <%= link_to(server_path(@server.slug),
               method: :delete,
-              data: {confirm: 'Toutes les données concernant ce matériel seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?'},
+              data: { confirm: 'Toutes les données concernant ce matériel seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?' },
               class: 'btn btn-danger') do %>
     <span class="glyphicon glyphicon-alert"></span>
     Supprimer
