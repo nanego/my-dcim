@@ -5,11 +5,11 @@ one:
   moveable_id: 1
   position: 40
   frame_id: 1
-  prev_frame_id: 2
+  # prev_frame_id: 2
 
 two:
   moveable_type: Server
   moveable_id: 1
   position: 40
   frame_id: 1
-  prev_frame_id: 2
+  # prev_frame_id: 2

@@ -10,10 +10,10 @@ class Frame < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) {controller && controller.current_user}
 
+  belongs_to :bay, optional: true
   has_many :materials, -> {order("servers.position desc")}, class_name: "Server", dependent: :restrict_with_error
   has_many :pdus, -> {only_pdus}, class_name: "Server", dependent: :restrict_with_error
   has_many :servers, -> {no_pdus.order("servers.position desc")}, class_name: "Server", dependent: :restrict_with_error
-  belongs_to :bay
   has_one :islet, through: :bay
   delegate :room, :to => :islet, :allow_nil => true
   delegate :name, :to => :room, :prefix => true, :allow_nil => true

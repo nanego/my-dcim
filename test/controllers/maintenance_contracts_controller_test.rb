@@ -24,8 +24,7 @@ class MaintenanceContractsControllerTest < ActionController::TestCase
       post :create, params: {maintenance_contract: { contract_type_id: @maintenance_contract.contract_type_id, end_date: @maintenance_contract.end_date, maintainer_id: @maintenance_contract.maintainer_id, start_date: @maintenance_contract.start_date, server_id: 2 }}
     end
 
-    # FIXME: unstable test, get always different path when trying to fix, and even pass sometimes
-    # assert_redirected_to server_path(2)
+    assert_redirected_to server_path(2)
   end
 
   test "should show maintenance_contract" do
@@ -38,11 +37,10 @@ class MaintenanceContractsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  # FIXME: unstable test, get always different path when trying to fix, and even pass sometimes
-  # test "should update maintenance_contract" do
-  #   patch :update, params:{id: @maintenance_contract, maintenance_contract: { contract_type_id: @maintenance_contract.contract_type_id, end_date: @maintenance_contract.end_date, maintainer_id: @maintenance_contract.maintainer_id, start_date: @maintenance_contract.start_date, server_id: 2 }}
-  #   assert_redirected_to server_path(2)
-  # end
+  test "should update maintenance_contract" do
+    patch :update, params:{id: @maintenance_contract, maintenance_contract: { contract_type_id: @maintenance_contract.contract_type_id, end_date: @maintenance_contract.end_date, maintainer_id: @maintenance_contract.maintainer_id, start_date: @maintenance_contract.start_date, server_id: 2 }}
+    assert_redirected_to server_path(2)
+  end
 
   test "should destroy maintenance_contract" do
     assert_difference('MaintenanceContract.count', -1) do

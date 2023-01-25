@@ -11,7 +11,7 @@ class Port < ApplicationRecord
       :vlans => :vlans
   }
 
-  belongs_to :card
+  belongs_to :card, optional: true
   delegate :is_power_input?, to: :card, :allow_nil => true
 
   has_one :connection
