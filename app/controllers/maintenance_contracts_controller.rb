@@ -11,8 +11,7 @@ class MaintenanceContractsController < ApplicationController
 
   # GET /maintenance_contracts/1
   # GET /maintenance_contracts/1.json
-  def show
-  end
+  def show; end
 
   # GET /maintenance_contracts/new
   def new
@@ -26,8 +25,7 @@ class MaintenanceContractsController < ApplicationController
   end
 
   # GET /maintenance_contracts/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /maintenance_contracts
   # POST /maintenance_contracts.json

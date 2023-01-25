@@ -11,8 +11,7 @@ class DomainesController < ApplicationController
 
   # GET /domaines/1
   # GET /domaines/1.json
-  def show
-  end
+  def show; end
 
   # GET /domaines/new
   def new
@@ -20,8 +19,7 @@ class DomainesController < ApplicationController
   end
 
   # GET /domaines/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /domaines
   # POST /domaines.json

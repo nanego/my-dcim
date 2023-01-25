@@ -36,18 +36,16 @@ class ServersController < ApplicationController
         end
       end
     end if params[:server].present?
-    head :ok #render empty body, status only
+    head :ok # render empty body, status only
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @server = Server.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @server = Server.new(server_params)
@@ -80,8 +78,7 @@ class ServersController < ApplicationController
     end
   end
 
-  def import_csv
-  end
+  def import_csv; end
 
   def import
     value = ImportEquipmentByCsv.call(file: params[:import][:file],
@@ -96,7 +93,7 @@ class ServersController < ApplicationController
   end
 
   def destroy
-    # FIXME:: issue with the @server.create_activity in the action destroy for server
+    # FIXME: issue with the @server.create_activity in the action destroy for server
     # Psych::DisallowedClass: Tried to load unspecified class: ActiveSupport::TimeWithZone
     # https://stackoverflow.com/questions/72970170/upgrading-to-rails-6-1-6-1-causes-psychdisallowedclass-tried-to-load-unspecif
     # Question: why the create activity doesn't trigger issue in the update?
@@ -130,9 +127,9 @@ class ServersController < ApplicationController
     new_params = {}
     new_params['frame'] = [Frame.find_by_id(old_values['frame_id']).to_s, Frame.find_by_id(new_values['frame_id']).to_s]
     new_params['position'] = [old_values['position'].to_s, new_values['position'].to_s]
-    #%W"position frame_id".each do |attribute|
+    # %W"position frame_id".each do |attribute|
     #  new_params[attribute] = [old_values[attribute].to_s, new_values[attribute]]
-    #end
+    # end
     return new_params
   end
 end

@@ -11,8 +11,7 @@ class ContractTypesController < ApplicationController
 
   # GET /contract_types/1
   # GET /contract_types/1.json
-  def show
-  end
+  def show; end
 
   # GET /contract_types/new
   def new
@@ -20,8 +19,7 @@ class ContractTypesController < ApplicationController
   end
 
   # GET /contract_types/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /contract_types
   # POST /contract_types.json

@@ -11,8 +11,7 @@ class StacksController < ApplicationController
 
   # GET /stacks/1
   # GET /stacks/1.json
-  def show
-  end
+  def show; end
 
   # GET /stacks/new
   def new
@@ -20,8 +19,7 @@ class StacksController < ApplicationController
   end
 
   # GET /stacks/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /stacks
   # POST /stacks.json

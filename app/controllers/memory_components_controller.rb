@@ -11,8 +11,7 @@ class MemoryComponentsController < ApplicationController
 
   # GET /memory_components/1
   # GET /memory_components/1.json
-  def show
-  end
+  def show; end
 
   # GET /memory_components/new
   def new
@@ -20,8 +19,7 @@ class MemoryComponentsController < ApplicationController
   end
 
   # GET /memory_components/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /memory_components
   # POST /memory_components.json

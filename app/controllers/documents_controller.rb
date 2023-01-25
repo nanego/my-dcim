@@ -7,15 +7,13 @@ class DocumentsController < ApplicationController
     @documents = Document.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @document = Document.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @document = Document.new(document_params)

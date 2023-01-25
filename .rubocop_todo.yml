@@ -6,6 +6,13 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
+# Offense count: 45
+# This cop supports safe autocorrection (--autocorrect).
+# Configuration parameters: EnforcedStyle.
+# SupportedStyles: normal, indented_internal_methods
+Layout/IndentationConsistency:
+  Enabled: false
+
 # Offense count: 17
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle, IndentationWidth.
@@ -18,15 +25,6 @@ Layout/ArgumentAlignment:
     - 'app/queries/frames/including_servers_query.rb'
     - 'db/migrate/20180110152701_add_attributes_to_servers.rb'
     - 'config/initializers/friendly_id.rb'
-
-
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowForAlignment.
-Layout/CommentIndentation:
-  Exclude:
-    - 'config/application.rb'
-    - 'config/environments/production.rb'
 
 # Offense count: 29
 # This cop supports safe autocorrection (--autocorrect).
@@ -92,12 +90,6 @@ Layout/HashAlignment:
     - 'test/controllers/moves_controller_test.rb'
     - 'test/controllers/servers_controller_test.rb'
 
-# Offense count: 45
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: normal, indented_internal_methods
-Layout/IndentationConsistency:
-  Enabled: false
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
@@ -112,24 +104,6 @@ Layout/IndentationStyle:
 # Configuration parameters: Width, AllowedPatterns, IgnoredPatterns.
 Layout/IndentationWidth:
   Enabled: false
-
-# Offense count: 18
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowDoxygenCommentStyle, AllowGemfileRubyComment.
-Layout/LeadingCommentSpace:
-  Exclude:
-    - 'app/controllers/application_controller.rb'
-    - 'app/controllers/rooms_controller.rb'
-    - 'app/controllers/servers_controller.rb'
-    - 'app/controllers/users/omniauth_callbacks_controller.rb'
-    - 'app/helpers/rooms_helper.rb'
-    - 'app/helpers/servers_helper.rb'
-    - 'app/models/moved_connection.rb'
-    - 'app/models/room.rb'
-    - 'config/initializers/wicked_pdf.rb'
-    - 'lib/omniauth/dynamic_full_host.rb'
-    - 'lib/tasks/init_pdus.rake'
-    - 'test/controllers/servers_controller_test.rb'
 
 # Offense count: 4
 # This cop supports safe autocorrection (--autocorrect).
@@ -616,25 +590,6 @@ Rails/Validation:
     - 'app/models/moved_connection.rb'
     - 'app/models/server.rb'
 
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: always, conditionals
-Style/AndOr:
-  Exclude:
-    - 'app/models/port.rb'
-
-# Offense count: 4
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: Keywords, RequireColon.
-# Keywords: TODO, FIXME, OPTIMIZE, HACK, REVIEW, NOTE
-Style/CommentAnnotation:
-  Exclude:
-    - 'app/controllers/admin/application_controller.rb'
-    - 'app/controllers/moves_controller.rb'
-    - 'app/controllers/rooms_controller.rb'
-    - 'lib/tasks/init_pdus.rake'
-
 # Offense count: 6
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.
@@ -657,13 +612,6 @@ Style/Documentation:
 Style/EmptyLambdaParameter:
   Exclude:
     - 'app/models/card.rb'
-
-# Offense count: 50
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: compact, expanded
-Style/EmptyMethod:
-  Enabled: false
 
 # Offense count: 39
 # This cop supports safe autocorrection (--autocorrect).

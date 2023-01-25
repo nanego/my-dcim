@@ -43,7 +43,7 @@ class Port < ApplicationRecord
       if other_port.connection.present?
         cable ||= other_port.connection.cable
       end
-      if cable.present? and !cable.destroyed?
+      if cable.present? && !cable.destroyed?
         cable.name = cable_name
         cable.color = cable_color
         cable.special_case = special_case
@@ -72,8 +72,8 @@ class Port < ApplicationRecord
           txt << "#{server.name} (#{server.modele.try(:name)})\r\n"
           server.cards.each do |card|
             card.ports.each do |port|
-              if port && port.cable_name && card.composant.name.present?
-                txt << "    * #{card.composant.name}#{card.composant.name.include?('SL') ? "/#{port.position}" : port.position} - #{port.network_conf(server.frame.switch_slot)}\r\n"
+              if port&.cable_name && card.composant.name.present?
+                txt << "    * #{card.composant.name}#{card.composant.name.include?("SL") ? "/#{port.position}" : port.position} - #{port.network_conf(server.frame.switch_slot)}\r\n"
               end
             end
           end
@@ -84,7 +84,7 @@ class Port < ApplicationRecord
   end
 
   def self.to_csv(frames)
-    attributes = %w{name_with_room_and_islet server_slug server_name server_modele port_info}
+    attributes = %w[name_with_room_and_islet server_slug server_name server_modele port_info]
 
     CSV.generate(headers: true) do |csv|
       csv << attributes
@@ -95,9 +95,9 @@ class Port < ApplicationRecord
           used_port_present = false
           server.cards.each do |card|
             card.ports.each do |port|
-              if port && port.cable_name && card.composant.name.present?
+              if port&.cable_name && card.composant.name.present?
                 used_port_present = true
-                csv << frame_server_info + ["#{card.composant.name}#{card.composant.name.include?('SL') ? "/#{port.position}" : port.position} - #{port.network_conf(server.frame.switch_slot)}"]
+                csv << frame_server_info + ["#{card.composant.name}#{card.composant.name.include?("SL") ? "/#{port.position}" : port.position} - #{port.network_conf(server.frame.switch_slot)}"]
               end
             end
           end

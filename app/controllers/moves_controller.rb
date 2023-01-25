@@ -9,15 +9,13 @@ class MovesController < ApplicationController
     @frames = (@moves.map(&:frame) | @moves.map(&:prev_frame)).compact.uniq
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @move = Move.new(moveable_type: 'Server')
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @move = Move.new(move_params)
@@ -90,7 +88,7 @@ class MovesController < ApplicationController
     @selected_port = Port.find(params[:port_id])
     @server = @selected_port.server
     @moved_connections = MovedConnection.per_servers([@server])
-    # TODO Deal with conflicts if there is more than 1 result
+    # TODO: Deal with conflicts if there is more than 1 result
     @moved_connection = @moved_connections.where(port_from_id: params[:port_id])
                                           .or(MovedConnection.where(port_to_id: params[:port_id])).first
     if @moved_connection.present?

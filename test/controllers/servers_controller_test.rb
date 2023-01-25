@@ -127,7 +127,7 @@ class ServersControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal assigns(:server), @server
 
-    #old name should continue to work
+    # old name should continue to work
     get :show, params: {id: old_name}
     assert_response :success
     assert_equal assigns(:server), @server

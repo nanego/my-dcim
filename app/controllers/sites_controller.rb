@@ -7,15 +7,13 @@ class SitesController < ApplicationController
     @sites = Site.sorted
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @site = Site.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @site = Site.new(site_params)

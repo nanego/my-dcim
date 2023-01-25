@@ -41,7 +41,7 @@ class MemoryComponentsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  # FIXME:: unstable test, get always different path when trying to fix, and even pass sometimes
+  # FIXME: unstable test, get always different path when trying to fix, and even pass sometimes
   # test "should update memory_component" do
   #   patch :update, params:{ id: @memory_component, memory_component: { memory_type_id: @memory_component.memory_type_id, quantity: @memory_component.quantity, server_id: @memory_component.server_id }}
   #   assert_redirected_to server_path(@memory_component.server_id)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "simplecov-console"
 
 SimpleCov.start :rails do
@@ -18,7 +20,7 @@ SimpleCov.start :rails do
   minimum_coverage_by_file 50
 
   formatter SimpleCov::Formatter::MultiFormatter.new([
-    SimpleCov::Formatter::HTMLFormatter,
-    SimpleCov::Formatter::Console,
-  ])
+                                                       SimpleCov::Formatter::HTMLFormatter,
+                                                       SimpleCov::Formatter::Console
+                                                     ])
 end

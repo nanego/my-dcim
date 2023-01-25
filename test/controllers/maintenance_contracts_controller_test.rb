@@ -38,7 +38,7 @@ class MaintenanceContractsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  # FIXME:: unstable test, get always different path when trying to fix, and even pass sometimes
+  # FIXME: unstable test, get always different path when trying to fix, and even pass sometimes
   # test "should update maintenance_contract" do
   #   patch :update, params:{id: @maintenance_contract, maintenance_contract: { contract_type_id: @maintenance_contract.contract_type_id, end_date: @maintenance_contract.end_date, maintainer_id: @maintenance_contract.maintainer_id, start_date: @maintenance_contract.start_date, server_id: 2 }}
   #   assert_redirected_to server_path(2)
