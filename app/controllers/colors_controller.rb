@@ -7,15 +7,13 @@ class ColorsController < ApplicationController
     @colors = Color.order('parent_type asc, parent_id asc')
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @color = Color.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @color = Color.new(color_params)

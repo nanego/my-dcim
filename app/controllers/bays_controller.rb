@@ -45,8 +45,7 @@ class BaysController < ApplicationController
     @bay = Bay.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @bay = Bay.new(bay_params)

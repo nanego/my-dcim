@@ -45,8 +45,7 @@ class IsletsController < ApplicationController
   end
 
   # GET /islets/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /islets
   # POST /islets.json

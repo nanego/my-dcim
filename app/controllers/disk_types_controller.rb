@@ -11,8 +11,7 @@ class DiskTypesController < ApplicationController
 
   # GET /disk_types/1
   # GET /disk_types/1.json
-  def show
-  end
+  def show; end
 
   # GET /disk_types/new
   def new
@@ -20,8 +19,7 @@ class DiskTypesController < ApplicationController
   end
 
   # GET /disk_types/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /disk_types
   # POST /disk_types.json

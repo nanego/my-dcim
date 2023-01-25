@@ -141,7 +141,7 @@ module ServersHelper
     when 'rl-td'
       position = max_aligned_ports - ((row_index * card_type.columns * ports_per_cell) +
           (column_index * ports_per_cell) + cell_index)
-    else #'lr-td'
+    else # 'lr-td'
       position = (row_index * card_type.columns * ports_per_cell) +
           (column_index * ports_per_cell) +
           cell_index + 1

@@ -11,8 +11,7 @@ class GestionsController < ApplicationController
 
   # GET /gestions/1
   # GET /gestions/1.json
-  def show
-  end
+  def show; end
 
   # GET /gestions/new
   def new
@@ -20,8 +19,7 @@ class GestionsController < ApplicationController
   end
 
   # GET /gestions/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /gestions
   # POST /gestions.json

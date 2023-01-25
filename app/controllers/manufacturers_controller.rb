@@ -11,8 +11,7 @@ class ManufacturersController < ApplicationController
 
   # GET /manufacturers/1
   # GET /manufacturers/1.json
-  def show
-  end
+  def show; end
 
   # GET /manufacturers/new
   def new
@@ -20,8 +19,7 @@ class ManufacturersController < ApplicationController
   end
 
   # GET /manufacturers/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /manufacturers
   # POST /manufacturers.json

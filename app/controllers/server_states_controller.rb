@@ -11,8 +11,7 @@ class ServerStatesController < ApplicationController
 
   # GET /server_states/1
   # GET /server_states/1.json
-  def show
-  end
+  def show; end
 
   # GET /server_states/new
   def new
@@ -20,8 +19,7 @@ class ServerStatesController < ApplicationController
   end
 
   # GET /server_states/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /server_states
   # POST /server_states.json
