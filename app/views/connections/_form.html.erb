@@ -1,9 +1,8 @@
-<% remote |= false %>
+<% remote ||= false %>
 
 <div class="connection_form">
 
   <div id="port_status">
-
   </div>
 
   <%= form_for("connection", url: connections_update_path, remote: (remote ? true : false), html: {class: "form-horizontal", role: "form"}) do |f| %>
@@ -48,7 +47,7 @@
           </div>
           <div class="panel-body">
             <div id="back_destination_server" class="back_server">
-              <%= render(partial: 'servers/draw_server_compact', locals { server: @to_server, selected_port: @to_port }) if @to_server %>
+              <%= render(partial: 'servers/draw_server_compact', locals: { server: @to_server, selected_port: @to_port }) if @to_server %>
             </div>
             <%= f.hidden_field :to_port_id, value: @to_port.try(:id) %>
           </div>
