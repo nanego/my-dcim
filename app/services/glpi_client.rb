@@ -100,7 +100,7 @@ class GlpiClient
       stub.get('/initSession') { |env| [200, {}, '{"session_token":"kuji8uh4v77lgghqoj2c0r2848"}'] }
     end
   end
-  
+
   class Computer
     include Virtus.model
 
@@ -125,6 +125,7 @@ class GlpiClient
       memories.sum { |key, value| value['size'] }
     end
   end
+
   class DeviceProcessor
     include Virtus.model
 
