@@ -17,12 +17,6 @@ class ImportEquipmentByCsv
 
   def call
     begin
-      # FIXME: "DEPRECATION WARNING: Using `return`, `break` or `throw` to exit a transaction block is
-      # deprecated without replacement. If the `throw` came from
-      # `Timeout.timeout(duration)`, pass an exception class as a second
-      # argument so it doesn't use `throw` to abort its block. This results
-      # in the transaction being committed, but in the next release of Rails
-      # it will rollback
       ApplicationRecord.transaction do
         new_frame = nil
         f = nil
@@ -65,17 +59,16 @@ class ImportEquipmentByCsv
             end
           end
         end
+
         if new_frame
           new_frame.compact_u.save
-          return new_frame
+          new_frame
         else
-          if f
-            return f
-          end
+          f
         end
       end
     rescue Exception => e
-      return e.message
+      e.message
     end
   end
 
