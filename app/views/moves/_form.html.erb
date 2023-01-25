@@ -1,5 +1,4 @@
 <div class="moves_form">
-
   <%= form_for(@move, html: { class: "form-horizontal moves_form server_form_fields col-sm-6", role: "form" }) do |f| %>
     <% if @move.errors.any? %>
       <div class="alert alert-danger alert-dismissable" role="alert">
@@ -25,10 +24,12 @@
         <%= f.select :moveable_id,
                        grouped_options_for_select(@all_servers_per_frame, { :selected => @move.moveable_id }),
                        {include_blank: true},
-                       {onchange: "select_server(this.value); display_initial_bay();",
+                       {onchange: "select_server(this.value);",
                        style: 'max-width: 185px;'}
         %>
       </div>
+
+      <div class="col-sm-12 server_container" id="servers_server_container"></div>
 
       <div class="col-sm-12" id="initial_bay">
         <div class="col-sm-6"  style="text-align: right;">
@@ -39,8 +40,6 @@
           <span id="initial_bay_name"></span>
         </div>
       </div>
-
-      <div class="col-sm-12 server_container" id="servers_server_container"></div>
 
       <div class="col-sm-6"  style="text-align: right;">
         <span>Baie de destination</span>
@@ -55,7 +54,9 @@
       </div>
 
       <div class="col-sm-12" id="bay_size_container">
-        <%= f.hidden_field :position, value: "" %>
+        <% if @move.frame %>
+          <%= render partial: 'moves/select_bay_position', locals: { f: f, move: @move, frame_size: @move.frame.u } %>
+        <% end %>
       </div>
 
       <div class="col-sm-6"  style="text-align: right;">
@@ -84,7 +85,8 @@
                                                           settings: Frame.settings.merge({:min_height => 27 }),
                                                           view_type: 'front',
                                                           editable: false,
-                                                          highlighted_servers: [@move.moveable]
+                                                          highlighted_servers: [@move.moveable],
+                                                          clickable_lines: true
         } %>
     <% end %>
   </div>
@@ -107,6 +109,7 @@
                 data: { server_id: server_id }
             }).done(function(){
                 $('.server_container').show();
+                display_initial_bay();
             });
         }else{
             $('.server_container').hide();
@@ -129,14 +132,14 @@
     }
 
     function display_initial_bay() {
-      var label=$('#move_moveable_id :selected').parent().attr('label');
+      var label = $('#move_moveable_id :selected').data("frameName");
       $('#initial_bay').show();
       $('#initial_bay_name').text(label);
     }
 
     $("#frame").on("click", ".position_in_frame", function(e) {
-      $("#move_position").val(e.target.title).change()
+      $("#move_position").val(e.target.title).change();
     });
 
-    new TomSelect('#move_moveable_id',{});
+    new TomSelect('#move_moveable_id',{ maxOptions: null });
 </script>

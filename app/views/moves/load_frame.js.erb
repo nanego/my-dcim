@@ -2,11 +2,12 @@ $("#frame").html("<%= escape_javascript(render partial: 'frames/show_frame', loc
                                             servers: (@frame.servers).sort_by { |server| server.position.present? ? server.position : 0}.reverse,
                                             settings: Frame.settings.merge({:min_height => 27 }),
                                             view_type: @view,
-                                            editable: false
+                                            editable: false,
+                                            clickable_lines: true
                                             # , highlighted_servers: [@move.moveable]
 }) %>");
 
-<% f = ActionView::Base.default_form_builder.new(:frame, @frame, self, {}) %>
+<% f = ActionView::Base.default_form_builder.new(:move, @move, self, {}) %>
 
 $("#bay_size_container").html("<%=
                                   escape_javascript(
