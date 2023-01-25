@@ -32,7 +32,6 @@ gem 'faraday'
 gem 'high_voltage'
 gem 'kaminari'
 gem 'pg'
-gem 'simple_form'
 gem 'virtus'
 
 # Reduces boot times through caching; required in config/boot.rb
