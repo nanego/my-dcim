@@ -97,7 +97,7 @@ class ServersController < ApplicationController
     # Psych::DisallowedClass: Tried to load unspecified class: ActiveSupport::TimeWithZone
     # https://stackoverflow.com/questions/72970170/upgrading-to-rails-6-1-6-1-causes-psychdisallowedclass-tried-to-load-unspecif
     # Question: why the create activity doesn't trigger issue in the update?
-    # @server.create_activity action: 'destroy', parameters: @server.attributes, owner: current_user
+    @server.create_activity action: 'destroy', parameters: @server.attributes, owner: current_user
     @server.destroy
     respond_to do |format|
       format.html {redirect_to servers_grids_path, notice: 'Le matériel a bien été supprimé.' }
