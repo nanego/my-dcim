@@ -30,7 +30,7 @@ class IsletsController < ApplicationController
     respond_to do |format|
       format.pdf do
         render layout: 'pdf.html',
-               template: "rooms/show.pdf.erb",
+               template: "rooms/show",
                show_as_html: params[:debug].present?,
                pdf: 'frame',
                zoom: 0.75
