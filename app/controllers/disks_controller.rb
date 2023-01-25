@@ -11,8 +11,7 @@ class DisksController < ApplicationController
 
   # GET /disks/1
   # GET /disks/1.json
-  def show
-  end
+  def show; end
 
   # GET /disks/new
   def new
@@ -20,8 +19,7 @@ class DisksController < ApplicationController
   end
 
   # GET /disks/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /disks
   # POST /disks.json

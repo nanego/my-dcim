@@ -138,7 +138,7 @@ module ServersHelper
       position = (row_index * card_type.columns * ports_per_cell) +
           (column_index * ports_per_cell) +
           position_in_cell
-    else #'lr-td'
+    else # 'lr-td'
       position = (row_index * card_type.columns * ports_per_cell) +
           (column_index * ports_per_cell) +
           cell_index + 1

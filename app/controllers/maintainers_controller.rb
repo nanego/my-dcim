@@ -11,8 +11,7 @@ class MaintainersController < ApplicationController
 
   # GET /maintainers/1
   # GET /maintainers/1.json
-  def show
-  end
+  def show; end
 
   # GET /maintainers/new
   def new
@@ -20,8 +19,7 @@ class MaintainersController < ApplicationController
   end
 
   # GET /maintainers/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /maintainers
   # POST /maintainers.json

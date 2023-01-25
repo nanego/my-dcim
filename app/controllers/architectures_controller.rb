@@ -11,8 +11,7 @@ class ArchitecturesController < ApplicationController
 
   # GET /architectures/1
   # GET /architectures/1.json
-  def show
-  end
+  def show; end
 
   # GET /architectures/new
   def new
@@ -20,8 +19,7 @@ class ArchitecturesController < ApplicationController
   end
 
   # GET /architectures/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /architectures
   # POST /architectures.json

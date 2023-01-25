@@ -42,7 +42,7 @@ class RoomsController < ApplicationController
     end
   end
 
-  # TODO Remove this action when possible
+  # TODO: Remove this action when possible
   def islet
     @islet = Islet.find_by(name: params[:islet], room_id: @room.id)
     frames = Frames::IncludingServersQuery.call(@room.frames.where('islets.name = ?', @islet.name), 'islets.name, bays.lane')
@@ -114,7 +114,7 @@ class RoomsController < ApplicationController
     @connections = {}
     @servers = Server.includes(:frame, :stack, :ports, :cards => [:ports])
                      .where("network_id IS NOT NULL")
-    #.includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
+    # .includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
     @stacks = @servers.map(&:stack).uniq.compact
     @servers.each do |server|
       @connections[server.id] = server.directly_connected_servers_ids_with_color.reject { |conn| @switchs_lan_ids.exclude?(conn[:server_id]) }
@@ -126,15 +126,13 @@ class RoomsController < ApplicationController
     # puts "@@@connections : #{@connections.inspect}"
   end
 
-  def filtered_overview
-  end
+  def filtered_overview; end
 
   def new
     @room = Room.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @room = Room.new(room_params)

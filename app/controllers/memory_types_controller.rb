@@ -11,8 +11,7 @@ class MemoryTypesController < ApplicationController
 
   # GET /memory_types/1
   # GET /memory_types/1.json
-  def show
-  end
+  def show; end
 
   # GET /memory_types/new
   def new
@@ -20,8 +19,7 @@ class MemoryTypesController < ApplicationController
   end
 
   # GET /memory_types/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /memory_types
   # POST /memory_types.json
