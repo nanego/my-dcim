@@ -1,2 +1,2 @@
 $("#edit_port_modal .modal-body").html("<p>Chargement en cours ...</p>");
-$("#edit_port_modal .modal-body").html("<%= escape_javascript(render 'connections/form', remote: true) %>");
+$("#edit_port_modal .modal-body").html("<%= escape_javascript(render partial: 'connections/form', locals: { remote: true }) %>");
