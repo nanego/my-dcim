@@ -31,8 +31,7 @@ class BaysController < ApplicationController
       format.html
       format.js
       format.pdf do
-        render layout: 'pdf.html',
-               template: "rooms/show",
+        render template: "rooms/show",
                show_as_html: params[:debug].present?,
                pdf: 'frame',
                zoom: 0.75

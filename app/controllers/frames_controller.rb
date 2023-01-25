@@ -12,8 +12,7 @@ class FramesController < ApplicationController
       format.html
       format.js
       format.pdf do
-        render layout: 'pdf.html',
-               template: "frames/show",
+        render template: "frames/show",
                show_as_html: params[:debug].present?,
                pdf: 'frame',
                zoom: 0.75
@@ -111,8 +110,7 @@ class FramesController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render layout: 'pdf.html',
-               template: "rooms/show",
+        render template: "rooms/show",
                show_as_html: params[:debug].present?,
                pdf: 'frame',
                zoom: 0.75

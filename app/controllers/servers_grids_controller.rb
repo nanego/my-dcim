@@ -59,8 +59,7 @@ class ServersGridsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render layout: 'pdf.html',
-               show_as_html: params[:debug].present?,
+        render show_as_html: params[:debug].present?,
                pdf: 'servers'
       end
     end

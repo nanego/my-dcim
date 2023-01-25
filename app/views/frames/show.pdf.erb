@@ -11,5 +11,5 @@
 %>
 
 <div class="container-fluid">
-  <%= render partial: 'servers/room', locals: { room: @room, islets: @servers_per_frames, view_side: (params[:view].present? ? params[:view] : 'back') } %>
+  <%= render partial: 'servers/room', formats: :html, locals: { room: @room, islets: @servers_per_frames, view_side: (params[:view].present? ? params[:view] : 'back') } %>
 </div>
