@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Enclosure < ApplicationRecord
-  belongs_to :modele
+  belongs_to :modele, optional: true
   has_many :composants, -> { order(position: :asc) }
 
   acts_as_list scope: [:modele_id]

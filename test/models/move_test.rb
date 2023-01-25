@@ -33,17 +33,12 @@ class MoveTest < ActiveSupport::TestCase
 
     # After
     @moved_connections = MovedConnection.per_servers([@move.moveable])
-
-    # FIXME: problem the moved_connections are not created, why... I don't know... fixture should work
-    # so MovedConnection.all => #<ActiveRecord::Relation []>
-    assert_empty @moved_connections
-
-    # @move.moveable.ports.each do |port|
-    #   moved_connection = @moved_connections.select{ |c| c.port_from_id == port.id }.first
-    #   assert_not_nil moved_connection
-    #   assert moved_connection.cablename==''
-    #   assert moved_connection.color==''
-    # end
+    @move.moveable.ports.each do |port|
+      moved_connection = @moved_connections.select{ |c| c.port_from_id == port.id }.first
+      assert_not_nil moved_connection
+      assert moved_connection.cablename==''
+      assert moved_connection.color==''
+    end
   end
 
   test 'execution of a movement' do

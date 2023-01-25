@@ -24,8 +24,7 @@ class DiskTypesControllerTest < ActionController::TestCase
       post :create, params: {disk_type: { technology: @disk_type.technology }}
     end
 
-    # FIXME: unstable test, get always different path when trying to fix, and even pass sometimes
-    # assert_redirected_to disk_type_path(assigns(:disk_type))
+    assert_redirected_to disk_type_path(assigns(:disk_type))
   end
 
   test "should show disk_type" do
@@ -38,11 +37,10 @@ class DiskTypesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  # FIXME: unstable test, get always different path when trying to fix, and even pass sometimes
-  # test "should update disk_type" do
-  #   patch :update, params: {id: @disk_type, disk_type: { technology: @disk_type.technology }}
-  #   assert_redirected_to disk_type_path(assigns(:disk_type))
-  # end
+  test "should update disk_type" do
+    patch :update, params: {id: @disk_type, disk_type: { technology: @disk_type.technology }}
+    assert_redirected_to disk_type_path(assigns(:disk_type))
+  end
 
   test "should destroy disk_type" do
     @disk_type = DiskType.create
