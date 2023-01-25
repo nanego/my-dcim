@@ -153,7 +153,7 @@ class MovesController < ApplicationController
       format.html
       format.pdf do
         render layout: 'pdf.html',
-               template: "moves/frame.pdf.erb",
+               template: "moves/frame",
                show_as_html: params[:debug].present?,
                pdf: 'frame',
                zoom: 0.75

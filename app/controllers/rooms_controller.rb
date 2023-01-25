@@ -33,7 +33,7 @@ class RoomsController < ApplicationController
       format.html
       format.pdf do
         render layout: 'pdf.html',
-               template: "rooms/show.pdf.erb",
+               template: "rooms/show",
                show_as_html: params[:debug].present?,
                pdf: 'frame',
                zoom: 0.75
@@ -65,7 +65,7 @@ class RoomsController < ApplicationController
       end
       format.pdf do
         render layout: 'pdf.html',
-               template: "rooms/show.pdf.erb",
+               template: "rooms/show",
                show_as_html: params[:debug].present?,
                pdf: 'frame',
                zoom: 0.75
