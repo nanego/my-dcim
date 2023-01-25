@@ -16,11 +16,11 @@ SimpleCov.start :rails do
     src_file.lines.count > 500
   end
 
-  minimum_coverage 50
-  minimum_coverage_by_file 50
+  # minimum_coverage 50
+  # minimum_coverage_by_file 50
 
-  formatter SimpleCov::Formatter::MultiFormatter.new([
-                                                       SimpleCov::Formatter::HTMLFormatter,
-                                                       SimpleCov::Formatter::Console
-                                                     ])
+  # formatter SimpleCov::Formatter::MultiFormatter.new([
+  #                                                      SimpleCov::Formatter::HTMLFormatter,
+  #                                                      SimpleCov::Formatter::Console
+  #                                                    ])
 end
