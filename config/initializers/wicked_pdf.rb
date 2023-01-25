@@ -21,7 +21,7 @@ WickedPdf.config = {
   # (but can be overridden in `render :pdf` calls)
   # layout: 'pdf.html',
   # :layout => "pdf.html",
-  layout: 'pdf.html',
+  layout: 'application',
   margin: {:top=> 10, :bottom => 10},
   # :header => {:html => { :template=> 'layouts/pdf_header.html'}},
   # :footer => {:html => { :template=> 'layouts/pdf_footer.html'}},
