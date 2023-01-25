@@ -81,7 +81,7 @@ end
 
 group :production do
   gem 'passenger'
-  # gem 'therubyracer'
+  gem 'mini_racer'
 end
 
 gem 'acts_as_list'
