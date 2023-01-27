@@ -189,9 +189,8 @@ class MovesController < ApplicationController
   end
 
   def get_all_servers_per_frame
-    @all_servers_per_frame = []
-    Frame.order(:name).each do |frame|
-      @all_servers_per_frame << [frame.name, frame.servers.collect {|v| [v.name, v.id]}]
+    @all_servers_per_frame = Frame.order(:name).to_h do |frame|
+      [frame.name, frame.servers.map { |v| [v.name, v.id, { data: { frame_name: frame.name } }] }]
     end
   end
 end
