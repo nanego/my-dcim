@@ -17,6 +17,7 @@
 //= require functions
 //= require_tree .
 //= require bootstrap
+//= require tom-select.complete.min
 
 function hideFilters() {
     $('.hide-filters').hide()
