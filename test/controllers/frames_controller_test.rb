@@ -41,6 +41,14 @@ class FramesControllerTest < ActionController::TestCase
     assert_redirected_to room_path(@frame.room)
   end
 
+  test "should destroy frame" do
+    @frame = Frame.create(bay: Bay.create)
+
+    assert_difference('Frame.count', -1) do
+      delete :destroy, params: {id: @frame}
+    end
+  end
+
   test "should not destroy frame it has many servers Server n°1 & 2 and pdu Pdu n°1" do
     assert_difference('Frame.count', 0) do
       delete :destroy, params: {id: @frame}

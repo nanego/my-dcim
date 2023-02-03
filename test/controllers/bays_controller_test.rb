@@ -40,6 +40,14 @@ class BaysControllerTest < ActionController::TestCase
     assert_redirected_to bays_path
   end
 
+  test "should destroy bay" do
+    @bay = Bay.create
+    
+    assert_difference('Bay.count', -1) do
+      delete :destroy, params: {id: @bay}
+    end
+  end
+
   test "should not destroy bay it has many bays: Bay n°1 & 2" do
     assert_difference('Bay.count', 0) do
       delete :destroy, params: {id: @bay}
