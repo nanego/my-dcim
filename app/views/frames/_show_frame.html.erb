@@ -40,10 +40,10 @@
                         <%= 'relegated' if params[:bg]=='cablage' && request.format.pdf? %>"
                 style="height: <%= settings[:min_height] %>px;"
                 data-num-u="<%= u_disponibles %>">
-              <%= render 'servers/draw_u_scale_unit.html.erb', i: 0,
-                                                               u_disponibles: u_disponibles,
-                                                               u_server: 1,
-                                                               clickable_lines: clickable_lines %>
+              <%= render partial: 'servers/draw_u_scale_unit', locals: { i: 0, 
+                                                                         u_disponibles: u_disponibles,
+                                                                         u_server: 1,
+                                                                         clickable_lines: clickable_lines } %>
             </li>
             <% u_disponibles -= 1 %>
           <% end %>
@@ -68,10 +68,10 @@
                                 style: "min-height: #{settings[:min_height] * (server.modele.try(:u).to_i > 0 ? server.modele.u : 1)}px;padding: 3px 3px 3px 20px;",
                                 data: data do %>
               <% u_server.times do |i| %>
-                <%= render 'servers/draw_u_scale_unit.html.erb', i: 0,
-                                                                 u_disponibles: u_disponibles,
-                                                                 u_server: 1,
-                                                                 clickable_lines: clickable_lines %>
+                <%= render partial: 'servers/draw_u_scale_unit', locals: { i: i,
+                                                                           u_disponibles: u_disponibles,
+                                                                           u_server: u_server,
+                                                                           clickable_lines: clickable_lines } %>
                 <% u_disponibles -= 1 %>
               <% end %>
               <%= render 'servers/draw_server_badge.html.erb', server: server %>
@@ -92,10 +92,10 @@
                                 style: "height: #{settings[:min_height] * u_server - (u_server - 1)}px;background-color:#{bgModeleColor} !important;",
                                 :data => data do %>
               <% u_server.times do |i| %>
-                <%= render 'servers/draw_u_scale_unit.html.erb', i: 0,
-                                                                 u_disponibles: u_disponibles,
-                                                                 u_server: 1,
-                                                                 clickable_lines: clickable_lines %>
+                <%= render partial: 'servers/draw_u_scale_unit', locals: { i: i,
+                                                                           u_disponibles: u_disponibles,
+                                                                           u_server: u_server,
+                                                                           clickable_lines: clickable_lines } %>
                 <% u_disponibles -= 1 %>
               <% end %>
               <%= render 'servers/draw_server_badge.html.erb', server: server %>
@@ -110,10 +110,10 @@
                     <%= 'relegated' if highlighted_servers_ids != servers_ids %>
                     <%= 'relegated' if params[:bg]=='cablage' && request.format.pdf? %>
                   " style="height: <%= settings[:min_height] %>px;" data-num-u="<%= u_disponibles %>">
-          <%= render 'servers/draw_u_scale_unit.html.erb', i: 0,
-                                                           u_disponibles: u_disponibles,
-                                                           u_server: 1,
-                                                           clickable_lines: clickable_lines %>
+          <%= render partial: 'servers/draw_u_scale_unit', locals: { i: 0,
+                                                                     u_disponibles: u_disponibles,
+                                                                     u_server: 1,
+                                                                     clickable_lines: clickable_lines } %>
         </li>
         <% u_disponibles -= 1 %>
       <% end %>
