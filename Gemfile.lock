@@ -448,7 +448,7 @@ DEPENDENCIES
   acts_as_list
   administrate
   better_errors
-  bootsnap (>= 1.4.2)
+  bootsnap (>= 1.4.4)
   bootstrap-generators (~> 3.3.4)
   bootstrap-sass (>= 3.4.1)
   bourbon

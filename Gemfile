@@ -79,8 +79,8 @@ group :test do
 end
 
 group :production do
-  gem 'passenger'
   gem 'mini_racer'
+  gem 'passenger'
 end
 
 gem 'acts_as_list'
