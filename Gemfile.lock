@@ -407,14 +407,14 @@ GEM
       sprockets (>= 3.0.0)
     terminal-table (3.0.2)
       unicode-display_width (>= 1.1.1, < 3)
+    terser (1.1.13)
+      execjs (>= 0.3.0, < 3)
     thor (1.2.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
     timeout (0.3.1)
     tzinfo (1.2.11)
       thread_safe (~> 0.1)
-    uglifier (4.2.0)
-      execjs (>= 0.3.0, < 3)
     unicode-display_width (2.4.2)
     uniform_notifier (1.16.0)
     virtus (1.0.5)
@@ -500,7 +500,7 @@ DEPENDENCIES
   simplecov
   simplecov-console
   sprockets (~> 3.0)
-  uglifier (>= 1.3.0)
+  terser
   virtus
   web-console (~> 2.0)
   wicked_pdf
