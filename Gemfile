@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 ruby File.read('.ruby-version').strip
-gem 'rails', '~> 6.0.0'
+gem 'rails', '~> 6.1.0'
 
 gem 'administrate'
 gem 'jbuilder', '~> 2.7'
@@ -35,7 +35,7 @@ gem 'pg'
 gem 'virtus'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.2', require: false
+gem 'bootsnap', '>= 1.4.4', require: false
 
 # Use ActiveStorage variant
 gem 'image_processing', '~> 1.2'
