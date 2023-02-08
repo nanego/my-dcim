@@ -12,7 +12,7 @@ gem 'nokogiri', '~> 1.13', '>= 1.13.6'
 gem 'rails-i18n', '~> 6.0.x'
 gem 'sassc-rails', '~> 2.0'
 gem 'sprockets', '~>3.0'
-gem 'uglifier', '>= 1.3.0'
+gem 'terser'
 
 gem 'bootstrap-sass', '>= 3.4.1'
 gem 'bourbon'
