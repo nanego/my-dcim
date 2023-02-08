@@ -1,30 +1,20 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {"Déplacements prévus" => moves_path,
                                           "Baie #{@frame}" => ''} %>
-
 <div class="container-fluid">
-
   <div class="panel-islet">
     <% if @room.present? %>
         <div><h3>Salle <%= @room.name %> - Ilot <%= @frame.islet %></h3></div>
     <% end %>
-
     <div class="row">
       <ul class="frames" style="padding: 0;">
-
         <div class="col-xs-12 col-sm-5 view-back">
           <%= render partial: 'frames/show_frame', locals: {frame: @frame, servers: @servers, settings: Frame.settings.merge({:min_height => 20 }), editable: false, view_type: 'back'} %>
         </div>
-
         <div class="col-xs-12 col-sm-7 moved_connection_form_loading">CHARGEMENT EN COURS</div>
-        <div class="col-xs-12 col-sm-7 moved_connection_form" id="connection_form">
-
-        </div>
-
+        <div class="col-xs-12 col-sm-7 moved_connection_form" id="connection_form"></div>
       </ul>
     </div>
-
   </div>
-
 </div>
 
 <h3>Déplacements appliqués</h3>

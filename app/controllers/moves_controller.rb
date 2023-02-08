@@ -90,14 +90,17 @@ class MovesController < ApplicationController
     @server = @selected_port.server
     @moved_connections = MovedConnection.per_servers([@server])
     # TODO Deal with conflicts if there is more than 1 result
-    @moved_connection = @moved_connections.where(port_from_id: params[:port_id]).or(MovedConnection.where(port_to_id: params[:port_id])).first
+    @moved_connection = @moved_connections.where(port_from_id: params[:port_id])
+                                          .or(MovedConnection.where(port_to_id: params[:port_id])).first
     if @moved_connection.present?
       @destination_port = (@moved_connection.ports - [@selected_port]).first
     else
-      @moved_connection = MovedConnection.new(port_from_id: params[:port_id])
+      @moved_connection = MovedConnection.new(port_from_id: params[:port_id],
+                                              vlans: @selected_port.vlans,
+                                              cablename: @selected_port.cablename,
+                                              color: @selected_port.color)
       @destination_port = @selected_port.connection.try(:paired_connection).try(:port)
     end
-    get_all_servers_per_frame
   end
 
   def update_connection
@@ -134,7 +137,6 @@ class MovesController < ApplicationController
     end
     @selected_port = @moved_connection.port_from
     @destination_port = @moved_connection.port_to
-    get_all_servers_per_frame
   end
 
   def frame
@@ -163,23 +165,24 @@ class MovesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_move
-      @move = Move.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_move
+    @move = Move.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def move_params
-      params.require(:move).permit(:moveable_type, :moveable_id, :frame_id, :position, :prev_frame_id )
-    end
-    def moved_connection_params
-      params.require(:moved_connection).permit(:port_from_id, :port_to_id, :vlans, :color, :cablename )
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def move_params
+    params.require(:move).permit(:moveable_type, :moveable_id, :frame_id, :position, :prev_frame_id )
+  end
 
-    def load_form_data
-      get_all_servers_per_frame
-      get_all_frames_per_room
-    end
+  def moved_connection_params
+    params.require(:moved_connection).permit(:port_from_id, :port_to_id, :vlans, :color, :cablename )
+  end
+
+  def load_form_data
+    get_all_servers_per_frame
+    get_all_frames_per_room
+  end
 
   def get_all_frames_per_room
     @all_frames_per_room = []
