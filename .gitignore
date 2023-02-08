@@ -93,8 +93,9 @@ backups/
 
 .ruby-gemset
 
-# Ignore uploaded files in development
+# Ignore uploaded files in development.
 /storage/*
+!/storage/.keep
 public/uploads/
 
 # Ignore master key for decrypting credentials and more.
