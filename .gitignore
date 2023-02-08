@@ -98,6 +98,11 @@ backups/
 !/storage/.keep
 public/uploads/
 
+# Ignore pidfiles, but keep the directory.
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
