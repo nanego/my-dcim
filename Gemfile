@@ -91,7 +91,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
 # Manage file uploads
-gem 'shrine', '~> 2.0.x'
+gem 'shrine', '~> 3.0.x'
 
 # Add email notifications on errors
 gem 'exception_notification'
