@@ -22,12 +22,36 @@ AllCops:
     - "coverage/**/*"
     - "app/packs/**/*"
 
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/AbcSize:
+  Exclude:
+    - "db/**/*.rb"
+
 Metrics/MethodLength:
   Exclude:
     - "db/**/*.rb"
+
+Metrics/BlockLength:
+  Exclude:
+    - "config/**/*.rb"
+    - "spec/**/*.rb"
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
 Style/StringLiteralsInInterpolation:
   EnforcedStyle: double_quotes
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma

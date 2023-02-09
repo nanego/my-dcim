@@ -61,7 +61,9 @@ class ConnectionsController < ApplicationController
     @to_server = to_port.server
 
     respond_to do |format|
-      format.html { redirect_to connections_edit_path(from_port_id: from_port.id), notice: 'La connexion a été mise à jour.' }
+      format.html do
+ redirect_to connections_edit_path(from_port_id: from_port.id), notice: 'La connexion a été mise à jour.'
+      end
       format.js
     end
   end
