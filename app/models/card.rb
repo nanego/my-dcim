@@ -6,9 +6,9 @@ class Card < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
   tracked :parameters => {
-      :card_type => :card_type,
-      :server => :server,
-      :composant => :composant
+    :card_type => :card_type,
+    :server => :server,
+    :composant => :composant,
   }
 
   belongs_to :card_type, optional: true

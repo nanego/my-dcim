@@ -4,7 +4,7 @@ require 'omniauth/dynamic_full_host'
 
 # a setup app that handles dynamic config of CAS server
 if Rails.env.production?
-  setup_app = Proc.new do |env|
+  setup_app = proc do |env|
     env['omniauth.strategy'].options.merge! host: Rails.application.secrets.cas_server_host,
                                             port: Rails.application.secrets.cas_server_port,
                                             path: (Rails.application.secrets.cas_server_path != "/" ? Rails.application.secrets.cas_server_path : nil),
@@ -302,9 +302,9 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :cas, host: "localhost",
-                  port: "80",
-                  ssl: false,
-                  setup: setup_app
+                        port: "80",
+                        ssl: false,
+                        setup: setup_app
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

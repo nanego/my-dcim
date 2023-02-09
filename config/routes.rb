@@ -85,8 +85,8 @@ Rails.application.routes.draw do
   root to: 'pages#index'
   get :about, to: 'pages#about'
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks',
-                                              registrations: 'users/registrations',
-                                              sessions: 'users/sessions'}
+                                    registrations: 'users/registrations',
+                                    sessions: 'users/sessions'}
   resources :users
 
   resources :activities

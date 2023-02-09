@@ -53,7 +53,7 @@ Rails.application.configure do
   config.log_level = :info
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -88,7 +88,7 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger           = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
@@ -125,7 +125,7 @@ Rails.application.configure do
     # enable_starttls_auto: true,
     # user_name: Rails.application.secrets.email_provider_username,
     # password: Rails.application.secrets.email_provider_password
-}
+  }
 
   # ActionMailer Config
   config.action_mailer.default_url_options = { :host => Rails.application.secrets.domain_name }
@@ -137,6 +137,6 @@ Rails.application.configure do
                                           :email => {
                                             :email_prefix => "[DCIM] ",
                                             :sender_address => [Rails.application.secrets.sender_address],
-                                            :exception_recipients => [Rails.application.secrets.exception_recipients]
+                                            :exception_recipients => [Rails.application.secrets.exception_recipients],
                                           }
 end
