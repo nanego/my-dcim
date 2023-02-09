@@ -382,9 +382,9 @@ GEM
     selectize-rails (0.12.6)
     shoulda-matchers (4.5.1)
       activesupport (>= 4.2.0)
-    shrine (2.19.4)
+    shrine (3.4.0)
       content_disposition (~> 1.0)
-      down (>= 4.1, < 6)
+      down (~> 5.1)
     simple_token_authentication (1.17.0)
       actionmailer (>= 3.2.6, < 7)
       actionpack (>= 3.2.6, < 7)
@@ -495,7 +495,7 @@ DEPENDENCIES
   rubocop-rake
   sassc-rails (~> 2.0)
   shoulda-matchers (~> 4.0)
-  shrine (~> 2.0.x)
+  shrine (~> 3.0.x)
   simple_token_authentication (~> 1.0)
   simplecov
   simplecov-console
