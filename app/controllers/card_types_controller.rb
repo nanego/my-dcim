@@ -5,15 +5,13 @@ class CardTypesController < ApplicationController
     @card_types = CardType.sorted
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @card_type = CardType.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @card_type = CardType.new(card_type_params)

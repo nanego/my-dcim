@@ -3,7 +3,7 @@ require File.expand_path("../../test_helper", __FILE__)
 class DomainesControllerTest < ActionController::TestCase
   setup do
     sign_in users(:one)
-    @domaine = domaines(:one)
+    @domaine = domaines(:switch)
   end
 
   test "should get index" do
@@ -41,7 +41,17 @@ class DomainesControllerTest < ActionController::TestCase
   end
 
   test "should destroy domaine" do
+    @domaine = Domaine.create
+    
     assert_difference('Domaine.count', -1) do
+      delete :destroy, params: {id: @domaine}
+    end
+
+    assert_redirected_to domaines_path
+  end
+
+  test "should not destroy domaine that have modeles" do
+    assert_difference('Domaine.count', 0) do
       delete :destroy, params: {id: @domaine}
     end
 

@@ -3,7 +3,7 @@ require File.expand_path("../../test_helper", __FILE__)
 class ArchitecturesControllerTest < ActionController::TestCase
   setup do
     sign_in users(:one)
-    @architecture = architectures(:one)
+    @architecture = architectures(:rackable)
   end
 
   test "should get index" do
@@ -41,7 +41,17 @@ class ArchitecturesControllerTest < ActionController::TestCase
   end
 
   test "should destroy architecture" do
+    @architecture = Architecture.create
+    
     assert_difference('Architecture.count', -1) do
+      delete :destroy, params: {id: @architecture}
+    end
+
+    assert_redirected_to architectures_path
+  end
+
+  test "should not destroy architecture that have modeles" do
+    assert_difference('Architecture.count', 0) do
       delete :destroy, params: {id: @architecture}
     end
 

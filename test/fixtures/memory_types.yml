@@ -1,7 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  unit: MyString
+sixteen_gb:
+  id: 1
+  quantity: 16
+  unit: Gb
 
-two:
-  unit: MyString
+thirty_two_gb:
+  id: 2
+  quantity: 32
+  unit: Gb
