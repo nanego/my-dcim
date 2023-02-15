@@ -99,3 +99,6 @@ gem 'letter_opener', group: :development
 
 # Geocode Sites positions
 gem 'geocoder'
+
+gem "importmap-rails", "~> 1.1"
+gem "stimulus-rails", "~> 1.2"
