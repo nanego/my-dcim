@@ -54,10 +54,15 @@ class ManufacturersController < ApplicationController
   # DELETE /manufacturers/1
   # DELETE /manufacturers/1.json
   def destroy
-    @manufacturer.destroy
-    respond_to do |format|
-      format.html { redirect_to manufacturers_url, notice: 'Manufacturer a bien été supprimé.' }
-      format.json { head :no_content }
+    if @manufacturer.destroy
+      respond_to do |format|
+        format.html { redirect_to manufacturers_url, notice: 'Manufacturer a bien été supprimé.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to manufacturers_url, alert: @manufacturer.errors.full_messages_for(:base).join(", ") }
+      end
     end
   end
 

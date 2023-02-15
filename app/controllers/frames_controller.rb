@@ -72,10 +72,15 @@ class FramesController < ApplicationController
 
   def destroy
     @frame = Frame.friendly.find(params[:id].to_s.downcase)
-    @frame.destroy
-    respond_to do |format|
-      format.html { redirect_to frames_url, notice: 'Frame a bien été supprimé.' }
-      format.json { head :no_content }
+    if @frame.destroy
+      respond_to do |format|
+        format.html { redirect_to frames_url, notice: 'Frame a bien été supprimé.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to frames_url, alert: @frame.errors.full_messages_for(:base).join(", ") }
+      end
     end
   end
 

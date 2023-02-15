@@ -1,4 +1,4 @@
-require File.expand_path("../../test_helper", __FILE__)
+require 'test_helper'
 
 class RoomsControllerTest < ActionController::TestCase
   setup do
@@ -67,10 +67,20 @@ class RoomsControllerTest < ActionController::TestCase
   end
 
   test "should destroy room" do
+    @room = Room.create
+
     assert_difference('Room.count', -1) do
       delete :destroy, params: {id: @room}
     end
 
     assert_redirected_to rooms_path
   end
+
+  # test "should not destroy room that have islets" do
+  #   assert_difference('Room.count', 0) do
+  #     delete :destroy, params: {id: @room}
+  #   end
+
+  #   assert_redirected_to rooms_path
+  # end
 end

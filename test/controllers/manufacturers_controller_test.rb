@@ -3,7 +3,7 @@ require File.expand_path("../../test_helper", __FILE__)
 class ManufacturersControllerTest < ActionController::TestCase
   setup do
     sign_in users(:one)
-    @manufacturer = manufacturers(:one)
+    @manufacturer = manufacturers(:fortinet)
   end
 
   test "should get index" do
@@ -41,7 +41,17 @@ class ManufacturersControllerTest < ActionController::TestCase
   end
 
   test "should destroy manufacturer" do
+    @manufacturer = Manufacturer.create
+
     assert_difference('Manufacturer.count', -1) do
+      delete :destroy, params: {id: @manufacturer}
+    end
+
+    assert_redirected_to manufacturers_path
+  end
+
+  test "should not destroy manufacturer that have modeles" do
+    assert_difference('Manufacturer.count', 0) do
       delete :destroy, params: {id: @manufacturer}
     end
 

@@ -54,10 +54,15 @@ class GestionsController < ApplicationController
   # DELETE /gestions/1
   # DELETE /gestions/1.json
   def destroy
-    @gestion.destroy
-    respond_to do |format|
-      format.html { redirect_to gestions_url, notice: 'Gestion a bien été supprimé.' }
-      format.json { head :no_content }
+    if @gestion.destroy
+      respond_to do |format|
+        format.html { redirect_to gestions_url, notice: 'Gestion a bien été supprimé.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to gestions_url, alert: @gestion.errors.full_messages_for(:base).join(", ") }
+      end
     end
   end
 

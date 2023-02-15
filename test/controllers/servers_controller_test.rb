@@ -82,6 +82,7 @@ class ServersControllerTest < ActionController::TestCase
         rj45_futur: @server.rj45_futur,
         rj45_total: @server.rj45_total,
         rj45_utilise: @server.rj45_utilise,
+        stack_id: @server.stack_id,
         frame_id: @server.frame_id}}
     assert_response 200
     assert_equal assigns(:server), @server
@@ -106,6 +107,7 @@ class ServersControllerTest < ActionController::TestCase
         rj45_futur: @server.rj45_futur,
         rj45_total: @server.rj45_total,
         rj45_utilise: @server.rj45_utilise,
+        stack_id: @server.stack_id,
         frame_id: @server.frame_id}}
     assert_redirected_to server_path(assigns(:server))
     assert_empty assigns(:server).errors.details[:numero]

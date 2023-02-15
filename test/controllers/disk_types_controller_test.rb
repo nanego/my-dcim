@@ -3,7 +3,7 @@ require 'test_helper'
 class DiskTypesControllerTest < ActionController::TestCase
   setup do
     sign_in users(:one)
-    @disk_type = disk_types(:one)
+    @disk_type = disk_types(:ssd)
   end
 
   test "should get index" do
@@ -41,8 +41,18 @@ class DiskTypesControllerTest < ActionController::TestCase
   end
 
   test "should destroy disk_type" do
+    @disk_type = DiskType.create
+    
     assert_difference('DiskType.count', -1) do
       delete :destroy, params: { id: @disk_type }
+    end
+
+    assert_redirected_to disk_types_path
+  end
+
+  test "should not destroy disk_type that have disks" do
+    assert_difference('DiskType.count', 0) do
+      delete :destroy, params: {id: @disk_type}
     end
 
     assert_redirected_to disk_types_path

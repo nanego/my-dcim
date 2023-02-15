@@ -3,7 +3,7 @@ require 'test_helper'
 class MemoryTypesControllerTest < ActionController::TestCase
   setup do
     sign_in users(:one)
-    @memory_type = memory_types(:one)
+    @memory_type = memory_types(:sixteen_gb)
   end
 
   test "should get index" do
@@ -41,7 +41,17 @@ class MemoryTypesControllerTest < ActionController::TestCase
   end
 
   test "should destroy memory_type" do
+    @memory_type = MemoryType.create
+    
     assert_difference('MemoryType.count', -1) do
+      delete :destroy, params: {id: @memory_type}
+    end
+
+    assert_redirected_to memory_types_path
+  end
+
+  test "should not destroy memory_type that have memory_components" do
+    assert_difference('MemoryType.count', 0) do
       delete :destroy, params: {id: @memory_type}
     end
 

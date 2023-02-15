@@ -1,10 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-switch:
+red:
   id: 1
-  name: Switch
-  description: Description
+  name: rouge
+  color: ee3b3b
 
-stock:
+orange:
   id: 2
-  name: Stock
+  name: orange

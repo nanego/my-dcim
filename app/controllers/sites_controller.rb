@@ -42,10 +42,15 @@ class SitesController < ApplicationController
   end
 
   def destroy
-    @site.destroy
-    respond_to do |format|
-      format.html { redirect_to sites_url, notice: 'Site a bien été supprimé.' }
-      format.json { head :no_content }
+    if @site.destroy
+      respond_to do |format|
+        format.html { redirect_to sites_url, notice: 'Site a bien été supprimé.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to sites_url, alert: @site.errors.full_messages_for(:base).join(", ") }
+      end
     end
   end
 
