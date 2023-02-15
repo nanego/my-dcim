@@ -1,7 +1,7 @@
 class Islet < ActiveRecord::Base
 
   belongs_to :room, counter_cache: true
-  has_many :bays
+  has_many :bays, dependent: :restrict_with_error
   has_many :frames, through: :bays
   has_many :servers, through: :frames
   has_many :materials, through: :frames
@@ -18,5 +18,4 @@ class Islet < ActiveRecord::Base
   def name_with_room
     "#{room} #{name.blank? ? "" : 'Ilot ' + name}"
   end
-
 end

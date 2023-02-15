@@ -41,7 +41,15 @@ class GestionsControllerTest < ActionController::TestCase
   end
 
   test "should destroy gestion" do
+    @gestion = Gestion.create
+    
     assert_difference('Gestion.count', -1) do
+      delete :destroy, params: {id: @gestion}
+    end
+  end
+
+  test "should not destroy gestion it has many servers Server n°1 & 2" do
+    assert_difference('Gestion.count', 0) do
       delete :destroy, params: {id: @gestion}
     end
 

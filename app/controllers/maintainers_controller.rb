@@ -54,10 +54,15 @@ class MaintainersController < ApplicationController
   # DELETE /maintainers/1
   # DELETE /maintainers/1.json
   def destroy
-    @maintainer.destroy
-    respond_to do |format|
-      format.html { redirect_to maintainers_url, notice: 'Maintainer a bien été supprimé.' }
-      format.json { head :no_content }
+    if @maintainer.destroy
+      respond_to do |format|
+        format.html { redirect_to maintainers_url, notice: 'Maintainer a bien été supprimé.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to maintainers_url, alert: @maintainer.errors.full_messages_for(:base).join(", ") }
+      end
     end
   end
 

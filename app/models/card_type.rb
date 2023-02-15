@@ -6,7 +6,7 @@ class CardType < ActiveRecord::Base
   belongs_to :port_type
   delegate :is_power_input?, to: :port_type, :allow_nil => true
 
-  has_many :cards
+  has_many :cards, dependent: :restrict_with_error
   has_many :servers, through: :cards
 
   scope :sorted, -> { order('port_type_id', 'port_quantity asc') }

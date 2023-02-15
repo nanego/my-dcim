@@ -54,10 +54,15 @@ class DomainesController < ApplicationController
   # DELETE /domaines/1
   # DELETE /domaines/1.json
   def destroy
-    @domaine.destroy
-    respond_to do |format|
-      format.html { redirect_to domaines_url, notice: 'Domaine a bien été supprimé.' }
-      format.json { head :no_content }
+    if @domaine.destroy
+      respond_to do |format|
+        format.html { redirect_to domaines_url, notice: 'Domaine a bien été supprimé.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to domaines_url, alert: @domaine.errors.full_messages_for(:base).join(", ") }
+      end
     end
   end
 

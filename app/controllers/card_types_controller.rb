@@ -5,15 +5,13 @@ class CardTypesController < ApplicationController
     @card_types = CardType.sorted
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @card_type = CardType.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @card_type = CardType.new(card_type_params)
@@ -46,10 +44,15 @@ class CardTypesController < ApplicationController
   # DELETE /card_types/1
   # DELETE /card_types/1.json
   def destroy
-    @card_type.destroy
-    respond_to do |format|
-      format.html {redirect_to({action: 'index'}, notice: 'card_type a bien été supprimé.')}
-      format.json {head :no_content}
+    if @card_type.destroy
+      respond_to do |format|
+        format.html { redirect_to({action: 'index'}, notice: 'card_type a bien été supprimé.') }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to({action: 'index'}, alert: @card_type.errors.full_messages_for(:base).join(", ")) }
+      end
     end
   end
 

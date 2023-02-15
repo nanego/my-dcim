@@ -54,10 +54,15 @@ class MemoryTypesController < ApplicationController
   # DELETE /memory_types/1
   # DELETE /memory_types/1.json
   def destroy
-    @memory_type.destroy
-    respond_to do |format|
-      format.html { redirect_to memory_types_url, notice: 'Memory type a bien été supprimé.' }
-      format.json { head :no_content }
+    if @memory_type.destroy
+      respond_to do |format|
+        format.html { redirect_to memory_types_url, notice: 'Memory type a bien été supprimé.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to memory_types_url, alert: @memory_type.errors.full_messages_for(:base).join(", ") }
+      end
     end
   end
 

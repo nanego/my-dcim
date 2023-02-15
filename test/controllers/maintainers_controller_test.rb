@@ -3,7 +3,7 @@ require 'test_helper'
 class MaintainersControllerTest < ActionController::TestCase
   setup do
     sign_in users(:one)
-    @maintainer = maintainers(:one)
+    @maintainer = maintainers(:dell)
   end
 
   test "should get index" do
@@ -41,7 +41,17 @@ class MaintainersControllerTest < ActionController::TestCase
   end
 
   test "should destroy maintainer" do
+    @maintainer = Maintainer.create
+
     assert_difference('Maintainer.count', -1) do
+      delete :destroy, params: {id: @maintainer}
+    end
+
+    assert_redirected_to maintainers_path
+  end
+
+  test "should not destroy maintainer that have maintenance_contracts" do
+    assert_difference('Maintainer.count', 0) do
       delete :destroy, params: {id: @maintainer}
     end
 

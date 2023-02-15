@@ -54,10 +54,15 @@ class ArchitecturesController < ApplicationController
   # DELETE /architectures/1
   # DELETE /architectures/1.json
   def destroy
-    @architecture.destroy
-    respond_to do |format|
-      format.html { redirect_to architectures_url, notice: 'Architecture a bien été supprimé.' }
-      format.json { head :no_content }
+    if @architecture.destroy
+      respond_to do |format|
+        format.html { redirect_to architectures_url, notice: 'Architecture a bien été supprimé.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to architectures_url, alert: @architecture.errors.full_messages_for(:base).join(", ") }
+      end
     end
   end
 

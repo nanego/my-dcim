@@ -1,27 +1,42 @@
-<div class="page-header">
-  <%= link_to new_memory_type_path, class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-plus"></span>
-    New Memory type
-  <% end %>
-  <h1>Listing memory_types</h1>
-</div>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Paramètres' => modeles_url, 'Memory type' => ''} %>
 
-<div class="table-responsive">
-  <table class="table table-striped table-bordered table-hover">
-    <thead>
-      <tr>
-        <th>Nom</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
+<div class="container-fluid">
 
-    <tbody>
-      <%= content_tag_for(:tr, @memory_types) do |memory_type| %>
-        <td><%= memory_type %></td>
-        <td><%= link_to 'Edit', edit_memory_type_path(memory_type) %></td>
-        <td><%= link_to 'Destroy', memory_type, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' %></td>
-      <% end %>
-    </tbody>
-  </table>
+  <div class="row">
+
+    <div class="col-md-3">
+      <%= render 'pages/params_menu' %>
+    </div>
+
+    <div class="col-md-9">
+
+      <div class="page-header">
+        <%= link_to new_memory_type_path, class: 'btn btn-primary' do %>
+          <span class="glyphicon glyphicon-plus"></span>
+          New Memory type
+        <% end %>
+        <h1>Listing memory_types</h1>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <%= content_tag_for(:tr, @memory_types) do |memory_type| %>
+              <td><%= memory_type %></td>
+              <td><%= link_to 'Edit', edit_memory_type_path(memory_type) %></td>
+              <td><%= link_to 'Destroy', memory_type, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' %></td>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

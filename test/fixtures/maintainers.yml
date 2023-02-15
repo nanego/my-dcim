@@ -1,7 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+dell:
+  id: 1
+  name: Dell
 
-two:
-  name: MyString
+scc:
+  id: 2
+  name: SCC

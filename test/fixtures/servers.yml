@@ -20,6 +20,7 @@ one:
   rj45_cm: 1
   ipmi_dedie: 1
   position: 39
+  stack_id: 1
 
 two:
   id: 2
@@ -41,6 +42,28 @@ two:
   rj45_cm: 1
   ipmi_dedie: 1
   position: 38
+  stack_id: 1
+
+with_cluster:
+  frame_id: 1
+  name: ServerName3
+  modele_id: 1
+  numero: ABCDEFG33
+  cluster_id: 1
+  critique: false
+  domaine_id: 1
+  gestion_id: 1
+  fc_total: 1
+  fc_utilise: 1
+  rj45_total: 1
+  rj45_utilise: 1
+  rj45_futur: 1
+  ipmi_utilise: 1
+  ipmi_futur: 1
+  rj45_cm: 1
+  ipmi_dedie: 1
+  position: 39
+  stack_id: 1
 
 pdu:
   id: 3

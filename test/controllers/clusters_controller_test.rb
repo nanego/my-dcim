@@ -3,7 +3,7 @@ require File.expand_path("../../test_helper", __FILE__)
 class ClustersControllerTest < ActionController::TestCase
   setup do
     sign_in users(:one)
-    @cluster = clusters(:one)
+    @cluster = clusters(:cloud_c1)
   end
 
   test "should get index" do
@@ -41,7 +41,17 @@ class ClustersControllerTest < ActionController::TestCase
   end
 
   test "should destroy cluster" do
+    @cluster = Cluster.create
+    
     assert_difference('Cluster.count', -1) do
+      delete :destroy, params: {id: @cluster}
+    end
+
+    assert_redirected_to clusters_path
+  end
+
+  test "should not destroy cluster that have servers" do
+    assert_difference('Cluster.count', 0) do
       delete :destroy, params: {id: @cluster}
     end
 

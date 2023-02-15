@@ -54,10 +54,15 @@ class ClustersController < ApplicationController
   # DELETE /clusters/1
   # DELETE /clusters/1.json
   def destroy
-    @cluster.destroy
-    respond_to do |format|
-      format.html { redirect_to clusters_url, notice: 'Cluster a bien été supprimé.' }
-      format.json { head :no_content }
+    if @cluster.destroy
+      respond_to do |format|
+        format.html { redirect_to clusters_url, notice: 'Cluster a bien été supprimé.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to clusters_url, alert: @cluster.errors.full_messages_for(:base).join(", ") }
+      end
     end
   end
 

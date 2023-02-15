@@ -1,9 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  description: MyText
+fortinet:
+  id: 1
+  name: fortinet
+  description: firewall
 
-two:
-  name: MyString
-  description: MyText
+juniper:
+  id: 2
+  name: juniper
