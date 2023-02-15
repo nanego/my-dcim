@@ -3,7 +3,6 @@
     <div class="alert alert-danger alert-dismissable" role="alert">
       <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
       <h4><%= pluralize(@modele.errors.count, "erreur", "erreurs") %> lors de la sauvegarde :</h4>
-
       <ul>
       <% @modele.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -42,9 +41,7 @@
       <%= f.text_field :color, class: "form-control", style: "background-color:#{f.object.color};" %>
     </div>
   </div>
-
   <div>
-
     <%= content_tag :span, 'Composants', class: "col-sm-2 control-label" %>
     <%= f.fields_for :enclosures do |builder| %>
         <%= render "enclosure_fields", :f => builder %>
