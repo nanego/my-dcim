@@ -87,8 +87,7 @@ GEM
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
-    binding_of_caller (1.0.0)
-      debug_inspector (>= 0.0.1)
+    bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
     bootstrap-generators (3.3.4)
@@ -121,7 +120,6 @@ GEM
     datagrid (1.6.1)
       rails (>= 4.0)
     date (3.3.3)
-    debug_inspector (1.0.0)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     devise (4.8.1)
@@ -164,7 +162,7 @@ GEM
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
-    ffi (1.14.2)
+    ffi (1.15.5)
     friendly_id (5.4.2)
       activerecord (>= 4.0.0)
     geocoder (1.8.0)
@@ -209,7 +207,7 @@ GEM
     letter_opener (1.7.0)
       launchy (~> 2.2)
     libv8-node (16.10.0.0)
-    listen (3.4.1)
+    listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     loofah (2.19.1)
@@ -322,7 +320,7 @@ GEM
       thor (~> 1.0)
     rainbow (3.1.1)
     rake (13.0.6)
-    rb-fsevent (0.10.4)
+    rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     record_tag_helper (1.0.1)
@@ -430,11 +428,11 @@ GEM
       equalizer (~> 0.0, >= 0.0.9)
     warden (1.2.9)
       rack (>= 2.0.9)
-    web-console (2.3.0)
-      activemodel (>= 4.0)
-      binding_of_caller (>= 0.7.2)
-      railties (>= 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
+    web-console (4.2.0)
+      actionview (>= 6.0.0)
+      activemodel (>= 6.0.0)
+      bindex (>= 0.4.0)
+      railties (>= 6.0.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -476,7 +474,7 @@ DEPENDENCIES
   jquery-ui-rails
   kaminari
   letter_opener
-  listen (~> 3.2)
+  listen (~> 3.3)
   meta_request
   mini_racer
   nokogiri (~> 1.13, >= 1.13.6)
@@ -509,7 +507,7 @@ DEPENDENCIES
   stimulus-rails (~> 1.2)
   terser
   virtus
-  web-console (~> 2.0)
+  web-console (>= 4.1.0)
   wicked_pdf
   wkhtmltopdf-binary
 
