@@ -11,13 +11,13 @@ gem 'jquery-ui-rails'
 gem 'nokogiri', '~> 1.13', '>= 1.13.6'
 gem 'rails-i18n', '~> 6.0.x'
 gem 'sassc-rails', '~> 2.0'
-gem 'sprockets', '~>3.0'
 gem 'terser'
+gem 'sprockets-rails'
 
 gem 'bootstrap-sass', '>= 3.4.1'
 gem 'bourbon'
 # gem 'bootstrap-generators', git: 'git://github.com/decioferreira/bootstrap-generators.git'
-gem 'bootstrap-generators', '~> 3.3.4'
+# gem 'bootstrap-generators', '~> 3.3.4'
 
 # Authentication
 gem 'devise'
@@ -42,6 +42,7 @@ gem 'image_processing', '~> 1.2'
 
 group :development do
   gem 'better_errors'
+  gem "binding_of_caller", "~> 1.0"
   gem 'web-console', '>= 4.1.0'
   # gem 'quiet_assets'
   gem 'listen', '~> 3.3'
