@@ -2,17 +2,17 @@
 
 source 'https://rubygems.org'
 ruby File.read('.ruby-version').strip
-gem 'rails', '~> 6.1.0'
+gem 'rails', '~> 7.0.0'
 
 gem 'administrate'
-gem 'jbuilder', '~> 2.7'
+gem 'jbuilder'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'nokogiri', '~> 1.13', '>= 1.13.6'
-gem 'rails-i18n', '~> 6.0.x'
+gem 'rails-i18n', '~> 7.0.x'
 gem 'sassc-rails', '~> 2.0'
+gem 'sprockets-rails', require: "sprockets/railtie"
 gem 'terser'
-gem 'sprockets-rails'
 
 gem 'bootstrap-sass', '>= 3.4.1'
 gem 'bourbon'
@@ -35,19 +35,19 @@ gem 'pg'
 gem 'virtus'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.4', require: false
+gem 'bootsnap', require: false
 
 # Use ActiveStorage variant
 gem 'image_processing', '~> 1.2'
 
 group :development do
-  gem 'better_errors'
-  gem "binding_of_caller", "~> 1.0"
+  # gem 'better_errors'
+  # gem "binding_of_caller", "~> 1.0"
   gem 'web-console', '>= 4.1.0'
   # gem 'quiet_assets'
   gem 'listen', '~> 3.3'
-  gem 'meta_request'
-  gem 'rails_layout'
+  # gem 'meta_request'
+  # gem 'rails_layout'
 end
 group :development, :test do
   gem 'active_record_doctor'
@@ -64,7 +64,7 @@ group :development, :test do
 
   # gem "formulaic"
   gem "rails-controller-testing"
-  gem "rspec-rails", "~> 4.0"
+  gem "rspec-rails"
   gem "simplecov", require: false
   gem "simplecov-console", require: false
   # gem "sinatra", require: false
@@ -76,7 +76,7 @@ group :test do
   # gem 'minitest-rails-capybara'
 
   gem 'capybara', '>= 2.15'
-  gem "shoulda-matchers", "~> 4.0"
+  gem "shoulda-matchers"
 end
 
 group :production do
