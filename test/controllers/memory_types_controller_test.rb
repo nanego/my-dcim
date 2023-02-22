@@ -44,7 +44,7 @@ class MemoryTypesControllerTest < ActionController::TestCase
 
   test "should destroy memory_type" do
     @memory_type = MemoryType.create
-    
+
     assert_difference('MemoryType.count', -1) do
       delete :destroy, params: {id: @memory_type}
     end

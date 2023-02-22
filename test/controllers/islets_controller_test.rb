@@ -35,7 +35,7 @@ class IsletsControllerTest < ActionController::TestCase
 
   test "should destroy islet" do
     @islet = Islet.create
-    
+
     assert_difference('Islet.count', -1) do
       delete :destroy, params: {id: @islet}
     end

@@ -44,7 +44,7 @@ class DomainesControllerTest < ActionController::TestCase
 
   test "should destroy domaine" do
     @domaine = Domaine.create
-    
+
     assert_difference('Domaine.count', -1) do
       delete :destroy, params: {id: @domaine}
     end

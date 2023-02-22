@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path("../../test_helper", __FILE__)
 
 class StacksControllerTest < ActionController::TestCase
@@ -38,8 +40,8 @@ class StacksControllerTest < ActionController::TestCase
   end
 
   test "should update stack" do
-    patch :update, params: { 
-      id: @stack, 
+    patch :update, params: {
+      id: @stack,
       stack: { name: @stack.name, color: @stack.color }
     }
 
@@ -48,7 +50,7 @@ class StacksControllerTest < ActionController::TestCase
 
   test "should destroy stack" do
     @stack = Stack.create
-    
+
     assert_difference('Stack.count', -1) do
       delete :destroy, params: { id: @stack }
     end
