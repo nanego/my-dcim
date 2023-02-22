@@ -11,11 +11,12 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: breadcrumb_variables %>
 
 <div class="container-fluid" id="bay-container">
-  <%= render 'servers/room',
-             room: @bay.room,
-             islets: @servers_per_frames[@bay.islet.room_id],
-             title: @bay.frames.size > 1 ? "Double baie #{@bay}" : @bay,
-             view_side: params[:view] %>
+  <%= render partial: 'servers/room', locals: {
+              room: @bay.room,
+              islets: @servers_per_frames[@bay.islet.room_id],
+              title: @bay.frames.size > 1 ? "Double baie #{@bay}" : @bay,
+              view_side: params[:view],
+  } %>
 </div>
 
 <%= render 'servers/modal_add_element_in_frame' %>
