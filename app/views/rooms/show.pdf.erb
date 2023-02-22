@@ -1,5 +1,5 @@
 <div class="container-fluid">
   <% @servers_per_frames.each do |room, islets| %>
-    <%= render partial: 'servers/room', formats: :html, locals: { room: @room, islets: islets, view_side: params[:view] } %>
+    <%= render partial: 'servers/room', formats: :html, locals: { room: @room, islets: islets, view_side: params[:view], pdf: true } %>
   <% end %>
 </div>

@@ -1,5 +1,5 @@
 <% settings = Frame.settings.merge({:min_height => params[:view] == 'back' ? 20 : 27}) %>
-<%= render 'rooms/action_buttons', view_side: Frame.view_sides[:both] if formats != [:pdf] %>
+<%= render 'rooms/action_buttons', view_side: Frame.view_sides[:both] unless local_assigns[:pdf] == true %>
 
 <div id="<%= @room.try(:name).try(:parameterize).try(:underscore) %>">
 
@@ -11,7 +11,6 @@
         <% end %>
 
         <div class="row">
-
           <ul class="frames <%= params[:view] %>"
               style="padding: 0;"
               data-update-url="<%= sort_frames_path %>"
@@ -29,14 +28,10 @@
             <div class="hidden-xs col-sm-2">
               <%= render partial: 'pdus/show', locals: {frame: @frame} %>
             </div>
-
           </ul>
         </div>
-
       </div>
-
     </div>
-
   </div>
 
 </div>
