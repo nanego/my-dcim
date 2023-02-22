@@ -8,7 +8,7 @@ class DynamicFullHostTest < ActiveSupport::TestCase
       'REQUEST_METHOD' => 'GET',
       'PATH_INFO' => path,
       'rack.session' => {},
-      'rack.input' => StringIO.new('test=true'),
+      'rack.input' => StringIO.new('test=true')
     }.merge(props)
   end
 

@@ -131,7 +131,7 @@ class Server < ApplicationRecord
   def slug_candidates
     [
       :name,
-      [:name, :id],
+      [:name, :id]
     ]
   end
 

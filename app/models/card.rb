@@ -8,7 +8,7 @@ class Card < ApplicationRecord
   tracked :parameters => {
     :card_type => :card_type,
     :server => :server,
-    :composant => :composant,
+    :composant => :composant
   }
 
   belongs_to :card_type, optional: true

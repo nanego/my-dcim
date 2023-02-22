@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path("../../test_helper", __FILE__)
 
 class CardTypesControllerTest < ActionController::TestCase
@@ -38,12 +40,12 @@ class CardTypesControllerTest < ActionController::TestCase
   end
 
   test "should update card_type" do
-    patch :update, params: { 
-      id: @card_type, 
-      card_type: { 
+    patch :update, params: {
+      id: @card_type,
+      card_type: {
         port_quantity: @card_type.port_quantity,
         name: @card_type.name,
-        port_type_id: @card_type.port_type_id,
+        port_type_id: @card_type.port_type_id
       }
     }
 
@@ -52,7 +54,7 @@ class CardTypesControllerTest < ActionController::TestCase
 
   test "should destroy card_type" do
     @card_type = CardType.create
-    
+
     assert_difference('CardType.count', -1) do
       delete :destroy, params: { id: @card_type }
     end
