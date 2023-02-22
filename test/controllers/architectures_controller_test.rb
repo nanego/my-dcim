@@ -44,7 +44,7 @@ class ArchitecturesControllerTest < ActionController::TestCase
 
   test "should destroy architecture" do
     @architecture = Architecture.create
-    
+
     assert_difference('Architecture.count', -1) do
       delete :destroy, params: {id: @architecture}
     end

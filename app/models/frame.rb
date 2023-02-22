@@ -150,7 +150,7 @@ class Frame < ApplicationRecord
   def slug_candidates
     [
         :name,
-        [:name, :id],
+        [:name, :id]
     ]
   end
 end

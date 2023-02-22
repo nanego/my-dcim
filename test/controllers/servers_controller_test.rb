@@ -69,7 +69,7 @@ class ServersControllerTest < ActionController::TestCase
 
   test "should NOT update server if numero is a server name" do
     patch :update, params: {id: @server, server: {
-        cluster: @server.cluster,
+      cluster: @server.cluster,
         critique: @server.critique,
         domaine_id: @server.domaine_id,
         fc_total: @server.fc_total,
@@ -94,7 +94,7 @@ class ServersControllerTest < ActionController::TestCase
 
   test "should update server if numero is equal to own server name" do
     patch :update, params: {id: @server, server: {
-        cluster: @server.cluster,
+      cluster: @server.cluster,
         critique: @server.critique,
         domaine_id: @server.domaine_id,
         fc_total: @server.fc_total,
@@ -123,7 +123,7 @@ class ServersControllerTest < ActionController::TestCase
     assert_redirected_to server_path(assigns(:server))
 
     # test new name
-    response = get :show, params: {id: new_name}
+    get :show, params: {id: new_name}
     assert_response :success
     assert_equal assigns(:server), @server
 
@@ -141,7 +141,7 @@ class ServersControllerTest < ActionController::TestCase
     assert_redirected_to server_path(assigns(:server))
 
     # test new card
-    response = get :show, params: {id: @server.name}
+    get :show, params: {id: @server.name}
     assert_response :success
     assert_equal assigns(:server), @server
 

@@ -44,7 +44,7 @@ class BaysControllerTest < ActionController::TestCase
 
   test "should destroy bay" do
     @bay = Bay.create
-    
+
     assert_difference('Bay.count', -1) do
       delete :destroy, params: {id: @bay}
     end

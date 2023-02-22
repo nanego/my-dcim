@@ -44,7 +44,7 @@ class DiskTypesControllerTest < ActionController::TestCase
 
   test "should destroy disk_type" do
     @disk_type = DiskType.create
-    
+
     assert_difference('DiskType.count', -1) do
       delete :destroy, params: { id: @disk_type }
     end
