@@ -97,8 +97,8 @@ class MovesController < ApplicationController
     else
       @moved_connection = MovedConnection.new(port_from_id: params[:port_id],
                                               vlans: @selected_port.vlans,
-                                              cablename: @selected_port.cablename,
-                                              color: @selected_port.color)
+                                              cablename: @selected_port.cablename || @selected_port.cable_name,
+                                              color: @selected_port.color || @selected_port.cable_color)
       @destination_port = @selected_port.connection.try(:paired_connection).try(:port)
     end
   end
