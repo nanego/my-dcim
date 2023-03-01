@@ -41,8 +41,8 @@ gem 'bootsnap', require: false
 gem 'image_processing', '~> 1.2'
 
 group :development do
-  gem 'web-console', '>= 4.1.0'
   gem 'listen', '~> 3.3'
+  gem 'web-console', '>= 4.1.0'
 end
 group :development, :test do
   gem 'active_record_doctor'
