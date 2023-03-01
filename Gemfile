@@ -41,13 +41,8 @@ gem 'bootsnap', require: false
 gem 'image_processing', '~> 1.2'
 
 group :development do
-  # gem 'better_errors'
-  # gem "binding_of_caller", "~> 1.0"
   gem 'web-console', '>= 4.1.0'
-  # gem 'quiet_assets'
   gem 'listen', '~> 3.3'
-  # gem 'meta_request'
-  # gem 'rails_layout'
 end
 group :development, :test do
   gem 'active_record_doctor'
