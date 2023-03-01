@@ -115,7 +115,7 @@ class Port < ApplicationRecord
   def remove_unused_connections(ports)
     ports.reject(&:blank?).each do |port|
       old_port_destination = port.paired_connection.try(:port)
-      if old_port_destination.present? && !ports.include?(old_port_destination)
+      if old_port_destination.present? && ports.exclude?(old_port_destination)
         old_port_destination.connection.cable.destroy
       end
     end
