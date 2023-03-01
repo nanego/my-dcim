@@ -138,6 +138,9 @@ module ServersHelper
       position = (row_index * card_type.columns * ports_per_cell) +
           (column_index * ports_per_cell) +
           position_in_cell
+    when 'rl-td'
+      position = max_aligned_ports - ((row_index * card_type.columns * ports_per_cell) +
+          (column_index * ports_per_cell) + cell_index)
     else #'lr-td'
       position = (row_index * card_type.columns * ports_per_cell) +
           (column_index * ports_per_cell) +
@@ -150,7 +153,7 @@ module ServersHelper
     case orientation
     when 'dt-lr', 'td-lr'
       (ports_per_cell.to_i / max_aligned_ports.to_i).to_i
-    else # lr-td
+    else # lr-td, rl-td
       max_aligned_ports.to_i
     end
   end
