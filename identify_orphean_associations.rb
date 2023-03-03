@@ -40,17 +40,17 @@ puts
 orpheans.each do |model, records|
   puts "--- #{model.name} ---"
 
-  # records.each do |record, associations|
-  #   print "#{model.name}\##{record.id} - associations missing on "
+  records.each do |record, associations|
+    print "#{model.name}\##{record.id} - associations missing on "
 
-  #   a = associations.map do |association, id|
-  #     "#{association.name}=#{id}"
-  #   end
+    a = associations.map do |association, id|
+      "#{association.name}=#{id}"
+    end
 
-  #   print a&.join(", ")
+    print a&.join(", ")
 
-  #   print "\n"
-  # end
+    print "\n"
+  end
 
-  # puts
+  puts
 end
