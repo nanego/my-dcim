@@ -6,7 +6,7 @@ class AddMissingForeignKeysToExistingTables < ActiveRecord::Migration[5.2]
     # add_foreign_key :moved_connections, :port_tos
 
     add_foreign_key :moves, :frames
-    # add_foreign_key :moves, :prev_frames
+    add_foreign_key :moves, :frames, column: :prev_frame_id
 
     add_foreign_key :modeles, :manufacturers
     add_foreign_key :modeles, :architectures
