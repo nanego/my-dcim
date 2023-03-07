@@ -188,7 +188,9 @@
           <% end %>
         <% end
            rescue Timeout::Error => e
-             Rails.logger.warn "WARNING: couldn't get GLPI data because the operation timed out" %>
+             Rails.logger.warn "WARNING: couldn't get GLPI data because the operation timed out"
+           rescue Exception => e
+             Rails.logger.warn "WARNING: couldn't get GLPI data because of an error: #{e.message}" %>
         <div class="panel-body">
           Problème lors de la connexion à GLPI
         </div>
