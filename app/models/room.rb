@@ -7,9 +7,9 @@ class Room < ActiveRecord::Base
   tracked owner: ->(controller, model) { controller && controller.current_user }
 
   has_many :islets, dependent: :restrict_with_error
-  has_many :bays, through: :islets, dependent: :restrict_with_error
-  has_many :frames, through: :bays, dependent: :restrict_with_error
-  has_many :materials, through: :frames, dependent: :restrict_with_error
+  has_many :bays, through: :islets
+  has_many :frames, through: :bays
+  has_many :materials, through: :frames
 
   belongs_to :site
 
