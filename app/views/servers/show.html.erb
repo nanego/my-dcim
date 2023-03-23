@@ -192,7 +192,7 @@
            rescue Exception => e
              Rails.logger.warn "WARNING: couldn't get GLPI data because of an error: #{e.message}" %>
         <div class="panel-body">
-          Problème lors de la connexion à GLPI
+          Problème lors de la connexion à GLPI : <pre><code><%= e&.message.to_s %></code></pre>
         </div>
       <% end
       %>
