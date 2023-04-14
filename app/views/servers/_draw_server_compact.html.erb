@@ -71,6 +71,7 @@
 
 <%= link_to h(server.name), server_path(server, :view => params[:view]), {class: 'pull-left server_name', style: 'padding-left: 14px;', :data => {'toggle': "tooltip", 'placement': "top"}, title: server.numero} %>
 <br>
+<% unless request.format.pdf? %>
 <span class='pull-left' style="clear:left;padding-left: 14px;">
   <%= link_to draw_connections_path(server_id: server.id),
               class: 'draw_connections_link',
@@ -82,6 +83,7 @@
     </button>
   <% end %>
 </span>
+<% end %>
 <!--
 <span class='pull-left' style="padding-left: 8px;">
   <% twin_cards_ids = server.cards.map(&:twin_card_id).uniq.reject {|c| c.blank?} if false %>
