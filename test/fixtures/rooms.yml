@@ -25,8 +25,10 @@ four:
   id: 4
   name: S4
   description: Room n°4
+  site_id: 2
 
 five:
   id: 5
   name: S5
   description: Room n°5
+  site_id: 1

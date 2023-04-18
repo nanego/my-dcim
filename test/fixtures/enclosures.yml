@@ -19,5 +19,5 @@ three:
 four:
   id: 4
   modele_id: 2
-  position: 1
+  position: 4
   display: horizontal

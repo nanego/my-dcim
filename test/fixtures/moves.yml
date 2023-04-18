@@ -1,13 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  moveable_type: Server
-  moveable_id: 1
-  position: 40
-  frame_id: 1
+# one:
+#   id: 1
+#   moveable: one (Server)
+#   position: 40
+#   frame: one
+#   prev_frame: three
 
-two:
-  moveable_type: Server
-  moveable_id: 1
-  position: 40
-  frame_id: 1
+# two:
+#   id: 2
+#   moveable: one (Server)
+#   position: 40
+#   frame: one
+#   prev_frame: three
