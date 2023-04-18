@@ -11,12 +11,12 @@ class Card < ApplicationRecord
     :composant => :composant
   }
 
-  belongs_to :card_type, optional: true
+  belongs_to :card_type
   delegate :port_quantity, to: :card_type, allow_nil: true
   delegate :is_power_input?, to: :card_type, allow_nil: true
 
-  belongs_to :server, optional: true
-  belongs_to :composant, optional: true
+  belongs_to :server
+  belongs_to :composant
   delegate :frame, to: :server
 
   has_many :ports

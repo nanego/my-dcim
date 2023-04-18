@@ -7,7 +7,7 @@ RSpec.describe MovedConnection, type: :model do
 
   describe "associations" do
     it { is_expected.to belong_to(:port_from) }
-    it { is_expected.to belong_to(:port_to) }
+    it { is_expected.to belong_to(:port_to).optional(true) }
   end
 
   describe "validations" do

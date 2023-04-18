@@ -6,9 +6,9 @@ RSpec.describe Modele, type: :model do
   let(:modele) { Modele.create(name: "Express5800 - 120RG-2") }
 
   describe "associations" do
-    it { is_expected.to belong_to(:manufacturer).optional(true) }
-    it { is_expected.to belong_to(:architecture).optional(true) }
-    it { is_expected.to belong_to(:category).optional(true) }
+    it { is_expected.to belong_to(:manufacturer) }
+    it { is_expected.to belong_to(:architecture) }
+    it { is_expected.to belong_to(:category) }
     it { is_expected.to have_many(:servers) }
     it { is_expected.to have_many(:enclosures) }
     it { is_expected.to have_many(:composants).through(:enclosures) }

@@ -74,8 +74,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_094216) do
     t.string "name"
     t.integer "lane"
     t.integer "position"
-    t.integer "bay_type_id"
-    t.integer "islet_id"
+    t.integer "bay_type_id", null: false
+    t.integer "islet_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["bay_type_id"], name: "index_bays_on_bay_type_id"
@@ -93,7 +93,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_094216) do
 
   create_table "card_types", id: :serial, force: :cascade do |t|
     t.string "name"
-    t.integer "port_type_id"
+    t.integer "port_type_id", null: false
     t.integer "port_quantity"
     t.integer "columns"
     t.integer "rows"
@@ -103,8 +103,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_094216) do
   end
 
   create_table "cards", id: :serial, force: :cascade do |t|
-    t.integer "card_type_id"
-    t.integer "server_id"
+    t.integer "card_type_id", null: false
+    t.integer "server_id", null: false
     t.integer "composant_id"
     t.integer "twin_card_id"
     t.string "orientation"
@@ -138,7 +138,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_094216) do
   end
 
   create_table "composants", id: :serial, force: :cascade do |t|
-    t.integer "type_composant_id"
+    t.integer "type_composant_id", null: false
     t.integer "position"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -149,7 +149,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_094216) do
   end
 
   create_table "connections", id: :serial, force: :cascade do |t|
-    t.integer "cable_id"
+    t.integer "cable_id", null: false
     t.integer "port_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -172,8 +172,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_094216) do
   end
 
   create_table "disks", id: :serial, force: :cascade do |t|
-    t.integer "server_id"
-    t.integer "disk_type_id"
+    t.integer "server_id", null: false
+    t.integer "disk_type_id", null: false
     t.integer "quantity"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -182,7 +182,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_094216) do
   end
 
   create_table "documents", id: :serial, force: :cascade do |t|
-    t.integer "server_id"
+    t.integer "server_id", null: false
     t.text "document_data"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -197,7 +197,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_094216) do
   end
 
   create_table "enclosures", id: :serial, force: :cascade do |t|
-    t.integer "modele_id"
+    t.integer "modele_id", null: false
     t.integer "position"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -214,7 +214,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_094216) do
     t.integer "position"
     t.integer "switch_slot"
     t.string "slug"
-    t.integer "bay_id"
+    t.integer "bay_id", null: false
     t.index ["bay_id"], name: "index_frames_on_bay_id"
     t.index ["slug"], name: "index_frames_on_slug", unique: true
   end
@@ -240,7 +240,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_094216) do
 
   create_table "islets", id: :serial, force: :cascade do |t|
     t.string "name"
-    t.integer "room_id"
+    t.integer "room_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "position"
@@ -256,11 +256,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_094216) do
   create_table "maintenance_contracts", id: :serial, force: :cascade do |t|
     t.date "start_date"
     t.date "end_date"
-    t.integer "maintainer_id"
-    t.integer "contract_type_id"
+    t.integer "maintainer_id", null: false
+    t.integer "contract_type_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.integer "server_id"
+    t.integer "server_id", null: false
     t.index ["contract_type_id"], name: "index_maintenance_contracts_on_contract_type_id"
     t.index ["maintainer_id"], name: "index_maintenance_contracts_on_maintainer_id"
     t.index ["server_id"], name: "index_maintenance_contracts_on_server_id"
@@ -275,8 +275,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_094216) do
   end
 
   create_table "memory_components", id: :serial, force: :cascade do |t|
-    t.integer "server_id"
-    t.integer "memory_type_id"
+    t.integer "server_id", null: false
+    t.integer "memory_type_id", null: false
     t.integer "quantity"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -296,7 +296,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_094216) do
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.integer "category_id"
+    t.integer "category_id", null: false
     t.integer "nb_elts"
     t.integer "architecture_id"
     t.integer "u"
@@ -322,12 +322,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_094216) do
   end
 
   create_table "moves", id: :serial, force: :cascade do |t|
-    t.string "moveable_type"
-    t.integer "moveable_id"
+    t.string "moveable_type", null: false
+    t.integer "moveable_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.integer "prev_frame_id"
-    t.integer "frame_id"
+    t.integer "prev_frame_id", null: false
+    t.integer "frame_id", null: false
     t.integer "position"
     t.index ["frame_id"], name: "index_moves_on_frame_id"
     t.index ["moveable_type", "moveable_id"], name: "index_moves_on_moveable_type_and_moveable_id"
@@ -357,7 +357,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_094216) do
     t.string "slug"
     t.integer "position"
     t.boolean "display_on_home_page"
-    t.integer "site_id"
+    t.integer "site_id", null: false
     t.integer "islets_count", default: 0
     t.index ["site_id"], name: "index_rooms_on_site_id"
     t.index ["slug"], name: "index_rooms_on_slug", unique: true
@@ -389,7 +389,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_094216) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "pdu_ondule"
     t.string "pdu_normal"
-    t.integer "frame_id"
+    t.integer "frame_id", null: false
     t.integer "fc_calcule"
     t.integer "fc_futur"
     t.string "i"
@@ -479,4 +479,28 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_094216) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bays", "bay_types"
+  add_foreign_key "bays", "islets"
+  add_foreign_key "card_types", "port_types"
+  add_foreign_key "cards", "card_types"
+  add_foreign_key "composants", "type_composants"
+  add_foreign_key "connections", "cables"
+  add_foreign_key "disks", "disk_types"
+  add_foreign_key "documents", "servers"
+  add_foreign_key "frames", "bays"
+  add_foreign_key "maintenance_contracts", "contract_types"
+  add_foreign_key "maintenance_contracts", "maintainers"
+  add_foreign_key "maintenance_contracts", "servers"
+  add_foreign_key "memory_components", "memory_types"
+  add_foreign_key "modeles", "architectures"
+  add_foreign_key "modeles", "categories"
+  add_foreign_key "modeles", "manufacturers"
+  add_foreign_key "moves", "frames"
+  add_foreign_key "moves", "frames", column: "prev_frame_id"
+  add_foreign_key "servers", "clusters"
+  add_foreign_key "servers", "frames"
+  add_foreign_key "servers", "gestions"
+  add_foreign_key "servers", "modeles"
+  add_foreign_key "servers", "server_states"
+  add_foreign_key "servers", "stacks"
 end

@@ -12,7 +12,7 @@ class Room < ApplicationRecord
   has_many :frames, through: :bays, dependent: :restrict_with_error
   has_many :materials, through: :frames, dependent: :restrict_with_error
 
-  belongs_to :site, optional: true
+  belongs_to :site
 
   scope :sorted, -> { order( :position, :site_id, :name ) }
   scope :not_empty, -> { joins(:servers) }

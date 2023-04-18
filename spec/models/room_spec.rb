@@ -6,7 +6,7 @@ RSpec.describe Room, type: :model do
   let(:room) { Room.create(name: "Petite salle") }
 
   describe "associations" do
-    it { is_expected.to belong_to(:site).optional(true) }
+    it { is_expected.to belong_to(:site) }
     it { is_expected.to have_many(:islets) }
     it { is_expected.to have_many(:bays).through(:islets) }
     it { is_expected.to have_many(:frames).through(:bays) }

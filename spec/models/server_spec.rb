@@ -6,13 +6,13 @@ RSpec.describe Server, type: :model do
   let(:server) { Server.create(name: "ACTARUS") }
 
   describe "associations" do
-    it { is_expected.to belong_to(:frame).optional(true) }
+    it { is_expected.to belong_to(:frame) }
     it { is_expected.to have_one(:bay).through(:frame) }
     it { is_expected.to have_one(:islet).through(:frame) }
     it { is_expected.to have_one(:room).through(:islet) }
     it { is_expected.to belong_to(:gestion).optional(true) }
     it { is_expected.to belong_to(:domaine).optional(true) }
-    it { is_expected.to belong_to(:modele).optional(true) }
+    it { is_expected.to belong_to(:modele) }
     it { is_expected.to belong_to(:cluster).optional(true) }
     it { is_expected.to belong_to(:server_state).optional(true) }
     it { is_expected.to belong_to(:stack).optional(true) }

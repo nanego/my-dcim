@@ -9,8 +9,8 @@ class Composant < ApplicationRecord
 
   validates_presence_of :type_composant_id
 
-  belongs_to :enclosure, optional: true
-  belongs_to :type_composant, optional: true
+  belongs_to :enclosure
+  belongs_to :type_composant
   has_one :modele, through: :enclosure
 
   has_many :cards
