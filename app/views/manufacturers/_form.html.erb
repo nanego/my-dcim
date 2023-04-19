@@ -25,6 +25,16 @@
     </div>
   </div>
   <div class="form-group">
+    <%= f.label :documentation_url, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :documentation_url, placeholder: "https://url_du_frabricant.com/suite_de_l_url/%s/reste", class: "form-control" %>
+      <span class="text-muted">
+        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+        <small>Information : il faut remplacer le numéro de série dans l'URL par <code>%s</code>.</small>
+      </span>
+    </div>
+  </div>
+  <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <%= f.submit class: "btn btn-primary" %>
     </div>

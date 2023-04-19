@@ -73,11 +73,11 @@
           <dt>Fabricant :</dt>
           <dd>
             <%= @server.modele.try(:manufacturer) %>
-            <%- if @server.modele&.manufacturer.name == "Dell" && @server.numero.present? %>
+            <% if @server.modele&.manufacturer&.documentation_url.present? && @server.numero.present? %>
               (
-                <%= link_to "Documentation", "https://www.dell.com/support/home/fr-fr/product-support/servicetag/#{@server.numero}/overview", target: :_blank, rel: :noopener %>
+                <%= link_to "Documentation", @server.documentation_url, target: :_blank, rel: :noopener %>
               )
-            <%- end %>
+            <% end %>
           </dd>
 
           <dt>Modèle :</dt>
