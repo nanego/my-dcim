@@ -126,7 +126,7 @@ class Server < ActiveRecord::Base
   end
 
   def documentation_url
-    sprintf(modele.manufacturer.documentation_url, numero)
+    sprintf(modele&.manufacturer&.documentation_url, numero)
   end
 
   private
