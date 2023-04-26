@@ -73,9 +73,9 @@
           <dt>Fabricant :</dt>
           <dd>
             <%= @server.modele.try(:manufacturer) %>
-            <% if @server.modele&.manufacturer&.documentation_url.present? && @server.numero.present? %>
+            <% if (documentation_url = @server.documentation_url).present? %>
               (
-                <%= link_to "Documentation", @server.documentation_url, target: :_blank, rel: :noopener %>
+                <%= link_to "Documentation", documentation_url, target: :_blank, rel: :noopener %>
               )
             <% end %>
           </dd>

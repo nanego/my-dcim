@@ -126,6 +126,8 @@ class Server < ActiveRecord::Base
   end
 
   def documentation_url
+    return unless modele&.manufacturer&.documentation_url.present? && numero.present? 
+
     sprintf(modele&.manufacturer&.documentation_url, numero)
   end
 
