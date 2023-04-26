@@ -21,7 +21,9 @@ class ModelesControllerTest < ActionController::TestCase
 
   test "should create modele" do
     assert_difference('Modele.count') do
-      post :create, params: {modele: { description: @modele.description, name: @modele.name, architecture_id: @modele.architecture_id, category_id: @modele.category_id, u: @modele.u }}
+      post :create, params: {
+        modele: { description: @modele.description, name: @modele.name, architecture_id: @modele.architecture_id, category_id: @modele.category_id, u: @modele.u,  manufacturer_id: @modele.manufacturer_id }
+      }
     end
     assert_redirected_to edit_modele_path(assigns(:modele))
     assert_not_nil(assigns(:modele))
@@ -40,21 +42,23 @@ class ModelesControllerTest < ActionController::TestCase
   end
 
   test "should update modele" do
-    patch :update, params:{id: @modele, modele: { description: @modele.description, name: @modele.name, architecture_id: @modele.architecture_id, category_id: @modele.category_id, u: @modele.u }}
+    patch :update, params:{ id: @modele, modele: { description: @modele.description, name: @modele.name, architecture_id: @modele.architecture_id, category_id: @modele.category_id, u: @modele.u } }
     assert_redirected_to edit_modele_path(assigns(:modele))
   end
 
   test "should destroy modele" do
-    @modele = Modele.create
+    @modele = modeles(:four)
 
     assert_difference('Modele.count', -1) do
-      delete :destroy, params: {id: @modele}
+      delete :destroy, params: { id: @modele }
     end
+
+    assert_redirected_to modeles_path
   end
 
   test "should not destroy modele it has many servers Server n°1 & 2 and pdu Pdu n°1" do
     assert_difference('Modele.count', 0) do
-      delete :destroy, params: {id: @modele}
+      delete :destroy, params: { id: @modele }
     end
 
     assert_redirected_to modeles_path

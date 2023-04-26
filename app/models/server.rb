@@ -27,7 +27,7 @@ class Server < ApplicationRecord
 
   has_many :moves, as: :moveable, dependent: :destroy
 
-  has_many :documents
+  has_many :documents, dependent: :restrict_with_error
 
   has_one_attached :photo
 
