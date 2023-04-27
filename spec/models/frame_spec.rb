@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Frame, type: :model do
-  let(:frame) { Frame.create(name: "TPB-2", slug: "tpb-2") }
+  subject(:frame) { Frame.new(name: "TPB-2", slug: "tpb-2") }
 
   describe "associations" do
     it { is_expected.to belong_to(:bay) }

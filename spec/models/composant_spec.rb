@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Composant, type: :model do
-  let(:composant) { Composant.create(name: "SL8") }
+  subject(:composant) { Composant.new(name: "SL8") }
 
   describe "associations" do
     it { is_expected.to belong_to(:type_composant) }

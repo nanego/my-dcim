@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Maintainer, type: :model do
-  let(:maintainer) { Maintainer.create(name: "Dell") }
+  subject(:maintainer) { Maintainer.new(name: "Dell") }
 
   describe "associations" do
     it { is_expected.to have_many(:maintenance_contracts) }

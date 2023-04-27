@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Islet, type: :model do
-  let(:islet) { Islet.create(name: "Bleu") }
+  subject(:islet) { Islet.new(name: "Bleu") }
 
   describe "associations" do
     it { is_expected.to belong_to(:room) }

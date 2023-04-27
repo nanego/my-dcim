@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Modele, type: :model do
-  let(:modele) { Modele.create(name: "Express5800 - 120RG-2") }
+  subject(:modele) { Modele.new(name: "Express5800 - 120RG-2") }
 
   describe "associations" do
     it { is_expected.to belong_to(:manufacturer) }

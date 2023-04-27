@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Room, type: :model do
-  let(:room) { Room.create(name: "Petite salle") }
+  subject(:room) { Room.new(name: "Petite salle") }
 
   describe "associations" do
     it { is_expected.to belong_to(:site) }

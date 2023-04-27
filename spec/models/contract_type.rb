@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe ContractType, type: :model do
-  let(:contract_type) { ContractType.create(name: "Dell Pro Support") }
+  subject(:contract_type) { ContractType.new(name: "Dell Pro Support") }
 
   describe "associations" do
     it { is_expected.to have_many(:maintenance_contracts) }

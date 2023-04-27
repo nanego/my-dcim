@@ -32,8 +32,8 @@ class Server < ApplicationRecord
   has_one_attached :photo
 
   validates_presence_of :numero
-  validates :frame_id, presence: true
-  validates :modele_id, presence: true
+  # validates :frame_id, presence: true
+  # validates :modele_id, presence: true
   validates :name, presence: true
   validates_uniqueness_of :numero
   validate :numero_cannot_be_a_current_server_name

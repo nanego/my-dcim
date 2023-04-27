@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe MovedConnection, type: :model do
-  let(:moved_connection) { MovedConnection.create(color: "bleu", cablename: "cable") }
+  subject(:moved_connection) { MovedConnection.new(color: "bleu", cablename: "cable") }
 
   describe "associations" do
     it { is_expected.to belong_to(:port_from) }

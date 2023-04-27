@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Cluster, type: :model do
-  let(:cluster) { Cluster.create(name: "Cloud-C5") }
+  subject(:cluster) { Cluster.new(name: "Cloud-C5") }
 
   describe "associations" do
     it { is_expected.to have_many(:servers) }
