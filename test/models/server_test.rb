@@ -12,4 +12,18 @@ class ServerTest < ActiveSupport::TestCase
     assert_includes Server.no_pdus, servers(:one)
   end
 
+  test '#documentation_url with no documentation_url value on manufacturer' do
+    assert_nil servers(:pdu).documentation_url
+  end
+
+  test '#documentation_url with no numero value on manufacturer' do
+    server = servers(:one)
+    server.numero = nil
+
+    assert_nil server.documentation_url
+  end
+
+  test '#documentation_url with documentation_url value on manufacturer' do
+    assert servers(:one).documentation_url == "https://fortinet.com/CZ31535FEY/document"
+  end
 end

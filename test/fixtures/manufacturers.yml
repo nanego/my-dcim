@@ -4,6 +4,7 @@ fortinet:
   id: 1
   name: fortinet
   description: firewall
+  documentation_url: "https://fortinet.com/%s/document"
 
 juniper:
   id: 2
