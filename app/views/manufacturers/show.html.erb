@@ -10,10 +10,19 @@
   <h1>Voir manufacturer</h1>
 </div>
 
-<dl class="dl-horizontal">
-  <dt>Nom :</dt>
-  <dd><%= @manufacturer %></dd>
+<div class="col-lg-6">
+  <div class="panel panel-primary">
+    <div class="panel-body">
+      <dl class="dl-horizontal">
+        <dt>Nom :</dt>
+        <dd><%= @manufacturer %></dd>
 
-  <dt>Description:</dt>
-  <dd><%= @manufacturer.description %></dd>
-</dl>
+        <dt>Description:</dt>
+        <dd><%= @manufacturer.description %></dd>
+
+        <dt>Documentation URL:</dt>
+        <dd><%= @manufacturer.documentation_url %></dd>
+      </dl>
+    </div>
+  </div>
+</div>

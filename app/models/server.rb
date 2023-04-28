@@ -125,6 +125,12 @@ class Server < ActiveRecord::Base
     Connection.includes(:cable, :port => [:card]).joins(:cable).where(cable_id: cables_ids).where.not(port_id: ports.map(&:id)).where('port_id IS NOT NULL')
   end
 
+  def documentation_url
+    return unless modele&.manufacturer&.documentation_url.present? && numero.present? 
+
+    sprintf(modele&.manufacturer&.documentation_url, numero)
+  end
+
   private
 
   def slug_candidates
