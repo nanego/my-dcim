@@ -42,7 +42,13 @@
             <td><%= islet.frames.count.to_s + ' chassis' %></td>
             <td><%= render partial: "islets/export_button", locals: { islet: islet } %></td>
             <td><%= link_to 'Modifier', edit_islet_path(islet), class: 'btn btn-primary' %></td>
-            <td><%= link_to 'Supprimer', islet, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+            <td>
+              <%= link_to 'Supprimer',
+                          islet,
+                          method: :delete,
+                          data: { confirm: 'Cet ilôt ne pourra pas être supprimé tant qu\'il sera associé à au moins une baie. Voulez-vous continuer ?' },
+                          class: 'btn btn-danger' %>
+            </td>
           <% end %>
           </tbody>
         </table>

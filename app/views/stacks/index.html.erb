@@ -36,7 +36,13 @@
                   <td><%= stack.color %></td>
               <td><%= pluralize stack.servers.count, 'machine' %></td>
               <td><%= link_to 'Modifier', edit_stack_path(stack), class: 'btn btn-default' %></td>
-              <td><%= link_to 'Supprimer', stack, method: :delete, data: { confirm: 'Est-ce que vous confirmez la suppression définitive de ce stack ?' }, class: 'btn btn-danger' %></td>
+              <td>
+                <%= link_to 'Supprimer',
+                            stack,
+                            method: :delete,
+                            data: { confirm: 'Ce stack ne pourra pas être supprimé tant qu\'il sera associé à au moins un serveur. Voulez-vous continuer ?' },
+                            class: 'btn btn-danger' %>
+              </td>
             <% end %>
           </tbody>
         </table>

@@ -50,7 +50,13 @@
                 <td><%= render partial: "bays/export_button", locals: { bay: bay } %></td>
 
                 <td><%= link_to 'Modifier', edit_bay_path(bay), class: 'btn btn-primary' %></td>
-                <td><%= link_to 'Supprimer', bay, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+                <td>
+                  <%= link_to 'Supprimer',
+                              bay,
+                              method: :delete,
+                              data: { confirm: 'Cette baie ne pourra pas être supprimée tant qu\'elle est associée à au moins un chassis. Voulez-vous continuer ?' },
+                              class: 'btn btn-danger' %>
+                </td>
               </tr>
             <% end %>
           </tbody>
