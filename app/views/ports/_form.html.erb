@@ -1,4 +1,4 @@
-<% remote |= false %>
+<% remote ||= false %>
 
 <h3> <%= "#{@port.card.try(:server)}" %></h3>
 
@@ -65,5 +65,3 @@
         loadPaletteColorPicker('[name="port[color]"]');
     });
 </script>
-
-

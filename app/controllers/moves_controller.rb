@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MovesController < ApplicationController
   before_action :set_move, only: [:show, :edit, :update, :destroy, :execute_movement]
   before_action :load_form_data, only: [:new, :edit]
@@ -7,15 +9,13 @@ class MovesController < ApplicationController
     @frames = (@moves.map(&:frame) | @moves.map(&:prev_frame)).compact.uniq
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @move = Move.new(moveable_type: 'Server')
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @move = Move.new(move_params)
@@ -39,7 +39,6 @@ class MovesController < ApplicationController
   end
 
   def update
-
     @move.prev_frame_id = @move.moveable.try(:frame_id)
 
     if params[:move][:remove_connections] == 'Oui'
@@ -89,7 +88,7 @@ class MovesController < ApplicationController
     @selected_port = Port.find(params[:port_id])
     @server = @selected_port.server
     @moved_connections = MovedConnection.per_servers([@server])
-    # TODO Deal with conflicts if there is more than 1 result
+    # TODO: Deal with conflicts if there is more than 1 result
     @moved_connection = @moved_connections.where(port_from_id: params[:port_id])
                                           .or(MovedConnection.where(port_to_id: params[:port_id])).first
     if @moved_connection.present?
@@ -151,12 +150,9 @@ class MovesController < ApplicationController
     @moved_connections = MovedConnection.per_servers(@servers)
 
     respond_to do |format|
-      format.html do
-        render 'moves/frame.html.erb'
-      end
+      format.html
       format.pdf do
-        render layout: 'pdf.html',
-               template: "moves/frame.pdf.erb",
+        render template: "moves/frame",
                show_as_html: params[:debug].present?,
                pdf: 'frame',
                zoom: 0.75
@@ -165,6 +161,7 @@ class MovesController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_move
     @move = Move.find(params[:id])

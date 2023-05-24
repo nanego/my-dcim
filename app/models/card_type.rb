@@ -1,9 +1,10 @@
-class CardType < ActiveRecord::Base
+# frozen_string_literal: true
 
+class CardType < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
 
-  belongs_to :port_type
+  belongs_to :port_type, optional: true
   delegate :is_power_input?, to: :port_type, :allow_nil => true
 
   has_many :cards, dependent: :restrict_with_error
@@ -14,5 +15,4 @@ class CardType < ActiveRecord::Base
   def to_s
     name.to_s
   end
-
 end

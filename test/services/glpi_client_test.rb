@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require File.expand_path("../../test_helper", __FILE__)
 require File.expand_path("../../../app/services/glpi_client", __FILE__)
 
 class GlpiClientTest < ActiveSupport::TestCase
-
   def test_load_computer_details_by_serial
     client = GlpiClient.new
     computer = client.computer(serial: 'AZERTY')
@@ -16,5 +17,4 @@ class GlpiClientTest < ActiveSupport::TestCase
     assert computer.processors.size == 2
     assert computer.processors.first[1]["designation"] == "Intel(R) Xeon(R) CPU E5-2660 0 @ 2.20GHz"
   end
-
 end

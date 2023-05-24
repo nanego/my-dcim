@@ -1,12 +1,13 @@
-class Modele < ActiveRecord::Base
+# frozen_string_literal: true
 
+class Modele < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
   tracked :parameters => {
-      :name => :name,
+    :name => :name,
       :categorie => :category,
       :nb_elts => :nb_elts
   }
@@ -15,9 +16,9 @@ class Modele < ActiveRecord::Base
   has_many :enclosures, dependent: :restrict_with_error
   has_many :composants, through: :enclosures
 
-  belongs_to :manufacturer
-  belongs_to :architecture
-  belongs_to :category
+  belongs_to :manufacturer, optional: true
+  belongs_to :architecture, optional: true
+  belongs_to :category, optional: true
 
   accepts_nested_attributes_for :enclosures,
                                 :allow_destroy => true,
@@ -61,5 +62,4 @@ class Modele < ActiveRecord::Base
           [:name, :id]
       ]
     end
-
 end

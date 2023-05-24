@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :admin_only, :except => :show
@@ -41,5 +43,4 @@ class UsersController < ApplicationController
   def secure_params
     params.require(:user).permit(:role)
   end
-
 end

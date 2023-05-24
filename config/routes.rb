@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
 
   resources :documents
@@ -53,7 +55,7 @@ Rails.application.routes.draw do
       post :import
     end
   end
-  
+
   resources :servers_grids, only: [:index] do
     collection do
       get :reseau
@@ -74,6 +76,7 @@ Rails.application.routes.draw do
   resources :manufacturers
   resources :architectures
   resources :categories
+
   namespace :admin do
     DashboardManifest::DASHBOARDS.each do |dashboard_resource|
       resources dashboard_resource
@@ -83,8 +86,8 @@ Rails.application.routes.draw do
   root to: 'pages#index'
   get :about, to: 'pages#about'
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks',
-                                              registrations: 'users/registrations',
-                                              sessions: 'users/sessions'}
+                                    registrations: 'users/registrations',
+                                    sessions: 'users/sessions'}
   resources :users
 
   resources :activities

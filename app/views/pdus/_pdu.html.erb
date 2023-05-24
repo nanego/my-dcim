@@ -4,6 +4,6 @@
     <%= link_to '#', class: 'pdu-line', style: "float: left;margin-left: 2px;opacity: 0.45;" do %>
       <span class="label label-default"><%= component.name ? component.name[-2..-1] : ' ' %></span>
     <% end %>
-    <%= render 'servers/draw_component.html.erb', server: pdu, component: component, selected_port: nil %>
+    <%= render partial: 'servers/draw_component', locals: { server: pdu, component: component, selected_port: nil } %>
   </div>
 <% end %>

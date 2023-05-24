@@ -1,5 +1,6 @@
-class ServersGridsController < ApplicationController
+# frozen_string_literal: true
 
+class ServersGridsController < ApplicationController
   DEFAULT_PARAMS = {"column_names"=>["id", "name", "type"]}
 
   def index
@@ -34,32 +35,31 @@ class ServersGridsController < ApplicationController
 
   def reseau
     params[:servers_grid] = {"column_names"=>%W(id
-                                               name
-                                               modele
-                                               room
-                                               fc_total
-                                               fc_calcule
-                                               fc_utilise
-                                               rj45_total
-                                               rj45_calcule
-                                               rj45_utilise
-                                               rj45_futur
-                                               ipmi_utilise
-                                               ipmi_futur
-                                               rj45_cm
-                                               ipmi_dedie
-                                               slots
-                                               ip
-                                               etat_conf_reseau
-                                               action_conf_reseau)
+                                                name
+                                                modele
+                                                room
+                                                fc_total
+                                                fc_calcule
+                                                fc_utilise
+                                                rj45_total
+                                                rj45_calcule
+                                                rj45_utilise
+                                                rj45_futur
+                                                ipmi_utilise
+                                                ipmi_futur
+                                                rj45_cm
+                                                ipmi_dedie
+                                                slots
+                                                ip
+                                                etat_conf_reseau
+                                                action_conf_reseau)
     }
     @servers = ServersGrid.new(params[:servers_grid])
 
     respond_to do |format|
       format.html
       format.pdf do
-        render layout: 'pdf.html',
-               show_as_html: params[:debug].present?,
+        render show_as_html: params[:debug].present?,
                pdf: 'servers'
       end
     end
@@ -70,5 +70,4 @@ class ServersGridsController < ApplicationController
     def save_request_in_session(params)
       session[:servers_grid_params] = {current_user.id => params}
     end
-
 end

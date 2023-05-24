@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Update pdu lines
 
 namespace :update_pdu_lines do
@@ -66,7 +68,6 @@ namespace :update_pdu_lines do
       end
 
     end
-
 
   end
 

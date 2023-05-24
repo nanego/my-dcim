@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module Frames
   class IncludingServersQuery
-
     def self.call(relation = Frame.all, order = nil)
       ar_relation = relation.includes(:islet => [:room],
                     :bay => [:frames],
@@ -12,6 +13,5 @@ module Frames
       ar_relation = ar_relation.order(order) if order
       ar_relation
     end
-
   end
 end

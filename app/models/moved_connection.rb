@@ -1,14 +1,15 @@
+# frozen_string_literal: true
+
 class MovedConnection < ApplicationRecord
+  belongs_to :port_from, class_name: 'Port', optional: true
+  belongs_to :port_to, class_name: 'Port', optional: true
 
-  belongs_to :port_from, class_name: 'Port'
-  belongs_to :port_to, class_name: 'Port'
-
-  validates_presence_of :port_from_id #, :port_to_id
+  validates_presence_of :port_from_id # , :port_to_id
 
   def ports
     [self.port_from, self.port_to].compact
   end
-  
+
   def cable_color
     color
   end
@@ -26,5 +27,4 @@ class MovedConnection < ApplicationRecord
   def cable_name
     cablename
   end
-
 end

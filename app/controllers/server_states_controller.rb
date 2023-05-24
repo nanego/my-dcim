@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ServerStatesController < ApplicationController
   before_action :set_server_state, only: [:show, :edit, :update, :destroy]
 
@@ -9,8 +11,7 @@ class ServerStatesController < ApplicationController
 
   # GET /server_states/1
   # GET /server_states/1.json
-  def show
-  end
+  def show; end
 
   # GET /server_states/new
   def new
@@ -18,8 +19,7 @@ class ServerStatesController < ApplicationController
   end
 
   # GET /server_states/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /server_states
   # POST /server_states.json
@@ -62,6 +62,7 @@ class ServerStatesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_server_state
       @server_state = ServerState.find(params[:id])

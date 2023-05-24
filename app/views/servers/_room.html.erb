@@ -1,10 +1,9 @@
 <% view_side = 'front' if local_assigns[:view_side].nil? %>
 <% settings = Frame.settings.merge({:min_height => view_side == 'back' ? 20 : 27}) %>
-<% @room = room || @room %>
 
-<%= render 'rooms/action_buttons', view_side: params[:view] if formats != [:pdf] %>
+<%= render 'rooms/action_buttons', view_side: params[:view] unless local_assigns[:pdf] == true %>
 
-<div id="<%= @room.try(:name).try(:parameterize).try(:underscore) %>">
+<div id="<%= room.try(:name).try(:parameterize).try(:underscore) %>">
 
   <% islets.each do |islet, lanes| %>
 
@@ -13,8 +12,8 @@
         <div class="panel-islet">
           <% if local_assigns[:title].present? %>
             <div><h3><%= title %></h3></div>
-          <% elsif @room.present? %>
-            <div><h3>Salle <%= @room %> - Ilot <%= islet %></h3></div>
+          <% elsif room.present? %>
+            <div><h3>Salle <%= room %> - Ilot <%= islet %></h3></div>
           <% end %>
 
           <div class="row">
@@ -31,7 +30,7 @@
 
                 <% bays.each do |bay, frames| %>
 
-                  <% if formats != [:pdf] %>
+                  <% unless local_assigns[:pdf] == true %>
                     <% if bays.size == 1 && lanes.size == 1
                          layout_classes = 'col-sm-12 col-lg-12'
                        else
@@ -41,17 +40,17 @@
                     <div class="<%= layout_classes %>" style='overflow: auto;'>
                       <div class="panel well couple"
                            style='overflow: auto;'
-                           data-url="<%= room_path(@room, islet: islet, 'bay-id': bay, view: params[:view]) %>">
+                           data-url="<%= room_path(room, islet: islet, 'bay-id': bay, view: params[:view]) %>">
                         <div class="panel-body">
                   <% end %>
 
                   <% frames.each do |frame, servers| %>
                     <div class="col-xs-12 <%= frames.size > 1 ? 'col-sm-6' : '' %>" style="<%= frame == frames.first[0] ? 'padding-left:0;' : 'padding-right:0;' %>">
-                      <%= render 'frames/show_frame.html.erb', frame: frame, servers: servers, settings: settings, view_type: view_side %>
+                      <%= render partial: 'frames/show_frame', locals: { frame: frame, servers: servers, settings: settings, view_type: view_side } %>
                     </div>
                   <% end %>
 
-                  <% if formats != [:pdf] %>
+                  <% unless local_assigns[:pdf] == true %>
                         </div>
                       </div>
                     </div>

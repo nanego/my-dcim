@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RoomsController < ApplicationController
   include ServersHelper
   include RoomsHelper
@@ -28,12 +30,9 @@ class RoomsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html do
-        render 'rooms/show.html.erb'
-      end
+      format.html
       format.pdf do
-        render layout: 'pdf.html',
-               template: "rooms/show.pdf.erb",
+        render template: "rooms/show",
                show_as_html: params[:debug].present?,
                pdf: 'frame',
                zoom: 0.75
@@ -42,7 +41,7 @@ class RoomsController < ApplicationController
     end
   end
 
-  # TODO Remove this action when possible
+  # TODO: Remove this action when possible
   def islet
     @islet = Islet.find_by(name: params[:islet], room_id: @room.id)
     frames = Frames::IncludingServersQuery.call(@room.frames.where('islets.name = ?', @islet.name), 'islets.name, bays.lane')
@@ -61,11 +60,10 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        render 'rooms/show.html.erb'
+        render :show
       end
       format.pdf do
-        render layout: 'pdf.html',
-               template: "rooms/show.pdf.erb",
+        render template: "rooms/show",
                show_as_html: params[:debug].present?,
                pdf: 'frame',
                zoom: 0.75
@@ -83,7 +81,7 @@ class RoomsController < ApplicationController
       @frames = Frame.preload(:servers => [:gestion, :cluster, :modele => :category, :card_types => :port_type, :cards => [:composant, :ports => [:connection => :cable]]])
                      .includes(:bay => [:frames, { :islet => :room }])
                      .order('rooms.position asc, islets.name asc, bays.position asc, frames.position asc')
-      @current_filters = ''
+      @current_filters = []
       if params[:cluster_id].present?
         @frames = @frames.joins(:materials).where('servers.cluster_id = ? ', params[:cluster_id])
         @filtered_servers = Server.where('servers.cluster_id = ? ', params[:cluster_id])
@@ -112,8 +110,9 @@ class RoomsController < ApplicationController
     @hubs = { 1 => { 4 => Server.find(383), 3 => Server.find(384) }, 2 => { 4 => Server.find(1043), 3 => Server.find(1044) } } # Concentrateurs per room
 
     @connections = {}
-    @servers = Server.includes(:frame, :stack, :ports, :cards => [:ports]).#includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
-    where("network_id IS NOT NULL")
+    @servers = Server.includes(:frame, :stack, :ports, :cards => [:ports])
+                     .where("network_id IS NOT NULL")
+    # .includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
     @stacks = @servers.map(&:stack).uniq.compact
     @servers.each do |server|
       @connections[server.id] = server.directly_connected_servers_ids_with_color.reject { |conn| @switchs_lan_ids.exclude?(conn[:server_id]) }
@@ -125,15 +124,13 @@ class RoomsController < ApplicationController
     # puts "@@@connections : #{@connections.inspect}"
   end
 
-  def filtered_overview
-  end
+  def filtered_overview; end
 
   def new
     @room = Room.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @room = Room.new(room_params)

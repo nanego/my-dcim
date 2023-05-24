@@ -1,4 +1,4 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Aperçu des salles' => overview_rooms_path, @current_filters => nil} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Aperçu des salles' => overview_rooms_path, @current_filters.join => nil} %>
 
 <div class="container-fluid rooms-overview">
 
@@ -12,7 +12,7 @@
         </div>
         <% rooms = site.rooms.order(:position).joins(:frames).distinct %>
         <% rooms.each do |room| %>
-          <%= render 'rooms/room_overview', room: room %>
+          <%= render partial: 'rooms/room_overview', locals: { room: room } %>
         <% end %>
       <% end %>
 
@@ -23,9 +23,8 @@
     <div class="col-md-6 col-sm-12">
       <% @frames.each do |frame| %>
         <% settings = Frame.settings.merge({:min_height => params[:view]=='back' ? 20 : 27 }) %>
-        <%= render 'frames/show_frame', frame: frame, servers: frame.servers, settings: settings, view_type: params[:view], editable: false, highlighted_servers: @filtered_servers %>
+        <%= render partial: 'frames/show_frame', locals: { frame: frame, servers: frame.servers, settings: settings, view_type: params[:view], editable: false, highlighted_servers: @filtered_servers } %>
       <% end %>
     </div>
-
   </div>
 </div>

@@ -1,15 +1,16 @@
-module RoomsHelper
+# frozen_string_literal: true
 
+module RoomsHelper
   def frames_sort_order(type_of_view, lane_index = 2)
     lane_index = 2 if lane_index.nil?
     if type_of_view == 'back'
-      if lane_index.even? #pair
+      if lane_index.even? # pair
         "desc"
       else
         "asc"
       end
     else
-      if lane_index.even? #pair
+      if lane_index.even? # pair
         "asc"
       else
         "desc"
@@ -33,5 +34,4 @@ module RoomsHelper
     nb_of_lanes = islet.bays.map(&:lane).max
     frame_width*(((nb_of_frames)/nb_of_lanes)+1)
   end
-
 end

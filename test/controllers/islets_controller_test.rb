@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require File.expand_path("../../test_helper", __FILE__)
 
 class IsletsControllerTest < ActionController::TestCase
-
   setup do
     sign_in users(:one)
     @islet = islets(:one)
@@ -34,7 +35,7 @@ class IsletsControllerTest < ActionController::TestCase
 
   test "should destroy islet" do
     @islet = Islet.create
-    
+
     assert_difference('Islet.count', -1) do
       delete :destroy, params: {id: @islet}
     end

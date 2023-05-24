@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FramesController < ApplicationController
   include ServersHelper
   include RoomsHelper
@@ -7,15 +9,10 @@ class FramesController < ApplicationController
     @room = @frame.room
 
     respond_to do |format|
-      format.html do
-        render 'frames/show.html.erb'
-      end
-      format.js do
-        render 'frames/show.js.erb'
-      end
+      format.html
+      format.js
       format.pdf do
-        render layout: 'pdf.html',
-               template: "frames/show.pdf.erb",
+        render template: "frames/show",
                show_as_html: params[:debug].present?,
                pdf: 'frame',
                zoom: 0.75
@@ -111,12 +108,9 @@ class FramesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html do
-        render 'frames/network.html.erb'
-      end
+      format.html
       format.pdf do
-        render layout: 'pdf.html',
-               template: "rooms/show.pdf.erb",
+        render template: "rooms/show",
                show_as_html: params[:debug].present?,
                pdf: 'frame',
                zoom: 0.75
@@ -131,5 +125,4 @@ class FramesController < ApplicationController
   def frame_params
     params.require(:frame).permit(:name, :u, :room, :islet, :position, :switch_slot, :bay_id)
   end
-
 end

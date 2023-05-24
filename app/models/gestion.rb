@@ -1,5 +1,6 @@
-class Gestion < ActiveRecord::Base
+# frozen_string_literal: true
 
+class Gestion < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
 

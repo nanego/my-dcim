@@ -1,25 +1,26 @@
-class Server < ActiveRecord::Base
+# frozen_string_literal: true
+
+class Server < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
   include PublicActivity::Model
 
-  belongs_to :frame
+  belongs_to :frame, optional: true
   has_one :bay, through: :frame
   has_one :islet, through: :frame
   has_one :room, through: :islet
-  belongs_to :gestion
-  belongs_to :domaine
-  belongs_to :modele
-  belongs_to :cluster
-  belongs_to :server_state
-  belongs_to :stack
+  belongs_to :gestion, optional: true
+  belongs_to :domaine, optional: true
+  belongs_to :modele, optional: true
+  belongs_to :cluster, optional: true
+  belongs_to :server_state, optional: true
+  belongs_to :stack, optional: true
 
   has_one :maintenance_contract
   has_many :memory_components
   has_many :disks
 
-  has_many :slots
   has_many :cards, -> { joins(:composant).includes(:composant) }
   has_many :card_types, through: :cards
   has_many :ports, through: :cards
@@ -27,9 +28,13 @@ class Server < ActiveRecord::Base
   has_many :moves, as: :moveable, dependent: :destroy
 
   has_many :documents
+
   has_one_attached :photo
 
   validates_presence_of :numero
+  validates :frame_id, presence: true
+  validates :modele_id, presence: true
+  validates :name, presence: true
   validates_uniqueness_of :numero
   validate :numero_cannot_be_a_current_server_name
 
@@ -52,10 +57,6 @@ class Server < ActiveRecord::Base
   scope :no_pdus, -> { joins(:modele => :category).where("categories.name<>'Pdu'") }
   scope :only_pdus, -> { joins(:modele => :category).where("categories.name='Pdu'").order(:name) }
   scope :patch_panels, -> { joins(:modele => :category).where("categories.name='Patch Panel'").order(:name) }
-
-  validates :frame_id, presence: true
-  validates :modele_id, presence: true
-  validates :name, presence: true
 
   def to_s
     name.to_s
@@ -145,12 +146,5 @@ class Server < ActiveRecord::Base
     if servers.present?
       errors.add(:numero, "ne peut pas être identique à un nom de machine")
     end
-  end
-
-end
-
-class String
-  def is_integer?
-    self.to_i.to_s == self
   end
 end

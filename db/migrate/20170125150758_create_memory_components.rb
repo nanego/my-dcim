@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateMemoryComponents < ActiveRecord::Migration[4.2]
   def change
     create_table :memory_components do |t|

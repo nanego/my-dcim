@@ -92,11 +92,16 @@ tmp/
 backups/
 
 .ruby-gemset
-.ruby-version
 
-# Ignore uploaded files in development
+# Ignore uploaded files in development.
 /storage/*
+!/storage/.keep
 public/uploads/
+
+# Ignore pidfiles, but keep the directory.
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key

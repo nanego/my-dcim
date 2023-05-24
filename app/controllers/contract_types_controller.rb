@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ContractTypesController < ApplicationController
   before_action :set_contract_type, only: [:show, :edit, :update, :destroy]
 
@@ -9,8 +11,7 @@ class ContractTypesController < ApplicationController
 
   # GET /contract_types/1
   # GET /contract_types/1.json
-  def show
-  end
+  def show; end
 
   # GET /contract_types/new
   def new
@@ -18,8 +19,7 @@ class ContractTypesController < ApplicationController
   end
 
   # GET /contract_types/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /contract_types
   # POST /contract_types.json
@@ -62,6 +62,7 @@ class ContractTypesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_contract_type
       @contract_type = ContractType.find(params[:id])

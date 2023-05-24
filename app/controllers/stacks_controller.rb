@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StacksController < ApplicationController
   before_action :set_stack, only: [:show, :edit, :update, :destroy]
 
@@ -9,8 +11,7 @@ class StacksController < ApplicationController
 
   # GET /stacks/1
   # GET /stacks/1.json
-  def show
-  end
+  def show; end
 
   # GET /stacks/new
   def new
@@ -18,8 +19,7 @@ class StacksController < ApplicationController
   end
 
   # GET /stacks/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /stacks
   # POST /stacks.json
@@ -67,6 +67,7 @@ class StacksController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_stack
     @stack = Stack.find(params[:id])

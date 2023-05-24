@@ -2,16 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_19_094216) do
-
+ActiveRecord::Schema[7.0].define(version: 2023_04_19_094216) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,7 +19,7 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -31,9 +30,16 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
     t.string "content_type"
     t.text "metadata"
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false
-    t.datetime "created_at", null: false
+    t.string "checksum"
+    t.datetime "created_at", precision: nil, null: false
+    t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
   create_table "activities", id: :serial, force: :cascade do |t|
@@ -45,8 +51,8 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
     t.text "parameters"
     t.integer "recipient_id"
     t.string "recipient_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type"
     t.index ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type"
     t.index ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type"
@@ -55,8 +61,8 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
   create_table "architectures", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "bay_types", id: :serial, force: :cascade do |t|
@@ -70,8 +76,8 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
     t.integer "position"
     t.integer "bay_type_id"
     t.integer "islet_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["bay_type_id"], name: "index_bays_on_bay_type_id"
     t.index ["islet_id"], name: "index_bays_on_islet_id"
   end
@@ -79,8 +85,8 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
   create_table "cables", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "color"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "comments"
     t.boolean "special_case"
   end
@@ -112,30 +118,30 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
   create_table "categories", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "clusters", id: :serial, force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "colors", id: :serial, force: :cascade do |t|
     t.string "parent_type"
     t.string "parent_id"
     t.string "code"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["parent_id"], name: "index_colors_on_parent_id"
   end
 
   create_table "composants", id: :serial, force: :cascade do |t|
     t.integer "type_composant_id"
     t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "name"
     t.integer "enclosure_id"
     t.index ["enclosure_id"], name: "index_composants_on_enclosure_id"
@@ -145,32 +151,32 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
   create_table "connections", id: :serial, force: :cascade do |t|
     t.integer "cable_id"
     t.integer "port_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["cable_id", "port_id"], name: "index_connections_on_cable_id_and_port_id", unique: true
     t.index ["port_id"], name: "index_connections_on_port_id"
   end
 
   create_table "contract_types", id: :serial, force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "disk_types", id: :serial, force: :cascade do |t|
     t.integer "quantity"
     t.string "unit"
     t.string "technology"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "disks", id: :serial, force: :cascade do |t|
     t.integer "server_id"
     t.integer "disk_type_id"
     t.integer "quantity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["disk_type_id"], name: "index_disks_on_disk_type_id"
     t.index ["server_id"], name: "index_disks_on_server_id"
   end
@@ -178,23 +184,23 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
   create_table "documents", id: :serial, force: :cascade do |t|
     t.integer "server_id"
     t.text "document_data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["server_id"], name: "index_documents_on_server_id"
   end
 
   create_table "domaines", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "enclosures", id: :serial, force: :cascade do |t|
     t.integer "modele_id"
     t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "display"
     t.text "grid_areas"
     t.index ["modele_id"], name: "index_enclosures_on_modele_id"
@@ -203,8 +209,8 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
   create_table "frames", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "u", default: 41
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "position"
     t.integer "switch_slot"
     t.string "slug"
@@ -218,7 +224,7 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
     t.integer "sluggable_id", null: false
     t.string "sluggable_type", limit: 50
     t.string "scope"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
@@ -228,23 +234,23 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
   create_table "gestions", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "islets", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "room_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "position"
     t.index ["room_id"], name: "index_islets_on_room_id"
   end
 
   create_table "maintainers", id: :serial, force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "maintenance_contracts", id: :serial, force: :cascade do |t|
@@ -252,8 +258,8 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
     t.date "end_date"
     t.integer "maintainer_id"
     t.integer "contract_type_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "server_id"
     t.index ["contract_type_id"], name: "index_maintenance_contracts_on_contract_type_id"
     t.index ["maintainer_id"], name: "index_maintenance_contracts_on_maintainer_id"
@@ -263,8 +269,8 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
   create_table "manufacturers", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "documentation_url"
   end
 
@@ -272,8 +278,8 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
     t.integer "server_id"
     t.integer "memory_type_id"
     t.integer "quantity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["memory_type_id"], name: "index_memory_components_on_memory_type_id"
     t.index ["server_id"], name: "index_memory_components_on_server_id"
   end
@@ -281,15 +287,15 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
   create_table "memory_types", id: :serial, force: :cascade do |t|
     t.integer "quantity"
     t.string "unit"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "modeles", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "category_id"
     t.integer "nb_elts"
     t.integer "architecture_id"
@@ -309,8 +315,8 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
     t.string "vlans"
     t.string "cablename"
     t.string "color"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["port_from_id"], name: "index_moved_connections_on_port_from_id"
     t.index ["port_to_id"], name: "index_moved_connections_on_port_to_id"
   end
@@ -318,8 +324,8 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
   create_table "moves", id: :serial, force: :cascade do |t|
     t.string "moveable_type"
     t.integer "moveable_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "prev_frame_id"
     t.integer "frame_id"
     t.integer "position"
@@ -335,8 +341,8 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
   create_table "ports", id: :serial, force: :cascade do |t|
     t.integer "position"
     t.integer "card_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "vlans"
     t.string "color"
     t.string "cablename"
@@ -346,8 +352,8 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
   create_table "rooms", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "slug"
     t.integer "position"
     t.boolean "display_on_home_page"
@@ -359,8 +365,8 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
 
   create_table "server_states", id: :serial, force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "servers", id: :serial, force: :cascade do |t|
@@ -379,8 +385,8 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
     t.integer "ipmi_futur"
     t.integer "rj45_cm"
     t.integer "ipmi_dedie"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "pdu_ondule"
     t.string "pdu_normal"
     t.integer "frame_id"
@@ -414,8 +420,8 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
   create_table "sites", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "street"
     t.string "city"
     t.string "country"
@@ -426,8 +432,8 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
   create_table "stacks", force: :cascade do |t|
     t.string "name"
     t.string "color"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "type_composants", id: :serial, force: :cascade do |t|
@@ -438,25 +444,25 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "name"
     t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
+    t.datetime "confirmed_at", precision: nil
+    t.datetime "confirmation_sent_at", precision: nil
     t.string "unconfirmed_email"
     t.integer "role"
     t.string "invitation_token"
-    t.datetime "invitation_created_at"
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
+    t.datetime "invitation_created_at", precision: nil
+    t.datetime "invitation_sent_at", precision: nil
+    t.datetime "invitation_accepted_at", precision: nil
     t.integer "invitation_limit"
     t.integer "invited_by_id"
     t.string "invited_by_type"
@@ -471,4 +477,6 @@ ActiveRecord::Schema.define(version: 2023_04_19_094216) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
 end

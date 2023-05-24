@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
-class RoomsTest < Capybara::Rails::TestCase
+class RoomsTest < ActionDispatch::IntegrationTest
   setup do
     sign_in users(:one)
     @room = rooms(:one)

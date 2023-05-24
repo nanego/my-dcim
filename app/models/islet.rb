@@ -1,11 +1,12 @@
-class Islet < ActiveRecord::Base
+# frozen_string_literal: true
 
-  belongs_to :room, counter_cache: true
+class Islet < ApplicationRecord
+  belongs_to :room, counter_cache: true, optional: true
+  has_one :site, through: :room
   has_many :bays, dependent: :restrict_with_error
   has_many :frames, through: :bays
   has_many :servers, through: :frames
   has_many :materials, through: :frames
-  has_one :site, through: :room
 
   scope :sorted, -> { order( :room_id, :position, :name ) }
   scope :not_empty, -> { joins(:materials) }

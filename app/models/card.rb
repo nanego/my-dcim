@@ -1,27 +1,28 @@
-class Card < ActiveRecord::Base
+# frozen_string_literal: true
 
+class Card < ApplicationRecord
   after_commit :set_twin_card
 
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
   tracked :parameters => {
-      :card_type => :card_type,
-      :server => :server,
-      :composant => :composant
+    :card_type => :card_type,
+    :server => :server,
+    :composant => :composant
   }
 
-  belongs_to :card_type
-  delegate :port_quantity, :to => :card_type, :allow_nil => true
-  delegate :is_power_input?, to: :card_type, :allow_nil => true
+  belongs_to :card_type, optional: true
+  delegate :port_quantity, to: :card_type, allow_nil: true
+  delegate :is_power_input?, to: :card_type, allow_nil: true
 
-  belongs_to :server
-  belongs_to :composant
+  belongs_to :server, optional: true
+  belongs_to :composant, optional: true
   delegate :frame, to: :server
 
   has_many :ports
   has_many :cables, through: :ports
 
-  scope :for_enclosure, ->  (enclosure_id) { joins(:composant).where("composants.enclosure_id = ?", enclosure_id).order("composants.position ASC")}
+  scope :for_enclosure, -> (enclosure_id) { joins(:composant).where("composants.enclosure_id = ?", enclosure_id).order("composants.position ASC")}
 
   scope :on_patch_panels, -> () {joins(:server => {:modele => :category}).where("categories.name = 'Patch Panel'")}
 
@@ -69,5 +70,4 @@ class Card < ActiveRecord::Base
       Card.where(twin_card_id: [self.id, twin_card_id]).where.not(id: [self.id, twin_card_id]).update_all({twin_card_id: nil})
     end
   end
-
 end

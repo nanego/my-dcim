@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ColorsController < ApplicationController
   before_action :set_color, only: [:show, :edit, :update, :destroy]
 
@@ -5,15 +7,13 @@ class ColorsController < ApplicationController
     @colors = Color.order('parent_type asc, parent_id asc')
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @color = Color.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @color = Color.new(color_params)
@@ -54,6 +54,7 @@ class ColorsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_color
       @color = Color.find(params[:id])

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MemoryTypesController < ApplicationController
   before_action :set_memory_type, only: [:show, :edit, :update, :destroy]
 
@@ -9,8 +11,7 @@ class MemoryTypesController < ApplicationController
 
   # GET /memory_types/1
   # GET /memory_types/1.json
-  def show
-  end
+  def show; end
 
   # GET /memory_types/new
   def new
@@ -18,8 +19,7 @@ class MemoryTypesController < ApplicationController
   end
 
   # GET /memory_types/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /memory_types
   # POST /memory_types.json
@@ -67,6 +67,7 @@ class MemoryTypesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_memory_type
       @memory_type = MemoryType.find(params[:id])

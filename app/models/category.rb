@@ -1,5 +1,6 @@
-class Category < ActiveRecord::Base
+# frozen_string_literal: true
 
+class Category < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
 
