@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'faraday'
 require 'json'
 
 class GlpiClient
-
   API_URL = Rails.application.credentials.glpi_api_url
   API_KEY = Rails.application.credentials.glpi_apikey
 
@@ -39,7 +40,7 @@ class GlpiClient
         "with_logs=false", # Retrieve historical. Optional.
         "add_keys_names=true", # Retrieve friendly names. Array containing fkey(s) and/or "id". Optional.
       ]
-      resp = @connection.get("Computer/#{glpi_id}?#{params.join('&')}") do |request|
+      resp = @connection.get("Computer/#{glpi_id}?#{params.join("&")}") do |request|
         request.headers["Session-Token"] = session_token
         request.headers["App-Token"] = API_KEY
       end
@@ -61,6 +62,7 @@ class GlpiClient
 
   def get_processor_designation_from_glpi(id:)
     return if id.blank?
+
     resp = @connection.get("DeviceProcessor/#{id}") do |request|
       request.headers["Session-Token"] = session_token
       request.headers["App-Token"] = API_KEY
@@ -99,34 +101,34 @@ class GlpiClient
     end
   end
 
-end
+  class Computer
+    include Virtus.model
 
-class GlpiClient::Computer
-  include Virtus.model
+    attribute :id, Integer
+    attribute :serial, String
+    attribute :name, String
+    attribute :contact, String
+    attribute :disks, Hash
+    attribute :hard_drives, Hash
+    attribute :memories, Hash
+    attribute :processors, Hash
 
-  attribute :id, Integer
-  attribute :serial, String
-  attribute :name, String
-  attribute :contact, String
-  attribute :disks, Hash
-  attribute :hard_drives, Hash
-  attribute :memories, Hash
-  attribute :processors, Hash
+    def hard_drives_total_capacity
+      return 0 if hard_drives.blank?
 
-  def hard_drives_total_capacity
-    return 0 if hard_drives.blank?
-    hard_drives.sum { |key, value| value['capacity'] }
+      hard_drives.sum { |key, value| value['capacity'] }
+    end
+
+    def memories_total_size
+      return 0 if memories.blank?
+
+      memories.sum { |key, value| value['size'] }
+    end
   end
 
-  def memories_total_size
-    return 0 if memories.blank?
-    memories.sum { |key, value| value['size'] }
+  class DeviceProcessor
+    include Virtus.model
+
+    attribute :designation, String
   end
-
-end
-
-class GlpiClient::DeviceProcessor
-  include Virtus.model
-
-  attribute :designation, String
 end

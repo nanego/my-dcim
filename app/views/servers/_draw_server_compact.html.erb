@@ -26,7 +26,7 @@
               <%= slot_label(server, component) %>
             </div>
             <div class="item <%= class_name %>">
-              <%= render 'servers/draw_component.html.erb', server: server, component: component, selected_port: selected_port %>
+              <%= render partial: 'servers/draw_component', locals: { server: server, component: component, selected_port: selected_port } %>
             </div>
           <% end %>
         </div>
@@ -45,7 +45,7 @@
             <tr>
               <% composants_per_enclosure.each do |component| %>
                 <td class="slot_column">
-                  <%= render 'servers/draw_component.html.erb', server: server, component: component, selected_port: selected_port %>
+                  <%= render partial: 'servers/draw_component', locals: { server: server, component: component, selected_port: selected_port } %>
                 </td>
               <% end %>
             </tr>
@@ -55,7 +55,7 @@
             <% composants_per_enclosure.each do |component| %>
               <tr>
                 <th><%= slot_label(server, component) %></th>
-                <td><%= render 'servers/draw_component.html.erb', server: server, component: component, selected_port: selected_port %></td>
+                <td><%= render partial: 'servers/draw_component', locals: { server: server, component: component, selected_port: selected_port } %></td>
               </tr>
             <% end %>
 
@@ -71,6 +71,7 @@
 
 <%= link_to h(server.name), server_path(server, :view => params[:view]), {class: 'pull-left server_name', style: 'padding-left: 14px;', :data => {'toggle': "tooltip", 'placement': "top"}, title: server.numero} %>
 <br>
+<% unless request.format.pdf? %>
 <span class='pull-left' style="clear:left;padding-left: 14px;">
   <%= link_to draw_connections_path(server_id: server.id),
               class: 'draw_connections_link',
@@ -82,6 +83,7 @@
     </button>
   <% end %>
 </span>
+<% end %>
 <!--
 <span class='pull-left' style="padding-left: 8px;">
   <% twin_cards_ids = server.cards.map(&:twin_card_id).uniq.reject {|c| c.blank?} if false %>

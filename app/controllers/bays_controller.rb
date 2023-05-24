@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BaysController < ApplicationController
   include RoomsHelper
 
@@ -26,30 +28,23 @@ class BaysController < ApplicationController
     end
 
     respond_to do |format|
-      format.html do
-        render 'bays/show.html.erb'
-      end
-      format.js do
-        render 'bays/show.js.erb'
-      end
+      format.html
+      format.js
       format.pdf do
-        render layout: 'pdf.html',
-               template: "rooms/show.pdf.erb",
+        render template: "rooms/show",
                show_as_html: params[:debug].present?,
                pdf: 'frame',
                zoom: 0.75
       end
       format.txt { send_data Frame.to_txt(@servers_per_frames[@bay.islet.room_id], params[:bg]) }
     end
-
   end
 
   def new
     @bay = Bay.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @bay = Bay.new(bay_params)

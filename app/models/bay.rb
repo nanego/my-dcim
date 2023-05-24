@@ -1,7 +1,8 @@
-class Bay < ActiveRecord::Base
+# frozen_string_literal: true
 
-  belongs_to :bay_type
-  belongs_to :islet
+class Bay < ApplicationRecord
+  belongs_to :bay_type, optional: true
+  belongs_to :islet, optional: true
   has_one :room, through: :islet
   has_many :frames, dependent: :restrict_with_error
   has_many :materials, through: :frames
@@ -15,11 +16,10 @@ class Bay < ActiveRecord::Base
   end
 
   def detailed_name
-    "#{room} #{islet.blank? ? '' : "Ilot #{islet.name}"}#{lane.blank? ? '' : " Ligne #{lane}"}#{position.blank? ? '':" Position #{position}"}#{frames.any? ? " (#{list_frames})" : ''}"
+    "#{room} #{islet.blank? ? "" : "Ilot #{islet.name}"}#{lane.blank? ? "" : " Ligne #{lane}"}#{position.blank? ? "":" Position #{position}"}#{frames.any? ? " (#{list_frames})" : ""}"
   end
 
   def list_frames
     frames.map(&:name).join(' / ')
   end
-
 end

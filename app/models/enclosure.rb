@@ -1,6 +1,7 @@
-class Enclosure < ApplicationRecord
+# frozen_string_literal: true
 
-  belongs_to :modele
+class Enclosure < ApplicationRecord
+  belongs_to :modele, optional: true
   has_many :composants, -> { order(position: :asc) }
 
   acts_as_list scope: [:modele_id]
@@ -8,5 +9,4 @@ class Enclosure < ApplicationRecord
   accepts_nested_attributes_for :composants,
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
-
 end

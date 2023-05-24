@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 class Move < ApplicationRecord
-  belongs_to :moveable, polymorphic: true
+  belongs_to :moveable, polymorphic: true, optional: true
 
-  belongs_to :frame
-  belongs_to :prev_frame, class_name: 'Frame', foreign_key: :prev_frame_id
+  belongs_to :frame, optional: true
+  belongs_to :prev_frame, class_name: 'Frame', foreign_key: :prev_frame_id, optional: true
 
+  # TODO: check if validates_presence_of is really required
   validates_presence_of :frame, :moveable
 
   attr_accessor :remove_connections
@@ -32,5 +35,4 @@ class Move < ApplicationRecord
       self.delete
     end
   end
-
 end

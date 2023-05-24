@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path("../../test_helper", __FILE__)
 
 class ArchitecturesControllerTest < ActionController::TestCase
@@ -42,7 +44,7 @@ class ArchitecturesControllerTest < ActionController::TestCase
 
   test "should destroy architecture" do
     @architecture = Architecture.create
-    
+
     assert_difference('Architecture.count', -1) do
       delete :destroy, params: {id: @architecture}
     end

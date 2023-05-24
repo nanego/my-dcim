@@ -1,5 +1,6 @@
-module ServersHelper
+# frozen_string_literal: true
 
+module ServersHelper
   MAX_PORTS_PER_LINE = 24
 
   def slot_label(server, component)
@@ -114,7 +115,6 @@ module ServersHelper
   private
 
   def get_current_position(card_orientation, card_type, cell_index, row_index, column_index, ports_per_cell)
-
     return 0 if ports_per_cell == 0
 
     max_aligned_ports = (card_type.max_aligned_ports.to_i > 0 ? card_type.max_aligned_ports.to_i : MAX_PORTS_PER_LINE)
@@ -141,7 +141,7 @@ module ServersHelper
     when 'rl-td'
       position = max_aligned_ports - ((row_index * card_type.columns * ports_per_cell) +
           (column_index * ports_per_cell) + cell_index)
-    else #'lr-td'
+    else # 'lr-td'
       position = (row_index * card_type.columns * ports_per_cell) +
           (column_index * ports_per_cell) +
           cell_index + 1
@@ -157,7 +157,6 @@ module ServersHelper
       max_aligned_ports.to_i
     end
   end
-
 
   def include_moved_connections(moved_connections, port_data, port_id)
     if port_data.present? && moved_connections.present?
@@ -187,5 +186,4 @@ module ServersHelper
     end
     return bg_color
   end
-
 end

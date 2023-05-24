@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path("../../test_helper", __FILE__)
 
 class CategoriesControllerTest < ActionController::TestCase
@@ -42,7 +44,7 @@ class CategoriesControllerTest < ActionController::TestCase
 
   test "should destroy category" do
     @category = Category.create
-    
+
     assert_difference('Category.count', -1) do
       delete :destroy, params: {id: @category}
     end

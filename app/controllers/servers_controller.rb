@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class ServersController < ApplicationController
   include ServersHelper
 
   before_action :set_server, only: [:show, :edit, :update, :destroy]
 
   def index
-    unless params[:servers_grid].present?
+    if params[:servers_grid].blank?
       params[:servers_grid] = {"column_names" => ["id", "name", "type"]}
     end
 
@@ -27,25 +29,22 @@ class ServersController < ApplicationController
         new_params_hash.merge!({frame_id: frame.id}) if frame.present?
         new_params = ActionController::Parameters.new(new_params_hash)
         updated_values = track_updated_values(server, new_params)
-        # FIXME: Issue at saving step if the server service tag (attribute numero) doesn't respect the validation numero_cannot_be_a_current_server_name
-        # Potentially need to edit the server service tag first exp http://localhost:3000/servers/1354/edit
+
         if server.save && updated_values.present?
           server.create_activity action: 'update', parameters: updated_values, owner: current_user
         end
       end
     end if params[:server].present?
-    head :ok #render empty body, status only
+    head :ok # render empty body, status only
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @server = Server.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @server = Server.new(server_params)
@@ -78,12 +77,10 @@ class ServersController < ApplicationController
     end
   end
 
-  def import_csv
-
-  end
+  def import_csv; end
 
   def import
-    value = ImportEquipmentByCSV.call(file: params[:import][:file],
+    value = ImportEquipmentByCsv.call(file: params[:import][:file],
                                       room_id: params[:import][:room_id],
                                       equipment_status_id: params[:import][:server_state_id])
     if value.is_a?(Frame)
@@ -92,14 +89,13 @@ class ServersController < ApplicationController
       @import_error = value
       render :import_csv
     end
-
   end
 
   def destroy
     @server.create_activity action: 'destroy', parameters: @server.attributes, owner: current_user
     @server.destroy
     respond_to do |format|
-      format.html {redirect_to servers_grids_path, notice: 'Le matériel a bien été supprimé.'}
+      format.html {redirect_to servers_grids_path, notice: 'Le matériel a bien été supprimé.' }
       format.json {head :no_content}
     end
   end
@@ -126,10 +122,9 @@ class ServersController < ApplicationController
     new_params = {}
     new_params['frame'] = [Frame.find_by_id(old_values['frame_id']).to_s, Frame.find_by_id(new_values['frame_id']).to_s]
     new_params['position'] = [old_values['position'].to_s, new_values['position'].to_s]
-    #%W"position frame_id".each do |attribute|
+    # %W"position frame_id".each do |attribute|
     #  new_params[attribute] = [old_values[attribute].to_s, new_values[attribute]]
-    #end
+    # end
     return new_params
   end
-
 end

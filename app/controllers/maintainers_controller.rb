@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MaintainersController < ApplicationController
   before_action :set_maintainer, only: [:show, :edit, :update, :destroy]
 
@@ -9,8 +11,7 @@ class MaintainersController < ApplicationController
 
   # GET /maintainers/1
   # GET /maintainers/1.json
-  def show
-  end
+  def show; end
 
   # GET /maintainers/new
   def new
@@ -18,8 +19,7 @@ class MaintainersController < ApplicationController
   end
 
   # GET /maintainers/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /maintainers
   # POST /maintainers.json
@@ -67,6 +67,7 @@ class MaintainersController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_maintainer
       @maintainer = Maintainer.find(params[:id])

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CablesController < ApplicationController
   before_action :set_cable, only: [:destroy]
 
@@ -12,15 +14,17 @@ class CablesController < ApplicationController
     end
     @cable.destroy
     respond_to do |format|
-      format.html { redirect_to connections_edit_path(from_port_id: port_id), notice: 'Connection a bien été supprimé.' }
+      format.html do
+ redirect_to connections_edit_path(from_port_id: port_id), notice: 'Connection a bien été supprimé.'
+      end
       format.js {render 'connections/update'}
     end
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_cable
     @cable = Cable.find(params[:id])
   end
-
 end

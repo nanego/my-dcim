@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :edit, :update, :destroy]
 
@@ -5,15 +7,13 @@ class DocumentsController < ApplicationController
     @documents = Document.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @document = Document.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @document = Document.new(document_params)
@@ -50,6 +50,7 @@ class DocumentsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_document
       @document = Document.find(params[:id])

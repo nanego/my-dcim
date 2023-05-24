@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SitesController < ApplicationController
   before_action :set_site, only: [:show, :edit, :update, :destroy]
 
@@ -5,15 +7,13 @@ class SitesController < ApplicationController
     @sites = Site.sorted
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @site = Site.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @site = Site.new(site_params)
@@ -55,6 +55,7 @@ class SitesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_site
       @site = Site.find(params[:id])

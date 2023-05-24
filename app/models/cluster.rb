@@ -1,5 +1,6 @@
-class Cluster < ActiveRecord::Base
+# frozen_string_literal: true
 
+class Cluster < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
 
@@ -10,5 +11,4 @@ class Cluster < ActiveRecord::Base
   def to_s
     name.present? ? name : " "
   end
-
 end

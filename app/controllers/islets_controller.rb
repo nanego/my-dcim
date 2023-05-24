@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class IsletsController < ApplicationController
   include RoomsHelper
 
@@ -27,8 +29,7 @@ class IsletsController < ApplicationController
 
     respond_to do |format|
       format.pdf do
-        render layout: 'pdf.html',
-               template: "rooms/show.pdf.erb",
+        render template: "rooms/show",
                show_as_html: params[:debug].present?,
                pdf: 'frame',
                zoom: 0.75
@@ -43,8 +44,7 @@ class IsletsController < ApplicationController
   end
 
   # GET /islets/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /islets
   # POST /islets.json
@@ -92,6 +92,7 @@ class IsletsController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_islet
     @islet = Islet.find(params[:id])

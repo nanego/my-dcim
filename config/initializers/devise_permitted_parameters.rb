@@ -1,17 +1,20 @@
-module DevisePermittedParameters
-  extend ActiveSupport::Concern
+# frozen_string_literal: true
 
-  included do
-    before_action :configure_permitted_parameters
+Rails.application.reloader.to_prepare do
+  module DevisePermittedParameters
+    extend ActiveSupport::Concern
+
+    included do
+      before_action :configure_permitted_parameters
+    end
+
+    protected
+
+    def configure_permitted_parameters
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+      devise_parameter_sanitizer.permit(:account_update, keys: [:name])
+    end
   end
 
-  protected
-
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name])
-  end
-
+  DeviseController.send :include, DevisePermittedParameters
 end
-
-DeviseController.send :include, DevisePermittedParameters

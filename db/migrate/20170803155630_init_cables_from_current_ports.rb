@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InitCablesFromCurrentPorts < ActiveRecord::Migration[5.0]
   def up
     Port.all.each do |port|
@@ -5,6 +7,6 @@ class InitCablesFromCurrentPorts < ActiveRecord::Migration[5.0]
       Connection.create(port: port, cable: cable)
     end
   end
-  def down
-  end
+
+  def down; end
 end

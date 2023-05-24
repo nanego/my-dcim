@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path("../../test_helper", __FILE__)
 
 class GestionsControllerTest < ActionController::TestCase
@@ -42,7 +44,7 @@ class GestionsControllerTest < ActionController::TestCase
 
   test "should destroy gestion" do
     @gestion = Gestion.create
-    
+
     assert_difference('Gestion.count', -1) do
       delete :destroy, params: {id: @gestion}
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddAttributesToServers < ActiveRecord::Migration[5.0]
   def up
     add_column :servers, :side, :string
@@ -10,8 +12,7 @@ class AddAttributesToServers < ActiveRecord::Migration[5.0]
     init_pdus_for_every_frames
   end
 
-  def down
-  end
+  def down; end
 
   def init_pdus_for_every_frames
     category = Category.create(name: 'Pdu')
@@ -60,5 +61,4 @@ class AddAttributesToServers < ActiveRecord::Migration[5.0]
       end
     end
   end
-
 end

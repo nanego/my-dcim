@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddDestinationFieldsToMoves < ActiveRecord::Migration[5.0]
   def change
     add_column :moves, :prev_frame_id, :integer

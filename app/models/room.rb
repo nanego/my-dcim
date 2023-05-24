@@ -1,5 +1,6 @@
-class Room < ActiveRecord::Base
+# frozen_string_literal: true
 
+class Room < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
@@ -11,7 +12,7 @@ class Room < ActiveRecord::Base
   has_many :frames, through: :bays
   has_many :materials, through: :frames
 
-  belongs_to :site
+  belongs_to :site, optional: true
 
   scope :sorted, -> { order( :position, :site_id, :name ) }
   scope :not_empty, -> { joins(:servers) }
@@ -36,5 +37,4 @@ class Room < ActiveRecord::Base
           [:name, :id]
       ]
     end
-
 end

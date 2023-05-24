@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path("../../test_helper", __FILE__)
 
 class ServersControllerTest < ActionController::TestCase
@@ -21,7 +23,8 @@ class ServersControllerTest < ActionController::TestCase
 
   test "should create server" do
     assert_difference('Server.count') do
-      post :create, params: {server: {cluster_id: @server.cluster_id, critique: @server.critique, domaine_id: @server.domaine_id, fc_total: @server.fc_total, fc_utilise: @server.fc_utilise, gestion_id: @server.gestion_id, ipmi_dedie: @server.ipmi_dedie, ipmi_futur: @server.ipmi_futur, ipmi_utilise: @server.ipmi_utilise, modele_id: @server.modele_id, name: @server.name, numero: @server.numero.to_s + '_bis', rj45_cm: @server.rj45_cm, rj45_futur: @server.rj45_futur, rj45_total: @server.rj45_total, rj45_utilise: @server.rj45_utilise, frame_id: @server.frame_id}}
+      post :create,
+           params: {server: {cluster_id: @server.cluster_id, critique: @server.critique, domaine_id: @server.domaine_id, fc_total: @server.fc_total, fc_utilise: @server.fc_utilise, gestion_id: @server.gestion_id, ipmi_dedie: @server.ipmi_dedie, ipmi_futur: @server.ipmi_futur, ipmi_utilise: @server.ipmi_utilise, modele_id: @server.modele_id, name: @server.name, numero: @server.numero.to_s + '_bis', rj45_cm: @server.rj45_cm, rj45_futur: @server.rj45_futur, rj45_total: @server.rj45_total, rj45_utilise: @server.rj45_utilise, frame_id: @server.frame_id}}
     end
 
     assert_redirected_to server_path(assigns(:server))
@@ -66,7 +69,7 @@ class ServersControllerTest < ActionController::TestCase
 
   test "should NOT update server if numero is a server name" do
     patch :update, params: {id: @server, server: {
-        cluster: @server.cluster,
+      cluster: @server.cluster,
         critique: @server.critique,
         domaine_id: @server.domaine_id,
         fc_total: @server.fc_total,
@@ -91,7 +94,7 @@ class ServersControllerTest < ActionController::TestCase
 
   test "should update server if numero is equal to own server name" do
     patch :update, params: {id: @server, server: {
-        cluster: @server.cluster,
+      cluster: @server.cluster,
         critique: @server.critique,
         domaine_id: @server.domaine_id,
         fc_total: @server.fc_total,
@@ -120,11 +123,11 @@ class ServersControllerTest < ActionController::TestCase
     assert_redirected_to server_path(assigns(:server))
 
     # test new name
-    response = get :show, params: {id: new_name}
+    get :show, params: {id: new_name}
     assert_response :success
     assert_equal assigns(:server), @server
 
-    #old name should continue to work
+    # old name should continue to work
     get :show, params: {id: old_name}
     assert_response :success
     assert_equal assigns(:server), @server
@@ -138,7 +141,7 @@ class ServersControllerTest < ActionController::TestCase
     assert_redirected_to server_path(assigns(:server))
 
     # test new card
-    response = get :show, params: {id: @server.name}
+    get :show, params: {id: @server.name}
     assert_response :success
     assert_equal assigns(:server), @server
 

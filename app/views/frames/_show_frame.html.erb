@@ -1,4 +1,4 @@
-  <% editable = true if local_assigns[:editable].nil? %>
+<% editable = true if local_assigns[:editable].nil? %>
 <% servers_ids = servers.map(&:id) %>
 <% if local_assigns[:highlighted_servers].nil?
      highlighted_servers_ids = servers_ids
@@ -40,12 +40,7 @@
                         <%= 'relegated' if params[:bg]=='cablage' && request.format.pdf? %>"
                 style="height: <%= settings[:min_height] %>px;"
                 data-num-u="<%= u_disponibles %>">
-              <%= render partial: 'servers/draw_u_scale_unit', formats: %i[html], locals: {
-                i: 0, 
-                u_disponibles: u_disponibles,
-                u_server: 1,
-                clickable_lines: clickable_lines
-              } %>
+              <%= render partial: 'servers/draw_u_scale_unit', locals: { i: 0, u_disponibles: u_disponibles, u_server: 1, clickable_lines: clickable_lines } %>
             </li>
             <% u_disponibles -= 1 %>
           <% end %>
@@ -70,16 +65,13 @@
                                 style: "min-height: #{settings[:min_height] * (server.modele.try(:u).to_i > 0 ? server.modele.u : 1)}px;padding: 3px 3px 3px 20px;",
                                 data: data do %>
               <% u_server.times do |i| %>
-                <%= render partial: 'servers/draw_u_scale_unit', formats: %i[html], locals: { i: i,
-                                                                           u_disponibles: u_disponibles,
-                                                                           u_server: u_server,
-                                                                           clickable_lines: clickable_lines } %>
+                <%= render partial: 'servers/draw_u_scale_unit', locals: { i: i, u_disponibles: u_disponibles, u_server: u_server, clickable_lines: clickable_lines } %>
                 <% u_disponibles -= 1 %>
               <% end %>
-              <%= render 'servers/draw_server_badge.html.erb', server: server %>
+              <%= render partial: 'servers/draw_server_badge', locals: { server: server } %>
               <span id="back_server_<%= server.id %>">
                 <div id="scaleable-wrapper" class="scaleable-wrapper">
-                  <%= render 'servers/draw_server_compact.html.erb', server: server %>
+                  <%= render partial: 'servers/draw_server_compact', locals: { server: server } %>
                 </div>
               </span>
             <% end %>
@@ -94,14 +86,11 @@
                                 style: "height: #{settings[:min_height] * u_server - (u_server - 1)}px;background-color:#{bgModeleColor} !important;",
                                 :data => data do %>
               <% u_server.times do |i| %>
-                <%= render partial: 'servers/draw_u_scale_unit', formats: %i[html], locals: { i: i,
-                                                                           u_disponibles: u_disponibles,
-                                                                           u_server: u_server,
-                                                                           clickable_lines: clickable_lines } %>
+                <%= render partial: 'servers/draw_u_scale_unit', locals: { i: i, u_disponibles: u_disponibles, u_server: u_server, clickable_lines: clickable_lines } %>
                 <% u_disponibles -= 1 %>
               <% end %>
-              <%= render 'servers/draw_server_badge.html.erb', server: server %>
-              <%= render 'servers/draw_server_compact_front.html.erb', server: server %>
+              <%= render partial: 'servers/draw_server_badge', locals: { server: server } %>
+              <%= render partial: 'servers/draw_server_compact_front', locals: { server: server } %>
             <% end %>
 
           <% end %>
@@ -112,10 +101,7 @@
                     <%= 'relegated' if highlighted_servers_ids != servers_ids %>
                     <%= 'relegated' if params[:bg]=='cablage' && request.format.pdf? %>
                   " style="height: <%= settings[:min_height] %>px;" data-num-u="<%= u_disponibles %>">
-          <%= render partial: 'servers/draw_u_scale_unit', formats: %i[html], locals: { i: 0,
-                                                                     u_disponibles: u_disponibles,
-                                                                     u_server: 1,
-                                                                     clickable_lines: clickable_lines } %>
+          <%= render partial: 'servers/draw_u_scale_unit', locals: { i: 0, u_disponibles: u_disponibles, u_server: 1, clickable_lines: clickable_lines } %>
         </li>
         <% u_disponibles -= 1 %>
       <% end %>

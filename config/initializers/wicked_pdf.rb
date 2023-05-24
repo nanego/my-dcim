@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # WickedPDF Global Configuration
 #
 # Use this to set up shared configuration options for your entire application.
@@ -19,9 +21,9 @@ WickedPdf.config = {
   # (but can be overridden in `render :pdf` calls)
   # layout: 'pdf.html',
   # :layout => "pdf.html",
-  layout: 'pdf.html',
+  layout: 'application',
   margin: {:top=> 10, :bottom => 10},
-  #:header => {:html => { :template=> 'layouts/pdf_header.html'}},
-  #:footer => {:html => { :template=> 'layouts/pdf_footer.html'}},
-  #:exe_path => '/usr/bin/wkhtmltopdf'
+  # :header => {:html => { :template=> 'layouts/pdf_header.html'}},
+  # :footer => {:html => { :template=> 'layouts/pdf_footer.html'}},
+  # :exe_path => '/usr/bin/wkhtmltopdf'
 }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rack/utils'
 
 class FixHeadersMiddleware
@@ -6,9 +8,7 @@ class FixHeadersMiddleware
   end
 
   def call(env)
-    if env["HTTP_X_FORWARDED_HOST"]
-      env["HTTP_X_FORWARDED_HOST"].gsub!(/,\s?[^,]+.ac.cs$/,"")
-    end
+    env["HTTP_X_FORWARDED_HOST"]&.gsub!(/,\s?[^,]+.ac.cs$/, "")
     @app.call(env)
   end
 end

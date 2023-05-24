@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   include PublicActivity::StoreController
 
@@ -11,7 +13,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def after_sign_in_path_for(resource)
-    #return request.env['omniauth.origin'] || stored_location_for(resource) || root_path
+    # return request.env['omniauth.origin'] || stored_location_for(resource) || root_path
     #=> with our setup, omniauth.origin always contain sign_in page since user was first redirected on it
     return stored_location_for(resource) || root_path
   end
@@ -34,5 +36,4 @@ class ApplicationController < ActionController::Base
       :current_user => current_user
     }
   end
-
 end

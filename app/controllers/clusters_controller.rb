@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ClustersController < ApplicationController
   before_action :set_cluster, only: [:show, :edit, :update, :destroy]
 
@@ -9,8 +11,7 @@ class ClustersController < ApplicationController
 
   # GET /clusters/1
   # GET /clusters/1.json
-  def show
-  end
+  def show; end
 
   # GET /clusters/new
   def new
@@ -18,8 +19,7 @@ class ClustersController < ApplicationController
   end
 
   # GET /clusters/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /clusters
   # POST /clusters.json
@@ -67,6 +67,7 @@ class ClustersController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_cluster
       @cluster = Cluster.find(params[:id])

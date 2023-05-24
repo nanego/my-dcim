@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Migration responsible for creating a table with activities
 class CreateActivities < ActiveRecord::Migration[4.2]
   # Create table
@@ -16,6 +18,7 @@ class CreateActivities < ActiveRecord::Migration[4.2]
     add_index :activities, [:owner_id, :owner_type] unless index_exists?(:activities, [:owner_id, :owner_type])
     add_index :activities, [:recipient_id, :recipient_type] unless index_exists?(:activities, [:recipient_id, :recipient_type])
   end
+
   # Drop table
   def self.down
     drop_table :activities

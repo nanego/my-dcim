@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path("../../test_helper", __FILE__)
 
 class BaysControllerTest < ActionController::TestCase
@@ -42,7 +44,7 @@ class BaysControllerTest < ActionController::TestCase
 
   test "should destroy bay" do
     @bay = Bay.create
-    
+
     assert_difference('Bay.count', -1) do
       delete :destroy, params: {id: @bay}
     end

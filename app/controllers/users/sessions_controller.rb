@@ -1,5 +1,7 @@
-class Users::SessionsController < Devise::SessionsController
+# frozen_string_literal: true
 
-  skip_before_action :verify_authenticity_token, :only => :create
-
+module Users
+  class SessionsController < Devise::SessionsController
+    skip_before_action :verify_authenticity_token, :only => :create
+  end
 end

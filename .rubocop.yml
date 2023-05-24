@@ -1,11 +1,57 @@
+require:
+  - rubocop-performance
+  - rubocop-rake
+  - rubocop-rails
+  # - rubocop-rspec
+
+inherit_from: .rubocop_todo.yml
+
 AllCops:
-  RunRailsCops: true
-  Include:
-    - '**/Gemfile'
-    - '**/Rakefile'
+  DisplayCopNames: true
+  DisplayStyleGuide: true
   Exclude:
-   - 'bin/*'
-   - 'db/seeds.rb'
-   - 'db/schema.rb'
-   - 'vendor/bundle/**/*'
-require: rubocop-performance
+    - "node_modules/**/*"
+    - "vendor/**/*"
+    - ".git/**/*"
+    - "bin/**/*"
+    - "db/schema.rb"
+    - "storage/**/*"
+    - "tmp/**/*"
+    - "public/**/*"
+    - "log/**/*"
+    - "coverage/**/*"
+    - "app/packs/**/*"
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+# Layout/LineLength:
+#   Max: 120
+
+Metrics/AbcSize:
+  Exclude:
+    - "db/**/*.rb"
+
+Metrics/MethodLength:
+  Exclude:
+    - "db/**/*.rb"
+
+Metrics/BlockLength:
+  Exclude:
+    - "config/**/*.rb"
+    - "spec/**/*.rb"
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+
+# Style/TrailingCommaInArguments:
+#   EnforcedStyleForMultiline: comma
+
+# Style/TrailingCommaInArrayLiteral:
+#   EnforcedStyleForMultiline: consistent_comma
+
+# Style/TrailingCommaInHashLiteral:
+#   EnforcedStyleForMultiline: consistent_comma

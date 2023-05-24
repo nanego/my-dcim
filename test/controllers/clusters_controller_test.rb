@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path("../../test_helper", __FILE__)
 
 class ClustersControllerTest < ActionController::TestCase
@@ -42,7 +44,7 @@ class ClustersControllerTest < ActionController::TestCase
 
   test "should destroy cluster" do
     @cluster = Cluster.create
-    
+
     assert_difference('Cluster.count', -1) do
       delete :destroy, params: {id: @cluster}
     end

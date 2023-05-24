@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require File.expand_path("../../test_helper", __FILE__)
 
 class ServerTest < ActiveSupport::TestCase
-
   test 'scope only_pdus' do
     assert_includes Server.only_pdus, servers(:pdu)
     refute_includes Server.only_pdus, servers(:one)
@@ -26,4 +27,5 @@ class ServerTest < ActiveSupport::TestCase
   test '#documentation_url with documentation_url value on manufacturer' do
     assert servers(:one).documentation_url == "https://fortinet.com/CZ31535FEY/document"
   end
+
 end

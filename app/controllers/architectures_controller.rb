@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ArchitecturesController < ApplicationController
   before_action :set_architecture, only: [:show, :edit, :update, :destroy]
 
@@ -9,8 +11,7 @@ class ArchitecturesController < ApplicationController
 
   # GET /architectures/1
   # GET /architectures/1.json
-  def show
-  end
+  def show; end
 
   # GET /architectures/new
   def new
@@ -18,8 +19,7 @@ class ArchitecturesController < ApplicationController
   end
 
   # GET /architectures/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /architectures
   # POST /architectures.json
@@ -67,6 +67,7 @@ class ArchitecturesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_architecture
       @architecture = Architecture.find(params[:id])

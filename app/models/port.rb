@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 require 'csv'
 
-class Port < ActiveRecord::Base
+class Port < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
   tracked :parameters => {
-      :server => proc { |controller, model_instance| model_instance.card.try(:server)},
-      :card_type => proc { |controller, model_instance| "#{model_instance.card.try(:composant)} #{model_instance.card.try(:card_type)}"},
-      :vlans => :vlans
+    :server => proc { |controller, model_instance| model_instance.card.try(:server)},
+    :card_type => proc { |controller, model_instance| "#{model_instance.card.try(:composant)} #{model_instance.card.try(:card_type)}"},
+    :vlans => :vlans
   }
 
-  belongs_to :card
+  belongs_to :card, optional: true
   delegate :is_power_input?, to: :card, :allow_nil => true
 
   has_one :connection
@@ -41,7 +43,7 @@ class Port < ActiveRecord::Base
       if other_port.connection.present?
         cable ||= other_port.connection.cable
       end
-      if cable.present? and !cable.destroyed?
+      if cable.present? && !cable.destroyed?
         cable.name = cable_name
         cable.color = cable_color
         cable.special_case = special_case
@@ -70,8 +72,8 @@ class Port < ActiveRecord::Base
           txt << "#{server.name} (#{server.modele.try(:name)})\r\n"
           server.cards.each do |card|
             card.ports.each do |port|
-              if port && port.cable_name && card.composant.name.present?
-                txt << "    * #{card.composant.name}#{card.composant.name.include?('SL') ? "/#{port.position}" : port.position} - #{port.network_conf(server.frame.switch_slot)}\r\n"
+              if port&.cable_name && card.composant.name.present?
+                txt << "    * #{card.composant.name}#{card.composant.name.include?("SL") ? "/#{port.position}" : port.position} - #{port.network_conf(server.frame.switch_slot)}\r\n"
               end
             end
           end
@@ -82,7 +84,7 @@ class Port < ActiveRecord::Base
   end
 
   def self.to_csv(frames)
-    attributes = %w{name_with_room_and_islet server_slug server_name server_modele port_info}
+    attributes = %w[name_with_room_and_islet server_slug server_name server_modele port_info]
 
     CSV.generate(headers: true) do |csv|
       csv << attributes
@@ -93,9 +95,9 @@ class Port < ActiveRecord::Base
           used_port_present = false
           server.cards.each do |card|
             card.ports.each do |port|
-              if port && port.cable_name && card.composant.name.present?
+              if port&.cable_name && card.composant.name.present?
                 used_port_present = true
-                csv << frame_server_info + ["#{card.composant.name}#{card.composant.name.include?('SL') ? "/#{port.position}" : port.position} - #{port.network_conf(server.frame.switch_slot)}"]
+                csv << frame_server_info + ["#{card.composant.name}#{card.composant.name.include?("SL") ? "/#{port.position}" : port.position} - #{port.network_conf(server.frame.switch_slot)}"]
               end
             end
           end
@@ -113,10 +115,9 @@ class Port < ActiveRecord::Base
   def remove_unused_connections(ports)
     ports.reject(&:blank?).each do |port|
       old_port_destination = port.paired_connection.try(:port)
-      if old_port_destination.present? && !ports.include?(old_port_destination)
+      if old_port_destination.present? && ports.exclude?(old_port_destination)
         old_port_destination.connection.cable.destroy
       end
     end
   end
-
 end

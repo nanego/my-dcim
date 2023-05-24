@@ -1,5 +1,6 @@
-class Frame < ActiveRecord::Base
+# frozen_string_literal: true
 
+class Frame < ApplicationRecord
   enum settings: {max_u: 38, max_elts: 24, max_rj45: 48, max_fc: 12}
   enum view_sides: {both: 'both', front: 'front', back: 'back'}
 
@@ -9,10 +10,10 @@ class Frame < ActiveRecord::Base
   include PublicActivity::Model
   tracked owner: ->(controller, model) {controller && controller.current_user}
 
+  belongs_to :bay, optional: true
   has_many :materials, -> {order("servers.position desc")}, class_name: "Server", dependent: :restrict_with_error
   has_many :pdus, -> {only_pdus}, class_name: "Server", dependent: :restrict_with_error
   has_many :servers, -> {no_pdus.order("servers.position desc")}, class_name: "Server", dependent: :restrict_with_error
-  belongs_to :bay
   has_one :islet, through: :bay
   delegate :room, :to => :islet, :allow_nil => true
   delegate :name, :to => :room, :prefix => true, :allow_nil => true
@@ -38,12 +39,11 @@ class Frame < ActiveRecord::Base
   def name_with_room_and_islet
     [room_name.present? ? "Salle #{room_name}" : '',
      bay.present? ? "Ilot #{bay.islet.name}" : '',
-     "Baie " + (name.present? ? name : 'non précisée')
-    ].reject(&:blank?).join(' ')
+     "Baie " + (name.present? ? name : 'non précisée')].reject(&:blank?).join(' ')
   end
 
   def self.to_txt(servers_per_bay, detail)
-    txt = ""
+    txt = []
     if servers_per_bay.present?
       servers_per_bay.each do |islet, lanes|
         lanes.each do |lane, bays|
@@ -55,11 +55,11 @@ class Frame < ActiveRecord::Base
         end
       end
     end
-    txt
+    txt.join
   end
 
   def to_txt(detail)
-    txt = ""
+    txt = []
     if self.present?
       txt << "\r\n#{self.name}\r\n"
       txt << "---------------\r\n"
@@ -73,7 +73,7 @@ class Frame < ActiveRecord::Base
         txt << "[#{server.position.to_s.rjust(2, "0")}] #{server.name} #{"(#{addition})" if addition.present?}\r\n"
       end
     end
-    txt
+    txt.join
   end
 
   def other_frame
@@ -153,5 +153,4 @@ class Frame < ActiveRecord::Base
         [:name, :id]
     ]
   end
-
 end

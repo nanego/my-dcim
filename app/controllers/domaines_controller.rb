@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DomainesController < ApplicationController
   before_action :set_domaine, only: [:show, :edit, :update, :destroy]
 
@@ -9,8 +11,7 @@ class DomainesController < ApplicationController
 
   # GET /domaines/1
   # GET /domaines/1.json
-  def show
-  end
+  def show; end
 
   # GET /domaines/new
   def new
@@ -18,8 +19,7 @@ class DomainesController < ApplicationController
   end
 
   # GET /domaines/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /domaines
   # POST /domaines.json
@@ -67,6 +67,7 @@ class DomainesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_domaine
       @domaine = Domaine.find(params[:id])

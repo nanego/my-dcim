@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GestionsController < ApplicationController
   before_action :set_gestion, only: [:show, :edit, :update, :destroy]
 
@@ -9,8 +11,7 @@ class GestionsController < ApplicationController
 
   # GET /gestions/1
   # GET /gestions/1.json
-  def show
-  end
+  def show; end
 
   # GET /gestions/new
   def new
@@ -18,8 +19,7 @@ class GestionsController < ApplicationController
   end
 
   # GET /gestions/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /gestions
   # POST /gestions.json
@@ -67,6 +67,7 @@ class GestionsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_gestion
       @gestion = Gestion.find(params[:id])

@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class MoveTest < ActiveSupport::TestCase
-
   def setup
     @move = moves(:one)
   end
@@ -25,7 +26,7 @@ class MoveTest < ActiveSupport::TestCase
   test 'clear current connections' do
     # Before
     @moved_connections = MovedConnection.per_servers([@move.moveable])
-    assert_empty @moved_connections.select{|c|c.port_from_id == 2}
+    assert_empty @moved_connections.select{ |c| c.port_from_id == 2 }
 
     # Re-init moved connections
     @move.clear_connections
@@ -33,7 +34,7 @@ class MoveTest < ActiveSupport::TestCase
     # After
     @moved_connections = MovedConnection.per_servers([@move.moveable])
     @move.moveable.ports.each do |port|
-      moved_connection = @moved_connections.select{|c|c.port_from_id == port.id}.first
+      moved_connection = @moved_connections.select{ |c| c.port_from_id == port.id }.first
       assert_not_nil moved_connection
       assert moved_connection.cablename==''
       assert moved_connection.color==''
@@ -61,5 +62,4 @@ class MoveTest < ActiveSupport::TestCase
     assert_empty Move.where(id: @move.id)
     assert_empty MovedConnection.where(id: @moved_connection.id)
   end
-
 end

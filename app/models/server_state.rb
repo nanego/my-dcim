@@ -1,5 +1,6 @@
-class ServerState < ActiveRecord::Base
+# frozen_string_literal: true
 
+class ServerState < ApplicationRecord
   has_many :servers
 
   scope :sorted, -> { order(:name) }
@@ -7,5 +8,4 @@ class ServerState < ActiveRecord::Base
   def to_s
     name.to_s
   end
-
 end
