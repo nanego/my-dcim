@@ -36,7 +36,13 @@
             <td><%= cluster.servers.count %> serveurs</td>
             <td><%= link_to 'Voir', cluster_path(cluster), class: 'btn btn-primary' %></td>
             <td><%= link_to 'Modifier', edit_cluster_path(cluster), class: 'btn btn-primary' %></td>
-            <td><%= link_to 'Supprimer', cluster, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+            <td>
+              <%= link_to 'Supprimer',
+                          cluster,
+                          method: :delete,
+                          data: { confirm: 'Ce cluster ne pourra pas être supprimé tant qu\'il sera associé à au moins un serveur. Voulez-vous continuer ?' },
+                          class: 'btn btn-danger' %>
+            </td>
           <% end %>
           </tbody>
         </table>

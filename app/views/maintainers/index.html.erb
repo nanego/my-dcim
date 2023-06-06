@@ -32,7 +32,13 @@
             <%= content_tag_for(:tr, @maintainers) do |maintainer| %>
               <td><%= maintainer %></td>
               <td><%= link_to 'Modifier', edit_maintainer_path(maintainer) %></td>
-              <td><%= link_to 'Supprimer', maintainer, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' %></td>
+              <td>
+                <%= link_to 'Supprimer',
+                            maintainer,
+                            method: :delete,
+                            data: { confirm: 'Ce mainteneur ne pourra pas être supprimé tant qu\'il sera associé à au moins un contrat de maintenance. Voulez-vous continuer ?' },
+                            class: 'btn btn-warning' %>
+              </td>
             <% end %>
           </tbody>
         </table>

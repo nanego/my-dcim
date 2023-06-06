@@ -34,7 +34,13 @@
             <td><%= manufacturer %></td>
             <td><%= pluralize(manufacturer.modeles.count, 'modèle', 'modèles') %> </td>
             <td><%= link_to 'Modifier', edit_manufacturer_path(manufacturer), class: 'btn btn-primary' %></td>
-            <td><%= link_to 'Supprimer', manufacturer, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+            <td>
+              <%= link_to 'Supprimer',
+                          manufacturer,
+                          method: :delete,
+                          data: { confirm: 'Ce mainteneur ne pourra pas être supprimé tant qu\'il sera associé à au moins un modèle. Voulez-vous continuer ?' },
+                          class: 'btn btn-danger' %>
+            </td>
           <% end %>
           </tbody>
         </table>

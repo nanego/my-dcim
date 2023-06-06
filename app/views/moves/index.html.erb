@@ -14,7 +14,9 @@
       <%= content_tag_for(:tr, @moves) do |move| %>
         <td><%= link_to "#{move.moveable.try(:modele).try(:category)} #{move.moveable} vers la baie #{move.frame}", edit_move_path(move) %></td>
         <td><%= link_to "Exécuter le déplacement du serveur et de ses connexions", execute_move_path(move), class: 'btn btn-success' %></td>
-        <td><%= link_to 'Supprimer', move, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' %></td>
+        <td>
+          <%= link_to 'Supprimer', move, method: :delete, data: { confirm: 'Voulez-vous vraiment supprimer ce déplacement ?' }, class: 'btn btn-warning' %>
+        </td>
       <% end %>
     </tbody>
   </table>

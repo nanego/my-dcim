@@ -38,7 +38,13 @@
             <td><%= site.position %></td>
             <td><%= pluralize site.rooms.count, 'salle', 'salles' %></td>
             <td><%= link_to 'Modifier', edit_site_path(site), class: 'btn btn-default' %></td>
-            <td><%= link_to 'Supprimer', site, method: :delete, data: { confirm: 'Est-ce que vous confirmez la suppression définitive de ce site ?' }, class: 'btn btn-warning' %></td>
+            <td>
+              <%= link_to 'Supprimer',
+                          site,
+                          method: :delete,
+                          data: { confirm: 'Ce site ne pourra pas être supprimé tant qu\'il sera associé à au moins une salle. Voulez-vous continuer ?' },
+                          class: 'btn btn-warning' %>
+            </td>
           <% end %>
           </tbody>
         </table>
