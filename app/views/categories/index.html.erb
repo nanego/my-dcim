@@ -34,7 +34,13 @@
             <td><%= category %></td>
             <td><%= link_to "#{pluralize(category.modeles.count, 'modèle', 'modèles')}", modeles_path %> </td>
             <td><%= link_to 'Modifier', edit_category_path(category), class: 'btn btn-primary' %></td>
-            <td><%= link_to 'Supprimer', category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+            <td>
+              <%= link_to 'Supprimer',
+                          category,
+                          method: :delete,
+                          data: { confirm: 'Ce type de matériel ne pourra pas être supprimé tant qu\'il aura au moins un modèle associé. Voulez-vous continuer ?' },
+                          class: 'btn btn-danger' %>
+            </td>
           <% end %>
           </tbody>
         </table>

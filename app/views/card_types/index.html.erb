@@ -36,7 +36,13 @@
             <td><%= pluralize card_type.servers.count, 'serveur' %></td>
             <td><%= card_type.port_quantity %> ports</td>
             <td><%= link_to 'Modifier', edit_card_type_path(card_type), class: 'btn btn-primary' %></td>
-            <td><%= link_to 'Supprimer', card_type, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+            <td>
+              <%= link_to 'Supprimer',
+                          card_type,
+                          method: :delete,
+                          data: { confirm: 'Ce type de carte ne pourra pas être supprimé tant qu\'il sera associé à au moins un serveur (via une carte). Voulez-vous continuer ?' },
+                          class: 'btn btn-danger' %>
+            </td>
           <% end %>
           </tbody>
         </table>

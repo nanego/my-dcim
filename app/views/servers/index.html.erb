@@ -71,7 +71,13 @@
               <td><%= server.rj45_cm %></td>
               <td><%= server.ipmi_dedie %></td>
               <td><%= link_to 'Modifier', edit_server_path(server.slug) %></td>
-              <td><%= link_to 'Supprimer', server_path(server.slug), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+              <td>
+                <%= link_to 'Supprimer',
+                            server_path(server.slug),
+                            method: :delete,
+                            data: { confirm: 'Toutes les données concernant ce matériel seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?' },
+                            class: 'btn btn-danger' %>
+              </td>
             <% end %>
           </tbody>
         </table>

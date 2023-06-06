@@ -31,7 +31,13 @@
               <td style="font-size: larger;"><%= link_to modele.name, edit_modele_path(modele) %></td>
               <td style="width: 106px;"><%= modele.enclosures.map(&:display).join(', ') %></td>
               <td style="width: 106px;"><%= pluralize(modele.servers.count, modele.category.name.try(:downcase), "#{modele.category.name.try(:downcase)}#{ modele.category.name.blank? || modele.category.name[-1] == 's' || modele.category.name=='San' ? '' : 's' }") %></td>
-              <td style="width: 75px;text-align: center;"><%= link_to 'Supprimer', modele, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+              <td style="width: 75px;text-align: center;">
+                <%= link_to 'Supprimer',
+                            modele,
+                            method: :delete,
+                            data: { confirm: 'Ce modèle ne pourra pas être supprimé tant qu\'il sera associé à au moins un serveur ou une enclosure. Voulez-vous continuer ?' },
+                            class: 'btn btn-danger' %>
+              </td>
             <% end %>
             </tbody>
           </table>

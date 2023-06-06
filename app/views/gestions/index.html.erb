@@ -36,7 +36,13 @@
             <td><%= pluralize(gestion.servers.count, 'serveur', 'serveurs') %> </td>
             <td><%= link_to 'Voir', gestion_path(gestion), class: 'btn btn-primary' %></td>
             <td><%= link_to 'Modifier', edit_gestion_path(gestion), class: 'btn btn-primary' %></td>
-            <td><%= link_to 'Supprimer', gestion, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+            <td>
+              <%= link_to 'Supprimer',
+                          gestion,
+                          method: :delete,
+                          data: { confirm: 'Ce gestionnaire ne pourra pas être supprimé tant qu\'il sera associé à au moins un serveur. Voulez-vous continuer ?' },
+                          class: 'btn btn-danger' %>
+            </td>
           <% end %>
           </tbody>
         </table>
