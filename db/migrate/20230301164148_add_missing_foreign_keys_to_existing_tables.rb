@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddMissingForeignKeysToExistingTables < ActiveRecord::Migration[7.0]
   def change
     # add_foreign_key :ports, :cards
@@ -19,7 +21,7 @@ class AddMissingForeignKeysToExistingTables < ActiveRecord::Migration[7.0]
     add_foreign_key :maintenance_contracts, :contract_types
     add_foreign_key :maintenance_contracts, :servers
 
-    # add_foreign_key :rooms, :sites
+    add_foreign_key :rooms, :sites
 
     # add_foreign_key :islets, :rooms
 
@@ -45,7 +47,7 @@ class AddMissingForeignKeysToExistingTables < ActiveRecord::Migration[7.0]
     # add_foreign_key :composants, :enclosures
     add_foreign_key :composants, :type_composants
 
-    add_foreign_key :servers, :frames
+    # add_foreign_key :servers, :frames
     add_foreign_key :servers, :gestions
     # add_foreign_key :servers, :domaines
     add_foreign_key :servers, :modeles
