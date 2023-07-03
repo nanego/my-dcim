@@ -45,7 +45,13 @@ class GlpiClient
         request.headers["Session-Token"] = session_token
         request.headers["App-Token"] = API_KEY
       end
-      computer_params = JSON.parse(resp.body)
+      begin
+        computer_params = JSON.parse(resp.body)
+      rescue JSON::ParserError => e
+        Rails.logger.warn "Error parsing JSON: #{e}"
+        Rails.logger.warn "Response body: #{resp.inspect}"
+        raise
+      end
       if computer_params.present?
         computer_params.deep_transform_keys(&:underscore)
         computer = Computer.new(computer_params)
