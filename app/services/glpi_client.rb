@@ -6,10 +6,11 @@ require 'json'
 class GlpiClient
   API_URL = Rails.application.credentials.glpi_api_url
   API_KEY = Rails.application.credentials.glpi_apikey
+  PROXY_URL = Rails.application.credentials.proxy_url
 
   attr_reader :connection, :session_token
 
-  def initialize(connection = Faraday.new(API_URL, { ssl: { verify: false } }))
+  def initialize(connection = Faraday.new(API_URL, { ssl: { verify: false }, proxy: PROXY_URL }))
     if Rails.env.production?
       @connection = connection
     else
