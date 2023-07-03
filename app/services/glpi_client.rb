@@ -39,7 +39,7 @@ class GlpiClient
         "with_changes=false", # Retrieve associated ITIL changes. Optional.
         "with_notes=true", # Retrieve Notes. Optional.
         "with_logs=false", # Retrieve historical. Optional.
-        "add_keys_names=true", # Retrieve friendly names. Array containing fkey(s) and/or "id". Optional.
+        # "add_keys_names=[]", # Retrieve friendly names. Array containing fkey(s) and/or "id". Optional.
       ]
       resp = @connection.get("Computer/#{glpi_id}?#{params.join("&")}") do |request|
         request.headers["Session-Token"] = session_token
