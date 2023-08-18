@@ -6,12 +6,7 @@ class ServersController < ApplicationController
   before_action :set_server, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:servers_grid].blank?
-      params[:servers_grid] = {"column_names" => ["id", "name", "type"]}
-    end
-
-    @servers = ServersGrid.new(params[:servers_grid])
-    render "servers_grids/index"
+    @servers = Server.includes(:modele => :category, :frame => { :bay => { :islet => :room } })
   end
 
   def grid
