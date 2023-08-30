@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ServersHelper
+module ServersHelper # rubocop:disable Metrics/ModuleLength
   MAX_PORTS_PER_LINE = 24
 
   def slot_label(server, component)

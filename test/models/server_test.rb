@@ -27,5 +27,4 @@ class ServerTest < ActiveSupport::TestCase
   test '#documentation_url with documentation_url value on manufacturer' do
     assert servers(:one).documentation_url == "https://fortinet.com/CZ31535FEY/document"
   end
-
 end
