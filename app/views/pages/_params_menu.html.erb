@@ -13,6 +13,13 @@
 
   <div class="list-group">
     <a href="#" class="list-group-item disabled">
+      Matériel
+    </a>
+    <a href="<%= servers_path %>" class="list-group-item <%= controller.controller_name == "servers" ? 'active' : '' %>">Matériels</a>
+  </div>
+
+  <div class="list-group">
+    <a href="#" class="list-group-item disabled">
       Gestion du matériel
     </a>
     <a href="<%= modeles_path %>" class="list-group-item <%= controller.controller_name == "modeles" ? 'active' : '' %>">Modèles</a>
