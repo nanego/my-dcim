@@ -1,3 +1,9 @@
+<% provide(:title, "Ajouter un matériel") %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+    'Paramètres' => servers_url, 'Matériels' => servers_path, 'Ajouter un matériel' => ''
+  }
+%>
+
 <div class="page-header">
   <%= link_to servers_path, class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>

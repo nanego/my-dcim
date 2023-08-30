@@ -1,4 +1,8 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Serveurs' => servers_grids_path, 'Ajout par fichier CSV' => ''} %>
+<% provide(:title, "Importation de matériel par fichier CSV") %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+    'Paramètres' => servers_url, 'Matériels' => servers_path, 'Importation de matériel par fichier CSV' => ''
+  }
+%>
 
 <% if @import_error %>
   <div class="alert alert-danger alert-dismissable" role="alert">
