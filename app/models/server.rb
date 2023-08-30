@@ -127,9 +127,9 @@ class Server < ApplicationRecord
   end
 
   def documentation_url
-    return unless modele&.manufacturer&.documentation_url.present? && numero.present? 
+    return unless modele&.manufacturer&.documentation_url.present? && numero.present?
 
-    sprintf(modele&.manufacturer&.documentation_url, numero)
+    format(modele&.manufacturer&.documentation_url, numero)
   end
 
   private
