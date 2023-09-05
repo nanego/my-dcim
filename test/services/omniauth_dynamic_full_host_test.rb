@@ -13,18 +13,18 @@ class DynamicFullHostTest < ActiveSupport::TestCase
   end
 
   def setup
-    app = lambda {|_env| [404, {}, ['Awesome']]}
+    app = lambda { |_env| [404, {}, ['Awesome']] }
     @strategy = ExampleStrategy.new(app, {})
   end
 
   def test_full_host_without_specific_origin
     @strategy.call!(make_env('/whatever', 'rack.url_scheme' => 'http', 'SERVER_NAME' => 'facebook.lame',
-                                          'QUERY_STRING' => 'code=asofibasf|asoidnasd', 'SCRIPT_NAME' => '', 'SERVER_PORT' => 80))
+                             'QUERY_STRING' => 'code=asofibasf|asoidnasd', 'SCRIPT_NAME' => '', 'SERVER_PORT' => 80))
     assert @strategy.full_host, 'http://example.com'
   end
 
   def test_full_host_with_url_origin
-    env = {"omniauth.origin" => 'http://example.com/sub_uri/origin'}
+    env = { "omniauth.origin" => 'http://example.com/sub_uri/origin' }
     @strategy.call(make_env('/auth/test/callback', env))
     assert @strategy.full_host, 'http://example.com'
   end
