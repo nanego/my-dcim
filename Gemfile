@@ -25,6 +25,7 @@ gem 'devise-i18n'
 gem 'devise_invitable'
 gem 'omniauth', '~> 2.1.0'
 gem 'omniauth_openid_connect', '~> 0.7.0'
+gem "omniauth-rails_csrf_protection"
 gem 'simple_token_authentication', '~> 1.0'
 
 gem 'datagrid'
