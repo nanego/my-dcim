@@ -1,15 +1,20 @@
 <div class="authform">
-  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f| %>
-    <h3 style="width: 100%;text-align: center;">Connexion</h3>
-    <%= render "devise/shared/error_messages", resource: resource %>
-    <div id="oidc-login">
-      <%= link_to 'Authentification via CERBERE (OIDC)', user_openid_connect_omniauth_authorize_path, class: 'btn btn-success', style: 'width: 100%;' %>
-    </div>
-    <% if Rails.env.development? %>
+
+  <h3 style="width: 100%;text-align: center;">Connexion</h3>
+
+  <div id="oidc-login">
+    <%= button_to 'Authentification via CERBERE (OIDC)',
+                  user_openid_connect_omniauth_authorize_path,
+                  class: 'btn btn-success', style: 'width: 100%;' %>
+  </div>
+
+  <% if Rails.env.development? %>
+    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form' }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
       <br>
       <div class="form-group">
         <%- if devise_mapping.registerable? %>
-          <%= link_to 'Inscription', new_registration_path(resource_name), class: 'right'  %>
+          <%= link_to 'Inscription', new_registration_path(resource_name), class: 'right' %>
         <% end -%>
         <%= f.label :email %>
         <%= f.email_field :email, :autofocus => true, class: 'form-control' %>
