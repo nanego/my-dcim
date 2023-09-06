@@ -10,15 +10,6 @@ if Rails.env.production?
                                             path: (Rails.application.secrets.cas_server_path != "/" ? Rails.application.secrets.cas_server_path : nil),
                                             ssl: Rails.application.secrets.cas_server_scheme == "https"
   end
-
-  openid_connect_client_options = {
-    port: 443,
-    scheme: "https",
-    host: Rails.application.credentials.oidc[:server_host],
-    identifier: Rails.application.credentials.oidc[:client_id],
-    secret: Rails.application.credentials.oidc[:secret_key],
-    redirect_uri: "#{Rails.application.secrets.domain_name}/users/auth/openid_connect/callback",
-  }
 end
 
 # Use this hook to configure devise mailer, warden hooks and so forth.
@@ -317,11 +308,19 @@ Devise.setup do |config|
 
   config.omniauth :openid_connect, {
     name: :openid_connect,
-    scope: [:openid, :email, :profile, :address],
+    scope: [:openid, :email, :profile, :address, :phone, :cerbere_utilisateur, :cerbere_autorisations],
     response_type: :code,
     discovery: true,
+    issuer: "https://#{Rails.application.credentials.oidc[:server_host]}",
     # uid_field: "preferred_username",
-    client_options: openid_connect_client_options
+    client_options: {
+      port: 443,
+      scheme: "https",
+      host: Rails.application.credentials.oidc[:server_host],
+      identifier: Rails.application.credentials.oidc[:client_id],
+      secret: Rails.application.credentials.oidc[:secret_key],
+      redirect_uri: "https://#{Rails.application.secrets.domain_name}/users/auth/openid_connect/callback",
+    }
   }
 
   # ==> Warden configuration
