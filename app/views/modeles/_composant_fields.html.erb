@@ -1,17 +1,18 @@
-<%  @prefilled_data = type_composant if local_assigns[:type_composant].present? && @prefilled_data.blank?
-    if @prefilled_data.present?
-      options = TypeComposant.where(name: @prefilled_data).map{ |c| [c.name, c.id] }
-    else
-      options = TypeComposant.all.map{ |c| [c.name, c.id] }
-    end %>
+<% @prefilled_data = type_composant if local_assigns[:type_composant].present? && @prefilled_data.blank?
+   if @prefilled_data.present?
+     options = TypeComposant.where(name: @prefilled_data).map { |c| [c.name, c.id] }
+   else
+     options = TypeComposant.all.map { |c| [c.name, c.id] }
+   end %>
 
 <li class="list-group-item row composant">
   <fieldset>
     <div class="col-xs-3 pull-right">
       <%= f.hidden_field :_destroy %>
-      <%= f.hidden_field :position %>
       <%= link_to "X", '#', class: "remove_fields btn btn-danger pull-right" %>
     </div>
+
+    <%= f.hidden_field :position %>
 
     <% if options.size == 1 %>
       <%= f.hidden_field :type_composant_id, value: options.first[1].to_s %>
@@ -22,7 +23,7 @@
             <span class="glyphicon glyphicon-resize-vertical"></span>
           </span>
         <% end %>
-        <%= f.select :type_composant_id, options, {}, {class: 'form-control'} %>
+        <%= f.select :type_composant_id, options, {}, { class: 'form-control' } %>
       </div>
     <% end %>
 
@@ -32,7 +33,7 @@
           <span class="glyphicon glyphicon-resize-vertical"></span>
         </span>
       <% end %>
-      <%= f.text_field :name, {class: 'form-control', placeholder: 'Nom'} %>
+      <%= f.text_field :name, { class: 'form-control', placeholder: 'Nom' } %>
     </div>
   </fieldset>
 </li>
