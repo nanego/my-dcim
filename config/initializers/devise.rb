@@ -296,14 +296,14 @@ Devise.setup do |config|
     scope: [:openid, :email, :profile, :address, :phone, :cerbere_utilisateur, :cerbere_autorisations],
     response_type: :code,
     discovery: true,
-    issuer: "https://#{Rails.application.credentials.oidc[:server_host]}",
+    issuer: "https://#{Rails.application.credentials.dig(:oidc, :server_host)}",
     # uid_field: "preferred_username",
     client_options: {
       port: 443,
       scheme: "https",
-      host: Rails.application.credentials.oidc[:server_host],
-      identifier: Rails.application.credentials.oidc[:client_id],
-      secret: Rails.application.credentials.oidc[:secret_key],
+      host: Rails.application.credentials.dig(:oidc, :server_host),
+      identifier: Rails.application.credentials.dig(:oidc, :client_id),
+      secret: Rails.application.credentials.dig(:oidc, :secret_key),
       redirect_uri: "https://#{Rails.application.secrets.domain_name}/users/auth/openid_connect/callback",
     }
   }
