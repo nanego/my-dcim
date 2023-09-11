@@ -1,15 +1,25 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Utilisateurs' => ''} %>
-<div class="container-fluid">
+<% provide(:title, "Utilisateurs") %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: { 'Utilisateurs' => '' } %>
+
+<div class="container">
   <div class="row">
-    <h3>Utilisateurs</h3>
-    <div class="column">
+
+    <div class="col">
+      <div class="page-header">
+        <%= link_to new_user_path, class: 'btn btn-primary' do %>
+          <span class="glyphicon glyphicon-plus"></span>
+          Ajouter un utilisateur
+        <% end %>
+        <h3>Utilisateurs</h3>
+      </div>
+
       <table class="table">
         <tbody>
-          <% @users.each do |user| %>
-            <tr>
-              <%= render user %>
-            </tr>
-          <% end %>
+        <% @users.each do |user| %>
+          <tr>
+            <%= render user %>
+          </tr>
+        <% end %>
         </tbody>
       </table>
     </div>

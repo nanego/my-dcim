@@ -26,6 +26,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def new
+    @user = User.new
+  end
+
+  def add_user
+    @user = User.new(secure_params)
+    if @user.save
+      redirect_to users_path, :notice => "User created."
+    else
+      render :new
+    end
+  end
+
   def destroy
     user = User.find(params[:id])
     user.destroy
@@ -41,6 +54,6 @@ class UsersController < ApplicationController
   end
 
   def secure_params
-    params.require(:user).permit(:role)
+    params.require(:user).permit(:role, :email, :name)
   end
 end
