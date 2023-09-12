@@ -6,7 +6,7 @@ class ServersController < ApplicationController
   before_action :set_server, only: [:show, :edit, :update, :destroy]
 
   def index
-    @servers = Server.includes(:frame, :room, :islet, :bay, modele: :category)
+    @servers = Server.includes(:frame, :room, :islet, bay: :frames, modele: :category)
   end
 
   def grid
