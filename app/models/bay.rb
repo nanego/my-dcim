@@ -12,7 +12,7 @@ class Bay < ApplicationRecord
   scope :sorted, -> { order( :lane, :position ) }
 
   def to_s
-    frames.sorted.map(&:name).join('/')
+    frames.sorted.pluck(:name).join('/')
   end
 
   def detailed_name
@@ -20,6 +20,6 @@ class Bay < ApplicationRecord
   end
 
   def list_frames
-    frames.map(&:name).join(' / ')
+    frames.pluck(:name).join(' / ')
   end
 end
