@@ -1,5 +1,8 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {'Utilisateurs' => users_url, @user.name => ''} %>
 
-<h3>User</h3>
-<p>Name: <%= @user.name if @user.name %></p>
-<p>Email: <%= @user.email if @user.email %></p>
+<div class="well container">
+  <h3>User</h3>
+  <p>Name: <%= @user.name if @user.name %></p>
+  <p>Email: <%= @user.email if @user.email %></p>
+  <p>Role: <%= @user.role %></p>
+</div>
