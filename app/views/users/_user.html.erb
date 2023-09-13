@@ -9,14 +9,10 @@
   <%= user.sign_in_count %>
 </td>
 <td>
-  <%- if current_user.try(:admin?) %>
-    <%= form_for(user) do |f| %>
-      <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
-      <%= f.submit 'Change Role', :class => 'button-xs' %>
-    <% end %>
-  <%- else %>
-    <%= user.role.titleize %>
-  <%- end %>
+  <%= form_for(user) do |f| %>
+    <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
+    <%= f.submit 'Change Role', :class => 'button-xs' %>
+  <% end %>
 </td>
 <td>
   <%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button-xs btn-danger pull-right') unless user == current_user %>
