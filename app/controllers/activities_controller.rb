@@ -8,7 +8,11 @@ require 'category'
 class ActivitiesController < ApplicationController
   def index
     @activities = PublicActivity::Activity.includes(:owner, :trackable)
-                                          .order('created_at desc')
+                                          .order(created_at: :desc)
                                           .page(params[:page]).per(100)
+  end
+
+  def show
+    @activity = PublicActivity::Activity.find(params[:id])
   end
 end
