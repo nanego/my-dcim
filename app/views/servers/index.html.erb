@@ -28,16 +28,18 @@
               <th>Salle</th>
               <th>Ilot</th>
               <th>Baie</th>
+              <th></th>
             </tr>
           </thead>
 
           <tbody>
             <%= content_tag_for(:tr, @servers) do |server| %>
-              <td><%= server.name %></td>
+              <td><%= link_to server.name, server_path(server) %></td>
               <td><%= server.modele.try(:category) %></td>
               <td><%= server.room %></td>
               <td><%= server.islet %></td>
               <td><%= server.bay %></td>
+              <td><%= link_to 'Modifier', edit_server_path(server), class: 'btn btn-primary' %></td>
             <% end %>
           </tbody>
         </table>
