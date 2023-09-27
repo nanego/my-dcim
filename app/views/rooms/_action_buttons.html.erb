@@ -97,3 +97,22 @@
     </div>
   <% end %>
 </span>
+
+<%= render CaptionComponent.new do %>
+  <dl class="dl-horizontal">
+    <h5>Ports :</h5>
+    <dt>Client non référencé :</dt>
+    <dd>
+      <span class="pdu port_container unreferenced_client">
+        <a class="port pull-left portFC empty">01</a>
+      </span>
+    </dd>
+    <dt>Aucun client :</dt>
+    <dd>
+      <span class="pdu port_container no_client">
+        <a class="port pull-left portFC empty">02</a>
+      </span>
+    </dd>
+  </dl>
+
+<% end %>

@@ -73,6 +73,7 @@ group :test do
 
   gem 'capybara', '>= 2.15'
   gem "shoulda-matchers"
+  gem "rspec-html-matchers"
 end
 
 group :production do
@@ -99,3 +100,5 @@ gem 'geocoder'
 
 gem "importmap-rails", "~> 1.1"
 gem "stimulus-rails", "~> 1.2"
+gem "view_component"
+
