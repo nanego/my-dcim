@@ -12,30 +12,28 @@
   </div>
 
   <div class="list-group">
-    <a href="#" class="list-group-item disabled">
-      <%= t(".material.title") %>
-    </a>
-    <a href="<%= servers_path %>" class="list-group-item <%= controller.controller_name == "servers" ? 'active' : '' %>"><%= t(".material.materials") %></a>
+    <a href="#" class="list-group-item disabled">Matériel</a>
+    <a href="<%= servers_path %>" class="list-group-item <%= controller.controller_name == "servers" ? 'active' : '' %>">Matériels</a>
   </div>
 
   <div class="list-group">
     <a href="#" class="list-group-item disabled">
       <%= t(".material_management.title") %>
     </a>
-    <a href="<%= modeles_path %>" class="list-group-item <%= controller.controller_name == "modeles" ? 'active' : '' %>"><%= t(".material_management.modeles") %></a>
-    <a href="<%= categories_path %>" class="list-group-item <%= controller.controller_name == "categories" ? 'active' : '' %>"><%= t(".material_management.categories") %></a>
-    <a href="<%= architectures_path %>" class="list-group-item <%= controller.controller_name == "architectures" ? 'active' : '' %>"><%= t(".material_management.architectures") %></a>
-    <a href="<%= manufacturers_path %>" class="list-group-item <%= controller.controller_name == "manufacturers" ? 'active' : '' %>"><%= t(".material_management.manufacturers") %></a>
-    <a href="<%= domaines_path %>" class="list-group-item <%= controller.controller_name == "domaines" ? 'active' : '' %>"><%= t(".material_management.domaines") %></a>
-    <a href="<%= gestions_path %>" class="list-group-item <%= controller.controller_name == "gestions" ? 'active' : '' %>"><%= t(".material_management.gestions") %></a>
-    <a href="<%= clusters_path %>" class="list-group-item <%= controller.controller_name == "clusters" ? 'active' : '' %>"><%= t(".material_management.clusters") %></a>
-    <a href="<%= stacks_path %>" class="list-group-item <%= controller.controller_name == "stacks" ? 'active' : '' %>"><%= t(".material_management.stacks") %></a>
-    <a href="<%= card_types_path %>" class="list-group-item <%= controller.controller_name == "card_types" ? 'active' : '' %>"><%= t(".material_management.card_types") %></a>
-    <a href="<%= colors_path %>" class="list-group-item <%= controller.controller_name == "colors" ? 'active' : '' %>"><%= t(".material_management.colors") %></a>
-    <a href="<%= maintainers_path %>" class="list-group-item <%= controller.controller_name == "maintainers" ? 'active' : '' %>"><%= t(".material_management.maintainers") %></a>
-    <a href="<%= contract_types_path %>" class="list-group-item <%= controller.controller_name == "contract_types" ? 'active' : '' %>"><%= t(".material_management.contract_types") %></a>
-    <a href="<%= disk_types_path %>" class="list-group-item <%= controller.controller_name == "disk_types" ? 'active' : '' %>"><%= t(".material_management.disks_types") %></a>
-    <a href="<%= memory_types_path %>" class="list-group-item <%= controller.controller_name == "memory_types" ? 'active' : '' %>"><%= t(".material_management.memory_types") %></a>
+    <a href="<%= modeles_path %>" class="list-group-item <%= controller.controller_name == "modeles" ? 'active' : '' %>"><%= Modele.model_name.human.pluralize %></a>
+    <a href="<%= categories_path %>" class="list-group-item <%= controller.controller_name == "categories" ? 'active' : '' %>"><%= Category.model_name.human(count: 2) %></a>
+    <a href="<%= architectures_path %>" class="list-group-item <%= controller.controller_name == "architectures" ? 'active' : '' %>"><%= Architecture.model_name.human.pluralize %></a>
+    <a href="<%= manufacturers_path %>" class="list-group-item <%= controller.controller_name == "manufacturers" ? 'active' : '' %>"><%= Manufacturer.model_name.human.pluralize %></a>
+    <a href="<%= domaines_path %>" class="list-group-item <%= controller.controller_name == "domaines" ? 'active' : '' %>"><%= Domaine.model_name.human.pluralize %></a>
+    <a href="<%= gestions_path %>" class="list-group-item <%= controller.controller_name == "gestions" ? 'active' : '' %>"><%= Gestion.model_name.human.pluralize %></a>
+    <a href="<%= clusters_path %>" class="list-group-item <%= controller.controller_name == "clusters" ? 'active' : '' %>"><%= Cluster.model_name.human.pluralize %></a>
+    <a href="<%= stacks_path %>" class="list-group-item <%= controller.controller_name == "stacks" ? 'active' : '' %>"><%= Stack.model_name.human.pluralize %></a>
+    <a href="<%= card_types_path %>" class="list-group-item <%= controller.controller_name == "card_types" ? 'active' : '' %>"><%= CardType.model_name.human(count: 2) %></a>
+    <a href="<%= colors_path %>" class="list-group-item <%= controller.controller_name == "colors" ? 'active' : '' %>"><%= Color.model_name.human.pluralize %></a>
+    <a href="<%= maintainers_path %>" class="list-group-item <%= controller.controller_name == "maintainers" ? 'active' : '' %>"><%= Maintainer.model_name.human.pluralize %></a>
+    <a href="<%= contract_types_path %>" class="list-group-item <%= controller.controller_name == "contract_types" ? 'active' : '' %>"><%= ContractType.model_name.human(count: 2) %></a>
+    <a href="<%= disk_types_path %>" class="list-group-item <%= controller.controller_name == "disk_types" ? 'active' : '' %>"><%= DiskType.model_name.human(count: 2) %></a>
+    <a href="<%= memory_types_path %>" class="list-group-item <%= controller.controller_name == "memory_types" ? 'active' : '' %>"><%= MemoryType.model_name.human(count: 2) %></a>
   </div>
 
 </p>

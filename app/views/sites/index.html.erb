@@ -65,7 +65,7 @@
       integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
       crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
-        integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+        integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX6ë8nAhlwcDFLGPCQ=="
         crossorigin=""></script>
 <%= javascript_tag do %>
     var min_lat = <%= @sites.minimum(:latitude) %>;
@@ -80,7 +80,7 @@
         id: 'mapbox/streets-v11',
         tileSize: 512,
         zoomOffset: -1,
-        accessToken: ''
+        accessToken: '<%= Rails.application.credentials.mapbox[:access_token] %>'
     }).addTo(map);
 
     <% @sites.reject{|s|s.latitude.blank? || s.longitude.blank?}.each do |site| %>

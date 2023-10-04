@@ -1,8 +1,11 @@
 fr:
+  form:
+    errors:
+      title: '%{object_name} lors de la sauvegarde :'
+    submit: Valider
   action:
     edit: Modifier
     delete: Supprimer
-  page_action:
     back: Retour
   breadcrumb:
     settings: Paramètres
@@ -11,29 +14,9 @@ fr:
       location:
         title: Localisation
         bays: Baies / Doubles-baies
-      material:
-        title: Matériel
-        materials: Matériels
       material_management:
         title: Gestion du matériel
-        modeles: Modèles
-        categories: Types de matériel
-        architectures: Architectures
-        manufacturers: Fabricants
-        domaines: Domaines
-        gestions: Gestionnaires
-        clusters: Clusters
-        stacks: Stacks
-        card_types: Types de cartes
-        colors: Couleurs
-        maintainers: Mainteneurs
-        contract_types: Contrats de maintenance
-        disks_types: Types de disks
-        memory_types: Types de RAM
   sites:
-    form:
-      error_title: 'lors de la sauvegarde :'
-      submit: Valider
     index:
       title: Sites
       add_site: Ajouter un site
@@ -49,24 +32,51 @@ fr:
     new:
       title: Nouveau site
     create:
-      notice: Site a bien été créé.
+      flashes:
+        created: Site a bien été créé.
     edit:
       title: Modifier un site
     update:
-      notice: Site a bien été modifié.
+      flashes:
+        updated:
+          Site a bien été modifié.
     destroy:
-      notice: Site a bien été supprimé.
+      flashes:
+        destroyed: Site a bien été supprimé.
 
   activerecord:
     models:
       maintenance_contract: Contrat de maintenance
       server: Serveur
       maintainer: Mainteneur
-      contract_type: Type de contrat
+      #contract_type: Type de contrat
       room: Salle
       islet: Ilot
       bay: Baies
       frame: Châssis
+      modele: Modèle
+      category:
+        one: Type de matériel
+        other: Types de matériel
+      architecture: Architecture
+      manufacturer: Fabricant
+      domaine: Domaine
+      gestion: Gestionnaire
+      cluster: Cluster
+      stack: Stack
+      card_type:
+        one: Type de carte
+        other: Types de carte
+      color: Couleur
+      contract_type:
+        one: Contrat de maintenance
+        other: Contrats de maintenance
+      disk_type:
+        one: Type de disks
+        other: Types de disks
+      memory_type:
+        one: Type de RAM
+        other: Types de RAM
     attributes:
       maintenance_contract:
         server_id: Serveur
