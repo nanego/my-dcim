@@ -3,9 +3,6 @@
 class User < ApplicationRecord
   acts_as_token_authenticatable
 
-  include PublicActivity::Model
-  tracked owner: ->(controller, model) { controller && controller.current_user }
-
   validates :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 

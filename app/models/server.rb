@@ -4,8 +4,6 @@ class Server < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
-  include PublicActivity::Common
-
   belongs_to :frame, optional: true
   has_one :bay, through: :frame
   has_one :islet, through: :frame

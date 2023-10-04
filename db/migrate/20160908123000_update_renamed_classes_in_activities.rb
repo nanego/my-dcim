@@ -2,6 +2,11 @@
 
 class UpdateRenamedClassesInActivities< ActiveRecord::Migration[4.2]
   def up
+    unless defined?(PublicActivity::Activity)
+      warn "This migration is not used anymore, public_activity gem has been removed"
+      return
+    end
+
     PublicActivity::Activity.where(trackable_type: 'Serveur').update_all(trackable_type: 'Server')
     PublicActivity::Activity.where(trackable_type: 'CardsServeur').update_all(trackable_type: 'CardsServer')
     PublicActivity::Activity.where(trackable_type: 'Baie').update_all(trackable_type: 'Frame')

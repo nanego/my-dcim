@@ -37,7 +37,7 @@ task convert_activities_to_changelog_entries: :environment do
       }
     )
     print "."
-  rescue => e
+  rescue StandardError
     # pp e
     # binding.pry
   end

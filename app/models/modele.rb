@@ -4,14 +4,6 @@ class Modele < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
-  include PublicActivity::Model
-  tracked owner: ->(controller, model) { controller && controller.current_user }
-  tracked :parameters => {
-    :name => :name,
-      :categorie => :category,
-      :nb_elts => :nb_elts
-  }
-
   has_many :servers, dependent: :restrict_with_error
   has_many :enclosures, dependent: :restrict_with_error
   has_many :composants, through: :enclosures

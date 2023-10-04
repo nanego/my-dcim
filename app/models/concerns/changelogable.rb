@@ -4,7 +4,7 @@ module Changelogable
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def has_changelog
+    def has_changelog # rubocop:disable Naming/PredicateName
       has_many :changelog_entries, as: :object
 
       after_create_commit :changelog_entry_on_create

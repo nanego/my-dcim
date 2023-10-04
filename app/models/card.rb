@@ -3,14 +3,6 @@
 class Card < ApplicationRecord
   after_commit :set_twin_card
 
-  include PublicActivity::Model
-  tracked owner: ->(controller, model) { controller && controller.current_user }
-  tracked :parameters => {
-    :card_type => :card_type,
-    :server => :server,
-    :composant => :composant
-  }
-
   has_changelog
 
   belongs_to :card_type, optional: true
