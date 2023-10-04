@@ -29,7 +29,7 @@
     transition: visibility 0s ease 0.33s, opacity 0.33s ease;
   }
 
-  &:hover {
+  &:hover, &:active {
     .caption-component-content {
       visibility: visible;
       opacity: 1;
