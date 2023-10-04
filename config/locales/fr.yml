@@ -4,7 +4,7 @@ fr:
     false: Non
   form:
     errors:
-      title: '%{count} erreurs lors de la sauvegarde :'
+      title: "%{count} erreurs lors de la sauvegarde :"
     submit: Valider
   action:
     edit: Modifier
@@ -17,6 +17,37 @@ fr:
     confirm: Are you sure ?
   breadcrumb:
     disk_type: Disk type
+    settings: Paramètres
+    islets: Ilots
+  islets:
+    export_button:
+      label: Exports
+      exports:
+        pdf: Export pdf
+        txt: Export Txt
+        print: Impression
+      faces:
+        front: Face avant
+        back: Face arrière
+        front_wiring: Cablage - Face avant
+        back_wiring: Cablage - Face arrière
+      port_list: Liste des ports
+    index:
+      add_islet: Ajouter un ilot
+      delete_confirmation: Cet ilôt ne pourra pas être supprimé tant qu'il sera associé à au moins une baie. Voulez-vous continuer ?
+    new:
+      title: Nouvel îlot
+    create:
+      flashes:
+        created: L'ilôt a bien été créé.
+    edit:
+      title: Modification îlot %{name} - %{room}
+    update:
+      flashes:
+        updated: L'ilôt a bien été modifié.
+    destroy:
+      flashes:
+        destroyed: L'ilôt a bien été supprimé.
   pages:
     params_menu:
       location:
