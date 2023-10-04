@@ -63,6 +63,13 @@ fr:
       destroy: a supprimé un serveur
   order-in-progress: 'Commande en cours'
 
+  rooms:
+    action_buttons:
+      caption:
+        ports: Ports
+        unreferenced_client: Client non référencé
+        no_client: Aucun client
+
   views:
     pagination:
       previous: "&lt; Précédent"

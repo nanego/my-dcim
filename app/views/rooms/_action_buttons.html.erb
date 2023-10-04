@@ -3,7 +3,7 @@
 <span class="pull-right" style="margin-top: 10px">
 
   <% if view_side != Frame.view_sides[:back] %>
-    <!-- Choix de la couleur de fond des serveurs -->
+    <!-- Choice of server background color -->
     <div class="btn-group">
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Couleur de fond : <%= params[:bg] || 'modèle' %> <span class="caret"></span>
@@ -16,7 +16,7 @@
     </div>
   <% end %>
 
-  <!-- Vues AVANT / ARRIERE -->
+  <!-- Views FRONT / BACK -->
   <% if view_side==Frame.view_sides[:both] %>
      <%= content_tag :div, class: 'btn btn-default disabled' do %>
       Vue avant & arrière
@@ -39,7 +39,6 @@
         Exports <span class="caret"></span>
       </button>
       <ul class="dropdown-menu dropdown-menu-right">
-
         <li class="dropdown-submenu pull-left">
           <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'pdf'})), target: :_blank do %>
             <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
@@ -72,47 +71,44 @@
             </li>
           </ul>
         </li>
-
-        <li><%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'txt'})) do %>
+        <li>
+          <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'txt'})) do %>
           <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
             Export Txt
           <% end %>
         </li>
-
-        <li><%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'pdf', 'debug' => '1'})), target: :_blank do %>
+        <li>
+          <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'pdf', 'debug' => '1'})), target: :_blank do %>
           <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
             Impression
           <% end %>
         </li>
-
         <li role="separator" class="divider"></li>
-
-        <li><%= link_to ports_path(room_id: @room.id, frame_id: @frame.try(:id)) do %>
+        <li>
+          <%= link_to ports_path(room_id: @room.id, frame_id: @frame.try(:id)) do %>
           <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
             Liste des ports
           <% end %>
         </li>
-
       </ul>
     </div>
   <% end %>
+
+  <%= render CaptionComponent.new do %>
+    <dl class="dl-horizontal">
+      <h5><%= t(".caption.ports")%> :</h5>
+      <dt><%= t(".caption.unreferenced_client")%> :</dt>
+      <dd>
+        <span class="pdu port_container unreferenced_client">
+          <a class="port pull-left portFC empty">01</a>
+        </span>
+      </dd>
+      <dt><%= t(".caption.no_client")%> :</dt>
+      <dd>
+        <span class="pdu port_container no_client">
+          <a class="port pull-left portFC empty">02</a>
+        </span>
+      </dd>
+    </dl>
+  <% end %>
 </span>
-
-<%= render CaptionComponent.new do %>
-  <dl class="dl-horizontal">
-    <h5>Ports :</h5>
-    <dt>Client non référencé :</dt>
-    <dd>
-      <span class="pdu port_container unreferenced_client">
-        <a class="port pull-left portFC empty">01</a>
-      </span>
-    </dd>
-    <dt>Aucun client :</dt>
-    <dd>
-      <span class="pdu port_container no_client">
-        <a class="port pull-left portFC empty">02</a>
-      </span>
-    </dd>
-  </dl>
-
-<% end %>
