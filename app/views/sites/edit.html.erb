@@ -1,9 +1,9 @@
 <div class="page-header">
   <%= link_to sites_path, class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
-    Retour
+    <%= t(".back") %>
   <% end %>
-  <h1>Modifier un site</h1>
+  <h1><%= t(".title") %></h1>
 </div>
 
 <%= render 'form' %>

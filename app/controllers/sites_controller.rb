@@ -20,7 +20,7 @@ class SitesController < ApplicationController
 
     respond_to do |format|
       if @site.save
-        format.html { redirect_to sites_path, notice: 'Site was successfully created.' }
+        format.html { redirect_to sites_path, notice: t(".notice") }
         format.json { render :show, status: :created, location: @site }
       else
         format.html { render :new }
@@ -32,7 +32,7 @@ class SitesController < ApplicationController
   def update
     respond_to do |format|
       if @site.update(site_params)
-        format.html { redirect_to sites_path, notice: 'Site was successfully updated.' }
+        format.html { redirect_to sites_path, notice: t(".notice") }
         format.json { render :show, status: :ok, location: @site }
       else
         format.html { render :edit }
@@ -44,7 +44,7 @@ class SitesController < ApplicationController
   def destroy
     if @site.destroy
       respond_to do |format|
-        format.html { redirect_to sites_url, notice: 'Site a bien été supprimé.' }
+        format.html { redirect_to sites_url, notice: t(".notice") }
         format.json { head :no_content }
       end
     else
