@@ -2,6 +2,8 @@ fr:
   action:
     edit: Modifier
     delete: Supprimer
+  page_action:
+    back: Retour
   breadcrumb:
     settings: Paramètres
     sites: Sites
@@ -9,11 +11,7 @@ fr:
     params_menu:
       location:
         title: Localisation
-        sites: Sites
-        rooms: Salles
-        islets: Ilots
         bays: Baies / Doubles-baies
-        frames: Châssis
       material:
         title: Matériel
         materials: Matériels
@@ -35,9 +33,6 @@ fr:
         memory_types: Types de RAM
   sites:
     form:
-      errors:
-        singular: erreur
-        plural: erreurs
       error_title: 'lors de la sauvegarde :'
       submit: Valider
     index:
@@ -52,16 +47,12 @@ fr:
             confirmation: Ce site ne pourra pas être supprimé tant qu'il sera associé à au moins une salle. Voulez-vous continuer ?
     show:
       title: 'Site #%{site_id} - %{site_name}'
-      edit: Modifier
-      back: Retour
     new:
       title: Nouveau site
-      back: Retour
     create:
       notice: Site a bien été créé.
     edit:
       title: Modifier un site
-      back: Retour
     update:
       notice: Site a bien été modifié.
     destroy:
@@ -73,6 +64,10 @@ fr:
       server: Serveur
       maintainer: Mainteneur
       contract_type: Type de contrat
+      room: Salle
+      islet: Ilot
+      bay: Baies
+      frame: Châssis
     attributes:
       maintenance_contract:
         server_id: Serveur
@@ -93,6 +88,9 @@ fr:
         rooms_count:
           one: 1 salle
           other: "%{count} salles"
+        errors_count:
+          one: 1 erreur
+          other: "%{count} erreurs"
     errors:
       models:
         user:

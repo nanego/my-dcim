@@ -2,7 +2,7 @@
   <% if @site.errors.any? %>
     <div class="alert alert-danger alert-dismissable" role="alert">
       <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <h4><%= pluralize(@site.errors.count, t(".errors.singular"), t(".errors.plural")) %> <%= t(".error_title") %></h4>
+      <h4><%= Site.human_attribute_name(:errors_count, count: @site.errors.count) %> <%= t(".error_title") %></h4>
 
       <ul>
       <% @site.errors.full_messages.each do |msg| %>
