@@ -26,7 +26,7 @@ class ServersController < ApplicationController
         updated_values = track_updated_values(server, new_params)
 
         if server.save && updated_values.present?
-          server.create_activity action: 'update', parameters: updated_values, owner: current_user
+          # server.create_activity action: 'update', parameters: updated_values, owner: current_user
         end
       end
     end if params[:server].present?
@@ -46,7 +46,7 @@ class ServersController < ApplicationController
 
     respond_to do |format|
       if @server.save
-        @server.create_activity action: 'create', owner: current_user
+        # @server.create_activity action: 'create', owner: current_user
         format.html {redirect_to @server, notice: 'Server was successfully created.'}
         format.json {render :show, status: :created, location: @server}
       else
@@ -62,7 +62,7 @@ class ServersController < ApplicationController
       updated_values = track_updated_values(@server, server_params)
       if @server.save
         updated_values.merge!(track_frame_and_position(old_values, @server.attributes)) if updated_values.key?("position") || updated_values.key?("frame_id")
-        @server.create_activity action: 'update', parameters: updated_values, owner: current_user
+        # @server.create_activity action: 'update', parameters: updated_values, owner: current_user
         format.html {redirect_to @server, notice: 'Server was successfully updated.'}
         format.json {render :show, status: :ok, location: @server}
       else
@@ -87,7 +87,7 @@ class ServersController < ApplicationController
   end
 
   def destroy
-    @server.create_activity action: 'destroy', parameters: @server.attributes, owner: current_user
+    # @server.create_activity action: 'destroy', parameters: @server.attributes, owner: current_user
     @server.destroy
     respond_to do |format|
       format.html {redirect_to servers_grids_path, notice: 'Le matériel a bien été supprimé.' }
