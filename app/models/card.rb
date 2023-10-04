@@ -11,6 +11,8 @@ class Card < ApplicationRecord
     :composant => :composant
   }
 
+  log_changes
+
   belongs_to :card_type, optional: true
   delegate :port_quantity, to: :card_type, allow_nil: true
   delegate :is_power_input?, to: :card_type, allow_nil: true

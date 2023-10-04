@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include ChangelogContextApplication
   include PublicActivity::StoreController
 
   acts_as_token_authentication_handler_for User

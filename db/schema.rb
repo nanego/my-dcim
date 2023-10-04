@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_19_094216) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_04_123921) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -120,6 +120,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_094216) do
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+  end
+
+  create_table "changelog_entries", force: :cascade do |t|
+    t.string "object_type"
+    t.bigint "object_id"
+    t.string "author_type"
+    t.bigint "author_id"
+    t.string "action"
+    t.jsonb "object_changes"
+    t.jsonb "metadata"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_type", "author_id"], name: "index_changelog_entries_on_author"
+    t.index ["author_type", "author_id"], name: "index_changelog_entries_on_author_type_and_author_id"
+    t.index ["object_type", "object_id"], name: "index_changelog_entries_on_object"
+    t.index ["object_type", "object_id"], name: "index_changelog_entries_on_object_type_and_object_id"
   end
 
   create_table "clusters", id: :serial, force: :cascade do |t|
