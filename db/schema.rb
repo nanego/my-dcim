@@ -123,13 +123,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_04_123921) do
   end
 
   create_table "changelog_entries", force: :cascade do |t|
-    t.string "object_type"
-    t.bigint "object_id"
+    t.string "object_type", null: false
+    t.bigint "object_id", null: false
     t.string "author_type"
     t.bigint "author_id"
-    t.string "action"
-    t.jsonb "object_changes"
-    t.jsonb "metadata"
+    t.string "action", null: false
+    t.jsonb "object_changes", default: {}, null: false
+    t.jsonb "metadata", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_type", "author_id"], name: "index_changelog_entries_on_author"

@@ -3,11 +3,11 @@
 class CreateChangelogEntries < ActiveRecord::Migration[7.0]
   def change
     create_table :changelog_entries do |t|
-      t.references :object, polymorphic: true
-      t.references :author, polymorphic: true
-      t.string :action
-      t.jsonb :object_changes
-      t.jsonb :metadata
+      t.references :object, polymorphic: true, null: false
+      t.references :author, polymorphic: true, null: true
+      t.string :action, null: false
+      t.jsonb :object_changes, null: false, default: {}
+      t.jsonb :metadata, null: false, default: {}
 
       t.timestamps
 

@@ -11,7 +11,7 @@ class Card < ApplicationRecord
     :composant => :composant
   }
 
-  log_changes
+  has_changelog
 
   belongs_to :card_type, optional: true
   delegate :port_quantity, to: :card_type, allow_nil: true

@@ -4,7 +4,7 @@ module Changelogable
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def log_changes
+    def has_changelog
       has_many :changelog_entries, as: :object
 
       after_create_commit :changelog_entry_on_create
@@ -32,7 +32,6 @@ module Changelogable
   def _create_changelog_entry(action, metadata: {})
     changelog_entries.create!(
       action: action,
-      author: ChangelogContext.author,
       object_changes: previous_changes,
       metadata: ChangelogContext.metadata.to_h.merge(metadata)
     )
