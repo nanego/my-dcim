@@ -19,6 +19,7 @@ task convert_activities_to_changelog_entries: :environment do
     end
   end
 
+  # https://discuss.rubyonrails.org/t/cve-2022-32224-possible-rce-escalation-bug-with-serialized-columns-in-active-record/81017
   ActiveRecord.use_yaml_unsafe_load = true
 
   PublicActivity::Activity.limit(2000).find_each do |activity|
