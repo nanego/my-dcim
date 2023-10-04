@@ -1,7 +1,7 @@
 fr:
   form:
     errors:
-      title: '%{object_name} lors de la sauvegarde :'
+      title: '%{count} erreurs lors de la sauvegarde :'
     submit: Valider
   action:
     edit: Modifier
