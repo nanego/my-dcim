@@ -1,37 +1,37 @@
 <div class="btn-group">
   <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <%= t('.label') %> <span class="caret"></span>
+    <%= t('export_button.label') %> <span class="caret"></span>
   </button>
   <ul class="dropdown-menu dropdown-menu-right">
 
     <li class="dropdown-submenu pull-left">
       <%= link_to islet_path(islet, format: 'pdf', view: 'front', bg: ''), target: :_blank do %>
         <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-        <%= t('.exports.pdf') %>
+        <%= t('export_button.exports.pdf') %>
       <% end %>
       <ul class="dropdown-menu dropdown-menu-left">
         <li>
           <%= link_to islet_path(islet, format: 'pdf', view: 'front', bg: ''), target: :_blank do %>
             <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-            <%= t('.faces.front') %>
+            <%= t('export_button.faces.front') %>
           <% end %>
         </li>
         <li>
           <%= link_to islet_path(islet, format: 'pdf', view: 'back', bg: ''), target: :_blank do %>
             <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-            <%= t('.faces.back') %>
+            <%= t('export_button.faces.back') %>
           <% end %>
         </li>
         <li>
           <%= link_to islet_path(islet, format: 'pdf', view: 'front', bg: 'cablage'), target: :_blank do %>
             <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-            <%= t('.faces.front_wiring') %>
+            <%= t('export_button.faces.front_wiring') %>
           <% end %>
         </li>
         <li>
           <%= link_to islet_path(islet, format: 'pdf', view: 'back', bg: 'cablage'), target: :_blank do %>
             <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-            <%= t('.faces.back_wiring') %>
+            <%= t('export_button.faces.back_wiring') %>
           <% end %>
         </li>
       </ul>
@@ -39,13 +39,13 @@
 
     <li><%= link_to islet_path(islet, format: 'txt', view: '', bg: '') do %>
         <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
-        <%= t('.exports.txt') %>
+        <%= t('export_button.exports.txt') %>
       <% end %>
     </li>
 
     <li><%= link_to islet_path(islet, format: 'pdf', view: 'front', bg: '', debug: '1'), target: :_blank do %>
         <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
-        <%= t('.exports.print') %>
+        <%= t('export_button.exports.print') %>
       <% end %>
     </li>
 
@@ -53,7 +53,7 @@
 
     <li><%= link_to ports_path(room_id: islet.room.id, islet: islet.name) do %>
         <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-        <%= t('.port_list') %>
+        <%= t('export_button.port_list') %>
       <% end %>
     </li>
 

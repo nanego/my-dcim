@@ -19,19 +19,18 @@ fr:
     disk_type: Disk type
     settings: Paramètres
     islets: Ilots
-  islets:
-    export_button:
-      label: Exports
-      exports:
-        pdf: Export pdf
-        txt: Export Txt
-        print: Impression
-      faces:
-        front: Face avant
-        back: Face arrière
-        front_wiring: Cablage - Face avant
-        back_wiring: Cablage - Face arrière
-      port_list: Liste des ports
+  export_button:
+    label: Exports
+    exports:
+      pdf: Export pdf
+      txt: Export Txt
+      print: Impression
+    faces:
+      front: Face avant
+      back: Face arrière
+      front_wiring: Cablage - Face avant
+      back_wiring: Cablage - Face arrière
+    port_list: Liste des ports
     index:
       add_islet: Ajouter un ilot
       delete_confirmation: Cet ilôt ne pourra pas être supprimé tant qu'il sera associé à au moins une baie. Voulez-vous continuer ?
