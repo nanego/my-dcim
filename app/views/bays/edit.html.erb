@@ -1,6 +1,6 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
   t("inventories") => modeles_url,
-  'Baies et doubles-baies' => bays_path,
+  Bay.model_name.human.pluralize => bays_path,
   @bay.frames.map(&:name).join(' - ') => ''}
 %>
 
@@ -8,13 +8,11 @@
   <div class="page-header">
     <%= link_to bays_path, class: 'btn btn-default' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
-      Retour
+      <%= t("action.back") %>
     <% end %>
-    <%= link_to @bay, class: 'btn btn-primary' do %>
-      <span class="glyphicon glyphicon-info-sign"></span>
-      Voir
-    <% end %>
-    <h1>Modifier la baie <%= @bay.bay_type_id == 2 ? 'double' : 'simple' %> <%= @bay.frames.map(&:name).join(' / ') %> </h1>
+    <h1>
+      <%= t(".title", type: @bay.bay_type_id == 2 ? 'double' : 'simple', frames: @bay.frames.map(&:name).join(' / ')) %>
+    </h1>
   </div>
 
   <%= render 'form' %>

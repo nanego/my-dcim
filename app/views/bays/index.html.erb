@@ -1,4 +1,7 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {t("inventories") => modeles_url, 'Baies et doubles-baies' => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("inventories") => modeles_url,
+  Bay.model_name.human.pluralize => "" }
+%>
 
 <div class="container-fluid">
 
@@ -13,21 +16,35 @@
       <div class="page-header">
         <%= link_to new_bay_path, class: 'btn btn-primary btn-disabled' do %>
           <span class="glyphicon glyphicon-plus"></span>
-          Ajouter une baie ou un couple de baies
+          <%= t('.new') %>
         <% end %>
-        <h1>Baies et doubles-baies</h1>
+        <h1>
+          <%= t('.title') %>
+        </h1>
       </div>
 
       <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">
           <thead>
             <tr>
-              <th>Salle</th>
-              <th>Ilot</th>
-              <th>Baies</th>
-              <th>Ligne</th>
-              <th>Position</th>
-              <th>Nombre de serveurs</th>
+              <th>
+                <%= Room.model_name.human %>
+              </th>
+              <th>
+                <%= Islet.model_name.human %>
+              </th>
+              <th>
+                <%= Bay.model_name.human.pluralize %>
+              </th>
+              <th>
+                <%= Bay.human_attribute_name(:lane) %>
+              </th>
+              <th>
+                <%= Bay.human_attribute_name(:position) %>
+              </th>
+              <th>
+                <%= t(".server_count") %>
+              </th>
               <th></th>
             </tr>
           </thead>
@@ -53,15 +70,15 @@
                 <td><%= bay.lane %> </td>
                 <td><%= bay.position %> </td>
 
-                <td><%= pluralize(bay.materials.count, 'serveur', 'serveurs') %> </td>
+                <td><%= Bay.human_attribute_name(:materials_count, count: bay.materials.count) %> </td>
 
                 <td class="text-right">
                   <%= render partial: "bays/export_button", locals: { bay: bay } %>
-                  <%= link_to 'Modifier', edit_bay_path(bay), class: 'btn btn-primary' %>
-                  <%= link_to 'Supprimer',
+                  <%= link_to t("action.edit"), edit_bay_path(bay), class: 'btn btn-primary' %>
+                  <%= link_to t("action.delete"),
                               bay,
                               method: :delete,
-                              data: { confirm: 'Cette baie ne pourra pas être supprimée tant qu\'elle est associée à au moins un chassis. Voulez-vous continuer ?' },
+                              data: { confirm: t(".delete_confirmation") },
                               class: 'btn btn-danger' %>
                 </td>
               </tr>

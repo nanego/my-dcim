@@ -145,6 +145,19 @@ fr:
         name: Nom
         description: Description
         modeles_count: Usage
+      bay:
+        lane: Ligne
+        position: Position
+        materials_count:
+          one: 1 serveur
+          other: "%{count} serveurs"
+          zero: 0 serveurs
+        bay_frames:
+          one: "%{bay}"
+          other: Double baie %{bay}
+        islet_id: Salle et Ilot
+        bay_type_id: Type de baie
+
     errors:
       models:
         user:
