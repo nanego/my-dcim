@@ -54,8 +54,17 @@ fr:
       title: Double baie %{bay}
     new:
       title: Ajouter une baie
+    create:
+      flashes:
+        created: La baie a été ajoutée.
     edit:
       title: Modifier la baie %{type} %{frames}
+    update:
+      flashes:
+        updated: La baie a bien été mise à jour.
+    destroy:
+      flashes:
+        destroyed: Bay a bien été supprimé.
   rooms:
     action_buttons:
       background_color: 'Couleur de fond : %{bg}'

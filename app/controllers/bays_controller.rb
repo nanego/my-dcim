@@ -52,7 +52,7 @@ class BaysController < ApplicationController
 
     respond_to do |format|
       if @bay.save
-        format.html { redirect_to bays_path, notice: 'la baie a été ajoutée.' }
+        format.html { redirect_to bays_path, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @bay }
       else
         format.html { render :new }
@@ -64,7 +64,7 @@ class BaysController < ApplicationController
   def update
     respond_to do |format|
       if @bay.update(bay_params)
-        format.html { redirect_to bays_path, notice: 'La baie a été mise à jour.' }
+        format.html { redirect_to bays_path, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @bay }
       else
         format.html { render :edit }
@@ -76,7 +76,7 @@ class BaysController < ApplicationController
   def destroy
     if @bay.destroy
       respond_to do |format|
-        format.html { redirect_to bays_url, notice: 'Bay a bien été supprimé.' }
+        format.html { redirect_to bays_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
