@@ -55,8 +55,8 @@ fr:
         maintainer_id: Mainteneur
         contract_type_id: Type de contrat
       server:
+        nom: Nom
         numero: Numéro de série
-        name: Nom
         type: Type
         room: Salle
         islet: Ilot
@@ -213,7 +213,11 @@ fr:
         author: Auteur
         action: Action
         created_at: Créé le
-
+      frame:
+        name: Nom
+        servers: Matériels
+        room: Salle
+        position: Position
     errors:
       models:
         user:

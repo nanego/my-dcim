@@ -435,6 +435,34 @@ fr:
       memories_count: Nombre de barettes
       memories_total: Ram totale
       cpus: Processeurs
+  frames:
+    form:
+      coupled_bay_label: Baie couplée à
+      no_coupled_bay: Aucune baie couplée
+    show_complete_frame:
+      title: Salle %{room} - Ilot %{islet}
+    index:
+      new_frame: Ajouter un châssis
+      title: Tous les châssis
+      delete_confirmation: Ce châssis ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
+    edit:
+      title: Modifier la baie %{frame}
+    update:
+      flashes:
+        updated: Le châssis a été mis à jour.
+    new:
+      title: Nouveau châssis
+    create:
+      flashes:
+        created: Le châssis a été ajouté.
+    destroy:
+      flashes:
+        destroyed: Frame a bien été supprimé.
+    network:
+      title: Vue réseau
+  servers:
+    modal_add_element_in_frame:
+      title: Ajouter un élément
   devise:
     registrations:
       signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'
