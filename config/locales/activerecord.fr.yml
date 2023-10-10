@@ -18,6 +18,7 @@ fr:
       gestion: Gestionnaire
       cluster: Cluster
       stack: Stack
+      card: Carte
       card_type:
         one: Type de carte
         other: Types de carte
@@ -36,6 +37,7 @@ fr:
         other: Types de RAM
       enclosure: Enclosure
       user: Utilisateur
+      server_state: Statut
 
     attributes:
       islet:
@@ -53,6 +55,23 @@ fr:
         contract_type_id: Type de contrat
       server:
         numero: Numéro de série
+        name: Nom
+        type: Type
+        room: Salle
+        islet: Ilot
+        bay: Baie
+        position: Position
+        state: Etat
+        modele_id: Modèle
+        critique: Critique
+        gestion_id: Gestionnaire
+        network_id: Réseau Gb/10Gb
+        stack: Stack
+        comment: Commentaire
+        documents: Documents
+        photo: Photo
+        frame: Châssis
+        span: Slots
       site:
         name: Nom
         position: Position

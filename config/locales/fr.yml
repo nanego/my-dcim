@@ -8,7 +8,10 @@ fr:
         one: '1 erreur lors de la sauvegarde :'
         other: '%{count} erreurs lors de la sauvegarde :'
     submit: Valider
-  action:
+  confirmation:
+    yes: Oui
+    no: Non
+  actions:
     edit: Modifier
     delete: Supprimer
     back: Retour
@@ -372,6 +375,77 @@ fr:
       title: Nouveau modèle
     edit:
       title: Modification d'un modèle
+  servers:
+    card_fields:
+      orientations:
+        horizontal:
+          lr: "Horizontal, de gauche à droite"
+          rl: "Horizontal, de droite à gauche"
+        vertical:
+          dt: "Vertical, de bas en haut"
+          td: "Vertical, de haut en bas"
+    disk_fields:
+      quantity: Quantité
+    form:
+      network_type: Réseau %{type}
+      edit_confirmation: Modifier ce matériel
+      enclosure:
+        component: Composant du modèle
+        card_type: Type de carte
+        label: Libellé
+        orientation: Orientation
+        first_port_name: Numéro du premier port
+        twin_card: Carte jumèle
+    memory_component_fields:
+      quantity: Quantité
+    modal_add_element_in_frame:
+      title: Ajouter un élément
+    room:
+      title: Salle %{room} - Ilot %{islet}
+    slot_fields:
+      new_port: Nouveau port
+    grid:
+      title: Users Report
+      total: "Total: %{count}"
+    import_csv:
+      title: Importation de matériel par fichier CSV
+      room_import:
+        label: "Salle où importer les serveurs :"
+        hint: (utilisé seulement si la baie n'est pas précisée dans le fichier CSV)
+      servers_states: "Etat des serveurs importés :"
+      csv_file: "Fichier CSV :"
+      import_this: Importer ce CSV
+      download_example: "Télécharger un exemple de fichier CSV compatible :"
+    index:
+      title: Matériels
+      add_server: Ajouter un matériel
+      add_via_csv: Ajouter par un fichier CSV
+    show:
+      back_to_bay: << Baie %{name}
+      nb_elts: Nb d'éléments
+      nb_u: Nb de U
+      documentation: Documentation
+      attached_documents: "Documents attachés :"
+      glpi_data: Données GLPI
+      glpi_visit_page: Voir la page de la machine sur GLPI
+      no_match_serial: "Aucune correspondance pour ce numéro de série : %{serial}"
+      glpi_connection_error: "Problème lors de la connexion à GLPI :"
+    new:
+      title: "Ajouter un matériel"
+    edit:
+      page_title: "%{modele} %{name} - Edition"
+      title: "Matériel : %{name}"
+      delete_confirmation: Toutes les données concernant ce matériel seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?
+  computer:
+    name: Nom
+    id: Id GLPI
+    serial: Numéro de série
+    contact: Contact
+    disks_count: Nombre de disques
+    disks_capacity: Capacité disques
+    memories_count: Nombre de barettes
+    memories_total: Ram totale
+    cpus: Processeurs
   devise:
     registrations:
       signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'
