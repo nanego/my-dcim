@@ -1,9 +1,11 @@
 <div class="page-header">
   <%= link_to sites_path, class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
-    Retour
+    <%= t("action.back") %>
   <% end %>
-  <h1>Nouveau site</h1>
+  <h1>
+    <%= t(".title") %>
+  </h1>
 </div>
 
 <%= render 'form' %>

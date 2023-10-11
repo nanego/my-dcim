@@ -1,25 +1,18 @@
 <div class="page-header">
   <%= link_to sites_path, class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
-    Retour
+    <%= t("action.back") %>
   <% end %>
   <%= link_to edit_site_path(@site), class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-pencil"></span>
-    Modifier
+    <%= t("action.edit") %>
   <% end %>
-  <h1>Site #<%= @site.id %> - <%= @site %></h1>
+  <h1><%= t(".title", site_id: @site.id, site_name: @site.name) %></h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt>Nom :</dt>
-  <dd><%= @site %></dd>
-
-  <dt>Position :</dt>
-  <dd><%= @site.position %></dd>
-
-  <dt>Latitude :</dt>
-  <dd><%= @site.latitude %></dd>
-
-  <dt>Longitude :</dt>
-  <dd><%= @site.longitude %></dd>
+  <% %i[name position latitude longitude].each do |attribute_name| %>
+    <dt><%= Site.human_attribute_name(attribute_name) %> :</dt>
+    <dd><%= @site.public_send(attribute_name) %>
+  <% end %>
 </dl>

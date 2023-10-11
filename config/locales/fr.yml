@@ -1,10 +1,75 @@
 fr:
+  form:
+    errors:
+      title: '%{count} erreurs lors de la sauvegarde :'
+    submit: Valider
+  action:
+    edit: Modifier
+    delete: Supprimer
+    back: Retour
+  breadcrumb:
+    settings: Paramètres
+  pages:
+    params_menu:
+      location:
+        title: Localisation
+        bays: Baies / Doubles-baies
+      material_management:
+        title: Gestion du matériel
+  sites:
+    index:
+      title: Sites
+      add_site: Ajouter un site
+      delete_confirmation: Ce site ne pourra pas être supprimé tant qu'il sera associé à au moins une salle. Voulez-vous continuer ?
+    show:
+      title: 'Site #%{site_id} - %{site_name}'
+    new:
+      title: Nouveau site
+    create:
+      flashes:
+        created: Site a bien été créé.
+    edit:
+      title: Modifier un site
+    update:
+      flashes:
+        updated:
+          Site a bien été modifié.
+    destroy:
+      flashes:
+        destroyed: Site a bien été supprimé.
+
   activerecord:
     models:
       maintenance_contract: Contrat de maintenance
       server: Serveur
       maintainer: Mainteneur
-      contract_type: Type de contrat
+      room: Salle
+      islet: Ilot
+      bay: Baies
+      frame: Châssis
+      modele: Modèle
+      category:
+        one: Type de matériel
+        other: Types de matériel
+      architecture: Architecture
+      manufacturer: Fabricant
+      domaine: Domaine
+      gestion: Gestionnaire
+      cluster: Cluster
+      stack: Stack
+      card_type:
+        one: Type de carte
+        other: Types de carte
+      color: Couleur
+      contract_type:
+        one: Contrat de maintenance
+        other: Contrats de maintenance
+      disk_type:
+        one: Type de disks
+        other: Types de disks
+      memory_type:
+        one: Type de RAM
+        other: Types de RAM
     attributes:
       maintenance_contract:
         server_id: Serveur
@@ -14,6 +79,20 @@ fr:
         contract_type_id: Type de contrat
       server:
         numero: Numéro de série
+      site:
+        name: Nom
+        position: Position
+        street: Rue
+        city: Ville
+        country: Pays
+        latitude: Latitude
+        longitude: Longitude
+        rooms_count:
+          one: 1 salle
+          other: "%{count} salles"
+        errors_count:
+          one: 1 erreur
+          other: "%{count} erreurs"
     errors:
       models:
         user:
