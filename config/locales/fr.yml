@@ -123,6 +123,26 @@ fr:
     destroy:
       flashes:
         destroyed: Le fabricant a bien été supprimé.
+  domaines:
+    index:
+      new_domaine: Ajouter un domaine
+      title: Domaines
+      delete_confirmation: Ce domaine ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
+    show:
+      title: Domaine %{name}
+    new:
+      title: New domaine
+    create:
+      flashes:
+        created: Domaine was successfully created.
+    edit:
+      title: Modifier le domaine
+    update:
+      flashes:
+        updated: Domaine was successfully updated.
+    destroy:
+      flashes:
+        destroyed: Domaine a bien été supprimé.
   devise:
     registrations:
       signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'

@@ -13,17 +13,23 @@
       <div class="page-header">
         <%= link_to new_domaine_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
-          Ajouter un domaine
+          <%= t(".new_domaine") %>
         <% end %>
-        <h1>Domaines</h1>
+        <h1>
+          <%= t(".title") %>
+        </h1>
       </div>
 
       <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">
           <thead>
           <tr>
-            <th>Nom</th>
-            <th>Usage</th>
+            <th>
+              <%= Domaine.human_attribute_name(:name) %>
+            </th>
+            <th>
+              <%= Domaine.human_attribute_name(:usage) %>
+            </th>
             <th></th>
             <th></th>
             <th></th>
@@ -34,13 +40,13 @@
           <%= content_tag_for(:tr, @domaines) do |domaine| %>
             <td><%= domaine %></td>
             <td><%= pluralize(domaine.servers.count, 'serveur', "serveurs") %> </td>
-            <td><%= link_to 'Voir', domaine_path(domaine), class: 'btn btn-primary' %></td>
-            <td><%= link_to 'Modifier', edit_domaine_path(domaine), class: 'btn btn-primary' %></td>
+            <td><%= link_to t("action.show"), domaine_path(domaine), class: 'btn btn-primary' %></td>
+            <td><%= link_to t("action.edit"), edit_domaine_path(domaine), class: 'btn btn-primary' %></td>
             <td>
-              <%= link_to 'Supprimer',
+              <%= link_to t("action.delete"),
                           domaine,
                           method: :delete,
-                          data: { confirm: 'Ce domaine ne pourra pas être supprimé tant qu\'il sera associé à au moins un serveur. Voulez-vous continuer ?' },
+                          data: { confirm: t(".delete_confirmation") },
                           class: 'btn btn-danger' %>
             </td>
           <% end %>
