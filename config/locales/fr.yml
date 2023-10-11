@@ -9,8 +9,8 @@ fr:
         other: '%{count} erreurs lors de la sauvegarde :'
     submit: Valider
   confirmation:
-    yes: Oui
-    no: Non
+    "yes": Oui
+    "no": Non
   actions:
     edit: Modifier
     delete: Supprimer
@@ -50,6 +50,12 @@ fr:
     destroy:
       flashes:
         destroyed: L'ilôt a bien été supprimé.
+  breadcrumb:
+    disk_type: Disk type
+    islet: Ilot %{name}
+    bays:
+      double: Double baie %{name}
+      simple: Baie %{name}
   pages:
     params_menu:
       location:

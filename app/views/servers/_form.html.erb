@@ -2,9 +2,11 @@
   <% if @server.errors.any? %>
     <div class="alert alert-danger alert-dismissable" role="alert">
       <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <span aria-hidden="true">&times;</span><span class="sr-only">
+        <%= t("actions.close") %>
+      </span></button>
       <h4>
-        <%= t("errors.title", count: @server.errors.count) %>
+        <%= t("form.errors.title", count: @server.errors.count) %>
       </h4>
 
       <ul>

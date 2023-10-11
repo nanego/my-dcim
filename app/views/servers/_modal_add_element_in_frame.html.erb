@@ -11,9 +11,9 @@
         <%= form_for(Server.new(:name => "PatchPanel", :modele => Modele.where("name LIKE ?", '%Panel%').first, frame: (@frame ? @frame : nil)), html: { class: "form-horizontal", role: "form" }) do |f| %>
           <% if @server.try(:errors).try(:any?) %>
             <div class="alert alert-danger alert-dismissable" role="alert">
-              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= t("actions.close") %></span></button>
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= t("action.close") %></span></button>
               <h4>
-                <%= t("errors.title", count: @server.errors.count) %>
+                <%= t("form.errors.title", count: @server.errors.count) %>
               </h4>
 
               <ul>
@@ -67,9 +67,9 @@
 
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-              <%= f.submit t("actions.confirm"),class: "btn btn-primary" %>
+              <%= f.submit t("action.confirm"),class: "btn btn-primary" %>
               <button type="button" class="btn btn-default" data-dismiss="modal">
-                <%= t("actions.cancel") %>
+                <%= t("action.cancel") %>
               </button>
             </div>
           </div>
