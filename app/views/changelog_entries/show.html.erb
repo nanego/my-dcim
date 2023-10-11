@@ -1,0 +1,27 @@
+<% provide(:title, "Changelogs") %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+  "Changelogs" => changelog_entries_path,
+  "#{@changelog_entry.id} - #{@changelog_entry.action} - #{@changelog_entry.object}" => ""
+} %>
+
+<dl class="dl-horizontal">
+  <dt>Object</dt>
+  <dd><%= @changelog_entry.object_display_name %></dd>
+
+  <dt>Action</dt>
+  <dd><span class="badge"><%= @changelog_entry.action %></span></dd>
+
+  <dt>Author</dt>
+  <dd><%= @changelog_entry.author %></dd>
+</dl>
+
+<h3>Changes</h3>
+<%= debug @changelog_entry.object_changes %>
+
+<h3>Metadatas</h3>
+<dl class="dl-horizontal">
+  <% @changelog_entry.metadata.each do |key, value| %>
+    <dt><%= key %></dt>
+    <dd><code><%= value %></code></dd>
+  <% end %>
+</dl>

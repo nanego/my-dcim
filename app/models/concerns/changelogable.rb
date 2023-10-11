@@ -5,7 +5,7 @@ module Changelogable
 
   module ClassMethods
     def has_changelog # rubocop:disable Naming/PredicateName
-      has_many :changelog_entries, as: :object
+      has_many :changelog_entries, -> { order(created_at: :desc) }, as: :object
 
       after_create_commit :changelog_entry_on_create
       after_update_commit :changelog_entry_on_update
