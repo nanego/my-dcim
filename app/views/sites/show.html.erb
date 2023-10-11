@@ -1,11 +1,11 @@
 <div class="page-header">
   <%= link_to sites_path, class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
-    <%= t("action.back") %>
+    <%= t("actions.back") %>
   <% end %>
   <%= link_to edit_site_path(@site), class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-pencil"></span>
-    <%= t("action.edit") %>
+    <%= t("actions.edit") %>
   <% end %>
   <h1><%= t(".title", site_id: @site.id, site_name: @site.name) %></h1>
 </div>
