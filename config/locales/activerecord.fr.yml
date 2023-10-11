@@ -1,0 +1,62 @@
+fr:
+  activerecord:
+    models:
+      maintenance_contract: Contrat de maintenance
+      server: Serveur
+      maintainer: Mainteneur
+      room: Salle
+      islet: Ilot
+      bay: Baies
+      frame: Châssis
+      modele: Modèle
+      category:
+        one: Type de matériel
+        other: Types de matériel
+      architecture: Architecture
+      manufacturer: Fabricant
+      domaine: Domaine
+      gestion: Gestionnaire
+      cluster: Cluster
+      stack: Stack
+      card_type:
+        one: Type de carte
+        other: Types de carte
+      color: Couleur
+      contract_type:
+        one: Contrat de maintenance
+        other: Contrats de maintenance
+      disk_type:
+        one: Type de disks
+        other: Types de disks
+      memory_type:
+        one: Type de RAM
+        other: Types de RAM
+    attributes:
+      maintenance_contract:
+        server_id: Serveur
+        start_date: Date de début
+        end_date: Date de fin
+        maintainer_id: Mainteneur
+        contract_type_id: Type de contrat
+      server:
+        numero: Numéro de série
+      site:
+        name: Nom
+        position: Position
+        street: Rue
+        city: Ville
+        country: Pays
+        latitude: Latitude
+        longitude: Longitude
+        rooms_count:
+          one: 1 salle
+          other: "%{count} salles"
+        errors_count:
+          one: 1 erreur
+          other: "%{count} erreurs"
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              invalid: L'adresse email est invalide
