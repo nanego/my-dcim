@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Category < ApplicationRecord
+  has_changelog
+
   has_many :modeles, dependent: :restrict_with_error
 
   scope :sorted, -> { order(:name) }
@@ -10,6 +12,6 @@ class Category < ApplicationRecord
   end
 
   def pdu?
-    name=='Pdu'
+    name == "Pdu"
   end
 end

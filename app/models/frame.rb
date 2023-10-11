@@ -6,6 +6,8 @@ class Frame < ApplicationRecord
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
+  has_changelog
+  acts_as_list scope: [:bay_id]
 
   belongs_to :bay, optional: true
   has_many :materials, -> {order("servers.position desc")}, class_name: "Server", dependent: :restrict_with_error
@@ -15,11 +17,9 @@ class Frame < ApplicationRecord
   delegate :room, :to => :islet, :allow_nil => true
   delegate :name, :to => :room, :prefix => true, :allow_nil => true
 
-  acts_as_list scope: [:bay_id]
-
   scope :sorted, -> {order(:position)}
 
-  validates_presence_of :bay_id
+  validates_presence_of :bay_id # TODO: this do the oposite of optional: true
 
   def to_s
     name.to_s

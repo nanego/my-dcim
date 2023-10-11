@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Card < ApplicationRecord
-  after_commit :set_twin_card
-
   has_changelog
 
   belongs_to :card_type, optional: true
@@ -11,13 +9,14 @@ class Card < ApplicationRecord
 
   belongs_to :server, optional: true
   belongs_to :composant, optional: true
-  delegate :frame, to: :server
+  delegate :frame, to: :server # TODO: replace by has_one?
 
   has_many :ports
   has_many :cables, through: :ports
 
-  scope :for_enclosure, -> (enclosure_id) { joins(:composant).where("composants.enclosure_id = ?", enclosure_id).order("composants.position ASC")}
+  after_commit :set_twin_card
 
+  scope :for_enclosure, -> (enclosure_id) { joins(:composant).where("composants.enclosure_id = ?", enclosure_id).order("composants.position ASC")}
   scope :on_patch_panels, -> () {joins(:server => {:modele => :category}).where("categories.name = 'Patch Panel'")}
 
   def to_s

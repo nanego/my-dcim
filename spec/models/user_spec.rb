@@ -3,6 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  it_behaves_like "changelogable", object: -> { described_class.new(email: "user@example.com") },
+                                   new_attributes: { email: "admin@example.com" }
+
   let(:user) { User.create(email: "user@example.com") }
 
   describe "#to_s" do

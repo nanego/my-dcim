@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe MemoryType, type: :model do
+  it_behaves_like "changelogable", new_attributes: { quantity: 2 }
+
   let(:memory_type) { MemoryType.create(quantity: 1, unit: "Gb") }
 
   describe "associations" do

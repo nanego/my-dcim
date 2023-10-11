@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe DiskType, type: :model do
+  it_behaves_like "changelogable", new_attributes: { quantity: 120 }
+
   let(:disk_type) { DiskType.create(quantity: 120, unit: "Gb", technology: "SSD") }
 
   describe "associations" do

@@ -1,44 +1,51 @@
 # frozen_string_literal: true
 
-shared_examples_for "changelogable" do |attribute_name:, new_value:|
-  let(:klass) { described_class }
-  let(:object) { klass.new }
+shared_examples_for "changelogable" do |object: nil, new_attributes:|
+  let(:new_object) do
+    if object.is_a?(Proc)
+      object.call
+    else
+      described_class.new
+    end
+  end
 
   context "when created" do
     let(:created) do
-      object.save!
-      object
+      new_object.save!
+      new_object
     end
 
-    it { expect { created }.to change(ChangelogEntry, :count).by(1) }
+    it { expect(created.changelog_entries.count).to eq(1) }
     it { expect(created.changelog_entries.last.action).to eq("create") }
   end
 
   context "when updated" do
     let(:updated) do
-      object.update!(attribute_name => new_value)
-      object
+      new_object.update!(new_attributes)
+      new_object
     end
 
     before do
-      object.save!
+      new_object.save!
     end
 
     it { expect { updated }.to change(ChangelogEntry, :count).by(1) }
+    it { expect(updated.changelog_entries.count).to eq(2) }
     it { expect(updated.changelog_entries.last.action).to eq("update") }
   end
 
   context "when destroyed" do
     let(:destroyed) do
-      object.destroy!
-      object
+      new_object.destroy!
+      new_object
     end
 
     before do
-      object.save!
+      new_object.save!
     end
 
     it { expect { destroyed }.to change(ChangelogEntry, :count).by(1) }
+    it { expect(destroyed.changelog_entries.count).to eq(2) }
     it { expect(destroyed.changelog_entries.last.action).to eq("destroy") }
   end
 end

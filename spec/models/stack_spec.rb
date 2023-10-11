@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Stack, type: :model do
+  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+
   let(:stack) { Stack.create(name: "Rouge") }
 
   describe "associations" do

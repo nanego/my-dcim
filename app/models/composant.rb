@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Composant < ApplicationRecord
-  validates_presence_of :type_composant_id
+  has_changelog
+  acts_as_list scope: [:enclosure_id, :type_composant_id]
 
   belongs_to :enclosure, optional: true
   belongs_to :type_composant, optional: true
@@ -9,7 +10,7 @@ class Composant < ApplicationRecord
 
   has_many :cards
 
-  acts_as_list scope: [:enclosure_id, :type_composant_id]
+  validates_presence_of :type_composant_id # TODO: this do the oposite of optional: true
 
   scope :slots, -> { where(type_composant: TypeComposant.find_by_name('SLOT')).order("composants.position ASC") }
 

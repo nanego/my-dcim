@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
-require 'csv'
+require "csv"
 
 class Port < ApplicationRecord
+  has_changelog
+
   belongs_to :card, optional: true
   delegate :is_power_input?, to: :card, :allow_nil => true
 

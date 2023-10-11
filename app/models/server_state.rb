@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ServerState < ApplicationRecord
+  has_changelog
+
   has_many :servers
 
   scope :sorted, -> { order(:name) }

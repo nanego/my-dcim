@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class PortType < ApplicationRecord
+  has_changelog
+
   has_many :card_types
 
   def is_power_input?
-    name=='ALIM'
+    name == "ALIM"
   end
 end

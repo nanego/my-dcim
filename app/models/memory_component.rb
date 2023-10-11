@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class MemoryComponent < ApplicationRecord
+  has_changelog
+
   belongs_to :server, optional: true
   belongs_to :memory_type, optional: true
 

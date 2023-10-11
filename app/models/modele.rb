@@ -3,6 +3,7 @@
 class Modele < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
+  has_changelog
 
   has_many :servers, dependent: :restrict_with_error
   has_many :enclosures, dependent: :restrict_with_error

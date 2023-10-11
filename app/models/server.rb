@@ -3,6 +3,7 @@
 class Server < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
+  has_changelog
 
   belongs_to :frame, optional: true
   has_one :bay, through: :frame
@@ -30,24 +31,20 @@ class Server < ApplicationRecord
   has_one_attached :photo
 
   validates_presence_of :numero
-  validates :frame_id, presence: true
-  validates :modele_id, presence: true
+  validates :frame_id, presence: true # TODO: this do the oposite of optional: true
+  validates :modele_id, presence: true # TODO: this do the oposite of optional: true
   validates :name, presence: true
   validates_uniqueness_of :numero
   validate :numero_cannot_be_a_current_server_name
 
-  accepts_nested_attributes_for :cards,
-                                :allow_destroy => true,
-                                :reject_if => :all_blank
-  accepts_nested_attributes_for :disks,
-                                :allow_destroy => true,
-                                :reject_if => :all_blank
-  accepts_nested_attributes_for :memory_components,
-                                :allow_destroy => true,
-                                :reject_if => :all_blank
-  accepts_nested_attributes_for :documents,
-                                :allow_destroy => true,
-                                :reject_if => :all_blank
+  accepts_nested_attributes_for :cards, :allow_destroy => true,
+                                        :reject_if => :all_blank
+  accepts_nested_attributes_for :disks, :allow_destroy => true,
+                                        :reject_if => :all_blank
+  accepts_nested_attributes_for :memory_components, :allow_destroy => true,
+                                                    :reject_if => :all_blank
+  accepts_nested_attributes_for :documents, :allow_destroy => true,
+                                            :reject_if => :all_blank
 
   scope :sorted, -> { order(:position => :desc) }
   scope :sorted_by_name, -> { order('LOWER(name) ASC') }

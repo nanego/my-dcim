@@ -3,10 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe Frame, type: :model do
+  it_behaves_like "changelogable", object: -> { described_class.new(bay: Bay.create!) },
+                                   new_attributes: { name: "New name" }
+
   let(:frame) { Frame.create(name: "TPB-2", slug: "tpb-2") }
 
   describe "associations" do
-    it { is_expected.to belong_to(:bay) }
+    it { is_expected.to belong_to(:bay).optional }
     it { is_expected.to have_one(:islet).through(:bay) }
     it { is_expected.to have_many(:materials) }
     it { is_expected.to have_many(:pdus) }
