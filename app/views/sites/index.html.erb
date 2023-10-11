@@ -1,7 +1,9 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: { 'Paramètres' => modeles_url, 'Sites' => '' } %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+  t("breadcrumb.settings") => modeles_url,
+  Site.model_name.human.pluralize => "" }
+%>
 
 <div class="container-fluid">
-
   <div class="row">
 
     <div class="col-md-3">
@@ -13,9 +15,11 @@
       <div class="page-header">
         <%= link_to new_site_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
-          Ajouter un site
+          <%= t(".add_site") %>
         <% end %>
-        <h1>Sites</h1>
+        <h1>
+          <%= t(".title") %>
+        </h1>
       </div>
 
       <div id="map" style="height: 450px;margin-bottom: 16px;"></div>
@@ -24,8 +28,12 @@
         <table class="table table-striped table-bordered table-hover">
           <thead>
           <tr>
-            <th>Nom</th>
-            <th>Position</th>
+            <th>
+              <%= Site.human_attribute_name(:name) %>
+            </th>
+            <th>
+              <%= Site.human_attribute_name(:position) %>
+            </th>
             <th></th>
             <th></th>
             <th></th>
@@ -36,13 +44,13 @@
           <%= content_tag_for(:tr, @sites) do |site| %>
             <td><b><%= site %></b></td>
             <td><%= site.position %></td>
-            <td><%= pluralize site.rooms.count, 'salle', 'salles' %></td>
-            <td><%= link_to 'Modifier', edit_site_path(site), class: 'btn btn-default' %></td>
+            <td><%= Site.human_attribute_name(:rooms_count, count: site.rooms.count) %></td>
+            <td><%= link_to t("action.edit"), edit_site_path(site), class: 'btn btn-default' %></td>
             <td>
-              <%= link_to 'Supprimer',
+              <%= link_to t("action.delete"),
                           site,
                           method: :delete,
-                          data: { confirm: 'Ce site ne pourra pas être supprimé tant qu\'il sera associé à au moins une salle. Voulez-vous continuer ?' },
+                          data: { confirm: t(".delete_confirmation") },
                           class: 'btn btn-warning' %>
             </td>
           <% end %>
