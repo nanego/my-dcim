@@ -11,8 +11,4 @@ class ActivitiesController < ApplicationController
                                           .order(created_at: :desc)
                                           .page(params[:page]).per(100)
   end
-
-  def show
-    @activity = PublicActivity::Activity.find(params[:id])
-  end
 end
