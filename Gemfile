@@ -99,6 +99,7 @@ gem "letter_opener", group: :development
 # Geocode Sites positions
 gem "geocoder"
 
+gem 'erb_lint', require: false
 gem "importmap-rails", "~> 1.1"
 gem "stimulus-rails", "~> 1.2"
 gem "view_component"
