@@ -24,15 +24,15 @@ module Changelogable
   end
 
   def changelog_entry_on_destroy
-    _create_changelog_entry(:destroy)
+    _create_changelog_entry(:destroy, object_changes: attributes.to_h { |k, v| [k, [v, nil]] })
   end
 
   private
 
-  def _create_changelog_entry(action, metadata: {})
+  def _create_changelog_entry(action, object_changes: previous_changes, metadata: {})
     changelog_entries.create!(
       action: action,
-      object_changes: previous_changes,
+      object_changes: object_changes,
       metadata: ChangelogContext.metadata.to_h.merge(metadata)
     )
   end

@@ -8,11 +8,17 @@
   <dt>Object</dt>
   <dd><%= @changelog_entry.object_display_name %></dd>
 
+  <dt>Object id</dt>
+  <dd><%= @changelog_entry.object_id %></dd>
+
   <dt>Action</dt>
   <dd><span class="badge"><%= @changelog_entry.action %></span></dd>
 
   <dt>Author</dt>
   <dd><%= @changelog_entry.author %></dd>
+
+  <dt>Date</dt>
+  <dd><%=t @changelog_entry.created_at %></dd>
 </dl>
 
 <h3>Changes</h3>
