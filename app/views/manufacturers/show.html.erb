@@ -1,26 +1,34 @@
 <div class="page-header">
   <%= link_to manufacturers_path, class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
-    Retour
+    <%= t("action.back") %>
   <% end %>
   <%= link_to edit_manufacturer_path(@manufacturer), class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-pencil"></span>
-    Edit
+    <%= t("action.edit") %>
   <% end %>
-  <h1>Voir manufacturer</h1>
+  <h1>
+    <%= t(".title") %>
+  </h1>
 </div>
 
 <div class="col-lg-6">
   <div class="panel panel-primary">
     <div class="panel-body">
       <dl class="dl-horizontal">
-        <dt>Nom :</dt>
+        <dt>
+          <%= Manufacturer.human_attribute_name(:name) %> :
+        </dt>
         <dd><%= @manufacturer %></dd>
 
-        <dt>Description:</dt>
+        <dt>
+          <%= Manufacturer.human_attribute_name(:description) %> :
+        </dt>
         <dd><%= @manufacturer.description %></dd>
 
-        <dt>Documentation URL:</dt>
+        <dt>
+          <%= Manufacturer.human_attribute_name(:documentation_url) %> :
+        </dt>
         <dd><%= @manufacturer.documentation_url %></dd>
       </dl>
     </div>

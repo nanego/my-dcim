@@ -71,6 +71,14 @@ fr:
           other: "%{count} serveurs"
       cluster:
         name: Nom
+      manufacturer:
+        name: Nom
+        usage: Usage
+        description: Description
+        documentation_url: Documentation URL
+        modeles:
+          one: 1 modèle
+          other: "%{count} modèles"
     errors:
       models:
         user:
