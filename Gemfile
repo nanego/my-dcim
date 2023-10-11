@@ -101,3 +101,4 @@ gem 'geocoder'
 gem "importmap-rails", "~> 1.1"
 gem "stimulus-rails", "~> 1.2"
 gem "view_component"
+gem "debug", group: %i[test development]
