@@ -7,8 +7,11 @@ fr:
     edit: Modifier
     delete: Supprimer
     back: Retour
+    close: Fermer
+    show: Voir
   breadcrumb:
     settings: Paramètres
+    architectures: Architectures
   pages:
     params_menu:
       location:
@@ -37,6 +40,26 @@ fr:
     destroy:
       flashes:
         destroyed: Site a bien été supprimé.
+  architectures:
+    index:
+      new_architecture: Ajouter une architecture
+      title: Architectures
+      delete_confirmation: Cette architecture ne pourra pas être supprimée tant qu'elle est associée à au moins un modèle. Voulez-vous continuer ?
+    show:
+      title: Voir architecture
+    new:
+      title: New architecture
+    create:
+      flashes:
+        created: Architecture was successfully created.
+    edit:
+      title: Editing architecture
+    update:
+      flashes:
+        updated: Architecture was successfully updated.
+    destroy:
+      flashes:
+        destroyed: Architecture a bien été supprimé.
 
   devise:
     registrations:

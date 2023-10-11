@@ -28,7 +28,7 @@ class ArchitecturesController < ApplicationController
 
     respond_to do |format|
       if @architecture.save
-        format.html { redirect_to @architecture, notice: 'Architecture was successfully created.' }
+        format.html { redirect_to @architecture, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @architecture }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class ArchitecturesController < ApplicationController
   def update
     respond_to do |format|
       if @architecture.update(architecture_params)
-        format.html { redirect_to @architecture, notice: 'Architecture was successfully updated.' }
+        format.html { redirect_to @architecture, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @architecture }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class ArchitecturesController < ApplicationController
   def destroy
     if @architecture.destroy
       respond_to do |format|
-        format.html { redirect_to architectures_url, notice: 'Architecture a bien été supprimé.' }
+        format.html { redirect_to architectures_url, notice: t(".destroy.flashes.destroyed") }
         format.json { head :no_content }
       end
     else
