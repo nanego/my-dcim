@@ -72,10 +72,6 @@ fr:
         modele: Modèle
         manager: Gestionnaire
         cluster: Cluster
-      views:
-        back_front: Vue avant & arrière
-        front: Vue avant
-        back: Vue arrière
       dragn_drop:
         enable: Activer le drag'n drop
   servers:

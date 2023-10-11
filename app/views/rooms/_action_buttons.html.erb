@@ -19,12 +19,12 @@
   <!-- Views FRONT / BACK -->
   <% if view_side==Frame.view_sides[:both] %>
      <%= content_tag :div, class: 'btn btn-default disabled' do %>
-      <%= t(".views.back_front") %>
+      <%= Frame.human_attribute_name("view_sides.both") %>
     <% end %>
   <% else %>
     <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => (view_side == Frame.view_sides[:back] ? Frame.view_sides[:front] : Frame.view_sides[:back]), islet: params['islet'], id: params['id']})), class: 'btn btn-success', remote: true do %>
       <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-      <%= (view_side==Frame.view_sides[:back] ? t(".views.front") : t(".views.back")) %>
+      <%= Frame.human_attribute_name("view_sides.#{view_side}") %>
     <% end %>
   <% end %>
 

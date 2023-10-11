@@ -43,6 +43,10 @@ fr:
         frames_count:
           one: 1 châssis
           other: '%{count} châssis'
+      frame/view_sides:
+        front: Vue avant
+        back: Vue arrière
+        both: Vue avant & arrière
       maintenance_contract:
         server_id: Serveur
         start_date: Date de début
