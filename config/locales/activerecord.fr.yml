@@ -1,25 +1,5 @@
 fr:
   activerecord:
-    attributes:
-      maintenance_contract:
-        server_id: Serveur
-        start_date: Date de début
-        end_date: Date de fin
-        maintainer_id: Mainteneur
-        contract_type_id: Type de contrat
-      server:
-        numero: Numéro de série
-      islet:
-        name: Nom
-        room: Salle
-        position: Position
-        frames_count:
-          one: 1 chassis
-          other: '%{count} chassis'
-        errors_count:
-          one: 1 erreur
-          other: '%{count} erreurs'
-  activerecord:
     models:
       maintenance_contract: Contrat de maintenance
       server: Serveur
