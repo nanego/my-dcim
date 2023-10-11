@@ -1,4 +1,4 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: { 'Activité' => '' } %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: { "Activité" => "" } %>
 
 <div class="container-fluid">
   <div class="row">
@@ -46,7 +46,7 @@
                 <li><%= key %> :
                   <% if values && values.respond_to?(:each)  %>
                     <% values.each_with_index do |v, index| %>
-                      <%= v.present? ? v : v.inspect %> <%= ' => ' unless index == values.size-1 %>
+                      <%= v.present? ? v : v.inspect %> <%= " => " unless index == values.size-1 %>
                     <% end %>
                   <% else %>
                     <%= values %>
