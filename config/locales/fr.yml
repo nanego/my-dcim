@@ -67,8 +67,8 @@ fr:
     action_buttons:
       caption:
         ports: Ports
-        unreferenced_client: Client non référencé
-        no_client: Aucun client
+        unreferenced_client: Le port correspondant de la carte jumelle est câblé
+        no_client: Le port correspondant de la carte jumelle n'est pas câblé
 
   views:
     pagination:

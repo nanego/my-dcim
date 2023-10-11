@@ -95,20 +95,36 @@
   <% end %>
 
   <%= render CaptionComponent.new do %>
-    <dl class="dl-horizontal">
-      <h5><%= t(".caption.ports")%> :</h5>
-      <dt><%= t(".caption.unreferenced_client")%> :</dt>
-      <dd>
+    <h5><%= t(".caption.ports")%> :</h5>
+    <dl>
+      <dt>
         <span class="pdu port_container unreferenced_client">
-          <a class="port pull-left portFC empty">01</a>
+          <a class="port portFC empty">01</a>
         </span>
-      </dd>
-      <dt><%= t(".caption.no_client")%> :</dt>
-      <dd>
+      </dt>
+      <dd><%= t(".caption.unreferenced_client")%></dd>
+      <dt>
         <span class="pdu port_container no_client">
-          <a class="port pull-left portFC empty">02</a>
+          <a class="port portFC empty">02</a>
         </span>
-      </dd>
+      </dt>
+      <dd><%= t(".caption.no_client")%></dd>
     </dl>
+      <!-- <div>
+        <span>
+          <span class="pdu port_container unreferenced_client">
+            <a class="port portFC empty">01</a>
+          </span>
+        </span>
+        <span><%= t(".caption.unreferenced_client")%></span>
+      </div>
+      <div>
+        <span>
+          <span class="pdu port_container no_client">
+            <a class="port portFC empty">02</a>
+          </span>
+        </span>
+        <span><%= t(".caption.no_client")%></span>
+      </div> -->
   <% end %>
 </span>

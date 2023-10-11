@@ -3,5 +3,5 @@ en:
     action_buttons:
       caption:
         ports: Ports
-        unreferenced_client: Unreferenced client
-        no_client: No client
+        unreferenced_client: The corresponding port on the twin card is wired
+        no_client: The corresponding port on the twin card is not wired
