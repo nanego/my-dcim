@@ -11,6 +11,7 @@ fr:
     close: Fermer
   breadcrumb:
     settings: Paramètres
+    domaines: Domaines
   pages:
     params_menu:
       location:
