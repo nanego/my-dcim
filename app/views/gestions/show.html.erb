@@ -3,17 +3,21 @@
   <div class="page-header">
     <%= link_to gestions_path, class: 'btn btn-default' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
-      Retour
+      <%= t("action.back") %>
     <% end %>
     <%= link_to edit_gestion_path(@gestion), class: 'btn btn-primary' do %>
       <span class="glyphicon glyphicon-pencil"></span>
-      Edit
+      <%= t("action.edit") %>
     <% end %>
-    <h1>Gestionnaire <%= @gestion %></h1>
+    <h1>
+      <%= t(".title", gestion: @gestion) %>
+    </h1>
   </div>
 
   <dl class="dl-horizontal">
-    <dt>Description:</dt>
+    <dt>
+      <%= Gestion.human_attribute_name(:description) %> :
+    </dt>
     <dd><%= @gestion.description %></dd>
   </dl>
 

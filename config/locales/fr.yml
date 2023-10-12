@@ -11,6 +11,7 @@ fr:
     show: Voir
   breadcrumb:
     settings: Paramètres
+    gestions: Gestionnaires
   pages:
     params_menu:
       location:
@@ -39,6 +40,26 @@ fr:
     destroy:
       flashes:
         destroyed: Site a bien été supprimé.
+  gestions:
+    index:
+      new_gestion: Ajouter un gestionnaire
+      title: Gestionnaires
+      delete_confirmation: Ce gestionnaire ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
+    show:
+      title: Gestionnaire %{gestion}
+    new:
+      title: Nouveau gestionnaire
+    create:
+      flashes:
+        created: Gestion was successfully created.
+    edit:
+      title: Modifier le gestionnaire
+    update:
+      flashes:
+        updated: Gestion was succesffully updated.
+    destroy:
+      flashes:
+        destroyed: Gestion a bien été supprimé.
   architectures:
     index:
       new_architecture: Ajouter une architecture
