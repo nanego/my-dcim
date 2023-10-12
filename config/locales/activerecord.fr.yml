@@ -83,6 +83,12 @@ fr:
         name: Nom
         usage: Usage
         description: Description
+      stack:
+        name: Nom
+        color: Couleur
+        servers:
+          one: "%{count} machine"
+          other: "%{count} machines"
     errors:
       models:
         user:

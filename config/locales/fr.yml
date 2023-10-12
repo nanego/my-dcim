@@ -11,6 +11,7 @@ fr:
     close: Fermer
   breadcrumb:
     settings: Paramètres
+    rooms: Salles
   pages:
     params_menu:
       location:
@@ -99,6 +100,26 @@ fr:
     destroy:
       flashes:
         destroyed: Le cluster a bien été supprimé.
+  stacks:
+    index:
+      new_stack: Ajouter un stack
+      title: Stacks
+      delete_confirmation: Ce stack ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
+    show:
+      title: Stack
+    new:
+      title: Nouvelle stack
+    create:
+      flashes:
+        created: Stack was successfully created.
+    edit:
+      title: Modifier une stack
+    update:
+      flashes:
+        updated: Stack was successully updated.
+    destroy:
+      flashes:
+        destroyed: Stack a bien été supprimé.
 
   manufacturers:
     form:
