@@ -2,13 +2,15 @@
   <div class="page-header">
     <%= link_to clusters_path, class: 'btn btn-default' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
-      Retour
+      <%= t("action.back") %>
     <% end %>
     <%= link_to @cluster, class: 'btn btn-primary' do %>
       <span class="glyphicon glyphicon-info-sign"></span>
-      Voir
+      <%= t("breadcrumb.show") %>
     <% end %>
-    <h1>Modifier le cluster</h1>
+    <h1>
+      <%= t(".title") %>
+    </h1>
   </div>
 
   <%= render 'form' %>

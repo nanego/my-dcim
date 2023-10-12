@@ -11,6 +11,9 @@ fr:
     show: Voir
   breadcrumb:
     settings: Paramètres
+    clusters: Clusters
+    show: Voir
+    close: Fermer
   pages:
     params_menu:
       location:
@@ -79,6 +82,26 @@ fr:
     destroy:
       flashes:
         destroyed: L'architecture a bien été supprimée.
+  clusters:
+    index:
+      new_cluster: Nouveau cluster
+      title: Listing clusters
+      delete_confirmation: Ce cluster ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
+    show:
+      title: Cluster %{cluster}
+    new:
+      title: Nouveau cluster
+    create:
+      flashes:
+        created: Cluster was successfully created.
+    edit:
+      title: Modifier le cluster
+    update:
+      flashes:
+        updated: Cluster was successfully updated.
+    destroy:
+      flashes:
+        destroyed: Cluster a bien été supprimé.
 
   devise:
     registrations:

@@ -28,7 +28,7 @@ class ClustersController < ApplicationController
 
     respond_to do |format|
       if @cluster.save
-        format.html { redirect_to @cluster, notice: 'Cluster was successfully created.' }
+        format.html { redirect_to @cluster, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @cluster }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class ClustersController < ApplicationController
   def update
     respond_to do |format|
       if @cluster.update(cluster_params)
-        format.html { redirect_to @cluster, notice: 'Cluster was successfully updated.' }
+        format.html { redirect_to @cluster, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @cluster }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class ClustersController < ApplicationController
   def destroy
     if @cluster.destroy
       respond_to do |format|
-        format.html { redirect_to clusters_url, notice: 'Cluster a bien été supprimé.' }
+        format.html { redirect_to clusters_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
