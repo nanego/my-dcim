@@ -10,8 +10,10 @@ fr:
     show: Voir
     close: Fermer
     save: Enregistrer
+    cancel: Annuler
   breadcrumb:
     settings: Paramètres
+    colors: Couleurs
   pages:
     params_menu:
       location:
@@ -141,6 +143,21 @@ fr:
     destroy:
       flashes:
         destroyed: Le type de carte a bien été supprimé.
+  colors:
+    index:
+      title: Couleurs
+      delete_confirmation: Supprimer cette couleur la supprimera des données où elle est utilisée. Voulez-vous continuer ?
+    create:
+      flashes:
+        created: color was successfully created.
+    edit:
+      title: Modifier une couleur
+    update:
+      flashes:
+        updated: color was successfully updated.
+    destroy:
+      flashes:
+        destroyed: color a bien été supprimé.
 
   manufacturers:
     form:
