@@ -1,4 +1,8 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Paramètres' => modeles_url, 'Types de cartes' => card_types_path, "#{@card_type}" => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("breadcrumb.settings") => modeles_url,
+  t("breadcrumb.card_types") => card_types_path,
+  "#{@card_type}" => ""}
+%>
 
 <div class="page-header">
   <%= link_to card_types_path, class: 'btn btn-default' do %>

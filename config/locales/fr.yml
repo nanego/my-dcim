@@ -12,6 +12,7 @@ fr:
     save: Enregistrer
   breadcrumb:
     settings: Paramètres
+    card_types: Types de cartes
   pages:
     params_menu:
       location:
