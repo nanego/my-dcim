@@ -13,6 +13,7 @@ fr:
     cancel: Annuler
   breadcrumb:
     settings: Paramètres
+    contract_types: Types de contrat
   pages:
     params_menu:
       location:
@@ -177,6 +178,26 @@ fr:
     destroy:
       flashes:
         destroyed: Le mainteneur a bien été supprimé.
+  contract_types:
+    index:
+      title: Types de contrat
+      add_contract_type: Ajouter un type de contrat
+      delete_confirmation: Toutes les données concernant ce type de contrat seront supprimées, ainsi que les contrats de maintenance associés. Voulez-vous continuer ?
+    show:
+      title: Voir le type de contrat
+    new:
+      title: New contract type
+    create:
+      flashes:
+        created: Contract type was successfully created.
+    edit:
+      title: Editing contract type
+    update:
+      flashes:
+        updated: Contract type was successfully updated.
+    destroy:
+      flashes:
+        destroyed: Contract type a bien été supprimé.
 
   manufacturers:
     form:
