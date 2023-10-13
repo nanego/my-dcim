@@ -13,17 +13,23 @@
       <div class="page-header">
         <%= link_to new_card_type_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
-          Ajouter une carte
+          <%= t(".add_card") %>
         <% end %>
-        <h1>Types de cartes</h1>
+        <h1>
+          <%= t(".title") %>
+        </h1>
       </div>
 
       <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">
           <thead>
           <tr>
-            <th>Nom</th>
-            <th>Usage</th>
+            <th>
+              <%= CardType.human_attribute_name(:name) %>
+            </th>
+            <th>
+              <%= CardType.human_attribute_name(:usage) %>
+            </th>
             <th></th>
             <th></th>
             <th></th>
@@ -33,14 +39,16 @@
           <tbody>
           <%= content_tag_for(:tr, @card_types) do |card_type| %>
             <td style="<%= "font-weight:bold;" if card_type.max_aligned_ports %>"><%= card_type %></td>
-            <td><%= pluralize card_type.servers.count, 'serveur' %></td>
-            <td><%= card_type.port_quantity %> ports</td>
-            <td><%= link_to 'Modifier', edit_card_type_path(card_type), class: 'btn btn-primary' %></td>
+            <td><%= CardType.human_attribute_name(:servers, count: card_type.servers.count) %></td>
             <td>
-              <%= link_to 'Supprimer',
+              <%= CardType.human_attribute_name(:port_quantity, count: card_type.port_quantity) %>
+            </td>
+            <td><%= link_to t("action.edit"), edit_card_type_path(card_type), class: 'btn btn-primary' %></td>
+            <td>
+              <%= link_to t("action.delete"),
                           card_type,
                           method: :delete,
-                          data: { confirm: 'Ce type de carte ne pourra pas être supprimé tant qu\'il sera associé à au moins un serveur (via une carte). Voulez-vous continuer ?' },
+                          data: { confirm: t(".delete_confirmation") },
                           class: 'btn btn-danger' %>
             </td>
           <% end %>
