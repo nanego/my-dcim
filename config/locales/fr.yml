@@ -11,8 +11,10 @@ fr:
     close: Fermer
     save: Enregistrer
     cancel: Annuler
+    confirm: Are you sure ?
   breadcrumb:
     settings: Paramètres
+    disk_type: Disk type
   pages:
     params_menu:
       location:
@@ -197,6 +199,25 @@ fr:
     destroy:
       flashes:
         destroyed: Le type de contrat a bien été supprimé.
+  disk_types:
+    index:
+      title: Listing disk types
+      add_disk_type: New Disk type
+    show:
+      title: Voir disk type
+    new:
+      title: New disk type
+    create:
+      flashes:
+        created: Disk type was successfully created.
+    edit:
+      title: Editing disk type
+    update:
+      flashes:
+        updated: Disk type was successfully updated.
+    destroy:
+      flashes:
+        destroyed: Disk type a bien été supprimé.
 
   manufacturers:
     form:

@@ -113,6 +113,11 @@ fr:
         name: Nom
       contract_type:
         name: Nom
+      disk_type:
+        name: Nom
+        quantity: Quantité
+        unit: Unité
+        technology: Technologie
     errors:
       models:
         user:
