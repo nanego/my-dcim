@@ -1,4 +1,6 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Paramètres' => modeles_url, 'Mainteneurs' => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("breadcrumb.settings") => modeles_url,
+  t("breadcrumb.maintainers") => ""} %>
 
 <div class="container-fluid">
 
@@ -13,16 +15,20 @@
       <div class="page-header">
         <%= link_to new_maintainer_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
-          Ajouter un mainteneur
+          <%= t(".add_maintainer") %>
         <% end %>
-        <h1>Mainteneurs</h1>
+        <h1>
+          <%= t(".title") %>
+        </h1>
       </div>
 
       <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">
           <thead>
             <tr>
-              <th>Nom</th>
+              <th>
+                <%= Maintainer.human_attribute_name(:name) %>
+              </th>
               <th></th>
               <th></th>
             </tr>
@@ -31,12 +37,12 @@
           <tbody>
             <%= content_tag_for(:tr, @maintainers) do |maintainer| %>
               <td><%= maintainer %></td>
-              <td><%= link_to 'Modifier', edit_maintainer_path(maintainer) %></td>
+              <td><%= link_to t("action.edit"), edit_maintainer_path(maintainer) %></td>
               <td>
-                <%= link_to 'Supprimer',
+                <%= link_to t("action.delete"),
                             maintainer,
                             method: :delete,
-                            data: { confirm: 'Ce mainteneur ne pourra pas être supprimé tant qu\'il sera associé à au moins un contrat de maintenance. Voulez-vous continuer ?' },
+                            data: { confirm: t(".delete_confirmation") },
                             class: 'btn btn-warning' %>
               </td>
             <% end %>

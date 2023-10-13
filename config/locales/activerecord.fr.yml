@@ -109,6 +109,8 @@ fr:
         type: Type
         id: Id
         code: Code
+      maintainer:
+        name: Nom
     errors:
       models:
         user:

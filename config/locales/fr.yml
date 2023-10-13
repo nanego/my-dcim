@@ -13,6 +13,7 @@ fr:
     cancel: Annuler
   breadcrumb:
     settings: Paramètres
+    maintainers: Mainteneurs
   pages:
     params_menu:
       location:
@@ -157,6 +158,26 @@ fr:
     destroy:
       flashes:
         destroyed: La couleur a bien été supprimé.
+  maintainers:
+    index:
+      title: Mainteneurs
+      add_maintainer: Ajouter un mainteneur
+      delete_confirmation: Ce mainteneur ne pourra pas être supprimé tant qu'il sera associé à au moins un contrat de maintenance. Voulez-vous continuer ?
+    show:
+      title: Voir maintainer
+    new:
+      title: New maintainer
+    create:
+      flashes:
+        created: Maintainer was successfully created.
+    edit:
+      title: Editing maintainer
+    update:
+      flashes:
+        updated: Maintainer was successfully updated.
+    destroy:
+      flashes:
+        destroyed: Maintainer a bien été supprimé.
 
   manufacturers:
     form:
