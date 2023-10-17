@@ -19,7 +19,7 @@ class ServersGrid
   filter :name do |value|
     where("LOWER(servers.name) LIKE ?", "%#{value.downcase}%")
   end
-  filter :numero do |value|
+  filter :serial_number do |value|
     where('LOWER(servers.numero) LIKE ?', "%#{value.downcase}%")
   end
   filter 'Catégorie', :enum, multiple: true, :select => Category.sorted.map {|r| [r.to_s, r.id]} do |value|
@@ -101,7 +101,11 @@ class ServersGrid
   }) do |record|
     record.modele
   end
-  column(:numero)
+  column('S/N', :order => proc {|scope|
+    scope.order("numero")
+  }) do |record|
+    record.numero
+  end
   column(:position)
   column(:critique, :mandatory => false) do
     critique ? "Oui" : "Non"
