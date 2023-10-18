@@ -4,9 +4,7 @@
 <%= render 'rooms/action_buttons', view_side: params[:view] unless local_assigns[:pdf] == true %>
 
 <div id="<%= room.try(:name).try(:parameterize).try(:underscore) %>">
-
   <% islets.each do |islet, lanes| %>
-
     <div>
       <div>
         <div class="panel-islet">
@@ -15,9 +13,7 @@
           <% elsif room.present? %>
             <div><h3>Salle <%= room %> - Ilot <%= islet %></h3></div>
           <% end %>
-
           <div class="row">
-
             <ul class="frames <%= view_side %>"
                 style="padding: 0;"
                 data-update-url="<%= sort_frames_path %>"
@@ -25,11 +21,8 @@
                 data-max-elts='<%= settings[:max_elts] %>'
                 data-max-rj45='<%= settings[:max_rj45] %>'
                 data-max-fc='<%= settings[:max_fc] %>'>
-
               <% lanes.each do |lane, bays| %>
-
                 <% bays.each do |bay, frames| %>
-
                   <% unless local_assigns[:pdf] == true %>
                     <% if bays.size == 1 && lanes.size == 1
                          layout_classes = 'col-sm-12 col-lg-12'
@@ -43,34 +36,25 @@
                            data-url="<%= room_path(room, islet: islet, 'bay-id': bay, view: params[:view]) %>">
                         <div class="panel-body">
                   <% end %>
-
                   <% frames.each do |frame, servers| %>
                     <div class="col-xs-12 <%= frames.size > 1 ? 'col-sm-6' : '' %>" style="<%= frame == frames.first[0] ? 'padding-left:0;' : 'padding-right:0;' %>">
                       <%= render partial: 'frames/show_frame', locals: { frame: frame, servers: servers, settings: settings, view_type: view_side } %>
                     </div>
                   <% end %>
-
                   <% unless local_assigns[:pdf] == true %>
                         </div>
                       </div>
                     </div>
                   <% end %>
-
                   <% if bay == bays.keys.last %>
                     <span class="clearfix"></span>
                   <% end %>
-
                 <% end %>
               <% end %>
-
             </ul>
           </div>
-
         </div>
-
       </div>
-
     </div>
-
   <% end %>
 </div>

@@ -72,6 +72,7 @@ group :test do
   # gem 'minitest-rails-capybara'
 
   gem 'capybara', '>= 2.15'
+  gem "rspec-html-matchers"
   gem "shoulda-matchers"
 end
 
@@ -99,3 +100,4 @@ gem 'geocoder'
 
 gem "importmap-rails", "~> 1.1"
 gem "stimulus-rails", "~> 1.2"
+gem "view_component"

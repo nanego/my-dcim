@@ -81,6 +81,13 @@ fr:
       destroy: a supprimé un serveur
   order-in-progress: 'Commande en cours'
 
+  rooms:
+    action_buttons:
+      caption:
+        ports: Ports
+        unreferenced_client: Le port correspondant de la carte jumelle est câblé
+        no_client: Le port correspondant de la carte jumelle n'est pas câblé
+
   views:
     pagination:
       previous: "&lt; Précédent"
