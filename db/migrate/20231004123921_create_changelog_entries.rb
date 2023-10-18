@@ -6,7 +6,9 @@ class CreateChangelogEntries < ActiveRecord::Migration[7.0]
       t.references :object, polymorphic: true, null: false
       t.references :author, polymorphic: true, null: true
       t.string :action, null: false
-      t.jsonb :object_changes, null: false, default: {}
+      t.jsonb :object_changed_attributes, null: false, default: {}
+      t.jsonb :object_pre_change_attributes, null: false, default: {}
+      t.jsonb :object_post_change_attributes, null: false, default: {}
       t.jsonb :metadata, null: false, default: {}
 
       t.timestamps

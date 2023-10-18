@@ -32,7 +32,7 @@ module Changelogable
   def _create_changelog_entry(action, object_changes: previous_changes, metadata: {})
     changelog_entries.create!(
       action: action,
-      object_changes: object_changes,
+      object_changed_attributes: object_changes,
       metadata: ChangelogContext.metadata.to_h.merge(metadata)
     )
   end

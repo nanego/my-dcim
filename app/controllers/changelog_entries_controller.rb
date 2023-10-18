@@ -15,7 +15,11 @@ class ChangelogEntriesController < ApplicationController
 
       klass = params[:object_type].camelize.singularize.safe_constantize
 
-      klass&.find(params[:object_id])
+      if klass.respond_to?(:friendly)
+        klass&.friendly&.find(params[:object_id])
+      else
+        klass&.find(params[:object_id])
+      end
     end
   end
 

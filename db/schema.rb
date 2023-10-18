@@ -128,7 +128,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_04_123921) do
     t.string "author_type"
     t.bigint "author_id"
     t.string "action", null: false
-    t.jsonb "object_changes", default: {}, null: false
+    t.jsonb "object_changed_attributes", default: {}, null: false
+    t.jsonb "object_pre_change_attributes", default: {}, null: false
+    t.jsonb "object_post_change_attributes", default: {}, null: false
     t.jsonb "metadata", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

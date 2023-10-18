@@ -31,7 +31,7 @@ task convert_activities_to_changelog_entries: :environment do
       author_id: activity.owner_id,
       author_type: activity.owner_type,
       action: activity.key.split(".").last,
-      object_changes: activity.parameters.presence || {},
+      object_changed_attributes: activity.parameters.presence || {},
       metadata: {
         activity_id: activity.id
       }
