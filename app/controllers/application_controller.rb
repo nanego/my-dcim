@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
 
   def prepare_exception_notifier
     request.env["exception_notifier.exception_data"] = {
-      :current_user => current_user
+      current_user: current_user
     }
   end
 

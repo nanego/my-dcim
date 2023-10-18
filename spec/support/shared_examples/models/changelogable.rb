@@ -16,7 +16,7 @@ shared_examples_for "changelogable" do |object: nil, new_attributes:|
     end
 
     it { expect(created.changelog_entries.count).to eq(1) }
-    it { expect(created.changelog_entries.last.action).to eq("create") }
+    it { expect(created.changelog_entries.order(created_at: :desc).first.action).to eq("create") }
   end
 
   context "when updated" do
@@ -31,7 +31,7 @@ shared_examples_for "changelogable" do |object: nil, new_attributes:|
 
     it { expect { updated }.to change(ChangelogEntry, :count).by(1) }
     it { expect(updated.changelog_entries.count).to eq(2) }
-    it { expect(updated.changelog_entries.last.action).to eq("update") }
+    it { expect(updated.changelog_entries.order(created_at: :desc).first.action).to eq("update") }
   end
 
   context "when destroyed" do
@@ -46,6 +46,6 @@ shared_examples_for "changelogable" do |object: nil, new_attributes:|
 
     it { expect { destroyed }.to change(ChangelogEntry, :count).by(1) }
     it { expect(destroyed.changelog_entries.count).to eq(2) }
-    it { expect(destroyed.changelog_entries.last.action).to eq("destroy") }
+    it { expect(destroyed.changelog_entries.order(created_at: :desc).first.action).to eq("destroy") }
   end
 end
