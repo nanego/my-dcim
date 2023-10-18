@@ -6,8 +6,8 @@ class User < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
 
-  validates_presence_of :email
-  validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP
+  validates :email, presence: true
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   enum role: [:user, :vip, :admin]
   after_initialize :set_default_role, :if => :new_record?

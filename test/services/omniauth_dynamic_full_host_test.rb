@@ -19,7 +19,7 @@ class DynamicFullHostTest < ActiveSupport::TestCase
 
   def test_full_host_without_specific_origin
     @strategy.call!(make_env('/whatever', 'rack.url_scheme' => 'http', 'SERVER_NAME' => 'facebook.lame',
-                             'QUERY_STRING' => 'code=asofibasf|asoidnasd', 'SCRIPT_NAME' => '', 'SERVER_PORT' => 80))
+                                          'QUERY_STRING' => 'code=asofibasf|asoidnasd', 'SCRIPT_NAME' => '', 'SERVER_PORT' => 80))
     assert @strategy.full_host, 'http://example.com'
   end
 

@@ -7,7 +7,7 @@ namespace :init_pdus do
 
     # TODO: Refactor if we want to use it
     #
-    Port.where("cablename ~ 'L....'").each do |port|
+    Port.where("cablename ~ 'L....'").find_each do |port|
       puts "Cable #{port.cablename}"
       line = port.cablename[2]
       group = port.cablename[1]
