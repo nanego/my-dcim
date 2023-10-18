@@ -12,6 +12,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  rescue_from ActiveRecord::RecordNotFound, with: :show_not_found_error
+
   def after_sign_in_path_for(resource)
     # return request.env['omniauth.origin'] || stored_location_for(resource) || root_path
     #=> with our setup, omniauth.origin always contain sign_in page since user was first redirected on it
@@ -35,5 +37,11 @@ class ApplicationController < ActionController::Base
     request.env["exception_notifier.exception_data"] = {
       :current_user => current_user
     }
+  end
+
+  def show_not_found_error(exception)
+    raise exception unless request.format == :json
+
+    head :not_found
   end
 end
