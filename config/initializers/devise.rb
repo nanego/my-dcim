@@ -304,7 +304,7 @@ Devise.setup do |config|
       host: Rails.application.credentials.dig(:oidc, :server_host),
       identifier: Rails.application.credentials.dig(:oidc, :client_id),
       secret: Rails.application.credentials.dig(:oidc, :secret_key),
-      redirect_uri: "https://#{Rails.application.secrets.domain_name}/users/auth/openid_connect/callback",
+      redirect_uri: "https://#{Rails.application.secrets.domain_name}/users/auth/openid_connect/callback"
     }
   }
 

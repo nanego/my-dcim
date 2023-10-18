@@ -9,7 +9,7 @@ namespace :duplicated_slots do
   task :fix => :environment do
 
     Modele.includes(:enclosures => :composants)
-          .each do |modele|
+          .find_each do |modele|
 
       servers = []
       modele.enclosures.each do |enclosure|

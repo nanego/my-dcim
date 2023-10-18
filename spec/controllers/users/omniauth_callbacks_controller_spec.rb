@@ -1,12 +1,13 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Users::OmniauthCallbacksController, type: :controller do
   describe '#openid_connect' do
-
-    before {
+    before do
       @user = User.find_or_create_by(email: 'jack.dalton@test.test')
       puts @user.inspect
-    }
+    end
 
     it 'creates a new user with valid authentication' do
       request.env['devise.mapping'] = Devise.mappings[:user]
@@ -24,9 +25,9 @@ RSpec.describe Users::OmniauthCallbacksController, type: :controller do
       request.env['devise.mapping'] = Devise.mappings[:user]
       request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect_unknown_user]
 
-      expect {
+      expect do
         get :openid_connect
-      }.not_to change(User, :count)
+      end.not_to change(User, :count)
 
       expect(controller.current_user).to be_nil
     end
