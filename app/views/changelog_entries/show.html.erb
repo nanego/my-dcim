@@ -12,7 +12,7 @@
   <dd><%= @changelog_entry.object_id %></dd>
 
   <dt>Action</dt>
-  <dd><span class="badge"><%= @changelog_entry.action %></span></dd>
+  <dd><%= render @changelog_entry.action_label_to_component %></dd>
 
   <dt>Author</dt>
   <dd><%= @changelog_entry.author %></dd>

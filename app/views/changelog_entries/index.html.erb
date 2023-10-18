@@ -22,7 +22,7 @@
         <%= content_tag_for(:tr, @changelog_entries) do |changelog_entry| %>
           <td><%= changelog_entry.object_display_name %></td>
           <td><%= changelog_entry.author %></td>
-          <td><span class="badge"><%= changelog_entry.action %></span></td>
+          <td><%= render changelog_entry.action_label_to_component %></td>
           <td><%=l changelog_entry.created_at %></td>
           <td><%= link_to "More details", changelog_entry_path(changelog_entry) %></td>
         <% end %>

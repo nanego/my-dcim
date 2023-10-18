@@ -11,4 +11,14 @@ class ChangelogEntry < ApplicationRecord
   def object_type_name
     object_type.safe_constantize&.model_name&.human || object_type
   end
+
+  def action_label_to_component
+    types = {
+      create: :success,
+      update: :warning,
+      destroy: :danger,
+    }
+
+    LabelComponent.new(action, type: types[action.to_sym] || :default)
+  end
 end
