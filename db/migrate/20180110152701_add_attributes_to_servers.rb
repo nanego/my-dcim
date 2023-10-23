@@ -42,7 +42,7 @@ class AddAttributesToServers < ActiveRecord::Migration[5.0]
                                         port_type: port_type)
     puts "ERROR: #{card_type}" unless card_type.valid?
 
-    Frame.all.each do |frame|
+    Frame.all.find_each do |frame|
       ['A','B'].each do |line_name|
         pdu_name = "PDU_#{frame}_#{line_name}"
         pdu = Server.create(frame: frame,
