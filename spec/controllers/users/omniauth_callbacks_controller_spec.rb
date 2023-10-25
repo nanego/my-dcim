@@ -6,7 +6,6 @@ RSpec.describe Users::OmniauthCallbacksController, type: :controller do
   describe '#openid_connect' do
     before do
       @user = User.find_or_create_by(email: 'jack.dalton@test.test')
-      puts @user.inspect
     end
 
     it 'creates a new user with valid authentication' do
