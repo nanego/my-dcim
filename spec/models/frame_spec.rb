@@ -3,6 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Frame, type: :model do
+  it_behaves_like "changelogable", object: -> { described_class.new(bay: Bay.create!) },
+                                   new_attributes: { name: "New name" }
+
   subject(:frame) { Frame.new(name: "TPB-2", slug: "tpb-2") }
 
   describe "associations" do

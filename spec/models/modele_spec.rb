@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Modele, type: :model do
+  # it_behaves_like "changelogable", new_attributes: {  }
+
   subject(:modele) { Modele.new(name: "Express5800 - 120RG-2") }
 
   describe "associations" do

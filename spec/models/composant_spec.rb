@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe Composant, type: :model do
+  it_behaves_like "changelogable", object: -> { described_class.new(type_composant: TypeComposant.create!) },
+                                   new_attributes: { name: "New name" }
+
+
   subject(:composant) { Composant.new(name: "SL8") }
 
   describe "associations" do

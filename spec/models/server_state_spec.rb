@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe ServerState, type: :model do
+  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+
   subject(:server_state) { ServerState.new(name: "Order In Progress") }
 
   describe "associations" do

@@ -11,6 +11,7 @@ class Server < ApplicationRecord
   friendly_id :slug_candidates, use: [:slugged, :history]
 
   include PublicActivity::Model
+  has_changelog
 
   belongs_to :frame
   has_one :bay, through: :frame
@@ -42,18 +43,14 @@ class Server < ApplicationRecord
   validates_uniqueness_of :numero
   validate :numero_cannot_be_a_current_server_name
 
-  accepts_nested_attributes_for :cards,
-                                :allow_destroy => true,
-                                :reject_if => :all_blank
-  accepts_nested_attributes_for :disks,
-                                :allow_destroy => true,
-                                :reject_if => :all_blank
-  accepts_nested_attributes_for :memory_components,
-                                :allow_destroy => true,
-                                :reject_if => :all_blank
-  accepts_nested_attributes_for :documents,
-                                :allow_destroy => true,
-                                :reject_if => :all_blank
+  accepts_nested_attributes_for :cards, :allow_destroy => true,
+                                        :reject_if => :all_blank
+  accepts_nested_attributes_for :disks, :allow_destroy => true,
+                                        :reject_if => :all_blank
+  accepts_nested_attributes_for :memory_components, :allow_destroy => true,
+                                                    :reject_if => :all_blank
+  accepts_nested_attributes_for :documents, :allow_destroy => true,
+                                            :reject_if => :all_blank
 
   scope :sorted, -> { order(:position => :desc) }
   scope :sorted_by_name, -> { order('LOWER(name) ASC') }
