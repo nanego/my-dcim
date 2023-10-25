@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Bay, type: :model do
+  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+
   describe "associations" do
     it { is_expected.to belong_to(:bay_type).optional(true) }
     it { is_expected.to belong_to(:islet).optional(true) }

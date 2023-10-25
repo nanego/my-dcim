@@ -3,10 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe Card, type: :model do
+  it_behaves_like "changelogable", object: -> { described_class.new }, new_attributes: { name: "New name" }
+
   describe "associations" do
-    it { is_expected.to belong_to(:card_type) }
-    it { is_expected.to belong_to(:server) }
-    it { is_expected.to belong_to(:composant) }
+    it { is_expected.to belong_to(:card_type).optional }
+    it { is_expected.to belong_to(:server).optional }
+    it { is_expected.to belong_to(:composant).optional }
     it { is_expected.to have_many(:ports) }
     it { is_expected.to have_many(:cables).through(:ports) }
   end

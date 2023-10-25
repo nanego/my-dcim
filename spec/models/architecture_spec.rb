@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Architecture, type: :model do
+  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+
   let(:architecture) { Architecture.create(name: "Tour") }
 
   describe "associations" do

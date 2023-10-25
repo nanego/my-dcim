@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
   resources :documents
   resources :moves do
     member do
@@ -95,4 +94,6 @@ Rails.application.routes.draw do
   end
 
   resources :activities
+  resources :changelog_entries, only: %i[index show]
+  get "/:object_type/:object_id/changelog_entries", to: "changelog_entries#index"
 end

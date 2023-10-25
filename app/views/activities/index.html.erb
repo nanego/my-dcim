@@ -1,21 +1,44 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Activité' => ''} %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: { "Activité" => "" } %>
 
 <div class="container-fluid">
-
   <div class="row">
-
     <h1>Activité</h1>
 
     <%= paginate @activities %>
+
+    <% if false %>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Par</th>
+          <th>Le</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @activities.each do |activity| %>
+          <tr>
+            <td><%= link_to "##{activity.id}", activity_path(activity) %></td>
+            <td><%= activity.owner %></td>
+            <td><%=l activity.created_at %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% end %>
+
+
     <% @activities.each do |activity| %>
       <p>
         <% if activity.trackable_type != activity.owner_type && activity.trackable_id != activity.owner_id %>
+          <%= link_to "##{activity.id}", activity_path(activity) %>
           <%= link_to activity.owner.name, activity.owner if activity.owner %>
           <% begin %>
             <%= render_activity(activity, fallback: :text) %>
           <% rescue %>
           <% end %>
           <i>(<%= activity.created_at.getlocal.strftime("%d/%m/%Y %H:%M") %>)</i>
+          <%= activity.trackable&.model_name %>
           <br/>
           <ul>
             <% begin %>
@@ -23,7 +46,7 @@
                 <li><%= key %> :
                   <% if values && values.respond_to?(:each)  %>
                     <% values.each_with_index do |v, index| %>
-                      <%= v.present? ? v : v.inspect %> <%= ' => ' unless index == values.size-1 %>
+                      <%= v.present? ? v : v.inspect %> <%= " => " unless index == values.size-1 %>
                     <% end %>
                   <% else %>
                     <%= values %>
@@ -37,8 +60,7 @@
         <% end %>
       </p>
     <% end %>
+
     <%= paginate @activities %>
-
   </div>
-
 </div>

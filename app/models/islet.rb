@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Islet < ApplicationRecord
+  has_changelog
+
   belongs_to :room, counter_cache: true, optional: true
   has_one :site, through: :room
   has_many :bays, dependent: :restrict_with_error

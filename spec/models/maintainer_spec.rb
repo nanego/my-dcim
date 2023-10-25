@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Maintainer, type: :model do
+  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+
   let(:maintainer) { Maintainer.create(name: "Dell") }
 
   describe "associations" do

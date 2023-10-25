@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Room, type: :model do
+  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+
   let(:room) { Room.create(name: "Petite salle") }
 
   describe "associations" do

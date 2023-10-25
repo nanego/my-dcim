@@ -4,6 +4,6 @@ require 'rails_helper'
 
 RSpec.describe Document, type: :model do
   describe "associations" do
-    it { is_expected.to belong_to(:server) }
+    it { is_expected.to belong_to(:server).optional }
   end
 end

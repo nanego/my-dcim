@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  include PublicActivity::StoreController
+  include ChangelogContextApplication
 
   acts_as_token_authentication_handler_for User
 
@@ -21,22 +21,11 @@ class ApplicationController < ActionController::Base
     return stored_location_for(resource) || root_path
   end
 
-  def track_updated_values(object, new_params)
-    new_params = new_params.to_unsafe_h.stringify_keys! # Avoid symbol keys
-    updated_values = {}
-    old_values = object.attributes
-    object.assign_attributes(new_params)
-    object.changed.each do |attribute|
-      updated_values[attribute] = [old_values[attribute].to_s, new_params[attribute]] if old_values[attribute] != new_params[attribute]
-    end
-    return updated_values
-  end
-
   private
 
   def prepare_exception_notifier
     request.env["exception_notifier.exception_data"] = {
-      :current_user => current_user
+      current_user: current_user
     }
   end
 

@@ -6,9 +6,9 @@ RSpec.describe Move, type: :model do
   let(:move) { Move.create(name: "Bleu") }
 
   describe "associations" do
-    it { is_expected.to belong_to(:moveable) }
-    it { is_expected.to belong_to(:prev_frame) }
-    it { is_expected.to belong_to(:frame) }
+    it { is_expected.to belong_to(:moveable).optional }
+    it { is_expected.to belong_to(:prev_frame).optional }
+    it { is_expected.to belong_to(:frame).optional }
   end
 
   describe "validations" do

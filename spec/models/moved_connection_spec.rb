@@ -6,8 +6,8 @@ RSpec.describe MovedConnection, type: :model do
   let(:moved_connection) { MovedConnection.create(color: "bleu", cablename: "cable") }
 
   describe "associations" do
-    it { is_expected.to belong_to(:port_from) }
-    it { is_expected.to belong_to(:port_to) }
+    it { is_expected.to belong_to(:port_from).optional }
+    it { is_expected.to belong_to(:port_to).optional }
   end
 
   describe "validations" do

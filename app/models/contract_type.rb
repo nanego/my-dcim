@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ContractType < ApplicationRecord
+  has_changelog
+
   has_many :maintenance_contracts
 
   def to_s

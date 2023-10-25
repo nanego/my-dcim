@@ -2,9 +2,11 @@
 
 class Site < ApplicationRecord
   geocoded_by :address
-  after_validation :geocode
+  has_changelog
 
   has_many :rooms, dependent: :restrict_with_error
+
+  after_validation :geocode
 
   scope :sorted, -> { order(:position) }
 

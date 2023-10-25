@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class Domaine < ApplicationRecord
-  include PublicActivity::Model
-  tracked owner: ->(controller, model) { controller && controller.current_user }
+  has_changelog
 
   has_many :servers, dependent: :restrict_with_error
 
