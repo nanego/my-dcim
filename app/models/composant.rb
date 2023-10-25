@@ -7,8 +7,6 @@ class Composant < ApplicationRecord
     :name => proc { |controller, model_instance| model_instance.try(:name)}
   }
 
-  validates_presence_of :type_composant_id
-
   belongs_to :enclosure
   belongs_to :type_composant
   has_one :modele, through: :enclosure

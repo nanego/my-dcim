@@ -6,9 +6,6 @@ class Move < ApplicationRecord
   belongs_to :frame
   belongs_to :prev_frame, class_name: 'Frame', foreign_key: :prev_frame_id
 
-  # TODO: check if validates_presence_of is really required
-  # validates_presence_of :frame, :moveable
-
   attr_accessor :remove_connections
 
   def clear_connections

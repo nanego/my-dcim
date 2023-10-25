@@ -22,8 +22,6 @@ class Frame < ApplicationRecord
 
   scope :sorted, -> {order(:position)}
 
-  validates_presence_of :bay_id
-
   def to_s
     name.to_s
   end
