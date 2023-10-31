@@ -48,15 +48,15 @@ fr:
     show:
       title: Voir architecture
     new:
-      title: New architecture
+      title: Nouvelle architecture
     create:
       flashes:
-        created: Architecture was successfully created.
+        created: L'architecture a bien été créée.
     edit:
-      title: Editing architecture
+      title: Editer architecture
     update:
       flashes:
-        updated: Architecture was successfully updated.
+        updated: L'architecture a bien été modifiée.
     destroy:
       flashes:
         destroyed: Architecture a bien été supprimé.
