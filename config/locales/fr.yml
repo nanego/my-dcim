@@ -7,13 +7,11 @@ fr:
     edit: Modifier
     delete: Supprimer
     back: Retour
-    close: Fermer
     show: Voir
+    close: Fermer
   breadcrumb:
     settings: Paramètres
     clusters: Clusters
-    show: Voir
-    close: Fermer
   pages:
     params_menu:
       location:
