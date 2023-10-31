@@ -186,18 +186,18 @@ fr:
     show:
       title: Voir le type de contrat
     new:
-      title: New contract type
+      title: Nouveau type de contrat
     create:
       flashes:
-        created: Contract type was successfully created.
+        created: Le type de contrat a bien été créé.
     edit:
-      title: Editing contract type
+      title: Edition d'un type de contrat
     update:
       flashes:
-        updated: Contract type was successfully updated.
+        updated: Le type de contrat a bien été modifié.
     destroy:
       flashes:
-        destroyed: Contract type a bien été supprimé.
+        destroyed: Le type de contrat a bien été supprimé.
 
   manufacturers:
     form:
