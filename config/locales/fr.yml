@@ -132,15 +132,15 @@ fr:
     show:
       title: Domaine %{name}
     new:
-      title: New domaine
+      title: Nouveau domaine
     create:
       flashes:
-        created: Domaine was successfully created.
+        created: Le domaine a bien été créé.
     edit:
       title: Modifier le domaine
     update:
       flashes:
-        updated: Domaine was successfully updated.
+        updated: Le domaine a bien été modifié.
     destroy:
       flashes:
         destroyed: Domaine a bien été supprimé.
