@@ -41,9 +41,6 @@ fr:
         frames_count:
           one: 1 chassis
           other: '%{count} chassis'
-        errors_count:
-          one: 1 erreur
-          other: '%{count} erreurs'
       maintenance_contract:
         server_id: Serveur
         start_date: Date de début
