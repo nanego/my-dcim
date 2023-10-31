@@ -111,12 +111,12 @@ fr:
       title: Nouvelle stack
     create:
       flashes:
-        created: Stack was successfully created.
+        created: Stack a bien été créée.
     edit:
       title: Modifier une stack
     update:
       flashes:
-        updated: Stack was successully updated.
+        updated: Stack a bien été modifiée.
     destroy:
       flashes:
         destroyed: Stack a bien été supprimé.
