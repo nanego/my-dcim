@@ -201,23 +201,23 @@ fr:
         destroyed: Le type de contrat a bien été supprimé.
   disk_types:
     index:
-      title: Listing disk types
-      add_disk_type: New Disk type
+      title: Liste des types de disque
+      add_disk_type: Nouveau type de disque
     show:
-      title: Voir disk type
+      title: Voir le type de disque
     new:
-      title: New disk type
+      title: Nouveau type de disque
     create:
       flashes:
-        created: Disk type was successfully created.
+        created: Le type de disque a bien été créé.
     edit:
-      title: Editing disk type
+      title: Editer un type de disque
     update:
       flashes:
-        updated: Disk type was successfully updated.
+        updated: Le type de disque a bien été modifié.
     destroy:
       flashes:
-        destroyed: Disk type a bien été supprimé.
+        destroyed: Le type de disque a bien été supprimé.
 
   manufacturers:
     form:
