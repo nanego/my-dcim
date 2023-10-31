@@ -149,15 +149,15 @@ fr:
       delete_confirmation: Supprimer cette couleur la supprimera des données où elle est utilisée. Voulez-vous continuer ?
     create:
       flashes:
-        created: color was successfully created.
+        created: La couleur a bien été créée.
     edit:
       title: Modifier une couleur
     update:
       flashes:
-        updated: color was successfully updated.
+        updated: La couleur a bien été modifiée.
     destroy:
       flashes:
-        destroyed: color a bien été supprimé.
+        destroyed: La couleur a bien été supprimé.
 
   manufacturers:
     form:
