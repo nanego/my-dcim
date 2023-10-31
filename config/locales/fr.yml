@@ -85,7 +85,7 @@ fr:
   clusters:
     index:
       new_cluster: Nouveau cluster
-      title: Listing clusters
+      title: Liste des clusters
       delete_confirmation: Ce cluster ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
     show:
       title: Cluster %{cluster}
@@ -93,12 +93,12 @@ fr:
       title: Nouveau cluster
     create:
       flashes:
-        created: Cluster was successfully created.
+        created: Le cluster a bien été créé.
     edit:
       title: Modifier le cluster
     update:
       flashes:
-        updated: Cluster was successfully updated.
+        updated: Le cluster a bien été modifié.
     destroy:
       flashes:
         destroyed: Cluster a bien été supprimé.
