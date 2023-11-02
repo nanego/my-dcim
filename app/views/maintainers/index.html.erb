@@ -1,6 +1,6 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
   t("breadcrumb.settings") => maintainers_path,
-  t("breadcrumb.maintainers") => ""} %>
+  Maintainer.model_name.human.pluralize => ""} %>
 
 <div class="container-fluid">
 
