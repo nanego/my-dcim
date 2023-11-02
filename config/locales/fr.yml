@@ -13,7 +13,6 @@ fr:
     cancel: Annuler
   breadcrumb:
     settings: Paramètres
-    contract_types: Types de contrat
   pages:
     params_menu:
       location:
