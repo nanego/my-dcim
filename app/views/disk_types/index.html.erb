@@ -1,6 +1,6 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
   t("breadcrumb.settings") => disk_types_url,
-  t("breadcrumb.disk_type") => ""}
+  DiskType.model_name.human.pluralize => ""}
 %>
 
 <div class="container-fluid">

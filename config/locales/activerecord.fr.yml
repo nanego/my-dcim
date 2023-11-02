@@ -26,8 +26,8 @@ fr:
         one: Contrat de maintenance
         other: Contrats de maintenance
       disk_type:
-        one: Type de disks
-        other: Types de disks
+        one: Type de disque
+        other: Types de diques
       memory_type:
         one: Type de RAM
         other: Types de RAM
