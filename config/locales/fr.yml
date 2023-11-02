@@ -50,15 +50,15 @@ fr:
       title: Nouveau gestionnaire
     create:
       flashes:
-        created: Gestion was successfully created.
+        created: Le gestionnaire a bien été créé.
     edit:
       title: Modifier le gestionnaire
     update:
       flashes:
-        updated: Gestion was succesffully updated.
+        updated: Le gestionnaire a bien été modifié.
     destroy:
       flashes:
-        destroyed: Gestion a bien été supprimé.
+        destroyed: Le gestionnaire a bien été supprimé.
   architectures:
     index:
       new_architecture: Ajouter une architecture
