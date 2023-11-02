@@ -142,7 +142,7 @@ fr:
         updated: Le domaine a bien été modifié.
     destroy:
       flashes:
-        destroyed: Domaine a bien été supprimé.
+        destroyed: Le domaine a bien été supprimé.
   devise:
     registrations:
       signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'
