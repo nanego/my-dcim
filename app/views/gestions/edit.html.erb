@@ -1,3 +1,9 @@
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  'Paramètres' => modeles_url,
+  'Gestionnaires' => gestions_path,
+  @gestion => '',
+} %>
+
 <div class="container">
   <div class="page-header">
     <%= link_to gestions_path, class: 'btn btn-default' do %>
