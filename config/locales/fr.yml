@@ -98,7 +98,7 @@ fr:
         updated: Le cluster a bien été modifié.
     destroy:
       flashes:
-        destroyed: Cluster a bien été supprimé.
+        destroyed: Le cluster a bien été supprimé.
 
   devise:
     registrations:
