@@ -34,7 +34,7 @@
       <%= f.text_field :documentation_url, placeholder: t(".url_placeholder"), class: "form-control" %>
       <span class="text-muted">
         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-        <small><%= t(".information").html_safe %></small>
+        <small><%= raw t(".information") %></small>
       </span>
     </div>
   </div>
