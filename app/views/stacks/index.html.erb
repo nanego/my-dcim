@@ -46,7 +46,7 @@
                 <%= link_to stack, stack_path(stack) %>
               </td>
               <td>
-                <%= link_to stack.color, color_path(stack.color) %>
+                <%= stack.color %>
               </td>
               <td><%= Stack.human_attribute_name(:servers, count: stack.servers.count) %></td>
               <td>
