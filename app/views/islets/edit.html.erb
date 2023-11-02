@@ -1,9 +1,21 @@
-<div class="page-header">
-  <%= link_to islets_path, class: 'btn btn-default' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
-      Retour
-  <% end %>
-  <h1>Modification îlot <%= "#{@islet.name} - #{@islet.room}"%> </h1>
-</div>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  'Paramètres' => modeles_url,
+  'Ilôts' => sites_path,
+  "#{@islet} - #{@islet.room}" => ''
+} %>
 
-<%= render 'form' %>
+<div class="container">
+  <div class="page-header">
+    <%= link_to islets_path, class: 'btn btn-default' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Retour
+    <% end %>
+    <%= link_to @islet, class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-info-sign"></span>
+      Voir
+    <% end %>
+    <h1>Modification îlot <%= "#{@islet.name} - #{@islet.room}"%> </h1>
+  </div>
+
+  <%= render 'form' %>
+</div>

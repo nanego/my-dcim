@@ -1,11 +1,17 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Paramètres' => modeles_url, 'Modèles' => modeles_url, "#{@modele.try(:name).present? ? @modele.name : 'Nouveau modèle' }" => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  'Paramètres' => modeles_url,
+  'Modèles' => modeles_path,
+  "#{@modele.try(:name).present? ? @modele.name : 'Nouveau modèle' }" => ''
+} %>
 
-<div class="page-header">
-  <%= link_to modeles_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Retour
-  <% end %>
-  <h1>New modele</h1>
+<div class="container">
+  <div class="page-header">
+    <%= link_to modeles_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Retour
+    <% end %>
+    <h1>New modele</h1>
+  </div>
+
+  <%= render 'form' %>
 </div>
-
-<%= render 'form' %>

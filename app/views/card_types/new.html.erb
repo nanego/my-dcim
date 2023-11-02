@@ -1,11 +1,19 @@
-<div class="page-header">
-  <%= link_to card_types_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    <%= t("action.back") %>
-  <% end %>
-  <h1>
-    <%= t(".title") %>
-  </h1>
-</div>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("breadcrumbs.settings") => modeles_url,
+  CardType.model_name.human.pluralize => card_types_path,
+  t(".title") => '',
+} %>
 
-<%= render 'form' %>
+<div class="container">
+  <div class="page-header">
+    <%= link_to card_types_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      <%= t("action.back") %>
+    <% end %>
+    <h1>
+        <%= t(".title") %>
+  </h1>
+  </div>
+
+  <%= render 'form' %>
+</div>

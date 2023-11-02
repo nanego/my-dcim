@@ -1,16 +1,22 @@
 <% provide(:title, @modele.name) %>
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Paramètres' => modeles_url, 'Modèles' => modeles_url, "#{@modele.try(:name).present? ? @modele.name : 'Nouveau modèle' }" => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  'Paramètres' => modeles_url,
+  'Modèles' => modeles_path,
+  "#{@modele.try(:name).present? ? @modele.name : 'Nouveau modèle' }" => ''}
+%>
 
-<div class="page-header">
-  <%= link_to modeles_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Tous les modèles
-  <% end %>
-  <%= link_to @modele, class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-info-sign"></span>
-    Vue non modifiable
-  <% end %>
-  <h3>Modification d'un modèle</h3>
+<div class="container">
+  <div class="page-header">
+    <%= link_to modeles_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Retour
+    <% end %>
+    <%= link_to @modele, class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-info-sign"></span>
+      Voir
+    <% end %>
+    <h1>Modification d'un modèle</h1>
+  </div>
+
+  <%= render 'form' %>
 </div>
-
-<%= render 'form' %>

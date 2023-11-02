@@ -1,9 +1,23 @@
-<div class="page-header">
-  <%= link_to stacks_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    <%= t("action.edit") %>
-  <% end %>
-  <h1>Modifier une stack</h1>
-</div>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("breadcrumbs.settings") => modeles_url,
+  Stack.model_name.human.pluralize => stacks_path,
+  @stack => '',
+} %>
 
-<%= render 'form' %>
+<div class="container">
+  <div class="page-header">
+    <%= link_to stacks_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      <%= t("action.back") %>
+    <% end %>
+    <%= link_to @stack, class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-info-sign"></span>
+      <%= t("action.show") %>
+    <% end %>
+    <h1>
+        <%= t(".title") %>
+    </h1>
+  </div>
+
+  <%= render 'form' %>
+</div>

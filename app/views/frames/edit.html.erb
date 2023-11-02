@@ -1,14 +1,22 @@
-<%
-  breadcrumb_variables = {'Rooms' => overview_rooms_path,
-                          @frame.room.name => (@frame.present? ? room_path(@frame.room) : ''),
-                          "Baie #{@frame.name}" => frame_path(@frame),
-                          "Edition" => ''}
-%>
-<%= render 'layouts/breadcrumb', breadcrumb_variables: breadcrumb_variables %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  'Paramètres' => modeles_url,
+  'Salles' => overview_rooms_path,
+  @frame.room.name => @frame.present? ? room_path(@frame.room) : '',
+  "Baie #{@frame.name}" => '',
+} %>
 
-<div class="page-header">
-  <h1>Modifier la baie <%= @frame.name %></h1>
+<div class="container">
+  <div class="page-header">
+    <%= link_to frames_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Retour
+    <% end %>
+    <%= link_to @frame, class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-info-sign"></span>
+      Voir
+    <% end %>
+    <h1>Modifier la baie <%= @frame.name %></h1>
+  </div>
+
+  <%= render 'form' %>
 </div>
-
-<%= render 'form' %>
-
