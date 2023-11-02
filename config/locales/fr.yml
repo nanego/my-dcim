@@ -64,7 +64,7 @@ fr:
         updated: La baie a bien été mise à jour.
     destroy:
       flashes:
-        destroyed: Bay a bien été supprimé.
+        destroyed: La bay bien été supprimé.
   rooms:
     action_buttons:
       background_color: 'Couleur de fond : %{bg}'
