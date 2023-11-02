@@ -31,6 +31,7 @@ fr:
       memory_type:
         one: Type de RAM
         other: Types de RAM
+
     attributes:
       maintenance_contract:
         server_id: Serveur
@@ -54,6 +55,13 @@ fr:
         errors_count:
           one: 1 erreur
           other: "%{count} erreurs"
+      architecture:
+        name: Nom
+        usage: Usage
+        description: Description
+        modeles:
+          one: 1 modèle
+          other: "%{count} modèles"
     errors:
       models:
         user:

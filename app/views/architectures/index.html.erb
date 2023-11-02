@@ -1,4 +1,7 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Paramètres' => modeles_url, 'Architectures' => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("breadcrumb.settings") => modeles_url,
+  Architecture.model_name.human.pluralize => ""
+}%>
 
 <div class="container-fluid">
 
@@ -13,17 +16,23 @@
       <div class="page-header">
         <%= link_to new_architecture_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
-          Ajouter une architecture
+          <%= t(".new_architecture") %>
         <% end %>
-        <h1>Architectures</h1>
+        <h1>
+          <%= t(".title") %>
+        </h1>
       </div>
 
       <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">
           <thead>
             <tr>
-              <th>Nom</th>
-              <th>Usage</th>
+              <th>
+                <%= Architecture.human_attribute_name(:name) %>
+              </th>
+              <th>
+                <%= Architecture.human_attribute_name(:usage) %>
+              </th>
               <th></th>
               <th></th>
             </tr>
@@ -32,13 +41,13 @@
           <tbody>
             <%= content_tag_for(:tr, @architectures) do |architecture| %>
               <td><%= architecture %></td>
-              <td><%= pluralize(architecture.modeles.count, 'modèle', 'modèles') %> </td>
-              <td><%= link_to 'Modifier', edit_architecture_path(architecture), class: 'btn btn-primary' %></td>
+              <td><%= Architecture.human_attribute_name(:modeles, count: architecture.modeles.count) %> </td>
+              <td><%= link_to t("action.edit"), edit_architecture_path(architecture), class: 'btn btn-primary' %></td>
               <td>
-                <%= link_to 'Supprimer',
+                <%= link_to t("action.delete"),
                             architecture,
                             method: :delete,
-                            data: { confirm: 'Cette architecture ne pourra pas être supprimée tant qu\'elle est associée à au moins un modèle. Voulez-vous continuer ?' },
+                            data: { confirm: t(".delete_confirmation") },
                             class: 'btn btn-danger' %>
               </td>
             <% end %>

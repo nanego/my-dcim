@@ -7,6 +7,8 @@ fr:
     edit: Modifier
     delete: Supprimer
     back: Retour
+    close: Fermer
+    show: Voir
   breadcrumb:
     settings: Paramètres
   pages:
@@ -37,6 +39,26 @@ fr:
     destroy:
       flashes:
         destroyed: Site a bien été supprimé.
+  architectures:
+    index:
+      new_architecture: Ajouter une architecture
+      title: Architectures
+      delete_confirmation: Cette architecture ne pourra pas être supprimée tant qu'elle est associée à au moins un modèle. Voulez-vous continuer ?
+    show:
+      title: Voir architecture
+    new:
+      title: Nouvelle architecture
+    create:
+      flashes:
+        created: L'architecture a bien été créée.
+    edit:
+      title: Editer architecture
+    update:
+      flashes:
+        updated: L'architecture a bien été modifiée.
+    destroy:
+      flashes:
+        destroyed: L'architecture a bien été supprimée.
 
   devise:
     registrations:
