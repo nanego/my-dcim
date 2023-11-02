@@ -34,18 +34,19 @@
               <%= Gestion.human_attribute_name(:usage) %>
             </th>
             <th></th>
-            <th></th>
-            <th></th>
           </tr>
           </thead>
 
           <tbody>
           <%= content_tag_for(:tr, @gestions) do |gestion| %>
-            <td><%= gestion %></td>
-            <td><%= Gestion.human_attribute_name(:servers, count: gestion.servers.count) %> </td>
-            <td><%= link_to t("action.show"), gestion_path(gestion), class: 'btn btn-primary' %></td>
-            <td><%= link_to t("action.edit"), edit_gestion_path(gestion), class: 'btn btn-primary' %></td>
             <td>
+              <%= link_to gestion, gestion_path(gestion) %>
+            </td>
+            <td>
+              <%= Gestion.human_attribute_name(:servers, count: gestion.servers.count) %>
+            </td>
+            <td>
+              <%= link_to t("action.edit"), edit_gestion_path(gestion), class: 'btn btn-primary' %>
               <%= link_to t("action.delete"),
                           gestion,
                           method: :delete,

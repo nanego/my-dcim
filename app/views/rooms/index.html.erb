@@ -28,21 +28,27 @@
             <th>Contenu</th>
             <th>Afficher sur la page d'accueil</th>
             <th></th>
-            <th></th>
-            <th></th>
           </tr>
           </thead>
 
           <tbody>
           <%= content_tag_for(:tr, @rooms) do |room| %>
-            <td><%= room.site %></td>
-            <td><b><%= room %></b></td>
-            <td><%= room.position %></td>
-            <td><%= pluralize room.islets.count, 'îlot', 'îlots' %> / <%= pluralize room.frames.count, 'chassis' %></td>
-            <td><input type="checkbox" <%= room.display_on_home_page ? "checked" : "" %> disabled></td>
-            <td><%= render partial: "rooms/export_button", locals: { room: room } %></td>
-            <td><%= link_to 'Modifier', edit_room_path(room), class: 'btn btn-primary' %></td>
             <td>
+              <%= link_to room.site, site_path(room.site) %>
+            </td>
+            <td><b>
+              <%= link_to room, room_path(room) %>
+            </b></td>
+            <td><%= room.position %></td>
+            <td>
+              <%= pluralize room.islets.count, 'îlot', 'îlots' %>
+              /
+              <%= pluralize room.frames.count, 'chassis' %>
+            </td>
+            <td><input type="checkbox" <%= room.display_on_home_page ? "checked" : "" %> disabled></td>
+            <td>
+              <%= render partial: "rooms/export_button", locals: { room: room } %>
+              <%= link_to 'Modifier', edit_room_path(room), class: 'btn btn-primary' %>
               <%= link_to 'Supprimer',
                           room,
                           method: :delete,

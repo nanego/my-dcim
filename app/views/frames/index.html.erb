@@ -28,7 +28,6 @@
             <th>Room</th>
             <th>Ilot</th>
             <th></th>
-            <th></th>
           </tr>
           </thead>
 
@@ -38,9 +37,11 @@
             <td><%= frame.servers.map{|s| link_to s.name, s }.join(' ').html_safe %></td>
             <td><%= frame.u %></td>
             <td><%= frame.room.present? ? (link_to frame.room, frame.room) : frame.room %></td>
-            <td><%= frame.bay.present? ? frame.bay.islet : '' %></td>
-            <td><%= link_to 'Modifier', edit_frame_path(frame), class: 'btn btn-primary' %></td>
             <td>
+              <%= link_to frame.bay.islet, islet_path(frame.bay.islet) if frame.bay.present? %>
+            </td>
+            <td>
+              <%= link_to 'Modifier', edit_frame_path(frame), class: 'btn btn-primary' %>
               <%= link_to 'Supprimer',
                           frame,
                           method: :delete,

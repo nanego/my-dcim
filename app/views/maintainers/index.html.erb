@@ -30,20 +30,21 @@
                 <%= Maintainer.human_attribute_name(:name) %>
               </th>
               <th></th>
-              <th></th>
             </tr>
           </thead>
 
           <tbody>
             <%= content_tag_for(:tr, @maintainers) do |maintainer| %>
-              <td><%= maintainer %></td>
-              <td><%= link_to t("action.edit"), edit_maintainer_path(maintainer) %></td>
               <td>
+                <%= link_to maintainer, maintainer_path(maintainer) %>
+              </td>
+              <td>
+                <%= link_to t("action.edit"), edit_maintainer_path(maintainer), class: 'btn btn-primary' %>
                 <%= link_to t("action.delete"),
                             maintainer,
                             method: :delete,
                             data: { confirm: t(".delete_confirmation") },
-                            class: 'btn btn-warning' %>
+                            class: 'btn btn-danger' %>
               </td>
             <% end %>
           </tbody>

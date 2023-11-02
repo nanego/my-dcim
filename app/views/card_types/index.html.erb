@@ -33,21 +33,22 @@
             <th>
               <%= CardType.human_attribute_name(:usage) %>
             </th>
-            <th></th>
-            <th></th>
+            <th>
+              <%= CardType.human_attribute_name(:port_quantity_label) %>
+            </th>
             <th></th>
           </tr>
           </thead>
 
           <tbody>
           <%= content_tag_for(:tr, @card_types) do |card_type| %>
-            <td style="<%= "font-weight:bold;" if card_type.max_aligned_ports %>"><%= card_type %></td>
-            <td><%= CardType.human_attribute_name(:servers, count: card_type.servers.count) %></td>
-            <td>
-              <%= CardType.human_attribute_name(:port_quantity, count: card_type.port_quantity) %>
+            <td style="<%= "font-weight:bold;" if card_type.max_aligned_ports %>">
+              <%= link_to card_type, card_type_path(card_type) %>
             </td>
-            <td><%= link_to t("action.edit"), edit_card_type_path(card_type), class: 'btn btn-primary' %></td>
+            <td><%= link_to pluralize(card_type.servers.count, 'serveur'), servers_path %></td>
+            <td><%= card_type.port_quantity %> ports</td>
             <td>
+              <%= link_to t("action.edit"), edit_card_type_path(card_type), class: 'btn btn-primary' %>
               <%= link_to t("action.delete"),
                           card_type,
                           method: :delete,

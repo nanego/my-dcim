@@ -34,17 +34,20 @@
                 <%= Architecture.human_attribute_name(:usage) %>
               </th>
               <th></th>
-              <th></th>
             </tr>
           </thead>
 
           <tbody>
             <%= content_tag_for(:tr, @architectures) do |architecture| %>
-              <td><%= architecture %></td>
-              <td><%= Architecture.human_attribute_name(:modeles, count: architecture.modeles.count) %> </td>
-              <td><%= link_to t("action.edit"), edit_architecture_path(architecture), class: 'btn btn-primary' %></td>
               <td>
-                <%= link_to t("action.delete"),
+                <%= link_to architecture, architecture_path(architecture) %>
+              </td>
+              <td>
+                <%= link_to pluralize(architecture.modeles.count, 'modèle', 'modèles'), modeles_path %>
+              </td>
+              <td>
+                <%= link_to 'Modifier', edit_architecture_path(architecture), class: 'btn btn-primary' %>
+                <%= link_to 'Supprimer',
                             architecture,
                             method: :delete,
                             data: { confirm: t(".delete_confirmation") },

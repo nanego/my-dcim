@@ -33,19 +33,24 @@
               <th>
                 <%= Stack.human_attribute_name(:color) %>
               </th>
-              <th></th>
-              <th></th>
+              <th>
+                <%= Stack.human_attribute_name(:servers_label) %>
+              </th>
               <th></th>
             </tr>
           </thead>
 
           <tbody>
             <%= content_tag_for(:tr, @stacks) do |stack| %>
-                  <td><%= stack.name %></td>
-                  <td><%= stack.color %></td>
-              <td><%= Stack.human_attribute_name(:servers, count: stack.servers.count) %></td>
-              <td><%= link_to t("action.edit"), edit_stack_path(stack), class: 'btn btn-default' %></td>
               <td>
+                <%= link_to stack, stack_path(stack) %>
+              </td>
+              <td>
+                <%= link_to stack.color, color_path(stack.color) %>
+              </td>
+              <td><%= Stack.human_attribute_name(:servers, count: stack.servers.count) %></td>
+              <td>
+                <%= link_to t("action.edit"), edit_stack_path(stack), class: 'btn btn-primary' %>
                 <%= link_to t("action.delete"),
                             stack,
                             method: :delete,

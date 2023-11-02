@@ -35,11 +35,28 @@
           <tbody>
             <%= content_tag_for(:tr, @servers) do |server| %>
               <td><%= link_to server.name, server_path(server) %></td>
-              <td><%= server.modele.try(:category) %></td>
-              <td><%= server.room %></td>
-              <td><%= server.islet %></td>
-              <td><%= server.bay %></td>
-              <td><%= link_to 'Modifier', edit_server_path(server), class: 'btn btn-primary' %></td>
+              <td>
+                <%=
+                  link_to server.modele.category, category_path(server.modele.category) if server.modele.try(:category)
+                %>
+              </td>
+              <td>
+                <%= link_to server.room, room_path(server.room) if server.room %>
+              </td>
+              <td>
+                <%= link_to server.islet, islet_path(server.islet) if server.islet %>
+              </td>
+              <td>
+                <%= link_to server.bay, bay_path(server.bay) if server.bay %>
+              </td>
+              <td>
+                <%= link_to 'Modifier', edit_server_path(server), class: 'btn btn-primary' %>
+                <%= link_to 'Supprimer',
+                            server,
+                            method: :delete,
+                            data: { confirm: 'Êtes-vous sûr ?' },
+                            class: 'btn btn-danger' %>
+              </td>
             <% end %>
           </tbody>
         </table>
