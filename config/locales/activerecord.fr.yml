@@ -62,6 +62,13 @@ fr:
         modeles:
           one: 1 modèle
           other: "%{count} modèles"
+      gestion:
+        name: Nom
+        description: Description
+        usage: Usage
+        servers:
+          one: 1 serveur
+          other: "%{count} serveurs"
     errors:
       models:
         user:
