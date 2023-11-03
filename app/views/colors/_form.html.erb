@@ -2,7 +2,9 @@
   <% if @color.errors.any? %>
     <div class="alert alert-danger alert-dismissable" role="alert">
       <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <h4><%= pluralize(@color.errors.count, "erreur", "erreurs") %> lors de la sauvegarde :</h4>
+      <h4>
+        <%= t("form.errors.title", count: @color.errors.count) %>
+      </h4>
 
       <ul>
       <% @color.errors.full_messages.each do |msg| %>
@@ -13,28 +15,28 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label 'Type', class: "col-sm-2 control-label" %>
+    <%= f.label :type, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.text_field :parent_type, class: "form-control" %>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label 'Id', class: "col-sm-2 control-label" %>
+    <%= f.label :id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.text_field :parent_id, class: "form-control" %>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label 'Code', class: "col-sm-2 control-label" %>
+    <%= f.label :code, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.text_field :code, class: "form-control" %>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit 'Valider', class: "btn btn-primary" %>
+      <%= f.submit t("form.submit"), class: "btn btn-primary" %>
       <%= link_to colors_path, class: 'btn btn-default' do %>
-        Annuler
+        <%= t("action.cancel") %>
       <% end %>
     </div>
   </div>

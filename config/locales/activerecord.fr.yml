@@ -105,6 +105,10 @@ fr:
         rows: Lignes
         max_aligned_ports: Nombre max de ports alignés
         first_position: Numéro du premier port
+      color:
+        type: Type
+        id: Id
+        code: Code
     errors:
       models:
         user:

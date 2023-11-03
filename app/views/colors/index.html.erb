@@ -1,4 +1,7 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Paramètres' => modeles_url, 'Couleurs' => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("breadcrumb.settings") => modeles_url,
+  Color.model_name.human.pluralize => ""}
+%>
 
 <div class="container-fluid">
 
@@ -11,7 +14,9 @@
     <div class="col-md-9">
 
       <div class="page-header">
-        <h1>Couleurs</h1>
+        <h1>
+          <%= t(".title") %>
+        </h1>
       </div>
 
       <div class="table-responsive">
@@ -19,9 +24,15 @@
           <thead>
           <tr>
             <th></th>
-            <th>Type</th>
-            <th>Id</th>
-            <th>Code</th>
+            <th>
+              <%= Color.human_attribute_name(:type) %>
+            </th>
+            <th>
+              <%= Color.human_attribute_name(:id) %>
+            </th>
+            <th>
+              <%= Color.human_attribute_name(:code) %>
+            </th>
             <th></th>
             <th></th>
           </tr>
@@ -33,12 +44,12 @@
             <td><%= color.parent_type %></td>
             <td><%= color.parent_id %></td>
             <td><%= color.code %></td>
-            <td><%= link_to 'Modifier', edit_color_path(color), class: 'btn btn-primary' %></td>
+            <td><%= link_to t("action.edit"), edit_color_path(color), class: 'btn btn-primary' %></td>
             <td>
-              <%= link_to 'Supprimer',
+              <%= link_to t("action.delete"),
                           color,
                           method: :delete,
-                          data: { confirm: 'Supprimer cette couleur la supprimera des données où elle est utilisée. Voulez-vous continuer ?' },
+                          data: { confirm: t(".delete_confirmation") },
                           class: 'btn btn-danger' %>
             </td>
           <% end %>
