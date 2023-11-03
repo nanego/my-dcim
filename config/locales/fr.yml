@@ -67,6 +67,10 @@ fr:
         destroyed: La bay bien été supprimé.
   rooms:
     action_buttons:
+      caption:
+        ports: Ports
+        unreferenced_client: Le port correspondant de la carte jumelle est câblé
+        no_client: Le port correspondant de la carte jumelle n'est pas câblé
       background_color: 'Couleur de fond : %{bg}'
       background_choices:
         modele: Modèle

@@ -2,9 +2,9 @@
 <%
   breadcrumb_variables = { t("visualization") => overview_rooms_path, @bay.room.name => room_path(@bay.room, view: params[:view]) }
   if @bay.islet.name.present?
-    breadcrumb_variables[t("breadcrumb.islet", islet: @bay.islet.name)] = room_path(@bay.room, islet: @bay.islet.name, view: params[:view])
+    breadcrumb_variables["#{Islet.model_name.human} #{@bay.islet.name}"] = room_path(@bay.room, islet: @bay.islet.name, view: params[:view])
   elsif params[:islet].present?
-    breadcrumb_variables[t("breadcrumb.islet", islet: params[:islet])] = ''
+    breadcrumb_variables["#{Islet.model_name.human} #{params[:islet]}"] = ''
   end
   breadcrumb_variables[t(".title", bay: @bay)] = ''
 %>
