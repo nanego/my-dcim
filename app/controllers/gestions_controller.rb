@@ -28,7 +28,7 @@ class GestionsController < ApplicationController
 
     respond_to do |format|
       if @gestion.save
-        format.html { redirect_to @gestion, notice: 'Gestion was successfully created.' }
+        format.html { redirect_to @gestion, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @gestion }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class GestionsController < ApplicationController
   def update
     respond_to do |format|
       if @gestion.update(gestion_params)
-        format.html { redirect_to @gestion, notice: 'Gestion was successfully updated.' }
+        format.html { redirect_to @gestion, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @gestion }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class GestionsController < ApplicationController
   def destroy
     if @gestion.destroy
       respond_to do |format|
-        format.html { redirect_to gestions_url, notice: 'Gestion a bien été supprimé.' }
+        format.html { redirect_to gestions_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
