@@ -28,7 +28,7 @@ class DomainesController < ApplicationController
 
     respond_to do |format|
       if @domaine.save
-        format.html { redirect_to @domaine, notice: 'Domaine was successfully created.' }
+        format.html { redirect_to @domaine, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @domaine }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class DomainesController < ApplicationController
   def update
     respond_to do |format|
       if @domaine.update(domaine_params)
-        format.html { redirect_to @domaine, notice: 'Domaine was successfully updated.' }
+        format.html { redirect_to @domaine, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @domaine }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class DomainesController < ApplicationController
   def destroy
     if @domaine.destroy
       respond_to do |format|
-        format.html { redirect_to domaines_url, notice: 'Domaine a bien été supprimé.' }
+        format.html { redirect_to domaines_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else

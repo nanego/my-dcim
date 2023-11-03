@@ -79,6 +79,10 @@ fr:
         modeles:
           one: 1 modèle
           other: "%{count} modèles"
+      domaine:
+        name: Nom
+        usage: Usage
+        description: Description
     errors:
       models:
         user:

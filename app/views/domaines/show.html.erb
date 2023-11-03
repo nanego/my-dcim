@@ -3,17 +3,21 @@
   <div class="page-header">
     <%= link_to domaines_path, class: 'btn btn-default' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
-      Retour
+      <%= t("action.back") %>
     <% end %>
     <%= link_to edit_domaine_path(@domaine), class: 'btn btn-primary' do %>
       <span class="glyphicon glyphicon-pencil"></span>
-      Modifier
+      <%= t("action.edit") %>
     <% end %>
-    <h1>Domaine <%= @domaine %></h1>
+    <h1>
+      <%= t(".title", name: @domaine) %>
+    </h1>
   </div>
 
   <dl class="dl-horizontal">
-    <dt>Description:</dt>
+    <dt>
+      <%= Domaine.human_attribute_name(:description) %> :
+    </dt>
     <dd><%= @domaine.description %></dd>
   </dl>
 
