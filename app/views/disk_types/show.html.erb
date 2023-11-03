@@ -1,13 +1,15 @@
 <div class="page-header">
   <%= link_to disk_types_path, class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
-    Retour
+    <%= t("action.back") %>
   <% end %>
   <%= link_to edit_disk_type_path(@disk_type), class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-pencil"></span>
-    Edit
+    <%= t("action.edit") %>
   <% end %>
-  <h1>Voir disk_type</h1>
+  <h1>
+    <%= t(".title") %>
+  </h1>
 </div>
 
 <dl class="dl-horizontal">
