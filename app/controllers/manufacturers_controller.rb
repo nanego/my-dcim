@@ -28,7 +28,7 @@ class ManufacturersController < ApplicationController
 
     respond_to do |format|
       if @manufacturer.save
-        format.html { redirect_to @manufacturer, notice: 'Manufacturer was successfully created.' }
+        format.html { redirect_to @manufacturer, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @manufacturer }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class ManufacturersController < ApplicationController
   def update
     respond_to do |format|
       if @manufacturer.update(manufacturer_params)
-        format.html { redirect_to @manufacturer, notice: 'Manufacturer was successfully updated.' }
+        format.html { redirect_to @manufacturer, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @manufacturer }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class ManufacturersController < ApplicationController
   def destroy
     if @manufacturer.destroy
       respond_to do |format|
-        format.html { redirect_to manufacturers_url, notice: 'Manufacturer a bien été supprimé.' }
+        format.html { redirect_to manufacturers_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else

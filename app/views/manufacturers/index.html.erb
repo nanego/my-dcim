@@ -1,4 +1,7 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Paramètres' => modeles_url, 'Fabricants' => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("breadcrumb.settings") => modeles_url,
+  Manufacturer.model_name.human.pluralize => ""}
+%>
 
 <div class="container-fluid">
 
@@ -13,17 +16,23 @@
       <div class="page-header">
         <%= link_to new_manufacturer_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
-          Ajouter une manufacturer
+          <%= t(".new_manufacturer") %>
         <% end %>
-        <h1>Fabricants</h1>
+        <h1>
+          <%= t(".title") %>
+        </h1>
       </div>
 
       <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">
           <thead>
           <tr>
-            <th>Nom</th>
-            <th>Usage</th>
+            <th>
+              <%= Manufacturer.human_attribute_name(:name) %>
+            </th>
+            <th>
+              <%= Manufacturer.human_attribute_name(:usage) %>
+            </th>
             <th></th>
             <th></th>
           </tr>
@@ -32,13 +41,13 @@
           <tbody>
           <%= content_tag_for(:tr, @manufacturers) do |manufacturer| %>
             <td><%= manufacturer %></td>
-            <td><%= pluralize(manufacturer.modeles.count, 'modèle', 'modèles') %> </td>
-            <td><%= link_to 'Modifier', edit_manufacturer_path(manufacturer), class: 'btn btn-primary' %></td>
+            <td><%= Manufacturer.human_attribute_name(:modeles, count: manufacturer.modeles.count) %> </td>
+            <td><%= link_to t("action.edit"), edit_manufacturer_path(manufacturer), class: 'btn btn-primary' %></td>
             <td>
-              <%= link_to 'Supprimer',
+              <%= link_to t("action.delete"),
                           manufacturer,
                           method: :delete,
-                          data: { confirm: 'Ce mainteneur ne pourra pas être supprimé tant qu\'il sera associé à au moins un modèle. Voulez-vous continuer ?' },
+                          data: { confirm: t(".delete_confirmation") },
                           class: 'btn btn-danger' %>
             </td>
           <% end %>
