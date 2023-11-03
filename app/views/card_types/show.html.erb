@@ -1,23 +1,31 @@
 <div class="page-header">
   <%= link_to card_types_path, class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
-    Retour
+    <%= t("action.back") %>
   <% end %>
   <%= link_to edit_card_type_path(@card_type), class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-pencil"></span>
-    Edit
+    <%= t("action.edit") %>
   <% end %>
-  <h1>Voir card type</h1>
+  <h1>
+    <%= t(".title") %>
+  </h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt>Nom :</dt>
+  <dt>
+    <%= CardType.human_attribute_name(:name) %> :
+  </dt>
   <dd><%= @card_type %></dd>
 
-  <dt>Type de port :</dt>
+  <dt>
+    <%= CardType.model_name.human %> :
+  </dt>
   <dd><%= @card_type.port_type.try(:name) %></dd>
 
-  <dt>Nombre de ports :</dt>
+  <dt>
+    <%= CardType.human_attribute_name(:port_quantity_label) %> :
+  </dt>
   <dd><%= @card_type.port_quantity %></dd>
 
 </dl>

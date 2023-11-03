@@ -1,15 +1,21 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Paramètres' => modeles_url, 'Types de cartes' => card_types_path, "#{@card_type}" => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("breadcrumb.settings") => modeles_url,
+  CardType.model_name.human.pluralize => card_types_path,
+  "#{@card_type}" => ""}
+%>
 
 <div class="page-header">
   <%= link_to card_types_path, class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
-    Retour
+    <%= t("action.back") %>
   <% end %>
   <%= link_to @card_type, class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-info-sign"></span>
-    Voir la carte
+    <%= t(".show_card") %>
   <% end %>
-  <h1>Modifier une carte</h1>
+  <h1>
+    <%= t(".title") %>
+  </h1>
 </div>
 
 <%= render 'form' %>
