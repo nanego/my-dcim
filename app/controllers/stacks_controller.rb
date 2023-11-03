@@ -28,7 +28,7 @@ class StacksController < ApplicationController
 
     respond_to do |format|
       if @stack.save
-        format.html { redirect_to stacks_path, notice: 'Stack was successfully created.' }
+        format.html { redirect_to stacks_path, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @stack }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class StacksController < ApplicationController
   def update
     respond_to do |format|
       if @stack.update(stack_params)
-        format.html { redirect_to stacks_path, notice: 'Stack was successfully updated.' }
+        format.html { redirect_to stacks_path, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @stack }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class StacksController < ApplicationController
   def destroy
     if @stack.destroy
       respond_to do |format|
-        format.html { redirect_to stacks_url, notice: 'Stack a bien été supprimé.' }
+        format.html { redirect_to stacks_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
