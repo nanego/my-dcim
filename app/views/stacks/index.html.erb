@@ -1,4 +1,7 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Paramètres' => modeles_url, 'Salles' => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("breadcrumb.settings") => modeles_url,
+  Stack.model_name.human.pluralize => "" }
+%>
 
 <div class="container-fluid">
 
@@ -13,17 +16,23 @@
       <div class="page-header">
         <%= link_to new_stack_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
-          Ajouter un stack
+          <%= t(".new_stack") %>
         <% end %>
-        <h1>Stacks</h1>
+        <h1>
+          <%= t(".title") %>
+        </h1>
       </div>
 
       <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">
           <thead>
             <tr>
-              <th>Nom</th>
-              <th>Couleur</th>
+              <th>
+                <%= Stack.human_attribute_name(:name) %>
+              </th>
+              <th>
+                <%= Stack.human_attribute_name(:color) %>
+              </th>
               <th></th>
               <th></th>
               <th></th>
@@ -34,13 +43,13 @@
             <%= content_tag_for(:tr, @stacks) do |stack| %>
                   <td><%= stack.name %></td>
                   <td><%= stack.color %></td>
-              <td><%= pluralize stack.servers.count, 'machine' %></td>
-              <td><%= link_to 'Modifier', edit_stack_path(stack), class: 'btn btn-default' %></td>
+              <td><%= Stack.human_attribute_name(:servers, count: stack.servers.count) %></td>
+              <td><%= link_to t("action.edit"), edit_stack_path(stack), class: 'btn btn-default' %></td>
               <td>
-                <%= link_to 'Supprimer',
+                <%= link_to t("action.delete"),
                             stack,
                             method: :delete,
-                            data: { confirm: 'Ce stack ne pourra pas être supprimé tant qu\'il sera associé à au moins un serveur. Voulez-vous continuer ?' },
+                            data: { confirm: t(".delete_confirmation") },
                             class: 'btn btn-danger' %>
               </td>
             <% end %>

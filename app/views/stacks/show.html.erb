@@ -1,21 +1,27 @@
 <div class="page-header">
   <%= link_to stacks_path, class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
-    Retour
+    <%= t("action.back") %>
   <% end %>
   <%= link_to edit_stack_path(@stack), class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-pencil"></span>
-    Modifier
+    <%= t("action.edit") %>
   <% end %>
-  <h1>Stack</h1>
+  <h1>
+    <%= t(".title") %>
+  </h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt>Nom :</dt>
+  <dt>
+    <%= Stack.human_attribute_name(:name) %> :
+  </dt>
   <dd><%= @stack %></dd>
 </dl>
 
 <dl class="dl-horizontal">
-  <dt>Couleur :</dt>
+  <dt>
+    <%= Stack.human_attribute_name(:color) %> :
+  </dt>
   <dd><%= @stack.color %></dd>
 </dl>
