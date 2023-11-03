@@ -111,6 +111,8 @@ fr:
         code: Code
       maintainer:
         name: Nom
+      contract_type:
+        name: Nom
     errors:
       models:
         user:

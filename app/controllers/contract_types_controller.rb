@@ -28,7 +28,7 @@ class ContractTypesController < ApplicationController
 
     respond_to do |format|
       if @contract_type.save
-        format.html { redirect_to @contract_type, notice: 'Contract type was successfully created.' }
+        format.html { redirect_to @contract_type, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @contract_type }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class ContractTypesController < ApplicationController
   def update
     respond_to do |format|
       if @contract_type.update(contract_type_params)
-        format.html { redirect_to @contract_type, notice: 'Contract type was successfully updated.' }
+        format.html { redirect_to @contract_type, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @contract_type }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class ContractTypesController < ApplicationController
   def destroy
     @contract_type.destroy
     respond_to do |format|
-      format.html { redirect_to contract_types_url, notice: 'Contract type a bien été supprimé.' }
+      format.html { redirect_to contract_types_url, notice: t(".flashes.destroyed") }
       format.json { head :no_content }
     end
   end
