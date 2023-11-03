@@ -3,13 +3,15 @@
   <div class="page-header">
     <%= link_to clusters_path, class: 'btn btn-default' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
-      Retour
+      <%= t("action.back") %>
     <% end %>
     <%= link_to edit_cluster_path(@cluster), class: 'btn btn-primary' do %>
       <span class="glyphicon glyphicon-pencil"></span>
-      Modifier
+      <%= t("action.edit") %>
     <% end %>
-    <h1>Cluster <%= @cluster %></h1>
+    <h1>
+      <%= t(".title", cluster: @cluster) %>
+    </h1>
   </div>
 
   <ul>
