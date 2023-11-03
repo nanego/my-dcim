@@ -9,6 +9,7 @@ fr:
     back: Retour
     show: Voir
     close: Fermer
+    save: Enregistrer
   breadcrumb:
     settings: Paramètres
   pages:
@@ -119,6 +120,27 @@ fr:
     destroy:
       flashes:
         destroyed: La stack a bien été supprimé.
+  card_types:
+    index:
+      title: Types de cartes
+      add_card: Ajouter une carte
+      delete_confirmation: Ce type de carte ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur (via une carte). Voulez-vous continuer ?
+    show:
+      title: Voir la carte
+    new:
+      title: Nouvelle carte
+    create:
+      flashes:
+        created: Le type de carte a bien été créé.
+    edit:
+      show_card: Voir la carte
+      title: Modifier une carte
+    update:
+      flashes:
+        updated: Le type de carte a bien été modifié.
+    destroy:
+      flashes:
+        destroyed: Le type de carte a bien été supprimé.
 
   manufacturers:
     form:

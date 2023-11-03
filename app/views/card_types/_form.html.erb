@@ -2,8 +2,12 @@
   <% if @card_type.errors.any? %>
     <div class="alert alert-danger alert-dismissable" role="alert">
       <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <h4><%= pluralize(@card_type.errors.count, "erreur", "erreurs") %> lors de la sauvegarde :</h4>
+        <span aria-hidden="true">&times;</span><span class="sr-only">
+        <%= t("action.close") %>
+      </span></button>
+      <h4>
+        <%= t("form.errors.title", count: @card_type.errors.count) %>
+      </h4>
 
       <ul>
         <% @card_type.errors.full_messages.each do |msg| %>
@@ -20,44 +24,44 @@
     </div>
   </div>
   <div class="form-group">
-    <%= f.label 'Type de port', class: "col-sm-2 control-label" %>
+    <%= f.label :port_type, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.select :port_type_id, PortType.all.map {|pt| [pt.name, pt.id]}, class: "form-control" %>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label 'Nombre de ports', class: "col-sm-2 control-label" %>
+    <%= f.label :port_quantity_label, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.text_field :port_quantity, class: "form-control" %>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label 'Colonnes', class: "col-sm-2 control-label" %>
+    <%= f.label :columns, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.text_field :columns, class: "form-control" %>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label 'Lignes', class: "col-sm-2 control-label" %>
+    <%= f.label :rows, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.text_field :rows, class: "form-control" %>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label 'Nbr max de ports alignés', class: "col-sm-2 control-label" %>
+    <%= f.label :max_aligned_ports, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.text_field :max_aligned_ports, class: "form-control" %>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label 'Numéro du premier port', class: "col-sm-2 control-label" %>
+    <%= f.label :first_position, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.select :first_position, [0, 1], class: "form-control" %>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit "Enregistrer", class: "btn btn-primary" %>
+      <%= f.submit t("action.save"), class: "btn btn-primary" %>
     </div>
   </div>
 <% end %>

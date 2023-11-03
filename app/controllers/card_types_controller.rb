@@ -20,7 +20,7 @@ class CardTypesController < ApplicationController
 
     respond_to do |format|
       if @card_type.save
-        format.html {redirect_to({action: 'index'}, notice: 'card_type was successfully created.')}
+        format.html {redirect_to({action: 'index'}, notice: t(".flashes.created"))}
         format.json {render :show, status: :created, location: @card_type}
       else
         format.html {render :new}
@@ -34,7 +34,7 @@ class CardTypesController < ApplicationController
   def update
     respond_to do |format|
       if @card_type.update(card_type_params)
-        format.html {redirect_to({action: 'index'}, notice: 'card_type was successfully updated.')}
+        format.html {redirect_to({action: 'index'}, notice: t(".flashes.updated"))}
         format.json {render :show, status: :ok, location: @card_type}
       else
         format.html {render :edit}
@@ -48,7 +48,7 @@ class CardTypesController < ApplicationController
   def destroy
     if @card_type.destroy
       respond_to do |format|
-        format.html { redirect_to({action: 'index'}, notice: 'card_type a bien été supprimé.') }
+        format.html { redirect_to({action: 'index'}, notice: t(".flashes.destroyed")) }
         format.json { head :no_content }
       end
     else

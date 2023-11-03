@@ -89,6 +89,22 @@ fr:
         servers:
           one: "%{count} machine"
           other: "%{count} machines"
+      card_type:
+        name: Nom
+        usage: Usage
+        servers:
+          zero: 0 serveurs
+          one: 1 serveur
+          other: "%{count} serveurs"
+        port_quantity_label: Nombre de ports
+        port_quantity:
+          one: 1 port
+          other: "%{count} ports"
+        port_type: Type de port
+        columns: Colonnes
+        rows: Lignes
+        max_aligned_ports: Nombre max de ports alignés
+        first_position: Numéro du premier port
     errors:
       models:
         user:
