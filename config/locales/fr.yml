@@ -100,6 +100,29 @@ fr:
       flashes:
         destroyed: Le cluster a bien été supprimé.
 
+  manufacturers:
+    form:
+      url_placeholder: "https://url_du_frabricant.com/suite_de_l_url/%s/reste_s_il_y_a"
+      information_html: il faut remplacer le numéro de série dans l'URL par <code>%s</code>."
+    index:
+      new_manufacturer: Ajouter une manufacturer
+      title: Fabricants
+      delete_confirmation: Ce mainteneur ne pourra pas être supprimé tant qu'il sera associé à au moins un modèle. Voulez-vous continuer ?
+    show:
+      title: Voir fabricant
+    new:
+      title: Nouveau fabricant
+    create:
+      flashes:
+        created: Le fabricant a bien été créé.
+    edit:
+      title: Modifier fabricant
+    update:
+      flashes:
+        updated: Le fabricant a bien été modifié.
+    destroy:
+      flashes:
+        destroyed: Le fabricant a bien été supprimé.
   devise:
     registrations:
       signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'

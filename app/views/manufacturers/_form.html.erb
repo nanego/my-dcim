@@ -1,8 +1,12 @@
 <%= form_for(@manufacturer, html: { class: "form-horizontal", role: "form" }) do |f| %>
   <% if @manufacturer.errors.any? %>
     <div class="alert alert-danger alert-dismissable" role="alert">
-      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <h4><%= pluralize(@manufacturer.errors.count, "erreur", "erreurs") %> lors de la sauvegarde :</h4>
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">
+        <%= t("action.close") %>
+      </span></button>
+      <h4>
+        <%= t("form.errors.title", count: @manufacturer.errors.count) %>
+      </h4>
 
       <ul>
       <% @manufacturer.errors.full_messages.each do |msg| %>
@@ -27,10 +31,10 @@
   <div class="form-group">
     <%= f.label :documentation_url, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.text_field :documentation_url, placeholder: "https://url_du_frabricant.com/suite_de_l_url/%s/reste_s_il_y_a", class: "form-control" %>
+      <%= f.text_field :documentation_url, placeholder: t(".url_placeholder"), class: "form-control" %>
       <span class="text-muted">
         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-        <small>Information : il faut remplacer le numéro de série dans l'URL par <code>%s</code>.</small>
+        <small><%= t(".information_html") %></small>
       </span>
     </div>
   </div>
