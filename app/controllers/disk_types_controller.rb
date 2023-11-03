@@ -28,7 +28,7 @@ class DiskTypesController < ApplicationController
 
     respond_to do |format|
       if @disk_type.save
-        format.html { redirect_to @disk_type, notice: 'Disk type was successfully created.' }
+        format.html { redirect_to @disk_type, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @disk_type }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class DiskTypesController < ApplicationController
   def update
     respond_to do |format|
       if @disk_type.update(disk_type_params)
-        format.html { redirect_to @disk_type, notice: 'Disk type was successfully updated.' }
+        format.html { redirect_to @disk_type, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @disk_type }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class DiskTypesController < ApplicationController
   def destroy
     if @disk_type.destroy
       respond_to do |format|
-        format.html { redirect_to disk_types_url, notice: 'Disk type a bien été supprimé.' }
+        format.html { redirect_to disk_types_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
