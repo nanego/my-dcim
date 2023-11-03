@@ -69,6 +69,8 @@ fr:
         servers:
           one: 1 serveur
           other: "%{count} serveurs"
+      cluster:
+        name: Nom
     errors:
       models:
         user:

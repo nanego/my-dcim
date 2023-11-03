@@ -1,4 +1,7 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: { 'Paramètres' => modeles_url, 'Clusters' => '' } %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("breadcrumb.settings") => modeles_url,
+  Cluster.model_name.human.pluralize => "" }
+%>
 
 <div class="container-fluid">
 
@@ -13,16 +16,20 @@
       <div class="page-header">
         <%= link_to new_cluster_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
-          New Cluster
+          <%= t(".new_cluster") %>
         <% end %>
-        <h1>Listing clusters</h1>
+        <h1>
+          <%= t(".title") %>
+        </h1>
       </div>
 
       <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">
           <thead>
           <tr>
-            <th>Nom</th>
+            <th>
+              <%= Cluster.human_attribute_name(:name) %>
+            </th>
             <th></th>
             <th></th>
             <th></th>
@@ -34,13 +41,13 @@
           <%= content_tag_for(:tr, @clusters) do |cluster| %>
             <td><%= cluster %></td>
             <td><%= cluster.servers.count %> serveurs</td>
-            <td><%= link_to 'Voir', cluster_path(cluster), class: 'btn btn-primary' %></td>
-            <td><%= link_to 'Modifier', edit_cluster_path(cluster), class: 'btn btn-primary' %></td>
+            <td><%= link_to t("action.show"), cluster_path(cluster), class: 'btn btn-primary' %></td>
+            <td><%= link_to t("action.edit"), edit_cluster_path(cluster), class: 'btn btn-primary' %></td>
             <td>
-              <%= link_to 'Supprimer',
+              <%= link_to t("action.delete"),
                           cluster,
                           method: :delete,
-                          data: { confirm: 'Ce cluster ne pourra pas être supprimé tant qu\'il sera associé à au moins un serveur. Voulez-vous continuer ?' },
+                          data: { confirm: t(".delete_confirmation") },
                           class: 'btn btn-danger' %>
             </td>
           <% end %>
