@@ -1,17 +1,21 @@
 <div class="page-header">
   <%= link_to maintainers_path, class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
-    Retour
+    <%= t("action.back") %>
   <% end %>
   <%= link_to edit_maintainer_path(@maintainer), class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-pencil"></span>
-    Edit
+    <%= t("action.edit") %>
   <% end %>
-  <h1>Voir maintainer</h1>
+  <h1>
+    <%= t(".title") %>
+  </h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt>Name:</dt>
+  <dt>
+    <%= Maintainer.human_attribute_name(:name) %> :
+  </dt>
   <dd><%= @maintainer %></dd>
 
 </dl>

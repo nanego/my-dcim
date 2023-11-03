@@ -28,7 +28,7 @@ class MaintainersController < ApplicationController
 
     respond_to do |format|
       if @maintainer.save
-        format.html { redirect_to @maintainer, notice: 'Maintainer was successfully created.' }
+        format.html { redirect_to @maintainer, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @maintainer }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class MaintainersController < ApplicationController
   def update
     respond_to do |format|
       if @maintainer.update(maintainer_params)
-        format.html { redirect_to @maintainer, notice: 'Maintainer was successfully updated.' }
+        format.html { redirect_to @maintainer, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @maintainer }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class MaintainersController < ApplicationController
   def destroy
     if @maintainer.destroy
       respond_to do |format|
-        format.html { redirect_to maintainers_url, notice: 'Maintainer a bien été supprimé.' }
+        format.html { redirect_to maintainers_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else

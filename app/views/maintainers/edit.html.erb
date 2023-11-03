@@ -1,13 +1,15 @@
 <div class="page-header">
   <%= link_to maintainers_path, class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
-    Retour
+    <%= t("action.back") %>
   <% end %>
   <%= link_to @maintainer, class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-info-sign"></span>
-    Voir
+    <%= t("action.show") %>
   <% end %>
-  <h1>Editing maintainer</h1>
+  <h1>
+    <%= t(".title") %>
+  </h1>
 </div>
 
 <%= render 'form' %>

@@ -157,6 +157,26 @@ fr:
     destroy:
       flashes:
         destroyed: La couleur a bien été supprimé.
+  maintainers:
+    index:
+      title: Mainteneurs
+      add_maintainer: Ajouter un mainteneur
+      delete_confirmation: Ce mainteneur ne pourra pas être supprimé tant qu'il sera associé à au moins un contrat de maintenance. Voulez-vous continuer ?
+    show:
+      title: Voir le mainteneur
+    new:
+      title: Nouveau mainteneur
+    create:
+      flashes:
+        created: Le mainteneur a bien été créé.
+    edit:
+      title: Edition d'un mainteneur
+    update:
+      flashes:
+        updated: Le mainteneur a bien été modifié.
+    destroy:
+      flashes:
+        destroyed: Le mainteneur a bien été supprimé.
 
   manufacturers:
     form:
