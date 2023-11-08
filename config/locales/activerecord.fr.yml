@@ -38,6 +38,7 @@ fr:
       enclosure: Enclosure
       user: Utilisateur
       server_state: Statut
+      changelog_entry: Changelog
 
     attributes:
       islet:
@@ -206,6 +207,13 @@ fr:
         rl-td: Horizontal, de droite à gauche
         dt-lr: Vertical, de bas en haut
         td-lr: Vertical, de haut en bas
+      changelog_entry:
+        object: Objet
+        object_id: Objet ID
+        author: Auteur
+        action: Action
+        created_at: Créé le
+
     errors:
       models:
         user:

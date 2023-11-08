@@ -8,7 +8,7 @@
         <ul class="dropdown-menu">
           <li><%= link_to User.model_name.human.pluralize, users_path %></li>
           <li><%= link_to 'Activité', activities_path %></li>
-          <li><%= link_to 'Changelogs', changelog_entries_path %></li>
+          <li><%= link_to ChangelogEntry.model_name.human.pluralize, changelog_entries_path %></li>
           <!-- <li><%= link_to 'Import de données', data_import_path %></li> -->
           <li role="separator" class="divider"></li>
           <li><%= link_to 'Informations', about_path %></li>
