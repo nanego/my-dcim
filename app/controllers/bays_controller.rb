@@ -29,6 +29,7 @@ class BaysController < ApplicationController
 
     respond_to do |format|
       format.html
+      format.json
       format.js
       format.pdf do
         render template: "rooms/show",
