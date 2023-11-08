@@ -4,30 +4,35 @@
   "#{@changelog_entry.id} - #{@changelog_entry.action} - #{@changelog_entry.object}" => ""
 } %>
 
-<dl class="dl-horizontal">
-  <dt>Object</dt>
-  <dd><%= @changelog_entry.object_display_name %></dd>
+<div class="container-fluid">
+  <div class="page-header">
+    <h3>Informations</h3>
+    <dl class="dl-horizontal">
+      <dt>Object</dt>
+      <dd><%= @changelog_entry.object_display_name %></dd>
 
-  <dt>Object id</dt>
-  <dd><%= @changelog_entry.object_id %></dd>
+      <dt>Object id</dt>
+      <dd><%= @changelog_entry.object_id %></dd>
 
-  <dt>Action</dt>
-  <dd><%= render @changelog_entry.action_label_to_component %></dd>
+      <dt>Action</dt>
+      <dd><%= render @changelog_entry.action_label_to_component %></dd>
 
-  <dt>Author</dt>
-  <dd><%= @changelog_entry.author %></dd>
+      <dt>Author</dt>
+      <dd><%= @changelog_entry.author %></dd>
 
-  <dt>Date</dt>
-  <dd><%=l @changelog_entry.created_at %></dd>
-</dl>
+      <dt>Date</dt>
+      <dd><%=l @changelog_entry.created_at %></dd>
+    </dl>
+  </div>
 
-<h3>Changes</h3>
-<%= debug @changelog_entry.object_changed_attributes %>
+  <h3>Changes</h3>
+  <%= debug @changelog_entry.object_changed_attributes %>
 
-<h3>Metadatas</h3>
-<dl class="dl-horizontal">
-  <% @changelog_entry.metadata.each do |key, value| %>
-    <dt><%= key %></dt>
-    <dd><code><%= value %></code></dd>
-  <% end %>
-</dl>
+  <h3>Metadatas</h3>
+  <dl class="dl-horizontal">
+    <% @changelog_entry.metadata.each do |key, value| %>
+      <dt><%= key %></dt>
+      <dd><code><%= value %></code></dd>
+    <% end %>
+  </dl>
+</div>
