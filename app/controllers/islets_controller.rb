@@ -28,6 +28,7 @@ class IsletsController < ApplicationController
     end
 
     respond_to do |format|
+      format.json
       format.pdf do
         render template: "rooms/show",
                show_as_html: params[:debug].present?,
