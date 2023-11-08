@@ -4,12 +4,17 @@ class FramesController < ApplicationController
   include ServersHelper
   include RoomsHelper
 
+  def index
+    @frames = Frame.includes(:bay => { :islet => :room })
+  end
+
   def show
     @frame = Frame.all.includes(:servers => [:modele => [:category, :composants], :cards => [:composant, :ports => [:connection => [:cable => :connections]], :card_type => [:port_type]]], :bay => [:islet => [:room]]).friendly.find(params[:id].to_s.downcase)
     @room = @frame.room
 
     respond_to do |format|
       format.html
+      format.json
       format.js
       format.pdf do
         render template: "frames/show",
@@ -61,10 +66,6 @@ class FramesController < ApplicationController
       Frame.where(id: id).update_all(position: index + 1)
     end if params[:frame].present?
     head :ok
-  end
-
-  def index
-    @frames = Frame.includes(:bay => { :islet => :room })
   end
 
   def destroy
