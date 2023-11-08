@@ -31,6 +31,7 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       format.html
+      format.json
       format.pdf do
         render template: "rooms/show",
                show_as_html: params[:debug].present?,
