@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe PortType, type: :model do
-  let(:port_type) { PortType.create(name: "ALIM") }
+  subject(:port_type) { PortType.new(name: "ALIM") }
 
   describe "associations" do
     it { is_expected.to have_many(:card_types) }

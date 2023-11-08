@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Gestion, type: :model do
-  let(:gestion) { Gestion.create(name: "DIS/GIL") }
+  subject(:gestion) { Gestion.new(name: "DIS/GIL") }
 
   describe "associations" do
     it { is_expected.to have_many(:servers) }

@@ -2,14 +2,14 @@
 
 one:
   port_from_id: 1
-  port_to_id: 1
+  port_to_id: 2
   vlans: vlan01
   cablename: NouveauNomDuCableUn
   color: Blue
 
 two:
   port_from_id: 1
-  port_to_id: 1
+  port_to_id: 2
   vlans: VlanXZZ
   cablename: NouveauNomDuCableDeux
   color: Yellow

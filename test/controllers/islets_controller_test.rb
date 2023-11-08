@@ -14,30 +14,33 @@ class IsletsControllerTest < ActionController::TestCase
   end
 
   test "should get create" do
-    post :create, params: {islet: {name:'test'}}
+    assert_difference('Islet.count') do
+      post :create, params: { islet: { name: "New Islet", room_id: @islet.room_id } }
+    end
+
     assert_redirected_to islets_path
   end
 
   test "should get edit" do
-    get :edit, params: {id: @islet}
+    get :edit, params: { id: @islet }
     assert_response :success
   end
 
   test "should update" do
-    patch :update, params: {id: @islet, islet: {name:"updated_name"}}
+    patch :update, params: { id: @islet, islet: { name:"updated_name" } }
     assert_redirected_to islets_path
   end
 
   test "should get destroy" do
-    delete :destroy, params: {id: @islet}
+    delete :destroy, params: { id: @islet }
     assert_redirected_to islets_url
   end
 
   test "should destroy islet" do
-    @islet = Islet.create
+    @islet = islets(:two)
 
     assert_difference('Islet.count', -1) do
-      delete :destroy, params: {id: @islet}
+      delete :destroy, params: { id: @islet }
     end
 
     assert_redirected_to islets_path
@@ -45,7 +48,7 @@ class IsletsControllerTest < ActionController::TestCase
 
   test "should not destroy islet that have bays" do
     assert_difference('Islet.count', 0) do
-      delete :destroy, params: {id: @islet}
+      delete :destroy, params: { id: @islet }
     end
 
     assert_redirected_to islets_path

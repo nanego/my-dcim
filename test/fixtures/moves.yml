@@ -5,9 +5,11 @@ one:
   moveable_id: 1
   position: 40
   frame_id: 1
+  prev_frame_id: 3
 
 two:
   moveable_type: Server
   moveable_id: 1
-  position: 40
+  position: 41
   frame_id: 1
+  prev_frame_id: 3

@@ -43,7 +43,7 @@ class FramesControllerTest < ActionController::TestCase
   end
 
   test "should destroy frame" do
-    @frame = Frame.create(bay: Bay.create)
+    @frame = frames(:two)
 
     assert_difference('Frame.count', -1) do
       delete :destroy, params: {id: @frame}

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Stack, type: :model do
-  let(:stack) { Stack.create(name: "Rouge") }
+  subject(:stack) { Stack.new(name: "Rouge") }
 
   describe "associations" do
     it { is_expected.to have_many(:servers) }

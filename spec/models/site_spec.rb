@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Site, type: :model do
-  let(:site) { Site.create(name: "Site A", street: "Rue du Cactus", city: "92055 La Défense", country: "France") }
+  subject(:site) { Site.new(name: "Site A", street: "Rue du Cactus", city: "92055 La Défense", country: "France") }
 
   describe "associations" do
     it { is_expected.to have_many(:rooms) }

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Domaine, type: :model do
-  let(:domaine) { Domaine.create(name: "Eco") }
+  subject(:domaine) { Domaine.new(name: "Eco") }
 
   describe "associations" do
     it { is_expected.to have_many(:servers) }

@@ -67,3 +67,8 @@ jobs:
         env:
           RAILS_ENV: test
         run: bundle exec rails test
+
+      - name: Run RSpec tests
+        env:
+          RAILS_ENV: test
+        run: bin/rspec

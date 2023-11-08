@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do
-  let(:category) { Category.create(name: "Pdu") }
+  subject(:category) { Category.new(name: "Pdu") }
 
   describe "associations" do
     it { is_expected.to have_many(:modeles) }

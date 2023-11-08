@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe BayType, type: :model do
-  let(:bay_type) { BayType.create(name: "single") }
+  subject(:bay_type) { BayType.new(name: "single") }
 
   describe "associations" do
     it { is_expected.to have_many(:bays) }

@@ -12,4 +12,11 @@ two:
   name: MyFrame2
   u: 48
   bay_id: 1
-  position: 1
+  position: 2
+
+three:
+  id: 3
+  name: MyFrame3
+  u: 24
+  bay_id: 1
+  position: 3

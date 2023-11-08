@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe MemoryType, type: :model do
-  let(:memory_type) { MemoryType.create(quantity: 1, unit: "Gb") }
+  subject(:memory_type) { MemoryType.new(quantity: 1, unit: "Gb") }
 
   describe "associations" do
     it { is_expected.to have_many(:memory_components) }

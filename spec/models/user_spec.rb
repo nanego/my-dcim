@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { User.create(email: "user@example.com") }
+  subject(:user) { User.new(email: "user@example.com") }
 
   describe "#to_s" do
     it { expect(user.to_s).to eq "user@example.com" }

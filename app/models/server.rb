@@ -6,13 +6,13 @@ class Server < ApplicationRecord
 
   include PublicActivity::Model
 
-  belongs_to :frame, optional: true
+  belongs_to :frame
   has_one :bay, through: :frame
   has_one :islet, through: :frame
   has_one :room, through: :islet
   belongs_to :gestion, optional: true
   belongs_to :domaine, optional: true
-  belongs_to :modele, optional: true
+  belongs_to :modele
   belongs_to :cluster, optional: true
   belongs_to :server_state, optional: true
   belongs_to :stack, optional: true
@@ -27,13 +27,11 @@ class Server < ApplicationRecord
 
   has_many :moves, as: :moveable, dependent: :destroy
 
-  has_many :documents
+  has_many :documents, dependent: :restrict_with_error
 
   has_one_attached :photo
 
   validates_presence_of :numero
-  validates :frame_id, presence: true
-  validates :modele_id, presence: true
   validates :name, presence: true
   validates_uniqueness_of :numero
   validate :numero_cannot_be_a_current_server_name

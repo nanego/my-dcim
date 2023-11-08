@@ -42,9 +42,19 @@ class ContractTypesControllerTest < ActionController::TestCase
     assert_redirected_to contract_type_path(assigns(:contract_type))
   end
 
-  test "should destroy contract_type" do
-    assert_difference('ContractType.count', -1) do
+  test "should not destroy contract_type" do
+    assert_difference('ContractType.count', 0) do
       delete :destroy, params: { id: @contract_type }
+    end
+
+    assert_redirected_to contract_types_path
+  end
+
+  test "should destroy contract_type" do
+    @contract_type = ContractType.create
+
+    assert_difference('ContractType.count', -1) do
+      delete :destroy, params: {id: @contract_type}
     end
 
     assert_redirected_to contract_types_path

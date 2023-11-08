@@ -26,33 +26,33 @@ class BaysControllerTest < ActionController::TestCase
 
   test "should create bay" do
     assert_difference('Bay.count') do
-      post :create, params: {bay: { name: @bay.name }}
+      post :create, params: { bay: { name: "New Bay", bay_type_id: @bay.bay_type_id, islet_id: @bay.islet_id } }
     end
 
     assert_redirected_to bays_path
   end
 
   test "should get edit" do
-    get :edit, params: {id: @bay}
+    get :edit, params: { id: @bay }
     assert_response :success
   end
 
   test "should update bay" do
-    patch :update, params: {id: @bay, bay: { name: @bay.name }}
+    patch :update, params: { id: @bay, bay: { name: @bay.name } }
     assert_redirected_to bays_path
   end
 
   test "should destroy bay" do
-    @bay = Bay.create
+    @bay = bays(:two)
 
     assert_difference('Bay.count', -1) do
-      delete :destroy, params: {id: @bay}
+      delete :destroy, params: { id: @bay }
     end
   end
 
   test "should not destroy bay it has many bays: Bay n°1 & 2" do
     assert_difference('Bay.count', 0) do
-      delete :destroy, params: {id: @bay}
+      delete :destroy, params: { id: @bay }
     end
 
     assert_redirected_to bays_path

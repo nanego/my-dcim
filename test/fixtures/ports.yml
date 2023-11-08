@@ -18,7 +18,7 @@ two:
 
 three:
   id: 3
-  position: 1
+  position: 3
   card_id: 2
   vlans: 123e
   color: W

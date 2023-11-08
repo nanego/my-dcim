@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe CardType, type: :model do
-  let(:card_type) { CardType.create(name: "2RJ") }
+  subject(:card_type) { CardType.new(name: "2RJ") }
 
   describe "associations" do
     it { is_expected.to belong_to(:port_type) }
