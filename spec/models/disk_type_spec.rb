@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe DiskType, type: :model do
-  let(:disk_type) { DiskType.create(quantity: 120, unit: "Gb", technology: "SSD") }
+  subject(:disk_type) { DiskType.new(quantity: 120, unit: "Gb", technology: "SSD") }
 
   describe "associations" do
     it { is_expected.to have_many(:disks) }

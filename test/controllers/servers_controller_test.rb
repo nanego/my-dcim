@@ -154,7 +154,17 @@ class ServersControllerTest < ActionController::TestCase
   end
 
   test "should destroy server" do
+    @server = servers(:two)
+
     assert_difference('Server.count', -1) do
+      delete :destroy, params: {id: @server}
+    end
+
+    assert_redirected_to servers_grids_path
+  end
+
+  test "should not destroy server because of associations" do
+    assert_difference('Server.count', 0) do
       delete :destroy, params: {id: @server}
     end
 

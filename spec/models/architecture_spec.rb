@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Architecture, type: :model do
-  let(:architecture) { Architecture.create(name: "Tour") }
+  subject(:architecture) { Architecture.new(name: "Tour") }
 
   describe "associations" do
     it { is_expected.to have_many(:modeles) }

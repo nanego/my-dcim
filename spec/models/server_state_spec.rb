@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe ServerState, type: :model do
-  let(:server_state) { ServerState.create(name: "Order In Progress") }
+  subject(:server_state) { ServerState.new(name: "Order In Progress") }
 
   describe "associations" do
     it { is_expected.to have_many(:servers) }

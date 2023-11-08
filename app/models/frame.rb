@@ -10,7 +10,7 @@ class Frame < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) {controller && controller.current_user}
 
-  belongs_to :bay, optional: true
+  belongs_to :bay
   has_many :materials, -> {order("servers.position desc")}, class_name: "Server", dependent: :restrict_with_error
   has_many :pdus, -> {only_pdus}, class_name: "Server", dependent: :restrict_with_error
   has_many :servers, -> {no_pdus.order("servers.position desc")}, class_name: "Server", dependent: :restrict_with_error
@@ -21,8 +21,6 @@ class Frame < ApplicationRecord
   acts_as_list scope: [:bay_id]
 
   scope :sorted, -> {order(:position)}
-
-  validates_presence_of :bay_id
 
   def to_s
     name.to_s

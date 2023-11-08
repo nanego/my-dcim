@@ -4,8 +4,8 @@ require 'rails_helper'
 
 RSpec.describe Bay, type: :model do
   describe "associations" do
-    it { is_expected.to belong_to(:bay_type).optional(true) }
-    it { is_expected.to belong_to(:islet).optional(true) }
+    it { is_expected.to belong_to(:bay_type) }
+    it { is_expected.to belong_to(:islet) }
     it { is_expected.to have_one(:room).through(:islet) }
     it { is_expected.to have_many(:frames) }
     it { is_expected.to have_many(:materials).through(:frames) }

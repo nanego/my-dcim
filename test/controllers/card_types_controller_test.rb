@@ -53,7 +53,7 @@ class CardTypesControllerTest < ActionController::TestCase
   end
 
   test "should destroy card_type" do
-    @card_type = CardType.create
+    @card_type = card_types(:three)
 
     assert_difference('CardType.count', -1) do
       delete :destroy, params: { id: @card_type }

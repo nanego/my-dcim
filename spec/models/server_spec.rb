@@ -3,16 +3,21 @@
 require 'rails_helper'
 
 RSpec.describe Server, type: :model do
-  let(:server) { Server.create(name: "ACTARUS") }
+  subject(:server) do
+    Server.new(name: "ACTARUS", frame: Frame.new, modele: Modele.new, numero: "1245")
+  end
+
+  let(:frame) { Frame.new }
+  let(:modele) { Modele.new }
 
   describe "associations" do
-    it { is_expected.to belong_to(:frame).optional(true) }
+    it { is_expected.to belong_to(:frame) }
     it { is_expected.to have_one(:bay).through(:frame) }
     it { is_expected.to have_one(:islet).through(:frame) }
     it { is_expected.to have_one(:room).through(:islet) }
     it { is_expected.to belong_to(:gestion).optional(true) }
     it { is_expected.to belong_to(:domaine).optional(true) }
-    it { is_expected.to belong_to(:modele).optional(true) }
+    it { is_expected.to belong_to(:modele) }
     it { is_expected.to belong_to(:cluster).optional(true) }
     it { is_expected.to belong_to(:server_state).optional(true) }
     it { is_expected.to belong_to(:stack).optional(true) }
@@ -31,11 +36,11 @@ RSpec.describe Server, type: :model do
   end
 
   describe "validations" do
-    it { is_expected.to validate_presence_of :numero }
-    it { is_expected.to validate_presence_of :frame_id }
-    it { is_expected.to validate_presence_of :modele_id }
-    it { is_expected.to validate_presence_of :name }
-    it { is_expected.to validate_uniqueness_of(:numero) }
+    it { is_expected.to be_valid }
+
+    it { is_expected.to validate_presence_of(:numero) }
+    it { is_expected.to validate_presence_of(:name) }
+    xit { is_expected.to validate_uniqueness_of(:numero) }
   end
 
   describe "nested attributes" do

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Manufacturer, type: :model do
-  let(:manufacturer) { Manufacturer.create(name: "BULL") }
+  subject(:manufacturer) { Manufacturer.new(name: "BULL") }
 
   describe "associations" do
     it { is_expected.to have_many(:modeles) }

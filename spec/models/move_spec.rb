@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Move, type: :model do
-  let(:move) { Move.create(name: "Bleu") }
+  subject(:move) { Move.new(moveable: Server.new, frame: Frame.new, prev_frame: Frame.new) }
 
   describe "associations" do
     it { is_expected.to belong_to(:moveable) }
@@ -12,7 +12,7 @@ RSpec.describe Move, type: :model do
   end
 
   describe "validations" do
-    it { is_expected.to validate_presence_of :moveable }
+    it { is_expected.to be_valid }
   end
 
   describe "#clear_connections" do
