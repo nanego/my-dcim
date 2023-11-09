@@ -41,7 +41,7 @@
           <%= content_tag_for(:tr, @clusters) do |cluster| %>
             <td><%= link_to cluster, cluster_path(cluster) %></td>
             <td><%= Cluster.human_attribute_name(:servers, count: cluster.servers.count) %></td>
-            <td>
+            <td class="text-right">
               <%= link_to t("action.edit"), edit_cluster_path(cluster), class: 'btn btn-primary' %>
               <%= link_to t("action.delete"),
                           cluster,

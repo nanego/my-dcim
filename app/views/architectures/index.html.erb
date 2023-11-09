@@ -45,7 +45,7 @@
               <td>
                 <%= link_to pluralize(architecture.modeles.count, 'modèle', 'modèles'), modeles_path %>
               </td>
-              <td>
+              <td class="text-right">
                 <%= link_to 'Modifier', edit_architecture_path(architecture), class: 'btn btn-primary' %>
                 <%= link_to 'Supprimer',
                             architecture,

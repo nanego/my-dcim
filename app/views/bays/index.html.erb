@@ -55,7 +55,7 @@
 
                 <td><%= pluralize(bay.materials.count, 'serveur', 'serveurs') %> </td>
 
-                <td>
+                <td class="text-right">
                   <%= render partial: "bays/export_button", locals: { bay: bay } %>
                   <%= link_to 'Modifier', edit_bay_path(bay), class: 'btn btn-primary' %>
                   <%= link_to 'Supprimer',

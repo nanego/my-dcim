@@ -39,7 +39,7 @@
               <td>
                 <%= link_to disk_type, disk_type_path(disk_type) %>
               </td>
-              <td>
+              <td class="text-right">
                 <%= link_to t("action.edit"), edit_disk_type_path(disk_type), class: 'btn btn-primary' %>
                 <%= link_to t("action.delete"), disk_type, method: :delete, data: { confirm: t("action.confirm") }, class: 'btn btn-danger' %>
               </td>

@@ -49,7 +49,7 @@
                 <%= stack.color %>
               </td>
               <td><%= Stack.human_attribute_name(:servers, count: stack.servers.count) %></td>
-              <td>
+              <td class="text-right">
                 <%= link_to t("action.edit"), edit_stack_path(stack), class: 'btn btn-primary' %>
                 <%= link_to t("action.delete"),
                             stack,

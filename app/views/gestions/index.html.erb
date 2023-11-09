@@ -45,7 +45,7 @@
             <td>
               <%= Gestion.human_attribute_name(:servers, count: gestion.servers.count) %>
             </td>
-            <td>
+            <td class="text-right">
               <%= link_to t("action.edit"), edit_gestion_path(gestion), class: 'btn btn-primary' %>
               <%= link_to t("action.delete"),
                           gestion,

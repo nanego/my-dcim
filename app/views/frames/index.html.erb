@@ -40,13 +40,15 @@
             <td>
               <%= link_to frame.bay.islet, islet_path(frame.bay.islet) if frame.bay.present? %>
             </td>
-            <td>
-              <%= link_to 'Modifier', edit_frame_path(frame), class: 'btn btn-primary' %>
-              <%= link_to 'Supprimer',
-                          frame,
-                          method: :delete,
-                          data: { confirm: 'Ce châssis ne pourra pas être supprimé tant qu\'il sera associé à au moins un serveur. Voulez-vous continuer ?' },
-                          class: 'btn btn-danger' %>
+            <td class="text-right">
+              <div class="btn-group btn-group-sm btn-group-vertical" role="group" aria-label="...">
+                <%= link_to 'Modifier', edit_frame_path(frame), class: 'btn btn-primary' %>
+                <%= link_to 'Supprimer',
+                            frame,
+                            method: :delete,
+                            data: { confirm: 'Ce châssis ne pourra pas être supprimé tant qu\'il sera associé à au moins un serveur. Voulez-vous continuer ?' },
+                            class: 'btn btn-danger' %>
+              </div>
             </td>
           <% end %>
           </tbody>

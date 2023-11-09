@@ -47,7 +47,7 @@
             </td>
             <td><%= link_to pluralize(card_type.servers.count, 'serveur'), servers_path %></td>
             <td><%= card_type.port_quantity %> ports</td>
-            <td>
+            <td class="text-right">
               <%= link_to t("action.edit"), edit_card_type_path(card_type), class: 'btn btn-primary' %>
               <%= link_to t("action.delete"),
                           card_type,

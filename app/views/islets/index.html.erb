@@ -44,7 +44,7 @@
             </b></td>
             <td><%= islet.position %></td>
             <td><%= islet.frames.count.to_s + ' chassis' %></td>
-            <td>
+            <td class="text-right">
               <%= render partial: "islets/export_button", locals: { islet: islet } %>
               <%= link_to 'Modifier', edit_islet_path(islet), class: 'btn btn-primary' %>
               <%= link_to 'Supprimer',

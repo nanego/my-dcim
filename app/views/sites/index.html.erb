@@ -48,7 +48,7 @@
             </b></td>
             <td><%= site.position %></td>
             <td><%= Site.human_attribute_name(:rooms_count, count: site.rooms.count) %></td>
-            <td>
+            <td class="text-right">
               <%= link_to t("action.edit"), edit_site_path(site), class: 'btn btn-primary' %>
               <%= link_to t("action.delete"),
                           site,

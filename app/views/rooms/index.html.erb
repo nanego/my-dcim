@@ -46,7 +46,7 @@
               <%= pluralize room.frames.count, 'chassis' %>
             </td>
             <td><input type="checkbox" <%= room.display_on_home_page ? "checked" : "" %> disabled></td>
-            <td>
+            <td class="text-right">
               <%= render partial: "rooms/export_button", locals: { room: room } %>
               <%= link_to 'Modifier', edit_room_path(room), class: 'btn btn-primary' %>
               <%= link_to 'Supprimer',

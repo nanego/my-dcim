@@ -40,7 +40,7 @@
               <td style="font-size: larger;"><%= link_to modele.name, modele_path(modele) %></td>
               <td style="width: 106px;"><%= modele.enclosures.map(&:display).join(', ') %></td>
               <td style="width: 106px;"><%= pluralize(modele.servers.count, modele.category.name.try(:downcase), "#{modele.category.name.try(:downcase)}#{ modele.category.name.blank? || modele.category.name[-1] == 's' || modele.category.name=='San' ? '' : 's' }") %></td>
-              <td style="width: 190px;text-align: center;">
+              <td style="width: 190px;text-align: center;" class="text-right">
                 <%= link_to 'Modifier', edit_modele_path(modele), class: 'btn btn-primary' %>
                 <%= link_to 'Supprimer',
                             modele,

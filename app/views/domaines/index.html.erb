@@ -45,7 +45,7 @@
             <td>
               <%= link_to pluralize(domaine.servers.count, 'serveur', "serveurs"), servers_path %>
             </td>
-            <td>
+            <td class="text-right">
               <%= link_to t("action.edit"), edit_domaine_path(domaine), class: 'btn btn-primary' %>
               <%= link_to t("action.delete"),
                           domaine,

@@ -50,12 +50,14 @@
                 <%= link_to server.bay, bay_path(server.bay) if server.bay %>
               </td>
               <td>
-                <%= link_to 'Modifier', edit_server_path(server), class: 'btn btn-primary' %>
-                <%= link_to 'Supprimer',
-                            server,
-                            method: :delete,
-                            data: { confirm: 'Êtes-vous sûr ?' },
-                            class: 'btn btn-danger' %>
+                <div class="btn-group btn-group-sm btn-group-vertical" role="group" aria-label="...">
+                  <%= link_to 'Modifier', edit_server_path(server), class: 'btn btn-primary' %>
+                  <%= link_to 'Supprimer',
+                              server,
+                              method: :delete,
+                              data: { confirm: 'Êtes-vous sûr ?' },
+                              class: 'btn btn-danger' %>
+                </div>
               </td>
             <% end %>
           </tbody>
