@@ -1,3 +1,9 @@
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("breadcrumb.settings") => modeles_url,
+  MemoryType.model_name.human => memory_types_path,
+  @memory_type => '',
+} %>
+
 <div class="container">
   <div class="page-header">
     <%= link_to memory_types_path, class: 'btn btn-default' do %>
