@@ -13,7 +13,7 @@
       <div class="page-header">
         <%= link_to new_category_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
-          Ajouter un type
+          Ajouter un type de matériel
         <% end %>
         <h1>Types de matériel</h1>
       </div>
@@ -25,16 +25,17 @@
             <th>Nom</th>
             <th>Usage</th>
             <th></th>
-            <th></th>
           </tr>
           </thead>
 
           <tbody>
           <%= content_tag_for(:tr, @categories) do |category| %>
-            <td><%= category %></td>
-            <td><%= link_to "#{pluralize(category.modeles.count, 'modèle', 'modèles')}", modeles_path %> </td>
-            <td><%= link_to 'Modifier', edit_category_path(category), class: 'btn btn-primary' %></td>
             <td>
+              <%= link_to category.name, category_path(category) %>
+            </td>
+            <td><%= link_to "#{pluralize(category.modeles.count, 'modèle', 'modèles')}", modeles_path %> </td>
+            <td class="text-right">
+              <%= link_to 'Modifier', edit_category_path(category), class: 'btn btn-primary' %>
               <%= link_to 'Supprimer',
                           category,
                           method: :delete,

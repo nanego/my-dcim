@@ -13,9 +13,9 @@
       <div class="page-header">
         <%= link_to new_memory_type_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
-          New Memory type
+          Nouveau type de RAM
         <% end %>
-        <h1>Listing memory_types</h1>
+        <h1>Listing types de RAM</h1>
       </div>
 
       <div class="table-responsive">
@@ -24,15 +24,18 @@
             <tr>
               <th>Nom</th>
               <th></th>
-              <th></th>
             </tr>
           </thead>
 
           <tbody>
             <%= content_tag_for(:tr, @memory_types) do |memory_type| %>
-              <td><%= memory_type %></td>
-              <td><%= link_to 'Edit', edit_memory_type_path(memory_type) %></td>
-              <td><%= link_to 'Destroy', memory_type, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' %></td>
+              <td>
+                <%= link_to memory_type, memory_type_path(memory_type) %>
+              </td>
+              <td class="text-right">
+                <%= link_to 'Modifier', edit_memory_type_path(memory_type), class: 'btn btn-primary' %>
+                <%= link_to 'Supprimer', memory_type, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+              </td>
             <% end %>
           </tbody>
         </table>

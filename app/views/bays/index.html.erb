@@ -27,9 +27,7 @@
               <th>Baies</th>
               <th>Ligne</th>
               <th>Position</th>
-              <th></th>
-              <th></th>
-              <th></th>
+              <th>Nombre de serveurs</th>
               <th></th>
             </tr>
           </thead>
@@ -37,20 +35,29 @@
           <tbody>
             <% @bays.each do |bay| %>
               <tr>
-                <td><%= bay.room %> </td>
-                <td><%= bay.islet %> </td>
+                <td>
+                  <%= link_to bay.room, room_path(bay.room) %>
+                </td>
+                <td>
+                  <%= link_to bay.islet, islet_path(bay.islet) %>
+                </td>
 
-                <td><%= bay.frames.map(&:name).join(' / ') %></td>
+                <td>
+                  <%=
+                    bay.frames.map do |frame|
+                        link_to(frame.name, frame_path(frame))
+                    end.join(' / ').html_safe
+                  %>
+                </td>
 
                 <td><%= bay.lane %> </td>
                 <td><%= bay.position %> </td>
 
                 <td><%= pluralize(bay.materials.count, 'serveur', 'serveurs') %> </td>
 
-                <td><%= render partial: "bays/export_button", locals: { bay: bay } %></td>
-
-                <td><%= link_to 'Modifier', edit_bay_path(bay), class: 'btn btn-primary' %></td>
-                <td>
+                <td class="text-right">
+                  <%= render partial: "bays/export_button", locals: { bay: bay } %>
+                  <%= link_to 'Modifier', edit_bay_path(bay), class: 'btn btn-primary' %>
                   <%= link_to 'Supprimer',
                               bay,
                               method: :delete,

@@ -26,23 +26,27 @@
             <th>Salle</th>
             <th>Ilot</th>
             <th>Position</th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>Nombre de châssis</th>
             <th></th>
           </tr>
           </thead>
 
           <tbody>
           <%= content_tag_for(:tr, @islets) do |islet| %>
-            <td><%= islet.site %></td>
-            <td><%= islet.room %> </td>
-            <td><b><%= islet.name %></b></td>
+            <td>
+              <%= link_to islet.site, site_path(islet.site) %>
+            </td>
+            <td>
+              <%= link_to islet.room, room_path(islet.room) %>
+            </td>
+            <td><b>
+              <%= link_to islet, islet_path(islet) %>
+            </b></td>
             <td><%= islet.position %></td>
             <td><%= islet.frames.count.to_s + ' chassis' %></td>
-            <td><%= render partial: "islets/export_button", locals: { islet: islet } %></td>
-            <td><%= link_to 'Modifier', edit_islet_path(islet), class: 'btn btn-primary' %></td>
-            <td>
+            <td class="text-right">
+              <%= render partial: "islets/export_button", locals: { islet: islet } %>
+              <%= link_to 'Modifier', edit_islet_path(islet), class: 'btn btn-primary' %>
               <%= link_to 'Supprimer',
                           islet,
                           method: :delete,

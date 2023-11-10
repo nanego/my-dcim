@@ -34,18 +34,19 @@
               <%= Domaine.human_attribute_name(:usage) %>
             </th>
             <th></th>
-            <th></th>
-            <th></th>
           </tr>
           </thead>
 
           <tbody>
           <%= content_tag_for(:tr, @domaines) do |domaine| %>
-            <td><%= domaine %></td>
-            <td><%= pluralize(domaine.servers.count, 'serveur', "serveurs") %> </td>
-            <td><%= link_to t("action.show"), domaine_path(domaine), class: 'btn btn-primary' %></td>
-            <td><%= link_to t("action.edit"), edit_domaine_path(domaine), class: 'btn btn-primary' %></td>
             <td>
+              <%= link_to domaine, domaine_path(domaine) %>
+            </td>
+            <td>
+              <%= link_to pluralize(domaine.servers.count, 'serveur', "serveurs"), servers_path %>
+            </td>
+            <td class="text-right">
+              <%= link_to t("action.edit"), edit_domaine_path(domaine), class: 'btn btn-primary' %>
               <%= link_to t("action.delete"),
                           domaine,
                           method: :delete,

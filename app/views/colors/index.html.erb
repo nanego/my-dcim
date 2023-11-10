@@ -34,7 +34,6 @@
               <%= Color.human_attribute_name(:code) %>
             </th>
             <th></th>
-            <th></th>
           </tr>
           </thead>
 
@@ -44,8 +43,8 @@
             <td><%= color.parent_type %></td>
             <td><%= color.parent_id %></td>
             <td><%= color.code %></td>
-            <td><%= link_to t("action.edit"), edit_color_path(color), class: 'btn btn-primary' %></td>
-            <td>
+            <td class="text-right">
+              <%= link_to t("action.edit"), edit_color_path(color), class: 'btn btn-primary' %>
               <%= link_to t("action.delete"),
                           color,
                           method: :delete,
