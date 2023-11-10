@@ -1,29 +1,51 @@
-<div class="page-header">
-  <%= link_to new_document_path, class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-plus"></span>
-    New Document
-  <% end %>
-  <h1>Listing documents</h1>
-</div>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("breadcrumb.settings") => modeles_url,
+  Document.model_name.human.pluralize => '' }
+%>
 
-<div class="table-responsive">
-  <table class="table table-striped table-bordered table-hover">
-    <thead>
-      <tr>
-            <th>Matériel</th>
-            <th></th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
+<div class="container-fluid">
 
-    <tbody>
-      <%= content_tag_for(:tr, @documents) do |document| %>
-            <td><%= document.server_id %></td>
-            <td><%= link_to 'Voir', document %></td>
-        <td><%= link_to 'Edit', edit_document_path(document) %></td>
-        <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' %></td>
+  <div class="row">
+
+    <div class="col-md-3">
+      <%= render 'pages/params_menu' %>
+    </div>
+
+    <div class="page-header">
+      <%= link_to new_document_path, class: 'btn btn-primary' do %>
+        <span class="glyphicon glyphicon-plus"></span>
+        <%= t(".new_document") %>
       <% end %>
-    </tbody>
-  </table>
+      <h1>
+        <%= t(".title") %>
+      </h1>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>
+              <%= Document.model_name.human %>
+            </th>
+            <th>
+              <%= Server.model_name.human %>
+            </th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <%= content_tag_for(:tr, @documents) do |document| %>
+            <td><%= link_to document.id, document_path(document) %></td>
+            <td><%= link_to document.server, server_path(document.server) %></td>
+            <td class="text-right">
+              <%= link_to t("action.edit"), edit_document_path(document), class: 'btn btn-primary' %>
+              <%= link_to t("action.delete"), document, method: :delete, data: { confirm: t("action.confirm") }, class: 'btn btn-danger' %>
+            </td>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

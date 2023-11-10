@@ -272,6 +272,16 @@ fr:
       title: Nouveau disque
     edit:
       title: Modifier un disque
+  documents:
+    index:
+      new_document: Nouveau document
+      title: Liste des documents
+    show:
+      title: Voir un document
+    new:
+      title: Nouveau document
+    edit:
+      title: Modifier un document
   devise:
     registrations:
       signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'

@@ -1,17 +1,21 @@
 <div class="page-header">
   <%= link_to documents_path, class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
-    Retour
+    <%= t("action.back") %>
   <% end %>
   <%= link_to edit_document_path(@document), class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-pencil"></span>
-    Edit
+    <%= t("action.edit") %>
   <% end %>
-  <h1>Voir document</h1>
+  <h1>
+    <%= t(".title") %>
+  </h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt>Matériel :</dt>
+  <dt>
+    <%= Server.model_name.human %> :
+  </dt>
   <dd><%= @document.server_id %></dd>
 
 </dl>

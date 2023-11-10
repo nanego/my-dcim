@@ -2,7 +2,9 @@
   <% if @disk.errors.any? %>
     <div class="alert alert-danger alert-dismissable" role="alert">
       <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <h4><%= pluralize(@disk.errors.count, "erreur", "erreurs") %> lors de la sauvegarde :</h4>
+      <h4>
+        <%= t("form.errors.title", count: @document.errors.count) %>
+      </h4>
 
       <ul>
       <% @disk.errors.full_messages.each do |msg| %>
