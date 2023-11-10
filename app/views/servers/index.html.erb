@@ -65,11 +65,11 @@
               </td>
               <td>
                 <div class="btn-group btn-group-sm btn-group-vertical" role="group" aria-label="...">
-                  <%= link_to t("actions.edit"), edit_server_path(server), class: 'btn btn-primary' %>
-                  <%= link_to t("actions.delete"),
+                  <%= link_to t("action.edit"), edit_server_path(server), class: 'btn btn-primary' %>
+                  <%= link_to t("action.delete"),
                               server,
                               method: :delete,
-                              data: { confirm: t("actions.confirm") },
+                              data: { confirm: t("action.confirm") },
                               class: 'btn btn-danger' %>
                 </div>
               </td>
