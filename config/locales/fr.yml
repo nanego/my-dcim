@@ -263,6 +263,16 @@ fr:
     destroy:
       flashes:
         destroyed: Le domaine a bien été supprimé.
+  memory_types:
+    index:
+      new_memory_type: Nouveau type de RAM
+      title: Liste des types de RAM
+    show:
+      title: Voir le type de RAM
+    new:
+      title: Nouveau type de RAM
+    edit:
+      title: Modifier un type de RAM
   devise:
     registrations:
       signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'
