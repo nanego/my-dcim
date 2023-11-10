@@ -33,6 +33,7 @@
     <a href="<%= maintainers_path %>" class="list-group-item <%= controller.controller_name == "maintainers" ? "active" : "" %>"><%= Maintainer.model_name.human.pluralize %></a>
     <a href="<%= contract_types_path %>" class="list-group-item <%= controller.controller_name == "contract_types" ? "active" : "" %>"><%= ContractType.model_name.human(count: 2) %></a>
     <a href="<%= disk_types_path %>" class="list-group-item <%= controller.controller_name == "disk_types" ? "active" : "" %>"><%= DiskType.model_name.human(count: 2) %></a>
+    <a href="<%= disks_path %>" class="list-group-item <%= controller.controller_name == "disks" ? "active" : "" %>"><%= Disk.model_name.human.pluralize %></a>
     <a href="<%= memory_types_path %>" class="list-group-item <%= controller.controller_name == "memory_types" ? "active" : "" %>"><%= MemoryType.model_name.human(count: 2) %></a>
   </div>
 

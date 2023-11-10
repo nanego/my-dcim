@@ -262,6 +262,16 @@ fr:
     destroy:
       flashes:
         destroyed: Le domaine a bien été supprimé.
+  disks:
+    index:
+      add_disk: Ajouter un nouveau disque
+      title: Liste des disques
+    show:
+      title: Voir le disque
+    new:
+      title: Nouveau disque
+    edit:
+      title: Modifier un disque
   devise:
     registrations:
       signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'

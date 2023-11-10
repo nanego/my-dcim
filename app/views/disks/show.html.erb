@@ -1,23 +1,31 @@
 <div class="page-header">
   <%= link_to disks_path, class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
-    Retour
+    <%= t("action.back") %>
   <% end %>
   <%= link_to edit_disk_path(@disk), class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-pencil"></span>
     Edit
   <% end %>
-  <h1>Voir disk</h1>
+  <h1>
+    <%= t(".title") %>
+  </h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt>Matériel:</dt>
+  <dt>
+    <%= Server.model_name.human %> :
+  </dt>
   <dd><%= @disk.server_id %></dd>
 
-  <dt>Disk type:</dt>
+  <dt>
+    <%= Disk.human_attribute_name(:disk_type) %> :
+  </dt>
   <dd><%= @disk.disk_type_id %></dd>
 
-  <dt>Quantity:</dt>
+  <dt>
+    <%= Disk.human_attribute_name(:quantity) %> :
+  </dt>
   <dd><%= @disk.quantity %></dd>
 
 </dl>

@@ -31,6 +31,7 @@ fr:
       memory_type:
         one: Type de RAM
         other: Types de RAM
+      disk: Disque
 
     attributes:
       maintenance_contract:
@@ -123,6 +124,10 @@ fr:
         quantity: Quantité
         unit: Unité
         technology: Technologie
+      disk:
+        disk_type: Type de disque
+        quantity: Quantité
+        server: Serveur
     errors:
       models:
         user:
