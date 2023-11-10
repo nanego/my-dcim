@@ -1,9 +1,17 @@
-<div class="page-header">
-  <%= link_to memory_types_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Retour
-  <% end %>
-  <h1>New memory_type</h1>
-</div>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  'Paramètres' => modeles_url,
+  'Types de RAM' => memory_types_path,
+  "Nouveau type de RAM" => '',
+} %>
 
-<%= render 'form' %>
+<div class="container">
+  <div class="page-header">
+    <%= link_to memory_types_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Retour
+    <% end %>
+    <h1>Nouveau type de RAM</h1>
+  </div>
+
+  <%= render 'form' %>
+</div>

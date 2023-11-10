@@ -1,9 +1,17 @@
-<div class="page-header">
-  <%= link_to categories_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Retour
-  <% end %>
-  <h1>New category</h1>
-</div>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  'Paramètres' => modeles_url,
+  'Types de matériel' => categories_path,
+  'Nouveau type de matériel' => '',
+} %>
 
-<%= render 'form' %>
+<div class="container">
+  <div class="page-header">
+    <%= link_to categories_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Retour
+    <% end %>
+    <h1>Nouvelle catégorie</h1>
+  </div>
+
+  <%= render 'form' %>
+</div>

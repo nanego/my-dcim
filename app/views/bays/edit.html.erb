@@ -1,11 +1,21 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Paramètres' => modeles_url, 'Baies et doubles-baies' => bays_path, @bay.frames.map(&:name).join(' - ') => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  'Paramètres' => modeles_url,
+  'Baies et doubles-baies' => bays_path,
+  @bay.frames.map(&:name).join(' - ') => ''}
+%>
 
-<div class="page-header">
-  <%= link_to bays_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Retour
-  <% end %>
-  <h1>Modifier la baie <%= @bay.bay_type_id == 2 ? 'double' : 'simple' %> <%= @bay.frames.map(&:name).join(' / ') %> </h1>
+<div class="container">
+  <div class="page-header">
+    <%= link_to bays_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Retour
+    <% end %>
+    <%= link_to @bay, class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-info-sign"></span>
+      Voir
+    <% end %>
+    <h1>Modifier la baie <%= @bay.bay_type_id == 2 ? 'double' : 'simple' %> <%= @bay.frames.map(&:name).join(' / ') %> </h1>
+  </div>
+
+  <%= render 'form' %>
 </div>
-
-<%= render 'form' %>

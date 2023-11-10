@@ -1,12 +1,17 @@
-<%
-  breadcrumb_variables = {'Salles' => overview_rooms_path,
-                          "Nouveau chassis" => ''}
-%>
-<%= render 'layouts/breadcrumb', breadcrumb_variables: breadcrumb_variables %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  'Paramètres' => modeles_url,
+  'Châssis' => frames_path,
+  "Nouveau châssis" => ''
+} %>
 
-<div class="page-header">
-  <h1>Nouveau châssis</h1>
+<div class="container">
+  <div class="page-header">
+    <%= link_to frames_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      <%= t("action.back") %>
+    <% end %>
+    <h1>Nouveau châssis</h1>
+  </div>
+
+  <%= render 'form' %>
 </div>
-
-<%= render 'form' %>
-
