@@ -34,24 +34,27 @@
             <th>
               <%= Site.human_attribute_name(:position) %>
             </th>
-            <th></th>
-            <th></th>
+            <th>
+              <%= Room.model_name.human.pluralize %>
+            </th>
             <th></th>
           </tr>
           </thead>
 
           <tbody>
           <%= content_tag_for(:tr, @sites) do |site| %>
-            <td><b><%= site %></b></td>
+            <td><b>
+              <%= link_to site.name, site_path(site) %>
+            </b></td>
             <td><%= site.position %></td>
             <td><%= Site.human_attribute_name(:rooms_count, count: site.rooms.count) %></td>
-            <td><%= link_to t("action.edit"), edit_site_path(site), class: 'btn btn-default' %></td>
-            <td>
+            <td class="text-right">
+              <%= link_to t("action.edit"), edit_site_path(site), class: 'btn btn-primary' %>
               <%= link_to t("action.delete"),
                           site,
                           method: :delete,
                           data: { confirm: t(".delete_confirmation") },
-                          class: 'btn btn-warning' %>
+                          class: 'btn btn-danger' %>
             </td>
           <% end %>
           </tbody>

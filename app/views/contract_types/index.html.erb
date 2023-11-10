@@ -31,20 +31,21 @@
                 <%= ContractType.human_attribute_name(:name) %>
               </th>
               <th></th>
-              <th></th>
             </tr>
           </thead>
 
           <tbody>
             <%= content_tag_for(:tr, @contract_types) do |contract_type| %>
-              <td><%= contract_type %></td>
-              <td><%= link_to t("action.edit"), edit_contract_type_path(contract_type) %></td>
               <td>
+                <%= link_to contract_type, contract_type_path(contract_type) %>
+              </td>
+              <td class="text-right">
+                <%= link_to t("action.edit"), edit_contract_type_path(contract_type), class: 'btn btn-primary' %>
                 <%= link_to t("action.delete"),
                             contract_type,
                             method: :delete,
-                            data: { confirm: t(".delete_confirmation") },
-                            class: 'btn btn-warning' %>
+                            data: { confirm: 'Toutes les données concernant ce type de contrat seront supprimées, ainsi que les contrats de maintenance associés. Voulez-vous continuer ?' },
+                            class: 'btn btn-danger' %>
               </td>
             <% end %>
           </tbody>

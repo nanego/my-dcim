@@ -31,15 +31,18 @@
                 <%= DiskType.human_attribute_name(:name) %>
               </th>
               <th></th>
-              <th></th>
             </tr>
           </thead>
 
           <tbody>
             <%= content_tag_for(:tr, @disk_types) do |disk_type| %>
-              <td><%= disk_type.to_s %></td>
-              <td><%= link_to t("action.edit"), edit_disk_type_path(disk_type) %></td>
-              <td><%= link_to t("action.delete"), disk_type, method: :delete, data: { confirm: t("action.confirm") }, class: 'btn btn-warning' %></td>
+              <td>
+                <%= link_to disk_type, disk_type_path(disk_type) %>
+              </td>
+              <td class="text-right">
+                <%= link_to t("action.edit"), edit_disk_type_path(disk_type), class: 'btn btn-primary' %>
+                <%= link_to t("action.delete"), disk_type, method: :delete, data: { confirm: t("action.confirm") }, class: 'btn btn-danger' %>
+              </td>
             <% end %>
           </tbody>
         </table>

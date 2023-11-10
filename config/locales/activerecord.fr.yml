@@ -71,6 +71,10 @@ fr:
           other: "%{count} serveurs"
       cluster:
         name: Nom
+        servers_label: Nombre de serveurs
+        servers:
+          one: 1 serveur
+          other: "%{count} serveurs"
       manufacturer:
         name: Nom
         usage: Usage
@@ -86,6 +90,7 @@ fr:
       stack:
         name: Nom
         color: Couleur
+        servers_label: Nombre de machines
         servers:
           one: "%{count} machine"
           other: "%{count} machines"
