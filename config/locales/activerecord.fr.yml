@@ -127,6 +127,9 @@ fr:
         name: Nom
         quantity: Quantité
         unit: Unité
+      category:
+        name: Nom
+        description: Description
     errors:
       models:
         user:
