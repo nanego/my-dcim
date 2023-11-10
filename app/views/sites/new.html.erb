@@ -1,11 +1,19 @@
-<div class="page-header">
-  <%= link_to sites_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    <%= t("action.back") %>
-  <% end %>
-  <h1>
-    <%= t(".title") %>
-  </h1>
-</div>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  'Paramètres' => modeles_url,
+  'Sites' => sites_path,
+  "Nouveau site" => ''
+} %>
 
-<%= render 'form' %>
+<div class="container">
+  <div class="page-header">
+    <%= link_to sites_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      <%= t("action.back") %>
+    <% end %>
+    <h1>
+      <%= t(".title") %>
+    </h1>
+  </div>
+
+  <%= render 'form' %>
+</div>

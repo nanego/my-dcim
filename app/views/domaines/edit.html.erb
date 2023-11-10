@@ -1,3 +1,9 @@
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  'Paramètres' => modeles_url,
+  'Domaines' => domaines_path,
+  @domaine => '',
+} %>
+
 <div class="container">
   <div class="page-header">
     <%= link_to domaines_path, class: 'btn btn-default' do %>

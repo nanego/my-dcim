@@ -1,13 +1,21 @@
-<div class="page-header">
-  <%= link_to memory_types_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Retour
-  <% end %>
-  <%= link_to @memory_type, class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-info-sign"></span>
-    Voir
-  <% end %>
-  <h1>Editing memory_type</h1>
-</div>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("breadcrumb.settings") => modeles_url,
+  MemoryType.model_name.human => memory_types_path,
+  @memory_type => '',
+} %>
 
-<%= render 'form' %>
+<div class="container">
+  <div class="page-header">
+    <%= link_to memory_types_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Retour
+    <% end %>
+    <%= link_to @memory_type, class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-info-sign"></span>
+      Voir
+    <% end %>
+    <h1>Modifier un type de RAM</h1>
+  </div>
+
+  <%= render 'form' %>
+</div>

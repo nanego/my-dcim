@@ -1,9 +1,21 @@
-<div class="page-header">
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  'Paramètres' => modeles_url,
+  'Salles' => rooms_path,
+  @room => ''
+} %>
+
+<div class="container">
+  <div class="page-header">
   <%= link_to rooms_path, class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
     Retour
   <% end %>
+  <%= link_to @room, class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-info-sign"></span>
+    Voir
+  <% end %>
   <h1>Modifier une salle</h1>
-</div>
+  </div>
 
-<%= render 'form' %>
+  <%= render 'form' %>
+</div>

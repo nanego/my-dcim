@@ -1,11 +1,19 @@
-<div class="page-header">
-  <%= link_to maintainers_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    <%= t("action.back") %>
-  <% end %>
-  <h1>
-    <%= t(".title") %>
-  </h1>
-</div>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("breadcrumb.settings") => modeles_url,
+  Maintainer.model_name.human.pluralize => maintainers_path,
+  t(".title") => '',
+} %>
 
-<%= render 'form' %>
+<div class="container">
+  <div class="page-header">
+    <%= link_to maintainers_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      <%= t("action.back") %>
+    <% end %>
+    <h1>
+        <%= t(".title") %>
+    </h1>
+  </div>
+
+  <%= render 'form' %>
+</div>

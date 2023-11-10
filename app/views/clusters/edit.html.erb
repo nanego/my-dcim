@@ -1,3 +1,9 @@
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  'Paramètres' => modeles_url,
+  'Clusters' => clusters_path,
+  @cluster => ''
+} %>
+
 <div class="container">
   <div class="page-header">
     <%= link_to clusters_path, class: 'btn btn-default' do %>

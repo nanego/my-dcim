@@ -1,11 +1,17 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Paramètres' => modeles_url, 'Baies et doubles-baies' => bays_path, 'Nouvelle baie' => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  'Paramètres' => modeles_url,
+  'Baies et doubles-baies' => bays_path,
+  'Nouvelle baie' => ''}
+%>
 
-<div class="page-header">
-  <%= link_to bays_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Retour
-  <% end %>
-  <h1>Ajouter une baie</h1>
+<div class="container">
+  <div class="page-header">
+    <%= link_to bays_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Retour
+    <% end %>
+    <h1>Ajouter une baie</h1>
+  </div>
+
+  <%= render 'form' %>
 </div>
-
-<%= render 'form' %>
