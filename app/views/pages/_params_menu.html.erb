@@ -8,7 +8,7 @@
     <a href="<%= rooms_path %>" class="list-group-item <%= controller.controller_name == "rooms" ? "active" : "" %>"><%= Room.model_name.human.pluralize %></a>
     <a href="<%= islets_path %>" class="list-group-item <%= controller.controller_name == "islets" ? "active" : "" %>"><%= Islet.model_name.human.pluralize %></a>
     <a href="<%= bays_path %>" class="list-group-item <%= controller.controller_name == "bays" ? "active" : "" %>"><%= t(".location.bays") %></a>
-    <a href="<%= frames_path %>" class="list-group-item <%= controller.controller_name == "frames" ? "active" : "" %>"><%= Frame.model_name.human.pluralize %></a>
+    <a href="<%= frames_path %>" class="list-group-item <%= controller.controller_name == "frames" ? "active" : "" %>"><%= Frame.model_name.human %></a>
   </div>
 
   <div class="list-group">
