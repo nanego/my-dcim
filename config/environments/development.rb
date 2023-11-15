@@ -79,7 +79,7 @@ Rails.application.configure do
     Bullet.add_footer = true
   end
 
-  # config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.default_url_options = { :host => Rails.application.secrets.domain_name }
 
   config.active_record.migration_error = false

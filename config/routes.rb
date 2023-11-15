@@ -67,6 +67,7 @@ Rails.application.routes.draw do
     collection do
       get :overview
       get :infrastructure
+      get :capacity
     end
   end
   resources :bays

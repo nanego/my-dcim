@@ -19,7 +19,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     end
   end
 
-  def ports_by_card_with_presentation(card:, selected_port: nil, moved_connections: [], twin_card_used_ports: [])
+  def ports_by_card_with_presentation(card:, selected_port: nil, moved_connections: [], twin_card_used_ports: [], simplified: false)
     card_type = card.card_type
     ports_per_cell = card_type.port_quantity.to_i / (card_type.rows * card_type.columns)
 
@@ -32,16 +32,18 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
         ports_per_cell.times do |cell_index|
 
           position = get_current_position(card.orientation, card_type, cell_index, row_index, column_index, ports_per_cell)
-          port_data = card.ports.detect {|p| p.position == position}
+          port_data = card.ports.detect { |p| p.position == position }
           port_id = port_data.try(:id)
-          port_data = include_moved_connections(moved_connections, port_data, port_id) # Add moved connections if any
+          port_data = include_moved_connections(moved_connections, port_data, port_id) unless simplified # Add moved connections if any
 
           html += content_tag(:span,
-                              link_to_port(position, port_data, card_type.port_type, card.id, port_id, (position - 1 + card.first_port_position).to_s.rjust(2, "0")),
+                              link_to_port(position, port_data, card_type.port_type, card.id, port_id, (position - 1 + card.first_port_position).to_s.rjust(2, "0"),
+                                           simplified: simplified),
                               class: "port_container
+                                      #{simplified ? "simplified" : ""}
                                       #{twin_card_used_ports && port_data && port_data.cable_name && twin_card_used_ports.exclude?(port_data.position) ? "no_client" : ""}
-                              #{twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(position) ? "unreferenced_client" : ""}
-                              #{selected_port.present? && port_id == selected_port.try(:id) ? "selected" : ""}")
+                                      #{twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(position) ? "unreferenced_client" : ""}
+                                      #{selected_port.present? && port_id == selected_port.try(:id) ? "selected" : ""}")
 
           if (cell_index + 1) % number_of_columns_in_cell(card.orientation, ports_per_cell, card_type.max_aligned_ports) == 0 # Every XX ports do
             html += '</div><div style="clear:both;" /><div style="display: flex;">'
@@ -61,7 +63,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
   def ports_by_card(port_type:, port_quantity:, ports_data:, card_id: nil, selected_port: nil, moved_connections: [], twin_card_used_ports: [])
     html = ""
     port_quantity.to_i.times do |index|
-      port_data = ports_data.detect {|p| p.position == index + 1}
+      port_data = ports_data.detect { |p| p.position == index + 1 }
       port_id = port_data.try(:id)
       port_data = include_moved_connections(moved_connections, port_data, port_id) # Add moved connections if any
 
@@ -79,14 +81,19 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     html.html_safe
   end
 
-  def link_to_port(position, port_data, port_type, card_id, port_id, default_label = '')
+  def link_to_port(position, port_data, port_type, card_id, port_id, default_label = '', simplified: false)
+    if simplified
+      cable_name = port_data.try(:cable_name).present? ? "" : default_label
+    else
+      cable_name = port_data.try(:cable_name).present? ? port_data.try(:cable_name) : default_label
+    end
     case port_type.name
     when 'RJ'
-      link_to_port_by_type(port_data && port_data.cable_name ? port_data.cable_name : default_label, "RJ", port_data, position, card_id, port_id)
+      link_to_port_by_type(cable_name, "RJ", port_data, position, card_id, port_id)
     when 'XRJ'
-      link_to_port_by_type(port_data && port_data.cable_name ? port_data.cable_name : default_label, "RJ", port_data, position, card_id, port_id)
+      link_to_port_by_type(cable_name, "RJ", port_data, position, card_id, port_id)
     when 'FC', 'SC'
-      link_to_port_by_type(port_data && port_data.cable_name ? port_data.cable_name : default_label, "FC", port_data, position, card_id, port_id)
+      link_to_port_by_type(cable_name, "FC", port_data, position, card_id, port_id)
     else
       link_to_port_by_type("#{port_data.try(:cable_name).present? ? port_data.try(:cable_name) : port_type.try(:name)}".html_safe, port_type.name, port_data, position, card_id, port_id)
     end
@@ -101,14 +108,14 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     end
     link_to label.to_s,
             edit_port_url,
-            {class: "port pull-left port#{port_class} #{port_data.try(:cable_color) ? port_data.try(:cable_color) : "empty"}",
-             id: port_id,
-             data: {url: edit_port_url,
-                    position: position,
-                    type: type,
-                    toggle: 'tooltip',
-                    placement: 'top',
-                    title: port_data.present? ? "#{port_data.vlans}" : ""}
+            { class: "port pull-left port#{port_class} #{port_data.try(:cable_color) ? port_data.try(:cable_color) : "empty"}",
+              id: port_id,
+              data: { url: edit_port_url,
+                      position: position,
+                      type: type,
+                      toggle: 'tooltip',
+                      placement: 'top',
+                      title: port_data.present? ? "#{port_data.vlans}" : "" }
             }
   end
 
@@ -127,8 +134,8 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       number_of_ports_in_previous_columns = column_index_in_cell * max_aligned_ports
       position_in_cell = max_aligned_ports - line_index_in_cell + number_of_ports_in_previous_columns
       position = (row_index * card_type.columns * ports_per_cell) +
-          (column_index * ports_per_cell) +
-          position_in_cell
+        (column_index * ports_per_cell) +
+        position_in_cell
     when 'td-lr'
       number_of_columns_in_cell = ports_per_cell.to_i / max_aligned_ports
       column_index_in_cell = cell_index % number_of_columns_in_cell
@@ -136,15 +143,16 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       number_of_ports_in_previous_columns = column_index_in_cell * max_aligned_ports
       position_in_cell = 1 + line_index_in_cell + number_of_ports_in_previous_columns
       position = (row_index * card_type.columns * ports_per_cell) +
-          (column_index * ports_per_cell) +
-          position_in_cell
+        (column_index * ports_per_cell) +
+        position_in_cell
     when 'rl-td'
       position = max_aligned_ports - ((row_index * card_type.columns * ports_per_cell) +
-          (column_index * ports_per_cell) + cell_index)
-    else # 'lr-td'
+        (column_index * ports_per_cell) + cell_index)
+    else
+      # 'lr-td'
       position = (row_index * card_type.columns * ports_per_cell) +
-          (column_index * ports_per_cell) +
-          cell_index + 1
+        (column_index * ports_per_cell) +
+        cell_index + 1
     end
     position
   end
@@ -153,14 +161,15 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     case orientation
     when 'dt-lr', 'td-lr'
       (ports_per_cell.to_i / max_aligned_ports.to_i).to_i
-    else # lr-td, rl-td
+    else
+      # lr-td, rl-td
       max_aligned_ports.to_i
     end
   end
 
   def include_moved_connections(moved_connections, port_data, port_id)
     if port_data.present? && moved_connections.present?
-      connection = moved_connections.select {|c| c.port_from_id == port_id || c.port_to_id == port_id}.first
+      connection = moved_connections.select { |c| c.port_from_id == port_id || c.port_to_id == port_id }.first
       port_data = connection if connection.present?
     end
     port_data

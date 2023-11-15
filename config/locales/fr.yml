@@ -306,6 +306,13 @@ fr:
   order-in-progress: 'Commande en cours'
 
   rooms:
+    title: Salles
+    capacity_view:
+      title: Vue capacité réseau
+      networks:
+        fiber: Fibre
+        giga: Réseau Gb
+        10giga: 10Gb
     action_buttons:
       caption:
         ports: Ports

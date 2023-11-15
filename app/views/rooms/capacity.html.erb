@@ -1,0 +1,215 @@
+<% provide :title, t("rooms.capacity_view.title") %>
+
+<%= render 'layouts/breadcrumb',
+           breadcrumb_variables: {
+             t("rooms.title") => overview_rooms_path,
+             t("rooms.capacity_view.title") => nil } %>
+
+<div class="container-fluid room_overview show_room rooms-network-capacity" id="network-capacity">
+  <div class="panel panel-default">
+    <div class="panel-body" style="display: flex;">
+
+      <ul class="list-unstyled col-xs-2 hidden-sm menu-rooms">
+
+        <div class="btn-group btn-toggle">
+          <button class="btn btn-primary active" data-toggle="tab" role="tab" data-network="1">
+            <%= t("rooms.capacity_view.networks.giga") %>
+          </button>
+          <button class="btn btn-default" data-toggle="tab" role="tab" data-network="2">
+            <%= t("rooms.capacity_view.networks.10giga") %>
+          </button>
+          <button class="btn btn-default inactive" data-toggle="tab" role="tab" data-network="3">
+            <%= t("rooms.capacity_view.networks.fiber") %>
+          </button>
+        </div>
+
+        <li class="divider" style="border-bottom: 1px lightgray solid;margin:10px -10px 8px -10px;"></li>
+
+        <% @sites.each do |site| %>
+          <li><%= site %></li>
+          <ul>
+            <% rooms = site.rooms.sorted.distinct %>
+            <% rooms.each do |room| %>
+              <% islets = room.islets.sorted.not_empty.has_name.distinct %>
+              <% islets.each do |islet| %>
+                <li role="presentation" class="<%= 'active' if islet == @islet %>">
+                  <% if islets.size <= 1 %>
+                    <a href="#<%= room.id %>-<%= islet %>-1"
+                       onclick="rewriteURL('/rooms/capacity', {'room': '<%= room.slug %>', 'islet': ''})"
+                       aria-controls="room-<%= room %>"
+                       role="tab"
+                       class="tab"
+                       data-toggle="tab"
+                       data-room-id="<%= room.id %>"
+                       data-islet="<%= islet.name %>">
+                      <%= room.name %>
+                    </a>
+                  <% else %>
+                    <a href="#<%= room.id %>-<%= islet %>-1"
+                       onclick="rewriteURL('/rooms/capacity', {'room': '<%= room.slug %>', 'islet': '<%= islet.name %>'})"
+                       aria-controls="islet-<%= islet %>"
+                       role="tab"
+                       class="tab"
+                       data-toggle="tab"
+                       data-room-id="<%= room.id %>"
+                       data-islet="<%= islet.name %>">
+                      <%= room.name %> Ilot <%= islet.name %>
+                    </a>
+                  <% end %>
+                </li>
+              <% end %>
+              <% if islets.empty? %>
+                <li><%= room.name %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        <% end %>
+      </ul>
+
+      <div class="tab-content col-xs-10 capacity">
+        <% @sites.each do |site| %>
+          <% site.rooms.each do |room| %>
+            <% room.islets.sorted.each do |islet| %>
+              <% [1, 2, 3].each do |network| %>
+
+                <div class="islet tab-pane <%= 'in active' if network == 1 && (islet == @islet || (@islet.blank? && @room == room)) %>"
+                     role="tabpanel"
+                     id="<%= room.id %>-<%= islet %>-<%= network %>">
+
+                  <div>
+
+                    <div class="rooms-overview">
+
+                      <% islet.bays.sorted.each do |bay| %>
+
+                        <div class="couple">
+
+                          <% bay.frames.sorted.each_with_index do |frame, index| %>
+
+                            <% servers = frame.servers.includes(:bay, :modele, :stack).where(network_id: network) # Switch LAN %>
+
+                            <div class="overviewed_frame <%= 'no-margin' if index > 0 %>"
+                                 data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.id %>">
+
+                              <div class="title">
+                                <%= link_to frame.name, room_path(@room,
+                                                                  view: params[:view],
+                                                                  islet: islet.name,
+                                                                  'bay-id': bay.id,
+                                                                  'frame-id': frame) %>
+                              </div>
+
+                              <ul>
+                                <% servers.each do |server| %>
+                                  <% data = { :url => server_url(server) } %>
+                                  <%= tag.li class: "server_#{server.id}
+                               lane-#{server.bay.lane}
+                               truncate
+                               #{"bordered" if server != servers.last}",
+                                             title: h("#{server.name}"),
+                                             data: data do %>
+
+                                    <% if server.modele.present? %>
+                                      <div>
+                                        <% server.modele.enclosures.each do |enclosure| %>
+                                          <% components_per_enclosure = enclosure.composants.where(name: "CM").slots %>
+                                          <% components_per_enclosure.each do |component| %>
+                                            <div>
+                                              <% server.cards.includes(:ports => :cable).select { |card| card.composant_id == component.id }.each do |card| %>
+                                                  <span data-server-name="<%= server.name %>"
+                                                        data-server-id="<%= server.id %>"
+                                                        data-composant-id="<%= card.id %>"
+                                                        data-composant-type="<%= card.class %>"
+                                                        data-composant-name="<%= component.name.present? ? component.name : component.position %>">
+                                                    <% if card.card_type && card.card_type.columns && card.card_type.rows %>
+                                                      <%= ports_by_card_with_presentation(card: card, simplified: true) %>
+                                                    <% else %>
+                                                      <%= ports_by_card(port_type: card.card_type.try(:port_type),
+                                                                        port_quantity: card.card_type.try(:port_quantity),
+                                                                        card_id: card.id,
+                                                                        ports_data: card.ports) %>
+                                                    <% end %>
+                                                  </span>
+                                              <% end %>
+                                            </div>
+                                          <% end %>
+                                        <% end %>
+                                        <%= link_to h(server.name),
+                                                    server_path(server, :view => params[:view]),
+                                                    { class: 'pull-left server_name', :data => { 'toggle': "tooltip", 'placement': "top" }, title: server.numero } %>
+                                      </div>
+                                    <% end %>
+
+                                  <% end %>
+                                <% end %>
+                              </ul>
+
+                            </div>
+
+                          <% end %>
+                        </div>
+
+                      <% end %>
+
+                    </div>
+                  </div>
+                </div>
+
+
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  var current_room_id = "<%= @room&.id.to_s %>"
+  var current_islet = "<%= @islet&.name.to_s %>"
+
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    // log(e.target.dataset)
+    current_room_id = e.target.dataset['roomId']
+    current_islet = e.target.dataset['islet']
+    // log(current_room_id)
+    // log(current_islet)
+  })
+
+  // Network switcher
+  $('.btn-toggle .btn').click(function (e) {
+    e.preventDefault()
+
+    // Update network switcher
+    var selected_btn = $(this)
+    var selected_network = selected_btn.data('network')
+    var btn_group = selected_btn.parent('.btn-group')
+    btn_group.find('.btn').removeClass('active')
+    btn_group.find('.btn').removeClass('btn-primary')
+    btn_group.find('.btn').addClass('btn-default')
+    btn_group.find(".btn[data-network='" + selected_network +"']").addClass('active')
+    btn_group.find(".btn[data-network='" + selected_network +"']").addClass('btn-primary')
+
+    // Update all tabs links with newly selected network AND show this network
+    var current_tab = $('.show_room li.active a.tab:first')
+    var tabs = $('.show_room li a.tab')
+    tabs.each(function () {
+      $(this).prop("href", $(this).attr('href').slice(0, -2) + "-" + btn_group.find('.btn.active').data("network"))
+      $(this).parent('li').removeClass('active')
+    })
+    current_tab.tab('show')
+  })
+
+  // Room selection
+  $('.show_room li a.tab').click(function (e) {
+    e.preventDefault()
+    var tabs = $('.show_room li a.tab')
+    tabs.each(function () { // Remove all active class
+      $(this).parent('li').removeClass('active')
+    })
+    $(this).tab('show')
+  })
+
+</script>
