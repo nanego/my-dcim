@@ -1,4 +1,4 @@
-<% server.cards.select {|card| card.composant_id == component.id}.each do |card| %>
+<% server.cards.includes(:ports => :cable).select {|card| card.composant_id == component.id}.each do |card| %>
 
   <% if card.twin_card_id
        twin_card = Card.find(card.twin_card_id)

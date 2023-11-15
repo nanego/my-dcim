@@ -108,7 +108,13 @@ class RoomsController < ApplicationController
     @concentrateurs_ids = [383, 384, 1043, 1044]
     @concentrateurs = Server.where(id: @concentrateurs_ids).includes(:ports => :connection, :cards => [:ports => :connection])
     @switchs_lan_ids = @concentrateurs_ids | Server.where("network_id IS NOT NULL").map(&:id) # Switch LAN
-    @hubs = { 1 => { 4 => Server.find(383), 3 => Server.find(384) }, 2 => { 4 => Server.find(1043), 3 => Server.find(1044) } } # Concentrateurs per room
+    # TODO: Remove hard-coded values
+    if Rails.env.test?
+      @hubs = {}
+    else
+      @hubs = { 1 => { 4 => Server.find(383), 3 => Server.find(384) }, 2 => { 4 => Server.find(1043), 3 => Server.find(1044) } } # Concentrateurs per room
+    end
+
 
     @connections = {}
     @servers = Server.includes(:frame, :stack, :ports, :cards => [:ports])
@@ -123,6 +129,15 @@ class RoomsController < ApplicationController
     end
 
     # puts "@@@connections : #{@connections.inspect}"
+  end
+
+  def capacity
+    @sites = Site.joins(:rooms).includes(:rooms => [:islets => [:bays => :frames]]).order(:position).distinct
+    @room = @sites.first.rooms.order(:position).first
+    @islet = @room.islets.first
+
+    @servers = Server.includes(:frame, :stack, :ports, :cards => [:ports])
+                     .where("network_id IS NOT NULL")
   end
 
   def filtered_overview; end

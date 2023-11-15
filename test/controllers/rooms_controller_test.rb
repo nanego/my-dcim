@@ -6,6 +6,7 @@ class RoomsControllerTest < ActionController::TestCase
   setup do
     sign_in users(:one)
     @room = rooms(:one)
+    @islet = islets(:one)
   end
 
   test "should get index" do
@@ -28,6 +29,18 @@ class RoomsControllerTest < ActionController::TestCase
 
   test "should get overview with cluster_id" do
     get :overview, params: { cluster_id: 1 }
+    assert_response :success
+    assert_not_nil assigns(:sites)
+  end
+
+  test "should get infrastructure view" do
+    get :infrastructure
+    assert_response :success
+    assert_not_nil assigns(:sites)
+  end
+
+  test "should get capacity view" do
+    get :capacity
     assert_response :success
     assert_not_nil assigns(:sites)
   end

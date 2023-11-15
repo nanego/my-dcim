@@ -1,30 +1,37 @@
 .rooms-overview {
   margin-top: 10px;
+
   .panel {
     margin-bottom: 10px;
   }
+
   .islet {
     margin: 0;
     padding: 0;
     background-color: #ffffff;
     border-bottom: 1px solid #e3e3e3;
+
     h5 {
       margin: 10px 0 10px 15px;
     }
   }
+
   .overviewed_frame {
     display: inline-flex;
     margin: 0 0 10px 10px;
     padding: 8px 6px;
     background-color: #F5F5F5;
     border: 1px solid #e3e3e3;
+
     &.no-margin {
       margin: 0 0 10px -5px;
     }
+
     &.highlighted {
       background-color: lightblue;
     }
   }
+
   .server {
     &.relegated {
       filter: alpha(opacity=30) !important;
@@ -44,6 +51,7 @@
     padding: 8px 6px;
     background-color: #F0F0F0;
     border: 1px solid #e3e3e3;
+
     &.no-margin {
       margin-bottom: 0;
     }
@@ -53,15 +61,19 @@
 .frames {
   .couple {
     cursor: pointer;
+
     &.hover {
       background-color: white;
+
       .couple-panel-footer {
         background-color: white;
       }
     }
+
     .frame {
       cursor: auto;
     }
+
     .panel-body {
       padding: 0;
     }
@@ -91,39 +103,47 @@
   .panel-body {
     padding: 0;
   }
+
   .islet h5 {
     text-align: center
   }
+
   .nav-tabs > li > a {
     border-radius: 0;
   }
+
   .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus {
     background-color: #FFDD99;
   }
+
   .rooms-overview {
     clear: both;
     display: grid;
-    width: -moz-fit-content;
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
   }
+
   .overviewed_frame {
     text-align: center;
     padding: 8px 6px 0 6px;
+
     &.hover {
       background-color: #FFDD99;
       cursor: pointer;
     }
+
     &.selected {
       background-color: #FFCC77;
     }
+
     .title {
       text-align: center;
       min-width: 100%;
       margin-bottom: 0;
       font-size: small;
     }
+
     ul {
       padding-left: 0;
       border: 1px #777777 solid;
@@ -132,16 +152,19 @@
       min-width: 100%;
     }
   }
+
   .menu-rooms {
     border-right: solid 1px #EAEAEA;
     background-color: #F4F4F4;
     padding-top: 15px;
     padding-bottom: 15px;
     margin-bottom: 0;
-    li.active{
+
+    li.active {
       list-style-type: disc;
     }
   }
+
   .room-actions {
     border-left: solid 1px #EAEAEA;
     background-color: #F4F4F4;
@@ -154,91 +177,178 @@
 
 .infrastructure {
   padding-top: 60px;
+
   .rooms-overview {
     margin-top: 80px;
-    .couple{
-      width:280px;
-      height:160px;
+
+    .couple {
+      width: 280px;
+      height: 160px;
     }
   }
-  .overviewed_frame{
+
+  .overviewed_frame {
     padding: 0;
     display: inline-grid;
     border: none;
     width: 125px;
-    .title{
+
+    .title {
       padding: 8px 6px;
       font-size: small;
-      a{
+
+      a {
         color: #555555
       }
     }
+
     margin-right: 12px;
     margin-left: 16px;
     margin-bottom: 96px;
-    ul{
+
+    ul {
       border: none;
       margin: 0;
       min-width: 100%;
     }
-    li{
+
+    li {
       border: none;
       list-style: none;
       padding: 0 4px;
       width: auto;
-      a{
+
+      a {
         color: #555555;
         font-size: small;
       }
     }
-    .server{
+
+    .server {
       cursor: pointer;
-      &.bordered{
+
+      &.bordered {
         border-bottom: 1px solid #e3e3e3;
       }
     }
   }
-  .intermediate-point{
+
+  .intermediate-point {
     z-index: -3000;
-    display:block;
+    display: block;
     position: relative;
     width: 0;
     height: 0;
     color: white;
-    &.pre{
+
+    &.pre {
       left: -40px;
     }
-    &.post{
+
+    &.post {
       right: -40px;
     }
-    &.even{
+
+    &.even {
       bottom: -90px;
     }
-    &.odd{
+
+    &.odd {
       top: -40px;
     }
   }
-  .hubs{
+
+  .hubs {
     display: flex;
     align-items: center;
     justify-content: center;
-    .other_room_hub{
+
+    .other_room_hub {
       border: 1px lightgray solid;
       padding: 0 5px 10px 5px;
       margin-left: 80px;
       margin-top: -10px;
     }
-    .hub_material{
+
+    .hub_material {
       background-color: #F5F5F5;
       border: none;
       padding: 8px 6px;
       text-align: center;
       cursor: pointer;
     }
-    a{
+
+    a {
       color: #555555;
     }
   }
 
 }
 
+.capacity {
+
+  padding-top: 40px;
+
+  .rooms-overview {
+    margin-top: 20px;
+
+    .couple {
+      height: auto;
+    }
+  }
+
+  .overviewed_frame {
+    padding: 0;
+    display: inline-grid;
+    margin-right: 12px;
+    margin-left: 16px;
+    margin-bottom: 32px;
+    border-bottom: none;
+    width: 612px;
+
+    .title {
+      padding: 3px 0;
+      font-size: small;
+      background-color: #B3C3C3;
+
+      a {
+        color: #555555;
+        font-weight: normal;
+      }
+    }
+
+    ul {
+      border: none;
+      margin: 0;
+      min-width: 100%;
+    }
+
+    li {
+      margin-top: 6px;
+      border-bottom: 1px solid #e3e3e3;
+      list-style: none;
+      padding: 0 4px;
+      width: auto;
+
+      a {
+        color: #555555;
+        font-size: small;
+      }
+    }
+
+    .server {
+      cursor: pointer;
+
+      &.bordered {
+        border-bottom: 1px solid #e3e3e3;
+      }
+    }
+  }
+
+  .port_container.simplified {
+    a {
+      border: 1px #555555 solid !important;
+    }
+  }
+
+}
