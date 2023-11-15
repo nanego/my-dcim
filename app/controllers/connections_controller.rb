@@ -1,6 +1,26 @@
 # frozen_string_literal: true
 
 class ConnectionsController < ApplicationController
+  before_action :set_connection, only: %i[show update destroy]
+
+  def index
+    @connections = Connection.all
+  end
+
+  def show; end
+
+  def create
+    @connection = Connection.new(connection_params)
+
+    respond_to do |format|
+      if @connection.save
+       format.json { render :show, status: :created, location: @connection }
+      else
+        format.json { render json: @connection.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def edit
     if params[:from_port_id].present? && params[:from_port_id].to_i > 0
       @from_port = Port.find_by_id(params[:from_port_id])
@@ -62,7 +82,7 @@ class ConnectionsController < ApplicationController
 
     respond_to do |format|
       format.html do
- redirect_to connections_edit_path(from_port_id: from_port.id), notice: 'La connexion a été mise à jour.'
+        redirect_to connections_edit_path(from_port_id: from_port.id), notice: 'La connexion a été mise à jour.'
       end
       format.js
     end
@@ -110,5 +130,23 @@ class ConnectionsController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def destroy
+    @connection.destroy
+
+    respond_to do |format|
+      format.json { head :no_content }
+    end
+  end
+
+  private
+
+  def set_connection
+    @connection = Connection.find(params[:id])
+  end
+
+  def connection_params
+    params.require(:connection).permit(:port_id, :cable_id)
   end
 end

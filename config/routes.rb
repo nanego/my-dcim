@@ -38,12 +38,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :ports, only: [:index, :edit, :update, :destroy]
+  resources :ports, only: %i[index show create edit update destroy]
+  resources :connections, only: %i[index show create update destroy]
   get 'connections/edit', :action => 'edit', controller: 'connections'
   post 'connections/update_destination_server', :action => 'update_destination_server', controller: 'connections'
   post 'connections/update', :action => 'update', controller: 'connections'
   get 'connections/draw', :action => 'draw', controller: 'connections', as: :draw_connections
-  resources :cables, only: [:destroy]
+  resources :cables, only: %i[index show create update destroy]
 
   resources :clusters
   resources :stacks
