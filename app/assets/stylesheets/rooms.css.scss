@@ -294,7 +294,10 @@
 
     .couple {
       height: auto;
+      min-height: 160px;
+      width: 280px;
     }
+
   }
 
   .overviewed_frame {
@@ -304,7 +307,7 @@
     margin-left: 16px;
     margin-bottom: 32px;
     border-bottom: none;
-    width: 612px;
+    width: 120px;
 
     .title {
       padding: 3px 0;
@@ -329,11 +332,26 @@
       list-style: none;
       padding: 0 4px;
       width: auto;
+      height: auto;
+
+      .card {
+        height: 12px;
+      }
+
+      .server_name {
+        font-size: x-small;
+      }
 
       a {
         color: #555555;
         font-size: small;
       }
+    }
+
+    .minimal_card_layout {
+      text-align: left;
+      transform: scale(0.18);
+      transform-origin: 0 0;
     }
 
     .server {
@@ -342,12 +360,6 @@
       &.bordered {
         border-bottom: 1px solid #e3e3e3;
       }
-    }
-  }
-
-  .port_container.simplified {
-    a {
-      border: 1px #555555 solid !important;
     }
   }
 

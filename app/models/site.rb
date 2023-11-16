@@ -5,6 +5,7 @@ class Site < ApplicationRecord
   after_validation :geocode
 
   has_many :rooms, dependent: :restrict_with_error
+  has_many :frames, through: :rooms, dependent: :restrict_with_error
 
   scope :sorted, -> { order(:position) }
 

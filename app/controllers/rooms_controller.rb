@@ -115,7 +115,6 @@ class RoomsController < ApplicationController
       @hubs = { 1 => { 4 => Server.find(383), 3 => Server.find(384) }, 2 => { 4 => Server.find(1043), 3 => Server.find(1044) } } # Concentrateurs per room
     end
 
-
     @connections = {}
     @servers = Server.includes(:frame, :stack, :ports, :cards => [:ports])
                      .where("network_id IS NOT NULL")
@@ -135,9 +134,6 @@ class RoomsController < ApplicationController
     @sites = Site.joins(:rooms).includes(:rooms => [:islets => [:bays => :frames]]).order(:position).distinct
     @room = @sites.first.rooms.order(:position).first
     @islet = @room.islets.first
-
-    @servers = Server.includes(:frame, :stack, :ports, :cards => [:ports])
-                     .where("network_id IS NOT NULL")
   end
 
   def filtered_overview; end
