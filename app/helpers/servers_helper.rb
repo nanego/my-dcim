@@ -19,7 +19,42 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     end
   end
 
-  def ports_by_card_with_presentation(card:, selected_port: nil, moved_connections: [], twin_card_used_ports: [], simplified: false)
+  def ports_by_card_minimal(card:)
+    card_type = card.card_type
+    ports_per_cell = card_type.port_quantity.to_i / (card_type.rows * card_type.columns)
+
+    html = "<table class='minimal_card_layout'>"
+    card_type.rows.to_i.times do |row_index|
+      html += "<tr>"
+      card_type.columns.to_i.times do |column_index|
+        html += "<td><div style='display: flex;'>"
+
+        ports_per_cell.times do |cell_index|
+
+          position = get_current_position(card.orientation, card_type, cell_index, row_index, column_index, ports_per_cell)
+          port_data = card.ports.detect { |p| p.position == position }
+          port_id = port_data.try(:id)
+
+          html += content_tag(:span,
+                              link_to_port_without_label(position, port_data, card_type.port_type, card.id, port_id),
+                              class: "port_container")
+
+          if (cell_index + 1) % number_of_columns_in_cell(card.orientation, ports_per_cell, card_type.max_aligned_ports) == 0 # Every XX ports do
+            html += '</div><div style="clear:both;" /><div style="display: flex;">'
+          end
+
+        end
+
+        html += "</div></td>"
+      end
+
+      html += "</tr>"
+    end
+    html += "</table>"
+    html.html_safe
+  end
+
+  def ports_by_card_with_presentation(card:, selected_port: nil, moved_connections: [], twin_card_used_ports: [])
     card_type = card.card_type
     ports_per_cell = card_type.port_quantity.to_i / (card_type.rows * card_type.columns)
 
@@ -34,13 +69,11 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
           position = get_current_position(card.orientation, card_type, cell_index, row_index, column_index, ports_per_cell)
           port_data = card.ports.detect { |p| p.position == position }
           port_id = port_data.try(:id)
-          port_data = include_moved_connections(moved_connections, port_data, port_id) unless simplified # Add moved connections if any
+          port_data = include_moved_connections(moved_connections, port_data, port_id) # Add moved connections if any
 
           html += content_tag(:span,
-                              link_to_port(position, port_data, card_type.port_type, card.id, port_id, (position - 1 + card.first_port_position).to_s.rjust(2, "0"),
-                                           simplified: simplified),
+                              link_to_port(position, port_data, card_type.port_type, card.id, port_id, (position - 1 + card.first_port_position).to_s.rjust(2, "0")),
                               class: "port_container
-                                      #{simplified ? "simplified" : ""}
                                       #{twin_card_used_ports && port_data && port_data.cable_name && twin_card_used_ports.exclude?(port_data.position) ? "no_client" : ""}
                                       #{twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(position) ? "unreferenced_client" : ""}
                                       #{selected_port.present? && port_id == selected_port.try(:id) ? "selected" : ""}")
@@ -81,22 +114,30 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     html.html_safe
   end
 
-  def link_to_port(position, port_data, port_type, card_id, port_id, default_label = '', simplified: false)
-    if simplified
-      cable_name = port_data.try(:cable_name).present? ? "" : default_label
-    else
-      cable_name = port_data.try(:cable_name).present? ? port_data.try(:cable_name) : default_label
-    end
+  def link_to_port_without_label(position, port_data, port_type, card_id, port_id)
+    port_type_name = case port_type.name
+                     when 'RJ', 'XRJ'
+                       "RJ"
+                     when 'FC', 'SC'
+                       "FC"
+                     else
+                       port_type.name
+                     end
+    link_to_port_by_type("", port_type_name, port_data, position, card_id, port_id)
+  end
+
+  def link_to_port(position, port_data, port_type, card_id, port_id, default_label = '')
+    cable_name = port_data.try(:cable_name).present? ? port_data.try(:cable_name) : default_label
     case port_type.name
-    when 'RJ'
-      link_to_port_by_type(cable_name, "RJ", port_data, position, card_id, port_id)
-    when 'XRJ'
-      link_to_port_by_type(cable_name, "RJ", port_data, position, card_id, port_id)
+    when 'RJ', 'XRJ'
+      port_type_name = "RJ"
     when 'FC', 'SC'
-      link_to_port_by_type(cable_name, "FC", port_data, position, card_id, port_id)
+      port_type_name = "FC"
     else
-      link_to_port_by_type("#{port_data.try(:cable_name).present? ? port_data.try(:cable_name) : port_type.try(:name)}".html_safe, port_type.name, port_data, position, card_id, port_id)
+      cable_name = "#{port_data.try(:cable_name).present? ? port_data.try(:cable_name) : port_type.try(:name)}".html_safe
+      port_type_name = port_type.name
     end
+    link_to_port_by_type(cable_name, port_type_name, port_data, position, card_id, port_id)
   end
 
   def link_to_port_by_type(label, type, port_data, position, card_id, port_id)
