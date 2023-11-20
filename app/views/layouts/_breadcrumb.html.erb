@@ -2,7 +2,7 @@
      breadcrumb_steps = breadcrumb_variables
    else
      breadcrumb_steps = {}
-     rooms = {'Salles' => overview_rooms_path}
+     rooms = {t("vizualisation") => overview_rooms_path}
      case controller.controller_name
      when 'rooms'
        breadcrumb_steps.merge!(rooms)

@@ -1,6 +1,6 @@
 <% provide :title, "Double baie #{@bay}" %>
 <%
-  breadcrumb_variables = {'Salles' => overview_rooms_path, @bay.room.name => room_path(@bay.room, view: params[:view])}
+  breadcrumb_variables = { t("vizualisation") => overview_rooms_path, @bay.room.name => room_path(@bay.room, view: params[:view]) }
   if @bay.islet.name.present?
     breadcrumb_variables["Ilot #{@bay.islet.name}"] = room_path(@bay.room, islet: @bay.islet.name, view: params[:view])
   elsif params[:islet].present?
@@ -12,10 +12,10 @@
 
 <div class="container-fluid" id="bay-container">
   <%= render partial: 'servers/room', locals: {
-              room: @bay.room,
-              islets: @servers_per_frames[@bay.islet.room_id],
-              title: @bay.frames.size > 1 ? "Double baie #{@bay}" : @bay,
-              view_side: params[:view],
+    room: @bay.room,
+    islets: @servers_per_frames[@bay.islet.room_id],
+    title: @bay.frames.size > 1 ? "Double baie #{@bay}" : @bay,
+    view_side: params[:view],
   } %>
 </div>
 

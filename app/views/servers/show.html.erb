@@ -1,6 +1,6 @@
 <% title = "#{@server.modele.try(:category).try(:name)} #{@server.name}" %>
 <% provide(:title, title) %>
-<%= render 'layouts/breadcrumb', breadcrumb_variables: { "Salles" => overview_rooms_path,
+<%= render 'layouts/breadcrumb', breadcrumb_variables: { t("vizualisation") => overview_rooms_path,
                                                          @server.frame.room.name => room_path(@server.frame.room, view: params[:view]),
                                                          "Ilot #{@server.frame.islet.name}" => room_path(@server.frame.room, islet: @server.frame.islet.name, :view => params[:view], bg: params[:bg]),
                                                          "Double baie #{@server.frame.bay}" => room_path(@server.frame.room, islet: @server.frame.islet.name, 'bay-id': @server.frame.bay_id, view: params[:view]),
@@ -75,7 +75,7 @@
             <%= @server.modele.try(:manufacturer) %>
             <% if (documentation_url = @server.documentation_url).present? %>
               (
-                <%= link_to "Documentation", documentation_url, target: :_blank, rel: :noopener %>
+              <%= link_to "Documentation", documentation_url, target: :_blank, rel: :noopener %>
               )
             <% end %>
           </dd>
@@ -199,7 +199,8 @@
            rescue Exception => e
              Rails.logger.warn "WARNING: couldn't get GLPI data because of an error: #{e.message}" %>
         <div class="panel-body">
-          Problème lors de la connexion à GLPI : <pre><code><%= e&.message.to_s %></code></pre>
+          Problème lors de la connexion à GLPI :
+          <pre><code><%= e&.message.to_s %></code></pre>
         </div>
       <% end
       %>
