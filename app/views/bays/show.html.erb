@@ -1,6 +1,6 @@
 <% provide :title, "Double baie #{@bay}" %>
 <%
-  breadcrumb_variables = { t("vizualisation") => overview_rooms_path, @bay.room.name => room_path(@bay.room, view: params[:view]) }
+  breadcrumb_variables = { t("visualization") => overview_rooms_path, @bay.room.name => room_path(@bay.room, view: params[:view]) }
   if @bay.islet.name.present?
     breadcrumb_variables["Ilot #{@bay.islet.name}"] = room_path(@bay.room, islet: @bay.islet.name, view: params[:view])
   elsif params[:islet].present?
