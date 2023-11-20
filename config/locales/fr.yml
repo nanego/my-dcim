@@ -22,6 +22,7 @@ fr:
       material_management:
         title: Gestion du matériel
   inventories: Inventaires
+  vizualisation: Visualisation
   sites:
     index:
       title: Sites

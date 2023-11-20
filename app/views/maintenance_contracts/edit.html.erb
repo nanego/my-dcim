@@ -1,9 +1,9 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {"Salles" => overview_rooms_path,
-                                          @maintenance_contract.server.frame.room.name => room_path(@maintenance_contract.server.frame.room),
-                                          "Ilot #{@maintenance_contract.server.frame.islet.name}" => room_path(@maintenance_contract.server.frame.room, islet: @maintenance_contract.server.frame.islet.name, :view => params[:view], bg: params[:bg]),
-                                          "Baie #{@maintenance_contract.server.frame.name}" => frame_path(@maintenance_contract.server.frame),
-                                          @maintenance_contract.server.name => server_path(@maintenance_contract.server),
-                                          "Contrat de maintenance" => '' } %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: { t("vizualisation") => overview_rooms_path,
+                                                         @maintenance_contract.server.frame.room.name => room_path(@maintenance_contract.server.frame.room),
+                                                         "Ilot #{@maintenance_contract.server.frame.islet.name}" => room_path(@maintenance_contract.server.frame.room, islet: @maintenance_contract.server.frame.islet.name, :view => params[:view], bg: params[:bg]),
+                                                         "Baie #{@maintenance_contract.server.frame.name}" => frame_path(@maintenance_contract.server.frame),
+                                                         @maintenance_contract.server.name => server_path(@maintenance_contract.server),
+                                                         "Contrat de maintenance" => '' } %>
 
 <div class="page-header">
   <h1>Contrat de maintenance</h1>

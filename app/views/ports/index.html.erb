@@ -1,6 +1,6 @@
 <%
   breadcrumb_variables = {}
-  breadcrumb_variables['Salles'] = overview_rooms_path
+  breadcrumb_variables[t('vizualisation')] = overview_rooms_path
   if @room.present?
     breadcrumb_variables["Salle #{@room.name}"] = room_path(@room)
   elsif @frame.present?

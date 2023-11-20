@@ -1,6 +1,6 @@
 <% provide(:title, "#{@server.modele.try(:category).try(:name)} #{@server.name} - Edition") %>
 
-<%= render 'layouts/breadcrumb', breadcrumb_variables: { "Salles" => overview_rooms_path,
+<%= render 'layouts/breadcrumb', breadcrumb_variables: { t("vizualisation") => overview_rooms_path,
                                                          @server.frame.room.name => room_path(@server.frame.room, view: params[:view]),
                                                          "Ilot #{@server.frame.islet.name}" => room_path(@server.frame.room, islet: @server.frame.islet.name, :view => params[:view], bg: params[:bg]),
                                                          "Double baie #{@server.frame.bay}" => room_path(@server.frame.room, islet: @server.frame.islet.name, 'bay-id': @server.frame.bay_id, view: params[:view]),
