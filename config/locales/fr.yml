@@ -13,7 +13,6 @@ fr:
     cancel: Annuler
     confirm: Are you sure ?
   breadcrumb:
-    settings: Paramètres
     disk_type: Disk type
   pages:
     params_menu:
@@ -22,6 +21,7 @@ fr:
         bays: Baies / Doubles-baies
       material_management:
         title: Gestion du matériel
+  inventories: Inventaires
   sites:
     index:
       title: Sites
@@ -35,7 +35,7 @@ fr:
       flashes:
         created: Site a bien été créé.
     edit:
-      title: Modifier un site
+      title: Modifier le site
     update:
       flashes:
         updated:
@@ -69,14 +69,14 @@ fr:
       title: Architectures
       delete_confirmation: Cette architecture ne pourra pas être supprimée tant qu'elle est associée à au moins un modèle. Voulez-vous continuer ?
     show:
-      title: Voir architecture
+      title: Voir l'architecture
     new:
       title: Nouvelle architecture
     create:
       flashes:
         created: L'architecture a bien été créée.
     edit:
-      title: Editer architecture
+      title: Modifier l'architecture
     update:
       flashes:
         updated: L'architecture a bien été modifiée.
