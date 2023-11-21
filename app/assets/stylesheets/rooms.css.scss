@@ -159,6 +159,7 @@
     padding-top: 15px;
     padding-bottom: 15px;
     margin-bottom: 0;
+    min-width: 243px;
 
     li.active {
       list-style-type: disc;
@@ -286,8 +287,8 @@
 }
 
 .capacity {
-
   padding-top: 40px;
+  overflow: auto;
 
   .rooms-overview {
     margin-top: 20px;
@@ -295,7 +296,7 @@
     .couple {
       height: auto;
       min-height: 160px;
-      width: 280px;
+      width: 296px;
     }
 
   }
@@ -307,7 +308,7 @@
     margin-left: 16px;
     margin-bottom: 32px;
     border-bottom: none;
-    width: 120px;
+    min-width: 130px;
 
     .title {
       padding: 3px 0;
@@ -350,8 +351,12 @@
 
     .minimal_card_layout {
       text-align: left;
-      transform: scale(0.18);
-      transform-origin: 0 0;
+
+      .portRJ, .portFC, .portSCSI {
+        border: none;
+        width: 4px;
+        height: 4px;
+      }
     }
 
     .server {
@@ -364,3 +369,4 @@
   }
 
 }
+
