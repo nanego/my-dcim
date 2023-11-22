@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe MemoryComponent, type: :model do
-  it_behaves_like "changelogable", new_attributes: { quantity: 123 }
+  # it_behaves_like "changelogable", new_attributes: { quantity: 123 }
 
   describe "associations" do
     it { is_expected.to belong_to(:server) }

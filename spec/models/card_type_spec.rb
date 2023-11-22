@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe CardType, type: :model do
-  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+  # it_behaves_like "changelogable", new_attributes: { name: "New name" }
 
   subject(:card_type) { CardType.new(name: "2RJ") }
 

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "ChangelogEntries", type: :request do
-  let(:object) { CardType.create!(name: "A") }
+  let(:object) { Color.create!(code: "FFFFFF") }
   let(:changelog_entry) { ChangelogEntry.create!(object: object, action: "create") }
 
   describe "GET #index" do

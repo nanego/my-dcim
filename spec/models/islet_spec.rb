@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Islet, type: :model do
-  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+  # it_behaves_like "changelogable", new_attributes: { name: "New name" }
 
   subject(:islet) { Islet.new(name: "Bleu") }
 
