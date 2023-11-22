@@ -26,7 +26,14 @@
   </div>
 
   <h3><%=t ".changes" %></h3>
-  <%= debug @changelog_entry.object_changed_attributes %>
+  <div class="row">
+    <div class="col-md-6">
+      <%=sanitize @changelog_entry.split_diff.left %>
+    </div>
+    <div class="col-md-6">
+      <%=sanitize @changelog_entry.split_diff.right %>
+    </div>
+  </div>
 
   <h3><%=t ".metadatas" %></h3>
   <dl class="dl-horizontal">

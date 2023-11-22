@@ -22,6 +22,30 @@ class ChangelogEntry < ApplicationRecord
     author_type&.safe_constantize&.model_name&.human || author_type
   end
 
+  def object_pre_change_attributes
+    object_changed_attributes.to_h do |k, v|
+      [k, v[0]]
+    end
+  end
+
+  def object_pre_change_attributes_to_json
+    JSON.pretty_generate(object_pre_change_attributes)
+  end
+
+  def object_post_change_attributes
+    object_changed_attributes.to_h do |k, v|
+      [k, v[1]]
+    end
+  end
+
+  def object_post_change_attributes_to_json
+    JSON.pretty_generate(object_post_change_attributes)
+  end
+
+  def split_diff
+    Diffy::SplitDiff.new(object_pre_change_attributes_to_json, object_post_change_attributes_to_json, format: :html)
+  end
+
   def action_label_to_component
     types = {
       create: :success,
