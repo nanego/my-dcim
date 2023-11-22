@@ -60,4 +60,11 @@ class PortsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def port_params
+   params.required(:port).permit(:position, :card_id, :vlans, :color, :cablename)
+  end
 end
