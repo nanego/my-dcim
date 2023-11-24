@@ -296,7 +296,7 @@
     .couple {
       height: auto;
       min-height: 160px;
-      width: 296px;
+      width: 490px;
     }
 
   }
@@ -308,7 +308,8 @@
     margin-left: 16px;
     margin-bottom: 32px;
     border-bottom: none;
-    min-width: 130px;
+    min-width: 226px;
+    text-align: left;
 
     .title {
       padding: 3px 0;
@@ -335,8 +336,13 @@
       width: auto;
       height: auto;
 
+      .sum {
+        font-size: small;
+        color: #555555;
+      }
+
       .card {
-        height: 12px;
+        height: 22px;
       }
 
       .server_name {
@@ -354,8 +360,8 @@
 
       .portRJ, .portFC, .portSCSI {
         border: none;
-        width: 4px;
-        height: 4px;
+        width: 8px;
+        height: 8px;
       }
     }
 
