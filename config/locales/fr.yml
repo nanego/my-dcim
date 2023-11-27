@@ -271,8 +271,17 @@ fr:
       title: Voir le type de RAM
     new:
       title: Nouveau type de RAM
+    create:
+      flashes:
+        created: Le type de RAM a bien été créé.
     edit:
       title: Modifier un type de RAM
+    update:
+      flashes:
+        updated: Le type de RAM a bien été modifié.
+    destroy:
+      flashes:
+        destroyed: Le type de RAM a bien été supprimé.
   devise:
     registrations:
       signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'
