@@ -27,6 +27,9 @@
 
         <dt><%= User.human_attribute_name(:created_at) %> :</dt>
         <dd><%= l @user.created_at, format: :long %></dd>
+
+        <dt><%= User.human_attribute_name(:authentication_token) %> :</dt>
+        <dd><%= @user.authentication_token %></dd>
       </dl>
     </div>
   </div>
