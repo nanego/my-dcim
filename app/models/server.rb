@@ -111,8 +111,10 @@ class Server < ApplicationRecord
 
   def directly_connected_servers_ids_with_color
     connected_ports.map do |port|
-      { server_id: port.server_id, cable_color: port.connection.try(:cable).try(:color) }
-    end
+      if port.card.present?
+        { server_id: port.server_id, cable_color: port.connection.try(:cable).try(:color) }
+      end
+    end.compact
   end
 
   def connected_ports
