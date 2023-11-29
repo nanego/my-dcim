@@ -5,6 +5,7 @@ class CablesController < ApplicationController
 
   def destroy
     port_id = params[:redirect_to_port_id]
+
     @cable.ports.each do |port|
       if @from_server.nil?
         @from_server = port.server
@@ -12,12 +13,16 @@ class CablesController < ApplicationController
         @to_server = port.server
       end
     end
+
     @cable.destroy
+
     respond_to do |format|
       format.html do
- redirect_to connections_edit_path(from_port_id: port_id), notice: 'Connection a bien été supprimé.'
+        redirect_to connections_edit_path(from_port_id: port_id), notice: 'Connection a bien été supprimé.'
       end
-      format.js {render 'connections/update'}
+
+      format.js { render 'connections/update' }
+      format.json { head :no_content }
     end
   end
 

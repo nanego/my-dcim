@@ -37,6 +37,7 @@ class PortsController < ApplicationController
 
   def update
     @port = Port.find_by_id(params[:id])
+
     respond_to do |format|
       if @port.update(port_params)
         format.html { redirect_to @port.card.server.frame, notice: 'Le port a été mis à jour.' }
@@ -53,6 +54,7 @@ class PortsController < ApplicationController
     @port = Port.find_by_id(params[:id])
     server = @port.card.server
     @port.destroy
+
     respond_to do |format|
       format.html { redirect_to server_path(server), notice: 'Le port a été supprimé' }
       format.json { head :no_content }
@@ -61,8 +63,8 @@ class PortsController < ApplicationController
 
   private
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def port_params
-      params.required(:port).permit(:position, :card_id, :vlans, :color, :cablename)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def port_params
+   params.required(:port).permit(:position, :card_id, :vlans, :color, :cablename)
+  end
 end

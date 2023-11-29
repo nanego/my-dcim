@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session, if: -> { request.format.json? }
 
   rescue_from ActiveRecord::RecordNotFound, with: :show_not_found_error
+  rescue_from ActiveRecord::RecordNotUnique, with: :show_api_error
 
   def after_sign_in_path_for(resource)
     # return request.env['omniauth.origin'] || stored_location_for(resource) || root_path
@@ -44,5 +45,11 @@ class ApplicationController < ActionController::Base
     raise exception unless request.format == :json
 
     head :not_found
+  end
+
+  def show_api_error(exception)
+    raise exception unless request.format == :json
+
+    render json: { exception: { name: exception.class.name, message: exception.message } }, status: :internal_server_error
   end
 end
