@@ -1,14 +1,18 @@
-<% provide(:title, "#{User.model_name.human.pluralize} | #{@user.name || @user.email}") %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: { User.model_name.human.pluralize => users_url, (@user.name || @user.email) => '' } %>
+<%- user_label = @user.name || @user.email %>
+<% provide(:title, "#{User.model_name.human.pluralize} | #{user_label}") %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: { User.model_name.human.pluralize => users_url, user_label => '' } %>
 
 <div class="well container">
   <div class="row">
     <div class="col-md-12">
       <div class="page-header">
-        <h1><%= User.model_name.human %></h1>
+        <h1><%= user_label %></h1>
       </div>
 
       <dl class="dl-horizontal well">
+        <dt><%= User.human_attribute_name(:id) %> :</dt>
+        <dd><%= @user.id %></dd>
+
         <dt><%= User.human_attribute_name(:name) %> :</dt>
         <dd><%= @user.name %></dd>
 
@@ -17,6 +21,12 @@
 
         <dt><%= User.human_attribute_name(:role) %> :</dt>
         <dd><%= User.human_attribute_name("role.#{@user.role}") %></dd>
+
+        <dt><%= User.human_attribute_name(:last_sign_in_at) %> :</dt>
+        <dd><%= l @user.last_sign_in_at, format: :long %></dd>
+
+        <dt><%= User.human_attribute_name(:created_at) %> :</dt>
+        <dd><%= l @user.created_at, format: :long %></dd>
       </dl>
     </div>
   </div>
