@@ -1,8 +1,23 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Utilisateurs' => users_url, @user.name => ''} %>
+<% provide(:title, "#{User.model_name.human.pluralize} | #{@user.name || @user.email}") %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: { User.model_name.human.pluralize => users_url, (@user.name || @user.email) => '' } %>
 
 <div class="well container">
-  <h3>User</h3>
-  <p>Name: <%= @user.name if @user.name %></p>
-  <p>Email: <%= @user.email if @user.email %></p>
-  <p>Role: <%= @user.role %></p>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="page-header">
+        <h1><%= User.model_name.human %></h1>
+      </div>
+
+      <dl class="dl-horizontal well">
+        <dt><%= User.human_attribute_name(:name) %> :</dt>
+        <dd><%= @user.name %></dd>
+
+        <dt><%= User.human_attribute_name(:email) %> :</dt>
+        <dd><%= @user.email %></dd>
+
+        <dt><%= User.human_attribute_name(:role) %> :</dt>
+        <dd><%= User.human_attribute_name("role.#{@user.role}") %></dd>
+      </dl>
+    </div>
+  </div>
 </div>

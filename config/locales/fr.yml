@@ -4,7 +4,9 @@ fr:
     false: Non
   form:
     errors:
-      title: "%{count} erreurs lors de la sauvegarde :"
+      title:
+        one: '1 erreur lors de la sauvegarde :'
+        other: '%{count} erreurs lors de la sauvegarde :'
     submit: Valider
   action:
     edit: Modifier
@@ -14,7 +16,10 @@ fr:
     close: Fermer
     save: Enregistrer
     cancel: Annuler
-    confirm: Are you sure ?
+    add: Ajouter
+    confirm: Êtes-vous sûr ?
+  breadcrumb:
+    disk_type: Disk type
   export_button:
     label: Exports
     exports:
@@ -425,6 +430,14 @@ fr:
         ports: Ports
         unreferenced_client: Le port correspondant de la carte jumelle est câblé
         no_client: Le port correspondant de la carte jumelle n'est pas câblé
+
+  users:
+    index:
+      new_user: Ajouter un utilisateur
+    user:
+      change_role: Changer le rôle
+    new:
+      new_user: Ajouter un utilisateur
 
   views:
     pagination:
