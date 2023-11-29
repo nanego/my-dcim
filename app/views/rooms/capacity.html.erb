@@ -118,7 +118,7 @@
 
                                       <% if server.modele.present? %>
                                         <% server.modele.enclosures.each do |enclosure| %>
-                                          <% components_per_enclosure = enclosure.composants.select { |c| c.name == "CM" } %>
+                                          <% components_per_enclosure = enclosure.composants.reject { |c| c.name&.downcase == "alim" } %>
                                           <% components_per_enclosure.each do |component| %>
                                             <% server.cards.select { |card| card.composant_id == component.id }.each do |card| %>
                                               <div class="card"
