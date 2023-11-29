@@ -259,24 +259,24 @@ fr:
       url_placeholder: "https://url_du_frabricant.com/suite_de_l_url/%s/reste_s_il_y_a"
       information_html: il faut remplacer le numéro de série dans l'URL par <code>%s</code>."
     index:
-      new_manufacturer: Ajouter une manufacturer
-      title: Fabricants
-      delete_confirmation: Ce mainteneur ne pourra pas être supprimé tant qu'il sera associé à au moins un modèle. Voulez-vous continuer ?
+      new_manufacturer: Ajouter un constructeur
+      title: Constructeurs
+      delete_confirmation: Ce constructeur ne pourra pas être supprimé tant qu'il sera associé à au moins un modèle. Voulez-vous continuer ?
     show:
-      title: Voir fabricant
+      title: Voir le constructeur
     new:
-      title: Nouveau fabricant
+      title: Nouveau constructeur
     create:
       flashes:
-        created: Le fabricant a bien été créé.
+        created: Le constructeur a bien été créé.
     edit:
-      title: Modifier fabricant
+      title: Modifier le constructeur
     update:
       flashes:
-        updated: Le fabricant a bien été modifié.
+        updated: Le constructeur a bien été modifié.
     destroy:
       flashes:
-        destroyed: Le fabricant a bien été supprimé.
+        destroyed: Le constructeur a bien été supprimé.
   domaines:
     index:
       new_domaine: Ajouter un domaine

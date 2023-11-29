@@ -6,14 +6,16 @@ fr:
       maintainer: Mainteneur
       room: Salle
       islet: Ilot
-      bay: Baies
+      bay:
+        one: Baie / Double-baie
+        other: Baies / Double-baies
       frame:
         one: Châssis
         other: Châssis
       modele: Modèle
       category: Catégorie
       architecture: Architecture
-      manufacturer: Fabricant
+      manufacturer: Constructeur
       domaine: Domaine
       gestion: Gestionnaire
       cluster: Cluster
