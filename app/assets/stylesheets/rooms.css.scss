@@ -339,14 +339,13 @@
       .sum {
         font-size: small;
         color: #555555;
-      }
-
-      .card {
-        height: 22px;
+        margin: 4px 0;
       }
 
       .server_name {
         font-size: x-small;
+        max-width: 160px;
+        margin-top: 5px;
       }
 
       a {
