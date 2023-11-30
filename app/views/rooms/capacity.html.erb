@@ -119,27 +119,31 @@
                                       <% if server.modele.present? %>
                                         <% server.modele.enclosures.each do |enclosure| %>
                                           <% components_per_enclosure = enclosure.composants.reject { |c| c.name&.downcase == "alim" } %>
-                                          <% components_per_enclosure.each do |component| %>
-                                            <% server.cards.select { |card| card.composant_id == component.id }.each do |card| %>
-                                              <div class="card"
-                                                   data-server-name="<%= server.name %>"
-                                                   data-server-id="<%= server.id %>"
-                                                   data-composant-id="<%= card.id %>"
-                                                   data-composant-type="<%= card.class %>"
-                                                   data-composant-name="<%= component.name.present? ? component.name : component.position %>">
-                                                <% if card.card_type && card.card_type.columns && card.card_type.rows %>
-                                                  <%= ports_by_card_minimal(card: card) %>
-                                                <% else %>
-                                                  <%= ports_by_card(port_type: card.card_type.try(:port_type),
-                                                                    port_quantity: card.card_type.try(:port_quantity),
-                                                                    card_id: card.id,
-                                                                    ports_data: card.ports) %>
+                                          <% if enclosure.display != 'horizontal' %>
+                                            <table>
+                                              <tr>
+                                                <% components_per_enclosure.each do |component| %>
+                                                  <td class="slot_column" style="border: none;">
+                                                    <% server.cards.select { |card| card.composant_id == component.id }.each do |card| %>
+                                                      <%= render partial: 'rooms/capacity_component', locals: { server: server, component: component, card: card } %>
+                                                    <% end %>
+                                                  </td>
                                                 <% end %>
-                                              </div>
-                                              <span class="sum">
-                                                <%= card.cables.size %> /
-                                                <%= card.port_quantity %>
-                                              </span>
+                                              </tr>
+                                            </table>
+                                            <span class="sum">
+                                              <%= server.cards.sum { |c| c.cables.size } %> /
+                                              <%= server.cards.sum { |c| c.port_quantity } %>
+                                            </span>
+                                          <% else %>
+                                            <% components_per_enclosure.each do |component| %>
+                                              <% server.cards.select { |card| card.composant_id == component.id }.each do |card| %>
+                                                <%= render partial: 'rooms/capacity_component', locals: { server: server, component: component, card: card } %>
+                                                <span class="sum">
+                                                  <%= card.cables.size %> /
+                                                  <%= card.port_quantity %>
+                                                </span>
+                                              <% end %>
                                             <% end %>
                                           <% end %>
                                         <% end %>

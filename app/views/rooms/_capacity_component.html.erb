@@ -1,0 +1,15 @@
+<div class="card"
+     data-server-name="<%= server.name %>"
+     data-server-id="<%= server.id %>"
+     data-composant-id="<%= card.id %>"
+     data-composant-type="<%= card.class %>"
+     data-composant-name="<%= component.name.present? ? component.name : component.position %>">
+  <% if card.card_type && card.card_type.columns && card.card_type.rows %>
+    <%= ports_by_card_minimal(card: card) %>
+  <% else %>
+    <%= ports_by_card(port_type: card.card_type.try(:port_type),
+                      port_quantity: card.card_type.try(:port_quantity),
+                      card_id: card.id,
+                      ports_data: card.ports) %>
+  <% end %>
+</div>
