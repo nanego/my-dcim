@@ -134,6 +134,8 @@ class RoomsController < ApplicationController
     @sites = Site.joins(:rooms).includes(:rooms => [:islets => [:bays => :frames]]).order(:position).distinct
     @room = @sites.first.rooms.order(:position).first
     @islet = @room.islets.first
+    @servers_last_update_time = Server.maximum(:updated_at).to_s
+    @ports_last_update_time = Port.maximum(:updated_at).to_s
   end
 
   def filtered_overview; end

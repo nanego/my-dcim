@@ -20,7 +20,7 @@ class Port < ApplicationRecord
   has_one :cable, through: :connection
   delegate :color, to: :cable, prefix: true, allow_nil: true
   delegate :name, to: :cable, prefix: true, allow_nil: true
-  has_one :server, through: :card
+  has_one :server, through: :card, touch: true
   delegate :server_id, to: :card, prefix: false
 
   scope :sorted, -> {order(:position)}

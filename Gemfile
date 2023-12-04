@@ -79,6 +79,7 @@ end
 group :production do
   gem "mini_racer"
   gem "passenger"
+  gem "dalli"
 end
 
 gem "acts_as_list"
