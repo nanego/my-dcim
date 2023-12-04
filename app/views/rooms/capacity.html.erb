@@ -90,10 +90,12 @@
 
                             <% frames.each_with_index do |frame, index| %>
 
-                              <% servers = frame.servers.includes(:bay, :stack,
-                                                                  :modele => { :enclosures => :composants },
-                                                                  :cards => { :ports => :cable })
-                                                .where(network_id: network) # Switch LAN %>
+                              <% servers = Rails.cache.fetch(["frame", "servers", frame.id, frame.updated_at, network, @servers_last_update_time, @ports_last_update_time]) do
+                                frame.servers.includes(:bay, :stack,
+                                                       :modele => { :enclosures => :composants },
+                                                       :cards => [{ :card_type => :port_type }, { :ports => :cable }])
+                                     .where(network_id: network) # Switch LAN
+                              end %>
 
                               <div class="overviewed_frame <%= 'no-margin' if index > 0 %>"
                                    data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.id %>">
@@ -108,51 +110,54 @@
 
                                 <ul>
                                   <% servers.each do |server| %>
-                                    <% data = { :url => server_url(server) } %>
-                                    <%= tag.li class: "server_#{server.id}
+                                    <% cache ["server", server.id, server.updated_at.to_s, @ports_last_update_time] do %>
+                                      <% data = { :url => server_url(server) } %>
+                                      <%= tag.li class: "server_#{server.id}
                                                      lane-#{server.bay.lane}
                                                      truncate
                                                      #{"bordered" if server != servers.last}",
-                                               title: h("#{server.name}"),
-                                               data: data do %>
+                                                 title: h("#{server.name}"),
+                                                 data: data do %>
 
-                                      <% if server.modele.present? %>
-                                        <% server.modele.enclosures.each do |enclosure| %>
-                                          <% components_per_enclosure = enclosure.composants.reject { |c| c.name&.downcase == "alim" } %>
-                                          <% if enclosure.display != 'horizontal' %>
-                                            <table>
-                                              <tr>
-                                                <% components_per_enclosure.each do |component| %>
-                                                  <td class="slot_column" style="border: none;">
-                                                    <% server.cards.select { |card| card.composant_id == component.id }.each do |card| %>
-                                                      <%= render partial: 'rooms/capacity_component', locals: { server: server, component: component, card: card } %>
-                                                    <% end %>
-                                                  </td>
-                                                <% end %>
-                                              </tr>
-                                            </table>
-                                            <span class="sum">
-                                              <%= server.cards.sum { |c| c.cables.size } %> /
-                                              <%= server.cards.sum { |c| c.port_quantity } %>
+                                        <% if server.modele.present? %>
+                                          <% server.modele.enclosures.each do |enclosure| %>
+                                            <% cards = server.cards %>
+                                            <% components_per_enclosure = enclosure.composants.reject { |c| c.name&.downcase == "alim" } %>
+                                            <% if enclosure.display != 'horizontal' %>
+                                              <table>
+                                                <tr>
+                                                  <% components_per_enclosure.each do |component| %>
+                                                    <td class="slot_column" style="border: none;">
+                                                      <% cards.select { |card| card.composant_id == component.id }.each do |card| %>
+                                                        <%= render partial: 'rooms/capacity_component', locals: { server: server, component: component, card: card } %>
+                                                      <% end %>
+                                                    </td>
+                                                  <% end %>
+                                                </tr>
+                                              </table>
+                                              <span class="sum">
+                                              <%= cards.sum { |c| c.cables.size } %> /
+                                                <%= cards.sum { |c| c.port_quantity } %>
                                             </span>
-                                          <% else %>
-                                            <% components_per_enclosure.each do |component| %>
-                                              <% server.cards.select { |card| card.composant_id == component.id }.each do |card| %>
-                                                <%= render partial: 'rooms/capacity_component', locals: { server: server, component: component, card: card } %>
-                                                <span class="sum">
+                                            <% else %>
+                                              <% components_per_enclosure.each do |component| %>
+                                                <% cards.select { |card| card.composant_id == component.id }.each do |card| %>
+                                                  <%= render partial: 'rooms/capacity_component', locals: { server: server, component: component, card: card } %>
+                                                  <span class="sum">
                                                   <%= card.cables.size %> /
-                                                  <%= card.port_quantity %>
+                                                    <%= card.port_quantity %>
                                                 </span>
+                                                <% end %>
                                               <% end %>
                                             <% end %>
                                           <% end %>
+                                          <%= link_to h(server.name),
+                                                      server_path(server, :view => params[:view]),
+                                                      { class: 'pull-right server_name', :data => { 'toggle': "tooltip", 'placement': "top" }, title: server.numero } %>
+
                                         <% end %>
-                                        <%= link_to h(server.name),
-                                                    server_path(server, :view => params[:view]),
-                                                    { class: 'pull-right server_name', :data => { 'toggle': "tooltip", 'placement': "top" }, title: server.numero } %>
 
                                       <% end %>
-
                                     <% end %>
                                   <% end %>
                                 </ul>
