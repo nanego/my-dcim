@@ -9,9 +9,7 @@ fr:
       bay:
         one: Baie / Double-baie
         other: Baies / Double-baies
-      frame:
-        one: Châssis
-        other: Châssis
+      frame: Châssis
       modele: Modèle
       category: Catégorie
       architecture: Architecture
