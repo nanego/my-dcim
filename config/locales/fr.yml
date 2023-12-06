@@ -284,9 +284,9 @@ fr:
         destroyed: Le type de RAM a bien été supprimé.
   categories:
     index:
-      new_category: Ajouter un type de matériel
-      title: Types de matériel
-      delete_confirmation: Ce type de matériel ne pourra pas être supprimé tant qu'il aura au moins un modèle associé. Voulez-vous continuer ?
+      new_category: Ajouter une catégorie
+      title: Catégories
+      delete_confirmation: Cette catégorie ne pourra pas être supprimé tant qu'il aura au moins un modèle associé. Voulez-vous continuer ?
       usage: Usage
     show:
       title: Voir la catégorie
