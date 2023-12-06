@@ -38,9 +38,10 @@ fr:
         name: Nom
         room: Salle
         position: Position
+        frames: Nombre de châssis
         frames_count:
-          one: 1 chassis
-          other: '%{count} chassis'
+          one: 1 châssis
+          other: '%{count} châssis'
       maintenance_contract:
         server_id: Serveur
         start_date: Date de début

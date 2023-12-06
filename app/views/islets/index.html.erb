@@ -39,6 +39,9 @@
             <th>
               <%= Islet.human_attribute_name(:position) %>
             </th>
+            <th>
+              <%= Islet.human_attribute_name(:frames) %>
+            </th>
             <th></th>
           </tr>
           </thead>
@@ -55,7 +58,7 @@
               <%= link_to islet, islet_path(islet) %>
             </b></td>
             <td><%= islet.position %></td>
-            <td><%= islet.frames.count.to_s + ' chassis' %></td>
+            <td><%= Islet.human_attribute_name(:frames_count, count: islet.frames.count) %></td>
             <td class="text-right">
               <%= render partial: "islets/export_button", locals: { islet: islet } %>
               <%= link_to t("action.edit"), edit_islet_path(islet), class: 'btn btn-primary' %>
