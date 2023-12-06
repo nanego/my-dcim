@@ -357,7 +357,6 @@ fr:
     enclosure_fields:
       enclosure_position: Enclosure %{position}
       new_enclosure: Nouvelle enclosure
-      display: "Type d'affichage :"
       grid_areas: "Grid areas :"
       add_slot: Ajouter un slot
     composant_fields:

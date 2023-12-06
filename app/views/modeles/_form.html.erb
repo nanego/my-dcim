@@ -16,11 +16,11 @@
     <div class="col-sm-10 col-md-11">
       <%= f.text_field :name, class: "form-control" %>
     </div>
-    <%= f.label :category, class: "col-sm-2 col-md-1 control-label" %>
+    <%= f.label :category_id, class: "col-sm-2 col-md-1 control-label" %>
     <div class="col-sm-10 col-md-5">
       <%= f.collection_select(:category_id, Category.order(Arel.sql('LOWER(name)')), :id, :name, {}, {class: "form-control"}) %>
     </div>
-    <%= f.label :architecture, class: "col-sm-2 col-md-1 control-label" %>
+    <%= f.label :architecture_id, class: "col-sm-2 col-md-1 control-label" %>
     <div class="col-sm-10  col-md-5">
       <%= f.collection_select(:architecture_id, Architecture.order(Arel.sql('LOWER(name)')), :id, :name, {}, {class: "form-control"}) %>
     </div>
@@ -28,7 +28,7 @@
     <div class="col-sm-10 col-md-5">
       <%= f.number_field :u, class: "form-control" %>
     </div>
-    <%= f.label :manufacturer, class: "col-sm-2 col-md-1 control-label" %>
+    <%= f.label :manufacturer_id, class: "col-sm-2 col-md-1 control-label" %>
     <div class="col-sm-10 col-md-5">
       <%= f.collection_select(:manufacturer_id, Manufacturer.order(Arel.sql('LOWER(name)')), :id, :name, {}, {class: "form-control"}) %>
     </div>
@@ -42,7 +42,7 @@
     </div>
   </div>
   <div>
-    <%= content_tag :span, Modele.human_attribute_name(:enclosures), class: "col-sm-2 control-label" %>
+    <%= content_tag :span, Enclosure.model_name.human.pluralize, class: "col-sm-2 control-label" %>
     <%= f.fields_for :enclosures do |builder| %>
         <%= render "enclosure_fields", :f => builder %>
     <% end %>

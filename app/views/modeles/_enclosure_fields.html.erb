@@ -10,13 +10,13 @@
     <ul id="enclosureList_<%= f.object.id %>" class="list-group panel-body">
       <div class="list-group-item filtered">
         <fieldset>
-          <%= f.label t(".display") %>
+          <%= f.label :display %> :
           <%= f.select :display, options_for_select([:vertical, :horizontal, :grid], f.object.display) %>
         </fieldset>
       </div>
       <div class="list-group-item filtered">
         <fieldset>
-          <%= f.label t(".grid_areas") %>
+          <%= f.label :grid_areas %>
           <%= f.text_area :grid_areas, style: "font-family: monospace;width: 100%; height: 110px;" %>
         </fieldset>
       </div>

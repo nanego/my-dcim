@@ -34,6 +34,7 @@ fr:
       memory_type:
         one: Type de RAM
         other: Types de RAM
+      enclosure: Enclosure
 
     attributes:
       islet:
@@ -148,11 +149,17 @@ fr:
       modele:
         name: Nom
         category: Catégorie
+        category_id: Catégorie
         architecture: Architecture
+        architecture_id: Architecture
         manufacturer: Fabricant
+        manufacturer_id: Fabricant
         nb_elts: Nb d'éléments
         color: Couleur
         enclosures: Composants
+      enclosure:
+        display: Disposition
+        grid_areas: Grid areas
     errors:
       models:
         user:
