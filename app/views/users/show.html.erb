@@ -2,10 +2,14 @@
 <% provide(:title, "#{User.model_name.human.pluralize} | #{user_label}") %>
 <%= render "layouts/breadcrumb", breadcrumb_variables: { User.model_name.human.pluralize => users_url, user_label => '' } %>
 
-<div class="well container">
+<div class="well container" data-controller="reveal">
   <div class="row">
     <div class="col-md-12">
       <div class="page-header">
+        <button class="btn btn-default pull-right" data-action="click->reveal#toggle" type="button">
+          <%= t(".action.show_authentication_token") %>
+        </button>
+
         <h1><%= user_label %></h1>
       </div>
 
@@ -29,7 +33,11 @@
         <dd><%= l @user.created_at, format: :long %></dd>
 
         <dt><%= User.human_attribute_name(:authentication_token) %> :</dt>
-        <dd><%= @user.authentication_token %></dd>
+        <dd>
+          <span data-reveal-target="item" class="hidden">
+            <%= @user.authentication_token %>
+          </span>
+        </dd>
       </dl>
     </div>
   </div>

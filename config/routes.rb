@@ -94,6 +94,8 @@ Rails.application.routes.draw do
     collection do
       post :add_user
     end
+
+    get :reset_authentication_token, on: :member
   end
 
   resources :activities

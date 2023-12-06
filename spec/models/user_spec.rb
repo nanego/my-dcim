@@ -16,4 +16,13 @@ RSpec.describe User, type: :model do
   describe "enumerize user role" do
     it { should define_enum_for(:role).with_values([:user, :vip, :admin]) }
   end
+
+  describe "#regenerate_authentication_token!" do
+    before do
+      user.authentication_token = "auth_token"
+      user.regenerate_authentication_token!
+    end
+
+    it { expect(user.authentication_token).not_to eq("auth_token") }
+  end
 end

@@ -377,6 +377,10 @@ fr:
   devise:
     registrations:
       signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'
+      edit:
+        action:
+          show_authentication_token: Afficher la clé API
+          reset_authentication_token: Regénérer la clé API
 
   activity:
     user:
@@ -438,6 +442,9 @@ fr:
       change_role: Changer le rôle
     new:
       new_user: Ajouter un utilisateur
+    show:
+      action:
+        show_authentication_token: Afficher la clé API
 
   views:
     pagination:
