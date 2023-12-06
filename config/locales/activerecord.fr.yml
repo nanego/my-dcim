@@ -148,7 +148,6 @@ fr:
         modeles_count: Usage
       modele:
         name: Nom
-        category: Catégorie
         category_id: Catégorie
         architecture: Architecture
         architecture_id: Architecture
@@ -156,7 +155,6 @@ fr:
         manufacturer_id: Fabricant
         nb_elts: Nb d'éléments
         color: Couleur
-        enclosures: Composants
       enclosure:
         display: Disposition
         grid_areas: Grid areas

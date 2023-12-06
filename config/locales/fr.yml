@@ -357,14 +357,12 @@ fr:
     enclosure_fields:
       enclosure_position: Enclosure %{position}
       new_enclosure: Nouvelle enclosure
-      grid_areas: "Grid areas :"
       add_slot: Ajouter un slot
     composant_fields:
       name: Nom
     index:
       add_model: Ajouter un modèle
       delete_confirmation: Ce modèle ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur ou une enclosure. Voulez-vous continuer ?'
-      display: Disposition
     new:
       title: Nouveau modèle
     edit:
