@@ -120,6 +120,8 @@ GEM
     concurrent-ruby (1.2.2)
     content_disposition (1.0.0)
     crass (1.0.6)
+    css_parser (1.16.0)
+      addressable
     dalli (3.2.6)
     datagrid (1.7.0)
       railties (>= 6.0)
@@ -164,6 +166,8 @@ GEM
       activesupport (>= 6.1)
     hashie (5.0.0)
     high_voltage (3.1.2)
+    htmlbeautifier (1.4.2)
+    htmlentities (4.3.4)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
@@ -221,6 +225,18 @@ GEM
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
+    lookbook (2.2.0)
+      activemodel
+      css_parser
+      htmlbeautifier (~> 1.3)
+      htmlentities (~> 4.3.4)
+      marcel (~> 1.0)
+      railties (>= 5.0)
+      redcarpet (~> 3.5)
+      rouge (>= 3.26, < 5.0)
+      view_component (>= 2.0)
+      yard (~> 0.9.25)
+      zeitwerk (~> 2.5)
     mail (2.8.1)
       mini_mime (>= 0.1.1)
       net-imap
@@ -360,6 +376,7 @@ GEM
       psych (>= 4.0.0)
     record_tag_helper (1.0.1)
       actionview (>= 5)
+    redcarpet (3.6.0)
     regexp_parser (2.9.0)
     reline (0.4.2)
       io-console (~> 0.5)
@@ -367,6 +384,7 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.2.6)
+    rouge (4.2.0)
     rspec (3.12.0)
       rspec-core (~> 3.12.0)
       rspec-expectations (~> 3.12.0)
@@ -506,6 +524,7 @@ GEM
     wkhtmltopdf-binary (0.12.6.6)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    yard (0.9.34)
     zeitwerk (2.6.12)
 
 PLATFORMS
@@ -544,6 +563,7 @@ DEPENDENCIES
   kaminari
   letter_opener
   listen (~> 3.3)
+  lookbook
   mini_racer
   nokogiri (~> 1.13, >= 1.13.6)
   omniauth (~> 2.1.0)
