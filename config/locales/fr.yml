@@ -15,10 +15,6 @@ fr:
     save: Enregistrer
     cancel: Annuler
     confirm: Are you sure ?
-  breadcrumb:
-    disk_type: Disk type
-    settings: Paramètres
-    islets: Ilots
   export_button:
     label: Exports
     exports:
