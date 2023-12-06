@@ -282,6 +282,27 @@ fr:
     destroy:
       flashes:
         destroyed: Le type de RAM a bien été supprimé.
+  categories:
+    index:
+      new_category: Ajouter une catégorie
+      title: Catégories
+      delete_confirmation: Cette catégorie ne pourra pas être supprimé tant qu'il aura au moins un modèle associé. Voulez-vous continuer ?
+      usage: Usage
+    show:
+      title: Voir la catégorie
+    new:
+      title: Nouvelle catégorie
+    create:
+      flashes:
+        created: La catégorie a bien été créée.
+    edit:
+      title: Modifier une catégorie
+    update:
+      flashes:
+        updated: La catégorie a bien été modifiée.
+    destroy:
+      flashes:
+        destroyed: La catégorie a bien été supprimée.
   devise:
     registrations:
       signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'

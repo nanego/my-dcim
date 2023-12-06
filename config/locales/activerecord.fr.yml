@@ -9,9 +9,7 @@ fr:
       bay: Baies
       frame: Châssis
       modele: Modèle
-      category:
-        one: Type de matériel
-        other: Types de matériel
+      category: Catégorie
       architecture: Architecture
       manufacturer: Fabricant
       domaine: Domaine
@@ -127,6 +125,10 @@ fr:
         name: Nom
         quantity: Quantité
         unit: Unité
+      category:
+        name: Nom
+        description: Description
+        modeles_count: Usage
     errors:
       models:
         user:

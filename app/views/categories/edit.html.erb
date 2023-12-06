@@ -1,6 +1,6 @@
   <%= render 'layouts/breadcrumb', breadcrumb_variables: {
     t("inventories") => modeles_url,
-    'Types de matériel' => categories_path,
+    Category.model_name.human.pluralize => categories_path,
     @category => '',
   } %>
 
@@ -8,13 +8,15 @@
   <div class="page-header">
     <%= link_to categories_path, class: 'btn btn-default' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
-      Retour
+      <%= t("action.back") %>
     <% end %>
     <%= link_to @category, class: 'btn btn-primary' do %>
       <span class="glyphicon glyphicon-info-sign"></span>
-      Voir
+      <%= t("action.show") %>
     <% end %>
-    <h1>Editing category</h1>
+    <h1>
+      <%= t(".title") %>
+    </h1>
   </div>
 
   <%= render 'form' %>

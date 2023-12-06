@@ -21,7 +21,7 @@
       <%= t(".material_management.title") %>
     </a>
     <a href="<%= modeles_path %>" class="list-group-item <%= controller.controller_name == "modeles" ? "active" : "" %>"><%= Modele.model_name.human.pluralize %></a>
-    <a href="<%= categories_path %>" class="list-group-item <%= controller.controller_name == "categories" ? "active" : "" %>"><%= Category.model_name.human(count: 2) %></a>
+    <a href="<%= categories_path %>" class="list-group-item <%= controller.controller_name == "categories" ? "active" : "" %>"><%= Category.model_name.human.pluralize %></a>
     <a href="<%= architectures_path %>" class="list-group-item <%= controller.controller_name == "architectures" ? "active" : "" %>"><%= Architecture.model_name.human.pluralize %></a>
     <a href="<%= manufacturers_path %>" class="list-group-item <%= controller.controller_name == "manufacturers" ? "active" : "" %>"><%= Manufacturer.model_name.human.pluralize %></a>
     <a href="<%= domaines_path %>" class="list-group-item <%= controller.controller_name == "domaines" ? "active" : "" %>"><%= Domaine.model_name.human.pluralize %></a>
