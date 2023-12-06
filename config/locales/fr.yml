@@ -8,6 +8,14 @@ fr:
         one: '1 erreur lors de la sauvegarde :'
         other: '%{count} erreurs lors de la sauvegarde :'
     submit: Valider
+  breadcrumb:
+    frames:
+      label: Châssis
+      new: Nouveau châssis
+    bay:
+      simple: Baie %{name}
+      double: Double baie %{name}
+    islet: Ilot %{name}
   action:
     edit: Modifier
     delete: Supprimer

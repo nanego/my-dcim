@@ -57,7 +57,7 @@
     </div>
   <% end %>
   <div class="form-group">
-    <%= f.label Bay.model_name.human, class: "col-sm-2 control-label" %>
+    <%= f.label :bay_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.select :bay_id, options_from_collection_for_select(Bay.all, :id, :detailed_name, @frame.bay_id), class: "form-control" %>
     </div>

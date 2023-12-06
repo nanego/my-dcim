@@ -218,6 +218,8 @@ fr:
         servers: Matériels
         room: Salle
         position: Position
+        bay_id: Baie
+        u: U
     errors:
       models:
         user:
