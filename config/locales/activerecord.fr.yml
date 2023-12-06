@@ -38,7 +38,6 @@ fr:
         name: Nom
         room: Salle
         position: Position
-        frames: Nombre de châssis
         frames_count:
           one: 1 châssis
           other: '%{count} châssis'
