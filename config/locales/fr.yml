@@ -292,8 +292,17 @@ fr:
       title: Voir la catégorie
     new:
       title: Nouvelle catégorie
+    create:
+      flashes:
+        created: La catégorie a bien été créée.
     edit:
       title: Modifier une catégorie
+    update:
+      flashes:
+        updated: La catégorie a bien été modifiée.
+    destroy:
+      flashes:
+        destroyed: La catégorie a bien été supprimée.
   devise:
     registrations:
       signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'
