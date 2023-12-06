@@ -19,7 +19,7 @@ RSpec.describe User, type: :model do
 
   describe "#regenerate_authentication_token!" do
     before do
-      user.authentication_token = "auth_token"
+      user.update!(authentication_token: "auth_token")
       user.regenerate_authentication_token!
     end
 
