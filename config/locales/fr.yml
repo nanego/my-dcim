@@ -64,7 +64,7 @@ fr:
         updated: La baie a bien été mise à jour.
     destroy:
       flashes:
-        destroyed: La bay bien été supprimé.
+        destroyed: La baie bien été supprimé.
   rooms:
     action_buttons:
       caption:
@@ -78,6 +78,13 @@ fr:
         cluster: Cluster
       dragn_drop:
         enable: Activer le drag'n drop
+    title: Salles
+    capacity_view:
+      title: Vue capacité réseau
+      networks:
+        fiber: Fibre
+        giga: Réseau Gb
+        10giga: 10Gb
   servers:
     room:
       title_room: Salle %{room} - Ilot %{islet}
@@ -430,20 +437,6 @@ fr:
       create: a ajouté un serveur
       destroy: a supprimé un serveur
   order-in-progress: 'Commande en cours'
-
-  rooms:
-    title: Salles
-    capacity_view:
-      title: Vue capacité réseau
-      networks:
-        fiber: Fibre
-        giga: Réseau Gb
-        10giga: 10Gb
-    action_buttons:
-      caption:
-        ports: Ports
-        unreferenced_client: Le port correspondant de la carte jumelle est câblé
-        no_client: Le port correspondant de la carte jumelle n'est pas câblé
 
   views:
     pagination:

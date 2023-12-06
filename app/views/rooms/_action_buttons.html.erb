@@ -6,12 +6,12 @@
     <!-- Choice of server background color -->
     <div class="btn-group">
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <%= t(".background_color", bg: params[:bg] || 'modèle') %> <span class="caret"></span>
+        <%= t(".background_color", bg: params[:bg] || Modele.model_name.human.downcase) %> <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
-        <li><%= link_to t(".background_choices.modele"), url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: 'modele', islet: params[:islet], id: params[:id]})), remote: true  %></li>
-        <li><%= link_to t(".background_choices.manager"), url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: 'gestionnaire', islet: params[:islet], id: params[:id]})), remote: true  %></li>
-        <li><%= link_to t(".background_choices.cluster"), url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: 'cluster', islet: params[:islet], id: params[:id]})), remote: true  %></li>
+        <li><%= link_to Modele.model_name.human, url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: Modele.model_name.human.downcase, islet: params[:islet], id: params[:id]})), remote: true  %></li>
+        <li><%= link_to Gestion.model_name.human, url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: Gestion.model_name.human.downcase, islet: params[:islet], id: params[:id]})), remote: true  %></li>
+        <li><%= link_to Cluster.model_name.human, url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: Cluster.model_name.human.downcase, islet: params[:islet], id: params[:id]})), remote: true  %></li>
       </ul>
     </div>
   <% end %>
