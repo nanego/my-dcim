@@ -1,4 +1,7 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {t("inventories") => modeles_url, 'Memory type' => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("inventories") => modeles_url,
+  MemoryType.model_name.human => ''}
+%>
 
 <div class="container-fluid">
 
@@ -13,16 +16,20 @@
       <div class="page-header">
         <%= link_to new_memory_type_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
-          Nouveau type de RAM
+          <%= t(".new_memory_type") %>
         <% end %>
-        <h1>Listing types de RAM</h1>
+        <h1>
+          <%= t(".title") %>
+        </h1>
       </div>
 
       <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">
           <thead>
             <tr>
-              <th>Nom</th>
+              <th>
+                <%= MemoryType.human_attribute_name(:name) %>
+              </th>
               <th></th>
             </tr>
           </thead>
@@ -33,8 +40,8 @@
                 <%= link_to memory_type, memory_type_path(memory_type) %>
               </td>
               <td class="text-right">
-                <%= link_to 'Modifier', edit_memory_type_path(memory_type), class: 'btn btn-primary' %>
-                <%= link_to 'Supprimer', memory_type, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+                <%= link_to t("action.edit"), edit_memory_type_path(memory_type), class: 'btn btn-primary' %>
+                <%= link_to t("action.delete"), memory_type, method: :delete, data: { confirm: t("action.confirm") }, class: 'btn btn-danger' %>
               </td>
             <% end %>
           </tbody>

@@ -123,6 +123,10 @@ fr:
         quantity: Quantité
         unit: Unité
         technology: Technologie
+      memory_type:
+        name: Nom
+        quantity: Quantité
+        unit: Unité
     errors:
       models:
         user:

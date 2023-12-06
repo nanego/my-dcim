@@ -8,13 +8,15 @@
   <div class="page-header">
     <%= link_to memory_types_path, class: 'btn btn-default' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
-      Retour
+      <%= t("action.edit") %>
     <% end %>
     <%= link_to @memory_type, class: 'btn btn-primary' do %>
       <span class="glyphicon glyphicon-info-sign"></span>
-      Voir
+      <%= t("action.show") %>
     <% end %>
-    <h1>Modifier un type de RAM</h1>
+    <h1>
+      <%= t(".title") %>
+    </h1>
   </div>
 
   <%= render 'form' %>
