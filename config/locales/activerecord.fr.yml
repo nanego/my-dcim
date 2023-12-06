@@ -130,6 +130,7 @@ fr:
       category:
         name: Nom
         description: Description
+        modeles_count: Usage
     errors:
       models:
         user:
