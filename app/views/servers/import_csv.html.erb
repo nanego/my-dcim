@@ -32,7 +32,7 @@
           </p>
 
           <p>
-            <%= f.label "Etat des serveurs importés :" %>
+            <%= f.label "Statut des serveurs importés :" %>
             <%= f.select :server_state_id, ServerState.all.collect {|p| [t(p.name.parameterize), p.id]}, include_blank: true %>
           </p>
           <p>

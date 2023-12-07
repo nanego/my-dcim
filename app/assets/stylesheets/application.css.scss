@@ -498,3 +498,14 @@ dd {
     margin-bottom: 0;
   }
 }
+
+#edit-server {
+  .form-group {
+    margin-right: 0;
+  }
+  select, input {
+    max-width: -moz-available;
+    max-width: -webkit-fill-available;
+    max-width: fill-available;
+  }
+}
