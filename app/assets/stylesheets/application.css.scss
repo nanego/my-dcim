@@ -186,7 +186,7 @@ table.card_layout {
   }
 }
 
-.portRJ, .portFC, .portSCSI {
+.portRJ, .portFC, .portSCSI, .portALIM {
   cursor: pointer;
   position: relative;
   font-size: 10px;
@@ -271,6 +271,14 @@ table.card_layout {
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
+}
+
+.portALIM {
+  border: 1px #555555 solid;
+  padding: 1px 2px;
+  -webkit-border-radius: 4px 4px 8px 8px;
+  -moz-border-radius: 4px 4px 8px 8px;
+  border-radius: 4px 4px 8px 8px;
 }
 
 .alims {

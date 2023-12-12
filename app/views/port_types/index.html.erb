@@ -1,0 +1,70 @@
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("inventories") => modeles_url,
+  PortType.model_name.human.pluralize => "" }
+%>
+
+<div class="container-fluid">
+
+  <div class="row">
+
+    <div class="col-md-3">
+      <%= render 'pages/params_menu' %>
+    </div>
+
+    <div class="col-md-9">
+
+      <div class="page-header">
+        <%= link_to new_port_type_path, class: 'btn btn-primary' do %>
+          <span class="glyphicon glyphicon-plus"></span>
+          <%= t(".add_port_type") %>
+        <% end %>
+        <h1>
+          <%= t(".title") %>
+        </h1>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+          <thead>
+          <tr>
+            <th>
+              <%= PortType.human_attribute_name(:name) %>
+            </th>
+            <th>
+              <%= PortType.human_attribute_name(:power) %>
+            </th>
+            <th>
+              <%= PortType.human_attribute_name(:usage) %>
+            </th>
+            <th></th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <%= content_tag_for(:tr, @port_types) do |port_type| %>
+            <td><%= port_type.name %></td>
+            <td><%= t("boolean.#{port_type.power?}") %></td>
+            <td>
+              <%= link_to card_types_path(anchor: "port_type_#{port_type}") do %>
+                <% usage_count = CardType.where(port_type: port_type).count %>
+                <%= "#{usage_count} #{CardType.model_name.human(count: usage_count).downcase}" %>
+              <% end %>
+            </td>
+            <td class="text-right">
+              <%= link_to t("action.edit"), edit_port_type_path(port_type), class: 'btn btn-primary' %>
+              <%= link_to t("action.delete"),
+                          port_type,
+                          method: :delete,
+                          data: { confirm: t(".delete_confirmation") },
+                          class: 'btn btn-danger' %>
+            </td>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
