@@ -19,6 +19,9 @@ fr:
       card_type:
         one: Type de carte
         other: Types de carte
+      port_type:
+        one: Type de port
+        other: Types de port
       color: Couleur
       contract_type:
         one: Contrat de maintenance
@@ -112,6 +115,10 @@ fr:
         type: Type
         id: Id
         code: Code
+      port_type:
+        name: Nom
+        power: Alimentation
+        usage: Types de carte compatibles
       maintainer:
         name: Nom
       contract_type:

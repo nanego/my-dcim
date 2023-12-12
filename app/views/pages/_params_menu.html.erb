@@ -29,6 +29,7 @@
     <a href="<%= clusters_path %>" class="list-group-item <%= controller.controller_name == "clusters" ? "active" : "" %>"><%= Cluster.model_name.human.pluralize %></a>
     <a href="<%= stacks_path %>" class="list-group-item <%= controller.controller_name == "stacks" ? "active" : "" %>"><%= Stack.model_name.human.pluralize %></a>
     <a href="<%= card_types_path %>" class="list-group-item <%= controller.controller_name == "card_types" ? "active" : "" %>"><%= CardType.model_name.human(count: 2) %></a>
+    <a href="<%= port_types_path %>" class="list-group-item <%= controller.controller_name == "port_types" ? "active" : "" %>"><%= PortType.model_name.human(count: 2) %></a>
     <a href="<%= colors_path %>" class="list-group-item <%= controller.controller_name == "colors" ? "active" : "" %>"><%= Color.model_name.human.pluralize %></a>
     <a href="<%= maintainers_path %>" class="list-group-item <%= controller.controller_name == "maintainers" ? "active" : "" %>"><%= Maintainer.model_name.human.pluralize %></a>
     <a href="<%= contract_types_path %>" class="list-group-item <%= controller.controller_name == "contract_types" ? "active" : "" %>"><%= ContractType.model_name.human(count: 2) %></a>

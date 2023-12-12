@@ -11,7 +11,7 @@ class CardTypesControllerTest < ActionController::TestCase
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:card_types)
+    assert_not_nil assigns(:card_types_by_port_types)
   end
 
   test "should get new" do

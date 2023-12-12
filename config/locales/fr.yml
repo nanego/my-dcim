@@ -1,4 +1,7 @@
 fr:
+  boolean:
+    true: Oui
+    false: Non
   form:
     errors:
       title: '%{count} erreurs lors de la sauvegarde :'
@@ -282,6 +285,24 @@ fr:
     destroy:
       flashes:
         destroyed: Le type de RAM a bien été supprimé.
+  port_types:
+    index:
+      title: Types de ports
+      add_port_type: Ajouter un type de port
+      delete_confirmation: Ce type de port ne pourra pas être supprimé tant qu'il sera associé à au moins un type de carte. Voulez-vous continuer ?
+    create:
+      flashes:
+        created: Le type de port a bien été créé.
+    new:
+      title: Nouveau type de port
+    edit:
+      title: Modifier un type de port
+    update:
+      flashes:
+        updated: Le type de port a bien été modifié.
+    destroy:
+      flashes:
+        destroyed: Le type de port a bien été supprimé.
   categories:
     index:
       new_category: Ajouter une catégorie

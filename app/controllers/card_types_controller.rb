@@ -4,7 +4,11 @@ class CardTypesController < ApplicationController
   before_action :set_card_type, only: [:show, :edit, :update, :destroy]
 
   def index
-    @card_types = CardType.sorted
+    @card_types_by_port_types = CardType.sorted.group_by(&:port_type)
+    respond_to do |format|
+      format.html
+      format.json { @card_types = CardType.sorted }
+    end
   end
 
   def show; end
@@ -20,11 +24,11 @@ class CardTypesController < ApplicationController
 
     respond_to do |format|
       if @card_type.save
-        format.html {redirect_to({action: 'index'}, notice: t(".flashes.created"))}
-        format.json {render :show, status: :created, location: @card_type}
+        format.html { redirect_to({ action: 'index' }, notice: t(".flashes.created")) }
+        format.json { render :show, status: :created, location: @card_type }
       else
-        format.html {render :new}
-        format.json {render json: @card_type.errors, status: :unprocessable_entity}
+        format.html { render :new }
+        format.json { render json: @card_type.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -34,11 +38,11 @@ class CardTypesController < ApplicationController
   def update
     respond_to do |format|
       if @card_type.update(card_type_params)
-        format.html {redirect_to({action: 'index'}, notice: t(".flashes.updated"))}
-        format.json {render :show, status: :ok, location: @card_type}
+        format.html { redirect_to({ action: 'index' }, notice: t(".flashes.updated")) }
+        format.json { render :show, status: :ok, location: @card_type }
       else
-        format.html {render :edit}
-        format.json {render json: @card_type.errors, status: :unprocessable_entity}
+        format.html { render :edit }
+        format.json { render json: @card_type.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -48,12 +52,12 @@ class CardTypesController < ApplicationController
   def destroy
     if @card_type.destroy
       respond_to do |format|
-        format.html { redirect_to({action: 'index'}, notice: t(".flashes.destroyed")) }
+        format.html { redirect_to({ action: 'index' }, notice: t(".flashes.destroyed")) }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to({action: 'index'}, alert: @card_type.errors.full_messages_for(:base).join(", ")) }
+        format.html { redirect_to({ action: 'index' }, alert: @card_type.errors.full_messages_for(:base).join(", ")) }
       end
     end
   end
