@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_04_123921) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_11_154459) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -352,6 +352,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_04_123921) do
 
   create_table "port_types", id: :serial, force: :cascade do |t|
     t.string "name"
+    t.boolean "power"
   end
 
   create_table "ports", id: :serial, force: :cascade do |t|
