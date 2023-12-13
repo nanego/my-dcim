@@ -3,18 +3,20 @@
 <div class="page-header">
   <%= link_to modeles_path, class: 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
-    Retour
+    <%= t("action.back") %>
   <% end %>
   <%= link_to edit_modele_path(@modele), class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-pencil"></span>
-    Edit
+    <%= t("action.edit") %>
   <% end %>
   <h1><%= @modele %></h1>
 </div>
 
 <dl class="dl-horizontal">
 
-  <dt>Matériels :</dt>
+  <dt>
+    <%= Server.model_name.human.pluralize %> :
+  </dt>
   <% @servers.each do |s| %>
     <dd><%= link_to s.name, server_path(s) %></dd>
   <% end %>

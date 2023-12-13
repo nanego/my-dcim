@@ -2,7 +2,7 @@
   <% if @modele.errors.any? %>
     <div class="alert alert-danger alert-dismissable" role="alert">
       <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <h4><%= pluralize(@modele.errors.count, "erreur", "erreurs") %> lors de la sauvegarde :</h4>
+      <h4><%= t("form.errors.title", count: @modele.errors.count) %></h4>
       <ul>
       <% @modele.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label 'Nom', class: "col-sm-2 col-md-1 control-label" %>
+    <%= f.label :name, class: "col-sm-2 col-md-1 control-label" %>
     <div class="col-sm-10 col-md-11">
       <%= f.text_field :name, class: "form-control" %>
     </div>
@@ -36,17 +36,17 @@
     <div class="col-sm-10 col-md-5">
       <%= f.number_field :nb_elts, class: "form-control" %>
     </div>
-    <%= f.label 'Couleur', class: "col-sm-2 col-md-1 control-label" %>
+    <%= f.label :color, class: "col-sm-2 col-md-1 control-label" %>
     <div class="col-sm-10 col-md-5">
       <%= f.text_field :color, class: "form-control", style: "background-color:#{f.object.color};" %>
     </div>
   </div>
   <div>
-    <%= content_tag :span, 'Composants', class: "col-sm-2 control-label" %>
+    <%= content_tag :span, Enclosure.model_name.human.pluralize, class: "col-sm-2 control-label" %>
     <%= f.fields_for :enclosures do |builder| %>
         <%= render "enclosure_fields", :f => builder %>
     <% end %>
-    <%= link_to_add_fields "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter une enclosure".html_safe, f, :enclosures %>
+    <%= link_to_add_fields "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> #{t(".add_enclosure")}".html_safe, f, :enclosures %>
   </div>
 
   <!--

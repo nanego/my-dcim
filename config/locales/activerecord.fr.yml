@@ -30,10 +30,11 @@ fr:
         other: Contrats de maintenance
       disk_type:
         one: Type de disque
-        other: Types de diques
+        other: Types de disques
       memory_type:
         one: Type de RAM
         other: Types de RAM
+      enclosure: Enclosure
 
     attributes:
       islet:
@@ -145,6 +146,18 @@ fr:
         name: Nom
         description: Description
         modeles_count: Usage
+      modele:
+        name: Nom
+        category_id: Catégorie
+        architecture: Architecture
+        architecture_id: Architecture
+        manufacturer: Fabricant
+        manufacturer_id: Fabricant
+        nb_elts: Nb d'éléments
+        color: Couleur
+      enclosure:
+        display: Disposition
+        grid_areas: Grid areas
     errors:
       models:
         user:

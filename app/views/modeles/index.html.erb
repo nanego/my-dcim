@@ -1,6 +1,9 @@
-<% provide(:title, "Modèles") %>
+<% provide(:title, Modele.model_name.human.pluralize) %>
 
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {t("inventories") => modeles_url, 'Modèles' => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("inventories") => modeles_url,
+  Modele.model_name.human.pluralize => ''}
+%>
 
 <div class="container-fluid">
 
@@ -15,9 +18,11 @@
       <div class="page-header">
         <%= link_to new_modele_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
-          Ajouter un modèle
+          <%= t(".add_model") %>
         <% end %>
-        <h1>Modèles</h1>
+        <h1>
+          <%= Modele.model_name.human.pluralize %>
+        </h1>
       </div>
 
       <% @types.each do |category, modeles| %>
@@ -27,9 +32,15 @@
             <thead>
               <tr>
                 <th></th>
-                <th>Modèle</th>
-                <th>Disposition</th>
-                <th>Baies</th>
+                <th>
+                  <%= Modele.model_name.human %>
+                </th>
+                <th>
+                  <%= Enclosure.human_attribute_name(:display) %>
+                </th>
+                <th>
+                  <%= Bay.model_name.human.pluralize %>
+                </th>
                 <th></th>
               </tr>
             </thead>
@@ -41,11 +52,11 @@
               <td style="width: 106px;"><%= modele.enclosures.map(&:display).join(', ') %></td>
               <td style="width: 106px;"><%= pluralize(modele.servers.count, modele.category.name.try(:downcase), "#{modele.category.name.try(:downcase)}#{ modele.category.name.blank? || modele.category.name[-1] == 's' || modele.category.name=='San' ? '' : 's' }") %></td>
               <td style="width: 190px;text-align: center;" class="text-right">
-                <%= link_to 'Modifier', edit_modele_path(modele), class: 'btn btn-primary' %>
-                <%= link_to 'Supprimer',
+                <%= link_to t("action.edit"), edit_modele_path(modele), class: 'btn btn-primary' %>
+                <%= link_to t("action.delete"),
                             modele,
                             method: :delete,
-                            data: { confirm: 'Ce modèle ne pourra pas être supprimé tant qu\'il sera associé à au moins un serveur ou une enclosure. Voulez-vous continuer ?' },
+                            data: { confirm: t(".delete_confirmation") },
                             class: 'btn btn-danger' %>
               </td>
             <% end %>
