@@ -160,7 +160,7 @@ class ServersControllerTest < ActionController::TestCase
       delete :destroy, params: {id: @server}
     end
 
-    assert_redirected_to servers_grids_path
+    assert_redirected_to servers_path
   end
 
   test "should not destroy server because of associations" do
