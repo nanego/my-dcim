@@ -351,6 +351,20 @@ fr:
     destroy:
       flashes:
         destroyed: La catégorie a bien été supprimée.
+  modeles:
+    form:
+      add_enclosure: Ajouter une enclosure
+    enclosure_fields:
+      enclosure_position: Enclosure %{position}
+      new_enclosure: Nouvelle enclosure
+      add_slot: Ajouter un slot
+    index:
+      add_model: Ajouter un modèle
+      delete_confirmation: Ce modèle ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur ou une enclosure. Voulez-vous continuer ?'
+    new:
+      title: Nouveau modèle
+    edit:
+      title: Modification d'un modèle
   devise:
     registrations:
       signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'
@@ -416,5 +430,7 @@ fr:
       last: "Dernier &gt;&gt;"
       first: "&lt;&lt; Premier"
 
-  model:
-
+  helpers:
+    placeholder:
+      composant:
+        name: 'Nom'
