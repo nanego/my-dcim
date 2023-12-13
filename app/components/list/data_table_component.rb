@@ -54,8 +54,6 @@ module List
       col.call(row)
     end
 
-    private
-
     def link_to_sort(label, attribute)
       direction = params[:direction] == 'asc' ? 'desc' : 'asc'
       url = url_for(controller.request.query_parameters.merge(column: attribute, direction: direction))
@@ -69,7 +67,6 @@ module List
     def sort_caret(direction)
       sanitize(direction == 'desc' ? "&#9660;" : "&#9650;")
     end
-
 
     class DatatableColumn < ApplicationComponent
       attr_reader :title, :options
