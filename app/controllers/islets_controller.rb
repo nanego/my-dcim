@@ -54,7 +54,7 @@ class IsletsController < ApplicationController
 
     respond_to do |format|
       if @islet.save
-        format.html { redirect_to islets_url, notice: 'Islet was successfully created.' }
+        format.html { redirect_to islets_url, notice: t('.flashes.created') }
         format.json { render :show, status: :created, location: @islet }
       else
         format.html { render :new }
@@ -68,7 +68,7 @@ class IsletsController < ApplicationController
   def update
     respond_to do |format|
       if @islet.update(islet_params)
-        format.html { redirect_to islets_url, notice: 'Islet was successfully updated.' }
+        format.html { redirect_to islets_url, notice: t('.flashes.updated') }
         format.json { render :show, status: :ok, location: @islet }
       else
         format.html { render :edit }
@@ -82,7 +82,7 @@ class IsletsController < ApplicationController
   def destroy
     if @islet.destroy
       respond_to do |format|
-        format.html { redirect_to islets_url, notice: 'Islet a bien été supprimé.' }
+        format.html { redirect_to islets_url, notice: t('.flashes.destroyed') }
         format.json { head :no_content }
       end
     else

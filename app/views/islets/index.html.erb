@@ -1,4 +1,7 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: { t("inventories") => islets_url, 'Ilots' => '' } %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t('inventories') => islets_url,
+  Islet.model_name.human.pluralize => ''
+} %>
 
 <div class="container-fluid">
 
@@ -13,20 +16,32 @@
       <div class="page-header">
         <%= link_to new_islet_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
-          Ajouter un ilot
+          <%= t('.add_islet') %>
         <% end %>
-        <h1>Ilots</h1>
+        <h1>
+          <%= Islet.model_name.human.pluralize %>
+        </h1>
       </div>
 
       <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">
           <thead>
           <tr>
-            <th>Site</th>
-            <th>Salle</th>
-            <th>Ilot</th>
-            <th>Position</th>
-            <th>Nombre de châssis</th>
+            <th>
+              <%= Site.model_name.human %>
+            </th>
+            <th>
+              <%= Room.model_name.human %>
+            </th>
+            <th>
+              <%= Islet.model_name.human %>
+            </th>
+            <th>
+              <%= Islet.human_attribute_name(:position) %>
+            </th>
+            <th>
+              <%= Frame.model_name.human.pluralize %>
+            </th>
             <th></th>
           </tr>
           </thead>
@@ -43,14 +58,14 @@
               <%= link_to islet, islet_path(islet) %>
             </b></td>
             <td><%= islet.position %></td>
-            <td><%= islet.frames.count.to_s + ' chassis' %></td>
+            <td><%= Islet.human_attribute_name(:frames_count, count: islet.frames.count) %></td>
             <td class="text-right">
               <%= render partial: "islets/export_button", locals: { islet: islet } %>
-              <%= link_to 'Modifier', edit_islet_path(islet), class: 'btn btn-primary' %>
-              <%= link_to 'Supprimer',
+              <%= link_to t("action.edit"), edit_islet_path(islet), class: 'btn btn-primary' %>
+              <%= link_to t("action.delete"),
                           islet,
                           method: :delete,
-                          data: { confirm: 'Cet ilôt ne pourra pas être supprimé tant qu\'il sera associé à au moins une baie. Voulez-vous continuer ?' },
+                          data: { confirm: t('.delete_confirmation') },
                           class: 'btn btn-danger' %>
             </td>
           <% end %>
