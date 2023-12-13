@@ -7,7 +7,9 @@ fr:
       room: Salle
       islet: Ilot
       bay: Baies
-      frame: Châssis
+      frame:
+        one: Châssis
+        other: Châssis
       modele: Modèle
       category: Catégorie
       architecture: Architecture
