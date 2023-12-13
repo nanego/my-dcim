@@ -6,10 +6,6 @@
   <div class="row">
     <div class="col-md-12">
       <div class="page-header">
-        <button class="btn btn-default pull-right" data-action="click->reveal#toggle" type="button">
-          <%= t(".action.show_authentication_token") %>
-        </button>
-
         <h1><%= user_label %></h1>
       </div>
 
@@ -34,6 +30,9 @@
 
         <dt><%= User.human_attribute_name(:authentication_token) %> :</dt>
         <dd>
+          <button class="btn btn-default btn-xs" data-action="click->reveal#toggle" data-reveal-target="item" type="button">
+            <%= t(".action.show_authentication_token") %>
+          </button>
           <span data-reveal-target="item" class="hidden">
             <%= @user.authentication_token %>
           </span>
