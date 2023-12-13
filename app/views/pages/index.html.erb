@@ -1,13 +1,12 @@
 <div class="container" style="margin-top: 14px;">
-
   <div class="row">
-
     <div class="col-md-12">
-
       <div class="thumbnail">
+
         <div class="caption-full text-center">
           <h4>Gestion de salle</h4>
         </div>
+
         <div class="img-responsive" style="margin:0;padding:70px 10px;
             background: url(<%= asset_path('_78A0587-nb.jpg') %>) no-repeat center;
             -webkit-background-size: cover;
@@ -21,8 +20,9 @@
                   <% rooms.each do |room| %>
                     <div class="col-md-<%= rooms.size <= 3 ? (12/rooms.size).to_i : "4" %>">
                       <div class="well" style="background-color: transparent;border-color: #BBBBBB;">
+                        <div style="text-align: left;font-size: large;margin-bottom: 5px;"><%= link_to room.name, room %></div>
                         <ul>
-                          <div style="text-align: left;font-size: large;margin-bottom: 5px;"><%= link_to room.name, room %></div>
+                          <li><%= "#{Frame.model_name.human} : #{room.frames.count}" %></li>
                           <% Category.all.each do |cat| %>
                             <% count = room.materials.joins(:modele).where("modeles.category_id = ?", cat.id).count %>
                             <% if count > 0 %>
@@ -37,13 +37,9 @@
                 </div>
               </div>
             </div>
-
           <% end %>
-
         </div>
       </div>
     </div>
-
   </div>
-
 </div>
