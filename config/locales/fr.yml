@@ -358,8 +358,6 @@ fr:
       enclosure_position: Enclosure %{position}
       new_enclosure: Nouvelle enclosure
       add_slot: Ajouter un slot
-    composant_fields:
-      name: Nom
     index:
       add_model: Ajouter un modèle
       delete_confirmation: Ce modèle ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur ou une enclosure. Voulez-vous continuer ?'
@@ -432,5 +430,7 @@ fr:
       last: "Dernier &gt;&gt;"
       first: "&lt;&lt; Premier"
 
-  model:
-
+  helpers:
+    placeholder:
+      composant:
+        name: 'Nom'
