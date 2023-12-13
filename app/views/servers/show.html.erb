@@ -10,8 +10,12 @@
 } %>
 
 <div class="container">
-  <div class="col-12" style="margin-bottom: 2em">
+  <div class="col-12" style="margin-bottom: 2em;padding-right: 15px;padding-left: 15px;">
     <div class="page-header">
+      <%= link_to duplicate_server_path(@server.slug), class: 'btn btn-info' do %>
+        <span class="glyphicon glyphicon-export"></span>
+        <%= t(".actions.duplicate") %>
+      <% end %>
       <%= link_to edit_server_path(@server.slug), class: 'btn btn-primary' do %>
         <span class="glyphicon glyphicon-pencil"></span>
         <%= t("action.edit") %>
@@ -137,12 +141,10 @@
           <% end.empty? && begin %>
             <dd/>
           <% end %>
-
         </dl>
       </div>
     </div>
   </div>
-
 
   <div class="col-lg-6">
     <% if @server.photo.attached? %>
@@ -208,12 +210,9 @@
         <div class="panel-body">
           <%= t(".glpi_connection_error") %> : <pre><code><%= e&.message.to_s %></code></pre>
         </div>
-      <% end
-      %>
-
+      <% end %>
     </div>
   </div>
-
 </div>
 
 <%= render 'ports/modal_edit_port' %>

@@ -260,7 +260,6 @@ fr:
     destroy:
       flashes:
         destroyed: Le type de disque a bien été supprimé.
-
   manufacturers:
     form:
       url_placeholder: "https://url_du_frabricant.com/suite_de_l_url/%s/reste_s_il_y_a"
@@ -415,12 +414,16 @@ fr:
       glpi_visit_page: Voir la page de la machine sur GLPI
       no_match_serial: "Aucune correspondance pour ce numéro de série : %{serial}"
       glpi_connection_error: "Problème lors de la connexion à GLPI :"
+      actions:
+        duplicate: Dupliquer
     new:
       title: "Ajouter un matériel"
     edit:
       page_title: "%{modele} %{name} - Edition"
       title: "Matériel : %{name}"
       delete_confirmation: Toutes les données concernant ce matériel seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?
+    duplicate:
+      title: Dupliquer le matériel %{server_name}
   glpi:
     computer:
       name: Nom
@@ -525,3 +528,7 @@ fr:
         quantity: 'Quantité'
       memory_component:
         quantity: 'Quantité'
+    submit:
+      create: Créer
+      update: Modifier
+      submit: Envoyer

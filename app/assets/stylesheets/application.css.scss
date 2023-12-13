@@ -508,10 +508,7 @@ dd {
   }
 }
 
-#edit-server {
-  .form-group {
-    margin-right: 0;
-  }
+.form-server {
   select, input {
     max-width: -moz-available;
     max-width: -webkit-fill-available;
