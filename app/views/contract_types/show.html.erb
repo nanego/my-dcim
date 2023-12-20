@@ -1,21 +1,28 @@
-<div class="page-header">
-  <%= link_to contract_types_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    <%= t("action.back") %>
-  <% end %>
-  <%= link_to edit_contract_type_path(@contract_type), class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    <%= t("action.edit") %>
-  <% end %>
-  <h1>
-    <%= t(".title") %>
-  </h1>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("inventories") => modeles_url,
+  ContractType.model_name.human(count: 2) => contract_types_path,
+  @contract_type => '',
+} %>
+
+<div class="container">
+  <div class="page-header">
+    <%= link_to contract_types_path, class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      <%= t("action.back") %>
+    <% end %>
+    <%= link_to edit_contract_type_path(@contract_type), class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+      <%= t("action.edit") %>
+    <% end %>
+    <h1>
+      <%= t(".title") %>
+    </h1>
+  </div>
+
+  <dl class="dl-horizontal">
+    <dt>
+      <%= ContractType.human_attribute_name(:name) %> :
+    </dt>
+    <dd><%= @contract_type %></dd>
+  </dl>
 </div>
-
-<dl class="dl-horizontal">
-  <dt>
-    <%= ContractType.human_attribute_name(:name) %> :
-  </dt>
-  <dd><%= @contract_type %></dd>
-
-</dl>

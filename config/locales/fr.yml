@@ -49,8 +49,12 @@ fr:
       location:
         title: Localisation
         bays: Baies / Doubles-baies
-      material_management:
-        title: Gestion du matériel
+      features:
+        title: Caractéristiques
+      exploitation:
+        title: Exploitation
+      maintenance:
+        title: Maintenance
   inventories: Inventaires
   visualization: Visualisation
   sites:
@@ -212,24 +216,24 @@ fr:
         destroyed: Le mainteneur a bien été supprimé.
   contract_types:
     index:
-      title: Types de contrat
-      add_contract_type: Ajouter un type de contrat
-      delete_confirmation: Toutes les données concernant ce type de contrat seront supprimées, ainsi que les contrats de maintenance associés. Voulez-vous continuer ?
+      title: Contrats de maintenance
+      add_contract_type: Ajouter un contrat de maintenance
+      delete_confirmation: Toutes les données concernant ce contrat de maintenance seront supprimées, ainsi que les contrats de maintenance associés. Voulez-vous continuer ?
     show:
-      title: Voir le type de contrat
+      title: Voir le contrat de maintenance
     new:
-      title: Nouveau type de contrat
+      title: Nouveau contrat de maintenance
     create:
       flashes:
-        created: Le type de contrat a bien été créé.
+        created: Le contrat de maintenance a bien été créé.
     edit:
-      title: Edition d'un type de contrat
+      title: Edition du contrat de maintenance
     update:
       flashes:
-        updated: Le type de contrat a bien été modifié.
+        updated: Le contrat de maintenance a bien été modifié.
     destroy:
       flashes:
-        destroyed: Le type de contrat a bien été supprimé.
+        destroyed: Le contrat de maintenance a bien été supprimé.
   disk_types:
     index:
       title: Liste des types de disque

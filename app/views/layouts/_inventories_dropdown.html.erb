@@ -3,7 +3,6 @@
     <%= t("inventories") %> <span class="caret"></span>
   </a>
   <ul class="dropdown-menu">
-
     <li class="dropdown-header">Localisation</li>
     <li><a href="<%= sites_path %>">Sites</a></li>
     <li><a href="<%= rooms_path %>">Salles</a></li>
@@ -12,23 +11,24 @@
     <li><a href="<%= frames_path %>">Châssis</a></li>
 
     <li role="separator" class="divider"></li>
-
     <li class="dropdown-header">Matériel</li>
     <li><a href="<%= servers_path %>">Matériels</a></li>
 
     <li role="separator" class="divider"></li>
-
-    <li class="dropdown-header">Gestion du matériel</li>
+    <li class="dropdown-header"><%= t("pages.params_menu.features.title")%></li>
     <li><a href="<%= modeles_path %>">Modèles</a></li>
     <li><a href="<%= categories_path %>">Types de matériel</a></li>
     <li><a href="<%= architectures_path %>">Architectures</a></li>
     <li><a href="<%= manufacturers_path %>">Fabricants</a></li>
-    <li><a href="<%= domaines_path %>">Domaines</a></li>
-    <li><a href="<%= gestions_path %>">Gestionnaires</a></li>
-    <li><a href="<%= clusters_path %>">Clusters</a></li>
     <li><a href="<%= stacks_path %>">Stacks</a></li>
     <li><a href="<%= card_types_path %>">Types de carte</a></li>
     <li><a href="<%= port_types_path %>"><%= PortType.model_name.human(count: 2) %></a></li>
+
+    <li role="separator" class="divider"></li>
+    <li class="dropdown-header"><%= t("pages.params_menu.exploitation.title")%></li>
+    <li><a href="<%= domaines_path %>">Domaines</a></li>
+    <li><a href="<%= gestions_path %>">Gestionnaires</a></li>
+    <li><a href="<%= clusters_path %>">Clusters</a></li>
 
     <!--
     <li><a href="<%= colors_path %>">Couleurs</a></li>

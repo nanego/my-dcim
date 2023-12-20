@@ -1,6 +1,6 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
   t("inventories") => contract_types_path,
-  ContractType.model_name.human.pluralize => ""}
+  ContractType.model_name.human(count: 2) => ""}
 %>
 
 <div class="container-fluid">
