@@ -18,8 +18,6 @@ fr:
     cancel: Annuler
     add: Ajouter
     confirm: Êtes-vous sûr ?
-  breadcrumb:
-    disk_type: Disk type
   export_button:
     label: Exports
     exports:
