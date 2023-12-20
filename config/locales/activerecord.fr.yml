@@ -18,6 +18,7 @@ fr:
       gestion: Gestionnaire
       cluster: Cluster
       stack: Stack
+      card: Carte
       card_type:
         one: Type de carte
         other: Types de carte
@@ -36,6 +37,7 @@ fr:
         other: Types de RAM
       enclosure: Enclosure
       user: Utilisateur
+      server_state: Statut
 
     attributes:
       islet:
@@ -53,6 +55,28 @@ fr:
         contract_type_id: Type de contrat
       server:
         numero: Numéro de série
+        name: Nom
+        type: Type
+        room: Salle
+        islet: Ilot
+        frame_id: Châssis
+        position: Position
+        server_state_id: Etat
+        modele_id: Modèle
+        critique: Critique
+        gestion_id: Gestionnaire
+        network_id: Réseau Gb/10Gb
+        stack: Stack
+        stack_id: Stack
+        comment: Commentaire
+        documents: Documents
+        photo: Photo
+        frame: Châssis
+        span: Slots
+      server/network:
+        gbe: Réseau Gb
+        10gbe: Réseau 10Gb
+        fiber: Fibre
       site:
         name: Nom
         position: Position
@@ -159,6 +183,12 @@ fr:
       enclosure:
         display: Disposition
         grid_areas: Grid areas
+        component: Composant du modèle
+        card_type: Type de carte
+        label: Libellé
+        orientation: Orientation
+        first_port_name: Numéro du premier port
+        twin_card: Carte jumèle
       user:
         id: Identifiant
         name: Nom
@@ -171,6 +201,11 @@ fr:
         user: Utilisateur
         admin: Administrateur
         vip: VIP
+      card/orientation:
+        lr-td: Horizontal, de gauche à droite
+        rl-td: Horizontal, de droite à gauche
+        dt-lr: Vertical, de bas en haut
+        td-lr: Vertical, de haut en bas
     errors:
       models:
         user:

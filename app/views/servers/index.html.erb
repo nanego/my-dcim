@@ -1,6 +1,8 @@
 <% provide(:title, "Matériels") %>
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {t("inventories") => servers_url, 'Matériels' => ''} %>
-
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("inventories") => servers_url,
+  Server.model_name.human.pluralize => ''}
+%>
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-3">
@@ -10,24 +12,34 @@
       <div class="page-header">
         <%= link_to import_csv_servers_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
-          Ajouter par fichier CSV
+          <%= t(".add_server_via_csv") %>
         <% end %>
         <%= link_to new_server_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
-          Ajouter un matériel
+          <%= t(".add_server") %>
         <% end %>
-        <h1>Matériels</h1>
+        <h1><%= t(".title") %></h1>
       </div>
 
       <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">
           <thead>
             <tr>
-              <th>Nom</th>
-              <th>Type</th>
-              <th>Salle</th>
-              <th>Ilot</th>
-              <th>Baie</th>
+              <th>
+                <%= Server.human_attribute_name(:name) %>
+              </th>
+              <th>
+                <%= Server.human_attribute_name(:type) %>
+              </th>
+              <th>
+                <%= Server.human_attribute_name(:room) %>
+              </th>
+              <th>
+                <%= Server.human_attribute_name(:islet) %>
+              </th>
+              <th>
+                <%= Server.human_attribute_name(:bay) %>
+              </th>
               <th></th>
             </tr>
           </thead>
@@ -51,11 +63,11 @@
               </td>
               <td>
                 <div class="btn-group btn-group-sm btn-group-vertical" role="group" aria-label="...">
-                  <%= link_to 'Modifier', edit_server_path(server), class: 'btn btn-primary' %>
-                  <%= link_to 'Supprimer',
+                  <%= link_to t("action.edit"), edit_server_path(server), class: 'btn btn-primary' %>
+                  <%= link_to t("action.delete"),
                               server,
                               method: :delete,
-                              data: { confirm: 'Êtes-vous sûr ?' },
+                              data: { confirm: t("action.confirm") },
                               class: 'btn btn-danger' %>
                 </div>
               </td>
