@@ -30,12 +30,22 @@
 
         <dt><%= User.human_attribute_name(:authentication_token) %> :</dt>
         <dd>
-          <button class="btn btn-default btn-xs" data-action="click->reveal#toggle" data-reveal-target="item" type="button">
-            <%= t(".action.show_authentication_token") %>
+          <code>
+            <span data-reveal-target="item" class="hidden">
+              <%= @user.authentication_token %>
+            </span>
+            <span data-reveal-target="item">
+              <%= "*" * @user.authentication_token.length %>
+            </span>
+          </code>
+          <button class="btn btn-default btn-xs" data-action="click->reveal#toggle" type="button">
+            <span data-reveal-target="item">
+              <%= t(".action.show_authentication_token") %>
+            </span>
+            <span data-reveal-target="item" class="hidden">
+              <%= t(".action.hide_authentication_token") %>
+            </span>
           </button>
-          <span data-reveal-target="item" class="hidden">
-            <%= @user.authentication_token %>
-          </span>
         </dd>
       </dl>
     </div>
