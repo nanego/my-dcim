@@ -1,0 +1,5 @@
+fr:
+  time:
+   formats:
+      default: "%d/%m/%y à %Hh%M"
+      long: "%A %d %B %Y à %Hh%M"

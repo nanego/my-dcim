@@ -4,7 +4,9 @@ fr:
     false: Non
   form:
     errors:
-      title: "%{count} erreurs lors de la sauvegarde :"
+      title:
+        one: '1 erreur lors de la sauvegarde :'
+        other: '%{count} erreurs lors de la sauvegarde :'
     submit: Valider
   action:
     edit: Modifier
@@ -14,7 +16,8 @@ fr:
     close: Fermer
     save: Enregistrer
     cancel: Annuler
-    confirm: Are you sure ?
+    add: Ajouter
+    confirm: Êtes-vous sûr ?
   export_button:
     label: Exports
     exports:
@@ -372,6 +375,11 @@ fr:
   devise:
     registrations:
       signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'
+      edit:
+        action:
+          show_authentication_token: Afficher la clé API
+          hide_authentication_token: Cacher la clé API
+          reset_authentication_token: Regénérer la clé API
 
   activity:
     user:
@@ -425,6 +433,20 @@ fr:
         ports: Ports
         unreferenced_client: Le port correspondant de la carte jumelle est câblé
         no_client: Le port correspondant de la carte jumelle n'est pas câblé
+
+  users:
+    index:
+      new_user: Ajouter un utilisateur
+    user:
+      change_role: Changer le rôle
+    new:
+      new_user: Ajouter un utilisateur
+    show:
+      action:
+        show_authentication_token: Afficher la clé API
+        hide_authentication_token: Cacher la clé API
+    flashes:
+      authentication_token_reset: La clé API a été réinitialisée
 
   views:
     pagination:

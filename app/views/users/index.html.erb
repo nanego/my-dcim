@@ -1,19 +1,28 @@
-<% provide(:title, "Utilisateurs") %>
-<%= render 'layouts/breadcrumb', breadcrumb_variables: { 'Utilisateurs' => '' } %>
+<% provide(:title, User.model_name.human.pluralize) %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: { User.model_name.human.pluralize => "" } %>
 
 <div class="container well">
   <div class="row">
-
     <div class="col-md-12">
       <div class="page-header">
-        <%= link_to new_user_path, class: 'btn btn-primary' do %>
+        <%= link_to new_user_path, class: "btn btn-primary" do %>
           <span class="glyphicon glyphicon-plus"></span>
-          Ajouter un utilisateur
+          <%= t(".new_user") %>
         <% end %>
-        <h3>Utilisateurs</h3>
+        <h1><%= User.model_name.human.pluralize %></h1>
       </div>
 
       <table class="table">
+        <thead>
+          <tr>
+            <th><%= User.human_attribute_name(:id) %></th>
+            <th><%= User.human_attribute_name(:email) %></th>
+            <th><%= User.human_attribute_name(:last_sign_in_at) %></th>
+            <th><%= User.human_attribute_name(:created_at) %></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
         <tbody>
         <% @users.each do |user| %>
           <tr>
