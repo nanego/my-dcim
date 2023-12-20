@@ -5,17 +5,21 @@ class ChangelogEntry < ApplicationRecord
   belongs_to :author, polymorphic: true, optional: true, default: -> { ChangelogContext.author }
 
   def object_display_name
-    "#{object_type_name}: #{object || "##{object_id}"}"
+    "#{object_type_name}: #{object_name || "##{object_id}"}"
   end
 
   def object_type_name
     object_type&.safe_constantize&.model_name&.human || object_type
   end
 
+  def object_name
+    object.try(:name).presence || object.try(:display_name).presence || "##{object.id}"
+  end
+
   def author_display_name
     return unless author_type
 
-    "#{author_type_name}: #{author || "##{author_id}"}"
+    "#{author || "##{author_id}"}"
   end
 
   def author_type_name

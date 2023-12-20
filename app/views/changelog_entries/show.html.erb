@@ -9,7 +9,13 @@
     <h3><%=t ".informations" %></h3>
     <dl class="dl-horizontal">
       <dt><%= ChangelogEntry.human_attribute_name(:object) %></dt>
-      <dd><%= @changelog_entry.object_display_name %></dd>
+      <dd>
+        <% begin %>
+          <%= link_to @changelog_entry.object_display_name, @changelog_entry.object %>
+        <% rescue NoMethodError %>
+          <%= @changelog_entry.object_display_name %>
+        <% end %>
+      </dd>
 
       <dt><%= ChangelogEntry.human_attribute_name(:object_id) %></dt>
       <dd><%= @changelog_entry.object_id %></dd>
@@ -18,7 +24,7 @@
       <dd><%= render @changelog_entry.action_label_to_component %></dd>
 
       <dt><%= ChangelogEntry.human_attribute_name(:author) %></dt>
-      <dd><%= @changelog_entry.author %></dd>
+      <dd><%= link_to @changelog_entry.author_display_name, @changelog_entry.author %></dd>
 
       <dt><%= ChangelogEntry.human_attribute_name(:created_at) %></dt>
       <dd><%=l @changelog_entry.created_at %></dd>

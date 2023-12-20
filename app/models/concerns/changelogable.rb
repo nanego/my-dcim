@@ -28,6 +28,8 @@ module Changelogable
   end
 
   def _create_changelog_entry(action, object_changes: previous_changes, metadata: {})
+    return if Hash.new(object_changes).keys == ["updated_at"]
+
     changelog_entries.create!(
       action: action,
       object_changed_attributes: object_changes,
