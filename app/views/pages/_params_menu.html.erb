@@ -1,5 +1,4 @@
 <p>
-
   <div class="list-group">
     <a href="#" class="list-group-item disabled">
       <%= t(".location.title") %>
@@ -26,9 +25,9 @@
     <a href="<%= manufacturers_path %>" class="list-group-item <%= controller.controller_name == "manufacturers" ? "active" : "" %>"><%= Manufacturer.model_name.human.pluralize %></a>
     <a href="<%= stacks_path %>" class="list-group-item <%= controller.controller_name == "stacks" ? "active" : "" %>"><%= Stack.model_name.human.pluralize %></a>
     <a href="<%= card_types_path %>" class="list-group-item <%= controller.controller_name == "card_types" ? "active" : "" %>"><%= CardType.model_name.human(count: 2) %></a>
+    <a href="<%= port_types_path %>" class="list-group-item <%= controller.controller_name == "port_types" ? "active" : "" %>"><%= PortType.model_name.human(count: 2) %></a>
     <a href="<%= disk_types_path %>" class="list-group-item <%= controller.controller_name == "disk_types" ? "active" : "" %>"><%= DiskType.model_name.human(count: 2) %></a>
     <a href="<%= memory_types_path %>" class="list-group-item <%= controller.controller_name == "memory_types" ? "active" : "" %>"><%= MemoryType.model_name.human(count: 2) %></a>
-    <a href="<%= port_types_path %>" class="list-group-item <%= controller.controller_name == "port_types" ? "active" : "" %>"><%= PortType.model_name.human(count: 2) %></a>
   </div>
 
   <div class="list-group">
