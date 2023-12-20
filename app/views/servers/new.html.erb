@@ -1,17 +1,18 @@
-<% provide(:title, "Ajouter un matériel") %>
+<% provide(:title, t(".title")) %>
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
-    t("inventories") => servers_url,
-    'Matériels' => servers_path,
-    'Ajouter un matériel' => ''
+  t("inventories") => servers_url,
+  Server.model_name.human.pluralize => servers_path,
+  t(".title") => ''
 }%>
 
 <div class="container">
   <div class="page-header">
     <%= link_to servers_path, class: 'btn btn-default' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
-      Retour
+      <%= t("action.back") %>
     <% end %>
-    <h1>Ajouter un matériel</h1>
+
+    <h1><%= t(".title") %></h1>
   </div>
 
   <%= render 'form' %>

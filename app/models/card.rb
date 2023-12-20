@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Card < ApplicationRecord
+  ORIENTATIONS = %i[lr-td rl-td dt-lr td-lr]
+
   after_commit :set_twin_card
 
   include PublicActivity::Model

@@ -3,14 +3,18 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Ajouter un élément</h4>
+        <h4 class="modal-title" id="myModalLabel">
+          <%= t(".title") %>
+        </h4>
       </div>
       <div class="modal-body">
         <%= form_for(Server.new(:name => "PatchPanel", :modele => Modele.where("name LIKE ?", '%Panel%').first, frame: (@frame ? @frame : nil)), html: { class: "form-horizontal", role: "form" }) do |f| %>
           <% if @server.try(:errors).try(:any?) %>
             <div class="alert alert-danger alert-dismissable" role="alert">
-              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-              <h4><%= pluralize(@server.errors.count, "erreur", "erreurs") %> lors de la sauvegarde :</h4>
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"><%= t("action.close") %></span></button>
+              <h4>
+                <%= t("form.errors.title", count: @server.errors.count) %>
+              </h4>
 
               <ul>
                 <% @server.errors.full_messages.each do |msg| %>
@@ -21,7 +25,7 @@
           <% end %>
 
           <div class="form-group">
-            <%= f.label :nom, class: "col-sm-2 control-label" %>
+            <%= f.label :name, class: "col-sm-2 control-label" %>
             <div class="col-sm-10">
               <%= f.text_field :name, class: "form-control" %>
             </div>
@@ -63,8 +67,10 @@
 
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-              <%= f.submit 'Confirmer',class: "btn btn-primary" %>
-              <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+              <%= f.submit t("action.confirm"),class: "btn btn-primary" %>
+              <button type="button" class="btn btn-default" data-dismiss="modal">
+                <%= t("action.cancel") %>
+              </button>
             </div>
           </div>
         <% end %>
