@@ -67,16 +67,16 @@ fr:
         gestion_id: Gestionnaire
         network_id: Réseau Gb/10Gb
         stack: Stack
+        stack_id: Stack
         comment: Commentaire
         documents: Documents
         photo: Photo
         frame: Châssis
         span: Slots
-      card/orientation:
-        lr-td: Horizontal, de gauche à droite
-        rl-td: Horizontal, de droite à gauche
-        dt-lr: Vertical, de bas en haut
-        td-lr: Vertical, de haut en bas
+      server/network:
+        gbe: Réseau Gb
+        10gbe: Réseau 10Gb
+        fiber: Fibre
       site:
         name: Nom
         position: Position
@@ -201,6 +201,11 @@ fr:
         user: Utilisateur
         admin: Administrateur
         vip: VIP
+      card/orientation:
+        lr-td: Horizontal, de gauche à droite
+        rl-td: Horizontal, de droite à gauche
+        dt-lr: Vertical, de bas en haut
+        td-lr: Vertical, de haut en bas
     errors:
       models:
         user:

@@ -12,15 +12,13 @@
       <div class="page-header">
         <%= link_to import_csv_servers_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
-          <%= t(".add_via_csv") %>
+          <%= t(".add_server_via_csv") %>
         <% end %>
         <%= link_to new_server_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
           <%= t(".add_server") %>
         <% end %>
-        <h1>
-          <%= t(".title") %>
-        </h1>
+        <h1><%= t(".title") %></h1>
       </div>
 
       <div class="table-responsive">

@@ -8,9 +8,6 @@ fr:
         one: '1 erreur lors de la sauvegarde :'
         other: '%{count} erreurs lors de la sauvegarde :'
     submit: Valider
-  confirmation:
-    yes: Oui
-    no: Non
   action:
     edit: Modifier
     delete: Supprimer
@@ -51,8 +48,6 @@ fr:
       flashes:
         destroyed: L'ilôt a bien été supprimé.
   breadcrumb:
-    disk_type: Disk type
-    islet: Ilot %{name}
     bays:
       double: Double baie %{name}
       simple: Baie %{name}
@@ -396,17 +391,20 @@ fr:
       total: "Total: %{count}"
     import_csv:
       title: Importation de matériel par fichier CSV
-      room_import:
+      room_id:
         label: "Salle où importer les serveurs :"
         hint: (utilisé seulement si la baie n'est pas précisée dans le fichier CSV)
-      servers_states: "Etat des serveurs importés :"
-      csv_file: "Fichier CSV :"
-      import_this: Importer ce CSV
-      download_example: "Télécharger un exemple de fichier CSV compatible :"
+      servers_state:
+        label: "Etat des serveurs importés :"
+      csv_file:
+        label: "Fichier CSV :"
+      action:
+        import: Importer ce CSV
+      download_example_html: "Télécharger un exemple de fichier CSV compatible : %{link}"
     index:
       title: Matériels
       add_server: Ajouter un matériel
-      add_via_csv: Ajouter par un fichier CSV
+      add_server_via_csv: Ajouter par un fichier CSV
     show:
       back_to_bay: << Baie %{name}
       nb_elts: Nb d'éléments
@@ -423,16 +421,17 @@ fr:
       page_title: "%{modele} %{name} - Edition"
       title: "Matériel : %{name}"
       delete_confirmation: Toutes les données concernant ce matériel seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?
-  computer:
-    name: Nom
-    id: Id GLPI
-    serial: Numéro de série
-    contact: Contact
-    disks_count: Nombre de disques
-    disks_capacity: Capacité disques
-    memories_count: Nombre de barettes
-    memories_total: Ram totale
-    cpus: Processeurs
+  glpi:
+    computer:
+      name: Nom
+      id: Id GLPI
+      serial: Numéro de série
+      contact: Contact
+      disks_count: Nombre de disques
+      disks_capacity: Capacité disques
+      memories_count: Nombre de barettes
+      memories_total: Ram totale
+      cpus: Processeurs
   devise:
     registrations:
       signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'
@@ -485,10 +484,6 @@ fr:
     title: Salles
     capacity_view:
       title: Vue capacité réseau
-      networks:
-        fiber: Fibre
-        giga: Réseau Gb
-        10giga: 10Gb
     action_buttons:
       caption:
         ports: Ports

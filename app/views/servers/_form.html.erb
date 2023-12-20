@@ -4,7 +4,8 @@
       <button type="button" class="close" data-dismiss="alert">
         <span aria-hidden="true">&times;</span><span class="sr-only">
         <%= t("action.close") %>
-      </span></button>
+        </span>
+      </button>
       <h4>
         <%= t("form.errors.title", count: @server.errors.count) %>
       </h4>
@@ -95,12 +96,12 @@
     <div class="row">
       <%= f.label :network_id, class: "col-sm-2 control-label text-nowrap" %>
       <div class="col-sm-10">
-        <%= f.select(:network_id, [["Réseau Gb", 1], ["Réseau 10Gb", 2], ["Réseau Fibre", 3]], { :prompt => true, :include_blank => true }, { class: "form-control" }) %>
+        <%= f.select :network_id, Server::NETWORKS.to_h { |id, key| [Server.human_attribute_name("network.#{key}"), id] }, { :prompt => true, :include_blank => true }, { class: "form-control" } %>
       </div>
     </div>
 
     <div class="row">
-      <%= f.label :stack, class: "col-sm-2 control-label" %>
+      <%= f.label :stack_id, class: "col-sm-2 control-label" %>
       <div class="col-sm-10">
         <%= f.collection_select(:stack_id, Stack.order(:id), :id, :name, { :prompt => true, :include_blank => true }, { class: "form-control" }) %>
       </div>

@@ -1,8 +1,8 @@
 <% provide(:title, t(".title")) %>
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
-    t("inventories") => servers_url,
-    Server.model_name.human.pluralize => servers_path,
-    t(".title") => ''
+  t("inventories") => servers_url,
+  Server.model_name.human.pluralize => servers_path,
+  t(".title") => ''
 }%>
 
 <div class="container">
@@ -11,9 +11,8 @@
       <span class="glyphicon glyphicon-list-alt"></span>
       <%= t("action.back") %>
     <% end %>
-    <h1>
-      <%= t(".title") %>
-    </h1>
+
+    <h1><%= t(".title") %></h1>
   </div>
 
   <%= render 'form' %>

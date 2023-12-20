@@ -1,7 +1,7 @@
 <% provide(:title, "Importation de matériel par fichier CSV") %>
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
     t("inventories") => servers_url,
-    t("breadcrumbs.servers.label") => servers_path,
+    Server.model_name.human.pluralize => servers_path,
     t(".title") => ''
   }
 %>
@@ -16,7 +16,7 @@
 
 <%= flash[:notice] %>
 
-<p class="row">
+<div class="row">
   <div class="col-lg-4 col-lg-offset-4">
 
     <div class="panel panel-primary">
@@ -29,32 +29,31 @@
 
         <div class="panel-body">
           <p>
-            <%= f.label t(".room_import.label") %>
+            <%= f.label t(".room_id.label") %>
             <%= f.select :room_id, Room.order('id').all.collect {|p| [p.name, p.id]}, include_blank: false, selected: Room.find_by_name('Atelier').try(:id) %>
             <br>
             <span class="hint">
-              <%= t(".room_import.hint") %>
+              <%= t(".room_id.hint") %>
             </span>
           </p>
 
           <p>
-            <%= f.label t(".servers_states") %>
+            <%= f.label t(".servers_state.label") %>
             <%= f.select :server_state_id, ServerState.all.collect {|p| [t(p.name.parameterize), p.id]}, include_blank: true %>
           </p>
           <p>
-            <%= f.label t(".csv_file") %>
+            <%= f.label t(".csv_file.label") %>
             <%= f.file_field :file %>
           </p>
 
         </div>
 
         <div class="panel-footer">
-          <%= f.submit t(".import_this"), class: 'btn btn-primary', style: "width:100%;" %>
+          <%= f.submit t(".action.import"), class: 'btn btn-primary', style: "width:100%;" %>
         </div>
       <% end %>
     </div>
 
-    <%= t(".download_example") %> <%= link_to 'fichier_exemple.csv', root_url + 'files/format_exemple.csv' %>
-
+    <%= t(".download_example_html", link: link_to('fichier_exemple.csv', root_url + 'files/format_exemple.csv')) %>
   </div>
-</p>
+</div>
