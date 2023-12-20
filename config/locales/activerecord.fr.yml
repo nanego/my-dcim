@@ -72,6 +72,11 @@ fr:
         photo: Photo
         frame: Châssis
         span: Slots
+      card/orientation:
+        lr-td: Horizontal, de gauche à droite
+        rl-td: Horizontal, de droite à gauche
+        dt-lr: Vertical, de bas en haut
+        td-lr: Vertical, de haut en bas
       site:
         name: Nom
         position: Position

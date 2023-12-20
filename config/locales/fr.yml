@@ -9,8 +9,8 @@ fr:
         other: '%{count} erreurs lors de la sauvegarde :'
     submit: Valider
   confirmation:
-    "yes": Oui
-    "no": Non
+    yes: Oui
+    no: Non
   action:
     edit: Modifier
     delete: Supprimer
@@ -382,16 +382,6 @@ fr:
     edit:
       title: Modification d'un modèle
   servers:
-    card_fields:
-      orientations:
-        horizontal:
-          lr: "Horizontal, de gauche à droite"
-          rl: "Horizontal, de droite à gauche"
-        vertical:
-          dt: "Vertical, de bas en haut"
-          td: "Vertical, de haut en bas"
-    disk_fields:
-      quantity: Quantité
     form:
       network_type: Réseau %{type}
       edit_confirmation: Modifier ce matériel
@@ -402,8 +392,6 @@ fr:
         orientation: Orientation
         first_port_name: Numéro du premier port
         twin_card: Carte jumèle
-    memory_component_fields:
-      quantity: Quantité
     modal_add_element_in_frame:
       title: Ajouter un élément
     room:
@@ -541,4 +529,6 @@ fr:
       composant:
         name: 'Nom'
       disk:
+        quantity: 'Quantité'
+      memory_component:
         quantity: 'Quantité'

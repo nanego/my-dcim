@@ -24,10 +24,7 @@
         <%= f.text_field :name %>
       </div>
       <div class="col-sm-2">
-        <%= f.select :orientation, [[t(".orientations.horizontal.lr"), "lr-td"],
-                                    [t(".orientations.horizontal.rl"), "rl-td"],
-                                    [t(".orientations.vertical.dt"), "dt-lr"],
-                                    [t(".orientations.vertical.td"), "td-lr"]], class: "form-control" %>
+        <%= f.select :orientation, Card::ORIENTATIONS.map { |o| [Card.human_attribute_name("orientation.#{o}"), o] }, class: "form-control" %>
       </div>
       <div class="col-sm-1">
         <%= f.select :first_position, 0..100, { include_blank: true } %>
