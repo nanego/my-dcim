@@ -35,6 +35,7 @@ fr:
         one: Type de RAM
         other: Types de RAM
       enclosure: Enclosure
+      user: Utilisateur
 
     attributes:
       islet:
@@ -158,6 +159,18 @@ fr:
       enclosure:
         display: Disposition
         grid_areas: Grid areas
+      user:
+        id: Identifiant
+        name: Nom
+        email: Adresse mail
+        last_sign_in_at: Dernière connexion le
+        created_at: Compte créé le
+        role: Rôle
+        authentication_token: Clé API
+      user/role:
+        user: Utilisateur
+        admin: Administrateur
+        vip: VIP
     errors:
       models:
         user:
