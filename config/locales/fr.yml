@@ -540,3 +540,5 @@ fr:
     placeholder:
       composant:
         name: 'Nom'
+      disk:
+        quantity: 'Quantité'

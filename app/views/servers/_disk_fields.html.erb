@@ -1,7 +1,7 @@
 <li class="list-group-item">
   <fieldset>
     <div class="col-sm-4">
-      <%= f.number_field :quantity, class: "form-control", placeholder: t(".quantity") %>
+      <%= f.number_field :quantity, class: "form-control", placeholder: true %>
     </div>
     <div class="col-sm-4">
       <%= f.collection_select :disk_type_id, DiskType.order(:quantity), :id, :to_s, class: "form-control" %>

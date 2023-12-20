@@ -154,8 +154,8 @@
       <div class="panel panel-default">
         <ul class="list-group">
           <%= f.fields_for :disks do |builder| %>
-      <%= render "disk_fields", :f => builder %>
-    <% end %>
+            <%= render partial: "disk_fields", locals: { f: builder } %>
+          <% end %>
         </ul>
         <div class="panel-footer"><%= link_to_add_fields "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter des disques".html_safe, f, :disks %></div>
       </div>
@@ -164,8 +164,8 @@
       <div class="panel panel-default">
         <ul class="list-group">
           <%= f.fields_for :memory_components do |builder| %>
-      <%= render "memory_component_fields", :f => builder %>
-    <% end %>
+            <%= render partial: "memory_component_fields", locals: { f: builder } %>
+          <% end %>
         </ul>
         <div class="panel-footer"><%= link_to_add_fields "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter de la RAM".html_safe, f, :memory_components %></div>
       </div>
@@ -185,7 +185,7 @@
       <div class="panel panel-default">
         <div class="col-sm-12">
           <%= f.fields_for :documents do |builder| %>
-            <%= render "document_fields", :f => builder %>
+            <%= render partial: "document_fields", locals: { f:  builder } %>
           <% end %>
         </div>
         <div class="panel-footer">
