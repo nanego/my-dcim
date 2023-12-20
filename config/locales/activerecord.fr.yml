@@ -59,9 +59,9 @@ fr:
         type: Type
         room: Salle
         islet: Ilot
-        bay: Baie
+        frame_id: Châssis
         position: Position
-        state: Etat
+        server_state_id: Etat
         modele_id: Modèle
         critique: Critique
         gestion_id: Gestionnaire
@@ -183,6 +183,12 @@ fr:
       enclosure:
         display: Disposition
         grid_areas: Grid areas
+        component: Composant du modèle
+        card_type: Type de carte
+        label: Libellé
+        orientation: Orientation
+        first_port_name: Numéro du premier port
+        twin_card: Carte jumèle
       user:
         id: Identifiant
         name: Nom

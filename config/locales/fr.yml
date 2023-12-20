@@ -385,13 +385,6 @@ fr:
     form:
       network_type: Réseau %{type}
       edit_confirmation: Modifier ce matériel
-      enclosure:
-        component: Composant du modèle
-        card_type: Type de carte
-        label: Libellé
-        orientation: Orientation
-        first_port_name: Numéro du premier port
-        twin_card: Carte jumèle
     modal_add_element_in_frame:
       title: Ajouter un élément
     room:

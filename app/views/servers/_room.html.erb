@@ -12,7 +12,7 @@
             <div><h3><%= title %></h3></div>
           <% elsif room.present? %>
             <div><h3>
-              <%= t(".title", room: room, islet:) %>
+              <%= t(".title", room: room, islet: islet) %>
             </h3></div>
           <% end %>
           <div class="row">

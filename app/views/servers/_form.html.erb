@@ -27,7 +27,7 @@
     </div>
 
     <div class="row">
-      <%= f.label :bay, class: "col-sm-2 control-label" %>
+      <%= f.label :frame_id, class: "col-sm-2 control-label" %>
       <div class="col-sm-10">
         <%= f.collection_select(:frame_id, Frame.all_sorted, :id, :name_with_room_and_islet, { :prompt => true, :include_blank => false }, { class: "form-control" }) %>
       </div>
@@ -41,7 +41,7 @@
     </div>
 
     <div class="row">
-      <%= f.label :state, class: "col-sm-2 control-label" %>
+      <%= f.label :server_state_id, class: "col-sm-2 control-label" %>
       <div class="col-sm-10">
         <%= f.collection_select(:server_state_id, ServerState.sorted, :id, :name, { :prompt => false, :include_blank => true }, { class: "form-control" }) %>
       </div>
@@ -105,7 +105,6 @@
         <%= f.collection_select(:stack_id, Stack.order(:id), :id, :name, { :prompt => true, :include_blank => true }, { class: "form-control" }) %>
       </div>
     </div>
-
   </div>
 
   <% if f.object.persisted? && @server.modele %>
@@ -117,22 +116,22 @@
             <li class="list-group-item">
               <fieldset class="header">
                 <div class="col-sm-2">
-                  <%= t(".enclosure.component") %>
+                  <%= Enclosure.human_attribute_name("component") %>
                 </div>
                 <div class="col-sm-2">
-                  <%= t(".enclosure.card_type") %>
+                  <%= Enclosure.human_attribute_name("card_type") %>
                 </div>
                 <div class="col-sm-2">
-                  <%= t(".enclosure.label") %>
+                  <%= Enclosure.human_attribute_name("label") %>
                 </div>
                 <div class="col-sm-2">
-                  <%= t(".enclosure.orientation") %>
+                  <%= Enclosure.human_attribute_name("orientation") %>
                 </div>
                 <div class="col-sm-1">
-                  <%= t(".enclosure.first_port_name") %>
+                  <%= Enclosure.human_attribute_name("first_port_name") %>
                 </div>
                 <div class="col-sm-2">
-                  <%= t(".enclosure.twin_card") %>
+                  <%= Enclosure.human_attribute_name("twin_card") %>
                 </div>
               </fieldset>
             </li>
