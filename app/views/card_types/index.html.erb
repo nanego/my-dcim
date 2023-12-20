@@ -4,15 +4,12 @@
 %>
 
 <div class="container-fluid">
-
   <div class="row">
-
     <div class="col-md-3">
       <%= render 'pages/params_menu' %>
     </div>
 
     <div class="col-md-9">
-
       <div class="page-header">
         <%= link_to new_card_type_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
@@ -22,6 +19,23 @@
           <%= t(".title") %>
         </h1>
       </div>
+
+      <%= render List::DataTableComponent.new(@card_types) do |table| %>
+        <% table.with_column(CardType.human_attribute_name(:port_type_id), sort_by: :port_type_id) do |card_type| %>
+          <%= card_type.port_type %>
+        <% end %>
+        <% table.with_column(CardType.human_attribute_name(:name), sort_by: :name) do |card_type| %>
+          <%= link_to card_type, card_type_path(card_type) %>
+        <% end %>
+        <% table.with_column(CardType.human_attribute_name(:port_quantity), sort_by: :port_quantity) do |card_type| %>
+          <%= card_type.port_quantity %>
+        <% end %>
+        <% table.with_column(class: "text-right") do |card_type| %>
+          <%= link_to t("action.edit"), edit_card_type_path(card_type), class: "btn btn-primary" %>
+          <%= link_to t("action.delete"), card_type_path(card_type), method: :delete, data: { confirm: t(".delete_confirmation") },
+                                                                     class: "btn btn-danger" %>
+        <% end %>
+      <% end %>
 
       <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">
