@@ -18,8 +18,12 @@ class PortsController < ApplicationController
     respond_to do |format|
       format.html
       format.txt { send_data Port.to_txt(@frames), filename: "#{DateTime.now.strftime("%Y%m%d")}-ports.txt" }
-      format.csv { send_data Port.to_csv(@frames), filename: "#{DateTime.now.strftime("%Y%m%d")}-ports.csv"}
+      format.csv { send_data Port.to_csv(@frames), filename: "#{DateTime.now.strftime("%Y%m%d")}-ports.csv" }
     end
+  end
+
+  def show
+    @port = Port.find_by_id(params[:id])
   end
 
   def edit
@@ -27,10 +31,10 @@ class PortsController < ApplicationController
       redirect_to connections_edit_path(from_port_id: params[:id])
     else
       @port = Port.find_or_create_by(position: params['position'],
-                          card_id: params['card_id'],
-                          vlans: params['vlans'],
-                          color: params['color'],
-                          cablename: params['cablename'])
+                                     card_id: params['card_id'],
+                                     vlans: params['vlans'],
+                                     color: params['color'],
+                                     cablename: params['cablename'])
       redirect_to connections_edit_path(from_port_id: @port)
     end
   end
@@ -65,6 +69,6 @@ class PortsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def port_params
-   params.required(:port).permit(:position, :card_id, :vlans, :color, :cablename)
+    params.required(:port).permit(:position, :card_id, :vlans, :color, :cablename)
   end
 end
