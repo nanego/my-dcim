@@ -4,11 +4,11 @@
   </a>
   <ul class="dropdown-menu">
     <li class="dropdown-header">Localisation</li>
-    <li><a href="<%= sites_path %>">Sites</a></li>
-    <li><a href="<%= rooms_path %>">Salles</a></li>
-    <li><a href="<%= islets_path %>">Ilots</a></li>
-    <li><a href="<%= bays_path %>">Baies / Doubles-baies</a></li>
-    <li><a href="<%= frames_path %>">Châssis</a></li>
+    <li><a href="<%= sites_path %>"><%= Site.model_name.human.pluralize %></a></li>
+    <li><a href="<%= rooms_path %>"><%= Room.model_name.human.pluralize %></a></li>
+    <li><a href="<%= islets_path %>"><%= Islet.model_name.human.pluralize %></a></li>
+    <li><a href="<%= bays_path %>"><%= Bay.model_name.human.pluralize %></a></li>
+    <li><a href="<%= frames_path %>"><%= Frame.model_name.human %></a></li>
 
     <li role="separator" class="divider"></li>
     <li class="dropdown-header">Matériel</li>
@@ -16,19 +16,19 @@
 
     <li role="separator" class="divider"></li>
     <li class="dropdown-header"><%= t("pages.params_menu.features.title")%></li>
-    <li><a href="<%= modeles_path %>">Modèles</a></li>
-    <li><a href="<%= categories_path %>">Types de matériel</a></li>
-    <li><a href="<%= architectures_path %>">Architectures</a></li>
-    <li><a href="<%= manufacturers_path %>">Fabricants</a></li>
-    <li><a href="<%= stacks_path %>">Stacks</a></li>
-    <li><a href="<%= card_types_path %>">Types de carte</a></li>
+    <li><a href="<%= modeles_path %>"><%= Modele.model_name.human.pluralize %></a></li>
+    <li><a href="<%= categories_path %>"><%= Category.model_name.human.pluralize %></a></li>
+    <li><a href="<%= architectures_path %>"><%= Architecture.model_name.human.pluralize %></a></li>
+    <li><a href="<%= manufacturers_path %>"><%= Manufacturer.model_name.human.pluralize %></a></li>
+    <li><a href="<%= stacks_path %>"><%= Stack.model_name.human.pluralize %></a></li>
+    <li><a href="<%= card_types_path %>"><%= CardType.model_name.human(count: 2) %></a></li>
     <li><a href="<%= port_types_path %>"><%= PortType.model_name.human(count: 2) %></a></li>
 
     <li role="separator" class="divider"></li>
     <li class="dropdown-header"><%= t("pages.params_menu.exploitation.title")%></li>
-    <li><a href="<%= domaines_path %>">Domaines</a></li>
-    <li><a href="<%= gestions_path %>">Gestionnaires</a></li>
-    <li><a href="<%= clusters_path %>">Clusters</a></li>
+    <li><a href="<%= domaines_path %>"><%= Domaine.model_name.human.pluralize %></a></li>
+    <li><a href="<%= gestions_path %>"><%= Gestion.model_name.human.pluralize %></a></li>
+    <li><a href="<%= clusters_path %>"><%= Cluster.model_name.human.pluralize %></a></li>
 
     <!--
     <li><a href="<%= colors_path %>">Couleurs</a></li>
