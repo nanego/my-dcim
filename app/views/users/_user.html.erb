@@ -1,6 +1,12 @@
 <td><%= link_to user.id, user %></td>
 <td><%= user.email %></td>
-<td><%= l user.last_sign_in_at %></td>
+<td>
+  <%- if user.last_sign_in_at.present? -%>
+    <%= l user.last_sign_in_at  %>
+  <%- else -%>
+    <em>n/c</em>
+  <%- end -%>
+</td>
 <td><%= l user.created_at %></td>
 <td>
   <%= form_for(user) do |f| %>
