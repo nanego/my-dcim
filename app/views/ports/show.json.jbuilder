@@ -5,7 +5,7 @@ json.extract! @port, :id, :position, :vlans, :color, :cablename, :card, :created
 json.connection do
   json.extract! @port.paired_connection, :port, :cable
   json.server @port.paired_connection.port.server, :id, :name, :numero
-end
+end if @port.paired_connection.present?
 
 json.server do
   json.extract! @port.server, :id, :name, :slug, :numero
