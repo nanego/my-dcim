@@ -34,7 +34,7 @@ module List
 
     def render_head_cell(col)
       render(List::TableComponent::TableHeadCell.new) do
-        if (sort_by = col.options[:sort_by])
+        if (sort_by = col.sort_by)
           link_to_sort col.title, sort_by
         else
           col.title
@@ -45,7 +45,7 @@ module List
     def render_row(row)
       render List::TableComponent::TableRow.new do
         columns.each do |col|
-          concat render List::TableComponent::TableCell.new(render_col(col, row), class: col.options[:class])
+          concat render List::TableComponent::TableCell.new(render_col(col, row), **col.html_options)
         end
       end
     end
@@ -77,12 +77,13 @@ module List
     end
 
     class DatatableColumn < ApplicationComponent
-      attr_reader :title, :options
+      attr_reader :title, :sort_by, :html_options
 
       def initialize(title = nil, **options, &block)
         @title = title
         @block = block
-        @options = options
+        @sort_by = options.delete(:sort_by)
+        @html_options = options
 
         super()
       end
