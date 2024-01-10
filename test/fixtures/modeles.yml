@@ -23,6 +23,8 @@ two:
 three:
   id: 3
   name: PDU_24
+  architecture_id: 1
+  manufacturer_id: 1
   category_id: 3
 
 four:
