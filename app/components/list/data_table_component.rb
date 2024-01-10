@@ -55,17 +55,25 @@ module List
     end
 
     def link_to_sort(label, attribute)
-      direction = params[:direction] == 'asc' ? 'desc' : 'asc'
-      url = url_for(controller.request.query_parameters.merge(column: attribute, direction: direction))
+      current_attribute = params[:column]&.to_sym
+      current_direction = current_attribute == attribute ? params[:direction].to_sym : nil
+
+      parameters = case current_direction
+                   when nil then { column: attribute, direction: :asc }
+                   when :asc then { column: attribute, direction: :desc }
+                   else { column: nil, direction: nil }
+                   end
+
+      url = url_for(controller.request.query_parameters.merge(parameters))
 
       link_to(url) do
         concat label
-        concat " #{sort_caret(direction)}" if params[:column] == attribute&.to_s
+        concat " #{sort_caret(current_direction)}" if current_attribute == attribute
       end
     end
 
     def sort_caret(direction)
-      sanitize(direction == 'desc' ? "&#9660;" : "&#9650;")
+      sanitize(direction == :desc ? "&#9660;" : "&#9650;")
     end
 
     class DatatableColumn < ApplicationComponent
