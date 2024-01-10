@@ -46,6 +46,10 @@ body {
   text-overflow: ellipsis;
 }
 
+.word-break {
+  word-wrap: break-word ;
+}
+
 .breadcrumb {
   background-color: #333;
   margin-left: -15px;
