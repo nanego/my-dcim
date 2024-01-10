@@ -235,7 +235,7 @@ RSpec.describe "/servers" do
     fixtures :rooms
     fixtures :servers
 
-    let(:csv) { Rack::Test::UploadedFile.new("#{Rails.root}test/files/orders.csv") }
+    let(:csv) { Rack::Test::UploadedFile.new("#{Rails.root}/test/files/orders.csv") }
     let(:destination_frame) { Frame.find_by(name: 'MyFrame2') }
     let(:nb_of_servers_in_frame) { destination_frame.servers.count }
     let(:frames_count) { Frame.where(name: 'orders').last.servers.count }
