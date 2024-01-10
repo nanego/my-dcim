@@ -142,10 +142,10 @@ RSpec.describe "/servers" do
       end
 
       it "does update cards in a server", :aggregate_failures do
-        patch server_path(server), params: { server: {cards_attributes: { id:1,
+        patch server_path(server), params: { server: {cards_attributes: { id: 1,
                                                                           composant_id: 1,
-                                                                          twin_card_id:2,
-                                                                          orientation:"lr-td" } } }
+                                                                          twin_card_id: 2,
+                                                                          orientation: "lr-td" } } }
 
         assigns(:server).reload
         server.reload
@@ -235,8 +235,8 @@ RSpec.describe "/servers" do
     fixtures :rooms
     fixtures :servers
 
-    let(:csv) { Rack::Test::UploadedFile.new(Rails.root + "test/files/orders.csv") }
-    let(:destination_frame) { Frame.find_by_name('MyFrame2') }
+    let(:csv) { Rack::Test::UploadedFile.new("#{Rails.root}test/files/orders.csv") }
+    let(:destination_frame) { Frame.find_by(name: 'MyFrame2') }
     let(:nb_of_servers_in_frame) { destination_frame.servers.count }
     let(:frames_count) { Frame.where(name: 'orders').last.servers.count }
 
@@ -255,8 +255,8 @@ RSpec.describe "/servers" do
 
       expect(response).to have_http_status(:found)
       expect(response).to redirect_to(frame_path("orders"))
-      expect(Server.find_by_numero('1234567AS').comment).to eq "This is a comment"
-      expect(destination_frame.servers.count).to eq (nb_of_servers_in_frame + 4)
+      expect(Server.find_by(numero: '1234567AS').comment).to eq "This is a comment"
+      expect(destination_frame.servers.count).to eq(nb_of_servers_in_frame + 4)
       expect(destination_frame.servers.first.position).to eq 30
       expect(frames_count).to eq 22
     end
