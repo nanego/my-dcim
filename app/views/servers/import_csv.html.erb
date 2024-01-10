@@ -39,7 +39,7 @@
 
           <p>
             <%= f.label t(".servers_state.label") %>
-            <%= f.select :server_state_id, ServerState.all.collect {|p| [t(p.name.parameterize), p.id]}, include_blank: true %>
+            <%= f.select :server_state_id, ServerState.select(:id, :name).collect { |p| [t(p.name.parameterize, default: p.name), p.id] }, include_blank: true %>
           </p>
           <p>
             <%= f.label t(".csv_file.label") %>
