@@ -4,15 +4,12 @@
 %>
 
 <div class="container-fluid">
-
   <div class="row">
-
     <div class="col-md-3">
       <%= render 'pages/params_menu' %>
     </div>
 
     <div class="col-md-9">
-
       <div class="page-header">
         <%= link_to new_memory_type_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
@@ -23,30 +20,16 @@
         </h1>
       </div>
 
-      <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover">
-          <thead>
-            <tr>
-              <th>
-                <%= MemoryType.human_attribute_name(:name) %>
-              </th>
-              <th></th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <%= content_tag_for(:tr, @memory_types) do |memory_type| %>
-              <td>
-                <%= link_to memory_type, memory_type_path(memory_type) %>
-              </td>
-              <td class="text-right">
-                <%= link_to t("action.edit"), edit_memory_type_path(memory_type), class: 'btn btn-primary' %>
-                <%= link_to t("action.delete"), memory_type, method: :delete, data: { confirm: t("action.confirm") }, class: 'btn btn-danger' %>
-              </td>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+      <%= render List::DataTableComponent.new(@memory_types) do |table| %>
+        <% table.with_column(MemoryType.human_attribute_name(:name), sort_by: :quantity) do |memory_type| %>
+          <%= link_to memory_type, memory_type_path(memory_type) %>
+        <% end %>
+        <% table.with_column(class: "text-right") do |memory_type| %>
+          <%= link_to t("action.edit"), edit_memory_type_path(memory_type), class: 'btn btn-primary' %>
+          <%= link_to t("action.delete"), memory_type_path(memory_type), method: :delete, data: { confirm: t("action.confirm") },
+                                                                         class: 'btn btn-danger' %>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>
