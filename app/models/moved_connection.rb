@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class MovedConnection < ApplicationRecord
+  has_changelog
+
   belongs_to :port_from, class_name: 'Port'
   belongs_to :port_to, class_name: 'Port', optional: true
 

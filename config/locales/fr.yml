@@ -503,6 +503,11 @@ fr:
         hide_authentication_token: Cacher la clé API
     flashes:
       authentication_token_reset: La clé API a été réinitialisée
+  changelog_entries:
+    show:
+      informations: Informations
+      changes: Changements
+      metadatas: Metadonnées
 
   views:
     pagination:

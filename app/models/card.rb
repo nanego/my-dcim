@@ -3,8 +3,6 @@
 class Card < ApplicationRecord
   ORIENTATIONS = %i[lr-td rl-td dt-lr td-lr]
 
-  after_commit :set_twin_card
-
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
   tracked :parameters => {
@@ -12,6 +10,7 @@ class Card < ApplicationRecord
     :server => :server,
     :composant => :composant
   }
+  has_changelog
 
   belongs_to :card_type
   delegate :port_quantity, to: :card_type, allow_nil: true
@@ -19,13 +18,14 @@ class Card < ApplicationRecord
 
   belongs_to :server
   belongs_to :composant
-  delegate :frame, to: :server
+  delegate :frame, to: :server # TODO: replace by has_one?
 
   has_many :ports
   has_many :cables, through: :ports
 
-  scope :for_enclosure, -> (enclosure_id) { joins(:composant).where("composants.enclosure_id = ?", enclosure_id).order("composants.position ASC")}
+  after_commit :set_twin_card
 
+  scope :for_enclosure, -> (enclosure_id) { joins(:composant).where("composants.enclosure_id = ?", enclosure_id).order("composants.position ASC")}
   scope :on_patch_panels, -> () {joins(:server => {:modele => :category}).where("categories.name = 'Patch Panel'")}
 
   def to_s

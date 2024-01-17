@@ -1,0 +1,51 @@
+<% provide(:title, ChangelogEntry.model_name.human.pluralize) %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+  ChangelogEntry.model_name.human.pluralize => changelog_entries_path,
+  "#{@changelog_entry.id} - #{@changelog_entry.action} - #{@changelog_entry.object}" => ""
+} %>
+
+<div class="container-fluid">
+  <div class="page-header">
+    <h3><%=t ".informations" %></h3>
+    <dl class="dl-horizontal">
+      <dt><%= ChangelogEntry.human_attribute_name(:object) %></dt>
+      <dd>
+        <% begin %>
+          <%= link_to @changelog_entry.object_display_name, @changelog_entry.object %>
+        <% rescue NoMethodError %>
+          <%= @changelog_entry.object_display_name %>
+        <% end %>
+      </dd>
+
+      <dt><%= ChangelogEntry.human_attribute_name(:object_id) %></dt>
+      <dd><%= @changelog_entry.object_id %></dd>
+
+      <dt><%= ChangelogEntry.human_attribute_name(:action) %></dt>
+      <dd><%= render @changelog_entry.action_label_to_component %></dd>
+
+      <dt><%= ChangelogEntry.human_attribute_name(:author) %></dt>
+      <dd><%= link_to @changelog_entry.author_display_name, @changelog_entry.author %></dd>
+
+      <dt><%= ChangelogEntry.human_attribute_name(:created_at) %></dt>
+      <dd><%=l @changelog_entry.created_at %></dd>
+    </dl>
+  </div>
+
+  <h3><%=t ".changes" %></h3>
+  <div class="row">
+    <div class="col-md-6">
+      <%=sanitize @changelog_entry.split_diff.left %>
+    </div>
+    <div class="col-md-6">
+      <%=sanitize @changelog_entry.split_diff.right %>
+    </div>
+  </div>
+
+  <h3><%=t ".metadatas" %></h3>
+  <dl class="dl-horizontal">
+    <% @changelog_entry.metadata.each do |key, value| %>
+      <dt><%= key %></dt>
+      <dd><code><%= value %></code></dd>
+    <% end %>
+  </dl>
+</div>

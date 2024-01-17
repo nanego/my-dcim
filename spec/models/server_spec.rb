@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Server, type: :model do
+  # it_behaves_like "changelogable", new_attributes: {  }
+
   subject(:server) do
     Server.new(name: "ACTARUS", frame: Frame.new, modele: Modele.new, numero: "1245")
   end

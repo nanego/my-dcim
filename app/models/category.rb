@@ -3,6 +3,7 @@
 class Category < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
+  has_changelog
 
   has_many :modeles, dependent: :restrict_with_error
 
@@ -13,6 +14,6 @@ class Category < ApplicationRecord
   end
 
   def pdu?
-    name=='Pdu'
+    name == "Pdu"
   end
 end

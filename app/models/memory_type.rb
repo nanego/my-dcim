@@ -3,6 +3,8 @@
 class MemoryType < ApplicationRecord
   UNITS = ["Gb"]
 
+  has_changelog
+
   has_many :memory_components, dependent: :restrict_with_error
 
   def to_s
