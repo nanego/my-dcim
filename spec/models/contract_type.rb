@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe ContractType, type: :model do
+  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+
   subject(:contract_type) { ContractType.new(name: "Dell Pro Support") }
 
   describe "associations" do

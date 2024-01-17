@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   include PublicActivity::StoreController
+  include ChangelogContextApplication
 
   acts_as_token_authentication_handler_for User
 

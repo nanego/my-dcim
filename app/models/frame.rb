@@ -9,6 +9,8 @@ class Frame < ApplicationRecord
 
   include PublicActivity::Model
   tracked owner: ->(controller, model) {controller && controller.current_user}
+  has_changelog
+  acts_as_list scope: [:bay_id]
 
   belongs_to :bay
   has_many :materials, -> {order("servers.position desc")}, class_name: "Server", dependent: :restrict_with_error
@@ -17,8 +19,6 @@ class Frame < ApplicationRecord
   has_one :islet, through: :bay
   delegate :room, :to => :islet, :allow_nil => true
   delegate :name, :to => :room, :prefix => true, :allow_nil => true
-
-  acts_as_list scope: [:bay_id]
 
   scope :sorted, -> {order(:position)}
 

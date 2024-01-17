@@ -11,6 +11,7 @@ class Modele < ApplicationRecord
       :categorie => :category,
       :nb_elts => :nb_elts
   }
+  has_changelog
 
   has_many :servers, dependent: :restrict_with_error
   has_many :enclosures, dependent: :restrict_with_error

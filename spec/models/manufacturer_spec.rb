@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Manufacturer, type: :model do
+  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+
   subject(:manufacturer) { Manufacturer.new(name: "BULL") }
 
   describe "associations" do

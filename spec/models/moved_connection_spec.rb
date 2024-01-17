@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe MovedConnection, type: :model do
+  # it_behaves_like "changelogable", new_attributes: {  }
+
   subject(:moved_connection) { MovedConnection.new(color: "bleu", cablename: "cable") }
 
   describe "associations" do

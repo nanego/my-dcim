@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Site, type: :model do
+  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+
   subject(:site) { Site.new(name: "Site A", street: "Rue du Cactus", city: "92055 La Défense", country: "France") }
 
   describe "associations" do

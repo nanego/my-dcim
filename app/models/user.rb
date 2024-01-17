@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  enum role: [:user, :vip, :admin]
+
   acts_as_token_authenticatable
+  has_changelog
 
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
@@ -14,7 +17,6 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
-  enum role: [:user, :vip, :admin]
   after_initialize :set_default_role, :if => :new_record?
 
   def set_default_role

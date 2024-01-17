@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Move, type: :model do
+  # it_behaves_like "changelogable", new_attributes: {  }
+
   subject(:move) { Move.new(moveable: Server.new, frame: Frame.new, prev_frame: Frame.new) }
 
   describe "associations" do

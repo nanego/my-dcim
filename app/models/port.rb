@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'csv'
+require "csv"
 
 class Port < ApplicationRecord
   include PublicActivity::Model
@@ -10,6 +10,7 @@ class Port < ApplicationRecord
     :card_type => proc { |controller, model_instance| "#{model_instance.card.try(:composant)} #{model_instance.card.try(:card_type)}"},
     :vlans => :vlans
   }
+  has_changelog
 
   belongs_to :card
   delegate :is_power_input?, to: :card, :allow_nil => true

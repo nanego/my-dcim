@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Gestion, type: :model do
+  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+
   subject(:gestion) { Gestion.new(name: "DIS/GIL") }
 
   describe "associations" do
