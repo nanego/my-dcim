@@ -1,5 +1,4 @@
-<%
-  breadcrumb_variables = {}
+breadcrumb_variables = {}
   breadcrumb_variables[t('visualization')] = overview_rooms_path
   if @room.present?
     breadcrumb_variables["Salle #{@room.name}"] = room_path(@room)
@@ -36,7 +35,7 @@
 
       <% @frames.each do |frame| %>
         <h3>
-          <%= link_to "#{frame.name_with_room_and_islet}", frame_path(frame, :view => params[:view]), style: 'text-decoration: underline;' %>
+          <%= link_to frame.name_with_room_and_islet.to_s, frame_path(frame, :view => params[:view]), style: 'text-decoration: underline;' %>
         </h3>
         <% frame.servers.includes(:modele, :cards => [:ports, :composant]).order('position desc').each do |s| %>
           <h4 style="display: inline;"><%= s.name %></h4><span> (<%= s.modele.try(:name) %>)</span>
@@ -44,7 +43,7 @@
             <% s.cards.each do |c| %>
               <% c.ports.each do |port| %>
                 <% if port && port.cable_name && c.composant.name.present? %>
-                  <%= "#{c.composant.name}#{c.composant.name.include?('SL') ? "/#{port.position}" : port.position} - #{port.network_conf(s.frame.switch_slot)}" %>
+                  <%= "#{c.composant.name}#{c.composant.name.include?("SL") ? "/#{port.position}" : port.position} - #{port.network_conf(s.frame.switch_slot)}" %>
                   <br>
                 <% end %>
               <% end %>

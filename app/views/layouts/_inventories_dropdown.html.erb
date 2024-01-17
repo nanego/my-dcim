@@ -15,7 +15,7 @@
     <li><a href="<%= servers_path %>">Matériels</a></li>
 
     <li role="separator" class="divider"></li>
-    <li class="dropdown-header"><%= t("pages.params_menu.features.title")%></li>
+    <li class="dropdown-header"><%= t("pages.params_menu.features.title") %></li>
     <li><a href="<%= modeles_path %>"><%= Modele.model_name.human.pluralize %></a></li>
     <li><a href="<%= categories_path %>"><%= Category.model_name.human.pluralize %></a></li>
     <li><a href="<%= architectures_path %>"><%= Architecture.model_name.human.pluralize %></a></li>
@@ -25,7 +25,7 @@
     <li><a href="<%= port_types_path %>"><%= PortType.model_name.human(count: 2) %></a></li>
 
     <li role="separator" class="divider"></li>
-    <li class="dropdown-header"><%= t("pages.params_menu.exploitation.title")%></li>
+    <li class="dropdown-header"><%= t("pages.params_menu.exploitation.title") %></li>
     <li><a href="<%= domaines_path %>"><%= Domaine.model_name.human.pluralize %></a></li>
     <li><a href="<%= gestions_path %>"><%= Gestion.model_name.human.pluralize %></a></li>
     <li><a href="<%= clusters_path %>"><%= Cluster.model_name.human.pluralize %></a></li>

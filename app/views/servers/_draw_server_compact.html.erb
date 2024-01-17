@@ -10,7 +10,7 @@
       <% if enclosure.display == 'grid' %>
         <style type="text/css">
           .enclosure-container {
-            grid-template-areas: <%= raw enclosure.grid_areas.split(/\r\n/).map{|s|'"'+s+'"'}.join(' ') %>;
+            grid-template-areas: <%= raw enclosure.grid_areas.split(/\r\n/).map {|s| "\"#{s}\""}.join(' ') %>;
           }
         </style>
         <div class="container enclosure-container">
@@ -32,7 +32,7 @@
         </div>
 
       <% else %>
-        <table class="slots" style="<%= index > 0 ? 'margin-top:7px;' : '' %>">
+        <table class="slots" style="<%= index.positive? ? 'margin-top:7px;' : '' %>">
           <tbody>
 
           <% if enclosure.display != 'horizontal' %>
@@ -86,9 +86,9 @@
 <% end %>
 <!--
 <span class='pull-left' style="padding-left: 8px;">
-  <% twin_cards_ids = server.cards.map(&:twin_card_id).uniq.reject {|c| c.blank?} if false %>
+  <% twin_cards_ids = server.cards.map(&:twin_card_id).uniq.reject(&:blank?) if false %>
 <% twin_cards_ids.map {|id| Card.find(id).frame}.uniq.each do |frame| %>
-  <%= link_to frame_path(frame), title: "#{frame.to_s}" do %>
+  <%= link_to frame_path(frame), title: frame.to_s.to_s do %>
       <button type="button" class="btn btn-default btn-xs" aria-label="Link to twin card">
         <span class="glyphicon glyphicon-magnet" aria-hidden="true"></span>
       </button>

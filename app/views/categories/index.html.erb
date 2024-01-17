@@ -1,7 +1,7 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  t("inventories") => modeles_url,
-  t(".title") => ''}
-%>
+      t("inventories") => modeles_url,
+      t(".title") => ''
+    } %>
 
 <div class="container-fluid">
 
@@ -42,7 +42,7 @@
             <td>
               <%= link_to category.name, category_path(category) %>
             </td>
-            <td><%= link_to "#{pluralize(category.modeles.count, 'modèle', 'modèles')}", modeles_path %> </td>
+            <td><%= link_to pluralize(category.modeles.count, 'modèle', 'modèles').to_s, modeles_path %> </td>
             <td class="text-right">
               <%= link_to t("action.edit"), edit_category_path(category), class: 'btn btn-primary' %>
               <%= link_to t("action.delete"),

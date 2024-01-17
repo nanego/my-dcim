@@ -4,14 +4,14 @@
        twin_card = Card.find(card.twin_card_id)
        connections = twin_card.ports.map(&:connection)
        twin_card_used_ports = []
-       connections.each {|c| twin_card_used_ports << c.port.position if c && c.port}
+       connections.each {|c| twin_card_used_ports << c.port.position if c&.port}
      end %>
 
   <span data-server-name="<%= server.name %>"
         data-server-id="<%= server.id %>"
         data-composant-id="<%= card.id %>"
         data-composant-type="<%= card.class %>"
-        data-composant-name="<%= component.name.present? ? component.name : component.position %>">
+        data-composant-name="<%= component.name.presence || component.position %>">
 
     <% if card.card_type && card.card_type.columns && card.card_type.rows %>
       <%= ports_by_card_with_presentation(card: card,
@@ -27,7 +27,6 @@
                         moved_connections: @moved_connections,
                         twin_card_used_ports: twin_card_used_ports) %>
     <% end %>
-
 
   </span>
 <% end %>

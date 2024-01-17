@@ -1,20 +1,19 @@
-<%
-  case type_composant
-    when 'IPMI'
+case type_composant
+  when 'IPMI'
       label = type_composant.capitalize
-    when 'CM'
+  when 'CM'
       label = "RJ45 #{f.object.position}"
-    when 'ALIM'
+  when 'ALIM'
       label = "Alim #{f.object.position}"
-    when 'SLOT'
-      label = "#{f.object.name}"
+  when 'SLOT'
+      label = f.object.name.to_s
   end
 %>
 
 <% if f.object.type_composant.try(:name) == type_composant %>
   <li class="list-group-item">
     <fieldset>
-      <% label = (label.present? ? label : "Nouvel emplacement" ) %>
+      <% label = label.presence || "Nouvel emplacement" %>
       <%= label %>
       <span>
         <%= f.hidden_field :_destroy %>

@@ -11,7 +11,7 @@
 </div>
 
 <dl class="dl-horizontal">
-  <% %i[name position latitude longitude].each do |attribute_name| %>
+  <% [:name, :position, :latitude, :longitude].each do |attribute_name| %>
     <dt><%= Site.human_attribute_name(attribute_name) %> :</dt>
     <dd><%= @site.public_send(attribute_name) %>
   <% end %>

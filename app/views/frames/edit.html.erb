@@ -1,9 +1,9 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  t("inventories") => modeles_url,
-  t("visualization") => overview_rooms_path,
-  @frame.room.name => @frame.present? ? room_path(@frame.room) : '',
-  "Baie #{@frame.name}" => '',
-} %>
+      t("inventories") => modeles_url,
+      t("visualization") => overview_rooms_path,
+      @frame.room.name => @frame.present? ? room_path(@frame.room) : '',
+      "Baie #{@frame.name}" => ''
+    } %>
 
 <div class="container">
   <div class="page-header">

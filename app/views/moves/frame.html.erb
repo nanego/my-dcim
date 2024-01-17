@@ -1,5 +1,5 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {"Déplacements prévus" => moves_path,
-                                          "Baie #{@frame}" => ''} %>
+                                                        "Baie #{@frame}" => ''} %>
 <div class="container-fluid">
   <div class="panel-islet">
     <% if @room.present? %>
@@ -32,7 +32,6 @@
     </tbody>
   </table>
 </div>
-
 
 <script>
     $(document).ready(function(){
