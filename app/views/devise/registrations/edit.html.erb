@@ -28,9 +28,7 @@
         </span>
       </button>
       <%= f.text_field :authentication_token, value: "#{"*" * @user.authentication_token.length}", disabled: true, class: "form-control", data: { reveal_target: "item" } %>
-      <%= f.text_field :authentication_token, disabled: true, class: "form-control hidden", data: { reveal_target: "item" } do %>
-
-      <% end -%>
+      <%= f.text_field :authentication_token, disabled: true, class: "form-control hidden", data: { reveal_target: "item" } %>
 
       <%= link_to t(".action.reset_authentication_token"),
                   reset_authentication_token_user_path(resource),
