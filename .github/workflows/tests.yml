@@ -72,6 +72,4 @@ jobs:
       - name: Run RSpec tests
         env:
           RAILS_ENV: test
-        run: |
-          bundle exec rails db:fixtures:load
-          bin/rspec
+        run: bin/rspec
