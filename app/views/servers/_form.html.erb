@@ -134,7 +134,8 @@
                 </div>
               </fieldset>
             </li>
-            <%= f.fields_for :cards, @server.cards do |builder| %>
+            <% cards = @server.cards.select { |c| c.composant.enclosure == enclosure }.sort_by! { |c| c.composant.position } %>
+            <%= f.fields_for :cards, cards do |builder| %>
               <%= render partial: "card_fields", locals: { f: builder, enclosure: enclosure } %>
             <% end %>
           </ul>
@@ -143,34 +144,6 @@
       </div>
     <% end %>
   <% end %>
-
-  <!--
-
-  <% if f.object.persisted? %>
-    <%= content_tag :span, 'Mémoire', class: "col-sm-1 control-label", style: "clear:both;" %>
-    <div class="col-sm-5">
-      <div class="panel panel-default">
-        <ul class="list-group">
-          <%= f.fields_for :disks do |builder| %>
-            <%= render partial: "disk_fields", locals: { f: builder } %>
-          <% end %>
-        </ul>
-        <div class="panel-footer"><%= link_to_add_fields "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter des disques".html_safe, f, :disks %></div>
-      </div>
-    </div>
-    <div class="col-sm-5">
-      <div class="panel panel-default">
-        <ul class="list-group">
-          <%= f.fields_for :memory_components do |builder| %>
-            <%= render partial: "memory_component_fields", locals: { f: builder } %>
-          <% end %>
-        </ul>
-        <div class="panel-footer"><%= link_to_add_fields "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter de la RAM".html_safe, f, :memory_components %></div>
-      </div>
-    </div>
-  <% end %>
-
-  -->
 
   <div class="form-group" style="clear:both;">
     <%= f.label :comment, class: "col-sm-2 col-md-1 control-label word-break" %>
