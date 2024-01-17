@@ -17,8 +17,8 @@
       </div>
 
       <%= render List::DataTableComponent.new(@colors) do |table| %>
-        <% table.with_column(style: "padding: 0; height: inherit;") do |color| %>
-          <%= tag.div style: "height: 100%; background-color: #{color.code}" do %>
+        <% table.with_column(style: "position: relative;") do |color| %>
+          <%= tag.div style: "position: absolute; top: 0; left: 0; bottom: 0; right: 0; background-color: #{color.code}" do %>
             &nbsp;
           <% end %>
         <% end %>
