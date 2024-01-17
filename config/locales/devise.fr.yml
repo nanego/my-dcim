@@ -42,6 +42,9 @@ fr:
       signed_up_but_unconfirmed: "Un message contenant un lien de confirmation a été envoyé à votre adresse email. Ouvrez ce lien pour activer votre compte."
       update_needs_confirmation: "Votre compte a bien été mis à jour mais nous devons vérifier votre nouvelle adresse email. Merci de vérifier vos emails et de cliquer sur le lien de confirmation pour finaliser la validation de votre nouvelle adresse."
       updated: "Votre compte a été modifié avec succès."
+      edit:
+        confirm:
+          reset_authentication_token: Votre ancienne clé sera désactivée. Confirmez-vous la création d'une nouvelle clé API ?
     sessions:
       signed_in: "Connecté."
       signed_out: "Déconnecté."
