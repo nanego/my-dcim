@@ -185,7 +185,7 @@
       <div class="panel panel-default">
         <div class="col-sm-12">
           <%= f.fields_for :documents do |builder| %>
-            <%= render partial: "document_fields", locals: { f:  builder } %>
+            <%= render partial: "document_fields", locals: { f: builder } %>
           <% end %>
         </div>
         <div class="panel-footer">
@@ -199,7 +199,7 @@
       <%= f.file_field :photo %>
       <% if @server.photo.attached? %>
         <%= image_tag @server.photo.variant(geometry: "x200"), class: "server_photo", style: "margin-left:0;" %>
-        <br/>
+        <br>
       <% end %>
     </div>
 

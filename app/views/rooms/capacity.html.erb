@@ -3,7 +3,8 @@
 <%= render 'layouts/breadcrumb',
            breadcrumb_variables: {
              t("visualization") => overview_rooms_path,
-             t("rooms.capacity_view.title") => nil } %>
+             t("rooms.capacity_view.title") => nil
+           } %>
 
 <div class="container-fluid room_overview show_room rooms-network-capacity" id="network-capacity">
   <div class="panel panel-default">
@@ -12,7 +13,7 @@
       <ul class="list-unstyled col-xs-2 hidden-sm menu-rooms">
 
         <div class="btn-group btn-toggle">
-          <% Server::NETWORKS.each do |id, key|%>
+          <% Server::NETWORKS.each do |id, key| %>
             <button class="<%= class_names("btn", "btn-primary active": (id == 1), "btn-default": (id != 1)) %>" data-toggle="tab" role="tab" data-network="<%= id %>">
               <%= Server.human_attribute_name("network.#{key}") %>
             </button>
@@ -91,9 +92,9 @@
                                                        :modele => { :enclosures => :composants },
                                                        :cards => [{ :card_type => :port_type }, { :ports => :cable }])
                                      .where(network_id: network) # Switch LAN
-                              end %>
+                                 end %>
 
-                              <div class="overviewed_frame <%= 'no-margin' if index > 0 %>"
+                              <div class="overviewed_frame <%= 'no-margin' if index.positive? %>"
                                    data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.id %>">
 
                                 <div class="title">
@@ -112,7 +113,7 @@
                                                      lane-#{server.bay.lane}
                                                      truncate
                                                      #{"bordered" if server != servers.last}",
-                                                 title: h("#{server.name}"),
+                                                 title: h(server.name.to_s),
                                                  data: data do %>
 
                                         <% if server.modele.present? %>
@@ -133,7 +134,7 @@
                                               </table>
                                               <span class="sum">
                                               <%= cards.sum { |c| c.cables.size } %> /
-                                                <%= cards.sum { |c| c.port_quantity } %>
+                                                <%= cards.sum(&:port_quantity) %>
                                             </span>
                                             <% else %>
                                               <% components_per_enclosure.each do |component| %>

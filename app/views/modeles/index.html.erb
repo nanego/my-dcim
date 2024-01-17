@@ -1,9 +1,9 @@
 <% provide(:title, Modele.model_name.human.pluralize) %>
 
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  t("inventories") => modeles_url,
-  Modele.model_name.human.pluralize => ''}
-%>
+      t("inventories") => modeles_url,
+      Modele.model_name.human.pluralize => ''
+    } %>
 
 <div class="container-fluid">
 
@@ -46,11 +46,11 @@
             </thead>
             <tbody>
             <%= content_tag_for(:tr, modeles) do |modele| %>
-              <% bgModeleColor = modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(modele.try(:name) || 'test')[0..5]}", 0.4) %>
+              <% bgModeleColor = modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(modele.try(:name) || "test")[0..5]}", 0.4) %>
               <td style="width: 40px;background-color:<%= bgModeleColor %> !important;"></td>
               <td style="font-size: larger;"><%= link_to modele.name, modele_path(modele) %></td>
               <td style="width: 106px;"><%= modele.enclosures.map(&:display).join(', ') %></td>
-              <td style="width: 106px;"><%= pluralize(modele.servers.count, modele.category.name.try(:downcase), "#{modele.category.name.try(:downcase)}#{ modele.category.name.blank? || modele.category.name[-1] == 's' || modele.category.name=='San' ? '' : 's' }") %></td>
+              <td style="width: 106px;"><%= pluralize(modele.servers.count, modele.category.name.try(:downcase), "#{modele.category.name.try(:downcase)}#{modele.category.name.blank? || modele.category.name[-1] == "s" || modele.category.name=="San" ? "" : "s"}") %></td>
               <td style="width: 190px;text-align: center;" class="text-right">
                 <%= link_to t("action.edit"), edit_modele_path(modele), class: 'btn btn-primary' %>
                 <%= link_to t("action.delete"),

@@ -1,7 +1,7 @@
 <%= render "layouts/breadcrumb", breadcrumb_variables: {
-  t("inventories") => modeles_url,
-  Site.model_name.human.pluralize => "" }
-%>
+      t("inventories") => modeles_url,
+      Site.model_name.human.pluralize => ""
+    } %>
 
 <div class="container-fluid">
   <div class="row">
@@ -66,11 +66,13 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
       integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
-      crossorigin=""/>
+      crossorigin="">
 <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
         integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
         crossorigin=""></script>
-<%= javascript_tag do %>
+<script>
+//<![CDATA[
+
     var min_lat = <%= @sites.minimum(:latitude) %>;
     var max_lat = <%= @sites.maximum(:latitude) %>;
     var min_lon = <%= @sites.minimum(:longitude) %>;
@@ -86,9 +88,10 @@
         accessToken: '<%= Rails.application.credentials.mapbox[:access_token] %>'
     }).addTo(map);
 
-    <% @sites.reject{|s|s.latitude.blank? || s.longitude.blank?}.each do |site| %>
+    <% @sites.reject {|s| s.latitude.blank? || s.longitude.blank?}.each do |site| %>
     var marker<%= site.id %> = L.marker([<%= site.latitude %>, <%= site.longitude %>]).addTo(map);
     marker<%= site.id %>.bindPopup("<%= site.name %>"); //.openPopup();
     <% end %>
 
-<% end unless Rails.env.test? %>
+//]]>
+</script>

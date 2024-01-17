@@ -6,7 +6,7 @@
   </span>
 
   <span class="pull-left"><%= f.object.document.metadata['filename'] if f.object.document.present? %></span>
-  <span  class="pull-left">
+  <span class="pull-left">
     <%= f.hidden_field :document, value: f.object.cached_document_data %>
     <%= f.file_field :document %>
   </span>

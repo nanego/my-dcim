@@ -131,7 +131,7 @@
         log(disabled_stacks)
         <% @connections.each do |server_id, connections| %>
           <% connections.each do |connection| %>
-            <% unless @concentrateurs_ids.include?(connection[:server_id]) && @concentrateurs_ids.exclude?(server_id)  %>
+            <% unless @concentrateurs_ids.include?(connection[:server_id]) && @concentrateurs_ids.exclude?(server_id) %>
               if(disabled_stacks.indexOf(colors_hash['<%= connection[:cable_color] %>']) < 0) {
                   drawInterSwitchsConnections('<%= server_id %>', '<%= connection[:server_id] %>', '<%= connection[:cable_color] %>')
               }

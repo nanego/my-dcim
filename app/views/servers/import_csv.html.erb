@@ -1,10 +1,9 @@
 <% provide(:title, "Importation de matériel par fichier CSV") %>
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
-    t("inventories") => servers_url,
-    Server.model_name.human.pluralize => servers_path,
-    t(".title") => ''
-  }
-%>
+      t("inventories") => servers_url,
+      Server.model_name.human.pluralize => servers_path,
+      t(".title") => ''
+    } %>
 
 <% if @import_error %>
   <div class="alert alert-danger alert-dismissable" role="alert">
@@ -30,7 +29,7 @@
         <div class="panel-body">
           <p>
             <%= f.label t(".room_id.label") %>
-            <%= f.select :room_id, Room.order('id').all.collect {|p| [p.name, p.id]}, include_blank: false, selected: Room.find_by_name('Atelier').try(:id) %>
+            <%= f.select :room_id, Room.order('id').all.collect {|p| [p.name, p.id]}, include_blank: false, selected: Room.find_by(name: 'Atelier').try(:id) %>
             <br>
             <span class="hint">
               <%= t(".room_id.hint") %>
@@ -54,6 +53,6 @@
       <% end %>
     </div>
 
-    <%= t(".download_example_html", link: link_to('fichier_exemple.csv', root_url + 'files/format_exemple.csv')) %>
+    <%= t(".download_example_html", link: link_to('fichier_exemple.csv', "#{root_url}files/format_exemple.csv")) %>
   </div>
 </div>

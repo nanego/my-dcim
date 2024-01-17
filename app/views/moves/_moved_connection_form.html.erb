@@ -1,8 +1,8 @@
 <div class="well">
 
-<%= form_for(@moved_connection, url:update_connection_moves_path, remote: true, html: { class: "form-horizontal moved_connection", role: "form" }) do |f| %>
+<%= form_for(@moved_connection, url: update_connection_moves_path, remote: true, html: { class: "form-horizontal moved_connection", role: "form" }) do |f| %>
 
-  <div style="clear:both;margin-top: 5px;" >
+  <div style="clear:both;margin-top: 5px;">
     <%= f.label 'Port de départ', class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <div class="panel panel-default">
@@ -30,8 +30,7 @@
                              ),
                              include_blank: true,
                              onchange: 'select_destination_server(this.value)',
-                             style: 'max-width: 185px;'
-              %>
+                             style: 'max-width: 185px;' %>
             </span>
           </div>
         </div>

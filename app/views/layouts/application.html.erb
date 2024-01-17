@@ -2,7 +2,11 @@
 <html id="container">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Gestion de salle #{Rails.env.development? ? '(dev)' : 'DCIM'}" %></title>
+    <title><%= if content_for?(:title)
+yield(:title)
+               else
+"Gestion de salle #{Rails.env.development? ? "(dev)" : "DCIM"}"
+               end %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "My DCIM" %>">
 
     <%= csrf_meta_tags %>

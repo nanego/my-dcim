@@ -10,7 +10,7 @@
            id="hub1-<%= room.id %>-<%= islet %>"
            style="background-color: <%= bgColorHub1 %>"
            data-url="<%= server_path(@hubs[network][room.id]) %>">
-        <%= link_to server_path(@hubs[network][room.id]), target: "_blank" do %>
+        <%= link_to server_path(@hubs[network][room.id]), target: "_blank", rel: "noopener" do %>
           Concentrateur<br><%= @hubs[network][room.id] %>
         <% end %>
       </div>
@@ -21,7 +21,7 @@
              data-url="<%= server_path(@hubs[network][second_room_id]) %>"
              style="background-color: <%= bgColorHub2 %>"
              id="hub2-<%= room.id %>-<%= islet %>" style="margin-left: 6px;">
-          <%= link_to server_path(@hubs[network][second_room_id]), target: "_blank" do %>
+          <%= link_to server_path(@hubs[network][second_room_id]), target: "_blank", rel: "noopener" do %>
             Concentrateur<br><%= @hubs[network][second_room_id] %>
           <% end %>
         </div>
@@ -42,7 +42,7 @@
 
             <% servers = frame.servers.includes(:bay, :modele, :stack).where(network_id: network) # Switch LAN %>
 
-            <div class="overviewed_frame <%= 'no-margin' if index > 0 %> <%= 'highlighted' if @frames && @frames.include?(frame) %>"
+            <div class="overviewed_frame <%= 'no-margin' if index.positive? %> <%= 'highlighted' if @frames&.include?(frame) %>"
                  data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.id %>">
 
               <div id="frame-<%= frame.id %>-pre" class="intermediate-point pre <%= bay.lane.to_i.even? ? 'even' : 'odd' %>" style="z-index: -3000;">.</div>
@@ -68,10 +68,10 @@
                                #{"bordered" if server != servers.last}",
                              style: "direction:rtl;background-color:#{bgModeleColor} !important;
                                      #{"border: 2px solid ##{server.stack.color};" if server.stack.present?}",
-                             title: h("#{server.name}"),
+                             title: h(server.name.to_s),
                              data: data do
-                    link_to server.name, server_path(server), target: "_blank"
-                  end %>
+                    link_to server.name, server_path(server), target: "_blank", rel: "noopener"
+                      end %>
                 <% end %>
               </ul>
 

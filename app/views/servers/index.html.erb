@@ -1,8 +1,8 @@
 <% provide(:title, "Matériels") %>
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  t("inventories") => servers_url,
-  Server.model_name.human.pluralize => ''}
-%>
+      t("inventories") => servers_url,
+      Server.model_name.human.pluralize => ''
+    } %>
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-3">
@@ -48,8 +48,7 @@
             <%= content_tag_for(:tr, @servers) do |server| %>
               <td><%= link_to server.name, server_path(server) %></td>
               <td>
-                <%=
-                  link_to server.modele.category, category_path(server.modele.category) if server.modele.try(:category)
+link_to server.modele.category, category_path(server.modele.category) if server.modele.try(:category)
                 %>
               </td>
               <td>

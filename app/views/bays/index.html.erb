@@ -43,8 +43,7 @@
                 </td>
 
                 <td>
-                  <%=
-                    bay.frames.map do |frame|
+bay.frames.map do |frame|
                         link_to(frame.name, frame_path(frame))
                     end.join(' / ').html_safe
                   %>

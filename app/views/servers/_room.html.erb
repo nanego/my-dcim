@@ -26,12 +26,11 @@
               <% lanes.each do |lane, bays| %>
                 <% bays.each do |bay, frames| %>
                   <% unless local_assigns[:pdf] == true %>
-                    <% if bays.size == 1 && lanes.size == 1
-                         layout_classes = 'col-sm-12 col-lg-12'
-                       else
-                         layout_classes = 'col-sm-12 col-lg-6'
-                       end
-                    %>
+                    <% layout_classes = if bays.size == 1 && lanes.size == 1
+                         'col-sm-12 col-lg-12'
+                                        else
+                         'col-sm-12 col-lg-6'
+                                        end %>
                     <div class="<%= layout_classes %>" style='overflow: auto;'>
                       <div class="panel well couple"
                            style='overflow: auto;'

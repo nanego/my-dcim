@@ -23,7 +23,7 @@
                         <div style="text-align: left;font-size: large;margin-bottom: 5px;"><%= link_to room.name, room %></div>
                         <ul>
                           <li><%= "#{Frame.model_name.human} : #{room.frames.count}" %></li>
-                          <% Category.all.each do |cat| %>
+                          <% Category.all.find_each do |cat| %>
                             <% count = room.materials.joins(:modele).where("modeles.category_id = ?", cat.id).count %>
                             <% if count > 0 %>
                               <li><%= "#{cat} : #{room.materials.joins(:modele).where("modeles.category_id = ?", cat.id).count}" %></li>

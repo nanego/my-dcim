@@ -1,0 +1,32 @@
+name: Lints
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+
+jobs:
+  lints:
+    name: ruby-${{ matrix.ruby-version }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        ruby-version: ['3.2.2']
+      fail-fast: false
+
+    steps:
+      - name: Checkout main app
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          rubygems: "latest"
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+
+      - name: Run ERB lints
+        env:
+          RAILS_ENV: test
+        run: bin/erblint --lint-all

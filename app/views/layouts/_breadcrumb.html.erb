@@ -6,7 +6,7 @@
      case controller.controller_name
      when 'rooms'
        breadcrumb_steps.merge!(rooms)
-       breadcrumb_steps.merge!({@room.name => ((@frame.present? || params[:islet].present?) ? room_path(@room, view: params[:view]) : '')})
+       breadcrumb_steps[@room.name] = (@frame.present? || params[:islet].present? ? room_path(@room, view: params[:view]) : '')
        if @frame.present? && @frame.bay.islet.name.present?
          breadcrumb_steps["Ilot #{@frame.bay.islet.name}"] = room_path(@room, islet: @frame.bay.islet.name, view: params[:view])
        elsif params[:islet].present?
@@ -14,8 +14,7 @@
        end
        breadcrumb_steps["Baie #{@frame.name}"] = '' if @frame.present?
      end
-   end
-%>
+   end %>
 
 <ol class="breadcrumb" style="margin-bottom: 5px;">
   <li><%= link_to 'Accueil', root_path %></li>

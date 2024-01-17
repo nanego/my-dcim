@@ -39,8 +39,7 @@
                                  grouped_options_for_select(@all_servers_per_frame, {:selected => @to_server.try(:id)}),
                                  include_blank: true,
                                  onchange: 'select_destination_server(1)',
-                                 style: 'max-width: 185px;'
-                  %>
+                                 style: 'max-width: 185px;' %>
                 <%= link_to 'Voir moins de baies', '#', onClick: 'toggle_destination_bays_visibility(0)' %>
                 </span>
             </div>
@@ -79,7 +78,7 @@
     <div class="form-group">
       <%= f.label "Backbone Réseau", class: "col-sm-2 control-label" %>
       <div class="col-sm-10">
-        <%= f.check_box :special_case, class: "form-control", checked: @from_port.cable.try(:special_case)  %>
+        <%= f.check_box :special_case, class: "form-control", checked: @from_port.cable.try(:special_case) %>
       </div>
     </div>
 
@@ -190,7 +189,7 @@
 
           $('#all_destinations').hide(); // TODO show it if destination server is not in the couple of bays
 
-          updateConnectionStateMessage("<%= @frame.name %>", "<%=@from_port.cable.try(:name)%>");
+          updateConnectionStateMessage("<%= @frame.name %>", "<%= @from_port.cable.try(:name) %>");
 
           $("#back_departure_server").on('click', 'a.port', function (e) {
               e.preventDefault();
