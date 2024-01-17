@@ -104,3 +104,4 @@ gem "stimulus-rails", "~> 1.2"
 gem "view_component"
 gem "debug", group: %i[test development]
 gem "diffy", "~> 3.4"
+gem "lookbook"

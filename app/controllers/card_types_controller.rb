@@ -5,6 +5,8 @@ class CardTypesController < ApplicationController
 
   def index
     @card_types_by_port_types = CardType.sorted.group_by(&:port_type)
+    @card_types = sorted CardType.sorted
+
     respond_to do |format|
       format.html
       format.json { @card_types = CardType.sorted }

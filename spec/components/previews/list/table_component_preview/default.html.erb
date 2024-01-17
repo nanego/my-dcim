@@ -1,0 +1,21 @@
+<%= render List::TableComponent.new do |table| %>
+  <% table.with_head do %>
+    <%= render List::TableComponent::TableRow.new do %>
+      <%= render List::TableComponent::TableHeadCell.new("ID") %>
+      <%= render List::TableComponent::TableHeadCell.new("Nom") %>
+      <%= render List::TableComponent::TableHeadCell.new("Prénom") %>
+      <%= render List::TableComponent::TableHeadCell.new("Date d'enrôlement") %>
+    <% end %>
+  <% end %>
+
+  <% table.with_body do %>
+    <% 3.times do %>
+      <%= render List::TableComponent::TableRow.new do %>
+        <%= render List::TableComponent::TableCell.new("ao6451262782", class: "uppercase") %>
+        <%= render List::TableComponent::TableCell.new("Nom de famille") %>
+        <%= render List::TableComponent::TableCell.new("Prénom") %>
+        <%= render List::TableComponent::TableCell.new("11/12/2021") %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

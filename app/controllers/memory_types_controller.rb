@@ -6,7 +6,7 @@ class MemoryTypesController < ApplicationController
   # GET /memory_types
   # GET /memory_types.json
   def index
-    @memory_types = MemoryType.all
+    @memory_types = sorted MemoryType.all
   end
 
   # GET /memory_types/1

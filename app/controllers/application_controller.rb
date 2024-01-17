@@ -34,6 +34,15 @@ class ApplicationController < ActionController::Base
     return updated_values
   end
 
+  def sorted(collection)
+    direction = %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+    column = params[:column]
+
+    return collection unless column
+
+    collection.reorder(column => direction)
+  end
+
   private
 
   def prepare_exception_notifier
