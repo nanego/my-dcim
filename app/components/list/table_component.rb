@@ -23,6 +23,8 @@ module List
     renders_many :foots,  "TableFoot"
 
     def initialize(**html_attributes)
+      super()
+
       css_classes = html_attributes.delete(:class)
 
       @html_attributes = html_attributes.merge(
