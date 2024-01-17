@@ -24,9 +24,11 @@
         <% table.with_column(Cluster.human_attribute_name(:name), sort_by: :name) do |cluster| %>
           <%= link_to cluster, cluster_path(cluster) %>
         <% end %>
+
         <% table.with_column(Cluster.human_attribute_name(:servers_label)) do |cluster| %>
           <%= Cluster.human_attribute_name(:servers, count: cluster.servers.count) %>
         <% end %>
+
         <% table.with_column(class: "text-right") do |cluster| %>
           <%= link_to t("action.edit"), edit_cluster_path(cluster), class: 'btn btn-primary' %>
           <%= link_to t("action.delete"), cluster, method: :delete, data: { confirm: t(".delete_confirmation") },

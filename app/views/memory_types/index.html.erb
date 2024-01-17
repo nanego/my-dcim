@@ -24,6 +24,7 @@
         <% table.with_column(MemoryType.human_attribute_name(:name), sort_by: :quantity) do |memory_type| %>
           <%= link_to memory_type, memory_type_path(memory_type) %>
         <% end %>
+
         <% table.with_column(class: "text-right") do |memory_type| %>
           <%= link_to t("action.edit"), edit_memory_type_path(memory_type), class: 'btn btn-primary' %>
           <%= link_to t("action.delete"), memory_type_path(memory_type), method: :delete, data: { confirm: t("action.confirm") },

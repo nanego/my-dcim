@@ -24,12 +24,15 @@
         <% table.with_column(CardType.human_attribute_name(:port_type_id), sort_by: :port_type_id) do |card_type| %>
           <%= card_type.port_type %>
         <% end %>
+
         <% table.with_column(CardType.human_attribute_name(:name), sort_by: :name) do |card_type| %>
           <%= link_to card_type, card_type_path(card_type) %>
         <% end %>
+
         <% table.with_column(CardType.human_attribute_name(:port_quantity), sort_by: :port_quantity) do |card_type| %>
           <%= card_type.port_quantity %>
         <% end %>
+
         <% table.with_column(class: "text-right") do |card_type| %>
           <%= link_to t("action.edit"), edit_card_type_path(card_type), class: "btn btn-primary" %>
           <%= link_to t("action.delete"), card_type_path(card_type), method: :delete, data: { confirm: t(".delete_confirmation") },

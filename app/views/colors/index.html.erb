@@ -22,15 +22,19 @@
             &nbsp;
           <% end %>
         <% end %>
+
         <% table.with_column(Color.human_attribute_name(:type), sort_by: :parent_type) do |color| %>
           <%= color.parent_type %>
         <% end %>
+
         <% table.with_column(Color.human_attribute_name(:id), sort_by: :parent_id) do |color| %>
           <%= color.parent_id %>
         <% end %>
+
         <% table.with_column(Color.human_attribute_name(:code), sort_by: :code) do |color| %>
           <%= color.code %>
         <% end %>
+
         <% table.with_column(class: "text-right") do |color| %>
           <%= link_to t("action.edit"), edit_color_path(color), class: 'btn btn-primary' %>
           <%= link_to t("action.delete"), color_path(color), method: :delete, data: { confirm: t(".delete_confirmation") },
