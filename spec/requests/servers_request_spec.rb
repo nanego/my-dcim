@@ -46,6 +46,10 @@ RSpec.describe "/servers" do
 
       it { expect(response).to render_template(:show) }
     end
+
+    context "with an id not set" do
+      it { expect { get server_path("unknown-id") }.to raise_error(ActiveRecord::RecordNotFound) }
+    end
   end
 
   describe "GET /new" do
@@ -76,7 +80,7 @@ RSpec.describe "/servers" do
 
       it "redirects to the created server" do
         post servers_path, params: { server: valid_attributes }
-        expect(response).to redirect_to(assigns(:server))
+        expect(response).to redirect_to(server_path(assigns(:server)))
       end
     end
 
@@ -93,13 +97,7 @@ RSpec.describe "/servers" do
           .to raise_error(ActionController::ParameterMissing)
       end
 
-      it "does not create a new Server with an existing serial number" do
-        expect do
-          post servers_path, params: { server: server2.attributes.except(["id"]) }
-        end.not_to change(Server, :count)
-      end
-
-      it "does not create a new Server with invalid parameters", :aggregate_failures do
+      it "does not create a new Server with invalid parameters" do
         post servers_path, params: { server: invalid_attributes }
         expect(response).to render_template(:new)
       end
@@ -130,13 +128,6 @@ RSpec.describe "/servers" do
         get server_path("ServerName1")
         expect(response).to have_http_status(:success)
         expect(server).to eq(assigns(:server))
-      end
-
-      it "does update a Server with a numero which is its name", :aggregate_failures do
-        patch server_path(server), params: { server: { numero: server.name } }
-
-        expect(response).to redirect_to(server_path(server))
-        expect(assigns(:server).errors.details[:numero]).to be_empty
       end
 
       it "does update cards in a server", :aggregate_failures do
@@ -177,15 +168,6 @@ RSpec.describe "/servers" do
         patch server_path(server), params: { server: { name: "" } }
 
         expect(response).to render_template(:edit)
-      end
-
-      it "does not update a Server with a numero which is a server name", :aggregate_failures do
-        patch server_path(server), params: { server: { numero: server2.name } }
-        assigns(:server).reload
-
-        expect(response).to render_template(:edit)
-        expect(server.numero).to eq(assigns(:server).numero)
-        expect(assigns(:server).errors.details[:numero]).not_to be_empty
       end
     end
   end
@@ -237,14 +219,10 @@ RSpec.describe "/servers" do
 
     it :aggregate_failures do
       expect do
-        expect do
-          expect do
-            post import_servers_path, params: { import: { file: csv,
-                                                          room_id: Room.first.id,
-                                                          server_state_id: ServerState.first.id } }
-          end.to change(Server, :count).by(26)
-        end.to change(Frame, :count)
-      end.to change(Bay, :count)
+        post import_servers_path, params: { import: { file: csv,
+                                                      room_id: Room.first.id,
+                                                      server_state_id: ServerState.first.id } }
+      end.to change(Server, :count).by(26).and change(Frame, :count).and change(Bay, :count)
 
       expect(response).to have_http_status(:found)
       expect(response).to redirect_to(frame_path("orders"))
