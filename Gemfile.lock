@@ -72,14 +72,6 @@ GEM
       activerecord (>= 4.2)
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
-    administrate (0.19.0)
-      actionpack (>= 5.0)
-      actionview (>= 5.0)
-      activerecord (>= 5.0)
-      jquery-rails (>= 4.0)
-      kaminari (>= 1.0)
-      sassc-rails (~> 2.1)
-      selectize-rails (~> 0.6)
     aes_key_wrap (1.1.0)
     ansi (1.5.0)
     ast (2.4.2)
@@ -444,7 +436,6 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selectize-rails (0.12.6)
     shoulda-matchers (6.0.0)
       activesupport (>= 5.2.0)
     shrine (3.5.0)
@@ -537,7 +528,6 @@ PLATFORMS
 DEPENDENCIES
   active_record_doctor
   acts_as_list
-  administrate
   bootsnap
   bootstrap-sass (>= 3.4.1)
   bourbon
