@@ -10,6 +10,10 @@
       <span class="glyphicon glyphicon-list-alt"></span>
       <%= t("action.back") %>
     <% end %>
+    <%= link_to @bay, class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-info-sign"></span>
+      <%= t("action.show") %>
+    <% end %>
     <h1>
       <%= t(".title", type: @bay.bay_type&.name, frames: @bay.frames.map(&:name).join(' / ')) %>
     </h1>
