@@ -22,7 +22,7 @@
 
       <%= render List::DataTableComponent.new(@domaines) do |table| %>
         <% table.with_column(Domaine.human_attribute_name(:name), sort_by: :name) do |domaine| %>
-          <%= link_to domaine, domaine_path(domaine) %>
+          <b><%= link_to domaine, domaine_path(domaine) %></b>
         <% end %>
 
         <% table.with_column(Domaine.human_attribute_name(:usage)) do |domaine| %>
