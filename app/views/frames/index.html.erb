@@ -1,18 +1,15 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
   t("inventories") => modeles_url,
-  t("breadcrumb.frames.label") => ''}
+  Frame.model_name.human => ''}
 %>
 
 <div class="container-fluid">
-
   <div class="row">
-
     <div class="col-md-3">
       <%= render 'pages/params_menu' %>
     </div>
 
     <div class="col-md-9">
-
       <div class="page-header">
         <%= link_to new_frame_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
@@ -73,7 +70,5 @@
       </div>
 
     </div>
-
   </div>
-
 </div>

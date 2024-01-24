@@ -48,9 +48,6 @@ fr:
       flashes:
         destroyed: L'ilôt a bien été supprimé.
   breadcrumb:
-    frames:
-      label: Châssis
-      new: Nouveau châssis
     bay:
       simple: Baie %{name}
       double: Double baie %{name}
