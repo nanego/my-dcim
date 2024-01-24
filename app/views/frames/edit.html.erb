@@ -1,21 +1,23 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
   t("inventories") => modeles_url,
-  t("visualization") => overview_rooms_path,
+  Room.model_name.human.pluralize => overview_rooms_path,
   @frame.room.name => @frame.present? ? room_path(@frame.room) : '',
-  "Baie #{@frame.name}" => '',
+  t(".title", frame: @frame.name) => '',
 } %>
 
 <div class="container">
   <div class="page-header">
     <%= link_to frames_path, class: 'btn btn-default' do %>
       <span class="glyphicon glyphicon-list-alt"></span>
-      Retour
+      <%= t("action.back") %>
     <% end %>
     <%= link_to @frame, class: 'btn btn-primary' do %>
       <span class="glyphicon glyphicon-info-sign"></span>
-      Voir
+      <%= t("action.show") %>
     <% end %>
-    <h1>Modifier la baie <%= @frame.name %></h1>
+    <h1>
+        <%= t(".title", frame: @frame.name) %>
+    </h1>
   </div>
 
   <%= render 'form' %>

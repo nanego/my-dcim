@@ -7,7 +7,11 @@
     <div>
       <div class="panel-islet">
         <% if @room.present? %>
-          <div><h3>Salle <%= @room.name %> - Ilot <%= @frame.islet %></h3></div>
+          <div>
+            <h3>
+              <%= t(".title", room: @room, islet: @frame.islet) %>
+            </h3>
+          </div>
         <% end %>
 
         <div class="row">
