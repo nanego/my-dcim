@@ -1,4 +1,4 @@
-<% provide :title, t(".title", bay: @bay) %>
+<% provide :title, t(".title", bay: @bay, bay_type: @bay.bay_type&.name) %>
 <%
   breadcrumb_variables = { t("visualization") => overview_rooms_path, @bay.room.name => room_path(@bay.room, view: params[:view]) }
   if @bay.islet.name.present?
@@ -6,7 +6,7 @@
   elsif params[:islet].present?
     breadcrumb_variables["#{Islet.model_name.human} #{params[:islet]}"] = ''
   end
-  breadcrumb_variables[t(".title", bay: @bay)] = ''
+  breadcrumb_variables[t(".title", bay: @bay, bay_type: @bay.bay_type&.name)] = ''
 %>
 <%= render 'layouts/breadcrumb', breadcrumb_variables: breadcrumb_variables %>
 

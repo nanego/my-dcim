@@ -34,7 +34,7 @@
                 <%= Islet.model_name.human %>
               </th>
               <th>
-                <%= Bay.model_name.human.pluralize %>
+                <%= Frame.model_name.human.pluralize %>
               </th>
               <th>
                 <%= Bay.human_attribute_name(:lane) %>
@@ -43,7 +43,7 @@
                 <%= Bay.human_attribute_name(:position) %>
               </th>
               <th>
-                <%= t(".server_count") %>
+                <%= Server.model_name.human.pluralize %>
               </th>
               <th></th>
             </tr>
@@ -58,7 +58,6 @@
                 <td>
                   <%= link_to bay.islet, islet_path(bay.islet) %>
                 </td>
-
                 <td>
                   <%=
                     bay.frames.map do |frame|
@@ -66,12 +65,9 @@
                     end.join(' / ').html_safe
                   %>
                 </td>
-
                 <td><%= bay.lane %> </td>
                 <td><%= bay.position %> </td>
-
                 <td><%= Bay.human_attribute_name(:materials_count, count: bay.materials.count) %> </td>
-
                 <td class="text-right">
                   <%= render partial: "bays/export_button", locals: { bay: bay } %>
                   <%= link_to t("action.edit"), edit_bay_path(bay), class: 'btn btn-primary' %>

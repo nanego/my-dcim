@@ -11,7 +11,7 @@
       <%= t("action.back") %>
     <% end %>
     <h1>
-      <%= t(".title", type: @bay.bay_type_id == 2 ? 'double' : 'simple', frames: @bay.frames.map(&:name).join(' / ')) %>
+      <%= t(".title", type: @bay.bay_type&.name, frames: @bay.frames.map(&:name).join(' / ')) %>
     </h1>
   </div>
 
