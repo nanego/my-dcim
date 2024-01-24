@@ -226,3 +226,7 @@ fr:
           attributes:
             email:
               invalid: L'adresse email est invalide
+        server:
+          attributes:
+            numero:
+              invalid: ne peut pas être identique à un nom de machine
