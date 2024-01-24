@@ -22,7 +22,7 @@
 
       <%= render List::DataTableComponent.new(@disk_types) do |table| %>
         <% table.with_column(DiskType.human_attribute_name(:name)) do |disk_type| %>
-          <%= link_to disk_type, disk_type_path(disk_type) %>
+          <b><%= link_to disk_type, disk_type_path(disk_type) %></b>
         <% end %>
 
         <% table.with_column(style: "min-width: 84px; width: 84px") do |disk_type| %>
