@@ -135,6 +135,14 @@ class Server < ApplicationRecord
     format(modele&.manufacturer&.documentation_url, numero)
   end
 
+  def deep_dup
+    copy = dup
+
+    copy.tap do |server|
+      server.cards = cards.map(&:dup)
+    end
+  end
+
   private
 
   def slug_candidates

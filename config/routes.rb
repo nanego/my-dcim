@@ -54,6 +54,8 @@ Rails.application.routes.draw do
       get :import_csv
       post :import
     end
+
+    get :duplicate, on: :member
   end
 
   resources :servers_grids, only: [:index] do

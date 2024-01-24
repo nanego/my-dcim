@@ -25,7 +25,6 @@ class Card < ApplicationRecord
 
   after_commit :set_twin_card
 
-  scope :for_enclosure, -> (enclosure_id) { joins(:composant).where("composants.enclosure_id = ?", enclosure_id).order("composants.position ASC")}
   scope :on_patch_panels, -> () {joins(:server => {:modele => :category}).where("categories.name = 'Patch Panel'")}
 
   def to_s
