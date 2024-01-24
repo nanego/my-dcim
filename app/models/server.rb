@@ -1,10 +1,17 @@
 # frozen_string_literal: true
 
 class Server < ApplicationRecord
+  NETWORKS = {
+    1 => :gbe,
+    2 => :"10gbe",
+    3 => :fiber,
+  }
+
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
   include PublicActivity::Model
+  has_changelog
 
   belongs_to :frame
   has_one :bay, through: :frame
@@ -36,18 +43,14 @@ class Server < ApplicationRecord
   validates_uniqueness_of :numero
   validate :numero_cannot_be_a_current_server_name
 
-  accepts_nested_attributes_for :cards,
-                                :allow_destroy => true,
-                                :reject_if => :all_blank
-  accepts_nested_attributes_for :disks,
-                                :allow_destroy => true,
-                                :reject_if => :all_blank
-  accepts_nested_attributes_for :memory_components,
-                                :allow_destroy => true,
-                                :reject_if => :all_blank
-  accepts_nested_attributes_for :documents,
-                                :allow_destroy => true,
-                                :reject_if => :all_blank
+  accepts_nested_attributes_for :cards, :allow_destroy => true,
+                                        :reject_if => :all_blank
+  accepts_nested_attributes_for :disks, :allow_destroy => true,
+                                        :reject_if => :all_blank
+  accepts_nested_attributes_for :memory_components, :allow_destroy => true,
+                                                    :reject_if => :all_blank
+  accepts_nested_attributes_for :documents, :allow_destroy => true,
+                                            :reject_if => :all_blank
 
   scope :sorted, -> { order(:position => :desc) }
   scope :sorted_by_name, -> { order('LOWER(name) ASC') }
@@ -130,6 +133,14 @@ class Server < ApplicationRecord
     return unless modele&.manufacturer&.documentation_url.present? && numero.present?
 
     format(modele&.manufacturer&.documentation_url, numero)
+  end
+
+  def deep_dup
+    copy = dup
+
+    copy.tap do |server|
+      server.cards = cards.map(&:dup)
+    end
   end
 
   private

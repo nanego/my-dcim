@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do
+  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+
   subject(:category) { Category.new(name: "Pdu") }
 
   describe "associations" do

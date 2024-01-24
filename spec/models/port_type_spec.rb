@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe PortType, type: :model do
+  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+
   subject(:port_type) { PortType.new(name: "ALIM") }
 
   describe "associations" do

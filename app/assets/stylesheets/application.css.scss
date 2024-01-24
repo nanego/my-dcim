@@ -12,6 +12,7 @@
  *
  *= require datagrid
  *= require jquery-ui
+ *= require diffy
  *= require_tree .
  *= require_self
  * require tom-select.bootstrap3.min
@@ -43,6 +44,10 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.word-break {
+  word-wrap: break-word ;
 }
 
 .breadcrumb {
@@ -507,10 +512,7 @@ dd {
   }
 }
 
-#edit-server {
-  .form-group {
-    margin-right: 0;
-  }
+.form-server {
   select, input {
     max-width: -moz-available;
     max-width: -webkit-fill-available;

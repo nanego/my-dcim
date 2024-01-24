@@ -1,0 +1,42 @@
+<% provide(:title, ChangelogEntry.model_name.human.pluralize) %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+  ChangelogEntry.model_name.human.pluralize => ""
+} %>
+
+<div class="container-fluid">
+  <div class="page-header">
+    <h1><%= ChangelogEntry.model_name.human.pluralize %></h1>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th><%= ChangelogEntry.human_attribute_name(:object) %></th>
+          <th><%= ChangelogEntry.human_attribute_name(:author) %></th>
+          <th><%= ChangelogEntry.human_attribute_name(:action) %></th>
+          <th><%= ChangelogEntry.human_attribute_name(:created_at) %></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <%= content_tag_for(:tr, @changelog_entries) do |changelog_entry| %>
+          <td><%= link_to changelog_entry.id, changelog_entry_path(changelog_entry) %></td>
+          <td>
+            <% begin %>
+              <%= link_to changelog_entry.object_display_name, changelog_entry.object %>
+            <% rescue NoMethodError %>
+              <%= changelog_entry.object_display_name %>
+            <% end %>
+          </td>
+          <td><%= link_to changelog_entry.author_display_name, changelog_entry.author %></td>
+          <td><%= render changelog_entry.action_label_to_component %></td>
+          <td><%=l changelog_entry.created_at %></td>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%= paginate @changelog_entries %>

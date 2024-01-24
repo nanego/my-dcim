@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
   resources :documents
   resources :moves do
     member do
@@ -38,7 +37,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :ports, only: %i[index edit update destroy]
+  resources :ports, except: %i[create]
   get 'connections/edit', :action => 'edit', controller: 'connections'
   post 'connections/update_destination_server', :action => 'update_destination_server', controller: 'connections'
   post 'connections/update', :action => 'update', controller: 'connections'
@@ -55,6 +54,8 @@ Rails.application.routes.draw do
       get :import_csv
       post :import
     end
+
+    get :duplicate, on: :member
   end
 
   resources :servers_grids, only: [:index] do
@@ -94,7 +95,13 @@ Rails.application.routes.draw do
     collection do
       post :add_user
     end
+
+    get :reset_authentication_token, on: :member
   end
 
   resources :activities
+  resources :changelog_entries, only: %i[index show]
+  get "/:object_type/:object_id/changelog_entries", to: "changelog_entries#index"
+
+  mount Lookbook::Engine, at: "/lookbook" if Rails.env.development?
 end

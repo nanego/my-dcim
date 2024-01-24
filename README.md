@@ -19,9 +19,9 @@ Run the following commands to install stable version:
 
     source ~/.rvm/scripts/rvm
 
-    rvm install 3.1.4
+    rvm install 3.2.2
 
-    rvm use 3.1.4 --default
+    rvm use 3.2.2 --default
 
 #### 2.2 Installing Bundler
 Bundler is a tool that allows you to install multiple gem versions, run this command to install bundler:
@@ -32,7 +32,7 @@ Bundler is a tool that allows you to install multiple gem versions, run this com
 
 #### 3.1 Clone Application Code
 Clone project code from GitHub:
-    
+
     git clone https://github.com/nanego/my-dcim
 
 
@@ -99,7 +99,7 @@ Here are some of the ways you can contribute:
 ### Improve test coverage
 
 As with any large and growing codebase, test coverage is not always as good as it could be. Help improving test coverage is always welcome and will help you learn how My-DCIM works.
-    
+
 ### Refactor code
 
 ### Translate the project

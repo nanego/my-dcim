@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Cluster, type: :model do
+  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+
   subject(:cluster) { Cluster.new(name: "Cloud-C5") }
 
   describe "associations" do

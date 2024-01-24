@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Disk < ApplicationRecord
+  has_changelog
+
   belongs_to :server
   belongs_to :disk_type
 

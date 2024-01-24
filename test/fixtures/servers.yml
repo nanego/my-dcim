@@ -6,7 +6,6 @@ one:
   name: ServerName1
   modele_id: 1
   numero: CZ31535FEY
-  cluster: false
   critique: false
   domaine_id: 1
   gestion_id: 1
@@ -28,7 +27,6 @@ two:
   name: ServerName2
   modele_id: 1
   numero: ABCDEFG32
-  cluster: false
   critique: false
   domaine_id: 1
   gestion_id: 1
@@ -43,6 +41,14 @@ two:
   ipmi_dedie: 1
   position: 38
   stack_id: 1
+
+pdu:
+  id: 3
+  frame_id: 1
+  name: PDU_FRAME-1_A
+  modele_id: 3
+  side: right
+  color: B
 
 with_cluster:
   frame_id: 1
@@ -62,15 +68,5 @@ with_cluster:
   ipmi_futur: 1
   rj45_cm: 1
   ipmi_dedie: 1
-  position: 39
+  position: 40
   stack_id: 1
-
-pdu:
-  id: 3
-  frame_id: 1
-  name: PDU_FRAME-1_A
-  modele_id: 3
-  side: right
-  color: B
-  numero: PDU_FRAME-1_A
-

@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   include PublicActivity::StoreController
+  include ChangelogContextApplication
 
   acts_as_token_authentication_handler_for User
 
@@ -31,6 +32,15 @@ class ApplicationController < ActionController::Base
       updated_values[attribute] = [old_values[attribute].to_s, new_params[attribute]] if old_values[attribute] != new_params[attribute]
     end
     return updated_values
+  end
+
+  def sorted(collection)
+    direction = %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+    column = params[:column]
+
+    return collection unless column
+
+    collection.reorder(column => direction)
   end
 
   private

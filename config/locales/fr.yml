@@ -4,7 +4,9 @@ fr:
     false: Non
   form:
     errors:
-      title: "%{count} erreurs lors de la sauvegarde :"
+      title:
+        one: '1 erreur lors de la sauvegarde :'
+        other: '%{count} erreurs lors de la sauvegarde :'
     submit: Valider
   action:
     edit: Modifier
@@ -14,7 +16,8 @@ fr:
     close: Fermer
     save: Enregistrer
     cancel: Annuler
-    confirm: Are you sure ?
+    add: Ajouter
+    confirm: Êtes-vous sûr ?
   export_button:
     label: Exports
     exports:
@@ -27,6 +30,11 @@ fr:
       front_wiring: Cablage - Face avant
       back_wiring: Cablage - Face arrière
     port_list: Liste des ports
+
+  order-in-progress: 'Commande en cours'
+  inventories: Inventaires
+  visualization: Visualisation
+
   islets:
     index:
       add_islet: Ajouter un ilot
@@ -44,59 +52,17 @@ fr:
     destroy:
       flashes:
         destroyed: L'ilôt a bien été supprimé.
-  bays:
-    index:
-      new: Ajouter une baie ou un couple de baies
-      server_count: Nombre de serveurs
-      title: Baies et doubles-baies
-      delete_confirmation: Cette baie ne pourra pas être supprimée tant qu'elle est associée à au moins un chassis. Voulez-vous continuer ?
-    show:
-      title: Double baie %{bay}
-    new:
-      title: Ajouter une baie
-    create:
-      flashes:
-        created: La baie a été ajoutée.
-    edit:
-      title: Modifier la baie %{type} %{frames}
-    update:
-      flashes:
-        updated: La baie a bien été mise à jour.
-    destroy:
-      flashes:
-        destroyed: La baie bien été supprimé.
-  rooms:
-    action_buttons:
-      caption:
-        ports: Ports
-        unreferenced_client: Le port correspondant de la carte jumelle est câblé
-        no_client: Le port correspondant de la carte jumelle n'est pas câblé
-      background_color: 'Couleur de fond : %{bg}'
-      background_choices:
-        modele: Modèle
-        manager: Gestionnaire
-        cluster: Cluster
-      dragn_drop:
-        enable: Activer le drag'n drop
-    title: Salles
-    capacity_view:
-      title: Vue capacité réseau
-      networks:
-        fiber: Fibre
-        giga: Réseau Gb
-        10giga: 10Gb
-  servers:
-    room:
-      title_room: Salle %{room} - Ilot %{islet}
   pages:
     params_menu:
       location:
         title: Localisation
         bays: Baies / Doubles-baies
-      material_management:
-        title: Gestion du matériel
-  inventories: Inventaires
-  visualization: Visualisation
+      features:
+        title: Caractéristiques
+      exploitation:
+        title: Exploitation
+      maintenance:
+        title: Maintenance
   sites:
     index:
       title: Sites
@@ -256,24 +222,24 @@ fr:
         destroyed: Le mainteneur a bien été supprimé.
   contract_types:
     index:
-      title: Types de contrat
-      add_contract_type: Ajouter un type de contrat
-      delete_confirmation: Toutes les données concernant ce type de contrat seront supprimées, ainsi que les contrats de maintenance associés. Voulez-vous continuer ?
+      title: Contrats de maintenance
+      add_contract_type: Ajouter un contrat de maintenance
+      delete_confirmation: Toutes les données concernant ce contrat de maintenance seront supprimées, ainsi que les contrats de maintenance associés. Voulez-vous continuer ?
     show:
-      title: Voir le type de contrat
+      title: Voir le contrat de maintenance
     new:
-      title: Nouveau type de contrat
+      title: Nouveau contrat de maintenance
     create:
       flashes:
-        created: Le type de contrat a bien été créé.
+        created: Le contrat de maintenance a bien été créé.
     edit:
-      title: Edition d'un type de contrat
+      title: Edition du contrat de maintenance
     update:
       flashes:
-        updated: Le type de contrat a bien été modifié.
+        updated: Le contrat de maintenance a bien été modifié.
     destroy:
       flashes:
-        destroyed: Le type de contrat a bien été supprimé.
+        destroyed: Le contrat de maintenance a bien été supprimé.
   disk_types:
     index:
       title: Liste des types de disque
@@ -293,30 +259,29 @@ fr:
     destroy:
       flashes:
         destroyed: Le type de disque a bien été supprimé.
-
   manufacturers:
     form:
       url_placeholder: "https://url_du_frabricant.com/suite_de_l_url/%s/reste_s_il_y_a"
       information_html: il faut remplacer le numéro de série dans l'URL par <code>%s</code>."
     index:
-      new_manufacturer: Ajouter une manufacturer
-      title: Fabricants
-      delete_confirmation: Ce mainteneur ne pourra pas être supprimé tant qu'il sera associé à au moins un modèle. Voulez-vous continuer ?
+      new_manufacturer: Ajouter un constructeur
+      title: Constructeurs
+      delete_confirmation: Ce constructeur ne pourra pas être supprimé tant qu'il sera associé à au moins un modèle. Voulez-vous continuer ?
     show:
-      title: Voir fabricant
+      title: Voir le constructeur
     new:
-      title: Nouveau fabricant
+      title: Nouveau constructeur
     create:
       flashes:
-        created: Le fabricant a bien été créé.
+        created: Le constructeur a bien été créé.
     edit:
-      title: Modifier fabricant
+      title: Modifier le constructeur
     update:
       flashes:
-        updated: Le fabricant a bien été modifié.
+        updated: Le constructeur a bien été modifié.
     destroy:
       flashes:
-        destroyed: Le fabricant a bien été supprimé.
+        destroyed: Le constructeur a bien été supprimé.
   domaines:
     index:
       new_domaine: Ajouter un domaine
@@ -395,10 +360,88 @@ fr:
     destroy:
       flashes:
         destroyed: La catégorie a bien été supprimée.
+  modeles:
+    form:
+      add_enclosure: Ajouter une enclosure
+    enclosure_fields:
+      enclosure_position: Enclosure %{position}
+      new_enclosure: Nouvelle enclosure
+      add_slot: Ajouter un slot
+    index:
+      add_model: Ajouter un modèle
+      delete_confirmation: Ce modèle ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur ou une enclosure. Voulez-vous continuer ?'
+    new:
+      title: Nouveau modèle
+    edit:
+      title: Modification d'un modèle
+  servers:
+    form:
+      network_type: Réseau %{type}
+      edit_confirmation: Modifier ce matériel
+    modal_add_element_in_frame:
+      title: Ajouter un élément
+    room:
+      title: Salle %{room} - Ilot %{islet}
+    slot_fields:
+      new_port: Nouveau port
+    grid:
+      title: Users Report
+      total: "Total: %{count}"
+    import_csv:
+      title: Importation de matériel par fichier CSV
+      room_id:
+        label: "Salle où importer les serveurs :"
+        hint: (utilisé seulement si la baie n'est pas précisée dans le fichier CSV)
+      servers_state:
+        label: "Etat des serveurs importés :"
+      csv_file:
+        label: "Fichier CSV :"
+      action:
+        import: Importer ce CSV
+      download_example_html: "Télécharger un exemple de fichier CSV compatible : %{link}"
+    index:
+      title: Matériels
+      add_server: Ajouter un matériel
+      add_server_via_csv: Ajouter par un fichier CSV
+    show:
+      back_to_bay: << Baie %{name}
+      nb_elts: Nb d'éléments
+      nb_u: Nb de U
+      documentation: Documentation
+      attached_documents: "Documents attachés :"
+      glpi_data: Données GLPI
+      glpi_visit_page: Voir la page de la machine sur GLPI
+      no_match_serial: "Aucune correspondance pour ce numéro de série : %{serial}"
+      glpi_connection_error: "Problème lors de la connexion à GLPI :"
+      actions:
+        duplicate: Dupliquer
+    new:
+      title: "Ajouter un matériel"
+    edit:
+      page_title: "%{modele} %{name} - Edition"
+      title: "Matériel : %{name}"
+      delete_confirmation: Toutes les données concernant ce matériel seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?
+    duplicate:
+      title: Dupliquer le matériel %{server_name}
+  glpi:
+    computer:
+      name: Nom
+      id: Id GLPI
+      serial: Numéro de série
+      contact: Contact
+      disks_count: Nombre de disques
+      disks_capacity: Capacité disques
+      memories_count: Nombre de barettes
+      memories_total: Ram totale
+      cpus: Processeurs
   devise:
     registrations:
       signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'
-
+      edit:
+        action:
+          show_authentication_token: Afficher la clé API
+          hide_authentication_token: Cacher la clé API
+          reset_authentication_token: Regénérer la clé API
   activity:
     user:
       destroy: a supprimé un utilisateur
@@ -436,7 +479,65 @@ fr:
       update: a modifié un serveur
       create: a ajouté un serveur
       destroy: a supprimé un serveur
-  order-in-progress: 'Commande en cours'
+  rooms:
+    title: Salles
+    capacity_view:
+      title: Vue capacité réseau
+      networks:
+        fiber: Fibre
+        giga: Réseau Gb
+        10giga: 10Gb
+    action_buttons:
+      caption:
+        ports: Ports
+        unreferenced_client: Le port correspondant de la carte jumelle est câblé
+        no_client: Le port correspondant de la carte jumelle n'est pas câblé
+      background_color: 'Couleur de fond : %{bg}'
+      background_choices:
+        modele: Modèle
+        manager: Gestionnaire
+        cluster: Cluster
+      dragn_drop:
+        enable: Activer le drag'n drop
+  users:
+    index:
+      new_user: Ajouter un utilisateur
+    user:
+      change_role: Changer le rôle
+    new:
+      new_user: Ajouter un utilisateur
+    show:
+      action:
+        show_authentication_token: Afficher la clé API
+        hide_authentication_token: Cacher la clé API
+    flashes:
+      authentication_token_reset: La clé API a été réinitialisée
+  changelog_entries:
+    show:
+      informations: Informations
+      changes: Changements
+      metadatas: Metadonnées
+  bays:
+    index:
+      new: Ajouter une baie ou un couple de baies
+      server_count: Nombre de serveurs
+      title: Baies et doubles-baies
+      delete_confirmation: Cette baie ne pourra pas être supprimée tant qu'elle est associée à au moins un chassis. Voulez-vous continuer ?
+    show:
+      title: Double baie %{bay}
+    new:
+      title: Ajouter une baie
+    create:
+      flashes:
+        created: La baie a été ajoutée.
+    edit:
+      title: Modifier la baie %{type} %{frames}
+    update:
+      flashes:
+        updated: La baie a bien été mise à jour.
+    destroy:
+      flashes:
+        destroyed: La baie bien été supprimé.
 
   views:
     pagination:
@@ -446,5 +547,15 @@ fr:
       last: "Dernier &gt;&gt;"
       first: "&lt;&lt; Premier"
 
-  model:
-
+  helpers:
+    placeholder:
+      composant:
+        name: 'Nom'
+      disk:
+        quantity: 'Quantité'
+      memory_component:
+        quantity: 'Quantité'
+    submit:
+      create: Créer
+      update: Modifier
+      submit: Envoyer

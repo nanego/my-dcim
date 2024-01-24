@@ -3,13 +3,13 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :admin_only, :except => :show
+  before_action :set_user, only: [:show, :update, :destroy, :reset_authentication_token]
 
   def index
     @users = User.order('sign_in_count desc')
   end
 
   def show
-    @user = User.find(params[:id])
     unless current_user.admin?
       unless @user == current_user
         redirect_to :back, :alert => "Access denied."
@@ -18,8 +18,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
-    if @user.update_attributes(secure_params)
+    if @user.update(secure_params)
       redirect_to users_path, :notice => "User updated."
     else
       redirect_to users_path, :alert => "Unable to update user."
@@ -40,9 +39,14 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    user = User.find(params[:id])
-    user.destroy
+    @user.destroy
     redirect_to users_path, :notice => "User deleted."
+  end
+
+  def reset_authentication_token
+    @user.regenerate_authentication_token!
+
+    redirect_to edit_registration_path(@user), notice: t(".flashes.authentication_token_reset")
   end
 
   private
@@ -55,5 +59,9 @@ class UsersController < ApplicationController
 
   def secure_params
     params.require(:user).permit(:role, :email, :name)
+  end
+
+  def set_user
+    @user = User.find(params[:id])
   end
 end

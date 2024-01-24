@@ -1,6 +1,6 @@
 <li class="list-group-item">
   <fieldset>
-    <% label = (f.object.position ? "#{f.object.valeur} #{f.object.position}" : "Nouveau port" ) %>
+    <% label = (f.object.position ? "#{f.object.valeur} #{f.object.position}" : t(".new_port") ) %>
 
     <%= f.hidden_field :_destroy %>
     <%= link_to "X", '#', class: "remove_fields pull-right" %>

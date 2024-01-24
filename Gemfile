@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source "https://rubygems.org"
-ruby "3.1.4"
+ruby "3.2.2"
 gem "rails", "~> 7.0.0"
 
 gem "administrate"
@@ -103,3 +103,5 @@ gem "importmap-rails", "~> 1.1"
 gem "stimulus-rails", "~> 1.2"
 gem "view_component"
 gem "debug", group: %i[test development]
+gem "diffy", "~> 3.4"
+gem "lookbook"

@@ -3,6 +3,7 @@
 class PortType < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
+  has_changelog
 
   has_many :card_types
 
@@ -11,6 +12,6 @@ class PortType < ApplicationRecord
   end
 
   def is_power_input?
-    name=='ALIM'
+    name == "ALIM"
   end
 end

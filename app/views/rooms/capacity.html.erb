@@ -12,15 +12,11 @@
       <ul class="list-unstyled col-xs-2 hidden-sm menu-rooms">
 
         <div class="btn-group btn-toggle">
-          <button class="btn btn-primary active" data-toggle="tab" role="tab" data-network="1">
-            <%= t("rooms.capacity_view.networks.giga") %>
-          </button>
-          <button class="btn btn-default" data-toggle="tab" role="tab" data-network="2">
-            <%= t("rooms.capacity_view.networks.10giga") %>
-          </button>
-          <button class="btn btn-default inactive" data-toggle="tab" role="tab" data-network="3">
-            <%= t("rooms.capacity_view.networks.fiber") %>
-          </button>
+          <% Server::NETWORKS.each do |id, key|%>
+            <button class="<%= class_names("btn", "btn-primary active": (id == 1), "btn-default": (id != 1)) %>" data-toggle="tab" role="tab" data-network="<%= id %>">
+              <%= Server.human_attribute_name("network.#{key}") %>
+            </button>
+          <% end %>
         </div>
 
         <li class="divider" style="border-bottom: 1px lightgray solid;margin:10px -10px 8px -10px;"></li>
