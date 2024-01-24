@@ -47,25 +47,27 @@
           </thead>
 
           <tbody>
-          <%= content_tag_for(:tr, @frames) do |frame| %>
-            <td><%= link_to frame.name, frame %></td>
-            <td><%= frame.servers.map{|s| link_to s.name, s }.join(' ').html_safe %></td>
-            <td><%= frame.u %></td>
-            <td><%= frame.room.present? ? (link_to frame.room, frame.room) : frame.room %></td>
-            <td>
-              <%= link_to frame.bay.islet, islet_path(frame.bay.islet) if frame.bay.present? %>
-            </td>
-            <td class="text-right">
-              <div class="btn-group btn-group-sm btn-group-vertical" role="group" aria-label="...">
-                <%= link_to t("action.edit"), edit_frame_path(frame), class: 'btn btn-primary' %>
-                <%= link_to t("action.delete"),
-                            frame,
-                            method: :delete,
-                            data: { confirm: t(".delete_confirmation") },
-                            class: 'btn btn-danger' %>
-              </div>
-            </td>
-          <% end %>
+            <%= content_tag_for(:tr, @frames) do |frame| %>
+              <td><%= link_to frame.name, frame %></td>
+              <td>
+                <%= safe_join frame.servers.map{|s| link_to s.name, s }, ", " %>
+              </td>
+              <td><%= frame.u %></td>
+              <td><%= frame.room.present? ? (link_to frame.room, frame.room) : frame.room %></td>
+              <td>
+                <%= link_to frame.bay.islet, islet_path(frame.bay.islet) if frame.bay.present? %>
+              </td>
+              <td class="text-right">
+                <div class="btn-group btn-group-sm btn-group-vertical" role="group" aria-label="...">
+                  <%= link_to t("action.edit"), edit_frame_path(frame), class: 'btn btn-primary' %>
+                  <%= link_to t("action.delete"),
+                              frame,
+                              method: :delete,
+                              data: { confirm: t(".delete_confirmation") },
+                              class: 'btn btn-danger' %>
+                </div>
+              </td>
+            <% end %>
           </tbody>
         </table>
       </div>

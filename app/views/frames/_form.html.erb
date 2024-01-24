@@ -3,14 +3,10 @@
     <div class="alert alert-danger alert-dismissable" role="alert">
       <button type="button" class="close" data-dismiss="alert">
         <span aria-hidden="true">&times;</span>
-        <span class="sr-only">
-          <%= t("action.close") %>
-        </span>
+        <span class="sr-only"><%= t("action.close") %></span>
       </button>
 
-      <h4>
-        <%= t("form.errors.title", count: @frame.errors.count) %>
-      </h4>
+      <h4><%= t("form.errors.title", count: @frame.errors.count) %></h4>
 
       <ul>
         <% @frame.errors.full_messages.each do |msg| %>

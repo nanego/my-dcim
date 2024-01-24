@@ -55,7 +55,7 @@ fr:
         maintainer_id: Mainteneur
         contract_type_id: Type de contrat
       server:
-        nom: Nom
+        name: Nom
         numero: Numéro de série
         type: Type
         room: Salle

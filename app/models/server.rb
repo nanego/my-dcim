@@ -155,7 +155,7 @@ class Server < ApplicationRecord
   def numero_cannot_be_a_current_server_name
     servers = Server.friendly.where(slug: numero.to_s.downcase) - [self]
     if servers.present?
-      errors.add(:numero, "ne peut pas être identique à un nom de machine")
+      errors.add(:numero, "ne peut pas être identique à un nom de machine") # TODO: translate
     end
   end
 end
