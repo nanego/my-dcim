@@ -1,4 +1,4 @@
-<%= form_for(@server, html: { class: "form-horizontal", role: "form" }) do |f| %>
+<%= form_for(@server, html: { class: "form-server", role: "form" }) do |f| %>
   <% if @server.errors.any? %>
     <div class="alert alert-danger alert-dismissable" role="alert">
       <button type="button" class="close" data-dismiss="alert">
@@ -19,7 +19,6 @@
   <% end %>
 
   <div class="form-group col-md-6">
-
     <div class="row">
       <%= f.label :nom, class: "col-sm-2 control-label" %>
       <div class="col-sm-10">
@@ -61,7 +60,6 @@
         <%= f.check_box :critique, class: "form-control" %>
       </div>
     </div>
-
   </div>
 
   <div class="form-group col-md-6">
@@ -87,14 +85,14 @@
     </div>
 
     <div class="row">
-      <%= f.label :gestion_id, class: "col-sm-2 control-label" %>
+      <%= f.label :gestion_id, class: "col-sm-2 control-label word-break" %>
       <div class="col-sm-10">
         <%= f.collection_select(:gestion_id, Gestion.sorted, :id, :name, { :prompt => true, :include_blank => true }, { class: "form-control" }) %>
       </div>
     </div>
 
     <div class="row">
-      <%= f.label :network_id, class: "col-sm-2 control-label text-nowrap" %>
+      <%= f.label :network_id, class: "col-sm-2 control-label" %>
       <div class="col-sm-10">
         <%= f.select :network_id, Server::NETWORKS.to_h { |id, key| [Server.human_attribute_name("network.#{key}"), id] }, { :prompt => true, :include_blank => true }, { class: "form-control" } %>
       </div>
@@ -108,10 +106,10 @@
     </div>
   </div>
 
-  <% if f.object.persisted? && @server.modele %>
+  <% if @server.modele %>
     <% @server.modele.enclosures.each do |enclosure| %>
-      <%= content_tag :span, "Enclosure #{enclosure.position}", class: "col-sm-1 control-label", style: "clear:both;" %>
-      <div class="col-sm-11">
+      <%= content_tag :span, "Enclosure #{enclosure.position}", class: "col-sm-2 col-md-1 control-label", style: "clear:both;" %>
+      <div class="col-sm-10 col-md-11">
         <div class="panel panel-default">
           <ul class="list-group">
             <li class="list-group-item">
@@ -136,7 +134,8 @@
                 </div>
               </fieldset>
             </li>
-            <%= f.fields_for :cards, @server.cards.for_enclosure(enclosure.id) do |builder| %>
+            <% cards = @server.cards.select { |c| c.composant.enclosure == enclosure }.sort_by! { |c| c.composant.position } %>
+            <%= f.fields_for :cards, cards do |builder| %>
               <%= render partial: "card_fields", locals: { f: builder, enclosure: enclosure } %>
             <% end %>
           </ul>
@@ -146,42 +145,14 @@
     <% end %>
   <% end %>
 
-  <!--
-
-  <% if f.object.persisted? %>
-    <%= content_tag :span, 'Mémoire', class: "col-sm-1 control-label", style: "clear:both;" %>
-    <div class="col-sm-5">
-      <div class="panel panel-default">
-        <ul class="list-group">
-          <%= f.fields_for :disks do |builder| %>
-            <%= render partial: "disk_fields", locals: { f: builder } %>
-          <% end %>
-        </ul>
-        <div class="panel-footer"><%= link_to_add_fields "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter des disques".html_safe, f, :disks %></div>
-      </div>
-    </div>
-    <div class="col-sm-5">
-      <div class="panel panel-default">
-        <ul class="list-group">
-          <%= f.fields_for :memory_components do |builder| %>
-            <%= render partial: "memory_component_fields", locals: { f: builder } %>
-          <% end %>
-        </ul>
-        <div class="panel-footer"><%= link_to_add_fields "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Ajouter de la RAM".html_safe, f, :memory_components %></div>
-      </div>
-    </div>
-  <% end %>
-
-  -->
-
   <div class="form-group" style="clear:both;">
-    <%= f.label :comment, class: "col-sm-1 control-label" %>
-    <div class="col-sm-11">
-      <%= f.text_area :comment, :style => 'width: 98%', class: "form-control" %>
+    <%= f.label :comment, class: "col-sm-2 col-md-1 control-label word-break" %>
+    <div class="col-sm-10 col-md-11">
+      <%= f.text_area :comment, class: "form-control" %>
     </div>
 
-    <%= f.label :documents, class: "col-sm-1 control-label" %>
-    <div class="col-sm-11">
+    <%= f.label :documents, class: "col-sm-2 col-md-1 control-label" %>
+    <div class="col-sm-10 col-md-11">
       <div class="panel panel-default">
         <div class="col-sm-12">
           <%= f.fields_for :documents do |builder| %>
@@ -194,19 +165,18 @@
       </div>
     </div>
 
-    <%= f.label :photo, class: "col-sm-1 control-label" %>
-    <div class="col-sm-11">
+    <%= f.label :photo, class: "col-sm-2 col-md-1 control-label" %>
+    <div class="col-sm-10 col-md-11">
       <%= f.file_field :photo %>
       <% if @server.photo.attached? %>
         <%= image_tag @server.photo.variant(geometry: "x200"), class: "server_photo", style: "margin-left:0;" %>
         <br/>
       <% end %>
     </div>
-
   </div>
 
   <div class="form-group" style="clear:both;">
-    <div class="col-sm-offset-1 col-sm-11">
+    <div class="col-sm-offset-2 col-md-offset-1 col-sm-10 col-md-11">
       <%= f.submit class: "btn btn-primary" %>
     </div>
   </div>

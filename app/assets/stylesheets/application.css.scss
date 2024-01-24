@@ -46,6 +46,10 @@ body {
   text-overflow: ellipsis;
 }
 
+.word-break {
+  word-wrap: break-word ;
+}
+
 .breadcrumb {
   background-color: #333;
   margin-left: -15px;
@@ -508,10 +512,7 @@ dd {
   }
 }
 
-#edit-server {
-  .form-group {
-    margin-right: 0;
-  }
+.form-server {
   select, input {
     max-width: -moz-available;
     max-width: -webkit-fill-available;

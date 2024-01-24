@@ -1,0 +1,20 @@
+<% provide(:title, t(".title", server_name: @original_server.name)) %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+    t("inventories") => servers_url,
+    'Matériels' => servers_path,
+    @original_server.name => server_path(@original_server),
+    t(".title", server_name: @original_server.name) => ''
+}%>
+
+<div class="container">
+  <div class="col-12" style="margin-bottom: 2em;padding-right: 15px;padding-left: 15px;">
+    <div class="page-header">
+      <%= link_to @original_server, class: 'btn btn-default' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Retour
+      <% end %>
+      <h1><%= t(".title", server_name: @original_server.name) %></h1>
+    </div>
+  </div>
+  <%= render 'form' %>
+</div>

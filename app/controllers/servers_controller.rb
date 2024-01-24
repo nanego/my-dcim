@@ -90,9 +90,14 @@ class ServersController < ApplicationController
     @server.create_activity action: 'destroy', parameters: @server.attributes, owner: current_user
     @server.destroy
     respond_to do |format|
-      format.html {redirect_to servers_grids_path, notice: 'Le matériel a bien été supprimé.' }
+      format.html {redirect_to servers_path, notice: 'Le matériel a bien été supprimé.' }
       format.json {head :no_content}
     end
+  end
+
+  def duplicate
+    @original_server = Server.friendly.find(params[:id].to_s.downcase)
+    @server = @original_server.deep_dup
   end
 
   private

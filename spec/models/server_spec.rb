@@ -42,7 +42,27 @@ RSpec.describe Server, type: :model do
 
     it { is_expected.to validate_presence_of(:numero) }
     it { is_expected.to validate_presence_of(:name) }
-    xit { is_expected.to validate_uniqueness_of(:numero) }
+    it { is_expected.to validate_uniqueness_of(:numero) }
+  end
+
+  describe "#validate_numero_cannot_be_a_current_server_name" do
+    before { servers(:one).save }
+
+    context "when numero is server name" do
+      subject(:server) do
+        Server.new(name: "ACTARUS", frame: Frame.new, modele: Modele.new, numero: "ACTARUS")
+      end
+
+      it { is_expected.to be_valid }
+    end
+
+    context "when numero is another server name" do
+      subject(:server) do
+        Server.new(name: "ACTARUS", frame: Frame.new, modele: Modele.new, numero: "ServerName1")
+      end
+
+      it { is_expected.not_to be_valid }
+    end
   end
 
   describe "nested attributes" do
