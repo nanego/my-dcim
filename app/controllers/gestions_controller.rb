@@ -6,7 +6,7 @@ class GestionsController < ApplicationController
   # GET /gestions
   # GET /gestions.json
   def index
-    @gestions = Gestion.all
+    @gestions = sorted Gestion.all
   end
 
   # GET /gestions/1
