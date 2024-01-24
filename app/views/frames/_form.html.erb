@@ -1,8 +1,12 @@
 <%= form_for(@frame, html: { class: "form-horizontal", role: "form" }) do |f| %>
   <% if @frame.errors.any? %>
     <div class="alert alert-danger alert-dismissable" role="alert">
-      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <h4><%= pluralize(@frame.errors.count, "erreur", "erreurs") %> lors de la sauvegarde :</h4>
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only"><%= t("action.close") %></span>
+      </button>
+
+      <h4><%= t("form.errors.title", count: @frame.errors.count) %></h4>
 
       <ul>
         <% @frame.errors.full_messages.each do |msg| %>
@@ -13,7 +17,7 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label 'Nom', class: "col-sm-2 control-label" %>
+    <%= f.label :name, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.text_field :name, class: "form-control" %>
     </div>
@@ -42,14 +46,14 @@
 
   <% if @frame.persisted? %>
     <div class="form-group">
-      <%= f.label 'Baie couplée à', class: "col-sm-2 control-label" %>
+      <%= f.label t(".coupled_bay_label"), class: "col-sm-2 control-label" %>
       <div class="col-sm-10">
-        <%= f.object.other_frame.present? ? link_to(f.object.other_frame.name, frame_path(f.object.other_frame)) : "Aucune baie couplée" %>
+        <%= f.object.other_frame.present? ? link_to(f.object.other_frame.name, frame_path(f.object.other_frame)) : t(".no_coupled_bay") %>
       </div>
     </div>
   <% end %>
   <div class="form-group">
-    <%= f.label 'Baie', class: "col-sm-2 control-label" %>
+    <%= f.label :bay_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.select :bay_id, options_from_collection_for_select(Bay.all, :id, :detailed_name, @frame.bay_id), class: "form-control" %>
     </div>

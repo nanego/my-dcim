@@ -1,62 +1,74 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {t("inventories") => modeles_url, 'Châssis' => ''} %>
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("inventories") => modeles_url,
+  Frame.model_name.human => ''}
+%>
 
 <div class="container-fluid">
-
   <div class="row">
-
     <div class="col-md-3">
       <%= render 'pages/params_menu' %>
     </div>
 
     <div class="col-md-9">
-
       <div class="page-header">
         <%= link_to new_frame_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
-          Ajouter un châssis
+          <%= t(".new_frame") %>
         <% end %>
-        <h1>Tous les châssis</h1>
+        <h1>
+          <%= t(".title") %>
+        </h1>
       </div>
 
       <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">
           <thead>
           <tr>
-            <th>Nom</th>
-            <th>Matériels</th>
-            <th>Nombre de U</th>
-            <th>Room</th>
-            <th>Ilot</th>
+            <th>
+              <%= Frame.human_attribute_name(:name) %>
+            </th>
+            <th>
+              <%= Frame.human_attribute_name(:servers) %>
+            </th>
+            <th>
+              <%= Frame.human_attribute_name(:u) %>
+            </th>
+            <th>
+              <%= Frame.human_attribute_name(:room) %>
+            </th>
+            <th>
+              <%= Islet.model_name.human %>
+            </th>
             <th></th>
           </tr>
           </thead>
 
           <tbody>
-          <%= content_tag_for(:tr, @frames) do |frame| %>
-            <td><%= link_to frame.name, frame %></td>
-            <td><%= frame.servers.map{|s| link_to s.name, s }.join(' ').html_safe %></td>
-            <td><%= frame.u %></td>
-            <td><%= frame.room.present? ? (link_to frame.room, frame.room) : frame.room %></td>
-            <td>
-              <%= link_to frame.bay.islet, islet_path(frame.bay.islet) if frame.bay.present? %>
-            </td>
-            <td class="text-right">
-              <div class="btn-group btn-group-sm btn-group-vertical" role="group" aria-label="...">
-                <%= link_to 'Modifier', edit_frame_path(frame), class: 'btn btn-primary' %>
-                <%= link_to 'Supprimer',
-                            frame,
-                            method: :delete,
-                            data: { confirm: 'Ce châssis ne pourra pas être supprimé tant qu\'il sera associé à au moins un serveur. Voulez-vous continuer ?' },
-                            class: 'btn btn-danger' %>
-              </div>
-            </td>
-          <% end %>
+            <%= content_tag_for(:tr, @frames) do |frame| %>
+              <td><%= link_to frame.name, frame %></td>
+              <td>
+                <%= safe_join frame.servers.map{|s| link_to s.name, s }, ", " %>
+              </td>
+              <td><%= frame.u %></td>
+              <td><%= frame.room.present? ? (link_to frame.room, frame.room) : frame.room %></td>
+              <td>
+                <%= link_to frame.bay.islet, islet_path(frame.bay.islet) if frame.bay.present? %>
+              </td>
+              <td class="text-right">
+                <div class="btn-group btn-group-sm btn-group-vertical" role="group" aria-label="...">
+                  <%= link_to t("action.edit"), edit_frame_path(frame), class: 'btn btn-primary' %>
+                  <%= link_to t("action.delete"),
+                              frame,
+                              method: :delete,
+                              data: { confirm: t(".delete_confirmation") },
+                              class: 'btn btn-danger' %>
+                </div>
+              </td>
+            <% end %>
           </tbody>
         </table>
       </div>
 
     </div>
-
   </div>
-
 </div>

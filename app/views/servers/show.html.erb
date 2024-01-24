@@ -4,8 +4,8 @@
   t("visualization") => overview_rooms_path,
   @server.frame.room.name => room_path(@server.frame.room, view: params[:view]),
   "#{Islet.model_name.human} #{@server.frame.islet.name}" => room_path(@server.frame.room, islet: @server.frame.islet.name, view: params[:view], bg: params[:bg]),
-  t("breadcrumb.bays.double", name: @server.frame.bay) => room_path(@server.frame.room, islet: @server.frame.islet.name, 'bay-id': @server.frame.bay_id, view: params[:view]),
-  t("breadcrumb.bays.simple", name: @server.frame.name) => frame_path(@server.frame, view: params[:view]),
+  t("breadcrumb.bay.double", name: @server.frame.bay) => room_path(@server.frame.room, islet: @server.frame.islet.name, 'bay-id': @server.frame.bay_id, view: params[:view]),
+  t("breadcrumb.bay.simple", name: @server.frame.name) => frame_path(@server.frame, view: params[:view]),
   @server.name => ""
 } %>
 
