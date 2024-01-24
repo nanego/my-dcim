@@ -71,7 +71,7 @@
         id: 'mapbox/streets-v11',
         tileSize: 512,
         zoomOffset: -1,
-<!--        accessToken: '<%#= Rails.application.credentials.mapbox[:access_token] %>'-->
+        accessToken: '<%= Rails.application.credentials.mapbox[:access_token] %>'
     }).addTo(map);
 
     <% @sites.reject{|s|s.latitude.blank? || s.longitude.blank?}.each do |site| %>
