@@ -38,7 +38,7 @@ class FramesController < ApplicationController
     @frame = Frame.friendly.find(params[:id].to_s.downcase)
     respond_to do |format|
       if @frame.update(frame_params)
-        format.html { redirect_to room_path(@frame.room), notice: 'Le châssis a été mis à jour.' }
+        format.html { redirect_to room_path(@frame.room), notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @frame }
       else
         format.html { render :edit }
@@ -52,7 +52,7 @@ class FramesController < ApplicationController
 
     respond_to do |format|
       if @frame.save
-        format.html { redirect_to frames_path, notice: 'Le châssis a été ajouté.' }
+        format.html { redirect_to frames_path, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @frame }
       else
         format.html { render :new }
@@ -72,7 +72,7 @@ class FramesController < ApplicationController
     @frame = Frame.friendly.find(params[:id].to_s.downcase)
     if @frame.destroy
       respond_to do |format|
-        format.html { redirect_to frames_url, notice: 'Frame a bien été supprimé.' }
+        format.html { redirect_to frames_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
@@ -98,7 +98,7 @@ class FramesController < ApplicationController
     @servers_per_frames = {}
 
     @frames.each do |frame|
-      islet = "Vue réseau"
+      islet = t(".title")
       @servers_per_frames[islet] ||= {}
       @servers_per_frames[islet][0] ||= {}
       @servers_per_frames[islet][0][frame.bay] ||= {}
