@@ -8,14 +8,6 @@ fr:
         one: '1 erreur lors de la sauvegarde :'
         other: '%{count} erreurs lors de la sauvegarde :'
     submit: Valider
-  breadcrumb:
-    frames:
-      label: Châssis
-      new: Nouveau châssis
-    bay:
-      simple: Baie %{name}
-      double: Double baie %{name}
-    islet: Ilot %{name}
   action:
     edit: Modifier
     delete: Supprimer
@@ -56,9 +48,13 @@ fr:
       flashes:
         destroyed: L'ilôt a bien été supprimé.
   breadcrumb:
-    bays:
-      double: Double baie %{name}
+    frames:
+      label: Châssis
+      new: Nouveau châssis
+    bay:
       simple: Baie %{name}
+      double: Double baie %{name}
+    islet: Ilot %{name}
   pages:
     params_menu:
       location:
@@ -389,6 +385,7 @@ fr:
       edit_confirmation: Modifier ce matériel
     modal_add_element_in_frame:
       title: Ajouter un élément
+      slots: Slots
     room:
       title: Salle %{room} - Ilot %{islet}
     slot_fields:
@@ -468,10 +465,6 @@ fr:
         destroyed: Frame a bien été supprimé.
     network:
       title: Vue réseau
-  servers:
-    modal_add_element_in_frame:
-      title: Ajouter un élément
-      slots: Slots
 
   devise:
     registrations:
