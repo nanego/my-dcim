@@ -19,7 +19,7 @@ class Modele < ApplicationRecord
 
   belongs_to :manufacturer
   belongs_to :architecture
-  belongs_to :category
+  belongs_to :category, counter_cache: true
 
   accepts_nested_attributes_for :enclosures,
                                 :allow_destroy => true,
