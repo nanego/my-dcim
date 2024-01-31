@@ -20,6 +20,15 @@ RSpec.describe "/servers" do
     it { expect(response).to render_template(:index) }
     it { expect(response.body).to include(server.name) }
     it { expect(response.body).to include(server2.name) }
+
+    context "while searching on name" do
+      before { get servers_path(name: "ServerName1") }
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(:index) }
+      it { expect(response.body).to include(server.name) }
+      it { expect(response.body).not_to include(server2.name) }
+    end
   end
 
   describe "GET /show" do
