@@ -1,15 +1,18 @@
 <% provide(:title, t(".title", server_name: @original_server.name)) %>
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
-    t("inventories") => servers_url,
-    'Matériels' => servers_path,
+    t("visualization") => overview_rooms_path,
+    @original_server.frame.room.name => room_path(@original_server.frame.room, view: params[:view]),
+    "#{Islet.model_name.human} #{@original_server.frame.islet.name}" => room_path(@original_server.frame.room, islet: @original_server.frame.islet.name, :view => params[:view], bg: params[:bg]),
+    t("breadcrumb.bay.double", name: @original_server.frame.bay) => room_path(@original_server.frame.room, islet: @original_server.frame.islet.name, 'bay-id': @original_server.frame.bay_id, view: params[:view]),
+    t("breadcrumb.bay.simple", name: @original_server.frame.name) => frame_path(@original_server.frame, view: params[:view]),
     @original_server.name => server_path(@original_server),
-    t(".title", server_name: @original_server.name) => ''
+    t("action.duplicate") => ''
 }%>
 
 <div class="container">
   <div class="col-12" style="margin-bottom: 2em;padding-right: 15px;padding-left: 15px;">
     <div class="page-header">
-      <%= link_to @original_server, class: 'btn btn-default' do %>
+      <%= link_to servers_path, class: 'btn btn-default' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
         Retour
       <% end %>

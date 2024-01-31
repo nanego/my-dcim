@@ -1,7 +1,7 @@
 <% provide(:title, "Matériels") %>
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
   t("inventories") => servers_url,
-  Server.model_name.human.pluralize => ''}
+  t(".title") => "" }
 %>
 <div class="container-fluid">
   <div class="row">
@@ -64,6 +64,7 @@
               <td>
                 <div class="btn-group btn-group-sm btn-group-vertical" role="group" aria-label="...">
                   <%= link_to t("action.edit"), edit_server_path(server), class: 'btn btn-primary' %>
+                  <%= link_to t("action.duplicate"), duplicate_server_path(server), class: 'btn btn-info' %>
                   <%= link_to t("action.delete"),
                               server,
                               method: :delete,
