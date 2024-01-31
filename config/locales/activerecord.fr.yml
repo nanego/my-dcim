@@ -237,9 +237,9 @@ fr:
         lane: Ligne
         position: Position
         materials_count:
+          zero: 0 serveur
           one: 1 serveur
           other: "%{count} serveurs"
-          zero: 0 serveurs
         bay_frames:
           one: "%{bay}"
           other: Double baie %{bay}
