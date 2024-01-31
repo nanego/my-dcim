@@ -13,9 +13,7 @@
 
       <div class="modal-body">
         <%= form_for(Server.new(:name => "PatchPanel", :modele => Modele.where("name LIKE ?", '%Panel%').first, frame: (@frame ? @frame : nil)), html: { class: "form-horizontal", role: "form" }) do |f| %>
-          <% if @server.try(:errors).try(:any?) %>
-            <%= render FormErrorsComponent.new(@server) %>
-          <% end %>
+          <%= render FormErrorsComponent.new(@server) %>
 
           <div class="form-group">
             <%= f.label :name, class: "col-sm-2 control-label" %>
