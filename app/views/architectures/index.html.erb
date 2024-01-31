@@ -31,7 +31,7 @@
         <% end %>
 
         <% table.with_column(Architecture.human_attribute_name(:usage)) do |architecture| %>
-          <%= link_to pluralize(architecture.modeles.count, 'modèle', 'modèles'), modeles_path %>
+          <%= link_to Architecture.human_attribute_name(:modeles, count: architecture.modeles.count), modeles_path %>
         <% end %>
 
         <% table.with_column(class: "text-right") do |architecture| %>

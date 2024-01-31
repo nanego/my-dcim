@@ -33,9 +33,7 @@
         <% end %>
 
         <% table.with_column(Islet.model_name.human, sort_by: :name) do |islet| %>
-          <b>
-            <%= link_to islet, islet_path(islet) %>
-          </b>
+          <%= link_to islet, islet_path(islet) %>
         <% end %>
 
         <% table.with_column(Islet.human_attribute_name(:position), sort_by: :position) do |islet| %>

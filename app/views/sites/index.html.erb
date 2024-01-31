@@ -31,7 +31,7 @@
           </b>
         <% end %>
 
-        <% table.with_column(Site.human_attribute_name(:position)) do |site| %>
+        <% table.with_column(Site.human_attribute_name(:position), sort_by: :position) do |site| %>
           <%= site.position %>
         <% end %>
 

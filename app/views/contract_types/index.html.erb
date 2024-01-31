@@ -33,7 +33,7 @@
           <%= link_to t("action.delete"),
                       contract_type,
                       method: :delete,
-                      data: { confirm: 'Toutes les données concernant ce type de contrat seront supprimées, ainsi que les contrats de maintenance associés. Voulez-vous continuer ?' },
+                      data: { confirm: t(".delete_confirmation") },
                       class: 'btn btn-danger' %>
         <% end %>
       <% end %>

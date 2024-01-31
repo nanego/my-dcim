@@ -41,6 +41,17 @@ fr:
       changelog_entry: Changelog
 
     attributes:
+      room:
+        name: Nom
+        position: Position
+        content: Contenu
+        display_on_home_page: Afficher sur la page d'accueil
+        islets_count:
+          one: 1 îlot
+          other: '%{count} îlots'
+        frames_count:
+          one: 1 châssis
+          other: '%{count} châssis'
       islet:
         name: Nom
         room: Salle
@@ -184,7 +195,9 @@ fr:
       category:
         name: Nom
         description: Description
-        modeles_count: Usage
+        modeles_count:
+          one: 1 modèle
+          other: '%{count} modèles'
       modele:
         name: Nom
         category_id: Catégorie

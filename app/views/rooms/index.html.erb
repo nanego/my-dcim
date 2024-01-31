@@ -19,37 +19,37 @@
       </div>
 
       <%= render List::DataTableComponent.new(@rooms) do |table| %>
-        <% table.with_column("Site") do |room| %>
+        <% table.with_column(Site.model_name.human) do |room| %>
           <%= link_to room.site, site_path(room.site) %>
         <% end %>
 
-        <% table.with_column("Nom", sort_by: :name) do |room| %>
+        <% table.with_column(Room.human_attribute_name(:name), sort_by: :name) do |room| %>
           <b>
             <%= link_to room, room_path(room) %>
           </b>
         <% end %>
 
-        <% table.with_column("Position", sort_by: :position) do |room| %>
+        <% table.with_column(Room.human_attribute_name(:position), sort_by: :position) do |room| %>
           <%= room.position %>
         <% end %>
 
-        <% table.with_column("Contenu") do |room| %>
-          <%= pluralize room.islets.count, 'îlot', 'îlots' %>
+        <% table.with_column(Room.human_attribute_name(:content)) do |room| %>
+          <%= Room.human_attribute_name(:islets_count, count: room.islets.count) %>
           /
-          <%= pluralize room.frames.count, 'chassis' %>
+          <%= Room.human_attribute_name(:frames_count, count: room.frames.count) %>
         <% end %>
 
-        <% table.with_column("Afficher sur la page d'accueil", sort_by: :display_on_home_page) do |room| %>
+        <% table.with_column(Room.human_attribute_name(:display_on_home_page), sort_by: :display_on_home_page) do |room| %>
           <input type="checkbox" <%= room.display_on_home_page ? "checked" : "" %> disabled>
         <% end %>
 
         <% table.with_column(class: "text-right") do |room| %>
           <%= render partial: "rooms/export_button", locals: { room: room } %>
-          <%= link_to 'Modifier', edit_room_path(room), class: 'btn btn-primary' %>
-          <%= link_to 'Supprimer',
+          <%= link_to t("action.edit"), edit_room_path(room), class: 'btn btn-primary' %>
+          <%= link_to t("action.delete"),
                       room,
                       method: :delete,
-                      data: { confirm: 'Cette salle ne pourra pas être supprimée tant qu\'elle sera associée à au moins un ilôt. Voulez-vous continuer ?' },
+                      data: { confirm: t(".delete_confirmation") },
                       class: 'btn btn-danger' %>
         <% end %>
       <% end %>

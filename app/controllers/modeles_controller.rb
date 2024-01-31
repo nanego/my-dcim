@@ -7,7 +7,7 @@ class ModelesController < ApplicationController
 
   def index
     @modeles = Modele.includes(:category, :enclosures).order(:name)
-    @types = sorted @modeles.group_by { |m| m.category.name }.sort_by { |categorie, modeles| categorie.to_s }
+    @types = sorted(@modeles).group_by { |m| m.category.name }.sort_by { |categorie, modeles| categorie.to_s }
   end
 
   def show
