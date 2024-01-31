@@ -27,6 +27,17 @@ fr:
       front_wiring: Cablage - Face avant
       back_wiring: Cablage - Face arrière
     port_list: Liste des ports
+
+  order-in-progress: 'Commande en cours'
+  inventories: Inventaires
+  visualization: Visualisation
+
+  breadcrumb:
+    bay:
+      simple: Baie %{name}
+      double: Double baie %{name}
+    islet: Ilot %{name}
+
   islets:
     index:
       add_islet: Ajouter un ilot
@@ -44,11 +55,6 @@ fr:
     destroy:
       flashes:
         destroyed: L'ilôt a bien été supprimé.
-  breadcrumb:
-    bay:
-      simple: Baie %{name}
-      double: Double baie %{name}
-    islet: Ilot %{name}
   pages:
     params_menu:
       location:
@@ -60,8 +66,6 @@ fr:
         title: Exploitation
       maintenance:
         title: Maintenance
-  inventories: Inventaires
-  visualization: Visualisation
   sites:
     index:
       title: Sites
@@ -466,7 +470,6 @@ fr:
           show_authentication_token: Afficher la clé API
           hide_authentication_token: Cacher la clé API
           reset_authentication_token: Regénérer la clé API
-
   activity:
     user:
       destroy: a supprimé un utilisateur
@@ -504,18 +507,26 @@ fr:
       update: a modifié un serveur
       create: a ajouté un serveur
       destroy: a supprimé un serveur
-  order-in-progress: 'Commande en cours'
-
   rooms:
     title: Salles
     capacity_view:
       title: Vue capacité réseau
+      networks:
+        fiber: Fibre
+        giga: Réseau Gb
+        10giga: 10Gb
     action_buttons:
       caption:
         ports: Ports
         unreferenced_client: Le port correspondant de la carte jumelle est câblé
         no_client: Le port correspondant de la carte jumelle n'est pas câblé
-
+      background_color: 'Couleur de fond : %{bg}'
+      background_choices:
+        modele: Modèle
+        manager: Gestionnaire
+        cluster: Cluster
+      dragn_drop:
+        enable: Activer le drag'n drop
   users:
     index:
       new_user: Ajouter un utilisateur
@@ -534,6 +545,26 @@ fr:
       informations: Informations
       changes: Changements
       metadatas: Metadonnées
+  bays:
+    index:
+      new: Ajouter une baie ou un couple de baies
+      title: Baies et doubles-baies
+      delete_confirmation: Cette baie ne pourra pas être supprimée tant qu'elle est associée à au moins un chassis. Voulez-vous continuer ?
+    show:
+      title: Baie %{bay_type} %{bay}
+    new:
+      title: Ajouter une baie
+    create:
+      flashes:
+        created: La baie a été ajoutée.
+    edit:
+      title: Modifier la baie %{type} %{frames}
+    update:
+      flashes:
+        updated: La baie a bien été mise à jour.
+    destroy:
+      flashes:
+        destroyed: La baie bien été supprimé.
 
   views:
     pagination:

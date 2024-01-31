@@ -6,10 +6,10 @@ fr:
       maintainer: Mainteneur
       room: Salle
       islet: Ilot
-      bay:
-        one: Baie / Double-baie
-        other: Baies / Double-baies
-      frame: Châssis
+      bay: Baie
+      frame:
+        one: Châssis
+        other: Châssis
       modele: Modèle
       category: Catégorie
       architecture: Architecture
@@ -49,6 +49,10 @@ fr:
           zero: 0 châssis
           one: 1 châssis
           other: '%{count} châssis'
+      frame/view_sides:
+        front: Vue avant
+        back: Vue arrière
+        both: Vue avant & arrière
       maintenance_contract:
         server_id: Serveur
         start_date: Date de début
@@ -229,6 +233,19 @@ fr:
         position: Position
         bay_id: Baie
         u: U
+      bay:
+        lane: Ligne
+        position: Position
+        materials_count:
+          zero: 0 serveur
+          one: 1 serveur
+          other: "%{count} serveurs"
+        bay_frames:
+          one: "%{bay}"
+          other: Double baie %{bay}
+        islet_id: Salle et Ilot
+        bay_type_id: Type de baie
+
     errors:
       models:
         user:

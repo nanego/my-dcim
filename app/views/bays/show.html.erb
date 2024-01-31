@@ -1,21 +1,21 @@
-<% provide :title, "Double baie #{@bay}" %>
+<% provide :title, t(".title", bay: @bay, bay_type: @bay.bay_type&.name) %>
 <%
   breadcrumb_variables = { t("visualization") => overview_rooms_path, @bay.room.name => room_path(@bay.room, view: params[:view]) }
   if @bay.islet.name.present?
-    breadcrumb_variables["Ilot #{@bay.islet.name}"] = room_path(@bay.room, islet: @bay.islet.name, view: params[:view])
+    breadcrumb_variables["#{Islet.model_name.human} #{@bay.islet.name}"] = room_path(@bay.room, islet: @bay.islet.name, view: params[:view])
   elsif params[:islet].present?
-    breadcrumb_variables["Ilot #{params[:islet]}"] = ''
+    breadcrumb_variables["#{Islet.model_name.human} #{params[:islet]}"] = ''
   end
-  breadcrumb_variables["Double baie #{@bay}"] = ''
+  breadcrumb_variables[t(".title", bay: @bay, bay_type: @bay.bay_type&.name)] = ''
 %>
 <%= render 'layouts/breadcrumb', breadcrumb_variables: breadcrumb_variables %>
 
 <div class="container-fluid" id="bay-container">
   <%= render partial: 'servers/room', locals: {
-    room: @bay.room,
-    islets: @servers_per_frames[@bay.islet.room_id],
-    title: @bay.frames.size > 1 ? "Double baie #{@bay}" : @bay,
-    view_side: params[:view],
+              room: @bay.room,
+              islets: @servers_per_frames[@bay.islet.room_id],
+              title: Bay.human_attribute_name(:bay_frames, count: @bay.frames.size, bay: @bay),
+              view_side: params[:view],
   } %>
 </div>
 
