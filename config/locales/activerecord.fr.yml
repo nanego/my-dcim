@@ -47,9 +47,11 @@ fr:
         content: Contenu
         display_on_home_page: Afficher sur la page d'accueil
         islets_count:
+          zero: 0 îlot
           one: 1 îlot
           other: '%{count} îlots'
         frames_count:
+          zero: 0 châssis
           one: 1 châssis
           other: '%{count} châssis'
       islet:
@@ -196,6 +198,7 @@ fr:
         name: Nom
         description: Description
         modeles_count:
+          zero: 0 modèle
           one: 1 modèle
           other: '%{count} modèles'
       modele:
