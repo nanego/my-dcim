@@ -1,22 +1,5 @@
-<%= form_for(@server, html: { class: "form-server", role: "form" }) do |f| %>
-  <% if @server.errors.any? %>
-    <div class="alert alert-danger alert-dismissable" role="alert">
-      <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span><span class="sr-only">
-        <%= t("action.close") %>
-        </span>
-      </button>
-      <h4>
-        <%= t("form.errors.title", count: @server.errors.count) %>
-      </h4>
-
-      <ul>
-        <% @server.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_for(@server, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <%= render FormErrorsComponent.new(@server) %>
 
   <div class="form-group col-md-6">
     <div class="row">
