@@ -197,6 +197,7 @@ fr:
       category:
         name: Nom
         description: Description
+        modeles: Modèles
         modeles_count:
           zero: 0 modèle
           one: 1 modèle

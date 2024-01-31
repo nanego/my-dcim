@@ -28,7 +28,7 @@
           <%= link_to category, category_path(category) %>
         <% end %>
 
-        <% table.with_column(Category.human_attribute_name(:modeles_count)) do |category| %>
+        <% table.with_column(Category.human_attribute_name(:modeles)) do |category| %>
           <%= link_to Category.human_attribute_name(:modeles_count, count: category.modeles.count), modeles_path %>
         <% end %>
 
