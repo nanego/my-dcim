@@ -9,19 +9,7 @@
       </div>
 
       <%= form_for @user, html: { class: "form-horizontal well", role: "form" }, url: add_user_users_path do |f| %>
-        <% if @user.errors.any? %>
-          <div class="alert alert-danger alert-dismissable" role="alert">
-            <button type="button" class="close" data-dismiss="alert">
-              <span aria-hidden="true">&times;</span><span class="sr-only"><%= t("action.close") %></span></button>
-            <h4><%= t("form.errors.title", count: @user.errors.count) %></h4>
-
-            <ul>
-              <% @user.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
+        <%= render FormErrorsComponent.new(@user) %>
 
         <div class="form-group">
           <%= f.label "Nom", for: :name, class: "col-sm-2 control-label" %>

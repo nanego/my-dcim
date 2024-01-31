@@ -1,5 +1,7 @@
-<%= form_for(@server, html: { class: "form-horizontal", role: "form" }) do |f| %>
-  <%= render FormErrorsComponent.new(@server) %>
+<%= form_for(@server, html: { class: "form-server", role: "form" }) do |f| %>
+  <div class="col-md-12">
+    <%= render FormErrorsComponent.new(@server) %>
+  </div>
 
   <div class="form-group col-md-6">
     <div class="row">
