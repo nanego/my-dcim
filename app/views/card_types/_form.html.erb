@@ -1,21 +1,5 @@
 <%= form_for(@card_type, html: {class: "form-horizontal", role: "form"}) do |f| %>
-  <% if @card_type.errors.any? %>
-    <div class="alert alert-danger alert-dismissable" role="alert">
-      <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span><span class="sr-only">
-        <%= t("action.close") %>
-      </span></button>
-      <h4>
-        <%= t("form.errors.title", count: @card_type.errors.count) %>
-      </h4>
-
-      <ul>
-        <% @card_type.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render FormErrorsComponent.new(@card_type) %>
 
   <div class="form-group">
     <%= f.label :name, class: "col-sm-2 control-label" %>
