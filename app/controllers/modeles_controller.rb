@@ -6,8 +6,8 @@ class ModelesController < ApplicationController
   before_action :set_modele, only: [:show, :edit, :update, :destroy]
 
   def index
-    @modeles = Modele.includes(:category, :enclosures).order(:name)
-    @types = sorted(@modeles).group_by { |m| m.category.name }.sort_by { |categorie, modeles| categorie.to_s }
+    @modeles = sorted(Modele.includes(:category, :enclosures).order(:name))
+    @types = @modeles.group_by { |m| m.category.name }.sort_by { |categorie, modeles| categorie.to_s }
   end
 
   def show
