@@ -68,14 +68,16 @@
                 <td><%= bay.lane %> </td>
                 <td><%= bay.position %> </td>
                 <td><%= Bay.human_attribute_name(:materials_count, count: bay.materials.count) %> </td>
-                <td class="text-right">
-                  <%= render partial: "bays/export_button", locals: { bay: bay } %>
-                  <%= link_to t("action.edit"), edit_bay_path(bay), class: 'btn btn-primary' %>
-                  <%= link_to t("action.delete"),
-                              bay,
-                              method: :delete,
-                              data: { confirm: t(".delete_confirmation") },
-                              class: 'btn btn-danger' %>
+                <td>
+                  <div class="btn-group btn-group-sm btn-group-vertical" role="group" aria-label="...">
+                    <%= render partial: "bays/export_button", locals: { bay: bay } %>
+                    <%= link_to t("action.edit"), edit_bay_path(bay), class: 'btn btn-primary' %>
+                    <%= link_to t("action.delete"),
+                                bay,
+                                method: :delete,
+                                data: { confirm: t(".delete_confirmation") },
+                                class: 'btn btn-danger' %>
+                  </div>
                 </td>
               </tr>
             <% end %>
