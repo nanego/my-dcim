@@ -25,6 +25,6 @@ class FormErrorsComponent < ApplicationComponent
   end
 
   def render?
-    !@object.nil? && @object.errors.any?
+    @object&.errors&.any?
   end
 end
