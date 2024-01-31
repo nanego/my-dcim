@@ -7,7 +7,7 @@ class ServersController < ApplicationController
 
   def index
     @servers = Server.includes(:frame, :room, :islet, bay: :frames, modele: :category).order(:name)
-    @servers = @servers.where(name: params[:name]) if params[:name].present?
+    @servers = @servers.where(Server.arel_table[:name].matches("%#{params[:name]}%")) if params[:name].present?
   end
 
   def grid
