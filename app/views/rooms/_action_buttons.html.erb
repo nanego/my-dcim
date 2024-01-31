@@ -6,12 +6,12 @@
     <!-- Choice of server background color -->
     <div class="btn-group">
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Couleur de fond : <%= params[:bg] || 'modèle' %> <span class="caret"></span>
+        <%= t(".background_color", bg: params[:bg] || Modele.model_name.human.downcase) %> <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
-        <li><%= link_to 'Modèle', url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: 'modele', islet: params[:islet], id: params[:id]})), remote: true  %></li>
-        <li><%= link_to 'Gestionnaire', url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: 'gestionnaire', islet: params[:islet], id: params[:id]})), remote: true  %></li>
-        <li><%= link_to 'Cluster', url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: 'cluster', islet: params[:islet], id: params[:id]})), remote: true  %></li>
+        <li><%= link_to Modele.model_name.human, url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: Modele.model_name.human.downcase, islet: params[:islet], id: params[:id]})), remote: true  %></li>
+        <li><%= link_to Gestion.model_name.human, url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: Gestion.model_name.human.downcase, islet: params[:islet], id: params[:id]})), remote: true  %></li>
+        <li><%= link_to Cluster.model_name.human, url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: Cluster.model_name.human.downcase, islet: params[:islet], id: params[:id]})), remote: true  %></li>
       </ul>
     </div>
   <% end %>
@@ -19,54 +19,54 @@
   <!-- Views FRONT / BACK -->
   <% if view_side==Frame.view_sides[:both] %>
      <%= content_tag :div, class: 'btn btn-default disabled' do %>
-      Vue avant & arrière
+      <%= Frame.human_attribute_name("view_sides.both") %>
     <% end %>
   <% else %>
     <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => (view_side == Frame.view_sides[:back] ? Frame.view_sides[:front] : Frame.view_sides[:back]), islet: params['islet'], id: params['id']})), class: 'btn btn-success', remote: true do %>
       <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-      <%= (view_side==Frame.view_sides[:back] ? 'Vue avant' : 'Vue arrière') %>
+      <%= Frame.human_attribute_name("view_sides.#{view_side}") %>
     <% end %>
   <% end %>
 
   <%= link_to "#", class: 'btn btn-danger', id: 'drag-n-drop-switcher' do %>
     <span class="glyphicon glyphicon-move" aria-hidden="true"></span>
-    Activer le drag'n drop
+    <%= t(".dragn_drop.enable") %>
   <% end %>
 
   <% if formats!=[:pdf] && @room.present? && !@room.kind_of?(String) %>
     <div class="btn-group">
       <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Exports <span class="caret"></span>
+        <%= t("export_button.label") %> <span class="caret"></span>
       </button>
       <ul class="dropdown-menu dropdown-menu-right">
         <li class="dropdown-submenu pull-left">
           <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'pdf'})), target: :_blank do %>
             <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-            Export PDF
+            <%= t("export_button.exports.pdf") %>
           <% end %>
           <ul class="dropdown-menu dropdown-menu-left">
             <li>
               <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'pdf', 'view' => 'front'})), target: :_blank do %>
                 <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-                Face avant
+                <%= t("export_button.faces.front") %>
               <% end %>
             </li>
             <li>
               <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'pdf', 'view' => 'back'})), target: :_blank do %>
                 <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-                Face arrière
+                <%= t("export_button.faces.back") %>
               <% end %>
             </li>
             <li>
               <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'pdf', 'view' => 'front', 'bg' => 'cablage'})), target: :_blank do %>
                 <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-                Cablage - Face avant
+                <%= t("export_button.faces.front_wiring") %>
               <% end %>
             </li>
             <li>
               <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'pdf', 'view' => 'back', 'bg' => 'cablage'})), target: :_blank do %>
                 <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-                Cablage - Face arrière
+                <%= t("export_button.faces.back_wiring") %>
               <% end %>
             </li>
           </ul>
@@ -74,20 +74,20 @@
         <li>
           <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'txt'})) do %>
           <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
-            Export Txt
+            <%= t("export_button.exports.txt") %>
           <% end %>
         </li>
         <li>
           <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'pdf', 'debug' => '1'})), target: :_blank do %>
           <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
-            Impression
+            <%= t("export_button.exports.print") %>
           <% end %>
         </li>
         <li role="separator" class="divider"></li>
         <li>
           <%= link_to ports_path(room_id: @room.id, frame_id: @frame.try(:id)) do %>
           <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-            Liste des ports
+            <%= t("export_button.port_list") %>
           <% end %>
         </li>
       </ul>
