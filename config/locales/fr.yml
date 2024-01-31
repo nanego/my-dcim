@@ -3,10 +3,6 @@ fr:
     true: Oui
     false: Non
   form:
-    errors:
-      title:
-        one: '1 erreur lors de la sauvegarde :'
-        other: '%{count} erreurs lors de la sauvegarde :'
     submit: Valider
   action:
     edit: Modifier

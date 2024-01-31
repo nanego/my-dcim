@@ -1,18 +1,5 @@
 <%= form_for(@color, html: { class: "form-horizontal", role: "form" }) do |f| %>
-  <% if @color.errors.any? %>
-    <div class="alert alert-danger alert-dismissable" role="alert">
-      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <h4>
-        <%= t("form.errors.title", count: @color.errors.count) %>
-      </h4>
-
-      <ul>
-      <% @color.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render FormErrorsComponent.new(@color) %>
 
   <div class="form-group">
     <%= f.label :type, class: "col-sm-2 control-label" %>
