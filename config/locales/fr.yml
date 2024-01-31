@@ -3,10 +3,6 @@ fr:
     true: Oui
     false: Non
   form:
-    errors:
-      title:
-        one: '1 erreur lors de la sauvegarde :'
-        other: '%{count} erreurs lors de la sauvegarde :'
     submit: Valider
   action:
     edit: Modifier
@@ -18,6 +14,7 @@ fr:
     cancel: Annuler
     add: Ajouter
     confirm: Êtes-vous sûr ?
+    duplicate: Dupliquer
   export_button:
     label: Exports
     exports:
@@ -420,8 +417,6 @@ fr:
       glpi_visit_page: Voir la page de la machine sur GLPI
       no_match_serial: "Aucune correspondance pour ce numéro de série : %{serial}"
       glpi_connection_error: "Problème lors de la connexion à GLPI :"
-      actions:
-        duplicate: Dupliquer
     new:
       title: "Ajouter un matériel"
     edit:
