@@ -18,22 +18,43 @@ module Changelogable
   end
 
   def changelog_entry_on_update
-    return if previous_changes.empty?
+    changes = _changeloagable_previous_changes
 
-    _create_changelog_entry(:update)
+    return if changes.empty?
+
+    _create_changelog_entry(:update, object_changes: changes)
   end
 
   def changelog_entry_on_destroy
-    _create_changelog_entry(:destroy, object_changes: attributes.to_h { |k, v| [k, [v, nil]] })
+    _create_changelog_entry(:destroy, object_changes: _changelogable_parameter_filter(attributes.transform_values { |v| [v, nil] }))
   end
 
-  def _create_changelog_entry(action, object_changes: previous_changes, metadata: {})
-    return if Hash.new(object_changes).keys == ["updated_at"]
+  private
 
+  def _create_changelog_entry(action, object_changes: _changeloagable_previous_changes, metadata: {})
     changelog_entries.create!(
       action: action,
       object_changed_attributes: object_changes,
       metadata: ChangelogContext.metadata.to_h.merge(metadata)
     )
+  end
+
+  def _changeloagable_previous_changes
+    _changelogable_parameter_filter(previous_changes)
+  end
+
+  def _changelogable_parameter_filter(changes)
+    changes.symbolize_keys
+           .except(:id, :created_at, :updated_at)
+           .to_h do |key, (before, after)|
+      [
+        key,
+        [parameter_filter.filter_param(key, before), parameter_filter.filter_param(key, after)]
+      ]
+    end
+  end
+
+  def parameter_filter
+    @parameter_filter ||= ActiveSupport::ParameterFilter.new(Rails.application.env_config["action_dispatch.parameter_filter"])
   end
 end

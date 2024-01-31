@@ -13,13 +13,13 @@ class ChangelogEntry < ApplicationRecord
   end
 
   def object_name
-    object.try(:name).presence || object.try(:display_name).presence || "##{object.id}"
+    object.try(:name).presence || object.try(:display_name).presence || "##{object_id}"
   end
 
   def author_display_name
     return unless author_type
 
-    "#{author || "##{author_id}"}"
+    author || "##{author_id}"
   end
 
   def author_type_name
@@ -27,9 +27,7 @@ class ChangelogEntry < ApplicationRecord
   end
 
   def object_pre_change_attributes
-    object_changed_attributes.to_h do |k, v|
-      [k, v[0]]
-    end
+    object_changed_attributes.transform_values { |v| v[0] }
   end
 
   def object_pre_change_attributes_to_json
@@ -37,9 +35,7 @@ class ChangelogEntry < ApplicationRecord
   end
 
   def object_post_change_attributes
-    object_changed_attributes.to_h do |k, v|
-      [k, v[1]]
-    end
+    object_changed_attributes.transform_values { |v| v[1] }
   end
 
   def object_post_change_attributes_to_json
