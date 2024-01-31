@@ -6,7 +6,7 @@ class DiskTypesController < ApplicationController
   # GET /disk_types
   # GET /disk_types.json
   def index
-    @disk_types = sorted DiskType.all
+    @disk_types = DiskType.order(unit: :desc, quantity: :desc)
   end
 
   # GET /disk_types/1

@@ -24,7 +24,7 @@
       </div>
 
       <%= render List::DataTableComponent.new(@disk_types) do |table| %>
-        <% table.with_column(DiskType.human_attribute_name(:name), sort_by: :name) do |disk_type| %>
+        <% table.with_column(DiskType.human_attribute_name(:name)) do |disk_type| %>
           <%= link_to disk_type, disk_type_path(disk_type) %>
         <% end %>
 
