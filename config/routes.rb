@@ -80,12 +80,6 @@ Rails.application.routes.draw do
   resources :architectures
   resources :categories
 
-  namespace :admin do
-    DashboardManifest::DASHBOARDS.each do |dashboard_resource|
-      resources dashboard_resource
-    end
-    root controller: DashboardManifest::ROOT_DASHBOARD, action: :index
-  end
   root to: 'pages#index'
   get :about, to: 'pages#about'
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks',
