@@ -46,6 +46,7 @@ fr:
         room: Salle
         position: Position
         frames_count:
+          zero: 0 châssis
           one: 1 châssis
           other: '%{count} châssis'
       maintenance_contract:
@@ -87,9 +88,11 @@ fr:
         latitude: Latitude
         longitude: Longitude
         rooms_count:
+          zero: 0 salle
           one: 1 salle
           other: "%{count} salles"
         errors_count:
+          zero: 0 erreur
           one: 1 erreur
           other: "%{count} erreurs"
       architecture:
@@ -97,6 +100,7 @@ fr:
         usage: Usage
         description: Description
         modeles:
+          zero: 0 modèle
           one: 1 modèle
           other: "%{count} modèles"
       gestion:
@@ -104,12 +108,14 @@ fr:
         description: Description
         usage: Usage
         servers:
+          zero: 0 serveur
           one: 1 serveur
           other: "%{count} serveurs"
       cluster:
         name: Nom
         servers_label: Nombre de serveurs
         servers:
+          zero: 0 serveur
           one: 1 serveur
           other: "%{count} serveurs"
       manufacturer:
@@ -118,6 +124,7 @@ fr:
         description: Description
         documentation_url: Documentation URL
         modeles:
+          zero: 0 modèle
           one: 1 modèle
           other: "%{count} modèles"
       domaine:
@@ -129,17 +136,19 @@ fr:
         color: Couleur
         servers_label: Nombre de machines
         servers:
-          one: "%{count} machine"
+          zero: 0 machine
+          one: 1 machine
           other: "%{count} machines"
       card_type:
         name: Nom
         usage: Usage
         servers:
-          zero: 0 serveurs
+          zero: 0 serveur
           one: 1 serveur
           other: "%{count} serveurs"
         port_quantity_label: Nombre de ports
         port_quantity:
+          zero: 0 port
           one: 1 port
           other: "%{count} ports"
         port_type: Type de port
