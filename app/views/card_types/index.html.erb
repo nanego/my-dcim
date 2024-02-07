@@ -30,7 +30,7 @@
         <% end %>
 
         <% table.with_column(CardType.human_attribute_name(:port_quantity), sort_by: :port_quantity) do |card_type| %>
-          <%= CardType.human_attribute_name(:port_quantity_count, count: card_type.port_quantity) %>
+          <%= CardType.human_attribute_name(:port_quantity_count, count: (card_type.port_quantity || 0)) %>
         <% end %>
 
         <% table.with_column(style: "min-width: 84px; width: 84px") do |card_type| %>

@@ -356,6 +356,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_07_105229) do
   create_table "port_types", id: :serial, force: :cascade do |t|
     t.string "name"
     t.boolean "power"
+    t.integer "card_types_count", default: 0, null: false
   end
 
   create_table "ports", id: :serial, force: :cascade do |t|

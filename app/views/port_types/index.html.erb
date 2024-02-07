@@ -29,7 +29,7 @@
           <%= t("boolean.#{port_type.power?}") %>
         <% end %>
 
-        <% table.with_column(PortType.human_attribute_name(:usage)) do |port_type| %>
+        <% table.with_column(PortType.human_attribute_name(:usage), sort_by: :card_types_count) do |port_type| %>
           <%= link_to card_types_path(anchor: "port_type_#{port_type}") do %>
             <% usage_count = CardType.where(port_type: port_type).count %>
             <%= "#{usage_count} #{CardType.model_name.human(count: usage_count).downcase}" %>
