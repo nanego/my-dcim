@@ -45,14 +45,16 @@
             <%= pluralize(modele.servers.count, modele.category.name.try(:downcase), "#{modele.category.name.try(:downcase)}#{ modele.category.name.blank? || modele.category.name[-1] == 's' || modele.category.name=='San' ? '' : 's' }") %>
           <% end %>
 
-          <% table.with_column(class: "text-right") do |modele| %>
+          <% table.with_column(style: "min-width: 84px; width: 84px") do |modele| %>
             <div class="btn-group btn-group-sm" role="group" aria-label="...">
-              <%= link_to t("action.edit"), edit_modele_path(modele), class: 'btn btn-primary' %>
-              <%= link_to t("action.delete"),
-                          modele,
-                          method: :delete,
-                          data: { confirm: t(".delete_confirmation") },
-                          class: 'btn btn-danger' %>
+              <%= link_to edit_modele_path(modele), class: 'btn btn-primary' do %>
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
+                <span class="sr-only"><%= t("action.edit") %></span>
+              <% end %>
+              <%= link_to modele, method: :delete, data: { confirm: t(".delete_confirmation") }, class: 'btn btn-danger' do %>
+                <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
+                <span class="sr-only"><%= t("action.delete") %></span>
+              <% end %>
             </div>
           <% end %>
         <% end %>

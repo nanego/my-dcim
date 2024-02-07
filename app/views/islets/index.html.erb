@@ -41,15 +41,17 @@
           <%= Islet.human_attribute_name(:frames_count, count: islet.frames.count) %>
         <% end %>
 
-        <% table.with_column(class: "text-right") do |islet| %>
+        <% table.with_column(style: "min-width: 160px; width: 160px") do |islet| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
             <%= render partial: "islets/export_button", locals: { islet: islet } %>
-            <%= link_to t("action.edit"), edit_islet_path(islet), class: 'btn btn-primary' %>
-            <%= link_to t("action.delete"),
-                        islet,
-                        method: :delete,
-                        data: { confirm: t('.delete_confirmation') },
-                        class: 'btn btn-danger' %>
+            <%= link_to edit_islet_path(islet), class: 'btn btn-primary' do %>
+              <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
+              <span class="sr-only"><%= t("action.edit") %></span>
+            <% end %>
+            <%= link_to islet, method: :delete, data: { confirm: t('.delete_confirmation') }, class: 'btn btn-danger' do %>
+              <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
+              <span class="sr-only"><%= t("action.delete") %></span>
+            <% end %>
           </div>
         <% end %>
       <% end %>

@@ -25,12 +25,16 @@
           <%= link_to memory_type, memory_type_path(memory_type) %>
         <% end %>
 
-        <% table.with_column(class: "text-right") do |memory_type| %>
+        <% table.with_column(style: "min-width: 84px; width: 84px") do |memory_type| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <%= link_to t("action.edit"), edit_memory_type_path(memory_type), class: 'btn btn-primary' %>
-            <%= link_to t("action.delete"), memory_type_path(memory_type), method: :delete,
-                                                                           data: { confirm: t("action.confirm") },
-                                                                           class: 'btn btn-danger' %>
+            <%= link_to edit_memory_type_path(memory_type), class: 'btn btn-primary' do %>
+              <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
+              <span class="sr-only"><%= t("action.edit") %></span>
+            <% end %>
+            <%= link_to memory_type_path(memory_type), method: :delete, data: { confirm: t("action.confirm") }, class: 'btn btn-danger' do %>
+              <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
+              <span class="sr-only"><%= t("action.delete") %></span>
+            <% end %>
           </div>
         <% end %>
       <% end %>
