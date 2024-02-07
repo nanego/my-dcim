@@ -135,6 +135,6 @@ class ServersGrid
   # column(:network)
 
   column("Actions", :html => true, :mandatory => false) do |record|
-    link_to('Modifier', edit_server_path(record.slug), class: 'btn btn-primary').to_s + '<span style="margin-left:10px">'.html_safe + link_to('Supprimer', server_path(record.slug), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger').to_s + '</span>'.html_safe
+    link_to(t("action.edit"), edit_server_path(record.slug), class: 'btn btn-primary').to_s + '<span style="margin-left:10px">'.html_safe + link_to('Supprimer', server_path(record.slug), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger').to_s + '</span>'.html_safe
   end
 end
