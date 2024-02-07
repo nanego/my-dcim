@@ -3,6 +3,7 @@ class AddCounterCaches < ActiveRecord::Migration[7.0]
     site: %i[rooms],
     room: %i[islets],
     # bay: %i[servers],
+    category: %i[modeles],
     architecture: %i[modeles],
     manufacturer: %i[modeles],
     stack: %i[servers],
@@ -16,7 +17,7 @@ class AddCounterCaches < ActiveRecord::Migration[7.0]
     add_column :sites, :rooms_count, :integer, null: false, default: 0
     # add_column :rooms, :islets_count, :integer, null: false, default: 0
     # add_column :bays, :servers_count, :integer, null: false, default: 0
-    # add_column :categories, :modeles_count, :integer, null: false, default: 0
+    add_column :categories, :modeles_count, :integer, null: false, default: 0
     add_column :architectures, :modeles_count, :integer, null: false, default: 0
     add_column :manufacturers, :modeles_count, :integer, null: false, default: 0
     add_column :stacks, :servers_count, :integer, null: false, default: 0
