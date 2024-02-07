@@ -2,7 +2,7 @@
 
 <h3> <%= "#{@port.card.try(:server)}" %></h3>
 
-<div class="pull-right"><%= link_to 'Supprimer', @port, method: :delete, data: { confirm: 'Supprimer ce port ?' }, class: 'btn btn-danger' %></div>
+<div class="pull-right"><%= link_to t("action.delete"), @port, method: :delete, data: { confirm: 'Supprimer ce port ?' }, class: 'btn btn-danger' %></div>
 
 <h4> <%= "Slot: #{@port.card.try(:composant)}" %></h4>
 <h4> <%= "Carte: #{@port.card.try(:card_type)}" %></h4>
