@@ -44,7 +44,7 @@
         <% end %>
 
         <% table.with_column(class: "text-right") do |frame| %>
-          <div class="btn-group btn-group-sm btn-group-vertical" role="group" aria-label="...">
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
             <%= link_to t("action.edit"), edit_frame_path(frame), class: 'btn btn-primary' %>
             <%= link_to t("action.delete"),
                         frame,

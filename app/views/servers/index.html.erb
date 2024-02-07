@@ -45,7 +45,7 @@
         <% end %>
 
         <% table.with_column(class: "text-right") do |server| %>
-          <div class="btn-group btn-group-sm btn-group-vertical" role="group" aria-label="...">
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
             <%= link_to t("action.edit"), edit_server_path(server), class: 'btn btn-primary' %>
             <%= link_to t("action.duplicate"), duplicate_server_path(server), class: 'btn btn-info' %>
             <%= link_to t("action.delete"),

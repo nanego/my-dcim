@@ -22,7 +22,7 @@
 
       <%= render List::DataTableComponent.new(@islets) do |table| %>
         <% table.with_column(Site.model_name.human) do |islet| %>
-          <%= link_to islet.site, site_path(islet.site) %>
+          <%= islet.site %>
         <% end %>
 
         <% table.with_column(Room.model_name.human) do |islet| %>
