@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_31_153428) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_07_105229) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -120,7 +120,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_31_153428) do
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.integer "modeles_count", default: 0
   end
 
   create_table "changelog_entries", force: :cascade do |t|
@@ -445,6 +444,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_31_153428) do
     t.string "country"
     t.decimal "latitude"
     t.decimal "longitude"
+    t.integer "rooms_count", default: 0, null: false
   end
 
   create_table "stacks", force: :cascade do |t|

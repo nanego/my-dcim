@@ -8,7 +8,7 @@ class Room < ApplicationRecord
   tracked owner: ->(controller, model) { controller && controller.current_user }
   has_changelog
 
-  belongs_to :site
+  belongs_to :site, counter_cache: true
 
   has_many :islets, dependent: :restrict_with_error
   has_many :bays, through: :islets, dependent: :restrict_with_error
