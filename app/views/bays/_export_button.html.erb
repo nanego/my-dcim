@@ -1,9 +1,9 @@
-<div class="btn-group">
+<div class="btn-group btn-group-sm">
   <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <%= t("export_button.label") %> <span class="caret"></span>
   </button>
-  <ul class="dropdown-menu dropdown-menu-right">
 
+  <ul class="dropdown-menu dropdown-menu-right">
     <li class="dropdown-submenu pull-left">
       <%= link_to bay_path(bay, format: 'pdf', view: 'front', bg: ''), target: :_blank do %>
         <span class="glyphicon glyphicon-file" aria-hidden="true"></span>

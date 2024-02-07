@@ -46,12 +46,14 @@
           <% end %>
 
           <% table.with_column(class: "text-right") do |modele| %>
-            <%= link_to t("action.edit"), edit_modele_path(modele), class: 'btn btn-primary' %>
-            <%= link_to t("action.delete"),
-                        modele,
-                        method: :delete,
-                        data: { confirm: t(".delete_confirmation") },
-                        class: 'btn btn-danger' %>
+            <div class="btn-group btn-group-sm" role="group" aria-label="...">
+              <%= link_to t("action.edit"), edit_modele_path(modele), class: 'btn btn-primary' %>
+              <%= link_to t("action.delete"),
+                          modele,
+                          method: :delete,
+                          data: { confirm: t(".delete_confirmation") },
+                          class: 'btn btn-danger' %>
+            </div>
           <% end %>
         <% end %>
       <% end %>

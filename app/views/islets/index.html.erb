@@ -42,13 +42,15 @@
         <% end %>
 
         <% table.with_column(class: "text-right") do |islet| %>
-          <%= render partial: "islets/export_button", locals: { islet: islet } %>
-          <%= link_to t("action.edit"), edit_islet_path(islet), class: 'btn btn-primary' %>
-          <%= link_to t("action.delete"),
-                      islet,
-                      method: :delete,
-                      data: { confirm: t('.delete_confirmation') },
-                      class: 'btn btn-danger' %>
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <%= render partial: "islets/export_button", locals: { islet: islet } %>
+            <%= link_to t("action.edit"), edit_islet_path(islet), class: 'btn btn-primary' %>
+            <%= link_to t("action.delete"),
+                        islet,
+                        method: :delete,
+                        data: { confirm: t('.delete_confirmation') },
+                        class: 'btn btn-danger' %>
+          </div>
         <% end %>
       <% end %>
     </div>

@@ -26,9 +26,12 @@
         <% end %>
 
         <% table.with_column(class: "text-right") do |memory_type| %>
-          <%= link_to t("action.edit"), edit_memory_type_path(memory_type), class: 'btn btn-primary' %>
-          <%= link_to t("action.delete"), memory_type_path(memory_type), method: :delete, data: { confirm: t("action.confirm") },
-                                                                         class: 'btn btn-danger' %>
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <%= link_to t("action.edit"), edit_memory_type_path(memory_type), class: 'btn btn-primary' %>
+            <%= link_to t("action.delete"), memory_type_path(memory_type), method: :delete,
+                                                                           data: { confirm: t("action.confirm") },
+                                                                           class: 'btn btn-danger' %>
+          </div>
         <% end %>
       <% end %>
     </div>

@@ -4,15 +4,12 @@
 %>
 
 <div class="container-fluid">
-
   <div class="row">
-
     <div class="col-md-3">
       <%= render 'pages/params_menu' %>
     </div>
 
     <div class="col-md-9">
-
       <div class="page-header">
         <%= link_to new_contract_type_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
@@ -29,12 +26,12 @@
         <% end %>
 
         <% table.with_column(class: "text-right") do |contract_type| %>
-          <%= link_to t("action.edit"), edit_contract_type_path(contract_type), class: 'btn btn-primary' %>
-          <%= link_to t("action.delete"),
-                      contract_type,
-                      method: :delete,
-                      data: { confirm: t(".delete_confirmation") },
-                      class: 'btn btn-danger' %>
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <%= link_to t("action.edit"), edit_contract_type_path(contract_type), class: 'btn btn-primary' %>
+            <%= link_to t("action.delete"), contract_type, method: :delete,
+                                                           data: { confirm: t(".delete_confirmation") },
+                                                           class: 'btn btn-danger' %>
+          </div>
         <% end %>
       <% end %>
     </div>

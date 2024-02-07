@@ -34,9 +34,12 @@
         <% end %>
 
         <% table.with_column(class: "text-right") do |card_type| %>
-          <%= link_to t("action.edit"), edit_card_type_path(card_type), class: "btn btn-primary" %>
-          <%= link_to t("action.delete"), card_type_path(card_type), method: :delete, data: { confirm: t(".delete_confirmation") },
-                                                                     class: "btn btn-danger" %>
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <%= link_to t("action.edit"), edit_card_type_path(card_type), class: "btn btn-primary" %>
+            <%= link_to t("action.delete"), card_type_path(card_type), method: :delete,
+                                                                      data: { confirm: t(".delete_confirmation") },
+                                                                      class: "btn btn-danger" %>
+          </div>
         <% end %>
       <% end %>
 

@@ -39,13 +39,15 @@
         <% end %>
 
         <% table.with_column(class: "text-right") do |room| %>
-          <%= render partial: "rooms/export_button", locals: { room: room } %>
-          <%= link_to t("action.edit"), edit_room_path(room), class: 'btn btn-primary' %>
-          <%= link_to t("action.delete"),
-                      room,
-                      method: :delete,
-                      data: { confirm: t(".delete_confirmation") },
-                      class: 'btn btn-danger' %>
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <%= render partial: "rooms/export_button", locals: { room: room } %>
+            <%= link_to t("action.edit"), edit_room_path(room), class: 'btn btn-primary' %>
+            <%= link_to t("action.delete"),
+                        room,
+                        method: :delete,
+                        data: { confirm: t(".delete_confirmation") },
+                        class: 'btn btn-danger' %>
+          </div>
         <% end %>
       <% end %>
     </div>
