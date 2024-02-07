@@ -32,8 +32,8 @@
         <% end %>
 
         <% table.with_column(class: "text-right") do |architecture| %>
-          <%= link_to 'Modifier', edit_architecture_path(architecture), class: 'btn btn-primary' %>
-          <%= link_to 'Supprimer',
+          <%= link_to t("action.edit"), edit_architecture_path(architecture), class: 'btn btn-primary' %>
+          <%= link_to t("action.delete"),
                       architecture,
                       method: :delete,
                       data: { confirm: t(".delete_confirmation") },

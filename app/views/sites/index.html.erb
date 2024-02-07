@@ -5,13 +5,11 @@
 
 <div class="container-fluid">
   <div class="row">
-
     <div class="col-md-3">
       <%= render 'pages/params_menu' %>
     </div>
 
     <div class="col-md-9">
-
       <div class="page-header">
         <%= link_to new_site_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
@@ -26,9 +24,7 @@
 
       <%= render List::DataTableComponent.new(@sites) do |table| %>
         <% table.with_column(Site.human_attribute_name(:name), sort_by: :name) do |site| %>
-          <b>
-            <%= link_to site.name, site_path(site) %>
-          </b>
+          <b><%= link_to site.name, site_path(site) %></b>
         <% end %>
 
         <% table.with_column(Site.human_attribute_name(:position), sort_by: :position) do |site| %>
