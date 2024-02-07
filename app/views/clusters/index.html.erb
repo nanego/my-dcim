@@ -26,7 +26,7 @@
         <% end %>
 
         <% table.with_column(Cluster.human_attribute_name(:servers_label), sort_by: :servers_count) do |cluster| %>
-          <%= Cluster.human_attribute_name(:servers_count, count: cluster.servers.count) %>
+          <%= Cluster.human_attribute_name(:servers_count, count: cluster.servers_count) %>
         <% end %>
 
         <% table.with_column(style: "min-width: 84px; width: 84px") do |cluster| %>

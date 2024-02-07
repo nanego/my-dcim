@@ -38,7 +38,7 @@
         <% end %>
 
         <% table.with_column(Frame.model_name.human.pluralize, sort_by: :frames_count) do |islet| %>
-          <%= Islet.human_attribute_name(:frames_count, count: islet.frames.count) %>
+          <%= Islet.human_attribute_name(:frames_count, count: islet.frames_count) %>
         <% end %>
 
         <% table.with_column(style: "min-width: 160px; width: 160px") do |islet| %>

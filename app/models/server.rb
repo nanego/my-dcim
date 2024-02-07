@@ -22,7 +22,7 @@ class Server < ApplicationRecord
   belongs_to :modele
   belongs_to :cluster, optional: true, counter_cache: true
   belongs_to :server_state, optional: true
-  belongs_to :stack, optional: true
+  belongs_to :stack, optional: true, counter_cache: true
 
   has_one :maintenance_contract
   has_many :memory_components
