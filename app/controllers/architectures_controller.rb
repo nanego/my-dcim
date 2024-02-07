@@ -6,7 +6,7 @@ class ArchitecturesController < ApplicationController
   # GET /architectures
   # GET /architectures.json
   def index
-    @architectures = Architecture.all
+    @architectures = sorted Architecture.all
   end
 
   # GET /architectures/1

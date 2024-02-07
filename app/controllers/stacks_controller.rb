@@ -6,7 +6,7 @@ class StacksController < ApplicationController
   # GET /stacks
   # GET /stacks.json
   def index
-    @stacks = Stack.all
+    @stacks = sorted Stack.all
   end
 
   # GET /stacks/1

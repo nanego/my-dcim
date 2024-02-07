@@ -6,7 +6,7 @@ class ManufacturersController < ApplicationController
   # GET /manufacturers
   # GET /manufacturers.json
   def index
-    @manufacturers = Manufacturer.all
+    @manufacturers = sorted Manufacturer.all
   end
 
   # GET /manufacturers/1

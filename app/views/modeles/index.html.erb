@@ -6,15 +6,12 @@
 %>
 
 <div class="container-fluid">
-
   <div class="row">
-
     <div class="col-md-3">
       <%= render 'pages/params_menu' %>
     </div>
 
     <div class="col-md-9">
-
       <div class="page-header">
         <%= link_to new_modele_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
@@ -27,47 +24,37 @@
 
       <% @types.each do |category, modeles| %>
         <h4><%= category %></h4>
-        <div class="table-responsive">
-          <table class="table table-striped table-bordered table-hover">
-            <thead>
-              <tr>
-                <th></th>
-                <th>
-                  <%= Modele.model_name.human %>
-                </th>
-                <th>
-                  <%= Enclosure.human_attribute_name(:display) %>
-                </th>
-                <th>
-                  <%= Bay.model_name.human.pluralize %>
-                </th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-            <%= content_tag_for(:tr, modeles) do |modele| %>
-              <% bgModeleColor = modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(modele.try(:name) || 'test')[0..5]}", 0.4) %>
-              <td style="width: 40px;background-color:<%= bgModeleColor %> !important;"></td>
-              <td style="font-size: larger;"><%= link_to modele.name, modele_path(modele) %></td>
-              <td style="width: 106px;"><%= modele.enclosures.map(&:display).join(', ') %></td>
-              <td style="width: 106px;"><%= pluralize(modele.servers.count, modele.category.name.try(:downcase), "#{modele.category.name.try(:downcase)}#{ modele.category.name.blank? || modele.category.name[-1] == 's' || modele.category.name=='San' ? '' : 's' }") %></td>
-              <td style="width: 190px;text-align: center;" class="text-right">
-                <%= link_to t("action.edit"), edit_modele_path(modele), class: 'btn btn-primary' %>
-                <%= link_to t("action.delete"),
-                            modele,
-                            method: :delete,
-                            data: { confirm: t(".delete_confirmation") },
-                            class: 'btn btn-danger' %>
-              </td>
-            <% end %>
-            </tbody>
-          </table>
-        </div>
 
+        <%= render List::DataTableComponent.new(modeles) do |table| %>
+          <% table.with_column(style: "width: 40px; height: 40px; padding: 0;") do |modele| %>
+            <% bgModeleColor = modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(modele.try(:name) || 'test')[0..5]}", 0.4) %>
+            <div style="height: 100%; background-color: <%= bgModeleColor %> !important;"></div>
+          <% end %>
+
+          <% table.with_column(Modele.model_name.human, sort_by: :name) do |modele| %>
+            <b>
+              <%= link_to modele, modele_path(modele) %>
+            </b>
+          <% end %>
+
+          <% table.with_column(Enclosure.human_attribute_name(:display)) do |modele| %>
+            <%= modele.enclosures.map(&:display).join(', ') %>
+          <% end %>
+
+          <% table.with_column(Bay.model_name.human.pluralize) do |modele| %>
+            <%= pluralize(modele.servers.count, modele.category.name.try(:downcase), "#{modele.category.name.try(:downcase)}#{ modele.category.name.blank? || modele.category.name[-1] == 's' || modele.category.name=='San' ? '' : 's' }") %>
+          <% end %>
+
+          <% table.with_column(class: "text-right") do |modele| %>
+            <%= link_to t("action.edit"), edit_modele_path(modele), class: 'btn btn-primary' %>
+            <%= link_to t("action.delete"),
+                        modele,
+                        method: :delete,
+                        data: { confirm: t(".delete_confirmation") },
+                        class: 'btn btn-danger' %>
+          <% end %>
+        <% end %>
       <% end %>
-
     </div>
-
   </div>
-
 </div>
