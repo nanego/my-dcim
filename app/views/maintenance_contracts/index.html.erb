@@ -23,8 +23,8 @@
             <td><%= maintenance_contract.maintainer_id %></td>
             <td><%= maintenance_contract.contract_type_id %></td>
             <td><%= link_to 'Voir', maintenance_contract %></td>
-        <td><%= link_to 'Edit', edit_maintenance_contract_path(maintenance_contract) %></td>
-        <td><%= link_to 'Destroy', maintenance_contract, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' %></td>
+        <td><%= link_to t("action.edit"), edit_maintenance_contract_path(maintenance_contract) %></td>
+        <td><%= link_to t("action.delete"), maintenance_contract, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' %></td>
       <% end %>
     </tbody>
   </table>

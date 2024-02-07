@@ -34,18 +34,22 @@
           <%= Room.human_attribute_name(:frames_count, count: room.frames.count) %>
         <% end %>
 
-        <% table.with_column(Room.human_attribute_name(:display_on_home_page), sort_by: :display_on_home_page) do |room| %>
+        <% table.with_column(Room.human_attribute_name(:display_on_home_page), sort_by: :display_on_home_page, class: "text-center") do |room| %>
           <input type="checkbox" <%= room.display_on_home_page ? "checked" : "" %> disabled>
         <% end %>
 
-        <% table.with_column(class: "text-right") do |room| %>
-          <%= render partial: "rooms/export_button", locals: { room: room } %>
-          <%= link_to t("action.edit"), edit_room_path(room), class: 'btn btn-primary' %>
-          <%= link_to t("action.delete"),
-                      room,
-                      method: :delete,
-                      data: { confirm: t(".delete_confirmation") },
-                      class: 'btn btn-danger' %>
+        <% table.with_column(style: "min-width: 160px; width: 160px") do |room| %>
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <%= render partial: "rooms/export_button", locals: { room: room } %>
+            <%= link_to edit_room_path(room), class: 'btn btn-primary' do %>
+              <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
+              <span class="sr-only"><%= t("action.edit") %></span>
+            <% end %>
+            <%= link_to room, method: :delete, data: { confirm: t(".delete_confirmation") }, class: 'btn btn-danger' do %>
+              <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
+                <span class="sr-only"><%= t("action.delete") %></span>
+            <% end %>
+          </div>
         <% end %>
       <% end %>
     </div>

@@ -33,10 +33,17 @@
           <%= CardType.human_attribute_name(:port_quantity_count, count: card_type.port_quantity) %>
         <% end %>
 
-        <% table.with_column(class: "text-right") do |card_type| %>
-          <%= link_to t("action.edit"), edit_card_type_path(card_type), class: "btn btn-primary" %>
-          <%= link_to t("action.delete"), card_type_path(card_type), method: :delete, data: { confirm: t(".delete_confirmation") },
-                                                                     class: "btn btn-danger" %>
+        <% table.with_column(style: "min-width: 84px; width: 84px") do |card_type| %>
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <%= link_to edit_card_type_path(card_type), class: "btn btn-primary" do %>
+              <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
+              <span class="sr-only"><%= t("action.edit") %></span>
+            <% end %>
+            <%= link_to card_type_path(card_type), method: :delete, data: { confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
+              <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
+              <span class="sr-only"><%= t("action.delete") %></span>
+            <% end %>
+          </div>
         <% end %>
       <% end %>
 

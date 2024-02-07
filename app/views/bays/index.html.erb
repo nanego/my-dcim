@@ -4,15 +4,12 @@
 %>
 
 <div class="container-fluid">
-
   <div class="row">
-
     <div class="col-md-3">
       <%= render 'pages/params_menu' %>
     </div>
 
     <div class="col-md-9">
-
       <div class="page-header">
         <%= link_to new_bay_path, class: 'btn btn-primary btn-disabled' do %>
           <span class="glyphicon glyphicon-plus"></span>
@@ -54,18 +51,20 @@
           <%= Bay.human_attribute_name(:materials_count, count: bay.materials.count) %>
         <% end %>
 
-        <% table.with_column(class: "text-right") do |bay| %>
-          <%= render partial: "bays/export_button", locals: { bay: bay } %>
-          <%= link_to t("action.edit"), edit_bay_path(bay), class: 'btn btn-primary' %>
-          <%= link_to t("action.delete"),
-                      bay,
-                      method: :delete,
-                      data: { confirm: t(".delete_confirmation") },
-                      class: 'btn btn-danger' %>
+        <% table.with_column(style: "min-width: 160px; width: 160px") do |bay| %>
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <%= render partial: "bays/export_button", locals: { bay: bay } %>
+            <%= link_to edit_bay_path(bay), class: 'btn btn-primary' do %>
+              <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
+              <span class="sr-only"><%= t("action.edit") %></span>
+            <% end %>
+            <%= link_to bay, method: :delete, data: { confirm: t(".delete_confirmation") }, class: 'btn btn-danger' do %>
+              <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
+              <span class="sr-only"><%= t("action.delete") %></span>
+            <% end %>
+          </div>
         <% end %>
       <% end %>
     </div>
-
   </div>
-
 </div>
