@@ -4,15 +4,12 @@
 %>
 
 <div class="container-fluid">
-
   <div class="row">
-
     <div class="col-md-3">
       <%= render 'pages/params_menu' %>
     </div>
 
     <div class="col-md-9">
-
       <div class="page-header">
         <%= link_to new_stack_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
@@ -25,17 +22,15 @@
 
       <%= render List::DataTableComponent.new(@stacks) do |table| %>
         <% table.with_column(Stack.human_attribute_name(:name), sort_by: :name) do |stack| %>
-          <b>
-            <%= link_to stack, stack_path(stack) %>
-          </b>
+          <b><%= link_to stack, stack_path(stack) %></b>
         <% end %>
 
         <% table.with_column(Stack.human_attribute_name(:color), sort_by: :color) do |stack| %>
           <%= stack.color %>
         <% end %>
 
-        <% table.with_column(Stack.human_attribute_name(:servers_label)) do |stack| %>
-          <%= Stack.human_attribute_name(:servers, count: stack.servers.count) %>
+        <% table.with_column(Stack.human_attribute_name(:servers)) do |stack| %>
+          <%= Stack.human_attribute_name(:servers_count, count: stack.servers.count) %>
         <% end %>
 
         <% table.with_column(class: "text-right") do |stack| %>
@@ -47,7 +42,6 @@
                       class: 'btn btn-danger' %>
         <% end %>
       <% end %>
-
     </div>
   </div>
 </div>

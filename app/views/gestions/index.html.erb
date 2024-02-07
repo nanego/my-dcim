@@ -4,15 +4,12 @@
 %>
 
 <div class="container-fluid">
-
   <div class="row">
-
     <div class="col-md-3">
       <%= render 'pages/params_menu' %>
     </div>
 
     <div class="col-md-9">
-
       <div class="page-header">
         <%= link_to new_gestion_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
@@ -29,7 +26,7 @@
         <% end %>
 
         <% table.with_column(Gestion.human_attribute_name(:usage)) do |gestion| %>
-          <%= Gestion.human_attribute_name(:servers, count: gestion.servers.count) %>
+          <%= Gestion.human_attribute_name(:servers_count, count: gestion.servers.count) %>
         <% end %>
 
         <% table.with_column(class: "text-right") do |gestion| %>
@@ -41,12 +38,6 @@
                       class: 'btn btn-danger' %>
         <% end %>
       <% end %>
-
     </div>
-
   </div>
-
 </div>
-
-
-

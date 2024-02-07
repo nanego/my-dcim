@@ -29,7 +29,7 @@
         <% end %>
 
         <% table.with_column(Domaine.human_attribute_name(:usage)) do |domaine| %>
-          <%= link_to pluralize(domaine.servers.count, 'serveur', "serveurs"), servers_path %>
+          <%= link_to Domaine.human_attribute_name(:servers_count, count: domaine.servers.count), servers_path %>
         <% end %>
 
         <% table.with_column(class: "text-right") do |domaine| %>
@@ -47,5 +47,3 @@
   </div>
 
 </div>
-
-

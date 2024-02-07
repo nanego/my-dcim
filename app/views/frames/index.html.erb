@@ -28,7 +28,7 @@
         <% end %>
 
         <% table.with_column(Frame.human_attribute_name(:servers)) do |frame| %>
-          <%= safe_join frame.servers.map{|s| link_to s.name, s }, ", " %>
+          <%= safe_join(frame.servers.map{ |s| link_to s.name, s }, ", ") %>
         <% end %>
 
         <% table.with_column(Frame.human_attribute_name(:u), sort_by: :u) do |frame| %>
@@ -36,7 +36,7 @@
         <% end %>
 
         <% table.with_column(Frame.human_attribute_name(:room)) do |frame| %>
-          <%= frame.room.present? ? (link_to frame.room, frame.room) : frame.room %>
+          <%= frame.room.present? ? link_to(frame.room, frame.room) : frame.room %>
         <% end %>
 
         <% table.with_column(Islet.model_name.human) do |frame| %>
@@ -45,16 +45,15 @@
 
         <% table.with_column(class: "text-right") do |frame| %>
           <div class="btn-group btn-group-sm btn-group-vertical" role="group" aria-label="...">
-                  <%= link_to t("action.edit"), edit_frame_path(frame), class: 'btn btn-primary' %>
-                  <%= link_to t("action.delete"),
-                              frame,
-                              method: :delete,
-                              data: { confirm: t(".delete_confirmation") },
-                              class: 'btn btn-danger' %>
-                </div>
+            <%= link_to t("action.edit"), edit_frame_path(frame), class: 'btn btn-primary' %>
+            <%= link_to t("action.delete"),
+                        frame,
+                        method: :delete,
+                        data: { confirm: t(".delete_confirmation") },
+                        class: 'btn btn-danger' %>
+          </div>
         <% end %>
       <% end %>
-
     </div>
   </div>
 </div>

@@ -4,15 +4,12 @@
 }%>
 
 <div class="container-fluid">
-
   <div class="row">
-
     <div class="col-md-3">
       <%= render 'pages/params_menu' %>
     </div>
 
     <div class="col-md-9">
-
       <div class="page-header">
         <%= link_to new_architecture_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
@@ -31,7 +28,7 @@
         <% end %>
 
         <% table.with_column(Architecture.human_attribute_name(:usage)) do |architecture| %>
-          <%= link_to Architecture.human_attribute_name(:modeles, count: architecture.modeles.count), modeles_path %>
+          <%= link_to Architecture.human_attribute_name(:modeles_count, count: architecture.modeles.count), modeles_path %>
         <% end %>
 
         <% table.with_column(class: "text-right") do |architecture| %>
@@ -43,9 +40,6 @@
                       class: 'btn btn-danger' %>
         <% end %>
       <% end %>
-
     </div>
-
   </div>
-
 </div>

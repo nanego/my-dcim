@@ -3,11 +3,13 @@
   t("inventories") => servers_url,
   t(".title") => "" }
 %>
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-3">
       <%= render 'pages/params_menu' %>
     </div>
+
     <div class="col-md-9">
       <div class="page-header">
         <%= link_to import_csv_servers_path, class: 'btn btn-primary' do %>
@@ -23,15 +25,11 @@
 
       <%= render List::DataTableComponent.new(@servers) do |table| %>
         <% table.with_column(Server.human_attribute_name(:name), sort_by: :name) do |server| %>
-          <b>
-            <%= link_to server.name, server_path(server) %>
-          </b>
+          <b><%= link_to server.name, server_path(server) %></b>
         <% end %>
 
         <% table.with_column(Server.human_attribute_name(:type)) do |server| %>
-          <%=
-            link_to server.modele.category, category_path(server.modele.category) if server.modele.try(:category)
-          %>
+          <%= link_to server.modele.category, category_path(server.modele.category) if server.modele.try(:category) %>
         <% end %>
 
         <% table.with_column(Server.human_attribute_name(:room)) do |server| %>
@@ -47,16 +45,17 @@
         <% end %>
 
         <% table.with_column(class: "text-right") do |server| %>
-          <%= link_to t("action.edit"), edit_server_path(server), class: 'btn btn-primary' %>
-          <%= link_to t("action.duplicate"), duplicate_server_path(server), class: 'btn btn-info' %>
-          <%= link_to t("action.delete"),
-                      server,
-                      method: :delete,
-                      data: { confirm: t("action.confirm") },
-                      class: 'btn btn-danger' %>
+          <div class="btn-group btn-group-sm btn-group-vertical" role="group" aria-label="...">
+            <%= link_to t("action.edit"), edit_server_path(server), class: 'btn btn-primary' %>
+            <%= link_to t("action.duplicate"), duplicate_server_path(server), class: 'btn btn-info' %>
+            <%= link_to t("action.delete"),
+                        server,
+                        method: :delete,
+                        data: { confirm: t("action.confirm") },
+                        class: 'btn btn-danger' %>
+          </div>
         <% end %>
       <% end %>
-
     </div>
   </div>
 </div>

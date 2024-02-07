@@ -4,15 +4,12 @@
 %>
 
 <div class="container-fluid">
-
   <div class="row">
-
     <div class="col-md-3">
       <%= render 'pages/params_menu' %>
     </div>
 
     <div class="col-md-9">
-
       <div class="page-header">
         <%= link_to new_port_type_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
@@ -28,7 +25,7 @@
           <%= port_type.name %>
         <% end %>
 
-        <% table.with_column(PortType.human_attribute_name(:power)) do |port_type| %>
+        <% table.with_column(PortType.human_attribute_name(:power), sort_by: :power) do |port_type| %>
           <%= t("boolean.#{port_type.power?}") %>
         <% end %>
 
@@ -48,9 +45,6 @@
                       class: 'btn btn-danger' %>
         <% end %>
       <% end %>
-
     </div>
-
   </div>
-
 </div>

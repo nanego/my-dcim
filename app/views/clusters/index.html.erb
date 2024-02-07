@@ -26,7 +26,7 @@
         <% end %>
 
         <% table.with_column(Cluster.human_attribute_name(:servers_label)) do |cluster| %>
-          <%= Cluster.human_attribute_name(:servers, count: cluster.servers.count) %>
+          <%= Cluster.human_attribute_name(:servers_count, count: cluster.servers.count) %>
         <% end %>
 
         <% table.with_column(class: "text-right") do |cluster| %>
