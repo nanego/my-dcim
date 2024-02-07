@@ -25,7 +25,7 @@
           <%= link_to gestion, gestion_path(gestion) %>
         <% end %>
 
-        <% table.with_column(Gestion.human_attribute_name(:usage)) do |gestion| %>
+        <% table.with_column(Gestion.human_attribute_name(:usage), sort_by: :servers_count) do |gestion| %>
           <%= Gestion.human_attribute_name(:servers_count, count: gestion.servers.count) %>
         <% end %>
 

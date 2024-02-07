@@ -142,6 +142,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_07_105229) do
     t.string "name"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.integer "servers_count", default: 0, null: false
   end
 
   create_table "colors", id: :serial, force: :cascade do |t|
@@ -210,6 +211,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_07_105229) do
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.integer "servers_count", default: 0, null: false
   end
 
   create_table "enclosures", id: :serial, force: :cascade do |t|
@@ -252,6 +254,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_07_105229) do
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.integer "servers_count", default: 0, null: false
   end
 
   create_table "islets", id: :serial, force: :cascade do |t|

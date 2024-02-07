@@ -28,9 +28,11 @@
           <%= room.position %>
         <% end %>
 
-        <% table.with_column(Room.human_attribute_name(:content)) do |room| %>
+        <% table.with_column(Islet.model_name.human.pluralize, sort_by: :islets_count) do |room| %>
           <%= Room.human_attribute_name(:islets_count, count: room.islets.count) %>
-          /
+        <% end %>
+
+        <% table.with_column(Frame.model_name.human.pluralize) do |room| %>
           <%= Room.human_attribute_name(:frames_count, count: room.frames.count) %>
         <% end %>
 

@@ -12,7 +12,7 @@ class Frame < ApplicationRecord
   has_changelog
   acts_as_list scope: [:bay_id]
 
-  belongs_to :bay
+  belongs_to :bay, counter_cache: true
   has_many :materials, -> {order("servers.position desc")}, class_name: "Server", dependent: :restrict_with_error
   has_many :pdus, -> {only_pdus}, class_name: "Server", dependent: :restrict_with_error
   has_many :servers, -> {no_pdus.order("servers.position desc")}, class_name: "Server", dependent: :restrict_with_error

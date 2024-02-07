@@ -25,7 +25,7 @@
           <%= link_to cluster, cluster_path(cluster) %>
         <% end %>
 
-        <% table.with_column(Cluster.human_attribute_name(:servers_label)) do |cluster| %>
+        <% table.with_column(Cluster.human_attribute_name(:servers_label), sort_by: :servers_count) do |cluster| %>
           <%= Cluster.human_attribute_name(:servers_count, count: cluster.servers.count) %>
         <% end %>
 
