@@ -4,15 +4,12 @@
 %>
 
 <div class="container-fluid">
-
   <div class="row">
-
     <div class="col-md-3">
       <%= render 'pages/params_menu' %>
     </div>
 
     <div class="col-md-9">
-
       <div class="page-header">
         <%= link_to new_domaine_path, class: 'btn btn-primary' do %>
           <span class="glyphicon glyphicon-plus"></span>
@@ -32,18 +29,19 @@
           <%= link_to Domaine.human_attribute_name(:servers_count, count: domaine.servers.count), servers_path %>
         <% end %>
 
-        <% table.with_column(class: "text-right") do |domaine| %>
-          <%= link_to t("action.edit"), edit_domaine_path(domaine), class: 'btn btn-primary' %>
-          <%= link_to t("action.delete"),
-                      domaine,
-                      method: :delete,
-                      data: { confirm: t(".delete_confirmation") },
-                      class: 'btn btn-danger' %>
+        <% table.with_column(style: "min-width: 84px; width: 84px") do |domaine| %>
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <%= link_to edit_domaine_path(domaine), class: 'btn btn-primary' do %>
+              <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
+              <span class="sr-only"><%= t("action.edit") %></span>
+            <% end %>
+            <%= link_to domaine, method: :delete, data: { confirm: t(".delete_confirmation") }, class: 'btn btn-danger' do %>
+              <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
+              <span class="sr-only"><%= t("action.delete") %></span>
+            <% end %>
+          </div>
         <% end %>
       <% end %>
-
     </div>
-
   </div>
-
 </div>
