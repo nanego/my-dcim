@@ -5,7 +5,7 @@ class FramesController < ApplicationController
   include RoomsHelper
 
   def index
-    @frames = Frame.includes(bay: { islet: :room })
+    @frames = sorted Frame.includes(bay: { islet: :room })
   end
 
   def show

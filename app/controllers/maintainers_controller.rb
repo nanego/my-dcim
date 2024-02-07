@@ -6,7 +6,7 @@ class MaintainersController < ApplicationController
   # GET /maintainers
   # GET /maintainers.json
   def index
-    @maintainers = Maintainer.all
+    @maintainers = sorted Maintainer.all
   end
 
   # GET /maintainers/1

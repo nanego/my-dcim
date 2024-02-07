@@ -30,7 +30,7 @@
         <% end %>
 
         <% table.with_column(CardType.human_attribute_name(:port_quantity), sort_by: :port_quantity) do |card_type| %>
-          <%= card_type.port_quantity %>
+          <%= CardType.human_attribute_name(:port_quantity_count, count: card_type.port_quantity) %>
         <% end %>
 
         <% table.with_column(class: "text-right") do |card_type| %>
@@ -52,7 +52,7 @@
               <%= CardType.human_attribute_name(:usage) %>
             </th>
             <th>
-              <%= CardType.human_attribute_name(:port_quantity_label) %>
+              <%= CardType.human_attribute_name(:port_quantity) %>
             </th>
             <th></th>
           </tr>

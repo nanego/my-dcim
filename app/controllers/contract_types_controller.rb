@@ -6,7 +6,7 @@ class ContractTypesController < ApplicationController
   # GET /contract_types
   # GET /contract_types.json
   def index
-    @contract_types = ContractType.all
+    @contract_types = sorted ContractType.all
   end
 
   # GET /contract_types/1

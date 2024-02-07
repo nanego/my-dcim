@@ -4,7 +4,7 @@ class PortTypesController < ApplicationController
   before_action :set_port_type, only: [:show, :edit, :update, :destroy]
 
   def index
-    @port_types = PortType.order('lower(name)')
+    @port_types = sorted PortType.order('lower(name)')
   end
 
   def show; end

@@ -41,6 +41,19 @@ fr:
       changelog_entry: Changelog
 
     attributes:
+      room:
+        name: Nom
+        position: Position
+        content: Contenu
+        display_on_home_page: Afficher sur la page d'accueil
+        islets_count:
+          zero: 0 îlot
+          one: 1 îlot
+          other: '%{count} îlots'
+        frames_count:
+          zero: 0 châssis
+          one: 1 châssis
+          other: '%{count} châssis'
       islet:
         name: Nom
         room: Salle
@@ -95,15 +108,11 @@ fr:
           zero: 0 salle
           one: 1 salle
           other: "%{count} salles"
-        errors_count:
-          zero: 0 erreur
-          one: 1 erreur
-          other: "%{count} erreurs"
       architecture:
         name: Nom
         usage: Usage
         description: Description
-        modeles:
+        modeles_count:
           zero: 0 modèle
           one: 1 modèle
           other: "%{count} modèles"
@@ -111,14 +120,14 @@ fr:
         name: Nom
         description: Description
         usage: Usage
-        servers:
+        servers_count:
           zero: 0 serveur
           one: 1 serveur
           other: "%{count} serveurs"
       cluster:
         name: Nom
         servers_label: Nombre de serveurs
-        servers:
+        servers_count:
           zero: 0 serveur
           one: 1 serveur
           other: "%{count} serveurs"
@@ -127,7 +136,7 @@ fr:
         usage: Usage
         description: Description
         documentation_url: Documentation URL
-        modeles:
+        modeles_count:
           zero: 0 modèle
           one: 1 modèle
           other: "%{count} modèles"
@@ -135,11 +144,15 @@ fr:
         name: Nom
         usage: Usage
         description: Description
+        servers_count:
+          zero: 0 serveur
+          one: 1 serveur
+          other: "%{count} serveurs"
       stack:
         name: Nom
         color: Couleur
-        servers_label: Nombre de machines
-        servers:
+        servers: Nombre de machines
+        servers_count:
           zero: 0 machine
           one: 1 machine
           other: "%{count} machines"
@@ -150,8 +163,8 @@ fr:
           zero: 0 serveur
           one: 1 serveur
           other: "%{count} serveurs"
-        port_quantity_label: Nombre de ports
-        port_quantity:
+        port_quantity: Nombre de ports
+        port_quantity_count:
           zero: 0 port
           one: 1 port
           other: "%{count} ports"
@@ -184,7 +197,11 @@ fr:
       category:
         name: Nom
         description: Description
-        modeles_count: Usage
+        modeles: Modèles
+        modeles_count:
+          zero: 0 modèle
+          one: 1 modèle
+          other: '%{count} modèles'
       modele:
         name: Nom
         category_id: Catégorie
