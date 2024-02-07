@@ -17,8 +17,8 @@ class Modele < ApplicationRecord
   has_many :enclosures, dependent: :restrict_with_error
   has_many :composants, through: :enclosures
 
-  belongs_to :manufacturer
-  belongs_to :architecture
+  belongs_to :manufacturer, counter_cache: true
+  belongs_to :architecture, counter_cache: true
   belongs_to :category, counter_cache: true
 
   accepts_nested_attributes_for :enclosures,
