@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddCounterCaches < ActiveRecord::Migration[7.0]
   RESET_COUNTERS = {
     site: %i[rooms],
@@ -10,7 +12,7 @@ class AddCounterCaches < ActiveRecord::Migration[7.0]
     port_type: %i[card_types],
     domaine: %i[servers],
     gestion: %i[servers],
-    cluster: %i[servers],
+    cluster: %i[servers]
   }.freeze
 
   def change
