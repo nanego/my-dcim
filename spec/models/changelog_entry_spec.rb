@@ -5,8 +5,13 @@ require 'rails_helper'
 RSpec.describe ChangelogEntry, type: :model do
   subject(:changelog_entry) { ChangelogEntry.new }
 
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:object_id) }
+    it { is_expected.to validate_presence_of(:object_type) }
+  end
+
   describe "associations" do
-    it { is_expected.to belong_to(:object) }
+    it { is_expected.to belong_to(:object).optional }
     it { is_expected.to belong_to(:author).optional }
   end
 
