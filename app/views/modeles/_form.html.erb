@@ -2,37 +2,44 @@
   <%= render FormErrorsComponent.new(@modele) %>
 
   <div class="form-group">
-    <%= f.label :name, class: "col-sm-2 col-md-1 control-label" %>
-    <div class="col-sm-10 col-md-11">
+    <%= f.label :name, class: "col-sm-3 col-md-2 control-label" %>
+    <div class="col-sm-9 col-md-4">
       <%= f.text_field :name, class: "form-control" %>
     </div>
-    <%= f.label :category_id, class: "col-sm-2 col-md-1 control-label" %>
-    <div class="col-sm-10 col-md-5">
+    <%= f.label :category_id, class: "col-sm-3 col-md-2 control-label" %>
+    <div class="col-sm-9 col-md-4">
       <%= f.collection_select(:category_id, Category.order(Arel.sql('LOWER(name)')), :id, :name, {}, {class: "form-control"}) %>
     </div>
-    <%= f.label :architecture_id, class: "col-sm-2 col-md-1 control-label" %>
-    <div class="col-sm-10  col-md-5">
+    <%= f.label :architecture_id, class: "col-sm-3 col-md-2 control-label" %>
+    <div class="col-sm-9  col-md-4">
       <%= f.collection_select(:architecture_id, Architecture.order(Arel.sql('LOWER(name)')), :id, :name, {}, {class: "form-control"}) %>
     </div>
-    <%= f.label :u, class: "col-sm-2 col-md-1 control-label" %>
-    <div class="col-sm-10 col-md-5">
+    <%= f.label :u, class: "col-sm-3 col-md-2 control-label" %>
+    <div class="col-sm-9 col-md-4">
       <%= f.number_field :u, class: "form-control" %>
     </div>
-    <%= f.label :manufacturer_id, class: "col-sm-2 col-md-1 control-label" %>
-    <div class="col-sm-10 col-md-5">
+    <%= f.label :manufacturer_id, class: "col-sm-3 col-md-2 control-label" %>
+    <div class="col-sm-9 col-md-4">
       <%= f.collection_select(:manufacturer_id, Manufacturer.order(Arel.sql('LOWER(name)')), :id, :name, {}, {class: "form-control"}) %>
     </div>
-    <%= f.label :nb_elts, class: "col-sm-2 col-md-1 control-label" %>
-    <div class="col-sm-10 col-md-5">
+    <%= f.label :nb_elts, class: "col-sm-3 col-md-2 control-label" %>
+    <div class="col-sm-9 col-md-4">
       <%= f.number_field :nb_elts, class: "form-control" %>
     </div>
-    <%= f.label :color, class: "col-sm-2 col-md-1 control-label" %>
-    <div class="col-sm-10 col-md-5">
+    <%= f.label :color, class: "col-sm-3 col-md-2 control-label" %>
+    <div class="col-sm-9 col-md-4">
       <%= f.text_field :color, class: "form-control", style: "background-color:#{f.object.color};" %>
+    </div>
+    <%= f.label :network_types, class: "col-sm-3 col-md-2  control-label" %>
+    <div class="col-sm-9 col-md-4">
+      <%= f.select :network_types,
+                    Modele::Network::TYPES.map { |type| [Modele.human_attribute_name("network_types.#{type}"), type] },
+                    { placeholder: t("activerecord.attributes.modele/network_types.blank") },
+                    { data: { controller: "select" } } %>
     </div>
   </div>
   <div>
-    <%= content_tag :span, Enclosure.model_name.human.pluralize, class: "col-sm-2 control-label" %>
+    <%= content_tag :span, Enclosure.model_name.human.pluralize, class: "col-sm-3 col-md-2 control-label" %>
     <%= f.fields_for :enclosures do |builder| %>
         <%= render "enclosure_fields", :f => builder %>
     <% end %>
