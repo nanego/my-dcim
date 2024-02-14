@@ -3,7 +3,7 @@
 class Server < ApplicationRecord
   NETWORKS = {
     1 => :gbe,
-    2 => :"10gbe",
+    2 => :'10gbe',
     3 => :fiber,
   }
 
