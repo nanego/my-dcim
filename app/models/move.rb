@@ -3,7 +3,6 @@
 class Move < ApplicationRecord
   has_changelog
 
-
   belongs_to :moveable, polymorphic: true
   belongs_to :frame
   belongs_to :prev_frame, class_name: 'Frame', foreign_key: :prev_frame_id

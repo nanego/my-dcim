@@ -1,16 +1,17 @@
 require:
+  - rubocop-capybara
   - rubocop-performance
   - rubocop-rake
   - rubocop-rails
-  # - rubocop-rspec
+  - rubocop-rspec
 
 inherit_from: .rubocop_todo.yml
 
 AllCops:
+  NewCops: enable
   DisplayCopNames: true
   DisplayStyleGuide: true
   Exclude:
-    - "node_modules/**/*"
     - "vendor/**/*"
     - ".git/**/*"
     - "bin/**/*"
@@ -21,6 +22,7 @@ AllCops:
     - "log/**/*"
     - "coverage/**/*"
     - "app/packs/**/*"
+  UseCache: true
 
 Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
@@ -32,14 +34,32 @@ Metrics/AbcSize:
   Exclude:
     - "db/**/*.rb"
 
+# Metrics/BlockLength:
+#   Exclude:
+#     - "spec/**/*.rb"
+#     - "config/**/*.rb"
+
 Metrics/MethodLength:
   Exclude:
     - "db/**/*.rb"
 
-Metrics/BlockLength:
+# Rails/ActionOrder:
+#   ExpectedOrder: [index, show, new, create, edit, update, destroy]
+
+Rails/ApplicationRecord:
   Exclude:
-    - "config/**/*.rb"
-    - "spec/**/*.rb"
+    - "db/**/*.rb"
+
+Rails/SkipsModelValidations:
+  Exclude:
+    - "db/migrate/**/*"
+
+RSpec/ExampleLength:
+  Exclude:
+    - "spec/features/**/*.rb"
+
+# Style/AsciiComments:
+#   Enabled: false
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes

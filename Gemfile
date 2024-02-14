@@ -52,10 +52,12 @@ group :development, :test do
   gem "pry-rescue"
   gem "puma"
   gem "rack-mini-profiler"
-  gem "rubocop"
-  gem "rubocop-performance"
-  gem "rubocop-rails"
-  gem "rubocop-rake"
+  gem "rubocop", require: false
+  gem "rubocop-capybara", require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-rake", require: false
+  gem "rubocop-rspec", require: false
 
   # gem "formulaic"
   gem "rails-controller-testing"
@@ -76,9 +78,9 @@ group :test do
 end
 
 group :production do
+  gem "dalli"
   gem "mini_racer"
   gem "passenger"
-  gem "dalli"
 end
 
 gem "acts_as_list"
@@ -98,9 +100,9 @@ gem "letter_opener", group: :development
 # Geocode Sites positions
 gem "geocoder"
 
-gem "importmap-rails", "~> 1.1"
-gem "stimulus-rails", "~> 1.2"
-gem "view_component"
 gem "debug", group: %i[test development]
 gem "diffy", "~> 3.4"
+gem "importmap-rails", "~> 1.1"
 gem "lookbook"
+gem "stimulus-rails", "~> 1.2"
+gem "view_component"

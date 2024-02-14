@@ -63,7 +63,7 @@ class FramesController < ApplicationController
 
   def sort
     params[:frame].each_with_index do |id, index|
-      Frame.where(id: id).update_all(position: index + 1)
+      Frame.where(id: id).update_all(position: index + 1) # rubocop:disable Rails/SkipsModelValidations
     end if params[:frame].present?
     head :ok
   end
