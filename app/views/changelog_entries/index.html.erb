@@ -31,7 +31,7 @@
               <%= changelog_entry.object_display_name %>
             <% end %>
           </td>
-          <td><%= link_to changelog_entry.author_display_name, changelog_entry.author %></td>
+          <td><%= link_to_if changelog_entry.author_id?, changelog_entry.author_display_name, changelog_entry.author %></td>
           <td>
             <%= changelog_entry.object_changed_attributes_to_sentence %>
           </td>
