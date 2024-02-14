@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 class ChangelogEntry < ApplicationRecord
-  belongs_to :object, polymorphic: true
+  belongs_to :object, polymorphic: true, optional: true
   belongs_to :author, polymorphic: true, optional: true, default: -> { ChangelogContext.author }
+
+  validates :object_type, presence: true
+  validates :object_id, presence: true
 
   def object_display_name
     "#{object_type_name}: #{object_name || "##{object_id}"}"
