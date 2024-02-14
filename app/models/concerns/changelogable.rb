@@ -6,10 +6,10 @@ module Changelogable
   CHANGELOGABLE_DEFAULT_SKIP_ATTRIBUTES = %i[id created_at updated_at]
 
   module ClassMethods
-    attr_accessor :_changelogable_skip_attributes
+    attr_accessor :_changelogable_except_attributes
 
-    def has_changelog(skip: []) # rubocop:disable Naming/PredicateName
-      @_changelogable_skip_attributes = CHANGELOGABLE_DEFAULT_SKIP_ATTRIBUTES.append(*skip)
+    def has_changelog(except: []) # rubocop:disable Naming/PredicateName
+      @_changelogable_except_attributes = CHANGELOGABLE_DEFAULT_SKIP_ATTRIBUTES.append(*except)
 
       has_many :changelog_entries, -> { order(created_at: :desc) }, as: :object
 
@@ -52,7 +52,7 @@ module Changelogable
   def _changelogable_parameter_filter(changes)
     binding.b
     changes.symbolize_keys
-           .except(*self.class._changelogable_skip_attributes)
+           .except(*self.class._changelogable_except_attributes)
            .to_h do |key, (before, after)|
       [
         key,
