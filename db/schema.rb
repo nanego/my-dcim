@@ -325,6 +325,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_07_105229) do
     t.integer "manufacturer_id"
     t.string "color"
     t.string "slug"
+    t.integer "servers_count", default: 0, null: false
     t.index ["architecture_id"], name: "index_modeles_on_architecture_id"
     t.index ["category_id"], name: "index_modeles_on_category_id"
     t.index ["manufacturer_id"], name: "index_modeles_on_manufacturer_id"

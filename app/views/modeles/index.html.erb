@@ -41,7 +41,7 @@
             <%= modele.enclosures.map(&:display).join(', ') %>
           <% end %>
 
-          <% table.with_column(Bay.model_name.human.pluralize) do |modele| %>
+          <% table.with_column(Bay.model_name.human.pluralize, sort_by: :servers_count) do |modele| %>
             <%= pluralize(modele.servers.count, modele.category.name.try(:downcase), "#{modele.category.name.try(:downcase)}#{ modele.category.name.blank? || modele.category.name[-1] == 's' || modele.category.name=='San' ? '' : 's' }") %>
           <% end %>
 
