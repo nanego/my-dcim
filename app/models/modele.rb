@@ -63,4 +63,8 @@ class Modele < ApplicationRecord
       [:name, :id],
     ]
   end
+
+  class Network
+    TYPES = %w[gbe 10gbe fiber]
+  end
 end

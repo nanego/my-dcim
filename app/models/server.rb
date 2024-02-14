@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
 class Server < ApplicationRecord
-  NETWORKS = {
-    1 => :gbe,
-    2 => :'10gbe',
-    3 => :fiber,
-  }
-
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
