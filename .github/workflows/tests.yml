@@ -2,6 +2,8 @@ name: Tests
 
 on:
   push:
+    branches:
+      - "master"
   pull_request:
 
 jobs:
@@ -31,7 +33,7 @@ jobs:
 
     steps:
       - name: Checkout main app
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Update package archives
         run: sudo apt-get update --yes --quiet
@@ -46,13 +48,13 @@ jobs:
           rubygems: "latest"
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
-      - name: Set up Bundler
-        run: |
-          gem install bundler -v '~> 1.0'
+      # - name: Set up Bundler
+      #   run: |
+      #     gem install bundler -v '~> 1.0'
 
-      - name: Install Ruby dependencies
-        run: |
-          bundle install --jobs=4 --retry=3 --without development
+      # - name: Install Ruby dependencies
+      #   run: |
+      #     bundle install --jobs=4 --retry=3 --without development
 
       - name: Set up Database
         env:
