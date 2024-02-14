@@ -3,6 +3,7 @@
 cloud_c1:
   id: 1
   name: Cloud C1
+  servers_count: 1 # Workaround since servers_count not calculated
 
 elastic:
   id: 2
