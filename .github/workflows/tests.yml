@@ -73,3 +73,6 @@ jobs:
         env:
           RAILS_ENV: test
         run: bin/rspec
+
+      - name: Rubocop
+        run: bin/rubocop
