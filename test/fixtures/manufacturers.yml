@@ -5,6 +5,7 @@ fortinet:
   name: fortinet
   description: firewall
   documentation_url: "https://fortinet.com/%s/document"
+  modeles_count: 1 # Workaround since servers_count not calculated
 
 juniper:
   id: 2

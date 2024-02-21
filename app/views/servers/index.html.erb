@@ -28,19 +28,19 @@
           <b><%= link_to server.name, server_path(server) %></b>
         <% end %>
 
-        <% table.with_column(Server.human_attribute_name(:type)) do |server| %>
+        <% table.with_column(Server.human_attribute_name(:type), sort_by: :"categories.name") do |server| %>
           <%= link_to server.modele.category, category_path(server.modele.category) if server.modele.try(:category) %>
         <% end %>
 
-        <% table.with_column(Server.human_attribute_name(:room)) do |server| %>
+        <% table.with_column(Server.human_attribute_name(:room), sort_by: :"rooms.name") do |server| %>
           <%= link_to server.room, room_path(server.room) if server.room %>
         <% end %>
 
-        <% table.with_column(Server.human_attribute_name(:islet)) do |server| %>
+        <% table.with_column(Server.human_attribute_name(:islet), sort_by: :"islets.name") do |server| %>
           <%= link_to server.islet, islet_path(server.islet) if server.islet %>
         <% end %>
 
-        <% table.with_column(Server.human_attribute_name(:bay)) do |server| %>
+        <% table.with_column(Server.human_attribute_name(:bay), sort_by: :"bays.id") do |server| %>
           <%= link_to server.bay, bay_path(server.bay) if server.bay %>
         <% end %>
 

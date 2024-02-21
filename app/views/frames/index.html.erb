@@ -35,11 +35,11 @@
           <%= frame.u %>
         <% end %>
 
-        <% table.with_column(Frame.human_attribute_name(:room)) do |frame| %>
+        <% table.with_column(Frame.human_attribute_name(:room), sort_by: :"rooms.name") do |frame| %>
           <%= frame.room.present? ? link_to(frame.room, frame.room) : frame.room %>
         <% end %>
 
-        <% table.with_column(Islet.model_name.human) do |frame| %>
+        <% table.with_column(Islet.model_name.human, sort_by: :"islets.name") do |frame| %>
           <%= link_to frame.bay.islet, islet_path(frame.bay.islet) if frame.bay.present? %>
         <% end %>
 

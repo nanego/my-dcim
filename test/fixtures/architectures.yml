@@ -3,6 +3,7 @@
 rackable:
   id: 1
   name: Rackable
+  modeles_count: 1 # Workaround since servers_count not calculated
 
 tour:
   id: 2

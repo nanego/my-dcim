@@ -228,9 +228,9 @@ RSpec.describe "/servers" do
 
     it :aggregate_failures do
       expect do
-        post import_servers_path, params: { import: { file: csv,
-                                                      room_id: Room.first.id,
-                                                      server_state_id: ServerState.first.id } }
+        post import_servers_path, params: {
+          import: { file: csv, room_id: Room.first.id, server_state_id: ServerState.first.id }
+        }
       end.to change(Server, :count).by(26).and change(Frame, :count).and change(Bay, :count)
 
       expect(response).to have_http_status(:found)

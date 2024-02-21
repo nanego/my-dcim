@@ -27,8 +27,8 @@
           </b>
         <% end %>
 
-        <% table.with_column(Architecture.human_attribute_name(:usage)) do |architecture| %>
-          <%= link_to Architecture.human_attribute_name(:modeles_count, count: architecture.modeles.count), modeles_path %>
+        <% table.with_column(Architecture.human_attribute_name(:usage), sort_by: :modeles_count) do |architecture| %>
+          <%= link_to Architecture.human_attribute_name(:modeles_count, count: architecture.modeles_count), modeles_path %>
         <% end %>
 
         <% table.with_column(style: "min-width: 84px; width: 84px") do |architecture| %>

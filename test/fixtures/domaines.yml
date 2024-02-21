@@ -4,6 +4,7 @@ switch:
   id: 1
   name: Switch
   description: Description
+  servers_count: 1 # Workaround since servers_count not calculated
 
 stock:
   id: 2

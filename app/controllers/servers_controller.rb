@@ -6,7 +6,10 @@ class ServersController < ApplicationController
   before_action :set_server, only: [:show, :edit, :update, :destroy]
 
   def index
-    @servers = Server.includes(:frame, :room, :islet, bay: :frames, modele: :category).order(:name)
+    @servers = sorted Server.includes(:frame, :room, :islet, bay: :frames, modele: :category)
+                            .references(:room, :islet, :bay, modele: :category)
+                            .order(:name)
+
     @servers = @servers.where(Server.arel_table[:name].matches("%#{params[:name]}%")) if params[:name].present?
   end
 

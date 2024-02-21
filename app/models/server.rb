@@ -17,12 +17,12 @@ class Server < ApplicationRecord
   has_one :bay, through: :frame
   has_one :islet, through: :frame
   has_one :room, through: :islet
-  belongs_to :gestion, optional: true
-  belongs_to :domaine, optional: true
-  belongs_to :modele
-  belongs_to :cluster, optional: true
+  belongs_to :gestion, optional: true, counter_cache: true
+  belongs_to :domaine, optional: true, counter_cache: true
+  belongs_to :modele, counter_cache: true
+  belongs_to :cluster, optional: true, counter_cache: true
   belongs_to :server_state, optional: true
-  belongs_to :stack, optional: true
+  belongs_to :stack, optional: true, counter_cache: true
 
   has_one :maintenance_contract
   has_many :memory_components
