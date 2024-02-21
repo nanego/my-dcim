@@ -59,7 +59,7 @@ class RoomsControllerTest < ActionController::TestCase
   end
 
   test "should show room" do
-    get :show, params: {id: @room}
+    get :show, params: { id: @room }
     assert_response :success
     assert_not_nil assigns(:room)
   end

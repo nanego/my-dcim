@@ -63,13 +63,13 @@ class MemoryComponentsController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_memory_component
-      @memory_component = MemoryComponent.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_memory_component
+    @memory_component = MemoryComponent.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def memory_component_params
-      params.require(:memory_component).permit(:server_id, :memory_type_id, :quantity)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def memory_component_params
+    params.require(:memory_component).permit(:server_id, :memory_type_id, :quantity)
+  end
 end

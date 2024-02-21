@@ -21,24 +21,24 @@ class ArchitecturesControllerTest < ActionController::TestCase
 
   test "should create architecture" do
     assert_difference('Architecture.count') do
-      post :create, params: {architecture: { description: @architecture.description, name: @architecture.name }}
+      post :create, params: { architecture: { description: @architecture.description, name: @architecture.name } }
     end
 
     assert_redirected_to architecture_path(assigns(:architecture))
   end
 
   test "should show architecture" do
-    get :show, params: {id: @architecture}
+    get :show, params: { id: @architecture }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, params: {id: @architecture}
+    get :edit, params: { id: @architecture }
     assert_response :success
   end
 
   test "should update architecture" do
-    patch :update, params: {id: @architecture, architecture: { description: @architecture.description, name: @architecture.name }}
+    patch :update, params: { id: @architecture, architecture: { description: @architecture.description, name: @architecture.name } }
     assert_redirected_to architecture_path(assigns(:architecture))
   end
 
@@ -46,7 +46,7 @@ class ArchitecturesControllerTest < ActionController::TestCase
     @architecture = Architecture.create
 
     assert_difference('Architecture.count', -1) do
-      delete :destroy, params: {id: @architecture}
+      delete :destroy, params: { id: @architecture }
     end
 
     assert_redirected_to architectures_path
@@ -54,7 +54,7 @@ class ArchitecturesControllerTest < ActionController::TestCase
 
   test "should not destroy architecture that have modeles" do
     assert_difference('Architecture.count', 0) do
-      delete :destroy, params: {id: @architecture}
+      delete :destroy, params: { id: @architecture }
     end
 
     assert_redirected_to architectures_path

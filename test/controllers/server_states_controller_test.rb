@@ -21,30 +21,30 @@ class ServerStatesControllerTest < ActionController::TestCase
 
   test "should create server_state" do
     assert_difference('ServerState.count') do
-      post :create, params: {server_state: { name: @server_state.name }}
+      post :create, params: { server_state: { name: @server_state.name } }
     end
 
     assert_redirected_to server_state_path(assigns(:server_state))
   end
 
   test "should show server_state" do
-    get :show, params: {id: @server_state}
+    get :show, params: { id: @server_state }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, params: {id: @server_state}
+    get :edit, params: { id: @server_state }
     assert_response :success
   end
 
   test "should update server_state" do
-    patch :update, params: {id: @server_state, server_state: { name: @server_state.name }}
+    patch :update, params: { id: @server_state, server_state: { name: @server_state.name } }
     assert_redirected_to server_state_path(assigns(:server_state))
   end
 
   test "should destroy server_state" do
     assert_difference('ServerState.count', -1) do
-      delete :destroy, params: {id: @server_state}
+      delete :destroy, params: { id: @server_state }
     end
 
     assert_redirected_to server_states_path

@@ -68,13 +68,13 @@ class MemoryTypesController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_memory_type
-      @memory_type = MemoryType.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_memory_type
+    @memory_type = MemoryType.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def memory_type_params
-      params.require(:memory_type).permit(:quantity, :unit)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def memory_type_params
+    params.require(:memory_type).permit(:quantity, :unit)
+  end
 end

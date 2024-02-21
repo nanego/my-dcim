@@ -6,7 +6,7 @@ RSpec.describe FormErrorsComponent, type: :component do
   let(:component) { described_class.new(object) }
   let(:rendered_component) { render_inline(component, &block) }
   let(:object) { Islet.new }
-  let(:block) {}
+  let(:block) { nil }
 
   before { object.validate }
 

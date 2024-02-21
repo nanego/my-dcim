@@ -68,13 +68,13 @@ class ClustersController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_cluster
-      @cluster = Cluster.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_cluster
+    @cluster = Cluster.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def cluster_params
-      params.require(:cluster).permit(:name)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def cluster_params
+    params.require(:cluster).permit(:name)
+  end
 end

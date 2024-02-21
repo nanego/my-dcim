@@ -64,7 +64,7 @@ class CardTypesControllerTest < ActionController::TestCase
 
   test "should not destroy card_type that have modeles" do
     assert_difference('CardType.count', 0) do
-      delete :destroy, params: {id: @card_type}
+      delete :destroy, params: { id: @card_type }
     end
 
     assert_redirected_to card_types_path

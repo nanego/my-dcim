@@ -68,13 +68,13 @@ class MaintainersController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_maintainer
-      @maintainer = Maintainer.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_maintainer
+    @maintainer = Maintainer.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def maintainer_params
-      params.require(:maintainer).permit(:name)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def maintainer_params
+    params.require(:maintainer).permit(:name)
+  end
 end
