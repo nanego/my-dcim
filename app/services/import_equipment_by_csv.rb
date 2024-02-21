@@ -91,8 +91,7 @@ class ImportEquipmentByCsv
     DEFAULT_NB_OF_SLOTS.times do |i|
       Composant.find_or_create_by!(enclosure_id: enclosure.id,
                                    type_composant: type_composant_slot,
-                                   name: "SL#{i + 1}"
-                                  )
+                                   name: "SL#{i + 1}")
     end
     composant_slot_alim = Composant.find_or_create_by!(enclosure_id: enclosure.id,
                                                        type_composant: type_composant_slot,

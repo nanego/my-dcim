@@ -77,8 +77,8 @@ class RoomsController < ApplicationController
     @sites = Site.order(:position).joins(:rooms => :frames).distinct
 
     if params[:cluster_id].present? ||
-      params[:gestion_id].present? ||
-      params[:modele_id].present?
+       params[:gestion_id].present? ||
+       params[:modele_id].present?
       @frames = Frame.preload(:servers => [:gestion, :cluster, :modele => :category, :card_types => :port_type, :cards => [:composant, :ports => [:connection => :cable]]])
                      .includes(:bay => [:frames, { :islet => :room }])
                      .order('rooms.position asc, islets.name asc, bays.position asc, frames.position asc')

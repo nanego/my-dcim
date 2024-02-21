@@ -8,7 +8,7 @@ RSpec.describe LabelComponent, type: :component do
     let(:rendered_component) { render_inline(component, &block) }
     let(:text) { "Text as argument" }
     let(:kwargs) { {} }
-    let(:block) {}
+    let(:block) { nil }
 
     context "with text" do
       it { expect(rendered_component.to_html).to have_tag("span.label.label-default", text: /Text as argument/) }

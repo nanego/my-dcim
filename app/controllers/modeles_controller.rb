@@ -20,7 +20,7 @@ class ModelesController < ApplicationController
     @modele.composants.build(:name => 'IPMI', type_composant_id: 4)
     @modele.composants.build(:name => 'CM', type_composant_id: 4)
     7.times do |i|
-      @modele.composants.build(:name => "SL#{i+1}", type_composant_id: 4)
+      @modele.composants.build(:name => "SL#{i + 1}", type_composant_id: 4)
     end
   end
 
@@ -64,20 +64,20 @@ class ModelesController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to({action: 'index'}, alert: @modele.errors.full_messages_for(:base).join(", ")) }
+        format.html { redirect_to({ action: 'index' }, alert: @modele.errors.full_messages_for(:base).join(", ")) }
       end
     end
   end
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_modele
-      @modele = Modele.friendly.find(params[:id].to_s.downcase)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_modele
+    @modele = Modele.friendly.find(params[:id].to_s.downcase)
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def modele_params
-      params.require(:modele).permit(:name, :color, :description, :category_id, :architecture_id, :u, :manufacturer_id, :nb_elts, enclosures_attributes: [:id, :modele_id, :_destroy, :position, :display, :grid_areas, composants_attributes: [:type_composant_id, :enclosure_id, :name, :position, :_destroy, :id]])
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def modele_params
+    params.require(:modele).permit(:name, :color, :description, :category_id, :architecture_id, :u, :manufacturer_id, :nb_elts, enclosures_attributes: [:id, :modele_id, :_destroy, :position, :display, :grid_areas, composants_attributes: [:type_composant_id, :enclosure_id, :name, :position, :_destroy, :id]])
+  end
 end

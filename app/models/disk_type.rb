@@ -9,6 +9,6 @@ class DiskType < ApplicationRecord
   has_many :disks, dependent: :restrict_with_error
 
   def to_s
-    "#{technology ? technology+" " : ""}#{quantity} #{unit}"
+    "#{technology ? technology + " " : ""}#{quantity} #{unit}"
   end
 end

@@ -10,7 +10,7 @@ class CreateEnclosures < ActiveRecord::Migration[5.0]
     end
     add_column :composants, :enclosure_id, :integer
     Modele.all.find_each do |modele|
-      enclosure = Enclosure.new(position:1)
+      enclosure = Enclosure.new(position: 1)
       modele.enclosures = [enclosure]
       modele.save
       Composant.where(:modele_id => modele.id).all.find_each do |composant|

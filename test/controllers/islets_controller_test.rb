@@ -27,7 +27,7 @@ class IsletsControllerTest < ActionController::TestCase
   end
 
   test "should update" do
-    patch :update, params: { id: @islet, islet: { name:"updated_name" } }
+    patch :update, params: { id: @islet, islet: { name: "updated_name" } }
     assert_redirected_to islets_path
   end
 

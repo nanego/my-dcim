@@ -21,24 +21,24 @@ class GestionsControllerTest < ActionController::TestCase
 
   test "should create gestion" do
     assert_difference('Gestion.count') do
-      post :create, params:{ gestion: { description: @gestion.description, name: @gestion.name }}
+      post :create, params: { gestion: { description: @gestion.description, name: @gestion.name } }
     end
 
     assert_redirected_to gestion_path(assigns(:gestion))
   end
 
   test "should show gestion" do
-    get :show, params: {id: @gestion}
+    get :show, params: { id: @gestion }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, params: {id: @gestion}
+    get :edit, params: { id: @gestion }
     assert_response :success
   end
 
   test "should update gestion" do
-    patch :update, params: {id: @gestion, gestion: { description: @gestion.description, name: @gestion.name }}
+    patch :update, params: { id: @gestion, gestion: { description: @gestion.description, name: @gestion.name } }
     assert_redirected_to gestion_path(assigns(:gestion))
   end
 
@@ -46,13 +46,13 @@ class GestionsControllerTest < ActionController::TestCase
     @gestion = Gestion.create
 
     assert_difference('Gestion.count', -1) do
-      delete :destroy, params: {id: @gestion}
+      delete :destroy, params: { id: @gestion }
     end
   end
 
   test "should not destroy gestion it has many servers Server n°1 & 2" do
     assert_difference('Gestion.count', 0) do
-      delete :destroy, params: {id: @gestion}
+      delete :destroy, params: { id: @gestion }
     end
 
     assert_redirected_to gestions_path

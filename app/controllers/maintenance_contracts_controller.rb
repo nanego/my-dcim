@@ -69,13 +69,13 @@ class MaintenanceContractsController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_maintenance_contract
-      @maintenance_contract = MaintenanceContract.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_maintenance_contract
+    @maintenance_contract = MaintenanceContract.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def maintenance_contract_params
-      params.require(:maintenance_contract).permit(:start_date, :end_date, :maintainer_id, :contract_type_id, :server_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def maintenance_contract_params
+    params.require(:maintenance_contract).permit(:start_date, :end_date, :maintainer_id, :contract_type_id, :server_id)
+  end
 end

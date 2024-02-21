@@ -63,13 +63,13 @@ class ServerStatesController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_server_state
-      @server_state = ServerState.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_server_state
+    @server_state = ServerState.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def server_state_params
-      params.require(:server_state).permit(:name)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def server_state_params
+    params.require(:server_state).permit(:name)
+  end
 end

@@ -48,19 +48,19 @@ class Modele < ApplicationRecord
   end
 
   def self.all_sorted
-    Modele.includes(:manufacturer).all.sort{|f1,f2|f1.name_with_brand.capitalize <=> f2.name_with_brand.capitalize}
+    Modele.includes(:manufacturer).all.sort { |f1, f2| f1.name_with_brand.capitalize <=> f2.name_with_brand.capitalize }
   end
 
   def self.all_sorted_with_servers
-    Modele.includes(:manufacturer).with_servers.sort{|f1,f2|f1.name_with_brand.capitalize <=> f2.name_with_brand.capitalize}
+    Modele.includes(:manufacturer).with_servers.sort { |f1, f2| f1.name_with_brand.capitalize <=> f2.name_with_brand.capitalize }
   end
 
   private
 
-    def slug_candidates
-      [
-          :name,
-          [:name, :id]
-      ]
-    end
+  def slug_candidates
+    [
+      :name,
+      [:name, :id]
+    ]
+  end
 end
