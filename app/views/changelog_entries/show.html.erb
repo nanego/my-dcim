@@ -24,7 +24,9 @@
       <dd><%= render @changelog_entry.action_label_to_component %></dd>
 
       <dt><%= ChangelogEntry.human_attribute_name(:author) %></dt>
-      <dd><%= link_to @changelog_entry.author_display_name, @changelog_entry.author %></dd>
+      <dd>
+        <%= link_to_if @changelog_entry.author_id?, @changelog_entry.author_display_name, @changelog_entry.author %>
+      </dd>
 
       <dt><%= ChangelogEntry.human_attribute_name(:created_at) %></dt>
       <dd><%=l @changelog_entry.created_at %></dd>

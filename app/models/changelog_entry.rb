@@ -19,6 +19,10 @@ class ChangelogEntry < ApplicationRecord
     object.try(:name).presence || object.try(:display_name).presence || "##{object_id}"
   end
 
+  def object_klass
+    object_type.safe_constantize
+  end
+
   def author_display_name
     return unless author_type
 
@@ -47,6 +51,12 @@ class ChangelogEntry < ApplicationRecord
 
   def split_diff
     Diffy::SplitDiff.new(object_pre_change_attributes_to_json, object_post_change_attributes_to_json, format: :html)
+  end
+
+  def object_changed_attributes_to_sentence
+    object_changed_attributes.keys.map do |attribute|
+      object_klass&.human_attribute_name(attribute) || attribute.titleize
+    end.to_sentence
   end
 
   def action_label_to_component

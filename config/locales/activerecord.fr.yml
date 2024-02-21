@@ -242,6 +242,7 @@ fr:
         object_id: Objet ID
         author: Auteur
         action: Action
+        attributes: Attributs changés
         created_at: Créé le
       frame:
         name: Nom
