@@ -14,6 +14,8 @@ class LabelComponent < ApplicationComponent
 
     @type = type.to_sym
     raise ArgumentError, "'#{@type.inspect}' is not a valid type" unless TYPES.include?(@type)
+
+    super()
   end
 
   def css_classes

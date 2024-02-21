@@ -8,7 +8,7 @@ module ApplicationHelper
       @prefilled_data = nil
       render partial: (association.to_s.singularize + "_fields"), :locals => { :f => builder }
     end
-    link_to(name, '#', class: "add_fields btn btn-default", data: {id: id, fields: fields.gsub("\n", "")})
+    link_to(name, '#', class: "add_fields btn btn-default", data: { id: id, fields: fields.gsub("\n", "") })
   end
 
   def link_to_add_fields_with_prefilled_data(name, f, association, prefilled_data)
@@ -19,7 +19,7 @@ module ApplicationHelper
         render partial: (association.to_s.singularize + "_fields"), :locals => { :f => builder }
       end
     end
-    link_to(name, '#', class: "add_fields btn btn-default", data: {id: id, fields: fields.gsub("\n", "")})
+    link_to(name, '#', class: "add_fields btn btn-default", data: { id: id, fields: fields.gsub("\n", "") })
   end
 
   private

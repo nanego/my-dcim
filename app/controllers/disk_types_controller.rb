@@ -68,13 +68,13 @@ class DiskTypesController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_disk_type
-      @disk_type = DiskType.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_disk_type
+    @disk_type = DiskType.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def disk_type_params
-      params.require(:disk_type).permit(:unit, :quantity, :technology)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def disk_type_params
+    params.require(:disk_type).permit(:unit, :quantity, :technology)
+  end
 end

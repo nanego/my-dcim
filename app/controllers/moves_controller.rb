@@ -74,7 +74,7 @@ class MovesController < ApplicationController
   end
 
   def load_server
-    @server = Server.includes(:cards => [:card_type => :port_type], :ports => [:connection => :cable] ).find(params[:server_id])
+    @server = Server.includes(:cards => [:card_type => :port_type], :ports => [:connection => :cable]).find(params[:server_id])
     @moved_connections = MovedConnection.per_servers([@server])
   end
 
@@ -126,11 +126,11 @@ class MovesController < ApplicationController
     end
 
     if params[:moved_connection][:remove_connection] == '1'
-      @moved_connection.update({vlans: "",
+      @moved_connection.update({ vlans: "",
                                  cablename: "",
                                  color: "",
                                  port_from_id: @port_from.id,
-                                 port_to_id: @port_to.try(:id)})
+                                 port_to_id: @port_to.try(:id) })
     else
       @moved_connection.update(moved_connection_params)
     end
@@ -142,11 +142,11 @@ class MovesController < ApplicationController
     @frame = Frame.find(params[:id])
 
     @moves = Move.where(frame: @frame, moveable_type: 'Server')
-    @moved_servers = @moves.map { |move| server = move.moveable; server.position = move.position; server}
+    @moved_servers = @moves.map { |move| server = move.moveable; server.position = move.position; server }
 
     @removed_servers = Move.where(prev_frame_id: @frame.id, moveable_type: 'Server').map(&:moveable)
 
-    @servers = ((@frame.servers - @removed_servers) | @moved_servers).sort_by { |server| server.position.present? ? server.position : 0}.reverse
+    @servers = ((@frame.servers - @removed_servers) | @moved_servers).sort_by { |server| server.position.present? ? server.position : 0 }.reverse
     @moved_connections = MovedConnection.per_servers(@servers)
 
     respond_to do |format|
@@ -169,11 +169,11 @@ class MovesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def move_params
-    params.require(:move).permit(:moveable_type, :moveable_id, :frame_id, :position, :prev_frame_id )
+    params.require(:move).permit(:moveable_type, :moveable_id, :frame_id, :position, :prev_frame_id)
   end
 
   def moved_connection_params
-    params.require(:moved_connection).permit(:port_from_id, :port_to_id, :vlans, :color, :cablename )
+    params.require(:moved_connection).permit(:port_from_id, :port_to_id, :vlans, :color, :cablename)
   end
 
   def load_form_data
@@ -184,7 +184,7 @@ class MovesController < ApplicationController
   def get_all_frames_per_room
     @all_frames_per_room = []
     Room.order(:position).each do |room|
-      @all_frames_per_room << [room.name, room.frames.order('frames.name').collect {|v| [v.name, v.id]}]
+      @all_frames_per_room << [room.name, room.frames.order('frames.name').collect { |v| [v.name, v.id] }]
     end
   end
 

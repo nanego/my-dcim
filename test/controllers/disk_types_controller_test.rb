@@ -21,7 +21,7 @@ class DiskTypesControllerTest < ActionController::TestCase
 
   test "should create disk_type" do
     assert_difference('DiskType.count') do
-      post :create, params: {disk_type: { technology: @disk_type.technology }}
+      post :create, params: { disk_type: { technology: @disk_type.technology } }
     end
 
     assert_redirected_to disk_type_path(assigns(:disk_type))
@@ -38,7 +38,7 @@ class DiskTypesControllerTest < ActionController::TestCase
   end
 
   test "should update disk_type" do
-    patch :update, params: {id: @disk_type, disk_type: { technology: @disk_type.technology }}
+    patch :update, params: { id: @disk_type, disk_type: { technology: @disk_type.technology } }
     assert_redirected_to disk_type_path(assigns(:disk_type))
   end
 
@@ -54,7 +54,7 @@ class DiskTypesControllerTest < ActionController::TestCase
 
   test "should not destroy disk_type that have disks" do
     assert_difference('DiskType.count', 0) do
-      delete :destroy, params: {id: @disk_type}
+      delete :destroy, params: { id: @disk_type }
     end
 
     assert_redirected_to disk_types_path

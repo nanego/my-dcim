@@ -10,7 +10,7 @@ class Islet < ApplicationRecord
   has_many :servers, through: :frames
   has_many :materials, through: :frames
 
-  scope :sorted, -> { order( :room_id, :position, :name ) }
+  scope :sorted, -> { order(:room_id, :position, :name) }
   scope :not_empty, -> { joins(:materials) }
   scope :has_name, -> { where.not(name: nil) }
 

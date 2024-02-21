@@ -21,24 +21,24 @@ class ManufacturersControllerTest < ActionController::TestCase
 
   test "should create manufacturer" do
     assert_difference('Manufacturer.count') do
-      post :create, params: {manufacturer: { description: @manufacturer.description, name: @manufacturer.name }}
+      post :create, params: { manufacturer: { description: @manufacturer.description, name: @manufacturer.name } }
     end
 
     assert_redirected_to manufacturer_path(assigns(:manufacturer))
   end
 
   test "should show manufacturer" do
-    get :show, params: {id: @manufacturer}
+    get :show, params: { id: @manufacturer }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, params: {id: @manufacturer}
+    get :edit, params: { id: @manufacturer }
     assert_response :success
   end
 
   test "should update manufacturer" do
-    patch :update, params: {id: @manufacturer, manufacturer: { description: @manufacturer.description, name: @manufacturer.name }}
+    patch :update, params: { id: @manufacturer, manufacturer: { description: @manufacturer.description, name: @manufacturer.name } }
     assert_redirected_to manufacturer_path(assigns(:manufacturer))
   end
 
@@ -46,7 +46,7 @@ class ManufacturersControllerTest < ActionController::TestCase
     @manufacturer = Manufacturer.create
 
     assert_difference('Manufacturer.count', -1) do
-      delete :destroy, params: {id: @manufacturer}
+      delete :destroy, params: { id: @manufacturer }
     end
 
     assert_redirected_to manufacturers_path
@@ -54,7 +54,7 @@ class ManufacturersControllerTest < ActionController::TestCase
 
   test "should not destroy manufacturer that have modeles" do
     assert_difference('Manufacturer.count', 0) do
-      delete :destroy, params: {id: @manufacturer}
+      delete :destroy, params: { id: @manufacturer }
     end
 
     assert_redirected_to manufacturers_path

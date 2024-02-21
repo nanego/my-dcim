@@ -63,13 +63,13 @@ class ContractTypesController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_contract_type
-      @contract_type = ContractType.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_contract_type
+    @contract_type = ContractType.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def contract_type_params
-      params.require(:contract_type).permit(:name)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def contract_type_params
+    params.require(:contract_type).permit(:name)
+  end
 end

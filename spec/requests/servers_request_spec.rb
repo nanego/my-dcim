@@ -140,10 +140,10 @@ RSpec.describe "/servers" do
       end
 
       it "does update cards in a server", :aggregate_failures do
-        patch server_path(server), params: { server: {cards_attributes: { id: 1,
-                                                                          composant_id: 1,
-                                                                          twin_card_id: 2,
-                                                                          orientation: "lr-td" } } }
+        patch server_path(server), params: { server: { cards_attributes: { id: 1,
+                                                                           composant_id: 1,
+                                                                           twin_card_id: 2,
+                                                                           orientation: "lr-td" } } }
 
         assigns(:server).reload
         server.reload

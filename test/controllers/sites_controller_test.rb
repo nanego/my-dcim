@@ -21,19 +21,19 @@ class SitesControllerTest < ActionController::TestCase
 
   test "should create site" do
     assert_difference('Site.count') do
-      post :create, params: {site: { name: @site.name }}
+      post :create, params: { site: { name: @site.name } }
     end
 
     assert_redirected_to sites_path
   end
 
   test "should show site" do
-    get :show, params: {id: @site}
+    get :show, params: { id: @site }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, params: {id: @site}
+    get :edit, params: { id: @site }
     assert_response :success
   end
 
@@ -46,13 +46,13 @@ class SitesControllerTest < ActionController::TestCase
     @site = Site.create
 
     assert_difference('Site.count', -1) do
-      delete :destroy, params: {id: @site}
+      delete :destroy, params: { id: @site }
     end
   end
 
   test "should not destroy the site it has many rooms Room n°1 & 2" do
     assert_difference('Site.count', 0) do
-      delete :destroy, params: {id: @site}
+      delete :destroy, params: { id: @site }
     end
 
     assert_redirected_to sites_path

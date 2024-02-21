@@ -21,24 +21,24 @@ class FramesControllerTest < ActionController::TestCase
 
   test "should create frame" do
     assert_difference('Frame.count') do
-      post :create, params: {frame: { name: @frame.name, bay_id: 1 }}
+      post :create, params: { frame: { name: @frame.name, bay_id: 1 } }
     end
 
     assert_redirected_to frames_path
   end
 
   test "should get show" do
-    get :show, params: {id: @frame}
+    get :show, params: { id: @frame }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, params: {id: @frame}
+    get :edit, params: { id: @frame }
     assert_response :success
   end
 
   test "should update frame" do
-    patch :update, params: {id: @frame, frame: { name: @frame.name }}
+    patch :update, params: { id: @frame, frame: { name: @frame.name } }
     assert_redirected_to room_path(@frame.room)
   end
 
@@ -46,13 +46,13 @@ class FramesControllerTest < ActionController::TestCase
     @frame = frames(:two)
 
     assert_difference('Frame.count', -1) do
-      delete :destroy, params: {id: @frame}
+      delete :destroy, params: { id: @frame }
     end
   end
 
   test "should not destroy frame it has many servers Server n°1 & 2 and pdu Pdu n°1" do
     assert_difference('Frame.count', 0) do
-      delete :destroy, params: {id: @frame}
+      delete :destroy, params: { id: @frame }
     end
 
     assert_redirected_to frames_path

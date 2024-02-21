@@ -6,8 +6,8 @@ class Port < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
   tracked :parameters => {
-    :server => proc { |controller, model_instance| model_instance.card.try(:server)},
-    :card_type => proc { |controller, model_instance| "#{model_instance.card.try(:composant)} #{model_instance.card.try(:card_type)}"},
+    :server => proc { |controller, model_instance| model_instance.card.try(:server) },
+    :card_type => proc { |controller, model_instance| "#{model_instance.card.try(:composant)} #{model_instance.card.try(:card_type)}" },
     :vlans => :vlans
   }
   has_changelog
@@ -24,8 +24,8 @@ class Port < ApplicationRecord
   has_one :server, through: :card, touch: true
   delegate :server_id, to: :card, prefix: false
 
-  scope :sorted, -> {order(:position)}
-  scope :with_connection, -> {joins(:connection)}
+  scope :sorted, -> { order(:position) }
+  scope :with_connection, -> { joins(:connection) }
 
   def network_conf(switch_slot)
     cable_name = connection.try(:cable).try(:name)

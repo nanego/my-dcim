@@ -23,7 +23,7 @@ namespace :duplicated_slots do
             if composant.name.to_i.to_s == composant.name
               # Duplicated slot
               puts "****** Composant ##{composant.id} - #{composant.name}"
-              correct_composant = enclosure.composants.find_by(name: 'SL'+composant.name)
+              correct_composant = enclosure.composants.find_by(name: 'SL' + composant.name)
               puts "****** correct_composant ##{correct_composant.id} - #{correct_composant.name}"
               composant.cards.each do |card|
                 card.composant = correct_composant

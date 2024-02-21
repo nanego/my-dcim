@@ -21,24 +21,24 @@ class MemoryTypesControllerTest < ActionController::TestCase
 
   test "should create memory_type" do
     assert_difference('MemoryType.count') do
-      post :create, params: {memory_type: { unit: "Mb", quantity: 189 }}
+      post :create, params: { memory_type: { unit: "Mb", quantity: 189 } }
     end
 
     assert_redirected_to memory_type_path(assigns(:memory_type))
   end
 
   test "should show memory_type" do
-    get :show, params: {id: @memory_type}
+    get :show, params: { id: @memory_type }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, params: {id: @memory_type}
+    get :edit, params: { id: @memory_type }
     assert_response :success
   end
 
   test "should update memory_type" do
-    patch :update, params: {id: @memory_type, memory_type: { unit: @memory_type.unit }}
+    patch :update, params: { id: @memory_type, memory_type: { unit: @memory_type.unit } }
     assert_redirected_to memory_type_path(assigns(:memory_type))
   end
 
@@ -46,7 +46,7 @@ class MemoryTypesControllerTest < ActionController::TestCase
     @memory_type = MemoryType.create
 
     assert_difference('MemoryType.count', -1) do
-      delete :destroy, params: {id: @memory_type}
+      delete :destroy, params: { id: @memory_type }
     end
 
     assert_redirected_to memory_types_path
@@ -54,7 +54,7 @@ class MemoryTypesControllerTest < ActionController::TestCase
 
   test "should not destroy memory_type that have memory_components" do
     assert_difference('MemoryType.count', 0) do
-      delete :destroy, params: {id: @memory_type}
+      delete :destroy, params: { id: @memory_type }
     end
 
     assert_redirected_to memory_types_path

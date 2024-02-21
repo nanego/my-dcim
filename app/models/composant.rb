@@ -4,7 +4,7 @@ class Composant < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
   tracked :parameters => {
-    :name => proc { |controller, model_instance| model_instance.try(:name)}
+    :name => proc { |controller, model_instance| model_instance.try(:name) }
   }
   has_changelog
   acts_as_list scope: [:enclosure_id, :type_composant_id]

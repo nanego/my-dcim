@@ -175,8 +175,8 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       number_of_ports_in_previous_columns = column_index_in_cell * max_aligned_ports
       position_in_cell = max_aligned_ports - line_index_in_cell + number_of_ports_in_previous_columns
       position = (row_index * card_type.columns * ports_per_cell) +
-        (column_index * ports_per_cell) +
-        position_in_cell
+                 (column_index * ports_per_cell) +
+                 position_in_cell
     when 'td-lr'
       number_of_columns_in_cell = ports_per_cell.to_i / max_aligned_ports
       column_index_in_cell = cell_index % number_of_columns_in_cell
@@ -184,16 +184,16 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       number_of_ports_in_previous_columns = column_index_in_cell * max_aligned_ports
       position_in_cell = 1 + line_index_in_cell + number_of_ports_in_previous_columns
       position = (row_index * card_type.columns * ports_per_cell) +
-        (column_index * ports_per_cell) +
-        position_in_cell
+                 (column_index * ports_per_cell) +
+                 position_in_cell
     when 'rl-td'
       position = max_aligned_ports - ((row_index * card_type.columns * ports_per_cell) +
         (column_index * ports_per_cell) + cell_index)
     else
       # 'lr-td'
       position = (row_index * card_type.columns * ports_per_cell) +
-        (column_index * ports_per_cell) +
-        cell_index + 1
+                 (column_index * ports_per_cell) +
+                 cell_index + 1
     end
     position
   end

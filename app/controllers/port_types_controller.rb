@@ -51,13 +51,13 @@ class PortTypesController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_port_type
-      @port_type = PortType.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_port_type
+    @port_type = PortType.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def port_type_params
-      params.require(:port_type).permit(:name, :power)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def port_type_params
+    params.require(:port_type).permit(:name, :power)
+  end
 end

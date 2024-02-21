@@ -22,7 +22,7 @@ class ModelesControllerTest < ActionController::TestCase
   test "should create modele" do
     assert_difference('Modele.count') do
       post :create, params: {
-        modele: { description: @modele.description, name: @modele.name, architecture_id: @modele.architecture_id, category_id: @modele.category_id, u: @modele.u,  manufacturer_id: @modele.manufacturer_id }
+        modele: { description: @modele.description, name: @modele.name, architecture_id: @modele.architecture_id, category_id: @modele.category_id, u: @modele.u, manufacturer_id: @modele.manufacturer_id }
       }
     end
     assert_redirected_to edit_modele_path(assigns(:modele))
@@ -36,13 +36,13 @@ class ModelesControllerTest < ActionController::TestCase
   end
 
   test "should get edit" do
-    get :edit, params: {id: @modele}
+    get :edit, params: { id: @modele }
     assert_response :success
     assert_not_nil assigns(:modele).color
   end
 
   test "should update modele" do
-    patch :update, params:{ id: @modele, modele: { description: @modele.description, name: @modele.name, architecture_id: @modele.architecture_id, category_id: @modele.category_id, u: @modele.u } }
+    patch :update, params: { id: @modele, modele: { description: @modele.description, name: @modele.name, architecture_id: @modele.architecture_id, category_id: @modele.category_id, u: @modele.u } }
     assert_redirected_to edit_modele_path(assigns(:modele))
   end
 

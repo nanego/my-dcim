@@ -1,33 +1,33 @@
 # frozen_string_literal: true
 
 class Frame < ApplicationRecord
-  enum settings: {max_u: 38, max_elts: 24, max_rj45: 48, max_fc: 12}
-  enum view_sides: {both: 'both', front: 'front', back: 'back'}
+  enum settings: { max_u: 38, max_elts: 24, max_rj45: 48, max_fc: 12 }
+  enum view_sides: { both: 'both', front: 'front', back: 'back' }
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
   include PublicActivity::Model
-  tracked owner: ->(controller, model) {controller && controller.current_user}
+  tracked owner: ->(controller, model) { controller && controller.current_user }
   has_changelog
   acts_as_list scope: [:bay_id]
 
   belongs_to :bay
-  has_many :materials, -> {order("servers.position desc")}, class_name: "Server", dependent: :restrict_with_error
-  has_many :pdus, -> {only_pdus}, class_name: "Server", dependent: :restrict_with_error
-  has_many :servers, -> {no_pdus.order("servers.position desc")}, class_name: "Server", dependent: :restrict_with_error
+  has_many :materials, -> { order("servers.position desc") }, class_name: "Server", dependent: :restrict_with_error
+  has_many :pdus, -> { only_pdus }, class_name: "Server", dependent: :restrict_with_error
+  has_many :servers, -> { no_pdus.order("servers.position desc") }, class_name: "Server", dependent: :restrict_with_error
   has_one :islet, through: :bay
   delegate :room, :to => :islet, :allow_nil => true
   delegate :name, :to => :room, :prefix => true, :allow_nil => true
 
-  scope :sorted, -> {order(:position)}
+  scope :sorted, -> { order(:position) }
 
   def to_s
     name.to_s
   end
 
   def self.all_sorted
-    Frame.includes(:islet => :room, :bay => :islet).sort{|f1,f2|f1.name_with_room_and_islet <=> f2.name_with_room_and_islet}
+    Frame.includes(:islet => :room, :bay => :islet).sort { |f1, f2| f1.name_with_room_and_islet <=> f2.name_with_room_and_islet }
   end
 
   def should_generate_new_friendly_id?
@@ -91,7 +91,7 @@ class Frame < ApplicationRecord
   end
 
   def compact_u
-    self.u = servers.map {|s| s.modele.u}.sum
+    self.u = servers.map { |s| s.modele.u }.sum
     self
   end
 
@@ -147,8 +147,8 @@ class Frame < ApplicationRecord
 
   def slug_candidates
     [
-        :name,
-        [:name, :id]
+      :name,
+      [:name, :id]
     ]
   end
 end

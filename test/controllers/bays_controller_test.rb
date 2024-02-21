@@ -15,7 +15,7 @@ class BaysControllerTest < ActionController::TestCase
   end
 
   test "should show bay" do
-    get :show, params: {id: @bay}
+    get :show, params: { id: @bay }
     assert_response :success
   end
 

@@ -1,4 +1,3 @@
-
 module List
   class TableComponentPreview < ViewComponent::Preview
     def default

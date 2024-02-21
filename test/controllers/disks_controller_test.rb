@@ -21,30 +21,30 @@ class DisksControllerTest < ActionController::TestCase
 
   test "should create disk" do
     assert_difference('Disk.count') do
-      post :create, params:{disk: { disk_type_id: @disk.disk_type_id, quantity: @disk.quantity, server_id: @disk.server_id }}
+      post :create, params: { disk: { disk_type_id: @disk.disk_type_id, quantity: @disk.quantity, server_id: @disk.server_id } }
     end
 
     assert_redirected_to server_path(@disk.server_id)
   end
 
   test "should show disk" do
-    get :show, params: {id: @disk}
+    get :show, params: { id: @disk }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, params: {id: @disk}
+    get :edit, params: { id: @disk }
     assert_response :success
   end
 
   test "should update disk" do
-    patch :update, params: {id: @disk, disk: { disk_type_id: @disk.disk_type_id, quantity: @disk.quantity, server_id: @disk.server_id }}
+    patch :update, params: { id: @disk, disk: { disk_type_id: @disk.disk_type_id, quantity: @disk.quantity, server_id: @disk.server_id } }
     assert_redirected_to server_path(@disk.server_id)
   end
 
   test "should destroy disk" do
     assert_difference('Disk.count', -1) do
-      delete :destroy, params: {id: @disk}
+      delete :destroy, params: { id: @disk }
     end
 
     assert_redirected_to disks_path

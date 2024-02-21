@@ -57,7 +57,7 @@ task convert_activities_to_changelog_entries: :environment do
       module Rails41 # :nodoc:
         def self.convert(klass, coder)
           attributes = klass.attributes_builder
-            .build_from_database(coder["attributes"])
+                            .build_from_database(coder["attributes"])
           new_record = coder["attributes"][klass.primary_key].blank?
 
           {
@@ -178,7 +178,7 @@ task convert_activities_to_changelog_entries: :environment do
   puts <<~RESULT
 
 
-  #{activities.count} activities has been processed in #{time.total.round(2)}s
-  #{failed_count} has failed to be imported
+    #{activities.count} activities has been processed in #{time.total.round(2)}s
+    #{failed_count} has failed to be imported
   RESULT
 end

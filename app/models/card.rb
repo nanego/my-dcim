@@ -25,7 +25,7 @@ class Card < ApplicationRecord
 
   after_commit :set_twin_card
 
-  scope :on_patch_panels, -> () {joins(:server => {:modele => :category}).where("categories.name = 'Patch Panel'")}
+  scope :on_patch_panels, -> () { joins(:server => { :modele => :category }).where("categories.name = 'Patch Panel'") }
 
   def to_s
     "Carte #{server} / #{card_type} / #{composant}"
@@ -44,7 +44,7 @@ class Card < ApplicationRecord
   end
 
   def positions_with_ports
-    ports.map {|port| port.position }
+    ports.map { |port| port.position }
   end
 
   def create_missing_ports
@@ -70,7 +70,7 @@ class Card < ApplicationRecord
       # Remove potential duplications
       Card.where(twin_card_id: [self.id, twin_card_id])
           .where.not(id: [self.id, twin_card_id])
-          .update_all({twin_card_id: nil}) # rubocop:disable Rails/SkipsModelValidations
+          .update_all({ twin_card_id: nil }) # rubocop:disable Rails/SkipsModelValidations
     end
   end
 end

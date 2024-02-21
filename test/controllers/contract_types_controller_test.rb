@@ -21,7 +21,7 @@ class ContractTypesControllerTest < ActionController::TestCase
 
   test "should create contract_type" do
     assert_difference('ContractType.count') do
-      post :create, params:{contract_type: { name: @contract_type.name }}
+      post :create, params: { contract_type: { name: @contract_type.name } }
     end
 
     assert_redirected_to contract_type_path(assigns(:contract_type))
@@ -54,7 +54,7 @@ class ContractTypesControllerTest < ActionController::TestCase
     @contract_type = ContractType.create
 
     assert_difference('ContractType.count', -1) do
-      delete :destroy, params: {id: @contract_type}
+      delete :destroy, params: { id: @contract_type }
     end
 
     assert_redirected_to contract_types_path

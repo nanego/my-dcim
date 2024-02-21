@@ -60,7 +60,7 @@ class StacksControllerTest < ActionController::TestCase
 
   test "should not destroy stack that have servers" do
     assert_difference('Stack.count', 0) do
-      delete :destroy, params: {id: @stack}
+      delete :destroy, params: { id: @stack }
     end
 
     assert_redirected_to stacks_path

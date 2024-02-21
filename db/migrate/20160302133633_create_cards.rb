@@ -10,12 +10,12 @@ class CreateCards < ActiveRecord::Migration[4.2]
     create_table :port_types do |t|
       t.string :name
     end
-    PortType.create!(name:'FC')
-    PortType.create!(name:'RJ')
-    PortType.create!(name:'VGA')
-    PortType.create!(name:'SCSI')
-    PortType.create!(name:'ISCI')
-    PortType.create!(name:'SAS')
-    PortType.create!(name:'IPMI')
+    PortType.create!(name: 'FC')
+    PortType.create!(name: 'RJ')
+    PortType.create!(name: 'VGA')
+    PortType.create!(name: 'SCSI')
+    PortType.create!(name: 'ISCI')
+    PortType.create!(name: 'SAS')
+    PortType.create!(name: 'IPMI')
   end
 end
