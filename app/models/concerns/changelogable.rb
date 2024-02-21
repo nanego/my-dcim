@@ -3,8 +3,14 @@
 module Changelogable
   extend ActiveSupport::Concern
 
+  CHANGELOGABLE_DEFAULT_SKIP_ATTRIBUTES = %i[id created_at updated_at].freeze
+
   module ClassMethods
-    def has_changelog # rubocop:disable Naming/PredicateName
+    attr_accessor :_changelogable_except_attributes
+
+    def has_changelog(except: []) # rubocop:disable Naming/PredicateName
+      @_changelogable_except_attributes = CHANGELOGABLE_DEFAULT_SKIP_ATTRIBUTES.dup.append(*except)
+
       has_many :changelog_entries, -> { order(created_at: :desc) }, as: :object
 
       after_create_commit :changelog_entry_on_create
@@ -45,7 +51,7 @@ module Changelogable
 
   def _changelogable_parameter_filter(changes)
     changes.symbolize_keys
-           .except(:id, :created_at, :updated_at)
+           .except(*self.class._changelogable_except_attributes)
            .to_h do |key, (before, after)|
       [
         key,

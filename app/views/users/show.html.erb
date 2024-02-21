@@ -23,7 +23,7 @@
         <dd><%= User.human_attribute_name("role.#{@user.role}") %></dd>
 
         <dt><%= User.human_attribute_name(:last_sign_in_at) %> :</dt>
-        <dd><%= l @user.last_sign_in_at, format: :long %></dd>
+        <dd><%= l @user.last_sign_in_at, format: :long if @user.last_sign_in_at %></dd>
 
         <dt><%= User.human_attribute_name(:created_at) %> :</dt>
         <dd><%= l @user.created_at, format: :long %></dd>
