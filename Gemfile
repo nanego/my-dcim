@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 source "https://rubygems.org"
-ruby "3.2.3"
-gem "rails", "~> 7.0.8"
+ruby file: ".ruby-version"
+
+gem "rails", "~> 7.1.0"
 
 gem "jbuilder"
 gem "jquery-rails"
@@ -46,7 +47,6 @@ group :development do
 end
 group :development, :test do
   gem "active_record_doctor"
-  gem "bullet"
   gem "byebug"
   gem "pry-rails"
   gem "pry-rescue"
