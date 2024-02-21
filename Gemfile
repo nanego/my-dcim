@@ -103,7 +103,7 @@ gem "geocoder"
 gem "debug", group: %i[test development]
 gem "dekorator", "~> 1.4"
 gem "diffy", "~> 3.4"
-gem "importmap-rails", "~> 1.1"
+gem "importmap-rails", "~> 2.0"
 gem "lookbook"
 gem "stimulus-rails", "~> 1.2"
 gem "view_component"

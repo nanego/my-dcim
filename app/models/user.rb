@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  attribute :role, :integer
   enum role: [:user, :vip, :admin]
 
   acts_as_token_authenticatable
