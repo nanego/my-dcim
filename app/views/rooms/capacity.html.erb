@@ -11,10 +11,10 @@
 
       <ul class="list-unstyled col-xs-2 hidden-sm menu-rooms">
 
-        <div class="btn-group btn-toggle">
-          <% Server::NETWORKS.each do |id, key|%>
-            <button class="<%= class_names("btn", "btn-primary active": (id == 1), "btn-default": (id != 1)) %>" data-toggle="tab" role="tab" data-network="<%= id %>">
-              <%= Server.human_attribute_name("network.#{key}") %>
+        <div class="btn-group-vertical btn-toggle">
+          <% Modele::Network::TYPES.each do |type| %>
+            <button class="<%= class_names("btn", "btn-primary active": (type == "gbe"), "btn-default": (type != "gbe")) %>" data-toggle="tab" role="tab" data-network="<%= type %>">
+              <%= Modele.human_attribute_name("network_types.#{type}") %>
             </button>
           <% end %>
         </div>
@@ -66,18 +66,13 @@
         <% @sites.each do |site| %>
           <% site.rooms.each do |room| %>
             <% room.islets.sorted.each do |islet| %>
-              <% [1, 2, 3].each do |network| %>
-
-                <div class="islet tab-pane <%= 'in active' if network == 1 && (islet == @islet || (@islet.blank? && @room == room)) %>"
+              <% Modele::Network::TYPES.each do |network| %>
+                <div class="islet tab-pane <%= 'in active' if network == :gbe && (islet == @islet || (@islet.blank? && @room == room)) %>"
                      role="tabpanel"
-                     id="<%= room.id %>-<%= islet %>-<%= network %>">
-
+                     id="<%= room.id %>-<%= islet %>-<%= Modele.human_attribute_name("network_types.#{network}") %>">
                   <div>
-
                     <div class="rooms-overview">
-
                       <% islet.bays.sorted.each do |bay| %>
-
                         <% frames = bay.frames.sorted %>
                         <% if frames.any? %>
 
@@ -90,7 +85,7 @@
                                 frame.servers.includes(:bay, :stack,
                                                        :modele => { :enclosures => :composants },
                                                        :cards => [{ :card_type => :port_type }, { :ports => :cable }])
-                                     .where(network_id: network) # Switch LAN
+                                     .where("servers.network_types @> ?", "{#{network}}") # Switch LAN
                               end %>
 
                               <div class="overviewed_frame <%= 'no-margin' if index > 0 %>"

@@ -4,7 +4,9 @@ class Modele < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
+  include AttributesSanitizable
   include PublicActivity::Model
+
   tracked owner: ->(controller, model) { controller && controller.current_user }
   tracked :parameters => {
     :name => :name,
@@ -24,6 +26,8 @@ class Modele < ApplicationRecord
   accepts_nested_attributes_for :enclosures,
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
+
+  attr_sanitize :network_types
 
   scope :with_servers, -> { joins(:servers).uniq }
 

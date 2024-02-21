@@ -81,8 +81,8 @@
       <div class="col-sm-9">
         <%= f.select :network_types,
                       Modele::Network::TYPES.map { |type| [Modele.human_attribute_name("network_types.#{type}"), type] },
-                      { placeholder: t("activerecord.attributes.modele/network_types.blank") },
-                      { class: "form-control", data: { controller: "select" } } %>
+                      { },
+                      { data: { controller: "select" }, multiple: true } %>
       </div>
     </div>
 

@@ -107,7 +107,7 @@ class RoomsController < ApplicationController
 
     @concentrateurs_ids = [383, 384, 1043, 1044]
     @concentrateurs = Server.where(id: @concentrateurs_ids).includes(:ports => :connection, :cards => [:ports => :connection])
-    @switchs_lan_ids = @concentrateurs_ids | Server.where("network_id IS NOT NULL").map(&:id) # Switch LAN
+    @switchs_lan_ids = @concentrateurs_ids | Server.where.not(network_types: "{}").pluck(:id) # Switch LAN
     # TODO: Remove hard-coded values
     if Rails.env.test?
       @hubs = {}
@@ -117,7 +117,7 @@ class RoomsController < ApplicationController
 
     @connections = {}
     @servers = Server.includes(:frame, :stack, :ports, :cards => [:ports])
-      .where("network_id IS NOT NULL")
+                     .where.not(network_types: "{}")
     # .includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
     @stacks = @servers.map(&:stack).uniq.compact
     @servers.each do |server|

@@ -34,8 +34,8 @@
     <div class="col-sm-9 col-md-4">
       <%= f.select :network_types,
                     Modele::Network::TYPES.map { |type| [Modele.human_attribute_name("network_types.#{type}"), type] },
-                    { placeholder: t("activerecord.attributes.modele/network_types.blank") },
-                    { data: { controller: "select" } } %>
+                    { },
+                    { data: { controller: "select" }, multiple: true } %>
     </div>
   </div>
   <div>

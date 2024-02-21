@@ -1,7 +1,6 @@
-<div class="islet tab-pane <%= 'in active' if network == 1 && (islet == @islet || (@islet.blank? && @room == room)) %>"
+<div class="islet tab-pane <%= 'in active' if network == :gbe && (islet == @islet || (@islet.blank? && @room == room)) %>"
      role="tabpanel"
      id="<%= room.id %>-<%= islet %>-<%= network %>">
-
   <% if room.id == 4 || room.id == 3 %>
     <% second_room_id = room.id == 4 ? 3 : 4 %>
     <div class="hubs">
@@ -28,25 +27,17 @@
       </div>
     </div>
   <% end %>
-
   <div>
-
     <div class="rooms-overview">
-
       <% islet.bays.sorted.each do |bay| %>
-
         <div class="couple" style="grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
             grid-row: <%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;">
-
           <% bay.frames.sorted.each_with_index do |frame, index| %>
-
-            <% servers = frame.servers.includes(:bay, :modele, :stack).where(network_id: network) # Switch LAN %>
-
+            <% servers = frame.servers.includes(:bay, :modele, :stack)
+                              .where("servers.network_types @> ?", "{#{network}}") # Switch LAN %>
             <div class="overviewed_frame <%= 'no-margin' if index > 0 %> <%= 'highlighted' if @frames && @frames.include?(frame) %>"
                  data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.id %>">
-
               <div id="frame-<%= frame.id %>-pre" class="intermediate-point pre <%= bay.lane.to_i.even? ? 'even' : 'odd' %>" style="z-index: -3000;">.</div>
-
               <div class="title">
                 <%= link_to frame.name, room_path(@room,
                                                   view: params[:view],
@@ -55,9 +46,7 @@
                                                   'frame-id': frame,
                                                   bg: params[:bg]) %>
               </div>
-
               <div id="frame-<%= frame.id %>-post" class="intermediate-point post <%= bay.lane.to_i.even? ? 'even' : 'odd' %>" style="z-index: -3000;">.</div>
-
               <ul>
                 <% servers.each do |server| %>
                   <% bgModeleColor = define_background_color(server: server, mode: params['bg']) %>
@@ -74,14 +63,10 @@
                   end %>
                 <% end %>
               </ul>
-
             </div>
-
           <% end %>
         </div>
-
       <% end %>
-
     </div>
   </div>
 </div>

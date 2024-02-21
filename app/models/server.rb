@@ -4,6 +4,7 @@ class Server < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
+  include AttributesSanitizable
   include PublicActivity::Model
   has_changelog
 
@@ -45,6 +46,8 @@ class Server < ApplicationRecord
                                                     :reject_if => :all_blank
   accepts_nested_attributes_for :documents, :allow_destroy => true,
                                             :reject_if => :all_blank
+
+  attr_sanitize :network_types
 
   scope :sorted, -> { order(:position => :desc) }
   scope :sorted_by_name, -> { order('LOWER(name) ASC') }
