@@ -52,13 +52,13 @@
       <div class="panel-body">
         <dl class="dl-horizontal">
           <dt><%= Bay.model_name.human %> :</dt>
-          <dd><%= @server.frame.try(:name) %></dd>
+          <dd><%= link_to @server.frame.try(:name), frame_path(@server.frame) %></dd>
 
           <dt><%= Islet.model_name.human %> :</dt>
-          <dd><%= @server.frame.try(:islet) %></dd>
+          <dd><%= link_to @server.islet, edit_islet_path(@server.islet) %></dd>
 
           <dt><%= Room.model_name.human %> :</dt>
-          <dd><%= @server.frame.try(:room).try(:name) %></dd>
+          <dd><%= link_to @server.room.try(:name), @server.room %></dd>
 
           <dt><%= Category.model_name.human %> :</dt>
           <dd><%= @server.modele.try(:category) %></dd>
@@ -67,7 +67,9 @@
           <dd><%= @server.modele.try(:nb_elts) %></dd>
 
           <dt><%= Architecture.model_name.human %> :</dt>
-          <dd><%= @server.modele.try(:architecture) %></dd>
+          <dd>
+            <%= link_to @server.modele.try(:architecture), architecture_path(@server.modele.try(:architecture)) %>
+          </dd>
 
           <dt><%= t(".nb_u") %> :</dt>
           <dd><%= @server.modele.try(:u) %></dd>
@@ -77,7 +79,7 @@
 
           <dt><%= Manufacturer.model_name.human %> :</dt>
           <dd>
-            <%= @server.modele.try(:manufacturer) %>
+            <%= link_to @server.modele.try(:manufacturer), manufacturer_path(@server.modele.try(:manufacturer)) %>
             <% if (documentation_url = @server.documentation_url).present? %>
               (
                 <%= link_to t(".documentation"), documentation_url, target: :_blank, rel: :noopener %>
@@ -92,7 +94,7 @@
           <dd><%= @server.try(:numero) %></dd>
 
           <dt><%= Cluster.model_name.human %> :</dt>
-          <dd><%= @server.cluster.try(:name) %></dd>
+          <dd><%= link_to_if @server.cluster, @server.cluster&.name, @server.cluster %></dd>
 
           <dt><%= Server.human_attribute_name(:critique) %> :</dt>
           <dd>
@@ -102,18 +104,20 @@
           </dd>
 
           <dt><%= Domaine.model_name.human %> :</dt>
-          <dd><%= @server.domaine %></dd>
+          <dd><%= link_to_if @server.domaine, @server.domaine %></dd>
 
           <dt><%= Gestion.model_name.human %> :</dt>
-          <dd><%= @server.gestion %></dd>
+          <dd><%= link_to_if @server.gestion, @server.gestion %></dd>
 
           <dt><%= ServerState.model_name.human %> :</dt>
           <dd><%= @server.server_state %></dd>
 
           <dt><%= Stack.model_name.human %> :</dt>
           <dd>
-            <% if @server.stack_id.present? %>
-              <span style="<%= "color: ##{@server.stack.try(:color)}" %>" class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+            <% if @server.stack %>
+              <%= link_to stack_path(@server.stack) do %>
+                <span style="<%= "color: ##{@server.stack.color}" %>" class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+              <% end %>
             <% end %>
           </dd>
 
