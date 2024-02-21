@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_11_154459) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_07_105229) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,6 +63,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_154459) do
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.integer "modeles_count", default: 0, null: false
   end
 
   create_table "bay_types", id: :serial, force: :cascade do |t|
@@ -120,6 +121,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_154459) do
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.integer "modeles_count", default: 0, null: false
   end
 
   create_table "changelog_entries", force: :cascade do |t|
@@ -142,6 +144,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_154459) do
     t.string "name"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.integer "servers_count", default: 0, null: false
   end
 
   create_table "colors", id: :serial, force: :cascade do |t|
@@ -210,6 +213,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_154459) do
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.integer "servers_count", default: 0, null: false
   end
 
   create_table "enclosures", id: :serial, force: :cascade do |t|
@@ -252,6 +256,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_154459) do
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.integer "servers_count", default: 0, null: false
   end
 
   create_table "islets", id: :serial, force: :cascade do |t|
@@ -288,6 +293,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_154459) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "documentation_url"
+    t.integer "modeles_count", default: 0, null: false
   end
 
   create_table "memory_components", id: :serial, force: :cascade do |t|
@@ -319,6 +325,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_154459) do
     t.integer "manufacturer_id"
     t.string "color"
     t.string "slug"
+    t.integer "servers_count", default: 0, null: false
     t.index ["architecture_id"], name: "index_modeles_on_architecture_id"
     t.index ["category_id"], name: "index_modeles_on_category_id"
     t.index ["manufacturer_id"], name: "index_modeles_on_manufacturer_id"
@@ -353,6 +360,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_154459) do
   create_table "port_types", id: :serial, force: :cascade do |t|
     t.string "name"
     t.boolean "power"
+    t.integer "card_types_count", default: 0, null: false
   end
 
   create_table "ports", id: :serial, force: :cascade do |t|
@@ -444,6 +452,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_154459) do
     t.string "country"
     t.decimal "latitude"
     t.decimal "longitude"
+    t.integer "rooms_count", default: 0, null: false
   end
 
   create_table "stacks", force: :cascade do |t|
@@ -451,6 +460,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_154459) do
     t.string "color"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.integer "servers_count", default: 0, null: false
   end
 
   create_table "type_composants", id: :serial, force: :cascade do |t|

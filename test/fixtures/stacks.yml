@@ -4,6 +4,7 @@ red:
   id: 1
   name: rouge
   color: ee3b3b
+  servers_count: 1 # Workaround since servers_count not calculated
 
 orange:
   id: 2

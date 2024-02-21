@@ -25,8 +25,8 @@
           <%= link_to manufacturer, manufacturer_path(manufacturer) %>
         <% end %>
 
-        <% table.with_column(Manufacturer.human_attribute_name(:usage)) do |manufacturer| %>
-          <%= Manufacturer.human_attribute_name(:modeles_count, count: manufacturer.modeles.count) %>
+        <% table.with_column(Manufacturer.human_attribute_name(:usage), sort_by: :modeles_count) do |manufacturer| %>
+          <%= Manufacturer.human_attribute_name(:modeles_count, count: manufacturer.modeles_count) %>
         <% end %>
 
         <% table.with_column(style: "min-width: 84px; width: 84px") do |manufacturer| %>

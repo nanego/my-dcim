@@ -4,6 +4,7 @@ one:
   id: 1
   name: MyString
   description: MyText
+  modeles_count: 1 # Workaround since servers_count not calculated
 
 two:
   id: 2

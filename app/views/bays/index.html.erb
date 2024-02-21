@@ -21,11 +21,11 @@
       </div>
 
       <%= render List::DataTableComponent.new(@bays) do |table| %>
-        <% table.with_column(Room.model_name.human) do |bay| %>
+        <% table.with_column(Room.model_name.human, sort_by: :"rooms.name") do |bay| %>
           <%= link_to bay.room, room_path(bay.room) %>
         <% end %>
 
-        <% table.with_column(Islet.model_name.human) do |bay| %>
+        <% table.with_column(Islet.model_name.human, sort_by: :"islets.name") do |bay| %>
           <%= link_to bay.islet, islet_path(bay.islet) %>
         <% end %>
 

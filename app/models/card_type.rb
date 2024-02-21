@@ -5,7 +5,7 @@ class CardType < ApplicationRecord
   tracked owner: ->(controller, model) { controller && controller.current_user }
   has_changelog
 
-  belongs_to :port_type
+  belongs_to :port_type, counter_cache: true
   delegate :is_power_input?, to: :port_type, :allow_nil => true
 
   has_many :cards, dependent: :restrict_with_error

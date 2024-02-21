@@ -72,7 +72,7 @@ module List
 
     class TableCell < TableTag
       TAG_NAME = :td.freeze
-      CSS_CLASSES = "".freeze
+      CSS_CLASSES = "align-middle".freeze
       ALIGN_TYPES = {
         right: "text-right",
         left: "text-left",
