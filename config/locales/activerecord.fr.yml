@@ -207,8 +207,8 @@ fr:
         category_id: Catégorie
         architecture: Architecture
         architecture_id: Architecture
-        manufacturer: Fabricant
-        manufacturer_id: Fabricant
+        manufacturer: Constructeur
+        manufacturer_id: Constructeur
         nb_elts: Nb d'éléments
         color: Couleur
       enclosure:
