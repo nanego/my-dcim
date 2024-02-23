@@ -20,7 +20,7 @@ Rails.application.configure do
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
-  # config.require_master_key = true
+  config.require_master_key = true
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
@@ -112,17 +112,17 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
   config.action_mailer.smtp_settings = {
-    address: Rails.application.secrets.smtp_address,
-    port: Rails.application.secrets.smtp_port,
-    domain: Rails.application.secrets.domain_name,
+    address: Rails.application.credentials.smtp_address,
+    port: Rails.application.credentials.smtp_port,
+    domain: Rails.application.credentials.domain_name,
     # authentication: "plain",
     # enable_starttls_auto: true,
-    # user_name: Rails.application.secrets.email_provider_username,
-    # password: Rails.application.secrets.email_provider_password
+    # user_name: Rails.application.credentials.email_provider_username,
+    # password: Rails.application.credentials.email_provider_password
   }
 
   # ActionMailer Config
-  config.action_mailer.default_url_options = { :host => Rails.application.secrets.domain_name }
+  config.action_mailer.default_url_options = { :host => Rails.application.credentials.domain_name }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false
@@ -130,7 +130,7 @@ Rails.application.configure do
   Rails.application.config.middleware.use ExceptionNotification::Rack,
                                           :email => {
                                             :email_prefix => "[DCIM] ",
-                                            :sender_address => [Rails.application.secrets.sender_address],
-                                            :exception_recipients => [Rails.application.secrets.exception_recipients],
+                                            :sender_address => [Rails.application.credentials.sender_address],
+                                            :exception_recipients => [Rails.application.credentials.exception_recipients],
                                           }
 end
