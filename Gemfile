@@ -48,8 +48,6 @@ end
 group :development, :test do
   gem "active_record_doctor"
   gem "byebug"
-  gem "pry-rails"
-  gem "pry-rescue"
   gem "puma"
   gem "rack-mini-profiler", require: false
   gem "rubocop", require: false
