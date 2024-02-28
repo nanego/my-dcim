@@ -67,7 +67,7 @@ class ImportEquipmentByCsv
           f
         end
       end
-    rescue Exception => e
+    rescue StandardError => e
       e.message
     end
   end

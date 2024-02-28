@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.reloader.to_prepare do
-  module DevisePermittedParameters
+  module DevisePermittedParameters # rubocop:disable Lint/ConstantDefinitionInBlock
     extend ActiveSupport::Concern
 
     included do
@@ -16,5 +16,5 @@ Rails.application.reloader.to_prepare do
     end
   end
 
-  DeviseController.send :include, DevisePermittedParameters
+  DeviseController.include DevisePermittedParameters
 end

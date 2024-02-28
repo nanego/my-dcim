@@ -15,7 +15,7 @@ namespace :init_pdus do
       server = port.card.try(:server)
       if server.frame
         frame = server.frame
-        frame.pdu = Pdu.create(name: "PDUs #{frame.to_s}") if frame.pdu.blank?
+        frame.pdu = Pdu.create(name: "PDUs #{frame}") if frame.pdu.blank?
         frame.pdu.create_pdu_elements(line, group)
         group = group.to_i
         if group.odd? # Impair

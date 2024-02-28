@@ -40,7 +40,7 @@ class ExampleStrategy
     options[:dup] ? super : call!(env)
   end
 
-  def initialize(*args, &block)
+  def initialize(*args, &)
     super
     @fail = nil
   end

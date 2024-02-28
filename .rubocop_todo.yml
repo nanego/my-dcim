@@ -50,89 +50,11 @@ Layout/HashAlignment:
     - 'db/migrate/20180110152701_add_attributes_to_servers.rb'
     - 'test/controllers/moves_controller_test.rb'
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: symmetrical, new_line, same_line
-Layout/MultilineHashBraceLayout:
-  Exclude:
-    - 'app/controllers/servers_grids_controller.rb'
-    - 'app/helpers/servers_helper.rb'
-
-# Offense count: 5
-# This cop supports safe autocorrection (--autocorrect).
-Lint/AmbiguousOperatorPrecedence:
-  Exclude:
-    - 'app/helpers/modeles_helper.rb'
-    - 'app/models/port.rb'
-
-# Offense count: 3
-# Configuration parameters: AllowedMethods.
-# AllowedMethods: enums
-Lint/ConstantDefinitionInBlock:
-  Exclude:
-    - 'config/initializers/devise_permitted_parameters.rb'
-    - 'lib/tasks/convert_activities_to_changelog_entries.rake'
-
-# Offense count: 1
-Lint/NoReturnInBeginEndBlocks:
-  Exclude:
-    - 'app/controllers/changelog_entries_controller.rb'
-
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-Lint/RedundantCopDisableDirective:
-  Exclude:
-    - 'db/migrate/20230208144747_add_service_name_to_active_storage_blobs.active_storage.rb'
-    - 'db/migrate/20230208144748_create_active_storage_variant_records.active_storage.rb'
-
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Lint/RedundantDirGlobSort:
-  Exclude:
-    - 'spec/rails_helper.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Lint/RedundantStringCoercion:
-  Exclude:
-    - 'lib/tasks/init_pdus.rake'
-
-# Offense count: 1
-Lint/RescueException:
-  Exclude:
-    - 'app/services/import_equipment_by_csv.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Lint/SendWithMixinArgument:
-  Exclude:
-    - 'config/initializers/devise_permitted_parameters.rb'
-
-# Offense count: 1
-Lint/ShadowingOuterLocalVariable:
-  Exclude:
-    - 'app/services/create_admin.rb'
-
 # Offense count: 32
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: IgnoreEmptyBlocks, AllowUnusedKeywordArguments.
 Lint/UnusedBlockArgument:
   Enabled: false
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods, IgnoreNotImplementedMethods.
-Lint/UnusedMethodArgument:
-  Exclude:
-    - 'app/components/list/data_table_component.rb'
-
-# Offense count: 2
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Lint/UselessAssignment:
-  Exclude:
-    - 'app/services/create_admin.rb'
-    - 'lib/tasks/convert_activities_to_changelog_entries.rake'
 
 # Offense count: 47
 # Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes.
@@ -169,19 +91,6 @@ Metrics/ParameterLists:
 # Configuration parameters: AllowedMethods, AllowedPatterns.
 Metrics/PerceivedComplexity:
   Max: 24
-
-# Offense count: 2
-Naming/AccessorMethodName:
-  Exclude:
-    - 'app/controllers/moves_controller.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, BlockForwardingName.
-# SupportedStyles: anonymous, explicit
-Naming/BlockForwarding:
-  Exclude:
-    - 'test/services/omniauth_dynamic_full_host_test.rb'
 
 # Offense count: 2
 # Configuration parameters: MinNameLength, AllowNamesEndingInNumbers, AllowedNames, ForbiddenNames.
