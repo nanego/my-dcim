@@ -8,17 +8,14 @@
 <div class="container-fluid room_overview show_room rooms-network-capacity" id="network-capacity">
   <div class="panel panel-default">
     <div class="panel-body" style="display: flex;">
-
       <ul class="list-unstyled col-xs-2 hidden-sm menu-rooms">
-
-        <div class="btn-group-vertical btn-toggle">
+        <div class="btn-group btn-toggle">
           <% Modele::Network::TYPES.each do |type| %>
             <button class="<%= class_names("btn", "btn-primary active": (type == "gbe"), "btn-default": (type != "gbe")) %>" data-toggle="tab" role="tab" data-network="<%= type %>">
-              <%= Modele.human_attribute_name("network_types.#{type}") %>
+              <%= Modele.human_attribute_name("network_types.short_#{type}") %>
             </button>
           <% end %>
         </div>
-
         <li class="divider" style="border-bottom: 1px lightgray solid;margin:10px -10px 8px -10px;"></li>
 
         <% @sites.each do |site| %>
@@ -30,7 +27,7 @@
               <% islets.each do |islet| %>
                 <li role="presentation" class="<%= 'active' if islet == @islet %>">
                   <% if islets.size <= 1 %>
-                    <a href="#<%= room.id %>-<%= islet %>-1"
+                    <a href="#<%= room.id %>-<%= islet %>-gbe"
                        onclick="rewriteURL('/rooms/capacity', {'room': '<%= room.slug %>', 'islet': ''})"
                        aria-controls="room-<%= room %>"
                        role="tab"
@@ -41,7 +38,7 @@
                       <%= room.name %>
                     </a>
                   <% else %>
-                    <a href="#<%= room.id %>-<%= islet %>-1"
+                    <a href="#<%= room.id %>-<%= islet %>-gbe"
                        onclick="rewriteURL('/rooms/capacity', {'room': '<%= room.slug %>', 'islet': '<%= islet.name %>'})"
                        aria-controls="islet-<%= islet %>"
                        role="tab"
@@ -67,30 +64,25 @@
           <% site.rooms.each do |room| %>
             <% room.islets.sorted.each do |islet| %>
               <% Modele::Network::TYPES.each do |network| %>
-                <div class="islet tab-pane <%= 'in active' if network == :gbe && (islet == @islet || (@islet.blank? && @room == room)) %>"
+                <div class="islet tab-pane <%= 'in active' if network == "gbe" && (islet == @islet || (@islet.blank? && @room == room)) %>"
                      role="tabpanel"
-                     id="<%= room.id %>-<%= islet %>-<%= Modele.human_attribute_name("network_types.#{network}") %>">
+                     id="<%= room.id %>-<%= islet %>-<%= network %>">
                   <div>
                     <div class="rooms-overview">
                       <% islet.bays.sorted.each do |bay| %>
                         <% frames = bay.frames.sorted %>
                         <% if frames.any? %>
-
                           <div class="couple" style="grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
                             grid-row: <%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;">
-
                             <% frames.each_with_index do |frame, index| %>
-
                               <% servers = Rails.cache.fetch(["frame", "servers", frame.id, frame.updated_at, network, @servers_last_update_time, @ports_last_update_time]) do
                                 frame.servers.includes(:bay, :stack,
                                                        :modele => { :enclosures => :composants },
                                                        :cards => [{ :card_type => :port_type }, { :ports => :cable }])
                                      .where("servers.network_types @> ?", "{#{network}}") # Switch LAN
                               end %>
-
                               <div class="overviewed_frame <%= 'no-margin' if index > 0 %>"
                                    data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.id %>">
-
                                 <div class="title">
                                   <%= link_to frame.name, room_path(room,
                                                                     view: params[:view],
@@ -98,7 +90,6 @@
                                                                     'bay-id': bay.id,
                                                                     'frame-id': frame) %>
                                 </div>
-
                                 <ul>
                                   <% servers.each do |server| %>
                                     <% cache ["server", server.id, server.updated_at.to_s, @ports_last_update_time] do %>
@@ -109,7 +100,6 @@
                                                      #{"bordered" if server != servers.last}",
                                                  title: h("#{server.name}"),
                                                  data: data do %>
-
                                         <% if server.modele.present? %>
                                           <% server.modele.enclosures.each do |enclosure| %>
                                             <% cards = server.cards %>
@@ -145,32 +135,24 @@
                                           <%= link_to h(server.name),
                                                       server_path(server, :view => params[:view]),
                                                       { class: 'pull-right server_name', :data => { 'toggle': "tooltip", 'placement': "top" }, title: server.numero } %>
-
                                         <% end %>
-
                                       <% end %>
                                     <% end %>
                                   <% end %>
                                 </ul>
-
                               </div>
-
                             <% end %>
                           </div>
-
                         <% end %>
                       <% end %>
-
                     </div>
                   </div>
                 </div>
-
               <% end %>
             <% end %>
           <% end %>
         <% end %>
       </div>
-
     </div>
   </div>
 </div>
@@ -195,6 +177,7 @@
     var selected_btn = $(this)
     var selected_network = selected_btn.data('network')
     var btn_group = selected_btn.parent('.btn-group')
+    var previous_network =  btn_group.find('.btn.active').data('network')
     btn_group.find('.btn').removeClass('active')
     btn_group.find('.btn').removeClass('btn-primary')
     btn_group.find('.btn').addClass('btn-default')
@@ -205,7 +188,7 @@
     var current_tab = $('.show_room li.active a.tab:first')
     var tabs = $('.show_room li a.tab')
     tabs.each(function () {
-      $(this).prop("href", $(this).attr('href').slice(0, -2) + "-" + btn_group.find('.btn.active').data("network"))
+      $(this).prop("href", $(this).attr('href').slice(0, -(previous_network.length + 1)) + "-" + btn_group.find('.btn.active').data("network"))
       $(this).parent('li').removeClass('active')
     })
     current_tab.tab('show')

@@ -210,9 +210,12 @@ fr:
         network_types: Type de visualisation
       modele/network_types:
         gbe: Composant Réseau Gb
-        10gbe: Composant Réseau 10Gb
+        10gbe: Composant Réseau 10 Gb
         fiber: Composant Réseau Fibre
         blank: Pas de
+        short_gbe: Gb
+        short_10gbe: 10 Gb
+        short_fiber: Fibre
       enclosure:
         display: Disposition
         grid_areas: Grid areas
