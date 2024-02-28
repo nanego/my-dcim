@@ -51,7 +51,7 @@ group :development, :test do
   gem "pry-rails"
   gem "pry-rescue"
   gem "puma"
-  gem "rack-mini-profiler"
+  gem "rack-mini-profiler", require: false
   gem "rubocop", require: false
   gem "rubocop-capybara", require: false
   gem "rubocop-performance", require: false
