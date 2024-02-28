@@ -51,11 +51,11 @@ module Changelogable
 
   def _changelogable_parameter_filter(changes)
     changes.symbolize_keys
-           .except(*self.class._changelogable_except_attributes)
-           .to_h do |key, (before, after)|
+      .except(*self.class._changelogable_except_attributes)
+      .to_h do |key, (before, after)|
       [
         key,
-        [parameter_filter.filter_param(key, before), parameter_filter.filter_param(key, after)]
+        [parameter_filter.filter_param(key, before), parameter_filter.filter_param(key, after)],
       ]
     end
   end

@@ -9,7 +9,7 @@ module Frames
                                  :gestion,
                                  :cluster,
                                  :modele => [:category, :composants],
-                                 :cards => [:composant, :ports => [:cable, :connection => :cable], :card_type => :port_type]])
+                                 :cards => [:composant, :ports => [:cable, :connection => :cable], :card_type => :port_type],])
       ar_relation = ar_relation.order(order) if order
       ar_relation
     end

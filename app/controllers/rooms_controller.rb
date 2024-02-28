@@ -80,8 +80,8 @@ class RoomsController < ApplicationController
        params[:gestion_id].present? ||
        params[:modele_id].present?
       @frames = Frame.preload(:servers => [:gestion, :cluster, :modele => :category, :card_types => :port_type, :cards => [:composant, :ports => [:connection => :cable]]])
-                     .includes(:bay => [:frames, { :islet => :room }])
-                     .order('rooms.position asc, islets.name asc, bays.position asc, frames.position asc')
+        .includes(:bay => [:frames, { :islet => :room }])
+        .order('rooms.position asc, islets.name asc, bays.position asc, frames.position asc')
       @current_filters = []
       if params[:cluster_id].present?
         @frames = @frames.joins(:materials).where('servers.cluster_id = ? ', params[:cluster_id])
@@ -117,7 +117,7 @@ class RoomsController < ApplicationController
 
     @connections = {}
     @servers = Server.includes(:frame, :stack, :ports, :cards => [:ports])
-                     .where("network_id IS NOT NULL")
+      .where("network_id IS NOT NULL")
     # .includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
     @stacks = @servers.map(&:stack).uniq.compact
     @servers.each do |server|
