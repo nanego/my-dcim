@@ -10,9 +10,9 @@ class ChangelogEntriesController < ApplicationController
   private
 
   def scoped_object
-    @scoped_object ||= begin
-      return nil unless params[:object_type] && params[:object_id]
+    return unless params[:object_type] && params[:object_id]
 
+    @scoped_object ||= begin
       klass = params[:object_type].camelize.singularize.safe_constantize
 
       if klass.respond_to?(:friendly)

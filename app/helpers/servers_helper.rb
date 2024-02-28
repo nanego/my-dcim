@@ -156,8 +156,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
                       type: type,
                       toggle: 'tooltip',
                       placement: 'top',
-                      title: port_data.present? ? "#{port_data.vlans}" : "" }
-            }
+                      title: port_data.present? ? "#{port_data.vlans}" : "" } }
   end
 
   private

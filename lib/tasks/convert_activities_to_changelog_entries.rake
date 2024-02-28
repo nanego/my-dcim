@@ -4,7 +4,7 @@ require "benchmark"
 
 task convert_activities_to_changelog_entries: :environment do
   # Backport old Rails code to make PublicActivity parameters export works
-  module ActiveRecord
+  module ActiveRecord # rubocop:disable Lint/ConstantDefinitionInBlock
     module ConnectionAdapters
       module PostgreSQL
         module OID # :nodoc:
@@ -69,7 +69,7 @@ task convert_activities_to_changelog_entries: :environment do
     end
   end
 
-  module ActiveModel
+  module ActiveModel # rubocop:disable Lint/ConstantDefinitionInBlock
     module Type
       class Text < String # :nodoc:
         def type
@@ -159,7 +159,7 @@ task convert_activities_to_changelog_entries: :environment do
       entry.save!(validate: false)
 
       print "\e[32m.\e[0m"
-    rescue StandardError => e
+    rescue StandardError
       # puts ""
       # pp activity.id
       # pp e
