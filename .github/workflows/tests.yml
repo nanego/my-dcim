@@ -16,6 +16,9 @@ jobs:
         ruby-version: ['3.3.0']
       fail-fast: false
 
+    env:
+      RAILS_MASTER_KEY: "acf7c0d9c0f69afd05048c8a58b2e9ee"
+
     services:
       postgres:
         image: postgres:13
