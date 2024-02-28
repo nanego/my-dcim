@@ -4,7 +4,6 @@ class Modele < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
-  include AttributesSanitizable
   include PublicActivity::Model
 
   tracked owner: ->(controller, model) { controller && controller.current_user }
@@ -27,7 +26,7 @@ class Modele < ApplicationRecord
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
 
-  attr_sanitize :network_types
+  normalizes :network_types, with: ->(values) { values.reject(&:blank?) }
 
   scope :with_servers, -> { joins(:servers).uniq }
 
