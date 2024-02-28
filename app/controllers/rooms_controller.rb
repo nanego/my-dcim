@@ -112,7 +112,7 @@ class RoomsController < ApplicationController
     if Rails.env.test?
       @hubs = {}
     else
-      @hubs = { 1 => { 4 => Server.find(383), 3 => Server.find(384) }, 2 => { 4 => Server.find(1043), 3 => Server.find(1044) } } # Concentrateurs per room
+      @hubs = { "gbe" => { 4 => Server.find(383), 3 => Server.find(384) }, "10gbe" => { 4 => Server.find(1043), 3 => Server.find(1044) } } # Concentrateurs per room
     end
 
     @connections = {}

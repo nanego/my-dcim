@@ -76,7 +76,7 @@
         <% @sites.each do |site| %>
           <% site.rooms.each do |room| %>
             <% room.islets.sorted.each do |islet| %>
-              <% [1, 2].each do |network| %>
+              <% Modele::Network::TYPES.each do |network| %>
                 <%= render 'infrastructure_islet', islet: islet, room: room, network: network %>
               <% end %>
             <% end %>
