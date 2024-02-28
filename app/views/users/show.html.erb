@@ -35,7 +35,7 @@
               <%= @user.authentication_token %>
             </span>
             <span data-reveal-target="item">
-              <%= "*" * @user.authentication_token.length %>
+              <%= "*" * (@user.authentication_token&.length || 20) %>
             </span>
           </code>
           <button class="btn btn-default btn-xs" data-action="click->reveal#toggle" type="button">
