@@ -63,7 +63,6 @@ jobs:
           POSTGRES_USER: postgres
         run: |
           cp test/support/database-postgres.yml config/database.yml
-          cp test/support/secrets.yml config/secrets.yml
           bundle exec rails db:setup
 
       - name: Run tests
