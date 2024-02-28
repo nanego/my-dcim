@@ -4,7 +4,6 @@ class Server < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
-  include AttributesSanitizable
   include PublicActivity::Model
   has_changelog
 
@@ -47,7 +46,9 @@ class Server < ApplicationRecord
   accepts_nested_attributes_for :documents, :allow_destroy => true,
                                             :reject_if => :all_blank
 
-  attr_sanitize :network_types
+  normalizes :network_types, with: ->(values) { values.reject(&:blank?) }
+
+  before_create :set_default_network_types
 
   scope :sorted, -> { order(:position => :desc) }
   scope :sorted_by_name, -> { order('LOWER(name) ASC') }
@@ -153,5 +154,12 @@ class Server < ApplicationRecord
     servers = Server.friendly.where(slug: numero.to_s.downcase) - [self]
 
     errors.add(:numero, :invalid) if servers.present?
+  end
+
+  def set_default_network_types
+    return unless network_types&.empty?
+    return unless modele.present?
+
+    self.network_types = modele.network_types
   end
 end
