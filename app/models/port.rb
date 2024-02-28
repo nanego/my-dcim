@@ -98,13 +98,13 @@ class Port < ApplicationRecord
             card.ports.each do |port|
               if port&.cable_name && card.composant.name.present?
                 used_port_present = true
-                csv << frame_server_info + ["#{card.composant.name}#{card.composant.name.include?("SL") ? "/#{port.position}" : port.position} - #{port.network_conf(server.frame.switch_slot)}"]
+                csv << (frame_server_info + ["#{card.composant.name}#{card.composant.name.include?("SL") ? "/#{port.position}" : port.position} - #{port.network_conf(server.frame.switch_slot)}"])
               end
             end
           end
           # Print one time the server if no port used
           if used_port_present == false
-            csv << frame_server_info + [nil]
+            csv << (frame_server_info + [nil])
           end
         end
       end

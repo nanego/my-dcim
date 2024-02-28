@@ -181,14 +181,14 @@ class MovesController < ApplicationController
     get_all_frames_per_room
   end
 
-  def get_all_frames_per_room
+  def get_all_frames_per_room # rubocop:disable Naming/AccessorMethodName
     @all_frames_per_room = []
     Room.order(:position).each do |room|
       @all_frames_per_room << [room.name, room.frames.order('frames.name').collect { |v| [v.name, v.id] }]
     end
   end
 
-  def get_all_servers_per_frame
+  def get_all_servers_per_frame # rubocop:disable Naming/AccessorMethodName
     @all_servers_per_frame = Frame.order(:name).to_h do |frame|
       [frame.name, frame.servers.map { |v| [v.name, v.id, { data: { frame_name: frame.name } }] }]
     end

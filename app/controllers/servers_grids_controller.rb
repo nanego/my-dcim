@@ -52,8 +52,7 @@ class ServersGridsController < ApplicationController
                                                    slots
                                                    ip
                                                    etat_conf_reseau
-                                                   action_conf_reseau)
-    }
+                                                   action_conf_reseau) }
     @servers = ServersGrid.new(params[:servers_grid])
 
     respond_to do |format|

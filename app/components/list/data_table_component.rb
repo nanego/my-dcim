@@ -6,7 +6,7 @@ module List
       DatatableColumn.new(title, **options, &block)
     }
 
-    def initialize(data, **options)
+    def initialize(data, **_options)
       @data = data
 
       super()
