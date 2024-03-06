@@ -31,7 +31,7 @@ class ChangelogEntryDecorator < ApplicationDecorator
     types = {
       create: :success,
       update: :warning,
-      destroy: :danger,
+      destroy: :danger
     }
 
     LabelComponent.new(action, type: types[action.to_sym] || :default)

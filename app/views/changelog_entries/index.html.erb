@@ -22,9 +22,14 @@
     <% end %>
 
     <% table.with_column(ChangelogEntry.human_attribute_name(:attributes)) do |changelog_entry| %>
-      <%= link_to changelog_entry_path(changelog_entry) do %>
-        <%= changelog_entry.object_changed_attributes_to_sentence %>
-      <% end %>
+      <div class="row">
+        <div class="col-md-6">
+          <%=sanitize changelog_entry.split_diff.left %>
+        </div>
+        <div class="col-md-6">
+          <%=sanitize changelog_entry.split_diff.right %>
+        </div>
+      </div>
     <% end %>
 
     <% table.with_column(ChangelogEntry.human_attribute_name(:action), sort_by: :action) do |changelog_entry| %>
@@ -33,6 +38,13 @@
 
     <% table.with_column(ChangelogEntry.human_attribute_name(:created_at), sort_by: :created_at) do |changelog_entry| %>
       <%= l changelog_entry.created_at %>
+    <% end %>
+
+    <% table.with_column do |changelog_entry| %>
+      <%= link_to changelog_entry_path(changelog_entry), class: 'btn btn-info' do %>
+        <span class="glyphicon glyphicon-eye-open" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.show") %>"></span>
+        <span class="sr-only"><%= t("action.show") %></span>
+      <% end %>
     <% end %>
   <% end %>
 </div>
