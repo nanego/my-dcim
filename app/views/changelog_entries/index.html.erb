@@ -8,7 +8,7 @@
     <h1><%= ChangelogEntry.model_name.human.pluralize %></h1>
   </div>
 
-  <%= render List::DataTableComponent.new(@changelog_entries) do |table| %>
+  <%= render List::DataTableComponent.new(decorate(@changelog_entries)) do |table| %>
     <% table.with_column(ChangelogEntry.human_attribute_name(:object), sort_by: :object_id) do |changelog_entry| %>
       <% begin %>
         <%= link_to changelog_entry.object_display_name, changelog_entry.object %>
