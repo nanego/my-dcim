@@ -101,6 +101,7 @@ gem "letter_opener", group: :development
 gem "geocoder"
 
 gem "debug", group: %i[test development]
+gem "dekorator", "~> 1.4"
 gem "diffy", "~> 3.4"
 gem "importmap-rails", "~> 1.1"
 gem "lookbook"
