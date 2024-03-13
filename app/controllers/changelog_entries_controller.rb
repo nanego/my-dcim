@@ -4,7 +4,7 @@ class ChangelogEntriesController < ApplicationController
   end
 
   def show
-    @changelog_entry = ChangelogEntry.find(params[:id])
+    @changelog_entry = decorate ChangelogEntry.find(params[:id])
   end
 
   private
