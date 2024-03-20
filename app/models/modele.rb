@@ -26,7 +26,7 @@ class Modele < ApplicationRecord
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
 
-  normalizes :network_types, with: ->(values) { values.reject(&:blank?) }
+  normalizes :network_types, with: ->(values) { values.compact_blank }
 
   scope :with_servers, -> { joins(:servers).uniq }
 
@@ -68,6 +68,6 @@ class Modele < ApplicationRecord
   end
 
   class Network
-    TYPES = %w[gbe 10gbe fiber]
+    TYPES = %w[gbe 10gbe fiber].freeze
   end
 end

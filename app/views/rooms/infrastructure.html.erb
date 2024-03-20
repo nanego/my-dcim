@@ -8,14 +8,12 @@
 
       <ul class="list-unstyled col-xs-2 hidden-sm menu-rooms">
 
-        <div class="btn-group-vertical btn-toggle">
-          <% Modele::Network::TYPES.each do |type| %>
-            <button class="<%= class_names("btn", "btn-primary active": (type == "gbe"), "btn-default": (type != "gbe")) %>" data-toggle="tab" role="tab" data-network="<%= type %>">
-              <%= Modele.human_attribute_name("network_types.#{type}") %>
+        <div class="btn-group btn-toggle">
+          <% @network_types.each do |network_type| %>
+            <button class="<%= class_names("btn", "btn-primary active": (network_type == "gbe"), "btn-default": (network_type != "gbe")) %>" data-toggle="tab" role="tab" data-network="<%= network_type %>">
+              <%= Modele.human_attribute_name("network_types.short_#{network_type}") %>
             </button>
           <% end %>
-          <!-- <button class="btn btn-primary active" data-toggle="tab" role="tab" data-network="1">Réseau Gb</button> -->
-          <!-- <button class="btn btn-default" data-toggle="tab" role="tab" data-network="2">Réseau 10Gb</button> -->
         </div>
 
         <li class="divider" style="border-bottom: 1px lightgray solid;margin:10px -10px 8px -10px;"></li>
@@ -29,7 +27,7 @@
               <% islets.each do |islet| %>
                 <li role="presentation" class="<%= 'active' if islet == @islet %>">
                   <% if islets.size <= 1 %>
-                    <a href="#<%= room.id %>-<%= islet %>-1"
+                    <a href="#<%= room.id %>-<%= islet %>-gbe"
                        onclick="rewriteURL('/rooms/infrastructure', {'room': '<%= room.slug %>', 'islet': ''})"
                        aria-controls="room-<%= room %>"
                        role="tab"
@@ -40,7 +38,7 @@
                       <%= room.name %>
                     </a>
                   <% else %>
-                    <a href="#<%= room.id %>-<%= islet %>-1"
+                    <a href="#<%= room.id %>-<%= islet %>-gbe"
                        onclick="rewriteURL('/rooms/infrastructure', {'room': '<%= room.slug %>', 'islet': '<%= islet.name %>'})"
                        aria-controls="islet-<%= islet %>"
                        role="tab"
@@ -69,21 +67,19 @@
             <span style="margin-right: 5px;<%= "color: ##{stack.try(:color)}" %>" class="glyphicon glyphicon-stop" aria-hidden="true"></span>
           <% end %>
         </div>
-
       </ul>
 
       <div class="tab-content col-xs-10 infrastructure">
         <% @sites.each do |site| %>
           <% site.rooms.each do |room| %>
             <% room.islets.sorted.each do |islet| %>
-              <% Modele::Network::TYPES.each do |network| %>
-                <%= render 'infrastructure_islet', islet: islet, room: room, network: network %>
+              <% @network_types.each do |network_type| %>
+                <%= render 'infrastructure_islet', islet: islet, room: room, network: network_type %>
               <% end %>
             <% end %>
           <% end %>
         <% end %>
       </div>
-
     </div>
   </div>
 </div>
@@ -122,7 +118,7 @@
     }
 
     function deleteOldLines() {
-        console.log("DELETE ALL LINES")
+        // console.log("DELETE ALL LINES")
         lines.forEach(function (line) {
             line.hide()
         })
@@ -131,9 +127,9 @@
     }
 
     function drawCurrentLines() {
-        console.log("CREATE LINES")
+        // console.log("CREATE LINES")
         var disabled_stacks = disabled_colors()
-        log(disabled_stacks)
+        // log(disabled_stacks)
         <% @connections.each do |server_id, connections| %>
           <% connections.each do |connection| %>
             <% unless @concentrateurs_ids.include?(connection[:server_id]) && @concentrateurs_ids.exclude?(server_id)  %>
@@ -249,6 +245,8 @@
         e.preventDefault()
         // Update switcher state
         var btn_group = $(this)
+        var previous_network =  btn_group.find('.btn.active').data('network')
+
         btn_group.find('.btn').toggleClass('active')
         btn_group.find('.btn').toggleClass('btn-primary')
         btn_group.find('.btn').toggleClass('btn-default')
@@ -256,7 +254,7 @@
         var current_tab = $('.show_room li.active a.tab:first')
         var tabs = $('.show_room li a.tab')
         tabs.each(function () {
-            $(this).prop("href", $(this).attr('href').slice(0, -2) + "-" + btn_group.find('.btn.active').data("network"))
+            $(this).prop("href", $(this).attr('href').slice(0, -(previous_network.length + 1)) + "-" + btn_group.find('.btn.active').data("network"))
             $(this).parent('li').removeClass('active')
         })
         current_tab.tab('show')

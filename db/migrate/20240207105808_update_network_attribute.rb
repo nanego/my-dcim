@@ -1,11 +1,11 @@
-
+# frozen_string_literal: true
 
 class MigrationServer < ApplicationRecord
   self.table_name = "servers"
 end
 
 class MigrationNetwork
-  TYPES = %w[gbe 10gbe fiber]
+  TYPES = %w[gbe 10gbe fiber].freeze
 end
 
 class UpdateNetworkAttribute < ActiveRecord::Migration[7.0]

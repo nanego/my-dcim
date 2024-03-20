@@ -1,4 +1,4 @@
-<div class="islet tab-pane <%= 'in active' if network == :gbe && (islet == @islet || (@islet.blank? && @room == room)) %>"
+<div class="islet tab-pane <%= 'in active' if network == "gbe" && (islet == @islet || (@islet.blank? && @room == room)) %>"
      role="tabpanel"
      id="<%= room.id %>-<%= islet %>-<%= network %>">
   <% if room.id == 4 || room.id == 3 %>
