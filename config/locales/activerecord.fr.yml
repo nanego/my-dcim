@@ -219,7 +219,7 @@ fr:
         label: Libellé
         orientation: Orientation
         first_port_name: Numéro du premier port
-        twin_card: Carte jumèle
+        twin_card: Carte jumelle
       user:
         id: Identifiant
         name: Nom
