@@ -95,11 +95,9 @@
     })
 
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        // log(e.target.dataset)
         current_room_id = e.target.dataset['roomId']
         current_islet = e.target.dataset['islet']
-        // log(current_room_id)
-        // log(current_islet)
+
         resetLines()
     })
     $('body').on('click', 'input:checkbox[name=stack]', function (e) {
@@ -118,7 +116,6 @@
     }
 
     function deleteOldLines() {
-        // console.log("DELETE ALL LINES")
         lines.forEach(function (line) {
             line.hide()
         })
@@ -127,9 +124,8 @@
     }
 
     function drawCurrentLines() {
-        // console.log("CREATE LINES")
         var disabled_stacks = disabled_colors()
-        // log(disabled_stacks)
+
         <% @connections.each do |server_id, connections| %>
           <% connections.each do |connection| %>
             <% unless @concentrateurs_ids.include?(connection[:server_id]) && @concentrateurs_ids.exclude?(server_id)  %>
