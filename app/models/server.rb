@@ -46,7 +46,7 @@ class Server < ApplicationRecord
   accepts_nested_attributes_for :documents, :allow_destroy => true,
                                             :reject_if => :all_blank
 
-  normalizes :network_types, with: ->(values) { values.reject(&:blank?) }
+  normalizes :network_types, with: ->(values) { values.compact_blank }
 
   before_create :set_default_network_types
 
@@ -157,8 +157,8 @@ class Server < ApplicationRecord
   end
 
   def set_default_network_types
-    return unless network_types&.empty?
-    return unless modele.present?
+    return unless network_types && network_types.empty?
+    return if modele.blank?
 
     self.network_types = modele.network_types
   end
