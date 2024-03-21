@@ -31,8 +31,8 @@ fr:
   order-in-progress: 'Commande en cours'
   inventories: Inventaires
   visualization: Visualisation
-  date: Date
-  details: Détails
+  label_date: Date
+  label_details: Détails
 
   breadcrumb:
     bay:
