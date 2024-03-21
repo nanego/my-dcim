@@ -1,6 +1,6 @@
-<% provide(:title, ChangelogEntry.model_name.human.pluralize) %>
+<% provide(:title, t('changelog_entries.title')) %>
 <%= render "layouts/breadcrumb", breadcrumb_variables: {
-  ChangelogEntry.model_name.human.pluralize => changelog_entries_path,
+  t('changelog_entries.title') => changelog_entries_path,
   "#{@changelog_entry.id} - #{@changelog_entry.action} - #{@changelog_entry.object}" => ""
 } %>
 
