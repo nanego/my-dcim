@@ -1,14 +1,23 @@
 <% provide(:title, ChangelogEntry.model_name.human.pluralize) %>
 <%= render "layouts/breadcrumb", breadcrumb_variables: {
-  ChangelogEntry.model_name.human.pluralize => ""
+  t('changelog_entries.title') => ""
 } %>
 
 <div class="container-fluid">
   <div class="page-header">
-    <h1><%= ChangelogEntry.model_name.human.pluralize %></h1>
+    <h1><%= t('changelog_entries.title') %></h1>
   </div>
 
   <%= render List::DataTableComponent.new(decorate(@changelog_entries)) do |table| %>
+
+    <% table.with_column(ChangelogEntry.human_attribute_name(:action), sort_by: :action) do |changelog_entry| %>
+      <%= render changelog_entry.action_label_to_component %>
+    <% end %>
+
+    <% table.with_column(ChangelogEntry.human_attribute_name(:author), sort_by: :author_id) do |changelog_entry| %>
+      <%= link_to_if changelog_entry.author_id?, changelog_entry.author_display_name, changelog_entry.author %>
+    <% end %>
+
     <% table.with_column(ChangelogEntry.human_attribute_name(:object), sort_by: :object_id) do |changelog_entry| %>
       <% begin %>
         <%= link_to changelog_entry.object_display_name, changelog_entry.object %>
@@ -17,30 +26,22 @@
       <% end %>
     <% end %>
 
-    <% table.with_column(ChangelogEntry.human_attribute_name(:author), sort_by: :author_id) do |changelog_entry| %>
-      <%= link_to_if changelog_entry.author_id?, changelog_entry.author_display_name, changelog_entry.author %>
-    <% end %>
-
     <% table.with_column(ChangelogEntry.human_attribute_name(:attributes)) do |changelog_entry| %>
       <div class="row">
         <div class="col-md-6">
-          <%=sanitize changelog_entry.split_diff.left %>
+          <%= sanitize changelog_entry.split_diff.left %>
         </div>
         <div class="col-md-6">
-          <%=sanitize changelog_entry.split_diff.right %>
+          <%= sanitize changelog_entry.split_diff.right %>
         </div>
       </div>
     <% end %>
 
-    <% table.with_column(ChangelogEntry.human_attribute_name(:action), sort_by: :action) do |changelog_entry| %>
-      <%= render changelog_entry.action_label_to_component %>
-    <% end %>
-
-    <% table.with_column(ChangelogEntry.human_attribute_name(:created_at), sort_by: :created_at) do |changelog_entry| %>
+    <% table.with_column(t('date'), sort_by: :created_at) do |changelog_entry| %>
       <%= l changelog_entry.created_at %>
     <% end %>
 
-    <% table.with_column do |changelog_entry| %>
+    <% table.with_column(t('details')) do |changelog_entry| %>
       <%= link_to changelog_entry_path(changelog_entry), class: 'btn btn-info' do %>
         <span class="glyphicon glyphicon-eye-open" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.show") %>"></span>
         <span class="sr-only"><%= t("action.show") %></span>

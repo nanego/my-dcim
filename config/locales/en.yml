@@ -5,3 +5,7 @@ en:
         ports: Ports
         unreferenced_client: The corresponding port on the twin card is wired
         no_client: The corresponding port on the twin card is not wired
+  users:
+    my_account:
+      title: My account
+    logout: Log out

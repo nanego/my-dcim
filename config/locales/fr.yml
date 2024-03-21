@@ -31,6 +31,8 @@ fr:
   order-in-progress: 'Commande en cours'
   inventories: Inventaires
   visualization: Visualisation
+  date: Date
+  details: Détails
 
   breadcrumb:
     bay:
@@ -531,6 +533,13 @@ fr:
       delete_confirmation: Cette salle ne pourra pas être supprimée tant qu\'elle sera associée à au moins un ilôt. Voulez-vous continuer ?
 
   users:
+    my_account:
+      title: Mon compte
+      edit: Modifier mon compte
+      change_password: Changer mon mot de passe
+      change_email: Changer mon email
+      change_api_key: Changer
+    logout: Me déconnecter
     index:
       new_user: Ajouter un utilisateur
     user:
@@ -544,6 +553,7 @@ fr:
     flashes:
       authentication_token_reset: La clé API a été réinitialisée
   changelog_entries:
+    title: Historique
     show:
       informations: Informations
       changes: Changements
