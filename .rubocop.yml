@@ -43,6 +43,16 @@ Metrics/MethodLength:
   Exclude:
     - "db/**/*.rb"
 
+RSpec/ExampleLength:
+  Exclude:
+    - "spec/features/**/*.rb"
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 7
+
+RSpec/PendingWithoutReason:
+  Enabled: false
+
 # Rails/ActionOrder:
 #   ExpectedOrder: [index, show, new, create, edit, update, destroy]
 
@@ -53,10 +63,6 @@ Rails/ApplicationRecord:
 Rails/SkipsModelValidations:
   Exclude:
     - "db/migrate/**/*"
-
-RSpec/ExampleLength:
-  Exclude:
-    - "spec/features/**/*.rb"
 
 # Style/AsciiComments:
 #   Enabled: false

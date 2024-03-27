@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-RSpec.describe Users::OmniauthCallbacksController, type: :controller do
-  describe '#openid_connect' do
-    before do
-      @user = User.find_or_create_by(email: 'jack.dalton@test.test')
-    end
+RSpec.describe Users::OmniauthCallbacksController do
+  let(:user) { User.find_or_create_by(email: 'jack.dalton@test.test') }
 
-    it 'creates a new user with valid authentication' do
+  describe '#openid_connect' do
+    before { user }
+
+    it 'creates a new user with valid authentication', :aggregate_failures do # rubocop:disable RSpec/ExampleLength
       request.env['devise.mapping'] = Devise.mappings[:user]
       request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
 
@@ -17,10 +17,10 @@ RSpec.describe Users::OmniauthCallbacksController, type: :controller do
       get :openid_connect
 
       expect(response).to redirect_to(root_path)
-      expect(controller.current_user).to eq(@user)
+      expect(controller.current_user).to eq(user)
     end
 
-    it 'does not create a new user with unknown user' do
+    it 'does not create a new user with unknown user', :aggregate_failures do # rubocop:disable RSpec/ExampleLength
       request.env['devise.mapping'] = Devise.mappings[:user]
       request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect_unknown_user]
 

@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe Gestion, type: :model do
-  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+RSpec.describe Gestion do
+  subject(:gestion) { described_class.new(name: "DIS/GIL") }
 
-  subject(:gestion) { Gestion.new(name: "DIS/GIL") }
+  it_behaves_like "changelogable", new_attributes: { name: "New name" }
 
   describe "associations" do
     it { is_expected.to have_many(:servers) }

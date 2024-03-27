@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe Modele, type: :model do
+RSpec.describe Modele do
   # it_behaves_like "changelogable", new_attributes: {  }
 
-  subject(:modele) { Modele.new(name: "Express5800 - 120RG-2") }
+  subject(:modele) { described_class.new(name: "Express5800 - 120RG-2") }
 
   describe "associations" do
     it { is_expected.to belong_to(:manufacturer) }

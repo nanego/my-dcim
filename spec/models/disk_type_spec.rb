@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe DiskType, type: :model do
-  it_behaves_like "changelogable", new_attributes: { quantity: 120 }
+RSpec.describe DiskType do
+  subject(:disk_type) { described_class.new(quantity: 120, unit: "Gb", technology: "SSD") }
 
-  subject(:disk_type) { DiskType.new(quantity: 120, unit: "Gb", technology: "SSD") }
+  it_behaves_like "changelogable", new_attributes: { quantity: 120 }
 
   describe "associations" do
     it { is_expected.to have_many(:disks) }

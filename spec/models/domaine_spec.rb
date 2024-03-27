@@ -2,16 +2,16 @@
 
 require 'rails_helper'
 
-RSpec.describe Domaine, type: :model do
-  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+RSpec.describe Domaine do
+  subject(:domaine) { described_class.new(name: "Eco") }
 
-  subject(:domaine) { Domaine.new(name: "Eco") }
+  it_behaves_like "changelogable", new_attributes: { name: "New name" }
 
   describe "associations" do
     it { is_expected.to have_many(:servers) }
   end
 
   describe "#to_s" do
-    it { expect(Domaine.to_s).to eq Domaine.name }
+    it { expect(described_class.to_s).to eq described_class.name }
   end
 end

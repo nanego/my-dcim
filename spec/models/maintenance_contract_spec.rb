@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe MaintenanceContract, type: :model do
+RSpec.describe MaintenanceContract do
   # it_behaves_like "changelogable", new_attributes: { start_date: Time.zone.now.to_date }
 
   describe "associations" do

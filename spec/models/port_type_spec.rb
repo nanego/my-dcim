@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe PortType, type: :model do
-  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+RSpec.describe PortType do
+  subject(:port_type) { described_class.new(name: "ALIM") }
 
-  subject(:port_type) { PortType.new(name: "ALIM") }
+  it_behaves_like "changelogable", new_attributes: { name: "New name" }
 
   describe "associations" do
     it { is_expected.to have_many(:card_types) }

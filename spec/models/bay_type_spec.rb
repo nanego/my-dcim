@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe BayType, type: :model do
-  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+RSpec.describe BayType do
+  subject(:bay_type) { described_class.new(name: "single") }
 
-  subject(:bay_type) { BayType.new(name: "single") }
+  it_behaves_like "changelogable", new_attributes: { name: "New name" }
 
   describe "associations" do
     it { is_expected.to have_many(:bays) }

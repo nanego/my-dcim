@@ -17,7 +17,7 @@ RSpec.describe List::TableComponent, type: :component do
     end
   end
 
-  it do
+  it do # rubocop:disable RSpec/ExampleLength
     expect(rendered_component).to have_tag("div.table-responsive") do
       with_tag("table.table") do
         with_tag("thead") do

@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe Room, type: :model do
+RSpec.describe Room do
   # it_behaves_like "changelogable", new_attributes: { name: "New name" }
 
-  subject(:room) { Room.new(name: "Petite salle") }
+  subject(:room) { described_class.new(name: "Petite salle") }
 
   describe "associations" do
     it { is_expected.to belong_to(:site) }
