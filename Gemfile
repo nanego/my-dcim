@@ -5,10 +5,10 @@ ruby file: ".ruby-version"
 
 gem "rails", "~> 7.1.0"
 
-gem "bootstrap", "~> 4.6.2"
+gem "bootstrap", "~> 5.3.2"
 gem "jbuilder"
-gem "jquery-rails"
-gem "jquery-ui-rails"
+gem "jquery-rails" # TODO: move me in importmap
+gem "jquery-ui-rails" # TODO: move me in importmap
 gem "nokogiri", "~> 1.16"
 gem "rails-i18n", "~> 7.0.x"
 gem "sassc-rails", "~> 2.0"
