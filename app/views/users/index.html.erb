@@ -36,14 +36,19 @@
 
         <% table.with_column(User.human_attribute_name(:role), sort_by: :role) do |user| %>
           <%= form_for(user) do |f| %>
-            <%= f.select(:role, User.roles.keys.map {|role| [User.human_attribute_name("role.#{role}"), role]}) %>
-            <%= f.submit t(".change_role"), class: "button-xs" %>
+            <%= f.select(:role, User.roles.keys.map { |role| [User.human_attribute_name("role.#{role}"), role] }) %>
+            <%= f.submit t(".change_role"), class: "btn btn-xs btn-primary" %>
           <% end %>
         <% end %>
 
         <% table.with_column do |user| %>
           <% unless user == current_user %>
-            <%= link_to t("action.delete"), user_path(user), data: { confirm: t("action.confirm") }, method: :delete, class: "button-xs btn-danger pull-right" %>
+            <% if user.suspended? %>
+              <%= link_to t("action.unsuspend"), unsuspend_user_path(user), data: { confirm: t("action.confirm") }, method: :patch, class: "btn btn-xs btn-primary" %>
+            <% else %>
+              <%= link_to t("action.suspend"), suspend_user_path(user), data: { confirm: t("action.confirm") }, method: :patch, class: "btn btn-xs btn-warning" %>
+            <% end %>
+            <%= link_to t("action.delete"), user_path(user), data: { confirm: t("action.confirm") }, method: :delete, class: "btn btn-xs btn-danger" %>
           <% end %>
         <% end %>
       <% end %>

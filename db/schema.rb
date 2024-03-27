@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_07_105229) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_27_140514) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -495,6 +495,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_07_105229) do
     t.string "invited_by_type"
     t.integer "invitations_count", default: 0
     t.string "authentication_token", limit: 30
+    t.datetime "suspended_at"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
