@@ -10,20 +10,21 @@
 #
 # https://github.com/mileszs/wicked_pdf/blob/master/README.md
 
-WickedPdf.config = {
+WickedPdf.configure do |c|
   # Path to the wkhtmltopdf executable: This usually isn't needed if using
   # one of the wkhtmltopdf-binary family of gems.
-  # exe_path: '/usr/local/bin/wkhtmltopdf',
+  # c.exe_path = '/usr/local/bin/wkhtmltopdf',
   #   or
-  # exe_path: Gem.bin_path('wkhtmltopdf-binary', 'wkhtmltopdf')
+  # c.exe_path = Gem.bin_path('wkhtmltopdf-binary', 'wkhtmltopdf')
 
   # Layout file to be used for all PDFs
   # (but can be overridden in `render :pdf` calls)
-  # layout: 'pdf.html',
-  # :layout => "pdf.html",
-  layout: 'application',
-  margin: { :top => 10, :bottom => 10 },
-  # :header => {:html => { :template=> 'layouts/pdf_header.html'}},
-  # :footer => {:html => { :template=> 'layouts/pdf_footer.html'}},
-  # :exe_path => '/usr/bin/wkhtmltopdf'
-}
+  # c.layout = 'pdf.html',
+  # c.layout = "pdf.html",
+  c.layout = 'application'
+
+  c.margin = { :top => 10, :bottom => 10 }
+  # c.header = {:html => { :template=> 'layouts/pdf_header.html'}},
+  # c.footer = {:html => { :template=> 'layouts/pdf_footer.html'}},
+  # c.exe_path = '/usr/bin/wkhtmltopdf'
+end

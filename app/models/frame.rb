@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class Frame < ApplicationRecord
+  attribute :settings, :integer
   enum settings: { max_u: 38, max_elts: 24, max_rj45: 48, max_fc: 12 }
+  attribute :view_sides, :string
   enum view_sides: { both: 'both', front: 'front', back: 'back' }
 
   extend FriendlyId
@@ -35,9 +37,11 @@ class Frame < ApplicationRecord
   end
 
   def name_with_room_and_islet
-    [room_name.present? ? "Salle #{room_name}" : '',
-     bay.present? ? "Ilot #{bay.islet.name}" : '',
-     "Baie " + (name.present? ? name : 'non précisée')].reject(&:blank?).join(' ')
+    [
+      room_name.present? ? "Salle #{room_name}" : '',
+      bay.present? ? "Ilot #{bay.islet.name}" : '',
+      "Baie " + (name.present? ? name : 'non précisée'),
+    ].reject(&:blank?).join(' ')
   end
 
   def self.to_txt(servers_per_bay, detail)
@@ -148,7 +152,7 @@ class Frame < ApplicationRecord
   def slug_candidates
     [
       :name,
-      [:name, :id]
+      [:name, :id],
     ]
   end
 end

@@ -69,8 +69,8 @@ class Card < ApplicationRecord
       end
       # Remove potential duplications
       Card.where(twin_card_id: [self.id, twin_card_id])
-          .where.not(id: [self.id, twin_card_id])
-          .update_all({ twin_card_id: nil }) # rubocop:disable Rails/SkipsModelValidations
+        .where.not(id: [self.id, twin_card_id])
+        .update_all({ twin_card_id: nil }) # rubocop:disable Rails/SkipsModelValidations
     end
   end
 end

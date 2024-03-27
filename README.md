@@ -19,9 +19,9 @@ Run the following commands to install stable version:
 
     source ~/.rvm/scripts/rvm
 
-    rvm install 3.2.2
+    rvm install 3.3.0
 
-    rvm use 3.2.2 --default
+    rvm use 3.3.0 --default
 
 #### 2.2 Installing Bundler
 Bundler is a tool that allows you to install multiple gem versions, run this command to install bundler:

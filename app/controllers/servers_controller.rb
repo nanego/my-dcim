@@ -7,8 +7,8 @@ class ServersController < ApplicationController
 
   def index
     @servers = sorted Server.includes(:frame, :room, :islet, bay: :frames, modele: :category)
-                            .references(:room, :islet, :bay, modele: :category)
-                            .order(:name)
+      .references(:room, :islet, :bay, modele: :category)
+      .order(:name)
 
     @servers = @servers.where(Server.arel_table[:name].matches("%#{params[:name]}%")) if params[:name].present?
   end
