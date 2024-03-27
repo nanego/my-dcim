@@ -2,7 +2,7 @@
 @import "bootstrap.scss";
 
 body {
-  padding-top: $navbar-height - 2px;
+  padding-top: $navbar-brand-height; // TODO: confirm good replacement
 }
 
 .page-header {
