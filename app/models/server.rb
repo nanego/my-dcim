@@ -36,6 +36,7 @@ class Server < ApplicationRecord
   validates :name, presence: true
   validates_uniqueness_of :numero
   validate :numero_cannot_be_a_current_server_name
+  validate :validate_network_types_values
 
   accepts_nested_attributes_for :cards, :allow_destroy => true,
                                         :reject_if => :all_blank
@@ -161,5 +162,12 @@ class Server < ApplicationRecord
     return if modele.blank?
 
     self.network_types = modele.network_types
+  end
+
+  def validate_network_types_values
+    return if network_types.empty?
+    return if network_types.any? { |n| Modele::Network::TYPES.include?(n) }
+
+    errors.add(:network_types, :invalid)
   end
 end

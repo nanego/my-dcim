@@ -26,6 +26,7 @@ class Modele < ApplicationRecord
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
 
+  validate :validate_network_types_values
   normalizes :network_types, with: ->(values) { values.compact_blank }
 
   scope :with_servers, -> { joins(:servers).uniq }
@@ -65,5 +66,12 @@ class Modele < ApplicationRecord
       :name,
       [:name, :id],
     ]
+  end
+
+  def validate_network_types_values
+    return if network_types.empty?
+    return if network_types.any? { |n| Modele::Network::TYPES.include?(n) }
+
+    errors.add(:network_types, :invalid)
   end
 end
