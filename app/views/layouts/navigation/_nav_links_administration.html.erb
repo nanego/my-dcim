@@ -1,0 +1,30 @@
+<% if user_signed_in? %>
+  <li class="nav-item"><%= link_to t('changelog_entries.title'), changelog_entries_path, class: "nav-link" %></li>
+  <% if current_user.try(:admin?) %>
+    <li class="nav-item dropdown">
+      <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Administration
+      </a>
+      <ul class="dropdown-menu">
+        <li><%= link_to User.model_name.human.pluralize, users_path, class: "dropdown-item" %></li>
+        <li><%= link_to 'Activité', activities_path, class: "dropdown-item" %></li>
+        <!-- <li><%= link_to 'Import de données', data_import_path %></li> -->
+        <li><hr class="dropdown-divider"></li>
+        <li><%= link_to 'Informations', about_path, class: "dropdown-item" %></li>
+      </ul>
+    </li>
+  <% end %>
+  <li class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <%= t('users.my_account.title') %>
+    </a>
+    <ul class="dropdown-menu">
+      <li><%= link_to t('users.my_account.edit'), edit_user_registration_path, class: "dropdown-item" %></li>
+      <li><%= link_to t('users.logout'), destroy_user_session_path, :method => 'delete', class: "dropdown-item" %></li>
+    </ul>
+  </li>
+  <li></li>
+<% else %>
+  <li><%= link_to 'Connexion', new_user_session_path, class: "nav-item" %></li>
+  <li><%= link_to 'Inscription', new_user_registration_path, class: "nav-item" %></li>
+<% end %>
