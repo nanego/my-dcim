@@ -105,20 +105,20 @@ class RoomsController < ApplicationController
     @room = @sites.first.rooms.order(:position).first
     @islet = @room.islets.first
 
+    @servers = Server.includes(:frame, :stack, :ports, :cards => [:ports])
+      .where.not(network_types: [])
+    # .includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
     @concentrateurs_ids = [383, 384, 1043, 1044]
     @concentrateurs = Server.where(id: @concentrateurs_ids).includes(:ports => :connection, :cards => [:ports => :connection])
-    @switchs_lan_ids = @concentrateurs_ids | Server.where("network_id IS NOT NULL").map(&:id) # Switch LAN
+    @switchs_lan_ids = @concentrateurs_ids | @servers.pluck(:id) # Switch LAN
     # TODO: Remove hard-coded values
-    if Rails.env.test?
-      @hubs = {}
-    else
-      @hubs = { 1 => { 4 => Server.find(383), 3 => Server.find(384) }, 2 => { 4 => Server.find(1043), 3 => Server.find(1044) } } # Concentrateurs per room
+    @hubs = {}
+
+    unless Rails.env.test?
+      @hubs = { "gbe" => { 4 => Server.find(383), 3 => Server.find(384) }, "10gbe" => { 4 => Server.find(1043), 3 => Server.find(1044) } } # Concentrateurs per room
     end
 
     @connections = {}
-    @servers = Server.includes(:frame, :stack, :ports, :cards => [:ports])
-      .where("network_id IS NOT NULL")
-    # .includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
     @stacks = @servers.map(&:stack).uniq.compact
     @servers.each do |server|
       @connections[server.id] = server.directly_connected_servers_ids_with_color.reject { |conn| @switchs_lan_ids.exclude?(conn[:server_id]) }
@@ -126,6 +126,9 @@ class RoomsController < ApplicationController
     @concentrateurs.each do |hub|
       @connections[hub.id] = hub.connected_servers_ids_through_twin_cards_with_color.reject { |conn| @switchs_lan_ids.exclude?(conn[:server_id]) }
     end
+
+    # TODO: remove when hard-coded system will be removed
+    @network_types = Modele::Network::TYPES.excluding("fiber")
 
     # puts "@@@connections : #{@connections.inspect}"
   end
