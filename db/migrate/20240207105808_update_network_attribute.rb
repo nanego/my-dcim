@@ -12,18 +12,20 @@ class UpdateNetworkAttribute < ActiveRecord::Migration[7.0]
   def change
     add_column :servers, :network_types, :string, array: true, default: []
 
-    reversible do |direction|
-      direction.up do
-        MigrationServer.find_each do |s|
-          s.network_types = [MigrationNetwork::TYPES[s.network_id]] if s.network_id.present?
-          s.save!
+    say_with_time "update existing servers" do
+      reversible do |direction|
+        direction.up do
+          MigrationServer.find_each do |s|
+            s.network_types = [MigrationNetwork::TYPES[s.network_id]] if s.network_id.present?
+            s.save!
+          end
         end
-      end
 
-      direction.down do
-        MigrationServer.find_each do |s|
-          s.network_id = MigrationNetwork::TYPES.index(s.network_types.first) if s.network_types.present?
-          s.save!
+        direction.down do
+          MigrationServer.find_each do |s|
+            s.network_id = MigrationNetwork::TYPES.index(s.network_types.first) if s.network_types.present?
+            s.save!
+          end
         end
       end
     end
