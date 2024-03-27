@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html id="container">
+<html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "Gestion de salle #{Rails.env.development? ? '(dev)' : 'DCIM'}" %></title>
@@ -7,14 +7,11 @@
 
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
 
     <%= javascript_importmap_tags "new.application" %>
   </head>
   <body>
-    <header>
-      <%= render 'layouts/navigation' %>
-    </header>
+    <%= render 'layouts/header' %>
     <main role="main">
        <%= render 'layouts/messages' %>
        <%= yield %>
