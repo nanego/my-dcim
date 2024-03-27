@@ -6,6 +6,7 @@ img {
   @extend .img-fluid;
   margin: 0 auto;
   }
+
 // override for the 'Home' navigation link
 .navbar-brand {
   font-size: inherit;
@@ -73,9 +74,4 @@ section {
 }
 #error_explanation h2 {
   font-size: 16px;
-}
-.button-xs {
-  @extend .btn;
-  @extend .btn-primary;
-  @extend .btn-sm;
 }
