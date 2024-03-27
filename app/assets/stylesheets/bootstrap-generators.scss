@@ -1,10 +1,6 @@
 @import "bootstrap-variables.scss";
 @import "bootstrap.scss";
 
-body {
-  padding-top: $navbar-brand-height; // - 2px; // TODO: confirm good replacement
-}
-
 .page-header {
   a.btn {
     float: right;
