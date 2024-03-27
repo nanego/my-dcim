@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Pdu, type: :model do
+RSpec.describe Pdu do
   describe ".calculated_side" do
     pending
   end

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe MemoryComponent, type: :model do
+RSpec.describe MemoryComponent do
   # it_behaves_like "changelogable", new_attributes: { quantity: 123 }
 
   describe "associations" do

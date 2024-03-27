@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe Architecture, type: :model do
-  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+RSpec.describe Architecture do
+  subject(:architecture) { described_class.new(name: "Tour") }
 
-  subject(:architecture) { Architecture.new(name: "Tour") }
+  it_behaves_like "changelogable", new_attributes: { name: "New name" }
 
   describe "associations" do
     it { is_expected.to have_many(:modeles) }

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Enclosure, type: :model do
+RSpec.describe Enclosure do
   # it_behaves_like "changelogable", new_attributes: { display: "New value" }
 
   describe "associations" do

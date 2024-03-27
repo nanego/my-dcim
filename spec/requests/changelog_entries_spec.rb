@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "ChangelogEntries", type: :request do
+RSpec.describe "ChangelogEntries" do
   let(:object) { Color.create!(code: "FFFFFF") }
   let(:changelog_entry) { ChangelogEntry.create!(object: object, action: "create") }
 

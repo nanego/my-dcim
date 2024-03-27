@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe MovedConnection, type: :model do
+RSpec.describe MovedConnection do
   # it_behaves_like "changelogable", new_attributes: {  }
 
-  subject(:moved_connection) { MovedConnection.new(color: "bleu", cablename: "cable") }
+  subject(:moved_connection) { described_class.new(color: "bleu", cablename: "cable") }
 
   describe "associations" do
     it { is_expected.to belong_to(:port_from) }
@@ -16,6 +16,10 @@ RSpec.describe MovedConnection, type: :model do
     xit { is_expected.to be_valid }
   end
 
+  describe ".per_servers" do
+    pending
+  end
+
   describe "#ports" do
     pending
   end
@@ -24,15 +28,11 @@ RSpec.describe MovedConnection, type: :model do
     it { expect(moved_connection.cable_color).to eq moved_connection.color }
   end
 
-  describe ".per_servers" do
-    pending
-  end
-
   describe "#execute_movement" do
     pending
   end
 
-  describe "#cable_color" do
+  describe "#cable_name" do
     it { expect(moved_connection.cable_name).to eq moved_connection.cablename }
   end
 end

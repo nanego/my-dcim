@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Port, type: :model do
+RSpec.describe Port do
   # it_behaves_like "changelogable", new_attributes: {  }
 
   describe "associations" do

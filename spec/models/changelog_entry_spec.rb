@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe ChangelogEntry, type: :model do
-  subject(:changelog_entry) { ChangelogEntry.new }
+RSpec.describe ChangelogEntry do
+  subject(:changelog_entry) { described_class.new }
 
   describe "validations" do
     it { is_expected.to validate_presence_of(:object_id) }

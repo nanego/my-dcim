@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe Frame, type: :model do
+RSpec.describe Frame do
   # it_behaves_like "changelogable", object: -> { described_class.new(bay: Bay.create!) },
   #                                  new_attributes: { name: "New name" }
 
-  subject(:frame) { Frame.new(name: "TPB-2", slug: "tpb-2") }
+  subject(:frame) { described_class.new(name: "TPB-2", slug: "tpb-2") }
 
   describe "associations" do
     it { is_expected.to belong_to(:bay) }

@@ -10,7 +10,7 @@ RSpec.describe List::DataTableComponent, type: :component do
     [
       { product: "Emerald Silk Gown", price: "$875.00", sku: 124689, qty: 140, sales: "$122,500.00" },
       { product: "Mauve Cashmere Scarf", price: "$230.00", sku: 124533, qty: 83, sales: "$19,090.00" },
-      { product: "Navy Merino Wool Blazer with khaki chinos and yellow belt", price: "$445.00", sku: 124518, qty: 32, sales: "$14,240.00" },
+      { product: "Navy Merino Wool Blazer with khaki chinos and yellow belt", price: "$445.00", sku: 124518, qty: 32, sales: "$14,240.00" }
     ]
   end
 
@@ -22,7 +22,7 @@ RSpec.describe List::DataTableComponent, type: :component do
     end
   end
 
-  it do
+  it do # rubocop:disable RSpec/ExampleLength
     expect(rendered_component).to have_tag("div.table-responsive") do
       with_tag("table.table") do
         with_tag("thead") do

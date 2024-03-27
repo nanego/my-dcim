@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe MemoryType, type: :model do
-  it_behaves_like "changelogable", new_attributes: { quantity: 2 }
+RSpec.describe MemoryType do
+  subject(:memory_type) { described_class.new(quantity: 1, unit: "Gb") }
 
-  subject(:memory_type) { MemoryType.new(quantity: 1, unit: "Gb") }
+  it_behaves_like "changelogable", new_attributes: { quantity: 2 }
 
   describe "associations" do
     it { is_expected.to have_many(:memory_components) }

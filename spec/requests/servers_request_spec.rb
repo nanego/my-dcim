@@ -21,7 +21,7 @@ RSpec.describe "/servers" do
     it { expect(response.body).to include(server.name) }
     it { expect(response.body).to include(server2.name) }
 
-    context "while searching on name" do
+    context "when searching on name" do
       before { get servers_path(name: "ServerName1") }
 
       it { expect(response).to have_http_status(:success) }
@@ -38,19 +38,19 @@ RSpec.describe "/servers" do
     it { expect(response).to render_template(:show) }
     it { expect(response.body).to include(server.name) }
 
-    context "while using id" do
+    context "when using id" do
       before { get server_path(server.id) }
 
       it { expect(response).to have_http_status(:success) }
     end
 
-    context "while using name" do
+    context "when using name" do
       before { get server_path(server.name) }
 
       it { expect(response).to render_template(:show) }
     end
 
-    context "while using serial number" do
+    context "when using serial number" do
       before { get server_path(server.numero) }
 
       it { expect(response).to render_template(:show) }
@@ -124,7 +124,7 @@ RSpec.describe "/servers" do
     context "with valid parameters" do
       let(:new_attributes) { server.attributes.except("name").merge(name: "New name") }
 
-      it :aggregate_failures do
+      it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
         patch server_path(server), params: { server: new_attributes }
         server.reload
         assigns(:server).reload
@@ -139,7 +139,7 @@ RSpec.describe "/servers" do
         expect(server).to eq(assigns(:server))
       end
 
-      it "does update cards in a server", :aggregate_failures do
+      it "does update cards in a server", :aggregate_failures do # rubocop:disable RSpec/ExampleLength
         patch server_path(server), params: { server: { cards_attributes: { id: 1,
                                                                            composant_id: 1,
                                                                            twin_card_id: 2,
@@ -226,7 +226,7 @@ RSpec.describe "/servers" do
 
     before { nb_of_servers_in_frame }
 
-    it :aggregate_failures do
+    it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
       expect do
         post import_servers_path, params: {
           import: { file: csv, room_id: Room.first.id, server_state_id: ServerState.first.id }

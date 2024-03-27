@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Bay, type: :model do
+RSpec.describe Bay do
   # it_behaves_like "changelogable", new_attributes: { name: "New name" }
 
   describe "associations" do

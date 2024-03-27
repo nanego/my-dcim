@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Cable, type: :model do
+RSpec.describe Cable do
   it_behaves_like "changelogable", new_attributes: { name: "New name" }
 
   describe "associations" do
