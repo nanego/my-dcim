@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Card, type: :model do
+RSpec.describe Card do
   # it_behaves_like "changelogable", object: -> { described_class.new }, new_attributes: { name: "New name" }
 
   describe "associations" do

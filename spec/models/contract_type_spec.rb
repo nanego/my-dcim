@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe ContractType, type: :model do
-  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+RSpec.describe ContractType do
+  subject(:contract_type) { described_class.new(name: "Dell Pro Support") }
 
-  subject(:contract_type) { ContractType.new(name: "Dell Pro Support") }
+  it_behaves_like "changelogable", new_attributes: { name: "New name" }
 
   describe "associations" do
     it { is_expected.to have_many(:maintenance_contracts) }

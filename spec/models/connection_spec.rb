@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Connection, type: :model do
+RSpec.describe Connection do
   # it_behaves_like "changelogable", new_attributes: {  }
 
   describe "associations" do

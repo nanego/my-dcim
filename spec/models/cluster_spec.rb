@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe Cluster, type: :model do
-  it_behaves_like "changelogable", new_attributes: { name: "New name" }
+RSpec.describe Cluster do
+  subject(:cluster) { described_class.new(name: "Cloud-C5") }
 
-  subject(:cluster) { Cluster.new(name: "Cloud-C5") }
+  it_behaves_like "changelogable", new_attributes: { name: "New name" }
 
   describe "associations" do
     it { is_expected.to have_many(:servers) }

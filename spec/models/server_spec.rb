@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe Server, type: :model do
+RSpec.describe Server do
   # it_behaves_like "changelogable", new_attributes: {  }
 
   subject(:server) do
-    Server.new(name: "ACTARUS", frame: Frame.new, modele: Modele.new, numero: "1245")
+    described_class.new(name: "ACTARUS", frame: Frame.new, modele: Modele.new, numero: "1245")
   end
 
   let(:frame) { Frame.new }
@@ -50,7 +50,7 @@ RSpec.describe Server, type: :model do
 
     context "when numero is server name" do
       subject(:server) do
-        Server.new(name: "ACTARUS", frame: Frame.new, modele: Modele.new, numero: "ACTARUS")
+        described_class.new(name: "ACTARUS", frame: Frame.new, modele: Modele.new, numero: "ACTARUS")
       end
 
       it { is_expected.to be_valid }
@@ -58,7 +58,7 @@ RSpec.describe Server, type: :model do
 
     context "when numero is another server name" do
       subject(:server) do
-        Server.new(name: "ACTARUS", frame: Frame.new, modele: Modele.new, numero: "ServerName1")
+        described_class.new(name: "ACTARUS", frame: Frame.new, modele: Modele.new, numero: "ServerName1")
       end
 
       it { is_expected.not_to be_valid }

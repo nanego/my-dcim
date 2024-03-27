@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe Islet, type: :model do
+RSpec.describe Islet do
   # it_behaves_like "changelogable", new_attributes: { name: "New name" }
 
-  subject(:islet) { Islet.new(name: "Bleu") }
+  subject(:islet) { described_class.new(name: "Bleu") }
 
   describe "associations" do
     it { is_expected.to belong_to(:room) }

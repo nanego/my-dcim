@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Disk, type: :model do
+RSpec.describe Disk do
   # it_behaves_like "changelogable", new_attributes: { quantity: 2 }
 
   describe "associations" do
