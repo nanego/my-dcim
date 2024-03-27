@@ -11,8 +11,6 @@ export default class extends Controller {
       ...this.defaultOptions,
       ...this.optionsValue,
     })
-
-    console.debug(this.select)
   }
 
   disconnect() {
