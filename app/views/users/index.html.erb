@@ -50,7 +50,7 @@
 
         <% table.with_column(User.human_attribute_name(:role), sort_by: :role) do |user| %>
           <%= form_for(user) do |f| %>
-            <%= f.select(:role, User.roles.keys.map {|role| [User.human_attribute_name("role.#{role}"), role] }) %>
+            <%= f.select(:role, User.roles.keys.map { |role| [User.human_attribute_name("role.#{role}"), role] }) %>
             <%= f.submit t(".change_role"), class: "btn btn-sm btn-primary" %>
           <% end %>
         <% end %>
