@@ -73,7 +73,7 @@ module List
     end
 
     def sort_caret(direction)
-      sanitize(direction == :desc ? "&#9660;" : "&#9650;")
+      sanitize(direction == :desc ? "&#x2193;" : "&#x2191;")
     end
 
     class DatatableColumn < ApplicationComponent

@@ -542,7 +542,6 @@ fr:
     logout: Me déconnecter
     index:
       new_user: Ajouter un utilisateur
-    user:
       change_role: Changer le rôle
     new:
       new_user: Ajouter un utilisateur
