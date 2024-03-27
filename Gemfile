@@ -5,6 +5,7 @@ ruby file: ".ruby-version"
 
 gem "rails", "~> 7.1.0"
 
+gem "bootstrap", "~> 4.6.2"
 gem "jbuilder"
 gem "jquery-rails"
 gem "jquery-ui-rails"
@@ -13,11 +14,6 @@ gem "rails-i18n", "~> 7.0.x"
 gem "sassc-rails", "~> 2.0"
 gem "sprockets-rails", require: "sprockets/railtie"
 gem "terser"
-
-gem "bootstrap-sass", ">= 3.4.1"
-gem "bourbon"
-# gem "bootstrap-generators", git: "git://github.com/decioferreira/bootstrap-generators.git"
-# gem "bootstrap-generators", "~> 3.3.4"
 
 # Authentication
 gem "devise"
