@@ -106,7 +106,7 @@ class RoomsController < ApplicationController
     @islet = @room.islets.first
 
     @servers = Server.includes(:frame, :stack, :ports, :cards => [:ports])
-                     .where.not(network_types: [])
+      .where.not(network_types: [])
     # .includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
     @concentrateurs_ids = [383, 384, 1043, 1044]
     @concentrateurs = Server.where(id: @concentrateurs_ids).includes(:ports => :connection, :cards => [:ports => :connection])
