@@ -12,25 +12,41 @@
         <h1><%= User.model_name.human.pluralize %></h1>
       </div>
 
-      <table class="table">
-        <thead>
-          <tr>
-            <th><%= User.human_attribute_name(:id) %></th>
-            <th><%= User.human_attribute_name(:email) %></th>
-            <th><%= User.human_attribute_name(:last_sign_in_at) %></th>
-            <th><%= User.human_attribute_name(:created_at) %></th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-        <% @users.each do |user| %>
-          <tr>
-            <%= render user %>
-          </tr>
+
+      <%= render List::DataTableComponent.new(@users) do |table| %>
+        <% table.with_column(User.human_attribute_name(:id), sort_by: :id) do |user| %>
+          <%= link_to user.id, user %>
         <% end %>
-        </tbody>
-      </table>
+
+        <% table.with_column(User.human_attribute_name(:email), sort_by: :email) do |user| %>
+          <%= user.email %>
+        <% end %>
+
+        <% table.with_column(User.human_attribute_name(:last_sign_in_at), sort_by: :last_sign_in_at) do |user| %>
+          <%- if user.last_sign_in_at.present? -%>
+            <%= l user.last_sign_in_at  %>
+          <%- else -%>
+            <em>n/c</em>
+          <%- end -%>
+        <% end %>
+
+        <% table.with_column(User.human_attribute_name(:created_at), sort_by: :created_at) do |user| %>
+          <%= l user.created_at %>
+        <% end %>
+
+        <% table.with_column(User.human_attribute_name(:role), sort_by: :role) do |user| %>
+          <%= form_for(user) do |f| %>
+            <%= f.select(:role, User.roles.keys.map {|role| [User.human_attribute_name("role.#{role}"), role]}) %>
+            <%= f.submit t(".change_role"), class: "button-xs" %>
+          <% end %>
+        <% end %>
+
+        <% table.with_column do |user| %>
+          <% unless user == current_user %>
+            <%= link_to t("action.delete"), user_path(user), data: { confirm: t("action.confirm") }, method: :delete, class: "button-xs btn-danger pull-right" %>
+          <% end %>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>

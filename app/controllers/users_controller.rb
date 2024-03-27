@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy, :reset_authentication_token]
 
   def index
-    @users = User.order('sign_in_count desc')
+    @users = sorted User.order('sign_in_count desc')
   end
 
   def show
