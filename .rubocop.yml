@@ -30,6 +30,9 @@ Layout/FirstHashElementIndentation:
 # Layout/LineLength:
 #   Max: 120
 
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
 Metrics/AbcSize:
   Exclude:
     - "db/**/*.rb"
@@ -70,8 +73,8 @@ Style/StringLiteralsInInterpolation:
 # Style/TrailingCommaInArguments:
 #   EnforcedStyleForMultiline: comma
 
-# Style/TrailingCommaInArrayLiteral:
-#   EnforcedStyleForMultiline: consistent_comma
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
 
 # Style/TrailingCommaInHashLiteral:
 #   EnforcedStyleForMultiline: consistent_comma

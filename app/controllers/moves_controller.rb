@@ -90,7 +90,7 @@ class MovesController < ApplicationController
     @moved_connections = MovedConnection.per_servers([@server])
     # TODO: Deal with conflicts if there is more than 1 result
     @moved_connection = @moved_connections.where(port_from_id: params[:port_id])
-                                          .or(MovedConnection.where(port_to_id: params[:port_id])).first
+      .or(MovedConnection.where(port_to_id: params[:port_id])).first
     if @moved_connection.present?
       @destination_port = (@moved_connection.ports - [@selected_port]).first
     else

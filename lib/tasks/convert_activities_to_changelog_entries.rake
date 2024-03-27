@@ -57,7 +57,7 @@ task convert_activities_to_changelog_entries: :environment do
       module Rails41 # :nodoc:
         def self.convert(klass, coder)
           attributes = klass.attributes_builder
-                            .build_from_database(coder["attributes"])
+            .build_from_database(coder["attributes"])
           new_record = coder["attributes"][klass.primary_key].blank?
 
           {

@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 source "https://rubygems.org"
-ruby "3.2.3"
-gem "rails", "~> 7.0.8"
+ruby file: ".ruby-version"
+
+gem "rails", "~> 7.1.0"
 
 gem "jbuilder"
 gem "jquery-rails"
@@ -46,12 +47,9 @@ group :development do
 end
 group :development, :test do
   gem "active_record_doctor"
-  gem "bullet"
   gem "byebug"
-  gem "pry-rails"
-  gem "pry-rescue"
   gem "puma"
-  gem "rack-mini-profiler"
+  gem "rack-mini-profiler", require: false
   gem "rubocop", require: false
   gem "rubocop-capybara", require: false
   gem "rubocop-performance", require: false
@@ -103,7 +101,7 @@ gem "geocoder"
 gem "debug", group: %i[test development]
 gem "dekorator", "~> 1.4"
 gem "diffy", "~> 3.4"
-gem "importmap-rails", "~> 1.1"
+gem "importmap-rails", "~> 2.0"
 gem "lookbook"
 gem "stimulus-rails", "~> 1.2"
 gem "view_component"

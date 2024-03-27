@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       get :load_frame
       get :load_connection
       get '/frames/:id', to: 'moves#frame'
-      match 'update_connection', to: 'moves/update_connection', via: [:patch, :post, :put]
+      match 'update_connection', to: 'moves#update_connection', via: [:patch, :post, :put]
     end
   end
   get 'data_import', action: 'index', controller: 'data_import'

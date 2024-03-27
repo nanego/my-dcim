@@ -13,8 +13,11 @@ jobs:
 
     strategy:
       matrix:
-        ruby-version: ['3.2.3']
+        ruby-version: ['3.3.0']
       fail-fast: false
+
+    env:
+      RAILS_MASTER_KEY: "acf7c0d9c0f69afd05048c8a58b2e9ee"
 
     services:
       postgres:
@@ -63,7 +66,6 @@ jobs:
           POSTGRES_USER: postgres
         run: |
           cp test/support/database-postgres.yml config/database.yml
-          cp test/support/secrets.yml config/secrets.yml
           bundle exec rails db:setup
 
       - name: Run tests
