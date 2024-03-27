@@ -1,12 +1,12 @@
 // import the CSS framework
-@import "bootstrap-sprockets";
 @import "bootstrap";
 
 // make all images responsive by default
 img {
-  @extend .img-responsive;
+  @extend .img-fluid;
   margin: 0 auto;
   }
+
 // override for the 'Home' navigation link
 .navbar-brand {
   font-size: inherit;
@@ -54,8 +54,8 @@ section {
   margin: 0 auto;
 }
 .authform form {
-  @extend .well;
-  @extend .well-lg;
+  // FIXME: @extend .well;
+  // FIXME: @extend .well-lg;
   padding-bottom: 40px;
 }
 .authform .right {
@@ -66,7 +66,7 @@ section {
   @extend .btn-primary;
 }
 .authform fieldset {
-  @extend .well;
+  // FIXME: @extend .well;
 }
 #error_explanation:not(:empty) {
   @extend .alert;
@@ -74,9 +74,4 @@ section {
 }
 #error_explanation h2 {
   font-size: 16px;
-}
-.button-xs {
-  @extend .btn;
-  @extend .btn-primary;
-  @extend .btn-xs;
 }

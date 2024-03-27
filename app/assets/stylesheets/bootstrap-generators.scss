@@ -1,10 +1,5 @@
 @import "bootstrap-variables.scss";
-@import "bootstrap-sprockets.scss";
 @import "bootstrap.scss";
-
-body {
-  padding-top: $navbar-height - 2px;
-}
 
 .page-header {
   a.btn {
