@@ -91,6 +91,8 @@ Rails.application.routes.draw do
     end
 
     get :reset_authentication_token, on: :member
+    patch :suspend, on: :member
+    patch :unsuspend, on: :member
   end
 
   resources :activities
