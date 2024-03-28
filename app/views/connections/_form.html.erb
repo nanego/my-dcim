@@ -135,7 +135,7 @@
       }
 
       function updateConnectionStateMessage(frame, cablename) {
-          url = "http://supervision-reseau.ac.i2/macip/port_status.php?baie=" + frame + "&cable=" + cablename;
+          url = "https://supervision-reseau-ac.cs.e2.rie.gouv.fr/macip/port_status.php?baie=" + frame + "&cable=" + cablename;
 
           $.ajax(url, {
               dataType: 'json', jsonp: false, beforeSend: function (xhr) {
