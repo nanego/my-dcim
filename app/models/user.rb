@@ -31,4 +31,28 @@ class User < ApplicationRecord
   def regenerate_authentication_token!
     update!(authentication_token: generate_authentication_token(token_generator))
   end
+
+  def active_for_authentication?
+    return false if suspended?
+
+    super
+  end
+
+  def inactive_message
+    return :suspended if suspended?
+
+    super
+  end
+
+  def suspended?
+    suspended_at?
+  end
+
+  def suspend!
+    update!(suspended_at: Time.zone.now)
+  end
+
+  def unsuspend!
+    update!(suspended_at: nil)
+  end
 end

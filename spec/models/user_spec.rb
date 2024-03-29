@@ -28,4 +28,52 @@ RSpec.describe User do
 
     it { expect(user.authentication_token).not_to eq("auth_token") }
   end
+
+  describe "#active_for_authentication?" do
+    it { expect(user.active_for_authentication?).to be(true) }
+
+    context "when suspended" do
+      before { user.suspended_at = Time.zone.now }
+
+      it { expect(user.active_for_authentication?).to be(false) }
+    end
+  end
+
+  describe "#inactive_message" do
+    context "when suspended" do
+      before { user.suspended_at = Time.zone.now }
+
+      it { expect(user.inactive_message).to eq(:suspended) }
+    end
+  end
+
+  describe "#suspended?" do
+    it { expect(user.suspended?).to be(false) }
+
+    context "when suspended" do
+      before { user.suspended_at = Time.zone.now }
+
+      it { expect(user.suspended?).to be(true) }
+    end
+  end
+
+  describe "#suspend!" do
+    it do
+      expect do
+        user.suspend!
+        user.reload
+      end.to change(user, :suspended_at).from(nil)
+    end
+  end
+
+  describe "#unsuspend!" do
+    before { user.update!(suspended_at: Time.zone.now) }
+
+    it do
+      expect do
+        user.unsuspend!
+        user.reload
+      end.to change(user, :suspended_at).to(nil)
+    end
+  end
 end
