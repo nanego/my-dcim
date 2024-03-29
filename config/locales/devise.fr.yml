@@ -16,6 +16,7 @@ fr:
       timeout: "Votre session est expirée. Veuillez vous reconnecter pour continuer."
       unauthenticated: "Vous devez vous connecter ou vous inscrire pour continuer."
       unconfirmed: "Vous devez valider votre compte pour continuer."
+      suspended: "Votre compte est suspendu. Merci de contacter un admin."
     mailer:
       confirmation_instructions:
         subject: "Instructions de confirmation"

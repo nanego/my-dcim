@@ -15,6 +15,8 @@ fr:
     add: Ajouter
     confirm: Êtes-vous sûr ?
     duplicate: Dupliquer
+    suspend: Suspendre
+    unsuspend: Réactiver
   export_button:
     label: Exports
     exports:
@@ -550,7 +552,14 @@ fr:
         show_authentication_token: Afficher la clé API
         hide_authentication_token: Cacher la clé API
     flashes:
+      access_denied: Vous ne pouvez effectuer cette opréation
       authentication_token_reset: La clé API a été réinitialisée
+      created: Utilisateur créé
+      updated: Utilisateur mis à jour
+      cant_be_updated: Une erreur est survenue pendant la mise à jour
+      destroyed: Utilisateur supprimé
+      suspended: Utilisateur suspendu
+      unsuspended: Utilisateur réactivé
   changelog_entries:
     title: Historique
     show:
