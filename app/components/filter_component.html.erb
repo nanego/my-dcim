@@ -1,0 +1,11 @@
+<div>
+  <h3>Filtres</h3>
+
+  <%= form_with model: @filter, url: "", method: :get do |f| %>
+    <%= form.call(f) %>
+
+    <div>
+      <%= f.submit "Filter", class: "btn btn-primary btn-sm" %>
+    </div>
+  <% end %>
+</div>

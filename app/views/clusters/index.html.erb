@@ -20,6 +20,13 @@
         </h1>
       </div>
 
+      <%= render FilterComponent.new(@filter) do |c| %>
+        <% c.with_form do |f| %>
+          <%= f.label :name %>
+          <%= f.text_field :name %>
+        <% end %>
+      <% end %>
+
       <%= render List::DataTableComponent.new(@clusters) do |table| %>
         <% table.with_column(Cluster.human_attribute_name(:name), sort_by: :name) do |cluster| %>
           <%= link_to cluster, cluster_path(cluster) %>

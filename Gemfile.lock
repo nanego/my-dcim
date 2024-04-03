@@ -418,7 +418,8 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.1)
-    rubocop (1.63.4)
+    rubanok (0.5.0)
+    rubocop (1.62.4)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
@@ -597,6 +598,7 @@ DEPENDENCIES
   record_tag_helper (~> 1.0)
   rspec-html-matchers
   rspec-rails
+  rubanok (~> 0.5.0)
   rubocop
   rubocop-capybara
   rubocop-performance
