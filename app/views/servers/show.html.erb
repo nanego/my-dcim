@@ -63,7 +63,7 @@
           <dt><%= Category.model_name.human %> :</dt>
           <dd><%= @server.modele.try(:category) %></dd>
 
-          <dt><%= t(".nb_elts") %>:</dt>
+          <dt><%= Modele.human_attribute_name(:nb_elts) %>:</dt>
           <dd><%= @server.modele.try(:nb_elts) %></dd>
 
           <dt><%= Architecture.model_name.human %> :</dt>
@@ -145,6 +145,11 @@
           <% end.empty? && begin %>
             <dd/>
           <% end %>
+
+          <dt><%= Server.human_attribute_name(:network_types) %> :</dt>
+          <dd>
+            <%= @server.network_types.map { |type| Modele.human_attribute_name("network_types.#{type}") }.join(", ") %>
+          </dd>
         </dl>
       </div>
     </div>
