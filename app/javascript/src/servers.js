@@ -1,6 +1,5 @@
 $(document).ready(function() {
   var drag_n_drop_activated, update_u_scale, update_warning_messages;
-  $('[data-toggle="tooltip"]').tooltip();
 
   // See usage in http://localhost:3000/bays/YOUR_BAY_ID
   drag_n_drop_activated = false;
