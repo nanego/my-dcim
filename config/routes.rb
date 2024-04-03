@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   post 'connections/update_destination_server', :action => 'update_destination_server', controller: 'connections'
   post 'connections/update', :action => 'update', controller: 'connections'
   get 'connections/draw', :action => 'draw', controller: 'connections', as: :draw_connections
-  resources :cables, only: [:destroy]
+  resources :cables, only: %i[index destroy]
   resources :port_types
 
   resources :clusters

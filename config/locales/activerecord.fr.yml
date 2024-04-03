@@ -274,6 +274,13 @@ fr:
         cable: Câble
         port: Port
         paired_connection: Connexion paire
+      cable:
+        name: Nom
+        color: Couleur
+        special_case: Cas spécial
+        comments: Commentaires
+        connections: Connections
+        ports: Ports
 
     errors:
       models:

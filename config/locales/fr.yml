@@ -75,6 +75,9 @@ fr:
   connections:
     index:
       title: Connexions
+  cables:
+    index:
+      title: Câbles
   sites:
     index:
       title: Sites

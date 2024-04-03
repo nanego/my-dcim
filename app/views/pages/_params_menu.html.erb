@@ -53,6 +53,6 @@
       <%= t(".connections.title") %>
     </a>
     <a href="<%= connections_path %>" class="list-group-item <%= controller.controller_name == "connections" ? "active" : "" %>"><%= Connection.model_name.human.pluralize %></a>
-    <a href="" class="list-group-item <%= controller.controller_name == "cables" ? "active" : "" %>"><%= Cable.model_name.human.pluralize %></a>
+    <a href="<%= cables_path %>" class="list-group-item <%= controller.controller_name == "cables" ? "active" : "" %>"><%= Cable.model_name.human.pluralize %></a>
   </div>
 </p>

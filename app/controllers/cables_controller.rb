@@ -3,6 +3,10 @@
 class CablesController < ApplicationController
   before_action :set_cable, only: [:destroy]
 
+  def index
+    @cables = sorted Cable.includes(:ports, :connections).all
+  end
+
   def destroy
     port_id = params[:redirect_to_port_id]
 
