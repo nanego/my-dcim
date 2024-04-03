@@ -49,12 +49,12 @@ fr:
       projects_dropdown:
         projects: Projets
         moves: Déplacements prévus
-
-  breadcrumb:
-    bay:
-      simple: Baie %{name}
-      double: Double baie %{name}
-    islet: Ilot %{name}
+    breadcrumb:
+      home: Accueil
+      bay:
+        simple: Baie %{name}
+        double: Double baie %{name}
+      islet: Ilot %{name}
 
   islets:
     index:
