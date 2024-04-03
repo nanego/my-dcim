@@ -1,41 +1,20 @@
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+<li class="nav-item dropdown" role="menuitem">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false">
     <%= t("visualization") %>
   </a>
   <ul class="dropdown-menu">
-    <li><%= link_to 'Afficher toutes les salles', overview_rooms_path, class: "dropdown-item" %></li>
-    <li><%= link_to t("rooms.capacity_view.title"), capacity_rooms_path, class: "dropdown-item" %></li>
-    <li><%= link_to 'Vue infrastructure', infrastructure_rooms_path, class: "dropdown-item" %></li>
-    <% sites = Site.joins(:rooms).includes(:rooms => [:bays => [:bay_type]]).order(:position).distinct %>
+    <li role="menuitem"><%= link_to t("rooms.overview_view.title"), overview_rooms_path, class: "dropdown-item" %></li>
+    <li role="menuitem"><%= link_to t("rooms.capacity_view.title"), capacity_rooms_path, class: "dropdown-item" %></li>
+    <li role="menuitem"><%= link_to t("rooms.infrastructure_view.title"), infrastructure_rooms_path, class: "dropdown-item" %></li>
+    <% sites = Site.joins(:rooms).order(:position).distinct %>
     <% sites.each do |site| %>
       <li><hr class="dropdown-divider"></li>
-      <li class="dropdown-header"><%= site %></li>
+      <li><h6 class="dropdown-header"><%= site %></h6></li>
       <% rooms = site.rooms.sorted.distinct %>
       <% rooms.each do |room| %>
-        <% islets = room.islets.sorted.not_empty.has_name.distinct %>
-        <li class="<%= islets.present? ? 'dropdown-submenu' : '' %>">
-          <%= link_to room.name, room_path(room, :view => params[:view], bg: params[:bg]) %>
-          <% if islets.size > 1 %>
-            <ul class="dropdown-menu">
-              <% islets.each do |islet| %>
-                <li class="dropdown-submenu">
-                  <%= link_to "#{room.name}-ilot#{islet.name}", room_path(room, islet: islet.name, :view => params[:view], bg: params[:bg]) %>
-                  <div class="dropdown-menu" style="width: <%= calculated_menu_width(islet) %>px;">
-                    <% if islet.bays.present? %>
-                      <%= render 'bays/overview', bays: islet.bays.sorted, islet: islet.name %>
-                    <% end %>
-                  </div>
-                </li>
-              <% end %>
-            </ul>
-          <% else %>
-            <% islet = islets.first if islets.present? && islets.first.bays.present? %>
-            <% if islet %>
-              <ul class="dropdown-menu" style="width: <%= calculated_menu_width(islet) %>px;">
-                <%= render 'bays/overview', bays: islet.bays.sorted, islet: islet.name %>
-              </ul>
-            <% end %>
-          <% end %>
+        <li class="nav-item" role="menuitem">
+          <%= link_to room.name, room_path(room, view: params[:view], bg: params[:bg]), class: "dropdown-item" %>
         </li>
       <% end %>
     <% end %>
