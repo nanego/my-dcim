@@ -16,8 +16,13 @@
 //= require palette-color-picker
 //= require functions
 //= require_tree .
-//= require bootstrap
 //= require sortable
+
+import "./palette-color-picker"
+import "./functions"
+import "./bays"
+import "./servers"
+import "sortable"
 
 function hideFilters() {
     $('.hide-filters').hide()
@@ -30,10 +35,6 @@ function showFilters() {
     $('.show-filters').hide()
     $('.panel-body').show()
 }
-
-$(document).ready(function () {
-    $('.dropdown-toggle').dropdown()
-})
 
 $(document).on("click", ".draw_connections_link", function (event) {
     $(event.target).html('<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>')
