@@ -3,7 +3,7 @@
 class ConnectionsController < ApplicationController
 
   def index
-    @connections = sorted Connection.all
+    @connections = sorted Connection.includes(:port, :cable).all
   end
 
   def edit

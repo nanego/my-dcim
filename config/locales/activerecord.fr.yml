@@ -270,6 +270,10 @@ fr:
           other: Double baie %{bay}
         islet_id: Salle et Ilot
         bay_type_id: Type de baie
+      connection:
+        cable: Câble
+        port: Port
+        paired_connection: Connexion paire
 
     errors:
       models:
