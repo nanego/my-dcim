@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :prepare_exception_notifier
 
+  etag { Rails.application.importmap.digest(resolver: helpers) if request.format&.html? }
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception, unless: -> { request.format.json? }
