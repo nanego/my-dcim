@@ -1,6 +1,6 @@
 class AddCounterCacheToCables < ActiveRecord::Migration[7.1]
   RESET_COUNTERS = {
-    cable: %i[connections],
+    cable: %i[connections]
   }.freeze
 
   def change

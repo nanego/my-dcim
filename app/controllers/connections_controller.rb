@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ConnectionsController < ApplicationController
-
   def index
     @connections = sorted Connection.includes(:port, :cable).all
   end
