@@ -191,6 +191,8 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jquery-ui-rails (7.0.0)
+      railties (>= 3.2.16)
     json (2.7.2)
     json-jwt (1.16.6)
       activesupport (>= 4.2)
@@ -578,6 +580,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   importmap-rails (~> 2.0)
   jbuilder
+  jquery-ui-rails
   kaminari
   letter_opener
   listen (~> 3.3)
