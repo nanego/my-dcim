@@ -36,6 +36,20 @@ fr:
   label_date: Date
   label_details: Détails
 
+  layouts:
+    navigation:
+      nav_links_administration:
+        administration: Administration
+        activity: Activité
+        informations: Informations
+      devices_dropdown:
+        equipments: Matériels
+        search_equipment: Rechercher un matériel
+        filter_by: "Filtrer par :"
+      projects_dropdown:
+        projects: Projets
+        moves: Déplacements prévus
+
   breadcrumb:
     bay:
       simple: Baie %{name}
@@ -64,6 +78,8 @@ fr:
       location:
         title: Localisation
         bays: Baies / Doubles-baies
+      equipment:
+        title: Matériel
       features:
         title: Caractéristiques
       exploitation:
@@ -521,12 +537,16 @@ fr:
       destroy: a supprimé un serveur
   rooms:
     title: Salles
+    overview_view:
+      title: Afficher toutes les salles
     capacity_view:
       title: Vue capacité réseau
       networks:
         fiber: Fibre
         giga: Réseau Gb
         10giga: 10Gb
+    infrastructure_view:
+      title: Vue infrastructure
     action_buttons:
       caption:
         ports: Ports
@@ -557,6 +577,8 @@ fr:
         flashes:
           updated: Vos préférences ont été mises à jour
     logout: Me déconnecter
+    login: Connexion
+    sign_in: Inscription
     index:
       new_user: Ajouter un utilisateur
       change_role: Changer le rôle
