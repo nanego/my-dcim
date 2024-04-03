@@ -11,7 +11,7 @@
   </div>
 
   <div class="list-group">
-    <a href="#" class="list-group-item disabled">Matériel</a>
+    <a href="#" class="list-group-item disabled"><%= t(".equipment.title") %></a>
     <a href="<%= servers_path %>" class="list-group-item <%= controller.controller_name == "servers" ? "active" : "" %>">Matériels</a>
     <%= link_to AirConditioner.model_name.human, air_conditioners_path, class: "list-group-item #{ "active" if controller.controller_name == "air_conditioners" }" %>
   </div>
