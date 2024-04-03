@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddCounterCacheToCables < ActiveRecord::Migration[7.1]
   RESET_COUNTERS = {
     cable: %i[connections]
