@@ -17,11 +17,11 @@
       </div>
 
       <%= render List::DataTableComponent.new(@connections) do |table| %>
-        <% table.with_column(Connection.human_attribute_name(:port)) do |connection| %>
+        <% table.with_column(Connection.human_attribute_name(:port), sort_by: :"ports.id") do |connection| %>
           <%= connection.port&.id %>
         <% end %>
 
-        <% table.with_column(Connection.human_attribute_name(:cable)) do |connection| %>
+        <% table.with_column(Connection.human_attribute_name(:cable), sort_by: :"cables.name") do |connection| %>
           <%= connection.cable&.name %>
         <% end %>
 
