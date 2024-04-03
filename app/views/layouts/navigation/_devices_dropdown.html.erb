@@ -1,24 +1,31 @@
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Matériels</a>
+<li class="nav-item dropdown" role="menuitem">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    <%= t(".equipments") %>
+  </a>
   <ul class="dropdown-menu">
-    <li><%= link_to 'Rechercher un matériel', servers_grids_path %></li>
-    <li role="separator" class="divider"></li>
-    <li class="dropdown-header">Filtrer par :</li>
-    <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-        Gestionnaire
+    <li><%= link_to t(".search_equipment"), servers_grids_path, class: "dropdown-item" %></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header"><%= t(".filter_by") %></h6></li>
+    <li class="nav-item dropdown-submenu" role="menuitem">
+      <a href="#" class="dropdown-toggle dropdown-item" data-toggle="dropdown" role="button" aria-haspopup="true"
+        aria-expanded="false">
+        <%= Gestion.model_name.human %>
       </a>
       <ul class="dropdown-menu">
         <% Gestion.order(Gestion.arel_table[:name].lower).each do |c| %>
-            <li <%= "class=active" if params[:gestion_id]==c.id.to_s %> >
-              <%= link_to c.name, overview_rooms_path(gestion_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
-            </li>
+          <li>
+            <%= link_to c.name,
+                        overview_rooms_path(gestion_id: c.id, view: params[:view], bg: (params[:bg] || "modele") ),
+                        class: class_names("dropdown-item", active: params[:gestion_id] == c.id.to_s) %>
+          </li>
         <% end %>
       </ul>
     </li>
-    <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-        Cluster
+    <li class="nav-item dropdown-submenu" role="menuitem">
+      <a href="#" class="dropdown-toggle dropdown-item" data-toggle="dropdown" role="button" aria-haspopup="true"
+        aria-expanded="false">
+        <%= Cluster.model_name.human %>
       </a>
       <ul class="dropdown-menu">
         <li>
@@ -27,8 +34,12 @@
                 <ul class="list-unstyled col-md-4">
                   <% clusters.each do |c| %>
                       <% if c.present? %>
-                          <li <%= "class=active" if params[:cluster_id]==c.id.to_s %> >
-                            <%= link_to c.to_s, overview_rooms_path(cluster_id: c.id, :view => params[:view], bg: (params[:bg]||'modele') ) %>
+                        <li>
+                            <%= link_to c.to_s,
+                                        overview_rooms_path(cluster_id: c.id,
+                                                            view: params[:view],
+                                                            bg: (params[:bg] || "modele") ),
+                                       class: class_names("dropdown-item", active: params[:cluster_id] == c.id.to_s) %>
                           </li>
                       <% end %>
                   <% end %>
@@ -38,17 +49,23 @@
         </li>
       </ul>
     </li>
-    <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-        Modèles de machine
+    <li class="nav-item dropdown-submenu" role="menuitem">
+      <a href="#" class="dropdown-toggle dropdown-item" data-toggle="dropdown" role="button" aria-haspopup="true"
+        aria-expanded="false">
+        <%= Modele.model_name.human %>
       </a>
       <ul class="dropdown-menu">
         <li>
           <div>
-            <ul style="width:860px;max-height: 600px;overflow: auto;display: flex;flex-direction: column;flex-wrap: wrap;" class="list-unstyled modeles">
+            <ul style="width:860px;max-height: 600px;overflow: auto;display: flex;flex-direction: column;flex-wrap: wrap;"
+                class="list-unstyled modeles">
               <% Modele.all_sorted_with_servers.each do |modele| %>
-                <li class="<%= "active" if params[:modele_id] == modele.id.to_s %>" style="max-width: 265px;">
-                  <%= link_to modele.name_with_brand, overview_rooms_path(modele_id: modele.id, :view => params[:view], bg: (params[:bg] || 'modele')) %>
+                <li>
+                  <%= link_to modele.name_with_brand,
+                              overview_rooms_path(modele_id: modele.id,
+                                                  view: params[:view],
+                                                  bg: (params[:bg] || "modele")),
+                             class: class_names("dropdown-item", active: params[:modele_id] == modele.id.to_s) %>
                 </li>
               <% end %>
             </ul>
