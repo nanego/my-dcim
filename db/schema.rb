@@ -326,6 +326,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_141149) do
     t.integer "manufacturer_id"
     t.string "color"
     t.string "slug"
+    t.string "network_types", default: [], array: true
     t.integer "servers_count", default: 0, null: false
     t.string "network_types", default: [], array: true
     t.index ["architecture_id"], name: "index_modeles_on_architecture_id"
@@ -433,8 +434,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_03_141149) do
     t.string "slug"
     t.string "side"
     t.string "color"
-    t.integer "network_id"
     t.integer "stack_id"
+    t.string "network_types", default: [], array: true
     t.index ["cluster_id"], name: "index_servers_on_cluster_id"
     t.index ["domaine_id"], name: "index_servers_on_domaine_id"
     t.index ["frame_id"], name: "index_servers_on_frame_id"
