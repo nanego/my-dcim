@@ -2,24 +2,44 @@
      breadcrumb_steps = breadcrumb_variables
    else
      breadcrumb_steps = {}
-     rooms = {t("visualization") => overview_rooms_path}
+     rooms = { t("visualization") => overview_rooms_path }
      case controller.controller_name
-     when 'rooms'
+     when "rooms"
        breadcrumb_steps.merge!(rooms)
-       breadcrumb_steps.merge!({@room.name => ((@frame.present? || params[:islet].present?) ? room_path(@room, view: params[:view]) : '')})
+       breadcrumb_steps.merge!({
+         @room.name => ((@frame.present? || params[:islet].present?) ? room_path(@room, view: params[:view]) : "")
+       })
        if @frame.present? && @frame.bay.islet.name.present?
-         breadcrumb_steps["Ilot #{@frame.bay.islet.name}"] = room_path(@room, islet: @frame.bay.islet.name, view: params[:view])
+         breadcrumb_steps["Ilot #{@frame.bay.islet.name}"] = room_path(@room, islet: @frame.bay.islet.name,
+                                                                              view: params[:view])
        elsif params[:islet].present?
-         breadcrumb_steps["Ilot #{params[:islet]}"] = ''
+         breadcrumb_steps["Ilot #{params[:islet]}"] = ""
        end
-       breadcrumb_steps["Baie #{@frame.name}"] = '' if @frame.present?
+       breadcrumb_steps["Baie #{@frame.name}"] = "" if @frame.present?
      end
    end
 %>
 
-<ol class="breadcrumb" style="margin-bottom: 5px;">
-  <li><%= link_to 'Accueil', root_path %></li>
-  <% breadcrumb_steps.each do |key, value| %>
-    <li class="<%= 'active' if value.present? %>"><%= value.present? ? (link_to key, value) : key %></li>
-  <% end %>
-</ol>
+<div class="container my-2">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <%= link_to root_path, class: "link-body-emphasis" do %>
+          <i class="bi bi-house-door-fill"></i>
+          <span class="visually-hidden"><%= t(".home") %></span>
+        <% end %>
+      </li>
+      <% breadcrumb_steps.each do |key, value| %>
+        <% if value.present? %>
+          <li class="breadcrumb-item">
+            <%= link_to key, value, class: "link-body-emphasis fw-semibold text-decoration-none"%>
+          </li>
+        <% else %>
+          <li class="breadcrumb-item active" aria-current="page">
+            <%= key  %>
+          </li>
+        <% end %>
+      <% end %>
+    </ol>
+  </nav>
+</div>

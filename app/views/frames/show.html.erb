@@ -4,15 +4,15 @@
     @room.name => ((@frame.present? || params[:islet].present?) ? room_path(@room, view: params[:view]) : '')
   }
   if @frame.present? && @frame.bay.islet.name.present?
-    breadcrumb_variables[t("breadcrumb.islet", name: @frame.bay.islet.name)] = room_path(@room, islet: @frame.bay.islet.name, view: params[:view])
+    breadcrumb_variables[t("layouts.breadcrumb.islet", name: @frame.bay.islet.name)] = room_path(@room, islet: @frame.bay.islet.name, view: params[:view])
   elsif params[:islet].present?
-    breadcrumb_variables[t("breadcrumb.islet", name: params[:islet])] = ''
+    breadcrumb_variables[t("layouts.breadcrumb.islet", name: params[:islet])] = ''
   end
-  breadcrumb_variables[t("breadcrumb.bay.double", name: @frame.bay)] = room_path(@room, islet: @frame.bay.islet.name, 'bay-id': @frame.bay_id, view: params[:view]) if @frame.has_coupled_frame?
-  breadcrumb_variables[t("breadcrumb.bay.simple", name: @frame.name)] = '' if @frame.present?
+  breadcrumb_variables[t("layouts.breadcrumb.bay.double", name: @frame.bay)] = room_path(@room, islet: @frame.bay.islet.name, 'bay-id': @frame.bay_id, view: params[:view]) if @frame.has_coupled_frame?
+  breadcrumb_variables[t("layouts.breadcrumb.bay.simple", name: @frame.name)] = '' if @frame.present?
 %>
 <%= render 'layouts/breadcrumb', breadcrumb_variables: breadcrumb_variables %>
-<% provide(:title, t("breadcrumb.bay.simple", name: @frame.name)) %>
+<% provide(:title, t("layouts.breadcrumb.bay.simple", name: @frame.name)) %>
 
 <div class="container-fluid" id="bay-container">
   <%= render 'frames/show_complete_frame' %>
