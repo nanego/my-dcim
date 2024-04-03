@@ -1,47 +1,44 @@
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+<li class="nav-item dropdown" role="menuitem">
+  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown"
+     aria-expanded="false">
     <%= t("inventories") %>
   </a>
   <ul class="dropdown-menu">
-    <li class="dropdown-header">Localisation</li>
-    <li><a href="<%= sites_path %>"><%= Site.model_name.human.pluralize %></a></li>
-    <li><a href="<%= rooms_path %>"><%= Room.model_name.human.pluralize %></a></li>
-    <li><a href="<%= islets_path %>"><%= Islet.model_name.human.pluralize %></a></li>
-    <li><a href="<%= bays_path %>"><%= Bay.model_name.human.pluralize %></a></li>
-    <li><a href="<%= frames_path %>"><%= Frame.model_name.human %></a></li>
+    <li><h6 class="dropdown-header"><%= t("pages.params_menu.location.title") %></h6></li>
+    <li><a href="<%= sites_path %>" class="dropdown-item" role="menuitem"><%= Site.model_name.human.pluralize %></a></li>
+    <li><a href="<%= rooms_path %>" class="dropdown-item" role="menuitem"><%= Room.model_name.human.pluralize %></a></li>
+    <li><a href="<%= islets_path %>" class="dropdown-item" role="menuitem"><%= Islet.model_name.human.pluralize %></a></li>
+    <li><a href="<%= bays_path %>" class="dropdown-item" role="menuitem"><%= Bay.model_name.human.pluralize %></a></li>
+    <li><a href="<%= frames_path %>" class="dropdown-item" role="menuitem"><%= Frame.model_name.human %></a></li>
 
-    <li role="separator" class="divider"></li>
-    <li class="dropdown-header">Matériel</li>
-    <li><a href="<%= servers_path %>">Matériels</a></li>
-    <li><a href="<%= air_conditioners_path %>"><%= AirConditioner.model_name.human.pluralize %></a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header"><%= t("pages.params_menu.equipment.title") %></h6></li>
+    <li><a href="<%= servers_path %>" class="dropdown-item" role="menuitem">Matériels</a></li>
+    <li><a href="<%= air_conditioners_path %>" class="dropdown-item" role="menuitem"><%= AirConditioner.model_name.human.pluralize %></a></li>
 
-    <li role="separator" class="divider"></li>
-    <li class="dropdown-header"><%= t("pages.params_menu.features.title")%></li>
-    <li><a href="<%= modeles_path %>"><%= Modele.model_name.human.pluralize %></a></li>
-    <li><a href="<%= categories_path %>"><%= Category.model_name.human.pluralize %></a></li>
-    <li><a href="<%= architectures_path %>"><%= Architecture.model_name.human.pluralize %></a></li>
-    <li><a href="<%= manufacturers_path %>"><%= Manufacturer.model_name.human.pluralize %></a></li>
-    <li><a href="<%= stacks_path %>"><%= Stack.model_name.human.pluralize %></a></li>
-    <li><a href="<%= card_types_path %>"><%= CardType.model_name.human(count: 2) %></a></li>
-    <li><a href="<%= port_types_path %>"><%= PortType.model_name.human(count: 2) %></a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header"><%= t("pages.params_menu.features.title")%></h6></li>
+    <li><a href="<%= modeles_path %>" class="dropdown-item" role="menuitem"><%= Modele.model_name.human.pluralize %></a></li>
+    <li><a href="<%= categories_path %>" class="dropdown-item" role="menuitem"><%= Category.model_name.human.pluralize %></a></li>
+    <li>
+      <a href="<%= architectures_path %>" class="dropdown-item" role="menuitem"><%= Architecture.model_name.human.pluralize %></a>
+    </li>
+    <li>
+      <a href="<%= manufacturers_path %>" class="dropdown-item" role="menuitem"><%= Manufacturer.model_name.human.pluralize %></a>
+    </li>
+    <li><a href="<%= stacks_path %>" class="dropdown-item" role="menuitem"><%= Stack.model_name.human.pluralize %></a></li>
+    <li><a href="<%= card_types_path %>" class="dropdown-item" role="menuitem"><%= CardType.model_name.human(count: 2) %></a></li>
+    <li><a href="<%= port_types_path %>" class="dropdown-item" role="menuitem"><%= PortType.model_name.human(count: 2) %></a></li>
 
-    <li role="separator" class="divider"></li>
-    <li class="dropdown-header"><%= t("pages.params_menu.exploitation.title")%></li>
-    <li><a href="<%= domaines_path %>"><%= Domaine.model_name.human.pluralize %></a></li>
-    <li><a href="<%= gestions_path %>"><%= Gestion.model_name.human.pluralize %></a></li>
-    <li><a href="<%= clusters_path %>"><%= Cluster.model_name.human.pluralize %></a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header"><%= t("pages.params_menu.exploitation.title")%></h6></li>
+    <li><a href="<%= domaines_path %>" class="dropdown-item" role="menuitem"><%= Domaine.model_name.human.pluralize %></a></li>
+    <li><a href="<%= gestions_path %>" class="dropdown-item" role="menuitem"><%= Gestion.model_name.human.pluralize %></a></li>
+    <li><a href="<%= clusters_path %>" class="dropdown-item" role="menuitem"><%= Cluster.model_name.human.pluralize %></a></li>
 
-    <li role="separator" class="divider"></li>
-    <li class="dropdown-header"><%= t("pages.params_menu.connections.title") %></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header"><%= t("pages.params_menu.connections.title")%></h6></li>
     <li><a href="<%= connections_path %>"><%= Connection.model_name.human.pluralize %></a></li>
     <li><a href="<%= cables_path %>"><%= Cable.model_name.human.pluralize %></a></li>
-
-    <!--
-    <li><a href="<%= colors_path %>">Couleurs</a></li>
-    <li><a href="<%= maintainers_path %>">Mainteneurs</a></li>
-    <li><a href="<%= contract_types_path %>">Contrats de maintenance</a></li>
-    <li><a href="<%= disk_types_path %>">Types de disque</a></li>
-    <li><a href="<%= memory_types_path %>">Types de RAM</a></li>
-    -->
   </ul>
 </li>
