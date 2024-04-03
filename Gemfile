@@ -7,6 +7,7 @@ gem "rails", "~> 7.1.0"
 
 gem "bootstrap", "~> 5.3.2"
 gem "jbuilder"
+gem "jquery-ui-rails"
 gem "nokogiri", "~> 1.16"
 gem "rails-i18n", "~> 7.0.x"
 gem "sassc-rails", "~> 2.0"
