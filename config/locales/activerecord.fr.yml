@@ -39,6 +39,8 @@ fr:
       user: Utilisateur
       server_state: Statut
       changelog_entry: Changelog
+      cable: Câble
+      connection: Connexion
 
     attributes:
       room:

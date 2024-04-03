@@ -47,4 +47,12 @@
     <a href="<%= maintainers_path %>" class="list-group-item <%= controller.controller_name == "maintainers" ? "active" : "" %>"><%= Maintainer.model_name.human.pluralize %></a>
     <a href="<%= contract_types_path %>" class="list-group-item <%= controller.controller_name == "contract_types" ? "active" : "" %>"><%= ContractType.model_name.human(count: 2) %></a>
   </div>
+
+  <div class="list-group">
+    <a href="#" class="list-group-item disabled">
+      <%= t(".connections.title") %>
+    </a>
+    <a href="<%= connections_path %>" class="list-group-item <%= controller.controller_name == "connections" ? "active" : "" %>"><%= Connection.model_name.human.pluralize %></a>
+    <a href="" class="list-group-item <%= controller.controller_name == "cables" ? "active" : "" %>"><%= Cable.model_name.human.pluralize %></a>
+  </div>
 </p>
