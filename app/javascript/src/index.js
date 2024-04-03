@@ -10,19 +10,20 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery-ui
-//= require jquery_ujs
-//= require palette-color-picker
-//= require functions
-//= require_tree .
-//= require sortable
+// require jquery
+// require jquery-ui
+// require jquery_ujs
+// require palette-color-picker
+// require functions
+// require_tree .
+// require sortable
 
 import "./palette-color-picker"
 import "./functions"
 import "./bays"
 import "./servers"
-import "sortable"
+import "sortablejs"
+import $ from "jquery"
 
 function hideFilters() {
     $('.hide-filters').hide()
