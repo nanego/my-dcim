@@ -1,28 +1,3 @@
-@import "bootstrap-variables.scss";
-@import "bootstrap.scss";
-
-.page-header {
-  a.btn {
-    float: right;
-  }
-
-  a.btn + a.btn {
-    margin-right: 8px;
-  }
-}
-
-input[type="radio"], input[type="checkbox"] {
-  width: initial;
-  height: initial;
-  margin-top: 7px;
-}
-
-@media (min-width: 768px) {
-  .form-horizontal .control-label {
-    text-align: left;
-  }
-}
-
 .dropdown-submenu{position:relative;}
 .dropdown-submenu>.dropdown-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px;}
 .dropdown-submenu:hover>.dropdown-menu{display:block;}
