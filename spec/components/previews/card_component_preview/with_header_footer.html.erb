@@ -1,0 +1,11 @@
+<%= render CardComponent.new do |card| %>
+  <% card.with_header do %>
+    <h2>Ubi est germanus spatii?</h2>
+  <% end %>
+
+  <p>Season fifteen oz of watermelon in one container of gold tequila.</p>
+
+  <% card.with_footer do %>
+    <p>Try sliceing stir-fry flavored with crême fraîche, mixed with lime.</p>
+  <% end %>
+<% end %>
