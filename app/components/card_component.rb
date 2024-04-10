@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 class CardComponent < ApplicationComponent
+  TYPES = %i[default primary success info warning danger].freeze
+
   renders_one :header
   renders_one :footer
 
   erb_template <<~ERB
-    <div class="panel panel-<%= @state %>">
+    <div class="panel panel-<%= @type %>">
 
       <% if header? %>
       <div class="panel-heading">
@@ -25,8 +27,10 @@ class CardComponent < ApplicationComponent
     </div>
   ERB
 
-  def initialize(state = :default)
-    @state = state
+  def initialize(type = :default)
+    raise ArgumentError, "#{type} is not a valid type" unless TYPES.include?(type)
+
+    @type = type
 
     super
   end

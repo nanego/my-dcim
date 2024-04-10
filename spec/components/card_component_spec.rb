@@ -34,4 +34,16 @@ RSpec.describe CardComponent, type: :component do
 
     it { expect(rendered_component.to_html).to have_text("Text as footer") }
   end
+
+  context "with valid type" do
+    let(:component) { described_class.new(:primary) }
+
+    it { expect(rendered_component.to_html).to have_css("div.panel-primary") }
+  end
+
+  context "with invalid type" do
+    let(:component) { described_class.new(:unknown) }
+
+    it { expect { component }.to raise_error(ArgumentError) }
+  end
 end
