@@ -560,6 +560,21 @@ body {
     }
   }
 
+  &-navbar {
+    @include media-breakpoint-up(lg) {
+      flex-grow: 1;
+
+      ul.navbar-nav {
+        flex-wrap: wrap;
+        flex-direction: row;
+
+        &:last-child {
+          margin-left: auto;
+        }
+      }
+    }
+  }
+
   &-sidebar {
     @include media-breakpoint-up(lg) {
       position: sticky;
