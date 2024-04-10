@@ -1,85 +1,76 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  t("inventories") => modeles_url,
   Frame.model_name.human => ''}
 %>
 
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-3">
-      <%= render 'pages/params_menu' %>
-    </div>
+  <div class="page-header">
+    <%= link_to new_frame_path, class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      <%= t(".new_frame") %>
+    <% end %>
+    <h1>
+      <%= t(".title") %>
+    </h1>
+  </div>
 
-    <div class="col-md-9">
-      <div class="page-header">
-        <%= link_to new_frame_path, class: 'btn btn-primary' do %>
-          <span class="glyphicon glyphicon-plus"></span>
-          <%= t(".new_frame") %>
-        <% end %>
-        <h1>
-          <%= t(".title") %>
-        </h1>
+  <%= render FilterComponent.new(@filter) do |c| %>
+    <% c.with_form do |f| %>
+      <div class="form-group">
+        <%= f.label :q %>
+        <%= f.search_field :q, class: "form-control" %>
       </div>
 
-      <%= render FilterComponent.new(@filter) do |c| %>
-        <% c.with_form do |f| %>
-          <div class="form-group">
-            <%= f.label :q %>
-            <%= f.search_field :q, class: "form-control" %>
-          </div>
+      <div class="form-group">
+        <%= f.label :u %>
+        <%= f.select(:u, Frame.group(:u).order(:u).pluck(:u), { prompt: true, include_blank: true }, { class: "form-control" }) %>
+      </div>
 
-          <div class="form-group">
-            <%= f.label :u %>
-            <%= f.select(:u, Frame.group(:u).order(:u).pluck(:u), { prompt: true, include_blank: true }, { class: "form-control" }) %>
-          </div>
+      <div class="form-group">
+        <%= f.label :room_id %>
+        <%= f.collection_select(:room_id, Room.sorted, :id, :to_s, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+      </div>
 
-          <div class="form-group">
-            <%= f.label :room_id %>
-            <%= f.collection_select(:room_id, Room.sorted, :id, :to_s, { prompt: true, include_blank: true }, { class: "form-control" }) %>
-          </div>
+      <div class="form-group">
+        <%= f.label :islet_id %>
+        <%= f.collection_select(:islet_id, Islet.sorted, :id, :to_s, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+      </div>
+    <% end %>
+  <% end %>
 
-          <div class="form-group">
-            <%= f.label :islet_id %>
-            <%= f.collection_select(:islet_id, Islet.sorted, :id, :to_s, { prompt: true, include_blank: true }, { class: "form-control" }) %>
-          </div>
+  <%= render List::DataTableComponent.new(@frames) do |table| %>
+    <% table.with_column(Frame.human_attribute_name(:name), sort_by: :name) do |frame| %>
+      <b>
+      <%= link_to frame.name, frame %>
+      </b>
+    <% end %>
+
+    <% table.with_column(Frame.human_attribute_name(:servers)) do |frame| %>
+      <%= safe_join(frame.servers.map{ |s| link_to s.name, s }, ", ") %>
+    <% end %>
+
+    <% table.with_column(Frame.human_attribute_name(:u), sort_by: :u) do |frame| %>
+      <%= frame.u %>
+    <% end %>
+
+    <% table.with_column(Frame.human_attribute_name(:room), sort_by: :"rooms.name") do |frame| %>
+      <%= frame.room.present? ? link_to(frame.room, frame.room) : frame.room %>
+    <% end %>
+
+    <% table.with_column(Islet.model_name.human, sort_by: :"islets.name") do |frame| %>
+      <%= link_to frame.bay.islet, islet_path(frame.bay.islet) if frame.bay.present? %>
+    <% end %>
+
+    <% table.with_column(style: "min-width: 84px; width: 84px") do |frame| %>
+      <div class="btn-group btn-group-sm" role="group" aria-label="...">
+        <%= link_to edit_frame_path(frame), class: 'btn btn-primary' do %>
+          <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
+          <span class="sr-only"><%= t("action.edit") %></span>
         <% end %>
-      <% end %>
-
-      <%= render List::DataTableComponent.new(@frames) do |table| %>
-        <% table.with_column(Frame.human_attribute_name(:name), sort_by: :name) do |frame| %>
-          <b>
-          <%= link_to frame.name, frame %>
-          </b>
+        <%= link_to frame, method: :delete, data: { confirm: t(".delete_confirmation") }, class: 'btn btn-danger' do %>
+          <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
+          <span class="sr-only"><%= t("action.delete") %></span>
         <% end %>
-
-        <% table.with_column(Frame.human_attribute_name(:servers)) do |frame| %>
-          <%= safe_join(frame.servers.map{ |s| link_to s.name, s }, ", ") %>
-        <% end %>
-
-        <% table.with_column(Frame.human_attribute_name(:u), sort_by: :u) do |frame| %>
-          <%= frame.u %>
-        <% end %>
-
-        <% table.with_column(Frame.human_attribute_name(:room), sort_by: :"rooms.name") do |frame| %>
-          <%= frame.room.present? ? link_to(frame.room, frame.room) : frame.room %>
-        <% end %>
-
-        <% table.with_column(Islet.model_name.human, sort_by: :"islets.name") do |frame| %>
-          <%= link_to frame.bay.islet, islet_path(frame.bay.islet) if frame.bay.present? %>
-        <% end %>
-
-        <% table.with_column(style: "min-width: 84px; width: 84px") do |frame| %>
-          <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <%= link_to edit_frame_path(frame), class: 'btn btn-primary' do %>
-              <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
-              <span class="sr-only"><%= t("action.edit") %></span>
-            <% end %>
-            <%= link_to frame, method: :delete, data: { confirm: t(".delete_confirmation") }, class: 'btn btn-danger' do %>
-              <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
-              <span class="sr-only"><%= t("action.delete") %></span>
-            <% end %>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
+      </div>
+    <% end %>
+  <% end %>
 </div>
