@@ -1,23 +1,32 @@
-<header class="sticky-top">
-  <nav class="navbar navbar-expand-lg bg-body-tertiary" role="menu">
-    <div class="container">
-      <%= link_to root_path, class: "navbar-brand" do %>
-        <%= image_tag "datacenter-02.png", style: "height: 40px;" %>
-      <% end %>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                                                                             aria-controls="navbarSupportedContent"
-                                                                             aria-expanded="false"
-                                                                             aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto">
+<header class="mydcim-header navbar navbar-expand-lg sticky-top bg-body-tertiary">
+  <nav class="container-fluid flex-wrap flex-lg-nowrap" role="menu" aria-label="Main navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mydcim-inventories-sidebar"
+                                                                            aria-controls="mydcim-inventories-sidebar"
+                                                                            aria-label="Toggle <%= t("inventories") %> navigation">
+      <i class="bi bi-list"></i>
+    </button>
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <%= image_tag "datacenter-02.png", style: "height: 40px;" %>
+    <% end %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mydcim-navbar"
+                                                                            aria-controls="mydcim-navbar"
+                                                                            aria-label="Toggle Main navigation">
+      <i class="bi bi-three-dots"></i>
+    </button>
+    <div id="mydcim-navbar" class="offcanvas-lg offcanvas-end flex-grow-1">
+      <div class="offcanvas-header px-4 pb-0">
+        <h5 class="offcanvas-title" id="sidebarMenuLabel">
+          <%= image_tag "datacenter-02.png", style: "height: 40px;" %>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="<%= t("action.close") %>" data-bs-target="#mydcim-navbar"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav flex-row flex-wrap">
           <%= render "layouts/navigation/visualization_dropdown" %>
           <%= render "layouts/navigation/devices_dropdown" %>
-          <%= render "layouts/navigation/inventories_dropdown" %>
           <%= render "layouts/navigation/projects_dropdown" %>
         </ul>
-        <ul class="navbar-nav">
+        <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
           <%= render "layouts/navigation/nav_links_administration" %>
         </ul>
       </div>
