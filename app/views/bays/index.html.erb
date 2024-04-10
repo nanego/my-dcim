@@ -1,70 +1,61 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  t("inventories") => modeles_url,
   Bay.model_name.human.pluralize => "" }
 %>
 
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-3">
-      <%= render 'pages/params_menu' %>
-    </div>
-
-    <div class="col-md-9">
-      <div class="page-header">
-        <%= link_to new_bay_path, class: 'btn btn-primary btn-disabled' do %>
-          <span class="glyphicon glyphicon-plus"></span>
-          <%= t('.new') %>
-        <% end %>
-        <h1>
-          <%= t('.title') %>
-        </h1>
-      </div>
-
-      <%= render List::DataTableComponent.new(@bays) do |table| %>
-        <% table.with_column(Room.model_name.human, sort_by: :"rooms.name") do |bay| %>
-          <%= link_to bay.room, room_path(bay.room) %>
-        <% end %>
-
-        <% table.with_column(Islet.model_name.human, sort_by: :"islets.name") do |bay| %>
-          <%= link_to bay.islet, islet_path(bay.islet) %>
-        <% end %>
-
-        <% table.with_column(Frame.model_name.human.pluralize) do |bay| %>
-          <b>
-          <%=
-            bay.frames.map do |frame|
-              link_to(frame.name, frame_path(frame))
-            end.join(' / ').html_safe
-          %>
-          </b>
-        <% end %>
-
-        <% table.with_column(Bay.human_attribute_name(:lane), sort_by: :lane) do |bay| %>
-          <%= bay.lane %>
-        <% end %>
-
-        <% table.with_column(Bay.human_attribute_name(:position), sort_by: :position) do |bay| %>
-          <%= bay.position %>
-        <% end %>
-
-        <% table.with_column(Server.model_name.human.pluralize) do |bay| %>
-          <%= Bay.human_attribute_name(:materials_count, count: bay.materials.count) %>
-        <% end %>
-
-        <% table.with_column(style: "min-width: 160px; width: 160px") do |bay| %>
-          <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <%= render partial: "bays/export_button", locals: { bay: bay } %>
-            <%= link_to edit_bay_path(bay), class: 'btn btn-primary' do %>
-              <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
-              <span class="sr-only"><%= t("action.edit") %></span>
-            <% end %>
-            <%= link_to bay, method: :delete, data: { confirm: t(".delete_confirmation") }, class: 'btn btn-danger' do %>
-              <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
-              <span class="sr-only"><%= t("action.delete") %></span>
-            <% end %>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
+  <div class="page-header">
+    <%= link_to new_bay_path, class: 'btn btn-primary btn-disabled' do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      <%= t('.new') %>
+    <% end %>
+    <h1>
+      <%= t('.title') %>
+    </h1>
   </div>
+
+  <%= render List::DataTableComponent.new(@bays) do |table| %>
+    <% table.with_column(Room.model_name.human, sort_by: :"rooms.name") do |bay| %>
+      <%= link_to bay.room, room_path(bay.room) %>
+    <% end %>
+
+    <% table.with_column(Islet.model_name.human, sort_by: :"islets.name") do |bay| %>
+      <%= link_to bay.islet, islet_path(bay.islet) %>
+    <% end %>
+
+    <% table.with_column(Frame.model_name.human.pluralize) do |bay| %>
+      <b>
+      <%=
+        bay.frames.map do |frame|
+          link_to(frame.name, frame_path(frame))
+        end.join(' / ').html_safe
+      %>
+      </b>
+    <% end %>
+
+    <% table.with_column(Bay.human_attribute_name(:lane), sort_by: :lane) do |bay| %>
+      <%= bay.lane %>
+    <% end %>
+
+    <% table.with_column(Bay.human_attribute_name(:position), sort_by: :position) do |bay| %>
+      <%= bay.position %>
+    <% end %>
+
+    <% table.with_column(Server.model_name.human.pluralize) do |bay| %>
+      <%= Bay.human_attribute_name(:materials_count, count: bay.materials.count) %>
+    <% end %>
+
+    <% table.with_column(style: "min-width: 160px; width: 160px") do |bay| %>
+      <div class="btn-group btn-group-sm" role="group" aria-label="...">
+        <%= render partial: "bays/export_button", locals: { bay: bay } %>
+        <%= link_to edit_bay_path(bay), class: 'btn btn-primary' do %>
+          <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
+          <span class="sr-only"><%= t("action.edit") %></span>
+        <% end %>
+        <%= link_to bay, method: :delete, data: { confirm: t(".delete_confirmation") }, class: 'btn btn-danger' do %>
+          <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
+          <span class="sr-only"><%= t("action.delete") %></span>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>>
 </div>
