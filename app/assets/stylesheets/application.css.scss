@@ -506,7 +506,7 @@ dd {
   font-weight: 700;
 }
 
-// Page about
+/* Page about */
 .about {
   .github-link {
     margin-bottom: 0;
@@ -523,6 +523,76 @@ dd {
 
 .align-middle {
   vertical-align: middle !important;
+}
+
+
+/* MyDCIM CSS */
+html,
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  min-height: 100%;
+}
+
+.mydcim {
+  &-wrapper {
+    height: calc(100% - var(--navbar-height));
+
+    & > .row {
+      height: 100%;
+    }
+
+    main.mydcim-main {
+      height: 100%;
+      overflow-y: auto;
+    }
+  }
+
+  &-header {
+    .navbar-toggler {
+      border: 0;
+    }
+  }
+
+  &-sidebar {
+    @include media-breakpoint-up(lg) {
+      position: sticky;
+      top: 0;
+      display: block !important;
+      overflow-y: auto;
+      height: 100%
+    }
+
+    &-links {
+      &-heading {
+        i {
+          color: $primary;
+        }
+      }
+
+      &-link {
+        padding: .1875rem .5rem;
+        margin-top: .125rem;
+        margin-left: 1.125rem;
+        color: var(--bs-body-color);
+        text-decoration: none;
+
+        &:hover,
+        &.active,
+        &:focus {
+          background-color: var(--bs-primary-bg-subtle);
+        }
+
+        &.active {
+          font-weight: 600;
+        }
+      }
+    }
+  }
 }
 
 .inventories_menu {

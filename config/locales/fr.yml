@@ -55,6 +55,18 @@ fr:
         simple: Baie %{name}
         double: Double baie %{name}
       islet: Ilot %{name}
+    sidebar:
+      location:
+        title: Localisation
+        bays: Baies / Doubles-baies
+      equipment:
+        title: Matériel
+      features:
+        title: Caractéristiques
+      exploitation:
+        title: Exploitation
+      maintenance:
+        title: Maintenance
 
   islets:
     index:
@@ -73,21 +85,6 @@ fr:
     destroy:
       flashes:
         destroyed: L'ilôt a bien été supprimé.
-  pages:
-    params_menu:
-      location:
-        title: Localisation
-        bays: Baies / Doubles-baies
-      equipment:
-        title: Matériel
-      features:
-        title: Caractéristiques
-      exploitation:
-        title: Exploitation
-      maintenance:
-        title: Maintenance
-      connections:
-        title: Connexions
   connections:
     index:
       title: Connexions
