@@ -12,26 +12,30 @@ class Filter
   end
 
   def results
-    @results ||= @rubanok_class.call(@records, rubanok_params)
+    @results ||= @rubanok_class.call(@records, attributes)
   end
 
   def fill?
-    rubanok_params.values.any?(&:present?)
+    @fill ||= attributes.values.any?(&:present?)
   end
 
-  def rubanok_params
-    @rubanok_params ||= @params.permit(*@rubanok_class.fields_set)
+  def attributes
+    @attributes ||= @params.permit(*attribute_names)
   end
-  alias to_h rubanok_params
+  alias to_h attributes
+
+  def attribute_names
+    @attribute_names ||= @rubanok_class.fields_set
+  end
 
   def method_missing(symbol, *args)
-    return rubanok_params[symbol] if rubanok_params.key?(symbol)
+    return attributes[symbol] if attribute_names.include?(symbol)
 
     super(symbol, *args)
   end
 
   def respond_to_missing?(symbol, include_all)
-    return true if rubanok_params.key?(symbol)
+    return true if attribute_names.include?(symbol)
 
     super(symbol, include_all)
   end
