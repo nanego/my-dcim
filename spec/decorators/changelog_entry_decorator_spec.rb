@@ -32,17 +32,15 @@ RSpec.describe ChangelogEntryDecorator, type: :decorator do
   end
 
   describe "#action_label_to_component" do
-    expected_types = {
+    let(:object) { ChangelogEntry.new(params) }
+    let(:params) { {} }
+
+    {
       create: :success,
       update: :warning,
       destroy: :danger,
       unknown: :default
-    }
-
-    let(:object) { ChangelogEntry.new(params) }
-    let(:params) { {} }
-
-    expected_types.each do |action, expected_type|
+    }.each do |action, expected_type|
       context "with #{action}" do
         let(:params) { { action: action } }
 
