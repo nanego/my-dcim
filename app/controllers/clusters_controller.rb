@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class ClustersController < ApplicationController
-  before_action :set_cluster, only: [:show, :edit, :update, :destroy]
+  before_action :set_cluster, only: %i[show edit update destroy]
 
   # GET /clusters
   # GET /clusters.json
   def index
-    @filter = Filter.new
-    @clusters = sorted Cluster.includes(:servers).all
+    @filter = Filter.new(Cluster.all, params)
+    @clusters = sorted @filter.results.includes(:servers)
   end
 
   # GET /clusters/1

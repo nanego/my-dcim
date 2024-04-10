@@ -6,11 +6,10 @@ class ServersController < ApplicationController
   before_action :set_server, only: [:show, :edit, :update, :destroy]
 
   def index
-    @servers = sorted Server.includes(:frame, :room, :islet, bay: :frames, modele: :category)
+    @filter = Filter.new(Server.all, params)
+    @servers = sorted @filter.results.includes(:frame, :room, :islet, bay: :frames, modele: :category)
       .references(:room, :islet, :bay, modele: :category)
       .order(:name)
-
-    @servers = @servers.where(Server.arel_table[:name].matches("%#{params[:name]}%")) if params[:name].present?
   end
 
   def grid

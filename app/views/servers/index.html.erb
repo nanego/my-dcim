@@ -23,6 +23,16 @@
         <h1><%= t(".title") %></h1>
       </div>
 
+      <%= render FilterComponent.new(@filter) do |c| %>
+        <% c.with_form do |f| %>
+          <%= f.label :name %>
+          <%= f.text_field :name %>
+
+          <%= f.label :cluster_id %>
+          <%= f.collection_select(:cluster_id, Cluster.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+        <% end %>
+      <% end %>
+
       <%= render List::DataTableComponent.new(@servers) do |table| %>
         <% table.with_column(Server.human_attribute_name(:name), sort_by: :name) do |server| %>
           <b><%= link_to server.name, server_path(server) %></b>

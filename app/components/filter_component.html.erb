@@ -6,6 +6,7 @@
 
     <div>
       <%= f.submit "Filter", class: "btn btn-primary btn-sm" %>
+      <%= link_to "Reset", url_for(only_path: false, overwrite_params: nil), class: "btn btn-secondary btn-sm" %>
     </div>
   <% end %>
 </div>
