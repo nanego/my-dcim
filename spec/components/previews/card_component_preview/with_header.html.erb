@@ -1,6 +1,6 @@
-<%= render CardComponent.new do |card| %>
+<%= render CardComponent.new(state) do |card| %>
   <% card.with_header do %>
-    <h2>Ubi est germanus spatii?</h2>
+    <h2><%= header_text %></h2>
   <% end %>
 
   <p>Season fifteen oz of watermelon in one container of gold tequila.</p>

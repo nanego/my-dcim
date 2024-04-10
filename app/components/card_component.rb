@@ -5,7 +5,7 @@ class CardComponent < ApplicationComponent
   renders_one :footer
 
   erb_template <<~ERB
-    <div class="panel panel-default">
+    <div class="panel panel-<%= @state %>">
 
       <% if header? %>
       <div class="panel-heading">
@@ -24,4 +24,10 @@ class CardComponent < ApplicationComponent
       <% end %>
     </div>
   ERB
+
+  def initialize(state = :default)
+    @state = state
+
+    super
+  end
 end
