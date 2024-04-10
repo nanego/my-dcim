@@ -56,6 +56,10 @@ RSpec/MultipleMemoizedHelpers:
 RSpec/PendingWithoutReason:
   Enabled: false
 
+RSpec/NestedGroups:
+  Max: 4
+
+
 # Rails/ActionOrder:
 #   ExpectedOrder: [index, show, new, create, edit, update, destroy]
 
