@@ -12,16 +12,8 @@ class UsersController < ApplicationController
   def show
     unless current_user.admin?
       unless @user == current_user
-        redirect_to :back, alert: t(".flashes.access_denied")
+        redirect_back_or_to root_path, alert: t(".flashes.access_denied")
       end
-    end
-  end
-
-  def update
-    if @user.update(secure_params)
-      redirect_to users_path, notice: t(".flashes.updated")
-    else
-      redirect_to users_path, alert: t(".flashes.cant_be_updated")
     end
   end
 
@@ -31,10 +23,19 @@ class UsersController < ApplicationController
 
   def add_user
     @user = User.new(secure_params)
+
     if @user.save
       redirect_to users_path, notice: t(".flashes.created")
     else
       render :new
+    end
+  end
+
+  def update
+    if @user.update(secure_params)
+      redirect_to users_path, notice: t(".flashes.updated")
+    else
+      redirect_to users_path, alert: t(".flashes.cant_be_updated")
     end
   end
 
