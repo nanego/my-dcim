@@ -2,7 +2,7 @@
 
 class ConnectionsController < ApplicationController
   def index
-    @connections = sorted Connection.includes(:port, :cable).all
+    @connections = sorted Connection.includes(:port, cable: :connections).limit(20)
   end
 
   def edit
