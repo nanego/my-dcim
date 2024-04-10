@@ -25,11 +25,15 @@
 
       <%= render FilterComponent.new(@filter) do |c| %>
         <% c.with_form do |f| %>
-          <%= f.label :name %>
-          <%= f.text_field :name %>
+          <div class="form-group">
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+          </div>
 
-          <%= f.label :cluster_id %>
-          <%= f.collection_select(:cluster_id, Cluster.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <div class="form-group">
+            <%= f.label :cluster_id %>
+            <%= f.collection_select(:cluster_id, Cluster.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          </div>
         <% end %>
       <% end %>
 

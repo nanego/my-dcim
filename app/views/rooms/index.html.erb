@@ -15,6 +15,20 @@
         <h1>Salles</h1>
       </div>
 
+      <%= render FilterComponent.new(@filter) do |c| %>
+        <% c.with_form do |f| %>
+          <div class="form-group">
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :site_id %>
+            <%= f.collection_select(:site_id, Site.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          </div>
+        <% end %>
+      <% end %>
+
       <%= render List::DataTableComponent.new(@rooms) do |table| %>
         <% table.with_column(Site.model_name.human, sort_by: :"sites.name") do |room| %>
           <%= link_to room.site, site_path(room.site) %>

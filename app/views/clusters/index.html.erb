@@ -22,8 +22,10 @@
 
       <%= render FilterComponent.new(@filter) do |c| %>
         <% c.with_form do |f| %>
-          <%= f.label :name %>
-          <%= f.text_field :name %>
+          <div class="form-group">
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+          </div>
         <% end %>
       <% end %>
 

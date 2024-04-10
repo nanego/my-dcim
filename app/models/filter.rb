@@ -6,7 +6,7 @@ class Filter
   def initialize(records, params, with: nil)
     @records = records
     @params = params
-    @rubanok_class = with || "#{params[:controller].classify.pluralize}Processor".safe_constantize
+    @rubanok_class = with || "#{records&.klass&.to_s&.pluralize}Processor".safe_constantize
 
     raise "Processor class missing" unless @rubanok_class
   end
@@ -20,13 +20,19 @@ class Filter
   end
 
   def attributes
-    @attributes ||= @params.permit(*attribute_names)
+    @attributes ||= @params.permit(*attribute_names).to_h
   end
   alias to_h attributes
 
   def attribute_names
-    @attribute_names ||= @rubanok_class.fields_set
+    @attribute_names ||= @rubanok_class.fields_set.to_a
   end
+
+  def model_name
+    self.class.model_name
+  end
+
+  private
 
   def method_missing(symbol, *args)
     return attributes[symbol] if attribute_names.include?(symbol)
@@ -38,10 +44,6 @@ class Filter
     return true if attribute_names.include?(symbol)
 
     super(symbol, include_all)
-  end
-
-  def model_name
-    self.class.model_name
   end
 
   def self.model_name
