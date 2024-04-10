@@ -1,43 +1,34 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  t("inventories") => modeles_url,
   MemoryType.model_name.human => ''}
 %>
 
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-3">
-      <%= render 'pages/params_menu' %>
-    </div>
-
-    <div class="col-md-9">
-      <div class="page-header">
-        <%= link_to new_memory_type_path, class: 'btn btn-primary' do %>
-          <span class="glyphicon glyphicon-plus"></span>
-          <%= t(".new_memory_type") %>
-        <% end %>
-        <h1>
-          <%= t(".title") %>
-        </h1>
-      </div>
-
-      <%= render List::DataTableComponent.new(@memory_types) do |table| %>
-        <% table.with_column(MemoryType.human_attribute_name(:name), sort_by: :quantity) do |memory_type| %>
-          <%= link_to memory_type, memory_type_path(memory_type) %>
-        <% end %>
-
-        <% table.with_column(style: "min-width: 84px; width: 84px") do |memory_type| %>
-          <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <%= link_to edit_memory_type_path(memory_type), class: 'btn btn-primary' do %>
-              <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
-              <span class="sr-only"><%= t("action.edit") %></span>
-            <% end %>
-            <%= link_to memory_type_path(memory_type), method: :delete, data: { confirm: t("action.confirm") }, class: 'btn btn-danger' do %>
-              <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
-              <span class="sr-only"><%= t("action.delete") %></span>
-            <% end %>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
+  <div class="page-header">
+    <%= link_to new_memory_type_path, class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      <%= t(".new_memory_type") %>
+    <% end %>
+    <h1>
+      <%= t(".title") %>
+    </h1>
   </div>
+
+  <%= render List::DataTableComponent.new(@memory_types) do |table| %>
+    <% table.with_column(MemoryType.human_attribute_name(:name), sort_by: :quantity) do |memory_type| %>
+      <%= link_to memory_type, memory_type_path(memory_type) %>
+    <% end %>
+
+    <% table.with_column(style: "min-width: 84px; width: 84px") do |memory_type| %>
+      <div class="btn-group btn-group-sm" role="group" aria-label="...">
+        <%= link_to edit_memory_type_path(memory_type), class: 'btn btn-primary' do %>
+          <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
+          <span class="sr-only"><%= t("action.edit") %></span>
+        <% end %>
+        <%= link_to memory_type_path(memory_type), method: :delete, data: { confirm: t("action.confirm") }, class: 'btn btn-danger' do %>
+          <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
+          <span class="sr-only"><%= t("action.delete") %></span>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
 </div>
