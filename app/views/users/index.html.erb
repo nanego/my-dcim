@@ -10,6 +10,14 @@
           <%= t(".new_user") %>
         <% end %>
         <h1><%= User.model_name.human.pluralize %></h1>
+
+        <%= link_to users_path(suspended: false), class: "label label-success" do %>
+          <%= t(".unsuspended") %>
+        <% end %>
+
+        <%= link_to users_path(suspended: true), class: "label label-warning" do %>
+          <%= t(".suspended") %>
+        <% end %>
       </div>
 
 
