@@ -1,6 +1,5 @@
 <% provide(:title, @modele.name) %>
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  t("inventories") => modeles_url,
   Modele.model_name.human.pluralize => modeles_path,
   "#{@modele.try(:name).present? ? @modele.name : t("modeles.new.title") }" => ''}
 %>

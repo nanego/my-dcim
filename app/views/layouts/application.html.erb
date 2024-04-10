@@ -12,9 +12,14 @@
   </head>
   <body>
     <%= render "layouts/header" %>
-    <main role="main">
-       <%= render "layouts/messages" %>
-       <%= yield %>
-    </main>
+    <%= render "layouts/messages" %>
+    <div class="mydcim-wrapper container-fluid">
+      <div class="row">
+        <%= render "layouts/sidebar" %>
+        <main class="mydcim-main ms-sm-auto col-lg-10 px-md-4" role="main">
+          <%= yield %>
+        </main>
+      </div>
+    </div>
   </body>
 </html>
