@@ -11,6 +11,17 @@ class Filter
     raise "Processor class missing" unless @rubanok_class
   end
 
+  class << self
+    def model_name
+      @model_name ||= begin
+        namespace = module_parents.detect do |n|
+          n.respond_to?(:use_relative_model_naming?) && n.use_relative_model_naming?
+        end
+        Name.new(self, namespace)
+      end
+    end
+  end
+
   def results
     @results ||= @rubanok_class.call(@records, attributes)
   end
@@ -44,15 +55,6 @@ class Filter
     return true if attribute_names.include?(symbol)
 
     super(symbol, include_all)
-  end
-
-  def self.model_name
-    @model_name ||= begin
-      namespace = module_parents.detect do |n|
-        n.respond_to?(:use_relative_model_naming?) && n.use_relative_model_naming?
-      end
-      Name.new(self, namespace)
-    end
   end
 
   class Name < ActiveModel::Name
