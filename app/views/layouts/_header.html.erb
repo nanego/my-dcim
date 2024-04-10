@@ -13,20 +13,17 @@
                                                                             aria-label="Toggle Main navigation">
       <i class="bi bi-three-dots"></i>
     </button>
-    <div id="mydcim-navbar" class="offcanvas-lg offcanvas-end flex-grow-1">
+    <div id="mydcim-navbar" class="mydcim-navbar offcanvas-lg offcanvas-end">
       <div class="offcanvas-header px-4 pb-0">
-        <h5 class="offcanvas-title" id="sidebarMenuLabel">
-          <%= image_tag "datacenter-02.png", style: "height: 40px;" %>
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="<%= t("action.close") %>" data-bs-target="#mydcim-navbar"></button>
+        <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" aria-label="<%= t("action.close") %>" data-bs-target="#mydcim-navbar"></button>
       </div>
       <div class="offcanvas-body">
-        <ul class="navbar-nav flex-row flex-wrap">
+        <ul class="navbar-nav">
           <%= render "layouts/navigation/visualization_dropdown" %>
           <%= render "layouts/navigation/devices_dropdown" %>
           <%= render "layouts/navigation/projects_dropdown" %>
         </ul>
-        <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+        <ul class="navbar-nav">
           <%= render "layouts/navigation/nav_links_administration" %>
         </ul>
       </div>
