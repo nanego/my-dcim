@@ -1,6 +1,5 @@
 <% provide(:title, "Importation de matériel par fichier CSV") %>
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
-    t("inventories") => servers_url,
     Server.model_name.human.pluralize => servers_path,
     t(".title") => ''
   }

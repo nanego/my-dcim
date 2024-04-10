@@ -1,43 +1,34 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  t("inventories") => modeles_url,
   DiskType.model_name.human.pluralize => ""}
 %>
 
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-3">
-      <%= render 'pages/params_menu' %>
-    </div>
-
-    <div class="col-md-9">
-      <div class="page-header">
-        <%= link_to new_disk_type_path, class: 'btn btn-primary' do %>
-          <span class="glyphicon glyphicon-plus"></span>
-          <%= t(".add_disk_type") %>
-        <% end %>
-        <h1>
-          <%= t(".title") %>
-        </h1>
-      </div>
-
-      <%= render List::DataTableComponent.new(@disk_types) do |table| %>
-        <% table.with_column(DiskType.human_attribute_name(:name)) do |disk_type| %>
-          <b><%= link_to disk_type, disk_type_path(disk_type) %></b>
-        <% end %>
-
-        <% table.with_column(style: "min-width: 84px; width: 84px") do |disk_type| %>
-          <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <%= link_to edit_disk_type_path(disk_type), class: 'btn btn-primary' do %>
-              <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
-              <span class="sr-only"><%= t("action.edit") %></span>
-            <% end %>
-            <%= link_to disk_type, method: :delete, data: { confirm: t("action.confirm") }, class: 'btn btn-danger' do %>
-              <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
-              <span class="sr-only"><%= t("action.delete") %></span>
-            <% end %>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
+  <div class="page-header">
+    <%= link_to new_disk_type_path, class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      <%= t(".add_disk_type") %>
+    <% end %>
+    <h1>
+      <%= t(".title") %>
+    </h1>
   </div>
+
+  <%= render List::DataTableComponent.new(@disk_types) do |table| %>
+    <% table.with_column(DiskType.human_attribute_name(:name)) do |disk_type| %>
+      <b><%= link_to disk_type, disk_type_path(disk_type) %></b>
+    <% end %>
+
+    <% table.with_column(style: "min-width: 84px; width: 84px") do |disk_type| %>
+      <div class="btn-group btn-group-sm" role="group" aria-label="...">
+        <%= link_to edit_disk_type_path(disk_type), class: 'btn btn-primary' do %>
+          <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
+          <span class="sr-only"><%= t("action.edit") %></span>
+        <% end %>
+        <%= link_to disk_type, method: :delete, data: { confirm: t("action.confirm") }, class: 'btn btn-danger' do %>
+          <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
+          <span class="sr-only"><%= t("action.delete") %></span>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
 </div>
