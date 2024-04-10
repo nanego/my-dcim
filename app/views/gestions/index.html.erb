@@ -1,47 +1,38 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  t("inventories") => modeles_url,
   Gestion.model_name.human.pluralize => "" }
 %>
 
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-3">
-      <%= render 'pages/params_menu' %>
-    </div>
-
-    <div class="col-md-9">
-      <div class="page-header">
-        <%= link_to new_gestion_path, class: 'btn btn-primary' do %>
-          <span class="glyphicon glyphicon-plus"></span>
-          <%= t(".new_gestion") %>
-        <% end %>
-        <h1>
-          <%= t(".title") %>
-        </h1>
-      </div>
-
-      <%= render List::DataTableComponent.new(@gestions) do |table| %>
-        <% table.with_column(Gestion.human_attribute_name(:name), sort_by: :name) do |gestion| %>
-          <%= link_to gestion, gestion_path(gestion) %>
-        <% end %>
-
-        <% table.with_column(Gestion.human_attribute_name(:usage), sort_by: :servers_count) do |gestion| %>
-          <%= Gestion.human_attribute_name(:servers_count, count: gestion.servers_count) %>
-        <% end %>
-
-        <% table.with_column(style: "min-width: 84px; width: 84px") do |gestion| %>
-          <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <%= link_to edit_gestion_path(gestion), class: 'btn btn-primary' do %>
-              <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
-              <span class="sr-only"><%= t("action.edit") %></span>
-            <% end %>
-            <%= link_to gestion, method: :delete, data: { confirm: t(".delete_confirmation") }, class: 'btn btn-danger' do %>
-              <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
-              <span class="sr-only"><%= t("action.delete") %></span>
-            <% end %>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
+  <div class="page-header">
+    <%= link_to new_gestion_path, class: 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      <%= t(".new_gestion") %>
+    <% end %>
+    <h1>
+      <%= t(".title") %>
+    </h1>
   </div>
+
+  <%= render List::DataTableComponent.new(@gestions) do |table| %>
+    <% table.with_column(Gestion.human_attribute_name(:name), sort_by: :name) do |gestion| %>
+      <%= link_to gestion, gestion_path(gestion) %>
+    <% end %>
+
+    <% table.with_column(Gestion.human_attribute_name(:usage), sort_by: :servers_count) do |gestion| %>
+      <%= Gestion.human_attribute_name(:servers_count, count: gestion.servers_count) %>
+    <% end %>
+
+    <% table.with_column(style: "min-width: 84px; width: 84px") do |gestion| %>
+      <div class="btn-group btn-group-sm" role="group" aria-label="...">
+        <%= link_to edit_gestion_path(gestion), class: 'btn btn-primary' do %>
+          <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
+          <span class="sr-only"><%= t("action.edit") %></span>
+        <% end %>
+        <%= link_to gestion, method: :delete, data: { confirm: t(".delete_confirmation") }, class: 'btn btn-danger' do %>
+          <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
+          <span class="sr-only"><%= t("action.delete") %></span>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
 </div>
