@@ -2,7 +2,7 @@
 
 class ConnectionsController < ApplicationController
   def index
-    @connections = sorted Connection.includes(:port, cable: :connections).limit(20)
+    @connections = sorted Connection.includes(:port, cable: :connections).order(created_at: :desc).page(params[:page]).per(100)
   end
 
   def edit

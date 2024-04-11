@@ -37,10 +37,6 @@
           <%= cable.connections_count %>
         <% end %>
 
-        <% table.with_column(Cable.human_attribute_name(:ports)) do |cable| %>
-          <%= cable.ports.count %>
-        <% end %>
-
         <% table.with_column(style: "min-width: 160px; width: 160px") do |cable| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
             <%= link_to cable, method: :delete, data: { confirm: t('action.confirm') }, class: 'btn btn-danger' do %>
@@ -52,4 +48,6 @@
       <% end %>
     </div>
   </div>
+
+  <%= paginate @cables %>
 </div>

@@ -280,7 +280,6 @@ fr:
         special_case: Cas spécial
         comments: Commentaires
         connections: Connections
-        ports: Ports
 
     errors:
       models:
