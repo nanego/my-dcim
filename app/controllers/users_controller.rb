@@ -80,7 +80,7 @@ class UsersController < ApplicationController
   end
 
   def status_filter(users)
-    if params[:suspended]&.casecmp('true')&.zero?
+    if params[:suspended].present?
       users.suspended
     else
       users.unsuspended

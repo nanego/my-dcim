@@ -544,8 +544,8 @@ fr:
     index:
       new_user: Ajouter un utilisateur
       change_role: Changer le rôle
-      suspended: Suspendus
-      unsuspended: Non suspendus
+      suspended: Vérouillés
+      unsuspended: Actifs
     new:
       new_user: Ajouter un utilisateur
     show:

@@ -11,7 +11,7 @@
         <% end %>
         <h1><%= User.model_name.human.pluralize %></h1>
 
-        <%= link_to users_path(suspended: false), class: "label label-success" do %>
+        <%= link_to users_path, class: "label label-success" do %>
           <%= t(".unsuspended") %>
         <% end %>
 
