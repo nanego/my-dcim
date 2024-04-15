@@ -15,7 +15,7 @@ fr:
     add: Ajouter
     confirm: Êtes-vous sûr ?
     duplicate: Dupliquer
-    suspend: Suspendre
+    suspend: Verrouiller
     unsuspend: Réactiver
   export_button:
     label: Exports
