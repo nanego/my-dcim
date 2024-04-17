@@ -39,6 +39,8 @@ fr:
       user: Utilisateur
       server_state: Statut
       changelog_entry: Changelog
+      cable: Câble
+      connection: Connexion
 
     attributes:
       room:
@@ -268,6 +270,16 @@ fr:
           other: Double baie %{bay}
         islet_id: Salle et Ilot
         bay_type_id: Type de baie
+      connection:
+        cable: Câble
+        port: Port
+        paired_connection: Connexion paire
+      cable:
+        name: Nom
+        color: Couleur
+        special_case: Cas spécial
+        comments: Commentaires
+        connections: Connections
 
     errors:
       models:

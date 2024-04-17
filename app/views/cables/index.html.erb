@@ -1,0 +1,53 @@
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("inventories") => modeles_url,
+  Connection.model_name.human.pluralize => ""}
+%>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render "pages/params_menu" %>
+    </div>
+
+    <div class="col-md-9">
+      <div class="page-header">
+        <h1>
+          <%= t(".title") %>
+        </h1>
+      </div>
+
+      <%= render List::DataTableComponent.new(@cables) do |table| %>
+        <% table.with_column(Cable.human_attribute_name(:name), sort_by: :name) do |cable| %>
+          <b><%= cable.name %></b>
+        <% end %>
+
+        <% table.with_column(Cable.human_attribute_name(:color), sort_by: :color) do |cable| %>
+          <%= cable.color %>
+        <% end %>
+
+        <% table.with_column(Cable.human_attribute_name(:special_case), sort_by: :special_case) do |cable| %>
+          <%= cable.special_case ? t("boolean.true") : t("boolean.false") %>
+        <% end %>
+
+        <% table.with_column(Cable.human_attribute_name(:comments), sort_by: :comments) do |cable| %>
+          <%= cable.comments %>
+        <% end %>
+
+        <% table.with_column(Cable.human_attribute_name(:connections), sort_by: :connections_count) do |cable| %>
+          <%= cable.connections_count %>
+        <% end %>
+
+        <% table.with_column(style: "min-width: 160px; width: 160px") do |cable| %>
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <%= link_to cable, method: :delete, data: { confirm: t('action.confirm') }, class: 'btn btn-danger' do %>
+              <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
+              <span class="sr-only"><%= t("action.delete") %></span>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <%= paginate @cables %>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class ConnectionsController < ApplicationController
+  def index
+    @connections = sorted Connection.includes(:port, cable: :connections)
+      .order(created_at: :desc).page(params[:page]).per(100)
+  end
+
   def edit
     if params[:from_port_id].present? && params[:from_port_id].to_i > 0
       @from_port = Port.find_by_id(params[:from_port_id])

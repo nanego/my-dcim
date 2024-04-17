@@ -30,6 +30,11 @@
     <li><a href="<%= gestions_path %>"><%= Gestion.model_name.human.pluralize %></a></li>
     <li><a href="<%= clusters_path %>"><%= Cluster.model_name.human.pluralize %></a></li>
 
+    <li role="separator" class="divider"></li>
+    <li class="dropdown-header"><%= t("pages.params_menu.connections.title") %></li>
+    <li><a href="<%= connections_path %>"><%= Connection.model_name.human.pluralize %></a></li>
+    <li><a href="<%= cables_path %>"><%= Cable.model_name.human.pluralize %></a></li>
+
     <!--
     <li><a href="<%= colors_path %>">Couleurs</a></li>
     <li><a href="<%= maintainers_path %>">Mainteneurs</a></li>
