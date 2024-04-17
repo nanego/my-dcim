@@ -491,6 +491,11 @@ fr:
           show_authentication_token: Afficher la clé API
           hide_authentication_token: Cacher la clé API
           reset_authentication_token: Regénérer la clé API
+      new:
+        email_know_by_cerbere: Email (connu par Cerbère)
+    passwords:
+      new:
+        submit: Réinitialiser mon mot de passe
   activity:
     user:
       destroy: a supprimé un utilisateur
@@ -570,6 +575,7 @@ fr:
         flashes:
           updated: Vos préférences ont été mises à jour
     logout: Me déconnecter
+    to_login: Se connecter
     login: Connexion
     sign_in: Inscription
     index:
