@@ -15,8 +15,8 @@ fr:
     add: Ajouter
     confirm: Êtes-vous sûr ?
     duplicate: Dupliquer
-    suspend: Suspendre
-    unsuspend: Réactiver
+    suspend: Verrouiller
+    unsuspend: Déverrouiller
   export_button:
     label: Exports
     exports:
@@ -555,12 +555,12 @@ fr:
     flashes:
       access_denied: Vous ne pouvez effectuer cette opréation
       authentication_token_reset: La clé API a été réinitialisée
-      created: Utilisateur créé
-      updated: Utilisateur mis à jour
+      created: Compte utilisateur créé
+      updated: Compte utilisateur mis à jour
       cant_be_updated: Une erreur est survenue pendant la mise à jour
-      destroyed: Utilisateur supprimé
-      suspended: Utilisateur suspendu
-      unsuspended: Utilisateur réactivé
+      destroyed: Compte utilisateur supprimé
+      suspended: Compte utilisateur verrouillé
+      unsuspended: Compte utilisateur déverrouillé
   changelog_entries:
     title: Historique
     show:
