@@ -36,13 +36,13 @@ RSpec.describe CardComponent, type: :component do
   end
 
   context "with valid type" do
-    let(:component) { described_class.new(:primary) }
+    let(:component) { described_class.new(type: :primary) }
 
     it { expect(rendered_component.to_html).to have_css("div.panel-primary") }
   end
 
   context "with invalid type" do
-    let(:component) { described_class.new(:unknown) }
+    let(:component) { described_class.new(type: :unknown) }
 
     it { expect { component }.to raise_error(ArgumentError) }
   end

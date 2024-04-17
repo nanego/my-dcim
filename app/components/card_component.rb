@@ -27,7 +27,7 @@ class CardComponent < ApplicationComponent
     </div>
   ERB
 
-  def initialize(type = :default)
+  def initialize(type: :default)
     raise ArgumentError, "#{type} is not a valid type" unless TYPES.include?(type)
 
     @type = type
