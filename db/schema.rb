@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_27_140514) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_03_141149) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -90,6 +90,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_27_140514) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "comments"
     t.boolean "special_case"
+    t.integer "connections_count", default: 0, null: false
   end
 
   create_table "card_types", id: :serial, force: :cascade do |t|
@@ -325,8 +326,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_27_140514) do
     t.integer "manufacturer_id"
     t.string "color"
     t.string "slug"
-    t.string "network_types", default: [], array: true
     t.integer "servers_count", default: 0, null: false
+    t.string "network_types", default: [], array: true
     t.index ["architecture_id"], name: "index_modeles_on_architecture_id"
     t.index ["category_id"], name: "index_modeles_on_category_id"
     t.index ["manufacturer_id"], name: "index_modeles_on_manufacturer_id"

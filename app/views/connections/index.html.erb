@@ -1,0 +1,36 @@
+<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+  t("inventories") => modeles_url,
+  Connection.model_name.human.pluralize => ""}
+%>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <%= render "pages/params_menu" %>
+    </div>
+
+    <div class="col-md-9">
+      <div class="page-header">
+        <h1>
+          <%= t(".title") %>
+        </h1>
+      </div>
+
+      <%= render List::DataTableComponent.new(@connections) do |table| %>
+        <% table.with_column(Connection.human_attribute_name(:port), sort_by: :"ports.id") do |connection| %>
+          <%= connection.port&.id %>
+        <% end %>
+
+        <% table.with_column(Connection.human_attribute_name(:cable), sort_by: :"cables.name") do |connection| %>
+          <%= connection.cable&.name %>
+        <% end %>
+
+        <% table.with_column(Connection.human_attribute_name(:paired_connection)) do |connection| %>
+          <%= connection.paired_connection&.id %>
+        <% end %>
+      <% end %>
+
+      <%= paginate @connections %>
+    </div>
+  </div>
+</div>

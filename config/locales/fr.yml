@@ -70,6 +70,14 @@ fr:
         title: Exploitation
       maintenance:
         title: Maintenance
+      connections:
+        title: Connexions
+  connections:
+    index:
+      title: Connexions
+  cables:
+    index:
+      title: Câbles
   sites:
     index:
       title: Sites
