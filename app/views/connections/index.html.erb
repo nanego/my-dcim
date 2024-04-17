@@ -29,8 +29,8 @@
           <%= connection.paired_connection&.id %>
         <% end %>
       <% end %>
+
+      <%= paginate @connections %>
     </div>
   </div>
-
-  <%= paginate @connections %>
 </div>

@@ -4,7 +4,8 @@ class CablesController < ApplicationController
   before_action :set_cable, only: [:destroy]
 
   def index
-    @cables = sorted Cable.includes(:connections, connections: [:port]).order(created_at: :desc).page(params[:page]).per(100)
+    @cables = sorted Cable.includes(:connections, connections: [:port])
+      .order(created_at: :desc).page(params[:page]).per(100)
   end
 
   def destroy
