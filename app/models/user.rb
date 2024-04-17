@@ -20,6 +20,9 @@ class User < ApplicationRecord
 
   after_initialize :set_default_role, :if => :new_record?
 
+  scope :unsuspended, -> { where(suspended_at: nil) }
+  scope :suspended, -> { where.not(suspended_at: nil) }
+
   def set_default_role
     self.role ||= :user
   end
