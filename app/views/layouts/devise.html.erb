@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Gestion de salle #{Rails.env.development? ? "(dev)" : "DCIM"}" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "My DCIM" %>">
+
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag "application", media: "all" %>
+
+    <%= javascript_importmap_tags "application" %>
+  </head>
+  <body class="d-flex align-items-center py-4 bg-body-tertiary">
+    <main class="mydcim-main mydcim-login p-3 w-100 m-auto" role="main">
+      <%= link_to root_path do %>
+        <%= image_tag "datacenter-02.png", height: 60, class: "mb-4" %>
+      <% end %>
+      <%= yield %>
+    </main>
+  </body>
+</html>
