@@ -26,13 +26,18 @@
       <%= render FilterComponent.new(@filter) do |c| %>
         <% c.with_form do |f| %>
           <div class="form-group">
-            <%= f.label :name %>
-            <%= f.text_field :name %>
+            <%= f.label :q %>
+            <%= f.text_field :q %>
           </div>
 
           <div class="form-group">
             <%= f.label :cluster_id %>
             <%= f.collection_select(:cluster_id, Cluster.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :bay_id %>
+            <%= f.collection_select(:bay_id, Bay.sorted, :id, :to_s, { prompt: true, include_blank: true }, { class: "form-control" }) %>
           </div>
         <% end %>
       <% end %>
