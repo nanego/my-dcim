@@ -583,12 +583,6 @@ body {
     }
 
     &-links {
-      &-heading {
-        i {
-          color: $primary;
-        }
-      }
-
       &-link {
         padding: .1875rem .5rem;
         margin-top: .125rem;
@@ -604,9 +598,19 @@ body {
 
         &.active {
           font-weight: 600;
+          color: var(--bs-primary-text-emphasis);
         }
       }
     }
+  }
+
+  &-login {
+    max-width: 330px;
+  }
+
+  &-messages {
+    margin-top: calc(1rem + var(--navbar-height));
+    margin-right: 1rem;
   }
 }
 
