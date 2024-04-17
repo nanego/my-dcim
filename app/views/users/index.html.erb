@@ -11,15 +11,21 @@
         <% end %>
         <h1><%= User.model_name.human.pluralize %></h1>
 
-        <%= link_to users_path, class: "label label-success" do %>
-          <%= t(".unsuspended") %>
-        <% end %>
-
-        <%= link_to users_path(suspended: true), class: "label label-warning" do %>
-          <%= t(".suspended") %>
-        <% end %>
+        <ul class="nav nav-pills" role="tablist">
+          <li role="presentation" class="<%= class_names("active": !params[:suspended]) %>">
+            <%= link_to users_path do %>
+              <%= t(".unsuspended") %>
+              <span class="badge"><%= User.unsuspended.count %></span>
+            <% end %>
+          </li>
+          <li role="presentation" class="<%= class_names("active": params[:suspended]) %>">
+            <%= link_to users_path(suspended: true) do %>
+              <%= t(".suspended") %>
+              <span class="badge"><%= User.suspended.count %></span>
+            <% end %>
+          </li>
+        </ul>
       </div>
-
 
       <%= render List::DataTableComponent.new(@users) do |table| %>
         <% table.with_column(User.human_attribute_name(:id), sort_by: :id) do |user| %>
