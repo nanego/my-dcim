@@ -1,0 +1,7 @@
+<%= render CardComponent.new do |card| %>
+  <p>Season fifteen oz of watermelon in one container of gold tequila.</p>
+
+  <% card.with_footer do %>
+    <p><%= footer_text %></p>
+  <% end %>
+<% end %>
