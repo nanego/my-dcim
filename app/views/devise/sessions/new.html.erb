@@ -1,39 +1,39 @@
-<div class="authform">
-
-  <h3 style="width: 100%;text-align: center;">Connexion</h3>
-
-  <div id="oidc-login">
-    <%= button_to 'Authentification via CERBERE (OIDC)',
-                  user_openid_connect_omniauth_authorize_path,
-                  class: 'btn btn-success', style: 'width: 100%;' %>
-  </div>
-
+<h1 class="mb-3 h3 fw-normal"><%= t("users.login") %></h1>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" } ) do |f| %>
   <% if Rails.env.development? %>
-    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form' }) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
-      <br>
-      <div class="form-group">
-        <%- if devise_mapping.registerable? %>
-          <%= link_to 'Inscription', new_registration_path(resource_name), class: 'right' %>
-        <% end -%>
-        <%= f.label :email %>
-        <%= f.email_field :email, :autofocus => true, class: 'form-control' %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <div class="form-floating">
+      <%= f.email_field :email, autofocus: true, class: "form-control mb-n2 rounded-bottom-0",
+                                                 placeholder: "name@example.com" %>
+      <%= f.label :email %>
+    </div>
+    <div class="form-floating">
+      <%= f.password_field :password, class: "form-control mb-3 rounded-top-0",
+                                      placeholder: User.human_attribute_name(:password) %>
+      <%= f.label :password %>
+    </div>
+    <% if devise_mapping.rememberable? -%>
+      <div class="form-check text-start my-3">
+        <%= f.check_box :remember_me, class: "form-check-input" %>
+        <%= f.label :remember_me, class: "form-check-label" %>
       </div>
-      <div class="form-group">
-        <%- if devise_mapping.recoverable? %>
-          <%= link_to "Mot de passe oublié ?", new_password_path(resource_name), class: 'right' %>
-        <% end -%>
-        <%= f.label 'Mot de passe' %>
-        <%= f.password_field :password, class: 'form-control' %>
-      </div>
-      <%= f.submit 'Se connecter', :class => 'button right' %>
-      <% if devise_mapping.rememberable? -%>
-        <div class="checkbox" style="width:150px">
-          <label>
-            <%= f.check_box :remember_me %> Se souvenir de moi
-          </label>
-        </div>
+    <% end -%>
+    <%= f.submit t("users.to_login"), class: "btn btn-primary w-100 py-2" %>
+    <div class="my-3 justify-content-center d-flex">
+      <%- if devise_mapping.recoverable? %>
+        <%= link_to t("devise.passwords.new.forgot_your_password"), new_password_path(resource_name),
+                                                                    class: "link-body-emphasis" %>
       <% end -%>
-    <% end %>
+      <span>&nbsp;|&nbsp;</span>
+      <%- if devise_mapping.registerable? %>
+        <%= link_to t("devise.registrations.new.sign_up"), new_registration_path(resource_name),
+                                                           class: "link-body-emphasis" %>
+      <% end -%>
+    </div>
   <% end %>
+<% end %>
+<div id="oidc-login" class="pt-3 mt-3 border-top border-secondary-subtle">
+  <%= button_to "Authentification via CERBERE (OIDC)",
+                user_openid_connect_omniauth_authorize_path,
+                class: "btn btn-success w-100" %>
 </div>
