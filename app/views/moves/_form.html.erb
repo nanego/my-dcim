@@ -23,12 +23,9 @@
       <div class="col-sm-6">
         <%= f.select :moveable_id,
                        grouped_options_for_select(@all_servers_per_frame, { :selected => @move.moveable_id }),
-                       { include_blank: true },
-                       {
-                         onchange: "select_server(this.value);",
-                         style: 'max-width: 185px;',
-                         data: { controller: "select", select_options_value: { maxOptions: nil } }
-                       }
+                       {include_blank: true},
+                       {onchange: "select_server(this.value);",
+                       style: 'max-width: 185px;'}
         %>
       </div>
 
@@ -142,4 +139,6 @@
     $("#frame").on("click", ".position_in_frame", function(e) {
       $("#move_position").val(e.target.title).change();
     });
+
+    // new TomSelect('#move_moveable_id',{ maxOptions: null });
 </script>

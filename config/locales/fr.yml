@@ -421,6 +421,7 @@ fr:
       add_server_via_csv: Ajouter par un fichier CSV
     show:
       back_to_bay: << Baie %{name}
+      nb_elts: Nb d'éléments
       nb_u: Nb de U
       documentation: Documentation
       attached_documents: "Documents attachés :"

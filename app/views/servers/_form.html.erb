@@ -5,43 +5,43 @@
 
   <div class="form-group col-md-6">
     <div class="row">
-      <%= f.label :name, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
+      <%= f.label :name, class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
         <%= f.text_field :name, class: "form-control" %>
       </div>
     </div>
 
     <div class="row">
-      <%= f.label :frame_id, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
+      <%= f.label :frame_id, class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
         <%= f.collection_select(:frame_id, Frame.all_sorted, :id, :name_with_room_and_islet, { :prompt => true, :include_blank => false }, { class: "form-control" }) %>
       </div>
     </div>
 
     <div class="row">
-      <%= f.label :position, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
+      <%= f.label :position, class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
         <%= f.number_field :position, class: "form-control" %>
       </div>
     </div>
 
     <div class="row">
-      <%= f.label :server_state_id, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
+      <%= f.label :server_state_id, class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
         <%= f.collection_select(:server_state_id, ServerState.sorted, :id, :name, { :prompt => false, :include_blank => true }, { class: "form-control" }) %>
       </div>
     </div>
 
     <div class="row">
-      <%= f.label :modele_id, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
+      <%= f.label :modele_id, class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
         <%= f.collection_select(:modele_id, Modele.all_sorted, :id, :name_with_brand, { :prompt => true, :include_blank => false }, { class: "form-control" }) %>
       </div>
     </div>
 
     <div class="row">
-      <%= f.label :critique, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
+      <%= f.label :critique, class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
         <%= f.check_box :critique, class: "form-control" %>
       </div>
     </div>
@@ -49,46 +49,43 @@
 
   <div class="form-group col-md-6">
     <div class="row">
-      <%= f.label :numero, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
+      <%= f.label :numero, class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
         <%= f.text_field :numero, class: "form-control" %>
       </div>
     </div>
 
     <div class="row">
-      <%= f.label :cluster_id, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
+      <%= f.label :cluster_id, class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
         <%= f.collection_select(:cluster_id, Cluster.sorted, :id, :name, { :prompt => true, :include_blank => true }, { class: "form-control" }) %>
       </div>
     </div>
 
     <div class="row">
-      <%= f.label :domaine_id, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
+      <%= f.label :domaine_id, class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
         <%= f.collection_select(:domaine_id, Domaine.sorted, :id, :name, { :prompt => true, :include_blank => true }, { class: "form-control" }) %>
       </div>
     </div>
 
     <div class="row">
-      <%= f.label :gestion_id, class: "col-sm-3 control-label word-break" %>
-      <div class="col-sm-9">
+      <%= f.label :gestion_id, class: "col-sm-2 control-label word-break" %>
+      <div class="col-sm-10">
         <%= f.collection_select(:gestion_id, Gestion.sorted, :id, :name, { :prompt => true, :include_blank => true }, { class: "form-control" }) %>
       </div>
     </div>
 
     <div class="row">
-      <%= f.label :network_types, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
-        <%= f.select :network_types,
-                      Modele::Network::TYPES.map { |type| [Modele.human_attribute_name("network_types.#{type}"), type] },
-                      { prompt: true, include_blank: true },
-                      { data: { controller: "select" }, multiple: true } %>
+      <%= f.label :network_id, class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+        <%= f.select :network_id, Server::NETWORKS.to_h { |id, key| [Server.human_attribute_name("network.#{key}"), id] }, { :prompt => true, :include_blank => true }, { class: "form-control" } %>
       </div>
     </div>
 
     <div class="row">
-      <%= f.label :stack_id, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
+      <%= f.label :stack_id, class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
         <%= f.collection_select(:stack_id, Stack.order(:id), :id, :name, { :prompt => true, :include_blank => true }, { class: "form-control" }) %>
       </div>
     </div>
@@ -134,13 +131,13 @@
   <% end %>
 
   <div class="form-group" style="clear:both;">
-    <%= f.label :comment, class: "col-sm-3 col-md-2 control-label word-break" %>
-    <div class="col-sm-9 col-md-10">
+    <%= f.label :comment, class: "col-sm-2 col-md-1 control-label word-break" %>
+    <div class="col-sm-10 col-md-11">
       <%= f.text_area :comment, class: "form-control" %>
     </div>
 
-    <%= f.label :documents, class: "col-sm-3 col-md-2 control-label" %>
-    <div class="col-sm-9 col-md-10">
+    <%= f.label :documents, class: "col-sm-2 col-md-1 control-label" %>
+    <div class="col-sm-10 col-md-11">
       <div class="panel panel-default">
         <div class="col-sm-12">
           <%= f.fields_for :documents do |builder| %>
