@@ -6,7 +6,8 @@ class BaysController < ApplicationController
   before_action :set_bay, only: [:edit, :update, :destroy, :show]
 
   def index
-    @bays = sorted Bay.joins(islet: :room).order('rooms.position, islets.name, bays.lane, bays.position')
+    @filter = Filter.new(Bay.joins(:room), params)
+    @bays = sorted @filter.results.order('rooms.position, islets.name, bays.lane, bays.position')
   end
 
   def show

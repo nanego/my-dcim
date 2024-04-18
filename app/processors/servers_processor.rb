@@ -3,7 +3,7 @@
 class ServersProcessor < Rubanok::Processor
   map :q do |q:|
     raw.where(Server.arel_table[:name].matches("%#{q}%"))
-       .or(raw.where(Server.arel_table[:id].matches("%#{q}%")))
+      .or(raw.where(id: q))
   end
 
   map :cluster_id do |cluster_id:|

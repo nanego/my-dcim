@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class Filter
+  include ActiveModel::Conversion
   extend ActiveModel::Translation
+
+  delegate :model_name, to: :class
 
   def initialize(records, params, with: nil)
     @records = records
@@ -20,14 +23,22 @@ class Filter
         Name.new(self, namespace)
       end
     end
+
+    def i18n_scope
+      :filters
+    end
   end
 
   def results
     @results ||= @rubanok_class.call(@records, attributes)
   end
 
-  def fill?
-    @fill ||= attributes.values.any?(&:present?)
+  def filled?
+    @filled ||= attributes.values.any?(&:present?)
+  end
+
+  def filled_attributes
+    @filled_attributes ||= attributes.select { |k, v| v.present? }
   end
 
   def attributes
@@ -39,8 +50,12 @@ class Filter
     @attribute_names ||= @rubanok_class.fields_set.to_a
   end
 
-  def model_name
-    self.class.model_name
+  def total_count
+    @total_count ||= @records.count
+  end
+
+  def results_count
+    @results_count ||= results.count
   end
 
   private

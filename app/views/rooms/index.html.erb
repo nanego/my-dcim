@@ -47,7 +47,9 @@
         <% end %>
 
         <% table.with_column(Frame.model_name.human.pluralize) do |room| %>
-          <%= Room.human_attribute_name(:frames_count, count: room.frames.count) %>
+          <%= link_to frames_path(room_id: room.id) do %>
+            <%= Room.human_attribute_name(:frames_count, count: room.frames.count) %>
+          <% end %>
         <% end %>
 
         <% table.with_column(Room.human_attribute_name(:display_on_home_page), sort_by: :display_on_home_page, class: "text-center") do |room| %>
