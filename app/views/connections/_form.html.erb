@@ -93,7 +93,7 @@
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-6">
         <%= f.submit 'Enregistrer', class: "btn btn-primary", disabled: (@to_port.present? ? false : :disabled) %>
-        <%= link_to 'Annuler', '#', class: "btn btn-default", id: "close_modal" %>
+        <%= link_to 'Annuler', '#', class: "btn btn-outline-secondary", id: "close_modal" %>
       </div>
       <div class="col-sm-4" style="text-align:right;">
         <%= link_to('Supprimer la connexion', cable_path(id: @cable.id, redirect_to_port_id: @from_port.id), method: :delete, data: {confirm: 'Supprimer cette connexion ?'}, class: 'btn btn-danger') if @cable %>
