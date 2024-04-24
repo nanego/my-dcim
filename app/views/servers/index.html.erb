@@ -6,11 +6,11 @@
 <div class="container-fluid">
   <div class="page-header">
     <%= link_to import_csv_servers_path, class: 'btn btn-primary' do %>
-      <span class="glyphicon glyphicon-plus"></span>
+      <span class="bi bi-plus"></span>
       <%= t(".add_server_via_csv") %>
     <% end %>
     <%= link_to new_server_path, class: 'btn btn-primary' do %>
-      <span class="glyphicon glyphicon-plus"></span>
+      <span class="bi bi-plus"></span>
       <%= t(".add_server") %>
     <% end %>
     <h1><%= t(".title") %></h1>
@@ -43,17 +43,17 @@
 
     <% table.with_column(style: "min-width: 120px; width: 120px") do |server| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
-        <%= link_to duplicate_server_path(server), class: 'btn btn-info' do %>
-          <span class="glyphicon glyphicon-duplicate" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.duplicate") %>"></span>
-          <span class="sr-only"><%= t("action.duplicate") %></span>
+        <%= link_to duplicate_server_path(server), class: 'btn btn-outline-secondary' do %>
+          <span class="bi bi-copy" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.duplicate") %>"></span>
+          <span class="visually-hidden"><%= t("action.duplicate") %></span>
         <% end %>
         <%= link_to edit_server_path(server), class: 'btn btn-primary' do %>
-          <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
-          <span class="sr-only"><%= t("action.edit") %></span>
+          <span class="bi bi-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
+          <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
         <%= link_to server, method: :delete, data: { confirm: t("action.confirm") }, class: 'btn btn-danger' do %>
-          <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
-          <span class="sr-only"><%= t("action.delete") %></span>
+          <span class="bi bi-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
+          <span class="visually-hidden"><%= t("action.delete") %></span>
         <% end %>
       </div>
     <% end %>
