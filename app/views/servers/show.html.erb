@@ -13,11 +13,11 @@
   <div class="col-12" style="margin-bottom: 2em;padding-right: 15px;padding-left: 15px;">
     <div class="page-header">
       <%= link_to duplicate_server_path(@server.slug), class: 'btn btn-info' do %>
-        <span class="glyphicon glyphicon-duplicate"></span>
+        <span class="bi bi-copy"></span>
         <%= t("action.duplicate") %>
       <% end %>
       <%= link_to edit_server_path(@server.slug), class: 'btn btn-primary' do %>
-        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="bi bi-pencil"></span>
         <%= t("action.edit") %>
       <% end %>
       <h1><%= title %></h1>
@@ -116,7 +116,7 @@
           <dd>
             <% if @server.stack %>
               <%= link_to stack_path(@server.stack) do %>
-                <span style="<%= "color: ##{@server.stack.color}" %>" class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+                <span style="<%= "color: ##{@server.stack.color}" %>" class="bi bi-square-fill" aria-hidden="true"></span>
               <% end %>
             <% end %>
           </dd>

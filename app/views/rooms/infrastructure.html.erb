@@ -64,7 +64,7 @@
           Stacks :
           <% @stacks.each do |stack| %>
             <%= check_box_tag "stack", stack.id, 1, value: "##{stack.color}" %>
-            <span style="margin-right: 5px;<%= "color: ##{stack.try(:color)}" %>" class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+            <span style="margin-right: 5px;<%= "color: ##{stack.try(:color)}" %>" class="bi bi-square-fill" aria-hidden="true"></span>
           <% end %>
         </div>
       </ul>

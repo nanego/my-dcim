@@ -2,7 +2,7 @@
 
 <div class="page-header">
   <%= link_to new_move_path, class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-plus"></span>
+    <span class="bi bi-plus"></span>
     Prévoir un nouveau déplacement
   <% end %>
   <h2>Déplacements prévus</h2>
@@ -31,11 +31,11 @@
         <td><%= link_to "#{frame}", "/moves/frames/#{frame.id}" %></td>
         <td><%= link_to "Modifier les connexions", "/moves/frames/#{frame.id}", class: 'btn btn-primary' %></td>
         <td><%= link_to "/moves/frames/#{frame.id}.pdf?debug=1", class: 'btn btn-primary' do %>
-              <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+              <span class="bi bi-printer" aria-hidden="true"></span>
               Impression
           <% end %>
           <%= link_to "/moves/frames/#{frame.id}.pdf", class: 'btn btn-primary' do %>
-              <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+              <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
               Export PDF
           <% end %>
         </td>

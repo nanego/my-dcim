@@ -4,64 +4,58 @@
 %>
 
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-3">
-      <%= render "pages/params_menu" %>
-    </div>
-    <div class="col-md-9">
-      <div class="page-header">
-        <h1><%= t(".title") %></h1>
-      </div>
-      <%= render List::DataTableComponent.new(@connections) do |table| %>
-        <% table.with_column(Connection.human_attribute_name(:port), sort_by: :"ports.id") do |connection| %>
-          <%= connection.port&.id %>
-        <% end %>
-
-        <% table.with_column(Connection.human_attribute_name(:cable), sort_by: :"cables.name") do |connection| %>
-          <%- if connection.cable.color? %>
-            <span class="badge <%= connection.cable.color %>">
-              <%= connection.cable&.name %>
-            </span>
-          <% else %>
-            <%= connection.cable&.name %>
-          <% end %>
-        <% end %>
-
-        <% table.with_column(Connection.human_attribute_name(:paired_connection)) do |connection| %>
-          <%= connection.paired_connection&.id %>
-          <%- if connection.paired_connection %>
-            <span class="pull-right">
-              <%= link_to connections_edit_path(from_port_id: connection.port), class: "btn btn-primary btn-xs" do %>
-                <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
-                <span class="sr-only"><%= t("action.edit") %></span>
-              <% end %>
-            </span>
-          <% end %>
-        <% end %>
-
-        <% table.with_column(Server.model_name.human) do |connection| %>
-          <%= link_to connection.server, server_path(connection.server) if connection.server %>
-        <% end %>
-
-        <% table.with_column(Card.model_name.human) do |connection| %>
-          <%= connection.card&.name %>
-        <% end %>
-
-        <% table.with_column(PortType.model_name.human) do |connection| %>
-          <%= connection.port_type&.name %>
-        <% end %>
-
-        <% table.with_column(style: "min-width: 84px; width: 84px") do |connection| %>
-          <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <%= link_to connections_edit_path(from_port_id: connection.port), class: "btn btn-primary" do %>
-              <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
-              <span class="sr-only"><%= t("action.edit") %></span>
-            <% end %>
-          </div>
-        <% end %>
-      <% end %>
-
-      <%= paginate @connections %>
-    </div>
+  <div class="page-header">
+    <h1><%= t(".title") %></h1>
   </div>
+
+  <%= render List::DataTableComponent.new(@connections) do |table| %>
+    <% table.with_column(Connection.human_attribute_name(:port), sort_by: :"ports.id") do |connection| %>
+      <%= connection.port&.id %>
+    <% end %>
+
+    <% table.with_column(Connection.human_attribute_name(:cable), sort_by: :"cables.name") do |connection| %>
+      <%- if connection.cable.color? %>
+        <span class="badge <%= connection.cable.color %>">
+          <%= connection.cable&.name %>
+        </span>
+      <% else %>
+        <%= connection.cable&.name %>
+      <% end %>
+    <% end %>
+
+    <% table.with_column(Connection.human_attribute_name(:paired_connection)) do |connection| %>
+      <%= connection.paired_connection&.id %>
+      <%- if connection.paired_connection %>
+        <span class="pull-right">
+          <%= link_to connections_edit_path(from_port_id: connection.port), class: "btn btn-primary btn-xs" do %>
+            <span class="bi bi-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
+            <span class="sr-only"><%= t("action.edit") %></span>
+          <% end %>
+        </span>
+      <% end %>
+    <% end %>
+
+    <% table.with_column(Server.model_name.human) do |connection| %>
+      <%= link_to connection.server, server_path(connection.server) if connection.server %>
+    <% end %>
+
+    <% table.with_column(Card.model_name.human) do |connection| %>
+      <%= connection.card&.name %>
+    <% end %>
+
+    <% table.with_column(PortType.model_name.human) do |connection| %>
+      <%= connection.port_type&.name %>
+    <% end %>
+
+    <% table.with_column(style: "min-width: 84px; width: 84px") do |connection| %>
+      <div class="btn-group btn-group-sm" role="group" aria-label="...">
+        <%= link_to connections_edit_path(from_port_id: connection.port), class: "btn btn-primary" do %>
+          <span class="bi bi-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
+          <span class="sr-only"><%= t("action.edit") %></span>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= paginate @connections %>
 </div>

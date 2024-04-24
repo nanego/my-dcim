@@ -5,7 +5,7 @@
 <div class="container-fluid">
   <div class="page-header">
     <%= link_to new_site_path, class: 'btn btn-primary' do %>
-      <span class="glyphicon glyphicon-plus"></span>
+      <span class="bi bi-plus"></span>
       <%= t(".add_site") %>
     <% end %>
     <h1>
@@ -33,12 +33,12 @@
     <% table.with_column(style: "min-width: 84px; width: 84px") do |site| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= link_to edit_site_path(site), class: "btn btn-primary" do %>
-          <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
-          <span class="sr-only"><%= t("action.edit") %></span>
+          <span class="bi bi-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
+          <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
         <%= link_to site, method: :delete, data: { confirm: t(".delete_confirmation") }, class: 'btn btn-danger' do %>
-          <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
-          <span class="sr-only"><%= t("action.delete") %></span>
+          <span class="bi bi-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
+          <span class="visually-hidden"><%= t("action.delete") %></span>
         <% end %>
       </div>
     <% end %>

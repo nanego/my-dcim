@@ -9,12 +9,12 @@ $(document).ready(function() {
     var source_connected_list, source_frame;
     if (drag_n_drop_activated) {
       drag_n_drop_activated = false;
-      $('#drag-n-drop-switcher').html("<span class='glyphicon glyphicon-move' aria-hidden='true'></span> Activer le drag'n drop");
+      $('#drag-n-drop-switcher').html("<span class='bi bi-arrows-move' aria-hidden='true'></span> Activer le drag'n drop");
       $('.frames').sortable('destroy');
       return $('.servers').sortable('destroy');
     } else {
       drag_n_drop_activated = true;
-      $('#drag-n-drop-switcher').html("<span class='glyphicon glyphicon-move' aria-hidden='true'></span> Le drag'n drop est activé !");
+      $('#drag-n-drop-switcher').html("<span class='bi bi-arrows-move' aria-hidden='true'></span> Le drag'n drop est activé !");
       $('.frames').sortable({
         update: function(event, ui) {
           return $.post($(this).data('update-url'), $(this).sortable('serialize'));

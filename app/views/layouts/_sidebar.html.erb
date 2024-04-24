@@ -197,6 +197,29 @@
             </li>
           </ul>
         </li>
+        <!-- Connection -->
+        <li class="mydcim-sidebar-links-group py-2">
+          <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
+            <i class="bi bi-ethernet me-2 text-primary"></i>
+            <%= t(".connection.title") %>
+          </strong>
+          <ul class="list-unstyled fw-normal pb-2 small">
+            <li>
+              <%= link_to connections_path,
+                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                            active: controller.controller_name == "connections") do %>
+                <%= Connection.model_name.human.pluralize %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to cables_path,
+                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                            active: controller.controller_name == "cables") do %>
+                <%= Cable.model_name.human.pluralize %>
+              <% end %>
+            </li>
+          </ul>
+        </li>
       </ul>
     </nav>
   </div>
