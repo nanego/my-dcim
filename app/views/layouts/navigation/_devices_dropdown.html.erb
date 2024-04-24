@@ -1,4 +1,7 @@
-<li class="nav-item dropdown" role="menuitem">
+<li class="nav-item" role="menuitem">
+  <%= link_to t(".equipments"), servers_grids_path, class: "nav-link d-block d-lg-none" %>
+</li>
+<li class="nav-item dropdown d-none d-lg-block" role="menuitem">
   <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown"
     aria-expanded="false">
     <%= t(".equipments") %>
@@ -29,7 +32,7 @@
       </a>
       <ul class="dropdown-menu">
         <li>
-          <div class="row" style="width: 600px;">
+          <div style="max-height:70vh;overflow: auto;">
             <% Cluster.order(Cluster.arel_table[:name].lower).in_groups(3).each do |clusters| %>
                 <ul class="list-unstyled col-md-4">
                   <% clusters.each do |c| %>
@@ -57,7 +60,7 @@
       <ul class="dropdown-menu">
         <li>
           <div>
-            <ul style="width:860px;max-height: 600px;overflow: auto;display: flex;flex-direction: column;flex-wrap: wrap;"
+            <ul style="width:50vw;max-height:70vh;overflow: auto;display: flex;flex-direction: column;flex-wrap: wrap;"
                 class="list-unstyled modeles">
               <% Modele.all_sorted_with_servers.each do |modele| %>
                 <li>

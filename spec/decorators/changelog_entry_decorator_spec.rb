@@ -37,7 +37,7 @@ RSpec.describe ChangelogEntryDecorator, type: :decorator do
 
     {
       create: :success,
-      update: :warning,
+      update: :primary,
       destroy: :danger,
       unknown: :default
     }.each do |action, expected_type|
