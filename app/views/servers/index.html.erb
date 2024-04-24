@@ -4,16 +4,18 @@
 %>
 
 <div class="container-fluid">
-  <div class="page-header">
-    <%= link_to import_csv_servers_path, class: 'btn btn-primary' do %>
-      <span class="bi bi-plus"></span>
-      <%= t(".add_server_via_csv") %>
-    <% end %>
-    <%= link_to new_server_path, class: 'btn btn-primary' do %>
-      <span class="bi bi-plus"></span>
-      <%= t(".add_server") %>
-    <% end %>
+  <div class="page-header d-flex justify-content-between">
     <h1><%= t(".title") %></h1>
+    <div class="align-self-center">
+      <%= link_to import_csv_servers_path, class: 'btn btn-success' do %>
+        <span class="bi bi-plus"></span>
+        <%= t(".add_server_via_csv") %>
+      <% end %>
+      <%= link_to new_server_path, class: 'btn btn-success' do %>
+        <span class="bi bi-plus"></span>
+        <%= t(".add_server") %>
+      <% end %>
+    </div>
   </div>
 
   <%= render FilterComponent.new(@filter) do |c| %>
