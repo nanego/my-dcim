@@ -1,12 +1,12 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: { t("visualization") => '' } %>
 
 <div class="container-fluid">
-  <div class="page-header">
-    <%= link_to new_room_path, class: 'btn btn-primary' do %>
+  <div class="page-header d-flex justify-content-between">
+    <h1><%= Room.model_name.human.pluralize %></h1>
+    <%= link_to new_room_path, class: 'btn btn-success align-self-center' do %>
       <span class="bi bi-plus"></span>
-      Ajouter une salle
+      <%= t(".add_room") %>
     <% end %>
-    <h1>Salles</h1>
   </div>
 
   <%= render List::DataTableComponent.new(@rooms) do |table| %>

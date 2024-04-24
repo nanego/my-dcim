@@ -1,9 +1,9 @@
-<div class="page-header">
-  <%= link_to new_document_path, class: 'btn btn-primary' do %>
+<div class="page-header d-flex justify-content-between">
+  <h1>Listing documents</h1>
+  <%= link_to new_document_path, class: 'btn btn-success align-self-center' do %>
     <span class="bi bi-plus"></span>
     New Document
   <% end %>
-  <h1>Listing documents</h1>
 </div>
 
 <div class="table-responsive">
@@ -22,7 +22,7 @@
             <td><%= document.server_id %></td>
             <td><%= link_to 'Voir', document %></td>
         <td><%= link_to 'Edit', edit_document_path(document) %></td>
-        <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-warning' %></td>
+        <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
       <% end %>
     </tbody>
   </table>
