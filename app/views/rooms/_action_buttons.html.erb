@@ -5,8 +5,8 @@
   <% if view_side != Frame.view_sides[:back] %>
     <!-- Choice of server background color -->
     <div class="btn-group">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <%= t(".background_color", bg: params[:bg].presence || current_user.visualization_bay_default_background_color || Modele.model_name.human.downcase) %> <span class="caret"></span>
+      <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= t(".background_color", bg: params[:bg].presence || current_user.visualization_bay_default_background_color || Modele.model_name.human.downcase) %>
       </button>
       <ul class="dropdown-menu">
         <li><%= link_to Modele.model_name.human, url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: Modele.model_name.human.downcase, islet: params[:islet], id: params[:id]})), remote: true  %></li>
@@ -18,7 +18,7 @@
 
   <!-- Views FRONT / BACK -->
   <% if view_side==Frame.view_sides[:both] %>
-     <%= content_tag :div, class: 'btn btn-default disabled' do %>
+     <%= content_tag :div, class: 'btn btn-outline-secondary disabled' do %>
       <%= Frame.human_attribute_name("view_sides.both") %>
     <% end %>
   <% else %>

@@ -3,14 +3,12 @@
 %>
 
 <div class="container-fluid">
-  <div class="page-header">
-    <%= link_to new_manufacturer_path, class: 'btn btn-primary' do %>
+  <div class="page-header d-flex justify-content-between">
+    <h1><%= t(".title") %></h1>
+    <%= link_to new_manufacturer_path, class: 'btn btn-success align-self-center' do %>
       <span class="bi bi-plus"></span>
       <%= t(".new_manufacturer") %>
     <% end %>
-    <h1>
-      <%= t(".title") %>
-    </h1>
   </div>
 
   <%= render List::DataTableComponent.new(@manufacturers) do |table| %>
