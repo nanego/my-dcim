@@ -20,7 +20,7 @@
       <div class="col-xs-9 pull-left input-group">
         <% if f.object.enclosure&.persisted? %>
           <span class="input-group-addon">
-            <span class="glyphicon glyphicon-resize-vertical"></span>
+            <span class="bi bi-arrows-vertical"></span>
           </span>
         <% end %>
         <%= f.select :type_composant_id, options, {}, { class: 'form-control' } %>
@@ -30,7 +30,7 @@
     <div class="col-xs-9 pull-left input-group">
       <% if f.object.enclosure&.persisted? %>
         <span class="input-group-addon">
-          <span class="glyphicon glyphicon-resize-vertical"></span>
+          <span class="bi bi-arrows-vertical"></span>
         </span>
       <% end %>
       <%= f.text_field :name, { class: 'form-control', placeholder: true } %>
