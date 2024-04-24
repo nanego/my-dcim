@@ -5,7 +5,7 @@
 <div class="container-fluid">
   <div class="page-header">
     <%= link_to new_disk_type_path, class: 'btn btn-primary' do %>
-      <span class="glyphicon glyphicon-plus"></span>
+      <span class="bi bi-plus"></span>
       <%= t(".add_disk_type") %>
     <% end %>
     <h1>
@@ -21,12 +21,12 @@
     <% table.with_column(style: "min-width: 84px; width: 84px") do |disk_type| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= link_to edit_disk_type_path(disk_type), class: 'btn btn-primary' do %>
-          <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
-          <span class="sr-only"><%= t("action.edit") %></span>
+          <span class="bi bi-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
+          <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
         <%= link_to disk_type, method: :delete, data: { confirm: t("action.confirm") }, class: 'btn btn-danger' do %>
-          <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
-          <span class="sr-only"><%= t("action.delete") %></span>
+          <span class="bi bi-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
+          <span class="visually-hidden"><%= t("action.delete") %></span>
         <% end %>
       </div>
     <% end %>

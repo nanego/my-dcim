@@ -67,6 +67,8 @@ fr:
         title: Exploitation
       maintenance:
         title: Maintenance
+      connection:
+        title: Connexion
 
   islets:
     index:
