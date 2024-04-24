@@ -1,31 +1,35 @@
+<%= render "layouts/breadcrumb", breadcrumb_variables: { "Rechercher un matériel" => ""} %>
 <% provide :title, "Rechercher un matériel" %>
-<div class="page-header">
-  <%= link_to url_for(format: :csv, params: @merged_params || {}), class: 'btn btn-outline-secondary' do %>
-    <span class="bi bi-file-earmark-arrow-down"></span>
-    Exporter au format CSV
-  <% end %>
-  <h1>Rechercher un matériel</h1>
-</div>
 
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <span style="margin-right: 5px;">Filtres</span>
-    (
-    <a href='#' class='hide-filters' title='Click to hide filters' onClick="hideFilters();" style="display: none;">Masquer les filtres</a>
-    <a href='#' class='show-filters' title='Click to show filters' onClick="showFilters();">Afficher les filtres</a>
-    )
-    <%= link_to servers_grids_path(reset: 't'), style: 'color: white;float:right;' do %>
-      <i class="bi bi-x"></i>
-      Réinitialiser
-  <% end %>
+<div class="container">
+  <div class="page-header d-flex justify-content-between">
+    <h1>Rechercher un matériel</h1>
+    <%= link_to url_for(format: :csv, params: @merged_params || {}), class: 'btn btn-outline-secondary align-self-center' do %>
+      <span class="bi bi-file-earmark-arrow-down"></span>
+      Exporter au format CSV
+    <% end %>
   </div>
-  <div class="panel-body" style="display: none;">
-    <%= datagrid_form_for @servers %>
+
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <span style="margin-right: 5px;">Filtres</span>
+      (
+      <a href='#' class='hide-filters' title='Click to hide filters' onClick="hideFilters();" style="display: none;">Masquer les filtres</a>
+      <a href='#' class='show-filters' title='Click to show filters' onClick="showFilters();">Afficher les filtres</a>
+      )
+      <%= link_to servers_grids_path(reset: 't'), style: 'color: white;float:right;' do %>
+        <i class="bi bi-x"></i>
+        Réinitialiser
+    <% end %>
+    </div>
+    <div class="panel-body" style="display: none;">
+      <%= datagrid_form_for @servers %>
+    </div>
+    <div class='panel-footer total'>Total : <%= @servers.assets.count %></div>
   </div>
-  <div class='panel-footer total'>Total : <%= @servers.assets.count %></div>
-</div>
 
 
-<div class="table-responsive">
-  <%= datagrid_table(@servers, html:{ class: "table table-striped table-bordered table-hover"}) %>
+  <div class="table-responsive">
+    <%= datagrid_table(@servers, html:{ class: "table table-striped table-bordered table-hover"}) %>
+  </div>
 </div>

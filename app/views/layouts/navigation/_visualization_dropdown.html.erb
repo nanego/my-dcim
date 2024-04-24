@@ -3,7 +3,7 @@
     aria-expanded="false">
     <%= t("visualization") %>
   </a>
-  <ul class="dropdown-menu">
+  <ul class="dropdown-menu" style="max-height: 80vh;overflow: auto;">
     <li role="menuitem"><%= link_to t("rooms.overview_view.title"), overview_rooms_path, class: "dropdown-item" %></li>
     <li role="menuitem"><%= link_to t("rooms.capacity_view.title"), capacity_rooms_path, class: "dropdown-item" %></li>
     <li role="menuitem"><%= link_to t("rooms.infrastructure_view.title"), infrastructure_rooms_path, class: "dropdown-item" %></li>
