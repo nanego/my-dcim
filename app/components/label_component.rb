@@ -19,7 +19,7 @@ class LabelComponent < ApplicationComponent
   end
 
   def css_classes
-    "label label-#{@type}"
+    "badge text-bg-#{@type}"
   end
 
   def content
