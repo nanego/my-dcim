@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
-class ClustersProcessor < Rubanok::Processor
+class ClustersProcessor < ApplicationProcessor
+  SORTABLE_FIELDS = %w[name servers_count].freeze
+
   map :q do |q:|
     raw.where(Cluster.arel_table[:name].matches("%#{q}%"))
   end
+
+  sortable fields: SORTABLE_FIELDS
 end

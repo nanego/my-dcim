@@ -36,8 +36,8 @@ class ApplicationController < ActionController::Base
 
   # TODO: move in processor?
   def sorted(collection)
-    direction = %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
-    column = params[:column]
+    direction = %w[asc desc].include?(params[:sort]) ? params[:sort] : "desc"
+    column = params[:sort_by]
 
     return collection unless column
 

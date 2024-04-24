@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class ModelesProcessor < Rubanok::Processor
+class ModelesProcessor < ApplicationProcessor
+  SORTABLE_FIELDS = %w[name servers_count].freeze
+
   map :q do |q:|
     raw.where(Modele.arel_table[:name].matches("%#{q}%"))
       .or(raw.where(id: q))
@@ -17,4 +19,6 @@ class ModelesProcessor < Rubanok::Processor
   map :manufacturer_id do |manufacturer_id:|
     raw.where(manufacturer_id:)
   end
+
+  sortable fields: SORTABLE_FIELDS
 end

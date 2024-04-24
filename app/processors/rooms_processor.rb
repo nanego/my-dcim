@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RoomsProcessor < Rubanok::Processor
+class RoomsProcessor < ApplicationProcessor
   map :name do |name:|
     raw.where(Room.arel_table[:name].matches("%#{name}%"))
   end

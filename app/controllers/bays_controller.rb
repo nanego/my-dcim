@@ -7,7 +7,7 @@ class BaysController < ApplicationController
 
   def index
     @filter = Filter.new(Bay.joins(:room), params)
-    @bays = sorted @filter.results.order('rooms.position, islets.name, bays.lane, bays.position')
+    @bays = @filter.results.order('rooms.position, islets.name, bays.lane, bays.position')
   end
 
   def show

@@ -3,3 +3,10 @@ fr:
     title:
       one: '1 erreur lors de la sauvegarde :'
       other: '%{count} erreurs lors de la sauvegarde :'
+  filter_component:
+    header:
+      title: Filtres
+    submit: Filtrer
+    reset: Réinitialiser
+    total_with_filters: "Total: %{results_count} sur %{total_count}"
+    total: "Total: %{count}"

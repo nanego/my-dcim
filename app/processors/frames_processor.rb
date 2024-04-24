@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FramesProcessor < Rubanok::Processor
+class FramesProcessor < ApplicationProcessor
   map :q do |q:|
     raw.where(Frame.arel_table[:name].matches("%#{q}%"))
       .or(raw.where(id: q))
