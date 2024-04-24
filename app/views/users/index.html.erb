@@ -4,27 +4,32 @@
 <div class="container well">
   <div class="row">
     <div class="col-md-12">
-      <div class="page-header">
-        <%= link_to new_user_path, class: "btn btn-primary" do %>
+      <div class="page-header d-flex justify-content-between">
+        <div>
+          <h1><%= User.model_name.human.pluralize %></h1>
+          <ul class="nav nav-pills mb-2" role="tablist">
+            <li role="presentation" class="nav-item">
+              <%= link_to users_path, class: class_names("nav-link", "active": !params[:filter]) do %>
+                <%= t(".unsuspended") %>
+                <span class="<%= class_names("badge text-bg-primary", "text-bg-light": !params[:filter]) %>">
+                  <%= User.unsuspended.count %>
+                </span>
+              <% end %>
+            </li>
+            <li role="presentation" class="nav-item">
+              <%= link_to users_path(filter: :suspended), class: class_names("nav-link", "active": params[:filter] == "suspended") do %>
+                <%= t(".suspended") %>
+                <span class="<%= class_names("badge text-bg-primary", "text-bg-light": params[:filter] == "suspended") %>">
+                  <%= User.suspended.count %>
+                </span>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+        <%= link_to new_user_path, class: "btn btn-success align-self-center" do %>
           <span class="bi bi-plus"></span>
           <%= t(".new_user") %>
         <% end %>
-        <h1><%= User.model_name.human.pluralize %></h1>
-
-        <ul class="nav nav-pills" role="tablist">
-          <li role="presentation" class="<%= class_names("active": !params[:filter]) %>">
-            <%= link_to users_path do %>
-              <%= t(".unsuspended") %>
-              <span class="badge"><%= User.unsuspended.count %></span>
-            <% end %>
-          </li>
-          <li role="presentation" class="<%= class_names("active": params[:filter] == "suspended") %>">
-            <%= link_to users_path(filter: :suspended) do %>
-              <%= t(".suspended") %>
-              <span class="badge"><%= User.suspended.count %></span>
-            <% end %>
-          </li>
-        </ul>
       </div>
 
       <%= render List::DataTableComponent.new(@users) do |table| %>
@@ -57,13 +62,24 @@
 
         <% table.with_column do |user| %>
           <% unless user == current_user %>
-            <% if user.suspended? %>
-              <%= link_to t("action.unsuspend"), unsuspend_user_path(user), data: { confirm: t("action.confirm") }, method: :patch, class: "btn btn-xs btn-primary" %>
-            <% else %>
-              <%= link_to t("action.suspend"), suspend_user_path(user), data: { confirm: t("action.confirm") }, method: :patch, class: "btn btn-xs btn-warning" %>
+            <div class="btn-group btn-group-sm" role="group" aria-label="...">
+              <% if user.suspended? %>
+                <%= link_to suspend_user_path(user), data: { confirm: t("action.confirm") }, method: :patch, class: "btn btn-outline-secondary" do %>
+                  <!-- <i class="bi bi-unlock"></i> -->
+                  <%= t("action.unsuspend") %>
+                <% end %>
+              <% else %>
+                <%= link_to suspend_user_path(user), data: { confirm: t("action.confirm") }, method: :patch, class: "btn btn-outline-secondary" do %>
+                  <!-- <i class="bi bi-lock"></i> -->
+                  <%= t("action.suspend") %>
+                <% end %>
+              <% end %>
+              <%= link_to user_path(user), method: :delete, data: { confirm: t("action.confirm") }, class: 'btn btn-danger' do %>
+                <span class="bi bi-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
+                <span class="visually-hidden"><%= t("action.delete") %></span>
+              <% end %>
             <% end %>
-            <%= link_to t("action.delete"), user_path(user), data: { confirm: t("action.confirm") }, method: :delete, class: "btn btn-xs btn-danger" %>
-          <% end %>
+          </div>
         <% end %>
       <% end %>
     </div>

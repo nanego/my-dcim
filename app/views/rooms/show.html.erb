@@ -115,8 +115,8 @@
       <ul class="col-md-2 hidden-sm room-actions">
         <!-- Choix de la couleur de fond des serveurs -->
         <div class="btn-group">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= t("rooms.action_buttons.background_color", bg: bg || User::AVAILABLE_BAY_BACKGROUND_COLORS[0]) %> <span class="caret"></span>
+          <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= t("rooms.action_buttons.background_color", bg: bg || User::AVAILABLE_BAY_BACKGROUND_COLORS[0]) %>
           </button>
           <ul class="dropdown-menu">
             <li><%= link_to 'Modèle', url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: 'modele', islet: params[:islet], id: params[:id]})) %></li>
@@ -125,7 +125,7 @@
           </ul>
         </div>
 
-        <button id="hide-overview" type="button" class="btn btn-default" aria-label="Left Align" style="position: absolute;bottom: 1px;right: 1px;padding: 0 10px;">
+        <button id="hide-overview" type="button" class="btn btn-outline-secondary" aria-label="Left Align" style="position: absolute;bottom: 1px;right: 1px;padding: 0 10px;">
           <span class="bi bi-chevron-up" aria-hidden="true"></span>
         </button>
       </ul>
@@ -145,7 +145,7 @@
       </div>
 
       <ul class="col-md-2 hidden-sm room-actions">
-        <button id="show-overview" type="button" class="btn btn-default" aria-label="Left Align" style="position: absolute;bottom: 1px;right: 1px;padding: 0 10px;">
+        <button id="show-overview" type="button" class="btn btn-outline-secondary" aria-label="Left Align" style="position: absolute;bottom: 1px;right: 1px;padding: 0 10px;">
           <span class="bi bi-chevron-down" aria-hidden="true"></span>
         </button>
       </ul>
