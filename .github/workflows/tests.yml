@@ -36,13 +36,7 @@ jobs:
 
     steps:
       - name: Checkout main app
-        uses: actions/checkout@v3
-
-      - name: Update package archives
-        run: sudo apt-get update --yes --quiet
-
-      - name: Install library for postgres
-        run: sudo apt-get install libpq-dev
+        uses: actions/checkout@v4
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
