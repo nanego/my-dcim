@@ -9,6 +9,9 @@ RSpec.describe Server do
     described_class.new(name: "ACTARUS", frame: Frame.new, modele: Modele.new, numero: "1245")
   end
 
+  let(:frame) { Frame.new }
+  let(:modele) { Modele.new }
+
   describe "associations" do
     it { is_expected.to belong_to(:frame) }
     it { is_expected.to have_one(:bay).through(:frame) }
@@ -59,30 +62,6 @@ RSpec.describe Server do
       end
 
       it { is_expected.not_to be_valid }
-    end
-  end
-
-  describe "#validate_network_types_values" do
-    let(:server) { servers(:one) }
-
-    context "when network_types is empty (valid)" do
-      it { expect(server).to be_valid }
-    end
-
-    context "when network_types is filled with valid values (valid)" do
-      before { server.update(network_types: Modele::Network::TYPES.sample(1)) }
-
-      it { expect(server).to be_valid }
-    end
-
-    context "when network_types is filled with unvalid values (unvalid)" do
-      before do
-        server.network_types = ["not_valid_value"]
-        server.validate
-      end
-
-      it { expect(server).not_to be_valid }
-      it { expect(server.errors.key?(:network_types)).to be(true) }
     end
   end
 

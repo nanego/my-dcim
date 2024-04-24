@@ -44,10 +44,6 @@
           <%= link_to server.bay, bay_path(server.bay) if server.bay %>
         <% end %>
 
-        <% table.with_column(Server.human_attribute_name(:network_types)) do |server| %>
-          <%= server.network_types.map { |type| Modele.human_attribute_name("network_types.#{type}") }.join(", ") %>
-        <% end %>
-
         <% table.with_column(style: "min-width: 120px; width: 120px") do |server| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
             <%= link_to duplicate_server_path(server), class: 'btn btn-info' do %>

@@ -5,7 +5,6 @@ class Modele < ApplicationRecord
   friendly_id :slug_candidates, use: [:slugged, :history]
 
   include PublicActivity::Model
-
   tracked owner: ->(controller, model) { controller && controller.current_user }
   tracked :parameters => {
     :name => :name,
@@ -25,9 +24,6 @@ class Modele < ApplicationRecord
   accepts_nested_attributes_for :enclosures,
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
-
-  validate :validate_network_types_values
-  normalizes :network_types, with: ->(values) { values.compact_blank }
 
   scope :with_servers, -> { joins(:servers).uniq }
 
@@ -66,12 +62,5 @@ class Modele < ApplicationRecord
       :name,
       [:name, :id],
     ]
-  end
-
-  def validate_network_types_values
-    return if network_types.empty?
-    return if network_types.any? { |n| Modele::Network::TYPES.include?(n) }
-
-    errors.add(:network_types, :invalid)
   end
 end

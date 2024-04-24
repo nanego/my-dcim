@@ -45,10 +45,6 @@
             <%= pluralize(modele.servers.count, modele.category.name.try(:downcase), "#{modele.category.name.try(:downcase)}#{ modele.category.name.blank? || modele.category.name[-1] == 's' || modele.category.name=='San' ? '' : 's' }") %>
           <% end %>
 
-          <% table.with_column(Modele.human_attribute_name(:network_types)) do |modele| %>
-            <%= modele.network_types.map { |type| Modele.human_attribute_name("network_types.#{type}") }.join(", ") %>
-          <% end %>
-
           <% table.with_column(style: "min-width: 84px; width: 84px") do |modele| %>
             <div class="btn-group btn-group-sm" role="group" aria-label="...">
               <%= link_to edit_modele_path(modele), class: 'btn btn-primary' do %>
