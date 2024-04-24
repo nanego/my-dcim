@@ -4,20 +4,22 @@
 %>
 
 <div class="container-fluid">
-  <div class="page-header">
-    <%= link_to external_app_records_path, class: "btn btn-success" do %>
-      <span class="bi bi-arrow-clockwise"></span>
-      <%= t(".sync_with_external_apps") %>
-    <% end %>
-    <%= link_to import_csv_servers_path, class: 'btn btn-primary' do %>
-      <span class="bi bi-plus"></span>
-      <%= t(".add_server_via_csv") %>
-    <% end %>
-    <%= link_to new_server_path, class: 'btn btn-primary' do %>
-      <span class="bi bi-plus"></span>
-      <%= t(".add_server") %>
-    <% end %>
+  <div class="page-header d-flex justify-content-between">
     <h1><%= t(".title") %></h1>
+    <div class="align-self-center">
+      <%= link_to external_app_records_path, class: "btn btn-success" do %>
+        <span class="bi bi-arrow-clockwise"></span>
+        <%= t(".sync_with_external_apps") %>
+      <% end %>
+      <%= link_to import_csv_servers_path, class: 'btn btn-success' do %>
+        <span class="bi bi-plus"></span>
+        <%= t(".add_server_via_csv") %>
+      <% end %>
+      <%= link_to new_server_path, class: 'btn btn-success' do %>
+        <span class="bi bi-plus"></span>
+        <%= t(".add_server") %>
+      <% end %>
+    </div>
   </div>
 
   <%= render FilterComponent.new(@filter) do |c| %>
@@ -29,7 +31,7 @@
 
       <div class="form-group">
         <%= f.label :frame_id %>
-        <%= f.collection_select(:frame_id, Frame.order(:name), :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+        <%= f.collection_select(:frame_id, Frame.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
       </div>
 
       <div class="form-group">
@@ -44,7 +46,7 @@
 
       <div class="form-group">
         <%= f.label :room_id %>
-        <%= f.collection_select(:room_id, Room.order(:name), :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+        <%= f.collection_select(:room_id, Room.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
       </div>
 
       <div class="form-group">

@@ -1,11 +1,11 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: { 'Etats des serveurs' => '' } %>
 
-<div class="page-header">
-  <%= link_to new_server_state_path, class: 'btn btn-primary' do %>
+<div class="page-header d-flex justify-content-between">
+  <h1>Listing server_states</h1>
+  <%= link_to new_server_state_path, class: 'btn btn-success align-self-center' do %>
     <span class="bi bi-plus"></span>
     New Server state
   <% end %>
-  <h1>Listing server_states</h1>
 </div>
 
 <div class="table-responsive">

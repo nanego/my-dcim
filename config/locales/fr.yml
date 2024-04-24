@@ -565,6 +565,7 @@ fr:
         enable: Activer le drag'n drop
     index:
       delete_confirmation: Cette salle ne pourra pas être supprimée tant qu\'elle sera associée à au moins un ilôt. Voulez-vous continuer ?
+      add_room: Ajouter une salle
 
   users:
     my_account:
