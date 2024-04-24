@@ -43,7 +43,7 @@
     <%= f.fields_for :enclosures do |builder| %>
         <%= render "enclosure_fields", :f => builder %>
     <% end %>
-    <%= link_to_add_fields "<span class='glyphicon glyphicon-plus' aria-hidden='true'></span> #{t(".add_enclosure")}".html_safe, f, :enclosures %>
+    <%= link_to_add_fields "<span class='bi bi-plus' aria-hidden='true'></span> #{t(".add_enclosure")}".html_safe, f, :enclosures %>
   </div>
 
   <!--
