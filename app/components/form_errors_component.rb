@@ -5,7 +5,7 @@ class FormErrorsComponent < ApplicationComponent
     <div class="alert alert-danger alert-dismissable" role="alert">
       <button type="button" class="close" data-dismiss="alert">
         <span aria-hidden="true">&times;</span>
-        <span class="sr-only">Close</span>
+        <span class="visually-hidden">Close</span>
       </button>
 
       <h4><%= t(".title", count: @object.errors.count) %></h4>

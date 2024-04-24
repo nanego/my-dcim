@@ -24,12 +24,12 @@
       <div style="margin-bottom: 10px;">
         <% text_action = @room.present? ? ports_path(room_id: @room.id, format: 'txt') : ports_path(frame_id: @frame.id, format: 'txt') %>
         <%= link_to text_action, class: 'btn btn-default' do %>
-          <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
+          <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
           Export Txt
         <% end %>
         <% csv_action = @room.present? ? ports_path(room_id: @room.id, format: 'csv') : ports_path(frame_id: @frame.id, format: 'csv') %>
         <%= link_to csv_action, class: 'btn btn-default' do %>
-          <span class="glyphicon glyphicon-export"></span>
+          <span class="bi bi-file-earmark-arrow-down"></span>
           Exporter au format CSV
         <% end %>
       </div>

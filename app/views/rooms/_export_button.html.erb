@@ -6,31 +6,31 @@
 
     <li class="dropdown-submenu pull-left">
       <%= link_to room_path(room, format: 'pdf', view: 'front', islet: '', bg: ''), target: :_blank do %>
-        <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+        <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
         Export PDF
       <% end %>
       <ul class="dropdown-menu dropdown-menu-left">
         <li>
           <%= link_to room_path(room, format: 'pdf', view: 'front', islet: '', bg: ''), target: :_blank do %>
-            <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+            <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
             Face avant
           <% end %>
         </li>
         <li>
           <%= link_to room_path(room, format: 'pdf', view: 'back', islet: '', bg: ''), target: :_blank do %>
-            <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+            <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
             Face arrière
           <% end %>
         </li>
         <li>
           <%= link_to room_path(room, format: 'pdf', view: 'front', islet: '', bg: 'cablage'), target: :_blank do %>
-            <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+            <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
             Cablage - Face avant
           <% end %>
         </li>
         <li>
           <%= link_to room_path(room, format: 'pdf', view: 'back', islet: '', bg: 'cablage'), target: :_blank do %>
-            <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+            <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
             Cablage - Face arrière
           <% end %>
         </li>
@@ -38,13 +38,13 @@
     </li>
 
     <li><%= link_to room_path(room, format: 'txt', view: '', islet: '', bg: '') do %>
-        <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
+        <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
         Export Txt
       <% end %>
     </li>
 
     <li><%= link_to room_path(room, format: 'pdf', view: 'front', islet: '', bg: '', debug: '1'), target: :_blank do %>
-        <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+        <span class="bi bi-printer" aria-hidden="true"></span>
         Impression
       <% end %>
     </li>
@@ -52,7 +52,7 @@
     <li role="separator" class="divider"></li>
 
     <li><%= link_to ports_path(room_id: room.id, frame_id: @frame.try(:id)) do %>
-        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+        <span class="bi bi-list-ul" aria-hidden="true"></span>
         Liste des ports
       <% end %>
     </li>
