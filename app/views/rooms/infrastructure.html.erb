@@ -10,7 +10,7 @@
 
         <div class="btn-group btn-toggle">
           <% @network_types.each do |network_type| %>
-            <button class="<%= class_names("btn", "btn-primary active": (network_type == "gbe"), "btn-default": (network_type != "gbe")) %>" data-toggle="tab" role="tab" data-network="<%= network_type %>">
+            <button class="<%= class_names("btn", "btn-primary active": (network_type == "gbe"), "btn-outline-secondary": (network_type != "gbe")) %>" data-toggle="tab" role="tab" data-network="<%= network_type %>">
               <%= Modele.human_attribute_name("network_types.short_#{network_type}") %>
             </button>
           <% end %>
@@ -245,7 +245,7 @@
 
         btn_group.find('.btn').toggleClass('active')
         btn_group.find('.btn').toggleClass('btn-primary')
-        btn_group.find('.btn').toggleClass('btn-default')
+        btn_group.find('.btn').toggleClass('btn-outline-secondary')
         // Update all tabs links with newly selected network AND show this network
         var current_tab = $('.show_room li.active a.tab:first')
         var tabs = $('.show_room li a.tab')
