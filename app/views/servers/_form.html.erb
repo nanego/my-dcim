@@ -127,7 +127,7 @@
               <%= render partial: "card_fields", locals: { f: builder, enclosure: enclosure } %>
             <% end %>
           </ul>
-          <div class="panel-footer"><%= link_to_add_fields_with_prefilled_data "<span class='bi bi-plus' aria-hidden='true'></span> Ajouter une carte".html_safe, f, :cards, { enclosure: enclosure } %></div>
+          <div class="panel-footer"><%= link_to_add_fields_with_prefilled_data "<span class='bi bi-plus-lg' aria-hidden='true'></span> Ajouter une carte".html_safe, f, :cards, { enclosure: enclosure } %></div>
         </div>
       </div>
     <% end %>
@@ -148,7 +148,7 @@
           <% end %>
         </div>
         <div class="panel-footer">
-          <%= link_to_add_fields "<span class='bi bi-plus' style='clear:both;' aria-hidden='true'></span> Ajouter une pièce jointe".html_safe, f, :documents %>
+          <%= link_to_add_fields "<span class='bi bi-plus-lg' style='clear:both;' aria-hidden='true'></span> Ajouter une pièce jointe".html_safe, f, :documents %>
         </div>
       </div>
     </div>
