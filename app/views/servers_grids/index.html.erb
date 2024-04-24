@@ -1,7 +1,7 @@
 <% provide :title, "Rechercher un matériel" %>
 <div class="page-header">
   <%= link_to url_for(format: :csv, params: @merged_params || {}), class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-export"></span>
+    <span class="bi bi-file-earmark-arrow-down"></span>
     Exporter au format CSV
   <% end %>
   <h1>Rechercher un matériel</h1>
@@ -15,7 +15,7 @@
     <a href='#' class='show-filters' title='Click to show filters' onClick="showFilters();">Afficher les filtres</a>
     )
     <%= link_to servers_grids_path(reset: 't'), style: 'color: white;float:right;' do %>
-      <i class="glyphicon glyphicon-glyphicon-remove" data-unicode="e014"></i>
+      <i class="bi bi-x"></i>
       Réinitialiser
   <% end %>
   </div>
