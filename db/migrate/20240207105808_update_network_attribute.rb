@@ -16,14 +16,14 @@ class UpdateNetworkAttribute < ActiveRecord::Migration[7.0]
       reversible do |direction|
         direction.up do
           MigrationServer.find_each do |s|
-            s.network_types = [MigrationNetwork::TYPES[s.network_id]] if s.network_id.present?
+            s.network_types = [MigrationNetwork::TYPES[s.network_id - 1]] if s.network_id.present?
             s.save!
           end
         end
 
         direction.down do
           MigrationServer.find_each do |s|
-            s.network_id = MigrationNetwork::TYPES.index(s.network_types.first) if s.network_types.present?
+            s.network_id = MigrationNetwork::TYPES.index(s.network_types.first) + 1 if s.network_types.present?
             s.save!
           end
         end
