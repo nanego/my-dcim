@@ -2,7 +2,7 @@
   <%= form_for(@move, html: { class: "form-horizontal moves_form server_form_fields col-sm-6", role: "form" }) do |f| %>
     <% if @move.errors.any? %>
       <div class="alert alert-danger alert-dismissable" role="alert">
-        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="visually-hidden">Close</span></button>
         <h4><%= pluralize(@move.errors.count, "erreur", "erreurs") %> lors de la sauvegarde :</h4>
 
         <ul>
