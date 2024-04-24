@@ -8,21 +8,23 @@
     <div class="col-md-3">
       <%= render "pages/params_menu" %>
     </div>
-
     <div class="col-md-9">
       <div class="page-header">
-        <h1>
-          <%= t(".title") %>
-        </h1>
+        <h1><%= t(".title") %></h1>
       </div>
-
       <%= render List::DataTableComponent.new(@cables) do |table| %>
         <% table.with_column(Cable.human_attribute_name(:name), sort_by: :name) do |cable| %>
           <b><%= cable.name %></b>
         <% end %>
 
         <% table.with_column(Cable.human_attribute_name(:color), sort_by: :color) do |cable| %>
-          <%= cable.color %>
+          <%- if cable.color? %>
+            <span class="badge <%= cable.color %>">
+              <%= cable.color %>
+            </span>
+          <% else %>
+            <%= cable.color %>
+          <% end %>
         <% end %>
 
         <% table.with_column(Cable.human_attribute_name(:special_case), sort_by: :special_case) do |cable| %>
@@ -33,11 +35,18 @@
           <%= cable.comments %>
         <% end %>
 
-        <% table.with_column(Cable.human_attribute_name(:connections), sort_by: :connections_count) do |cable| %>
+        <% table.with_column(Connection.model_name.human, sort_by: :connections_count) do |cable| %>
           <%= cable.connections_count %>
         <% end %>
 
         <% table.with_column(style: "min-width: 160px; width: 160px") do |cable| %>
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <%= link_to connections_edit_path(from_port_id: cable.ports.first), class: "btn btn-primary" do %>
+              <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
+              <span class="sr-only"><%= t("action.edit") %></span>
+            <% end %>
+          </div>
+
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
             <%= link_to cable, method: :delete, data: { confirm: t('action.confirm') }, class: 'btn btn-danger' do %>
               <span class="glyphicon glyphicon-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
