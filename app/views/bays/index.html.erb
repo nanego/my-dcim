@@ -67,7 +67,9 @@
         <% end %>
 
         <% table.with_column(Server.model_name.human.pluralize) do |bay| %>
-          <%= Bay.human_attribute_name(:materials_count, count: bay.materials.count) %>
+          <%= link_to servers_path(bay_id: bay.id) do %>
+            <%= Bay.human_attribute_name(:materials_count, count: bay.materials.count) %>
+          <% end %>
         <% end %>
 
         <% table.with_column(style: "min-width: 160px; width: 160px") do |bay| %>
