@@ -78,7 +78,7 @@
               id: "draw_connections_link_#{server.id}",
               title: "Dessiner les liaisons",
               remote: true do %>
-    <button type="button" class="btn btn-default btn-xs" aria-label="Draw connections">
+    <button type="button" class="btn btn-outline-secondary btn-xs" aria-label="Draw connections">
       <span class="bi bi-shuffle" aria-hidden="true"></span>
     </button>
   <% end %>
@@ -89,7 +89,7 @@
   <% twin_cards_ids = server.cards.map(&:twin_card_id).uniq.reject {|c| c.blank?} if false %>
 <% twin_cards_ids.map {|id| Card.find(id).frame}.uniq.each do |frame| %>
   <%= link_to frame_path(frame), title: "#{frame.to_s}" do %>
-      <button type="button" class="btn btn-default btn-xs" aria-label="Link to twin card">
+      <button type="button" class="btn btn-outline-secondary btn-xs" aria-label="Link to twin card">
         <span class="bi bi-magnet-fill" aria-hidden="true"></span>
       </button>
     <% end %>
