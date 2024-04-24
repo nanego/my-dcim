@@ -22,7 +22,7 @@
       <% end %>
       <h1><%= title %></h1>
     </div>
-    <%= link_to t(".back_to_bay", name: @server.frame.try(:name)), frame_path(@server.frame, :view => params[:view]), class: 'btn btn-default', style: 'text-decoration: underline;' if @server.frame %>
+    <%= link_to t(".back_to_bay", name: @server.frame.try(:name)), frame_path(@server.frame, :view => params[:view]), class: 'btn btn-outline-secondary', style: 'text-decoration: underline;' if @server.frame %>
   </div>
 
   <div class="col-12" style="margin-bottom: 2em;padding-right: 15px;padding-left: 15px;">

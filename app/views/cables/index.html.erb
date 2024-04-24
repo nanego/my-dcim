@@ -33,7 +33,7 @@
       <%= cable.connections_count %>
     <% end %>
 
-    <% table.with_column(style: "min-width: 160px; width: 160px") do |cable| %>
+    <% table.with_column(style: "min-width: 50px; width: 50px") do |cable| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= link_to connections_edit_path(from_port_id: cable.ports.first), class: "btn btn-primary" do %>
           <span class="bi bi-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>

@@ -5,7 +5,7 @@
   <% if view_side != Frame.view_sides[:back] %>
     <!-- Choice of server background color -->
     <div class="btn-group">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <%= t(".background_color", bg: params[:bg] || Modele.model_name.human.downcase) %> <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
@@ -18,7 +18,7 @@
 
   <!-- Views FRONT / BACK -->
   <% if view_side==Frame.view_sides[:both] %>
-     <%= content_tag :div, class: 'btn btn-default disabled' do %>
+     <%= content_tag :div, class: 'btn btn-outline-secondary disabled' do %>
       <%= Frame.human_attribute_name("view_sides.both") %>
     <% end %>
   <% else %>
