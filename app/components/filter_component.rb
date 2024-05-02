@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# TODO: use CardComponent
 class FilterComponent < ApplicationComponent
   renders_one :form, ->(&block) { FilterComponent::Form.new(&block) }
 

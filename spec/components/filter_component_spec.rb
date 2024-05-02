@@ -45,11 +45,7 @@ RSpec.describe FilterComponent, type: :component do
     end
 
     it do
-      # pp rendered_component.to_html
-
       expect(rendered_component.to_html).to have_tag("div.panel.panel-primary") do
-        pp filter
-
         with_tag("div.panel-heading") do
           with_tag("h3.panel-title", text: "#{I18n.t("filter_component.header.title")} (2)")
         end

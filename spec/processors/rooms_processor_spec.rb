@@ -9,7 +9,7 @@ RSpec.describe RoomsProcessor do
   let(:params) { {} }
 
   describe "when searching" do
-    let(:params) { { name: "wood" } }
+    let(:params) { { q: "wood" } }
 
     before do
       Room.create!(name: "brick", site: sites(:two))
