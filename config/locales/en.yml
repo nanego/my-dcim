@@ -8,4 +8,5 @@ en:
   users:
     my_account:
       title: My account
+      settings: My preferences
     logout: Log out

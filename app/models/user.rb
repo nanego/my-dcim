@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   AVAILABLE_LOCALES = (I18n.available_locales.map(&:to_s) << nil).freeze
   AVAILABLE_THEMES = (%w[auto dark light] << nil).freeze
-  AVAILABLE_BAY_BACKGROUND_COLORS = (%w[modele gesetion cluster] << nil).freeze
+  AVAILABLE_BAY_BACKGROUND_COLORS = (%w[modele gestion cluster] << nil).freeze
   AVAILABLE_BAY_ORIENTATIONS = (%w[front rear] << nil).freeze
 
   attribute :role, :integer
