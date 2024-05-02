@@ -1,226 +1,226 @@
-<aside class="mydcim-sidebar border border-right col-lg-2 p-0 bg-body-tertiary">
-  <div id="mydcim-inventories-sidebar" class="offcanvas-lg offcanvas-start bg-body-tertiary" tabindex="-1" aria-labelledby="sidebarMenuLabel">
-    <div class="offcanvas-header">
-      <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="#mydcim-inventories-sidebar" aria-label="<%= t("action.close") %>"></button>
-    </div>
-    <nav class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto" aria-label="<%= t("inventories") %> navigation">
-      <ul class="list-unstyled mb-0 pb-3 pb-md-2 px-lg-2 ms-lg-0 ms-3">
-        <!-- Location -->
-        <li class="mydcim-sidebar-links-group py-2">
-          <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
-            <i class="bi bi-geo-alt me-2 text-primary"></i>
-            <%= t(".location.title") %>
-          </strong>
-          <ul class="list-unstyled fw-normal pb-2 small">
-            <li>
-              <%= link_to sites_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "sites") do %>
-                <%= Site.model_name.human.pluralize %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to rooms_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "rooms") do %>
-                <%= Room.model_name.human.pluralize %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to islets_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "islets") do %>
-                <%= Islet.model_name.human.pluralize %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to bays_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "bays") do %>
-                <%= t(".location.bays") %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to frames_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "frames") do %>
-                <%= Frame.model_name.human.pluralize %>
-              <% end %>
-            </li>
-          </ul>
-        </li>
-        <!-- Equipement -->
-        <li class="mydcim-sidebar-links-group py-2">
-          <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
-            <i class="bi bi-hdd-rack me-2 text-primary"></i>
-            <%= t(".equipment.title") %>
-          </strong>
-          <ul class="list-unstyled fw-normal pb-2 small">
-            <li>
-              <%= link_to servers_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "servers") do %>
-                Matériels
-              <% end %>
-            </li>
-          </ul>
-        </li>
-        <!-- Features -->
-        <li class="mydcim-sidebar-links-group py-2">
-          <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
-            <i class="bi bi-sliders me-2 text-primary"></i>
-            <%= t(".features.title") %>
-          </strong>
-          <ul class="list-unstyled fw-normal pb-2 small">
-            <li>
-              <%= link_to modeles_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "modeles") do %>
-                <%= Modele.model_name.human.pluralize %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to categories_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "categories") do %>
-                <%= Category.model_name.human.pluralize %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to architectures_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "architectures") do %>
-                <%= Architecture.model_name.human.pluralize %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to manufacturers_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "manufacturers") do %>
-                <%= Manufacturer.model_name.human.pluralize %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to stacks_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "stacks") do %>
-                <%= Stack.model_name.human.pluralize %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to card_types_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "card_types") do %>
-                <%= CardType.model_name.human.pluralize %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to port_types_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "port_types") do %>
-                <%= PortType.model_name.human.pluralize %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to disk_types_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "disk_types") do %>
-                <%= DiskType.model_name.human.pluralize %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to memory_types_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "memory_types") do %>
-                <%= MemoryType.model_name.human.pluralize %>
-              <% end %>
-            </li>
-          </ul>
-        </li>
-        <!-- Exploitation -->
-        <li class="mydcim-sidebar-links-group py-2">
-          <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
-            <i class="bi bi-briefcase me-2 text-primary"></i>
-            <%= t(".exploitation.title") %>
-          </strong>
-          <ul class="list-unstyled fw-normal pb-2 small">
-            <li>
-              <%= link_to domaines_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "domaines") do %>
-                <%= Domaine.model_name.human.pluralize %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to gestions_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "gestions") do %>
-                <%= Gestion.model_name.human.pluralize %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to clusters_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "clusters") do %>
-                <%= Cluster.model_name.human.pluralize %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to colors_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "colors") do %>
-                <%= Color.model_name.human.pluralize %>
-              <% end %>
-            </li>
-          </ul>
-        </li>
-        <!-- Maintenance -->
-        <li class="mydcim-sidebar-links-group py-2">
-          <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
-            <i class="bi bi-tools me-2 text-primary"></i>
-            <%= t(".maintenance.title") %>
-          </strong>
-          <ul class="list-unstyled fw-normal pb-2 small">
-            <li>
-              <%= link_to maintainers_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "maintainers") do %>
-                <%= Maintainer.model_name.human.pluralize %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to contract_types_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "contract_types") do %>
-                <%= ContractType.model_name.human.pluralize %>
-              <% end %>
-            </li>
-          </ul>
-        </li>
-        <!-- Connection -->
-        <li class="mydcim-sidebar-links-group py-2">
-          <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
-            <i class="bi bi-ethernet me-2 text-primary"></i>
-            <%= t(".connection.title") %>
-          </strong>
-          <ul class="list-unstyled fw-normal pb-2 small">
-            <li>
-              <%= link_to connections_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "connections") do %>
-                <%= Connection.model_name.human.pluralize %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to cables_path,
-                          class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                            active: controller.controller_name == "cables") do %>
-                <%= Cable.model_name.human.pluralize %>
-              <% end %>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
+<aside id="mydcim-inventories-sidebar"
+       class="<%= class_names("mydcim-sidebar offcanvas-lg offcanvas-start border border-right col-lg-2 p-0 bg-body-tertiary", offcanvas: false) %>"
+       tabindex="-1" aria-labelledby="sidebarMenuLabel">
+  <div class="offcanvas-header">
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="#mydcim-inventories-sidebar" aria-label="<%= t("action.close") %>"></button>
   </div>
+  <nav class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto" aria-label="<%= t("inventories") %> navigation">
+    <ul class="list-unstyled mb-0 pb-3 pb-md-2 px-lg-2 ms-lg-0 ms-3">
+      <!-- Location -->
+      <li class="mydcim-sidebar-links-group py-2">
+        <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
+          <i class="bi bi-geo-alt me-2 text-primary"></i>
+          <%= t(".location.title") %>
+        </strong>
+        <ul class="list-unstyled fw-normal pb-2 small">
+          <li>
+            <%= link_to sites_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "sites") do %>
+              <%= Site.model_name.human.pluralize %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to rooms_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "rooms") do %>
+              <%= Room.model_name.human.pluralize %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to islets_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "islets") do %>
+              <%= Islet.model_name.human.pluralize %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to bays_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "bays") do %>
+              <%= t(".location.bays") %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to frames_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "frames") do %>
+              <%= Frame.model_name.human.pluralize %>
+            <% end %>
+          </li>
+        </ul>
+      </li>
+      <!-- Equipement -->
+      <li class="mydcim-sidebar-links-group py-2">
+        <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
+          <i class="bi bi-hdd-rack me-2 text-primary"></i>
+          <%= t(".equipment.title") %>
+        </strong>
+        <ul class="list-unstyled fw-normal pb-2 small">
+          <li>
+            <%= link_to servers_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "servers") do %>
+              Matériels
+            <% end %>
+          </li>
+        </ul>
+      </li>
+      <!-- Features -->
+      <li class="mydcim-sidebar-links-group py-2">
+        <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
+          <i class="bi bi-sliders me-2 text-primary"></i>
+          <%= t(".features.title") %>
+        </strong>
+        <ul class="list-unstyled fw-normal pb-2 small">
+          <li>
+            <%= link_to modeles_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "modeles") do %>
+              <%= Modele.model_name.human.pluralize %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to categories_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "categories") do %>
+              <%= Category.model_name.human.pluralize %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to architectures_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "architectures") do %>
+              <%= Architecture.model_name.human.pluralize %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to manufacturers_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "manufacturers") do %>
+              <%= Manufacturer.model_name.human.pluralize %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to stacks_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "stacks") do %>
+              <%= Stack.model_name.human.pluralize %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to card_types_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "card_types") do %>
+              <%= CardType.model_name.human.pluralize %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to port_types_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "port_types") do %>
+              <%= PortType.model_name.human.pluralize %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to disk_types_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "disk_types") do %>
+              <%= DiskType.model_name.human.pluralize %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to memory_types_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "memory_types") do %>
+              <%= MemoryType.model_name.human.pluralize %>
+            <% end %>
+          </li>
+        </ul>
+      </li>
+      <!-- Exploitation -->
+      <li class="mydcim-sidebar-links-group py-2">
+        <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
+          <i class="bi bi-briefcase me-2 text-primary"></i>
+          <%= t(".exploitation.title") %>
+        </strong>
+        <ul class="list-unstyled fw-normal pb-2 small">
+          <li>
+            <%= link_to domaines_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "domaines") do %>
+              <%= Domaine.model_name.human.pluralize %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to gestions_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "gestions") do %>
+              <%= Gestion.model_name.human.pluralize %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to clusters_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "clusters") do %>
+              <%= Cluster.model_name.human.pluralize %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to colors_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "colors") do %>
+              <%= Color.model_name.human.pluralize %>
+            <% end %>
+          </li>
+        </ul>
+      </li>
+      <!-- Maintenance -->
+      <li class="mydcim-sidebar-links-group py-2">
+        <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
+          <i class="bi bi-tools me-2 text-primary"></i>
+          <%= t(".maintenance.title") %>
+        </strong>
+        <ul class="list-unstyled fw-normal pb-2 small">
+          <li>
+            <%= link_to maintainers_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "maintainers") do %>
+              <%= Maintainer.model_name.human.pluralize %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to contract_types_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "contract_types") do %>
+              <%= ContractType.model_name.human.pluralize %>
+            <% end %>
+          </li>
+        </ul>
+      </li>
+      <!-- Connection -->
+      <li class="mydcim-sidebar-links-group py-2">
+        <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
+          <i class="bi bi-ethernet me-2 text-primary"></i>
+          <%= t(".connection.title") %>
+        </strong>
+        <ul class="list-unstyled fw-normal pb-2 small">
+          <li>
+            <%= link_to connections_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "connections") do %>
+              <%= Connection.model_name.human.pluralize %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to cables_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "cables") do %>
+              <%= Cable.model_name.human.pluralize %>
+            <% end %>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
 </aside>
