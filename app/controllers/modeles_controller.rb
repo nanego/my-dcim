@@ -78,6 +78,13 @@ class ModelesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def modele_params
-    params.require(:modele).permit(:name, :color, :description, :category_id, :architecture_id, :u, :manufacturer_id, :nb_elts, enclosures_attributes: [:id, :modele_id, :_destroy, :position, :display, :grid_areas, composants_attributes: [:type_composant_id, :enclosure_id, :name, :position, :_destroy, :id]])
+    params.require(:modele).permit(
+      :name, :color, :description, :category_id, :architecture_id, :u, :manufacturer_id, :nb_elts,
+      network_types: [],
+      enclosures_attributes: [
+        :id, :modele_id, :_destroy, :position, :display, :grid_areas,
+        composants_attributes: [:type_composant_id, :enclosure_id, :name, :position, :_destroy, :id],
+      ]
+    )
   end
 end
