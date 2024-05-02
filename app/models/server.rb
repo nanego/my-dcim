@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
 class Server < ApplicationRecord
-  NETWORKS = {
-    1 => :gbe,
-    2 => :'10gbe',
-    3 => :fiber,
-  }
-
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
@@ -42,6 +36,7 @@ class Server < ApplicationRecord
   validates :name, presence: true
   validates_uniqueness_of :numero
   validate :numero_cannot_be_a_current_server_name
+  validate :validate_network_types_values
 
   accepts_nested_attributes_for :cards, :allow_destroy => true,
                                         :reject_if => :all_blank
@@ -51,6 +46,10 @@ class Server < ApplicationRecord
                                                     :reject_if => :all_blank
   accepts_nested_attributes_for :documents, :allow_destroy => true,
                                             :reject_if => :all_blank
+
+  normalizes :network_types, with: ->(values) { values.compact_blank }
+
+  before_create :set_default_network_types
 
   scope :sorted, -> { order(:position => :desc) }
   scope :sorted_by_name, -> { order('LOWER(name) ASC') }
@@ -156,5 +155,19 @@ class Server < ApplicationRecord
     servers = Server.friendly.where(slug: numero.to_s.downcase) - [self]
 
     errors.add(:numero, :invalid) if servers.present?
+  end
+
+  def set_default_network_types
+    return unless network_types && network_types.empty?
+    return if modele.blank?
+
+    self.network_types = modele.network_types
+  end
+
+  def validate_network_types_values
+    return if network_types.empty?
+    return if network_types.any? { |n| Modele::Network::TYPES.include?(n) }
+
+    errors.add(:network_types, :invalid)
   end
 end
