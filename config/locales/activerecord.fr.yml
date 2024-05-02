@@ -274,7 +274,6 @@ fr:
         color: Couleur
         special_case: Cas spécial
         comments: Commentaires
-        connections: Connections
 
     errors:
       models:

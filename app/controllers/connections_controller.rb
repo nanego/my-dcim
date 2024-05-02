@@ -2,7 +2,7 @@
 
 class ConnectionsController < ApplicationController
   def index
-    @connections = sorted Connection.includes(:port, cable: :connections)
+    @connections = sorted Connection.includes(:port, :card, :server, :card_type, :port_type, cable: :connections)
       .order(created_at: :desc).page(params[:page]).per(100)
   end
 

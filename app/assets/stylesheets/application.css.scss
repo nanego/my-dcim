@@ -199,6 +199,18 @@ table.card_layout {
   text-align: center;
   overflow: hidden;
   margin: 0 1px 1px 0;
+
+  &.outlined {
+    outline: 3px solid #eea236;
+    z-index: 99999;
+  }
+}
+
+.badge,
+.portRJ,
+.portFC,
+.portSCSI,
+.portALIM{
   // Colors are !important so we can print them
   &.R {
     color: #FFFFFF !important;
@@ -247,10 +259,6 @@ table.card_layout {
   &.P {
     color: #000000 !important;
     background-color: #ff9ee5 !important;
-  }
-  &.outlined {
-    outline: 3px solid #eea236;
-    z-index: 99999;
   }
 }
 
