@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
     return updated_values
   end
 
-  # TODO: move in processor?
+  # TODO: remove when fully moved in processor
   def sorted(collection)
     direction = %w[asc desc].include?(params[:sort]) ? params[:sort] : "desc"
     column = params[:sort_by]

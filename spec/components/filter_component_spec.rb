@@ -33,7 +33,7 @@ RSpec.describe FilterComponent, type: :component do
   end
 
   context "with block" do
-    let(:params) { { q: "My", u: "24" }}
+    let(:params) { { q: "My", u: "24" } }
     let(:block) do
       proc do |c|
         c.with_form do |f|
@@ -62,7 +62,7 @@ RSpec.describe FilterComponent, type: :component do
         end
 
         with_tag("div.panel-footer") do
-          with_tag("a.btn.btn-secondary.btn-sm", text: I18n.t("filter_component.reset")) # TODO href
+          with_tag("a.btn.btn-secondary.btn-sm", text: I18n.t("filter_component.reset"), with: { href: "http://test.host/frames" })
           with_tag("span.pull-right", text: I18n.t("filter_component.total_with_filters", total_count: Frame.count, results_count: 1))
         end
       end
