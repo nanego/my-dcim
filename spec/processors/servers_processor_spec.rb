@@ -11,7 +11,7 @@ RSpec.describe ServersProcessor do
   let(:attributes) do
     {
       frame: frames(:one), gestion: gestions(:one), domaine: domaines(:switch), modele: modeles(:one),
-      cluster: clusters(:cloud_c1), server_state: server_states(:one), stack: stacks(:red),
+      cluster: clusters(:cloud_c1), server_state: server_states(:one), stack: stacks(:red)
     }
   end
 
@@ -76,7 +76,7 @@ RSpec.describe ServersProcessor do
     it { is_expected.to include(server) }
   end
 
-  describe "when filtering by room_id" do
+  describe "when filtering by room_id" do # rubocop:disable RSpec/MultipleMemoizedHelpers
     let(:room)   { Room.create(name: "R1", site: sites(:one)) }
     let(:islet)  { Islet.create!(name: "I1", room:) }
     let(:bay)    { Bay.create!(name: "A1", islet: islet, bay_type: bay_types(:one)) }

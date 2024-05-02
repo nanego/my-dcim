@@ -11,21 +11,21 @@ RSpec.describe UsersProcessor do
   describe "when filtering" do
     let!(:user_active) do
       User.create!(name: "John Doe", email: "john@doe.co", password: "passwordpassword",
-        password_confirmation: "passwordpassword")
+                   password_confirmation: "passwordpassword")
     end
     let!(:user_suspended) do
       User.create!(name: "Jane Doe", email: "jane@doe.co", password: "passwordpassword",
-        password_confirmation: "passwordpassword", suspended_at: Time.zone.now)
+                   password_confirmation: "passwordpassword", suspended_at: Time.zone.now)
     end
 
-    context "on suspended" do
+    context "with value suspended" do
       let(:params) { { filter: "suspended" } }
 
       it { is_expected.to include(user_suspended) }
       it { is_expected.not_to include(user_active) }
     end
 
-    context "on default" do
+    context "with value default" do
       it { is_expected.not_to include(user_suspended) }
       it { is_expected.to include(user_active) }
     end
