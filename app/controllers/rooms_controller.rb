@@ -8,7 +8,7 @@ class RoomsController < ApplicationController # rubocop:disable Metrics/ClassLen
 
   def index
     @filter = Filter.new(Room.all, params)
-    @rooms = sorted @filter.results.joins(:site).order('sites.position asc, rooms.position asc, rooms.name asc')
+    @rooms = @filter.results.joins(:site).order('sites.position asc, rooms.position asc, rooms.name asc')
   end
 
   def show

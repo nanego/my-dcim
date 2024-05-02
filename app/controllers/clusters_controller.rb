@@ -6,8 +6,8 @@ class ClustersController < ApplicationController
   # GET /clusters
   # GET /clusters.json
   def index
-    @filter = Filter.new(Cluster.all, params)
-    @clusters = @filter.results.includes(:servers)
+    @filter = Filter.new(Cluster.includes(:servers), params)
+    @clusters = @filter.results
   end
 
   # GET /clusters/1

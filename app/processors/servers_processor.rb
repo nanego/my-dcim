@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ServersProcessor < ApplicationProcessor
+  include Sortable
   SORTABLE_FIELDS = %w[name categories.name rooms.name islets.name bays.id].freeze
 
   map :q do |q:|

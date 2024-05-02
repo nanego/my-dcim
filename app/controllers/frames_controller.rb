@@ -5,8 +5,8 @@ class FramesController < ApplicationController
   include RoomsHelper
 
   def index
-    @filter = Filter.new(Frame.all, params)
-    @frames = sorted @filter.results.includes(bay: { islet: :room }).references(bay: { islet: :room })
+    @filter = Filter.new(Frame.includes(bay: { islet: :room }).references(bay: { islet: :room }), params)
+    @frames = @filter.results
   end
 
   def show

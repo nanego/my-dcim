@@ -6,10 +6,11 @@ class ServersController < ApplicationController
   before_action :set_server, only: [:show, :edit, :update, :destroy]
 
   def index
-    @filter = Filter.new(Server.all, params)
-    @servers = sorted @filter.results.includes(:frame, :room, :islet, bay: :frames, modele: :category)
+    @servers = Server.includes(:frame, :room, :islet, bay: :frames, modele: :category)
       .references(:room, :islet, :bay, modele: :category)
       .order(:name)
+    @filter = Filter.new(@servers, params)
+    @servers = @filter.results
   end
 
   def grid

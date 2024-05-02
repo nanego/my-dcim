@@ -42,7 +42,7 @@ class Filter
   end
 
   def attributes
-    @attributes ||= @params.permit(*attribute_names).to_h
+    @attributes ||= @params.respond_to?(:permit) ? @params.permit(*attribute_names).to_h : @params
   end
   alias to_h attributes
 

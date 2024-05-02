@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class BaysProcessor < ApplicationProcessor
-  SORTABLE_FIELDS = %w[lane position rooms.name islets.name].freeze
+  include Sortable
+  SORTABLE_FIELDS = %w[lane position room.name islet.name].freeze
 
   map :q do |q:|
     raw.joins(:frames).where(Frame.arel_table[:name].matches("%#{q}%"))
@@ -9,7 +10,7 @@ class BaysProcessor < ApplicationProcessor
   end
 
   map :room_id do |room_id:|
-    raw.where(room: { id: room_id })
+    raw.joins(:room).where(rooms: { id: room_id })
   end
 
   map :islet_id do |islet_id:|

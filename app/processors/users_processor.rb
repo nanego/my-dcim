@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class UsersProcessor < ApplicationProcessor
+  include Sortable
   SORTABLE_FIELDS = %w[id email last_sign_in_at created_at role].freeze
 
-  match :suspended do
-    having "true" do
+  match :filter, activate_always: true do
+    having "suspended" do
       raw.suspended
     end
 

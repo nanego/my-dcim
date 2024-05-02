@@ -8,5 +8,5 @@ fr:
       title: Filtres
     submit: Filtrer
     reset: Réinitialiser
-    total_with_filters: "Total: %{results_count} sur %{total_count}"
+    total_with_filters: "Total: %{results_count} sur %{total_count} résultats"
     total: "Total: %{count}"
