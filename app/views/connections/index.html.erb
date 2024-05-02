@@ -27,9 +27,9 @@
       <%= connection.paired_connection&.id %>
       <%- if connection.paired_connection %>
         <span class="pull-right">
-          <%= link_to connections_edit_path(from_port_id: connection.port), class: "btn btn-primary btn-xs" do %>
+          <%= link_to connections_edit_path(from_port_id: connection.port), class: "btn btn-primary btn-sm float-end" do %>
             <span class="bi bi-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
-            <span class="sr-only"><%= t("action.edit") %></span>
+            <span class="visually-hidden"><%= t("action.edit") %></span>
           <% end %>
         </span>
       <% end %>
@@ -47,11 +47,11 @@
       <%= connection.port_type&.name %>
     <% end %>
 
-    <% table.with_column(style: "min-width: 84px; width: 84px") do |connection| %>
+    <% table.with_column(style: "min-width: 48px; width: 48px") do |connection| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= link_to connections_edit_path(from_port_id: connection.port), class: "btn btn-primary" do %>
           <span class="bi bi-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
-          <span class="sr-only"><%= t("action.edit") %></span>
+          <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
       </div>
     <% end %>
