@@ -24,6 +24,7 @@ end
 
 # require "webmock/rspec"
 require "capybara/rspec"
+require "rubanok/rspec"
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
