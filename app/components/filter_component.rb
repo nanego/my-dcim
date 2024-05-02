@@ -13,9 +13,7 @@ class FilterComponent < ApplicationComponent
       <%#= filters_badge_tags %>
 
       <%= form_with model: @filter, url: "", method: :get, class: "form-inline", id: :filters do |f| %>
-        <div class="panel-body">
-          <%= form.call(f) %>
-        </div>
+        <%= form&.call(f) %>
 
         <% card.with_footer do %>
           <%= f.submit t(".submit"), class: "btn btn-primary btn-sm", form: :filters %>
