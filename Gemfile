@@ -10,7 +10,7 @@ gem "jbuilder"
 gem "jquery-ui-rails"
 gem "nokogiri", "~> 1.16"
 gem "rails-i18n", "~> 7.0.x"
-gem "sassc-rails", "~> 2.0"
+gem "dartsass-sprockets"
 gem "sprockets-rails", require: "sprockets/railtie"
 gem "terser"
 
@@ -44,6 +44,7 @@ end
 group :development, :test do
   gem "active_record_doctor"
   gem "byebug"
+  gem "lookbook"
   gem "puma"
   gem "rack-mini-profiler", require: false
   gem "rubocop", require: false
@@ -99,7 +100,6 @@ gem "debug", group: %i[test development]
 gem "dekorator", "~> 1.4"
 gem "diffy", "~> 3.4"
 gem "importmap-rails", "~> 2.0"
-gem "lookbook"
 gem "rubanok"
 gem "stimulus-rails", "~> 1.2"
 gem "store_attribute", "~> 1.2"
