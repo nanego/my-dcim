@@ -10,7 +10,7 @@ module Users
       if @user.update(settings_params)
         redirect_to edit_users_settings_path, notice: t(".flashes.updated")
       else
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 

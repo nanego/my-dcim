@@ -498,7 +498,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_02_093850) do
     t.integer "invitations_count", default: 0
     t.string "authentication_token", limit: 30
     t.datetime "suspended_at"
-    t.jsonb "settings", default: {}, null: false
+    t.jsonb "settings", default: {}
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
