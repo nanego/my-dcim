@@ -9,7 +9,7 @@ module Localization
     private
 
     def set_locale
-      I18n.locale = current_user.locale || I18n.default_locale.to_s
+      I18n.locale = current_user&.locale || I18n.default_locale.to_s
     end
   end
 end
