@@ -207,7 +207,7 @@
         $('.couple .overviewed_frame[data-bay-id='+bay_id+']').addClass('selected')
 
         var searchParams = new URLSearchParams(window.location.search)
-        var view = 'front'
+        var view = "<%= current_user.visualization_bay_default_orientation == 'rear' ? 'back' : 'front' %>"
         if (searchParams.has('view')) {
             view = searchParams.get('view')
         } else {
