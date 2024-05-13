@@ -62,11 +62,11 @@ end
 
 group :test do
   gem "capybara", ">= 2.15"
+  gem "rails-controller-testing"
   gem "rspec-activemodel-mocks"
   gem "rspec-html-matchers"
-  gem "shoulda-matchers"
-  gem "rails-controller-testing"
   gem "rspec-rails"
+  gem "shoulda-matchers"
   gem "simplecov", require: false
   gem "simplecov-console", require: false
   # gem "minitest-rails-capybara"

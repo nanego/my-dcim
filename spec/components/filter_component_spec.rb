@@ -6,7 +6,7 @@ RSpec.describe FilterComponent, type: :component do
   let(:filter) { Filter.new(Frame.all, params) }
   let(:params) { {} }
   let(:component) { described_class.new(filter) }
-  let(:block) {}
+  let(:block) { nil }
 
   let(:rendered_component) { render_inline(component, &block) }
 
@@ -15,7 +15,7 @@ RSpec.describe FilterComponent, type: :component do
   end
 
   context "without block" do
-    it do
+    it do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component.to_html).to have_tag("div.panel.panel-primary") do
         with_tag("div.panel-heading") do
           with_tag("h3.panel-title", text: I18n.t("filter_component.header.title"))
@@ -44,7 +44,7 @@ RSpec.describe FilterComponent, type: :component do
       end
     end
 
-    it do
+    it do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component.to_html).to have_tag("div.panel.panel-primary") do
         with_tag("div.panel-heading") do
           with_tag("h3.panel-title", text: "#{I18n.t("filter_component.header.title")} (2)")

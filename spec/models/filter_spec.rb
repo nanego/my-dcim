@@ -37,11 +37,11 @@ RSpec.describe Filter do
   describe "#filled_attributes" do
     it { expect(filter.filled_attributes).to be_empty }
 
-      context "with params" do
-        let(:params) { ActionController::Parameters.new({ q: "test" }) }
+    context "with params" do
+      let(:params) { ActionController::Parameters.new({ q: "test" }) }
 
-        it { expect(filter.filled_attributes).to eq({ "q" => "test" }) }
-      end
+      it { expect(filter.filled_attributes).to eq({ "q" => "test" }) }
+    end
   end
 
   describe "#attributes" do
