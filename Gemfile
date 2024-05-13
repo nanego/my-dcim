@@ -45,6 +45,7 @@ group :development do
   gem "listen", "~> 3.3"
   gem "web-console", ">= 4.1.0"
 end
+
 group :development, :test do
   gem "active_record_doctor"
   gem "byebug"
@@ -57,23 +58,22 @@ group :development, :test do
   gem "rubocop-rake", require: false
   gem "rubocop-rspec", require: false
   gem "rubocop-rspec_rails", require: false
+end
 
-  # gem "formulaic"
+group :test do
+  gem "capybara", ">= 2.15"
+  gem "rspec-activemodel-mocks"
+  gem "rspec-html-matchers"
+  gem "shoulda-matchers"
   gem "rails-controller-testing"
   gem "rspec-rails"
   gem "simplecov", require: false
   gem "simplecov-console", require: false
+  # gem "minitest-rails-capybara"
+  # gem "formulaic"
   # gem "sinatra", require: false
   # gem "vcr"
   # gem "webmock"
-end
-
-group :test do
-  # gem "minitest-rails-capybara"
-
-  gem "capybara", ">= 2.15"
-  gem "rspec-html-matchers"
-  gem "shoulda-matchers"
 end
 
 group :production do
@@ -99,11 +99,12 @@ gem "letter_opener", group: :development
 # Geocode Sites positions
 gem "geocoder"
 
+gem "csv"
 gem "debug", group: %i[test development]
 gem "dekorator", "~> 1.4"
 gem "diffy", "~> 3.4"
 gem "importmap-rails", "~> 2.0"
 gem "lookbook"
-gem "rubanok", "~> 0.5.0"
+gem "rubanok"
 gem "stimulus-rails", "~> 1.2"
 gem "view_component"
