@@ -1,28 +1,28 @@
 # frozen_string_literal: true
 
 class CardComponent < ApplicationComponent
-  TYPES = %i[default primary success info warning danger].freeze
+  TYPES = %i[default primary secondary success info warning danger].freeze
 
   renders_one :header
   renders_one :footer
 
   erb_template <<~ERB
-    <div class="panel panel-<%= @type %>">
-
+    <div class="<%= class_names("card mb-3", "border-\#{@type}": @type) %>">
       <% if header? %>
-      <div class="panel-heading">
-        <%= header %>
-      </div>
+        <div class="<%= class_names("card-header", "text-bg-\#{@type}": @type) %>">
+          <%= header %>
+        </div>
       <% end %>
 
-      <div class="panel-body">
+      <div class="card-body">
         <%= content %>
       </div>
 
       <% if footer? %>
-      <div class="panel-footer">
-        <%= footer %>
-      </div>
+        <div class="<%= class_names("card-footer align-items-center d-flex",
+                                    "bg-\#{@type}-subtle": @type, "border-\#{@type}": @type) %>">
+          <%= footer %>
+        </div>
       <% end %>
     </div>
   ERB
@@ -30,7 +30,7 @@ class CardComponent < ApplicationComponent
   def initialize(type: :default)
     raise ArgumentError, "#{type} is not a valid type" unless TYPES.include?(type)
 
-    @type = type
+    @type = type unless type == :default
 
     super
   end
