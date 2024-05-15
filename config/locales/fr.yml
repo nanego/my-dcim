@@ -708,3 +708,5 @@ fr:
         bay_id: Baie
         modele_id: Modèle
         cluster_id: Cluster
+    placeholder:
+      search: Tapez votre recherche

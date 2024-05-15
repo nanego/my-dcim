@@ -20,48 +20,67 @@
 
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
-      <div class="form-group">
-        <%= f.label :q %>
-        <%= f.text_field :q %>
+      <div class="col-12">
+        <div class="form-floating">
+          <%= f.text_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :q %>
+        </div>
       </div>
 
-      <div class="form-group">
-        <%= f.label :frame_id %>
-        <%= f.collection_select(:frame_id, Frame.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+      <div class="col-12">
+        <div class="form-floating">
+          <%= f.collection_select(:frame_id, Frame.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.label :frame_id %>
+        </div>
       </div>
 
-      <div class="form-group">
-        <%= f.label :bay_id %>
-        <%= f.collection_select(:bay_id, Bay.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+      <div class="col-12">
+        <div class="form-floating">
+          <%= f.collection_select(:bay_id, Bay.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.label :bay_id %>
+        </div>
       </div>
 
-      <div class="form-group">
-        <%= f.label :islet_id %>
-        <%= f.collection_select(:islet_id, Islet.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+      <div class="col-12">
+        <div class="form-floating">
+          <%= f.collection_select(:islet_id, Islet.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.label :islet_id %>
+        </div>
       </div>
 
-      <div class="form-group">
-        <%= f.label :room_id %>
-        <%= f.collection_select(:room_id, Room.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+      <div class="col-12">
+        <div class="form-floating">
+          <%= f.collection_select(:room_id, Room.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.label :room_id %>
+        </div>
       </div>
 
-      <div class="form-group">
-        <%= f.label :modele_id %>
-        <%= f.collection_select(:modele_id, Modele.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+      <div class="col-12">
+        <div class="form-floating">
+          <%= f.collection_select(:modele_id, Modele.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.label :modele_id %>
+        </div>
       </div>
 
-      <div class="form-group">
-        <%= f.label :gestion_id %>
-        <%= f.collection_select(:gestion_id, Gestion.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+      <div class="col-12">
+        <div class="form-floating">
+          <%= f.collection_select(:gestion_id, Gestion.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.label :gestion_id %>
+        </div>
       </div>
 
-      <div class="form-group">
-        <%= f.label :domaine_id %>
-        <%= f.collection_select(:domaine_id, Domaine.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+      <div class="col-12">
+        <div class="form-floating">
+          <%= f.collection_select(:domaine_id, Domaine.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.label :domaine_id %>
+        </div>
       </div>
-      <div class="form-group">
-        <%= f.label :cluster_id %>
-        <%= f.collection_select(:cluster_id, Cluster.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+
+      <div class="col-12">
+        <div class="form-floating">
+          <%= f.collection_select(:cluster_id, Cluster.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.label :cluster_id %>
+        </div>
       </div>
     <% end %>
   <% end %>
