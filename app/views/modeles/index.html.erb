@@ -15,24 +15,32 @@
 
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
-      <div class="form-group">
-        <%= f.label :q %>
-        <%= f.search_field :q, class: "form-control" %>
+      <div class="col-12">
+        <div class="form-floating">
+          <%= f.search_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :q %>
+        </div>
       </div>
 
-      <div class="form-group">
-        <%= f.label :architecture_id %>
-        <%= f.collection_select(:architecture_id, Architecture.sorted, :id, :to_s, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+      <div class="col-12">
+        <div class="form-floating">
+          <%= f.collection_select(:architecture_id, Architecture.sorted, :id, :to_s, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.label :architecture_id %>
+        </div>
       </div>
 
-      <div class="form-group">
-        <%= f.label :category_id %>
-        <%= f.collection_select(:category_id, Category.sorted, :id, :to_s, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+      <div class="col-12">
+        <div class="form-floating">
+          <%= f.collection_select(:category_id, Category.sorted, :id, :to_s, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.label :category_id %>
+        </div>
       </div>
 
-      <div class="form-group">
-        <%= f.label :manufacturer_id %>
-        <%= f.collection_select(:manufacturer_id, Manufacturer.sorted, :id, :to_s, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+      <div class="col-12">
+        <div class="form-floating">
+          <%= f.collection_select(:manufacturer_id, Manufacturer.sorted, :id, :to_s, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.label :manufacturer_id %>
+        </div>
       </div>
     <% end %>
   <% end %>
