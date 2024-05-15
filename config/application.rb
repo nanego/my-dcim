@@ -39,6 +39,7 @@ module Demenagement
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.i18n.default_locale = :fr
+    config.i18n.available_locales = %i[fr en]
 
     # https://github.com/public-activity/public_activity/issues/374
     # https://discuss.rubyonrails.org/t/cve-2022-32224-possible-rce-escalation-bug-with-serialized-columns-in-active-record/81017

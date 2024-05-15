@@ -32,7 +32,9 @@
         <% end %>
 
         <% table.with_column(Room.model_name.human.pluralize, sort_by: :rooms_count) do |site| %>
-          <%= Site.human_attribute_name(:rooms_count, count: site.rooms_count) %>
+          <%= link_to rooms_path(site_id: site.id) do %>
+            <%= Site.human_attribute_name(:rooms_count, count: site.rooms_count) %>
+          <% end %>
         <% end %>
 
         <% table.with_column(style: "min-width: 84px; width: 84px") do |site| %>

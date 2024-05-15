@@ -22,7 +22,7 @@ RSpec.describe "/servers" do
     it { expect(response.body).to include(server2.name) }
 
     context "when searching on name" do
-      before { get servers_path(name: "ServerName1") }
+      before { get servers_path(q: "ServerName1") }
 
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:index) }
