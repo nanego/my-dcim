@@ -14,7 +14,7 @@ class FilterComponent < ApplicationComponent
           <%= f.submit t(".submit"), class: "btn btn-primary btn-sm", form: :filters %>
           <%= link_to t(".reset", filters_count: counter_tag),
                       url_for(only_path: false, overwrite_params: nil),
-                      class: "btn btn-secondary btn-sm" %>
+                      class: "btn btn-link btn-sm" %>
 
           <%= totals_tag %>
         <% end %>
