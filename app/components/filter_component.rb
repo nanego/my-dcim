@@ -16,7 +16,7 @@ class FilterComponent < ApplicationComponent
 
         <% card.with_footer do %>
           <%= f.submit t(".submit"), class: "btn btn-primary btn-sm", form: :filters %>
-          <%= link_to t(".reset"), url_for(only_path: false, overwrite_params: nil), class: "btn btn-secondary btn-sm" %>
+          <%= link_to t(".reset"), url_for(only_path: false, overwrite_params: nil), class: "btn btn-link btn-sm" %>
 
           <%= totals_tag %>
         <% end %>
