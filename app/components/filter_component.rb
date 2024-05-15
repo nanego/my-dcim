@@ -6,17 +6,17 @@ class FilterComponent < ApplicationComponent
   erb_template <<~ERB
     <%= render CardComponent.new(type: :primary) do |card| %>
       <% card.with_header do %>
-        <h3 class="panel-title"><%= t(".header.title") %><%= counter_tag %></h3>
+        <h3 class="card-title"><%= t(".header.title") %><%= counter_tag %></h3>
       <% end %>
 
       <%#= filters_badge_tags %>
 
-      <%= form_with model: @filter, url: "", method: :get, class: "form-inline", id: :filters do |f| %>
+      <%= form_with model: @filter, url: "", method: :get, class: "row row-cols-lg-auto g-3 align-items-center", id: :filters do |f| %>
         <%= form&.call(f) %>
 
         <% card.with_footer do %>
           <%= f.submit t(".submit"), class: "btn btn-primary btn-sm", form: :filters %>
-          <%= link_to t(".reset"), url_for(only_path: false, overwrite_params: nil), class: "btn btn-link btn-sm" %>
+          <%= link_to t(".reset"), url_for(only_path: false, overwrite_params: nil), class: "btn btn-link card-link btn-sm" %>
 
           <%= totals_tag %>
         <% end %>
@@ -58,7 +58,7 @@ class FilterComponent < ApplicationComponent
   end
 
   def totals_tag
-    tag.span class: "pull-right" do
+    tag.small class: "ms-auto text-secondary-emphasis" do
       if @filter.filled?
         t(".total_with_filters", results_count: @filter.results_count, total_count: @filter.total_count)
       else
