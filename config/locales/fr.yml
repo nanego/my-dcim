@@ -616,3 +616,20 @@ fr:
       create: Créer
       update: Modifier
       submit: Envoyer
+
+  filters:
+    attributes:
+      filter:
+        q: Recherche
+        u: Nombre de U
+        architecture_id: Architecture
+        category_id: Catégorie
+        manufacturer_id: Constructeur
+        islet_id: Ilot
+        room_id: Salle
+        domaine_id: Domaine
+        gestion_id: Gestionnaire
+        frame_id: Châssis
+        bay_id: Baie
+        modele_id: Modèle
+        cluster_id: Cluster

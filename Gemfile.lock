@@ -122,6 +122,7 @@ GEM
     crass (1.0.6)
     css_parser (1.17.1)
       addressable
+    csv (3.3.0)
     dalli (3.2.8)
     datagrid (1.8.1)
       railties (>= 6.0)
@@ -186,7 +187,7 @@ GEM
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
     io-console (0.7.2)
-    irb (1.13.0)
+    irb (1.13.1)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jbuilder (2.11.5)
@@ -386,8 +387,8 @@ GEM
     record_tag_helper (1.0.1)
       actionview (>= 5)
     redcarpet (3.6.0)
-    regexp_parser (2.9.0)
-    reline (0.5.4)
+    regexp_parser (2.9.1)
+    reline (0.5.6)
       io-console (~> 0.5)
     responders (3.1.1)
       actionpack (>= 5.2)
@@ -398,6 +399,10 @@ GEM
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
       rspec-mocks (~> 3.13.0)
+    rspec-activemodel-mocks (1.2.0)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      rspec-mocks (>= 2.99, < 4.0)
     rspec-core (3.13.0)
       rspec-support (~> 3.13.0)
     rspec-expectations (3.13.0)
@@ -406,7 +411,7 @@ GEM
     rspec-html-matchers (0.10.0)
       nokogiri (~> 1)
       rspec (>= 3.0.0.a)
-    rspec-mocks (3.13.0)
+    rspec-mocks (3.13.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-rails (6.1.2)
@@ -418,6 +423,7 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.1)
+    rubanok (0.5.0)
     rubocop (1.63.4)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
@@ -559,6 +565,7 @@ DEPENDENCIES
   bourbon
   byebug
   capybara (>= 2.15)
+  csv
   dalli
   datagrid
   debug
@@ -595,8 +602,10 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n (~> 7.0.x)
   record_tag_helper (~> 1.0)
+  rspec-activemodel-mocks
   rspec-html-matchers
   rspec-rails
+  rubanok
   rubocop
   rubocop-capybara
   rubocop-performance
@@ -623,4 +632,4 @@ RUBY VERSION
    ruby 3.3.1p55
 
 BUNDLED WITH
-   2.5.6
+   2.5.9

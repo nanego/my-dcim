@@ -22,6 +22,30 @@
         </h1>
       </div>
 
+      <%= render FilterComponent.new(@filter) do |c| %>
+        <% c.with_form do |f| %>
+          <div class="form-group">
+            <%= f.label :q %>
+            <%= f.search_field :q, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :architecture_id %>
+            <%= f.collection_select(:architecture_id, Architecture.sorted, :id, :to_s, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :category_id %>
+            <%= f.collection_select(:category_id, Category.sorted, :id, :to_s, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :manufacturer_id %>
+            <%= f.collection_select(:manufacturer_id, Manufacturer.sorted, :id, :to_s, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          </div>
+        <% end %>
+      <% end %>
+
       <% @types.each do |category, modeles| %>
         <h4><%= category %></h4>
 
@@ -42,7 +66,9 @@
           <% end %>
 
           <% table.with_column(Bay.model_name.human.pluralize, sort_by: :servers_count) do |modele| %>
-            <%= pluralize(modele.servers.count, modele.category.name.try(:downcase), "#{modele.category.name.try(:downcase)}#{ modele.category.name.blank? || modele.category.name[-1] == 's' || modele.category.name=='San' ? '' : 's' }") %>
+            <%= link_to servers_path(modele_id: modele.id) do %>
+              <%= pluralize(modele.servers.count, modele.category.name.try(:downcase), "#{modele.category.name.try(:downcase)}#{ modele.category.name.blank? || modele.category.name[-1] == 's' || modele.category.name=='San' ? '' : 's' }") %>
+            <% end %>
           <% end %>
 
           <% table.with_column(Modele.human_attribute_name(:network_types)) do |modele| %>

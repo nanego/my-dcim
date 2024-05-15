@@ -55,13 +55,13 @@ module List
     end
 
     def link_to_sort(label, attribute)
-      current_attribute = params[:column]&.to_sym
-      current_direction = current_attribute == attribute ? params[:direction].to_sym : nil
+      current_attribute = params[:sort_by]&.to_sym
+      current_direction = current_attribute == attribute ? params[:sort].to_sym : nil
 
       parameters = case current_direction
-                   when nil then { column: attribute, direction: :asc }
-                   when :asc then { column: attribute, direction: :desc }
-                   else { column: nil, direction: nil }
+                   when nil then { sort_by: attribute, sort: :asc }
+                   when :asc then { sort_by: attribute, sort: :desc }
+                   else { sort_by: nil, sort: nil }
                    end
 
       url = url_for(controller.request.query_parameters.merge(parameters))
