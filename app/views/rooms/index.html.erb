@@ -11,14 +11,18 @@
 
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
-      <div class="form-group">
-        <%= f.label :q %>
-        <%= f.text_field :q %>
+      <div class="col-12">
+        <div class="form-floating">
+          <%= f.text_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :q %>
+        </div>
       </div>
 
-      <div class="form-group">
-        <%= f.label :site_id %>
-        <%= f.collection_select(:site_id, Site.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+      <div class="col-12">
+        <div class="form-floating">
+          <%= f.collection_select(:site_id, Site.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.label :site_id %>
+        </div>
       </div>
     <% end %>
   <% end %>
