@@ -1,26 +1,22 @@
 <% provide :title, "Vue infrastructure" %>
+<% hide_inventories_sidebar! %>
 
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {t("visualization") => overview_rooms_path, 'Infrastructure' => nil} %>
 
-<div class="container-fluid room_overview show_room" id="full-overview">
-  <div class="panel panel-default">
-    <div class="panel-body" style="display: flex;">
-
-      <ul class="list-unstyled col-xs-2 hidden-sm menu-rooms">
-
-        <div class="btn-group btn-toggle">
+<div class="container-fluid room_overview show_room rooms-network-capacity" id="network-capacity">
+  <div class="card mb-3">
+    <div class="card-body d-flex">
+      <ul class="list-unstyled menu-rooms rounded bg-body-tertiary p-3 m-0 border">
+        <div class="btn-group btn-toggle d-flex border-bottom mb-3 pb-3 rounded-0">
           <% @network_types.each do |network_type| %>
             <button class="<%= class_names("btn", "btn-primary active": (network_type == "gbe"), "btn-outline-secondary": (network_type != "gbe")) %>" data-toggle="tab" role="tab" data-network="<%= network_type %>">
               <%= Modele.human_attribute_name("network_types.short_#{network_type}") %>
             </button>
           <% end %>
         </div>
-
-        <li class="divider" style="border-bottom: 1px lightgray solid;margin:10px -10px 8px -10px;"></li>
-
         <% @sites.each do |site| %>
           <li><%= site %></li>
-          <ul>
+          <ul class="mb-2">
             <% rooms = site.rooms.sorted.distinct %>
             <% rooms.each do |room| %>
               <% islets = room.islets.sorted.not_empty.has_name.distinct %>
@@ -57,19 +53,15 @@
             <% end %>
           </ul>
         <% end %>
-
-        <li class="divider" style="border-bottom: 1px lightgray solid;margin:10px -10px 8px -10px;"></li>
-
-        <div id="stack-selector">
-          Stacks :
+        <div id="stack-selector" class="border-top mt-3 pt-3">
+          <%= Stack.model_name.human.pluralize %> :
           <% @stacks.each do |stack| %>
             <%= check_box_tag "stack", stack.id, 1, value: "##{stack.color}" %>
             <span style="margin-right: 5px;<%= "color: ##{stack.try(:color)}" %>" class="bi bi-square-fill" aria-hidden="true"></span>
           <% end %>
         </div>
       </ul>
-
-      <div class="tab-content col-xs-10 infrastructure">
+      <div class="tab-content infrastructure">
         <% @sites.each do |site| %>
           <% site.rooms.each do |room| %>
             <% room.islets.sorted.each do |islet| %>

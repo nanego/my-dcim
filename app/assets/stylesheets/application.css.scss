@@ -576,12 +576,14 @@ body {
   }
 
   &-sidebar {
-    @include media-breakpoint-up(lg) {
-      position: sticky;
-      top: 0;
-      display: block !important;
-      overflow-y: auto;
-      height: 100%
+    &:not(.offcanvas) {
+      @include media-breakpoint-up(lg) {
+        position: sticky;
+        top: 0;
+        display: block !important;
+        overflow-y: auto;
+        height: 100%
+      }
     }
 
     &-links {
