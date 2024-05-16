@@ -1,11 +1,9 @@
 <% provide :title, "Toutes les salles" %>
+<% hide_inventories_sidebar! %>
 
-<%= render 'layouts/breadcrumb', breadcrumb_variables: { 'Aperçu des salles' => nil } %>
-
+<%= render "layouts/breadcrumb", breadcrumb_variables: { "Aperçu des salles": nil } %>
 <div class="container-fluid rooms-overview">
-
   <div class="row">
-
     <% @sites.each do |site| %>
       <div class="col-sm-12" style="text-align: center;">
         <h3><%= site %></h3>
@@ -13,10 +11,9 @@
       <% rooms = site.rooms.order(:position).joins(:frames).distinct %>
       <% rooms.each do |room| %>
         <div class="col-lg-6 col-md-12">
-          <%= render 'rooms/room_overview', room: room %>
+          <%= render "rooms/room_overview", room: room %>
         </div>
       <% end %>
     <% end %>
-
   </div>
 </div>
