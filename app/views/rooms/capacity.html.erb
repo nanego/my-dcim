@@ -1,4 +1,5 @@
 <% provide :title, t("rooms.capacity_view.title") %>
+<% hide_inventories_sidebar! %>
 
 <%= render 'layouts/breadcrumb',
            breadcrumb_variables: {
@@ -6,21 +7,19 @@
              t("rooms.capacity_view.title") => nil } %>
 
 <div class="container-fluid room_overview show_room rooms-network-capacity" id="network-capacity">
-  <div class="panel panel-default">
-    <div class="panel-body" style="display: flex;">
-      <ul class="list-unstyled col-xs-2 hidden-sm menu-rooms">
-        <div class="btn-group btn-toggle">
+  <div class="card mb-3">
+    <div class="card-body d-flex">
+      <ul class="list-unstyled menu-rooms rounded bg-body-tertiary p-3 m-0 border">
+        <div class="btn-group btn-toggle d-flex border-bottom mb-3 pb-3 rounded-0">
           <% Modele::Network::TYPES.each do |type| %>
             <button class="<%= class_names("btn", "btn-primary active": (type == "gbe"), "btn-outline-secondary": (type != "gbe")) %>" data-toggle="tab" role="tab" data-network="<%= type %>">
               <%= Modele.human_attribute_name("network_types.short_#{type}") %>
             </button>
           <% end %>
         </div>
-        <li class="divider" style="border-bottom: 1px lightgray solid;margin:10px -10px 8px -10px;"></li>
-
         <% @sites.each do |site| %>
           <li><%= site %></li>
-          <ul>
+          <ul class="mb-2">
             <% rooms = site.rooms.sorted.distinct %>
             <% rooms.each do |room| %>
               <% islets = room.islets.sorted.not_empty.has_name.distinct %>
@@ -59,7 +58,7 @@
         <% end %>
       </ul>
 
-      <div class="tab-content col-xs-10 capacity">
+      <div class="tab-content capacity">
         <% @sites.each do |site| %>
           <% site.rooms.each do |room| %>
             <% room.islets.sorted.each do |islet| %>
@@ -108,7 +107,7 @@
                                               <table>
                                                 <tr>
                                                   <% components_per_enclosure.each do |component| %>
-                                                    <td class="slot_column" style="border: none;">
+                                                    <td class="slot_column border-0">
                                                       <% cards.select { |card| card.composant_id == component.id }.each do |card| %>
                                                         <%= render partial: 'rooms/capacity_component', locals: { server: server, component: component, card: card } %>
                                                       <% end %>
@@ -132,9 +131,10 @@
                                               <% end %>
                                             <% end %>
                                           <% end %>
-                                          <%= link_to h(server.name),
-                                                      server_path(server, :view => params[:view]),
-                                                      { class: 'pull-right server_name', :data => { 'toggle': "tooltip", 'placement': "top" }, title: server.numero } %>
+                                          <%= link_to server_path(server, :view => params[:view]),
+                                                      { class: 'float-end server_name', :data => { 'toggle': "tooltip", 'placement': "top" }, title: server.numero } do %>
+                                              <small><%= h(server.name) %></small>
+                                          <% end %>
                                         <% end %>
                                       <% end %>
                                     <% end %>
