@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= content_for?(:title) ? yield(:title) : "Gestion de salle #{Rails.env.development? ? "(dev)" : "DCIM"}" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "My DCIM" %>">
 
@@ -15,8 +15,8 @@
     <%= render "layouts/messages" %>
     <div class="mydcim-wrapper container-fluid">
       <div class="row">
-        <%= render "layouts/sidebar" unless hide_inventories_sidebar? %>
-        <main class="mydcim-main ms-sm-auto col-lg-10 px-md-4" role="main">
+        <%= render "layouts/sidebar" %>
+        <main class="<%= class_names("mydcim-main ms-sm-auto px-md-4", "col-lg-10": !hide_inventories_sidebar?) %> role="main">
           <%= yield %>
         </main>
       </div>

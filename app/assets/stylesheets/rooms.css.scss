@@ -154,16 +154,7 @@
   }
 
   .menu-rooms {
-    border-right: solid 1px #EAEAEA;
-    background-color: #F4F4F4;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    margin-bottom: 0;
     min-width: 243px;
-
-    li.active {
-      list-style-type: disc;
-    }
   }
 
   .room-actions {
@@ -311,15 +302,19 @@
     min-width: 226px;
     text-align: left;
 
+    a {
+      color: #555555;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
     .title {
       padding: 3px 0;
       font-size: small;
       background-color: #B3C3C3;
-
-      a {
-        color: #555555;
-        font-weight: normal;
-      }
     }
 
     ul {
@@ -347,11 +342,6 @@
         max-width: 160px;
         margin-top: 5px;
       }
-
-      a {
-        color: #555555;
-        font-size: small;
-      }
     }
 
     .minimal_card_layout {
@@ -361,6 +351,10 @@
         border: 1px solid #666666;
         width: 8px;
         height: 8px;
+      }
+
+      td, th {
+        padding: 0;
       }
     }
 
