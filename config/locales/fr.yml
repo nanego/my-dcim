@@ -662,4 +662,4 @@ fr:
         modele_id: Modèle
         cluster_id: Cluster
     placeholder:
-      search: Tapez votre recherche
+      search: Rechercher ...
