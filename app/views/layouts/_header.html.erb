@@ -1,4 +1,4 @@
-<header class="mydcim-header navbar navbar-expand-lg sticky-top bg-body-tertiary">
+<header class="mydcim-header navbar navbar-expand-lg sticky-top">
   <nav class="container-fluid flex-wrap flex-lg-nowrap" role="menu" aria-label="Main navigation">
     <button class="<%= class_names("navbar-toggler", "d-block": hide_inventories_sidebar?) %>" type="button" data-bs-toggle="offcanvas" data-bs-target="#mydcim-inventories-sidebar"
                                                                             aria-controls="mydcim-inventories-sidebar"
@@ -13,7 +13,7 @@
                                                                             aria-label="Toggle Main navigation">
       <i class="bi bi-three-dots"></i>
     </button>
-    <div id="mydcim-navbar" class="mydcim-navbar offcanvas-lg offcanvas-end">
+    <div id="mydcim-navbar" class="mydcim-navbar offcanvas-lg offcanvas-end bg-body">
       <div class="offcanvas-header px-4 pb-0">
         <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" aria-label="<%= t("action.close") %>" data-bs-target="#mydcim-navbar"></button>
       </div>
