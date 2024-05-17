@@ -3,14 +3,14 @@
 
 <%= render "layouts/breadcrumb", breadcrumb_variables: { "Aperçu des salles": nil } %>
 <div class="container-fluid rooms-overview">
-  <div class="row">
+  <div class="row row-gap-3">
     <% @sites.each do |site| %>
-      <div class="col-sm-12" style="text-align: center;">
-        <h3><%= site %></h3>
+      <div class="col-sm-12 text-center">
+        <h3 class="my-3"><%= site %></h3>
       </div>
       <% rooms = site.rooms.order(:position).joins(:frames).distinct %>
       <% rooms.each do |room| %>
-        <div class="col-lg-6 col-md-12">
+        <div class="col-12 col-xxl-6">
           <%= render "rooms/room_overview", room: room %>
         </div>
       <% end %>
