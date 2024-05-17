@@ -1,7 +1,7 @@
 .rooms-overview {
-  margin-top: 10px;
+  width: max-content;
 
-  .panel {
+  .card {
     margin-bottom: 10px;
   }
 
@@ -22,6 +22,7 @@
     padding: 8px 6px;
     background-color: #F5F5F5;
     border: 1px solid #e3e3e3;
+    font-size: 14px;
 
     &.no-margin {
       margin: 0 0 10px -5px;
@@ -107,17 +108,13 @@
 
     &.hover {
       background-color: white;
-
-      .couple-panel-footer {
-        background-color: white;
-      }
     }
 
     .frame {
       cursor: auto;
     }
 
-    .panel-body {
+    .card-body {
       padding: 0;
     }
   }
@@ -143,7 +140,7 @@
 }
 
 .show_room {
-  .panel-body {
+  .card-body {
     padding: 0;
   }
 
@@ -231,10 +228,6 @@
     .title {
       padding: 8px 6px;
       font-size: small;
-
-      a {
-        color: #555555
-      }
     }
 
     margin-right: 12px;
@@ -254,7 +247,6 @@
       width: auto;
 
       a {
-        color: #555555;
         font-size: small;
       }
     }
@@ -345,15 +337,6 @@
     min-width: 226px;
     text-align: left;
 
-    a {
-      color: #555555;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-
     .title {
       padding: 3px 0;
       font-size: small;
@@ -410,4 +393,15 @@
     }
   }
 
+}
+
+.overviewed_frame {
+  a {
+    color: #555555;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
