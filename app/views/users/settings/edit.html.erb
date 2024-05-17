@@ -4,7 +4,10 @@
   <%= form_with model: @user, url: users_settings_path do |f| %>
     <div class="form-group">
       <%= f.label :locale %>
-      <%= f.select :locale, User::AVAILABLE_LOCALES, {}, class: "form-control" %>
+      <%= f.select :locale,
+                   User::AVAILABLE_LOCALES.map { |locale| [User.human_attribute_name("locale.#{locale}"), locale] },
+                   {},
+                   class: "form-control" %>
     </div>
 
     <!-- TODO: Remove me when themes will be implemented -->
@@ -16,7 +19,9 @@
     <div class="form-group">
       <%= f.label :visualization_bay_default_background_color %>
       <%= f.select :visualization_bay_default_background_color,
-                   User::AVAILABLE_BAY_BACKGROUND_COLORS,
+                   User::AVAILABLE_BAY_BACKGROUND_COLORS.map { |bg_color|
+                     [User.human_attribute_name("visualization_bay_default_background_color.#{bg_color}"), bg_color]
+                   },
                    {},
                    class: "form-control" %>
     </div>
@@ -24,7 +29,9 @@
     <div class="form-group">
       <%= f.label :visualization_bay_default_orientation %>
       <%= f.select :visualization_bay_default_orientation,
-                   User::AVAILABLE_BAY_ORIENTATIONS,
+                   User::AVAILABLE_BAY_ORIENTATIONS.map { |orientation|
+                     [User.human_attribute_name("visualization_bay_default_orientation.#{orientation}"), orientation]
+                   },
                    {},
                    class: "form-control" %>
     </div>

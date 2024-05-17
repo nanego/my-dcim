@@ -243,6 +243,16 @@ fr:
         user: Utilisateur
         admin: Administrateur
         vip: VIP
+      user/locale:
+        fr: Français
+        en: English
+      user/visualization_bay_default_background_color:
+        modele: Modèle
+        cluster: Cluster
+        gestion: Gestionnaire
+      user/visualization_bay_default_orientation:
+        front: Avant
+        rear: Arrière
       card/orientation:
         lr-td: Horizontal, de gauche à droite
         rl-td: Horizontal, de droite à gauche
