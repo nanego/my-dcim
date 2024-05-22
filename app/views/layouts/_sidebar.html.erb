@@ -23,7 +23,7 @@
           <li>
             <%= link_to rooms_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                          active: controller.controller_name == "rooms") do %>
+                          active: controller.controller_name == "rooms" && !hide_inventories_sidebar?) do %>
               <%= Room.model_name.human.pluralize %>
             <% end %>
           </li>
