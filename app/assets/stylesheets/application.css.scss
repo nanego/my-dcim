@@ -40,7 +40,7 @@ body {
   .frame .server .server_name {
     font-size: 16px;
   }
-  .panel-islet {
+  .card-islet {
     page-break-after: always;
     .frames .frame {
       clear: both;
@@ -87,6 +87,19 @@ a.hide-filters, a.show-filters {
 .frame .server {
   color: #777;
   page-break-inside: avoid;
+
+  &.colorized_background {
+    .server_name {
+      a {
+        color: var(--bs-black) !important;
+
+        &:hover {
+          opacity: .7;
+          text-decoration-color: var(--bs-black) !important;
+        }
+      }
+    }
+  }
 }
 
 .frame {
@@ -115,12 +128,8 @@ a.hide-filters, a.show-filters {
   overflow: visible;
 }
 
-.frame .panel-footer {
+.frame .card-footer {
   min-height: 60px;
-}
-
-.badge.badgeRJ45 {
-  border-radius: 0;
 }
 
 .frame li.server {
@@ -306,14 +315,14 @@ table.card_layout {
   margin-bottom: 10px;
 }
 
-.blank-panel, .blank_panel {
+.blank-card, .blank_card {
   // border:1px solid #999999;
   padding: 10px;
   background-color: lightgrey;
   padding: 10px;
 }
 
-.panel-pdu {
+.card-pdu {
   max-width: 150px;
 }
 
@@ -368,13 +377,6 @@ table.card_layout {
   display: inline;
 }
 
-.alert-transparent {
-  background-color: transparent !important;;
-  border-color: transparent;
-  padding: 0;
-  margin-top: -10px;
-}
-
 .tooltip-inner {
   max-width: 1000px;
   width: auto;
@@ -389,7 +391,7 @@ table.card_layout {
   margin-bottom: 10px;
 }
 
-.form-group div.panel-footer {
+.form-group div.card-footer {
   margin-bottom: 0px;
 }
 
@@ -413,7 +415,7 @@ table.card_layout {
   background-color: #f5f5f5;
 }
 
-.dropdown-submenu.pull-left > .dropdown-menu {
+.dropdown-submenu.float-start > .dropdown-menu {
   left: -150%;
 }
 
