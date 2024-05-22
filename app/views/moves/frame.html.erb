@@ -1,7 +1,7 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {"Déplacements prévus" => moves_path,
                                           "Baie #{@frame}" => ''} %>
 <div class="container-fluid">
-  <div class="panel-islet">
+  <div class="card-islet">
     <% if @room.present? %>
         <div><h3>Salle <%= @room.name %> - Ilot <%= @frame.islet %></h3></div>
     <% end %>
