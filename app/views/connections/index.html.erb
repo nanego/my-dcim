@@ -25,7 +25,7 @@
     <% table.with_column(Connection.human_attribute_name(:paired_connection)) do |connection| %>
       <%= connection.paired_connection&.id %>
       <%- if connection.paired_connection %>
-        <span class="pull-right">
+        <span class="float-end">
           <%= link_to connections_edit_path(from_port_id: connection.port), class: "btn btn-primary btn-sm float-end" do %>
             <span class="bi bi-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
             <span class="visually-hidden"><%= t("action.edit") %></span>

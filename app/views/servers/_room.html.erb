@@ -7,7 +7,7 @@
   <% islets.each do |islet, lanes| %>
     <div>
       <div>
-        <div class="panel-islet">
+        <div class="card-islet">
           <% if local_assigns[:title].present? %>
             <div><h3><%= title %></h3></div>
           <% elsif room.present? %>
@@ -33,10 +33,10 @@
                        end
                     %>
                     <div class="<%= layout_classes %>" style='overflow: auto;'>
-                      <div class="panel well couple"
+                      <div class="card couple"
                            style='overflow: auto;'
                            data-url="<%= room_path(room, islet: islet, 'bay-id': bay, view: params[:view]) %>">
-                        <div class="panel-body">
+                        <div class="card-body">
                   <% end %>
                   <% frames.each do |frame, servers| %>
                     <div class="col-xs-12 <%= frames.size > 1 ? 'col-sm-6' : '' %>" style="<%= frame == frames.first[0] ? 'padding-left:0;' : 'padding-right:0;' %>">
