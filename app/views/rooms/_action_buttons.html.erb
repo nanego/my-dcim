@@ -1,6 +1,6 @@
 <% view_side = Frame.view_sides[:front] if local_assigns[:view_side].blank? %>
 
-<span class="pull-right" style="margin-top: 10px">
+<span class="float-end" style="margin-top: 10px">
 
   <% if view_side != Frame.view_sides[:back] %>
     <!-- Choice of server background color -->
@@ -39,7 +39,7 @@
         <%= t("export_button.label") %> <span class="caret"></span>
       </button>
       <ul class="dropdown-menu dropdown-menu-right">
-        <li class="dropdown-submenu pull-left">
+        <li class="dropdown-submenu float-start">
           <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({'format' => 'pdf'})), target: :_blank do %>
             <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
             <%= t("export_button.exports.pdf") %>
