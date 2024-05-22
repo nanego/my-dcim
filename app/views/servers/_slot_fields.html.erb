@@ -3,7 +3,7 @@
     <% label = (f.object.position ? "#{f.object.valeur} #{f.object.position}" : t(".new_port") ) %>
 
     <%= f.hidden_field :_destroy %>
-    <%= link_to "X", '#', class: "remove_fields pull-right" %>
+    <%= link_to "X", '#', class: "remove_fields float-end" %>
     <span class="col-sm-5">
       <%= label %>
     </span>
