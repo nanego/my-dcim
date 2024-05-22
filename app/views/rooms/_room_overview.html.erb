@@ -1,11 +1,13 @@
 <div class="card">
   <div class="card-header">
-    <h3 class="card-title"><%= link_to room.name, room %></h3>
+    <h5 class="card-title"><%= link_to room.name, room %></h5>
   </div>
   <div class="card-body p-0">
     <% room.islets.sorted.each do |islet| %>
       <div class="islet">
-        <h5><%= islet.name.present? ? link_to("Ilot #{islet}", room_path(room, islet: islet.name, :view => params[:view], bg: params[:bg])) : "" %></h5>
+        <h6 class="my-2 ms-3">
+          <%= islet.name.present? ? link_to("Ilot #{islet}", room_path(room, islet: islet.name, :view => params[:view], bg: params[:bg])) : "" %>
+        </h6>
         <%= render "bays/overview", bays: islet.bays.sorted, islet: islet.name %>
       </div>
     <% end %>
