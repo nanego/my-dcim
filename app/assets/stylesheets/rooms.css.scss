@@ -22,7 +22,7 @@
     }
 
     &.highlighted {
-      background-color: lightblue;
+      background-color: var(--bs-info-bg-subtle) !important;
     }
   }
 
