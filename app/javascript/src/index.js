@@ -8,13 +8,13 @@ import $ from "jquery"
 function hideFilters() {
     $('.hide-filters').hide()
     $('.show-filters').show()
-    $('.panel-body').hide()
+    $('.card-body').hide()
 }
 
 function showFilters() {
     $('.hide-filters').show()
     $('.show-filters').hide()
-    $('.panel-body').show()
+    $('.card-body').show()
 }
 
 $(document).on("click", ".draw_connections_link", function (event) {

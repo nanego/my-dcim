@@ -17,16 +17,16 @@
 
 <div class="row">
   <div class="col-lg-4 col-lg-offset-4">
-
-    <div class="panel panel-primary">
+    <!-- TODO: use Card Component and primary style -->
+    <div class="card card-primary">
       <%= form_for :import, url: import_servers_path, multipart: true do |f| %>
-        <div class="panel-heading">
-          <h4 class="panel-title text-center">
+        <div class="card-header">
+          <h4 class="card-title text-center">
             <%= t(".title") %>
           </h4>
         </div>
 
-        <div class="panel-body">
+        <div class="card-body">
           <p>
             <%= f.label t(".room_id.label") %>
             <%= f.select :room_id, Room.order('id').all.collect {|p| [p.name, p.id]}, include_blank: false, selected: Room.find_by_name('Atelier').try(:id) %>
@@ -47,7 +47,7 @@
 
         </div>
 
-        <div class="panel-footer">
+        <div class="card-footer">
           <%= f.submit t(".action.import"), class: 'btn btn-primary', style: "width:100%;" %>
         </div>
       <% end %>
