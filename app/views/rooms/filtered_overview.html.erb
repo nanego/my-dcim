@@ -1,30 +1,23 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {'Aperçu des salles' => overview_rooms_path, @current_filters.join => nil} %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {"Aperçu des salles" => overview_rooms_path, @current_filters.join => nil} %>
 <% hide_inventories_sidebar! %>
 
 <div class="container-fluid rooms-overview">
-
   <div class="row">
-
-    <div class="col-md-6 col-sm-12" id="rooms-overview" data-spy="affix" data-offset-top="53" data-offset-bottom="20">
-
+    <div class="col-12 col-lg-6" id="rooms-overview" data-spy="affix" data-offset-top="53" data-offset-bottom="20">
       <% @sites.each do |site| %>
-        <div style="text-align: center;">
+        <div class="text-center">
           <h3><%= site %></h3>
         </div>
         <% rooms = site.rooms.order(:position).joins(:frames).distinct %>
         <% rooms.each do |room| %>
-          <%= render partial: 'rooms/room_overview', locals: { room: room } %>
+          <%= render partial: "rooms/room_overview", locals: { room: room } %>
         <% end %>
       <% end %>
-
     </div>
-
-    <div class="col-md-6 col-sm-12"></div>
-
-    <div class="col-md-6 col-sm-12">
+    <div class="col-12 col-lg-6">
       <% @frames.each do |frame| %>
-        <% settings = Frame.settings.merge({:min_height => params[:view]=='back' ? 20 : 27 }) %>
-        <%= render partial: 'frames/show_frame', locals: { frame: frame, servers: frame.servers, settings: settings, view_type: params[:view], editable: false, highlighted_servers: @filtered_servers } %>
+        <% settings = Frame.settings.merge({:min_height => params[:view]=="back" ? 20 : 27 }) %>
+          <%= render partial: "frames/show_frame", locals: { frame: frame, servers: frame.servers, settings: settings, view_type: params[:view], editable: false, highlighted_servers: @filtered_servers } %>
       <% end %>
     </div>
   </div>
