@@ -48,8 +48,9 @@
   <% end %>
 
   <div class="col-lg-6">
-    <div class="panel panel-primary">
-      <div class="panel-body">
+    <!-- TODO: use Card Component and primary style -->
+    <div class="card card-primary">
+      <div class="card-body">
         <dl class="dl-horizontal">
           <dt><%= Bay.model_name.human %> :</dt>
           <dd><%= link_to @server.frame.try(:name), frame_path(@server.frame) %></dd>
@@ -161,8 +162,9 @@
       <br/>
     <% end %>
     <% if @server.documents.present? %>
-      <div class="panel panel-primary">
-        <div class="panel-body">
+    <!-- TODO: use Card Component and primary style -->
+      <div class="card card-primary">
+        <div class="card-body">
           <H5>
             <%= t(".attached_documents") %>
           </H5>
@@ -177,8 +179,9 @@
   </div>
 
   <div class="col-lg-6">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
+  <!-- TODO: use Card Component and primary style -->
+    <div class="card card-primary">
+      <div class="card-header">
         <%= t(".glpi_data") %>
       </div>
       <%
@@ -187,13 +190,13 @@
             client = GlpiClient.new
             computer = client.computer(serial: Rails.env.production? ? @server.numero : "AZERTY") %>
           <% if computer.present? %>
-            <div class="panel-body">
+            <div class="card-body">
               <%= t("glpi.computer.name") %> : <b><%= computer.name %></b><br>
               <%= t("glpi.computer.id") %> : <b><%= computer.id %></b><br>
               <%= t("glpi.computer.serial") %> : <b><%= computer.serial %></b><br>
               <%= t("glpi.computer.contact") %> : <b><%= computer.contact %></b><br>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
               <%= t("glpi.computer.disks_count") %> : <b><%= computer.hard_drives&.size %></b><br>
               <%= t("glpi.computer.disks_capacity") %> : <b><%= number_to_human_size(computer.hard_drives_total_capacity * 1048576) %></b><br>
               <%= t("glpi.computer.memories_count") %> : <b><%= computer.memories&.size %></b><br>
@@ -201,13 +204,13 @@
               <%= t("glpi.computer.cpus") %> :
               <b><%= computer.processors.group_by { |p| p[1]['designation'] }.map { |designation, processors| "#{processors.size} x #{designation}" }.join(', ') %></b><br>
             </div>
-            <div class="panel-footer">
+            <div class="card-footer">
               <%= link_to t(".glpi_visit_page"),
                           "#{Rails.application.credentials.glpi_url}/front/computer.form.php?id=#{computer.id}",
                           target: '_blank' %>
             </div>
           <% else %>
-            <div class="panel-body">
+            <div class="card-body">
               <%= t(".no_match_serial", serial: @server.numero) %>
             </div>
           <% end %>
@@ -216,7 +219,7 @@
              Rails.logger.warn "WARNING: couldn't get GLPI data because the operation timed out"
            rescue Exception => e
              Rails.logger.warn "WARNING: couldn't get GLPI data because of an error: #{e.message}" %>
-        <div class="panel-body">
+        <div class="card-body">
           <%= t(".glpi_connection_error") %> : <pre><code><%= e&.message.to_s %></code></pre>
         </div>
       <% end %>

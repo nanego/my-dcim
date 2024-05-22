@@ -48,14 +48,14 @@
 
   <!--
   <div class="col-sm-5 col-sm-offset-2">
-    <div class="panel panel-default">
-      <div class="panel-heading"><h4>Groupes d'interfaces</h4></div>
+    <div class="card">
+    <div class="card-header"><h4>Groupes d'interfaces</h4></div>
       <ul class="list-group">
         < f.fields_for :composants do |builder| %>
           < render "composant_fields", :f => builder %>
         < end %>
       </ul>
-      <div class="panel-footer">< link_to_add_fields "Ajouter un groupe", f, :composants %></div>
+      <div class="card-footer">< link_to_add_fields "Ajouter un groupe", f, :composants %></div>
     </div>
   </div>
   -->

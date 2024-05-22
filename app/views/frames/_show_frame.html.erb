@@ -10,9 +10,9 @@
 <% clickable_lines = local_assigns[:clickable_lines].nil? ? false : local_assigns[:clickable_lines] %>
 
 <div class="frame" id="frame_<%= frame.id %>">
-  <div class="panel panel-frame panel-default">
-    <div class="panel-heading">
-      <h5 class="panel-title" style="display: inline;">
+  <div class="card card-frame">
+    <div class="card-header">
+      <h5 class="card-title" style="display: inline;">
         <%= link_to frame.name,
                     room_path(frame.room,
                               view: view_type,
@@ -56,12 +56,12 @@
 
           <% if view_type == 'back' %>
             <%= content_tag_for :li, server,
-                                class: "list-group-item truncate server_back
-                                        #{server.modele.try(:category).try(:name).try(:parameterize)}
-                                        #{server.server_state_id == 1 ? 'striped' : ''}
-                                        #{'relegated' if highlighted_servers_ids.exclude?(server.id)}
-                                        #{'relegated' if params[:bg]=='cablage' && request.format.pdf? && server.server_state_id != 1 }
-                                ",
+                                class: class_names("list-group-item truncate server_back #{server.modele.try(:category).try(:name).try(:parameterize)}",
+                                                  "striped": server.server_state_id == 1,
+                                                  "relegated": highlighted_servers_ids.exclude?(server.id),
+                                                  "relegated": params[:bg]=="cablage" && request.format.pdf? && server.server_state_id != 1,
+                                                  colorized_background: bgModeleColor.present?
+                                ),
                                 style: "min-height: #{settings[:min_height] * (server.modele.try(:u).to_i > 0 ? server.modele.u : 1)}px;padding: 3px 3px 3px 20px;",
                                 data: data do %>
               <% u_server.times do |i| %>
@@ -77,12 +77,12 @@
             <% end %>
           <% else %>
             <%= content_tag_for :li, server,
-                                class: "list-group-item truncate
-                                        #{server.modele.try(:category).try(:name).try(:parameterize)}
-                                        #{server.server_state_id == 1 ? 'striped' : ''}
-                                        #{'relegated' if highlighted_servers_ids.exclude?(server.id)}
-                                        #{'relegated' if params[:bg]=='cablage' && request.format.pdf? && server.server_state_id != 1 }
-                                ",
+                                class: class_names("list-group-item truncate #{server.modele.try(:category).try(:name).try(:parameterize)}",
+                                                   striped: server.server_state_id == 1,
+                                                   relegated: highlighted_servers_ids.exclude?(server.id),
+                                                   relegated: params[:bg]=="cablage" && request.format.pdf? && server.server_state_id != 1,
+                                                   colorized_background: bgModeleColor.present?
+                                ),
                                 style: "height: #{settings[:min_height] * u_server - (u_server - 1)}px;background-color:#{bgModeleColor} !important;",
                                 :data => data do %>
               <% u_server.times do |i| %>

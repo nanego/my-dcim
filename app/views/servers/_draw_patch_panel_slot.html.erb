@@ -1,5 +1,5 @@
 <% server.cards.where(:composant_id => slot.id).each do |card| %>
-  <span class="pull-left" style="margin-right: 2em;">
+  <span class="float-start" style="margin-right: 2em;">
     <% cache(["card_ports", card.id, Port.maximum(:updated_at)]) do %>
       <%= ports_by_card(port_type: card.card_type.port_type,
                         port_quantity: card.card_type.port_quantity,

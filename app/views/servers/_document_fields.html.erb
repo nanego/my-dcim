@@ -2,11 +2,11 @@
 
   <span>
     <%= f.hidden_field :_destroy %>
-    <%= link_to t("action.delete"), '#', class: "remove_fields pull-right btn btn-outline-secondary" %>
+    <%= link_to t("action.delete"), '#', class: "remove_fields float-end btn btn-outline-secondary" %>
   </span>
 
-  <span class="pull-left"><%= f.object.document.metadata['filename'] if f.object.document.present? %></span>
-  <span  class="pull-left">
+  <span class="float-start"><%= f.object.document.metadata['filename'] if f.object.document.present? %></span>
+  <span  class="float-start">
     <%= f.hidden_field :document, value: f.object.cached_document_data %>
     <%= f.file_field :document %>
   </span>
