@@ -10,7 +10,7 @@
       </div>
       <% rooms = site.rooms.order(:position).joins(:frames).distinct %>
       <% rooms.each do |room| %>
-        <div class="col-12 col-xxl-6">
+        <div class="col-sm-12 col-xxl-6">
           <%= render "rooms/room_overview", room: room %>
         </div>
       <% end %>
