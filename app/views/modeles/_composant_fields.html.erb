@@ -7,9 +7,9 @@
 
 <li class="list-group-item row composant">
   <fieldset>
-    <div class="col-xs-3 pull-right">
+    <div class="col-xs-3 float-end">
       <%= f.hidden_field :_destroy %>
-      <%= link_to "X", '#', class: "remove_fields btn btn-danger pull-right" %>
+      <%= link_to "X", '#', class: "remove_fields btn btn-danger float-end" %>
     </div>
 
     <%= f.hidden_field :position %>
@@ -17,7 +17,7 @@
     <% if options.size == 1 %>
       <%= f.hidden_field :type_composant_id, value: options.first[1].to_s %>
     <% else %>
-      <div class="col-xs-9 pull-left input-group">
+      <div class="col-xs-9 float-start input-group">
         <% if f.object.enclosure&.persisted? %>
           <span class="input-group-addon">
             <span class="bi bi-arrows-vertical"></span>
@@ -27,7 +27,7 @@
       </div>
     <% end %>
 
-    <div class="col-xs-9 pull-left input-group">
+    <div class="col-xs-9 float-start input-group">
       <% if f.object.enclosure&.persisted? %>
         <span class="input-group-addon">
           <span class="bi bi-arrows-vertical"></span>
