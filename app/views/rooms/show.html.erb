@@ -142,16 +142,59 @@
 <%= render 'ports/modal_edit_port' %>
 
 <script>
-  (function () {
-    var searchParams = new URLSearchParams(window.location.search)
-    var bay_id = searchParams.get('bay-id')
-    var frame_id = searchParams.get('frame-id')
-    if (frame_id) {
-      loadFrame(frame_id, bay_id, "")
-    } else {
-      if (bay_id) {
-        loadBay(bay_id)
-      }
+document.addEventListener('DOMContentLoaded', function(){
+    (function () {
+        var searchParams = new URLSearchParams(window.location.search)
+        var bay_id = searchParams.get('bay-id')
+        var frame_id = searchParams.get('frame-id')
+        if (frame_id) {
+            loadFrame(frame_id, bay_id, "")
+        } else {
+            if (bay_id) {
+                loadBay(bay_id)
+            }
+        }
+    })();
+
+    $(".show_room .overviewed_frame").hover(
+        function () {
+            $(this).closest('.couple').find(".overviewed_frame").addClass("hover")
+        }, function () {
+            $(this).closest('.couple').find(".overviewed_frame").removeClass("hover")
+        }
+    );
+    $(".show_room .overviewed_frame").on('click', function (e) {
+        e.preventDefault()
+        if(e.target.tagName!='A'){
+            loadBay($(this).data('bay-id'))
+        }
+    })
+    $(".show_room .overviewed_frame .title a").on('click', function (e) {
+        e.preventDefault()
+        loadFrame($(this).data('frame-id'), $(this).data('bay-id'), $(this).text())
+    })
+    $(".menu-rooms").on('click', 'a', function (e) {
+        $('ol.breadcrumb').replaceWith("<ol class=\"breadcrumb\" style=\"margin-bottom: 5px;\">\n" +
+            "  <li><a href=\"/\">Accueil</a></li>\n" +
+            "    <li class=\"active\"><a href=\"/rooms/overview\">Salles</a></li>\n" +
+            "    <li class=\"\">" + $(this).text() + "</li>\n" +
+            "</ol>");
+    })
+
+    function loadBay(bay_id) {
+        $('#bay-container').html('<div class="animationload"><div class="osahanloading"></div>Chargement de la baie</div>')
+        if (typeof delete_all_lines === "function") {
+            delete_all_lines()
+        }
+
+        $('.couple .overviewed_frame').removeClass('selected')
+        $('.couple .overviewed_frame[data-bay-id='+bay_id+']').addClass('selected')
+
+        $.ajax({
+            method: "GET",
+            url: "/bays/" + bay_id + ".js",
+            data: {bay_id: bay_id, view: "<%= view %>", bg: "<%= bg %>"}
+        });
     }
   })();
 
@@ -189,49 +232,13 @@
     $('.couple .overviewed_frame').removeClass('selected')
     $('.couple .overviewed_frame[data-bay-id=' + bay_id + ']').addClass('selected')
 
-    $.ajax({
-      method: "GET",
-      url: "/bays/" + bay_id + ".js",
-      data: {bay_id: bay_id, view: "<%= view %>", bg: "<%= bg %>"}
-    });
-  }
-
-  function loadFrame(frame_id, bay_id, frame_title) {
-    $('#bay-container').html('<div class="animationload"><div class="osahanloading"></div>Chargement de la baie ' + frame_title + '</div>')
-    if (typeof delete_all_lines === "function") {
-      delete_all_lines()
-    }
-
-    $('.couple .overviewed_frame').removeClass('selected')
-    $('.couple .overviewed_frame[data-frame-id=' + frame_id + ']').addClass('selected')
-
-    const searchParams = new URLSearchParams(window.location.search)
-    let view = 'front'
-
-    if (searchParams.has('view')) {
-      view = searchParams.get('view')
-    } else {
-      searchParams.set('view', view)
-    }
-    // searchParams.set('bay-id', bay_id)
-    // searchParams.set('frame-id', frame_id)
-    // window.history.replaceState({}, '', location.pathname + '?' + searchParams);
-
-    $.ajax({
-      method: "GET",
-      url: "/frames/" + frame_id + ".js",
-      data: {frame_id: frame_id, view: view, bg: searchParams.get('bg')}
-    });
-  }
-
-  $("#full-overview").on('click', 'button#hide-overview', function () {
-    $("#full-overview").slideUp(100)
-    $("#retracted-overview").show()
-  })
-  $("#retracted-overview").on('click', 'button#show-overview', function () {
-    $("#retracted-overview").hide()
-    $("#full-overview").slideDown(100)
-  })
-
-
+    $("#full-overview").on('click', 'button#hide-overview', function () {
+        $("#full-overview").slideUp(100)
+        $("#retracted-overview").show()
+    })
+    $("#retracted-overview").on('click', 'button#show-overview', function () {
+        $("#retracted-overview").hide()
+        $("#full-overview").slideDown(100)
+    })
+});
 </script>

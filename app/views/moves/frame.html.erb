@@ -35,6 +35,7 @@
 
 
 <script>
+document.addEventListener('DOMContentLoaded', function(){
     $(document).ready(function(){
         $('.moved_connection_form_loading').hide();
         loadPaletteColorPicker('[name="move[color]"]');
@@ -60,4 +61,5 @@
             $('.connection_form').hide();
         }
     }
+});
 </script>
