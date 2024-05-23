@@ -28,6 +28,7 @@
   </div>
 </fieldset>
 <script>
+document.addEventListener('DOMContentLoaded', function(){
     var display_select = $('#modele_enclosures_attributes_<%= f.object.position.to_i - 1 %>_display')
     var grid_text_area = $('#modele_enclosures_attributes_<%= f.object.position.to_i - 1 %>_grid_areas').closest('.list-group-item')
     var toggle_grid_text_area = (function f() {
@@ -52,4 +53,5 @@
         });
       }
     });
+});
 </script>

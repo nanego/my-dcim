@@ -81,7 +81,7 @@
 <% end %>
 
 <script>
-
+document.addEventListener('DOMContentLoaded', function(){
   $(document).ready(function(){
       loadPaletteColorPicker('[name="moved_connection[color]"]');
       $("#back_departure_server").on('click', 'a.port', function(e) {
@@ -123,6 +123,6 @@
     $('form #moved_connection_remove_connection')[0].value = '1';
     $('form.moved_connection').trigger('submit.rails');
   }
-
+});
 </script>
 </div>
