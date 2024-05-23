@@ -107,6 +107,7 @@
   </div>
 
   <script>
+  document.addEventListener('DOMContentLoaded', function(){
       function select_destination_server(see_all) {
           if (see_all == 1) {
               selected_server = $("#all_destinations select[name='to_server']").val();
@@ -200,4 +201,5 @@
               select_destination_port(e.target.id);
           });
       });
+  });
   </script>
