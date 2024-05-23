@@ -46,6 +46,13 @@ fr:
       edit:
         confirm:
           reset_authentication_token: Votre ancienne clé sera désactivée. Confirmez-vous la création d'une nouvelle clé API ?
+        waiting_for_confirmation: "En attente de confirmation pour : %{email}"
+        password_fields_instruction: Laissez ces champs vides si vous ne souhaitez pas modifier votre mot de passe.
+        update_form_instruction: Vous devez saisir votre mot de passe actuel pour effectuer des modifications.
+        cancel_account:
+          title: Supprimer mon compte
+          text: Mécontent ? Nous serons tristes de vous voir partir.
+          action: Supprimer
     sessions:
       signed_in: "Connecté."
       signed_out: "Déconnecté."

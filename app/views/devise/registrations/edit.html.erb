@@ -1,63 +1,78 @@
-<div class="authform">
-  <h3>Edit <%= resource_name.to_s.humanize %></h3>
-  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => "form"}) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
-    <div class="form-group">
-      <%= f.label :role %>
-      <%= f.text_field :role, disabled: true, class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :login %>
-      <%= f.text_field :name, :autofocus => true, class: "form-control" %>
-    </div>
-    <div class="form-group">
-      <%= f.label :email %>
-      <%= f.email_field :email, class: "form-control" %>
-      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-      <% end %>
-    </div>
-    <div class="form-group" data-controller="reveal">
-      <%= f.label :authentication_token %>
-      <%= link_to t(".action.reset_authentication_token"),
-                  reset_authentication_token_user_path(resource),
-                  class: "btn btn-link  btn-xs float-end",
-                  data: { confirm: t(".confirm.reset_authentication_token") } %>
-      <%= f.text_field :authentication_token, value: "#{"*" * @user.authentication_token.length}", disabled: true, class: "form-control", data: { reveal_target: "item" } %>
-      <%= f.text_field :authentication_token, disabled: true, class: "form-control hidden", data: { reveal_target: "item" } %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+  t("users.my_account.edit") => "" }
+%>
 
-      <button class="btn btn-primary " data-action="click->reveal#toggle" type="button" style="margin-top: 10px;">
-        <span data-reveal-target="item">
-          <%= t(".action.show_authentication_token") %>
-        </span>
-        <span data-reveal-target="item" class="hidden">
-          <%= t(".action.hide_authentication_token") %>
-        </span>
-      </button>
+<div class="row my-5">
+  <div class="col-11 col-md-10 col-lg-8 col-xxl-6 mx-auto">
+    <h1 class="text-center pb-5"><%= t("users.my_account.edit") %></h1>
+    <%= form_for(resource, as: resource_name,
+                           url: registration_path(resource_name),
+                           html: { method: :put, role: "form", class: "bg-body p-4 rounded border" }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <div class="col-12">
+        <%= f.label :role, class: "form-label" %>
+        <%= f.text_field :role, disabled: true, class: "form-control" %>
+      </div>
+      <div class="col-12 mt-4">
+        <%= f.label :login, class: "form-label" %>
+        <%= f.text_field :name, autofocus: true, class: "form-control" %>
+      </div>
+      <div class="col-12 mt-4">
+        <%= f.label :email, class: "form-label" %>
+        <%= f.email_field :email, class: "form-control" %>
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div class="form-text"><%= t(".waiting_for_confirmation", email: resource.unconfirmed_email) %></div>
+        <% end %>
+      </div>
+      <fieldset class="col-12 mt-4" data-controller="reveal" data-reveal-hidden-class="d-none">
+        <%= f.label :authentication_token, class: "form-label" %>
+        <%= link_to t(".action.reset_authentication_token"),
+                    reset_authentication_token_user_path(resource),
+                    class: "btn btn-link btn-xs float-end",
+                    data: { confirm: t(".confirm.reset_authentication_token") } %>
+        <%= f.text_field :authentication_token, value: "#{"*" * @user.authentication_token.length}", disabled: true,
+                                                class: "form-control", data: { reveal_target: "item" } %>
+        <%= f.text_field :authentication_token, disabled: true, class: "form-control d-none",
+                                                                data: { reveal_target: "item" } %>
+        <button class="btn btn-outline-primary btn-sm mt-2" data-action="click->reveal#toggle" type="button">
+          <span data-reveal-target="item">
+            <%= t(".action.show_authentication_token") %>
+          </span>
+          <span data-reveal-target="item" class="d-none">
+            <%= t(".action.hide_authentication_token") %>
+          </span>
+        </button>
+      </fieldset>
+      <fieldset class="row mt-4">
+        <div class="col-12 col-md-6">
+          <%= f.label :password, class: "form-label" %>
+          <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+        </div>
+        <div class="col-12 col-md-6">
+          <%= f.label :password_confirmation, class: "form-label" %>
+          <%= f.password_field :password_confirmation, class: "form-control" %>
+        </div>
+        <p class="form-text"><%= t(".password_fields_instruction") %></p>
+      </fieldset>
+      <fieldset>
+        <div class="col-12 mt-4">
+          <%= f.label :current_password, class: "form-label" %>
+          <%= f.password_field :current_password, class: "form-control" %>
+        </div>
+        <p class="form-text"><%= t(".update_form_instruction") %></p>
+      </fieldset>
+      <%= f.submit class: "w-100 btn btn-primary mt-4" %>
+    <% end %>
+    <hr class="mt-5">
+    <div class="text-center">
+      <h2 class="py-4"><%= t(".cancel_account.title") %></h2>
+      <div class="bg-body p-4 rounded border">
+        <p><%= t(".cancel_account.text") %></p>
+        <%= button_to t(".cancel_account.action"), registration_path(resource_name),
+                                           data: { confirm: t("action.confirm") },
+                                           method: :delete,
+                                           class: "w-100 btn btn-outline-danger mt-2" %>
+      </div>
     </div>
-    <fieldset>
-      <p>Leave these fields blank if you don"t want to change your password.</p>
-      <div class="form-group">
-        <%= f.label :password %>
-        <%= f.password_field :password, :autocomplete => "off", class: "form-control" %>
-      </div>
-      <div class="form-group">
-        <%= f.label :password_confirmation %>
-        <%= f.password_field :password_confirmation, class: "form-control" %>
-      </div>
-    </fieldset>
-    <fieldset>
-      <p>You must enter your current password to make changes.</p>
-      <div class="form-group">
-        <%= f.label :current_password %>
-        <%= f.password_field :current_password, class: "form-control" %>
-      </div>
-    </fieldset>
-    <%= f.submit "Update", :class => "button right" %>
-  <% end %>
-</div>
-<div class="authform">
-<h3>Cancel Account</h3>
-<p>Unhappy? We'll be sad to see you go.</p>
-<%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => "button right" %>
+  </div>
 </div>
