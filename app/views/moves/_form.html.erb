@@ -95,6 +95,7 @@
 </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', function(){
     $(document).ready(function(){
         loadPaletteColorPicker('[name="move[color]"]');
         $('.server_container').hide();
@@ -142,4 +143,5 @@
     $("#frame").on("click", ".position_in_frame", function(e) {
       $("#move_position").val(e.target.title).change();
     });
+});
 </script>

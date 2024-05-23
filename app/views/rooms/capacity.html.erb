@@ -159,6 +159,7 @@
 </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', function(){
   var current_room_id = "<%= @room&.id.to_s %>"
   var current_islet = "<%= @islet&.name.to_s %>"
 
@@ -204,5 +205,5 @@
     })
     $(this).tab('show')
   })
-
+});
 </script>
