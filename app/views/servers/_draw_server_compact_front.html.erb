@@ -18,13 +18,11 @@
       <%= port_nb["RJ"] > 0 ? port_nb["RJ"] : "" %>
     </span>
     <span class="<%= class_names("badge rounded-0 float-end ms-2 text-bg-secondary",
-                                 "d-none": port_nb["IPMI"] <= 0) %>"
-          style="min-width: 21px;">
+                                 "d-none": port_nb["IPMI"] <= 0) %>">
       <%= port_nb["IPMI"] > 0 ? port_nb["IPMI"] : "" %>
     </span>
     <span class="<%= class_names("badge float-end rounded-pill ms-2 text-bg-success",
-                                 "d-none": port_nb["FC"] <= 0 ) %>"
-          style="min-width: 21px;">
+                                 "d-none": port_nb["FC"] <= 0 ) %>">
       <%= port_nb["FC"] > 0 ? port_nb["FC"] : "" %>
   </span>
   <% end %>
