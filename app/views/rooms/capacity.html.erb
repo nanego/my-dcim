@@ -9,8 +9,8 @@
 <div class="container-fluid room_overview show_room rooms-network-capacity" id="network-capacity">
   <div class="card mb-3">
     <div class="card-body d-flex">
-      <ul class="list-unstyled menu-rooms rounded-start-1 bg-body-tertiary p-3 m-0 border-end">
-        <div class="btn-group btn-toggle d-flex border-bottom mb-3 pb-3 rounded-0">
+      <ul class="list-unstyled menu-rooms rounded-start-1 bg-body-secondary p-3 m-0 border-end ">
+        <div class="btn-group btn-toggle d-flex border-bottom border-secondary mb-3 pb-3 rounded-0">
           <% Modele::Network::TYPES.each do |type| %>
             <button class="<%= class_names("btn", "btn-primary active": (type == "gbe"), "btn-outline-secondary": (type != "gbe")) %>" data-toggle="tab" role="tab" data-network="<%= type %>">
               <%= Modele.human_attribute_name("network_types.short_#{type}") %>
@@ -58,7 +58,7 @@
         <% end %>
       </ul>
 
-      <div class="tab-content capacity">
+      <div class="tab-content capacity bg-body-tertiary">
         <% @sites.each do |site| %>
           <% site.rooms.each do |room| %>
             <% room.islets.sorted.each do |islet| %>
@@ -80,7 +80,7 @@
                                                        :cards => [{ :card_type => :port_type }, { :ports => :cable }])
                                      .where("servers.network_types @> ?", "{#{network}}") # Switch LAN
                               end %>
-                              <div class="overviewed_frame bg-body-secondary text-body-emphasis <%= 'no-margin' if index > 0 %>"
+                              <div class="overviewed_frame bg-body text-body-emphasis <%= 'no-margin' if index > 0 %>"
                                    data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.id %>">
                                 <div class="title bg-success-subtle">
                                   <%= link_to frame.name, room_path(room,
