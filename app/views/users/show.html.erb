@@ -2,14 +2,14 @@
 <% provide(:title, "#{User.model_name.human.pluralize} | #{user_label}") %>
 <%= render "layouts/breadcrumb", breadcrumb_variables: { User.model_name.human.pluralize => users_url, user_label => '' } %>
 
-<div class="well container" data-controller="reveal">
+<div class="container" data-controller="reveal">
   <div class="row">
     <div class="col-md-12">
       <div class="page-header">
         <h1><%= user_label %></h1>
       </div>
 
-      <dl class="dl-horizontal well">
+      <dl class="dl-horizontal">
         <dt><%= User.human_attribute_name(:id) %> :</dt>
         <dd><%= @user.id %></dd>
 
