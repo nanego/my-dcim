@@ -6,8 +6,8 @@
 <div class="container-fluid room_overview show_room rooms-network-capacity" id="network-capacity">
   <div class="card mb-3">
     <div class="card-body d-flex">
-      <ul class="list-unstyled menu-rooms rounded-start-1 bg-body-tertiary p-3 m-0 border-end">
-        <div class="btn-group btn-toggle d-flex border-bottom mb-3 pb-3 rounded-0">
+      <ul class="list-unstyled menu-rooms rounded-start-1 bg-body-secondary p-3 m-0 border-end">
+        <div class="btn-group btn-toggle d-flex border-bottom border-secondary mb-3 pb-3 rounded-0">
           <% @network_types.each do |network_type| %>
             <button class="<%= class_names("btn", "btn-primary active": (network_type == "gbe"), "btn-outline-secondary": (network_type != "gbe")) %>" data-toggle="tab" role="tab" data-network="<%= network_type %>">
               <%= Modele.human_attribute_name("network_types.short_#{network_type}") %>
@@ -53,7 +53,7 @@
             <% end %>
           </ul>
         <% end %>
-        <div id="stack-selector" class="border-top mt-3 pt-3">
+        <div id="stack-selector" class="border-top border-secondary mt-3 pt-3">
           <%= Stack.model_name.human.pluralize %> :
           <% @stacks.each do |stack| %>
             <%= check_box_tag "stack", stack.id, 1, value: "##{stack.color}" %>
@@ -61,7 +61,7 @@
           <% end %>
         </div>
       </ul>
-      <div class="tab-content infrastructure">
+      <div class="tab-content infrastructure bg-body-tertiary">
         <% @sites.each do |site| %>
           <% site.rooms.each do |room| %>
             <% room.islets.sorted.each do |islet| %>
