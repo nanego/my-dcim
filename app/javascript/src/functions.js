@@ -11,6 +11,7 @@ var colors_hash = {"N": "#000000",
     "G": "#AAAAAA",
     "W": "#FFFFFF"
 }
+window.colors_hash = colors_hash
 
 var loadPaletteColorPicker = function(selector){
     let colors = []
