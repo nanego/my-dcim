@@ -129,6 +129,7 @@
 <%= render 'ports/modal_edit_port' %>
 
 <script>
+document.addEventListener('DOMContentLoaded', function(){
     (function () {
         var searchParams = new URLSearchParams(window.location.search)
         var bay_id = searchParams.get('bay-id')
@@ -228,6 +229,5 @@
         $("#retracted-overview").hide()
         $("#full-overview").slideDown(100)
     })
-
-
+});
 </script>
