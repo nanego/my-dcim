@@ -3,12 +3,11 @@
     <div class="caption-full text-center pb-5">
       <h4>Gestion de salle</h4>
     </div>
-
     <div class="img-fluid m-0 py-5 px-2 rounded"
          style="background: url(<%= asset_path('_78A0587-nb.jpg') %>) no-repeat center; background-size: cover;">
       <div class="container-fluid mt-4">
         <% Site.joins(:rooms).where('display_on_home_page = ?', true).distinct.order(:position).each do |site| %>
-          <div class="container-fluid mb-4 py-2 bg-body-tertiary bg-opacity-75 rounded border border-secondary">
+          <div class="container-fluid mb-4 py-2 bg-body-tertiary bg-opacity-75 rounded border">
             <div class="text-center fs-4 mb-2"><%= site %></div>
             <div class="d-flex justify-content-between flex-wrap">
               <% rooms = site.rooms.where(display_on_home_page: true).order(:position) %>
@@ -20,7 +19,9 @@
                     <% Category.all.each do |cat| %>
                       <% count = room.materials.joins(:modele).where("modeles.category_id = ?", cat.id).count %>
                       <% if count > 0 %>
-                        <li><%= "#{cat} : #{room.materials.joins(:modele).where("modeles.category_id = ?", cat.id).count}" %></li>
+                        <li>
+                          <%= "#{cat} : #{room.materials.joins(:modele).where("modeles.category_id = ?", cat.id).count}" %>
+                        </li>
                       <% end %>
                     <% end %>
                   </ul>
