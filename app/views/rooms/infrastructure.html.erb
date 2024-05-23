@@ -77,6 +77,7 @@
 </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', function(){
     var current_room_id = "<%= @room&.id %>"
     var current_islet = "<%= @islet&.name %>"
     var lines = []
@@ -256,5 +257,5 @@
         })
         $(this).tab('show')
     })
-
+});
 </script>
