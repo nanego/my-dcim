@@ -1,7 +1,7 @@
-import "./palette-color-picker"
-import "./functions"
-import "./bays"
-import "./servers"
+import "src/palette-color-picker"
+import "src/functions"
+import "src/bays"
+import "src/servers"
 import "sortablejs"
 import $ from "jquery"
 

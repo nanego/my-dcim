@@ -7,8 +7,9 @@ import "controllers"
 import "popper"
 import "bootstrap"
 
-import jQuery from "jquery"
-window.$ = window.jQuery = jQuery
+import jquery from "jquery"
+window.jQuery = jquery
+window.$ = jquery
 // import "jquery-ui"
 
 import Rails from "@rails/ujs"
