@@ -191,7 +191,7 @@
     margin-top: 80px;
 
     .couple {
-      width: 280px;
+      width: 300px;
       height: 160px;
     }
   }
@@ -200,7 +200,7 @@
     padding: 0;
     display: inline-grid;
     border: none;
-    width: 125px;
+    width: 135px;
 
     .title {
       padding: 8px 6px;
@@ -280,13 +280,16 @@
       padding: 8px 6px;
       text-align: center;
       cursor: pointer;
-    }
 
-    a {
-      color: #555555;
+      a {
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
-
 }
 
 .capacity {
