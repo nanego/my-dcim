@@ -30,7 +30,7 @@ class ChangelogEntryDecorator < ApplicationDecorator
   def action_label_to_component
     types = {
       create: :success,
-      update: :primary,
+      update: :info,
       destroy: :danger
     }
 
