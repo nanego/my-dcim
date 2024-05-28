@@ -145,6 +145,10 @@
 
   .menu-rooms {
     min-width: 243px;
+
+    li.active {
+      list-style-type: disc;
+    }
   }
 
   .room-actions {
