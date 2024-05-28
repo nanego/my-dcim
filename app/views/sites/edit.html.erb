@@ -1,20 +1,21 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  'Sites' => sites_path,
-  @site => ''
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+  "Sites" => sites_path,
+    @site => ""
 } %>
 
-<div class="container">
-  <div class="page-header">
-    <%= link_to sites_path, class: 'btn btn-outline-secondary' do %>
-      <span class="bi bi-list-ul"></span>
-      <%= t("action.back") %>
-    <% end %>
-    <%= link_to @site, class: 'btn btn-primary' do %>
-      <span class="bi bi-eye"></span>
-      Voir
-    <% end %>
-    <h1><%= t(".title") %></h1>
+<div class="row my-5">
+  <div class="col-11 col-md-10 col-lg-8 col-xxl-6 mx-auto">
+    <div class="d-flex justify-content-between pb-5">
+      <%= link_to sites_path, class: "btn btn-outline-secondary align-self-center" do %>
+        <span class="bi bi-chevron-left"></span>
+        <%= t("action.back") %>
+      <% end %>
+      <h1><%= t(".title") %></h1>
+      <%= link_to @site, class: "btn btn-primary align-self-center" do %>
+        <span class="bi bi-eye"></span>
+        <%= t("action.show") %>
+      <% end %>
+    </div>
+    <%= render "form" %>
   </div>
-
-<%= render 'form' %>
 </div>
