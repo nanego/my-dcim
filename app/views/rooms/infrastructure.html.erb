@@ -1,7 +1,8 @@
 <% provide :title, "Vue infrastructure" %>
 <% hide_inventories_sidebar! %>
 
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {t("visualization") => overview_rooms_path, 'Infrastructure' => nil} %>
+<%= render "layouts/breadcrumb",
+           breadcrumb_variables: { t("visualization") => overview_rooms_path, "Infrastructure" => nil } %>
 
 <div class="container-fluid room_overview show_room rooms-network-capacity" id="network-capacity">
   <div class="card mb-3">
@@ -9,7 +10,10 @@
       <ul class="list-unstyled menu-rooms rounded-start-1 bg-body-secondary p-3 m-0 border-end">
         <div class="btn-group btn-toggle d-flex border-bottom border-secondary mb-3 pb-3 rounded-0">
           <% @network_types.each do |network_type| %>
-            <button class="<%= class_names("btn", "btn-primary active": (network_type == "gbe"), "btn-outline-secondary": (network_type != "gbe")) %>" data-toggle="tab" role="tab" data-network="<%= network_type %>">
+            <button class="<%= class_names("btn",
+                                           "btn-primary active": (network_type == "gbe"),
+                                           "btn-outline-secondary": (network_type != "gbe")) %>"
+                    data-toggle="tab" role="tab" data-network="<%= network_type %>">
               <%= Modele.human_attribute_name("network_types.short_#{network_type}") %>
             </button>
           <% end %>
@@ -21,7 +25,7 @@
             <% rooms.each do |room| %>
               <% islets = room.islets.sorted.not_empty.has_name.distinct %>
               <% islets.each do |islet| %>
-                <li role="presentation" class="<%= 'active' if islet == @islet %>">
+                <li role="presentation" class="<%= class_names(active: islet == @islet) %>">
                   <% if islets.size <= 1 %>
                     <a href="#<%= room.id %>-<%= islet %>-gbe"
                        onclick="rewriteURL('/rooms/infrastructure', {'room': '<%= room.slug %>', 'islet': ''})"
@@ -66,7 +70,7 @@
           <% site.rooms.each do |room| %>
             <% room.islets.sorted.each do |islet| %>
               <% @network_types.each do |network_type| %>
-                <%= render 'infrastructure_islet', islet: islet, room: room, network: network_type %>
+                <%= render "infrastructure_islet", islet:, room:, network: network_type %>
               <% end %>
             <% end %>
           <% end %>
