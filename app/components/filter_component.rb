@@ -6,7 +6,7 @@ class FilterComponent < ApplicationComponent
   erb_template <<~ERB
     <%= render CardComponent.new(type: :primary) do |card| %>
       <% card.with_header do %>
-        <h3 class="card-title"><%= t(".header.title") %><%= counter_tag %></h3>
+        <span class="card-title"><%= t(".header.title") %><%= counter_tag %></span>
       <% end %>
 
       <%#= filters_badge_tags %>
