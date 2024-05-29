@@ -28,30 +28,29 @@
   </div>
 </fieldset>
 <script>
-document.addEventListener('DOMContentLoaded', function(){
-    var display_select = $('#modele_enclosures_attributes_<%= f.object.position.to_i - 1 %>_display')
-    var grid_text_area = $('#modele_enclosures_attributes_<%= f.object.position.to_i - 1 %>_grid_areas').closest('.list-group-item')
-    var toggle_grid_text_area = (function f() {
-        var val = display_select.val()
-        grid_text_area.hide()
-        if (val == "grid") {
-            grid_text_area.show()
-        }
-        return f
-    })()
-    display_select.change(function () {
-        toggle_grid_text_area()
-    })
+var display_select = $('#modele_enclosures_attributes_<%= f.object.position.to_i - 1 %>_display')
+var grid_text_area = $('#modele_enclosures_attributes_<%= f.object.position.to_i - 1 %>_grid_areas').closest('.list-group-item')
+var toggle_grid_text_area = (function f() {
+    var val = display_select.val()
+    grid_text_area.hide()
+    if (val == "grid") {
+        grid_text_area.show()
+    }
+    return f
+})()
 
-    Sortable.create(enclosureList_<%= f.object.id %>, {
-      handle: '.bi-arrows-vertical',
-      animation: 150,
-      filter: '.fitlered',
-      onEnd: function (evt) {
-        evt.to.querySelectorAll('li.composant').forEach((item, index) => {
-          item.querySelector("input[name*='[position]']").value = index + 1
-        });
-      }
+display_select.change(function () {
+    toggle_grid_text_area()
+})
+
+Sortable.create(enclosureList_<%= f.object.id %>, {
+  handle: '.bi-arrows-vertical',
+  animation: 150,
+  filter: '.fitlered',
+  onEnd: function (evt) {
+    evt.to.querySelectorAll('li.composant').forEach((item, index) => {
+      item.querySelector("input[name*='[position]']").value = index + 1
     });
+  }
 });
 </script>
