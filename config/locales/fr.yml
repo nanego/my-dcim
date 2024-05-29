@@ -20,7 +20,7 @@ fr:
   export_button:
     label: Exports
     exports:
-      pdf: Export pdf
+      pdf: Export PDF
       txt: Export Txt
       print: Impression
     faces:
@@ -562,6 +562,10 @@ fr:
     index:
       delete_confirmation: Cette salle ne pourra pas être supprimée tant qu\'elle sera associée à au moins un ilôt. Voulez-vous continuer ?
       add_room: Ajouter une salle
+    new:
+      title: Ajouter une salle
+    edit:
+      title: Modifier la salle
 
   users:
     my_account:
