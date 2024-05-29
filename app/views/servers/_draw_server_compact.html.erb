@@ -69,7 +69,7 @@
 
 <% end %>
 
-<%= link_to h(server.name), server_path(server, :view => params[:view]), {class: 'float-start server_name ps-3', :data => {'toggle': "tooltip", 'placement': "top"}, title: server.numero} %>
+<%= link_to h(server.name), server_path(server, :view => params[:view]), {class: 'float-start server_name ps-3', data: { controller: "tooltip", bs_placement: "top" }, title: server.numero } %>
 <br>
 <% unless request.format.pdf? %>
 <span class='float-start ps-3'>
