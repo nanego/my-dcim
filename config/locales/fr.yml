@@ -566,7 +566,7 @@ fr:
       delete_confirmation: Cette salle ne pourra pas être supprimée tant qu\'elle sera associée à au moins un ilôt. Voulez-vous continuer ?
       add_room: Ajouter une salle
     new:
-      title: Ajouter une salle
+      title: Nouvelle salle
     edit:
       title: Modifier la salle
 
@@ -615,7 +615,7 @@ fr:
     show:
       title: Baie %{bay_type} %{bay}
     new:
-      title: Ajouter une baie
+      title: Nouvelle baie
     create:
       flashes:
         created: La baie a été ajoutée.
