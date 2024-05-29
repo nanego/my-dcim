@@ -147,16 +147,10 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     else
       port_class = "SCSI"
     end
-    link_to label.to_s,
-            edit_port_url,
-            { class: "port port#{port_class} #{port_data.try(:cable_color) ? port_data.try(:cable_color) : "empty"}",
-              id: port_id,
-              data: { url: edit_port_url,
-                      position: position,
-                      type: type,
-                      toggle: 'tooltip',
-                      placement: 'top',
-                      title: port_data.present? ? "#{port_data.vlans}" : "" } }
+
+    link_to label.to_s, edit_port_url, id: port_id, title: (port_data.present? ? "#{port_data.vlans}" : ""),
+      class: "port port#{port_class} #{port_data.try(:cable_color) ? port_data.try(:cable_color) : "empty"}",
+      data: { url: edit_port_url, position: position, type: type, controller: 'tooltip', bs_placement: 'top' }
   end
 
   private
