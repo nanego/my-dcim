@@ -1,5 +1,3 @@
-import jQuery from "jquery"
-
 /**
  * JQuery Palette Color Picker v1.03 by Carlos Cabo ( @putuko )
  * https://github.com/carloscabo/jquery-palette-color-picker
