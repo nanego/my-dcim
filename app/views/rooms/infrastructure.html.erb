@@ -81,185 +81,190 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function(){
-    var current_room_id = "<%= @room&.id %>"
-    var current_islet = "<%= @islet&.name %>"
-    var lines = []
-    var current_connections = []
+var current_room_id = "<%= @room&.id %>"
+var current_islet = "<%= @islet&.name %>"
+var lines = []
+var current_connections = []
 
-    $(document).ready(function () {
-        drawCurrentLines()
+$(document).ready(function () {
+    drawCurrentLines()
+})
+
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    current_room_id = e.target.dataset['roomId']
+    current_islet = e.target.dataset['islet']
+
+    resetLines()
+})
+$('body').on('click', 'input:checkbox[name=stack]', function (e) {
+    resetLines()
+})
+
+function disabled_colors() {
+    return $('input:checkbox[name=stack]:not(:checked)').map(function () {
+        return this.value;
+    }).get()
+}
+
+function resetLines() {
+    deleteOldLines()
+    drawCurrentLines()
+}
+
+function deleteOldLines() {
+    lines.forEach(function (line) {
+        line.hide()
     })
+    lines = []
+    current_connections = []
+}
 
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        current_room_id = e.target.dataset['roomId']
-        current_islet = e.target.dataset['islet']
+function drawCurrentLines() {
+    var disabled_stacks = disabled_colors()
 
-        resetLines()
-    })
-    $('body').on('click', 'input:checkbox[name=stack]', function (e) {
-        resetLines()
-    })
-
-    function disabled_colors() {
-        return $('input:checkbox[name=stack]:not(:checked)').map(function () {
-            return this.value;
-        }).get()
-    }
-
-    function resetLines() {
-        deleteOldLines()
-        drawCurrentLines()
-    }
-
-    function deleteOldLines() {
-        lines.forEach(function (line) {
-            line.hide()
-        })
-        lines = []
-        current_connections = []
-    }
-
-    function drawCurrentLines() {
-        var disabled_stacks = disabled_colors()
-
-        <% @connections.each do |server_id, connections| %>
-          <% connections.each do |connection| %>
-            <% unless @concentrateurs_ids.include?(connection[:server_id]) && @concentrateurs_ids.exclude?(server_id)  %>
-              if(disabled_stacks.indexOf(colors_hash['<%= connection[:cable_color] %>']) < 0) {
-                  drawInterSwitchsConnections('<%= server_id %>', '<%= connection[:server_id] %>', '<%= connection[:cable_color] %>')
-              }
-            <% end %>
-          <% end %>
+    <% @connections.each do |server_id, connections| %>
+      <% connections.each do |connection| %>
+        <% unless @concentrateurs_ids.include?(connection[:server_id]) && @concentrateurs_ids.exclude?(server_id)  %>
+          if(disabled_stacks.indexOf(colors_hash['<%= connection[:cable_color] %>']) < 0) {
+              drawInterSwitchsConnections('<%= server_id %>', '<%= connection[:server_id] %>', '<%= connection[:cable_color] %>')
+          }
         <% end %>
-    }
+      <% end %>
+    <% end %>
+}
 
-    function drawLine(startElement, endElement, params) {
-        if (startElement && endElement) {
-            lines.push(new LeaderLine(startElement, endElement, params))
-        }
+function drawLine(startElement, endElement, params) {
+    if (startElement && endElement) {
+        lines.push(new LeaderLine(startElement, endElement, params))
     }
+}
 
-    function drawInterSwitchsConnections(start_id, end_id, color) {
-        if (start_id != end_id && current_connections.indexOf(end_id + "-" + start_id) < 0) {
-            var start_element = $('.server_' + start_id + ':visible')[0]
-            var end_element = $('.server_' + end_id + ':visible')[0]
-            // var start_anchor = LeaderLine.pointAnchor(start_element, {x: 42 + i * 20, y: 57})
-            // var end_anchor = LeaderLine.pointAnchor(end_element, {x: 42 + i * 20, y: 0})
-            if (start_element && end_element) {
-                setParamsAndDraw(start_element, end_element, color)
-                if (!$(start_element).hasClass('hub_material')) {
-                    current_connections.push(start_id + "-" + end_id)
-                }
-                log(start_id + ' <-> ' + end_id)
+function drawInterSwitchsConnections(start_id, end_id, color) {
+    if (start_id != end_id && current_connections.indexOf(end_id + "-" + start_id) < 0) {
+        var start_element = $('.server_' + start_id + ':visible')[0]
+        var end_element = $('.server_' + end_id + ':visible')[0]
+        // var start_anchor = LeaderLine.pointAnchor(start_element, {x: 42 + i * 20, y: 57})
+        // var end_anchor = LeaderLine.pointAnchor(end_element, {x: 42 + i * 20, y: 0})
+        if (start_element && end_element) {
+            setParamsAndDraw(start_element, end_element, color)
+            if (!$(start_element).hasClass('hub_material')) {
+                current_connections.push(start_id + "-" + end_id)
             }
+            log(start_id + ' <-> ' + end_id)
+        }
+    }
+}
+
+function setParamsAndDraw(start_element, end_element, color) {
+    var params
+
+    if (color) {
+        color = colors_hash[color]
+    } else {
+        color = 'gray'
+    }
+
+    if ($(start_element).hasClass('hub-top') && !($(end_element).hasClass('hub-bottom')) ||
+        $(start_element).hasClass('hub-bottom') && !($(end_element).hasClass('hub-top'))) {
+        // HUB TO SWITCHS
+        end_element = LeaderLine.pointAnchor(end_element, {x: 5, y: 0})
+        params = {
+            path: 'fluid',
+            startPlug: 'behind',
+            endPlug: 'behind',
+            startSocket: 'bottom',
+            endSocket: 'top',
+            color: color,
+            size: 3,
+            dash: true
         }
     }
 
-    function setParamsAndDraw(start_element, end_element, color) {
-        var params
+    if ($(start_element).hasClass('lane-1') && $(end_element).hasClass('lane-1') ||
+        $(start_element).hasClass('lane-2') && $(end_element).hasClass('lane-2')) {
+        // SWITCH TO SWITCH - SAME LINE
+        params = {
+            path: 'fluid',
+            startPlug: 'behind',
+            endPlug: 'behind',
+            startSocket: 'bottom',
+            endSocket: 'bottom',
+            color: color,
+            size: 2,
+            dash: false
+        }
+    }
 
-        if (color) {
-            color = colors_hash[color]
+    if ($(start_element).hasClass('hub-top') && ($(end_element).hasClass('hub-bottom')) ||
+        $(start_element).hasClass('hub-bottom') && ($(end_element).hasClass('hub-top'))) {
+        // HUB TO HUB
+        if ($(start_element).hasClass('hub-top')) {
+            start_element = LeaderLine.pointAnchor(start_element, {x: $(start_element).outerWidth(), y: 19})
+            end_element = LeaderLine.pointAnchor(end_element, {x: 0, y: 19})
         } else {
-            color = 'gray'
+            start_element = LeaderLine.pointAnchor(start_element, {x: 0, y: 38})
+            end_element = LeaderLine.pointAnchor(end_element, {x: $(end_element).outerWidth(), y: 38})
         }
-
-        if ($(start_element).hasClass('hub-top') && !($(end_element).hasClass('hub-bottom')) ||
-            $(start_element).hasClass('hub-bottom') && !($(end_element).hasClass('hub-top'))) {
-            // HUB TO SWITCHS
-            end_element = LeaderLine.pointAnchor(end_element, {x: 5, y: 0})
-            params = {
-                path: 'fluid',
-                startPlug: 'behind',
-                endPlug: 'behind',
-                startSocket: 'bottom',
-                endSocket: 'top',
-                color: color,
-                size: 3,
-                dash: true
-            }
+        params = {
+            path: 'straight',
+            startPlug: 'behind',
+            endPlug: 'behind',
+            color: color,
+            size: 2
         }
-
-        if ($(start_element).hasClass('lane-1') && $(end_element).hasClass('lane-1') ||
-            $(start_element).hasClass('lane-2') && $(end_element).hasClass('lane-2')) {
-            // SWITCH TO SWITCH - SAME LINE
-            params = {
-                path: 'fluid',
-                startPlug: 'behind',
-                endPlug: 'behind',
-                startSocket: 'bottom',
-                endSocket: 'bottom',
-                color: color,
-                size: 2,
-                dash: false
-            }
-        }
-
-        if ($(start_element).hasClass('hub-top') && ($(end_element).hasClass('hub-bottom')) ||
-            $(start_element).hasClass('hub-bottom') && ($(end_element).hasClass('hub-top'))) {
-            // HUB TO HUB
-            if ($(start_element).hasClass('hub-top')) {
-                start_element = LeaderLine.pointAnchor(start_element, {x: $(start_element).outerWidth(), y: 19})
-                end_element = LeaderLine.pointAnchor(end_element, {x: 0, y: 19})
-            } else {
-                start_element = LeaderLine.pointAnchor(start_element, {x: 0, y: 38})
-                end_element = LeaderLine.pointAnchor(end_element, {x: $(end_element).outerWidth(), y: 38})
-            }
-            params = {
-                path: 'straight',
-                startPlug: 'behind',
-                endPlug: 'behind',
-                color: color,
-                size: 2
-            }
-        }
-
-        // Default
-        if (!params) {
-            log(start_element)
-            log(end_element)
-            params = {
-                path: 'arc',
-                startPlug: 'behind',
-                endPlug: 'behind',
-                startSocket: 'top',
-                endSocket: 'bottom',
-                color: color,
-                size: 2
-            }
-        }
-
-        drawLine(start_element, end_element, params)
     }
 
-    // Network switcher
-    $('.btn-toggle').click(function (e) {
-        e.preventDefault()
-        // Update switcher state
-        var btn_group = $(this)
-        var previous_network =  btn_group.find('.btn.active').data('network')
+    // Default
+    if (!params) {
+        log(start_element)
+        log(end_element)
+        params = {
+            path: 'arc',
+            startPlug: 'behind',
+            endPlug: 'behind',
+            startSocket: 'top',
+            endSocket: 'bottom',
+            color: color,
+            size: 2
+        }
+    }
 
-        btn_group.find('.btn').toggleClass('active')
-        btn_group.find('.btn').toggleClass('btn-primary')
-        btn_group.find('.btn').toggleClass('btn-outline-secondary')
-        // Update all tabs links with newly selected network AND show this network
-        var current_tab = $('.show_room li.active a.tab:first')
-        var tabs = $('.show_room li a.tab')
-        tabs.each(function () {
-            $(this).prop("href", $(this).attr('href').slice(0, -(previous_network.length + 1)) + "-" + btn_group.find('.btn.active').data("network"))
-            $(this).parent('li').removeClass('active')
-        })
-        current_tab.tab('show')
-    })
-    // Room selection
-    $('.show_room li a.tab').click(function (e) {
-        e.preventDefault()
-        var tabs = $('.show_room li a.tab')
-        tabs.each(function () { // Remove all active class
-            $(this).parent('li').removeClass('active')
-        })
-        $(this).tab('show')
-    })
-});
+    drawLine(start_element, end_element, params)
+}
+
+// Network switcher
+$('.btn-toggle').click(function (e) {
+  e.preventDefault()
+  // Update switcher state
+  var btn_group = $(this)
+  var previous_network =  btn_group.find('.btn.active').data('network')
+
+  btn_group.find('.btn').toggleClass('active')
+  btn_group.find('.btn').toggleClass('btn-primary')
+  btn_group.find('.btn').toggleClass('btn-outline-secondary')
+
+  // Update all tabs links with newly selected network AND show this network
+  let current_tab = document.querySelector('.show_room li.active a.tab')
+  let tab = new bootstrap.Tab(current_tab)
+  $('.show_room li a.tab').each(function () {
+    $(this).prop("href", $(this).attr('href').slice(0, -(previous_network.length + 1)) + "-" + btn_group.find('.btn.active').data("network"))
+    $(this).parent('li').removeClass('active')
+  })
+
+  $(current_tab).parent('li').addClass('active')
+  tab.show()
+})
+
+// Room selection
+$('.show_room li a.tab').click(function (e) {
+  e.preventDefault()
+
+  $('.show_room li a.tab').each(function () { // Remove all active class
+    $(this).parent('li').removeClass('active')
+  })
+  $(this).parent('li').addClass('active')
+
+  let tab = new bootstrap.Tab(this)
+  tab.show()
+})
 </script>
