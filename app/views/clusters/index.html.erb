@@ -36,11 +36,11 @@
     <% table.with_column(style: "min-width: 84px; width: 84px") do |cluster| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= link_to edit_cluster_path(cluster), class: 'btn btn-primary' do %>
-          <span class="bi bi-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
+          <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
           <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
         <%= link_to cluster, method: :delete, data: { confirm: t(".delete_confirmation") }, class: 'btn btn-danger' do %>
-          <span class="bi bi-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
+          <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
           <span class="visually-hidden"><%= t("action.delete") %></span>
         <% end %>
       </div>

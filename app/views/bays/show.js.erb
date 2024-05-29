@@ -19,7 +19,7 @@ searchParams.set('frame-id', '')
 window.history.replaceState({}, '', location.pathname + '?' + searchParams)
 
 scale_large_slots()
-$('[data-toggle="tooltip"]').tooltip()
+
 reset_u_heights()
 window.addEventListener('resize', function (event) {
     reset_u_heights()
