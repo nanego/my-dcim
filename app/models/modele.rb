@@ -29,6 +29,7 @@ class Modele < ApplicationRecord
   validate :validate_network_types_values
   normalizes :network_types, with: ->(values) { values.compact_blank }
 
+  scope :sorted, -> { order(:name) }
   scope :with_servers, -> { joins(:servers).uniq }
 
   def to_s

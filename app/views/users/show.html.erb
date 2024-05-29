@@ -2,14 +2,12 @@
 <% provide(:title, "#{User.model_name.human.pluralize} | #{user_label}") %>
 <%= render "layouts/breadcrumb", breadcrumb_variables: { User.model_name.human.pluralize => users_url, user_label => '' } %>
 
-<div class="well container" data-controller="reveal">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="page-header">
-        <h1><%= user_label %></h1>
-      </div>
+<div class="container" data-controller="reveal" data-reveal-hidden-class="d-none">
+  <div class="row my-5">
+    <div class="col-12">
+      <h1 class="mb-4"><%= user_label %></h1>
 
-      <dl class="dl-horizontal well">
+      <dl class="dl-horizontal bg-body-tertiary p-4 rounded border">
         <dt><%= User.human_attribute_name(:id) %> :</dt>
         <dd><%= @user.id %></dd>
 
@@ -32,18 +30,18 @@
         <dd>
           <% if @user.authentication_token %>
             <code>
-              <span data-reveal-target="item" class="hidden">
+              <span data-reveal-target="item" class="d-none">
                 <%= @user.authentication_token %>
               </span>
               <span data-reveal-target="item">
                 <%= "*" * @user.authentication_token.length %>
               </span>
             </code>
-            <button class="btn btn-outline-secondary btn-xs" data-action="click->reveal#toggle" type="button">
+            <button class="btn btn-outline-primary btn-sm" data-action="click->reveal#toggle" type="button">
               <span data-reveal-target="item">
                 <%= t(".action.show_authentication_token") %>
               </span>
-              <span data-reveal-target="item" class="hidden">
+              <span data-reveal-target="item" class="d-none">
                 <%= t(".action.hide_authentication_token") %>
               </span>
             </button>

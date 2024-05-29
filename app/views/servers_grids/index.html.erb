@@ -9,9 +9,9 @@
       Exporter au format CSV
     <% end %>
   </div>
-
-  <div class="panel panel-primary">
-    <div class="panel-heading">
+  <!-- TODO: use Card Component and primary style -->
+  <div class="card card-primary">
+    <div class="card-header">
       <span style="margin-right: 5px;">Filtres</span>
       (
       <a href='#' class='hide-filters' title='Click to hide filters' onClick="hideFilters();" style="display: none;">Masquer les filtres</a>
@@ -22,10 +22,10 @@
         Réinitialiser
     <% end %>
     </div>
-    <div class="panel-body" style="display: none;">
+    <div class="card-body" style="display: none;">
       <%= datagrid_form_for @servers %>
     </div>
-    <div class='panel-footer total'>Total : <%= @servers.assets.count %></div>
+    <div class='card-footer total'>Total : <%= @servers.assets.count %></div>
   </div>
 
 

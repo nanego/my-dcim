@@ -1,17 +1,20 @@
-<div class="rooms-overview"
-     style="clear: both;
-            display:grid;
-            width: -moz-fit-content;
-            width: fit-content;">
-  <% bays.each do |bay| %>
-    <div style="grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
-                grid-row:<%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;
-                max-width: 195px;">
-      <% bay.frames.sorted.each_with_index do |frame, index| %>
-        <div class="overviewed_frame <%= 'no-margin' if index > 0 %> <%= 'highlighted' if @frames && @frames.include?(frame) %>">
-          <%= link_to frame.name, room_path(frame.room, view: params[:view], islet: islet, 'bay-id': bay, 'frame-id': frame) %>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
+<div class="overflow-x-scroll">
+ <div class="rooms-overview d-grid my-1 pe-2">
+    <% bays.each do |bay| %>
+      <div style="grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
+                  grid-row:<%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;
+                  max-width: 195px;">
+        <% bay.frames.sorted.each_with_index do |frame, index| %>
+          <%- should_be_highlighted = @frames && @frames.include?(frame) %>
+          <div class="<%= class_names("overviewed_frame bg-secondary-subtle border-secondary-subtle border",
+                                      "no-margin": index > 0,
+                                      highlighted: should_be_highlighted) %>">
+            <%= link_to frame.name,
+                        room_path(frame.room, view: params[:view], islet: islet, "bay-id": bay, "frame-id": frame),
+                        class: class_names("link-body-emphasis", "text-info-emphasis": should_be_highlighted) %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>

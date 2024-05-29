@@ -1,28 +1,30 @@
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+  t("layouts.navigation.nav_links_administration.informations") => "" }
+%>
+
 <!-- Page Content -->
-<div class="container about">
+<div class="container about my-5 bg-body-tertiary rounded border">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-12">
       <p>
-        <div class="well">
-          <div class="row">
-            <div class="col-md-12">
-              <h3>Environnement :</h3>
+        <div class="row">
+          <div class="col-12">
+            <h3>Environnement :</h3>
 
-              <p class="version">
-                <strong>Rails version:</strong> <%= Rails.version %><br />
-                <strong>Ruby version:</strong> <%= RUBY_VERSION %> (<%= RUBY_PLATFORM %>)
-              </p>
+            <p class="version">
+              <strong>Rails version:</strong> <%= Rails.version %><br />
+              <strong>Ruby version:</strong> <%= RUBY_VERSION %> (<%= RUBY_PLATFORM %>)
+            </p>
 
-              <h3>Version de l'application</h3>
+            <h3>Version de l'application</h3>
 
-              <div class="version" style="font-family: monospace;font-size:small;">
-                <%= truncate(simple_format(`git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short`), length: 1600, escape: false) %>
-                <br>...
-              </div>
+            <div class="version" style="font-family: monospace;font-size:small;">
+              <%= truncate(simple_format(`git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short`), length: 1600, escape: false) %>
+              <br>...
+            </div>
 
-              <div class="alert alert-info github-link">
-                <a href="https://github.com/nanego/my-dcim" target="_blank" rel="noopener" class="alert-link">Lien vers le projet GitHub</a>
-              </div>
+            <div class="alert alert-info github-link">
+              <a href="https://github.com/nanego/my-dcim" target="_blank" rel="noopener" class="alert-link">Lien vers le projet GitHub</a>
             </div>
           </div>
         </div>
@@ -37,7 +39,7 @@
   <!-- Footer -->
   <footer>
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-12">
         <p>Copyright &copy; Gestion de salle DCIM 2018</p>
       </div>
     </div>

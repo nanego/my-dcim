@@ -98,7 +98,7 @@
     <% @server.modele.enclosures.each do |enclosure| %>
       <%= content_tag :span, "Enclosure #{enclosure.position}", class: "col-sm-2 col-md-1 control-label", style: "clear:both;" %>
       <div class="col-sm-10 col-md-11">
-        <div class="panel panel-default">
+        <div class="card">
           <ul class="list-group">
             <li class="list-group-item">
               <fieldset class="header">
@@ -127,7 +127,7 @@
               <%= render partial: "card_fields", locals: { f: builder, enclosure: enclosure } %>
             <% end %>
           </ul>
-          <div class="panel-footer"><%= link_to_add_fields_with_prefilled_data "<span class='bi bi-plus-lg' aria-hidden='true'></span> Ajouter une carte".html_safe, f, :cards, { enclosure: enclosure } %></div>
+          <div class="card-footer"><%= link_to_add_fields_with_prefilled_data "<span class='bi bi-plus-lg' aria-hidden='true'></span> Ajouter une carte".html_safe, f, :cards, { enclosure: enclosure } %></div>
         </div>
       </div>
     <% end %>
@@ -141,13 +141,13 @@
 
     <%= f.label :documents, class: "col-sm-3 col-md-2 control-label" %>
     <div class="col-sm-9 col-md-10">
-      <div class="panel panel-default">
+      <div class="card">
         <div class="col-sm-12">
           <%= f.fields_for :documents do |builder| %>
             <%= render partial: "document_fields", locals: { f:  builder } %>
           <% end %>
         </div>
-        <div class="panel-footer">
+        <div class="card-footer">
           <%= link_to_add_fields "<span class='bi bi-plus-lg' style='clear:both;' aria-hidden='true'></span> Ajouter une pièce jointe".html_safe, f, :documents %>
         </div>
       </div>

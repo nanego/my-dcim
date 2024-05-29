@@ -1,7 +1,7 @@
 <% selected_port ||= nil %>
 
 <% if server.modele.present? %>
-  <div class="pull-right very-specific-design" id="very-specific-design">
+  <div class="float-end very-specific-design" id="very-specific-design">
 
     <% server.modele.enclosures.each_with_index do |enclosure, index| %>
 
@@ -32,7 +32,7 @@
         </div>
 
       <% else %>
-        <table class="slots" style="<%= index > 0 ? 'margin-top:7px;' : '' %>">
+        <table class="<%= class_names("slots", "mt-2": index > 0) %>">
           <tbody>
 
           <% if enclosure.display != 'horizontal' %>
@@ -69,27 +69,27 @@
 
 <% end %>
 
-<%= link_to h(server.name), server_path(server, :view => params[:view]), {class: 'pull-left server_name', style: 'padding-left: 14px;', :data => {'toggle': "tooltip", 'placement': "top"}, title: server.numero} %>
+<%= link_to h(server.name), server_path(server, :view => params[:view]), {class: 'float-start server_name ps-3', :data => {'toggle': "tooltip", 'placement': "top"}, title: server.numero} %>
 <br>
 <% unless request.format.pdf? %>
-<span class='pull-left' style="clear:left;padding-left: 14px;">
+<span class='float-start ps-3'>
   <%= link_to draw_connections_path(server_id: server.id),
               class: 'draw_connections_link',
               id: "draw_connections_link_#{server.id}",
               title: "Dessiner les liaisons",
               remote: true do %>
-    <button type="button" class="btn btn-outline-secondary btn-xs" aria-label="Draw connections">
+    <button type="button" class="btn btn-outline-secondary btn-sm" aria-label="Draw connections">
       <span class="bi bi-shuffle" aria-hidden="true"></span>
     </button>
   <% end %>
 </span>
 <% end %>
 <!--
-<span class='pull-left' style="padding-left: 8px;">
+<span class='float-start' style="padding-left: 8px;">
   <% twin_cards_ids = server.cards.map(&:twin_card_id).uniq.reject {|c| c.blank?} if false %>
 <% twin_cards_ids.map {|id| Card.find(id).frame}.uniq.each do |frame| %>
   <%= link_to frame_path(frame), title: "#{frame.to_s}" do %>
-      <button type="button" class="btn btn-outline-secondary btn-xs" aria-label="Link to twin card">
+      <button type="button" class="btn btn-outline-secondary btn-sm" aria-label="Link to twin card">
         <span class="bi bi-magnet-fill" aria-hidden="true"></span>
       </button>
     <% end %>
@@ -98,6 +98,6 @@
 -->
 
 <br>
-<i class='pull-left' style="clear:left;padding-left: 14px;"><%= link_to server.modele.try(:name), edit_modele_path(server.modele_id), style: 'font-weight:normal;' %></i>
+<i class='float-start ps-3'><%= link_to server.modele.try(:name), edit_modele_path(server.modele_id), style: 'font-weight:normal;' %></i>
 
 <div class="clearfix"></div>

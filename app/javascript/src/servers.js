@@ -87,12 +87,12 @@ $(document).ready(function() {
         return total_fc += $(this).data('fc-futur');
       }
     });
-    frame.find('.panel-footer .label').each(function() {
+    frame.find('.card-footer .label').each(function() {
       return $(this).removeClass('label-danger');
     });
-    frame.find('.panel-footer .u').html("Σ U : " + total_u);
-    frame.find('.panel-footer .rj45').html("Σ RJ45 : " + total_rj45);
-    return frame.find('.panel-footer .fc').html("Σ FC : " + total_fc);
+    frame.find('.card-footer .u').html("Σ U : " + total_u);
+    frame.find('.card-footer .rj45').html("Σ RJ45 : " + total_rj45);
+    return frame.find('.card-footer .fc').html("Σ FC : " + total_fc);
   };
 
   // Nested forms see exp http://localhost:3000/servers/YOUR_SERVER_ID/edit

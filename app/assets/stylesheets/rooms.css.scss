@@ -1,34 +1,28 @@
 .rooms-overview {
-  margin-top: 10px;
+  width: max-content;
 
-  .panel {
+  .card {
     margin-bottom: 10px;
   }
 
   .islet {
     margin: 0;
     padding: 0;
-    background-color: #ffffff;
     border-bottom: 1px solid #e3e3e3;
-
-    h5 {
-      margin: 10px 0 10px 15px;
-    }
   }
 
   .overviewed_frame {
     display: inline-flex;
     margin: 0 0 10px 10px;
     padding: 8px 6px;
-    background-color: #F5F5F5;
-    border: 1px solid #e3e3e3;
+    font-size: 14px;
 
     &.no-margin {
       margin: 0 0 10px -5px;
     }
 
     &.highlighted {
-      background-color: lightblue;
+      background-color: var(--bs-info-bg-subtle) !important;
     }
   }
 
@@ -64,17 +58,13 @@
 
     &.hover {
       background-color: white;
-
-      .couple-panel-footer {
-        background-color: white;
-      }
     }
 
     .frame {
       cursor: auto;
     }
 
-    .panel-body {
+    .card-body {
       padding: 0;
     }
   }
@@ -100,7 +90,7 @@
 }
 
 .show_room {
-  .panel-body {
+  .card-body {
     padding: 0;
   }
 
@@ -154,11 +144,6 @@
   }
 
   .menu-rooms {
-    border-right: solid 1px #EAEAEA;
-    background-color: #F4F4F4;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    margin-bottom: 0;
     min-width: 243px;
 
     li.active {
@@ -183,7 +168,7 @@
     margin-top: 80px;
 
     .couple {
-      width: 280px;
+      width: 300px;
       height: 160px;
     }
   }
@@ -192,15 +177,11 @@
     padding: 0;
     display: inline-grid;
     border: none;
-    width: 125px;
+    width: 135px;
 
     .title {
       padding: 8px 6px;
       font-size: small;
-
-      a {
-        color: #555555
-      }
     }
 
     margin-right: 12px;
@@ -220,7 +201,6 @@
       width: auto;
 
       a {
-        color: #555555;
         font-size: small;
       }
     }
@@ -277,13 +257,16 @@
       padding: 8px 6px;
       text-align: center;
       cursor: pointer;
-    }
 
-    a {
-      color: #555555;
+      a {
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
-
 }
 
 .capacity {
@@ -313,13 +296,6 @@
 
     .title {
       padding: 3px 0;
-      font-size: small;
-      background-color: #B3C3C3;
-
-      a {
-        color: #555555;
-        font-weight: normal;
-      }
     }
 
     ul {
@@ -338,7 +314,6 @@
 
       .sum {
         font-size: small;
-        color: #555555;
         margin: 4px 0;
       }
 
@@ -346,11 +321,6 @@
         font-size: x-small;
         max-width: 160px;
         margin-top: 5px;
-      }
-
-      a {
-        color: #555555;
-        font-size: small;
       }
     }
 
@@ -361,6 +331,10 @@
         border: 1px solid #666666;
         width: 8px;
         height: 8px;
+      }
+
+      td, th {
+        padding: 0;
       }
     }
 
@@ -373,4 +347,14 @@
     }
   }
 
+}
+
+.overviewed_frame {
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

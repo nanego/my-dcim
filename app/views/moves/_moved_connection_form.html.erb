@@ -1,11 +1,11 @@
-<div class="well">
+<div>
 
 <%= form_for(@moved_connection, url:update_connection_moves_path, remote: true, html: { class: "form-horizontal moved_connection", role: "form" }) do |f| %>
 
   <div style="clear:both;margin-top: 5px;" >
     <%= f.label 'Port de départ', class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <div class="panel panel-default">
+      <div class="panel">
         <div class="panel-body">
           <div id="back_departure_server" class="back_server">
             <%= render partial: 'servers/draw_server_compact', locals: { server: @selected_port.server, selected_port: @selected_port } %>
@@ -19,8 +19,8 @@
   <div class="field">
     <%= f.label 'Port de destination', class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <div class="panel panel-default">
-        <div class="panel-heading">
+      <div class="card">
+        <div class="card-header">
           <div class="" style="text-align: center;" id="select_destination_bay">
             <span id="all_destinations">
               <%= select_tag 'to_server',
@@ -35,7 +35,7 @@
             </span>
           </div>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div id="back_destination_server" class="back_server">
             <% if @destination_port %>
                 <%= render partial: 'servers/draw_server_compact', locals: { server: @destination_port.server, selected_port: @destination_port } %>
@@ -81,7 +81,7 @@
 <% end %>
 
 <script>
-
+document.addEventListener('DOMContentLoaded', function(){
   $(document).ready(function(){
       loadPaletteColorPicker('[name="moved_connection[color]"]');
       $("#back_departure_server").on('click', 'a.port', function(e) {
@@ -123,6 +123,6 @@
     $('form #moved_connection_remove_connection')[0].value = '1';
     $('form.moved_connection').trigger('submit.rails');
   }
-
+});
 </script>
 </div>
