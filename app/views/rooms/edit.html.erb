@@ -1,7 +1,8 @@
 <% provide(:title, "#{Room.model_name.human.pluralize} | #{@room.name} | #{t("action.edit")}") %>
 <%= render "layouts/breadcrumb", breadcrumb_variables: {
   Room.model_name.human.pluralize => rooms_path,
-  t(".title") => ""
+  @room.name => room_path(@room),
+  t("action.edit") => ""
 } %>
 
 <div class="row my-5">
