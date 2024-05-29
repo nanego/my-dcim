@@ -133,7 +133,7 @@
                                             <% end %>
                                           <% end %>
                                           <%= link_to server_path(server, :view => params[:view]),
-                                                      { class: 'float-end server_name link-body-emphasis', :data => { 'toggle': "tooltip", 'placement': "top" }, title: server.numero } do %>
+                                                      { class: 'float-end server_name link-body-emphasis', data: { controller: "tooltip", bs_placement: "top" }, title: server.numero } do %>
                                               <small><%= h(server.name) %></small>
                                           <% end %>
                                         <% end %>

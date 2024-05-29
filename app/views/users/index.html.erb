@@ -75,7 +75,7 @@
                 <% end %>
               <% end %>
               <%= link_to user_path(user), method: :delete, data: { confirm: t("action.confirm") }, class: 'btn btn-danger' do %>
-                <span class="bi bi-trash" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.delete") %>"></span>
+                <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
                 <span class="visually-hidden"><%= t("action.delete") %></span>
               <% end %>
             <% end %>
