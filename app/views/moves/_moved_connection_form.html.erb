@@ -81,48 +81,46 @@
 <% end %>
 
 <script>
-document.addEventListener('DOMContentLoaded', function(){
-  $(document).ready(function(){
-      loadPaletteColorPicker('[name="moved_connection[color]"]');
-      $("#back_departure_server").on('click', 'a.port', function(e) {
-          e.preventDefault();
-      });
-      $("#back_destination_server").on('click', 'a.port', function(e){
-          e.preventDefault();
-          select_destination_port(e.target.id);
-      });
-  });
-
-  function select_destination_server(server_id){
-      $("#back_destination_server").closest("form").find('input[type="submit"]').prop('disabled', true);
-      if(server_id!=undefined && server_id!=''){
-          $.ajax({
-              method: "POST",
-              url: "<%= connections_update_destination_server_path %>",
-              data: { server_id: server_id, with_moved_connection: 1 }
-          }).done(function(){
-              select_destination_port($('input[name="moved_connection[port_to_id]"]').val());
-          });
-      }
-  }
-
-  function select_destination_port(port_id){
-      if(port_id!=undefined && port_id!=''){
-          var selected_port = $("#back_destination_server #"+port_id);
-          selected_port.closest("table").find("span.selected").removeClass("selected");
-          selected_port.closest("span").addClass("selected");
-          var server_name = $("#back_destination_server .server_name").text();
-          var component_name = selected_port.closest("td").find("span:first").data("composant-name");
-          var position = selected_port.data("position");
-          $('[name="moved_connection[port_to_id]"]').val(port_id);
-          selected_port.closest("form").find('input[type="submit"]').prop('disabled', false);
-      }
-  }
-
-  function remove_connection(){
-    $('form #moved_connection_remove_connection')[0].value = '1';
-    $('form.moved_connection').trigger('submit.rails');
-  }
+$(document).ready(function(){
+    loadPaletteColorPicker('[name="moved_connection[color]"]');
+    $("#back_departure_server").on('click', 'a.port', function(e) {
+        e.preventDefault();
+    });
+    $("#back_destination_server").on('click', 'a.port', function(e){
+        e.preventDefault();
+        select_destination_port(e.target.id);
+    });
 });
+
+function select_destination_server(server_id){
+    $("#back_destination_server").closest("form").find('input[type="submit"]').prop('disabled', true);
+    if(server_id!=undefined && server_id!=''){
+        $.ajax({
+            method: "POST",
+            url: "<%= connections_update_destination_server_path %>",
+            data: { server_id: server_id, with_moved_connection: 1 }
+        }).done(function(){
+            select_destination_port($('input[name="moved_connection[port_to_id]"]').val());
+        });
+    }
+}
+
+function select_destination_port(port_id){
+    if(port_id!=undefined && port_id!=''){
+        var selected_port = $("#back_destination_server #"+port_id);
+        selected_port.closest("table").find("span.selected").removeClass("selected");
+        selected_port.closest("span").addClass("selected");
+        var server_name = $("#back_destination_server .server_name").text();
+        var component_name = selected_port.closest("td").find("span:first").data("composant-name");
+        var position = selected_port.data("position");
+        $('[name="moved_connection[port_to_id]"]').val(port_id);
+        selected_port.closest("form").find('input[type="submit"]').prop('disabled', false);
+    }
+}
+
+function remove_connection(){
+  $('form #moved_connection_remove_connection')[0].value = '1';
+  $('form.moved_connection').trigger('submit.rails');
+}
 </script>
 </div>
