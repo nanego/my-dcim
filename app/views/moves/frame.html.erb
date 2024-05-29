@@ -35,31 +35,29 @@
 
 
 <script>
-document.addEventListener('DOMContentLoaded', function(){
-    $(document).ready(function(){
-        $('.moved_connection_form_loading').hide();
-        loadPaletteColorPicker('[name="move[color]"]');
-        $(".frame").on('click', '.port', function(e){
-            e.preventDefault();
-            loadConnectionForm(e.target.id);
-        });
+$(document).ready(function(){
+    $('.moved_connection_form_loading').hide();
+    loadPaletteColorPicker('[name="move[color]"]');
+    $(".frame").on('click', '.port', function(e){
+        e.preventDefault();
+        loadConnectionForm(e.target.id);
     });
-
-    function loadConnectionForm(port_id){
-        if(port_id != undefined && port_id != ''){
-            $('.moved_connection_form_loading').show();
-            console.log("Selected port : " + JSON.stringify(port_id));
-            $.ajax({
-                method: "GET",
-                url: "<%= load_connection_moves_path %>",
-                data: { port_id: port_id }
-            }).done(function(){
-                $('.connection_form').show();
-                $('.moved_connection_form_loading').hide();
-            });
-        }else{
-            $('.connection_form').hide();
-        }
-    }
 });
+
+function loadConnectionForm(port_id){
+    if(port_id != undefined && port_id != ''){
+        $('.moved_connection_form_loading').show();
+        console.log("Selected port : " + JSON.stringify(port_id));
+        $.ajax({
+            method: "GET",
+            url: "<%= load_connection_moves_path %>",
+            data: { port_id: port_id }
+        }).done(function(){
+            $('.connection_form').show();
+            $('.moved_connection_form_loading').hide();
+        });
+    }else{
+        $('.connection_form').hide();
+    }
+}
 </script>

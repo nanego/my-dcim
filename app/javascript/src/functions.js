@@ -26,6 +26,7 @@ var loadPaletteColorPicker = function(selector){
         position: 'upside'
     })
 }
+window.loadPaletteColorPicker = loadPaletteColorPicker
 
 function findByAttribute(array, attr, value) {
     if(array != undefined){
@@ -50,6 +51,7 @@ function findByAttribute(array, attr, value) {
         return undefined;
     }
 }
+window.findByAttribute = findByAttribute
 
 function exists(value){
     if( value != undefined && (value > 0 || value.length > 0 || typeof value === "boolean" || typeof value === "object") ){
@@ -58,6 +60,7 @@ function exists(value){
         return false
     }
 }
+window.exists = exists
 
 function each_exists(array){
     for(let index in array){
@@ -67,6 +70,7 @@ function each_exists(array){
     }
     return true
 }
+window.each_exists = each_exists
 
 function log(string, object = undefined){
     let print = ""
@@ -78,6 +82,7 @@ function log(string, object = undefined){
     console.log(print)
     return print
 }
+window.log = log
 
 function rewriteURL(path, params){
     var searchParams = new URLSearchParams(window.location.search)
@@ -86,15 +91,19 @@ function rewriteURL(path, params){
     }
     window.history.replaceState({}, '', path + '?' + searchParams)
 }
+window.rewriteURL = rewriteURL
 
 function uniq(a) {
     return Array.from(new Set(a))
 }
+window.uniq = uniq
 
 function compact(array){
     return array.filter(function(obj) { return obj })
 }
+window.compact = compact
 
 function ids_of(array_of_elements){
     return compact(array_of_elements).map(function(elt) {return elt.id})
 }
+window.ids_of = ids_of

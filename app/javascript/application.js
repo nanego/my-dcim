@@ -7,10 +7,8 @@ import "controllers"
 import "popper"
 import "bootstrap"
 
-import jquery from "jquery"
-window.jQuery = jquery
-window.$ = jquery
-// import "jquery-ui"
+import LeaderLine from "leader-line"
+window.LeaderLine = LeaderLine
 
 import Rails from "@rails/ujs"
 Rails.start()

@@ -107,99 +107,97 @@
   </div>
 
   <script>
-  document.addEventListener('DOMContentLoaded', function(){
-      function select_destination_server(see_all) {
-          if (see_all == 1) {
-              selected_server = $("#all_destinations select[name='to_server']").val();
-          } else {
-              selected_server = $("#restricted_destinations select[name='to_server']").val();
-          }
-          $.ajax({
-              method: "POST",
-              url: "<%= connections_update_destination_server_path %>",
-              data: {server_id: selected_server}
-          }).done(function () {
-              select_destination_port($('input[name="connection[to_port_id]"]').val());
-          });
+  function select_destination_server(see_all) {
+      if (see_all == 1) {
+          selected_server = $("#all_destinations select[name='to_server']").val();
+      } else {
+          selected_server = $("#restricted_destinations select[name='to_server']").val();
       }
+      $.ajax({
+          method: "POST",
+          url: "<%= connections_update_destination_server_path %>",
+          data: {server_id: selected_server}
+      }).done(function () {
+          select_destination_port($('input[name="connection[to_port_id]"]').val());
+      });
+  }
 
-      function toggle_destination_bays_visibility(see_more) {
-          if (see_more == 1) {
-              $('#restricted_destinations').hide();
-              $('#all_destinations').show();
-              select_destination_server(1);
-          } else {
-              $('#restricted_destinations').show();
-              $('#all_destinations').hide();
-              select_destination_server(0);
-          }
+  function toggle_destination_bays_visibility(see_more) {
+      if (see_more == 1) {
+          $('#restricted_destinations').hide();
+          $('#all_destinations').show();
+          select_destination_server(1);
+      } else {
+          $('#restricted_destinations').show();
+          $('#all_destinations').hide();
+          select_destination_server(0);
       }
+  }
 
-      function updateConnectionStateMessage(frame, cablename) {
-          url = "https://supervision-reseau-ac.cs.e2.rie.gouv.fr/macip/port_status.php?baie=" + frame + "&cable=" + cablename;
+  function updateConnectionStateMessage(frame, cablename) {
+      url = "https://supervision-reseau-ac.cs.e2.rie.gouv.fr/macip/port_status.php?baie=" + frame + "&cable=" + cablename;
 
-          $.ajax(url, {
-              dataType: 'json', jsonp: false, beforeSend: function (xhr) {
-                  xhr.withCredentials = true;
+      $.ajax(url, {
+          dataType: 'json', jsonp: false, beforeSend: function (xhr) {
+              xhr.withCredentials = true;
+          }
+      })
+          .done(function (data) {
+              var ratio = data['speed'] / data['maxspeed'];
+              var badge_class = "";
+              switch (ratio) {
+                  case 1:
+                      badge_class = "alert-success";
+                      break;
+                  case 0:
+                      badge_class = "alert-danger";
+                      break;
+                  default:
+                      badge_class = "alert-warning";
               }
+              var badge = " <span class=\"badge " + badge_class + "\">" + data['speed'] + ' / ' + data['maxspeed'] + "</span>";
+              var value = "<b>Etat actuel de la connexion " + frame + " cable " + cablename + " : </b> " + badge;
+              $("<span/>", {
+                  "class": 'state_' + ratio,
+                  html: value
+              }).appendTo("#port_status");
           })
-              .done(function (data) {
-                  var ratio = data['speed'] / data['maxspeed'];
-                  var badge_class = "";
-                  switch (ratio) {
-                      case 1:
-                          badge_class = "alert-success";
-                          break;
-                      case 0:
-                          badge_class = "alert-danger";
-                          break;
-                      default:
-                          badge_class = "alert-warning";
-                  }
-                  var badge = " <span class=\"badge " + badge_class + "\">" + data['speed'] + ' / ' + data['maxspeed'] + "</span>";
-                  var value = "<b>Etat actuel de la connexion " + frame + " cable " + cablename + " : </b> " + badge;
-                  $("<span/>", {
-                      "class": 'state_' + ratio,
-                      html: value
-                  }).appendTo("#port_status");
-              })
-              .fail(function (data) {
-                  console.log("Error in ajax call");
-                  var badge = " <span class=\"badge alert-danger\">Pas d'informations. Script php : " + data['statusText'] + "</span>";
-                  var value = "<b>Etat actuel de la connexion " + frame + " cable " + cablename + " : </b> " + badge;
-                  $("<span/>", {
-                      "class": 'error',
-                      html: value
-                  }).appendTo("#port_status");
-              });
-      }
-
-      function select_destination_port(port_id) {
-          var selected_ports = $("#back_destination_server #" + port_id);
-          selected_ports.closest("table").find("span.selected").removeClass("selected");
-          selected_ports.closest("span").addClass("selected");
-          var server_name = $("#back_destination_server .server_name").text();
-          var component_name = selected_ports.closest("td").find("span:first").data("composant-name");
-          var position = selected_ports.data("position");
-          $('#to_port').val(server_name + " - Slot: " + component_name + " - Position : " + position);
-          $('[name="connection[to_port_id]"]').val(port_id);
-          selected_ports.closest("form").find('input[type="submit"]').prop('disabled', false);
-      }
-
-      $(document).ready(function () {
-          loadPaletteColorPicker('[name="connection[color]"]');
-
-          $('#all_destinations').hide(); // TODO show it if destination server is not in the couple of bays
-
-          updateConnectionStateMessage("<%= @frame.name %>", "<%=@from_port.cable.try(:name)%>");
-
-          $("#back_departure_server").on('click', 'a.port', function (e) {
-              e.preventDefault();
+          .fail(function (data) {
+              console.log("Error in ajax call");
+              var badge = " <span class=\"badge alert-danger\">Pas d'informations. Script php : " + data['statusText'] + "</span>";
+              var value = "<b>Etat actuel de la connexion " + frame + " cable " + cablename + " : </b> " + badge;
+              $("<span/>", {
+                  "class": 'error',
+                  html: value
+              }).appendTo("#port_status");
           });
-          $("#back_destination_server").on('click', 'a.port', function (e) {
-              e.preventDefault();
-              select_destination_port(e.target.id);
-          });
+  }
+
+  function select_destination_port(port_id) {
+      var selected_ports = $("#back_destination_server #" + port_id);
+      selected_ports.closest("table").find("span.selected").removeClass("selected");
+      selected_ports.closest("span").addClass("selected");
+      var server_name = $("#back_destination_server .server_name").text();
+      var component_name = selected_ports.closest("td").find("span:first").data("composant-name");
+      var position = selected_ports.data("position");
+      $('#to_port').val(server_name + " - Slot: " + component_name + " - Position : " + position);
+      $('[name="connection[to_port_id]"]').val(port_id);
+      selected_ports.closest("form").find('input[type="submit"]').prop('disabled', false);
+  }
+
+  $(document).ready(function () {
+      loadPaletteColorPicker('[name="connection[color]"]');
+
+      $('#all_destinations').hide(); // TODO show it if destination server is not in the couple of bays
+
+      updateConnectionStateMessage("<%= @frame.name %>", "<%=@from_port.cable.try(:name)%>");
+
+      $("#back_departure_server").on('click', 'a.port', function (e) {
+          e.preventDefault();
+      });
+      $("#back_destination_server").on('click', 'a.port', function (e) {
+          e.preventDefault();
+          select_destination_port(e.target.id);
       });
   });
   </script>

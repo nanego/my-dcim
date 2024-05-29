@@ -11,8 +11,6 @@ pin "leader-line" # @1.0.5
 pin "sortablejs" # @1.14.0
 pin "popper", to: "popper.js", preload: true
 pin "bootstrap", to: "bootstrap.js", preload: true
-pin "jquery", preload: true # @3.7.0
-# pin "jquery-ui", to: "jquery-ui.js", preload: true
 pin "@rails/ujs", to: "@rails--ujs.js" # @7.1.3
 
 pin_all_from "app/javascript/controllers", under: "controllers"

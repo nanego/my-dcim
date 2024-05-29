@@ -95,53 +95,51 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function(){
-    $(document).ready(function(){
-        loadPaletteColorPicker('[name="move[color]"]');
+$(document).ready(function(){
+    loadPaletteColorPicker('[name="move[color]"]');
+    $('.server_container').hide();
+    $('#initial_bay').hide();
+    select_server(<%= @move.moveable_id %>);
+});
+
+function select_server(server_id){
+    if(server_id != undefined && server_id != ''){
+        console.log("Selected server : " + JSON.stringify(server_id));
+        $.ajax({
+            method: "GET",
+            url: "<%= load_server_moves_path %>",
+            data: { server_id: server_id }
+        }).done(function(){
+            $('.server_container').show();
+            display_initial_bay();
+        });
+    }else{
         $('.server_container').hide();
-        $('#initial_bay').hide();
-        select_server(<%= @move.moveable_id %>);
-    });
-
-    function select_server(server_id){
-        if(server_id != undefined && server_id != ''){
-            console.log("Selected server : " + JSON.stringify(server_id));
-            $.ajax({
-                method: "GET",
-                url: "<%= load_server_moves_path %>",
-                data: { server_id: server_id }
-            }).done(function(){
-                $('.server_container').show();
-                display_initial_bay();
-            });
-        }else{
-            $('.server_container').hide();
-        }
     }
+}
 
-    function select_frame(frame_id, view){
-        if(frame_id != undefined && frame_id != ''){
-            console.log("Selected frame : " + JSON.stringify(frame_id));
-            $.ajax({
-                method: "GET",
-                url: "<%= load_frame_moves_path %>",
-                data: { frame_id: frame_id, view: view }
-            }).done(function(){
-                // $('#frame').show();
-            });
-        }else{
-            $('#frame').html('');
-        }
+function select_frame(frame_id, view){
+    if(frame_id != undefined && frame_id != ''){
+        console.log("Selected frame : " + JSON.stringify(frame_id));
+        $.ajax({
+            method: "GET",
+            url: "<%= load_frame_moves_path %>",
+            data: { frame_id: frame_id, view: view }
+        }).done(function(){
+            // $('#frame').show();
+        });
+    }else{
+        $('#frame').html('');
     }
+}
 
-    function display_initial_bay() {
-      var label = $('#move_moveable_id :selected').data("frameName");
-      $('#initial_bay').show();
-      $('#initial_bay_name').text(label);
-    }
+function display_initial_bay() {
+  var label = $('#move_moveable_id :selected').data("frameName");
+  $('#initial_bay').show();
+  $('#initial_bay_name').text(label);
+}
 
-    $("#frame").on("click", ".position_in_frame", function(e) {
-      $("#move_position").val(e.target.title).change();
-    });
+$("#frame").on("click", ".position_in_frame", function(e) {
+  $("#move_position").val(e.target.title).change();
 });
 </script>

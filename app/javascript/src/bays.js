@@ -1,5 +1,3 @@
-import jQuery from "jquery"
-
 jQuery(document).ready(function () {
   jQuery(document).on('click', '.frames .couple', function (event) {
     var body = jQuery(this).find('.col-sm-6')[0]

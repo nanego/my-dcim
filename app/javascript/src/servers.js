@@ -1,5 +1,3 @@
-import $ from "jquery"
-
 $(document).ready(function() {
   var drag_n_drop_activated, update_u_scale, update_warning_messages;
 
