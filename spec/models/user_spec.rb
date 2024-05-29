@@ -20,7 +20,7 @@ RSpec.describe User do
     it { is_expected.to validate_inclusion_of(:visualization_bay_default_background_color).in_array %w[modele gestion cluster] }
     it { is_expected.to allow_value(nil).for(:visualization_bay_default_background_color) }
 
-    it { is_expected.to validate_inclusion_of(:visualization_bay_default_orientation).in_array %w[front rear] }
+    it { is_expected.to validate_inclusion_of(:visualization_bay_default_orientation).in_array %w[front back] }
     it { is_expected.to allow_value(nil).for(:visualization_bay_default_orientation) }
   end
 

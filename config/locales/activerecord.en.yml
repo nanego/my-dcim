@@ -10,4 +10,4 @@ en:
         gestion: Gestion
       user/visualization_bay_default_orientation:
         front: Front
-        rear: Rear
+        back: Back

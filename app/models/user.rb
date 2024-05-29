@@ -4,7 +4,7 @@ class User < ApplicationRecord
   AVAILABLE_LOCALES = I18n.available_locales.map(&:to_s).freeze
   AVAILABLE_THEMES = %w[auto dark light].freeze
   AVAILABLE_BAY_BACKGROUND_COLORS = %w[modele gestion cluster].freeze
-  AVAILABLE_BAY_ORIENTATIONS = %w[front rear].freeze
+  AVAILABLE_BAY_ORIENTATIONS = %w[front back].freeze
 
   attribute :role, :integer
   enum role: [:user, :vip, :admin]

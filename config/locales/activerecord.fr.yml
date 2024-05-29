@@ -51,11 +51,11 @@ fr:
         islets_count:
           zero: 0 îlot
           one: 1 îlot
-          other: '%{count} îlots'
+          other: "%{count} îlots"
         frames_count:
           zero: 0 châssis
           one: 1 châssis
-          other: '%{count} châssis'
+          other: "%{count} châssis"
       islet:
         name: Nom
         room: Salle
@@ -63,7 +63,7 @@ fr:
         frames_count:
           zero: 0 châssis
           one: 1 châssis
-          other: '%{count} châssis'
+          other: "%{count} châssis"
       frame/view_sides:
         front: Vue avant
         back: Vue arrière
@@ -199,7 +199,7 @@ fr:
         modeles_count:
           zero: 0 modèle
           one: 1 modèle
-          other: '%{count} modèles'
+          other: "%{count} modèles"
       modele:
         name: Nom
         category_id: Catégorie
@@ -252,7 +252,7 @@ fr:
         gestion: Gestionnaire
       user/visualization_bay_default_orientation:
         front: Avant
-        rear: Arrière
+        back: Arrière
       card/orientation:
         lr-td: Horizontal, de gauche à droite
         rl-td: Horizontal, de droite à gauche
