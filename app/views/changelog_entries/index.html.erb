@@ -43,7 +43,7 @@
 
     <% table.with_column(t('label_details')) do |changelog_entry| %>
       <%= link_to changelog_entry_path(changelog_entry), class: 'btn btn-outline-secondary' do %>
-        <span class="bi bi-eye" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.show") %>"></span>
+        <span class="bi bi-eye" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.show") %>"></span>
         <span class="visually-hidden"><%= t("action.show") %></span>
       <% end %>
     <% end %>

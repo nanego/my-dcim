@@ -9,6 +9,7 @@
 </div><!-- /.modal -->
 
 <script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function(){
   $("body").on("click", ".servers a.port, .pdu a.port", function (event) {
     event.preventDefault();
     var url = $(this).data("url");
@@ -25,4 +26,5 @@
   $("#edit_port_modal").on('hidden.bs.modal', function () {
     $("#edit_port_modal .modal-body").html("<p>Chargement en cours ...</p>");
   })
+});
 </script>

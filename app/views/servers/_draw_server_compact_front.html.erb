@@ -7,7 +7,7 @@
     <%= link_to h("#{server.name}"),
                 server_path(server, :view => params[:view]),
                 {
-                  data: { "toggle": "tooltip", "placement": "top" },
+                  data: { controller: "tooltip", bs_placement: "top" },
                   title: server.numero,
                   class: "link-underline-opacity-0 link-underline-opacity-100-hover link-body-emphasis"
                 } %>
