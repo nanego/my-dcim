@@ -1,5 +1,5 @@
+<%= render FormErrorsComponent.new(@site) %>
 <%= form_for(@site, html: { class: "bg-body-tertiary p-4 rounded border", role: "form" }) do |f| %>
-  <%= render FormErrorsComponent.new(@site) %>
   <div class="row g-3">
     <fieldset class="col-12">
       <%= f.label :name, class: "form-label" %>
