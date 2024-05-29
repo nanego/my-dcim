@@ -10,8 +10,8 @@
     <div style="clear:both;margin-top: 5px;">
       <%= f.label 'Port de départ', class: "col-sm-2 control-label" %>
       <div class="col-sm-10">
-        <div class="panel panel-default">
-          <div class="panel-body">
+        <div class="card">
+          <div class="card-body">
             <div id="back_departure_server" class="back_server">
               <%= render partial: 'servers/draw_server_compact', locals: { server: @from_server, selected_port: @from_port } %>
             </div>
@@ -24,8 +24,8 @@
     <div style="clear:both;">
       <%= f.label 'Port de destination', class: "col-sm-2 control-label" %>
       <div class="col-sm-10">
-        <div class="panel panel-default">
-          <div class="panel-heading">
+        <div class="card">
+          <div class="card-header">
             <div class="" style="text-align: center;" id="select_destination_bay">
                 <span id="restricted_destinations">
                   <%= select_tag 'to_server',
@@ -45,7 +45,7 @@
                 </span>
             </div>
           </div>
-          <div class="panel-body">
+          <div class="card-body">
             <div id="back_destination_server" class="back_server">
               <%= render(partial: 'servers/draw_server_compact', locals: { server: @to_server, selected_port: @to_port }) if @to_server %>
             </div>
@@ -107,6 +107,7 @@
   </div>
 
   <script>
+  document.addEventListener('DOMContentLoaded', function(){
       function select_destination_server(see_all) {
           if (see_all == 1) {
               selected_server = $("#all_destinations select[name='to_server']").val();
@@ -200,4 +201,5 @@
               select_destination_port(e.target.id);
           });
       });
+  });
   </script>

@@ -6,7 +6,8 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[show update destroy reset_authentication_token suspend unsuspend]
 
   def index
-    @users = sorted status_filter User.order('sign_in_count desc')
+    @filter = Filter.new(User.order(sign_in_count: :desc), params)
+    @users = @filter.results
   end
 
   def show
@@ -77,13 +78,5 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
-  end
-
-  def status_filter(users)
-    if params[:suspended].present?
-      users.suspended
-    else
-      users.unsuspended
-    end
   end
 end

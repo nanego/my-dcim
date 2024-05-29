@@ -1,7 +1,7 @@
 <% provide(:title, User.model_name.human.pluralize) %>
 <%= render "layouts/breadcrumb", breadcrumb_variables: { User.model_name.human.pluralize => "" } %>
 
-<div class="container well">
+<div class="container">
   <div class="row">
     <div class="col-md-12">
       <div class="page-header d-flex justify-content-between">
@@ -9,17 +9,17 @@
           <h1><%= User.model_name.human.pluralize %></h1>
           <ul class="nav nav-pills mb-2" role="tablist">
             <li role="presentation" class="nav-item">
-              <%= link_to users_path, class: class_names("nav-link", "active": !params[:suspended]) do %>
+              <%= link_to users_path, class: class_names("nav-link", "active": !params[:filter]) do %>
                 <%= t(".unsuspended") %>
-                <span class="<%= class_names("badge text-bg-primary", "text-bg-light": !params[:suspended]) %>">
+                <span class="<%= class_names("badge text-bg-primary", "text-bg-light": !params[:filter]) %>">
                   <%= User.unsuspended.count %>
                 </span>
               <% end %>
             </li>
             <li role="presentation" class="nav-item">
-              <%= link_to users_path(suspended: true), class: class_names("nav-link", "active": params[:suspended]) do %>
+              <%= link_to users_path(filter: :suspended), class: class_names("nav-link", "active": params[:filter] == "suspended") do %>
                 <%= t(".suspended") %>
-                <span class="<%= class_names("badge text-bg-primary", "text-bg-light": params[:suspended]) %>">
+                <span class="<%= class_names("badge text-bg-primary", "text-bg-light": params[:filter] == "suspended") %>">
                   <%= User.suspended.count %>
                 </span>
               <% end %>

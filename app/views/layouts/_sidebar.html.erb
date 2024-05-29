@@ -1,10 +1,10 @@
 <aside id="mydcim-inventories-sidebar"
-       class="<%= class_names("mydcim-sidebar offcanvas-lg offcanvas-start border border-right col-lg-2 p-0 bg-body-tertiary", offcanvas: false) %>"
+       class="<%= class_names("mydcim-sidebar offcanvas-lg offcanvas-start border-end col-lg-2 p-0 w-auto bg-body-tertiary", offcanvas: hide_inventories_sidebar?) %>"
        tabindex="-1" aria-labelledby="sidebarMenuLabel">
-  <div class="offcanvas-header">
+  <div class="<%= class_names("offcanvas-header", "d-flex": hide_inventories_sidebar?) %>">
     <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="#mydcim-inventories-sidebar" aria-label="<%= t("action.close") %>"></button>
   </div>
-  <nav class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto" aria-label="<%= t("inventories") %> navigation">
+  <nav class="offcanvas-body d-md-flex flex-column p-0 px-2 pt-lg-3 overflow-y-auto" aria-label="<%= t("inventories") %> navigation">
     <ul class="list-unstyled mb-0 pb-3 pb-md-2 px-lg-2 ms-lg-0 ms-3">
       <!-- Location -->
       <li class="mydcim-sidebar-links-group py-2">
@@ -23,7 +23,7 @@
           <li>
             <%= link_to rooms_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                          active: controller.controller_name == "rooms") do %>
+                          active: controller.controller_name == "rooms" && !hide_inventories_sidebar?) do %>
               <%= Room.model_name.human.pluralize %>
             <% end %>
           </li>

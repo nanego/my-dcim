@@ -9,6 +9,24 @@
     <% end %>
   </div>
 
+  <%= render FilterComponent.new(@filter) do |c| %>
+    <% c.with_form do |f| %>
+      <div class="col-12">
+        <div class="form-floating">
+          <%= f.text_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :q %>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-floating">
+          <%= f.collection_select(:site_id, Site.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.label :site_id %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
   <%= render List::DataTableComponent.new(@rooms) do |table| %>
     <% table.with_column(Site.model_name.human, sort_by: :"sites.name") do |room| %>
       <%= link_to room.site, site_path(room.site) %>
@@ -27,7 +45,9 @@
     <% end %>
 
     <% table.with_column(Frame.model_name.human.pluralize) do |room| %>
-      <%= Room.human_attribute_name(:frames_count, count: room.frames.count) %>
+      <%= link_to frames_path(room_id: room.id) do %>
+        <%= Room.human_attribute_name(:frames_count, count: room.frames.count) %>
+      <% end %>
     <% end %>
 
     <% table.with_column(Room.human_attribute_name(:display_on_home_page), sort_by: :display_on_home_page, class: "text-center") do |room| %>

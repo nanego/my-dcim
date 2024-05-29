@@ -1,28 +1,27 @@
-<div class="container-fluid" style="margin-top: 14px;">
+<div class="container-fluid mt-5">
   <div class="thumbnail">
-    <div class="caption-full text-center">
+    <div class="caption-full text-center pb-5">
       <h4>Gestion de salle</h4>
     </div>
-
-    <div class="img-fluid" style="margin:0;padding:70px 10px;
-        background: url(<%= asset_path('_78A0587-nb.jpg') %>) no-repeat center;
-        -webkit-background-size: cover;
-        background-size: cover;">
-      <div class="container-fluid">
+    <div class="img-fluid m-0 py-5 px-2 rounded"
+         style="background: url(<%= asset_path('_78A0587-nb.jpg') %>) no-repeat center; background-size: cover;">
+      <div class="container-fluid mt-4">
         <% Site.joins(:rooms).where('display_on_home_page = ?', true).distinct.order(:position).each do |site| %>
-          <div class="container-fluid mb-4 pb-2" style="background-color: rgba(255, 255, 255, 0.80);border-color: #BBBBBB;">
-            <div style="text-align: center;font-size: x-large;margin-bottom: 10px;"><%= site %></div>
+          <div class="container-fluid mb-4 py-2 bg-body-tertiary bg-opacity-75 rounded border">
+            <div class="text-center fs-4 mb-2"><%= site %></div>
             <div class="d-flex justify-content-between flex-wrap">
               <% rooms = site.rooms.where(display_on_home_page: true).order(:position) %>
               <% rooms.each do |room| %>
-                <div class="flex-fill border border-primary-subtle m-2 p-2">
-                  <div style="text-align: left;font-size: large;margin-bottom: 5px;"><%= link_to room.name, room %></div>
+                <div class="flex-fill border border-primary-subtle m-2 p-2 rounded">
+                  <div class="text-start mb-1 fs-5"><%= link_to room.name, room %></div>
                   <ul>
                     <li><%= "#{Frame.model_name.human} : #{room.frames.count}" %></li>
                     <% Category.all.each do |cat| %>
                       <% count = room.materials.joins(:modele).where("modeles.category_id = ?", cat.id).count %>
                       <% if count > 0 %>
-                        <li><%= "#{cat} : #{room.materials.joins(:modele).where("modeles.category_id = ?", cat.id).count}" %></li>
+                        <li>
+                          <%= "#{cat} : #{room.materials.joins(:modele).where("modeles.category_id = ?", cat.id).count}" %>
+                        </li>
                       <% end %>
                     <% end %>
                   </ul>

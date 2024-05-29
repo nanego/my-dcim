@@ -120,6 +120,7 @@ GEM
     crass (1.0.6)
     css_parser (1.17.1)
       addressable
+    csv (3.3.0)
     dalli (3.2.8)
     dartsass-sprockets (3.1.0)
       railties (>= 4.0.0)
@@ -196,7 +197,7 @@ GEM
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
     io-console (0.7.2)
-    irb (1.13.0)
+    irb (1.13.1)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     jbuilder (2.11.5)
@@ -277,11 +278,11 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.1)
-    nokogiri (1.16.4-arm64-darwin)
+    nokogiri (1.16.5-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.4-x86_64-darwin)
+    nokogiri (1.16.5-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.4-x86_64-linux)
+    nokogiri (1.16.5-x86_64-linux)
       racc (~> 1.4)
     omniauth (2.1.2)
       hashie (>= 3.4.6)
@@ -393,18 +394,23 @@ GEM
     record_tag_helper (1.0.1)
       actionview (>= 5)
     redcarpet (3.6.0)
-    regexp_parser (2.9.0)
-    reline (0.5.4)
+    regexp_parser (2.9.1)
+    reline (0.5.6)
       io-console (~> 0.5)
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    rexml (3.2.6)
+    rexml (3.2.8)
+      strscan (>= 3.0.9)
     rouge (4.2.1)
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
       rspec-mocks (~> 3.13.0)
+    rspec-activemodel-mocks (1.2.0)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      rspec-mocks (>= 2.99, < 4.0)
     rspec-core (3.13.0)
       rspec-support (~> 3.13.0)
     rspec-expectations (3.13.0)
@@ -413,7 +419,7 @@ GEM
     rspec-html-matchers (0.10.0)
       nokogiri (~> 1)
       rspec (>= 3.0.0.a)
-    rspec-mocks (3.13.0)
+    rspec-mocks (3.13.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-rails (6.1.2)
@@ -425,6 +431,7 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.1)
+    rubanok (0.5.0)
     rubocop (1.63.4)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
@@ -499,6 +506,7 @@ GEM
     stimulus-rails (1.3.3)
       railties (>= 6.0.0)
     stringio (3.1.0)
+    strscan (3.1.0)
     swd (2.0.3)
       activesupport (>= 3)
       attr_required (>= 0.0.5)
@@ -565,6 +573,7 @@ DEPENDENCIES
   bootstrap (~> 5.3.2)
   byebug
   capybara (>= 2.15)
+  csv
   dalli
   dartsass-sprockets
   datagrid
@@ -601,8 +610,10 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n (~> 7.0.x)
   record_tag_helper (~> 1.0)
+  rspec-activemodel-mocks
   rspec-html-matchers
   rspec-rails
+  rubanok
   rubocop
   rubocop-capybara
   rubocop-performance
@@ -628,4 +639,4 @@ RUBY VERSION
    ruby 3.3.1p55
 
 BUNDLED WITH
-   2.5.6
+   2.5.9

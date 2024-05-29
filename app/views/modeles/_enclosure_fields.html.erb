@@ -1,13 +1,13 @@
 <fieldset class="col-sm-10 col-md-4">
-  <div class="panel panel-default enclosure-fields">
-    <div class="panel-heading">
+  <div class="card enclosure-fields">
+    <div class="card-header">
       <%= f.object.position.present? ? t(".enclosure_position", position: f.object.position) : t(".new_enclosure") %>
-      <span class="pull-right">
+      <span class="float-end">
         <%= f.hidden_field :_destroy %>
         <%= link_to t("action.delete"), '#', class: "remove_fields" %>
       </span>
     </div>
-    <ul id="enclosureList_<%= f.object.id %>" class="list-group panel-body">
+    <ul id="enclosureList_<%= f.object.id %>" class="list-group card-body">
       <div class="list-group-item filtered">
         <fieldset>
           <%= f.label :display %> :
@@ -24,10 +24,11 @@
         <%= render "composant_fields", :f => builder, :type_composant => 'SLOT' %>
       <% end %>
     </ul>
-    <div class="panel-footer"><%= link_to_add_fields_with_prefilled_data "<span class='bi bi-plus-lg' aria-hidden='true'></span> #{t(".add_slot")}".html_safe, f, :composants, 'SLOT' %></div>
+    <div class="card-footer"><%= link_to_add_fields_with_prefilled_data "<span class='bi bi-plus-lg' aria-hidden='true'></span> #{t(".add_slot")}".html_safe, f, :composants, 'SLOT' %></div>
   </div>
 </fieldset>
 <script>
+document.addEventListener('DOMContentLoaded', function(){
     var display_select = $('#modele_enclosures_attributes_<%= f.object.position.to_i - 1 %>_display')
     var grid_text_area = $('#modele_enclosures_attributes_<%= f.object.position.to_i - 1 %>_grid_areas').closest('.list-group-item')
     var toggle_grid_text_area = (function f() {
@@ -52,4 +53,5 @@
         });
       }
     });
+});
 </script>

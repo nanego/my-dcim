@@ -11,6 +11,33 @@
     <% end %>
   </div>
 
+  <%= render FilterComponent.new(@filter) do |c| %>
+    <% c.with_form do |f| %>
+      <div class="col-12">
+        <div class="form-floating">
+          <%= f.search_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :q %>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-floating">
+          <%= f.collection_select(:room_id, Room.sorted, :id, :to_s, { prompt: true, include_blank: true },
+                                                                     { class: "form-control" }) %>
+          <%= f.label :room_id %>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-floating">
+          <%= f.collection_select(:islet_id, Islet.sorted, :id, :to_s, { prompt: true, include_blank: true },
+                                  { class: "form-control" }) %>
+          <%= f.label :islet_id %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
   <%= render List::DataTableComponent.new(@bays) do |table| %>
     <% table.with_column(Room.model_name.human, sort_by: :"rooms.name") do |bay| %>
       <%= link_to bay.room, room_path(bay.room) %>
@@ -39,7 +66,9 @@
     <% end %>
 
     <% table.with_column(Server.model_name.human.pluralize) do |bay| %>
-      <%= Bay.human_attribute_name(:materials_count, count: bay.materials.count) %>
+      <%= link_to servers_path(bay_id: bay.id) do %>
+        <%= Bay.human_attribute_name(:materials_count, count: bay.materials.count) %>
+      <% end %>
     <% end %>
 
     <% table.with_column(style: "min-width: 160px; width: 160px") do |bay| %>
@@ -55,5 +84,5 @@
         <% end %>
       </div>
     <% end %>
-  <% end %>>
+  <% end %>
 </div>
