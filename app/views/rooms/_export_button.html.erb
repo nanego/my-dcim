@@ -1,61 +1,61 @@
-<div class="btn-group btn-group-sm">
-  <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Exports <span class="caret"></span>
+<div class="dropdown btn-group-sm btn-group">
+  <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                                                                          aria-haspopup="true"
+                                                                          aria-expanded="false">
+    <%= t("export_button.label") %>
   </button>
-  <ul class="dropdown-menu dropdown-menu-right">
-
-    <li class="dropdown-submenu float-start">
-      <%= link_to room_path(room, format: 'pdf', view: 'front', islet: '', bg: ''), target: :_blank do %>
-        <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
-        Export PDF
-      <% end %>
-      <ul class="dropdown-menu dropdown-menu-left">
-        <li>
-          <%= link_to room_path(room, format: 'pdf', view: 'front', islet: '', bg: ''), target: :_blank do %>
-            <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
-            Face avant
-          <% end %>
-        </li>
-        <li>
-          <%= link_to room_path(room, format: 'pdf', view: 'back', islet: '', bg: ''), target: :_blank do %>
-            <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
-            Face arrière
-          <% end %>
-        </li>
-        <li>
-          <%= link_to room_path(room, format: 'pdf', view: 'front', islet: '', bg: 'cablage'), target: :_blank do %>
-            <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
-            Cablage - Face avant
-          <% end %>
-        </li>
-        <li>
-          <%= link_to room_path(room, format: 'pdf', view: 'back', islet: '', bg: 'cablage'), target: :_blank do %>
-            <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
-            Cablage - Face arrière
-          <% end %>
-        </li>
-      </ul>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li>
+      <h6 class="dropdown-header"><%= t("export_button.exports.pdf") %></h6>
     </li>
-
-    <li><%= link_to room_path(room, format: 'txt', view: '', islet: '', bg: '') do %>
-        <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
-        Export Txt
+    <li>
+      <%= link_to room_path(room, format: :pdf, view: "front", islet: "", bg: ""), class: "dropdown-item",
+                                                                                   target: :_blank do %>
+        <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+        <%= t("export_button.faces.front") %>
       <% end %>
     </li>
-
-    <li><%= link_to room_path(room, format: 'pdf', view: 'front', islet: '', bg: '', debug: '1'), target: :_blank do %>
+    <li>
+      <%= link_to room_path(room, format: :pdf, view: "back", islet: "", bg: ""), class: "dropdown-item",
+                                                                                  target: :_blank do %>
+        <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+        <%= t("export_button.faces.back") %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to room_path(room, format: :pdf, view: "front", islet: "", bg: "cablage"), class: "dropdown-item",
+                                                                                          target: :_blank do %>
+        <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+        <%= t("export_button.faces.front_wiring") %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to room_path(room, format: :pdf, view: "back", islet: "", bg: "cablage"), class: "dropdown-item",
+                                                                                         target: :_blank do %>
+        <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+        <%= t("export_button.faces.back_wiring") %>
+      <% end %>
+    </li>
+    <li><hr class="dropdown-divider"></li>
+    <li>
+      <%= link_to room_path(room, format: :txt, view: "", islet: "", bg: ""), class: "dropdown-item" do %>
+        <span class="bi bi-file-earmark-text" aria-hidden="true"></span>
+        <%= t("export_button.exports.txt") %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to room_path(room, format: :pdf, view: "front", islet: "", bg: "", debug: "1"), class: "dropdown-item",
+                                                                                               target: :_blank do %>
         <span class="bi bi-printer" aria-hidden="true"></span>
-        Impression
+        <%= t("export_button.exports.print") %>
       <% end %>
     </li>
-
-    <li role="separator" class="divider"></li>
-
-    <li><%= link_to ports_path(room_id: room.id, frame_id: @frame.try(:id)) do %>
-        <span class="bi bi-list-ul" aria-hidden="true"></span>
-        Liste des ports
+    <li><hr class="dropdown-divider"></li>
+    <li>
+      <%= link_to ports_path(room_id: room.id, frame_id: @frame.try(:id)), class: "dropdown-item" do %>
+        <span class="bi bi-file-earmark-tex" aria-hidden="true"></span>
+        <%= t("export_button.port_list") %>
       <% end %>
     </li>
-
   </ul>
 </div>
