@@ -1,29 +1,27 @@
-<%= form_for(@islet, html: { class: "form-horizontal", role: "form" }) do |f| %>
-  <%= render FormErrorsComponent.new(@islet) %>
+<%= render FormErrorsComponent.new(@islet) %>
 
-  <div class="form-group">
-    <%= f.label :name, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
+<%= form_for(@islet, html: { class: "bg-body-tertiary p-4 rounded border", role: "form" }) do |f| %>
+  <div class="row g-3">
+    <fieldset class="col-12">
+      <%= f.label :name, class: "form-label" %>
       <%= f.text_field :name, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :room, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.select :room_id, options_from_collection_for_select(Room.order(:position), :id, :name_with_site, @islet.room_id), class: "form-control" %>
-    </div>
-  </div>
+    </fieldset>
 
-  <div class="form-group">
-    <%= f.label :position, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
+    <fieldset class="col-12 mt-4">
+      <%= f.label :room, class: "form-label" %>
+      <%= f.select :room_id,
+                   options_from_collection_for_select(Room.order(:position), :id, :name_with_site, @islet.room_id),
+                   { prompt: true },
+                   class: "form-select" %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :position, class: "form-label" %>
       <%= f.text_field :position, class: "form-control" %>
-    </div>
-  </div>
+    </fieldset>
 
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit class: "btn btn-primary" %>
+    <div class="col-12 mt-4">
+      <%= f.submit class: "w-100 btn btn-primary" %>
     </div>
   </div>
 <% end %>
