@@ -16,12 +16,14 @@ module Users
 
     private
 
-    def settings_params
-      params.require(:user).permit(%i[locale theme visualization_bay_default_background_color visualization_bay_default_orientation])
-    end
-
     def set_user
       @user = current_user
+    end
+
+    def settings_params
+      params.require(:user).permit(
+        :locale, :theme, :visualization_bay_default_background_color, :visualization_bay_default_orientation
+      )
     end
   end
 end
