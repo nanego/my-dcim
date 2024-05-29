@@ -1,28 +1,34 @@
 <%= render FormErrorsComponent.new(@room) %>
+
 <%= form_for(@room, html: { class: "bg-body-tertiary p-4 rounded border", role: "form" }) do |f| %>
   <div class="row g-3">
     <fieldset class="col-12">
       <%= f.label "Nom", class: "form-label" %>
       <%= f.text_field :name, class: "form-control" %>
     </fieldset>
+
     <fieldset class="col-12 mt-4">
       <%= f.label :site, class: "form-label" %>
-      <%= f.select :site_id, Site.all.map{ |s| [s.name, s.id] }, { include_blank: true }, class: "form-select" %>
+      <%= f.select :site_id, Site.all.map{ |s| [s.name, s.id] }, { prompt: true }, class: "form-select" %>
     </fieldset>
+
     <fieldset class="col-12 mt-4">
       <%= f.label :description, class: "form-label" %>
       <%= f.text_area :description, class: "form-control" %>
     </fieldset>
+
     <fieldset class="col-12 mt-4">
       <%= f.label :position, class: "form-label" %>
       <%= f.text_area :position, class: "form-control" %>
     </fieldset>
+
     <div class="col-12 mt-4">
       <fieldset class="form-check">
         <%= f.check_box :display_on_home_page, class: "form-check-input" %>
         <%= f.label :display_on_home_page, class: "form-check-label" %>
       </fieldset>
     </div>
+
     <div class="col-12 mt-4">
       <%= f.submit class: "w-100 btn btn-primary" %>
     </div>
