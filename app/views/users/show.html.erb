@@ -1,13 +1,14 @@
 <%- user_label = @user.name || @user.email %>
 <% provide(:title, "#{User.model_name.human.pluralize} | #{user_label}") %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: { User.model_name.human.pluralize => users_url, user_label => '' } %>
+<%= render "layouts/breadcrumb",
+           breadcrumb_variables: { User.model_name.human.pluralize => users_url, user_label => "" } %>
 
 <div class="container" data-controller="reveal" data-reveal-hidden-class="d-none">
   <div class="row my-5">
     <div class="col-12">
       <h1 class="mb-4"><%= user_label %></h1>
 
-      <dl class="dl-horizontal bg-body-tertiary p-4 rounded border">
+      <dl class="bg-body-tertiary p-4 rounded border">
         <dt><%= User.human_attribute_name(:id) %> :</dt>
         <dd><%= @user.id %></dd>
 
