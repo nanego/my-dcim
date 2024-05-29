@@ -2,8 +2,9 @@ import "src/palette-color-picker"
 import "src/functions"
 import "src/bays"
 import "src/servers"
-import "sortablejs"
-import $ from "jquery"
+
+import Sortable from "sortablejs"
+window.Sortable = Sortable
 
 function hideFilters() {
     $('.hide-filters').hide()
@@ -72,6 +73,7 @@ function scale_large_slots(){
 
     })
 }
+window.scale_large_slots = scale_large_slots
 
 // UI hack
 // Get height of all back U, and set front U accordingly
@@ -85,3 +87,4 @@ function reset_u_heights() {
         $(".frames .view-front li[data-num-u='" + index + "']").height(value + 'px');
     });
 }
+window.reset_u_heights = reset_u_heights
