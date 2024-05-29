@@ -1,4 +1,4 @@
-<% provide(:title, "#{Site.model_name.human.pluralize} | #{t("action.edit")}") %>
+<% provide(:title, "#{Site.model_name.human.pluralize} | #{@site.name} | #{t("action.edit")}") %>
 <%= render "layouts/breadcrumb", breadcrumb_variables: {
   "Sites" => sites_path,
     @site => ""
