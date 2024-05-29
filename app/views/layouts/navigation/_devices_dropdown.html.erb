@@ -2,7 +2,7 @@
   <%= link_to t(".equipments"), servers_grids_path, class: "nav-link d-block d-lg-none" %>
 </li>
 <li class="nav-item dropdown d-none d-lg-block" role="menuitem">
-  <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown"
+  <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
     aria-expanded="false">
     <%= t(".equipments") %>
   </a>
@@ -11,7 +11,7 @@
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header"><%= t(".filter_by") %></h6></li>
     <li class="nav-item dropdown-submenu" role="menuitem">
-      <a href="#" class="dropdown-toggle dropdown-item" data-toggle="dropdown" role="button" aria-haspopup="true"
+      <a href="#" class="dropdown-toggle dropdown-item" data-bs-toggle="dropdown" role="button" aria-haspopup="true"
         aria-expanded="false">
         <%= Gestion.model_name.human %>
       </a>
@@ -26,7 +26,7 @@
       </ul>
     </li>
     <li class="nav-item dropdown-submenu" role="menuitem">
-      <a href="#" class="dropdown-toggle dropdown-item" data-toggle="dropdown" role="button" aria-haspopup="true"
+      <a href="#" class="dropdown-toggle dropdown-item" data-bs-toggle="dropdown" role="button" aria-haspopup="true"
         aria-expanded="false">
         <%= Cluster.model_name.human %>
       </a>
@@ -51,7 +51,7 @@
       </ul>
     </li>
     <li class="nav-item dropdown-submenu" role="menuitem">
-      <a href="#" class="dropdown-toggle dropdown-item" data-toggle="dropdown" role="button" aria-haspopup="true"
+      <a href="#" class="dropdown-toggle dropdown-item" data-bs-toggle="dropdown" role="button" aria-haspopup="true"
         aria-expanded="false">
         <%= Modele.model_name.human %>
       </a>
