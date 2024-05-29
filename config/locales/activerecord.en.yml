@@ -1,0 +1,13 @@
+en:
+  activerecord:
+    attributes:
+      user/locale:
+        en: English
+        fr: Français
+      user/visualization_bay_default_background_color:
+        modele: Modele
+        cluster: Cluster
+        gestion: Gestion
+      user/visualization_bay_default_orientation:
+        front: Front
+        rear: Rear
