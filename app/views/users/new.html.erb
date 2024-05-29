@@ -6,22 +6,22 @@
   <div class="col-11 col-md-10 col-lg-8 col-xxl-6 mx-auto">
     <h1 class="text-center pb-5"><%= t(".new_user") %></h1>
     <%= render FormErrorsComponent.new(@user) %>
-    <%= form_for @user, html: { class: "bg-body-tertiary p-4 rounded border", role: "form" },
+    <%= form_for @user, html: { class: "bg-body-tertiary p-4 rounded border row g-3", role: "form" },
                         url: add_user_users_path do |f| %>
-      <div class="col-12">
+      <fieldset class="col-12">
         <%= f.label :name, class: "from-label" %>
         <%= f.text_field :name, class: "form-control" %>
-      </div>
-      <div class="col-12 mt-4">
+      </fieldset>
+      <fieldset class="col-12 mt-4">
         <%= f.label :email, class: "from-label" %>
         <%= f.text_field :email, class: "form-control" %>
-      </div>
-      <div class="col-12 mt-4">
+      </fieldset>
+      <fieldset class="col-12 mt-4">
         <%= f.label :role, class: "from-label" %>
         <%= f.select(:role, User.roles.keys.map { |role| [User.human_attribute_name("role.#{role}"), role] },
                             {},
                             class: "form-select") %>
-      </div>
+      </fieldset>
       <div class="col-12 mt-4">
         <%= f.submit t("action.add"), class: "w-100 btn btn-primary" %>
       </div>
