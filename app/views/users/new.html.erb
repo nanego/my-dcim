@@ -3,7 +3,7 @@
            breadcrumb_variables: { User.model_name.human.pluralize => users_path, t(".new_user") => "" } %>
 
 <div class="row my-5">
-  <div class="col-11 col-md-10 col-lg-8 col-xxl-6 mx-auto">
+  <div class="col-11 col-md-10 col-lg-8 mx-auto">
     <h1 class="text-center pb-5"><%= t(".new_user") %></h1>
     <%= render FormErrorsComponent.new(@user) %>
     <%= form_for @user, html: { class: "bg-body-tertiary p-4 rounded border row g-3", role: "form" },
