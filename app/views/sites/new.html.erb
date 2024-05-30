@@ -1,16 +1,20 @@
+<% provide(:title, "#{Site.model_name.human.pluralize} | #{t("action.add")}") %>
 <%= render "layouts/breadcrumb", breadcrumb_variables: {
-  "Sites" => sites_path,
-  t("sites.new.title") => ""
+  Site.model_name.human.pluralize => sites_path,
+  t(".title") => ""
 } %>
 
 <div class="row my-5">
   <div class="col-11 col-md-10 col-lg-8 col-xxl-6 mx-auto">
-    <div class="d-flex pb-5 align-items-center position-relative">
-      <%= link_to sites_path, class: "btn btn-outline-secondary position-absolute" do %>
-        <span class="bi bi-chevron-left"></span>
-        <%= t("action.back") %>
-      <% end %>
-      <h1 class="text-center flex-grow-1"><%= t(".title") %></h1>
+    <div class="d-flex pb-5 align-items-center">
+      <div class="flex-grow-1">
+        <%= link_to sites_path, class: "btn btn-outline-secondary" do %>
+          <span class="bi bi-chevron-left"></span>
+          <%= t("action.back") %>
+        <% end %>
+      </div>
+      <h1 class="text-center"><%= t(".title") %></h1>
+      <div class="flex-grow-1"></div>
     </div>
     <%= render "form" %>
   </div>

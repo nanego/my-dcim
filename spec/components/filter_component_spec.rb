@@ -18,7 +18,7 @@ RSpec.describe FilterComponent, type: :component do
     it do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component.to_html).to have_tag("div.card.card-primary") do
         with_tag("div.card-header") do
-          with_tag("h3.card-title", text: I18n.t("filter_component.header.title"))
+          with_tag("h6.card-title", text: I18n.t("filter_component.header.title"))
         end
 
         with_tag("div.card-footer") do
@@ -47,7 +47,7 @@ RSpec.describe FilterComponent, type: :component do
     it do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component.to_html).to have_tag("div.card.card-primary") do
         with_tag("div.card-header") do
-          with_tag("h3.card-title", text: "#{I18n.t("filter_component.header.title")} (2)")
+          with_tag("h6.card-title", text: "#{I18n.t("filter_component.header.title")} (2)")
         end
 
         with_tag("div.card-body") do

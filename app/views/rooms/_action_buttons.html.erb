@@ -5,7 +5,7 @@
   <% if view_side != Frame.view_sides[:back] %>
     <!-- Choice of server background color -->
     <div class="btn-group">
-      <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <%= t(".background_color", bg: params[:bg] || Modele.model_name.human.downcase) %> <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
@@ -35,7 +35,7 @@
 
   <% if formats!=[:pdf] && @room.present? && !@room.kind_of?(String) %>
     <div class="btn-group">
-      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <%= t("export_button.label") %> <span class="caret"></span>
       </button>
       <ul class="dropdown-menu dropdown-menu-right">

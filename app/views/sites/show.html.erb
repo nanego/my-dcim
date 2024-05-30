@@ -1,18 +1,28 @@
-<div class="page-header">
-  <%= link_to sites_path, class: 'btn btn-outline-secondary' do %>
-    <span class="bi bi-list-ul"></span>
-    <%= t("action.back") %>
-  <% end %>
-  <%= link_to edit_site_path(@site), class: 'btn btn-primary' do %>
-    <span class="bi bi-pencil"></span>
-    <%= t("action.edit") %>
-  <% end %>
-  <h1><%= t(".title", site_id: @site.id, site_name: @site.name) %></h1>
-</div>
+<% provide(:title, "#{Site.model_name.human.pluralize} | #{@site.name}") %>
+<%= render "layouts/breadcrumb",
+           breadcrumb_variables: { Site.model_name.human.pluralize => sites_path, @site.name => "" } %>
 
-<dl class="dl-horizontal">
-  <% %i[name position latitude longitude].each do |attribute_name| %>
-    <dt><%= Site.human_attribute_name(attribute_name) %> :</dt>
-    <dd><%= @site.public_send(attribute_name) %>
-  <% end %>
-</dl>
+<div class="container">
+  <div class="row my-5">
+    <div class="col-12">
+      <div class="d-flex justify-content-between pb-5">
+        <%= link_to sites_path, class: 'btn btn-outline-secondary align-self-center' do %>
+          <span class="bi bi-chevron-left"></span>
+          <%= t("action.back") %>
+        <% end %>
+        <h1 class="text-center"><%= t(".title", site_id: @site.id, site_name: @site.name) %></h1>
+        <%= link_to edit_site_path(@site), class: 'btn btn-primary align-self-center' do %>
+          <span class="bi bi-pencil"></span>
+          <%= t("action.edit") %>
+        <% end %>
+      </div>
+
+      <dl class="bg-body-tertiary p-4 rounded border">
+        <% %i[name position latitude longitude].each do |attribute_name| %>
+          <dt><%= Site.human_attribute_name(attribute_name) %> :</dt>
+          <dd><%= @site.public_send(attribute_name) %>
+        <% end %>
+      </dl>
+    </div>
+  </div>
+</div>
