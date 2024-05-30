@@ -1,11 +1,12 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  Frame.model_name.human => ''}
+<% provide(:title, Frame.model_name.human.pluralize) %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+  Frame.model_name.human.pluralize => "" }
 %>
 
 <div class="container-fluid">
-  <div class="page-header d-flex justify-content-between">
+  <div class="d-flex justify-content-between">
     <h1><%= t(".title") %></h1>
-    <%= link_to new_frame_path, class: 'btn btn-success align-self-center' do %>
+    <%= link_to new_frame_path, class: "btn btn-success align-self-center" do %>
       <span class="bi bi-plus-lg"></span>
       <%= t(".new_frame") %>
     <% end %>
@@ -22,21 +23,24 @@
 
       <div class="col-12">
         <div class="form-floating">
-          <%= f.select(:u, Frame.group(:u).order(:u).pluck(:u), { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.select(:u, Frame.group(:u).order(:u).pluck(:u), { prompt: true, include_blank: true },
+                                                                { class: "form-select" }) %>
           <%= f.label :u %>
         </div>
       </div>
 
       <div class="col-12">
         <div class="form-floating">
-          <%= f.collection_select(:room_id, Room.sorted, :id, :to_s, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.collection_select(:room_id, Room.sorted, :id, :to_s, { prompt: true, include_blank: true },
+                                                                     { class: "form-select" }) %>
           <%= f.label :room_id %>
         </div>
       </div>
 
       <div class="col-12">
         <div class="form-floating">
-          <%= f.collection_select(:islet_id, Islet.sorted, :id, :to_s, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.collection_select(:islet_id, Islet.sorted, :id, :to_s, { prompt: true, include_blank: true },
+                                                                       { class: "form-select" }) %>
           <%= f.label :islet_id %>
         </div>
       </div>
