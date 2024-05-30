@@ -1,61 +1,59 @@
 <div class="btn-group btn-group-sm">
-  <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <%= t("export_button.label") %> <span class="caret"></span>
+  <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                                                                          aria-haspopup="true"
+                                                                          aria-expanded="false">
+    <%= t("export_button.label") %>
   </button>
 
-  <ul class="dropdown-menu dropdown-menu-right">
-    <li class="dropdown-submenu float-start">
-      <%= link_to bay_path(bay, format: 'pdf', view: 'front', bg: ''), target: :_blank do %>
-        <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
-        <%= t("export_button.exports.pdf") %>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li>
+      <%= link_to bay_path(bay, format: :pdf, view: :front, bg: ""), class: "dropdown-item", target: :_blank do %>
+        <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+        <%= t("export_button.faces.front") %>
       <% end %>
-      <ul class="dropdown-menu dropdown-menu-left">
-        <li>
-          <%= link_to bay_path(bay, format: 'pdf', view: 'front', bg: ''), target: :_blank do %>
-            <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
-            <%= t("export_button.faces.front") %>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to bay_path(bay, format: 'pdf', view: 'back', bg: ''), target: :_blank do %>
-            <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
-            <%= t("export_button.faces.back") %>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to bay_path(bay, format: 'pdf', view: 'front', bg: 'cablage'), target: :_blank do %>
-            <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
-            <%= t("export_button.faces.front_wiring") %>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to bay_path(bay, format: 'pdf', view: 'back', bg: 'cablage'), target: :_blank do %>
-            <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
-            <%= t("export_button.faces.back_wiring") %>
-          <% end %>
-        </li>
-      </ul>
+    </li>
+    <li>
+      <%= link_to bay_path(bay, format: :pdf, view: :back, bg: ""), class: "dropdown-item", target: :_blank do %>
+        <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+        <%= t("export_button.faces.back") %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to bay_path(bay, format: :pdf, view: :front, bg: :cablage), class: "dropdown-item", target: :_blank do %>
+        <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+        <%= t("export_button.faces.front_wiring") %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to bay_path(bay, format: :pdf, view: :back, bg: :cablage), class: "dropdown-item", target: :_blank do %>
+        <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+        <%= t("export_button.faces.back_wiring") %>
+      <% end %>
     </li>
 
-    <li><%= link_to bay_path(bay, format: 'txt', view: '', bg: '') do %>
-        <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
+    <li><hr class="dropdown-divider"></li>
+
+    <li><%= link_to bay_path(bay, format: :txt, view: "", bg: ""), class: "dropdown-item" do %>
+        <span class="bi bi-file-earmark-text" aria-hidden="true"></span>
         <%= t("export_button.exports.txt") %>
       <% end %>
     </li>
 
-    <li><%= link_to bay_path(bay, format: 'pdf', view: 'front', bg: '', debug: '1'), target: :_blank do %>
+    <li>
+      <%= link_to bay_path(bay, format: :pdf, view: :front, bg: "", debug: "1"), class: "dropdown-item",
+                                                                                 target: :_blank do %>
         <span class="bi bi-printer" aria-hidden="true"></span>
         <%= t("export_button.exports.print") %>
       <% end %>
     </li>
 
-    <li role="separator" class="divider"></li>
+    <li><hr class="dropdown-divider"></li>
 
-    <li><%= link_to ports_path(room_id: bay.islet.room_id, bay_id: bay.id) do %>
-      <span class="bi bi-list-ul" aria-hidden="true"></span>
+    <li>
+      <%= link_to ports_path(room_id: bay.islet.room_id, bay_id: bay.id), class: "dropdown-item" do %>
+        <span class="bi bi-card-list" aria-hidden="true"></span>
         <%= t("export_button.port_list") %>
       <% end %>
     </li>
-
   </ul>
 </div>
