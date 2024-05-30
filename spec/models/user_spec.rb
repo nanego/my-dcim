@@ -8,6 +8,22 @@ RSpec.describe User do
   it_behaves_like "changelogable", object: -> { described_class.new(email: "user@example.com") },
                                    new_attributes: { email: "admin@example.com" }
 
+  describe "validations" do
+    it { is_expected.to be_valid }
+
+    it { is_expected.to validate_inclusion_of(:locale).in_array(I18n.available_locales.map(&:to_s)) }
+    it { is_expected.to allow_value(nil).for(:locale) }
+
+    it { is_expected.to validate_inclusion_of(:theme).in_array(%w[auto dark light]) }
+    it { is_expected.to allow_value(nil).for(:theme) }
+
+    it { is_expected.to validate_inclusion_of(:visualization_bay_default_background_color).in_array(%w[modele gestion cluster]) }
+    it { is_expected.to allow_value(nil).for(:visualization_bay_default_background_color) }
+
+    it { is_expected.to validate_inclusion_of(:visualization_bay_default_orientation).in_array(%w[front back]) }
+    it { is_expected.to allow_value(nil).for(:visualization_bay_default_orientation) }
+  end
+
   describe "#to_s" do
     it { expect(user.to_s).to eq "user@example.com" }
   end
