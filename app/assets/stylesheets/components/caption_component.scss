@@ -4,21 +4,17 @@
   right: 15px;
   z-index: 100;
 
-  .bi-info-circle {
+  .bi-info-circle-fill {
     font-size: 20px;
-    color: darkgray;
     cursor: help;
 
     &:hover {
-      color: gray;
+      opacity: 0.8;
     }
   }
 
   &-content {
     position: absolute;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 5px;
     bottom: 20px;
     right: 20px;
     padding: 10px;
