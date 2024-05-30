@@ -50,6 +50,7 @@ fr:
         position: Position
         content: Contenu
         display_on_home_page: Afficher sur la page d'accueil
+        site_id: Site
         islets_count:
           zero: 0 îlot
           one: 1 îlot
@@ -60,7 +61,8 @@ fr:
           other: "%{count} châssis"
       islet:
         name: Nom
-        room: Salle
+        room_id: Salle
+        room: Salle # TODO: check if we should keep this line?
         position: Position
         frames_count:
           zero: 0 châssis

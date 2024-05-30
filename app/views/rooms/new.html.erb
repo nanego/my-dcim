@@ -1,4 +1,4 @@
-<% provide(:title, "#{Room.model_name.human.pluralize} | #{t("action.add")}") %>
+<% provide(:title, "#{Room.model_name.human.pluralize} | #{t("action.create")}") %>
 <%= render "layouts/breadcrumb", breadcrumb_variables: {
   Room.model_name.human.pluralize => rooms_path,
   t(".title") => ""
