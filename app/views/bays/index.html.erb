@@ -23,7 +23,7 @@
       <div class="col-12">
         <div class="form-floating">
           <%= f.collection_select(:room_id, Room.sorted, :id, :to_s, { prompt: true, include_blank: true },
-                                                                     { class: "form-control" }) %>
+                                                                     { class: "form-select" }) %>
           <%= f.label :room_id %>
         </div>
       </div>
@@ -31,7 +31,7 @@
       <div class="col-12">
         <div class="form-floating">
           <%= f.collection_select(:islet_id, Islet.sorted, :id, :to_s, { prompt: true, include_blank: true },
-                                  { class: "form-control" }) %>
+                                                                       { class: "form-select" }) %>
           <%= f.label :islet_id %>
         </div>
       </div>
