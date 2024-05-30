@@ -1,22 +1,24 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+<%- bay_label = @bay.frames.map(&:name).join(" - ") %>
+<% provide(:title, "#{Bay.model_name.human.pluralize} | #{bay_label} | #{t("action.edit")}") %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
   Bay.model_name.human.pluralize => bays_path,
-  @bay.frames.map(&:name).join(' - ') => ''}
-%>
+  bay_label => bay_path(@bay),
+  t("action.edit") => ""
+} %>
 
-<div class="container">
-  <div class="page-header">
-    <%= link_to bays_path, class: 'btn btn-outline-secondary' do %>
-      <span class="bi bi-list-ul"></span>
-      <%= t("action.back") %>
-    <% end %>
-    <%= link_to @bay, class: 'btn btn-primary' do %>
-      <span class="bi bi-eye"></span>
-      <%= t("action.show") %>
-    <% end %>
-    <h1>
-      <%= t(".title", type: @bay.bay_type&.name, frames: @bay.frames.map(&:name).join(' / ')) %>
-    </h1>
+<div class="row my-5">
+  <div class="col-11 col-md-10 col-lg-8 col-xxl-6 mx-auto">
+    <div class="d-flex justify-content-between pb-5">
+      <%= link_to bays_path, class: "btn btn-outline-secondary align-self-center d-inline-flex" do %>
+        <span class="bi bi-chevron-left me-2"></span>
+        <%= t("action.back") %>
+      <% end %>
+      <h1 class="px-4 text-center"><%= t(".title", type: @bay.bay_type&.name, frames: @bay.frames.map(&:name).join(' / ')) %></h1>
+      <%= link_to @bay, class: "btn btn-primary align-self-center d-inline-flex" do %>
+        <span class="bi bi-eye me-2"></span>
+        <%= t("action.show") %>
+      <% end %>
+    </div>
+    <%= render "form" %>
   </div>
-
-  <%= render 'form' %>
 </div>
