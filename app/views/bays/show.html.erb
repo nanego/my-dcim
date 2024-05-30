@@ -1,22 +1,31 @@
-<% provide :title, t(".title", bay: @bay, bay_type: @bay.bay_type&.name) %>
+<%- bay_label = t(".title", bay: @bay, bay_type: @bay.bay_type&.name) %>
+<% provide :title, "#{Bay.model_name.human.pluralize} | #{bay_label}" %>
 <%
-  breadcrumb_variables = { t("visualization") => overview_rooms_path, @bay.room.name => room_path(@bay.room, view: params[:view]) }
+  breadcrumb_variables = {
+    t("visualization") => overview_rooms_path, @bay.room.name => room_path(@bay.room, view: params[:view])
+  }
+
   if @bay.islet.name.present?
     breadcrumb_variables["#{Islet.model_name.human} #{@bay.islet.name}"] = room_path(@bay.room, islet: @bay.islet.name, view: params[:view])
   elsif params[:islet].present?
-    breadcrumb_variables["#{Islet.model_name.human} #{params[:islet]}"] = ''
+    breadcrumb_variables["#{Islet.model_name.human} #{params[:islet]}"] = ""
   end
-  breadcrumb_variables[t(".title", bay: @bay, bay_type: @bay.bay_type&.name)] = ''
-%>
-<%= render 'layouts/breadcrumb', breadcrumb_variables: breadcrumb_variables %>
 
-<div class="container-fluid" id="bay-container">
-  <%= render partial: 'servers/room', locals: {
-              room: @bay.room,
-              islets: @servers_per_frames[@bay.islet.room_id],
-              title: Bay.human_attribute_name(:bay_frames, count: @bay.frames.size, bay: @bay),
-              view_side: params[:view],
-  } %>
+  breadcrumb_variables[bay_label] = ""
+%>
+<%= render "layouts/breadcrumb", breadcrumb_variables: breadcrumb_variables %>
+
+<div class="container" id="bay-container">
+  <div class="row my-5">
+    <div class="col-12">
+      <%= render partial: "servers/room", locals: {
+                  room: @bay.room,
+                  islets: @servers_per_frames[@bay.islet.room_id],
+                  title: Bay.human_attribute_name(:bay_frames, count: @bay.frames.size, bay: @bay),
+                  view_side: params[:view],
+      } %>
+    </div>
+  </div>
 </div>
 
-<%= render 'ports/modal_edit_port' %>
+<%= render "ports/modal_edit_port" %>
