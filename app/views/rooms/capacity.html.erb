@@ -19,7 +19,7 @@
         </div>
         <% @sites.each do |site| %>
           <li><%= site %></li>
-          <ul class="mb-2">
+          <ul class="mb-2" role="tablist">
             <% rooms = site.rooms.sorted.distinct %>
             <% rooms.each do |room| %>
               <% islets = room.islets.sorted.not_empty.has_name.distinct %>
@@ -133,7 +133,7 @@
                                             <% end %>
                                           <% end %>
                                           <%= link_to server_path(server, :view => params[:view]),
-                                                      { class: 'float-end server_name link-body-emphasis', :data => { 'toggle': "tooltip", 'placement': "top" }, title: server.numero } do %>
+                                                      { class: 'float-end server_name link-body-emphasis', data: { controller: "tooltip", bs_placement: "top" }, title: server.numero } do %>
                                               <small><%= h(server.name) %></small>
                                           <% end %>
                                         <% end %>
@@ -159,51 +159,54 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function(){
-  var current_room_id = "<%= @room&.id.to_s %>"
-  var current_islet = "<%= @islet&.name.to_s %>"
+var current_room_id = "<%= @room&.id.to_s %>"
+var current_islet = "<%= @islet&.name.to_s %>"
 
-  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-    // log(e.target.dataset)
-    current_room_id = e.target.dataset['roomId']
-    current_islet = e.target.dataset['islet']
-    // log(current_room_id)
-    // log(current_islet)
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+  // log(e.target.dataset)
+  current_room_id = e.target.dataset['roomId']
+  current_islet = e.target.dataset['islet']
+  // log(current_room_id)
+  // log(current_islet)
+})
+
+// Network switcher
+$('.btn-toggle .btn').click(function (e) {
+  e.preventDefault()
+
+  // Update network switcher
+  var selected_btn = $(this)
+  var selected_network = selected_btn.data('network')
+  var btn_group = selected_btn.parent('.btn-group')
+  var previous_network =  btn_group.find('.btn.active').data('network')
+  btn_group.find('.btn').removeClass('active')
+  btn_group.find('.btn').removeClass('btn-primary')
+  btn_group.find('.btn').addClass('btn-outline-secondary')
+  btn_group.find(".btn[data-network='" + selected_network + "']").addClass('active')
+  btn_group.find(".btn[data-network='" + selected_network + "']").addClass('btn-primary')
+
+  // Update all tabs links with newly selected network AND show this network
+  let current_tab = document.querySelector('.show_room li.active a.tab')
+  let tab = new bootstrap.Tab(current_tab)
+  $('.show_room li a.tab').each(function () {
+    $(this).prop("href", $(this).attr('href').slice(0, -(previous_network.length + 1)) + "-" + btn_group.find('.btn.active').data("network"))
+    $(this).parent('li').removeClass('active')
   })
 
-  // Network switcher
-  $('.btn-toggle .btn').click(function (e) {
-    e.preventDefault()
+  $(current_tab).parent('li').addClass('active')
+  tab.show()
+})
 
-    // Update network switcher
-    var selected_btn = $(this)
-    var selected_network = selected_btn.data('network')
-    var btn_group = selected_btn.parent('.btn-group')
-    var previous_network =  btn_group.find('.btn.active').data('network')
-    btn_group.find('.btn').removeClass('active')
-    btn_group.find('.btn').removeClass('btn-primary')
-    btn_group.find('.btn').addClass('btn-outline-secondary')
-    btn_group.find(".btn[data-network='" + selected_network + "']").addClass('active')
-    btn_group.find(".btn[data-network='" + selected_network + "']").addClass('btn-primary')
+// Room selection
+$('.show_room li a.tab').click(function (e) {
+  e.preventDefault()
 
-    // Update all tabs links with newly selected network AND show this network
-    var current_tab = $('.show_room li.active a.tab:first')
-    var tabs = $('.show_room li a.tab')
-    tabs.each(function () {
-      $(this).prop("href", $(this).attr('href').slice(0, -(previous_network.length + 1)) + "-" + btn_group.find('.btn.active').data("network"))
-      $(this).parent('li').removeClass('active')
-    })
-    current_tab.tab('show')
+  $('.show_room li a.tab').each(function () { // Remove all active class
+    $(this).parent('li').removeClass('active')
   })
+  $(this).parent('li').addClass('active')
 
-  // Room selection
-  $('.show_room li a.tab').click(function (e) {
-    e.preventDefault()
-    var tabs = $('.show_room li a.tab')
-    tabs.each(function () { // Remove all active class
-      $(this).parent('li').removeClass('active')
-    })
-    $(this).tab('show')
-  })
-});
+  let tab = new bootstrap.Tab(this)
+  tab.show()
+})
 </script>

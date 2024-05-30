@@ -1,30 +1,37 @@
+<%= render FormErrorsComponent.new(@site) %>
+
 <%= form_for(@site, html: { class: "bg-body-tertiary p-4 rounded border", role: "form" }) do |f| %>
-  <%= render FormErrorsComponent.new(@site) %>
   <div class="row g-3">
     <fieldset class="col-12">
       <%= f.label :name, class: "form-label" %>
       <%= f.text_field :name, class: "form-control" %>
     </fieldset>
+
     <fieldset class="col-12 mt-4">
       <%= f.label :position, class: "form-label" %>
       <%= f.text_field :position, class: "form-control" %>
     </fieldset>
+
     <fieldset class="col-12 mt-4">
       <%= f.label :street, class: "form-label" %>
       <%= f.text_field :street, class: "form-control" %>
     </fieldset>
+
     <fieldset class="col-md-6 col-12 mt-4">
       <%= f.label :city, class: "form-label" %>
       <%= f.text_field :city, class: "form-control" %>
     </fieldset>
+
     <fieldset class="col-md-6 col-12 mt-4">
       <%= f.label :country, class: "form-label" %>
       <%= f.text_field :country, class: "form-control" %>
     </fieldset>
+
     <fieldset class="col-md-6 col-12 mt-4">
       <%= f.label :latitude, class: "form-label" %>
       <%= f.text_field :latitude, class: "form-control" %>
     </fieldset>
+
     <fieldset class="col-md-6 col-12 mt-4">
       <%= f.label :longitude, class: "form-label" %>
       <%= f.text_field :longitude, class: "form-control" %>
