@@ -246,6 +246,10 @@ fr:
       user/locale:
         fr: Français
         en: English
+      user/theme:
+        auto: Automatique
+        dark: Sombre
+        light: Clair
       user/visualization_bay_default_background_color:
         modele: Modèle
         cluster: Cluster

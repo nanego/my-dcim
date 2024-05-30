@@ -4,14 +4,14 @@
   <%= form_with model: @user, url: users_settings_path do |f| %>
     <div class="form-group">
       <%= f.label :locale %>
-      <%= f.select :locale, UserDecorator::available_background_colors_for_options, {}, class: "form-control" %>
+      <%= f.select :locale, UserDecorator::available_locales_for_options, {}, class: "form-control" %>
     </div>
 
     <!-- TODO: Remove me when themes will be implemented -->
-<!--    <div class="form-group">-->
-      <%#= f.label :theme %>
-      <%#= f.select :theme, User::AVAILABLE_THEMES.compact, class: "form-control" %>
-<!--    </div>-->
+    <!-- <div class="form-group">
+      <%= f.label :theme %>
+      <%= f.select :theme, UserDecorator::available_themes_for_options, {}, class: "form-control" %>
+    </div> -->
 
     <div class="form-group">
       <%= f.label :visualization_bay_default_background_color %>

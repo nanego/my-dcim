@@ -1,9 +1,14 @@
 en:
   activerecord:
     attributes:
+      theme: Theme
       user/locale:
         en: English
         fr: Français
+      user/theme:
+        auto: Auto
+        dark: Dark
+        light: Light
       user/visualization_bay_default_background_color:
         modele: Modele
         cluster: Cluster

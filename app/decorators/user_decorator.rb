@@ -6,6 +6,10 @@ class UserDecorator < ApplicationDecorator
       User::AVAILABLE_LOCALES.map { |locale| [User.human_attribute_name("locale.#{locale}"), locale] }
     end
 
+    def available_themes_for_options
+      User::AVAILABLE_THEMES.map { |theme| [User.human_attribute_name("theme.#{theme}"), theme] }
+    end
+
     def available_background_colors_for_options
       User::AVAILABLE_BAY_BACKGROUND_COLORS.map { |bg_color| [User.human_attribute_name("visualization_bay_default_background_color.#{bg_color}"), bg_color] }
     end
