@@ -423,7 +423,7 @@ fr:
       title: Importation de matériel par fichier CSV
       room_id:
         label: "Salle où importer les serveurs :"
-        hint: (utilisé seulement si la baie n'est pas précisée dans le fichier CSV)
+        hint: utilisé seulement si la baie n'est pas précisée dans le fichier CSV
       servers_state:
         label: "Etat des serveurs importés :"
       csv_file:

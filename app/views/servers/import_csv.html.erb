@@ -1,58 +1,65 @@
-<% provide(:title, "Importation de matériel par fichier CSV") %>
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {
-    Server.model_name.human.pluralize => servers_path,
-    t(".title") => ''
+<% provide(:title, "#{t("servers.index.title")} | #{t(".title")}") %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+    t("servers.index.title") => servers_path,
+    t(".title") => ""
   }
 %>
 
 <% if @import_error %>
-  <div class="alert alert-danger alert-dismissable" role="alert">
-    <button type="button" class="close" data-dismiss="alert">
-      <span aria-hidden="true">&times;</span><span class="visually-hidden"><%= t("action.close") %></span></button>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<%= t("action.close") %>">
+    </button>
     <h4><%= @import_error %></h4>
   </div>
 <% end %>
 
 <%= flash[:notice] %>
 
-<div class="row">
-  <div class="col-lg-4 col-lg-offset-4">
-    <!-- TODO: use Card Component and primary style -->
-    <div class="card card-primary">
+<div class="row my-5">
+  <div class="col-11 col-md-10 col-lg-8 mx-auto">
+    <%= render CardComponent.new(type: :success) do |card| %>
       <%= form_for :import, url: import_servers_path, multipart: true do |f| %>
-        <div class="card-header">
+        <!-- Header -->
+        <% card.with_header do %>
           <h4 class="card-title text-center">
             <%= t(".title") %>
           </h4>
-        </div>
+        <% end %>
 
-        <div class="card-body">
-          <p>
-            <%= f.label t(".room_id.label") %>
-            <%= f.select :room_id, Room.order('id').all.collect {|p| [p.name, p.id]}, include_blank: false, selected: Room.find_by_name('Atelier').try(:id) %>
-            <br>
-            <span class="hint">
-              <%= t(".room_id.hint") %>
-            </span>
-          </p>
+        <!-- Card Content: Form -->
+        <fieldset class="mt-4">
+          <%= f.label t(".room_id.label"), class: "form-label" %>
+          <%= f.select :room_id,
+                        Room.order("id").all.collect { |p| [p.name, p.id] },
+                        {
+                          include_blank: false,
+                          selected: Room.find_by_name("Atelier").try(:id),
+                        },
+                        class: "form-select" %>
+          <span class="form-text"><%= t(".room_id.hint") %></span>
+        </fieldset>
 
-          <p>
-            <%= f.label t(".servers_state.label") %>
-            <%= f.select :server_state_id, ServerState.select(:id, :name).collect { |p| [t(p.name.parameterize, default: p.name), p.id] }, include_blank: true %>
-          </p>
-          <p>
-            <%= f.label t(".csv_file.label") %>
-            <%= f.file_field :file %>
-          </p>
+        <fieldset class="mt-4">
+          <%= f.label t(".servers_state.label"), class: "form-label" %>
+          <%= f.select :server_state_id,
+                       ServerState.select(:id, :name).collect { |p| [t(p.name.parameterize, default: p.name), p.id] },
+                       { include_blank: true },
+                       class: "form-select" %>
+        </fieldset>
 
-        </div>
+        <fieldset class="my-4">
+          <%= f.label t(".csv_file.label"), class: "form-label" %>
+          <%= f.file_field :file, class: "form-control" %>
+        </fieldset>
 
-        <div class="card-footer">
-          <%= f.submit t(".action.import"), class: 'btn btn-primary', style: "width:100%;" %>
-        </div>
+        <!-- Footer -->
+        <% card.with_footer do %>
+          <%= f.submit t(".action.import"), class: "btn btn-success w-100" %>
+        <% end %>
       <% end %>
-    </div>
-
-    <%= t(".download_example_html", link: link_to('fichier_exemple.csv', root_url + 'files/format_exemple.csv')) %>
+    <% end %>
+    <p>
+      <%= t(".download_example_html", link: link_to("fichier_exemple.csv", root_url + "files/format_exemple.csv")) %>
+    </p>
   </div>
 </div>
