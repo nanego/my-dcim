@@ -8,7 +8,7 @@
     </fieldset>
 
     <fieldset class="col-12 mt-4">
-      <%= f.label :room, class: "form-label" %>
+      <%= f.label :room_id, class: "form-label" %>
       <%= f.select :room_id,
                    options_from_collection_for_select(Room.order(:position), :id, :name_with_site, @islet.room_id),
                    { prompt: true },
