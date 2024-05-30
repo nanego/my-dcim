@@ -1,4 +1,4 @@
-<% provide(:title, "#{User.model_name.human.pluralize} | #{t("action.add")}") %>
+<% provide(:title, "#{User.model_name.human.pluralize} | #{t("action.create")}") %>
 <%= render "layouts/breadcrumb",
            breadcrumb_variables: { User.model_name.human.pluralize => users_path, t(".new_user") => "" } %>
 
