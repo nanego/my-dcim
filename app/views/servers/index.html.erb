@@ -1,21 +1,21 @@
-<% provide(:title, "Matériels") %>
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  t(".title") => "" }
+<% provide(:title, t(".title")) %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+   t(".title") => "" }
 %>
 
 <div class="container-fluid">
-  <div class="page-header d-flex justify-content-between">
+  <div class="d-flex justify-content-between">
     <h1><%= t(".title") %></h1>
     <div class="align-self-center">
       <%= link_to external_app_records_path, class: "btn btn-success" do %>
         <span class="bi bi-arrow-clockwise"></span>
         <%= t(".sync_with_external_apps") %>
       <% end %>
-      <%= link_to import_csv_servers_path, class: 'btn btn-success' do %>
+      <%= link_to import_csv_servers_path, class: "btn btn-success" do %>
         <span class="bi bi-plus-lg"></span>
         <%= t(".add_server_via_csv") %>
       <% end %>
-      <%= link_to new_server_path, class: 'btn btn-success' do %>
+      <%= link_to new_server_path, class: "btn btn-success" do %>
         <span class="bi bi-plus-lg"></span>
         <%= t(".add_server") %>
       <% end %>
@@ -120,15 +120,15 @@
 
     <% table.with_column(style: "min-width: 120px; width: 120px") do |server| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
-        <%= link_to duplicate_server_path(server), class: 'btn btn-outline-secondary' do %>
+        <%= link_to duplicate_server_path(server), class: "btn btn-outline-secondary" do %>
           <span class="bi bi-copy" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.duplicate") %>"></span>
           <span class="visually-hidden"><%= t("action.duplicate") %></span>
         <% end %>
-        <%= link_to edit_server_path(server), class: 'btn btn-primary' do %>
+        <%= link_to edit_server_path(server), class: "btn btn-primary" do %>
           <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
           <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
-        <%= link_to server, method: :delete, data: { confirm: t("action.confirm") }, class: 'btn btn-danger' do %>
+        <%= link_to server, method: :delete, data: { confirm: t("action.confirm") }, class: "btn btn-danger" do %>
           <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
           <span class="visually-hidden"><%= t("action.delete") %></span>
         <% end %>
