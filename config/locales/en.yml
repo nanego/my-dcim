@@ -8,4 +8,11 @@ en:
   users:
     my_account:
       title: My account
+      settings: My preferences
+    settings:
+      edit:
+        title: Edit my preferences
+      update:
+        flashes:
+          updated: Your preferences have been updated
     logout: Log out

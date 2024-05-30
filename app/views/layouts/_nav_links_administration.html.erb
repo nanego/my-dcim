@@ -23,6 +23,7 @@
     </a>
     <ul class="dropdown-menu">
       <li><%= link_to t('users.my_account.edit'), edit_user_registration_path %></li>
+      <li><%= link_to t("users.my_account.settings"), edit_users_settings_path %></li>
       <li><%= link_to t('users.logout'), destroy_user_session_path, :method => 'delete' %></li>
     </ul>
   </li>

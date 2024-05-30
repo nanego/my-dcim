@@ -545,9 +545,16 @@ fr:
     my_account:
       title: Mon compte
       edit: Modifier mon compte
+      settings: Mes préférences
       change_password: Changer mon mot de passe
       change_email: Changer mon email
       change_api_key: Changer
+    settings:
+      edit:
+        title: Modifier mes préférences
+      update:
+        flashes:
+          updated: Vos préférences ont été mises à jour
     logout: Me déconnecter
     index:
       new_user: Ajouter un utilisateur

@@ -86,6 +86,11 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks',
                                     registrations: 'users/registrations',
                                     sessions: 'users/sessions' }
+
+  namespace :users do
+    resource :settings, only: %i[edit update]
+  end
+
   resources :users do
     collection do
       post :add_user
