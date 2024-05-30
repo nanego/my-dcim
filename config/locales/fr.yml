@@ -17,6 +17,7 @@ fr:
     duplicate: Dupliquer
     suspend: Verrouiller
     unsuspend: Déverrouiller
+    create: Créer
   export_button:
     label: Exports
     exports:
