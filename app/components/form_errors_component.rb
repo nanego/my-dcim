@@ -3,7 +3,7 @@
 class FormErrorsComponent < ApplicationComponent
   erb_template <<~ERB
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<%= t("action.close") %>"></button>
 
       <h4><%= t(".title", count: @object.errors.count) %></h4>
 
