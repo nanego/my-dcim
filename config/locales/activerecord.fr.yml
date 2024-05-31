@@ -48,22 +48,24 @@ fr:
         position: Position
         content: Contenu
         display_on_home_page: Afficher sur la page d'accueil
+        site_id: Site
         islets_count:
           zero: 0 îlot
           one: 1 îlot
-          other: '%{count} îlots'
+          other: "%{count} îlots"
         frames_count:
           zero: 0 châssis
           one: 1 châssis
-          other: '%{count} châssis'
+          other: "%{count} châssis"
       islet:
         name: Nom
-        room: Salle
+        room_id: Salle
+        room: Salle # TODO: check if we should keep this line?
         position: Position
         frames_count:
           zero: 0 châssis
           one: 1 châssis
-          other: '%{count} châssis'
+          other: "%{count} châssis"
       frame/view_sides:
         front: Vue avant
         back: Vue arrière
@@ -199,7 +201,7 @@ fr:
         modeles_count:
           zero: 0 modèle
           one: 1 modèle
-          other: '%{count} modèles'
+          other: "%{count} modèles"
       modele:
         name: Nom
         category_id: Catégorie
@@ -235,10 +237,28 @@ fr:
         created_at: Compte créé le
         role: Rôle
         authentication_token: Clé API
+        locale: Langue
+        theme: Thème
+        visualization_bay_default_background_color: Couleur par défault des bay
+        visualization_bay_default_orientation: Orientation par défaut des bay
       user/role:
         user: Utilisateur
         admin: Administrateur
         vip: VIP
+      user/locale:
+        fr: Français
+        en: English
+      user/theme:
+        auto: Automatique
+        dark: Sombre
+        light: Clair
+      user/visualization_bay_default_background_color:
+        modele: Modèle
+        cluster: Cluster
+        gestion: Gestionnaire
+      user/visualization_bay_default_orientation:
+        front: Avant
+        back: Arrière
       card/orientation:
         lr-td: Horizontal, de gauche à droite
         rl-td: Horizontal, de droite à gauche

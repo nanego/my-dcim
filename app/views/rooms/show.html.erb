@@ -1,3 +1,5 @@
+<% bg = params[:bg].presence || current_user.visualization_bay_default_background_color %>
+<% view = params[:view].presence || current_user.visualization_bay_default_orientation %>
 <% provide :title, "Salle #{@room.name} #{@islet ? "- Ilot #{@islet}" : "" }" %>
 <% hide_inventories_sidebar! %>
 
@@ -61,7 +63,8 @@
                                 <li class="server truncate" style='height: <%= server_height %>px;background-color:white;' data-num-u="<%= u_disponibles %>"/>
                                 <% u_disponibles -= 1 %>
                               <% end %>
-                              <% bgModeleColor = define_background_color(server: server, mode: params['bg']) %>
+
+                              <% bgModeleColor = define_background_color(server: server, mode: bg) %>
                               <% u_server = server.modele.try(:u).to_i > 0 ? server.modele.u : 1 %>
                               <% data = {:u => u_server,
                                          :num_u => u_disponibles,
@@ -94,7 +97,7 @@
         <!-- Choix de la couleur de fond des serveurs -->
         <div class="btn-group">
           <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Couleur de fond : <%= params[:bg] || 'modèle' %> <span class="caret"></span>
+            <%= t("rooms.action_buttons.background_color", bg: bg || User::AVAILABLE_BAY_BACKGROUND_COLORS[0]) %>
           </button>
           <ul class="dropdown-menu">
             <li><%= link_to 'Modèle', url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: 'modele', islet: params[:islet], id: params[:id]})) %></li>
@@ -169,64 +172,55 @@ $(".menu-rooms").on('click', 'a', function (e) {
 })
 
 function loadBay(bay_id) {
-    $('#bay-container').html('<div class="animationload"><div class="osahanloading"></div>Chargement de la baie</div>')
-    if (typeof delete_all_lines === "function") {
-        delete_all_lines()
-    }
+  $('#bay-container').html('<div class="animationload"><div class="osahanloading"></div>Chargement de la baie</div>')
+  if (typeof delete_all_lines === "function") {
+      delete_all_lines()
+  }
 
-    $('.couple .overviewed_frame').removeClass('selected')
-    $('.couple .overviewed_frame[data-bay-id='+bay_id+']').addClass('selected')
+  $('.couple .overviewed_frame').removeClass('selected')
+  $('.couple .overviewed_frame[data-bay-id='+bay_id+']').addClass('selected')
 
-    var searchParams = new URLSearchParams(window.location.search)
-    var view = 'front'
-    if (searchParams.has('view')) {
-        view = searchParams.get('view')
-    } else {
-        searchParams.set('view', view)
-    }
-    // searchParams.set('bay-id', bay_id)
-    // window.history.replaceState({}, '', location.pathname + '?' + searchParams);
-
-    $.ajax({
-        method: "GET",
-        url: "/bays/" + bay_id + ".js",
-        data: {bay_id: bay_id, view: view, bg: searchParams.get('bg')}
-    });
+  $.ajax({
+      method: "GET",
+      url: "/bays/" + bay_id + ".js",
+      data: { bay_id: bay_id, view: "<%= view %>", bg: "<%= bg %>" }
+  });
 }
 
 function loadFrame(frame_id, bay_id, frame_title) {
-    $('#bay-container').html('<div class="animationload"><div class="osahanloading"></div>Chargement de la baie '+frame_title+'</div>')
-    if (typeof delete_all_lines === "function") {
-        delete_all_lines()
-    }
+  $('#bay-container').html('<div class="animationload"><div class="osahanloading"></div>Chargement de la baie '+frame_title+'</div>')
+  if (typeof delete_all_lines === "function") {
+      delete_all_lines()
+  }
 
-    $('.couple .overviewed_frame').removeClass('selected')
-    $('.couple .overviewed_frame[data-frame-id='+frame_id+']').addClass('selected')
+  $('.couple .overviewed_frame').removeClass('selected')
+  $('.couple .overviewed_frame[data-frame-id='+frame_id+']').addClass('selected')
 
-    var searchParams = new URLSearchParams(window.location.search)
-    var view = 'front'
-    if (searchParams.has('view')) {
-        view = searchParams.get('view')
-    } else {
-        searchParams.set('view', view)
-    }
-    // searchParams.set('bay-id', bay_id)
-    // searchParams.set('frame-id', frame_id)
-    // window.history.replaceState({}, '', location.pathname + '?' + searchParams);
+  const searchParams = new URLSearchParams(window.location.search)
+  const view = 'front'
+  
+  if (searchParams.has('view')) {
+      view = searchParams.get('view')
+  } else {
+      searchParams.set('view', view)
+  }
+  // searchParams.set('bay-id', bay_id)
+  // searchParams.set('frame-id', frame_id)
+  // window.history.replaceState({}, '', location.pathname + '?' + searchParams);
 
-    $.ajax({
-        method: "GET",
-        url: "/frames/" + frame_id + ".js",
-        data: {frame_id: frame_id, view: view, bg: searchParams.get('bg')}
-    });
+  $.ajax({
+      method: "GET",
+      url: "/frames/" + frame_id + ".js",
+      data: {frame_id: frame_id, view: view, bg: searchParams.get('bg')}
+  });
 }
 
 $("#full-overview").on('click', 'button#hide-overview', function () {
-    $("#full-overview").slideUp(100)
-    $("#retracted-overview").show()
+  $("#full-overview").slideUp(100)
+  $("#retracted-overview").show()
 })
 $("#retracted-overview").on('click', 'button#show-overview', function () {
-    $("#retracted-overview").hide()
-    $("#full-overview").slideDown(100)
+  $("#retracted-overview").hide()
+  $("#full-overview").slideDown(100)
 })
 </script>

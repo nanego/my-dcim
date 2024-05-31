@@ -1,0 +1,28 @@
+<div class="authform">
+  <h3><%= t(".title") %></h3>
+
+  <%= form_with model: @user, url: users_settings_path do |f| %>
+    <div class="form-group">
+      <%= f.label :locale %>
+      <%= f.select :locale, UserDecorator::available_locales_for_options, {}, class: "form-control" %>
+    </div>
+
+    <!-- TODO: Remove me when themes will be implemented -->
+    <!-- <div class="form-group">
+      <%= f.label :theme %>
+      <%= f.select :theme, UserDecorator::available_themes_for_options, {}, class: "form-control" %>
+    </div> -->
+
+    <div class="form-group">
+      <%= f.label :visualization_bay_default_background_color %>
+      <%= f.select :visualization_bay_default_background_color, UserDecorator::available_background_colors_for_options, {}, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :visualization_bay_default_orientation %>
+      <%= f.select :visualization_bay_default_orientation, UserDecorator::available_bay_orientations_for_options, {}, class: "form-control" %>
+    </div>
+
+    <%= f.submit t("action.edit"), class: "button right" %>
+  <% end %>
+</div>

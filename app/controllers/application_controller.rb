@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base
   include PublicActivity::StoreController
   include ChangelogContextApplication
+  include Localization
 
   acts_as_token_authentication_handler_for User
 

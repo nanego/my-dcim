@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  AVAILABLE_LOCALES = I18n.available_locales.map(&:to_s).freeze
+  AVAILABLE_THEMES = %w[auto dark light].freeze
+  AVAILABLE_BAY_BACKGROUND_COLORS = %w[modele gestion cluster].freeze
+  AVAILABLE_BAY_ORIENTATIONS = %w[front back].freeze
+
   attribute :role, :integer
   enum role: [:user, :vip, :admin]
 
@@ -15,8 +20,15 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :omniauthable, :omniauth_providers => [:openid_connect]
 
+  store :settings, accessors: %i[locale theme visualization_bay_default_background_color visualization_bay_default_orientation], coder: JSON
+
   validates :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+
+  validates :locale, inclusion: { in: AVAILABLE_LOCALES }, allow_nil: true
+  validates :theme, inclusion: { in: AVAILABLE_THEMES }, allow_nil: true
+  validates :visualization_bay_default_background_color, inclusion: { in: AVAILABLE_BAY_BACKGROUND_COLORS }, allow_nil: true
+  validates :visualization_bay_default_orientation, inclusion: { in: AVAILABLE_BAY_ORIENTATIONS }, allow_nil: true
 
   after_initialize :set_default_role, :if => :new_record?
 
