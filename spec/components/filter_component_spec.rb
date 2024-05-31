@@ -16,12 +16,16 @@ RSpec.describe FilterComponent, type: :component do
 
   context "without block" do
     it do # rubocop:disable RSpec/ExampleLength
-      expect(rendered_component.to_html).to have_tag("div.card.card-primary") do
+      expect(rendered_component.to_html).to have_tag("div.card.border-primary") do
+        with_tag("div.card-header") do
+          with_tag("h6.card-title", text: I18n.t("filter_component.header.title"))
+        end
+
         with_tag("div.card-footer") do
           with_tag("input.btn.btn-primary.btn-sm", with: {
             type: :submit, form: :filters, value: I18n.t("filter_component.submit")
           })
-          with_tag("a.btn.btn-secondary.btn-sm", text: I18n.t("filter_component.reset", filters_count: nil))
+          with_tag("a.btn.btn-link.btn-sm.card-link", text: I18n.t("filter_component.reset", filters_count: nil))
           with_tag("small.ms-auto", text: I18n.t("filter_component.total", count: Frame.count))
         end
       end
@@ -41,16 +45,16 @@ RSpec.describe FilterComponent, type: :component do
     end
 
     it do # rubocop:disable RSpec/ExampleLength
-      expect(rendered_component.to_html).to have_tag("div.card.card-primary") do
+      expect(rendered_component.to_html).to have_tag("div.card.border-primary") do
         with_tag("div.card-body") do
-          with_tag("form#filters.form-inline", with: { action: "", method: :get }) do
+          with_tag("form#filters.row", with: { action: "", method: :get }) do
             with_tag("input", with: { type: :search, name: :q, value: "My" })
             with_tag("input", with: { type: :text, name: :u, value: "24" })
           end
         end
 
         with_tag("div.card-footer") do
-          with_tag("a.btn.btn-secondary.btn-sm", text: I18n.t("filter_component.reset", filters_count: " (2)"), with: { href: "http://test.host/frames" })
+          with_tag("a.btn.btn-link.btn-sm", text: I18n.t("filter_component.reset", filters_count: " (2)"), with: { href: "http://test.host/frames" })
           with_tag("small.ms-auto", text: I18n.t("filter_component.total_with_filters", total_count: Frame.count, results_count: 1))
         end
       end
