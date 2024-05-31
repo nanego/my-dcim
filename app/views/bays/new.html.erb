@@ -1,18 +1,21 @@
+<% provide(:title, "#{Bay.model_name.human.pluralize} | #{t("action.create")}") %>
 <%= render "layouts/breadcrumb", breadcrumb_variables: {
   Bay.model_name.human.pluralize => bays_path,
   t(".title") => ""
-}%>
+} %>
 
-<div class="container">
-  <div class="page-header">
-    <%= link_to bays_path, class: 'btn btn-outline-secondary' do %>
-      <span class="bi bi-list-ul"></span>
-      <%= t("action.back") %>
-    <% end %>
-    <h1>
-      <%= t(".title") %>
-    </h1>
+<div class="row my-5">
+  <div class="col-11 col-md-10 col-lg-8 mx-auto">
+    <div class="d-flex pb-5 align-items-center">
+      <div class="flex-grow-1">
+        <%= link_to bays_path, class: "btn btn-outline-secondary" do %>
+          <span class="bi bi-chevron-left"></span>
+          <%= t("action.back") %>
+        <% end %>
+      </div>
+      <h1 class="text-center"><%= t(".title") %></h1>
+      <div class="flex-grow-1"></div>
+    </div>
+    <%= render "form" %>
   </div>
-
-  <%= render 'form' %>
 </div>

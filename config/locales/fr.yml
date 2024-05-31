@@ -17,6 +17,7 @@ fr:
     duplicate: Dupliquer
     suspend: Verrouiller
     unsuspend: Déverrouiller
+    create: Créer
   export_button:
     label: Exports
     exports:
@@ -422,7 +423,7 @@ fr:
       title: Importation de matériel par fichier CSV
       room_id:
         label: "Salle où importer les serveurs :"
-        hint: (utilisé seulement si la baie n'est pas précisée dans le fichier CSV)
+        hint: utilisé seulement si la baie n'est pas précisée dans le fichier CSV
       servers_state:
         label: "Etat des serveurs importés :"
       csv_file:
@@ -574,9 +575,16 @@ fr:
     my_account:
       title: Mon compte
       edit: Modifier mon compte
+      settings: Mes préférences
       change_password: Changer mon mot de passe
       change_email: Changer mon email
       change_api_key: Changer
+    settings:
+      edit:
+        title: Modifier mes préférences
+      update:
+        flashes:
+          updated: Vos préférences ont été mises à jour
     logout: Me déconnecter
     to_login: Se connecter
     login: Connexion

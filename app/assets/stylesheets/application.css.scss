@@ -19,6 +19,7 @@
  *= require palette-color-picker
  *= require rooms
  *= require_self
+ *= require_tree ./components
  *= require tom-select.bootstrap5
  */
 
@@ -384,10 +385,6 @@ table.card_layout {
 }
 
 // Forms
-.add_fields {
-  margin-top: 10px;
-}
-
 .form-group div, .form-group label {
   margin-bottom: 10px;
 }
@@ -514,9 +511,7 @@ dd {
 
 .form-server {
   select, input {
-    max-width: -moz-available;
-    max-width: -webkit-fill-available;
-    max-width: fill-available;
+    max-width: stretch;
   }
 }
 

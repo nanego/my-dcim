@@ -1,171 +1,157 @@
-<%= form_for(@server, html: { class: "form-server", role: "form" }) do |f| %>
-  <div class="col-md-12">
-    <%= render FormErrorsComponent.new(@server) %>
-  </div>
+<%= render FormErrorsComponent.new(@server) %>
 
-  <div class="form-group col-md-6">
-    <div class="row">
-      <%= f.label :name, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
-        <%= f.text_field :name, class: "form-control" %>
+<%= form_for(@server, html: { class: "bg-body-tertiary p-4 rounded border", role: "form" }) do |f| %>
+  <div class="row g-3">
+    <fieldset class="col-md-6 col-12 mt-4">
+      <%= f.label :name, class: "form-label" %>
+      <%= f.text_field :name, class: "form-control" %>
+    </fieldset>
+
+    <fieldset class="col-md-6 col-12 mt-4">
+      <%= f.label :numero, class: "form-label" %>
+      <%= f.text_field :numero, class: "form-control" %>
+    </fieldset>
+
+    <fieldset class="col-md-6 col-12 mt-4">
+      <%= f.label :frame_id, class: "form-label" %>
+      <%= f.collection_select(:frame_id, Frame.all_sorted, :id, :name_with_room_and_islet,
+                                                                { prompt: true, include_blank: false },
+                                                                { class: "form-select" }) %>
+    </fieldset>
+
+    <fieldset class="col-md-6 col-12 mt-4">
+      <%= f.label :cluster_id, class: "form-label" %>
+      <%= f.collection_select(:cluster_id, Cluster.sorted, :id, :name, { prompt: true, include_blank: true },
+                                                                       { class: "form-select" }) %>
+    </fieldset>
+
+    <fieldset class="col-md-6 col-12 mt-4">
+      <%= f.label :position, class: "form-label" %>
+      <%= f.number_field :position, class: "form-control" %>
+    </fieldset>
+
+    <fieldset class="col-md-6 col-12 mt-4">
+      <%= f.label :domaine_id, class: "form-label" %>
+      <%= f.collection_select(:domaine_id, Domaine.sorted, :id, :name, { prompt: true, include_blank: true },
+                                                                       { class: "form-select" }) %>
+    </fieldset>
+
+    <fieldset class="col-md-6 col-12 mt-4">
+      <%= f.label :server_state_id, class: "form-label" %>
+      <%= f.collection_select(:server_state_id, ServerState.sorted, :id, :name, { prompt: false, include_blank: true },
+                                                                                { class: "form-select" }) %>
+    </fieldset>
+
+    <fieldset class="col-md-6 col-12 mt-4">
+      <%= f.label :gestion_id, class: "form-label" %>
+      <%= f.collection_select(:gestion_id, Gestion.sorted, :id, :name, { prompt: true, include_blank: true },
+                                                                       { class: "form-select" }) %>
+    </fieldset>
+
+    <fieldset class="col-md-6 col-12 mt-4">
+      <%= f.label :modele_id, class: "form-label" %>
+      <%= f.collection_select(:modele_id, Modele.all_sorted, :id, :name_with_brand,
+                                                                  { prompt: true, include_blank: false },
+                                                                  { class: "form-select" }) %>
+    </fieldset>
+
+    <fieldset class="col-md-6 col-12 mt-4">
+      <%= f.label :network_types, class: "form-label" %>
+      <%= f.select :network_types,
+                   Modele::Network::TYPES.map { |type| [Modele.human_attribute_name("network_types.#{type}"), type] },
+                   { prompt: true, include_blank: true },
+                   { class: "form-select", data: { controller: "select" }, multiple: true } %>
+    </fieldset>
+
+    <fieldset class="col-md-6 col-12 mt-4 align-self-center">
+      <div class="form-check">
+        <%= f.check_box :critique, class: "form-check-input" %>
+        <%= f.label :critique, class: "form-check-label" %>
       </div>
-    </div>
+    </fieldset>
 
-    <div class="row">
-      <%= f.label :frame_id, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
-        <%= f.collection_select(:frame_id, Frame.all_sorted, :id, :name_with_room_and_islet, { :prompt => true, :include_blank => false }, { class: "form-control" }) %>
-      </div>
-    </div>
+    <fieldset class="col-md-6 col-12 mt-4">
+      <%= f.label :stack_id, class: "form-label" %>
+      <%= f.collection_select(:stack_id, Stack.order(:id), :id, :name, { prompt: true, include_blank: true },
+                                                                       { class: "form-control" }) %>
+    </fieldset>
 
-    <div class="row">
-      <%= f.label :position, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
-        <%= f.number_field :position, class: "form-control" %>
-      </div>
-    </div>
-
-    <div class="row">
-      <%= f.label :server_state_id, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
-        <%= f.collection_select(:server_state_id, ServerState.sorted, :id, :name, { :prompt => false, :include_blank => true }, { class: "form-control" }) %>
-      </div>
-    </div>
-
-    <div class="row">
-      <%= f.label :modele_id, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
-        <%= f.collection_select(:modele_id, Modele.all_sorted, :id, :name_with_brand, { :prompt => true, :include_blank => false }, { class: "form-control" }) %>
-      </div>
-    </div>
-
-    <div class="row">
-      <%= f.label :critique, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
-        <%= f.check_box :critique, class: "form-control" %>
-      </div>
-    </div>
-  </div>
-
-  <div class="form-group col-md-6">
-    <div class="row">
-      <%= f.label :numero, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
-        <%= f.text_field :numero, class: "form-control" %>
-      </div>
-    </div>
-
-    <div class="row">
-      <%= f.label :cluster_id, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
-        <%= f.collection_select(:cluster_id, Cluster.sorted, :id, :name, { :prompt => true, :include_blank => true }, { class: "form-control" }) %>
-      </div>
-    </div>
-
-    <div class="row">
-      <%= f.label :domaine_id, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
-        <%= f.collection_select(:domaine_id, Domaine.sorted, :id, :name, { :prompt => true, :include_blank => true }, { class: "form-control" }) %>
-      </div>
-    </div>
-
-    <div class="row">
-      <%= f.label :gestion_id, class: "col-sm-3 control-label word-break" %>
-      <div class="col-sm-9">
-        <%= f.collection_select(:gestion_id, Gestion.sorted, :id, :name, { :prompt => true, :include_blank => true }, { class: "form-control" }) %>
-      </div>
-    </div>
-
-    <div class="row">
-      <%= f.label :network_types, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
-        <%= f.select :network_types,
-                      Modele::Network::TYPES.map { |type| [Modele.human_attribute_name("network_types.#{type}"), type] },
-                      { prompt: true, include_blank: true },
-                      { data: { controller: "select" }, multiple: true } %>
-      </div>
-    </div>
-
-    <div class="row">
-      <%= f.label :stack_id, class: "col-sm-3 control-label" %>
-      <div class="col-sm-9">
-        <%= f.collection_select(:stack_id, Stack.order(:id), :id, :name, { :prompt => true, :include_blank => true }, { class: "form-control" }) %>
-      </div>
-    </div>
-  </div>
-
-  <% if @server.modele %>
-    <% @server.modele.enclosures.each do |enclosure| %>
-      <%= content_tag :span, "Enclosure #{enclosure.position}", class: "col-sm-2 col-md-1 control-label", style: "clear:both;" %>
-      <div class="col-sm-10 col-md-11">
-        <div class="card">
-          <ul class="list-group">
-            <li class="list-group-item">
-              <fieldset class="header">
-                <div class="col-sm-2">
-                  <%= Enclosure.human_attribute_name("component") %>
-                </div>
-                <div class="col-sm-2">
-                  <%= Enclosure.human_attribute_name("card_type") %>
-                </div>
-                <div class="col-sm-2">
-                  <%= Enclosure.human_attribute_name("label") %>
-                </div>
-                <div class="col-sm-2">
-                  <%= Enclosure.human_attribute_name("orientation") %>
-                </div>
-                <div class="col-sm-1">
-                  <%= Enclosure.human_attribute_name("first_port_name") %>
-                </div>
-                <div class="col-sm-2">
-                  <%= Enclosure.human_attribute_name("twin_card") %>
-                </div>
-              </fieldset>
-            </li>
-            <% cards = @server.cards.select { |c| c.composant.enclosure == enclosure }.sort_by! { |c| c.composant.position } %>
-            <%= f.fields_for :cards, cards do |builder| %>
-              <%= render partial: "card_fields", locals: { f: builder, enclosure: enclosure } %>
-            <% end %>
-          </ul>
-          <div class="card-footer"><%= link_to_add_fields_with_prefilled_data "<span class='bi bi-plus-lg' aria-hidden='true'></span> Ajouter une carte".html_safe, f, :cards, { enclosure: enclosure } %></div>
+    <!-- TODO: update -->
+    <% if @server.modele %>
+      <% @server.modele.enclosures.each do |enclosure| %>
+        <div class="col-12 mt-4">
+          <%= content_tag :span, "Enclosure #{enclosure.position}", class: "form-label" %>
+          <div class="card">
+            <div class="card-body">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <fieldset class="header">
+                    <div class="col-sm-2">
+                      <%= Enclosure.human_attribute_name("component") %>
+                    </div>
+                    <div class="col-sm-2">
+                      <%= Enclosure.human_attribute_name("card_type") %>
+                    </div>
+                    <div class="col-sm-2">
+                      <%= Enclosure.human_attribute_name("label") %>
+                    </div>
+                    <div class="col-sm-2">
+                      <%= Enclosure.human_attribute_name("orientation") %>
+                    </div>
+                    <div class="col-sm-1">
+                      <%= Enclosure.human_attribute_name("first_port_name") %>
+                    </div>
+                    <div class="col-sm-2">
+                      <%= Enclosure.human_attribute_name("twin_card") %>
+                    </div>
+                  </fieldset>
+                </li>
+                <% cards = @server.cards.select { |c| c.composant.enclosure == enclosure }.sort_by! { |c| c.composant.position } %>
+                <%= f.fields_for :cards, cards do |builder| %>
+                  <%= render partial: "card_fields", locals: { f: builder, enclosure: } %>
+                <% end %>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <%= link_to_add_fields_with_prefilled_data "<span class='bi bi-plus-lg' aria-hidden='true'></span>\
+                                                          <span>Ajouter une carte</span>".html_safe,
+                                                          f,
+                                                          :cards,
+                                                          { enclosure: } %>
+            </div>
+          </div>
         </div>
-      </div>
-    <% end %>
-  <% end %>
-
-  <div class="form-group" style="clear:both;">
-    <%= f.label :comment, class: "col-sm-3 col-md-2 control-label word-break" %>
-    <div class="col-sm-9 col-md-10">
-      <%= f.text_area :comment, class: "form-control" %>
-    </div>
-
-    <%= f.label :documents, class: "col-sm-3 col-md-2 control-label" %>
-    <div class="col-sm-9 col-md-10">
-      <div class="card">
-        <div class="col-sm-12">
-          <%= f.fields_for :documents do |builder| %>
-            <%= render partial: "document_fields", locals: { f:  builder } %>
-          <% end %>
-        </div>
-        <div class="card-footer">
-          <%= link_to_add_fields "<span class='bi bi-plus-lg' style='clear:both;' aria-hidden='true'></span> Ajouter une pièce jointe".html_safe, f, :documents %>
-        </div>
-      </div>
-    </div>
-
-    <%= f.label :photo, class: "col-sm-2 col-md-1 control-label" %>
-    <div class="col-sm-10 col-md-11">
-      <%= f.file_field :photo %>
-      <% if @server.photo.attached? %>
-        <%= image_tag @server.photo.variant(geometry: "x200"), class: "server_photo", style: "margin-left:0;" %>
-        <br/>
       <% end %>
-    </div>
-  </div>
+    <% end %>
 
-  <div class="form-group" style="clear:both;">
-    <div class="col-sm-offset-2 col-md-offset-1 col-sm-10 col-md-11">
-      <%= f.submit class: "btn btn-primary" %>
+    <fieldset class="col-12 mt-4">
+      <%= f.label :comment, class: "form-label" %>
+      <%= f.text_area :comment, class: "form-control" %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :documents, class: "form-label" %>
+      <%= render CardComponent.new() do |card| %>
+        <%= f.fields_for :documents do |builder| %>
+          <%= render partial: "document_fields", locals: { f:  builder } %>
+        <% end %>
+        <%= link_to_add_fields "<span class='bi bi-plus-lg' aria-hidden='true'></span>\
+                                <span>Ajouter une pièce jointe</span>".html_safe,
+                                f,
+                                :documents %>
+      <% end %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :photo, class: "form-label" %>
+      <%= f.file_field :photo, class: "form-control" %>
+      <%# if @server.photo.attached? %>
+        <%#= image_tag @server.photo.variant(geometry: "x200"), class: "server_photo ms-0" %>
+      <% #end %>
+    </fieldset>
+
+    <div class="col-12 mt-4">
+      <%= f.submit class: "w-100 btn btn-primary" %>
     </div>
   </div>
 <% end %>

@@ -6,16 +6,17 @@
 } %>
 
 <div class="row my-5">
-  <div class="col-11 col-md-10 col-lg-8 col-xxl-6 mx-auto">
+  <div class="col-11 col-md-10 col-lg-8 mx-auto">
     <div class="d-flex justify-content-between pb-5">
-      <%= link_to rooms_path, class: "btn btn-outline-secondary align-self-center" do %>
+      <%= link_to rooms_path, class: "btn btn-outline-secondary align-self-center d-inline-flex",
+                              title: t("action.back") do %>
         <span class="bi bi-chevron-left"></span>
-        <%= t("action.back") %>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
       <% end %>
-      <h1><%= t(".title") %></h1>
-      <%= link_to @room, class: "btn btn-primary align-self-center" do %>
+      <h1 class="px-4 text-center"><%= t(".title") %></h1>
+      <%= link_to @room, class: "btn btn-primary align-self-center d-inline-flex", title: t("action.show") do %>
         <span class="bi bi-eye"></span>
-        <%= t("action.show") %>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.show") %></span>
       <% end %>
     </div>
     <%= render "form" %>
