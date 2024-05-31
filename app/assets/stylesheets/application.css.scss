@@ -515,9 +515,7 @@ dd {
 
 .form-server {
   select, input {
-    max-width: -moz-available;
-    max-width: -webkit-fill-available;
-    max-width: fill-available;
+    max-width: stretch;
   }
 }
 

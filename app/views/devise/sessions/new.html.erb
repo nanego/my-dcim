@@ -1,4 +1,4 @@
-<h1 class="mb-3 h3 fw-normal"><%= t("users.login") %></h1>
+<h1 class="mb-3 h3 fw-normal text-center"><%= t("users.login") %></h1>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" } ) do |f| %>
   <% if Rails.env.development? %>
     <%= render "devise/shared/error_messages", resource: resource %>
@@ -12,13 +12,13 @@
       <%= f.label :password %>
     </div>
     <% if devise_mapping.rememberable? -%>
-      <div class="form-check text-start my-3">
+      <div class="form-check text-start mt-3">
         <%= f.check_box :remember_me, class: "form-check-input" %>
         <%= f.label :remember_me, class: "form-check-label" %>
       </div>
     <% end -%>
-    <%= f.submit t("users.to_login"), class: "btn btn-primary w-100 py-2" %>
-    <div class="my-3 justify-content-center d-flex">
+    <%= f.submit t("users.to_login"), class: "btn btn-primary w-100 py-2 mt-4" %>
+    <div class="mb-5 mt-4 justify-content-center d-flex">
       <%- if devise_mapping.recoverable? %>
         <%= link_to t("devise.passwords.new.forgot_your_password"), new_password_path(resource_name),
                                                                     class: "link-body-emphasis" %>
@@ -31,7 +31,7 @@
     </div>
   <% end %>
 <% end %>
-<div id="oidc-login" class="pt-3 mt-3 border-top border-secondary-subtle">
+<div id="oidc-login" class="pt-5 mt-5 border-top border-secondary-subtle">
   <%= button_to "Authentification via CERBERE (OIDC)",
                 user_openid_connect_omniauth_authorize_path,
                 class: "btn btn-success w-100" %>
