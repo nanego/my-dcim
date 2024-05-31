@@ -1,14 +1,14 @@
-<fieldset style="clear:both;margin-top: 10px;">
-
+<fieldset class="d-flex mb-4 align-items-center">
+  <%- if f.object.document.present? %>
+    <span class="flex-grow-1"><%= f.object.document.metadata["filename"]%></span>
+  <%- else %>
+    <span class="flex-grow-1">
+      <%= f.hidden_field :document, value: f.object.cached_document_data %>
+      <%= f.file_field :document, class: "form-control" %>
+    </span>
+  <%- end %>
   <span>
     <%= f.hidden_field :_destroy %>
-    <%= link_to t("action.delete"), '#', class: "remove_fields float-end btn btn-outline-secondary" %>
+    <%= link_to t("action.delete"), "#", class: "remove_fields btn btn-danger btn-sm ms-4" %>
   </span>
-
-  <span class="float-start"><%= f.object.document.metadata['filename'] if f.object.document.present? %></span>
-  <span  class="float-start">
-    <%= f.hidden_field :document, value: f.object.cached_document_data %>
-    <%= f.file_field :document %>
-  </span>
-
 </fieldset>
