@@ -7,7 +7,7 @@
 <div class="container-fluid room_overview show_room rooms-network-capacity" id="network-capacity">
   <div class="card mb-3">
     <div class="card-body d-flex">
-      <ul class="list-unstyled menu-rooms rounded-start-1 bg-body-secondary p-3 m-0 border-end">
+      <ul class="list-unstyled menu-rooms rounded-start-1 bg-body-secondary p-3 m-0 border-end z-3">
         <div class="btn-group btn-toggle d-flex border-bottom border-secondary mb-3 pb-3 rounded-0">
           <% @network_types.each do |network_type| %>
             <button class="<%= class_names("btn",
@@ -65,7 +65,7 @@
           <% end %>
         </div>
       </ul>
-      <div class="tab-content infrastructure bg-body-tertiary">
+      <div class="tab-content infrastructure bg-body-tertiary overflow-x-scroll">
         <% @sites.each do |site| %>
           <% site.rooms.each do |room| %>
             <% room.islets.sorted.each do |islet| %>
@@ -98,6 +98,24 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 })
 $('body').on('click', 'input:checkbox[name=stack]', function (e) {
     resetLines()
+})
+
+// $(".infrastructure").on('scroll', AnimEvent.add(function() {
+//   lines.forEach(function (line) {
+//     line.position()
+//   })
+// }))
+//
+$(".infrastructure").on('scroll', function (e) {
+  lines.forEach(function (line) {
+    line.position()
+  })
+})
+
+$("main.mydcim-main").on('scroll', function (e) {
+  lines.forEach(function (line) {
+    line.position()
+  })
 })
 
 function disabled_colors() {
