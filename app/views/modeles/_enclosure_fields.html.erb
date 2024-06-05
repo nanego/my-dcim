@@ -30,6 +30,7 @@
     <div class="card-footer"><%= link_to_add_fields_with_prefilled_data "<span class='bi bi-plus-lg' aria-hidden='true'></span> #{t(".add_slot")}".html_safe, f, :composants, 'SLOT' %></div>
   </div>
 </fieldset>
+
 <script>
 var display_select = $('#modele_enclosures_attributes_<%= f.object.position.to_i - 1 %>_display')
 var grid_text_area = $('#modele_enclosures_attributes_<%= f.object.position.to_i - 1 %>_grid_areas').closest('.list-group-item')
