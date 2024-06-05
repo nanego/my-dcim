@@ -1,6 +1,8 @@
 <% case server.modele.try(:category_id) %>
 <% when @modele_blank_panel_id %>
-  <span class="float-start server_name"><%= link_to h(server.name), server_path(server, :view => params[:view]) %></span>
+  <span class="float-start server_name">
+    <%= link_to h(server.name), server_path(server, view: params[:view]) %>
+  </span>
 <% else %>
   <% port_nb = server.ports_per_type %>
   <span class="float-start server_name ps-3">
@@ -26,5 +28,5 @@
       <%= port_nb["FC"] > 0 ? port_nb["FC"] : "" %>
   </span>
   <% end %>
-  <span class="float-end me-1"><em><%= server.modele.try(:name) %></em></span>
+  <span class="float-end me-1 text-secondary"><em><%= server.modele.try(:name) %></em></span>
 <% end %>
