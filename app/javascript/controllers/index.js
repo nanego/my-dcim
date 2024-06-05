@@ -12,5 +12,3 @@ eagerLoadControllersFrom("controllers", application)
 
 import RevealController from "@stimulus-components/reveal"
 application.register("reveal", RevealController)
-
-import AnimEvent from "anim-event"
