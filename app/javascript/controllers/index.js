@@ -10,5 +10,9 @@ eagerLoadControllersFrom("controllers", application)
 // import { lazyLoadControllersFrom } from "@hotwired/stimulus-loading"
 // lazyLoadControllersFrom("controllers", application)
 
+// Libraries
 import RevealController from "@stimulus-components/reveal"
+import RailsNestedForm from '@stimulus-components/rails-nested-form'
+
 application.register("reveal", RevealController)
+application.register('nested-form', RailsNestedForm)
