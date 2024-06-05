@@ -6,7 +6,8 @@
 
     <h1>Activité</h1>
 
-    <%= paginate @activities %>
+    <%== pagy_bootstrap_nav(@pagy) %>
+
     <% @activities.each do |activity| %>
       <p>
         <% if activity.trackable_type != activity.owner_type && activity.trackable_id != activity.owner_id %>
@@ -37,7 +38,8 @@
         <% end %>
       </p>
     <% end %>
-    <%= paginate @activities %>
+
+    <%== pagy_bootstrap_nav(@pagy) %>
 
   </div>
 
