@@ -1,5 +1,4 @@
 <%
-
   if @prefilled_data && @prefilled_data[:enclosure]
     composants = @prefilled_data[:enclosure].composants.slots
   else
@@ -13,34 +12,33 @@
 
 <% if @server.modele %>
   <li class="list-group-item">
-    <fieldset>
+    <fieldset class="row">
       <div class="col-sm-2">
-        <%= f.select :composant_id, options_for_select(composants.map { |c| [c.name || c.position, c.id] }, f.object.composant_id) %>
+        <%= f.select :composant_id, options_for_select(composants.map { |c| [c.name || c.position, c.id] }, f.object.composant_id), { class: "form-select" } %>
       </div>
       <div class="col-sm-2">
-        <%= f.select :card_type_id, options_for_select(CardType.sorted.map { |card_type| [card_type.name, card_type.id] }, f.object.card_type_id) %>
+        <%= f.select :card_type_id, options_for_select(CardType.sorted.map { |card_type| [card_type.name, card_type.id] }, f.object.card_type_id), { class: "form-select" } %>
       </div>
       <div class="col-sm-2">
         <%= f.text_field :name %>
       </div>
       <div class="col-sm-2">
-        <%= f.select :orientation, Card::ORIENTATIONS.map { |o| [Card.human_attribute_name("orientation.#{o}"), o] }, class: "form-control" %>
+        <%= f.select :orientation, Card::ORIENTATIONS.map { |o| [Card.human_attribute_name("orientation.#{o}"), o] }, { class: "form-select" } %>
       </div>
-      <div class="col-sm-1">
-        <%= f.select :first_position, 0..100, { include_blank: true } %>
+      <div class="col-sm-2">
+        <%= f.select :first_position, 0..100, { include_blank: true }, { class: "form-select" } %>
       </div>
       <div class="col-sm-2">
         <%= f.select :twin_card_id,
                      options_for_select(Card.includes(:server, :composant, :card_type).joins(:composant).on_patch_panels.sort { |f1, f2| f1.to_s <=> f2.to_s }.map { |card| [card.to_s, card.id] }, f.object.twin_card_id),
-                     { include_blank: true }
+                     { include_blank: true }, { class: "form-select" }
         %>
       </div>
-
-      <span>
-        <%= f.hidden_field :_destroy %>
-        <%= link_to t("action.delete"), '#', class: "remove_fields float-end" %>
-      </span>
     </fieldset>
+    <span>
+      <%= f.hidden_field :_destroy %>
+      <%= link_to t("action.delete"), '#', class: "remove_fields float-end btn btn-sm btn-danger" %>
+    </span>
   </li>
 
 <% end %>
