@@ -74,9 +74,9 @@ class AddAttributesToServers < ActiveRecord::Migration[5.0]
     type_composant = MigrationTypeComposant.find_by_name('SLOT')
     puts "ERROR: #{type_composant}" unless type_composant.valid?
     4.times do |i|
-      line = (i+1).odd? ? 'L1' : 'L2'
+      line = (i + 1).odd? ? 'L1' : 'L2'
       composant = MigrationComposant.create(type_composant: type_composant,
-                       position: i+1,
+                       position: i + 1,
                        enclosure: enclosure,
                        name: "ALIM_#{line}")
       puts "ERROR: #{composant}" unless composant.valid?
@@ -90,7 +90,7 @@ class AddAttributesToServers < ActiveRecord::Migration[5.0]
     puts "ERROR: #{card_type}" unless card_type.valid?
 
     MigrationFrame.all.find_each do |frame|
-      ['A','B'].each do |line_name|
+      ['A', 'B'].each do |line_name|
         pdu_name = "PDU_#{frame}_#{line_name}"
         pdu = MigrationServer.create(frame: frame,
                             modele: modele,
