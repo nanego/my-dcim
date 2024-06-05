@@ -14,6 +14,7 @@ pin "popper", to: "popper.js", preload: true
 pin "bootstrap", to: "bootstrap.js", preload: true
 pin "@rails/ujs", to: "@rails--ujs.js" # @7.1.3
 pin "@stimulus-components/reveal", to: "@stimulus-components--reveal.js" # @5.0.0
+pin "@stimulus-components/rails-nested-form", to: "@stimulus-components--rails-nested-form.js" # @5.0.0
 
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin_all_from "app/javascript/src", under: "src", to: "src"
