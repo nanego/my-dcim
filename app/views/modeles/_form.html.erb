@@ -38,12 +38,24 @@
                     { data: { controller: "select" }, multiple: true } %>
     </div>
   </div>
-  <div>
+
+  <div data-controller="nested-form" data-nested-form-wrapper-selector-value=".nested-form-wrapper">
+    <template data-nested-form-target="template">
+      <%= f.fields_for :enclosures, f.object.enclosures.klass.new, child_index: 'NEW_RECORD' do |enclosure_fields| %>
+        <%= render partial: "enclosure_fields", locals: { f: enclosure_fields } %>
+      <% end %>
+    </template>
+
     <%= content_tag :span, Enclosure.model_name.human.pluralize, class: "col-sm-3 col-md-2 control-label" %>
-    <%= f.fields_for :enclosures do |builder| %>
-        <%= render "enclosure_fields", :f => builder %>
+    <%= f.fields_for :enclosures do |enclosure_fields| %>
+      <%= render partial: "enclosure_fields", locals: { f: enclosure_fields } %>
     <% end %>
-    <%= link_to_add_fields "<span class='bi bi-plus-lg' aria-hidden='true'></span> #{t(".add_enclosure")}".html_safe, f, :enclosures %>
+
+    <div data-nested-form-target="target"></div>
+
+    <button type="button" class="btn btn-outline-secondary btn-sm" data-action="nested-form#add">
+      <span class="bi bi-plus-lg" aria-hidden="true"></span> <%= t(".add_enclosure") %>
+    </button>
   </div>
 
   <!--
