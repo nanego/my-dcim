@@ -11,12 +11,14 @@ function hideFilters() {
     $('.show-filters').show()
     $('.card-body').hide()
 }
+window.hideFilters = hideFilters
 
 function showFilters() {
     $('.hide-filters').show()
     $('.show-filters').hide()
     $('.card-body').show()
 }
+window.showFilters = showFilters
 
 $(document).on("click", ".draw_connections_link", function (event) {
     $(event.target).html('<span class="bi bi-three-dots" aria-hidden="true"></span>')
