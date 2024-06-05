@@ -2,8 +2,8 @@
 
 class ConnectionsController < ApplicationController
   def index
-    @connections = sorted Connection.includes(:port, :card, :server, :card_type, :port_type, cable: :connections)
-      .order(created_at: :desc).page(params[:page]).per(100)
+    @connections = Connection.includes(:port, :card, :server, :card_type, :port_type, cable: :connections).order(created_at: :desc)
+    @pagy, @connections = pagy(sorted(@connections), limit: 100)
   end
 
   def edit
