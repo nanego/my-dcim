@@ -2,6 +2,7 @@
 
 class ActivitiesController < ApplicationController
   def index
-    @pagy, @activities = pagy(PublicActivity::Activity.includes(:owner, :trackable).order('created_at desc'))
+    @activities = PublicActivity::Activity.includes(:owner, :trackable).order('created_at desc')
+    @pagy, @activities = pagy(@activities)
   end
 end

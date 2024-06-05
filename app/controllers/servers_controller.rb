@@ -10,7 +10,9 @@ class ServersController < ApplicationController
       .references(:room, :islet, :bay, modele: :category)
       .order(:name)
     @filter = Filter.new(@servers, params)
-    @pagy, @servers = pagy(@filter.results, items: 100)
+    @servers = @filter.results
+
+    @pagy, @servers = pagy(@servers)
   end
 
   def grid
