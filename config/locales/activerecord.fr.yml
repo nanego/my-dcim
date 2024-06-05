@@ -256,8 +256,8 @@ fr:
         authentication_token: Clé API
         locale: Langue
         theme: Thème
-        visualization_bay_default_background_color: Couleur par défault des bay
-        visualization_bay_default_orientation: Orientation par défaut des bay
+        visualization_bay_default_background_color: Couleur par défault des baies
+        visualization_bay_default_orientation: Orientation par défaut des baies
       user/role:
         user: Utilisateur
         admin: Administrateur
