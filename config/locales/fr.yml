@@ -437,7 +437,7 @@ fr:
       add_server_via_csv: Ajouter par un fichier CSV
       sync_with_external_apps: Synchroniser avec GLPI
     show:
-      back_to_bay: << Baie %{name}
+      back_to_bay: Baie %{name}
       nb_u: Nb de U
       documentation: Documentation
       attached_documents: "Documents attachés :"
@@ -448,8 +448,7 @@ fr:
     new:
       title: "Ajouter un matériel"
     edit:
-      page_title: "%{modele} %{name} - Edition"
-      title: "Matériel : %{name}"
+      title: "Modifier le matériel"
       delete_confirmation: Toutes les données concernant ce matériel seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?
     duplicate:
       title: Dupliquer le matériel %{server_name}
