@@ -79,7 +79,14 @@
     <!-- TODO: update -->
     <% if @server.modele %>
       <% @server.modele.enclosures.each do |enclosure| %>
-        <div class="col-12 mt-4">
+        <div class="col-12 mt-4" data-controller="nested-form" data-nested-form-wrapper-selector-value=".nested-form-wrapper">
+          <template data-nested-form-target="template">
+            <%= f.fields_for :cards, f.object.cards.klass.new, child_index: 'NEW_RECORD' do |card_fields| %>
+              <%= render partial: "card_fields", locals: { f: card_fields, server: @server, enclosure: enclosure } %>
+            <% end %>
+          </template>
+
+
           <%= content_tag :span, "Enclosure #{enclosure.position}", class: "form-label" %>
           <div class="card">
             <div class="card-body">
@@ -107,17 +114,17 @@
                   </fieldset>
                 </li>
                 <% cards = @server.cards.select { |c| c.composant.enclosure == enclosure }.sort_by! { |c| c.composant.position } %>
-                <%= f.fields_for :cards, cards do |builder| %>
-                  <%= render partial: "card_fields", locals: { f: builder, enclosure: } %>
+                <%= f.fields_for :cards, cards do |card_fields| %>
+                  <%= render partial: "card_fields", locals: { f: card_fields, server: @server, enclosure: enclosure } %>
                 <% end %>
+
+                <div data-nested-form-target="target"></div>
               </ul>
             </div>
             <div class="card-footer">
-              <%= link_to_add_fields_with_prefilled_data "<span class='bi bi-plus-lg' aria-hidden='true'></span>\
-                                                          <span>Ajouter une carte</span>".html_safe,
-                                                          f,
-                                                          :cards,
-                                                          { enclosure: } %>
+              <button type="button" class="btn btn-outline-secondary btn-sm" data-action="nested-form#add">
+                <span class="bi bi-plus-lg" aria-hidden="true"></span> Ajouter une carte
+              </button>
             </div>
           </div>
         </div>
