@@ -88,6 +88,7 @@ var current_connections = []
 
 $(document).ready(function () {
     drawCurrentLines()
+    resetLinesPositionOnScroll()
 })
 
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
@@ -100,24 +101,6 @@ $('body').on('click', 'input:checkbox[name=stack]', function (e) {
     resetLines()
 })
 
-// $(".infrastructure").on('scroll', AnimEvent.add(function() {
-//   lines.forEach(function (line) {
-//     line.position()
-//   })
-// }))
-//
-$(".infrastructure").on('scroll', function (e) {
-  lines.forEach(function (line) {
-    line.position()
-  })
-})
-
-$("main.mydcim-main").on('scroll', function (e) {
-  lines.forEach(function (line) {
-    line.position()
-  })
-})
-
 function disabled_colors() {
     return $('input:checkbox[name=stack]:not(:checked)').map(function () {
         return this.value;
@@ -127,6 +110,20 @@ function disabled_colors() {
 function resetLines() {
     deleteOldLines()
     drawCurrentLines()
+}
+
+function resetLinesPositionOnScroll() {
+  $(".infrastructure").on('scroll', AnimEvent.add(function() {
+    lines.forEach(function (line) {
+      line.position()
+    })
+  }))
+
+  $("main.mydcim-main").on('scroll', AnimEvent.add(function() {
+    lines.forEach(function (line) {
+      line.position()
+    })
+  }))
 }
 
 function deleteOldLines() {
