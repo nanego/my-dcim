@@ -1,10 +1,13 @@
-<fieldset class="col-sm-10 col-md-4">
+<fieldset class="nested-form-wrapper col-sm-10 col-md-4" data-new-record="<%= f.object.new_record? %>">
   <div class="card enclosure-fields">
     <div class="card-header">
       <%= f.object.position.present? ? t(".enclosure_position", position: f.object.position) : t(".new_enclosure") %>
       <span class="float-end">
         <%= f.hidden_field :_destroy %>
-        <%= link_to t("action.delete"), '#', class: "remove_fields" %>
+
+        <button type="button" data-action="nested-form#remove" class="btn btn-danger btn-sm ms-4">
+          <%= t("action.delete") %>
+        </button>
       </span>
     </div>
     <ul id="enclosureList_<%= f.object.id %>" class="list-group card-body">
