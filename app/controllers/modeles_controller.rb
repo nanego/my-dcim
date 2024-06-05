@@ -7,7 +7,9 @@ class ModelesController < ApplicationController
 
   def index
     @filter = ProcessorFilter.new(Modele.includes(:category, :enclosures).order(:name), params)
-    @pagy, @modeles = pagy(@filter.results)
+
+    @pagy, @modeles = pagy(@filter.results, items: 100)
+
     @types = @modeles.group_by { |m| m.category.name }.sort_by { |categorie, modeles| categorie.to_s }
   end
 

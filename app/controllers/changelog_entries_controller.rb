@@ -1,6 +1,7 @@
 class ChangelogEntriesController < ApplicationController
   def index
-    @pagy, @changelog_entries = pagy(sorted(changelog_scope.order(created_at: :desc)), limit: per_page)
+    @changelog_entries = sorted(changelog_scope.order(created_at: :desc))
+    @pagy, @changelog_entries = pagy(@changelog_entries, items: 100)
   end
 
   def show
