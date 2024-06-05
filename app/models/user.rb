@@ -20,7 +20,10 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :omniauthable, :omniauth_providers => [:openid_connect]
 
-  store :settings, accessors: %i[locale theme visualization_bay_default_background_color visualization_bay_default_orientation], coder: JSON
+  store_attribute :settings, :locale, :string, default: I18n.locale.to_s
+  store_attribute :settings, :theme, :string, default: AVAILABLE_THEMES.first
+  store_attribute :settings, :visualization_bay_default_background_color, :string, default: AVAILABLE_BAY_BACKGROUND_COLORS.first
+  store_attribute :settings, :visualization_bay_default_orientation, :string, default: AVAILABLE_BAY_ORIENTATIONS.first
 
   validates :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
