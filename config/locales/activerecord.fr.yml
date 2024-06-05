@@ -41,6 +41,9 @@ fr:
       changelog_entry: Changelog
       cable: Câble
       connection: Connexion
+      memory_component:
+        one: Composant mémoire
+        other: Composants mémoire
 
     attributes:
       room:
@@ -228,6 +231,7 @@ fr:
         label: Libellé
         orientation: Orientation
         first_port_name: Numéro du premier port
+        first_port_name_shrt: N° 1e port
         twin_card: Carte jumelle
       user:
         id: Identifiant
