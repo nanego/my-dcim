@@ -5,6 +5,9 @@ import "controllers"
 import "popper"
 import "bootstrap"
 
+import AnimEvent from "anim-event"
+window.AnimEvent = AnimEvent
+
 import LeaderLine from "leader-line"
 window.LeaderLine = LeaderLine
 
