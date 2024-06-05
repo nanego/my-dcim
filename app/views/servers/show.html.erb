@@ -1,230 +1,246 @@
-<% title = "#{@server.modele.try(:category).try(:name)} #{@server.name}" %>
-<% provide(:title, title) %>
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+<% page_title = "#{@server.modele.try(:category).try(:name)} #{@server.name}" %>
+<% provide(:title, "#{t("servers.index.title")} | #{page_title}") %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
   t("visualization") => overview_rooms_path,
   @server.frame.room.name => room_path(@server.frame.room, view: params[:view]),
   "#{Islet.model_name.human} #{@server.frame.islet.name}" => room_path(@server.frame.room, islet: @server.frame.islet.name, view: params[:view], bg: params[:bg]),
-  t("layouts.breadcrumb.bay.double", name: @server.frame.bay) => room_path(@server.frame.room, islet: @server.frame.islet.name, 'bay-id': @server.frame.bay_id, view: params[:view]),
+  t("layouts.breadcrumb.bay.double", name: @server.frame.bay) => room_path(@server.frame.room, islet: @server.frame.islet.name, "bay-id": @server.frame.bay_id, view: params[:view]),
   t("layouts.breadcrumb.bay.simple", name: @server.frame.name) => frame_path(@server.frame, view: params[:view]),
+  t("servers.index.title") => servers_path,
   @server.name => ""
 } %>
 
 <div class="container">
-  <div class="col-12" style="margin-bottom: 2em;padding-right: 15px;padding-left: 15px;">
-    <div class="page-header">
-      <%= link_to duplicate_server_path(@server.slug), class: 'btn btn-info' do %>
-        <span class="bi bi-copy"></span>
-        <%= t("action.duplicate") %>
-      <% end %>
-      <%= link_to edit_server_path(@server.slug), class: 'btn btn-primary' do %>
-        <span class="bi bi-pencil"></span>
-        <%= t("action.edit") %>
-      <% end %>
-      <h1><%= title %></h1>
-    </div>
-    <%= link_to t(".back_to_bay", name: @server.frame.try(:name)), frame_path(@server.frame, :view => params[:view]), class: 'btn btn-outline-secondary', style: 'text-decoration: underline;' if @server.frame %>
-  </div>
-
-  <div class="col-12" style="margin-bottom: 2em;padding-right: 15px;padding-left: 15px;">
-    <% bgModeleColor = define_background_color(server: @server, mode: params['bg']) %>
-    <div class="detailed_server list-group-item" style="background-color:<%= bgModeleColor %> !important;">
-      <%= render partial: 'draw_server_compact_front', locals: { server: @server } %>
-      <span class="clearfix"></span>
-    </div>
-
-    <div class="detailed_server list-group-item">
-      <span id="back_server_<%= @server.id %>">
-         <%= render partial: 'servers/draw_server_compact', locals: { server: @server } %>
-      </span>
-    </div>
-  </div>
-
-  <% if @server.comment.present? %>
-    <div class="col-12" style="margin-bottom: 2em;padding-right: 15px;padding-left: 15px;">
-      <div class="alert alert-warning">
-        <%= @server.comment %>
+  <div class="row my-5">
+    <div class="col-12">
+      <div class="d-flex justify-content-between pb-5">
+        <% - if @server.frame %>
+          <%= link_to frame_path(@server.frame, view: params[:view]),
+                      class: "btn btn-outline-secondary align-self-center d-inline-flex",
+                      title: t(".back_to_bay", name: @server.frame.try(:name)) do %>
+            <span class="bi bi-chevron-left"></span>
+            <span class="d-none d-md-inline-block ms-1"><%= t(".back_to_bay", name: @server.frame.try(:name)) %></span>
+          <% end %>
+        <% end %>
+        <h1 class="text-center px-4"><%= page_title %></h1>
+        <div class="align-self-center ">
+          <%= link_to duplicate_server_path(@server.slug), class: "btn btn-success d-inline-flex me-2",
+                                                           title: t("action.duplicate") do %>
+            <span class="bi bi-copy"></span>
+            <span class="d-none d-xl-inline-block ms-1"><%= t("action.duplicate") %></span>
+          <% end %>
+          <%= link_to edit_server_path(@server.slug), class: "btn btn-primary d-inline-flex",
+                                                      title: t("action.edit") do %>
+            <span class="bi bi-pencil"></span>
+            <span class="d-none d-xl-inline-block ms-1"><%= t("action.edit") %></span>
+          <% end %>
+        </div>
       </div>
     </div>
-  <% end %>
 
-  <div class="col-lg-6">
-    <!-- TODO: use Card Component and primary style -->
-    <div class="card card-primary">
-      <div class="card-body">
-        <dl class="dl-horizontal">
-          <dt><%= Bay.model_name.human %> :</dt>
-          <dd><%= link_to @server.frame.try(:name), frame_path(@server.frame) %></dd>
+    <div class="col-12 px-3 mb-4">
+      <% bgModeleColor = define_background_color(server: @server, mode: params["bg"]) %>
+      <div class="<%= class_names("rounded-top-1 border border-secondary-subtle p-2 mb-2",
+                                  colorized_background: bgModeleColor.present?) %>"
+           style="background-color:<%= bgModeleColor %> !important;">
+        <%= render partial: "draw_server_compact_front", locals: { server: @server } %>
+        <span class="clearfix"></span>
+      </div>
 
-          <dt><%= Islet.model_name.human %> :</dt>
-          <dd><%= link_to @server.islet, edit_islet_path(@server.islet) %></dd>
+      <div class="rounded-bottom-1 bg-body-tertiary border border-secondary-subtle p-2 mb-2">
+        <span id="back_server_<%= @server.id %>">
+           <%= render partial: "servers/draw_server_compact", locals: { server: @server } %>
+        </span>
+      </div>
+    </div>
 
-          <dt><%= Room.model_name.human %> :</dt>
-          <dd><%= link_to @server.room.try(:name), @server.room %></dd>
+    <% if @server.comment.present? %>
+      <div class="col-12" style="margin-bottom: 2em;padding-right: 15px;padding-left: 15px;">
+        <div class="alert alert-warning">
+          <%= @server.comment %>
+        </div>
+      </div>
+    <% end %>
 
-          <dt><%= Category.model_name.human %> :</dt>
-          <dd><%= @server.modele.try(:category) %></dd>
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <%= render CardComponent.new(type: :primary) do |card| %>
+          <dl class="row">
+            <dt class="col-6 text-end"><%= Bay.model_name.human %> :</dt>
+            <dd class="col-6"><%= link_to @server.frame.try(:name), frame_path(@server.frame) %></dd>
 
-          <dt><%= Modele.human_attribute_name(:nb_elts) %>:</dt>
-          <dd><%= @server.modele.try(:nb_elts) %></dd>
+            <dt class="col-6 text-end"><%= Islet.model_name.human %> :</dt>
+            <dd class="col-6"><%= link_to @server.islet, edit_islet_path(@server.islet) %></dd>
 
-          <dt><%= Architecture.model_name.human %> :</dt>
-          <dd>
-            <%= link_to @server.modele.try(:architecture), architecture_path(@server.modele.try(:architecture)) %>
-          </dd>
+            <dt class="col-6 text-end"><%= Room.model_name.human %> :</dt>
+            <dd class="col-6"><%= link_to @server.room.try(:name), @server.room %></dd>
 
-          <dt><%= t(".nb_u") %> :</dt>
-          <dd><%= @server.modele.try(:u) %></dd>
+            <dt class="col-6 text-end"><%= Category.model_name.human %> :</dt>
+            <dd class="col-6"><%= @server.modele.try(:category) %></dd>
 
-          <dt><%= Server.human_attribute_name(:position) %> :</dt>
-          <dd><%= @server.position %></dd>
+            <dt class="col-6 text-end"><%= Modele.human_attribute_name(:nb_elts) %>:</dt>
+            <dd class="col-6"><%= @server.modele.try(:nb_elts) %></dd>
 
-          <dt><%= Manufacturer.model_name.human %> :</dt>
-          <dd>
-            <%= link_to @server.modele.try(:manufacturer), manufacturer_path(@server.modele.try(:manufacturer)) %>
-            <% if (documentation_url = @server.documentation_url).present? %>
-              (
-                <%= link_to t(".documentation"), documentation_url, target: :_blank, rel: :noopener %>
-              )
-            <% end %>
-          </dd>
+            <dt class="col-6 text-end"><%= Architecture.model_name.human %> :</dt>
+            <dd class="col-6">
+              <%= link_to @server.modele.try(:architecture), architecture_path(@server.modele.try(:architecture)) %>
+            </dd>
 
-          <dt><%= Modele.model_name.human %> :</dt>
-          <dd><%= link_to @server.modele, edit_modele_path(@server.modele) if @server.modele.try(:name) %></dd>
+            <dt class="col-6 text-end"><%= t(".nb_u") %> :</dt>
+            <dd class="col-6"><%= @server.modele.try(:u) %></dd>
 
-          <dt><%= Server.human_attribute_name(:numero) %> :</dt>
-          <dd><%= @server.try(:numero) %></dd>
+            <dt class="col-6 text-end"><%= Server.human_attribute_name(:position) %> :</dt>
+            <dd class="col-6"><%= @server.position %></dd>
 
-          <dt><%= Cluster.model_name.human %> :</dt>
-          <dd><%= link_to_if @server.cluster, @server.cluster&.name, @server.cluster %></dd>
-
-          <dt><%= Server.human_attribute_name(:critique) %> :</dt>
-          <dd>
-            <span class="<%= class_names("text-uppercase text-danger": @server.critique) %>">
-              <%= t("boolean.#{@server.critique}") %>
-            </span>
-          </dd>
-
-          <dt><%= Domaine.model_name.human %> :</dt>
-          <dd><%= link_to_if @server.domaine, @server.domaine %></dd>
-
-          <dt><%= Gestion.model_name.human %> :</dt>
-          <dd><%= link_to_if @server.gestion, @server.gestion %></dd>
-
-          <dt><%= ServerState.model_name.human %> :</dt>
-          <dd><%= @server.server_state %></dd>
-
-          <dt><%= Stack.model_name.human %> :</dt>
-          <dd>
-            <% if @server.stack %>
-              <%= link_to stack_path(@server.stack) do %>
-                <span style="<%= "color: ##{@server.stack.color}" %>" class="bi bi-square-fill" aria-hidden="true"></span>
+            <dt class="col-6 text-end"><%= Manufacturer.model_name.human %> :</dt>
+            <dd class="col-6">
+              <%= link_to @server.modele.try(:manufacturer), manufacturer_path(@server.modele.try(:manufacturer)) %>
+              <% if (documentation_url = @server.documentation_url).present? %>
+                (
+                  <%= link_to t(".documentation"), documentation_url, target: :_blank, rel: :noopener %>
+                )
               <% end %>
-            <% end %>
-          </dd>
+            </dd>
 
-          <dt><%= Card.model_name.human.pluralize %> :</dt>
-          <% nb_cards = 0 %>
-          <% @server.modele.composants.slots.each do |slot| %>
-            <% @server.cards.where(:composant_id => slot.id).each do |card| %>
-              <dd><%= card.composant.name ? card.composant.name : card.composant.position %>
-                : <%= "#{card.card_type.try(:name)} (#{card.card_type.try(:port_quantity)}#{card.card_type.try(:port_type).try(:name)})" %></dd>
-              <% nb_cards += 1 %>
-            <% end %>
-          <% end if @server.modele.present? %>
-          <%= '<dd/>'.html_safe if nb_cards == 0 %>
+            <dt class="col-6 text-end"><%= Modele.model_name.human %> :</dt>
+            <dd class="col-6"><%= link_to @server.modele, edit_modele_path(@server.modele) if @server.modele.try(:name) %></dd>
 
-          <dt><%= Disk.model_name.human.pluralize %> :</dt>
-          <% @server.disks.each do |disk| %>
-            <dd><%= disk %></dd>
-          <% end.empty? && begin %>
-            <dd/>
-          <% end %>
+            <dt class="col-6 text-end"><%= Server.human_attribute_name(:numero) %> :</dt>
+            <dd class="col-6"><%= @server.try(:numero) %></dd>
 
-          <dt><%= MemoryComponent.model_name.human %> :</dt>
-          <% @server.memory_components.each do |memory_component| %>
-            <dd><%= memory_component %></dd>
-          <% end.empty? && begin %>
-            <dd/>
-          <% end %>
+            <dt class="col-6 text-end"><%= Cluster.model_name.human %> :</dt>
+            <dd class="col-6"><%= link_to_if @server.cluster, @server.cluster&.name, @server.cluster %></dd>
 
-          <dt><%= Server.human_attribute_name(:network_types) %> :</dt>
-          <dd>
-            <%= @server.network_types.map { |type| Modele.human_attribute_name("network_types.#{type}") }.join(", ") %>
-          </dd>
-        </dl>
+            <dt class="col-6 text-end"><%= Server.human_attribute_name(:critique) %> :</dt>
+            <dd class="col-6">
+              <span class="<%= class_names("text-uppercase text-danger": @server.critique) %>">
+                <%= t("boolean.#{@server.critique}") %>
+              </span>
+            </dd>
+
+            <dt class="col-6 text-end"><%= Domaine.model_name.human %> :</dt>
+            <dd class="col-6"><%= link_to_if @server.domaine, @server.domaine %></dd>
+
+            <dt class="col-6 text-end"><%= Gestion.model_name.human %> :</dt>
+            <dd class="col-6"><%= link_to_if @server.gestion, @server.gestion %></dd>
+
+            <dt class="col-6 text-end"><%= ServerState.model_name.human %> :</dt>
+            <dd class="col-6"><%= @server.server_state %></dd>
+
+            <dt class="col-6 text-end"><%= Stack.model_name.human %> :</dt>
+            <dd class="col-6">
+              <% if @server.stack %>
+                <%= link_to stack_path(@server.stack) do %>
+                  <span style="<%= "color: ##{@server.stack.color}" %>" class="bi bi-square-fill" aria-hidden="true"></span>
+                <% end %>
+              <% end %>
+            </dd>
+
+            <dt class="col-6 text-end"><%= Card.model_name.human.pluralize %> :</dt>
+            <dd class="col-6">
+              <% @server.modele.composants.slots.each do |slot| %>
+                <% @server.cards.where(:composant_id => slot.id).each do |card| %>
+                  <div>
+                    <%= card.composant.name ? card.composant.name : card.composant.position %>
+                    :
+                    <%= "#{card.card_type.try(:name)} (#{card.card_type.try(:port_quantity)}#{card.card_type.try(:port_type).try(:name)})" %>
+                  </div>
+                <% end %>
+              <% end if @server.modele.present? %>
+            </dd>
+
+            <dt class="col-6 text-end"><%= Disk.model_name.human.pluralize %> :</dt>
+            <dd class="col-6">
+              <% @server.disks.each do |disk| %>
+                <div><%= disk %></div>
+              <% end %>
+            </dd>
+
+            <dt class="col-6 text-end"><%= MemoryComponent.model_name.human %> :</dt>
+            <dd class="col-6">
+              <% @server.memory_components.each do |memory_component| %>
+                <span><%= memory_component %></span>
+              <% end %>
+            </dd>
+
+            <dt class="col-6 text-end"><%= Server.human_attribute_name(:network_types) %> :</dt>
+            <dd class="col-6">
+              <%= @server.network_types.map { |type| Modele.human_attribute_name("network_types.#{type}") }.join(", ") %>
+            </dd>
+          </dl>
+        <% end %>
       </div>
-    </div>
-  </div>
 
-  <div class="col-lg-6">
-    <% if @server.photo.attached? %>
-      <%= image_tag @server.photo.variant(geometry: "x220"), class: "server_photo", style: "margin-left:0;" %>
-      <br/>
-    <% end %>
-    <% if @server.documents.present? %>
-    <!-- TODO: use Card Component and primary style -->
-      <div class="card card-primary">
-        <div class="card-body">
-          <H5>
-            <%= t(".attached_documents") %>
-          </H5>
-          <ul>
-            <% @server.documents.each do |doc| %>
-              <li><%= link_to(doc.document.metadata['filename'], doc.document_url, { target: '_blank' }) if doc.document.present? %></li>
+      <div class="col-12 col-lg-6">
+        <div class="col-12">
+          <% if @server.photo.attached? %>
+            <%= render CardComponent.new(type: :primary) do |card| %>
+              <h5><%= Server.human_attribute_name(:photo) %></h5>
+              <%= image_tag @server.photo.variant(geometry: "x220"), class: "server_photo ms-0 mb-3" %>
             <% end %>
-          </ul>
+          <% end %>
+          <% if @server.documents.present? %>
+          <!-- TODO: use Card Component and primary style -->
+            <%= render CardComponent.new(type: :primary) do |card| %>
+              <h5><%= t(".attached_documents") %></h5>
+              <ul>
+                <% @server.documents.each do |doc| %>
+                  <%- next unless doc.document.present? %>
+                  <li>
+                    <%= link_to(doc.document.metadata["filename"], doc.document_url, { target: :_blank })  %>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="col-12">
+          <%= render CardComponent.new(type: :primary) do |card| %>
+            <% card.with_header do %>
+              <%= t(".glpi_data") %>
+            <% end %>
+            <%
+              begin
+                Timeout.timeout(3) do
+                  client = GlpiClient.new
+                  computer = client.computer(serial: Rails.env.production? ? @server.numero : "AZERTY") %>
+                <% if computer.present? %>
+                  <div class="p-3">
+                    <%= t("glpi.computer.name") %> : <b><%= computer.name %></b><br>
+                    <%= t("glpi.computer.id") %> : <b><%= computer.id %></b><br>
+                    <%= t("glpi.computer.serial") %> : <b><%= computer.serial %></b><br>
+                    <%= t("glpi.computer.contact") %> : <b><%= computer.contact %></b><br>
+                  </div>
+                  <div class="p-3">
+                    <%= t("glpi.computer.disks_count") %> : <b><%= computer.hard_drives&.size %></b><br>
+                    <%= t("glpi.computer.disks_capacity") %> : <b><%= number_to_human_size(computer.hard_drives_total_capacity * 1048576) %></b><br>
+                    <%= t("glpi.computer.memories_count") %> : <b><%= computer.memories&.size %></b><br>
+                    <%= t("glpi.computer.memories_total") %> : <b><%= number_to_human_size(computer.memories_total_size * 1048576) %></b><br>
+                    <%= t("glpi.computer.cpus") %> :
+                    <b><%= computer.processors.group_by { |p| p[1]["designation"] }.map { |designation, processors| "#{processors.size} x #{designation}" }.join(", ") %></b><br>
+                  </div>
+                  <% card.with_footer do %>
+                    <%= link_to t(".glpi_visit_page"),
+                                "#{Rails.application.credentials.glpi_url}/front/computer.form.php?id=#{computer.id}",
+                                target: :_blank %>
+                  <% end %>
+                <% else %>
+                  <%= t(".no_match_serial", serial: @server.numero) %>
+                <% end %>
+              <% end
+                 rescue Timeout::Error => e
+                 Rails.logger.warn "WARNING: couldn't get GLPI data because the operation timed out"
+                 rescue Exception => e
+                 Rails.logger.warn "WARNING: couldn't get GLPI data because of an error: #{e.message}" %>
+              <div class="card-body">
+                <%= t(".glpi_connection_error") %> : <pre><code><%= e&.message.to_s %></code></pre>
+              </div>
+            <% end %>
+          <% end %>
         </div>
       </div>
-    <% end %>
-  </div>
-
-  <div class="col-lg-6">
-  <!-- TODO: use Card Component and primary style -->
-    <div class="card card-primary">
-      <div class="card-header">
-        <%= t(".glpi_data") %>
-      </div>
-      <%
-        begin
-          Timeout.timeout(3) do
-            client = GlpiClient.new
-            computer = client.computer(serial: Rails.env.production? ? @server.numero : "AZERTY") %>
-          <% if computer.present? %>
-            <div class="card-body">
-              <%= t("glpi.computer.name") %> : <b><%= computer.name %></b><br>
-              <%= t("glpi.computer.id") %> : <b><%= computer.id %></b><br>
-              <%= t("glpi.computer.serial") %> : <b><%= computer.serial %></b><br>
-              <%= t("glpi.computer.contact") %> : <b><%= computer.contact %></b><br>
-            </div>
-            <div class="card-body">
-              <%= t("glpi.computer.disks_count") %> : <b><%= computer.hard_drives&.size %></b><br>
-              <%= t("glpi.computer.disks_capacity") %> : <b><%= number_to_human_size(computer.hard_drives_total_capacity * 1048576) %></b><br>
-              <%= t("glpi.computer.memories_count") %> : <b><%= computer.memories&.size %></b><br>
-              <%= t("glpi.computer.memories_total") %> : <b><%= number_to_human_size(computer.memories_total_size * 1048576) %></b><br>
-              <%= t("glpi.computer.cpus") %> :
-              <b><%= computer.processors.group_by { |p| p[1]['designation'] }.map { |designation, processors| "#{processors.size} x #{designation}" }.join(', ') %></b><br>
-            </div>
-            <div class="card-footer">
-              <%= link_to t(".glpi_visit_page"),
-                          "#{Rails.application.credentials.glpi_url}/front/computer.form.php?id=#{computer.id}",
-                          target: '_blank' %>
-            </div>
-          <% else %>
-            <div class="card-body">
-              <%= t(".no_match_serial", serial: @server.numero) %>
-            </div>
-          <% end %>
-        <% end
-           rescue Timeout::Error => e
-             Rails.logger.warn "WARNING: couldn't get GLPI data because the operation timed out"
-           rescue Exception => e
-             Rails.logger.warn "WARNING: couldn't get GLPI data because of an error: #{e.message}" %>
-        <div class="card-body">
-          <%= t(".glpi_connection_error") %> : <pre><code><%= e&.message.to_s %></code></pre>
-        </div>
-      <% end %>
     </div>
   </div>
 </div>
 
-<%= render 'ports/modal_edit_port' %>
+<%= render "ports/modal_edit_port" %>
