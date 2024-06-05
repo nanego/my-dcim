@@ -69,35 +69,40 @@
 
 <% end %>
 
-<%= link_to h(server.name), server_path(server, :view => params[:view]), {class: 'float-start server_name ps-3', data: { controller: "tooltip", bs_placement: "top" }, title: server.numero } %>
-<br>
-<% unless request.format.pdf? %>
-<span class='float-start ps-3'>
-  <%= link_to draw_connections_path(server_id: server.id),
-              class: 'draw_connections_link',
-              id: "draw_connections_link_#{server.id}",
-              title: "Dessiner les liaisons",
-              remote: true do %>
-    <button type="button" class="btn btn-outline-secondary btn-sm" aria-label="Draw connections">
-      <span class="bi bi-shuffle" aria-hidden="true"></span>
-    </button>
+<div class="ps-3 d-flex flex-column">
+  <span class="mb-2">
+    <%= link_to h(server.name),
+                server_path(server, view: params[:view]),
+                { class: "server_name", data: { controller: "tooltip", bs_placement: "top" }, title: server.numero } %>
+  </span>
+  <% unless request.format.pdf? %>
+    <span>
+      <%= link_to draw_connections_path(server_id: server.id),
+                  class: "draw_connections_link",
+                  id: "draw_connections_link_#{server.id}",
+                  title: "Dessiner les liaisons",
+                  remote: true do %>
+        <button type="button" class="btn btn-outline-secondary btn-sm mb-2" aria-label="Draw connections">
+          <span class="bi bi-shuffle" aria-hidden="true"></span>
+        </button>
+      <% end %>
+    </span>
   <% end %>
-</span>
-<% end %>
-<!--
-<span class='float-start' style="padding-left: 8px;">
-  <% twin_cards_ids = server.cards.map(&:twin_card_id).uniq.reject {|c| c.blank?} if false %>
-<% twin_cards_ids.map {|id| Card.find(id).frame}.uniq.each do |frame| %>
-  <%= link_to frame_path(frame), title: "#{frame.to_s}" do %>
-      <button type="button" class="btn btn-outline-secondary btn-sm" aria-label="Link to twin card">
-        <span class="bi bi-magnet-fill" aria-hidden="true"></span>
-      </button>
-    <% end %>
-<% end if false %>
-</span>
--->
-
-<br>
-<i class='float-start ps-3'><%= link_to server.modele.try(:name), edit_modele_path(server.modele_id), style: 'font-weight:normal;' %></i>
+  <!--
+  <span class='float-start' style="padding-left: 8px;">
+    <% twin_cards_ids = server.cards.map(&:twin_card_id).uniq.reject {|c| c.blank?} if false %>
+  <% twin_cards_ids.map {|id| Card.find(id).frame}.uniq.each do |frame| %>
+    <%= link_to frame_path(frame), title: "#{frame.to_s}" do %>
+        <button type="button" class="btn btn-outline-secondary btn-sm" aria-label="Link to twin card">
+          <span class="bi bi-magnet-fill" aria-hidden="true"></span>
+        </button>
+      <% end %>
+  <% end if false %>
+  </span>
+  -->
+  <span class="fst-italic">
+    <%= link_to server.modele.try(:name), edit_modele_path(server.modele_id) %>
+  </span>
+</div>
 
 <div class="clearfix"></div>
