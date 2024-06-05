@@ -29,6 +29,7 @@ export default class extends Controller {
 
   get defaultOptions() {
     return {
+      hidePlaceholder: true,
       plugins: this.plugins(),
     }
   }
