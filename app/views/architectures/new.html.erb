@@ -1,13 +1,12 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  t("inventories") => modeles_url,
   'Architectures' => architectures_path,
   "Nouvelle architecture" => '',
 } %>
 
 <div class="container">
   <div class="page-header">
-    <%= link_to architectures_path, class: 'btn btn-default' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
+    <%= link_to architectures_path, class: 'btn btn-outline-secondary' do %>
+      <span class="bi bi-list-ul"></span>
       <%= t("action.back") %>
     <% end %>
     <h1>

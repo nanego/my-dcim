@@ -1,17 +1,16 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  t("inventories") => modeles_url,
   PortType.model_name.human.pluralize => port_types_path,
   @port_type.name => '',
 } %>
 
 <div class="container">
   <div class="page-header">
-    <%= link_to port_types_path, class: 'btn btn-default' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
+    <%= link_to port_types_path, class: 'btn btn-outline-secondary' do %>
+      <span class="bi bi-list-ul"></span>
       <%= t("action.back") %>
     <% end %>
     <%= link_to @port_type, class: 'btn btn-primary' do %>
-      <span class="glyphicon glyphicon-info-sign"></span>
+      <span class="bi bi-eye"></span>
       <%= t("action.show") %>
     <% end %>
     <h1>

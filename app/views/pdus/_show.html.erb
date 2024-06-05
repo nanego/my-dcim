@@ -1,10 +1,10 @@
-<div class="panel panel-pdu panel-default">
-  <div class="panel-heading">
-    <h5 class="panel-title" style="display: inline;">
+<div class="card card-pdu">
+  <div class="card-header">
+    <h5 class="card-title" style="display: inline;">
       PDU <%= frame %>
     </h5>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
     <% frame.pdus.each do |pdu| %>
       <div style="width: 50%;float: left;padding: 0 15px;max-width:60px;"
            class="pdu <%= pdu.color %>"

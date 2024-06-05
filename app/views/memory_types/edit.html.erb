@@ -1,17 +1,16 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  t("inventories") => modeles_url,
   MemoryType.model_name.human => memory_types_path,
   @memory_type => '',
 } %>
 
 <div class="container">
   <div class="page-header">
-    <%= link_to memory_types_path, class: 'btn btn-default' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
+    <%= link_to memory_types_path, class: 'btn btn-outline-secondary' do %>
+      <span class="bi bi-list-ul"></span>
       <%= t("action.edit") %>
     <% end %>
     <%= link_to @memory_type, class: 'btn btn-primary' do %>
-      <span class="glyphicon glyphicon-info-sign"></span>
+      <span class="bi bi-eye"></span>
       <%= t("action.show") %>
     <% end %>
     <h1>

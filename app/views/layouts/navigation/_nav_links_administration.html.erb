@@ -1,0 +1,35 @@
+<li class="nav-item" role="menuitem">
+  <%= link_to t("changelog_entries.title"), changelog_entries_path, class: "nav-link" %>
+</li>
+<% if current_user.try(:admin?) %>
+  <li class="nav-item dropdown" role="menuitem">
+    <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+      aria-expanded="false">
+      <%= t(".administration") %>
+    </a>
+    <ul class="dropdown-menu">
+      <li role="menuitem"><%= link_to User.model_name.human.pluralize, users_path, class: "dropdown-item" %></li>
+      <li role="menuitem"><%= link_to t(".activity"), activities_path, class: "dropdown-item" %></li>
+      <li role="menuitem"><hr class="dropdown-divider"></li>
+      <li role="menuitem"><%= link_to t(".informations"), about_path, class: "dropdown-item" %></li>
+    </ul>
+  </li>
+<% end %>
+<li class="nav-item dropdown" role="menuitem">
+  <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    <%= t("users.my_account.title") %>
+  </a>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li role="menuitem">
+      <%= link_to t("users.my_account.edit"), edit_user_registration_path, class: "dropdown-item" %>
+    </li>
+    <li role="menuitem">
+      <%= link_to t("users.my_account.settings"), edit_users_settings_path, class: "dropdown-item" %>
+    </li>
+    <li role="menuitem"><hr class="dropdown-divider"></li>
+    <li role="menuitem">
+      <%= link_to t("users.logout"), destroy_user_session_path, method: :delete, class: "dropdown-item link-danger" %>
+    </li>
+  </ul>
+</li>

@@ -1,10 +1,10 @@
 <div class="page-header">
-  <%= link_to manufacturers_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
+  <%= link_to manufacturers_path, class: 'btn btn-outline-secondary' do %>
+    <span class="bi bi-list-ul"></span>
     <%= t("action.back") %>
   <% end %>
   <%= link_to edit_manufacturer_path(@manufacturer), class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
+    <span class="bi bi-pencil"></span>
     <%= t("action.edit") %>
   <% end %>
   <h1>
@@ -13,8 +13,9 @@
 </div>
 
 <div class="col-lg-6">
-  <div class="panel panel-primary">
-    <div class="panel-body">
+  <!-- TODO: use Card Component and primary style -->
+  <div class="card card-primary">
+    <div class="card-body">
       <dl class="dl-horizontal">
         <dt>
           <%= Manufacturer.human_attribute_name(:name) %> :

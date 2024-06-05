@@ -11,6 +11,8 @@ class ServersController < ApplicationController
       .order(:name)
     @filter = Filter.new(@servers, params)
     @servers = @filter.results
+
+    @pagy, @servers = pagy(@servers)
   end
 
   def grid

@@ -1,17 +1,16 @@
   <%= render 'layouts/breadcrumb', breadcrumb_variables: {
-    t("inventories") => modeles_url,
     Category.model_name.human.pluralize => categories_path,
     @category => '',
   } %>
 
 <div class="container">
   <div class="page-header">
-    <%= link_to categories_path, class: 'btn btn-default' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
+    <%= link_to categories_path, class: 'btn btn-outline-secondary' do %>
+      <span class="bi bi-list-ul"></span>
       <%= t("action.back") %>
     <% end %>
     <%= link_to @category, class: 'btn btn-primary' do %>
-      <span class="glyphicon glyphicon-info-sign"></span>
+      <span class="bi bi-eye"></span>
       <%= t("action.show") %>
     <% end %>
     <h1>

@@ -1,18 +1,17 @@
 <% provide(:title, @modele.name) %>
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  t("inventories") => modeles_url,
   Modele.model_name.human.pluralize => modeles_path,
   "#{@modele.try(:name).present? ? @modele.name : t("modeles.new.title") }" => ''}
 %>
 
 <div class="container">
   <div class="page-header">
-    <%= link_to modeles_path, class: 'btn btn-default' do %>
-      <span class="glyphicon glyphicon-list-alt"></span>
+    <%= link_to modeles_path, class: 'btn btn-outline-secondary' do %>
+      <span class="bi bi-list-ul"></span>
       <%= t("action.back") %>
     <% end %>
     <%= link_to @modele, class: 'btn btn-primary' do %>
-      <span class="glyphicon glyphicon-info-sign"></span>
+      <span class="bi bi-eye"></span>
       <%= t("action.show") %>
     <% end %>
     <h1>

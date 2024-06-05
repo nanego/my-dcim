@@ -17,10 +17,11 @@ fr:
     duplicate: Dupliquer
     suspend: Verrouiller
     unsuspend: Déverrouiller
+    create: Créer
   export_button:
     label: Exports
     exports:
-      pdf: Export pdf
+      pdf: Export PDF
       txt: Export Txt
       print: Impression
     faces:
@@ -36,11 +37,39 @@ fr:
   label_date: Date
   label_details: Détails
 
-  breadcrumb:
-    bay:
-      simple: Baie %{name}
-      double: Double baie %{name}
-    islet: Ilot %{name}
+  layouts:
+    navigation:
+      nav_links_administration:
+        administration: Administration
+        activity: Activité
+        informations: Informations
+      devices_dropdown:
+        equipments: Matériels
+        search_equipment: Rechercher un matériel
+        filter_by: "Filtrer par :"
+      projects_dropdown:
+        projects: Projets
+        moves: Déplacements prévus
+    breadcrumb:
+      home: Accueil
+      bay:
+        simple: Baie %{name}
+        double: Double baie %{name}
+      islet: Ilot %{name}
+    sidebar:
+      location:
+        title: Localisation
+        bays: Baies / Doubles-baies
+      equipment:
+        title: Matériel
+      features:
+        title: Caractéristiques
+      exploitation:
+        title: Exploitation
+      maintenance:
+        title: Maintenance
+      connection:
+        title: Connexion
 
   islets:
     index:
@@ -59,19 +88,6 @@ fr:
     destroy:
       flashes:
         destroyed: L'ilôt a bien été supprimé.
-  pages:
-    params_menu:
-      location:
-        title: Localisation
-        bays: Baies / Doubles-baies
-      features:
-        title: Caractéristiques
-      exploitation:
-        title: Exploitation
-      maintenance:
-        title: Maintenance
-      connections:
-        title: Connexions
   connections:
     index:
       title: Connexions
@@ -407,7 +423,7 @@ fr:
       title: Importation de matériel par fichier CSV
       room_id:
         label: "Salle où importer les serveurs :"
-        hint: (utilisé seulement si la baie n'est pas précisée dans le fichier CSV)
+        hint: utilisé seulement si la baie n'est pas précisée dans le fichier CSV
       servers_state:
         label: "Etat des serveurs importés :"
       csv_file:
@@ -481,6 +497,11 @@ fr:
           show_authentication_token: Afficher la clé API
           hide_authentication_token: Cacher la clé API
           reset_authentication_token: Regénérer la clé API
+      new:
+        email_know_by_cerbere: Email (connu par Cerbère)
+    passwords:
+      new:
+        submit: Réinitialiser mon mot de passe
   activity:
     user:
       destroy: a supprimé un utilisateur
@@ -520,12 +541,16 @@ fr:
       destroy: a supprimé un serveur
   rooms:
     title: Salles
+    overview_view:
+      title: Afficher toutes les salles
     capacity_view:
       title: Vue capacité réseau
       networks:
         fiber: Fibre
         giga: Réseau Gb
         10giga: 10Gb
+    infrastructure_view:
+      title: Vue infrastructure
     action_buttons:
       caption:
         ports: Ports
@@ -540,6 +565,11 @@ fr:
         enable: Activer le drag'n drop
     index:
       delete_confirmation: Cette salle ne pourra pas être supprimée tant qu\'elle sera associée à au moins un ilôt. Voulez-vous continuer ?
+      add_room: Ajouter une salle
+    new:
+      title: Nouvelle salle
+    edit:
+      title: Modifier la salle
 
   users:
     my_account:
@@ -556,6 +586,9 @@ fr:
         flashes:
           updated: Vos préférences ont été mises à jour
     logout: Me déconnecter
+    to_login: Se connecter
+    login: Connexion
+    sign_in: Inscription
     index:
       new_user: Ajouter un utilisateur
       change_role: Changer le rôle
@@ -590,7 +623,7 @@ fr:
     show:
       title: Baie %{bay_type} %{bay}
     new:
-      title: Ajouter une baie
+      title: Nouvelle baie
     create:
       flashes:
         created: La baie a été ajoutée.
@@ -640,3 +673,5 @@ fr:
         bay_id: Baie
         modele_id: Modèle
         cluster_id: Cluster
+    placeholder:
+      search: Rechercher ...

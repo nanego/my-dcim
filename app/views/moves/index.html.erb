@@ -1,11 +1,11 @@
 <%= render 'layouts/breadcrumb', breadcrumb_variables: {"Déplacements prévus" => ''} %>
 
-<div class="page-header">
-  <%= link_to new_move_path, class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-plus"></span>
+<div class="page-header d-flex justify-content-between">
+  <h2>Déplacements prévus</h2>
+  <%= link_to new_move_path, class: 'btn btn-success align-self-center' do %>
+    <span class="bi bi-plus-lg"></span>
     Prévoir un nouveau déplacement
   <% end %>
-  <h2>Déplacements prévus</h2>
 </div>
 
 <div class="table-responsive">
@@ -15,7 +15,7 @@
         <td><%= link_to "#{move.moveable.try(:modele).try(:category)} #{move.moveable} vers la baie #{move.frame}", edit_move_path(move) %></td>
         <td><%= link_to "Exécuter le déplacement du serveur et de ses connexions", execute_move_path(move), class: 'btn btn-success' %></td>
         <td>
-          <%= link_to t("action.delete"), move, method: :delete, data: { confirm: 'Voulez-vous vraiment supprimer ce déplacement ?' }, class: 'btn btn-warning' %>
+          <%= link_to t("action.delete"), move, method: :delete, data: { confirm: 'Voulez-vous vraiment supprimer ce déplacement ?' }, class: 'btn btn-danger' %>
         </td>
       <% end %>
     </tbody>
@@ -31,11 +31,11 @@
         <td><%= link_to "#{frame}", "/moves/frames/#{frame.id}" %></td>
         <td><%= link_to "Modifier les connexions", "/moves/frames/#{frame.id}", class: 'btn btn-primary' %></td>
         <td><%= link_to "/moves/frames/#{frame.id}.pdf?debug=1", class: 'btn btn-primary' do %>
-              <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+              <span class="bi bi-printer" aria-hidden="true"></span>
               Impression
           <% end %>
           <%= link_to "/moves/frames/#{frame.id}.pdf", class: 'btn btn-primary' do %>
-              <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+              <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
               Export PDF
           <% end %>
         </td>
