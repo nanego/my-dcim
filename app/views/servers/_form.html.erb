@@ -129,16 +129,24 @@
       <%= f.text_area :comment, class: "form-control" %>
     </fieldset>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :documents, class: "form-label" %>
-      <%= render CardComponent.new() do |card| %>
-        <%= f.fields_for :documents do |builder| %>
-          <%= render partial: "document_fields", locals: { f:  builder } %>
+    <fieldset class="col-12 mt-4" data-controller="nested-form" data-nested-form-wrapper-selector-value=".nested-form-wrapper">
+      <template data-nested-form-target="template">
+        <%= f.fields_for :documents, f.object.documents.klass.new, child_index: 'NEW_RECORD' do |document_fields| %>
+          <%= render partial: "document_fields", locals: { f: document_fields } %>
         <% end %>
-        <%= link_to_add_fields "<span class='bi bi-plus-lg' aria-hidden='true'></span>\
-                                <span>Ajouter une pièce jointe</span>".html_safe,
-                                f,
-                                :documents %>
+      </template>
+
+      <%= f.label :documents, class: "form-label" %>
+      <%= render CardComponent.new do |card| %>
+        <%= f.fields_for :documents do |document_fields| %>
+          <%= render partial: "document_fields", locals: { f:  document_fields } %>
+        <% end %>
+
+        <div data-nested-form-target="target"></div>
+
+        <button type="button" class="btn btn-outline-secondary btn-sm" data-action="nested-form#add">
+          <span class='bi bi-plus-lg' aria-hidden='true'></span> Ajouter une pièce jointe
+        </button>
       <% end %>
     </fieldset>
 
