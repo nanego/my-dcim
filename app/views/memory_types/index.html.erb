@@ -1,11 +1,12 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  MemoryType.model_name.human => ''}
+<% provide(:title, MemoryType.model_name.human.pluralize) %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+  MemoryType.model_name.human.pluralize => "" }
 %>
 
 <div class="container-fluid">
   <div class="page-header d-flex justify-content-between">
     <h1><%= t(".title") %></h1>
-    <%= link_to new_memory_type_path, class: 'btn btn-success align-self-center' do %>
+    <%= link_to new_memory_type_path, class: "btn btn-success align-self-center" do %>
       <span class="bi bi-plus-lg"></span>
       <%= t(".new_memory_type") %>
     <% end %>
@@ -18,11 +19,11 @@
 
     <% table.with_column(style: "min-width: 84px; width: 84px") do |memory_type| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
-        <%= link_to edit_memory_type_path(memory_type), class: 'btn btn-primary' do %>
+        <%= link_to edit_memory_type_path(memory_type), class: "btn btn-primary" do %>
           <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
           <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
-        <%= link_to memory_type_path(memory_type), method: :delete, data: { confirm: t("action.confirm") }, class: 'btn btn-danger' do %>
+        <%= link_to memory_type_path(memory_type), method: :delete, data: { confirm: t("action.confirm") }, class: "btn btn-danger" do %>
           <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
           <span class="visually-hidden"><%= t("action.delete") %></span>
         <% end %>
