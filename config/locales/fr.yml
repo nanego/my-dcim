@@ -198,18 +198,18 @@ fr:
   card_types:
     index:
       title: Types de cartes
-      add_card: Ajouter une carte
+      add_card: Ajouter un type de carte
       delete_confirmation: Ce type de carte ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur (via une carte). Voulez-vous continuer ?
     show:
-      title: Voir la carte
+      title: Voir le type de carte
     new:
-      title: Nouvelle carte
+      title: Nouveau type de carte
     create:
       flashes:
         created: Le type de carte a bien été créé.
     edit:
-      show_card: Voir la carte
-      title: Modifier une carte
+      show_card: Voir le type de carte
+      title: Modifier le type de carte
     update:
       flashes:
         updated: Le type de carte a bien été modifié.
