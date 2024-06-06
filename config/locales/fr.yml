@@ -161,7 +161,7 @@ fr:
       title: Liste des clusters
       delete_confirmation: Ce cluster ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
     show:
-      title: Cluster %{cluster}
+      title: Détails du cluster
     new:
       title: Nouveau cluster
     create:
