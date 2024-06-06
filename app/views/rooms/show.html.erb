@@ -225,7 +225,7 @@
         $('.couple .overviewed_frame[data-frame-id='+frame_id+']').addClass('selected')
 
         const searchParams = new URLSearchParams(window.location.search)
-        const view = 'front'
+        let view = 'front'
 
         if (searchParams.has('view')) {
             view = searchParams.get('view')
