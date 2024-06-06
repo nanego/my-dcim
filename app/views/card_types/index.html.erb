@@ -1,11 +1,12 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+<% provide(:title, CardType.model_name.human.pluralize) %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
   CardType.model_name.human.pluralize => "" }
 %>
 
 <div class="container-fluid">
-  <div class="page-header d-flex justify-content-between">
+  <div class="d-flex justify-content-between">
     <h1><%= t(".title") %></h1>
-    <%= link_to new_card_type_path, class: 'btn btn-success align-self-center' do %>
+    <%= link_to new_card_type_path, class: "btn btn-success align-self-center" do %>
       <span class="bi bi-plus-lg"></span>
       <%= t(".add_card") %>
     <% end %>
@@ -58,22 +59,22 @@
 
       <tbody>
       <% @card_types_by_port_types.each do |port_type, card_types| %>
-        <tr style="font-weight: bold;">
-          <td colspan="4"><%= link_to port_type, '#', id: "port_type_#{port_type}", style: "color: #555;" %></td>
+        <tr class="fw-bold">
+          <td colspan="4"><%= link_to port_type, "#", id: "port_type_#{port_type}", style: "color: #555;" %></td>
         </tr>
         <%= content_tag_for(:tr, card_types) do |card_type| %>
           <td style="<%= "font-weight:bold;" if card_type.max_aligned_ports %>">
             <%= link_to card_type, card_type_path(card_type) %>
           </td>
-          <td><%= link_to pluralize(card_type.servers.count, 'serveur'), servers_path %></td>
+          <td><%= link_to pluralize(card_type.servers.count, "serveur"), servers_path %></td>
           <td><%= card_type.port_quantity %> ports</td>
           <td class="text-right">
-            <%= link_to t("action.edit"), edit_card_type_path(card_type), class: 'btn btn-primary' %>
+            <%= link_to t("action.edit"), edit_card_type_path(card_type), class: "btn btn-primary" %>
             <%= link_to t("action.delete"),
                         card_type,
                         method: :delete,
                         data: { confirm: t(".delete_confirmation") },
-                        class: 'btn btn-danger' %>
+                        class: "btn btn-danger" %>
           </td>
         <% end %>
       <% end %>
