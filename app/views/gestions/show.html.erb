@@ -1,30 +1,37 @@
-<div class="container">
+<% provide(:title, "#{Gestion.model_name.human.pluralize} | #{@gestion}") %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+  Gestion.model_name.human.pluralize => gestions_path,
+  @gestion => ""
+} %>
 
-  <div class="page-header">
-    <%= link_to gestions_path, class: 'btn btn-outline-secondary' do %>
-      <span class="bi bi-list-ul"></span>
-      <%= t("action.back") %>
-    <% end %>
-    <%= link_to edit_gestion_path(@gestion), class: 'btn btn-primary' do %>
-      <span class="bi bi-pencil"></span>
-      <%= t("action.edit") %>
-    <% end %>
-    <h1>
-      <%= t(".title", gestion: @gestion) %>
-    </h1>
+<div class="row my-5">
+  <div class="col-11 col-md-10 col-lg-8 mx-auto">
+    <div class="d-flex justify-content-between pb-5">
+      <%= link_to gestions_path, class: "btn btn-outline-secondary align-self-center d-inline-flex",
+                              title: t("action.back") do %>
+        <span class="bi bi-chevron-left"></span>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
+      <% end %>
+      <h1 class="text-center px-4"><%= t(".title") %></h1>
+      <%= link_to edit_gestion_path(@gestion), class: "btn btn-primary align-self-center d-inline-flex",
+                                          title: t("action.edit") do %>
+        <span class="bi bi-pencil"></span>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.edit") %></span>
+      <% end %>
+    </div>
+
+    <dl class="bg-body-tertiary p-4 rounded border">
+      <% %i[name description].each do |attribute_name| %>
+        <dt><%= Gestion.human_attribute_name(attribute_name) %> :</dt>
+        <dd><%= @gestion.public_send(attribute_name) %>
+      <% end %>
+    </dl>
+
+    <ul class="bg-body-tertiary p-4 rounded border">
+      <h5><%= Server.model_name.human.pluralize %> :</h5>
+      <% @gestion.servers.sorted_by_name.each do |server| %>
+        <li><%= link_to server, server_path(server) %></li>
+      <% end %>
+    </ul>
   </div>
-
-  <dl class="dl-horizontal">
-    <dt>
-      <%= Gestion.human_attribute_name(:description) %> :
-    </dt>
-    <dd><%= @gestion.description %></dd>
-  </dl>
-
-  <ul>
-    <% @gestion.servers.sorted_by_name.each do |server| %>
-      <li><%= link_to server, server %></li>
-    <% end %>
-  </ul>
-
 </div>
