@@ -1,37 +1,30 @@
-<div class="page-header">
-  <%= link_to manufacturers_path, class: 'btn btn-outline-secondary' do %>
-    <span class="bi bi-list-ul"></span>
-    <%= t("action.back") %>
-  <% end %>
-  <%= link_to edit_manufacturer_path(@manufacturer), class: 'btn btn-primary' do %>
-    <span class="bi bi-pencil"></span>
-    <%= t("action.edit") %>
-  <% end %>
-  <h1>
-    <%= t(".title") %>
-  </h1>
-</div>
+<% provide(:title, "#{Manufacturer.model_name.human.pluralize} | #{@manufacturer.name}") %>
+<%= render "layouts/breadcrumb",
+           breadcrumb_variables: { Manufacturer.model_name.human.pluralize => manufacturers_path,
+                                  @manufacturer.name => "" }
+%>
 
-<div class="col-lg-6">
-  <!-- TODO: use Card Component and primary style -->
-  <div class="card card-primary">
-    <div class="card-body">
-      <dl class="dl-horizontal">
-        <dt>
-          <%= Manufacturer.human_attribute_name(:name) %> :
-        </dt>
-        <dd><%= @manufacturer %></dd>
-
-        <dt>
-          <%= Manufacturer.human_attribute_name(:description) %> :
-        </dt>
-        <dd><%= @manufacturer.description %></dd>
-
-        <dt>
-          <%= Manufacturer.human_attribute_name(:documentation_url) %> :
-        </dt>
-        <dd><%= @manufacturer.documentation_url %></dd>
-      </dl>
+<div class="row my-5">
+  <div class="col-11 col-md-10 col-lg-8 mx-auto">
+    <div class="d-flex justify-content-between pb-5">
+      <%= link_to manufacturers_path, class: "btn btn-outline-secondary align-self-center d-inline-flex",
+                              title: t("action.back") do %>
+        <span class="bi bi-chevron-left"></span>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
+      <% end %>
+      <h1 class="text-center px-4"><%= t(".title") %></h1>
+      <%= link_to edit_manufacturer_path(@manufacturer), class: "btn btn-primary align-self-center d-inline-flex",
+                                          title: t("action.edit") do %>
+        <span class="bi bi-pencil"></span>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.edit") %></span>
+      <% end %>
     </div>
+
+    <dl class="bg-body-tertiary p-4 rounded border">
+      <% %i[name description documentation_url].each do |attribute_name| %>
+        <dt><%= Manufacturer.human_attribute_name(attribute_name) %> :</dt>
+        <dd><%= @manufacturer.public_send(attribute_name) %>
+      <% end %>
+    </dl>
   </div>
 </div>
