@@ -1,23 +1,24 @@
-<%= form_for(@disk_type, html: { class: "form-horizontal", role: "form" }) do |f| %>
-  <%= render FormErrorsComponent.new(@disk_type) %>
+<%= render FormErrorsComponent.new(@category) %>
 
-  <div class="form-group">
-    <%= f.label :quantity, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
+<%= form_for(@disk_type, html: { class: "bg-body-tertiary p-4 rounded border", role: "form" }) do |f| %>
+  <div class="row g-3">
+    <fieldset class="col-12">
+      <%= f.label :quantity, class: "form-label" %>
       <%= f.text_field :quantity, class: "form-control" %>
-    </div>
-    <%= f.label :unit, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.select :unit, DiskType::UNITS, class: "form-control" %>
-    </div>
-    <%= f.label :technology, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.select :technology, DiskType::TECHNOLOGIES, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit class: "btn btn-primary" %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :unit, class: "forml-label" %>
+      <%= f.select :unit, DiskType::UNITS, {}, class: "form-select" %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :technology, class: "forml-label" %>
+      <%= f.select :technology, DiskType::TECHNOLOGIES, {}, class: "form-select" %>
+    </fieldset>
+
+    <div class="col-12 mt-4">
+      <%= f.submit class: "btn btn-primary w-100" %>
     </div>
   </div>
 <% end %>
