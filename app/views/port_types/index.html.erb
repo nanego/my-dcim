@@ -1,11 +1,12 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+<% provide(:title, Site.model_name.human.pluralize) %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
   PortType.model_name.human.pluralize => "" }
 %>
 
 <div class="container-fluid">
   <div class="page-header d-flex justify-content-between">
     <h1><%= t(".title") %></h1>
-    <%= link_to new_port_type_path, class: 'btn btn-success align-self-center' do %>
+    <%= link_to new_port_type_path, class: "btn btn-success align-self-center" do %>
       <span class="bi bi-plus-lg"></span>
       <%= t(".add_port_type") %>
     <% end %>
@@ -13,7 +14,7 @@
 
   <%= render List::DataTableComponent.new(@port_types) do |table| %>
     <% table.with_column(PortType.human_attribute_name(:name), sort_by: :name) do |port_type| %>
-      <%= port_type.name %>
+      <%= link_to port_type, port_type_path(port_type), class: "fw-bold" %>
     <% end %>
 
     <% table.with_column(PortType.human_attribute_name(:power), sort_by: :power) do |port_type| %>
@@ -29,11 +30,11 @@
 
     <% table.with_column(style: "min-width: 84px; width: 84px") do |port_type| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
-        <%= link_to edit_port_type_path(port_type), class: 'btn btn-primary' do %>
+        <%= link_to edit_port_type_path(port_type), class: "btn btn-primary" do %>
           <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
           <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
-        <%= link_to port_type, method: :delete, data: { confirm: t(".delete_confirmation") }, class: 'btn btn-danger' do %>
+        <%= link_to port_type, method: :delete, data: { confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
           <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
           <span class="visually-hidden"><%= t("action.delete") %></span>
         <% end %>

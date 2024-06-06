@@ -16,7 +16,7 @@
 
   <%= render List::DataTableComponent.new(@sites) do |table| %>
     <% table.with_column(Site.human_attribute_name(:name), sort_by: :name) do |site| %>
-      <b><%= link_to site.name, site_path(site) %></b>
+      <%= link_to site.name, site_path(site), class: "fw-bold" %>
     <% end %>
 
     <% table.with_column(Site.human_attribute_name(:position), sort_by: :position) do |site| %>
