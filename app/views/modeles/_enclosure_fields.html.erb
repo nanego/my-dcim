@@ -6,34 +6,41 @@
         <%= f.hidden_field :_destroy %>
 
         <button type="button" data-action="nested-form#remove" class="btn btn-danger btn-sm ms-4">
-          <%= t("action.delete") %>
+          <span class="bi bi-trash" title="<%= t("action.delete") %>"></span>
         </button>
       </span>
     </div>
     <ul id="enclosureList_<%= f.object.id %>" class="list-group card-body">
       <div class="list-group-item filtered">
         <fieldset>
-          <%= f.label :display %> :
-          <%= f.select :display, options_for_select([:vertical, :horizontal, :grid], f.object.display) %>
+          <%= f.label :display, class: "form-label" %> :
+          <%= f.select :display, options_for_select([:vertical, :horizontal, :grid], f.object.display),
+                                 {},
+                                 class: "form-select" %>
         </fieldset>
       </div>
       <div class="list-group-item filtered">
         <fieldset>
-          <%= f.label :grid_areas %>
-          <%= f.text_area :grid_areas, style: "font-family: monospace;width: 100%; height: 110px;" %>
+          <%= f.label :grid_areas, class: "form-label" %>
+          <%= f.text_area :grid_areas, class: "w-100 font-monospace form-control", style: "height:110px;" %>
         </fieldset>
       </div>
       <%= f.fields_for :composants, f.object.composants.slots do |builder| %>
-        <%= render "composant_fields", :f => builder, :type_composant => 'SLOT' %>
+        <%= render "composant_fields", f: builder, type_composant: "SLOT" %>
       <% end %>
     </ul>
-    <div class="card-footer"><%= link_to_add_fields_with_prefilled_data "<span class='bi bi-plus-lg' aria-hidden='true'></span> #{t(".add_slot")}".html_safe, f, :composants, 'SLOT' %></div>
+    <div class="card-footer">
+      <%= link_to_add_fields_with_prefilled_data "<span class='bi bi-plus-lg' aria-hidden='true'></span> #{t(".add_slot")}".html_safe,
+                                                 f,
+                                                 :composants,
+                                                 "SLOT" %>
+    </div>
   </div>
 </fieldset>
 
 <script>
-var display_select = $('#modele_enclosures_attributes_<%= f.object.position.to_i - 1 %>_display')
-var grid_text_area = $('#modele_enclosures_attributes_<%= f.object.position.to_i - 1 %>_grid_areas').closest('.list-group-item')
+var display_select = $("#modele_enclosures_attributes_<%= f.object.position.to_i - 1 %>_display")
+var grid_text_area = $("#modele_enclosures_attributes_<%= f.object.position.to_i - 1 %>_grid_areas").closest(".list-group-item")
 var toggle_grid_text_area = (function f() {
     var val = display_select.val()
     grid_text_area.hide()
@@ -48,11 +55,11 @@ display_select.change(function () {
 })
 
 Sortable.create(enclosureList_<%= f.object.id %>, {
-  handle: '.bi-arrows-vertical',
+  handle: ".bi-arrows-vertical",
   animation: 150,
-  filter: '.fitlered',
+  filter: ".fitlered",
   onEnd: function (evt) {
-    evt.to.querySelectorAll('li.composant').forEach((item, index) => {
+    evt.to.querySelectorAll("li.composant").forEach((item, index) => {
       item.querySelector("input[name*='[position]']").value = index + 1
     });
   }

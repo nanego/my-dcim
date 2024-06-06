@@ -1,80 +1,100 @@
-<%= form_for(@modele, html: { class: "form-horizontal", role: "form" }) do |f| %>
-  <%= render FormErrorsComponent.new(@modele) %>
+<%= render FormErrorsComponent.new(@modele) %>
 
-  <div class="form-group">
-    <%= f.label :name, class: "col-sm-3 col-md-2 control-label" %>
-    <div class="col-sm-9 col-md-4">
+<%= form_for(@modele, html: { class: "bg-body-tertiary p-4 rounded border", role: "form" }) do |f| %>
+  <div class="row g-3">
+    <fieldset class="col-12">
+      <%= f.label :name, class: "form-label" %>
       <%= f.text_field :name, class: "form-control" %>
-    </div>
-    <%= f.label :category_id, class: "col-sm-3 col-md-2 control-label" %>
-    <div class="col-sm-9 col-md-4">
-      <%= f.collection_select(:category_id, Category.order(Arel.sql('LOWER(name)')), :id, :name, {}, {class: "form-control"}) %>
-    </div>
-    <%= f.label :architecture_id, class: "col-sm-3 col-md-2 control-label" %>
-    <div class="col-sm-9  col-md-4">
-      <%= f.collection_select(:architecture_id, Architecture.order(Arel.sql('LOWER(name)')), :id, :name, {}, {class: "form-control"}) %>
-    </div>
-    <%= f.label :u, class: "col-sm-3 col-md-2 control-label" %>
-    <div class="col-sm-9 col-md-4">
-      <%= f.number_field :u, class: "form-control" %>
-    </div>
-    <%= f.label :manufacturer_id, class: "col-sm-3 col-md-2 control-label" %>
-    <div class="col-sm-9 col-md-4">
-      <%= f.collection_select(:manufacturer_id, Manufacturer.order(Arel.sql('LOWER(name)')), :id, :name, {}, {class: "form-control"}) %>
-    </div>
-    <%= f.label :nb_elts, class: "col-sm-3 col-md-2 control-label" %>
-    <div class="col-sm-9 col-md-4">
-      <%= f.number_field :nb_elts, class: "form-control" %>
-    </div>
-    <%= f.label :color, class: "col-sm-3 col-md-2 control-label" %>
-    <div class="col-sm-9 col-md-4">
-      <%= f.text_field :color, class: "form-control", style: "background-color:#{f.object.color};" %>
-    </div>
-    <%= f.label :network_types, class: "col-sm-3 col-md-2  control-label" %>
-    <div class="col-sm-9 col-md-4">
-      <%= f.select :network_types,
-                    Modele::Network::TYPES.map { |type| [Modele.human_attribute_name("network_types.#{type}"), type] },
-                    { prompt: true, include_blank: true },
-                    { data: { controller: "select" }, multiple: true } %>
-    </div>
-  </div>
+    </fieldset>
 
-  <div data-controller="nested-form" data-nested-form-wrapper-selector-value=".nested-form-wrapper">
-    <template data-nested-form-target="template">
-      <%= f.fields_for :enclosures, f.object.enclosures.klass.new, child_index: 'NEW_RECORD' do |enclosure_fields| %>
+    <fieldset class="col-12 mt-4">
+      <%= f.label :category_id, class: "form-label" %>
+      <%= f.collection_select(:category_id,
+                              Category.order(Arel.sql('LOWER(name)')),
+                              :id,
+                              :name,
+                              {},
+                              { class: "form-select", data: { controller: "select" } }) %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :architecture_id, class: "form-label" %>
+      <%= f.collection_select(:architecture_id,
+                              Architecture.order(Arel.sql('LOWER(name)')),
+                              :id,
+                              :name,
+                              {},
+                              { class: "form-select" }) %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :u, class: "form-label" %>
+      <%= f.number_field :u, class: "form-control" %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :manufacturer_id, class: "form-label" %>
+      <%= f.collection_select(:manufacturer_id,
+                              Manufacturer.order(Arel.sql('LOWER(name)')),
+                              :id,
+                              :name,
+                              {},
+                              { class: "form-select", data: { controller: "select" } }) %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :nb_elts, class: "form-label" %>
+      <%= f.number_field :nb_elts, class: "form-control" %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :color, class: "form-label" %>
+      <%= f.text_field :color, class: "form-control", style: "background-color:#{f.object.color};" %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :network_types, class: "form-label" %>
+      <%= f.select :network_types,
+                  Modele::Network::TYPES.map { |type| [Modele.human_attribute_name("network_types.#{type}"), type] },
+                  { prompt: true, include_blank: true },
+                  { class: "form-select", data: { controller: "select" }, multiple: true } %>
+    </fieldset>
+
+    <div data-controller="nested-form" data-nested-form-wrapper-selector-value=".nested-form-wrapper">
+      <template data-nested-form-target="template">
+        <%= f.fields_for :enclosures, f.object.enclosures.klass.new, child_index: "NEW_RECORD" do |enclosure_fields| %>
+          <%= render partial: "enclosure_fields", locals: { f: enclosure_fields } %>
+        <% end %>
+      </template>
+
+      <%= content_tag :span, Enclosure.model_name.human.pluralize, class: "col-sm-3 col-md-2 control-label" %>
+      <%= f.fields_for :enclosures do |enclosure_fields| %>
         <%= render partial: "enclosure_fields", locals: { f: enclosure_fields } %>
       <% end %>
-    </template>
 
-    <%= content_tag :span, Enclosure.model_name.human.pluralize, class: "col-sm-3 col-md-2 control-label" %>
-    <%= f.fields_for :enclosures do |enclosure_fields| %>
-      <%= render partial: "enclosure_fields", locals: { f: enclosure_fields } %>
-    <% end %>
+      <div data-nested-form-target="target"></div>
 
-    <div data-nested-form-target="target"></div>
-
-    <button type="button" class="btn btn-outline-secondary btn-sm" data-action="nested-form#add">
-      <span class="bi bi-plus-lg" aria-hidden="true"></span> <%= t(".add_enclosure") %>
-    </button>
-  </div>
-
-  <!--
-  <div class="col-sm-5 col-sm-offset-2">
-    <div class="card">
-    <div class="card-header"><h4>Groupes d'interfaces</h4></div>
-      <ul class="list-group">
-        < f.fields_for :composants do |builder| %>
-          < render "composant_fields", :f => builder %>
-        < end %>
-      </ul>
-      <div class="card-footer">< link_to_add_fields "Ajouter un groupe", f, :composants %></div>
+      <button type="button" class="btn btn-outline-secondary btn-sm" data-action="nested-form#add">
+        <span class="bi bi-plus-lg" aria-hidden="true"></span> <%= t(".add_enclosure") %>
+      </button>
     </div>
-  </div>
-  -->
 
-  <div class="form-group">
-    <div class="col-sm-12">
-      <%= f.submit class: "btn btn-primary" %>
+    <!--
+    <div class="col-sm-5 col-sm-offset-2">
+      <div class="card">
+      <div class="card-header"><h4>Groupes d'interfaces</h4></div>
+        <ul class="list-group">
+          < f.fields_for :composants do |builder| %>
+            < render "composant_fields", :f => builder %>
+          < end %>
+        </ul>
+        <div class="card-footer">< link_to_add_fields "Ajouter un groupe", f, :composants %></div>
+      </div>
+    </div>
+    -->
+
+    <div class="col-12 mt-4">
+      <%= f.submit class: "btn btn-primary w-100" %>
     </div>
   </div>
 <% end %>
