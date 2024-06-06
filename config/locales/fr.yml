@@ -319,7 +319,7 @@ fr:
       title: Domaines
       delete_confirmation: Ce domaine ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
     show:
-      title: Domaine %{name}
+      title: Voir le Domaine
     new:
       title: Nouveau domaine
     create:
