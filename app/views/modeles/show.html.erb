@@ -25,11 +25,11 @@
       <% end %>
     </dl>
 
-    <dl class="bg-body-tertiary p-4 rounded border">
-      <dt><%= Server.model_name.human.pluralize %> :</dt>
-      <% @servers.each do |s| %>
-        <dd><%= link_to s.name, server_path(s) %></dd>
+    <ul class="bg-body-tertiary p-4 rounded border">
+      <h5><%= Server.model_name.human.pluralize %> :</h5>
+      <% @servers.each do |server| %>
+        <li><%= link_to server, server_path(server) %></li>
       <% end %>
-    </dl>
+    </ul>
   </div>
 </div>
