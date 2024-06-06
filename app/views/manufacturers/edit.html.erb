@@ -1,22 +1,24 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {
+<% provide(:title, "#{Manufacturer.model_name.human.pluralize} | #{@manufacturer.name} | #{t("action.edit")}") %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
   Manufacturer.model_name.human.pluralize => manufacturers_path,
-  @manufacturer => '',
+  @manufacturer => manufacturer_path(@manufacturer),
+  t("action.edit") => ""
 } %>
 
-<div class="container">
-  <div class="page-header">
-    <%= link_to manufacturers_path, class: 'btn btn-outline-secondary' do %>
-      <span class="bi bi-list-ul"></span>
-      <%= t("action.back") %>
-    <% end %>
-    <%= link_to @manufacturer, class: 'btn btn-primary' do %>
-      <span class="bi bi-eye"></span>
-      <%= t("action.show") %>
-    <% end %>
-    <h1>
-        <%= t(".title") %>
-    </h1>
+<div class="row my-5">
+  <div class="col-11 col-md-10 col-lg-8 mx-auto">
+    <div class="d-flex justify-content-between pb-5">
+      <%= link_to manufacturers_path, class: "btn btn-outline-secondary align-self-center d-inline-flex",
+                                      title: t("action.back") do %>
+        <span class="bi bi-chevron-left"></span>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
+      <% end %>
+      <h1 class="px-4 text-center"><%= t(".title") %></h1>
+      <%= link_to @manufacturer, class: "btn btn-primary align-self-center d-inline-flex", title: t("action.show") do %>
+        <span class="bi bi-eye"></span>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.show") %></span>
+      <% end %>
+    </div>
+    <%= render "form" %>
   </div>
-
-  <%= render 'form' %>
 </div>
