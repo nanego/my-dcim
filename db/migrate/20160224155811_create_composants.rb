@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+class MigrationTypeComposant < ActiveRecord::Base
+  self.table_name = :type_composants
+end
+
 class CreateComposants < ActiveRecord::Migration[4.2]
   def change
     create_table :type_composants do |t|
@@ -11,9 +15,9 @@ class CreateComposants < ActiveRecord::Migration[4.2]
       t.integer :position
       t.timestamps null: false
     end
-    TypeComposant.create!(title: 'ALIM')
-    TypeComposant.create!(title: 'IPMI')
-    TypeComposant.create!(title: 'CM')
-    TypeComposant.create!(title: 'SLOT')
+    MigrationTypeComposant.create!(title: 'ALIM')
+    MigrationTypeComposant.create!(title: 'IPMI')
+    MigrationTypeComposant.create!(title: 'CM')
+    MigrationTypeComposant.create!(title: 'SLOT')
   end
 end
