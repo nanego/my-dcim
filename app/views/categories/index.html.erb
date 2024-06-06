@@ -26,7 +26,9 @@
         <% end %>
 
         <% table.with_column(Category.human_attribute_name(:modeles), sort_by: :modeles_count) do |category| %>
-          <%= link_to Category.human_attribute_name(:modeles_count, count: category.modeles_count), modeles_path %>
+          <%= link_to modeles_path(category_id: category.id) do %>
+            <%= Category.human_attribute_name(:modeles_count, count: category.modeles_count) %>
+          <% end %>
         <% end %>
 
         <% table.with_column(style: "min-width: 84px; width: 84px") do |category| %>
