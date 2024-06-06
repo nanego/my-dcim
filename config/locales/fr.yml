@@ -367,6 +367,8 @@ fr:
     update:
       flashes:
         updated: Le type de port a bien été modifié.
+    show:
+      title: Voir le type de port
     destroy:
       flashes:
         destroyed: Le type de port a bien été supprimé.
