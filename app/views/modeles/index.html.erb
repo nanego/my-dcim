@@ -1,13 +1,13 @@
 <% provide(:title, Modele.model_name.human.pluralize) %>
-
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  Modele.model_name.human.pluralize => ''}
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+  Modele.model_name.human.pluralize => ""
+}
 %>
 
 <div class="container-fluid">
-  <div class="page-header d-flex justify-content-between">
+  <div class="d-flex justify-content-between">
     <h1><%= Modele.model_name.human.pluralize %></h1>
-    <%= link_to new_modele_path, class: 'btn btn-success align-self-center' do %>
+    <%= link_to new_modele_path, class: "btn btn-success align-self-center" do %>
       <span class="bi bi-plus-lg"></span>
       <%= t(".add_model") %>
     <% end %>
@@ -24,21 +24,33 @@
 
       <div class="col-12">
         <div class="form-floating">
-          <%= f.collection_select(:architecture_id, Architecture.sorted, :id, :to_s, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.collection_select(:architecture_id, Architecture.sorted,
+                                                    :id,
+                                                    :to_s,
+                                                    { prompt: true, include_blank: true },
+                                                    { class: "form-select" }) %>
           <%= f.label :architecture_id %>
         </div>
       </div>
 
       <div class="col-12">
         <div class="form-floating">
-          <%= f.collection_select(:category_id, Category.sorted, :id, :to_s, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.collection_select(:category_id, Category.sorted,
+                                                :id,
+                                                :to_s,
+                                                { prompt: true, include_blank: true },
+                                                { class: "form-select" }) %>
           <%= f.label :category_id %>
         </div>
       </div>
 
       <div class="col-12">
         <div class="form-floating">
-          <%= f.collection_select(:manufacturer_id, Manufacturer.sorted, :id, :to_s, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.collection_select(:manufacturer_id, Manufacturer.sorted,
+                                                    :id,
+                                                    :to_s,
+                                                    { prompt: true, include_blank: true },
+                                                    { class: "form-select" }) %>
           <%= f.label :manufacturer_id %>
         </div>
       </div>
@@ -49,15 +61,13 @@
     <h4><%= category %></h4>
 
     <%= render List::DataTableComponent.new(modeles) do |table| %>
-      <% table.with_column(style: "width: 40px; height: 40px; padding: 0;") do |modele| %>
-        <% bgModeleColor = modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(modele.try(:name) || 'test')[0..5]}", 0.4) %>
-        <div style="height: 100%; background-color: <%= bgModeleColor %> !important;"></div>
+      <% table.with_column(class: "p-0", style: "width: 40px; height: 40px;") do |modele| %>
+        <% bgModeleColor = modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(modele.try(:name) || "test")[0..5]}", 0.4) %>
+        <div class="h-100" style="background-color: <%= bgModeleColor %> !important;"></div>
       <% end %>
 
       <% table.with_column(Modele.model_name.human, sort_by: :name) do |modele| %>
-        <b>
-          <%= link_to modele, modele_path(modele) %>
-        </b>
+        <%= link_to modele, modele_path(modele), class: "fw-bold" %>
       <% end %>
 
       <% table.with_column(Enclosure.human_attribute_name(:display)) do |modele| %>
@@ -66,7 +76,11 @@
 
       <% table.with_column(Bay.model_name.human.pluralize, sort_by: :servers_count) do |modele| %>
         <%= link_to servers_path(modele_id: modele.id) do %>
-          <%= pluralize(modele.servers.count, modele.category.name.try(:downcase), "#{modele.category.name.try(:downcase)}#{ modele.category.name.blank? || modele.category.name[-1] == 's' || modele.category.name=='San' ? '' : 's' }") %>
+          <%= pluralize(
+                modele.servers.count,
+                modele.category.name.try(:downcase),
+                "#{modele.category.name.try(:downcase)}#{ modele.category.name.blank? || modele.category.name[-1] == "s" || modele.category.name=="San" ? "" : "s" }")
+          %>
         <% end %>
       <% end %>
 
