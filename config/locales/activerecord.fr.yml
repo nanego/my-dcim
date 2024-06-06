@@ -225,6 +225,7 @@ fr:
       modele:
         name: Nom
         category_id: Catégorie
+        category: Catégorie
         architecture: Architecture
         architecture_id: Architecture
         manufacturer: Constructeur
