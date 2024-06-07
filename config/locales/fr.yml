@@ -121,7 +121,7 @@ fr:
       title: Gestionnaires
       delete_confirmation: Ce gestionnaire ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
     show:
-      title: Gestionnaire %{gestion}
+      title: Détails du gestionnaire
     new:
       title: Nouveau gestionnaire
     create:
@@ -161,7 +161,7 @@ fr:
       title: Liste des clusters
       delete_confirmation: Ce cluster ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
     show:
-      title: Cluster %{cluster}
+      title: Détails du cluster
     new:
       title: Nouveau cluster
     create:
@@ -198,18 +198,18 @@ fr:
   card_types:
     index:
       title: Types de cartes
-      add_card: Ajouter une carte
+      add_card: Ajouter un type de carte
       delete_confirmation: Ce type de carte ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur (via une carte). Voulez-vous continuer ?
     show:
-      title: Voir la carte
+      title: Détails du type de carte
     new:
-      title: Nouvelle carte
+      title: Nouveau type de carte
     create:
       flashes:
         created: Le type de carte a bien été créé.
     edit:
-      show_card: Voir la carte
-      title: Modifier une carte
+      show_card: Voir le type de carte
+      title: Modifier le type de carte
     update:
       flashes:
         updated: Le type de carte a bien été modifié.
@@ -237,7 +237,7 @@ fr:
       add_maintainer: Ajouter un mainteneur
       delete_confirmation: Ce mainteneur ne pourra pas être supprimé tant qu'il sera associé à au moins un contrat de maintenance. Voulez-vous continuer ?
     show:
-      title: Voir le mainteneur
+      title: Détails du mainteneur
     new:
       title: Nouveau mainteneur
     create:
@@ -257,7 +257,7 @@ fr:
       add_contract_type: Ajouter un contrat de maintenance
       delete_confirmation: Toutes les données concernant ce contrat de maintenance seront supprimées, ainsi que les contrats de maintenance associés. Voulez-vous continuer ?
     show:
-      title: Voir le contrat de maintenance
+      title: Détails du contrat de maintenance
     new:
       title: Nouveau contrat de maintenance
     create:
@@ -276,7 +276,7 @@ fr:
       title: Liste des types de disque
       add_disk_type: Nouveau type de disque
     show:
-      title: Voir le type de disque
+      title: Détails du type de disque
     new:
       title: Nouveau type de disque
     create:
@@ -293,13 +293,13 @@ fr:
   manufacturers:
     form:
       url_placeholder: "https://url_du_frabricant.com/suite_de_l_url/%s/reste_s_il_y_a"
-      information_html: il faut remplacer le numéro de série dans l'URL par <code>%s</code>."
+      information_html: il faut remplacer le numéro de série dans l'URL par <code>%s</code>.
     index:
       new_manufacturer: Ajouter un constructeur
       title: Constructeurs
       delete_confirmation: Ce constructeur ne pourra pas être supprimé tant qu'il sera associé à au moins un modèle. Voulez-vous continuer ?
     show:
-      title: Voir le constructeur
+      title: Détails du constructeur
     new:
       title: Nouveau constructeur
     create:
@@ -319,7 +319,7 @@ fr:
       title: Domaines
       delete_confirmation: Ce domaine ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
     show:
-      title: Domaine %{name}
+      title: Détails du domaine
     new:
       title: Nouveau domaine
     create:
@@ -338,7 +338,7 @@ fr:
       new_memory_type: Nouveau type de RAM
       title: Liste des types de RAM
     show:
-      title: Voir le type de RAM
+      title: Détails du type de RAM
     new:
       title: Nouveau type de RAM
     create:
@@ -367,6 +367,8 @@ fr:
     update:
       flashes:
         updated: Le type de port a bien été modifié.
+    show:
+      title: Détails du type de port
     destroy:
       flashes:
         destroyed: Le type de port a bien été supprimé.
@@ -436,7 +438,7 @@ fr:
       add_server: Ajouter un matériel
       add_server_via_csv: Ajouter par un fichier CSV
     show:
-      back_to_bay: << Baie %{name}
+      back_to_bay: Baie %{name}
       nb_u: Nb de U
       documentation: Documentation
       attached_documents: "Documents attachés :"
@@ -447,8 +449,7 @@ fr:
     new:
       title: "Ajouter un matériel"
     edit:
-      page_title: "%{modele} %{name} - Edition"
-      title: "Matériel : %{name}"
+      title: "Modifier le matériel"
       delete_confirmation: Toutes les données concernant ce matériel seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?
     duplicate:
       title: Dupliquer le matériel %{server_name}

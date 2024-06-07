@@ -1,4 +1,4 @@
-<fieldset class="d-flex mb-4 align-items-center">
+<fieldset class="nested-form-wrapper d-flex mb-4 align-items-center" data-new-record="<%= f.object.new_record? %>">
   <%- if f.object.document.present? %>
     <span class="flex-grow-1"><%= f.object.document.metadata["filename"]%></span>
   <%- else %>
@@ -9,6 +9,8 @@
   <%- end %>
   <span>
     <%= f.hidden_field :_destroy %>
-    <%= link_to t("action.delete"), "#", class: "remove_fields btn btn-danger btn-sm ms-4" %>
+    <button type="button" data-action="nested-form#remove" class="btn btn-danger btn-sm ms-4">
+      <span class="bi bi-trash"></span>
+    </button>
   </span>
 </fieldset>

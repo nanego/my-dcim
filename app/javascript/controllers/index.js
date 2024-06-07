@@ -10,5 +10,7 @@ eagerLoadControllersFrom("controllers", application)
 // import { lazyLoadControllersFrom } from "@hotwired/stimulus-loading"
 // lazyLoadControllersFrom("controllers", application)
 
+// Libraries
 import RevealController from "@stimulus-components/reveal"
+
 application.register("reveal", RevealController)

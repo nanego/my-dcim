@@ -20,11 +20,11 @@
               <% islets.each do |islet| %>
                 <li role="presentation">
                   <% if islets.size == 1 %>
-                    <a href="#<%= room.id %>-" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': ''})" aria-controls="room-<%= room %>" role="tab" data-toggle="tab">
+                    <a href="#<%= room.id %>-" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': ''})" aria-controls="room-<%= room %>" role="tab" data-bs-toggle="tab">
                       <%= room.name %>
                     </a>
                   <% else %>
-                    <a href="#<%= room.id %>-<%= islet %>" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': '<%= islet.name %>'})" aria-controls="islet-<%= islet %>" role="tab" data-toggle="tab">
+                    <a href="#<%= room.id %>-<%= islet %>" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': '<%= islet.name %>'})" aria-controls="islet-<%= islet %>" role="tab" data-bs-toggle="tab">
                       <%= room.name %> Ilot <%= islet.name %>
                     </a>
                   <% end %>
@@ -197,7 +197,7 @@ function loadFrame(frame_id, bay_id, frame_title) {
   $('.couple .overviewed_frame[data-frame-id='+frame_id+']').addClass('selected')
 
   const searchParams = new URLSearchParams(window.location.search)
-  const view = 'front'
+  let view = 'front'
   
   if (searchParams.has('view')) {
       view = searchParams.get('view')

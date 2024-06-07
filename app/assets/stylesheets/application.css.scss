@@ -87,7 +87,6 @@ a.hide-filters, a.show-filters {
 }
 
 .frame .server {
-  color: #777;
   page-break-inside: avoid;
 
   &.colorized_background {
@@ -310,13 +309,6 @@ table.card_layout {
   margin-bottom: 5px;
 }
 
-.detailed_server {
-  border: 1px solid #999999;
-  padding: 10px;
-  background-color: white;
-  margin-bottom: 10px;
-}
-
 .blank-card, .blank_card {
   // border:1px solid #999999;
   padding: 10px;
@@ -500,6 +492,10 @@ dt {
 }
 dd {
   font-weight: 700;
+
+  &.col-6 {
+    margin-bottom: 0;
+  }
 }
 
 /* Page about */
@@ -543,6 +539,19 @@ body {
     main.mydcim-main {
       height: 100%;
       overflow-y: auto;
+    }
+
+    .colorized_background {
+      .server_name {
+        a {
+          color: var(--bs-black) !important;
+
+          &:hover {
+            opacity: .7;
+            text-decoration-color: var(--bs-black) !important;
+          }
+        }
+      }
     }
   }
 
