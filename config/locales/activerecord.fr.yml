@@ -194,8 +194,8 @@ fr:
         max_aligned_ports: Nombre max de ports alignés
         first_position: Numéro du premier port
       color:
-        type: Type
-        id: Id
+        parent_type: Type
+        parent_id: Id
         code: Code
       port_type:
         name: Nom
