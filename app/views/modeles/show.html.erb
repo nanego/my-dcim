@@ -21,7 +21,7 @@
     <dl class="bg-body-tertiary p-4 rounded border">
       <% %i[name category architecture u manufacturer nb_elts color network_types].each do |attribute_name| %>
         <dt><%= Modele.human_attribute_name(attribute_name) %> :</dt>
-        <dd><%= @modele.public_send(attribute_name) %>
+        <dd><%= @modele.public_send(attribute_name) %></dd>
       <% end %>
     </dl>
 
