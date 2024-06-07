@@ -12,11 +12,11 @@
     <% end %>
   </div>
 
-  <div id="map" style="height: 450px;margin-bottom: 16px;"></div>
+  <div id="map" class="mb-4" style="height: 450px;"></div>
 
   <%= render List::DataTableComponent.new(@sites) do |table| %>
     <% table.with_column(Site.human_attribute_name(:name), sort_by: :name) do |site| %>
-      <b><%= link_to site.name, site_path(site) %></b>
+      <%= link_to site.name, site_path(site), class: "fw-bold" %>
     <% end %>
 
     <% table.with_column(Site.human_attribute_name(:position), sort_by: :position) do |site| %>
@@ -35,7 +35,7 @@
           <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
           <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
-        <%= link_to site, method: :delete, data: { confirm: t(".delete_confirmation") }, class: 'btn btn-danger' do %>
+        <%= link_to site, method: :delete, data: { confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
           <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
           <span class="visually-hidden"><%= t("action.delete") %></span>
         <% end %>

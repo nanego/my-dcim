@@ -41,6 +41,9 @@ fr:
       changelog_entry: Changelog
       cable: Câble
       connection: Connexion
+      memory_component:
+        one: Composant mémoire
+        other: Composants mémoire
 
     attributes:
       room:
@@ -205,6 +208,7 @@ fr:
       modele:
         name: Nom
         category_id: Catégorie
+        category: Catégorie
         architecture: Architecture
         architecture_id: Architecture
         manufacturer: Constructeur
@@ -228,6 +232,7 @@ fr:
         label: Libellé
         orientation: Orientation
         first_port_name: Numéro du premier port
+        first_port_name_shrt: N° 1e port
         twin_card: Carte jumelle
       user:
         id: Identifiant
@@ -239,8 +244,8 @@ fr:
         authentication_token: Clé API
         locale: Langue
         theme: Thème
-        visualization_bay_default_background_color: Couleur par défault des bay
-        visualization_bay_default_orientation: Orientation par défaut des bay
+        visualization_bay_default_background_color: Couleur par défault des baies
+        visualization_bay_default_orientation: Orientation par défaut des baies
       user/role:
         user: Utilisateur
         admin: Administrateur

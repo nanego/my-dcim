@@ -25,6 +25,10 @@
       <%= link_to t("users.my_account.edit"), edit_user_registration_path, class: "dropdown-item" %>
     </li>
     <li role="menuitem">
+      <%= link_to t("users.my_account.settings"), edit_users_settings_path, class: "dropdown-item" %>
+    </li>
+    <li role="menuitem"><hr class="dropdown-divider"></li>
+    <li role="menuitem">
       <%= link_to t("users.logout"), destroy_user_session_path, method: :delete, class: "dropdown-item link-danger" %>
     </li>
   </ul>

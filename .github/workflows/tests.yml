@@ -45,14 +45,6 @@ jobs:
           rubygems: "latest"
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
-      - name: Set up Bundler
-        run: |
-          gem install bundler -v '~> 1.0'
-
-      - name: Install Ruby dependencies
-        run: |
-          bundle install --jobs=4 --retry=3 --without development
-
       - name: Set up Database
         env:
           RAILS_ENV: test

@@ -1,19 +1,30 @@
-<div class="page-header">
-  <%= link_to disk_types_path, class: 'btn btn-outline-secondary' do %>
-    <span class="bi bi-list-ul"></span>
-    <%= t("action.back") %>
-  <% end %>
-  <%= link_to edit_disk_type_path(@disk_type), class: 'btn btn-primary' do %>
-    <span class="bi bi-pencil"></span>
-    <%= t("action.edit") %>
-  <% end %>
-  <h1>
-    <%= t(".title") %>
-  </h1>
+<% provide(:title, "#{DiskType.model_name.human.pluralize} | #{@disk_type}") %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+  DiskType.model_name.human.pluralize => disk_types_path,
+  @disk_type => ""
+} %>
+
+<div class="row my-5">
+  <div class="col-11 col-md-10 col-lg-8 mx-auto">
+    <div class="d-flex justify-content-between pb-5">
+      <%= link_to disk_types_path, class: "btn btn-outline-secondary align-self-center d-inline-flex",
+                              title: t("action.back") do %>
+        <span class="bi bi-chevron-left"></span>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
+      <% end %>
+      <h1 class="text-center px-4"><%= t(".title") %></h1>
+      <%= link_to edit_disk_type_path(@disk_type), class: "btn btn-primary align-self-center d-inline-flex",
+                                          title: t("action.edit") do %>
+        <span class="bi bi-pencil"></span>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.edit") %></span>
+      <% end %>
+    </div>
+
+    <dl class="bg-body-tertiary p-4 rounded border">
+      <% %i[quantity unit technology].each do |attribute_name| %>
+        <dt><%= DiskType.human_attribute_name(attribute_name) %> :</dt>
+        <dd><%= @disk_type.public_send(attribute_name) %>
+      <% end %>
+    </dl>
+  </div>
 </div>
-
-<dl class="dl-horizontal">
-
-  <dd><%= @disk_type %></dd>
-
-</dl>
