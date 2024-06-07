@@ -23,7 +23,7 @@
     <dl class="bg-body-tertiary p-4 rounded border">
       <% %i[name description documentation_url].each do |attribute_name| %>
         <dt><%= Manufacturer.human_attribute_name(attribute_name) %> :</dt>
-        <dd><%= @manufacturer.public_send(attribute_name) %>
+        <dd><%= @manufacturer.public_send(attribute_name) %></dd>
       <% end %>
     </dl>
   </div>
