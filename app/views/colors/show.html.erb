@@ -1,0 +1,31 @@
+<% provide(:title, "#{Color.model_name.human.pluralize} | #{@color.code}") %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+  Color.model_name.human.pluralize => colors_path,
+  @color.code => ""
+} %>
+
+<div class="row my-5">
+  <div class="col-11 col-md-10 col-lg-8 mx-auto">
+    <div class="d-flex justify-content-between pb-5">
+      <%= link_to colors_path, class: "btn btn-outline-secondary align-self-center d-inline-flex",
+                              title: t("action.back") do %>
+        <span class="bi bi-chevron-left"></span>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
+      <% end %>
+      <h1 class="text-center px-4"><%= t(".title") %></h1>
+      <%= link_to edit_color_path(@color), class: "btn btn-primary align-self-center d-inline-flex",
+                                          title: t("action.edit") do %>
+        <span class="bi bi-pencil"></span>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.edit") %></span>
+      <% end %>
+    </div>
+
+    <dl class="bg-body-tertiary p-4 rounded border">
+      <% %i[parent_type parent_id code].each do |attribute_name| %>
+        <dt><%= Color.human_attribute_name(attribute_name) %> :</dt>
+        <dd><%= @color.public_send(attribute_name) %></dd>
+      <% end %>
+      <input type="color" class="form-control form-control-color" id="" value="<%= @color.code %>" disabled>
+    </dl>
+  </div>
+</div>
