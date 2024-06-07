@@ -1,27 +1,24 @@
-<%= form_for(@color, html: { class: "form-horizontal", role: "form" }) do |f| %>
-  <%= render FormErrorsComponent.new(@color) %>
+<%= render FormErrorsComponent.new(@color) %>
 
-  <div class="form-group">
-    <%= f.label :type, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
+<%= form_for(@color, html: { class: "bg-body-tertiary p-4 rounded border", role: "form" }) do |f| %>
+  <div class="row g-3">
+    <fieldset class="col-12">
+      <%= f.label :parent_type, class: "form-label" %>
       <%= f.text_field :parent_type, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :id, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :parent_id, class: "forml-label" %>
       <%= f.text_field :parent_id, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :code, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :code, class: "forml-label" %>
       <%= f.text_field :code, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit class: "btn btn-primary" %>
+    </fieldset>
+
+    <div class="col-12 mt-4">
+      <%= f.submit class: "btn btn-primary w-100" %>
     </div>
   </div>
 <% end %>
