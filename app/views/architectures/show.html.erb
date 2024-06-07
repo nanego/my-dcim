@@ -23,7 +23,7 @@
     <dl class="bg-body-tertiary p-4 rounded border">
       <% %i[name description].each do |attribute_name| %>
         <dt><%= Architecture.human_attribute_name(attribute_name) %> :</dt>
-        <dd><%= @architecture.public_send(attribute_name) %>
+        <dd><%= @architecture.public_send(attribute_name) %></dd>
       <% end %>
     </dl>
   </div>
