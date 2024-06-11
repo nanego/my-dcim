@@ -582,6 +582,26 @@ fr:
       informations: Informations
       changes: Changements
       metadatas: Metadonnées
+  air_conditioners:
+    index:
+      new: Ajouter une climatisation
+      title: Climatisations
+      delete_confirmation: Cette climatisation sera supprimée. Voulez-vous continuer ?
+    show:
+      title: Voir la climatisation
+    create:
+      flashes:
+        created: La climatisation a bien été ajoutée.
+    new:
+      title: Ajouter une climatisation
+    edit:
+      title: Modifier la climatisation
+    update:
+      flashes:
+        updated: La climatisation a bien été modifiée.
+    destroy:
+      flashes:
+        destroyed: La climatisation a bien été supprimée.
   bays:
     index:
       new: Ajouter une baie ou un couple de baies

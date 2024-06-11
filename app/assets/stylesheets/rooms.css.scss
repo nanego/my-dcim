@@ -40,6 +40,17 @@
       opacity: 0.3 !important;
     }
   }
+
+  .air-conditioner {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background-color: #F5F5F5;
+    border: 1px solid #e3e3e3;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    margin: 0 0 10px 10px;
+  }
 }
 
 .overview-menu {

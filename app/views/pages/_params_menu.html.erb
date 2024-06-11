@@ -1,4 +1,4 @@
-<p>
+<div class="inventories_menu">
   <div class="list-group">
     <a href="#" class="list-group-item disabled">
       <%= t(".location.title") %>
@@ -13,6 +13,7 @@
   <div class="list-group">
     <a href="#" class="list-group-item disabled">Matériel</a>
     <a href="<%= servers_path %>" class="list-group-item <%= controller.controller_name == "servers" ? "active" : "" %>">Matériels</a>
+    <%= link_to AirConditioner.model_name.human, air_conditioners_path, class: "list-group-item #{ "active" if controller.controller_name == "air_conditioners" }" %>
   </div>
 
   <div class="list-group">
@@ -55,4 +56,4 @@
     <a href="<%= connections_path %>" class="list-group-item <%= controller.controller_name == "connections" ? "active" : "" %>"><%= Connection.model_name.human.pluralize %></a>
     <a href="<%= cables_path %>" class="list-group-item <%= controller.controller_name == "cables" ? "active" : "" %>"><%= Cable.model_name.human.pluralize %></a>
   </div>
-</p>
+</div>
