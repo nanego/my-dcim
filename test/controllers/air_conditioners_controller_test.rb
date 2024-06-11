@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class AirConditionersControllerTest < ActionDispatch::IntegrationTest
@@ -23,8 +25,7 @@ class AirConditionersControllerTest < ActionDispatch::IntegrationTest
                                                               last_service: @air_conditioner.last_service,
                                                               status: "on",
                                                               air_conditioner_model_id: @air_conditioner.air_conditioner_model_id,
-                                                              name: @air_conditioner.name,
-      } }
+                                                              name: @air_conditioner.name } }
     end
 
     assert_redirected_to air_conditioners_url
@@ -46,8 +47,7 @@ class AirConditionersControllerTest < ActionDispatch::IntegrationTest
                                                                               last_service: @air_conditioner.last_service,
                                                                               position: @air_conditioner.position,
                                                                               status: "on",
-                                                                              air_conditioner_model: @air_conditioner.air_conditioner_model
-    } }
+                                                                              air_conditioner_model: @air_conditioner.air_conditioner_model } }
     assert_redirected_to air_conditioners_url
   end
 

@@ -1,27 +1,27 @@
+# frozen_string_literal: true
+
 class AirConditionersController < ApplicationController
-  before_action :set_air_conditioner, only: %i[ show edit update destroy ]
+  before_action :set_air_conditioner, only: %i[show edit update destroy]
 
   def index
     @filter = Filter.new(AirConditioner.joins(:room, :islet).order('rooms.position, islets.name, air_conditioners.name'), params)
     @air_conditioners = @filter.results
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @air_conditioner = AirConditioner.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @air_conditioner = AirConditioner.new(air_conditioner_params)
 
     respond_to do |format|
       if @air_conditioner.save
-        format.html { redirect_to air_conditioners_path, notice: t(".flashes.created")  }
+        format.html { redirect_to air_conditioners_path, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @air_conditioner }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -33,7 +33,7 @@ class AirConditionersController < ApplicationController
   def update
     respond_to do |format|
       if @air_conditioner.update(air_conditioner_params)
-        format.html { redirect_to air_conditioners_path, notice: t(".flashes.updated")  }
+        format.html { redirect_to air_conditioners_path, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @air_conditioner }
       else
         format.html { render :edit, status: :unprocessable_entity }
