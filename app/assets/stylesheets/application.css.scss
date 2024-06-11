@@ -657,6 +657,13 @@ body {
     margin-top: calc(1rem + var(--navbar-height));
     margin-right: 1rem;
   }
+
+  /* TODO: to remove if a MessageComponent is created */
+  &-devise-layout {
+    .mydcim-messages {
+      margin-top: 1rem;
+    }
+  }
 }
 
 .inventories_menu {
