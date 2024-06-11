@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateAirConditionerModels < ActiveRecord::Migration[7.1]
   def change
     create_table :air_conditioner_models do |t|

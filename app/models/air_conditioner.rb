@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AirConditioner < ApplicationRecord
   has_changelog
 
@@ -10,14 +12,10 @@ class AirConditioner < ApplicationRecord
   enum status: { on: 'on', off: 'off' }
   enum position: { left: 'left', right: 'right' }
 
-  validates :status, inclusion: { in: %w(on off),
-                                  message: "%{value} is not a valid status" }
-
-  validates :position, inclusion: { in: %w(left right),
-                                  message: "%{value} is not a valid position" }
+  validates :status, inclusion: { in: %w[on off] }
+  validates :position, inclusion: { in: %w[left right] }
 
   def to_s
     name
   end
-
 end
