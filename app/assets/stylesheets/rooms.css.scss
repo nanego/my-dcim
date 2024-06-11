@@ -57,9 +57,9 @@
     }
 
     &.off {
-      background-color: #fca2a2;
+      border: 2px solid #ff0000;
       &:hover, &:focus {
-        background-color: #f68888;
+        background-color: #ffc2c2;
       }
     }
   }
