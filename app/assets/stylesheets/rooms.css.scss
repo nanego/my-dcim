@@ -51,6 +51,17 @@
     text-orientation: upright;
     margin: 0 0 10px 10px;
     min-width: 24px;
+    &:hover, &:focus {
+      text-decoration: none;
+      background-color: #FFDD99;
+    }
+
+    &.off {
+      background-color: #fca2a2;
+      &:hover, &:focus {
+        background-color: #f68888;
+      }
+    }
   }
 }
 

@@ -60,9 +60,8 @@
                       grid-row: <%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;">
 
                       <% if air_conditioner&.position == AirConditioner.positions[:left] %>
-                        <div class="air-conditioner">
-                          <%= link_to air_conditioner.name, edit_air_conditioner_path(air_conditioner) %>
-                        </div>
+                        <%= link_to air_conditioner.name, edit_air_conditioner_path(air_conditioner),
+                                    class: "air-conditioner #{air_conditioner.status}" %>
                       <% end %>
 
                       <% bay.frames.sorted.each_with_index do |frame, index| %>
@@ -108,9 +107,8 @@
                       <% end %>
 
                       <% if air_conditioner&.position == AirConditioner.positions[:right] %>
-                        <div class="air-conditioner">
-                          <%= link_to air_conditioner.name, edit_air_conditioner_path(air_conditioner) %>
-                        </div>
+                        <%= link_to air_conditioner.name, edit_air_conditioner_path(air_conditioner),
+                                    class: "air-conditioner #{air_conditioner.status}" %>
                       <% end %>
 
                     </div>
