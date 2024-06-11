@@ -1,0 +1,29 @@
+<div class="page-header">
+  <%= link_to air_conditioners_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Retour
+  <% end %>
+  <%= link_to edit_air_conditioner_path(@air_conditioner), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1>Clim <%= @air_conditioner.name %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Name:</dt>
+  <dd><%= @air_conditioner.name %></dd>
+
+  <dt>Status:</dt>
+  <dd><%= @air_conditioner.status %></dd>
+
+  <dt>Model:</dt>
+  <dd><%= @air_conditioner.air_conditioner_model %></dd>
+
+  <dt>Last service:</dt>
+  <dd><%= @air_conditioner.last_service %></dd>
+
+  <dt>Bay:</dt>
+  <dd><%= @air_conditioner.bay.detailed_name %></dd>
+
+</dl>

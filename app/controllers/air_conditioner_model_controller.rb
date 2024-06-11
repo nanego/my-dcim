@@ -1,0 +1,2 @@
+class AirConditionerModelController < ApplicationController
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_02_093850) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_10_123205) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,6 +56,27 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_02_093850) do
     t.index ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type"
     t.index ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type"
     t.index ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type"
+  end
+
+  create_table "air_conditioner_models", force: :cascade do |t|
+    t.string "name"
+    t.bigint "manufacturer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["manufacturer_id"], name: "index_air_conditioner_models_on_manufacturer_id"
+  end
+
+  create_table "air_conditioners", force: :cascade do |t|
+    t.string "name"
+    t.string "status"
+    t.date "last_service"
+    t.bigint "air_conditioner_model_id", null: false
+    t.bigint "bay_id", null: false
+    t.string "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["air_conditioner_model_id"], name: "index_air_conditioners_on_air_conditioner_model_id"
+    t.index ["bay_id"], name: "index_air_conditioners_on_bay_id"
   end
 
   create_table "architectures", id: :serial, force: :cascade do |t|
@@ -326,8 +347,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_02_093850) do
     t.integer "manufacturer_id"
     t.string "color"
     t.string "slug"
-    t.string "network_types", default: [], array: true
     t.integer "servers_count", default: 0, null: false
+    t.string "network_types", default: [], array: true
     t.index ["architecture_id"], name: "index_modeles_on_architecture_id"
     t.index ["category_id"], name: "index_modeles_on_category_id"
     t.index ["manufacturer_id"], name: "index_modeles_on_manufacturer_id"
@@ -510,6 +531,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_02_093850) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "air_conditioner_models", "manufacturers"
+  add_foreign_key "air_conditioners", "air_conditioner_models"
+  add_foreign_key "air_conditioners", "bays"
   add_foreign_key "bays", "bay_types"
   add_foreign_key "bays", "islets"
   add_foreign_key "card_types", "port_types"

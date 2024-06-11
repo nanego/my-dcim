@@ -30,6 +30,8 @@ class RoomsController < ApplicationController # rubocop:disable Metrics/ClassLen
       end
     end
 
+    @air_conditioners = AirConditioner.all
+
     respond_to do |format|
       format.html
       format.json

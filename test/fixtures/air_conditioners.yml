@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: off
+  last_service: 2024-06-10
+  bay_id: 1
+  air_conditioner_model_id: 1
+  position: left
+  name: XYUI78
+
+two:
+  status: off
+  last_service: 2024-06-10
+  bay_id: 1
+  air_conditioner_model_id: 2
+  position: left
+  name: XYUI854

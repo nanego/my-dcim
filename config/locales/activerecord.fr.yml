@@ -12,6 +12,8 @@ fr:
         other: Châssis
       modele: Modèle
       category: Catégorie
+      air_conditioner: Climatisation
+      air_conditioner_model: Modèle de climatisation
       architecture: Architecture
       manufacturer: Constructeur
       domaine: Domaine
@@ -106,6 +108,17 @@ fr:
           zero: 0 salle
           one: 1 salle
           other: "%{count} salles"
+      air_conditioner:
+        name: Nom
+        room: Salle
+        position: Position
+        power: Puissance
+        status: État
+        bay: Baie la plus proche
+        last_service: Dernière maintenance
+        air_conditioner_model: Modèle
+      air_conditioner_model:
+        name: Nom
       architecture:
         name: Nom
         usage: Usage
