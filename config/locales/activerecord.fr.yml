@@ -316,11 +316,18 @@ fr:
         cable: Câble
         port: Port
         paired_connection: Connexion paire
+        from_port_id: Port de départ
+        to_port_id: Port de destination
       cable:
         name: Nom
         color: Couleur
-        special_case: Cas spécial
+        special_case: Backbone réseau
         comments: Commentaires
+      port:
+        cablename: Nom du câble
+        color: Couleur
+        vlans: Vlans
+
 
     errors:
       models:
