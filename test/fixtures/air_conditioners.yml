@@ -7,6 +7,9 @@ one:
   air_conditioner_model_id: 1
   position: left
   name: XYUI78
+  start: 5
+  range: 10
+  setpoint: 35
 
 two:
   status: off
@@ -15,3 +18,6 @@ two:
   air_conditioner_model_id: 2
   position: left
   name: XYUI854
+  start: 5
+  range: 10
+  setpoint: 35

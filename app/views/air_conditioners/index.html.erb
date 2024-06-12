@@ -43,7 +43,7 @@
         <% end %>
 
         <% table.with_column(AirConditioner.human_attribute_name(:name), sort_by: :name) do |air_conditioner| %>
-          <%= air_conditioner.name %>
+          <%= link_to air_conditioner.name, edit_air_conditioner_path(air_conditioner) %>
         <% end %>
 
         <% table.with_column(style: "min-width: 160px; width: 160px") do |air_conditioner| %>

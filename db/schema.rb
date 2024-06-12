@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_10_123205) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_12_161727) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -75,6 +75,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_10_123205) do
     t.string "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "start"
+    t.integer "range"
+    t.integer "setpoint"
     t.index ["air_conditioner_model_id"], name: "index_air_conditioners_on_air_conditioner_model_id"
     t.index ["bay_id"], name: "index_air_conditioners_on_bay_id"
   end

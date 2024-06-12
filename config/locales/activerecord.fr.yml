@@ -117,6 +117,9 @@ fr:
         bay: Baie la plus proche
         last_service: Dernière maintenance
         air_conditioner_model: Modèle
+        start: Start (en °C)
+        range: Range (en °C)
+        setpoint: Consigne (en °C)
       air_conditioner_model:
         name: Nom
       architecture:
