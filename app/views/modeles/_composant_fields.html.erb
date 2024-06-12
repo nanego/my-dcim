@@ -5,38 +5,37 @@
      options = TypeComposant.all.map { |c| [c.name, c.id] }
    end %>
 
-<li class="list-group-item row composant" data-new-record="<%= f.object.new_record? %>">
-  <fieldset>
-    <div class="col-xs-3 float-end">
-      <%= f.hidden_field :_destroy %>
+<li class="composant list-group-item d-flex align-items-center border-top-0"
+    data-new-record="<%= f.object.new_record? %>">
+  <%= f.hidden_field :position %>
 
-      <button type="button" data-action="nested-form#remove" class="btn btn-danger btn-sm ms-4">
-        <span class="bi bi-trash" title="<%= t("action.delete") %>"></span>
-      </button>
-    </div>
-
-    <%= f.hidden_field :position %>
-
-    <% if options.size == 1 %>
-      <%= f.hidden_field :type_composant_id, value: options.first[1].to_s %>
-    <% else %>
-      <div class="col-xs-9 float-start input-group">
-        <% if f.object.enclosure&.persisted? %>
-          <span class="input-group-addon">
-            <span class="bi bi-arrows-vertical"></span>
-          </span>
-        <% end %>
-        <%= f.select :type_composant_id, options, {}, { class: 'form-control' } %>
-      </div>
-    <% end %>
-
-    <div class="col-xs-9 float-start input-group">
+  <!-- TODO: to removed? -->
+  <% if options.size == 1 %>
+    <%= f.hidden_field :type_composant_id, value: options.first[1].to_s %>
+  <% else %>
+    <span class="input-group input-group-sm">
       <% if f.object.enclosure&.persisted? %>
-        <span class="input-group-addon">
+        <span class="input-group-text">
           <span class="bi bi-arrows-vertical"></span>
         </span>
       <% end %>
-      <%= f.text_field :name, { class: 'form-control', placeholder: true } %>
-    </div>
-  </fieldset>
+
+      <%= f.select :type_composant_id, options, {}, { class: "form-select form-select-sm" } %>
+    </span>
+  <% end %>
+
+  <span class="input-group input-group-sm">
+    <% if f.object.enclosure&.persisted? %>
+      <span class="input-group-text">
+        <span class="bi bi-arrows-vertical"></span>
+      </span>
+    <% end %>
+
+    <%= f.text_field :name, { class: "form-control", placeholder: true } %>
+
+    <%= f.hidden_field :_destroy %>
+    <button type="button" data-action="nested-form#remove" class="btn btn-danger" id="input-group-delete-btn">
+      <span class="bi bi-trash" title="<%= t("action.delete") %>"></span>
+    </button>
+  </span>
 </li>
