@@ -1,7 +1,7 @@
 <div class="<%= class_names("islet tab-pane",
-                            "in active": network == "gbe" && (islet == @islet || (@islet.blank? && @room == room))) %>"
+                            "active": network == "gbe" && (islet == @islet || (@islet.blank? && @room == room))) %>"
      role="tabpanel"
-     id="<%= room.id %>-<%= islet %>-<%= network %>">
+     id="tab-<%= room.id %>-<%= islet %>-<%= network %>">
   <% if room.id == 4 || room.id == 3 %>
     <% second_room_id = room.id == 4 ? 3 : 4 %>
     <div class="hubs">
