@@ -402,16 +402,34 @@ table.card_layout {
   .back_server {
     background-color: white;
     // max-width:600px;
+    overflow-x: scroll;
+
+    div.ps-3 {
+      padding-start: 0 !important;
+      margin-right: auto;
+      padding-right: 1rem;
+    }
+
     .port_container {
       margin-left: -2px;
       display: inline-block;
     }
+
     .selected {
       padding: 2px 1px;
       background-color: #ee3b3b;
     }
+
     .draw_connections_link {
       display: none;
+    }
+  }
+
+  a {
+    text-decoration: none;
+
+    &:focus, &:hover {
+      text-decoration: underline;
     }
   }
 }
