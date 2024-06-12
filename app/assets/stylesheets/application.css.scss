@@ -701,7 +701,10 @@ body {
     }
   }
 
-
+  /* Tom-Select fix for dark mode */
+  .ts-dropdown, .ts-control, .ts-control input {
+    color: var(--bs-body-color);
+  }
 }
 
 .inventories_menu {
