@@ -208,7 +208,7 @@ function loadFrame(frame_id, bay_id, frame_title) {
 
   const searchParams = new URLSearchParams(window.location.search)
   let view = 'front'
-  
+
   if (searchParams.has('view')) {
       view = searchParams.get('view')
   } else {
