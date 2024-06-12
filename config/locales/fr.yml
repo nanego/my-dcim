@@ -393,9 +393,6 @@ fr:
     form:
       network_type: Réseau %{type}
       edit_confirmation: Modifier ce matériel
-    modal_add_element_in_frame:
-      title: Ajouter un élément
-      slots: Slots
     room:
       title: Salle %{room} - Ilot %{islet}
     slot_fields:
