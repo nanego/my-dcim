@@ -424,6 +424,8 @@ fr:
     form:
       network_type: Réseau %{type}
       edit_confirmation: Modifier ce matériel
+      add_card: Ajouter une carte
+      add_document: Ajouter une pièce jointe
     room:
       title: Salle %{room} - Ilot %{islet}
     slot_fields:
