@@ -8,7 +8,7 @@
   <div class="card mb-3">
     <div class="card-body d-flex">
       <ul class="list-unstyled menu-rooms rounded-start-1 bg-body-secondary p-3 m-0 border-end z-3">
-        <div class="btn-group btn-toggle d-flex border-bottom border-secondary mb-3 pb-3 rounded-0">
+        <div class="btn-group btn-toggle d-flex border-bottom border-secondary mb-3 pb-3 rounded-0" role="tablist">
           <% @network_types.each do |network_type| %>
             <button class="<%= class_names("btn",
                                            "btn-primary active": (network_type == "gbe"),
@@ -18,32 +18,35 @@
             </button>
           <% end %>
         </div>
+
         <% @sites.each do |site| %>
           <li><%= site %></li>
-          <ul class="mb-2">
+          <ul class="mb-2" role="tablist">
             <% rooms = site.rooms.sorted.distinct %>
             <% rooms.each do |room| %>
               <% islets = room.islets.sorted.not_empty.has_name.distinct %>
               <% islets.each do |islet| %>
                 <li role="presentation" class="<%= class_names(active: islet == @islet) %>">
                   <% if islets.size <= 1 %>
-                    <a href="#<%= room.id %>-<%= islet %>-gbe"
+                    <a href="#tab-<%= room.id %>-<%= islet %>-gbe"
+                       data-bs-target="#tab-<%= room.id %>-<%= islet %>-gbe"
                        onclick="rewriteURL('/rooms/infrastructure', {'room': '<%= room.slug %>', 'islet': ''})"
                        aria-controls="room-<%= room %>"
                        role="tab"
                        class="tab"
-                       data-toggle="tab"
+                       data-bs-toggle="tab"
                        data-room-id="<%= room.id %>"
                        data-islet="<%= islet.name %>">
                       <%= room.name %>
                     </a>
                   <% else %>
-                    <a href="#<%= room.id %>-<%= islet %>-gbe"
+                    <a href="#tab-<%= room.id %>-<%= islet %>-gbe"
+                       data-bs-target="#tab-<%= room.id %>-<%= islet %>-gbe"
                        onclick="rewriteURL('/rooms/infrastructure', {'room': '<%= room.slug %>', 'islet': '<%= islet.name %>'})"
                        aria-controls="islet-<%= islet %>"
                        role="tab"
                        class="tab"
-                       data-toggle="tab"
+                       data-bs-toggle="tab"
                        data-room-id="<%= room.id %>"
                        data-islet="<%= islet.name %>">
                       <%= room.name %> Ilot <%= islet.name %>
@@ -87,24 +90,24 @@ var lines = []
 var current_connections = []
 
 $(document).ready(function () {
-    drawCurrentLines()
-    resetLinesPositionOnScroll()
+  drawCurrentLines()
+  resetLinesPositionOnScroll()
 })
 
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-    current_room_id = e.target.dataset['roomId']
-    current_islet = e.target.dataset['islet']
+$('a[data-bs-toggle="tab"]').on('show.bs.tab', function (e) {
+  current_room_id = e.target.dataset['roomId']
+  current_islet = e.target.dataset['islet']
 
-    resetLines()
+  resetLines()
 })
 $('body').on('click', 'input:checkbox[name=stack]', function (e) {
-    resetLines()
+  resetLines()
 })
 
 function disabled_colors() {
-    return $('input:checkbox[name=stack]:not(:checked)').map(function () {
-        return this.value;
-    }).get()
+  return $('input:checkbox[name=stack]:not(:checked)').map(function () {
+    return this.value;
+  }).get()
 }
 
 function resetLines() {
@@ -260,13 +263,16 @@ $('.btn-toggle').click(function (e) {
 
   // Update all tabs links with newly selected network AND show this network
   let current_tab = document.querySelector('.show_room li.active a.tab')
-  let tab = new bootstrap.Tab(current_tab)
   $('.show_room li a.tab').each(function () {
-    $(this).prop("href", $(this).attr('href').slice(0, -(previous_network.length + 1)) + "-" + btn_group.find('.btn.active').data("network"))
+    let new_target = $(this).attr('href').slice(0, -(previous_network.length + 1)) + "-" + btn_group.find('.btn.active').data("network")
+    $(this).prop("href", new_target)
+    $(this).get(0).dataset.bsTarget = new_target
     $(this).parent('li').removeClass('active')
   })
-
   $(current_tab).parent('li').addClass('active')
+
+  current_tab = document.querySelector('.show_room li.active a.tab')
+  let tab = new bootstrap.Tab(current_tab)
   tab.show()
 })
 
@@ -279,7 +285,14 @@ $('.show_room li a.tab').click(function (e) {
   })
   $(this).parent('li').addClass('active')
 
-  let tab = new bootstrap.Tab(this)
+  let tab = new bootstrap.Tab(e.target)
   tab.show()
 })
+
+$(document).ready(function() {
+  let current_tab = document.querySelector('.show_room li.active a.tab')
+  let tab = new bootstrap.Tab(current_tab)
+
+  tab.show()
+});
 </script>
