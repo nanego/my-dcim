@@ -91,6 +91,14 @@ fr:
   connections:
     index:
       title: Connexions
+    edit:
+      title: Modifier la connexion
+    form:
+      action:
+        show_more_bay: Voir plus de baies
+        show_less_bay: Voir moins de baies
+        delete_confirmation: Confirmez-vous vouloir supprimer la connexion ?
+      delete_title: Supprimer la connexion
   cables:
     index:
       title: Câbles
