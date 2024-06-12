@@ -535,3 +535,14 @@ dd {
 .inventories_menu {
   margin-top: 40px;
 }
+
+form {
+  &.air-conditioner-form {
+    .form-control {
+      width: auto;
+    }
+    select {
+      max-width: 100%;
+    }
+  }
+}
