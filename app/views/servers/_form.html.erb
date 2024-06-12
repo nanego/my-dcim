@@ -87,10 +87,9 @@
     <!-- TODO: update -->
     <% if @server.modele %>
       <% @server.modele.enclosures.each do |enclosure| %>
-        <div class="col-12 mt-4" data-controller="nested-form"
-                                 data-nested-form-wrapper-selector-value=".nested-form-wrapper">
+        <div class="col-12 mt-4" data-controller="nested-form">
           <template data-nested-form-target="template">
-            <%= f.fields_for :cards, f.object.cards.klass.new, child_index: 'NEW_RECORD' do |card_fields| %>
+            <%= f.fields_for :cards, f.object.cards.klass.new, child_index: '__NEW_RECORD__' do |card_fields| %>
               <%= render partial: "card_fields", locals: { f: card_fields, server: @server, enclosure: enclosure } %>
             <% end %>
           </template>
@@ -146,10 +145,9 @@
       <%= f.text_area :comment, class: "form-control" %>
     </fieldset>
 
-    <fieldset class="col-12 mt-4" data-controller="nested-form"
-                                  data-nested-form-wrapper-selector-value=".nested-form-wrapper">
+    <fieldset class="col-12 mt-4" data-controller="nested-form">
       <template data-nested-form-target="template">
-        <%= f.fields_for :documents, f.object.documents.klass.new, child_index: 'NEW_RECORD' do |document_fields| %>
+        <%= f.fields_for :documents, f.object.documents.klass.new, child_index: '__NEW_RECORD__' do |document_fields| %>
           <%= render partial: "document_fields", locals: { f: document_fields } %>
         <% end %>
       </template>

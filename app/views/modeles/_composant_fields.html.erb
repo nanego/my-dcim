@@ -5,11 +5,14 @@
      options = TypeComposant.all.map { |c| [c.name, c.id] }
    end %>
 
-<li class="list-group-item row composant">
+<li class="list-group-item row composant" data-new-record="<%= f.object.new_record? %>">
   <fieldset>
     <div class="col-xs-3 float-end">
       <%= f.hidden_field :_destroy %>
-      <%= link_to "X", '#', class: "remove_fields btn btn-danger float-end" %>
+
+      <button type="button" data-action="nested-form#remove" class="btn btn-danger btn-sm ms-4">
+        <span class="bi bi-trash" title="<%= t("action.delete") %>"></span>
+      </button>
     </div>
 
     <%= f.hidden_field :position %>
