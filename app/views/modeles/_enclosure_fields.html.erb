@@ -1,8 +1,10 @@
-<fieldset class="nested-form-wrapper col-sm-10 col-md-4" data-new-record="<%= f.object.new_record? %>">
+<div class="nested-form-wrapper col-12 col-md-6 col-xxl-4" data-new-record="<%= f.object.new_record? %>">
   <div class="card enclosure-fields">
-    <div class="card-header">
-      <%= f.object.position.present? ? t(".enclosure_position", position: f.object.position) : t(".new_enclosure") %>
-      <span class="float-end">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h6 class="mb-0">
+        <%= f.object.position.present? ? t(".enclosure_position", position: f.object.position) : t(".new_enclosure") %>
+      </h6>
+      <span>
         <%= f.hidden_field :_destroy %>
 
         <button type="button" data-action="nested-form#remove" class="btn btn-danger btn-sm ms-4">
@@ -14,40 +16,43 @@
     <% child_index = "__#{Digest::MD5.hexdigest("Enclosure_composants")}_NEW_RECORD__" %>
     <div data-controller="nested-form" data-nested-form-child-index-name-value="<%= child_index %>">
       <template data-nested-form-target="template">
-        <%= f.fields_for :composants, f.object.composants.slots.klass.new, child_index: child_index do |composant_fields| %>
+        <%= f.fields_for :composants, f.object.composants.slots.klass.new,
+                                      child_index: child_index do |composant_fields| %>
           <%= render partial: "composant_fields", locals: { f: composant_fields, type_composant: "SLOT" } %>
         <% end %>
       </template>
 
-      <ul id="enclosureList_<%= f.object.id %>" class="list-group card-body">
-        <div class="list-group-item filtered">
-          <fieldset>
-            <%= f.label :display, class: "form-label" %> :
-            <%= f.select :display, options_for_select([:vertical, :horizontal, :grid], f.object.display),
-                                  {},
-                                  class: "form-select" %>
-          </fieldset>
-        </div>
-        <div class="list-group-item filtered">
-          <fieldset>
-            <%= f.label :grid_areas, class: "form-label" %>
-            <%= f.text_area :grid_areas, class: "w-100 font-monospace form-control", style: "height:110px;" %>
-          </fieldset>
-        </div>
-        <%= f.fields_for :composants, f.object.composants.slots do |composant_fields| %>
-          <%= render partial: "composant_fields", locals: { f: composant_fields, type_composant: "SLOT" } %>
-        <% end %>
+      <div class="card-body">
+        <ul id="enclosureList_<%= f.object.id %>" class="list-group">
+          <li class="list-group-item filtered">
+            <fieldset>
+              <%= f.label :display, class: "form-label" %> :
+              <%= f.select :display, options_for_select([:vertical, :horizontal, :grid], f.object.display),
+                                     {},
+                                     class: "form-select form-select-sm" %>
+            </fieldset>
+          </li>
+          <li class="list-group-item filtered">
+            <fieldset>
+              <%= f.label :grid_areas, class: "form-label" %>
+              <%= f.text_area :grid_areas, class: "font-monospace form-control", style: "height:110px;" %>
+            </fieldset>
+          </li>
+          <%= f.fields_for :composants, f.object.composants.slots do |composant_fields| %>
+            <%= render partial: "composant_fields", locals: { f: composant_fields, type_composant: "SLOT" } %>
+          <% end %>
 
-        <div data-nested-form-target="target"></div>
-      </ul>
-      <div class="card-footer">
-        <button type="button" class="btn btn-outline-secondary btn-sm" data-action="nested-form#add">
+          <li class="list-group-item" data-nested-form-target="target"></li>
+        </ul>
+      </div>
+      <div class="card-footer d-flex">
+        <button type="button" class="btn btn-outline-success btn-sm mx-auto" data-action="nested-form#add">
           <span class="bi bi-plus-lg" aria-hidden="true"></span> <%= t(".add_slot") %>
         </button>
       </div>
     </div>
   </div>
-</fieldset>
+</div>
 
 <script>
 var display_select = $("#modele_enclosures_attributes_<%= f.object.position.to_i - 1 %>_display")
