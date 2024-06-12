@@ -5,7 +5,7 @@
      options = TypeComposant.all.map { |c| [c.name, c.id] }
    end %>
 
-<li class="composant list-group-item d-flex align-items-center border-top-0"
+<li class="nested-form-wrapper composant list-group-item d-flex align-items-center border-top-0"
     data-new-record="<%= f.object.new_record? %>">
   <%= f.hidden_field :position %>
 
