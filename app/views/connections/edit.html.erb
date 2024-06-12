@@ -1,6 +1,28 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: { t("visualization") => rooms_path,
+<% provide(:title, "Baie #{@frame.name} | #{Connection.model_name.human.pluralize} | #{t("action.edit")}") %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: { t("visualization") => rooms_path,
                                                          @room.name => room_path(@room),
                                                          "Baie #{@frame.name}" => frame_path(@frame),
-                                                         "Modification des connexions" => '' } %>
+                                                         Connection.model_name.human.pluralize => connections_path,
+                                                         t("action.edit") => "" } %>
 
-<%= render 'connections/form' %>
+<div class="row my-5">
+  <div class="col-11 col-lg-10 mx-auto">
+    <div class="d-flex justify-content-between pb-5">
+      <%= link_to connections_path, class: "btn btn-outline-secondary align-self-center d-inline-flex",
+                                    title: t("action.back") do %>
+        <span class="bi bi-chevron-left"></span>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
+      <% end %>
+      <h1 class="px-4 text-center"><%= t(".title") %></h1>
+      <%= link_to cable_path(id: @cable.id, redirect_to_port_id: @from_port.id),
+                  method: :delete,
+                  data: { confirm: t("connections.form.action.delete_confirmation") },
+                  class: "btn btn-danger align-self-center d-inline-flex",
+                  title: t("action.delete") do %>
+        <span class="bi bi-trash"></span>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.delete") %></span>
+      <% end %>
+    </div>
+    <%= render "form" %>
+  </div>
+</div>
