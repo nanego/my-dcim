@@ -60,9 +60,9 @@
                   { class: "form-select", data: { controller: "select" }, multiple: true } %>
     </fieldset>
 
-    <div data-controller="nested-form" data-nested-form-wrapper-selector-value=".nested-form-wrapper">
+    <div data-controller="nested-form">
       <template data-nested-form-target="template">
-        <%= f.fields_for :enclosures, f.object.enclosures.klass.new, child_index: "NEW_RECORD" do |enclosure_fields| %>
+        <%= f.fields_for :enclosures, f.object.enclosures.klass.new, child_index: "__NEW_RECORD__" do |enclosure_fields| %>
           <%= render partial: "enclosure_fields", locals: { f: enclosure_fields } %>
         <% end %>
       </template>

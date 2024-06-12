@@ -10,30 +10,41 @@
         </button>
       </span>
     </div>
-    <ul id="enclosureList_<%= f.object.id %>" class="list-group card-body">
-      <div class="list-group-item filtered">
-        <fieldset>
-          <%= f.label :display, class: "form-label" %> :
-          <%= f.select :display, options_for_select([:vertical, :horizontal, :grid], f.object.display),
-                                 {},
-                                 class: "form-select" %>
-        </fieldset>
+
+    <% child_index = "__#{Digest::MD5.hexdigest("Enclosure_composants")}_NEW_RECORD__" %>
+    <div data-controller="nested-form" data-nested-form-child-index-name-value="<%= child_index %>">
+      <template data-nested-form-target="template">
+        <%= f.fields_for :composants, f.object.composants.slots.klass.new, child_index: child_index do |composant_fields| %>
+          <%= render partial: "composant_fields", locals: { f: composant_fields, type_composant: "SLOT" } %>
+        <% end %>
+      </template>
+
+      <ul id="enclosureList_<%= f.object.id %>" class="list-group card-body">
+        <div class="list-group-item filtered">
+          <fieldset>
+            <%= f.label :display, class: "form-label" %> :
+            <%= f.select :display, options_for_select([:vertical, :horizontal, :grid], f.object.display),
+                                  {},
+                                  class: "form-select" %>
+          </fieldset>
+        </div>
+        <div class="list-group-item filtered">
+          <fieldset>
+            <%= f.label :grid_areas, class: "form-label" %>
+            <%= f.text_area :grid_areas, class: "w-100 font-monospace form-control", style: "height:110px;" %>
+          </fieldset>
+        </div>
+        <%= f.fields_for :composants, f.object.composants.slots do |composant_fields| %>
+          <%= render partial: "composant_fields", locals: { f: composant_fields, type_composant: "SLOT" } %>
+        <% end %>
+
+        <div data-nested-form-target="target"></div>
+      </ul>
+      <div class="card-footer">
+        <button type="button" class="btn btn-outline-secondary btn-sm" data-action="nested-form#add">
+          <span class="bi bi-plus-lg" aria-hidden="true"></span> <%= t(".add_slot") %>
+        </button>
       </div>
-      <div class="list-group-item filtered">
-        <fieldset>
-          <%= f.label :grid_areas, class: "form-label" %>
-          <%= f.text_area :grid_areas, class: "w-100 font-monospace form-control", style: "height:110px;" %>
-        </fieldset>
-      </div>
-      <%= f.fields_for :composants, f.object.composants.slots do |builder| %>
-        <%= render "composant_fields", f: builder, type_composant: "SLOT" %>
-      <% end %>
-    </ul>
-    <div class="card-footer">
-      <%= link_to_add_fields_with_prefilled_data "<span class='bi bi-plus-lg' aria-hidden='true'></span> #{t(".add_slot")}".html_safe,
-                                                 f,
-                                                 :composants,
-                                                 "SLOT" %>
     </div>
   </div>
 </fieldset>
