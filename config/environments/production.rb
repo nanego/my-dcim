@@ -52,10 +52,9 @@ Rails.application.configure do
   # config.force_ssl = true
 
   # Log to STDOUT by default
-  config.logger = ActiveSupport::BroadcastLogger.new(
-    ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new($stdout, formatter: Logger::Formatter.new)),
-    ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new("log/production.log", formatter: Logger::Formatter.new))
-  )
+  config.logger = ActiveSupport::Logger.new("log/production.log")
+    .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
+    .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
 
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
