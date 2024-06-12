@@ -93,21 +93,6 @@ $(document).ready(function() {
     return frame.find('.card-footer .fc').html("Σ FC : " + total_fc);
   };
 
-  // Nested forms see exp http://localhost:3000/servers/YOUR_SERVER_ID/edit
-  $('form').on('click', '.remove_fields', function(event) {
-    $(this).prev('input[type=hidden]').val('1');
-    $(this).closest('fieldset').addClass("d-none");
-    return event.preventDefault();
-  });
-
-  $('form').on('click', '.add_fields', function(event) {
-    var regexp, time;
-    time = new Date().getTime();
-    regexp = new RegExp($(this).data('id'), 'g');
-    $(this).before($(this).data('fields').replace(regexp, time));
-    return event.preventDefault();
-  });
-
   return $('.server').hover((function() {
     return $(this).addClass('hover');
   }), function() {
