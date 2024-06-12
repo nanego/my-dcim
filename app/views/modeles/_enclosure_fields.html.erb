@@ -63,16 +63,18 @@ var toggle_grid_text_area = (function f() {
 
 display_select.change(function () {
     toggle_grid_text_area()
-})
+});
 
-Sortable.create(enclosureList_<%= f.object.id %>, {
-  handle: ".bi-arrows-vertical",
-  animation: 150,
-  filter: ".fitlered",
-  onEnd: function (evt) {
-    evt.to.querySelectorAll("li.composant").forEach((item, index) => {
-      item.querySelector("input[name*='[position]']").value = index + 1
-    });
-  }
+$(document).ready(function() {
+  Sortable.create(enclosureList_<%= f.object.id %>, {
+    handle: ".bi-arrows-vertical",
+    animation: 150,
+    filter: ".fitlered",
+    onEnd: function (evt) {
+      evt.to.querySelectorAll("li.composant").forEach((item, index) => {
+        item.querySelector("input[name*='[position]']").value = index + 1
+      });
+    }
+  });
 });
 </script>
