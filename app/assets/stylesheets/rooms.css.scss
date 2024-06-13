@@ -59,6 +59,9 @@
     &.off {
       border: 2px solid #ff0000;
     }
+    &.degraded {
+      border: 2px solid #ff8800;
+    }
   }
 }
 

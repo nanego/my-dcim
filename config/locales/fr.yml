@@ -600,6 +600,11 @@ fr:
       flashes:
         destroyed: La climatisation a bien été supprimée.
     form:
+      status-on: "Service nominal"
+      status-off: "Hors service"
+      status-degraded: "Service dégradé"
+      left: Gauche
+      right: Droite
       info-start: "Delta-T°C"
       info-range: "Plage limite pour un fonctionnement maximal de l'UR"
       info-setpoint: "Température de consigne maximale"
@@ -608,10 +613,10 @@ fr:
       help-range: "Operate>Composants>Air>Ventilo 1"
       help-setpoint: "Operate>Valeurs>Air>Temperature Consigne"
       help-min-setpoint: "Operate>Valeurs>Air>Temperature Consigne"
-      info-temperatures: "Si Tinterne-Texterne < DTC start,
+      info-temperatures: "Si T<sub>interne</sub>-T<sub>externe</sub> < DTC start,
                           alors ventilation = débit minimal
                           \n\r
-                          Si Tinterne-Texterne > DTC start + DTC range,
+                          Si T<sub>interne</sub>-T<sub>externe</sub> > DTC start + DTC range,
                           alors ventilation = débit maximal"
       location: Emplacement
       temperatures: Températures
