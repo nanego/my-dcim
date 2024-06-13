@@ -4,9 +4,7 @@
 %>
 
 <div class="container-fluid">
-  <div class="page-header">
-    <h1><%= t(".title") %></h1>
-  </div>
+  <h1><%= t(".title") %></h1>
 
   <%= render List::DataTableComponent.new(@cables) do |table| %>
     <% table.with_column(Cable.human_attribute_name(:name), sort_by: :name) do |cable| %>
