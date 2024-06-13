@@ -117,9 +117,10 @@ fr:
         bay: Baie la plus proche
         last_service: Dernière maintenance
         air_conditioner_model: Modèle
-        start: Start (en °C)
-        range: Range (en °C)
-        setpoint: Consigne (en °C)
+        start: DTC start (début lutte)
+        range: DTC range (plage d'accélération)
+        setpoint: Temperature de Consigne externe (froid)
+        min_setpoint: Temperature de Consigne Nuit externe (froid)
       air_conditioner_model:
         name: Nom
       architecture:

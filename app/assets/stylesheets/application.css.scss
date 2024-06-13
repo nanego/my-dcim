@@ -541,6 +541,9 @@ form {
     .form-control {
       width: auto;
     }
+    input[type="number"] {
+      width: 80px;
+    }
     select {
       max-width: 100%;
     }
@@ -555,6 +558,9 @@ form {
         border: 0;
         width: auto;
       }
+    }
+    .input-group {
+      width: fit-content;
     }
   }
 }
