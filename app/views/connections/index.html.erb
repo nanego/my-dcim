@@ -1,6 +1,6 @@
 <%= render "layouts/breadcrumb", breadcrumb_variables: {
   t("inventories") => modeles_url,
-  Connection.model_name.human.pluralize => ""}
+  Connection.model_name.human.pluralize => "" }
 %>
 
 <div class="container-fluid">
@@ -19,23 +19,10 @@
 
         <% table.with_column(Connection.human_attribute_name(:cable), sort_by: :"cables.name") do |connection| %>
           <%- if connection.cable.color? %>
-            <span class="badge <%= connection.cable.color %>">
-              <%= connection.cable&.name %>
-            </span>
+            <%= link_to connection.cable.name, connections_edit_path(from_port_id: connection.port),
+                        class: "port#{connection.port_type} #{connection.cable.color}" %>
           <% else %>
             <%= connection.cable&.name %>
-          <% end %>
-        <% end %>
-
-        <% table.with_column(Connection.human_attribute_name(:paired_connection)) do |connection| %>
-          <%= connection.paired_connection&.id %>
-          <%- if connection.paired_connection %>
-            <span class="pull-right">
-              <%= link_to connections_edit_path(from_port_id: connection.port), class: "btn btn-primary btn-xs" do %>
-                <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="<%= t("action.edit") %>"></span>
-                <span class="sr-only"><%= t("action.edit") %></span>
-              <% end %>
-            </span>
           <% end %>
         <% end %>
 
@@ -44,16 +31,19 @@
         <% end %>
 
         <% table.with_column(Card.model_name.human) do |connection| %>
-          <% if (card = connection.card) %>
-            <%= card.server %> / <%= card.card_type %>
-            <% if card.name.present? %>
-              / <b><%= card.name %></b>
-            <% end %>
+          <% if card = connection.card %>
+            <%= [card.name, card.composant, card.card_type].reject(&:blank?).join(' / ') %>
           <% end %>
         <% end %>
 
         <% table.with_column(PortType.model_name.human) do |connection| %>
           <%= connection.port_type&.name %>
+        <% end %>
+
+        <% table.with_column(Connection.human_attribute_name(:paired_connection)) do |connection| %>
+          <% if connection.paired_connection %>
+            <%= link_to connection.paired_connection.id, connections_edit_path(from_port_id: connection.port) %>
+          <% end %>
         <% end %>
 
         <% table.with_column(style: "min-width: 84px; width: 84px") do |connection| %>
