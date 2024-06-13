@@ -1,0 +1,44 @@
+<% provide(:title, "#{AirConditioner.model_name.human.pluralize} | #{@air_conditioner}") %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+  AirConditioner.model_name.human.pluralize => air_conditioners_path,
+  @air_conditioner => ""
+} %>
+
+<div class="row my-5">
+  <div class="col-11 col-md-10 col-lg-8 mx-auto">
+    <div class="d-flex justify-content-between pb-5">
+      <%= link_to air_conditioners_path, class: "btn btn-outline-secondary align-self-center d-inline-flex",
+                                         title: t("action.back") do %>
+        <span class="bi bi-chevron-left"></span>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
+      <% end %>
+      <h1 class="text-center px-4"><%= t(".title") %></h1>
+      <%= link_to edit_air_conditioner_path(@air_conditioner), class: "btn btn-primary align-self-center d-inline-flex",
+                                          title: t("action.edit") do %>
+        <span class="bi bi-pencil"></span>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.edit") %></span>
+      <% end %>
+    </div>
+
+    <dl class="bg-body-tertiary p-4 rounded border">
+      <% %i[name status].each do |attribute_name| %>
+        <dt><%= AirConditioner.human_attribute_name(attribute_name) %> :</dt>
+        <dd><%= @air_conditioner.public_send(attribute_name) %></dd>
+      <% end %>
+
+      <dt><%= AirConditioner.human_attribute_name(:air_conditioner_model_id) %> :</dt>
+      <dd><%= @air_conditioner.air_conditioner_model %></dd>
+
+      <dt><%= AirConditioner.human_attribute_name(:last_service) %> :</dt>
+      <dd><%= l(@air_conditioner.last_service) %></dd>
+
+      <dt><%= AirConditioner.human_attribute_name(:bay_id) %> :</dt>
+      <dd><%= @air_conditioner.bay.detailed_name %></dd>
+
+      <% %i[setpoint start range].each do |attribute_name| %>
+        <dt><%= AirConditioner.human_attribute_name(attribute_name) %> :</dt>
+        <dd><%= @air_conditioner.public_send(attribute_name) %></dd>
+      <% end %>
+    </dl>
+  </div>
+</div>

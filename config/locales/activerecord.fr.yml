@@ -119,9 +119,9 @@ fr:
         position: Position
         power: Puissance
         status: État
-        bay: Baie la plus proche
+        bay_id: Baie la plus proche
         last_service: Dernière maintenance
-        air_conditioner_model: Modèle
+        air_conditioner_model_id: Modèle
         start: DTC start (début lutte)
         range: DTC range (plage d'accélération)
         setpoint: Temperature de Consigne externe (froid)
