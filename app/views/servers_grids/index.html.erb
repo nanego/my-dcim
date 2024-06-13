@@ -2,7 +2,7 @@
 <% provide :title, "Rechercher un matériel" %>
 
 <div class="container">
-  <div class="page-header d-flex justify-content-between">
+  <div class="d-flex justify-content-between">
     <h1>Rechercher un matériel</h1>
     <%= link_to url_for(format: :csv, params: @merged_params || {}), class: 'btn btn-outline-secondary align-self-center' do %>
       <span class="bi bi-file-earmark-arrow-down"></span>
