@@ -44,7 +44,12 @@
         <% end %>
 
         <% table.with_column(Card.model_name.human) do |connection| %>
-          <%= connection.card&.name %>
+          <% if (card = connection.card) %>
+            <%= card.server %> / <%= card.card_type %>
+            <% if card.name.present? %>
+              / <b><%= card.name %></b>
+            <% end %>
+          <% end %>
         <% end %>
 
         <% table.with_column(PortType.model_name.human) do |connection| %>
