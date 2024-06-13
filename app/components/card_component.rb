@@ -7,7 +7,7 @@ class CardComponent < ApplicationComponent
   renders_one :footer
 
   erb_template <<~ERB
-    <div class="<%= class_names("card mb-3", "border-\#{@type}": @type) %>">
+    <div class="<%= class_names("card mb-3 \#{@extra_classes}", "border-\#{@type}": @type) %>">
       <% if header? %>
         <div class="<%= class_names("card-header", "text-bg-\#{@type}": @type) %>">
           <%= header %>
@@ -27,10 +27,11 @@ class CardComponent < ApplicationComponent
     </div>
   ERB
 
-  def initialize(type: :default)
+  def initialize(type: :default, extra_classes: "")
     raise ArgumentError, "#{type} is not a valid type" unless TYPES.include?(type)
 
     @type = type unless type == :default
+    @extra_classes = extra_classes
 
     super
   end

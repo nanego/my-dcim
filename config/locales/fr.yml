@@ -150,7 +150,7 @@ fr:
       title: Architectures
       delete_confirmation: Cette architecture ne pourra pas être supprimée tant qu'elle est associée à au moins un modèle. Voulez-vous continuer ?
     show:
-      title: Voir l'architecture
+      title: Détails de l'architecture
     new:
       title: Nouvelle architecture
     create:
@@ -390,7 +390,7 @@ fr:
       delete_confirmation: Cette catégorie ne pourra pas être supprimé tant qu'il aura au moins un modèle associé. Voulez-vous continuer ?
       usage: Usage
     show:
-      title: Voir la catégorie
+      title: Détails de la catégorie
     new:
       title: Nouvelle catégorie
     create:
@@ -636,7 +636,7 @@ fr:
       title: Climatisations
       delete_confirmation: Cette climatisation sera supprimée. Voulez-vous continuer ?
     show:
-      title: Voir la climatisation
+      title: Détails de la climatisation
     create:
       flashes:
         created: La climatisation a bien été ajoutée.
