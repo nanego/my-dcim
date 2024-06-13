@@ -70,6 +70,7 @@ fr:
         title: Maintenance
       connection:
         title: Connexion
+      servers: Matériels
 
   islets:
     index:
