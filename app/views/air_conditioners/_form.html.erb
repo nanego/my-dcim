@@ -1,37 +1,10 @@
-<%= form_for(@air_conditioner, html: { class: "air-conditioner-form form-horizontal", role: "form" }) do |f| %>
+<%= form_for(@air_conditioner, html: { class: "air-conditioner-form form-horizontal well", role: "form" }) do |f| %>
   <%= render FormErrorsComponent.new(@air_conditioner) %>
 
   <div class="form-group">
     <%= f.label :name, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.text_field :name, class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :status, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.select :status,
-                   options_for_select(AirConditioner.statuses.values.map { |status| [status.capitalize, status] }, @air_conditioner.status),
-                   class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :bay, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.select :bay_id,
-                   options_from_collection_for_select(Bay.sorted_by_room, :id, :detailed_name, @air_conditioner.bay_id),
-                   class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :position, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.select :position,
-                   options_for_select(AirConditioner.positions.values.map { |position| [position.capitalize, position] }, @air_conditioner.position),
-                   class: "form-control" %>
     </div>
   </div>
 
@@ -45,35 +18,79 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :status, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.select :status,
+                   options_for_select(AirConditioner.statuses.values.map { |status| [status.capitalize, status] }, @air_conditioner.status),
+                   class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
     <%= f.label :last_service, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.date_field :last_service, class: "form-control" %>
     </div>
   </div>
 
-  <div class="form-group">
-    <%= f.label :start, class: "col-sm-2 control-label", title: t('.info-start') %>
-    <div class="col-sm-10">
-      <%= f.number_field :start, class: "form-control", title: t('.info-start'),
-                         :in => 0..20, :step => 1 %>
+  <fieldset>
+    <legend><%= t('.location') %></legend>
+    <div class="form-group">
+      <%= f.label :bay, class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+        <%= f.select :bay_id,
+                     options_from_collection_for_select(Bay.sorted_by_room, :id, :detailed_name, @air_conditioner.bay_id),
+                     class: "form-control" %>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <%= f.label :range, class: "col-sm-2 control-label", title: t('.info-range') %>
-    <div class="col-sm-10">
-      <%= f.number_field :range, class: "form-control", title: t('.info-range'),
-                         :in => 0..20, :step => 1 %>
+    <div class="form-group">
+      <%= f.label :position, class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+        <%= f.select :position,
+                     options_for_select(AirConditioner.positions.values.map { |position| [position.capitalize, position] }, @air_conditioner.position),
+                     class: "form-control" %>
+      </div>
     </div>
-  </div>
+  </fieldset>
 
-  <div class="form-group">
-    <%= f.label :setpoint, class: "col-sm-2 control-label", title: t('.info-setpoint') %>
-    <div class="col-sm-10">
-      <%= f.number_field :setpoint, class: "form-control", title: t('.info-setpoint'),
-                         :in => 0..50, :step => 1 %>
+  <fieldset>
+    <legend><%= t('.temperatures') %></legend>
+
+    <div class="form-group">
+      <div class="col-sm-2">
+        <%= f.label :setpoint, class: "control-label" %>
+        <span class="help-block"><%= t('.info-setpoint') %></span>
+      </div>
+      <div class="col-sm-10">
+        <%= f.number_field :setpoint, class: "form-control",
+                           :in => 0..50, :step => 1 %>
+      </div>
     </div>
-  </div>
+
+    <div class="form-group">
+      <div class="col-sm-2">
+        <%= f.label :start, class: "control-label" %>
+        <span class="help-block"><%= t('.info-start') %></span>
+      </div>
+      <div class="col-sm-10">
+        <%= f.number_field :start, class: "form-control",
+                           :in => 0..20, :step => 1 %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-2">
+        <%= f.label :range, class: "control-label" %>
+        <span class="help-block"><%= t('.info-range') %></span>
+      </div>
+      <div class="col-sm-10">
+        <%= f.number_field :range, class: "form-control",
+                           :in => 0..20, :step => 1 %>
+      </div>
+    </div>
+
+  </fieldset>
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">

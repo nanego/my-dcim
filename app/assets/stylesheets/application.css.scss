@@ -544,5 +544,17 @@ form {
     select {
       max-width: 100%;
     }
+    fieldset {
+      border: 1px solid #808080;
+      padding: 0.3em 1em;
+      margin-bottom: 1em;
+      legend {
+        padding: 0 8px;
+        font-size: 16px;
+        margin: 8px 10px;
+        border: 0;
+        width: auto;
+      }
+    }
   }
 }

@@ -606,6 +606,8 @@ fr:
       info-start: "Delta-T°C"
       info-range: "Plage limite pour un fonctionnement maximal de l'UR (en °C)"
       info-setpoint: "Température de consigne maximale en °C"
+      location: Emplacement
+      temperatures: Températures
   bays:
     index:
       new: Ajouter une baie ou un couple de baies
