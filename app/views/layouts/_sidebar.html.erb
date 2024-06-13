@@ -59,7 +59,8 @@
                                           active: controller.controller_name == "servers") %>
           </li>
           <li>
-            <%= link_to AirConditioner.model_name.human, air_conditioners_path,
+            <%= link_to AirConditioner.model_name.human.pluralize,
+                        air_conditioners_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "air_conditioners") %>
           </li>
