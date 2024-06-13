@@ -601,10 +601,22 @@ fr:
         destroyed: La climatisation a bien été supprimée.
     form:
       info-start: "Delta-T°C"
-      info-range: "Plage limite pour un fonctionnement maximal de l'UR (en °C)"
-      info-setpoint: "Température de consigne maximale en °C"
+      info-range: "Plage limite pour un fonctionnement maximal de l'UR"
+      info-setpoint: "Température de consigne maximale"
+      info-min-setpoint: "Température de consigne minimale"
+      help-start: "Operate>Composants>Air>Ventilo 1"
+      help-range: "Operate>Composants>Air>Ventilo 1"
+      help-setpoint: "Operate>Valeurs>Air>Temperature Consigne"
+      help-min-setpoint: "Operate>Valeurs>Air>Temperature Consigne"
+      info-temperatures: "Si Tinterne-Texterne < DTC start,
+                          alors ventilation = débit minimal
+                          \n\r
+                          Si Tinterne-Texterne > DTC start + DTC range,
+                          alors ventilation = débit maximal"
       location: Emplacement
       temperatures: Températures
+      day: Jour
+      night: Nuit
   bays:
     index:
       new: Ajouter une baie ou un couple de baies
