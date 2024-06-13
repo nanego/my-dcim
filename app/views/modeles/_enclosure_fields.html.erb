@@ -23,8 +23,8 @@
       </template>
 
       <div class="card-body">
-        <ul id="enclosureList_<%= f.object.id %>" class="list-group">
-          <li class="list-group-item filtered">
+        <ul id="enclosureList_<%= f.object.id %>" class="list-group bg-body-tertiary">
+          <li class="list-group-item bg-transparent filtered">
             <fieldset>
               <%= f.label :display, class: "form-label" %> :
               <%= f.select :display, options_for_select([:vertical, :horizontal, :grid], f.object.display),
@@ -32,7 +32,7 @@
                                      class: "form-select form-select-sm" %>
             </fieldset>
           </li>
-          <li class="list-group-item filtered">
+          <li class="list-group-item bg-transparent filtered">
             <fieldset>
               <%= f.label :grid_areas, class: "form-label" %>
               <%= f.text_area :grid_areas, class: "font-monospace form-control", style: "height:110px;" %>
@@ -42,7 +42,7 @@
             <%= render partial: "composant_fields", locals: { f: composant_fields, type_composant: "SLOT" } %>
           <% end %>
 
-          <li class="list-group-item" data-nested-form-target="target"></li>
+          <li class="list-group-item bg-transparent" data-nested-form-target="target"></li>
         </ul>
       </div>
       <div class="card-footer d-flex">
@@ -80,6 +80,9 @@ $(document).ready(function() {
       evt.to.querySelectorAll("li.composant").forEach((item, index) => {
         item.querySelector("input[name*='[position]']").value = index + 1
       });
+    },
+    onMove: function (evt) {
+      return evt.related.className.indexOf("filtered") === -1;
     }
   });
 });
