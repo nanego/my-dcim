@@ -704,36 +704,3 @@ body {
     color: var(--bs-body-color);
   }
 }
-
-.inventories_menu {
-  margin-top: 40px;
-}
-
-form {
-  &.air-conditioner-form {
-    .form-control {
-      width: auto;
-    }
-    input[type="number"] {
-      width: 80px;
-    }
-    select {
-      max-width: 100%;
-    }
-    fieldset {
-      border: 1px solid #808080;
-      padding: 0.3em 1em;
-      margin-bottom: 1em;
-      legend {
-        padding: 0 8px;
-        font-size: 16px;
-        margin: 8px 10px;
-        border: 0;
-        width: auto;
-      }
-    }
-    .input-group {
-      width: min-content;
-    }
-  }
-}
