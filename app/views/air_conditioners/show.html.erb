@@ -21,10 +21,16 @@
     </div>
 
     <dl class="bg-body-tertiary p-4 rounded border">
-      <% %i[name status].each do |attribute_name| %>
+      <% %i[name].each do |attribute_name| %>
         <dt><%= AirConditioner.human_attribute_name(attribute_name) %> :</dt>
         <dd><%= @air_conditioner.public_send(attribute_name) %></dd>
       <% end %>
+
+      <dt><%= AirConditioner.human_attribute_name(:status) %> :</dt>
+      <dd><%= t("air_conditioners.form.status-#{@air_conditioner.status}") %></dd>
+
+      <dt><%= AirConditioner.human_attribute_name(:position) %> :</dt>
+      <dd><%= t("air_conditioners.form.#{@air_conditioner.position}") %></dd>
 
       <dt><%= AirConditioner.human_attribute_name(:air_conditioner_model_id) %> :</dt>
       <dd><%= @air_conditioner.air_conditioner_model %></dd>
