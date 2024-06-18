@@ -4,9 +4,7 @@
 } %>
 
 <div class="container">
-  <div class="page-header">
-    <h1><%= t('changelog_entries.title') %></h1>
-  </div>
+  <h1><%= t('changelog_entries.title') %></h1>
 
   <%= render List::DataTableComponent.new(decorate(@changelog_entries)) do |table| %>
 
@@ -42,7 +40,7 @@
     <% end %>
 
     <% table.with_column(t('label_details')) do |changelog_entry| %>
-      <%= link_to changelog_entry_path(changelog_entry), class: 'btn btn-outline-secondary' do %>
+      <%= link_to changelog_entry_path(changelog_entry), class: "btn btn-primary" do %>
         <span class="bi bi-eye" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.show") %>"></span>
         <span class="visually-hidden"><%= t("action.show") %></span>
       <% end %>
