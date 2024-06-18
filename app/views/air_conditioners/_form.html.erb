@@ -68,37 +68,48 @@
           <%= f.label :setpoint, class: "form-label" %>
           <span class="form-text"><%= t(".help-setpoint") %></span>
 
-          <div class="col-6 input-group">
-            <span class="input-group-text"><%= t('.day') %></span>
-            <%= f.number_field :setpoint, class: "form-control", title: t('.info-setpoint'), in: 0..50, step: 1 %>
-            <span class="input-group-text">°C</span>
-          </div>
+          <div class="row gy-2">
+            <div class="col-12 col-sm-6 col-xxl-4">
+              <div class="input-group">
+                <span class="input-group-text"><%= t('.day') %></span>
+                <%= f.number_field :setpoint, class: "form-control", title: t('.info-setpoint'), in: 0..50, step: 1 %>
+                <span class="input-group-text">°C</span>
+              </div>
+            </div>
 
-          <div class="col-6 input-group">
-            <span class="input-group-text"><%= t('.night') %></span>
-            <%= f.number_field :min_setpoint, class: "form-control", title: t('.info-min-setpoint'), in: 0..50, step: 1 %>
-            <span class="input-group-text">°C</span>
+            <div class="col-12 col-sm-6 col-xxl-4">
+              <div class="input-group">
+                <span class="input-group-text"><%= t('.night') %></span>
+                <%= f.number_field :min_setpoint, class: "form-control", title: t('.info-min-setpoint'), in: 0..50, step: 1 %>
+                <span class="input-group-text">°C</span>
+              </div>
+            </div>
           </div>
         </fieldset>
 
         <fieldset class="mt-4">
           <%= f.label :start, class: "form-label" %>
           <span class="form-text"><%= t(".help-start") %></span>
-          <div class="input-group">
-            <%= f.number_field :start, class: "form-control", title: t('.info-start'), in: 0..20, step: 1 %>
-            <span class="input-group-text">°C</span>
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="input-group">
+              <%= f.number_field :start, class: "form-control", title: t('.info-start'), in: 0..20, step: 1 %>
+              <span class="input-group-text">°C</span>
+            </div>
+          </div>
         </fieldset>
 
         <fieldset class="mt-4">
           <%= f.label :range, class: "form-label" %>
           <span class="form-text"><%= t(".help-range") %></span>
-          <div class="input-group">
-            <%= f.number_field :range, class: "form-control", title: t('.info-range'), in: 0..20, step: 1 %>
-            <span class="input-group-text">°C</span>
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="input-group">
+              <%= f.number_field :range, class: "form-control", title: t('.info-range'), in: 0..20, step: 1 %>
+              <span class="input-group-text">°C</span>
+            </div>
           </div>
         </fieldset>
 
-        <div class="alert alert-info" role="alert">
+        <div class="alert alert-info mt-4" role="alert">
           <%= simple_format t('.info-temperatures') %>
         </div>
       <% end %>
