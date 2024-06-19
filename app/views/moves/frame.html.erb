@@ -1,42 +1,76 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {"Déplacements prévus" => moves_path,
-                                          "Baie #{@frame}" => ''} %>
-<div class="container-fluid">
-  <div class="card-islet">
-    <% if @room.present? %>
-        <div><h3>Salle <%= @room.name %> - Ilot <%= @frame.islet %></h3></div>
-    <% end %>
-    <div class="row">
-      <ul class="frames" style="padding: 0;">
-        <div class="col-xs-12 col-sm-5 view-back">
-          <%= render partial: 'frames/show_frame', locals: {frame: @frame, servers: @servers, settings: Frame.settings.merge({:min_height => 20 }), editable: false, view_type: 'back'} %>
-        </div>
-        <div class="col-xs-12 col-sm-7 moved_connection_form_loading">CHARGEMENT EN COURS</div>
-        <div class="col-xs-12 col-sm-7 moved_connection_form" id="connection_form"></div>
-      </ul>
+<% provide(:title, "#{Move.model_name.human(count: 2)} | Baie #{@frame}") %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+  Move.model_name.human(count: 2) => moves_path,
+  "Baie #{@frame}" => ''
+} %>
+
+<div class="row my-5">
+  <div class="col-11 col-md-10 col-lg-8 mx-auto">
+    <div class="d-flex justify-content-between pb-5">
+      <%= link_to moves_path, class: "btn btn-outline-secondary align-self-center d-inline-flex",
+                              title: t("action.back") do %>
+        <span class="bi bi-chevron-left"></span>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
+      <% end %>
+      <h1 class="text-center px-4"><%= t(".title", frame: @frame) %></h1>
+      <div class="flex-grow-1"></div>
+    </div>
+
+    <div class="bg-body-tertiary p-4 rounded border">
+      <div class="card-islet">
+        <% if @room.present? %>
+            <div><h3>Salle <%= @room.name %> - Ilot <%= @frame.islet %></h3></div>
+        <% end %>
+        <ul class="frames p-0">
+          <div class="view-back">
+            <%= render partial: "frames/show_frame",
+                       locals: {
+                         frame: @frame,
+                         servers: @servers,
+                         settings: Frame.settings.merge({ min_height: 20 }),
+                         editable: false,
+                         view_type: "back"
+                       }
+            %>
+          </div>
+          <div id="moved_connection_form_loading" class="text-center text-bg-warning fw-bold pt-1">
+            <%= t(".loading") %>
+          </div>
+          <div class="moved_connection_form" id="connection_form"></div>
+        </ul>
+      </div>
+
+      <h3><%= t(".applied_moves") %></h3>
+      <div class="table-responsive mt-4">
+        <table class="table table-striped table-bordered table-hover align-middle">
+          <tbody>
+          <%= content_tag_for(:tr, @moves) do |move| %>
+            <td>
+              <%= link_to "#{move.moveable.try(:modele).try(:category)} #{move.moveable} vers la baie #{move.frame}",
+                          edit_move_path(move) %>
+            </td>
+            <td>
+              <%= link_to t("action.delete"), move, method: :delete,
+                                                    data: { confirm: t("moves.index.delete_confirmation") },
+                                                    class: "btn btn-danger" %>
+            </td>
+          <% end %>
+          <%= content_tag_for(:tr, @moved_connections) do |connection| %>
+              <td>
+                <%= "Connexion entre #{connection.port_from.server.try(:modele).try(:category)} #{connection.port_from.server} (port ##{connection.port_from_id}) et #{connection.port_to.try(:server).try(:modele).try(:category)} #{connection.port_to.try(:server)} (port ##{connection.port_to_id}) => vlans:#{connection.vlans} cablename:#{connection.cablename} couleur:#{connection.color}" %>
+              </td>
+              <td></td>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
 
-<h3>Déplacements appliqués</h3>
-<div class="table-responsive">
-  <table class="table table-striped table-bordered table-hover">
-    <tbody>
-    <%= content_tag_for(:tr, @moves) do |move| %>
-        <td><%= link_to "#{move.moveable.try(:modele).try(:category)} #{move.moveable} vers la baie #{move.frame}", edit_move_path(move) %></td>
-        <td><%= link_to t("action.delete"), move, method: :delete, data: { confirm: 'Voulez-vous vraiment supprimer ce déplacement ?' }, class: 'btn btn-warning' %></td>
-    <% end %>
-    <%= content_tag_for(:tr, @moved_connections) do |connection| %>
-        <td><%= "Connexion entre #{connection.port_from.server.try(:modele).try(:category)} #{connection.port_from.server} (port ##{connection.port_from_id}) et #{connection.port_to.try(:server).try(:modele).try(:category)} #{connection.port_to.try(:server)} (port ##{connection.port_to_id}) => vlans:#{connection.vlans} cablename:#{connection.cablename} couleur:#{connection.color}" %></td>
-        <td></td>
-    <% end %>
-    </tbody>
-  </table>
-</div>
-
-
 <script>
 $(document).ready(function(){
-    $('.moved_connection_form_loading').hide();
+    $('#moved_connection_form_loading').hide();
     loadPaletteColorPicker('[name="move[color]"]');
     $(".frame").on('click', '.port', function(e){
         e.preventDefault();
@@ -46,7 +80,7 @@ $(document).ready(function(){
 
 function loadConnectionForm(port_id){
     if(port_id != undefined && port_id != ''){
-        $('.moved_connection_form_loading').show();
+        $('#moved_connection_form_loading').show();
         console.log("Selected port : " + JSON.stringify(port_id));
         $.ajax({
             method: "GET",
@@ -54,7 +88,7 @@ function loadConnectionForm(port_id){
             data: { port_id: port_id }
         }).done(function(){
             $('.connection_form').show();
-            $('.moved_connection_form_loading').hide();
+            $('#moved_connection_form_loading').hide();
         });
     }else{
         $('.connection_form').hide();
