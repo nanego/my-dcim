@@ -1,95 +1,88 @@
-<div class="moves_form">
-  <%= form_for(@move, html: { class: "form-horizontal moves_form server_form_fields col-sm-6", role: "form" }) do |f| %>
-    <% if @move.errors.any? %>
-      <div class="alert alert-danger alert-dismissable" role="alert">
-        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="visually-hidden">Close</span></button>
-        <h4><%= pluralize(@move.errors.count, "erreur", "erreurs") %> lors de la sauvegarde :</h4>
+<%= render FormErrorsComponent.new(@move) %>
 
-        <ul>
-        <% @move.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
+<div class="row gy-4">
+  <div class="col-12 col-lg-6">
+    <%= form_for(@move, html: { class: "bg-body-tertiary p-4 rounded border moves_form server_form_fields",
+                                role: "form"
+                              }) do |f| %>
+      <div class="row g-3">
+        <fieldset class="col-12">
+          <%= f.hidden_field :moveable_type, value: @move.moveable_type %>
+          <%= f.label :moveable_id, class: "form-label" %>
+          <%= f.select :moveable_id,
+                      grouped_options_for_select(@all_servers_per_frame, { selected: @move.moveable_id }),
+                      { include_blank: true },
+                      {
+                        onchange: "select_server(this.value);",
+                        class: "form-select",
+                        data: { controller: "select", select_options_value: { maxOptions: nil } }
+                      }
+          %>
+        </fieldset>
 
-    <div class="form-group row">
+        <div id="servers_server_container" class="col-12 mt-4 p-2 rounded border d-none bg-body overflow-scroll"></div>
 
-      <%= f.hidden_field :moveable_type, value: @move.moveable_type %>
+        <div id="initial_bay" class="col-12 mt-4 d-none">
+          <div class="col-12">
+            <span><%= t(".initial_bay") %></span>
+          </div>
 
-      <div class="col-sm-6"  style="text-align: right;">
-        <span>Matériel à déplacer</span>
-      </div>
-      <div class="col-sm-6">
-        <%= f.select :moveable_id,
-                       grouped_options_for_select(@all_servers_per_frame, { :selected => @move.moveable_id }),
+          <div class="col-12">
+            <input id="initial_bay_name" type="text" class="form-control" disabled></input>
+          </div>
+        </div>
+
+        <fieldset class="col-12 mt-4">
+          <%= f.label :frame_id, class: "form-label" %>
+          <%= f.select :frame_id,
+                       grouped_options_for_select(@all_frames_per_room, { selected: @move.frame_id }),
                        { include_blank: true },
                        {
-                         onchange: "select_server(this.value);",
-                         style: 'max-width: 185px;',
-                         data: { controller: "select", select_options_value: { maxOptions: nil } }
+                         onchange: "select_frame(this.value, 'front')",
+                         class: "form-select",
+                         data: { controller: "select" }
                        }
-        %>
-      </div>
+          %>
+        </fieldset>
 
-      <div class="col-sm-12 server_container" id="servers_server_container"></div>
-
-      <div class="col-sm-12" id="initial_bay">
-        <div class="col-sm-6"  style="text-align: right;">
-          <span>Baie de départ</span>
+        <div id="bay_size_container" class="col-12 mt-0">
+          <% if @move.frame %>
+            <%= render partial: "moves/select_bay_position", locals: { f: , move: @move, frame_size: @move.frame.u } %>
+          <% end %>
         </div>
 
-        <div class="col-sm-6">
-          <span id="initial_bay_name"></span>
+        <fieldset class="col-12 mt-4">
+          <%= f.label :remove_connections, class: "form-label" %>
+          <%= f.select :remove_connections,
+                       options_for_select(["Oui", "Non"], { selected: "Non" }),
+                       {},
+                       class: "form-select"
+          %>
+        </fieldset>
+
+        <div class="col-12 mt-4">
+          <%= f.submit class: "btn btn-primary w-100" %>
         </div>
       </div>
+    <% end %>
+  </div>
 
-      <div class="col-sm-6"  style="text-align: right;">
-        <span>Baie de destination</span>
-      </div>
-      <div class="col-sm-6">
-        <%= f.select :frame_id,
-                       grouped_options_for_select(@all_frames_per_room, { :selected => @move.frame_id }),
-                       {include_blank: true},
-                       {onchange: 'select_frame(this.value, "front")',
-                       style: 'max-width: 185px;'}
-        %>
-      </div>
-
-      <div class="col-sm-12" id="bay_size_container">
-        <% if @move.frame %>
-          <%= render partial: 'moves/select_bay_position', locals: { f: f, move: @move, frame_size: @move.frame.u } %>
-        <% end %>
-      </div>
-
-      <div class="col-sm-6"  style="text-align: right;">
-        <span>Supprimer toutes les connexions vers ce matériel ?</span>
-      </div>
-      <div class="col-sm-6">
-        <%= f.select :remove_connections,
-                     options_for_select(['Oui', 'Non'], { :selected => 'Non' }),
-                     {include_blank: false},
-                     {style: 'max-width: 185px;'}
-        %>
-      </div>
-
-      <div class="col-sm-offset-6 col-sm-6">
-        <%= f.submit 'Enregistrer', class: "btn btn-primary" %>
-      </div>
-    </div>
-  <% end %>
-
-  <div class="col-sm-6" id="frame">
+  <div class="col-12 col-lg-6" id="frame">
     <% if @move.persisted? %>
         <% @move.moveable.position = @move.position %>
-        <%= render partial: 'frames/show_frame', locals: {frame: @move.frame,
-                                                          servers: (@move.frame.servers.where.not(id: @move.moveable) | [@move.moveable]).sort_by { |server| server.position.present? ? server.position : 0}.reverse,
-                                                          settings: Frame.settings.merge({:min_height => 27 }),
-                                                          view_type: 'front',
-                                                          editable: false,
-                                                          highlighted_servers: [@move.moveable],
-                                                          clickable_lines: true
-        } %>
+        <%= render partial: "frames/show_frame",
+                   locals: {
+                     frame: @move.frame,
+                     servers: (@move.frame.servers.where.not(id: @move.moveable) | [@move.moveable]).sort_by { |server|
+                       server.position.present? ? server.position : 0
+                     }.reverse,
+                     settings: Frame.settings.merge({ min_height: 27 }),
+                     view_type: "front",
+                     editable: false,
+                     highlighted_servers: [@move.moveable],
+                     clickable_lines: true
+                   }
+        %>
     <% end %>
   </div>
 </div>
@@ -97,46 +90,46 @@
 <script>
 $(document).ready(function(){
     loadPaletteColorPicker('[name="move[color]"]');
-    $('.server_container').hide();
-    $('#initial_bay').hide();
     select_server(<%= @move.moveable_id %>);
 });
 
 function select_server(server_id){
     if(server_id != undefined && server_id != ''){
-        console.log("Selected server : " + JSON.stringify(server_id));
-        $.ajax({
-            method: "GET",
-            url: "<%= load_server_moves_path %>",
-            data: { server_id: server_id }
-        }).done(function(){
-            $('.server_container').show();
-            display_initial_bay();
-        });
-    }else{
-        $('.server_container').hide();
+      console.log("Selected server : " + JSON.stringify(server_id));
+      $.ajax({
+        method: "GET",
+        url: "<%= load_server_moves_path %>",
+        data: { server_id: server_id }
+      }).done(function(){
+        document.getElementById("servers_server_container").classList.remove("d-none");
+        display_initial_bay();
+      });
+    } else {
+      document.getElementById("servers_server_container").classList.add("d-none");
+      document.getElementById("initial_bay").classList.add("d-none");
     }
 }
 
 function select_frame(frame_id, view){
     if(frame_id != undefined && frame_id != ''){
-        console.log("Selected frame : " + JSON.stringify(frame_id));
-        $.ajax({
-            method: "GET",
-            url: "<%= load_frame_moves_path %>",
-            data: { frame_id: frame_id, view: view }
-        }).done(function(){
-            // $('#frame').show();
-        });
-    }else{
-        $('#frame').html('');
+      console.log("Selected frame : " + JSON.stringify(frame_id));
+      $.ajax({
+        method: "GET",
+        url: "<%= load_frame_moves_path %>",
+        data: { frame_id: frame_id, view: view }
+      }).done(function(){
+        // $('#frame').show();
+      });
+    } else {
+      $('#frame').html('');
     }
 }
 
 function display_initial_bay() {
   var label = $('#move_moveable_id :selected').data("frameName");
-  $('#initial_bay').show();
-  $('#initial_bay_name').text(label);
+
+  document.getElementById("initial_bay").classList.remove("d-none");
+  document.getElementById("initial_bay_name").value = label
 }
 
 $("#frame").on("click", ".position_in_frame", function(e) {
