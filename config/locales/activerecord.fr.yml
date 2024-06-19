@@ -46,6 +46,9 @@ fr:
       memory_component:
         one: Composant mémoire
         other: Composants mémoire
+      move:
+        one: Déplacement prévu
+        other: Déplacements prévus
 
     attributes:
       room:
@@ -327,7 +330,11 @@ fr:
         cablename: Nom du câble
         color: Couleur
         vlans: Vlans
-
+      move:
+        moveable_id: Matériel à déplacer
+        frame_id: Baie de destination
+        remove_connections: Supprimer toutes les connexions vers ce matériel ?
+        position: Position dans la baie
 
     errors:
       models:
