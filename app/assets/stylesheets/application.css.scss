@@ -14,7 +14,6 @@
  *= require jquery-ui
  *= require diffy
  *= require loader
- *= require moves
  *= require palette-color-picker
  *= require rooms
  *= require_self
@@ -696,6 +695,34 @@ body {
   &-devise-layout {
     .mydcim-messages {
       margin-top: 1rem;
+    }
+  }
+
+  .moves_form{
+    .server{
+      &.relegated{
+        filter:alpha(opacity=40);
+        -moz-opacity:0.4;
+        -khtml-opacity: 0.4;
+        opacity: 0.4;
+      }
+    }
+  }
+
+  .moved_connection_form{
+    .field {
+      clear:both;
+      padding-top:10px;
+    }
+
+    .port_container{
+      margin-left: -2px;
+      display: inline-block;
+    }
+
+    .selected {
+      padding:2px 1px;
+      background-color: #ee3b3b;
     }
   }
 
