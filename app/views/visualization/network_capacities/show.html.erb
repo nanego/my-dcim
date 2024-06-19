@@ -1,0 +1,7 @@
+<%# provide :title, t("rooms.capacity_view.title") %>
+<% hide_inventories_sidebar! %>
+
+<%= render 'layouts/breadcrumb',
+           breadcrumb_variables: {
+             t("visualization") => overview_rooms_path,
+             t("rooms.capacity_view.title") => nil } %>
