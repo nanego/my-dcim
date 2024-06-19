@@ -1,0 +1,14 @@
+<% hide_inventories_sidebar! %>
+
+<div class="container-fluid room_overview show_room rooms-network-capacity" id="network-capacity">
+  <div class="card mb-3">
+    <div class="card-body d-flex">
+      <div class="tab-content infrastructure bg-body-tertiary overflow-x-scroll">
+        <% @network_types.each do |network_type| %>
+          <% # TODO: move html here? %>
+          <%= render "rooms/infrastructure_islet", islet: @islet, room: @room, network: network_type %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+<% provide :title, "Vue infrastructure" %>
+<% hide_inventories_sidebar! %>
+
+<%= render "layouts/breadcrumb",
+           breadcrumb_variables: { t("visualization") => overview_rooms_path, "Infrastructure" => nil } %>
