@@ -1,11 +1,8 @@
-<div class="col-sm-6"  style="text-align: right;">
-  <span>Position dans la baie</span>
-</div>
-<div class="col-sm-6">
+<fieldset class="col-12 mt-4">
+  <%= f.label :position, class: "form-label" %>
   <%= f.select :position,
-                options_for_select(Array(1..frame_size).reverse, { :selected => move.position }),
-                # onchange: 'select_destination_server(1)',
-                {include_blank: true},
-                {style: 'max-width: 185px;'}
+               options_for_select(Array(1..frame_size).reverse, { :selected => move.position }),
+               { include_blank: true },
+               class: "form-select"
   %>
-</div>
+</fieldset>
