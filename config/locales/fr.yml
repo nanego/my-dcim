@@ -627,7 +627,7 @@ fr:
   changelog_entries:
     title: Historique
     show:
-      informations: Informations
+      title: Détails de l'entrée du changelog
       changes: Changements
       metadatas: Metadonnées
   air_conditioners:
