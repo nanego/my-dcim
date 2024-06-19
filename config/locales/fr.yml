@@ -505,6 +505,24 @@ fr:
         destroyed: Frame a bien été supprimé.
     network:
       title: Vue réseau
+  moves:
+    index:
+      new_move: Prévoir un nouveau déplacement
+      delete_confirmation: Voulez-vous vraiment supprimer ce déplacement ?
+      frame_table_title: Baies après déplacements
+      edit_connections: Modifier les connexions
+      action:
+        execute_move: Exécuter le déplacement du serveur et de ses connexions
+    new:
+      title: Nouveau déplacement
+    edit:
+      title: Modifier le déplacement enregistré
+    form:
+      initial_bay: Baie de départ
+    frame:
+      title: Baie %{frame} après déplacement
+      applied_moves: Déplacements appliqués
+      loading: CHARGEMENT EN COURS
 
   devise:
     registrations:

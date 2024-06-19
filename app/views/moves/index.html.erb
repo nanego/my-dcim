@@ -1,45 +1,52 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {"Déplacements prévus" => ''} %>
+<% provide(:title, Move.model_name.human(count: 2)) %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+  Move.model_name.human(count: 2) => "" }
+%>
 
-<div class="d-flex justify-content-between">
-  <h2>Déplacements prévus</h2>
-  <%= link_to new_move_path, class: 'btn btn-success align-self-center' do %>
-    <span class="bi bi-plus-lg"></span>
-    Prévoir un nouveau déplacement
-  <% end %>
-</div>
-
-<div class="table-responsive">
-  <table class="table table-striped table-bordered table-hover">
-    <tbody>
-      <%= content_tag_for(:tr, @moves) do |move| %>
-        <td><%= link_to "#{move.moveable.try(:modele).try(:category)} #{move.moveable} vers la baie #{move.frame}", edit_move_path(move) %></td>
-        <td><%= link_to "Exécuter le déplacement du serveur et de ses connexions", execute_move_path(move), class: 'btn btn-success' %></td>
-        <td>
-          <%= link_to t("action.delete"), move, method: :delete, data: { confirm: 'Voulez-vous vraiment supprimer ce déplacement ?' }, class: 'btn btn-danger' %>
-        </td>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-
-<h2>Baies après déplacements</h2>
-
-<div class="table-responsive">
-  <table class="table table-striped table-bordered table-hover">
-    <tbody>
-    <%= content_tag_for(:tr, @frames) do |frame| %>
-        <td><%= link_to "#{frame}", "/moves/frames/#{frame.id}" %></td>
-        <td><%= link_to "Modifier les connexions", "/moves/frames/#{frame.id}", class: 'btn btn-primary' %></td>
-        <td><%= link_to "/moves/frames/#{frame.id}.pdf?debug=1", class: 'btn btn-primary' do %>
-              <span class="bi bi-printer" aria-hidden="true"></span>
-              Impression
-          <% end %>
-          <%= link_to "/moves/frames/#{frame.id}.pdf", class: 'btn btn-primary' do %>
-              <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
-              Export PDF
-          <% end %>
-        </td>
+<div class="container-fluid">
+  <div class="d-flex justify-content-between">
+    <h1><%= Move.model_name.human(count: 2) %></h1>
+    <%= link_to new_move_path, class: "btn btn-success align-self-center" do %>
+      <span class="bi bi-plus-lg"></span>
+      <%= t(".new_move") %>
     <% end %>
-    </tbody>
-  </table>
+  </div>
+
+  <div class="table-responsive mb-4">
+    <table class="table table-striped table-bordered table-hover align-middle">
+      <tbody>
+        <%= content_tag_for(:tr, @moves) do |move| %>
+          <td><%= link_to "#{move.moveable.try(:modele).try(:category)} #{move.moveable} vers la baie #{move.frame}", edit_move_path(move) %></td>
+          <td>
+            <%= link_to t(".action.execute_move"), execute_move_path(move), class: "btn btn-sm btn-outline-primary" %>
+          </td>
+          <td>
+            <%= link_to t("action.delete"), move, method: :delete, data: { confirm: t(".delete_confirmation") },
+                                                                   class: "btn btn-sm btn-danger" %>
+          </td>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <h2><%= t(".frame_table_title") %></h2>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover align_middle">
+      <tbody>
+      <%= content_tag_for(:tr, @frames) do |frame| %>
+          <td><%= link_to "#{frame}", "/moves/frames/#{frame.id}" %></td>
+          <td><%= link_to t(".edit_connections"), "/moves/frames/#{frame.id}", class: "btn btn-sm btn-primary" %></td>
+          <td><%= link_to "/moves/frames/#{frame.id}.pdf?debug=1", class: "btn btn-sm btn-outline-secondary" do %>
+                <span class="bi bi-printer" aria-hidden="true"></span>
+                <%= t("export_button.exports.print") %>
+            <% end %>
+            <%= link_to "/moves/frames/#{frame.id}.pdf", class: "btn btn-sm btn-outline-secondary" do %>
+                <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+                <%= t("export_button.exports.pdf") %>
+            <% end %>
+          </td>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

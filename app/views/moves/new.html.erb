@@ -1,6 +1,21 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {"Déplacements prévus" => moves_path,
-                                          "Nouveau déplacement" => ''} %>
+<% provide(:title, "#{Move.model_name.human(count: 2)} | #{t("action.create")}") %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+  Move.model_name.human(count: 2) => moves_path,
+  t(".title") => ""
+} %>
 
-<h1>Nouveau déplacement</h1>
-
-<%= render 'form' %>
+<div class="row my-5">
+  <div class="col-12">
+    <div class="d-flex pb-5 align-items-center">
+      <div class="flex-grow-1">
+        <%= link_to moves_path, class: "btn btn-outline-secondary d-inline-flex", title: t("action.back") do %>
+          <span class="bi bi-chevron-left"></span>
+          <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
+        <% end %>
+      </div>
+      <h1 class="px-4 text-center"><%= t(".title") %></h1>
+      <div class="flex-grow-1"></div>
+    </div>
+    <%= render "form" %>
+  </div>
+</div>
