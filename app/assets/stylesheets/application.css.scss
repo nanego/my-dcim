@@ -728,6 +728,16 @@ body {
     }
   }
 
+  .card-islet {
+    a {
+      text-decoration: none;
+
+      &:focus, &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
   /* Tom-Select fix for dark mode */
   .ts-dropdown, .ts-control, .ts-control input {
     color: var(--bs-body-color);
