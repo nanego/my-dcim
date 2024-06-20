@@ -1,41 +1,34 @@
 <% settings = Frame.settings.merge({:min_height => params[:view] == 'back' ? 20 : 27}) %>
-<%= render 'rooms/action_buttons', view_side: Frame.view_sides[:both] unless local_assigns[:pdf] == true %>
 
 <div id="<%= @room.try(:name).try(:parameterize).try(:underscore) %>">
-
   <div>
     <div>
-      <div class="card-islet">
+      <div class="card-islet row">
         <% if @room.present? %>
-          <div>
-            <h3>
-              <%= t(".title", room: @room, islet: @frame.islet) %>
-            </h3>
+          <div class="col-12 d-flex justify-content-between align-items-center my-4">
+            <h3><%= t(".title", room: @room, islet: @frame.islet) %></h3>
+            <%= render "rooms/action_buttons", view_side: Frame.view_sides[:both] unless local_assigns[:pdf] == true %>
           </div>
         <% end %>
 
-        <div class="row">
-          <ul class="frames <%= params[:view] %>"
-              style="padding: 0;"
-              data-update-url="<%= sort_frames_path %>"
-              data-max-u='<%= settings[:max_u] %>'
-              data-max-elts='<%= settings[:max_elts] %>'
-              data-max-rj45='<%= settings[:max_rj45] %>'
-              data-max-fc='<%= settings[:max_fc] %>'>
+        <div class="frames col-12 row row-gap-3 <%= params[:view] %>"
+            data-update-url="<%= sort_frames_path %>"
+            data-max-u='<%= settings[:max_u] %>'
+            data-max-elts='<%= settings[:max_elts] %>'
+            data-max-rj45='<%= settings[:max_rj45] %>'
+            data-max-fc='<%= settings[:max_fc] %>'>
 
-            <div class="col-xs-12 col-sm-4 view-front">
-              <%= render partial: 'frames/show_frame', locals: {frame: @frame, servers: @frame.servers, settings: settings, view_type: 'front'} %>
-            </div>
-            <div class="col-xs-12 col-sm-6 view-back">
-              <%= render partial: 'frames/show_frame', locals: {frame: @frame, servers: @frame.servers, settings: settings, view_type: 'back'} %>
-            </div>
-            <div class="hidden-xs col-sm-2">
-              <%= render partial: 'pdus/show', locals: {frame: @frame} %>
-            </div>
-          </ul>
+          <div class="col-12 col-xl-4 view-front">
+            <%= render partial: 'frames/show_frame', locals: {frame: @frame, servers: @frame.servers, settings: settings, view_type: 'front'} %>
+          </div>
+          <div class="col-12 col-xl-6 view-back">
+            <%= render partial: 'frames/show_frame', locals: {frame: @frame, servers: @frame.servers, settings: settings, view_type: 'back'} %>
+          </div>
+          <div class="d-none d-lg-block col-lg-2">
+            <%= render partial: 'pdus/show', locals: {frame: @frame} %>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
 </div>
