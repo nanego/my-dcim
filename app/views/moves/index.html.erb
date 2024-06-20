@@ -36,11 +36,11 @@
       <%= content_tag_for(:tr, @frames) do |frame| %>
           <td><%= link_to "#{frame}", "/moves/frames/#{frame.id}" %></td>
           <td><%= link_to t(".edit_connections"), "/moves/frames/#{frame.id}", class: "btn btn-sm btn-primary" %></td>
-          <td><%= link_to "/moves/frames/#{frame.id}.pdf?debug=1", class: "btn btn-sm btn-outline-secondary" do %>
+          <td><%= link_to "/moves/frames/#{frame.id}.pdf?debug=1", class: "btn btn-sm btn-outline-primary" do %>
                 <span class="bi bi-printer" aria-hidden="true"></span>
                 <%= t("export_button.exports.print") %>
             <% end %>
-            <%= link_to "/moves/frames/#{frame.id}.pdf", class: "btn btn-sm btn-outline-secondary" do %>
+            <%= link_to "/moves/frames/#{frame.id}.pdf", class: "btn btn-sm btn-outline-primary" do %>
                 <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
                 <%= t("export_button.exports.pdf") %>
             <% end %>
