@@ -4,9 +4,7 @@
 %>
 
 <div class="container-fluid">
-  <div class="page-header">
-    <h1><%= t(".title") %></h1>
-  </div>
+  <h1><%= t(".title") %></h1>
 
   <%= render List::DataTableComponent.new(@connections) do |table| %>
     <% table.with_column(Connection.human_attribute_name(:port), sort_by: :"ports.id") do |connection| %>
@@ -15,9 +13,8 @@
 
     <% table.with_column(Connection.human_attribute_name(:cable), sort_by: :"cables.name") do |connection| %>
       <%- if connection.cable.color? %>
-        <span class="badge <%= connection.cable.color %>">
-          <%= connection.cable&.name %>
-        </span>
+        <%= link_to connection.cable.name, connections_edit_path(from_port_id: connection.port),
+                    class: "port#{connection.port_type} #{connection.cable.color}" %>
       <% else %>
         <%= connection.cable&.name %>
       <% end %>
@@ -40,7 +37,9 @@
     <% end %>
 
     <% table.with_column(Card.model_name.human) do |connection| %>
-      <%= connection.card&.name %>
+      <% if card = connection.card %>
+        <%= [card.name, card.composant, card.card_type].reject(&:blank?).join(' / ') %>
+      <% end %>
     <% end %>
 
     <% table.with_column(PortType.model_name.human) do |connection| %>

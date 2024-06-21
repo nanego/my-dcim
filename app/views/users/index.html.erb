@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <div class="page-header d-flex justify-content-between">
+      <div class="d-flex justify-content-between">
         <div>
           <h1><%= User.model_name.human.pluralize %></h1>
           <ul class="nav nav-pills mb-2" role="tablist">
@@ -64,12 +64,12 @@
           <% unless user == current_user %>
             <div class="btn-group btn-group-sm" role="group" aria-label="...">
               <% if user.suspended? %>
-                <%= link_to suspend_user_path(user), data: { confirm: t("action.confirm") }, method: :patch, class: "btn btn-outline-secondary" do %>
+                <%= link_to suspend_user_path(user), data: { confirm: t("action.confirm") }, method: :patch, class: "btn btn-outline-primary" do %>
                   <!-- <i class="bi bi-unlock"></i> -->
                   <%= t("action.unsuspend") %>
                 <% end %>
               <% else %>
-                <%= link_to suspend_user_path(user), data: { confirm: t("action.confirm") }, method: :patch, class: "btn btn-outline-secondary" do %>
+                <%= link_to suspend_user_path(user), data: { confirm: t("action.confirm") }, method: :patch, class: "btn btn-outline-primary" do %>
                   <!-- <i class="bi bi-lock"></i> -->
                   <%= t("action.suspend") %>
                 <% end %>

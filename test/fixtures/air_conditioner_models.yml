@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  name: X123456
+  manufacturer_id: 1
+
+two:
+  id: 2
+  name: Y456123
+  manufacturer_id: 2

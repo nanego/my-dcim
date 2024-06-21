@@ -74,8 +74,8 @@ module List
       TAG_NAME = :td.freeze
       CSS_CLASSES = "align-middle".freeze
       ALIGN_TYPES = {
-        right: "text-right",
-        left: "text-left",
+        right: "text-end",
+        left: "text-start",
       }.freeze
 
       def initialize(text = nil, **html_attributes)

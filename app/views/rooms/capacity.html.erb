@@ -12,7 +12,7 @@
       <ul class="list-unstyled menu-rooms rounded-start-1 bg-body-secondary p-3 m-0 border-end ">
         <div class="btn-group btn-toggle d-flex border-bottom border-secondary mb-3 pb-3 rounded-0">
           <% Modele::Network::TYPES.each do |type| %>
-            <button class="<%= class_names("btn", "btn-primary active": (type == "gbe"), "btn-outline-secondary": (type != "gbe")) %>" data-toggle="tab" role="tab" data-network="<%= type %>">
+            <button class="<%= class_names("btn", "btn-primary active": (type == "gbe"), "btn-outline-secondary": (type != "gbe")) %>" data-network="<%= type %>">
               <%= Modele.human_attribute_name("network_types.short_#{type}") %>
             </button>
           <% end %>
@@ -26,23 +26,25 @@
               <% islets.each do |islet| %>
                 <li role="presentation" class="<%= 'active' if islet == @islet %>">
                   <% if islets.size <= 1 %>
-                    <a href="#<%= room.id %>-<%= islet %>-gbe"
+                    <a href="#tab-<%= room.id %>-<%= islet %>-gbe"
+                       data-bs-target="#tab-<%= room.id %>-<%= islet %>-gbe"
                        onclick="rewriteURL('/rooms/capacity', {'room': '<%= room.slug %>', 'islet': ''})"
                        aria-controls="room-<%= room %>"
                        role="tab"
                        class="tab"
-                       data-toggle="tab"
+                       data-bs-toggle="tab"
                        data-room-id="<%= room.id %>"
                        data-islet="<%= islet.name %>">
                       <%= room.name %>
                     </a>
                   <% else %>
-                    <a href="#<%= room.id %>-<%= islet %>-gbe"
+                    <a href="#tab-<%= room.id %>-<%= islet %>-gbe"
+                       data-bs-target="#tab-<%= room.id %>-<%= islet %>-gbe"
                        onclick="rewriteURL('/rooms/capacity', {'room': '<%= room.slug %>', 'islet': '<%= islet.name %>'})"
                        aria-controls="islet-<%= islet %>"
                        role="tab"
                        class="tab"
-                       data-toggle="tab"
+                       data-bs-toggle="tab"
                        data-room-id="<%= room.id %>"
                        data-islet="<%= islet.name %>">
                       <%= room.name %> Ilot <%= islet.name %>
@@ -63,9 +65,9 @@
           <% site.rooms.each do |room| %>
             <% room.islets.sorted.each do |islet| %>
               <% Modele::Network::TYPES.each do |network| %>
-                <div class="islet tab-pane <%= 'in active' if network == "gbe" && (islet == @islet || (@islet.blank? && @room == room)) %>"
+                <div class="islet tab-pane <%= 'active' if network == "gbe" && (islet == @islet || (@islet.blank? && @room == room)) %>"
                      role="tabpanel"
-                     id="<%= room.id %>-<%= islet %>-<%= network %>">
+                     id="tab-<%= room.id %>-<%= islet %>-<%= network %>">
                   <div>
                     <div class="rooms-overview">
                       <% islet.bays.sorted.each do |bay| %>
@@ -162,7 +164,7 @@
 var current_room_id = "<%= @room&.id.to_s %>"
 var current_islet = "<%= @islet&.name.to_s %>"
 
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+$('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
   // log(e.target.dataset)
   current_room_id = e.target.dataset['roomId']
   current_islet = e.target.dataset['islet']
@@ -187,13 +189,16 @@ $('.btn-toggle .btn').click(function (e) {
 
   // Update all tabs links with newly selected network AND show this network
   let current_tab = document.querySelector('.show_room li.active a.tab')
-  let tab = new bootstrap.Tab(current_tab)
   $('.show_room li a.tab').each(function () {
-    $(this).prop("href", $(this).attr('href').slice(0, -(previous_network.length + 1)) + "-" + btn_group.find('.btn.active').data("network"))
+    let new_target = $(this).attr('href').slice(0, -(previous_network.length + 1)) + "-" + btn_group.find('.btn.active').data("network")
+    $(this).prop("href", new_target)
+    $(this).get(0).dataset.bsTarget = new_target
     $(this).parent('li').removeClass('active')
+    bootstrap.Tab.getOrCreateInstance($(this).get(0)).dispose()
   })
 
   $(current_tab).parent('li').addClass('active')
+  let tab = bootstrap.Tab.getOrCreateInstance(current_tab)
   tab.show()
 })
 
@@ -206,7 +211,14 @@ $('.show_room li a.tab').click(function (e) {
   })
   $(this).parent('li').addClass('active')
 
-  let tab = new bootstrap.Tab(this)
+  let tab = bootstrap.Tab.getOrCreateInstance(e.target)
   tab.show()
 })
+
+$(document).ready(function() {
+  let current_tab = document.querySelector('.show_room li.active a.tab')
+  let tab = bootstrap.Tab.getOrCreateInstance(current_tab)
+
+  tab.show()
+});
 </script>

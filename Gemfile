@@ -43,6 +43,7 @@ end
 group :development, :test do
   gem "active_record_doctor"
   gem "byebug"
+  gem "lookbook"
   gem "puma"
   gem "rack-mini-profiler", require: false
   gem "rubocop", require: false
@@ -98,7 +99,6 @@ gem "debug", group: %i[test development]
 gem "dekorator", "~> 1.4"
 gem "diffy", "~> 3.4"
 gem "importmap-rails", "~> 2.0"
-gem "lookbook", group: %i[test development]
 gem "jquery-rails"
 gem "jquery-ui-rails"
 gem "rubanok"

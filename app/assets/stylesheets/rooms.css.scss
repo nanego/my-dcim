@@ -34,6 +34,29 @@
       opacity: 0.3 !important;
     }
   }
+
+  .air-conditioner {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background-color: #F5F5F5;
+    border: 1px solid #e3e3e3;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    margin: 0 0 10px 10px;
+    min-width: 24px;
+    &:hover, &:focus {
+      text-decoration: none;
+      background-color: #FFDD99;
+    }
+
+    &.off {
+      border: 2px solid #ff0000;
+    }
+    &.degraded {
+      border: 2px solid #ff8800;
+    }
+  }
 }
 
 .overview-menu {
@@ -62,10 +85,6 @@
 
     .frame {
       cursor: auto;
-    }
-
-    .card-body {
-      padding: 0;
     }
   }
 }

@@ -23,7 +23,7 @@
     <dl class="bg-body-tertiary p-4 rounded border">
       <% %i[quantity unit technology].each do |attribute_name| %>
         <dt><%= DiskType.human_attribute_name(attribute_name) %> :</dt>
-        <dd><%= @disk_type.public_send(attribute_name) %>
+        <dd><%= @disk_type.public_send(attribute_name) %></dd>
       <% end %>
     </dl>
   </div>

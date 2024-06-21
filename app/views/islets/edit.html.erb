@@ -17,7 +17,10 @@
         <% end %>
       </div>
       <h1 class="text-center"><%= islet_label %></h1>
-      <div class="flex-grow-1"></div>
+      <%= link_to @islet, class: "btn btn-primary align-self-center d-inline-flex", title: t("action.show") do %>
+        <span class="bi bi-eye"></span>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.show") %></span>
+      <% end %>
     </div>
     <%= render "form" %>
   </div>

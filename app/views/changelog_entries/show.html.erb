@@ -1,13 +1,21 @@
 <% provide(:title, t('changelog_entries.title')) %>
 <%= render "layouts/breadcrumb", breadcrumb_variables: {
-  t('changelog_entries.title') => changelog_entries_path,
-  "#{@changelog_entry.id} - #{@changelog_entry.action} - #{@changelog_entry.object}" => ""
+  t("changelog_entries.title") => changelog_entries_path,
+  "#{@changelog_entry.id} - #{@changelog_entry.action} - #{@changelog_entry.object_display_name}" => ""
 } %>
 
-<div class="container-fluid">
-  <div class="page-header">
-    <h3><%=t ".informations" %></h3>
-    <dl class="dl-horizontal">
+<div class="row my-5">
+  <div class="col-11 col-md-10 col-lg-8 mx-auto">
+    <div class="d-flex justify-content-between pb-5">
+      <%= link_to categories_path, class: "btn btn-outline-secondary align-self-center d-inline-flex",
+                                   title: t("action.back") do %>
+        <span class="bi bi-chevron-left"></span>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
+      <% end %>
+      <h1 class="text-center px-4"><%= t ".title" %></h1>
+    </div>
+
+    <dl class="bg-body-tertiary p-4 rounded border">
       <dt><%= ChangelogEntry.human_attribute_name(:object) %></dt>
       <dd>
         <% begin %>
@@ -16,7 +24,6 @@
           <%= @changelog_entry.object_display_name %>
         <% end %>
       </dd>
-
       <dt><%= ChangelogEntry.human_attribute_name(:object_id) %></dt>
       <dd><%= @changelog_entry.object_id %></dd>
 
@@ -31,23 +38,33 @@
       <dt><%= ChangelogEntry.human_attribute_name(:created_at) %></dt>
       <dd><%=l @changelog_entry.created_at %></dd>
     </dl>
-  </div>
 
-  <h3><%=t ".changes" %></h3>
-  <div class="row">
-    <div class="col-md-6">
-      <%=sanitize @changelog_entry.split_diff.left %>
-    </div>
-    <div class="col-md-6">
-      <%=sanitize @changelog_entry.split_diff.right %>
-    </div>
-  </div>
+    <%= render CardComponent.new() do |card| %>
+      <% card.with_header do %>
+        <h3><%=t ".changes" %></h3>
+      <% end %>
 
-  <h3><%=t ".metadatas" %></h3>
-  <dl class="dl-horizontal">
-    <% @changelog_entry.metadata.each do |key, value| %>
-      <dt><%= key %></dt>
-      <dd><code><%= value %></code></dd>
+      <div class="row">
+        <div class="col-md-6">
+          <%=sanitize @changelog_entry.split_diff.left %>
+        </div>
+        <div class="col-md-6">
+          <%=sanitize @changelog_entry.split_diff.right %>
+        </div>
+      </div>
     <% end %>
-  </dl>
+
+    <%= render CardComponent.new() do |card| %>
+      <% card.with_header do %>
+        <h3><%=t ".metadatas" %></h3>
+      <% end %>
+
+      <dl class="bg-body-tertiary p-4 rounded border">
+        <% @changelog_entry.metadata.each do |key, value| %>
+          <dt><%= key %></dt>
+          <dd><code><%= value %></code></dd>
+        <% end %>
+      </dl>
+    <% end %>
+  </div>
 </div>
