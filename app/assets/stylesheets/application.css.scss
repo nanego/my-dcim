@@ -575,6 +575,12 @@ body {
         }
       }
     }
+
+    .frames-network {
+      .bay:last-child {
+        padding: 0 !important;
+      }
+    }
   }
 
   &-header {
