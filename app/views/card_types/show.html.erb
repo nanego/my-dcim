@@ -21,7 +21,7 @@
     <dl class="bg-body-tertiary p-4 rounded border">
       <% %i[name port_type port_quantity columns rows max_aligned_ports first_position].each do |attribute_name| %>
         <dt><%= CardType.human_attribute_name(attribute_name) %> :</dt>
-        <dd><%= @card_type.public_send(attribute_name) %>
+        <dd><%= @card_type.public_send(attribute_name) %></dd>
       <% end %>
     </dl>
   </div>

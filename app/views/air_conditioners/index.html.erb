@@ -1,0 +1,60 @@
+<% provide(:title, AirConditioner.model_name.human.pluralize) %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+  AirConditioner.model_name.human.pluralize => "" }
+%>
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between">
+    <h1><%= t(".title") %></h1>
+    <%= link_to new_air_conditioner_path, class: "btn btn-success align-self-center" do %>
+      <span class="bi bi-plus-lg"></span>
+      <%= t(".new") %>
+    <% end %>
+  </div>
+
+  <%= render FilterComponent.new(@filter) do |c| %>
+    <% c.with_form do |f| %>
+      <div class="col-12">
+        <fieldset class="form-floating">
+          <%= f.search_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :q %>
+        </fieldset>
+      </div>
+
+      <div class="col-12">
+        <fieldset class="form-floating">
+          <%= f.collection_select(:room_id, Room.sorted, :id, :to_s, { include_blank: true, prompt: true },
+                                                                     { class: "form-select" }) %>
+          <%= f.label :room_id %>
+        </fieldset>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= render List::DataTableComponent.new(@air_conditioners) do |table| %>
+    <% table.with_column(Room.model_name.human, sort_by: :"rooms.name") do |air_conditioner| %>
+      <%= link_to air_conditioner.room, room_path(air_conditioner.room) %>
+    <% end %>
+
+    <% table.with_column(Islet.model_name.human, sort_by: :"islets.name") do |air_conditioner| %>
+      <%= link_to air_conditioner.islet, islet_path(air_conditioner.islet) %>
+    <% end %>
+
+    <% table.with_column(AirConditioner.human_attribute_name(:name), sort_by: :name) do |air_conditioner| %>
+      <%= link_to air_conditioner.name, air_conditioner_path(air_conditioner) %>
+    <% end %>
+
+    <% table.with_column(style: "min-width: 84px; width: 84px") do |air_conditioner| %>
+      <div class="btn-group btn-group-sm" role="group" aria-label="...">
+        <%= link_to edit_air_conditioner_path(air_conditioner), class: "btn btn-primary" do %>
+          <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
+          <span class="visually-hidden"><%= t("action.edit") %></span>
+        <% end %>
+        <%= link_to air_conditioner, method: :delete, data: { confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
+          <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
+          <span class="visually-hidden"><%= t("action.delete") %></span>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

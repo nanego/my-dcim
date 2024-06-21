@@ -46,4 +46,10 @@ RSpec.describe CardComponent, type: :component do
 
     it { expect { component }.to raise_error(ArgumentError) }
   end
+
+  context "with an extra_class" do
+    let(:component) { described_class.new(extra_classes: "test") }
+
+    it { expect(rendered_component.to_html).to have_css("div.card.test") }
+  end
 end

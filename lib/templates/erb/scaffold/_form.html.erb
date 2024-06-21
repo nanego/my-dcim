@@ -1,28 +1,16 @@
-<%%= form_for(@<%= singular_table_name %>, html: { class: "form-horizontal", role: "form" }) do |f| %>
-  <%% if @<%= singular_table_name %>.errors.any? %>
-    <div class="alert alert-danger alert-dismissable" role="alert">
-      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="visually-hidden">Close</span></button>
-      <h4><%%= pluralize(@<%= singular_table_name %>.errors.count, "error") %> prohibited this <%= singular_table_name %> from being saved:</h4>
+<%%= render FormErrorsComponent.new(@<%= singular_table_name %>) %>
 
-      <ul>
-      <%% @<%= singular_table_name %>.errors.full_messages.each do |msg| %>
-        <li><%%= msg %></li>
-      <%% end %>
-      </ul>
-    </div>
-  <%% end %>
-
-<% attributes.each do |attribute| -%>
-  <div class="form-group">
-    <%%= f.label :<%= attribute.name %>, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
+<%%= form_for(@<%= singular_table_name %>, html: { class: "bg-body-tertiary p-4 rounded border", role: "form" }) do |f| %>
+  <div class="row g-3">
+    <% attributes.each do |attribute| -%>
+<fieldset class="col-12">
+      <%%= f.label :<%= attribute.name %>, class: "form-label" %>
       <%%= f.<%= attribute.field_type %> :<%= attribute.name %>, class: "form-control" %>
-    </div>
-  </div>
-<% end -%>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <%%= f.submit class: "btn btn-primary" %>
+    </fieldset>
+    <% end -%>
+
+    <div class="col-12 mt-4">
+      <%%= f.submit class: "btn btn-primary w-100" %>
     </div>
   </div>
 <%% end %>

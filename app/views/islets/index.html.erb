@@ -14,7 +14,7 @@
 
   <%= render List::DataTableComponent.new(@islets) do |table| %>
     <% table.with_column(Site.model_name.human, sort_by: :"sites.name") do |islet| %>
-      <%= islet.site %>
+      <%= link_to islet.site, site_path(islet.site) %>
     <% end %>
 
     <% table.with_column(Room.model_name.human, sort_by: :"rooms.name") do |islet| %>
@@ -22,8 +22,7 @@
     <% end %>
 
     <% table.with_column(Islet.model_name.human, sort_by: :name) do |islet| %>
-      <!-- <%= link_to islet, islet_path(islet) %> -->
-      <%= islet.name %>
+      <%= link_to islet, islet_path(islet) %>
     <% end %>
 
     <% table.with_column(Islet.human_attribute_name(:position), sort_by: :position) do |islet| %>

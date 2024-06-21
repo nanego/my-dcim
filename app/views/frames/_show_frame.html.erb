@@ -68,7 +68,7 @@
                 <% u_disponibles -= 1 %>
               <% end %>
               <%= render partial: 'servers/draw_server_badge', locals: { server: server } %>
-              <span id="back_server_<%= server.id %>">
+              <span id="back_server_<%= server.id %>" class="no-decoration-link">
                 <div id="scaleable-wrapper" class="scaleable-wrapper">
                   <%= render partial: 'servers/draw_server_compact', locals: { server: server } %>
                 </div>

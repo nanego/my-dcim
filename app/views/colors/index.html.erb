@@ -1,31 +1,30 @@
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  Color.model_name.human.pluralize => ""}
+<% provide(:title, Color.model_name.human.pluralize) %>
+<%= render "layouts/breadcrumb", breadcrumb_variables: {
+  Color.model_name.human.pluralize => "" }
 %>
 
 <div class="container-fluid">
-  <div class="page-header">
-    <h1>
-      <%= t(".title") %>
-    </h1>
+  <div>
+    <h1><%= t(".title") %></h1>
   </div>
 
   <%= render List::DataTableComponent.new(@colors) do |table| %>
     <% table.with_column(style: "position: relative;") do |color| %>
-      <%= tag.div style: "position: absolute; top: 0; left: 0; bottom: 0; right: 0; background-color: #{color.code}" do %>
+      <%= tag.div class: "position-absolute top-0 start-0 bottom-0 end-0", style: "background-color:#{color.code}" do %>
         &nbsp;
       <% end %>
     <% end %>
 
-    <% table.with_column(Color.human_attribute_name(:type), sort_by: :parent_type) do |color| %>
+    <% table.with_column(Color.human_attribute_name(:parent_type), sort_by: :parent_type) do |color| %>
       <%= color.parent_type %>
     <% end %>
 
-    <% table.with_column(Color.human_attribute_name(:id), sort_by: :parent_id) do |color| %>
+    <% table.with_column(Color.human_attribute_name(:parent_id), sort_by: :parent_id) do |color| %>
       <%= color.parent_id %>
     <% end %>
 
     <% table.with_column(Color.human_attribute_name(:code), sort_by: :code) do |color| %>
-      <%= color.code %>
+      <%= link_to color.code, color_path(color) %>
     <% end %>
 
     <% table.with_column(style: "min-width: 84px; width: 84px") do |color| %>

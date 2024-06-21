@@ -3,133 +3,148 @@
 <% provide :title, "Salle #{@room.name} #{@islet ? "- Ilot #{@islet}" : "" }" %>
 <% hide_inventories_sidebar! %>
 
-<%= render 'layouts/breadcrumb' %>
+<%= render "layouts/breadcrumb" %>
 
 <% server_height = 2.5 %>
 
 <div class="container-fluid room_overview show_room" id="full-overview">
-  <div class="card mb-3">
-    <div class="card-body d-flex">
-      <ul class="list-unstyled menu-rooms rounded-start-1 bg-body-secondary p-3 m-0 border-end">
-        <% @sites.each do |site| %>
-          <li><%= site %></li>
-          <ul>
-            <% rooms = site.rooms.sorted.distinct %>
-            <% rooms.each do |room| %>
-              <% islets = room.islets.sorted.not_empty.has_name.distinct %>
-              <% islets.each do |islet| %>
-                <li role="presentation">
-                  <% if islets.size == 1 %>
-                    <a href="#<%= room.id %>-" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': ''})" aria-controls="room-<%= room %>" role="tab" data-bs-toggle="tab">
-                      <%= room.name %>
-                    </a>
-                  <% else %>
-                    <a href="#<%= room.id %>-<%= islet %>" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': '<%= islet.name %>'})" aria-controls="islet-<%= islet %>" role="tab" data-bs-toggle="tab">
-                      <%= room.name %> Ilot <%= islet.name %>
-                    </a>
+  <div class="card mb-3" style="min-height: 55px;">
+    <div id="collapseRoomOverviewCardBody" class="collapse show">
+      <div class="card-body d-flex justify-content-between">
+        <div class="d-none d-md-block rounded-start-1 bg-body-secondary p-3 m-0 border-end">
+          <ul class="list-unstyled menu-rooms">
+            <% @sites.each do |site| %>
+              <li><%= site %></li>
+              <ul>
+                <% rooms = site.rooms.sorted.distinct %>
+                <% rooms.each do |room| %>
+                  <% islets = room.islets.sorted.not_empty.has_name.distinct %>
+                  <% islets.each do |islet| %>
+                    <li role="presentation">
+                      <% if islets.size == 1 %>
+                        <a href="#<%= room.id %>-" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': ''})" aria-controls="room-<%= room %>" role="tab" data-bs-toggle="tab">
+                          <%= room.name %>
+                        </a>
+                      <% else %>
+                        <a href="#<%= room.id %>-<%= islet %>" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': '<%= islet.name %>'})" aria-controls="islet-<%= islet %>" role="tab" data-bs-toggle="tab">
+                          <%= room.name %> Ilot <%= islet.name %>
+                        </a>
+                      <% end %>
+                    </li>
                   <% end %>
-                </li>
-              <% end %>
-              <% if islets.empty? %>
-                <li><%= room.name %></li>
-              <% end %>
+                  <% if islets.empty? %>
+                    <li><%= room.name %></li>
+                  <% end %>
+                <% end %>
+              </ul>
             <% end %>
           </ul>
-        <% end %>
-      </ul>
-      <div class="tab-content bg-body-tertiary">
-        <% @sites.each do |site| %>
-          <% site.rooms.each do |room| %>
-            <% room.islets.sorted.each do |islet| %>
-              <div class="islet tab-pane fade <%= 'in active' if islet == @islet || (@islet.blank? && @room == room) %>"
-                   role="tabpanel"
-                   style="overflow: auto;"
-                   id="<%= room.id %>-<%= islet if room.islets.size > 1 %>">
-                <div class="rooms-overview">
-                  <% islet.bays.sorted.each do |bay| %>
-                    <div class="couple" style="white-space: nowrap;grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
-                        grid-row: <%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;">
-                      <% bay.frames.sorted.each_with_index do |frame, index| %>
-                        <div class="overviewed_frame <%= 'no-margin' if index > 0 %> <%= 'highlighted' if @frames && @frames.include?(frame) %>"
-                             data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.slug %>">
-                          <div class="title">
-                            <%= link_to frame.name, frame_path(frame, view: (params[:view])), data: {'frame-id': frame.slug} %>
-                          </div>
-                          <ul>
-                            <% u_disponibles = frame.u || 41 %>
-                            <% servers = @servers_per_frames[room.id][islet.name][bay.lane][bay][frame] %>
-                            <% servers.each do |server| %>
-                              <% while server.position.present? && server.position < u_disponibles && u_disponibles > 0 %>
+          <hr />
+          <div class="text-center">
+            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= t("rooms.action_buttons.background_color", bg: bg || User::AVAILABLE_BAY_BACKGROUND_COLORS[0]) %>
+            </button>
+            <ul class="dropdown-menu">
+              <li><%= link_to 'Modèle',
+                              url_for(params.except(:controller, :action)
+                                            .permit(:view, :islet, :id, :bg, :format)
+                                            .merge({ view: :front, bg: 'modele', islet: params[:islet], id: params[:id] })),
+                              class: "dropdown-item" %></li>
+              <li><%= link_to 'Gestionnaire',
+                              url_for(params.except(:controller, :action)
+                                            .permit(:view, :islet, :id, :bg, :format)
+                                            .merge({ view: :front, bg: 'gestionnaire', islet: params[:islet], id: params[:id] })),
+                              class: "dropdown-item" %></li>
+              <li><%= link_to 'Cluster',
+                              url_for(params.except(:controller, :action)
+                                            .permit(:view, :islet, :id, :bg, :format)
+                                            .merge({ view: :front, bg: 'cluster', islet: params[:islet], id: params[:id] })),
+                              class: "dropdown-item" %></li>
+            </ul>
+          </div>
+        </div>
+        <div class="tab-content bg-body overflow-scroll p-3 m-auto">
+          <% @sites.each do |site| %>
+            <% site.rooms.each do |room| %>
+              <% room.islets.sorted.each do |islet| %>
+                <div class="islet tab-pane fadein <%= "active" if islet == @islet || (@islet.blank? && @room == room) %>"
+                    role="tabpanel"
+                    style="overflow: auto;"
+                    id="<%= room.id %>-<%= islet if room.islets.size > 1 %>">
+                  <div class="rooms-overview">
+                    <% islet.bays.sorted.each do |bay| %>
+                      <% air_conditioner = @air_conditioners.find { _1.bay_id == bay.id } || nil %>
+                      <div class="couple d-flex" style="grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
+                          grid-row: <%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;">
+                        <% if air_conditioner&.position == AirConditioner.positions[:left] %>
+                          <%= link_to air_conditioner.name, edit_air_conditioner_path(air_conditioner),
+                                      class: "air-conditioner #{air_conditioner.status}" %>
+                        <% end %>
+                        <% bay.frames.sorted.each_with_index do |frame, index| %>
+                          <div class="<%= class_names("overviewed_frame border",
+                                                      "no-margin": index > 0,
+                                                      highlighted: @frames && @frames.include?(frame)) %>"
+                              data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.slug %>">
+                            <div class="title">
+                              <%= link_to frame.name, frame_path(frame, view: (params[:view])), data: { 'frame-id': frame.slug } %>
+                            </div>
+                            <ul>
+                              <% u_disponibles = frame.u || 41 %>
+                              <% servers = @servers_per_frames[room.id][islet.name][bay.lane][bay][frame] %>
+                              <% servers.each do |server| %>
+                                <% while server.position.present? && server.position < u_disponibles && u_disponibles > 0 %>
+                                  <li class="server truncate" style='height: <%= server_height %>px;background-color:white;' data-num-u="<%= u_disponibles %>"/>
+                                  <% u_disponibles -= 1 %>
+                                <% end %>
+
+                                <% bgModeleColor = define_background_color(server: server, mode: bg) %>
+                                <% u_server = server.modele.try(:u).to_i > 0 ? server.modele.u : 1 %>
+                                <% data = { u: u_server,
+                                            num_u: u_disponibles,
+                                            rj45_futur: server.try(:rj45_futur) || 0,
+                                            fc_futur: server.try(:fc_futur) } %>
+                                <%= content_tag_for :li, server,
+                                                    class: "server truncate #{server.modele.try(:category).try(:name).try(:parameterize)} #{server.server_state_id == 1 ? 'striped' : ''}",
+                                                    style: "height: #{server_height * u_server}px;background-color:#{bgModeleColor} !important;",
+                                                    title: h("#{server.name}"),
+                                                    :data => data do %>
+                                  <% u_disponibles -= u_server %>
+                                <% end %>
+                              <% end %>
+                              <% u_disponibles.times do |u| %>
                                 <li class="server truncate" style='height: <%= server_height %>px;background-color:white;' data-num-u="<%= u_disponibles %>"/>
                                 <% u_disponibles -= 1 %>
                               <% end %>
+                            </ul>
+                          </div>
+                        <% end %>
 
-                              <% bgModeleColor = define_background_color(server: server, mode: bg) %>
-                              <% u_server = server.modele.try(:u).to_i > 0 ? server.modele.u : 1 %>
-                              <% data = {:u => u_server,
-                                         :num_u => u_disponibles,
-                                         :rj45_futur => server.try(:rj45_futur) || 0,
-                                         :fc_futur => server.try(:fc_futur)} %>
-                              <%= content_tag_for :li, server,
-                                                  class: "server truncate #{server.modele.try(:category).try(:name).try(:parameterize)} #{server.server_state_id == 1 ? 'striped' : ''}",
-                                                  style: "height: #{server_height * u_server}px;background-color:#{bgModeleColor} !important;",
-                                                  title: h("#{server.name}"),
-                                                  :data => data do %>
-                                <% u_disponibles -= u_server %>
-                              <% end %>
-                            <% end %>
-                            <% u_disponibles.times do |u| %>
-                              <li class="server truncate" style='height: <%= server_height %>px;background-color:white;' data-num-u="<%= u_disponibles %>"/>
-                              <% u_disponibles -= 1 %>
-                            <% end %>
-                          </ul>
-                        </div>
-                      <% end %>
-                    </div>
-                  <% end %>
+                        <% if air_conditioner&.position == AirConditioner.positions[:right] %>
+                          <%= link_to air_conditioner.name, edit_air_conditioner_path(air_conditioner),
+                                      class: "air-conditioner #{air_conditioner.status}" %>
+                        <% end %>
+
+                      </div>
+                    <% end %>
+                  </div>
                 </div>
-              </div>
+              <% end %>
             <% end %>
           <% end %>
-        <% end %>
-      </div>
-      <ul class="col-md-2 hidden-sm room-actions">
-        <!-- Choix de la couleur de fond des serveurs -->
-        <div class="btn-group">
-          <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= t("rooms.action_buttons.background_color", bg: bg || User::AVAILABLE_BAY_BACKGROUND_COLORS[0]) %>
-          </button>
-          <ul class="dropdown-menu">
-            <li><%= link_to 'Modèle', url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: 'modele', islet: params[:islet], id: params[:id]})) %></li>
-            <li><%= link_to 'Gestionnaire', url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: 'gestionnaire', islet: params[:islet], id: params[:id]})) %></li>
-            <li><%= link_to 'Cluster', url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: 'cluster', islet: params[:islet], id: params[:id]})) %></li>
-          </ul>
         </div>
-        <button id="hide-overview" type="button" class="btn btn-outline-secondary" aria-label="Left Align" style="position: absolute;bottom: 1px;right: 1px;padding: 0 10px;">
-          <span class="bi bi-chevron-up" aria-hidden="true"></span>
-        </button>
-      </ul>
-    </div>
-  </div>
-</div>
-<div class="container-fluid room_overview show_room" id="retracted-overview" style="display: none;">
-  <div class="card">
-    <div class="card-body d-flex">
-      <ul class="list-unstyled menu-rooms rounded-start-1 bg-body-secondary p-3 m-0 border-end">
-      </ul>
-      <div class="tab-content bg-body-tertiary">
       </div>
-      <ul class="room-actions">
-        <button id="show-overview" type="button" class="btn btn-outline-secondary" aria-label="Left Align" style="position: absolute;bottom: 1px;right: 1px;padding: 0 10px;">
-          <span class="bi bi-chevron-down" aria-hidden="true"></span>
-        </button>
-      </ul>
     </div>
+    <button type="button" class="btn btn-outline-secondary position-absolute bottom-0 end-0 m-2"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#collapseRoomOverviewCardBody"
+                          aria-expanded="false"
+                          aria-controls="collapseRoomOverviewCardBody" >
+      <span class="bi bi-arrows-collapse" aria-hidden="true"></span>
+    </button>
   </div>
 </div>
 <div class="container-fluid" id="bay-container"></div>
-<%= render 'servers/modal_add_element_in_frame' %>
-<%= render 'ports/modal_edit_port' %>
+<%= render "ports/modal_edit_port" %>
 
 <script>
 (function () {
@@ -163,11 +178,13 @@ $(".show_room .overviewed_frame .title a").on('click', function (e) {
     e.preventDefault()
     loadFrame($(this).data('frame-id'), $(this).data('bay-id'), $(this).text())
 })
+
+// TODO: Only update two last childs
 $(".menu-rooms").on('click', 'a', function (e) {
-    $('ol.breadcrumb').replaceWith("<ol class=\"breadcrumb\" style=\"margin-bottom: 5px;\">\n" +
-        "  <li><a href=\"/\">Accueil</a></li>\n" +
-        "    <li class=\"active\"><a href=\"/rooms/overview\">Salles</a></li>\n" +
-        "    <li class=\"\">" + $(this).text() + "</li>\n" +
+  $('ol.breadcrumb').replaceWith("<ol class=\"breadcrumb\">\n" +
+        "  <li class=\"breadcrumb-item\"><a href=\"/\">Accueil</a></li>\n" +
+        "    <li class=\"breadcrumb-item\"><a href=\"/rooms/overview\">Salles</a></li>\n" +
+        "    <li class=\"breadcrumb-item active\">" + $(this).text() + "</li>\n" +
         "</ol>");
 })
 
@@ -198,7 +215,7 @@ function loadFrame(frame_id, bay_id, frame_title) {
 
   const searchParams = new URLSearchParams(window.location.search)
   let view = 'front'
-  
+
   if (searchParams.has('view')) {
       view = searchParams.get('view')
   } else {
@@ -214,13 +231,4 @@ function loadFrame(frame_id, bay_id, frame_title) {
       data: {frame_id: frame_id, view: view, bg: searchParams.get('bg')}
   });
 }
-
-$("#full-overview").on('click', 'button#hide-overview', function () {
-  $("#full-overview").slideUp(100)
-  $("#retracted-overview").show()
-})
-$("#retracted-overview").on('click', 'button#show-overview', function () {
-  $("#retracted-overview").hide()
-  $("#full-overview").slideDown(100)
-})
 </script>

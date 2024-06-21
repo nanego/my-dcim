@@ -2,8 +2,8 @@
   overflow:auto;
 }
 .diff ul{
-  background: #fafafa;
   overflow: auto;
+  background-color: rgb(248, 249, 250);
   font-size: 13px;
   list-style: none;
   margin:0;
@@ -21,12 +21,27 @@
   margin: 0;
   height: 1em;
 }
-.diff li.ins{background:#dfd; color:#080}
-.diff li.del{background:#fee; color:#b00}
-.diff li:hover{background:#ffc}
+.diff li.ins{background:rgba(25, 135, 84, 0.1); color:#080}
+.diff li.del{background:rgba(248, 81, 73, 0.1); color:#b00}
+.diff li:hover{background:rgba(255, 255, 204, 0.3);}
 /* try 'whitespace:pre;' if you don't want lines to wrap */
 .diff del, .diff ins, .diff span{white-space:pre-wrap;font-family:courier;}
-.diff del strong{font-weight:normal;background:#fcc;}
-.diff ins strong{font-weight:normal;background:#9f9;}
+.diff del strong{font-weight:normal;background:rgba(248, 81, 73, 0.2);}
+.diff ins strong{font-weight:normal;background-color: rgb(172, 238, 187);}
 .diff li.diff-comment { display: none; }
 .diff li.diff-block-info { background: none repeat scroll 0 0 gray; }
+
+
+@media (prefers-color-scheme: dark) {
+  .diff ul {
+    background-color: rgb(43, 48, 53);
+  }
+
+  .diff li.del { color: rgb(234, 134, 143); }
+  .diff del strong{ background:rgba(248, 81, 73, 0.4);}
+
+  .diff li.ins { color: rgb(117, 183, 152); }
+  .diff ins strong { background-color: rgba(46, 160, 67, 0.4); }
+
+  .diff li:hover { color: white; }
+}

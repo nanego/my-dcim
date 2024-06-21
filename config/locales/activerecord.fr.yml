@@ -12,6 +12,8 @@ fr:
         other: Châssis
       modele: Modèle
       category: Catégorie
+      air_conditioner: Climatisation
+      air_conditioner_model: Modèle de climatisation
       architecture: Architecture
       manufacturer: Constructeur
       domaine: Domaine
@@ -44,6 +46,9 @@ fr:
       memory_component:
         one: Composant mémoire
         other: Composants mémoire
+      move:
+        one: Déplacement prévu
+        other: Déplacements prévus
 
     attributes:
       room:
@@ -111,6 +116,21 @@ fr:
           zero: 0 salle
           one: 1 salle
           other: "%{count} salles"
+      air_conditioner:
+        name: Nom
+        room: Salle
+        position: Position
+        power: Puissance
+        status: État
+        bay_id: Baie la plus proche
+        last_service: Dernière maintenance
+        air_conditioner_model_id: Modèle
+        start: DTC start (début lutte)
+        range: DTC range (plage d'accélération)
+        setpoint: Temperature de Consigne externe (froid)
+        min_setpoint: Temperature de Consigne Nuit externe (froid)
+      air_conditioner_model:
+        name: Nom
       architecture:
         name: Nom
         usage: Usage
@@ -177,8 +197,8 @@ fr:
         max_aligned_ports: Nombre max de ports alignés
         first_position: Numéro du premier port
       color:
-        type: Type
-        id: Id
+        parent_type: Type
+        parent_id: Id
         code: Code
       port_type:
         name: Nom
@@ -299,11 +319,22 @@ fr:
         cable: Câble
         port: Port
         paired_connection: Connexion paire
+        from_port_id: Port de départ
+        to_port_id: Port de destination
       cable:
         name: Nom
         color: Couleur
-        special_case: Cas spécial
+        special_case: Backbone réseau
         comments: Commentaires
+      port:
+        cablename: Nom du câble
+        color: Couleur
+        vlans: Vlans
+      move:
+        moveable_id: Matériel à déplacer
+        frame_id: Baie de destination
+        remove_connections: Supprimer toutes les connexions vers ce matériel ?
+        position: Position dans la baie
 
     errors:
       models:

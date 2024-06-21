@@ -87,10 +87,9 @@
     <!-- TODO: update -->
     <% if @server.modele %>
       <% @server.modele.enclosures.each do |enclosure| %>
-        <div class="col-12 mt-4" data-controller="nested-form"
-                                 data-nested-form-wrapper-selector-value=".nested-form-wrapper">
+        <div class="col-12 mt-4" data-controller="nested-form">
           <template data-nested-form-target="template">
-            <%= f.fields_for :cards, f.object.cards.klass.new, child_index: 'NEW_RECORD' do |card_fields| %>
+            <%= f.fields_for :cards, f.object.cards.klass.new, child_index: '__NEW_RECORD__' do |card_fields| %>
               <%= render partial: "card_fields", locals: { f: card_fields, server: @server, enclosure: enclosure } %>
             <% end %>
           </template>
@@ -131,9 +130,10 @@
                 <div data-nested-form-target="target"></div>
               </ul>
             </div>
-            <div class="card-footer">
-              <button type="button" class="btn btn-outline-secondary btn-sm" data-action="nested-form#add">
-                <span class="bi bi-plus-lg" aria-hidden="true"></span> Ajouter une carte
+            <div class="card-footer text-center">
+              <button type="button" class="btn btn-outline-success btn-sm" data-action="nested-form#add">
+                <span class="bi bi-plus-lg" aria-hidden="true"></span>
+                <span><%= t(".add_card") %></span>
               </button>
             </div>
           </div>
@@ -146,24 +146,24 @@
       <%= f.text_area :comment, class: "form-control" %>
     </fieldset>
 
-    <fieldset class="col-12 mt-4" data-controller="nested-form"
-                                  data-nested-form-wrapper-selector-value=".nested-form-wrapper">
+    <fieldset class="col-12 mt-4" data-controller="nested-form">
       <template data-nested-form-target="template">
-        <%= f.fields_for :documents, f.object.documents.klass.new, child_index: 'NEW_RECORD' do |document_fields| %>
+        <%= f.fields_for :documents, f.object.documents.klass.new, child_index: '__NEW_RECORD__' do |document_fields| %>
           <%= render partial: "document_fields", locals: { f: document_fields } %>
         <% end %>
       </template>
 
       <%= f.label :documents, class: "form-label" %>
-      <%= render CardComponent.new do |card| %>
+      <%= render CardComponent.new(extra_classes: "bg-transparent") do |card| %>
         <%= f.fields_for :documents do |document_fields| %>
           <%= render partial: "document_fields", locals: { f:  document_fields } %>
         <% end %>
 
         <div data-nested-form-target="target"></div>
 
-        <button type="button" class="btn btn-outline-secondary btn-sm" data-action="nested-form#add">
-          <span class="bi bi-plus-lg" aria-hidden="true"></span> Ajouter une pièce jointe
+        <button type="button" class="btn btn-outline-success btn-sm" data-action="nested-form#add">
+          <span class="bi bi-plus-lg" aria-hidden="true"></span>
+          <span><%= t(".add_document") %></span>
         </button>
       <% end %>
     </fieldset>

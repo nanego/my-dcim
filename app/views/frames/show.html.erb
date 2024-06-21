@@ -13,12 +13,12 @@
   breadcrumb_variables[t("layouts.breadcrumb.bay.simple", name: @frame.name)] = "" if @frame.present?
 %>
 <%= render "layouts/breadcrumb", breadcrumb_variables: breadcrumb_variables %>
+<% hide_inventories_sidebar! %>
 
 <div class="container-fluid" id="bay-container">
   <%= render "frames/show_complete_frame" %>
 </div>
 
-<%= render "servers/modal_add_element_in_frame" %>
 <%= render "ports/modal_edit_port" %>
 
 <script type="javascript">

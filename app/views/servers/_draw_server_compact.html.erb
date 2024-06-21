@@ -1,13 +1,13 @@
 <% selected_port ||= nil %>
 
 <% if server.modele.present? %>
-  <div class="float-end very-specific-design" id="very-specific-design">
+  <div class="very-specific-design float-end" id="very-specific-design">
 
     <% server.modele.enclosures.each_with_index do |enclosure, index| %>
 
       <% composants_per_enclosure = enclosure.composants.slots %>
 
-      <% if enclosure.display == 'grid' %>
+      <% if enclosure.display == "grid" %>
         <style type="text/css">
           .enclosure-container {
             grid-template-areas: <%= raw enclosure.grid_areas.split(/\r\n/).map{|s|'"'+s+'"'}.join(' ') %>;
@@ -26,7 +26,7 @@
               <%= slot_label(server, component) %>
             </div>
             <div class="item <%= class_name %>">
-              <%= render partial: 'servers/draw_component', locals: { server: server, component: component, selected_port: selected_port } %>
+              <%= render partial: "servers/draw_component", locals: { server: , component: , selected_port: } %>
             </div>
           <% end %>
         </div>
@@ -35,7 +35,7 @@
         <table class="<%= class_names("slots", "mt-2": index > 0) %>">
           <tbody>
 
-          <% if enclosure.display != 'horizontal' %>
+          <% if enclosure.display != "horizontal" %>
 
             <tr>
               <% composants_per_enclosure.each do |component| %>
@@ -45,7 +45,7 @@
             <tr>
               <% composants_per_enclosure.each do |component| %>
                 <td class="slot_column">
-                  <%= render partial: 'servers/draw_component', locals: { server: server, component: component, selected_port: selected_port } %>
+                  <%= render partial: "servers/draw_component", locals: { server: , component: , selected_port:  } %>
                 </td>
               <% end %>
             </tr>
@@ -55,7 +55,9 @@
             <% composants_per_enclosure.each do |component| %>
               <tr>
                 <th><%= slot_label(server, component) %></th>
-                <td><%= render partial: 'servers/draw_component', locals: { server: server, component: component, selected_port: selected_port } %></td>
+                <td>
+                  <%= render partial: "servers/draw_component", locals: { server: , component: , selected_port: } %>
+                </td>
               </tr>
             <% end %>
 

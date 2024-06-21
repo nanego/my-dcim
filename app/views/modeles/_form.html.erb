@@ -60,38 +60,29 @@
                   { class: "form-select", data: { controller: "select" }, multiple: true } %>
     </fieldset>
 
-    <div data-controller="nested-form" data-nested-form-wrapper-selector-value=".nested-form-wrapper">
-      <template data-nested-form-target="template">
-        <%= f.fields_for :enclosures, f.object.enclosures.klass.new, child_index: "NEW_RECORD" do |enclosure_fields| %>
+    <fieldset data-controller="nested-form" class="col-12 mt-4">
+      <div class="row g-3">
+        <template data-nested-form-target="template">
+          <%= f.fields_for :enclosures, f.object.enclosures.klass.new,
+                                        child_index: "__NEW_RECORD__" do |enclosure_fields| %>
+            <%= render partial: "enclosure_fields", locals: { f: enclosure_fields } %>
+          <% end %>
+        </template>
+
+        <%= f.label :enclosures, class: "form-label" %>
+        <%= f.fields_for :enclosures do |enclosure_fields| %>
           <%= render partial: "enclosure_fields", locals: { f: enclosure_fields } %>
         <% end %>
-      </template>
 
-      <%= content_tag :span, Enclosure.model_name.human.pluralize, class: "col-sm-3 col-md-2 control-label" %>
-      <%= f.fields_for :enclosures do |enclosure_fields| %>
-        <%= render partial: "enclosure_fields", locals: { f: enclosure_fields } %>
-      <% end %>
+        <div data-nested-form-target="target"></div>
 
-      <div data-nested-form-target="target"></div>
-
-      <button type="button" class="btn btn-outline-secondary btn-sm" data-action="nested-form#add">
-        <span class="bi bi-plus-lg" aria-hidden="true"></span> <%= t(".add_enclosure") %>
-      </button>
-    </div>
-
-    <!--
-    <div class="col-sm-5 col-sm-offset-2">
-      <div class="card">
-      <div class="card-header"><h4>Groupes d'interfaces</h4></div>
-        <ul class="list-group">
-          < f.fields_for :composants do |builder| %>
-            < render "composant_fields", :f => builder %>
-          < end %>
-        </ul>
-        <div class="card-footer">< link_to_add_fields "Ajouter un groupe", f, :composants %></div>
+        <span class="text-center mt-2">
+          <button type="button" class="btn btn-outline-success btn-sm" data-action="nested-form#add">
+            <span class="bi bi-plus-lg" aria-hidden="true"></span> <%= t(".add_enclosure") %>
+          </button>
+        </span>
       </div>
-    </div>
-    -->
+    </fieldset>
 
     <div class="col-12 mt-4">
       <%= f.submit class: "btn btn-primary w-100" %>
