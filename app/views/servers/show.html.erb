@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div class="col-12 px-3 mb-4">
+    <div class="col-12 mb-4">
       <% bgModeleColor = define_background_color(server: @server, mode: params["bg"]) %>
       <div class="<%= class_names("rounded-top-1 border border-secondary-subtle p-2 mb-2",
                                   colorized_background: bgModeleColor.present?) %>"
@@ -62,8 +62,8 @@
       </div>
     <% end %>
 
-    <div class="row">
-      <div class="col-12 col-lg-6">
+    <div class="d-flex flex-column flex-lg-row">
+      <div class="col-12 col-lg-6 pe-lg-3 mb-4 mb-lg-0">
         <%= render CardComponent.new(type: :primary) do |card| %>
           <dl class="row">
             <dt class="col-6 text-end"><%= Bay.model_name.human %> :</dt>
