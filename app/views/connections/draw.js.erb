@@ -8,6 +8,11 @@ var currently_activated_servers = currently_activated_servers || {} // server =>
 var currently_connected_ports = currently_connected_ports || {} // port => servers
 var currently_activated_connections = currently_activated_connections || [] // activated ports, grouped by connection
 
+$(document).ready(function () {
+  resetLinesPositionOnScroll()
+})
+
+
 if (exists(currently_activated_servers[server_id])) { // TOGGLE
     delete_lines(server_id)
     log("currently_activated_servers", currently_activated_servers)
@@ -36,6 +41,23 @@ function create_lines(server_id) {
     )
     <% end %>
     <% end %>
+}
+
+
+function resetLinesPositionOnScroll() {
+  $("main.mydcim-main").on('scroll', AnimEvent.add(function() {
+    for (var server_id of Object.keys(currently_activated_servers)) {
+      var ports = currently_activated_servers[server_id]
+
+      for (var port_id of Object.keys(ports)) {
+        let lines = currently_activated_servers[server_id][port_id]
+
+        lines.forEach(function (line) {
+          line.position()
+        })
+      }
+    }
+  }))
 }
 
 function get_twin_cards() {
@@ -245,9 +267,9 @@ function clear_currently_connected_ports(server_id) {
 }
 
 function delete_all_lines() {
-    for (var server_id of Object.keys(currently_activated_servers)) {
-        delete_lines(server_id)
-    }
+  for (var server_id of Object.keys(currently_activated_servers)) {
+      delete_lines(server_id)
+  }
 }
 
 function create_leader_line(elt_start, elt_end, cable_name, cable_color) {
