@@ -1,6 +1,6 @@
 <% view_side = Frame.view_sides[:front] if local_assigns[:view_side].blank? %>
 
-<span>
+<span class="d-flex flex-wrap gap-2 flex-column flex-lg-row">
   <% if view_side != Frame.view_sides[:back] %>
     <!-- Choice of server background color -->
     <div class="btn-group">
