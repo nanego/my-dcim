@@ -1,13 +1,12 @@
 <div class="card card-pdu">
   <div class="card-header">
-    <h5 class="card-title" style="display: inline;">
+    <h5 class="card-title mb-0">
       PDU <%= frame %>
     </h5>
   </div>
-  <div class="card-body">
+  <div class="card-body d-flex">
     <% frame.pdus.each do |pdu| %>
-      <div style="width: 50%;float: left;padding: 0 15px;max-width:60px;"
-           class="pdu <%= pdu.color %>"
+      <div class="pdu w-50 <%= pdu.color %>"
            id="pdu-<%= pdu.id %>" >
         <%= render :partial => 'pdus/pdu', locals: {pdu: pdu} %>
       </div>

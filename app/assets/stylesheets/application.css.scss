@@ -102,7 +102,7 @@ a.hide-filters, a.show-filters {
 }
 
 .frame .server a, .pdu a {
-  color: #333
+  color: var(--bs-emphasis-color);
 }
 
 .frame .server .server_name {
@@ -163,19 +163,16 @@ table.card_layout {
 
 .pdu {
   &.J {
-    .pdu-line .label {
-      color: rgba(0, 0, 0, 1);
-      background-color: rgba(255, 221, 0, 1);
+    .pdu-line .badge {
+      color: var(--bs-gray-500);
+      background-color: #ffed7e;
     }
   }
   &.B {
-    .pdu-line .label {
+    .pdu-line .badge {
       // color: rgba(255,255,255, 1);;
-      background-color: rgba(72, 118, 255, 1);
+      background-color: #a2b9ff;
     }
-  }
-  .empty {
-    background-color: #FFFFFF;
   }
 }
 
@@ -299,10 +296,6 @@ table.card_layout {
   padding: 10px;
   background-color: lightgrey;
   padding: 10px;
-}
-
-.card-pdu {
-  max-width: 150px;
 }
 
 .u_scale {
