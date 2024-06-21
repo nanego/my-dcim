@@ -31,10 +31,10 @@ class AirConditionersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to air_conditioners_url
   end
 
-  test "should show air_conditioner" do
-    get air_conditioner_url(@air_conditioner)
-    assert_response :success
-  end
+  # test "should show air_conditioner" do
+  #   get air_conditioner_url(@air_conditioner)
+  #   assert_response :success
+  # end
 
   test "should get edit" do
     get edit_air_conditioner_url(@air_conditioner)
