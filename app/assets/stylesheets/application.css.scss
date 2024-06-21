@@ -248,20 +248,17 @@ table.card_layout {
 }
 
 .portRJ {
-  border: 1px #555555 solid;
   width: 24px;
   height: 18px;
   line-height: 16px;
 }
 
 .portSCSI {
-  border: 1px #555555 solid;
   /* background-color: #DDD; */
   padding: 1px 2px;
 }
 
 .portFC {
-  border: 1px #555555 solid;
   width: 24px;
   height: 18px;
   line-height: 16px;
@@ -272,7 +269,6 @@ table.card_layout {
 }
 
 .portALIM {
-  border: 1px #555555 solid;
   padding: 1px 2px;
   -webkit-border-radius: 4px 4px 8px 8px;
   -moz-border-radius: 4px 4px 8px 8px;
