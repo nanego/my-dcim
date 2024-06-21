@@ -565,6 +565,16 @@ body {
     		}
      	}
     }
+
+    .no-decoration-link {
+      a {
+        text-decoration: none;
+
+        &:focus, &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
   }
 
   &-header {
