@@ -1,39 +1,53 @@
-<% provide :title, t(".title") %>
+<% provide(:title, "#{Frame.model_name.human.pluralize} | #{@frame} | #{t(".title")}") %>
+<%
+  breadcrumb_variables = {
+    t("visualization") => overview_rooms_path,
+    @frame.room.name => ((@frame.present? || params[:islet].present?) ? room_path(@frame.room, view: params[:view]) : "")
+  }
+  if @frame.present? && @frame.bay.islet.name.present?
+    breadcrumb_variables[t("layouts.breadcrumb.islet", name: @frame.bay.islet.name)] = room_path(@frame.room, islet: @frame.bay.islet.name, view: params[:view])
+  elsif params[:islet].present?
+    breadcrumb_variables[t("layouts.breadcrumb.islet", name: params[:islet])] = ""
+  end
+  breadcrumb_variables[t("layouts.breadcrumb.bay.double", name: @frame.bay)] = room_path(@frame.room, islet: @frame.bay.islet.name, "bay-id": @frame.bay_id, view: params[:view]) if @frame.has_coupled_frame?
+  breadcrumb_variables[t("layouts.breadcrumb.bay.simple", name: @frame.name)] = frame_path(@frame) if @frame.present?
+  breadcrumb_variables[t(".title")] = ""
+%>
+<%= render "layouts/breadcrumb", breadcrumb_variables: breadcrumb_variables %>
+<% hide_inventories_sidebar! %>
 
-<div class="container-fluid">
-
-  <% view_side = 'back' %>
-  <% settings = Frame.settings.merge({:min_height => view_side == 'back' ? 20 : 27}) %>
+<div class="container-fluid frames-network">
+  <% view_type = "back" %>
+  <% settings = Frame.settings.merge({ min_height: view_type == "back" ? 20 : 27 }) %>
   <% @room = t(".title") %>
-
-  <%= render 'rooms/action_buttons', view_side: params[:view] if formats != [:pdf] %>
 
   <div id="<%= @room.try(:name).try(:parameterize).try(:underscore) %>">
     <% @servers_per_frames.each do |islet, lanes| %>
-
-      <h3><%= t(".title") %></h3>
       <div class="row">
-        <ul class="frames <%= view_side %>"
-            style="padding: 0;"
+        <div class="col-12 d-flex justify-content-between align-items-center my-4">
+          <h3><%= t(".title") %></h3>
+          <%= render "rooms/action_buttons", view_side: params[:view] if formats != [:pdf] %>
+        </div>
+        <div class="frames col-12 d-flex flex-row flex-wrap <%= view_type %>"
             data-update-url="<%= sort_frames_path %>"
-            data-max-u='<%= settings[:max_u] %>'
-            data-max-elts='<%= settings[:max_elts] %>'
-            data-max-rj45='<%= settings[:max_rj45] %>'
-            data-max-fc='<%= settings[:max_fc] %>'>
+            data-max-u="<%= settings[:max_u] %>"
+            data-max-elts="<%= settings[:max_elts] %>"
+            data-max-rj45="<%= settings[:max_rj45] %>"
+            data-max-fc="<%= settings[:max_fc] %>">
           <% lanes.each do |lane, bays| %>
             <% bays.each do |bay, frames| %>
               <% frames.each do |frame, servers| %>
-                <div class="col-sm-12 col-md-6 col-lg-4">
-                  <%= render partial: 'frames/show_frame', locals: { frame: frame, servers: servers, settings: settings, view_type: view_side } %>
+                <div class="bay col-12 col-lg-6 col-xxl-4 pe-0 pe-lg-3 mb-2 mb-lg-0">
+                  <%= render partial: "frames/show_frame",
+                             locals: { frame: , servers: , settings: , view_type: } %>
                 </div>
               <% end %>
             <% end %>
           <% end %>
-        </ul>
+        </div>
       </div>
-
     <% end %>
   </div>
 </div>
 
-<%= render 'ports/modal_edit_port' %>
+<%= render "ports/modal_edit_port" %>
