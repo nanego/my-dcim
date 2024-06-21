@@ -1,9 +1,11 @@
-<h5 style="text-align: center;"><%= link_to pdu.name[-1], edit_server_path(pdu.id) %></h5>
+<h5 class="text-center"><%= link_to pdu.name[-1], edit_server_path(pdu.id) %></h5>
 <% pdu.modele.enclosures.first.composants.each do |component| %>
-  <div style="margin-bottom: 10px;display: inline-block;margin-left: -5px;">
-    <%= link_to '#', class: 'pdu-line', style: "float: left;margin-left: 2px;opacity: 0.45;" do %>
-      <span class="label label-default"><%= component.name ? component.name[-2..-1] : ' ' %></span>
+  <div class="py-0 px-3 mb-4 text-center">
+    <%= link_to "#", class: "pdu-line" do %>
+      <span class="badge"><%= component.name ? component.name[-2..-1] : ' ' %></span>
     <% end %>
-    <%= render partial: 'servers/draw_component', locals: { server: pdu, component: component, selected_port: nil } %>
+    <div class="d-flex flex-column">
+      <%= render partial: 'servers/draw_component', locals: { server: pdu, component: component, selected_port: nil } %>
+    </div>
   </div>
 <% end %>
