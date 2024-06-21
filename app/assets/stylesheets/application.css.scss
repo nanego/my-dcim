@@ -302,11 +302,12 @@ table.card_layout {
   align-items: center;
   width: 24px;
   padding: 3px 1px;
+
   &.even {
-    background-color: #E9E9E9 !important;; // '#E9E9E9'
+    background-color: var(--bs-light-bg-subtle) !important;
   }
   &.odd {
-    background-color: #D0D0D0 !important;; //  '#D0D0D0'
+    background-color: var(--bs-dark-bg-subtle) !important
   }
 }
 
