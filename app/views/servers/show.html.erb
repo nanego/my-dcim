@@ -48,7 +48,7 @@
       </div>
 
       <div class="rounded-bottom-1 bg-body-tertiary border border-secondary-subtle p-2 mb-2">
-        <span id="back_server_<%= @server.id %>">
+        <span id="back_server_<%= @server.id %>" class="no-decoration-link">
            <%= render partial: "servers/draw_server_compact", locals: { server: @server } %>
         </span>
       </div>
