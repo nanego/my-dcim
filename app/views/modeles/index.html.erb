@@ -16,43 +16,43 @@
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
       <div class="col-12">
-        <div class="form-floating">
+        <fieldset class="form-floating">
           <%= f.search_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
           <%= f.label :q %>
-        </div>
+        </fieldset>
       </div>
 
       <div class="col-12">
-        <div class="form-floating">
+        <fieldset class="form-floating">
           <%= f.collection_select(:architecture_id, Architecture.sorted,
                                                     :id,
                                                     :to_s,
                                                     { prompt: true, include_blank: true },
                                                     { class: "form-select" }) %>
           <%= f.label :architecture_id %>
-        </div>
+        </fieldset>
       </div>
 
       <div class="col-12">
-        <div class="form-floating">
+        <fieldset class="form-floating">
           <%= f.collection_select(:category_id, Category.sorted,
                                                 :id,
                                                 :to_s,
                                                 { prompt: true, include_blank: true },
                                                 { class: "form-select" }) %>
           <%= f.label :category_id %>
-        </div>
+        </fieldset>
       </div>
 
       <div class="col-12">
-        <div class="form-floating">
+        <fieldset class="form-floating">
           <%= f.collection_select(:manufacturer_id, Manufacturer.sorted,
                                                     :id,
                                                     :to_s,
                                                     { prompt: true, include_blank: true },
                                                     { class: "form-select" }) %>
           <%= f.label :manufacturer_id %>
-        </div>
+        </fieldset>
       </div>
     <% end %>
   <% end %>
