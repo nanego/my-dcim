@@ -1,6 +1,6 @@
-<% provide(:title, "#{MemoryType.model_name.human.pluralize} | #{t("action.create")}") %>
+<% provide(:title, "#{MemoryType.model_name.human(count: 2)} | #{t("action.create")}") %>
 <%= render "layouts/breadcrumb", breadcrumb_steps: {
-  MemoryType.model_name.human.pluralize => memory_types_path,
+  MemoryType.model_name.human(count: 2) => memory_types_path,
   t(".title") => ""
 } %>
 

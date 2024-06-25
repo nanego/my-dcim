@@ -104,25 +104,25 @@
                                           active: controller.controller_name == "stacks") %>
           </li>
           <li>
-            <%= link_to CardType.model_name.human.pluralize,
+            <%= link_to CardType.model_name.human(count: 2),
                         card_types_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "card_types") %>
           </li>
           <li>
-            <%= link_to PortType.model_name.human.pluralize,
+            <%= link_to PortType.model_name.human(count: 2),
                         port_types_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "port_types") %>
           </li>
           <li>
-            <%= link_to DiskType.model_name.human.pluralize,
+            <%= link_to DiskType.model_name.human(count: 2),
                         disk_types_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "disk_types") %>
           </li>
           <li>
-            <%= link_to MemoryType.model_name.human.pluralize,
+            <%= link_to MemoryType.model_name.human(count: 2),
                         memory_types_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "memory_types") %>
@@ -176,7 +176,7 @@
                                           active: controller.controller_name == "maintainers") %>
           </li>
           <li>
-            <%= link_to ContractType.model_name.human.pluralize,
+            <%= link_to ContractType.model_name.human(count: 2),
                         contract_types_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "contract_types") %>
