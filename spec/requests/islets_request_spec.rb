@@ -39,7 +39,7 @@ RSpec.describe "Islets" do
 
   describe "GET #new" do
     subject(:response) do
-      get new_islet_path()
+      get new_islet_path
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
