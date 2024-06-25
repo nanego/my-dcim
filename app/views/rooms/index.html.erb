@@ -13,17 +13,18 @@
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
       <div class="col-12">
-        <div class="form-floating">
+        <fieldset class="form-floating">
           <%= f.text_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
           <%= f.label :q %>
-        </div>
+        </fieldset>
       </div>
 
       <div class="col-12">
-        <div class="form-floating">
-          <%= f.collection_select(:site_id, Site.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-select" }) %>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:site_id, Site.sorted, :id, :name, { prompt: true, include_blank: true },
+                                                                     { class: "form-select" }) %>
           <%= f.label :site_id %>
-        </div>
+        </fieldset>
       </div>
     <% end %>
   <% end %>
