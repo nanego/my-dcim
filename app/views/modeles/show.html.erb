@@ -1,6 +1,6 @@
 <% provide(:title, "#{Modele.model_name.human.pluralize} | #{@modele.name}") %>
 <%= render "layouts/breadcrumb",
-           breadcrumb_variables: { Modele.model_name.human.pluralize => modeles_path, @modele.name => "" } %>
+           breadcrumb_steps: { Modele.model_name.human.pluralize => modeles_path, @modele.name => "" } %>
 
 <div class="row my-5">
   <div class="col-11 col-md-10 col-lg-8 mx-auto">

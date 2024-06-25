@@ -1,6 +1,6 @@
 <%- bay_label = @bay.frames.map(&:name).join(" - ") %>
 <% provide(:title, "#{Bay.model_name.human.pluralize} | #{bay_label} | #{t("action.edit")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: {
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
   Bay.model_name.human.pluralize => bays_path,
   bay_label => bay_path(@bay),
   t("action.edit") => ""
