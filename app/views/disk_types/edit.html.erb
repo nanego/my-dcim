@@ -1,5 +1,5 @@
 <% provide(:title, "#{DiskType.model_name.human.pluralize} | #{@disk_type} | #{t("action.edit")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: {
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
   DiskType.model_name.human.pluralize => disk_types_path,
   @disk_type => disk_type_path(@disk_type),
   t("action.edit") => ""

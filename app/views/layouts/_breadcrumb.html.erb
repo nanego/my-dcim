@@ -7,7 +7,7 @@
           <span class="visually-hidden"><%= t(".home") %></span>
         <% end %>
       </li>
-      <% breadcrumb_variables.each do |key, value| %>
+      <% breadcrumb_steps.each do |key, value| %>
         <% if value.present? %>
           <li class="breadcrumb-item">
             <%= link_to key, value, class: "link-body-emphasis fw-semibold text-decoration-none"%>

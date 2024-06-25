@@ -1,15 +1,15 @@
 <%
-  breadcrumb_variables = {}
-  breadcrumb_variables[t('visualization')] = overview_rooms_path
+  breadcrumb_steps = {}
+  breadcrumb_steps[t('visualization')] = overview_rooms_path
   if @room.present?
-    breadcrumb_variables["Salle #{@room.name}"] = room_path(@room)
+    breadcrumb_steps["Salle #{@room.name}"] = room_path(@room)
   elsif @frame.present?
-    breadcrumb_variables["Salle #{@frame.room.name}"] = room_path(@frame.room)
+    breadcrumb_steps["Salle #{@frame.room.name}"] = room_path(@frame.room)
   end
-  breadcrumb_variables["Baie #{@frame.name}"] = frame_path(@frame) if @frame.present?
-  breadcrumb_variables["Liste des ports cablés"] = ''
+  breadcrumb_steps["Baie #{@frame.name}"] = frame_path(@frame) if @frame.present?
+  breadcrumb_steps["Liste des ports cablés"] = ''
 %>
-<%= render 'layouts/breadcrumb', breadcrumb_variables: breadcrumb_variables %>
+<%= render 'layouts/breadcrumb', breadcrumb_steps: %>
 
 <div class="container-fluid">
 

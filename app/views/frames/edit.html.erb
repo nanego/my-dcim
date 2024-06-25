@@ -1,5 +1,5 @@
 <% provide(:title, "#{Frame.model_name.human.pluralize} | #{@frame.name} | #{t("action.edit")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: {
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
   Room.model_name.human.pluralize => overview_rooms_path,
   @frame.room.name => @frame.present? ? room_path(@frame.room) : "",
   Frame.model_name.human.pluralize => frames_path,
