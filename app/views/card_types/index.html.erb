@@ -1,6 +1,6 @@
-<% provide(:title, CardType.model_name.human.pluralize) %>
+<% provide(:title, CardType.model_name.human(count: 2)) %>
 <%= render "layouts/breadcrumb", breadcrumb_steps: {
-  CardType.model_name.human.pluralize => "" }
+  CardType.model_name.human(count: 2) => "" }
 %>
 
 <div class="container-fluid">
