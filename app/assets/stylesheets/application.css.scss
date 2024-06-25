@@ -736,7 +736,7 @@ body {
   }
 
   .card-islet {
-    a {
+    a:not(.btn):not(.dropdown-item) {
       text-decoration: none;
 
       &:focus, &:hover {
