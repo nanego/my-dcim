@@ -170,16 +170,16 @@ RSpec.describe "Islets" do
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(islets_path) }
     end
-  end
 
-  context "with an islet with bays" do
-    it do
-      expect do
-        response
-      end.not_to change(Islet, :count)
+    context "with an islet with bays" do
+      it do
+        expect do
+          response
+        end.not_to change(Islet, :count)
+      end
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(islets_path) }
     end
-
-    it { expect(response).to have_http_status(:redirect) }
-    it { expect(response).to redirect_to(islets_path) }
   end
 end
