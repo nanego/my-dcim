@@ -137,13 +137,17 @@
         </div>
       </div>
     </div>
-    <button type="button" class="btn btn-outline-secondary position-absolute bottom-0 end-0 m-2"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseRoomOverviewCardBody"
-                          aria-expanded="false"
-                          aria-controls="collapseRoomOverviewCardBody" >
-      <span class="bi bi-arrows-collapse" aria-hidden="true"></span>
-    </button>
+    <span class="position-absolute bottom-0 end-0 m-2" data-controller="reveal" data-reveal-hidden-class="d-none">
+      <button type="button" class="btn btn-outline-secondary"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseRoomOverviewCardBody"
+                            aria-expanded="false"
+                            aria-controls="collapseRoomOverviewCardBody"
+                            data-action="click->reveal#toggle">
+        <span class="bi bi-arrows-collapse" aria-hidden="true" data-reveal-target="item"></span>
+        <span class="bi bi-arrows-expand d-none" aria-hidden="true" data-reveal-target="item"></span>
+      </button>
+    </span>
   </div>
 </div>
 <div class="container-fluid" id="bay-container"></div>
