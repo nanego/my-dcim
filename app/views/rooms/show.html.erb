@@ -1,9 +1,12 @@
 <% bg = params[:bg].presence || current_user.visualization_bay_default_background_color %>
 <% view = params[:view].presence || current_user.visualization_bay_default_orientation %>
-<% provide :title, "Salle #{@room.name} #{@islet ? "- Ilot #{@islet}" : "" }" %>
+<% provide :title, "#{t("visualization")} | Salle #{@room.name} #{@islet ? "- Ilot #{@islet}" : "" }" %>
 <% hide_inventories_sidebar! %>
 
-<%= render "layouts/breadcrumb" %>
+<%= render "layouts/breadcrumb",  breadcrumb_variables: {
+  t("visualization") => overview_rooms_path,
+  "#{@room.name} #{@islet ? " Ilot #{@islet}" : "" }" => "",
+} %>
 
 <% server_height = 2.5 %>
 
@@ -179,14 +182,15 @@ $(".show_room .overviewed_frame .title a").on('click', function (e) {
     loadFrame($(this).data('frame-id'), $(this).data('bay-id'), $(this).text())
 })
 
-// TODO: Only update two last childs
-$(".menu-rooms").on('click', 'a', function (e) {
-  $('ol.breadcrumb').replaceWith("<ol class=\"breadcrumb\">\n" +
-        "  <li class=\"breadcrumb-item\"><a href=\"/\">Accueil</a></li>\n" +
-        "    <li class=\"breadcrumb-item\"><a href=\"/rooms/overview\">Salles</a></li>\n" +
-        "    <li class=\"breadcrumb-item active\">" + $(this).text() + "</li>\n" +
-        "</ol>");
-})
+// Update Breadcrumb after click on a Room Selection
+document.querySelector(".menu-rooms").addEventListener("click", updateBreadcrumb);
+
+function updateBreadcrumb(e) {
+  let breadcrumb = document.querySelector("ol.breadcrumb");
+
+  // Update Room
+  breadcrumb.lastElementChild.textContent = e.target.textContent
+}
 
 function loadBay(bay_id) {
   $('#bay-container').html('<div class="animationload"><div class="osahanloading"></div>Chargement de la baie</div>')
