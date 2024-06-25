@@ -1,6 +1,6 @@
-<% provide(:title, "#{PortType.model_name.human.pluralize} | #{@port_type}") %>
+<% provide(:title, "#{PortType.model_name.human(count: 2)} | #{@port_type}") %>
 <%= render "layouts/breadcrumb",
-           breadcrumb_steps: { PortType.model_name.human.pluralize => port_types_path, @port_type => "" } %>
+           breadcrumb_steps: { PortType.model_name.human(count: 2) => port_types_path, @port_type => "" } %>
 
 <div class="row my-5">
   <div class="col-11 col-md-10 col-lg-8 mx-auto">
