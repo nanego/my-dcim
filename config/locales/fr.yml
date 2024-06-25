@@ -266,7 +266,6 @@ fr:
         destroyed: Le mainteneur a bien été supprimé.
   contract_types:
     index:
-      title: Contrats de maintenance
       add_contract_type: Ajouter un contrat de maintenance
       delete_confirmation: Toutes les données concernant ce contrat de maintenance seront supprimées, ainsi que les contrats de maintenance associés. Voulez-vous continuer ?
     show:
@@ -286,7 +285,7 @@ fr:
         destroyed: Le contrat de maintenance a bien été supprimé.
   disk_types:
     index:
-      title: Liste des types de disque
+      title: Types de disque
       add_disk_type: Nouveau type de disque
     show:
       title: Détails du type de disque
@@ -349,7 +348,7 @@ fr:
   memory_types:
     index:
       new_memory_type: Nouveau type de RAM
-      title: Liste des types de RAM
+      title: Types de RAM
     show:
       title: Détails du type de RAM
     new:

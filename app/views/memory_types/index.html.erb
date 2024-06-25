@@ -1,6 +1,6 @@
-<% provide(:title, MemoryType.model_name.human.pluralize) %>
+<% provide(:title, MemoryType.model_name.human(count: 2)) %>
 <%= render "layouts/breadcrumb", breadcrumb_steps: {
-  MemoryType.model_name.human.pluralize => "" }
+  MemoryType.model_name.human(count: 2) => "" }
 %>
 
 <div class="container-fluid">

@@ -33,7 +33,7 @@ fr:
         other: Contrats de maintenance
       disk_type:
         one: Type de disque
-        other: Types de disques
+        other: Types de disque
       memory_type:
         one: Type de RAM
         other: Types de RAM

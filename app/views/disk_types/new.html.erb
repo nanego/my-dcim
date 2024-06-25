@@ -1,6 +1,6 @@
-<% provide(:title, "#{DiskType.model_name.human.pluralize} | #{t("action.create")}") %>
+<% provide(:title, "#{DiskType.model_name.human(count: 2)} | #{t("action.create")}") %>
 <%= render "layouts/breadcrumb", breadcrumb_steps: {
-  DiskType.model_name.human.pluralize => disk_types_path,
+  DiskType.model_name.human(count: 2) => disk_types_path,
   t(".title") => ""
 } %>
 
