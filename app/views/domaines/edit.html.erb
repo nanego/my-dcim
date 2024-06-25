@@ -1,5 +1,5 @@
 <% provide(:title, "#{Domaine.model_name.human.pluralize} | #{@domaine} | #{t("action.edit")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: {
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
   Domaine.model_name.human.pluralize => domaines_path,
   @domaine => domaine_path(@domaine),
   t("action.edit") => ""

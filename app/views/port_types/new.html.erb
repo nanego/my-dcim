@@ -1,5 +1,5 @@
 <% provide(:title, "#{PortType.model_name.human.pluralize} | #{t("action.create")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: {
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
   PortType.model_name.human.pluralize => port_types_path,
   t(".title") => ""
 } %>
