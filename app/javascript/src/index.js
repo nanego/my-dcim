@@ -55,7 +55,7 @@ function scale_large_slots(){
                 )
 
                 $el.css({
-                    transform: "translate(0,0) " + "scale(" + scale + ")"
+                    transform: "translate(" + (elWidth - ui.size.width) / 2 + "px) " + "scale(" + scale + ")"
                 })
             } else {
                 $el.css({
