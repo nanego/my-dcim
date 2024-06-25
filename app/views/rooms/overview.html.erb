@@ -1,7 +1,7 @@
 <% provide :title, "Toutes les salles" %>
 <% hide_inventories_sidebar! %>
 
-<%= render "layouts/breadcrumb", breadcrumb_variables: { "Aperçu des salles": nil } %>
+<%= render "layouts/breadcrumb", breadcrumb_steps: { "Aperçu des salles": nil } %>
 <div class="container-fluid rooms-overview">
   <div class="row row-gap-3">
     <% @sites.each do |site| %>

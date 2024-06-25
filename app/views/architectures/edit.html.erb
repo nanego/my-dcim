@@ -1,5 +1,5 @@
 <% provide(:title, "#{Architecture.model_name.human.pluralize} | #{@architecture.name} | #{t("action.edit")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: {
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
   Architecture.model_name.human.pluralize => architectures_path,
   @architecture => architecture_path(@architecture),
   t("action.edit") => ""
