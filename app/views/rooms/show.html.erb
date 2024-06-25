@@ -3,7 +3,7 @@
 <% provide :title, "#{t("visualization")} | Salle #{@room.name} #{@islet ? "- Ilot #{@islet}" : "" }" %>
 <% hide_inventories_sidebar! %>
 
-<%= render "layouts/breadcrumb",  breadcrumb_variables: {
+<%= render "layouts/breadcrumb",  breadcrumb_steps: {
   t("visualization") => overview_rooms_path,
   "#{@room.name} #{@islet ? " Ilot #{@islet}" : "" }" => "",
 } %>

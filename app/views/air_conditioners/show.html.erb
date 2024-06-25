@@ -1,5 +1,5 @@
 <% provide(:title, "#{AirConditioner.model_name.human.pluralize} | #{@air_conditioner}") %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: {
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
   AirConditioner.model_name.human.pluralize => air_conditioners_path,
   @air_conditioner => ""
 } %>

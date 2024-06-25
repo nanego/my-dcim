@@ -1,7 +1,7 @@
 <%- user_label = @user.name || @user.email %>
 <% provide(:title, "#{User.model_name.human.pluralize} | #{user_label}") %>
 <%= render "layouts/breadcrumb",
-           breadcrumb_variables: { User.model_name.human.pluralize => users_url, user_label => "" } %>
+           breadcrumb_steps: { User.model_name.human.pluralize => users_url, user_label => "" } %>
 
 <div class="container" data-controller="reveal" data-reveal-hidden-class="d-none">
   <div class="row my-5">

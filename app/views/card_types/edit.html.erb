@@ -1,5 +1,5 @@
 <% provide(:title, "#{CardType.model_name.human.pluralize} | #{@card_type} | #{t("action.edit")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: {
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
   CardType.model_name.human.pluralize => card_types_path,
   @card_type => card_type_path(@card_type),
   t("action.edit") => ""
