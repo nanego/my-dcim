@@ -1,5 +1,5 @@
 <% provide(:title, "#{Gestion.model_name.human.pluralize} | #{@gestion}") %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: {
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
   Gestion.model_name.human.pluralize => gestions_path,
   @gestion => ""
 } %>

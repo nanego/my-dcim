@@ -1,5 +1,5 @@
 <% provide(:title, "#{Category.model_name.human.pluralize} | #{t("action.create")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: {
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
   Category.model_name.human.pluralize => categories_path,
   t(".title") => ""
 } %>

@@ -1,6 +1,6 @@
 <% provide(:title, "#{Architecture.model_name.human.pluralize} | #{@architecture.name}") %>
 <%= render "layouts/breadcrumb",
-           breadcrumb_variables: { Architecture.model_name.human.pluralize => architectures_path,
+           breadcrumb_steps: { Architecture.model_name.human.pluralize => architectures_path,
                                    @architecture.name => "" }
 %>
 

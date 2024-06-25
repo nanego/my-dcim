@@ -1,5 +1,5 @@
 <% provide(:title, "#{Stack.model_name.human.pluralize} | #{@stack.name} | #{t("action.edit")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: {
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
   Stack.model_name.human.pluralize => stacks_path,
   @stack => stack_path(@stack),
   t("action.edit") => ""
