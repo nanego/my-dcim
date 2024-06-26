@@ -48,21 +48,21 @@
       </div>
 
       <div class="rounded-bottom-1 bg-body-tertiary border border-secondary-subtle p-2 mb-2">
-        <span id="back_server_<%= @server.id %>" class="no-decoration-link">
+        <span id="back_server_<%= @server.id %>" class="no-decoration-link d-flex flex-row-reverse flex-wrap">
            <%= render partial: "servers/draw_server_compact", locals: { server: @server } %>
         </span>
       </div>
     </div>
 
     <% if @server.comment.present? %>
-      <div class="col-12" style="margin-bottom: 2em;padding-right: 15px;padding-left: 15px;">
+      <div class="col-12 mb-4">
         <div class="alert alert-warning">
           <%= @server.comment %>
         </div>
       </div>
     <% end %>
 
-    <div class="d-flex flex-column flex-lg-row">
+    <div class="col-12 d-flex flex-row flex-wrap">
       <div class="col-12 col-lg-6 pe-lg-3 mb-4 mb-lg-0">
         <%= render CardComponent.new(type: :primary) do |card| %>
           <dl class="row">
