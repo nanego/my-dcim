@@ -163,6 +163,9 @@
             loadBay(bay_id)
         }
     }
+
+    // Update Breadcrumb after click on a Room Selection
+    document.querySelector(".menu-rooms").addEventListener("click", updateBreadcrumb);
 })();
 
 $(".show_room .overviewed_frame").hover(
@@ -185,8 +188,6 @@ $(".show_room .overviewed_frame .title a").on('click', function (e) {
 })
 
 // Update Breadcrumb after click on a Room Selection
-document.querySelector(".menu-rooms").addEventListener("click", updateBreadcrumb);
-
 function updateBreadcrumb(e) {
   let breadcrumb = document.querySelector("ol.breadcrumb");
 

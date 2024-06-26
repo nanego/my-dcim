@@ -11,7 +11,7 @@
           </div>
         <% end %>
 
-        <div class="frames col-12 d-flex flex-column flex-lg-row <%= params[:view] %>"
+        <div class="frames col-12 d-flex flex-row flex-wrap <%= params[:view] %>"
             data-update-url="<%= sort_frames_path %>"
             data-max-u='<%= settings[:max_u] %>'
             data-max-elts='<%= settings[:max_elts] %>'
