@@ -5,10 +5,6 @@ class FilterComponent < ApplicationComponent
 
   erb_template <<~ERB
     <%= render CardComponent.new(type: :primary) do |card| %>
-      <% card.with_header do %>
-        <h3 class="panel-title"><%= t(".header.title") %><%= counter_tag %></h3>
-      <% end %>
-
       <%#= filters_badge_tags %>
 
       <%= form_with model: @filter, url: "", method: :get, class: "form-inline", id: :filters do |f| %>
@@ -16,7 +12,9 @@ class FilterComponent < ApplicationComponent
 
         <% card.with_footer do %>
           <%= f.submit t(".submit"), class: "btn btn-primary btn-sm", form: :filters %>
-          <%= link_to t(".reset"), url_for(only_path: false, overwrite_params: nil), class: "btn btn-secondary btn-sm" %>
+          <%= link_to t(".reset", filters_count: counter_tag),
+                      url_for(only_path: false, overwrite_params: nil),
+                      class: "btn btn-secondary btn-sm" %>
 
           <%= totals_tag %>
         <% end %>

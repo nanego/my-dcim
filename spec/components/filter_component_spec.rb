@@ -17,15 +17,11 @@ RSpec.describe FilterComponent, type: :component do
   context "without block" do
     it do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component.to_html).to have_tag("div.panel.panel-primary") do
-        with_tag("div.panel-heading") do
-          with_tag("h3.panel-title", text: I18n.t("filter_component.header.title"))
-        end
-
         with_tag("div.panel-footer") do
           with_tag("input.btn.btn-primary.btn-sm", with: {
             type: :submit, form: :filters, value: I18n.t("filter_component.submit")
           })
-          with_tag("a.btn.btn-secondary.btn-sm", text: I18n.t("filter_component.reset"))
+          with_tag("a.btn.btn-secondary.btn-sm", text: I18n.t("filter_component.reset", filters_count: nil))
           with_tag("span.pull-right", text: I18n.t("filter_component.total", count: Frame.count))
         end
       end
@@ -46,10 +42,6 @@ RSpec.describe FilterComponent, type: :component do
 
     it do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component.to_html).to have_tag("div.panel.panel-primary") do
-        with_tag("div.panel-heading") do
-          with_tag("h3.panel-title", text: "#{I18n.t("filter_component.header.title")} (2)")
-        end
-
         with_tag("div.panel-body") do
           with_tag("form#filters.form-inline", with: { action: "", method: :get }) do
             with_tag("input", with: { type: :search, name: :q, value: "My" })
@@ -58,7 +50,7 @@ RSpec.describe FilterComponent, type: :component do
         end
 
         with_tag("div.panel-footer") do
-          with_tag("a.btn.btn-secondary.btn-sm", text: I18n.t("filter_component.reset"), with: { href: "http://test.host/frames" })
+          with_tag("a.btn.btn-secondary.btn-sm", text: I18n.t("filter_component.reset", filters_count: " (2)"), with: { href: "http://test.host/frames" })
           with_tag("span.pull-right", text: I18n.t("filter_component.total_with_filters", total_count: Frame.count, results_count: 1))
         end
       end
