@@ -1,32 +1,36 @@
-<% case server.modele.try(:category_id) %>
-<% when @modele_blank_panel_id %>
-  <span class="float-start server_name">
-    <%= link_to h(server.name), server_path(server, view: params[:view]) %>
-  </span>
-<% else %>
-  <% port_nb = server.ports_per_type %>
-  <span class="float-start server_name ps-3">
-    <%= link_to h("#{server.name}"),
-                server_path(server, :view => params[:view]),
-                {
-                  data: { controller: "tooltip", bs_placement: "top" },
-                  title: server.numero,
-                  class: "link-underline-opacity-0 link-underline-opacity-100-hover link-body-emphasis"
-                } %>
-  </span>
-  <% if port_nb["RJ"] > 0 || port_nb["FC"] > 0 || port_nb["IPMI"] > 0 %>
-    <span class="<%= class_names(" badge rounded-0 float-end ms-2 text-bg-info",
-                                  "d-none": port_nb["RJ"] <= 0) %>">
-      <%= port_nb["RJ"] > 0 ? port_nb["RJ"] : "" %>
+<div class="d-flex justify-content-between">
+  <% case server.modele.try(:category_id) %>
+  <% when @modele_blank_panel_id %>
+    <span class="server_name">
+      <%= link_to h(server.name), server_path(server, view: params[:view]) %>
     </span>
-    <span class="<%= class_names("badge rounded-0 float-end ms-2 text-bg-secondary",
-                                 "d-none": port_nb["IPMI"] <= 0) %>">
-      <%= port_nb["IPMI"] > 0 ? port_nb["IPMI"] : "" %>
+  <% else %>
+    <% port_nb = server.ports_per_type %>
+    <span class="server_name ps-3">
+      <%= link_to h("#{server.name}"),
+                  server_path(server, :view => params[:view]),
+                  {
+                    data: { controller: "tooltip", bs_placement: "top" },
+                    title: server.numero,
+                    class: "link-underline-opacity-0 link-underline-opacity-100-hover link-body-emphasis"
+                  } %>
     </span>
-    <span class="<%= class_names("badge float-end rounded-pill ms-2 text-bg-success",
-                                 "d-none": port_nb["FC"] <= 0 ) %>">
-      <%= port_nb["FC"] > 0 ? port_nb["FC"] : "" %>
-  </span>
+    <span class="d-flex flex-row-reverse align-items-center">
+      <% if port_nb["RJ"] > 0 || port_nb["FC"] > 0 || port_nb["IPMI"] > 0 %>
+        <span class="<%= class_names("badge rounded-0 ms-2 text-bg-info",
+                                      "d-none": port_nb["RJ"] <= 0) %>">
+          <%= port_nb["RJ"] > 0 ? port_nb["RJ"] : "" %>
+        </span>
+        <span class="<%= class_names("badge rounded-0 ms-2 text-bg-secondary",
+                                     "d-none": port_nb["IPMI"] <= 0) %>">
+          <%= port_nb["IPMI"] > 0 ? port_nb["IPMI"] : "" %>
+        </span>
+        <span class="<%= class_names("badge rounded-pill ms-2 text-bg-success",
+                                     "d-none": port_nb["FC"] <= 0 ) %>">
+          <%= port_nb["FC"] > 0 ? port_nb["FC"] : "" %>
+      </span>
+      <% end %>
+      <span class="me-1 text-secondary"><em><%= server.modele.try(:name) %></em></span>
+    </span>
   <% end %>
-  <span class="float-end me-1 text-secondary"><em><%= server.modele.try(:name) %></em></span>
-<% end %>
+</div>
