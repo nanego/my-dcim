@@ -9,11 +9,7 @@
       <%= render 'servers/draw_patch_panel_slot', server: server, slot: slot %>
   <% end %>
 
-  <span class="clearfix"></span>
-
   <% slots_sur_modele.slice(half_slots, slots_sur_modele.length).each do |slot| %>
       <%= render 'servers/draw_patch_panel_slot', server: server, slot: slot %>
   <% end %>
-
-  <span class="clearfix"></span>
 </div>
