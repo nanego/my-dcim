@@ -36,7 +36,7 @@
     <% table.with_column(style: "min-width: 160px; width: 160px") do |islet| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= render partial: "islets/export_button", locals: { islet: islet } %>
-        <%= link_to edit_islet_path(islet), class: "btn btn-primary" do %>
+        <%= link_to edit_islet_path(islet), class: "btn btn-info" do %>
           <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
           <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
