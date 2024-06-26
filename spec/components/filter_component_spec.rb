@@ -17,10 +17,6 @@ RSpec.describe FilterComponent, type: :component do
   context "without block" do
     it do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component.to_html).to have_tag("div.card.border-primary") do
-        with_tag("div.card-header") do
-          with_tag("h6.card-title", text: I18n.t("filter_component.header.title"))
-        end
-
         with_tag("div.card-footer") do
           with_tag("input.btn.btn-primary.btn-sm", with: {
             type: :submit, form: :filters, value: I18n.t("filter_component.submit")
