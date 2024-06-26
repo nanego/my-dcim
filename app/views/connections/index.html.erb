@@ -24,7 +24,7 @@
       <%= connection.paired_connection&.id %>
       <%- if connection.paired_connection %>
         <span class="float-end">
-          <%= link_to connections_edit_path(from_port_id: connection.port), class: "btn btn-primary btn-sm float-end" do %>
+          <%= link_to connections_edit_path(from_port_id: connection.port), class: "btn btn-info btn-sm float-end" do %>
             <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
             <span class="visually-hidden"><%= t("action.edit") %></span>
           <% end %>
@@ -48,7 +48,7 @@
 
     <% table.with_column(style: "min-width: 48px; width: 48px") do |connection| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
-        <%= link_to connections_edit_path(from_port_id: connection.port), class: "btn btn-primary" do %>
+        <%= link_to connections_edit_path(from_port_id: connection.port), class: "btn btn-info" do %>
           <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
           <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
