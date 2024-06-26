@@ -60,16 +60,16 @@ class Filter
 
   private
 
-  def method_missing(symbol, *args)
+  def method_missing(symbol, *)
     return attributes[symbol] if attribute_names.include?(symbol)
 
-    super(symbol, *args)
+    super
   end
 
   def respond_to_missing?(symbol, include_all)
     return true if attribute_names.include?(symbol)
 
-    super(symbol, include_all)
+    super
   end
 
   class Name < ActiveModel::Name

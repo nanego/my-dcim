@@ -1,5 +1,5 @@
 <% provide(:title, "#{Cluster.model_name.human.pluralize} | #{@cluster} | #{t("action.edit")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: {
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
   Cluster.model_name.human.pluralize => clusters_path,
   @cluster => cluster_path(@cluster),
   t("action.edit") => ""

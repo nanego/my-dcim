@@ -1,5 +1,5 @@
 <% provide(:title, "#{Category.model_name.human.pluralize} | #{@category} | #{t("action.edit")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: {
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
   Category.model_name.human.pluralize => categories_path,
   @category => category_path(@category),
   t("action.edit") => ""

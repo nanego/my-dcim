@@ -136,6 +136,7 @@
   .overviewed_frame {
     text-align: center;
     padding: 8px 6px 0 6px;
+    background-color: var(--bs-tertiary-bg);
 
     &.hover {
       background-color: #FFDD99;

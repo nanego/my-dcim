@@ -1,5 +1,5 @@
 <% provide(:title, "#{Color.model_name.human.pluralize} | #{@color.code}") %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: {
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
   Color.model_name.human.pluralize => colors_path,
   @color.code => ""
 } %>

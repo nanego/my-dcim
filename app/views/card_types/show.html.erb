@@ -1,6 +1,6 @@
-<% provide(:title, "#{CardType.model_name.human.pluralize} | #{@card_type}") %>
+<% provide(:title, "#{CardType.model_name.human(count: 2)} | #{@card_type}") %>
 <%= render "layouts/breadcrumb",
-           breadcrumb_variables: { CardType.model_name.human.pluralize => card_types_path, @card_type => "" } %>
+           breadcrumb_steps: { CardType.model_name.human(count: 2) => card_types_path, @card_type => "" } %>
 
 <div class="row my-5">
   <div class="col-11 col-md-10 col-lg-8 mx-auto">
