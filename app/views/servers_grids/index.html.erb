@@ -1,11 +1,11 @@
 <%= render "layouts/breadcrumb", breadcrumb_steps: { "Rechercher un matériel" => ""} %>
 <% provide :title, "Rechercher un matériel" %>
 
-<div class="container">
+<div class="container-fuild">
   <div class="d-flex justify-content-between">
     <h1>Rechercher un matériel</h1>
     <%= link_to url_for(format: :csv, params: @merged_params || {}), class: 'btn btn-outline-primary align-self-center' do %>
-      <span class="bi bi-file-earmark-arrow-down"></span>
+      <span class="bi bi-filetype-csv"></span>
       Exporter au format CSV
     <% end %>
   </div>
