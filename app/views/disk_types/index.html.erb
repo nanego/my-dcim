@@ -1,6 +1,6 @@
-<% provide(:title, DiskType.model_name.human.pluralize) %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: {
-  DiskType.model_name.human.pluralize => "" }
+<% provide(:title, DiskType.model_name.human(count: 2)) %>
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
+  DiskType.model_name.human(count: 2) => "" }
 %>
 
 <div class="container-fluid">

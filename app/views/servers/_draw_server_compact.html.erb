@@ -1,7 +1,7 @@
 <% selected_port ||= nil %>
 
 <% if server.modele.present? %>
-  <div class="very-specific-design float-end" id="very-specific-design">
+  <div class="very-specific-design" id="very-specific-design">
 
     <% server.modele.enclosures.each_with_index do |enclosure, index| %>
 
@@ -60,18 +60,15 @@
                 </td>
               </tr>
             <% end %>
-
           <% end %>
           </tbody>
         </table>
       <% end %>
-
     <% end %>
   </div>
-
 <% end %>
 
-<div class="ps-3 d-flex flex-column">
+<div class="ps-3 d-flex flex-column me-auto">
   <span class="mb-2">
     <%= link_to h(server.name),
                 server_path(server, view: params[:view]),
@@ -106,5 +103,3 @@
     <%= link_to server.modele.try(:name), edit_modele_path(server.modele_id) %>
   </span>
 </div>
-
-<div class="clearfix"></div>

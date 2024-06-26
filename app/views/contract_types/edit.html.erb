@@ -1,5 +1,5 @@
 <% provide(:title, "#{ContractType.model_name.human(count: 2)} | #{@contract_type} | #{t("action.edit")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: {
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
   ContractType.model_name.human(count: 2) => contract_types_path,
   @contract_type => contract_type_path(@contract_type),
   t("action.edit") => ""

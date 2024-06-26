@@ -1,6 +1,6 @@
 <% provide(:title, "#{Manufacturer.model_name.human.pluralize} | #{@manufacturer.name}") %>
 <%= render "layouts/breadcrumb",
-           breadcrumb_variables: { Manufacturer.model_name.human.pluralize => manufacturers_path,
+           breadcrumb_steps: { Manufacturer.model_name.human.pluralize => manufacturers_path,
                                   @manufacturer.name => "" }
 %>
 

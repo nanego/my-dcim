@@ -1,5 +1,5 @@
 <% provide(:title, "#{Move.model_name.human(count: 2)} | #{t("action.create")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: {
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
   Move.model_name.human(count: 2) => moves_path,
   t(".title") => ""
 } %>

@@ -1,5 +1,5 @@
 <% provide(:title, "#{AirConditioner.model_name.human.pluralize} | #{@air_conditioner}") %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: {
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
   AirConditioner.model_name.human.pluralize => air_conditioners_path,
   @air_conditioner => ""
 } %>
@@ -14,7 +14,7 @@
       <% end %>
       <h1 class="text-center px-4"><%= t(".title") %></h1>
       <%= link_to edit_air_conditioner_path(@air_conditioner), class: "btn btn-primary align-self-center d-inline-flex",
-                                          title: t("action.edit") do %>
+                                                               title: t("action.edit") do %>
         <span class="bi bi-pencil"></span>
         <span class="d-none d-md-inline-block ms-1"><%= t("action.edit") %></span>
       <% end %>

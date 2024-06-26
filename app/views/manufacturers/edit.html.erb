@@ -1,5 +1,5 @@
 <% provide(:title, "#{Manufacturer.model_name.human.pluralize} | #{@manufacturer.name} | #{t("action.edit")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_variables: {
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
   Manufacturer.model_name.human.pluralize => manufacturers_path,
   @manufacturer => manufacturer_path(@manufacturer),
   t("action.edit") => ""

@@ -1,25 +1,3 @@
-<% if local_assigns[:breadcrumb_variables].present?
-     breadcrumb_steps = breadcrumb_variables
-   else
-     breadcrumb_steps = {}
-     rooms = { t("visualization") => overview_rooms_path }
-     case controller.controller_name
-     when "rooms"
-       breadcrumb_steps.merge!(rooms)
-       breadcrumb_steps.merge!({
-         @room.name => ((@frame.present? || params[:islet].present?) ? room_path(@room, view: params[:view]) : "")
-       })
-       if @frame.present? && @frame.bay.islet.name.present?
-         breadcrumb_steps["Ilot #{@frame.bay.islet.name}"] = room_path(@room, islet: @frame.bay.islet.name,
-                                                                              view: params[:view])
-       elsif params[:islet].present?
-         breadcrumb_steps["Ilot #{params[:islet]}"] = ""
-       end
-       breadcrumb_steps["Baie #{@frame.name}"] = "" if @frame.present?
-     end
-   end
-%>
-
 <div class="container-fluid mt-4">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">

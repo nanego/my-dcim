@@ -430,13 +430,6 @@ span.port_container.unreferenced_client a {
   border: solid 2px red !important;
 }
 
-.very-specific-design {
-  position: relative;
-  left: 0;
-  top: 50%;
-  transform-origin: top right;
-}
-
 .scaleable-wrapper {
   resize: both;
   position: relative;
@@ -515,6 +508,7 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
+  font-size: 14px;
 }
 
 body {
@@ -733,7 +727,7 @@ body {
   }
 
   .card-islet {
-    a {
+    a:not(.btn):not(.dropdown-item) {
       text-decoration: none;
 
       &:focus, &:hover {

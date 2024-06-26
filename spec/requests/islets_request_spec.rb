@@ -39,7 +39,7 @@ RSpec.describe "Islets" do
 
   describe "GET #new" do
     subject(:response) do
-      get new_islet_path()
+      get new_islet_path
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -170,16 +170,16 @@ RSpec.describe "Islets" do
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(islets_path) }
     end
-  end
 
-  context "with an islet with bays" do
-    it do
-      expect do
-        response
-      end.not_to change(Islet, :count)
+    context "with an islet with bays" do
+      it do
+        expect do
+          response
+        end.not_to change(Islet, :count)
+      end
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(islets_path) }
     end
-
-    it { expect(response).to have_http_status(:redirect) }
-    it { expect(response).to redirect_to(islets_path) }
   end
 end
