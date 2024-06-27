@@ -1,75 +1,74 @@
-<div class="row gy-4">
-  <div class="col-12">
-    <%= form_for(@moved_connection, url: update_connection_moves_path,
-                                    remote: true,
-                                    html: { class: "moved_connection p-4 rounded border my-4", role: "form" }) do |f| %>
-      <div class="row g-3">
-        <fieldset class="col-12">
-          <%= f.label :port_from_id, class: "form-label" %>
-          <%= render CardComponent.new() do |card| %>
-            <div id="back_departure_server" class="back_server overflow-scroll">
-              <%= render partial: "servers/draw_server_compact",
-                         locals: { server: @selected_port.server, selected_port: @selected_port } %>
-            </div>
-          <% end %>
-          <%= f.hidden_field :port_from_id, value: @selected_port.id %>
-        </fieldset>
-      </div>
+<%= form_for(@moved_connection, url: update_connection_moves_path,
+                                remote: true,
+                                html: {
+                                  class: "moved_connection p-4 rounded border bg-body-tertiary", role: "form"
+                                }) do |f| %>
+  <div class="row g-3">
+    <fieldset class="col-12">
+      <%= f.label :port_from_id, class: "form-label" %>
+      <%= render CardComponent.new() do |card| %>
+        <div id="back_departure_server" class="back_server overflow-scroll">
+          <%= render partial: "servers/draw_server_compact",
+                      locals: { server: @selected_port.server, selected_port: @selected_port } %>
+        </div>
+      <% end %>
+      <%= f.hidden_field :port_from_id, value: @selected_port.id %>
+    </fieldset>
+  </div>
 
-      <fieldset class="col-12 mt-4">
-        <%= f.label :port_to_id, class: "form-label" %>
-        <%= render CardComponent.new() do |card| %>
-          <% card.with_header do %>
-            <div class="text-center" id="select_destination_bay">
-              <span id="all_destinations">
-                <%= select_tag "to_server",
-                              options_for_select(
-                                @selected_port.server.frame.servers.map { |v| [v.name, v.id] },
-                                { selected: @destination_port.present? ? @destination_port.server&.id : nil }
-                              ),
-                              include_blank: true,
-                              onchange: "select_destination_server(this.value)",
-                              style: 'max-width: 185px;'
-                %>
-              </span>
-            </div>
-          <% end %>
-          <div id="back_destination_server" class="back_server overflow-scroll">
-            <% if @destination_port && @destination_port.server %>
-                <%= render partial: "servers/draw_server_compact",
-                           locals: { server: @destination_port.server, selected_port: @destination_port } %>
-            <% end %>
-          </div>
+  <fieldset class="col-12 mt-4">
+    <%= f.label :port_to_id, class: "form-label" %>
+    <%= render CardComponent.new() do |card| %>
+      <% card.with_header do %>
+        <div id="select_destination_bay">
+          <span id="all_destinations">
+            <%= select_tag "to_server",
+                          options_for_select(
+                            @selected_port.server.frame.servers.map { |v| [v.name, v.id] },
+                            { selected: @destination_port.present? ? @destination_port.server&.id : nil }
+                          ),
+                          include_blank: true,
+                          onchange: "select_destination_server(this.value)",
+                          class: "form-select mx-auto",
+                          style: "max-width: 185px;"
+            %>
+          </span>
+        </div>
+      <% end %>
+      <div id="back_destination_server" class="back_server overflow-scroll">
+        <% if @destination_port && @destination_port.server %>
+            <%= render partial: "servers/draw_server_compact",
+                        locals: { server: @destination_port.server, selected_port: @destination_port } %>
         <% end %>
-        <%= f.hidden_field :port_to_id, value: @destination_port.try(:id) %>
-      </fieldset>
-
-      <fieldset class="col-12 mt-4">
-        <%= f.label :vlans, class: "form-label" %>
-        <%= f.text_field :vlans, class: "form-control", value: @moved_connection.vlans %>
-      </fieldset>
-
-      <fieldset class="col-12 mt-4">
-        <%= f.label :color, class: "form-label" %>
-        <%= f.hidden_field :color, value: @moved_connection.color %>
-      </fieldset>
-
-      <fieldset class="col-12 mt-4">
-        <%= f.label :cablename, class: "form-label" %>
-        <%= f.text_field :cablename, class: "form-control", value: @moved_connection.cablename %>
-      </fieldset>
-
-      <div class="col-12 mt-4 justify-content-between d-flex align-items-center">
-        <%= f.submit t("action.save"), class: "btn btn-primary",
-                                       disabled: @destination_port.present? ? false : :disabled %>
-        <span>
-          <%= f.hidden_field :remove_connection, value: "0" %>
-          <%= link_to t(".action.delete"), "#", class:"text-danger", onclick: "remove_connection()" %>
-        </span>
       </div>
     <% end %>
+    <%= f.hidden_field :port_to_id, value: @destination_port.try(:id) %>
+  </fieldset>
+
+  <fieldset class="col-12 mt-4">
+    <%= f.label :vlans, class: "form-label" %>
+    <%= f.text_field :vlans, class: "form-control", value: @moved_connection.vlans %>
+  </fieldset>
+
+  <fieldset class="col-12 mt-4">
+    <%= f.label :color, class: "form-label" %>
+    <%= f.hidden_field :color, value: @moved_connection.color %>
+  </fieldset>
+
+  <fieldset class="col-12 mt-4">
+    <%= f.label :cablename, class: "form-label" %>
+    <%= f.text_field :cablename, class: "form-control", value: @moved_connection.cablename %>
+  </fieldset>
+
+  <div class="col-12 mt-4 justify-content-between d-flex align-items-center">
+    <%= f.submit t("action.save"), class: "btn btn-primary",
+                                    disabled: @destination_port.present? ? false : :disabled %>
+    <span>
+      <%= f.hidden_field :remove_connection, value: "0" %>
+      <%= link_to t(".action.delete"), "#", class:"text-danger", onclick: "remove_connection()" %>
+    </span>
   </div>
-</div>
+<% end %>
 
 <script>
 $(document).ready(function(){
