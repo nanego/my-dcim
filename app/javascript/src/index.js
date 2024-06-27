@@ -6,20 +6,6 @@ import "src/servers"
 import Sortable from "sortablejs"
 window.Sortable = Sortable
 
-function hideFilters() {
-    $('.hide-filters').hide()
-    $('.show-filters').show()
-    $('.card-body').hide()
-}
-window.hideFilters = hideFilters
-
-function showFilters() {
-    $('.hide-filters').show()
-    $('.show-filters').hide()
-    $('.card-body').show()
-}
-window.showFilters = showFilters
-
 $(document).on("click", ".draw_connections_link", function (event) {
     $(event.target).html('<span class="bi bi-three-dots" aria-hidden="true"></span>')
 })

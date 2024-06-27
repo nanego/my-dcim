@@ -49,7 +49,7 @@
               <%= link_to "#{move.moveable.try(:modele).try(:category)} #{move.moveable} vers la baie #{move.frame}",
                           edit_move_path(move) %>
             </td>
-            <td>
+            <td class="text-center" style="min-width: 50px; width: 50px;">
               <%= link_to t("action.delete"), move, method: :delete,
                                                     data: { confirm: t("moves.index.delete_confirmation") },
                                                     class: "btn btn-danger" %>
