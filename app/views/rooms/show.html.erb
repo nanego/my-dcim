@@ -77,12 +77,12 @@
                   <div class="rooms-overview">
                     <% islet.bays.sorted.each do |bay| %>
                       <% air_conditioner = @air_conditioners.find { _1.bay_id == bay.id } || nil %>
-                      <div class="couple d-flex no-decoration-link"
+                      <div class="couple d-flex"
                           style="grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
                                  grid-row: <%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;">
                         <% if air_conditioner&.position == AirConditioner.positions[:left] %>
                           <%= link_to air_conditioner.name, edit_air_conditioner_path(air_conditioner),
-                                      class: "air-conditioner #{air_conditioner.status}" %>
+                                      class: "air-conditioner #{air_conditioner.status} text-decoration-none" %>
                         <% end %>
                         <% bay.frames.sorted.each_with_index do |frame, index| %>
                           <div class="<%= class_names("overviewed_frame border",
@@ -125,7 +125,7 @@
 
                         <% if air_conditioner&.position == AirConditioner.positions[:right] %>
                           <%= link_to air_conditioner.name, edit_air_conditioner_path(air_conditioner),
-                                      class: "air-conditioner #{air_conditioner.status}" %>
+                                      class: "air-conditioner #{air_conditioner.status} text-decoration-none" %>
                         <% end %>
 
                       </div>
