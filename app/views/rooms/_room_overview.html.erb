@@ -1,15 +1,17 @@
-<div class="card">
-  <div class="card-header">
+<%= render CardComponent.new() do |card| %>
+  <% card.with_header do %>
     <h5 class="card-title"><%= link_to room.name, room %></h5>
-  </div>
-  <div class="card-body p-0 bg-body-tertiary">
-    <% room.islets.sorted.each do |islet| %>
+  <% end %>
+
+  <div class="bg-body-tertiary border rounded">
+    <% islets = room.islets.sorted %>
+    <% islets.each do |islet| %>
       <div class="islet">
         <h6 class="my-2 ms-3">
-          <%= islet.name.present? ? link_to("Ilot #{islet}", room_path(room, islet: islet.name, :view => params[:view], bg: params[:bg])) : "" %>
+          <%= islet.name.present? ? link_to("Ilot #{islet}", room_path(room, islet: islet.name, view: params[:view], bg: params[:bg])) : "" %>
         </h6>
         <%= render "bays/overview", bays: islet.bays.sorted, islet: islet.name %>
       </div>
     <% end %>
   </div>
-</div>
+<% end %>
