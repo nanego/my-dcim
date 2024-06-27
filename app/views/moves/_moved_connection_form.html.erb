@@ -3,7 +3,7 @@
 <%= form_for(@moved_connection, url:update_connection_moves_path, remote: true, html: { class: "form-horizontal moved_connection", role: "form" }) do |f| %>
 
   <div style="clear:both;margin-top: 5px;" >
-    <%= f.label 'Port de départ', class: "col-sm-2 control-label" %>
+    <%= f.label "Port de départ", class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <div class="panel">
         <div class="panel-body">
@@ -17,11 +17,11 @@
   </div>
 
   <div class="field">
-    <%= f.label 'Port de destination', class: "col-sm-2 control-label" %>
+    <%= f.label "Port de destination", class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <div class="card">
-        <div class="card-header">
-          <div class="" style="text-align: center;" id="select_destination_bay">
+      <%= render CardComponent.new() do |card| %>
+        <% card.with_header do %>
+          <div class="text-center" id="select_destination_bay">
             <span id="all_destinations">
               <%= select_tag 'to_server',
                              options_for_select(
@@ -34,15 +34,13 @@
               %>
             </span>
           </div>
+        <% end %>
+        <div id="back_destination_server" class="back_server">
+          <% if @destination_port %>
+              <%= render partial: 'servers/draw_server_compact', locals: { server: @destination_port.server, selected_port: @destination_port } %>
+          <% end %>
         </div>
-        <div class="card-body">
-          <div id="back_destination_server" class="back_server">
-            <% if @destination_port %>
-                <%= render partial: 'servers/draw_server_compact', locals: { server: @destination_port.server, selected_port: @destination_port } %>
-            <% end %>
-          </div>
-        </div>
-      </div>
+      <% end %>
       <%= f.hidden_field :port_to_id, value: @destination_port.try(:id) %>
     </div>
   </div>
