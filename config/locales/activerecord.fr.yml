@@ -335,6 +335,12 @@ fr:
         frame_id: Baie de destination
         remove_connections: Supprimer toutes les connexions vers ce matériel ?
         position: Position dans la baie
+      moved_connection:
+        port_from_id: Port de départ
+        port_to_id: Port de destination
+        vlans: Vlans
+        color: Couleur
+        cablename: Nom du câble
 
     errors:
       models:
