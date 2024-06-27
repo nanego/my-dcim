@@ -231,9 +231,7 @@
                  Rails.logger.warn "WARNING: couldn't get GLPI data because the operation timed out"
                  rescue Exception => e
                  Rails.logger.warn "WARNING: couldn't get GLPI data because of an error: #{e.message}" %>
-              <div class="card-body">
-                <%= t(".glpi_connection_error") %> : <pre><code><%= e&.message.to_s %></code></pre>
-              </div>
+              <%= t(".glpi_connection_error") %> : <pre><code><%= e&.message.to_s %></code></pre>
             <% end %>
           <% end %>
         </div>
