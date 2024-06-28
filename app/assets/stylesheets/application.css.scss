@@ -79,11 +79,6 @@ body {
   max-width: 100%;
 }
 
-a.hide-filters, a.show-filters {
-  color: white;
-  text-decoration: underline;
-}
-
 .frame .server {
   page-break-inside: avoid;
 }
@@ -164,14 +159,13 @@ table.card_layout {
 .pdu {
   &.J {
     .pdu-line .badge {
-      color: var(--bs-gray-500);
-      background-color: #ffed7e;
+      color: var(--bs-gray-500) !important;
+      background-color: #ffed7e !important;
     }
   }
   &.B {
     .pdu-line .badge {
-      // color: rgba(255,255,255, 1);;
-      background-color: #a2b9ff;
+      background-color: #a2b9ff !important;
     }
   }
 }
@@ -307,7 +301,7 @@ table.card_layout {
     background-color: var(--bs-light-bg-subtle) !important;
   }
   &.odd {
-    background-color: var(--bs-dark-bg-subtle) !important
+    background-color: var(--bs-dark-bg-subtle) !important;
   }
 }
 

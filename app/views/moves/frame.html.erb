@@ -1,11 +1,11 @@
 <% provide(:title, "#{Move.model_name.human(count: 2)} | Baie #{@frame}") %>
 <%= render "layouts/breadcrumb", breadcrumb_steps: {
   Move.model_name.human(count: 2) => moves_path,
-  "Baie #{@frame}" => ''
+  "Baie #{@frame}" => ""
 } %>
 
 <div class="row my-5">
-  <div class="col-11 col-md-10 col-lg-8 mx-auto">
+  <div class="col-12 mx-auto">
     <div class="d-flex justify-content-between pb-5">
       <%= link_to moves_path, class: "btn btn-outline-secondary align-self-center d-inline-flex",
                               title: t("action.back") do %>
@@ -16,13 +16,13 @@
       <div class="flex-grow-1"></div>
     </div>
 
-    <div class="bg-body-tertiary p-4 rounded border">
-      <div class="card-islet">
+    <div class="bg-body p-4 rounded border">
+      <div class="card-islet mb-4">
         <% if @room.present? %>
             <div><h3>Salle <%= @room.name %> - Ilot <%= @frame.islet %></h3></div>
         <% end %>
-        <ul class="frames p-0">
-          <div class="view-back">
+        <div class="frames row g-4 p-0">
+          <div class="view-back col-12 col-lg-6">
             <%= render partial: "frames/show_frame",
                        locals: {
                          frame: @frame,
@@ -33,11 +33,13 @@
                        }
             %>
           </div>
-          <div id="moved_connection_form_loading" class="text-center text-bg-warning fw-bold pt-1">
-            <%= t(".loading") %>
+          <div class="col-12 col-lg-6">
+            <div id="moved_connection_form_loading" class="text-center text-bg-warning fw-bold pt-1">
+              <%= t(".loading") %>
+            </div>
+            <div class="moved_connection_form" id="connection_form"></div>
           </div>
-          <div class="moved_connection_form" id="connection_form"></div>
-        </ul>
+        </div>
       </div>
 
       <h3><%= t(".applied_moves") %></h3>
@@ -49,7 +51,7 @@
               <%= link_to "#{move.moveable.try(:modele).try(:category)} #{move.moveable} vers la baie #{move.frame}",
                           edit_move_path(move) %>
             </td>
-            <td>
+            <td class="text-center" style="min-width: 50px; width: 50px;">
               <%= link_to t("action.delete"), move, method: :delete,
                                                     data: { confirm: t("moves.index.delete_confirmation") },
                                                     class: "btn btn-danger" %>

@@ -518,6 +518,9 @@ fr:
       title: Baie %{frame} après déplacement
       applied_moves: Déplacements appliqués
       loading: CHARGEMENT EN COURS
+    moved_connection_form:
+      action:
+        delete: Supprimer cette connexion
 
   devise:
     registrations:

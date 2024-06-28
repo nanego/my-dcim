@@ -21,11 +21,12 @@
         window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", setTheme)
       </script>
     <% end %>
+
+    <%= javascript_include_tag "vendors" %>
+    <%= javascript_importmap_tags "application" %>
+
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag "application", media: "all" %>
-    <%= javascript_include_tag "vendors" %>
-
-    <%= javascript_importmap_tags "application" %>
   </head>
   <body class="mydcim overflow-hidden">
     <%= render "layouts/header" %>
