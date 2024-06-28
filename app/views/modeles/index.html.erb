@@ -90,7 +90,7 @@
 
       <% table.with_column(style: "min-width: 84px; width: 84px") do |modele| %>
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
-          <%= link_to edit_modele_path(modele), class: 'btn btn-primary' do %>
+          <%= link_to edit_modele_path(modele), class: "btn btn-info" do %>
             <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
             <span class="visually-hidden"><%= t("action.edit") %></span>
           <% end %>

@@ -96,47 +96,46 @@
 
 
           <%= content_tag :span, "Enclosure #{enclosure.position}", class: "form-label" %>
-          <div class="card">
-            <div class="card-body">
-              <ul class="list-group">
-                <li class="list-group-item">
-                  <div class="row">
-                    <span class="col-md-2">
-                      <%= Enclosure.human_attribute_name("component") %>
-                    </span>
-                    <span class="col-md-2">
-                      <%= Enclosure.human_attribute_name("card_type") %>
-                    </span>
-                    <span class="col-md-2">
-                      <%= Enclosure.human_attribute_name("label") %>
-                    </span>
-                    <span class="col-md-2">
-                      <%= Enclosure.human_attribute_name("orientation") %>
-                    </span>
-                    <span class="col-md-1">
-                      <%= Enclosure.human_attribute_name("first_port_name_shrt") %>
-                    </span>
-                    <span class="col-md-2">
-                      <%= Enclosure.human_attribute_name("twin_card") %>
-                    </span>
-                  </div>
-                </li>
-                <% cards = @server.cards.select { |c| c.composant.enclosure == enclosure }
-                                        .sort_by! { |c| c.composant.position } %>
-                <%= f.fields_for :cards, cards do |card_fields| %>
-                  <%= render partial: "card_fields", locals: { f: card_fields, server: @server, enclosure: enclosure } %>
-                <% end %>
+          <%= render CardComponent.new() do |card| %>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <div class="row">
+                  <span class="col-md-2">
+                    <%= Enclosure.human_attribute_name("component") %>
+                  </span>
+                  <span class="col-md-2">
+                    <%= Enclosure.human_attribute_name("card_type") %>
+                  </span>
+                  <span class="col-md-2">
+                    <%= Enclosure.human_attribute_name("label") %>
+                  </span>
+                  <span class="col-md-2">
+                    <%= Enclosure.human_attribute_name("orientation") %>
+                  </span>
+                  <span class="col-md-1">
+                    <%= Enclosure.human_attribute_name("first_port_name_shrt") %>
+                  </span>
+                  <span class="col-md-2">
+                    <%= Enclosure.human_attribute_name("twin_card") %>
+                  </span>
+                </div>
+              </li>
+              <% cards = @server.cards.select { |c| c.composant.enclosure == enclosure }
+                                      .sort_by! { |c| c.composant.position } %>
+              <%= f.fields_for :cards, cards do |card_fields| %>
+                <%= render partial: "card_fields", locals: { f: card_fields, server: @server, enclosure: enclosure } %>
+              <% end %>
 
-                <div data-nested-form-target="target"></div>
-              </ul>
-            </div>
-            <div class="card-footer text-center">
-              <button type="button" class="btn btn-outline-success btn-sm" data-action="nested-form#add">
+              <div data-nested-form-target="target"></div>
+            </ul>
+
+            <% card.with_footer do %>
+              <button type="button" class="btn btn-outline-success btn-sm mx-auto" data-action="nested-form#add">
                 <span class="bi bi-plus-lg" aria-hidden="true"></span>
                 <span><%= t(".add_card") %></span>
               </button>
-            </div>
-          </div>
+            <% end %>
+          <% end %>
         </div>
       <% end %>
     <% end %>
