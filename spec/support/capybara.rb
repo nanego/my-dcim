@@ -5,7 +5,6 @@ require "capybara/cuprite"
 Capybara.register_driver(:cuprite) do |app|
   options = {
     window_size: [1920, 1080],
-    browser_options: {},
     inspector: false,
     js_errors: true
   }
