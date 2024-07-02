@@ -1,10 +1,10 @@
-<% provide(:title, t('changelog_entries.title')) %>
+<% provide(:title, t("changelog_entries.title")) %>
 <%= render "layouts/breadcrumb", breadcrumb_steps: {
-  t('changelog_entries.title') => ""
+  t("changelog_entries.title") => ""
 } %>
 
 <div class="container-fluid">
-  <h1><%= t('changelog_entries.title') %></h1>
+  <h1><%= t("changelog_entries.title") %></h1>
 
   <%= render List::DataTableComponent.new(decorate(@changelog_entries)) do |table| %>
 
@@ -26,22 +26,23 @@
 
     <% table.with_column(ChangelogEntry.human_attribute_name(:attributes)) do |changelog_entry| %>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-lg-6">
           <%= sanitize changelog_entry.split_diff.left %>
         </div>
-        <div class="col-md-6">
+        <div class="col-lg-6">
           <%= sanitize changelog_entry.split_diff.right %>
         </div>
       </div>
     <% end %>
 
-    <% table.with_column(t('label_date'), sort_by: :created_at) do |changelog_entry| %>
+    <% table.with_column(t("label_date"), sort_by: :created_at) do |changelog_entry| %>
       <%= l changelog_entry.created_at %>
     <% end %>
 
-    <% table.with_column(t('label_details')) do |changelog_entry| %>
+    <% table.with_column(t("label_details")) do |changelog_entry| %>
       <%= link_to changelog_entry_path(changelog_entry), class: "btn btn-primary" do %>
-        <span class="bi bi-eye" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.show") %>"></span>
+        <span class="bi bi-eye" aria-hidden="true" data-controller="tooltip" data-bs-placement="left"
+                                                                             title="<%= t("action.show") %>"></span>
         <span class="visually-hidden"><%= t("action.show") %></span>
       <% end %>
     <% end %>
