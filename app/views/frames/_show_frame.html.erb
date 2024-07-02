@@ -12,7 +12,7 @@
 <div class="frame" id="frame_<%= frame.id %>">
   <div class="card card-frame">
     <div class="card-header">
-      <h5 class="card-title" style="display: inline;">
+      <h5 class="card-title d-inline">
         <%= link_to frame.name,
                     room_path(frame.room,
                               view: view_type,
@@ -46,13 +46,13 @@
           <% end %>
 
           <% bgModeleColor = define_background_color(server: server, mode: params['bg']) %>
-
           <% u_server = server.modele.try(:u).to_i > 0 ? server.modele.u : 1 %>
-
-          <% data = {:u => u_server,
-                     :num_u => u_disponibles,
-                     :rj45_futur => server.try(:rj45_futur) || 0,
-                     :fc_futur => server.try(:fc_futur)} %>
+          <% data = {
+            u: u_server,
+            num_u: u_disponibles,
+            rj45_futur: server.try(:rj45_futur) || 0,
+            fc_futur: server.try(:fc_futur)
+          } %>
 
           <% if view_type == 'back' %>
             <%= content_tag_for :li, server,
@@ -90,7 +90,6 @@
               <%= render partial: 'servers/draw_server_badge', locals: { server: server } %>
               <%= render partial: 'servers/draw_server_compact_front', locals: { server: server } %>
             <% end %>
-
           <% end %>
         <% end %>
       <% end %>
@@ -103,7 +102,6 @@
         </li>
         <% u_disponibles -= 1 %>
       <% end %>
-
     </ul>
   </div>
 </div>
