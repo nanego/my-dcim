@@ -535,6 +535,9 @@ fr:
     passwords:
       new:
         submit: Réinitialiser mon mot de passe
+        help_text: Des instructions de réinitialisation du mot de passe vous seront envoyées.
+      edit:
+        title: Changez votre mot de passe
   activity:
     user:
       destroy: a supprimé un utilisateur
