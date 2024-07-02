@@ -10,9 +10,9 @@
 <% clickable_lines = local_assigns[:clickable_lines].nil? ? false : local_assigns[:clickable_lines] %>
 
 <div class="frame" id="frame_<%= frame.id %>">
-  <div class="panel panel-frame panel-default">
-    <div class="panel-heading">
-      <h5 class="panel-title" style="display: inline;">
+  <div class="card card-frame">
+    <div class="card-header">
+      <h5 class="card-title d-inline">
         <%= link_to frame.name,
                     room_path(frame.room,
                               view: view_type,
@@ -46,22 +46,21 @@
           <% end %>
 
           <% bgModeleColor = define_background_color(server: server, mode: params['bg']) %>
-
           <% u_server = server.modele.try(:u).to_i > 0 ? server.modele.u : 1 %>
-
-          <% data = {:u => u_server,
-                     :num_u => u_disponibles,
-                     :rj45_futur => server.try(:rj45_futur) || 0,
-                     :fc_futur => server.try(:fc_futur)} %>
+          <% data = {
+            u: u_server,
+            num_u: u_disponibles,
+            rj45_futur: server.try(:rj45_futur) || 0,
+            fc_futur: server.try(:fc_futur)
+          } %>
 
           <% if view_type == 'back' %>
             <%= content_tag_for :li, server,
-                                class: "list-group-item truncate server_back
-                                        #{server.modele.try(:category).try(:name).try(:parameterize)}
-                                        #{server.server_state_id == 1 ? 'striped' : ''}
-                                        #{'relegated' if highlighted_servers_ids.exclude?(server.id)}
-                                        #{'relegated' if params[:bg]=='cablage' && request.format.pdf? && server.server_state_id != 1 }
-                                ",
+                                class: class_names("list-group-item truncate server_back #{server.modele.try(:category).try(:name).try(:parameterize)}",
+                                                  striped: server.server_state_id == 1,
+                                                  relegated: highlighted_servers_ids.exclude?(server.id) || (params[:bg]=="cablage" && request.format.pdf? && server.server_state_id != 1),
+                                                  colorized_background: bgModeleColor.present?
+                                ),
                                 style: "min-height: #{settings[:min_height] * (server.modele.try(:u).to_i > 0 ? server.modele.u : 1)}px;padding: 3px 3px 3px 20px;",
                                 data: data do %>
               <% u_server.times do |i| %>
@@ -69,22 +68,21 @@
                 <% u_disponibles -= 1 %>
               <% end %>
               <%= render partial: 'servers/draw_server_badge', locals: { server: server } %>
-              <span id="back_server_<%= server.id %>">
-                <div id="scaleable-wrapper" class="scaleable-wrapper">
+              <span id="back_server_<%= server.id %>" class="no-decoration-link">
+                <div id="scaleable-wrapper" class="scaleable-wrapper d-flex flex-row-reverse flex-wrap">
                   <%= render partial: 'servers/draw_server_compact', locals: { server: server } %>
                 </div>
               </span>
             <% end %>
           <% else %>
             <%= content_tag_for :li, server,
-                                class: "list-group-item truncate
-                                        #{server.modele.try(:category).try(:name).try(:parameterize)}
-                                        #{server.server_state_id == 1 ? 'striped' : ''}
-                                        #{'relegated' if highlighted_servers_ids.exclude?(server.id)}
-                                        #{'relegated' if params[:bg]=='cablage' && request.format.pdf? && server.server_state_id != 1 }
-                                ",
+                                class: class_names("list-group-item truncate #{server.modele.try(:category).try(:name).try(:parameterize)}",
+                                                   striped: server.server_state_id == 1,
+                                                   relegated: highlighted_servers_ids.exclude?(server.id) || (params[:bg]=="cablage" && request.format.pdf? && server.server_state_id != 1),
+                                                   colorized_background: bgModeleColor.present?
+                                ),
                                 style: "height: #{settings[:min_height] * u_server - (u_server - 1)}px;background-color:#{bgModeleColor} !important;",
-                                :data => data do %>
+                                data: data do %>
               <% u_server.times do |i| %>
                 <%= render partial: 'servers/draw_u_scale_unit', locals: { i: i, u_disponibles: u_disponibles, u_server: u_server, clickable_lines: clickable_lines } %>
                 <% u_disponibles -= 1 %>
@@ -92,7 +90,6 @@
               <%= render partial: 'servers/draw_server_badge', locals: { server: server } %>
               <%= render partial: 'servers/draw_server_compact_front', locals: { server: server } %>
             <% end %>
-
           <% end %>
         <% end %>
       <% end %>
@@ -105,7 +102,6 @@
         </li>
         <% u_disponibles -= 1 %>
       <% end %>
-
     </ul>
   </div>
 </div>

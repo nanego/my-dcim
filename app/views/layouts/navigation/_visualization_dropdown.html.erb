@@ -1,0 +1,22 @@
+<li class="nav-item dropdown" role="menuitem">
+  <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    <%= t("visualization") %>
+  </a>
+  <ul class="dropdown-menu" style="max-height: 80vh;overflow: auto;">
+    <li role="menuitem"><%= link_to t("rooms.overview_view.title"), overview_rooms_path, class: "dropdown-item" %></li>
+    <li role="menuitem"><%= link_to t("rooms.capacity_view.title"), capacity_rooms_path, class: "dropdown-item" %></li>
+    <li role="menuitem"><%= link_to t("rooms.infrastructure_view.title"), infrastructure_rooms_path, class: "dropdown-item" %></li>
+    <% sites = Site.joins(:rooms).order(:position).distinct %>
+    <% sites.each do |site| %>
+      <li><hr class="dropdown-divider"></li>
+      <li><h6 class="dropdown-header"><%= site %></h6></li>
+      <% rooms = site.rooms.sorted.distinct %>
+      <% rooms.each do |room| %>
+        <li class="nav-item" role="menuitem">
+          <%= link_to room.name, room_path(room, view: params[:view], bg: params[:bg]), class: "dropdown-item" %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</li>

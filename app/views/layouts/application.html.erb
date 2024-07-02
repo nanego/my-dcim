@@ -1,23 +1,43 @@
 <!DOCTYPE html>
-<html id="container">
+<html data-bs-theme="<%= current_user.theme %>">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Gestion de salle #{Rails.env.development? ? '(dev)' : 'DCIM'}" %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      <%= content_for?(:title) ? yield(:title) : "Gestion de salle #{Rails.env.development? ? "(dev)" : "DCIM"}" %>
+    </title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "My DCIM" %>">
 
-    <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
+    <%- if current_user.theme == "auto" %>
+      <script>
+        function getTheme() {
+          return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+        }
 
-    <%= javascript_importmap_tags "new.application" %>
+        function setTheme() {
+          document.documentElement.setAttribute("data-bs-theme", getTheme())
+        }
+
+        setTheme()
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", setTheme)
+      </script>
+    <% end %>
+
+    <%= javascript_include_tag "vendors" %>
+    <%= javascript_importmap_tags "application" %>
+
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag "application", media: "all" %>
   </head>
-  <body>
-    <header>
-      <%= render 'layouts/navigation' %>
-    </header>
-    <main role="main">
-       <%= render 'layouts/messages' %>
-       <%= yield %>
-    </main>
+  <body class="mydcim overflow-hidden">
+    <%= render "layouts/header" %>
+    <%= render "layouts/messages" %>
+    <div class="mydcim-wrapper container-fluid">
+      <div class="row flex-nowrap">
+        <%= render "layouts/sidebar" %>
+        <main class="mydcim-main ms-sm-auto px-md-4 w-auto flex-fill pb-4 bg-body" role="main">
+          <%= yield %>
+        </main>
+      </div>
+    </div>
   </body>
 </html>

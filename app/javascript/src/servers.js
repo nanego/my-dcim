@@ -1,6 +1,5 @@
 $(document).ready(function() {
   var drag_n_drop_activated, update_u_scale, update_warning_messages;
-  $('[data-toggle="tooltip"]').tooltip();
 
   // See usage in http://localhost:3000/bays/YOUR_BAY_ID
   drag_n_drop_activated = false;
@@ -8,12 +7,12 @@ $(document).ready(function() {
     var source_connected_list, source_frame;
     if (drag_n_drop_activated) {
       drag_n_drop_activated = false;
-      $('#drag-n-drop-switcher').html("<span class='glyphicon glyphicon-move' aria-hidden='true'></span> Activer le drag'n drop");
+      $('#drag-n-drop-switcher').html("<span class='bi bi-arrows-move' aria-hidden='true'></span> Activer le drag'n drop");
       $('.frames').sortable('destroy');
       return $('.servers').sortable('destroy');
     } else {
       drag_n_drop_activated = true;
-      $('#drag-n-drop-switcher').html("<span class='glyphicon glyphicon-move' aria-hidden='true'></span> Le drag'n drop est activé !");
+      $('#drag-n-drop-switcher').html("<span class='bi bi-arrows-move' aria-hidden='true'></span> Le drag'n drop est activé !");
       $('.frames').sortable({
         update: function(event, ui) {
           return $.post($(this).data('update-url'), $(this).sortable('serialize'));
@@ -86,27 +85,14 @@ $(document).ready(function() {
         return total_fc += $(this).data('fc-futur');
       }
     });
-    frame.find('.panel-footer .label').each(function() {
+    frame.find('.card-footer .label').each(function() {
       return $(this).removeClass('label-danger');
     });
-    frame.find('.panel-footer .u').html("Σ U : " + total_u);
-    frame.find('.panel-footer .rj45').html("Σ RJ45 : " + total_rj45);
-    return frame.find('.panel-footer .fc').html("Σ FC : " + total_fc);
+    frame.find('.card-footer .u').html("Σ U : " + total_u);
+    frame.find('.card-footer .rj45').html("Σ RJ45 : " + total_rj45);
+    return frame.find('.card-footer .fc').html("Σ FC : " + total_fc);
   };
 
-  // Nested forms see exp http://localhost:3000/servers/YOUR_SERVER_ID/edit
-  $('form').on('click', '.remove_fields', function(event) {
-    $(this).prev('input[type=hidden]').val('1');
-    $(this).closest('fieldset').hide();
-    return event.preventDefault();
-  });
-  $('form').on('click', '.add_fields', function(event) {
-    var regexp, time;
-    time = new Date().getTime();
-    regexp = new RegExp($(this).data('id'), 'g');
-    $(this).before($(this).data('fields').replace(regexp, time));
-    return event.preventDefault();
-  });
   return $('.server').hover((function() {
     return $(this).addClass('hover');
   }), function() {

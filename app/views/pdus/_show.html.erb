@@ -1,16 +1,16 @@
-<div class="panel panel-pdu panel-default">
-  <div class="panel-heading">
-    <h5 class="panel-title" style="display: inline;">
+<%= render CardComponent.new(extra_classes: "card-pdu") do |card| %>
+  <% card.with_header do %>
+    <h5 class="card-title mb-0">
       PDU <%= frame %>
     </h5>
-  </div>
-  <div class="panel-body">
+  <% end %>
+
+  <div class="d-flex">
     <% frame.pdus.each do |pdu| %>
-      <div style="width: 50%;float: left;padding: 0 15px;max-width:60px;"
-           class="pdu <%= pdu.color %>"
+      <div class="pdu w-50 <%= pdu.color %>"
            id="pdu-<%= pdu.id %>" >
-        <%= render :partial => 'pdus/pdu', locals: {pdu: pdu} %>
+        <%= render partial: "pdus/pdu", locals: { pdu: } %>
       </div>
     <% end %>
   </div>
-</div>
+<% end %>

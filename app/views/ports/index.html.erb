@@ -1,21 +1,21 @@
 <%
-  breadcrumb_variables = {}
-  breadcrumb_variables[t('visualization')] = overview_rooms_path
+  breadcrumb_steps = {}
+  breadcrumb_steps[t('visualization')] = overview_rooms_path
   if @room.present?
-    breadcrumb_variables["Salle #{@room.name}"] = room_path(@room)
+    breadcrumb_steps["Salle #{@room.name}"] = room_path(@room)
   elsif @frame.present?
-    breadcrumb_variables["Salle #{@frame.room.name}"] = room_path(@frame.room)
+    breadcrumb_steps["Salle #{@frame.room.name}"] = room_path(@frame.room)
   end
-  breadcrumb_variables["Baie #{@frame.name}"] = frame_path(@frame) if @frame.present?
-  breadcrumb_variables["Liste des ports cablés"] = ''
+  breadcrumb_steps["Baie #{@frame.name}"] = frame_path(@frame) if @frame.present?
+  breadcrumb_steps["Liste des ports cablés"] = ''
 %>
-<%= render 'layouts/breadcrumb', breadcrumb_variables: breadcrumb_variables %>
+<%= render 'layouts/breadcrumb', breadcrumb_steps: %>
 
 <div class="container-fluid">
 
   <div class="row">
 
-    <div class="col-md-12 well">
+    <div class="col-md-12">
 
       <div style="margin-bottom: 20px;">
         <h2>Liste des ports cablés</h2>
@@ -23,13 +23,13 @@
 
       <div style="margin-bottom: 10px;">
         <% text_action = @room.present? ? ports_path(room_id: @room.id, format: 'txt') : ports_path(frame_id: @frame.id, format: 'txt') %>
-        <%= link_to text_action, class: 'btn btn-default' do %>
-          <span class="glyphicon glyphicon-text-background" aria-hidden="true"></span>
+        <%= link_to text_action, class: 'btn btn-outline-primary' do %>
+          <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
           Export Txt
         <% end %>
         <% csv_action = @room.present? ? ports_path(room_id: @room.id, format: 'csv') : ports_path(frame_id: @frame.id, format: 'csv') %>
-        <%= link_to csv_action, class: 'btn btn-default' do %>
-          <span class="glyphicon glyphicon-export"></span>
+        <%= link_to csv_action, class: 'btn btn-outline-primary' do %>
+          <span class="bi bi-file-earmark-arrow-down"></span>
           Exporter au format CSV
         <% end %>
       </div>

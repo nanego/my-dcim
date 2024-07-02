@@ -5,19 +5,13 @@ ruby file: ".ruby-version"
 
 gem "rails", "~> 7.1.0"
 
+gem "bootstrap", "~> 5.3.2"
+gem "dartsass-sprockets"
 gem "jbuilder"
-gem "jquery-rails"
-gem "jquery-ui-rails"
 gem "nokogiri", "~> 1.16"
 gem "rails-i18n", "~> 7.0.x"
-gem "sassc-rails", "~> 2.0"
 gem "sprockets-rails", require: "sprockets/railtie"
 gem "terser"
-
-gem "bootstrap-sass", ">= 3.4.1"
-gem "bourbon"
-# gem "bootstrap-generators", git: "git://github.com/decioferreira/bootstrap-generators.git"
-# gem "bootstrap-generators", "~> 3.3.4"
 
 # Authentication
 gem "devise"
@@ -49,6 +43,7 @@ end
 group :development, :test do
   gem "active_record_doctor"
   gem "byebug"
+  gem "lookbook"
   gem "puma"
   gem "rack-mini-profiler", require: false
   gem "rubocop", require: false
@@ -104,7 +99,8 @@ gem "debug", group: %i[test development]
 gem "dekorator", "~> 1.4"
 gem "diffy", "~> 3.4"
 gem "importmap-rails", "~> 2.0"
-gem "lookbook"
+gem "jquery-rails"
+gem "jquery-ui-rails"
 gem "rubanok"
 gem "stimulus-rails", "~> 1.2"
 gem "store_attribute", "~> 1.2"

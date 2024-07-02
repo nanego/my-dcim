@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Gestion de salle #{Rails.env.development? ? "(dev)" : "DCIM"}" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "My DCIM" %>">
+
+    <script>
+      function getTheme() {
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+      }
+
+      function setTheme() {
+        document.documentElement.setAttribute("data-bs-theme", getTheme())
+      }
+
+      setTheme()
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", setTheme)
+    </script>
+
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag "application", media: "all" %>
+
+    <%= javascript_importmap_tags "application" %>
+  </head>
+  <body class="mydcim-devise-layout d-flex align-items-center py-4 bg-body-tertiary">
+    <%= render "layouts/messages" %>
+    <main class="mydcim-main mydcim-login p-3 w-100 m-auto" role="main">
+      <div class="text-center">
+        <%= link_to root_path do %>
+          <%= image_tag "datacenter-02.png", height: 60, class: "mb-4" %>
+        <% end %>
+      </div>
+      <%= yield %>
+    </main>
+  </body>
+</html>
