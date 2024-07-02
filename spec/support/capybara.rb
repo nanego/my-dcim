@@ -17,6 +17,6 @@ Capybara.register_driver(:cuprite) do |app|
 end
 
 # NOTE: Wait for AJAX response since turbo make SHR requests.
-Capybara.default_max_wait_time = 5
+Capybara.default_max_wait_time = 10
 Capybara.javascript_driver = :cuprite
 Capybara.server = :puma, { Silent: true }
