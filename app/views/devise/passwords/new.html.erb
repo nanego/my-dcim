@@ -2,10 +2,11 @@
 <%= form_for(resource, as: resource_name, url: password_path(resource_name),
                                           html: { role: "form", method: :post }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
-  <div class="form-floating mb-4">
+  <fieldset class="form-floating mb-4">
     <%= f.text_field :email, autofocus: true, class: "form-control",
                                              placeholder: User.human_attribute_name(:email) %>
-    <%= f.label :email %>
-  </div>
+    <%= f.label :email, class: "form-label" %>
+    <p class="form-text"><%= t(".help_text") %></p>
+  </fieldset>
   <%= f.submit t(".submit"), class: "btn btn-primary w-100 py-2" %>
 <% end %>
