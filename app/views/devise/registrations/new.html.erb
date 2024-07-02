@@ -1,16 +1,16 @@
 <h1 class="mb-3 h3 fw-normal text-center"><%= t(".sign_up") %></h1>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { role: "form" }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
-  <div class="form-floating">
+  <fieldset class="form-floating">
     <%= f.text_field :name, autofocus: true, class: "form-control mb-n2 rounded-bottom-0",
                                              placeholder: User.human_attribute_name(:name) %>
     <%= f.label :name %>
-  </div>
-  <div class="form-floating">
+  </fieldset>
+  <fieldset class="form-floating">
     <%= f.email_field :email, class: "form-control mb-3 rounded-top-0",
                               placeholder: User.human_attribute_name(:email) %>
     <%= f.label t(".email_know_by_cerbere") %>
-  </div>
+  </fieldset>
     <%= f.submit t("form.submit"), class: "btn btn-primary w-100 py-2" %>
 <% end %>
 <div class="mt-3 justify-content-center d-flex">
