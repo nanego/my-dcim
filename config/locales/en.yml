@@ -16,3 +16,10 @@ en:
         flashes:
           updated: Your preferences have been updated
     logout: Log out
+
+  devise:
+    passwords:
+      new:
+        help_text: We'll send password reset instructions.
+      edit:
+        title: Change your password
