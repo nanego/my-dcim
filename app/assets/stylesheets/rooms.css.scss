@@ -45,10 +45,9 @@
     align-items: center;
     justify-content: center;
     display: flex;
+    flex-direction: column;
     background-color: #F5F5F5;
     border: 1px solid #e3e3e3;
-    writing-mode: vertical-rl;
-    text-orientation: upright;
     margin: 0 0 10px 10px;
     min-width: 24px;
     &:hover, &:focus {
@@ -61,6 +60,27 @@
     }
     &.degraded {
       border: 2px solid #ff8800;
+    }
+
+    .temperatures {
+      color: #2944c9;
+      background-color: white;
+      writing-mode: initial;
+      width: 20px;
+      text-align: center;
+      font-size: 10px;
+
+      &.range {
+        font-size: 8px;
+      }
+    }
+
+    .name {
+      justify-content: center;
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      flex-grow: 10;
+      display: flex;
     }
   }
 }

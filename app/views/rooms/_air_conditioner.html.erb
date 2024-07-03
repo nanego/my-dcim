@@ -1,0 +1,14 @@
+<%= link_to edit_air_conditioner_path(air_conditioner),
+            class: "air-conditioner #{air_conditioner.status}", style: "justify-content: initial;" do %>
+  <% if air_conditioner.setpoint.present? %>
+    <span class="temperatures" title="<%= t('air_conditioners.form.info-setpoint') %>">
+                              <%= air_conditioner.setpoint %>°
+                            </span>
+    <span class="temperatures range">
+                              <span title="<%= t('air_conditioners.form.info-start') %>"><%= air_conditioner.start %></span>
+                              |
+                              <span title="<%= t('air_conditioners.form.info-range') %>"><%= air_conditioner.range %></span>
+                            </span>
+  <% end %>
+  <span class="name"><%= air_conditioner.name %></span>
+<% end %>
