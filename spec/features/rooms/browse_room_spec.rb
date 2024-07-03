@@ -23,7 +23,7 @@ RSpec.describe "Rooms::BrowseRoom", :js do
     overview_frame.click
 
     # Waits for the overview to fully load
-    overview_container = find("div##{room.name.downcase}")
+    find("div##{room.name.downcase}")
 
     frame.servers.each do |server|
       expect(page).to have_content(server.name)
