@@ -15,14 +15,14 @@
 
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
-      <div class="col-12">
+      <div>
         <fieldset class="form-floating">
           <%= f.search_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
           <%= f.label :q %>
         </fieldset>
       </div>
 
-      <div class="col-12">
+      <div>
         <fieldset class="form-floating">
           <%= f.collection_select(:architecture_id, Architecture.sorted,
                                                     :id,
@@ -33,7 +33,7 @@
         </fieldset>
       </div>
 
-      <div class="col-12">
+      <div>
         <fieldset class="form-floating">
           <%= f.collection_select(:category_id, Category.sorted,
                                                 :id,
@@ -44,7 +44,7 @@
         </fieldset>
       </div>
 
-      <div class="col-12">
+      <div>
         <fieldset class="form-floating">
           <%= f.collection_select(:manufacturer_id, Manufacturer.sorted,
                                                     :id,
