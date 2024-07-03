@@ -5,12 +5,253 @@
   <div class="card mb-3">
     <div class="card-body d-flex">
       <div class="tab-content infrastructure bg-body-tertiary overflow-x-scroll">
-        <% @network_types.each do |network_type| %>
-          <% # TODO: move html here? %>
-          <%= render "rooms/infrastructure_islet", islet: @islet, room: @room, network: network_type %>
-        <% end %>
+        <% # TODO: move html here? %>
+        <div class="islet">
+          <% if @room.id == 4 || @room.id == 3 %>
+            <div class="hubs">
+              <% bgColorHub1 = define_background_color(server: @hub, mode: params["bg"]) %>
+              <div class="hub_material hub-top server_<%= @hub.id %>"
+                   id="hub1-<%= @room.id %>-<%= @islet %>"
+                   style="background-color: <%= bgColorHub1 %>"
+                   data-url="<%= server_path(@hub) %>">
+                <%= link_to server_path(@hub), class: "link-dark", target: :_blank, rel: :noopener do %>
+                  Concentrateur
+                  <br>
+                  <%= @hub %>
+                <% end %>
+              </div>
+              <div class="other_room_hub">
+                <% bgColorHub2 = define_background_color(server: @second_hub, mode: params["bg"]) %>
+                <span style="color: grey;"><%= @second_room %></span>
+                <div class="hub_material hub-bottom ms-1 server_<%= @second_hub.id %>"
+                     data-url="<%= server_path(@second_hub) %>"
+                     style="background-color: <%= bgColorHub2 %>"
+                     id="hub2-<%= @room.id %>-<%= @islet %>">
+                  <%= link_to server_path(@second_hub), class: "link-dark",
+                                                                           target: :_blank, rel: :noopener do %>
+                    Concentrateur
+                    <br>
+                    <%= @second_hub %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <div>
+            <div class="rooms-overview">
+              <% @islet.bays.sorted.each do |bay| %>
+                <div class="couple" style="grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
+                    grid-row: <%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;">
+                  <% bay.frames.sorted.each_with_index do |frame, index| %>
+                    <% servers = frame.servers.includes(:bay, :modele, :stack)
+                                      .where("servers.network_types @> ?", "{#{@network}}") # Switch LAN %>
+                    <div class="<%= class_names("overviewed_frame bg-secondary-subtle border-secondary-subtle border",
+                                                "no-margin": index > 0) %>"
+                         data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.id %>">
+                      <div id="frame-<%= frame.id %>-pre"
+                           class="<%= class_names("intermediate-point pre", even: bay.lane.to_i.even?,
+                                                                            odd: bay.lane.to_i.odd?) %>"
+                           style="z-index: -3000;">.</div>
+                      <div class="title">
+                        <%= link_to frame.name, room_path(@room,
+                                                          view: params[:view],
+                                                          islet: @islet.name,
+                                                          "bay-id": bay.id,
+                                                          "frame-id": frame,
+                                                          bg: params[:bg]),
+                                                class: "link-body-emphasis", target: :_top %>
+                      </div>
+                      <div id="frame-<%= frame.id %>-post"
+                           class="<%= class_names("intermediate-point post", even: bay.lane.to_i.even?,
+                                                                             odd: bay.lane.to_i.odd?) %>"
+                           style="z-index: -3000;">.</div>
+                      <ul>
+                        <% servers.each do |server| %>
+                        <% bgModeleColor = define_background_color(server: server, mode: params["bg"]) %>
+                          <% data = { url: server_url(server) } %>
+                          <%= tag.li class: class_names("server_#{server.id} lane-#{server.bay.lane} truncate",
+                                                        bordered: server != servers.last),
+                                     style: "direction:rtl;background-color:#{bgModeleColor} !important;
+                                             #{"border: 2px solid ##{server.stack.color};" if server.stack.present?}",
+                                     title: h("#{server.name}"),
+                                     data: data do
+                            link_to server.name, server_path(server), class: "link-dark",
+                                                                      target: :_blank, rel: :noopener
+                          end %>
+                        <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+var current_room_id = "<%= @room&.id %>"
+var current_islet = "<%= @islet&.name %>"
+var lines = []
+var current_connections = []
+
+$(document).ready(function () {
+  drawCurrentLines()
+  resetLinesPositionOnScroll()
+})
+
+// $('body').on('click', 'input:checkbox[name=stack]', function (e) {
+//   resetLines()
+// })
+
+function disabled_colors() {
+  return $('input:checkbox[name=stack]:not(:checked)').map(function () {
+    return this.value;
+  }).get()
+}
+
+function resetLines() {
+    deleteOldLines()
+    drawCurrentLines()
+}
+
+function resetLinesPositionOnScroll() {
+  $(".infrastructure").on('scroll', AnimEvent.add(function() {
+    lines.forEach(function (line) {
+      line.position()
+    })
+  }))
+
+  $("main.mydcim-main").on('scroll', AnimEvent.add(function() {
+    lines.forEach(function (line) {
+      line.position()
+    })
+  }))
+}
+
+function deleteOldLines() {
+    lines.forEach(function (line) {
+        line.hide()
+    })
+    lines = []
+    current_connections = []
+}
+
+function drawCurrentLines() {
+    var disabled_stacks = disabled_colors()
+
+    <% @connections.each do |server_id, connections| %>
+      <% connections.each do |connection| %>
+        <% unless @concentrateurs_ids.include?(connection[:server_id]) && @concentrateurs_ids.exclude?(server_id)  %>
+          if(disabled_stacks.indexOf(colors_hash['<%= connection[:cable_color] %>']) < 0) {
+              drawInterSwitchsConnections('<%= server_id %>', '<%= connection[:server_id] %>', '<%= connection[:cable_color] %>')
+          }
+        <% end %>
+      <% end %>
+    <% end %>
+}
+
+function drawLine(startElement, endElement, params) {
+    if (startElement && endElement) {
+        lines.push(new LeaderLine(startElement, endElement, params))
+    }
+}
+
+function drawInterSwitchsConnections(start_id, end_id, color) {
+    if (start_id != end_id && current_connections.indexOf(end_id + "-" + start_id) < 0) {
+        var start_element = $('.server_' + start_id + ':visible')[0]
+        var end_element = $('.server_' + end_id + ':visible')[0]
+        // var start_anchor = LeaderLine.pointAnchor(start_element, {x: 42 + i * 20, y: 57})
+        // var end_anchor = LeaderLine.pointAnchor(end_element, {x: 42 + i * 20, y: 0})
+        if (start_element && end_element) {
+            setParamsAndDraw(start_element, end_element, color)
+            if (!$(start_element).hasClass('hub_material')) {
+                current_connections.push(start_id + "-" + end_id)
+            }
+            log(start_id + ' <-> ' + end_id)
+        }
+    }
+}
+
+function setParamsAndDraw(start_element, end_element, color) {
+    var params
+
+    if (color) {
+        color = colors_hash[color]
+    } else {
+        color = 'gray'
+    }
+
+    if ($(start_element).hasClass('hub-top') && !($(end_element).hasClass('hub-bottom')) ||
+        $(start_element).hasClass('hub-bottom') && !($(end_element).hasClass('hub-top'))) {
+        // HUB TO SWITCHS
+        end_element = LeaderLine.pointAnchor(end_element, {x: 5, y: 0})
+        params = {
+            path: 'fluid',
+            startPlug: 'behind',
+            endPlug: 'behind',
+            startSocket: 'bottom',
+            endSocket: 'top',
+            color: color,
+            size: 3,
+            dash: true
+        }
+    }
+
+    if ($(start_element).hasClass('lane-1') && $(end_element).hasClass('lane-1') ||
+        $(start_element).hasClass('lane-2') && $(end_element).hasClass('lane-2')) {
+        // SWITCH TO SWITCH - SAME LINE
+        params = {
+            path: 'fluid',
+            startPlug: 'behind',
+            endPlug: 'behind',
+            startSocket: 'bottom',
+            endSocket: 'bottom',
+            color: color,
+            size: 2,
+            dash: false
+        }
+    }
+
+    if ($(start_element).hasClass('hub-top') && ($(end_element).hasClass('hub-bottom')) ||
+        $(start_element).hasClass('hub-bottom') && ($(end_element).hasClass('hub-top'))) {
+        // HUB TO HUB
+        if ($(start_element).hasClass('hub-top')) {
+            start_element = LeaderLine.pointAnchor(start_element, {x: $(start_element).outerWidth(), y: 19})
+            end_element = LeaderLine.pointAnchor(end_element, {x: 0, y: 19})
+        } else {
+            start_element = LeaderLine.pointAnchor(start_element, {x: 0, y: 38})
+            end_element = LeaderLine.pointAnchor(end_element, {x: $(end_element).outerWidth(), y: 38})
+        }
+        params = {
+            path: 'straight',
+            startPlug: 'behind',
+            endPlug: 'behind',
+            color: color,
+            size: 2
+        }
+    }
+
+    // Default
+    if (!params) {
+        log(start_element)
+        log(end_element)
+        params = {
+            path: 'arc',
+            startPlug: 'behind',
+            endPlug: 'behind',
+            startSocket: 'top',
+            endSocket: 'bottom',
+            color: color,
+            size: 2
+        }
+    }
+
+    drawLine(start_element, end_element, params)
+}
+</script>
+
 <% end %>
