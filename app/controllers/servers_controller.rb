@@ -9,7 +9,7 @@ class ServersController < ApplicationController
     @servers = Server.includes(:frame, :room, :islet, bay: :frames, modele: :category)
       .references(:room, :islet, :bay, modele: :category)
       .order(:name)
-    @filter = Filter.new(@servers, params)
+    @filter = ProcessorFilter.new(@servers, params)
     @servers = @filter.results
   end
 

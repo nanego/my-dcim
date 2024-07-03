@@ -6,23 +6,52 @@
   "Infrastructure" => nil,
 } %>
 
+<div class="container-fluid ">
+  <%= render CardComponent.new(type: :primary) do |card| %>
+    <%= form_with model: @filter, url: "", method: :get, class: "row row-cols-lg-auto g-3 align-items-center", id: :filters do |f| %>
+      <div class="col-12">
+        <fieldset class="form-floating">
+          <%= f.select :network_type, Modele::Network::TYPES.map { |t| [Modele.human_attribute_name("network_types.short_#{t}"), t] }, {}, { class: "form-control" } %>
+          <%= f.label :network_type %>
+        </fieldset>
+      </div>
 
-<%= form_with method: :get do |f| %>
-  <%= f.label :network_type %>
-  <%= f.select :network_type, Modele::Network::TYPES.map { |t| [Modele.human_attribute_name("network_types.short_#{t}"), t] }, { prompt: true } %>
+      <div class="col-12">
+        <fieldset class="form-floating">
+          <%= f.select :islet_id, Islet.sorted.not_empty.has_name.distinct.map { |islet| ["#{islet.room.name} #{islet.name}", islet.id] }, { prompt: true }, { class: "form-control" } %>
+          <%= f.label :islet_id %>
+        </fieldset>
+      </div>
 
-  <%= f.label :islet_id %>
-  <%= f.select :islet_id, Islet.sorted.not_empty.has_name.distinct.map { |islet| ["#{islet.room.name} #{islet.name}", islet.id] }, { prompt: true } %>
+      <div class="col-12">
+        <%= f.submit "Appliquer", class: "btn btn-primary btn-lg", form: :filters %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
 
-  <%= f.submit %>
-<% end %>
-
-<% if params[:islet_id] %>
-  <% islet = Islet.find(params[:islet_id]) %>
-  <%= turbo_frame_tag "infrastructure_room_islet", src: infrastructure_room_islet_path(islet.room, islet, network_type: params[:network_type]) do %>
-    <div class="d-flex align-items-center">
-      <strong role="status">Loading...</strong>
-      <div class="spinner-border ms-auto" aria-hidden="true"></div>
+<% if @filter.filled? %>
+  <% islet = Islet.find(@filter.islet_id) %>
+  <%= turbo_frame_tag "infrastructure_room_islet", src: infrastructure_room_islet_path(islet.room, islet, network_type: @filter.network_type) do %>
+    <div class="container-fluid room_overview show_room rooms-network-capacity" id="network-capacity">
+      <div class="card mb-3">
+        <div class="card-body bg-body-tertiary p-4">
+          <div class="d-flex align-items-center">
+            <strong role="status">Loading...</strong>
+            <div class="spinner-border ms-auto" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
     </div>
   <% end %>
+<% else %>
+<div class="container-fluid room_overview show_room rooms-network-capacity" id="network-capacity">
+  <div class="card mb-3">
+    <div class="card-body bg-body-tertiary p-4">
+      <div class="d-flex align-items-center">
+       <p>Please choose an islet</p>
+      </div>
+    </div>
+  </div>
+</div>
 <% end %>
