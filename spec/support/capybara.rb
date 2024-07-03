@@ -11,7 +11,6 @@ Capybara.register_driver(:cuprite) do |app|
   }
 
   options[:headless] = true
-  options[:browser_options][:'no-sandbox'] = nil if ENV["CI"]
 
   Capybara::Cuprite::Driver.new(app, options)
 end
