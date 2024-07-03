@@ -1,5 +1,28 @@
 <% provide :title, "Vue infrastructure" %>
 <% hide_inventories_sidebar! %>
 
-<%= render "layouts/breadcrumb",
-           breadcrumb_variables: { t("visualization") => overview_rooms_path, "Infrastructure" => nil } %>
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
+  t("visualization") => overview_rooms_path,
+  "Infrastructure" => nil,
+} %>
+
+
+<%= form_with method: :get do |f| %>
+  <%= f.label :network_type %>
+  <%= f.select :network_type, Modele::Network::TYPES.map { |t| [Modele.human_attribute_name("network_types.short_#{t}"), t] }, { prompt: true } %>
+
+  <%= f.label :islet_id %>
+  <%= f.select :islet_id, Islet.sorted.not_empty.has_name.distinct.map { |islet| ["#{islet.room.name} #{islet.name}", islet.id] }, { prompt: true } %>
+
+  <%= f.submit %>
+<% end %>
+
+<% if params[:islet_id] %>
+  <% islet = Islet.find(params[:islet_id]) %>
+  <%= turbo_frame_tag "infrastructure_room_islet", src: infrastructure_room_islet_path(islet.room, islet, network_type: params[:network_type]) do %>
+    <div class="d-flex align-items-center">
+      <strong role="status">Loading...</strong>
+      <div class="spinner-border ms-auto" aria-hidden="true"></div>
+    </div>
+  <% end %>
+<% end %>

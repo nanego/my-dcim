@@ -1,5 +1,6 @@
 <% hide_inventories_sidebar! %>
 
+<%= turbo_frame_tag "network_capacity_room_islet" do %>
 <% # TODO: create a component to represent a bay %>
 <div class="container-fluid room_overview show_room rooms-network-capacity" id="network-capacity">
   <div class="card mb-3">
@@ -92,3 +93,4 @@
     </div>
   </div>
 </div>
+<% end %>

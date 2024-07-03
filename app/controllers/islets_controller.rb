@@ -123,6 +123,7 @@ class IsletsController < ApplicationController
 
     # TODO: remove when hard-coded system will be removed
     @network_types = Modele::Network::TYPES.excluding("fiber")
+    @network = params[:network_type] # TODO: take from params and raise error if not good
 
     # TODO: only respond to turbo frame or stream
     respond_to do |format|
@@ -133,7 +134,7 @@ class IsletsController < ApplicationController
   def network_capacity
     @room = Room.friendly.find(params[:room_id])
     @islet = @room.islets.find(params[:id])
-    @network = Modele::Network::TYPES.first # TODO: take from params
+    @network = params[:network_type] # TODO: take from params and raise error if not good
 
     @bays = @islet.bays.sorted
 
