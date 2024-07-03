@@ -5,7 +5,7 @@ class FramesController < ApplicationController
   include RoomsHelper
 
   def index
-    @filter = Filter.new(Frame.includes(bay: { islet: :room }).references(bay: { islet: :room }), params)
+    @filter = ProcessorFilter.new(Frame.includes(bay: { islet: :room }).references(bay: { islet: :room }), params)
     @frames = @filter.results
   end
 
