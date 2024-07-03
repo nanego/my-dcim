@@ -71,15 +71,19 @@
       <% end %>
     <% end %>
 
-    <% table.with_column(style: "min-width: 160px; width: 160px") do |bay| %>
+    <% table.with_column(style: "min-width: 140px; width: 140px") do |bay| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= render partial: "bays/export_button", locals: { bay: bay } %>
         <%= link_to edit_bay_path(bay), class: "btn btn-info" do %>
-          <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
+          <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
+                                                                     data-controller="tooltip"
+                                                                     data-bs-placement="left"></span>
           <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
         <%= link_to bay, method: :delete, data: { confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
-          <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
+          <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                      data-controller="tooltip"
+                                                                      data-bs-placement="left"></span>
           <span class="visually-hidden"><%= t("action.delete") %></span>
         <% end %>
       </div>

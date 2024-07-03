@@ -21,8 +21,12 @@
 
       <div class="col-12">
         <fieldset class="form-floating">
-          <%= f.collection_select(:site_id, Site.sorted, :id, :name, { prompt: true, include_blank: true },
-                                                                     { class: "form-select" }) %>
+          <%= f.collection_select(:site_id,
+                                  Site.sorted,
+                                  :id,
+                                  :name,
+                                  { prompt: true, include_blank: true },
+                                  { class: "form-select" }) %>
           <%= f.label :site_id %>
         </fieldset>
       </div>
