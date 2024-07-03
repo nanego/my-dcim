@@ -40,10 +40,12 @@
       <% end %>
     <% end %>
 
-    <% table.with_column(style: "min-width: 48px; width: 48px") do |connection| %>
+    <% table.with_column(style: "min-width: 40px; width: 40px") do |connection| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= link_to connections_edit_path(from_port_id: connection.port), class: "btn btn-info" do %>
-          <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
+          <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
+                                                                     data-controller="tooltip"
+                                                                     data-bs-placement="left"></span>
           <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
       </div>

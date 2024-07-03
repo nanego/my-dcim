@@ -33,56 +33,88 @@
 
       <div class="col-12">
         <fieldset class="form-floating">
-          <%= f.collection_select(:frame_id, Frame.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.collection_select(:frame_id, Frame.sorted,
+                                           :id,
+                                           :name,
+                                           { prompt: true, include_blank: true },
+                                           { class: "form-control" }) %>
           <%= f.label :frame_id %>
         </fieldset>
       </div>
 
       <div class="col-12">
         <fieldset class="form-floating">
-          <%= f.collection_select(:bay_id, Bay.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.collection_select(:bay_id, Bay.sorted,
+                                           :id,
+                                           :name,
+                                           { prompt: true, include_blank: true },
+                                           { class: "form-control" }) %>
           <%= f.label :bay_id %>
         </fieldset>
       </div>
 
       <div class="col-12">
         <fieldset class="form-floating">
-          <%= f.collection_select(:islet_id, Islet.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.collection_select(:islet_id, Islet.sorted,
+                                           :id,
+                                           :name,
+                                           { prompt: true, include_blank: true },
+                                           { class: "form-control" }) %>
           <%= f.label :islet_id %>
         </fieldset>
       </div>
 
       <div class="col-12">
         <fieldset class="form-floating">
-          <%= f.collection_select(:room_id, Room.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.collection_select(:room_id, Room.sorted,
+                                           :id,
+                                           :name,
+                                           { prompt: true, include_blank: true },
+                                           { class: "form-control" }) %>
           <%= f.label :room_id %>
         </fieldset>
       </div>
 
       <div class="col-12">
         <fieldset class="form-floating">
-          <%= f.collection_select(:modele_id, Modele.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.collection_select(:modele_id, Modele.sorted,
+                                           :id,
+                                           :name,
+                                           { prompt: true, include_blank: true },
+                                           { class: "form-control" }) %>
           <%= f.label :modele_id %>
         </fieldset>
       </div>
 
       <div class="col-12">
         <fieldset class="form-floating">
-          <%= f.collection_select(:gestion_id, Gestion.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.collection_select(:gestion_id, Gestion.sorted,
+                                           :id,
+                                           :name,
+                                           { prompt: true, include_blank: true },
+                                           { class: "form-control" }) %>
           <%= f.label :gestion_id %>
         </fieldset>
       </div>
 
       <div class="col-12">
         <fieldset class="form-floating">
-          <%= f.collection_select(:domaine_id, Domaine.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.collection_select(:domaine_id, Domaine.sorted,
+                                           :id,
+                                           :name,
+                                           { prompt: true, include_blank: true },
+                                           { class: "form-control" }) %>
           <%= f.label :domaine_id %>
         </fieldset>
       </div>
 
       <div class="col-12">
         <fieldset class="form-floating">
-          <%= f.collection_select(:cluster_id, Cluster.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+          <%= f.collection_select(:cluster_id, Cluster.sorted,
+                                           :id,
+                                           :name,
+                                           { prompt: true, include_blank: true },
+                                           { class: "form-control" }) %>
           <%= f.label :cluster_id %>
         </fieldset>
       </div>
@@ -118,18 +150,24 @@
       <%= server.network_types.map { |type| Modele.human_attribute_name("network_types.#{type}") }.join(", ") %>
     <% end %>
 
-    <% table.with_column(style: "min-width: 120px; width: 120px") do |server| %>
+    <% table.with_column(style: "min-width: 100px; width: 100px") do |server| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= link_to duplicate_server_path(server), class: "btn btn-success" do %>
-          <span class="bi bi-copy" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.duplicate") %>"></span>
+          <span class="bi bi-copy" title="<%= t("action.duplicate") %>" aria-hidden="true"
+                                                                        data-controller="tooltip"
+                                                                        data-bs-placement="left"></span>
           <span class="visually-hidden"><%= t("action.duplicate") %></span>
         <% end %>
         <%= link_to edit_server_path(server), class: "btn btn-info" do %>
-          <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
+          <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
+                                                                        data-controller="tooltip"
+                                                                        data-bs-placement="left"></span>
           <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
         <%= link_to server, method: :delete, data: { confirm: t("action.confirm") }, class: "btn btn-danger" do %>
-          <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
+          <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                        data-controller="tooltip"
+                                                                        data-bs-placement="left"></span>
           <span class="visually-hidden"><%= t("action.delete") %></span>
         <% end %>
       </div>
