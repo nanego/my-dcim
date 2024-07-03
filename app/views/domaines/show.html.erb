@@ -26,5 +26,12 @@
         <dd><%= @domaine.public_send(attribute_name) %></dd>
       <% end %>
     </dl>
+
+    <ul class="bg-body-tertiary p-4 rounded border">
+      <h5><%= Server.model_name.human.pluralize %> :</h5>
+      <% @domaine.servers.sorted_by_name.each do |server| %>
+        <li><%= link_to server, server %></li>
+      <% end %>
+    </ul>
   </div>
 </div>
