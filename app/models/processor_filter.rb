@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ProcessorFilter < Filter
-
   def initialize(records, params, with: nil)
     @records = records
     @rubanok_class = with || "#{records&.klass&.to_s&.pluralize}Processor".safe_constantize

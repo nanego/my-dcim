@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 module Visualization
   class InfrastructuresController < ApplicationController
     def show
-      @sites = Site.joins(:rooms).includes(rooms: { islets: { bays: :frames } })
-                   .order(:position).distinct
+      @filter = Filter.new(params, %i[network_type islet_id stack_ids])
 
-      @filter = Filter.new(params, %i[network_type islet_id])
+      @islet = Islet.find(@filter.islet_id) if @filter.filled?
     end
   end
 end

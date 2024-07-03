@@ -31,14 +31,13 @@
 </div>
 
 <% if @filter.filled? %>
-  <% islet = Islet.find(@filter.islet_id) %>
-  <%= turbo_frame_tag "infrastructure_room_islet", src: infrastructure_room_islet_path(islet.room, islet, network_type: @filter.network_type) do %>
+  <%= turbo_frame_tag "infrastructure_room_islet", src: infrastructure_room_islet_path(@islet.room, @islet, network_type: @filter.network_type) do %>
     <div class="container-fluid room_overview show_room rooms-network-capacity" id="network-capacity">
       <div class="card mb-3">
         <div class="card-body bg-body-tertiary p-4">
           <div class="d-flex align-items-center">
             <strong role="status">Loading...</strong>
-            <div class="spinner-border ms-auto" aria-hidden="true"></div>
+            <div class="spinner-grow ms-auto" aria-hidden="true"></div>
           </div>
         </div>
       </div>
