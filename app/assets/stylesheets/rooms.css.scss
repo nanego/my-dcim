@@ -100,7 +100,7 @@
     cursor: pointer;
 
     &.hover {
-      background-color: white;
+      background-color: var(--bs-tertiary-bg);
     }
 
     .frame {
