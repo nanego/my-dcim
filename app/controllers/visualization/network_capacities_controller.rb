@@ -1,5 +1,5 @@
 module Visualization
-  class InfrastructuresController < ApplicationController
+  class NetworkCapacitiesController < ApplicationController
     def show
       @sites = Site.joins(:rooms).includes(rooms: { islets: { bays: :frames } })
                    .order(:position).distinct
