@@ -125,6 +125,12 @@ class IsletsController < ApplicationController
     @network_types = Modele::Network::TYPES.excluding("fiber")
     @network = params[:network_type] # TODO: take from params and raise error if not good
 
+    if @room.id == 4 || @room.id == 3
+      @hub = @hubs[@network][@room.id]
+      @second_room = Room.find(@room.id == 4 ? 3 : 4)
+      @second_hub = @hubs[@network][@second_room.id]
+    end
+
     # TODO: only respond to turbo frame or stream
     respond_to do |format|
       format.html
