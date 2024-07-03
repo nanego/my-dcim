@@ -14,14 +14,14 @@
 
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
-      <div class="col-12">
+      <div>
         <fieldset class="form-floating">
           <%= f.search_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
           <%= f.label :q %>
         </fieldset>
       </div>
 
-      <div class="col-12">
+      <div>
         <fieldset class="form-floating">
           <%= f.collection_select(:room_id, Room.sorted, :id, :to_s, { include_blank: true, prompt: true },
                                                                      { class: "form-select" }) %>
@@ -55,8 +55,8 @@
         <%= link_to air_conditioner, method: :delete, data: { confirm: t(".delete_confirmation") },
                                                       class: "btn btn-danger" do %>
           <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
-                                                                     data-controller="tooltip"
-                                                                     data-bs-placement="left"></span>
+                                                                      data-controller="tooltip"
+                                                                      data-bs-placement="left"></span>
           <span class="visually-hidden"><%= t("action.delete") %></span>
         <% end %>
       </div>
