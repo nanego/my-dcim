@@ -80,6 +80,8 @@ body {
 
 .frame .server {
   page-break-inside: avoid;
+
+  background-color: var(--bs-light-bg-subtle);
 }
 
 .frame {
@@ -166,6 +168,11 @@ table.card_layout {
     .pdu-line .badge {
       background-color: #a2b9ff !important;
     }
+  }
+
+  .server-component {
+    display: inherit;
+    flex-direction: inherit;
   }
 }
 
@@ -627,6 +634,8 @@ body {
   }
 
   &-sidebar {
+    font-size: 16px;
+
     &:not(.offcanvas) {
       @include media-breakpoint-up(lg) {
         position: sticky;

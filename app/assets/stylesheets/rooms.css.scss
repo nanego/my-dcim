@@ -40,7 +40,7 @@
     justify-content: center;
     display: flex;
     flex-direction: column;
-    background-color: #F5F5F5;
+    background-color: var(--bs-tertiary-bg);
     border: 1px solid #e3e3e3;
     margin: 0 0 10px 10px;
     min-width: 24px;
@@ -58,7 +58,7 @@
 
     .temperatures {
       /* color: #2944c9; */
-      background-color: white;
+      background-color: var(--bs-body-bg);
       writing-mode: initial;
       width: 22px;
       text-align: center;
