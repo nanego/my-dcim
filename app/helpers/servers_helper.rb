@@ -102,14 +102,10 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
 
       html += content_tag(:span,
                           link_to_port(index + 1, port_data, port_type, card_id, port_id),
-                          class: "port_container d-inline-flex
+                          class: "port_container float-start
                                   #{twin_card_used_ports && port_data && port_data.cable_name && twin_card_used_ports.exclude?(port_data.position) ? "no_client" : ""}
                           #{twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(index + 1) ? "unreferenced_client" : ""}
                           #{selected_port.present? && port_id == selected_port.try(:id) ? "selected" : ""}")
-
-      if (index + 1) % MAX_PORTS_PER_LINE == 0 # Every XX ports do
-        html += '<div style="clear:both;" />'
-      end
     end
     html.html_safe
   end
