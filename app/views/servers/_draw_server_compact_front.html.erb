@@ -6,7 +6,7 @@
     </span>
   <% else %>
     <% port_nb = server.ports_per_type %>
-    <span class="server_name ps-3">
+    <span class="server_name ps-3 text-wrap">
       <%= link_to h("#{server.name}"),
                   server_path(server, :view => params[:view]),
                   {
