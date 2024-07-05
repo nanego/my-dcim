@@ -1,4 +1,4 @@
-<% provide(:title, t('changelog_entries.title')) %>
+<% provide(:title, t("changelog_entries.title")) %>
 <%= render "layouts/breadcrumb", breadcrumb_steps: {
   t("changelog_entries.title") => changelog_entries_path,
   "#{@changelog_entry.id} - #{@changelog_entry.action} - #{@changelog_entry.object_display_name}" => ""
@@ -6,13 +6,16 @@
 
 <div class="row my-5">
   <div class="col-11 col-md-10 col-lg-8 mx-auto">
-    <div class="d-flex justify-content-between pb-5">
-      <%= link_to categories_path, class: "btn btn-outline-secondary align-self-center d-inline-flex",
-                                   title: t("action.back") do %>
-        <span class="bi bi-chevron-left"></span>
-        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
-      <% end %>
+    <div class="d-flex justify-content-between align-items-center pb-5">
+      <div class="flex-grow-1">
+        <%= link_to changelog_entries_path, class: "btn btn-outline-secondary align-self-center d-inline-flex",
+                                            title: t("action.back") do %>
+          <span class="bi bi-chevron-left"></span>
+          <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
+        <% end %>
+      </div>
       <h1 class="text-center px-4"><%= t ".title" %></h1>
+      <div class="flex-grow-1"></div>
     </div>
 
     <dl class="bg-body-tertiary p-4 rounded border">

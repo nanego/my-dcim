@@ -5,6 +5,19 @@
     <title><%= content_for?(:title) ? yield(:title) : "Gestion de salle #{Rails.env.development? ? "(dev)" : "DCIM"}" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "My DCIM" %>">
 
+    <script>
+      function getTheme() {
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+      }
+
+      function setTheme() {
+        document.documentElement.setAttribute("data-bs-theme", getTheme())
+      }
+
+      setTheme()
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", setTheme)
+    </script>
+
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag "application", media: "all" %>
 

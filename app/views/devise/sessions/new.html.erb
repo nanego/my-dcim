@@ -2,20 +2,20 @@
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" } ) do |f| %>
   <% if Rails.env.development? %>
     <%= render "devise/shared/error_messages", resource: resource %>
-    <div class="form-floating">
+    <fieldset class="form-floating">
       <%= f.email_field :email, class: "form-control mb-n2 rounded-bottom-0", placeholder: "name@example.com" %>
       <%= f.label :email %>
-    </div>
-    <div class="form-floating">
+    </fieldset>
+    <fieldset class="form-floating">
       <%= f.password_field :password, class: "form-control mb-3 rounded-top-0",
                                       placeholder: User.human_attribute_name(:password) %>
       <%= f.label :password %>
-    </div>
+    </fieldset>
     <% if devise_mapping.rememberable? -%>
-      <div class="form-check text-start mt-3">
+      <fieldset class="form-check text-start mt-3">
         <%= f.check_box :remember_me, class: "form-check-input" %>
         <%= f.label :remember_me, class: "form-check-label" %>
-      </div>
+      </fieldset>
     <% end -%>
     <%= f.submit t("users.to_login"), class: "btn btn-primary w-100 py-2 mt-4" %>
     <div class="mb-5 mt-4 justify-content-center d-flex">

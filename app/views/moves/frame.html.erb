@@ -6,12 +6,14 @@
 
 <div class="row my-5">
   <div class="col-12 mx-auto">
-    <div class="d-flex justify-content-between pb-5">
-      <%= link_to moves_path, class: "btn btn-outline-secondary align-self-center d-inline-flex",
-                              title: t("action.back") do %>
-        <span class="bi bi-chevron-left"></span>
-        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
-      <% end %>
+    <div class="d-flex justify-content-between pb-5 align-items-center">
+      <div class="flex-grow-1">
+        <%= link_to moves_path, class: "btn btn-outline-secondary align-self-center d-inline-flex",
+                                title: t("action.back") do %>
+          <span class="bi bi-chevron-left"></span>
+          <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
+        <% end %>
+      </div>
       <h1 class="text-center px-4"><%= t(".title", frame: @frame) %></h1>
       <div class="flex-grow-1"></div>
     </div>

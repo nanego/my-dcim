@@ -12,17 +12,21 @@
 
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
-      <div class="col-12">
+      <div>
         <fieldset class="form-floating">
           <%= f.text_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
           <%= f.label :q %>
         </fieldset>
       </div>
 
-      <div class="col-12">
+      <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:site_id, Site.sorted, :id, :name, { prompt: true, include_blank: true },
-                                                                     { class: "form-select" }) %>
+          <%= f.collection_select(:site_id,
+                                  Site.sorted,
+                                  :id,
+                                  :name,
+                                  { prompt: true, include_blank: true },
+                                  { class: "form-select" }) %>
           <%= f.label :site_id %>
         </fieldset>
       </div>
@@ -56,7 +60,7 @@
       <input type="checkbox" <%= room.display_on_home_page ? "checked" : "" %> disabled>
     <% end %>
 
-    <% table.with_column(style: "min-width: 160px; width: 160px") do |room| %>
+    <% table.with_column(style: "min-width: 140px; width: 140px") do |room| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= render partial: "rooms/export_button", locals: { room: room } %>
         <%= link_to edit_room_path(room), class: "btn btn-info" do %>

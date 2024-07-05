@@ -14,14 +14,14 @@
 
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
-      <div class="col-12">
+      <div>
         <fieldset class="form-floating">
           <%= f.search_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
           <%= f.label :q %>
         </fieldset>
       </div>
 
-      <div class="col-12">
+      <div>
         <fieldset class="form-floating">
           <%= f.select(:u, Frame.group(:u).order(:u).pluck(:u), { prompt: true, include_blank: true },
                                                                 { class: "form-select" }) %>
@@ -29,7 +29,7 @@
         </fieldset>
       </div>
 
-      <div class="col-12">
+      <div>
         <fieldset class="form-floating">
           <%= f.collection_select(:room_id, Room.sorted, :id, :to_s, { prompt: true, include_blank: true },
                                                                      { class: "form-select" }) %>
@@ -37,7 +37,7 @@
         </fieldset>
       </div>
 
-      <div class="col-12">
+      <div>
         <fieldset class="form-floating">
           <%= f.collection_select(:islet_id, Islet.sorted, :id, :to_s, { prompt: true, include_blank: true },
                                                                        { class: "form-select" }) %>
@@ -70,14 +70,18 @@
       <%= link_to frame.bay.islet, islet_path(frame.bay.islet) if frame.bay.present? %>
     <% end %>
 
-    <% table.with_column(style: "min-width: 84px; width: 84px") do |frame| %>
+    <% table.with_column(style: "min-width: 70px; width: 70px") do |frame| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= link_to edit_frame_path(frame), class: "btn btn-info" do %>
-          <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
+          <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
+                                                                     data-controller="tooltip"
+                                                                     data-bs-placement="left"></span>
           <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
-        <%= link_to frame, method: :delete, data: { confirm: t(".delete_confirmation") }, class: 'btn btn-danger' do %>
-          <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
+        <%= link_to frame, method: :delete, data: { confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
+          <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                     data-controller="tooltip"
+                                                                     data-bs-placement="left"></span>
           <span class="visually-hidden"><%= t("action.delete") %></span>
         <% end %>
       </div>
