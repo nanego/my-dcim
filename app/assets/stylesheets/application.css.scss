@@ -62,8 +62,7 @@ body {
 }
 
 .datagrid-form {
-  background-color: white;
-  padding: 0;
+  background-color: transparent;
 }
 
 .datagrid-form input[type="submit"]{
@@ -81,6 +80,8 @@ body {
 
 .frame .server {
   page-break-inside: avoid;
+
+  background-color: var(--bs-light-bg-subtle);
 }
 
 .frame {
@@ -167,6 +168,11 @@ table.card_layout {
     .pdu-line .badge {
       background-color: #a2b9ff !important;
     }
+  }
+
+  .server-component {
+    display: inherit;
+    flex-direction: inherit;
   }
 }
 
@@ -382,36 +388,18 @@ table.card_layout {
 
 .connection_form {
   .back_server {
-    background-color: white;
-    // max-width:600px;
-    overflow-x: scroll;
-
-    div.ps-3 {
-      padding-start: 0 !important;
-      margin-right: auto;
-      padding-right: 1rem;
-    }
-
-    .port_container {
-      margin-left: -2px;
-      display: inline-block;
-    }
-
     .selected {
       padding: 2px 1px;
       background-color: #ee3b3b;
     }
 
+    .very-specific-design {
+      overflow-x: scroll;
+      padding-bottom: 1rem;
+    }
+
     .draw_connections_link {
       display: none;
-    }
-  }
-
-  a {
-    text-decoration: none;
-
-    &:focus, &:hover {
-      text-decoration: underline;
     }
   }
 }
@@ -644,6 +632,8 @@ body {
   }
 
   &-sidebar {
+    font-size: 16px;
+
     &:not(.offcanvas) {
       @include media-breakpoint-up(lg) {
         position: sticky;
@@ -703,24 +693,14 @@ body {
     }
   }
 
-  .moved_connection_form{
-    .field {
-      clear:both;
-      padding-top:10px;
-    }
-
-    .port_container{
-      margin-left: -2px;
-      display: inline-block;
-    }
-
+  .moved_connection_form {
     .selected {
       padding:2px 1px;
       background-color: #ee3b3b;
     }
   }
 
-  .card-islet {
+  table, .card-islet {
     a:not(.btn):not(.dropdown-item) {
       text-decoration: none;
 

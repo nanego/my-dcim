@@ -7,17 +7,17 @@
       <%= f.select :islet_id,
                    options_from_collection_for_select(Islet.includes(:room).all, :id, :name_with_room, @bay.islet_id),
                    {},
-                   class: "form-select" %>
+                   { class: "form-select", data: { controller: "select" } } %>
     </fieldset>
 
     <fieldset class="col-12 mt-4">
       <%= f.label :lane, class: "form-label" %>
-      <%= f.text_field :lane, class: "form-control" %>
+      <%= f.number_field :lane, class: "form-control" %>
     </fieldset>
 
     <fieldset class="col-12 mt-4">
       <%= f.label :position, class: "form-label" %>
-      <%= f.text_field :position, class: "form-control" %>
+      <%= f.number_field :position, class: "form-control" %>
     </fieldset>
 
     <fieldset class="col-12 mt-4">

@@ -39,14 +39,14 @@
     align-items: center;
     justify-content: center;
     display: flex;
-    background-color: #F5F5F5;
+    flex-direction: column;
+    background-color: var(--bs-tertiary-bg);
     border: 1px solid #e3e3e3;
-    writing-mode: vertical-rl;
-    text-orientation: upright;
     margin: 0 0 10px 10px;
     min-width: 24px;
+    text-decoration: none;
+
     &:hover, &:focus {
-      text-decoration: none;
       background-color: #FFDD99;
     }
 
@@ -55,6 +55,27 @@
     }
     &.degraded {
       border: 2px solid #ff8800;
+    }
+
+    .temperatures {
+      /* color: #2944c9; */
+      background-color: var(--bs-body-bg);
+      writing-mode: initial;
+      width: 22px;
+      text-align: center;
+      font-size: 10px;
+
+      &.range {
+        font-size: 8px;
+      }
+    }
+
+    .name {
+      justify-content: center;
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      flex-grow: 10;
+      display: flex;
     }
   }
 }
@@ -80,7 +101,7 @@
     cursor: pointer;
 
     &.hover {
-      background-color: white;
+      background-color: var(--bs-tertiary-bg);
     }
 
     .frame {

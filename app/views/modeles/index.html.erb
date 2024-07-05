@@ -15,14 +15,14 @@
 
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
-      <div class="col-12">
+      <div>
         <fieldset class="form-floating">
           <%= f.search_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
           <%= f.label :q %>
         </fieldset>
       </div>
 
-      <div class="col-12">
+      <div>
         <fieldset class="form-floating">
           <%= f.collection_select(:architecture_id, Architecture.sorted,
                                                     :id,
@@ -33,7 +33,7 @@
         </fieldset>
       </div>
 
-      <div class="col-12">
+      <div>
         <fieldset class="form-floating">
           <%= f.collection_select(:category_id, Category.sorted,
                                                 :id,
@@ -44,7 +44,7 @@
         </fieldset>
       </div>
 
-      <div class="col-12">
+      <div>
         <fieldset class="form-floating">
           <%= f.collection_select(:manufacturer_id, Manufacturer.sorted,
                                                     :id,
@@ -88,7 +88,7 @@
         <%= modele.network_types.map { |type| Modele.human_attribute_name("network_types.#{type}") }.join(", ") %>
       <% end %>
 
-      <% table.with_column(style: "min-width: 84px; width: 84px") do |modele| %>
+      <% table.with_column(style: "min-width: 70px; width: 70px") do |modele| %>
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
           <%= link_to edit_modele_path(modele), class: "btn btn-info" do %>
             <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
