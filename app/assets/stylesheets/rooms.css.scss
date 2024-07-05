@@ -44,8 +44,9 @@
     border: 1px solid #e3e3e3;
     margin: 0 0 10px 10px;
     min-width: 24px;
+    text-decoration: none;
+
     &:hover, &:focus {
-      text-decoration: none;
       background-color: #FFDD99;
     }
 
