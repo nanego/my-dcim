@@ -641,7 +641,7 @@ DEPENDENCIES
   stimulus-rails (~> 1.2)
   store_attribute (~> 1.2)
   terser
-  turbo-rails (~> 2.0)
+  turbo-rails
   view_component
   virtus
   web-console (>= 4.1.0)
