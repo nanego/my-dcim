@@ -70,8 +70,6 @@ Rails.application.routes.draw do
   resources :rooms do
     collection do
       get :overview
-      get :infrastructure
-      get :capacity
     end
 
     resources :islets, only: [] do
