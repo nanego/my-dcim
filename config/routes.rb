@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :air_conditioners
+  resources :air_conditioners, except: %i[show]
   resources :documents
   resources :moves do
     member do
