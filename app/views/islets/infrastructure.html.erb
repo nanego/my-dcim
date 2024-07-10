@@ -85,6 +85,14 @@
                 </div>
               <% end %>
             </div>
+
+            <div id="infrastructure_filters" class="p-4">
+              <%= Stack.model_name.human.pluralize %> :
+              <% Stack.select(:id, :color).each do |stack| %>
+                <%= check_box_tag "stack_ids[]", stack.id, 1, value: stack.id, data: { color: "\##{stack.color}" } %>
+                <span style="<%= "color: ##{stack.try(:color)}" %>" class="bi bi-square-fill me-1" aria-hidden="true"></span>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
@@ -93,8 +101,6 @@
 </div>
 
 <script>
-var current_room_id = "<%= @room&.id %>"
-var current_islet = "<%= @islet&.name %>"
 var lines = []
 var current_connections = []
 
@@ -103,19 +109,19 @@ $(document).ready(function () {
   resetLinesPositionOnScroll()
 })
 
-// $('body').on('click', 'input:checkbox[name=stack]', function (e) {
-//   resetLines()
-// })
+$('body').on('click', '#infrastructure_filters input:checkbox[name="stack_ids[]"]', function (e) {
+  resetLines()
+})
 
 function disabled_colors() {
-  return $('input:checkbox[name=stack]:not(:checked)').map(function () {
-    return this.value;
+  return $('#infrastructure_filters input:checkbox[name="stack_ids[]"]:not(:checked)').map(function () {
+    return $(this).data("color");
   }).get()
 }
 
 function resetLines() {
-    deleteOldLines()
-    drawCurrentLines()
+  deleteOldLines()
+  drawCurrentLines()
 }
 
 function resetLinesPositionOnScroll() {
