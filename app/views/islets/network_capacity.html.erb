@@ -33,7 +33,7 @@
                         <ul>
                           <% servers.each do |server| %>
                             <%# TODO: remove or fix cache %>
-                            <% cache ["server", server.id, server.updated_at.to_s, @ports_last_update_time] do %>
+                            <% cache ["server", server.id, server.updated_at, Port.maximum(:updated_at)] do %>
                               <% data = { :url => server_url(server) } %>
                               <%= tag.li class: "server_#{server.id}
                                               lane-#{server.bay.lane}
