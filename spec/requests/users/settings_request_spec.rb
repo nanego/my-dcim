@@ -17,7 +17,7 @@ RSpec.describe "Users::Settings" do
 
   describe "PATCH #update" do
     subject(:response) do
-      patch(users_settings_path(user, params:))
+      patch(users_settings_path(user), params:)
 
       @response # rubocop:disable RSpec/InstanceVariable
     end
