@@ -209,25 +209,25 @@ RSpec.describe "Islets" do
 
   describe "#network_capacity" do
     subject(:response) do
-        get network_capacity_room_islet_path(islet.room, islet, params:)
+      get network_capacity_room_islet_path(islet.room, islet, params:)
 
-        # NOTE: used to simplify usage and custom test done in final spec file.
-        @response # rubocop:disable RSpec/InstanceVariable
-      end
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
 
-      let(:params) { {} }
+    let(:params) { {} }
 
-      include_context "with authenticated user"
+    include_context "with authenticated user"
 
-      context "with not params" do
-        pending
-      end
+    context "with not params" do
+      pending
+    end
 
-      context "with correct params" do
-        let(:params) { { network_type: :gbe } }
+    context "with correct params" do
+      let(:params) { { network_type: :gbe } }
 
-        it { expect(response).to have_http_status(:success) }
-        it { expect(response).to render_template(:network_capacity) }
-      end
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(:network_capacity) }
+    end
   end
 end
