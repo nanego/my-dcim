@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  server_id: 1
+  app_name: MyString
+  external_name: MyString
+  external_id: MyString
+  external_serial: MyString
+
+two:
+  server_id: 2
+  app_name: MyString
+  external_name: MyString
+  external_id: MyString
+  external_serial: MyString
