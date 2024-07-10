@@ -82,6 +82,12 @@ Rails.application.routes.draw do
   resources :architectures
   resources :categories
 
+  resources :external_app_records, only: %i[index] do
+    collection do
+      put :sync
+    end
+  end
+
   root to: 'pages#index'
   get :about, to: 'pages#about'
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks',
