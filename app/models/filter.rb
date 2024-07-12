@@ -4,14 +4,13 @@ class Filter
   include ActiveModel::Conversion
   extend ActiveModel::Translation
 
+  attr_reader :attribute_names
+
   delegate :model_name, to: :class
 
-  def initialize(records, params, with: nil)
-    @records = records
+  def initialize(params, attribute_names)
     @params = params
-    @rubanok_class = with || "#{records&.klass&.to_s&.pluralize}Processor".safe_constantize
-
-    raise "Processor class missing" unless @rubanok_class
+    @attribute_names = attribute_names
   end
 
   class << self
@@ -29,8 +28,8 @@ class Filter
     end
   end
 
-  def results
-    @results ||= @rubanok_class.call(@records, attributes)
+  def persisted?
+    false
   end
 
   def filled?
@@ -45,18 +44,6 @@ class Filter
     @attributes ||= @params.respond_to?(:permit) ? @params.permit(*attribute_names).to_h : @params
   end
   alias to_h attributes
-
-  def attribute_names
-    @attribute_names ||= @rubanok_class.fields_set.to_a
-  end
-
-  def total_count
-    @total_count ||= @records.count
-  end
-
-  def results_count
-    @results_count ||= results.count
-  end
 
   private
 

@@ -70,8 +70,11 @@ Rails.application.routes.draw do
   resources :rooms do
     collection do
       get :overview
-      get :infrastructure
-      get :capacity
+    end
+
+    resources :islets, only: [] do
+      get :network_capacity, on: :member
+      get :infrastructure, on: :member
     end
   end
   resources :bays
@@ -81,6 +84,11 @@ Rails.application.routes.draw do
   resources :manufacturers
   resources :architectures
   resources :categories
+
+  namespace :visualization do
+    resource :infrastructure, only: :show
+    resource :network_capacity, only: :show
+  end
 
   root to: 'pages#index'
   get :about, to: 'pages#about'
