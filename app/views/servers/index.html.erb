@@ -80,6 +80,10 @@
           <b><%= link_to server.name, server_path(server) %></b>
         <% end %>
 
+        <% table.with_column(Server.human_attribute_name(:numero), sort_by: :numero) do |server| %>
+          <b><%= link_to server.numero, server_path(server) %></b>
+        <% end %>
+
         <% table.with_column(Server.human_attribute_name(:type), sort_by: :"categories.name") do |server| %>
           <%= link_to server.modele.category, category_path(server.modele.category) if server.modele.try(:category) %>
         <% end %>

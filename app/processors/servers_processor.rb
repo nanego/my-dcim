@@ -2,10 +2,11 @@
 
 class ServersProcessor < ApplicationProcessor
   include Sortable
-  SORTABLE_FIELDS = %w[name categories.name rooms.name islets.name bays.id].freeze
+  SORTABLE_FIELDS = %w[name numero categories.name rooms.name islets.name bays.id].freeze
 
   map :q do |q:|
     raw.where(Server.arel_table[:name].matches("%#{q}%"))
+      .or(Server.arel_table[:numero].matches("%#{q}%"))
       .or(raw.where(id: q))
   end
 
