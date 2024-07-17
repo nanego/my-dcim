@@ -36,7 +36,11 @@
       <dd><%= @air_conditioner.air_conditioner_model %></dd>
 
       <dt><%= AirConditioner.human_attribute_name(:last_service) %> :</dt>
-      <dd><%= l(@air_conditioner.last_service) %></dd>
+      <dd>
+        <% if @air_conditioner.last_service %>
+          <%= l(@air_conditioner.last_service) %>
+        <% end %>
+      </dd>
 
       <dt><%= AirConditioner.human_attribute_name(:bay_id) %> :</dt>
       <dd><%= @air_conditioner.bay.detailed_name %></dd>
