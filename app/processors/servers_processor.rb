@@ -5,9 +5,12 @@ class ServersProcessor < ApplicationProcessor
   SORTABLE_FIELDS = %w[name numero categories.name rooms.name islets.name bays.id].freeze
 
   map :q do |q:|
-    raw.where(Server.arel_table[:name].matches("%#{q}%"))
-      .or(Server.arel_table[:numero].matches("%#{q}%"))
-      .or(raw.where(id: q))
+    server_table = Server.arel_table
+    name_condition = server_table[:name].matches("%#{q}%")
+    numero_condition = server_table[:numero].matches("%#{q}%")
+    id_condition = server_table[:id].eq(q.to_i)
+    combined_conditions = name_condition.or(numero_condition).or(id_condition)
+    raw.where(combined_conditions)
   end
 
   map :frame_id do |frame_id:|
