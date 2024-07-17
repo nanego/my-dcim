@@ -36,7 +36,7 @@
 
           <div class="form-group">
             <%= f.label :frame_id %>
-            <%= f.collection_select(:frame_id, Frame.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+            <%= f.collection_select(:frame_id, Frame.order(:name), :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
           </div>
 
           <div class="form-group">
@@ -51,7 +51,7 @@
 
           <div class="form-group">
             <%= f.label :room_id %>
-            <%= f.collection_select(:room_id, Room.sorted, :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
+            <%= f.collection_select(:room_id, Room.order(:name), :id, :name, { prompt: true, include_blank: true }, { class: "form-control" }) %>
           </div>
 
           <div class="form-group">
