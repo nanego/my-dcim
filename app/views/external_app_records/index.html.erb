@@ -8,6 +8,7 @@
 
 <p>Listés : <%= @external_app_records.count %> sur <%= @servers_count %> machines connues </p>
 <%# button_to 'Start Sync', sync_external_app_records_path, remote: true, method: :put %>
+<p><i>Dernière synchronisation: <%= l(ExternalAppRecord.order('updated_at desc').limit(1).pluck(:updated_at).last) %></i></p>
 
 <%= render List::DataTableComponent.new(@external_app_records) do |table| %>
   <% table.with_column('ID', sort_by: :server_id) do |record| %>
