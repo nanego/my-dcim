@@ -12,7 +12,7 @@
       <ul class="list-unstyled menu-rooms rounded-start-1 bg-body-secondary p-3 m-0 border-end ">
         <div class="btn-group btn-toggle d-flex border-bottom border-secondary mb-3 pb-3 rounded-0">
           <% Modele::Network::TYPES.each do |type| %>
-            <button class="<%= class_names("btn", "btn-primary active": (type == "gbe"), "btn-outline-secondary": (type != "gbe")) %>" data-network="<%= type %>">
+            <button class="<%= class_names("btn", "btn-primary active": (type == "gbe"), "btn-secondary": (type != "gbe")) %>" data-network="<%= type %>">
               <%= Modele.human_attribute_name("network_types.short_#{type}") %>
             </button>
           <% end %>
@@ -183,7 +183,7 @@ $('.btn-toggle .btn').click(function (e) {
   var previous_network =  btn_group.find('.btn.active').data('network')
   btn_group.find('.btn').removeClass('active')
   btn_group.find('.btn').removeClass('btn-primary')
-  btn_group.find('.btn').addClass('btn-outline-secondary')
+  btn_group.find('.btn').addClass('btn-secondary')
   btn_group.find(".btn[data-network='" + selected_network + "']").addClass('active')
   btn_group.find(".btn[data-network='" + selected_network + "']").addClass('btn-primary')
 

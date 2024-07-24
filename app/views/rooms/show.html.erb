@@ -44,7 +44,7 @@
           </ul>
           <hr />
           <div class="text-center">
-            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= t("rooms.action_buttons.background_color", bg: bg || User::AVAILABLE_BAY_BACKGROUND_COLORS[0]) %>
             </button>
             <ul class="dropdown-menu">
@@ -136,7 +136,7 @@
       </div>
     </div>
     <span class="position-absolute bottom-0 end-0 m-2" data-controller="reveal" data-reveal-hidden-class="d-none">
-      <button type="button" class="btn btn-outline-secondary"
+      <button type="button" class="btn"
                             data-bs-toggle="collapse"
                             data-bs-target="#collapseRoomOverviewCardBody"
                             aria-expanded="false"

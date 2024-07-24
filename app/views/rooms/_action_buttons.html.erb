@@ -4,7 +4,7 @@
   <% if view_side != Frame.view_sides[:back] %>
     <!-- Choice of server background color -->
     <div class="btn-group">
-      <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <%= t(".background_color", bg: params[:bg].presence || current_user.visualization_bay_default_background_color || Modele.model_name.human.downcase) %>
       </button>
       <ul class="dropdown-menu">
