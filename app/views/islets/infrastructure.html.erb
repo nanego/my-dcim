@@ -85,16 +85,19 @@
                 </div>
               <% end %>
             </div>
-
-            <div id="infrastructure_filters" class="p-4">
-              <%= Stack.model_name.human.pluralize %> :
-              <% Stack.select(:id, :color).each do |stack| %>
-                <%= check_box_tag "stack_ids[]", stack.id, 1, value: stack.id, data: { color: "\##{stack.color}" } %>
-                <span style="<%= "color: ##{stack.try(:color)}" %>" class="bi bi-square-fill me-1" aria-hidden="true"></span>
-              <% end %>
-            </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="card-footer bg-body-secondary">
+      <div id="infrastructure_filters" class="py-2">
+        <%= Stack.model_name.human.pluralize %> :
+        <% Stack.select(:id, :color).each do |stack| %>
+          <%= check_box_tag "stack_ids[]", stack.id, 1, value: stack.id, data: { color: "\##{stack.color}" } %>
+          <span style="<%= "color: ##{stack.try(:color)}" %>"
+                class="bi bi-square-fill me-2"
+                aria-hidden="true"></span>
+        <% end %>
       </div>
     </div>
   </div>
