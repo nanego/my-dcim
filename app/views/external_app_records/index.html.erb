@@ -1,6 +1,6 @@
 <% provide(:title, "Synchronisation avec GLPI") %>
-<%= render 'layouts/breadcrumb', breadcrumb_variables: {
-  t("inventories") => servers_url,
+<%= render 'layouts/breadcrumb', breadcrumb_steps: {
+  t("servers.index.title") => servers_path,
   t(".title") => "" }
 %>
 
@@ -8,7 +8,13 @@
 
 <p>Listés : <%= @external_app_records.count %> sur <%= @servers_count %> machines connues </p>
 <%# button_to 'Start Sync', sync_external_app_records_path, remote: true, method: :put %>
-<p><i>Dernière synchronisation: <%= l(ExternalAppRecord.order('updated_at desc').limit(1).pluck(:updated_at).last) %></i></p>
+<p><i>Dernière synchronisation :
+  <%- if date = ExternalAppRecord.order('updated_at desc').limit(1).pluck(:updated_at).last %>
+    <%= l(date) %>
+  <%- else %>
+    aucune
+  <%- end %>
+</i></p>
 
 <%= render List::DataTableComponent.new(@external_app_records) do |table| %>
   <% table.with_column('ID', sort_by: :server_id) do |record| %>
@@ -22,9 +28,9 @@
   <% end %>
   <% table.with_column('Synchronisation GLPI', sort_by: :external_serial) do |record| %>
     <% if record.external_serial.present? %>
-      <span class="badge alert-success"><%= "OK" %></span>
+      <span class="badge text-bg-success"><%= "OK" %></span>
     <% else %>
-      <span class="badge alert-danger"><%= "NON TROUVÉ DANS GLPI" %></span>
+      <span class="badge text-bg-danger"><%= "NON TROUVÉ DANS GLPI" %></span>
     <% end %>
   <% end %>
   <% table.with_column('Nom GLPI', sort_by: :external_name) do |record| %>
