@@ -61,8 +61,8 @@
       </div>
     <% end %>
 
-    <div class="col-12 d-flex flex-row flex-wrap">
-      <div class="col-12 col-lg-6 pe-lg-3 mb-4 mb-lg-0">
+    <div class="col-12 d-flex flex-row flex-wrap row-gap-4">
+      <div class="col-12 col-lg-6 pe-lg-3">
         <%= render CardComponent.new(type: :primary) do |card| %>
           <dl class="row">
             <dt class="col-6 text-end"><%= Bay.model_name.human %> :</dt>

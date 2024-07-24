@@ -14,13 +14,17 @@
         <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
       <% end %>
       <h1 class="px-4 text-center"><%= t(".title") %></h1>
-      <%= link_to cable_path(id: @cable.id, redirect_to_port_id: @from_port.id),
-                  method: :delete,
-                  data: { confirm: t("connections.form.action.delete_confirmation") },
-                  class: "btn btn-danger align-self-center d-inline-flex",
-                  title: t("action.delete") do %>
-        <span class="bi bi-trash"></span>
-        <span class="d-none d-md-inline-block ms-1"><%= t("action.delete") %></span>
+      <%- if @cable %>
+        <%= link_to cable_path(id: @cable.id, redirect_to_port_id: @from_port.id),
+                    method: :delete,
+                    data: { confirm: t("connections.form.action.delete_confirmation") },
+                    class: "btn btn-danger align-self-center d-inline-flex",
+                    title: t("action.delete") do %>
+          <span class="bi bi-trash"></span>
+          <span class="d-none d-md-inline-block ms-1"><%= t("action.delete") %></span>
+        <% end %>
+      <% else %>
+      <span></span>
       <% end %>
     </div>
     <%= render "form" %>

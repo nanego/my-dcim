@@ -48,20 +48,20 @@
               <%= t("rooms.action_buttons.background_color", bg: bg || User::AVAILABLE_BAY_BACKGROUND_COLORS[0]) %>
             </button>
             <ul class="dropdown-menu">
-              <li><%= link_to 'Modèle',
+              <li><%= link_to Modele.model_name.human,
                               url_for(params.except(:controller, :action)
                                             .permit(:view, :islet, :id, :bg, :format)
-                                            .merge({ view: :front, bg: 'modele', islet: params[:islet], id: params[:id] })),
+                                            .merge({ view: "front", bg: "modele", islet: params[:islet], id: params[:id] })),
                               class: "dropdown-item" %></li>
-              <li><%= link_to 'Gestionnaire',
+              <li><%= link_to Gestion.model_name.human,
                               url_for(params.except(:controller, :action)
                                             .permit(:view, :islet, :id, :bg, :format)
-                                            .merge({ view: :front, bg: 'gestionnaire', islet: params[:islet], id: params[:id] })),
+                                            .merge({ view: "front", bg: "gestionnaire", islet: params[:islet], id: params[:id] })),
                               class: "dropdown-item" %></li>
-              <li><%= link_to 'Cluster',
+              <li><%= link_to Cluster.model_name.human,
                               url_for(params.except(:controller, :action)
                                             .permit(:view, :islet, :id, :bg, :format)
-                                            .merge({ view: :front, bg: 'cluster', islet: params[:islet], id: params[:id] })),
+                                            .merge({ view: "front", bg: "cluster", islet: params[:islet], id: params[:id] })),
                               class: "dropdown-item" %></li>
             </ul>
           </div>
