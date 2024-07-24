@@ -19,10 +19,15 @@
     </div>
 
     <dl class="bg-body-tertiary p-4 rounded border">
-      <% %i[name category architecture u manufacturer nb_elts color network_types].each do |attribute_name| %>
+      <% %i[name category architecture u manufacturer nb_elts color].each do |attribute_name| %>
         <dt><%= Modele.human_attribute_name(attribute_name) %> :</dt>
         <dd><%= @modele.public_send(attribute_name) %></dd>
       <% end %>
+
+      <dt><%= Modele.human_attribute_name(:network_types) %> :</dt>
+      <dd>
+        <%= @modele.network_types.map { |type| Modele.human_attribute_name("network_types.#{type}") }.join(", ") %>
+      </dd>
     </dl>
 
     <ul class="bg-body-tertiary p-4 rounded border">

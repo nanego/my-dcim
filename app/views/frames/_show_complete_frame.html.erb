@@ -11,14 +11,14 @@
           </div>
         <% end %>
 
-        <div class="frames col-12 d-flex flex-row flex-wrap <%= params[:view] %>"
+        <div class="frames col-12 d-flex flex-row flex-wrap row-gap-4 <%= params[:view] %>"
             data-update-url="<%= sort_frames_path %>"
             data-max-u='<%= settings[:max_u] %>'
             data-max-elts='<%= settings[:max_elts] %>'
             data-max-rj45='<%= settings[:max_rj45] %>'
             data-max-fc='<%= settings[:max_fc] %>'>
 
-          <div class="col-12 col-lg-4 mb-4 mb-lg-0 pe-lg-4 view-front">
+          <div class="col-12 col-lg-4 pe-lg-4 view-front">
             <%= render partial: 'frames/show_frame', locals: {frame: @frame, servers: @frame.servers, settings: settings, view_type: 'front'} %>
           </div>
           <div class="col-12 col-lg-6 flex-grow-1 view-back">
