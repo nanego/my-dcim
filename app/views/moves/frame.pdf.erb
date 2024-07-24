@@ -1,17 +1,19 @@
 <div class="container-fluid">
-
   <div class="card-islet">
-
     <div class="row">
       <ul class="frames" style="padding: 0;">
-
-        <div class="col-xs-12 view-back">
-          <%= render partial: 'frames/show_frame', locals: {frame: @frame, servers: @servers, settings: Frame.settings.merge({:min_height => 20 }), editable: false, view_type: 'back'} %>
+        <div class="col-sm-12 view-back">
+          <%= render partial: "frames/show_frame",
+                     locals: {
+                       frame: @frame,
+                       servers: @servers,
+                       settings: Frame.settings.merge({ min_height: 20 }),
+                       editable: false,
+                       view_type: "back"
+                     }
+          %>
         </div>
-
       </ul>
     </div>
-
   </div>
-
 </div>

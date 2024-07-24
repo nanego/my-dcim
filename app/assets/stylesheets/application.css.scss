@@ -32,22 +32,22 @@ body {
   -webkit-print-color-adjust: exact;
 }
 
-
 .pdf_body {
-  .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
-    float: initial !important;
-  }
   .frame .server .server_name {
     font-size: 16px;
   }
   .card-islet {
     page-break-after: always;
+
     .frames .frame {
       clear: both;
       page-break-after: always;
     }
   }
 
+  a {
+    text-decoration: none;
+  }
 }
 
 .truncate {
