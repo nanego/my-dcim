@@ -7,6 +7,10 @@
   <div class="d-flex justify-content-between">
     <h1><%= t(".title") %></h1>
     <div class="align-self-center">
+      <%= link_to external_app_records_path, class: "btn btn-primary" do %>
+        <span class="bi bi-arrow-repeat"></span>
+        <%= t(".sync_with_external_apps") %>
+      <% end %>
       <%= link_to import_csv_servers_path, class: "btn btn-success" do %>
         <span class="bi bi-plus-lg"></span>
         <%= t(".add_server_via_csv") %>
@@ -29,7 +33,7 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:frame_id, Frame.sorted,
+          <%= f.collection_select(:frame_id, Frame.order(:name),
                                             :id,
                                             :name,
                                             { prompt: true, include_blank: true },
@@ -62,7 +66,7 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:room_id, Room.sorted,
+          <%= f.collection_select(:room_id, Room.order(:name),
                                            :id,
                                            :name,
                                            { prompt: true, include_blank: true },
@@ -119,7 +123,11 @@
 
   <%= render List::DataTableComponent.new(@servers) do |table| %>
     <% table.with_column(Server.human_attribute_name(:name), sort_by: :name) do |server| %>
-      <b><%= link_to server.name, server_path(server) %></b>
+      <%= link_to server.name, server_path(server), class: "fw-bold" %>
+    <% end %>
+
+    <% table.with_column(Server.human_attribute_name(:numero), sort_by: :numero) do |server| %>
+      <%= link_to server.numero, server_path(server), class: "fw-bold" %>
     <% end %>
 
     <% table.with_column(Server.human_attribute_name(:type), sort_by: :"categories.name") do |server| %>
@@ -134,7 +142,7 @@
       <%= link_to server.islet, islet_path(server.islet) if server.islet %>
     <% end %>
 
-    <% table.with_column(Server.human_attribute_name(:bay), sort_by: :"bays.id") do |server| %>
+    <% table.with_column(Bay.model_name.human, sort_by: :"bays.id") do |server| %>
       <%= link_to server.bay, bay_path(server.bay) if server.bay %>
     <% end %>
 

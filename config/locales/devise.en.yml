@@ -46,7 +46,7 @@ en:
         confirm:
           reset_authentication_token: Your old key will be deactivated. Do you confirm the creation of a new API key?
         waiting_for_confirmation: "Currently waiting confirmation for: %{email}"
-        password_fields_instruction: Leave these fields blank if you don"t want to change your password.
+        password_fields_instruction: Leave these fields blank if you don't want to change your password.
         update_form_instruction: You must enter your current password to make changes.
         cancel_account:
           title: Cancel Account

@@ -16,7 +16,7 @@
       <div class="d-flex justify-content-between pb-5">
         <% - if @server.frame %>
           <%= link_to frame_path(@server.frame, view: params[:view]),
-                      class: "btn btn-outline-secondary align-self-center d-inline-flex",
+                      class: "btn align-self-center d-inline-flex",
                       title: t(".back_to_bay", name: @server.frame.try(:name)) do %>
             <span class="bi bi-chevron-left"></span>
             <span class="d-none d-md-inline-block ms-1"><%= t(".back_to_bay", name: @server.frame.try(:name)) %></span>
@@ -61,8 +61,8 @@
       </div>
     <% end %>
 
-    <div class="col-12 d-flex flex-row flex-wrap">
-      <div class="col-12 col-lg-6 pe-lg-3 mb-4 mb-lg-0">
+    <div class="col-12 d-flex flex-row flex-wrap row-gap-4">
+      <div class="col-12 col-lg-6 pe-lg-3">
         <%= render CardComponent.new(type: :primary) do |card| %>
           <dl class="row">
             <dt class="col-6 text-end"><%= Bay.model_name.human %> :</dt>

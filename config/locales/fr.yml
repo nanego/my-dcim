@@ -419,6 +419,9 @@ fr:
       title: Nouveau modèle
     edit:
       title: Modification d'un modèle
+  external_app_records:
+    index:
+      title: Synchronisation avec GLPI
   servers:
     form:
       network_type: Réseau %{type}
@@ -448,6 +451,7 @@ fr:
       title: Matériels
       add_server: Ajouter un matériel
       add_server_via_csv: Ajouter par un fichier CSV
+      sync_with_external_apps: Synchroniser avec GLPI
     show:
       back_to_bay: Baie %{name}
       nb_u: Nb de U

@@ -1,7 +1,7 @@
 <h1 class="mb-3 h3 fw-normal text-center"><%= t("users.login") %></h1>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" } ) do |f| %>
   <% if Rails.env.development? %>
-    <%= render "devise/shared/error_messages", resource: resource %>
+    <%= render FormErrorsComponent.new(resource) %>
     <fieldset class="form-floating">
       <%= f.email_field :email, class: "form-control mb-n2 rounded-bottom-0", placeholder: "name@example.com" %>
       <%= f.label :email %>

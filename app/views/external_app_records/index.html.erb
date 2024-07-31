@@ -1,0 +1,49 @@
+<% provide(:title, "Synchronisation avec GLPI") %>
+<%= render 'layouts/breadcrumb', breadcrumb_steps: {
+  t("servers.index.title") => servers_path,
+  t(".title") => "" }
+%>
+
+<h1><%= t(".title") %></h1>
+
+<p>Listés : <%= @external_app_records.count %> sur <%= @servers_count %> machines connues </p>
+<%# button_to 'Start Sync', sync_external_app_records_path, remote: true, method: :put %>
+<p><i>Dernière synchronisation :
+  <%- if date = ExternalAppRecord.order('updated_at desc').limit(1).pluck(:updated_at).last %>
+    <%= l(date) %>
+  <%- else %>
+    aucune
+  <%- end %>
+</i></p>
+
+<%= render List::DataTableComponent.new(@external_app_records) do |table| %>
+  <% table.with_column('ID', sort_by: :server_id) do |record| %>
+    <%= link_to record.server_id, server_path(record.server) %>
+  <% end %>
+  <% table.with_column('Matériel', sort_by: 'servers.name') do |record| %>
+    <%= link_to record.server, server_path(record.server) %>
+  <% end %>
+  <% table.with_column('Numero de série') do |record| %>
+    <%= record.server.numero %>
+  <% end %>
+  <% table.with_column('Synchronisation GLPI', sort_by: :external_serial) do |record| %>
+    <% if record.external_serial.present? %>
+      <span class="badge text-bg-success"><%= "OK" %></span>
+    <% else %>
+      <span class="badge text-bg-danger"><%= "NON TROUVÉ DANS GLPI" %></span>
+    <% end %>
+  <% end %>
+  <% table.with_column('Nom GLPI', sort_by: :external_name) do |record| %>
+    <%= record.external_name %>
+  <% end %>
+  <% table.with_column('ID GLPI', sort_by: :external_id) do |record| %>
+    <%= record.external_id %>
+  <% end %>
+  <% table.with_column('Numero de série GLPI', sort_by: :external_serial) do |record| %>
+    <%= record.external_serial %>
+  <% end %>
+  <% table.with_column('Emplacement') do |record| %>
+    <%= record.server.frame %>
+  <% end %>
+
+<% end %>

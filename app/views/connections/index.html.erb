@@ -1,3 +1,4 @@
+<% provide(:title, t(".title")) %>
 <%= render "layouts/breadcrumb", breadcrumb_steps: {
   t("inventories") => modeles_url,
   Connection.model_name.human.pluralize => ""}
