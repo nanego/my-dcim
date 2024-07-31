@@ -1,4 +1,4 @@
-<% provide(:title, "#{t("servers.index.title")} | #{t(".title")}") %>
+<% provide(:title, "#{t("servers.index.title")} | #{@server.name} | #{t(".title")}") %>
 <%= render 'layouts/breadcrumb', breadcrumb_steps: {
     t("visualization") => overview_rooms_path,
     @server.frame.room.name => room_path(@server.frame.room, view: params[:view]),
