@@ -16,7 +16,7 @@ class Bay < ApplicationRecord
   scope :sorted_by_room, -> { joins(:room, :islet).order(:site_id, 'rooms.position', 'rooms.name', 'islets.name', :lane, 'bays.position') }
 
   def to_s
-    frames.sorted.pluck(:name).join('/')
+    frames.map { _1.name }.sort.join('/')
   end
 
   def detailed_name

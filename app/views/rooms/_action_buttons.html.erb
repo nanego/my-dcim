@@ -4,24 +4,24 @@
   <% if view_side != Frame.view_sides[:back] %>
     <!-- Choice of server background color -->
     <div class="btn-group">
-      <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <%= t(".background_color", bg: params[:bg].presence || current_user.visualization_bay_default_background_color || Modele.model_name.human.downcase) %>
       </button>
       <ul class="dropdown-menu">
-        <li><%= link_to Modele.model_name.human, url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: Modele.model_name.human.downcase, islet: params[:islet], id: params[:id]})), class: "dropdown-item", remote: true  %></li>
-        <li><%= link_to Gestion.model_name.human, url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: Gestion.model_name.human.downcase, islet: params[:islet], id: params[:id]})), class: "dropdown-item", remote: true  %></li>
-        <li><%= link_to Cluster.model_name.human, url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => 'front', bg: Cluster.model_name.human.downcase, islet: params[:islet], id: params[:id]})), class: "dropdown-item", remote: true  %></li>
+        <li><%= link_to Modele.model_name.human, url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({view: "front", bg: Modele.model_name.human.downcase, islet: params[:islet], id: params[:id]})), class: "dropdown-item", remote: true  %></li>
+        <li><%= link_to Gestion.model_name.human, url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({view: "front", bg: Gestion.model_name.human.downcase, islet: params[:islet], id: params[:id]})), class: "dropdown-item", remote: true  %></li>
+        <li><%= link_to Cluster.model_name.human, url_for( params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({view: "front", bg: Cluster.model_name.human.downcase, islet: params[:islet], id: params[:id]})), class: "dropdown-item", remote: true  %></li>
       </ul>
     </div>
   <% end %>
 
   <!-- Views FRONT / BACK -->
-  <% if view_side==Frame.view_sides[:both] %>
+  <% if view_side == Frame.view_sides[:both] %>
      <%= content_tag :div, class: 'btn btn-sm btn-primary disabled' do %>
       <%= Frame.human_attribute_name("view_sides.both") %>
     <% end %>
   <% else %>
-    <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({:view => (view_side == Frame.view_sides[:back] ? Frame.view_sides[:front] : Frame.view_sides[:back]), islet: params['islet'], id: params['id']})), class: 'btn btn-sm btn-outline-primary', remote: true do %>
+    <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({view: (view_side == Frame.view_sides[:back] ? Frame.view_sides[:front] : Frame.view_sides[:back]), islet: params['islet'], id: params['id']})), class: "btn btn-sm btn-primary", remote: true do %>
       <span class="bi bi-back" aria-hidden="true"></span>
       <%= Frame.human_attribute_name("view_sides.#{view_side}") %>
     <% end %>

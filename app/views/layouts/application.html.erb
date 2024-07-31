@@ -1,32 +1,7 @@
 <!DOCTYPE html>
 <html data-bs-theme="<%= current_user.theme %>">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-      <%= content_for?(:title) ? yield(:title) : "Gestion de salle #{Rails.env.development? ? "(dev)" : "DCIM"}" %>
-    </title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "My DCIM" %>">
-
-    <%- if current_user.theme == "auto" %>
-      <script>
-        function getTheme() {
-          return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
-        }
-
-        function setTheme() {
-          document.documentElement.setAttribute("data-bs-theme", getTheme())
-        }
-
-        setTheme()
-        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", setTheme)
-      </script>
-    <% end %>
-
-    <%= javascript_include_tag "vendors" %>
-    <%= javascript_importmap_tags "application" %>
-
-    <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag "application", media: "all" %>
+    <%= render "layouts/head" %>
   </head>
   <body class="mydcim overflow-hidden">
     <%= render "layouts/header" %>
