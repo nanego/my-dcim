@@ -4,7 +4,7 @@
 </title>
 <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "My DCIM" %>">
 
-<%- if current_user.theme == "auto" %>
+<%- if !current_user || current_user.theme == "auto" %>
   <script>
     function getTheme() {
       return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
