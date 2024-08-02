@@ -15,9 +15,9 @@
 %>
 <%= render "layouts/breadcrumb", breadcrumb_steps: %>
 
-<div class="container-fluid" id="bay-container">
+<div class="container-fluid">
   <div class="row my-5">
-    <div class="col-12">
+    <div class="col-12" id="bay-container">
       <%= render partial: "servers/room", locals: {
                   room: @bay.room,
                   islets: @servers_per_frames[@bay.islet.room_id],

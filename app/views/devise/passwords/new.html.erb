@@ -1,7 +1,7 @@
 <h1 class="mb-3 h3 fw-normal text-center"><%= t(".forgot_your_password") %></h1>
+<%= render FormErrorsComponent.new(resource) %>
 <%= form_for(resource, as: resource_name, url: password_path(resource_name),
                                           html: { role: "form", method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
   <fieldset class="form-floating mb-4">
     <%= f.text_field :email, autofocus: true, class: "form-control",
                                              placeholder: User.human_attribute_name(:email) %>

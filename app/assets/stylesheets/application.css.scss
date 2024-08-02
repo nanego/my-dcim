@@ -33,9 +33,6 @@ body {
 }
 
 .pdf_body {
-  .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
-    float: initial !important;
-  }
   .frame .server .server_name {
     font-size: 16px;
   }
@@ -46,6 +43,10 @@ body {
       clear: both;
       page-break-after: always;
     }
+  }
+
+  a {
+    text-decoration: none;
   }
 }
 
@@ -434,23 +435,25 @@ span.port_container.unreferenced_client a {
   padding: 0;
   max-width: 600px;
   display: grid;
-  border: 1px darkgray solid;
+  border: 1px gray solid;
   grid-template-columns: auto;
   grid-template-rows: auto;
+  gap: 1px;
+  background-color: lightgray;
   .component-label {
-    color: #D0D0D0;
-    background-color: #F0F0F0;
-    border: 1px solid #F4F4F4;
-    z-index: -1;
+    color: darkgray;
+    z-index: 1;
     padding-left: 5px;
     font-size: 10px;
   }
   .item {
+    background-color: white;
+    color: darkgray;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 20px;
-    z-index: 1;
+    z-index: 0;
   }
 }
 
@@ -713,10 +716,4 @@ body {
   .ts-dropdown, .ts-control, .ts-control input {
     color: var(--bs-body-color);
   }
-}
-
-.nav.nav-sidebar {
-  list-style-type: circle;
-  list-style-position: outside;
-  padding-left: 28px;
 }

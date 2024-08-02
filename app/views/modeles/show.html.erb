@@ -5,7 +5,7 @@
 <div class="row my-5">
   <div class="col-11 col-md-10 col-lg-8 mx-auto">
     <div class="d-flex justify-content-between pb-5">
-      <%= link_to modeles_path, class: "btn btn-outline-secondary align-self-center d-inline-flex",
+      <%= link_to modeles_path, class: "btn align-self-center d-inline-flex",
                                 title: t("action.back") do %>
         <span class="bi bi-chevron-left"></span>
         <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
@@ -19,10 +19,15 @@
     </div>
 
     <dl class="bg-body-tertiary p-4 rounded border">
-      <% %i[name category architecture u manufacturer nb_elts color network_types].each do |attribute_name| %>
+      <% %i[name category architecture u manufacturer nb_elts color].each do |attribute_name| %>
         <dt><%= Modele.human_attribute_name(attribute_name) %> :</dt>
         <dd><%= @modele.public_send(attribute_name) %></dd>
       <% end %>
+
+      <dt><%= Modele.human_attribute_name(:network_types) %> :</dt>
+      <dd>
+        <%= @modele.network_types.map { |type| Modele.human_attribute_name("network_types.#{type}") }.join(", ") %>
+      </dd>
     </dl>
 
     <ul class="bg-body-tertiary p-4 rounded border">

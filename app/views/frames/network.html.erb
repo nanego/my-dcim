@@ -28,7 +28,7 @@
           <h3><%= t(".title") %></h3>
           <%= render "rooms/action_buttons", view_side: params[:view] if formats != [:pdf] %>
         </div>
-        <div class="frames col-12 d-flex flex-row flex-wrap <%= view_type %>"
+        <div class="frames col-12 d-flex flex-row flex-wrap row-gap-3 <%= view_type %>"
             data-update-url="<%= sort_frames_path %>"
             data-max-u="<%= settings[:max_u] %>"
             data-max-elts="<%= settings[:max_elts] %>"
@@ -37,7 +37,7 @@
           <% lanes.each do |lane, bays| %>
             <% bays.each do |bay, frames| %>
               <% frames.each do |frame, servers| %>
-                <div class="bay col-12 col-lg-6 col-xxl-4 pe-0 pe-lg-3 mb-2 mb-lg-0">
+                <div class="bay col-12 col-lg-6 col-xxl-4 pe-0 pe-lg-3">
                   <%= render partial: "frames/show_frame",
                              locals: { frame: , servers: , settings: , view_type: } %>
                 </div>

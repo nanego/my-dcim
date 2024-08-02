@@ -15,21 +15,22 @@
     <div id="collapseRoomOverviewCardBody" class="collapse show">
       <div class="card-body d-flex justify-content-between">
         <div class="d-none d-md-block rounded-start-1 bg-body-secondary p-3 m-0 border-end">
-          <ul class="list-unstyled menu-rooms">
+          <ul class="list-unstyled menu-rooms flex-column nav" role="tablist" id="roomsTab">
             <% @sites.each do |site| %>
               <li><%= site %></li>
-              <ul class="nav nav-sidebar flex-column">
+              <ul>
                 <% rooms = site.rooms.sorted.distinct %>
                 <% rooms.each do |room| %>
                   <% islets = room.islets.sorted.not_empty.has_name.distinct %>
                   <% islets.each do |islet| %>
-                    <li role="presentation">
+                    <%- is_current_islet_active = islet == @islet || (@islet.blank? && @room == room) %>
+                    <li role="presentation" class="<%= class_names(active: is_current_islet_active) %>">
                       <% if islets.size == 1 %>
-                        <a href="#tab-<%= room.id %>-" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': ''})" aria-controls="room-<%= room %>" role="tab" data-bs-toggle="tab" data-bs-target="#tab-<%= room.id %>-" class="<%= "active" if islet == @islet || (@islet.blank? && @room == room) %>">
+                        <a href="#tab-<%= room.id %>" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': ''})" aria-controls="room-<%= room %>" role="tab" data-bs-toggle="tab" data-bs-target="#tab-<%= room.id %>" class="<%= "active" if is_current_islet_active %>">
                           <%= room.name %>
                         </a>
                       <% else %>
-                        <a href="#tab-<%= room.id %>-<%= islet %>" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': '<%= islet.name %>'})" aria-controls="islet-<%= islet %>" role="tab" data-bs-toggle="tab" data-bs-target="#tab-<%= room.id %>-<%= islet %>" class="<%= "active" if islet == @islet || (@islet.blank? && @room == room) %>">
+                        <a href="#tab-<%= room.id %>-<%= islet %>" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': '<%= islet.name %>'})" aria-controls="islet-<%= islet %>" role="tab" data-bs-toggle="tab" data-bs-target="#tab-<%= room.id %>-<%= islet %>" class="<%= "active" if is_current_islet_active %>">
                           <%= room.name %> Ilot <%= islet.name %>
                         </a>
                       <% end %>
@@ -42,40 +43,37 @@
               </ul>
             <% end %>
           </ul>
-
           <hr />
-
           <div class="text-center">
-            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= t("rooms.action_buttons.background_color", bg: bg || User::AVAILABLE_BAY_BACKGROUND_COLORS[0]) %>
             </button>
             <ul class="dropdown-menu">
-              <li><%= link_to 'Modèle',
+              <li><%= link_to Modele.model_name.human,
                               url_for(params.except(:controller, :action)
                                             .permit(:view, :islet, :id, :bg, :format)
-                                            .merge({ view: :front, bg: 'modele', islet: params[:islet], id: params[:id] })),
+                                            .merge({ view: "front", bg: "modele", islet: params[:islet], id: params[:id] })),
                               class: "dropdown-item" %></li>
-              <li><%= link_to 'Gestionnaire',
+              <li><%= link_to Gestion.model_name.human,
                               url_for(params.except(:controller, :action)
                                             .permit(:view, :islet, :id, :bg, :format)
-                                            .merge({ view: :front, bg: 'gestionnaire', islet: params[:islet], id: params[:id] })),
+                                            .merge({ view: "front", bg: "gestionnaire", islet: params[:islet], id: params[:id] })),
                               class: "dropdown-item" %></li>
-              <li><%= link_to 'Cluster',
+              <li><%= link_to Cluster.model_name.human,
                               url_for(params.except(:controller, :action)
                                             .permit(:view, :islet, :id, :bg, :format)
-                                            .merge({ view: :front, bg: 'cluster', islet: params[:islet], id: params[:id] })),
+                                            .merge({ view: "front", bg: "cluster", islet: params[:islet], id: params[:id] })),
                               class: "dropdown-item" %></li>
             </ul>
           </div>
         </div>
-        <div class="tab-content bg-body overflow-scroll p-3 m-auto">
+        <div class="tab-content bg-body overflow-scroll p-3 m-auto" id="roomsTabContent">
           <% @sites.each do |site| %>
             <% site.rooms.each do |room| %>
               <% room.islets.sorted.each do |islet| %>
-                <div class="islet tab-pane fade <%= "show active" if islet == @islet || (@islet.blank? && @room == room) %>"
+                <div class="islet overflow-auto tab-pane fade <%= "show active" if islet == @islet || (@islet.blank? && @room == room) %>"
                     role="tabpanel"
-                    style="overflow: auto;"
-                    id="tab-<%= room.id %>-<%= islet if room.islets.size > 1 %>">
+                    id="tab-<%= room.id %><%= "-#{islet}" if room.islets.size > 1 %>">
                   <div class="rooms-overview">
                     <% islet.bays.sorted.each do |bay| %>
                       <% air_conditioner = @air_conditioners.find { _1.bay_id == bay.id } || nil %>
@@ -112,7 +110,7 @@
                                                     class: "server truncate #{server.modele.try(:category).try(:name).try(:parameterize)} #{server.server_state_id == 1 ? 'striped' : ''}",
                                                     style: "height: #{server_height * u_server}px;background-color:#{bgModeleColor} !important;",
                                                     title: h("#{server.name}"),
-                                                    :data => data do %>
+                                                    data: data do %>
                                   <% u_disponibles -= u_server %>
                                 <% end %>
                               <% end %>
@@ -138,7 +136,7 @@
       </div>
     </div>
     <span class="position-absolute bottom-0 end-0 m-2" data-controller="reveal" data-reveal-hidden-class="d-none">
-      <button type="button" class="btn btn-outline-secondary"
+      <button type="button" class="btn"
                             data-bs-toggle="collapse"
                             data-bs-target="#collapseRoomOverviewCardBody"
                             aria-expanded="false"
@@ -159,15 +157,16 @@
     var bay_id = searchParams.get('bay-id')
     var frame_id = searchParams.get('frame-id')
     if (frame_id) {
-      loadFrame(frame_id, bay_id, "")
+        loadFrame(frame_id, bay_id, "")
     } else {
-      if (bay_id) {
-        loadBay(bay_id)
-      }
+        if (bay_id) {
+            loadBay(bay_id)
+        }
     }
 
-    // Update Breadcrumb after click on a Room Selection
-    document.querySelector(".menu-rooms").addEventListener("click", updateBreadcrumb);
+    // Update Breadcrumb and switch li active state, after click on a Room Selection
+    document.getElementById("roomsTab").querySelectorAll("a")
+                                       .forEach(element => element.addEventListener("click", menuRoomsClick))
 })();
 
 $(".show_room .overviewed_frame").hover(
@@ -191,8 +190,12 @@ $(".show_room .overviewed_frame .title a").on('click', function (e) {
 })
 
 // Update Breadcrumb after click on a Room Selection
-function updateBreadcrumb(e) {
-  let breadcrumb = document.querySelector("ol.breadcrumb");
+function menuRoomsClick(e) {
+  let breadcrumb = document.querySelector("ol.breadcrumb")
+
+  // Switch active state on li
+  document.getElementById("roomsTab").querySelector("li.active").classList.remove("active")
+  e.target.parentNode.classList.add("active")
 
   // Update Room
   breadcrumb.lastElementChild.textContent = e.target.textContent
