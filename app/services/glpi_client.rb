@@ -19,10 +19,10 @@ class GlpiClient
     @session_token = init_session
   end
 
-  def computer(serial:)
+  def computer(serial:, params: nil)
     glpi_id = get_computer_id_from_glpi(serial: serial)
     if glpi_id.present?
-      params = [
+      params ||= [
         "expand_dropdowns=false", # (default: false) Show dropdown name instead of id. Optional.
         "get_hateoas=true", # (default: true) Show relations of the item in a links attribute. Optional.
         "get_sha1=false", # (default: false) Get a sha1 signature instead of the full answer. Optional.

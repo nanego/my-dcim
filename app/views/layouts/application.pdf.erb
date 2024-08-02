@@ -2,15 +2,14 @@
 <html id="container">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= content_for?(:title) ? yield(:title) : "Gestion de salle #{Rails.env.development? ? '(dev)' : 'DCIM'}" %></title>
+  <title><%= content_for?(:title) ? yield(:title) : "Gestion de salle #{Rails.env.development? ? "(dev)" : "DCIM"}" %></title>
   <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "My DCIM" %>">
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <%= stylesheet_link_tag 'application', media: 'all' %>
 
-  <%= wicked_pdf_stylesheet_link_tag "application" -%>
-  <%= wicked_pdf_javascript_include_tag "application" %>
+  <%= wicked_pdf_stylesheet_link_tag "bootstrap", media: "all" -%>
+  <%= wicked_pdf_stylesheet_link_tag "application", media: "all" -%>
+  <%= wicked_pdf_javascript_include_tag "application" -%>
 
-  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 
   <style>
@@ -43,8 +42,8 @@
     }
   </style>
 </head>
-<body class="pdf_body">
-<main role="main">
+<body class="pdf_body mydcim">
+<main role="main mydcim-main">
   <%= yield %>
 </main>
 </body>

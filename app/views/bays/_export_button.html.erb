@@ -7,6 +7,9 @@
 
   <ul class="dropdown-menu dropdown-menu-end">
     <li>
+      <h6 class="dropdown-header"><%= t("export_button.exports.pdf") %></h6>
+    </li>
+    <li>
       <%= link_to bay_path(bay, format: :pdf, view: :front, bg: ""), class: "dropdown-item", target: :_blank do %>
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.front") %>
