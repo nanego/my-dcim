@@ -18,6 +18,8 @@ jobs:
 
     env:
       RAILS_MASTER_KEY: "acf7c0d9c0f69afd05048c8a58b2e9ee"
+      FERRUM_PROCESS_TIMEOUT: 25
+      FERRUM_DEFAULT_TIMEOUT: 15
 
     services:
       postgres:
@@ -44,6 +46,11 @@ jobs:
           ruby-version: ${{ matrix.ruby-version }}
           rubygems: "latest"
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@latest
+        with:
+          chrome-version: stable
 
       - name: Set up Database
         env:
