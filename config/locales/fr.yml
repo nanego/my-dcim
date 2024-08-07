@@ -5,6 +5,7 @@ fr:
   form:
     submit: Valider
   action:
+    apply: Appliquer
     edit: Modifier
     delete: Supprimer
     back: Retour
@@ -33,7 +34,6 @@ fr:
 
   order-in-progress: 'Commande en cours'
   inventories: Inventaires
-  visualization: Visualisation
   label_date: Date
   label_details: Détails
 
@@ -718,6 +718,14 @@ fr:
     destroy:
       flashes:
         destroyed: La baie bien été supprimé.
+  visualization:
+    title: Visualisation
+    network_capacities:
+      show:
+        loading: Chargement en cours ...
+    infrastructure:
+      show:
+        loading: Chargement en cours ...
 
   views:
     pagination:

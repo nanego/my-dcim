@@ -1,6 +1,3 @@
-<% hide_inventories_sidebar! %>
-
-<%= turbo_frame_tag "network_capacity_room_islet" do %>
 <% # TODO: create a component to represent a bay %>
 <div class="container-fluid room_overview show_room rooms-network-capacity" id="network-capacity">
   <div class="card mb-3">
@@ -9,7 +6,7 @@
         <div class="islet">
           <div>
             <div class="rooms-overview">
-              <% @bays.each do |bay| %>
+              <% bays.each do |bay| %>
                 <% if (frames = bay.frames.sorted).any? %>
                   <div class="couple" style="grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
                     grid-row: <%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;">
@@ -17,14 +14,14 @@
                       <% # TODO: move in the action or a model method %>
                       <% servers = frame.servers.includes(:bay, :stack, modele: { enclosures: :composants },
                                                                         cards:  [{ card_type: :port_type }, { ports: :cable }])
-                              .where("servers.network_types @> ?", "{#{@network}}") # Switch LAN
+                              .where("servers.network_types @> ?", "{#{network}}") # Switch LAN
                       %>
                       <div class="overviewed_frame bg-body text-body-emphasis <%= 'no-margin' if index > 0 %>"
                             data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.id %>">
                         <div class="title bg-success-subtle">
-                          <%= link_to frame.name, room_path(@room,
+                          <%= link_to frame.name, room_path(room,
                                                             view: params[:view],
-                                                            islet: @islet.name,
+                                                            islet: islet.name,
                                                             'bay-id': bay.id,
                                                             'frame-id': frame),
                                                   class: "link-body-emphasis", target: :_top %>
@@ -32,7 +29,6 @@
 
                         <ul>
                           <% servers.each do |server| %>
-                            <%# TODO: remove or fix cache %>
                             <% cache ["server", server.id, server.updated_at, Port.maximum(:updated_at)] do %>
                               <% data = { :url => server_url(server) } %>
                               <%= tag.li class: "server_#{server.id}
@@ -94,4 +90,3 @@
     </div>
   </div>
 </div>
-<% end %>
