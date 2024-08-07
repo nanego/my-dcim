@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe FilterComponent, type: :component do
-  let(:filter) { Filter.new(Frame.all, params) }
+  let(:filter) { ProcessorFilter.new(Frame.all, params) }
   let(:params) { {} }
   let(:component) { described_class.new(filter) }
   let(:block) { nil }

@@ -1,10 +1,10 @@
 <% bg = params[:bg].presence || current_user.visualization_bay_default_background_color %>
 <% view = params[:view].presence || current_user.visualization_bay_default_orientation %>
-<% provide :title, "#{t("visualization")} | Salle #{@room.name} #{@islet ? "- Ilot #{@islet}" : "" }" %>
+<% provide :title, "#{t("visualization.title")} | Salle #{@room.name} #{@islet ? "- Ilot #{@islet}" : "" }" %>
 <% hide_inventories_sidebar! %>
 
 <%= render "layouts/breadcrumb",  breadcrumb_steps: {
-  t("visualization") => overview_rooms_path,
+  t("visualization.title") => overview_rooms_path,
   "#{@room.name} #{@islet ? " Ilot #{@islet}" : "" }" => "",
 } %>
 
@@ -15,7 +15,7 @@
     <div id="collapseRoomOverviewCardBody" class="collapse show">
       <div class="card-body d-flex justify-content-between">
         <div class="d-none d-md-block rounded-start-1 bg-body-secondary p-3 m-0 border-end">
-          <ul class="list-unstyled menu-rooms">
+          <ul class="list-unstyled menu-rooms flex-column nav" role="tablist" id="roomsTab">
             <% @sites.each do |site| %>
               <li><%= site %></li>
               <ul>
@@ -23,13 +23,14 @@
                 <% rooms.each do |room| %>
                   <% islets = room.islets.sorted.not_empty.has_name.distinct %>
                   <% islets.each do |islet| %>
-                    <li role="presentation">
+                    <%- is_current_islet_active = islet == @islet || (@islet.blank? && @room == room) %>
+                    <li role="presentation" class="<%= class_names(active: is_current_islet_active) %>">
                       <% if islets.size == 1 %>
-                        <a href="#<%= room.id %>-" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': ''})" aria-controls="room-<%= room %>" role="tab" data-bs-toggle="tab">
+                        <a href="#tab-<%= room.id %>" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': ''})" aria-controls="room-<%= room %>" role="tab" data-bs-toggle="tab" data-bs-target="#tab-<%= room.id %>" class="<%= "active" if is_current_islet_active %>">
                           <%= room.name %>
                         </a>
                       <% else %>
-                        <a href="#<%= room.id %>-<%= islet %>" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': '<%= islet.name %>'})" aria-controls="islet-<%= islet %>" role="tab" data-bs-toggle="tab">
+                        <a href="#tab-<%= room.id %>-<%= islet %>" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': '<%= islet.name %>'})" aria-controls="islet-<%= islet %>" role="tab" data-bs-toggle="tab" data-bs-target="#tab-<%= room.id %>-<%= islet %>" class="<%= "active" if is_current_islet_active %>">
                           <%= room.name %> Ilot <%= islet.name %>
                         </a>
                       <% end %>
@@ -66,14 +67,13 @@
             </ul>
           </div>
         </div>
-        <div class="tab-content bg-body overflow-scroll p-3 m-auto">
+        <div class="tab-content bg-body overflow-scroll p-3 m-auto" id="roomsTabContent">
           <% @sites.each do |site| %>
             <% site.rooms.each do |room| %>
               <% room.islets.sorted.each do |islet| %>
-                <div class="islet tab-pane fadein <%= "active" if islet == @islet || (@islet.blank? && @room == room) %>"
+                <div class="islet overflow-auto tab-pane fade <%= "show active" if islet == @islet || (@islet.blank? && @room == room) %>"
                     role="tabpanel"
-                    style="overflow: auto;"
-                    id="<%= room.id %>-<%= islet if room.islets.size > 1 %>">
+                    id="tab-<%= room.id %><%= "-#{islet}" if room.islets.size > 1 %>">
                   <div class="rooms-overview">
                     <% islet.bays.sorted.each do |bay| %>
                       <% air_conditioner = @air_conditioners.find { _1.bay_id == bay.id } || nil %>
@@ -110,7 +110,7 @@
                                                     class: "server truncate #{server.modele.try(:category).try(:name).try(:parameterize)} #{server.server_state_id == 1 ? 'striped' : ''}",
                                                     style: "height: #{server_height * u_server}px;background-color:#{bgModeleColor} !important;",
                                                     title: h("#{server.name}"),
-                                                    :data => data do %>
+                                                    data: data do %>
                                   <% u_disponibles -= u_server %>
                                 <% end %>
                               <% end %>
@@ -164,32 +164,38 @@
         }
     }
 
-    // Update Breadcrumb after click on a Room Selection
-    document.querySelector(".menu-rooms").addEventListener("click", updateBreadcrumb);
+    // Update Breadcrumb and switch li active state, after click on a Room Selection
+    document.getElementById("roomsTab").querySelectorAll("a")
+                                       .forEach(element => element.addEventListener("click", menuRoomsClick))
 })();
 
 $(".show_room .overviewed_frame").hover(
-    function () {
-        $(this).closest('.couple').find(".overviewed_frame").addClass("hover")
-    }, function () {
-        $(this).closest('.couple').find(".overviewed_frame").removeClass("hover")
-    }
+  function () {
+    $(this).closest('.couple').find(".overviewed_frame").addClass("hover")
+  }, function () {
+    $(this).closest('.couple').find(".overviewed_frame").removeClass("hover")
+  }
 );
 $(".show_room .overviewed_frame").on('click', function (e) {
-    e.preventDefault()
-    if(e.target.tagName!='A'){
-        loadBay($(this).data('bay-id'))
-    }
+  e.preventDefault()
+
+  if(e.target.tagName!='A') {
+    loadBay($(this).data('bay-id'))
+  }
 })
 $(".show_room .overviewed_frame .title a").on('click', function (e) {
-    debugger;
-    e.preventDefault()
-    loadFrame($(this).data('frame-id'), $(this).data('bay-id'), $(this).text())
+  e.preventDefault()
+
+  loadFrame($(this).data('frame-id'), $(this).data('bay-id'), $(this).text())
 })
 
 // Update Breadcrumb after click on a Room Selection
-function updateBreadcrumb(e) {
-  let breadcrumb = document.querySelector("ol.breadcrumb");
+function menuRoomsClick(e) {
+  let breadcrumb = document.querySelector("ol.breadcrumb")
+
+  // Switch active state on li
+  document.getElementById("roomsTab").querySelector("li.active").classList.remove("active")
+  e.target.parentNode.classList.add("active")
 
   // Update Room
   breadcrumb.lastElementChild.textContent = e.target.textContent
@@ -198,23 +204,23 @@ function updateBreadcrumb(e) {
 function loadBay(bay_id) {
   $('#bay-container').html('<div class="animationload"><div class="osahanloading"></div>Chargement de la baie</div>')
   if (typeof delete_all_lines === "function") {
-      delete_all_lines()
+    delete_all_lines()
   }
 
   $('.couple .overviewed_frame').removeClass('selected')
   $('.couple .overviewed_frame[data-bay-id='+bay_id+']').addClass('selected')
 
   $.ajax({
-      method: "GET",
-      url: "/bays/" + bay_id + ".js",
-      data: { bay_id: bay_id, view: "<%= view %>", bg: "<%= bg %>" }
+    method: "GET",
+    url: "/bays/" + bay_id + ".js",
+    data: { bay_id: bay_id, view: "<%= view %>", bg: "<%= bg %>" }
   });
 }
 
 function loadFrame(frame_id, bay_id, frame_title) {
   $('#bay-container').html('<div class="animationload"><div class="osahanloading"></div>Chargement de la baie '+frame_title+'</div>')
   if (typeof delete_all_lines === "function") {
-      delete_all_lines()
+    delete_all_lines()
   }
 
   $('.couple .overviewed_frame').removeClass('selected')
@@ -224,18 +230,18 @@ function loadFrame(frame_id, bay_id, frame_title) {
   let view = 'front'
 
   if (searchParams.has('view')) {
-      view = searchParams.get('view')
+    view = searchParams.get('view')
   } else {
-      searchParams.set('view', view)
+    searchParams.set('view', view)
   }
   // searchParams.set('bay-id', bay_id)
   // searchParams.set('frame-id', frame_id)
   // window.history.replaceState({}, '', location.pathname + '?' + searchParams);
 
   $.ajax({
-      method: "GET",
-      url: "/frames/" + frame_id + ".js",
-      data: {frame_id: frame_id, view: view, bg: searchParams.get('bg')}
+    method: "GET",
+    url: "/frames/" + frame_id + ".js",
+    data: { frame_id: frame_id, view: view, bg: searchParams.get('bg') }
   });
 }
 </script>

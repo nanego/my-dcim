@@ -1,7 +1,7 @@
 <% provide(:title, "#{Frame.model_name.human.pluralize} | #{t("layouts.breadcrumb.bay.simple", name: @frame.name)}") %>
 <%
   breadcrumb_steps = {
-    t("visualization") => overview_rooms_path,
+    t("visualization.title") => overview_rooms_path,
     @room.name => ((@frame.present? || params[:islet].present?) ? room_path(@room, view: params[:view]) : "")
   }
   if @frame.present? && @frame.bay.islet.name.present?
