@@ -62,6 +62,8 @@ end
 
 group :test do
   gem "capybara", ">= 2.15"
+  gem "cuprite"
+  gem "formulaic"
   gem "rails-controller-testing"
   gem "rspec-activemodel-mocks"
   gem "rspec-html-matchers"
@@ -70,7 +72,6 @@ group :test do
   gem "simplecov", require: false
   gem "simplecov-console", require: false
   # gem "minitest-rails-capybara"
-  # gem "formulaic"
   # gem "sinatra", require: false
   # gem "vcr"
   # gem "webmock"
