@@ -33,7 +33,7 @@ fr:
         other: Contrats de maintenance
       disk_type:
         one: Type de disque
-        other: Types de disques
+        other: Types de disque
       memory_type:
         one: Type de RAM
         other: Types de RAM
@@ -43,6 +43,12 @@ fr:
       changelog_entry: Changelog
       cable: Câble
       connection: Connexion
+      memory_component:
+        one: Composant mémoire
+        other: Composants mémoire
+      move:
+        one: Déplacement prévu
+        other: Déplacements prévus
 
     attributes:
       room:
@@ -50,6 +56,7 @@ fr:
         position: Position
         content: Contenu
         display_on_home_page: Afficher sur la page d'accueil
+        site_id: Site
         islets_count:
           zero: 0 îlot
           one: 1 îlot
@@ -60,7 +67,8 @@ fr:
           other: "%{count} châssis"
       islet:
         name: Nom
-        room: Salle
+        room_id: Salle
+        room: Salle # TODO: check if we should keep this line?
         position: Position
         frames_count:
           zero: 0 châssis
@@ -114,9 +122,9 @@ fr:
         position: Position
         power: Puissance
         status: État
-        bay: Baie la plus proche
+        bay_id: Baie la plus proche
         last_service: Dernière maintenance
-        air_conditioner_model: Modèle
+        air_conditioner_model_id: Modèle
         start: DTC start (début lutte)
         range: DTC range (plage d'accélération)
         setpoint: Temperature de Consigne externe (froid)
@@ -189,8 +197,8 @@ fr:
         max_aligned_ports: Nombre max de ports alignés
         first_position: Numéro du premier port
       color:
-        type: Type
-        id: Id
+        parent_type: Type
+        parent_id: Id
         code: Code
       port_type:
         name: Nom
@@ -220,6 +228,7 @@ fr:
       modele:
         name: Nom
         category_id: Catégorie
+        category: Catégorie
         architecture: Architecture
         architecture_id: Architecture
         manufacturer: Constructeur
@@ -243,6 +252,7 @@ fr:
         label: Libellé
         orientation: Orientation
         first_port_name: Numéro du premier port
+        first_port_name_shrt: N° 1e port
         twin_card: Carte jumelle
       user:
         id: Identifiant
@@ -254,8 +264,8 @@ fr:
         authentication_token: Clé API
         locale: Langue
         theme: Thème
-        visualization_bay_default_background_color: Couleur par défault des bay
-        visualization_bay_default_orientation: Orientation par défaut des bay
+        visualization_bay_default_background_color: Couleur par défault des baies
+        visualization_bay_default_orientation: Orientation par défaut des baies
       user/role:
         user: Utilisateur
         admin: Administrateur
@@ -309,11 +319,28 @@ fr:
         cable: Câble
         port: Port
         paired_connection: Connexion paire
+        from_port_id: Port de départ
+        to_port_id: Port de destination
       cable:
         name: Nom
         color: Couleur
-        special_case: Cas spécial
+        special_case: Backbone réseau
         comments: Commentaires
+      port:
+        cablename: Nom du câble
+        color: Couleur
+        vlans: Vlans
+      move:
+        moveable_id: Matériel à déplacer
+        frame_id: Baie de destination
+        remove_connections: Supprimer toutes les connexions vers ce matériel ?
+        position: Position dans la baie
+      moved_connection:
+        port_from_id: Port de départ
+        port_to_id: Port de destination
+        vlans: Vlans
+        color: Couleur
+        cablename: Nom du câble
 
     errors:
       models:

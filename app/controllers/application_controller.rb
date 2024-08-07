@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :prepare_exception_notifier
 
+  etag { Rails.application.importmap.digest(resolver: helpers) if request.format&.html? }
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception, unless: -> { request.format.json? }
@@ -17,6 +19,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, with: :show_not_found_error
   rescue_from ActiveRecord::RecordNotUnique, with: :show_api_error
+
+  layout :layout_by_resource
 
   def after_sign_in_path_for(resource)
     # return request.env['omniauth.origin'] || stored_location_for(resource) || root_path
@@ -63,5 +67,13 @@ class ApplicationController < ActionController::Base
     raise exception unless request.format == :json
 
     render json: { exception: { name: exception.class.name, message: exception.message } }, status: :internal_server_error
+  end
+
+  def layout_by_resource
+    if devise_controller? && !user_signed_in?
+      "devise"
+    else
+      "application"
+    end
   end
 end

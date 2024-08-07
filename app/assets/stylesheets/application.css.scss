@@ -13,30 +13,41 @@
  *= require datagrid
  *= require jquery-ui
  *= require diffy
- *= require_tree .
+ *= require loader
+ *= require palette-color-picker
+ *= require rooms
  *= require_self
- *= require tom-select.bootstrap3.min
+ *= require_tree ./components
+ *= require tom-select.bootstrap5
  */
+
+@import "jquery-ui.css";
+
+// import the CSS framework
+@import "bootstrap-variables.scss";
+@import "bootstrap-icons.scss";
+@import "bootstrap";
 
 body {
   -webkit-print-color-adjust: exact;
 }
 
 .pdf_body {
-  .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
-    float: initial !important;
-  }
   .frame .server .server_name {
     font-size: 16px;
   }
-  .panel-islet {
+  .card-islet {
     page-break-after: always;
+
     .frames .frame {
       clear: both;
       page-break-after: always;
     }
   }
 
+  a {
+    text-decoration: none;
+  }
 }
 
 .truncate {
@@ -50,27 +61,8 @@ body {
   word-wrap: break-word ;
 }
 
-.breadcrumb {
-  background-color: #333;
-  margin-left: -15px;
-  margin-right: -15px;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  a {
-    color: #9d9d9d;
-    &:hover {
-      color: #ffffff;
-    }
-  }
-  li {
-    color: #ffffff;
-  }
-}
-
 .datagrid-form {
-  background-color: white;
-  padding: 0;
+  background-color: transparent;
 }
 
 .datagrid-form input[type="submit"]{
@@ -86,14 +78,10 @@ body {
   max-width: 100%;
 }
 
-a.hide-filters, a.show-filters {
-  color: white;
-  text-decoration: underline;
-}
-
 .frame .server {
-  color: #777;
   page-break-inside: avoid;
+
+  background-color: var(--bs-light-bg-subtle);
 }
 
 .frame {
@@ -110,7 +98,7 @@ a.hide-filters, a.show-filters {
 }
 
 .frame .server a, .pdu a {
-  color: #333
+  color: var(--bs-emphasis-color);
 }
 
 .frame .server .server_name {
@@ -122,12 +110,8 @@ a.hide-filters, a.show-filters {
   overflow: visible;
 }
 
-.frame .panel-footer {
+.frame .card-footer {
   min-height: 60px;
-}
-
-.badge.badgeRJ45 {
-  border-radius: 0;
 }
 
 .frame li.server {
@@ -175,19 +159,20 @@ table.card_layout {
 
 .pdu {
   &.J {
-    .pdu-line .label {
-      color: rgba(0, 0, 0, 1);
-      background-color: rgba(255, 221, 0, 1);
+    .pdu-line .badge {
+      color: var(--bs-gray-500) !important;
+      background-color: #ffed7e !important;
     }
   }
   &.B {
-    .pdu-line .label {
-      // color: rgba(255,255,255, 1);;
-      background-color: rgba(72, 118, 255, 1);
+    .pdu-line .badge {
+      background-color: #a2b9ff !important;
     }
   }
-  .empty {
-    background-color: #FFFFFF;
+
+  .server-component {
+    display: inherit;
+    flex-direction: inherit;
   }
 }
 
@@ -263,20 +248,17 @@ table.card_layout {
 }
 
 .portRJ {
-  border: 1px #555555 solid;
   width: 24px;
   height: 18px;
   line-height: 16px;
 }
 
 .portSCSI {
-  border: 1px #555555 solid;
   /* background-color: #DDD; */
   padding: 1px 2px;
 }
 
 .portFC {
-  border: 1px #555555 solid;
   width: 24px;
   height: 18px;
   line-height: 16px;
@@ -287,7 +269,6 @@ table.card_layout {
 }
 
 .portALIM {
-  border: 1px #555555 solid;
   padding: 1px 2px;
   -webkit-border-radius: 4px 4px 8px 8px;
   -moz-border-radius: 4px 4px 8px 8px;
@@ -306,22 +287,11 @@ table.card_layout {
   margin-bottom: 5px;
 }
 
-.detailed_server {
-  border: 1px solid #999999;
-  padding: 10px;
-  background-color: white;
-  margin-bottom: 10px;
-}
-
-.blank-panel, .blank_panel {
+.blank-card, .blank_card {
   // border:1px solid #999999;
   padding: 10px;
   background-color: lightgrey;
   padding: 10px;
-}
-
-.panel-pdu {
-  max-width: 150px;
 }
 
 .u_scale {
@@ -332,11 +302,12 @@ table.card_layout {
   align-items: center;
   width: 24px;
   padding: 3px 1px;
+
   &.even {
-    background-color: #E9E9E9 !important;; // '#E9E9E9'
+    background-color: var(--bs-light-bg-subtle) !important;
   }
   &.odd {
-    background-color: #D0D0D0 !important;; //  '#D0D0D0'
+    background-color: var(--bs-dark-bg-subtle) !important;
   }
 }
 
@@ -375,33 +346,18 @@ table.card_layout {
   display: inline;
 }
 
-.alert-transparent {
-  background-color: transparent !important;;
-  border-color: transparent;
-  padding: 0;
-  margin-top: -10px;
-}
-
 .tooltip-inner {
   max-width: 1000px;
   width: auto;
 }
 
 // Forms
-.add_fields {
-  margin-top: 10px;
-}
-
 .form-group div, .form-group label {
   margin-bottom: 10px;
 }
 
-.form-group div.panel-footer {
+.form-group div.card-footer {
   margin-bottom: 0px;
-}
-
-.control-label {
-  font-weight: bold;
 }
 
 // Custom dropdown menu when using custom multi-column
@@ -420,7 +376,7 @@ table.card_layout {
   background-color: #f5f5f5;
 }
 
-.dropdown-submenu.pull-left > .dropdown-menu {
+.dropdown-submenu.float-start > .dropdown-menu {
   left: -150%;
 }
 
@@ -432,16 +388,16 @@ table.card_layout {
 
 .connection_form {
   .back_server {
-    background-color: white;
-    // max-width:600px;
-    .port_container {
-      margin-left: -2px;
-      display: inline-block;
-    }
     .selected {
       padding: 2px 1px;
       background-color: #ee3b3b;
     }
+
+    .very-specific-design {
+      overflow-x: scroll;
+      padding-bottom: 1rem;
+    }
+
     .draw_connections_link {
       display: none;
     }
@@ -456,13 +412,6 @@ span.port_container.unreferenced_client a {
   border: solid 2px red !important;
 }
 
-.very-specific-design {
-  position: relative;
-  left: 0;
-  top: 50%;
-  transform-origin: top right;
-}
-
 .scaleable-wrapper {
   resize: both;
   position: relative;
@@ -472,7 +421,7 @@ span.port_container.unreferenced_client a {
   display: none !important;
 }
 
-.glyphicon{
+.bi{
   &.red{
     color: #ee3b3b;
   }
@@ -513,9 +462,13 @@ dt {
 }
 dd {
   font-weight: 700;
+
+  &.col-6 {
+    margin-bottom: 0;
+  }
 }
 
-// Page about
+/* Page about */
 .about {
   .github-link {
     margin-bottom: 0;
@@ -524,9 +477,7 @@ dd {
 
 .form-server {
   select, input {
-    max-width: -moz-available;
-    max-width: -webkit-fill-available;
-    max-width: fill-available;
+    max-width: stretch;
   }
 }
 
@@ -534,35 +485,235 @@ dd {
   vertical-align: middle !important;
 }
 
-.inventories_menu {
-  margin-top: 40px;
+
+/* MyDCIM CSS */
+html,
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
 }
 
-form {
-  &.air-conditioner-form {
-    .form-control {
-      width: auto;
+body {
+  min-height: 100%;
+}
+
+.mydcim {
+  &-wrapper {
+    height: calc(100% - var(--navbar-height));
+
+    & > .row {
+      height: 100%;
     }
-    input[type="number"] {
-      width: 80px;
+
+    main.mydcim-main {
+      height: 100%;
+      overflow-y: auto;
     }
-    select {
-      max-width: 100%;
-    }
-    fieldset {
-      border: 1px solid #808080;
-      padding: 0.3em 1em;
-      margin-bottom: 1em;
-      legend {
-        padding: 0 8px;
-        font-size: 16px;
-        margin: 8px 10px;
-        border: 0;
-        width: auto;
+
+    .colorized_background {
+      .server_name {
+        a {
+          color: var(--bs-black) !important;
+
+          &:hover {
+            opacity: .7;
+            text-decoration-color: var(--bs-black) !important;
+          }
+        }
       }
     }
-    .input-group {
-      width: min-content;
+
+    .enclosure-fields {
+     	ul {
+    		li {
+     			.input-group-text {
+        		cursor: move;
+     			}
+
+          &:nth-last-of-type(2) {
+            border-bottom-left-radius: var(--bs-border-radius);
+            border-bottom-right-radius: var(--bs-border-radius);
+          }
+
+          &:empty {
+            display: none;
+          }
+    		}
+     	}
     }
+
+    .no-decoration-link {
+      a {
+        text-decoration: none;
+
+        &:focus, &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .frames-network {
+      .bay:last-child {
+        padding: 0 !important;
+      }
+    }
+  }
+
+  &-header {
+    .navbar-toggler {
+      border: 0;
+    }
+  }
+
+  &-navbar {
+    @include media-breakpoint-up(lg) {
+      flex-grow: 1;
+
+      ul.navbar-nav {
+        flex-wrap: wrap;
+        flex-direction: row;
+
+        &:last-child {
+          margin-left: auto;
+        }
+      }
+    }
+
+    // Submenu
+    .dropdown-submenu{
+      position:relative;
+
+      & > .dropdown-menu {
+        top:0;
+        left:100%;
+        margin-top:-6px;
+        margin-left:-1px;
+        -webkit-border-radius:0 6px 6px 6px;
+        -moz-border-radius:0 6px 6px 6px;
+        border-radius:0 6px 6px 6px;
+      }
+
+      &:hover {
+        & > .dropdown-menu {
+          display:block;
+        }
+
+        & > a:after {
+          border-left-color:#555555;
+        }
+      }
+
+      & > a:after {
+        display:block;
+        content:" ";
+        float:right;
+        width:0;
+        height:0;
+        border-color:transparent;
+        border-style:solid;
+        border-width:5px 0 5px 5px;
+        border-left-color:#cccccc;
+        margin-top:5px;
+        margin-right:-10px;
+      }
+
+      &.float-start {
+        float: none;
+
+        & > .dropdown-menu {
+          left:-100%;
+          margin-left:10px;
+          -webkit-border-radius:6px 0 6px 6px;
+          -moz-border-radius:6px 0 6px 6px;
+          border-radius:6px 0 6px 6px;
+        }
+      }
+    }
+  }
+
+  &-sidebar {
+    font-size: 16px;
+
+    &:not(.offcanvas) {
+      @include media-breakpoint-up(lg) {
+        position: sticky;
+        top: 0;
+        display: block !important;
+        overflow-y: auto;
+        height: 100%
+      }
+    }
+
+    &-links {
+      &-link {
+        padding: .1875rem .5rem;
+        margin-top: .125rem;
+        margin-left: 1.125rem;
+        color: var(--bs-body-color);
+        text-decoration: none;
+
+        &:hover,
+        &.active,
+        &:focus {
+          background-color: var(--bs-primary-bg-subtle);
+        }
+
+        &.active {
+          font-weight: 600;
+          color: var(--bs-primary-text-emphasis);
+        }
+      }
+    }
+  }
+
+  &-login {
+    max-width: 330px;
+  }
+
+  &-messages {
+    margin-top: calc(1rem + var(--navbar-height));
+    margin-right: 1rem;
+  }
+
+  /* TODO: to remove if a MessageComponent is created */
+  &-devise-layout {
+    .mydcim-messages {
+      margin-top: 1rem;
+    }
+  }
+
+  .moves_form{
+    .server{
+      &.relegated{
+        filter:alpha(opacity=40);
+        -moz-opacity:0.4;
+        -khtml-opacity: 0.4;
+        opacity: 0.4;
+      }
+    }
+  }
+
+  .moved_connection_form {
+    .selected {
+      padding:2px 1px;
+      background-color: #ee3b3b;
+    }
+  }
+
+  table, .card-islet {
+    a:not(.btn):not(.dropdown-item) {
+      text-decoration: none;
+
+      &:focus, &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  /* Tom-Select fix for dark mode */
+  .ts-dropdown, .ts-control, .ts-control input {
+    color: var(--bs-body-color);
   }
 }

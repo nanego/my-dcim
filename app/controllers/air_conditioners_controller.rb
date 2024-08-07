@@ -4,7 +4,7 @@ class AirConditionersController < ApplicationController
   before_action :set_air_conditioner, only: %i[show edit update destroy]
 
   def index
-    @filter = Filter.new(AirConditioner.joins(:room, :islet).order('rooms.position, islets.name, air_conditioners.name'), params)
+    @filter = ProcessorFilter.new(AirConditioner.joins(:room, :islet).order('rooms.position, islets.name, air_conditioners.name'), params)
     @air_conditioners = @filter.results
   end
 

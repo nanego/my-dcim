@@ -1,13 +1,13 @@
-<% server.cards.includes(:ports => :cable).select {|card| card.composant_id == component.id}.each do |card| %>
-
+<% server.cards.includes(ports: :cable).select { |card| card.composant_id == component.id }.each do |card| %>
   <% if card.twin_card_id
        twin_card = Card.find(card.twin_card_id)
        connections = twin_card.ports.map(&:connection)
        twin_card_used_ports = []
-       connections.each {|c| twin_card_used_ports << c.port.position if c && c.port}
-     end %>
+       connections.each { |c| twin_card_used_ports << c.port.position if c && c.port }
+  end %>
 
-  <span data-server-name="<%= server.name %>"
+  <span class="server-component"
+        data-server-name="<%= server.name %>"
         data-server-id="<%= server.id %>"
         data-composant-id="<%= card.id %>"
         data-composant-type="<%= card.class %>"
@@ -27,7 +27,5 @@
                         moved_connections: @moved_connections,
                         twin_card_used_ports: twin_card_used_ports) %>
     <% end %>
-
-
   </span>
 <% end %>

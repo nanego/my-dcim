@@ -33,18 +33,6 @@ class RoomsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:sites)
   end
 
-  test "should get infrastructure view" do
-    get :infrastructure
-    assert_response :success
-    assert_not_nil assigns(:sites)
-  end
-
-  test "should get capacity view" do
-    get :capacity
-    assert_response :success
-    assert_not_nil assigns(:sites)
-  end
-
   test "should get new" do
     get :new
     assert_response :success

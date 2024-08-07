@@ -10,6 +10,8 @@ class IsletsController < ApplicationController
   end
 
   def show
+    return @islet if request.format.html?
+
     frames = Frames::IncludingServersQuery.call(@islet.frames)
     @room = @islet.room
     @servers_per_frames = {}

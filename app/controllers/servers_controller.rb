@@ -6,10 +6,10 @@ class ServersController < ApplicationController
   before_action :set_server, only: [:show, :edit, :update, :destroy]
 
   def index
-    @servers = Server.includes(:room, :islet, :frame, bay: :frames, modele: :category)
-                     .references(:room, :islet, :bay, :frame, modele: :category)
-                     .order(:name)
-    @filter = Filter.new(@servers, params)
+    @servers = Server.includes(:frame, :room, :islet, bay: :frames, modele: :category)
+      .references(:room, :islet, :bay, modele: :category)
+      .order(:name)
+    @filter = ProcessorFilter.new(@servers, params)
     @servers = @filter.results
   end
 

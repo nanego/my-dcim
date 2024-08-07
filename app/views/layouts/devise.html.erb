@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= render "layouts/head" %>>
+  </head>
+  <body class="mydcim-devise-layout d-flex align-items-center py-4 bg-body-tertiary">
+    <%= render "layouts/messages" %>
+    <main class="mydcim-main mydcim-login p-3 w-100 m-auto" role="main">
+      <div class="text-center">
+        <%= link_to root_path do %>
+          <%= image_tag "datacenter-02.png", height: 60, class: "mb-4" %>
+        <% end %>
+      </div>
+      <%= yield %>
+    </main>
+  </body>
+</html>

@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[show update destroy reset_authentication_token suspend unsuspend]
 
   def index
-    @filter = Filter.new(User.order(sign_in_count: :desc), params)
+    @filter = ProcessorFilter.new(User.order(sign_in_count: :desc), params)
     @users = @filter.results
   end
 

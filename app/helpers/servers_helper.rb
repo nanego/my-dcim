@@ -9,7 +9,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     if cards_names.present?
       if cards.first.twin_card_id.present?
         link_to network_frame_path(server.frame, network_frame_id: Card.find(cards.first.twin_card_id).server.frame_id) do
-          "<span class='glyphicon glyphicon-open' aria-hidden='true'></span>#{cards_names.join('-')}".html_safe
+          "<span class='bi bi-upload me-1' aria-hidden='true'></span>#{cards_names.join('-')}".html_safe
         end
       else
         cards_names.join('-')
@@ -27,7 +27,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     card_type.rows.to_i.times do |row_index|
       html += "<tr>"
       card_type.columns.to_i.times do |column_index|
-        html += "<td><div style='display: flex;'>"
+        html += "<td><div class='d-flex'>"
 
         ports_per_cell.times do |cell_index|
 
@@ -37,10 +37,10 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
 
           html += content_tag(:span,
                               link_to_port_without_label(position, port_data, card_type.port_type, card.id, port_id),
-                              class: "port_container")
+                              class: "port_container d-flex")
 
           if (cell_index + 1) % number_of_columns_in_cell(card.orientation, ports_per_cell, card_type.max_aligned_ports) == 0 # Every XX ports do
-            html += '</div><div style="clear:both;" /><div style="display: flex;">'
+            html += '</div><div class="d-flex">'
           end
 
         end
@@ -62,7 +62,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     card_type.rows.to_i.times do |row_index|
       html += "<tr>"
       card_type.columns.to_i.times do |column_index|
-        html += "<td><div style='display: flex;'>"
+        html += "<td><div class='d-flex'>"
 
         ports_per_cell.times do |cell_index|
 
@@ -73,13 +73,13 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
 
           html += content_tag(:span,
                               link_to_port(position, port_data, card_type.port_type, card.id, port_id, (position - 1 + card.first_port_position).to_s.rjust(2, "0")),
-                              class: "port_container
+                              class: "port_container d-flex
                                       #{twin_card_used_ports && port_data && port_data.cable_name && twin_card_used_ports.exclude?(port_data.position) ? "no_client" : ""}
                                       #{twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(position) ? "unreferenced_client" : ""}
                                       #{selected_port.present? && port_id == selected_port.try(:id) ? "selected" : ""}")
 
           if (cell_index + 1) % number_of_columns_in_cell(card.orientation, ports_per_cell, card_type.max_aligned_ports) == 0 # Every XX ports do
-            html += '</div><div style="clear:both;" /><div style="display: flex;">'
+            html += '</div><div class="d-flex">'
           end
 
         end
@@ -102,14 +102,10 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
 
       html += content_tag(:span,
                           link_to_port(index + 1, port_data, port_type, card_id, port_id),
-                          class: "port_container
+                          class: "port_container float-start
                                   #{twin_card_used_ports && port_data && port_data.cable_name && twin_card_used_ports.exclude?(port_data.position) ? "no_client" : ""}
                           #{twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(index + 1) ? "unreferenced_client" : ""}
                           #{selected_port.present? && port_id == selected_port.try(:id) ? "selected" : ""}")
-
-      if (index + 1) % MAX_PORTS_PER_LINE == 0 # Every XX ports do
-        html += '<div style="clear:both;" />'
-      end
     end
     html.html_safe
   end
@@ -147,16 +143,10 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     else
       port_class = "SCSI"
     end
-    link_to label.to_s,
-            edit_port_url,
-            { class: "port pull-left port#{port_class} #{port_data.try(:cable_color) ? port_data.try(:cable_color) : "empty"}",
-              id: port_id,
-              data: { url: edit_port_url,
-                      position: position,
-                      type: type,
-                      toggle: 'tooltip',
-                      placement: 'top',
-                      title: port_data.present? ? "#{port_data.vlans}" : "" } }
+
+    link_to label.to_s, edit_port_url, id: port_id, title: (port_data.present? ? "#{port_data.vlans}" : ""),
+                                       class: "border border-secondary port port#{port_class} #{port_data.try(:cable_color) ? port_data.try(:cable_color) : "empty"}",
+                                       data: { url: edit_port_url, position: , type: , controller: 'tooltip', bs_placement: 'top' }, target: :_top
   end
 
   private

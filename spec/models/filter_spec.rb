@@ -4,12 +4,10 @@ require "rails_helper"
 
 RSpec.describe Filter do
   subject(:filter) do
-    described_class.new(records, params, with: with)
+    described_class.new(params, %i[q])
   end
 
-  let(:records) { Cluster.all }
-  let(:params)  { ActionController::Parameters.new({}) }
-  let(:with)    { nil }
+  let(:params) { ActionController::Parameters.new({}) }
 
   describe ".model_name" do
     it { expect(described_class.model_name).to be_a(Filter::Name) }
@@ -18,10 +16,6 @@ RSpec.describe Filter do
 
   describe ".i18n_scope" do
     it { expect(described_class.i18n_scope).to eq(:filters) }
-  end
-
-  describe "#results" do
-    it { expect(filter.results.size).to eq(2) }
   end
 
   describe "#filled?" do
@@ -55,15 +49,7 @@ RSpec.describe Filter do
   end
 
   describe "#attribute_names" do
-    it { expect(filter.attribute_names).to eq(%i[q sort_by sort]) }
-  end
-
-  describe "#total_count" do
-    it { expect(filter.total_count).to eq(2) }
-  end
-
-  describe "#results_count" do
-    it { expect(filter.results_count).to eq(2) }
+    it { expect(filter.attribute_names).to eq(%i[q]) }
   end
 
   describe "#method_missing" do
