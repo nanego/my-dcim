@@ -1,5 +1,5 @@
 <% provide(:title, "Baie #{@frame.name} | #{Connection.model_name.human.pluralize} | #{t("action.edit")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: { t("visualization") => rooms_path,
+<%= render "layouts/breadcrumb", breadcrumb_steps: { t("visualization.title") => rooms_path,
                                                          @room.name => room_path(@room),
                                                          "Baie #{@frame.name}" => frame_path(@frame),
                                                          Connection.model_name.human.pluralize => connections_path,

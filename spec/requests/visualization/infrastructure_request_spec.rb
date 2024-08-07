@@ -8,9 +8,11 @@ RSpec.describe "Visualization::InfrastructuresController" do
   before { sign_in user }
 
   describe "GET #show" do
-    before { get visualization_infrastructure_path }
+    context "when filter is not filled" do
+      before { get visualization_infrastructure_path }
 
-    it { expect(response).to have_http_status(:success) }
-    it { expect(response).to render_template(:show) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(visualization_infrastructure_path(islet_id: 1, network_type: :gbe)) }
+    end
   end
 end

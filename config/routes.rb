@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :air_conditioners, except: %i[show]
+  resources :air_conditioners
   resources :documents
   resources :moves do
     member do
@@ -70,11 +70,6 @@ Rails.application.routes.draw do
   resources :rooms do
     collection do
       get :overview
-    end
-
-    resources :islets, only: [] do
-      get :network_capacity, on: :member
-      get :infrastructure, on: :member
     end
   end
   resources :bays
