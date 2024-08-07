@@ -5,12 +5,13 @@ require "capybara/cuprite"
 Capybara.register_driver(:cuprite) do |app|
   options = {
     window_size: [1920, 1080],
-    inspector: false,
+    browser_options: {},
+    inspector: ENV.fetch("CUPRITE_INSPECTOR", nil),
     js_errors: true,
-    timeout: 10
   }
 
-  options[:headless] = true
+  options[:headless] = ENV.fetch("CUPRITE_HEADLESS", nil) != "false"
+  options[:browser_options][:"no-sandbox"] = nil if ENV["CI"]
 
   Capybara::Cuprite::Driver.new(app, options)
 end
