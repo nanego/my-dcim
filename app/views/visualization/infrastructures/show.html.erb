@@ -1,0 +1,56 @@
+<% provide :title, "Vue infrastructure" %>
+<% hide_inventories_sidebar! %>
+
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
+  t("visualization.title") => overview_rooms_path,
+  "Infrastructure" => nil,
+} %>
+
+<div data-turbo="true">
+  <div class="container-fluid">
+    <%= render CardComponent.new(type: :primary) do |card| %>
+      <%= form_with model: @filter, url: "", method: :get, class: "row g-3 align-items-center", id: :filters,
+                    data: { controller: "form-update" , turbo_frame: :infrastructure_islet, turbo_action: :advance } do |f| %>
+        <div class="col-2">
+          <fieldset class="form-floating">
+            <%= f.select :network_type, Modele::Network::TYPES.excluding("fiber").map { |t| [Modele.human_attribute_name("network_types.short_#{t}"), t] }, {}, { class: "form-control", data: { action: "change->form-update#update" } } %>
+            <%= f.label :network_type %>
+          </fieldset>
+        </div>
+
+        <div class="col-4">
+          <fieldset class="form-floating">
+            <%= f.select :islet_id, IsletDecorator.grouped_by_sites_options_for_select, { prompt: true }, { class: "form-control", data: { action: "change->form-update#update" } } %>
+            <%= f.label :islet_id %>
+          </fieldset>
+        </div>
+
+        <div class="col-2 visually-hidden">
+          <%= f.submit t("action.apply"), class: "btn btn-primary btn-lg", form: :filters %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <% if turbo_frame_request? %>
+    <%= turbo_frame_tag "infrastructure_islet" do %>
+      <%= render partial: "islets/infrastructure", locals: {
+        bays: @bays, network: @filter.network_type, room: @room, islet: @islet, hub: @hub,
+        second_hub: @second_hub, second_room: @second_room, connections: @connections, concentrateurs_ids: @concentrateurs_ids
+      } %>
+    <% end %>
+  <% else %>
+    <%= turbo_frame_tag "infrastructure_islet", src: visualization_infrastructure_path(**@filter.to_h) do %>
+      <div class="container-fluid room_overview show_room rooms-infrastructure" id="network-capacity">
+        <div class="card mb-3">
+          <div class="card-body bg-body-tertiary p-4">
+            <div class="d-flex align-items-center">
+              <strong role="status"><%= t(".loading") %></strong>
+              <div class="spinner-grow ms-auto" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

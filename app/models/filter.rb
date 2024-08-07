@@ -4,14 +4,13 @@ class Filter
   include ActiveModel::Conversion
   extend ActiveModel::Translation
 
+  attr_reader :attribute_names
+
   delegate :model_name, to: :class
 
-  def initialize(records, params, with: nil)
-    @records = records
-    @params = params
-    @rubanok_class = with || "#{records&.klass&.to_s&.pluralize}Processor".safe_constantize
-
-    raise "Processor class missing" unless @rubanok_class
+  def initialize(params, attribute_names)
+    @params = params.dup
+    @attribute_names = attribute_names
   end
 
   class << self
@@ -29,12 +28,14 @@ class Filter
     end
   end
 
-  def results
-    @results ||= @rubanok_class.call(@records, attributes)
+  def persisted?
+    false
   end
 
-  def filled?
-    @filled ||= attributes.values.any?(&:present?)
+  def filled?(attribute_name = nil)
+    return attributes[attribute_name].present? if attribute_name
+
+    attributes.values.any?(&:present?)
   end
 
   def filled_attributes
@@ -42,32 +43,33 @@ class Filter
   end
 
   def attributes
-    @attributes ||= @params.respond_to?(:permit) ? @params.permit(*attribute_names).to_h : @params
+    @attributes ||= if @params.respond_to?(:permit)
+                      @params.permit(*attribute_names).to_h
+                    else
+                      @params.with_indifferent_access
+                    end
   end
   alias to_h attributes
 
-  def attribute_names
-    @attribute_names ||= @rubanok_class.fields_set.to_a
-  end
-
-  def total_count
-    @total_count ||= @records.count
-  end
-
-  def results_count
-    @results_count ||= results.count
-  end
-
   private
 
-  def method_missing(symbol, *)
+  def method_missing(symbol, *args)
+    method_name = symbol.to_s
+
     return attributes[symbol] if attribute_names.include?(symbol)
+
+    if method_name.end_with?("=") && attribute_names.include?(method_name.chop.to_sym)
+      return attributes[method_name.chop.to_sym] = args.first
+    end
 
     super
   end
 
   def respond_to_missing?(symbol, include_all)
+    method_name = symbol.to_s
+
     return true if attribute_names.include?(symbol)
+    return true if method_name.end_with?("=") && attribute_names.include?(method_name.chop.to_sym)
 
     super
   end

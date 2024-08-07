@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-class RoomsController < ApplicationController # rubocop:disable Metrics/ClassLength
+class RoomsController < ApplicationController
   include ServersHelper
   include RoomsHelper
 
   before_action :set_room, only: %i[show edit update destroy islet]
 
   def index
-    @filter = Filter.new(Room.joins(:site).order('sites.position asc, rooms.position asc, rooms.name asc'), params)
+    @filter = ProcessorFilter.new(Room.joins(:site).order('sites.position asc, rooms.position asc, rooms.name asc'), params)
     @rooms = @filter.results
   end
 
@@ -101,47 +101,6 @@ class RoomsController < ApplicationController # rubocop:disable Metrics/ClassLen
       end
       render :filtered_overview
     end
-  end
-
-  def infrastructure
-    @sites = Site.joins(:rooms).includes(:rooms => [:islets => [:bays => :frames]]).order(:position).distinct
-    @room = @sites.first.rooms.order(:position).first
-    @islet = @room.islets.first
-
-    @servers = Server.includes(:frame, :stack, :ports, :cards => [:ports])
-      .where.not(network_types: [])
-    # .includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
-    @concentrateurs_ids = [383, 384, 1043, 1044]
-    @concentrateurs = Server.where(id: @concentrateurs_ids).includes(:ports => :connection, :cards => [:ports => :connection])
-    @switchs_lan_ids = @concentrateurs_ids | @servers.pluck(:id) # Switch LAN
-    # TODO: Remove hard-coded values
-    @hubs = {}
-
-    unless Rails.env.test?
-      @hubs = { "gbe" => { 4 => Server.find(383), 3 => Server.find(384) }, "10gbe" => { 4 => Server.find(1043), 3 => Server.find(1044) } } # Concentrateurs per room
-    end
-
-    @connections = {}
-    @stacks = @servers.map(&:stack).uniq.compact
-    @servers.each do |server|
-      @connections[server.id] = server.directly_connected_servers_ids_with_color.reject { |conn| @switchs_lan_ids.exclude?(conn[:server_id]) }
-    end
-    @concentrateurs.each do |hub|
-      @connections[hub.id] = hub.connected_servers_ids_through_twin_cards_with_color.reject { |conn| @switchs_lan_ids.exclude?(conn[:server_id]) }
-    end
-
-    # TODO: remove when hard-coded system will be removed
-    @network_types = Modele::Network::TYPES.excluding("fiber")
-
-    # puts "@@@connections : #{@connections.inspect}"
-  end
-
-  def capacity
-    @sites = Site.joins(:rooms).includes(:rooms => [:islets => [:bays => :frames]]).order(:position).distinct
-    @room = @sites.first.rooms.order(:position).first
-    @islet = @room.islets.first
-    @servers_last_update_time = Server.maximum(:updated_at).to_s
-    @ports_last_update_time = Port.maximum(:updated_at).to_s
   end
 
   def filtered_overview; end

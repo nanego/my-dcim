@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateExternalAppRecords < ActiveRecord::Migration[7.1]
   def change
     create_table :external_app_records do |t|

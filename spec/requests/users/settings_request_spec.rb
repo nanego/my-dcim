@@ -17,7 +17,7 @@ RSpec.describe "Users::Settings" do
 
   describe "PATCH #update" do
     subject(:response) do
-      patch(users_settings_path(user, params:))
+      patch(users_settings_path(user), params:)
 
       @response # rubocop:disable RSpec/InstanceVariable
     end
@@ -31,7 +31,7 @@ RSpec.describe "Users::Settings" do
     context "with invalid data" do
       let(:params) { { user: { locale: "test", theme: "yellow" } } }
 
-      it { expect(response).to have_http_status(:unprocessable_entity) }
+      it { expect(response).to have_http_status(:unprocessable_content) }
       it { expect(response).to render_template(:edit) }
     end
 

@@ -146,7 +146,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
 
     link_to label.to_s, edit_port_url, id: port_id, title: (port_data.present? ? "#{port_data.vlans}" : ""),
                                        class: "border border-secondary port port#{port_class} #{port_data.try(:cable_color) ? port_data.try(:cable_color) : "empty"}",
-                                       data: { url: edit_port_url, position: position, type: type, controller: 'tooltip', bs_placement: 'top' }
+                                       data: { url: edit_port_url, position: , type: , controller: 'tooltip', bs_placement: 'top' }, target: :_top
   end
 
   private
