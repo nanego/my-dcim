@@ -71,11 +71,6 @@ Rails.application.routes.draw do
     collection do
       get :overview
     end
-
-    resources :islets, only: [] do
-      get :network_capacity, on: :member
-      get :infrastructure, on: :member
-    end
   end
   resources :bays
   resources :gestions

@@ -44,10 +44,10 @@ class Filter
 
   def attributes
     @attributes ||= if @params.respond_to?(:permit)
-      @params.permit(*attribute_names).to_h
-    else
-      @params.with_indifferent_access
-    end
+                      @params.permit(*attribute_names).to_h
+                    else
+                      @params.with_indifferent_access
+                    end
   end
   alias to_h attributes
 
