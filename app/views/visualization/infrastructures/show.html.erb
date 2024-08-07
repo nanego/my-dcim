@@ -1,9 +1,9 @@
-<% provide :title, "Vue infrastructure" %>
+<% provide :title, t("rooms.infrastructure_view.title") %>
 <% hide_inventories_sidebar! %>
 
 <%= render "layouts/breadcrumb", breadcrumb_steps: {
   t("visualization.title") => overview_rooms_path,
-  "Infrastructure" => nil,
+  t("rooms.infrastructure_view.title") => nil,
 } %>
 
 <div data-turbo="true">
