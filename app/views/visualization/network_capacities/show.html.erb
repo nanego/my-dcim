@@ -2,7 +2,7 @@
 <% hide_inventories_sidebar! %>
 
 <%= render "layouts/breadcrumb", breadcrumb_steps: {
-  t("visualization") => overview_rooms_path,
+  t("visualization.title") => overview_rooms_path,
   t("rooms.capacity_view.title") => nil,
 } %>
 
@@ -26,7 +26,7 @@
         </div>
 
         <div class="col-2 visually-hidden">
-          <%= f.submit "Appliquer", class: "btn btn-primary btn-lg", form: :filters %>
+          <%= f.submit t("action.apply"), class: "btn btn-primary btn-lg", form: :filters %>
         </div>
       <% end %>
     <% end %>
@@ -42,7 +42,7 @@
         <div class="card mb-3">
           <div class="card-body bg-body-tertiary p-4">
             <div class="d-flex align-items-center">
-              <strong role="status">Loading...</strong>
+              <strong role="status"><%= t(".loading") %></strong>
               <div class="spinner-grow ms-auto" aria-hidden="true"></div>
             </div>
           </div>

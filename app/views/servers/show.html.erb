@@ -1,7 +1,7 @@
 <% page_title = "#{@server.modele.try(:category).try(:name)} #{@server.name}" %>
 <% provide(:title, "#{t("servers.index.title")} | #{page_title}") %>
 <%= render "layouts/breadcrumb", breadcrumb_steps: {
-  t("visualization") => overview_rooms_path,
+  t("visualization.title") => overview_rooms_path,
   @server.frame.room.name => room_path(@server.frame.room, view: params[:view]),
   "#{Islet.model_name.human} #{@server.frame.islet.name}" => room_path(@server.frame.room, islet: @server.frame.islet.name, view: params[:view], bg: params[:bg]),
   t("layouts.breadcrumb.bay.double", name: @server.frame.bay) => room_path(@server.frame.room, islet: @server.frame.islet.name, "bay-id": @server.frame.bay_id, view: params[:view]),
