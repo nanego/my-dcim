@@ -723,7 +723,7 @@ fr:
     network_capacities:
       show:
         loading: Chargement en cours ...
-    infrastructure:
+    infrastructures:
       show:
         loading: Chargement en cours ...
 
@@ -764,5 +764,6 @@ fr:
         bay_id: Baie
         modele_id: Modèle
         cluster_id: Cluster
+        network_type: Type de réseaux
     placeholder:
       search: Rechercher ...
