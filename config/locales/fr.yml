@@ -508,6 +508,7 @@ fr:
     index:
       new_move: Prévoir un nouveau déplacement
       delete_confirmation: Voulez-vous vraiment supprimer ce déplacement ?
+      execute_confirmation: Voulez-vous vraiment appliquer ce déplacement ?
       frame_table_title: Baies après déplacements
       edit_connections: Modifier les connexions
       action:
