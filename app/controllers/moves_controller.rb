@@ -5,7 +5,7 @@ class MovesController < ApplicationController
   before_action :load_form_data, only: [:new, :edit]
 
   def index
-    @moves = Move.all
+    @moves = Move.order(created_at: :asc)
     @frames = (@moves.map(&:frame) | @moves.map(&:prev_frame)).compact.uniq
   end
 
