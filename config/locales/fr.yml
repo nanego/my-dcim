@@ -511,6 +511,7 @@ fr:
       execute_confirmation: Voulez-vous vraiment appliquer ce déplacement ?
       frame_table_title: Baies après déplacements
       edit_connections: Modifier les connexions
+      server: Matériel
       action:
         execute_move: Exécuter le déplacement du serveur et de ses connexions
     new:
