@@ -15,7 +15,7 @@ class Room < ApplicationRecord
   has_many :frames, through: :bays, dependent: :restrict_with_error
   has_many :materials, through: :frames, dependent: :restrict_with_error
 
-  scope :sorted, -> { order(:position, :site_id, :name) }
+  scope :sorted, -> { order(:site_id, :position, :name) }
   scope :not_empty, -> { joins(:servers) }
 
   def to_s
