@@ -23,16 +23,18 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:room_id, Room.sorted, :id, :to_s, { prompt: true, include_blank: true },
-                                                                     { class: "form-select" }) %>
+          <%= f.collection_select(:room_id, Room.sorted, :id, :name_with_site,
+                                  { prompt: true, include_blank: true },
+                                  { class: "form-select" }) %>
           <%= f.label :room_id %>
         </fieldset>
       </div>
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:islet_id, Islet.sorted, :id, :to_s, { prompt: true, include_blank: true },
-                                                                       { class: "form-select" }) %>
+          <%= f.collection_select(:islet_id, Islet.includes(:room).order("rooms.site_id", "rooms.position", "rooms.name", :room_id, :name, :position), :id, :name_with_room,
+                                  { prompt: true, include_blank: true },
+                                  { class: "form-select" }) %>
           <%= f.label :islet_id %>
         </fieldset>
       </div>
@@ -50,11 +52,11 @@
 
     <% table.with_column(Frame.model_name.human.pluralize) do |bay| %>
       <b>
-      <%=
-        bay.frames.map do |frame|
-          link_to(frame.name, frame_path(frame))
-        end.join(" / ").html_safe
-      %>
+        <%=
+          bay.frames.map do |frame|
+            link_to(frame.name, frame_path(frame))
+          end.join(" / ").html_safe
+        %>
       </b>
     <% end %>
 
@@ -77,14 +79,14 @@
         <%= render partial: "bays/export_button", locals: { bay: bay } %>
         <%= link_to edit_bay_path(bay), class: "btn btn-info" do %>
           <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
-                                                                     data-controller="tooltip"
-                                                                     data-bs-placement="left"></span>
+                data-controller="tooltip"
+                data-bs-placement="left"></span>
           <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
         <%= link_to bay, method: :delete, data: { confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
           <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
-                                                                      data-controller="tooltip"
-                                                                      data-bs-placement="left"></span>
+                data-controller="tooltip"
+                data-bs-placement="left"></span>
           <span class="visually-hidden"><%= t("action.delete") %></span>
         <% end %>
       </div>
