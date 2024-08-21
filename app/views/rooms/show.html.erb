@@ -67,7 +67,7 @@
             </ul>
           </div>
         </div>
-        <div class="tab-content bg-body overflow-scroll p-3 m-auto" id="roomsTabContent">
+        <div class="tab-content bg-body overflow-auto p-3 m-auto" id="roomsTabContent">
           <% @sites.each do |site| %>
             <% site.rooms.each do |room| %>
               <% room.islets.sorted.each do |islet| %>
