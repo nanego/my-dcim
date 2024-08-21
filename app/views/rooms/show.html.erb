@@ -44,9 +44,9 @@
             <% end %>
           </ul>
           <hr />
-          <div class="text-center">
+          <div>
             <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <%= t("rooms.action_buttons.background_color", bg: bg || User::AVAILABLE_BAY_BACKGROUND_COLORS[0]) %>
+              <%= t("rooms.action_buttons.background_color", bg: t("rooms.action_buttons.background_choices.#{bg || User::AVAILABLE_BAY_BACKGROUND_COLORS[0]}")) %>
             </button>
             <ul class="dropdown-menu">
               <li><%= link_to Modele.model_name.human,
