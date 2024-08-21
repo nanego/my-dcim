@@ -5,18 +5,13 @@ require "rails_helper"
 RSpec.describe "Rooms::BrowseRoom", :js do
   let(:room) { rooms(:one) }
 
-  # The 2nd bay created an empty "couple div" in rooms #Show view, causing the test to fail.
-  before do
-    room.islets.first.bays.last.destroy!
-  end
-
   it("browse a room, islets and bays, change view and background color") do # rubocop:disable RSpec/MultipleExpectations
     sign_in(users(:one))
 
     visit room_path(room)
     expect(page).to have_current_path(room_path(room))
 
-    frame = room.frames.first
+    frame = room.frames.last
 
     # 1. Select a frame
     overview_frame = find("div[data-frame-id=#{frame.slug}]")
@@ -37,7 +32,7 @@ RSpec.describe "Rooms::BrowseRoom", :js do
     sleep 1
 
     # On the back view, we should see some server cards (only the 2nd server has cards)
-    frame.servers.second.cards.pluck(:name).each do |card_name|
+    frame.servers.first.cards.pluck(:name).each do |card_name|
       expect(page).to have_content(card_name)
     end
 
