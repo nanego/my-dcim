@@ -20,11 +20,16 @@ module Visualization
       @islet = Islet.find(@filter.islet_id)
       @room = @islet.room
 
-      @servers = Server.includes(:frame, :stack, :ports, cards: [:ports])
-        .where.not(network_types: [])
+      @servers = Server.where.not(network_types: [])
       # .includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
       @concentrateurs_ids = [383, 384, 1043, 1044]
-      @concentrateurs = Server.where(id: @concentrateurs_ids).includes(ports: :connection, cards: [ports: :connection])
+      @concentrateurs = Server.where(id: @concentrateurs_ids)
+
+      fresh_when last_modified: [@servers.maximum(:updated_at), @concentrateurs.maximum(:updated_at)].max
+
+      @servers = @servers.includes(:frame, :stack, :ports, cards: [:ports])
+      @concentrateurs = @concentrateurs.includes(ports: :connection, cards: [ports: :connection])
+
       @switchs_lan_ids = @concentrateurs_ids | @servers.pluck(:id) # Switch LAN
       # TODO: Remove hard-coded values
       @hubs = {}
