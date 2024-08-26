@@ -13,7 +13,7 @@ class SyncWithGlpiJob < ApplicationJob
       servers_count = servers.count
 
       Rails.logger.info "Synchronizing #{servers_count} servers with GLPI records:"
-      puts "Synchonizing #{servers_count} servers with GLPI records:"
+      puts "Synchronizing #{servers_count} servers with GLPI records:"
 
       servers.each_with_index do |server, index|
         ExternalAppRecord.sync_server_with_glpi(server, client)

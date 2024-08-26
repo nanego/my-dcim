@@ -9,7 +9,7 @@ namespace :sync_glpi_data do
 
     servers = Server.no_pdus
 
-    puts "Synchonizing #{servers.count} servers with GLPI records:"
+    puts "Synchronizing #{servers.count} servers with GLPI records:"
 
     servers.each_with_index do |server, index|
       puts "Processed #{index + 1} servers so far" if (index + 1) % 25 == 0
