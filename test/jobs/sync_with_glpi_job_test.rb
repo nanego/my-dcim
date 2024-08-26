@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ExternalAppRecordTest < ActiveSupport::TestCase
+class SyncWithGlpiJobTest < ActiveJob::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_09_134050) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_22_135649) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -261,6 +261,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_09_134050) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["server_id"], name: "index_external_app_records_on_server_id"
+  end
+
+  create_table "external_app_requests", force: :cascade do |t|
+    t.string "status"
+    t.integer "progress"
+    t.string "external_app_name"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_external_app_requests_on_user_id"
   end
 
   create_table "frames", id: :serial, force: :cascade do |t|
@@ -558,6 +568,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_09_134050) do
   add_foreign_key "disks", "disk_types"
   add_foreign_key "documents", "servers"
   add_foreign_key "external_app_records", "servers"
+  add_foreign_key "external_app_requests", "users"
   add_foreign_key "frames", "bays"
   add_foreign_key "maintenance_contracts", "contract_types"
   add_foreign_key "maintenance_contracts", "maintainers"

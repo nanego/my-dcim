@@ -82,9 +82,10 @@ Rails.application.routes.draw do
 
   resources :external_app_records, only: %i[index] do
     collection do
-      put :sync
+      put :sync_all_servers_with_glpi, as: :sync_with_glpi
     end
   end
+  resources :external_app_requests, only: %i[show]
 
   namespace :visualization do
     resource :infrastructure, only: :show
