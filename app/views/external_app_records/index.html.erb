@@ -10,10 +10,11 @@
 
 <%= button_to 'Démarrer la synchronisation avec GLPI', sync_with_glpi_external_app_records_path,
               id: 'sync_with_glpi_button',
+              class: "btn btn-primary",
               remote: true, method: :put %>
 
 <div id="current_sync_status" style="display: none;">
-  <span id="current_sync_status_label">Synchonisation en cours...</span>
+  <span id="current_sync_status_label">Synchronisation en cours...</span>
   <span class="progress">
     <span id="current_sync_progress_bar"
           class="progress-bar progress-bar-striped"
