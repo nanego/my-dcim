@@ -7,9 +7,65 @@
 <h1><%= t(".title") %></h1>
 
 <p>Listés : <%= @external_app_records.count %> sur <%= @servers_count %> machines connues </p>
-<%# button_to 'Start Sync', sync_external_app_records_path, remote: true, method: :put %>
-<p><i>Dernière synchronisation :
-  <%- if date = ExternalAppRecord.order('updated_at desc').limit(1).pluck(:updated_at).last %>
+
+<%= button_to 'Démarrer la synchronisation avec GLPI', sync_with_glpi_external_app_records_path,
+              id: 'sync_with_glpi_button',
+              remote: true, method: :put %>
+
+<div id="current_sync_status" style="display: none;">
+  <span id="current_sync_status_label">Synchonisation en cours...</span>
+  <span class="progress">
+    <span id="current_sync_progress_bar"
+          class="progress-bar progress-bar-striped"
+          role="progressbar"
+          aria-valuenow="0%"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          style="width: 0%"></span>
+  </span>
+</div>
+
+<script>
+  //<![CDATA[
+  $(document).ready(function () {
+
+    document.getElementById('sync_with_glpi_button').addEventListener('click', function (event) {
+      event.preventDefault();
+      fetch('<%= sync_with_glpi_external_app_records_path %>', {
+        method: 'PUT'
+      }).then(response => response.json())
+        .then(data => {
+          document.getElementById('current_sync_status').style.display = 'block';
+          const requestId = data.request_id;
+          checkRequestProgress(requestId);
+        });
+    });
+  });
+
+  function checkRequestProgress(requestId) {
+    fetch(`/external_app_requests/${requestId}`)
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('current_sync_progress_bar').style.width = data.progress + '%';
+        if (data.status === 'completed') {
+          document.getElementById('current_sync_status_label').innerText = 'Synchronisation terminée. Rechargez la page pour consulter les nouvelles données.';
+          document.getElementById('current_sync_progress_bar').classList.add('bg-success');
+        } else {
+          if (data.status === 'failed') {
+            document.getElementById('current_sync_status_label').innerText = 'Synchronisation en erreur';
+            document.getElementById('current_sync_progress_bar').classList.add('bg-danger');
+          } else {
+            setTimeout(() => checkRequestProgress(requestId), 1000);
+          }
+        }
+      });
+  }
+
+  //]]>
+</script>
+
+<p><i>Dernière synchronisation complète :
+  <%- if date = ExternalAppRequest.completed.order('updated_at desc').limit(1).pluck(:updated_at).last %>
     <%= l(date) %>
   <%- else %>
     aucune

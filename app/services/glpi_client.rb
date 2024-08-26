@@ -81,6 +81,9 @@ class GlpiClient
   end
 
   def get_computer_id_from_glpi(serial:)
+
+    serial = "AZERTY" unless Rails.env.production?
+
     resp = @connection.get("Computer?searchText[serial]=#{serial}") do |request|
       request.headers["Session-Token"] = session_token
       request.headers["App-Token"] = API_KEY
