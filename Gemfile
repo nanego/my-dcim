@@ -81,7 +81,6 @@ gem "acts_as_list"
 gem "friendly_id", "~> 5.2"
 gem "public_activity"
 gem "record_tag_helper", "~> 1.0" # Add helpers removed from Rails core in Rails 5
-gem "wicked_pdf"
 gem "wkhtmltopdf-binary"
 
 # Manage file uploads
@@ -101,6 +100,7 @@ gem "diffy", "~> 3.4"
 gem "importmap-rails", "~> 2.0"
 gem "jquery-rails"
 gem "jquery-ui-rails"
+gem "requestjs-rails"
 gem "rubanok"
 gem "stimulus-rails", "~> 1.2"
 gem "store_attribute", "~> 1.2"

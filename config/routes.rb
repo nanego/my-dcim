@@ -11,7 +11,8 @@ Rails.application.routes.draw do
       get :load_server
       get :load_frame
       get :load_connection
-      get '/frames/:id', to: 'moves#frame'
+      get "/frames/:frame_id", to: "moves#frame"
+      get "/print/:frame_id", to: "moves#print", as: :print
       match 'update_connection', to: 'moves#update_connection', via: [:patch, :post, :put]
     end
   end
@@ -19,7 +20,9 @@ Rails.application.routes.draw do
   post 'data_import/ansible'
 
   resources :sites
-  resources :islets
+  resources :islets do
+    get :print, on: :member
+  end
   resources :disk_types
   resources :memory_types
   resources :memory_components
@@ -35,6 +38,7 @@ Rails.application.routes.draw do
     end
     member do
       get :network
+      get :print
     end
   end
 
@@ -60,19 +64,19 @@ Rails.application.routes.draw do
     get :duplicate, on: :member
   end
 
-  resources :servers_grids, only: [:index] do
-    collection do
-      get :reseau
-    end
-  end
+  resources :servers_grids, only: [:index]
   resources :card_types
   resources :colors
   resources :rooms do
     collection do
       get :overview
     end
+
+    get :print, on: :member
   end
-  resources :bays
+  resources :bays do
+    get :print, on: :member
+  end
   resources :gestions
   resources :domaines
   resources :modeles
