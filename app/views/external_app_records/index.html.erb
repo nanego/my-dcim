@@ -36,12 +36,25 @@
         method: 'PUT'
       }).then(response => response.json())
         .then(data => {
-          document.getElementById('current_sync_status').style.display = 'block';
           const requestId = data.request_id;
-          checkRequestProgress(requestId);
+          displaySyncStatus(requestId);
         });
     });
+
+    <% current_request = ExternalAppRequest.in_progress.first %>
+    <% if current_request %>
+    displaySyncStatus(<%= current_request.id %>);
+    document.getElementById('current_sync_status').innerHTML += '<%= button_to('Annuler',
+                external_app_request_path(current_request),
+                class: "btn btn-danger",
+                method: :delete) if current_request.created_at < 5.minutes.ago(Time.now) %>';
+    <% end %>
   });
+
+  function displaySyncStatus(requestId) {
+    document.getElementById('current_sync_status').style.display = 'block';
+    checkRequestProgress(requestId);
+  }
 
   function checkRequestProgress(requestId) {
     fetch(`/external_app_requests/${requestId}`)
