@@ -4,7 +4,8 @@ class RoomsController < ApplicationController
   include ServersHelper
   include RoomsHelper
 
-  before_action :set_room, only: %i[show edit update destroy islet]
+  before_action :set_room, only: %i[show edit update destroy islet print]
+  before_action :set_servers_per_frames, only: %i[show print]
 
   def index
     @filter = ProcessorFilter.new(Room.joins(:site).order('sites.position asc, rooms.position asc, rooms.name asc'), params)
@@ -14,33 +15,12 @@ class RoomsController < ApplicationController
   def show
     @sites = Site.joins(:rooms).includes(:rooms => [:bays => [:bay_type]]).order(:position).distinct
     @islet = Islet.find_by(name: params[:islet], room_id: @room.id) if params[:islet].present?
-    frames = Frames::IncludingServersQuery.call
-    @servers_per_frames = {}
-
-    sorted_frames_per_islet(frames, params[:view]).each do |frame|
-      room = frame.bay.islet.room_id
-      islet = frame.bay.islet.name
-      @servers_per_frames[room] ||= {}
-      @servers_per_frames[room][islet] ||= {}
-      @servers_per_frames[room][islet][frame.bay.lane] ||= {}
-      @servers_per_frames[room][islet][frame.bay.lane][frame.bay] ||= {}
-      @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] ||= []
-      frame.servers.each do |s|
-        @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] << s
-      end
-    end
 
     @air_conditioners = AirConditioner.all
 
     respond_to do |format|
       format.html
       format.json
-      format.pdf do
-        render template: "rooms/show",
-               show_as_html: params[:debug].present?,
-               pdf: 'frame',
-               zoom: 0.75
-      end
       format.txt { send_data Frame.to_txt(@servers_per_frames[@room.id], params[:bg]) }
     end
   end
@@ -65,12 +45,6 @@ class RoomsController < ApplicationController
     respond_to do |format|
       format.html do
         render :show
-      end
-      format.pdf do
-        render template: "rooms/show",
-               show_as_html: params[:debug].present?,
-               pdf: 'frame',
-               zoom: 0.75
       end
       format.txt { send_data Frame.to_txt(@servers_per_frames, params[:bg]) }
     end
@@ -150,6 +124,10 @@ class RoomsController < ApplicationController
     end
   end
 
+  def print
+    render layout: "pdf"
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -160,5 +138,23 @@ class RoomsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def room_params
     params.require(:room).permit(:name, :description, :display_on_home_page, :position, :site_id)
+  end
+
+  def set_servers_per_frames
+    frames = Frames::IncludingServersQuery.call
+    @servers_per_frames = {}
+
+    sorted_frames_per_islet(frames, params[:view]).each do |frame|
+      room = frame.bay.islet.room_id
+      islet = frame.bay.islet.name
+      @servers_per_frames[room] ||= {}
+      @servers_per_frames[room][islet] ||= {}
+      @servers_per_frames[room][islet][frame.bay.lane] ||= {}
+      @servers_per_frames[room][islet][frame.bay.lane][frame.bay] ||= {}
+      @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] ||= []
+      frame.servers.each do |s|
+        @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] << s
+      end
+    end
   end
 end

@@ -601,7 +601,7 @@ fr:
       background_color: 'Couleur de fond : %{bg}'
       background_choices:
         modele: Modèle
-        gestionnaire: Gestionnaire
+        gestion: Gestionnaire
         cluster: Cluster
       dragn_drop:
         enable: Activer le drag'n drop
