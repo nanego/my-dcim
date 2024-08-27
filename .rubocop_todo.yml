@@ -899,7 +899,6 @@ Style/TrailingCommaInHashLiteral:
     - 'app/models/server.rb'
     - 'config/environments/production.rb'
     - 'config/initializers/shrine.rb'
-    - 'config/initializers/wicked_pdf.rb'
     - 'lib/tasks/convert_activities_to_changelog_entries.rake'
     - 'spec/components/previews/list/data_table_component_preview.rb'
 

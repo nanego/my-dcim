@@ -22,6 +22,9 @@ module Visualization
       @room = @islet.room
       @network = @filter.network_type # TODO: take from params and raise error if not good
       @bays = @islet.bays.sorted
+      @servers = Server.where(frame_id: Frame.select(:id).group(:id).where(bay_id: @bays))
+
+      fresh_when last_modified: [@islet.updated_at, @room.updated_at, @bays.maximum(:updated_at), @servers.maximum(:updated_at)].max
     end
   end
 end

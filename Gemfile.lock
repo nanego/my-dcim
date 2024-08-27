@@ -401,6 +401,8 @@ GEM
     regexp_parser (2.9.1)
     reline (0.5.9)
       io-console (~> 0.5)
+    requestjs-rails (0.0.11)
+      railties (>= 6.1.0)
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
@@ -560,8 +562,6 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    wicked_pdf (2.8.0)
-      activesupport
     wkhtmltopdf-binary (0.12.6.6)
     xpath (3.2.0)
       nokogiri (~> 1.8)
@@ -621,6 +621,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n (~> 7.0.x)
   record_tag_helper (~> 1.0)
+  requestjs-rails
   rspec-activemodel-mocks
   rspec-html-matchers
   rspec-rails
@@ -645,7 +646,6 @@ DEPENDENCIES
   view_component
   virtus
   web-console (>= 4.1.0)
-  wicked_pdf
   wkhtmltopdf-binary
 
 RUBY VERSION

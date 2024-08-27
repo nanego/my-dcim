@@ -4,25 +4,19 @@ class FramesController < ApplicationController
   include ServersHelper
   include RoomsHelper
 
+  before_action :set_frame, only: %i[show print]
+  before_action :set_room, only: %i[show print]
+
   def index
     @filter = ProcessorFilter.new(Frame.includes(bay: { islet: :room }).references(bay: { islet: :room }), params)
     @frames = @filter.results
   end
 
   def show
-    @frame = Frame.all.includes(:servers => [:modele => [:category, :composants], :cards => [:composant, :ports => [:connection => [:cable => :connections]], :card_type => [:port_type]]], :bay => [:islet => [:room]]).friendly.find(params[:id].to_s.downcase)
-    @room = @frame.room
-
     respond_to do |format|
       format.html
       format.json
       format.js
-      format.pdf do
-        render template: "frames/show",
-               show_as_html: params[:debug].present?,
-               pdf: 'frame',
-               zoom: 0.75
-      end
       format.txt { send_data @frame.to_txt(params[:bg]) }
     end
   end
@@ -111,14 +105,12 @@ class FramesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.pdf do
-        render template: "rooms/show",
-               show_as_html: params[:debug].present?,
-               pdf: 'frame',
-               zoom: 0.75
-      end
       format.txt { send_data Frame.to_txt(@servers_per_frames, params[:bg]) }
     end
+  end
+
+  def print
+    render layout: "pdf"
   end
 
   private
@@ -126,5 +118,19 @@ class FramesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def frame_params
     params.require(:frame).permit(:name, :u, :room, :islet, :position, :switch_slot, :bay_id)
+  end
+
+  def set_frame
+    @frame = Frame.all.includes(servers: [modele: [:category, :composants],
+                                          cards: [:composant,
+                                                  ports: [connection: [cable: :connections]],
+                                                  card_type: [:port_type],]],
+                                bay: [islet: [:room]])
+      .friendly
+      .find(params[:id].to_s.downcase)
+  end
+
+  def set_room
+    @room = @frame.room
   end
 end

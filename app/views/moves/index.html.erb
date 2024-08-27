@@ -51,22 +51,31 @@
   <div class="table-responsive">
     <table class="table table-striped table-bordered table-hover align_middle">
       <tbody>
-      <%= content_tag_for(:tr, @frames) do |frame| %>
-        <td><%= link_to "#{frame}", "/moves/frames/#{frame.id}" %></td>
-        <td class="text-center">
-          <%= link_to t(".edit_connections"), "/moves/frames/#{frame.id}", class: "btn btn-sm btn-primary" %>
-        </td>
-        <td class="text-end">
-          <%= link_to "/moves/frames/#{frame.id}.pdf?debug=1", class: "btn btn-sm btn-outline-primary" do %>
-            <span class="bi bi-printer" aria-hidden="true"></span>
-            <%= t("export_button.exports.print") %>
-          <% end %>
-          <%= link_to "/moves/frames/#{frame.id}.pdf", class: "btn btn-sm btn-outline-primary" do %>
-            <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
-            <%= t("export_button.exports.pdf") %>
-          <% end %>
-        </td>
-      <% end %>
+        <%= content_tag_for(:tr, @frames) do |frame| %>
+          <td><%= link_to "#{frame}", "/moves/frames/#{frame.id}" %></td>
+          <td class="text-center">
+            <%= link_to t(".edit_connections"), "/moves/frames/#{frame.id}", class: "btn btn-sm btn-primary" %>
+          </td>
+          <td class="d-flex justify-content-center column-gap-1"
+              data-controller="export-pdf"
+              data-export-pdf-model-ids-value="<%= [frame.id] %>"
+              data-export-pdf-filename-value="move-frame-<%= frame.name %>"
+              data-export-pdf-is-move-value="true">
+            <%= link_to print_moves_path(frame.id), class: "btn btn-sm btn-outline-primary", target: :_blank do %>
+              <span class="bi bi-printer" aria-hidden="true"></span>
+              <%= t("export_button.exports.print") %>
+            <% end %>
+            <a role="button" class="btn btn-sm btn-outline-primary d-flex align-items-center export-button-move"
+                             data-action="click->export-pdf#export" data-view-target="front">
+              <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+              <span class="text-truncate d-inline-block ms-2">
+                <%= t("export_button.exports.pdf") %>
+              </span>
+              <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none" role="status"
+                    aria-hidden="true" data-export-pdf-target="spinner"></span>
+            </a>
+          </td>
+        <% end %>
       </tbody>
     </table>
   </div>
