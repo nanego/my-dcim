@@ -191,10 +191,17 @@ $(".show_room .overviewed_frame .title a").on('click', function (e) {
 
 // Update Breadcrumb after click on a Room Selection
 function menuRoomsClick(e) {
+  e.preventDefault()
+
   let breadcrumb = document.querySelector("ol.breadcrumb")
 
+  // all tabs inactive
+  document.getElementById("roomsTab").querySelectorAll("li").forEach((elt) => elt.classList.remove("active"))
+  document.getElementById("roomsTab").querySelectorAll("li a").forEach((elt) => elt.classList.remove("active"))
+  document.getElementById("roomsTabContent").querySelectorAll("div.islet").forEach((elt) => elt.classList.remove("active", "show"))
+
   // Switch active state on li
-  document.getElementById("roomsTab").querySelector("li.active").classList.remove("active")
+  bootstrap.Tab.getOrCreateInstance(e.target).show()
   e.target.parentNode.classList.add("active")
 
   // Update Room
