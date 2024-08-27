@@ -33,37 +33,6 @@ class ServersGridsController < ApplicationController
     end
   end
 
-  def reseau
-    params[:servers_grid] = { "column_names" => %W(id
-                                                   name
-                                                   modele
-                                                   room
-                                                   fc_total
-                                                   fc_calcule
-                                                   fc_utilise
-                                                   rj45_total
-                                                   rj45_calcule
-                                                   rj45_utilise
-                                                   rj45_futur
-                                                   ipmi_utilise
-                                                   ipmi_futur
-                                                   rj45_cm
-                                                   ipmi_dedie
-                                                   slots
-                                                   ip
-                                                   etat_conf_reseau
-                                                   action_conf_reseau) }
-    @servers = ServersGrid.new(params[:servers_grid])
-
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render show_as_html: params[:debug].present?,
-               pdf: 'servers'
-      end
-    end
-  end
-
   private
 
   def save_request_in_session(params)

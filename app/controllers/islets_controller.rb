@@ -3,7 +3,9 @@
 class IsletsController < ApplicationController
   include RoomsHelper
 
-  before_action :set_islet, only: [:show, :edit, :update, :destroy]
+  before_action :set_islet, only: [:show, :edit, :update, :destroy, :print]
+  before_action :set_room, only: %i[show print]
+  before_action :set_servers_per_frames, only: %i[show print]
 
   def index
     @islets = sorted Islet.joins(:site, :room).order('rooms.site_id asc, rooms.position asc, islets.name asc')
@@ -12,31 +14,8 @@ class IsletsController < ApplicationController
   def show
     return @islet if request.format.html?
 
-    frames = Frames::IncludingServersQuery.call(@islet.frames)
-    @room = @islet.room
-    @servers_per_frames = {}
-
-    sorted_frames_per_islet(frames, params[:view]).each do |frame|
-      room = frame.bay.islet.room_id
-      islet = frame.bay.islet.name
-      @servers_per_frames[room] ||= {}
-      @servers_per_frames[room][islet] ||= {}
-      @servers_per_frames[room][islet][frame.bay.lane] ||= {}
-      @servers_per_frames[room][islet][frame.bay.lane][frame.bay] ||= {}
-      @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] ||= []
-      frame.servers.each do |s|
-        @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] << s
-      end
-    end
-
     respond_to do |format|
       format.json
-      format.pdf do
-        render template: "rooms/show",
-               show_as_html: params[:debug].present?,
-               pdf: 'frame',
-               zoom: 0.75
-      end
       format.txt { send_data Frame.to_txt(@servers_per_frames[@room.id], params[:bg]) }
     end
   end
@@ -94,6 +73,10 @@ class IsletsController < ApplicationController
     end
   end
 
+  def print
+    render "rooms/print", layout: "pdf"
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -104,5 +87,27 @@ class IsletsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def islet_params
     params.require(:islet).permit(:name, :room_id, :position)
+  end
+
+  def set_room
+    @room = @islet.room
+  end
+
+  def set_servers_per_frames
+    frames = Frames::IncludingServersQuery.call(@islet.frames)
+    @servers_per_frames = {}
+
+    sorted_frames_per_islet(frames, params[:view]).each do |frame|
+      room = frame.bay.islet.room_id
+      islet = frame.bay.islet.name
+      @servers_per_frames[room] ||= {}
+      @servers_per_frames[room][islet] ||= {}
+      @servers_per_frames[room][islet][frame.bay.lane] ||= {}
+      @servers_per_frames[room][islet][frame.bay.lane][frame.bay] ||= {}
+      @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] ||= []
+      frame.servers.each do |s|
+        @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] << s
+      end
+    end
   end
 end
