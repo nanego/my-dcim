@@ -762,4 +762,37 @@ body {
   .ts-dropdown, .ts-control, .ts-control input {
     color: var(--bs-body-color);
   }
+
+  /* Visualization views - Turbo frame div */
+  turbo-frame {
+    &#network_capacity_islet, &#infrastructure_islet {
+      .loader-overlay {
+        visibility: hidden;
+        opacity: 0;
+
+        transition: opacity 200ms ease-in-out;
+
+        /* TODO: use bg-primary-subtle when subtle color will support bg-opacity */
+        background-color: rgba(rgb(221, 226, 250), .75);
+      }
+
+      &[busy] {
+        .loader-overlay {
+          visibility: visible;
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+@include color-mode(dark) {
+  turbo-frame {
+    &#network_capacity_islet, &#infrastructure_islet {
+      .loader-overlay {
+        /* TODO: use bg-primary-subtle when subtle color will support bg-opacity */
+        background-color: rgba(17, 22, 46, 0.75);
+      }
+    }
+  }
 }
