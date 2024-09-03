@@ -11,7 +11,7 @@ const exportOptions = {
   },
   pagebreak: { avoid: ".server" },
   enableLinks: false,
-  html2canvas:  { width: 1200, scale: 2 },
+  html2canvas:  { windowWidth: 1200, width: 1200 },
   jsPDF: { format: "legal" }
 }
 

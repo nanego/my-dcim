@@ -522,7 +522,8 @@ body {
   /* Forces the light theme for PDF */
   @extend html, [data-bs-theme="light"];
 
-  min-width: 75%;
+  max-width: 794px;
+  width: 100%;
 
   .col-lg-6 {
     width: 100% !important;
