@@ -86,7 +86,7 @@
 
         <li>
           <%= link_to url_for(params.except(:controller, :action)
-                                    .permit(:view, :islet, :id, :bg, :format)
+                                    .permit(:view, :islet, :id, :bg)
                                     .merge(action: :print)),
                       class: "dropdown-item",
                       target: :_blank do %>
