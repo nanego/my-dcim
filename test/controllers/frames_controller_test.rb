@@ -21,7 +21,7 @@ class FramesControllerTest < ActionController::TestCase
 
   test "should create frame" do
     assert_difference('Frame.count') do
-      post :create, params: { frame: { name: @frame.name, bay_id: 1 } }
+      post :create, params: { frame: { name: "MyFrame4", bay_id: 1 } }
     end
 
     assert_redirected_to frames_path
