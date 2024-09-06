@@ -26,9 +26,10 @@
         <% if islets.size > 1 %>
           <% islets.each do |islet| %>
             <li class="nav-item" role="menuitem">
-              <%= link_to "> #{Islet.model_name.human} #{islet.name}",
-                          islet_path(islet, view: params[:view], bg: params[:bg]),
-                          class: "dropdown-item ps-4" %>
+              <%= link_to islet_path(islet, view: params[:view], bg: params[:bg]), class: "dropdown-item ps-4" do %>
+                <span class="text-primary">•</span>
+                <span><%= "#{Islet.model_name.human} #{islet.name}" %></span>
+              <% end %>
             </li>
           <% end %>
         <% end %>
