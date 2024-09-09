@@ -29,8 +29,9 @@ class Server < ApplicationRecord
   has_many :moves, as: :moveable, dependent: :destroy
 
   has_many :documents, dependent: :restrict_with_error
-
   has_one_attached :photo
+
+  has_many :external_app_record, dependent: :destroy
 
   validates_presence_of :numero
   validates :name, presence: true
