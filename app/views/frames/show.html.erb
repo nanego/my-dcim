@@ -1,1 +1,29 @@
-<%= @frame.inspect %>
+<div class="row my-5">
+  <div class="col-11 col-md-10 col-lg-8 mx-auto">
+    <div class="d-flex justify-content-between pb-5">
+      <%= link_to rooms_path, class: "btn align-self-center d-inline-flex",
+                              title: t("action.back") do %>
+        <span class="bi bi-chevron-left"></span>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
+      <% end %>
+      <h1 class="text-center px-4"><%= "Frame #{@frame.name}" %></h1>
+      <div>
+        <%= link_to visualization_frame_path(@frame), class: "btn btn-primary align-self-center d-inline-flex", title: t("visualization.title") do %>
+          <span class="bi bi-eye"></span>
+          <span class="d-none d-md-inline-block ms-1"><%= t("visualization.title") %></span>
+        <% end %>
+        <%= link_to edit_frame_path(@frame), class: "btn btn-info align-self-center d-inline-flex", title: t("action.edit") do %>
+          <span class="bi bi-pencil"></span>
+          <span class="d-none d-md-inline-block ms-1"><%= t("action.edit") %></span>
+        <% end %>
+      </div>
+    </div>
+
+    <dl class="bg-body-tertiary p-4 rounded border">
+      <% %i[name].each do |attribute_name| %>
+        <dt><%= Frame.human_attribute_name(attribute_name) %> :</dt>
+        <dd><%= @frame.public_send(attribute_name) %></dd>
+      <% end %>
+    </dl>
+  </div>
+</div>

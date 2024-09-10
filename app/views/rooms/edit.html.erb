@@ -14,10 +14,16 @@
         <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
       <% end %>
       <h1 class="px-4 text-center"><%= t(".title") %></h1>
-      <%= link_to @room, class: "btn btn-primary align-self-center d-inline-flex", title: t("action.show") do %>
-        <span class="bi bi-eye"></span>
-        <span class="d-none d-md-inline-block ms-1"><%= t("action.show") %></span>
-      <% end %>
+      <div>
+        <%= link_to visualization_room_path(@room), class: "btn btn-primary align-self-center d-inline-flex", title: t("visualization.title") do %>
+          <span class="bi bi-eye"></span>
+          <span class="d-none d-md-inline-block ms-1"><%= t("visualization.title") %></span>
+        <% end %>
+        <%= link_to @room, class: "btn btn-primary align-self-center d-inline-flex", title: t("action.show") do %>
+          <span class="bi bi-eye"></span>
+          <span class="d-none d-md-inline-block ms-1"><%= t("action.show") %></span>
+        <% end %>
+      </div>
     </div>
     <%= render "form" %>
   </div>
