@@ -102,9 +102,7 @@
         </li>
 
         <li>
-          <%= link_to print_room_path(params.except(:controller, :action)
-                                    .permit(:view, :islet, :id, :bg)
-                                    .merge(action: :print)),
+          <%= link_to print_room_path(params.except(:controller, :action, :id).permit(:view, :islet, :bg)),
                         class: "dropdown-item",
                         target: :_blank do %>
           <span class="bi bi-printer" aria-hidden="true"></span>
