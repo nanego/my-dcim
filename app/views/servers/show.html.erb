@@ -1,42 +1,22 @@
-<% page_title = "#{@server.modele.try(:category).try(:name)} #{@server.name}" %>
-<% provide(:title, "#{t("servers.index.title")} | #{page_title}") %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  t("visualization.title") => overview_rooms_path,
-  @server.frame.room.name => room_path(@server.frame.room, view: params[:view]),
-  "#{Islet.model_name.human} #{@server.frame.islet.name}" => room_path(@server.frame.room, islet: @server.frame.islet.name, view: params[:view], bg: params[:bg]),
-  t("layouts.breadcrumb.bay.double", name: @server.frame.bay) => room_path(@server.frame.room, islet: @server.frame.islet.name, "bay-id": @server.frame.bay_id, view: params[:view]),
-  t("layouts.breadcrumb.bay.simple", name: @server.frame.name) => frame_path(@server.frame, view: params[:view]),
+<% title = "#{@server.modele.try(:category).try(:name)} #{@server.name}" %>
+<% breadcrumb_steps = {
   t("servers.index.title") => servers_path,
   @server.name => ""
 } %>
+<% provide(:title, "#{t("servers.index.title")} | #{title}") %>
 
+<%= render "layouts/breadcrumb", breadcrumb_steps: breadcrumb_steps %>
 <div class="container">
   <div class="row my-5">
-    <div class="col-12">
-      <div class="d-flex justify-content-between pb-5">
-        <% - if @server.frame %>
-          <%= link_to frame_path(@server.frame, view: params[:view]),
-                      class: "btn align-self-center d-inline-flex",
-                      title: t(".back_to_bay", name: @server.frame.try(:name)) do %>
-            <span class="bi bi-chevron-left"></span>
-            <span class="d-none d-md-inline-block ms-1"><%= t(".back_to_bay", name: @server.frame.try(:name)) %></span>
-          <% end %>
+    <%= render Page::HeadingComponent.new(title:) do |heading| %>
+      <% heading.with_extra_buttons do %>
+        <%= link_to duplicate_server_path(@server.slug), class: "btn btn-success d-inline-flex me-2",
+                                                         title: t("action.duplicate") do %>
+          <span class="bi bi-copy"></span>
+          <span class="d-none d-xl-inline-block ms-1"><%= t("action.duplicate") %></span>
         <% end %>
-        <h1 class="text-center px-4"><%= page_title %></h1>
-        <div class="align-self-center ">
-          <%= link_to duplicate_server_path(@server.slug), class: "btn btn-success d-inline-flex me-2",
-                                                           title: t("action.duplicate") do %>
-            <span class="bi bi-copy"></span>
-            <span class="d-none d-xl-inline-block ms-1"><%= t("action.duplicate") %></span>
-          <% end %>
-          <%= link_to edit_server_path(@server.slug), class: "btn btn-info d-inline-flex",
-                                                      title: t("action.edit") do %>
-            <span class="bi bi-pencil"></span>
-            <span class="d-none d-xl-inline-block ms-1"><%= t("action.edit") %></span>
-          <% end %>
-        </div>
-      </div>
-    </div>
+      <% end %>
+    <% end %>
 
     <div class="col-12 mb-4">
       <% bgModeleColor = define_background_color(server: @server, mode: params["bg"]) %>
