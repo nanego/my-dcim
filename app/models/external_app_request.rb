@@ -3,7 +3,7 @@
 class ExternalAppRequest < ApplicationRecord
   belongs_to :user
 
-  enum status: {
+  enum :status, {
     pending: 'pending',
     in_progress: 'in_progress',
     completed: 'completed',

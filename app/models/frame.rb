@@ -2,9 +2,9 @@
 
 class Frame < ApplicationRecord
   attribute :settings, :integer
-  enum settings: { max_u: 38, max_elts: 24, max_rj45: 48, max_fc: 12 }
+  enum :settings, { max_u: 38, max_elts: 24, max_rj45: 48, max_fc: 12 }
   attribute :view_sides, :string
-  enum view_sides: { both: 'both', front: 'front', back: 'back' }
+  enum :view_sides, { both: 'both', front: 'front', back: 'back' }
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]

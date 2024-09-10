@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 ruby file: ".ruby-version"
 
-gem "rails", "~> 7.1.0"
+gem "rails", "~> 7.2.0"
 
 gem "bootstrap", "~> 5.3.2"
 gem "dartsass-sprockets"
@@ -24,7 +24,6 @@ gem "simple_token_authentication", "~> 1.0"
 
 gem "datagrid"
 gem "faraday"
-gem "high_voltage"
 gem "kaminari"
 gem "pg"
 gem "virtus"
@@ -82,7 +81,6 @@ gem "acts_as_list"
 gem "friendly_id", "~> 5.2"
 gem "public_activity"
 gem "record_tag_helper", "~> 1.0" # Add helpers removed from Rails core in Rails 5
-gem "wkhtmltopdf-binary"
 
 # Manage file uploads
 gem "shrine", "~> 3.0.x"
