@@ -1,0 +1,31 @@
+<%- bay_label = t("bays.show.title", bay: @bay, bay_type: @bay.bay_type&.name) %>
+<% provide :title, "#{Bay.model_name.human.pluralize} | #{bay_label}" %>
+<%
+  breadcrumb_steps = {
+    t("visualization.title") => overview_rooms_path, @bay.room.name => room_path(@bay.room, view: params[:view])
+  }
+
+  if @bay.islet.name.present?
+    breadcrumb_steps["#{Islet.model_name.human} #{@bay.islet.name}"] = room_path(@bay.room, islet: @bay.islet.name, view: params[:view])
+  elsif params[:islet].present?
+    breadcrumb_steps["#{Islet.model_name.human} #{params[:islet]}"] = ""
+  end
+
+  breadcrumb_steps[bay_label] = ""
+%>
+<%= render "layouts/breadcrumb", breadcrumb_steps: %>
+
+<div class="container-fluid">
+  <div class="row my-5">
+    <div class="col-12" id="bay-container">
+      <%= render partial: "servers/room", locals: {
+                  room: @bay.room,
+                  islets: @servers_per_frames[@bay.islet.room_id],
+                  title: Bay.human_attribute_name(:bay_frames, count: @bay.frames.size, bay: @bay),
+                  view_side: params[:view],
+      } %>
+    </div>
+  </div>
+</div>
+
+<%= render "ports/modal_edit_port" %>

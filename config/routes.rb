@@ -94,6 +94,9 @@ Rails.application.routes.draw do
   namespace :visualization do
     resource :infrastructure, only: :show
     resource :network_capacity, only: :show
+    resources :rooms, only: :show
+    resources :frames, only: :show
+    resources :bays, only: :show
   end
 
   root to: 'pages#index'
