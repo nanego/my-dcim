@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MigrationServer < ApplicationRecord
+class MigrationServer < ActiveRecord::Base
   self.table_name = "servers"
 end
 

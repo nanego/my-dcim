@@ -9,3 +9,8 @@ two:
   id: 2
   name: Islet2
   room_id: 1
+
+three:
+  id: 3
+  name: Islet3
+  room_id: 1

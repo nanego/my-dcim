@@ -14,4 +14,12 @@ two:
   lane: 1
   position: 1
   bay_type_id: 2
+  islet_id: 2
+
+three:
+  id : 3
+  name: MyBay3
+  lane: 1
+  position: 1
+  bay_type_id: 2
   islet_id: 1

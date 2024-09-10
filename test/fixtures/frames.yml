@@ -21,5 +21,13 @@ three:
   name: MyFrame3
   slug: myframe3
   u: 24
-  bay_id: 1
+  bay_id: 2
   position: 3
+
+four:
+  id: 4
+  name: MyFrame4
+  slug: myframe4
+  u: 24
+  bay_id: 2
+  position: 4
