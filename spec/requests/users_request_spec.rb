@@ -44,7 +44,7 @@ RSpec.describe "Users" do
       end
 
       context "with not found user" do
-        let(:record) { User.new(id: SecureRandom.uuid) }
+        let(:record) { User.new(id: 999_999_999) }
 
         it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
       end

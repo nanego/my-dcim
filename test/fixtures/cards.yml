@@ -24,3 +24,30 @@ three:
   name: CardIPMI
   twin_card_id:
   orientation: "lr-td"
+
+four:
+  id: 4
+  card_type_id: 1
+  server_id: 4
+  composant_id: 1
+  name: Card1
+  twin_card_id:
+  orientation: "lr-td"
+
+five:
+  id: 5
+  card_type_id: 2
+  server_id: 4
+  composant_id: 2
+  name: Card2
+  twin_card_id:
+  orientation: "lr-td"
+
+six:
+  id: 6
+  card_type_id: 4
+  server_id: 4
+  composant_id: 4
+  name: CardIPMI
+  twin_card_id:
+  orientation: "lr-td"

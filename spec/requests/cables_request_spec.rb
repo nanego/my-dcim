@@ -31,7 +31,7 @@ RSpec.describe "Cables" do
     end
 
     context "with not found cable" do
-      before { cable.id = SecureRandom.uuid }
+      before { cable.id = 999_999_999 }
 
       it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
     end

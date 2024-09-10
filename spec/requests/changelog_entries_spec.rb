@@ -24,7 +24,7 @@ RSpec.describe "ChangelogEntries" do
     include_context "with authenticated user"
 
     context "with not found changelog_entry" do
-      let(:changelog_entry) { ChangelogEntry.new(id: SecureRandom.uuid) }
+      let(:changelog_entry) { ChangelogEntry.new(id: 999_999_999) }
 
       it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
     end
