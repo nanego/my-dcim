@@ -72,6 +72,10 @@
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |frame| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
+        <%= link_to visualization_frame_path(frame), class: "btn btn-primary" do %>
+          <span class="bi bi-diagram-3-fill" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("visualization.title") %>"></span>
+          <span class="visually-hidden"><%= t("visualization.title") %></span>
+        <% end %>
         <%= link_to edit_frame_path(frame), class: "btn btn-info" do %>
           <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
                                                                      data-controller="tooltip"
