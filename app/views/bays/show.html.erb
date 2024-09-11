@@ -9,7 +9,7 @@
       <h1 class="text-center px-4"><%= "Bay #{@bay.name}" %></h1>
       <div>
         <%= link_to visualization_bay_path(@bay), class: "btn btn-primary align-self-center d-inline-flex", title: t("visualization.title") do %>
-          <span class="bi bi-eye"></span>
+          <span class="bi bi-diagram-3-fill"></span>
           <span class="d-none d-md-inline-block ms-1"><%= t("visualization.title") %></span>
         <% end %>
         <%= link_to edit_bay_path(@bay), class: "btn btn-info align-self-center d-inline-flex", title: t("action.edit") do %>

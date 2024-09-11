@@ -20,7 +20,7 @@
       <% rooms = site.rooms.sorted.distinct %>
       <% rooms.each do |room| %>
         <li class="nav-item" role="menuitem">
-          <%= link_to room.name, room_path(room, view: params[:view], bg: params[:bg]), class: "dropdown-item" %>
+          <%= link_to room.name, visualization_room_path(room, view: params[:view], bg: params[:bg]), class: "dropdown-item" %>
         </li>
         <% islets = room.islets.sorted.not_empty.has_name.distinct %>
         <% if islets.size > 1 %>
