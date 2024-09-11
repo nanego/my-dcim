@@ -54,3 +54,164 @@
     <% end %>
   <% end %>
 </div>
+
+<script>
+  var lines = []
+  var current_connections = []
+
+  document.addEventListener("turbo:before-frame-render", function() {
+    lines.forEach(function (line) {
+      line.remove()
+    })
+    lines = []
+    current_connections = []
+  })
+
+  document.addEventListener("turbo:frame-render", function () {
+    drawCurrentLines()
+
+    $(".infrastructure").on('scroll', AnimEvent.add(function() {
+      lines.forEach(function (line) {
+        line.position()
+      })
+    }))
+  })
+
+  $(document).ready(function() {
+    LeaderLine.positionByWindowResize = false
+
+    window.addEventListener("resize", function () {
+      lines.forEach(function (line) {
+        line.position()
+      })
+    })
+
+    $("main.mydcim-main").on("scroll", AnimEvent.add(function() {
+      lines.forEach(function (line) {
+        line.position()
+      })
+    }))
+  })
+
+  $('body').on('click', '#infrastructure_filters input:checkbox[name="stack_ids[]"]', function (e) {
+    resetLines()
+  })
+
+  function disabled_colors() {
+    return $('#infrastructure_filters input:checkbox[name="stack_ids[]"]:not(:checked)').map(function () {
+      return $(this).data("color");
+    }).get()
+  }
+
+  function resetLines() {
+    deleteOldLines()
+    drawCurrentLines()
+  }
+
+  function deleteOldLines() {
+    lines.forEach(function (line) {
+      line.hide()
+    })
+    lines = []
+    current_connections = []
+  }
+
+  function drawLine(startElement, endElement, params) {
+    if (startElement && endElement) {
+      lines.push(new LeaderLine(startElement, endElement, params))
+    }
+  }
+
+  function drawInterSwitchsConnections(start_id, end_id, color) {
+    if (start_id != end_id && current_connections.indexOf(end_id + "-" + start_id) < 0) {
+      var start_element = $('.server_' + start_id + ':visible')[0]
+      var end_element = $('.server_' + end_id + ':visible')[0]
+      // var start_anchor = LeaderLine.pointAnchor(start_element, {x: 42 + i * 20, y: 57})
+      // var end_anchor = LeaderLine.pointAnchor(end_element, {x: 42 + i * 20, y: 0})
+      if (start_element && end_element) {
+        setParamsAndDraw(start_element, end_element, color)
+        if (!$(start_element).hasClass('hub_material')) {
+          current_connections.push(start_id + "-" + end_id)
+        }
+        // log(start_id + ' <-> ' + end_id)
+      }
+    }
+  }
+
+  function setParamsAndDraw(start_element, end_element, color) {
+    var params
+
+    if (color) {
+      color = colors_hash[color]
+    } else {
+      color = 'gray'
+    }
+
+    if ($(start_element).hasClass('hub-top') && !($(end_element).hasClass('hub-bottom')) ||
+      $(start_element).hasClass('hub-bottom') && !($(end_element).hasClass('hub-top'))) {
+      // HUB TO SWITCHS
+      end_element = LeaderLine.pointAnchor(end_element, {x: 5, y: 0})
+      params = {
+        path: 'fluid',
+        startPlug: 'behind',
+        endPlug: 'behind',
+        startSocket: 'bottom',
+        endSocket: 'top',
+        color: color,
+        size: 3,
+        dash: true
+      }
+    }
+
+    if ($(start_element).hasClass('lane-1') && $(end_element).hasClass('lane-1') ||
+      $(start_element).hasClass('lane-2') && $(end_element).hasClass('lane-2')) {
+      // SWITCH TO SWITCH - SAME LINE
+      params = {
+        path: 'fluid',
+        startPlug: 'behind',
+        endPlug: 'behind',
+        startSocket: 'bottom',
+        endSocket: 'bottom',
+        color: color,
+        size: 2,
+        dash: false
+      }
+    }
+
+    if ($(start_element).hasClass('hub-top') && ($(end_element).hasClass('hub-bottom')) ||
+      $(start_element).hasClass('hub-bottom') && ($(end_element).hasClass('hub-top'))) {
+      // HUB TO HUB
+      if ($(start_element).hasClass('hub-top')) {
+        start_element = LeaderLine.pointAnchor(start_element, {x: $(start_element).outerWidth(), y: 19})
+        end_element = LeaderLine.pointAnchor(end_element, {x: 0, y: 19})
+      } else {
+        start_element = LeaderLine.pointAnchor(start_element, {x: 0, y: 38})
+        end_element = LeaderLine.pointAnchor(end_element, {x: $(end_element).outerWidth(), y: 38})
+      }
+      params = {
+        path: 'straight',
+        startPlug: 'behind',
+        endPlug: 'behind',
+        color: color,
+        size: 2
+      }
+    }
+
+    // Default
+    if (!params) {
+      log(start_element)
+      log(end_element)
+      params = {
+        path: 'arc',
+        startPlug: 'behind',
+        endPlug: 'behind',
+        startSocket: 'top',
+        endSocket: 'bottom',
+        color: color,
+        size: 2
+      }
+    }
+
+    drawLine(start_element, end_element, params)
+  }
+</script>
