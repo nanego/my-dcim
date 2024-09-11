@@ -57,7 +57,7 @@
               <li><%= link_to Gestion.model_name.human,
                               url_for(params.except(:controller, :action)
                                             .permit(:view, :islet, :id, :bg, :format)
-                                            .merge({ view: "front", bg: "gestionnaire", islet: params[:islet], id: params[:id] })),
+                                            .merge({ view: "front", bg: "gestion", islet: params[:islet], id: params[:id] })),
                               class: "dropdown-item" %></li>
               <li><%= link_to Cluster.model_name.human,
                               url_for(params.except(:controller, :action)

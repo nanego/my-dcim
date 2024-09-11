@@ -67,7 +67,7 @@ class Frame < ApplicationRecord
       txt << "---------------\r\n"
       self.servers.each do |server|
         case detail
-        when 'gestionnaire'
+        when 'gestion'
           addition = server.gestion.try(:name)
         when 'cluster'
           addition = server.cluster.try(:name)
