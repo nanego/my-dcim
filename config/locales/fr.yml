@@ -25,6 +25,7 @@ fr:
       pdf: Export PDF
       txt: Export Txt
       print: Impression
+      csv: Export CSV
     faces:
       front: Face avant
       back: Face arrière
@@ -364,6 +365,9 @@ fr:
     destroy:
       flashes:
         destroyed: Le type de RAM a bien été supprimé.
+  ports:
+    index:
+      title: Liste des ports cablés
   port_types:
     index:
       title: Types de ports

@@ -1,60 +1,59 @@
+<% provide(:title, t(".title")) %>
 <%
   breadcrumb_steps = {}
-  breadcrumb_steps[t('visualization')] = overview_rooms_path
+  breadcrumb_steps[t("visualization.title")] = overview_rooms_path
   if @room.present?
     breadcrumb_steps["Salle #{@room.name}"] = room_path(@room)
   elsif @frame.present?
     breadcrumb_steps["Salle #{@frame.room.name}"] = room_path(@frame.room)
   end
   breadcrumb_steps["Baie #{@frame.name}"] = frame_path(@frame) if @frame.present?
-  breadcrumb_steps["Liste des ports cablés"] = ''
+  breadcrumb_steps["Liste des ports cablés"] = ""
 %>
-<%= render 'layouts/breadcrumb', breadcrumb_steps: %>
+<%= render "layouts/breadcrumb", breadcrumb_steps: %>
 
-<div class="container-fluid">
-
-  <div class="row">
-
-    <div class="col-md-12">
-
-      <div style="margin-bottom: 20px;">
-        <h2>Liste des ports cablés</h2>
+<div class="container">
+  <div class="row my-5">
+    <div class="col-11 col-md-10 col-lg-8 mx-auto">
+      <div class="d-flex align-items-center pb-5">
+        <div class="flex-grow-1"></div>
+        <h1 class="text-center px-4"><%= t(".title") %></h1>
+        <div class="align-self-center d-inline-flex justify-content-end">
+          <% text_action = @room.present? ? ports_path(room_id: @room.id, format: "txt") : ports_path(frame_id: @frame.id, format: "txt") %>
+          <%= link_to text_action, class: "btn btn-outline-primary me-2", title: t("export_button.exports.txt") do %>
+            <span class="bi bi-filetype-txt" aria-hidden="true"></span>
+            <span class="d-none d-md-inline-block ms-1"><%= t("export_button.exports.txt") %></span>
+          <% end %>
+          <% csv_action = @room.present? ? ports_path(room_id: @room.id, format: "csv") : ports_path(frame_id: @frame.id, format: "csv") %>
+          <%= link_to csv_action, class: "btn btn-outline-primary", title: t("export_button.exports.csv") do %>
+            <span class="bi bi-filetype-csv"></span>
+            <span class="d-none d-md-inline-block ms-1"><%= t("export_button.exports.csv") %></span>
+          <% end %>
+        </div>
       </div>
-
-      <div style="margin-bottom: 10px;">
-        <% text_action = @room.present? ? ports_path(room_id: @room.id, format: 'txt') : ports_path(frame_id: @frame.id, format: 'txt') %>
-        <%= link_to text_action, class: 'btn btn-outline-primary' do %>
-          <span class="bi bi-file-earmark-arrow-down" aria-hidden="true"></span>
-          Export Txt
-        <% end %>
-        <% csv_action = @room.present? ? ports_path(room_id: @room.id, format: 'csv') : ports_path(frame_id: @frame.id, format: 'csv') %>
-        <%= link_to csv_action, class: 'btn btn-outline-primary' do %>
-          <span class="bi bi-file-earmark-arrow-down"></span>
-          Exporter au format CSV
-        <% end %>
-      </div>
-
-      <% @frames.each do |frame| %>
-        <h3>
-          <%= link_to "#{frame.name_with_room_and_islet}", frame_path(frame, :view => params[:view]), style: 'text-decoration: underline;' %>
-        </h3>
-        <% frame.servers.includes(:modele, :cards => [:ports, :composant]).order('position desc').each do |s| %>
-          <h4 style="display: inline;"><%= s.name %></h4><span> (<%= s.modele.try(:name) %>)</span>
-          <p>
-            <% s.cards.each do |c| %>
-              <% c.ports.each do |port| %>
-                <% if port && port.cable_name && c.composant.name.present? %>
-                  <%= "#{c.composant.name}#{c.composant.name.include?('SL') ? "/#{port.position}" : port.position} - #{port.network_conf(s.frame.switch_slot)}" %>
-                  <br>
+      <div class="bg-body-tertiary p-4 rounded border">
+        <% @frames.each do |frame| %>
+          <h3>
+            <%= link_to "#{frame.name_with_room_and_islet}",
+                        frame_path(frame, view: params[:view]),
+                        class: "text-decoration-underline" %>
+          </h3>
+          <% frame.servers.includes(:modele, cards: [:ports, :composant]).order("position desc").each do |s| %>
+            <h4 class="d-inline"><%= s.name %></h4>
+            <span> (<%= s.modele.try(:name) %>)</span>
+            <p class="text-break">
+              <% s.cards.each do |c| %>
+                <% c.ports.each do |port| %>
+                  <% if port && port.cable_name && c.composant.name.present? %>
+                    <%= "#{c.composant.name}#{c.composant.name.include?("SL") ? "/#{port.position}" : port.position} - #{port.network_conf(s.frame.switch_slot)}" %>
+                    <br>
+                  <% end %>
                 <% end %>
               <% end %>
-            <% end %>
-          </p>
+            </p>
+          <% end %>
         <% end %>
-      <% end %>
-
+      </div>
     </div>
-
   </div>
-
 </div>
