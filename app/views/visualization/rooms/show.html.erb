@@ -31,7 +31,7 @@
                         </a>
                       <% else %>
                         <a href="#tab-<%= room.id %>-<%= islet %>" onclick="rewriteURL('/visualization/rooms/<%= room.slug %>', {'islet': '<%= islet.name %>'})" aria-controls="islet-<%= islet %>" role="tab" data-bs-toggle="tab" data-bs-target="#tab-<%= room.id %>-<%= islet %>" class="<%= "active" if is_current_islet_active %>">
-                          <%= room.name %> Ilot <%= islet.name %>
+                          <%= "#{room.name} #{Islet.model_name.human} #{islet.name}" %>
                         </a>
                       <% end %>
                     </li>
