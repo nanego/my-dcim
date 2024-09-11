@@ -4,9 +4,15 @@
     <%= t("visualization.title") %>
   </a>
   <ul class="dropdown-menu" style="max-height: 80vh;overflow: auto;">
-    <li role="menuitem"><%= link_to t("rooms.overview_view.title"), overview_rooms_path, class: "dropdown-item" %></li>
-    <li role="menuitem"><%= link_to t("rooms.capacity_view.title"), visualization_network_capacity_path, class: "dropdown-item" %></li>
-    <li role="menuitem"><%= link_to t("rooms.infrastructure_view.title"), visualization_infrastructure_path, class: "dropdown-item" %></li>
+    <li role="menuitem">
+      <%= link_to t("rooms.overview_view.title"), overview_rooms_path, class: "dropdown-item" %>
+    </li>
+    <li role="menuitem">
+      <%= link_to t("rooms.capacity_view.title"), visualization_network_capacity_path, class: "dropdown-item" %>
+    </li>
+    <li role="menuitem">
+      <%= link_to t("rooms.infrastructure_view.title"), visualization_infrastructure_path, class: "dropdown-item" %>
+    </li>
     <% sites = Site.joins(:rooms).order(:position).distinct %>
     <% sites.each do |site| %>
       <li><hr class="dropdown-divider"></li>
@@ -16,6 +22,17 @@
         <li class="nav-item" role="menuitem">
           <%= link_to room.name, room_path(room, view: params[:view], bg: params[:bg]), class: "dropdown-item" %>
         </li>
+        <% islets = room.islets.sorted.not_empty.has_name.distinct %>
+        <% if islets.size > 1 %>
+          <% islets.each do |islet| %>
+            <li class="nav-item" role="menuitem">
+              <%= link_to islet_path(islet, view: params[:view], bg: params[:bg]), class: "dropdown-item ps-4" do %>
+                <span class="text-primary">•</span>
+                <span><%= "#{Islet.model_name.human} #{islet.name}" %></span>
+              <% end %>
+            </li>
+          <% end %>
+        <% end %>
       <% end %>
     <% end %>
   </ul>
