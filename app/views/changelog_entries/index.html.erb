@@ -3,7 +3,7 @@
   t("changelog_entries.title") => ""
 } %>
 
-<turbo-frame id="changelog-entries">
+<%= turbo_frame_tag "changelog-entries" do %>
   <div class="container-fluid">
     <h1><%= t("changelog_entries.title") %></h1>
 
@@ -51,4 +51,4 @@
   </div>
 
   <%= paginate @changelog_entries %>
-</turbo-frame>
+<% end %>
