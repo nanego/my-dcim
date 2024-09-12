@@ -3,7 +3,7 @@
 class SyncWithGlpiJob < ApplicationJob
   queue_as :default
 
-  def perform(*_args)
+  def perform
     request = ExternalAppRequest.find_by(status: 'pending', external_app_name: 'glpi')
     request.update(status: :in_progress)
 
