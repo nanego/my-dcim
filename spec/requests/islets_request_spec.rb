@@ -159,7 +159,7 @@ RSpec.describe "Islets" do
     include_context "with authenticated user"
 
     context "with an islet without bays" do
-      let(:islet) { islets(:two) }
+      let(:islet) { islets(:three) }
 
       it do
         expect do
