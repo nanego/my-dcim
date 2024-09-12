@@ -17,7 +17,7 @@ fr:
       architecture: Architecture
       manufacturer: Constructeur
       domaine: Domaine
-      gestion: Gestion
+      gestion: Gestionnaire
       cluster: Cluster
       stack: Stack
       card: Carte
