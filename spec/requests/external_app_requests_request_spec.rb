@@ -20,7 +20,7 @@ RSpec.describe "ExternalAppRequests" do
     end
 
     it "returns the request status and progress" do
-      json_response = JSON.parse(response.body)
+      json_response = response.parsed_body
       expect(json_response).to include("status" => request.status,
                                        "progress" => request.progress)
     end

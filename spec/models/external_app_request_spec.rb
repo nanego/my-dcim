@@ -1,10 +1,11 @@
-require 'rails_helper'
+# frozen_string_literal: true
 
-RSpec.describe ExternalAppRequest, type: :model do
+require "rails_helper"
 
+RSpec.describe ExternalAppRequest do
   fixtures :users
 
-  let(:request) { ExternalAppRequest.new(user: User.first, external_app_name: 'glpi') }
+  let(:request) { described_class.new(user: User.first, external_app_name: "glpi") }
 
   it "is valid with valid attributes" do
     expect(request).to be_valid
@@ -12,7 +13,7 @@ RSpec.describe ExternalAppRequest, type: :model do
 
   it "is not valid without a user" do
     request.user = nil
-    expect(request).to_not be_valid
+    expect(request).not_to be_valid
   end
 
   it "sets default status to pending" do

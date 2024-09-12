@@ -1,5 +1,6 @@
-class ExternalAppRecord < ApplicationRecord
+# frozen_string_literal: true
 
+class ExternalAppRecord < ApplicationRecord
   belongs_to :server
 
   before_create :set_external_app_name
@@ -23,12 +24,12 @@ class ExternalAppRecord < ApplicationRecord
 
     computer = client.computer(serial: server.numero, params: params)
     record = ExternalAppRecord.find_or_create_by(server: server)
-    if computer.present?
-      updated = record.update({ external_name: computer.name, external_id: computer.id, external_serial: computer.serial })
-    else
-      updated = record.update({ external_name: '', external_id: '', external_serial: '' })
-    end
-    puts "Server ##{server.id} #{server.name} NOT updated" unless updated
+    updated = if computer.present?
+                record.update({ external_name: computer.name, external_id: computer.id, external_serial: computer.serial })
+              else
+                record.update({ external_name: '', external_id: '', external_serial: '' })
+              end
+    Rails.logger.debug { "Server ##{server.id} #{server.name} NOT updated" } unless updated
   end
 
   private
@@ -36,5 +37,4 @@ class ExternalAppRecord < ApplicationRecord
   def set_external_app_name
     self.app_name = 'glpi' # Only one external app supported for now
   end
-
 end

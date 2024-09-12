@@ -24,18 +24,29 @@ RSpec.describe "ExternalAppRecords" do
   end
 
   describe "PUT #sync_all_servers_with_glpi" do
+    subject(:response) do
+      put sync_with_glpi_external_app_records_path
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
     it "creates a new request and enqueues the job" do
-      expect {
-        put sync_with_glpi_external_app_records_path
-      }.to change(ExternalAppRequest, :count).by(1)
+      expect do
+        response
+      end.to change(ExternalAppRequest, :count).by(1)
+    end
 
-      expect(SyncWithGlpiJob).to have_been_enqueued
+    it "enqueues the job" do
+      expect do
+        response
+      end.to have_enqueued_job(SyncWithGlpiJob)
+    end
 
-      request = ExternalAppRequest.last
-      json_response = JSON.parse(response.body)
-      expect(json_response).to include("request_id" => request.id,
-                                       "status" => "pending",
-                                       "progress" => 0)
+    it do
+      expect(response.parsed_body).to include("request_id" => ExternalAppRequest.last.id,
+                                              "status" => "pending",
+                                              "progress" => 0)
     end
   end
 end

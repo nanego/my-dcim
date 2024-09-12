@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExternalAppRequest < ApplicationRecord
   belongs_to :user
 
@@ -22,5 +24,4 @@ class ExternalAppRequest < ApplicationRecord
     self.status ||= :pending
     self.progress ||= 0
   end
-
 end
