@@ -25,7 +25,7 @@ RSpec.describe "Rooms::BrowseRoom", :js do
     end
 
     # 2. Change view to 'back'
-    switch_view_btn = find("span.pull-right > a.btn.btn-success")
+    switch_view_btn = find("a.btn-primary > span.bi-back")
     switch_view_btn.click
 
     # Since the overview container is already loaded, we cannot use find() to wait for loading
@@ -46,11 +46,11 @@ RSpec.describe "Rooms::BrowseRoom", :js do
     colored_lines = all("ul.servers > li.server.mystring")
 
     colored_lines.each do |line|
-      expect(line.style("background-color")["background-color"]).to eq("rgb(183, 247, 255)").or eq("rgb(255, 255, 255)")
+      expect(line.style("background-color")["background-color"]).to eq("rgb(252, 252, 253)").or eq("rgb(183, 247, 255)")
     end
 
     # 3. Change background color to 'gestionnaire'
-    bg_dropdown_button = first("span.pull-right > * > .btn-default.dropdown-toggle")
+    bg_dropdown_button = first(".btn-group > button[data-bs-toggle='dropdown']")
     bg_dropdown_button.click
 
     bg_dropdown_gestionnaire = all(".dropdown-menu > li")[1]
@@ -62,7 +62,7 @@ RSpec.describe "Rooms::BrowseRoom", :js do
     colored_lines = all("ul.servers > li.server.mystring")
 
     colored_lines.each do |line|
-      expect(line.style("background-color")["background-color"]).to eq("rgb(118, 255, 160)").or eq("rgb(255, 255, 255)")
+      expect(line.style("background-color")["background-color"]).to eq("rgb(118, 255, 160)").or eq("rgb(252, 252, 253)")
     end
   end
 end
