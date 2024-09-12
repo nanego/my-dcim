@@ -58,7 +58,7 @@ class Filter
 
     return attributes[symbol] if attribute_names.include?(symbol)
 
-    if method_name.end_with?("=") && attribute_names.include?(method_name.chop.to_sym)
+    if method_name.end_with?("=") && attribute_names.include?(method_name.chop.to_sym) # rubocop:disable Style/IfUnlessModifier
       return attributes[method_name.chop.to_sym] = args.first
     end
 
