@@ -3,7 +3,7 @@
 module List
   class TableComponent < ApplicationComponent
     erb_template <<~ERB
-      <div class="table-responsive">
+      <div class="table-responsive p-4 border-top">
         <%= tag.table(**@html_attributes) do %>
           <% heads.each do |thead| %>
             <%= thead %>
