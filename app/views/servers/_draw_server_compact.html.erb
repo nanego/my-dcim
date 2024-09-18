@@ -5,7 +5,7 @@
 
     <% server.modele.enclosures.each_with_index do |enclosure, index| %>
 
-      <% composants_per_enclosure = enclosure.composants.slots %>
+      <% components_per_enclosure = enclosure.components.slots %>
 
       <% if enclosure.display == "grid" %>
         <style type="text/css">
@@ -14,7 +14,7 @@
           }
         </style>
         <div class="container enclosure-container">
-          <% composants_per_enclosure.each do |component| %>
+          <% components_per_enclosure.each do |component| %>
             <% class_name = "item-#{component.name}" %>
             <style>
               .<%= class_name %> {
@@ -38,12 +38,12 @@
           <% if enclosure.display != "horizontal" %>
 
             <tr>
-              <% composants_per_enclosure.each do |component| %>
+              <% components_per_enclosure.each do |component| %>
                 <th><%= slot_label(server, component) %></th>
               <% end %>
             </tr>
             <tr>
-              <% composants_per_enclosure.each do |component| %>
+              <% components_per_enclosure.each do |component| %>
                 <td class="slot_column">
                   <%= render partial: "servers/draw_component", locals: { server: , component: , selected_port:  } %>
                 </td>
@@ -52,7 +52,7 @@
 
           <% else %>
 
-            <% composants_per_enclosure.each do |component| %>
+            <% components_per_enclosure.each do |component| %>
               <tr>
                 <th><%= slot_label(server, component) %></th>
                 <td>

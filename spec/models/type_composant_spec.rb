@@ -6,6 +6,6 @@ RSpec.describe TypeComposant do
   it_behaves_like "changelogable", new_attributes: { name: "New name" }
 
   describe "associations" do
-    it { is_expected.to have_many(:composants) }
+    it { is_expected.to have_many(:components) }
   end
 end

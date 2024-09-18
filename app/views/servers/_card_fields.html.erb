@@ -1,8 +1,8 @@
 <%
   if local_assigns[:enclosure].present?
-    composants = enclosure.composants.slots
+    components = enclosure.components.slots
   else
-    composants = server.modele.composants.slots
+    components = server.modele.components.slots
   end
 %>
 
@@ -11,7 +11,7 @@
       data-new-record="<%= f.object.new_record? %>">
     <div class="row">
       <span class="col-md-2 mb-2 mb-md-0">
-        <%= f.select :composant_id, options_for_select(composants.map { |c| [c.name || c.position, c.id] },
+        <%= f.select :composant_id, options_for_select(components.map { |c| [c.name || c.position, c.id] },
                                     f.object.composant_id),
                                     {},
                                     { class: "form-select" } %>

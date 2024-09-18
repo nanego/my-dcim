@@ -5,5 +5,5 @@ class TypeComposant < ApplicationRecord
   tracked owner: ->(controller, model) { controller && controller.current_user }
   has_changelog
 
-  has_many :composants
+  has_many :components, class_name: "EnclosureComponent"
 end

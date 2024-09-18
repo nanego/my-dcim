@@ -12,7 +12,7 @@
                     grid-row: <%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;">
                     <% frames.each_with_index do |frame, index| %>
                       <% # TODO: move in the action or a model method %>
-                      <% servers = frame.servers.includes(:bay, :stack, modele: { enclosures: :composants },
+                      <% servers = frame.servers.includes(:bay, :stack, modele: { enclosures: :components },
                                                                         cards:  [{ card_type: :port_type }, { ports: :cable }])
                               .where("servers.network_types @> ?", "{#{network}}") # Switch LAN
                       %>
@@ -40,7 +40,7 @@
                                 <% if server.modele.present? %>
                                   <% server.modele.enclosures.each do |enclosure| %>
                                     <% cards = server.cards %>
-                                    <% components_per_enclosure = enclosure.composants.reject { |c| c.name&.downcase == "alim" } %>
+                                    <% components_per_enclosure = enclosure.components.reject { |c| c.name&.downcase == "alim" } %>
                                     <% if enclosure.display != 'horizontal' %>
                                       <table>
                                         <tr>

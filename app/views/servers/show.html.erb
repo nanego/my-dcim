@@ -137,7 +137,7 @@
 
             <dt class="col-6 text-end"><%= Card.model_name.human.pluralize %> :</dt>
             <dd class="col-6">
-              <% @server.modele.composants.slots.each do |slot| %>
+              <% @server.modele.components.slots.each do |slot| %>
                 <% @server.cards.where(:composant_id => slot.id).each do |card| %>
                   <div>
                     <%= card.composant.name ? card.composant.name : card.composant.position %>

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Composant < ApplicationRecord
+class EnclosureComponent < ApplicationRecord
   include PublicActivity::Model
   tracked owner: ->(controller, model) { controller && controller.current_user }
   tracked :parameters => {
@@ -15,7 +15,7 @@ class Composant < ApplicationRecord
 
   has_many :cards
 
-  scope :slots, -> { where(type_composant: TypeComposant.find_by_name('SLOT')).order("composants.position ASC") }
+  scope :slots, -> { where(type_composant: TypeComposant.find_by_name('SLOT')).order("enclosure_components.position ASC") }
 
   def to_s
     name.to_s

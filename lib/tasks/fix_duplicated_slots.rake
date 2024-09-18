@@ -8,22 +8,22 @@ namespace :duplicated_slots do
   desc "Fix duplicated slots"
   task :fix => :environment do
 
-    Modele.includes(:enclosures => :composants)
+    Modele.includes(enclosures: :components)
       .find_each do |modele|
 
       servers = []
       modele.enclosures.each do |enclosure|
 
-        composants_names = enclosure.composants.map(&:name)
-        if composants_names.include?('SL1') && composants_names.include?('1')
+        components_names = enclosure.components.map(&:name)
+        if components_names.include?('SL1') && components_names.include?('1')
           # Potential duplicated slot
           puts "****** Modele ##{modele.id} - #{modele.name}"
 
-          enclosure.composants.each do |composant|
+          enclosure.components.each do |composant|
             if composant.name.to_i.to_s == composant.name
               # Duplicated slot
               puts "****** Composant ##{composant.id} - #{composant.name}"
-              correct_composant = enclosure.composants.find_by(name: 'SL' + composant.name)
+              correct_composant = enclosure.components.find_by(name: 'SL' + composant.name)
               puts "****** correct_composant ##{correct_composant.id} - #{correct_composant.name}"
               composant.cards.each do |card|
                 card.composant = correct_composant

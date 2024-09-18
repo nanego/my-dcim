@@ -7,6 +7,6 @@ RSpec.describe Enclosure do
 
   describe "associations" do
     it { is_expected.to belong_to(:modele) }
-    it { is_expected.to have_many(:composants) }
+    it { is_expected.to have_many(:components) }
   end
 end
