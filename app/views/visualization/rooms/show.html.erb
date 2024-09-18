@@ -1,4 +1,5 @@
-<% bg = params[:bg].presence || current_user.visualization_bay_default_background_color %>
+<% bg = params[:bg].presence || current_user.visualization_bay_default_background_color \
+                             || User::AVAILABLE_BAY_BACKGROUND_COLORS[0] %>
 <% view = params[:view].presence || current_user.visualization_bay_default_orientation %>
 <% provide :title, "#{t("visualization.title")} | Salle #{@room.name} #{@islet ? "- Ilot #{@islet}" : "" }" %>
 <% hide_inventories_sidebar! %>
@@ -26,11 +27,11 @@
                     <%- is_current_islet_active = islet == @islet || (@islet.blank? && @room == room) %>
                     <li role="presentation" class="<%= class_names(active: is_current_islet_active) %>">
                       <% if islets.size == 1 %>
-                        <a href="#tab-<%= room.id %>" onclick="rewriteURL('/visualization/rooms/<%= room.slug %>', {'islet': ''})" aria-controls="room-<%= room %>" role="tab" data-bs-toggle="tab" data-bs-target="#tab-<%= room.id %>" class="<%= "active" if is_current_islet_active %>">
+                        <a href="#tab-<%= room.id %>" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': ''})" aria-controls="room-<%= room %>" role="tab" data-bs-toggle="tab" data-bs-target="#tab-<%= room.id %>" class="<%= "active" if is_current_islet_active %>">
                           <%= room.name %>
                         </a>
                       <% else %>
-                        <a href="#tab-<%= room.id %>-<%= islet %>" onclick="rewriteURL('/visualization/rooms/<%= room.slug %>', {'islet': '<%= islet.name %>'})" aria-controls="islet-<%= islet %>" role="tab" data-bs-toggle="tab" data-bs-target="#tab-<%= room.id %>-<%= islet %>" class="<%= "active" if is_current_islet_active %>">
+                        <a href="#tab-<%= room.id %>-<%= islet %>" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': '<%= islet.name %>'})" aria-controls="islet-<%= islet %>" role="tab" data-bs-toggle="tab" data-bs-target="#tab-<%= room.id %>-<%= islet %>" class="<%= "active" if is_current_islet_active %>">
                           <%= "#{room.name} #{Islet.model_name.human} #{islet.name}" %>
                         </a>
                       <% end %>
@@ -46,23 +47,23 @@
           <hr />
           <div>
             <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <%= t("rooms.action_buttons.background_color", bg: t("rooms.action_buttons.background_choices.#{bg || User::AVAILABLE_BAY_BACKGROUND_COLORS[0]}")) %>
+              <%= t("rooms.action_buttons.background_color", bg: t("rooms.action_buttons.background_choices.#{bg}")) %>
             </button>
             <ul class="dropdown-menu">
               <li><%= link_to Modele.model_name.human,
                               url_for(params.except(:controller, :action)
                                             .permit(:view, :islet, :id, :bg, :format)
-                                            .merge({ view: "front", bg: "modele", islet: params[:islet], id: params[:id] })),
+                                            .merge({ view: :front, bg: :modele, islet: params[:islet], id: params[:id] })),
                               class: "dropdown-item" %></li>
               <li><%= link_to Gestion.model_name.human,
                               url_for(params.except(:controller, :action)
                                             .permit(:view, :islet, :id, :bg, :format)
-                                            .merge({ view: "front", bg: "gestionnaire", islet: params[:islet], id: params[:id] })),
+                                            .merge({ view: :front, bg: :gestion, islet: params[:islet], id: params[:id] })),
                               class: "dropdown-item" %></li>
               <li><%= link_to Cluster.model_name.human,
                               url_for(params.except(:controller, :action)
                                             .permit(:view, :islet, :id, :bg, :format)
-                                            .merge({ view: "front", bg: "cluster", islet: params[:islet], id: params[:id] })),
+                                            .merge({ view: :front, bg: :cluster, islet: params[:islet], id: params[:id] })),
                               class: "dropdown-item" %></li>
             </ul>
           </div>
@@ -89,7 +90,7 @@
                                                       highlighted: @frames && @frames.include?(frame)) %>"
                               data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.slug %>">
                             <div class="title">
-                              <%= link_to frame.name, visualization_frame_path(frame, view: (params[:view])), data: { 'frame-id': frame.slug } %>
+                              <%= link_to frame.name, frame_path(frame, view: (params[:view])), data: { 'frame-id': frame.slug } %>
                             </div>
                             <ul>
                               <% u_disponibles = frame.u || 41 %>
@@ -123,7 +124,7 @@
                         <% end %>
 
                         <% if air_conditioner&.position == AirConditioner.positions[:right] %>
-                          <%= render "/rooms/air_conditioner", air_conditioner: %>
+                          <%= render "air_conditioner", air_conditioner: %>
                         <% end %>
                       </div>
                     <% end %>
@@ -219,7 +220,7 @@ function loadBay(bay_id) {
 
   $.ajax({
     method: "GET",
-    url: "/visualization/bays/" + bay_id + ".js",
+    url: "/bays/" + bay_id + ".js",
     data: { bay_id: bay_id, view: "<%= view %>", bg: "<%= bg %>" }
   });
 }
@@ -247,7 +248,7 @@ function loadFrame(frame_id, bay_id, frame_title) {
 
   $.ajax({
     method: "GET",
-    url: "/visualization/frames/" + frame_id + ".js",
+    url: "/frames/" + frame_id + ".js",
     data: { frame_id: frame_id, view: view, bg: searchParams.get('bg') }
   });
 }
