@@ -1,8 +1,14 @@
 # frozen_string_literal: true
 
+class MigrationPublicActivityActivity < ActiveRecord::Base
+  self.table_name = :activities
+
+  belongs_to :trackable, polymorphic: true
+end
+
 class ReplaceRenamedClassesInActivities < ActiveRecord::Migration[5.0]
   def up
-    PublicActivity::Activity.where(trackable_type: 'Card').update_all(trackable_type: 'CardType')
-    PublicActivity::Activity.where(trackable_type: 'CardsServer').update_all(trackable_type: 'Card')
+    MigrationPublicActivityActivity.where(trackable_type: 'Card').update_all(trackable_type: 'CardType')
+    MigrationPublicActivityActivity.where(trackable_type: 'CardsServer').update_all(trackable_type: 'Card')
   end
 end

@@ -27,9 +27,8 @@ class ServersController < ApplicationController
         new_params_hash = { position: positions[index] }
         new_params_hash.merge!({ frame_id: frame.id }) if frame.present?
         new_params = ActionController::Parameters.new(new_params_hash)
-        updated_values = track_updated_values(server, new_params)
 
-        server.save
+        server.update(new_params)
       end
     end if params[:server].present?
     head :ok # render empty body, status only
@@ -59,9 +58,7 @@ class ServersController < ApplicationController
 
   def update
     respond_to do |format|
-      old_values = @server.attributes
-      updated_values = track_updated_values(@server, server_params)
-      if @server.save
+      if @server.update(server_params)
         format.html { redirect_to @server, notice: 'Server was successfully updated.' }
         format.json { render :show, status: :ok, location: @server }
       else
