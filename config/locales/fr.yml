@@ -732,6 +732,9 @@ fr:
     infrastructures:
       show:
         loading: Chargement en cours ...
+    bays:
+      show:
+        title: Baie %{bay_type} %{bay}
 
   views:
     pagination:

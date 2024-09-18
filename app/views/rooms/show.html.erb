@@ -1,3 +1,4 @@
+<%= provide(:title, "#{Room.model_name.human} #{@room.name}") %>
 <%= render "layouts/breadcrumb",  breadcrumb_steps: {
   t("visualization.title") => overview_rooms_path,
   "#{@room.name} #{@islet ? " Ilot #{@islet}" : "" }" => "",

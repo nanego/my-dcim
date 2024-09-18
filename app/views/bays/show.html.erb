@@ -1,3 +1,21 @@
+<%- bay_label = t(".title", bay: @bay, bay_type: @bay.bay_type&.name) %>
+<% provide :title, "#{Bay.model_name.human.pluralize} | #{bay_label}" %>
+<%
+  breadcrumb_steps = {
+    t("visualization.title") => overview_rooms_path,
+    @bay.room.name => room_path(@bay.room, view: params[:view])
+  }
+
+  if @bay.islet.name.present?
+    breadcrumb_steps["#{Islet.model_name.human} #{@bay.islet.name}"] = room_path(@bay.room, islet: @bay.islet.name, view: params[:view])
+  elsif params[:islet].present?
+    breadcrumb_steps["#{Islet.model_name.human} #{params[:islet]}"] = ""
+  end
+
+  breadcrumb_steps[bay_label] = ""
+%>
+<%= render "layouts/breadcrumb", breadcrumb_steps: %>
+
 <div class="row my-5">
   <div class="col-11 col-md-10 col-lg-8 mx-auto">
     <div class="d-flex justify-content-between pb-5">

@@ -1,3 +1,10 @@
+<%= provide(:title, "#{Frame.model_name.human} #{@frame.name}") %>
+<%= render "layouts/breadcrumb",  breadcrumb_steps: {
+  t("visualization.title") => overview_rooms_path,
+  Frame.model_name.human.pluralize => frames_path,
+  @frame.name => "",
+} %>
+
 <div class="row my-5">
   <div class="col-11 col-md-10 col-lg-8 mx-auto">
     <div class="d-flex justify-content-between pb-5">
