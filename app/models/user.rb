@@ -6,7 +6,6 @@ class User < ApplicationRecord
   AVAILABLE_BAY_BACKGROUND_COLORS = %w[modele gestion cluster].freeze
   AVAILABLE_BAY_ORIENTATIONS = %w[front back].freeze
 
-  attribute :role, :integer
   enum :role, [:user, :vip, :admin]
 
   acts_as_token_authenticatable
