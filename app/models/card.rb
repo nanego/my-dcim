@@ -17,7 +17,7 @@ class Card < ApplicationRecord
   delegate :is_power_input?, to: :card_type, allow_nil: true
 
   belongs_to :server
-  belongs_to :composant
+  belongs_to :composant, class_name: "EnclosureComponent"
   delegate :frame, to: :server # TODO: replace by has_one?
 
   has_many :ports

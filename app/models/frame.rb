@@ -138,7 +138,7 @@ class Frame < ApplicationRecord
                                      side: Pdu.calculated_side(frame, line_name),
                                      color: line_name == 'A' ? 'J' : 'B')
       puts "ERROR: #{pdu}" unless pdu.valid?
-      enclosure.composants.each do |composant|
+      enclosure.components.each do |composant|
         card = Card.find_or_create_by(card_type: card_type,
                            server: pdu,
                            composant: composant)

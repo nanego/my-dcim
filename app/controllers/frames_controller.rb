@@ -121,7 +121,7 @@ class FramesController < ApplicationController
   end
 
   def set_frame
-    @frame = Frame.all.includes(servers: [modele: [:category, :composants],
+    @frame = Frame.all.includes(servers: [modele: [:category, :components],
                                           cards: [:composant,
                                                   ports: [connection: [cable: :connections]],
                                                   card_type: [:port_type],]],

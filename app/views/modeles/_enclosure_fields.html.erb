@@ -13,12 +13,12 @@
       </span>
     </div>
 
-    <% child_index = "__#{Digest::MD5.hexdigest("Enclosure_composants")}_NEW_RECORD__" %>
+    <% child_index = "__#{Digest::MD5.hexdigest("Enclosure_components")}_NEW_RECORD__" %>
     <div data-controller="nested-form" data-nested-form-child-index-name-value="<%= child_index %>">
       <template data-nested-form-target="template">
-        <%= f.fields_for :composants, f.object.composants.slots.klass.new,
+        <%= f.fields_for :components, f.object.components.slots.klass.new,
                                       child_index: child_index do |composant_fields| %>
-          <%= render partial: "composant_fields", locals: { f: composant_fields, type_composant: "SLOT" } %>
+          <%= render partial: "component_fields", locals: { f: composant_fields, type_composant: "SLOT" } %>
         <% end %>
       </template>
 
@@ -38,8 +38,8 @@
               <%= f.text_area :grid_areas, class: "font-monospace form-control", style: "height:110px;" %>
             </fieldset>
           </li>
-          <%= f.fields_for :composants, f.object.composants.slots do |composant_fields| %>
-            <%= render partial: "composant_fields", locals: { f: composant_fields, type_composant: "SLOT" } %>
+          <%= f.fields_for :components, f.object.components.slots do |composant_fields| %>
+            <%= render partial: "component_fields", locals: { f: composant_fields, type_composant: "SLOT" } %>
           <% end %>
 
           <li class="list-group-item bg-transparent" data-nested-form-target="target"></li>

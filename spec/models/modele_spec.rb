@@ -13,7 +13,7 @@ RSpec.describe Modele do
     it { is_expected.to belong_to(:category) }
     it { is_expected.to have_many(:servers) }
     it { is_expected.to have_many(:enclosures) }
-    it { is_expected.to have_many(:composants).through(:enclosures) }
+    it { is_expected.to have_many(:components).through(:enclosures) }
   end
 
   describe "#validate_network_types_values" do

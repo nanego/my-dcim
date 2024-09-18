@@ -16,7 +16,7 @@ class Modele < ApplicationRecord
 
   has_many :servers, dependent: :restrict_with_error
   has_many :enclosures, dependent: :restrict_with_error
-  has_many :composants, through: :enclosures
+  has_many :components, through: :enclosures
 
   belongs_to :manufacturer, counter_cache: true
   belongs_to :architecture, counter_cache: true

@@ -7,7 +7,7 @@ module Frames
                                       bay: [:frames],
                                       servers: [
                                         :frame, :gestion, :cluster,
-                                        modele: [:category, :composants],
+                                        modele: [:category, :components],
                                         cards: [
                                           :composant,
                                           ports: [:cable, connection: :cable],

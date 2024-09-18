@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_22_135649) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_18_144044) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -182,17 +182,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_22_135649) do
     t.index ["parent_id"], name: "index_colors_on_parent_id"
   end
 
-  create_table "composants", id: :serial, force: :cascade do |t|
-    t.integer "type_composant_id", null: false
-    t.integer "position"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "name"
-    t.integer "enclosure_id"
-    t.index ["enclosure_id"], name: "index_composants_on_enclosure_id"
-    t.index ["type_composant_id"], name: "index_composants_on_type_composant_id"
-  end
-
   create_table "connections", id: :serial, force: :cascade do |t|
     t.integer "cable_id", null: false
     t.integer "port_id"
@@ -240,6 +229,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_22_135649) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "servers_count", default: 0, null: false
+  end
+
+  create_table "enclosure_components", id: :serial, force: :cascade do |t|
+    t.integer "type_composant_id", null: false
+    t.integer "position"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.string "name"
+    t.integer "enclosure_id"
+    t.index ["enclosure_id"], name: "index_enclosure_components_on_enclosure_id"
+    t.index ["type_composant_id"], name: "index_enclosure_components_on_type_composant_id"
   end
 
   create_table "enclosures", id: :serial, force: :cascade do |t|
@@ -563,10 +563,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_22_135649) do
   add_foreign_key "bays", "islets"
   add_foreign_key "card_types", "port_types"
   add_foreign_key "cards", "card_types"
-  add_foreign_key "composants", "type_composants"
   add_foreign_key "connections", "cables"
   add_foreign_key "disks", "disk_types"
   add_foreign_key "documents", "servers"
+  add_foreign_key "enclosure_components", "type_composants"
   add_foreign_key "external_app_records", "servers"
   add_foreign_key "external_app_requests", "users"
   add_foreign_key "frames", "bays"
