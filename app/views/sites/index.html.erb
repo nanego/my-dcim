@@ -1,48 +1,48 @@
 <% provide(:title, Site.model_name.human.pluralize) %>
+
 <%= render "layouts/breadcrumb", breadcrumb_steps: {
   Site.model_name.human.pluralize => "" }
 %>
-
-<div class="container-fluid">
-  <div class="d-flex justify-content-between">
-    <h1><%= t(".title") %></h1>
-    <%= link_to new_site_path, class: "btn btn-success align-self-center" do %>
-      <span class="bi bi-plus-lg"></span>
-      <%= t(".add_site") %>
-    <% end %>
-  </div>
-
-  <div id="map" class="mb-4" style="height: 450px;"></div>
-
-  <%= render List::DataTableComponent.new(@sites) do |table| %>
-    <% table.with_column(Site.human_attribute_name(:name), sort_by: :name) do |site| %>
-      <%= link_to site.name, site_path(site), class: "fw-bold" %>
-    <% end %>
-
-    <% table.with_column(Site.human_attribute_name(:position), sort_by: :position) do |site| %>
-      <%= site.position %>
-    <% end %>
-
-    <% table.with_column(Room.model_name.human.pluralize, sort_by: :rooms_count) do |site| %>
-      <%= link_to rooms_path(site_id: site.id) do %>
-        <%= Site.human_attribute_name(:rooms_count, count: site.rooms_count) %>
-      <% end %>
-    <% end %>
-
-    <% table.with_column(style: "min-width: 70px; width: 70px") do |site| %>
-      <div class="btn-group btn-group-sm" role="group" aria-label="...">
-        <%= link_to edit_site_path(site), class: "btn btn-info" do %>
-          <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
-          <span class="visually-hidden"><%= t("action.edit") %></span>
-        <% end %>
-        <%= link_to site, method: :delete, data: { confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
-          <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
-          <span class="visually-hidden"><%= t("action.delete") %></span>
-        <% end %>
-      </div>
-    <% end %>
+<div class="d-flex justify-content-between bg-body p-4">
+  <h1><%= t(".title") %></h1>
+  <%= link_to new_site_path, class: "btn btn-success align-self-center" do %>
+    <span class="bi bi-plus-lg"></span>
+    <%= t(".add_site") %>
   <% end %>
 </div>
+
+<div class="p-4 bg-body">
+  <div id="map" class="border rounded mb-3" style="height: 450px;"></div>
+</div>
+
+<%= render List::DataTableComponent.new(@sites) do |table| %>
+  <% table.with_column(Site.human_attribute_name(:name), sort_by: :name) do |site| %>
+    <%= link_to site.name, site_path(site), class: "fw-bold" %>
+  <% end %>
+
+  <% table.with_column(Site.human_attribute_name(:position), sort_by: :position) do |site| %>
+    <%= site.position %>
+  <% end %>
+
+  <% table.with_column(Room.model_name.human.pluralize, sort_by: :rooms_count) do |site| %>
+    <%= link_to rooms_path(site_id: site.id) do %>
+      <%= Site.human_attribute_name(:rooms_count, count: site.rooms_count) %>
+    <% end %>
+  <% end %>
+
+  <% table.with_column(style: "min-width: 70px; width: 70px") do |site| %>
+    <div class="btn-group btn-group-sm" role="group" aria-label="...">
+      <%= link_to edit_site_path(site), class: "btn btn-info" do %>
+        <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
+        <span class="visually-hidden"><%= t("action.edit") %></span>
+      <% end %>
+      <%= link_to site, method: :delete, data: { confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
+        <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
+        <span class="visually-hidden"><%= t("action.delete") %></span>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
       integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="

@@ -1,7 +1,11 @@
 <%= render FormErrorsComponent.new(@site) %>
 
-<%= form_for(@site, html: { class: "bg-body-tertiary p-4 rounded border", role: "form" }) do |f| %>
-  <div class="row g-3">
+<%= form_for(@site, html: { class: "col-11 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+  <%= render CardComponent.new(type: :primary, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
+    <% card.with_header do %>
+      <%= t("display") %>
+    <% end %>
+
     <fieldset class="col-12">
       <%= f.label :name, class: "form-label" %>
       <%= f.text_field :name, class: "form-control" %>
@@ -11,34 +15,46 @@
       <%= f.label :position, class: "form-label" %>
       <%= f.text_field :position, class: "form-control" %>
     </fieldset>
+  <% end %>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :street, class: "form-label" %>
-      <%= f.text_field :street, class: "form-control" %>
-    </fieldset>
+    <%= render CardComponent.new(type: :primary, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
+      <% card.with_header do %>
+        <%= t("layouts.sidebar.location.title") %>
+      <% end %>
 
-    <fieldset class="col-md-6 col-12 mt-4">
-      <%= f.label :city, class: "form-label" %>
-      <%= f.text_field :city, class: "form-control" %>
-    </fieldset>
+      <fieldset class="col-12">
+        <%= f.label :street, class: "form-label" %>
+        <%= f.text_field :street, class: "form-control" %>
+      </fieldset>
 
-    <fieldset class="col-md-6 col-12 mt-4">
-      <%= f.label :country, class: "form-label" %>
-      <%= f.text_field :country, class: "form-control" %>
-    </fieldset>
+      <div class="row g-3">
+        <fieldset class="col-md-6 col-12 mt-4">
+          <%= f.label :city, class: "form-label" %>
+          <%= f.text_field :city, class: "form-control" %>
+        </fieldset>
 
-    <fieldset class="col-md-6 col-12 mt-4">
-      <%= f.label :latitude, class: "form-label" %>
-      <%= f.text_field :latitude, class: "form-control" %>
-    </fieldset>
+        <fieldset class="col-md-6 col-12 mt-4">
+          <%= f.label :country, class: "form-label" %>
+          <%= f.text_field :country, class: "form-control" %>
+        </fieldset>
+      </div>
 
-    <fieldset class="col-md-6 col-12 mt-4">
-      <%= f.label :longitude, class: "form-label" %>
-      <%= f.text_field :longitude, class: "form-control" %>
-    </fieldset>
+      <div class="row g-3">
+        <fieldset class="col-md-6 col-12 mt-4">
+          <%= f.label :latitude, class: "form-label" %>
+          <%= f.text_field :latitude, class: "form-control" %>
+        </fieldset>
 
-    <div class="col-12 mt-4">
-      <%= f.submit class: "w-100 btn btn-primary" %>
+        <fieldset class="col-md-6 col-12 mt-4">
+          <%= f.label :longitude, class: "form-label" %>
+          <%= f.text_field :longitude, class: "form-control" %>
+        </fieldset>
+      </div>
+    <% end %>
+
+    <div class="col-12 py-3 text-end sticky-bottom bg-body-tertiary">
+      <%= link_to t("action.cancel"), sites_path, class: "btn btn-outline-secondary" %>
+      <%= f.submit class: "btn btn-primary" %>
     </div>
   </div>
 <% end %>

@@ -37,6 +37,7 @@ fr:
   inventories: Inventaires
   label_date: Date
   label_details: Détails
+  display: Affichage
 
   layouts:
     navigation:

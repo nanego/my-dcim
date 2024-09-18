@@ -1,29 +1,38 @@
 <% provide(:title, "#{Site.model_name.human.pluralize} | #{@site.name}") %>
-<%= render "layouts/breadcrumb",
-           breadcrumb_steps: { Site.model_name.human.pluralize => sites_path, @site.name => "" } %>
+<% breadcrumb_steps = { Site.model_name.human.pluralize => sites_path, @site.name => "" } %>
 
-<div class="row my-5">
-  <div class="col-11 col-md-10 col-lg-8 mx-auto">
-    <div class="d-flex justify-content-between pb-5">
-      <%= link_to sites_path, class: "btn align-self-center d-inline-flex",
-                              title: t("action.back") do %>
-        <span class="bi bi-chevron-left"></span>
-        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
-      <% end %>
-      <h1 class="text-center px-4"><%= t(".title", site_id: @site.id, site_name: @site.name) %></h1>
-      <%= link_to edit_site_path(@site), class: "btn btn-info align-self-center d-inline-flex",
-                                          title: t("action.edit") do %>
-        <span class="bi bi-pencil"></span>
-        <span class="d-none d-md-inline-block ms-1"><%= t("action.edit") %></span>
-      <% end %>
-    </div>
 
-    <dl class="bg-body-tertiary p-4 rounded border">
-      <% %i[name position latitude longitude].each do |attribute_name| %>
-        <dt><%= Site.human_attribute_name(attribute_name) %> :</dt>
-        <dd><%= @site.public_send(attribute_name) %></dd>
+<%= render Page::HeadingComponent.new(
+  resource: @site, title: t(".title", site_id: @site.id, site_name: @site.name), breadcrumb_steps:
+) %>
+<div class="col-12 p-4 border-top row">
+  <div class="col-12 col-md-6">
+    <%= render CardComponent.new(type: :primary) do |card| %>
+      <% card.with_header do %>
+        <%= t("display") %>
       <% end %>
-    </dl>
+
+      <dl class="row">
+        <% %i[name position].each do |attribute_name| %>
+          <dt class="col-5 text-end"><%= Site.human_attribute_name(attribute_name) %></dt>
+          <dd class="col-7"><%= @site.public_send(attribute_name) %></dd>
+        <% end %>
+      </dl>
+    <% end %>
+  </div>
+  <div class="col-12 col-md-6">
+    <%= render CardComponent.new(type: :primary) do |card| %>
+      <% card.with_header do %>
+        <%= t("layouts.sidebar.location.title") %>
+      <% end %>
+
+      <dl class="row">
+        <% %i[street city country latitude longitude].each do |attribute_name| %>
+          <dt class="col-5 text-end"><%= Site.human_attribute_name(attribute_name) %></dt>
+          <dd class="col-7"><%= @site.public_send(attribute_name) %></dd>
+        <% end %>
+      </dl>
+    <% end %>
   </div>
 </div>
 
