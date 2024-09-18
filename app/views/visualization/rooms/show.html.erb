@@ -82,7 +82,7 @@
                           style="grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
                                  grid-row: <%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;">
                         <% if air_conditioner&.position == AirConditioner.positions[:left] %>
-                          <%= render "air_conditioner", air_conditioner: %>
+                          <%= render "rooms/air_conditioner", air_conditioner: %>
                         <% end %>
                         <% bay.frames.sorted.each_with_index do |frame, index| %>
                           <div class="<%= class_names("overviewed_frame border",
