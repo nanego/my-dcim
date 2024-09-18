@@ -72,6 +72,10 @@ fr:
         title: Connexion
       servers: Matériels
 
+  pages:
+    index:
+      title: Gestion de salle
+
   islets:
     index:
       add_islet: Ajouter un ilot

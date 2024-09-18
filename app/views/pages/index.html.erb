@@ -1,36 +1,36 @@
-<div class="container-fluid mt-5">
-  <div class="thumbnail">
-    <div class="caption-full text-center pb-5">
-      <h4>Gestion de salle</h4>
-    </div>
-    <div class="img-fluid m-0 py-5 px-2 rounded"
-         style="background: url(<%= asset_path('_78A0587-nb.jpg') %>) no-repeat center; background-size: cover;">
-      <div class="container-fluid mt-4">
-        <% Site.joins(:rooms).where('display_on_home_page = ?', true).distinct.order(:position).each do |site| %>
-          <div class="container-fluid mb-4 py-2 bg-body-tertiary bg-opacity-75 rounded border">
-            <div class="text-center fs-4 mb-2"><%= site %></div>
-            <div class="d-flex justify-content-between flex-wrap">
-              <% rooms = site.rooms.where(display_on_home_page: true).order(:position) %>
-              <% rooms.each do |room| %>
-                <div class="flex-fill border border-primary-subtle m-2 p-2 rounded">
-                  <div class="text-start mb-1 fs-5"><%= link_to room.name, room %></div>
-                  <ul>
-                    <li><%= "#{Frame.model_name.human} : #{room.frames.count}" %></li>
-                    <% Category.all.each do |cat| %>
-                      <% count = room.materials.joins(:modele).where("modeles.category_id = ?", cat.id).count %>
-                      <% if count > 0 %>
-                        <li>
-                          <%= "#{cat} : #{room.materials.joins(:modele).where("modeles.category_id = ?", cat.id).count}" %>
-                        </li>
-                      <% end %>
+<%= render "layouts/breadcrumb", breadcrumb_steps: {} %>
+
+<div class="p-4 bg-body">
+  <h1><%= t(".title") %></h1>
+</div>
+<div class="p-4 border-top">
+  <div class="img-fluid m-0 py-5 px-2 rounded"
+        style="background: url(<%= asset_path('_78A0587-nb.jpg') %>) no-repeat center; background-size: cover;">
+    <div class="container-fluid mt-4">
+      <% Site.joins(:rooms).where('display_on_home_page = ?', true).distinct.order(:position).each do |site| %>
+        <div class="container-fluid mb-4 py-2 bg-body-tertiary bg-opacity-75 rounded border">
+          <div class="text-center fs-4 mb-2"><%= site %></div>
+          <div class="d-flex justify-content-between flex-wrap">
+            <% rooms = site.rooms.where(display_on_home_page: true).order(:position) %>
+            <% rooms.each do |room| %>
+              <div class="flex-fill border border-primary-subtle m-2 p-2 rounded">
+                <div class="text-start mb-1 fs-5"><%= link_to room.name, room %></div>
+                <ul>
+                  <li><%= "#{Frame.model_name.human} : #{room.frames.count}" %></li>
+                  <% Category.all.each do |cat| %>
+                    <% count = room.materials.joins(:modele).where("modeles.category_id = ?", cat.id).count %>
+                    <% if count > 0 %>
+                      <li>
+                        <%= "#{cat} : #{room.materials.joins(:modele).where("modeles.category_id = ?", cat.id).count}" %>
+                      </li>
                     <% end %>
-                  </ul>
-                </div>
-              <% end %>
-            </div>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
