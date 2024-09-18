@@ -1,6 +1,7 @@
 class ChangelogEntriesController < ApplicationController
   def index
-    @changelog_entries = sorted changelog_scope.order(created_at: :desc).page(params[:page]).per(100)
+    page_length = turbo_frame_request? ? 10 : 50
+    @changelog_entries = sorted changelog_scope.order(created_at: :desc).page(params[:page]).per(page_length)
   end
 
   def show
