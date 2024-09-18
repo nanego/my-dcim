@@ -4,8 +4,6 @@ class Room < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
-  include PublicActivity::Model
-  tracked owner: ->(controller, model) { controller && controller.current_user }
   has_changelog
 
   belongs_to :site, counter_cache: true

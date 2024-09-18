@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  include PublicActivity::StoreController
   include ChangelogContextApplication
   include Localization
 

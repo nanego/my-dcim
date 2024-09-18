@@ -3,13 +3,6 @@
 require "csv"
 
 class Port < ApplicationRecord
-  include PublicActivity::Model
-  tracked owner: ->(controller, model) { controller && controller.current_user }
-  tracked :parameters => {
-    :server => proc { |controller, model_instance| model_instance.card.try(:server) },
-    :card_type => proc { |controller, model_instance| "#{model_instance.card.try(:composant)} #{model_instance.card.try(:card_type)}" },
-    :vlans => :vlans
-  }
   has_changelog
 
   belongs_to :card
