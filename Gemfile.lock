@@ -204,7 +204,6 @@ GEM
       bigdecimal
       rake (>= 13)
     hashie (5.0.0)
-    high_voltage (4.0.0)
     htmlbeautifier (1.4.3)
     htmlentities (4.3.4)
     i18n (1.14.5)
@@ -617,7 +616,6 @@ DEPENDENCIES
   formulaic
   friendly_id (~> 5.2)
   geocoder
-  high_voltage
   image_processing (~> 1.2)
   importmap-rails (~> 2.0)
   jbuilder
