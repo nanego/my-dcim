@@ -14,6 +14,7 @@ class RoomsController < ApplicationController
   def show
     @sites = Site.joins(:rooms).includes(:rooms => [:bays => [:bay_type]]).order(:position).distinct
     @islet = Islet.find_by(name: params[:islet], room_id: @room.id) if params[:islet].present?
+    @islets = sorted @room.islets
 
     @air_conditioners = AirConditioner.all
 
