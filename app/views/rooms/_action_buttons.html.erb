@@ -1,9 +1,9 @@
-<% view_side = Frame.view_sides[:front] if local_assigns[:view_side].blank? %>
+<% view_side = Frame::VIEW_SIDES[:front] if local_assigns[:view_side].blank? %>
 <% bg = params[:bg].presence || current_user.visualization_bay_default_background_color \
                              || User::AVAILABLE_BAY_BACKGROUND_COLORS[0] %>
 
 <span class="d-flex flex-wrap gap-2 flex-column flex-lg-row">
-  <% if view_side != Frame.view_sides[:back] %>
+  <% if view_side != Frame::VIEW_SIDES[:back] %>
     <!-- Choice of server background color -->
     <div class="btn-group">
       <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -33,12 +33,12 @@
   <% end %>
 
   <!-- Views FRONT / BACK -->
-  <% if view_side == Frame.view_sides[:both] %>
+  <% if view_side == Frame::VIEW_SIDES[:both] %>
      <%= content_tag :div, class: 'btn btn-sm btn-primary disabled' do %>
       <%= Frame.human_attribute_name("view_sides.both") %>
     <% end %>
   <% else %>
-    <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({view: (view_side == Frame.view_sides[:back] ? Frame.view_sides[:front] : Frame.view_sides[:back]), islet: params['islet'], id: params['id']})), class: "btn btn-sm btn-primary", remote: true do %>
+    <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({view: (view_side == Frame::VIEW_SIDES[:back] ? Frame::VIEW_SIDES[:front] : Frame::VIEW_SIDES[:back]), islet: params['islet'], id: params['id']})), class: "btn btn-sm btn-primary", remote: true do %>
       <span class="bi bi-back" aria-hidden="true"></span>
       <%= Frame.human_attribute_name("view_sides.#{view_side}") %>
     <% end %>

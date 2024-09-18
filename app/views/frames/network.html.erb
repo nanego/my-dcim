@@ -18,7 +18,7 @@
 
 <div class="container-fluid frames-network">
   <% view_type = "back" %>
-  <% settings = Frame.settings.merge({ min_height: view_type == "back" ? 20 : 27 }) %>
+  <% settings = Frame::DEFAULT_SETTINGS.merge({ min_height: view_type == "back" ? 20 : 27 }) %>
   <% @room = t(".title") %>
 
   <div id="<%= @room.try(:name).try(:parameterize).try(:underscore) %>">
