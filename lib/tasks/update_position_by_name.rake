@@ -27,7 +27,7 @@ namespace :update_ports_position do
       end
 
       # Clean ports without connection (avoid duplications on same position)
-      (switch.ports - switch.ports.with_connection).each { |port| port.destroy }
+      (switch.ports - switch.ports.joins(:connection)).each { |port| port.destroy }
       # Create missing ports
       switch.create_missing_ports
 
