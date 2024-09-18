@@ -27,11 +27,11 @@
                     <%- is_current_islet_active = islet == @islet || (@islet.blank? && @room == room) %>
                     <li role="presentation" class="<%= class_names(active: is_current_islet_active) %>">
                       <% if islets.size == 1 %>
-                        <a href="#tab-<%= room.id %>" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': ''})" aria-controls="room-<%= room %>" role="tab" data-bs-toggle="tab" data-bs-target="#tab-<%= room.id %>" class="<%= "active" if is_current_islet_active %>">
+                        <a href="#tab-<%= room.id %>" onclick="rewriteURL('/visualization/rooms/<%= room.slug %>', {'islet': ''})" aria-controls="room-<%= room %>" role="tab" data-bs-toggle="tab" data-bs-target="#tab-<%= room.id %>" class="<%= "active" if is_current_islet_active %>">
                           <%= room.name %>
                         </a>
                       <% else %>
-                        <a href="#tab-<%= room.id %>-<%= islet %>" onclick="rewriteURL('/rooms/<%= room.slug %>', {'islet': '<%= islet.name %>'})" aria-controls="islet-<%= islet %>" role="tab" data-bs-toggle="tab" data-bs-target="#tab-<%= room.id %>-<%= islet %>" class="<%= "active" if is_current_islet_active %>">
+                        <a href="#tab-<%= room.id %>-<%= islet %>" onclick="rewriteURL('/visualization/rooms/<%= room.slug %>', {'islet': '<%= islet.name %>'})" aria-controls="islet-<%= islet %>" role="tab" data-bs-toggle="tab" data-bs-target="#tab-<%= room.id %>-<%= islet %>" class="<%= "active" if is_current_islet_active %>">
                           <%= "#{room.name} #{Islet.model_name.human} #{islet.name}" %>
                         </a>
                       <% end %>
@@ -90,7 +90,7 @@
                                                       highlighted: @frames && @frames.include?(frame)) %>"
                               data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.slug %>">
                             <div class="title">
-                              <%= link_to frame.name, frame_path(frame, view: (params[:view])), data: { 'frame-id': frame.slug } %>
+                              <%= link_to frame.name, visualization_frame_path(frame, view: (params[:view])), data: { 'frame-id': frame.slug } %>
                             </div>
                             <ul>
                               <% u_disponibles = frame.u || 41 %>
@@ -124,7 +124,7 @@
                         <% end %>
 
                         <% if air_conditioner&.position == AirConditioner.positions[:right] %>
-                          <%= render "air_conditioner", air_conditioner: %>
+                          <%= render "rooms/air_conditioner", air_conditioner: %>
                         <% end %>
                       </div>
                     <% end %>
@@ -220,7 +220,7 @@ function loadBay(bay_id) {
 
   $.ajax({
     method: "GET",
-    url: "/bays/" + bay_id + ".js",
+    url: "/visualization/bays/" + bay_id + ".js",
     data: { bay_id: bay_id, view: "<%= view %>", bg: "<%= bg %>" }
   });
 }
@@ -248,7 +248,7 @@ function loadFrame(frame_id, bay_id, frame_title) {
 
   $.ajax({
     method: "GET",
-    url: "/frames/" + frame_id + ".js",
+    url: "/visualization/frames/" + frame_id + ".js",
     data: { frame_id: frame_id, view: view, bg: searchParams.get('bg') }
   });
 }
