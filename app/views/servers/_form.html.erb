@@ -1,6 +1,6 @@
 <%= render FormErrorsComponent.new(@server) %>
 
-<%= form_for(@server, html: { class: "bg-body-tertiary p-4 rounded border", role: "form" }) do |f| %>
+<%= form_for(@server, html: { role: "form" }) do |f| %>
   <div class="row g-3">
     <fieldset class="col-md-6 col-12">
       <%= f.label :name, class: "form-label" %>
@@ -175,8 +175,9 @@
       <% end %>
     </fieldset>
 
-    <div class="col-12 mt-4 text-center">
-      <%= f.submit class: "w-75 btn btn-primary" %>
+    <div class="col-12 py-3 text-end sticky-bottom bg-body-tertiary">
+      <%= link_to t("action.cancel"), servers_path, class: "btn btn-outline-secondary" %>
+      <%= f.submit class: "btn btn-primary" %>
     </div>
   </div>
 <% end %>

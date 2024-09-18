@@ -15,51 +15,49 @@
 
 <%= flash[:notice] %>
 
-<div class="row my-5">
-  <div class="col-11 col-md-10 col-lg-8 mx-auto">
-    <%= render CardComponent.new(type: :success) do |card| %>
-      <%= form_for :import, url: import_servers_path, multipart: true do |f| %>
-        <!-- Header -->
-        <% card.with_header do %>
-          <h4 class="card-title text-center">
-            <%= t(".title") %>
-          </h4>
-        <% end %>
+<div class="col-12 p-4 border-top pt-5">
+  <%= render CardComponent.new(type: :success) do |card| %>
+    <%= form_for :import, url: import_servers_path, multipart: true do |f| %>
+      <!-- Header -->
+      <% card.with_header do %>
+        <h4 class="card-title text-center">
+          <%= t(".title") %>
+        </h4>
+      <% end %>
 
-        <!-- Card Content: Form -->
-        <fieldset class="mt-4">
-          <%= f.label t(".room_id.label"), class: "form-label" %>
-          <%= f.select :room_id,
-                        Room.order("id").all.collect { |p| [p.name, p.id] },
-                        {
-                          include_blank: false,
-                          selected: Room.find_by_name("Atelier").try(:id),
-                        },
-                        class: "form-select" %>
-          <span class="form-text"><%= t(".room_id.hint") %></span>
-        </fieldset>
+      <!-- Card Content: Form -->
+      <fieldset class="mt-4">
+        <%= f.label t(".room_id.label"), class: "form-label" %>
+        <%= f.select :room_id,
+                      Room.order("id").all.collect { |p| [p.name, p.id] },
+                      {
+                        include_blank: false,
+                        selected: Room.find_by_name("Atelier").try(:id),
+                      },
+                      class: "form-select" %>
+        <span class="form-text"><%= t(".room_id.hint") %></span>
+      </fieldset>
 
-        <fieldset class="mt-4">
-          <%= f.label t(".servers_state.label"), class: "form-label" %>
-          <%= f.select :server_state_id,
-                       ServerState.select(:id, :name).collect { |p| [t(p.name.parameterize, default: p.name), p.id] },
-                       { include_blank: true },
-                       class: "form-select" %>
-        </fieldset>
+      <fieldset class="mt-4">
+        <%= f.label t(".servers_state.label"), class: "form-label" %>
+        <%= f.select :server_state_id,
+                      ServerState.select(:id, :name).collect { |p| [t(p.name.parameterize, default: p.name), p.id] },
+                      { include_blank: true },
+                      class: "form-select" %>
+      </fieldset>
 
-        <fieldset class="my-4">
-          <%= f.label t(".csv_file.label"), class: "form-label" %>
-          <%= f.file_field :file, class: "form-control" %>
-        </fieldset>
+      <fieldset class="my-4">
+        <%= f.label t(".csv_file.label"), class: "form-label" %>
+        <%= f.file_field :file, class: "form-control" %>
+      </fieldset>
 
-        <!-- Footer -->
-        <% card.with_footer do %>
-          <%= f.submit t(".action.import"), class: "btn btn-success w-100" %>
-        <% end %>
+      <!-- Footer -->
+      <% card.with_footer do %>
+        <%= f.submit t(".action.import"), class: "btn btn-success w-100" %>
       <% end %>
     <% end %>
-    <p>
-      <%= t(".download_example_html", link: link_to("fichier_exemple.csv", root_url + "files/format_exemple.csv")) %>
-    </p>
-  </div>
+  <% end %>
+  <p>
+    <%= t(".download_example_html", link: link_to("fichier_exemple.csv", root_url + "files/format_exemple.csv")) %>
+  </p>
 </div>

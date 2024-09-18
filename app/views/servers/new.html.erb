@@ -1,10 +1,10 @@
 <% provide(:title, "#{t("servers.index.title")} | #{t("action.create")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
+<% breadcrumb_steps = {
   t("servers.index.title") => servers_path,
   t(".title") => ""
 } %>
 
-<div class="row my-5">
-  <%= render Page::HeadingComponent.new(title: t(".title")) %>
+<%= render Page::HeadingComponent.new(resource: @server, title: t(".title"), breadcrumb_steps:, style: :create) %>
+<div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>
