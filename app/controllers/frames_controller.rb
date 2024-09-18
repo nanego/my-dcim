@@ -4,8 +4,8 @@ class FramesController < ApplicationController
   include ServersHelper
   include RoomsHelper
 
-  before_action :set_frame, only: %i[show print]
-  before_action :set_room, only: %i[show print]
+  before_action :set_frame, only: %i[show print] # TODO: Remove print when print on visualization
+  before_action :set_room, only: %i[show print] # TODO: Remove print when print on visualization
 
   def index
     @filter = ProcessorFilter.new(Frame.includes(bay: { islet: :room }).references(bay: { islet: :room }), params)
@@ -16,8 +16,6 @@ class FramesController < ApplicationController
     respond_to do |format|
       format.html
       format.json
-      format.js
-      format.txt { send_data @frame.to_txt(params[:bg]) }
     end
   end
 

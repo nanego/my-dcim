@@ -4,7 +4,7 @@ class BaysController < ApplicationController
   include RoomsHelper
 
   before_action :set_bay, only: [:edit, :update, :destroy, :show, :print]
-  before_action :set_servers_per_frames, only: %i[show print]
+  before_action :set_servers_per_frames, only: %i[print] # TODO: Remove me when print on visualization
 
   def index
     @filter = ProcessorFilter.new(Bay.joins(:room, :islet).order('rooms.position, islets.name, bays.lane, bays.position'), params)
@@ -15,8 +15,6 @@ class BaysController < ApplicationController
     respond_to do |format|
       format.html
       format.json
-      format.js
-      format.txt { send_data Frame.to_txt(@servers_per_frames[@bay.islet.room_id], params[:bg]) }
     end
   end
 

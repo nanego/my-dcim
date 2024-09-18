@@ -4,8 +4,8 @@ class RoomsController < ApplicationController
   include ServersHelper
   include RoomsHelper
 
-  before_action :set_room, only: %i[show edit update destroy islet print]
-  before_action :set_servers_per_frames, only: %i[show print]
+  before_action :set_room, only: %i[show edit update destroy islet print] # TODO: Remove print when print on visualization
+  before_action :set_servers_per_frames, only: %i[print] # TODO: Remove me when print on visualization
 
   def index
     @filter = ProcessorFilter.new(Room.joins(:site).order('sites.position asc, rooms.position asc, rooms.name asc'), params)
@@ -21,7 +21,6 @@ class RoomsController < ApplicationController
     respond_to do |format|
       format.html
       format.json
-      format.txt { send_data Frame.to_txt(@servers_per_frames[@room.id], params[:bg]) }
     end
   end
 
