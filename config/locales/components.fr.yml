@@ -1,8 +1,8 @@
 fr:
   form_errors_component:
     title:
-      one: "1 erreur lors de la sauvegarde :"
-      other: "%{count} erreurs lors de la sauvegarde :"
+      one: '1 erreur lors de la sauvegarde :'
+      other: '%{count} erreurs lors de la sauvegarde :'
   filter_component:
     submit: Filtrer
     reset: Réinitialiser%{filters_count}
