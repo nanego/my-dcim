@@ -1,10 +1,12 @@
 fr:
   form_errors_component:
     title:
-      one: '1 erreur lors de la sauvegarde :'
-      other: '%{count} erreurs lors de la sauvegarde :'
+      one: "1 erreur lors de la sauvegarde :"
+      other: "%{count} erreurs lors de la sauvegarde :"
   filter_component:
     submit: Filtrer
     reset: Réinitialiser%{filters_count}
     total_with_filters: "Total: %{results_count} sur %{total_count} résultats"
     total: "Total: %{count}"
+  object_changelog_component:
+    loading: Chargement de l'historique...

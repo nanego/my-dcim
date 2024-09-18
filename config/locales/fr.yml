@@ -33,7 +33,7 @@ fr:
       back_wiring: Cablage - Face arrière
     port_list: Liste des ports
 
-  order-in-progress: 'Commande en cours'
+  order-in-progress: "Commande en cours"
   inventories: Inventaires
   label_date: Date
   label_details: Détails
@@ -112,7 +112,7 @@ fr:
       add_site: Ajouter un site
       delete_confirmation: Ce site ne pourra pas être supprimé tant qu'il sera associé à au moins une salle. Voulez-vous continuer ?
     show:
-      title: 'Site #%{site_id} - %{site_name}'
+      title: "Site #%{site_id} - %{site_name}"
     new:
       title: Nouveau site
     create:
@@ -122,8 +122,7 @@ fr:
       title: Modifier le site
     update:
       flashes:
-        updated:
-          Site a bien été modifié.
+        updated: Site a bien été modifié.
     destroy:
       flashes:
         destroyed: Site a bien été supprimé.
@@ -534,7 +533,7 @@ fr:
 
   devise:
     registrations:
-      signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'
+      signed_up: "Vous pouvez désormais vous connecter avec Cerbère"
       edit:
         action:
           show_authentication_token: Afficher la clé API
@@ -602,7 +601,7 @@ fr:
         ports: Ports
         unreferenced_client: Le port correspondant de la carte jumelle est câblé
         no_client: Le port correspondant de la carte jumelle n'est pas câblé
-      background_color: 'Couleur de fond : %{bg}'
+      background_color: "Couleur de fond : %{bg}"
       background_choices:
         modele: Modèle
         gestion: Gestionnaire
@@ -695,11 +694,12 @@ fr:
       help-range: "Operate>Composants>Air>Ventilo 1"
       help-setpoint: "Operate>Valeurs>Air>Temperature Consigne"
       help-min-setpoint: "Operate>Valeurs>Air>Temperature Consigne"
-      info-temperatures: "Si T<sub>interne</sub>-T<sub>externe</sub> < DTC start,
-                          alors ventilation = débit minimal
-                          \n\r
-                          Si T<sub>interne</sub>-T<sub>externe</sub> > DTC start + DTC range,
-                          alors ventilation = débit maximal"
+      info-temperatures:
+        "Si T<sub>interne</sub>-T<sub>externe</sub> < DTC start,
+        alors ventilation = débit minimal
+        \n\r
+        Si T<sub>interne</sub>-T<sub>externe</sub> > DTC start + DTC range,
+        alors ventilation = débit maximal"
       location: Emplacement
       temperatures: Températures
       day: Jour
@@ -745,11 +745,11 @@ fr:
   helpers:
     placeholder:
       composant:
-        name: 'Nom'
+        name: "Nom"
       disk:
-        quantity: 'Quantité'
+        quantity: "Quantité"
       memory_component:
-        quantity: 'Quantité'
+        quantity: "Quantité"
     submit:
       create: Créer
       update: Modifier
