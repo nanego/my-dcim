@@ -764,6 +764,13 @@ body {
     color: var(--bs-body-color);
   }
 
+  /* Visualization Infrastructure view */
+  #network-capacity {
+    .tab-content.infrastructure {
+      overscroll-behavior: none;
+    }
+  }
+
   /* Visualization views - Turbo frame div */
   turbo-frame {
     &#network_capacity_islet, &#infrastructure_islet {
