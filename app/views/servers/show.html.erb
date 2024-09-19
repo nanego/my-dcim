@@ -75,7 +75,7 @@
             <%= link_to @server.modele.try(:manufacturer), manufacturer_path(@server.modele.try(:manufacturer)) %>
             <% if (documentation_url = @server.documentation_url).present? %>
               (
-                <%= link_to t(".documentation"), documentation_url, target:_blank, rel:noopener %>
+                <%= link_to t(".documentation"), documentation_url, target: :_blank, rel: :noopener %>
               )
             <% end %>
           </dd>

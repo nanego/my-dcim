@@ -25,5 +25,11 @@ RSpec.describe LabelComponent, type: :component do
 
       it { expect(rendered_component.to_html).to have_tag("span.badge.text-bg-success", text: /Text as argument/) }
     end
+
+    context "with not valid type" do
+      let(:kwargs) { { type: :unknow } }
+
+      it { expect { component }.to raise_error(ArgumentError) }
+    end
   end
 end

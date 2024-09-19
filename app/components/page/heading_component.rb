@@ -2,7 +2,7 @@
 
 module Page
   class HeadingComponent < ApplicationComponent
-    STYLES = %i[show create edit]
+    STYLES = %i[show create edit].freeze
 
     renders_one :extra_buttons
 
@@ -20,7 +20,7 @@ module Page
           </span>
           <h1 class="text-center px-4"><%= @title %></h1>
           <% if @style == :create %>
-            <div class="flex-grow-1"></div>
+            <span class="flex-grow-1"></span>
           <% else %>
             <div class="align-self-center d-inline-flex">
               <% if extra_buttons? %>
