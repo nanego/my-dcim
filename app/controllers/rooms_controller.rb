@@ -4,8 +4,7 @@ class RoomsController < ApplicationController
   include ServersHelper
   include RoomsHelper
 
-  before_action :set_room, only: %i[show edit update destroy islet print] # TODO: Remove print when print on visualization
-  before_action :set_servers_per_frames, only: %i[print] # TODO: Remove me when print on visualization
+  before_action :set_room, only: %i[show edit update destroy islet]
 
   def index
     @filter = ProcessorFilter.new(Room.joins(:site).order('sites.position asc, rooms.position asc, rooms.name asc'), params)
@@ -121,10 +120,6 @@ class RoomsController < ApplicationController
         format.html { redirect_to rooms_url, alert: @room.errors.full_messages_for(:base).join(", ") }
       end
     end
-  end
-
-  def print
-    render layout: "pdf"
   end
 
   private

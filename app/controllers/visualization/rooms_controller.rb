@@ -5,7 +5,7 @@ module Visualization
     include RoomsHelper
 
     before_action :set_room, only: :show
-    before_action :set_servers_per_frames, only: :show
+    before_action :set_servers_per_frames, only: %i[show print]
 
     def show
       @sites = Site.joins(:rooms).includes(:rooms => [:bays => [:bay_type]]).order(:position).distinct
@@ -18,6 +18,10 @@ module Visualization
         format.json
         format.txt { send_data Frame.to_txt(@servers_per_frames[@room.id], params[:bg]) }
       end
+    end
+
+    def print
+      render layout: "pdf"
     end
 
     private
