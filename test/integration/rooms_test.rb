@@ -12,4 +12,9 @@ class RoomsTest < ActionDispatch::IntegrationTest
     visit room_url(@room)
     # TODO
   end
+
+  test 'user exports a room to txt' do
+    visit visualization_room_url(@room, format: :txt)
+    # TODO
+  end
 end
