@@ -4,8 +4,8 @@ class FilterComponent < ApplicationComponent
   renders_one :form, ->(&block) { FilterComponent::Form.new(&block) }
 
   erb_template <<~ERB
-    <div class="p-4 bg-body">
-      <%= render CardComponent.new(type: :primary) do |card| %>
+    <div>
+      <%= render CardComponent.new(type: :primary, extra_classes: "bg-body-tertiary") do |card| %>
         <%#= filters_badge_tags %>
 
         <%= form_with model: @filter,

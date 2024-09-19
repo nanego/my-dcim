@@ -40,9 +40,9 @@
     </div>
   <% end %>
 
-  <div class="d-flex flex-row flex-wrap row-gap-4">
-    <div class="col-12 col-lg-6 pe-lg-3">
-      <%= render CardComponent.new(type: :primary) do |card| %>
+  <div class="d-flex flex-row flex-wrap">
+    <div class="col-12 col-lg-6 pe-lg-4">
+      <%= render CardComponent.new(extra_classes: "mb-4 lg-mb-0") do |card| %>
         <dl class="row">
           <dt class="col-5 text-end"><%= Bay.model_name.human %></dt>
           <dd class="col-7"><%= link_to @server.frame.try(:name), frame_path(@server.frame) %></dd>
@@ -154,14 +154,19 @@
     <div class="col-12 col-lg-6">
       <div class="col-12">
         <% if @server.photo.attached? %>
-          <%= render CardComponent.new(type: :primary) do |card| %>
-            <h5><%= Server.human_attribute_name(:photo) %></h5>
+          <%= render CardComponent.new(extra_classes: "mb-4") do |card| %>
+            <% card.with_header do %>
+              <%= Server.human_attribute_name(:photo) %>
+            <% end %>
+
             <%= image_tag @server.photo.variant(geometry: "x220"), class: "server_photo ms-0 mb-3" %>
           <% end %>
         <% end %>
         <% if @server.documents.present? %>
-          <%= render CardComponent.new(type: :primary) do |card| %>
-            <h5><%= t(".attached_documents") %></h5>
+          <%= render CardComponent.new(extra_classes: "mb-4") do |card| %>
+            <% card.with_header do %>
+              <%= t(".attached_documents") %>
+            <% end %>
             <ul>
               <% @server.documents.each do |doc| %>
                 <%- next unless doc.document.present? %>
@@ -173,8 +178,9 @@
           <% end %>
         <% end %>
       </div>
+
       <div class="col-12">
-        <%= render CardComponent.new(type: :primary) do |card| %>
+        <%= render CardComponent.new do |card| %>
           <% card.with_header do %>
             <%= t(".glpi_data") %>
           <% end %>

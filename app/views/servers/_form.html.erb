@@ -1,88 +1,91 @@
 <%= render FormErrorsComponent.new(@server) %>
 
-<%= form_for(@server, html: { role: "form" }) do |f| %>
-  <div class="row g-3">
-    <fieldset class="col-md-6 col-12">
-      <%= f.label :name, class: "form-label" %>
-      <%= f.text_field :name, class: "form-control" %>
-    </fieldset>
+<%= form_for(@server, html: { class: "col-11 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+    <div class="row g-3">
+      <fieldset class="col-md-6 col-12">
+        <%= f.label :name, class: "form-label" %>
+        <%= f.text_field :name, class: "form-control" %>
+      </fieldset>
 
-    <fieldset class="col-md-6 col-12 mt-md-3 mt-4">
-      <%= f.label :numero, class: "form-label" %>
-      <%= f.text_field :numero, class: "form-control" %>
-    </fieldset>
+      <fieldset class="col-md-6 col-12 mt-md-3 mt-0">
+        <%= f.label :numero, class: "form-label" %>
+        <%= f.text_field :numero, class: "form-control" %>
+      </fieldset>
 
-    <fieldset class="col-md-6 col-12 mt-4">
-      <%= f.label :frame_id, class: "form-label" %>
-      <%= f.collection_select(:frame_id, Frame.all_sorted, :id,
-                                                           :name_with_room_and_islet,
-                                                           { prompt: true, include_blank: false },
-                                                           { class: "form-select", data: { controller: "select" } }) %>
-    </fieldset>
+      <fieldset class="col-md-6 col-12 mt-4">
+        <%= f.label :frame_id, class: "form-label" %>
+        <%= f.collection_select(:frame_id, Frame.all_sorted, :id,
+                                                             :name_with_room_and_islet,
+                                                             { prompt: true, include_blank: false },
+                                                             { class: "form-select", data: { controller: "select" } }) %>
+      </fieldset>
 
-    <fieldset class="col-md-6 col-12 mt-4">
-      <%= f.label :cluster_id, class: "form-label" %>
-      <%= f.collection_select(:cluster_id, Cluster.sorted, :id,
-                                                           :name,
-                                                           { prompt: true, include_blank: true },
-                                                           { class: "form-select", data: { controller: "select" } }) %>
-    </fieldset>
+      <fieldset class="col-md-6 col-12 mt-4">
+        <%= f.label :cluster_id, class: "form-label" %>
+        <%= f.collection_select(:cluster_id, Cluster.sorted, :id,
+                                                             :name,
+                                                             { prompt: true, include_blank: true },
+                                                             { class: "form-select", data: { controller: "select" } }) %>
+      </fieldset>
 
-    <fieldset class="col-md-6 col-12 mt-4">
-      <%= f.label :position, class: "form-label" %>
-      <%= f.number_field :position, class: "form-control" %>
-    </fieldset>
+      <fieldset class="col-md-6 col-12 mt-4">
+        <%= f.label :position, class: "form-label" %>
+        <%= f.number_field :position, class: "form-control" %>
+      </fieldset>
 
-    <fieldset class="col-md-6 col-12 mt-4">
-      <%= f.label :domaine_id, class: "form-label" %>
-      <%= f.collection_select(:domaine_id, Domaine.sorted, :id,
-                                                           :name,
-                                                           { prompt: true, include_blank: true },
-                                                           { class: "form-select", data: { controller: "select" } }) %>
-    </fieldset>
+      <fieldset class="col-md-6 col-12 mt-4">
+        <%= f.label :domaine_id, class: "form-label" %>
+        <%= f.collection_select(:domaine_id, Domaine.sorted, :id,
+                                                             :name,
+                                                             { prompt: true, include_blank: true },
+                                                             { class: "form-select", data: { controller: "select" } }) %>
+      </fieldset>
 
-    <fieldset class="col-md-6 col-12 mt-4">
-      <%= f.label :server_state_id, class: "form-label" %>
-      <%= f.collection_select(:server_state_id, ServerState.sorted, :id, :name, { prompt: false, include_blank: true },
-                                                                                { class: "form-select" }) %>
-    </fieldset>
+      <fieldset class="col-md-6 col-12 mt-4">
+        <%= f.label :server_state_id, class: "form-label" %>
+        <%= f.collection_select(:server_state_id, ServerState.sorted, :id, :name, { prompt: false, include_blank: true },
+                                                                                  { class: "form-select" }) %>
+      </fieldset>
 
-    <fieldset class="col-md-6 col-12 mt-4">
-      <%= f.label :gestion_id, class: "form-label" %>
-      <%= f.collection_select(:gestion_id, Gestion.sorted, :id,
-                                                          :name,
-                                                          { prompt: true, include_blank: true },
-                                                          { class: "form-select", data: { controller: "select" } }) %>
-    </fieldset>
-
-    <fieldset class="col-md-6 col-12 mt-4">
-      <%= f.label :modele_id, class: "form-label" %>
-      <%= f.collection_select(:modele_id, Modele.all_sorted, :id,
-                                                            :name_with_brand,
-                                                            { prompt: true, include_blank: false },
+      <fieldset class="col-md-6 col-12 mt-4">
+        <%= f.label :gestion_id, class: "form-label" %>
+        <%= f.collection_select(:gestion_id, Gestion.sorted, :id,
+                                                            :name,
+                                                            { prompt: true, include_blank: true },
                                                             { class: "form-select", data: { controller: "select" } }) %>
-    </fieldset>
+      </fieldset>
 
-    <fieldset class="col-md-6 col-12 mt-4">
-      <%= f.label :network_types, class: "form-label" %>
-      <%= f.select :network_types,
-                   Modele::Network::TYPES.map { |type| [Modele.human_attribute_name("network_types.#{type}"), type] },
-                   { prompt: true, include_blank: true },
-                   { class: "form-select", data: { controller: "select" }, multiple: true } %>
-    </fieldset>
+      <fieldset class="col-md-6 col-12 mt-4">
+        <%= f.label :modele_id, class: "form-label" %>
+        <%= f.collection_select(:modele_id, Modele.all_sorted, :id,
+                                                              :name_with_brand,
+                                                              { prompt: true, include_blank: false },
+                                                              { class: "form-select", data: { controller: "select" } }) %>
+      </fieldset>
 
-    <fieldset class="col-md-6 col-12 mt-4 align-self-center">
-      <div class="form-check">
-        <%= f.check_box :critique, class: "form-check-input" %>
-        <%= f.label :critique, class: "form-check-label" %>
-      </div>
-    </fieldset>
+      <fieldset class="col-md-6 col-12 mt-4">
+        <%= f.label :network_types, class: "form-label" %>
+        <%= f.select :network_types,
+                     Modele::Network::TYPES.map { |type| [Modele.human_attribute_name("network_types.#{type}"), type] },
+                     { prompt: true, include_blank: true },
+                     { class: "form-select", data: { controller: "select" }, multiple: true } %>
+      </fieldset>
 
-    <fieldset class="col-md-6 col-12 mt-4">
-      <%= f.label :stack_id, class: "form-label" %>
-      <%= f.collection_select(:stack_id, Stack.order(:id), :id, :name, { prompt: true, include_blank: true },
-                                                                       { class: "form-select" }) %>
-    </fieldset>
+      <fieldset class="col-md-6 col-12 mt-4 align-self-center">
+        <div class="form-check">
+          <%= f.check_box :critique, class: "form-check-input" %>
+          <%= f.label :critique, class: "form-check-label" %>
+        </div>
+      </fieldset>
+
+      <fieldset class="col-md-6 col-12 mt-4">
+        <%= f.label :stack_id, class: "form-label" %>
+        <%= f.collection_select(:stack_id, Stack.order(:id), :id, :name, { prompt: true, include_blank: true },
+                                                                         { class: "form-select" }) %>
+      </fieldset>
+    </div>
+  <% end %>
 
     <!-- TODO: update -->
     <% if @server.modele %>
@@ -94,9 +97,11 @@
             <% end %>
           </template>
 
+          <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+            <% card.with_header do %>
+              <%= "#{Enclosure.model_name.human} #{enclosure.position}" %>
+            <% end %>
 
-          <%= content_tag :span, "Enclosure #{enclosure.position}", class: "form-label" %>
-          <%= render CardComponent.new() do |card| %>
             <ul class="list-group">
               <li class="list-group-item">
                 <div class="row">
@@ -140,10 +145,12 @@
       <% end %>
     <% end %>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :comment, class: "form-label" %>
-      <%= f.text_area :comment, class: "form-control" %>
-    </fieldset>
+    <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+      <fieldset class="col-12">
+        <%= f.label :comment, class: "form-label" %>
+        <%= f.text_area :comment, class: "form-control" %>
+      </fieldset>
+    <% end %>
 
     <fieldset class="col-12 mt-4" data-controller="nested-form">
       <template data-nested-form-target="template">
@@ -152,8 +159,11 @@
         <% end %>
       </template>
 
-      <%= f.label :documents, class: "form-label" %>
-      <%= render CardComponent.new(extra_classes: "bg-transparent") do |card| %>
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= f.label :documents %>
+        <% end %>
+
         <%= f.fields_for :documents do |document_fields| %>
           <%= render partial: "document_fields", locals: { f:  document_fields } %>
         <% end %>
@@ -167,15 +177,17 @@
       <% end %>
     </fieldset>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :photo, class: "form-label" %>
-      <%= f.file_field :photo, class: "form-control" %>
-      <%- if @server.photo.attached? %>
-        <%= image_tag @server.photo.variant(geometry: "x200"), class: "server_photo ms-0 mt-2" %>
-      <% end %>
-    </fieldset>
+    <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+      <fieldset class="col-12">
+        <%= f.label :photo, class: "form-label" %>
+        <%= f.file_field :photo, class: "form-control" %>
+        <%- if @server.photo.attached? %>
+          <%= image_tag @server.photo.variant(geometry: "x200"), class: "server_photo ms-0 mt-2" %>
+        <% end %>
+      </fieldset>
+    <% end %>
 
-    <div class="col-12 py-3 text-end sticky-bottom bg-body-tertiary">
+    <div class="col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top">
       <%= link_to t("action.cancel"), servers_path, class: "btn btn-outline-secondary" %>
       <%= f.submit class: "btn btn-primary" %>
     </div>

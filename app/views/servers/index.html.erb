@@ -21,104 +21,107 @@
   </div>
 </div>
 
-<%= render FilterComponent.new(@filter) do |c| %>
-  <% c.with_form do |f| %>
-    <div class="w-100">
-      <fieldset class="form-floating">
-        <%= f.text_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
-        <%= f.label :q %>
-      </fieldset>
-    </div>
+<div class="p-4 border-top">
+  <div class="mb-4">
+    <%= render FilterComponent.new(@filter) do |c| %>
+      <% c.with_form do |f| %>
+        <div class="w-100">
+          <fieldset class="form-floating">
+            <%= f.text_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
+            <%= f.label :q %>
+          </fieldset>
+        </div>
 
-    <div>
-      <fieldset class="form-floating">
-        <%= f.collection_select(:room_ids, Room.order(:name),
-                                :id,
-                                :name,
-                                { prompt: true, include_blank: true, multiple: true },
-                                { class: "form-select", data: { controller: :select } }) %>
-        <%= f.label :room_ids %>
-      </fieldset>
-    </div>
+        <div>
+          <fieldset class="form-floating">
+            <%= f.collection_select(:room_ids, Room.order(:name),
+                                    :id,
+                                    :name,
+                                    { prompt: true, include_blank: true, multiple: true },
+                                    { class: "form-select", data: { controller: :select } }) %>
+            <%= f.label :room_ids %>
+          </fieldset>
+        </div>
 
-    <div>
-      <fieldset class="form-floating">
-        <%= f.collection_select(:islet_ids, Islet.sorted,
-                                :id,
-                                :name,
-                                { prompt: true, include_blank: true, multiple: true },
-                                { class: "form-select", data: { controller: :select } }) %>
-        <%= f.label :islet_ids %>
-      </fieldset>
-    </div>
+        <div>
+          <fieldset class="form-floating">
+            <%= f.collection_select(:islet_ids, Islet.sorted,
+                                    :id,
+                                    :name,
+                                    { prompt: true, include_blank: true, multiple: true },
+                                    { class: "form-select", data: { controller: :select } }) %>
+            <%= f.label :islet_ids %>
+          </fieldset>
+        </div>
 
-    <div>
-      <fieldset class="form-floating">
-        <%= f.collection_select(:bay_ids, Bay.sorted,
-                                :id,
-                                :name,
-                                { prompt: true, include_blank: true, multiple: true },
-                                { class: "form-select", data: { controller: :select } }) %>
-        <%= f.label :bay_ids %>
-      </fieldset>
-    </div>
+        <div>
+          <fieldset class="form-floating">
+            <%= f.collection_select(:bay_ids, Bay.sorted,
+                                    :id,
+                                    :name,
+                                    { prompt: true, include_blank: true, multiple: true },
+                                    { class: "form-select", data: { controller: :select } }) %>
+            <%= f.label :bay_ids %>
+          </fieldset>
+        </div>
 
-    <div>
-      <fieldset class="form-floating">
-        <%= f.collection_select(:frame_ids, Frame.order(:name),
-                                :id,
-                                :name,
-                                { prompt: true, include_blank: true, multiple: true },
-                                { class: "form-select", data: { controller: :select } }) %>
-        <%= f.label :frame_ids %>
-      </fieldset>
-    </div>
+        <div>
+          <fieldset class="form-floating">
+            <%= f.collection_select(:frame_ids, Frame.order(:name),
+                                    :id,
+                                    :name,
+                                    { prompt: true, include_blank: true, multiple: true },
+                                    { class: "form-select", data: { controller: :select } }) %>
+            <%= f.label :frame_ids %>
+          </fieldset>
+        </div>
 
-    <div>
-      <fieldset class="form-floating">
-        <%= f.collection_select(:modele_ids, Modele.sorted,
-                                :id,
-                                :name,
-                                { prompt: true, include_blank: true, multiple: true },
-                                { class: "form-select", data: { controller: :select } }) %>
-        <%= f.label :modele_ids %>
-      </fieldset>
-    </div>
+        <div>
+          <fieldset class="form-floating">
+            <%= f.collection_select(:modele_ids, Modele.sorted,
+                                    :id,
+                                    :name,
+                                    { prompt: true, include_blank: true, multiple: true },
+                                    { class: "form-select", data: { controller: :select } }) %>
+            <%= f.label :modele_ids %>
+          </fieldset>
+        </div>
 
-    <div>
-      <fieldset class="form-floating">
-        <%= f.collection_select(:gestion_ids, Gestion.sorted,
-                                :id,
-                                :name,
-                                { prompt: true, include_blank: true, multiple: true },
-                                { class: "form-select", data: { controller: :select } }) %>
-        <%= f.label :gestion_ids %>
-      </fieldset>
-    </div>
+        <div>
+          <fieldset class="form-floating">
+            <%= f.collection_select(:gestion_ids, Gestion.sorted,
+                                    :id,
+                                    :name,
+                                    { prompt: true, include_blank: true, multiple: true },
+                                    { class: "form-select", data: { controller: :select } }) %>
+            <%= f.label :gestion_ids %>
+          </fieldset>
+        </div>
 
-    <div>
-      <fieldset class="form-floating">
-        <%= f.collection_select(:domaine_ids, Domaine.sorted,
-                                :id,
-                                :name,
-                                { prompt: true, include_blank: true, multiple: true },
-                                { class: "form-select", data: { controller: :select } }) %>
-        <%= f.label :domaine_ids %>
-      </fieldset>
-    </div>
+        <div>
+          <fieldset class="form-floating">
+            <%= f.collection_select(:domaine_ids, Domaine.sorted,
+                                    :id,
+                                    :name,
+                                    { prompt: true, include_blank: true, multiple: true },
+                                    { class: "form-select", data: { controller: :select } }) %>
+            <%= f.label :domaine_ids %>
+          </fieldset>
+        </div>
 
-    <div>
-      <fieldset class="form-floating">
-        <%= f.collection_select(:cluster_ids, Cluster.sorted,
-                                :id,
-                                :name,
-                                { prompt: true, include_blank: true, multiple: true },
-                                { class: "form-select", data: { controller: :select } }) %>
-        <%= f.label :cluster_ids %>
-      </fieldset>
-    </div>
-  <% end %>
-<% end %>
+        <div>
+          <fieldset class="form-floating">
+            <%= f.collection_select(:cluster_ids, Cluster.sorted,
+                                    :id,
+                                    :name,
+                                    { prompt: true, include_blank: true, multiple: true },
+                                    { class: "form-select", data: { controller: :select } }) %>
+            <%= f.label :cluster_ids %>
+          </fieldset>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 
 <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance }) do %>
   <%= render List::DataTableComponent.new(@servers) do |table| %>
@@ -149,31 +152,59 @@
     <% table.with_column(Server.human_attribute_name(:network_types)) do |server| %>
       <%= server.network_types.map { |type| Modele.human_attribute_name("network_types.#{type}") }.join(", ") %>
     <% end %>
+  </div>
 
-    <% table.with_column(style: "min-width: 100px; width: 100px") do |server| %>
-      <div class="btn-group btn-group-sm" role="group" aria-label="...">
-        <%= link_to duplicate_server_path(server), class: "btn btn-success", data: { turbo_frame: :_top } do %>
-          <span class="bi bi-copy" title="<%= t("action.duplicate") %>" aria-hidden="true"
+  <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance }) do %>
+    <%= render List::DataTableComponent.new(@servers) do |table| %>
+      <% table.with_column(Server.human_attribute_name(:name), sort_by: :name) do |server| %>
+        <%= link_to server.name, server_path(server), class: "fw-bold", data: { turbo_frame: :_top } %>
+      <% end %>
+
+      <% table.with_column(Server.human_attribute_name(:numero), sort_by: :numero) do |server| %>
+        <%= link_to server.numero, server_path(server), class: "fw-bold", data: { turbo_frame: :_top } %>
+      <% end %>
+
+      <% table.with_column(Server.human_attribute_name(:type), sort_by: :"categories.name") do |server| %>
+        <%= link_to server.modele.category, category_path(server.modele.category), data: { turbo_frame: :_top } if server.modele.try(:category) %>
+      <% end %>
+
+      <% table.with_column(Server.human_attribute_name(:room), sort_by: :"rooms.name") do |server| %>
+        <%= link_to server.room, room_path(server.room), data: { turbo_frame: :_top } if server.room %>
+      <% end %>
+
+      <% table.with_column(Server.human_attribute_name(:islet), sort_by: :"islets.name") do |server| %>
+        <%= link_to server.islet, islet_path(server.islet), data: { turbo_frame: :_top } if server.islet %>
+      <% end %>
+
+      <% table.with_column(Bay.model_name.human, sort_by: :"bays.id") do |server| %>
+        <%= link_to server.bay, bay_path(server.bay), data: { turbo_frame: :_top } if server.bay %>
+      <% end %>
+
+      <% table.with_column(style: "min-width: 100px; width: 100px") do |server| %>
+        <div class="btn-group btn-group-sm" role="group" aria-label="...">
+          <%= link_to duplicate_server_path(server), class: "btn btn-success", data: { turbo_frame: :_top } do %>
+            <span class="bi bi-copy" title="<%= t("action.duplicate") %>" aria-hidden="true"
+                                                                          data-controller="tooltip"
+                                                                          data-bs-placement="left"></span>
+            <span class="visually-hidden"><%= t("action.duplicate") %></span>
+          <% end %>
+          <%= link_to edit_server_path(server), class: "btn btn-info", data: { turbo_frame: :_top } do %>
+            <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
+                                                                       data-controller="tooltip"
+                                                                       data-bs-placement="left"></span>
+            <span class="visually-hidden"><%= t("action.edit") %></span>
+          <% end %>
+          <%= link_to server_path(server, @search_params),
+                      method: :delete,
+                      data: { turbo_frame: :_top, confirm: t("action.confirm") },
+                      class: "btn btn-danger" do %>
+            <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
                                                                         data-controller="tooltip"
                                                                         data-bs-placement="left"></span>
-          <span class="visually-hidden"><%= t("action.duplicate") %></span>
-        <% end %>
-        <%= link_to edit_server_path(server), class: "btn btn-info", data: { turbo_frame: :_top } do %>
-          <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
-                                                                        data-controller="tooltip"
-                                                                        data-bs-placement="left"></span>
-          <span class="visually-hidden"><%= t("action.edit") %></span>
-        <% end %>
-        <%= link_to server_path(server, @search_params),
-                    method: :delete,
-                    data: { turbo_frame: :_top, confirm: t("action.confirm") },
-                    class: "btn btn-danger" do %>
-          <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
-                                                                        data-controller="tooltip"
-                                                                        data-bs-placement="left"></span>
-          <span class="visually-hidden"><%= t("action.delete") %></span>
-        <% end %>
-      </div>
+            <span class="visually-hidden"><%= t("action.delete") %></span>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
+</div>

@@ -1,7 +1,7 @@
 <%= render FormErrorsComponent.new(@architecture) %>
 
 <%= form_for(@architecture, html: { class: "col-11 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
-  <%= render CardComponent.new(extra_classes: "mt-4 bg-body-tertiary") do |card| %>
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <% card.with_header do %>
       <%= t("display") %>
     <% end %>
@@ -16,7 +16,7 @@
     </fieldset>
   <% end %>
 
-  <div class="col-12 py-3 text-end sticky-bottom bg-body-tertiary">
+  <div class="col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top">
     <%= link_to t("action.cancel"), architectures_path, class: "btn btn-outline-secondary" %>
     <%= f.submit class: "btn btn-primary" %>
   </div>
