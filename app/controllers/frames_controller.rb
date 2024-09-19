@@ -4,8 +4,8 @@ class FramesController < ApplicationController
   include ServersHelper
   include RoomsHelper
 
-  before_action :set_frame, only: %i[show print] # TODO: Remove print when print on visualization
-  before_action :set_room, only: %i[show print] # TODO: Remove print when print on visualization
+  before_action :set_frame, only: :show
+  before_action :set_room, only: :show
 
   def index
     @filter = ProcessorFilter.new(Frame.includes(bay: { islet: :room }).references(bay: { islet: :room }), params)
@@ -105,10 +105,6 @@ class FramesController < ApplicationController
       format.html
       format.txt { send_data Frame.to_txt(@servers_per_frames, params[:bg]) }
     end
-  end
-
-  def print
-    render layout: "pdf"
   end
 
   private

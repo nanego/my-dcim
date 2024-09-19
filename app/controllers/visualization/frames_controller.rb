@@ -2,8 +2,8 @@
 
 module Visualization
   class FramesController < ApplicationController
-    before_action :set_frame, only: :show
-    before_action :set_room, only: :show
+    before_action :set_frame, only: %i[show print]
+    before_action :set_room, only: %i[show print]
 
     def show
       respond_to do |format|
@@ -12,6 +12,10 @@ module Visualization
         format.js
         format.txt { send_data @frame.to_txt(params[:bg]) }
       end
+    end
+
+    def print
+      render layout: "pdf"
     end
 
     private
@@ -23,8 +27,8 @@ module Visualization
     def set_frame
       @frame = Frame.all.includes(servers: [modele: [:category, :composants],
                                             cards: [:composant,
-                                                    ports: [connection: [cable: :connections]],
-                                                    card_type: [:port_type],]],
+                                                    { ports: [connection: [cable: :connections]],
+                                                      card_type: [:port_type] },]],
                                   bay: [islet: [:room]])
         .friendly
         .find(params[:id].to_s.downcase)

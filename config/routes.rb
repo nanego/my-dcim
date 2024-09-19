@@ -38,7 +38,6 @@ Rails.application.routes.draw do
     end
     member do
       get :network
-      get :print
     end
   end
 
@@ -95,7 +94,13 @@ Rails.application.routes.draw do
     resource :infrastructure, only: :show
     resource :network_capacity, only: :show
     resources :rooms, only: :show
-    resources :frames, only: :show
+
+    resources :frames, only: :show do
+      member do
+        get :print
+      end
+    end
+
     resources :bays, only: :show
   end
 
