@@ -29,7 +29,7 @@
                        locals: {
                          frame: @frame,
                          servers: @servers,
-                         settings: Frame.settings.merge({ min_height: 20 }),
+                         settings: Frame::DEFAULT_SETTINGS.merge({ min_height: 20 }),
                          editable: false,
                          view_type: "back"
                        }

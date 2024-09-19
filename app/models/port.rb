@@ -25,7 +25,6 @@ class Port < ApplicationRecord
   delegate :server_id, to: :card, prefix: false
 
   scope :sorted, -> { order(:position) }
-  scope :with_connection, -> { joins(:connection) }
 
   def network_conf(switch_slot)
     cable_name = connection.try(:cable).try(:name)
