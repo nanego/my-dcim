@@ -4,7 +4,7 @@
   t(".title") => ""
 } %>
 
-<%= render Page::HeadingComponent.new(resource: @site, title: t(".title"), breadcrumb_steps:, style: :create) %>
+<%= render Page::HeadingComponent.new(resource: @site, title: t(".title"), breadcrumb_steps:, buttons: :create) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>

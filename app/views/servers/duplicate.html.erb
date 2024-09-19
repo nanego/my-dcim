@@ -6,7 +6,7 @@
 } %>
 
 <%= render Page::HeadingComponent.new(
-  resource: @server, title: t(".title", server_name: @original_server.name), breadcrumb_steps:, style: :create
+  resource: @server, title: t(".title", server_name: @original_server.name), breadcrumb_steps:, buttons: :create
 ) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
