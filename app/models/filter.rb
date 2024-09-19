@@ -39,7 +39,7 @@ class Filter
   end
 
   def filled_attributes
-    @filled_attributes ||= attributes.select { |k, v| v.present? }
+    @filled_attributes ||= attributes.compact_blank
   end
 
   def attributes

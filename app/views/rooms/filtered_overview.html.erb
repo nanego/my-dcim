@@ -16,7 +16,7 @@
     </div>
     <div class="col-12 col-lg-6">
       <% @frames.each do |frame| %>
-        <% settings = Frame.settings.merge({:min_height => params[:view]=="back" ? 20 : 27 }) %>
+        <% settings = Frame::DEFAULT_SETTINGS.merge({:min_height => params[:view]=="back" ? 20 : 27 }) %>
           <%= render partial: "frames/show_frame", locals: { frame: frame, servers: frame.servers, settings: settings, view_type: params[:view], editable: false, highlighted_servers: @filtered_servers } %>
       <% end %>
     </div>

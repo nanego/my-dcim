@@ -1,5 +1,5 @@
 <% view_side = 'front' if local_assigns[:view_side].nil? %>
-<% settings = Frame.settings.merge({:min_height => view_side == 'back' ? 20 : 27}) %>
+<% settings = Frame::DEFAULT_SETTINGS.merge({:min_height => view_side == 'back' ? 20 : 27}) %>
 
 <div id="<%= room.try(:name).try(:parameterize).try(:underscore) %>">
   <% islets.each do |islet, lanes| %>
