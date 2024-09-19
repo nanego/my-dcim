@@ -4,6 +4,9 @@
     t(".title") => ""
   }
 %>
+<div class="d-flex justify-content-between bg-body p-4">
+  <h1><%= t(".title") %></h1>
+</div>
 
 <% if @import_error %>
   <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -15,18 +18,11 @@
 
 <%= flash[:notice] %>
 
-<div class="col-12 p-4 border-top pt-5">
-  <%= render CardComponent.new(type: :success) do |card| %>
+<div class="col-12 p-4 border-top">
+  <%= render CardComponent.new(type: :success, extra_classes: "bg-body-tertiary") do |card| %>
     <%= form_for :import, url: import_servers_path, multipart: true do |f| %>
-      <!-- Header -->
-      <% card.with_header do %>
-        <h4 class="card-title text-center">
-          <%= t(".title") %>
-        </h4>
-      <% end %>
-
       <!-- Card Content: Form -->
-      <fieldset class="mt-4">
+      <fieldset>
         <%= f.label t(".room_id.label"), class: "form-label" %>
         <%= f.select :room_id,
                       Room.order("id").all.collect { |p| [p.name, p.id] },
@@ -53,11 +49,13 @@
 
       <!-- Footer -->
       <% card.with_footer do %>
-        <%= f.submit t(".action.import"), class: "btn btn-success w-100" %>
+        <div class="col-12 text-end">
+          <%= f.submit t(".action.import"), class: "btn btn-success" %>
+        </div>
       <% end %>
     <% end %>
   <% end %>
-  <p>
+  <p class="mt-2 fst-italic">
     <%= t(".download_example_html", link: link_to("fichier_exemple.csv", root_url + "files/format_exemple.csv")) %>
   </p>
 </div>
