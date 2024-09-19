@@ -74,7 +74,7 @@ class IsletsController < ApplicationController
   end
 
   def print
-    render "rooms/print", layout: "pdf"
+    render "visualization/rooms/print", layout: "pdf"
   end
 
   private
