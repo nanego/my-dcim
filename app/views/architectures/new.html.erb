@@ -1,7 +1,7 @@
 <% provide(:title, "#{Architecture.model_name.human.pluralize} | #{t("action.create")}") %>
 <% breadcrumb_steps = { Architecture.model_name.human.pluralize => architectures_path, t(".title") => "" } %>
 
-<%= render Page::HeadingComponent.new(resource: @architecture, title: t(".title"), breadcrumb_steps:, style: :create) %>
+<%= render Page::HeadingComponent.new(resource: @architecture, title: t(".title"), breadcrumb_steps:, buttons: :create) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>

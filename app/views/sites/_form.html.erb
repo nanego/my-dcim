@@ -1,6 +1,6 @@
 <%= render FormErrorsComponent.new(@site) %>
 
-<%= form_for(@site, html: { class: "col-11 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+<%= form_for(@site, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <% card.with_header do %>
       <%= t("display") %>

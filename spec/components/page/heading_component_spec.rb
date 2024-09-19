@@ -17,7 +17,7 @@ RSpec.describe Page::HeadingComponent, type: :component do
     end
   end
 
-  context "with :show style and extra_buttons" do
+  context "with :show buttons and extra_buttons" do
     it "renders breadcrumb" do
       expect(rendered_component).to have_tag("ol.breadcrumb") do
         with_tag("a", href: "#url_sites", text: "Sites")
@@ -44,7 +44,7 @@ RSpec.describe Page::HeadingComponent, type: :component do
     end
   end
 
-  context "with :show style and without extra_buttons" do
+  context "with :show buttons and without extra_buttons" do
     let(:block) { nil }
 
     it "renders heading" do # rubocop:disable RSpec/ExampleLength
@@ -58,8 +58,8 @@ RSpec.describe Page::HeadingComponent, type: :component do
     end
   end
 
-  context "with :create style" do
-    let(:component) { described_class.new(resource:, title:, breadcrumb_steps:, style: :create) }
+  context "with :create buttons" do
+    let(:component) { described_class.new(resource:, title:, breadcrumb_steps:, buttons: :create) }
 
     it "renders heading" do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component).to have_tag("div.col-12") do
@@ -82,8 +82,8 @@ RSpec.describe Page::HeadingComponent, type: :component do
     end
   end
 
-  context "with :edit style" do
-    let(:component) { described_class.new(resource:, title:, breadcrumb_steps:, style: :edit) }
+  context "with :edit buttons" do
+    let(:component) { described_class.new(resource:, title:, breadcrumb_steps:, buttons: :edit) }
 
     it "renders heading" do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component).to have_tag("div.col-12") do
@@ -104,8 +104,10 @@ RSpec.describe Page::HeadingComponent, type: :component do
     end
   end
 
-  context "with not valid style" do
-    let(:component) { described_class.new(resource:, title:, breadcrumb_steps:, style: :unknown) }
+  # TODO: add none buttons
+
+  context "with not valid buttons" do
+    let(:component) { described_class.new(resource:, title:, breadcrumb_steps:, buttons: :unknown) }
 
     it { expect { component }.to raise_error(ArgumentError) }
   end
