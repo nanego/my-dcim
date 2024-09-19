@@ -4,7 +4,7 @@ module Visualization
   class RoomsController < ApplicationController
     include RoomsHelper
 
-    before_action :set_room, only: :show
+    before_action :set_room, only: %i[show print]
     before_action :set_servers_per_frames, only: %i[show print]
 
     def show
