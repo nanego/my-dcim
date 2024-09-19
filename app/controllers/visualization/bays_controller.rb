@@ -4,8 +4,8 @@ module Visualization
   class BaysController < ApplicationController
     include RoomsHelper
 
-    before_action :set_bay, only: :show
-    before_action :set_servers_per_frames, only: :show
+    before_action :set_bay, only: %i[show print]
+    before_action :set_servers_per_frames, only: %i[show print]
 
     def show
       respond_to do |format|
@@ -14,6 +14,10 @@ module Visualization
         format.js
         format.txt { send_data Frame.to_txt(@servers_per_frames[@bay.islet.room_id], params[:bg]) }
       end
+    end
+
+    def print
+      render "visualization/rooms/print", layout: "pdf"
     end
 
     private

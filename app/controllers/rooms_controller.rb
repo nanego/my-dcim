@@ -133,22 +133,4 @@ class RoomsController < ApplicationController
   def room_params
     params.require(:room).permit(:name, :description, :display_on_home_page, :position, :site_id)
   end
-
-  def set_servers_per_frames
-    frames = Frames::IncludingServersQuery.call
-    @servers_per_frames = {}
-
-    sorted_frames_per_islet(frames, params[:view]).each do |frame|
-      room = frame.bay.islet.room_id
-      islet = frame.bay.islet.name
-      @servers_per_frames[room] ||= {}
-      @servers_per_frames[room][islet] ||= {}
-      @servers_per_frames[room][islet][frame.bay.lane] ||= {}
-      @servers_per_frames[room][islet][frame.bay.lane][frame.bay] ||= {}
-      @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] ||= []
-      frame.servers.each do |s|
-        @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] << s
-      end
-    end
-  end
 end

@@ -71,9 +71,7 @@ Rails.application.routes.draw do
       get :overview
     end
   end
-  resources :bays do
-    get :print, on: :member
-  end
+  resources :bays
   resources :gestions
   resources :domaines
   resources :modeles
@@ -97,7 +95,9 @@ Rails.application.routes.draw do
     resources :frames, only: :show do
       get :print, on: :member
     end
-    resources :bays, only: :show
+    resources :bays, only: :show do
+      get :print, on: :member
+    end
   end
 
   root to: 'pages#index'
