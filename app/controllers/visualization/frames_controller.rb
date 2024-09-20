@@ -25,11 +25,11 @@ module Visualization
     end
 
     def set_frame
-      @frame = Frame.all.includes(servers: [modele: [:category, :composants],
-                                            cards: [:composant,
-                                                    { ports: [connection: [cable: :connections]],
-                                                      card_type: [:port_type] },]],
-                                  bay: [islet: [:room]])
+      @frame = Frame.includes(servers: [modele: [:category, :composants],
+                                        cards: [:composant,
+                                                { ports: [connection: [cable: :connections]],
+                                                  card_type: [:port_type] },]],
+                              bay: [islet: [:room]])
         .friendly
         .find(params[:id].to_s.downcase)
     end
