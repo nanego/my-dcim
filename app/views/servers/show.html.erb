@@ -42,36 +42,36 @@
 
   <div class="d-flex flex-row flex-wrap">
     <div class="col-12 col-lg-6 pe-lg-4">
-      <%= render CardComponent.new(extra_classes: "mb-4 lg-mb-0") do |card| %>
-        <dl class="row">
-          <dt class="col-5 text-end"><%= Bay.model_name.human %></dt>
-          <dd class="col-7"><%= link_to @server.frame.try(:name), frame_path(@server.frame) %></dd>
+      <%= render CardComponent.new(extra_classes: "mb-4 mb-lg-0") do |card| %>
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <dt class="pb-2"><%= Bay.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= link_to @server.frame.try(:name), frame_path(@server.frame) %></dd>
 
-          <dt class="col-5 text-end"><%= Islet.model_name.human %></dt>
-          <dd class="col-7"><%= link_to @server.islet, edit_islet_path(@server.islet) %></dd>
+          <dt class="pb-2"><%= Islet.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= link_to @server.islet, edit_islet_path(@server.islet) %></dd>
 
-          <dt class="col-5 text-end"><%= Room.model_name.human %></dt>
-          <dd class="col-7"><%= link_to @server.room.try(:name), @server.room %></dd>
+          <dt class="pb-2"><%= Room.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= link_to @server.room.try(:name), @server.room %></dd>
 
-          <dt class="col-5 text-end"><%= Category.model_name.human %></dt>
-          <dd class="col-7"><%= @server.modele.try(:category) %></dd>
+          <dt class="pb-2"><%= Category.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @server.modele.try(:category) %></dd>
 
-          <dt class="col-5 text-end"><%= Modele.human_attribute_name(:nb_elts) %></dt>
-          <dd class="col-7"><%= @server.modele.try(:nb_elts) %></dd>
+          <dt class="pb-2"><%= Modele.human_attribute_name(:nb_elts) %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @server.modele.try(:nb_elts) %></dd>
 
-          <dt class="col-5 text-end"><%= Architecture.model_name.human %></dt>
-          <dd class="col-7">
+          <dt class="pb-2"><%= Architecture.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3">
             <%= link_to @server.modele.try(:architecture), architecture_path(@server.modele.try(:architecture)) %>
           </dd>
 
-          <dt class="col-5 text-end"><%= t(".nb_u") %></dt>
-          <dd class="col-7"><%= @server.modele.try(:u) %></dd>
+          <dt class="pb-2"><%= t(".nb_u") %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @server.modele.try(:u) %></dd>
 
-          <dt class="col-5 text-end"><%= Server.human_attribute_name(:position) %></dt>
-          <dd class="col-7"><%= @server.position %></dd>
+          <dt class="pb-2"><%= Server.human_attribute_name(:position) %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @server.position %></dd>
 
-          <dt class="col-5 text-end"><%= Manufacturer.model_name.human %></dt>
-          <dd class="col-7">
+          <dt class="pb-2"><%= Manufacturer.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3">
             <%= link_to @server.modele.try(:manufacturer), manufacturer_path(@server.modele.try(:manufacturer)) %>
             <% if (documentation_url = @server.documentation_url).present? %>
               (
@@ -80,35 +80,35 @@
             <% end %>
           </dd>
 
-          <dt class="col-5 text-end"><%= Modele.model_name.human %></dt>
-          <dd class="col-7">
+          <dt class="pb-2"><%= Modele.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3">
             <%= link_to @server.modele, edit_modele_path(@server.modele) if @server.modele.try(:name) %>
           </dd>
 
-          <dt class="col-5 text-end"><%= Server.human_attribute_name(:numero) %></dt>
-          <dd class="col-7"><%= @server.try(:numero) %></dd>
+          <dt class="pb-2"><%= Server.human_attribute_name(:numero) %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @server.try(:numero) %></dd>
 
-          <dt class="col-5 text-end"><%= Cluster.model_name.human %></dt>
-          <dd class="col-7"><%= link_to_if @server.cluster, @server.cluster&.name, @server.cluster %></dd>
+          <dt class="pb-2"><%= Cluster.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= link_to_if @server.cluster, @server.cluster&.name, @server.cluster %></dd>
 
-          <dt class="col-5 text-end"><%= Server.human_attribute_name(:critique) %></dt>
-          <dd class="col-7">
+          <dt class="pb-2"><%= Server.human_attribute_name(:critique) %></dt>
+          <dd class="mb-0 pb-2 ps-3">
             <span class="<%= class_names("text-uppercase text-danger": @server.critique) %>">
               <%= t("boolean.#{@server.critique}") %>
             </span>
           </dd>
 
-          <dt class="col-5 text-end"><%= Domaine.model_name.human %></dt>
-          <dd class="col-7"><%= link_to_if @server.domaine, @server.domaine %></dd>
+          <dt class="pb-2"><%= Domaine.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= link_to_if @server.domaine, @server.domaine %></dd>
 
-          <dt class="col-5 text-end"><%= Gestion.model_name.human %></dt>
-          <dd class="col-7"><%= link_to_if @server.gestion, @server.gestion %></dd>
+          <dt class="pb-2"><%= Gestion.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= link_to_if @server.gestion, @server.gestion %></dd>
 
-          <dt class="col-5 text-end"><%= ServerState.model_name.human %></dt>
-          <dd class="col-7"><%= @server.server_state %></dd>
+          <dt class="pb-2"><%= ServerState.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @server.server_state %></dd>
 
-          <dt class="col-5 text-end"><%= Stack.model_name.human %></dt>
-          <dd class="col-7">
+          <dt class="pb-2"><%= Stack.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3">
             <% if @server.stack %>
               <%= link_to stack_path(@server.stack) do %>
                 <span style="<%= "color: ##{@server.stack.color}" %>" class="bi bi-square-fill" aria-hidden="true"></span>
@@ -116,8 +116,8 @@
             <% end %>
           </dd>
 
-          <dt class="col-5 text-end"><%= Card.model_name.human.pluralize %></dt>
-          <dd class="col-7">
+          <dt class="pb-2"><%= Card.model_name.human.pluralize %></dt>
+          <dd class="mb-0 pb-2 ps-3">
             <% @server.modele.composants.slots.each do |slot| %>
               <% @server.cards.where(:composant_id => slot.id).each do |card| %>
                 <div>
@@ -129,22 +129,22 @@
             <% end if @server.modele.present? %>
           </dd>
 
-          <dt class="col-5 text-end"><%= Disk.model_name.human.pluralize %></dt>
-          <dd class="col-7">
+          <dt class="pb-2"><%= Disk.model_name.human.pluralize %></dt>
+          <dd class="mb-0 pb-2 ps-3">
             <% @server.disks.each do |disk| %>
               <div><%= disk %></div>
             <% end %>
           </dd>
 
-          <dt class="col-5 text-end"><%= MemoryComponent.model_name.human %></dt>
-          <dd class="col-7">
+          <dt class="pb-2"><%= MemoryComponent.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3">
             <% @server.memory_components.each do |memory_component| %>
               <span><%= memory_component %></span>
             <% end %>
           </dd>
 
-          <dt class="col-5 text-end"><%= Server.human_attribute_name(:network_types) %></dt>
-          <dd class="col-7">
+          <dt class="pb-2"><%= Server.human_attribute_name(:network_types) %></dt>
+          <dd class="mb-0 pb-2 ps-3">
             <%= @server.network_types.map { |type| Modele.human_attribute_name("network_types.#{type}") }.join(", ") %>
           </dd>
         </dl>
@@ -190,34 +190,34 @@
                 client = GlpiClient.new
                 computer = client.computer(serial: Rails.env.production? ? @server.numero : "AZERTY") %>
               <% if computer.present? %>
-                <dl class="row">
-                  <dt class="col-5 text-end"><%= t("glpi.computer.name") %></dt>
-                  <dd class="col-7"><%= computer.name %></dd>
+                <dl class="show-page_dl d-grid row-gap-2 mb-0">
+                  <dt class="pb-2"><%= t("glpi.computer.name") %></dt>
+                  <dd class="mb-0 pb-2 ps-3"><%= computer.name %></dd>
 
-                  <dt class="col-5 text-end"><%= t("glpi.computer.id") %></dt>
-                  <dd class="col-7"><%= computer.id %></dd>
+                  <dt class="pb-2"><%= t("glpi.computer.id") %></dt>
+                  <dd class="mb-0 pb-2 ps-3"><%= computer.id %></dd>
 
-                  <dt class="col-5 text-end"><%= t("glpi.computer.serial") %></dt>
-                  <dd class="col-7"><%= computer.serial %></dd>
+                  <dt class="pb-2"><%= t("glpi.computer.serial") %></dt>
+                  <dd class="mb-0 pb-2 ps-3"><%= computer.serial %></dd>
 
-                  <dt class="col-5 text-end"><%= t("glpi.computer.contact") %></dt>
-                  <dd class="col-7"><%= computer.contact %></dd>
+                  <dt class="pb-2"><%= t("glpi.computer.contact") %></dt>
+                  <dd class="mb-0 pb-2 ps-3"><%= computer.contact %></dd>
                 </dl>
-                <dl class="row p-3">
-                  <dt class="col-5 text-end"><%= t("glpi.computer.disks_count") %></dt>
-                  <dd class="col-7"><%= computer.hard_drives&.size %></dd>
+                <dl class="show-page_dl d-grid row-gap-2 pt-3 border-top mb-0">
+                  <dt class="pb-2"><%= t("glpi.computer.disks_count") %></dt>
+                  <dd class="mb-0 pb-2 ps-3"><%= computer.hard_drives&.size %></dd>
 
-                  <dt class="col-5 text-end"><%= t("glpi.computer.disks_capacity") %></dt>
-                  <dd class="col-7"><%= number_to_human_size(computer.hard_drives_total_capacity * 1048576) %></dd>
+                  <dt class="pb-2"><%= t("glpi.computer.disks_capacity") %></dt>
+                  <dd class="mb-0 pb-2 ps-3"><%= number_to_human_size(computer.hard_drives_total_capacity * 1048576) %></dd>
 
-                  <dt class="col-5 text-end"><%= t("glpi.computer.memories_count") %></dt>
-                  <dd class="col-7"><%= computer.memories&.size %></dd>
+                  <dt class="pb-2"><%= t("glpi.computer.memories_count") %></dt>
+                  <dd class="mb-0 pb-2 ps-3"><%= computer.memories&.size %></dd>
 
-                  <dt class="col-5 text-end"><%= t("glpi.computer.memories_total") %></dt>
-                  <dd class="col-7"><%= number_to_human_size(computer.memories_total_size * 1048576) %></dd>
+                  <dt class="pb-2"><%= t("glpi.computer.memories_total") %></dt>
+                  <dd class="mb-0 pb-2 ps-3"><%= number_to_human_size(computer.memories_total_size * 1048576) %></dd>
 
-                  <dt class="col-5 text-end"><%= t("glpi.computer.cpus") %></dt>
-                  <dd class="col-7">
+                  <dt class="pb-2"><%= t("glpi.computer.cpus") %></dt>
+                  <dd class="mb-0 pb-2 ps-3">
                     <%= computer.processors.group_by { |p| p[1]["designation"] }
                                            .map { |designation, processors| "#{processors.size} x #{designation}" }
                                            .join(", ") %>

@@ -4,34 +4,36 @@
 <%= render Page::HeadingComponent.new(
   resource: @site, title: t(".title", site_id: @site.id, site_name: @site.name), breadcrumb_steps:
 ) %>
-<div class="col-12 p-4 border-top row">
-  <div class="col-12 col-md-6">
-    <%= render CardComponent.new() do |card| %>
-      <% card.with_header do %>
-        <%= t("display") %>
-      <% end %>
-
-      <dl class="row">
-        <% %i[name position].each do |attribute_name| %>
-          <dt class="col-5 text-end"><%= Site.human_attribute_name(attribute_name) %></dt>
-          <dd class="col-7"><%= @site.public_send(attribute_name) %></dd>
+<div class="col-12 p-4 border-top">
+  <div class="d-flex flex-row flex-wrap">
+    <div class="col-12 col-lg-6 pe-lg-4">
+      <%= render CardComponent.new(extra_classes: "mb-4 mb-lg-0") do |card| %>
+        <% card.with_header do %>
+          <%= t("display") %>
         <% end %>
-      </dl>
-    <% end %>
-  </div>
-  <div class="col-12 col-md-6">
-    <%= render CardComponent.new(type: :primary) do |card| %>
-      <% card.with_header do %>
-        <%= t("layouts.sidebar.location.title") %>
-      <% end %>
 
-      <dl class="row">
-        <% %i[street city country latitude longitude].each do |attribute_name| %>
-          <dt class="col-5 text-end"><%= Site.human_attribute_name(attribute_name) %></dt>
-          <dd class="col-7"><%= @site.public_send(attribute_name) %></dd>
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <% %i[name position].each do |attribute_name| %>
+            <dt class="pb-2"><%= Site.human_attribute_name(attribute_name) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @site.public_send(attribute_name) %></dd>
+          <% end %>
+        </dl>
+      <% end %>
+    </div>
+    <div class="col-12 col-lg-6">
+      <%= render CardComponent.new(type: :primary) do |card| %>
+        <% card.with_header do %>
+          <%= t("layouts.sidebar.location.title") %>
         <% end %>
-      </dl>
-    <% end %>
+
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <% %i[street city country latitude longitude].each do |attribute_name| %>
+            <dt class="pb-2"><%= Site.human_attribute_name(attribute_name) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @site.public_send(attribute_name) %></dd>
+          <% end %>
+        </dl>
+      <% end %>
+    </div>
   </div>
 </div>
 

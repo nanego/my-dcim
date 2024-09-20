@@ -441,10 +441,6 @@ dt {
 }
 dd {
   font-weight: 700;
-
-  &.col-6 {
-    margin-bottom: 0;
-  }
 }
 
 /* Page about */
@@ -747,6 +743,14 @@ body {
       &:focus, &:hover {
         text-decoration: underline;
       }
+    }
+  }
+
+  dl.show-page_dl {
+    grid-template-columns: auto 1fr;
+
+    dt:not(:last-of-type), dd:not(:last-of-type) {
+      border-bottom: var(--bs-border-width) dashed var(--bs-border-color);
     }
   }
 
