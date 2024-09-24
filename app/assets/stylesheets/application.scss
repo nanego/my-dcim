@@ -16,6 +16,7 @@
  *= require loader
  *= require palette-color-picker
  *= require rooms
+ *= require quicksearch
  *= require_self
  *= require_tree ./components
  *= require tom-select.bootstrap5
@@ -613,10 +614,6 @@ body {
       ul.navbar-nav {
         flex-wrap: wrap;
         flex-direction: row;
-
-        &:last-child {
-          margin-left: auto;
-        }
       }
     }
 

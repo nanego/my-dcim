@@ -116,6 +116,8 @@ Rails.application.routes.draw do
     patch :unsuspend, on: :member
   end
 
+  get 'search', to: 'search#index'
+
   resources :activities
   resources :changelog_entries, only: %i[index show]
   get "/:object_type/:object_id/changelog_entries", to: "changelog_entries#index"

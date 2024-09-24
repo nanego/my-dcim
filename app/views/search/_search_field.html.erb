@@ -1,0 +1,13 @@
+<div class="mx-auto">
+  <%= form_with url: search_path,
+                method: :get,
+                local: true,
+                data: { turbo_frame: "search_results" },
+                class: "d-flex" do |f| %>
+    <div class="input-group">
+      <%= f.text_field :query, value: params[:query], class: "form-control me-2",
+                       type: "search",
+                       placeholder: t("filters.placeholder.quicksearch") %>
+    </div>
+  <% end %>
+</div>

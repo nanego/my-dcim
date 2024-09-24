@@ -22,6 +22,18 @@ class Frame < ApplicationRecord
 
   scope :sorted, -> { order(:position) }
 
+  scope :search, lambda { |query|
+    return if query.blank?
+
+    joins(bay: { islet: { room: :site } }).where(
+      'frames.name ILIKE :query OR
+        islets.name ILIKE :query OR
+        rooms.name ILIKE :query OR
+        sites.name ILIKE :query',
+      query: "%#{query}%"
+    )
+  }
+
   def to_s
     name.to_s
   end
@@ -138,8 +150,8 @@ class Frame < ApplicationRecord
       puts "ERROR: #{pdu}" unless pdu.valid?
       enclosure.composants.each do |composant|
         card = Card.find_or_create_by(card_type: card_type,
-                           server: pdu,
-                           composant: composant)
+                                      server: pdu,
+                                      composant: composant)
         puts "ERROR: #{card}" unless card.valid?
       end
     end

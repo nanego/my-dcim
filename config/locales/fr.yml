@@ -773,3 +773,8 @@ fr:
         network_type: Type de réseaux
     placeholder:
       search: Rechercher ...
+      quicksearch: Recherche rapide
+  search:
+    index:
+      results: Résultats de la recherche
+      no_results_found: Aucun résultat trouvé
