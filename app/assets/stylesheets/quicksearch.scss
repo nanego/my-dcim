@@ -1,0 +1,15 @@
+#search_results {
+  a {
+    text-decoration: none;
+  }
+
+  a:hover, a:focus {
+    border: none;
+    li.list-group-item {
+      z-index: 2;
+      color: var(--bs-list-group-focus-color);
+      background-color: var(--bs-list-group-focus-bg);
+      border-color: var(--bs-list-group-focus-border-color);
+    }
+  }
+}

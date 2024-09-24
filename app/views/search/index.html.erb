@@ -1,0 +1,56 @@
+<div class="container mt-4">
+  <turbo-frame id="search_results">
+    <% if @results[:servers].any? || @results[:frames].any? %>
+      <h5><%= t('.results') %></h5>
+
+      <ul class="list-group">
+
+        <% if @results[:frames].any? %>
+          <% @results[:frames].each do |frame| %>
+            <%= link_to frame_path(frame), data: { turbo_frame: "_top" } do %>
+              <li class="list-group-item d-flex align-items-start">
+                <i class="bi bi-geo-alt me-3" style="font-size: 2rem;"></i>
+                <div>
+                  <h5><%= frame.name %></h5>
+                  <%= frame.name_with_room_and_islet %>
+                </div>
+              </li>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% if @results[:servers].any? %>
+          <% @results[:servers].each do |server| %>
+            <%= link_to server_path(server), data: { turbo_frame: "_top" } do %>
+              <li class="list-group-item d-flex align-items-start">
+                <i class="bi bi-hdd me-3" style="font-size: 2rem;"></i>
+                <div>
+                  <h5><%= server.name %></h5>
+                  <%= server.modele.name_with_brand %>
+                </div>
+              </li>
+            <% end %>
+          <% end %>
+        <% end %>
+
+      </ul>
+
+    <% else %>
+      <p><%= t('.no_results_found') %></p>
+    <% end %>
+  </turbo-frame>
+</div>
+
+<script>
+  // Focus on the first list item or at the end of the search input field if no results
+  window.onload = function () {
+    const firstItem = document.querySelector('#search_results a');
+    if (firstItem) {
+      firstItem.focus();
+    } else {
+      const input = document.querySelector('input[type="search"]');
+      input.focus()
+      input.setSelectionRange(input.value.length, input.value.length);
+    }
+  };
+</script>

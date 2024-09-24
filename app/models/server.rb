@@ -40,13 +40,13 @@ class Server < ApplicationRecord
   validate :validate_network_types_values
 
   accepts_nested_attributes_for :cards, :allow_destroy => true,
-                                        :reject_if => :all_blank
+                                :reject_if => :all_blank
   accepts_nested_attributes_for :disks, :allow_destroy => true,
-                                        :reject_if => :all_blank
+                                :reject_if => :all_blank
   accepts_nested_attributes_for :memory_components, :allow_destroy => true,
-                                                    :reject_if => :all_blank
+                                :reject_if => :all_blank
   accepts_nested_attributes_for :documents, :allow_destroy => true,
-                                            :reject_if => :all_blank
+                                :reject_if => :all_blank
 
   normalizes :network_types, with: ->(values) { values.compact_blank }
 
@@ -58,6 +58,18 @@ class Server < ApplicationRecord
   scope :no_pdus, -> { joins(:modele => :category).where("categories.name<>'Pdu'") }
   scope :only_pdus, -> { joins(:modele => :category).where("categories.name='Pdu'").order(:name) }
   scope :patch_panels, -> { joins(:modele => :category).where("categories.name='Patch Panel'").order(:name) }
+
+  scope :search, lambda { |query|
+    return if query.blank?
+
+    joins(modele: :manufacturer).where(
+      'servers.name ILIKE :query OR
+      servers.numero ILIKE :query OR
+      modeles.name ILIKE :query OR
+      manufacturers.name ILIKE :query',
+      query: "%#{query}%"
+    )
+  }
 
   def to_s
     name.to_s
