@@ -1,11 +1,12 @@
-class SearchController < ApplicationController
+# frozen_string_literal: true
 
+class SearchController < ApplicationController
   def index
-    if params[:query].present?
-      @results = search(params[:query])
-    else
-      @results = { servers: Server.none, frames: Frame.none }
-    end
+    @results = if params[:query].present?
+                 search(params[:query])
+               else
+                 { servers: Server.none, frames: Frame.none }
+               end
 
     respond_to do |format|
       format.html # normal rendering for non-Turbo requests
