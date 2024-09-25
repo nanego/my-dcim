@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "SearchController", type: :request do
-  describe "GET /index" do
-
+RSpec.describe "SearchController" do
+  describe "GET /index", :aggregate_failures do
     fixtures :servers, :frames
 
     before do
@@ -10,15 +11,12 @@ RSpec.describe "SearchController", type: :request do
     end
 
     context "when query is present" do
-      let!(:server_1) { servers(:one) }
-      let!(:frame_1) { frames(:one) }
-
       it "returns matching servers and frames in HTML format" do
         get search_path, params: { query: 'A' }, headers: { 'ACCEPT' => 'text/html' }
 
         expect(response).to have_http_status(:ok)
-        expect(assigns(:results)[:servers]).to include(server_1)
-        expect(assigns(:results)[:frames]).to include(frame_1)
+        expect(assigns(:results)[:servers]).to include(servers(:one))
+        expect(assigns(:results)[:frames]).to include(frames(:one))
       end
 
       it "returns no results when query does not match any object" do
@@ -28,7 +26,6 @@ RSpec.describe "SearchController", type: :request do
         expect(assigns(:results)[:servers]).to be_empty
         expect(assigns(:results)[:frames]).to be_empty
       end
-
     end
 
     context "when query is not present" do
