@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Visualization
-  class RoomsController < ApplicationController
+  class RoomsController < BaseController
     include RoomsHelper
 
     before_action :set_room, only: %i[show print]

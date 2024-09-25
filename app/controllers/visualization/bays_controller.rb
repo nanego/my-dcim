@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Visualization
-  class BaysController < ApplicationController
+  class BaysController < BaseController
     include RoomsHelper
 
     before_action :set_bay, only: %i[show print]

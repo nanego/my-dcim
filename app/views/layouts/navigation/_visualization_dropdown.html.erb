@@ -26,7 +26,7 @@
         <% if islets.size > 1 %>
           <% islets.each do |islet| %>
             <li class="nav-item" role="menuitem">
-              <%= link_to room_path(room, islet: islet.name, view: params[:view], bg: params[:bg]),
+              <%= link_to visualization_room_path(room, islet: islet.name, view: params[:view], bg: params[:bg]),
                           class: "dropdown-item ps-4" do %>
                 <span class="text-primary">•</span>
                 <span><%= "#{Islet.model_name.human} #{islet.name}" %></span>

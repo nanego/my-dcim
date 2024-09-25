@@ -13,7 +13,6 @@
   breadcrumb_steps[t("layouts.breadcrumb.bay.simple", name: @frame.name)] = "" if @frame.present?
 %>
 <%= render "layouts/breadcrumb", breadcrumb_steps: %>
-<% hide_inventories_sidebar! %>
 
 <div class="container-fluid" id="bay-container">
   <%= render "frames/show_complete_frame" %>

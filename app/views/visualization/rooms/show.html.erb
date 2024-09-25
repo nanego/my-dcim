@@ -2,7 +2,6 @@
                              || User::AVAILABLE_BAY_BACKGROUND_COLORS[0] %>
 <% view = params[:view].presence || current_user.visualization_bay_default_orientation %>
 <% provide :title, "#{t("visualization.title")} | Salle #{@room.name} #{@islet ? "- Ilot #{@islet}" : "" }" %>
-<% hide_inventories_sidebar! %>
 
 <%= render "layouts/breadcrumb",  breadcrumb_steps: {
   t("visualization.title") => overview_rooms_path,

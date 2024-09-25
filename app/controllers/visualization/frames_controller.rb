@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Visualization
-  class FramesController < ApplicationController
+  class FramesController < BaseController
     before_action :set_frame, only: %i[show print]
     before_action :set_room, only: %i[show print]
 
