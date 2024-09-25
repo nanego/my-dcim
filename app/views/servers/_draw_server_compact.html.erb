@@ -8,9 +8,12 @@
       <% composants_per_enclosure = enclosure.composants.slots %>
 
       <% if enclosure.display == "grid" %>
-        <style type="text/css">
+        <style>
           .enclosure-container {
-            grid-template-areas: <%= raw enclosure.grid_areas.split(/\r\n/).map{|s|'"'+s+'"'}.join(' ') %>;
+            <% grid_rows = enclosure.grid_areas.split(/\r\n/) %>
+            <% grid_max_nb_of_columns = grid_rows.map { |row| row.split(' ').count }.max %>
+            grid-template-areas: <%= raw grid_rows.map{|s|'"'+s+'"'}.join(' ') %>;
+            grid-template-columns: repeat(<%= grid_max_nb_of_columns %>, 1fr); /* equal columns */
           }
         </style>
         <div class="container enclosure-container">
