@@ -38,7 +38,6 @@ Rails.application.routes.draw do
     end
     member do
       get :network
-      get :print
     end
   end
 
@@ -71,12 +70,8 @@ Rails.application.routes.draw do
     collection do
       get :overview
     end
-
-    get :print, on: :member
   end
-  resources :bays do
-    get :print, on: :member
-  end
+  resources :bays
   resources :gestions
   resources :domaines
   resources :modeles
@@ -94,6 +89,15 @@ Rails.application.routes.draw do
   namespace :visualization do
     resource :infrastructure, only: :show
     resource :network_capacity, only: :show
+    resources :rooms, only: :show do
+      get :print, on: :member
+    end
+    resources :frames, only: :show do
+      get :print, on: :member
+    end
+    resources :bays, only: :show do
+      get :print, on: :member
+    end
   end
 
   root to: 'pages#index'

@@ -1,31 +1,37 @@
-<%- bay_label = t(".title", bay: @bay, bay_type: @bay.bay_type&.name) %>
-<% provide :title, "#{Bay.model_name.human.pluralize} | #{bay_label}" %>
-<%
-  breadcrumb_steps = {
-    t("visualization.title") => overview_rooms_path, @bay.room.name => room_path(@bay.room, view: params[:view])
-  }
+<%- bay_label = @bay.frames.map(&:name).join(" - ") %>
+<% provide(:title, "#{Bay.model_name.human.pluralize} | #{bay_label} | #{t("action.edit")}") %>
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
+  Bay.model_name.human.pluralize => bays_path,
+  bay_label => bay_path(@bay),
+  t("action.show") => ""
+} %>
 
-  if @bay.islet.name.present?
-    breadcrumb_steps["#{Islet.model_name.human} #{@bay.islet.name}"] = room_path(@bay.room, islet: @bay.islet.name, view: params[:view])
-  elsif params[:islet].present?
-    breadcrumb_steps["#{Islet.model_name.human} #{params[:islet]}"] = ""
-  end
-
-  breadcrumb_steps[bay_label] = ""
-%>
-<%= render "layouts/breadcrumb", breadcrumb_steps: %>
-
-<div class="container-fluid">
-  <div class="row my-5">
-    <div class="col-12" id="bay-container">
-      <%= render partial: "servers/room", locals: {
-                  room: @bay.room,
-                  islets: @servers_per_frames[@bay.islet.room_id],
-                  title: Bay.human_attribute_name(:bay_frames, count: @bay.frames.size, bay: @bay),
-                  view_side: params[:view],
-      } %>
+<div class="row my-5">
+  <div class="col-11 col-md-10 col-lg-8 mx-auto">
+    <div class="d-flex justify-content-between pb-5">
+      <%= link_to bays_path, class: "btn align-self-center d-inline-flex",
+                              title: t("action.back") do %>
+        <span class="bi bi-chevron-left"></span>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
+      <% end %>
+      <h1 class="text-center px-4"><%= "Bay #{@bay.name}" %></h1>
+      <div>
+        <%= link_to visualization_bay_path(@bay), class: "btn btn-primary align-self-center d-inline-flex", title: t("visualization.title") do %>
+          <span class="bi bi-diagram-3-fill"></span>
+          <span class="d-none d-md-inline-block ms-1"><%= t("visualization.title") %></span>
+        <% end %>
+        <%= link_to edit_bay_path(@bay), class: "btn btn-info align-self-center d-inline-flex", title: t("action.edit") do %>
+          <span class="bi bi-pencil"></span>
+          <span class="d-none d-md-inline-block ms-1"><%= t("action.edit") %></span>
+        <% end %>
+      </div>
     </div>
+
+    <dl class="bg-body-tertiary p-4 rounded border">
+      <% %i[name lane].each do |attribute_name| %>
+        <dt><%= Bay.human_attribute_name(attribute_name) %> :</dt>
+        <dd><%= @bay.public_send(attribute_name) %></dd>
+      <% end %>
+    </dl>
   </div>
 </div>
-
-<%= render "ports/modal_edit_port" %>

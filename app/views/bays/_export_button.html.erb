@@ -47,14 +47,14 @@
 
     <li><hr class="dropdown-divider"></li>
 
-    <li><%= link_to bay_path(bay, format: :txt, view: "", bg: ""), class: "dropdown-item" do %>
+    <li><%= link_to visualization_bay_path(bay, format: :txt, view: "", bg: ""), class: "dropdown-item" do %>
         <span class="bi bi-file-earmark-text" aria-hidden="true"></span>
         <%= t("export_button.exports.txt") %>
       <% end %>
     </li>
 
     <li>
-      <%= link_to print_bay_path(bay), class: "dropdown-item", target: :_blank do %>
+      <%= link_to print_visualization_bay_path(bay), class: "dropdown-item", target: :_blank do %>
         <span class="bi bi-printer" aria-hidden="true"></span>
         <%= t("export_button.exports.print") %>
       <% end %>

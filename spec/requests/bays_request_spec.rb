@@ -7,7 +7,7 @@ RSpec.describe "Bays" do
 
   describe "GET #print" do
     subject(:response) do
-      get print_bay_path(bay)
+      get print_visualization_bay_path(bay)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable

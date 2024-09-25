@@ -16,10 +16,16 @@
       <h1 class="px-4 text-center">
         <%= t(".title", type: @bay.bay_type&.name, frames: @bay.frames.map(&:name).join(' / ')) %>
       </h1>
-      <%= link_to @bay, class: "btn btn-primary align-self-center d-inline-flex", title: t("action.show") do %>
-        <span class="bi bi-eye"></span>
-        <span class="d-none d-md-inline-block ms-1"><%= t("action.show") %></span>
-      <% end %>
+      <div>
+        <%= link_to visualization_bay_path(@bay), class: "btn btn-primary align-self-center d-inline-flex", title: t("visualization.title") do %>
+          <span class="bi bi-diagram-3-fill"></span>
+          <span class="d-none d-md-inline-block ms-1"><%= t("visualization.title") %></span>
+        <% end %>
+        <%= link_to @bay, class: "btn btn-primary align-self-center d-inline-flex", title: t("action.show") do %>
+          <span class="bi bi-eye"></span>
+          <span class="d-none d-md-inline-block ms-1"><%= t("action.show") %></span>
+        <% end %>
+      </div>
     </div>
     <%= render "form" %>
   </div>

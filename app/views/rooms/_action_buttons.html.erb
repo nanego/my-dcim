@@ -102,11 +102,9 @@
         </li>
 
         <li>
-          <%= link_to url_for(params.except(:controller, :action)
-                                    .permit(:view, :islet, :id, :bg)
-                                    .merge(action: :print)),
-                      class: "dropdown-item",
-                      target: :_blank do %>
+          <%= link_to print_visualization_frame_path(params.except(:controller, :action, :id).permit(:view, :islet, :bg)),
+                        class: "dropdown-item",
+                        target: :_blank do %>
           <span class="bi bi-printer" aria-hidden="true"></span>
             <%= t("export_button.exports.print") %>
           <% end %>
