@@ -1,7 +1,8 @@
-<%= provide(:title, "#{Room.model_name.human} #{@room.name}") %>
-<%= render "layouts/breadcrumb",  breadcrumb_steps: {
-  t("visualization.title") => overview_rooms_path,
-  "#{@room.name} #{@islet ? " Ilot #{@islet}" : "" }" => "",
+<% provide(:title, "#{Room.model_name.human.pluralize} | #{@room.name} | #{t("action.show")}") %>
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
+  Room.model_name.human.pluralize => rooms_path,
+  @room.name => room_path(@room),
+  t("action.show") => ""
 } %>
 
 <div class="row my-5">

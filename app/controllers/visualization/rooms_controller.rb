@@ -29,10 +29,6 @@ module Visualization
       @room = Room.friendly.find(params[:id].to_s.downcase)
     end
 
-    def room_params
-      params.require(:room).permit(:name, :description, :display_on_home_page, :position, :site_id)
-    end
-
     def set_servers_per_frames
       frames = Frames::IncludingServersQuery.call
       @servers_per_frames = {}
