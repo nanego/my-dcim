@@ -1,14 +1,16 @@
-<%= provide(:title, "#{Frame.model_name.human} #{@frame.name}") %>
-<%= render "layouts/breadcrumb",  breadcrumb_steps: {
-  t("visualization.title") => overview_rooms_path,
+<% provide(:title, "#{Frame.model_name.human.pluralize} | #{@frame.name} | #{t("action.show")}") %>
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
+  Room.model_name.human.pluralize => overview_rooms_path,
+  @frame.room.name => @frame.present? ? room_path(@frame.room) : "",
   Frame.model_name.human.pluralize => frames_path,
-  @frame.name => "",
+  @frame.name => frame_path(@frame),
+  t("action.show") => ""
 } %>
 
 <div class="row my-5">
   <div class="col-11 col-md-10 col-lg-8 mx-auto">
     <div class="d-flex justify-content-between pb-5">
-      <%= link_to rooms_path, class: "btn align-self-center d-inline-flex",
+      <%= link_to frames_path, class: "btn align-self-center d-inline-flex",
                               title: t("action.back") do %>
         <span class="bi bi-chevron-left"></span>
         <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>

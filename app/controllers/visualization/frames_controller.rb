@@ -19,10 +19,6 @@ module Visualization
 
     private
 
-    def frame_params
-      params.require(:frame).permit(:name, :u, :room, :islet, :position, :switch_slot, :bay_id)
-    end
-
     def set_frame
       @frame = Frame.includes(servers: [modele: [:category, :composants],
                                         cards: [:composant,

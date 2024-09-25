@@ -5,7 +5,6 @@ class FramesController < ApplicationController
   include RoomsHelper
 
   before_action :set_frame, only: :show
-  before_action :set_room, only: :show
 
   def index
     @filter = ProcessorFilter.new(Frame.includes(bay: { islet: :room }).references(bay: { islet: :room }), params)
@@ -109,22 +108,12 @@ class FramesController < ApplicationController
 
   private
 
+  def set_frame
+    @frame = Frame.friendly.find(params[:id].to_s.downcase)
+  end
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def frame_params
     params.require(:frame).permit(:name, :u, :room, :islet, :position, :switch_slot, :bay_id)
-  end
-
-  def set_frame
-    @frame = Frame.includes(servers: [modele: [:category, :composants],
-                                      cards: [:composant,
-                                              ports: [connection: [cable: :connections]],
-                                              card_type: [:port_type],]],
-                            bay: [islet: [:room]])
-      .friendly
-      .find(params[:id].to_s.downcase)
-  end
-
-  def set_room
-    @room = @frame.room
   end
 end
