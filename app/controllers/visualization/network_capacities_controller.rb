@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Visualization
-  class NetworkCapacitiesController < ApplicationController
+  class NetworkCapacitiesController < BaseController
     def show
       @filter = Filter.new(params, %i[network_type islet_id])
       @filter_filled = @filter.filled?
