@@ -4,8 +4,7 @@ class RoomsController < ApplicationController
   include ServersHelper
   include RoomsHelper
 
-  before_action :set_room, only: %i[show edit update destroy islet print]
-  before_action :set_servers_per_frames, only: %i[show print]
+  before_action :set_room, only: %i[show edit update destroy islet]
 
   def index
     @filter = ProcessorFilter.new(Room.joins(:site).order('sites.position asc, rooms.position asc, rooms.name asc'), params)
@@ -21,7 +20,6 @@ class RoomsController < ApplicationController
     respond_to do |format|
       format.html
       format.json
-      format.txt { send_data Frame.to_txt(@servers_per_frames[@room.id], params[:bg]) }
     end
   end
 
@@ -124,10 +122,6 @@ class RoomsController < ApplicationController
     end
   end
 
-  def print
-    render layout: "pdf"
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -138,23 +132,5 @@ class RoomsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def room_params
     params.require(:room).permit(:name, :description, :display_on_home_page, :position, :site_id)
-  end
-
-  def set_servers_per_frames
-    frames = Frames::IncludingServersQuery.call
-    @servers_per_frames = {}
-
-    sorted_frames_per_islet(frames, params[:view]).each do |frame|
-      room = frame.bay.islet.room_id
-      islet = frame.bay.islet.name
-      @servers_per_frames[room] ||= {}
-      @servers_per_frames[room][islet] ||= {}
-      @servers_per_frames[room][islet][frame.bay.lane] ||= {}
-      @servers_per_frames[room][islet][frame.bay.lane][frame.bay] ||= {}
-      @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] ||= []
-      frame.servers.each do |s|
-        @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] << s
-      end
-    end
   end
 end

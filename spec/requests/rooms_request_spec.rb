@@ -7,7 +7,7 @@ RSpec.describe "Rooms" do
 
   describe "GET #print" do
     subject(:response) do
-      get print_room_path(room)
+      get print_visualization_room_path(room)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable

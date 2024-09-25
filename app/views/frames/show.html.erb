@@ -1,29 +1,38 @@
-<% provide(:title, "#{Frame.model_name.human.pluralize} | #{t("layouts.breadcrumb.bay.simple", name: @frame.name)}") %>
-<%
-  breadcrumb_steps = {
-    t("visualization.title") => overview_rooms_path,
-    @room.name => ((@frame.present? || params[:islet].present?) ? room_path(@room, view: params[:view]) : "")
-  }
-  if @frame.present? && @frame.bay.islet.name.present?
-    breadcrumb_steps[t("layouts.breadcrumb.islet", name: @frame.bay.islet.name)] = room_path(@room, islet: @frame.bay.islet.name, view: params[:view])
-  elsif params[:islet].present?
-    breadcrumb_steps[t("layouts.breadcrumb.islet", name: params[:islet])] = ""
-  end
-  breadcrumb_steps[t("layouts.breadcrumb.bay.double", name: @frame.bay)] = room_path(@room, islet: @frame.bay.islet.name, "bay-id": @frame.bay_id, view: params[:view]) if @frame.has_coupled_frame?
-  breadcrumb_steps[t("layouts.breadcrumb.bay.simple", name: @frame.name)] = "" if @frame.present?
-%>
-<%= render "layouts/breadcrumb", breadcrumb_steps: %>
-<% hide_inventories_sidebar! %>
+<% provide(:title, "#{Frame.model_name.human.pluralize} | #{@frame.name} | #{t("action.show")}") %>
+<%= render "layouts/breadcrumb", breadcrumb_steps: {
+  Room.model_name.human.pluralize => overview_rooms_path,
+  @frame.room.name => @frame.present? ? room_path(@frame.room) : "",
+  Frame.model_name.human.pluralize => frames_path,
+  @frame.name => frame_path(@frame),
+  t("action.show") => ""
+} %>
 
-<div class="container-fluid" id="bay-container">
-  <%= render "frames/show_complete_frame" %>
+<div class="row my-5">
+  <div class="col-11 col-md-10 col-lg-8 mx-auto">
+    <div class="d-flex justify-content-between pb-5">
+      <%= link_to frames_path, class: "btn align-self-center d-inline-flex",
+                              title: t("action.back") do %>
+        <span class="bi bi-chevron-left"></span>
+        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
+      <% end %>
+      <h1 class="text-center px-4"><%= "Frame #{@frame.name}" %></h1>
+      <div>
+        <%= link_to visualization_frame_path(@frame), class: "btn btn-primary align-self-center d-inline-flex", title: t("visualization.title") do %>
+          <span class="bi bi-diagram-3-fill"></span>
+          <span class="d-none d-md-inline-block ms-1"><%= t("visualization.title") %></span>
+        <% end %>
+        <%= link_to edit_frame_path(@frame), class: "btn btn-info align-self-center d-inline-flex", title: t("action.edit") do %>
+          <span class="bi bi-pencil"></span>
+          <span class="d-none d-md-inline-block ms-1"><%= t("action.edit") %></span>
+        <% end %>
+      </div>
+    </div>
+
+    <dl class="bg-body-tertiary p-4 rounded border">
+      <% %i[name].each do |attribute_name| %>
+        <dt><%= Frame.human_attribute_name(attribute_name) %> :</dt>
+        <dd><%= @frame.public_send(attribute_name) %></dd>
+      <% end %>
+    </dl>
+  </div>
 </div>
-
-<%= render "ports/modal_edit_port" %>
-
-<script type="javascript">
-  reset_u_heights()
-  window.addEventListener("resize", function (event) {
-    reset_u_heights()
-  })
-</script>

@@ -7,7 +7,7 @@ RSpec.describe "Frames" do
 
   describe "GET #print" do
     subject(:response) do
-      get print_frame_path(frame)
+      get print_visualization_frame_path(frame)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable

@@ -8,8 +8,8 @@ RSpec.describe "Rooms::BrowseRoom", :js do
   it("browse a room, islets and bays, change view and background color") do # rubocop:disable RSpec/MultipleExpectations
     sign_in(users(:one))
 
-    visit room_path(room)
-    expect(page).to have_current_path(room_path(room))
+    visit visualization_room_path(room)
+    expect(page).to have_current_path(visualization_room_path(room))
 
     frame = room.frames.last
 

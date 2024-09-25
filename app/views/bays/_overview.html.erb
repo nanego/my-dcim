@@ -10,7 +10,7 @@
                                       "no-margin": index > 0,
                                       highlighted: should_be_highlighted) %>">
             <%= link_to frame.name,
-                        room_path(frame.room, view: params[:view], islet: islet, "bay-id": bay, "frame-id": frame),
+                        visualization_room_path(frame.room, view: params[:view], islet: islet, "bay-id": bay, "frame-id": frame),
                         class: class_names("link-body-emphasis", "text-info-emphasis": should_be_highlighted) %>
           </div>
         <% end %>
