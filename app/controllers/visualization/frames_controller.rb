@@ -8,7 +8,6 @@ module Visualization
     def show
       respond_to do |format|
         format.html
-        format.json
         format.js
         format.txt { send_data @frame.to_txt(params[:bg]) }
       end

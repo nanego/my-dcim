@@ -10,7 +10,6 @@ module Visualization
     def show
       respond_to do |format|
         format.html
-        format.json
         format.js
         format.txt { send_data Frame.to_txt(@servers_per_frames[@bay.islet.room_id], params[:bg]) }
       end
@@ -43,11 +42,6 @@ module Visualization
           @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] << s
         end
       end
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def bay_params
-      params.require(:bay).permit(:name, :lane, :position, :bay_type_id, :islet_id)
     end
   end
 end

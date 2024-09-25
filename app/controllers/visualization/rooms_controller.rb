@@ -15,7 +15,6 @@ module Visualization
 
       respond_to do |format|
         format.html
-        format.json
         format.txt { send_data Frame.to_txt(@servers_per_frames[@room.id], params[:bg]) }
       end
     end

@@ -709,8 +709,6 @@ fr:
       new: Ajouter une baie ou un couple de baies
       title: Baies et doubles-baies
       delete_confirmation: Cette baie ne pourra pas être supprimée tant qu'elle est associée à au moins un chassis. Voulez-vous continuer ?
-    show:
-      title: Baie %{bay_type} %{bay}
     new:
       title: Nouvelle baie
     create:
