@@ -4,7 +4,7 @@
                 local: true,
                 data: { turbo_frame: "search_results" },
                 class: "d-flex" do |f| %>
-    <div class="input-group mb-3">
+    <div class="input-group">
       <%= f.text_field :query, value: params[:query], class: "form-control border-primary",
                        type: "search",
                        placeholder: t("filters.placeholder.quicksearch") %>
