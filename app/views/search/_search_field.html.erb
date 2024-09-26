@@ -5,11 +5,11 @@
                 data: { turbo_frame: "search_results" },
                 class: "d-flex" do |f| %>
     <div class="input-group mb-3">
-      <%= f.text_field :query, value: params[:query], class: "form-control",
+      <%= f.text_field :query, value: params[:query], class: "form-control border-primary",
                        type: "search",
                        placeholder: t("filters.placeholder.quicksearch") %>
 
-      <%= f.button class: "btn btn-outline-primary", type: "submit" do %>
+      <%= f.button class: "btn btn-primary", type: "submit" do %>
         <i class="bi bi-search"></i>
       <% end %>
     </div>
