@@ -18,7 +18,7 @@
         </style>
         <div class="container enclosure-container">
           <% composants_per_enclosure.each do |component| %>
-            <% class_name = "item-#{component.name}" %>
+            <% class_name = "item-#{server.id}-#{component.name}" %>
             <style>
               .<%= class_name %> {
                 grid-column: <%= component.name %>;
