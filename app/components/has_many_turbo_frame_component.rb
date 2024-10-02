@@ -26,5 +26,7 @@ class HasManyTurboFrameComponent < ApplicationComponent
     @title = title
     @url = url
     @frame_id = frame_id
+
+    super()
   end
 end
