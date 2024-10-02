@@ -17,6 +17,8 @@ module ChangelogEntries
       @object = object
       @html_options = html_options
 
+      raise ArgumentError, "@object could not be nil" unless @object
+
       super()
     end
 
