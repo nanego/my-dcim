@@ -29,4 +29,6 @@
   </div>
 </div>
 
+<%= render HasManyTurboFrameComponent.new(Bay.model_name.human.pluralize, url: bays_path(islet_id: @islet.id), frame_id: dom_id(Bay, :table)) %>
+
 <%= render ChangelogEntries::ObjectListComponent.new(@islet) %>

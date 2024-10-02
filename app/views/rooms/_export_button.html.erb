@@ -48,7 +48,7 @@
     <li><hr class="dropdown-divider"></li>
 
     <li>
-      <%= link_to visualization_room_path(room, format: :txt, view: "", islet: "", bg: ""), class: "dropdown-item" do %>
+      <%= link_to visualization_room_path(room, format: :txt, view: "", islet: "", bg: ""), class: "dropdown-item", data: { turbo_frame: :_top } do %>
         <span class="bi bi-file-earmark-text" aria-hidden="true"></span>
         <%= t("export_button.exports.txt") %>
       <% end %>
