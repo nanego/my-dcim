@@ -21,5 +21,9 @@ class FramesProcessor < ApplicationProcessor
     raw.joins(:islet).where(islet: { id: islet_id })
   end
 
+  map :bay_id do |bay_id:|
+    raw.joins(:bay).where(bay: { id: bay_id })
+  end
+
   sortable fields: SORTABLE_FIELDS
 end
