@@ -33,49 +33,51 @@
     <% end %>
   <% end %>
 
-  <%= render List::DataTableComponent.new(@rooms) do |table| %>
-    <% table.with_column(Site.model_name.human, sort_by: :"sites.name") do |room| %>
-      <%= link_to room.site, site_path(room.site) %>
-    <% end %>
-
-    <% table.with_column(Room.human_attribute_name(:name), sort_by: :name) do |room| %>
-      <b><%= link_to room, room_path(room) %></b>
-    <% end %>
-
-    <% table.with_column(Room.human_attribute_name(:position), sort_by: :position) do |room| %>
-      <%= room.position %>
-    <% end %>
-
-    <% table.with_column(Islet.model_name.human.pluralize, sort_by: :islets_count) do |room| %>
-      <%= Room.human_attribute_name(:islets_count, count: room.islets_count) %>
-    <% end %>
-
-    <% table.with_column(Frame.model_name.human.pluralize) do |room| %>
-      <%= link_to frames_path(room_id: room.id) do %>
-        <%= Room.human_attribute_name(:frames_count, count: room.frames.count) %>
+  <%= turbo_frame_tag(dom_id(Room, :table), data: { turbo_action: :advance }) do %>
+    <%= render List::DataTableComponent.new(@rooms) do |table| %>
+      <% table.with_column(Site.model_name.human, sort_by: :"sites.name") do |room| %>
+        <%= link_to room.site, site_path(room.site), data: { turbo_frame: :_top } %>
       <% end %>
-    <% end %>
 
-    <% table.with_column(Room.human_attribute_name(:display_on_home_page), sort_by: :display_on_home_page, class: "text-center") do |room| %>
-      <input type="checkbox" <%= room.display_on_home_page ? "checked" : "" %> disabled>
-    <% end %>
+      <% table.with_column(Room.human_attribute_name(:name), sort_by: :name) do |room| %>
+        <b><%= link_to room, room_path(room), data: { turbo_frame: :_top } %></b>
+      <% end %>
 
-    <% table.with_column(style: "min-width: 140px; width: 140px") do |room| %>
-      <div class="btn-group btn-group-sm" role="group" aria-label="...">
-        <%= render partial: "rooms/export_button", locals: { room: room } %>
-        <%= link_to visualization_room_path(room), class: "btn btn-primary" do %>
-          <span class="bi bi-diagram-3-fill" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("visualization.title") %>"></span>
-          <span class="visually-hidden"><%= t("visualization.title") %></span>
+      <% table.with_column(Room.human_attribute_name(:position), sort_by: :position) do |room| %>
+        <%= room.position %>
+      <% end %>
+
+      <% table.with_column(Islet.model_name.human.pluralize, sort_by: :islets_count) do |room| %>
+        <%= Room.human_attribute_name(:islets_count, count: room.islets_count) %>
+      <% end %>
+
+      <% table.with_column(Frame.model_name.human.pluralize) do |room| %>
+        <%= link_to frames_path(room_id: room.id), data: { turbo_frame: :_top } do %>
+          <%= Room.human_attribute_name(:frames_count, count: room.frames.count) %>
         <% end %>
-        <%= link_to edit_room_path(room), class: "btn btn-info" do %>
-          <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
-          <span class="visually-hidden"><%= t("action.edit") %></span>
-        <% end %>
-        <%= link_to room, method: :delete, data: { confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
-          <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
-            <span class="visually-hidden"><%= t("action.delete") %></span>
-        <% end %>
-      </div>
+      <% end %>
+
+      <% table.with_column(Room.human_attribute_name(:display_on_home_page), sort_by: :display_on_home_page, class: "text-center") do |room| %>
+        <input type="checkbox" <%= room.display_on_home_page ? "checked" : "" %> disabled>
+      <% end %>
+
+      <% table.with_column(style: "min-width: 140px; width: 140px") do |room| %>
+        <div class="btn-group btn-group-sm" role="group" aria-label="...">
+          <%= render partial: "rooms/export_button", locals: { room: room } %>
+          <%= link_to visualization_room_path(room), class: "btn btn-primary", data: { turbo_frame: :_top } do %>
+            <span class="bi bi-diagram-3-fill" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("visualization.title") %>"></span>
+            <span class="visually-hidden"><%= t("visualization.title") %></span>
+          <% end %>
+          <%= link_to edit_room_path(room), class: "btn btn-info", data: { turbo_frame: :_top } do %>
+            <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
+            <span class="visually-hidden"><%= t("action.edit") %></span>
+          <% end %>
+          <%= link_to room, method: :delete, data: { turbo_frame: :_top, confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
+            <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
+              <span class="visually-hidden"><%= t("action.delete") %></span>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 </div>

@@ -24,52 +24,9 @@
         <dd><%= @site.public_send(attribute_name) %></dd>
       <% end %>
     </dl>
-
-    <dl class="bg-body-tertiary p-4 rounded border">
-      <dt>
-        <h2 class="mb-4"><%= Room.model_name.human.pluralize %></h2>
-      </dt>
-      <dd>
-      <%= render List::DataTableComponent.new(@rooms) do |table| %>
-        <% table.with_column(Room.human_attribute_name(:name), sort_by: :name) do |room| %>
-          <b><%= link_to room, room_path(room) %></b>
-        <% end %>
-
-        <% table.with_column(Room.human_attribute_name(:position), sort_by: :position) do |room| %>
-          <%= room.position %>
-        <% end %>
-
-        <% table.with_column(Islet.model_name.human.pluralize, sort_by: :islets_count) do |room| %>
-          <%= Room.human_attribute_name(:islets_count, count: room.islets_count) %>
-        <% end %>
-
-        <% table.with_column(Frame.model_name.human.pluralize) do |room| %>
-          <%= link_to frames_path(room_id: room.id) do %>
-            <%= Room.human_attribute_name(:frames_count, count: room.frames.count) %>
-          <% end %>
-        <% end %>
-
-        <% table.with_column(Room.human_attribute_name(:display_on_home_page), sort_by: :display_on_home_page, class: "text-center") do |room| %>
-          <input type="checkbox" <%= room.display_on_home_page ? "checked" : "" %> disabled>
-        <% end %>
-
-        <% table.with_column(style: "min-width: 140px; width: 140px") do |room| %>
-          <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <%= render partial: "rooms/export_button", locals: { room: room } %>
-            <%= link_to edit_room_path(room), class: "btn btn-info" do %>
-              <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
-              <span class="visually-hidden"><%= t("action.edit") %></span>
-            <% end %>
-            <%= link_to room, method: :delete, data: { confirm: t("rooms.index.delete_confirmation") }, class: "btn btn-danger" do %>
-              <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
-                <span class="visually-hidden"><%= t("action.delete") %></span>
-            <% end %>
-          </div>
-        <% end %>
-      <% end %>
-      </dd>
-    </div>
   </div>
+
+  <%= render HasManyTurboFrameComponent.new(Room.model_name.human.pluralize, url: rooms_path(site_id: @site.id), frame_id: dom_id(Room, :table)) %>
 </div>
 
 <%= render ChangelogEntries::ObjectListComponent.new(@site) %>

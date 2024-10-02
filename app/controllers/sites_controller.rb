@@ -7,9 +7,7 @@ class SitesController < ApplicationController
     @sites = sorted Site.sorted
   end
 
-  def show
-    @rooms = sorted @site.rooms
-  end
+  def show; end
 
   def new
     @site = Site.new
