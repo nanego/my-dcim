@@ -1,21 +1,15 @@
 <%
-  provide(:title, t("changelog_entries.title"))
+  title = t("changelog_entries.title")
 
-  breadcrumb = {}
+  provide(:title, title)
 
-  if @scoped_object
-    breadcrumb[@scoped_object.model_name.human.pluralize] = polymorphic_path(@scoped_object.class)
-    breadcrumb[@scoped_object] = polymorphic_path(@scoped_object)
-  end
+  breadcrumb_steps = { title => "" }
 %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: breadcrumb.merge({
-  t("changelog_entries.title") => ""
-}) %>
 
-<%= turbo_frame_tag "changelog-entries" do %>
-  <div class="container-fluid">
-    <h1><%= t("changelog_entries.title") %></h1>
+<%= render Page::HeadingComponent.new(title: title, breadcrumb_steps:) %>
 
+<div class="p-4 border-top">
+  <%= turbo_frame_tag "changelog-entries" do %>
     <%= render List::DataTableComponent.new(decorate(@changelog_entries)) do |table| %>
 
       <% table.with_column(ChangelogEntry.human_attribute_name(:action), sort_by: :action) do |changelog_entry| %>
@@ -57,7 +51,7 @@
         <% end %>
       <% end %>
     <% end %>
-  </div>
 
-  <%= paginate @changelog_entries %>
-<% end %>
+    <%= paginate @changelog_entries %>
+  <% end %>
+</div>
