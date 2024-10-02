@@ -123,7 +123,7 @@ Rails.application.routes.draw do
   get 'search', to: 'search#index'
 
   resources :changelog_entries, only: %i[index show]
-  get "/:object_type/:object_id/changelog_entries", to: "changelog_entries#index"
+  get "/:object_type/:object_id/changelog_entries", to: "changelog_entries#index", as: :object_changelog_entries
 
   mount Lookbook::Engine, at: "/lookbook" if Rails.env.development?
 end
