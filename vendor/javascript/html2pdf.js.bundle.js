@@ -48,23 +48,22 @@ var init_typeof = __esm({
 
 // node_modules/fflate/esm/browser.js
 function zlibSync(data, opts) {
-  if (opts === void 0) {
+  if (!opts)
     opts = {};
-  }
   var a3 = adler();
   a3.p(data);
-  var d2 = dopt(data, opts, 2, 4);
+  var d2 = dopt(data, opts, opts.dictionary ? 6 : 2, 4);
   return zlh(d2, opts), wbytes(d2, d2.length - 4, a3.d()), d2;
 }
-function unzlibSync(data, out) {
-  return inflt((zlv(data), data.subarray(2, -4)), out);
+function unzlibSync(data, opts) {
+  return inflt(data.subarray(zls(data, opts && opts.dictionary), -4), { i: 2 }, opts && opts.out, opts && opts.dictionary);
 }
-var u8, u16, u32, fleb, fdeb, clim, freb, _a, fl, revfl, _b, fd, revfd, rev, x2, i3, hMap, flt, i3, i3, i3, i3, fdt, i3, flm, flrm, fdm, fdrm, max, bits, bits16, shft, slc, inflt, wbits, wbits16, hTree, ln, lc, clen, wfblk, wblk, deo, et, dflt, adler, dopt, wbytes, zlh, zlv;
+var u8, u16, i32, fleb, fdeb, clim, freb, _a, fl, revfl, _b, fd, revfd, rev, x2, i3, hMap, flt, i3, i3, i3, i3, fdt, i3, flm, flrm, fdm, fdrm, max, bits, bits16, shft, slc, ec, err, inflt, wbits, wbits16, hTree, ln, lc, clen, wfblk, wblk, deo, et, dflt, adler, dopt, wbytes, zlh, zls, td, tds;
 var init_browser = __esm({
   "node_modules/fflate/esm/browser.js"() {
     u8 = Uint8Array;
     u16 = Uint16Array;
-    u32 = Uint32Array;
+    i32 = Int32Array;
     fleb = new u8([
       0,
       0,
@@ -142,36 +141,38 @@ var init_browser = __esm({
       for (var i3 = 0; i3 < 31; ++i3) {
         b2[i3] = start += 1 << eb[i3 - 1];
       }
-      var r2 = new u32(b2[30]);
+      var r2 = new i32(b2[30]);
       for (var i3 = 1; i3 < 30; ++i3) {
         for (var j2 = b2[i3]; j2 < b2[i3 + 1]; ++j2) {
           r2[j2] = j2 - b2[i3] << 5 | i3;
         }
       }
-      return [b2, r2];
+      return { b: b2, r: r2 };
     };
     _a = freb(fleb, 2);
-    fl = _a[0];
-    revfl = _a[1];
+    fl = _a.b;
+    revfl = _a.r;
     fl[28] = 258, revfl[258] = 28;
     _b = freb(fdeb, 0);
-    fd = _b[0];
-    revfd = _b[1];
+    fd = _b.b;
+    revfd = _b.r;
     rev = new u16(32768);
     for (i3 = 0; i3 < 32768; ++i3) {
-      x2 = (i3 & 43690) >>> 1 | (i3 & 21845) << 1;
-      x2 = (x2 & 52428) >>> 2 | (x2 & 13107) << 2;
-      x2 = (x2 & 61680) >>> 4 | (x2 & 3855) << 4;
-      rev[i3] = ((x2 & 65280) >>> 8 | (x2 & 255) << 8) >>> 1;
+      x2 = (i3 & 43690) >> 1 | (i3 & 21845) << 1;
+      x2 = (x2 & 52428) >> 2 | (x2 & 13107) << 2;
+      x2 = (x2 & 61680) >> 4 | (x2 & 3855) << 4;
+      rev[i3] = ((x2 & 65280) >> 8 | (x2 & 255) << 8) >> 1;
     }
     hMap = function(cd, mb, r2) {
       var s3 = cd.length;
       var i3 = 0;
       var l3 = new u16(mb);
-      for (; i3 < s3; ++i3)
-        ++l3[cd[i3] - 1];
+      for (; i3 < s3; ++i3) {
+        if (cd[i3])
+          ++l3[cd[i3] - 1];
+      }
       var le2 = new u16(mb);
-      for (i3 = 0; i3 < mb; ++i3) {
+      for (i3 = 1; i3 < mb; ++i3) {
         le2[i3] = le2[i3 - 1] + l3[i3 - 1] << 1;
       }
       var co;
@@ -184,14 +185,17 @@ var init_browser = __esm({
             var r_1 = mb - cd[i3];
             var v3 = le2[cd[i3] - 1]++ << r_1;
             for (var m4 = v3 | (1 << r_1) - 1; v3 <= m4; ++v3) {
-              co[rev[v3] >>> rvb] = sv;
+              co[rev[v3] >> rvb] = sv;
             }
           }
         }
       } else {
         co = new u16(s3);
-        for (i3 = 0; i3 < s3; ++i3)
-          co[i3] = rev[le2[cd[i3] - 1]++] >>> 15 - cd[i3];
+        for (i3 = 0; i3 < s3; ++i3) {
+          if (cd[i3]) {
+            co[i3] = rev[le2[cd[i3] - 1]++] >> 15 - cd[i3];
+          }
+        }
       }
       return co;
     };
@@ -220,32 +224,57 @@ var init_browser = __esm({
       return m4;
     };
     bits = function(d2, p3, m4) {
-      var o3 = p3 / 8 >> 0;
-      return (d2[o3] | d2[o3 + 1] << 8) >>> (p3 & 7) & m4;
+      var o3 = p3 / 8 | 0;
+      return (d2[o3] | d2[o3 + 1] << 8) >> (p3 & 7) & m4;
     };
     bits16 = function(d2, p3) {
-      var o3 = p3 / 8 >> 0;
-      return (d2[o3] | d2[o3 + 1] << 8 | d2[o3 + 2] << 16) >>> (p3 & 7);
+      var o3 = p3 / 8 | 0;
+      return (d2[o3] | d2[o3 + 1] << 8 | d2[o3 + 2] << 16) >> (p3 & 7);
     };
     shft = function(p3) {
-      return (p3 / 8 >> 0) + (p3 & 7 && 1);
+      return (p3 + 7) / 8 | 0;
     };
     slc = function(v3, s3, e2) {
       if (s3 == null || s3 < 0)
         s3 = 0;
       if (e2 == null || e2 > v3.length)
         e2 = v3.length;
-      var n3 = new (v3 instanceof u16 ? u16 : v3 instanceof u32 ? u32 : u8)(e2 - s3);
-      n3.set(v3.subarray(s3, e2));
-      return n3;
+      return new u8(v3.subarray(s3, e2));
     };
-    inflt = function(dat, buf, st2) {
-      var sl = dat.length;
-      var noBuf = !buf || st2;
-      var noSt = !st2 || st2.i;
-      if (!st2)
-        st2 = {};
-      if (!buf)
+    ec = [
+      "unexpected EOF",
+      "invalid block type",
+      "invalid length/literal",
+      "invalid distance",
+      "stream finished",
+      "no stream handler",
+      ,
+      "no callback",
+      "invalid UTF-8 data",
+      "extra field too long",
+      "date not in range 1980-2099",
+      "filename too long",
+      "stream finishing",
+      "invalid zip data"
+      // determined by unknown compression method
+    ];
+    err = function(ind, msg, nt2) {
+      var e2 = new Error(msg || ec[ind]);
+      e2.code = ind;
+      if (Error.captureStackTrace)
+        Error.captureStackTrace(e2, err);
+      if (!nt2)
+        throw e2;
+      return e2;
+    };
+    inflt = function(dat, st2, buf, dict) {
+      var sl = dat.length, dl = dict ? dict.length : 0;
+      if (!sl || st2.f && !st2.l)
+        return buf || new u8(0);
+      var noBuf = !buf;
+      var resize = noBuf || st2.i != 2;
+      var noSt = st2.i;
+      if (noBuf)
         buf = new u8(sl * 3);
       var cbuf = function(l4) {
         var bl = buf.length;
@@ -259,20 +288,20 @@ var init_browser = __esm({
       var tbts = sl * 8;
       do {
         if (!lm) {
-          st2.f = final = bits(dat, pos, 1);
+          final = bits(dat, pos, 1);
           var type = bits(dat, pos + 1, 3);
           pos += 3;
           if (!type) {
             var s3 = shft(pos) + 4, l3 = dat[s3 - 4] | dat[s3 - 3] << 8, t3 = s3 + l3;
             if (t3 > sl) {
               if (noSt)
-                throw "unexpected EOF";
+                err(0);
               break;
             }
-            if (noBuf)
+            if (resize)
               cbuf(bt2 + l3);
             buf.set(dat.subarray(s3, t3), bt2);
-            st2.b = bt2 += l3, st2.p = pos = t3 * 8;
+            st2.b = bt2 += l3, st2.p = pos = t3 * 8, st2.f = final;
             continue;
           } else if (type == 1)
             lm = flrm, dm = fdrm, lbt = 9, dbt = 5;
@@ -287,13 +316,11 @@ var init_browser = __esm({
             }
             pos += hcLen * 3;
             var clb = max(clt), clbmsk = (1 << clb) - 1;
-            if (!noSt && pos + tl * (clb + 7) > tbts)
-              break;
             var clm = hMap(clt, clb, 1);
             for (var i3 = 0; i3 < tl; ) {
               var r2 = clm[bits(dat, pos, clbmsk)];
               pos += r2 & 15;
-              var s3 = r2 >>> 4;
+              var s3 = r2 >> 4;
               if (s3 < 16) {
                 ldt[i3++] = s3;
               } else {
@@ -314,25 +341,31 @@ var init_browser = __esm({
             lm = hMap(lt2, lbt, 1);
             dm = hMap(dt2, dbt, 1);
           } else
-            throw "invalid block type";
-          if (pos > tbts)
-            throw "unexpected EOF";
+            err(1);
+          if (pos > tbts) {
+            if (noSt)
+              err(0);
+            break;
+          }
         }
-        if (noBuf)
+        if (resize)
           cbuf(bt2 + 131072);
         var lms = (1 << lbt) - 1, dms = (1 << dbt) - 1;
-        var mxa = lbt + dbt + 18;
-        while (noSt || pos + mxa < tbts) {
-          var c4 = lm[bits16(dat, pos) & lms], sym = c4 >>> 4;
+        var lpos = pos;
+        for (; ; lpos = pos) {
+          var c4 = lm[bits16(dat, pos) & lms], sym = c4 >> 4;
           pos += c4 & 15;
-          if (pos > tbts)
-            throw "unexpected EOF";
+          if (pos > tbts) {
+            if (noSt)
+              err(0);
+            break;
+          }
           if (!c4)
-            throw "invalid length/literal";
+            err(2);
           if (sym < 256)
             buf[bt2++] = sym;
           else if (sym == 256) {
-            lm = null;
+            lpos = pos, lm = null;
             break;
           } else {
             var add = sym - 254;
@@ -341,47 +374,52 @@ var init_browser = __esm({
               add = bits(dat, pos, (1 << b2) - 1) + fl[i3];
               pos += b2;
             }
-            var d2 = dm[bits16(dat, pos) & dms], dsym = d2 >>> 4;
+            var d2 = dm[bits16(dat, pos) & dms], dsym = d2 >> 4;
             if (!d2)
-              throw "invalid distance";
+              err(3);
             pos += d2 & 15;
             var dt2 = fd[dsym];
             if (dsym > 3) {
               var b2 = fdeb[dsym];
               dt2 += bits16(dat, pos) & (1 << b2) - 1, pos += b2;
             }
-            if (pos > tbts)
-              throw "unexpected EOF";
-            if (noBuf)
+            if (pos > tbts) {
+              if (noSt)
+                err(0);
+              break;
+            }
+            if (resize)
               cbuf(bt2 + 131072);
             var end = bt2 + add;
-            for (; bt2 < end; bt2 += 4) {
-              buf[bt2] = buf[bt2 - dt2];
-              buf[bt2 + 1] = buf[bt2 + 1 - dt2];
-              buf[bt2 + 2] = buf[bt2 + 2 - dt2];
-              buf[bt2 + 3] = buf[bt2 + 3 - dt2];
+            if (bt2 < dt2) {
+              var shift = dl - dt2, dend = Math.min(dt2, end);
+              if (shift + bt2 < 0)
+                err(3);
+              for (; bt2 < dend; ++bt2)
+                buf[bt2] = dict[shift + bt2];
             }
-            bt2 = end;
+            for (; bt2 < end; ++bt2)
+              buf[bt2] = buf[bt2 - dt2];
           }
         }
-        st2.l = lm, st2.p = pos, st2.b = bt2;
+        st2.l = lm, st2.p = lpos, st2.b = bt2, st2.f = final;
         if (lm)
           final = 1, st2.m = lbt, st2.d = dm, st2.n = dbt;
       } while (!final);
-      return bt2 == buf.length ? buf : slc(buf, 0, bt2);
+      return bt2 != buf.length && noBuf ? slc(buf, 0, bt2) : buf.subarray(0, bt2);
     };
     wbits = function(d2, p3, v3) {
       v3 <<= p3 & 7;
-      var o3 = p3 / 8 >> 0;
+      var o3 = p3 / 8 | 0;
       d2[o3] |= v3;
-      d2[o3 + 1] |= v3 >>> 8;
+      d2[o3 + 1] |= v3 >> 8;
     };
     wbits16 = function(d2, p3, v3) {
       v3 <<= p3 & 7;
-      var o3 = p3 / 8 >> 0;
+      var o3 = p3 / 8 | 0;
       d2[o3] |= v3;
-      d2[o3 + 1] |= v3 >>> 8;
-      d2[o3 + 2] |= v3 >>> 16;
+      d2[o3 + 1] |= v3 >> 8;
+      d2[o3 + 2] |= v3 >> 16;
     };
     hTree = function(d2, mb) {
       var t3 = [];
@@ -392,11 +430,11 @@ var init_browser = __esm({
       var s3 = t3.length;
       var t22 = t3.slice();
       if (!s3)
-        return [new u8(0), 0];
+        return { t: et, l: 0 };
       if (s3 == 1) {
         var v3 = new u8(t3[0].s + 1);
         v3[t3[0].s] = 1;
-        return [v3, 1];
+        return { t: v3, l: 1 };
       }
       t3.sort(function(a3, b2) {
         return a3.f - b2.f;
@@ -430,7 +468,7 @@ var init_browser = __esm({
           } else
             break;
         }
-        dt2 >>>= lft;
+        dt2 >>= lft;
         while (dt2 > 0) {
           var i2_2 = t22[i3].s;
           if (tr[i2_2] < mb)
@@ -447,7 +485,7 @@ var init_browser = __esm({
         }
         mbt = mb;
       }
-      return [new u8(tr), mbt];
+      return { t: new u8(tr), l: mbt };
     };
     ln = function(n3, l3, d2) {
       return n3.s == -1 ? Math.max(ln(n3.l, l3, d2 + 1), ln(n3.r, l3, d2 + 1)) : l3[n3.s] = d2;
@@ -485,7 +523,7 @@ var init_browser = __esm({
           cln = c4[i3];
         }
       }
-      return [cl.subarray(0, cli), s3];
+      return { c: cl.subarray(0, cli), n: s3 };
     };
     clen = function(cf, cl) {
       var l3 = 0;
@@ -497,7 +535,7 @@ var init_browser = __esm({
       var s3 = dat.length;
       var o3 = shft(pos + 2);
       out[o3] = s3 & 255;
-      out[o3 + 1] = s3 >>> 8;
+      out[o3 + 1] = s3 >> 8;
       out[o3 + 2] = out[o3] ^ 255;
       out[o3 + 3] = out[o3 + 1] ^ 255;
       for (var i3 = 0; i3 < s3; ++i3)
@@ -507,23 +545,23 @@ var init_browser = __esm({
     wblk = function(dat, out, final, syms, lf, df, eb, li, bs, bl, p3) {
       wbits(out, p3++, final);
       ++lf[256];
-      var _a2 = hTree(lf, 15), dlt = _a2[0], mlb = _a2[1];
-      var _b2 = hTree(df, 15), ddt = _b2[0], mdb = _b2[1];
-      var _c = lc(dlt), lclt = _c[0], nlc = _c[1];
-      var _d = lc(ddt), lcdt = _d[0], ndc = _d[1];
+      var _a2 = hTree(lf, 15), dlt = _a2.t, mlb = _a2.l;
+      var _b2 = hTree(df, 15), ddt = _b2.t, mdb = _b2.l;
+      var _c = lc(dlt), lclt = _c.c, nlc = _c.n;
+      var _d = lc(ddt), lcdt = _d.c, ndc = _d.n;
       var lcfreq = new u16(19);
       for (var i3 = 0; i3 < lclt.length; ++i3)
-        lcfreq[lclt[i3] & 31]++;
+        ++lcfreq[lclt[i3] & 31];
       for (var i3 = 0; i3 < lcdt.length; ++i3)
-        lcfreq[lcdt[i3] & 31]++;
-      var _e = hTree(lcfreq, 7), lct = _e[0], mlcb = _e[1];
+        ++lcfreq[lcdt[i3] & 31];
+      var _e = hTree(lcfreq, 7), lct = _e.t, mlcb = _e.l;
       var nlcc = 19;
       for (; nlcc > 4 && !lct[clim[nlcc - 1]]; --nlcc)
         ;
       var flen = bl + 5 << 3;
       var ftlen = clen(lf, flt) + clen(df, fdt) + eb;
-      var dtlen = clen(lf, dlt) + clen(df, ddt) + eb + 14 + 3 * nlcc + clen(lcfreq, lct) + (2 * lcfreq[16] + 3 * lcfreq[17] + 7 * lcfreq[18]);
-      if (flen <= ftlen && flen <= dtlen)
+      var dtlen = clen(lf, dlt) + clen(df, ddt) + eb + 14 + 3 * nlcc + clen(lcfreq, lct) + 2 * lcfreq[16] + 3 * lcfreq[17] + 7 * lcfreq[18];
+      if (bs >= 0 && flen <= ftlen && flen <= dtlen)
         return wfblk(out, p3, dat.subarray(bs, bs + bl));
       var lm, ll, dm, dl;
       wbits(out, p3, 1 + (dtlen < ftlen)), p3 += 2;
@@ -544,67 +582,60 @@ var init_browser = __esm({
             var len = clct[i3] & 31;
             wbits(out, p3, llm[len]), p3 += lct[len];
             if (len > 15)
-              wbits(out, p3, clct[i3] >>> 5 & 127), p3 += clct[i3] >>> 12;
+              wbits(out, p3, clct[i3] >> 5 & 127), p3 += clct[i3] >> 12;
           }
         }
       } else {
         lm = flm, ll = flt, dm = fdm, dl = fdt;
       }
       for (var i3 = 0; i3 < li; ++i3) {
-        if (syms[i3] > 255) {
-          var len = syms[i3] >>> 18 & 31;
+        var sym = syms[i3];
+        if (sym > 255) {
+          var len = sym >> 18 & 31;
           wbits16(out, p3, lm[len + 257]), p3 += ll[len + 257];
           if (len > 7)
-            wbits(out, p3, syms[i3] >>> 23 & 31), p3 += fleb[len];
-          var dst = syms[i3] & 31;
+            wbits(out, p3, sym >> 23 & 31), p3 += fleb[len];
+          var dst = sym & 31;
           wbits16(out, p3, dm[dst]), p3 += dl[dst];
           if (dst > 3)
-            wbits16(out, p3, syms[i3] >>> 5 & 8191), p3 += fdeb[dst];
+            wbits16(out, p3, sym >> 5 & 8191), p3 += fdeb[dst];
         } else {
-          wbits16(out, p3, lm[syms[i3]]), p3 += ll[syms[i3]];
+          wbits16(out, p3, lm[sym]), p3 += ll[sym];
         }
       }
       wbits16(out, p3, lm[256]);
       return p3 + ll[256];
     };
-    deo = /* @__PURE__ */ new u32([65540, 131080, 131088, 131104, 262176, 1048704, 1048832, 2114560, 2117632]);
+    deo = /* @__PURE__ */ new i32([65540, 131080, 131088, 131104, 262176, 1048704, 1048832, 2114560, 2117632]);
     et = /* @__PURE__ */ new u8(0);
-    dflt = function(dat, lvl, plvl, pre, post, lst) {
-      var s3 = dat.length;
-      var o3 = new u8(pre + s3 + 5 * (1 + Math.floor(s3 / 7e3)) + post);
+    dflt = function(dat, lvl, plvl, pre, post, st2) {
+      var s3 = st2.z || dat.length;
+      var o3 = new u8(pre + s3 + 5 * (1 + Math.ceil(s3 / 7e3)) + post);
       var w2 = o3.subarray(pre, o3.length - post);
-      var pos = 0;
-      if (!lvl || s3 < 8) {
-        for (var i3 = 0; i3 <= s3; i3 += 65535) {
-          var e2 = i3 + 65535;
-          if (e2 < s3) {
-            pos = wfblk(w2, pos, dat.subarray(i3, e2));
-          } else {
-            w2[i3] = lst;
-            pos = wfblk(w2, pos, dat.subarray(i3, s3));
-          }
-        }
-      } else {
+      var lst = st2.l;
+      var pos = (st2.r || 0) & 7;
+      if (lvl) {
+        if (pos)
+          w2[0] = st2.r >> 3;
         var opt = deo[lvl - 1];
-        var n3 = opt >>> 13, c4 = opt & 8191;
+        var n3 = opt >> 13, c4 = opt & 8191;
         var msk_1 = (1 << plvl) - 1;
-        var prev = new u16(32768), head = new u16(msk_1 + 1);
+        var prev = st2.p || new u16(32768), head = st2.h || new u16(msk_1 + 1);
         var bs1_1 = Math.ceil(plvl / 3), bs2_1 = 2 * bs1_1;
         var hsh = function(i4) {
           return (dat[i4] ^ dat[i4 + 1] << bs1_1 ^ dat[i4 + 2] << bs2_1) & msk_1;
         };
-        var syms = new u32(25e3);
+        var syms = new i32(25e3);
         var lf = new u16(288), df = new u16(32);
-        var lc_1 = 0, eb = 0, i3 = 0, li = 0, wi = 0, bs = 0;
-        for (; i3 < s3; ++i3) {
+        var lc_1 = 0, eb = 0, i3 = st2.i || 0, li = 0, wi = st2.w || 0, bs = 0;
+        for (; i3 + 2 < s3; ++i3) {
           var hv = hsh(i3);
-          var imod = i3 & 32767;
-          var pimod = head[hv];
+          var imod = i3 & 32767, pimod = head[hv];
           prev[imod] = pimod;
           head[hv] = imod;
           if (wi <= i3) {
             var rem = s3 - i3;
-            if ((lc_1 > 7e3 || li > 24576) && rem > 423) {
+            if ((lc_1 > 7e3 || li > 24576) && (rem > 423 || !lst)) {
               pos = wblk(dat, w2, 0, syms, lf, df, eb, li, bs, i3 - bs, pos);
               li = lc_1 = eb = 0, bs = i3;
               for (var j2 = 0; j2 < 286; ++j2)
@@ -629,16 +660,16 @@ var init_browser = __esm({
                     var mmd = Math.min(dif, nl - 2);
                     var md = 0;
                     for (var j2 = 0; j2 < mmd; ++j2) {
-                      var ti = i3 - dif + j2 + 32768 & 32767;
+                      var ti = i3 - dif + j2 & 32767;
                       var pti = prev[ti];
-                      var cd = ti - pti + 32768 & 32767;
+                      var cd = ti - pti & 32767;
                       if (cd > md)
                         md = cd, pimod = ti;
                     }
                   }
                 }
                 imod = pimod, pimod = prev[imod];
-                dif += imod - pimod + 32768 & 32767;
+                dif += imod - pimod & 32767;
               }
             }
             if (d2) {
@@ -655,9 +686,26 @@ var init_browser = __esm({
             }
           }
         }
+        for (i3 = Math.max(i3, wi); i3 < s3; ++i3) {
+          syms[li++] = dat[i3];
+          ++lf[dat[i3]];
+        }
         pos = wblk(dat, w2, lst, syms, lf, df, eb, li, bs, i3 - bs, pos);
-        if (!lst)
-          pos = wfblk(w2, pos, et);
+        if (!lst) {
+          st2.r = pos & 7 | w2[pos / 8 | 0] << 3;
+          pos -= 7;
+          st2.h = head, st2.p = prev, st2.i = i3, st2.w = wi;
+        }
+      } else {
+        for (var i3 = st2.w || 0; i3 < s3 + lst; i3 += 65535) {
+          var e2 = i3 + 65535;
+          if (e2 >= s3) {
+            w2[pos / 8 | 0] = lst;
+            e2 = s3;
+          }
+          pos = wfblk(w2, pos + 1, dat.subarray(i3, e2));
+        }
+        st2.i = s3;
       }
       return slc(o3, 0, pre + shft(pos) + post);
     };
@@ -666,22 +714,34 @@ var init_browser = __esm({
       return {
         p: function(d2) {
           var n3 = a3, m4 = b2;
-          var l3 = d2.length;
+          var l3 = d2.length | 0;
           for (var i3 = 0; i3 != l3; ) {
-            var e2 = Math.min(i3 + 5552, l3);
+            var e2 = Math.min(i3 + 2655, l3);
             for (; i3 < e2; ++i3)
-              n3 += d2[i3], m4 += n3;
-            n3 %= 65521, m4 %= 65521;
+              m4 += n3 += d2[i3];
+            n3 = (n3 & 65535) + 15 * (n3 >> 16), m4 = (m4 & 65535) + 15 * (m4 >> 16);
           }
           a3 = n3, b2 = m4;
         },
         d: function() {
-          return (a3 >>> 8 << 16 | (b2 & 255) << 8 | b2 >>> 8) + ((a3 & 255) << 23) * 2;
+          a3 %= 65521, b2 %= 65521;
+          return (a3 & 255) << 24 | (a3 & 65280) << 8 | (b2 & 255) << 8 | b2 >> 8;
         }
       };
     };
     dopt = function(dat, opt, pre, post, st2) {
-      return dflt(dat, opt.level == null ? 6 : opt.level, opt.mem == null ? Math.ceil(Math.max(8, Math.min(13, Math.log(dat.length))) * 1.5) : 12 + opt.mem, pre, post, !st2);
+      if (!st2) {
+        st2 = { l: 1 };
+        if (opt.dictionary) {
+          var dict = opt.dictionary.subarray(-32768);
+          var newDat = new u8(dict.length + dat.length);
+          newDat.set(dict);
+          newDat.set(dat, dict.length);
+          dat = newDat;
+          st2.w = dict.length;
+        }
+      }
+      return dflt(dat, opt.level == null ? 6 : opt.level, opt.mem == null ? st2.l ? Math.ceil(Math.max(8, Math.min(13, Math.log(dat.length))) * 1.5) : 20 : 12 + opt.mem, pre, post, st2);
     };
     wbytes = function(d2, b2, v3) {
       for (; v3; ++b2)
@@ -689,14 +749,28 @@ var init_browser = __esm({
     };
     zlh = function(c4, o3) {
       var lv = o3.level, fl2 = lv == 0 ? 0 : lv < 6 ? 1 : lv == 9 ? 3 : 2;
-      c4[0] = 120, c4[1] = fl2 << 6 | (fl2 ? 32 - 2 * fl2 : 1);
+      c4[0] = 120, c4[1] = fl2 << 6 | (o3.dictionary && 32);
+      c4[1] |= 31 - (c4[0] << 8 | c4[1]) % 31;
+      if (o3.dictionary) {
+        var h3 = adler();
+        h3.p(o3.dictionary);
+        wbytes(c4, 2, h3.d());
+      }
     };
-    zlv = function(d2) {
-      if ((d2[0] & 15) != 8 || d2[0] >>> 4 > 7 || (d2[0] << 8 | d2[1]) % 31)
-        throw "invalid zlib data";
-      if (d2[1] & 32)
-        throw "invalid zlib data: preset dictionaries not supported";
+    zls = function(d2, dict) {
+      if ((d2[0] & 15) != 8 || d2[0] >> 4 > 7 || (d2[0] << 8 | d2[1]) % 31)
+        err(6, "invalid zlib data");
+      if ((d2[1] >> 5 & 1) == +!dict)
+        err(6, "invalid zlib data: " + (d2[1] & 32 ? "need" : "unexpected") + " dictionary");
+      return (d2[1] >> 3 & 4) + 2;
     };
+    td = typeof TextDecoder != "undefined" && /* @__PURE__ */ new TextDecoder();
+    tds = 0;
+    try {
+      td.decode(et, { stream: true });
+      tds = 1;
+    } catch (e2) {
+    }
   }
 });
 
@@ -8719,7 +8793,7 @@ var require_purify = __commonJS({
         var DOMPurify = function DOMPurify2(root) {
           return createDOMPurify(root);
         };
-        DOMPurify.version = "2.5.6";
+        DOMPurify.version = "2.5.7";
         DOMPurify.removed = [];
         if (!window2 || !window2.document || window2.document.nodeType !== 9) {
           DOMPurify.isSupported = false;
@@ -8945,7 +9019,7 @@ var require_purify = __commonJS({
           CONFIG = cfg;
         };
         var MATHML_TEXT_INTEGRATION_POINTS = addToSet({}, ["mi", "mo", "mn", "ms", "mtext"]);
-        var HTML_INTEGRATION_POINTS = addToSet({}, ["foreignobject", "annotation-xml"]);
+        var HTML_INTEGRATION_POINTS = addToSet({}, ["annotation-xml"]);
         var COMMON_SVG_AND_HTML_ELEMENTS = addToSet({}, ["title", "style", "font", "a", "script"]);
         var ALL_SVG_TAGS = addToSet({}, svg$1);
         addToSet(ALL_SVG_TAGS, svgFilters);
@@ -9230,10 +9304,6 @@ var require_purify = __commonJS({
             hookEvent.forceKeepAttr = void 0;
             _executeHook("uponSanitizeAttribute", currentNode, hookEvent);
             value = hookEvent.attrValue;
-            if (SAFE_FOR_XML && regExpTest(/((--!?|])>)|<\/(style|title)/i, value)) {
-              _removeAttribute(name, currentNode);
-              continue;
-            }
             if (hookEvent.forceKeepAttr) {
               continue;
             }
@@ -9257,6 +9327,10 @@ var require_purify = __commonJS({
             if (SANITIZE_NAMED_PROPS && (lcName === "id" || lcName === "name")) {
               _removeAttribute(name, currentNode);
               value = SANITIZE_NAMED_PROPS_PREFIX + value;
+            }
+            if (SAFE_FOR_XML && regExpTest(/((--!?|])>)|<\/(style|title)/i, value)) {
+              _removeAttribute(name, currentNode);
+              continue;
             }
             if (trustedTypesPolicy && _typeof3(trustedTypes) === "object" && typeof trustedTypes.getAttributeType === "function") {
               if (namespaceURI) ;
@@ -15807,7 +15881,7 @@ var init_index_es = __esm({
         var parser = new this.DOMParser();
         try {
           return this.checkDocument(parser.parseFromString(xml, "image/svg+xml"));
-        } catch (err) {
+        } catch (err2) {
           return this.checkDocument(parser.parseFromString(xml, "text/xml"));
         }
       }
@@ -19119,8 +19193,8 @@ var init_index_es = __esm({
           try {
             var image = yield _this.document.createImage(href);
             _this.image = image;
-          } catch (err) {
-            console.error('Error while loading image "'.concat(href, '":'), err);
+          } catch (err2) {
+            console.error('Error while loading image "'.concat(href, '":'), err2);
           }
           _this.loaded = true;
         })();
@@ -19141,8 +19215,8 @@ var init_index_es = __esm({
               var response = yield _this2.document.fetch(href);
               var svg = yield response.text();
               _this2.image = svg;
-            } catch (err) {
-              console.error('Error while loading image "'.concat(href, '":'), err);
+            } catch (err2) {
+              console.error('Error while loading image "'.concat(href, '":'), err2);
             }
           }
           _this2.loaded = true;
@@ -19229,8 +19303,8 @@ var init_index_es = __esm({
               var font = document2.createElement(fontNode);
               document2.definitions[fontFamily] = font;
             });
-          } catch (err) {
-            console.error('Error while loading font "'.concat(url, '":'), err);
+          } catch (err2) {
+            console.error('Error while loading font "'.concat(url, '":'), err2);
           }
           _this.loaded = true;
         })();
@@ -20926,52 +21000,63 @@ function E(e2) {
     -1 !== D3 ? v4 += D3 + " Tr\n" : -1 !== z3 && (v4 += "0 Tr\n"), -1 !== D3 && (T4.usedRenderingMode = D3), u4 = i4.align || "left";
     var H3, W3 = gt2 * w3, V3 = g3.internal.pageSize.getWidth(), G3 = Ft2[St2];
     h3 = i4.charSpace || _r, l3 = i4.maxWidth || 0, f3 = Object.assign({ autoencode: true, noBOM: true }, i4.flags);
-    var Y3 = [];
+    var Y3 = [], J3 = function(t3) {
+      return g3.getStringUnitWidth(t3, { font: G3, charSpace: h3, fontSize: gt2, doKerning: false }) * gt2 / N4;
+    };
     if ("[object Array]" === Object.prototype.toString.call(e3)) {
-      var J3;
-      s4 = A3(e3), "left" !== u4 && (H3 = s4.map(function(t3) {
-        return g3.getStringUnitWidth(t3, { font: G3, charSpace: h3, fontSize: gt2, doKerning: false }) * gt2 / N4;
-      }));
-      var X3, K3 = 0;
+      var X3;
+      s4 = A3(e3), "left" !== u4 && (H3 = s4.map(J3));
+      var K3, Z3 = 0;
       if ("right" === u4) {
         r3 -= H3[0], e3 = [], C2 = s4.length;
-        for (var Z3 = 0; Z3 < C2; Z3++) 0 === Z3 ? (X3 = br(r3), J3 = yr(n3)) : (X3 = U2(K3 - H3[Z3]), J3 = -W3), e3.push([s4[Z3], X3, J3]), K3 = H3[Z3];
+        for (var $3 = 0; $3 < C2; $3++) 0 === $3 ? (K3 = br(r3), X3 = yr(n3)) : (K3 = U2(Z3 - H3[$3]), X3 = -W3), e3.push([s4[$3], K3, X3]), Z3 = H3[$3];
       } else if ("center" === u4) {
         r3 -= H3[0] / 2, e3 = [], C2 = s4.length;
-        for (var $3 = 0; $3 < C2; $3++) 0 === $3 ? (X3 = br(r3), J3 = yr(n3)) : (X3 = U2((K3 - H3[$3]) / 2), J3 = -W3), e3.push([s4[$3], X3, J3]), K3 = H3[$3];
+        for (var Q3 = 0; Q3 < C2; Q3++) 0 === Q3 ? (K3 = br(r3), X3 = yr(n3)) : (K3 = U2((Z3 - H3[Q3]) / 2), X3 = -W3), e3.push([s4[Q3], K3, X3]), Z3 = H3[Q3];
       } else if ("left" === u4) {
         e3 = [], C2 = s4.length;
-        for (var Q3 = 0; Q3 < C2; Q3++) e3.push(s4[Q3]);
+        for (var tt3 = 0; tt3 < C2; tt3++) e3.push(s4[tt3]);
+      } else if ("justify" === u4 && "Identity-H" === G3.encoding) {
+        e3 = [], C2 = s4.length, l3 = 0 !== l3 ? l3 : V3;
+        for (var et4 = 0, rt3 = 0; rt3 < C2; rt3++) if (X3 = 0 === rt3 ? yr(n3) : -W3, K3 = 0 === rt3 ? br(r3) : et4, rt3 < C2 - 1) {
+          var nt3 = U2((l3 - H3[rt3]) / (s4[rt3].split(" ").length - 1)), it3 = s4[rt3].split(" ");
+          e3.push([it3[0] + " ", K3, X3]), et4 = 0;
+          for (var at3 = 1; at3 < it3.length; at3++) {
+            var ot3 = (J3(it3[at3 - 1] + " " + it3[at3]) - J3(it3[at3])) * N4 + nt3;
+            at3 == it3.length - 1 ? e3.push([it3[at3], ot3, 0]) : e3.push([it3[at3] + " ", ot3, 0]), et4 -= ot3;
+          }
+        } else e3.push([s4[rt3], K3, X3]);
+        e3.push(["", et4, 0]);
       } else {
         if ("justify" !== u4) throw new Error('Unrecognized alignment option, use "left", "center", "right" or "justify".');
         e3 = [], C2 = s4.length, l3 = 0 !== l3 ? l3 : V3;
-        for (var tt3 = 0; tt3 < C2; tt3++) J3 = 0 === tt3 ? yr(n3) : -W3, X3 = 0 === tt3 ? br(r3) : 0, tt3 < C2 - 1 ? Y3.push(O3(U2((l3 - H3[tt3]) / (s4[tt3].split(" ").length - 1)))) : Y3.push(0), e3.push([s4[tt3], X3, J3]);
+        for (rt3 = 0; rt3 < C2; rt3++) X3 = 0 === rt3 ? yr(n3) : -W3, K3 = 0 === rt3 ? br(r3) : 0, rt3 < C2 - 1 ? Y3.push(O3(U2((l3 - H3[rt3]) / (s4[rt3].split(" ").length - 1)))) : Y3.push(0), e3.push([s4[rt3], K3, X3]);
       }
     }
-    var et4 = "boolean" == typeof i4.R2L ? i4.R2L : bt2;
-    true === et4 && (e3 = _4(e3, function(t3, e4, r4) {
+    var st3 = "boolean" == typeof i4.R2L ? i4.R2L : bt2;
+    true === st3 && (e3 = _4(e3, function(t3, e4, r4) {
       return [t3.split("").reverse().join(""), e4, r4];
     })), o4 = { text: e3, x: r3, y: n3, options: i4, mutex: { pdfEscape: Ce, activeFontKey: St2, fonts: Ft2, activeFontSize: gt2 } }, Tt2.publish("postProcessText", o4), e3 = o4.text, y4 = o4.mutex.isHex || false;
-    var rt3 = Ft2[St2].encoding;
-    "WinAnsiEncoding" !== rt3 && "StandardEncoding" !== rt3 || (e3 = _4(e3, function(t3, e4, r4) {
+    var ct3 = Ft2[St2].encoding;
+    "WinAnsiEncoding" !== ct3 && "StandardEncoding" !== ct3 || (e3 = _4(e3, function(t3, e4, r4) {
       return [L3(t3), e4, r4];
     })), s4 = A3(e3), e3 = [];
-    for (var nt3, it3, at3, ot3 = 0, st3 = 1, ct3 = Array.isArray(s4[0]) ? st3 : ot3, ut3 = "", ht3 = function(t3, e4, r4) {
+    for (var ut3, ht3, ft3, dt3 = 0, pt3 = 1, mt3 = Array.isArray(s4[0]) ? pt3 : dt3, vt3 = "", yt3 = function(t3, e4, r4) {
       var n4 = "";
       return r4 instanceof Vt2 ? (r4 = "number" == typeof i4.angle ? Gt2(r4, new Vt2(1, 0, 0, 1, t3, e4)) : Gt2(new Vt2(1, 0, 0, 1, t3, e4), r4), S2 === x2.ADVANCED && (r4 = Gt2(new Vt2(1, 0, 0, -1, 0, 0), r4)), n4 = r4.join(" ") + " Tm\n") : n4 = O3(t3) + " " + O3(e4) + " Td\n", n4;
-    }, ft3 = 0; ft3 < s4.length; ft3++) {
-      switch (ut3 = "", ct3) {
-        case st3:
-          at3 = (y4 ? "<" : "(") + s4[ft3][0] + (y4 ? ">" : ")"), nt3 = parseFloat(s4[ft3][1]), it3 = parseFloat(s4[ft3][2]);
+    }, wt3 = 0; wt3 < s4.length; wt3++) {
+      switch (vt3 = "", mt3) {
+        case pt3:
+          ft3 = (y4 ? "<" : "(") + s4[wt3][0] + (y4 ? ">" : ")"), ut3 = parseFloat(s4[wt3][1]), ht3 = parseFloat(s4[wt3][2]);
           break;
-        case ot3:
-          at3 = (y4 ? "<" : "(") + s4[ft3] + (y4 ? ">" : ")"), nt3 = br(r3), it3 = yr(n3);
+        case dt3:
+          ft3 = (y4 ? "<" : "(") + s4[wt3] + (y4 ? ">" : ")"), ut3 = br(r3), ht3 = yr(n3);
       }
-      void 0 !== Y3 && void 0 !== Y3[ft3] && (ut3 = Y3[ft3] + " Tw\n"), 0 === ft3 ? e3.push(ut3 + ht3(nt3, it3, p4) + at3) : ct3 === ot3 ? e3.push(ut3 + at3) : ct3 === st3 && e3.push(ut3 + ht3(nt3, it3, p4) + at3);
+      void 0 !== Y3 && void 0 !== Y3[wt3] && (vt3 = Y3[wt3] + " Tw\n"), 0 === wt3 ? e3.push(vt3 + yt3(ut3, ht3, p4) + ft3) : mt3 === dt3 ? e3.push(vt3 + ft3) : mt3 === pt3 && e3.push(vt3 + yt3(ut3, ht3, p4) + ft3);
     }
-    e3 = ct3 === ot3 ? e3.join(" Tj\nT* ") : e3.join(" Tj\n"), e3 += " Tj\n";
-    var dt3 = "BT\n/";
-    return dt3 += St2 + " " + gt2 + " Tf\n", dt3 += O3(gt2 * w3) + " TL\n", dt3 += xr + "\n", dt3 += v4, dt3 += e3, lt2(dt3 += "ET"), b2[St2] = true, g3;
+    e3 = mt3 === dt3 ? e3.join(" Tj\nT* ") : e3.join(" Tj\n"), e3 += " Tj\n";
+    var Nt3 = "BT\n/";
+    return Nt3 += St2 + " " + gt2 + " Tf\n", Nt3 += O3(gt2 * w3) + " TL\n", Nt3 += xr + "\n", Nt3 += v4, Nt3 += e3, lt2(Nt3 += "ET"), b2[St2] = true, g3;
   };
   var $e = y3.__private__.clip = y3.clip = function(t3) {
     return lt2("evenodd" === t3 ? "W*" : "W"), this;
@@ -23587,7 +23672,7 @@ var init_jspdf_es_min = __esm({
       }
       for (r2 in e2) e2.hasOwnProperty(r2) && n3.indexOf(r2) < 0 && i3--;
       return 0 === i3;
-    }, E.API = { events: [] }, E.version = "2.5.1";
+    }, E.API = { events: [] }, E.version = "2.5.2";
     q = E.API;
     D = 1;
     R = function(t3) {
@@ -27615,7 +27700,7 @@ var require_html2pdf = __commonJS({
                     try {
                       var pageHeight = format[1];
                       var pageWidth = format[0];
-                    } catch (err) {
+                    } catch (err2) {
                       throw new Error("Invalid format: " + format);
                     }
                   }
@@ -33848,7 +33933,7 @@ var require_deflate = __commonJS({
     var BS_FINISH_STARTED = 3;
     var BS_FINISH_DONE = 4;
     var OS_CODE = 3;
-    function err(strm, errorCode) {
+    function err2(strm, errorCode) {
       strm.msg = msg[errorCode];
       return errorCode;
     }
@@ -34421,7 +34506,7 @@ var require_deflate = __commonJS({
     function deflateResetKeep(strm) {
       var s3;
       if (!strm || !strm.state) {
-        return err(strm, Z_STREAM_ERROR);
+        return err2(strm, Z_STREAM_ERROR);
       }
       strm.total_in = strm.total_out = 0;
       strm.data_type = Z_UNKNOWN;
@@ -34470,7 +34555,7 @@ var require_deflate = __commonJS({
         windowBits -= 16;
       }
       if (memLevel < 1 || memLevel > MAX_MEM_LEVEL || method !== Z_DEFLATED || windowBits < 8 || windowBits > 15 || level < 0 || level > 9 || strategy < 0 || strategy > Z_FIXED) {
-        return err(strm, Z_STREAM_ERROR);
+        return err2(strm, Z_STREAM_ERROR);
       }
       if (windowBits === 8) {
         windowBits = 9;
@@ -34507,11 +34592,11 @@ var require_deflate = __commonJS({
       var old_flush, s3;
       var beg, val;
       if (!strm || !strm.state || flush > Z_BLOCK || flush < 0) {
-        return strm ? err(strm, Z_STREAM_ERROR) : Z_STREAM_ERROR;
+        return strm ? err2(strm, Z_STREAM_ERROR) : Z_STREAM_ERROR;
       }
       s3 = strm.state;
       if (!strm.output || !strm.input && strm.avail_in !== 0 || s3.status === FINISH_STATE && flush !== Z_FINISH) {
-        return err(strm, strm.avail_out === 0 ? Z_BUF_ERROR : Z_STREAM_ERROR);
+        return err2(strm, strm.avail_out === 0 ? Z_BUF_ERROR : Z_STREAM_ERROR);
       }
       s3.strm = strm;
       old_flush = s3.last_flush;
@@ -34693,10 +34778,10 @@ var require_deflate = __commonJS({
           return Z_OK;
         }
       } else if (strm.avail_in === 0 && rank(flush) <= rank(old_flush) && flush !== Z_FINISH) {
-        return err(strm, Z_BUF_ERROR);
+        return err2(strm, Z_BUF_ERROR);
       }
       if (s3.status === FINISH_STATE && strm.avail_in !== 0) {
-        return err(strm, Z_BUF_ERROR);
+        return err2(strm, Z_BUF_ERROR);
       }
       if (strm.avail_in !== 0 || s3.lookahead !== 0 || flush !== Z_NO_FLUSH && s3.status !== FINISH_STATE) {
         var bstate = s3.strategy === Z_HUFFMAN_ONLY ? deflate_huff(s3, flush) : s3.strategy === Z_RLE ? deflate_rle(s3, flush) : configuration_table[s3.level].func(s3, flush);
@@ -34762,10 +34847,10 @@ var require_deflate = __commonJS({
       }
       status = strm.state.status;
       if (status !== INIT_STATE && status !== EXTRA_STATE && status !== NAME_STATE && status !== COMMENT_STATE && status !== HCRC_STATE && status !== BUSY_STATE && status !== FINISH_STATE) {
-        return err(strm, Z_STREAM_ERROR);
+        return err2(strm, Z_STREAM_ERROR);
       }
       strm.state = null;
-      return status === BUSY_STATE ? err(strm, Z_DATA_ERROR) : Z_OK;
+      return status === BUSY_STATE ? err2(strm, Z_DATA_ERROR) : Z_OK;
     }
     function deflateSetDictionary(strm, dictionary) {
       var dictLength = dictionary.length;
@@ -41543,8 +41628,8 @@ var CustomFontSubsetEmbedder = (
           return parts.push(bytes);
         }).on("end", function() {
           return resolve(mergeUint8Arrays(parts));
-        }).on("error", function(err) {
-          return reject(err);
+        }).on("error", function(err2) {
+          return reject(err2);
         });
       });
     };
@@ -42899,8 +42984,8 @@ UPNG.quantize = function(abuf, ps) {
   }
   return { abuf: nimg.buffer, inds, plte: leafs };
 };
-UPNG.quantize.getKDtree = function(nimg, ps, err) {
-  if (err == null) err = 1e-4;
+UPNG.quantize.getKDtree = function(nimg, ps, err2) {
+  if (err2 == null) err2 = 1e-4;
   var nimg32 = new Uint32Array(nimg.buffer);
   var root = { i0: 0, i1: nimg.length, bst: null, est: null, tdst: 0, left: null, right: null };
   root.bst = UPNG.quantize.stats(nimg, root.i0, root.i1);
@@ -42912,7 +42997,7 @@ UPNG.quantize.getKDtree = function(nimg, ps, err) {
       maxL = leafs[i3].est.L;
       mi = i3;
     }
-    if (maxL < err) break;
+    if (maxL < err2) break;
     var node2 = leafs[mi];
     var s0 = UPNG.quantize.splitPixels(nimg, nimg32, node2.i0, node2.i1, node2.est.e, node2.est.eMq255);
     var s0wrong = node2.i0 >= s0 || node2.i1 <= s0;
@@ -52630,7 +52715,7 @@ html2canvas/dist/html2canvas.js:
       ***************************************************************************** *)
 
 dompurify/dist/purify.js:
-  (*! @license DOMPurify 2.5.6 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.5.6/LICENSE *)
+  (*! @license DOMPurify 2.5.7 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.5.7/LICENSE *)
 
 svg-pathdata/lib/SVGPathData.module.js:
   (*! *****************************************************************************
@@ -52652,7 +52737,7 @@ jspdf/dist/jspdf.es.min.js:
   (** @license
    *
    * jsPDF - PDF Document creation from JavaScript
-   * Version 2.5.1 Built on 2022-01-28T15:37:57.791Z
+   * Version 2.5.2 Built on 2024-09-17T13:29:57.859Z
    *                      CommitID 00000000
    *
    * Copyright (c) 2010-2021 James Hall <james@parall.ax>, https://github.com/MrRio/jsPDF
