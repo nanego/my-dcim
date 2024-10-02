@@ -27,6 +27,13 @@
         <% end %>
       </div>
     </div>
+
+    <dl class="bg-body-tertiary p-4 rounded border">
+      <% %i[name].each do |attribute_name| %>
+        <dt><%= Frame.human_attribute_name(attribute_name) %> :</dt>
+        <dd><%= @frame.public_send(attribute_name) %></dd>
+      <% end %>
+    </dl>
   </div>
 </div>
 

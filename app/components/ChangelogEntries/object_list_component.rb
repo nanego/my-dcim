@@ -7,7 +7,7 @@ module ChangelogEntries
     erb_template <<~ERB
       <%= turbo_frame_tag("changelog-entries", loading: :lazy, src: object_changelog_path, **@html_options) do %>
         <div class="w-100 d-flex justify-content-center align-items-center gap-3">
-          <span><%= t(".loading") %></span>
+          <span><%= t("changelog_entries.object_list_component.loading") %></span>
           <span class="spinner-border spinner-border-sm p-4"></span>
         </div>
       <% end %>
