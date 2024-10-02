@@ -42,9 +42,5 @@ module Demenagement
     config.i18n.default_locale = :fr
     config.i18n.available_locales = %i[fr en]
     config.i18n.fallbacks = true
-
-    # https://github.com/public-activity/public_activity/issues/374
-    # https://discuss.rubyonrails.org/t/cve-2022-32224-possible-rce-escalation-bug-with-serialized-columns-in-active-record/81017
-    config.active_record.yaml_column_permitted_classes = [ActiveSupport::TimeWithZone, ActiveSupport::TimeZone, Time]
   end
 end

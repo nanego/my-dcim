@@ -345,11 +345,6 @@ GEM
     popper_js (2.11.8)
     psych (5.1.2)
       stringio
-    public_activity (3.0.1)
-      actionpack (>= 6.1.0)
-      activerecord (>= 6.1)
-      i18n (>= 0.5.0)
-      railties (>= 6.1.0)
     public_suffix (6.0.1)
     puma (6.4.3)
       nio4r (~> 2.0)
@@ -632,7 +627,6 @@ DEPENDENCIES
   omniauth_openid_connect (~> 0.7.0)
   passenger
   pg
-  public_activity
   puma
   rack-mini-profiler
   rails (~> 7.2.0)
