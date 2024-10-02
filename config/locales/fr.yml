@@ -42,7 +42,6 @@ fr:
     navigation:
       nav_links_administration:
         administration: Administration
-        activity: Activité
         informations: Informations
       devices_dropdown:
         equipments: Matériels
@@ -548,43 +547,6 @@ fr:
         help_text: Des instructions de réinitialisation du mot de passe vous seront envoyées.
       edit:
         title: Changez votre mot de passe
-  activity:
-    user:
-      destroy: a supprimé un utilisateur
-      update: a modifié les données d'un utilisateur
-      create: a ajouté un utilisateur
-    frame:
-      destroy: a supprimé une baie
-      update: a modifié une baie
-      create: a ajouté une baie
-    color:
-      destroy: a supprimé une couleur
-      update: a modifié une couleur
-      create: a ajouté une couleur
-    port:
-      destroy: a supprimé un port
-      update: a modifié un port
-      create: a ajouté un port
-    room:
-      destroy: a supprimé une salle
-      update: a modifié une salle
-      create: a ajouté une salle
-    composant:
-      destroy: a supprimé un composant
-      update: a modifié un composant
-      create: a ajouté un composant
-    modele:
-      destroy: a supprimé un modèle
-      update: a modifié un modèle
-      create: a ajouté un modèle
-    card:
-      destroy: a supprimé une carte sur un serveur
-      update: a modifié une carte sur un serveur
-      create: a ajouté une carte sur un serveur
-    server:
-      update: a modifié un serveur
-      create: a ajouté un serveur
-      destroy: a supprimé un serveur
   rooms:
     title: Salles
     overview_view:

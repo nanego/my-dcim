@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  include PublicActivity::StoreController
   include ChangelogContextApplication
   include Localization
 
@@ -29,17 +28,6 @@ class ApplicationController < ActionController::Base
     # return request.env['omniauth.origin'] || stored_location_for(resource) || root_path
     #=> with our setup, omniauth.origin always contain sign_in page since user was first redirected on it
     return stored_location_for(resource) || root_path
-  end
-
-  def track_updated_values(object, new_params)
-    new_params = new_params.to_unsafe_h.stringify_keys! # Avoid symbol keys
-    updated_values = {}
-    old_values = object.attributes
-    object.assign_attributes(new_params)
-    object.changed.each do |attribute|
-      updated_values[attribute] = [old_values[attribute].to_s, new_params[attribute]] if old_values[attribute] != new_params[attribute]
-    end
-    return updated_values
   end
 
   # TODO: remove when fully moved in processor

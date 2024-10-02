@@ -4,7 +4,6 @@ class Server < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :history]
 
-  include PublicActivity::Model
   has_changelog
 
   belongs_to :frame
