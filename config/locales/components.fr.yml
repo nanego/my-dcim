@@ -8,6 +8,9 @@ fr:
     reset: Réinitialiser%{filters_count}
     total_with_filters: "Total: %{results_count} sur %{total_count} résultats"
     total: "Total: %{count}"
+  has_many_turbo_frame_component:
+    loading: Chargement en cours ...
+    see_more: Voir plus
   changelog_entries:
     object_list_component:
       loading: Chargement de l'historique...

@@ -44,51 +44,61 @@
           <%= f.label :islet_id %>
         </fieldset>
       </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:bay_id, Bay.sorted, :id, :to_s, { prompt: true, include_blank: true },
+                                                                   { class: "form-select" }) %>
+          <%= f.label :bay_id %>
+        </fieldset>
+      </div>
     <% end %>
   <% end %>
 
-  <%= render List::DataTableComponent.new(@frames) do |table| %>
-    <% table.with_column(Frame.human_attribute_name(:name), sort_by: :name) do |frame| %>
-      <b>
-      <%= link_to frame.name, frame %>
-      </b>
-    <% end %>
+  <%= turbo_frame_tag(dom_id(Frame, :table), data: { turbo_action: :advance }) do %>
+    <%= render List::DataTableComponent.new(@frames) do |table| %>
+      <% table.with_column(Frame.human_attribute_name(:name), sort_by: :name) do |frame| %>
+        <b>
+          <%= link_to frame.name, frame, data: { turbo_frame: :_top } %>
+        </b>
+      <% end %>
 
-    <% table.with_column(Frame.human_attribute_name(:servers)) do |frame| %>
-      <%= safe_join(frame.servers.map{ |s| link_to s.name, s }, ", ") %>
-    <% end %>
+      <% table.with_column(Frame.human_attribute_name(:servers)) do |frame| %>
+        <%= safe_join(frame.servers.map { |s| link_to(s.name, s, data: { turbo_frame: :_top }) }, ", ") %>
+      <% end %>
 
-    <% table.with_column(Frame.human_attribute_name(:u), sort_by: :u) do |frame| %>
-      <%= frame.u %>
-    <% end %>
+      <% table.with_column(Frame.human_attribute_name(:u), sort_by: :u) do |frame| %>
+        <%= frame.u %>
+      <% end %>
 
-    <% table.with_column(Frame.human_attribute_name(:room), sort_by: :"rooms.name") do |frame| %>
-      <%= frame.room.present? ? link_to(frame.room, frame.room) : frame.room %>
-    <% end %>
+      <% table.with_column(Frame.human_attribute_name(:room), sort_by: :"rooms.name") do |frame| %>
+        <%= frame.room.present? ? link_to(frame.room, frame.room, data: { turbo_frame: :_top }) : frame.room %>
+      <% end %>
 
-    <% table.with_column(Islet.model_name.human, sort_by: :"islets.name") do |frame| %>
-      <%= link_to frame.bay.islet, islet_path(frame.bay.islet) if frame.bay.present? %>
-    <% end %>
+      <% table.with_column(Islet.model_name.human, sort_by: :"islets.name") do |frame| %>
+        <%= link_to frame.bay.islet, islet_path(frame.bay.islet), data: { turbo_frame: :_top } if frame.bay.present? %>
+      <% end %>
 
-    <% table.with_column(style: "min-width: 70px; width: 70px") do |frame| %>
-      <div class="btn-group btn-group-sm" role="group" aria-label="...">
-        <%= link_to visualization_frame_path(frame), class: "btn btn-primary" do %>
-          <span class="bi bi-diagram-3-fill" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("visualization.title") %>"></span>
-          <span class="visually-hidden"><%= t("visualization.title") %></span>
-        <% end %>
-        <%= link_to edit_frame_path(frame), class: "btn btn-info" do %>
-          <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
-                                                                     data-controller="tooltip"
-                                                                     data-bs-placement="left"></span>
-          <span class="visually-hidden"><%= t("action.edit") %></span>
-        <% end %>
-        <%= link_to frame, method: :delete, data: { confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
-          <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
-                                                                     data-controller="tooltip"
-                                                                     data-bs-placement="left"></span>
-          <span class="visually-hidden"><%= t("action.delete") %></span>
-        <% end %>
-      </div>
+      <% table.with_column(style: "min-width: 70px; width: 70px") do |frame| %>
+        <div class="btn-group btn-group-sm" role="group" aria-label="...">
+          <%= link_to visualization_frame_path(frame), class: "btn btn-primary", data: { turbo_frame: :_top } do %>
+            <span class="bi bi-diagram-3-fill" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("visualization.title") %>"></span>
+            <span class="visually-hidden"><%= t("visualization.title") %></span>
+          <% end %>
+          <%= link_to edit_frame_path(frame), class: "btn btn-info", data: { turbo_frame: :_top } do %>
+            <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
+                                                                      data-controller="tooltip"
+                                                                      data-bs-placement="left"></span>
+            <span class="visually-hidden"><%= t("action.edit") %></span>
+          <% end %>
+          <%= link_to frame, method: :delete, data: { turbo_frame: :_top, confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
+            <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                      data-controller="tooltip"
+                                                                      data-bs-placement="left"></span>
+            <span class="visually-hidden"><%= t("action.delete") %></span>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 </div>
