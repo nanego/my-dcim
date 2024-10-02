@@ -3,3 +3,6 @@ en:
     title:
       one: '1 error occured while saving:'
       other: '%{count} errors occured while saving:'
+  changelog_entries:
+    object_list_component:
+      loading: Loading changelog...
