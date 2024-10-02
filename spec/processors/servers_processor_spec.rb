@@ -32,15 +32,30 @@ RSpec.describe ServersProcessor do
     let(:frame)  { Frame.create!(name: "A1", bay: bays(:one)) }
     let(:server) { Server.create!(name: "server", numero: 1, **attributes, frame:) }
 
-    let(:params) { { frame_ids: frame.id } }
-
     before do
       server
       Server.create!(name: "server2", numero: 2, **attributes)
     end
 
-    it { expect(result.size).to eq(1) }
-    it { is_expected.to include(server) }
+    context "with one frame_id" do
+      let(:params) { { frame_ids: frame.id } }
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to include(server) }
+    end
+
+    context "with many frame_ids" do
+      let(:frame_second) { Frame.create!(name: "A2", bay: bays(:one)) }
+      let(:another_server) { Server.create!(name: "server3", numero: 3, **attributes, frame: frame_second) }
+      let(:params) { { frame_ids: [frame.id, frame_second.id] } }
+
+      before do
+        another_server
+      end
+
+      it { expect(result.size).to eq(2) }
+      it { is_expected.to contain_exactly(server, another_server) }
+    end
   end
 
   describe "when filtering by bay_ids" do
