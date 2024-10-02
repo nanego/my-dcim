@@ -5,8 +5,8 @@
     t("action.duplicate") => ""
 } %>
 
-<%= render Page::HeadingComponent.new(
-  resource: @server, title: t(".title", server_name: @original_server.name), breadcrumb_steps:, buttons: :create
+<%= render Page::HeadingEditComponent.new(
+  resource: @original_server, title: t(".title", server_name: @original_server.name), breadcrumb_steps:
 ) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>

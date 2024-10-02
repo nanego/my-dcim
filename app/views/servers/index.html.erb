@@ -1,25 +1,28 @@
 <% provide(:title, t(".title")) %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  t(".title") => "" }
-%>
 
-<div class="d-flex justify-content-between bg-body p-4">
-  <h1><%= t(".title") %></h1>
-  <div class="align-self-center">
-    <%= link_to external_app_records_path, class: "btn btn-primary" do %>
-      <span class="bi bi-arrow-repeat"></span>
-      <%= t(".sync_with_external_apps") %>
-    <% end %>
-    <%= link_to import_csv_servers_path, class: "btn btn-success" do %>
-      <span class="bi bi-plus-lg"></span>
-      <%= t(".add_server_via_csv") %>
-    <% end %>
-    <%= link_to new_server_path, class: "btn btn-success" do %>
-      <span class="bi bi-plus-lg"></span>
-      <%= t(".add_server") %>
-    <% end %>
-  </div>
-</div>
+<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb_steps: { t(".title") => "" } ) do |heading| %>
+  <% heading.with_right_content do %>
+    <div class="align-self-center">
+      <%= render ButtonComponent.new(title: t(".sync_with_external_apps"),
+                                     url: external_app_records_path,
+                                     variant: :primary,
+                                     icon: "arrow-repeat",
+                                     is_responsive: true) %>
+
+      <%= render ButtonComponent.new(title: t(".add_server_via_csv"),
+                                     url: import_csv_servers_path,
+                                     variant: :success,
+                                     icon: "filetype-csv",
+                                     is_responsive: true) %>
+
+      <%= render ButtonComponent.new(title: t(".new_server"),
+                                     url: new_server_path,
+                                     variant: :success,
+                                     icon: "plus-lg",
+                                     is_responsive: true) %>
+    </div>
+  <% end %>
+<% end %>
 
 <div class="p-4 border-top">
   <div class="mb-4">

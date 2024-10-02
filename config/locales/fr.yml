@@ -113,7 +113,7 @@ fr:
   sites:
     index:
       title: Sites
-      add_site: Ajouter un site
+      new_site: Ajouter un site
       delete_confirmation: Ce site ne pourra pas être supprimé tant qu'il sera associé à au moins une salle. Voulez-vous continuer ?
     show:
       title: 'Site #%{site_id} - %{site_name}'
@@ -457,7 +457,7 @@ fr:
       download_example_html: "Télécharger un exemple de fichier CSV compatible : %{link}"
     index:
       title: Matériels
-      add_server: Ajouter un matériel
+      new_server: Ajouter un matériel
       add_server_via_csv: Ajouter par un fichier CSV
       sync_with_external_apps: Synchroniser avec GLPI
     show:

@@ -5,7 +5,7 @@
   t("action.edit") => ""
 } %>
 
-<%= render Page::HeadingComponent.new(resource: @site, title: t(".title"), breadcrumb_steps:, buttons: :edit)%>
+<%= render Page::HeadingEditComponent.new(resource: @site, title: t(".title"), breadcrumb_steps:) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>
