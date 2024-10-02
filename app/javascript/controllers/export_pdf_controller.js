@@ -11,7 +11,7 @@ const exportOptions = {
   },
   pagebreak: { avoid: ".server" },
   enableLinks: false,
-  html2canvas:  { windowWidth: 1200, width: 1200 },
+  html2canvas:  { windowWidth: 1200, width: 1200, scale: 1.25 },
   jsPDF: { format: "legal" }
 }
 
@@ -48,7 +48,7 @@ export default class extends Controller {
 
 
       const url = this.isMoveValue ? `moves/print/${modelId}`:
-                                     `/frames/${modelId}/print?view=${viewTarget}${ bgWiring ? "&bg=wiring" : ""}`
+                                     `/visualization/frames/${modelId}/print?view=${viewTarget}${ bgWiring ? "&bg=wiring" : ""}`
 
       const response = await get(url, {
         responseKind: "application/pdf"
