@@ -722,16 +722,27 @@ fr:
       filter:
         q: Recherche
         u: Nombre de U
+        architecture_id: Architecture
         architecture_ids: Architecture
+        category_id: Catégorie
         category_ids: Catégorie
+        manufacturer_id: Constructeur
         manufacturer_ids: Constructeur
+        islet_id: Ilot
         islet_ids: Ilot
+        room_id: Salle
         room_ids: Salle
+        domaine_id: Domaine
         domaine_ids: Domaine
+        gestion_id: Gestionnaire
         gestion_ids: Gestionnaire
+        frame_id: Châssis
         frame_ids: Châssis
+        bay_id: Baie
         bay_ids: Baie
+        modele_id: Modèle
         modele_ids: Modèle
+        cluster_id: Cluster
         cluster_ids: Cluster
         network_type: Type de réseaux
     placeholder:
