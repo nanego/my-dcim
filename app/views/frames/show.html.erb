@@ -37,4 +37,6 @@
   </div>
 </div>
 
+<%= render HasManyTurboFrameComponent.new(Server.model_name.human.pluralize, url: servers_path(frame_id: @frame.id), frame_id: dom_id(Server, :table)) %>
+
 <%= render ChangelogEntries::ObjectListComponent.new(@frame) %>
