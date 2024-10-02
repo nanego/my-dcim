@@ -1,13 +1,15 @@
 <% provide(:title, Architecture.model_name.human.pluralize) %>
+<% breadcrumb_steps = { Architecture.model_name.human.pluralize => "" } %>
 
-<%= render "layouts/breadcrumb", breadcrumb_steps: { Architecture.model_name.human.pluralize => "" } %>
-<div class="d-flex justify-content-between bg-body p-4">
-  <h1><%= t(".title") %></h1>
-  <%= link_to new_architecture_path, class: "btn btn-success align-self-center" do %>
-    <span class="bi bi-plus-lg"></span>
-    <%= t(".new_architecture") %>
+<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb_steps:) do |heading| %>
+  <% heading.with_right_content do %>
+    <% render ButtonComponent.new(title: t(".new_architecture"),
+                                  url: new_architecture_path,
+                                  variant: :success,
+                                  icon: "plus-lg",
+                                  is_responsive: true) %>
   <% end %>
-</div>
+<% end %>
 
 <div class="p-4 border-top">
   <%= render List::DataTableComponent.new(@architectures) do |table| %>
@@ -25,8 +27,8 @@
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= link_to edit_architecture_path(architecture), class: "btn btn-info" do %>
           <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
-                                                                      data-controller="tooltip"
-                                                                      data-bs-placement="left"></span>
+                                                                     data-controller="tooltip"
+                                                                     data-bs-placement="left"></span>
           <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
         <%= link_to architecture, method: :delete, data: { confirm: t(".delete_confirmation") },

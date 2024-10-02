@@ -1,12 +1,11 @@
 <% provide(:title, "#{t("servers.index.title")} | #{t(".title")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
+<% breadcrumb_steps = {
     t("servers.index.title") => servers_path,
     t(".title") => ""
   }
 %>
-<div class="d-flex justify-content-between bg-body p-4">
-  <h1><%= t(".title") %></h1>
-</div>
+
+<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb_steps:) %>
 
 <% if @import_error %>
   <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -19,8 +18,10 @@
 <%= flash[:notice] %>
 
 <div class="col-12 p-4 border-top">
-  <%= render CardComponent.new(type: :success, extra_classes: "bg-body-tertiary") do |card| %>
-    <%= form_for :import, url: import_servers_path, multipart: true do |f| %>
+  <%= render CardComponent.new(
+    type: :success, extra_classes: "bg-body-tertiary col-12 col-md-10 col-lg-8 mx-auto"
+  ) do |card| %>
+    <%= form_for :import, url: import_servers_path, multipart: true, html: { role: "form" } do |f| %>
       <!-- Card Content: Form -->
       <fieldset>
         <%= f.label t(".room_id.label"), class: "form-label" %>
@@ -55,7 +56,7 @@
       <% end %>
     <% end %>
   <% end %>
-  <p class="mt-2 fst-italic">
+  <p class="col-12 col-md-10 col-lg-8 mx-auto mt-2 fst-italic">
     <%= t(".download_example_html", link: link_to("fichier_exemple.csv", root_url + "files/format_exemple.csv")) %>
   </p>
 </div>

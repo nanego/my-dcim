@@ -1,10 +1,10 @@
-<% provide(:title, "Synchronisation avec GLPI") %>
-<%= render 'layouts/breadcrumb', breadcrumb_steps: {
+<% provide(:title, t(".title")) %>
+<% breadcrumb_steps = {
   t("servers.index.title") => servers_path,
   t(".title") => "" }
 %>
 
-<div class="bg-body p-4">
+<%= render Page::HeadingComponent.new(title: nil, breadcrumb_steps:) do |heading| %>
   <h1><%= t(".title") %></h1>
 
   <p>Listés : <%= @external_app_records.count %> sur <%= @servers_count %> machines connues </p>
@@ -34,7 +34,7 @@
       aucune
     <%- end %>
   </i></p>
-</div>
+<% end %>
 
 <div class="p-4 border-top">
   <%= render List::DataTableComponent.new(@external_app_records) do |table| %>

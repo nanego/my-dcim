@@ -3,7 +3,7 @@
   Architecture.model_name.human.pluralize => architectures_path, @architecture.name => ""
 } %>
 
-<%= render Page::HeadingComponent.new(resource: @architecture, title: t(".title"), breadcrumb_steps:) %>
+<%= render Page::HeadingShowComponent.new(resource: @architecture, title: t(".title"), breadcrumb_steps:) %>
 <div class="col-12 p-4 border-top">
   <div class="col-12 col-lg-6">
     <%= render CardComponent.new() do |card| %>

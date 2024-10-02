@@ -6,13 +6,14 @@
   @server.name => ""
 } %>
 
-<%= render Page::HeadingComponent.new(resource: @server, title:, breadcrumb_steps:) do |heading| %>
-  <% heading.with_extra_buttons do %>
-    <%= link_to duplicate_server_path(@server.slug), class: "btn btn-success d-inline-flex me-2",
-                                                      title: t("action.duplicate") do %>
-      <span class="bi bi-copy"></span>
-      <span class="d-none d-xl-inline-block ms-1"><%= t("action.duplicate") %></span>
-    <% end %>
+<%= render Page::HeadingShowComponent.new(resource: @server, title: title, breadcrumb_steps:) do |c| %>
+  <% c.with_extra_buttons do %>
+    <% render ButtonComponent.new(title: t("action.duplicate"),
+                                  url: duplicate_server_path(@server.slug),
+                                  variant: :success,
+                                  icon: "copy",
+                                  is_responsive: true,
+                                  extra_classes: "me-2") %>
   <% end %>
 <% end %>
 
