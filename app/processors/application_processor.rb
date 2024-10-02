@@ -2,7 +2,7 @@
 
 class ApplicationProcessor < Rubanok::Processor
   def self.non_empty_array(val)
-    non_blank = val.compact_blank
+    non_blank = Array(val).compact_blank
 
     return if non_blank.empty?
 
