@@ -12,39 +12,41 @@
     <% end %>
   </div>
 
-  <%= render List::DataTableComponent.new(@islets) do |table| %>
-    <% table.with_column(Site.model_name.human, sort_by: :"sites.name") do |islet| %>
-      <%= link_to islet.site, site_path(islet.site) %>
-    <% end %>
+  <%= turbo_frame_tag(dom_id(Islet, :table), data: { turbo_action: :advance }) do %>
+    <%= render List::DataTableComponent.new(@islets) do |table| %>
+      <% table.with_column(Site.model_name.human, sort_by: :"sites.name") do |islet| %>
+        <%= link_to islet.site, site_path(islet.site), data: { turbo_frame: :_top } %>
+      <% end %>
 
-    <% table.with_column(Room.model_name.human, sort_by: :"rooms.name") do |islet| %>
-      <%= link_to islet.room, room_path(islet.room) %>
-    <% end %>
+      <% table.with_column(Room.model_name.human, sort_by: :"rooms.name") do |islet| %>
+        <%= link_to islet.room, room_path(islet.room), data: { turbo_frame: :_top } %>
+      <% end %>
 
-    <% table.with_column(Islet.model_name.human, sort_by: :name) do |islet| %>
-      <%= link_to islet, islet_path(islet) %>
-    <% end %>
+      <% table.with_column(Islet.model_name.human, sort_by: :name) do |islet| %>
+        <%= link_to islet, islet_path(islet), data: { turbo_frame: :_top } %>
+      <% end %>
 
-    <% table.with_column(Islet.human_attribute_name(:position), sort_by: :position) do |islet| %>
-      <%= islet.position %>
-    <% end %>
+      <% table.with_column(Islet.human_attribute_name(:position), sort_by: :position) do |islet| %>
+        <%= islet.position %>
+      <% end %>
 
-    <% table.with_column(Frame.model_name.human.pluralize) do |islet| %>
-      <%= Islet.human_attribute_name(:frames_count, count: islet.frames.count) %>
-    <% end %>
+      <% table.with_column(Frame.model_name.human.pluralize) do |islet| %>
+        <%= Islet.human_attribute_name(:frames_count, count: islet.frames.count) %>
+      <% end %>
 
-    <% table.with_column(style: "min-width: 140px; width: 140px") do |islet| %>
-      <div class="btn-group btn-group-sm" role="group" aria-label="...">
-        <%= render partial: "islets/export_button", locals: { islet: islet } %>
-        <%= link_to edit_islet_path(islet), class: "btn btn-info" do %>
-          <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
-          <span class="visually-hidden"><%= t("action.edit") %></span>
-        <% end %>
-        <%= link_to islet, method: :delete, data: { confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
-          <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
-          <span class="visually-hidden"><%= t("action.delete") %></span>
-        <% end %>
-      </div>
+      <% table.with_column(style: "min-width: 140px; width: 140px") do |islet| %>
+        <div class="btn-group btn-group-sm" role="group" aria-label="...">
+          <%= render partial: "islets/export_button", locals: { islet: islet } %>
+          <%= link_to edit_islet_path(islet), class: "btn btn-info", data: { turbo_frame: :_top } do %>
+            <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
+            <span class="visually-hidden"><%= t("action.edit") %></span>
+          <% end %>
+          <%= link_to islet, method: :delete, data: { turbo_frame: :_top, confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
+            <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
+            <span class="visually-hidden"><%= t("action.delete") %></span>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 </div>

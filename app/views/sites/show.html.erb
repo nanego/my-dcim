@@ -25,8 +25,8 @@
       <% end %>
     </dl>
   </div>
-
-  <%= render HasManyTurboFrameComponent.new(Room.model_name.human.pluralize, url: rooms_path(site_id: @site.id), frame_id: dom_id(Room, :table)) %>
 </div>
+
+<%= render HasManyTurboFrameComponent.new(Room.model_name.human.pluralize, url: rooms_path(site_id: @site.id), frame_id: dom_id(Room, :table)) %>
 
 <%= render ChangelogEntries::ObjectListComponent.new(@site) %>
