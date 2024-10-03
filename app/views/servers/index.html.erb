@@ -168,7 +168,8 @@
       <% end %>
 
       <% table.with_column(Server.human_attribute_name(:type), sort_by: :"categories.name") do |server| %>
-        <%= link_to server.modele.category, category_path(server.modele.category), data: { turbo_frame: :_top } if server.modele.try(:category) %>
+        <%= link_to server.modele.category, category_path(server.modele.category),
+                    data: { turbo_frame: :_top } if server.modele.try(:category) %>
       <% end %>
 
       <% table.with_column(Server.human_attribute_name(:room), sort_by: :"rooms.name") do |server| %>

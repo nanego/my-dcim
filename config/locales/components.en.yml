@@ -5,7 +5,12 @@ en:
       other: '%{count} errors occured while saving:'
   has_many_turbo_frame_component:
     loading: Loading ...
-    see_more: See more
+    see_more_filters: See more filters
   changelog_entries:
     object_list_component:
       loading: Loading changelog...
+  list:
+    data_table_component:
+      empty_table:
+        title: No data found!
+        text: We haven't found any data to match your request.
