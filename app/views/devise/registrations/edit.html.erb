@@ -1,9 +1,14 @@
 <% provide(:title, t("users.my_account.edit")) %>
 <% breadcrumb_steps = { t("users.my_account.edit") => "" } %>
 
-<%= render Page::HeadingComponent.new(
-  resource: resource, title: t("users.my_account.edit"), breadcrumb_steps:, buttons: :none)
-%>
+<%= render Page::HeadingComponent.new(title: t("users.my_account.edit"), breadcrumb_steps:) do |heading| %>
+  <% heading.with_left_content do %>
+    <span class="flex-grow-1"></span>
+  <% end %>
+  <% heading.with_right_content do %>
+    <span class="flex-grow-1"></span>
+  <% end %>
+<% end %>
 <div class="col-12 p-4 border-top">
   <%= render FormErrorsComponent.new(resource) %>
   <%= form_for(resource, as: resource_name,
@@ -63,7 +68,7 @@
         <p class="form-text"><%= t(".update_form_instruction") %></p>
       </fieldset>
 
-      <div class="col-12 py-4 mt-4 text-end bg-body-tertiary border-top">
+      <div class="col-12 pt-4 pb-2 mt-4 text-end bg-body-tertiary border-top sticky-bottom">
         <%= f.submit class: "btn btn-primary" %>
       </div>
     <% end %>

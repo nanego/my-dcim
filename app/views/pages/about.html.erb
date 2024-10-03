@@ -1,10 +1,11 @@
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  t("layouts.navigation.nav_links_administration.informations") => "" }
+<%
+  title = t("layouts.navigation.nav_links_administration.informations")
+  breadcrumb_steps = { title => "" }
+
+  provide(:title, title)
 %>
 
-<div class="p-4 bg-body">
-  <h1><%= t("layouts.navigation.nav_links_administration.informations") %></h1>
-</div>
+<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) %>
 <div class="p-4 border-top">
   <!-- Page Content -->
   <div class="about p-3 rounded border bg-body">

@@ -1,8 +1,5 @@
-<%= render "layouts/breadcrumb", breadcrumb_steps: {} %>
+<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb_steps: {}) %>
 
-<div class="p-4 bg-body">
-  <h1><%= t(".title") %></h1>
-</div>
 <div class="p-4 border-top">
   <div class="img-fluid m-0 py-5 px-2 rounded"
         style="background: url(<%= asset_path('_78A0587-nb.jpg') %>) no-repeat center; background-size: cover;">
