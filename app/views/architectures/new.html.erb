@@ -1,5 +1,8 @@
-<% provide(:title, "#{Architecture.model_name.human.pluralize} | #{t("action.create")}") %>
-<% breadcrumb_steps = { Architecture.model_name.human.pluralize => architectures_path, t(".title") => "" } %>
+<%
+  provide(:title, "#{Architecture.model_name.human.pluralize} | #{t("action.create")}")
+
+  breadcrumb_steps = { Architecture.model_name.human.pluralize => architectures_path, t(".title") => "" }
+%>
 
 <%= render Page::HeadingNewComponent.new(resource: @architecture, title: t(".title"), breadcrumb_steps:) %>
 

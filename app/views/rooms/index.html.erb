@@ -1,15 +1,21 @@
-<% provide(:title, Room.model_name.human.pluralize) %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: { Room.model_name.human.pluralize => "" } %>
+<%
+  title = Room.model_name.human.pluralize
+  breadcrumb_steps = { title => "" }
 
-<div class="container-fluid">
-  <div class="d-flex justify-content-between">
-    <h1><%= Room.model_name.human.pluralize %></h1>
-    <%= link_to new_room_path, class: "btn btn-success align-self-center" do %>
-      <span class="bi bi-plus-lg"></span>
-      <%= t(".add_room") %>
-    <% end %>
-  </div>
+  provide(:title, title)
+%>
 
+<%= render Page::HeadingComponent.new(title: title, breadcrumb_steps:) do |heading| %>
+  <% heading.with_right_content do %>
+    <% render ButtonComponent.new(title: t(".new_room"),
+                                  url: new_room_path,
+                                  variant: :success,
+                                  icon: "plus-lg",
+                                  is_responsive: true) %>
+  <% end %>
+<% end %>
+
+<div class="p-4 border-top">
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
       <div>
@@ -34,7 +40,11 @@
   <% end %>
 
   <%= turbo_frame_tag(dom_id(Room, :table), data: { turbo_action: :advance }) do %>
-    <%= render List::DataTableComponent.new(@rooms) do |table| %>
+    <%= render List::DataTableComponent.new(@rooms, extra_classes: "mt-4") do |table| %>
+      <% table.with_column(Site.model_name.human, sort_by: :"sites.name") do |room| %>
+        <%= link_to room.site, site_path(room.site), data: { turbo_frame: :_top } %>
+      <% end %>
+
       <% table.with_column(Room.human_attribute_name(:name), sort_by: :name) do |room| %>
         <b><%= link_to room, room_path(room), data: { turbo_frame: :_top } %></b>
       <% end %>
