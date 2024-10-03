@@ -1,7 +1,10 @@
-<% provide(:title, "#{Architecture.model_name.human.pluralize} | #{@architecture.name}") %>
-<% breadcrumb_steps = {
-  Architecture.model_name.human.pluralize => architectures_path, @architecture.name => ""
-} %>
+<%
+  provide(:title, "#{Architecture.model_name.human.pluralize} | #{@architecture.name}")
+
+  breadcrumb_steps = {
+    Architecture.model_name.human.pluralize => architectures_path, @architecture.name => ""
+  }
+%>
 
 <%= render Page::HeadingShowComponent.new(resource: @architecture, title: t(".title"), breadcrumb_steps:) %>
 <div class="col-12 p-4 border-top">

@@ -1,9 +1,11 @@
-<% provide(:title, "#{Architecture.model_name.human.pluralize} | #{@architecture.name} | #{t("action.edit")}") %>
-<% breadcrumb_steps = {
-  Architecture.model_name.human.pluralize => architectures_path,
-  @architecture => architecture_path(@architecture),
-  t("action.edit") => ""
-} %>
+<%
+  provide(:title, "#{Architecture.model_name.human.pluralize} | #{@architecture.name} | #{t("action.edit")}")
+
+  breadcrumb_steps = {
+    Architecture.model_name.human.pluralize => architectures_path,
+    @architecture => architecture_path(@architecture),
+    t("action.edit") => "" }
+%>
 
 <%= render Page::HeadingEditComponent.new(resource: @architecture, title: t(".title"), breadcrumb_steps:) %>
 <div class="col-12 p-4 border-top">

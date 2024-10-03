@@ -1,40 +1,48 @@
-<% provide(:title, "#{Room.model_name.human.pluralize} | #{@room.name} | #{t("action.show")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  Room.model_name.human.pluralize => rooms_path,
-  @room.name => room_path(@room),
-  t("action.show") => ""
-} %>
+<%
+  provide(:title, "#{Room.model_name.human.pluralize} | #{@room.name}")
 
-<div class="row my-5">
-  <div class="col-11 col-md-10 col-lg-8 mx-auto">
-    <div class="d-flex justify-content-between pb-5">
-      <%= link_to rooms_path, class: "btn align-self-center d-inline-flex",
-                              title: t("action.back") do %>
-        <span class="bi bi-chevron-left"></span>
-        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
-      <% end %>
-      <h1 class="text-center px-4"><%= "Room #{@room.name}" %></h1>
-      <div>
-        <%= link_to visualization_room_path(@room), class: "btn btn-primary align-self-center d-inline-flex", title: t("visualization.title") do %>
-          <span class="bi bi-diagram-3-fill"></span>
-          <span class="d-none d-md-inline-block ms-1"><%= t("visualization.title") %></span>
-        <% end %>
-        <%= link_to edit_room_path(@room), class: "btn btn-info align-self-center d-inline-flex", title: t("action.edit") do %>
-          <span class="bi bi-pencil"></span>
-          <span class="d-none d-md-inline-block ms-1"><%= t("action.edit") %></span>
-        <% end %>
-      </div>
-    </div>
+  breadcrumb_steps = {
+    Room.model_name.human.pluralize => rooms_path,
+    @room.name => ""
+  }
+%>
 
-    <dl class="bg-body-tertiary p-4 rounded border">
-      <% %i[name].each do |attribute_name| %>
-        <dt><%= Room.human_attribute_name(attribute_name) %> :</dt>
-        <dd><%= @room.public_send(attribute_name) %></dd>
+<%= render Page::HeadingShowComponent.new(resource: @room,
+                                          title: "#{Room.model_name.human} #{@room.name}",
+                                          breadcrumb_steps:) do |heading| %>
+  <%= heading.with_extra_buttons do %>
+   <% render ButtonComponent.new(title: t("visualization.title"),
+                                 url: visualization_room_path(@room),
+                                 variant: :primary,
+                                 icon: "diagram-3-fill",
+                                 is_responsive: true,
+                                 extra_classes: "me-2") %>
+  <% end %>
+<% end %>
+
+<div class="col-12 p-4 border-top">
+  <div class="col-12 col-lg-6">
+    <%= render CardComponent.new() do |card| %>
+      <% card.with_header do %>
+        <%= t("display") %>
       <% end %>
-    </dl>
+
+      <dl class="show-page_dl d-grid row-gap-2 mb-0">
+        <% %i[name site description position].each do |attribute_name| %>
+          <dt class="pb-2"><%= Room.human_attribute_name(attribute_name) %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @room.public_send(attribute_name) %></dd>
+        <% end %>
+
+        <dt class="pb-2"><%= Room.human_attribute_name(:display_on_home_page) %></dt>
+        <dd class="mb-0 pb-2 ps-3">
+          <span><%= t("boolean.#{@room.display_on_home_page}") %></span>
+        </dd>
+      </dl>
+    <% end %>
   </div>
+
+  <%= render HasManyTurboFrameComponent.new(
+    Islet.model_name.human.pluralize, url: islets_path(room_id: @room.id), frame_id: dom_id(Islet, :table)
+  ) %>
+  <%= render ChangelogEntries::ObjectListComponent.new(@room) %>
 </div>
-
-<%= render HasManyTurboFrameComponent.new(Islet.model_name.human.pluralize, url: islets_path(room_id: @room.id), frame_id: dom_id(Islet, :table)) %>
-
-<%= render ChangelogEntries::ObjectListComponent.new(@room) %>

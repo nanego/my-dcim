@@ -1,5 +1,7 @@
-<% provide(:title, "#{Site.model_name.human.pluralize} | #{@site.name}") %>
-<% breadcrumb_steps = { Site.model_name.human.pluralize => sites_path, @site.name => "" } %>
+<%
+  provide(:title, "#{Site.model_name.human.pluralize} | #{@site.name}")
+  breadcrumb_steps = { Site.model_name.human.pluralize => sites_path, @site.name => "" }
+%>
 
 <%= render Page::HeadingShowComponent.new(
   resource: @site, title: t(".title", site_id: @site.id, site_name: @site.name), breadcrumb_steps:

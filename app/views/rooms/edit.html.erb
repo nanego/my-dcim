@@ -1,30 +1,23 @@
-<% provide(:title, "#{Room.model_name.human.pluralize} | #{@room.name} | #{t("action.edit")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  Room.model_name.human.pluralize => rooms_path,
-  @room.name => room_path(@room),
-  t("action.edit") => ""
-} %>
+<%
+  provide(:title, "#{Room.model_name.human.pluralize} | #{@room.name} | #{t("action.edit")}")
 
-<div class="row my-5">
-  <div class="col-11 col-md-10 col-lg-8 mx-auto">
-    <div class="d-flex justify-content-between pb-5">
-      <%= link_to rooms_path, class: "btn align-self-center d-inline-flex",
-                              title: t("action.back") do %>
-        <span class="bi bi-chevron-left"></span>
-        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
-      <% end %>
-      <h1 class="px-4 text-center"><%= t(".title") %></h1>
-      <div>
-        <%= link_to visualization_room_path(@room), class: "btn btn-primary align-self-center d-inline-flex", title: t("visualization.title") do %>
-          <span class="bi bi-diagram-3-fill"></span>
-          <span class="d-none d-md-inline-block ms-1"><%= t("visualization.title") %></span>
-        <% end %>
-        <%= link_to @room, class: "btn btn-primary align-self-center d-inline-flex", title: t("action.show") do %>
-          <span class="bi bi-eye"></span>
-          <span class="d-none d-md-inline-block ms-1"><%= t("action.show") %></span>
-        <% end %>
-      </div>
-    </div>
-    <%= render "form" %>
-  </div>
+  breadcrumb_steps = {
+    Room.model_name.human.pluralize => rooms_path,
+    @room.name => room_path(@room),
+    t("action.edit") => ""
+  }
+%>
+
+<%= render Page::HeadingEditComponent.new(resource: @room, title: t(".title"), breadcrumb_steps:) do |heading| %>
+  <%= heading.with_extra_buttons do %>
+    <% render ButtonComponent.new(title: t("visualization.title"),
+                                  url: visualization_room_path(@room),
+                                  variant: :primary,
+                                  icon: "diagram-3-fill",
+                                  is_responsive: true,
+                                  extra_classes: "me-2") %>
+  <% end %>
+<% end %>
+<div class="col-12 p-4 border-top">
+  <%= render "form" %>
 </div>
