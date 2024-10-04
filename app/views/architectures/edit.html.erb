@@ -4,7 +4,8 @@
   breadcrumb_steps = {
     Architecture.model_name.human.pluralize => architectures_path,
     @architecture => architecture_path(@architecture),
-    t("action.edit") => "" }
+    t("action.edit") => ""
+  }
 %>
 
 <%= render Page::HeadingEditComponent.new(resource: @architecture, title: t(".title"), breadcrumb_steps:) %>

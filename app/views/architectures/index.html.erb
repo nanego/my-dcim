@@ -1,7 +1,11 @@
-<% provide(:title, Architecture.model_name.human.pluralize) %>
-<% breadcrumb_steps = { Architecture.model_name.human.pluralize => "" } %>
+<%
+  title = Architecture.model_name.human.pluralize
+  breadcrumb_steps = { title => "" }
 
-<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb_steps:) do |heading| %>
+  provide(:title, title)
+%>
+
+<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) do |heading| %>
   <% heading.with_right_content do %>
     <% render ButtonComponent.new(title: t(".new_architecture"),
                                   url: new_architecture_path,
