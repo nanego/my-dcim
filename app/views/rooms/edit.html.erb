@@ -8,16 +8,7 @@
   }
 %>
 
-<%= render Page::HeadingEditComponent.new(resource: @room, title: t(".title"), breadcrumb_steps:) do |heading| %>
-  <%= heading.with_extra_buttons do %>
-    <% render ButtonComponent.new(title: t("visualization.title"),
-                                  url: visualization_room_path(@room),
-                                  variant: :primary,
-                                  icon: "diagram-3-fill",
-                                  is_responsive: true,
-                                  extra_classes: "me-2") %>
-  <% end %>
-<% end %>
+<%= render Page::HeadingEditComponent.new(resource: @room, title: t(".title"), breadcrumb_steps:) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>
