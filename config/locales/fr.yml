@@ -79,7 +79,7 @@ fr:
 
   islets:
     index:
-      add_islet: Ajouter un ilot
+      new_islet: Ajouter un ilot
       delete_confirmation: Cet ilôt ne pourra pas être supprimé tant qu'il sera associé à au moins une baie. Voulez-vous continuer ?
     show:
       title: Détails de l'ilôt
