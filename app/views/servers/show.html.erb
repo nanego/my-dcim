@@ -49,7 +49,7 @@
           <dd class="mb-0 pb-2 ps-3"><%= link_to @server.frame.try(:name), frame_path(@server.frame) %></dd>
 
           <dt class="pb-2"><%= Islet.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= link_to @server.islet, edit_islet_path(@server.islet) %></dd>
+          <dd class="mb-0 pb-2 ps-3"><%= link_to @server.islet, islet_path(@server.islet) %></dd>
 
           <dt class="pb-2"><%= Room.model_name.human %></dt>
           <dd class="mb-0 pb-2 ps-3"><%= link_to @server.room.try(:name), @server.room %></dd>
