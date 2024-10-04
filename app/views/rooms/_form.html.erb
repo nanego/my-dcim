@@ -2,18 +2,9 @@
 
 <%= form_for(@room, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("display") %>
-    <% end %>
-
     <fieldset class="col-12">
       <%= f.label :name, class: "form-label" %>
       <%= f.text_field :name, class: "form-control" %>
-    </fieldset>
-
-    <fieldset class="col-12 mt-4">
-      <%= f.label :site_id, class: "form-label" %>
-      <%= f.select :site_id, Site.all.map{ |s| [s.name, s.id] }, { prompt: true }, class: "form-select" %>
     </fieldset>
 
     <fieldset class="col-12 mt-4">
@@ -22,6 +13,17 @@
     </fieldset>
 
     <fieldset class="col-12 mt-4">
+      <%= f.label :site_id, class: "form-label" %>
+      <%= f.select :site_id, Site.all.map{ |s| [s.name, s.id] }, { prompt: true }, class: "form-select" %>
+    </fieldset>
+  <% end %>
+
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+    <% card.with_header do %>
+      <%= t("display") %>
+    <% end %>
+
+    <fieldset class="col-12">
       <%= f.label :position, class: "form-label" %>
       <%= f.number_field :position, class: "form-control" %>
     </fieldset>
