@@ -762,11 +762,16 @@ body {
     max-width: 100px;
   }
 
-  /* Tom-Select fix for dark mode */
+  /* Tom-Select */
+  /* Fix for dark mode */
   .ts-dropdown, .ts-control, .ts-control input {
     color: var(--bs-body-color);
   }
 
+  .ts-dropdown {
+    z-index: 9999;
+  }
+  
   /* Tom-Select fix for bootstrap floating label */
   .filters-component {
     .form-floating > .ts-wrapper {
