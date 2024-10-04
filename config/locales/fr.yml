@@ -154,7 +154,6 @@ fr:
   architectures:
     index:
       new_architecture: Ajouter une architecture
-      title: Architectures
       delete_confirmation: Cette architecture ne pourra pas être supprimée tant qu'elle est associée à au moins un modèle. Voulez-vous continuer ?
     show:
       title: Détails de l'architecture

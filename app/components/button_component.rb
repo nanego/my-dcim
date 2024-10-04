@@ -23,8 +23,8 @@ class ButtonComponent < ApplicationComponent
     link_to @url,
             class: "btn btn-#{@variant} btn-#{@size} align-self-center d-inline-flex #{@extra_classes}",
             title: @title do
-      concat(tag.span class: "bi bi-#{@icon}")
-      concat(tag.span @title, class: class_names("ms-1", "d-none d-md-inline-block": @is_responsive))
+      concat(tag.span(class: "bi bi-#{@icon}"))
+      concat(tag.span(@title, class: class_names("ms-1", 'd-none d-md-inline-block': @is_responsive)))
     end
   end
 end

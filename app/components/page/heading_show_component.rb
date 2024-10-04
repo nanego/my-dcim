@@ -25,11 +25,11 @@ module Page
           tag.div class: "align-self-center d-inline-flex" do
             concat(extra_buttons) if extra_buttons?
 
-            concat(render ButtonComponent.new(title: t("action.edit"),
+            concat(render(ButtonComponent.new(title: t("action.edit"),
                                               url: [:edit, @resource],
                                               variant: :info,
                                               icon: "pencil",
-                                              is_responsive: true))
+                                              is_responsive: true)))
           end
         end
       end
