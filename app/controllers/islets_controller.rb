@@ -8,7 +8,8 @@ class IsletsController < ApplicationController
   before_action :set_servers_per_frames, only: %i[show print]
 
   def index
-    @islets = sorted Islet.joins(:site, :room).order('rooms.site_id asc, rooms.position asc, islets.name asc')
+    @filter = ProcessorFilter.new(Islet.joins(:site, :room).order("rooms.site_id asc, rooms.position asc, islets.name asc"), params)
+    @islets = @filter.results
   end
 
   def show

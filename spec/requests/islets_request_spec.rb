@@ -6,13 +6,21 @@ RSpec.describe "Islets" do
   let(:islet) { islets(:one) }
 
   describe "GET #index" do
-    include_context "with authenticated user"
+    subject(:response) do
+      get islets_path
 
-    before { get islets_path }
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated user"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
     it { expect(response.body).to include(islet.name) }
+
+    it do
+      expect { response }.to have_rubanok_processed(Islet.all).with(IsletsProcessor)
+    end
   end
 
   describe "GET #show" do
