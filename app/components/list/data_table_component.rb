@@ -6,36 +6,33 @@ module List
       DatatableColumn.new(title, **options, &block)
     }
 
-    def initialize(data, empty_icon: :table, extra_classes: "", **_options)
+    def initialize(data, empty_icon: :table, **_options)
       @data = data
       @empty_icon = empty_icon
-      @extra_classes = extra_classes
 
       super()
     end
 
     def call
-      tag.div class: @extra_classes do
-        if @data.empty?
-          render CardComponent.new(extra_classes: "text-center text-secondary-emphasis") do |card|
-            concat(tag.i class: "bi bi-#{@empty_icon} fs-1 text-secondary text-opacity-25")
-            concat(tag.h5 t(".empty_table.title"), class: "card-title mt-3")
-            concat(tag.p t(".empty_table.text"), class: "card-text fw-lighter fst-italic")
-          end
-        else
-          render List::TableComponent.new do |table|
-            table.with_head do
-              render List::TableComponent::TableRow.new do
-                columns.each do |col|
-                  concat(render_head_cell(col))
-                end
+      if @data.empty?
+        render CardComponent.new(extra_classes: "text-center text-secondary-emphasis") do |card|
+          concat(tag.i class: "bi bi-#{@empty_icon} fs-1 text-secondary text-opacity-25")
+          concat(tag.h5 t(".empty_table.title"), class: "card-title mt-3")
+          concat(tag.p t(".empty_table.text"), class: "card-text fw-lighter fst-italic")
+        end
+      else
+        render List::TableComponent.new do |table|
+          table.with_head do
+            render List::TableComponent::TableRow.new do
+              columns.each do |col|
+                concat(render_head_cell(col))
               end
             end
+          end
 
-            table.with_body do
-              @data.each do |data_row|
-                concat(render_row(data_row))
-              end
+          table.with_body do
+            @data.each do |data_row|
+              concat(render_row(data_row))
             end
           end
         end

@@ -24,7 +24,7 @@
   <% end %>
 <% end %>
 
-<div class="p-4 border-top">
+<div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
       <div class="w-100">
@@ -125,7 +125,7 @@
   <% end %>
 
   <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance }) do %>
-    <%= render List::DataTableComponent.new(@servers, extra_classes: "mt-4") do |table| %>
+    <%= render List::DataTableComponent.new(@servers) do |table| %>
       <% table.with_column(Server.human_attribute_name(:name), sort_by: :name) do |server| %>
         <%= link_to server.name, server_path(server), class: "fw-bold", data: { turbo_frame: :_top } %>
       <% end %>

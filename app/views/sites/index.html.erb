@@ -13,10 +13,10 @@
   <% end %>
 <% end %>
 
-<div class="p-4 border-top">
+<div class="p-4 border-top d-flex flex-column row-gap-4">
   <div id="map" class="border rounded" style="height: 450px;"></div>
 
-  <%= render List::DataTableComponent.new(@sites, extra_classes: "mt-4") do |table| %>
+  <%= render List::DataTableComponent.new(@sites) do |table| %>
     <% table.with_column(Site.human_attribute_name(:name), sort_by: :name) do |site| %>
       <%= link_to site.name, site_path(site), class: "fw-bold" %>
     <% end %>

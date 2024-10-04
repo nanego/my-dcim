@@ -15,7 +15,7 @@
   <% end %>
 <% end %>
 
-<div class="p-4 border-top">
+<div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
       <div>
@@ -40,7 +40,7 @@
   <% end %>
 
   <%= turbo_frame_tag(dom_id(Room, :table), data: { turbo_action: :advance }) do %>
-    <%= render List::DataTableComponent.new(@rooms, extra_classes: "mt-4") do |table| %>
+    <%= render List::DataTableComponent.new(@rooms) do |table| %>
       <% table.with_column(Site.model_name.human, sort_by: :"sites.name") do |room| %>
         <%= link_to room.site, site_path(room.site), data: { turbo_frame: :_top } %>
       <% end %>
