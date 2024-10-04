@@ -2,16 +2,18 @@
 
 <%= form_for(@islet, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("display") %>
-    <% end %>
-
     <fieldset class="col-12">
       <%= f.label :name, class: "form-label" %>
       <%= f.text_field :name, class: "form-control" %>
     </fieldset>
+  <% end %>
 
-    <fieldset class="col-12 mt-4">
+  <%= render CardComponent.new(type: :primary, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
+    <% card.with_header do %>
+      <%= t("layouts.sidebar.location.title") %>
+    <% end %>
+
+    <fieldset class="col-12">
       <%= f.label :room_id, class: "form-label" %>
       <%= f.select :room_id,
                    options_from_collection_for_select(Room.order(:position), :id, :name_with_site, @islet.room_id),

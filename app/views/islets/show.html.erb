@@ -9,19 +9,33 @@
 
 <%= render Page::HeadingShowComponent.new(resource: @islet, title: t(".title"), breadcrumb_steps:) %>
 <div class="col-12 p-4 border-top">
-  <div class="col-12 col-lg-6">
-    <%= render CardComponent.new do |card| %>
-      <% card.with_header do %>
-        <%= t("display") %>
+  <div class="d-flex flex-row flex-wrap">
+    <div class="col-12 col-lg-6 pe-lg-4">
+      <%= render CardComponent.new(extra_classes: "mb-4 mb-lg-0") do |card| %>
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <% %i[name].each do |attribute_name| %>
+            <dt class="pb-2"><%= Islet.human_attribute_name(attribute_name) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @islet.public_send(attribute_name) %></dd>
+          <% end %>
+        </dl>
       <% end %>
+    </div>
 
-      <dl class="show-page_dl d-grid row-gap-2 mb-0">
-        <% %i[name room position].each do |attribute_name| %>
-          <dt class="pb-2"><%= Islet.human_attribute_name(attribute_name) %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= @islet.public_send(attribute_name) %></dd>
+    <div class="col-12 col-lg-6">
+      <%= render CardComponent.new(type: :primary) do |card| %>
+        <% card.with_header do %>
+          <%= t("layouts.sidebar.location.title") %>
         <% end %>
-      </dl>
-    <% end %>
+
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <dt class="pb-2"><%= Site.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= link_to @islet.room, room_path(@islet.room) %></dd>
+
+          <dt class="pb-2"><%= Islet.human_attribute_name(:position) %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @islet.position %></dd>
+        </dl>
+      <% end %>
+    </div>
   </div>
 
   <%= render HasManyTurboFrameComponent.new(
