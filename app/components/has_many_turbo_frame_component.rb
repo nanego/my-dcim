@@ -4,7 +4,7 @@ class HasManyTurboFrameComponent < ApplicationComponent
   include Turbo::FramesHelper
 
   erb_template <<~ERB
-    <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |c| %>
+    <%= render CardComponent.new(type: :primary, extra_classes: "bg-body-tertiary mt-4") do |c| %>
       <% c.with_header do %>
         <div class="d-flex justify-content-between">
           <span><%= @title %></span>
