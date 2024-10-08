@@ -37,7 +37,7 @@
     </div>
 
     <div class="col-12 col-lg-6">
-      <%= render CardComponent.new() do |card| %>
+      <%= render CardComponent.new do |card| %>
         <% card.with_header do %>
           <%= t("display") %>
         <% end %>
