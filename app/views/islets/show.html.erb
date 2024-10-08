@@ -7,7 +7,7 @@
   provide(:title, "#{Islet.model_name.human.pluralize} | #{islet_label}")
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @islet, title: t(".title"), breadcrumb_steps:) %>
+<%= render Page::HeadingShowComponent.new(resource: @islet, title: islet_label, breadcrumb_steps:) %>
 <div class="col-12 p-4 border-top">
   <div class="d-flex flex-row flex-wrap">
     <div class="col-12 col-lg-6 pe-lg-4">
@@ -28,7 +28,7 @@
         <% end %>
 
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <dt class="pb-2"><%= Site.model_name.human %></dt>
+          <dt class="pb-2"><%= Room.model_name.human %></dt>
           <dd class="mb-0 pb-2 ps-3"><%= link_to @islet.room, room_path(@islet.room) %></dd>
 
           <dt class="pb-2"><%= Islet.human_attribute_name(:position) %></dt>
