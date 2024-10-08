@@ -314,7 +314,8 @@ fr:
           one: "%{bay}"
           other: Double baie %{bay}
         islet_id: Salle et Ilot
-        bay_type_id: Type de baie
+        bay_type: Type de baie
+        name: Nom
       connection:
         cable: Câble
         port: Port
