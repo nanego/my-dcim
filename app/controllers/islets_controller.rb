@@ -35,7 +35,7 @@ class IsletsController < ApplicationController
 
     respond_to do |format|
       if @islet.save
-        format.html { redirect_to islets_url, notice: t('.flashes.created') }
+        format.html { redirect_to @islet, notice: t('.flashes.created') }
         format.json { render :show, status: :created, location: @islet }
       else
         format.html { render :new }
@@ -49,7 +49,7 @@ class IsletsController < ApplicationController
   def update
     respond_to do |format|
       if @islet.update(islet_params)
-        format.html { redirect_to islets_url, notice: t('.flashes.updated') }
+        format.html { redirect_to @islet, notice: t('.flashes.updated') }
         format.json { render :show, status: :ok, location: @islet }
       else
         format.html { render :edit }
