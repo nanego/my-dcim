@@ -81,8 +81,6 @@ fr:
     index:
       new_islet: Ajouter un ilot
       delete_confirmation: Cet ilôt ne pourra pas être supprimé tant qu'il sera associé à au moins une baie. Voulez-vous continuer ?
-    show:
-      title: Détails de l'ilôt
     new:
       title: Nouvel îlot
     create:
@@ -672,7 +670,7 @@ fr:
       night: Nuit
   bays:
     index:
-      new: Ajouter une baie ou un couple de baies
+      new_bay: Ajouter une baie ou un couple de baies
       title: Baies et doubles-baies
       delete_confirmation: Cette baie ne pourra pas être supprimée tant qu'elle est associée à au moins un chassis. Voulez-vous continuer ?
     new:
@@ -680,6 +678,8 @@ fr:
     create:
       flashes:
         created: La baie a été ajoutée.
+    show:
+      title: Baie %{type} %{frames}
     edit:
       title: Modifier la baie %{type} %{frames}
     update:
