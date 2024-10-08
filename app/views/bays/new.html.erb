@@ -1,7 +1,7 @@
 <%
   provide(:title, "#{Bay.model_name.human.pluralize} | #{t("action.create")}")
 
-  breadcrumb_steps = { Bay.model_name.human.pluralize => bays_path, t(".title") => "" }
+  breadcrumb_steps = { Bay.model_name.human.pluralize => bays_path, t("action.create") => "" }
 %>
 
 <%= render Page::HeadingNewComponent.new(resource: @bay, title: t(".title"), breadcrumb_steps:) %>

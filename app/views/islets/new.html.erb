@@ -1,7 +1,7 @@
 <%
   provide(:title, "#{Islet.model_name.human.pluralize} | #{t("action.create")}")
 
-  breadcrumb_steps = { Islet.model_name.human.pluralize => islets_path, t(".title") => "" }
+  breadcrumb_steps = { Islet.model_name.human.pluralize => islets_path, t("action.create") => "" }
 %>
 
 <%= render Page::HeadingNewComponent.new(resource: @islet, title: t(".title"), breadcrumb_steps:) %>
