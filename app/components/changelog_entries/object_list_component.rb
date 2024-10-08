@@ -5,7 +5,7 @@ module ChangelogEntries
     include Turbo::FramesHelper
 
     erb_template <<~ERB
-      <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+      <%= render CardComponent.new(type: :secondary, extra_classes: "bg-body-tertiary mt-4") do |card| %>
         <% card.with_header do %>
           <%= t("changelog_entries.title") %>
         <% end %>
