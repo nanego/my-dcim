@@ -485,17 +485,18 @@ fr:
       memories_total: Ram totale
       cpus: Processeurs
   frames:
-    form:
-      coupled_bay_label: Baie couplée à
-      no_coupled_bay: Aucune baie couplée
+    coupled_frame_label: Châssis couplé à
+    no_coupled_frame: Aucun châssis couplé.
     show_complete_frame:
       title: Salle %{room} - Ilot %{islet}
     index:
       new_frame: Ajouter un châssis
       title: Tous les châssis
       delete_confirmation: Ce châssis ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
+    show:
+      title: Châssis %{frame}
     edit:
-      title: Modifier la baie %{frame}
+      title: Modifier le châssis
     update:
       flashes:
         updated: Le châssis a été mis à jour.
