@@ -19,7 +19,7 @@
 
     <% table.with_column(Gestion.human_attribute_name(:usage), sort_by: :servers_count) do |gestion| %>
       <%= link_to Gestion.human_attribute_name(:servers_count, count: gestion.servers_count),
-                  servers_path(gestion_id: gestion.id) %>
+                  servers_path(gestion_ids: gestion.id) %>
     <% end %>
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |gestion| %>

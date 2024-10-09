@@ -70,7 +70,7 @@
       <% end %>
 
       <% table.with_column(Server.model_name.human.pluralize) do |bay| %>
-        <%= link_to servers_path(bay_id: bay.id), data: { turbo_frame: :_top } do %>
+        <%= link_to servers_path(bay_ids: bay.id), data: { turbo_frame: :_top } do %>
           <%= Bay.human_attribute_name(:materials_count, count: bay.materials.count) %>
         <% end %>
       <% end %>
