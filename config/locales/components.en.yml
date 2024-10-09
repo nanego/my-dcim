@@ -13,4 +13,3 @@ en:
     data_table_component:
       empty_table:
         title: No data found!
-        text: We haven't found any data to match your request.

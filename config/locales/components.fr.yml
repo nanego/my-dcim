@@ -18,4 +18,3 @@ fr:
     data_table_component:
       empty_table:
         title: Aucune donnée trouvée !
-        text: Nous n'avons pas trouvé de données correspondant à votre demande.
