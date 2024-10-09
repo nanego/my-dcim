@@ -19,7 +19,7 @@
         <% Gestion.order(Gestion.arel_table[:name].lower).each do |c| %>
           <li>
             <%= link_to c.name,
-                        overview_rooms_path(gestion_id: c.id, view: params[:view], bg: (params[:bg] || "modele") ),
+                        visualization_rooms_path(gestion_id: c.id, view: params[:view], bg: (params[:bg] || "modele") ),
                         class: class_names("dropdown-item", active: params[:gestion_id] == c.id.to_s) %>
           </li>
         <% end %>
@@ -38,7 +38,7 @@
                     <% if c.present? %>
                       <li>
                           <%= link_to c.to_s,
-                                      overview_rooms_path(cluster_id: c.id,
+                                      visualization_rooms_path(cluster_id: c.id,
                                                           view: params[:view],
                                                           bg: (params[:bg] || "modele") ),
                                       class: class_names("dropdown-item", active: params[:cluster_id] == c.id.to_s) %>
@@ -60,7 +60,7 @@
         <% Modele.all_sorted_with_servers.each do |modele| %>
           <li>
             <%= link_to modele.name_with_brand,
-                        overview_rooms_path(modele_id: modele.id,
+                        visualization_rooms_path(modele_id: modele.id,
                                             view: params[:view],
                                             bg: (params[:bg] || "modele")),
                        class: class_names("dropdown-item", active: params[:modele_id] == modele.id.to_s) %>

@@ -7,6 +7,35 @@ module Visualization
     before_action :set_room, only: %i[show print]
     before_action :set_servers_per_frames, only: %i[show print]
 
+    def index
+      @sites = Site.order(:position).joins(:rooms => :frames).distinct
+
+      if params[:cluster_id].present? ||
+         params[:gestion_id].present? ||
+         params[:modele_id].present?
+        @frames = Frame.preload(:servers => [:gestion, :cluster, :modele => :category, :card_types => :port_type, :cards => [:composant, :ports => [:connection => :cable]]])
+          .includes(:bay => [:frames, { :islet => :room }])
+          .order('rooms.position asc, islets.name asc, bays.position asc, frames.position asc')
+        @current_filters = []
+        if params[:cluster_id].present?
+          @frames = @frames.joins(:materials).where('servers.cluster_id = ? ', params[:cluster_id])
+          @filtered_servers = Server.where('servers.cluster_id = ? ', params[:cluster_id])
+          @current_filters << "Cluster #{Cluster.find_by_id(params[:cluster_id])} "
+        elsif params[:gestion_id].present?
+          @frames = @frames.joins(:materials).where('servers.gestion_id = ? ', params[:gestion_id])
+          @filtered_servers = Server.where('servers.gestion_id = ? ', params[:gestion_id])
+          @current_filters << "Gestionnaire #{Gestion.find_by_id(params[:gestion_id])} "
+        elsif params[:modele_id].present?
+          @frames = @frames.joins(:materials).where('servers.modele_id = ? ', params[:modele_id])
+          @filtered_servers = Server.where('servers.modele_id = ? ', params[:modele_id])
+          @current_filters << "Modèle #{Modele.find_by_id(params[:modele_id])} "
+        end
+        render :filtered_overview
+      end
+    end
+
+    def filtered_overview; end
+
     def show
       @sites = Site.joins(:rooms).includes(:rooms => [:bays => [:bay_type]]).order(:position).distinct
       @islet = Islet.find_by(name: params[:islet], room_id: @room.id) if params[:islet].present?

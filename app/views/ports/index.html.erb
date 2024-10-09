@@ -1,7 +1,7 @@
 <% provide(:title, t(".title")) %>
 <%
   breadcrumb_steps = {}
-  breadcrumb_steps[t("visualization.title")] = overview_rooms_path
+  breadcrumb_steps[t("visualization.title")] = visualization_rooms_path
   if @room.present?
     breadcrumb_steps["Salle #{@room.name}"] = room_path(@room)
   elsif @frame.present?
