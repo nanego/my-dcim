@@ -23,14 +23,6 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.select(:u, Frame.group(:u).order(:u).pluck(:u), { prompt: true, include_blank: true },
-                                                                { class: "form-select" }) %>
-          <%= f.label :u %>
-        </fieldset>
-      </div>
-
-      <div>
-        <fieldset class="form-floating">
           <%= f.collection_select(:room_id, Room.sorted, :id, :to_s, { prompt: true, include_blank: true },
                                                                      { class: "form-select" }) %>
           <%= f.label :room_id %>
@@ -50,6 +42,14 @@
           <%= f.collection_select(:bay_id, Bay.sorted, :id, :to_s, { prompt: true, include_blank: true },
                                                                    { class: "form-select" }) %>
           <%= f.label :bay_id %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.select(:u, Frame.group(:u).order(:u).pluck(:u), { prompt: true, include_blank: true },
+                                                                { class: "form-select" }) %>
+          <%= f.label :u %>
         </fieldset>
       </div>
     <% end %>
