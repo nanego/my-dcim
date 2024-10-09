@@ -1,5 +1,4 @@
-My DCIM
-================
+# My DCIM
 
 This Ruby On Rails app is a tool built to effectively manage data center infrastructures.
 
@@ -9,6 +8,7 @@ This Ruby On Rails app is a tool built to effectively manage data center infrast
 ### Step 1. Dependencies
 #####  1.1 PostgreSQL
 ##### 1.2 Git
+##### 1.3 Nodejs
 
 ### Step 2. Ruby Installation Using RVM
 
@@ -44,15 +44,7 @@ Clone project code from GitHub:
 
     bundle install
 
-#### 3.4 PDF configuration
-Using following command in terminal to get path of wkhtmltopdf library path that is already installed on system.
-
-    which wkhtmltopdf
-Edit config/config.yml with your own application wkhtmltopdf path.
-
-    wkhtmltopdf_path: YOUR_WKHTMLTOPDF_PATH
-
-#### 3.5 SMTP configuration
+#### 3.4 SMTP configuration
 Edit config/config.yml with your own application smtp settings.
 
      smtp_setting:
@@ -63,12 +55,12 @@ Edit config/config.yml with your own application smtp settings.
          user_name: YOUR_EMAIL_HERE
          password: YOUR_PASSWORD_HERE
 
-#### 3.6 Configuring Database
+#### 3.5 Configuring Database
 Copy config/database.yml.copy to config/database.yml and set your postgres username/password. After that run following command from terminal to create PostgreSQL database specified in database.yml file.
 
     rake db:create
 
-#### 3.7 Tables schema and seeding
+#### 3.6 Tables schema and seeding
 
     rake db:migrate
 
@@ -89,8 +81,18 @@ and use your application in browser by typing in url: localhost:3000
 
 You can also configure Apache, Nginx or any other web/application server of your choice to execute in production mode.
 
-Contributing
-------------
+## Frontend development
+
+### html2pdf
+
+To generate pdf we use [html2pdf.js](https://ekoopmans.github.io/html2pdf.js/). This library is bundle separatly with
+esbuild.
+
+If you change [`vendor/javascript/html2pdf.js.js`](vendor/javascript/html2pdf.js.js), then you need to run the following command:
+
+    yarn run build:html2pdf.js
+
+## Contributing
 
 Here are some of the ways you can contribute:
 
