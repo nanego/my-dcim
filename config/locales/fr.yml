@@ -205,11 +205,8 @@ fr:
         destroyed: La stack a bien été supprimé.
   card_types:
     index:
-      title: Types de cartes
-      add_card: Ajouter un type de carte
+      new_card_type: Ajouter un type de carte
       delete_confirmation: Ce type de carte ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur (via une carte). Voulez-vous continuer ?
-    show:
-      title: Détails du type de carte
     new:
       title: Nouveau type de carte
     create:
