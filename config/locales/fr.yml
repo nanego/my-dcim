@@ -418,7 +418,7 @@ fr:
       new_enclosure: Nouvelle enclosure
       add_slot: Ajouter un slot
     index:
-      add_model: Ajouter un modèle
+      new_modele: Ajouter un modèle
       delete_confirmation: Ce modèle ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur ou une enclosure. Voulez-vous continuer ?'
     new:
       title: Nouveau modèle
