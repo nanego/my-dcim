@@ -9,7 +9,7 @@ class HasManyTurboFrameComponent < ApplicationComponent
         <div class="d-flex justify-content-between">
           <span><%= @title %></span>
 
-          <%= link_to @url do %>
+          <%= link_to @url, class:"link-body-emphasis" do %>
             <%= t(".see_more_filters") %>
           <% end %>
         </div>

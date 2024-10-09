@@ -18,7 +18,6 @@ module List
         render CardComponent.new(extra_classes: "text-center text-secondary-emphasis") do |card|
           concat(tag.i(class: "bi bi-#{@empty_icon} fs-1 text-secondary text-opacity-25"))
           concat(tag.h5(t(".empty_table.title"), class: "card-title mt-3"))
-          concat(tag.p(t(".empty_table.text"), class: "card-text fw-lighter fst-italic"))
         end
       else
         render List::TableComponent.new do |table|
