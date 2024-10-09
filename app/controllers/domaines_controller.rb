@@ -6,7 +6,7 @@ class DomainesController < ApplicationController
   # GET /domaines
   # GET /domaines.json
   def index
-    @domaines = sorted Domaine.all
+    @domaines = sorted Domaine.sorted
   end
 
   # GET /domaines/1
