@@ -763,6 +763,30 @@ body {
     color: var(--bs-body-color);
   }
 
+  /* Tom-Select fix for bootstrap floating label */
+  .filters-component {
+    .form-floating > .ts-wrapper {
+        padding-top: 1.625rem !important;
+        padding-bottom: 0.625rem !important;
+
+        @include media-breakpoint-up(lg) {
+          width: 200px;
+        }
+    }
+
+    .ts-wrapper.focus {
+        border-color: #86b7fe;
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .focus .ts-control {
+        box-shadow: none;
+        border: none;
+        box-shadow: none;
+    }
+  }
+
   /* Visualization Infrastructure view */
   #network-capacity {
     .tab-content.infrastructure {

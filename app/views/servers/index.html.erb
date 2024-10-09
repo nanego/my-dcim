@@ -24,7 +24,7 @@
 
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
-      <div>
+      <div class="w-100">
         <fieldset class="form-floating">
           <%= f.text_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
           <%= f.label :q %>
