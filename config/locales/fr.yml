@@ -395,8 +395,6 @@ fr:
       title: Catégories
       delete_confirmation: Cette catégorie ne pourra pas être supprimé tant qu'il aura au moins un modèle associé. Voulez-vous continuer ?
       usage: Usage
-    show:
-      title: Détails de la catégorie
     new:
       title: Nouvelle catégorie
     create:

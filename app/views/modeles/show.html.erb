@@ -24,7 +24,7 @@
     <% end %>
   </div>
   <%= render HasManyTurboFrameComponent.new(
-    Server.model_name.human.pluralize, url: servers_path(modele_ids: [@modele.id]), frame_id: dom_id(Server, :table)
+    Server.model_name.human.pluralize, url: servers_path(modele_ids: @modele.id), frame_id: dom_id(Server, :table)
   ) %>
   <%= render ChangelogEntries::ObjectListComponent.new(@modele) %>
 </div>
