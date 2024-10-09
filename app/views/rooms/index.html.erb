@@ -41,19 +41,15 @@
 
   <%= turbo_frame_tag(dom_id(Room, :table), data: { turbo_action: :advance }) do %>
     <%= render List::DataTableComponent.new(@rooms) do |table| %>
-      <% table.with_column(Site.model_name.human, sort_by: :"sites.name") do |room| %>
-        <%= link_to room.site, site_path(room.site), data: { turbo_frame: :_top } %>
-      <% end %>
-
       <% table.with_column(Room.human_attribute_name(:name), sort_by: :name) do |room| %>
         <b><%= link_to room, room_path(room), data: { turbo_frame: :_top } %></b>
       <% end %>
 
-    <% unless (turbo_frame_request? && @filter.filled?(:site_id)) %>
-      <% table.with_column(Site.model_name.human, sort_by: :"sites.name") do |room| %>
-        <%= link_to room.site, site_path(room.site), data: { turbo_frame: :_top } %>
+      <% unless (turbo_frame_request? && @filter.filled?(:site_id)) %>
+        <% table.with_column(Site.model_name.human, sort_by: :"sites.name") do |room| %>
+          <%= link_to room.site, site_path(room.site), data: { turbo_frame: :_top } %>
+        <% end %>
       <% end %>
-    <% end %>
 
       <% table.with_column(Room.human_attribute_name(:position), sort_by: :position) do |room| %>
         <%= room.position %>

@@ -2,7 +2,7 @@
 
 class BaysProcessor < ApplicationProcessor
   include Sortable
-  SORTABLE_FIELDS = %w[lane name position room.name islet.name].freeze
+  SORTABLE_FIELDS = %w[lane position room.name islet.name].freeze
 
   map :q do |q:|
     raw.joins(:frames).where(Frame.arel_table[:name].matches("%#{q}%"))
