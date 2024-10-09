@@ -627,12 +627,11 @@ fr:
       changes: Changements
       metadatas: Metadonnées
   air_conditioners:
+    temperatures: Températures
     index:
-      new: Ajouter une climatisation
+      new_air_conditioner: Ajouter une climatisation
       title: Climatisations
       delete_confirmation: Cette climatisation sera supprimée. Voulez-vous continuer ?
-    show:
-      title: Détails de la climatisation
     create:
       flashes:
         created: La climatisation a bien été ajoutée.
@@ -665,8 +664,6 @@ fr:
                           \n\r
                           Si T<sub>interne</sub>-T<sub>externe</sub> > DTC start + DTC range,
                           alors ventilation = débit maximal"
-      location: Emplacement
-      temperatures: Températures
       day: Jour
       night: Nuit
   bays:
