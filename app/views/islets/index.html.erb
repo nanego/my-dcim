@@ -14,17 +14,19 @@
 
   <%= turbo_frame_tag(dom_id(Islet, :table), data: { turbo_action: :advance }) do %>
     <%= render List::DataTableComponent.new(@islets) do |table| %>
+      <% table.with_column(Islet.model_name.human, sort_by: :name) do |islet| %>
+        <%= link_to islet, islet_path(islet), data: { turbo_frame: :_top } %>
+      <% end %>
+
       <% table.with_column(Site.model_name.human, sort_by: :"sites.name") do |islet| %>
         <%= link_to islet.site, site_path(islet.site), data: { turbo_frame: :_top } %>
       <% end %>
 
+    <% unless (turbo_frame_request? && @filter.filled?(:room_id)) %>
       <% table.with_column(Room.model_name.human, sort_by: :"rooms.name") do |islet| %>
         <%= link_to islet.room, room_path(islet.room), data: { turbo_frame: :_top } %>
       <% end %>
-
-      <% table.with_column(Islet.model_name.human, sort_by: :name) do |islet| %>
-        <%= link_to islet, islet_path(islet), data: { turbo_frame: :_top } %>
-      <% end %>
+    <% end %>
 
       <% table.with_column(Islet.human_attribute_name(:position), sort_by: :position) do |islet| %>
         <%= islet.position %>
