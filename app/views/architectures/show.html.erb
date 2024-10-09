@@ -10,10 +10,6 @@
 <div class="col-12 p-4 border-top">
   <div class="col-12 col-lg-6">
     <%= render CardComponent.new do |card| %>
-      <% card.with_header do %>
-        <%= t("display") %>
-      <% end %>
-
       <dl class="show-page_dl d-grid row-gap-2 mb-0">
         <% %i[name description].each do |attribute_name| %>
           <dt class="pb-2"><%= Architecture.human_attribute_name(attribute_name) %></dt>
