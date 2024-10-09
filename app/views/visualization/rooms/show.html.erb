@@ -4,7 +4,7 @@
 <% provide :title, "#{t("visualization.title")} | Salle #{@room.name} #{@islet ? "- Ilot #{@islet}" : "" }" %>
 
 <%= render "layouts/breadcrumb",  breadcrumb_steps: {
-  t("visualization.title") => overview_rooms_path,
+  t("visualization.title") => visualization_rooms_path,
   "#{@room.name} #{@islet ? " Ilot #{@islet}" : "" }" => "",
 } %>
 

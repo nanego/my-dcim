@@ -2,7 +2,7 @@
 <% provide :title, "#{Bay.model_name.human.pluralize} | #{bay_label}" %>
 <%
   breadcrumb_steps = {
-    t("visualization.title") => overview_rooms_path,
+    t("visualization.title") => visualization_rooms_path,
     @bay.room.name => room_path(@bay.room, view: params[:view])
   }
 
