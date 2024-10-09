@@ -336,9 +336,6 @@ fr:
   memory_types:
     index:
       new_memory_type: Nouveau type de RAM
-      title: Types de RAM
-    show:
-      title: Détails du type de RAM
     new:
       title: Nouveau type de RAM
     create:
