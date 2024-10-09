@@ -33,23 +33,12 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:frame_ids, Frame.order(:name),
+          <%= f.collection_select(:room_ids, Room.order(:name),
                                   :id,
                                   :name,
                                   { prompt: true, include_blank: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
-          <%= f.label :frame_ids %>
-        </fieldset>
-      </div>
-
-      <div>
-        <fieldset class="form-floating">
-          <%= f.collection_select(:bay_ids, Bay.sorted,
-                                  :id,
-                                  :name,
-                                  { prompt: true, include_blank: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
-          <%= f.label :bay_ids %>
+          <%= f.label :room_ids %>
         </fieldset>
       </div>
 
@@ -66,12 +55,23 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:room_ids, Room.order(:name),
+          <%= f.collection_select(:bay_ids, Bay.sorted,
                                   :id,
                                   :name,
                                   { prompt: true, include_blank: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
-          <%= f.label :room_ids %>
+          <%= f.label :bay_ids %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:frame_ids, Frame.order(:name),
+                                  :id,
+                                  :name,
+                                  { prompt: true, include_blank: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :frame_ids %>
         </fieldset>
       </div>
 
