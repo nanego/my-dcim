@@ -15,7 +15,7 @@
   <% end %>
 <% end %>
 
-<div class="p-4 border-top">
+<div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
       <div>
@@ -61,52 +61,56 @@
   <% end %>
 
   <%= turbo_frame_tag(dom_id(Modele, :table), data: { turbo_action: :advance }) do %>
-    <% @types.each do |category, modeles| %>
-      <% unless (turbo_frame_request?) %>
-        <h4 class="mt-4"><%= category %></h4>
-      <% end %>
-
-      <%= render List::DataTableComponent.new(modeles) do |table| %>
-        <% table.with_column(class: "p-0", style: "width: 40px; height: 40px;") do |modele| %>
-          <% bgModeleColor = modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(modele.try(:name) || "test")[0..5]}", 0.4) %>
-          <div class="h-100" style="background-color: <%= bgModeleColor %> !important;"></div>
-        <% end %>
-
-        <% table.with_column(Modele.model_name.human, sort_by: :name) do |modele| %>
-          <%= link_to modele, modele_path(modele), class: "fw-bold" %>
-        <% end %>
-
-        <% table.with_column(Enclosure.human_attribute_name(:display)) do |modele| %>
-          <%= modele.enclosures.map(&:display).join(', ') %>
-        <% end %>
-
-        <% table.with_column(Bay.model_name.human.pluralize, sort_by: :servers_count) do |modele| %>
-          <%= link_to servers_path(modele_ids: modele.id) do %>
-            <%= pluralize(
-                  modele.servers.count,
-                  modele.category.name.try(:downcase),
-                  "#{modele.category.name.try(:downcase)}#{ modele.category.name.blank? || modele.category.name[-1] == "s" || modele.category.name=="San" ? "" : "s" }")
-            %>
+    <div class="d-flex flex-column row-gap-4">
+      <% @types.each do |category, modeles| %>
+        <div>
+          <% unless (turbo_frame_request? && @filter.filled?(:category_id)) %>
+            <h4><%= category %></h4>
           <% end %>
-        <% end %>
 
-        <% table.with_column(Modele.human_attribute_name(:network_types)) do |modele| %>
-          <%= modele.network_types.map { |type| Modele.human_attribute_name("network_types.#{type}") }.join(", ") %>
-        <% end %>
+          <%= render List::DataTableComponent.new(modeles) do |table| %>
+            <% table.with_column(class: "p-0", style: "width: 40px; height: 40px;") do |modele| %>
+              <% bgModeleColor = modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(modele.try(:name) || "test")[0..5]}", 0.4) %>
+              <div class="h-100" style="background-color: <%= bgModeleColor %> !important;"></div>
+            <% end %>
 
-        <% table.with_column(style: "min-width: 70px; width: 70px") do |modele| %>
-          <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <%= link_to edit_modele_path(modele), class: "btn btn-info" do %>
-              <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
-              <span class="visually-hidden"><%= t("action.edit") %></span>
+            <% table.with_column(Modele.model_name.human, sort_by: :name) do |modele| %>
+              <%= link_to modele, modele_path(modele), class: "fw-bold" %>
             <% end %>
-            <%= link_to modele, method: :delete, data: { confirm: t(".delete_confirmation") }, class: 'btn btn-danger' do %>
-              <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
-              <span class="visually-hidden"><%= t("action.delete") %></span>
+
+            <% table.with_column(Enclosure.human_attribute_name(:display)) do |modele| %>
+              <%= modele.enclosures.map(&:display).join(', ') %>
             <% end %>
-          </div>
-        <% end %>
+
+            <% table.with_column(Bay.model_name.human.pluralize, sort_by: :servers_count) do |modele| %>
+              <%= link_to servers_path(modele_ids: modele.id) do %>
+                <%= pluralize(
+                      modele.servers.count,
+                      modele.category.name.try(:downcase),
+                      "#{modele.category.name.try(:downcase)}#{ modele.category.name.blank? || modele.category.name[-1] == "s" || modele.category.name=="San" ? "" : "s" }")
+                %>
+              <% end %>
+            <% end %>
+
+            <% table.with_column(Modele.human_attribute_name(:network_types)) do |modele| %>
+              <%= modele.network_types.map { |type| Modele.human_attribute_name("network_types.#{type}") }.join(", ") %>
+            <% end %>
+
+            <% table.with_column(style: "min-width: 70px; width: 70px") do |modele| %>
+              <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                <%= link_to edit_modele_path(modele), class: "btn btn-info" do %>
+                  <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
+                  <span class="visually-hidden"><%= t("action.edit") %></span>
+                <% end %>
+                <%= link_to modele, method: :delete, data: { confirm: t(".delete_confirmation") }, class: 'btn btn-danger' do %>
+                  <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
+                  <span class="visually-hidden"><%= t("action.delete") %></span>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
       <% end %>
-    <% end %>
+    </div>
   <% end %>
 </div>
