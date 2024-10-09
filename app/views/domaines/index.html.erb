@@ -19,7 +19,7 @@
 
     <% table.with_column(Domaine.human_attribute_name(:usage), sort_by: :servers_count) do |domaine| %>
       <%= link_to Domaine.human_attribute_name(:servers_count, count: domaine.servers_count),
-                  servers_path(domaine_id: domaine.id) %>
+                  servers_path(domaine_ids: domaine.id) %>
     <% end %>
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |domaine| %>

@@ -44,9 +44,9 @@ class Filter
 
   def attributes
     @attributes ||= if @params.respond_to?(:permit)
-                      @params.permit(*attribute_names).to_h
+                      _compact_attributes @params.permit(*_permitted_attributes_names).to_h
                     else
-                      @params.with_indifferent_access
+                      _compact_attributes @params.with_indifferent_access
                     end
   end
   alias to_h attributes
@@ -72,6 +72,27 @@ class Filter
     return true if method_name.end_with?("=") && attribute_names.include?(method_name.chop.to_sym)
 
     super
+  end
+
+  def _permitted_attributes_names
+    attribute_names.map do |attribute_name|
+      if attribute_name.end_with?("_ids")
+        { attribute_name => [] }
+      else
+        attribute_name
+      end
+    end
+  end
+
+  def _compact_attributes(attributes)
+    attributes.transform_values do |v|
+      case v
+      when Array
+        v.compact_blank
+      else
+        v
+      end
+    end
   end
 
   class Name < ActiveModel::Name

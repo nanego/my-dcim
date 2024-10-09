@@ -24,7 +24,7 @@
 
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
-      <div>
+      <div class="w-100">
         <fieldset class="form-floating">
           <%= f.text_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
           <%= f.label :q %>
@@ -33,89 +33,89 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:frame_id, Frame.order(:name),
-                                            :id,
-                                            :name,
-                                            { prompt: true, include_blank: true },
-                                            { class: "form-select" }) %>
-          <%= f.label :frame_id %>
+          <%= f.collection_select(:room_ids, Room.order(:name),
+                                  :id,
+                                  :name,
+                                  { prompt: true, include_blank: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :room_ids %>
         </fieldset>
       </div>
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:bay_id, Bay.sorted,
-                                           :id,
-                                           :name,
-                                           { prompt: true, include_blank: true },
-                                           { class: "form-select" }) %>
-          <%= f.label :bay_id %>
+          <%= f.collection_select(:islet_ids, Islet.sorted,
+                                  :id,
+                                  :name,
+                                  { prompt: true, include_blank: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :islet_ids %>
         </fieldset>
       </div>
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:islet_id, Islet.sorted,
-                                           :id,
-                                           :name,
-                                           { prompt: true, include_blank: true },
-                                           { class: "form-select" }) %>
-          <%= f.label :islet_id %>
+          <%= f.collection_select(:bay_ids, Bay.sorted,
+                                  :id,
+                                  :name,
+                                  { prompt: true, include_blank: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :bay_ids %>
         </fieldset>
       </div>
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:room_id, Room.order(:name),
-                                           :id,
-                                           :name,
-                                           { prompt: true, include_blank: true },
-                                           { class: "form-select" }) %>
-          <%= f.label :room_id %>
+          <%= f.collection_select(:frame_ids, Frame.order(:name),
+                                  :id,
+                                  :name,
+                                  { prompt: true, include_blank: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :frame_ids %>
         </fieldset>
       </div>
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:modele_id, Modele.sorted,
-                                           :id,
-                                           :name,
-                                           { prompt: true, include_blank: true },
-                                           { class: "form-select" }) %>
-          <%= f.label :modele_id %>
+          <%= f.collection_select(:modele_ids, Modele.sorted,
+                                  :id,
+                                  :name,
+                                  { prompt: true, include_blank: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :modele_ids %>
         </fieldset>
       </div>
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:gestion_id, Gestion.sorted,
-                                           :id,
-                                           :name,
-                                           { prompt: true, include_blank: true },
-                                           { class: "form-select" }) %>
-          <%= f.label :gestion_id %>
+          <%= f.collection_select(:gestion_ids, Gestion.sorted,
+                                  :id,
+                                  :name,
+                                  { prompt: true, include_blank: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :gestion_ids %>
         </fieldset>
       </div>
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:domaine_id, Domaine.sorted,
-                                           :id,
-                                           :name,
-                                           { prompt: true, include_blank: true },
-                                           { class: "form-select" }) %>
-          <%= f.label :domaine_id %>
+          <%= f.collection_select(:domaine_ids, Domaine.sorted,
+                                  :id,
+                                  :name,
+                                  { prompt: true, include_blank: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :domaine_ids %>
         </fieldset>
       </div>
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:cluster_id, Cluster.sorted,
-                                           :id,
-                                           :name,
-                                           { prompt: true, include_blank: true },
-                                           { class: "form-select" }) %>
-          <%= f.label :cluster_id %>
+          <%= f.collection_select(:cluster_ids, Cluster.sorted,
+                                  :id,
+                                  :name,
+                                  { prompt: true, include_blank: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :cluster_ids %>
         </fieldset>
       </div>
     <% end %>

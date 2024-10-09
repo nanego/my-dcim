@@ -75,7 +75,7 @@
       <% end %>
 
       <% table.with_column(Bay.model_name.human.pluralize, sort_by: :servers_count) do |modele| %>
-        <%= link_to servers_path(modele_id: modele.id) do %>
+        <%= link_to servers_path(modele_ids: modele.id) do %>
           <%= pluralize(
                 modele.servers.count,
                 modele.category.name.try(:downcase),

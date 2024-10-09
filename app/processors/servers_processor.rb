@@ -13,36 +13,36 @@ class ServersProcessor < ApplicationProcessor
     raw.where(combined_conditions)
   end
 
-  map :frame_id do |frame_id:|
-    raw.where(frame_id: frame_id)
+  map :frame_ids, filter_with: :non_empty_array do |frame_ids:|
+    raw.where(frame_id: frame_ids)
   end
 
-  map :bay_id do |bay_id:|
-    raw.joins(:bay).where(bay: { id: bay_id })
+  map :bay_ids, filter_with: :non_empty_array do |bay_ids:|
+    raw.joins(:bay).where(bay: { id: bay_ids })
   end
 
-  map :islet_id do |islet_id:|
-    raw.joins(:islet).where(islet: { id: islet_id })
+  map :islet_ids, filter_with: :non_empty_array do |islet_ids:|
+    raw.joins(:islet).where(islet: { id: islet_ids })
   end
 
-  map :room_id do |room_id:|
-    raw.joins(:room).where(room: { id: room_id })
+  map :room_ids, filter_with: :non_empty_array do |room_ids:|
+    raw.joins(:room).where(room: { id: room_ids })
   end
 
-  map :modele_id do |modele_id:|
-    raw.where(modele_id: modele_id)
+  map :modele_ids, filter_with: :non_empty_array do |modele_ids:|
+    raw.where(modele_id: modele_ids)
   end
 
-  map :gestion_id do |gestion_id:|
-    raw.where(gestion_id: gestion_id)
+  map :gestion_ids, filter_with: :non_empty_array do |gestion_ids:|
+    raw.where(gestion_id: gestion_ids)
   end
 
-  map :domaine_id do |domaine_id:|
-    raw.where(domaine_id: domaine_id)
+  map :domaine_ids, filter_with: :non_empty_array do |domaine_ids:|
+    raw.where(domaine_id: domaine_ids)
   end
 
-  map :cluster_id do |cluster_id:|
-    raw.where(cluster_id: cluster_id)
+  map :cluster_ids, filter_with: :non_empty_array do |cluster_ids:|
+    raw.where(cluster_id: cluster_ids)
   end
 
   sortable fields: SORTABLE_FIELDS do
