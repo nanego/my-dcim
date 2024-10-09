@@ -5,7 +5,20 @@
   }
 %>
 
-<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb_steps:) %>
+<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb_steps:) do |heading| %>
+  <% heading.with_left_content do %>
+    <span class="flex-grow-1">
+      <%= render ButtonComponent.new(title: t("action.back"),
+                                 url: servers_path,
+                                 icon: "chevron-left",
+                                 is_responsive: true) %>
+    </span>
+  <% end %>
+
+  <% heading.with_right_content do %>
+    <span class="flex-grow-1"></span>
+  <% end %>
+<% end %>
 
 <% if @import_error %>
   <div class="alert alert-danger alert-dismissible fade show" role="alert">
