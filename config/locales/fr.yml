@@ -189,10 +189,7 @@ fr:
   stacks:
     index:
       new_stack: Ajouter un stack
-      title: Stacks
       delete_confirmation: Ce stack ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
-    show:
-      title: Stack
     new:
       title: Nouvelle stack
     create:
@@ -308,10 +305,7 @@ fr:
       information_html: il faut remplacer le numéro de série dans l'URL par <code>%s</code>.
     index:
       new_manufacturer: Ajouter un constructeur
-      title: Constructeurs
       delete_confirmation: Ce constructeur ne pourra pas être supprimé tant qu'il sera associé à au moins un modèle. Voulez-vous continuer ?
-    show:
-      title: Détails du constructeur
     new:
       title: Nouveau constructeur
     create:
