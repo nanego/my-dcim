@@ -295,6 +295,21 @@ RSpec.describe ServersProcessor do
     end
   end
 
+  describe "when filtering by stack_id" do
+    let(:stack) { Stack.create!(name: "S1") }
+    let(:server)  { Server.create!(name: "server", numero: 1, **attributes, stack:) }
+
+    let(:params) { { stack_id: stack.id } }
+
+    before do
+      server
+      Server.create!(name: "server2", numero: 2, **attributes)
+    end
+
+    it { expect(result.size).to eq(1) }
+    it { is_expected.to include(server) }
+  end
+
   describe "when sorting" do
     pending "TODO"
   end
