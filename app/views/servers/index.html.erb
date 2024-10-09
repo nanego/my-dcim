@@ -60,7 +60,7 @@
         <fieldset class="form-floating">
           <%= f.collection_select(:bay_ids, Bay.sorted,
                                   :id,
-                                  :name,
+                                  :to_s,
                                   { prompt: true, include_blank: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :bay_ids %>
