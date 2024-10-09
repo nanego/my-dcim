@@ -17,8 +17,8 @@ class HasManyTurboFrameComponent < ApplicationComponent
 
       <%= turbo_frame_tag(@frame_id, loading: :lazy, src: @url) do %>
         <div class="w-100 d-flex justify-content-center align-items-center gap-3">
-          <span><%= t(".loading") %></span>
-          <span class="spinner-border spinner-border-sm p-4"></span>
+          <span role="status"><%= t(".loading") %></span>
+          <span class="spinner-grow text-primary" aria-hidden="true"></span>
         </div>
       <% end %>
     <% end %>
