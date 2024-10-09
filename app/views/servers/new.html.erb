@@ -1,7 +1,7 @@
 <% provide(:title, "#{t("servers.index.title")} | #{t("action.create")}") %>
 <% breadcrumb_steps = {
   t("servers.index.title") => servers_path,
-  t(".title") => ""
+  t("action.create") => ""
 } %>
 
 <%= render Page::HeadingNewComponent.new(resource: @server, title: t(".title"), breadcrumb_steps:) %>
