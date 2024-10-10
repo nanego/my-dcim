@@ -1,7 +1,7 @@
-<%= render FormErrorsComponent.new(@air_conditioner) %>
-
 <%= form_for(@air_conditioner, html: { class: "air-conditioner-form col-12 col-md-10 col-lg-8 mx-auto",
                                        role: "form" }) do |f| %>
+  <%= render FormErrorsComponent.new(@air_conditioner) %>
+
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <fieldset class="col-12">
       <%= f.label :name, class: "form-label" %>
