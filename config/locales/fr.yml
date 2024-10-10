@@ -95,8 +95,6 @@ fr:
       flashes:
         destroyed: L'ilôt a bien été supprimé.
   connections:
-    index:
-      title: Connexions
     edit:
       title: Modifier la connexion
     form:
@@ -105,9 +103,6 @@ fr:
         show_less_bay: Voir moins de baies
         delete_confirmation: Confirmez-vous vouloir supprimer la connexion ?
       delete_title: Supprimer la connexion
-  cables:
-    index:
-      title: Câbles
   sites:
     index:
       title: Sites
