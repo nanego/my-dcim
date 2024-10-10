@@ -1,17 +1,19 @@
 <% remote ||= false %>
 
-<div class="connection_form">
+<div class="connection_form p-4">
   <%= form_for("connection", url: connections_update_path,
                              remote: remote,
-                             html: { class: "bg-body-tertiary p-4 rounded border", role: :form }) do |f| %>
-    <div class="row g-3">
-      <div class="col-12 d-flex border-bottom pb-4">
-        <span id="port_status"></span>
-        <%- if remote %>
-          <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal"
-                                                          aria-label="<%= t("action.close") %>"></button>
-        <% end %>
-      </div>
+                             html: { class: "col-12 mx-auto", role: :form }) do |f| %>
+    <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+      <% card.with_header do %>
+        <div class="d-flex">
+          <span id="port_status"></span>
+          <% if remote %>
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal"
+                                                            aria-label="<%= t("action.close") %>"></button>
+          <% end %>
+        </div>
+      <% end %>
 
       <div class="col-12">
         <%= f.label Connection.human_attribute_name(:from_port_id), class: "form-label" %>
@@ -93,30 +95,34 @@
         <%= f.label Cable.human_attribute_name(:comments), class: "form-label" %>
         <%= f.text_field :comments, class: "form-control", value: @from_port.cable.try(:comments) %>
       </fieldset>
+    <% end %>
 
-      <div class="col-12 mt-4 d-flex justify-content-end">
-        <%- if remote %>
-          <button type="button" class="btn me-3" data-bs-dismiss="modal">
-            <%= t("action.cancel") %>
-          </button>
-        <% end %>
-        <%= f.submit t("action.save"), class: class_names("btn btn-primary w-25", "w-100": !remote),
-                                       disabled: (@to_port.present? ? false : :disabled) %>
-      </div>
-
-      <%- if @cable && remote %>
-        <div class="col-12 mt-4 border-top pt-4 text-center">
-          <h5 class="mb-4"><%= t(".delete_title") %></h5>
-          <%= link_to t("action.delete"),
-                      cable_path(id: @cable.id, redirect_to_port_id: @from_port.id),
-                      method: :delete,
-                      data: { confirm: t(".action.delete_confirmation") },
-                      class: "btn btn-danger" %>
-        </div>
+    <div class="col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top">
+      <%- if remote %>
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+          <%= t("action.cancel") %>
+        </button>
+      <% else %>
+        <%= link_to t("action.cancel"), connections_path, class: "btn btn-outline-secondary" %>
       <% end %>
+
+      <%= f.submit t("action.edit"), class: "btn btn-primary" %>
     </div>
+
+    <% if @cable && remote %>
+      <div class="col-12 mt-4 border-top pt-4 text-center">
+        <h5 class="mb-4"><%= t(".delete_title") %></h5>
+        <%= link_to cable_path(id: @cable.id, redirect_to_port_id: @from_port.id),
+                    method: :delete,
+                    data: { confirm: t(".action.delete_confirmation") },
+                    class: "btn btn-danger" do %>
+          <span class="bi bi-trash"></span>
+          <span class="ms-1"><%= t("action.delete") %></span>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
-  </div>
+</div>
 
   <script>
   function select_destination_server(see_all) {
