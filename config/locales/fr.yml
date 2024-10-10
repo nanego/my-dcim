@@ -217,8 +217,9 @@ fr:
         destroyed: Le type de carte a bien été supprimé.
   colors:
     index:
-      title: Couleurs
       delete_confirmation: Supprimer cette couleur la supprimera des données où elle est utilisée. Voulez-vous continuer ?
+    new:
+      title: Nouvelle couleur
     create:
       flashes:
         created: La couleur a bien été créée.
