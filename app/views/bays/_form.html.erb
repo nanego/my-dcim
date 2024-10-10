@@ -1,6 +1,5 @@
-<%= render FormErrorsComponent.new(@bay) %>
-
 <%= form_for(@bay, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+  <%= render FormErrorsComponent.new(@bay) %>
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <fieldset class="col-12">
       <%= f.label :bay_type, class: "form-label" %>

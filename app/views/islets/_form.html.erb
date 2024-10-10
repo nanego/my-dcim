@@ -1,6 +1,5 @@
-<%= render FormErrorsComponent.new(@islet) %>
-
 <%= form_for(@islet, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+  <%= render FormErrorsComponent.new(@islet) %>
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <fieldset class="col-12">
       <%= f.label :name, class: "form-label" %>
