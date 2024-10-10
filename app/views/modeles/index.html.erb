@@ -75,7 +75,7 @@
             <% end %>
 
             <% table.with_column(Modele.model_name.human, sort_by: :name) do |modele| %>
-              <%= link_to modele, modele_path(modele), class: "fw-bold" %>
+              <%= link_to modele, modele_path(modele), class: "fw-bold", data: { turbo_frame: :_top } %>
             <% end %>
 
             <% table.with_column(Enclosure.human_attribute_name(:display)) do |modele| %>
@@ -83,7 +83,7 @@
             <% end %>
 
             <% table.with_column(Bay.model_name.human.pluralize, sort_by: :servers_count) do |modele| %>
-              <%= link_to servers_path(modele_ids: modele.id) do %>
+              <%= link_to servers_path(modele_ids: modele.id), data: { turbo_frame: :_top } do %>
                 <%= pluralize(
                       modele.servers.count,
                       modele.category.name.try(:downcase),
@@ -98,11 +98,11 @@
 
             <% table.with_column(style: "min-width: 70px; width: 70px") do |modele| %>
               <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                <%= link_to edit_modele_path(modele), class: "btn btn-info" do %>
+                <%= link_to edit_modele_path(modele), class: "btn btn-info", data: { turbo_frame: :_top } do %>
                   <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
                   <span class="visually-hidden"><%= t("action.edit") %></span>
                 <% end %>
-                <%= link_to modele, method: :delete, data: { confirm: t(".delete_confirmation") }, class: 'btn btn-danger' do %>
+                <%= link_to modele, method: :delete, data: { confirm: t(".delete_confirmation"), turbo_frame: :_top }, class: 'btn btn-danger' do %>
                   <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
                   <span class="visually-hidden"><%= t("action.delete") %></span>
                 <% end %>
