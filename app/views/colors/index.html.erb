@@ -1,18 +1,22 @@
-<% provide(:title, Color.model_name.human.pluralize) %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  Color.model_name.human.pluralize => "" }
+<%
+  title = Color.model_name.human.pluralize
+  breadcrumb_steps = { title => "" }
+
+  provide(:title, title)
 %>
 
-<div class="container-fluid">
-  <div>
-    <h1><%= t(".title") %></h1>
-  </div>
+<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) %>
 
+<div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render List::DataTableComponent.new(@colors) do |table| %>
     <% table.with_column(class: "position-relative") do |color| %>
       <%= tag.div class: "position-absolute top-0 start-0 bottom-0 end-0", style: "background-color:#{color.code}" do %>
         &nbsp;
       <% end %>
+    <% end %>
+
+    <% table.with_column(Color.human_attribute_name(:code), sort_by: :code) do |color| %>
+      <%= link_to color.code, color_path(color) %>
     <% end %>
 
     <% table.with_column(Color.human_attribute_name(:parent_type), sort_by: :parent_type) do |color| %>
@@ -21,10 +25,6 @@
 
     <% table.with_column(Color.human_attribute_name(:parent_id), sort_by: :parent_id) do |color| %>
       <%= color.parent_id %>
-    <% end %>
-
-    <% table.with_column(Color.human_attribute_name(:code), sort_by: :code) do |color| %>
-      <%= link_to color.code, color_path(color) %>
     <% end %>
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |color| %>
