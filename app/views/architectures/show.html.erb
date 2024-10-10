@@ -1,8 +1,8 @@
 <%
-  provide(:title, "#{Architecture.model_name.human.pluralize} | #{@architecture.name}")
+  provide(:title, "#{Architecture.model_name.human.pluralize} | #{@architecture}")
 
   breadcrumb_steps = {
-    Architecture.model_name.human.pluralize => architectures_path, @architecture.name => ""
+    Architecture.model_name.human.pluralize => architectures_path, @architecture => ""
   }
 %>
 
