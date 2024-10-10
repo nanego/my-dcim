@@ -235,11 +235,8 @@ fr:
       title: Détails de la couleur
   maintainers:
     index:
-      title: Mainteneurs
-      add_maintainer: Ajouter un mainteneur
+      new_maintainer: Ajouter un mainteneur
       delete_confirmation: Ce mainteneur ne pourra pas être supprimé tant qu'il sera associé à au moins un contrat de maintenance. Voulez-vous continuer ?
-    show:
-      title: Détails du mainteneur
     new:
       title: Nouveau mainteneur
     create:
