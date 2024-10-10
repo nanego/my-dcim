@@ -48,7 +48,7 @@ class ColorsController < ApplicationController
   def destroy
     @color.destroy
     respond_to do |format|
-      format.html { redirect_to colors_path, notice: t(".flashes.destroyed") }
+      format.html { redirect_to colors_url, notice: t(".flashes.destroyed") }
       format.json { head :no_content }
     end
   end
