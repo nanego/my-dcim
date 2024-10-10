@@ -11,6 +11,13 @@
 <div class="p-4 border-top">
   <%= turbo_frame_tag "changelog-entries" do %>
     <%= render List::DataTableComponent.new(decorate(@changelog_entries)) do |table| %>
+      <% table.with_column("") do |changelog_entry| %>
+        <%= link_to changelog_entry_path(changelog_entry), class: "btn btn-primary", target: :_top do %>
+          <span class="bi bi-eye" aria-hidden="true" data-controller="tooltip" data-bs-placement="top"
+                                                                              title="<%= t("action.show") %>"></span>
+          <span class="visually-hidden"><%= t("action.show") %></span>
+        <% end %>
+      <% end %>
 
       <% table.with_column(ChangelogEntry.human_attribute_name(:action), sort_by: :action) do |changelog_entry| %>
         <%= render changelog_entry.action_label_to_component %>
@@ -41,14 +48,6 @@
 
       <% table.with_column(t("label_date"), sort_by: :created_at) do |changelog_entry| %>
         <%= l changelog_entry.created_at %>
-      <% end %>
-
-      <% table.with_column(t("label_details")) do |changelog_entry| %>
-        <%= link_to changelog_entry_path(changelog_entry), class: "btn btn-primary", target: :_top do %>
-          <span class="bi bi-eye" aria-hidden="true" data-controller="tooltip" data-bs-placement="left"
-                                                                              title="<%= t("action.show") %>"></span>
-          <span class="visually-hidden"><%= t("action.show") %></span>
-        <% end %>
       <% end %>
     <% end %>
 
