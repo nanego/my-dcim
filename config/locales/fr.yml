@@ -132,10 +132,7 @@ fr:
   gestions:
     index:
       new_gestion: Ajouter un gestionnaire
-      title: Gestionnaires
       delete_confirmation: Ce gestionnaire ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
-    show:
-      title: Détails du gestionnaire
     new:
       title: Nouveau gestionnaire
     create:
