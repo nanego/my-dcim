@@ -1,83 +1,91 @@
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  t("users.my_account.edit") => "" }
-%>
+<% provide(:title, t("users.my_account.edit")) %>
+<% breadcrumb_steps = { t("users.my_account.edit") => "" } %>
 
-<div class="row my-5">
-  <div class="col-11 col-md-10 col-lg-8 mx-auto">
-    <h1 class="text-center pb-5"><%= t("users.my_account.edit") %></h1>
-    <%= render FormErrorsComponent.new(resource) %>
-    <%= form_for(resource, as: resource_name,
-                           url: registration_path(resource_name),
-                           html: {
-                             method: :put,
-                             role: "form",
-                             class: "bg-body-tertiary p-4 rounded border"
-                           }) do |f| %>
+<%= render Page::HeadingComponent.new(title: t("users.my_account.edit"), breadcrumb_steps:) do |heading| %>
+  <% heading.with_left_content do %>
+    <span class="flex-grow-1"></span>
+  <% end %>
+  <% heading.with_right_content do %>
+    <span class="flex-grow-1"></span>
+  <% end %>
+<% end %>
+<div class="col-12 p-4 border-top">
+  <%= render FormErrorsComponent.new(resource) %>
+  <%= form_for(resource, as: resource_name,
+                          url: registration_path(resource_name),
+                          html: {
+                            method: :put,
+                            role: "form",
+                            class: "col-12 col-md-10 col-lg-8 mx-auto"
+                          }) do |f| %>
+    <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+      <fieldset class="col-12">
+        <%= f.label :role, class: "form-label" %>
+        <%= f.text_field :role, disabled: true, class: "form-control" %>
+      </fieldset>
+      <fieldset class="col-12 mt-4">
+        <%= f.label :login, class: "form-label" %>
+        <%= f.text_field :name, autofocus: true, class: "form-control" %>
+      </fieldset>
+      <fieldset class="col-12 mt-4">
+        <%= f.label :email, class: "form-label" %>
+        <%= f.email_field :email, class: "form-control" %>
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div class="form-text"><%= t(".waiting_for_confirmation", email: resource.unconfirmed_email) %></div>
+        <% end %>
+      </fieldset>
+      <fieldset class="col-12 mt-4" data-controller="reveal" data-reveal-hidden-class="d-none">
+        <%= f.label :authentication_token, class: "form-label" %>
+        <%= link_to t(".action.reset_authentication_token"),
+                    reset_authentication_token_user_path(resource),
+                    class: "btn btn-link btn-sm float-end",
+                    data: { confirm: t(".confirm.reset_authentication_token") } %>
+        <%= f.text_field :authentication_token, value: "#{"*" * @user.authentication_token.length}", disabled: true,
+                                                class: "form-control", data: { reveal_target: "item" } %>
+        <%= f.text_field :authentication_token, disabled: true, class: "form-control d-none",
+                                                                data: { reveal_target: "item" } %>
+        <button class="btn btn-outline-primary btn-sm mt-2" data-action="click->reveal#toggle" type="button">
+          <span data-reveal-target="item">
+            <%= t(".action.show_authentication_token") %>
+          </span>
+          <span data-reveal-target="item" class="d-none">
+            <%= t(".action.hide_authentication_token") %>
+          </span>
+        </button>
+      </fieldset>
+      <fieldset class="col-12 col-md-6 mt-4">
+        <%= f.label :password, class: "form-label" %>
+        <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+      </fieldset>
+      <fieldset class="col-12 col-md-6 mt-4">
+        <%= f.label :password_confirmation, class: "form-label" %>
+        <%= f.password_field :password_confirmation, class: "form-control" %>
+      </fieldset>
+      <p class="form-text"><%= t(".password_fields_instruction") %></p>
+      <fieldset lass="col-12 mt-4">
+        <%= f.label :current_password, class: "form-label" %>
+        <%= f.password_field :current_password, class: "form-control" %>
+        <p class="form-text"><%= t(".update_form_instruction") %></p>
+      </fieldset>
 
-      <div class="row g-3">
-        <fieldset class="col-12">
-          <%= f.label :role, class: "form-label" %>
-          <%= f.text_field :role, disabled: true, class: "form-control" %>
-        </fieldset>
-        <fieldset class="col-12 mt-4">
-          <%= f.label :login, class: "form-label" %>
-          <%= f.text_field :name, autofocus: true, class: "form-control" %>
-        </fieldset>
-        <fieldset class="col-12 mt-4">
-          <%= f.label :email, class: "form-label" %>
-          <%= f.email_field :email, class: "form-control" %>
-          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-            <div class="form-text"><%= t(".waiting_for_confirmation", email: resource.unconfirmed_email) %></div>
-          <% end %>
-        </fieldset>
-        <fieldset class="col-12 mt-4" data-controller="reveal" data-reveal-hidden-class="d-none">
-          <%= f.label :authentication_token, class: "form-label" %>
-          <%= link_to t(".action.reset_authentication_token"),
-                      reset_authentication_token_user_path(resource),
-                      class: "btn btn-link btn-sm float-end",
-                      data: { confirm: t(".confirm.reset_authentication_token") } %>
-          <%= f.text_field :authentication_token, value: "#{"*" * @user.authentication_token.length}", disabled: true,
-                                                  class: "form-control", data: { reveal_target: "item" } %>
-          <%= f.text_field :authentication_token, disabled: true, class: "form-control d-none",
-                                                                  data: { reveal_target: "item" } %>
-          <button class="btn btn-outline-primary btn-sm mt-2" data-action="click->reveal#toggle" type="button">
-            <span data-reveal-target="item">
-              <%= t(".action.show_authentication_token") %>
-            </span>
-            <span data-reveal-target="item" class="d-none">
-              <%= t(".action.hide_authentication_token") %>
-            </span>
-          </button>
-        </fieldset>
-        <fieldset class="col-12 col-md-6 mt-4">
-          <%= f.label :password, class: "form-label" %>
-          <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
-        </fieldset>
-        <fieldset class="col-12 col-md-6 mt-4">
-          <%= f.label :password_confirmation, class: "form-label" %>
-          <%= f.password_field :password_confirmation, class: "form-control" %>
-        </fieldset>
-        <p class="form-text"><%= t(".password_fields_instruction") %></p>
-        <fieldset lass="col-12 mt-4">
-          <%= f.label :current_password, class: "form-label" %>
-          <%= f.password_field :current_password, class: "form-control" %>
-          <p class="form-text"><%= t(".update_form_instruction") %></p>
-        </fieldset>
-        <div class="col-12 mt-4">
-          <%= f.submit class: "w-100 btn btn-primary mt-4" %>
-        </div>
+      <div class="col-12 pt-4 pb-2 mt-4 text-end bg-body-tertiary border-top sticky-bottom">
+        <%= f.submit class: "btn btn-primary" %>
       </div>
     <% end %>
-    <hr class="mt-5">
-    <div class="text-center">
-      <h2 class="py-4"><%= t(".cancel_account.title") %></h2>
-      <div class="bg-body-tertiary p-4 rounded border">
+  <% end %>
+
+  <div class="col-12 col-md-10 col-lg-8 mx-auto mt-4">
+    <%= render CardComponent.new(type: :danger, extra_classes: "bg-body-tertiary") do |card| %>
+      <% card.with_header do %>
+        <%= t(".cancel_account.title") %>
+      <% end %>
+      <div class="text-center">
         <p><%= t(".cancel_account.text") %></p>
         <%= button_to t(".cancel_account.action"), registration_path(resource_name),
-                                           data: { confirm: t("action.confirm") },
-                                           method: :delete,
-                                           class: "w-100 btn btn-outline-danger mt-2" %>
+                                            data: { confirm: t("action.confirm") },
+                                            method: :delete,
+                                            class: "btn btn-danger mt-2" %>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>

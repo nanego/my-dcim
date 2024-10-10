@@ -1,42 +1,58 @@
-<% provide(:title, "#{Frame.model_name.human.pluralize} | #{@frame.name} | #{t("action.show")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  Room.model_name.human.pluralize => overview_rooms_path,
-  @frame.room.name => @frame.present? ? room_path(@frame.room) : "",
-  Frame.model_name.human.pluralize => frames_path,
-  @frame.name => frame_path(@frame),
-  t("action.show") => ""
-} %>
+<%
+  provide(:title, "#{Frame.model_name.human.pluralize} | #{@frame.name}")
+  breadcrumb_steps = { Frame.model_name.human.pluralize => frames_path, @frame.name => "" }
+%>
 
-<div class="row my-5">
-  <div class="col-11 col-md-10 col-lg-8 mx-auto">
-    <div class="d-flex justify-content-between pb-5">
-      <%= link_to frames_path, class: "btn align-self-center d-inline-flex",
-                              title: t("action.back") do %>
-        <span class="bi bi-chevron-left"></span>
-        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
+<%= render Page::HeadingShowComponent.new(
+  resource: @frame, title: t(".title", frame: @frame.name), breadcrumb_steps:
+) do |heading| %>
+  <% heading.with_extra_buttons do %>
+    <% render ButtonComponent.new(title: t("visualization.title"),
+                                  url: visualization_frame_path(@frame),
+                                  variant: :primary,
+                                  icon: "diagram-3-fill",
+                                  is_responsive: true,
+                                  extra_classes: "me-2") %>
+  <% end %>
+<% end %>
+<div class="col-12 p-4 border-top">
+  <div class="d-flex flex-row flex-wrap">
+    <div class="col-12 col-lg-6 pe-lg-4">
+      <%= render CardComponent.new do |card| %>
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <% %i[name u switch_slot].each do |attribute_name| %>
+            <dt class="pb-2"><%= Frame.human_attribute_name(attribute_name) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @frame.public_send(attribute_name) %></dd>
+          <% end %>
+
+          <dt class="pb-2"><%= t("frames.coupled_frame_label") %></dt>
+          <dd class="mb-0 pb-2 ps-3">
+            <%= @frame.other_frame.present? ? link_to(@frame.other_frame.name, frame_path(@frame.other_frame))
+                                              : tag.span(t("frames.no_coupled_frame"), class: "fst-italic") %>
+          </dd>
+        </dl>
       <% end %>
-      <h1 class="text-center px-4"><%= "Frame #{@frame.name}" %></h1>
-      <div>
-        <%= link_to visualization_frame_path(@frame), class: "btn btn-primary align-self-center d-inline-flex", title: t("visualization.title") do %>
-          <span class="bi bi-diagram-3-fill"></span>
-          <span class="d-none d-md-inline-block ms-1"><%= t("visualization.title") %></span>
-        <% end %>
-        <%= link_to edit_frame_path(@frame), class: "btn btn-info align-self-center d-inline-flex", title: t("action.edit") do %>
-          <span class="bi bi-pencil"></span>
-          <span class="d-none d-md-inline-block ms-1"><%= t("action.edit") %></span>
-        <% end %>
-      </div>
     </div>
+    <div class="col-12 col-lg-6">
+      <%= render CardComponent.new(type: :primary, extra_classes: "mb-4 mb-lg-0") do |card| %>
+        <% card.with_header do %>
+          <%= t("layouts.sidebar.location.title") %>
+        <% end %>
 
-    <dl class="bg-body-tertiary p-4 rounded border">
-      <% %i[name].each do |attribute_name| %>
-        <dt><%= Frame.human_attribute_name(attribute_name) %> :</dt>
-        <dd><%= @frame.public_send(attribute_name) %></dd>
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <% %i[position].each do |attribute_name| %>
+            <dt class="pb-2"><%= Frame.human_attribute_name(attribute_name) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @frame.public_send(attribute_name) %></dd>
+          <% end %>
+
+          <dt class="pb-2"><%= Bay.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= link_to @frame.bay, bay_path(@frame.bay) %></dd>
+        </dl>
       <% end %>
-    </dl>
+    </div>
   </div>
+  <%= render HasManyTurboFrameComponent.new(
+    Server.model_name.human.pluralize, url: servers_path(frame_ids: @frame.id), frame_id: dom_id(Server, :table)
+  ) %>
+  <%= render ChangelogEntries::ObjectListComponent.new(@frame) %>
 </div>
-
-<%= render HasManyTurboFrameComponent.new(Server.model_name.human.pluralize, url: servers_path(frame_ids: @frame.id), frame_id: dom_id(Server, :table)) %>
-
-<%= render ChangelogEntries::ObjectListComponent.new(@frame) %>

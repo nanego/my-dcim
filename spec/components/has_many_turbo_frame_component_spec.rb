@@ -17,7 +17,7 @@ RSpec.describe HasManyTurboFrameComponent, type: :component do
         src: url
       }) do
         with_text(I18n.t("has_many_turbo_frame_component.loading"))
-        with_tag("span", with: { class: "spinner-border" })
+        with_tag("span", with: { class: "spinner-grow" })
       end
     end
   end

@@ -29,7 +29,7 @@ class BaysControllerTest < ActionController::TestCase
       post :create, params: { bay: { name: "New Bay", bay_type_id: @bay.bay_type_id, islet_id: @bay.islet_id } }
     end
 
-    assert_redirected_to bays_path
+    assert_redirected_to bay_path(assigns(:bay))
   end
 
   test "should get edit" do
@@ -39,7 +39,7 @@ class BaysControllerTest < ActionController::TestCase
 
   test "should update bay" do
     patch :update, params: { id: @bay, bay: { name: @bay.name } }
-    assert_redirected_to bays_path
+    assert_redirected_to @bay
   end
 
   test "should destroy bay" do

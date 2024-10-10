@@ -1,12 +1,16 @@
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  t("layouts.navigation.nav_links_administration.informations") => "" }
+<%
+  title = t("layouts.navigation.nav_links_administration.informations")
+  breadcrumb_steps = { title => "" }
+
+  provide(:title, title)
 %>
 
-<!-- Page Content -->
-<div class="container-fluid about my-5 bg-body-tertiary rounded border">
-  <div class="row">
-    <div class="col-12">
-      <p>
+<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) %>
+<div class="p-4 border-top">
+  <!-- Page Content -->
+  <div class="about p-3 rounded border bg-body">
+    <div class="row">
+      <div class="col-12">
         <div class="row">
           <div class="col-12">
             <h3>Environnement :</h3>
@@ -19,22 +23,26 @@
             <h3>Version de l'application</h3>
 
             <div class="version" style="font-family: monospace;font-size:small;">
-              <%= truncate(simple_format(`git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short`), length: 1600, escape: false) %>
+              <%= truncate(
+                    simple_format(`git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short`),
+                    length: 1600,
+                    escape: false)
+              %>
               <br>...
             </div>
 
             <div class="alert alert-info github-link">
-              <a href="https://github.com/nanego/my-dcim" target="_blank" rel="noopener" class="alert-link">Lien vers le projet GitHub</a>
+              <a href="https://github.com/nanego/my-dcim" target="_blank" rel="noopener" class="alert-link">
+                Lien vers le projet GitHub
+              </a>
             </div>
           </div>
         </div>
-      </p>
+      </div>
     </div>
   </div>
-</div>
-<!-- /.container -->
+  <!-- /.container -->
 
-<div class="container-fluid">
   <hr>
   <!-- Footer -->
   <footer>
@@ -44,5 +52,5 @@
       </div>
     </div>
   </footer>
+  <!-- /.container -->
 </div>
-<!-- /.container -->

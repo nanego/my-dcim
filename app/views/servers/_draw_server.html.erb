@@ -58,7 +58,7 @@
 
 <% if server.modele.present? %>
   <br>
-  <i><%= link_to server.modele.try(:name), edit_modele_path(server.modele) %></i>
+  <i><%= link_to server.modele.try(:name), modele_path(server.modele) %></i>
   <div class="alims">
     <% alims_sur_modele = server.modele.composants.where(type_composant_id: 1) %>
     <% alims_sur_modele.each_with_index do |composant_alim, i| %>
