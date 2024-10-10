@@ -316,10 +316,7 @@ fr:
   domaines:
     index:
       new_domaine: Ajouter un domaine
-      title: Domaines
       delete_confirmation: Ce domaine ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
-    show:
-      title: Détails du domaine
     new:
       title: Nouveau domaine
     create:
