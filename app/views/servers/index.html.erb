@@ -49,7 +49,7 @@
         <fieldset class="form-floating">
           <%= f.collection_select(:islet_ids, Islet.sorted,
                                   :id,
-                                  :name,
+                                  :name_with_room,
                                   { prompt: true, include_blank: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :islet_ids %>
@@ -143,7 +143,7 @@
         <%= link_to server.room, room_path(server.room), data: { turbo_frame: :_top } if server.room %>
       <% end %>
 
-      <% table.with_column(Server.human_attribute_name(:islet), sort_by: :"islets.name") do |server| %>
+      <% table.with_column(Islet.model_name.human, sort_by: :"islets.name") do |server| %>
         <%= link_to server.islet, islet_path(server.islet), data: { turbo_frame: :_top } if server.islet %>
       <% end %>
 

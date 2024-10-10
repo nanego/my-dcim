@@ -1,13 +1,12 @@
 <%
-  islet_label = "#{Islet.model_name.human} #{@islet} - #{@islet.room}"
   breadcrumb_steps = {
-    Islet.model_name.human.pluralize => islets_path, islet_label => ""
+    Islet.model_name.human.pluralize => islets_path, @islet.name_with_room => ""
   }
 
-  provide(:title, "#{Islet.model_name.human.pluralize} | #{islet_label}")
+  provide(:title, "#{Islet.model_name.human.pluralize} | #{@islet.name_with_room}")
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @islet, title: islet_label, breadcrumb_steps:) %>
+<%= render Page::HeadingShowComponent.new(resource: @islet, title: @islet.name_with_room, breadcrumb_steps:) %>
 <div class="col-12 p-4 border-top">
   <div class="d-flex flex-row flex-wrap">
     <div class="col-12 col-lg-6 pe-lg-4">

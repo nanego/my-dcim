@@ -35,8 +35,8 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:islet_id, Islet.sorted, :id, :to_s, { prompt: true, include_blank: true },
-                                                                       { class: "form-select" }) %>
+          <%= f.collection_select(:islet_id, Islet.sorted, :id, :name_with_room, { prompt: true, include_blank: true },
+                                                                                 { class: "form-select" }) %>
           <%= f.label :islet_id %>
         </fieldset>
       </div>

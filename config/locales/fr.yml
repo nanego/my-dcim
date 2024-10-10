@@ -87,7 +87,7 @@ fr:
       flashes:
         created: L'ilôt a bien été créé.
     edit:
-      title: Modification îlot %{name} - %{room}
+      title: Modification de l'îlot
     update:
       flashes:
         updated: L'ilôt a bien été modifié.
