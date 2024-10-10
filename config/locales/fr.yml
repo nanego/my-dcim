@@ -252,10 +252,8 @@ fr:
         destroyed: Le mainteneur a bien été supprimé.
   contract_types:
     index:
-      add_contract_type: Ajouter un contrat de maintenance
+      new_contract_type: Ajouter un contrat de maintenance
       delete_confirmation: Toutes les données concernant ce contrat de maintenance seront supprimées, ainsi que les contrats de maintenance associés. Voulez-vous continuer ?
-    show:
-      title: Détails du contrat de maintenance
     new:
       title: Nouveau contrat de maintenance
     create:
