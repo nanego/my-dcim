@@ -1,16 +1,15 @@
 <%
-  islet_label = "#{Islet.model_name.human} #{@islet} - #{@islet.room}"
   breadcrumb_steps = {
     Islet.model_name.human.pluralize => islets_path,
-    islet_label => islet_path(@islet),
+    @islet.name_with_room => islet_path(@islet),
     t("action.edit") => ""
   }
 
-  provide(:title, "#{Islet.model_name.human.pluralize} | #{islet_label} | #{t("action.edit")}")
+  provide(:title, "#{Islet.model_name.human.pluralize} | #{@islet.name_with_room} | #{t("action.edit")}")
 %>
 
 <%= render Page::HeadingEditComponent.new(
-  resource: @islet, title: t(".title", name: @islet.name, room: @islet.room), breadcrumb_steps:
+  resource: @islet, title: t(".title"), breadcrumb_steps:
 ) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
