@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ButtonComponent < ApplicationComponent
-  VARIANTS = %i[default primary secondary success danger warning info light dark link].freeze
+  VARIANTS = %i[default primary secondary success danger warning info light dark link outline_primary].freeze
   SIZES = %i[sm default lg].freeze
 
   def initialize(title:, url:, variant: :default, size: :default, icon: nil, is_responsive: false, extra_classes: "", **html_options)
@@ -23,7 +23,7 @@ class ButtonComponent < ApplicationComponent
 
   def call
     link_to @url,
-            class: "btn btn-#{@variant} btn-#{@size} align-self-center d-inline-flex #{@extra_classes}",
+            class: "btn btn-#{@variant.to_s.dasherize} btn-#{@size} align-self-center d-inline-flex #{@extra_classes}",
             title: @title,
             **@html_options do
       concat(tag.span(class: "bi bi-#{@icon}"))
