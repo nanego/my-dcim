@@ -1,7 +1,7 @@
-<%= render FormErrorsComponent.new(@move) %>
-
 <div class="row gy-4">
   <div class="col-12 col-lg-6">
+    <%= render FormErrorsComponent.new(@move) %>
+
     <%= form_for(@move, html: { class: "bg-body-tertiary p-4 rounded border moves_form server_form_fields",
                                 role: "form"
                               }) do |f| %>
@@ -63,8 +63,8 @@
           %>
         </fieldset>
 
-        <div class="col-12 mt-4">
-          <%= f.submit class: "btn btn-primary w-100" %>
+        <div class="col-12 mt-4 text-end">
+          <%= f.submit class: "btn btn-primary" %>
         </div>
       </div>
     <% end %>

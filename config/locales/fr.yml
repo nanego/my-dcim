@@ -19,6 +19,7 @@ fr:
     suspend: Verrouiller
     unsuspend: Déverrouiller
     create: Créer
+    execute: Exécuter
   export_button:
     label: Exports
     exports:
