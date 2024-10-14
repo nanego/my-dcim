@@ -1,62 +1,58 @@
-<%- user_label = @user.name || @user.email %>
-<% provide(:title, "#{User.model_name.human.pluralize} | #{user_label}") %>
-<%= render "layouts/breadcrumb",
-           breadcrumb_steps: { User.model_name.human.pluralize => users_url, user_label => "" } %>
+<%
+  title = @user.name || @user.email
 
-<div class="row my-5" data-controller="reveal" data-reveal-hidden-class="d-none">
-  <div class="col-11 col-md-10 col-lg-8 mx-auto">
-    <div class="d-flex pb-5 align-items-center">
-      <div class="flex-grow-1">
-        <%= link_to users_path, class: "btn align-self-center d-inline-flex",
-                                title: t("action.back") do %>
-          <span class="bi bi-chevron-left"></span>
-          <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
-        <% end %>
-      </div>
-      <h1 class="text-center px-4"><%= user_label %></h1>
-      <div class="flex-grow-1"></div>
-    </div>
+  provide(:title, "#{User.model_name.human.pluralize} | #{title}")
 
-    <dl class="bg-body-tertiary p-4 rounded border">
-      <dt><%= User.human_attribute_name(:id) %> :</dt>
-      <dd><%= @user.id %></dd>
+  breadcrumb_steps = {
+    User.model_name.human.pluralize => users_url, title => ""
+  }
+%>
 
-      <dt><%= User.human_attribute_name(:name) %> :</dt>
-      <dd><%= @user.name %></dd>
+<%= render Page::HeadingNewComponent.new(resource: @user, title:, breadcrumb_steps:) %>
+<div class="col-12 p-4 border-top">
+  <div class="col-12 col-lg-6">
+    <%= render CardComponent.new do |card| %>
+      <dl class="show-page_dl d-grid row-gap-2 mb-0" data-controller="reveal" data-reveal-hidden-class="d-none">
+        <dt class="pb-2"><%= User.human_attribute_name(:id) %> :</dt>
+        <dd class="mb-0 pb-2 ps-3"><%= @user.id %></dd>
 
-      <dt><%= User.human_attribute_name(:email) %> :</dt>
-      <dd><%= @user.email %></dd>
+        <dt class="pb-2"><%= User.human_attribute_name(:name) %> :</dt>
+        <dd class="mb-0 pb-2 ps-3"><%= @user.name %></dd>
 
-      <dt><%= User.human_attribute_name(:role) %> :</dt>
-      <dd><%= User.human_attribute_name("role.#{@user.role}") %></dd>
+        <dt class="pb-2"><%= User.human_attribute_name(:email) %> :</dt>
+        <dd class="mb-0 pb-2 ps-3"><%= @user.email %></dd>
 
-      <dt><%= User.human_attribute_name(:last_sign_in_at) %> :</dt>
-      <dd><%= l @user.last_sign_in_at, format: :long if @user.last_sign_in_at %></dd>
+        <dt class="pb-2"><%= User.human_attribute_name(:role) %> :</dt>
+        <dd class="mb-0 pb-2 ps-3"><%= User.human_attribute_name("role.#{@user.role}") %></dd>
 
-      <dt><%= User.human_attribute_name(:created_at) %> :</dt>
-      <dd><%= l @user.created_at, format: :long %></dd>
+        <dt class="pb-2"><%= User.human_attribute_name(:last_sign_in_at) %> :</dt>
+        <dd class="mb-0 pb-2 ps-3"><%= l @user.last_sign_in_at, format: :long if @user.last_sign_in_at %></dd>
 
-      <dt><%= User.human_attribute_name(:authentication_token) %> :</dt>
-      <dd>
-        <% if @user.authentication_token %>
-          <code>
-            <span data-reveal-target="item" class="d-none">
-              <%= @user.authentication_token %>
-            </span>
-            <span data-reveal-target="item">
-              <%= "*" * @user.authentication_token.length %>
-            </span>
-          </code>
-          <button class="btn btn-outline-primary btn-sm" data-action="click->reveal#toggle" type="button">
-            <span data-reveal-target="item">
-              <%= t(".action.show_authentication_token") %>
-            </span>
-            <span data-reveal-target="item" class="d-none">
-              <%= t(".action.hide_authentication_token") %>
-            </span>
-          </button>
-        <% end %>
-      </dd>
-    </dl>
+        <dt class="pb-2"><%= User.human_attribute_name(:created_at) %> :</dt>
+        <dd class="mb-0 pb-2 ps-3"><%= l @user.created_at, format: :long %></dd>
+
+        <dt class="pb-2"><%= User.human_attribute_name(:authentication_token) %> :</dt>
+        <dd class="mb-0 pb-2 ps-3">
+          <% if @user.authentication_token %>
+            <code>
+              <span data-reveal-target="item" class="d-none">
+                <%= @user.authentication_token %>
+              </span>
+              <span data-reveal-target="item">
+                <%= "*" * @user.authentication_token.length %>
+              </span>
+            </code>
+            <button class="btn btn-outline-primary btn-sm" data-action="click->reveal#toggle" type="button">
+              <span data-reveal-target="item">
+                <%= t(".action.show_authentication_token") %>
+              </span>
+              <span data-reveal-target="item" class="d-none">
+                <%= t(".action.hide_authentication_token") %>
+              </span>
+            </button>
+          <% end %>
+        </dd>
+      </dl>
+    <% end %>
   </div>
 </div>
