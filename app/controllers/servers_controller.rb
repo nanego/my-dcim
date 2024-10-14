@@ -11,6 +11,7 @@ class ServersController < ApplicationController
       .order(:name)
     @filter = ProcessorFilter.new(@servers, params)
     @servers = @filter.results
+    @search_params = search_params
   end
 
   def grid
@@ -85,7 +86,7 @@ class ServersController < ApplicationController
   def destroy
     @server.destroy
     respond_to do |format|
-      format.html { redirect_to servers_path, notice: 'Le matériel a bien été supprimé.' }
+      format.html { redirect_to servers_path(search_params), notice: 'Le matériel a bien été supprimé.' }
       format.json { head :no_content }
     end
   end
@@ -112,6 +113,12 @@ class ServersController < ApplicationController
                                    :disks_attributes => [:quantity, :disk_type_id, :_destroy, :id],
                                    :memory_components_attributes => [:quantity, :memory_type_id, :_destroy, :id],
                                    :documents_attributes => [:document, :id, :_destroy])
+  end
+
+  def search_params
+    params.permit(:sort, :sort_by, :page, :per_page, :q,
+                  network_types: [], bay_ids: [], islet_ids: [], room_ids: [], frame_ids: [], cluster_ids: [],
+                  gestion_ids: [], domaine_ids: [], modele_ids: [], server_state_ids: [], stack_ids: [])
   end
 
   def track_frame_and_position(old_values, new_values)

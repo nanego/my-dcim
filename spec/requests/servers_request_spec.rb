@@ -183,7 +183,7 @@ RSpec.describe "/servers" do
 
   describe "DELETE /destroy" do
     context "with a server without association" do
-      it "destroys the requested sever" do
+      it "destroys the requested server" do
         expect do
           delete server_path(server2)
         end.to change(Server, :count).by(-1)
@@ -193,10 +193,15 @@ RSpec.describe "/servers" do
         delete server_path(server2)
         expect(response).to redirect_to(servers_path)
       end
+
+      it "redirects to the servers list and keep params" do
+        delete server_path(server2, params: { sort: "asc", sort_by: "rooms.name" })
+        expect(response).to redirect_to(servers_path({ sort: "asc", sort_by: "rooms.name" }))
+      end
     end
 
     context "with a server with association" do
-      it "does not destroy the requested sever" do
+      it "does not destroy the requested server" do
         expect do
           delete server_path(server)
         end.not_to change(Server, :count)
