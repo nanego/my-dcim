@@ -1,8 +1,14 @@
-<% provide :title, "Toutes les salles" %>
-<% hide_inventories_sidebar! %>
+<%
+  title = t(".title")
+  breadcrumb_steps = { title => "" }
 
-<%= render "layouts/breadcrumb", breadcrumb_steps: { "Aperçu des salles": nil } %>
-<div class="container-fluid rooms-overview">
+  provide(:title, title)
+
+  hide_inventories_sidebar!
+%>
+
+<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) %>
+<div class="container-fluid p-4 border-top rooms-overview">
   <div class="row row-gap-3">
     <% @sites.each do |site| %>
       <div class="col-sm-12 text-center">
