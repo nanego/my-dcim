@@ -14,12 +14,7 @@
     <div class="card-header">
       <h5 class="card-title d-inline">
         <%= link_to frame.name,
-                    room_path(frame.room,
-                              view: view_type,
-                              islet: frame.islet.name,
-                              'bay-id': frame.bay_id,
-                              'frame-id': frame.id,
-                              bg: params[:bg]),
+                    visualization_frame_path(frame, view: view_type, bg: params[:bg]),
                     style: 'text-decoration: underline;' if frame.room.present? %>
       </h5>
     </div>

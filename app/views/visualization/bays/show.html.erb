@@ -3,21 +3,21 @@
 <%
   breadcrumb_steps = {
     t("visualization.title") => overview_rooms_path,
-    @bay.room.name => room_path(@bay.room, view: params[:view])
+    @bay.room.name => visualization_room_path(@bay.room, view: params[:view])
   }
 
   if @bay.islet.name.present?
-    breadcrumb_steps["#{Islet.model_name.human} #{@bay.islet.name}"] = room_path(@bay.room, islet: @bay.islet.name, view: params[:view])
+    breadcrumb_steps["#{Islet.model_name.human} #{@bay.islet.name}"] = visualization_room_path(@bay.room, islet: @bay.islet.name, view: params[:view])
   elsif params[:islet].present?
     breadcrumb_steps["#{Islet.model_name.human} #{params[:islet]}"] = ""
   end
 
   breadcrumb_steps[bay_label] = ""
 %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: %>
 
-<div class="container-fluid">
-  <div class="row my-5">
+<%= render "layouts/breadcrumb", breadcrumb_steps: %>
+<div class="container-fluid p-4 border-top">
+  <div class="row">
     <div class="col-12" id="bay-container">
       <%= render partial: "servers/room", locals: {
                   room: @bay.room,

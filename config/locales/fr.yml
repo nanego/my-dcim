@@ -52,6 +52,10 @@ fr:
       projects_dropdown:
         projects: Projets
         moves: Déplacements prévus
+      visualization_dropdown:
+        overview: Afficher toutes les salles
+        capacity: Vue capacité réseau
+        infrastructure: Vue infrastructure
     breadcrumb:
       home: Accueil
       bay:
@@ -512,9 +516,8 @@ fr:
       edit:
         title: Changez votre mot de passe
   rooms:
-    title: Salles
-    overview_view:
-      title: Afficher toutes les salles
+    overview:
+      title: Aperçu des salles
     capacity_view:
       title: Vue capacité réseau
       networks:
