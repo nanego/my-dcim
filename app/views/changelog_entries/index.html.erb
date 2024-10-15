@@ -11,7 +11,7 @@
 <div class="p-4 border-top">
   <%= turbo_frame_tag "changelog-entries" do %>
     <%= render List::DataTableComponent.new(decorate(@changelog_entries)) do |table| %>
-      <% table.with_column("") do |changelog_entry| %>
+      <% table.with_column("", style: "min-width: 20px; width: 20px") do |changelog_entry| %>
         <%= link_to changelog_entry_path(changelog_entry), class: "btn btn-primary", target: :_top do %>
           <span class="bi bi-eye" aria-hidden="true" data-controller="tooltip" data-bs-placement="top"
                                                                               title="<%= t("action.show") %>"></span>
