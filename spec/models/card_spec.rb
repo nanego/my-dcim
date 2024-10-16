@@ -13,6 +13,26 @@ RSpec.describe Card do
     it { is_expected.to have_many(:cables).through(:ports) }
   end
 
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:name) }
+
+    describe "name format" do
+      before { card.valid? }
+
+      context "with empty name" do
+        subject(:card) { Card.new(name: "validname") }
+
+        it { expect(card.errors.where(:name, :invalid).count).to eq(0) }
+      end
+
+      context "with empty name" do
+        subject(:card) { Card.new(name: " ") }
+
+        it { expect(card.errors.where(:name, :invalid).count).to eq(1) }
+      end
+    end
+  end
+
   describe "#to_s" do
     pending
   end
