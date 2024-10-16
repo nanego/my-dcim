@@ -389,6 +389,8 @@ fr:
       title: Nouveau modèle
     edit:
       title: Modification d'un modèle
+    duplicate:
+      title: Dupliquer le modèle %{modele_name}
   external_app_records:
     index:
       title: Synchronisation avec GLPI
