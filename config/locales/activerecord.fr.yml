@@ -122,9 +122,9 @@ fr:
         position: Position
         power: Puissance
         status: État
-        bay_id: Baie la plus proche
+        bay: Baie la plus proche
         last_service: Dernière maintenance
-        air_conditioner_model_id: Modèle
+        air_conditioner_model: Modèle
         start: DTC start (début lutte)
         range: DTC range (plage d'accélération)
         setpoint: Temperature de Consigne externe (froid)
@@ -314,7 +314,8 @@ fr:
           one: "%{bay}"
           other: Double baie %{bay}
         islet_id: Salle et Ilot
-        bay_type_id: Type de baie
+        bay_type: Type de baie
+        name: Nom
       connection:
         cable: Câble
         port: Port

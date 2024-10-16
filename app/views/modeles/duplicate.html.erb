@@ -1,0 +1,14 @@
+<% provide(:title, "#{Modele.model_name.human.pluralize} | #{@original_modele.name} | #{t("action.duplicate")}") %>
+<% breadcrumb_steps = {
+    Modele.model_name.human.pluralize => modeles_path,
+    @original_modele.name => modele_path(@original_modele),
+    t("action.duplicate") => ""
+} %>
+
+<%= render Page::HeadingEditComponent.new(
+  resource: @original_modele, title: t(".title", modele_name: @original_modele.name), breadcrumb_steps:
+) %>
+
+<div class="col-12 p-4 border-top">
+  <%= render "form" %>
+</div>

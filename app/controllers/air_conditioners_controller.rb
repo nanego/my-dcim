@@ -21,7 +21,7 @@ class AirConditionersController < ApplicationController
 
     respond_to do |format|
       if @air_conditioner.save
-        format.html { redirect_to air_conditioners_path, notice: t(".flashes.created") }
+        format.html { redirect_to @air_conditioner, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @air_conditioner }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -33,7 +33,7 @@ class AirConditionersController < ApplicationController
   def update
     respond_to do |format|
       if @air_conditioner.update(air_conditioner_params)
-        format.html { redirect_to air_conditioners_path, notice: t(".flashes.updated") }
+        format.html { redirect_to @air_conditioner, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @air_conditioner }
       else
         format.html { render :edit, status: :unprocessable_entity }

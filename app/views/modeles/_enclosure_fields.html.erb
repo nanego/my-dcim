@@ -38,7 +38,8 @@
               <%= f.text_area :grid_areas, class: "font-monospace form-control", style: "height:110px;" %>
             </fieldset>
           </li>
-          <%= f.fields_for :composants, f.object.composants.slots do |composant_fields| %>
+          <% composants = f.object.composants.select { |c| c.type_composant == TypeComposant.find_by_name('SLOT') }.sort_by!(&:position) %>
+          <%= f.fields_for :composants, composants do |composant_fields| %>
             <%= render partial: "composant_fields", locals: { f: composant_fields, type_composant: "SLOT" } %>
           <% end %>
 

@@ -9,4 +9,12 @@ RSpec.describe Enclosure do
     it { is_expected.to belong_to(:modele) }
     it { is_expected.to have_many(:composants) }
   end
+
+  describe "#deep_dup" do
+    subject(:enclosure) { enclosures(:one) }
+
+    it { expect(enclosure.deep_dup).not_to eq(enclosure) }
+    it { expect(enclosure.deep_dup.position).to eq(enclosure.position) }
+    it { expect(enclosure.deep_dup.composants.size).to eq(enclosure.composants.size) }
+  end
 end

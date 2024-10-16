@@ -1,32 +1,15 @@
-<%- bay_label = @bay.frames.map(&:name).join(" - ") %>
-<% provide(:title, "#{Bay.model_name.human.pluralize} | #{bay_label} | #{t("action.edit")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  Bay.model_name.human.pluralize => bays_path,
-  bay_label => bay_path(@bay),
-  t("action.edit") => ""
-} %>
+<%
+  title = t(".title", type: @bay.bay_type&.name, frames: @bay.frames.map(&:name).join(" / "))
+  breadcrumb_steps = {
+    Bay.model_name.human.pluralize => bays_path,
+    title => bay_path(@bay),
+    t("action.edit") => ""
+  }
 
-<div class="row my-5">
-  <div class="col-11 col-md-10 col-lg-8 mx-auto">
-    <div class="d-flex justify-content-between pb-5">
-      <%= link_to bays_path, class: "btn align-self-center d-inline-flex", title: t("action.back") do %>
-        <span class="bi bi-chevron-left"></span>
-        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
-      <% end %>
-      <h1 class="px-4 text-center">
-        <%= t(".title", type: @bay.bay_type&.name, frames: @bay.frames.map(&:name).join(' / ')) %>
-      </h1>
-      <div>
-        <%= link_to visualization_bay_path(@bay), class: "btn btn-primary align-self-center d-inline-flex", title: t("visualization.title") do %>
-          <span class="bi bi-diagram-3-fill"></span>
-          <span class="d-none d-md-inline-block ms-1"><%= t("visualization.title") %></span>
-        <% end %>
-        <%= link_to @bay, class: "btn btn-primary align-self-center d-inline-flex", title: t("action.show") do %>
-          <span class="bi bi-eye"></span>
-          <span class="d-none d-md-inline-block ms-1"><%= t("action.show") %></span>
-        <% end %>
-      </div>
-    </div>
-    <%= render "form" %>
-  </div>
+  provide(:title, "#{Bay.model_name.human.pluralize} | #{title} | #{t("action.edit")}")
+%>
+
+<%= render Page::HeadingEditComponent.new(resource: @bay, title:, breadcrumb_steps:) %>
+<div class="col-12 p-4 border-top">
+  <%= render "form" %>
 </div>
