@@ -17,12 +17,12 @@
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render List::DataTableComponent.new(@card_types) do |table| %>
-    <% table.with_column(CardType.human_attribute_name(:port_type_id), sort_by: :port_type_id) do |card_type| %>
-      <%= card_type.port_type %>
-    <% end %>
-
     <% table.with_column(CardType.human_attribute_name(:name), sort_by: :name) do |card_type| %>
       <%= link_to card_type, card_type_path(card_type) %>
+    <% end %>
+
+    <% table.with_column(CardType.human_attribute_name(:port_type), sort_by: :port_type_id) do |card_type| %>
+      <%= card_type.port_type %>
     <% end %>
 
     <% table.with_column(CardType.human_attribute_name(:port_quantity), sort_by: :port_quantity) do |card_type| %>
