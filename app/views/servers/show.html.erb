@@ -44,12 +44,12 @@
   <div class="d-flex flex-row flex-wrap">
     <div class="col-12 col-lg-6 pe-lg-4">
       <%= render CardComponent.new(extra_classes: "mb-4 mb-lg-0") do |card| %>
-        <dl class="show-page_dl d-grid row-gap-2 mb-0 align-items-center">
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <dt class="pb-2"><%= Site.model_name.human %></dt>
           <dd class="mb-0 pb-2 ps-3"><%= link_to @server.room.site, site_path(@server.room.site) %></dd>
 
           <dt class="pb-2"><%= Room.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between align-items-center">
+          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
             <%= link_to @server.room.try(:name), @server.room %>
             <%= link_to visualization_room_path(@server.room),
                         class: "btn btn-primary btn-sm",
@@ -63,7 +63,7 @@
           </dd>
 
           <dt class="pb-2"><%= Islet.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between align-items-center">
+          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
             <%= link_to @server.islet.name_with_room, islet_path(@server.islet) %>
             <%= link_to visualization_room_path(@server.room, islet: @server.islet.name),
                         class: "btn btn-primary btn-sm",
@@ -77,7 +77,7 @@
           </dd>
 
           <dt class="pb-2"><%= Bay.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between align-items-center">
+          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
             <%= link_to @server.bay, bay_path(@server.bay) %>
             <%= link_to visualization_bay_path(@server.bay),
                         class: "btn btn-primary btn-sm",
@@ -91,7 +91,7 @@
           </dd>
 
           <dt class="pb-2"><%= Frame.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between align-items-center">
+          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
             <%= link_to @server.frame.try(:name), frame_path(@server.frame) %>
             <%= link_to visualization_frame_path(@server.frame),
                         class: "btn btn-primary btn-sm",

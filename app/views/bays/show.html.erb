@@ -34,9 +34,9 @@
           <%= t("layouts.sidebar.location.title") %>
         <% end %>
 
-        <dl class="show-page_dl d-grid row-gap-2 mb-0 align-items-center">
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <dt class="pb-2"><%= Room.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between align-items-center">
+          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
             <%= link_to @bay.room, room_path(@bay.room) %>
             <%= link_to visualization_room_path(@bay.room),
                         class: "btn btn-primary btn-sm",
@@ -50,7 +50,7 @@
           </dd>
 
           <dt class="pb-2"><%= Islet.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between align-items-center">
+          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
             <%= link_to @bay.islet.name_with_room, islet_path(@bay.islet) %>
             <%= link_to visualization_room_path(@bay.room, islet: @bay.islet.name),
                         class: "btn btn-primary btn-sm",
