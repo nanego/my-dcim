@@ -25,7 +25,7 @@ class ButtonComponent < ApplicationComponent
             class: "btn btn-#{@variant.to_s.dasherize} btn-#{@size} align-self-center d-inline-flex #{@extra_classes}",
             title: @title,
             **@html_options do
-      concat(tag.span(class: "bi bi-#{@icon}"))
+      concat(tag.span(class: "bi bi-#{@icon}")) if @icon
       concat(tag.span(@title, class: class_names("ms-1", 'd-none d-md-inline-block': @is_responsive)))
     end
   end
