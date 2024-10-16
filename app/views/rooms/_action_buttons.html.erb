@@ -2,7 +2,7 @@
 <% bg = params[:bg].presence || current_user.visualization_bay_default_background_color \
                              || User::AVAILABLE_BAY_BACKGROUND_COLORS[0] %>
 
-<span class="d-flex flex-wrap gap-2 flex-column flex-lg-row">
+<span class="d-flex flex-wrap gap-2 flex-column flex-lg-row justify-content-end">
   <% if view_side != Frame::VIEW_SIDES[:back] %>
     <!-- Choice of server background color -->
     <div class="btn-group">
@@ -38,19 +38,19 @@
       <%= Frame.human_attribute_name("view_sides.both") %>
     <% end %>
   <% else %>
-    <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({view: (view_side == Frame::VIEW_SIDES[:back] ? Frame::VIEW_SIDES[:front] : Frame::VIEW_SIDES[:back]), islet: params['islet'], id: params['id']})), class: "btn btn-sm btn-primary", remote: true do %>
+    <%= link_to url_for(params.except(:controller, :action).permit(:view, :islet, :id, :bg, :format).merge({view: (view_side == Frame::VIEW_SIDES[:back] ? Frame::VIEW_SIDES[:front] : Frame::VIEW_SIDES[:back]), islet: params['islet'], id: params['id']})), class: "btn btn-sm btn-primary align-items-center", remote: true do %>
       <span class="bi bi-back" aria-hidden="true"></span>
       <%= Frame.human_attribute_name("view_sides.#{view_side}") %>
     <% end %>
   <% end %>
 
-  <%= link_to "#", class: 'btn btn-sm btn-primary', id: 'drag-n-drop-switcher' do %>
+  <%= link_to "#", class: 'btn btn-sm btn-primary align-items-center', id: 'drag-n-drop-switcher' do %>
     <span class="bi bi-arrows-move" aria-hidden="true"></span>
     <%= t(".dragn_drop.enable") %>
   <% end %>
 
   <% if @room.present? && !@room.kind_of?(String) %>
-    <div class="btn-group" data-controller="export-pdf" data-export-pdf-model-ids-value="<%= [params[:id]] %>"
+    <div class="btn-group ms-auto" data-controller="export-pdf" data-export-pdf-model-ids-value="<%= [params[:id]] %>"
                                                         data-export-pdf-filename-value="frame-<%= params[:id] %>">
       <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle d-flex align-items-center export-button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none" role="status" aria-hidden="true" data-export-pdf-target="spinner"></span>

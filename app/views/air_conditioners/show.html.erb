@@ -28,9 +28,22 @@
           </dd>
         </dl>
       <% end %>
+
+      <%= render CardComponent.new(extra_classes: "my-4 mb-lg-0") do |card| %>
+        <% card.with_header do %>
+          <%= t("air_conditioners.temperatures") %>
+        <% end %>
+
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <% %i[setpoint start range].each do |attribute_name| %>
+            <dt class="pb-2"><%= AirConditioner.human_attribute_name(attribute_name) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= "#{@air_conditioner.public_send(attribute_name)}°C" %></dd>
+          <% end %>
+        </dl>
+      <% end %>
     </div>
     <div class="col-12 col-lg-6">
-      <%= render CardComponent.new(type: :primary, extra_classes: "my-4 mt-lg-0") do |card| %>
+      <%= render CardComponent.new(type: :primary) do |card| %>
         <% card.with_header do %>
           <%= t("layouts.sidebar.location.title") %>
         <% end %>
@@ -43,19 +56,6 @@
 
           <dt class="pb-2"><%= AirConditioner.human_attribute_name(:position) %></dt>
           <dd class="mb-0 pb-2 ps-3"><%= t("air_conditioners.form.#{@air_conditioner.position}") %></dd>
-        </dl>
-      <% end %>
-
-      <%= render CardComponent.new do |card| %>
-        <% card.with_header do %>
-          <%= t("air_conditioners.temperatures") %>
-        <% end %>
-
-        <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <% %i[setpoint start range].each do |attribute_name| %>
-            <dt class="pb-2"><%= AirConditioner.human_attribute_name(attribute_name) %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= "#{@air_conditioner.public_send(attribute_name)}°C" %></dd>
-          <% end %>
         </dl>
       <% end %>
     </div>

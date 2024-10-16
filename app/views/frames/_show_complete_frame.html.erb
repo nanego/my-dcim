@@ -1,10 +1,13 @@
-<% settings = Frame::DEFAULT_SETTINGS.merge({:min_height => params[:view] == 'back' ? 20 : 27}) %>
+<%
+  settings = Frame::DEFAULT_SETTINGS.merge( { min_height: params[:view] == "back" ? 20 : 27} )
+  should_show_heading = local_assigns.fetch(:should_show_heading, true)
+%>
 
 <div id="<%= @room.try(:name).try(:parameterize).try(:underscore) %>">
   <div>
     <div>
       <div class="card-islet row">
-        <% if @room.present? %>
+        <% if @room.present? && should_show_heading %>
           <div class="col-12 d-flex justify-content-between align-items-center mb-4">
             <h3><%= t(".title", room: @room, islet: @frame.islet) %></h3>
             <%= render "rooms/action_buttons", view_side: Frame::VIEW_SIDES[:both] unless local_assigns[:pdf] == true %>
