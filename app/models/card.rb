@@ -16,6 +16,8 @@ class Card < ApplicationRecord
   has_many :ports
   has_many :cables, through: :ports
 
+  validates :name, presence: true, format: { without: /\s/ }
+
   after_commit :set_twin_card
 
   scope :on_patch_panels, -> () { joins(:server => { :modele => :category }).where("categories.name = 'Patch Panel'") }
