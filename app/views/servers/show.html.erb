@@ -8,7 +8,7 @@
 
 <%= render Page::HeadingShowComponent.new(resource: @server, title: title, breadcrumb_steps:) do |heading| %>
   <% heading.with_extra_buttons do %>
-    <% render ButtonComponent.new(title: t("action.duplicate"),
+    <% render ButtonComponent.new(t("action.duplicate"),
                                   url: duplicate_server_path(@server.slug),
                                   variant: :success,
                                   icon: "copy",

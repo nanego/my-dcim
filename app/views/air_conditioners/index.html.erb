@@ -7,7 +7,7 @@
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) do |heading| %>
   <% heading.with_right_content do %>
-    <% render ButtonComponent.new(title: t(".new_air_conditioner"),
+    <% render ButtonComponent.new(t(".new_air_conditioner"),
                                   url: new_air_conditioner_path,
                                   variant: :success,
                                   icon: "plus-lg",

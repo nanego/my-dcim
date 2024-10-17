@@ -7,7 +7,7 @@
 
 <%= render Page::HeadingShowComponent.new(resource: @bay, title:, breadcrumb_steps:) do |heading| %>
   <% heading.with_extra_buttons do %>
-    <% render ButtonComponent.new(title: t("visualization.title"),
+    <% render ButtonComponent.new(t("visualization.title"),
                                   url: visualization_bay_path(@bay),
                                   variant: :primary,
                                   icon: "diagram-3-fill",

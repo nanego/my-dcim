@@ -5,7 +5,7 @@
 
 <%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb_steps:) do |heading| %>
   <% heading.with_right_content do %>
-    <% render ButtonComponent.new(title: t(".new_site"),
+    <% render ButtonComponent.new(t(".new_site"),
                                   url: new_site_path,
                                   variant: :success,
                                   icon: "plus-lg",

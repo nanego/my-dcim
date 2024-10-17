@@ -11,7 +11,7 @@
                                           title: "#{Room.model_name.human} #{@room.name}",
                                           breadcrumb_steps:) do |heading| %>
   <%= heading.with_extra_buttons do %>
-   <% render ButtonComponent.new(title: t("visualization.title"),
+   <% render ButtonComponent.new(t("visualization.title"),
                                  url: visualization_room_path(@room),
                                  variant: :primary,
                                  icon: "diagram-3-fill",
