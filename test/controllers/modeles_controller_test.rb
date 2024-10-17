@@ -25,7 +25,7 @@ class ModelesControllerTest < ActionController::TestCase
         modele: { description: @modele.description, name: @modele.name, architecture_id: @modele.architecture_id, category_id: @modele.category_id, u: @modele.u, manufacturer_id: @modele.manufacturer_id }
       }
     end
-    assert_redirected_to edit_modele_path(assigns(:modele))
+    assert_redirected_to modele_path(assigns(:modele))
     assert_not_nil(assigns(:modele))
   end
 
@@ -43,7 +43,7 @@ class ModelesControllerTest < ActionController::TestCase
 
   test "should update modele" do
     patch :update, params: { id: @modele, modele: { description: @modele.description, name: @modele.name, architecture_id: @modele.architecture_id, category_id: @modele.category_id, u: @modele.u } }
-    assert_redirected_to edit_modele_path(assigns(:modele))
+    assert_redirected_to modele_path(assigns(:modele))
   end
 
   test "should destroy modele" do

@@ -1,7 +1,14 @@
-<%= render "layouts/breadcrumb", breadcrumb_steps: {"Aperçu des salles" => overview_rooms_path, @current_filters.join => nil} %>
-<% hide_inventories_sidebar! %>
+<%
+  title = @current_filters.join
+  breadcrumb_steps = { t("rooms.overview.title") => overview_rooms_path, @current_filters.join => nil }
 
-<div class="container-fluid rooms-overview">
+  provide(:title, title)
+
+  hide_inventories_sidebar!
+%>
+
+<%= render Page::HeadingComponent.new(title: , breadcrumb_steps:) %>
+<div class="container-fluid p-4 border-top rooms-overview">
   <div class="row">
     <div class="col-12 col-lg-6" id="rooms-overview" data-spy="affix" data-offset-top="53" data-offset-bottom="20">
       <% @sites.each do |site| %>

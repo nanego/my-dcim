@@ -48,7 +48,7 @@ class Frame < ApplicationRecord
     [
       room_name.present? ? "Salle #{room_name}" : '',
       bay.present? ? "Ilot #{bay.islet.name}" : '',
-      "Baie " + (name.present? ? name : 'non précisée'),
+      Frame.model_name.human + " " + (name.present? ? name : 'non précisée'),
     ].reject(&:blank?).join(' ')
   end
 

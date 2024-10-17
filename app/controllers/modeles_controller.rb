@@ -36,7 +36,7 @@ class ModelesController < ApplicationController
 
     respond_to do |format|
       if @modele.save
-        format.html { redirect_to edit_modele_path(@modele), notice: 'Nouveau modèle ajouté.' }
+        format.html { redirect_to modele_path(@modele), notice: 'Nouveau modèle ajouté.' }
         format.json { render :show, status: :created, location: @modele }
       else
         format.html { render :new }
@@ -48,7 +48,7 @@ class ModelesController < ApplicationController
   def update
     respond_to do |format|
       if @modele.update(modele_params)
-        format.html { redirect_to edit_modele_path(@modele), notice: 'Le modèle a été mis à jour.' }
+        format.html { redirect_to modele_path(@modele), notice: 'Le modèle a été mis à jour.' }
         format.json { render :show, status: :ok, location: @modele }
       else
         format.html { render :edit }

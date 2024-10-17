@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class SitesControllerTest < ActionController::TestCase
   setup do
@@ -20,11 +20,11 @@ class SitesControllerTest < ActionController::TestCase
   end
 
   test "should create site" do
-    assert_difference('Site.count') do
+    assert_difference("Site.count") do
       post :create, params: { site: { name: @site.name } }
     end
 
-    assert_redirected_to sites_path
+    assert_redirected_to site_path(assigns(:site))
   end
 
   test "should show site" do
@@ -39,19 +39,20 @@ class SitesControllerTest < ActionController::TestCase
 
   test "should update site" do
     patch :update, params: { id: @site, site: { name: @site.name } }
-    assert_redirected_to sites_path
+
+    assert_redirected_to site_path(@site)
   end
 
   test "should destroy site" do
     @site = Site.create
 
-    assert_difference('Site.count', -1) do
+    assert_difference("Site.count", -1) do
       delete :destroy, params: { id: @site }
     end
   end
 
   test "should not destroy the site it has many rooms Room n°1 & 2" do
-    assert_difference('Site.count', 0) do
+    assert_difference("Site.count", 0) do
       delete :destroy, params: { id: @site }
     end
 

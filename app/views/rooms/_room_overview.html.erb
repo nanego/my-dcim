@@ -1,9 +1,9 @@
-<%= render CardComponent.new() do |card| %>
+<%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
   <% card.with_header do %>
     <h5 class="card-title"><%= link_to room.name, visualization_room_path(room) %></h5>
   <% end %>
 
-  <div class="bg-body-tertiary border rounded">
+  <div class="bg-body border rounded">
     <% islets = room.islets.sorted %>
     <% islets.each do |islet| %>
       <div class="islet">

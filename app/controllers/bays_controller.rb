@@ -28,7 +28,7 @@ class BaysController < ApplicationController
 
     respond_to do |format|
       if @bay.save
-        format.html { redirect_to bays_path, notice: t(".flashes.created") }
+        format.html { redirect_to @bay, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @bay }
       else
         format.html { render :new }
@@ -40,7 +40,7 @@ class BaysController < ApplicationController
   def update
     respond_to do |format|
       if @bay.update(bay_params)
-        format.html { redirect_to bays_path, notice: t(".flashes.updated") }
+        format.html { redirect_to @bay, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @bay }
       else
         format.html { render :edit }

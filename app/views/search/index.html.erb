@@ -1,7 +1,15 @@
-<div class="container mt-4">
+<%
+  title = t('.results')
+  breadcrumb_steps = { title => "" }
+
+  provide(:title, title)
+%>
+
+<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) %>
+<div class="p-4 border-top d-flex flex-column row-gap-4">
   <turbo-frame id="search_results">
     <% if @results[:servers].any? || @results[:frames].any? %>
-      <h5><%= t('.results') %></h5>
+      <h5><%=  %></h5>
 
       <ul class="list-group">
 

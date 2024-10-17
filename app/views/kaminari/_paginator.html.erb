@@ -6,7 +6,7 @@
     remote:        data-remote
     paginator:     the paginator that renders the pagination tags inside
 -%>
-<%- pagination_class ||= '' %>
+<%- pagination_class ||= 'mt-4' %>
 <%- nav_class ||= '' %>
 <%= paginator.render do -%>
 <nav class="<%= nav_class %>">

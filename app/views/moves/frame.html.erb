@@ -1,74 +1,79 @@
-<% provide(:title, "#{Move.model_name.human(count: 2)} | Baie #{@frame}") %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  Move.model_name.human(count: 2) => moves_path,
-  "Baie #{@frame}" => ""
-} %>
+<%
+  provide(:title, "#{Move.model_name.human(count: 2)} | #{Bay.model_name.human} #{@frame}")
 
-<div class="row my-5">
-  <div class="col-12 mx-auto">
-    <div class="d-flex justify-content-between pb-5 align-items-center">
-      <div class="flex-grow-1">
-        <%= link_to moves_path, class: "btn align-self-center d-inline-flex",
-                                title: t("action.back") do %>
-          <span class="bi bi-chevron-left"></span>
-          <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
-        <% end %>
+  breadcrumb_steps = { Move.model_name.human(count: 2) => moves_path, "#{Bay.model_name.human} #{@frame}" => "" }
+%>
+
+<%= render Page::HeadingComponent.new(title: t(".title", frame: @frame), breadcrumb_steps:) do |heading| %>
+  <% heading.with_left_content do %>
+      <span class="flex-grow-1">
+        <%= render ButtonComponent.new(t("action.back"),
+                                      url: moves_path,
+                                      icon: "chevron-left",
+                                      is_responsive: true) %>
+      </span>
+    <% end %>
+
+    <% heading.with_right_content do %>
+      <span class="flex-grow-1"></span>
+    <% end %>
+<% end %>
+
+<div class="p-4 border-top d-flex flex-column row-gap-4">
+  <div class="card-islet">
+    <% if @room.present? %>
+      <div><h3>Salle <%= @room.name %> - Ilot <%= @frame.islet %></h3></div>
+    <% end %>
+    <div class="frames row g-4 p-0">
+      <div class="view-back col-12 col-lg-6">
+        <%= render partial: "frames/show_frame",
+                    locals: {
+                      frame: @frame,
+                      servers: @servers,
+                      settings: Frame::DEFAULT_SETTINGS.merge({ min_height: 20 }),
+                      editable: false,
+                      view_type: "back"
+                    }
+        %>
       </div>
-      <h1 class="text-center px-4"><%= t(".title", frame: @frame) %></h1>
-      <div class="flex-grow-1"></div>
-    </div>
-
-    <div class="bg-body p-4 rounded border">
-      <div class="card-islet mb-4">
-        <% if @room.present? %>
-            <div><h3>Salle <%= @room.name %> - Ilot <%= @frame.islet %></h3></div>
-        <% end %>
-        <div class="frames row g-4 p-0">
-          <div class="view-back col-12 col-lg-6">
-            <%= render partial: "frames/show_frame",
-                       locals: {
-                         frame: @frame,
-                         servers: @servers,
-                         settings: Frame::DEFAULT_SETTINGS.merge({ min_height: 20 }),
-                         editable: false,
-                         view_type: "back"
-                       }
-            %>
-          </div>
-          <div class="col-12 col-lg-6">
-            <div id="moved_connection_form_loading" class="text-center text-bg-warning fw-bold pt-1">
-              <%= t(".loading") %>
-            </div>
-            <div class="moved_connection_form" id="connection_form"></div>
-          </div>
+      <div class="col-12 col-lg-6">
+        <div id="moved_connection_form_loading" class="text-center text-bg-warning fw-bold pt-1">
+          <%= t(".loading") %>
         </div>
-      </div>
-
-      <h3><%= t(".applied_moves") %></h3>
-      <div class="table-responsive mt-4">
-        <table class="table table-striped table-bordered table-hover align-middle">
-          <tbody>
-          <%= content_tag_for(:tr, @moves) do |move| %>
-            <td>
-              <%= link_to "#{move.moveable.try(:modele).try(:category)} #{move.moveable} vers la baie #{move.frame}",
-                          edit_move_path(move) %>
-            </td>
-            <td class="text-center" style="min-width: 50px; width: 50px;">
-              <%= link_to t("action.delete"), move, method: :delete,
-                                                    data: { confirm: t("moves.index.delete_confirmation") },
-                                                    class: "btn btn-danger" %>
-            </td>
-          <% end %>
-          <%= content_tag_for(:tr, @moved_connections) do |connection| %>
-              <td>
-                <%= "Connexion entre #{connection.port_from.server.try(:modele).try(:category)} #{connection.port_from.server} (port ##{connection.port_from_id}) et #{connection.port_to.try(:server).try(:modele).try(:category)} #{connection.port_to.try(:server)} (port ##{connection.port_to_id}) => vlans:#{connection.vlans} cablename:#{connection.cablename} couleur:#{connection.color}" %>
-              </td>
-              <td></td>
-          <% end %>
-          </tbody>
-        </table>
+        <div class="moved_connection_form" id="connection_form"></div>
       </div>
     </div>
+  </div>
+
+  <div class="table-responsive">
+    <h3><%= t(".applied_moves") %></h3>
+    <table class="table table-striped table-bordered table-hover align-middle">
+      <tbody>
+      <%= content_tag_for(:tr, @moves) do |move| %>
+        <td>
+          <%= link_to "#{move.moveable.try(:modele).try(:category)} #{move.moveable} vers la baie #{move.frame}",
+                      edit_move_path(move) %>
+        </td>
+        <td class="text-center" style="min-width: 50px; width: 50px;">
+          <%= link_to move,
+                      method: :delete,
+                      data: { confirm: t("moves.index.delete_confirmation") },
+                      class: "btn btn-danger btn-sm" do %>
+            <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                        data-controller="tooltip"
+                                                                        data-bs-placement="left"></span>
+            <span class="visually-hidden"><%= t("action.delete") %></span>
+          <% end %>
+        </td>
+      <% end %>
+      <%= content_tag_for(:tr, @moved_connections) do |connection| %>
+        <td>
+          <%= "Connexion entre #{connection.port_from.server.try(:modele).try(:category)} #{connection.port_from.server} (port ##{connection.port_from_id}) et #{connection.port_to.try(:server).try(:modele).try(:category)} #{connection.port_to.try(:server)} (port ##{connection.port_to_id}) => vlans:#{connection.vlans} cablename:#{connection.cablename} couleur:#{connection.color}" %>
+        </td>
+        <td></td>
+      <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
 

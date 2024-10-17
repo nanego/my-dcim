@@ -1,16 +1,22 @@
-<%= render "layouts/breadcrumb", breadcrumb_steps: { "Rechercher un matériel" => ""} %>
-<% provide :title, "Rechercher un matériel" %>
+<%
+  title = "Rechercher un matériel"
+  breadcrumb_steps = { title => "" }
 
-<div class="container-fuild">
-  <div class="d-flex justify-content-between">
-    <h1>Rechercher un matériel</h1>
-    <%= link_to url_for(format: :csv, params: @merged_params || {}),
-                class: "btn btn-outline-primary align-self-center" do %>
-      <span class="bi bi-filetype-csv"></span>
-      Exporter au format CSV
-    <% end %>
-  </div>
-  <%= render CardComponent.new(type: :primary) do |card| %>
+  provide(:title, title)
+%>
+
+<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) do |heading| %>
+  <% heading.with_right_content do %>
+    <% render ButtonComponent.new("Exporter au format CSV",
+                                  url: url_for(format: :csv, params: @merged_params || {}),
+                                  variant: :outline_primary,
+                                  icon: "filetype-csv",
+                                  is_responsive: true) %>
+  <% end %>
+<% end %>
+
+<div class="p-4 border-top d-flex flex-column row-gap-4">
+  <%= render CardComponent.new(type: :primary, extra_classes: "bg-body-tertiary") do |card| %>
     <% card.with_header do %>
       <span class="me-1">Filtres</span>
       (

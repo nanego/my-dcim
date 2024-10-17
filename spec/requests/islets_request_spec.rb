@@ -75,7 +75,7 @@ RSpec.describe "Islets" do
 
     context "with valid parameters" do
       it { expect { response }.to change(Islet, :count).by(1) }
-      it { expect(response).to redirect_to(islets_path) }
+      it { expect(response).to redirect_to(islet_path(assigns(:islet))) }
     end
 
     context "without attributes" do
@@ -111,7 +111,7 @@ RSpec.describe "Islets" do
     it { expect(response).to render_template(:edit) }
   end
 
-  describe "PATCH #create" do
+  describe "PATCH #update" do
     subject(:response) do
       patch islet_path(islet), params: params
 
@@ -133,7 +133,7 @@ RSpec.describe "Islets" do
         end.to change(islet, :room_id).to(2)
       end
 
-      it { expect(response).to redirect_to(islets_path) }
+      it { expect(response).to redirect_to(islet) }
       it { expect(response).to have_http_status(:redirect) }
     end
 

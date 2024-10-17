@@ -1,21 +1,13 @@
-<% provide(:title, "#{Move.model_name.human(count: 2)} | #{t("action.edit")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  Move.model_name.human(count: 2) => moves_path,
-  t(".title") => ""
-} %>
+<%
+  provide(:title, "#{Move.model_name.human(count: 2)} | #{@move} | #{t("action.edit")}")
 
-<div class="row my-5">
-  <div class="col-12">
-    <div class="d-flex pb-5 align-items-center">
-      <div class="flex-grow-1">
-        <%= link_to moves_path, class: "btn d-inline-flex", title: t("action.back") do %>
-          <span class="bi bi-chevron-left"></span>
-          <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
-        <% end %>
-      </div>
-      <h1 class="px-4 text-center"><%= t(".title") %></h1>
-      <div class="flex-grow-1"></div>
-    </div>
-    <%= render "form" %>
-  </div>
+  breadcrumb_steps = {
+    Move.model_name.human(count: 2) => moves_path,
+    t("action.edit") => ""
+  }
+%>
+
+<%= render Page::HeadingNewComponent.new(resource: @move, title: t(".title"), breadcrumb_steps:) %>
+<div class="col-12 p-4 border-top">
+  <%= render "form" %>
 </div>

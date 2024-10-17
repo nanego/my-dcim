@@ -1,7 +1,6 @@
-<%= render FormErrorsComponent.new(@port_type) %>
-
-<%= form_for(@port_type, html: { class: "bg-body-tertiary p-4 rounded border", role: "form" }) do |f| %>
-  <div class="row g-3">
+<%= form_for(@port_type, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+  <%= render FormErrorsComponent.new(@port_type) %>
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <fieldset class="col-12">
       <%= f.label :name, class: "form-label" %>
       <%= f.text_field :name, class: "form-control" %>
@@ -13,9 +12,10 @@
         <%= f.label :power, class: "form-check-label" %>
       </fieldset>
     </div>
+  <% end %>
 
-    <div class="col-12 mt-4">
-      <%= f.submit class: "btn btn-primary w-100" %>
-    </div>
+  <div class="col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top">
+    <%= link_to t("action.cancel"), port_types_path, class: "btn btn-outline-secondary" %>
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>

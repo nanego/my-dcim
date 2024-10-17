@@ -1,17 +1,21 @@
-<% provide(:title, Cluster.model_name.human.pluralize) %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  Cluster.model_name.human.pluralize => "" }
+<%
+  title = Cluster.model_name.human.pluralize
+  breadcrumb_steps = { title => "" }
+
+  provide(:title, title)
 %>
 
-<div class="container-fluid">
-  <div class="d-flex justify-content-between">
-    <h1><%= t(".title") %></h1>
-    <%= link_to new_cluster_path, class: "btn btn-success align-self-center" do %>
-      <span class="bi bi-plus-lg"></span>
-      <%= t(".new_cluster") %>
-    <% end %>
-  </div>
+<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) do |heading| %>
+  <% heading.with_right_content do %>
+    <% render ButtonComponent.new(t(".new_cluster"),
+                                  url: new_cluster_path,
+                                  variant: :success,
+                                  icon: "plus-lg",
+                                  is_responsive: true) %>
+  <% end %>
+<% end %>
 
+<div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
       <div>

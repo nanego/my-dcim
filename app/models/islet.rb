@@ -19,6 +19,6 @@ class Islet < ApplicationRecord
   end
 
   def name_with_room
-    "#{room} #{name.blank? ? "" : 'Ilot ' + name}"
+    "#{[Islet.model_name.human, name].join(" ")} #{room}"
   end
 end

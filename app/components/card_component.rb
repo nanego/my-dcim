@@ -7,7 +7,7 @@ class CardComponent < ApplicationComponent
   renders_one :footer
 
   erb_template <<~ERB
-    <div class="<%= class_names("card mb-3 \#{@extra_classes}", "border-\#{@type}": @type) %>">
+    <div class="<%= class_names("card \#{@extra_classes}", "border-\#{@type}": @type) %>">
       <% if header? %>
         <div class="<%= class_names("card-header", "text-bg-\#{@type}": @type) %>">
           <%= header %>

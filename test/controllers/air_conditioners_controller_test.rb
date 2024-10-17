@@ -28,13 +28,13 @@ class AirConditionersControllerTest < ActionDispatch::IntegrationTest
                                                               name: @air_conditioner.name } }
     end
 
-    assert_redirected_to air_conditioners_url
+    assert_redirected_to air_conditioner_path(assigns(:air_conditioner))
   end
 
-  # test "should show air_conditioner" do
-  #   get air_conditioner_url(@air_conditioner)
-  #   assert_response :success
-  # end
+  test "should show air_conditioner" do
+    get air_conditioner_url(@air_conditioner)
+    assert_response :success
+  end
 
   test "should get edit" do
     get edit_air_conditioner_url(@air_conditioner)
@@ -48,7 +48,7 @@ class AirConditionersControllerTest < ActionDispatch::IntegrationTest
                                                                               position: @air_conditioner.position,
                                                                               status: "on",
                                                                               air_conditioner_model: @air_conditioner.air_conditioner_model } }
-    assert_redirected_to air_conditioners_url
+    assert_redirected_to air_conditioner_path(@air_conditioner)
   end
 
   test "should destroy air_conditioner" do
