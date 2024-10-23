@@ -26,6 +26,7 @@
       <th><%= t("moves.form.initial_bay") %></th>
       <th><%= t("activerecord.attributes.move.frame_id") %></th>
       <th></th>
+      <th></th>
       </thead>
       <tbody>
       <%= content_tag_for(:tr, @moves) do |move| %>
@@ -35,7 +36,7 @@
         <td><%= "#{move.moveable.domaine}" %></td>
         <td><%= link_to "#{move.moveable.frame}", frame_path(move.moveable.frame) %></td>
         <td><%= link_to "#{move.frame}", frame_path(move.frame) %></td>
-        <td style="min-width: 115px; width: 115px">
+        <td style="min-width: 80px; width: 80px">
           <%= link_to t("action.execute"),
                       execute_move_path(move),
                       title: t(".action.execute_move"),
@@ -46,7 +47,8 @@
                       },
                       class: "btn btn-sm btn-outline-primary",
                       aria: { hidden: true } %>
-
+        </td>
+        <td style="min-width: 35px; width: 35px">
           <%= link_to move,
                       method: :delete,
                       data: { confirm: t(".delete_confirmation") },
