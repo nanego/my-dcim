@@ -36,16 +36,16 @@
   <% end %>
 
   <%= render List::DataTableComponent.new(@air_conditioners) do |table| %>
+    <% table.with_column(AirConditioner.human_attribute_name(:name), sort_by: :name) do |air_conditioner| %>
+      <%= link_to air_conditioner.name, air_conditioner_path(air_conditioner) %>
+    <% end %>
+
     <% table.with_column(Room.model_name.human, sort_by: :"rooms.name") do |air_conditioner| %>
       <%= link_to air_conditioner.room, room_path(air_conditioner.room) %>
     <% end %>
 
     <% table.with_column(Islet.model_name.human, sort_by: :"islets.name") do |air_conditioner| %>
       <%= link_to air_conditioner.islet, islet_path(air_conditioner.islet) %>
-    <% end %>
-
-    <% table.with_column(AirConditioner.human_attribute_name(:name), sort_by: :name) do |air_conditioner| %>
-      <%= link_to air_conditioner.name, air_conditioner_path(air_conditioner) %>
     <% end %>
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |air_conditioner| %>
