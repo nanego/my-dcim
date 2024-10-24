@@ -122,7 +122,7 @@ fr:
         position: Position
         power: Puissance
         status: État
-        bay: Baie la plus proche
+        bay_id: Baie la plus proche
         last_service: Dernière maintenance
         air_conditioner_model_id: Modèle
         start: DTC start (début lutte)
@@ -314,7 +314,7 @@ fr:
           one: "%{bay}"
           other: Double baie %{bay}
         islet_id: Salle et Ilot
-        bay_type: Type de baie
+        bay_type_id: Type de baie
         name: Nom
       connection:
         cable: Câble

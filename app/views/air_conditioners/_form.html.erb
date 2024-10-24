@@ -35,8 +35,8 @@
     <% end %>
 
     <fieldset>
-      <%= f.label :bay, class: "form-label" %>
-      <%= f.select :bay,
+      <%= f.label :bay_id, class: "form-label" %>
+      <%= f.select :bay_id,
                     options_from_collection_for_select(
                       Bay.sorted_by_room, :id, :detailed_name, @air_conditioner.bay_id
                     ),
