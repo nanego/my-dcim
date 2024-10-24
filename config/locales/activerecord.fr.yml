@@ -106,6 +106,7 @@ fr:
         span: Slots
       site:
         name: Nom
+        description: Description
         position: Position
         street: Rue
         city: Ville

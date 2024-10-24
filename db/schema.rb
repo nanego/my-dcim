@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_18_141423) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_17_143515) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -485,6 +485,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_18_141423) do
     t.decimal "latitude"
     t.decimal "longitude"
     t.integer "rooms_count", default: 0, null: false
+    t.text "description"
   end
 
   create_table "stacks", force: :cascade do |t|

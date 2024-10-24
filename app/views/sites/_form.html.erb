@@ -5,6 +5,11 @@
       <%= f.label :name, class: "form-label" %>
       <%= f.text_field :name, class: "form-control" %>
     </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :description, class: "form-label" %>
+      <%= f.text_area :description, class: "form-control" %>
+    </fieldset>
   <% end %>
 
   <%= render CardComponent.new(extra_classes: "mt-4 bg-body-tertiary") do |card| %>
