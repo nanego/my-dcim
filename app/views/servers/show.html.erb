@@ -214,7 +214,9 @@
               <%= Server.human_attribute_name(:photo) %>
             <% end %>
 
-            <%= image_tag @server.photo.variant(geometry: "x220"), class: "server_photo ms-0 mb-3" %>
+            <%= link_to @server.photo, rel: :noopener, target: :_blank do %>
+              <%= image_tag @server.photo.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
+            <% end %>
           <% end %>
         <% end %>
         <% if @server.documents.present? %>

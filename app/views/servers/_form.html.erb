@@ -180,8 +180,9 @@
       <fieldset class="col-12">
         <%= f.label :photo, class: "form-label" %>
         <%= f.file_field :photo, class: "form-control" %>
-        <%- if @server.photo.attached? %>
-          <%= image_tag @server.photo.variant(geometry: "x200"), class: "server_photo ms-0 mt-2" %>
+
+        <% if @server.photo.attached? %>
+          <%= image_tag @server.photo.representation(resize_to_limit: [200, 200]), class: "ms-0 mt-2" %>
         <% end %>
       </fieldset>
     <% end %>
