@@ -74,7 +74,9 @@ Rails.application.routes.draw do
   resources :bays
   resources :gestions
   resources :domaines
-  resources :modeles
+  resources :modeles do
+    get :duplicate, on: :member
+  end
   resources :manufacturers
   resources :architectures
   resources :categories

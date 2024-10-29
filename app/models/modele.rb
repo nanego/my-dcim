@@ -24,6 +24,14 @@ class Modele < ApplicationRecord
   scope :sorted, -> { order(:name) }
   scope :with_servers, -> { joins(:servers).uniq }
 
+  def self.all_sorted
+    Modele.includes(:manufacturer).all.sort { |f1, f2| f1.name_with_brand.capitalize <=> f2.name_with_brand.capitalize }
+  end
+
+  def self.all_sorted_with_servers
+    Modele.includes(:manufacturer).with_servers.sort { |f1, f2| f1.name_with_brand.capitalize <=> f2.name_with_brand.capitalize }
+  end
+
   def to_s
     name.to_s
   end
@@ -44,12 +52,10 @@ class Modele < ApplicationRecord
     end
   end
 
-  def self.all_sorted
-    Modele.includes(:manufacturer).all.sort { |f1, f2| f1.name_with_brand.capitalize <=> f2.name_with_brand.capitalize }
-  end
-
-  def self.all_sorted_with_servers
-    Modele.includes(:manufacturer).with_servers.sort { |f1, f2| f1.name_with_brand.capitalize <=> f2.name_with_brand.capitalize }
+  def deep_dup
+    dup.tap do |modele|
+      modele.enclosures = enclosures.map(&:deep_dup)
+    end
   end
 
   private

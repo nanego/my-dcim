@@ -6,7 +6,17 @@
   }
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @modele, title: @modele, breadcrumb_steps:) %>
+<%= render Page::HeadingShowComponent.new(resource: @modele, title: @modele, breadcrumb_steps:) do |heading| %>
+  <% heading.with_extra_buttons do %>
+    <% render ButtonComponent.new(t("action.duplicate"),
+                                  url: duplicate_modele_path(@modele),
+                                  variant: :success,
+                                  icon: "copy",
+                                  is_responsive: true,
+                                  extra_classes: "me-2") %>
+  <% end %>
+<% end %>
+
 <div class="col-12 p-4 border-top">
   <div class="col-12 col-lg-6">
     <%= render CardComponent.new do |card| %>

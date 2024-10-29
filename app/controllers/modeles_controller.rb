@@ -70,6 +70,11 @@ class ModelesController < ApplicationController
     end
   end
 
+  def duplicate
+    @original_modele = Modele.friendly.find(params[:id].to_s.downcase)
+    @modele = @original_modele.deep_dup
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
