@@ -5,6 +5,18 @@ class BayDecorator < ApplicationDecorator
   include ActionView::Helpers::AssetTagHelper
   include ActionView::Helpers::TextHelper
 
+  class << self
+    def access_control_options_for_select
+      Bay.access_controls.keys.map { |a_c| [I18n.t("concerns.access_control.#{a_c}"), a_c] }
+    end
+  end
+
+  def access_control_to_human
+    return I18n.t("concerns.access_control.blank") unless (a_c = access_control.presence)
+
+    I18n.t("concerns.access_control.#{a_c}")
+  end
+
   def no_frame_warning_icon
     tag.span class: "bay-with-no-frame-warning ms-2" do
       concat(tag.i(class: "bi bi-exclamation-triangle-fill text-warning",

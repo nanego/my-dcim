@@ -3,6 +3,8 @@
 class Islet < ApplicationRecord
   has_changelog
 
+  include HasAccessControl
+
   belongs_to :room, counter_cache: true
   has_one :site, through: :room
   has_many :bays, dependent: :restrict_with_error

@@ -18,6 +18,13 @@
                    { include_blank: t("activerecord.attributes.islet/cooling_mode.blank") },
                    class: "form-select" %>
     </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :access_control, class: "form-label" %>
+      <%= f.select :access_control, IsletDecorator.access_control_options_for_select,
+                            { include_blank: t("concerns.access_control.blank") },
+                            class: "form-select" %>
+    </fieldset>
   <% end %>
 
   <%= render CardComponent.new(type: :primary, extra_classes: "mt-4 bg-body-tertiary") do |card| %>

@@ -18,11 +18,21 @@ class IsletDecorator < ApplicationDecorator
         [Islet.human_attribute_name("cooling_mode.#{cooling_mode}"), cooling_mode]
       end
     end
+
+    def access_control_options_for_select
+      Room.access_controls.keys.map { |a_c| [I18n.t("concerns.access_control.#{a_c}"), a_c] }
+    end
   end
 
   def cooling_mode_to_human
     return Islet.human_attribute_name("cooling_mode.blank") unless (c_m = cooling_mode.presence)
 
     Islet.human_attribute_name("cooling_mode.#{c_m}")
+  end
+
+  def access_control_to_human
+    return I18n.t("concerns.access_control.blank") unless (a_c = access_control.presence)
+
+    I18n.t("concerns.access_control.#{a_c}")
   end
 end

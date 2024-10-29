@@ -18,6 +18,13 @@
         <span class="input-group-text"><%= t("unit.square_meter") %></span>
       </div>
     </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :access_control, class: "form-label" %>
+      <%= f.select :access_control, RoomDecorator.access_control_options_for_select,
+                            { include_blank: t("concerns.access_control.blank") },
+                            class: "form-select" %>
+    </fieldset>
   <% end %>
 
   <%= render CardComponent.new(type: :primary, extra_classes: "mt-4 bg-body-tertiary") do |card| %>

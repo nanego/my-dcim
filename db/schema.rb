@@ -92,6 +92,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_06_141954) do
     t.integer "width"
     t.integer "depth"
     t.bigint "manufacturer_id"
+    t.integer "access_control"
     t.index ["bay_type_id"], name: "index_bays_on_bay_type_id"
     t.index ["islet_id"], name: "index_bays_on_islet_id"
     t.index ["manufacturer_id"], name: "index_bays_on_manufacturer_id"
@@ -331,6 +332,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_06_141954) do
     t.integer "position"
     t.text "description"
     t.integer "cooling_mode"
+    t.integer "access_control"
     t.index ["room_id"], name: "index_islets_on_room_id"
   end
 
@@ -454,6 +456,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_06_141954) do
     t.integer "islets_count", default: 0
     t.integer "surface_area"
     t.integer "status", default: 0, null: false
+    t.integer "access_control"
     t.index ["site_id"], name: "index_rooms_on_site_id"
     t.index ["slug"], name: "index_rooms_on_slug", unique: true
   end

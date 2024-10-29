@@ -749,6 +749,13 @@ fr:
       update: Modifier
       submit: Envoyer
 
+  concerns:
+    access_control:
+      badge: Badge
+      key: Clé
+      key_loken: Clé Loken
+      blank: Pas de contrôle
+
   filters:
     attributes:
       filter:

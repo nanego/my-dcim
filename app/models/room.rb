@@ -6,6 +6,8 @@ class Room < ApplicationRecord
 
   has_changelog
 
+  include HasAccessControl
+
   belongs_to :site, counter_cache: true
 
   has_many :islets, dependent: :restrict_with_error

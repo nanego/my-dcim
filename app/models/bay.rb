@@ -4,6 +4,8 @@ class Bay < ApplicationRecord
   has_changelog
   acts_as_list scope: [:lane, :islet_id]
 
+  include HasAccessControl
+
   belongs_to :bay_type
   belongs_to :islet
   belongs_to :manufacturer, optional: true, counter_cache: true
