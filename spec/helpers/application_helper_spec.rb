@@ -20,4 +20,8 @@ RSpec.describe ApplicationHelper do
       it { expect(helper.accepted_format_for_attachment(Room, "name")).to be_nil }
     end
   end
+
+  describe "#surface_area_with_suffix" do
+    it { expect(helper.surface_area_with_suffix(300)).to eq("300 m²") }
+  end
 end

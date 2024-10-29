@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_23_101945) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_23_152329) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -417,6 +417,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_23_101945) do
     t.integer "site_id", null: false
     t.integer "islets_count", default: 0
     t.integer "status", default: 0, null: false
+    t.integer "surface_area"
     t.index ["site_id"], name: "index_rooms_on_site_id"
     t.index ["slug"], name: "index_rooms_on_slug", unique: true
   end

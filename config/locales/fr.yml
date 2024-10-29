@@ -2,6 +2,8 @@ fr:
   boolean:
     true: Oui
     false: Non
+  surface_area:
+    unit: m²
   form:
     submit: Valider
   action:

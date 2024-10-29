@@ -58,6 +58,7 @@ fr:
         display_on_home_page: Afficher sur la page d'accueil
         site_id: Site
         status: Statut
+        surface_area: Superficie
         islets_count:
           zero: 0 îlot
           one: 1 îlot
