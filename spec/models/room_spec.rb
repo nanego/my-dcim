@@ -15,6 +15,14 @@ RSpec.describe Room do
     it { is_expected.to have_many(:materials).through(:frames) }
   end
 
+  describe "validations" do
+    it do
+      is_expected.to define_enum_for(:status) # rubocop:disable RSpec/ImplicitSubject
+        .validating
+        .with_values(%i[active passive planned])
+    end
+  end
+
   describe "#to_s" do
     it { expect(room.to_s).to eq room.name }
   end

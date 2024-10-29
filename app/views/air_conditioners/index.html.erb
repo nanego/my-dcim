@@ -1,17 +1,21 @@
-<% provide(:title, AirConditioner.model_name.human.pluralize) %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  AirConditioner.model_name.human.pluralize => "" }
+<%
+  title = AirConditioner.model_name.human.pluralize
+  breadcrumb_steps = { title => "" }
+
+  provide(:title, title)
 %>
 
-<div class="container-fluid">
-  <div class="d-flex justify-content-between">
-    <h1><%= t(".title") %></h1>
-    <%= link_to new_air_conditioner_path, class: "btn btn-success align-self-center" do %>
-      <span class="bi bi-plus-lg"></span>
-      <%= t(".new") %>
-    <% end %>
-  </div>
+<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) do |heading| %>
+  <% heading.with_right_content do %>
+    <% render ButtonComponent.new(t(".new_air_conditioner"),
+                                  url: new_air_conditioner_path,
+                                  variant: :success,
+                                  icon: "plus-lg",
+                                  is_responsive: true) %>
+  <% end %>
+<% end %>
 
+<div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
       <div>
@@ -32,16 +36,16 @@
   <% end %>
 
   <%= render List::DataTableComponent.new(@air_conditioners) do |table| %>
+    <% table.with_column(AirConditioner.human_attribute_name(:name), sort_by: :name) do |air_conditioner| %>
+      <%= link_to air_conditioner.name, air_conditioner_path(air_conditioner) %>
+    <% end %>
+
     <% table.with_column(Room.model_name.human, sort_by: :"rooms.name") do |air_conditioner| %>
       <%= link_to air_conditioner.room, room_path(air_conditioner.room) %>
     <% end %>
 
     <% table.with_column(Islet.model_name.human, sort_by: :"islets.name") do |air_conditioner| %>
       <%= link_to air_conditioner.islet, islet_path(air_conditioner.islet) %>
-    <% end %>
-
-    <% table.with_column(AirConditioner.human_attribute_name(:name), sort_by: :name) do |air_conditioner| %>
-      <%= link_to air_conditioner.name, air_conditioner_path(air_conditioner) %>
     <% end %>
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |air_conditioner| %>

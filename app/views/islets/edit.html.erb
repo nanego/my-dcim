@@ -1,25 +1,16 @@
-<%- islet_label = t(".title", name: @islet.name, room: @islet.room) %>
-<% provide(:title, "#{Islet.model_name.human.pluralize} | #{islet_label} | #{t("action.edit")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  Islet.model_name.human.pluralize => islets_path,
-  "#{@islet} - #{@islet.room}" => "",
-  t("action.edit") => ""
-} %>
+<%
+  breadcrumb_steps = {
+    Islet.model_name.human.pluralize => islets_path,
+    @islet.name_with_room => islet_path(@islet),
+    t("action.edit") => ""
+  }
 
-<div class="row my-5">
-  <div class="col-11 col-md-10 col-lg-8 mx-auto">
-    <div class="d-flex pb-5 justify-content-between align-items-center">
-      <%= link_to islets_path, class: "btn d-inline-flex",
-                                title: t("action.back") do %>
-        <span class="bi bi-chevron-left"></span>
-        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
-      <% end %>
-      <h1 class="text-center"><%= islet_label %></h1>
-      <%= link_to @islet, class: "btn btn-primary align-self-center d-inline-flex", title: t("action.show") do %>
-        <span class="bi bi-eye"></span>
-        <span class="d-none d-md-inline-block ms-1"><%= t("action.show") %></span>
-      <% end %>
-    </div>
-    <%= render "form" %>
-  </div>
+  provide(:title, "#{Islet.model_name.human.pluralize} | #{@islet.name_with_room} | #{t("action.edit")}")
+%>
+
+<%= render Page::HeadingEditComponent.new(
+  resource: @islet, title: t(".title"), breadcrumb_steps:
+) %>
+<div class="col-12 p-4 border-top">
+  <%= render "form" %>
 </div>

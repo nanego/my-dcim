@@ -1,21 +1,26 @@
-<% view_side = 'front' if local_assigns[:view_side].nil? %>
-<% settings = Frame::DEFAULT_SETTINGS.merge({:min_height => view_side == 'back' ? 20 : 27}) %>
+<%
+  view_side = "front" if local_assigns[:view_side].nil?
+  settings = Frame::DEFAULT_SETTINGS.merge( { min_height: view_side == "back" ? 20 : 27} )
+  should_show_heading = local_assigns.fetch(:should_show_heading, true)
+%>
 
 <div id="<%= room.try(:name).try(:parameterize).try(:underscore) %>">
   <% islets.each do |islet, lanes| %>
     <div>
       <div>
         <div class="card-islet">
-          <div class="d-flex justify-content-between align-items-center my-4">
-            <h3>
-              <% if local_assigns[:title].present? %>
-                <%= title %>
-              <% elsif room.present? %>
-                <%= t(".title", room: room, islet: islet) %>
-              <% end %>
-            </h3>
-            <%= render "rooms/action_buttons", view_side: params[:view] unless local_assigns[:pdf] == true %>
-          </div>
+          <% if should_show_heading %>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h3>
+                <% if local_assigns[:title].present? %>
+                  <%= title %>
+                <% elsif room.present? %>
+                  <%= t(".title", room: room, islet: islet) %>
+                <% end %>
+              </h3>
+              <%= render "rooms/action_buttons", view_side: params[:view] unless local_assigns[:pdf] == true %>
+            </div>
+          <% end %>
           <div class="frames row <%= view_side %>"
               data-update-url="<%= sort_frames_path %>"
               data-max-u='<%= settings[:max_u] %>'

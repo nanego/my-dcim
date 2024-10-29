@@ -1,32 +1,75 @@
-<% provide(:title, "#{Site.model_name.human.pluralize} | #{@site.name}") %>
-<%= render "layouts/breadcrumb",
-           breadcrumb_steps: { Site.model_name.human.pluralize => sites_path, @site.name => "" } %>
+<%
+  provide(:title, "#{Site.model_name.human.pluralize} | #{@site.name}")
+  breadcrumb_steps = { Site.model_name.human.pluralize => sites_path, @site.name => "" }
+%>
 
-<div class="row my-5">
-  <div class="col-11 col-md-10 col-lg-8 mx-auto">
-    <div class="d-flex justify-content-between pb-5">
-      <%= link_to sites_path, class: "btn align-self-center d-inline-flex",
-                              title: t("action.back") do %>
-        <span class="bi bi-chevron-left"></span>
-        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
+<%= render Page::HeadingShowComponent.new(resource: @site, title: @site.name, breadcrumb_steps:) %>
+<div class="col-12 p-4 border-top">
+  <div class="d-flex flex-row flex-wrap">
+    <div class="col-12 col-lg-6 pe-lg-4">
+      <%= render CardComponent.new do |card| %>
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <% %i[name description].each do |attribute_name| %>
+            <dt class="pb-2"><%= Site.human_attribute_name(attribute_name) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @site.public_send(attribute_name) %></dd>
+          <% end %>
+        </dl>
       <% end %>
-      <h1 class="text-center px-4"><%= t(".title", site_id: @site.id, site_name: @site.name) %></h1>
-      <%= link_to edit_site_path(@site), class: "btn btn-info align-self-center d-inline-flex",
-                                          title: t("action.edit") do %>
-        <span class="bi bi-pencil"></span>
-        <span class="d-none d-md-inline-block ms-1"><%= t("action.edit") %></span>
+      <%= render CardComponent.new(extra_classes: "my-4 mb-lg-0") do |card| %>
+        <% card.with_header do %>
+          <%= t("display") %>
+        <% end %>
+
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <% %i[position].each do |attribute_name| %>
+            <dt class="pb-2"><%= Site.human_attribute_name(attribute_name) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @site.public_send(attribute_name) %></dd>
+          <% end %>
+        </dl>
       <% end %>
     </div>
+    <div class="col-12 col-lg-6" id="export-to-pdf">
+      <%= render CardComponent.new(type: :primary) do |card| %>
+        <% card.with_header do %>
+          <div class="justify-content-between d-flex">
+            <span><%= t("layouts.sidebar.location.title") %></span>
+            <button type="button"
+                    class="btn btn-outline-light btn-sm d-flex align-items-center export-pdf-button"
+                    title="<%= t("export_button.exports.pdf") %>"
+                    data-controller="export-pdf"
+                    data-action="click->export-pdf#export"
+                    data-export-pdf-filename-value="<%= "#{Site.model_name.human.downcase}_#{@site.name.parameterize}" %>"
+                    data-html2canvas-ignore="true" >
+              <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+              <span class="text-truncate d-none d-md-inline-block ms-2">
+                <%= t("export_button.exports.pdf") %>
+              </span>
+              <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none ms-2" role="status" aria-hidden="true"
+                    data-export-pdf-target="spinner"></span>
+            </button>
+          </div>
+        <% end %>
 
-    <dl class="bg-body-tertiary p-4 rounded border">
-      <% %i[name position latitude longitude].each do |attribute_name| %>
-        <dt><%= Site.human_attribute_name(attribute_name) %> :</dt>
-        <dd><%= @site.public_send(attribute_name) %></dd>
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <% %i[street city country latitude longitude delivery_address delivery_times].each do |attribute_name| %>
+            <dt class="pb-2"><%= Site.human_attribute_name(attribute_name) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @site.public_send(attribute_name) %></dd>
+          <% end %>
+
+          <dt class="pb-2"><%= Site.human_attribute_name(:delivery_map) %></dt>
+          <dd class="mb-0 pb-2 ps-3">
+            <% if @site.delivery_map.attached? %>
+              <%= link_to @site.delivery_map, rel: :noopener, target: :_blank do %>
+                <%= image_tag @site.delivery_map.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
+              <% end %>
+            <% end %>
+          </dd>
+        </dl>
       <% end %>
-    </dl>
+    </div>
   </div>
+  <%= render HasManyTurboFrameComponent.new(
+    Room.model_name.human.pluralize, url: rooms_path(site_id: @site.id), frame_id: dom_id(Room, :table)
+  ) %>
+  <%= render ChangelogEntries::ObjectListComponent.new(@site) %>
 </div>
-
-<%= render HasManyTurboFrameComponent.new(Room.model_name.human.pluralize, url: rooms_path(site_id: @site.id), frame_id: dom_id(Room, :table)) %>
-
-<%= render ChangelogEntries::ObjectListComponent.new(@site) %>

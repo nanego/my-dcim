@@ -45,6 +45,10 @@ class ServersProcessor < ApplicationProcessor
     raw.where(cluster_id: cluster_ids)
   end
 
+  map :stack_ids do |stack_ids:|
+    raw.where(stack_id: stack_ids)
+  end
+
   sortable fields: SORTABLE_FIELDS do
     # having "name" do |sort: "asc"|
     #   raise "Possible injection: #{sort}" unless SORT_ORDERS.include?(sort)

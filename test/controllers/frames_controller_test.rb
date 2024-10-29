@@ -24,7 +24,7 @@ class FramesControllerTest < ActionController::TestCase
       post :create, params: { frame: { name: "MyFrame5", bay_id: 1 } }
     end
 
-    assert_redirected_to frames_path
+    assert_redirected_to frame_path(assigns(:frame))
   end
 
   test "should get show" do
@@ -39,7 +39,7 @@ class FramesControllerTest < ActionController::TestCase
 
   test "should update frame" do
     patch :update, params: { id: @frame, frame: { name: @frame.name } }
-    assert_redirected_to room_path(@frame.room)
+    assert_redirected_to @frame
   end
 
   test "should destroy frame" do

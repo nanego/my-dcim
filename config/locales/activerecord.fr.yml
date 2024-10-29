@@ -57,6 +57,8 @@ fr:
         content: Contenu
         display_on_home_page: Afficher sur la page d'accueil
         site_id: Site
+        status: Statut
+        surface_area: Superficie
         islets_count:
           zero: 0 îlot
           one: 1 îlot
@@ -65,15 +67,24 @@ fr:
           zero: 0 châssis
           one: 1 châssis
           other: "%{count} châssis"
+      room/status:
+        active: Actif
+        passive: Passif
+        planned: Planifié
       islet:
         name: Nom
         room_id: Salle
         room: Salle # TODO: check if we should keep this line?
         position: Position
+        cooling_mode: Mode de refroidissement
         frames_count:
           zero: 0 châssis
           one: 1 châssis
           other: "%{count} châssis"
+      islet/cooling_mode:
+        blank: Pas de confinement
+        hot_containment: Confinement chaud
+        cold_containment: Confinement froid
       frame/view_sides:
         front: Vue avant
         back: Vue arrière
@@ -96,7 +107,7 @@ fr:
         modele_id: Modèle
         critique: Critique
         gestion_id: Gestionnaire
-        network_types: Type de visualisation
+        network_types: Composant réseau
         stack: Stack
         stack_id: Stack
         comment: Commentaire
@@ -106,12 +117,16 @@ fr:
         span: Slots
       site:
         name: Nom
+        description: Description
         position: Position
         street: Rue
         city: Ville
         country: Pays
         latitude: Latitude
         longitude: Longitude
+        delivery_address: Adresse livraison
+        delivery_times: Horaires de livraison
+        delivery_map: Plan de livraison
         rooms_count:
           zero: 0 salle
           one: 1 salle
@@ -235,12 +250,13 @@ fr:
         manufacturer_id: Constructeur
         nb_elts: Nb d'éléments
         color: Couleur
-        network_types: Type de visualisation
+        network_types: Composant réseau
       modele/network_types:
-        gbe: Composant Réseau Gb
-        10gbe: Composant Réseau 10 Gb
-        fiber: Composant Réseau Fibre
-        blank: Pas de
+        gbe: Backbone Gbps
+        10gbe: Backbone 10Gbps
+        fiber: Backbone Fibre
+        blank: Non (par défaut)
+        help: Représentation ou non sur les dashboard d'infrastructure réseau
         short_gbe: Gb
         short_10gbe: 10 Gb
         short_fiber: Fibre
@@ -315,6 +331,7 @@ fr:
           other: Double baie %{bay}
         islet_id: Salle et Ilot
         bay_type_id: Type de baie
+        name: Nom
       connection:
         cable: Câble
         port: Port

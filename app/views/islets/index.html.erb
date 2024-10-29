@@ -1,21 +1,60 @@
-<% provide(:title, Islet.model_name.human.pluralize) %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  Islet.model_name.human.pluralize => ""
-} %>
+<%
+  title = Islet.model_name.human.pluralize
+  breadcrumb_steps = { title => "" }
 
-<div class="container-fluid">
-  <div class="d-flex justify-content-between">
-    <h1><%= Islet.model_name.human.pluralize %></h1>
-    <%= link_to new_islet_path, class: "btn btn-success align-self-center" do %>
-      <span class="bi bi-plus-lg"></span>
-      <%= t(".add_islet") %>
+  provide(:title, title)
+%>
+
+<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) do |heading| %>
+  <% heading.with_right_content do %>
+    <% render ButtonComponent.new(t(".new_islet"),
+                                  url: new_islet_path,
+                                  variant: :success,
+                                  icon: "plus-lg",
+                                  is_responsive: true) %>
+  <% end %>
+<% end %>
+
+<div class="p-4 border-top d-flex flex-column row-gap-4">
+  <%= render FilterComponent.new(@filter) do |c| %>
+    <% c.with_form do |f| %>
+      <div>
+        <fieldset class="form-floating">
+          <%= f.text_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :q %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:site_id,
+                                  Site.order(:name),
+                                  :id,
+                                  :name,
+                                  { prompt: true, include_blank: true },
+                                  { class: "form-select" }) %>
+          <%= f.label :site_id %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:room_id,
+                                  Room.order(:position), # TODO: check if good
+                                  :id,
+                                  :name,
+                                  { prompt: true, include_blank: true },
+                                  { class: "form-select" }) %>
+          <%= f.label :room_id %>
+        </fieldset>
+      </div>
     <% end %>
-  </div>
+  <% end %>
 
   <%= turbo_frame_tag(dom_id(Islet, :table), data: { turbo_action: :advance }) do %>
     <%= render List::DataTableComponent.new(@islets) do |table| %>
       <% table.with_column(Islet.model_name.human, sort_by: :name) do |islet| %>
-        <%= link_to islet, islet_path(islet), data: { turbo_frame: :_top } %>
+        <%= link_to islet.name_with_room, islet_path(islet), data: { turbo_frame: :_top } %>
       <% end %>
 
       <% table.with_column(Site.model_name.human, sort_by: :"sites.name") do |islet| %>
@@ -36,7 +75,7 @@
         <%= Islet.human_attribute_name(:frames_count, count: islet.frames.count) %>
       <% end %>
 
-      <% table.with_column(style: "min-width: 140px; width: 140px") do |islet| %>
+      <% table.with_column(style: "min-width: 132px; width: 132px") do |islet| %>
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
           <%= render partial: "islets/export_button", locals: { islet: islet } %>
           <%= link_to edit_islet_path(islet), class: "btn btn-info", data: { turbo_frame: :_top } do %>

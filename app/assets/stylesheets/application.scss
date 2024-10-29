@@ -441,10 +441,6 @@ dt {
 }
 dd {
   font-weight: 700;
-
-  &.col-6 {
-    margin-bottom: 0;
-  }
 }
 
 /* Page about */
@@ -750,17 +746,34 @@ body {
     }
   }
 
+  dl.show-page_dl {
+    grid-template-columns: auto 1fr;
+
+    dt:not(:last-of-type), dd:not(:last-of-type) {
+      border-bottom: var(--bs-border-width) dashed var(--bs-border-color);
+    }
+  }
+
   .export-button {
-    max-width: 77px;
+    max-width: 70px;
+  }
+
+  .export-pdf-button {
+    max-width: 117px;
   }
 
   .export-button-move {
     max-width: 100px;
   }
 
-  /* Tom-Select fix for dark mode */
+  /* Tom-Select */
+  /* Fix for dark mode */
   .ts-dropdown, .ts-control, .ts-control input {
     color: var(--bs-body-color);
+  }
+
+  .ts-dropdown {
+    z-index: 9999;
   }
 
   /* Tom-Select fix for bootstrap floating label */

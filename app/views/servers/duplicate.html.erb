@@ -1,28 +1,13 @@
-<% provide(:title, "#{t("servers.index.title")} | #{t(".title", server_name: @original_server.name)}") %>
-<%= render 'layouts/breadcrumb', breadcrumb_steps: {
-    t("visualization.title") => overview_rooms_path,
-    @original_server.frame.room.name => room_path(@original_server.frame.room, view: params[:view]),
-    "#{Islet.model_name.human} #{@original_server.frame.islet.name}" => room_path(@original_server.frame.room, islet: @original_server.frame.islet.name, :view => params[:view], bg: params[:bg]),
-    t("layouts.breadcrumb.bay.double", name: @original_server.frame.bay) => room_path(@original_server.frame.room, islet: @original_server.frame.islet.name, "bay-id": @original_server.frame.bay_id, view: params[:view]),
-    t("layouts.breadcrumb.bay.simple", name: @original_server.frame.name) => frame_path(@original_server.frame, view: params[:view]),
-    @original_server.name => server_path(@original_server),
+<% provide(:title, "#{t("servers.index.title")} | #{@original_server.name} | #{t("action.duplicate")}") %>
+<% breadcrumb_steps = {
     t("servers.index.title") => servers_path,
+    @original_server.name => server_path(@original_server),
     t("action.duplicate") => ""
-}%>
+} %>
 
-
-<div class="row my-5">
-  <div class="col-11 col-lg-10 mx-auto">
-    <div class="d-flex pb-5 align-items-center">
-      <div class="flex-grow-1">
-        <%= link_to servers_path, class: "btn d-inline-flex", title: t("action.back") do %>
-          <span class="bi bi-chevron-left"></span>
-          <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
-        <% end %>
-      </div>
-      <h1 class="px-4 text-center"><%= t(".title", server_name: @original_server.name) %></h1>
-      <div class="flex-grow-1"></div>
-    </div>
-    <%= render "form" %>
-  </div>
+<%= render Page::HeadingEditComponent.new(
+  resource: @original_server, title: t(".title", server_name: @original_server.name), breadcrumb_steps:
+) %>
+<div class="col-12 p-4 border-top">
+  <%= render "form" %>
 </div>

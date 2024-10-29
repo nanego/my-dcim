@@ -1,42 +1,28 @@
-<% provide(:title, "#{Modele.model_name.human.pluralize} | #{@modele.name}") %>
-<%= render "layouts/breadcrumb",
-           breadcrumb_steps: { Modele.model_name.human.pluralize => modeles_path, @modele.name => "" } %>
+<%
+  provide(:title, "#{Modele.model_name.human.pluralize} | #{@modele.name}")
 
-<div class="row my-5">
-  <div class="col-11 col-md-10 col-lg-8 mx-auto">
-    <div class="d-flex justify-content-between pb-5">
-      <%= link_to modeles_path, class: "btn align-self-center d-inline-flex",
-                                title: t("action.back") do %>
-        <span class="bi bi-chevron-left"></span>
-        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
-      <% end %>
-      <h1 class="text-center px-4"><%= @modele %></h1>
-      <%= link_to edit_modele_path(@modele), class: "btn btn-info align-self-center d-inline-flex",
-                                              title: t("action.edit") do %>
-        <span class="bi bi-pencil"></span>
-        <span class="d-none d-md-inline-block ms-1"><%= t("action.edit") %></span>
-      <% end %>
-    </div>
+  breadcrumb_steps = {
+    Modele.model_name.human.pluralize => modeles_path, @modele.name => ""
+  }
+%>
 
-    <dl class="bg-body-tertiary p-4 rounded border">
-      <% %i[name category architecture u manufacturer nb_elts color].each do |attribute_name| %>
-        <dt><%= Modele.human_attribute_name(attribute_name) %> :</dt>
-        <dd><%= @modele.public_send(attribute_name) %></dd>
-      <% end %>
+<%= render Page::HeadingShowComponent.new(resource: @modele, title: @modele, breadcrumb_steps:) %>
+<div class="col-12 p-4 border-top">
+  <div class="col-12 col-lg-6">
+    <%= render CardComponent.new do |card| %>
+      <dl class="show-page_dl d-grid row-gap-2 mb-0">
+        <% %i[name category architecture u manufacturer nb_elts color].each do |attribute_name| %>
+          <dt class="pb-2"><%= Modele.human_attribute_name(attribute_name) %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @modele.public_send(attribute_name) %></dd>
+        <% end %>
 
-      <dt><%= Modele.human_attribute_name(:network_types) %> :</dt>
-      <dd>
-        <%= @modele.network_types.map { |type| Modele.human_attribute_name("network_types.#{type}") }.join(", ") %>
-      </dd>
-    </dl>
-
-    <ul class="bg-body-tertiary p-4 rounded border">
-      <h5><%= Server.model_name.human.pluralize %> :</h5>
-      <% @servers.each do |server| %>
-        <li><%= link_to server, server_path(server) %></li>
-      <% end %>
-    </ul>
+        <dt class="pb-2"><%= Modele.human_attribute_name(:network_types) %></dt>
+        <dd class="mb-0 pb-2 ps-3"><%= @modele.decorated.network_types_to_human %></dd>
+      </dl>
+    <% end %>
   </div>
+  <%= render HasManyTurboFrameComponent.new(
+    Server.model_name.human.pluralize, url: servers_path(modele_ids: @modele.id), frame_id: dom_id(Server, :table)
+  ) %>
+  <%= render ChangelogEntries::ObjectListComponent.new(@modele) %>
 </div>
-
-<%= render ChangelogEntries::ObjectListComponent.new(@modele) %>

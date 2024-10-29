@@ -6,25 +6,33 @@ module List
       DatatableColumn.new(title, **options, &block)
     }
 
-    def initialize(data, **_options)
+    def initialize(data, empty_icon: :table, **_options)
       @data = data
+      @empty_icon = empty_icon
 
       super()
     end
 
     def call
-      render List::TableComponent.new do |table|
-        table.with_head do
-          render List::TableComponent::TableRow.new do
-            columns.each do |col|
-              concat(render_head_cell(col))
+      if @data.empty?
+        render CardComponent.new(extra_classes: "text-center text-secondary-emphasis") do |card|
+          concat(tag.i(class: "bi bi-#{@empty_icon} fs-1 text-secondary text-opacity-25"))
+          concat(tag.h5(t(".empty_table.title"), class: "card-title mt-3"))
+        end
+      else
+        render List::TableComponent.new do |table|
+          table.with_head do
+            render List::TableComponent::TableRow.new do
+              columns.each do |col|
+                concat(render_head_cell(col))
+              end
             end
           end
-        end
 
-        table.with_body do
-          @data.each do |data_row|
-            concat(render_row(data_row))
+          table.with_body do
+            @data.each do |data_row|
+              concat(render_row(data_row))
+            end
           end
         end
       end

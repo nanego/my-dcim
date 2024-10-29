@@ -20,7 +20,7 @@ class ColorsController < ApplicationController
 
     respond_to do |format|
       if @color.save
-        format.html { redirect_to '/colors', notice: t(".flashes.created") }
+        format.html { redirect_to @color, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @color }
       else
         format.html { render :new }
@@ -34,7 +34,7 @@ class ColorsController < ApplicationController
   def update
     respond_to do |format|
       if @color.update(color_params)
-        format.html { redirect_to '/colors', notice: t(".flashes.updated") }
+        format.html { redirect_to @color, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @color }
       else
         format.html { render :edit }
@@ -48,7 +48,7 @@ class ColorsController < ApplicationController
   def destroy
     @color.destroy
     respond_to do |format|
-      format.html { redirect_to '/colors', notice: t(".flashes.destroyed") }
+      format.html { redirect_to colors_url, notice: t(".flashes.destroyed") }
       format.json { head :no_content }
     end
   end

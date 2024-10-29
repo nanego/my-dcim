@@ -1,18 +1,22 @@
-<% provide(:title, Move.model_name.human(count: 2)) %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  Move.model_name.human(count: 2) => "" }
+<%
+  title = Move.model_name.human(count: 2)
+  breadcrumb_steps = { title => "" }
+
+  provide(:title, title)
 %>
 
-<div class="container-fluid">
-  <div class="d-flex justify-content-between">
-    <h1><%= Move.model_name.human(count: 2) %></h1>
-    <%= link_to new_move_path, class: "btn btn-success align-self-center" do %>
-      <span class="bi bi-plus-lg"></span>
-      <%= t(".new_move") %>
-    <% end %>
-  </div>
+<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) do |heading| %>
+  <% heading.with_right_content do %>
+    <% render ButtonComponent.new(t(".new_move"),
+                                  url: new_move_path,
+                                  variant: :success,
+                                  icon: "plus-lg",
+                                  is_responsive: true) %>
+  <% end %>
+<% end %>
 
-  <div class="table-responsive mb-4">
+<div class="p-4 border-top d-flex flex-column row-gap-4">
+  <div class="table-responsive">
     <table class="table table-striped table-bordered table-hover align-middle">
       <thead>
       <th><%= t(".server") %></th>
@@ -21,6 +25,8 @@
       <th><%= t("activerecord.models.domaine") %></th>
       <th><%= t("moves.form.initial_bay") %></th>
       <th><%= t("activerecord.attributes.move.frame_id") %></th>
+      <th></th>
+      <th></th>
       </thead>
       <tbody>
       <%= content_tag_for(:tr, @moves) do |move| %>
@@ -30,49 +36,62 @@
         <td><%= "#{move.moveable.domaine}" %></td>
         <td><%= link_to "#{move.moveable.frame}", frame_path(move.moveable.frame) %></td>
         <td><%= link_to "#{move.frame}", frame_path(move.frame) %></td>
-        <td>
-          <%= link_to t(".action.execute_move"),
+        <td style="min-width: 80px; width: 80px">
+          <%= link_to t("action.execute"),
                       execute_move_path(move),
-                      data: { confirm: t(".execute_confirmation") },
-                      class: "btn btn-sm btn-primary" %>
+                      title: t(".action.execute_move"),
+                      data: {
+                        confirm: t(".execute_confirmation"),
+                        controller: "tooltip",
+                        bs_placement: "left"
+                      },
+                      class: "btn btn-sm btn-outline-primary",
+                      aria: { hidden: true } %>
         </td>
-        <td>
-          <%= link_to t("action.delete"), move,
+        <td style="min-width: 35px; width: 35px">
+          <%= link_to move,
                       method: :delete,
                       data: { confirm: t(".delete_confirmation") },
-                      class: "btn btn-sm btn-outline-danger" %>
+                      class: "btn btn-danger btn-sm" do %>
+            <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                        data-controller="tooltip"
+                                                                        data-bs-placement="left"></span>
+            <span class="visually-hidden"><%= t("action.delete") %></span>
+          <% end %>
         </td>
       <% end %>
       </tbody>
     </table>
   </div>
 
-  <h2><%= t(".frame_table_title") %></h2>
   <div class="table-responsive">
+    <h2><%= t(".frame_table_title") %></h2>
     <table class="table table-striped table-bordered table-hover align_middle">
       <tbody>
         <%= content_tag_for(:tr, @frames) do |frame| %>
-          <td><%= link_to "#{frame}", "/moves/frames/#{frame.id}" %></td>
-          <td class="text-center">
-            <%= link_to t(".edit_connections"), "/moves/frames/#{frame.id}", class: "btn btn-sm btn-primary" %>
-          </td>
+          <td class="w-100"><%= link_to "#{frame}", "/moves/frames/#{frame.id}" %></td>
           <td class="d-flex justify-content-center column-gap-1"
-              data-controller="export-pdf"
-              data-export-pdf-model-ids-value="<%= [frame.id] %>"
-              data-export-pdf-filename-value="move-frame-<%= frame.name %>"
-              data-export-pdf-is-move-value="true">
+              style="min-width: 400px; width: 400px"
+              data-controller="frame-export-pdf"
+              data-frame-export-pdf-model-ids-value="<%= [frame.id] %>"
+              data-frame-export-pdf-filename-value="move-frame-<%= frame.name %>"
+              data-frame-export-pdf-is-move-value="true">
+            <%= link_to "/moves/frames/#{frame.id}", class: "btn btn-info btn-sm" do %>
+              <span class="bi bi-pencil"></span>
+              <span><%= t(".edit_connections") %></span>
+            <% end %>
             <%= link_to print_moves_path(frame.id), class: "btn btn-sm btn-outline-primary", target: :_blank do %>
               <span class="bi bi-printer" aria-hidden="true"></span>
               <%= t("export_button.exports.print") %>
             <% end %>
             <a role="button" class="btn btn-sm btn-outline-primary d-flex align-items-center export-button-move"
-                             data-action="click->export-pdf#export" data-view-target="front">
+                             data-action="click->frame-export-pdf#export" data-view-target="front">
               <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
               <span class="text-truncate d-inline-block ms-2">
                 <%= t("export_button.exports.pdf") %>
               </span>
-              <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none" role="status"
-                    aria-hidden="true" data-export-pdf-target="spinner"></span>
+              <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none " role="status"
+                    aria-hidden="true" data-frame-export-pdf-target="spinner"></span>
             </a>
           </td>
         <% end %>
