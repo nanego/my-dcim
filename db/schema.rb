@@ -452,8 +452,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_06_141954) do
     t.boolean "display_on_home_page"
     t.integer "site_id", null: false
     t.integer "islets_count", default: 0
-    t.integer "status", default: 0, null: false
     t.integer "surface_area"
+    t.integer "status", default: 0, null: false
     t.index ["site_id"], name: "index_rooms_on_site_id"
     t.index ["slug"], name: "index_rooms_on_slug", unique: true
   end
@@ -564,8 +564,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_06_141954) do
     t.datetime "invitation_sent_at", precision: nil
     t.datetime "invitation_accepted_at", precision: nil
     t.integer "invitation_limit"
-    t.string "invited_by_type"
     t.integer "invited_by_id"
+    t.string "invited_by_type"
     t.integer "invitations_count", default: 0
     t.string "authentication_token", limit: 30
     t.datetime "suspended_at"
