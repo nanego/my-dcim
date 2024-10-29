@@ -93,7 +93,7 @@
             <% end %>
 
             <% table.with_column(Modele.human_attribute_name(:network_types)) do |modele| %>
-              <%= modele.network_types.map { |type| Modele.human_attribute_name("network_types.#{type}") }.join(", ") %>
+              <%= modele.decorated.network_types_to_human %>
             <% end %>
 
             <% table.with_column(style: "min-width: 70px; width: 70px") do |modele| %>

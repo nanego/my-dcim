@@ -68,7 +68,16 @@
         <%= f.select :network_types,
                      Modele::Network::TYPES.map { |type| [Modele.human_attribute_name("network_types.#{type}"), type] },
                      { prompt: true, include_blank: true },
-                     { class: "form-select", data: { controller: "select" }, multiple: true } %>
+                     {
+                       class: "form-select",
+                       data: { controller: "select" },
+                       multiple: true,
+                       placeholder: Modele.human_attribute_name("network_types.blank")
+                     }
+        %>
+        <div id="networkTypesHelp" class="form-text fst-italic">
+          <%= Modele.human_attribute_name("network_types.help") %>
+        </div>
       </fieldset>
 
       <fieldset class="col-md-6 col-12 mt-4 align-self-center">

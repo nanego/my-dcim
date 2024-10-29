@@ -96,7 +96,7 @@ fr:
         modele_id: Modèle
         critique: Critique
         gestion_id: Gestionnaire
-        network_types: Type de visualisation
+        network_types: Composant réseau
         stack: Stack
         stack_id: Stack
         comment: Commentaire
@@ -236,12 +236,13 @@ fr:
         manufacturer_id: Constructeur
         nb_elts: Nb d'éléments
         color: Couleur
-        network_types: Type de visualisation
+        network_types: Composant réseau
       modele/network_types:
-        gbe: Composant Réseau Gb
-        10gbe: Composant Réseau 10 Gb
-        fiber: Composant Réseau Fibre
-        blank: Pas de
+        gbe: Backbone Gbps
+        10gbe: Backbone 10Gbps
+        fiber: Backbone Fibre
+        blank: Non (par défaut)
+        help: Représentation ou non sur les dashboard d'infrastructure réseau
         short_gbe: Gb
         short_10gbe: 10 Gb
         short_fiber: Fibre
