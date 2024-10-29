@@ -9,8 +9,8 @@
     </fieldset>
 
     <fieldset class="col-12 mt-4">
-      <%= f.label :air_conditioner_model, class: "form-label" %>
-      <%= f.select :air_conditioner_model,
+      <%= f.label :air_conditioner_model_id, class: "form-label" %>
+      <%= f.select :air_conditioner_model_id,
                     options_from_collection_for_select(AirConditionerModel.all, :id, :name, @air_conditioner.air_conditioner_model_id),
                     {},
                     class: "form-select" %>
