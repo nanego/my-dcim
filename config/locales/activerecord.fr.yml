@@ -113,6 +113,9 @@ fr:
         country: Pays
         latitude: Latitude
         longitude: Longitude
+        delivery_address: Adresse livraison
+        delivery_times: Horaires de livraison
+        delivery_map: Plan de livraison
         rooms_count:
           zero: 0 salle
           one: 1 salle

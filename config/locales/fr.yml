@@ -113,8 +113,6 @@ fr:
       title: Sites
       new_site: Ajouter un site
       delete_confirmation: Ce site ne pourra pas être supprimé tant qu'il sera associé à au moins une salle. Voulez-vous continuer ?
-    show:
-      title: 'Site #%{site_id} - %{site_name}'
     new:
       title: Nouveau site
     create:

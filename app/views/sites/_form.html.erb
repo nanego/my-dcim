@@ -56,6 +56,26 @@
         <%= f.text_field :longitude, class: "form-control" %>
       </fieldset>
     </div>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :delivery_address, class: "form-label" %>
+      <%= f.text_area :delivery_address, class: "form-control" %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :delivery_times, class: "form-label" %>
+      <%= f.text_area :delivery_times, class: "form-control" %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :delivery_map, class: "form-label" %>
+      <%= f.file_field :delivery_map,
+                       class: "form-control",
+                       accept: accepted_format_for_attachment(@site.class, "delivery_map") %>
+      <% if @site.delivery_map.attached? && @site.persisted? %>
+        <%= image_tag @site.delivery_map.representation(resize_to_limit: [200, 200]), class: "ms-0 mt-2" %>
+      <% end %>
+    </fieldset>
   <% end %>
 
   <div class="col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top">

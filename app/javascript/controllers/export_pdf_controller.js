@@ -1,7 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
-import { get } from "@rails/request.js"
-import { html2pdf, saveAs, PDFDocument } from "html2pdf.js"
+import { html2pdf } from "html2pdf.js"
 
 const exportOptions = {
   margin: 10,
@@ -9,67 +8,28 @@ const exportOptions = {
     type: "jpeg",
     quality: 1.0
   },
-  pagebreak: { avoid: ".server" },
   enableLinks: false,
-  html2canvas:  { windowWidth: 1200, width: 1200, scale: 1.25 },
+  html2canvas:  { scale: 1.5 },
   jsPDF: { format: "legal" }
 }
 
 export default class extends Controller {
   static targets = ["spinner"]
-  static values = {
-    modelIds: Array,
-    filename: String,
-    isMove: Boolean
-  }
+  static values = { filename: String }
 
-  async export(event) {
-    const viewTarget = event.target.closest("a").dataset.viewTarget
-    if (!viewTarget) return
-
-    const bgWiring = event.target.dataset.bgWiring
-
+  async export() {
     this.showSpinner()
 
-    const pdfDoc = await this.generatePDF(viewTarget, bgWiring)
-    const pdfBytes = await pdfDoc.save()
-    const blob = new Blob([pdfBytes], { type: "application/pdf" })
+    const opt = { ...exportOptions, ...{
+      filename: `export_${this.filenameValue}`
+    }}
 
-    saveAs(blob, `${this.filenameValue}_${viewTarget}${ bgWiring ? "_wiring" : ""}.pdf`)
-
-    this.hideSpinner()
-  }
-
-  async generatePDF(viewTarget, bgWiring) {
-    const pdfDoc = await PDFDocument.create();
-
-    for (let i = 0; i < this.modelIdsValue.length; i++) {
-      const modelId = this.modelIdsValue[i]
-
-
-      const url = this.isMoveValue ? `moves/print/${modelId}`:
-                                     `/visualization/frames/${modelId}/print?view=${viewTarget}${ bgWiring ? "&bg=wiring" : ""}`
-
-      const response = await get(url, {
-        responseKind: "application/pdf"
-      })
-
-      if (response.ok) {
-        const html = await response.text
-
-        const framePage = await html2pdf()
-          .set(exportOptions)
-          .from(html)
-          .output("arraybuffer")
-
-        const tmpDoc = await PDFDocument.load(framePage)
-        const tmpPage = await pdfDoc.copyPages(tmpDoc, tmpDoc.getPageIndices())
-
-        tmpPage.forEach((page) => pdfDoc.addPage(page))
-      }
-    }
-
-    return pdfDoc
+    var element = document.getElementById("export-to-pdf").cloneNode(true)
+    element.prepend(document.getElementsByTagName("h1")[0].cloneNode(true))
+    await html2pdf().set(opt)
+                    .from(element)
+                    .save()
+                    .finally(() => this.hideSpinner())
   }
 
   showSpinner() {

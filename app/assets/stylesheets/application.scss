@@ -755,7 +755,11 @@ body {
   }
 
   .export-button {
-    max-width: 77px;
+    max-width: 70px;
+  }
+
+  .export-pdf-button {
+    max-width: 117px;
   }
 
   .export-button-move {
@@ -771,7 +775,7 @@ body {
   .ts-dropdown {
     z-index: 9999;
   }
-  
+
   /* Tom-Select fix for bootstrap floating label */
   .filters-component {
     .form-floating > .ts-wrapper {

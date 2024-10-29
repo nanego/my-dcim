@@ -72,10 +72,10 @@
           <td class="w-100"><%= link_to "#{frame}", "/moves/frames/#{frame.id}" %></td>
           <td class="d-flex justify-content-center column-gap-1"
               style="min-width: 400px; width: 400px"
-              data-controller="export-pdf"
-              data-export-pdf-model-ids-value="<%= [frame.id] %>"
-              data-export-pdf-filename-value="move-frame-<%= frame.name %>"
-              data-export-pdf-is-move-value="true">
+              data-controller="frame-export-pdf"
+              data-frame-export-pdf-model-ids-value="<%= [frame.id] %>"
+              data-frame-export-pdf-filename-value="move-frame-<%= frame.name %>"
+              data-frame-export-pdf-is-move-value="true">
             <%= link_to "/moves/frames/#{frame.id}", class: "btn btn-info btn-sm" do %>
               <span class="bi bi-pencil"></span>
               <span><%= t(".edit_connections") %></span>
@@ -85,13 +85,13 @@
               <%= t("export_button.exports.print") %>
             <% end %>
             <a role="button" class="btn btn-sm btn-outline-primary d-flex align-items-center export-button-move"
-                             data-action="click->export-pdf#export" data-view-target="front">
+                             data-action="click->frame-export-pdf#export" data-view-target="front">
               <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
               <span class="text-truncate d-inline-block ms-2">
                 <%= t("export_button.exports.pdf") %>
               </span>
-              <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none" role="status"
-                    aria-hidden="true" data-export-pdf-target="spinner"></span>
+              <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none " role="status"
+                    aria-hidden="true" data-frame-export-pdf-target="spinner"></span>
             </a>
           </td>
         <% end %>
