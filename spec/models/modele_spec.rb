@@ -40,6 +40,14 @@ RSpec.describe Modele do
     end
   end
 
+  describe ".all_sorted" do
+    pending
+  end
+
+  describe ".all_sorted_with_servers" do
+    pending
+  end
+
   describe "#to_s" do
     it { expect(modele.to_s).to eq modele.name }
   end
@@ -56,11 +64,11 @@ RSpec.describe Modele do
     pending
   end
 
-  describe ".all_sorted" do
-    pending
-  end
+  describe "#deep_dup" do
+    subject(:modele) { modeles(:one) }
 
-  describe ".all_sorted_with_servers" do
-    pending
+    it { expect(modele.deep_dup).not_to eq(modele) }
+    it { expect(modele.deep_dup.name).to eq(modele.name) }
+    it { expect(modele.deep_dup.enclosures.size).to eq(modele.enclosures.size) }
   end
 end

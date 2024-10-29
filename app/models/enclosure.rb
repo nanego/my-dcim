@@ -10,4 +10,10 @@ class Enclosure < ApplicationRecord
   accepts_nested_attributes_for :composants,
                                 :allow_destroy => true,
                                 :reject_if     => :all_blank
+
+  def deep_dup
+    dup.tap do |enclosure|
+      enclosure.composants = composants.map(&:dup)
+    end
+  end
 end
