@@ -69,6 +69,12 @@
         <input type="checkbox" <%= room.display_on_home_page ? "checked" : "" %> disabled>
       <% end %>
 
+      <% table.with_column(Room.human_attribute_name(:status), sort_by: :status) do |room| %>
+        <span class="badge rounded-pill <%= room.decorated.badge_color_for_status %>">
+          <%= Room.human_attribute_name("status.#{room.status}") %>
+        </span>
+      <% end %>
+
       <% table.with_column(style: "min-width: 132px; width: 132px") do |room| %>
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
           <%= render partial: "rooms/export_button", locals: { room: room } %>

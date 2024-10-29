@@ -57,6 +57,7 @@ fr:
         content: Contenu
         display_on_home_page: Afficher sur la page d'accueil
         site_id: Site
+        status: Statut
         islets_count:
           zero: 0 îlot
           one: 1 îlot
@@ -65,6 +66,10 @@ fr:
           zero: 0 châssis
           one: 1 châssis
           other: "%{count} châssis"
+      room/status:
+        active: Actif
+        passive: Passif
+        planned: Planifié
       islet:
         name: Nom
         room_id: Salle

@@ -33,6 +33,13 @@
         <%= f.label :display_on_home_page, class: "form-check-label" %>
       </fieldset>
     </div>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :status, class: "form-label" %>
+      <%= f.select :status, RoomDecorator::statuses_for_options,
+                            { },
+                            class: "form-select" %>
+    </fieldset>
   <% end %>
 
   <div class="col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top">
