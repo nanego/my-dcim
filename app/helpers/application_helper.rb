@@ -18,6 +18,6 @@ module ApplicationHelper
   end
 
   def surface_area_with_suffix(surface_area)
-    "#{surface_area} #{t("surface_area.unit")}"
+    value_with_unit(surface_area, "square_meter")
   end
 end

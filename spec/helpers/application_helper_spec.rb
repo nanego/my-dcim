@@ -21,6 +21,10 @@ RSpec.describe ApplicationHelper do
     end
   end
 
+  describe "#value_with_unit" do
+    it { expect(helper.value_with_unit(30, "mm")).to eq("30 mm") }
+  end
+
   describe "#surface_area_with_suffix" do
     it { expect(helper.surface_area_with_suffix(300)).to eq("300 m²") }
   end

@@ -2,10 +2,9 @@ fr:
   boolean:
     true: Oui
     false: Non
-  surface_area:
-    unit: m²
   unit:
-    inches: pouces
+    square_meter: m²
+    mm: mm
   form:
     submit: Valider
   action:

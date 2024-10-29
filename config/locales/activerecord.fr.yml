@@ -327,8 +327,11 @@ fr:
         u: U
         width: Largeur
       bay:
+        depth: Profondeur
         lane: Ligne
+        name: Nom
         position: Position
+        width: Largeur
         materials_count:
           zero: 0 serveur
           one: 1 serveur
@@ -338,7 +341,7 @@ fr:
           other: Double baie %{bay}
         islet_id: Salle et Ilot
         bay_type_id: Type de baie
-        name: Nom
+        manufacturer_id: Constructeur
       connection:
         cable: Câble
         port: Port

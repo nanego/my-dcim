@@ -89,8 +89,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_06_141954) do
     t.integer "islet_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.integer "width"
+    t.integer "depth"
+    t.bigint "manufacturer_id"
     t.index ["bay_type_id"], name: "index_bays_on_bay_type_id"
     t.index ["islet_id"], name: "index_bays_on_islet_id"
+    t.index ["manufacturer_id"], name: "index_bays_on_manufacturer_id"
   end
 
   create_table "cables", id: :serial, force: :cascade do |t|
@@ -581,6 +585,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_06_141954) do
   add_foreign_key "air_conditioners", "bays"
   add_foreign_key "bays", "bay_types"
   add_foreign_key "bays", "islets"
+  add_foreign_key "bays", "manufacturers"
   add_foreign_key "card_types", "port_types"
   add_foreign_key "cards", "card_types"
   add_foreign_key "composants", "type_composants"
