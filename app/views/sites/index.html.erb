@@ -1,18 +1,20 @@
-<% provide(:title, Site.model_name.human.pluralize) %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  Site.model_name.human.pluralize => "" }
+<%
+  provide(:title, Site.model_name.human.pluralize)
+  breadcrumb_steps = { Site.model_name.human.pluralize => "" }
 %>
 
-<div class="container-fluid">
-  <div class="d-flex justify-content-between">
-    <h1><%= t(".title") %></h1>
-    <%= link_to new_site_path, class: "btn btn-success align-self-center" do %>
-      <span class="bi bi-plus-lg"></span>
-      <%= t(".add_site") %>
-    <% end %>
-  </div>
+<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb_steps:) do |heading| %>
+  <% heading.with_right_content do %>
+    <% render ButtonComponent.new(t(".new_site"),
+                                  url: new_site_path,
+                                  variant: :success,
+                                  icon: "plus-lg",
+                                  is_responsive: true) %>
+  <% end %>
+<% end %>
 
-  <div id="map" class="mb-4" style="height: 450px;"></div>
+<div class="p-4 border-top d-flex flex-column row-gap-4">
+  <div id="map" class="border rounded" style="height: 450px;"></div>
 
   <%= render List::DataTableComponent.new(@sites) do |table| %>
     <% table.with_column(Site.human_attribute_name(:name), sort_by: :name) do |site| %>

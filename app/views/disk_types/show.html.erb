@@ -1,32 +1,22 @@
-<% provide(:title, "#{DiskType.model_name.human(count: 2)} | #{@disk_type}") %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  DiskType.model_name.human(count: 2) => disk_types_path,
-  @disk_type => ""
-} %>
+<%
+  provide(:title, "#{DiskType.model_name.human(count: 2)} | #{@disk_type}")
 
-<div class="row my-5">
-  <div class="col-11 col-md-10 col-lg-8 mx-auto">
-    <div class="d-flex justify-content-between pb-5">
-      <%= link_to disk_types_path, class: "btn align-self-center d-inline-flex",
-                              title: t("action.back") do %>
-        <span class="bi bi-chevron-left"></span>
-        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
-      <% end %>
-      <h1 class="text-center px-4"><%= t(".title") %></h1>
-      <%= link_to edit_disk_type_path(@disk_type), class: "btn btn-info align-self-center d-inline-flex",
-                                          title: t("action.edit") do %>
-        <span class="bi bi-pencil"></span>
-        <span class="d-none d-md-inline-block ms-1"><%= t("action.edit") %></span>
-      <% end %>
-    </div>
+  breadcrumb_steps = {
+    DiskType.model_name.human(count: 2) => disk_types_path, @disk_type => ""
+  }
+%>
 
-    <dl class="bg-body-tertiary p-4 rounded border">
-      <% %i[quantity unit technology].each do |attribute_name| %>
-        <dt><%= DiskType.human_attribute_name(attribute_name) %> :</dt>
-        <dd><%= @disk_type.public_send(attribute_name) %></dd>
-      <% end %>
-    </dl>
+<%= render Page::HeadingShowComponent.new(resource: @disk_type, title: @disk_type.to_s, breadcrumb_steps:) %>
+<div class="col-12 p-4 border-top">
+  <div class="col-12 col-lg-6">
+    <%= render CardComponent.new do |card| %>
+      <dl class="show-page_dl d-grid row-gap-2 mb-0">
+        <% %i[quantity unit technology].each do |attribute_name| %>
+          <dt class="pb-2"><%= DiskType.human_attribute_name(attribute_name) %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @disk_type.public_send(attribute_name) %></dd>
+        <% end %>
+      </dl>
+    <% end %>
   </div>
+  <%= render ChangelogEntries::ObjectListComponent.new(@disk_type) %>
 </div>
-
-<%= render ChangelogEntries::ObjectListComponent.new(@disk_type) %>

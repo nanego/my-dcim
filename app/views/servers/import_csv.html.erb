@@ -1,9 +1,24 @@
 <% provide(:title, "#{t("servers.index.title")} | #{t(".title")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
+<% breadcrumb_steps = {
     t("servers.index.title") => servers_path,
     t(".title") => ""
   }
 %>
+
+<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb_steps:) do |heading| %>
+  <% heading.with_left_content do %>
+    <span class="flex-grow-1">
+      <%= render ButtonComponent.new(t("action.back"),
+                                 url: servers_path,
+                                 icon: "chevron-left",
+                                 is_responsive: true) %>
+    </span>
+  <% end %>
+
+  <% heading.with_right_content do %>
+    <span class="flex-grow-1"></span>
+  <% end %>
+<% end %>
 
 <% if @import_error %>
   <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -15,51 +30,46 @@
 
 <%= flash[:notice] %>
 
-<div class="row my-5">
-  <div class="col-11 col-md-10 col-lg-8 mx-auto">
-    <%= render CardComponent.new(type: :success) do |card| %>
-      <%= form_for :import, url: import_servers_path, multipart: true do |f| %>
-        <!-- Header -->
-        <% card.with_header do %>
-          <h4 class="card-title text-center">
-            <%= t(".title") %>
-          </h4>
-        <% end %>
+<div class="col-12 p-4 border-top">
+  <%= render CardComponent.new(
+    type: :success, extra_classes: "bg-body-tertiary col-12 col-md-10 col-lg-8 mx-auto"
+  ) do |card| %>
+    <%= form_for :import, url: import_servers_path, multipart: true, html: { role: "form" } do |f| %>
+      <!-- Card Content: Form -->
+      <fieldset>
+        <%= f.label t(".room_id.label"), class: "form-label" %>
+        <%= f.select :room_id,
+                      Room.order("id").all.collect { |p| [p.name, p.id] },
+                      {
+                        include_blank: false,
+                        selected: Room.find_by_name("Atelier").try(:id),
+                      },
+                      class: "form-select" %>
+        <span class="form-text"><%= t(".room_id.hint") %></span>
+      </fieldset>
 
-        <!-- Card Content: Form -->
-        <fieldset class="mt-4">
-          <%= f.label t(".room_id.label"), class: "form-label" %>
-          <%= f.select :room_id,
-                        Room.order("id").all.collect { |p| [p.name, p.id] },
-                        {
-                          include_blank: false,
-                          selected: Room.find_by_name("Atelier").try(:id),
-                        },
-                        class: "form-select" %>
-          <span class="form-text"><%= t(".room_id.hint") %></span>
-        </fieldset>
+      <fieldset class="mt-4">
+        <%= f.label t(".servers_state.label"), class: "form-label" %>
+        <%= f.select :server_state_id,
+                      ServerState.select(:id, :name).collect { |p| [t(p.name.parameterize, default: p.name), p.id] },
+                      { include_blank: true },
+                      class: "form-select" %>
+      </fieldset>
 
-        <fieldset class="mt-4">
-          <%= f.label t(".servers_state.label"), class: "form-label" %>
-          <%= f.select :server_state_id,
-                       ServerState.select(:id, :name).collect { |p| [t(p.name.parameterize, default: p.name), p.id] },
-                       { include_blank: true },
-                       class: "form-select" %>
-        </fieldset>
+      <fieldset class="my-4">
+        <%= f.label t(".csv_file.label"), class: "form-label" %>
+        <%= f.file_field :file, class: "form-control" %>
+      </fieldset>
 
-        <fieldset class="my-4">
-          <%= f.label t(".csv_file.label"), class: "form-label" %>
-          <%= f.file_field :file, class: "form-control" %>
-        </fieldset>
-
-        <!-- Footer -->
-        <% card.with_footer do %>
-          <%= f.submit t(".action.import"), class: "btn btn-success w-100" %>
-        <% end %>
+      <!-- Footer -->
+      <% card.with_footer do %>
+        <div class="col-12 text-end">
+          <%= f.submit t(".action.import"), class: "btn btn-success" %>
+        </div>
       <% end %>
     <% end %>
-    <p>
-      <%= t(".download_example_html", link: link_to("fichier_exemple.csv", root_url + "files/format_exemple.csv")) %>
-    </p>
-  </div>
+  <% end %>
+  <p class="col-12 col-md-10 col-lg-8 mx-auto mt-2 fst-italic">
+    <%= t(".download_example_html", link: link_to("fichier_exemple.csv", root_url + "files/format_exemple.csv")) %>
+  </p>
 </div>

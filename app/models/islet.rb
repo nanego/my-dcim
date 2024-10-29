@@ -10,6 +10,8 @@ class Islet < ApplicationRecord
   has_many :servers, through: :frames
   has_many :materials, through: :frames
 
+  enum :cooling_mode, { hot_containment: 0, cold_containment: 1 }, validate: { allow_nil: true }
+
   scope :sorted, -> { order(:room_id, :position, :name) }
   scope :not_empty, -> { joins(:materials) }
   scope :has_name, -> { where.not(name: nil) }
@@ -19,6 +21,6 @@ class Islet < ApplicationRecord
   end
 
   def name_with_room
-    "#{room} #{name.blank? ? "" : 'Ilot ' + name}"
+    "#{[Islet.model_name.human, name].join(" ")} #{room}"
   end
 end

@@ -1,41 +1,79 @@
-<%- bay_label = @bay.frames.map(&:name).join(" - ") %>
-<% provide(:title, "#{Bay.model_name.human.pluralize} | #{bay_label} | #{t("action.edit")}") %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  Bay.model_name.human.pluralize => bays_path,
-  bay_label => bay_path(@bay),
-  t("action.show") => ""
-} %>
+<%
+  title = t(".title", type: @bay.bay_type&.name, frames: @bay.frames.map(&:name).join(" / "))
+  breadcrumb_steps = { Bay.model_name.human.pluralize => bays_path, title => "" }
 
-<div class="row my-5">
-  <div class="col-11 col-md-10 col-lg-8 mx-auto">
-    <div class="d-flex justify-content-between pb-5">
-      <%= link_to bays_path, class: "btn align-self-center d-inline-flex",
-                              title: t("action.back") do %>
-        <span class="bi bi-chevron-left"></span>
-        <span class="d-none d-md-inline-block ms-1"><%= t("action.back") %></span>
+  provide(:title, "#{Bay.model_name.human.pluralize} | #{title}")
+%>
+
+<%= render Page::HeadingShowComponent.new(resource: @bay, title:, breadcrumb_steps:) do |heading| %>
+  <% heading.with_extra_buttons do %>
+    <% render ButtonComponent.new(t("visualization.title"),
+                                  url: visualization_bay_path(@bay),
+                                  variant: :primary,
+                                  icon: "diagram-3-fill",
+                                  is_responsive: true,
+                                  extra_classes: "me-2") %>
+  <% end %>
+<% end %>
+<div class="col-12 p-4 border-top">
+  <div class="d-flex flex-row flex-wrap">
+    <div class="col-12 col-lg-6 pe-lg-4">
+      <%= render CardComponent.new(extra_classes: "mb-4 mb-lg-0") do |card| %>
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <dt class="pb-2"><%= Bay.human_attribute_name(:bay_type_id) %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @bay.bay_type %></dd>
+        </dl>
       <% end %>
-      <h1 class="text-center px-4"><%= "Bay #{@bay.name}" %></h1>
-      <div>
-        <%= link_to visualization_bay_path(@bay), class: "btn btn-primary align-self-center d-inline-flex", title: t("visualization.title") do %>
-          <span class="bi bi-diagram-3-fill"></span>
-          <span class="d-none d-md-inline-block ms-1"><%= t("visualization.title") %></span>
-        <% end %>
-        <%= link_to edit_bay_path(@bay), class: "btn btn-info align-self-center d-inline-flex", title: t("action.edit") do %>
-          <span class="bi bi-pencil"></span>
-          <span class="d-none d-md-inline-block ms-1"><%= t("action.edit") %></span>
-        <% end %>
-      </div>
     </div>
 
-    <dl class="bg-body-tertiary p-4 rounded border">
-      <% %i[name lane].each do |attribute_name| %>
-        <dt><%= Bay.human_attribute_name(attribute_name) %> :</dt>
-        <dd><%= @bay.public_send(attribute_name) %></dd>
+    <div class="col-12 col-lg-6">
+      <%= render CardComponent.new(type: :primary) do |card| %>
+        <% card.with_header do %>
+          <%= t("layouts.sidebar.location.title") %>
+        <% end %>
+
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <dt class="pb-2"><%= Room.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
+            <%= link_to @bay.room, room_path(@bay.room) %>
+            <%= link_to visualization_room_path(@bay.room),
+                        class: "btn btn-primary btn-sm",
+                        data: { turbo_frame: :_top } do %>
+              <span class="bi bi-diagram-3-fill"
+                    aria-hidden="true"
+                    data-controller="tooltip"
+                    data-bs-placement="left"
+                    title="<%= t("visualization.title") %>"></span>
+              <span class="visually-hidden"><%= t("visualization.title") %></span>
+            <% end %>
+          </dd>
+
+          <dt class="pb-2"><%= Islet.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
+            <%= link_to @bay.islet.name_with_room, islet_path(@bay.islet) %>
+            <%= link_to visualization_room_path(@bay.room, islet: @bay.islet.name),
+                        class: "btn btn-primary btn-sm",
+                        data: { turbo_frame: :_top } do %>
+              <span class="bi bi-diagram-3-fill"
+                    aria-hidden="true"
+                    data-controller="tooltip"
+                    data-bs-placement="left"
+                    title="<%= t("visualization.title") %>"></span>
+              <span class="visually-hidden"><%= t("visualization.title") %></span>
+            <% end %>
+          </dd>
+
+          <% %i[lane position].each do |attribute_name| %>
+            <dt class="pb-2"><%= Bay.human_attribute_name(attribute_name) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @bay.public_send(attribute_name) %></dd>
+          <% end %>
+        </dl>
       <% end %>
-    </dl>
+    </div>
   </div>
+  <%= render HasManyTurboFrameComponent.new(
+    Frame.model_name.human.pluralize, url: frames_path(bay_id: @bay.id), frame_id: dom_id(Frame, :table)
+  ) %>
+
+  <%= render ChangelogEntries::ObjectListComponent.new(@bay) %>
 </div>
-
-<%= render HasManyTurboFrameComponent.new(Frame.model_name.human.pluralize, url: frames_path(bay_id: @bay.id), frame_id: dom_id(Frame, :table)) %>
-
-<%= render ChangelogEntries::ObjectListComponent.new(@bay) %>

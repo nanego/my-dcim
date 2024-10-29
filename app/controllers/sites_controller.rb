@@ -20,7 +20,7 @@ class SitesController < ApplicationController
 
     respond_to do |format|
       if @site.save
-        format.html { redirect_to sites_path, notice: t(".flashes.created") }
+        format.html { redirect_to @site, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @site }
       else
         format.html { render :new }
@@ -32,7 +32,7 @@ class SitesController < ApplicationController
   def update
     respond_to do |format|
       if @site.update(site_params)
-        format.html { redirect_to sites_path, notice: t(".flashes.updated") }
+        format.html { redirect_to @site, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @site }
       else
         format.html { render :edit }
@@ -63,6 +63,11 @@ class SitesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def site_params
-    params.require(:site).permit(:name, :position, :street, :country, :city, :latitude, :longitude)
+    params.require(:site).permit(
+      :name, :description,
+      :position,
+      :street, :country, :city, :latitude, :longitude,
+      :delivery_address, :delivery_times, :delivery_map
+    )
   end
 end

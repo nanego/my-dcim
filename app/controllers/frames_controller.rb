@@ -30,7 +30,7 @@ class FramesController < ApplicationController
     @frame = Frame.friendly.find(params[:id].to_s.downcase)
     respond_to do |format|
       if @frame.update(frame_params)
-        format.html { redirect_to room_path(@frame.room), notice: t(".flashes.updated") }
+        format.html { redirect_to @frame, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @frame }
       else
         format.html { render :edit }
@@ -44,7 +44,7 @@ class FramesController < ApplicationController
 
     respond_to do |format|
       if @frame.save
-        format.html { redirect_to frames_path, notice: t(".flashes.created") }
+        format.html { redirect_to @frame, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @frame }
       else
         format.html { render :new }

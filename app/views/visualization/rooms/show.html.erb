@@ -1,19 +1,26 @@
-<% bg = params[:bg].presence || current_user.visualization_bay_default_background_color \
-                             || User::AVAILABLE_BAY_BACKGROUND_COLORS[0] %>
-<% view = params[:view].presence || current_user.visualization_bay_default_orientation %>
-<% provide :title, "#{t("visualization.title")} | Salle #{@room.name} #{@islet ? "- Ilot #{@islet}" : "" }" %>
+<%
+  bg = params[:bg].presence || current_user.visualization_bay_default_background_color \
+                            || User::AVAILABLE_BAY_BACKGROUND_COLORS[0]
+  view = params[:view].presence || current_user.visualization_bay_default_orientation
+  server_height = 2.5
 
-<%= render "layouts/breadcrumb",  breadcrumb_steps: {
-  t("visualization.title") => overview_rooms_path,
-  "#{@room.name} #{@islet ? " Ilot #{@islet}" : "" }" => "",
-} %>
+  title = "#{@room.name} #{@islet ? " #{Islet.model_name.human} #{@islet}" : "" }"
 
-<% server_height = 2.5 %>
+  provide :title, "#{t("visualization.title")} | #{title}"
 
-<div class="container-fluid room_overview show_room" id="full-overview">
-  <div class="card mb-3" style="min-height: 55px;">
+  breadcrumb_steps = {
+    t("visualization.title") => overview_rooms_path,
+    title => "",
+  }
+
+  title = t("visualization.title") + " " + title
+%>
+
+<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) %>
+<div class="p-4 border-top d-flex flex-column row-gap-4 room_overview show_room" id="full-overview">
+  <div class="card" style="min-height: 55px;">
     <div id="collapseRoomOverviewCardBody" class="collapse show">
-      <div class="card-body d-flex justify-content-between">
+      <div class="card-body d-flex justify-content-between p-0">
         <div class="d-none d-md-block rounded-start-1 bg-body-secondary p-3 m-0 border-end">
           <ul class="list-unstyled menu-rooms flex-column nav" role="tablist" id="roomsTab">
             <% @sites.each do |site| %>
@@ -147,8 +154,8 @@
       </button>
     </span>
   </div>
+  <div id="bay-container"></div>
 </div>
-<div class="container-fluid" id="bay-container"></div>
 <%= render "ports/modal_edit_port" %>
 
 <script>
@@ -205,7 +212,15 @@ function menuRoomsClick(e) {
   e.target.parentNode.classList.add("active")
 
   // Update Room
-  breadcrumb.lastElementChild.textContent = e.target.textContent
+  islet_name = e.target.textContent
+  breadcrumb.lastElementChild.textContent = islet_name
+
+  // Update HTML title
+  visualization_title = breadcrumb.lastElementChild.previousElementSibling.textContent
+  document.title = visualization_title + " | " + islet_name
+
+  // Update page title
+  document.querySelector("h1").textContent = visualization_title + " " + islet_name
 }
 
 function loadBay(bay_id) {

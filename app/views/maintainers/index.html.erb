@@ -1,17 +1,21 @@
-<% provide(:title, Maintainer.model_name.human.pluralize) %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  Maintainer.model_name.human.pluralize => "" }
+ <%
+  title = Maintainer.model_name.human.pluralize
+  breadcrumb_steps = { title => "" }
+
+  provide(:title, title)
 %>
 
-<div class="container-fluid">
-  <div class="d-flex justify-content-between">
-    <h1><%= t(".title") %></h1>
-    <%= link_to new_maintainer_path, class: "btn btn-success align-self-center" do %>
-      <span class="bi bi-plus-lg"></span>
-      <%= t(".add_maintainer") %>
-    <% end %>
-  </div>
+<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) do |heading| %>
+  <% heading.with_right_content do %>
+    <% render ButtonComponent.new(t(".new_maintainer"),
+                                  url: new_maintainer_path,
+                                  variant: :success,
+                                  icon: "plus-lg",
+                                  is_responsive: true) %>
+  <% end %>
+<% end %>
 
+<div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render List::DataTableComponent.new(@maintainers) do |table| %>
     <% table.with_column(Maintainer.human_attribute_name(:name), sort_by: :name) do |maintainer| %>
       <%= link_to maintainer, maintainer_path(maintainer) %>

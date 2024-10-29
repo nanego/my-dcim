@@ -16,6 +16,14 @@ RSpec.describe Islet do
     it { is_expected.to have_many(:materials).through(:frames) }
   end
 
+  describe "validations" do
+    it do
+      is_expected.to define_enum_for(:cooling_mode) # rubocop:disable RSpec/ImplicitSubject
+        .validating(allowing_nil: true)
+        .with_values(%i[hot_containment cold_containment])
+    end
+  end
+
   describe "#to_s" do
     pending
   end

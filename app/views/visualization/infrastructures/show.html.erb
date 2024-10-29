@@ -1,13 +1,15 @@
-<% provide :title, t("rooms.infrastructure_view.title") %>
+<%
+  title = t("rooms.infrastructure_view.title")
+  breadcrumb_steps = { t("visualization.title") => overview_rooms_path, title => nil }
 
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  t("visualization.title") => overview_rooms_path,
-  t("rooms.infrastructure_view.title") => nil,
-} %>
+  provide(:title, title)
+%>
+
+<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) %>
 
 <div data-turbo="true">
-  <div class="container-fluid">
-    <%= render CardComponent.new(type: :primary) do |card| %>
+  <div class="p-4 border-top d-flex flex-column row-gap-4">
+    <%= render CardComponent.new(type: :primary, extra_classes: "bg-body-tertiary") do |card| %>
       <%= form_with model: @filter, url: "", method: :get, class: "row g-3 align-items-center", id: :filters,
                     data: { controller: "form-update" , turbo_frame: :infrastructure_islet, turbo_action: :advance } do |f| %>
         <div class="col-2">
@@ -29,29 +31,29 @@
         </div>
       <% end %>
     <% end %>
-  </div>
 
-  <% if turbo_frame_request? %>
-    <%= turbo_frame_tag "infrastructure_islet" do %>
-      <%= render partial: "islets/infrastructure", locals: {
-        bays: @bays, network: @filter.network_type, room: @room, islet: @islet, hub: @hub,
-        second_hub: @second_hub, second_room: @second_room, connections: @connections, concentrateurs_ids: @concentrateurs_ids
-      } %>
-    <% end %>
-  <% else %>
-    <%= turbo_frame_tag "infrastructure_islet", src: visualization_infrastructure_path(**@filter.to_h) do %>
-      <div class="container-fluid room_overview show_room rooms-infrastructure" id="network-capacity">
-        <div class="card mb-3">
-          <div class="card-body bg-body-tertiary p-4">
-            <div class="d-flex align-items-center">
-              <strong role="status"><%= t(".loading") %></strong>
-              <div class="spinner-grow ms-auto text-primary" aria-hidden="true"></div>
+    <% if turbo_frame_request? %>
+      <%= turbo_frame_tag "infrastructure_islet" do %>
+        <%= render partial: "islets/infrastructure", locals: {
+          bays: @bays, network: @filter.network_type, room: @room, islet: @islet, hub: @hub,
+          second_hub: @second_hub, second_room: @second_room, connections: @connections, concentrateurs_ids: @concentrateurs_ids
+        } %>
+      <% end %>
+    <% else %>
+      <%= turbo_frame_tag "infrastructure_islet", src: visualization_infrastructure_path(**@filter.to_h) do %>
+        <div class="room_overview show_room rooms-infrastructure" id="network-capacity">
+          <div class="card">
+            <div class="card-body bg-body-tertiary p-4">
+              <div class="d-flex align-items-center justify-content-center gap-3">
+                <strong role="status"><%= t(".loading") %></strong>
+                <div class="spinner-grow text-primary" aria-hidden="true"></div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
 
 <script>

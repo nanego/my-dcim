@@ -1,100 +1,110 @@
-<% provide(:title, User.model_name.human.pluralize) %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: { User.model_name.human.pluralize => "" } %>
+<%
+  title = User.model_name.human.pluralize
+  breadcrumb_steps = { title => "" }
 
-<div class="container-fluid">
+  provide(:title, title)
+%>
+
+<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) do |heading| %>
+  <% heading.with_right_content do %>
+    <% render ButtonComponent.new(t(".new_user"),
+                                  url: new_user_path,
+                                  variant: :success,
+                                  icon: "plus-lg",
+                                  is_responsive: true) %>
+  <% end %>
+<% end %>
+
+<div class="p-4 border-top d-flex flex-column row-gap-4">
   <div class="row">
     <div class="col-md-12">
-      <div class="d-flex justify-content-between">
-        <div>
-          <h1><%= User.model_name.human.pluralize %></h1>
-          <ul class="nav nav-pills mb-2" role="tablist">
-            <li role="presentation" class="nav-item">
-              <%= link_to users_path, class: class_names("nav-link", "active": !params[:filter]) do %>
-                <%= t(".unsuspended") %>
-                <span class="<%= class_names("badge text-bg-primary", "text-bg-light": !params[:filter]) %>">
-                  <%= User.unsuspended.count %>
-                </span>
-              <% end %>
-            </li>
-            <li role="presentation" class="nav-item">
-              <%= link_to users_path(filter: :suspended),
-                          class: class_names("nav-link", "active": params[:filter] == "suspended") do %>
-                <%= t(".suspended") %>
-                <span class="<%= class_names("badge text-bg-primary",
-                                             "text-bg-light": params[:filter] == "suspended") %>">
-                  <%= User.suspended.count %>
-                </span>
-              <% end %>
-            </li>
-          </ul>
-        </div>
-        <%= link_to new_user_path, class: "btn btn-success align-self-center" do %>
-          <span class="bi bi-plus-lg"></span>
-          <%= t(".new_user") %>
-        <% end %>
-      </div>
-
-      <%= render List::DataTableComponent.new(@users) do |table| %>
-        <% table.with_column(User.human_attribute_name(:id), sort_by: :id) do |user| %>
-          <%= link_to user.id, user %>
-        <% end %>
-
-        <% table.with_column(User.human_attribute_name(:email), sort_by: :email) do |user| %>
-          <%= user.email %>
-        <% end %>
-
-        <% table.with_column(User.human_attribute_name(:last_sign_in_at), sort_by: :last_sign_in_at) do |user| %>
-          <%- if user.last_sign_in_at.present? -%>
-            <%= l user.last_sign_in_at  %>
-          <%- else -%>
-            <em>n/c</em>
-          <%- end -%>
-        <% end %>
-
-        <% table.with_column(User.human_attribute_name(:created_at), sort_by: :created_at) do |user| %>
-          <%= l user.created_at %>
-        <% end %>
-
-        <% table.with_column(User.human_attribute_name(:role), sort_by: :role) do |user| %>
-          <%= form_for(user) do |f| %>
-            <%= f.select(:role, User.roles.keys.map { |role| [User.human_attribute_name("role.#{role}"), role] }) %>
-            <%= f.submit t(".change_role"), class: "btn btn-sm btn-primary" %>
+      <ul class="nav nav-pills mb-2" role="tablist">
+        <li role="presentation" class="nav-item">
+          <%= link_to users_path, class: class_names("nav-link", "active": !params[:filter]) do %>
+            <%= t(".unsuspended") %>
+            <span class="<%= class_names("badge text-bg-primary", "text-bg-light": !params[:filter]) %>">
+              <%= User.unsuspended.count %>
+            </span>
           <% end %>
-        <% end %>
-
-        <% table.with_column do |user| %>
-          <% unless user == current_user %>
-            <div class="btn-group btn-group-sm" role="group" aria-label="...">
-              <% if user.suspended? %>
-                <%= link_to unsuspend_user_path(user), data: { confirm: t("action.confirm") },
-                                                       method: :patch,
-                                                       class: "btn btn-outline-primary" do %>
-                  <span class="bi bi-unlock" title="<%= t("action.unsuspend") %>" aria-hidden="true"
-                                                                                  data-controller="tooltip"
-                                                                                  data-bs-placement="left"></span>
-                  <span class="visually-hidden"><%= t("action.unsuspend") %></span>
-                <% end %>
-              <% else %>
-                <%= link_to suspend_user_path(user), data: { confirm: t("action.confirm") },
-                                                     method: :patch,
-                                                     class: "btn btn-outline-primary" do %>
-                  <span class="bi bi-lock" title="<%= t("action.suspend") %>" aria-hidden="true"
-                                                                              data-controller="tooltip"
-                                                                              data-bs-placement="left"></span>
-                  <span class="visually-hidden"><%= t("action.suspend") %></span>
-                <% end %>
-              <% end %>
-              <%= link_to user_path(user), method: :delete, data: { confirm: t("action.confirm") },
-                                                           class: "btn btn-danger" do %>
-                <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
-                                                                            data-controller="tooltip"
-                                                                            data-bs-placement="left"></span>
-                <span class="visually-hidden"><%= t("action.delete") %></span>
-              <% end %>
-            <% end %>
-          </div>
-        <% end %>
-      <% end %>
+        </li>
+        <li role="presentation" class="nav-item">
+          <%= link_to users_path(filter: :suspended),
+                      class: class_names("nav-link", "active": params[:filter] == "suspended") do %>
+            <%= t(".suspended") %>
+            <span class="<%= class_names("badge text-bg-primary",
+                                          "text-bg-light": params[:filter] == "suspended") %>">
+              <%= User.suspended.count %>
+            </span>
+          <% end %>
+        </li>
+      </ul>
     </div>
   </div>
+
+  <%= render List::DataTableComponent.new(@users) do |table| %>
+    <% table.with_column(User.human_attribute_name(:id), sort_by: :id) do |user| %>
+      <%= link_to user.id, user %>
+    <% end %>
+
+    <% table.with_column(User.human_attribute_name(:email), sort_by: :email) do |user| %>
+      <%= user.email %>
+    <% end %>
+
+    <% table.with_column(User.human_attribute_name(:last_sign_in_at), sort_by: :last_sign_in_at) do |user| %>
+      <%- if user.last_sign_in_at.present? -%>
+        <%= l user.last_sign_in_at  %>
+      <%- else -%>
+        <em>n/c</em>
+      <%- end -%>
+    <% end %>
+
+    <% table.with_column(User.human_attribute_name(:created_at), sort_by: :created_at) do |user| %>
+      <%= l user.created_at %>
+    <% end %>
+
+    <% table.with_column(User.human_attribute_name(:role), sort_by: :role) do |user| %>
+      <%= form_for(user) do |f| %>
+        <div class="align-items-center d-flex flex-column flex-lg-row gap-1">
+          <%= f.select(:role,
+                       User.roles.keys.map { |role| [User.human_attribute_name("role.#{role}"), role] },
+                       {},
+                       class: "form-select form-select-sm") %>
+          <%= f.submit t(".change_role"), class: "btn btn-sm btn-outline-primary" %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% table.with_column do |user| %>
+      <% unless user == current_user %>
+        <div class="btn-group btn-group-sm" role="group" aria-label="...">
+          <% if user.suspended? %>
+            <%= link_to unsuspend_user_path(user), data: { confirm: t("action.confirm") },
+                                                    method: :patch,
+                                                    class: "btn btn-outline-primary" do %>
+              <span class="bi bi-unlock" title="<%= t("action.unsuspend") %>" aria-hidden="true"
+                                                                              data-controller="tooltip"
+                                                                              data-bs-placement="left"></span>
+              <span class="visually-hidden"><%= t("action.unsuspend") %></span>
+            <% end %>
+          <% else %>
+            <%= link_to suspend_user_path(user), data: { confirm: t("action.confirm") },
+                                                  method: :patch,
+                                                  class: "btn btn-outline-primary" do %>
+              <span class="bi bi-lock" title="<%= t("action.suspend") %>" aria-hidden="true"
+                                                                          data-controller="tooltip"
+                                                                          data-bs-placement="left"></span>
+              <span class="visually-hidden"><%= t("action.suspend") %></span>
+            <% end %>
+          <% end %>
+          <%= link_to user_path(user), method: :delete, data: { confirm: t("action.confirm") },
+                                                        class: "btn btn-danger" do %>
+            <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                        data-controller="tooltip"
+                                                                        data-bs-placement="left"></span>
+            <span class="visually-hidden"><%= t("action.delete") %></span>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
 </div>

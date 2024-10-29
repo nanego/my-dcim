@@ -1,15 +1,9 @@
-<%= render FormErrorsComponent.new(@room) %>
-
-<%= form_for(@room, html: { class: "bg-body-tertiary p-4 rounded border", role: "form" }) do |f| %>
-  <div class="row g-3">
+<%= form_for(@room, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+  <%= render FormErrorsComponent.new(@room) %>
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <fieldset class="col-12">
       <%= f.label :name, class: "form-label" %>
       <%= f.text_field :name, class: "form-control" %>
-    </fieldset>
-
-    <fieldset class="col-12 mt-4">
-      <%= f.label :site_id, class: "form-label" %>
-      <%= f.select :site_id, Site.all.map{ |s| [s.name, s.id] }, { prompt: true }, class: "form-select" %>
     </fieldset>
 
     <fieldset class="col-12 mt-4">
@@ -18,6 +12,25 @@
     </fieldset>
 
     <fieldset class="col-12 mt-4">
+      <%= f.label :site_id, class: "form-label" %>
+      <%= f.select :site_id, Site.all.map{ |s| [s.name, s.id] }, { prompt: true }, class: "form-select" %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :surface_area, class: "form-label" %>
+      <div class="input-group">
+        <%= f.number_field :surface_area, class: "form-control" %>
+        <span class="input-group-text"><%= t("surface_area.unit") %></span>
+      </div>
+    </fieldset>
+  <% end %>
+
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+    <% card.with_header do %>
+      <%= t("display") %>
+    <% end %>
+
+    <fieldset class="col-12">
       <%= f.label :position, class: "form-label" %>
       <%= f.number_field :position, class: "form-control" %>
     </fieldset>
@@ -29,8 +42,16 @@
       </fieldset>
     </div>
 
-    <div class="col-12 mt-4">
-      <%= f.submit class: "w-100 btn btn-primary" %>
-    </div>
+    <fieldset class="col-12 mt-4">
+      <%= f.label :status, class: "form-label" %>
+      <%= f.select :status, RoomDecorator::statuses_for_options,
+                            { },
+                            class: "form-select" %>
+    </fieldset>
+  <% end %>
+
+  <div class="col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top">
+    <%= link_to t("action.cancel"), rooms_path, class: "btn btn-outline-secondary" %>
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>

@@ -1,12 +1,13 @@
-<% provide(:title, t(".title")) %>
-<%= render "layouts/breadcrumb", breadcrumb_steps: {
-  t("inventories") => modeles_url,
-  Connection.model_name.human.pluralize => ""}
+<%
+  title = Connection.model_name.human.pluralize
+  breadcrumb_steps = { title => "" }
+
+  provide(:title, title)
 %>
 
-<div class="container-fluid">
-  <h1><%= t(".title") %></h1>
+<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) %>
 
+<div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render List::DataTableComponent.new(@connections) do |table| %>
     <% table.with_column(Connection.human_attribute_name(:port), sort_by: :"ports.id") do |connection| %>
       <%= connection.port&.id %>

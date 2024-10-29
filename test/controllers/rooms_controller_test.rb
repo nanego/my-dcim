@@ -43,7 +43,7 @@ class RoomsControllerTest < ActionController::TestCase
       post :create, params: { room: { description: @room.description, name: @room.name, site_id: @room.site_id } }
     end
 
-    assert_redirected_to rooms_path
+    assert_redirected_to room_path(assigns(:room))
   end
 
   test "should show room" do
@@ -66,7 +66,7 @@ class RoomsControllerTest < ActionController::TestCase
 
   test "should update room" do
     patch :update, params: { id: @room, room: { description: @room.description, name: @room.name } }
-    assert_redirected_to rooms_path
+    assert_redirected_to room_path(@room.name.downcase)
   end
 
   test "should destroy room" do

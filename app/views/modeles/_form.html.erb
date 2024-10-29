@@ -1,7 +1,6 @@
-<%= render FormErrorsComponent.new(@modele) %>
-
-<%= form_for(@modele, html: { class: "bg-body-tertiary p-4 rounded border", role: "form" }) do |f| %>
-  <div class="row g-3">
+<%= form_for(@modele, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+  <%= render FormErrorsComponent.new(@modele) %>
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <fieldset class="col-12">
       <%= f.label :name, class: "form-label" %>
       <%= f.text_field :name, class: "form-control" %>
@@ -57,7 +56,16 @@
       <%= f.select :network_types,
                   Modele::Network::TYPES.map { |type| [Modele.human_attribute_name("network_types.#{type}"), type] },
                   { prompt: true, include_blank: true },
-                  { class: "form-select", data: { controller: "select" }, multiple: true } %>
+                  {
+                    class: "form-select",
+                    data: { controller: "select" },
+                    multiple: true,
+                    placeholder: Modele.human_attribute_name("network_types.blank")
+                  }
+      %>
+      <div id="networkTypesHelp" class="form-text fst-italic">
+        <%= Modele.human_attribute_name("network_types.help") %>
+      </div>
     </fieldset>
 
     <fieldset data-controller="nested-form" class="col-12 mt-4">
@@ -83,9 +91,10 @@
         </span>
       </div>
     </fieldset>
+  <% end %>
 
-    <div class="col-12 mt-4">
-      <%= f.submit class: "btn btn-primary w-100" %>
-    </div>
+  <div class="col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top">
+    <%= link_to t("action.cancel"), modeles_path, class: "btn btn-outline-secondary" %>
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>

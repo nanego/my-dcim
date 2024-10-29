@@ -1,7 +1,6 @@
-<%= render FormErrorsComponent.new(@frame) %>
-
-<%= form_for(@frame, html: { class: "bg-body-tertiary p-4 rounded border", role: "form" }) do |f| %>
-  <div class="row g-3">
+<%= form_for(@frame, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+  <%= render FormErrorsComponent.new(@frame) %>
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <fieldset class="col-12">
       <%= f.label :name, class: "form-label" %>
       <%= f.text_field :name, class: "form-control" %>
@@ -13,22 +12,28 @@
     </fieldset>
 
     <fieldset class="col-12 mt-4">
-      <%= f.label :position, class: "form-label" %>
-      <%= f.number_field :position, class: "form-control" %>
-    </fieldset>
-
-    <fieldset class="col-12 mt-4">
       <%= f.label :switch_slot, class: "form-label" %>
       <%= f.number_field :switch_slot, class: "form-control" %>
     </fieldset>
 
     <% if @frame.persisted? %>
       <div class="col-12 mt-4">
-        <span class="form-label d-block"><%= t(".coupled_bay_label") %></span>
+        <span class="form-label d-block"><%= t("frames.coupled_frame_label") %></span>
         <%= f.object.other_frame.present? ? link_to(f.object.other_frame.name, frame_path(f.object.other_frame))
-                                            : t(".no_coupled_bay") %>
+                                            : tag.span(t("frames.no_coupled_frame"), class: "fst-italic") %>
       </div>
     <% end %>
+  <% end %>
+
+  <%= render CardComponent.new(type: :primary, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
+    <% card.with_header do %>
+      <%= t("layouts.sidebar.location.title") %>
+    <% end %>
+
+    <fieldset class="col-12">
+      <%= f.label :position, class: "form-label" %>
+      <%= f.number_field :position, class: "form-control" %>
+    </fieldset>
 
     <fieldset class="col-12 mt-4">
       <%= f.label :bay_id, class: "form-label" %>
@@ -36,9 +41,10 @@
                             {},
                             { class: "form-select", data: { controller: "select" } } %>
     </fieldset>
+  <% end %>
 
-    <div class="col-12 mt-4">
-      <%= f.submit class: "w-100 btn btn-primary" %>
-    </div>
+  <div class="col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top">
+    <%= link_to t("action.cancel"), frames_path, class: "btn btn-outline-secondary" %>
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>

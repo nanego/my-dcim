@@ -28,7 +28,7 @@ module List
       css_classes = html_attributes.delete(:class)
 
       @html_attributes = html_attributes.merge(
-        class: class_names("table table-striped table-bordered table-hover", css_classes),
+        class: class_names("table table-striped table-bordered table-hover mb-0", css_classes),
       )
     end
 

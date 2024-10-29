@@ -4,26 +4,28 @@ class FilterComponent < ApplicationComponent
   renders_one :form, ->(&block) { FilterComponent::Form.new(&block) }
 
   erb_template <<~ERB
-    <%= render CardComponent.new(type: :primary) do |card| %>
-      <%#= filters_badge_tags %>
+    <div>
+      <%= render CardComponent.new(type: :primary, extra_classes: "bg-body-tertiary") do |card| %>
+        <%#= filters_badge_tags %>
 
-      <%= form_with model: @filter,
-                    url: "",
-                    method: :get,
-                    class: "filters-component row row-cols-lg-auto g-3 align-items-start",
-                    id: :filters do |f| %>
-        <%= form&.call(f) %>
+        <%= form_with model: @filter,
+                      url: "",
+                      method: :get,
+                      class: "filters-component row row-cols-lg-auto g-3 align-items-start",
+                      id: :filters do |f| %>
+          <%= form&.call(f) %>
 
-        <% card.with_footer do %>
-          <%= f.submit t(".submit"), class: "btn btn-primary btn-sm", form: :filters %>
-          <%= link_to t(".reset", filters_count: counter_tag),
-                      url_for(only_path: false, overwrite_params: nil),
-                      class: "btn btn-link card-link btn-sm" %>
+          <% card.with_footer do %>
+            <%= f.submit t(".submit"), class: "btn btn-primary btn-sm", form: :filters %>
+            <%= link_to t(".reset", filters_count: counter_tag),
+                        url_for(only_path: false, overwrite_params: nil),
+                        class: "btn btn-link card-link btn-sm" %>
 
-          <%= totals_tag %>
+            <%= totals_tag %>
+          <% end %>
         <% end %>
       <% end %>
-    <% end %>
+    </div>
   ERB
 
   def initialize(filter)

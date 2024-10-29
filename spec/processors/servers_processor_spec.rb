@@ -295,6 +295,37 @@ RSpec.describe ServersProcessor do
     end
   end
 
+  describe "when filtering by stack_ids" do
+    let(:stack) { Stack.create!(name: "S1") }
+    let(:server)  { Server.create!(name: "server", numero: 1, **attributes, stack:) }
+
+    before do
+      server
+      Server.create!(name: "server2", numero: 2, **attributes)
+    end
+
+    context "with one stack_ids" do
+      let(:params) { { stack_ids: stack.id } }
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to include(server) }
+    end
+
+    context "with many stack_ids" do
+      let(:stack_second) { Stack.create!(name: "S2") }
+      let(:another_server) { Server.create!(name: "server3", numero: 3, **attributes, stack: stack_second) }
+
+      let(:params) { { stack_ids: [stack.id, stack_second.id] } }
+
+      before do
+        another_server
+      end
+
+      it { expect(result.size).to eq(2) }
+      it { is_expected.to contain_exactly(server, another_server) }
+    end
+  end
+
   describe "when sorting" do
     pending "TODO"
   end

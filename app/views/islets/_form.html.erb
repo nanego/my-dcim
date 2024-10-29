@@ -1,13 +1,31 @@
-<%= render FormErrorsComponent.new(@islet) %>
-
-<%= form_for(@islet, html: { class: "bg-body-tertiary p-4 rounded border", role: "form" }) do |f| %>
-  <div class="row g-3">
+<%= form_for(@islet, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+  <%= render FormErrorsComponent.new(@islet) %>
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <fieldset class="col-12">
       <%= f.label :name, class: "form-label" %>
       <%= f.text_field :name, class: "form-control" %>
     </fieldset>
 
     <fieldset class="col-12 mt-4">
+      <%= f.label :description, class: "form-label" %>
+      <%= f.text_area :description, class: "form-control" %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :cooling_mode, class: "form-label" %>
+      <%= f.select :cooling_mode,
+                   IsletDecorator.cooling_modes_options_for_select,
+                   { include_blank: t("activerecord.attributes.islet/cooling_mode.blank") },
+                   class: "form-select" %>
+    </fieldset>
+  <% end %>
+
+  <%= render CardComponent.new(type: :primary, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
+    <% card.with_header do %>
+      <%= t("layouts.sidebar.location.title") %>
+    <% end %>
+
+    <fieldset class="col-12">
       <%= f.label :room_id, class: "form-label" %>
       <%= f.select :room_id,
                    options_from_collection_for_select(Room.order(:position), :id, :name_with_site, @islet.room_id),
@@ -19,9 +37,10 @@
       <%= f.label :position, class: "form-label" %>
       <%= f.number_field :position, class: "form-control" %>
     </fieldset>
+  <% end %>
 
-    <div class="col-12 mt-4">
-      <%= f.submit class: "w-100 btn btn-primary" %>
-    </div>
+  <div class="col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top">
+    <%= link_to t("action.cancel"), islets_path, class: "btn btn-outline-secondary" %>
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>
