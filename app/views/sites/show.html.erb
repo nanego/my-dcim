@@ -3,15 +3,13 @@
   breadcrumb_steps = { Site.model_name.human.pluralize => sites_path, @site.name => "" }
 %>
 
-<%= render Page::HeadingShowComponent.new(
-  resource: @site, title: t(".title", site_id: @site.id, site_name: @site.name), breadcrumb_steps:
-) %>
+<%= render Page::HeadingShowComponent.new(resource: @site, title: @site.name, breadcrumb_steps:) %>
 <div class="col-12 p-4 border-top">
   <div class="d-flex flex-row flex-wrap">
     <div class="col-12 col-lg-6 pe-lg-4">
       <%= render CardComponent.new do |card| %>
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <% %i[name].each do |attribute_name| %>
+          <% %i[name description].each do |attribute_name| %>
             <dt class="pb-2"><%= Site.human_attribute_name(attribute_name) %></dt>
             <dd class="mb-0 pb-2 ps-3"><%= @site.public_send(attribute_name) %></dd>
           <% end %>
@@ -30,17 +28,42 @@
         </dl>
       <% end %>
     </div>
-    <div class="col-12 col-lg-6">
+    <div class="col-12 col-lg-6" id="export-to-pdf">
       <%= render CardComponent.new(type: :primary) do |card| %>
         <% card.with_header do %>
-          <%= t("layouts.sidebar.location.title") %>
+          <div class="justify-content-between d-flex">
+            <span><%= t("layouts.sidebar.location.title") %></span>
+            <button type="button"
+                    class="btn btn-outline-light btn-sm d-flex align-items-center export-pdf-button"
+                    title="<%= t("export_button.exports.pdf") %>"
+                    data-controller="export-pdf"
+                    data-action="click->export-pdf#export"
+                    data-export-pdf-filename-value="<%= "#{Site.model_name.human.downcase}_#{@site.name.parameterize}" %>"
+                    data-html2canvas-ignore="true" >
+              <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
+              <span class="text-truncate d-none d-md-inline-block ms-2">
+                <%= t("export_button.exports.pdf") %>
+              </span>
+              <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none ms-2" role="status" aria-hidden="true"
+                    data-export-pdf-target="spinner"></span>
+            </button>
+          </div>
         <% end %>
 
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <% %i[street city country latitude longitude].each do |attribute_name| %>
+          <% %i[street city country latitude longitude delivery_address delivery_times].each do |attribute_name| %>
             <dt class="pb-2"><%= Site.human_attribute_name(attribute_name) %></dt>
             <dd class="mb-0 pb-2 ps-3"><%= @site.public_send(attribute_name) %></dd>
           <% end %>
+
+          <dt class="pb-2"><%= Site.human_attribute_name(:delivery_map) %></dt>
+          <dd class="mb-0 pb-2 ps-3">
+            <% if @site.delivery_map.attached? %>
+              <%= link_to @site.delivery_map, rel: :noopener, target: :_blank do %>
+                <%= image_tag @site.delivery_map.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
+              <% end %>
+            <% end %>
+          </dd>
         </dl>
       <% end %>
     </div>

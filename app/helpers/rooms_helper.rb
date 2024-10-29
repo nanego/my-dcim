@@ -27,11 +27,4 @@ module RoomsHelper
       end
     end
   end
-
-  def calculated_menu_width(islet)
-    frame_width = 76
-    nb_of_frames = islet.bays.map { |b| b.bay_type.try(:size).to_i }.sum
-    nb_of_lanes = islet.bays.map(&:lane).max
-    frame_width * (((nb_of_frames) / nb_of_lanes) + 1)
-  end
 end

@@ -7,7 +7,7 @@
   resource: @frame, title: t(".title", frame: @frame.name), breadcrumb_steps:
 ) do |heading| %>
   <% heading.with_extra_buttons do %>
-    <% render ButtonComponent.new(title: t("visualization.title"),
+    <% render ButtonComponent.new(t("visualization.title"),
                                   url: visualization_frame_path(@frame),
                                   variant: :primary,
                                   icon: "diagram-3-fill",
@@ -46,7 +46,19 @@
           <% end %>
 
           <dt class="pb-2"><%= Bay.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= link_to @frame.bay, bay_path(@frame.bay) %></dd>
+          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
+            <%= link_to @frame.bay, bay_path(@frame.bay) %>
+            <%= link_to visualization_bay_path(@frame.bay),
+                        class: "btn btn-primary btn-sm",
+                        data: { turbo_frame: :_top } do %>
+              <span class="bi bi-diagram-3-fill"
+                    aria-hidden="true"
+                    data-controller="tooltip"
+                    data-bs-placement="left"
+                    title="<%= t("visualization.title") %>"></span>
+              <span class="visually-hidden"><%= t("visualization.title") %></span>
+            <% end %>
+          </dd>
         </dl>
       <% end %>
     </div>

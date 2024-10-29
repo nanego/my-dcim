@@ -25,7 +25,7 @@ RSpec.describe "Rooms::BrowseRoom", :js do
     end
 
     # 2. Change view to 'back'
-    switch_view_btn = find("a.btn-primary > span.bi-back")
+    switch_view_btn = find("a.btn-outline-primary > span.bi-back")
     switch_view_btn.click
 
     # Since the overview container is already loaded, we cannot use find() to wait for loading

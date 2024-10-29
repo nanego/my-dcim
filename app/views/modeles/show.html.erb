@@ -6,13 +6,7 @@
   }
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @modele, title: @modele, breadcrumb_steps:) do |c| %>
-  <% c.with_extra_buttons do %>
-    <%= render ButtonComponent.new(title: t("action.duplicate"), url: duplicate_modele_path(@modele), variant: :success,
-                                   icon: "copy", is_responsive: true, extra_classes: "me-2") %>
-  <% end %>
-<% end %>
-
+<%= render Page::HeadingShowComponent.new(resource: @modele, title: @modele, breadcrumb_steps:) %>
 <div class="col-12 p-4 border-top">
   <div class="col-12 col-lg-6">
     <%= render CardComponent.new do |card| %>
@@ -22,10 +16,8 @@
           <dd class="mb-0 pb-2 ps-3"><%= @modele.public_send(attribute_name) %></dd>
         <% end %>
 
-        <dt class="pb-2"><%= Modele.human_attribute_name(:network_types) %> :</dt>
-        <dd class="mb-0 pb-2 ps-3">
-          <%= @modele.network_types.map { |type| Modele.human_attribute_name("network_types.#{type}") }.join(", ") %>
-        </dd>
+        <dt class="pb-2"><%= Modele.human_attribute_name(:network_types) %></dt>
+        <dd class="mb-0 pb-2 ps-3"><%= @modele.decorated.network_types_to_human %></dd>
       </dl>
     <% end %>
   </div>

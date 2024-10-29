@@ -7,7 +7,7 @@
 <%= render Page::HeadingComponent.new(title: t(".title", frame: @frame), breadcrumb_steps:) do |heading| %>
   <% heading.with_left_content do %>
       <span class="flex-grow-1">
-        <%= render ButtonComponent.new(title: t("action.back"),
+        <%= render ButtonComponent.new(t("action.back"),
                                       url: moves_path,
                                       icon: "chevron-left",
                                       is_responsive: true) %>

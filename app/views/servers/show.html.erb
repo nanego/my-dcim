@@ -8,7 +8,7 @@
 
 <%= render Page::HeadingShowComponent.new(resource: @server, title: title, breadcrumb_steps:) do |heading| %>
   <% heading.with_extra_buttons do %>
-    <% render ButtonComponent.new(title: t("action.duplicate"),
+    <% render ButtonComponent.new(t("action.duplicate"),
                                   url: duplicate_server_path(@server.slug),
                                   variant: :success,
                                   icon: "copy",
@@ -49,7 +49,7 @@
           <dd class="mb-0 pb-2 ps-3"><%= link_to @server.room.site, site_path(@server.room.site) %></dd>
 
           <dt class="pb-2"><%= Room.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between align-items-center">
+          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
             <%= link_to @server.room.try(:name), @server.room %>
             <%= link_to visualization_room_path(@server.room),
                         class: "btn btn-primary btn-sm",
@@ -64,24 +64,22 @@
           </dd>
 
           <dt class="pb-2"><%= Islet.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between align-items-center">
+          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
             <%= link_to @server.islet.name_with_room, islet_path(@server.islet) %>
-            <% if @server.islet.name.present? %>
-              <%= link_to visualization_room_path(@server.room, islet: @server.islet.name),
-                          class: "btn btn-primary btn-sm",
-                          data: { turbo_frame: :_top } do %>
-                <span class="bi bi-diagram-3-fill"
-                      aria-hidden="true"
-                      data-controller="tooltip"
-                      data-bs-placement="left"
-                      title="<%= t("visualization.title") %>"></span>
-                <span class="visually-hidden"><%= t("visualization.title") %></span>
-              <% end %>
+            <%= link_to visualization_room_path(@server.room, islet: @server.islet.name),
+                        class: "btn btn-primary btn-sm",
+                        data: { turbo_frame: :_top } do %>
+              <span class="bi bi-diagram-3-fill"
+                    aria-hidden="true"
+                    data-controller="tooltip"
+                    data-bs-placement="left"
+                    title="<%= t("visualization.title") %>"></span>
+              <span class="visually-hidden"><%= t("visualization.title") %></span>
             <% end %>
           </dd>
 
           <dt class="pb-2"><%= Bay.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between align-items-center">
+          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
             <%= link_to @server.bay, bay_path(@server.bay) %>
             <%= link_to visualization_bay_path(@server.bay),
                         class: "btn btn-primary btn-sm",
@@ -96,7 +94,7 @@
           </dd>
 
           <dt class="pb-2"><%= Frame.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between align-items-center">
+          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
             <%= link_to @server.frame.try(:name), frame_path(@server.frame) %>
             <%= link_to visualization_frame_path(@server.frame),
                         class: "btn btn-primary btn-sm",
@@ -201,9 +199,7 @@
           </dd>
 
           <dt class="pb-2"><%= Server.human_attribute_name(:network_types) %></dt>
-          <dd class="mb-0 pb-2 ps-3">
-            <%= @server.network_types.map { |type| Modele.human_attribute_name("network_types.#{type}") }.join(", ") %>
-          </dd>
+          <dd class="mb-0 pb-2 ps-3"><%= @server.decorated.network_types_to_human %></dd>
         </dl>
       <% end %>
     </div>
@@ -214,6 +210,10 @@
           <%= render CardComponent.new(extra_classes: "mb-4") do |card| %>
             <% card.with_header do %>
               <%= Server.human_attribute_name(:photo) %>
+            <% end %>
+
+            <%= link_to @server.photo, rel: :noopener, target: :_blank do %>
+              <%= image_tag @server.photo.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
             <% end %>
 
             <%= image_tag @server.photo.variant(geometry: "x220"), class: "server_photo ms-0 mb-3" %>

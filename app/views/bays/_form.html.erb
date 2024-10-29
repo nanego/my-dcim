@@ -2,8 +2,8 @@
   <%= render FormErrorsComponent.new(@bay) %>
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <fieldset class="col-12">
-      <%= f.label :bay_type, class: "form-label" %>
-      <%= f.select :bay_type, options_from_collection_for_select(BayType.all, :id, :to_s, @bay.bay_type_id),
+      <%= f.label :bay_type_id, class: "form-label" %>
+      <%= f.select :bay_type_id, options_from_collection_for_select(BayType.all, :id, :to_s, @bay.bay_type_id),
                                  {},
                                  class: "form-select" %>
     </fieldset>

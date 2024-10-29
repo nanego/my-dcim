@@ -4,7 +4,7 @@ class ButtonComponent < ApplicationComponent
   VARIANTS = %i[default primary secondary success danger warning info light dark link outline_primary].freeze
   SIZES = %i[sm default lg].freeze
 
-  def initialize(title:, url:, variant: :default, size: :default, icon: nil, is_responsive: false, extra_classes: "", **html_options) # rubocop:disable Metrics/ParameterLists
+  def initialize(title, url:, variant: :default, size: :default, icon: nil, is_responsive: false, extra_classes: "", **html_options) # rubocop:disable Metrics/ParameterLists
     @title = title
     @url = url
     @variant = variant&.to_sym
@@ -25,7 +25,7 @@ class ButtonComponent < ApplicationComponent
             class: "btn btn-#{@variant.to_s.dasherize} btn-#{@size} align-self-center d-inline-flex #{@extra_classes}",
             title: @title,
             **@html_options do
-      concat(tag.span(class: "bi bi-#{@icon}"))
+      concat(tag.span(class: "bi bi-#{@icon}")) if @icon
       concat(tag.span(@title, class: class_names("ms-1", 'd-none d-md-inline-block': @is_responsive)))
     end
   end

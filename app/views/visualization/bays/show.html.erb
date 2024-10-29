@@ -1,10 +1,15 @@
-<%- bay_label = t(".title", bay: @bay, bay_type: @bay.bay_type&.name) %>
-<% provide :title, "#{Bay.model_name.human.pluralize} | #{bay_label}" %>
 <%
+  title = t(".title", bay: @bay, bay_type: @bay.bay_type&.name)
+
   breadcrumb_steps = {
     t("visualization.title") => overview_rooms_path,
     @bay.room.name => visualization_room_path(@bay.room, view: params[:view])
   }
+  if @bay.islet.name.present?
+    breadcrumb_steps["#{Islet.model_name.human} #{@bay.islet.name}"] = visualization_room_path(@bay.room, islet: @bay.islet.name, view: params[:view])
+  elsif params[:islet].present?
+    breadcrumb_steps["#{Islet.model_name.human} #{params[:islet]}"] = ""
+  end
 
   if @bay.islet.name.present?
     breadcrumb_steps["#{Islet.model_name.human} #{@bay.islet.name}"] = visualization_room_path(@bay.room, islet: @bay.islet.name, view: params[:view])
@@ -12,18 +17,34 @@
     breadcrumb_steps["#{Islet.model_name.human} #{params[:islet]}"] = ""
   end
 
-  breadcrumb_steps[bay_label] = ""
+  breadcrumb_steps[title] = ""
+
+  provide :title, "#{t("visualization.title")} | #{Bay.model_name.human.pluralize} | #{title}"
+
+  title = t("visualization.title") + " " + title
 %>
 
-<%= render "layouts/breadcrumb", breadcrumb_steps: %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) do |heading| %>
+  <% heading.with_right_content do %>
+    <div class="d-flex flex-wrap gap-2 flex-column flex-lg-row">
+      <%= render "rooms/action_buttons", view_side: params[:view] %>
+      <%= render(ButtonComponent.new(t("action.show"),
+                                     url: @bay,
+                                     size: :sm,
+                                     variant: :primary,
+                                     icon: "eye",
+                                     extra_classes: "ms-auto")) %>
+    </div>
+  <% end %>
+<% end %>
 <div class="container-fluid p-4 border-top">
   <div class="row">
     <div class="col-12" id="bay-container">
       <%= render partial: "servers/room", locals: {
                   room: @bay.room,
                   islets: @servers_per_frames[@bay.islet.room_id],
-                  title: Bay.human_attribute_name(:bay_frames, count: @bay.frames.size, bay: @bay),
                   view_side: params[:view],
+                  should_show_heading: false
       } %>
     </div>
   </div>

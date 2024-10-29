@@ -45,8 +45,8 @@ class ServersProcessor < ApplicationProcessor
     raw.where(cluster_id: cluster_ids)
   end
 
-  map :stack_id do |stack_id:|
-    raw.where(stack_id: stack_id)
+  map :stack_ids do |stack_ids:|
+    raw.where(stack_id: stack_ids)
   end
 
   sortable fields: SORTABLE_FIELDS do

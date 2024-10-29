@@ -68,7 +68,16 @@
         <%= f.select :network_types,
                      Modele::Network::TYPES.map { |type| [Modele.human_attribute_name("network_types.#{type}"), type] },
                      { prompt: true, include_blank: true },
-                     { class: "form-select", data: { controller: "select" }, multiple: true } %>
+                     {
+                       class: "form-select",
+                       data: { controller: "select" },
+                       multiple: true,
+                       placeholder: Modele.human_attribute_name("network_types.blank")
+                     }
+        %>
+        <div id="networkTypesHelp" class="form-text fst-italic">
+          <%= Modele.human_attribute_name("network_types.help") %>
+        </div>
       </fieldset>
 
       <fieldset class="col-md-6 col-12 mt-4 align-self-center">
@@ -180,8 +189,9 @@
       <fieldset class="col-12">
         <%= f.label :photo, class: "form-label" %>
         <%= f.file_field :photo, class: "form-control" %>
-        <%- if @server.photo.attached? %>
-          <%= image_tag @server.photo.variant(geometry: "x200"), class: "server_photo ms-0 mt-2" %>
+
+        <% if @server.photo.attached? %>
+          <%= image_tag @server.photo.representation(resize_to_limit: [200, 200]), class: "ms-0 mt-2" %>
         <% end %>
       </fieldset>
     <% end %>

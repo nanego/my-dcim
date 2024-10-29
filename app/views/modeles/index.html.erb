@@ -7,7 +7,7 @@
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) do |heading| %>
   <% heading.with_right_content do %>
-    <% render ButtonComponent.new(title: t(".new_modele"),
+    <% render ButtonComponent.new(t(".new_modele"),
                                   url: new_modele_path,
                                   variant: :success,
                                   icon: "plus-lg",
@@ -93,15 +93,11 @@
             <% end %>
 
             <% table.with_column(Modele.human_attribute_name(:network_types)) do |modele| %>
-              <%= modele.network_types.map { |type| Modele.human_attribute_name("network_types.#{type}") }.join(", ") %>
+              <%= modele.decorated.network_types_to_human %>
             <% end %>
 
             <% table.with_column(style: "min-width: 70px; width: 70px") do |modele| %>
               <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                <%= link_to duplicate_modele_path(modele), class: "btn btn-success", data: { turbo_frame: :_top } do %>
-                  <span class="bi bi-copy" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.duplicate") %>"></span>
-                  <span class="visually-hidden"><%= t("action.duplicate") %></span>
-                <% end %>
                 <%= link_to edit_modele_path(modele), class: "btn btn-info", data: { turbo_frame: :_top } do %>
                   <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
                   <span class="visually-hidden"><%= t("action.edit") %></span>

@@ -12,10 +12,13 @@
     <div class="col-12 col-lg-6 pe-lg-4">
       <%= render CardComponent.new do |card| %>
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <% %i[name air_conditioner_model].each do |attribute_name| %>
+          <% %i[name].each do |attribute_name| %>
             <dt class="pb-2"><%= AirConditioner.human_attribute_name(attribute_name) %></dt>
             <dd class="mb-0 pb-2 ps-3"><%= @air_conditioner.public_send(attribute_name) %></dd>
           <% end %>
+
+          <dt class="pb-2"><%= AirConditioner.human_attribute_name(:air_conditioner_model_id) %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @air_conditioner.air_conditioner_model %></dd>
 
           <dt class="pb-2"><%= AirConditioner.human_attribute_name(:status) %></dt>
           <dd class="mb-0 pb-2 ps-3"><%= t("air_conditioners.form.status-#{@air_conditioner.status}") %></dd>
@@ -28,25 +31,8 @@
           </dd>
         </dl>
       <% end %>
-    </div>
-    <div class="col-12 col-lg-6">
-      <%= render CardComponent.new(type: :primary, extra_classes: "my-4 mt-lg-0") do |card| %>
-        <% card.with_header do %>
-          <%= t("layouts.sidebar.location.title") %>
-        <% end %>
 
-        <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <dt class="pb-2"><%= AirConditioner.human_attribute_name(:bay) %></dt>
-          <dd class="mb-0 pb-2 ps-3">
-            <%= link_to @air_conditioner.bay.detailed_name, bay_path(@air_conditioner.bay) %>
-          </dd>
-
-          <dt class="pb-2"><%= AirConditioner.human_attribute_name(:position) %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= t("air_conditioners.form.#{@air_conditioner.position}") %></dd>
-        </dl>
-      <% end %>
-
-      <%= render CardComponent.new do |card| %>
+      <%= render CardComponent.new(extra_classes: "my-4 mb-lg-0") do |card| %>
         <% card.with_header do %>
           <%= t("air_conditioners.temperatures") %>
         <% end %>
@@ -56,6 +42,23 @@
             <dt class="pb-2"><%= AirConditioner.human_attribute_name(attribute_name) %></dt>
             <dd class="mb-0 pb-2 ps-3"><%= "#{@air_conditioner.public_send(attribute_name)}°C" %></dd>
           <% end %>
+        </dl>
+      <% end %>
+    </div>
+    <div class="col-12 col-lg-6">
+      <%= render CardComponent.new(type: :primary) do |card| %>
+        <% card.with_header do %>
+          <%= t("layouts.sidebar.location.title") %>
+        <% end %>
+
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <dt class="pb-2"><%= AirConditioner.human_attribute_name(:bay_id) %></dt>
+          <dd class="mb-0 pb-2 ps-3">
+            <%= link_to @air_conditioner.bay.detailed_name, bay_path(@air_conditioner.bay) %>
+          </dd>
+
+          <dt class="pb-2"><%= AirConditioner.human_attribute_name(:position) %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= t("air_conditioners.form.#{@air_conditioner.position}") %></dd>
         </dl>
       <% end %>
     </div>

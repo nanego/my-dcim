@@ -14,7 +14,7 @@ module Page
       render HeadingComponent.new(title: @title, breadcrumb_steps: @breadcrumb_steps) do |heading|
         heading.with_left_content do
           tag.span class: "flex-grow-1" do
-            render ButtonComponent.new(title: t("action.back"),
+            render ButtonComponent.new(t("action.back"),
                                        url: polymorphic_url(@resource.class),
                                        icon: "chevron-left",
                                        is_responsive: true)
