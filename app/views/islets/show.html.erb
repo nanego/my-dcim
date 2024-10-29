@@ -12,10 +12,13 @@
     <div class="col-12 col-lg-6 pe-lg-4">
       <%= render CardComponent.new(extra_classes: "mb-4 mb-lg-0") do |card| %>
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <% %i[name].each do |attribute_name| %>
+          <% %i[name description].each do |attribute_name| %>
             <dt class="pb-2"><%= Islet.human_attribute_name(attribute_name) %></dt>
             <dd class="mb-0 pb-2 ps-3"><%= @islet.public_send(attribute_name) %></dd>
           <% end %>
+
+          <dt class="pb-2"><%= Islet.human_attribute_name(:cooling_mode) %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @islet.decorated.cooling_mode_to_human %></dd>
         </dl>
       <% end %>
     </div>

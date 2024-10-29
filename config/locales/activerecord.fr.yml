@@ -76,10 +76,15 @@ fr:
         room_id: Salle
         room: Salle # TODO: check if we should keep this line?
         position: Position
+        cooling_mode: Mode de refroidissement
         frames_count:
           zero: 0 châssis
           one: 1 châssis
           other: "%{count} châssis"
+      islet/cooling_mode:
+        blank: Pas de confinement
+        hot_containment: Confinement chaud
+        cold_containment: Confinement froid
       frame/view_sides:
         front: Vue avant
         back: Vue arrière

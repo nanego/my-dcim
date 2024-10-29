@@ -5,6 +5,19 @@
       <%= f.label :name, class: "form-label" %>
       <%= f.text_field :name, class: "form-control" %>
     </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :description, class: "form-label" %>
+      <%= f.text_area :description, class: "form-control" %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :cooling_mode, class: "form-label" %>
+      <%= f.select :cooling_mode,
+                   IsletDecorator.cooling_modes_options_for_select,
+                   { include_blank: t("activerecord.attributes.islet/cooling_mode.blank") },
+                   class: "form-select" %>
+    </fieldset>
   <% end %>
 
   <%= render CardComponent.new(type: :primary, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
