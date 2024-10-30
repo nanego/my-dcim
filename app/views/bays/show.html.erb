@@ -24,13 +24,15 @@
           <dd class="mb-0 pb-2 ps-3"><%= @bay.bay_type %></dd>
 
           <dt class="pb-2"><%= Manufacturer.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= link_to @bay.manufacturer %></dd>
+          <dd class="mb-0 pb-2 ps-3">
+            <%= link_to @bay.manufacturer, manufacturer_path(@bay.manufacturer) if @bay.manufacturer.present? %>
+          </dd>
 
           <dt class="pb-2"><%= Bay.human_attribute_name(:width) %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= value_with_unit(@bay.width, "mm") %></dd>
+          <dd class="mb-0 pb-2 ps-3"><%= value_with_unit(@bay.width, "mm") if @bay.width.present? %></dd>
 
           <dt class="pb-2"><%= Bay.human_attribute_name(:depth) %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= value_with_unit(@bay.depth, "mm") %></dd>
+          <dd class="mb-0 pb-2 ps-3"><%= value_with_unit(@bay.depth, "mm") if @bay.depth.present? %></dd>
         </dl>
       <% end %>
     </div>
