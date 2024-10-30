@@ -800,6 +800,11 @@ body {
     }
   }
 
+  /* Tom-select fix for empty value on FF */
+  .ts-dropdown [data-selectable].option:empty:before {
+    content: "\200b";
+  }
+
   /* Visualization Infrastructure view */
   #network-capacity {
     .tab-content.infrastructure {
