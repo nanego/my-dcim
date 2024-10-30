@@ -5,7 +5,7 @@ class CablesController < ApplicationController
 
   def index
     @cables = sorted(Cable.includes(:connections, connections: [:port]).order(created_at: :desc))
-    @pagy, @cables = pagy(@cables, limit: 100)
+    @pagy, @cables = pagy(@cables)
   end
 
   def destroy
