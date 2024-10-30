@@ -14,7 +14,7 @@ RSpec.describe Card do
   end
 
   describe "validations" do
-    it { is_expected.to validate_numericality_of(:first_position).only_integer.is_in(1...100).allow_nil }
+    it { is_expected.to validate_numericality_of(:first_position).only_integer.is_in(0..100).allow_nil }
   end
 
   describe "#to_s" do
