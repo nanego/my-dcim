@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_23_155125) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_30_101913) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,6 +63,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_23_155125) do
     t.integer "range"
     t.integer "setpoint"
     t.integer "min_setpoint"
+    t.boolean "lift_pump"
     t.index ["air_conditioner_model_id"], name: "index_air_conditioners_on_air_conditioner_model_id"
     t.index ["bay_id"], name: "index_air_conditioners_on_bay_id"
   end
