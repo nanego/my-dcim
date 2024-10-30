@@ -4,6 +4,8 @@ fr:
     false: Non
   surface_area:
     unit: m²
+  unit:
+    inches: pouces
   form:
     submit: Valider
   action:

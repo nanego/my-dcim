@@ -319,6 +319,7 @@ fr:
         position: Position
         bay_id: Baie
         u: U
+        width: Largeur
       bay:
         lane: Ligne
         position: Position
