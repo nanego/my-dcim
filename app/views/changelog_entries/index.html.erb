@@ -8,7 +8,7 @@
 
 <%= render Page::HeadingComponent.new(title: title, breadcrumb_steps:) %>
 
-<div class="p-4 border-top">
+<div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= turbo_frame_tag "changelog-entries" do %>
     <%= render List::DataTableComponent.new(decorate(@changelog_entries)) do |table| %>
       <% table.with_column("", style: "min-width: 20px; width: 20px") do |changelog_entry| %>
