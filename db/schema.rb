@@ -63,7 +63,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_30_101913) do
     t.integer "range"
     t.integer "setpoint"
     t.integer "min_setpoint"
-    t.boolean "lift_pump"
+    t.boolean "lift_pump", default: false, null: false
     t.index ["air_conditioner_model_id"], name: "index_air_conditioners_on_air_conditioner_model_id"
     t.index ["bay_id"], name: "index_air_conditioners_on_bay_id"
   end
