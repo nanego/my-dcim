@@ -18,9 +18,9 @@ RSpec.describe BayDecorator, type: :decorator do
     end
 
     context "with access control set" do
-      before { bay.access_control = "key_loken" }
+      before { bay.access_control = "locken_key" }
 
-      it { is_expected.to eq("Clé Loken") }
+      it { is_expected.to eq("Clé Locken") }
     end
   end
   

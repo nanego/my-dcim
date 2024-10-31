@@ -15,7 +15,7 @@ RSpec.describe Bay do
   end
 
   describe "validations" do
-    it { is_expected.to define_enum_for(:access_control).with_values(%i[badge key key_loken]) }
+    it { is_expected.to define_enum_for(:access_control).with_values(%i[badge key locken_key]) }
   end
 
   describe "#to_s" do
