@@ -753,7 +753,7 @@ fr:
     access_control:
       badge: Badge
       key: Clé
-      key_loken: Clé Loken
+      locken_key: Clé Locken
       blank: Pas de contrôle
 
   filters:
