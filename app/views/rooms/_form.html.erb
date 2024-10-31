@@ -12,16 +12,22 @@
     </fieldset>
 
     <fieldset class="col-12 mt-4">
-      <%= f.label :site_id, class: "form-label" %>
-      <%= f.select :site_id, Site.all.map{ |s| [s.name, s.id] }, { prompt: true }, class: "form-select" %>
-    </fieldset>
-
-    <fieldset class="col-12 mt-4">
       <%= f.label :surface_area, class: "form-label" %>
       <div class="input-group">
         <%= f.number_field :surface_area, class: "form-control" %>
         <span class="input-group-text"><%= t("surface_area.unit") %></span>
       </div>
+    </fieldset>
+  <% end %>
+
+  <%= render CardComponent.new(type: :primary, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
+    <% card.with_header do %>
+      <%= t("layouts.sidebar.location.title") %>
+    <% end %>
+
+    <fieldset class="col-12">
+      <%= f.label :site_id, class: "form-label" %>
+      <%= f.select :site_id, Site.all.map{ |s| [s.name, s.id] }, { prompt: true }, class: "form-select" %>
     </fieldset>
   <% end %>
 

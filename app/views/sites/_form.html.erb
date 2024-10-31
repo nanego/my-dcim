@@ -12,17 +12,6 @@
     </fieldset>
   <% end %>
 
-  <%= render CardComponent.new(extra_classes: "mt-4 bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("display") %>
-    <% end %>
-
-    <fieldset class="col-12">
-      <%= f.label :position, class: "form-label" %>
-      <%= f.text_field :position, class: "form-control" %>
-    </fieldset>
-  <% end %>
-
   <%= render CardComponent.new(type: :primary, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
     <% card.with_header do %>
       <%= t("layouts.sidebar.location.title") %>
@@ -75,6 +64,17 @@
       <% if @site.delivery_map.attached? && @site.persisted? %>
         <%= image_tag @site.delivery_map.representation(resize_to_limit: [200, 200]), class: "ms-0 mt-2" %>
       <% end %>
+    </fieldset>
+  <% end %>
+
+  <%= render CardComponent.new(extra_classes: "mt-4 bg-body-tertiary") do |card| %>
+    <% card.with_header do %>
+      <%= t("display") %>
+    <% end %>
+
+    <fieldset class="col-12">
+      <%= f.label :position, class: "form-label" %>
+      <%= f.text_field :position, class: "form-control" %>
     </fieldset>
   <% end %>
 

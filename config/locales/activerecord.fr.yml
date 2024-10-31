@@ -31,6 +31,7 @@ fr:
       contract_type:
         one: Contrat de maintenance
         other: Contrats de maintenance
+      disk: Disque
       disk_type:
         one: Type de disque
         other: Types de disque

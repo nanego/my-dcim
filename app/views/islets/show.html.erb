@@ -8,9 +8,9 @@
 
 <%= render Page::HeadingShowComponent.new(resource: @islet, title: @islet.name_with_room, breadcrumb_steps:) %>
 <div class="col-12 p-4 border-top">
-  <div class="d-flex flex-row flex-wrap">
-    <div class="col-12 col-lg-6 pe-lg-4">
-      <%= render CardComponent.new(extra_classes: "mb-4 mb-lg-0") do |card| %>
+  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+    <div class="col">
+      <%= render CardComponent.new do |card| %>
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <% %i[name description].each do |attribute_name| %>
             <dt class="pb-2"><%= Islet.human_attribute_name(attribute_name) %></dt>
@@ -23,13 +23,16 @@
       <% end %>
     </div>
 
-    <div class="col-12 col-lg-6">
+    <div class="col">
       <%= render CardComponent.new(type: :primary) do |card| %>
         <% card.with_header do %>
           <%= t("layouts.sidebar.location.title") %>
         <% end %>
 
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <dt class="pb-2"><%= Site.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= link_to @islet.site, site_path(@islet.site) %></dd>
+
           <dt class="pb-2"><%= Room.model_name.human %></dt>
           <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
             <%= link_to @islet.room, room_path(@islet.room) %>

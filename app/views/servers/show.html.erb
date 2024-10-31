@@ -41,9 +41,13 @@
     </div>
   <% end %>
 
-  <div class="d-flex flex-row flex-wrap">
-    <div class="col-12 col-lg-6 pe-lg-4">
-      <%= render CardComponent.new(extra_classes: "mb-4 mb-lg-0") do |card| %>
+  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+    <div class="col">
+      <%= render CardComponent.new(type: :primary) do |card| %>
+        <% card.with_header do %>
+          <%= t("layouts.sidebar.location.title") %>
+        <% end %>
+
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <dt class="pb-2"><%= Site.model_name.human %></dt>
           <dd class="mb-0 pb-2 ps-3"><%= link_to @server.room.site, site_path(@server.room.site) %></dd>
@@ -107,7 +111,11 @@
               <span class="visually-hidden"><%= t("visualization.title") %></span>
             <% end %>
           </dd>
+        </dl>
+      <% end %>
 
+      <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <dt class="pb-2"><%= Category.model_name.human %></dt>
           <dd class="mb-0 pb-2 ps-3"><%= @server.modele.try(:category) %></dd>
 
@@ -204,97 +212,93 @@
       <% end %>
     </div>
 
-    <div class="col-12 col-lg-6">
-      <div class="col-12">
-        <% if @server.photo.attached? %>
-          <%= render CardComponent.new(extra_classes: "mb-4") do |card| %>
-            <% card.with_header do %>
-              <%= Server.human_attribute_name(:photo) %>
-            <% end %>
-
-            <%= link_to @server.photo, rel: :noopener, target: :_blank do %>
-              <%= image_tag @server.photo.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
-            <% end %>
-          <% end %>
-        <% end %>
-        <% if @server.documents.present? %>
-          <%= render CardComponent.new(extra_classes: "mb-4") do |card| %>
-            <% card.with_header do %>
-              <%= t(".attached_documents") %>
-            <% end %>
-            <ul>
-              <% @server.documents.each do |doc| %>
-                <%- next unless doc.document.present? %>
-                <li>
-                  <%= link_to(doc.document.metadata["filename"], doc.document_url, { target: :_blank })  %>
-                </li>
-              <% end %>
-            </ul>
-          <% end %>
-        <% end %>
-      </div>
-
-      <div class="col-12">
-        <%= render CardComponent.new do |card| %>
+    <div class="col">
+      <% if @server.photo.attached? %>
+        <%= render CardComponent.new(extra_classes: "mb-4") do |card| %>
           <% card.with_header do %>
-            <%= t(".glpi_data") %>
+            <%= Server.human_attribute_name(:photo) %>
           <% end %>
-          <%
-            begin
-              Timeout.timeout(3) do
-                client = GlpiClient.new
-                computer = client.computer(serial: Rails.env.production? ? @server.numero : "AZERTY") %>
-              <% if computer.present? %>
-                <dl class="show-page_dl d-grid row-gap-2 mb-0">
-                  <dt class="pb-2"><%= t("glpi.computer.name") %></dt>
-                  <dd class="mb-0 pb-2 ps-3"><%= computer.name %></dd>
 
-                  <dt class="pb-2"><%= t("glpi.computer.id") %></dt>
-                  <dd class="mb-0 pb-2 ps-3"><%= computer.id %></dd>
-
-                  <dt class="pb-2"><%= t("glpi.computer.serial") %></dt>
-                  <dd class="mb-0 pb-2 ps-3"><%= computer.serial %></dd>
-
-                  <dt class="pb-2"><%= t("glpi.computer.contact") %></dt>
-                  <dd class="mb-0 pb-2 ps-3"><%= computer.contact %></dd>
-                </dl>
-                <dl class="show-page_dl d-grid row-gap-2 pt-3 border-top mb-0">
-                  <dt class="pb-2"><%= t("glpi.computer.disks_count") %></dt>
-                  <dd class="mb-0 pb-2 ps-3"><%= computer.hard_drives&.size %></dd>
-
-                  <dt class="pb-2"><%= t("glpi.computer.disks_capacity") %></dt>
-                  <dd class="mb-0 pb-2 ps-3"><%= number_to_human_size(computer.hard_drives_total_capacity * 1048576) %></dd>
-
-                  <dt class="pb-2"><%= t("glpi.computer.memories_count") %></dt>
-                  <dd class="mb-0 pb-2 ps-3"><%= computer.memories&.size %></dd>
-
-                  <dt class="pb-2"><%= t("glpi.computer.memories_total") %></dt>
-                  <dd class="mb-0 pb-2 ps-3"><%= number_to_human_size(computer.memories_total_size * 1048576) %></dd>
-
-                  <dt class="pb-2"><%= t("glpi.computer.cpus") %></dt>
-                  <dd class="mb-0 pb-2 ps-3">
-                    <%= computer.processors.group_by { |p| p[1]["designation"] }
-                                           .map { |designation, processors| "#{processors.size} x #{designation}" }
-                                           .join(", ") %>
-                  </dd>
-                </dl>
-                <% card.with_footer do %>
-                  <%= link_to t(".glpi_visit_page"),
-                              "#{Rails.application.credentials.glpi_url}/front/computer.form.php?id=#{computer.id}",
-                              target: :_blank %>
-                <% end %>
-              <% else %>
-                <%= t(".no_match_serial", serial: @server.numero) %>
-              <% end %>
-            <% end
-                rescue Timeout::Error => e
-                Rails.logger.warn "WARNING: couldn't get GLPI data because the operation timed out"
-                rescue Exception => e
-                Rails.logger.warn "WARNING: couldn't get GLPI data because of an error: #{e.message}" %>
-            <%= t(".glpi_connection_error") %> : <pre><code><%= e&.message.to_s %></code></pre>
+          <%= link_to @server.photo, rel: :noopener, target: :_blank do %>
+            <%= image_tag @server.photo.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
           <% end %>
         <% end %>
-      </div>
+      <% end %>
+      <% if @server.documents.present? %>
+        <%= render CardComponent.new(extra_classes: "mb-4") do |card| %>
+          <% card.with_header do %>
+            <%= t(".attached_documents") %>
+          <% end %>
+          <ul>
+            <% @server.documents.each do |doc| %>
+              <%- next unless doc.document.present? %>
+              <li>
+                <%= link_to(doc.document.metadata["filename"], doc.document_url, { target: :_blank })  %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      <% end %>
+
+      <%= render CardComponent.new do |card| %>
+        <% card.with_header do %>
+          <%= t(".glpi_data") %>
+        <% end %>
+        <%
+          begin
+            Timeout.timeout(3) do
+              client = GlpiClient.new
+              computer = client.computer(serial: Rails.env.production? ? @server.numero : "AZERTY") %>
+            <% if computer.present? %>
+              <dl class="show-page_dl d-grid row-gap-2 mb-0">
+                <dt class="pb-2"><%= t("glpi.computer.name") %></dt>
+                <dd class="mb-0 pb-2 ps-3"><%= computer.name %></dd>
+
+                <dt class="pb-2"><%= t("glpi.computer.id") %></dt>
+                <dd class="mb-0 pb-2 ps-3"><%= computer.id %></dd>
+
+                <dt class="pb-2"><%= t("glpi.computer.serial") %></dt>
+                <dd class="mb-0 pb-2 ps-3"><%= computer.serial %></dd>
+
+                <dt class="pb-2"><%= t("glpi.computer.contact") %></dt>
+                <dd class="mb-0 pb-2 ps-3"><%= computer.contact %></dd>
+              </dl>
+              <dl class="show-page_dl d-grid row-gap-2 pt-3 border-top mb-0">
+                <dt class="pb-2"><%= t("glpi.computer.disks_count") %></dt>
+                <dd class="mb-0 pb-2 ps-3"><%= computer.hard_drives&.size %></dd>
+
+                <dt class="pb-2"><%= t("glpi.computer.disks_capacity") %></dt>
+                <dd class="mb-0 pb-2 ps-3"><%= number_to_human_size(computer.hard_drives_total_capacity * 1048576) %></dd>
+
+                <dt class="pb-2"><%= t("glpi.computer.memories_count") %></dt>
+                <dd class="mb-0 pb-2 ps-3"><%= computer.memories&.size %></dd>
+
+                <dt class="pb-2"><%= t("glpi.computer.memories_total") %></dt>
+                <dd class="mb-0 pb-2 ps-3"><%= number_to_human_size(computer.memories_total_size * 1048576) %></dd>
+
+                <dt class="pb-2"><%= t("glpi.computer.cpus") %></dt>
+                <dd class="mb-0 pb-2 ps-3">
+                  <%= computer.processors.group_by { |p| p[1]["designation"] }
+                                          .map { |designation, processors| "#{processors.size} x #{designation}" }
+                                          .join(", ") %>
+                </dd>
+              </dl>
+              <% card.with_footer do %>
+                <%= link_to t(".glpi_visit_page"),
+                            "#{Rails.application.credentials.glpi_url}/front/computer.form.php?id=#{computer.id}",
+                            target: :_blank %>
+              <% end %>
+            <% else %>
+              <%= t(".no_match_serial", serial: @server.numero) %>
+            <% end %>
+          <% end
+              rescue Timeout::Error => e
+              Rails.logger.warn "WARNING: couldn't get GLPI data because the operation timed out"
+              rescue Exception => e
+              Rails.logger.warn "WARNING: couldn't get GLPI data because of an error: #{e.message}" %>
+          <%= t(".glpi_connection_error") %> : <pre><code><%= e&.message.to_s %></code></pre>
+        <% end %>
+      <% end %>
     </div>
   </div>
 
