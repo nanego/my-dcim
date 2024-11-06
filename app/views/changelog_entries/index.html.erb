@@ -10,47 +10,51 @@
 
 <div class="p-4 border-top">
   <%= turbo_frame_tag "changelog-entries" do %>
-    <%= render List::DataTableComponent.new(decorate(@changelog_entries)) do |table| %>
-      <% table.with_column("", style: "min-width: 20px; width: 20px") do |changelog_entry| %>
-        <%= link_to changelog_entry_path(changelog_entry), class: "btn btn-primary", target: :_top do %>
-          <span class="bi bi-eye" aria-hidden="true" data-controller="tooltip" data-bs-placement="top"
-                                                                              title="<%= t("action.show") %>"></span>
-          <span class="visually-hidden"><%= t("action.show") %></span>
+    <div class="d-flex flex-column row-gap-4">
+      <%= render List::DataTableComponent.new(decorate(@changelog_entries)) do |table| %>
+        <% table.with_column("", style: "min-width: 20px; width: 20px") do |changelog_entry| %>
+          <%= link_to changelog_entry_path(changelog_entry), class: "btn btn-primary", target: :_top do %>
+            <span class="bi bi-eye" aria-hidden="true" data-controller="tooltip" data-bs-placement="top"
+                                                                                title="<%= t("action.show") %>"></span>
+            <span class="visually-hidden"><%= t("action.show") %></span>
+          <% end %>
+        <% end %>
+
+        <% table.with_column(ChangelogEntry.human_attribute_name(:action), sort_by: :action) do |changelog_entry| %>
+          <%= render changelog_entry.action_label_to_component %>
+        <% end %>
+
+        <% table.with_column(ChangelogEntry.human_attribute_name(:author), sort_by: :author_id) do |changelog_entry| %>
+          <%= link_to_if changelog_entry.author_id?, changelog_entry.author_display_name, changelog_entry.author, target: :_top %>
+        <% end %>
+
+        <% table.with_column(ChangelogEntry.human_attribute_name(:object), sort_by: :object_id) do |changelog_entry| %>
+          <% begin %>
+            <%= link_to changelog_entry.object_display_name, changelog_entry.object, target: :_top %>
+          <% rescue NoMethodError %>
+            <%= changelog_entry.object_display_name %>
+          <% end %>
+        <% end %>
+
+        <% table.with_column(ChangelogEntry.human_attribute_name(:attributes)) do |changelog_entry| %>
+          <div class="row">
+            <div class="col-lg-6">
+              <%= sanitize changelog_entry.split_diff.left %>
+            </div>
+            <div class="col-lg-6">
+              <%= sanitize changelog_entry.split_diff.right %>
+            </div>
+          </div>
+        <% end %>
+
+        <% table.with_column(t("label_date"), sort_by: :created_at) do |changelog_entry| %>
+          <%= l changelog_entry.created_at %>
         <% end %>
       <% end %>
 
-      <% table.with_column(ChangelogEntry.human_attribute_name(:action), sort_by: :action) do |changelog_entry| %>
-        <%= render changelog_entry.action_label_to_component %>
+      <% if @pagy.pages > 1 %>
+        <%== pagy_bootstrap_nav(@pagy) %>
       <% end %>
-
-      <% table.with_column(ChangelogEntry.human_attribute_name(:author), sort_by: :author_id) do |changelog_entry| %>
-        <%= link_to_if changelog_entry.author_id?, changelog_entry.author_display_name, changelog_entry.author, target: :_top %>
-      <% end %>
-
-      <% table.with_column(ChangelogEntry.human_attribute_name(:object), sort_by: :object_id) do |changelog_entry| %>
-        <% begin %>
-          <%= link_to changelog_entry.object_display_name, changelog_entry.object, target: :_top %>
-        <% rescue NoMethodError %>
-          <%= changelog_entry.object_display_name %>
-        <% end %>
-      <% end %>
-
-      <% table.with_column(ChangelogEntry.human_attribute_name(:attributes)) do |changelog_entry| %>
-        <div class="row">
-          <div class="col-lg-6">
-            <%= sanitize changelog_entry.split_diff.left %>
-          </div>
-          <div class="col-lg-6">
-            <%= sanitize changelog_entry.split_diff.right %>
-          </div>
-        </div>
-      <% end %>
-
-      <% table.with_column(t("label_date"), sort_by: :created_at) do |changelog_entry| %>
-        <%= l changelog_entry.created_at %>
-      <% end %>
-    <% end %>
-
-    <%= paginate @changelog_entries %>
+    </div>
   <% end %>
 </div>
