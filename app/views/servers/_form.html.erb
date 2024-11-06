@@ -1,13 +1,13 @@
 <%= form_for(@server, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
   <%= render FormErrorsComponent.new(@server) %>
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-    <div class="row g-3">
+    <div class="row">
       <fieldset class="col-md-6 col-12">
         <%= f.label :name, class: "form-label" %>
         <%= f.text_field :name, class: "form-control" %>
       </fieldset>
 
-      <fieldset class="col-md-6 col-12 mt-md-3 mt-0">
+      <fieldset class="col-md-6 col-12 mt-md-0 mt-4">
         <%= f.label :numero, class: "form-label" %>
         <%= f.text_field :numero, class: "form-control" %>
       </fieldset>
@@ -76,6 +76,7 @@
                      }
         %>
         <div id="networkTypesHelp" class="form-text fst-italic">
+          <i class="bi bi-info-circle me-1"></i>
           <%= Modele.human_attribute_name("network_types.help") %>
         </div>
       </fieldset>
@@ -95,110 +96,87 @@
     </div>
   <% end %>
 
-    <!-- TODO: update -->
-    <% if @server.modele %>
-      <% @server.modele.enclosures.each do |enclosure| %>
-        <div class="col-12 mt-4" data-controller="nested-form">
-          <template data-nested-form-target="template">
-            <%= f.fields_for :cards, f.object.cards.klass.new, child_index: '__NEW_RECORD__' do |card_fields| %>
+  <!-- TODO: update -->
+  <% if @server.modele %>
+    <% @server.modele.enclosures.each do |enclosure| %>
+      <div class="col-12 mt-4" data-controller="nested-form">
+        <template data-nested-form-target="template">
+          <%= f.fields_for :cards, f.object.cards.klass.new, child_index: '__NEW_RECORD__' do |card_fields| %>
+            <%= render partial: "card_fields", locals: { f: card_fields, server: @server, enclosure: enclosure } %>
+          <% end %>
+        </template>
+
+        <%= render CardComponent.new(extra_classes: "bg-body") do |card| %>
+          <% card.with_header do %>
+            <%= "#{Enclosure.model_name.human} #{enclosure.position}" %>
+          <% end %>
+
+          <div class="row-gap-3 d-flex flex-column">
+            <% cards = @server.cards.select { |c| c.composant.enclosure == enclosure }
+                                    .sort_by! { |c| c.composant.position } %>
+            <%= f.fields_for :cards, cards do |card_fields| %>
               <%= render partial: "card_fields", locals: { f: card_fields, server: @server, enclosure: enclosure } %>
             <% end %>
-          </template>
 
-          <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-            <% card.with_header do %>
-              <%= "#{Enclosure.model_name.human} #{enclosure.position}" %>
-            <% end %>
+            <div data-nested-form-target="target" class="d-none"></div>
+          </div>
 
-            <ul class="list-group">
-              <li class="list-group-item">
-                <div class="row">
-                  <span class="col-md-2">
-                    <%= Enclosure.human_attribute_name("component") %>
-                  </span>
-                  <span class="col-md-2">
-                    <%= Enclosure.human_attribute_name("card_type") %>
-                  </span>
-                  <span class="col-md-2">
-                    <%= Enclosure.human_attribute_name("label") %>
-                  </span>
-                  <span class="col-md-2">
-                    <%= Enclosure.human_attribute_name("orientation") %>
-                  </span>
-                  <span class="col-md-1">
-                    <%= Enclosure.human_attribute_name("first_port_name_shrt") %>
-                  </span>
-                  <span class="col-md-2">
-                    <%= Enclosure.human_attribute_name("twin_card") %>
-                  </span>
-                </div>
-              </li>
-              <% cards = @server.cards.select { |c| c.composant.enclosure == enclosure }
-                                      .sort_by! { |c| c.composant.position } %>
-              <%= f.fields_for :cards, cards do |card_fields| %>
-                <%= render partial: "card_fields", locals: { f: card_fields, server: @server, enclosure: enclosure } %>
-              <% end %>
-
-              <div data-nested-form-target="target"></div>
-            </ul>
-
-            <% card.with_footer do %>
-              <button type="button" class="btn btn-outline-success btn-sm mx-auto" data-action="nested-form#add">
-                <span class="bi bi-plus-lg" aria-hidden="true"></span>
-                <span><%= t(".add_card") %></span>
-              </button>
-            <% end %>
+          <% card.with_footer do %>
+            <button type="button" class="btn btn-outline-success btn-sm mx-auto" data-action="nested-form#add">
+              <span class="bi bi-plus-lg" aria-hidden="true"></span>
+              <span><%= t(".add_card") %></span>
+            </button>
           <% end %>
-        </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+    <fieldset class="col-12">
+      <%= f.label :comment, class: "form-label" %>
+      <%= f.text_area :comment, class: "form-control" %>
+    </fieldset>
+  <% end %>
+
+  <fieldset class="col-12 mt-4" data-controller="nested-form">
+    <template data-nested-form-target="template">
+      <%= f.fields_for :documents, f.object.documents.klass.new, child_index: '__NEW_RECORD__' do |document_fields| %>
+        <%= render partial: "document_fields", locals: { f: document_fields } %>
       <% end %>
+    </template>
+
+    <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+      <% card.with_header do %>
+        <%= f.label :documents %>
+      <% end %>
+
+      <%= f.fields_for :documents do |document_fields| %>
+        <%= render partial: "document_fields", locals: { f:  document_fields } %>
+      <% end %>
+
+      <div data-nested-form-target="target"></div>
+
+      <button type="button" class="btn btn-outline-success btn-sm" data-action="nested-form#add">
+        <span class="bi bi-plus-lg" aria-hidden="true"></span>
+        <span><%= t(".add_document") %></span>
+      </button>
     <% end %>
+  </fieldset>
 
-    <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
-      <fieldset class="col-12">
-        <%= f.label :comment, class: "form-label" %>
-        <%= f.text_area :comment, class: "form-control" %>
-      </fieldset>
-    <% end %>
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+    <fieldset class="col-12">
+      <%= f.label :photo, class: "form-label" %>
+      <%= f.file_field :photo, class: "form-control" %>
 
-    <fieldset class="col-12 mt-4" data-controller="nested-form">
-      <template data-nested-form-target="template">
-        <%= f.fields_for :documents, f.object.documents.klass.new, child_index: '__NEW_RECORD__' do |document_fields| %>
-          <%= render partial: "document_fields", locals: { f: document_fields } %>
-        <% end %>
-      </template>
-
-      <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-        <% card.with_header do %>
-          <%= f.label :documents %>
-        <% end %>
-
-        <%= f.fields_for :documents do |document_fields| %>
-          <%= render partial: "document_fields", locals: { f:  document_fields } %>
-        <% end %>
-
-        <div data-nested-form-target="target"></div>
-
-        <button type="button" class="btn btn-outline-success btn-sm" data-action="nested-form#add">
-          <span class="bi bi-plus-lg" aria-hidden="true"></span>
-          <span><%= t(".add_document") %></span>
-        </button>
+      <% if @server.photo.attached? %>
+        <%= image_tag @server.photo.representation(resize_to_limit: [200, 200]), class: "ms-0 mt-2" %>
       <% end %>
     </fieldset>
+  <% end %>
 
-    <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
-      <fieldset class="col-12">
-        <%= f.label :photo, class: "form-label" %>
-        <%= f.file_field :photo, class: "form-control" %>
-
-        <% if @server.photo.attached? %>
-          <%= image_tag @server.photo.representation(resize_to_limit: [200, 200]), class: "ms-0 mt-2" %>
-        <% end %>
-      </fieldset>
-    <% end %>
-
-    <div class="col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top">
-      <%= link_to t("action.cancel"), servers_path, class: "btn btn-outline-secondary" %>
-      <%= f.submit class: "btn btn-primary" %>
-    </div>
+  <div class="col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top">
+    <%= link_to t("action.cancel"), servers_path, class: "btn btn-outline-secondary" %>
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>

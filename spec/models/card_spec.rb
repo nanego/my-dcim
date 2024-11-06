@@ -13,6 +13,10 @@ RSpec.describe Card do
     it { is_expected.to have_many(:cables).through(:ports) }
   end
 
+  describe "validations" do
+    it { is_expected.to validate_numericality_of(:first_position).only_integer.is_in(0..100).allow_nil }
+  end
+
   describe "#to_s" do
     pending
   end
