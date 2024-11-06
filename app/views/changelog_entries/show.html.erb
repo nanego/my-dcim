@@ -24,10 +24,10 @@
   <% end %>
 <% end %>
 
-<div class="col-12 p-4 border-top">
-  <div class="d-flex flex-row flex-wrap">
-    <div class="col-12 col-lg-6 pe-lg-4">
-      <%= render CardComponent.new(extra_classes: "mb-4 mb-lg-0") do |card| %>
+<div class="col-12 p-4 border-top gap-4 d-flex flex-column">
+  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+    <div class="col">
+      <%= render CardComponent.new do |card| %>
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <dt class="pb-2"><%= ChangelogEntry.human_attribute_name(:object) %></dt>
           <dd class="mb-0 pb-2 ps-3">
@@ -55,7 +55,24 @@
       <% end %>
     </div>
 
-    <div class="col-12 col-lg-6">
+    <div class="col">
+      <%= render CardComponent.new do |card| %>
+        <% card.with_header do %>
+          <%=t ".metadatas" %>
+        <% end %>
+
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <% @changelog_entry.metadata.each do |key, value| %>
+            <dt class="pb-2"><%= key %></dt>
+            <dd class="mb-0 pb-2 ps-3"><code><%= value %></code></dd>
+          <% end %>
+        </dl>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row row-cols-1">
+    <div class="col">
       <%= render CardComponent.new do |card| %>
         <% card.with_header do %>
           <%=t ".changes" %>
@@ -69,19 +86,6 @@
             <%=sanitize @changelog_entry.split_diff.right %>
           </div>
         </div>
-      <% end %>
-
-      <%= render CardComponent.new(extra_classes: "my-4 mb-lg-0") do |card| %>
-        <% card.with_header do %>
-          <%=t ".metadatas" %>
-        <% end %>
-
-        <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <% @changelog_entry.metadata.each do |key, value| %>
-            <dt class="pb-2"><%= key %></dt>
-            <dd class="mb-0 pb-2 ps-3"><code><%= value %></code></dd>
-          <% end %>
-        </dl>
       <% end %>
     </div>
   </div>
