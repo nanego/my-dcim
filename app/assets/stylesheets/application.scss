@@ -766,6 +766,10 @@ body {
     max-width: 100px;
   }
 
+  nav.pagy-bootstrap.nav .pagination {
+    margin-bottom: 0;
+  }
+
   /* Tom-Select */
   /* Fix for dark mode */
   .ts-dropdown, .ts-control, .ts-control input {

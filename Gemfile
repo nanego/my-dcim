@@ -24,7 +24,8 @@ gem "simple_token_authentication", "~> 1.0"
 
 gem "datagrid"
 gem "faraday"
-gem "kaminari"
+gem "kaminari" # TODO: Remove when removing datagrid
+gem "pagy"
 gem "pg"
 gem "virtus"
 
