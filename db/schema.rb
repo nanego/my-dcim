@@ -360,6 +360,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_06_141954) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "documentation_url"
     t.integer "modeles_count", default: 0, null: false
+    t.integer "bays_count", default: 0, null: false
   end
 
   create_table "memory_components", id: :serial, force: :cascade do |t|

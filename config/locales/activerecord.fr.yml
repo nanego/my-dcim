@@ -176,13 +176,18 @@ fr:
           other: "%{count} serveurs"
       manufacturer:
         name: Nom
-        usage: Usage
+        usage_modele: Usage (modèle)
+        usage_bay: Usage (baie)
         description: Description
         documentation_url: Documentation URL
         modeles_count:
           zero: 0 modèle
           one: 1 modèle
           other: "%{count} modèles"
+        bays_count:
+          zero: 0 baie
+          one: 1 baie
+          other: "%{count} baies"
       domaine:
         name: Nom
         usage: Usage
