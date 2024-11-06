@@ -26,7 +26,8 @@
     <% end %>
 
     <% table.with_column(Stack.human_attribute_name(:servers), sort_by: :servers_count) do |stack| %>
-      <%= Stack.human_attribute_name(:servers_count, count: stack.servers_count) %>
+      <%= link_to Stack.human_attribute_name(:servers_count, count: stack.servers_count),
+                  servers_path(stack_ids: stack.id) %>
     <% end %>
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |stack| %>
