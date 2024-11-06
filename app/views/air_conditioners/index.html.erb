@@ -37,7 +37,7 @@
 
   <%= render List::DataTableComponent.new(@air_conditioners) do |table| %>
     <% table.with_column(AirConditioner.human_attribute_name(:name), sort_by: :name) do |air_conditioner| %>
-      <%= link_to air_conditioner.name, air_conditioner_path(air_conditioner) %>
+      <%= link_to air_conditioner.name, air_conditioner_path(air_conditioner), class: "fw-bold" %>
     <% end %>
 
     <% table.with_column(Room.model_name.human, sort_by: :"rooms.name") do |air_conditioner| %>

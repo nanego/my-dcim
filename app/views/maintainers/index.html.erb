@@ -18,7 +18,7 @@
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render List::DataTableComponent.new(@maintainers) do |table| %>
     <% table.with_column(Maintainer.human_attribute_name(:name), sort_by: :name) do |maintainer| %>
-      <%= link_to maintainer, maintainer_path(maintainer) %>
+      <%= link_to maintainer, maintainer_path(maintainer), class: "fw-bold" %>
     <% end %>
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |maintainer| %>
