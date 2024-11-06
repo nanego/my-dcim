@@ -10,6 +10,8 @@ class Composant < ApplicationRecord
 
   has_many :cards
 
+  validates :name, format: { without: /\s/ }, allow_blank: true
+
   scope :slots, -> { where(type_composant: TypeComposant.find_by_name('SLOT')).order("composants.position ASC") }
 
   def to_s

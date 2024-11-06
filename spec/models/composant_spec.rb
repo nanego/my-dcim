@@ -17,6 +17,22 @@ RSpec.describe Composant do
 
   describe "validations" do
     xit { is_expected.to be_valid }
+
+    describe "name format" do
+      before { composant.valid? }
+
+      context "with valid name" do
+        subject(:composant) { described_class.new(name: "validname") }
+
+        it { expect(composant.errors.where(:name, :invalid).count).to eq(0) }
+      end
+
+      context "with empty name" do
+        subject(:composant) { described_class.new(name: "invalid name") }
+
+        it { expect(composant.errors.where(:name, :invalid).count).to eq(1) }
+      end
+    end
   end
 
   describe "#to_s" do
