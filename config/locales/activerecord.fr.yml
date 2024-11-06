@@ -369,3 +369,7 @@ fr:
           attributes:
             numero:
               invalid: ne peut pas être identique à un nom de machine
+        composant:
+          attributes:
+            name:
+              invalid: ne peut pas contenir d'espace
