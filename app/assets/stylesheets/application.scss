@@ -809,6 +809,15 @@ body {
     content: "\200b";
   }
 
+  /* Tom-select fix for small selects */
+  .ts-dropdown {
+    min-width: fit-content;
+
+    .item, .option {
+      white-space: nowrap;
+    }
+  }
+
   /* Visualization Infrastructure view */
   #network-capacity {
     .tab-content.infrastructure {
