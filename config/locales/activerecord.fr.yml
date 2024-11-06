@@ -139,6 +139,7 @@ fr:
         status: État
         bay_id: Baie la plus proche
         last_service: Dernière maintenance
+        lift_pump: Pompe de relevage
         air_conditioner_model_id: Modèle
         start: DTC start (début lutte)
         range: DTC range (plage d'accélération)

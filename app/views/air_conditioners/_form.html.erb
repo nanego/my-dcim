@@ -28,7 +28,15 @@
       <%= f.label :last_service, class: "form-label" %>
       <%= f.date_field :last_service, class: "form-control" %>
     </fieldset>
+
+    <div class="col-12 mt-4">
+      <fieldset class="form-check">
+        <%= f.check_box :lift_pump, class: "form-check-input" %>
+        <%= f.label :lift_pump, class: "form-check-label" %>
+      </fieldset>
+    </div>
   <% end %>
+
   <%= render CardComponent.new(type: :primary, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
     <% card.with_header do %>
       <%= t("layouts.sidebar.location.title") %>
