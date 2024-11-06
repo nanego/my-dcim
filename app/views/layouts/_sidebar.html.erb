@@ -204,6 +204,27 @@
           </li>
         </ul>
       </li>
+      <!-- Contacts -->
+      <li class="mydcim-sidebar-links-group py-2">
+        <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
+          <i class="bi bi-people-fill me-2 text-primary"></i>
+          <%= t(".contacts.title") %>
+        </strong>
+        <ul class="list-unstyled fw-normal pb-2 small">
+          <li>
+            <%= link_to Contact.model_name.human.pluralize,
+                        contacts_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "contacts") %>
+          </li>
+          <li>
+            <%= link_to ContactRole.model_name.human.pluralize,
+                        contact_roles_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "contact_roles") %>
+          </li>
+        </ul>
+      </li>
     </ul>
   </nav>
 </aside>

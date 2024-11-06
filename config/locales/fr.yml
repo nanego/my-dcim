@@ -80,6 +80,8 @@ fr:
         title: Maintenance
       connection:
         title: Connexion
+      contacts:
+        title: Contacts
       servers: Matériels
 
   pages:
@@ -653,7 +655,45 @@ fr:
         updated: La baie a bien été mise à jour.
     destroy:
       flashes:
-        destroyed: La baie bien été supprimé.
+        destroyed: La baie a bien étée supprimé.
+  contacts:
+    index:
+      new_contact: Ajouter un contact
+      title: Contacts
+      delete_confirmation: Ce contact ne pourra pas être supprimé tant qu'il est associé à au moins un Site. Voulez-vous continuer ?
+    new:
+      title: Nouveau contact
+    create:
+      flashes:
+        created: Le contact a été ajouté.
+    edit:
+      title: Modifier le contact %{name}
+    update:
+      flashes:
+        updated: Le contact a bien été mis à jour.
+    destroy:
+      flashes:
+        destroyed: Le contact a bien été supprimé.
+  contact_roles:
+    index:
+      new_contact_role: Ajouter un role
+      title: Roles de Contacts
+      delete_confirmation: Ce role ne pourra pas être supprimé tant qu'il est associé à au moins un Site. Voulez-vous continuer ?
+    new:
+      title: Nouveau role
+    create:
+      flashes:
+        created: Le role a été ajouté.
+    edit:
+      title: Modifier le role %{name}
+    update:
+      flashes:
+        updated: Le role a bien été mis à jour.
+    destroy:
+      flashes:
+        destroyed: Le role a bien été supprimé.
+  contact_assignments:
+    delete_confirmation: Êtes-vous sûr de vouloir supprimer ce contact ?
   visualization:
     title: Visualisation
     network_capacities:

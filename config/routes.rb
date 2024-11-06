@@ -88,6 +88,10 @@ Rails.application.routes.draw do
   end
   resources :external_app_requests, only: %i[show destroy]
 
+  resources :contacts
+  resources :contact_roles
+  resources :contact_assignments
+
   namespace :visualization do
     resource :infrastructure, only: :show
     resource :network_capacity, only: :show

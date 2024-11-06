@@ -1,0 +1,81 @@
+# frozen_string_literal: true
+
+class ContactRolesController < ApplicationController
+  before_action :set_contact_role, only: %i[show edit update destroy]
+
+  # GET /contact_roles
+  # GET /contact_roles.json
+  def index
+    # TODO: add processor for sort
+    @contact_roles = ContactRole.all
+  end
+
+  # GET /contact_roles/1
+  # GET /contact_roles/1.json
+  def show; end
+
+  # GET /contact_roles/new
+  def new
+    @contact_role = ContactRole.new
+  end
+
+  # GET /contact_roles/1/edit
+  def edit; end
+
+  # POST /contact_roles
+  # POST /contact_roles.json
+  def create
+    @contact_role = ContactRole.new(contact_role_params)
+
+    respond_to do |format|
+      if @contact_role.save
+        format.html { redirect_to @contact_role, notice: t(".flashes.created") }
+        format.json { render :show, status: :created, location: @contact_role }
+      else
+        format.html { render :new }
+        format.json { render json: @contact_role.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /contact_roles/1
+  # PATCH/PUT /contact_roles/1.json
+  def update
+    respond_to do |format|
+      if @contact_role.update(contact_role_params)
+        format.html { redirect_to @contact_role, notice: t(".flashes.updated") }
+        format.json { render :show, status: :ok, location: @contact_role }
+      else
+        format.html { render :edit }
+        format.json { render json: @contact_role.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /contact_roles/1
+  # DELETE /contact_roles/1.json
+  def destroy
+    if @contact_role.destroy
+      respond_to do |format|
+        format.html { redirect_to contact_roles_url, notice: t(".flashes.destroyed") }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to({ action: 'index' }, alert: @contact_role.errors.full_messages_for(:base).join(", ")) }
+      end
+    end
+  end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_contact_role
+    @contact_role = ContactRole.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def contact_role_params
+    params.require(:contact_role).permit(:name, :description)
+  end
+end

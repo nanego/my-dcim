@@ -5,6 +5,7 @@ class Site < ApplicationRecord
 
   has_many :rooms, dependent: :restrict_with_error
   has_many :frames, through: :rooms, dependent: :restrict_with_error
+  has_many :contact_assignments
 
   has_one_attached :delivery_map
 
