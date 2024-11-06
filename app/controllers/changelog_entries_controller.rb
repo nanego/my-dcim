@@ -1,6 +1,6 @@
 class ChangelogEntriesController < ApplicationController
   def index
-    @changelog_entries = sorted(changelog_scope.order(created_at: :desc))
+    @changelog_entries = sorted(changelog_scope.includes(:author, :object).order(created_at: :desc))
     @pagy, @changelog_entries = pagy(@changelog_entries)
   end
 
