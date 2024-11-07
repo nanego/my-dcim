@@ -14,7 +14,7 @@ RSpec.describe Form::ActionsComponent, type: :component do
   context "with new object" do
     it { expect(rendered_component).not_to be_nil }
 
-    it do
+    it do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component).to have_tag("div.col-12.sticky-bottom") do
         with_tag("a", href: "/islets", text: "Annuler")
         with_tag("a", text: "Annuler", count: 1)
@@ -29,7 +29,7 @@ RSpec.describe Form::ActionsComponent, type: :component do
 
     it { expect(rendered_component).not_to be_nil }
 
-    it do
+    it do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component).to have_tag("div.col-12.sticky-bottom") do
         with_tag("a", href: "/islets/1", text: "Annuler")
         with_tag("a", text: "Annuler", count: 1)
