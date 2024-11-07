@@ -2,12 +2,12 @@
 
 require "rails_helper"
 
-RSpec.describe "CardTypes" do
-  let(:card_type) { card_types(:one) }
+RSpec.describe "Stacks" do
+  let(:stack) { stacks(:red) }
 
   describe "GET #index" do
     subject(:response) do
-      get card_types_path
+      get stacks_path
 
       @response # rubocop:disable RSpec/InstanceVariable
     end
@@ -18,13 +18,13 @@ RSpec.describe "CardTypes" do
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
-    it { expect(response.body).to include(card_type.name) }
-    it { expect(assigns(:card_types_by_port_types)).not_to be_nil }
+    it { expect(response.body).to include(stack.name) }
+    it { expect(assigns(:stacks)).not_to be_nil }
   end
 
   describe "GET #show" do
     subject(:response) do
-      get card_type_path(card_type)
+      get stack_path(stack)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -32,13 +32,13 @@ RSpec.describe "CardTypes" do
 
     include_context "with authenticated user"
 
-    context "with not found card_type" do
-      let(:card_type) { CardType.new(id: 999_999_999) }
+    context "with not found stack" do
+      let(:stack) { Stack.new(id: 999_999_999) }
 
       it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
     end
 
-    context "with existing card_type" do
+    context "with existing stack" do
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:show) }
     end
@@ -46,7 +46,7 @@ RSpec.describe "CardTypes" do
 
   describe "GET #new" do
     subject(:response) do
-      get new_card_type_path
+      get new_stack_path
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -60,25 +60,24 @@ RSpec.describe "CardTypes" do
 
   describe "POST #create" do
     subject(:response) do
-      post card_types_path, params: params
+      post stacks_path, params: params
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    let(:valid_attributes) { { name: "New CardType", port_type_id: card_type.port_type_id } }
-    let(:invalid_attributes) { { name: "" } }
-    let(:params) { { card_type: valid_attributes } }
+    let(:valid_attributes) { { name: "New Stack" } }
+    let(:params) { { stack: valid_attributes } }
 
     include_context "with authenticated user"
 
     context "with valid parameters" do
-      it { expect { response }.to change(CardType, :count).by(1) }
-      it { expect(response).to redirect_to(card_type_path(assigns(:card_type))) }
+      it { expect { response }.to change(Stack, :count).by(1) }
+      it { expect(response).to redirect_to(stack_path(assigns(:stack))) }
     end
 
     context "without attributes" do
-      let(:params) { { card_type: {} } }
+      let(:params) { { stack: {} } }
 
       it { expect { response }.to raise_error(ActionController::ParameterMissing) }
     end
@@ -88,17 +87,11 @@ RSpec.describe "CardTypes" do
 
       it { expect { response }.to raise_error(ActionController::ParameterMissing) }
     end
-
-    context "with invalid parameters" do
-      let(:params) { { card_type: invalid_attributes } }
-
-      it { expect(response).to render_template(:new) }
-    end
   end
 
   describe "GET #edit" do
     subject(:response) do
-      get edit_card_type_path(card_type)
+      get edit_stack_path(stack)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -112,15 +105,14 @@ RSpec.describe "CardTypes" do
 
   describe "PATCH #update" do
     subject(:response) do
-      patch card_type_path(card_type), params: params
+      patch stack_path(stack), params: params
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    let(:valid_attributes) { { port_type_id: "2" } }
-    let(:invalid_attributes) { { port_type_id: "" } }
-    let(:params) { { card_type: valid_attributes } }
+    let(:valid_attributes) { { name: "Blue" } }
+    let(:params) { { stack: valid_attributes } }
 
     include_context "with authenticated user"
 
@@ -128,16 +120,16 @@ RSpec.describe "CardTypes" do
       it do
         expect do
           response
-          card_type.reload
-        end.to change(card_type, :port_type_id).to(2)
+          stack.reload
+        end.to change(stack, :name).to("Blue")
       end
 
-      it { expect(response).to redirect_to(card_type_path(assigns(:card_type))) }
+      it { expect(response).to redirect_to(stack_path(assigns(:stack))) }
       it { expect(response).to have_http_status(:redirect) }
     end
 
     context "without attributes" do
-      let(:params) { { card_type: {} } }
+      let(:params) { { stack: {} } }
 
       it { expect { response }.to raise_error(ActionController::ParameterMissing) }
     end
@@ -147,17 +139,11 @@ RSpec.describe "CardTypes" do
 
       it { expect { response }.to raise_error(ActionController::ParameterMissing) }
     end
-
-    context "with invalid parameters" do
-      let(:params) { { card_type: invalid_attributes } }
-
-      it { expect(response).to render_template(:edit) }
-    end
   end
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete card_type_path(card_type)
+      delete stack_path(stack)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -165,28 +151,28 @@ RSpec.describe "CardTypes" do
 
     include_context "with authenticated user"
 
-    context "with an card_type without cards" do
-      let(:card_type) { card_types(:three) }
+    context "with an stack without servers" do
+      let(:stack) { stacks(:orange) }
 
       it do
         expect do
           response
-        end.to change(CardType, :count).by(-1)
+        end.to change(Stack, :count).by(-1)
       end
 
       it { expect(response).to have_http_status(:redirect) }
-      it { expect(response).to redirect_to(card_types_path) }
+      it { expect(response).to redirect_to(stacks_path) }
     end
 
-    context "with an card_type with cards" do
+    context "with an stack with servers" do
       it do
         expect do
           response
-        end.not_to change(CardType, :count)
+        end.not_to change(Stack, :count)
       end
 
       it { expect(response).to have_http_status(:redirect) }
-      it { expect(response).to redirect_to(card_types_path) }
+      it { expect(response).to redirect_to(stacks_path) }
     end
   end
 end
