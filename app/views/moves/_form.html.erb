@@ -64,7 +64,7 @@
         </fieldset>
 
         <div class="col-12 mt-4 text-end">
-          <%= f.submit class: "btn btn-primary" %>
+          <%= f.submit class: class_names("btn", "btn-info": @move.persisted?, "btn-success": !@move.persisted?) %>
         </div>
       </div>
     <% end %>
