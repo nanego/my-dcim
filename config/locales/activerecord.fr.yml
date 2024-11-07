@@ -261,6 +261,8 @@ fr:
         short_gbe: Gb
         short_10gbe: 10 Gb
         short_fiber: Fibre
+      enclosures/composants:
+        name: Nom d'un slot d'une enclosure
       enclosure:
         display: Disposition
         grid_areas: Grid areas
