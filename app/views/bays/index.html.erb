@@ -51,7 +51,8 @@
   <%= turbo_frame_tag(dom_id(Bay, :table), data: { turbo_action: :advance }) do %>
     <%= render List::DataTableComponent.new(@bays) do |table| %>
       <% table.with_column(Bay.human_attribute_name(:name)) do |bay| %>
-        <%= link_to bay, bay_path(bay), data: { turbo_frame: :_top } %>
+        <% link_text = bay.frames.any? ? bay.to_s : bay.decorated.no_frame_warning_icon %>
+        <%= link_to link_text, bay_path(bay), data: { turbo_frame: :_top } %>
       <% end %>
 
       <% table.with_column(Room.model_name.human, sort_by: :"rooms.name") do |bay| %>
