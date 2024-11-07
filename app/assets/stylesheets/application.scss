@@ -606,6 +606,8 @@ body {
   }
 
   &-navbar {
+    width: 240px;
+
     @include media-breakpoint-up(lg) {
       flex-grow: 1;
 
@@ -669,6 +671,7 @@ body {
 
   &-sidebar {
     font-size: 16px;
+    width: 240px !important;
 
     &:not(.offcanvas) {
       @include media-breakpoint-up(lg) {
@@ -676,7 +679,8 @@ body {
         top: 0;
         display: block !important;
         overflow-y: auto;
-        height: 100%
+        height: 100%;
+        border-radius: 0 !important;
       }
     }
 
