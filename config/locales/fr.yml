@@ -5,6 +5,7 @@ fr:
   unit:
     square_meter: m²
     mm: mm
+    inches: pouces
   form:
     submit: Valider
   action:
