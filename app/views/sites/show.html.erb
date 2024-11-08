@@ -5,8 +5,8 @@
 
 <%= render Page::HeadingShowComponent.new(resource: @site, title: @site.name, breadcrumb_steps:) %>
 <div class="col-12 p-4 border-top">
-  <div class="d-flex flex-row flex-wrap">
-    <div class="col-12 col-lg-6 pe-lg-4">
+  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+    <div class="col">
       <%= render CardComponent.new do |card| %>
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <% %i[name description].each do |attribute_name| %>
@@ -15,7 +15,9 @@
           <% end %>
         </dl>
       <% end %>
-      <%= render CardComponent.new(extra_classes: "my-4 mb-lg-0") do |card| %>
+
+      <!-- Card shown on lg, in 2nd position (Grid isn't working as Masonry) -->
+      <%= render CardComponent.new(extra_classes: "d-none d-lg-flex mt-4") do |card| %>
         <% card.with_header do %>
           <%= t("display") %>
         <% end %>
@@ -28,7 +30,7 @@
         </dl>
       <% end %>
     </div>
-    <div class="col-12 col-lg-6" id="export-to-pdf">
+    <div class="col" id="export-to-pdf">
       <%= render CardComponent.new(type: :primary) do |card| %>
         <% card.with_header do %>
           <div class="justify-content-between d-flex">
@@ -64,6 +66,22 @@
               <% end %>
             <% end %>
           </dd>
+        </dl>
+      <% end %>
+    </div>
+
+    <!-- Card shown on mobile, in 3rd position (Grid isn't working as Masonry) -->
+    <div class="col d-lg-none">
+      <%= render CardComponent.new(extra_classes: "d-lg-none") do |card| %>
+        <% card.with_header do %>
+          <%= t("display") %>
+        <% end %>
+
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <% %i[position].each do |attribute_name| %>
+            <dt class="pb-2"><%= Site.human_attribute_name(attribute_name) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @site.public_send(attribute_name) %></dd>
+          <% end %>
         </dl>
       <% end %>
     </div>

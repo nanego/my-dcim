@@ -16,8 +16,8 @@
   <% end %>
 <% end %>
 <div class="col-12 p-4 border-top">
-  <div class="d-flex flex-row flex-wrap">
-    <div class="col-12 col-lg-6 pe-lg-4">
+  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+    <div class="col">
       <%= render CardComponent.new do |card| %>
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <% %i[name u].each do |attribute_name| %>
@@ -41,17 +41,42 @@
         </dl>
       <% end %>
     </div>
-    <div class="col-12 col-lg-6">
+    <div class="col">
       <%= render CardComponent.new(type: :primary, extra_classes: "mb-4 mb-lg-0") do |card| %>
         <% card.with_header do %>
           <%= t("layouts.sidebar.location.title") %>
         <% end %>
 
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <% %i[position].each do |attribute_name| %>
-            <dt class="pb-2"><%= Frame.human_attribute_name(attribute_name) %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= @frame.public_send(attribute_name) %></dd>
-          <% end %>
+          <dt class="pb-2"><%= Room.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
+            <%= link_to @frame.room.name_with_site, room_path(@frame.room) %>
+            <%= link_to visualization_room_path(@frame.room),
+                        class: "btn btn-primary btn-sm",
+                        data: { turbo_frame: :_top } do %>
+              <span class="bi bi-diagram-3-fill"
+                    aria-hidden="true"
+                    data-controller="tooltip"
+                    data-bs-placement="left"
+                    title="<%= t("visualization.title") %>"></span>
+              <span class="visually-hidden"><%= t("visualization.title") %></span>
+            <% end %>
+          </dd>
+
+          <dt class="pb-2"><%= Islet.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
+            <%= link_to @frame.islet.name_with_room, islet_path(@frame.islet) %>
+            <%= link_to visualization_room_path(@frame.room, islet: @frame.islet.name),
+                        class: "btn btn-primary btn-sm",
+                        data: { turbo_frame: :_top } do %>
+              <span class="bi bi-diagram-3-fill"
+                    aria-hidden="true"
+                    data-controller="tooltip"
+                    data-bs-placement="left"
+                    title="<%= t("visualization.title") %>"></span>
+              <span class="visually-hidden"><%= t("visualization.title") %></span>
+            <% end %>
+          </dd>
 
           <dt class="pb-2"><%= Bay.model_name.human %></dt>
           <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
@@ -67,6 +92,11 @@
               <span class="visually-hidden"><%= t("visualization.title") %></span>
             <% end %>
           </dd>
+
+          <% %i[position].each do |attribute_name| %>
+            <dt class="pb-2"><%= Frame.human_attribute_name(attribute_name) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @frame.public_send(attribute_name) %></dd>
+          <% end %>
         </dl>
       <% end %>
     </div>

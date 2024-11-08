@@ -16,18 +16,18 @@
           <%= f.select :composant_id, options_for_select(composants.map { |c| [c.name || c.position, c.id] },
                                       f.object.composant_id),
                                       {},
-                                      { class: "form-select form-select-sm" } %>
+                                      { class: "form-select" } %>
         </span>
         <span class="col-12 mt-2 col-md-3 col-xl-2 mt-md-0">
           <%= f.label Enclosure.human_attribute_name(:name), class: "form-label col-form-label-sm p-0" %>
-          <%= f.text_field :name, class: "form-control form-control-sm" %>
+          <%= f.text_field :name, class: "form-control" %>
         </span>
         <span class="col-12 mt-2 col-md-5 mt-md-0 col-xl-7">
           <%= f.label Enclosure.human_attribute_name(:orientation), class: "form-label col-form-label-sm p-0" %>
           <%= f.select :orientation,
                         Card::ORIENTATIONS.map { |o| [Card.human_attribute_name("orientation.#{o}"), o] },
                         {},
-                        { class: "form-select form-select-sm" } %>
+                        { class: "form-select" } %>
         </span>
         <span class="col-12 mt-2 col-md-4 col-xl-3 ">
           <%= f.label Enclosure.human_attribute_name(:card_type_id), class: "form-label col-form-label-sm p-0" %>
@@ -35,11 +35,11 @@
                         options_for_select(CardType.sorted.map { |card_type| [card_type.name, card_type.id] },
                         f.object.card_type_id),
                         {},
-                        { class: "form-select form-select-sm", data: { controller: :select } } %>
+                        { class: "form-select", data: { controller: :select } } %>
         </span>
         <span class="col-12 mt-2 col-md-3 col-xl-2">
           <%= f.label Enclosure.human_attribute_name(:first_position), class: "form-label col-form-label-sm p-0" %>
-          <%= f.number_field :first_position, in: 0...101, class: "form-control form-control-sm" %>
+          <%= f.number_field :first_position, in: 0...101, class: "form-control" %>
         </span>
         <span class="col-12 mt-2 col-md-5 col-xl-7">
           <%= f.label Enclosure.human_attribute_name(:twin_card_id), class: "form-label col-form-label-sm p-0" %>
@@ -51,7 +51,7 @@
                                                 }.map { |card| [card.to_s, card.id] },
                         f.object.twin_card_id),
                         { include_blank: true },
-                        { class: "form-select form-select-sm", data: { controller: :select } } %>
+                        { class: "form-select", data: { controller: :select } } %>
         </span>
       </div>
 
