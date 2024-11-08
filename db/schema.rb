@@ -267,6 +267,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_30_101913) do
     t.integer "switch_slot"
     t.string "slug"
     t.integer "bay_id", null: false
+    t.float "width"
     t.index ["bay_id"], name: "index_frames_on_bay_id"
     t.index ["slug"], name: "index_frames_on_slug", unique: true
   end
