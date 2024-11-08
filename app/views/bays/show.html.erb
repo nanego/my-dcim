@@ -16,9 +16,9 @@
   <% end %>
 <% end %>
 <div class="col-12 p-4 border-top">
-  <div class="d-flex flex-row flex-wrap">
-    <div class="col-12 col-lg-6 pe-lg-4">
-      <%= render CardComponent.new(extra_classes: "mb-4 mb-lg-0") do |card| %>
+  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+    <div class="col">
+      <%= render CardComponent.new do |card| %>
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <dt class="pb-2"><%= Bay.human_attribute_name(:bay_type_id) %></dt>
           <dd class="mb-0 pb-2 ps-3"><%= @bay.bay_type %></dd>
@@ -26,7 +26,7 @@
       <% end %>
     </div>
 
-    <div class="col-12 col-lg-6">
+    <div class="col">
       <%= render CardComponent.new(type: :primary) do |card| %>
         <% card.with_header do %>
           <%= t("layouts.sidebar.location.title") %>
@@ -35,7 +35,7 @@
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <dt class="pb-2"><%= Room.model_name.human %></dt>
           <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
-            <%= link_to @bay.room, room_path(@bay.room) %>
+            <%= link_to @bay.room.name_with_site, room_path(@bay.room) %>
             <%= link_to visualization_room_path(@bay.room),
                         class: "btn btn-primary btn-sm",
                         data: { turbo_frame: :_top } do %>
