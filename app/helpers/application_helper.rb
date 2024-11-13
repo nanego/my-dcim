@@ -14,6 +14,8 @@ module ApplicationHelper
   end
 
   def value_with_unit(value, unit)
+    return unless value.present?
+
     "#{value} #{t("unit.#{unit}")}"
   end
 
