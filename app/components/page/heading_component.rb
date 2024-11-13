@@ -16,7 +16,7 @@ module Page
           <% end %>
 
           <% if @title %>
-            <h1 class="text-center"><%= @title.to_s.html_safe %></h1>
+            <h1 class="text-center"><%= @title %></h1>
           <% end %>
 
           <% if right_content? %>
