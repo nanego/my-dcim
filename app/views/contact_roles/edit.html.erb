@@ -2,7 +2,7 @@
   provide(:title, "#{ContactRole.model_name.human.pluralize} | #{@contact_role} | #{t("action.edit")}")
 
   breadcrumb_steps = {
-    Contact.model_name.human.pluralize => contact_roles_path,
+    ContactRole.model_name.human.pluralize => contact_roles_path,
     @contact_role => contact_role_path(@contact_role),
     t("action.edit") => ""
   }
