@@ -24,9 +24,9 @@ RSpec.describe HasManyTurboFrameComponent, type: :component do
 
   context "with html attributes" do
     let(:component) do
-      described_class.new("Title", url:, frame_id: :table_islet, id: "custom", type: :primary, data: { key: :value })
+      described_class.new("Title", url:, frame_id: :table_islet, id: "custom", type: :secondary, data: { key: :value })
     end
 
-    it { expect(rendered_component.to_html).to have_css("div.card.bg-body-primary#custom[data-key=value]") }
+    it { expect(rendered_component.to_html).to have_css("div#custom.card.border-secondary.bg-body-tertiary[data-key=value]") }
   end
 end
