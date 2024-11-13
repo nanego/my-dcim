@@ -3,8 +3,8 @@
 require "rails_helper"
 
 RSpec.describe ExternalAppRecordDecorator, type: :decorator do
-  describe "#badge_for_external_serial" do
-    subject(:badge) { ear.decorated.badge_for_external_serial }
+  describe "#external_serial_to_badge_component" do
+    subject(:badge) { ear.decorated.external_serial_to_badge_component }
 
     let(:ear) { external_app_records(:one) }
 

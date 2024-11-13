@@ -55,7 +55,7 @@
       <%= record.server.numero %>
     <% end %>
     <% table.with_column('Synchronisation GLPI', sort_by: :external_serial) do |record| %>
-      <%= render record.decorated.badge_for_external_serial %>
+      <%= render record.decorated.external_serial_to_badge_component %>
     <% end %>
     <% table.with_column('Nom GLPI', sort_by: :external_name) do |record| %>
       <%= record.external_name %>
