@@ -50,6 +50,9 @@ fr:
       move:
         one: Déplacement prévu
         other: Déplacements prévus
+      contact: Contact
+      contact_role: Role
+      contact_assignment: Assignation
 
     attributes:
       room:
@@ -362,6 +365,19 @@ fr:
         vlans: Vlans
         color: Couleur
         cablename: Nom du câble
+      contact:
+        first_name: Prénom
+        last_name: Nom
+        full_name: Nom
+        phone_number: Numéro de téléphone
+        email: Adresse mail
+      contact_role:
+        name: Nom
+        description: Description
+      contact_assignment:
+        site_id: Site
+        contact_id: Contact
+        contact_role_id: Role
 
     errors:
       models:

@@ -17,11 +17,11 @@
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render List::DataTableComponent.new(@contact_roles) do |table| %>
-    <% table.with_column(Contact.human_attribute_name(:name), sort_by: :name) do |contact_role| %>
+    <% table.with_column(ContactRole.human_attribute_name(:name), sort_by: :name) do |contact_role| %>
       <b><%= link_to contact_role.name, contact_role_path(contact_role) %></b>
     <% end %>
 
-    <% table.with_column(Contact.human_attribute_name(:description), sort_by: :description) do |contact_role| %>
+    <% table.with_column(ContactRole.human_attribute_name(:description), sort_by: :description) do |contact_role| %>
       <%= contact_role.description %>
     <% end %>
 
