@@ -574,7 +574,7 @@ fr:
       suspended: Verrouillés
       unsuspended: Actifs
     new:
-      new_user: Ajouter un utilisateur
+      new_user: Nouvel utilisateur
     show:
       action:
         show_authentication_token: Afficher la clé API

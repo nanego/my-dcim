@@ -15,7 +15,7 @@ module Page
         heading.with_left_content do
           tag.span class: "flex-grow-1" do
             render ButtonComponent.new(t("action.back"),
-                                       url: polymorphic_url(@resource.class),
+                                       url: polymorphic_path(@resource.class),
                                        icon: "chevron-left",
                                        is_responsive: true)
           end

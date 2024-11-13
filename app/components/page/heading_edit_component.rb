@@ -16,7 +16,7 @@ module Page
       render HeadingComponent.new(title: @title, breadcrumb_steps: @breadcrumb_steps) do |heading|
         heading.with_left_content do
           render ButtonComponent.new(t("action.back"),
-                                     url: polymorphic_url(@resource.class),
+                                     url: polymorphic_path(@resource.class),
                                      icon: "chevron-left",
                                      is_responsive: true)
         end

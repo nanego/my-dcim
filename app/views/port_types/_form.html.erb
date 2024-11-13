@@ -14,8 +14,5 @@
     </div>
   <% end %>
 
-  <div class="col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top">
-    <%= link_to t("action.cancel"), port_types_path, class: "btn btn-outline-secondary" %>
-    <%= f.submit class: "btn btn-primary" %>
-  </div>
+  <%= render Form::ActionsComponent.new(f) %>
 <% end %>

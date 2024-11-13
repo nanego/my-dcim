@@ -4,7 +4,7 @@ class CardType < ApplicationRecord
   has_changelog
 
   belongs_to :port_type, counter_cache: true
-  delegate :is_power_input?, to: :port_type, :allow_nil => true
+  delegate :is_power_input?, to: :port_type, allow_nil: true
 
   has_many :cards, dependent: :restrict_with_error
   has_many :servers, through: :cards
