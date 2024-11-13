@@ -6,8 +6,8 @@ class ContactRolesController < ApplicationController
   # GET /contact_roles
   # GET /contact_roles.json
   def index
-    # TODO: add processor for sort
-    @contact_roles = ContactRole.all
+    @filter = ProcessorFilter.new(ContactRole.all, params)
+    @contact_roles = @filter.results
   end
 
   # GET /contact_roles/1

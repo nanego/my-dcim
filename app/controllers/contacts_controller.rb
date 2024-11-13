@@ -6,8 +6,8 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
-    # TODO: add processor for sort
-    @contacts = Contact.all
+    @filter = ProcessorFilter.new(Contact.all, params)
+    @contacts = @filter.results
   end
 
   # GET /contacts/1
