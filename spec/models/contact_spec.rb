@@ -8,6 +8,10 @@ RSpec.describe Contact do
   it_behaves_like "changelogable", object: -> { described_class.new(first_name: "John", last_name: "Doe") },
                                    new_attributes: { first_name: "Jane", last_name: "Does" }
 
+  describe "associations" do
+    it { is_expected.to have_many(:contact_assignments) }
+  end
+
   describe "validations" do
     it { is_expected.to be_valid }
 

@@ -6,7 +6,7 @@ class ContactAssignmentsController < ApplicationController
   # GET /contact_assignments
   # GET /contact_assignments.json
   def index
-    @filter = ProcessorFilter.new(ContactAssignment.all, params)
+    @filter = ProcessorFilter.new(ContactAssignment.includes(:site, :contact, :contact_role), params)
     @contact_assignments = @filter.results
   end
 
