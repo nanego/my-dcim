@@ -24,6 +24,7 @@ fr:
     unsuspend: Déverrouiller
     create: Créer
     execute: Exécuter
+    move: Déplacer
   export_button:
     label: Exports
     exports:
@@ -435,6 +436,7 @@ fr:
       glpi_visit_page: Voir la page de la machine sur GLPI
       no_match_serial: "Aucune correspondance pour ce numéro de série : %{serial}"
       glpi_connection_error: "Problème lors de la connexion à GLPI :"
+      moves_cta_tooltip: Prévoir son déplacement
     new:
       title: "Ajouter un matériel"
     edit:

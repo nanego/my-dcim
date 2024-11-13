@@ -8,7 +8,21 @@
 
 <%= render Page::HeadingShowComponent.new(resource: @server, title: title, breadcrumb_steps:) do |heading| %>
   <% heading.with_extra_buttons do %>
-    <% render ButtonComponent.new(t("action.duplicate"),
+    <% if @server.is_not_a_pdu? %>
+      <%= render ButtonComponent.new(t("action.move"),
+                                    url: new_move_path(server_id: @server.id),
+                                    variant: :outline_primary,
+                                    icon: "box-seam",
+                                    is_responsive: true,
+                                    extra_classes: "me-2",
+                                    aria: { hidden: true },
+                                    data: {
+                                      controller: "tooltip",
+                                      bs_placement: :bottom,
+                                      tooltip_title: t(".moves_cta_tooltip")
+                                    }) %>
+    <% end %>
+    <%= render ButtonComponent.new(t("action.duplicate"),
                                   url: duplicate_server_path(@server.slug),
                                   variant: :success,
                                   icon: "copy",

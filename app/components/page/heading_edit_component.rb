@@ -18,7 +18,8 @@ module Page
           render ButtonComponent.new(t("action.back"),
                                      url: polymorphic_path(@resource.class),
                                      icon: "chevron-left",
-                                     is_responsive: true)
+                                     is_responsive: true,
+                                     extra_classes: "icon-link align-items-start icon-link-hover")
         end
 
         heading.with_right_content do
