@@ -17,4 +17,8 @@ RSpec.describe Contact do
     it { is_expected.to allow_value("john@doe.fr").for(:email) }
     it { is_expected.not_to allow_value("this-is-not-a-valid-email").for(:email) }
   end
+
+  describe "#to_s" do
+    it { expect(contact.to_s).to eq("John Doe") }
+  end
 end

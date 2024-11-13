@@ -3,6 +3,8 @@
 class ContactRole < ApplicationRecord
   has_changelog
 
+  validates :name, presence: true
+
   def to_s
     name
   end
