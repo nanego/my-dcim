@@ -29,7 +29,7 @@ class ContactRolesController < ApplicationController
 
     respond_to do |format|
       if @contact_role.save
-        format.html { redirect_to @contact_role, notice: t(".flashes.created") }
+        format.html { redirect_to contact_role_path(@contact_role), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @contact_role }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class ContactRolesController < ApplicationController
   def update
     respond_to do |format|
       if @contact_role.update(contact_role_params)
-        format.html { redirect_to @contact_role, notice: t(".flashes.updated") }
+        format.html { redirect_to contact_role_path(@contact_role), notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @contact_role }
       else
         format.html { render :edit }
@@ -57,12 +57,12 @@ class ContactRolesController < ApplicationController
   def destroy
     if @contact_role.destroy
       respond_to do |format|
-        format.html { redirect_to contact_roles_url, notice: t(".flashes.destroyed") }
+        format.html { redirect_to contact_roles_path, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to({ action: 'index' }, alert: @contact_role.errors.full_messages_for(:base).join(", ")) }
+        format.html { redirect_to(contact_roles_path, alert: @contact_role.errors.full_messages_for(:base).join(", ")) }
       end
     end
   end

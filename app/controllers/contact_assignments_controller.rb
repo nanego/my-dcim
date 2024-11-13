@@ -30,7 +30,7 @@ class ContactAssignmentsController < ApplicationController
 
     respond_to do |format|
       if @contact_assignment.save
-        format.html { redirect_to @contact_assignment, notice: t(".flashes.created") }
+        format.html { redirect_to contact_assignment_path(@contact_assignment), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @contact_assignment }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class ContactAssignmentsController < ApplicationController
   def update
     respond_to do |format|
       if @contact_assignment.update(contact_assignment_params)
-        format.html { redirect_to @contact_assignment, notice: t(".flashes.updated") }
+        format.html { redirect_to contact_assignment_path(@contact_assignment), notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @contact_assignment }
       else
         format.html { render :edit }
@@ -56,14 +56,14 @@ class ContactAssignmentsController < ApplicationController
   # DELETE /contact_assignments/1
   # DELETE /contact_assignments/1.json
   def destroy
-    if @contact_assignment.destroy
+    if @contact_assignment.destroy!
       respond_to do |format|
-        format.html { redirect_to contact_assignments_url, notice: t(".flashes.destroyed") }
+        format.html { redirect_to contact_assignments_path, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to({ action: 'index' }, alert: @contact_assignment.errors.full_messages_for(:base).join(", ")) }
+        format.html { redirect_to(contact_assignments_path, alert: @contact_assignment.errors.full_messages_for(:base).join(", ")) }
       end
     end
   end

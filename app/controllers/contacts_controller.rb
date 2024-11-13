@@ -29,7 +29,7 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.save
-        format.html { redirect_to @contact, notice: t(".flashes.created") }
+        format.html { redirect_to contact_path(@contact), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @contact }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class ContactsController < ApplicationController
   def update
     respond_to do |format|
       if @contact.update(contact_params)
-        format.html { redirect_to @contact, notice: t(".flashes.updated") }
+        format.html { redirect_to contact_path(@contact), notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @contact }
       else
         format.html { render :edit }
@@ -57,12 +57,12 @@ class ContactsController < ApplicationController
   def destroy
     if @contact.destroy
       respond_to do |format|
-        format.html { redirect_to contacts_url, notice: t(".flashes.destroyed") }
+        format.html { redirect_to contacts_path, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to({ action: 'index' }, alert: @contact.errors.full_messages_for(:base).join(", ")) }
+        format.html { redirect_to(contacts_path, alert: @contact.errors.full_messages_for(:base).join(", ")) }
       end
     end
   end
