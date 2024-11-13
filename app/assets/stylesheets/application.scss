@@ -778,6 +778,19 @@ body {
     margin-bottom: 0;
   }
 
+  #contact_assignments {
+    .card-body {
+      :nth-child(1 of .contact_assignment-fields:not([style*="display: none"])) {
+        border: none !important;
+        padding-top: 0 !important;
+
+        & > * > * {
+          margin-top: .25rem !important;
+        }
+      }
+    }
+  }
+
   /* Tom-Select */
   /* Fix for dark mode */
   .ts-dropdown, .ts-control, .ts-control input {

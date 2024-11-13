@@ -51,7 +51,7 @@ fr:
         one: Déplacement prévu
         other: Déplacements prévus
       contact: Contact
-      contact_role: Role
+      contact_role: Rôle
       contact_assignment: Assignation
 
     attributes:
@@ -377,7 +377,7 @@ fr:
       contact_assignment:
         site_id: Site
         contact_id: Contact
-        contact_role_id: Role
+        contact_role_id: Rôle
 
     errors:
       models:
