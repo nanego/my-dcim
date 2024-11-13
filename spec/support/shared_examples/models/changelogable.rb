@@ -3,7 +3,7 @@
 shared_examples_for "changelogable" do |object: nil, new_attributes:|
   let(:new_object) do
     if object.is_a?(Proc)
-      object.call
+      instance_exec(&object)
     else
       described_class.new
     end
