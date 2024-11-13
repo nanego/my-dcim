@@ -1,0 +1,28 @@
+<%
+  provide(:title, "#{ContactAssignment.model_name.human.pluralize} | #{@contact_assignment}")
+
+  breadcrumb_steps = {
+    ContactAssignment.model_name.human.pluralize => contact_assignments_path, @contact_assignment => ""
+  }
+%>
+
+<%= render Page::HeadingShowComponent.new(resource: @contact_assignment, title: @contact_assignment, breadcrumb_steps:) %>
+
+<div class="col-12 p-4 border-top">
+  <div class="col-12 col-lg-6">
+    <%= render CardComponent.new do |card| %>
+      <dl class="show-page_dl d-grid row-gap-2 mb-0">
+        <dt class="pb-2"><%= ContactAssignment.human_attribute_name(:site_id) %></dt>
+        <dd class="mb-0 pb-2 ps-3"><%= link_to @contact_assignment.site, site_path(@contact_assignment.site) %></dd>
+
+        <dt class="pb-2"><%= ContactAssignment.human_attribute_name(:contact_id) %></dt>
+        <dd class="mb-0 pb-2 ps-3"><%= link_to @contact_assignment.contact, contact_path(@contact_assignment.contact) %></dd>
+
+        <dt class="pb-2"><%= ContactAssignment.human_attribute_name(:contact_role_id) %></dt>
+        <dd class="mb-0 pb-2 ps-3"><%= link_to @contact_assignment.contact_role, contact_role_path(@contact_assignment.contact_role) %></dd>
+      </dl>
+    <% end %>
+  </div>
+
+  <%= render ChangelogEntries::ObjectListComponent.new(@contact_assignment) %>
+</div>

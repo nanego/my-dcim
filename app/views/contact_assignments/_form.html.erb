@@ -1,0 +1,28 @@
+<%= form_for(@contact_assignment, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+  <%= render FormErrorsComponent.new(@contact_assignment) %>
+
+  <%= render CardComponent.new(type: :primary, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
+    <% card.with_header do %>
+      <%= t("layouts.sidebar.location.title") %>
+    <% end %>
+
+    <fieldset class="col-12">
+      <%= f.label :site_id, class: "form-label" %>
+      <%= f.select :site_id, Site.all.map{ |s| [s.to_s, s.id] }, { prompt: true }, class: "form-select" %>
+    </fieldset>
+  <% end %>
+
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+    <fieldset class="col-12">
+      <%= f.label :contact_id, class: "form-label" %>
+      <%= f.select :contact_id, Contact.all.map{ |c| [c.to_s, c.id] }, { prompt: true }, class: "form-select" %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :contact_role_id, class: "form-label" %>
+      <%= f.select :contact_role_id, ContactRole.all.map{ |cr| [cr.to_s, cr.id] }, { prompt: true }, class: "form-select" %>
+    </fieldset>
+  <% end %>
+
+  <%= render Form::ActionsComponent.new(f) %>
+<% end %>

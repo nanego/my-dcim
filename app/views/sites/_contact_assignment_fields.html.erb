@@ -1,0 +1,21 @@
+<div class="nested-form-wrapper col-12" data-new-record="<%= f.object.new_record? %>">
+  <div class="card contact_assignment-fields">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <span class="col-5">
+        <%= f.label ContactAssignment.human_attribute_name(:contact), class: "form-label col-form-label-sm p-0" %>
+        <%= f.select :contact_id, Contact.all.map{ |c| [c.to_s, c.id] }, { prompt: true }, class: "form-select" %>
+      </span>
+      <span class="col-5">
+        <%= f.label ContactAssignment.human_attribute_name(:contact_role), class: "form-label col-form-label-sm p-0" %>
+        <%= f.select :contact_role_id, ContactRole.all.map{ |cr| [cr.to_s, cr.id] }, { prompt: true }, class: "form-select" %>
+      </span>
+      <span>
+        <%= f.hidden_field :_destroy %>
+
+        <button type="button" data-action="nested-form#remove" class="btn btn-danger btn-sm ms-4">
+          <span class="bi bi-trash" title="<%= t("action.delete") %>"></span>
+        </button>
+      </span>
+    </div>
+  </div>
+</div>

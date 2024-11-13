@@ -1,0 +1,14 @@
+<%
+  provide(:title, "#{ContactAssignment.model_name.human.pluralize} | #{@contact_assignment} | #{t("action.edit")}")
+
+  breadcrumb_steps = {
+    ContactAssignment.model_name.human.pluralize => contact_assignments_path,
+    @contact_assignment => contact_assignment_path(@contact_assignment),
+    t("action.edit") => ""
+  }
+%>
+
+<%= render Page::HeadingEditComponent.new(resource: @contact_assignment, title: t(".title", name: @contact_assignment), breadcrumb_steps:) %>
+<div class="col-12 p-4 border-top">
+  <%= render "form" %>
+</div>

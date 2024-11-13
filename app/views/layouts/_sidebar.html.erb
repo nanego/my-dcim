@@ -223,6 +223,12 @@
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "contact_roles") %>
           </li>
+          <li>
+            <%= link_to ContactAssignment.model_name.human.pluralize,
+                        contact_assignments_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "contact_assignments") %>
+          </li>
         </ul>
       </li>
     </ul>

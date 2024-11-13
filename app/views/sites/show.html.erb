@@ -87,53 +87,9 @@
     </div>
   </div>
 
-  <%= render CardComponent.new(type: :primary, extra_classes: "bg-body-tertiary mt-4") do |c| %>
-    <% c.with_header do %>
-      <div class="d-flex justify-content-between">
-        <span><%= Contact.model_name.human.pluralize %></span>
-
-        <%= link_to "#", class:"link-light" do %>
-          Assign new contact (toto i18n)
-        <% end %>
-      </div>
-    <% end %>
-
-    <%= render List::DataTableComponent.new(@site.contact_assignments) do |table| %>
-      <% table.with_column(Contact.model_name.human) do |contact_assignment| %>
-        <b><%= link_to contact_assignment.contact, contact_path(contact_assignment.contact) %></b>
-      <% end %>
-
-      <% table.with_column(ContactRole.model_name.human) do |contact_assignment| %>
-        <%= link_to contact_assignment.contact_role, contact_role_path(contact_assignment.contact_role) %>
-      <% end %>
-
-      <% table.with_column(Contact.human_attribute_name(:email)) do |contact_assignment| %>
-        <%= contact_assignment.contact.email %>
-      <% end %>
-
-      <% table.with_column(Contact.human_attribute_name(:phone_number)) do |contact_assignment| %>
-        <%= contact_assignment.contact.phone_number %>
-      <% end %>
-
-      <% table.with_column(style: "min-width: 70px; width: 70px") do |contact_assignment| %>
-        <div class="btn-group btn-group-sm" role="group" aria-label="...">
-          <%= link_to edit_contact_assignment_path(contact_assignment), class: "btn btn-info" do %>
-            <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
-                                                                       data-controller="tooltip"
-                                                                       data-bs-placement="left"></span>
-              <span class="visually-hidden"><%= t("action.edit") %></span>
-          <% end %>
-          <%= link_to contact_assignment_path(contact_assignment), method: :delete, data: { confirm: t("contact_assignments.delete_confirmation") },
-                                                          class: "btn btn-danger" do %>
-            <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
-                                                                        data-controller="tooltip"
-                                                                        data-bs-placement="left"></span>
-            <span class="visually-hidden"><%= t("action.delete") %></span>
-          <% end %>
-        </div>
-      <% end %>
-    <% end %>
-  <% end %>
+  <%= render HasManyTurboFrameComponent.new(
+    ContactAssignment.model_name.human.pluralize, url: contact_assignments_path(site_id: @site.id), frame_id: dom_id(ContactAssignment, :table)
+  ) %>
 
   <%= render HasManyTurboFrameComponent.new(
     Room.model_name.human.pluralize, url: rooms_path(site_id: @site.id), frame_id: dom_id(Room, :table)

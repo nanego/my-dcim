@@ -130,6 +130,8 @@ fr:
       flashes:
         updated:
           Site a bien été modifié.
+    form:
+      add_contact_assignment: Assigner un contact
     destroy:
       flashes:
         destroyed: Site a bien été supprimé.
@@ -693,7 +695,23 @@ fr:
       flashes:
         destroyed: Le role a bien été supprimé.
   contact_assignments:
-    delete_confirmation: Êtes-vous sûr de vouloir supprimer ce contact ?
+    index:
+      new_contact_assignment: Ajouter une assignation
+      title: Assignations de Contacts
+      delete_confirmation: Cette assignation ne pourra pas être supprimé tant qu'il est associé à au moins un Site. Voulez-vous continuer ?
+    new:
+      title: Nouvelle assignation
+    create:
+      flashes:
+        created: L'assignation a étée ajouté.
+    edit:
+      title: Modifier l'assignation %{name}
+    update:
+      flashes:
+        updated: L'assignation a bien étée mis à jour.
+    destroy:
+      flashes:
+        destroyed: L'assignation a bien été supprimée.
   visualization:
     title: Visualisation
     network_capacities:
