@@ -11,6 +11,8 @@ RSpec.describe Site do
 
   describe "associations" do
     it { is_expected.to have_many(:rooms) }
+    it { is_expected.to have_many(:frames).through(:rooms) }
+    it { is_expected.to have_many(:contact_assignments) }
   end
 
   describe "validations" do
