@@ -15,7 +15,7 @@ RSpec.describe Page::HeadingShowComponent, type: :component do
     it "renders left_content with a back button" do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component).to have_tag("div.col-12.bg-body") do
         with_tag("div.d-flex") do
-          with_tag("a.btn-default", title: "Retour", href: "http://test.host/sites") do
+          with_tag("a.btn-default.icon-link", title: "Retour", href: "http://test.host/sites") do
             with_tag("span.bi-chevron-left")
             with_tag("span.ms-1.d-none", text: "Retour")
           end

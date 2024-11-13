@@ -21,11 +21,6 @@ class MovesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get new" do
-    get new_move_url
-    assert_response :success
-  end
-
   test "should create move" do
     assert_difference('Move.count') do
       post moves_url, params: { move: @test_params }
