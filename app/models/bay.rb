@@ -4,8 +4,6 @@ class Bay < ApplicationRecord
   has_changelog
   acts_as_list scope: [:lane, :islet_id]
 
-  include HasAccessControl
-
   belongs_to :bay_type
   belongs_to :islet
   belongs_to :manufacturer, optional: true, counter_cache: true
@@ -13,6 +11,8 @@ class Bay < ApplicationRecord
   has_many :frames, dependent: :restrict_with_error
   has_many :materials, through: :frames
   has_many :air_conditioners, dependent: :restrict_with_error
+
+  enum :access_control, { badge: 0, key: 1, locken_key: 2 }
 
   scope :sorted, -> { order(:lane, :position) }
 

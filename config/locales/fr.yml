@@ -45,6 +45,12 @@ fr:
   label_details: Détails
   display: Affichage
 
+  access_control:
+    badge: Badge
+    key: Clé
+    locken_key: Clé Locken
+    blank: Pas de contrôle
+
   layouts:
     navigation:
       nav_links_administration:
@@ -748,13 +754,6 @@ fr:
       create: Créer
       update: Modifier
       submit: Envoyer
-
-  concerns:
-    access_control:
-      badge: Badge
-      key: Clé
-      locken_key: Clé Locken
-      blank: Pas de contrôle
 
   filters:
     attributes:

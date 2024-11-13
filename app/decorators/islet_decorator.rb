@@ -20,7 +20,7 @@ class IsletDecorator < ApplicationDecorator
     end
 
     def access_control_options_for_select
-      Room.access_controls.keys.map { |a_c| [I18n.t("concerns.access_control.#{a_c}"), a_c] }
+      Room.access_controls.keys.map { |a_c| [I18n.t("access_control.#{a_c}"), a_c] }
     end
   end
 
@@ -31,8 +31,8 @@ class IsletDecorator < ApplicationDecorator
   end
 
   def access_control_to_human
-    return I18n.t("concerns.access_control.blank") unless (a_c = access_control.presence)
+    return I18n.t("access_control.blank") unless (a_c = access_control.presence)
 
-    I18n.t("concerns.access_control.#{a_c}")
+    I18n.t("access_control.#{a_c}")
   end
 end

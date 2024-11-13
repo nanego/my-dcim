@@ -6,8 +6,6 @@ class Room < ApplicationRecord
 
   has_changelog
 
-  include HasAccessControl
-
   belongs_to :site, counter_cache: true
 
   has_many :islets, dependent: :restrict_with_error
@@ -16,6 +14,7 @@ class Room < ApplicationRecord
   has_many :materials, through: :frames, dependent: :restrict_with_error
 
   enum :status, { active: 0, passive: 1, planned: 2 }, validate: true
+  enum :access_control, { badge: 0, key: 1, locken_key: 2 }
 
   scope :sorted, -> { order(:site_id, :position, :name) }
   scope :not_empty, -> { joins(:servers) }
