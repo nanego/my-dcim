@@ -17,12 +17,8 @@
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render List::DataTableComponent.new(@contacts) do |table| %>
-    <% table.with_column(Contact.human_attribute_name(:first_name), sort_by: :first_name) do |contact| %>
-      <b><%= link_to contact.first_name, contact_path(contact) %></b>
-    <% end %>
-
-    <% table.with_column(Contact.human_attribute_name(:last_name), sort_by: :last_name) do |contact| %>
-      <b><%= link_to contact.last_name, contact_path(contact) %></b>
+    <% table.with_column(Contact.human_attribute_name(:full_name), sort_by: :full_name) do |contact| %>
+      <b><%= link_to contact, contact_path(contact) %></b>
     <% end %>
 
     <% table.with_column(Contact.human_attribute_name(:phone_number), sort_by: :phone_number) do |contact| %>
