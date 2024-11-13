@@ -29,6 +29,16 @@
           <% end %>
         </dl>
       <% end %>
+
+      <%= render HasManyTurboFrameComponent.new(
+        ContactAssignment.model_name.human.pluralize, type: :warning, url: contact_assignments_path(site_id: @site.id), frame_id: dom_id(ContactAssignment, :table),
+        extra_classes: "d-none d-lg-flex mt-4"
+      ) do |c| %>
+        <% c.with_actions do %>
+          <%= link_to t("action.edit"), edit_site_path(@site, anchor: "contact_assignments"),
+                      class: "btn btn-outline-dark btn-sm d-flex align-items-center" %>
+        <% end %>
+      <% end %>
     </div>
     <div class="col" id="export-to-pdf">
       <%= render CardComponent.new(type: :primary) do |card| %>
@@ -84,17 +94,17 @@
           <% end %>
         </dl>
       <% end %>
+
+      <%= render HasManyTurboFrameComponent.new(
+        ContactAssignment.model_name.human.pluralize, type: :warning, url: contact_assignments_path(site_id: @site.id), frame_id: dom_id(ContactAssignment, :table)
+      ) do |c| %>
+        <% c.with_actions do %>
+          <%= link_to t("action.edit"), edit_site_path(@site, anchor: "contact_assignments"),
+                      class: "btn btn-outline-dark btn-sm d-flex align-items-center" %>
+        <% end %>
+      <% end %>
     </div>
   </div>
-
-  <%= render HasManyTurboFrameComponent.new(
-    ContactAssignment.model_name.human.pluralize, type: :warning, url: contact_assignments_path(site_id: @site.id), frame_id: dom_id(ContactAssignment, :table)
-  ) do |c| %>
-    <% c.with_actions do %>
-      <%= link_to t("action.edit"), edit_site_path(@site, anchor: "contact_assignments"),
-                  class: "btn btn-outline-dark btn-sm d-flex align-items-center" %>
-    <% end %>
-  <% end %>
 
   <%= render HasManyTurboFrameComponent.new(
     Room.model_name.human.pluralize, url: rooms_path(site_id: @site.id), frame_id: dom_id(Room, :table)
