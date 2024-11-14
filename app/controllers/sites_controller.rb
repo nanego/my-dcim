@@ -11,9 +11,12 @@ class SitesController < ApplicationController
 
   def new
     @site = Site.new
+    @site.contact_assignments.build
   end
 
-  def edit; end
+  def edit
+    @site.contact_assignments.build
+  end
 
   def create
     @site = Site.new(site_params)
