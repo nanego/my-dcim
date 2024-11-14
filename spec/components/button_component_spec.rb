@@ -12,7 +12,7 @@ RSpec.describe ButtonComponent, type: :component do
     it do
       expect(rendered_component).to have_tag("a.btn-default.btn-default", href: "/url", title: "Title") do
         without_tag("span.bi")
-        with_tag("span.ms-1:not(.d-none)", text: "Title")
+        with_tag("span.ms-2:not(.d-none)", text: "Title")
       end
     end
   end
@@ -60,7 +60,7 @@ RSpec.describe ButtonComponent, type: :component do
 
     it do
       expect(rendered_component).to have_tag("a.btn-default.btn-default", href: "/url", title: "Title") do
-        with_tag("span.ms-1.d-none", text: "Title")
+        with_tag("span.ms-2.d-none", text: "Title")
       end
     end
   end

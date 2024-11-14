@@ -11,9 +11,12 @@ class SitesController < ApplicationController
 
   def new
     @site = Site.new
+    @site.contact_assignments.build
   end
 
-  def edit; end
+  def edit
+    @site.contact_assignments.build
+  end
 
   def create
     @site = Site.new(site_params)
@@ -67,7 +70,8 @@ class SitesController < ApplicationController
       :name, :description,
       :position,
       :street, :country, :city, :latitude, :longitude,
-      :delivery_address, :delivery_times, :delivery_map
+      :delivery_address, :delivery_times, :delivery_map,
+      contact_assignments_attributes: %i[contact_id contact_role_id id _destroy]
     )
   end
 end

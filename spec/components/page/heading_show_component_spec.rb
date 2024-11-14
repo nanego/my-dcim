@@ -17,7 +17,7 @@ RSpec.describe Page::HeadingShowComponent, type: :component do
         with_tag("div.d-flex") do
           with_tag("a.btn-default", title: "Retour", href: "http://test.host/sites") do
             with_tag("span.bi-chevron-left")
-            with_tag("span.ms-1.d-none", text: "Retour")
+            with_tag("span.ms-2.d-none", text: "Retour")
           end
         end
       end
@@ -29,7 +29,7 @@ RSpec.describe Page::HeadingShowComponent, type: :component do
           with_tag("div.align-self-center.d-inline-flex") do
             with_tag("a.btn-info", title: "Modifier", href: "http://test.host/sites/1/edit") do
               with_tag("span.bi-pencil")
-              with_tag("span.ms-1.d-none", text: "Modifier")
+              with_tag("span.ms-2.d-none", text: "Modifier")
             end
           end
         end
@@ -53,7 +53,7 @@ RSpec.describe Page::HeadingShowComponent, type: :component do
           with_tag("div.align-self-center.d-inline-flex") do
             with_tag("a.btn-info", title: "Modifier", href: "http://test.host/sites/1/edit") do
               with_tag("span.bi-pencil")
-              with_tag("span.ms-1.d-none", text: "Modifier")
+              with_tag("span.ms-2.d-none", text: "Modifier")
             end
           end
         end
