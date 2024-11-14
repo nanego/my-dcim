@@ -8,6 +8,10 @@ RSpec.describe ContactRole do
   it_behaves_like "changelogable", object: -> { described_class.new(name: "Maintainer") },
                                    new_attributes: { name: "Manager" }
 
+  describe "associations" do
+    it { is_expected.to have_many(:contact_assignments) }
+  end
+
   describe "validations" do
     it { is_expected.to be_valid }
 

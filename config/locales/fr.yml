@@ -662,7 +662,7 @@ fr:
     index:
       new_contact: Ajouter un contact
       title: Contacts
-      delete_confirmation: Ce contact ne pourra pas être supprimé tant qu'iel est assigné à au moins un Site. Voulez-vous continuer ?
+      delete_confirmation: La suppression de ce contact entrainera la suppression de ses assignations. Voulez-vous continuer ?
     new:
       title: Nouveau contact
     create:
@@ -698,7 +698,7 @@ fr:
     index:
       new_contact_assignment: Ajouter une assignation
       title: Assignations de Contacts
-      delete_confirmation: Cette assignation ne pourra pas être supprimée tant qu'elle est associée à au moins un Site. Voulez-vous continuer ?
+      delete_confirmation: Êtes vous sûr de vouloir supprimer cette assignation ?
     new:
       title: Nouvelle assignation
     create:
