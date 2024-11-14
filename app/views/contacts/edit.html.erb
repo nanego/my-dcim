@@ -8,7 +8,7 @@
   }
 %>
 
-<%= render Page::HeadingEditComponent.new(resource: @contact, title: t(".title", name: @contact), breadcrumb_steps:) %>
+<%= render Page::HeadingEditComponent.new(resource: @contact, title: t(".title"), breadcrumb_steps:) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>

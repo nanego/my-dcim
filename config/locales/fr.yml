@@ -662,14 +662,14 @@ fr:
     index:
       new_contact: Ajouter un contact
       title: Contacts
-      delete_confirmation: Ce contact ne pourra pas être supprimé tant qu'il est associé à au moins un Site. Voulez-vous continuer ?
+      delete_confirmation: Ce contact ne pourra pas être supprimé tant qu'iel est assigné à au moins un Site. Voulez-vous continuer ?
     new:
       title: Nouveau contact
     create:
       flashes:
         created: Le contact a été ajouté.
     edit:
-      title: Modifier le contact %{name}
+      title: Modifier le contact
     update:
       flashes:
         updated: Le contact a bien été mis à jour.
@@ -678,37 +678,37 @@ fr:
         destroyed: Le contact a bien été supprimé.
   contact_roles:
     index:
-      new_contact_role: Ajouter un role
-      title: Roles de Contacts
-      delete_confirmation: Ce role ne pourra pas être supprimé tant qu'il est associé à au moins un Site. Voulez-vous continuer ?
+      new_contact_role: Ajouter un rôle
+      title: Rôles de Contacts
+      delete_confirmation: Ce rôle ne pourra pas être supprimé tant qu'il est associé à au moins un Site. Voulez-vous continuer ?
     new:
-      title: Nouveau role
+      title: Nouveau rôle
     create:
       flashes:
-        created: Le role a été ajouté.
+        created: Le rôle a été ajouté.
     edit:
-      title: Modifier le role %{name}
+      title: Modifier le rôle
     update:
       flashes:
-        updated: Le role a bien été mis à jour.
+        updated: Le rôle a bien été mis à jour.
     destroy:
       flashes:
-        destroyed: Le role a bien été supprimé.
+        destroyed: Le rôle a bien été supprimé.
   contact_assignments:
     index:
       new_contact_assignment: Ajouter une assignation
       title: Assignations de Contacts
-      delete_confirmation: Cette assignation ne pourra pas être supprimé tant qu'il est associé à au moins un Site. Voulez-vous continuer ?
+      delete_confirmation: Cette assignation ne pourra pas être supprimée tant qu'elle est associée à au moins un Site. Voulez-vous continuer ?
     new:
       title: Nouvelle assignation
     create:
       flashes:
-        created: L'assignation a étée ajouté.
+        created: L'assignation a été ajoutée.
     edit:
-      title: Modifier l'assignation %{name}
+      title: Modifier l'assignation
     update:
       flashes:
-        updated: L'assignation a bien étée mis à jour.
+        updated: L'assignation a bien été mise à jour.
     destroy:
       flashes:
         destroyed: L'assignation a bien été supprimée.

@@ -376,8 +376,14 @@ fr:
         description: Description
       contact_assignment:
         site_id: Site
+        site: Site
         contact_id: Contact
+        contact: Contact
         contact_role_id: Rôle
+        contact_role: Rôle
+      contact_assignments:
+        contact_role: Le rôle assigné à un contact
+        contact: Le contact assigné à un rôle
 
     errors:
       models:
