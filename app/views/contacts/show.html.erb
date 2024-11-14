@@ -20,7 +20,10 @@
   </div>
 
   <%= render HasManyTurboFrameComponent.new(
-    ContactAssignment.model_name.human.pluralize, url: contact_assignments_path(contact_id: @contact.id), frame_id: dom_id(ContactAssignment, :table)
+    ContactAssignment.model_name.human.pluralize,
+    type: :warning,
+    url: contact_assignments_path(contact_id: @contact.id),
+    frame_id: dom_id(ContactAssignment, :table)
   ) %>
 
   <%= render ChangelogEntries::ObjectListComponent.new(@contact) %>

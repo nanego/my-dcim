@@ -14,7 +14,7 @@ class HasManyTurboFrameComponent < ApplicationComponent
           <% if actions? %>
             <%= actions %>
           <% else %>
-            <%= link_to @url, class: "link-light" do %>
+        <%= link_to @url, class: class_names("link-light", "link-dark": @type == :warning) do %>
               <%= t(".see_more_filters") %>
               <% end %>
           <% end %>
