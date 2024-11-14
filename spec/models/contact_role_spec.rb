@@ -9,7 +9,7 @@ RSpec.describe ContactRole do
                                    new_attributes: { name: "Manager" }
 
   describe "associations" do
-    it { is_expected.to have_many(:contact_assignments) }
+    it { is_expected.to have_many(:contact_assignments).dependent(:restrict_with_error) }
   end
 
   describe "validations" do
