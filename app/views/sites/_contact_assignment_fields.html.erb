@@ -1,0 +1,20 @@
+<div class="nested-form-wrapper contact_assignment-fields mt-3 border-top pt-3" data-new-record="<%= f.object.new_record? %>">
+  <div class="row align-items-center">
+    <fieldset class="col-12 col-md-7">
+      <%= f.label ContactAssignment.human_attribute_name(:contact_id), class: "form-label col-form-label-sm p-0 d-md-none" %>
+      <%= f.select :contact_id, Contact.all.map{ |c| [c.to_s, c.id] }, { prompt: true }, class: "form-select" %>
+    </fieldset>
+    <fieldset class="col-10 col-md-4">
+      <%= f.label ContactAssignment.human_attribute_name(:contact_role_id), class: "form-label col-form-label-sm p-0 d-md-none" %>
+      <%= f.select :contact_role_id, ContactRole.all.map{ |cr| [cr.to_s, cr.id] }, { prompt: true }, class: "form-select" %>
+    </fieldset>
+
+    <span class="col-2 col-md-1 d-flex align-self-end align-self-md-center">
+      <%= f.hidden_field :_destroy %>
+
+      <button type="button" data-action="nested-form#remove" title="<%= t("action.delete") %>" class="btn btn-danger btn-sm ms-auto">
+        <span class="bi bi-trash"></span>
+      </button>
+    </span>
+  </div>
+</div>

@@ -692,11 +692,19 @@ body {
         &.active,
         &:focus {
           background-color: var(--bs-primary-bg-subtle);
+
+          &.mydcim-sidebar-links-link-warning {
+            background-color: var(--bs-warning-bg-subtle);
+          }
         }
 
         &.active {
           font-weight: 600;
           color: var(--bs-primary-text-emphasis);
+
+          &.mydcim-sidebar-links-link-warning {
+            color: var(--bs-warning-text-emphasis);
+          }
         }
       }
     }
@@ -768,6 +776,19 @@ body {
 
   nav.pagy-bootstrap.nav .pagination {
     margin-bottom: 0;
+  }
+
+  .contact_assignments {
+    .card-body {
+      :nth-child(1 of .contact_assignment-fields:not([style*="display: none"])) {
+        border: none !important;
+        padding-top: 0 !important;
+
+        & > * > * {
+          margin-top: .25rem !important;
+        }
+      }
+    }
   }
 
   /* Tom-Select */

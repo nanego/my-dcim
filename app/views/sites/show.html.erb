@@ -16,7 +16,7 @@
         </dl>
       <% end %>
 
-      <!-- Card shown on lg, in 2nd position (Grid isn't working as Masonry) -->
+      <!-- Cards shown on lg, in 2nd and 3rd position (Grid isn't working as Masonry) -->
       <%= render CardComponent.new(extra_classes: "d-none d-lg-flex mt-4") do |card| %>
         <% card.with_header do %>
           <%= t("display") %>
@@ -28,6 +28,23 @@
             <dd class="mb-0 pb-2 ps-3"><%= @site.public_send(attribute_name) %></dd>
           <% end %>
         </dl>
+      <% end %>
+
+      <%= render HasManyTurboFrameComponent.new(
+        ContactAssignment.model_name.human.pluralize,
+        type: :warning,
+        url: contact_assignments_path(site_id: @site.id),
+        frame_id: dom_id(ContactAssignment, :table),
+        extra_classes: "d-none d-lg-flex bg-body-tertiary mt-4"
+      ) do |c| %>
+        <% c.with_actions do %>
+          <%= render ButtonComponent.new(t("action.edit"),
+                                            url: edit_site_path(@site, anchor: "contact_assignments"),
+                                            icon: "pencil",
+                                            size: :sm,
+                                            is_responsive: true,
+                                            extra_classes: "btn-outline-dark") %>
+        <% end %>
       <% end %>
     </div>
     <div class="col" id="export-to-pdf">
@@ -70,7 +87,7 @@
       <% end %>
     </div>
 
-    <!-- Card shown on mobile, in 3rd position (Grid isn't working as Masonry) -->
+    <!-- Card shown on mobile, in 3rd and 4th position (Grid isn't working as Masonry) -->
     <div class="col d-lg-none">
       <%= render CardComponent.new(extra_classes: "d-lg-none") do |card| %>
         <% card.with_header do %>
@@ -84,10 +101,28 @@
           <% end %>
         </dl>
       <% end %>
+
+      <%= render HasManyTurboFrameComponent.new(
+        ContactAssignment.model_name.human.pluralize,
+        type: :warning,
+        url: contact_assignments_path(site_id: @site.id),
+        frame_id: dom_id(ContactAssignment, :table)
+      ) do |c| %>
+        <% c.with_actions do %>
+          <%= render ButtonComponent.new(t("action.edit"),
+                                            url: edit_site_path(@site, anchor: "contact_assignments"),
+                                            icon: "pencil",
+                                            size: :sm,
+                                            is_responsive: true,
+                                            extra_classes: "btn-outline-dark") %>
+        <% end %>
+      <% end %>
     </div>
   </div>
+
   <%= render HasManyTurboFrameComponent.new(
     Room.model_name.human.pluralize, url: rooms_path(site_id: @site.id), frame_id: dom_id(Room, :table)
   ) %>
+
   <%= render ChangelogEntries::ObjectListComponent.new(@site) %>
 </div>

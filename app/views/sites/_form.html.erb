@@ -78,5 +78,42 @@
     </fieldset>
   <% end %>
 
+  <%= render CardComponent.new(type: :warning,
+                               extra_classes: "mt-4 bg-body-tertiary contact_assignments",
+                               id: :contact_assignments,
+                               data: { controller: "nested-form"}) do |card| %>
+    <% card.with_header do %>
+      <%= ContactAssignment.model_name.human.pluralize %>
+    <% end %>
+
+    <template data-nested-form-target="template">
+      <%= f.fields_for :contact_assignments, f.object.contact_assignments.klass.new,
+                      child_index: "__NEW_RECORD__" do |contact_assignment_fields| %>
+        <%= render partial: "contact_assignment_fields", locals: { f: contact_assignment_fields } %>
+      <% end %>
+    </template>
+
+    <div class="d-none d-md-block border-bottom pb-3">
+      <div class="row">
+        <span class="col-7"><%= ContactAssignment.human_attribute_name(:contact_id) %></span>
+        <span class="col-4"><%= ContactAssignment.human_attribute_name(:contact_role_id) %></span>
+        <span class="col-1"></span>
+      </div>
+    </div>
+
+    <%= f.fields_for :contact_assignments do |contact_assignment_fields| %>
+      <%= render partial: "contact_assignment_fields", locals: { f: contact_assignment_fields } %>
+    <% end %>
+    <div data-nested-form-target="target"></div>
+
+    <% card.with_footer do %>
+      <span class="ms-auto me-auto">
+        <button type="button" class="btn btn-outline-success btn-sm" data-action="nested-form#add">
+          <span class="bi bi-person-plus" aria-hidden="true"></span> <%= t(".add_contact_assignment") %>
+        </button>
+      </span>
+    <% end %>
+  <% end %>
+
   <%= render Form::ActionsComponent.new(f) %>
 <% end %>

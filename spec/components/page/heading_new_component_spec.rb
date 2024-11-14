@@ -17,7 +17,7 @@ RSpec.describe Page::HeadingNewComponent, type: :component do
         with_tag("span.flex-grow-1") do
           with_tag("a.btn-default", title: "Retour", href: "http://test.host/sites") do
             with_tag("span.bi-chevron-left")
-            with_tag("span.ms-1.d-none", text: "Retour")
+            with_tag("span.ms-2.d-none", text: "Retour")
           end
         end
 

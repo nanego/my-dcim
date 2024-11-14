@@ -52,4 +52,10 @@ RSpec.describe CardComponent, type: :component do
 
     it { expect(rendered_component.to_html).to have_css("div.card.test") }
   end
+
+  context "with html attributes" do
+    let(:component) { described_class.new(data: { key: :value }, id: "custom") }
+
+    it { expect(rendered_component.to_html).to have_css("div.card#custom[data-key=value]") }
+  end
 end
