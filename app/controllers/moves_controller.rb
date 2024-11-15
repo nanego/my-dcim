@@ -13,8 +13,8 @@ class MovesController < ApplicationController
   def show; end
 
   def new
-    moveable_id = Server.friendly.select(:id).find(params[:server_id]).id if params[:server_id]
-    @move = Move.new(moveable_type: "Server", moveable_id: moveable_id)
+    @move = Move.new(moveable_type: "Server")
+    @move.moveable = Server.friendly.select(:id).find(params[:server_id]) if params[:server_id].present?
   end
 
   def edit; end
