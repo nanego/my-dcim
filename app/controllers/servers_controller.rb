@@ -6,7 +6,7 @@ class ServersController < ApplicationController
   before_action :set_server, only: [:show, :edit, :update, :destroy]
 
   def index
-    # Let server know that now name is not used anymore for research
+    # Let server knows that now name is not used anymore for research
     if params[:name].present?
       params[:q] = params[:name]
 
