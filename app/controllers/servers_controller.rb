@@ -6,6 +6,13 @@ class ServersController < ApplicationController
   before_action :set_server, only: [:show, :edit, :update, :destroy]
 
   def index
+    if params[:name].present?
+      params[:q] = params[:name]
+
+      # Let user know that now name is not used anymore for research
+      logger.warn("DEPRECATION WARNING: Search with 'name' is now deprecated. Use 'q' instead.")
+    end
+
     @servers = Server.includes(:frame, :room, :islet, bay: :frames, modele: :category)
       .references(:room, :islet, :bay, modele: :category)
       .order(:name)
