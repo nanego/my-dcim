@@ -29,37 +29,37 @@
       <th></th>
       </thead>
       <tbody>
-      <%= content_tag_for(:tr, @moves) do |move| %>
-        <td><%= link_to move.moveable, edit_move_path(move) %></td>
-        <td><%= "#{move.moveable.numero}" %></td>
-        <td><%= "#{move.moveable.gestion}" %></td>
-        <td><%= "#{move.moveable.domaine}" %></td>
-        <td><%= link_to "#{move.moveable.frame}", frame_path(move.moveable.frame) %></td>
-        <td><%= link_to "#{move.frame}", frame_path(move.frame) %></td>
-        <td style="min-width: 80px; width: 80px">
-          <%= link_to t("action.execute"),
-                      execute_move_path(move),
-                      title: t(".action.execute_move"),
-                      data: {
-                        confirm: t(".execute_confirmation"),
-                        controller: "tooltip",
-                        bs_placement: "left"
-                      },
-                      class: "btn btn-sm btn-outline-primary",
-                      aria: { hidden: true } %>
-        </td>
-        <td style="min-width: 35px; width: 35px">
-          <%= link_to move,
-                      method: :delete,
-                      data: { confirm: t(".delete_confirmation") },
-                      class: "btn btn-danger btn-sm" do %>
-            <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
-                                                                        data-controller="tooltip"
-                                                                        data-bs-placement="left"></span>
-            <span class="visually-hidden"><%= t("action.delete") %></span>
-          <% end %>
-        </td>
-      <% end %>
+        <%= content_tag_for(:tr, @moves) do |move| %>
+          <td><%= link_to move.moveable, edit_move_path(move) %></td>
+          <td><%= "#{move.moveable.numero}" %></td>
+          <td><%= "#{move.moveable.gestion}" %></td>
+          <td><%= "#{move.moveable.domaine}" %></td>
+          <td><%= link_to "#{move.moveable.frame}", frame_path(move.moveable.frame) %></td>
+          <td><%= link_to "#{move.frame}", frame_path(move.frame) %></td>
+          <td style="min-width: 80px; width: 80px">
+            <%= link_to t("action.execute"),
+                        execute_move_path(move),
+                        title: t(".action.execute_move"),
+                        data: {
+                          confirm: t(".execute_confirmation"),
+                          controller: "tooltip",
+                          bs_placement: "left"
+                        },
+                        class: "btn btn-sm btn-outline-primary",
+                        aria: { hidden: true } %>
+          </td>
+          <td style="min-width: 35px; width: 35px">
+            <%= link_to move_path(move),
+                        method: :delete,
+                        data: { confirm: t(".delete_confirmation") },
+                        class: "btn btn-danger btn-sm" do %>
+              <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                          data-controller="tooltip"
+                                                                          data-bs-placement="left"></span>
+              <span class="visually-hidden"><%= t("action.delete") %></span>
+            <% end %>
+          </td>
+        <% end %>
       </tbody>
     </table>
   </div>
@@ -69,14 +69,14 @@
     <table class="table table-striped table-bordered table-hover align_middle">
       <tbody>
         <%= content_tag_for(:tr, @frames) do |frame| %>
-          <td class="w-100"><%= link_to "#{frame}", "/moves/frames/#{frame.id}" %></td>
+          <td class="w-100"><%= link_to "#{frame}", frame_moves_path(frame.id) %></td>
           <td class="d-flex justify-content-center column-gap-1"
               style="min-width: 400px; width: 400px"
               data-controller="frame-export-pdf"
               data-frame-export-pdf-model-ids-value="<%= [frame.id] %>"
               data-frame-export-pdf-filename-value="move-frame-<%= frame.name %>"
               data-frame-export-pdf-is-move-value="true">
-            <%= link_to "/moves/frames/#{frame.id}", class: "btn btn-info btn-sm" do %>
+            <%= link_to frame_moves_path(frame.id), class: "btn btn-info btn-sm" do %>
               <span class="bi bi-pencil"></span>
               <span><%= t(".edit_connections") %></span>
             <% end %>

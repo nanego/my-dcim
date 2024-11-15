@@ -18,7 +18,7 @@
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render List::DataTableComponent.new(@categories) do |table| %>
     <% table.with_column(Category.human_attribute_name(:name), sort_by: :name) do |category| %>
-      <%= link_to category, category_path(category) %>
+      <%= link_to category, category_path(category), class: "fw-bold" %>
     <% end %>
 
     <% table.with_column(Category.human_attribute_name(:modeles), sort_by: :modeles_count) do |category| %>

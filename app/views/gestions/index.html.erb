@@ -18,7 +18,7 @@
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render List::DataTableComponent.new(@gestions) do |table| %>
     <% table.with_column(Gestion.human_attribute_name(:name), sort_by: :name) do |gestion| %>
-      <%= link_to gestion, gestion_path(gestion) %>
+      <%= link_to gestion, gestion_path(gestion), class: "fw-bold" %>
     <% end %>
 
     <% table.with_column(Gestion.human_attribute_name(:usage), sort_by: :servers_count) do |gestion| %>

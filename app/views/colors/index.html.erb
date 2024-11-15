@@ -16,7 +16,7 @@
     <% end %>
 
     <% table.with_column(Color.human_attribute_name(:code), sort_by: :code) do |color| %>
-      <%= link_to color.code, color_path(color) %>
+      <%= link_to color.code, color_path(color), class: "fw-bold" %>
     <% end %>
 
     <% table.with_column(Color.human_attribute_name(:parent_type), sort_by: :parent_type) do |color| %>

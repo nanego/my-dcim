@@ -62,7 +62,7 @@
   <%= turbo_frame_tag(dom_id(Bay, :table), data: { turbo_action: :advance }) do %>
     <%= render List::DataTableComponent.new(@bays) do |table| %>
       <% table.with_column(Bay.human_attribute_name(:name)) do |bay| %>
-        <%= link_to bay_path(bay), data: { turbo_frame: :_top } do %>
+        <%= link_to bay_path(bay), class: "fw-bold", data: { turbo_frame: :_top } do %>
           <% bay.frames.any? ? bay.to_s : bay.decorated.no_frame_warning_icon %>
         <% end %>
       <% end %>
@@ -78,13 +78,11 @@
     <% end %>
 
       <% table.with_column(Frame.model_name.human.pluralize) do |bay| %>
-        <b>
-          <%=
-            bay.frames.map do |frame|
-              link_to(frame.name, frame_path(frame), data: { turbo_frame: :_top })
-            end.join(" / ").html_safe
-          %>
-        </b>
+        <%=
+          bay.frames.map do |frame|
+            link_to(frame.name, frame_path(frame), data: { turbo_frame: :_top })
+          end.join(" / ").html_safe
+        %>
       <% end %>
 
       <% table.with_column(Bay.human_attribute_name(:lane), sort_by: :lane) do |bay| %>
