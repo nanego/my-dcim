@@ -3,6 +3,8 @@
   breadcrumb_steps = { Bay.model_name.human.pluralize => bays_path, title => "" }
 
   provide(:title, "#{Bay.model_name.human.pluralize} | #{title}")
+
+  title = title.concat(@bay.decorated.no_frame_warning_icon).html_safe if @bay.frames.empty?
 %>
 
 <%= render Page::HeadingShowComponent.new(resource: @bay, title:, breadcrumb_steps:) do |heading| %>
