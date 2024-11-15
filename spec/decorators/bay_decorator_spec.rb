@@ -23,7 +23,7 @@ RSpec.describe BayDecorator, type: :decorator do
       it { is_expected.to eq("Clé Locken") }
     end
   end
-  
+
   describe "#no_frame_warning_icon" do
     subject(:warning_icon) { decorated_bay.no_frame_warning_icon }
 
