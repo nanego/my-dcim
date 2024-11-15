@@ -18,13 +18,12 @@
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render List::DataTableComponent.new(@architectures) do |table| %>
     <% table.with_column(Architecture.human_attribute_name(:name), sort_by: :name) do |architecture| %>
-      <b>
-        <%= link_to architecture, architecture_path(architecture) %>
-      </b>
+      <%= link_to architecture, architecture_path(architecture), class: "fw-bold" %>
     <% end %>
 
     <% table.with_column(Architecture.human_attribute_name(:usage), sort_by: :modeles_count) do |architecture| %>
-      <%= link_to Architecture.human_attribute_name(:modeles_count, count: architecture.modeles_count), modeles_path %>
+      <%= link_to Architecture.human_attribute_name(:modeles_count, count: architecture.modeles_count),
+                  modeles_path(architecture_id: architecture.id) %>
     <% end %>
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |architecture| %>

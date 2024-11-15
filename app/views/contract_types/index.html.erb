@@ -18,7 +18,7 @@
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render List::DataTableComponent.new(@contract_types) do |table| %>
     <% table.with_column(ContractType.human_attribute_name(:name), sort_by: :name) do |contract_type| %>
-      <%= link_to contract_type, contract_type_path(contract_type) %>
+      <%= link_to contract_type, contract_type_path(contract_type), class: "fw-bold" %>
     <% end %>
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |contract_type| %>

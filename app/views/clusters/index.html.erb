@@ -29,7 +29,7 @@
 
   <%= render List::DataTableComponent.new(@clusters) do |table| %>
     <% table.with_column(Cluster.human_attribute_name(:name), sort_by: :name) do |cluster| %>
-      <%= link_to cluster, cluster_path(cluster) %>
+      <%= link_to cluster, cluster_path(cluster), class: "fw-bold" %>
     <% end %>
 
     <% table.with_column(Cluster.human_attribute_name(:servers_label), sort_by: :servers_count) do |cluster| %>
