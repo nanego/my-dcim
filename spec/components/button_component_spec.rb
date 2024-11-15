@@ -80,4 +80,12 @@ RSpec.describe ButtonComponent, type: :component do
       expect(rendered_component).to have_tag("a.btn-default.btn-default[data-method='delete']", href: "/url")
     end
   end
+
+  context "with a specific title for tooltip passed through html_options" do
+    let(:component) { described_class.new(title, url:, data: { tooltip_title: "Tooltip title" }) }
+
+    it do
+      expect(rendered_component).to have_tag("a.btn-default.btn-default", title: "Tooltip title")
+    end
+  end
 end
