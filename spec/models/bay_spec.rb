@@ -14,6 +14,10 @@ RSpec.describe Bay do
     it { is_expected.to have_many(:materials).through(:frames) }
   end
 
+  describe "validations" do
+    it { is_expected.to define_enum_for(:access_control).with_values(%i[badge key locken_key]) }
+  end
+
   describe "#to_s" do
     pending
   end

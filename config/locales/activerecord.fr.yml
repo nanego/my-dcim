@@ -56,6 +56,7 @@ fr:
 
     attributes:
       room:
+        access_control: Contrôle d'accès
         name: Nom
         position: Position
         content: Contenu
@@ -76,6 +77,7 @@ fr:
         passive: Passif
         planned: Planifié
       islet:
+        access_control: Contrôle d'accès
         name: Nom
         room_id: Salle
         room: Salle # TODO: check if we should keep this line?
@@ -332,6 +334,7 @@ fr:
         u: U
         width: Largeur
       bay:
+        access_control: Contrôle d'accès
         depth: Profondeur
         lane: Ligne
         name: Nom

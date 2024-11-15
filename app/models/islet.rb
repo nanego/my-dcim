@@ -11,6 +11,7 @@ class Islet < ApplicationRecord
   has_many :materials, through: :frames
 
   enum :cooling_mode, { hot_containment: 0, cold_containment: 1 }, validate: { allow_nil: true }
+  enum :access_control, { badge: 0, key: 1, locken_key: 2 }
 
   scope :sorted, -> { order(:room_id, :position, :name) }
   scope :not_empty, -> { joins(:materials) }
