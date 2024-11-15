@@ -89,6 +89,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_06_141954) do
     t.integer "islet_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.integer "access_control"
     t.integer "width"
     t.integer "depth"
     t.bigint "manufacturer_id"
@@ -331,6 +332,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_06_141954) do
     t.integer "position"
     t.text "description"
     t.integer "cooling_mode"
+    t.integer "access_control"
     t.index ["room_id"], name: "index_islets_on_room_id"
   end
 
@@ -454,6 +456,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_06_141954) do
     t.integer "islets_count", default: 0
     t.integer "status", default: 0, null: false
     t.integer "surface_area"
+    t.integer "access_control"
     t.index ["site_id"], name: "index_rooms_on_site_id"
     t.index ["slug"], name: "index_rooms_on_slug", unique: true
   end

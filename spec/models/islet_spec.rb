@@ -22,6 +22,8 @@ RSpec.describe Islet do
         .validating(allowing_nil: true)
         .with_values(%i[hot_containment cold_containment])
     end
+
+    it { is_expected.to define_enum_for(:access_control).with_values(%i[badge key locken_key]) }
   end
 
   describe "#to_s" do

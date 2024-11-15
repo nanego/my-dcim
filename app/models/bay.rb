@@ -12,6 +12,8 @@ class Bay < ApplicationRecord
   has_many :materials, through: :frames
   has_many :air_conditioners, dependent: :restrict_with_error
 
+  enum :access_control, { badge: 0, key: 1, locken_key: 2 }
+
   scope :sorted, -> { order(:lane, :position) }
 
   scope :sorted_by_room, -> { joins(:room, :islet).order(:site_id, 'rooms.position', 'rooms.name', 'islets.name', :lane, 'bays.position') }
