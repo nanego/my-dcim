@@ -17,5 +17,9 @@ class BaysProcessor < ApplicationProcessor
     raw.where(islet_id: islet_id)
   end
 
+  map :manufacturer_id do |manufacturer_id:|
+    raw.where(manufacturer_id: manufacturer_id)
+  end
+
   sortable fields: SORTABLE_FIELDS
 end

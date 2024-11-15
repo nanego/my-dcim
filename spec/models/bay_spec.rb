@@ -8,6 +8,7 @@ RSpec.describe Bay do
   describe "associations" do
     it { is_expected.to belong_to(:bay_type) }
     it { is_expected.to belong_to(:islet) }
+    it { is_expected.to belong_to(:manufacturer).optional }
     it { is_expected.to have_one(:room).through(:islet) }
     it { is_expected.to have_many(:frames) }
     it { is_expected.to have_many(:materials).through(:frames) }

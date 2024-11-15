@@ -21,7 +21,31 @@ RSpec.describe ApplicationHelper do
     end
   end
 
+  describe "#value_with_unit" do
+    context "with a value" do
+      it { expect(helper.value_with_unit(30, "mm")).to eq("30 mm") }
+    end
+
+    context "with a blank value" do
+      it { expect(helper.value_with_unit(nil, "mm")).to be_nil }
+    end
+
+    context "with an empty value" do
+      it { expect(helper.value_with_unit("", "mm")).to be_nil }
+    end
+  end
+
   describe "#surface_area_with_suffix" do
-    it { expect(helper.surface_area_with_suffix(300)).to eq("300 m²") }
+    context "with a value" do
+      it { expect(helper.surface_area_with_suffix(300)).to eq("300 m²") }
+    end
+
+    context "with an empty value" do
+      it { expect(helper.value_with_unit("", "mm")).to be_nil }
+    end
+
+    context "with a blank value" do
+      it { expect(helper.value_with_unit(nil, "mm")).to be_nil }
+    end
   end
 end

@@ -27,7 +27,7 @@
       <div>
         <fieldset class="form-floating">
           <%= f.collection_select(:room_id, Room.sorted, :id, :name_with_site,
-                                  { prompt: true, include_blank: true },
+                                  { prompt: true },
                                   { class: "form-select" }) %>
           <%= f.label :room_id %>
         </fieldset>
@@ -40,9 +40,20 @@
             Islet.includes(:room).order("rooms.site_id", "rooms.position", "rooms.name", :room_id, :name, :position),
             :id,
             :name_with_room,
-            { prompt: true, include_blank: true },
+            { prompt: true },
             { class: "form-select" }) %>
           <%= f.label :islet_id %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:manufacturer_id, Manufacturer.sorted,
+                                                    :id,
+                                                    :to_s,
+                                                    { prompt: true },
+                                                    { class: "form-select" }) %>
+          <%= f.label :manufacturer_id %>
         </fieldset>
       </div>
     <% end %>
