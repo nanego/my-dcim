@@ -6,10 +6,10 @@ class ServersController < ApplicationController
   before_action :set_server, only: [:show, :edit, :update, :destroy]
 
   def index
+    # Let server know that now name is not used anymore for research
     if params[:name].present?
       params[:q] = params[:name]
 
-      # Let user know that now name is not used anymore for research
       logger.warn("DEPRECATION WARNING: Search with 'name' is now deprecated. Use 'q' instead.")
     end
 
