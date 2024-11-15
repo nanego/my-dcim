@@ -660,6 +660,8 @@ fr:
     destroy:
       flashes:
         destroyed: La baie a bien étée supprimé.
+    decorator:
+      no_frame_warning_text: Veuillez renseigner un châssis à cette baie
   contacts:
     index:
       new_contact: Ajouter un contact
