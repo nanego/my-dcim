@@ -18,8 +18,12 @@ class ServersController < ApplicationController
       .order(:name)
     @filter = ProcessorFilter.new(@servers, params)
 
-    @pagy, @servers = pagy(@filter.results)
-    @search_params = search_params
+    if request.format.json?
+      @servers = @filter.results
+    else
+      @pagy, @servers = pagy(@filter.results)
+      @search_params = search_params
+    end
   end
 
   def grid
