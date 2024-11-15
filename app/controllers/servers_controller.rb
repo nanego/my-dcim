@@ -20,10 +20,10 @@ class ServersController < ApplicationController
 
     @servers = @filter.results
     @search_params = search_params
-    
+
     respond_to do |format|
       format.json
-      format.html { @pagy, @servers = pagy(@server) }
+      format.html { @pagy, @servers = pagy(@servers) }
     end
   end
 
