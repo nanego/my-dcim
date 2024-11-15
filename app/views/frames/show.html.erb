@@ -26,7 +26,7 @@
           <% end %>
 
           <dt class="pb-2"><%= Frame.human_attribute_name(:width) %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= value_with_unit(@frame.width, :inches) if @frame.width.present? %></dd>
+          <dd class="mb-0 pb-2 ps-3"><%= value_with_unit(@frame.width, :inches) %></dd>
 
           <% %i[switch_slot].each do |attribute_name| %>
             <dt class="pb-2"><%= Frame.human_attribute_name(attribute_name) %></dt>

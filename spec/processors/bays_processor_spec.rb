@@ -36,6 +36,21 @@ RSpec.describe BaysProcessor do
     it { is_expected.to include(bay) }
   end
 
+  describe "when filtering by manufacturer_id" do
+    let(:manufacturer) { Manufacturer.create!(name: "M1") }
+    let(:bay) { Bay.create!(name: "bay", manufacturer: manufacturer, bay_type: bay_types(:one), islet: islets(:one)) }
+
+    let(:params) { { manufacturer_id: manufacturer.id } }
+
+    before do
+      bay
+      Bay.create!(name: "bay2", manufacturer: manufacturers(:fortinet), bay_type: bay_types(:one), islet: islets(:one))
+    end
+
+    it { expect(result.size).to eq(1) }
+    it { is_expected.to include(bay) }
+  end
+
   describe "when sorting" do
     pending "TODO"
   end

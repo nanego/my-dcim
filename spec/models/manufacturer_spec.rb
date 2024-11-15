@@ -9,6 +9,7 @@ RSpec.describe Manufacturer do
 
   describe "associations" do
     it { is_expected.to have_many(:modeles) }
+    it { is_expected.to have_many(:bays) }
   end
 
   describe "#to_s" do

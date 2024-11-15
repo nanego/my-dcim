@@ -14,10 +14,12 @@ module ApplicationHelper
   end
 
   def value_with_unit(value, unit)
+    return if value.blank?
+
     "#{value} #{t("unit.#{unit}")}"
   end
 
   def surface_area_with_suffix(surface_area)
-    "#{surface_area} #{t("surface_area.unit")}"
+    value_with_unit(surface_area, "square_meter")
   end
 end
