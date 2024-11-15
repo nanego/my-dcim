@@ -14,7 +14,8 @@
       <%= render ButtonComponent.new(t("action.back"),
                                     url: changelog_entries_path,
                                     icon: "chevron-left",
-                                    is_responsive: true) %>
+                                    is_responsive: true,
+                                    extra_classes: "icon-link align-items-start icon-link-hover") %>
     </span>
   <% end %>
 

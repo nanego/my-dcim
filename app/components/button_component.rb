@@ -23,7 +23,7 @@ class ButtonComponent < ApplicationComponent
   def call
     link_to @url,
             class: "btn btn-#{@variant.to_s.dasherize} btn-#{@size} align-self-center d-inline-flex #{@extra_classes}",
-            title: @title,
+            title: @html_options&.dig(:data, :tooltip_title) || @title,
             **@html_options do
       concat(tag.span(class: "bi bi-#{@icon}")) if @icon
       concat(tag.span(@title, class: class_names("ms-2", 'd-none d-md-inline-block': @is_responsive)))
