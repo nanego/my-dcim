@@ -18,11 +18,12 @@ class ServersController < ApplicationController
       .order(:name)
     @filter = ProcessorFilter.new(@servers, params)
 
-    if request.format.json?
-      @servers = @filter.results
-    else
-      @pagy, @servers = pagy(@filter.results)
-      @search_params = search_params
+    @servers = @filter.results
+    @search_params = search_params
+    
+    respond_to do |format|
+      format.json
+      format.html { @pagy, @servers = pagy(@server) }
     end
   end
 
