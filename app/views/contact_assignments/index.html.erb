@@ -52,7 +52,12 @@
 
         <% unless (turbo_frame_request? && @filter.filled?(:contact_id)) %>
           <% table.with_column(ContactAssignment.human_attribute_name(:contact_id), sort_by: :contact_id) do |contact_assignment| %>
-            <%= link_to contact_assignment.contact, contact_path(contact_assignment.contact), data: { turbo_frame: :_top } %>
+            <%= link_to contact_path(contact_assignment.contact), data: { turbo_frame: :_top } do %>
+              <%= contact_assignment.contact %>
+              <% if contact_assignment.contact.organization? %>
+                (<%= contact_assignment.contact.organization %>)
+              <% end %>
+            <% end %>
           <% end %>
         <% end %>
 
