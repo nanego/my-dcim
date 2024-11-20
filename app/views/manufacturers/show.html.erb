@@ -20,12 +20,12 @@
   </div>
   <%= render HasManyTurboFrameComponent.new(
     Modele.model_name.human.pluralize,
-    url: modeles_path(manufacturer_id: @manufacturer.id),
+    url: modeles_path(manufacturer_ids: @manufacturer.id),
     frame_id: dom_id(Modele, :table)
   ) %>
   <%= render HasManyTurboFrameComponent.new(
     Bay.model_name.human.pluralize,
-    url: bays_path(manufacturer_id: @manufacturer.id),
+    url: bays_path(manufacturer_ids: @manufacturer.id),
     frame_id: dom_id(Bay, :table)
   ) %>
   <%= render ChangelogEntries::ObjectListComponent.new(@manufacturer) %>

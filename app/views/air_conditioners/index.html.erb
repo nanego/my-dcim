@@ -27,9 +27,10 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:room_id, Room.sorted, :id, :to_s, { include_blank: true, prompt: true },
-                                                                     { class: "form-select" }) %>
-          <%= f.label :room_id %>
+          <%= f.collection_select(:room_ids, Room.sorted, :id, :to_s,
+                                  { prompt: true, include_blank: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select }  }) %>
+          <%= f.label :room_ids %>
         </fieldset>
       </div>
     <% end %>

@@ -88,7 +88,7 @@
     </div>
   </div>
   <%= render HasManyTurboFrameComponent.new(
-    Frame.model_name.human.pluralize, url: frames_path(bay_id: @bay.id), frame_id: dom_id(Frame, :table)
+    Frame.model_name.human.pluralize, url: frames_path(bay_ids: @bay.id), frame_id: dom_id(Frame, :table)
   ) %>
 
   <%= render ChangelogEntries::ObjectListComponent.new(@bay) %>

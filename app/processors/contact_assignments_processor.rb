@@ -4,12 +4,12 @@ class ContactAssignmentsProcessor < ApplicationProcessor
   include Sortable
   SORTABLE_FIELDS = %w[id site_id contact_id contact_role_id].freeze
 
-  map :site_id do |site_id:|
-    raw.where(site_id: site_id)
+  map :site_ids, filter_with: :non_empty_array do |site_ids:|
+    raw.where(site_id: site_ids)
   end
 
-  map :contact_id do |contact_id:|
-    raw.where(contact_id: contact_id)
+  map :contact_ids, filter_with: :non_empty_array do |contact_ids:|
+    raw.where(contact_id: contact_ids)
   end
 
   sortable fields: SORTABLE_FIELDS

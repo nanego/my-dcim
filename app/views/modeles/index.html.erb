@@ -27,34 +27,28 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:architecture_id, Architecture.sorted,
-                                                    :id,
-                                                    :to_s,
-                                                    { prompt: true, include_blank: true },
-                                                    { class: "form-select" }) %>
-          <%= f.label :architecture_id %>
+          <%= f.collection_select(:architecture_ids, Architecture.sorted, :id, :to_s,
+                                  { prompt: true, include_blank: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select }  }) %>
+          <%= f.label :architecture_ids %>
         </fieldset>
       </div>
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:category_id, Category.sorted,
-                                                :id,
-                                                :to_s,
-                                                { prompt: true, include_blank: true },
-                                                { class: "form-select" }) %>
-          <%= f.label :category_id %>
+          <%= f.collection_select(:category_ids, Category.sorted, :id, :to_s,
+                                  { prompt: true, include_blank: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select }  }) %>
+          <%= f.label :category_ids %>
         </fieldset>
       </div>
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:manufacturer_id, Manufacturer.sorted,
-                                                    :id,
-                                                    :to_s,
-                                                    { prompt: true, include_blank: true },
-                                                    { class: "form-select" }) %>
-          <%= f.label :manufacturer_id %>
+          <%= f.collection_select(:manufacturer_ids, Manufacturer.sorted, :id, :to_s,
+                                  { prompt: true, include_blank: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select }  }) %>
+          <%= f.label :manufacturer_ids %>
         </fieldset>
       </div>
     <% end %>
@@ -64,7 +58,7 @@
     <div class="d-flex flex-column row-gap-4">
       <% @types.each do |category, modeles| %>
         <div>
-          <% unless (turbo_frame_request? && @filter.filled?(:category_id)) %>
+          <% unless (turbo_frame_request? && @filter.filled?(:category_ids)) %>
             <h4><%= category %></h4>
           <% end %>
 

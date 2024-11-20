@@ -27,25 +27,28 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:room_id, Room.sorted, :id, :to_s, { prompt: true, include_blank: true },
-                                                                     { class: "form-select" }) %>
-          <%= f.label :room_id %>
+          <%= f.collection_select(:room_ids, Room.sorted, :id, :to_s,
+                                  { prompt: true, include_blank: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select }  }) %>
+          <%= f.label :room_ids %>
         </fieldset>
       </div>
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:islet_id, Islet.sorted, :id, :name_with_room, { prompt: true, include_blank: true },
-                                                                                 { class: "form-select" }) %>
-          <%= f.label :islet_id %>
+          <%= f.collection_select(:islet_ids, Islet.sorted, :id, :name_with_room,
+                                  { prompt: true, include_blank: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select }  }) %>
+          <%= f.label :islet_ids %>
         </fieldset>
       </div>
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:bay_id, Bay.sorted, :id, :to_s, { prompt: true, include_blank: true },
-                                                                   { class: "form-select" }) %>
-          <%= f.label :bay_id %>
+          <%= f.collection_select(:bay_ids, Bay.sorted, :id, :to_s,
+                                  { prompt: true, include_blank: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select }  }) %>
+          <%= f.label :bay_ids %>
         </fieldset>
       </div>
 

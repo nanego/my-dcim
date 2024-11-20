@@ -26,7 +26,7 @@
     <% end %>
 
     <% table.with_column(Room.model_name.human.pluralize, sort_by: :rooms_count) do |site| %>
-      <%= link_to rooms_path(site_id: site.id) do %>
+      <%= link_to rooms_path(site_ids: site.id) do %>
         <%= Site.human_attribute_name(:rooms_count, count: site.rooms_count) %>
       <% end %>
     <% end %>
