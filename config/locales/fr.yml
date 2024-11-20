@@ -728,6 +728,9 @@ fr:
         u: Nombre de U
         architecture_ids: Architecture
         category_ids: Catégorie
+        external_app_record_frame_ids: Emplacement
+        external_serial_status: Synchronisation
+        manufacturer_id: Constructeur
         manufacturer_ids: Constructeur
         islet_ids: Ilot
         room_ids: Salle

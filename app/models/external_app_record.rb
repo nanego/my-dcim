@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class ExternalAppRecord < ApplicationRecord
+  EXTERNAL_SERIAL_STATUSES = %i[found not_found].freeze
+
   belongs_to :server
+  has_one :frame, through: :server
 
   before_create :set_external_app_name
 
@@ -27,7 +30,7 @@ class ExternalAppRecord < ApplicationRecord
     updated = if computer.present?
                 record.update({ external_name: computer.name, external_id: computer.id, external_serial: computer.serial })
               else
-                record.update({ external_name: '', external_id: '', external_serial: '' })
+                record.update({ external_name: "", external_id: "", external_serial: "" })
               end
     Rails.logger.debug { "Server ##{server.id} #{server.name} NOT updated" } unless updated
   end
@@ -35,6 +38,6 @@ class ExternalAppRecord < ApplicationRecord
   private
 
   def set_external_app_name
-    self.app_name = 'glpi' # Only one external app supported for now
+    self.app_name = "glpi" # Only one external app supported for now
   end
 end

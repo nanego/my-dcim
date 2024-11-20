@@ -12,15 +12,20 @@ RSpec.describe "ExternalAppRecords" do
   end
 
   describe "GET #index" do
-    subject(:response) do
-      get external_app_records_path
-
-      @response # rubocop:disable RSpec/InstanceVariable
-    end
+    before { get external_app_records_path }
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
     it { expect(response.body).to include(ext_app_rec.server.numero) }
+
+    context "when searching on external_serial_status" do
+      before { get external_app_records_path(external_serial_status: "found") }
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(:index) }
+      it { expect(response.body).to include(external_app_records(:two).server.name) }
+      it { expect(response.body).not_to include(ext_app_rec.server.name) }
+    end
   end
 
   describe "PUT #sync_all_servers_with_glpi" do

@@ -8,17 +8,19 @@
   title: t(".title"), breadcrumb_steps:, back_button_url: servers_path
 ) do |heading| %>
   <% heading.with_right_content do %>
-    <%= button_to 'Démarrer la synchronisation avec GLPI', sync_with_glpi_external_app_records_path,
+    <%= button_to 'Démarrer la synchronisation avec GLPI',
+                  sync_with_glpi_external_app_records_path,
                   id: 'sync_with_glpi_button',
-                  class: "btn btn-primary",
-                  remote: true, method: :put %>
+                  class: "btn btn-outline-primary",
+                  remote: true,
+                  method: :put %>
   <% end %>
 
   <p class="mb-0">Listés : <%= @external_app_records.count %> sur <%= @servers_count %> machines connues </p>
 <% end %>
 
-<div class="p-4 border-top d-flex flex-column row-gap-2">
-  <div class="alert alert-primary" role="alert" id="sync_alert">
+<div class="p-4 border-top d-flex flex-column row-gap-4">
+  <div class="alert alert-primary mb-0" role="alert" id="sync_alert">
     <div id="sync_latest_text">
       <i class="bi bi-info-circle-fill me-2"></i>
       <span class="fst-italic">Dernière synchronisation complète :
@@ -44,31 +46,63 @@
     </div>
   </div>
 
+  <%= render FilterComponent.new(@filter) do |c| %>
+    <% c.with_form do |f| %>
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:frame_ids, Frame.order(:name),
+                                  :id,
+                                  :name,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :external_app_record_frame_ids %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.select(:external_serial_status,
+                       ExternalAppRecordDecorator.external_serial_status_options_for_select,
+                       { prompt: true },
+                       { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :external_serial_status %>
+        </fieldset>
+      </div>
+    <% end %>
+  <% end %>
+
   <%= render List::DataTableComponent.new(@external_app_records) do |table| %>
-    <% table.with_column('ID', sort_by: :server_id) do |record| %>
+    <% table.with_column(ExternalAppRecord.human_attribute_name(:id), sort_by: :server_id) do |record| %>
       <%= link_to record.server_id, server_path(record.server) %>
     <% end %>
-    <% table.with_column('Matériel', sort_by: 'servers.name') do |record| %>
+    <% table.with_column(ExternalAppRecord.human_attribute_name(:server_id), sort_by: :"servers.name") do |record| %>
       <%= link_to record.server, server_path(record.server) %>
     <% end %>
-    <% table.with_column('Numero de série') do |record| %>
+    <% table.with_column(Server.human_attribute_name(:numero), sort_by: :"servers.numero") do |record| %>
       <%= record.server.numero %>
     <% end %>
-    <% table.with_column('Synchronisation GLPI', sort_by: :external_serial) do |record| %>
+    <% table.with_column(ExternalAppRecord.human_attribute_name(:external_serial_status),
+                         sort_by: :external_serial,
+                         class: "text-center") do |record| %>
       <%= render record.decorated.external_serial_to_badge_component %>
     <% end %>
-    <% table.with_column('Nom GLPI', sort_by: :external_name) do |record| %>
+    <% table.with_column(ExternalAppRecord.human_attribute_name(:external_name), sort_by: :external_name) do |record| %>
       <%= record.external_name %>
     <% end %>
-    <% table.with_column('ID GLPI', sort_by: :external_id) do |record| %>
+    <% table.with_column(ExternalAppRecord.human_attribute_name(:external_id), sort_by: :external_id) do |record| %>
       <%= record.external_id %>
     <% end %>
-    <% table.with_column('Numero de série GLPI', sort_by: :external_serial) do |record| %>
+    <% table.with_column(ExternalAppRecord.human_attribute_name(:external_serial),
+                         sort_by: :external_serial) do |record| %>
       <%= record.external_serial %>
     <% end %>
-    <% table.with_column('Emplacement') do |record| %>
-      <%= record.server.frame %>
+    <% table.with_column(ExternalAppRecord.human_attribute_name(:frame_id), sort_by: :"frames.name") do |record| %>
+      <%= record.frame %>
     <% end %>
+  <% end %>
+
+  <% if @pagy.pages > 1 %>
+    <%== pagy_bootstrap_nav(@pagy) %>
   <% end %>
 </div>
 
