@@ -29,6 +29,10 @@
       <%= contact.email %>
     <% end %>
 
+    <% table.with_column(Contact.human_attribute_name(:organization), sort_by: :organization) do |contact| %>
+      <%= contact.organization %>
+    <% end %>
+
     <% table.with_column(style: "min-width: 70px; width: 70px") do |contact| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= link_to edit_contact_path(contact), class: "btn btn-info" do %>

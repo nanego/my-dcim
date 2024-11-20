@@ -386,6 +386,7 @@ fr:
         full_name: Nom
         phone_number: Numéro de téléphone
         email: Adresse mail
+        organization: Organisation
       contact_role:
         name: Nom
         description: Description

@@ -21,6 +21,11 @@
       <%= f.label :email, class: "form-label" %>
       <%= f.email_field :email, class: "form-control" %>
     </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :organization, class: "form-label" %>
+      <%= f.text_field :organization, class: "form-control" %>
+    </fieldset>
   <% end %>
 
   <%= render Form::ActionsComponent.new(f) %>
