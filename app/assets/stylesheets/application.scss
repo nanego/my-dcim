@@ -762,6 +762,23 @@ body {
     }
   }
 
+  .back-button-container {
+    height: 23px;
+
+    .back-button {
+      .bi {
+        transition: .2s ease-in-out transform;
+        transform: translateX(0);
+      }
+
+      &:hover {
+        .bi {
+          transform: translateX(.25em);
+        }
+      }
+    }
+  }
+
   .export-button {
     max-width: 70px;
   }

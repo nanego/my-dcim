@@ -11,17 +11,17 @@ RSpec.describe Page::HeadingNewComponent, type: :component do
 
   let(:block) { nil }
 
-  it "renders left_content with a back button" do # rubocop:disable RSpec/ExampleLength
+  it "renders a back button" do # rubocop:disable RSpec/ExampleLength
     expect(rendered_component).to have_tag("div.col-12.bg-body") do
-      with_tag("div.d-flex") do
-        with_tag("span.flex-grow-1") do
-          with_tag("a.btn-default.icon-link", title: "Retour", href: "http://test.host/sites") do
-            with_tag("span.bi-chevron-left")
-            with_tag("span.ms-2.d-none", text: "Retour")
-          end
+      with_tag("div.back-button-container") do
+        with_tag("a.btn.back-button") do
+          with_tag("i.bi-chevron-left")
+          with_tag("span.ms-2", text: "Retour")
         end
+      end
 
-        with_tag("span.flex-grow-1", count: 2)
+      with_tag("div.d-flex") do
+        with_tag("h1", text: "Title")
       end
     end
   end

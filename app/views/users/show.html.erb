@@ -8,7 +8,7 @@
   }
 %>
 
-<%= render Page::HeadingNewComponent.new(resource: @user, title:, breadcrumb_steps:) %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:, back_button_url: users_path) %>
 <div class="col-12 p-4 border-top">
   <div class="col-12 col-lg-6">
     <%= render CardComponent.new do |card| %>

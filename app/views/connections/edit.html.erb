@@ -9,14 +9,9 @@
   }
 %>
 
-<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb_steps:) do |heading| %>
-  <% heading.with_left_content do %>
-    <% render ButtonComponent.new(t("action.back"),
-                               url: connections_path,
-                               icon: "chevron-left",
-                               is_responsive: true) %>
-  <% end %>
-
+<%= render Page::HeadingComponent.new(
+  title: t(".title"), breadcrumb_steps:, back_button_url: connections_path
+) do |heading| %>
   <% heading.with_right_content do %>
     <% if @cable %>
       <% render ButtonComponent.new(t("action.delete"),
@@ -26,11 +21,10 @@
                                     is_responsive: true,
                                     method: :delete,
                                     data: { confirm: t("connections.form.action.delete_confirmation") }) %>
-    <% else %>
-      <%= tag.span class: "flex-grow-1" %>
     <% end %>
   <% end %>
 <% end %>
+
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>
