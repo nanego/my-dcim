@@ -13,7 +13,7 @@ module ChangelogEntries
         <%= turbo_frame_tag("changelog-entries", loading: :lazy, src: object_changelog_path, **@html_options) do %>
           <div class="w-100 d-flex justify-content-center align-items-center gap-3">
             <span role="status"><%= t(".loading") %></span>
-            <span class="spinner-grow text-primary" aria-hidden="true"></span>
+            <span class="spinner-grow text-secondary" aria-hidden="true"></span>
           </div>
         <% end %>
       <% end %>
