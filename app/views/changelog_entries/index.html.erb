@@ -28,11 +28,13 @@
           <%= link_to_if changelog_entry.author_id?, changelog_entry.author_display_name, changelog_entry.author, target: :_top %>
         <% end %>
 
-        <% table.with_column(ChangelogEntry.human_attribute_name(:object), sort_by: :object_id) do |changelog_entry| %>
-          <% begin %>
-            <%= link_to changelog_entry.object_display_name, changelog_entry.object, target: :_top %>
-          <% rescue NoMethodError %>
-            <%= changelog_entry.object_display_name %>
+        <% unless (turbo_frame_request? && params[:object_id].present?) %>
+          <% table.with_column(ChangelogEntry.human_attribute_name(:object), sort_by: :object_id) do |changelog_entry| %>
+            <% begin %>
+              <%= link_to changelog_entry.object_display_name, changelog_entry.object.object, target: :_top %>
+            <% rescue NoMethodError %>
+              <%= changelog_entry.object_display_name %>
+            <% end %>
           <% end %>
         <% end %>
 
