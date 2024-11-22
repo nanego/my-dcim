@@ -3,7 +3,6 @@
 class ExternalAppRecordsController < ApplicationController
   def index
     @external_app_records = ExternalAppRecord.includes(server: :frame).order("servers.name")
-    @external_app_records_count = @external_app_records.count
     @filter = ProcessorFilter.new(@external_app_records, params)
     @external_app_records = @filter.results
     @servers_count = Server.no_pdus.count
