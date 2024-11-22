@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 class ChangelogEntryDecorator < ApplicationDecorator
+  def object_link_to(view_context, **html_attributes)
+    return object_display_name unless object.object
+
+    view_context.link_to object_display_name, object.object, **html_attributes
+  rescue NoMethodError
+    object_display_name
+  end
+
   def object_pre_change_attributes
     object_changed_attributes.transform_values { |v| v[0] }
   end
