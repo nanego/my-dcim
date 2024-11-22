@@ -22,7 +22,7 @@ RSpec.describe ExternalAppRecordsProcessor do
       let(:params) { { frame_ids: frame.id } }
 
       it { expect(result.size).to eq(1) }
-      it { is_expected.to include(ear) }
+      it { is_expected.to contain_exactly(ear) }
     end
 
     context "with many frame_ids" do
