@@ -31,7 +31,7 @@
         <% unless (turbo_frame_request? && params[:object_id].present?) %>
           <% table.with_column(ChangelogEntry.human_attribute_name(:object), sort_by: :object_id) do |changelog_entry| %>
             <% begin %>
-              <%= link_to changelog_entry.object_display_name, changelog_entry.object, target: :_top %>
+              <%= link_to changelog_entry.object_display_name, changelog_entry.object.object, target: :_top %>
             <% rescue NoMethodError %>
               <%= changelog_entry.object_display_name %>
             <% end %>
