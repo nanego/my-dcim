@@ -383,6 +383,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_152636) do
     t.index ["card_id"], name: "index_ports_on_card_id"
   end
 
+  create_table "room_hubs", force: :cascade do |t|
+    t.bigint "from_room_id", null: false
+    t.bigint "to_room_id", null: false
+    t.bigint "hub_id", null: false
+    t.string "network_types", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from_room_id"], name: "index_room_hubs_on_from_room_id"
+    t.index ["hub_id"], name: "index_room_hubs_on_hub_id"
+    t.index ["to_room_id"], name: "index_room_hubs_on_to_room_id"
+  end
+
   create_table "rooms", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -541,6 +553,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_152636) do
   add_foreign_key "modeles", "manufacturers"
   add_foreign_key "moves", "frames"
   add_foreign_key "moves", "frames", column: "prev_frame_id"
+  add_foreign_key "room_hubs", "rooms", column: "from_room_id"
+  add_foreign_key "room_hubs", "rooms", column: "to_room_id"
+  add_foreign_key "room_hubs", "servers", column: "hub_id"
   add_foreign_key "rooms", "sites"
   add_foreign_key "servers", "clusters"
   add_foreign_key "servers", "gestions"
