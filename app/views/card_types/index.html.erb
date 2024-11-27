@@ -16,6 +16,26 @@
 <% end %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
+  <%= render FilterComponent.new(@filter) do |c| %>
+    <% c.with_form do |f| %>
+      <div class="w-100">
+        <fieldset class="form-floating">
+          <%= f.text_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :q %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:port_type_ids, PortType.sorted, :id, :name,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select }  }) %>
+          <%= f.label :port_type_ids %>
+        </fieldset>
+      </div>
+    <% end %>
+  <% end %>
+
   <%= render List::DataTableComponent.new(@card_types) do |table| %>
     <% table.with_column(CardType.human_attribute_name(:name), sort_by: :name) do |card_type| %>
       <%= link_to card_type, card_type_path(card_type), class: "fw-bold" %>
