@@ -5,14 +5,7 @@
   provide(:title, title)
 %>
 
-<%= render Page::HeadingComponent.new(title: title, breadcrumb_steps:) do |heading| %>
-  <% heading.with_left_content do %>
-    <span class="flex-grow-1"></span>
-  <% end %>
-  <% heading.with_right_content do %>
-    <span class="flex-grow-1"></span>
-  <% end %>
-<% end %>
+<%= render Page::HeadingComponent.new(title: title, breadcrumb_steps:) %>
 
 <div class="col-12 p-4 border-top">
   <%= form_with model: @user, url: users_settings_path, class: "col-12 col-md-10 col-lg-8 mx-auto" do |f| %>
