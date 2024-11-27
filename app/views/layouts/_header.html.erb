@@ -6,22 +6,30 @@
             aria-label="Toggle <%= t("inventories") %> navigation">
       <i class="bi bi-list"></i>
     </button>
-    <%= link_to root_path, class: "navbar-brand" do %>
+    <%= link_to root_path, class: "navbar-brand me-lg-3" do %>
       <%= image_tag "datacenter-02.png", style: "height: 40px;" %>
     <% end %>
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mydcim-navbar"
-            aria-controls="mydcim-navbar"
-            aria-label="Toggle Main navigation">
-      <i class="bi bi-three-dots"></i>
-    </button>
+    <span>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mydcim-navbar"
+              aria-controls="mydcim-navbar"
+              aria-label="Toggle Main navigation with focus on search bar"
+              onclick="document.getElementById('query').focus();">
+        <i class="bi bi-search"></i>
+      </button>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mydcim-navbar"
+              aria-controls="mydcim-navbar"
+              aria-label="Toggle Main navigation">
+        <i class="bi bi-three-dots"></i>
+      </button>
+    </span>
     <div id="mydcim-navbar" class="mydcim-navbar offcanvas-lg offcanvas-end bg-body-secondary">
       <div class="offcanvas-header px-4 pb-0">
         <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas"
                 aria-label="<%= t("action.close") %>"
                 data-bs-target="#mydcim-navbar"></button>
       </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav">
+      <div class="offcanvas-body d-flex flex-column flex-lg-row justify-content-lg-between">
+        <ul class="navbar-nav order-1 order-lg-0">
           <%= render "layouts/navigation/visualization_dropdown" %>
           <%= render "layouts/navigation/devices_dropdown" %>
           <%= render "layouts/navigation/projects_dropdown" %>
@@ -29,7 +37,7 @@
 
         <%= render "search/search_field" %>
 
-        <ul class="navbar-nav">
+        <ul class="navbar-nav order-2">
           <%= render "layouts/navigation/nav_links_administration" %>
         </ul>
       </div>
