@@ -39,7 +39,7 @@
           <%= f.collection_select(:room_ids, Room.order(:name),
                                   :id,
                                   :name,
-                                  { prompt: true, include_blank: true, multiple: true },
+                                  { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :room_ids %>
         </fieldset>
@@ -50,7 +50,7 @@
           <%= f.collection_select(:islet_ids, Islet.sorted,
                                   :id,
                                   :name_with_room,
-                                  { prompt: true, include_blank: true, multiple: true },
+                                  { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :islet_ids %>
         </fieldset>
@@ -61,7 +61,7 @@
           <%= f.collection_select(:bay_ids, Bay.sorted,
                                   :id,
                                   :to_s,
-                                  { prompt: true, include_blank: true, multiple: true },
+                                  { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :bay_ids %>
         </fieldset>
@@ -72,7 +72,7 @@
           <%= f.collection_select(:frame_ids, Frame.order(:name),
                                   :id,
                                   :name,
-                                  { prompt: true, include_blank: true, multiple: true },
+                                  { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :frame_ids %>
         </fieldset>
@@ -83,7 +83,7 @@
           <%= f.collection_select(:modele_ids, Modele.sorted,
                                   :id,
                                   :name,
-                                  { prompt: true, include_blank: true, multiple: true },
+                                  { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :modele_ids %>
         </fieldset>
@@ -94,7 +94,7 @@
           <%= f.collection_select(:gestion_ids, Gestion.sorted,
                                   :id,
                                   :name,
-                                  { prompt: true, include_blank: true, multiple: true },
+                                  { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :gestion_ids %>
         </fieldset>
@@ -105,7 +105,7 @@
           <%= f.collection_select(:domaine_ids, Domaine.sorted,
                                   :id,
                                   :name,
-                                  { prompt: true, include_blank: true, multiple: true },
+                                  { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :domaine_ids %>
         </fieldset>
@@ -116,7 +116,7 @@
           <%= f.collection_select(:cluster_ids, Cluster.sorted,
                                   :id,
                                   :name,
-                                  { prompt: true, include_blank: true, multiple: true },
+                                  { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :cluster_ids %>
         </fieldset>

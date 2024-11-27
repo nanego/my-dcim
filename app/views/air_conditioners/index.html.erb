@@ -18,7 +18,7 @@
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
-      <div>
+      <div class="w-100">
         <fieldset class="form-floating">
           <%= f.search_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
           <%= f.label :q %>
@@ -27,9 +27,10 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:room_id, Room.sorted, :id, :to_s, { include_blank: true, prompt: true },
-                                                                     { class: "form-select" }) %>
-          <%= f.label :room_id %>
+          <%= f.collection_select(:room_ids, Room.sorted, :id, :to_s,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select }  }) %>
+          <%= f.label :room_ids %>
         </fieldset>
       </div>
     <% end %>

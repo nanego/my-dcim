@@ -33,39 +33,73 @@ RSpec.describe FramesProcessor do
     end
 
     it { expect(result.size).to eq(1) }
-    it { is_expected.to include(frame) }
+    it { is_expected.to contain_exactly(frame) }
   end
 
-  describe "when filtering by room_id" do
+  describe "when filtering by room_ids" do
     let(:room)  { Room.create!(name: "R1", site: sites(:one)) }
-    let(:bay)   { Bay.create!(name: "bay", room: room, bay_type: bay_types(:one)) }
-    let(:frame) { Frame.create!(name: "frame", bay: bay) }
-
-    let(:params) { { room_id: room.id } }
+    let(:bay)   { Bay.create!(name: "B1", room: room, bay_type: bay_types(:one)) }
+    let(:frame) { Frame.create!(name: "F1", bay: bay) }
 
     before do
       frame
       Frame.create!(name: "frame2", bay: bays(:one))
     end
 
-    it { expect(result.size).to eq(1) }
-    it { is_expected.to include(frame) }
+    context "with one room_ids" do
+      let(:params) { { room_ids: room.id } }
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to contain_exactly(frame) }
+    end
+
+    context "with many room_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+      let(:room_second)  { Room.create!(name: "R2", site: sites(:one)) }
+      let(:bay_second)   { Bay.create!(name: "B2", room: room_second, bay_type: bay_types(:one)) }
+      let(:frame_second) { Frame.create!(name: "F2", bay: bay_second) }
+
+      let(:params) { { room_ids: [room.id, room_second.id] } }
+
+      before do
+        frame_second
+      end
+
+      it { expect(result.size).to eq(2) }
+      it { is_expected.to contain_exactly(frame, frame_second) }
+    end
   end
 
-  describe "when filtering by islet_id" do
+  describe "when filtering by islet_ids" do
     let(:islet) { Islet.create!(name: "I1", site: sites(:one)) }
-    let(:bay)   { Bay.create!(name: "bay", islet: islet, bay_type: bay_types(:one)) }
-    let(:frame) { Frame.create!(name: "frame", bay: bay) }
-
-    let(:params) { { islet_id: islet.id } }
+    let(:bay)   { Bay.create!(name: "B1", islet: islet, bay_type: bay_types(:one)) }
+    let(:frame) { Frame.create!(name: "F1", bay: bay) }
 
     before do
       frame
       Frame.create!(name: "frame2", bay: bays(:one))
     end
 
-    it { expect(result.size).to eq(1) }
-    it { is_expected.to include(frame) }
+    context "with one islet_ids" do
+      let(:params) { { islet_ids: islet.id } }
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to contain_exactly(frame) }
+    end
+
+    context "with many islet_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+      let(:islet_second) { Islet.create!(name: "I2", site: sites(:one)) }
+      let(:bay_second)   { Bay.create!(name: "B2", islet: islet_second, bay_type: bay_types(:one)) }
+      let(:frame_second) { Frame.create!(name: "F2", bay: bay_second) }
+
+      let(:params) { { islet_ids: [islet.id, islet_second.id] } }
+
+      before do
+        frame_second
+      end
+
+      it { expect(result.size).to eq(2) }
+      it { is_expected.to contain_exactly(frame, frame_second) }
+    end
   end
 
   describe "when sorting" do

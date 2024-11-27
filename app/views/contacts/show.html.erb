@@ -23,7 +23,7 @@
       <%= render HasManyTurboFrameComponent.new(
           ContactAssignment.model_name.human.pluralize,
           type: :warning,
-          url: contact_assignments_path(contact_id: @contact.id),
+          url: contact_assignments_path(contact_ids: @contact.id),
           frame_id: dom_id(ContactAssignment, :table),
           extra_classes: "bg-body-tertiary"
       ) %>

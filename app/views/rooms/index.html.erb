@@ -18,7 +18,7 @@
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
-      <div>
+      <div class="w-100">
         <fieldset class="form-floating">
           <%= f.text_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
           <%= f.label :q %>
@@ -27,13 +27,10 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:site_id,
-                                  Site.sorted,
-                                  :id,
-                                  :name,
-                                  { prompt: true, include_blank: true },
-                                  { class: "form-select" }) %>
-          <%= f.label :site_id %>
+          <%= f.collection_select(:site_ids, Site.sorted, :id, :name,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select }  }) %>
+          <%= f.label :site_ids %>
         </fieldset>
       </div>
     <% end %>
@@ -45,7 +42,7 @@
         <b><%= link_to room, room_path(room), data: { turbo_frame: :_top } %></b>
       <% end %>
 
-      <% unless (turbo_frame_request? && @filter.filled?(:site_id)) %>
+      <% unless (turbo_frame_request? && @filter.filled?(:site_ids)) %>
         <% table.with_column(Site.model_name.human, sort_by: :"sites.name") do |room| %>
           <%= link_to room.site, site_path(room.site), data: { turbo_frame: :_top } %>
         <% end %>
@@ -56,11 +53,13 @@
       <% end %>
 
       <% table.with_column(Islet.model_name.human.pluralize, sort_by: :islets_count) do |room| %>
-        <%= Room.human_attribute_name(:islets_count, count: room.islets_count) %>
+        <%= link_to islets_path(room_ids: room.id), data: { turbo_frame: :_top } do %>
+          <%= Room.human_attribute_name(:islets_count, count: room.islets_count) %>
+        <% end %>
       <% end %>
 
       <% table.with_column(Frame.model_name.human.pluralize) do |room| %>
-        <%= link_to frames_path(room_id: room.id), data: { turbo_frame: :_top } do %>
+        <%= link_to frames_path(room_ids: room.id), data: { turbo_frame: :_top } do %>
           <%= Room.human_attribute_name(:frames_count, count: room.frames.count) %>
         <% end %>
       <% end %>
