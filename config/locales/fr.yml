@@ -38,6 +38,9 @@ fr:
       front_wiring: Cablage - Face avant
       back_wiring: Cablage - Face arrière
     port_list: Liste des ports
+  show:
+    tabs:
+      details: Détails
 
   order-in-progress: 'Commande en cours'
   inventories: Inventaires

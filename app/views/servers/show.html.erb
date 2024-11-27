@@ -31,307 +31,346 @@
   <% end %>
 <% end %>
 
-<div class="col-12 p-4 border-top">
-  <div class="mb-4">
-    <% bgModeleColor = define_background_color(server: @server, mode: params["bg"]) %>
-    <div class="<%= class_names("rounded-top-1 border border-secondary-subtle p-2 mb-2",
-                                colorized_background: bgModeleColor.present?) %>"
-          style="background-color:<%= bgModeleColor %> !important;">
-      <%= render partial: "draw_server_compact_front", locals: { server: @server } %>
-    </div>
-
-    <div class="rounded-bottom-1 bg-body border border-secondary-subtle p-2 mb-2">
-      <span id="back_server_<%= @server.id %>" class="no-decoration-link d-flex flex-row-reverse flex-wrap">
-          <%= render partial: "servers/draw_server_compact", locals: { server: @server } %>
-      </span>
-    </div>
-  </div>
-
-  <% if @server.comment.present? %>
+<div class="page-show__tabs" id="serverShowTabs">
+  <ul class="nav nav-tabs ps-4">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active"
+              id="details-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#details-tab-pane"
+              type="button"
+              role="tab"
+              aria-controls="details-tab-pane"
+              aria-selected="true">
+        <%= t("show.tabs.details") %>
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link"
+              id="connections-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#connections-tab-pane"
+              type="button"
+              role="tab"
+              aria-controls="connections-tab-pane"
+              aria-selected="true">
+        <%= Connection.model_name.human.pluralize %>
+      </button>
+    </li>
+  </ul>
+</div>
+<div class="col-12 p-4 tab-content" id="serverShowTabsContent">
+  <div class="tab-pane fade show active" id="details-tab-pane" role="tabpanel" aria-labelledby="details-tab" tabindex="0">
     <div class="mb-4">
-      <div class="alert alert-warning">
-        <%= @server.comment %>
+      <% bgModeleColor = define_background_color(server: @server, mode: params["bg"]) %>
+      <div class="<%= class_names("rounded-top-1 border border-secondary-subtle p-2 mb-2",
+                                  colorized_background: bgModeleColor.present?) %>"
+            style="background-color:<%= bgModeleColor %> !important;">
+        <%= render partial: "draw_server_compact_front", locals: { server: @server } %>
+      </div>
+
+      <div class="rounded-bottom-1 bg-body border border-secondary-subtle p-2 mb-2">
+        <span id="back_server_<%= @server.id %>" class="no-decoration-link d-flex flex-row-reverse flex-wrap">
+            <%= render partial: "servers/draw_server_compact", locals: { server: @server } %>
+        </span>
       </div>
     </div>
-  <% end %>
 
-  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
-    <div class="col">
-      <%= render CardComponent.new do |card| %>
-        <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <dt class="pb-2"><%= Category.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= @server.modele.try(:category) %></dd>
+    <% if @server.comment.present? %>
+      <div class="mb-4">
+        <div class="alert alert-warning">
+          <%= @server.comment %>
+        </div>
+      </div>
+    <% end %>
 
-          <dt class="pb-2"><%= Modele.human_attribute_name(:nb_elts) %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= @server.modele.try(:nb_elts) %></dd>
+    <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+      <div class="col">
+        <%= render CardComponent.new do |card| %>
+          <dl class="show-page_dl d-grid row-gap-2 mb-0">
+            <dt class="pb-2"><%= Category.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @server.modele.try(:category) %></dd>
 
-          <dt class="pb-2"><%= Architecture.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3">
-            <%= link_to @server.modele.try(:architecture), architecture_path(@server.modele.try(:architecture)) %>
-          </dd>
+            <dt class="pb-2"><%= Modele.human_attribute_name(:nb_elts) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @server.modele.try(:nb_elts) %></dd>
 
-          <dt class="pb-2"><%= t(".nb_u") %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= @server.modele.try(:u) %></dd>
+            <dt class="pb-2"><%= Architecture.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3">
+              <%= link_to @server.modele.try(:architecture), architecture_path(@server.modele.try(:architecture)) %>
+            </dd>
 
-          <dt class="pb-2"><%= Manufacturer.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3">
-            <%= link_to @server.modele.try(:manufacturer), manufacturer_path(@server.modele.try(:manufacturer)) %>
-            <% if (documentation_url = @server.documentation_url).present? %>
-              (
-                <%= link_to t(".documentation"), documentation_url, target: :_blank, rel: :noopener %>
-              )
-            <% end %>
-          </dd>
+            <dt class="pb-2"><%= t(".nb_u") %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @server.modele.try(:u) %></dd>
 
-          <dt class="pb-2"><%= Modele.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3">
-            <%= link_to @server.modele, modele_path(@server.modele) if @server.modele.try(:name) %>
-          </dd>
-
-          <dt class="pb-2"><%= Server.human_attribute_name(:numero) %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= @server.try(:numero) %></dd>
-
-          <dt class="pb-2"><%= Cluster.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= link_to_if @server.cluster, @server.cluster&.name, @server.cluster %></dd>
-
-          <dt class="pb-2"><%= Server.human_attribute_name(:critique) %></dt>
-          <dd class="mb-0 pb-2 ps-3">
-            <span class="<%= class_names("text-uppercase text-danger": @server.critique) %>">
-              <%= t("boolean.#{@server.critique}") %>
-            </span>
-          </dd>
-
-          <dt class="pb-2"><%= Domaine.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= link_to_if @server.domaine, @server.domaine %></dd>
-
-          <dt class="pb-2"><%= Gestion.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= link_to_if @server.gestion, @server.gestion %></dd>
-
-          <dt class="pb-2"><%= ServerState.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= @server.server_state %></dd>
-
-          <dt class="pb-2"><%= Stack.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3">
-            <% if @server.stack %>
-              <%= link_to stack_path(@server.stack) do %>
-                <span style="<%= "color: ##{@server.stack.color}" %>" class="bi bi-square-fill" aria-hidden="true"></span>
+            <dt class="pb-2"><%= Manufacturer.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3">
+              <%= link_to @server.modele.try(:manufacturer), manufacturer_path(@server.modele.try(:manufacturer)) %>
+              <% if (documentation_url = @server.documentation_url).present? %>
+                (
+                  <%= link_to t(".documentation"), documentation_url, target: :_blank, rel: :noopener %>
+                )
               <% end %>
-            <% end %>
-          </dd>
+            </dd>
 
-          <dt class="pb-2"><%= Card.model_name.human.pluralize %></dt>
-          <dd class="mb-0 pb-2 ps-3">
-            <% @server.modele.composants.slots.each do |slot| %>
-              <% @server.cards.where(:composant_id => slot.id).each do |card| %>
-                <div>
-                  <%= card.composant.name ? card.composant.name : card.composant.position %>
-                  :
-                  <%= "#{card.card_type.try(:name)} (#{card.card_type.try(:port_quantity)}#{card.card_type.try(:port_type).try(:name)})" %>
-                </div>
+            <dt class="pb-2"><%= Modele.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3">
+              <%= link_to @server.modele, modele_path(@server.modele) if @server.modele.try(:name) %>
+            </dd>
+
+            <dt class="pb-2"><%= Server.human_attribute_name(:numero) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @server.try(:numero) %></dd>
+
+            <dt class="pb-2"><%= Cluster.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= link_to_if @server.cluster, @server.cluster&.name, @server.cluster %></dd>
+
+            <dt class="pb-2"><%= Server.human_attribute_name(:critique) %></dt>
+            <dd class="mb-0 pb-2 ps-3">
+              <span class="<%= class_names("text-uppercase text-danger": @server.critique) %>">
+                <%= t("boolean.#{@server.critique}") %>
+              </span>
+            </dd>
+
+            <dt class="pb-2"><%= Domaine.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= link_to_if @server.domaine, @server.domaine %></dd>
+
+            <dt class="pb-2"><%= Gestion.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= link_to_if @server.gestion, @server.gestion %></dd>
+
+            <dt class="pb-2"><%= ServerState.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @server.server_state %></dd>
+
+            <dt class="pb-2"><%= Stack.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3">
+              <% if @server.stack %>
+                <%= link_to stack_path(@server.stack) do %>
+                  <span style="<%= "color: ##{@server.stack.color}" %>" class="bi bi-square-fill" aria-hidden="true"></span>
+                <% end %>
               <% end %>
-            <% end if @server.modele.present? %>
-          </dd>
+            </dd>
 
-          <dt class="pb-2"><%= Disk.model_name.human.pluralize %></dt>
-          <dd class="mb-0 pb-2 ps-3">
-            <% @server.disks.each do |disk| %>
-              <div><%= disk %></div>
+            <dt class="pb-2"><%= Card.model_name.human.pluralize %></dt>
+            <dd class="mb-0 pb-2 ps-3">
+              <% @server.modele.composants.slots.each do |slot| %>
+                <% @server.cards.where(:composant_id => slot.id).each do |card| %>
+                  <div>
+                    <%= card.composant.name ? card.composant.name : card.composant.position %>
+                    :
+                    <%= "#{card.card_type.try(:name)} (#{card.card_type.try(:port_quantity)}#{card.card_type.try(:port_type).try(:name)})" %>
+                  </div>
+                <% end %>
+              <% end if @server.modele.present? %>
+            </dd>
+
+            <dt class="pb-2"><%= Disk.model_name.human.pluralize %></dt>
+            <dd class="mb-0 pb-2 ps-3">
+              <% @server.disks.each do |disk| %>
+                <div><%= disk %></div>
+              <% end %>
+            </dd>
+
+            <dt class="pb-2"><%= MemoryComponent.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3">
+              <% @server.memory_components.each do |memory_component| %>
+                <span><%= memory_component %></span>
+              <% end %>
+            </dd>
+
+            <dt class="pb-2"><%= Server.human_attribute_name(:network_types) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @server.decorated.network_types_to_human %></dd>
+          </dl>
+        <% end %>
+
+        <% if @server.photo.attached? %>
+          <!-- Card shown on lg, in 2nd position (Grid isn't working as Masonry) -->
+          <%= render CardComponent.new(extra_classes: "mt-4 d-none d-lg-flex") do |card| %>
+            <% card.with_header do %>
+              <%= Server.human_attribute_name(:photo) %>
             <% end %>
-          </dd>
 
-          <dt class="pb-2"><%= MemoryComponent.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3">
-            <% @server.memory_components.each do |memory_component| %>
-              <span><%= memory_component %></span>
+            <%= link_to @server.photo, rel: :noopener, target: :_blank do %>
+              <%= image_tag @server.photo.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
             <% end %>
-          </dd>
+          <% end %>
+        <% end %>
+      </div>
 
-          <dt class="pb-2"><%= Server.human_attribute_name(:network_types) %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= @server.decorated.network_types_to_human %></dd>
-        </dl>
-      <% end %>
-
-      <% if @server.photo.attached? %>
-        <!-- Card shown on lg, in 2nd position (Grid isn't working as Masonry) -->
-        <%= render CardComponent.new(extra_classes: "mt-4 d-none d-lg-flex") do |card| %>
+      <div class="col">
+        <%= render CardComponent.new(type: :primary) do |card| %>
           <% card.with_header do %>
-            <%= Server.human_attribute_name(:photo) %>
+            <%= t("layouts.sidebar.location.title") %>
           <% end %>
 
-          <%= link_to @server.photo, rel: :noopener, target: :_blank do %>
-            <%= image_tag @server.photo.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
-          <% end %>
-        <% end %>
-      <% end %>
-    </div>
+          <dl class="show-page_dl d-grid row-gap-2 mb-0">
+            <dt class="pb-2"><%= Site.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= link_to @server.room.site, site_path(@server.room.site) %></dd>
 
-    <div class="col">
-      <%= render CardComponent.new(type: :primary) do |card| %>
-        <% card.with_header do %>
-          <%= t("layouts.sidebar.location.title") %>
-        <% end %>
-
-        <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <dt class="pb-2"><%= Site.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= link_to @server.room.site, site_path(@server.room.site) %></dd>
-
-          <dt class="pb-2"><%= Room.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
-            <%= link_to @server.room.try(:name), @server.room %>
-            <%= link_to visualization_room_path(@server.room),
-                        class: "btn btn-primary btn-sm",
-                        data: { turbo_frame: :_top } do %>
-              <span class="bi bi-diagram-3-fill"
-                    aria-hidden="true"
-                    data-controller="tooltip"
-                    data-bs-placement="left"
-                    title="<%= t("visualization.title") %>"></span>
-              <span class="visually-hidden"><%= t("visualization.title") %></span>
-            <% end %>
-          </dd>
-
-          <dt class="pb-2"><%= Islet.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
-            <%= link_to @server.islet.name_with_room, islet_path(@server.islet) %>
-            <%= link_to visualization_room_path(@server.room, islet: @server.islet.name),
-                        class: "btn btn-primary btn-sm",
-                        data: { turbo_frame: :_top } do %>
-              <span class="bi bi-diagram-3-fill"
-                    aria-hidden="true"
-                    data-controller="tooltip"
-                    data-bs-placement="left"
-                    title="<%= t("visualization.title") %>"></span>
-              <span class="visually-hidden"><%= t("visualization.title") %></span>
-            <% end %>
-          </dd>
-
-          <dt class="pb-2"><%= Bay.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
-            <%= link_to @server.bay, bay_path(@server.bay) %>
-            <%= link_to visualization_bay_path(@server.bay),
-                        class: "btn btn-primary btn-sm",
-                        data: { turbo_frame: :_top } do %>
-              <span class="bi bi-diagram-3-fill"
-                    aria-hidden="true"
-                    data-controller="tooltip"
-                    data-bs-placement="left"
-                    title="<%= t("visualization.title") %>"></span>
-              <span class="visually-hidden"><%= t("visualization.title") %></span>
-            <% end %>
-          </dd>
-
-          <dt class="pb-2"><%= Frame.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
-            <%= link_to @server.frame.try(:name), frame_path(@server.frame) %>
-            <%= link_to visualization_frame_path(@server.frame),
-                        class: "btn btn-primary btn-sm",
-                        data: { turbo_frame: :_top } do %>
-              <span class="bi bi-diagram-3-fill"
-                    aria-hidden="true"
-                    data-controller="tooltip"
-                    data-bs-placement="left"
-                    title="<%= t("visualization.title") %>"></span>
-              <span class="visually-hidden"><%= t("visualization.title") %></span>
-            <% end %>
-          </dd>
-
-          <dt class="pb-2"><%= Server.human_attribute_name(:position) %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= @server.position %></dd>
-        </dl>
-      <% end %>
-
-      <% if @server.photo.attached? %>
-        <!-- Card shown on mobile, in 3rd position (Grid isn't working as Masonry) -->
-        <%= render CardComponent.new(extra_classes: "d-lg-none mt-4") do |card| %>
-          <% card.with_header do %>
-            <%= Server.human_attribute_name(:photo) %>
-          <% end %>
-
-          <%= link_to @server.photo, rel: :noopener, target: :_blank do %>
-            <%= image_tag @server.photo.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
-          <% end %>
-        <% end %>
-      <% end %>
-
-      <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
-        <% card.with_header do %>
-          <%= t(".glpi_data") %>
-        <% end %>
-        <%
-          begin
-            Timeout.timeout(3) do
-              client = GlpiClient.new
-              computer = client.computer(serial: Rails.env.production? ? @server.numero : "AZERTY") %>
-            <% if computer.present? %>
-              <dl class="show-page_dl d-grid row-gap-2 mb-0">
-                <dt class="pb-2"><%= t("glpi.computer.name") %></dt>
-                <dd class="mb-0 pb-2 ps-3"><%= computer.name %></dd>
-
-                <dt class="pb-2"><%= t("glpi.computer.id") %></dt>
-                <dd class="mb-0 pb-2 ps-3"><%= computer.id %></dd>
-
-                <dt class="pb-2"><%= t("glpi.computer.serial") %></dt>
-                <dd class="mb-0 pb-2 ps-3"><%= computer.serial %></dd>
-
-                <dt class="pb-2"><%= t("glpi.computer.contact") %></dt>
-                <dd class="mb-0 pb-2 ps-3"><%= computer.contact %></dd>
-              </dl>
-              <dl class="show-page_dl d-grid row-gap-2 pt-3 border-top mb-0">
-                <dt class="pb-2"><%= t("glpi.computer.disks_count") %></dt>
-                <dd class="mb-0 pb-2 ps-3"><%= computer.hard_drives&.size %></dd>
-
-                <dt class="pb-2"><%= t("glpi.computer.disks_capacity") %></dt>
-                <dd class="mb-0 pb-2 ps-3"><%= number_to_human_size(computer.hard_drives_total_capacity * 1048576) %></dd>
-
-                <dt class="pb-2"><%= t("glpi.computer.memories_count") %></dt>
-                <dd class="mb-0 pb-2 ps-3"><%= computer.memories&.size %></dd>
-
-                <dt class="pb-2"><%= t("glpi.computer.memories_total") %></dt>
-                <dd class="mb-0 pb-2 ps-3"><%= number_to_human_size(computer.memories_total_size * 1048576) %></dd>
-
-                <dt class="pb-2"><%= t("glpi.computer.cpus") %></dt>
-                <dd class="mb-0 pb-2 ps-3">
-                  <%= computer.processors.group_by { |p| p[1]["designation"] }
-                                          .map { |designation, processors| "#{processors.size} x #{designation}" }
-                                          .join(", ") %>
-                </dd>
-              </dl>
-              <% card.with_footer do %>
-                <%= link_to t(".glpi_visit_page"),
-                            "#{Rails.application.credentials.glpi_url}/front/computer.form.php?id=#{computer.id}",
-                            target: :_blank %>
+            <dt class="pb-2"><%= Room.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
+              <%= link_to @server.room.try(:name), @server.room %>
+              <%= link_to visualization_room_path(@server.room),
+                          class: "btn btn-primary btn-sm",
+                          data: { turbo_frame: :_top } do %>
+                <span class="bi bi-diagram-3-fill"
+                      aria-hidden="true"
+                      data-controller="tooltip"
+                      data-bs-placement="left"
+                      title="<%= t("visualization.title") %>"></span>
+                <span class="visually-hidden"><%= t("visualization.title") %></span>
               <% end %>
-            <% else %>
-              <%= t(".no_match_serial", serial: @server.numero) %>
-            <% end %>
-          <% end
-              rescue Timeout::Error => e
-              Rails.logger.warn "WARNING: couldn't get GLPI data because the operation timed out"
-              rescue Exception => e
-              Rails.logger.warn "WARNING: couldn't get GLPI data because of an error: #{e.message}" %>
-          <%= t(".glpi_connection_error") %> : <pre><code><%= e&.message.to_s %></code></pre>
-        <% end %>
-      <% end %>
+            </dd>
 
-      <% if @server.documents.present? %>
+            <dt class="pb-2"><%= Islet.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
+              <%= link_to @server.islet.name_with_room, islet_path(@server.islet) %>
+              <%= link_to visualization_room_path(@server.room, islet: @server.islet.name),
+                          class: "btn btn-primary btn-sm",
+                          data: { turbo_frame: :_top } do %>
+                <span class="bi bi-diagram-3-fill"
+                      aria-hidden="true"
+                      data-controller="tooltip"
+                      data-bs-placement="left"
+                      title="<%= t("visualization.title") %>"></span>
+                <span class="visually-hidden"><%= t("visualization.title") %></span>
+              <% end %>
+            </dd>
+
+            <dt class="pb-2"><%= Bay.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
+              <%= link_to @server.bay, bay_path(@server.bay) %>
+              <%= link_to visualization_bay_path(@server.bay),
+                          class: "btn btn-primary btn-sm",
+                          data: { turbo_frame: :_top } do %>
+                <span class="bi bi-diagram-3-fill"
+                      aria-hidden="true"
+                      data-controller="tooltip"
+                      data-bs-placement="left"
+                      title="<%= t("visualization.title") %>"></span>
+                <span class="visually-hidden"><%= t("visualization.title") %></span>
+              <% end %>
+            </dd>
+
+            <dt class="pb-2"><%= Frame.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
+              <%= link_to @server.frame.try(:name), frame_path(@server.frame) %>
+              <%= link_to visualization_frame_path(@server.frame),
+                          class: "btn btn-primary btn-sm",
+                          data: { turbo_frame: :_top } do %>
+                <span class="bi bi-diagram-3-fill"
+                      aria-hidden="true"
+                      data-controller="tooltip"
+                      data-bs-placement="left"
+                      title="<%= t("visualization.title") %>"></span>
+                <span class="visually-hidden"><%= t("visualization.title") %></span>
+              <% end %>
+            </dd>
+
+            <dt class="pb-2"><%= Server.human_attribute_name(:position) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @server.position %></dd>
+          </dl>
+        <% end %>
+
+        <% if @server.photo.attached? %>
+          <!-- Card shown on mobile, in 3rd position (Grid isn't working as Masonry) -->
+          <%= render CardComponent.new(extra_classes: "d-lg-none mt-4") do |card| %>
+            <% card.with_header do %>
+              <%= Server.human_attribute_name(:photo) %>
+            <% end %>
+
+            <%= link_to @server.photo, rel: :noopener, target: :_blank do %>
+              <%= image_tag @server.photo.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
+            <% end %>
+          <% end %>
+        <% end %>
+
         <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
           <% card.with_header do %>
-            <%= t(".attached_documents") %>
+            <%= t(".glpi_data") %>
           <% end %>
-          <ul>
-            <% @server.documents.each do |doc| %>
-              <%- next unless doc.document.present? %>
-              <li>
-                <%= link_to(doc.document.metadata["filename"], doc.document_url, { target: :_blank })  %>
-              </li>
-            <% end %>
-          </ul>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
+          <%
+            begin
+              Timeout.timeout(3) do
+                client = GlpiClient.new
+                computer = client.computer(serial: Rails.env.production? ? @server.numero : "AZERTY") %>
+              <% if computer.present? %>
+                <dl class="show-page_dl d-grid row-gap-2 mb-0">
+                  <dt class="pb-2"><%= t("glpi.computer.name") %></dt>
+                  <dd class="mb-0 pb-2 ps-3"><%= computer.name %></dd>
 
-  <%= render ChangelogEntries::ObjectListComponent.new(@server) %>
+                  <dt class="pb-2"><%= t("glpi.computer.id") %></dt>
+                  <dd class="mb-0 pb-2 ps-3"><%= computer.id %></dd>
+
+                  <dt class="pb-2"><%= t("glpi.computer.serial") %></dt>
+                  <dd class="mb-0 pb-2 ps-3"><%= computer.serial %></dd>
+
+                  <dt class="pb-2"><%= t("glpi.computer.contact") %></dt>
+                  <dd class="mb-0 pb-2 ps-3"><%= computer.contact %></dd>
+                </dl>
+                <dl class="show-page_dl d-grid row-gap-2 pt-3 border-top mb-0">
+                  <dt class="pb-2"><%= t("glpi.computer.disks_count") %></dt>
+                  <dd class="mb-0 pb-2 ps-3"><%= computer.hard_drives&.size %></dd>
+
+                  <dt class="pb-2"><%= t("glpi.computer.disks_capacity") %></dt>
+                  <dd class="mb-0 pb-2 ps-3"><%= number_to_human_size(computer.hard_drives_total_capacity * 1048576) %></dd>
+
+                  <dt class="pb-2"><%= t("glpi.computer.memories_count") %></dt>
+                  <dd class="mb-0 pb-2 ps-3"><%= computer.memories&.size %></dd>
+
+                  <dt class="pb-2"><%= t("glpi.computer.memories_total") %></dt>
+                  <dd class="mb-0 pb-2 ps-3"><%= number_to_human_size(computer.memories_total_size * 1048576) %></dd>
+
+                  <dt class="pb-2"><%= t("glpi.computer.cpus") %></dt>
+                  <dd class="mb-0 pb-2 ps-3">
+                    <%= computer.processors.group_by { |p| p[1]["designation"] }
+                                            .map { |designation, processors| "#{processors.size} x #{designation}" }
+                                            .join(", ") %>
+                  </dd>
+                </dl>
+                <% card.with_footer do %>
+                  <%= link_to t(".glpi_visit_page"),
+                              "#{Rails.application.credentials.glpi_url}/front/computer.form.php?id=#{computer.id}",
+                              target: :_blank %>
+                <% end %>
+              <% else %>
+                <%= t(".no_match_serial", serial: @server.numero) %>
+              <% end %>
+            <% end
+                rescue Timeout::Error => e
+                Rails.logger.warn "WARNING: couldn't get GLPI data because the operation timed out"
+                rescue Exception => e
+                Rails.logger.warn "WARNING: couldn't get GLPI data because of an error: #{e.message}" %>
+            <%= t(".glpi_connection_error") %> : <pre><code><%= e&.message.to_s %></code></pre>
+          <% end %>
+        <% end %>
+
+        <% if @server.documents.present? %>
+          <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
+            <% card.with_header do %>
+              <%= t(".attached_documents") %>
+            <% end %>
+            <ul>
+              <% @server.documents.each do |doc| %>
+                <%- next unless doc.document.present? %>
+                <li>
+                  <%= link_to(doc.document.metadata["filename"], doc.document_url, { target: :_blank })  %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <%= render ChangelogEntries::ObjectListComponent.new(@server) %>
+  </div>
+  <div class="tab-pane fade mt-n4" id="connections-tab-pane" role="tabpanel" aria-labelledby="connections-tab" tabindex="0">
+    <%= render HasManyTurboFrameComponent.new(
+      Connection.model_name.human.pluralize,
+      url: connections_path(server_ids: @server.id),
+      frame_id: dom_id(Connection, :table)
+    ) %>
+
+    <%= render "ports/modal_edit_port" %>
+  </div>
 </div>
 
 <%= render "ports/modal_edit_port" %>

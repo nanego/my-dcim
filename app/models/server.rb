@@ -23,6 +23,7 @@ class Server < ApplicationRecord
   has_many :cards, -> { joins(:composant).includes(:composant) }
   has_many :card_types, through: :cards
   has_many :ports, through: :cards
+  has_many :connections, through: :ports
 
   has_many :moves, as: :moveable, dependent: :destroy
 

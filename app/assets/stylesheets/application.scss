@@ -818,6 +818,21 @@ body {
     }
   }
 
+  .page-show__tabs {
+    background-color: rgba(var(--bs-body-bg-rgb), var(--bs-bg-opacity));
+
+    .nav.nav-tabs {
+      .nav-item {
+        .nav-link {
+          &.active {
+            background-color: rgba(var(--bs-tertiary-bg-rgb), var(--bs-bg-opacity));
+            border-bottom-color: rgba(var(--bs-tertiary-bg-rgb), var(--bs-bg-opacity));
+          }
+        }
+      }
+    }
+  }
+
   /* Tom-Select */
   /* Fix for dark mode */
   .ts-dropdown, .ts-control, .ts-control input {
