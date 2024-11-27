@@ -1,7 +1,6 @@
 fr:
   activerecord:
     models:
-      maintenance_contract: Contrat de maintenance
       server: Serveur
       room: Salle
       islet: Ilot
@@ -91,12 +90,6 @@ fr:
         front: Vue avant
         back: Vue arrière
         both: Vue avant & arrière
-      maintenance_contract:
-        server_id: Serveur
-        start_date: Date de début
-        end_date: Date de fin
-        maintainer_id: Mainteneur
-        contract_type_id: Type de contrat
       server:
         name: Nom
         numero: Numéro de série
