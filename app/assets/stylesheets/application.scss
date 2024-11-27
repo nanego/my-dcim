@@ -603,6 +603,16 @@ body {
     .navbar-toggler {
       border: 0;
     }
+
+    .navbar-brand {
+      margin-right: -38.5px;
+    }
+
+    @include media-breakpoint-up(lg) {
+      .navbar-brand {
+        margin-right: 0px;
+      }
+    }
   }
 
   &-navbar {
