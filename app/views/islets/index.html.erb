@@ -18,7 +18,7 @@
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
-      <div>
+      <div class="w-100">
         <fieldset class="form-floating">
           <%= f.text_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
           <%= f.label :q %>
@@ -28,7 +28,7 @@
       <div>
         <fieldset class="form-floating">
           <%= f.collection_select(:site_ids, Site.order(:name), :id, :name,
-                                  { prompt: true, include_blank: true, multiple: true },
+                                  { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select }  }) %>
           <%= f.label :site_ids %>
         </fieldset>
@@ -39,7 +39,7 @@
           <%= f.collection_select(:room_ids,
                                   Room.order(:position), # TODO: check if good
                                   :id, :name,
-                                  { prompt: true, include_blank: true, multiple: true },
+                                  { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select }  }) %>
           <%= f.label :room_ids %>
         </fieldset>

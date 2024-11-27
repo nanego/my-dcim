@@ -18,10 +18,10 @@
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
-      <div>
+      <div class="w-100">
         <fieldset class="form-floating">
           <%= f.collection_select(:site_ids, Site.select(:id, :name).sorted, :id, :name,
-                                  { prompt: true, include_blank: true, multiple: true },
+                                  { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select }  }) %>
           <%= f.label :site_ids %>
         </fieldset>
@@ -30,7 +30,7 @@
       <div>
         <fieldset class="form-floating">
           <%= f.collection_select(:contact_ids, Contact.select(:id, :first_name, :last_name), :id, :to_s,
-                                  { prompt: true, include_blank: true, multiple: true },
+                                  { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select }  }) %>
           <%= f.label :contact_ids %>
         </fieldset>
