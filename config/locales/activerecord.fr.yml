@@ -3,7 +3,6 @@ fr:
     models:
       maintenance_contract: Contrat de maintenance
       server: Serveur
-      maintainer: Mainteneur
       room: Salle
       islet: Ilot
       bay: Baie
@@ -228,8 +227,6 @@ fr:
         name: Nom
         power: Alimentation
         usage: Types de carte compatibles
-      maintainer:
-        name: Nom
       disk_type:
         name: Nom
         quantity: Quantité

@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-dell:
-  id: 1
-  name: Dell
-
-scc:
-  id: 2
-  name: SCC
