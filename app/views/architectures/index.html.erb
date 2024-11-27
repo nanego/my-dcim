@@ -23,7 +23,7 @@
 
     <% table.with_column(Architecture.human_attribute_name(:usage), sort_by: :modeles_count) do |architecture| %>
       <%= link_to Architecture.human_attribute_name(:modeles_count, count: architecture.modeles_count),
-                  modeles_path(architecture_id: architecture.id) %>
+                  modeles_path(architecture_ids: architecture.id) %>
     <% end %>
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |architecture| %>

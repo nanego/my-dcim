@@ -8,12 +8,12 @@ class AirConditionersProcessor < ApplicationProcessor
     raw.where(AirConditioner.arel_table[:name].matches("%#{q}%"))
   end
 
-  map :room_id do |room_id:|
-    raw.joins(:room).where(rooms: { id: room_id })
+  map :room_ids, filter_with: :non_empty_array do |room_ids:|
+    raw.joins(:room).where(rooms: { id: room_ids })
   end
 
-  map :islet_id do |islet_id:|
-    raw.where(islet_id: islet_id)
+  map :islet_ids, filter_with: :non_empty_array do |islet_ids:|
+    raw.joins(:islet).where(islets: { id: islet_ids })
   end
 
   sortable fields: SORTABLE_FIELDS

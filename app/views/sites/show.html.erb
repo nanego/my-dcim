@@ -33,7 +33,7 @@
       <%= render HasManyTurboFrameComponent.new(
         ContactAssignment.model_name.human.pluralize,
         type: :warning,
-        url: contact_assignments_path(site_id: @site.id),
+        url: contact_assignments_path(site_ids: @site.id),
         frame_id: dom_id(ContactAssignment, :table),
         extra_classes: "d-none d-lg-flex bg-body-tertiary mt-4"
       ) do |c| %>
@@ -105,7 +105,7 @@
       <%= render HasManyTurboFrameComponent.new(
         ContactAssignment.model_name.human.pluralize,
         type: :warning,
-        url: contact_assignments_path(site_id: @site.id),
+        url: contact_assignments_path(site_ids: @site.id),
         frame_id: dom_id(ContactAssignment, :table)
       ) do |c| %>
         <% c.with_actions do %>
@@ -121,7 +121,7 @@
   </div>
 
   <%= render HasManyTurboFrameComponent.new(
-    Room.model_name.human.pluralize, url: rooms_path(site_id: @site.id), frame_id: dom_id(Room, :table)
+    Room.model_name.human.pluralize, url: rooms_path(site_ids: @site.id), frame_id: dom_id(Room, :table)
   ) %>
 
   <%= render ChangelogEntries::ObjectListComponent.new(@site) %>

@@ -22,13 +22,13 @@
     <% end %>
 
     <% table.with_column(Manufacturer.human_attribute_name(:usage_modele), sort_by: :modeles_count) do |manufacturer| %>
-      <%= link_to modeles_path(manufacturer_id: manufacturer) do %>
+      <%= link_to modeles_path(manufacturer_ids: manufacturer) do %>
         <%= Manufacturer.human_attribute_name(:modeles_count, count: manufacturer.modeles_count) %>
       <% end %>
     <% end %>
 
     <% table.with_column(Manufacturer.human_attribute_name(:usage_bay), sort_by: :bays_count) do |manufacturer| %>
-      <%= link_to bays_path(manufacturer_id: manufacturer) do %>
+      <%= link_to bays_path(manufacturer_ids: manufacturer) do %>
         <%= Manufacturer.human_attribute_name(:bays_count, count: manufacturer.bays_count) %>
       <% end %>
     <% end %>

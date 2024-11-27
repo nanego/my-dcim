@@ -9,16 +9,16 @@ class BaysProcessor < ApplicationProcessor
       .or(raw.where(id: q))
   end
 
-  map :room_id do |room_id:|
-    raw.joins(:room).where(rooms: { id: room_id })
+  map :room_ids, filter_with: :non_empty_array do |room_ids:|
+    raw.joins(:room).where(rooms: { id: room_ids })
   end
 
-  map :islet_id do |islet_id:|
-    raw.where(islet_id: islet_id)
+  map :islet_ids, filter_with: :non_empty_array do |islet_ids:|
+    raw.where(islet_id: islet_ids)
   end
 
-  map :manufacturer_id do |manufacturer_id:|
-    raw.where(manufacturer_id: manufacturer_id)
+  map :manufacturer_ids, filter_with: :non_empty_array do |manufacturer_ids:|
+    raw.where(manufacturer_id: manufacturer_ids)
   end
 
   sortable fields: SORTABLE_FIELDS

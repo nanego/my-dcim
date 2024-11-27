@@ -41,7 +41,7 @@ RSpec.describe ServersProcessor do
       let(:params) { { frame_ids: frame.id } }
 
       it { expect(result.size).to eq(1) }
-      it { is_expected.to include(server) }
+      it { is_expected.to contain_exactly(server) }
     end
 
     context "with many frame_ids" do
@@ -73,7 +73,7 @@ RSpec.describe ServersProcessor do
       let(:params) { { bay_ids: bay.id } }
 
       it { expect(result.size).to eq(1) }
-      it { is_expected.to include(server) }
+      it { is_expected.to contain_exactly(server) }
     end
 
     context "with many bay_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
@@ -107,7 +107,7 @@ RSpec.describe ServersProcessor do
       let(:params) { { islet_ids: islet.id } }
 
       it { expect(result.size).to eq(1) }
-      it { is_expected.to include(server) }
+      it { is_expected.to contain_exactly(server) }
     end
 
     context "with many islet_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
@@ -143,7 +143,7 @@ RSpec.describe ServersProcessor do
       let(:params) { { room_ids: room.id } }
 
       it { expect(result.size).to eq(1) }
-      it { is_expected.to include(server) }
+      it { is_expected.to contain_exactly(server) }
     end
 
     context "with many room_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
@@ -181,7 +181,7 @@ RSpec.describe ServersProcessor do
       let(:params) { { modele_ids: modele.id } }
 
       it { expect(result.size).to eq(1) }
-      it { is_expected.to include(server) }
+      it { is_expected.to contain_exactly(server) }
     end
 
     context "with many room_ids" do
@@ -215,7 +215,7 @@ RSpec.describe ServersProcessor do
       let(:params) { { gestion_ids: gestion.id } }
 
       it { expect(result.size).to eq(1) }
-      it { is_expected.to include(server) }
+      it { is_expected.to contain_exactly(server) }
     end
 
     context "with many gestion_ids" do
@@ -246,7 +246,7 @@ RSpec.describe ServersProcessor do
       let(:params) { { domaine_ids: domaine.id } }
 
       it { expect(result.size).to eq(1) }
-      it { is_expected.to include(server) }
+      it { is_expected.to contain_exactly(server) }
     end
 
     context "with many domaine_ids" do
@@ -277,7 +277,7 @@ RSpec.describe ServersProcessor do
       let(:params) { { cluster_ids: cluster.id } }
 
       it { expect(result.size).to eq(1) }
-      it { is_expected.to include(server) }
+      it { is_expected.to contain_exactly(server) }
     end
 
     context "with many cluster_ids" do
@@ -308,7 +308,7 @@ RSpec.describe ServersProcessor do
       let(:params) { { stack_ids: stack.id } }
 
       it { expect(result.size).to eq(1) }
-      it { is_expected.to include(server) }
+      it { is_expected.to contain_exactly(server) }
     end
 
     context "with many stack_ids" do

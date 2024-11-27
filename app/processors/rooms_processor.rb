@@ -8,8 +8,8 @@ class RoomsProcessor < ApplicationProcessor
     raw.where(Room.arel_table[:name].matches("%#{q}%"))
   end
 
-  map :site_id do |site_id:|
-    raw.where(site_id: site_id)
+  map :site_ids, filter_with: :non_empty_array do |site_ids:|
+    raw.where(site_id: site_ids)
   end
 
   sortable fields: SORTABLE_FIELDS

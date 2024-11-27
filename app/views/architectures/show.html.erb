@@ -20,7 +20,7 @@
   </div>
   <%= render HasManyTurboFrameComponent.new(
     Modele.model_name.human.pluralize,
-    url: modeles_path(architecture_id: @architecture.id),
+    url: modeles_path(architecture_ids: @architecture.id),
     frame_id: dom_id(Modele, :table)
   ) %>
   <%= render ChangelogEntries::ObjectListComponent.new(@architecture) %>

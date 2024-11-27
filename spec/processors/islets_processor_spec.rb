@@ -21,35 +21,68 @@ RSpec.describe IsletsProcessor do
     it { expect(result.size).to eq(2) }
   end
 
-  describe "when filtering by room_id" do
+  describe "when filtering by room_ids" do
     let(:room)  { Room.create!(name: "R1", site: sites(:one)) }
-    let(:islet) { Islet.create!(name: "islet", room: room) }
-
-    let(:params) { { room_id: room.id } }
+    let(:islet) { Islet.create!(name: "I1", room: room) }
 
     before do
       islet
       Islet.create!(name: "islet2", room: rooms(:one))
     end
 
-    it { expect(result.size).to eq(1) }
-    it { is_expected.to include(islet) }
+    context "with one room_ids" do
+      let(:params) { { room_ids: room.id } }
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to contain_exactly(islet) }
+    end
+
+    context "with many room_ids" do
+      let(:room_second)  { Room.create!(name: "R2", site: sites(:one)) }
+      let(:islet_second) { Islet.create!(name: "I2", room: room_second) }
+
+      let(:params) { { room_ids: [room.id, room_second.id] } }
+
+      before do
+        islet_second
+      end
+
+      it { expect(result.size).to eq(2) }
+      it { is_expected.to contain_exactly(islet, islet_second) }
+    end
   end
 
   describe "when filtering by site_id" do
     let(:site) { Site.create!(name: "Site1") }
     let(:room)  { Room.create!(name: "R1", site: site) }
-    let(:islet) { Islet.create!(name: "islet", room: room) }
-
-    let(:params) { { site_id: site.id } }
+    let(:islet) { Islet.create!(name: "I1", room: room) }
 
     before do
       islet
       Islet.create!(name: "islet2", room: rooms(:one))
     end
 
-    it { expect(result.size).to eq(1) }
-    it { is_expected.to include(islet) }
+    context "with one site_ids" do
+      let(:params) { { site_ids: site.id } }
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to contain_exactly(islet) }
+    end
+
+    context "with many site_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+      let(:site_second) { Site.create!(name: "Site2") }
+      let(:room_second)  { Room.create!(name: "R2", site: site_second) }
+      let(:islet_second) { Islet.create!(name: "I2", room: room_second) }
+
+      let(:params) { { site_ids: [site.id, site_second.id] } }
+
+      before do
+        islet_second
+      end
+
+      it { expect(result.size).to eq(2) }
+      it { is_expected.to contain_exactly(islet, islet_second) }
+    end
   end
 
   describe "when sorting" do

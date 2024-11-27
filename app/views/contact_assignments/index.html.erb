@@ -18,15 +18,21 @@
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
+      <div class="w-100">
+        <fieldset class="form-floating">
+          <%= f.collection_select(:site_ids, Site.select(:id, :name).sorted, :id, :name,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select }  }) %>
+          <%= f.label :site_ids %>
+        </fieldset>
+      </div>
+
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:site_id,
-                                  Site.sorted,
-                                  :id,
-                                  :name,
-                                  { prompt: true },
-                                  { class: "form-select" }) %>
-          <%= f.label :site_id %>
+          <%= f.collection_select(:contact_ids, Contact.select(:id, :first_name, :last_name), :id, :to_s,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select }  }) %>
+          <%= f.label :contact_ids %>
         </fieldset>
       </div>
     <% end %>
@@ -44,13 +50,13 @@
           <% end %>
         <% end %>
 
-        <% unless (turbo_frame_request? && @filter.filled?(:site_id)) %>
+        <% unless (turbo_frame_request? && @filter.filled?(:site_ids)) %>
           <% table.with_column(ContactAssignment.human_attribute_name(:site_id), sort_by: :site_id) do |contact_assignment| %>
             <%= link_to contact_assignment.site, site_path(contact_assignment.site), data: { turbo_frame: :_top } %>
           <% end %>
         <% end %>
 
-        <% unless (turbo_frame_request? && @filter.filled?(:contact_id)) %>
+        <% unless (turbo_frame_request? && @filter.filled?(:contact_ids)) %>
           <% table.with_column(ContactAssignment.human_attribute_name(:contact_id), sort_by: :contact_id) do |contact_assignment| %>
             <%= link_to contact_path(contact_assignment.contact), data: { turbo_frame: :_top } do %>
               <%= contact_assignment.contact %>

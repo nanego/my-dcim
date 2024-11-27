@@ -106,7 +106,7 @@
   </div>
 
   <%= render HasManyTurboFrameComponent.new(
-    Islet.model_name.human.pluralize, url: islets_path(room_id: @room.id), frame_id: dom_id(Islet, :table)
+    Islet.model_name.human.pluralize, url: islets_path(room_ids: @room.id), frame_id: dom_id(Islet, :table)
   ) %>
   <%= render ChangelogEntries::ObjectListComponent.new(@room) %>
 </div>
