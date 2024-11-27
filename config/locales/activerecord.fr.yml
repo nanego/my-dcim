@@ -28,9 +28,6 @@ fr:
         one: Type de port
         other: Types de port
       color: Couleur
-      contract_type:
-        one: Contrat de maintenance
-        other: Contrats de maintenance
       disk: Disque
       disk_type:
         one: Type de disque
@@ -232,8 +229,6 @@ fr:
         power: Alimentation
         usage: Types de carte compatibles
       maintainer:
-        name: Nom
-      contract_type:
         name: Nom
       disk_type:
         name: Nom

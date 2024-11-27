@@ -263,23 +263,6 @@ fr:
     destroy:
       flashes:
         destroyed: Le mainteneur a bien été supprimé.
-  contract_types:
-    index:
-      new_contract_type: Ajouter un contrat de maintenance
-      delete_confirmation: Toutes les données concernant ce contrat de maintenance seront supprimées, ainsi que les contrats de maintenance associés. Voulez-vous continuer ?
-    new:
-      title: Nouveau contrat de maintenance
-    create:
-      flashes:
-        created: Le contrat de maintenance a bien été créé.
-    edit:
-      title: Edition du contrat de maintenance
-    update:
-      flashes:
-        updated: Le contrat de maintenance a bien été modifié.
-    destroy:
-      flashes:
-        destroyed: Le contrat de maintenance a bien été supprimé.
   disk_types:
     index:
       new_disk_type: Nouveau type de disque

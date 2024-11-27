@@ -28,7 +28,6 @@ Rails.application.routes.draw do
   resources :memory_components
   resources :disks
   resources :maintainers
-  resources :contract_types
   resources :maintenance_contracts
   resources :server_states
 
