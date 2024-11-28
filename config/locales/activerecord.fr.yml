@@ -1,9 +1,7 @@
 fr:
   activerecord:
     models:
-      maintenance_contract: Contrat de maintenance
       server: Serveur
-      maintainer: Mainteneur
       room: Salle
       islet: Ilot
       bay: Baie
@@ -28,9 +26,6 @@ fr:
         one: Type de port
         other: Types de port
       color: Couleur
-      contract_type:
-        one: Contrat de maintenance
-        other: Contrats de maintenance
       disk: Disque
       disk_type:
         one: Type de disque
@@ -95,12 +90,6 @@ fr:
         front: Vue avant
         back: Vue arrière
         both: Vue avant & arrière
-      maintenance_contract:
-        server_id: Serveur
-        start_date: Date de début
-        end_date: Date de fin
-        maintainer_id: Mainteneur
-        contract_type_id: Type de contrat
       server:
         name: Nom
         numero: Numéro de série
@@ -231,10 +220,6 @@ fr:
         name: Nom
         power: Alimentation
         usage: Types de carte compatibles
-      maintainer:
-        name: Nom
-      contract_type:
-        name: Nom
       disk_type:
         name: Nom
         quantity: Quantité

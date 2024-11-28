@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_20_093203) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_27_144521) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -220,12 +220,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_20_093203) do
     t.string "organization"
   end
 
-  create_table "contract_types", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-  end
-
   create_table "disk_types", id: :serial, force: :cascade do |t|
     t.integer "quantity"
     t.string "unit"
@@ -335,25 +329,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_20_093203) do
     t.integer "cooling_mode"
     t.integer "access_control"
     t.index ["room_id"], name: "index_islets_on_room_id"
-  end
-
-  create_table "maintainers", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-  end
-
-  create_table "maintenance_contracts", id: :serial, force: :cascade do |t|
-    t.date "start_date"
-    t.date "end_date"
-    t.integer "maintainer_id", null: false
-    t.integer "contract_type_id", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.integer "server_id", null: false
-    t.index ["contract_type_id"], name: "index_maintenance_contracts_on_contract_type_id"
-    t.index ["maintainer_id"], name: "index_maintenance_contracts_on_maintainer_id"
-    t.index ["server_id"], name: "index_maintenance_contracts_on_server_id"
   end
 
   create_table "manufacturers", id: :serial, force: :cascade do |t|
@@ -603,9 +578,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_20_093203) do
   add_foreign_key "external_app_records", "servers"
   add_foreign_key "external_app_requests", "users"
   add_foreign_key "frames", "bays"
-  add_foreign_key "maintenance_contracts", "contract_types"
-  add_foreign_key "maintenance_contracts", "maintainers"
-  add_foreign_key "maintenance_contracts", "servers"
   add_foreign_key "memory_components", "memory_types"
   add_foreign_key "modeles", "architectures"
   add_foreign_key "modeles", "categories"

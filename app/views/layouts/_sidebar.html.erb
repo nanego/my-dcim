@@ -162,27 +162,6 @@
           </li>
         </ul>
       </li>
-      <!-- Maintenance -->
-      <li class="mydcim-sidebar-links-group py-2">
-        <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
-          <i class="bi bi-tools me-2 text-primary"></i>
-          <%= t(".maintenance.title") %>
-        </strong>
-        <ul class="list-unstyled fw-normal pb-2 small">
-          <li>
-            <%= link_to Maintainer.model_name.human.pluralize,
-                        maintainers_path,
-                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                          active: controller.controller_name == "maintainers") %>
-          </li>
-          <li>
-            <%= link_to ContractType.model_name.human(count: 2),
-                        contract_types_path,
-                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                          active: controller.controller_name == "contract_types") %>
-          </li>
-        </ul>
-      </li>
       <!-- Connection -->
       <li class="mydcim-sidebar-links-group py-2">
         <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
