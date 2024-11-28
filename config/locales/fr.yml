@@ -774,6 +774,7 @@ fr:
         site_ids: Site
         contact_ids: Contact
         network_type: Type de réseaux
+        port_type_ids: Types de port
     placeholder:
       search: Rechercher ...
       quicksearch: Recherche rapide

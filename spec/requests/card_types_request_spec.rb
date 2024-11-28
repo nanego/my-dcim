@@ -19,7 +19,7 @@ RSpec.describe "CardTypes" do
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
     it { expect(response.body).to include(card_type.name) }
-    it { expect(assigns(:card_types_by_port_types)).not_to be_nil }
+    it { expect(assigns(:card_types)).not_to be_nil }
   end
 
   describe "GET #show" do

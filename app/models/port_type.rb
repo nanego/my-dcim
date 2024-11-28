@@ -5,6 +5,8 @@ class PortType < ApplicationRecord
 
   has_many :card_types
 
+  scope :sorted, -> { order(name: :asc) }
+
   def to_s
     name.to_s
   end
