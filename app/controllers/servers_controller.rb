@@ -3,7 +3,7 @@
 class ServersController < ApplicationController
   include ServersHelper
 
-  before_action :set_server, only: [:show, :edit, :update, :destroy]
+  before_action :set_server, only: [:show, :edit, :update, :destroy, :destroy_connections]
 
   def index
     # Let server knows that now name is not used anymore for research
@@ -107,6 +107,16 @@ class ServersController < ApplicationController
   def duplicate
     @original_server = Server.friendly.find(params[:id].to_s.downcase)
     @server = @original_server.deep_dup
+  end
+
+  def destroy_connections
+    if @server.destroy_connections!
+      flash[:notice] = t(".flashes.connections_destroyed")
+    else
+      flash[:alert] = t(".flashes.connections_not_destroyed")
+    end
+
+    redirect_to server_path(@server)
   end
 
   private

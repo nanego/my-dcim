@@ -416,6 +416,8 @@ fr:
       no_match_serial: "Aucune correspondance pour ce numéro de série : %{serial}"
       glpi_connection_error: "Problème lors de la connexion à GLPI :"
       moves_cta_tooltip: Prévoir son déplacement
+      destroy_connections: Supprimer les connexions
+      destroy_connections_confirmation: Confirmez-vous vouloir supprimer toutes les connections de ce matériel ?
     new:
       title: "Ajouter un matériel"
     edit:
@@ -423,6 +425,9 @@ fr:
       delete_confirmation: Toutes les données concernant ce matériel seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?
     duplicate:
       title: Dupliquer le matériel %{server_name}
+    flashes:
+        connections_destroyed: Les connexions ont été supprimées
+        connections_not_destroyed: Une erreur a empêché la suppression des connexions
   glpi:
     computer:
       name: Nom

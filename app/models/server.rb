@@ -24,6 +24,7 @@ class Server < ApplicationRecord
   has_many :card_types, through: :cards
   has_many :ports, through: :cards
   has_many :connections, through: :ports
+  has_many :cables, through: :connections
 
   has_many :moves, as: :moveable, dependent: :destroy
 
@@ -156,6 +157,14 @@ class Server < ApplicationRecord
     copy.tap do |server|
       server.cards = cards.map(&:dup)
     end
+  end
+
+  def destroy_connections!
+    transaction do
+      cables.find_each(&:destroy!)
+    end
+
+    true
   end
 
   private

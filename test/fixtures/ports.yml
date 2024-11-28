@@ -31,3 +31,11 @@ four:
   vlans: u123
   color: R
   cablename: v32F
+
+five:
+  id: 5
+  position: 1
+  card_id: 5
+  vlans: 123a
+  color: O
+  cablename: v32r

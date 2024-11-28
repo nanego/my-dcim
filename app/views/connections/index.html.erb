@@ -56,14 +56,18 @@
 
         <% table.with_column(Connection.human_attribute_name(:paired_connection)) do |connection| %>
           <% if connection.paired_connection %>
-            <%= link_to connection.paired_connection.id, connections_edit_path(from_port_id: connection.port), data: { turbo_frame: :_top } %>
+            <%= link_to connection.paired_connection.id,
+                        connections_edit_path(from_port_id: connection.port),
+                        class: class_names("js_connection_edit_link_to": turbo_frame_request?),
+                        data: { turbo_frame: :_top, url: connections_edit_path(from_port_id: connection.port) } %>
           <% end %>
         <% end %>
 
         <% table.with_column(style: "min-width: 40px; width: 40px") do |connection| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <%= link_to connections_edit_path(from_port_id: connection.port), class: "btn btn-info js_connection_edit_link_to",
-                                                                              data: { turbo_frame: :_top, url: connections_edit_path(from_port_id: connection.port) } do %>
+            <%= link_to connections_edit_path(from_port_id: connection.port),
+                        class: class_names("btn btn-info", "js_connection_edit_link_to": turbo_frame_request?),
+                        data: { turbo_frame: :_top, url: connections_edit_path(from_port_id: connection.port) } do %>
               <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
                                                                         data-controller="tooltip"
                                                                         data-bs-placement="left"></span>
