@@ -167,7 +167,7 @@ RSpec.describe Server do
       it do
         expect do
           server.destroy_connections!
-        end.to change { server.ports.first.updated_at }
+        end.to(change { server.ports.first.updated_at })
       end
 
       it { expect(server.destroy_connections!).to be true }
@@ -179,7 +179,7 @@ RSpec.describe Server do
       it do
         expect do
           server.destroy_connections!
-        end.not_to change { server.connections.count }
+        end.not_to(change { server.connections.count })
       end
 
       it { expect(server.destroy_connections!).to be true }
