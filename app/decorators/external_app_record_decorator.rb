@@ -1,9 +1,18 @@
 # frozen_string_literal: true
 
 class ExternalAppRecordDecorator < ApplicationDecorator
+  class << self
+    def external_serial_status_options_for_select
+      ExternalAppRecord::EXTERNAL_SERIAL_STATUSES.map do |s|
+        [I18n.t(".activerecord.attributes.external_app_record.external_serials.#{s}"), s]
+      end
+    end
+  end
+
   def external_serial_to_badge_component
-    type = external_serial.present? ? :success : :danger
-    text = I18n.t(".activerecord.attributes.external_app_record.external_serial.#{type}")
+    status = external_serial.present? ? :found : :not_found
+    text = I18n.t(".activerecord.attributes.external_app_record.external_serials.#{status}").upcase
+    type = status == :found ? :success : :danger
 
     LabelComponent.new(text, type:)
   end

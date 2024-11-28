@@ -3,9 +3,7 @@
 require "rails_helper"
 
 RSpec.describe ExternalAppRequest do
-  fixtures :users
-
-  let(:request) { described_class.new(user: User.first, external_app_name: "glpi") }
+  let(:request) { described_class.new(user: users(:one), external_app_name: "glpi") }
 
   it "is valid with valid attributes" do
     expect(request).to be_valid

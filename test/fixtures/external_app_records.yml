@@ -3,3 +3,7 @@
 one:
   server_id: 1
   app_name: "App Name"
+
+two:
+  server_id: 2
+  external_serial: "serial"
