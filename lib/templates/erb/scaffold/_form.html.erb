@@ -1,16 +1,13 @@
-<%%= render FormErrorsComponent.new(@<%= singular_table_name %>) %>
-
-<%%= form_for(@<%= singular_table_name %>, html: { class: "bg-body-tertiary p-4 rounded border", role: "form" }) do |f| %>
-  <div class="row g-3">
-    <% attributes.each do |attribute| -%>
-<fieldset class="col-12">
+<%%= form_for(@<%= singular_table_name %>, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+  <%%= render FormErrorsComponent.new(@<%= singular_table_name %>) %>
+  <%%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+    <% attributes.each_with_index do |attribute, index| -%>
+<fieldset class="col-12 <%= "mt-4" unless index.zero? %>">
       <%%= f.label :<%= attribute.name %>, class: "form-label" %>
       <%%= f.<%= attribute.field_type %> :<%= attribute.name %>, class: "form-control" %>
     </fieldset>
-    <% end -%>
+    <% end %>
+  <%% end %>
 
-    <div class="col-12 mt-4">
-      <%%= f.submit class: "btn btn-primary w-100" %>
-    </div>
-  </div>
+  <%%= render Form::ActionsComponent.new(f) %>
 <%% end %>
