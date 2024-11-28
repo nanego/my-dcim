@@ -259,7 +259,6 @@ Rails/DurationArithmetic:
 Rails/DynamicFindBy:
   Exclude:
     - 'app/controllers/connections_controller.rb'
-    - 'app/controllers/maintenance_contracts_controller.rb'
     - 'app/controllers/ports_controller.rb'
     - 'app/controllers/rooms_controller.rb'
     - 'app/controllers/servers_controller.rb'
@@ -316,7 +315,6 @@ Rails/I18nLocaleTexts:
     - 'app/controllers/connections_controller.rb'
     - 'app/controllers/disks_controller.rb'
     - 'app/controllers/documents_controller.rb'
-    - 'app/controllers/maintenance_contracts_controller.rb'
     - 'app/controllers/memory_components_controller.rb'
     - 'app/controllers/modeles_controller.rb'
     - 'app/controllers/moves_controller.rb'
@@ -427,7 +425,6 @@ Rails/ThreeStateBooleanColumn:
 # Include: app/models/**/*.rb
 Rails/Validation:
   Exclude:
-    - 'app/models/maintenance_contract.rb'
     - 'app/models/server.rb'
 
 # Offense count: 11

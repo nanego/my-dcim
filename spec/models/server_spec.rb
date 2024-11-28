@@ -20,7 +20,6 @@ RSpec.describe Server do
     it { is_expected.to belong_to(:cluster).optional(true) }
     it { is_expected.to belong_to(:server_state).optional(true) }
     it { is_expected.to belong_to(:stack).optional(true) }
-    it { is_expected.to have_one(:maintenance_contract) }
     it { is_expected.to have_many(:memory_components) }
     it { is_expected.to have_many(:disks) }
     it { is_expected.to have_many(:cards) }
