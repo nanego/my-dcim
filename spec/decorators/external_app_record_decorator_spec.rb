@@ -3,6 +3,13 @@
 require "rails_helper"
 
 RSpec.describe ExternalAppRecordDecorator, type: :decorator do
+  describe ".external_serial_status_options_for_select" do
+    it do
+      expect(described_class.external_serial_status_options_for_select.pluck(1)).to \
+        match_array(ExternalAppRecord::EXTERNAL_SERIAL_STATUSES)
+    end
+  end
+
   describe "#external_serial_to_badge_component" do
     subject(:badge) { ear.decorated.external_serial_to_badge_component }
 
@@ -19,7 +26,7 @@ RSpec.describe ExternalAppRecordDecorator, type: :decorator do
 
       it { is_expected.to be_a LabelComponent }
       it { expect(badge.instance_variable_get(:@type)).to eq :success }
-      it { expect(badge.content).to eq "OK" }
+      it { expect(badge.content).to eq "TROUVÉ" }
     end
   end
 end

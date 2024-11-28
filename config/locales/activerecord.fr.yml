@@ -362,9 +362,17 @@ fr:
         color: Couleur
         cablename: Nom du câble
       external_app_record:
-        external_serial:
-          success: OK
-          danger: NON TROUVÉ DANS GLPI
+        external_id: ID GLPI
+        external_name: Nom GLPI
+        external_serial: Numero de série GLPI
+        external_serial_status: Synchronisation GLPI
+        frame_id: Emplacement
+        frame_ids: Emplacement
+        id: ID
+        server_id: Matériel
+        external_serials:
+          found: Trouvé
+          not_found: Non trouvé dans GLPI
       contact:
         first_name: Prénom
         last_name: Nom

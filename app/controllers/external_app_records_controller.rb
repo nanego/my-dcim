@@ -6,6 +6,8 @@ class ExternalAppRecordsController < ApplicationController
     @filter = ProcessorFilter.new(@external_app_records, params)
     @external_app_records = @filter.results
     @servers_count = Server.no_pdus.count
+
+    @pagy, @external_app_records = pagy(@external_app_records)
   end
 
   def sync_all_servers_with_glpi

@@ -2,13 +2,23 @@
 
 class ExternalAppRecordsProcessor < ApplicationProcessor
   include Sortable
-  SORTABLE_FIELDS = %w[server_id servers.name servers.numero servers.frame external_name external_id external_serial].freeze
+  SORTABLE_FIELDS = %w[
+    server_id servers.name servers.numero external_name external_id external_serial frames.name
+  ].freeze
 
-  sortable fields: SORTABLE_FIELDS do
-    # having "name" do |sort: "asc"|
-    #   raise "Possible injection: #{sort}" unless SORT_ORDERS.include?(sort)
-
-    #   raw.order(name: sort)
-    # end
+  map :frame_ids, filter_with: :non_empty_array do |frame_ids:|
+    raw.joins(:frame).where(frame: { id: frame_ids })
   end
+
+  match :external_serial_status, fail_when_no_matches: true do
+    having "found" do
+      raw.where.not(external_serial: nil)
+    end
+
+    having "not_found" do
+      raw.where(external_serial: nil)
+    end
+  end
+
+  sortable fields: SORTABLE_FIELDS
 end
