@@ -426,8 +426,8 @@ fr:
     duplicate:
       title: Dupliquer le matériel %{server_name}
     flashes:
-        connections_destroyed: Les connexions ont été supprimées
-        connections_not_destroyed: Une erreur a empêché la suppression des connexions
+        connections_destroyed: Les connexions ont été supprimées.
+        connections_not_destroyed: Une erreur a empêché la suppression des connexions.
   glpi:
     computer:
       name: Nom
