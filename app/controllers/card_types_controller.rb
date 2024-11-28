@@ -4,12 +4,12 @@ class CardTypesController < ApplicationController
   before_action :set_card_type, only: [:show, :edit, :update, :destroy]
 
   def index
-    @card_types_by_port_types = CardType.sorted.group_by(&:port_type)
-    @card_types = sorted CardType.sorted
+    @filter = ProcessorFilter.new(CardType.sorted, params)
+    @card_types = @filter.results
 
     respond_to do |format|
       format.html
-      format.json { @card_types = CardType.sorted }
+      format.json
     end
   end
 

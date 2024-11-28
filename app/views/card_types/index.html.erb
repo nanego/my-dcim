@@ -16,6 +16,26 @@
 <% end %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
+  <%= render FilterComponent.new(@filter) do |c| %>
+    <% c.with_form do |f| %>
+      <div class="w-100">
+        <fieldset class="form-floating">
+          <%= f.text_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :q %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:port_type_ids, PortType.sorted, :id, :name,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select }  }) %>
+          <%= f.label :port_type_ids %>
+        </fieldset>
+      </div>
+    <% end %>
+  <% end %>
+
   <%= render List::DataTableComponent.new(@card_types) do |table| %>
     <% table.with_column(CardType.human_attribute_name(:name), sort_by: :name) do |card_type| %>
       <%= link_to card_type, card_type_path(card_type), class: "fw-bold" %>
@@ -46,49 +66,5 @@
         <% end %>
       </div>
     <% end %>
-  <% end %>
-
-  <% if false %>
-  <div class="table-responsive">
-    <table class="table table-striped table-bordered table-hover">
-      <thead>
-      <tr>
-        <th>
-          <%= CardType.human_attribute_name(:name) %>
-        </th>
-        <th>
-          <%= CardType.human_attribute_name(:usage) %>
-        </th>
-        <th>
-          <%= CardType.human_attribute_name(:port_quantity) %>
-        </th>
-        <th></th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <% @card_types_by_port_types.each do |port_type, card_types| %>
-        <tr class="fw-bold">
-          <td colspan="4"><%= link_to port_type, "#", id: "port_type_#{port_type}", style: "color: #555;" %></td>
-        </tr>
-        <%= content_tag_for(:tr, card_types) do |card_type| %>
-          <td style="<%= "font-weight:bold;" if card_type.max_aligned_ports %>">
-            <%= link_to card_type, card_type_path(card_type) %>
-          </td>
-          <td><%= link_to pluralize(card_type.servers.count, "serveur"), servers_path %></td>
-          <td><%= card_type.port_quantity %> ports</td>
-          <td class="text-right">
-            <%= link_to t("action.edit"), edit_card_type_path(card_type), class: "btn btn-primary" %>
-            <%= link_to t("action.delete"),
-                        card_type,
-                        method: :delete,
-                        data: { confirm: t(".delete_confirmation") },
-                        class: "btn btn-danger" %>
-          </td>
-        <% end %>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
   <% end %>
 </div>
