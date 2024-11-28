@@ -1,25 +1,14 @@
-<%% provide(:title, "#{<%= singular_table_name.capitalize %>.model_name.human.pluralize} | #{@<%= singular_table_name %>} | #{t("action.edit")}") %>
-<%%= render "layouts/breadcrumb", breadcrumb_variables: {
-  <%= singular_table_name.capitalize %>.model_name.human.pluralize => <%= plural_table_name %>_path,
-  @<%= singular_table_name %> => <%= singular_table_name %>_path(@<%= singular_table_name %>),
-  t("action.edit") => ""
-} %>
+<%%
+  provide(:title, "#{<%= singular_table_name.capitalize %>.model_name.human.pluralize} | #{@<%= singular_table_name %>} | #{t("action.edit")}")
 
-<div class="row my-5">
-  <div class="col-11 col-md-10 col-lg-8 mx-auto">
-    <div class="d-flex pb-5 align-items-center">
-      <div class="flex-grow-1">
-        <%%= link_to <%= plural_table_name %>_path, class: "btn btn-outline-secondary d-inline-flex", title: t("action.back") do %>
-          <span class="bi bi-chevron-left"></span>
-          <span class="d-none d-md-inline-block ms-1"><%%= t("action.back") %></span>
-        <%% end %>
-      </div>
-      <h1 class="px-4 text-center"><%%= t(".title") %></h1>
-      <%%= link_to @<%= singular_table_name %>, class: "btn btn-primary align-self-center d-inline-flex", title: t("action.show") do %>
-        <span class="bi bi-eye"></span>
-        <span class="d-none d-md-inline-block ms-1"><%%= t("action.show") %></span>
-      <%% end %>
-    </div>
-    <%%= render "form" %>
-  </div>
+  breadcrumb_steps = {
+    <%= singular_table_name.capitalize %>.model_name.human.pluralize => <%= plural_table_name %>_path,
+    @<%= singular_table_name %> => <%= singular_table_name %>_path(@<%= singular_table_name %>),
+    t("action.edit") => ""
+  }
+%>
+
+<%%= render Page::HeadingEditComponent.new(resource: @<%= singular_table_name %>, title: t(".title"), breadcrumb_steps:) %>
+<div class="col-12 p-4 border-top">
+  <%%= render "form" %>
 </div>
