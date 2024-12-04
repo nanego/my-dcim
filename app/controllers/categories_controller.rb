@@ -6,7 +6,8 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @categories = sorted Category.order(:name => :asc).all
+    @filter = ProcessorFilter.new(Category.order(name: :asc), params)
+    @categories = @filter.results
   end
 
   # GET /categories/1
@@ -75,6 +76,6 @@ class CategoriesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def category_params
-    params.require(:category).permit(:name, :description)
+    params.require(:category).permit(:name, :description, :is_glpi_synchronizable)
   end
 end
