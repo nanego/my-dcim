@@ -29,16 +29,22 @@
     <% table.with_column(style: "min-width: 70px; width: 70px") do |architecture| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= link_to edit_architecture_path(architecture), class: "btn btn-info" do %>
-          <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
-                                                                     data-controller="tooltip"
-                                                                     data-bs-placement="left"></span>
+          <span class="bi bi-pencil"
+                title="<%= t("action.edit") %>"
+                aria-hidden="true"
+                data-controller="tooltip"
+                data-bs-placement="left"></span>
           <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
-        <%= link_to architecture, method: :delete, data: { confirm: t(".delete_confirmation") },
-                                                    class: "btn btn-danger" do %>
-          <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
-                                                                      data-controller="tooltip"
-                                                                      data-bs-placement="left"></span>
+        <%= link_to architecture_path(architecture),
+                    method: :delete,
+                    data: { confirm: t(".delete_confirmation") },
+                    class: "btn btn-danger" do %>
+          <span class="bi bi-trash"
+                title="<%= t("action.delete") %>"
+                aria-hidden="true"
+                data-controller="tooltip"
+                data-bs-placement="left"></span>
           <span class="visually-hidden"><%= t("action.delete") %></span>
         <% end %>
       </div>
