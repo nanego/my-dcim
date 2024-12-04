@@ -150,7 +150,7 @@ RSpec.describe Server do
         expect do
           server.destroy_connections!
         end.to change { server.connections.count }.from(4).to(0)
-              .and change { server.cables.count }.from(4).to(0)
+          .and change { server.cables.count }.from(4).to(0)
       end
 
       it do
