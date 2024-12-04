@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ButtonComponent < ApplicationComponent
-  VARIANTS = %i[default primary secondary success danger warning info light dark link outline_primary].freeze
+  VARIANTS = %i[default primary secondary success danger warning info light dark link outline_primary outline_danger].freeze
   SIZES = %i[sm default lg].freeze
 
   def initialize(title, url:, variant: :default, size: :default, icon: nil, is_responsive: false, extra_classes: "", **html_options) # rubocop:disable Metrics/ParameterLists

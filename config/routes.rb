@@ -57,7 +57,10 @@ Rails.application.routes.draw do
       post :import
     end
 
-    get :duplicate, on: :member
+    member do
+      get :duplicate
+      get :destroy_connections
+    end
   end
 
   resources :servers_grids, only: [:index]

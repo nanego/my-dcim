@@ -8,51 +8,80 @@
 <%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
-  <%= render List::DataTableComponent.new(@connections) do |table| %>
-    <% table.with_column(Connection.human_attribute_name(:port), sort_by: :"ports.id") do |connection| %>
-      <%= connection.port&.id %>
-    <% end %>
-
-    <% table.with_column(Connection.human_attribute_name(:cable), sort_by: :"cables.name") do |connection| %>
-      <%- if connection.cable.color? %>
-        <%= link_to connection.cable.name, connections_edit_path(from_port_id: connection.port),
-                    class: "port#{connection.port_type} #{connection.cable.color}" %>
-      <% else %>
-        <%= connection.cable&.name %>
-      <% end %>
-    <% end %>
-
-    <% table.with_column(Server.model_name.human) do |connection| %>
-      <%= link_to connection.server, server_path(connection.server) if connection.server %>
-    <% end %>
-
-    <% table.with_column(Card.model_name.human) do |connection| %>
-      <% if card = connection.card %>
-        <%= [card.name, card.composant, card.card_type].reject(&:blank?).join(' / ') %>
-      <% end %>
-    <% end %>
-
-    <% table.with_column(PortType.model_name.human) do |connection| %>
-      <%= connection.port_type&.name %>
-    <% end %>
-
-    <% table.with_column(Connection.human_attribute_name(:paired_connection)) do |connection| %>
-      <% if connection.paired_connection %>
-        <%= link_to connection.paired_connection.id, connections_edit_path(from_port_id: connection.port) %>
-      <% end %>
-    <% end %>
-
-    <% table.with_column(style: "min-width: 40px; width: 40px") do |connection| %>
-      <div class="btn-group btn-group-sm" role="group" aria-label="...">
-        <%= link_to connections_edit_path(from_port_id: connection.port), class: "btn btn-info" do %>
-          <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
-                                                                     data-controller="tooltip"
-                                                                     data-bs-placement="left"></span>
-          <span class="visually-hidden"><%= t("action.edit") %></span>
-        <% end %>
+  <%= render FilterComponent.new(@filter) do |c| %>
+    <% c.with_form do |f| %>
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:server_ids, Server.no_pdus.order(:name), :id, :to_s,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select }  }) %>
+          <%= f.label :server_ids %>
+        </fieldset>
       </div>
     <% end %>
   <% end %>
 
-  <%== pagy_bootstrap_nav(@pagy) %>
+  <%= turbo_frame_tag(dom_id(Connection, :table), data: { turbo_action: :advance }) do %>
+    <div class="d-flex flex-column row-gap-4">
+      <%= render List::DataTableComponent.new(@connections) do |table| %>
+        <% table.with_column(Connection.human_attribute_name(:port), sort_by: :"ports.id") do |connection| %>
+          <%= connection.port&.id %>
+        <% end %>
+
+        <% table.with_column(Connection.human_attribute_name(:cable), sort_by: :"cables.name") do |connection| %>
+          <%- if connection.cable.color? %>
+            <%= link_to connection.cable.name, connections_edit_path(from_port_id: connection.port),
+                        class: "port#{connection.port_type} #{connection.cable.color}",
+                        data: { turbo_frame: :_top } %>
+          <% else %>
+            <%= connection.cable&.name %>
+          <% end %>
+        <% end %>
+
+        <% unless (turbo_frame_request? && @filter.filled?(:server_ids)) %>
+          <% table.with_column(Server.model_name.human) do |connection| %>
+            <%= link_to connection.server, server_path(connection.server), data: { turbo_frame: :_top } if connection.server %>
+          <% end %>
+        <% end %>
+
+        <% table.with_column(Card.model_name.human) do |connection| %>
+          <% if card = connection.card %>
+            <%= [card.name, card.composant, card.card_type].reject(&:blank?).join(' / ') %>
+          <% end %>
+        <% end %>
+
+        <% table.with_column(PortType.model_name.human) do |connection| %>
+          <%= connection.port_type&.name %>
+        <% end %>
+
+        <% table.with_column(Connection.human_attribute_name(:paired_connection)) do |connection| %>
+          <% if connection.paired_connection %>
+            <%= link_to connection.paired_connection.id,
+                        connections_edit_path(from_port_id: connection.port),
+                        class: class_names("js_connection_edit_link_to": turbo_frame_request?),
+                        data: { turbo_frame: :_top, url: connections_edit_path(from_port_id: connection.port) } %>
+          <% end %>
+        <% end %>
+
+        <% table.with_column(style: "min-width: 40px; width: 40px") do |connection| %>
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <%= link_to connections_edit_path(from_port_id: connection.port),
+                        class: class_names("btn btn-info", "js_connection_edit_link_to": turbo_frame_request?),
+                        data: { turbo_frame: :_top, url: connections_edit_path(from_port_id: connection.port) } do %>
+              <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
+                                                                        data-controller="tooltip"
+                                                                        data-bs-placement="left"></span>
+              <span class="visually-hidden"><%= t("action.edit") %></span>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <% if @pagy.pages > 1 %>
+        <%== pagy_bootstrap_nav(@pagy) %>
+      <% end %>
+    </div>
+  <% end %>
 </div>
+
+<%= render "ports/modal_edit_port" %>
