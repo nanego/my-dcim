@@ -742,7 +742,11 @@ fr:
         site_ids: Site
         contact_ids: Contact
         network_type: Type de réseaux
-        port_type_ids: Types de port
+        port_type_ids: Type de port
+        port_ids: Port
+        cable_ids: Câble
+        server_ids: Matériel
+        card_ids: Carte
     placeholder:
       search: Rechercher ...
       quicksearch: Recherche rapide
