@@ -1,17 +1,21 @@
-<%% provide(:title, <%= singular_table_name.capitalize %>.model_name.human.pluralize) %>
-<%%= render "layouts/breadcrumb", breadcrumb_variables: {
-  <%= singular_table_name.capitalize %>.model_name.human.pluralize => "" }
+<%%
+  title = <%= singular_table_name.capitalize %>.model_name.human.pluralize
+  breadcrumb_steps = { title => "" }
+
+  provide(:title, title)
 %>
 
-<div class="container-fluid">
-  <div class="d-flex justify-content-between">
-    <h1><%%= t(".title") %></h1>
-    <%%= link_to new_<%= singular_table_name %>_path, class: "btn btn-success align-self-center" do %>
-      <span class="bi bi-plus-lg"></span>
-      <%%= t(".new_<%= singular_table_name %>") %>
-    <%% end %>
-  </div>
+<%%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) do |heading| %>
+  <%% heading.with_right_content do %>
+    <%% render ButtonComponent.new(t(".new_<%= singular_table_name %>"),
+                                  url: new_<%= singular_table_name %>_path,
+                                  variant: :success,
+                                  icon: "plus-lg",
+                                  is_responsive: true) %>
+  <%% end %>
+<%% end %>
 
+<div class="p-4 border-top d-flex flex-column row-gap-4">
   <%%= render List::DataTableComponent.new(@<%= plural_table_name %>) do |table| %>
   <% attributes.each do |attribute| -%>
   <%% table.with_column(<%= singular_table_name.capitalize %>.human_attribute_name(:<%= attribute.column_name %>)) do |<%= singular_table_name %>| %>
@@ -19,19 +23,25 @@
     <%% end %>
   <% end -%>
 
-    <%% table.with_column(style: "min-width: 84px; width: 84px") do |<%= singular_table_name %>| %>
+    <%% table.with_column(style: "min-width: 70px; width: 70px") do |<%= singular_table_name %>| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%%= link_to edit_<%= singular_table_name %>_path(<%= singular_table_name %>), class: "btn btn-primary" do %>
-          <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip"
-                                                        data-bs-placement="left"
-                                                        title="<%%= t("action.edit") %>"></span>
+          <span class="bi bi-pencil"
+                title="<%%= t("action.edit") %>"
+                data-controller="tooltip"
+                data-bs-placement="left"
+                aria-hidden="true"></span>
           <span class="visually-hidden"><%%= t("action.edit") %></span>
         <%% end %>
-        <%%= link_to <%= singular_table_name %>, method: :delete, data: { confirm: t(".delete_confirmation") },
-                                                              class: "btn btn-danger" do %>
-          <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip"
-                                                       data-bs-placement="left"
-                                                       title="<%%= t("action.delete") %>"></span>
+        <%%= link_to <%= singular_table_name %>_path(<%= singular_table_name %>),
+                    method: :delete,
+                    data: { confirm: t(".delete_confirmation") },
+                    class: "btn btn-danger" do %>
+          <span class="bi bi-trash"
+                title="<%%= t("action.delete") %>"
+                data-controller="tooltip"
+                data-bs-placement="left"
+                aria-hidden="true"></span>
           <span class="visually-hidden"><%%= t("action.delete") %></span>
         <%% end %>
       </div>

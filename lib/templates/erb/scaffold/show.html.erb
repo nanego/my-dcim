@@ -1,32 +1,22 @@
-<%% provide(:title, "#{<%= singular_table_name.capitalize %>.model_name.human.pluralize} | #{@<%= singular_table_name %>}") %>
-<%%= render "layouts/breadcrumb", breadcrumb_variables: {
-  <%= singular_table_name.capitalize %>.model_name.human.pluralize => <%= plural_table_name %>_path,
-  @<%= singular_table_name %> => ""
-} %>
+<%%
+  provide(:title, "#{<%= singular_table_name.capitalize %>.model_name.human.pluralize} | #{@<%= singular_table_name %>}")
 
-<div class="row my-5">
-  <div class="col-11 col-md-10 col-lg-8 mx-auto">
-    <div class="d-flex justify-content-between pb-5">
-      <%%= link_to <%= plural_table_name %>_path,
-                  class: "btn btn-outline-secondary align-self-center d-inline-flex",
-                  title: t("action.back") do %>
-        <span class="bi bi-chevron-left"></span>
-        <span class="d-none d-md-inline-block ms-1"><%%= t("action.back") %></span>
-      <%% end %>
-      <h1 class="text-center px-4"><%%= t(".title") %></h1>
-      <%%= link_to edit_<%= singular_table_name %>_path(@<%= singular_table_name %>),
-                   class: "btn btn-primary align-self-center d-inline-flex",
-                   title: t("action.edit") do %>
-        <span class="bi bi-pencil"></span>
-        <span class="d-none d-md-inline-block ms-1"><%%= t("action.edit") %></span>
-      <%% end %>
-    </div>
+  breadcrumb_steps = {
+    <%= singular_table_name.capitalize %>.model_name.human.pluralize => <%= plural_table_name %>_path, @<%= singular_table_name %> => ""
+  }
+%>
 
-    <dl class="bg-body-tertiary p-4 rounded border">
-      <%% %i[<%= attributes.map(&:name).join(" ") %>].each do |attribute_name| %>
-        <dt><%%= <%= singular_table_name.capitalize %>.human_attribute_name(attribute_name) %> :</dt>
-        <dd><%%= @<%= singular_table_name %>.public_send(attribute_name) %></dd>
-      <%% end %>
-    </dl>
+<%%= render Page::HeadingShowComponent.new(resource: @<%= singular_table_name %>, title: @<%= singular_table_name %>, breadcrumb_steps:) %>
+<div class="col-12 p-4 border-top">
+  <div class="col-12 col-lg-6">
+    <%%= render CardComponent.new do |card| %>
+      <dl class="show-page_dl d-grid row-gap-2 mb-0">
+        <%% %i[<%= attributes.map(&:name).join(" ") %>].each do |attribute_name| %>
+          <dt class="pb-2"><%%= <%= singular_table_name.capitalize %>.human_attribute_name(attribute_name) %> :</dt>
+          <dd class="mb-0 pb-2 ps-3"><%%= @<%= singular_table_name %>.public_send(attribute_name) %></dd>
+        <%% end %>
+      </dl>
+    <%% end %>
   </div>
+  <%%= render ChangelogEntries::ObjectListComponent.new(@<%= singular_table_name %>) %>
 </div>

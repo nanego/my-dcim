@@ -1,21 +1,11 @@
-<%% provide(:title, "#{<%= singular_table_name.capitalize %>.model_name.human.pluralize} | #{t("action.create")}") %>
-<%%= render "layouts/breadcrumb", breadcrumb_variables: {
-  <%= singular_table_name.capitalize %>.model_name.human.pluralize => <%= plural_table_name %>_path,
-  t(".title") => ""
-} %>
+<%%
+  provide(:title, "#{<%= singular_table_name.capitalize %>.model_name.human.pluralize} | #{t("action.create")}")
 
-<div class="row my-5">
-  <div class="col-11 col-md-10 col-lg-8 mx-auto">
-    <div class="d-flex pb-5 align-items-center">
-      <div class="flex-grow-1">
-        <%%= link_to <%= plural_table_name %>_path, class: "btn btn-outline-secondary d-inline-flex", title: t("action.back") do %>
-          <span class="bi bi-chevron-left"></span>
-          <span class="d-none d-md-inline-block ms-1"><%%= t("action.back") %></span>
-        <%% end %>
-      </div>
-      <h1 class="px-4 text-center"><%%= t(".title") %></h1>
-      <div class="flex-grow-1"></div>
-    </div>
-    <%%= render "form" %>
-  </div>
+  breadcrumb_steps = { <%= singular_table_name.capitalize %>.model_name.human.pluralize => <%= plural_table_name %>_path, t("action.create") => "" }
+%>
+
+<%%= render Page::HeadingNewComponent.new(resource: @<%= singular_table_name %>, title: t(".title"), breadcrumb_steps:) %>
+
+<div class="col-12 p-4 border-top">
+  <%%= render "form" %>
 </div>
