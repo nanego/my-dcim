@@ -2,7 +2,9 @@
 
 class ConnectionsController < ApplicationController
   def index
-    @connections = sorted Connection.includes(:port, :card, :server, :card_type, :port_type, cable: :connections).order(created_at: :desc)
+    @filter = ProcessorFilter.new(sorted(Connection.includes(:port, :card, :server, :card_type, :port_type, cable: :connections).order(created_at: :desc)), params)
+    @connections = @filter.results
+
     @pagy, @connections = pagy(@connections)
   end
 
