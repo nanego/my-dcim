@@ -15,6 +15,8 @@
           <dt class="pb-2"><%= Category.human_attribute_name(attribute_name) %></dt>
           <dd class="mb-0 pb-2 ps-3"><%= @category.public_send(attribute_name) %></dd>
         <% end %>
+        <dt class="pb-2"><%= Category.human_attribute_name(:is_glpi_synchronizable) %></dt>
+        <dd class="mb-0 pb-2 ps-3"><%= t("boolean.#{@category.is_glpi_synchronizable}") %></dd>
       </dl>
     <% end %>
   </div>

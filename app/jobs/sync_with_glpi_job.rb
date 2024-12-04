@@ -9,7 +9,7 @@ class SyncWithGlpiJob < ApplicationJob
 
     begin
       client = GlpiClient.new
-      servers = Server.no_pdus
+      servers = Server.glpi_synchronizable
       servers_count = servers.count
 
       Rails.logger.info "Synchronizing #{servers_count} servers with GLPI records:"

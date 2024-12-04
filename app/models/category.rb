@@ -6,6 +6,7 @@ class Category < ApplicationRecord
   has_many :modeles, dependent: :restrict_with_error
 
   scope :sorted, -> { order(:name) }
+  scope :glpi_synchronizable, -> { where(is_glpi_synchronizable: true) }
 
   def to_s
     name.to_s
