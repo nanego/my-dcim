@@ -25,7 +25,7 @@
 
     <%% table.with_column(style: "min-width: 70px; width: 70px") do |<%= singular_table_name %>| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
-        <%%= link_to edit_<%= singular_table_name %>_path(<%= singular_table_name %>), class: "btn btn-primary" do %>
+        <%%= link_to edit_<%= singular_table_name %>_path(<%= singular_table_name %>), class: "btn btn-info" do %>
           <span class="bi bi-pencil"
                 title="<%%= t("action.edit") %>"
                 data-controller="tooltip"
