@@ -97,10 +97,14 @@ class ServersController < ApplicationController
   end
 
   def destroy
-    @server.destroy
     respond_to do |format|
-      format.html { redirect_to servers_path(search_params), notice: 'Le matériel a bien été supprimé.' }
-      format.json { head :no_content }
+      if @server.destroy
+        format.html { redirect_to servers_path(search_params), notice: t(".flashes.destroyed") }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to servers_path(search_params), alert: t(".flashes.not_destroyed") }
+        format.json { head :bad_request }
+      end
     end
   end
 
