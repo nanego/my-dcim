@@ -51,8 +51,8 @@ RSpec.describe ExternalAppRecordsProcessor do
     context "with external_serial_status = not_found" do
       let(:params) { { external_serial_status: "not_found" } }
 
-      it { expect(result.size).to eq(1) }
-      it { is_expected.to include(external_app_records(:one)) }
+      it { expect(result.size).to eq(2) }
+      it { is_expected.to contain_exactly(external_app_records(:one), external_app_records(:three)) }
     end
   end
 

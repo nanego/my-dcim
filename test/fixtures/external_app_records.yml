@@ -7,3 +7,7 @@ one:
 two:
   server_id: 2
   external_serial: "serial"
+
+three:
+  server_id: 3
+  external_serial: ""
