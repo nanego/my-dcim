@@ -6,7 +6,7 @@ class ExternalAppRecordsController < ApplicationController
     @external_app_records_count = @external_app_records.count
     @filter = ProcessorFilter.new(@external_app_records, params)
     @external_app_records = @filter.results
-    @servers_count = Server.no_pdus.count
+    @servers_count = Server.glpi_synchronizable.count
 
     @pagy, @external_app_records = pagy(@external_app_records)
   end
