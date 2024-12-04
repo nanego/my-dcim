@@ -73,9 +73,6 @@
           <dt class="pb-2"><%= t(".nb_u") %></dt>
           <dd class="mb-0 pb-2 ps-3"><%= @server.modele.try(:u) %></dd>
 
-          <dt class="pb-2"><%= Server.human_attribute_name(:position) %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= @server.position %></dd>
-
           <dt class="pb-2"><%= Manufacturer.model_name.human %></dt>
           <dd class="mb-0 pb-2 ps-3">
             <%= link_to @server.modele.try(:manufacturer), manufacturer_path(@server.modele.try(:manufacturer)) %>
@@ -237,6 +234,9 @@
               <span class="visually-hidden"><%= t("visualization.title") %></span>
             <% end %>
           </dd>
+
+          <dt class="pb-2"><%= Server.human_attribute_name(:position) %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @server.position %></dd>
         </dl>
       <% end %>
 
