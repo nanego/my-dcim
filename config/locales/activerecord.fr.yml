@@ -232,6 +232,7 @@ fr:
       category:
         name: Nom
         description: Description
+        is_glpi_synchronizable: Synchronisation GLPI active
         modeles: Modèles
         modeles_count:
           zero: 0 modèle
