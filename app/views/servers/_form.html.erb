@@ -1,18 +1,5 @@
 <%= form_for(@server, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
   <%= render FormErrorsComponent.new(@server) %>
-  <%= render CardComponent.new(type: :primary, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("layouts.sidebar.location.title") %>
-    <% end %>
-
-    <fieldset class="col-12">
-      <%= f.label :frame_id, class: "form-label" %>
-      <%= f.collection_select(:frame_id, Frame.all_sorted, :id,
-                                                           :name_with_room_and_islet,
-                                                           { prompt: true, include_blank: false },
-                                                           { class: "form-select", data: { controller: "select" } }) %>
-    </fieldset>
-  <% end %>
 
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
     <div class="row g-3">
@@ -32,11 +19,6 @@
                                                              :name,
                                                              { prompt: true, include_blank: true },
                                                              { class: "form-select", data: { controller: "select" } }) %>
-      </fieldset>
-
-      <fieldset class="col-md-6 col-12 mt-4">
-        <%= f.label :position, class: "form-label" %>
-        <%= f.number_field :position, class: "form-control" %>
       </fieldset>
 
       <fieldset class="col-md-6 col-12 mt-4">
@@ -93,11 +75,32 @@
                                                                          { class: "form-select" }) %>
       </fieldset>
 
-      <fieldset class="col-md-6 col-12 mt-4 align-self-center">
+      <fieldset class="col-12 mt-4 align-self-center">
         <div class="form-check">
           <%= f.check_box :critique, class: "form-check-input" %>
           <%= f.label :critique, class: "form-check-label" %>
         </div>
+      </fieldset>
+    </div>
+  <% end %>
+
+  <%= render CardComponent.new(type: :primary, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
+    <% card.with_header do %>
+      <%= t("layouts.sidebar.location.title") %>
+    <% end %>
+
+    <div class="row g-3">
+      <fieldset class="col-md-9 col-12">
+        <%= f.label :frame_id, class: "form-label" %>
+        <%= f.collection_select(:frame_id, Frame.all_sorted, :id,
+                                                            :name_with_room_and_islet,
+                                                            { prompt: true, include_blank: false },
+                                                            { class: "form-select", data: { controller: "select" } }) %>
+      </fieldset>
+
+      <fieldset class="col-md-3 col-12">
+        <%= f.label :position, class: "form-label" %>
+        <%= f.number_field :position, class: "form-control" %>
       </fieldset>
     </div>
   <% end %>
