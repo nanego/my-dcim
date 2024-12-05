@@ -801,6 +801,11 @@ body {
     max-width: 100px;
   }
 
+  .icon-rotated {
+    transform: rotate(90deg);
+    display: inline-block;
+  }
+
   nav.pagy-bootstrap.nav .pagination {
     margin-bottom: 0;
   }

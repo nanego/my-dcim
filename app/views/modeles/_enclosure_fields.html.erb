@@ -26,10 +26,27 @@
         <ul id="enclosureList_<%= f.object.id %>" class="list-group bg-body-tertiary">
           <li class="list-group-item bg-transparent filtered">
             <fieldset>
-              <%= f.label :display, class: "form-label" %> :
-              <%= f.select :display, options_for_select([:vertical, :horizontal, :grid], f.object.display),
-                                     {},
-                                     class: "form-select form-select-sm" %>
+              <%= f.label :display, class:"form-check-label" %>
+
+              <div class="btn-group btn-group-sm w-100 my-2" role="group" aria-label="Display attribute radio toggle button group">
+                <%= f.radio_button :display, :vertical, class: "btn-check" %>
+                <%= f.label :display, value: :vertical, class: "btn btn-outline-secondary" do %>
+                  <i class="bi bi-layout-three-columns"></i>
+                  Vertical
+                <% end %>
+
+                <%= f.radio_button :display, :horizontal, class: "btn-check" %>
+                <%= f.label :display, value: :horizontal, class: "btn  btn-outline-secondary" do %>
+                  <i class="bi bi-layout-three-columns icon-rotated"></i>
+                  Horizontal
+                <% end %>
+
+                <%= f.radio_button :display, :grid, class: "btn-check" %>
+                <%= f.label :display, value: :grid, class: "btn btn-outline-secondary" do %>
+                  <i class="bi bi-columns-gap"></i>
+                  Grille
+                <% end %>
+              </div>
             </fieldset>
           </li>
           <li class="list-group-item bg-transparent filtered">
