@@ -425,9 +425,13 @@ fr:
       delete_confirmation: Toutes les données concernant ce matériel seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?
     duplicate:
       title: Dupliquer le matériel %{server_name}
+    destroy:
+      flashes:
+        destroyed: Le matériel a bien été supprimé.
+        not_destroyed: Une erreur est survenue lors de la suppression du matériel.
     flashes:
-        connections_destroyed: Les connexions ont été supprimées.
-        connections_not_destroyed: Une erreur a empêché la suppression des connexions.
+      connections_destroyed: Les connexions ont été supprimées.
+      connections_not_destroyed: Une erreur a empêché la suppression des connexions.
   glpi:
     computer:
       name: Nom
