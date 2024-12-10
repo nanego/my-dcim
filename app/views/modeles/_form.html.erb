@@ -68,8 +68,14 @@
         <%= Modele.human_attribute_name("network_types.help") %>
       </div>
     </fieldset>
+  <% end %>
 
-    <fieldset data-controller="nested-form" class="col-12 mt-4">
+  <fieldset data-controller="nested-form" class="col-12">
+    <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+      <% card.with_header do %>
+        <%= Enclosure.model_name.human.pluralize %>
+      <% end %>
+
       <div class="row g-3">
         <template data-nested-form-target="template">
           <%= f.fields_for :enclosures, f.object.enclosures.klass.new,
@@ -78,21 +84,22 @@
           <% end %>
         </template>
 
-        <%= f.label :enclosures, class: "form-label" %>
         <%= f.fields_for :enclosures do |enclosure_fields| %>
           <%= render partial: "enclosure_fields", locals: { f: enclosure_fields } %>
         <% end %>
 
         <div data-nested-form-target="target"></div>
+      </div>
 
-        <span class="text-center mt-2">
+      <% card.with_footer do %>
+        <span class="mx-auto">
           <button type="button" class="btn btn-outline-success btn-sm" data-action="nested-form#add">
             <span class="bi bi-plus-lg" aria-hidden="true"></span> <%= t(".add_enclosure") %>
           </button>
         </span>
-      </div>
-    </fieldset>
-  <% end %>
+      <% end %>
+    <% end %>
+  </fieldset>
 
   <%= render Form::ActionsComponent.new(f) %>
 <% end %>
