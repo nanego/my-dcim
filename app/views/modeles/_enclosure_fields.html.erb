@@ -1,4 +1,6 @@
-<div class="nested-form-wrapper col-12 col-md-6 col-xxl-4" data-new-record="<%= f.object.new_record? %>">
+<div class="nested-form-wrapper col-12 col-md-6 col-xxl-4"
+     data-new-record="<%= f.object.new_record? %>"
+     data-controller="enclosure-fields">
   <div class="card enclosure-fields">
     <div class="card-header d-flex justify-content-between align-items-center">
       <h6 class="mb-0">
@@ -78,36 +80,3 @@
     </div>
   </div>
 </div>
-
-<script>
-var display_select = $("#modele_enclosures_attributes_<%= f.object.position.to_i - 1 %>_display")
-var grid_text_area = $("#modele_enclosures_attributes_<%= f.object.position.to_i - 1 %>_grid_areas").closest(".list-group-item")
-var toggle_grid_text_area = (function f() {
-    var val = display_select.val()
-    grid_text_area.hide()
-    if (val == "grid") {
-        grid_text_area.show()
-    }
-    return f
-})()
-
-display_select.change(function () {
-    toggle_grid_text_area()
-});
-
-$(document).ready(function() {
-  Sortable.create(enclosureList_<%= f.object.id %>, {
-    handle: ".bi-arrows-vertical",
-    animation: 150,
-    filter: ".fitlered",
-    onEnd: function (evt) {
-      evt.to.querySelectorAll("li.composant").forEach((item, index) => {
-        item.querySelector("input[name*='[position]']").value = index + 1
-      });
-    },
-    onMove: function (evt) {
-      return evt.related.className.indexOf("filtered") === -1;
-    }
-  });
-});
-</script>
