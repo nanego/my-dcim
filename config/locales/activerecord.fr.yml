@@ -269,6 +269,10 @@ fr:
         orientation: Orientation
         first_position: N° du 1er port
         twin_card_id: Carte jumelle
+      enclosure/display:
+        vertical: Verticale
+        horizontal: Horizontale
+        grid: Grille
       user:
         id: Identifiant
         name: Nom
