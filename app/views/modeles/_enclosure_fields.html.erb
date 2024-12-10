@@ -23,33 +23,36 @@
       </template>
 
       <div class="card-body">
-        <ul id="enclosureList_<%= f.object.id %>" class="list-group bg-body-tertiary">
+        <ul class="list-group bg-body-tertiary" data-enclosure-fields-target="sortableList">
           <li class="list-group-item bg-transparent filtered">
             <fieldset>
               <%= f.label :display, class:"form-check-label" %>
 
-              <div class="btn-group btn-group-sm w-100 my-2" role="group" aria-label="Display attribute radio toggle button group">
-                <%= f.radio_button :display, :vertical, class: "btn-check" %>
-                <%= f.label :display, value: :vertical, class: "btn btn-outline-secondary" do %>
-                  <i class="bi bi-layout-three-columns"></i>
-                  Vertical
-                <% end %>
-
-                <%= f.radio_button :display, :horizontal, class: "btn-check" %>
-                <%= f.label :display, value: :horizontal, class: "btn  btn-outline-secondary" do %>
-                  <i class="bi bi-layout-three-columns icon-rotated"></i>
-                  Horizontal
-                <% end %>
-
-                <%= f.radio_button :display, :grid, class: "btn-check" %>
-                <%= f.label :display, value: :grid, class: "btn btn-outline-secondary" do %>
-                  <i class="bi bi-columns-gap"></i>
-                  Grille
+              <div class="btn-group btn-group-sm w-100 my-2"
+                   role="group"
+                   aria-label="Display attribute radio toggle button group"
+                   data-enclosure-fields-target="display-radios">
+                <% Enclosure::DISPLAYS.each do |display| %>
+                  <%= f.radio_button :display,
+                                     display,
+                                     class: "btn-check",
+                                     data: {
+                                       action: "change->enclosure-fields#displayValueChange",
+                                       "enclosure-fields-target": "displayRadioButton"
+                                     } %>
+                  <%= f.label :display, value: display, class: "btn btn-outline-secondary" do %>
+                    <i class="<%= class_names("bi",
+                                              "bi-layout-three-columns": display == :vertical,
+                                              "bi-layout-three-columns icon-rotated": display == :horizontal,
+                                              "bi-columns-gap": display == :grid
+                    )%>"></i>
+                    <%= Enclosure.human_attribute_name("display.#{display}") %>
+                  <% end %>
                 <% end %>
               </div>
             </fieldset>
           </li>
-          <li class="list-group-item bg-transparent filtered">
+          <li class="list-group-item bg-transparent filtered" data-enclosure-fields-target="gridArea" hidden>
             <fieldset>
               <%= f.label :grid_areas, class: "form-label" %>
               <%= f.text_area :grid_areas, class: "font-monospace form-control", style: "height:110px;" %>
