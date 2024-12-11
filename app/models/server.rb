@@ -59,10 +59,10 @@ class Server < ApplicationRecord
   scope :sorted, -> { order(:position => :desc) }
   scope :sorted_by_name, -> { order('LOWER(name) ASC') }
 
-  scope :glpi_synchronizable, -> { joins(:modele => :category).merge(Modele.glpi_synchronizable) }
-  scope :no_pdus, -> { joins(:modele => :category).where("categories.name<>'Pdu'") }
-  scope :only_pdus, -> { joins(:modele => :category).where("categories.name='Pdu'").order(:name) }
-  scope :patch_panels, -> { joins(:modele => :category).where("categories.name='Patch Panel'").order(:name) }
+  scope :glpi_synchronizable, -> { joins(modele: :category).merge(Modele.glpi_synchronizable) }
+  scope :no_pdus, -> { joins(modele: :category).where("categories.name<>'Pdu'") }
+  scope :only_pdus, -> { joins(modele: :category).where("categories.name='Pdu'").order(:name) }
+  scope :patch_panels, -> { joins(modele: :category).where("categories.name='Patch Panel'").order(:name) }
 
   scope :search, lambda { |query|
     return if query.blank?
