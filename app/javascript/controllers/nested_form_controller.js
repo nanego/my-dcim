@@ -21,6 +21,7 @@ export default class extends Controller {
     if (wrapper.dataset.newRecord === "true") {
       wrapper.remove()
     } else {
+      wrapper.classList.remove("d-flex") // This adds a display: flex style that overrides the next display: none
       wrapper.style.display = "none"
       wrapper.querySelector("input[name*='_destroy']").value="1"
     }
