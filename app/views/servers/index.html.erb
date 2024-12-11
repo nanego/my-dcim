@@ -125,8 +125,26 @@
   <% end %>
 
   <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance }) do %>
-    <div class="d-flex flex-column row-gap-4">
+    <%= form_with url: bulk_destroy_servers_path, method: :delete, class: "d-flex flex-column row-gap-4", data: { controller: "bulk-actions" } do %>
+      <div class="d-flex justify-content-between">
+        <div>
+          <input class="form-check-input" type="checkbox" data-bulk-actions-target="checkboxAll" id="checkboxAll" />
+
+          <label class="form-check-label" for="checkboxAll">
+            Select all / Deselect all
+
+            <span data-bulk-actions-target="checkedCount"></span>
+          </label>
+        </div>
+
+        <%= submit_tag "Delete bulk", class: "btn btn-danger" %>
+      </div>
+
       <%= render List::DataTableComponent.new(@servers) do |table| %>
+        <% table.with_column do |server| %>
+          <%= check_box_tag "item_ids[]", server.id, class: "form-check-input", value: server.id, data: { bulk_actions_target: "checkbox" } %>
+        <% end %>
+
         <% table.with_column(Server.human_attribute_name(:name), sort_by: :name) do |server| %>
           <%= link_to server.name, server_path(server), class: "fw-bold", data: { turbo_frame: :_top } %>
         <% end %>
@@ -186,6 +204,6 @@
       <% if @pagy.pages > 1 %>
         <%== pagy_bootstrap_nav(@pagy) %>
       <% end %>
-    </div>
+    <% end %>
   <% end %>
 </div>
