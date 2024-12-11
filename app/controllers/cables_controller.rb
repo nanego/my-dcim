@@ -23,7 +23,7 @@ class CablesController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to connections_edit_path(from_port_id: port_id), notice: 'Connection a bien été supprimé.'
+        redirect_to connections_edit_path(from_port_id: port_id), notice: t(".flashes.destroyed")
       end
 
       format.js { render 'connections/update' }

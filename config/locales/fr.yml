@@ -118,6 +118,9 @@ fr:
   connections:
     edit:
       title: Modifier la connexion
+    update:
+      flashes:
+        updated: La connexion a été mise à jour.
     form:
       action:
         show_more_bay: Voir plus de baies
@@ -285,6 +288,26 @@ fr:
     destroy:
       flashes:
         destroyed: Le constructeur a bien été supprimé.
+  disks:
+    create:
+      flashes:
+        created: Le disque a été créé avec succès.
+    update:
+      flashes:
+        updated: Le disque a été mis à jour.
+    destroy:
+      flashes:
+        destroyed: Le disque a bien été supprimé.
+  documents:
+    create:
+      flashes:
+        created: Le document a été créé avec succès.
+    update:
+      flashes:
+        updated: Le document a été mis à jour.
+    destroy:
+      flashes:
+        destroyed: Le document a bien été supprimé.
   domaines:
     index:
       new_domaine: Ajouter un domaine
@@ -302,6 +325,16 @@ fr:
     destroy:
       flashes:
         destroyed: Le domaine a bien été supprimé.
+  memory_components:
+    create:
+      flashes:
+        created: Le composant mémoire a été créé avec succès.
+    update:
+      flashes:
+        updated: Le composant mémoire a été mis à jour.
+    destroy:
+      flashes:
+        destroyed: Le composant mémoire a bien été supprimé.
   memory_types:
     index:
       new_memory_type: Nouveau type de RAM
@@ -321,6 +354,12 @@ fr:
   ports:
     index:
       title: Liste des ports cablés
+    update:
+      flashes:
+        updated:  Le port a été mis à jour.
+    destroy:
+      flashes:
+        destroyed: Le port a été supprimé.
   port_types:
     index:
       new_port_type: Ajouter un type de port
@@ -369,13 +408,32 @@ fr:
       delete_confirmation: Ce modèle ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur ou une enclosure. Voulez-vous continuer ?'
     new:
       title: Nouveau modèle
+    create:
+      flashes:
+        created: Nouveau modèle ajouté.
     edit:
       title: Modification d'un modèle
+    update:
+      flashes:
+        updated: Le modèle a été mis à jour.
+    destroy:
+      flashes:
+        destroyed: Le modèle a bien été supprimé.
     duplicate:
       title: Dupliquer le modèle %{modele_name}
   external_app_records:
     index:
       title: Synchronisation avec GLPI
+  server_states:
+    create:
+      flashes:
+        created: Server state a été créé avec succès.
+    update:
+      flashes:
+        updated: Server state a été mis à jour.
+    destroy:
+      flashes:
+        destroyed: Server state a bien été supprimé.
   servers:
     form:
       network_type: Réseau %{type}
@@ -401,6 +459,9 @@ fr:
       action:
         import: Importer ce CSV
       download_example_html: "Télécharger un exemple de fichier CSV compatible : %{link}"
+    import:
+      flashes:
+        imported: Les nouveaux serveurs ont été ajoutés.
     index:
       title: Matériels
       new_server: Ajouter un matériel
@@ -420,9 +481,15 @@ fr:
       destroy_connections_confirmation: Confirmez-vous vouloir supprimer toutes les connections de ce matériel ?
     new:
       title: "Ajouter un matériel"
+    create:
+      flashes:
+        created: Le matériel a été créé avec succès.
     edit:
       title: "Modifier le matériel"
       delete_confirmation: Toutes les données concernant ce matériel seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?
+    update:
+      flashes:
+        updated: Le matériel a été mis à jour avec succès.
     duplicate:
       title: Dupliquer le matériel %{server_name}
     destroy:
@@ -481,8 +548,20 @@ fr:
         execute_move: Exécuter le déplacement du serveur et de ses connexions
     new:
       title: Nouveau déplacement
+    create:
+      flashes:
+        created: Le déplacement a été créé avec succès.
     edit:
       title: Modifier le déplacement enregistré
+    update:
+      flashes:
+        updated: Le déplacement a été mis à jour.
+    destroy:
+      flashes:
+        destroyed: Le déplacement a été supprimé.
+    execute_movement:
+      flashes:
+        executed: Le déplacement a été exécuté avec succès.
     form:
       initial_bay: Baie de départ
     frame:
@@ -537,8 +616,17 @@ fr:
       new_room: Ajouter une salle
     new:
       title: Nouvelle salle
+    create:
+      flashes:
+        created: La salle a été créée avec succès.
     edit:
       title: Modifier la salle
+    update:
+      flashes:
+        updated: La salle a été mise à jour.
+    destroy:
+      flashes:
+        destroyed: La salle a bien été supprimée.
 
   users:
     my_account:
@@ -646,6 +734,10 @@ fr:
         destroyed: La baie a bien étée supprimé.
     decorator:
       no_frame_warning_text: Veuillez renseigner un châssis à cette baie
+  cables:
+    destroy:
+      flashes:
+        destroyed: La connexion a bien été supprimée.
   contacts:
     index:
       new_contact: Ajouter un contact
