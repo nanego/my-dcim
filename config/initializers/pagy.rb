@@ -111,7 +111,7 @@
 
 # Bootstrap extra: Add nav, nav_js and combo_nav_js helpers and templates for Bootstrap pagination
 # See https://ddnexus.github.io/pagy/docs/extras/bootstrap
-require "pagy/extras/bootstrap"
+# require "pagy/extras/bootstrap"
 
 # Bulma extra: Add nav, nav_js and combo_nav_js helpers and templates for Bulma pagination
 # See https://ddnexus.github.io/pagy/docs/extras/bulma
@@ -208,7 +208,15 @@ require "pagy/extras/bootstrap"
 # See https://ddnexus.github.io/pagy/docs/extras/i18n
 # require 'pagy/extras/i18n'
 
-Pagy::DEFAULT[:limit] = 50
+Pagy::DEFAULT[:limit] = 100
+
+require "pagy/extras/size"
+Pagy::DEFAULT[:size] = [2, 2, 2, 2]
+
+require "pagy/extras/limit"
+Pagy::DEFAULT[:limit_max] = 200
+
+require "pagy/extras/bootstrap"
 
 # When you are done setting your own default freeze it, so it will not get changed accidentally
 Pagy::DEFAULT.freeze
