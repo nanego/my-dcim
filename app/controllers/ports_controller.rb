@@ -44,7 +44,7 @@ class PortsController < ApplicationController
 
     respond_to do |format|
       if @port.update(port_params)
-        format.html { redirect_to @port.card.server.frame, notice: 'Le port a été mis à jour.' }
+        format.html { redirect_to @port.card.server.frame, notice: t(".flashes.updated") }
         format.js
         format.json { render :show, status: :ok, location: @port.server }
       else
@@ -60,7 +60,7 @@ class PortsController < ApplicationController
     @port.destroy
 
     respond_to do |format|
-      format.html { redirect_to server_path(server), notice: 'Le port a été supprimé' }
+      format.html { redirect_to server_path(server), notice: t(".flashes.destroyed") }
       format.json { head :no_content }
     end
   end

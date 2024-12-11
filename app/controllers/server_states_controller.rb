@@ -28,7 +28,7 @@ class ServerStatesController < ApplicationController
 
     respond_to do |format|
       if @server_state.save
-        format.html { redirect_to @server_state, notice: 'Server state was successfully created.' }
+        format.html { redirect_to @server_state, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @server_state }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class ServerStatesController < ApplicationController
   def update
     respond_to do |format|
       if @server_state.update(server_state_params)
-        format.html { redirect_to @server_state, notice: 'Server state was successfully updated.' }
+        format.html { redirect_to @server_state, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @server_state }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class ServerStatesController < ApplicationController
   def destroy
     @server_state.destroy
     respond_to do |format|
-      format.html { redirect_to server_states_url, notice: 'Server state a bien été supprimé.' }
+      format.html { redirect_to server_states_url, notice: t(".flashes.destroyed") }
       format.json { head :no_content }
     end
   end
