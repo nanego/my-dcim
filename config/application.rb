@@ -42,5 +42,9 @@ module Demenagement
     config.i18n.default_locale = :fr
     config.i18n.available_locales = %i[fr en]
     config.i18n.fallbacks = true
+
+    config.generators do |g|
+      g.test_framework :rspec
+    end
   end
 end
