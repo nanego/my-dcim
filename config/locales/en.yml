@@ -1,4 +1,7 @@
 en:
+  action:
+    preview: Preview
+
   rooms:
     action_buttons:
       caption:
