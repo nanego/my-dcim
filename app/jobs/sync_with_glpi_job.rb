@@ -12,7 +12,7 @@ class SyncWithGlpiJob < ApplicationJob
       servers = Server.glpi_synchronizable
       servers_count = servers.count
 
-      Rails.logger.info { "Synchronizing #{servers_count} servers with GLPI records:" }
+      Rails.logger.info  { "Synchronizing #{servers_count} servers with GLPI records:" }
       Rails.logger.debug { "Synchronizing #{servers_count} servers with GLPI records:" }
 
       servers.each_with_index do |server, index|
