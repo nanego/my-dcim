@@ -6,9 +6,10 @@ module List
       DatatableColumn.new(title, **options, &block)
     }
 
-    def initialize(data, empty_icon: :table, **_options)
+    def initialize(data, empty_icon: :table, bulk: false, **_options)
       @data = data
       @empty_icon = empty_icon
+      @bulk = bulk
 
       super()
     end
@@ -23,6 +24,8 @@ module List
         render List::TableComponent.new do |table|
           table.with_head do
             render List::TableComponent::TableRow.new do
+              concat(render_bulk_head_cell) if @bulk
+
               columns.each do |col|
                 concat(render_head_cell(col))
               end
@@ -40,6 +43,12 @@ module List
 
     private
 
+    def render_bulk_head_cell
+      render(List::TableComponent::TableHeadCell.new(style: "width: 0;")) do
+        tag.input class: "form-check-input", type: "checkbox", id: "checkboxAll", data: { bulk_actions_target: "checkboxAll" }
+      end
+    end
+
     def render_head_cell(col)
       render(List::TableComponent::TableHeadCell.new) do
         if (sort_by = col.sort_by)
@@ -52,9 +61,17 @@ module List
 
     def render_row(row)
       render List::TableComponent::TableRow.new do
+        concat(render_bulk_row_cell(row.id)) if @bulk
+
         columns.each do |col|
           concat render List::TableComponent::TableCell.new(render_col(col, row), **col.html_options)
         end
+      end
+    end
+
+    def render_bulk_row_cell(item_id)
+      render List::TableComponent::TableCell.new do
+        check_box_tag "item_ids[]", item_id, class: "form-check-input", value: item_id, data: { bulk_actions_target: "checkbox" }
       end
     end
 

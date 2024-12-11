@@ -125,8 +125,18 @@
   <% end %>
 
   <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance }) do %>
-    <div class="d-flex flex-column row-gap-4">
-      <%= render List::DataTableComponent.new(@servers) do |table| %>
+    <%= form_with url: bulk_destroy_servers_path, method: :delete, class: "d-flex flex-column row-gap-4", data: { controller: "bulk-actions" } do %>
+      <div style="visibility: hidden;" data-bulk-actions-target="actionsContainer">
+        <span class="fw-bolder" data-bulk-actions-target="checkedCount"></span> elements selected:
+
+        <%= button_tag(type: :submit, class: "btn text-danger fs-4", data: { confirm: t("action.confirm") }) do %>
+          <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                          data-controller="tooltip"
+                                                                          data-bs-placement="left"></span>
+        <% end %>
+      </div>
+
+      <%= render List::DataTableComponent.new(@servers, bulk: true) do |table| %>
         <% table.with_column(Server.human_attribute_name(:name), sort_by: :name) do |server| %>
           <%= link_to server.name, server_path(server), class: "fw-bold", data: { turbo_frame: :_top } %>
         <% end %>
@@ -186,6 +196,6 @@
       <% if @pagy.pages > 1 %>
         <%== pagy_bootstrap_nav(@pagy) %>
       <% end %>
-    </div>
+    <% end %>
   <% end %>
 </div>
