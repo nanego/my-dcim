@@ -74,7 +74,7 @@ export default class BulkActions extends Controller {
     if (checkCount === 0){
       this.actionsContainerTarget.style.visibility = "hidden"
     } else {
-      this.checkedCountTarget.innerText = `${checkCount} elements selected`
+      this.checkedCountTarget.innerText = checkCount
       this.actionsContainerTarget.style.visibility = "visible"
     }
   }
