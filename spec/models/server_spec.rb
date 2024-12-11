@@ -94,6 +94,13 @@ RSpec.describe Server do
     it { is_expected.to accept_nested_attributes_for(:documents) }
   end
 
+  describe ".glpi_synchronizable" do
+    it do
+      expect(described_class.glpi_synchronizable)
+        .to contain_exactly(servers(:one), servers(:two), servers(:four), servers(:with_cluster))
+    end
+  end
+
   describe "#to_s" do
     it { expect(server.to_s).to eq server.name }
   end

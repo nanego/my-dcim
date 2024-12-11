@@ -23,6 +23,7 @@ class Modele < ApplicationRecord
 
   scope :sorted, -> { order(:name) }
   scope :with_servers, -> { joins(:servers).uniq }
+  scope :glpi_synchronizable, -> { where(category: Category.glpi_synchronizable) }
 
   def self.all_sorted
     Modele.includes(:manufacturer).all.sort { |f1, f2| f1.name_with_brand.capitalize <=> f2.name_with_brand.capitalize }
