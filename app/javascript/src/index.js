@@ -3,9 +3,6 @@ import "src/functions"
 import "src/bays"
 import "src/servers"
 
-import Sortable from "sortablejs"
-window.Sortable = Sortable
-
 $(document).on("click", ".draw_connections_link", function (event) {
     $(event.target).html('<span class="bi bi-three-dots" aria-hidden="true"></span>')
 })

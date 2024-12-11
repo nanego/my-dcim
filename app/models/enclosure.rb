@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Enclosure < ApplicationRecord
+  DISPLAYS = %i[vertical horizontal grid].freeze
+
   has_changelog
   acts_as_list scope: [:modele_id]
 
