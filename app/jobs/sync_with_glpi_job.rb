@@ -23,6 +23,9 @@ class SyncWithGlpiJob < ApplicationJob
         request.update(progress: (index + 1) * 100 / servers_count)
       end
 
+      # Clear ignored servers
+      ExternalAppRecord.where(server: Server.where.not(id: servers)).destroy_all
+
       request.update(status: :completed, progress: 100)
     rescue StandardError => e
       request.update(status: :failed)

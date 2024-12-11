@@ -28,6 +28,7 @@ class ExternalAppRecord < ApplicationRecord
     computer = client.computer(serial: server.numero, params: params)
 
     record = ExternalAppRecord.find_or_create_by(server: server)
+
     if computer.present?
       record.assign_attributes(external_name: computer.name, external_id: computer.id, external_serial: computer.serial)
     else
