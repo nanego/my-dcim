@@ -27,6 +27,10 @@
       <% end %>
     <% end %>
 
+    <% table.with_column(Category.human_attribute_name(:is_glpi_synchronizable), sort_by: :is_glpi_synchronizable, class: "text-center", style: "width: 240px") do |category| %>
+      <input type="checkbox" <%= category.is_glpi_synchronizable ? "checked" : "" %> disabled>
+    <% end %>
+
     <% table.with_column(style: "min-width: 70px; width: 70px") do |category| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= link_to edit_category_path(category), class: "btn btn-info" do %>

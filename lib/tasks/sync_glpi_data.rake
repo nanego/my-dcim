@@ -5,7 +5,7 @@ namespace :sync_glpi_data do
   task :sync_all_servers => :environment do
     client = GlpiClient.new
 
-    servers = Server.no_pdus
+    servers = Server.glpi_synchronizable
 
     puts "Synchronizing #{servers.count} servers with GLPI records:"
 

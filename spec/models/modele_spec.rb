@@ -40,6 +40,10 @@ RSpec.describe Modele do
     end
   end
 
+  describe ".glpi_synchronizable" do
+    it { expect(described_class.glpi_synchronizable).to contain_exactly(modeles(:one), modeles(:four)) }
+  end
+
   describe ".all_sorted" do
     pending
   end

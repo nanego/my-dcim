@@ -26,13 +26,16 @@ class ExternalAppRecord < ApplicationRecord
     ]
 
     computer = client.computer(serial: server.numero, params: params)
+
     record = ExternalAppRecord.find_or_create_by(server: server)
-    updated = if computer.present?
-                record.update({ external_name: computer.name, external_id: computer.id, external_serial: computer.serial })
-              else
-                record.update({ external_name: "", external_id: "", external_serial: "" })
-              end
-    Rails.logger.debug { "Server ##{server.id} #{server.name} NOT updated" } unless updated
+
+    if computer.present?
+      record.assign_attributes(external_name: computer.name, external_id: computer.id, external_serial: computer.serial)
+    else
+      record.assign_attributes(external_name: "", external_id: "", external_serial: "")
+    end
+
+    Rails.logger.debug { "Server ##{server.id} #{server.name} NOT updated" } unless record.save
   end
 
   private
