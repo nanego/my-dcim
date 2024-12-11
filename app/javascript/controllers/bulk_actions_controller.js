@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class BulkActions extends Controller {
-  static targets = ["checkboxAll", "checkedCount", "checkbox"]
+  static targets = ["checkboxAll", "checkedCount", "checkbox", "actionsContainer"]
 
   static values = {
     disableIndeterminate: {
@@ -71,8 +71,12 @@ export default class BulkActions extends Controller {
   }
 
   updateCheckCountLabel(checkCount) {
-    const checkedCountText = checkCount === 0 ? "" : `(${checkCount} selected)`
-    this.checkedCountTarget.innerText = checkedCountText
+    if (checkCount === 0){
+      this.actionsContainerTarget.style.visibility = "hidden"
+    } else {
+      this.checkedCountTarget.innerText = `${checkCount} elements selected`
+      this.actionsContainerTarget.style.visibility = "visible"
+    }
   }
 
   get checked() {
