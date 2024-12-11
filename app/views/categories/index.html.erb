@@ -27,8 +27,8 @@
       <% end %>
     <% end %>
 
-    <% table.with_column(Category.human_attribute_name(:is_glpi_synchronizable), sort_by: :is_glpi_synchronizable) do |category| %>
-      <%= t(category.is_glpi_synchronizable, scope: "boolean") %>
+    <% table.with_column(Category.human_attribute_name(:is_glpi_synchronizable), sort_by: :is_glpi_synchronizable, class: "text-center", style: "min-width: 240px; width: 240px") do |category| %>
+      <input type="checkbox" <%= category.is_glpi_synchronizable ? "checked" : "" %> disabled>
     <% end %>
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |category| %>
