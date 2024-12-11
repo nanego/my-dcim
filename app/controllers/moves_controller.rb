@@ -30,7 +30,7 @@ class MovesController < ApplicationController
 
     respond_to do |format|
       if @move.save
-        format.html { redirect_to edit_move_path(@move), notice: 'Move was successfully created.' }
+        format.html { redirect_to edit_move_path(@move), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @move }
       else
         load_form_data
@@ -49,7 +49,7 @@ class MovesController < ApplicationController
 
     respond_to do |format|
       if @move.update(move_params)
-        format.html { redirect_to edit_move_path(@move), notice: 'Move was successfully updated.' }
+        format.html { redirect_to edit_move_path(@move), notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @move }
       else
         load_form_data
@@ -62,7 +62,7 @@ class MovesController < ApplicationController
   def destroy
     @move.destroy
     respond_to do |format|
-      format.html { redirect_to moves_url, notice: 'Move a bien été supprimé.' }
+      format.html { redirect_to moves_url, notice: t(".flashes.destroyed") }
       format.json { head :no_content }
     end
   end
@@ -70,7 +70,7 @@ class MovesController < ApplicationController
   def execute_movement
     @move.execute_movement
     respond_to do |format|
-      format.html { redirect_to moves_url, notice: 'Move has been successfully executed.' }
+      format.html { redirect_to moves_url, notice: t(".flashes.executed") }
       format.json { head :no_content }
     end
   end

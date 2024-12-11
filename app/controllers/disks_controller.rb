@@ -28,7 +28,7 @@ class DisksController < ApplicationController
 
     respond_to do |format|
       if @disk.save
-        format.html { redirect_to @disk.server, notice: 'Disk was successfully created.' }
+        format.html { redirect_to @disk.server, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @disk }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class DisksController < ApplicationController
   def update
     respond_to do |format|
       if @disk.update(disk_params)
-        format.html { redirect_to @disk.server, notice: 'Disk was successfully updated.' }
+        format.html { redirect_to @disk.server, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @disk }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class DisksController < ApplicationController
   def destroy
     @disk.destroy
     respond_to do |format|
-      format.html { redirect_to disks_url, notice: 'Disk a bien été supprimé.' }
+      format.html { redirect_to disks_url, notice: t(".flashes.destroyed") }
       format.json { head :no_content }
     end
   end

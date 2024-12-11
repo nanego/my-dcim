@@ -28,7 +28,7 @@ class MemoryComponentsController < ApplicationController
 
     respond_to do |format|
       if @memory_component.save
-        format.html { redirect_to @memory_component.server, notice: 'Memory component was successfully created.' }
+        format.html { redirect_to @memory_component.server, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @memory_component }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class MemoryComponentsController < ApplicationController
   def update
     respond_to do |format|
       if @memory_component.update(memory_component_params)
-        format.html { redirect_to @memory_component.server, notice: 'Memory component was successfully updated.' }
+        format.html { redirect_to @memory_component.server, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @memory_component }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class MemoryComponentsController < ApplicationController
   def destroy
     @memory_component.destroy
     respond_to do |format|
-      format.html { redirect_to memory_components_url, notice: 'Memory component a bien été supprimé.' }
+      format.html { redirect_to memory_components_url, notice: t(".flashes.destroyed") }
       format.json { head :no_content }
     end
   end
