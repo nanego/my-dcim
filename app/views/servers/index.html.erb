@@ -129,7 +129,7 @@
       <div style="visibility: hidden;" data-bulk-actions-target="actionsContainer">
         <span class="fw-bolder" data-bulk-actions-target="checkedCount"></span> elements selected:
 
-        <%= button_tag(type: :submit, class: "btn text-danger fs-4") do %>
+        <%= button_tag(type: :submit, class: "btn text-danger fs-4", data: { confirm: t("action.confirm") }) do %>
           <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
                                                                           data-controller="tooltip"
                                                                           data-bs-placement="left"></span>
