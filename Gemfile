@@ -3,13 +3,13 @@
 source "https://rubygems.org"
 ruby file: ".ruby-version"
 
-gem "rails", "~> 7.2.0"
+gem "rails", "~> 8.0.0"
 
 gem "bootstrap", "~> 5.3.2"
 gem "dartsass-sprockets"
 gem "jbuilder"
 gem "nokogiri", "~> 1.16"
-gem "rails-i18n", "~> 7.0.x"
+gem "rails-i18n", "~> 8.0.x"
 gem "sprockets-rails", require: "sprockets/railtie"
 gem "terser"
 
