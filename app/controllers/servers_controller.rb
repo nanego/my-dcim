@@ -61,7 +61,7 @@ class ServersController < ApplicationController
 
     respond_to do |format|
       if @server.save
-        format.html { redirect_to @server, notice: 'Server was successfully created.' }
+        format.html { redirect_to @server, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @server }
       else
         format.html { render :new }
@@ -73,7 +73,7 @@ class ServersController < ApplicationController
   def update
     respond_to do |format|
       if @server.update(server_params)
-        format.html { redirect_to @server, notice: 'Server was successfully updated.' }
+        format.html { redirect_to @server, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @server }
       else
         format.html { render :edit }
@@ -89,7 +89,7 @@ class ServersController < ApplicationController
                                       room_id: params[:import][:room_id],
                                       equipment_status_id: params[:import][:server_state_id])
     if value.is_a?(Frame)
-      redirect_to frame_path(value), notice: 'Les nouveaux serveurs ont été ajoutés'
+      redirect_to frame_path(value), notice: t(".flashes.imported")
     else
       @import_error = value
       render :import_csv

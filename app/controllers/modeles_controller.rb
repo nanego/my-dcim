@@ -37,7 +37,7 @@ class ModelesController < ApplicationController
 
     respond_to do |format|
       if @modele.save
-        format.html { redirect_to modele_path(@modele), notice: 'Nouveau modèle ajouté.' }
+        format.html { redirect_to modele_path(@modele), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @modele }
       else
         format.html { render :new }
@@ -49,7 +49,7 @@ class ModelesController < ApplicationController
   def update
     respond_to do |format|
       if @modele.update(modele_params)
-        format.html { redirect_to modele_path(@modele), notice: 'Le modèle a été mis à jour.' }
+        format.html { redirect_to modele_path(@modele), notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @modele }
       else
         format.html { render :edit }
@@ -61,7 +61,7 @@ class ModelesController < ApplicationController
   def destroy
     if @modele.destroy
       respond_to do |format|
-        format.html { redirect_to modeles_url, notice: 'Modele a bien été supprimé.' }
+        format.html { redirect_to modeles_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
