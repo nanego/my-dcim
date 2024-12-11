@@ -12,7 +12,9 @@ class ChangelogEntry < ApplicationRecord
   end
 
   def object_type_name
-    object_type&.safe_constantize&.model_name&.human || object_type
+    return if object_type.blank?
+
+    object_type.safe_constantize&.model_name&.human || object_type
   end
 
   def object_name
@@ -30,6 +32,8 @@ class ChangelogEntry < ApplicationRecord
   end
 
   def author_type_name
-    author_type&.safe_constantize&.model_name&.human || author_type
+    return if author_type.blank?
+
+    author_type.safe_constantize&.model_name&.human || author_type
   end
 end
