@@ -1,0 +1,9 @@
+<%= turbo_stream.update :ts_modele_form_preview do %>
+  <div class="modal-header">
+    <h5 class="modal-title"><%= t(".modal_title", modele_name: @modele.name) %></h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<% t("action.close") %>"></button>
+  </div>
+  <div class="modal-body">
+    <%= render partial: "draw_modele_compact", locals: { modele: @modele } %>
+  </div>
+<% end %>

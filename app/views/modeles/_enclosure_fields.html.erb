@@ -61,7 +61,7 @@
             </fieldset>
           </li>
           <%
-            composants = f.object.composants.select { |c| c.type_composant == TypeComposant.find_by_name('SLOT') }
+            composants = f.object.composants.select { |c| c.type_composant == TypeComposant.find_by_name("SLOT") }
             composants = composants.sort_by! { |c| c.try(:position) || (composants.size + 1) }
           %>
           <%= f.fields_for :composants, composants do |composant_fields| %>

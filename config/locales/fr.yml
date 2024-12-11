@@ -25,6 +25,7 @@ fr:
     create: Créer
     execute: Exécuter
     move: Déplacer
+    preview: Prévisualiser
   export_button:
     label: Exports
     exports:
@@ -421,6 +422,8 @@ fr:
         destroyed: Le modèle a bien été supprimé.
     duplicate:
       title: Dupliquer le modèle %{modele_name}
+    preview:
+      modal_title: Prévisualisation du modèle %{modele_name}
   external_app_records:
     index:
       title: Synchronisation avec GLPI
