@@ -48,6 +48,23 @@ class ServersController < ApplicationController
     head :ok # render empty body, status only
   end
 
+  def bulk_destroy
+    @servers = params[:item_ids].map { |id| Server.find(id) }
+
+    bulk_result = true
+    # bulk_result = @servers.map(&:destroy).all?
+
+    respond_to do |format|
+      if bulk_result
+        format.html { redirect_to servers_path(search_params), notice: t("servers.destroy.flashes.destroyed") }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to servers_path(search_params), alert: t("servers.destroy.flashes.not_destroyed") }
+        format.json { head :bad_request }
+      end
+    end
+  end
+
   def show; end
 
   def new
