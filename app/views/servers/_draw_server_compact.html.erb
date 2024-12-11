@@ -2,11 +2,8 @@
 
 <% if server.modele.present? %>
   <div class="very-specific-design" id="very-specific-design">
-
     <% server.modele.enclosures.each_with_index do |enclosure, index| %>
-
       <% composants_per_enclosure = enclosure.composants.slots %>
-
       <% if enclosure.display == "grid" %>
         <style>
           .enclosure-container {
@@ -33,11 +30,9 @@
             </div>
           <% end %>
         </div>
-
       <% else %>
         <table class="<%= class_names("slots", "mt-2": index > 0) %>">
           <tbody>
-
           <% if enclosure.display != "horizontal" %>
             <tr>
               <% composants_per_enclosure.each do |component| %>
@@ -51,9 +46,7 @@
                 </td>
               <% end %>
             </tr>
-
           <% else %>
-
             <% composants_per_enclosure.each do |component| %>
               <tr>
                 <th><%= slot_label(server, component) %></th>

@@ -25,4 +25,24 @@ RSpec.describe ModeleDecorator, type: :decorator do
       it { is_expected.to eq("Backbone 10Gbps, Backbone Fibre") }
     end
   end
+
+  describe "#displays_to_human" do
+    subject(:displays_to_human_sentence) { decorated_modele.displays_to_human }
+
+    context "when modele has no enclosure" do
+      let(:modele) { modeles(:four) }
+
+      it { is_expected.to be_nil }
+    end
+
+    context "when modele has one enclosure without a display set" do
+      it { is_expected.to eq("-, -") }
+    end
+
+    context "when modele has one enclosure with a display set" do
+      let(:modele) { modeles(:two) }
+
+      it { is_expected.to eq("Horizontale") }
+    end
+  end
 end
