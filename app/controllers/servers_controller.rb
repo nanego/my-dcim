@@ -50,9 +50,7 @@ class ServersController < ApplicationController
 
   def bulk_destroy
     @servers = params[:item_ids].map { |id| Server.find(id) }
-
-    bulk_result = true
-    # bulk_result = @servers.map(&:destroy).all?
+    bulk_result = @servers.map(&:destroy).all?
 
     respond_to do |format|
       if bulk_result
