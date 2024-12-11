@@ -618,15 +618,15 @@ fr:
       title: Nouvelle salle
     create:
       flashes:
-        created: La salle a été créé avec succès.
+        created: La salle a été créée avec succès.
     edit:
       title: Modifier la salle
     update:
       flashes:
-        updated: La salle a été mis à jour.
+        updated: La salle a été mise à jour.
     destroy:
       flashes:
-        destroyed: La salle a bien été supprimé.
+        destroyed: La salle a bien été supprimée.
 
   users:
     my_account:
@@ -737,7 +737,7 @@ fr:
   cables:
     destroy:
       flashes:
-        destroyed: Connection a bien été supprimé.
+        destroyed: La connexion a bien été supprimée.
   contacts:
     index:
       new_contact: Ajouter un contact
