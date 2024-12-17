@@ -3,7 +3,7 @@
 <% if server.modele.present? %>
   <div class="very-specific-design" id="very-specific-design">
     <% server.modele.enclosures.each_with_index do |enclosure, index| %>
-      <% composants_per_enclosure = enclosure.composants.slots %>
+      <% composants_per_enclosure = enclosure.composants.ordered.slots %>
       <% if enclosure.display == "grid" %>
         <style>
           .enclosure-container {

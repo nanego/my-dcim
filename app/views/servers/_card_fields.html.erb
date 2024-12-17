@@ -1,8 +1,8 @@
 <%
   if local_assigns[:enclosure].present?
-    composants = enclosure.composants.slots
+    composants = enclosure.composants.ordered.slots
   else
-    composants = server.modele.composants.slots
+    composants = server.modele.composants.ordered.slots
   end
 %>
 

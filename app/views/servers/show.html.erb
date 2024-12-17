@@ -150,7 +150,7 @@
 
             <dt class="pb-2"><%= Card.model_name.human.pluralize %></dt>
             <dd class="mb-0 pb-2 ps-3">
-              <% @server.modele.composants.slots.each do |slot| %>
+              <% @server.modele.composants.ordered.slots.each do |slot| %>
                 <% @server.cards.where(:composant_id => slot.id).each do |card| %>
                   <div>
                     <%= card.composant.name ? card.composant.name : card.composant.position %>
