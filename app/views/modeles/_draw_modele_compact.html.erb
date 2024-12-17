@@ -1,8 +1,13 @@
 <div class="d-flex align-items-center flex-column">
-  <% modele.enclosures.each.with_index do |enclosure, index| %>
+  <% modele.enclosures.reject(&:marked_for_destruction?).each.with_index do |enclosure, index| %>
     <%
-      composants_per_enclosure = enclosure.composants.select { |c| c.type_composant == TypeComposant.find_by_name("SLOT") }
-      composants_per_enclosure = composants_per_enclosure.sort_by! { |c| c.try(:position) || (composants_per_enclosure.size + 1) }
+      composants_per_enclosure = enclosure.composants.reject(&:marked_for_destruction?).select do |c|
+        c.type_composant == TypeComposant.find_by_name("SLOT")
+      end
+
+      composants_per_enclosure = composants_per_enclosure.sort_by! do |c|
+        c.try(:position) || (composants_per_enclosure.size + 1)
+      end
     %>
     <% if enclosure.display == "grid" %>
       <style>
