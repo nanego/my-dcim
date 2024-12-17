@@ -42,7 +42,7 @@ class ModelesController < ApplicationController
     else
       respond_to do |format|
         if @modele.save
-          format.html { redirect_to modele_path(@modele), notice:  t(".flashes.created") }
+          format.html { redirect_to modele_path(@modele), notice: t(".flashes.created") }
           format.json { render :show, status: :created, location: @modele }
         else
           format.html { render :new }
