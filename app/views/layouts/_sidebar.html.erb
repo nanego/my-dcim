@@ -53,7 +53,7 @@
         </strong>
         <ul class="list-unstyled fw-normal pb-2 small">
           <li>
-            <%= link_to t(".servers"),
+            <%= link_to Server.model_name.human.pluralize,
                         servers_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "servers") %>

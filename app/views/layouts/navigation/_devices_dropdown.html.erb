@@ -1,10 +1,10 @@
 <li class="nav-item" role="menuitem">
-  <%= link_to t(".equipments"), servers_grids_path, class: "nav-link d-block d-lg-none" %>
+  <%= link_to Server.model_name.human.pluralize, servers_grids_path, class: "nav-link d-block d-lg-none" %>
 </li>
 <li class="nav-item dropdown d-none d-lg-block" role="menuitem">
   <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
     aria-expanded="false">
-    <%= t(".equipments") %>
+    <%= Server.model_name.human.pluralize %>
   </a>
   <ul class="dropdown-menu">
     <li><%= link_to t(".search_equipment"), servers_grids_path, class: "dropdown-item" %></li>
