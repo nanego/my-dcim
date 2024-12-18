@@ -40,7 +40,7 @@
                                 <% if server.modele.present? %>
                                   <% server.modele.enclosures.each do |enclosure| %>
                                     <% cards = server.cards %>
-                                    <% components_per_enclosure = enclosure.composants.reject { |c| c.name&.downcase == "alim" } %>
+                                    <% components_per_enclosure = enclosure.composants.ordered.reject { |c| c.name&.downcase == "alim" } %>
                                     <% if enclosure.display != 'horizontal' %>
                                       <table>
                                         <tr>

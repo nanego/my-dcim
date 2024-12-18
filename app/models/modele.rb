@@ -15,8 +15,8 @@ class Modele < ApplicationRecord
   belongs_to :category, counter_cache: true
 
   accepts_nested_attributes_for :enclosures,
-                                :allow_destroy => true,
-                                :reject_if     => :all_blank
+                                allow_destroy: true,
+                                reject_if: :all_blank
 
   validate :validate_network_types_values
   normalizes :network_types, with: ->(values) { values.compact_blank }

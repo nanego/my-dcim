@@ -73,7 +73,7 @@
             <% end %>
 
             <% table.with_column(Enclosure.human_attribute_name(:display)) do |modele| %>
-              <%= modele.enclosures.map(&:display).join(', ') %>
+              <%= modele.decorated.displays_to_human %>
             <% end %>
 
             <% table.with_column(Server.model_name.human.pluralize, sort_by: :servers_count) do |modele| %>

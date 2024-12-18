@@ -13,6 +13,7 @@ class Composant < ApplicationRecord
   validates :name, format: { without: /\s/ }, allow_blank: true
 
   scope :slots, -> { where(type_composant: TypeComposant.find_by_name('SLOT')).order("composants.position ASC") }
+  scope :ordered, -> { order(position: :asc) }
 
   def to_s
     name.to_s
