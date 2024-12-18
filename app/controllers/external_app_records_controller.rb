@@ -9,6 +9,16 @@ class ExternalAppRecordsController < ApplicationController
     @pagy, @external_app_records = pagy(@external_app_records)
   end
 
+  def settings
+    @settings = ExternalAppRecordSetting.new(settings_params)
+
+    return unless params[:commit]
+
+    @settings.save
+
+    redirect_to external_app_records_path, notice: t(".flashes.saved")
+  end
+
   def sync_all_servers_with_glpi
     if ExternalAppRequest.exists?(status: ["pending", "in_progress"], external_app_name: "glpi")
       render json: { error: "Another request is already in progress" }
@@ -18,5 +28,9 @@ class ExternalAppRecordsController < ApplicationController
 
       render json: { request_id: request.id, status: request.status, progress: request.progress }
     end
+  end
+
+  def settings_params
+    params[:external_app_record_setting]&.permit(category_ids: []) || {}
   end
 end
