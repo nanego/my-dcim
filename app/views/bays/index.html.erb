@@ -36,10 +36,15 @@
       <div>
         <fieldset class="form-floating">
           <%= f.collection_select(:islet_ids,
-            Islet.includes(:room).order("rooms.site_id", "rooms.position", "rooms.name", :room_id, :name, :position),
-            :id, :name_with_room,
-            { prompt: true, multiple: true },
-            { class: "form-select", data: { controller: :select }  }) %>
+                                  Islet.includes(:room)
+                                       .order(
+                                         "rooms.site_id", "rooms.position", "rooms.name", :room_id, :name, :position
+                                       ),
+                                  :id,
+                                  :name_with_room,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select }  }
+          ) %>
           <%= f.label :islet_ids %>
         </fieldset>
       </div>
