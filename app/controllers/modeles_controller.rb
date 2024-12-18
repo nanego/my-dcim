@@ -35,25 +35,39 @@ class ModelesController < ApplicationController
   def create
     @modele = Modele.new(modele_params)
 
-    respond_to do |format|
-      if @modele.save
-        format.html { redirect_to modele_path(@modele), notice: t(".flashes.created") }
-        format.json { render :show, status: :created, location: @modele }
-      else
-        format.html { render :new }
-        format.json { render json: @modele.errors, status: :unprocessable_entity }
+    if params[:preview]
+      respond_to do |format|
+        format.turbo_stream { render :preview, status: :unprocessable_entity }
+      end
+    else
+      respond_to do |format|
+        if @modele.save
+          format.html { redirect_to modele_path(@modele), notice: t(".flashes.created") }
+          format.json { render :show, status: :created, location: @modele }
+        else
+          format.html { render :new }
+          format.json { render json: @modele.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
 
   def update
-    respond_to do |format|
-      if @modele.update(modele_params)
-        format.html { redirect_to modele_path(@modele), notice: t(".flashes.updated") }
-        format.json { render :show, status: :ok, location: @modele }
-      else
-        format.html { render :edit }
-        format.json { render json: @modele.errors, status: :unprocessable_entity }
+    @modele.assign_attributes(modele_params)
+
+    if params[:preview]
+      respond_to do |format|
+        format.turbo_stream { render :preview, status: :unprocessable_entity }
+      end
+    else
+      respond_to do |format|
+        if @modele.save
+          format.html { redirect_to modele_path(@modele), notice: t(".flashes.updated") }
+          format.json { render :show, status: :ok, location: @modele }
+        else
+          format.html { render :edit }
+          format.json { render json: @modele.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

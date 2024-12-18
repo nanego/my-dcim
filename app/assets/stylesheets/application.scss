@@ -412,21 +412,21 @@ span.port_container.unreferenced_client a {
   padding: 0;
   max-width: 600px;
   display: grid;
-  border: 1px gray solid;
+  border: 1px #999999 solid;
   grid-template-columns: auto;
   grid-template-rows: auto;
   gap: 1px;
-  background-color: lightgray;
+
   .component-label {
-    color: darkgray;
+    color: var(--bs-body-color);
     z-index: 1;
     padding-left: 5px;
     font-size: 10px;
     height: 1px;
   }
+
   .item {
-    background-color: white;
-    color: darkgray;
+    color: var(--bs-body-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -799,6 +799,11 @@ body {
 
   .export-button-move {
     max-width: 100px;
+  }
+
+  .icon-rotated {
+    transform: rotate(90deg);
+    display: inline-block;
   }
 
   nav.pagy-bootstrap.nav .pagination {

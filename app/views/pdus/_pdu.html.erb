@@ -1,5 +1,5 @@
 <h5 class="text-center"><%= link_to pdu.name[-1], edit_server_path(pdu.id) %></h5>
-<% pdu.modele.enclosures.first.composants.each do |component| %>
+<% pdu.modele.enclosures.first.composants.ordered.each do |component| %>
   <div class="py-0 px-3 mb-4 text-center">
     <%= link_to "#", class: "pdu-line" do %>
       <span class="badge text-bg-secondary"><%= component.name ? component.name[-2..-1] : ' ' %></span>

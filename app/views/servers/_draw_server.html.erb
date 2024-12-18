@@ -1,6 +1,6 @@
 <% if server.modele.present? %>
   <div class="float-end">
-    <% slots_sur_modele = server.modele.composants.slots %>
+    <% slots_sur_modele = server.modele.composants.ordered.slots %>
     <table class="slots">
       <thead>
       <% slots_sur_modele.each do |slot| %>
@@ -33,7 +33,7 @@
       <tr>
         <td>
           <%= ports_by_card(port_type: PortType.find_by_name('RJ'),
-                            port_quantity: server.modele.composants.where(type_composant_id: 3).count,
+                            port_quantity: server.modele.composants.ordered.where(type_composant_id: 3).count,
                             ports_data: Port.where(card: server.cards.joins(composant: :type_composant).where('type_composants.name = ?', 'CM')) )%>
         </td>
       </tr>
@@ -41,7 +41,7 @@
     </table>
   </div>
 
-  <% if server.modele.composants.where(type_composant_id: 2).count > 0 %>
+  <% if server.modele.composants.ordered.where(type_composant_id: 2).count > 0 %>
     <div class="float-end">
       <%= ports_by_card(port_type: PortType.find_by_name('IPMI'),
                         port_quantity: 1,
@@ -60,7 +60,7 @@
   <br>
   <i><%= link_to server.modele.try(:name), modele_path(server.modele) %></i>
   <div class="alims">
-    <% alims_sur_modele = server.modele.composants.where(type_composant_id: 1) %>
+    <% alims_sur_modele = server.modele.composants.ordered.where(type_composant_id: 1) %>
     <% alims_sur_modele.each_with_index do |composant_alim, i| %>
       <span class="alim">ALIM <%= i+1 %></span>
     <% end %>

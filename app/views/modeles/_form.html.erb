@@ -1,4 +1,4 @@
-<%= form_for(@modele, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+<%= form_for(@modele, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }, data: { turbo: true }) do |f| %>
   <%= render FormErrorsComponent.new(@modele) %>
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <fieldset class="col-12">
@@ -68,8 +68,20 @@
         <%= Modele.human_attribute_name("network_types.help") %>
       </div>
     </fieldset>
+  <% end %>
 
-    <fieldset data-controller="nested-form" class="col-12 mt-4">
+  <fieldset data-controller="nested-form" class="col-12">
+    <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+      <% card.with_header do %>
+        <div class="d-flex justify-content-between align-items-center">
+           <%= Enclosure.model_name.human.pluralize %>
+           <%= f.submit t("action.preview"),
+                        class: "btn btn-outline-primary btn-sm",
+                        name: :preview,
+                        data: { "bs-toggle": "modal", "bs-target": "#previewModal" } %>
+        </div>
+      <% end %>
+
       <div class="row g-3">
         <template data-nested-form-target="template">
           <%= f.fields_for :enclosures, f.object.enclosures.klass.new,
@@ -78,21 +90,27 @@
           <% end %>
         </template>
 
-        <%= f.label :enclosures, class: "form-label" %>
         <%= f.fields_for :enclosures do |enclosure_fields| %>
           <%= render partial: "enclosure_fields", locals: { f: enclosure_fields } %>
         <% end %>
 
         <div data-nested-form-target="target"></div>
+      </div>
+      <div class="modal fade" tabindex="-1" id="previewModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content" id="ts_modele_form_preview"></div>
+        </div>
+      </div>
 
-        <span class="text-center mt-2">
+      <% card.with_footer do %>
+        <span class="mx-auto">
           <button type="button" class="btn btn-outline-success btn-sm" data-action="nested-form#add">
             <span class="bi bi-plus-lg" aria-hidden="true"></span> <%= t(".add_enclosure") %>
           </button>
         </span>
-      </div>
-    </fieldset>
-  <% end %>
+      <% end %>
+    <% end %>
+  </fieldset>
 
   <%= render Form::ActionsComponent.new(f) %>
 <% end %>

@@ -2,11 +2,8 @@
 
 <% if server.modele.present? %>
   <div class="very-specific-design" id="very-specific-design">
-
     <% server.modele.enclosures.each_with_index do |enclosure, index| %>
-
-      <% composants_per_enclosure = enclosure.composants.slots %>
-
+      <% composants_per_enclosure = enclosure.composants.ordered.slots %>
       <% if enclosure.display == "grid" %>
         <style>
           .enclosure-container {
@@ -16,7 +13,7 @@
             grid-template-columns: repeat(<%= grid_max_nb_of_columns %>, 1fr); /* equal columns */
           }
         </style>
-        <div class="container enclosure-container">
+        <div class="container enclosure-container bg-dark-subtle">
           <% composants_per_enclosure.each do |component| %>
             <% class_name = "item-#{server.id}-#{component.name}" %>
             <style>
@@ -28,18 +25,15 @@
             <div class="component-label <%= class_name %>">
               <%= slot_label(server, component) %>
             </div>
-            <div class="item <%= class_name %>">
+            <div class="item <%= class_name %> bg-light-subtle">
               <%= render partial: "servers/draw_component", locals: { server: , component: , selected_port: } %>
             </div>
           <% end %>
         </div>
-
       <% else %>
         <table class="<%= class_names("slots", "mt-2": index > 0) %>">
           <tbody>
-
           <% if enclosure.display != "horizontal" %>
-
             <tr>
               <% composants_per_enclosure.each do |component| %>
                 <th><%= slot_label(server, component) %></th>
@@ -52,9 +46,7 @@
                 </td>
               <% end %>
             </tr>
-
           <% else %>
-
             <% composants_per_enclosure.each do |component| %>
               <tr>
                 <th><%= slot_label(server, component) %></th>
