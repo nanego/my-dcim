@@ -21,31 +21,56 @@ module List
           concat(tag.h5(t(".empty_table.title"), class: "card-title mt-3"))
         end
       else
-        render List::TableComponent.new do |table|
-          table.with_head do
-            render List::TableComponent::TableRow.new do
-              concat(render_bulk_head_cell) if @bulk
-
-              columns.each do |col|
-                concat(render_head_cell(col))
-              end
-            end
+        if @bulk
+          render_bulk_form do
+            render_data_table
           end
-
-          table.with_body do
-            @data.each do |data_row|
-              concat(render_row(data_row))
-            end
-          end
+        else
+          render_data_table
         end
       end
     end
 
     private
 
+    def render_data_table
+      render List::TableComponent.new do |table|
+        table.with_head do
+          render List::TableComponent::TableRow.new do
+            concat(render_bulk_head_cell) if @bulk
+
+            columns.each do |col|
+              concat(render_head_cell(col))
+            end
+          end
+        end
+
+        table.with_body do
+          @data.each do |data_row|
+            concat(render_row(data_row))
+          end
+        end
+      end
+    end
+
     def render_bulk_head_cell
       render(List::TableComponent::TableHeadCell.new(style: "width: 0;")) do
         tag.input class: "form-check-input", type: "checkbox", id: "checkboxAll", data: { bulk_actions_target: "checkboxAll" }
+      end
+    end
+
+    def render_bulk_form(&)
+      form_with url: bulk_destroy_servers_path, method: :delete, class: "d-flex flex-column row-gap-4", data: { controller: "bulk-actions" } do
+        concat(tag.div(style: "visibility: hidden;", data: { bulk_actions_target: "actionsContainer" }) do
+          concat(tag.span class: "fw-bolder", data: { bulk_actions_target: "checkedCount" })
+          concat(" " + t(".bulk.selected_elements"))
+
+          concat(button_tag(type: :submit, class: "btn text-danger fs-4", data: { confirm: t("action.confirm") }) do
+            tag.span(nil, class: "bi bi-trash", title: t("action.delete"), data: { controller: "tooltip", bs_placement: "left" })
+          end)
+        end)
+
+        concat(yield)
       end
     end
 
