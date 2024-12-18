@@ -29,7 +29,7 @@
         <fieldset class="form-floating">
           <%= f.collection_select(:architecture_ids, Architecture.sorted, :id, :to_s,
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select }  }) %>
+                                  { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :architecture_ids %>
         </fieldset>
       </div>
@@ -38,7 +38,7 @@
         <fieldset class="form-floating">
           <%= f.collection_select(:category_ids, Category.sorted, :id, :to_s,
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select }  }) %>
+                                  { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :category_ids %>
         </fieldset>
       </div>
@@ -47,7 +47,7 @@
         <fieldset class="form-floating">
           <%= f.collection_select(:manufacturer_ids, Manufacturer.sorted, :id, :to_s,
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select }  }) %>
+                                  { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :manufacturer_ids %>
         </fieldset>
       </div>
@@ -76,12 +76,14 @@
               <%= modele.enclosures.map(&:display).join(', ') %>
             <% end %>
 
-            <% table.with_column(Bay.model_name.human.pluralize, sort_by: :servers_count) do |modele| %>
+            <% table.with_column(Server.model_name.human.pluralize, sort_by: :servers_count) do |modele| %>
               <%= link_to servers_path(modele_ids: modele.id), data: { turbo_frame: :_top } do %>
-                <%= pluralize(
-                      modele.servers.count,
-                      modele.category.name.try(:downcase),
-                      "#{modele.category.name.try(:downcase)}#{ modele.category.name.blank? || modele.category.name[-1] == "s" || modele.category.name=="San" ? "" : "s" }")
+                <%= pluralize(modele.servers.count,
+                              modele.category.name.try(:downcase),
+                              "#{modele.category.name.try(:downcase)}#{modele.category.name.blank? ||
+                                modele.category.name.end_with?("s") ||
+                                modele.category.name == "San" ||
+                                modele.category.name.end_with?("eau") ? "" : "s"}")
                 %>
               <% end %>
             <% end %>
@@ -94,8 +96,8 @@
               <div class="btn-group btn-group-sm" role="group" aria-label="...">
                 <%= link_to duplicate_modele_path(modele), class: "btn btn-success", data: { turbo_frame: :_top } do %>
                   <span class="bi bi-copy" title="<%= t("action.duplicate") %>" aria-hidden="true"
-                                                                                data-controller="tooltip"
-                                                                                data-bs-placement="left"></span>
+                        data-controller="tooltip"
+                        data-bs-placement="left"></span>
                   <span class="visually-hidden"><%= t("action.duplicate") %></span>
                 <% end %>
                 <%= link_to edit_modele_path(modele), class: "btn btn-info", data: { turbo_frame: :_top } do %>
