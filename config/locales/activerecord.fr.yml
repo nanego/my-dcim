@@ -1,7 +1,7 @@
 fr:
   activerecord:
     models:
-      server: Serveur
+      server: Matériel
       room: Salle
       islet: Ilot
       bay: Baie
