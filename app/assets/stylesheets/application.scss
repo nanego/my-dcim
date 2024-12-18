@@ -849,14 +849,11 @@ body {
   }
 
   /* Tom-Select fix for bootstrap floating label */
+  /* + Clean filters form */
   .filters-component {
     .form-floating > .ts-wrapper {
         padding-top: 1.625rem !important;
         padding-bottom: 0.625rem !important;
-
-        @include media-breakpoint-up(lg) {
-          width: 300px;
-        }
     }
 
     .ts-wrapper.focus {
@@ -869,6 +866,15 @@ body {
         box-shadow: none;
         border: none;
         box-shadow: none;
+    }
+
+    div:not(.w-100) {
+      .form-floating > .ts-wrapper,
+      .form-floating > .form-control {
+        @include media-breakpoint-up(lg) {
+          width: 300px;
+        }
+      }
     }
   }
 
