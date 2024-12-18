@@ -3,7 +3,7 @@
 class ProcessorFilter < Filter
   def initialize(records, params, with: nil)
     @records = records
-    @rubanok_class = with || guess_processor_from_records
+    @rubanok_class = with || guess_processor_from_records(records)
 
     raise "Processor class missing" unless @rubanok_class
 
@@ -25,7 +25,7 @@ class ProcessorFilter < Filter
   private
 
   def guess_processor_from_records(records)
-    return if records.blank?
+    return if records.nil?
 
     "#{records.klass&.to_s&.pluralize}Processor".safe_constantize
   end
