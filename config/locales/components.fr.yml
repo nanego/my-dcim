@@ -18,3 +18,5 @@ fr:
     data_table_component:
       empty_table:
         title: Aucune donnée trouvée !
+      bulk:
+        selected_elements: éléments sélectionnés
