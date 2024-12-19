@@ -2,7 +2,7 @@
 
 class ConnectionsController < ApplicationController
   def index
-    @connections = Connection.includes(:port, :card, :server, :card_type, :port_type, cable: :connections)
+    @connections = Connection.includes(:card, :server, :card_type, :port_type, cable: :connections)
       .order(created_at: :desc)
     @filter = ProcessorFilter.new(@connections, params)
 

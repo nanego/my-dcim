@@ -2,14 +2,14 @@
 
 class ConnectionsProcessor < ApplicationProcessor
   include Sortable
-  SORTABLE_FIELDS = %w[ports.id cables.name servers.name cards.composant_id port_types.name].freeze
-
-  map :port_ids, filter_with: :non_empty_array do |port_ids:|
-    raw.joins(:port).where(ports: { id: port_ids })
-  end
+  SORTABLE_FIELDS = %w[cables.name servers.name cards.composant_id port_types.name].freeze
 
   map :cable_name do |cable_name:|
     raw.joins(:cable).where(cables: { name: cable_name })
+  end
+
+  map :cable_ids, filter_with: :non_empty_array do |cable_ids:|
+    raw.where(cable_id: cable_ids)
   end
 
   map :server_ids, filter_with: :non_empty_array do |server_ids:|

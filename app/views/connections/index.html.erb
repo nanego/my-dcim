@@ -12,12 +12,8 @@
     <% c.with_form do |f| %>
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:port_ids, Port.order(:id),
-                                  :id,
-                                  :id,
-                                  { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
-          <%= f.label :port_ids %>
+          <%= f.text_field :cable_name, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :cable_name %>
         </fieldset>
       </div>
 
@@ -45,13 +41,6 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.text_field :cable_name, class: "form-control", placeholder: t("filters.placeholder.search") %>
-          <%= f.label :cable_name %>
-        </fieldset>
-      </div>
-
-      <div>
-        <fieldset class="form-floating">
           <%= f.text_field :card_query, class: "form-control", placeholder: t("filters.placeholder.search") %>
           <%= f.label :card_query %>
         </fieldset>
@@ -62,10 +51,6 @@
   <%= turbo_frame_tag(dom_id(Connection, :table), data: { turbo_action: :advance }) do %>
     <div class="d-flex flex-column row-gap-4">
       <%= render List::DataTableComponent.new(@connections) do |table| %>
-        <% table.with_column(Connection.human_attribute_name(:port), sort_by: :"ports.id") do |connection| %>
-          <%= connection.port&.id %>
-        <% end %>
-
         <% table.with_column(Connection.human_attribute_name(:cable), sort_by: :"cables.name") do |connection| %>
           <% if connection.cable.color? %>
             <%= link_to connection.cable.name, connections_edit_path(from_port_id: connection.port),
@@ -76,12 +61,8 @@
           <% end %>
         <% end %>
 
-        <% unless (turbo_frame_request? && @filter.filled?(:server_ids)) %>
-          <% table.with_column(Server.model_name.human, sort_by: :"servers.name") do |connection| %>
-            <% if connection.server %>
-              <%= link_to connection.server, server_path(connection.server), data: { turbo_frame: :_top } %>
-            <% end %>
-          <% end %>
+        <% table.with_column("Matériels connectés") do |connection| %>
+          <%= connection.decorated.visualization %>
         <% end %>
 
         <% table.with_column(Card.model_name.human, sort_by: :"cards.composant_id") do |connection| # TODO: fix sorting %>
@@ -96,7 +77,7 @@
           <% end %>
         <% end %>
 
-        <% table.with_column(style: "min-width: 40px; width: 40px") do |connection| %>
+        <% table.with_column(style: "min-width: 50px; width: 50px") do |connection| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
             <%= link_to connections_edit_path(from_port_id: connection.port),
                         class: class_names("btn btn-info", "js_connection_edit_link_to": turbo_frame_request?),
@@ -105,6 +86,15 @@
                                                                          data-controller="tooltip"
                                                                          data-bs-placement="left"></span>
               <span class="visually-hidden"><%= t("action.edit") %></span>
+            <% end %>
+            <%= link_to cable_path(connection.cable),
+                        method: :delete,
+                        data: { confirm: t("action.confirm") },
+                        class: "btn btn-danger" do %>
+              <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                          data-controller="tooltip"
+                                                                          data-bs-placement="left"></span>
+              <span class="visually-hidden"><%= t("action.delete") %></span>
             <% end %>
           </div>
         <% end %>
