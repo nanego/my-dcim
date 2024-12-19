@@ -1,0 +1,34 @@
+<% provide(:title, t(".title")) %>
+<% breadcrumb_steps = {
+  t("servers.index.title") => servers_path,
+  t("external_app_records.index.title") => external_app_records_path,
+  t("action.configure") => "" }
+%>
+
+<%= render Page::HeadingComponent.new(
+  title: t(".title"), breadcrumb_steps:, back_button_url: external_app_records_path
+) %>
+<div class="col-12 p-4 border-top">
+  <%= form_with(model: @settings, url: settings_external_app_records_path, method: :put, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+    <%= render FormErrorsComponent.new(@settings) %>
+
+    <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+      <% card.with_header do %>
+        <%= t(".category_ids") %>
+      <% end %>
+
+      <fieldset class="col-12">
+        <%= f.collection_check_boxes :category_ids, Category.sorted, :id, :name  do |b| %>
+          <div class="form-check">
+            <%= b.check_box(class: "form-check-input") %>
+            <%= b.label(class: "form-check-label") %>
+          </div>
+        <% end %>
+      </fieldset>
+    <% end %>
+
+    <div class="col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top">
+      <%= f.submit(t("action.apply"), class: "btn btn-info") %>
+    </div>
+  <% end %>
+</div>

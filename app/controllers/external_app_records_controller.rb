@@ -6,7 +6,19 @@ class ExternalAppRecordsController < ApplicationController
     @filter = ProcessorFilter.new(@external_app_records, params)
     @external_app_records = @filter.results
 
+    @synchronised_categories = Category.glpi_synchronizable.pluck(:name).compact_blank.join(", ")
+
     @pagy, @external_app_records = pagy(@external_app_records)
+  end
+
+  def settings
+    @settings = ExternalAppRecordSetting.new(settings_params)
+
+    return unless params[:commit]
+
+    @settings.save
+
+    redirect_to external_app_records_path, notice: t(".flashes.saved")
   end
 
   def sync_all_servers_with_glpi
@@ -18,5 +30,9 @@ class ExternalAppRecordsController < ApplicationController
 
       render json: { request_id: request.id, status: request.status, progress: request.progress }
     end
+  end
+
+  def settings_params
+    params[:external_app_record_setting]&.permit(category_ids: []) || {}
   end
 end
