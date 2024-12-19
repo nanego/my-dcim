@@ -8,16 +8,22 @@
   title: t(".title"), breadcrumb_steps:, back_button_url: servers_path
 ) do |heading| %>
   <% heading.with_right_content do %>
-    <div class="align-self-center">
-      <%= button_to t(".start_synchronization"),
-                    sync_with_glpi_external_app_records_path,
+    <div class="d-flex align-self-center column-gap-2">
+      <%= button_to sync_with_glpi_external_app_records_path,
                     id: "sync_with_glpi_button",
                     class: "btn btn-outline-primary d-inline-block",
+                    title: t(".start_synchronization"),
                     remote: true,
-                    method: :put %>
-      <%= render ButtonComponent.new(t(".settings"), url: settings_external_app_records_path,
-                                                 variant: :outline_primary,
-                                                 icon: "sliders2", is_responsive: true) %>
+                    method: :put do %>
+        <i class="bi bi-arrow-repeat"></i>
+        <span class="ms-2 d-none d-md-inline-flex"><%= t(".start_synchronization") %></span>
+      <% end %>
+
+      <%= render ButtonComponent.new(t(".settings"),
+                                     url: settings_external_app_records_path,
+                                     variant: :secondary,
+                                     icon: "gear",
+                                     is_responsive: true) %>
     </div>
   <% end %>
 <% end %>
@@ -26,12 +32,16 @@
   <div class="alert alert-primary mb-0" role="alert" id="sync_alert">
     <div id="sync_latest_text">
       <i class="bi bi-info-circle-fill me-2"></i>
-      <span class="fst-italic">Dernière synchronisation complète :
-        <%- if date = ExternalAppRequest.completed.order('updated_at desc').limit(1).pluck(:updated_at).last %>
-          <%= l(date) %>
-        <%- else %>
-          aucune
-        <%- end %>
+      <span>
+        <span class="fst-italic">Dernière synchronisation complète :
+          <%- if date = ExternalAppRequest.completed.order('updated_at desc').limit(1).pluck(:updated_at).last %>
+            <%= l(date) %>
+          <%- else %>
+            aucune
+          <%- end %>
+        </span>
+        <hr>
+        <span class="d-inline-flex"><%= t(".synchronised_categories_list", categories: @synchronised_categories) %></span>
       </span>
     </div>
 
