@@ -428,7 +428,7 @@ fr:
       title: Synchronisation avec GLPI
       start_synchronization: Synchroniser avec GLPI
       settings: Configuration
-      synchronised_categories_list: "Liste des catégories synchronisées : %{categories}"
+      synchronised_categories_list: "Liste des catégories qui seront synchronisées : %{categories}"
     settings:
       title: Configuration de la synchronisation
       category_ids: Sélectionner les catégories à activer pour la synchronisation
