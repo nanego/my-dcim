@@ -1,5 +1,5 @@
 <%
-  title = Cable.model_name.human.pluralize
+  title = Connection.model_name.human.pluralize
   breadcrumb_steps = { title => "" }
 
   provide(:title, title)
@@ -9,17 +9,25 @@
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render List::DataTableComponent.new(@cables) do |table| %>
-    <% table.with_column(Cable.human_attribute_name(:name), sort_by: :name) do |cable| %>
-      <b><%= cable.name %></b>
+    <% table.with_column("Matériels connectés") do |cable| %>
+      <%= cable.decorated.servers %>
     <% end %>
 
-    <% table.with_column(Cable.human_attribute_name(:color), sort_by: :color) do |cable| %>
-      <%- if cable.color? %>
-        <span class="badge <%= cable.color %>">
-          <%= cable.color %>
-        </span>
-      <% end %>
+    <% table.with_column(Cable.model_name.human, sort_by: :name) do |cable| %>
+      <span class="<%= "port#{cable.connections.first.port_type} #{cable.color}"%>">
+        <%= cable.name %>
+      </span>
     <% end %>
+
+    <% table.with_column(Port.human_attribute_name(:vlans)) do |cable| %>
+      <%= cable.ports.first.vlans %>
+    <% end %>
+
+    <%# table.with_column(PortType.model_name.human, sort_by: :"port_types.name") do |cable| %>
+      <%# if port_type = cable.connections.first.port_type %>
+        <%#= link_to port_type.name, port_type_path(port_type), data: { turbo_frame: :_top } %>
+      <%# end %>
+    <%# end %>
 
     <% table.with_column(Cable.human_attribute_name(:special_case), sort_by: :special_case) do |cable| %>
       <%= cable.special_case ? t("boolean.true") : t("boolean.false") %>
@@ -29,9 +37,10 @@
       <%= cable.comments %>
     <% end %>
 
-    <% table.with_column(Connection.model_name.human, sort_by: :connections_count) do |cable| %>
-      <%= cable.connections_count %>
-    <% end %>
+    <!-- Remove this (and the counter on db etc) -->
+    <%# table.with_column(Connection.model_name.human, sort_by: :connections_count) do |cable| %>
+      <%#= link_to cable.connections_count, connections_path(cable_ids: cable) %>
+    <%# end %>
 
     <% table.with_column(style: "min-width: 50px; width: 50px") do |cable| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
@@ -41,7 +50,10 @@
                                                                      data-bs-placement="left"></span>
           <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
-        <%= link_to cable, method: :delete, data: { confirm: t('action.confirm') }, class: "btn btn-danger" do %>
+        <%= link_to cable_path(cable),
+                    method: :delete,
+                    data: { confirm: t("action.confirm") },
+                    class: "btn btn-danger" do %>
           <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
                                                                       data-controller="tooltip"
                                                                       data-bs-placement="left"></span>

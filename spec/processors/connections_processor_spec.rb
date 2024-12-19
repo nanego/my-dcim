@@ -46,34 +46,24 @@ RSpec.describe ConnectionsProcessor do
     end
   end
 
-  describe "when filtering by port_ids" do
-    let(:server) { Server.create!(name: "A", numero: "numeroA", frame: frames(:one), modele: modeles(:one)) }
-    let(:card) do
-      Card.create!(server:, card_type: card_types(:one), composant: composants(:one))
-    end
-    let(:port) { Port.create!(card:) }
+  describe "when filtering by cable_ids" do
     let(:cable) { Cable.create!(name: "cableA") }
-    let(:connection) { Connection.create!(cable:, port:) }
+    let(:connection) { Connection.create!(cable:, port: ports(:one)) }
 
     before { connection }
 
-    context "with one server_ids" do
-      let(:params) { { port_ids: port.id } }
+    context "with one cable_ids" do
+      let(:params) { { cable_ids: cable.id } }
 
       it { expect(result.size).to eq(1) }
       it { is_expected.to contain_exactly(connection) }
     end
 
-    context "with many port_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
-      let(:server_second) { Server.create!(name: "B", numero: "numeroB", frame: frames(:one), modele: modeles(:one)) }
-      let(:card_second) do
-        Card.create!(server: server_second, card_type: card_types(:one), composant: composants(:one))
-      end
-      let(:port_second) { Port.create!(card: card_second) }
+    context "with many cable_ids" do
       let(:cable_second) { Cable.create!(name: "cableB") }
-      let(:connection_second) { Connection.create!(cable: cable_second, port: port_second) }
+      let(:connection_second) { Connection.create!(cable: cable_second, port: ports(:one)) }
 
-      let(:params) { { port_ids: [port.id, port_second.id] } }
+      let(:params) { { cable_ids: [cable.id, cable_second.id] } }
 
       before do
         connection_second
