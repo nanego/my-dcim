@@ -425,6 +425,13 @@ fr:
   external_app_records:
     index:
       title: Synchronisation avec GLPI
+      start_synchronization: Démarrer la synchronisation avec GLPI
+      settings: Configuration
+    settings:
+      title: Configuration synchronisation avec GLPI
+      category_ids: Sélectionner les catégories à activer pour la synchronisation
+      flashes:
+        saved: "La configuration a bien été mise à jour."
   server_states:
     create:
       flashes:
