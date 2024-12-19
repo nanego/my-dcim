@@ -13,7 +13,7 @@ class ServersController < ApplicationController
       logger.warn("DEPRECATION WARNING: Search with 'name' is now deprecated. Use 'q' instead.")
     end
 
-    @servers = Server.includes(:frame, :room, :islet, bay: :frames, modele: :category)
+    @servers = Server.no_pdus.includes(:frame, :room, :islet, bay: :frames, modele: :category)
       .references(:room, :islet, :bay, modele: :category)
       .order(:name)
     @filter = ProcessorFilter.new(@servers, params)
@@ -24,6 +24,52 @@ class ServersController < ApplicationController
     respond_to do |format|
       format.json
       format.html { @pagy, @servers = pagy(@servers) }
+    end
+  end
+
+  def show; end
+
+  def new
+    @server = Server.new
+  end
+
+  def create
+    @server = Server.new(server_params)
+
+    respond_to do |format|
+      if @server.save
+        format.html { redirect_to @server, notice: t(".flashes.created") }
+        format.json { render :show, status: :created, location: @server }
+      else
+        format.html { render :new }
+        format.json { render json: @server.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def edit; end
+
+  def update
+    respond_to do |format|
+      if @server.update(server_params)
+        format.html { redirect_to @server, notice: t(".flashes.updated") }
+        format.json { render :show, status: :ok, location: @server }
+      else
+        format.html { render :edit }
+        format.json { render json: @server.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    respond_to do |format|
+      if @server.destroy
+        format.html { redirect_to servers_path(search_params), notice: t(".flashes.destroyed") }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to servers_path(search_params), alert: t(".flashes.not_destroyed") }
+        format.json { head :bad_request }
+      end
     end
   end
 
@@ -48,40 +94,6 @@ class ServersController < ApplicationController
     head :ok # render empty body, status only
   end
 
-  def show; end
-
-  def new
-    @server = Server.new
-  end
-
-  def edit; end
-
-  def create
-    @server = Server.new(server_params)
-
-    respond_to do |format|
-      if @server.save
-        format.html { redirect_to @server, notice: t(".flashes.created") }
-        format.json { render :show, status: :created, location: @server }
-      else
-        format.html { render :new }
-        format.json { render json: @server.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def update
-    respond_to do |format|
-      if @server.update(server_params)
-        format.html { redirect_to @server, notice: t(".flashes.updated") }
-        format.json { render :show, status: :ok, location: @server }
-      else
-        format.html { render :edit }
-        format.json { render json: @server.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   def import_csv; end
 
   def import
@@ -93,18 +105,6 @@ class ServersController < ApplicationController
     else
       @import_error = value
       render :import_csv
-    end
-  end
-
-  def destroy
-    respond_to do |format|
-      if @server.destroy
-        format.html { redirect_to servers_path(search_params), notice: t(".flashes.destroyed") }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to servers_path(search_params), alert: t(".flashes.not_destroyed") }
-        format.json { head :bad_request }
-      end
     end
   end
 
