@@ -423,6 +423,8 @@ fr:
       title: Dupliquer le modèle %{modele_name}
     preview:
       modal_title: Prévisualisation du modèle %{modele_name}
+    show:
+      preview: Prévisualisation
   external_app_records:
     index:
       title: Synchronisation avec GLPI
