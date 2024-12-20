@@ -55,6 +55,7 @@ Rails.application.routes.draw do
       post :sort
       get :import_csv
       post :import
+      post :bulk_manage
     end
 
     member do
