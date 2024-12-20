@@ -4,6 +4,6 @@
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<% t("action.close") %>"></button>
   </div>
   <div class="modal-body">
-    <%= render "visualization" %>
+    <%= render partial: "visualization", locals: { modele: @modele } %>
   </div>
 <% end %>

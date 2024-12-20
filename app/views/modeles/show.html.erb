@@ -38,7 +38,7 @@
           <%= t(".preview") %>
         <% end %>
 
-        <%= render "visualization" %>
+        <%= render partial: "visualization", locals: { modele: @modele } %>
       <% end %>
     </div>
   </div>
