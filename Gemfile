@@ -74,7 +74,7 @@ end
 
 group :production do
   gem "dalli"
-  gem "mini_racer", "~> 0.16.0"
+  gem "mini_racer", "~> 0.17.0.pre6"
   gem "passenger"
 end
 
