@@ -126,7 +126,7 @@
 
   <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance }, target: :_top) do %>
     <%= render List::DataTableComponent.new(@servers, bulk: true) do |table| %>
-      <% table.with_bulk_destroy %>
+      <% table.with_bulk_action(t("action.delete")) %>
 
       <% table.with_column(Server.human_attribute_name(:name), sort_by: :name) do |server| %>
         <%= link_to server.name, server_path(server), class: "fw-bold", data: { turbo_frame: :_top } %>

@@ -2,10 +2,14 @@
 
 module List
   class DataTableComponent < ApplicationComponent
+    # TODO: use erb template instead call?
+    # erb_template <<~ERB
+    # ERB
+
+    renders_many :bulk_actions, ->(title) { BulkAction.new(title) }
     renders_many :columns, lambda { |title = nil, **options, &block|
       DatatableColumn.new(title, **options, &block)
     }
-    renders_one :bulk_destroy
 
     def initialize(data, empty_icon: :table, **_options)
       @data = data
@@ -21,7 +25,7 @@ module List
           concat(tag.h5(t(".empty_table.title"), class: "card-title mt-3"))
         end
       else
-        if bulk?
+        if bulk_actions?
           render_bulk do
             render_data_table
           end
@@ -37,7 +41,7 @@ module List
       render List::TableComponent.new do |table|
         table.with_head do
           render List::TableComponent::TableRow.new do
-            concat(render_bulk_head_cell) if bulk?
+            concat(render_bulk_head_cell) if bulk_actions?
 
             columns.each do |col|
               concat(render_head_cell(col))
@@ -65,16 +69,12 @@ module List
           concat(tag.span class: "fw-bolder", data: { bulk_actions_target: "checkedCount" })
           concat(" " + t(".bulk.selected_elements"))
 
-          concat(render_bulk_destroy_action) if bulk_destroy.present?
+          bulk_actions.each do |bulk_action|
+            concat(bulk_action)
+          end
         end)
 
         concat(yield)
-      end
-    end
-
-    def render_bulk_destroy_action
-      button_tag(type: :submit, name: :bulk_destroy, class: "btn text-danger fs-4", data: { confirm: t("action.confirm") }) do
-        tag.span(nil, class: "bi bi-trash", title: t("action.delete"), data: { controller: "tooltip", bs_placement: "left" })
       end
     end
 
@@ -90,7 +90,7 @@ module List
 
     def render_row(row)
       render List::TableComponent::TableRow.new do
-        concat(render_bulk_row_cell(row.id)) if bulk?
+        concat(render_bulk_row_cell(row.id)) if bulk_actions?
 
         columns.each do |col|
           concat render List::TableComponent::TableCell.new(render_col(col, row), **col.html_options)
@@ -130,14 +130,24 @@ module List
       sanitize(direction == :desc ? "&#x2193;" : "&#x2191;")
     end
 
-    def bulk?
-      # Futures bulk actions slot should be appended here
-      @bulk ||= bulk_destroy.present?
-    end
-
     def manage_path
       path_name = "bulk_manage_#{@data.first.class.name.pluralize.underscore}_path"
       Rails.application.routes.url_helpers.send(path_name)
+    end
+
+    class BulkAction < ApplicationComponent
+      def initialize(title)
+        @title = title
+
+        super()
+      end
+
+      def call
+        # TODO: use ButtonComponent
+        button_tag(type: :submit, name: :bulk_destroy, class: "btn text-danger fs-4", data: { confirm: t("action.confirm") }) do
+          tag.span(nil, class: "bi bi-trash", title: @title, data: { controller: "tooltip", bs_placement: "left" })
+        end
+      end
     end
 
     class DatatableColumn < ApplicationComponent
