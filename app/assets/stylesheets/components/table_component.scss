@@ -1,0 +1,62 @@
+.table-component {
+  table {
+    --bs-table-hover-bg: rgb(var(--bs-tertiary-bg-rgb));
+    --bs-table-hover-color: var(--bs-link-color);
+
+    th {
+      a {
+        font-size: .9rem;
+        color: var(--bs-tertiary-color);
+
+        &:hover {
+          color: rgb(var(--bs-link-color-rgb));
+        }
+
+        i.bi-caret-down.active::before {
+          content: "\f229";
+        }
+
+        i.bi-caret-up.active::before {
+          content: "\f235";
+        }
+      }
+    }
+
+    tr {
+      td {
+        padding: 1rem .5rem;
+
+        a:not(.btn):not(.dropdown-item) {
+          color: inherit;
+          text-decoration: underline dashed;
+          text-decoration-color: rgba(var(--bs-body-color-rgb), 0.5);
+          text-underline-offset: 0.4em;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        /* &:nth-child(even) {
+          td {
+            background-color: var(--bs-table-color-state);
+          }
+        } */
+
+        &:hover {
+          a:not(.btn):not(.dropdown-item) {
+            &:hover {
+              text-decoration-color: rgba(var(--bs-link-color-rgb), 0.5);
+            }
+          }
+        }
+      }
+
+      &:last-child {
+        td {
+          border: none !important;
+        }
+      }
+    }
+  }
+}
