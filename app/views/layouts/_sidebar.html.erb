@@ -171,12 +171,6 @@
         <ul class="list-unstyled fw-normal pb-2 small">
           <li>
             <%= link_to Connection.model_name.human.pluralize,
-                        connections_path,
-                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                          active: controller.controller_name == "connections") %>
-          </li>
-          <li>
-            <%= link_to Cable.model_name.human.pluralize,
                         cables_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "cables") %>

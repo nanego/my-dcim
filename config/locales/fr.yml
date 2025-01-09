@@ -860,9 +860,12 @@ fr:
         network_type: Type de réseaux
         port_type_ids: Type de port
         port_ids: Port
-        cable_name: Câble
+        cable_name: Nom du câble
         server_ids: Matériel
         card_query: "Carte : nom, type ou composant"
+        colors: Couleurs du câble
+        special_case: Backbone réseau
+        comments: Commentaires
     placeholder:
       search: Rechercher ...
       quicksearch: Recherche rapide

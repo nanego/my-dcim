@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_04_143353) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_09_174008) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -105,7 +105,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_04_143353) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "comments"
     t.boolean "special_case"
-    t.integer "connections_count", default: 0, null: false
   end
 
   create_table "card_types", id: :serial, force: :cascade do |t|
