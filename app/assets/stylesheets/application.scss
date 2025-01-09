@@ -154,7 +154,6 @@ table.card_layout {
 }
 
 .portRJ, .portFC, .portSCSI, .portALIM {
-  cursor: pointer;
   position: relative;
   font-size: 10px;
   display: inline-block;
@@ -172,7 +171,8 @@ table.card_layout {
 .portRJ,
 .portFC,
 .portSCSI,
-.portALIM{
+.portALIM,
+.cable {
   // Colors are !important so we can print them
   &.R {
     color: #FFFFFF !important;
@@ -443,6 +443,59 @@ dd {
   font-weight: 700;
 }
 
+/* Cable index */
+.cable-index-servers {
+  .cable,
+  .badge.empty {
+    &.R {
+      border-color: #ee3b3b !important;
+    }
+    &.G {
+      border-color: #AAAAAA !important;
+    }
+    &.V {
+      border-color: green !important;
+    }
+    &.T {
+      border-color: #3B9C9C !important;
+    }
+    &.Vi {
+      border-color: #663399 !important;
+    }
+    &.M {
+      border-color: #8b4c39 !important;
+    }
+    &.B {
+      border-color: #4876ff !important;
+    }
+    &.N {
+      border-color: #000000 !important;
+    }
+    &.O {
+      border-color: #FF9000 !important;
+    }
+    &.W {
+      border-color: #FFFFFF !important;
+    }
+    &.J {
+      border-color: #FFDD00 !important;
+    }
+    &.P {
+      border-color: #ff9ee5 !important;
+    }
+  }
+
+  .badge {
+    &.no_client {
+      border: solid 2px #FF9000 !important;
+    }
+
+    &.unreferenced_client {
+      border: solid 2px red !important;
+    }
+  }
+}
+
 /* Page about */
 .about {
   .github-link {
@@ -455,11 +508,6 @@ dd {
     max-width: stretch;
   }
 }
-
-.align-middle {
-  vertical-align: middle !important;
-}
-
 
 /* MyDCIM CSS */
 html,

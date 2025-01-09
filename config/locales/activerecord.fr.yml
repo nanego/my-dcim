@@ -352,6 +352,19 @@ fr:
         color: Couleur
         special_case: Backbone réseau
         comments: Commentaires
+      cable/color:
+        black: Noir
+        brown: Marron
+        red: Rouge
+        orange: Orange
+        yellow: Jaune
+        green: Vert
+        turquoise: Turquoise
+        blue: Bleu
+        purple: Violet
+        pink: Rose
+        grey: Gris
+        white: Blanc
       port:
         cablename: Nom du câble
         color: Couleur

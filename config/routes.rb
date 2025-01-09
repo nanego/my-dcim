@@ -39,7 +39,6 @@ Rails.application.routes.draw do
   end
 
   resources :ports, except: %i[create]
-  get 'connections', to: "connections#index"
   get 'connections/edit', :action => 'edit', controller: 'connections'
   post 'connections/update_destination_server', :action => 'update_destination_server', controller: 'connections'
   post 'connections/update', :action => 'update', controller: 'connections'
