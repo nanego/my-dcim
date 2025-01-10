@@ -4,7 +4,7 @@ class Connection < ApplicationRecord
   has_changelog
 
   belongs_to :port, touch: true
-  belongs_to :cable, touch: true, counter_cache: true
+  belongs_to :cable, touch: true
 
   has_one :card, through: :port
   has_one :server, through: :port
