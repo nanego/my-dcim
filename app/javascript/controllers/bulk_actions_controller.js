@@ -65,7 +65,7 @@ export default class BulkActions extends Controller {
     this.updateCheckCountLabel(checkboxesCheckedCount)
   }
 
-  submit(e) {
+  async submit(e) {
     e.preventDefault()
 
     const method = e.target.dataset.method || "post"
@@ -77,14 +77,18 @@ export default class BulkActions extends Controller {
       responseKind: "turbo-stream",
     })
 
-    request.perform()
+    const response = await request.perform()
+    console.debug(response)
+    // console.debug(e.target.closest("turbo-frame"))
+    // e.target.closest("turbo-frame").reload()
 
-    // const response = request.perform()
-    // if (response.ok) {
-    //   const body = response.text
-    //   // Do whatever do you want with the response body
-    //   // You also are able to call `response.html` or `response.json`, be aware that if you call `response.json` and the response contentType isn't `application/json` there will be raised an error.
+    // if (response.redirected) {
+    //   Turbo.visit(response.response.url)
     // }
+
+    if (response.ok || response.unprocessableEntity) {
+      Turbo.renderStreamMessage(await response.text)
+    }
   }
 
   triggerInputEvent(checkbox) {

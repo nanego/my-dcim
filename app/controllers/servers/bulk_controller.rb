@@ -12,7 +12,7 @@ module Servers
           format.json { head :no_content }
         else
           # TODO: tell which records has not been removed
-          format.html { redirect_to servers_path, alert: t(".flashes.not_destroyed"), status: :unprocessable_content }
+          format.html { redirect_to servers_path, alert: t(".flashes.not_destroyed"), status: :see_other }
           format.json { head :bad_request }
         end
       end
