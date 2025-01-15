@@ -48,13 +48,16 @@ Rails.application.routes.draw do
 
   resources :clusters
   resources :stacks
+
+  namespace :servers do
+    resource :bulk, controller: :bulk, only: :destroy
+  end
   resources :servers do
     collection do
       get :grid
       post :sort
       get :import_csv
       post :import
-      post :bulk_manage
     end
 
     member do

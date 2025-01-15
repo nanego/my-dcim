@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { FetchRequest } from "@rails/request.js"
 
 export default class BulkActions extends Controller {
   static targets = ["checkboxAll", "checkedCount", "checkbox", "actionsContainer"]
@@ -62,6 +63,28 @@ export default class BulkActions extends Controller {
     }
 
     this.updateCheckCountLabel(checkboxesCheckedCount)
+  }
+
+  submit(e) {
+    e.preventDefault()
+
+    const method = e.target.dataset.method || "post"
+    let data = new FormData()
+    this.checked.forEach(checkbox => data.append("ids[]", checkbox.value))
+
+    const request = new FetchRequest(method, e.target.dataset.url, {
+      query: data,
+      responseKind: "turbo-stream",
+    })
+
+    request.perform()
+
+    // const response = request.perform()
+    // if (response.ok) {
+    //   const body = response.text
+    //   // Do whatever do you want with the response body
+    //   // You also are able to call `response.html` or `response.json`, be aware that if you call `response.json` and the response contentType isn't `application/json` there will be raised an error.
+    // }
   }
 
   triggerInputEvent(checkbox) {

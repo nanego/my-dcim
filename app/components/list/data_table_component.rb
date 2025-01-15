@@ -2,11 +2,7 @@
 
 module List
   class DataTableComponent < ApplicationComponent
-    # TODO: use erb template instead call?
-    # erb_template <<~ERB
-    # ERB
-
-    renders_many :bulk_actions, ->(title) { BulkAction.new(title) }
+    renders_many :bulk_actions, ->(*args, **kwargs) { DatatableBulkAction.new(*args, **kwargs) }
     renders_many :columns, lambda { |title = nil, **options, &block|
       DatatableColumn.new(title, **options, &block)
     }
@@ -25,49 +21,37 @@ module List
           concat(tag.h5(t(".empty_table.title"), class: "card-title mt-3"))
         end
       else
-        if bulk_actions?
-          render_bulk do
-            render_data_table
+        bulk_actions_wrapper do
+          render List::TableComponent.new do |table|
+            table.with_head do
+              render List::TableComponent::TableRow.new do
+                concat(render_bulk_head_checkbox) if bulk_actions?
+
+                columns.each do |col|
+                  concat(render_head_cell(col))
+                end
+              end
+            end
+
+            table.with_body do
+              @data.each do |data_row|
+                concat(render_row(data_row))
+              end
+            end
           end
-        else
-          render_data_table
         end
       end
     end
 
     private
 
-    def render_data_table
-      render List::TableComponent.new do |table|
-        table.with_head do
-          render List::TableComponent::TableRow.new do
-            concat(render_bulk_head_cell) if bulk_actions?
+    def bulk_actions_wrapper
+      return yield unless bulk_actions?
 
-            columns.each do |col|
-              concat(render_head_cell(col))
-            end
-          end
-        end
-
-        table.with_body do
-          @data.each do |data_row|
-            concat(render_row(data_row))
-          end
-        end
-      end
-    end
-
-    def render_bulk_head_cell
-      render(List::TableComponent::TableHeadCell.new(style: "width: 0;")) do
-        tag.input class: "form-check-input", type: "checkbox", id: "checkboxAll", data: { bulk_actions_target: "checkboxAll" }
-      end
-    end
-
-    def render_bulk(&)
-      form_with url: manage_path, method: :post, class: "d-flex flex-column row-gap-4", data: { controller: "bulk-actions" } do
+      tag.div data: { controller: "bulk-actions" } do
         concat(tag.div(style: "visibility: hidden;", data: { bulk_actions_target: "actionsContainer" }) do
-          concat(tag.span class: "fw-bolder", data: { bulk_actions_target: "checkedCount" })
-          concat(" " + t(".bulk.selected_elements"))
+          concat(tag.span(class: "fw-bolder", data: { bulk_actions_target: "checkedCount" }))
+          concat(" #{t(".bulk.selected_elements")}")
 
           bulk_actions.each do |bulk_action|
             concat(bulk_action)
@@ -75,6 +59,12 @@ module List
         end)
 
         concat(yield)
+      end
+    end
+
+    def render_bulk_head_checkbox
+      render(List::TableComponent::TableHeadCell.new(style: "width: 0;")) do
+        tag.input class: "form-check-input", type: :checkbox, data: { bulk_actions_target: "checkboxAll" }
       end
     end
 
@@ -90,7 +80,7 @@ module List
 
     def render_row(row)
       render List::TableComponent::TableRow.new do
-        concat(render_bulk_row_cell(row.id)) if bulk_actions?
+        concat(render_bulk_checkbox(row)) if bulk_actions?
 
         columns.each do |col|
           concat render List::TableComponent::TableCell.new(render_col(col, row), **col.html_options)
@@ -98,9 +88,9 @@ module List
       end
     end
 
-    def render_bulk_row_cell(item_id)
+    def render_bulk_checkbox(row)
       render List::TableComponent::TableCell.new do
-        check_box_tag "item_ids[]", item_id, class: "form-check-input", value: item_id, data: { bulk_actions_target: "checkbox" }
+        check_box_tag "ids[]", row.id, class: "form-check-input", value: row.id, data: { bulk_actions_target: "checkbox" }
       end
     end
 
@@ -130,23 +120,25 @@ module List
       sanitize(direction == :desc ? "&#x2193;" : "&#x2191;")
     end
 
-    def manage_path
-      path_name = "bulk_manage_#{@data.first.class.name.pluralize.underscore}_path"
-      Rails.application.routes.url_helpers.send(path_name)
-    end
+    class DatatableBulkAction < ApplicationComponent
+      attr_reader :title, :url, :method, :options
 
-    class BulkAction < ApplicationComponent
-      def initialize(title)
+      def initialize(title, url:, method:, **options)
         @title = title
+        @url = url
+        @options = options
+        @method = method || :post
 
         super()
       end
 
       def call
-        # TODO: use ButtonComponent
-        button_tag(type: :submit, name: :bulk_destroy, class: "btn text-danger fs-4", data: { confirm: t("action.confirm") }) do
-          tag.span(nil, class: "bi bi-trash", title: @title, data: { controller: "tooltip", bs_placement: "left" })
-        end
+        # TODO: use button component?
+        tag.button(title, type: :button, data: { method:, url:, action: "bulk-actions#submit" })
+
+        # button_tag(type: :submit, name: :bulk_destroy, class: "btn text-danger fs-4", data: { confirm: t("action.confirm") }) do
+        #   tag.span(nil, class: "bi bi-trash", title: @title, data: { controller: "tooltip", bs_placement: "left" })
+        # end
       end
     end
 

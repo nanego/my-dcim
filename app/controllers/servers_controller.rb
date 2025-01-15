@@ -2,7 +2,6 @@
 
 class ServersController < ApplicationController
   include ServersHelper
-  include BulkActions
 
   before_action :set_server, only: [:show, :edit, :update, :destroy, :destroy_connections]
 

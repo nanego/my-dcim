@@ -19,4 +19,4 @@ fr:
       empty_table:
         title: Aucune donnée trouvée !
       bulk:
-        selected_elements: éléments sélectionnés
+        selected_elements: élément(s) sélectionné(s)
