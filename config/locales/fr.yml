@@ -747,6 +747,8 @@ fr:
     decorator:
       no_frame_warning_text: Veuillez renseigner un châssis à cette baie
   cables:
+    index:
+      instructions_to_show_hide_vlans: Cliquer pour afficher / cacher les Vlans
     destroy:
       flashes:
         destroyed: La connexion a bien été supprimée.
@@ -866,6 +868,7 @@ fr:
         colors: Couleurs du câble
         special_case: Backbone réseau
         comments: Commentaires
+        vlans: Vlans
     placeholder:
       search: Rechercher ...
       quicksearch: Recherche rapide

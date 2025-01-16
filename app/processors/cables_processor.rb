@@ -20,6 +20,10 @@ class CablesProcessor < ApplicationProcessor
     raw.where(Cable.arel_table[:comments].matches("%#{comments}%"))
   end
 
+  map :vlans do |vlans:|
+    raw.joins(:ports).where(Port.arel_table[:vlans].matches("%#{vlans}%"))
+  end
+
   map :server_ids, filter_with: :non_empty_array do |server_ids:|
     raw.joins(:servers).where(servers: { id: server_ids })
   end
