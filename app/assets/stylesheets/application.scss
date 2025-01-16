@@ -445,8 +445,21 @@ dd {
 
 /* Cable index */
 .cable-index-servers {
-  .cable,
-  .badge.empty {
+  min-width: 450px;
+
+  & > .d-flex {
+    padding-left: 37px;
+  }
+
+  .btn-collapse-vlans {
+    transition: transform 0.3s ease-in-out;
+
+    &[aria-expanded="true"] {
+      transform: rotate(-180deg);
+    }
+   }
+
+  .cable {
     &.R {
       border-color: #ee3b3b !important;
     }
@@ -485,13 +498,18 @@ dd {
     }
   }
 
-  .badge {
+  .port {
     &.no_client {
       border: solid 2px #FF9000 !important;
     }
+  }
 
-    &.unreferenced_client {
-      border: solid 2px red !important;
+  .vlans-card {
+    width: min-content;
+    min-width: fit-content;
+
+    & > .d-flex {
+      min-width: 400px;
     }
   }
 }
@@ -852,6 +870,10 @@ body {
   .icon-rotated {
     transform: rotate(90deg);
     display: inline-block;
+  }
+
+  .overflow-wrap {
+    overflow-wrap: break-word;
   }
 
   nav.pagy-bootstrap.nav .pagination {
