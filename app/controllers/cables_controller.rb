@@ -11,7 +11,7 @@ class CablesController < ApplicationController
       .order(created_at: :desc)
     @filter = ProcessorFilter.new(@cables, params)
 
-    @pagy, @cables = pagy(@filter.results)
+    @pagy, @cables = pagy(@filter.results.distinct)
   end
 
   def destroy

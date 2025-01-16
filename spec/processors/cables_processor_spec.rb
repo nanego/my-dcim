@@ -64,6 +64,19 @@ RSpec.describe CablesProcessor do
     it { is_expected.to contain_exactly(cable) }
   end
 
+  describe "when searching by vlans" do
+    let(:port) { Port.create!(vlans: "vlan1", card: cards(:one)) }
+    let(:cable) { Cable.create!(name: "cableA") }
+    let(:connection) { Connection.create!(cable:, port:) }
+
+    let(:params) { { vlans: "vlan1" } }
+
+    before { connection }
+
+    it { expect(result.size).to eq(1) }
+    it { is_expected.to contain_exactly(cable) }
+  end
+
   describe "when filtering by server_ids" do
     let(:server) { Server.create!(name: "A", numero: "numeroA", frame: frames(:one), modele: modeles(:one)) }
     let(:card) do
