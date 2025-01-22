@@ -5,12 +5,14 @@ require "rails_helper"
 RSpec.describe "/servers" do
   let(:server) { servers(:one) }
   let(:server2) { servers(:two) }
+  let(:pdu) { servers(:pdu) }
 
   before do
     sign_in users(:one)
 
     server.save!
     server2.save!
+    pdu.save!
   end
 
   describe "GET /index" do
@@ -20,6 +22,7 @@ RSpec.describe "/servers" do
     it { expect(response).to render_template(:index) }
     it { expect(response.body).to include(server.name) }
     it { expect(response.body).to include(server2.name) }
+    it { expect(response.body).not_to include(pdu.name) }
 
     context "when searching on name" do
       before { get servers_path(q: "ServerName1") }

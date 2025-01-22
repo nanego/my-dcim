@@ -49,6 +49,7 @@ pdu:
   modele_id: 3
   side: right
   color: B
+  numero: PDU_1
 
 with_cluster:
   frame_id: 1
