@@ -2,6 +2,9 @@ en:
   action:
     preview: Preview
 
+  cables:
+    index:
+      title: Connections
   rooms:
     action_buttons:
       caption:

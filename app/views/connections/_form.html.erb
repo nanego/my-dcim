@@ -112,7 +112,7 @@
     <% if @cable && remote %>
       <div class="col-12 mt-4 border-top pt-4 text-center">
         <h5 class="mb-4"><%= t(".delete_title") %></h5>
-        <%= link_to cable_path(id: @cable.id, redirect_to_port_id: @from_port.id),
+        <%= link_to cable_path(id: @cable.id),
                     method: :delete,
                     data: { confirm: t(".action.delete_confirmation") },
                     class: "btn btn-danger" do %>

@@ -15,7 +15,7 @@
   <% heading.with_right_content do %>
     <% if @cable %>
       <% render ButtonComponent.new(t("action.delete"),
-                                    url: cable_path(id: @cable.id, redirect_to_port_id: @from_port.id),
+                                    url: cable_path(id: @cable.id),
                                     variant: :danger,
                                     icon: "trash",
                                     is_responsive: true,
