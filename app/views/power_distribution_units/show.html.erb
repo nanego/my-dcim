@@ -337,7 +337,7 @@
   <div class="tab-pane fade" id="connections-tab-pane" role="tabpanel" aria-labelledby="connections-tab" tabindex="0">
     <%= render HasManyTurboFrameComponent.new(
       Connection.model_name.human.pluralize,
-      url: connections_path(server_ids: @pdu.id),
+      url: cables_path(server_ids: @pdu.id),
       frame_id: dom_id(Connection, :table),
       extra_classes: "bg-body-tertiary"
     ) do |c| %>
