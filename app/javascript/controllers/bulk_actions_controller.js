@@ -77,6 +77,7 @@ export default class BulkActions extends Controller {
       responseKind: "turbo-stream",
     })
 
+    this.showProgressBar()
     const response = await request.perform()
     console.debug(response)
     // console.debug(e.target.closest("turbo-frame"))
@@ -86,9 +87,29 @@ export default class BulkActions extends Controller {
     //   Turbo.visit(response.response.url)
     // }
 
-    if (response.ok || response.unprocessableEntity) {
-      Turbo.renderStreamMessage(await response.text)
+    // if (response.ok || response.unprocessableEntity) {
+    //   Turbo.renderStreamMessage(await response.text)
+    // }
+
+    if (response.redirected) {
+    if (response.redirected && !response.isTurboStream) {
+      Turbo.visit(response.response.url, {
+        action: "replace",
+        response: {
+          statusCode: 200,
+          responseHTML: await response.text,
+          redirected: true,
+        },
+      })
     }
+    this.hideProgressBar()
+    //   // Turbo.navigator.adapter.visitProposedToLocation(response.response.url, {
+    //   //   action: "replace",
+    //   //   response: response.response,
+    //   //   shouldCacheSnapshot: false,
+    //   //   willRender: false
+    //   // })
+    // }
   }
 
   triggerInputEvent(checkbox) {
@@ -104,6 +125,16 @@ export default class BulkActions extends Controller {
       this.checkedCountTarget.innerText = checkCount
       this.actionsContainerTarget.style.visibility = "visible"
     }
+  }
+
+  showProgressBar() {
+    Turbo.navigator.delegate.adapter.progressBar.setValue(0)
+    Turbo.navigator.delegate.adapter.progressBar.show()
+  }
+
+  hideProgressBar() {
+    Turbo.navigator.delegate.adapter.progressBar.setValue(1)
+    Turbo.navigator.delegate.adapter.progressBar.hide()
   }
 
   get checked() {

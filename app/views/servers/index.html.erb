@@ -124,7 +124,7 @@
     <% end %>
   <% end %>
 
-  <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance, turbo: true }) do %>
+  <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance }) do %>
     <div class="d-flex flex-column row-gap-4">
       <%= render List::DataTableComponent.new(@servers) do |table| %>
         <% table.with_bulk_action(t("action.delete"), url: servers_bulk_path, method: :delete) %>
