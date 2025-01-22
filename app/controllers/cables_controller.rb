@@ -15,8 +15,6 @@ class CablesController < ApplicationController
   end
 
   def destroy
-    params[:redirect_to_port_id]
-
     @cable.ports.each do |port|
       if @from_server.nil?
         @from_server = port.server

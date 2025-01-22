@@ -748,6 +748,7 @@ fr:
       no_frame_warning_text: Veuillez renseigner un châssis à cette baie
   cables:
     index:
+      title: Connexions
       instructions_to_show_hide_vlans: Cliquer pour afficher / cacher les Vlans
     destroy:
       flashes:
