@@ -130,7 +130,7 @@
         <% table.with_bulk_action(url: bulk_servers_path, method: :delete, class: "btn text-danger fs-4",
                                   data: { confirm: t("action.confirm") }
         ) do %>
-          <span class="bi bi-trash" title="<%= t("action.delete") %>" data-controller="tooltip" bs_placement="left">
+          <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>" data-controller="tooltip" bs_placement="left" aria-disabled="true">
           </span>
         <% end %>
 

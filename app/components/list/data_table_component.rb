@@ -125,17 +125,29 @@ module List
 
       def initialize(title = nil, url:, method:, **options)
         @title = title
-        @url = url
         @options = options
-        @method = method || :post
+        confirm = @options[:data].delete(:confirm) || @options[:data].delete(:turbo_confirm)
+
+        data = {
+          bulk_actions_method_param: method || :post,
+          bulk_actions_url_param: url,
+          bulk_actions_confirm_param: confirm,
+          action: "bulk-actions#submit",
+        }
+        @options[:data] = data.merge(options[:data]) do |key, a, b|
+          case key
+          when :action
+            class_names(a, b)
+          else
+            b
+          end
+        end
 
         super()
       end
 
       def call
-        tag.button(type: :button, data: { method:, url:, action: "bulk-actions#submit" }, **@options) do
-          @title || content
-        end
+        tag.button(type: :button, **@options) { @title || content }
       end
     end
 

@@ -68,11 +68,18 @@ export default class BulkActions extends Controller {
   async submit(e) {
     e.preventDefault()
 
-    const method = e.target.dataset.method || "post"
+    if (typeof e.params.confirm === "string") {
+      if (!await this.confirm(e.params.confirm)) {
+        return
+      }
+    }
+
+    const method = e.params.method || "post"
+    const url = e.params.url
     let data = new FormData()
     this.checked.forEach(checkbox => data.append("ids[]", checkbox.value))
 
-    const request = new FetchRequest(method, e.target.dataset.url, {
+    const request = new FetchRequest(method, url, {
       query: data,
       responseKind: "turbo-stream",
     })
@@ -106,6 +113,10 @@ export default class BulkActions extends Controller {
       this.checkedCountTarget.innerText = checkCount
       this.actionsContainerTarget.style.visibility = "visible"
     }
+  }
+
+  async confirm(message) {
+    return Promise.resolve(confirm(message))
   }
 
   showProgressBar() {

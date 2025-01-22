@@ -48,7 +48,6 @@ Rails.application.routes.draw do
 
   resources :clusters
   resources :stacks
-
   resources :servers do
     collection do
       get :grid
