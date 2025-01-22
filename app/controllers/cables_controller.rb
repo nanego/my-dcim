@@ -4,13 +4,17 @@ class CablesController < ApplicationController
   before_action :set_cable, only: [:destroy]
 
   def index
-    @cables = sorted(Cable.includes(:connections, connections: [:port]).order(created_at: :desc))
-    @pagy, @cables = pagy(@cables)
+    @cables = Cable.includes(:connections,
+                             connections: [:port, :server, :card],
+                             cards: [:card_type],
+                             card_types: [:port_type])
+      .order(created_at: :desc)
+    @filter = ProcessorFilter.new(@cables, params)
+
+    @pagy, @cables = pagy(@filter.results.distinct)
   end
 
   def destroy
-    port_id = params[:redirect_to_port_id]
-
     @cable.ports.each do |port|
       if @from_server.nil?
         @from_server = port.server
@@ -23,7 +27,7 @@ class CablesController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to connections_edit_path(from_port_id: port_id), notice: t(".flashes.destroyed")
+        redirect_to cables_path, notice: t(".flashes.destroyed")
       end
 
       format.js { render 'connections/update' }

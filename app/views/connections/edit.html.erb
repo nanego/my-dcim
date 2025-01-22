@@ -4,18 +4,18 @@
   breadcrumb_steps = {
     @room.name => room_path(@room),
     "Baie #{@frame.name}" => frame_path(@frame),
-    Connection.model_name.human.pluralize => connections_path,
+    Connection.model_name.human.pluralize => cables_path,
     t("action.edit") => ""
   }
 %>
 
 <%= render Page::HeadingComponent.new(
-  title: t(".title"), breadcrumb_steps:, back_button_url: connections_path
+  title: t(".title"), breadcrumb_steps:, back_button_url: cables_path
 ) do |heading| %>
   <% heading.with_right_content do %>
     <% if @cable %>
       <% render ButtonComponent.new(t("action.delete"),
-                                    url: cable_path(id: @cable.id, redirect_to_port_id: @from_port.id),
+                                    url: cable_path(id: @cable.id),
                                     variant: :danger,
                                     icon: "trash",
                                     is_responsive: true,

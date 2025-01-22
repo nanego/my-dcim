@@ -8,5 +8,9 @@ RSpec.describe Cable do
   describe "associations" do
     it { is_expected.to have_many(:connections).dependent(:destroy) }
     it { is_expected.to have_many(:ports).through(:connections) }
+    it { is_expected.to have_many(:servers).through(:connections) }
+    it { is_expected.to have_many(:cards).through(:connections) }
+    it { is_expected.to have_many(:card_types).through(:cards) }
+    it { is_expected.to have_many(:port_types).through(:card_types) }
   end
 end
