@@ -8,13 +8,16 @@ class ServerTest < ActiveSupport::TestCase
     refute_includes Server.only_pdus, servers(:one)
   end
 
-  test 'scope no_puds' do
+  test 'scope no_pdus' do
     refute_includes Server.no_pdus, servers(:pdu)
     assert_includes Server.no_pdus, servers(:one)
   end
 
   test '#documentation_url with no documentation_url value on manufacturer' do
-    assert_nil servers(:pdu).documentation_url
+    server = servers(:pdu)
+    server.numero = nil
+
+    assert_nil server.documentation_url
   end
 
   test '#documentation_url with no numero value on manufacturer' do

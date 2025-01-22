@@ -86,7 +86,7 @@
       <div class="col-12 mt-4" data-controller="nested-form">
         <template data-nested-form-target="template">
           <%= f.fields_for :cards, f.object.cards.klass.new, child_index: '__NEW_RECORD__' do |card_fields| %>
-            <%= render partial: "card_fields", locals: { f: card_fields, server: @pdu, enclosure: enclosure } %>
+            <%= render partial: "servers/card_fields", locals: { f: card_fields, server: @pdu, enclosure: enclosure } %>
           <% end %>
         </template>
 
@@ -99,7 +99,7 @@
             <% cards = @pdu.cards.select { |c| c.composant.enclosure == enclosure }
                                     .sort_by! { |c| c.composant.position } %>
             <%= f.fields_for :cards, cards do |card_fields| %>
-              <%= render partial: "card_fields", locals: { f: card_fields, server: @pdu, enclosure: enclosure } %>
+              <%= render partial: "servers/card_fields", locals: { f: card_fields, server: @pdu, enclosure: enclosure } %>
             <% end %>
 
             <div data-nested-form-target="target" class="d-none"></div>
@@ -126,7 +126,7 @@
   <fieldset class="col-12 mt-4" data-controller="nested-form">
     <template data-nested-form-target="template">
       <%= f.fields_for :documents, f.object.documents.klass.new, child_index: '__NEW_RECORD__' do |document_fields| %>
-        <%= render partial: "document_fields", locals: { f: document_fields } %>
+        <%= render partial: "servers/document_fields", locals: { f: document_fields } %>
       <% end %>
     </template>
 
@@ -136,7 +136,7 @@
       <% end %>
 
       <%= f.fields_for :documents do |document_fields| %>
-        <%= render partial: "document_fields", locals: { f:  document_fields } %>
+        <%= render partial: "servers/document_fields", locals: { f:  document_fields } %>
       <% end %>
 
       <div data-nested-form-target="target"></div>

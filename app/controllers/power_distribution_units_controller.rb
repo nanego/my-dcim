@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PowerDistributionUnitsController < ServersController
+class PowerDistributionUnitsController < ApplicationController
   before_action :set_pdu, only: %i[show edit update destroy destroy_connections]
 
   def index
