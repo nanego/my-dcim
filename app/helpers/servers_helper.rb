@@ -81,7 +81,6 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
           if (cell_index + 1) % number_of_columns_in_cell(card.orientation, ports_per_cell, card_type.max_aligned_ports) == 0 # Every XX ports do
             html += '</div><div class="d-flex">'
           end
-
         end
 
         html += "</div></td>"

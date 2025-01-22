@@ -1,5 +1,5 @@
 <%
-  title = Cable.model_name.human.pluralize
+  title = t(".title")
   breadcrumb_steps = { title => "" }
 
   provide(:title, title)
@@ -8,48 +8,173 @@
 <%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
-  <%= render List::DataTableComponent.new(@cables) do |table| %>
-    <% table.with_column(Cable.human_attribute_name(:name), sort_by: :name) do |cable| %>
-      <b><%= cable.name %></b>
-    <% end %>
+  <%= render FilterComponent.new(@filter) do |c| %>
+    <% c.with_form do |f| %>
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:server_ids, Server.no_pdus.order(:name),
+                                  :id,
+                                  :to_s,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select",
+                                    data: { controller: :select, select_options_value: { maxOptions: nil } } }) %>
+          <%= f.label :server_ids %>
+        </fieldset>
+      </div>
 
-    <% table.with_column(Cable.human_attribute_name(:color), sort_by: :color) do |cable| %>
-      <%- if cable.color? %>
-        <span class="badge <%= cable.color %>">
-          <%= cable.color %>
-        </span>
-      <% end %>
-    <% end %>
+      <div>
+        <fieldset class="form-floating">
+          <%= f.select(:special_case,
+                       CableDecorator.special_case_options_for_select,
+                       { prompt: true },
+                       { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :special_case %>
+        </fieldset>
+      </div>
 
-    <% table.with_column(Cable.human_attribute_name(:special_case), sort_by: :special_case) do |cable| %>
-      <%= cable.special_case ? t("boolean.true") : t("boolean.false") %>
-    <% end %>
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:port_type_ids, PortType.order(:name),
+                                  :id,
+                                  :name,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :port_type_ids %>
+        </fieldset>
+      </div>
 
-    <% table.with_column(Cable.human_attribute_name(:comments), sort_by: :comments) do |cable| %>
-      <%= cable.comments %>
-    <% end %>
+      <div>
+        <fieldset class="form-floating">
+          <%= f.select(:colors,
+                       CableDecorator.colors_options_for_select,
+                       { prompt: true, multiple: true },
+                       { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :colors %>
+        </fieldset>
+      </div>
 
-    <% table.with_column(Connection.model_name.human, sort_by: :connections_count) do |cable| %>
-      <%= cable.connections_count %>
-    <% end %>
+      <div>
+        <fieldset class="form-floating">
+          <%= f.text_field :cable_name, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :cable_name %>
+        </fieldset>
+      </div>
 
-    <% table.with_column(style: "min-width: 50px; width: 50px") do |cable| %>
-      <div class="btn-group btn-group-sm" role="group" aria-label="...">
-        <%= link_to connections_edit_path(from_port_id: cable.ports.first), class: "btn btn-info" do %>
-          <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
-                                                                     data-controller="tooltip"
-                                                                     data-bs-placement="left"></span>
-          <span class="visually-hidden"><%= t("action.edit") %></span>
-        <% end %>
-        <%= link_to cable, method: :delete, data: { confirm: t('action.confirm') }, class: "btn btn-danger" do %>
-          <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
-                                                                      data-controller="tooltip"
-                                                                      data-bs-placement="left"></span>
-          <span class="visually-hidden"><%= t("action.delete") %></span>
-        <% end %>
+      <div>
+        <fieldset class="form-floating">
+          <%= f.text_field :card_query, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :card_query %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.text_field :comments, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :comments %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.text_field :vlans, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :vlans %>
+        </fieldset>
       </div>
     <% end %>
   <% end %>
 
-  <%== pagy_bootstrap_nav @pagy %>
+  <%= turbo_frame_tag(dom_id(Connection, :table), data: { turbo_action: :advance }) do %>
+    <div class="cable-index-servers d-flex flex-column row-gap-4">
+      <%= render List::DataTableComponent.new(@cables) do |table| %>
+        <% table.with_column("Matériels connectés") do |cable| %>
+          <%
+            from_connection = cable.connections.first
+            to_connection = cable.connections.second
+          %>
+          <div class="cable-index-servers">
+            <div class="d-flex">
+              <div class="d-flex align-items-center row-cols-3 justify-content-center flex-grow-1">
+                <%= cable.decorated.server_connected_with_link(from_connection, from: true) %>
+                <span class="d-inline-flex align-items-center justify-content-center col-4 col-xl-3">
+                  <%= cable.decorated.draw_port(from_connection) %>
+                  <hr class="cable border #{color} border-t px-3 opacity-100">
+                  <%= cable.decorated.draw_port(to_connection) %>
+                </span>
+                <%= cable.decorated.server_connected_with_link(to_connection) %>
+              </div>
+
+              <button class="btn btn-collapse-vlans ms-auto"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseVlansPanel-<%= cable.id %>"
+                      aria-expanded="false"
+                      aria-controls="collapseVlansPanel-<%= cable.id %>">
+                <span class="bi bi-chevron-down"></span>
+              </button>
+            </div>
+
+            <div class="collapse px-4" id="collapseVlansPanel-<%= cable.id %>">
+              <div class="vlans-card my-2 mx-auto pt-2">
+                <div class="d-flex row-cols-3 justify-content-center">
+                  <span class="col text-end text-break">
+                    <% if from_connection&.port&.vlans.present? %>
+                      <%= from_connection.port.vlans %>
+                    <% else %>
+                      <span class="fst-italic fw-lighter">n/c</span>
+                    <% end %>
+                  </span>
+                  <span class="col-4 col-xl-3 text-center fw-bold user-select-none">
+                    <%= Port.human_attribute_name(:vlans) %>
+                  </span>
+                  <span class="col text-break">
+                    <% if to_connection&.port&.vlans.present? %>
+                      <%= to_connection.port.vlans %>
+                    <% else %>
+                      <span class="fst-italic fw-lighter">n/c</span>
+                    <% end %>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <% table.with_column(Cable.human_attribute_name(:special_case),
+                             sort_by: :special_case,
+                             class: "text-center") do |cable| %>
+          <%= cable.special_case ? t("boolean.true") : t("boolean.false") %>
+        <% end %>
+
+        <% table.with_column(Cable.human_attribute_name(:comments), sort_by: :comments) do |cable| %>
+          <%= cable.comments %>
+        <% end %>
+
+        <% table.with_column(style: "min-width: 50px; width: 50px") do |cable| %>
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <%= link_to connections_edit_path(from_port_id: cable.ports.first),
+                        class: "btn btn-info",
+                        data: { turbo_frame: :_top } do %>
+              <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
+                                                                        data-controller="tooltip"
+                                                                        data-bs-placement="left"></span>
+              <span class="visually-hidden"><%= t("action.edit") %></span>
+            <% end %>
+            <%= link_to cable_path(cable),
+                        method: :delete,
+                        data: { confirm: t("action.confirm"), turbo_frame: :_top },
+                        class: "btn btn-danger" do %>
+              <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                          data-controller="tooltip"
+                                                                          data-bs-placement="left"></span>
+              <span class="visually-hidden"><%= t("action.delete") %></span>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <% if @pagy.pages > 1 %>
+        <%== pagy_bootstrap_nav(@pagy) %>
+      <% end %>
+    </div>
+  <% end %>
 </div>

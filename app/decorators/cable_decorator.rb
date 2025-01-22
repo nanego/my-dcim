@@ -1,0 +1,58 @@
+# frozen_string_literal: true
+
+class CableDecorator < ApplicationDecorator
+  include ActionView::Helpers::AssetTagHelper
+  include Rails.application.routes.url_helpers
+  include ActionView::Helpers::UrlHelper
+  include ActionView::Helpers::TextHelper
+  include ActionView::Context
+
+  class << self
+    def special_case_options_for_select
+      [true, false].map do |s|
+        [I18n.t("boolean.#{s}"), s]
+      end
+    end
+
+    def colors_options_for_select
+      Cable::COLORS.map do |k, v|
+        [I18n.t(".activerecord.attributes.cable/color.#{v}"), k]
+      end
+    end
+  end
+
+  def server_connected_with_link(connection, from: false)
+    tag.span class: class_names("text-body-emphasis col overflow-wrap", 'text-end': from) do
+      if (server = connection&.server)
+        link_to server.to_s,
+                server_path(server),
+                class: "text-body-emphasis",
+                data: { turbo_frame: :_top }
+      else
+        tag.span "n/c", class: "fst-italic fw-lighter"
+      end
+    end
+  end
+
+  def draw_port(connection)
+    if (twin_card_id = connection&.card&.twin_card_id)
+      twin_card = Card.find(twin_card_id)
+      twin_connections = twin_card.ports.map(&:connection)
+      twin_card_used_ports = []
+      twin_connections.each { |c| twin_card_used_ports << c.port.position if c&.port }
+    end
+
+    if (port = connection&.port) && name.present?
+      port_type_class = connection&.card&.card_type&.port_type&.decorated&.css_class_name
+
+      tag.span name,
+               class: class_names(
+                 "me-0 port #{color} text-body-emphasis #{port_type_class}",
+                 'fst-italic fw-lighter': name.blank?,
+                 no_client: port && port.cable_name && twin_card_used_ports&.exclude?(port.position)
+               )
+    else
+      tag.span "n/c", class: "badge empty me-0 border text-body-emphasis fst-italic fw-lighter"
+    end
+  end
+end

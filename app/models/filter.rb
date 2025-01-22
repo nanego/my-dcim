@@ -76,11 +76,7 @@ class Filter
 
   def _permitted_attributes_names
     attribute_names.map do |attribute_name|
-      if attribute_name.end_with?("_ids")
-        [attribute_name, { attribute_name => [] }]
-      else
-        attribute_name
-      end
+      [attribute_name, { attribute_name => [] }]
     end
   end
 
