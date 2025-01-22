@@ -79,19 +79,7 @@ export default class BulkActions extends Controller {
 
     this.showProgressBar()
     const response = await request.perform()
-    console.debug(response)
-    // console.debug(e.target.closest("turbo-frame"))
-    // e.target.closest("turbo-frame").reload()
 
-    // if (response.redirected) {
-    //   Turbo.visit(response.response.url)
-    // }
-
-    // if (response.ok || response.unprocessableEntity) {
-    //   Turbo.renderStreamMessage(await response.text)
-    // }
-
-    if (response.redirected) {
     if (response.redirected && !response.isTurboStream) {
       Turbo.visit(response.response.url, {
         action: "replace",
@@ -103,13 +91,6 @@ export default class BulkActions extends Controller {
       })
     }
     this.hideProgressBar()
-    //   // Turbo.navigator.adapter.visitProposedToLocation(response.response.url, {
-    //   //   action: "replace",
-    //   //   response: response.response,
-    //   //   shouldCacheSnapshot: false,
-    //   //   willRender: false
-    //   // })
-    // }
   }
 
   triggerInputEvent(checkbox) {

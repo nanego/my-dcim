@@ -123,7 +123,7 @@ module List
     class DatatableBulkAction < ApplicationComponent
       attr_reader :title, :url, :method, :options
 
-      def initialize(title, url:, method:, **options)
+      def initialize(title = nil, url:, method:, **options)
         @title = title
         @url = url
         @options = options
@@ -133,12 +133,9 @@ module List
       end
 
       def call
-        # TODO: use button component?
-        tag.button(title, type: :button, data: { method:, url:, action: "bulk-actions#submit" })
-
-        # button_tag(type: :submit, name: :bulk_destroy, class: "btn text-danger fs-4", data: { confirm: t("action.confirm") }) do
-        #   tag.span(nil, class: "bi bi-trash", title: @title, data: { controller: "tooltip", bs_placement: "left" })
-        # end
+        tag.button(type: :button, data: { method:, url:, action: "bulk-actions#submit" }, **@options) do
+          @title || content
+        end
       end
     end
 

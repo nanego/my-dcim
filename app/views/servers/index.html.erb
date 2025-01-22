@@ -127,7 +127,12 @@
   <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance }) do %>
     <div class="d-flex flex-column row-gap-4">
       <%= render List::DataTableComponent.new(@servers) do |table| %>
-        <% table.with_bulk_action(t("action.delete"), url: servers_bulk_path, method: :delete) %>
+        <% table.with_bulk_action(url: bulk_servers_path, method: :delete, class: "btn text-danger fs-4",
+                                  data: { confirm: t("action.confirm") }
+        ) do %>
+          <span class="bi bi-trash" title="<%= t("action.delete") %>" data-controller="tooltip" bs_placement="left">
+          </span>
+        <% end %>
 
         <% table.with_column(Server.human_attribute_name(:name), sort_by: :name) do |server| %>
           <%= link_to server.name, server_path(server), class: "fw-bold", data: { turbo_frame: :_top } %>

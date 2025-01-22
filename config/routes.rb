@@ -49,9 +49,6 @@ Rails.application.routes.draw do
   resources :clusters
   resources :stacks
 
-  namespace :servers do
-    resource :bulk, controller: :bulk, only: :destroy
-  end
   resources :servers do
     collection do
       get :grid
@@ -116,6 +113,10 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks',
                                     registrations: 'users/registrations',
                                     sessions: 'users/sessions' }
+
+  namespace :bulk do
+    resource :servers, only: :destroy
+  end
 
   namespace :users do
     resource :settings, only: %i[edit update]

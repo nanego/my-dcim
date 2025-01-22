@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Servers
-  class BulkController < ApplicationController
+module Bulk
+  class ServersController < BaseController
     before_action :set_servers
 
     def destroy
@@ -9,11 +9,9 @@ module Servers
         # if @items.map(&:destroy).all?
         if false
           format.html { redirect_to servers_path, notice: t(".flashes.destroyed"), status: :see_other }
-          format.json { head :no_content }
         else
           # TODO: tell which records has not been removed
           format.html { redirect_to servers_path, alert: t(".flashes.not_destroyed"), status: :see_other }
-          format.json { head :bad_request }
         end
       end
     end
