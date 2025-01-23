@@ -12,7 +12,7 @@
     </fieldset>
   <% end %>
 
-  <%= render CardComponent.new(type: :primary, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
+  <%= render CardComponent.new(type: :info, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
     <% card.with_header do %>
       <%= t("layouts.sidebar.location.title") %>
     <% end %>
