@@ -100,6 +100,16 @@
             <dt class="pb-2"><%= Category.model_name.human %></dt>
             <dd class="mb-0 pb-2 ps-3"><%= @server.modele.try(:category) %></dd>
 
+            <dt class="pb-2"><%= Manufacturer.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3">
+              <%= link_to @server.modele.try(:manufacturer), manufacturer_path(@server.modele.try(:manufacturer)) %>
+              <% if (documentation_url = @server.documentation_url).present? %>
+                (
+                  <%= link_to t(".documentation"), documentation_url, target: :_blank, rel: :noopener %>
+                )
+              <% end %>
+            </dd>
+
             <dt class="pb-2"><%= Modele.human_attribute_name(:nb_elts) %></dt>
             <dd class="mb-0 pb-2 ps-3"><%= @server.modele.try(:nb_elts) %></dd>
 
@@ -120,16 +130,6 @@
           <dl class="show-page_dl d-grid row-gap-2 mb-0">
             <dt class="pb-2"><%= Server.human_attribute_name(:numero) %></dt>
             <dd class="mb-0 pb-2 ps-3"><%= @server.try(:numero) %></dd>
-
-            <dt class="pb-2"><%= Manufacturer.model_name.human %></dt>
-            <dd class="mb-0 pb-2 ps-3">
-              <%= link_to @server.modele.try(:manufacturer), manufacturer_path(@server.modele.try(:manufacturer)) %>
-              <% if (documentation_url = @server.documentation_url).present? %>
-                (
-                  <%= link_to t(".documentation"), documentation_url, target: :_blank, rel: :noopener %>
-                )
-              <% end %>
-            </dd>
 
             <dt class="pb-2"><%= Cluster.model_name.human %></dt>
             <dd class="mb-0 pb-2 ps-3"><%= link_to_if @server.cluster, @server.cluster&.name, @server.cluster %></dd>
