@@ -41,6 +41,10 @@ fr:
       back_wiring: Cablage - Face arrière
     port_list: Liste des ports
   show:
+    cards:
+      display: Affichage
+      features: Caractéristiques
+      identification: Identification
     tabs:
       details: Détails
 
@@ -48,7 +52,6 @@ fr:
   inventories: Inventaires
   label_date: Date
   label_details: Détails
-  display: Affichage
 
   access_control:
     badge: Badge
