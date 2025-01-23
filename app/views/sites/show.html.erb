@@ -8,6 +8,10 @@
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
       <%= render CardComponent.new do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.identification") %>
+        <% end %>
+
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <% %i[name description].each do |attribute_name| %>
             <dt class="pb-2"><%= Site.human_attribute_name(attribute_name) %></dt>
@@ -19,7 +23,7 @@
       <!-- Cards shown on lg, in 2nd and 3rd position (Grid isn't working as Masonry) -->
       <%= render CardComponent.new(extra_classes: "d-none d-lg-flex mt-4") do |card| %>
         <% card.with_header do %>
-          <%= t("display") %>
+          <%= t("show.cards.display") %>
         <% end %>
 
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
@@ -91,7 +95,7 @@
     <div class="col d-lg-none">
       <%= render CardComponent.new(extra_classes: "d-lg-none") do |card| %>
         <% card.with_header do %>
-          <%= t("display") %>
+          <%= t("show.cards.display") %>
         <% end %>
 
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
