@@ -11,12 +11,30 @@ en:
   cables:
     index:
       title: Connections
+
+  devise:
+    passwords:
+      new:
+        help_text: We'll send password reset instructions.
+      edit:
+        title: Change your password
+
   rooms:
     action_buttons:
       caption:
         ports: Ports
         unreferenced_client: The corresponding port on the twin card is wired
         no_client: The corresponding port on the twin card is not wired
+
+  select:
+    placeholder: Type to filter...
+
+  show:
+    cards:
+      display: Display
+      features: Features
+      identification: Identification
+
   users:
     my_account:
       title: My account
@@ -28,13 +46,3 @@ en:
         flashes:
           updated: Your preferences have been updated
     logout: Log out
-
-  devise:
-    passwords:
-      new:
-        help_text: We'll send password reset instructions.
-      edit:
-        title: Change your password
-
-  select:
-    placeholder: Type to filter...
