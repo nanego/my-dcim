@@ -1,11 +1,22 @@
 <%= form_for(@card_type, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
   <%= render FormErrorsComponent.new(@card_type) %>
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+    <% card.with_header do %>
+      <%= t("show.cards.identification") %>
+    <% end %>
+
     <fieldset class="col-12">
       <%= f.label :name, class: "form-label" %>
       <%= f.text_field :name, class: "form-control" %>
     </fieldset>
-    <fieldset class="col-12 mt-4">
+  <% end %>
+
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+    <% card.with_header do %>
+      <%= t("show.cards.features") %>
+    <% end %>
+
+    <fieldset class="col-12">
       <%= f.label :port_type, class: "form-label" %>
       <%= f.select :port_type_id,
                    PortType.sorted.map { |pt| [pt.name, pt.id] },
@@ -17,22 +28,27 @@
                    }
       %>
     </fieldset>
+
     <fieldset class="col-12 mt-4">
       <%= f.label :port_quantity, class: "form-label" %>
       <%= f.number_field :port_quantity, class: "form-control" %>
     </fieldset>
+
     <fieldset class="col-12 mt-4">
       <%= f.label :columns, class: "form-label" %>
       <%= f.number_field :columns, class: "form-control" %>
     </fieldset>
+
     <fieldset class="col-12 mt-4">
       <%= f.label :rows, class: "form-label" %>
       <%= f.number_field :rows, class: "form-control" %>
     </fieldset>
+
     <fieldset class="col-12 mt-4">
       <%= f.label :max_aligned_ports, class: "form-label" %>
       <%= f.number_field :max_aligned_ports, class: "form-control" %>
     </fieldset>
+
     <fieldset class="col-12 mt-4">
       <%= f.label :first_position, class: "form-label" %>
       <%= f.select :first_position, [0, 1], {}, class: "form-select" %>
