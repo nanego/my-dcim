@@ -125,18 +125,6 @@
             <dt class="pb-2"><%= Server.human_attribute_name(:numero) %></dt>
             <dd class="mb-0 pb-2 ps-3"><%= @pdu.try(:numero) %></dd>
 
-            <dt class="pb-2"><%= Server.human_attribute_name(:critique) %></dt>
-            <dd class="mb-0 pb-2 ps-3">
-              <% if @pdu.critique.present? %>
-                <span class="<%= class_names("text-uppercase text-danger": @pdu.critique) %>">
-                  <%= t("boolean.#{@pdu.critique}") %>
-                </span>
-              <% end %>
-            </dd>
-
-            <dt class="pb-2"><%= Domaine.model_name.human %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= link_to_if @pdu.domaine, @pdu.domaine %></dd>
-
             <dt class="pb-2"><%= Gestion.model_name.human %></dt>
             <dd class="mb-0 pb-2 ps-3"><%= link_to_if @pdu.gestion, @pdu.gestion %></dd>
 

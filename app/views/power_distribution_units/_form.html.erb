@@ -23,15 +23,6 @@
       </fieldset>
 
       <fieldset class="col-md-6 col-12 mt-4">
-        <%= f.label :domaine_id, class: "form-label" %>
-        <%= f.collection_select(:domaine_id, Domaine.sorted, :id,
-                                                             :name,
-                                                             { prompt: true, include_blank: true },
-                                                             { class: "form-select",
-                                                               data: { controller: "select" } }) %>
-      </fieldset>
-
-      <fieldset class="col-md-6 col-12 mt-4">
         <%= f.label :gestion_id, class: "form-label" %>
         <%= f.collection_select(:gestion_id, Gestion.sorted, :id,
                                                             :name,
@@ -47,13 +38,6 @@
                                                                      { prompt: true, include_blank: false },
                                                                      { class: "form-select",
                                                                        data: { controller: "select" } }) %>
-      </fieldset>
-
-      <fieldset class="col-12 mt-4 align-self-center">
-        <div class="form-check">
-          <%= f.check_box :critique, class: "form-check-input" %>
-          <%= f.label :critique, class: "form-check-label" %>
-        </div>
       </fieldset>
     </div>
   <% end %>

@@ -85,17 +85,6 @@
           <%= f.label :gestion_ids %>
         </fieldset>
       </div>
-
-      <div>
-        <fieldset class="form-floating">
-          <%= f.collection_select(:domaine_ids, Domaine.sorted,
-                                  :id,
-                                  :name,
-                                  { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
-          <%= f.label :domaine_ids %>
-        </fieldset>
-      </div>
     <% end %>
   <% end %>
 
