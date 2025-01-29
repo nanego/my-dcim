@@ -1,4 +1,7 @@
 en:
+  changelog_entries:
+    object_list_component:
+      loading: Loading ...
   form_errors_component:
     title:
       one: '1 error occured while saving:'
@@ -6,10 +9,9 @@ en:
   has_many_turbo_frame_component:
     loading: Loading ...
     see_more_filters: See more filters
-  changelog_entries:
-    object_list_component:
-      loading: Loading ...
   list:
     data_table_component:
       empty_table:
         title: No data found!
+      bulk:
+        selected_elements: selected item(s)

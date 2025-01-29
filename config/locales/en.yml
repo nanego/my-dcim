@@ -2,6 +2,12 @@ en:
   action:
     preview: Preview
 
+  bulk:
+    servers:
+      destroy:
+        flashes:
+          destroyed: The selected materials have been removed.
+          not_destroyed: An error has occurred while deleting at least one piece of material.
   cables:
     index:
       title: Connections

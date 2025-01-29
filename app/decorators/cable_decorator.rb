@@ -22,7 +22,7 @@ class CableDecorator < ApplicationDecorator
   end
 
   def server_connected_with_link(connection, from: false)
-    tag.span class: class_names("text-body-emphasis col overflow-wrap", 'text-end': from) do
+    tag.span class: class_names("text-body-emphasis col overflow-wrap", "text-end": from) do
       if (server = connection&.server)
         link_to server.to_s,
                 server_path(server),
@@ -50,7 +50,7 @@ class CableDecorator < ApplicationDecorator
       tag.span name,
                class: class_names(
                  "me-0 port #{color} text-body-emphasis #{port_type_class}",
-                 'fst-italic fw-lighter': name.blank?,
+                 "fst-italic fw-lighter": name.blank?,
                  no_client: port && port.cable_name && twin_card_used_ports&.exclude?(port.position)
                )
     else
