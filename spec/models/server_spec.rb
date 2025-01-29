@@ -163,7 +163,7 @@ RSpec.describe Server do
       it do
         expect do
           server.destroy_connections!
-        end.to change { Connection.all.count }.from(5).to(1)
+        end.to change(Connection, :count).from(5).to(1)
       end
 
       it do
