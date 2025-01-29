@@ -108,10 +108,10 @@ export default class BulkActions extends Controller {
 
   updateCheckCountLabel(checkCount) {
     if (checkCount === 0){
-      this.actionsContainerTarget.style.visibility = "hidden"
+      this.actionsContainerTarget.style.display = "none"
     } else {
       this.checkedCountTarget.innerText = checkCount
-      this.actionsContainerTarget.style.visibility = "visible"
+      this.actionsContainerTarget.style.display = "block"
     }
   }
 

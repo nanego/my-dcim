@@ -49,13 +49,19 @@ module List
       return yield unless bulk_actions?
 
       tag.div data: { controller: "bulk-actions" } do
-        concat(tag.div(style: "visibility: hidden;", data: { bulk_actions_target: "actionsContainer" }) do
-          concat(tag.span(class: "fw-bolder", data: { bulk_actions_target: "checkedCount" }))
-          concat(" #{t(".bulk.selected_elements")}")
+        concat(tag.div(style: "display: none;", data: { bulk_actions_target: "actionsContainer" }) do
+          concat(render(CardComponent.new(extra_classes: "mb-4")) do
+            concat(tag.div(class: "d-flex justify-content-between align-items-center") do
+              concat(tag.span do
+                concat(tag.span(class: "fw-bolder me-1", data: { bulk_actions_target: "checkedCount" }))
+                concat(" #{t(".bulk.selected_elements")}")
+              end)
 
-          bulk_actions.each do |bulk_action|
-            concat(bulk_action)
-          end
+              bulk_actions.each do |bulk_action|
+                concat(bulk_action)
+              end
+            end)
+          end)
         end)
 
         concat(yield)
