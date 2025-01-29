@@ -15,7 +15,8 @@
                       {
                         onchange: "select_server(this.value);",
                         class: "form-select",
-                        data: { controller: "select", select_options_value: { maxOptions: nil } }
+                        data: { controller: "select" },
+                        placeholder: t("select.placeholder")
                       }
           %>
         </fieldset>
@@ -43,7 +44,8 @@
                        {
                          onchange: "select_frame(this.value, 'front')",
                          class: "form-select",
-                         data: { controller: "select", select_options_value: { maxOptions: nil } }
+                         data: { controller: "select" },
+                         placeholder: t("select.placeholder")
                        }
           %>
         </fieldset>

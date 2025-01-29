@@ -47,9 +47,11 @@
 
     <fieldset class="col-12 mt-4">
       <%= f.label :bay_id, class: "form-label" %>
-      <%= f.select :bay_id, options_from_collection_for_select(Bay.all, :id, :detailed_name, @frame.bay_id),
-                            {},
-                            { class: "form-select", data: { controller: "select" } } %>
+      <%= f.select :bay_id,
+                   options_from_collection_for_select(Bay.all, :id, :detailed_name, @frame.bay_id),
+                   { prompt: true },
+                   { class: "form-select", data: { controller: "select" }, placeholder: t("select.placeholder") }
+      %>
     </fieldset>
   <% end %>
 

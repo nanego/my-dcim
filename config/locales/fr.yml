@@ -871,9 +871,11 @@ fr:
         comments: Commentaires
         vlans: Vlans
     placeholder:
-      search: Rechercher ...
+      search: Rechercher...
       quicksearch: Recherche rapide
   search:
     index:
       results: Résultats de la recherche
       no_results_found: Aucun résultat trouvé
+  select:
+    placeholder: Tapez pour filtrer...

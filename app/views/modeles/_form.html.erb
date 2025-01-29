@@ -12,8 +12,13 @@
                               Category.order(Arel.sql('LOWER(name)')),
                               :id,
                               :name,
-                              {},
-                              { class: "form-select", data: { controller: "select" } }) %>
+                              { prompt: true },
+                              {
+                                class: "form-select",
+                                data: { controller: "select" },
+                                placeholder: t("select.placeholder")
+                              })
+      %>
     </fieldset>
 
     <fieldset class="col-12 mt-4">
@@ -37,8 +42,13 @@
                               Manufacturer.order(Arel.sql('LOWER(name)')),
                               :id,
                               :name,
-                              {},
-                              { class: "form-select", data: { controller: "select" } }) %>
+                              { prompt: true },
+                              {
+                                class: "form-select",
+                                data: { controller: "select" },
+                                placeholder: t("select.placeholder")
+                              })
+      %>
     </fieldset>
 
     <fieldset class="col-12 mt-4">
