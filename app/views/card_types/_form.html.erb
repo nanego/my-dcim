@@ -7,9 +7,15 @@
     </fieldset>
     <fieldset class="col-12 mt-4">
       <%= f.label :port_type, class: "form-label" %>
-      <%= f.select :port_type_id, PortType.all.map { |pt| [pt.name, pt.id] },
-                                  {},
-                                  { class: "form-select", data: { controller: "select" } } %>
+      <%= f.select :port_type_id,
+                   PortType.sorted.map { |pt| [pt.name, pt.id] },
+                   { prompt: true },
+                   {
+                     class: "form-select",
+                     data: { controller: "select" },
+                     placeholder: t("select.placeholder")
+                   }
+      %>
     </fieldset>
     <fieldset class="col-12 mt-4">
       <%= f.label :port_quantity, class: "form-label" %>
