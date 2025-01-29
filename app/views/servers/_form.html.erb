@@ -128,10 +128,16 @@
     <div class="row g-3">
       <fieldset class="col-md-9 col-12">
         <%= f.label :frame_id, class: "form-label" %>
-        <%= f.collection_select(:frame_id, Frame.all_sorted, :id,
-                                                            :name_with_room_and_islet,
-                                                            { prompt: true, include_blank: false },
-                                                            { class: "form-select", data: { controller: "select" } }) %>
+        <%= f.collection_select(:frame_id,
+                                Frame.all_sorted, :id,
+                                :name_with_room_and_islet,
+                                { prompt: true, include_blank: false },
+                                {
+                                  class: "form-select",
+                                  data: { controller: "select" },
+                                  placeholder: t("select.placeholder")
+                                })
+        %>
       </fieldset>
 
       <fieldset class="col-md-3 col-12">
