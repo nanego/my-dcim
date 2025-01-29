@@ -511,6 +511,12 @@ fr:
     flashes:
       connections_destroyed: Les connexions ont été supprimées.
       connections_not_destroyed: Une erreur a empêché la suppression des connexions.
+  bulk:
+    servers:
+      destroy:
+        flashes:
+          destroyed: Les matériels sélectionnés ont bien étés supprimés.
+          not_destroyed: Une erreur est survenue lors de la suppression d'au moins un matériel.
   glpi:
     computer:
       name: Nom

@@ -2,6 +2,7 @@
 
 module List
   class DataTableComponent < ApplicationComponent
+    renders_many :bulk_actions, ->(*args, **kwargs) { DatatableBulkAction.new(*args, **kwargs) }
     renders_many :columns, lambda { |title = nil, **options, &block|
       DatatableColumn.new(title, **options, &block)
     }
@@ -20,18 +21,22 @@ module List
           concat(tag.h5(t(".empty_table.title"), class: "card-title mt-3"))
         end
       else
-        render List::TableComponent.new do |table|
-          table.with_head do
-            render List::TableComponent::TableRow.new do
-              columns.each do |col|
-                concat(render_head_cell(col))
+        bulk_actions_wrapper do
+          render List::TableComponent.new do |table|
+            table.with_head do
+              render List::TableComponent::TableRow.new do
+                concat(render_bulk_head_checkbox) if bulk_actions?
+
+                columns.each do |col|
+                  concat(render_head_cell(col))
+                end
               end
             end
-          end
 
-          table.with_body do
-            @data.each do |data_row|
-              concat(render_row(data_row))
+            table.with_body do
+              @data.each do |data_row|
+                concat(render_row(data_row))
+              end
             end
           end
         end
@@ -39,6 +44,35 @@ module List
     end
 
     private
+
+    def bulk_actions_wrapper
+      return yield unless bulk_actions?
+
+      tag.div data: { controller: "bulk-actions" } do
+        concat(tag.div(style: "display: none;", data: { bulk_actions_target: "actionsContainer" }) do
+          concat(render(CardComponent.new(extra_classes: "mb-4")) do
+            concat(tag.div(class: "d-flex justify-content-between align-items-center") do
+              concat(tag.span do
+                concat(tag.span(class: "fw-bolder", data: { bulk_actions_target: "checkedCount" }))
+                concat(tag.span(" #{t(".bulk.selected_elements")}"))
+              end)
+
+              bulk_actions.each do |bulk_action|
+                concat(bulk_action)
+              end
+            end)
+          end)
+        end)
+
+        concat(yield)
+      end
+    end
+
+    def render_bulk_head_checkbox
+      render(List::TableComponent::TableHeadCell.new(style: "width: 0;")) do
+        tag.input class: "form-check-input", type: :checkbox, data: { bulk_actions_target: "checkboxAll" }
+      end
+    end
 
     def render_head_cell(col)
       render(List::TableComponent::TableHeadCell.new) do
@@ -52,9 +86,17 @@ module List
 
     def render_row(row)
       render List::TableComponent::TableRow.new do
+        concat(render_bulk_checkbox(row)) if bulk_actions?
+
         columns.each do |col|
           concat render List::TableComponent::TableCell.new(render_col(col, row), **col.html_options)
         end
+      end
+    end
+
+    def render_bulk_checkbox(row)
+      render List::TableComponent::TableCell.new do
+        check_box_tag "ids[]", row.id, class: "form-check-input", value: row.id, data: { bulk_actions_target: "checkbox" }
       end
     end
 
@@ -82,6 +124,37 @@ module List
 
     def sort_caret(direction)
       sanitize(direction == :desc ? "&#x2193;" : "&#x2191;")
+    end
+
+    class DatatableBulkAction < ApplicationComponent
+      attr_reader :title, :url, :method, :options
+
+      def initialize(title = nil, url:, method:, **options)
+        @title = title
+        @options = options
+        confirm = @options[:data].delete(:confirm) || @options[:data].delete(:turbo_confirm)
+
+        data = {
+          bulk_actions_method_param: method || :post,
+          bulk_actions_url_param: url,
+          bulk_actions_confirm_param: confirm,
+          action: "bulk-actions#submit"
+        }
+        @options[:data] = data.merge(options[:data]) do |key, a, b|
+          case key
+          when :action
+            class_names(a, b)
+          else
+            b
+          end
+        end
+
+        super()
+      end
+
+      def call
+        tag.button(type: :button, **@options) { @title || content }
+      end
     end
 
     class DatatableColumn < ApplicationComponent

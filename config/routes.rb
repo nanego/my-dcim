@@ -113,6 +113,10 @@ Rails.application.routes.draw do
                                     registrations: 'users/registrations',
                                     sessions: 'users/sessions' }
 
+  namespace :bulk do
+    resource :servers, only: :destroy
+  end
+
   namespace :users do
     resource :settings, only: %i[edit update]
   end
