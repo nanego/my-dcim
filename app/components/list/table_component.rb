@@ -72,10 +72,18 @@ module List
 
     class TableCell < TableTag
       TAG_NAME = :td.freeze
-      CSS_CLASSES = "align-middle".freeze
-      ALIGN_TYPES = {
-        right: "text-end",
+      VERTICAL_ALIGN_TYPES = {
+        baseline: "align-baseline",
+        top: "align-top",
+        middle: "align-middle",
+        bottom: "align-bottom",
+        text_top: "align-text-top",
+        text_bottom: "align-text-bottom"
+      }.freeze
+      TEXT_ALIGN_TYPES = {
         left: "text-start",
+        center: "text-center",
+        right: "text-end"
       }.freeze
 
       def initialize(text = nil, **html_attributes)
@@ -83,12 +91,13 @@ module List
 
         @text = text
 
-        css_classes    = html_attributes.delete(:class)
-        css_text_align = ALIGN_TYPES[html_attributes.delete(:align)&.to_sym || :left]
+        css_classes = html_attributes.delete(:class)
+        css_vertical_align = VERTICAL_ALIGN_TYPES[html_attributes.delete(:v_align)&.to_sym || :middle]
+        css_text_align = TEXT_ALIGN_TYPES[html_attributes.delete(:text_align)&.to_sym || :left]
 
         @html_attributes = html_attributes.merge(
           class: class_names(
-            self.class::CSS_CLASSES,
+            css_vertical_align,
             css_text_align,
             css_classes,
             "": (@text.present? && css_classes.nil?),
