@@ -769,7 +769,7 @@ body {
         &:focus {
           background-color: var(--bs-primary-bg-subtle);
 
-          &.mydcim-sidebar-links-link-success {
+          &.mydcim-sidebar-links-link-exploitation {
             background-color: var(--bs-success-bg-subtle);
           }
 
@@ -782,7 +782,7 @@ body {
           font-weight: 600;
           color: var(--bs-primary-text-emphasis);
 
-          &.mydcim-sidebar-links-link-success {
+          &.mydcim-sidebar-links-link-exploitation {
             color: var(--bs-success-text-emphasis);
           }
 
