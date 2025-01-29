@@ -5,7 +5,7 @@ class Frame < ApplicationRecord
   VIEW_SIDES = { both: 'both', front: 'front', back: 'back' }.freeze
 
   extend FriendlyId
-  friendly_id :slug_candidates, use: [:slugged, :history]
+  friendly_id :slug_candidates, use: %i[slugged history]
 
   has_changelog
   acts_as_list scope: [:bay_id]
@@ -137,7 +137,7 @@ class Frame < ApplicationRecord
                                            port_type: port_type)
     puts "ERROR: #{card_type}" unless card_type.valid?
 
-    ['A', 'B'].each do |line_name|
+    %w[A B].each do |line_name|
       pdu_name = "PDU_#{frame}_#{line_name}"
       pdu = Server.find_or_create_by(frame: frame,
                                      modele: modele,
@@ -160,7 +160,7 @@ class Frame < ApplicationRecord
   def slug_candidates
     [
       :name,
-      [:name, :id],
+      %i[name id],
     ]
   end
 end

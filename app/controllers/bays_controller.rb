@@ -3,7 +3,7 @@
 class BaysController < ApplicationController
   include RoomsHelper
 
-  before_action :set_bay, only: [:edit, :update, :destroy, :show]
+  before_action :set_bay, only: %i[edit update destroy show]
 
   def index
     @filter = ProcessorFilter.new(Bay.joins(:room, :islet).order('rooms.position, islets.name, bays.lane, bays.position'), params)

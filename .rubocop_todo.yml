@@ -17,22 +17,6 @@ Layout/ArgumentAlignment:
     - 'app/queries/frames/including_servers_query.rb'
     - 'db/migrate/20180110152701_add_attributes_to_servers.rb'
 
-# Offense count: 28
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty_lines, no_empty_lines
-Layout/EmptyLinesAroundBlockBody:
-  Exclude:
-    - 'app/controllers/servers_grids_controller.rb'
-    - 'app/helpers/servers_helper.rb'
-    - 'db/migrate/20160318101235_create_connections.rb'
-    - 'db/migrate/20160318103009_create_ports.rb'
-    - 'db/migrate/20160411154022_init_coupled_baies.rb'
-    - 'lib/tasks/fix_duplicated_slots.rake'
-    - 'lib/tasks/init_pdus.rake'
-    - 'lib/tasks/update_pdu_lines.rake'
-    - 'lib/tasks/update_position_by_name.rake'
-
 # Offense count: 24
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowMultipleStyles, EnforcedHashRocketStyle, EnforcedColonStyle, EnforcedLastArgumentHashStyle.
@@ -727,13 +711,6 @@ Style/RedundantConstantBase:
   Exclude:
     - 'config/environments/production.rb'
 
-# Offense count: 4
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: SafeForConstants.
-Style/RedundantFetchBlock:
-  Exclude:
-    - 'config/puma.rb'
-
 # Offense count: 13
 # This cop supports safe autocorrection (--autocorrect).
 Style/RedundantFreeze:
@@ -853,14 +830,6 @@ Style/StringLiteralsInInterpolation:
     - 'app/helpers/servers_helper.rb'
     - 'app/models/islet.rb'
 
-# Offense count: 68
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: .
-# SupportedStyles: percent, brackets
-Style/SymbolArray:
-  EnforcedStyle: percent
-  MinSize: 12
-
 # Offense count: 10
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: AllowMethodsWithArguments, AllowedMethods, AllowedPatterns, AllowComments.
@@ -898,14 +867,6 @@ Style/TrailingCommaInHashLiteral:
     - 'config/initializers/shrine.rb'
     - 'lib/tasks/convert_activities_to_changelog_entries.rake'
     - 'spec/components/previews/list/data_table_component_preview.rb'
-
-# Offense count: 7
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: WordRegex.
-# SupportedStyles: percent, brackets
-Style/WordArray:
-  EnforcedStyle: percent
-  MinSize: 5
 
 # Offense count: 91
 # This cop supports safe autocorrection (--autocorrect).

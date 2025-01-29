@@ -2,7 +2,7 @@
 
 class Composant < ApplicationRecord
   has_changelog
-  acts_as_list scope: [:enclosure_id, :type_composant_id]
+  acts_as_list scope: %i[enclosure_id type_composant_id]
 
   belongs_to :enclosure
   belongs_to :type_composant

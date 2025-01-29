@@ -44,7 +44,7 @@ RSpec.describe CablesProcessor do
 
     context "with two colors" do
       let(:second_cable) { Cable.create!(color: "B") }
-      let(:params) { { colors: ["V", "B"] } }
+      let(:params) { { colors: %w[V B] } }
 
       before { second_cable }
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DomainesController < ApplicationController
-  before_action :set_domaine, only: [:show, :edit, :update, :destroy]
+  before_action :set_domaine, only: %i[show edit update destroy]
 
   # GET /domaines
   # GET /domaines.json
