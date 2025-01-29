@@ -2,6 +2,42 @@
   <%= render FormErrorsComponent.new(@server) %>
 
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+    <% card.with_header do %>
+      <%= Modele.model_name.human %>
+    <% end %>
+
+    <div class="row g-3">
+      <fieldset class="col-md-6 col-12">
+        <%= f.label :modele_id, class: "form-label" %>
+        <%= f.collection_select(:modele_id,
+                                Modele.all_sorted,
+                                :id,
+                                :name_with_brand,
+                                { prompt: true, include_blank: false },
+                                { class: "form-select", data: { controller: "select" } }) %>
+      </fieldset>
+
+      <fieldset class="col-md-6 col-12">
+        <%= f.label :network_types, class: "form-label" %>
+        <%= f.select :network_types,
+                     Modele::Network::TYPES.map { |type| [Modele.human_attribute_name("network_types.#{type}"), type] },
+                     { prompt: true, include_blank: true },
+                     {
+                       class: "form-select",
+                       data: { controller: "select" },
+                       multiple: true,
+                       placeholder: Modele.human_attribute_name("network_types.blank")
+                     }
+        %>
+        <div id="networkTypesHelp" class="form-text fst-italic">
+          <i class="bi bi-info-circle me-1"></i>
+          <%= Modele.human_attribute_name("network_types.help") %>
+        </div>
+      </fieldset>
+    </div>
+  <% end %>
+
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
     <div class="row g-3">
       <fieldset class="col-md-6 col-12">
         <%= f.label :name, class: "form-label" %>
@@ -41,32 +77,6 @@
                                                             :name,
                                                             { prompt: true, include_blank: true },
                                                             { class: "form-select", data: { controller: "select" } }) %>
-      </fieldset>
-
-      <fieldset class="col-md-6 col-12 mt-4">
-        <%= f.label :modele_id, class: "form-label" %>
-        <%= f.collection_select(:modele_id, Modele.all_sorted, :id,
-                                                              :name_with_brand,
-                                                              { prompt: true, include_blank: false },
-                                                              { class: "form-select", data: { controller: "select" } }) %>
-      </fieldset>
-
-      <fieldset class="col-md-6 col-12 mt-4">
-        <%= f.label :network_types, class: "form-label" %>
-        <%= f.select :network_types,
-                     Modele::Network::TYPES.map { |type| [Modele.human_attribute_name("network_types.#{type}"), type] },
-                     { prompt: true, include_blank: true },
-                     {
-                       class: "form-select",
-                       data: { controller: "select" },
-                       multiple: true,
-                       placeholder: Modele.human_attribute_name("network_types.blank")
-                     }
-        %>
-        <div id="networkTypesHelp" class="form-text fst-italic">
-          <i class="bi bi-info-circle me-1"></i>
-          <%= Modele.human_attribute_name("network_types.help") %>
-        </div>
       </fieldset>
 
       <fieldset class="col-md-6 col-12 mt-4">
