@@ -51,7 +51,7 @@ module Visualization
       @network_types = Modele::Network::TYPES.excluding("fiber")
       @network = @filter.network_type # TODO: take from params and raise error if not good
 
-      return unless @room.id == 4 || @room.id == 3
+      return unless [4, 3].include?(@room.id)
 
       @hub = @hubs[@network][@room.id]
       @second_room = Room.find(@room.id == 4 ? 3 : 4)
