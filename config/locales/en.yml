@@ -35,3 +35,6 @@ en:
         help_text: We'll send password reset instructions.
       edit:
         title: Change your password
+
+  select:
+    placeholder: Type to filter...
