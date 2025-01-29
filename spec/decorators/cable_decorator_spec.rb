@@ -89,8 +89,8 @@ RSpec.describe CableDecorator, type: :decorator do
     context "with a cable with no name" do
       before { cable.name = "" }
 
-      it { is_expected.not_to have_tag("span.me-0.port") }
-      it { is_expected.to have_tag("span.badge.empty", text: "n/c") }
+      it { is_expected.to have_tag("span.me-0.port.N.port.portSCSI", text: "n/c") }
+      it { is_expected.not_to have_tag("span.badge.empty", text: "n/c") }
     end
 
     context "with a connection with no port" do
