@@ -54,7 +54,7 @@ module List
             concat(tag.div(class: "d-flex justify-content-between align-items-center") do
               concat(tag.span do
                 concat(tag.span(class: "fw-bolder", data: { bulk_actions_target: "checkedCount" }))
-                concat(tag.span " #{t(".bulk.selected_elements")}")
+                concat(tag.span(" #{t(".bulk.selected_elements")}"))
               end)
 
               bulk_actions.each do |bulk_action|
