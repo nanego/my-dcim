@@ -97,7 +97,7 @@
           </dl>
         <% end %>
 
-        <%= render CardComponent.new do |card| %>
+        <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
           <% card.with_header do %>
             <%= Modele.model_name.human %>
           <% end %>
