@@ -23,11 +23,11 @@ gem "omniauth-rails_csrf_protection"
 gem "simple_token_authentication", github: "gonzalo-bulnes/simple_token_authentication"
 
 gem "datagrid"
+gem "dry-struct"
 gem "faraday"
 gem "kaminari" # TODO: Remove when removing datagrid
 gem "pagy"
 gem "pg"
-gem "virtus"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
