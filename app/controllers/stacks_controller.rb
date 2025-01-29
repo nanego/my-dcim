@@ -75,6 +75,6 @@ class StacksController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def stack_params
-    params.require(:stack).permit(:name, :color)
+    params.expect(stack: [:name, :color])
   end
 end

@@ -76,6 +76,6 @@ class ContactRolesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def contact_role_params
-    params.require(:contact_role).permit(:name, :description)
+    params.expect(contact_role: [:name, :description])
   end
 end

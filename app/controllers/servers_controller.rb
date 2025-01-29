@@ -133,13 +133,13 @@ class ServersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def server_params
-    params.require(:server).permit(:photo, :stack_id, :server_state_id, :comment, :cluster_id, :position, :frame_id, :gestion_id, :fc_futur, :rj45_cm, :name, :modele_id, :numero, :critique, :domaine_id, :fc_total, :fc_utilise, :rj45_total, :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur, :ipmi_dedie,
-                                   :frame, # TODO: Check if it should be removed or if it's used somewhere
-                                   network_types: [],
-                                   :cards_attributes => %i[composant_id card_type_id _destroy id twin_card_id orientation name first_position],
-                                   :disks_attributes => %i[quantity disk_type_id _destroy id],
-                                   :memory_components_attributes => %i[quantity memory_type_id _destroy id],
-                                   :documents_attributes => %i[document id _destroy])
+    params.expect(server: [:photo, :stack_id, :server_state_id, :comment, :cluster_id, :position, :frame_id, :gestion_id, :fc_futur, :rj45_cm, :name, :modele_id, :numero, :critique, :domaine_id, :fc_total, :fc_utilise, :rj45_total, :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur, :ipmi_dedie,
+                           :frame, # TODO: Check if it should be removed or if it's used somewhere
+                           { network_types: [],
+                             :cards_attributes => [:composant_id, :card_type_id, :_destroy, :id, :twin_card_id, :orientation, :name, :first_position],
+                             :disks_attributes => [:quantity, :disk_type_id, :_destroy, :id],
+                             :memory_components_attributes => [:quantity, :memory_type_id, :_destroy, :id],
+                             :documents_attributes => [:document, :id, :_destroy] },])
   end
 
   def search_params

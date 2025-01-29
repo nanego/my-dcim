@@ -58,8 +58,8 @@ class AirConditionersController < ApplicationController
   end
 
   def air_conditioner_params
-    params.require(:air_conditioner).permit(:status, :last_service, :bay_id,
-                                            :name, :air_conditioner_model_id, :position, :lift_pump,
-                                            :start, :range, :setpoint, :min_setpoint)
+    params.expect(air_conditioner: [:status, :last_service, :bay_id,
+                                    :name, :air_conditioner_model_id, :position, :lift_pump,
+                                    :start, :range, :setpoint, :min_setpoint,])
   end
 end

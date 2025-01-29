@@ -70,6 +70,6 @@ class MemoryComponentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def memory_component_params
-    params.require(:memory_component).permit(:server_id, :memory_type_id, :quantity)
+    params.expect(memory_component: [:server_id, :memory_type_id, :quantity])
   end
 end

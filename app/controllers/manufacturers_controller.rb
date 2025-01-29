@@ -75,6 +75,6 @@ class ManufacturersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def manufacturer_params
-    params.require(:manufacturer).permit(:name, :description, :documentation_url)
+    params.expect(manufacturer: [:name, :description, :documentation_url])
   end
 end

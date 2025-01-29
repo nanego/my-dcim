@@ -77,6 +77,6 @@ class ContactAssignmentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def contact_assignment_params
-    params.require(:contact_assignment).permit(:site_id, :contact_id, :contact_role_id)
+    params.expect(contact_assignment: [:site_id, :contact_id, :contact_role_id])
   end
 end

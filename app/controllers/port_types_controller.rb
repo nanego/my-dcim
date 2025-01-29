@@ -58,6 +58,6 @@ class PortTypesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def port_type_params
-    params.require(:port_type).permit(:name, :power)
+    params.expect(port_type: [:name, :power])
   end
 end
