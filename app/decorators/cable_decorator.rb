@@ -46,7 +46,7 @@ class CableDecorator < ApplicationDecorator
       card_type = connection&.card&.card_type
       port_type = card_type&.port_type
       port_type_class = port_type&.decorated&.css_class_name
-      
+
       span_text = name.presence || "n/c"
 
       tag.span span_text,
