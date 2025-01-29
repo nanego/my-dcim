@@ -46,7 +46,7 @@ RSpec.describe List::DataTableComponent, type: :component do
   context "with bulk_actions" do
     let(:block) do
       proc do |table|
-        table.with_bulk_action(url: "/bulk/servers", method: :delete, class: "btn",
+        table.with_bulk_action(url: "/bulk/servers", method: :delete, class: "btn btn-danger",
                                data: { confirm: "are you sure?" })
         table.with_column("name", &:product)
       end
@@ -54,14 +54,22 @@ RSpec.describe List::DataTableComponent, type: :component do
 
     it do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component).to have_tag("div", with: { "data-controller": "bulk-actions" }) do
-        with_tag("div", with: { style: "visibility: hidden;", "data-bulk-actions-target": "actionsContainer" }) do
-          with_tag("span", with: { "data-bulk-actions-target": "checkedCount" })
-          with_tag("button.btn", with: {
-            "data-bulk-actions-method-param": "delete", "data-bulk-actions-url-param": "/bulk/servers",
-            "data-bulk-actions-confirm-param": "are you sure?",
-            "data-action": "bulk-actions#submit",
-            type: "button"
-          })
+        with_tag("div", with: { style: "display: none;", "data-bulk-actions-target": "actionsContainer" }) do
+          with_tag("div.card") do
+            with_tag("div.card-body") do
+              with_tag("div.d-flex") do
+                with_tag("span") do
+                  with_tag("span.fw-bolder", with: { "data-bulk-actions-target": "checkedCount" })
+                end
+                with_tag("button.btn-danger.btn", with: {
+                  "data-bulk-actions-method-param": "delete", "data-bulk-actions-url-param": "/bulk/servers",
+                  "data-bulk-actions-confirm-param": "are you sure?",
+                  "data-action": "bulk-actions#submit",
+                  type: "button"
+                })
+              end
+            end
+          end
         end
         with_tag("thead") do
           with_tag("tr > th", with: { style: "width: 0;" }) do

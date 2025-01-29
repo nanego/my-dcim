@@ -53,8 +53,8 @@ module List
           concat(render(CardComponent.new(extra_classes: "mb-4")) do
             concat(tag.div(class: "d-flex justify-content-between align-items-center") do
               concat(tag.span do
-                concat(tag.span(class: "fw-bolder me-1", data: { bulk_actions_target: "checkedCount" }))
-                concat(" #{t(".bulk.selected_elements")}")
+                concat(tag.span(class: "fw-bolder", data: { bulk_actions_target: "checkedCount" }))
+                concat(tag.span " #{t(".bulk.selected_elements")}")
               end)
 
               bulk_actions.each do |bulk_action|
