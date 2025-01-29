@@ -6,8 +6,7 @@ module Bulk
 
     def destroy
       respond_to do |format|
-        # if @items.map(&:destroy).all?
-        if false
+        if @servers.map(&:destroy).all?
           format.html { redirect_to servers_path, notice: t(".flashes.destroyed"), status: :see_other }
         else
           # TODO: tell which records has not been removed

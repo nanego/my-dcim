@@ -9,8 +9,8 @@ RSpec.describe "/servers" do
   before do
     sign_in users(:one)
 
-    server.save
-    server2.save
+    server.save!
+    server2.save!
   end
 
   describe "GET /index" do
