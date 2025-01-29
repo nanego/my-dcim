@@ -37,7 +37,7 @@
       <%= f.select :room_id,
                    options_from_collection_for_select(Room.order(:position), :id, :name_with_site, @islet.room_id),
                    { prompt: true },
-                   { class: "form-select", data: { controller: "select"} } %>
+                   { class: "form-select", data: { controller: "select" }, placeholder: t("select.placeholder") } %>
     </fieldset>
 
     <fieldset class="col-12 mt-4">

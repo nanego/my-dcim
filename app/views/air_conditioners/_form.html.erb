@@ -48,8 +48,8 @@
                     options_from_collection_for_select(
                       Bay.sorted_by_room, :id, :detailed_name, @air_conditioner.bay_id
                     ),
-                    {},
-                    { class: "form-select", data: { controller: "select" } } %>
+                    { prompt: true },
+                    { class: "form-select", data: { controller: "select" }, placeholder: t("select.placeholder") } %>
     </fieldset>
 
     <fieldset class="mt-4">

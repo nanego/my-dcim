@@ -11,9 +11,15 @@
 
       <fieldset class="col-12 mt-4">
         <%= f.label :manufacturer_id, class: "form-label" %>
-        <%= f.select :manufacturer_id, options_from_collection_for_select(Manufacturer.all, :id, :to_s, @bay.manufacturer_id),
-                                  { prompt: true },
-                                  { class: "form-select", data: { controller: "select" } } %>
+        <%= f.select :manufacturer_id,
+                     options_from_collection_for_select(Manufacturer.all, :id, :to_s, @bay.manufacturer_id),
+                     { prompt: true },
+                     {
+                       class: "form-select",
+                       data: { controller: "select" },
+                       placeholder: t("select.placeholder")
+                     }
+        %>
       </fieldset>
 
       <fieldset class="col-md-6 col-12 mt-4">
@@ -49,9 +55,9 @@
     <fieldset class="col-12">
       <%= f.label :islet_id, class: "form-label" %>
       <%= f.select :islet_id,
-                  options_from_collection_for_select(Islet.includes(:room).all, :id, :name_with_room, @bay.islet_id),
-                  {},
-                  { class: "form-select", data: { controller: "select" } } %>
+                   options_from_collection_for_select(Islet.includes(:room).all, :id, :name_with_room, @bay.islet_id),
+                   { prompt: true },
+                   { class: "form-select", data: { controller: "select" }, placeholder: t("select.placeholder") } %>
     </fieldset>
 
     <fieldset class="col-12 mt-4">
