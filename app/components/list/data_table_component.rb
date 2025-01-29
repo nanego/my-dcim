@@ -132,7 +132,7 @@ module List
           bulk_actions_method_param: method || :post,
           bulk_actions_url_param: url,
           bulk_actions_confirm_param: confirm,
-          action: "bulk-actions#submit",
+          action: "bulk-actions#submit"
         }
         @options[:data] = data.merge(options[:data]) do |key, a, b|
           case key

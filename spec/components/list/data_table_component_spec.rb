@@ -20,7 +20,7 @@ RSpec.describe List::DataTableComponent, type: :component do
 
   let(:block) do
     proc do |table|
-      table.with_column("name") { |row| row.product }
+      table.with_column("name", &:product)
     end
   end
 
@@ -48,7 +48,7 @@ RSpec.describe List::DataTableComponent, type: :component do
       proc do |table|
         table.with_bulk_action(url: "/bulk/servers", method: :delete, class: "btn",
                                data: { confirm: "are you sure?" })
-        table.with_column("name") { |row| row.product }
+        table.with_column("name", &:product)
       end
     end
 
@@ -60,7 +60,7 @@ RSpec.describe List::DataTableComponent, type: :component do
             "data-bulk-actions-method-param": "delete", "data-bulk-actions-url-param": "/bulk/servers",
             "data-bulk-actions-confirm-param": "are you sure?",
             "data-action": "bulk-actions#submit",
-            type: "button",
+            type: "button"
           })
         end
         with_tag("thead") do
@@ -73,7 +73,7 @@ RSpec.describe List::DataTableComponent, type: :component do
             with_tag("tr > td") do
               with_tag("input", with: {
                 type: "checkbox", name: "ids[]", value: row.id,
-                "data-bulk-actions-target": "checkbox",
+                "data-bulk-actions-target": "checkbox"
               })
             end
           end

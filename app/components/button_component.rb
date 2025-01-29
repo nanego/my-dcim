@@ -26,7 +26,7 @@ class ButtonComponent < ApplicationComponent
             title: @html_options&.dig(:data, :tooltip_title) || @title,
             **@html_options do
       concat(tag.i(class: "bi bi-#{@icon}")) if @icon
-      concat(tag.span(@title, class: class_names("ms-2", 'd-none d-md-inline-flex': @is_responsive)))
+      concat(tag.span(@title, class: class_names("ms-2", "d-none d-md-inline-flex": @is_responsive)))
     end
   end
 end
