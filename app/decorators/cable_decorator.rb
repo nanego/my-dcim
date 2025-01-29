@@ -43,7 +43,9 @@ class CableDecorator < ApplicationDecorator
     end
 
     if (port = connection&.port) && name.present?
-      port_type_class = connection&.card&.card_type&.port_type&.decorated&.css_class_name
+      card_type = connection&.card&.card_type
+      port_type = card_type&.port_type
+      port_type_class = port_type&.decorated&.css_class_name
 
       tag.span name,
                class: class_names(
