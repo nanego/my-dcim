@@ -35,12 +35,12 @@ class ServersController < ApplicationController
     room = Room.find_by_name(params[:room]) unless params[:room].include?('non ')
     frame = room.frames.where('islets.name = ? AND frames.name = ?', params[:islet], params[:frame]).first
     positions = params[:positions].split(',')
+
     params[:server].each_with_index do |id, index|
       if positions[index].present?
         server = Server.find_by_id(id)
-        new_params_hash = { position: positions[index] }
-        new_params_hash.merge!({ frame_id: frame.id }) if frame.present?
-        new_params = ActionController::Parameters.new(new_params_hash)
+        new_params = { position: positions[index] }
+        new_params.merge!({ frame_id: frame.id }) if frame.present?
 
         server.update(new_params)
       end
