@@ -48,7 +48,7 @@
       <% end %>
     </div>
     <div class="col" id="export-to-pdf">
-      <%= render CardComponent.new(type: :primary) do |card| %>
+      <%= render CardComponent.new(type: :info) do |card| %>
         <% card.with_header do %>
           <div class="justify-content-between d-flex">
             <span><%= t("layouts.sidebar.location.title") %></span>

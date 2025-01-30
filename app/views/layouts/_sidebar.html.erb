@@ -9,38 +9,38 @@
       <!-- Location -->
       <li class="mydcim-sidebar-links-group py-2">
         <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
-          <i class="bi bi-geo-alt me-2 text-primary"></i>
+          <i class="bi bi-geo-alt me-2 text-info"></i>
           <%= t(".location.title") %>
         </strong>
         <ul class="list-unstyled fw-normal pb-2 small">
           <li>
             <%= link_to Site.model_name.human.pluralize,
                         sites_path,
-                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                        class: class_names("mydcim-sidebar-links-link mydcim-sidebar-links-link-info d-inline-block rounded",
                                           active: controller.controller_name == "sites") %>
           </li>
           <li>
             <%= link_to Room.model_name.human.pluralize,
                         rooms_path,
-                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                        class: class_names("mydcim-sidebar-links-link mydcim-sidebar-links-link-info d-inline-block rounded",
                           active: controller.controller_name == "rooms" && !hide_inventories_sidebar?) %>
           </li>
           <li>
             <%= link_to Islet.model_name.human.pluralize,
                         islets_path,
-                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                        class: class_names("mydcim-sidebar-links-link mydcim-sidebar-links-link-info d-inline-block rounded",
                                           active: controller.controller_name == "islets") %>
           </li>
           <li>
             <%= link_to t(".location.bays"),
                         bays_path,
-                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                        class: class_names("mydcim-sidebar-links-link mydcim-sidebar-links-link-info d-inline-block rounded",
                                           active: controller.controller_name == "bays") %>
           </li>
           <li>
             <%= link_to Frame.model_name.human.pluralize,
                         frames_path,
-                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                        class: class_names("mydcim-sidebar-links-link mydcim-sidebar-links-link-info d-inline-block rounded",
                                           active: controller.controller_name == "frames") %>
           </li>
         </ul>
