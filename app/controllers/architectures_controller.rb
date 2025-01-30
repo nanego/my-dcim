@@ -75,6 +75,6 @@ class ArchitecturesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def architecture_params
-    params.expect(architecture: [:name, :description])
+    params.expect(architecture: %i[name description])
   end
 end

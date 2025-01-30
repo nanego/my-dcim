@@ -75,6 +75,6 @@ class MemoryTypesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def memory_type_params
-    params.expect(memory_type: [:quantity, :unit])
+    params.expect(memory_type: %i[quantity unit])
   end
 end

@@ -75,6 +75,6 @@ class DiskTypesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def disk_type_params
-    params.expect(disk_type: [:unit, :quantity, :technology])
+    params.expect(disk_type: %i[unit quantity technology])
   end
 end

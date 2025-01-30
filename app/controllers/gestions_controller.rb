@@ -75,6 +75,6 @@ class GestionsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def gestion_params
-    params.expect(gestion: [:name, :description])
+    params.expect(gestion: %i[name description])
   end
 end

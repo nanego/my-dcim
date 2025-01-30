@@ -58,6 +58,6 @@ class DocumentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def document_params
-    params.expect(document: [:server_id, :document])
+    params.expect(document: %i[server_id document])
   end
 end

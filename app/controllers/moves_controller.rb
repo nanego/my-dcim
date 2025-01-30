@@ -155,11 +155,11 @@ class MovesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def move_params
-    params.expect(move: [:moveable_type, :moveable_id, :frame_id, :position, :prev_frame_id])
+    params.expect(move: %i[moveable_type moveable_id frame_id position prev_frame_id])
   end
 
   def moved_connection_params
-    params.expect(moved_connection: [:port_from_id, :port_to_id, :vlans, :color, :cablename])
+    params.expect(moved_connection: %i[port_from_id port_to_id vlans color cablename])
   end
 
   def load_form_data

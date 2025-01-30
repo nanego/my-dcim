@@ -62,6 +62,6 @@ class ColorsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def color_params
-    params.expect(color: [:parent_id, :parent_type, :code])
+    params.expect(color: %i[parent_id parent_type code])
   end
 end
