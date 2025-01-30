@@ -73,7 +73,7 @@ class UsersController < ApplicationController
   end
 
   def secure_params
-    params.require(:user).permit(:role, :email, :name)
+    params.expect(user: %i[role email name])
   end
 
   def set_user

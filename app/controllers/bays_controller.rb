@@ -71,6 +71,6 @@ class BaysController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def bay_params
-    params.require(:bay).permit(:name, :lane, :position, :width, :depth, :access_control, :bay_type_id, :islet_id, :manufacturer_id)
+    params.expect(bay: %i[name lane position width depth access_control bay_type_id islet_id manufacturer_id])
   end
 end
