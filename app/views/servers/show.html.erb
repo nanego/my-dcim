@@ -88,6 +88,17 @@
       <div class="col">
         <%= render CardComponent.new do |card| %>
           <% card.with_header do %>
+            <%= t("show.cards.identification") %>
+          <% end %>
+
+          <dl class="show-page_dl d-grid row-gap-2 mb-0">
+            <dt class="pb-2"><%= Server.human_attribute_name(:name) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @server.name %></dd>
+          </dl>
+        <% end %>
+
+        <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
+          <% card.with_header do %>
             <%= Modele.model_name.human %>
           <% end %>
 
@@ -127,6 +138,10 @@
         <% end %>
 
         <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
+          <% card.with_header do %>
+            <%= t("show.cards.features") %>
+          <% end %>
+
           <dl class="show-page_dl d-grid row-gap-2 mb-0">
             <dt class="pb-2"><%= Server.human_attribute_name(:numero) %></dt>
             <dd class="mb-0 pb-2 ps-3"><%= @server.try(:numero) %></dd>
@@ -182,16 +197,20 @@
           </dl>
         <% end %>
 
-        <% if @server.photo.attached? %>
+        <% if @server.documents.present? %>
           <!-- Card shown on lg, in 2nd position (Grid isn't working as Masonry) -->
           <%= render CardComponent.new(extra_classes: "mt-4 d-none d-lg-flex") do |card| %>
             <% card.with_header do %>
-              <%= Server.human_attribute_name(:photo) %>
+              <%= t(".attached_documents") %>
             <% end %>
-
-            <%= link_to @server.photo, rel: :noopener, target: :_blank do %>
-              <%= image_tag @server.photo.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
-            <% end %>
+            <ul>
+              <% @server.documents.each do |doc| %>
+                <%- next unless doc.document.present? %>
+                <li>
+                  <%= link_to(doc.document.metadata["filename"], doc.document_url, { target: :_blank })  %>
+                </li>
+              <% end %>
+            </ul>
           <% end %>
         <% end %>
       </div>
@@ -271,19 +290,6 @@
           </dl>
         <% end %>
 
-        <% if @server.photo.attached? %>
-          <!-- Card shown on mobile, in 3rd position (Grid isn't working as Masonry) -->
-          <%= render CardComponent.new(extra_classes: "d-lg-none mt-4") do |card| %>
-            <% card.with_header do %>
-              <%= Server.human_attribute_name(:photo) %>
-            <% end %>
-
-            <%= link_to @server.photo, rel: :noopener, target: :_blank do %>
-              <%= image_tag @server.photo.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
-            <% end %>
-          <% end %>
-        <% end %>
-
         <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
           <% card.with_header do %>
             <%= t(".glpi_data") %>
@@ -345,7 +351,8 @@
         <% end %>
 
         <% if @server.documents.present? %>
-          <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
+          <!-- Card shown on mobile, in 3rd position (Grid isn't working as Masonry) -->
+          <%= render CardComponent.new(extra_classes: "d-lg-none mt-4") do |card| %>
             <% card.with_header do %>
               <%= t(".attached_documents") %>
             <% end %>
@@ -357,6 +364,18 @@
                 </li>
               <% end %>
             </ul>
+          <% end %>
+        <% end %>
+
+        <% if @server.photo.attached? %>
+          <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
+            <% card.with_header do %>
+              <%= Server.human_attribute_name(:photo) %>
+            <% end %>
+
+            <%= link_to @server.photo, rel: :noopener, target: :_blank do %>
+              <%= image_tag @server.photo.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
+            <% end %>
           <% end %>
         <% end %>
       </div>

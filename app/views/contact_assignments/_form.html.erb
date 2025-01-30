@@ -2,6 +2,10 @@
   <%= render FormErrorsComponent.new(@contact_assignment) %>
 
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+    <% card.with_header do %>
+      <%= t("show.cards.features") %>
+    <% end %>
+
     <fieldset class="col-12">
       <%= f.label :contact_id, class: "form-label" %>
       <%= f.select :contact_id, Contact.all.map{ |c| [c.to_s, c.id] }, { prompt: true }, class: "form-select" %>
