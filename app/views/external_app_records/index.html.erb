@@ -96,7 +96,7 @@
     <% end %>
     <% table.with_column(ExternalAppRecord.human_attribute_name(:external_serial_status),
                          sort_by: :external_serial,
-                         class: "text-center") do |record| %>
+                         text_align: :center) do |record| %>
       <%= render record.decorated.external_serial_to_badge_component %>
     <% end %>
     <% table.with_column(ExternalAppRecord.human_attribute_name(:external_name), sort_by: :external_name) do |record| %>
