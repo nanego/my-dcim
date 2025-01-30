@@ -42,12 +42,14 @@ class CableDecorator < ApplicationDecorator
       twin_connections.each { |c| twin_card_used_ports << c.port.position if c&.port }
     end
 
-    if (port = connection&.port) && name.present?
+    if (port = connection&.port)
       card_type = connection&.card&.card_type
       port_type = card_type&.port_type
       port_type_class = port_type&.decorated&.css_class_name
 
-      tag.span name,
+      span_text = name.presence || "n/c"
+
+      tag.span span_text,
                class: class_names(
                  "me-0 port #{color} text-body-emphasis #{port_type_class}",
                  "fst-italic fw-lighter": name.blank?,
