@@ -140,10 +140,12 @@ RSpec.describe "/servers" do
       end
 
       it "does update cards in a server", :aggregate_failures do # rubocop:disable RSpec/ExampleLength
-        patch server_path(server), params: { server: { cards_attributes: { id: 1,
-                                                                           composant_id: 1,
-                                                                           twin_card_id: 2,
-                                                                           orientation: "lr-td" } } }
+        patch server_path(server), params: {
+          server: {
+            name: server.name,
+            cards_attributes: [{ id: 1, composant_id: 1, twin_card_id: 2, orientation: "lr-td" }]
+          }
+        }
 
         assigns(:server).reload
         server.reload

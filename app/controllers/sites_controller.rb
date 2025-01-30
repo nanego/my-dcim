@@ -67,11 +67,11 @@ class SitesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def site_params
     params.expect(
-      site: [:name, :description,
-             :position,
-             :street, :country, :city, :latitude, :longitude,
-             :delivery_address, :delivery_times, :delivery_map,
-             { contact_assignments_attributes: %i[contact_id contact_role_id id _destroy] },]
+      site: [
+        :name, :description, :position, :street, :country, :city, :latitude, :longitude,
+        :delivery_address, :delivery_times, :delivery_map,
+        { contact_assignments_attributes: [%i[contact_id contact_role_id id _destroy]] },
+      ]
     )
   end
 end
