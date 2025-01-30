@@ -1,6 +1,18 @@
 <%= form_for(@color, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
   <%= render FormErrorsComponent.new(@color) %>
+
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+    <% card.with_header do %>
+      <%= t("show.cards.identification") %>
+    <% end %>
+
+    <fieldset class="col-12">
+      <%= f.label :code, class: "forml-label" %>
+      <%= f.text_field :code, class: "form-control" %>
+    </fieldset>
+  <% end %>
+
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
     <% card.with_header do %>
       <%= t("show.cards.features") %>
     <% end %>
@@ -13,11 +25,6 @@
     <fieldset class="col-12 mt-4">
       <%= f.label :parent_id, class: "forml-label" %>
       <%= f.text_field :parent_id, class: "form-control" %>
-    </fieldset>
-
-    <fieldset class="col-12 mt-4">
-      <%= f.label :code, class: "forml-label" %>
-      <%= f.text_field :code, class: "form-control" %>
     </fieldset>
   <% end %>
 
