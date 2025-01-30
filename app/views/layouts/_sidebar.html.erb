@@ -132,32 +132,32 @@
       <!-- Exploitation -->
       <li class="mydcim-sidebar-links-group py-2">
         <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
-          <i class="bi bi-briefcase me-2 text-primary"></i>
+          <i class="bi bi-briefcase me-2 text-success"></i>
           <%= t(".exploitation.title") %>
         </strong>
         <ul class="list-unstyled fw-normal pb-2 small">
           <li>
             <%= link_to Domaine.model_name.human.pluralize,
                         domaines_path,
-                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                        class: class_names("mydcim-sidebar-links-link mydcim-sidebar-links-link-exploitation d-inline-block rounded",
                                           active: controller.controller_name == "domaines") %>
           </li>
           <li>
             <%= link_to Gestion.model_name.human.pluralize,
                         gestions_path,
-                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                        class: class_names("mydcim-sidebar-links-link mydcim-sidebar-links-link-exploitation d-inline-block rounded",
                                           active: controller.controller_name == "gestions") %>
           </li>
           <li>
             <%= link_to Cluster.model_name.human.pluralize,
                         clusters_path,
-                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                        class: class_names("mydcim-sidebar-links-link mydcim-sidebar-links-link-exploitation d-inline-block rounded",
                                           active: controller.controller_name == "clusters") %>
           </li>
           <li>
             <%= link_to Color.model_name.human.pluralize,
                         colors_path,
-                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                        class: class_names("mydcim-sidebar-links-link mydcim-sidebar-links-link-exploitation d-inline-block rounded",
                                           active: controller.controller_name == "colors") %>
           </li>
         </ul>

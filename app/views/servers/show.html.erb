@@ -131,21 +131,12 @@
             <dt class="pb-2"><%= Server.human_attribute_name(:numero) %></dt>
             <dd class="mb-0 pb-2 ps-3"><%= @server.try(:numero) %></dd>
 
-            <dt class="pb-2"><%= Cluster.model_name.human %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= link_to_if @server.cluster, @server.cluster&.name, @server.cluster %></dd>
-
             <dt class="pb-2"><%= Server.human_attribute_name(:critique) %></dt>
             <dd class="mb-0 pb-2 ps-3">
               <span class="<%= class_names("text-uppercase text-danger": @server.critique) %>">
                 <%= t("boolean.#{@server.critique}") %>
               </span>
             </dd>
-
-            <dt class="pb-2"><%= Domaine.model_name.human %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= link_to_if @server.domaine, @server.domaine %></dd>
-
-            <dt class="pb-2"><%= Gestion.model_name.human %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= link_to_if @server.gestion, @server.gestion %></dd>
 
             <dt class="pb-2"><%= ServerState.model_name.human %></dt>
             <dd class="mb-0 pb-2 ps-3"><%= @server.server_state %></dd>
@@ -171,6 +162,23 @@
                 <% end %>
               <% end if @server.modele.present? %>
             </dd>
+          </dl>
+        <% end %>
+
+        <%= render CardComponent.new(type: :success, extra_classes: "mt-4") do |card| %>
+          <% card.with_header do %>
+            <%= t("layouts.sidebar.exploitation.title") %>
+          <% end %>
+
+          <dl class="show-page_dl d-grid row-gap-2 mb-0">
+            <dt class="pb-2"><%= Domaine.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= link_to_if @server.domaine, @server.domaine %></dd>
+
+            <dt class="pb-2"><%= Gestion.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= link_to_if @server.gestion, @server.gestion %></dd>
+
+            <dt class="pb-2"><%= Cluster.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= link_to_if @server.cluster, @server.cluster&.name, @server.cluster %></dd>
           </dl>
         <% end %>
 
