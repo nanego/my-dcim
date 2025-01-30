@@ -56,9 +56,10 @@ class GlpiClient
         computer_params.deep_transform_keys(&:underscore)
 
         attributes = computer_params
-        attributes[:hard_drives] = attributes.dig('_devices', 'Item_DeviceHardDrive') || {}
-        attributes[:memories] = attributes.dig('_devices', 'Item_DeviceMemory') || {}
-        attributes[:processors] = (attributes.dig('_devices', 'Item_DeviceProcessor') || {}).each do |_, proc|
+        attributes[:hard_drives] = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceHardDrive'] : {}
+        attributes[:memories] = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceMemory'] : {}
+        processors = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceProcessor'] : {}
+        attributes[:processors] = processors.each do |_, proc|
           proc["designation"] = get_processor_designation_from_glpi(id: proc["deviceprocessors_id"])
         end
 
