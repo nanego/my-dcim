@@ -3,10 +3,8 @@
 # Update ports position when the model is 6520 [SAN Switch - Network Bay]
 
 namespace :update_ports_position do
-
   desc "Update ports position by name"
   task :update_by_name => :environment do
-
     model_name = "X670-48x"
     first_position = 1 # 0 or 1
 
@@ -33,7 +31,5 @@ namespace :update_ports_position do
 
       puts array.sort.inspect
     end
-
   end
-
 end

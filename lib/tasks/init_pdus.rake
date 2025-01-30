@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 namespace :init_pdus do
-
   desc "From Ports#cable_names to Pdus details"
   task :from_cablenames => :environment do
-
     # TODO: Refactor if we want to use it
     #
     Port.where("cablename ~ 'L....'").find_each do |port|
@@ -26,5 +24,4 @@ namespace :init_pdus do
       end
     end
   end
-
 end

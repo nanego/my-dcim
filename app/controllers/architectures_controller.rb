@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ArchitecturesController < ApplicationController
-  before_action :set_architecture, only: [:show, :edit, :update, :destroy]
+  before_action :set_architecture, only: %i[show edit update destroy]
 
   # GET /architectures
   # GET /architectures.json

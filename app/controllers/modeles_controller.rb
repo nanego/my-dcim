@@ -3,7 +3,7 @@
 class ModelesController < ApplicationController
   include ModelesHelper
 
-  before_action :set_modele, only: [:show, :edit, :update, :destroy]
+  before_action :set_modele, only: %i[show edit update destroy]
 
   def index
     @filter = ProcessorFilter.new(Modele.includes(:category, :enclosures).order(:name), params)
@@ -104,7 +104,7 @@ class ModelesController < ApplicationController
       network_types: [],
       enclosures_attributes: [
         :id, :modele_id, :_destroy, :position, :display, :grid_areas,
-        composants_attributes: [:type_composant_id, :enclosure_id, :name, :position, :_destroy, :id],
+        composants_attributes: %i[type_composant_id enclosure_id name position _destroy id],
       ]
     )
   end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DiskTypesController < ApplicationController
-  before_action :set_disk_type, only: [:show, :edit, :update, :destroy]
+  before_action :set_disk_type, only: %i[show edit update destroy]
 
   # GET /disk_types
   # GET /disk_types.json

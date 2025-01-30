@@ -90,7 +90,7 @@ class AddAttributesToServers < ActiveRecord::Migration[5.0]
     puts "ERROR: #{card_type}" unless card_type.valid?
 
     MigrationFrame.all.find_each do |frame|
-      ['A', 'B'].each do |line_name|
+      %w[A B].each do |line_name|
         pdu_name = "PDU_#{frame}_#{line_name}"
         pdu = MigrationServer.create(frame: frame,
                             modele: modele,

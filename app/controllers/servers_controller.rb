@@ -3,7 +3,7 @@
 class ServersController < ApplicationController
   include ServersHelper
 
-  before_action :set_server, only: [:show, :edit, :update, :destroy, :destroy_connections]
+  before_action :set_server, only: %i[show edit update destroy destroy_connections]
 
   def index
     # Let server knows that now name is not used anymore for research
@@ -127,7 +127,7 @@ class ServersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_server
-    @server = Server.where('lower(numero) = ?', params[:id].to_s.downcase).includes(:cards => [:ports => [:connection, :cable], :card_type => [:port_type]]).first
+    @server = Server.where('lower(numero) = ?', params[:id].to_s.downcase).includes(:cards => [:ports => %i[connection cable], :card_type => [:port_type]]).first
     @server = Server.friendly.find(params[:id].to_s.downcase) unless @server
   end
 
@@ -136,10 +136,10 @@ class ServersController < ApplicationController
     params.require(:server).permit(:photo, :stack_id, :server_state_id, :comment, :cluster_id, :position, :frame_id, :gestion_id, :fc_futur, :rj45_cm, :name, :modele_id, :numero, :critique, :domaine_id, :fc_total, :fc_utilise, :rj45_total, :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur, :ipmi_dedie,
                                    :frame, # TODO: Check if it should be removed or if it's used somewhere
                                    network_types: [],
-                                   :cards_attributes => [:composant_id, :card_type_id, :_destroy, :id, :twin_card_id, :orientation, :name, :first_position],
-                                   :disks_attributes => [:quantity, :disk_type_id, :_destroy, :id],
-                                   :memory_components_attributes => [:quantity, :memory_type_id, :_destroy, :id],
-                                   :documents_attributes => [:document, :id, :_destroy])
+                                   :cards_attributes => %i[composant_id card_type_id _destroy id twin_card_id orientation name first_position],
+                                   :disks_attributes => %i[quantity disk_type_id _destroy id],
+                                   :memory_components_attributes => %i[quantity memory_type_id _destroy id],
+                                   :documents_attributes => %i[document id _destroy])
   end
 
   def search_params

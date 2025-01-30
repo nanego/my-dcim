@@ -5,7 +5,7 @@ class CablesController < ApplicationController
 
   def index
     @cables = Cable.includes(:connections,
-                             connections: [:port, :server, :card],
+                             connections: %i[port server card],
                              cards: [:card_type],
                              card_types: [:port_type])
       .order(created_at: :desc)

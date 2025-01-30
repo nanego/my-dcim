@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ServerStatesController < ApplicationController
-  before_action :set_server_state, only: [:show, :edit, :update, :destroy]
+  before_action :set_server_state, only: %i[show edit update destroy]
 
   # GET /server_states
   # GET /server_states.json

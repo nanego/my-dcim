@@ -3,7 +3,7 @@
 class IsletsController < ApplicationController
   include RoomsHelper
 
-  before_action :set_islet, only: [:show, :edit, :update, :destroy, :print]
+  before_action :set_islet, only: %i[show edit update destroy print]
   before_action :set_room, only: %i[show print]
   before_action :set_servers_per_frames, only: %i[show print]
 

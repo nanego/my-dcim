@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ColorsController < ApplicationController
-  before_action :set_color, only: [:show, :edit, :update, :destroy]
+  before_action :set_color, only: %i[show edit update destroy]
 
   def index
     @colors = sorted Color.order('parent_type asc, parent_id asc')

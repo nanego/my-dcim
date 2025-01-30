@@ -22,7 +22,7 @@ class ExternalAppRecordsController < ApplicationController
   end
 
   def sync_all_servers_with_glpi
-    if ExternalAppRequest.exists?(status: ["pending", "in_progress"], external_app_name: "glpi")
+    if ExternalAppRequest.exists?(status: %w[pending in_progress], external_app_name: "glpi")
       render json: { error: "Another request is already in progress" }
     else
       request = ExternalAppRequest.create!(status: :pending, user: current_user, external_app_name: "glpi")

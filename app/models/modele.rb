@@ -2,7 +2,7 @@
 
 class Modele < ApplicationRecord
   extend FriendlyId
-  friendly_id :slug_candidates, use: [:slugged, :history]
+  friendly_id :slug_candidates, use: %i[slugged history]
 
   has_changelog
 
@@ -64,7 +64,7 @@ class Modele < ApplicationRecord
   def slug_candidates
     [
       :name,
-      [:name, :id],
+      %i[name id],
     ]
   end
 

@@ -33,7 +33,7 @@ RSpec.describe User do
   end
 
   describe "enumerize user role" do
-    it { is_expected.to define_enum_for(:role).with_values([:user, :vip, :admin]) }
+    it { is_expected.to define_enum_for(:role).with_values(%i[user vip admin]) }
   end
 
   describe "#regenerate_authentication_token!" do

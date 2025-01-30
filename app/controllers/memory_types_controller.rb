@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MemoryTypesController < ApplicationController
-  before_action :set_memory_type, only: [:show, :edit, :update, :destroy]
+  before_action :set_memory_type, only: %i[show edit update destroy]
 
   # GET /memory_types
   # GET /memory_types.json

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DiskType < ApplicationRecord
-  UNITS = ["Tb", "Gb"]
+  UNITS = %w[Tb Gb]
   TECHNOLOGIES = ["", "SSD"]
 
   has_changelog

@@ -20,7 +20,7 @@ module Visualization
     private
 
     def set_frame
-      @frame = Frame.includes(servers: [modele: [:category, :composants],
+      @frame = Frame.includes(servers: [modele: %i[category composants],
                                         cards: [:composant,
                                                 { ports: [connection: [cable: :connections]],
                                                   card_type: [:port_type] },]],

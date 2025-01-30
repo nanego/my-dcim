@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MemoryComponentsController < ApplicationController
-  before_action :set_memory_component, only: [:show, :edit, :update, :destroy]
+  before_action :set_memory_component, only: %i[show edit update destroy]
 
   # GET /memory_components
   # GET /memory_components.json

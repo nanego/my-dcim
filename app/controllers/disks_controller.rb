@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DisksController < ApplicationController
-  before_action :set_disk, only: [:show, :edit, :update, :destroy]
+  before_action :set_disk, only: %i[show edit update destroy]
 
   # GET /disks
   # GET /disks.json

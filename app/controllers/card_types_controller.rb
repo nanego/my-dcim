@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CardTypesController < ApplicationController
-  before_action :set_card_type, only: [:show, :edit, :update, :destroy]
+  before_action :set_card_type, only: %i[show edit update destroy]
 
   def index
     @filter = ProcessorFilter.new(CardType.sorted, params)

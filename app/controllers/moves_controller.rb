@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class MovesController < ApplicationController
-  before_action :set_move, only: [:show, :edit, :update, :destroy, :execute_movement]
-  before_action :load_form_data, only: [:new, :edit]
+  before_action :set_move, only: %i[show edit update destroy execute_movement]
+  before_action :load_form_data, only: %i[new edit]
   before_action :set_frame_updated, only: %i[frame print]
 
   def index

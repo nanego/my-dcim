@@ -30,7 +30,6 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
         html += "<td><div class='d-flex'>"
 
         ports_per_cell.times do |cell_index|
-
           position = get_current_position(card.orientation, card_type, cell_index, row_index, column_index, ports_per_cell)
           port_data = card.ports.detect { |p| p.position == position }
           port_id = port_data.try(:id)
@@ -42,7 +41,6 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
           if (cell_index + 1) % number_of_columns_in_cell(card.orientation, ports_per_cell, card_type.max_aligned_ports) == 0 # Every XX ports do
             html += '</div><div class="d-flex">'
           end
-
         end
 
         html += "</div></td>"
@@ -65,7 +63,6 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
         html += "<td><div class='d-flex'>"
 
         ports_per_cell.times do |cell_index|
-
           position = get_current_position(card.orientation, card_type, cell_index, row_index, column_index, ports_per_cell)
           port_data = card.ports.detect { |p| p.position == position }
           port_id = port_data.try(:id)
@@ -137,7 +134,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
 
   def link_to_port_by_type(label, type, port_data, position, card_id, port_id)
     edit_port_url = port_id ? connections_edit_path(from_port_id: port_id) : edit_port_path(id: 0, card_id: card_id, position: position)
-    if ['RJ', 'XRJ', 'FC', 'ALIM'].include? type
+    if %w[RJ XRJ FC ALIM].include? type
       port_class = type
     else
       port_class = "SCSI"
