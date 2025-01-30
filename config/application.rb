@@ -23,7 +23,7 @@ Bundler.require(*Rails.groups)
 module Demenagement
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.2
+    config.load_defaults 8.0
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
@@ -44,7 +44,7 @@ module Demenagement
     config.i18n.fallbacks = true
 
     config.generators do |g|
-      g.test_framework :rspec
+      g.test_framework :rspec, fixtures: true
     end
   end
 end

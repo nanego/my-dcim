@@ -114,6 +114,6 @@ class FramesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def frame_params
-    params.require(:frame).permit(:name, :u, :room, :islet, :position, :switch_slot, :width, :bay_id)
+    params.expect(frame: %i[name u room islet position switch_slot width bay_id])
   end
 end

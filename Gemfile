@@ -3,13 +3,13 @@
 source "https://rubygems.org"
 ruby file: ".ruby-version"
 
-gem "rails", "~> 7.2.0"
+gem "rails", "~> 8.0.0"
 
 gem "bootstrap", "~> 5.3.2"
 gem "dartsass-sprockets"
 gem "jbuilder"
 gem "nokogiri", "~> 1.16"
-gem "rails-i18n", "~> 7.0.x"
+gem "rails-i18n", "~> 8.0.x"
 gem "sprockets-rails", require: "sprockets/railtie"
 gem "terser"
 
@@ -20,14 +20,14 @@ gem "devise_invitable"
 gem "omniauth", "~> 2.1.0"
 gem "omniauth_openid_connect", "~> 0.7.0"
 gem "omniauth-rails_csrf_protection"
-gem "simple_token_authentication", "~> 1.0"
+gem "simple_token_authentication", github: "gonzalo-bulnes/simple_token_authentication"
 
 gem "datagrid"
+gem "dry-struct"
 gem "faraday"
 gem "kaminari" # TODO: Remove when removing datagrid
 gem "pagy"
 gem "pg"
-gem "virtus"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false

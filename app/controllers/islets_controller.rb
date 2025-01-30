@@ -86,7 +86,7 @@ class IsletsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def islet_params
-    params.require(:islet).permit(:name, :room_id, :position, :description, :cooling_mode, :access_control)
+    params.expect(islet: %i[name room_id position description cooling_mode access_control])
   end
 
   def set_room

@@ -54,17 +54,17 @@ class GlpiClient
       end
       if computer_params.present?
         computer_params.deep_transform_keys(&:underscore)
-        computer = Computer.new(computer_params)
-        computer.hard_drives = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceHardDrive'] : {}
-        computer.memories = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceMemory'] : {}
-        computer.processors = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceProcessor'] : {}
-        computer.processors.each do |proc_id, proc_details|
-          proc_details["designation"] = get_processor_designation_from_glpi(id: proc_details["deviceprocessors_id"])
+
+        attributes = computer_params
+        attributes[:hard_drives] = attributes.dig('_devices', 'Item_DeviceHardDrive') || {}
+        attributes[:memories] = attributes.dig('_devices', 'Item_DeviceMemory') || {}
+        attributes[:processors] = (attributes.dig('_devices', 'Item_DeviceProcessor') || {}).each do |_, proc|
+          proc["designation"] = get_processor_designation_from_glpi(id: proc["deviceprocessors_id"])
         end
+
+        return Computer.new(attributes)
       end
     end
-
-    return computer
   end
 
   def get_processor_designation_from_glpi(id:)
@@ -110,17 +110,21 @@ class GlpiClient
     end
   end
 
-  class Computer
-    include Virtus.model
+  module Types
+    include Dry.Types()
+  end
 
-    attribute :id, Integer
-    attribute :serial, String
-    attribute :name, String
-    attribute :contact, String
-    attribute :disks, Hash
-    attribute :hard_drives, Hash
-    attribute :memories, Hash
-    attribute :processors, Hash
+  class Computer < Dry::Struct
+    transform_keys(&:to_sym)
+
+    attribute? :id, Types::Coercible::Integer
+    attribute? :serial, Types::Coercible::String
+    attribute? :name, Types::Coercible::String
+    attribute? :contact, Types::Coercible::String
+    attribute? :disks, Types::Coercible::Hash
+    attribute? :hard_drives, Types::Coercible::Hash
+    attribute? :memories, Types::Coercible::Hash
+    attribute? :processors, Types::Coercible::Hash
 
     def hard_drives_total_capacity
       return 0 if hard_drives.blank?
@@ -133,11 +137,5 @@ class GlpiClient
 
       memories.sum { |key, value| value['size'] }
     end
-  end
-
-  class DeviceProcessor
-    include Virtus.model
-
-    attribute :designation, String
   end
 end

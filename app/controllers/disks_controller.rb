@@ -70,6 +70,6 @@ class DisksController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def disk_params
-    params.require(:disk).permit(:server_id, :disk_type_id, :quantity)
+    params.expect(disk: %i[server_id disk_type_id quantity])
   end
 end
