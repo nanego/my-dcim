@@ -293,7 +293,7 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :openid_connect, {
     name: :openid_connect,
-    scope: [:openid, :email, :profile, :address, :phone, :cerbere_utilisateur, :cerbere_autorisations],
+    scope: %i[openid email profile address phone cerbere_utilisateur cerbere_autorisations],
     response_type: :code,
     discovery: true,
     issuer: "https://#{Rails.application.credentials.dig(:oidc, :server_host)}",

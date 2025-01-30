@@ -3,10 +3,8 @@
 # Update pdu lines
 
 namespace :update_pdu_lines do
-
   desc "Update pdus groups"
   task :update_groups => :environment do
-
     alternate_frames_names = [1210, 1212, 1214, 1216, 1218, 1220, 1209, 1211, 1109, 1111, 1113, 1115, 1110, 1112, 1114, 1116, 2109, 2111, 2113, 2115, 2110, 2112, 2114, 2116]
 
     frames = Frame.where("name NOT IN (?)", alternate_frames_names.map { |id| "BA-#{id}" })
@@ -47,8 +45,7 @@ namespace :update_pdu_lines do
     puts "ERROR: #{card_type}" unless card_type.valid?
 
     frames.each do |frame|
-
-      ['A', 'B'].each do |line_name|
+      %w[A B].each do |line_name|
         pdu_name = "PDU_#{frame}_#{line_name}"
         pdu = Server.find_by(frame: frame,
                              name: pdu_name)
@@ -66,9 +63,6 @@ namespace :update_pdu_lines do
           end
         end
       end
-
     end
-
   end
-
 end

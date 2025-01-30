@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ManufacturersController < ApplicationController
-  before_action :set_manufacturer, only: [:show, :edit, :update, :destroy]
+  before_action :set_manufacturer, only: %i[show edit update destroy]
 
   # GET /manufacturers
   # GET /manufacturers.json

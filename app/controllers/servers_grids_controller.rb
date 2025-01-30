@@ -24,7 +24,6 @@ class ServersGridsController < ApplicationController
           @servers = ServersGrid.new(params[:servers_grid])
           logger.error ex.message
         end
-
       end
       format.csv do
         @servers = ServersGrid.new(params.to_unsafe_h[:servers_grid])

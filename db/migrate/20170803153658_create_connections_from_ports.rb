@@ -8,6 +8,6 @@ class CreateConnectionsFromPorts < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
-    add_index :connections, [:cable_id, :port_id], unique: true
+    add_index :connections, %i[cable_id port_id], unique: true
   end
 end

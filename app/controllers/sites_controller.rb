@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SitesController < ApplicationController
-  before_action :set_site, only: [:show, :edit, :update, :destroy]
+  before_action :set_site, only: %i[show edit update destroy]
 
   def index
     @sites = sorted Site.sorted

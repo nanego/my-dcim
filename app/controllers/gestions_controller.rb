@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class GestionsController < ApplicationController
-  before_action :set_gestion, only: [:show, :edit, :update, :destroy]
+  before_action :set_gestion, only: %i[show edit update destroy]
 
   # GET /gestions
   # GET /gestions.json

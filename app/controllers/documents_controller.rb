@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DocumentsController < ApplicationController
-  before_action :set_document, only: [:show, :edit, :update, :destroy]
+  before_action :set_document, only: %i[show edit update destroy]
 
   def index
     @documents = Document.all
