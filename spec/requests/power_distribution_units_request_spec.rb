@@ -82,7 +82,7 @@ RSpec.describe "/power_distribution_units" do
   describe "POST /create" do
     context "with valid parameters" do
       let(:valid_attributes) do
-        pdu.attributes.except(["id", "numero", "name"]).merge(numero: "new_numero", name: "NewServerName")
+        pdu.attributes.except(%w[id numero name]).merge(numero: "new_numero", name: "NewServerName")
       end
 
       it "creates a new PDU" do
@@ -143,28 +143,29 @@ RSpec.describe "/power_distribution_units" do
         expect(pdu).to eq(assigns(:pdu))
       end
 
-      # it "does update cards in a pdu", :aggregate_failures do
-      #   patch power_distribution_unit_path(pdu), params: { power_distribution_unit: {
-      #                                                           cards_attributes: { id: 3,
-      #                                                             composant_id: 1,
-      #                                                             twin_card_id: 2,
-      #                                                             orientation: "lr-td" } } }
+      it "does update cards in a server", :aggregate_failures do # rubocop:disable RSpec/ExampleLength
+        patch power_distribution_unit_path(pdu), params: {
+          power_distribution_unit: {
+            name: pdu.name,
+            cards_attributes: [{ id: 7, composant_id: 1, twin_card_id: 2, orientation: "lr-td" }]
+          }
+        }
 
-      #   assigns(:pdu).reload
-      #   pdu.reload
+        assigns(:pdu).reload
+        pdu.reload
 
-      #   expect(response).to be_redirection
-      #   expect(response).to redirect_to(power_distribution_unit_path(assigns(:pdu)))
+        expect(response).to be_redirection
+        expect(response).to redirect_to(power_distribution_unit_path(assigns(:pdu)))
 
-      #   # Test new card
-      #   get power_distribution_unit_path(pdu)
-      #   expect(response).to have_http_status(:success)
-      #   expect(pdu).to eq(assigns(:pdu))
-      #   expect(Card.find(1).twin_card_id).to eq 2
+        # Test new card
+        get power_distribution_unit_path(pdu)
+        expect(response).to have_http_status(:success)
+        expect(pdu).to eq(assigns(:pdu))
+        expect(Card.find(7).twin_card_id).to eq 2
 
-      #   # Test twin card
-      #   expect(Card.find(2).twin_card_id).to eq 1
-      # end
+        # Test twin card
+        expect(Card.find(2).twin_card_id).to eq 7
+      end
     end
 
     context "with invalid parameters" do

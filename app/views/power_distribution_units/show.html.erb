@@ -94,15 +94,25 @@
     <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
       <div class="col">
         <%= render CardComponent.new do |card| %>
-          <dl class="show-page_dl d-grid row-gap-2 mb-0">
-            <dt class="pb-2"><%= Modele.human_attribute_name(:nb_elts) %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= @pdu.modele.try(:nb_elts) %></dd>
+          <% card.with_header do %>
+            <%= t("show.cards.identification") %>
+          <% end %>
 
-            <dt class="pb-2"><%= Architecture.model_name.human %></dt>
+          <dl class="show-page_dl d-grid row-gap-2 mb-0">
+            <dt class="pb-2"><%= Server.human_attribute_name(:name) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @pdu.name %></dd>
+          </dl>
+        <% end %>
+
+        <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
+          <% card.with_header do %>
+            <%= Modele.model_name.human %>
+          <% end %>
+
+          <dl class="show-page_dl d-grid row-gap-2 mb-0">
+            <dt class="pb-2"><%= Modele.model_name.human %></dt>
             <dd class="mb-0 pb-2 ps-3">
-              <% if @pdu.modele&.architecture.present? %>
-                <%= link_to @pdu.modele.architecture, architecture_path(@pdu.modele.architecture) %>
-              <% end %>
+              <%= link_to @pdu.modele, modele_path(@pdu.modele) if @pdu.modele.try(:name) %>
             </dd>
 
             <dt class="pb-2"><%= Manufacturer.model_name.human %></dt>
@@ -117,16 +127,26 @@
               <% end %>
             </dd>
 
-            <dt class="pb-2"><%= Modele.model_name.human %></dt>
-            <dd class="mb-0 pb-2 ps-3">
-              <%= link_to @pdu.modele, modele_path(@pdu.modele) if @pdu.modele.try(:name) %>
-            </dd>
+            <dt class="pb-2"><%= Modele.human_attribute_name(:nb_elts) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @pdu.modele.try(:nb_elts) %></dd>
 
+            <dt class="pb-2"><%= Architecture.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3">
+              <% if @pdu.modele&.architecture.present? %>
+                <%= link_to @pdu.modele.architecture, architecture_path(@pdu.modele.architecture) %>
+              <% end %>
+            </dd>
+          </dl>
+        <% end %>
+
+        <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
+          <% card.with_header do %>
+            <%= t("show.cards.features") %>
+          <% end %>
+
+          <dl class="show-page_dl d-grid row-gap-2 mb-0">
             <dt class="pb-2"><%= Server.human_attribute_name(:numero) %></dt>
             <dd class="mb-0 pb-2 ps-3"><%= @pdu.try(:numero) %></dd>
-
-            <dt class="pb-2"><%= Gestion.model_name.human %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= link_to_if @pdu.gestion, @pdu.gestion %></dd>
 
             <dt class="pb-2"><%= Card.model_name.human.pluralize %></dt>
             <dd class="mb-0 pb-2 ps-3">
@@ -140,6 +160,17 @@
                 <% end %>
               <% end if @pdu.modele.present? %>
             </dd>
+          </dl>
+        <% end %>
+
+        <%= render CardComponent.new(type: :success, extra_classes: "mt-4") do |card| %>
+          <% card.with_header do %>
+            <%= t("layouts.sidebar.exploitation.title") %>
+          <% end %>
+
+          <dl class="show-page_dl d-grid row-gap-2 mb-0">
+            <dt class="pb-2"><%= Gestion.model_name.human %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= link_to_if @pdu.gestion, @pdu.gestion %></dd>
           </dl>
         <% end %>
 
@@ -229,19 +260,6 @@
           </dl>
         <% end %>
 
-        <% if @pdu.photo.attached? %>
-          <!-- Card shown on mobile, in 3rd position (Grid isn't working as Masonry) -->
-          <%= render CardComponent.new(extra_classes: "d-lg-none mt-4") do |card| %>
-            <% card.with_header do %>
-              <%= Server.human_attribute_name(:photo) %>
-            <% end %>
-
-            <%= link_to @pdu.photo, rel: :noopener, target: :_blank do %>
-              <%= image_tag @pdu.photo.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
-            <% end %>
-          <% end %>
-        <% end %>
-
         <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
           <% card.with_header do %>
             <%= t(".glpi_data") %>
@@ -299,6 +317,19 @@
                 rescue Exception => e
                 Rails.logger.warn "WARNING: couldn't get GLPI data because of an error: #{e.message}" %>
             <%= t(".glpi_connection_error") %> : <pre><code><%= e&.message.to_s %></code></pre>
+          <% end %>
+        <% end %>
+
+        <% if @pdu.photo.attached? %>
+          <!-- Card shown on mobile, in 3rd position (Grid isn't working as Masonry) -->
+          <%= render CardComponent.new(extra_classes: "d-lg-none mt-4") do |card| %>
+            <% card.with_header do %>
+              <%= Server.human_attribute_name(:photo) %>
+            <% end %>
+
+            <%= link_to @pdu.photo, rel: :noopener, target: :_blank do %>
+              <%= image_tag @pdu.photo.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
+            <% end %>
           <% end %>
         <% end %>
 

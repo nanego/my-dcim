@@ -82,21 +82,21 @@ class PowerDistributionUnitsController < ApplicationController
   private
 
   def set_pdu
-    @pdu = Server.includes(cards: [ports: [:connection, :cable], card_type: [:port_type]])
+    @pdu = Server.includes(cards: [ports: %i[connection cable], card_type: [:port_type]])
       .find_with_numero_or_friendly_id(params[:id].to_s.downcase)
   end
 
   def pdu_params
-    params.require(:power_distribution_unit)
-      .permit(:photo, :comment, :position, :frame_id, :gestion_id, :fc_futur, :rj45_cm, :name, :modele_id, :numero,
-              :critique, :domaine_id, :fc_total, :fc_utilise, :rj45_total, :rj45_utilise, :rj45_futur,
-              :ipmi_utilise, :ipmi_futur, :ipmi_dedie,
-              :frame, # TODO: Check if it should be removed or if it's used somewhere
-              cards_attributes: [
-                :composant_id, :card_type_id, :_destroy, :id, :twin_card_id, :orientation, :name,
-                :first_position,
-              ],
-              documents_attributes: [:document, :id, :_destroy])
+    params.expect(
+      power_distribution_unit: [
+        :photo, :comment, :position, :frame_id, :gestion_id, :fc_futur, :rj45_cm, :name, :modele_id, :numero, :critique,
+        :domaine_id, :fc_total, :fc_utilise, :rj45_total, :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur,
+        :ipmi_dedie,
+        :frame, # TODO: Check if it should be removed or if it's used somewhere
+        { cards_attributes: [%i[composant_id card_type_id twin_card_id orientation name first_position _destroy id]] },
+        { documents_attributes: [%i[document id _destroy]] },
+      ]
+    )
   end
 
   def search_params

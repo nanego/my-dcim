@@ -11,33 +11,50 @@
   <%= render FormErrorsComponent.new(@pdu) %>
 
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+    <% card.with_header do %>
+      <%= t("show.cards.identification") %>
+    <% end %>
+
     <div class="row g-3">
-      <fieldset class="col-md-6 col-12">
+      <fieldset class="col-12">
         <%= f.label :name, class: "form-label" %>
         <%= f.text_field :name, class: "form-control" %>
       </fieldset>
+    </div>
+  <% end %>
 
-      <fieldset class="col-md-6 col-12 mt-md-3 mt-4">
+  <%= render CardComponent.new(extra_classes: "mt-4 bg-body-tertiary") do |card| %>
+    <% card.with_header do %>
+      <%= Modele.model_name.human %>
+    <% end %>
+
+    <div class="row g-3">
+      <fieldset class="col-12">
+        <%= f.label :modele_id, class: "form-label" %>
+        <%= f.collection_select(:modele_id,
+                                Modele.only_pdus.sorted,
+                                :id,
+                                :name_with_brand,
+                                { prompt: true, include_blank: false },
+                                {
+                                  class: "form-select",
+                                  data: { controller: "select" },
+                                  placeholder: t("select.placeholder")
+                                })
+        %>
+      </fieldset>
+    </div>
+  <% end %>
+
+  <%= render CardComponent.new(extra_classes: "mt-4 bg-body-tertiary") do |card| %>
+    <% card.with_header do %>
+      <%= t("show.cards.features") %>
+    <% end %>
+
+    <div class="row g-3">
+      <fieldset class="col-12">
         <%= f.label :numero, class: "form-label" %>
         <%= f.text_field :numero, class: "form-control" %>
-      </fieldset>
-
-      <fieldset class="col-md-6 col-12 mt-4">
-        <%= f.label :gestion_id, class: "form-label" %>
-        <%= f.collection_select(:gestion_id, Gestion.sorted, :id,
-                                                            :name,
-                                                            { prompt: true, include_blank: true },
-                                                            { class: "form-select",
-                                                              data: { controller: "select" } }) %>
-      </fieldset>
-
-      <fieldset class="col-md-6 col-12 mt-4">
-        <%= f.label :modele_id, class: "form-label" %>
-        <%= f.collection_select(:modele_id, Modele.only_pdus.sorted, :id,
-                                                                     :name_with_brand,
-                                                                     { prompt: true, include_blank: false },
-                                                                     { class: "form-select",
-                                                                       data: { controller: "select" } }) %>
       </fieldset>
     </div>
   <% end %>
@@ -50,10 +67,40 @@
     <div class="row g-3">
       <fieldset class="col-12">
         <%= f.label :frame_id, class: "form-label" %>
-        <%= f.collection_select(:frame_id, Frame.all_sorted, :id,
-                                                            :name_with_room_and_islet,
-                                                            { prompt: true, include_blank: false },
-                                                            { class: "form-select", data: { controller: "select" } }) %>
+        <%= f.collection_select(:frame_id,
+                                Frame.all_sorted,
+                                :id,
+                                :name_with_room_and_islet,
+                                { prompt: true, include_blank: false },
+                                {
+                                  class: "form-select",
+                                  data: { controller: "select" },
+                                  placeholder: t("select.placeholder")
+                                })
+        %>
+      </fieldset>
+    </div>
+  <% end %>
+
+  <%= render CardComponent.new(type: :success, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
+    <% card.with_header do %>
+      <%= t("layouts.sidebar.exploitation.title") %>
+    <% end %>
+
+    <div class="row g-3">
+      <fieldset class="col-12">
+        <%= f.label :gestion_id, class: "form-label" %>
+        <%= f.collection_select(:gestion_id,
+                                Gestion.sorted,
+                                :id,
+                                :name,
+                                { prompt: true, include_blank: true },
+                                {
+                                  class: "form-select",
+                                  data: { controller: "select" },
+                                  placeholder: t("select.placeholder")
+                                })
+        %>
       </fieldset>
     </div>
   <% end %>

@@ -23,7 +23,7 @@
       <fieldset class="col-md-6 col-12">
         <%= f.label :modele_id, class: "form-label" %>
         <%= f.collection_select(:modele_id,
-                                Modele.all_sorted,
+                                Modele.no_pdus.sorted,
                                 :id,
                                 :name_with_brand,
                                 { prompt: true, include_blank: false },
