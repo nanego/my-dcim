@@ -7,28 +7,47 @@
 %>
 
 <%= render Page::HeadingShowComponent.new(resource: @contact, title: @contact, breadcrumb_steps:) %>
+
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
       <%= render CardComponent.new do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.identification") %>
+        <% end %>
+
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <% %i[first_name last_name phone_number email organization].each do |attribute_name| %>
+          <% %i[first_name last_name].each do |attribute_name| %>
             <dt class="pb-2"><%= Contact.human_attribute_name(attribute_name) %></dt>
             <dd class="mb-0 pb-2 ps-3"><%= @contact.public_send(attribute_name) %></dd>
           <% end %>
         </dl>
       <% end %>
     </div>
+
     <div class="col">
-      <%= render HasManyTurboFrameComponent.new(
-          ContactAssignment.model_name.human.pluralize,
-          type: :warning,
-          url: contact_assignments_path(contact_ids: @contact.id),
-          frame_id: dom_id(ContactAssignment, :table),
-          extra_classes: "bg-body-tertiary"
-      ) %>
+      <%= render CardComponent.new do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.features") %>
+        <% end %>
+
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <% %i[phone_number email organization].each do |attribute_name| %>
+            <dt class="pb-2"><%= Contact.human_attribute_name(attribute_name) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @contact.public_send(attribute_name) %></dd>
+          <% end %>
+        </dl>
+      <% end %>
     </div>
   </div>
+
+  <%= render HasManyTurboFrameComponent.new(
+      ContactAssignment.model_name.human.pluralize,
+      type: :warning,
+      url: contact_assignments_path(contact_ids: @contact.id),
+      frame_id: dom_id(ContactAssignment, :table),
+      extra_classes: "bg-body-tertiary mt-4"
+  ) %>
 
   <%= render ChangelogEntries::ObjectListComponent.new(@contact) %>
 </div>

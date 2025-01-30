@@ -1,6 +1,10 @@
 <%= form_for(@disk_type, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
   <%= render FormErrorsComponent.new(@disk_type) %>
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+    <% card.with_header do %>
+      <%= t("show.cards.features") %>
+    <% end %>
+
     <fieldset class="col-12">
       <%= f.label :quantity, class: "form-label" %>
       <%= f.number_field :quantity, class: "form-control" %>

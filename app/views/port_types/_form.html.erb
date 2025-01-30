@@ -1,12 +1,22 @@
 <%= form_for(@port_type, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
   <%= render FormErrorsComponent.new(@port_type) %>
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+    <% card.with_header do %>
+      <%= t("show.cards.identification") %>
+    <% end %>
+
     <fieldset class="col-12">
       <%= f.label :name, class: "form-label" %>
       <%= f.text_field :name, class: "form-control" %>
     </fieldset>
+  <% end %>
 
-    <div class="col-12 mt-4">
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+    <% card.with_header do %>
+      <%= t("show.cards.features") %>
+    <% end %>
+
+    <div class="col-12">
       <fieldset class="form-check">
         <%= f.check_box :power, class: "form-check-input" %>
         <%= f.label :power, class: "form-check-label" %>

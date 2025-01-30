@@ -11,12 +11,24 @@
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
       <%= render CardComponent.new do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.identification") %>
+        <% end %>
+
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <% %i[name].each do |attribute_name| %>
             <dt class="pb-2"><%= AirConditioner.human_attribute_name(attribute_name) %></dt>
             <dd class="mb-0 pb-2 ps-3"><%= @air_conditioner.public_send(attribute_name) %></dd>
           <% end %>
+        </dl>
+      <% end %>
 
+      <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.features") %>
+        <% end %>
+
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <dt class="pb-2"><%= AirConditioner.human_attribute_name(:air_conditioner_model_id) %></dt>
           <dd class="mb-0 pb-2 ps-3"><%= @air_conditioner.air_conditioner_model %></dd>
 
@@ -34,20 +46,6 @@
           <dd class="mb-0 pb-2 ps-3">
             <span><%= t("boolean.#{@air_conditioner.lift_pump}") %></span>
           </dd>
-        </dl>
-      <% end %>
-
-       <!-- Card shown on lg, in 2nd position (Grid isn't working as Masonry) -->
-      <%= render CardComponent.new(extra_classes: "d-none d-lg-flex mt-4") do |card| %>
-        <% card.with_header do %>
-          <%= t("air_conditioners.temperatures") %>
-        <% end %>
-
-        <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <% %i[setpoint start range].each do |attribute_name| %>
-            <dt class="pb-2"><%= AirConditioner.human_attribute_name(attribute_name) %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= "#{@air_conditioner.public_send(attribute_name)}°C" %></dd>
-          <% end %>
         </dl>
       <% end %>
     </div>
@@ -102,11 +100,8 @@
           <dd class="mb-0 pb-2 ps-3"><%= t("air_conditioners.form.#{@air_conditioner.position}") %></dd>
         </dl>
       <% end %>
-    </div>
 
-    <!-- Card shown on mobile, in 3rd position (Grid isn't working as Masonry) -->
-    <div class="col d-lg-none">
-      <%= render CardComponent.new(extra_classes: "d-lg-none") do |card| %>
+      <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
         <% card.with_header do %>
           <%= t("air_conditioners.temperatures") %>
         <% end %>
