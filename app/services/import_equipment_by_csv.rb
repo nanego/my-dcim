@@ -16,60 +16,58 @@ class ImportEquipmentByCsv
   end
 
   def call
-    begin
-      ApplicationRecord.transaction do
-        new_frame = nil
-        f = nil
-        CSV.foreach(file.path, headers: true, col_sep: ';') do |row|
-          data = row.to_hash
-          if data.present?
-            modele = Modele.find_by_name(data['Modele'])
+    ApplicationRecord.transaction do
+      new_frame = nil
+      f = nil
+      CSV.foreach(file.path, headers: true, col_sep: ';') do |row|
+        data = row.to_hash
+        if data.present?
+          modele = Modele.find_by_name(data['Modele'])
 
-            raise "Modèle inconnu - #{data["Modele"]}" if modele.blank?
-            raise "Modèle incomplet : Pas d'enclosure - #{data["Modele"]}" if modele.enclosures.empty?
-            raise "Les numéros de série doivent être présent" if data['Numero'].blank?
+          raise "Modèle inconnu - #{data["Modele"]}" if modele.blank?
+          raise "Modèle incomplet : Pas d'enclosure - #{data["Modele"]}" if modele.enclosures.empty?
+          raise "Les numéros de série doivent être présent" if data['Numero'].blank?
 
-            server = Server.new
-            f = Frame.find_by_name(data['Baie']) if data['Baie'].present?
-            if (data['Baie'].present? && f.present?)
-              server.frame = f
-            else
-              if new_frame.nil?
-                islet = room.islets.first
-                bay = islet.bays.create!(lane: 1,
-                                         name: file.original_filename.sub('.csv', ''),
-                                         bay_type_id: 1)
-                new_frame = bay.frames.create!(name: bay.name)
-              end
-              server.frame = new_frame
+          server = Server.new
+          f = Frame.find_by_name(data['Baie']) if data['Baie'].present?
+          if data['Baie'].present? && f.present?
+            server.frame = f
+          else
+            if new_frame.nil?
+              islet = room.islets.first
+              bay = islet.bays.create!(lane: 1,
+                                       name: file.original_filename.sub('.csv', ''),
+                                       bay_type_id: 1)
+              new_frame = bay.frames.create!(name: bay.name)
             end
+            server.frame = new_frame
+          end
 
-            server.position = data['Position'] if data['Position'].present?
-            server.server_state = equipment_status
-            server.modele = modele
-            server.name = data['Nom']
-            server.numero = data['Numero']
-            server.critique = (data['Critique'] == 'oui')
-            server.cluster = Cluster.find_or_create_by!(name: data['Cluster'])
-            server.domaine = Domaine.find_or_create_by!(name: data['Domaine'])
-            server.comment = data['Comment'] if data['Comment'].present?
-            init_slots(data, server)
-            unless server.save
-              raise "Erreur lors de l'ajout d'une machine - Les numéros de série doivent être uniques"
-            end
+          server.position = data['Position'] if data['Position'].present?
+          server.server_state = equipment_status
+          server.modele = modele
+          server.name = data['Nom']
+          server.numero = data['Numero']
+          server.critique = (data['Critique'] == 'oui')
+          server.cluster = Cluster.find_or_create_by!(name: data['Cluster'])
+          server.domaine = Domaine.find_or_create_by!(name: data['Domaine'])
+          server.comment = data['Comment'] if data['Comment'].present?
+          init_slots(data, server)
+          unless server.save
+            raise "Erreur lors de l'ajout d'une machine - Les numéros de série doivent être uniques"
           end
         end
-
-        if new_frame
-          new_frame.compact_u.save
-          new_frame
-        else
-          f
-        end
       end
-    rescue StandardError => e
-      e.message
+
+      if new_frame
+        new_frame.compact_u.save
+        new_frame
+      else
+        f
+      end
     end
+  rescue StandardError => e
+    e.message
   end
 
   private

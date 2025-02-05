@@ -76,6 +76,12 @@ class Server < ApplicationRecord
     )
   }
 
+  def self.friendly_find_by_numero_or_name(name)
+    name = name.to_s.downcase
+
+    Server.find_by('lower(numero) = ?', name) || Server.friendly.find(name)
+  end
+
   def to_s
     name.to_s
   end
@@ -113,7 +119,7 @@ class Server < ApplicationRecord
   def connected_servers_ids_through_twin_cards_with_color
     connections = directly_connected_servers_ids_with_color
     connected_ports.each do |port|
-      if port.card && port.card.twin_card_id
+      if port.card&.twin_card_id
         twin_card = Card.find(port.card.twin_card_id)
         twin_card_port = twin_card.ports.includes(:connection).where(position: port.position).first
         if twin_card_port

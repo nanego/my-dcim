@@ -10,9 +10,9 @@ module Sortable
   end
 
   class_methods do
-    def sortable(fields:, orders: SORT_ORDERS, &block)
+    def sortable(fields:, orders: SORT_ORDERS, &)
       match :sort_by, :sort do
-        instance_eval(&block) if block_given?
+        instance_eval(&) if block_given?
 
         default do |sort_by:, sort: "asc"|
           raise "Possible injection: #{sort}" unless orders.include?(sort.to_s)

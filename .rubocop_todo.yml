@@ -96,25 +96,6 @@ Naming/PredicateName:
     - 'app/models/port_type.rb'
     - 'app/models/server.rb'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: PreferredName.
-Naming/RescuedExceptionsVariableName:
-  Exclude:
-    - 'app/controllers/servers_grids_controller.rb'
-
-# Offense count: 1
-# Configuration parameters: MinSize.
-Performance/CollectionLiteralInLoop:
-  Exclude:
-    - 'lib/tasks/update_pdu_lines.rake'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Performance/CompareWithBlock:
-  Exclude:
-    - 'app/models/frame.rb'
-
 # Offense count: 2
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Performance/Detect:
@@ -127,13 +108,6 @@ Performance/Detect:
 Performance/MapCompact:
   Exclude:
     - 'app/models/server.rb'
-
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: MaxKeyValuePairs.
-Performance/RedundantMerge:
-  Exclude:
-    - 'app/controllers/servers_controller.rb'
 
 # Offense count: 3
 # This cop supports safe autocorrection (--autocorrect).
@@ -252,14 +226,6 @@ Rails/DynamicFindBy:
     - 'db/migrate/20180110152701_add_attributes_to_servers.rb'
     - 'lib/tasks/update_pdu_lines.rake'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: Include.
-# Include: app/models/**/*.rb
-Rails/EnumHash:
-  Exclude:
-    - 'app/models/user.rb'
-
 # Offense count: 4
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle.
@@ -319,13 +285,6 @@ Rails/InverseOf:
     - 'app/models/move.rb'
     - 'app/models/server.rb'
 
-# Offense count: 1
-# Configuration parameters: Include.
-# Include: app/controllers/**/*.rb, app/mailers/**/*.rb
-Rails/LexicallyScopedActionFilter:
-  Exclude:
-    - 'app/controllers/users/sessions_controller.rb'
-
 # Offense count: 19
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: Include.
@@ -361,12 +320,6 @@ Rails/RedundantActiveRecordAllMethod:
     - 'db/migrate/20170727132107_create_enclosures.rb'
     - 'db/migrate/20170803155630_init_cables_from_current_ports.rb'
     - 'db/migrate/20180110152701_add_attributes_to_servers.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Rails/RedundantForeignKey:
-  Exclude:
-    - 'app/models/move.rb'
 
 # Offense count: 6
 # This cop supports safe autocorrection (--autocorrect).
@@ -430,20 +383,8 @@ Rails/WhereNot:
     - 'app/models/server.rb'
     - 'lib/tasks/update_pdu_lines.rake'
 
-# Offense count: 1
-# Configuration parameters: Severity.
-Rails/WhereNotWithMultipleConditions:
-  Exclude:
-    - 'app/controllers/connections_controller.rb'
-
 # Offense count: 2
 Rake/ClassDefinitionInTask:
-  Exclude:
-    - 'lib/tasks/convert_activities_to_changelog_entries.rake'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Rake/Desc:
   Exclude:
     - 'lib/tasks/convert_activities_to_changelog_entries.rake'
 
@@ -477,24 +418,10 @@ Style/ConditionalAssignment:
 Style/Documentation:
   Enabled: false
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/EmptyLambdaParameter:
-  Exclude:
-    - 'app/models/card.rb'
-
 # Offense count: 37
 # This cop supports safe autocorrection (--autocorrect).
 Style/ExpandPathArguments:
   Enabled: false
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: format, sprintf, percent
-Style/FormatString:
-  Exclude:
-    - 'app/helpers/modeles_helper.rb'
 
 # Offense count: 3
 # This cop supports safe autocorrection (--autocorrect).
@@ -585,20 +512,6 @@ Style/IfUnlessModifier:
     - 'app/services/import_equipment_by_csv.rb'
     - 'db/migrate/20221220143609_add_foreign_key_constraint_to_active_storage_attachments_for_blob_id.active_storage.rb'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/KeywordParametersOrder:
-  Exclude:
-    - 'spec/support/shared_examples/models/changelogable.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: line_count_dependent, lambda, literal
-Style/Lambda:
-  Exclude:
-    - 'test/services/omniauth_dynamic_full_host_test.rb'
-
 # Offense count: 5
 # This cop supports safe autocorrection (--autocorrect).
 Style/MultilineIfModifier:
@@ -622,12 +535,6 @@ Style/MutableConstant:
     - 'app/models/memory_type.rb'
     - 'app/models/pdu.rb'
     - 'app/models/server.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/NestedTernaryOperator:
-  Exclude:
-    - 'app/helpers/servers_helper.rb'
 
 # Offense count: 9
 # This cop supports safe autocorrection (--autocorrect).
@@ -660,19 +567,6 @@ Style/NumericPredicate:
     - 'app/controllers/ports_controller.rb'
     - 'app/helpers/servers_helper.rb'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/OrAssignment:
-  Exclude:
-    - 'app/controllers/servers_controller.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowSafeAssignment, AllowInMultilineConditions.
-Style/ParenthesesAroundCondition:
-  Exclude:
-    - 'app/services/import_equipment_by_csv.rb'
-
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: PreferredDelimiters.
@@ -680,36 +574,6 @@ Style/PercentLiteralDelimiters:
   Exclude:
     - 'app/controllers/servers_grids_controller.rb'
     - 'app/helpers/servers_helper.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/Proc:
-  Exclude:
-    - 'lib/omniauth/dynamic_full_host.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantBegin:
-  Exclude:
-    - 'app/services/import_equipment_by_csv.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantCapitalW:
-  Exclude:
-    - 'app/controllers/servers_grids_controller.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantCondition:
-  Exclude:
-    - 'app/helpers/servers_helper.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantConstantBase:
-  Exclude:
-    - 'config/environments/production.rb'
 
 # Offense count: 13
 # This cop supports safe autocorrection (--autocorrect).
@@ -770,14 +634,6 @@ Style/RescueStandardError:
   Exclude:
     - 'app/controllers/servers_grids_controller.rb'
     - 'lib/tasks/convert_activities_to_changelog_entries.rake'
-
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: ConvertCodeThatCanStartToReturnNil, AllowedMethods, MaxChainLength.
-# AllowedMethods: present?, blank?, presence, try, try!
-Style/SafeNavigation:
-  Exclude:
-    - 'app/models/server.rb'
 
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).

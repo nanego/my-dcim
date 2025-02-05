@@ -40,7 +40,7 @@ class ServersController < ApplicationController
       if positions[index].present?
         server = Server.find_by_id(id)
         new_params = { position: positions[index] }
-        new_params.merge!({ frame_id: frame.id }) if frame.present?
+        new_params[:frame_id] = frame.id if frame.present?
 
         server.update(new_params)
       end
@@ -127,8 +127,7 @@ class ServersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_server
-    @server = Server.where('lower(numero) = ?', params[:id].to_s.downcase).includes(:cards => [:ports => %i[connection cable], :card_type => [:port_type]]).first
-    @server = Server.friendly.find(params[:id].to_s.downcase) unless @server
+    @server = Server.friendly_find_by_numero_or_name(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

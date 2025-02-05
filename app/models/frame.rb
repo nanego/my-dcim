@@ -37,7 +37,7 @@ class Frame < ApplicationRecord
   end
 
   def self.all_sorted
-    Frame.includes(:islet => :room, :bay => :islet).sort { |f1, f2| f1.name_with_room_and_islet <=> f2.name_with_room_and_islet }
+    Frame.includes(:islet => :room, :bay => :islet).sort_by(&:name_with_room_and_islet)
   end
 
   def should_generate_new_friendly_id?

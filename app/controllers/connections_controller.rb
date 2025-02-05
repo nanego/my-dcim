@@ -35,11 +35,14 @@ class ConnectionsController < ApplicationController
     @to_port = @cable.connections.reject { |conn| conn.port_id.to_i == @from_port.id }.first.try(:port) if @cable.present?
 
     # Destination server
-    if @from_port.is_power_input?
-      @to_server = @to_port.present? ? @to_port.server : @frame.pdus.first
+    if @to_port.present?
+      @to_server = @to_port.server
+    elsif @from_port.is_power_input?
+      @to_server = @frame.pdus.first
     else
-      @to_server = @to_port.present? ? @to_port.server : @frame.servers.where.not(position: nil, modele_id: nil).order(:position).first
+      @to_server = @frame.servers.where("position NOT NULL AND modele_id NOT NULL").order(:position).first
     end
+
     if @to_server
       @to_server.create_missing_ports
       @to_server.reload

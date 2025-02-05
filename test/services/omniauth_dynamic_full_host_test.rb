@@ -13,7 +13,7 @@ class DynamicFullHostTest < ActiveSupport::TestCase
   end
 
   def setup
-    app = lambda { |_env| [404, {}, ['Awesome']] }
+    app = ->(_env) { [404, {}, ['Awesome']] }
     @strategy = ExampleStrategy.new(app, {})
   end
 

@@ -74,7 +74,8 @@ with_cluster:
 four:
   id: 4
   frame_id: 4
-  name: ServerName3
+  slug: server-name-4
+  name: ServerName4
   modele_id: 1
   numero: CZ31535FEZ
   critique: false
