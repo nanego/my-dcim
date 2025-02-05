@@ -7,10 +7,10 @@ module List
       DatatableColumn.new(title, attribute_name, **options, &block)
     }
 
-    def initialize(data, show_columns: [], empty_icon: :table, **_options)
+    def initialize(data, displayed_columns: [], empty_icon: :table, **_options)
       @data = data
       @empty_icon = empty_icon
-      @show_columns = show_columns&.map(&:to_sym)
+      @displayed_columns = displayed_columns&.map(&:to_sym)
 
       super()
     end
@@ -128,7 +128,7 @@ module List
     end
 
     def show_column?(column)
-      column.attribute_name.nil? || @show_columns.include?(column.attribute_name)
+      column.attribute_name.nil? || @displayed_columns.include?(column.attribute_name)
     end
 
     class DatatableBulkAction < ApplicationComponent

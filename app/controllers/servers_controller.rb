@@ -16,11 +16,11 @@ class ServersController < ApplicationController
     @servers = Server.no_pdus.includes(:frame, :room, :islet, bay: :frames, modele: :category)
       .references(:room, :islet, :bay, modele: :category)
       .order(:name)
-    @filter = ProcessorFilter.new(@servers, params)
 
+    @displayed_columns = @search_params[:columns] || ServerDecorator.default_columns_preference
+
+    @filter = ProcessorFilter.new(@servers, params)
     @servers = @filter.results
-    @search_params = search_params
-    @show_columns = @search_params[:columns] || ServerDecorator.default_columns_preference
 
     respond_to do |format|
       format.json
