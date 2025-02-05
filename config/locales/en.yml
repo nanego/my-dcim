@@ -1,6 +1,27 @@
 en:
   action:
+    apply: Apply
+    edit: Edit
+    delete: Delete
+    back: Back
+    show: See
+    close: Close
+    save: Save
+    cancel: Cancel
+    add: Add
+    confirm: Are you sure?
+    duplicate: Duplicate
+    suspend: Lock
+    unsuspend: Unlock
+    create: Create
+    execute: Execute
+    move: Move
     preview: Preview
+    configure: Configure
+
+  boolean:
+    true: Yes
+    false: No
 
   bulk:
     servers:
@@ -18,6 +39,23 @@ en:
         help_text: We'll send password reset instructions.
       edit:
         title: Change your password
+
+  export_button:
+    label: Exports
+    exports:
+      pdf: PDF export
+      txt: Txt export
+      print: Print
+      csv: CSV export
+    faces:
+      front: Front panel
+      back: Back panel
+      front_wiring: Wiring - Front panel
+      back_wiring: Wiring - Back panel
+    port_list: Ports list
+
+  form:
+    submit: Confirm
 
   layouts:
     breadcrumb:
@@ -56,6 +94,17 @@ en:
         title: Connection
       contacts:
         title: Contacts
+
+  moves:
+    index:
+      new_move: Plan a new move
+      delete_confirmation: Do you really want to delete this move?
+      execute_confirmation: Do you really want to apply this move?
+      frame_table_title: Bays after moving
+      edit_connections: Modify connections
+      number_u: N° U
+      action:
+        execute_move: Move the server and its connections
 
   power_distribution_units:
     index:
@@ -180,6 +229,11 @@ en:
       features: Features
       identification: Identification
       preview: Preview
+
+  unit:
+    square_meter: m²
+    mm: mm
+    inches: inches
 
   users:
     my_account:
