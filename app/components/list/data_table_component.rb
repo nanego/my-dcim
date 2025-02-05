@@ -16,7 +16,7 @@ module List
 
     def call
       if @data.empty?
-        render CardComponent.new(extra_classes: "text-center text-secondary-emphasis") do |card|
+        render CardComponent.new(extra_classes: "text-center text-secondary-emphasis") do
           concat(tag.i(class: "bi bi-#{@empty_icon} fs-1 text-secondary text-opacity-25"))
           concat(tag.h5(t(".empty_table.title"), class: "card-title mt-3"))
         end

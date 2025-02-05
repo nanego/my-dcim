@@ -9,7 +9,7 @@ class ModelesController < ApplicationController
     @filter = ProcessorFilter.new(Modele.includes(:category, :enclosures).order(:name), params)
     @modeles = @filter.results
 
-    @types = @modeles.group_by { |m| m.category.name }.sort_by { |categorie, modeles| categorie.to_s }
+    @types = @modeles.group_by { |m| m.category.name }.sort_by { |categorie, _modeles| categorie.to_s }
   end
 
   def show
