@@ -10,6 +10,10 @@ class ExternalAppRecordsProcessor < ApplicationProcessor
     raw.joins(server: :frame).where(frames: { id: frame_ids })
   end
 
+  map :modele_ids, filter_with: :non_empty_array do |modele_ids:|
+    raw.joins(:server).where(server: { modele_id: modele_ids })
+  end
+
   match :external_serial_status, fail_when_no_matches: true do
     having "found" do
       raw.where.not(external_serial: nil).where.not(external_serial: "")
