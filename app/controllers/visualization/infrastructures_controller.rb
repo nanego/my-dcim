@@ -22,8 +22,10 @@ module Visualization
 
       @servers = Server.where.not(network_types: [])
       # .includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
+      @concentrateurs_ids = [383, 384, 1043, 1044]
+      @concentrateurs = Server.where(id: @concentrateurs_ids)
 
-      fresh_when last_modified: [@servers.maximum(:updated_at), @concentrateurs.maximum(:updated_at)].max
+      # fresh_when last_modified: [@servers.maximum(:updated_at), @concentrateurs.maximum(:updated_at)].max
 
       @servers = @servers.includes(:frame, :stack, :ports, cards: [:ports])
       @hubs = RoomHub.for_room(@room, network_types: @filter.network_type)
