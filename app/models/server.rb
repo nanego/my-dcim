@@ -33,9 +33,8 @@ class Server < ApplicationRecord
 
   has_many :external_app_record, dependent: :destroy
 
-  validates_presence_of :numero
+  validates :numero, presence: true, uniqueness: true
   validates :name, presence: true
-  validates_uniqueness_of :numero
   validate :numero_cannot_be_a_current_server_name
   validate :validate_network_types_values
 
@@ -53,6 +52,7 @@ class Server < ApplicationRecord
                                 reject_if: :all_blank
 
   normalizes :network_types, with: ->(values) { values.compact_blank }
+  normalizes :numero, with: ->(numero) { numero.presence }
 
   before_create :set_default_network_types
 
@@ -107,7 +107,7 @@ class Server < ApplicationRecord
       else
         port_type = card.card_type.port_type.name
       end
-      sums[port_type] = sums[port_type].to_i + card.ports.map { |port| port.connection.try(:cable) }.compact.size
+      sums[port_type] = sums[port_type].to_i + card.ports.filter_map { |port| port.connection.try(:cable) }.size
     end
     sums
   end
@@ -136,11 +136,11 @@ class Server < ApplicationRecord
   end
 
   def directly_connected_servers_ids_with_color
-    connected_ports.map do |port|
+    connected_ports.filter_map do |port|
       if port.card.present?
         { server_id: port.server_id, cable_color: port.connection.try(:cable).try(:color) }
       end
-    end.compact
+    end
   end
 
   def connected_ports

@@ -5,7 +5,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
 
   def slot_label(server, component)
     cards = server.cards.where('composant_id = ?', component.id)
-    cards_names = cards.pluck(:name).reject(&:blank?)
+    cards_names = cards.pluck(:name).compact_blank
     if cards_names.present?
       if cards.first.twin_card_id.present?
         link_to network_frame_path(server.frame, network_frame_id: Card.find(cards.first.twin_card_id).server.frame_id) do
@@ -200,7 +200,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
 
   def include_moved_connections(moved_connections, port_data, port_id)
     if port_data.present? && moved_connections.present?
-      connection = moved_connections.select { |c| c.port_from_id == port_id || c.port_to_id == port_id }.first
+      connection = moved_connections.find { |c| c.port_from_id == port_id || c.port_to_id == port_id }
       port_data = connection if connection.present?
     end
     port_data

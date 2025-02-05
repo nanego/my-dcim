@@ -6,12 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Lint/RedundantCopDisableDirective:
-  Exclude:
-    - 'db/migrate/20230208144748_create_active_storage_variant_records.active_storage.rb'
-
 # Offense count: 54
 # Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes.
 Metrics/AbcSize:
@@ -61,47 +55,12 @@ Naming/PredicateName:
     - 'app/models/port_type.rb'
     - 'app/models/server.rb'
 
-# Offense count: 2
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Performance/Detect:
-  Exclude:
-    - 'app/helpers/servers_helper.rb'
-    - 'test/models/move_test.rb'
-
-# Offense count: 2
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Performance/MapCompact:
-  Exclude:
-    - 'app/models/server.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Performance/StringReplacement:
-  Exclude:
-    - 'app/helpers/modeles_helper.rb'
-
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: OnlySumOrWithInitialValue.
-Performance/Sum:
-  Exclude:
-    - 'app/models/frame.rb'
-
 # Offense count: 16
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: Include.
 # Include: **/test/**/*.rb
 Rails/ActionControllerTestCase:
   Enabled: false
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: ExpectedOrder, Include.
-# ExpectedOrder: index, show, new, edit, create, update, destroy
-# Include: app/controllers/**/*.rb
-Rails/ActionOrder:
-  Exclude:
-    - 'app/controllers/frames_controller.rb'
 
 # Offense count: 16
 # Configuration parameters: Database, Include.
@@ -123,15 +82,6 @@ Rails/BulkChangeTable:
     - 'db/migrate/20180703065120_add_orientation_to_cards.rb'
     - 'db/migrate/20180709090152_add_comments_to_cables.rb'
     - 'db/migrate/20220523095022_add_address_to_sites.rb'
-
-# Offense count: 4
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Rails/CompactBlank:
-  Exclude:
-    - 'app/controllers/frames_controller.rb'
-    - 'app/helpers/servers_helper.rb'
-    - 'app/models/frame.rb'
-    - 'app/models/port.rb'
 
 # Offense count: 5
 # Configuration parameters: Include.
@@ -236,16 +186,6 @@ Rails/OutputSafety:
   Exclude:
     - 'app/helpers/servers_helper.rb'
 
-# Offense count: 6
-# This cop supports safe autocorrection (--autocorrect).
-Rails/Presence:
-  Exclude:
-    - 'app/controllers/moves_controller.rb'
-    - 'app/helpers/servers_helper.rb'
-    - 'app/models/cluster.rb'
-    - 'app/models/frame.rb'
-    - 'app/models/user.rb'
-
 # Offense count: 4
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: AllowedReceivers.
@@ -290,14 +230,6 @@ Rails/RootPathnameMethods:
 # Include: db/**/*.rb
 Rails/ThreeStateBooleanColumn:
   Enabled: false
-
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: Include.
-# Include: app/models/**/*.rb
-Rails/Validation:
-  Exclude:
-    - 'app/models/server.rb'
 
 # Offense count: 11
 # This cop supports unsafe autocorrection (--autocorrect-all).
@@ -480,12 +412,6 @@ Style/Next:
     - 'lib/tasks/update_pdu_lines.rake'
     - 'lib/tasks/update_position_by_name.rake'
 
-# Offense count: 8
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: Strict, AllowedNumbers, AllowedPatterns.
-Style/NumericLiterals:
-  MinDigits: 9
-
 # Offense count: 6
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: EnforcedStyle, AllowedMethods, AllowedPatterns.
@@ -502,12 +428,6 @@ Style/NumericPredicate:
 Style/PercentLiteralDelimiters:
   Exclude:
     - 'app/helpers/servers_helper.rb'
-
-# Offense count: 12
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantFreeze:
-  Exclude:
-    - 'app/components/list/table_component.rb'
 
 # Offense count: 4
 # This cop supports unsafe autocorrection (--autocorrect-all).
