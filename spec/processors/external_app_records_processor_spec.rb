@@ -40,6 +40,38 @@ RSpec.describe ExternalAppRecordsProcessor do
     end
   end
 
+  describe "when filtering by modele_ids" do
+    let(:modele) { modeles(:one) }
+    let(:server) { Server.create!(name: "server", numero: 1, modele:, frame: frames(:one)) }
+    let(:ear) { ExternalAppRecord.create!(server:) }
+
+    before do
+      ear
+    end
+
+    context "with one modele_id" do
+      let(:params) { { modele_ids: [modele.id] } }
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to contain_exactly(ear) }
+    end
+
+    context "with many frame_ids" do
+      let(:modele_second) { modeles(:two) }
+      let(:server_second) { Server.create!(name: "server3", numero: 3, modele: , frame: frames(:two)) }
+      let(:another_ear) { ExternalAppRecord.create!(server: server_second) }
+
+      let(:params) { { frame_ids: [modele.id, modele_second.id] } }
+
+      before do
+        another_ear
+      end
+
+      it { expect(result.size).to eq(2) }
+      it { is_expected.to contain_exactly(ear, another_ear) }
+    end
+  end
+
   describe "when filtering by external_serial_status" do
     context "with external_serial_status = found" do
       let(:params) { { external_serial_status: "found" } }
