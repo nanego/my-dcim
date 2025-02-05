@@ -3,8 +3,8 @@
 module List
   class DataTableComponent < ApplicationComponent
     renders_many :bulk_actions, ->(*args, **kwargs) { DatatableBulkAction.new(*args, **kwargs) }
-    renders_many :columns, lambda { |attribute_name = nil, title = nil, **options, &block|
-      DatatableColumn.new(attribute_name, title, **options, &block)
+    renders_many :columns, lambda { |title = nil, attribute_name = nil, **options, &block|
+      DatatableColumn.new(title, attribute_name, **options, &block)
     }
 
     def initialize(data, show_columns: [], empty_icon: :table, **_options)
@@ -163,11 +163,11 @@ module List
     end
 
     class DatatableColumn < ApplicationComponent
-      attr_reader :attribute_name, :title, :sort_by, :html_options
+      attr_reader :title, :attribute_name, :sort_by, :html_options
 
-      def initialize(attribute_name = nil, title = nil, **options, &block)
-        @attribute_name = attribute_name
+      def initialize(title = nil, attribute_name = nil, **options, &block)
         @title = title
+        @attribute_name = attribute_name
         @block = block
         @sort_by = options.delete(:sort_by)
         @html_options = options
