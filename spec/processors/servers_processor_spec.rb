@@ -329,10 +329,10 @@ RSpec.describe ServersProcessor do
   describe "when filtering by category_id" do
     let(:category) { Category.create! }
     let(:modele) { Modele.create!(name: "Mod", description: "Mod desc", category:, manufacturer: Manufacturer.create!, architecture: Architecture.create!) }
-    let(:server)  { Server.create!(name: "server", numero: 1, **attributes, modele:) }
+    let(:server) { Server.create!(name: "server", numero: 1, **attributes, modele:) }
 
     before do
-        server
+      server
     end
 
     context "with one category_id" do
@@ -345,7 +345,7 @@ RSpec.describe ServersProcessor do
     context "with many category_ids" do
       let(:another_category) { Category.create! }
       let(:another_modele) { Modele.create!(name: "Mod2", description: "Mod2 desc", category: another_category, manufacturer: Manufacturer.create!, architecture: Architecture.create!) }
-      let(:another_server)  { Server.create!(name: "server2", numero: 2, **attributes, modele: another_modele) }
+      let(:another_server) { Server.create!(name: "server2", numero: 2, **attributes, modele: another_modele) }
 
       let(:params) { { category_ids: [category.id, another_category.id] } }
 
