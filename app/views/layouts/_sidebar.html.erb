@@ -45,7 +45,7 @@
           </li>
         </ul>
       </li>
-      <!-- Equipement -->
+      <!-- Equipments -->
       <li class="mydcim-sidebar-links-group py-2">
         <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
           <i class="bi bi-hdd-rack me-2 text-primary"></i>
@@ -57,6 +57,12 @@
                         servers_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "servers") %>
+          </li>
+          <li>
+            <%= link_to t("power_distribution_units.index.title"),
+                        power_distribution_units_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "power_distribution_units") %>
           </li>
           <li>
             <%= link_to AirConditioner.model_name.human.pluralize,
