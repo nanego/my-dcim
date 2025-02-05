@@ -52,7 +52,7 @@ Rails.application.configure do
   # Log to STDOUT with the current request id as a default log tag.
   config.log_tags = [:request_id]
   config.logger = ActiveSupport::Logger.new("log/production.log")
-    .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
+    .tap  { |logger| logger.formatter = Logger::Formatter.new }
     .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
 
   # Change to "debug" to log everything (including potentially personally-identifiable information!)
