@@ -126,9 +126,9 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       port_type_name = "RJ"
     when 'FC', 'SC'
       port_type_name = "FC"
-      cable_name = "0#{position}" if cable_name.blank?
+      cable_name = position.to_s.rjust(2, "0") if cable_name.blank?
     else
-      cable_name = "#{port_data.try(:cable_name).present? ? port_data.try(:cable_name) : port_type.try(:name)}".html_safe
+      cable_name = "#{port_data&.cable_name.presence || port_type.try(:name)}".html_safe
       port_type_name = port_type.name
     end
 
