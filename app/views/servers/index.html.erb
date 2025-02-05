@@ -141,7 +141,7 @@
           <%= f.collection_select(:columns, ServerDecorator.columns_preference,
                                   :first,
                                   :second,
-                                  { prompt: true, multiple: true },
+                                  { prompt: true, multiple: true, selected: @show_columns },
                                   { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :columns %>
         </fieldset>
