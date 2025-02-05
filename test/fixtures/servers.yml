@@ -4,6 +4,7 @@ one:
   id: 1
   frame_id: 1
   name: ServerName1
+  slug: servername1
   modele_id: 1
   numero: CZ31535FEY
   critique: false

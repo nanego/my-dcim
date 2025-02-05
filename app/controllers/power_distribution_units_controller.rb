@@ -82,8 +82,7 @@ class PowerDistributionUnitsController < ApplicationController
   private
 
   def set_pdu
-    @pdu = Server.includes(cards: [ports: %i[connection cable], card_type: [:port_type]])
-      .find_with_numero_or_friendly_id(params[:id].to_s.downcase)
+    @pdu = Server.find_with_numero_or_friendly_id(params[:id].to_s.downcase)
   end
 
   def pdu_params

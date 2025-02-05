@@ -11,8 +11,6 @@ RSpec.describe "/servers" do
     sign_in users(:one)
 
     server.save!
-    server2.save!
-    pdu.save!
   end
 
   describe "GET /index" do
