@@ -113,8 +113,8 @@ class MovesController < ApplicationController
     @moved_connections = MovedConnection.per_servers(@servers)
 
     @current_moved_connections = @moved_connections.where('port_from_id IN (?) OR port_to_id IN (?)',
-                                                 [params[:moved_connection][:port_from_id], params[:moved_connection][:port_to_id]],
-                                                 [params[:moved_connection][:port_from_id], params[:moved_connection][:port_to_id]])
+                                                          [params[:moved_connection][:port_from_id], params[:moved_connection][:port_to_id]],
+                                                          [params[:moved_connection][:port_from_id], params[:moved_connection][:port_to_id]])
 
     if @current_moved_connections.present?
       if @current_moved_connections.size > 1
