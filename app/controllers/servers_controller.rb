@@ -20,6 +20,7 @@ class ServersController < ApplicationController
 
     @servers = @filter.results
     @search_params = search_params
+    @show_columns = @search_params[:columns] || ServerDecorator.default_columns_preference
 
     respond_to do |format|
       format.json
@@ -146,7 +147,7 @@ class ServersController < ApplicationController
   def search_params
     params.permit(:sort, :sort_by, :page, :per_page, :q,
                   network_types: [], bay_ids: [], islet_ids: [], room_ids: [], frame_ids: [], cluster_ids: [],
-                  gestion_ids: [], domaine_ids: [], modele_ids: [], stack_ids: [], category_ids: [])
+                  gestion_ids: [], domaine_ids: [], modele_ids: [], stack_ids: [], category_ids: [], columns: [])
   end
 
   def track_frame_and_position(old_values, new_values)

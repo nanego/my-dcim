@@ -6,4 +6,16 @@ class ServerDecorator < ApplicationDecorator
 
     n_t.map { |type| Modele.human_attribute_name("network_types.#{type}") }.join(", ")
   end
+
+  class << self
+    # Default columns that are displayed on Servers#Index
+    def default_columns_preference
+      %w[name numero type islet bay network_types]
+    end
+
+    # List of columns that can be displayed on Servers#Index
+    def columns_preference
+      %w[name numero type islet bay network_types]
+    end
+  end
 end
