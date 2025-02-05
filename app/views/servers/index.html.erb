@@ -86,7 +86,8 @@
                                   :id,
                                   :name,
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
+                                  { class: "form-select", data: { controller: :select }})
+                                  %>
           <%= f.label :modele_ids %>
         </fieldset>
       </div>
@@ -138,8 +139,8 @@
       <div>
         <fieldset class="form-floating">
           <%= f.collection_select(:columns, ServerDecorator.columns_preference,
-                                  :itself,
-                                  :itself,
+                                  :first,
+                                  :second,
                                   { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :columns %>
