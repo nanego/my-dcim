@@ -82,7 +82,7 @@ class PowerDistributionUnitsController < ApplicationController
   private
 
   def set_pdu
-    @pdu = Server.friendly_find_by_numero_or_name(params[:id].to_s.downcase)
+    @pdu = Server.friendly_find_by_numero_or_name(params[:id])
   end
 
   def pdu_params
