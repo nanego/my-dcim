@@ -32,7 +32,7 @@
       <fieldset class="col-12">
         <%= f.label :modele_id, class: "form-label" %>
         <%= f.collection_select(:modele_id,
-                                Modele.only_pdus.sorted,
+                                Modele.only_pdus.all_sorted,
                                 :id,
                                 :name_with_brand,
                                 { prompt: true, include_blank: false },
