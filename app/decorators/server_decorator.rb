@@ -15,8 +15,8 @@ class ServerDecorator < ApplicationDecorator
 
     # List of columns that can be displayed on Servers#Index
     def columns_preference
-      %w[name numero type islet bay network_types].to_h do |col|
-        [col, Server.human_attribute_name(col)]
+      %w[name numero type islet bay network_types].index_with do |col|
+        Server.human_attribute_name(col)
       end
     end
   end
