@@ -141,7 +141,7 @@
           <%= f.collection_select(:columns, ServerDecorator.columns_preference,
                                   :first,
                                   :second,
-                                  { prompt: true, multiple: true, selected: @show_columns },
+                                  { prompt: true, multiple: true, selected: @displayed_columns },
                                   { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :columns %>
         </fieldset>
@@ -151,7 +151,7 @@
 
   <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance }) do %>
     <div class="d-flex flex-column row-gap-4">
-      <%= render List::DataTableComponent.new(@servers, show_columns: @show_columns) do |table| %>
+      <%= render List::DataTableComponent.new(@servers, displayed_columns: @displayed_columns) do |table| %>
         <% table.with_bulk_action(url: bulk_servers_path, method: :delete, class: "btn btn-danger btn-sm",
                                   data: { confirm: t("action.confirm") }
         ) do %>
