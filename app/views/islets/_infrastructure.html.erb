@@ -4,7 +4,7 @@
       <div class="tab-content infrastructure bg-body-tertiary overflow-x-auto w-100">
         <% # TODO: move html here? %>
         <div class="islet">
-          <% if room.id == 4 || room.id == 3 %>
+          <% unless @hubs.empty? %>
             <div class="hubs">
               <% bgColorHub1 = define_background_color(server: hub, mode: params["bg"]) %>
               <div class="hub_material hub-top server_<%= hub.id %>"
