@@ -121,6 +121,17 @@
           <%= f.label :cluster_ids %>
         </fieldset>
       </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:category_ids, Category.sorted,
+                                  :id,
+                                  :name,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :category_ids %>
+        </fieldset>
+      </div>
     <% end %>
   <% end %>
 
