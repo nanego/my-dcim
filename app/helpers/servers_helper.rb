@@ -119,7 +119,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
   end
 
   def link_to_port(position, port_data, port_type, card_id, port_id, default_label = '')
-    cable_name = port_data.try(:cable_name).present? ? port_data.cable_name : default_label
+    cable_name = port_data&.cable_name.presence || default_label
 
     case port_type.name
     when 'RJ', 'XRJ'
