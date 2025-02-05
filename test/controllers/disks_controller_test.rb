@@ -24,7 +24,7 @@ class DisksControllerTest < ActionController::TestCase
       post :create, params: { disk: { disk_type_id: @disk.disk_type_id, quantity: @disk.quantity, server_id: @disk.server_id } }
     end
 
-    assert_redirected_to server_path(@disk.server_id)
+    assert_redirected_to server_path(@disk.server)
   end
 
   test "should show disk" do
@@ -39,7 +39,7 @@ class DisksControllerTest < ActionController::TestCase
 
   test "should update disk" do
     patch :update, params: { id: @disk, disk: { disk_type_id: @disk.disk_type_id, quantity: @disk.quantity, server_id: @disk.server_id } }
-    assert_redirected_to server_path(@disk.server_id)
+    assert_redirected_to server_path(@disk.server)
   end
 
   test "should destroy disk" do

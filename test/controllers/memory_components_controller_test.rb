@@ -24,7 +24,7 @@ class MemoryComponentsControllerTest < ActionController::TestCase
       post :create, params: { memory_component: { memory_type_id: @memory_component.memory_type_id, quantity: @memory_component.quantity, server_id: @memory_component.server_id } }
     end
 
-    assert_redirected_to server_path(@memory_component.server_id)
+    assert_redirected_to server_path(@memory_component.server)
   end
 
   test "should show memory_component" do
@@ -39,7 +39,7 @@ class MemoryComponentsControllerTest < ActionController::TestCase
 
   test "should update memory_component" do
     patch :update, params: { id: @memory_component, memory_component: { memory_type_id: @memory_component.memory_type_id, quantity: @memory_component.quantity, server_id: @memory_component.server_id } }
-    assert_redirected_to server_path(@memory_component.server_id)
+    assert_redirected_to server_path(@memory_component.server)
   end
 
   test "should destroy memory_component" do
