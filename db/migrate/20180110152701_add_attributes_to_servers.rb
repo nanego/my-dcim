@@ -65,44 +65,44 @@ class AddAttributesToServers < ActiveRecord::Migration[5.0]
     category = MigrationCategory.create(name: 'Pdu')
     puts "ERROR: #{category}" unless category.valid?
     modele = MigrationModele.create(name: 'Pdu 24',
-                           category: category)
+                                    category: category)
     puts "ERROR: #{modele}" unless modele.valid?
     enclosure = MigrationEnclosure.create(modele: modele,
-                                 position: 1,
-                                 display: 'vertical')
+                                          position: 1,
+                                          display: 'vertical')
     puts "ERROR: #{enclosure}" unless enclosure.valid?
     type_composant = MigrationTypeComposant.find_by_name('SLOT')
     puts "ERROR: #{type_composant}" unless type_composant.valid?
     4.times do |i|
       line = (i + 1).odd? ? 'L1' : 'L2'
       composant = MigrationComposant.create(type_composant: type_composant,
-                       position: i + 1,
-                       enclosure: enclosure,
-                       name: "ALIM_#{line}")
+                                            position: i + 1,
+                                            enclosure: enclosure,
+                                            name: "ALIM_#{line}")
       puts "ERROR: #{composant}" unless composant.valid?
     end
 
     port_type = MigrationPortType.find_by_name('ALIM')
     puts "ERROR: #{port_type}" unless port_type.valid?
     card_type = MigrationCardType.find_or_create_by(name: '6ALIM',
-                                        port_quantity: 6,
-                                        port_type: port_type)
+                                                    port_quantity: 6,
+                                                    port_type: port_type)
     puts "ERROR: #{card_type}" unless card_type.valid?
 
     MigrationFrame.all.find_each do |frame|
       %w[A B].each do |line_name|
         pdu_name = "PDU_#{frame}_#{line_name}"
         pdu = MigrationServer.create(frame: frame,
-                            modele: modele,
-                            numero: pdu_name,
-                            name: pdu_name,
-                            side: Pdu.calculated_side(frame, line_name),
-                            color: line_name == 'A' ? 'J' : 'B')
+                                     modele: modele,
+                                     numero: pdu_name,
+                                     name: pdu_name,
+                                     side: Pdu.calculated_side(frame, line_name),
+                                     color: line_name == 'A' ? 'J' : 'B')
         puts "ERROR: #{pdu}" unless pdu.valid?
         enclosure.composants.each do |composant|
           card = MigrationCard.create(card_type: card_type,
-                      server: pdu,
-                      composant: composant)
+                                      server: pdu,
+                                      composant: composant)
           puts "ERROR: #{card}" unless card.valid?
         end
       end

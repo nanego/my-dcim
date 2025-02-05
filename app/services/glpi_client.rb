@@ -104,10 +104,10 @@ class GlpiClient
 
   def stubs
     Faraday::Adapter::Test::Stubs.new do |stub|
-      stub.get('/Computer?searchText%5Bserial%5D=AZERTY') { |env| [200, {}, File.read(Rails.root.join('test', 'services', 'computers_results.json'))] }
-      stub.get(/\/Computer\/4090?.*/) { |env| [200, {}, File.read(Rails.root.join('test', 'services', 'computer_4090_algori.json'))] }
-      stub.get(/\/DeviceProcessor\/28?.*/) { |env| [200, {}, File.read(Rails.root.join('test', 'services', 'processor_28.json'))] }
-      stub.get('/initSession') { |env| [200, {}, '{"session_token":"kuji8uh4v77lgghqoj2c0r2848"}'] }
+      stub.get('/Computer?searchText%5Bserial%5D=AZERTY') { |_env| [200, {}, File.read(Rails.root.join('test', 'services', 'computers_results.json'))] }
+      stub.get(/\/Computer\/4090?.*/) { |_env| [200, {}, File.read(Rails.root.join('test', 'services', 'computer_4090_algori.json'))] }
+      stub.get(/\/DeviceProcessor\/28?.*/) { |_env| [200, {}, File.read(Rails.root.join('test', 'services', 'processor_28.json'))] }
+      stub.get('/initSession') { |_env| [200, {}, '{"session_token":"kuji8uh4v77lgghqoj2c0r2848"}'] }
     end
   end
 
@@ -130,13 +130,13 @@ class GlpiClient
     def hard_drives_total_capacity
       return 0 if hard_drives.blank?
 
-      hard_drives.sum { |key, value| value['capacity'] }
+      hard_drives.sum { |_key, value| value['capacity'] }
     end
 
     def memories_total_size
       return 0 if memories.blank?
 
-      memories.sum { |key, value| value['size'] }
+      memories.sum { |_key, value| value['size'] }
     end
   end
 end

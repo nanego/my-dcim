@@ -55,10 +55,10 @@ class Frame < ApplicationRecord
   def self.to_txt(servers_per_bay, detail)
     txt = []
     if servers_per_bay.present?
-      servers_per_bay.each do |islet, lanes|
-        lanes.each do |lane, bays|
-          bays.each do |bay, frames|
-            frames.each do |frame, servers|
+      servers_per_bay.each do |_islet, lanes|
+        lanes.each do |_lane, bays|
+          bays.each do |_bay, frames|
+            frames.each do |frame, _servers|
               txt << frame.to_txt(detail)
             end
           end
