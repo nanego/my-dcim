@@ -483,7 +483,6 @@ fr:
       sync_with_external_apps: Synchroniser avec GLPI
     show:
       back_to_bay: Baie %{name}
-      nb_u: Nb de U
       documentation: Documentation
       attached_documents: "Documents attachés :"
       glpi_data: Données GLPI
@@ -530,6 +529,42 @@ fr:
       memories_count: Nombre de barettes
       memories_total: Ram totale
       cpus: Processeurs
+  power_distribution_units:
+    index:
+      title: PDUs
+      new_power_distributon_unit: Ajouter un PDU
+    show:
+      documentation: Documentation
+      attached_documents: "Documents attachés :"
+      glpi_data: Données GLPI
+      glpi_visit_page: Voir la page de la machine sur GLPI
+      no_match_serial: "Aucune correspondance pour ce numéro de série : %{serial}"
+      glpi_connection_error: "Problème lors de la connexion à GLPI :"
+      destroy_connections: Supprimer les connexions
+      destroy_connections_confirmation: Confirmez-vous vouloir supprimer toutes les connections de ce PDU ?
+    new:
+      title: Ajouter un PDU
+    create:
+      flashes:
+        created: Le PDU a été créé avec succès.
+    form:
+      add_card: Ajouter une carte
+      add_document: Ajouter une pièce jointe
+    edit:
+      title: Modifier le PDU
+      delete_confirmation: Toutes les données concernant ce PDU seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?
+    update:
+      flashes:
+        updated: Le PDU a été mis à jour avec succès.
+    duplicate:
+      title: Dupliquer le PDU %{pdu_name}
+    destroy:
+      flashes:
+        destroyed: Le PDU a bien été supprimé.
+        not_destroyed: Une erreur est survenue lors de la suppression du PDU.
+    flashes:
+      connections_destroyed: Les connexions ont été supprimées.
+      connections_not_destroyed: Une erreur a empêché la suppression des connexions.
   frames:
     coupled_frame_label: Châssis couplé à
     no_coupled_frame: Aucun châssis couplé.

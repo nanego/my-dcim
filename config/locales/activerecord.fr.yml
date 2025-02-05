@@ -110,6 +110,7 @@ fr:
         photo: Photo
         frame: Châssis
         span: Slots
+        u: Nb de U
       site:
         name: Nom
         description: Description

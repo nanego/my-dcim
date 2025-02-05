@@ -19,6 +19,43 @@ en:
       edit:
         title: Change your password
 
+  power_distribution_units:
+    index:
+      title: PDUs
+      new_power_distributon_unit: Add a PDU
+    show:
+      documentation: Documentation
+      attached_documents: "Attached documents:"
+      glpi_data: GLPI data
+      glpi_visit_page: See the PDU page on GLPI
+      no_match_serial: "No match for this serial number: %{serial}"
+      glpi_connection_error: "Problem connecting to GLPI :"
+      destroy_connections: Delete connections
+      destroy_connections_confirmation: Can you confirm that you want to remove all connections from this PDU?
+    new:
+      title: Add a PDU
+    create:
+      flashes:
+        created: The PDU has been successfully created.
+    form:
+      add_card: Add a card
+      add_document: Add an attached document
+    edit:
+      title: Modify PDU
+      delete_confirmation: All data concerning this PDU will be deleted, along with all associated connections. Would you like to confirm?
+    update:
+      flashes:
+        updated: The PDU has been successfully updated.
+    duplicate:
+      title: Duplicate PDU %{pdu_name}
+    destroy:
+      flashes:
+        destroyed: The PDU has been deleted.
+        not_destroyed: An error occurred while deleting the PDU.
+    flashes:
+      connections_destroyed: The connections have been removed.
+      connections_not_destroyed: An error prevented connections from being deleted.
+
   rooms:
     action_buttons:
       caption:

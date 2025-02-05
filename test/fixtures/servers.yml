@@ -4,6 +4,7 @@ one:
   id: 1
   frame_id: 1
   name: ServerName1
+  slug: servername1
   modele_id: 1
   numero: CZ31535FEY
   critique: false
@@ -49,6 +50,7 @@ pdu:
   modele_id: 3
   side: right
   color: B
+  numero: pdu_frame_1
 
 with_cluster:
   frame_id: 1

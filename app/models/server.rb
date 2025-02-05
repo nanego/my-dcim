@@ -40,23 +40,23 @@ class Server < ApplicationRecord
   validate :validate_network_types_values
 
   accepts_nested_attributes_for :cards,
-                                :allow_destroy => true,
-                                :reject_if => :all_blank
+                                allow_destroy: true,
+                                reject_if: :all_blank
   accepts_nested_attributes_for :disks,
-                                :allow_destroy => true,
-                                :reject_if => :all_blank
+                                allow_destroy: true,
+                                reject_if: :all_blank
   accepts_nested_attributes_for :memory_components,
-                                :allow_destroy => true,
-                                :reject_if => :all_blank
+                                allow_destroy: true,
+                                reject_if: :all_blank
   accepts_nested_attributes_for :documents,
-                                :allow_destroy => true,
-                                :reject_if => :all_blank
+                                allow_destroy: true,
+                                reject_if: :all_blank
 
   normalizes :network_types, with: ->(values) { values.compact_blank }
 
   before_create :set_default_network_types
 
-  scope :sorted, -> { order(:position => :desc) }
+  scope :sorted, -> { order(position: :desc) }
   scope :sorted_by_name, -> { order('LOWER(name) ASC') }
 
   scope :glpi_synchronizable, -> { joins(modele: :category).merge(Modele.glpi_synchronizable) }

@@ -1,5 +1,14 @@
-<%= form_for(@server, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
-  <%= render FormErrorsComponent.new(@server) %>
+<%
+  is_edit = controller.action_name == "edit"
+  is_new = !is_edit
+
+  dynamic_url = is_edit ? power_distribution_unit_path(@pdu) : power_distribution_units_path
+%>
+
+<%= form_for(@pdu, as: :power_distribution_unit,
+                   url: dynamic_url,
+                   html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+  <%= render FormErrorsComponent.new(@pdu) %>
 
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <% card.with_header do %>
@@ -20,10 +29,10 @@
     <% end %>
 
     <div class="row g-3">
-      <fieldset class="col-md-6 col-12">
+      <fieldset class="col-12">
         <%= f.label :modele_id, class: "form-label" %>
         <%= f.collection_select(:modele_id,
-                                Modele.no_pdus.all_sorted,
+                                Modele.only_pdus.all_sorted,
                                 :id,
                                 :name_with_brand,
                                 { prompt: true, include_blank: false },
@@ -34,24 +43,6 @@
                                 })
         %>
       </fieldset>
-
-      <fieldset class="col-md-6 col-12">
-        <%= f.label :network_types, class: "form-label" %>
-        <%= f.select :network_types,
-                     Modele::Network::TYPES.map { |type| [Modele.human_attribute_name("network_types.#{type}"), type] },
-                     { prompt: true, include_blank: true },
-                     {
-                       class: "form-select",
-                       data: { controller: "select" },
-                       multiple: true,
-                       placeholder: Modele.human_attribute_name("network_types.blank")
-                     }
-        %>
-        <div id="networkTypesHelp" class="form-text fst-italic">
-          <i class="bi bi-info-circle me-1"></i>
-          <%= Modele.human_attribute_name("network_types.help") %>
-        </div>
-      </fieldset>
     </div>
   <% end %>
 
@@ -61,28 +52,9 @@
     <% end %>
 
     <div class="row g-3">
-      <fieldset class="col-md-6 col-12">
+      <fieldset class="col-12">
         <%= f.label :numero, class: "form-label" %>
         <%= f.text_field :numero, class: "form-control" %>
-      </fieldset>
-
-      <fieldset class="col-md-6 col-12 mt-md-3 mt-4">
-        <%= f.label :server_state_id, class: "form-label" %>
-        <%= f.collection_select(:server_state_id, ServerState.sorted, :id, :name, { prompt: false, include_blank: true },
-                                                                                  { class: "form-select" }) %>
-      </fieldset>
-
-      <fieldset class="col-md-6 col-12 mt-4">
-        <%= f.label :stack_id, class: "form-label" %>
-        <%= f.collection_select(:stack_id, Stack.order(:id), :id, :name, { prompt: true, include_blank: true },
-                                                                         { class: "form-select" }) %>
-      </fieldset>
-
-      <fieldset class="col-md-6 col-12 mt-4 align-self-end">
-        <div class="form-check">
-          <%= f.check_box :critique, class: "form-check-input" %>
-          <%= f.label :critique, class: "form-check-label" %>
-        </div>
       </fieldset>
     </div>
   <% end %>
@@ -93,10 +65,11 @@
     <% end %>
 
     <div class="row g-3">
-      <fieldset class="col-md-9 col-12">
+      <fieldset class="col-12">
         <%= f.label :frame_id, class: "form-label" %>
         <%= f.collection_select(:frame_id,
-                                Frame.all_sorted, :id,
+                                Frame.all_sorted,
+                                :id,
                                 :name_with_room_and_islet,
                                 { prompt: true, include_blank: false },
                                 {
@@ -105,11 +78,6 @@
                                   placeholder: t("select.placeholder")
                                 })
         %>
-      </fieldset>
-
-      <fieldset class="col-md-3 col-12">
-        <%= f.label :position, class: "form-label" %>
-        <%= f.number_field :position, class: "form-control" %>
       </fieldset>
     </div>
   <% end %>
@@ -120,40 +88,10 @@
     <% end %>
 
     <div class="row g-3">
-      <fieldset class="col-md-6 col-12">
-        <%= f.label :domaine_id, class: "form-label" %>
-        <%= f.collection_select(:domaine_id,
-                                Domaine.sorted,
-                                :id,
-                                :name,
-                                { prompt: true, include_blank: true },
-                                {
-                                  class: "form-select",
-                                  data: { controller: "select" },
-                                  placeholder: t("select.placeholder")
-                                })
-        %>
-      </fieldset>
-
-      <fieldset class="col-md-6 col-12 mt-md-3 mt-4">
+      <fieldset class="col-12">
         <%= f.label :gestion_id, class: "form-label" %>
         <%= f.collection_select(:gestion_id,
                                 Gestion.sorted,
-                                :id,
-                                :name,
-                                { prompt: true, include_blank: true },
-                                {
-                                  class: "form-select",
-                                  data: { controller: "select" },
-                                  placeholder: t("select.placeholder")
-                                })
-        %>
-      </fieldset>
-
-      <fieldset class="col-md-6 col-12 mt-4">
-        <%= f.label :cluster_id, class: "form-label" %>
-        <%= f.collection_select(:cluster_id,
-                                Cluster.sorted,
                                 :id,
                                 :name,
                                 { prompt: true, include_blank: true },
@@ -168,12 +106,12 @@
   <% end %>
 
   <!-- TODO: update -->
-  <% if @server.modele %>
-    <% @server.modele.enclosures.each do |enclosure| %>
+  <% if @pdu.modele %>
+    <% @pdu.modele.enclosures.each do |enclosure| %>
       <div class="col-12 mt-4" data-controller="nested-form">
         <template data-nested-form-target="template">
           <%= f.fields_for :cards, f.object.cards.klass.new, child_index: '__NEW_RECORD__' do |card_fields| %>
-            <%= render partial: "card_fields", locals: { f: card_fields, server: @server, enclosure: enclosure } %>
+            <%= render partial: "servers/card_fields", locals: { f: card_fields, server: @pdu, enclosure: enclosure } %>
           <% end %>
         </template>
 
@@ -183,10 +121,10 @@
           <% end %>
 
           <div class="row-gap-3 d-flex flex-column">
-            <% cards = @server.cards.select { |c| c.composant.enclosure == enclosure }
+            <% cards = @pdu.cards.select { |c| c.composant.enclosure == enclosure }
                                     .sort_by! { |c| c.composant.position } %>
             <%= f.fields_for :cards, cards do |card_fields| %>
-              <%= render partial: "card_fields", locals: { f: card_fields, server: @server, enclosure: enclosure } %>
+              <%= render partial: "servers/card_fields", locals: { f: card_fields, server: @pdu, enclosure: enclosure } %>
             <% end %>
 
             <div data-nested-form-target="target" class="d-none"></div>
@@ -213,7 +151,7 @@
   <fieldset class="col-12 mt-4" data-controller="nested-form">
     <template data-nested-form-target="template">
       <%= f.fields_for :documents, f.object.documents.klass.new, child_index: '__NEW_RECORD__' do |document_fields| %>
-        <%= render partial: "document_fields", locals: { f: document_fields } %>
+        <%= render partial: "servers/document_fields", locals: { f: document_fields } %>
       <% end %>
     </template>
 
@@ -223,7 +161,7 @@
       <% end %>
 
       <%= f.fields_for :documents do |document_fields| %>
-        <%= render partial: "document_fields", locals: { f:  document_fields } %>
+        <%= render partial: "servers/document_fields", locals: { f:  document_fields } %>
       <% end %>
 
       <div data-nested-form-target="target"></div>
@@ -240,11 +178,15 @@
       <%= f.label :photo, class: "form-label" %>
       <%= f.file_field :photo, class: "form-control" %>
 
-      <% if @server.photo.attached? %>
-        <%= image_tag @server.photo.representation(resize_to_limit: [200, 200]), class: "ms-0 mt-2" %>
+      <% if @pdu.photo.attached? %>
+        <%= image_tag @pdu.photo.representation(resize_to_limit: [200, 200]), class: "ms-0 mt-2" %>
       <% end %>
     </fieldset>
   <% end %>
 
-  <%= render Form::ActionsComponent.new(f) %>
+  <%#= render Form::ActionsComponent.new(f) %>
+  <div class="col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top">
+    <%= link_to(t("action.cancel"), dynamic_url, class: "btn btn-outline-secondary me-2") %>
+    <%= f.submit(class: class_names("btn", 'btn-info': is_edit, 'btn-success': is_new)) %>
+  </div>
 <% end %>

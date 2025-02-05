@@ -1,35 +1,44 @@
-<% title = "#{@server.modele.try(:category).try(:name)} #{@server.name}" %>
-<% provide(:title, "#{t("servers.index.title")} | #{title}") %>
+<% title = @pdu.name %>
+<% provide(:title, "#{t("power_distribution_units.index.title")} | #{title}") %>
 
 <% breadcrumb_steps = {
-  t("servers.index.title") => servers_path,
-  @server.name => ""
+  t("power_distribution_units.index.title") => power_distribution_units_path, # TODO: prefer use ActiveRecord translation of Modele name
+  @pdu.name => ""
 } %>
 
-<%= render Page::HeadingShowComponent.new(resource: @server, title: title, breadcrumb_steps:) do |heading| %>
-  <% heading.with_extra_buttons do %>
-    <%= render ButtonComponent.new(t("action.move"),
-                                  url: new_move_path(server_id: @server.id),
-                                  variant: :outline_primary,
-                                  icon: "box-seam",
-                                  is_responsive: true,
-                                  extra_classes: "me-2",
-                                  aria: { hidden: true },
-                                  data: {
-                                    controller: "tooltip",
-                                    bs_placement: :bottom,
-                                    tooltip_title: t(".moves_cta_tooltip")
-                                  }) %>
-    <%= render ButtonComponent.new(t("action.duplicate"),
-                                  url: duplicate_server_path(@server.slug),
+<%#<%= render Page::HeadingShowComponent.new(resource: @pdu, title: title, breadcrumb_steps:) do |heading| %>
+  <%#<% heading.with_extra_buttons do %>
+    <%#<%= render ButtonComponent.new(t("action.duplicate"),
+                                  url: duplicate_power_distribution_unit_path(@pdu.slug),
                                   variant: :success,
                                   icon: "copy",
                                   is_responsive: true,
                                   extra_classes: "me-2") %>
+  <% # end %>
+<% # end %>
+
+<%= render Page::HeadingComponent.new(
+  title: title, breadcrumb_steps:, back_button_url: power_distribution_units_path
+) do |heading| %>
+  <% heading.with_right_content do %>
+    <div class="align-self-center d-inline-flex">
+      <%= render ButtonComponent.new(t("action.duplicate"),
+                                    url: duplicate_power_distribution_unit_path(@pdu.slug),
+                                    variant: :success,
+                                    icon: "copy",
+                                    is_responsive: true,
+                                    extra_classes: "me-2") %>
+      <%= render ButtonComponent.new(t("action.edit"),
+                                    url: edit_power_distribution_unit_path(@pdu.slug),
+                                    variant: :info,
+                                    icon: "pencil",
+                                    is_responsive: true,
+                                    extra_classes: "me-2") %>
+    </div>
   <% end %>
 <% end %>
 
-<div class="page-show__tabs" id="serverShowTabs">
+<div class="page-show__tabs" id="pduShowTabs">
   <ul class="nav nav-tabs ps-4">
     <li class="nav-item" role="presentation">
       <button class="nav-link active"
@@ -57,27 +66,27 @@
     </li>
   </ul>
 </div>
-<div class="col-12 p-4 tab-content" id="serverShowTabsContent">
+<div class="col-12 p-4 tab-content" id="pduShowTabsContent">
   <div class="tab-pane fade show active" id="details-tab-pane" role="tabpanel" aria-labelledby="details-tab" tabindex="0">
     <div class="mb-4">
-      <% bgModeleColor = define_background_color(server: @server, mode: params["bg"]) %>
+      <% bgModeleColor = define_background_color(server: @pdu, mode: params["bg"]) %>
       <div class="<%= class_names("rounded-top-1 border border-secondary-subtle p-2 mb-2",
                                   colorized_background: bgModeleColor.present?) %>"
             style="background-color:<%= bgModeleColor %> !important;">
-        <%= render partial: "draw_server_compact_front", locals: { server: @server } %>
+        <%= render partial: "servers/draw_server_compact_front", locals: { server: @pdu } %>
       </div>
 
       <div class="server rounded-bottom-1 bg-body border border-secondary-subtle p-2 mb-2">
-        <span id="back_server_<%= @server.id %>" class="no-decoration-link d-flex flex-row-reverse flex-wrap">
-            <%= render partial: "servers/draw_server_compact", locals: { server: @server } %>
+        <span id="back_server_<%= @pdu.id %>" class="no-decoration-link d-flex flex-row-reverse flex-wrap">
+            <%= render partial: "servers/draw_server_compact", locals: { server: @pdu } %>
         </span>
       </div>
     </div>
 
-    <% if @server.comment.present? %>
+    <% if @pdu.comment.present? %>
       <div class="mb-4">
         <div class="alert alert-warning">
-          <%= @server.comment %>
+          <%= @pdu.comment %>
         </div>
       </div>
     <% end %>
@@ -91,7 +100,7 @@
 
           <dl class="show-page_dl d-grid row-gap-2 mb-0">
             <dt class="pb-2"><%= Server.human_attribute_name(:name) %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= @server.name %></dd>
+            <dd class="mb-0 pb-2 ps-3"><%= @pdu.name %></dd>
           </dl>
         <% end %>
 
@@ -103,20 +112,15 @@
           <dl class="show-page_dl d-grid row-gap-2 mb-0">
             <dt class="pb-2"><%= Modele.model_name.human %></dt>
             <dd class="mb-0 pb-2 ps-3">
-              <% if @server.modele.present? %>
-                <%= link_to @server.modele, modele_path(@server.modele) %>
-              <% end %>
+              <%= link_to @pdu.modele, modele_path(@pdu.modele) if @pdu.modele.try(:name) %>
             </dd>
-
-            <dt class="pb-2"><%= Category.model_name.human %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= @server.modele.try(:category) %></dd>
 
             <dt class="pb-2"><%= Manufacturer.model_name.human %></dt>
             <dd class="mb-0 pb-2 ps-3">
-              <% if @server.modele&.manufacturer.present? %>
-                <%= link_to @server.modele.manufacturer, manufacturer_path(@server.modele.manufacturer) %>
+              <% if @pdu.modele&.manufacturer.present? %>
+                <%= link_to @pdu.modele.manufacturer, manufacturer_path(@pdu.modele.manufacturer) %>
               <% end %>
-              <% if (documentation_url = @server.documentation_url).present? %>
+              <% if (documentation_url = @pdu.documentation_url).present? %>
                 (
                   <%= link_to t(".documentation"), documentation_url, target: :_blank, rel: :noopener %>
                 )
@@ -124,18 +128,14 @@
             </dd>
 
             <dt class="pb-2"><%= Modele.human_attribute_name(:nb_elts) %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= @server.modele.try(:nb_elts) %></dd>
+            <dd class="mb-0 pb-2 ps-3"><%= @pdu.modele.try(:nb_elts) %></dd>
 
             <dt class="pb-2"><%= Architecture.model_name.human %></dt>
             <dd class="mb-0 pb-2 ps-3">
-              <%= link_to @server.modele.try(:architecture), architecture_path(@server.modele.try(:architecture)) %>
+              <% if @pdu.modele&.architecture.present? %>
+                <%= link_to @pdu.modele.architecture, architecture_path(@pdu.modele.architecture) %>
+              <% end %>
             </dd>
-
-            <dt class="pb-2"><%= Server.human_attribute_name(:u) %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= @server.modele.try(:u) %></dd>
-
-            <dt class="pb-2"><%= Server.human_attribute_name(:network_types) %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= @server.decorated.network_types_to_human %></dd>
           </dl>
         <% end %>
 
@@ -146,40 +146,19 @@
 
           <dl class="show-page_dl d-grid row-gap-2 mb-0">
             <dt class="pb-2"><%= Server.human_attribute_name(:numero) %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= @server.try(:numero) %></dd>
-
-            <dt class="pb-2"><%= Server.human_attribute_name(:critique) %></dt>
-            <dd class="mb-0 pb-2 ps-3">
-              <% if @server.critique.present? %>
-                <span class="<%= class_names("text-uppercase text-danger": @server.critique) %>">
-                  <%= t("boolean.#{@server.critique}") %>
-                </span>
-              <% end %>
-            </dd>
-
-            <dt class="pb-2"><%= ServerState.model_name.human %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= @server.server_state %></dd>
-
-            <dt class="pb-2"><%= Stack.model_name.human %></dt>
-            <dd class="mb-0 pb-2 ps-3">
-              <% if @server.stack %>
-                <%= link_to stack_path(@server.stack) do %>
-                  <span style="<%= "color: ##{@server.stack.color}" %>" class="bi bi-square-fill" aria-hidden="true"></span>
-                <% end %>
-              <% end %>
-            </dd>
+            <dd class="mb-0 pb-2 ps-3"><%= @pdu.try(:numero) %></dd>
 
             <dt class="pb-2"><%= Card.model_name.human.pluralize %></dt>
             <dd class="mb-0 pb-2 ps-3">
-              <% @server.modele.composants.ordered.slots.each do |slot| %>
-                <% @server.cards.where(:composant_id => slot.id).each do |card| %>
+              <% @pdu.modele.composants.ordered.slots.each do |slot| %>
+                <% @pdu.cards.where(:composant_id => slot.id).each do |card| %>
                   <div>
                     <%= card.composant.name ? card.composant.name : card.composant.position %>
                     :
                     <%= "#{card.card_type.try(:name)} (#{card.card_type.try(:port_quantity)}#{card.card_type.try(:port_type).try(:name)})" %>
                   </div>
                 <% end %>
-              <% end if @server.modele.present? %>
+              <% end if @pdu.modele.present? %>
             </dd>
           </dl>
         <% end %>
@@ -190,31 +169,21 @@
           <% end %>
 
           <dl class="show-page_dl d-grid row-gap-2 mb-0">
-            <dt class="pb-2"><%= Domaine.model_name.human %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= link_to_if @server.domaine, @server.domaine %></dd>
-
             <dt class="pb-2"><%= Gestion.model_name.human %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= link_to_if @server.gestion, @server.gestion %></dd>
-
-            <dt class="pb-2"><%= Cluster.model_name.human %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= link_to_if @server.cluster, @server.cluster&.name, @server.cluster %></dd>
+            <dd class="mb-0 pb-2 ps-3"><%= link_to_if @pdu.gestion, @pdu.gestion %></dd>
           </dl>
         <% end %>
 
-        <% if @server.documents.present? %>
+        <% if @pdu.photo.attached? %>
           <!-- Card shown on lg, in 2nd position (Grid isn't working as Masonry) -->
           <%= render CardComponent.new(extra_classes: "mt-4 d-none d-lg-flex") do |card| %>
             <% card.with_header do %>
-              <%= t(".attached_documents") %>
+              <%= Server.human_attribute_name(:photo) %>
             <% end %>
-            <ul>
-              <% @server.documents.each do |doc| %>
-                <%- next unless doc.document.present? %>
-                <li>
-                  <%= link_to(doc.document.metadata["filename"], doc.document_url, { target: :_blank })  %>
-                </li>
-              <% end %>
-            </ul>
+
+            <%= link_to @pdu.photo, rel: :noopener, target: :_blank do %>
+              <%= image_tag @pdu.photo.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
+            <% end %>
           <% end %>
         <% end %>
       </div>
@@ -227,12 +196,12 @@
 
           <dl class="show-page_dl d-grid row-gap-2 mb-0">
             <dt class="pb-2"><%= Site.model_name.human %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= link_to @server.room.site, site_path(@server.room.site) %></dd>
+            <dd class="mb-0 pb-2 ps-3"><%= link_to @pdu.room.site, site_path(@pdu.room.site) %></dd>
 
             <dt class="pb-2"><%= Room.model_name.human %></dt>
             <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
-              <%= link_to @server.room.try(:name), @server.room %>
-              <%= link_to visualization_room_path(@server.room),
+              <%= link_to @pdu.room.try(:name), @pdu.room %>
+              <%= link_to visualization_room_path(@pdu.room),
                           class: "btn btn-primary btn-sm",
                           data: { turbo_frame: :_top } do %>
                 <span class="bi bi-diagram-3-fill"
@@ -246,8 +215,8 @@
 
             <dt class="pb-2"><%= Islet.model_name.human %></dt>
             <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
-              <%= link_to @server.islet.name_with_room, islet_path(@server.islet) %>
-              <%= link_to visualization_room_path(@server.room, islet: @server.islet.name),
+              <%= link_to @pdu.islet.name_with_room, islet_path(@pdu.islet) %>
+              <%= link_to visualization_room_path(@pdu.room, islet: @pdu.islet.name),
                           class: "btn btn-primary btn-sm",
                           data: { turbo_frame: :_top } do %>
                 <span class="bi bi-diagram-3-fill"
@@ -261,8 +230,8 @@
 
             <dt class="pb-2"><%= Bay.model_name.human %></dt>
             <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
-              <%= link_to @server.bay, bay_path(@server.bay) %>
-              <%= link_to visualization_bay_path(@server.bay),
+              <%= link_to @pdu.bay, bay_path(@pdu.bay) %>
+              <%= link_to visualization_bay_path(@pdu.bay),
                           class: "btn btn-primary btn-sm",
                           data: { turbo_frame: :_top } do %>
                 <span class="bi bi-diagram-3-fill"
@@ -276,8 +245,8 @@
 
             <dt class="pb-2"><%= Frame.model_name.human %></dt>
             <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
-              <%= link_to @server.frame.try(:name), frame_path(@server.frame) %>
-              <%= link_to visualization_frame_path(@server.frame),
+              <%= link_to @pdu.frame.try(:name), frame_path(@pdu.frame) %>
+              <%= link_to visualization_frame_path(@pdu.frame),
                           class: "btn btn-primary btn-sm",
                           data: { turbo_frame: :_top } do %>
                 <span class="bi bi-diagram-3-fill"
@@ -288,9 +257,6 @@
                 <span class="visually-hidden"><%= t("visualization.title") %></span>
               <% end %>
             </dd>
-
-            <dt class="pb-2"><%= Server.human_attribute_name(:position) %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= @server.position %></dd>
           </dl>
         <% end %>
 
@@ -302,7 +268,7 @@
             begin
               Timeout.timeout(3) do
                 client = GlpiClient.new
-                computer = client.computer(serial: Rails.env.production? ? @server.numero : "AZERTY") %>
+                computer = client.computer(serial: Rails.env.production? ? @pdu.numero : "AZERTY") %>
               <% if computer.present? %>
                 <dl class="show-page_dl d-grid row-gap-2 mb-0">
                   <dt class="pb-2"><%= t("glpi.computer.name") %></dt>
@@ -343,7 +309,7 @@
                               target: :_blank %>
                 <% end %>
               <% else %>
-                <%= t(".no_match_serial", serial: @server.numero) %>
+                <%= t(".no_match_serial", serial: @pdu.numero) %>
               <% end %>
             <% end
                 rescue Timeout::Error => e
@@ -354,14 +320,26 @@
           <% end %>
         <% end %>
 
-        <% if @server.documents.present? %>
+        <% if @pdu.photo.attached? %>
           <!-- Card shown on mobile, in 3rd position (Grid isn't working as Masonry) -->
           <%= render CardComponent.new(extra_classes: "d-lg-none mt-4") do |card| %>
+            <% card.with_header do %>
+              <%= Server.human_attribute_name(:photo) %>
+            <% end %>
+
+            <%= link_to @pdu.photo, rel: :noopener, target: :_blank do %>
+              <%= image_tag @pdu.photo.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% if @pdu.documents.present? %>
+          <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
             <% card.with_header do %>
               <%= t(".attached_documents") %>
             <% end %>
             <ul>
-              <% @server.documents.each do |doc| %>
+              <% @pdu.documents.each do |doc| %>
                 <%- next unless doc.document.present? %>
                 <li>
                   <%= link_to(doc.document.metadata["filename"], doc.document_url, { target: :_blank })  %>
@@ -370,33 +348,21 @@
             </ul>
           <% end %>
         <% end %>
-
-        <% if @server.photo.attached? %>
-          <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
-            <% card.with_header do %>
-              <%= Server.human_attribute_name(:photo) %>
-            <% end %>
-
-            <%= link_to @server.photo, rel: :noopener, target: :_blank do %>
-              <%= image_tag @server.photo.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
-            <% end %>
-          <% end %>
-        <% end %>
       </div>
     </div>
 
-    <%= render ChangelogEntries::ObjectListComponent.new(@server) %>
+    <%= render ChangelogEntries::ObjectListComponent.new(@pdu) %>
   </div>
   <div class="tab-pane fade" id="connections-tab-pane" role="tabpanel" aria-labelledby="connections-tab" tabindex="0">
     <%= render HasManyTurboFrameComponent.new(
       Connection.model_name.human.pluralize,
-      url: cables_path(server_ids: @server.id),
+      url: cables_path(server_ids: @pdu.id),
       frame_id: dom_id(Connection, :table),
       extra_classes: "bg-body-tertiary"
     ) do |c| %>
       <% c.with_actions do %>
         <%= render ButtonComponent.new(t(".destroy_connections"),
-                                          url: destroy_connections_server_path(@server),
+                                          url: destroy_connections_server_path(@pdu),
                                           icon: "trash",
                                           variant: :danger,
                                           size: :sm,

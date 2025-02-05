@@ -13,7 +13,7 @@ class ServersController < ApplicationController
       logger.warn("DEPRECATION WARNING: Search with 'name' is now deprecated. Use 'q' instead.")
     end
 
-    @servers = Server.includes(:frame, :room, :islet, bay: :frames, modele: :category)
+    @servers = Server.no_pdus.includes(:frame, :room, :islet, bay: :frames, modele: :category)
       .references(:room, :islet, :bay, modele: :category)
       .order(:name)
     @filter = ProcessorFilter.new(@servers, params)
@@ -25,27 +25,6 @@ class ServersController < ApplicationController
       format.json
       format.html { @pagy, @servers = pagy(@servers) }
     end
-  end
-
-  def grid
-    @servers = ServersGrid.new(params[:servers_grid])
-  end
-
-  def sort
-    room = Room.find_by_name(params[:room]) unless params[:room].include?('non ')
-    frame = room.frames.where('islets.name = ? AND frames.name = ?', params[:islet], params[:frame]).first
-    positions = params[:positions].split(',')
-
-    params[:server].each_with_index do |id, index|
-      if positions[index].present?
-        server = Server.find_by_id(id)
-        new_params = { position: positions[index] }
-        new_params[:frame_id] = frame.id if frame.present?
-
-        server.update(new_params)
-      end
-    end if params[:server].present?
-    head :ok # render empty body, status only
   end
 
   def show; end
@@ -82,6 +61,39 @@ class ServersController < ApplicationController
     end
   end
 
+  def destroy
+    respond_to do |format|
+      if @server.destroy
+        format.html { redirect_to servers_path(search_params), notice: t(".flashes.destroyed") }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to servers_path(search_params), alert: t(".flashes.not_destroyed") }
+        format.json { head :bad_request }
+      end
+    end
+  end
+
+  def grid
+    @servers = ServersGrid.new(params[:servers_grid])
+  end
+
+  def sort
+    room = Room.find_by_name(params[:room]) unless params[:room].include?('non ')
+    frame = room.frames.where('islets.name = ? AND frames.name = ?', params[:islet], params[:frame]).first
+    positions = params[:positions].split(',')
+
+    params[:server].each_with_index do |id, index|
+      if positions[index].present?
+        server = Server.find_by_id(id)
+        new_params = { position: positions[index] }
+        new_params[:frame_id] = frame.id if frame.present?
+
+        server.update(new_params)
+      end
+    end if params[:server].present?
+    head :ok # render empty body, status only
+  end
+
   def import_csv; end
 
   def import
@@ -93,18 +105,6 @@ class ServersController < ApplicationController
     else
       @import_error = value
       render :import_csv
-    end
-  end
-
-  def destroy
-    respond_to do |format|
-      if @server.destroy
-        format.html { redirect_to servers_path(search_params), notice: t(".flashes.destroyed") }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to servers_path(search_params), alert: t(".flashes.not_destroyed") }
-        format.json { head :bad_request }
-      end
     end
   end
 
