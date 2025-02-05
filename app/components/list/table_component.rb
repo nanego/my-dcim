@@ -33,8 +33,8 @@ module List
     end
 
     class TableTag < ApplicationComponent
-      TAG_NAME = nil.freeze
-      CSS_CLASSES = "".freeze
+      TAG_NAME = nil
+      CSS_CLASSES = ""
 
       def initialize(**html_attributes)
         super()
@@ -52,26 +52,26 @@ module List
     end
 
     class TableHead < TableTag
-      TAG_NAME = :thead.freeze
-      CSS_CLASSES = "".freeze
+      TAG_NAME = :thead
+      CSS_CLASSES = ""
     end
 
     class TableBody < TableTag
-      TAG_NAME = :tbody.freeze
-      CSS_CLASSES = "".freeze
+      TAG_NAME = :tbody
+      CSS_CLASSES = ""
     end
 
     class TableFoot < TableTag
-      TAG_NAME = :tfoot.freeze
+      TAG_NAME = :tfoot
     end
 
     class TableRow < TableTag
-      TAG_NAME = :tr.freeze
-      CSS_CLASSES = "".freeze # FIXME: should be applied only on body
+      TAG_NAME = :tr
+      CSS_CLASSES = "" # FIXME: should be applied only on body
     end
 
     class TableCell < TableTag
-      TAG_NAME = :td.freeze
+      TAG_NAME = :td
       VERTICAL_ALIGN_TYPES = {
         baseline: "align-baseline",
         top: "align-top",
@@ -113,8 +113,8 @@ module List
     end
 
     class TableHeadCell < TableCell
-      TAG_NAME = :th.freeze
-      CSS_CLASSES = "".freeze
+      TAG_NAME = :th
+      CSS_CLASSES = ""
     end
   end
 end

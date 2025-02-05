@@ -188,7 +188,7 @@ class MovesController < ApplicationController
 
     @removed_servers = Move.where(prev_frame_id: @frame.id, moveable_type: "Server").map(&:moveable)
 
-    @servers = ((@frame.servers - @removed_servers) | @moved_servers).sort_by { |server| server.position.present? ? server.position : 0 }.reverse
+    @servers = ((@frame.servers - @removed_servers) | @moved_servers).sort_by { |server| server.position.presence || 0 }.reverse
     @moved_connections = MovedConnection.per_servers(@servers)
   end
 end
