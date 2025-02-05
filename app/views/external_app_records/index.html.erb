@@ -81,6 +81,17 @@
           <%= f.label :external_serial_status %>
         </fieldset>
       </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:modele_ids, Modele.order(:name),
+                                  :id,
+                                  :name,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :modele_ids %>
+        </fieldset>
+      </div>
     <% end %>
   <% end %>
 
