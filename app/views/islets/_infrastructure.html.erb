@@ -6,31 +6,11 @@
         <div class="islet">
           <% unless @hubs.empty? %>
             <div class="hubs">
-              <% bgColorHub1 = define_background_color(server: hub, mode: params["bg"]) %>
-              <div class="hub_material hub-top server_<%= hub.id %>"
-                   id="hub1-<%= room.id %>-<%= islet %>"
-                   style="background-color: <%= bgColorHub1 %>"
-                   data-url="<%= server_path(hub) %>">
-                <%= link_to server_path(hub), class: "link-dark", target: :_blank, rel: :noopener do %>
-                  Concentrateur
-                  <br>
-                  <%= hub %>
-                <% end %>
+              <pre><%= debug @hubs %></pre>
+
+              <div class="hub_material hub-top server_<%= @hubs.first.id %>">
               </div>
               <div class="other_room_hub">
-                <% bgColorHub2 = define_background_color(server: second_hub, mode: params["bg"]) %>
-                <span style="color: grey;"><%= second_room %></span>
-                <div class="hub_material hub-bottom ms-1 server_<%= second_hub.id %>"
-                     data-url="<%= server_path(second_hub) %>"
-                     style="background-color: <%= bgColorHub2 %>"
-                     id="hub2-<%= room.id %>-<%= islet %>">
-                  <%= link_to server_path(second_hub), class: "link-dark",
-                                                                           target: :_blank, rel: :noopener do %>
-                    Concentrateur
-                    <br>
-                    <%= second_hub %>
-                  <% end %>
-                </div>
               </div>
             </div>
           <% end %>
