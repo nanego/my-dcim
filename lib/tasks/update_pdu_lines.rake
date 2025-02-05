@@ -45,7 +45,7 @@ namespace :update_pdu_lines do
     puts "ERROR: #{card_type}" unless card_type.valid?
 
     frames.each do |frame|
-      %w[A B].each do |line_name|
+      %w[A B].each do |line_name| # rubocop:disable Performance/CollectionLiteralInLoop
         pdu_name = "PDU_#{frame}_#{line_name}"
         pdu = Server.find_by(frame: frame,
                              name: pdu_name)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-shared_examples_for "changelogable" do |object: nil, new_attributes:|
+shared_examples_for "changelogable" do |new_attributes:, object: nil|
   let(:new_object) do
     if object.is_a?(Proc)
       instance_exec(&object)

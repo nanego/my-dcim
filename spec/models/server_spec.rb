@@ -43,6 +43,20 @@ RSpec.describe Server do
     it { is_expected.to validate_uniqueness_of(:numero) }
   end
 
+  describe ".friendly_find_by_numero_or_name" do
+    context "with id" do
+      it { expect(described_class.friendly_find_by_numero_or_name(1)).to eq(servers(:one)) }
+    end
+
+    context "with numero" do
+      it { expect(described_class.friendly_find_by_numero_or_name("ABCDEFG32")).to eq(servers(:two)) }
+    end
+
+    context "with slug" do
+      it { expect(described_class.friendly_find_by_numero_or_name("server-name-4")).to eq(servers(:four)) }
+    end
+  end
+
   describe "#validate_numero_cannot_be_a_current_server_name" do
     before { servers(:one).save }
 
