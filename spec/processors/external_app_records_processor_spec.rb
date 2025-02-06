@@ -70,6 +70,17 @@ RSpec.describe ExternalAppRecordsProcessor do
     end
   end
 
+  describe "when filtering by server name" do
+    let(:ear) { external_app_records(:one) }
+
+    context "with one server" do
+      let(:params) { { server_name: "ServerName1" } }
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to contain_exactly(ear) }
+    end
+  end
+
   describe "when filtering by external_serial_status" do
     context "with external_serial_status = found" do
       let(:params) { { external_serial_status: "found" } }
