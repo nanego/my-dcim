@@ -41,12 +41,11 @@ RSpec.describe ExternalAppRecordsProcessor do
   end
 
   describe "when filtering by modele_ids" do
-    let(:modele) { modeles(:one) }
-    let(:server) { Server.create!(name: "server", numero: 1, modele:, frame: frames(:one)) }
-    let(:ear) { ExternalAppRecord.create!(server:) }
+    let(:ear) { external_app_records(:one) }
+    let(:modele) { ear.server.modele }
 
     before do
-      ear
+      external_app_records(:two).update!(server_id: 3)
     end
 
     context "with one modele_id" do
@@ -56,15 +55,14 @@ RSpec.describe ExternalAppRecordsProcessor do
       it { is_expected.to contain_exactly(ear) }
     end
 
-    context "with many frame_ids" do
-      let(:modele_second) { modeles(:two) }
-      let(:server_second) { Server.create!(name: "server3", numero: 3, modele: , frame: frames(:two)) }
-      let(:another_ear) { ExternalAppRecord.create!(server: server_second) }
+    context "with many modele_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+      let(:another_ear) { external_app_records(:two) }
+      let(:another_modele) { modeles(:two) }
 
-      let(:params) { { frame_ids: [modele.id, modele_second.id] } }
+      let(:params) { { frame_ids: [modele.id, another_modele.id] } }
 
       before do
-        another_ear
+        external_app_records(:three).destroy!
       end
 
       it { expect(result.size).to eq(2) }
