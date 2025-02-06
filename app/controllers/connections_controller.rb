@@ -40,7 +40,7 @@ class ConnectionsController < ApplicationController
     elsif @from_port.is_power_input?
       @to_server = @frame.pdus.first
     else
-      @to_server = @frame.servers.where("position NOT NULL AND modele_id NOT NULL").order(:position).first
+      @to_server = @frame.servers.where("position IS NOT NULL AND modele_id IS NOT NULL").order(:position).first
     end
 
     if @to_server
