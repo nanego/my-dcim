@@ -3,7 +3,7 @@
 class ExternalAppRecordsProcessor < ApplicationProcessor
   include Sortable
   SORTABLE_FIELDS = %w[
-    server_id servers.name servers.numero external_name external_id external_serial frames.name
+    server_id server.name server.numero external_name external_id external_serial frames.name
   ].freeze
 
   map :frame_ids, filter_with: :non_empty_array do |frame_ids:|
@@ -15,7 +15,7 @@ class ExternalAppRecordsProcessor < ApplicationProcessor
   end
 
   map :server_name do |server_name:|
-    raw.joins(:server).where(Server.arel_table[:name].matches("%#{server_name}%"))
+    raw.joins(:server).where("server.name ILIKE ?", "%#{server_name}%")
   end
 
   match :external_serial_status, fail_when_no_matches: true do
