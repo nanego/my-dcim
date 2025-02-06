@@ -92,6 +92,13 @@
           <%= f.label :modele_ids %>
         </fieldset>
       </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.text_field :server_name, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :server_name %>
+        </fieldset>
+      </div>
     <% end %>
   <% end %>
 
