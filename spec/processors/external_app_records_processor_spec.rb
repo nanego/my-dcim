@@ -55,7 +55,7 @@ RSpec.describe ExternalAppRecordsProcessor do
       it { is_expected.to contain_exactly(ear) }
     end
 
-    context "with many modele_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+    context "with many modele_ids" do
       let(:another_ear) { external_app_records(:two) }
       let(:another_modele) { modeles(:two) }
 
