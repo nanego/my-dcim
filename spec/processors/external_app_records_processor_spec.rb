@@ -73,6 +73,12 @@ RSpec.describe ExternalAppRecordsProcessor do
   describe "when filtering by server name" do
     let(:ear) { external_app_records(:one) }
 
+    before do
+      server_arel = Server.arel_table
+      allow(Server).to receive(:arel_table).and_return(server_arel)
+      allow(server_arel).to receive_message_chain(:alias, :[]).with(:name).and_return(Server.arel_table[:name])
+    end
+
     context "with one server name" do
       let(:params) { { server_name: "ServerName1" } }
 
