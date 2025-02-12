@@ -17,7 +17,8 @@ class ServersController < ApplicationController
       .references(frame: { bay: { islet: :room } }, modele: :category)
       .order(:name)
 
-    @displayed_columns = @search_params[:columns] || ServerDecorator.default_columns_preference
+    @search_params = search_params
+    @displayed_columns = @search_params[:columns] || ServerDecorator::DEFAULT_COLUMNS_PREFERENCE
 
     @filter = ProcessorFilter.new(@servers, params)
     @servers = @filter.results
