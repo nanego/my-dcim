@@ -1,7 +1,9 @@
 fr:
   activerecord:
     models:
-      server: Matériel
+      server:
+        one: Matériel I.T.
+        other: Matériels I.T.
       room: Salle
       islet: Ilot
       bay: Baie
@@ -388,7 +390,7 @@ fr:
         frame_id: Emplacement
         frame_ids: Emplacement
         id: ID
-        server_id: Matériel
+        server_id: Matériel I.T.
         external_serials:
           found: Trouvé
           not_found: Non trouvé dans GLPI

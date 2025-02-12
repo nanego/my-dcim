@@ -1,6 +1,6 @@
-<% provide(:title, "#{t("servers.index.title")} | #{t("action.create")}") %>
+<% provide(:title, "#{Server.model_name.human} | #{t("action.create")}") %>
 <% breadcrumb_steps = {
-  t("servers.index.title") => servers_path,
+  Server.model_name.human => servers_path,
   t("action.create") => ""
 } %>
 

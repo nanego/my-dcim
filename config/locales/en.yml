@@ -19,9 +19,47 @@ en:
       edit:
         title: Change your password
 
+  layouts:
+    breadcrumb:
+      home: Home
+      bay:
+        simple: Bay %{name}
+        double: Double bay %{name}
+      islet: Islet %{name}
+    navigation:
+      nav_links_administration:
+        administration: Administration
+        informations: Information
+      devices_dropdown:
+        search_equipment: Search for equipment
+        filter_by: "Filter by:"
+      projects_dropdown:
+        projects: Projects
+        moves: Planned moves
+      visualization_dropdown:
+        overview: Show all rooms
+        capacity: Network capacity view
+        infrastructure: Infrastructure view
+    sidebar:
+      location:
+        title: Location
+        bays: Bays / Double-bays
+      equipment:
+        title: Equipments
+      features:
+        title: Features
+      exploitation:
+        title: Operating
+      maintenance:
+        title: Maintenance
+      connection:
+        title: Connection
+      contacts:
+        title: Contacts
+
   power_distribution_units:
     index:
-      title: PDUs
+      title: Electricity
       new_power_distributon_unit: Add a PDU
     show:
       documentation: Documentation
@@ -65,6 +103,76 @@ en:
 
   select:
     placeholder: Type to filter...
+
+  servers:
+    form:
+      network_type: "%{type} network"
+      edit_confirmation: Edit this I.T. equipment
+      add_card: Add a card
+      add_document: Add an attachment
+    room:
+      title: Romm %{room} - Islet %{islet}
+    slot_fields:
+      new_port: New port
+    grid:
+      title: Users Report
+      total: "Total: %{count}"
+    import_csv:
+      title: Importing material via CSV file
+      room_id:
+        label: "Room where servers are imported:"
+        hint: used only if the bay is not specified in the CSV file
+      servers_state:
+        label: "Status of imported servers :"
+      csv_file:
+        label: "CSV file :"
+      action:
+        import: Import this CSV
+      download_example_html: "Download an example of a compatible CSV file: %{link}"
+    import:
+      flashes:
+        imported: New I.T. equipment has been added.
+    index:
+      new_server: Add I.T. equipment
+      add_server_via_csv: Add via CSV file
+      sync_with_external_apps: Synchronize with GLPI
+    show:
+      back_to_bay: Bay %{name}
+      documentation: Documentation
+      attached_documents: "Attached documents :"
+      glpi_data: GLPI data
+      glpi_visit_page: See the I.T. equipment page on GLPI
+      no_match_serial: "No match for this serial number: %{serial}"
+      glpi_connection_error: "Problem connecting to GLPI :"
+      moves_cta_tooltip: Planning its move
+      destroy_connections: Delete connections
+      destroy_connections_confirmation: Can you confirm that you want to remove all connections to this IT equipment?
+    new:
+      title: Add I.T. equipment
+    create:
+      flashes:
+        created: The I.T. material has been successfully created.
+    edit:
+      title: Modifying IT equipment
+      delete_confirmation: All data relating to this I.T. equipment will be deleted, along with all associated connections. Would you like to confirm?
+    update:
+      flashes:
+        updated: The I.T. equipment has been successfully updated.
+    duplicate:
+      title: Duplicate I.T. equipment %{server_name}
+    destroy:
+      flashes:
+        destroyed: The I.T. equipment has been removed.
+        not_destroyed: An error occurred when deleting I.T. equipment.
+    flashes:
+      connections_destroyed: Connections have been deleted.
+      connections_not_destroyed: An error prevented the connections from being deleted.
+  bulk:
+    servers:
+      destroy:
+        flashes:
+          destroyed: The I.T. equipments selected has been removed.
+          not_destroyed: An error occurred when deleting at least one I.T. equipment.
 
   show:
     cards:
