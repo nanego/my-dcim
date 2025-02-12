@@ -34,7 +34,7 @@ class MoveTest < ActiveSupport::TestCase
     # After
     @moved_connections = MovedConnection.per_servers([@move.moveable])
     @move.moveable.ports.each do |port|
-      moved_connection = @moved_connections.select { |c| c.port_from_id == port.id }.first
+      moved_connection = @moved_connections.find { |c| c.port_from_id == port.id }
       assert_not_nil moved_connection
       assert moved_connection.cablename == ''
       assert moved_connection.color == ''
