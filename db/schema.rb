@@ -89,10 +89,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_152636) do
     t.integer "islet_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.integer "access_control"
     t.integer "width"
     t.integer "depth"
     t.bigint "manufacturer_id"
-    t.integer "access_control"
     t.index ["bay_type_id"], name: "index_bays_on_bay_type_id"
     t.index ["islet_id"], name: "index_bays_on_islet_id"
     t.index ["manufacturer_id"], name: "index_bays_on_manufacturer_id"
@@ -402,8 +402,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_152636) do
     t.boolean "display_on_home_page"
     t.integer "site_id", null: false
     t.integer "islets_count", default: 0
+    t.integer "status", default: 0, null: false
     t.integer "surface_area"
-    t.integer "status", null: false
     t.integer "access_control"
     t.index ["site_id"], name: "index_rooms_on_site_id"
     t.index ["slug"], name: "index_rooms_on_slug", unique: true
@@ -459,7 +459,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_152636) do
     t.index ["frame_id"], name: "index_servers_on_frame_id"
     t.index ["gestion_id"], name: "index_servers_on_gestion_id"
     t.index ["modele_id"], name: "index_servers_on_modele_id"
-    t.index ["numero"], name: "index_servers_on_numero", unique: true
     t.index ["server_state_id"], name: "index_servers_on_server_state_id"
     t.index ["slug"], name: "index_servers_on_slug", unique: true
   end
@@ -512,8 +511,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_152636) do
     t.datetime "invitation_sent_at", precision: nil
     t.datetime "invitation_accepted_at", precision: nil
     t.integer "invitation_limit"
-    t.integer "invited_by_id"
     t.string "invited_by_type"
+    t.integer "invited_by_id"
     t.integer "invitations_count", default: 0
     t.string "authentication_token", limit: 30
     t.datetime "suspended_at"

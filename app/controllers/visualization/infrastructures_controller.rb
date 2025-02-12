@@ -39,7 +39,6 @@ module Visualization
       end
       @network_cluster.servers.each do |server|
         @connections[server.id] = server.connected_servers_ids_through_twin_cards_with_color.reject { |conn| @switchs_lan_ids.exclude?(conn[:server_id]) }
-        @connections[server.id] = server.connected_servers_ids_through_twin_cards_with_color.reject { |conn| @switchs_lan_ids.exclude?(conn[:server_id]) }
       end
 
       @network = @filter.network_type # TODO: take from params and raise error if not good
