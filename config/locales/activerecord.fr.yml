@@ -93,7 +93,6 @@ fr:
       server:
         name: Nom
         numero: Numéro de série
-        type: Type
         room: Salle
         islet: Ilot
         frame_id: Châssis

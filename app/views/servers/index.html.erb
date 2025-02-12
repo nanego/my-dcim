@@ -121,6 +121,17 @@
           <%= f.label :cluster_ids %>
         </fieldset>
       </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:category_ids, Category.sorted,
+                                  :id,
+                                  :name,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :category_ids %>
+        </fieldset>
+      </div>
     <% end %>
   <% end %>
 
@@ -142,7 +153,7 @@
           <%= link_to server.numero, server_path(server), class: "fw-bold", data: { turbo_frame: :_top } %>
         <% end %>
 
-        <% table.with_column(Server.human_attribute_name(:type), sort_by: :"categories.name") do |server| %>
+        <% table.with_column(Modele.human_attribute_name(:category), sort_by: :"categories.name") do |server| %>
           <%= link_to server.modele.category, category_path(server.modele.category),
                       data: { turbo_frame: :_top } if server.modele.try(:category) %>
         <% end %>

@@ -2,6 +2,8 @@ en:
   activerecord:
     attributes:
       theme: Theme
+      modele:
+        category: Category
       user/locale:
         en: English
         fr: Français
