@@ -138,7 +138,7 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:columns, ServerDecorator.columns_preference,
+          <%= f.collection_select(:columns, c.columns_options(Server, Server::COLUMNS_PREFERENCE),
                                   :first,
                                   :second,
                                   { prompt: true, multiple: true, selected: @displayed_columns },

@@ -4,6 +4,9 @@ class Server < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: %i[slugged history]
 
+  COLUMNS_PREFERENCE = %w[name numero category islet bay network_types].freeze
+  DEFAULT_COLUMNS_PREFERENCE = %w[name numero category islet bay network_types].freeze
+
   has_changelog
 
   belongs_to :frame
