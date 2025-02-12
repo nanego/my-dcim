@@ -1,6 +1,21 @@
 en:
   activerecord:
+    models:
+      air_conditioner: Air conditioner
+      server: I.T. equipment
     attributes:
+      external_app_record:
+        external_id: GLPI ID
+        external_name: GLPI name
+        external_serial: GLPI serial number
+        external_serial_status: GLPI Synchronization
+        frame_id: Location
+        frame_ids: Location
+        id: ID
+        server_id: I.T. equipment
+        external_serials:
+          found: Found
+          not_found: Not found in GLPI
       theme: Theme
       modele:
         category: Category

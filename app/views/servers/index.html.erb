@@ -1,6 +1,9 @@
-<% provide(:title, t(".title")) %>
+<%
+  title = Server.model_name.human
+  provide(:title, title)
+%>
 
-<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb_steps: { t(".title") => "" } ) do |heading| %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb_steps: { title => "" } ) do |heading| %>
   <% heading.with_right_content do %>
     <div class="d-flex align-self-center column-gap-2">
       <%= render ButtonComponent.new(t(".sync_with_external_apps"),

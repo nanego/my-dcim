@@ -39,7 +39,7 @@
     </div>
   </div>
   <%= render HasManyTurboFrameComponent.new(
-    Server.model_name.human.pluralize,
+    Server.model_name.human(count: 2),
     url: servers_path(stack_ids: @stack.id),
     frame_id: dom_id(Server, :table)
   ) %>
