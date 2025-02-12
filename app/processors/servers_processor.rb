@@ -49,7 +49,7 @@ class ServersProcessor < ApplicationProcessor
     raw.where(stack_id: stack_ids)
   end
 
-  map :category_ids do |category_ids:|
+  map :category_ids, filter_with: :non_empty_array do |category_ids:|
     raw.joins(:modele).where(modele: { category_id: category_ids })
   end
 
