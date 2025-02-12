@@ -14,8 +14,9 @@ class ServersController < ApplicationController
       logger.warn("DEPRECATION WARNING: Search with 'name' is now deprecated. Use 'q' instead.")
     end
 
-    @servers = Server.no_pdus.includes(:frame, :room, :islet, bay: :frames, modele: :category)
-      .references(:room, :islet, :bay, modele: :category)
+    @servers = Server.no_pdus
+      .includes(@displayed_associations_columns, :frame, :room, :islet, bay: :frames)
+      .references(@displayed_associations_columns, :frame, :room, :islet, bay: :frames)
       .order(:name)
 
     @filter = ProcessorFilter.new(@servers, params)
