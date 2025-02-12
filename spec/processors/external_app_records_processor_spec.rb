@@ -40,6 +40,61 @@ RSpec.describe ExternalAppRecordsProcessor do
     end
   end
 
+  describe "when filtering by modele_ids" do
+    let(:ear) { external_app_records(:one) }
+    let(:modele) { ear.server.modele }
+
+    before do
+      external_app_records(:two).update!(server_id: 3)
+    end
+
+    context "with one modele_id" do
+      let(:params) { { modele_ids: [modele.id] } }
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to contain_exactly(ear) }
+    end
+
+    context "with many modele_ids" do
+      let(:another_ear) { external_app_records(:two) }
+      let(:another_modele) { modeles(:two) }
+
+      let(:params) { { frame_ids: [modele.id, another_modele.id] } }
+
+      before do
+        external_app_records(:three).destroy!
+      end
+
+      it { expect(result.size).to eq(2) }
+      it { is_expected.to contain_exactly(ear, another_ear) }
+    end
+  end
+
+  describe "when filtering by server name" do
+    let(:ear) { external_app_records(:one) }
+
+    before do
+      arel = Server.arel_table
+      allow(Server).to receive(:arel_table).and_return(arel)
+      allow(arel).to receive_message_chain(:alias, :[]).with(:name).and_return(Server.arel_table[:name]) # rubocop:disable RSpec/MessageChain
+    end
+
+    context "with one server name" do
+      let(:params) { { server_name: "ServerName1" } }
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to contain_exactly(ear) }
+    end
+
+    context "with many server names" do
+      let(:second_ear) { external_app_records(:two) }
+      let(:params) { { server_name: "ServerName" } }
+
+      it { expect(result.size).to eq(2) }
+      it { is_expected.to contain_exactly(ear, second_ear) }
+    end
+  end
+
   describe "when filtering by external_serial_status" do
     context "with external_serial_status = found" do
       let(:params) { { external_serial_status: "found" } }
