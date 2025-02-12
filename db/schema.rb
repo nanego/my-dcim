@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_09_174008) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_12_152445) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -154,6 +154,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_09_174008) do
     t.index ["author_type", "author_id"], name: "index_changelog_entries_on_author_type_and_author_id"
     t.index ["object_type", "object_id"], name: "index_changelog_entries_on_object"
     t.index ["object_type", "object_id"], name: "index_changelog_entries_on_object_type_and_object_id"
+  end
+
+  create_table "cluster_rooms", force: :cascade do |t|
+    t.bigint "cluster_id", null: false
+    t.bigint "room_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cluster_id"], name: "index_cluster_rooms_on_cluster_id"
+    t.index ["room_id"], name: "index_cluster_rooms_on_room_id"
   end
 
   create_table "clusters", id: :serial, force: :cascade do |t|
@@ -543,8 +552,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_09_174008) do
     t.datetime "invitation_sent_at", precision: nil
     t.datetime "invitation_accepted_at", precision: nil
     t.integer "invitation_limit"
-    t.integer "invited_by_id"
     t.string "invited_by_type"
+    t.integer "invited_by_id"
     t.integer "invitations_count", default: 0
     t.string "authentication_token", limit: 30
     t.datetime "suspended_at"
@@ -568,6 +577,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_09_174008) do
   add_foreign_key "bays", "manufacturers"
   add_foreign_key "card_types", "port_types"
   add_foreign_key "cards", "card_types"
+  add_foreign_key "cluster_rooms", "clusters"
+  add_foreign_key "cluster_rooms", "rooms"
   add_foreign_key "composants", "type_composants"
   add_foreign_key "connections", "cables"
   add_foreign_key "contact_assignments", "contact_roles"
