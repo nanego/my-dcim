@@ -4,16 +4,36 @@
       <div class="tab-content infrastructure bg-body-tertiary overflow-x-auto w-100">
         <% # TODO: move html here? %>
         <div class="islet">
-          <% unless @hubs.empty? %>
+          <% unless @network_cluster.servers.empty? %>
             <div class="hubs">
-              <pre><%= debug @hubs %></pre>
-
-              <div class="hub_material hub-top server_<%= @hubs.first.id %>">
+              <div class="hub_material hub-top server_<%= @network_cluster.room_server.id %>"
+                   id="hub1-<%= room.id %>-<%= islet %>"
+                   style="background-color: <%= define_background_color(server: @network_cluster.room_server, mode: params["bg"]) %>"
+                   data-url="<%= server_path(@network_cluster.room_server) %>">
+                <%= link_to server_path(@network_cluster.room_server), class: "link-dark", target: :_blank, rel: :noopener do %>
+                  Concentrateur
+                  <br>
+                  <%= @network_cluster.room_server %>
+                <% end %>
               </div>
-              <div class="other_room_hub">
-              </div>
+              <% @network_cluster.other_rooms_servers.each do |server| %>
+                <div class="other_room_hub">
+                  <span style="color: grey;"><%= server.room %></span>
+                  <div class="hub_material hub-bottom ms-1 server_<%= server.id %>"
+                        data-url="<%= server_path(server) %>"
+                        style="background-color: <%= define_background_color(server: server, mode: params["bg"]) %>"
+                        id="hub2-<%= room.id %>-<%= islet %>">
+                    <%= link_to server_path(server), class: "link-dark", target: :_blank, rel: :noopener do %>
+                      Concentrateur
+                      <br>
+                      <%= server %>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
             </div>
           <% end %>
+
           <div>
             <div class="rooms-overview">
               <% islet.bays.sorted.each do |bay| %>
