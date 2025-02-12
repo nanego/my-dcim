@@ -53,22 +53,22 @@
         </strong>
         <ul class="list-unstyled fw-normal pb-2 small">
           <li>
-            <%= link_to Server.model_name.human.pluralize,
+            <%= link_to Server.model_name.human,
                         servers_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "servers") %>
+          </li>
+          <li>
+            <%= link_to t("air_conditioners.index.title"),
+                        air_conditioners_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "air_conditioners") %>
           </li>
           <li>
             <%= link_to t("power_distribution_units.index.title"),
                         power_distribution_units_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "power_distribution_units") %>
-          </li>
-          <li>
-            <%= link_to AirConditioner.model_name.human.pluralize,
-                        air_conditioners_path,
-                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                          active: controller.controller_name == "air_conditioners") %>
           </li>
         </ul>
       </li>
@@ -139,7 +139,7 @@
       <li class="mydcim-sidebar-links-group py-2">
         <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
           <i class="bi bi-briefcase me-2 text-success"></i>
-          <%= t(".exploitation.title") %>
+          <%= t(".operating.title") %>
         </strong>
         <ul class="list-unstyled fw-normal pb-2 small">
           <li>

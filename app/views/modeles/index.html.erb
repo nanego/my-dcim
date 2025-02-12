@@ -76,7 +76,7 @@
               <%= modele.decorated.displays_to_human %>
             <% end %>
 
-            <% table.with_column(Server.model_name.human.pluralize, sort_by: :servers_count) do |modele| %>
+            <% table.with_column(Server.model_name.human(count: 2), sort_by: :servers_count) do |modele| %>
               <%= link_to servers_path(modele_ids: modele.id), data: { turbo_frame: :_top } do %>
                 <%= pluralize(modele.servers.count,
                               modele.category.name.try(:downcase),

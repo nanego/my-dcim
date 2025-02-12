@@ -66,7 +66,7 @@ fr:
         administration: Administration
         informations: Informations
       devices_dropdown:
-        search_equipment: Rechercher un matériel
+        search_equipment: Rechercher un équipement
         filter_by: "Filtrer par :"
       projects_dropdown:
         projects: Projets
@@ -86,10 +86,10 @@ fr:
         title: Localisation
         bays: Baies / Doubles-baies
       equipment:
-        title: Matériel
+        title: Équipements
       features:
         title: Caractéristiques
-      exploitation:
+      operating:
         title: Exploitation
       maintenance:
         title: Maintenance
@@ -451,7 +451,7 @@ fr:
   servers:
     form:
       network_type: Réseau %{type}
-      edit_confirmation: Modifier ce matériel
+      edit_confirmation: Modifier ce matériel I.T.
       add_card: Ajouter une carte
       add_document: Ajouter une pièce jointe
     room:
@@ -475,10 +475,9 @@ fr:
       download_example_html: "Télécharger un exemple de fichier CSV compatible : %{link}"
     import:
       flashes:
-        imported: Les nouveaux serveurs ont été ajoutés.
+        imported: Les nouveaux matériels I.T. ont été ajoutés.
     index:
-      title: Matériels
-      new_server: Ajouter un matériel
+      new_server: Ajouter un matériel  I.T.
       add_server_via_csv: Ajouter par un fichier CSV
       sync_with_external_apps: Synchroniser avec GLPI
     show:
@@ -486,29 +485,29 @@ fr:
       documentation: Documentation
       attached_documents: "Documents attachés :"
       glpi_data: Données GLPI
-      glpi_visit_page: Voir la page de la machine sur GLPI
+      glpi_visit_page: Voir la page du matériel I.T. sur GLPI
       no_match_serial: "Aucune correspondance pour ce numéro de série : %{serial}"
       glpi_connection_error: "Problème lors de la connexion à GLPI :"
       moves_cta_tooltip: Prévoir son déplacement
       destroy_connections: Supprimer les connexions
-      destroy_connections_confirmation: Confirmez-vous vouloir supprimer toutes les connections de ce matériel ?
+      destroy_connections_confirmation: Confirmez-vous vouloir supprimer toutes les connections de ce matériel I.T. ?
     new:
-      title: "Ajouter un matériel"
+      title: Ajouter un matériel I.T.
     create:
       flashes:
-        created: Le matériel a été créé avec succès.
+        created: Le matériel I.T. a été créé avec succès.
     edit:
-      title: "Modifier le matériel"
-      delete_confirmation: Toutes les données concernant ce matériel seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?
+      title: Modifier le matériel I.T.
+      delete_confirmation: Toutes les données concernant ce matériel I.T. seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?
     update:
       flashes:
-        updated: Le matériel a été mis à jour avec succès.
+        updated: Le matériel I.T. a été mis à jour avec succès.
     duplicate:
-      title: Dupliquer le matériel %{server_name}
+      title: Dupliquer le matériel I.T. %{server_name}
     destroy:
       flashes:
-        destroyed: Le matériel a bien été supprimé.
-        not_destroyed: Une erreur est survenue lors de la suppression du matériel.
+        destroyed: Le matériel I.T. a bien été supprimé.
+        not_destroyed: Une erreur est survenue lors de la suppression du matériel I.T.
     flashes:
       connections_destroyed: Les connexions ont été supprimées.
       connections_not_destroyed: Une erreur a empêché la suppression des connexions.
@@ -516,8 +515,8 @@ fr:
     servers:
       destroy:
         flashes:
-          destroyed: Les matériels sélectionnés ont bien étés supprimés.
-          not_destroyed: Une erreur est survenue lors de la suppression d'au moins un matériel.
+          destroyed: Les matériels I.T. sélectionnés ont bien été supprimés.
+          not_destroyed: Une erreur est survenue lors de la suppression d'au moins un matériel I.T.
   glpi:
     computer:
       name: Nom
@@ -531,7 +530,7 @@ fr:
       cpus: Processeurs
   power_distribution_units:
     index:
-      title: PDUs
+      title: Électricité
       new_power_distributon_unit: Ajouter un PDU
     show:
       documentation: Documentation
@@ -731,7 +730,7 @@ fr:
     temperatures: Températures
     index:
       new_air_conditioner: Ajouter une climatisation
-      title: Climatisations
+      title: Climatisation
       delete_confirmation: Cette climatisation sera supprimée. Voulez-vous continuer ?
     create:
       flashes:

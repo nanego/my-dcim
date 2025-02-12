@@ -1,8 +1,8 @@
 <% title = "#{@server.modele.try(:category).try(:name)} #{@server.name}" %>
-<% provide(:title, "#{t("servers.index.title")} | #{title}") %>
+<% provide(:title, "#{Server.model_name.human} | #{title}") %>
 
 <% breadcrumb_steps = {
-  t("servers.index.title") => servers_path,
+  Server.model_name.human => servers_path,
   @server.name => ""
 } %>
 
@@ -186,7 +186,7 @@
 
         <%= render CardComponent.new(type: :success, extra_classes: "mt-4") do |card| %>
           <% card.with_header do %>
-            <%= t("layouts.sidebar.exploitation.title") %>
+            <%= t("layouts.sidebar.operating.title") %>
           <% end %>
 
           <dl class="show-page_dl d-grid row-gap-2 mb-0">

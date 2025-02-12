@@ -1,6 +1,6 @@
 <% provide(:title, t(".title")) %>
 <% breadcrumb_steps = {
-  t("servers.index.title") => servers_path,
+  Server.model_name.human => servers_path,
   t("external_app_records.index.title") => external_app_records_path,
   t("action.configure") => "" }
 %>

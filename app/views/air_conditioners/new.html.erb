@@ -1,7 +1,7 @@
 <%
-  provide(:title, "#{AirConditioner.model_name.human.pluralize} | #{t("action.create")}")
+  provide(:title, "#{AirConditioner.model_name.human} | #{t("action.create")}")
 
-  breadcrumb_steps = { AirConditioner.model_name.human.pluralize => air_conditioners_path, t("action.create") => "" }
+  breadcrumb_steps = { AirConditioner.model_name.human => air_conditioners_path, t("action.create") => "" }
 %>
 
 <%= render Page::HeadingNewComponent.new(resource: @air_conditioner, title: t(".title"), breadcrumb_steps:) %>
