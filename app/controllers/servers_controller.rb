@@ -2,6 +2,7 @@
 
 class ServersController < ApplicationController
   include ServersHelper
+  include ColumnsPreference
 
   before_action :set_server, only: %i[show edit update destroy destroy_connections]
 
@@ -16,9 +17,6 @@ class ServersController < ApplicationController
     @servers = Server.no_pdus.includes(frame: { bay: { islet: :room } }, modele: :category)
       .references(frame: { bay: { islet: :room } }, modele: :category)
       .order(:name)
-
-    @search_params = search_params
-    @displayed_columns = @search_params[:columns] || ServerDecorator::DEFAULT_COLUMNS_PREFERENCE
 
     @filter = ProcessorFilter.new(@servers, params)
     @servers = @filter.results
