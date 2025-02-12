@@ -33,6 +33,6 @@ class ExternalAppRecordsController < ApplicationController
   end
 
   def settings_params
-    params[:external_app_record_setting]&.permit(category_ids: [], modele_ids: []) || {}
+    params[:external_app_record_setting]&.permit(category_ids: []) || {}
   end
 end
