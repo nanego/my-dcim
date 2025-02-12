@@ -28,8 +28,8 @@ module List
               render List::TableComponent::TableRow.new do
                 concat(render_bulk_head_checkbox) if bulk_actions?
 
-                columns.each do |col|
-                  concat(render_head_cell(col)) if show_column?(col)
+                show_columns.each do |col|
+                  concat(render_head_cell(col))
                 end
               end
             end
@@ -89,8 +89,8 @@ module List
       render List::TableComponent::TableRow.new do
         concat(render_bulk_checkbox(row)) if bulk_actions?
 
-        columns.each do |col|
-          concat render List::TableComponent::TableCell.new(render_col(col, row), **col.html_options) if show_column?(col)
+        show_columns.each do |col|
+          concat render List::TableComponent::TableCell.new(render_col(col, row), **col.html_options)
         end
       end
     end
@@ -127,8 +127,10 @@ module List
       sanitize(direction == :desc ? "&#x2193;" : "&#x2191;")
     end
 
-    def show_column?(column)
-      column.attribute_name.nil? || @displayed_columns.include?(column.attribute_name)
+    def show_columns
+      @show_columns ||= columns.select do |col|
+        col.attribute_name.nil? || @displayed_columns.include?(col.attribute_name)
+      end
     end
 
     class DatatableBulkAction < ApplicationComponent
