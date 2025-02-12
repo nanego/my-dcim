@@ -102,7 +102,6 @@ en:
       execute_confirmation: Do you really want to apply this move?
       frame_table_title: Bays after moving
       edit_connections: Modify connections
-      number_u: N° U
       action:
         execute_move: Move the server and its connections
 

@@ -16,6 +16,26 @@ en:
         external_serials:
           found: Found
           not_found: Not found in GLPI
+      server:
+        name: Name
+        numero: Serial number
+        type: Type
+        room: Room
+        islet: Islet
+        frame_id: Frame
+        frame: Frame
+        position: Position
+        server_state_id: State
+        modele_id: Model
+        critique: Critic
+        gestion_id: Manager
+        network_types: Network type
+        stack: Stack
+        stack_id: Stack
+        comment: Comment
+        documents: Documents
+        photo: Photo
+        span: Slots
       theme: Theme
       modele:
         category: Category

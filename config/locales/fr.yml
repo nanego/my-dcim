@@ -597,7 +597,6 @@ fr:
       execute_confirmation: Voulez-vous vraiment appliquer ce déplacement ?
       frame_table_title: Baies après déplacements
       edit_connections: Modifier les connexions
-      number_u: N° U
       action:
         execute_move: Déplacer le serveur et ses connexions
     new:
