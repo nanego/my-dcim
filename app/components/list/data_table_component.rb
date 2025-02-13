@@ -3,13 +3,14 @@
 module List
   class DataTableComponent < ApplicationComponent
     renders_many :bulk_actions, ->(*args, **kwargs) { DatatableBulkAction.new(*args, **kwargs) }
-    renders_many :columns, lambda { |title = nil, **options, &block|
-      DatatableColumn.new(title, **options, &block)
+    renders_many :columns, lambda { |attribute_name = nil, title = nil, **options, &block|
+      DatatableColumn.new(attribute_name, title, **options, &block)
     }
 
-    def initialize(data, empty_icon: :table, **_options)
+    def initialize(data, displayed_columns: [], empty_icon: :table, **_options)
       @data = data
       @empty_icon = empty_icon
+      @displayed_columns = displayed_columns&.map(&:to_sym)
 
       super()
     end
@@ -27,7 +28,7 @@ module List
               render List::TableComponent::TableRow.new do
                 concat(render_bulk_head_checkbox) if bulk_actions?
 
-                columns.each do |col|
+                show_columns.each do |col|
                   concat(render_head_cell(col))
                 end
               end
@@ -88,7 +89,7 @@ module List
       render List::TableComponent::TableRow.new do
         concat(render_bulk_checkbox(row)) if bulk_actions?
 
-        columns.each do |col|
+        show_columns.each do |col|
           concat render List::TableComponent::TableCell.new(render_col(col, row), **col.html_options)
         end
       end
@@ -126,6 +127,12 @@ module List
       sanitize(direction == :desc ? "&#x2193;" : "&#x2191;")
     end
 
+    def show_columns
+      @show_columns ||= columns.select do |col|
+        col.attribute_name.nil? || @displayed_columns.include?(col.attribute_name)
+      end
+    end
+
     class DatatableBulkAction < ApplicationComponent
       attr_reader :title, :url, :method, :options
 
@@ -158,9 +165,10 @@ module List
     end
 
     class DatatableColumn < ApplicationComponent
-      attr_reader :title, :sort_by, :html_options
+      attr_reader :title, :attribute_name, :sort_by, :html_options
 
-      def initialize(title = nil, **options, &block)
+      def initialize(attribute_name = nil, title = nil, **options, &block)
+        @attribute_name = attribute_name
         @title = title
         @block = block
         @sort_by = options.delete(:sort_by)

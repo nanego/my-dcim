@@ -2,6 +2,7 @@
 
 class ServersController < ApplicationController
   include ServersHelper
+  include ColumnsPreference
 
   before_action :set_server, only: %i[show edit update destroy destroy_connections]
 
@@ -13,13 +14,13 @@ class ServersController < ApplicationController
       logger.warn("DEPRECATION WARNING: Search with 'name' is now deprecated. Use 'q' instead.")
     end
 
-    @servers = Server.no_pdus.includes(:frame, :room, :islet, bay: :frames, modele: :category)
-      .references(:room, :islet, :bay, modele: :category)
+    @servers = Server.no_pdus
+      .includes(@displayed_associations_columns, :frame, :room, :islet, bay: :frames)
+      .references(@displayed_associations_columns, :frame, :room, :islet, bay: :frames)
       .order(:name)
-    @filter = ProcessorFilter.new(@servers, params)
 
+    @filter = ProcessorFilter.new(@servers, params)
     @servers = @filter.results
-    @search_params = search_params
 
     respond_to do |format|
       format.json
@@ -150,7 +151,7 @@ class ServersController < ApplicationController
   def search_params
     params.permit(:sort, :sort_by, :page, :per_page, :q,
                   network_types: [], bay_ids: [], islet_ids: [], room_ids: [], frame_ids: [], cluster_ids: [],
-                  gestion_ids: [], domaine_ids: [], modele_ids: [], server_state_ids: [], stack_ids: [], category_ids: [])
+                  gestion_ids: [], domaine_ids: [], modele_ids: [], server_state_ids: [], stack_ids: [], category_ids: [], columns: [])
   end
 
   def track_frame_and_position(old_values, new_values)
