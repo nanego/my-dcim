@@ -1,7 +1,7 @@
 en:
   action:
     apply: Apply
-    edit: Edit
+    edit: Update
     delete: Delete
     back: Back
     show: See
@@ -101,9 +101,34 @@ en:
       delete_confirmation: Do you really want to delete this move?
       execute_confirmation: Do you really want to apply this move?
       frame_table_title: Bays after moving
-      edit_connections: Modify connections
+      edit_connections: Update connections
       action:
         execute_move: Move the server and its connections
+    new:
+      title: New move
+    create:
+      flashes:
+        created: The move was successfully created.
+    edit:
+      title: Update the saved move
+    update:
+      flashes:
+        updated: The move has been updated.
+    destroy:
+      flashes:
+        destroyed: The move has been removed.
+    execute_movement:
+      flashes:
+        executed: The move was successfully executed.
+    form:
+      initial_bay: Departure bay
+    frame:
+      title: Bay %{frame} after move
+      applied_moves: Applied moves
+      loading: LOADING IN PROGRESS
+    moved_connection_form:
+      action:
+        delete: Delete this connection
 
   power_distribution_units:
     index:
@@ -127,7 +152,7 @@ en:
       add_card: Add a card
       add_document: Add an attached document
     edit:
-      title: Modify PDU
+      title: Update PDU
       delete_confirmation: All data concerning this PDU will be deleted, along with all associated connections. Would you like to confirm?
     update:
       flashes:
@@ -201,7 +226,7 @@ en:
       flashes:
         created: The I.T. material has been successfully created.
     edit:
-      title: Modifying IT equipment
+      title: Updating IT equipment
       delete_confirmation: All data relating to this I.T. equipment will be deleted, along with all associated connections. Would you like to confirm?
     update:
       flashes:

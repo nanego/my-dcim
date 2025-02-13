@@ -2,6 +2,9 @@ en:
   activerecord:
     models:
       air_conditioner: Air conditioner
+      domaine: Domain
+      gestion: Manager
+      move: Planned move
       server: I.T. equipment
     attributes:
       external_app_record:
@@ -16,6 +19,13 @@ en:
         external_serials:
           found: Found
           not_found: Not found in GLPI
+      modele:
+        category: Category
+      move:
+        moveable_id: Equipment to move
+        frame_id: Destination bay
+        remove_connections: Delete all connections to this equipment?
+        position: Position in bay
       server:
         name: Name
         numero: Serial number
@@ -37,8 +47,6 @@ en:
         photo: Photo
         span: Slots
       theme: Theme
-      modele:
-        category: Category
       user/locale:
         en: English
         fr: Français
@@ -47,9 +55,9 @@ en:
         dark: Dark
         light: Light
       user/visualization_bay_default_background_color:
-        modele: Modele
+        modele: Model
         cluster: Cluster
-        gestion: Gestion
+        gestion: Manager
       user/visualization_bay_default_orientation:
         front: Front
         back: Back

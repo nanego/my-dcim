@@ -31,7 +31,7 @@
             <span><%= t(".initial_bay") %></span>
           </div>
 
-          <div class="col-12">
+          <div class="col-12 mt-2">
             <input id="initial_bay_name" type="text" class="form-control" disabled></input>
           </div>
         </div>
@@ -66,7 +66,8 @@
         </fieldset>
 
         <div class="col-12 mt-4 text-end">
-          <%= f.submit class: class_names("btn", "btn-info": @move.persisted?, "btn-success": !@move.persisted?) %>
+          <% submit_text = @move.persisted? ? t("action.edit") : t("action.create") %>
+          <%= f.submit submit_text, class: class_names("btn", "btn-info": @move.persisted?, "btn-success": !@move.persisted?) %>
         </div>
       </div>
     <% end %>
