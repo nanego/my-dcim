@@ -3,7 +3,7 @@
 class ExternalAppRecordsProcessor < ApplicationProcessor
   include Sortable
   SORTABLE_FIELDS = %w[
-    server_id servers.name servers.numero external_name external_id external_serial frames.name
+    server_id server.name server.numero external_name external_id external_serial frame.name
   ].freeze
 
   map :frame_ids, filter_with: :non_empty_array do |frame_ids:|
