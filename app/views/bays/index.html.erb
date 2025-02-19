@@ -68,12 +68,12 @@
         <% end %>
       <% end %>
 
-      <% table.with_column(Room.model_name.human, sort_by: :"rooms.name") do |bay| %>
+      <% table.with_column(Room.model_name.human, sort_by: :"room.name") do |bay| %>
         <%= link_to bay.room, room_path(bay.room), data: { turbo_frame: :_top } %>
       <% end %>
 
     <% unless (turbo_frame_request? && @filter.filled?(:islet_ids)) %>
-      <% table.with_column(Islet.model_name.human, sort_by: :"islets.name") do |bay| %>
+      <% table.with_column(Islet.model_name.human, sort_by: :"islet.name") do |bay| %>
         <%= link_to bay.islet.name_with_room, islet_path(bay.islet), data: { turbo_frame: :_top } %>
       <% end %>
     <% end %>
