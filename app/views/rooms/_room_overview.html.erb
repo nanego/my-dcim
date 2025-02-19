@@ -1,17 +1,20 @@
-<%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-  <% card.with_header do %>
-    <h5 class="card-title"><%= link_to room.name, visualization_room_path(room) %></h5>
-  <% end %>
+<%= render CardComponent.new do |card| %>
 
-  <div class="bg-body border rounded">
-    <% islets = room.islets.sorted %>
-    <% islets.each do |islet| %>
-      <div class="islet">
-        <h6 class="my-2 ms-3">
-          <%= islet.name.present? ? link_to("Ilot #{islet}", visualization_room_path(room, islet: islet.name, view: params[:view], bg: params[:bg])) : "" %>
+  <h5 class="pb-2">
+    <%= link_to room.name, visualization_room_path(room), class: "link-body-emphasis" %>
+  </h5>
+
+  <% islets = room.islets.sorted %>
+  <% islets.each_with_index do |islet, i| %>
+    <div class="<%= class_names("islet ms-3", "pt-3": i > 0) %>">
+      <% if islet.name.present? %>
+        <h6 class="my-2">
+          <%= render LabelComponent.new(type: :primary) do %>
+            <%= link_to("Ilot #{islet}", visualization_room_path(room, islet: islet.name, view: params[:view], bg: params[:bg])) %>
+          <% end %>
         </h6>
-        <%= render "bays/overview", bays: islet.bays.sorted, islet: islet.name %>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+      <%= render "bays/overview", bays: islet.decorated.overviewed_bays_array, islet: islet.name %>
+    </div>
+  <% end %>
 <% end %>
