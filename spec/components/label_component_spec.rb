@@ -11,19 +11,34 @@ RSpec.describe LabelComponent, type: :component do
     let(:block) { nil }
 
     context "with text" do
-      it { expect(rendered_component.to_html).to have_tag("span.badge.text-bg-default", text: /Text as argument/) }
+      it do
+        expect(rendered_component.to_html).to have_tag(
+          "span.text-default-emphasis.bg-default-subtle.border.border-default-subtle",
+          text: /Text as argument/
+        )
+      end
     end
 
     context "with text as block" do
       let(:block) { proc { "Text as block" } }
 
-      it { expect(rendered_component.to_html).to have_tag("span.badge.text-bg-default", text: /Text as block/) }
+      it do
+        expect(rendered_component.to_html).to have_tag(
+          "span.text-default-emphasis.bg-default-subtle.border.border-default-subtle",
+          text: /Text as block/
+        )
+      end
     end
 
     context "with type" do
       let(:kwargs) { { type: :success } }
 
-      it { expect(rendered_component.to_html).to have_tag("span.badge.text-bg-success", text: /Text as argument/) }
+      it do
+        expect(rendered_component.to_html).to have_tag(
+          "span.text-success-emphasis.bg-success-subtle.border.border-success-subtle",
+          text: /Text as argument/
+        )
+      end
     end
 
     context "with not valid type" do
