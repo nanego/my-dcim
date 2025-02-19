@@ -14,9 +14,9 @@ RSpec.describe Page::HeadingNewComponent, type: :component do
   it "renders a back button" do # rubocop:disable RSpec/ExampleLength
     expect(rendered_component).to have_tag("div.col-12.bg-body") do
       with_tag("div.back-button-container") do
-        with_tag("a.btn.back-button", title: "Retour", href: "http://test.host/sites") do
+        with_tag("a.btn.back-button", title: I18n.t("action.back"), href: "http://test.host/sites") do
           with_tag("i.bi-chevron-left")
-          with_tag("span.ms-2", text: "Retour")
+          with_tag("span.ms-2", text: I18n.t("action.back"))
         end
       end
 

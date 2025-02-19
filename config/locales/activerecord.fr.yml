@@ -372,9 +372,9 @@ fr:
         color: Couleur
         vlans: Vlans
       move:
-        moveable_id: Matériel à déplacer
+        moveable_id: Équipement à déplacer
         frame_id: Baie de destination
-        remove_connections: Supprimer toutes les connexions vers ce matériel ?
+        remove_connections: Supprimer toutes les connexions vers cet équipement ?
         position: Position dans la baie
       moved_connection:
         port_from_id: Port de départ
