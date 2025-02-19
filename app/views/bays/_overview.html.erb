@@ -2,11 +2,11 @@
  <div class="d-inline-grid gap-2">
     <% bays.each do |bay| %>
       <% if bay == :no_bay %>
-      <span class="bay"></span>
+        <span class="bay"></span>
       <% else %>
-        <div class="d-flex"
+        <span class="d-flex"
             style="grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
-                    grid-row:<%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;">
+                   grid-row:<%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;">
           <% frames_array = bay.frames.sorted.to_a %>
 
           <% (bay.bay_type.to_s == "single" ? 1 : 2).times do |i| %>
@@ -39,7 +39,7 @@
                                   "border-start-0": i.odd?) %>"></span>
             <% end %>
           <% end %>
-        </div>
+        </span>
       <% end %>
     <% end %>
   </div>

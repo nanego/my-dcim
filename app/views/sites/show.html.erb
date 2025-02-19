@@ -51,6 +51,7 @@
         <% end %>
       <% end %>
     </div>
+
     <div class="col" id="export-to-pdf">
       <%= render CardComponent.new(type: :primary) do |card| %>
         <% card.with_header do %>
@@ -123,6 +124,22 @@
       <% end %>
     </div>
   </div>
+
+  <% if (rooms = @site.rooms.order(:position).joins(:frames).distinct).any? %>
+    <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+      <% card.with_header do %>
+        <%= t("show.cards.visualization") %>
+      <% end %>
+
+      <div class="row row-cols-1 row-gap-3">
+        <% rooms.each do |room| %>
+          <div class="col overview">
+            <%= render "rooms/room_overview", room: room %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
 
   <%= render HasManyTurboFrameComponent.new(
     Room.model_name.human.pluralize, url: rooms_path(site_ids: @site.id), frame_id: dom_id(Room, :table)

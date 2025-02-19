@@ -180,6 +180,7 @@ en:
       features: Features
       identification: Identification
       preview: Preview
+      visualization: Representation
 
   users:
     my_account:
