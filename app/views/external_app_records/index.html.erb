@@ -88,10 +88,10 @@
     <% table.with_column(ExternalAppRecord.human_attribute_name(:id), sort_by: :server_id) do |record| %>
       <%= link_to record.server_id, server_path(record.server) %>
     <% end %>
-    <% table.with_column(ExternalAppRecord.human_attribute_name(:server_id), sort_by: :"servers.name") do |record| %>
+    <% table.with_column(ExternalAppRecord.human_attribute_name(:server_id), sort_by: :"server.name") do |record| %>
       <%= link_to record.server, server_path(record.server) %>
     <% end %>
-    <% table.with_column(Server.human_attribute_name(:numero), sort_by: :"servers.numero") do |record| %>
+    <% table.with_column(Server.human_attribute_name(:numero), sort_by: :"server.numero") do |record| %>
       <%= record.server.numero %>
     <% end %>
     <% table.with_column(ExternalAppRecord.human_attribute_name(:external_serial_status),
@@ -109,7 +109,7 @@
                          sort_by: :external_serial) do |record| %>
       <%= record.external_serial %>
     <% end %>
-    <% table.with_column(ExternalAppRecord.human_attribute_name(:frame_id), sort_by: :"frames.name") do |record| %>
+    <% table.with_column(ExternalAppRecord.human_attribute_name(:frame_id), sort_by: :"frame.name") do |record| %>
       <%= record.frame %>
     <% end %>
   <% end %>
