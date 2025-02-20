@@ -1,5 +1,5 @@
 <%
-  provide(:title, "#{Move.model_name.human(count: 2)} | #{@move} | #{t("action.edit")}")
+  provide(:title, "#{Move.model_name.human(count: 2)} | #{@move.id} | #{t("action.edit")}")
 
   breadcrumb_steps = {
     Move.model_name.human(count: 2) => moves_path,

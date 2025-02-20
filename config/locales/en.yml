@@ -1,6 +1,27 @@
 en:
   action:
+    apply: Apply
+    edit: Update
+    delete: Delete
+    back: Back
+    show: See
+    close: Close
+    save: Save
+    cancel: Cancel
+    add: Add
+    confirm: Are you sure?
+    duplicate: Duplicate
+    suspend: Lock
+    unsuspend: Unlock
+    create: Create
+    execute: Execute
+    move: Move
     preview: Preview
+    configure: Configure
+
+  boolean:
+    true: Yes
+    false: No
 
   bulk:
     servers:
@@ -18,6 +39,23 @@ en:
         help_text: We'll send password reset instructions.
       edit:
         title: Change your password
+
+  export_button:
+    label: Exports
+    exports:
+      pdf: PDF export
+      txt: Txt export
+      print: Print
+      csv: CSV export
+    faces:
+      front: Front panel
+      back: Back panel
+      front_wiring: Wiring - Front panel
+      back_wiring: Wiring - Back panel
+    port_list: Ports list
+
+  form:
+    submit: Confirm
 
   layouts:
     breadcrumb:
@@ -57,6 +95,41 @@ en:
       contacts:
         title: Contacts
 
+  moves:
+    index:
+      new_move: Plan a new move
+      delete_confirmation: Do you really want to delete this move?
+      execute_confirmation: Do you really want to apply this move?
+      frame_table_title: Bays after moving
+      edit_connections: Update connections
+      action:
+        execute_move: Move the server and its connections
+    new:
+      title: New move
+    create:
+      flashes:
+        created: The move was successfully created.
+    edit:
+      title: Update the saved move
+    update:
+      flashes:
+        updated: The move has been updated.
+    destroy:
+      flashes:
+        destroyed: The move has been removed.
+    execute_movement:
+      flashes:
+        executed: The move was successfully executed.
+    form:
+      initial_bay: Departure bay
+    frame:
+      title: Bay %{frame} after move
+      applied_moves: Applied moves
+      loading: LOADING IN PROGRESS
+    moved_connection_form:
+      action:
+        delete: Delete this connection
+
   power_distribution_units:
     index:
       title: Electricity
@@ -79,7 +152,7 @@ en:
       add_card: Add a card
       add_document: Add an attached document
     edit:
-      title: Modify PDU
+      title: Update PDU
       delete_confirmation: All data concerning this PDU will be deleted, along with all associated connections. Would you like to confirm?
     update:
       flashes:
@@ -153,7 +226,7 @@ en:
       flashes:
         created: The I.T. material has been successfully created.
     edit:
-      title: Modifying IT equipment
+      title: Updating IT equipment
       delete_confirmation: All data relating to this I.T. equipment will be deleted, along with all associated connections. Would you like to confirm?
     update:
       flashes:
@@ -180,6 +253,11 @@ en:
       features: Features
       identification: Identification
       preview: Preview
+
+  unit:
+    square_meter: m²
+    mm: mm
+    inches: inches
 
   users:
     my_account:
