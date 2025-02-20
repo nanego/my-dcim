@@ -28,7 +28,6 @@ fr:
         one: Type de port
         other: Types de port
       color: Couleur
-      disk: Disque
       disk_type:
         one: Type de disque
         other: Types de disque
