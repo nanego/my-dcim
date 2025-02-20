@@ -6,10 +6,8 @@ class BaysController < ApplicationController
   before_action :set_bay, only: %i[edit update destroy show]
 
   def index
-    @bays   = Bay.select("*").distinct
-      .joins(islet: :room).order('rooms.position, islets.name, bays.lane, bays.position')
+    @bays   = Bay.joins(islet: :room).order('rooms.position, islets.name, bays.lane, bays.position')
     @filter = ProcessorFilter.new(@bays, params)
-    # raise
     @bays = @filter.results
   end
 
