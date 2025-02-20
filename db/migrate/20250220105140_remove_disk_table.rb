@@ -18,7 +18,7 @@ class RemoveDiskTable < ActiveRecord::Migration[8.0]
     end
 
     up_only do
-       ChangelogEntry.where(object_type: "Disk").find_each(&:destroy!)
+      ChangelogEntry.where(object_type: "Disk").find_each(&:destroy!)
     end
   end
 end
