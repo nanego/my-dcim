@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LabelComponent < ApplicationComponent
-  TYPES = %i[default primary success info warning danger]
+  TYPES = %i[default primary secondary success info warning danger]
 
   erb_template <<~ERB
     <span class="<%= css_classes %>">
@@ -19,7 +19,7 @@ class LabelComponent < ApplicationComponent
   end
 
   def css_classes
-    "badge text-bg-#{@type}"
+    "badge text-#{@type}-emphasis bg-#{@type}-subtle border border-#{@type}-subtle"
   end
 
   def content

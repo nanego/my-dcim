@@ -90,6 +90,32 @@
     </div>
   </div>
 
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+    <% card.with_header do %>
+      <%= t("show.cards.visualization") %>
+    <% end %>
+
+    <div class="overview row row-cols-1 row-gap-4">
+      <div class="col">
+        <%= render CardComponent.new do |card| %>
+          <% islets = @room.islets.sorted %>
+          <% islets.each_with_index do |islet, i| %>
+            <div class="<%= class_names("islet", "pt-4": i > 0, "pt-2 px-2": islets.length == 1) %>">
+              <% if islet.name.present? %>
+                <h6 class="mb-2">
+                  <%= render LabelComponent.new(type: :primary) do %>
+                    <%= link_to("Ilot #{islet}", visualization_room_path(@room, islet: islet.name, view: params[:view], bg: params[:bg])) %>
+                  <% end %>
+                </h6>
+              <% end %>
+              <%= render "bays/overview", bays: islet.decorated.overviewed_bays_array, islet: islet.name %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
   <%= render HasManyTurboFrameComponent.new(
     Islet.model_name.human.pluralize, url: islets_path(room_ids: @room.id), frame_id: dom_id(Islet, :table)
   ) %>

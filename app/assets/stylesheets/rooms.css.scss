@@ -5,12 +5,6 @@
     margin-bottom: 10px;
   }
 
-  .islet {
-    margin: 0;
-    padding: 0;
-    border-bottom: 1px solid #e3e3e3;
-  }
-
   .overviewed_frame {
     display: inline-flex;
     margin: 0 0 10px 10px;
@@ -381,17 +375,6 @@
       &.bordered {
         border-bottom: 1px solid #e3e3e3;
       }
-    }
-  }
-
-}
-
-.overviewed_frame {
-  a {
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
     }
   }
 }

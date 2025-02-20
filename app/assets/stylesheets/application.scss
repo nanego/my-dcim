@@ -916,6 +916,44 @@ body {
     }
   }
 
+  .overview {
+    .islet {
+      margin: 0;
+      padding: 0;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--bs-border-color);
+        padding-bottom: var(--bs-card-spacer-y);
+      }
+
+      .bay {
+        width: 100px;
+      }
+    }
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &.highlighted {
+      background-color: var(--bs-info-bg-subtle) !important;
+    }
+  }
+
+  .overviewed_frame {
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
   /* Tom-Select */
   /* Fix for dark mode */
   .ts-dropdown, .ts-control, .ts-control input {

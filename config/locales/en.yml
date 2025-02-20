@@ -253,6 +253,7 @@ en:
       features: Features
       identification: Identification
       preview: Preview
+      visualization: Representation
 
   unit:
     square_meter: m²

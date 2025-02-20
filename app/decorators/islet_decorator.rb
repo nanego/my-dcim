@@ -35,4 +35,12 @@ class IsletDecorator < ApplicationDecorator
 
     I18n.t("access_control.#{a_c}")
   end
+
+  def overviewed_bays_array
+    @overviewed_bays_array ||= bays.sorted.group_by(&:lane).map do |_, bays|
+      Array.new(bays.last.position) do |i|
+        (bay = bays.to_a.find { |b| b.position == i + 1 }) ? bay : :no_bay
+      end
+    end.flatten
+  end
 end

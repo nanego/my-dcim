@@ -8,9 +8,10 @@
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) %>
-<div class="container-fluid p-4 border-top rooms-overview">
-  <div class="row row-gap-3">
-    <% @sites.each do |site| %>
+
+<div class="overview container-fluid d-flex flex-column p-4 border-top row-gap-4">
+  <% @sites.each do |site| %>
+    <div class="row row-gap-4">
       <div class="col-sm-12 text-center">
         <h3 class="my-3"><%= site %></h3>
       </div>
@@ -20,6 +21,6 @@
           <%= render "rooms/room_overview", room: room %>
         </div>
       <% end %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>
