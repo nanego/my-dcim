@@ -293,16 +293,6 @@ fr:
     destroy:
       flashes:
         destroyed: Le constructeur a bien été supprimé.
-  disks:
-    create:
-      flashes:
-        created: Le disque a été créé avec succès.
-    update:
-      flashes:
-        updated: Le disque a été mis à jour.
-    destroy:
-      flashes:
-        destroyed: Le disque a bien été supprimé.
   domaines:
     index:
       new_domaine: Ajouter un domaine
@@ -863,8 +853,6 @@ fr:
     placeholder:
       composant:
         name: 'Nom'
-      disk:
-        quantity: 'Quantité'
       memory_component:
         quantity: 'Quantité'
     submit:

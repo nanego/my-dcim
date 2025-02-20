@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_12_105637) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_20_105140) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -226,16 +226,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_105637) do
     t.string "technology"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-  end
-
-  create_table "disks", id: :serial, force: :cascade do |t|
-    t.integer "server_id", null: false
-    t.integer "disk_type_id", null: false
-    t.integer "quantity"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["disk_type_id"], name: "index_disks_on_disk_type_id"
-    t.index ["server_id"], name: "index_disks_on_server_id"
   end
 
   create_table "documents", id: :serial, force: :cascade do |t|
@@ -574,7 +564,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_105637) do
   add_foreign_key "contact_assignments", "contact_roles"
   add_foreign_key "contact_assignments", "contacts"
   add_foreign_key "contact_assignments", "sites"
-  add_foreign_key "disks", "disk_types"
   add_foreign_key "documents", "servers"
   add_foreign_key "external_app_records", "servers"
   add_foreign_key "external_app_requests", "users"
