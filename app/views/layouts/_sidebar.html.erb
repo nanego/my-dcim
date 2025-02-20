@@ -122,12 +122,6 @@
                                           active: controller.controller_name == "port_types") %>
           </li>
           <li>
-            <%= link_to DiskType.model_name.human(count: 2),
-                        disk_types_path,
-                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                          active: controller.controller_name == "disk_types") %>
-          </li>
-          <li>
             <%= link_to MemoryType.model_name.human(count: 2),
                         memory_types_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
