@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_09_174008) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_12_105637) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -487,6 +487,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_09_174008) do
     t.index ["frame_id"], name: "index_servers_on_frame_id"
     t.index ["gestion_id"], name: "index_servers_on_gestion_id"
     t.index ["modele_id"], name: "index_servers_on_modele_id"
+    t.index ["numero"], name: "index_servers_on_numero", unique: true
     t.index ["server_state_id"], name: "index_servers_on_server_state_id"
     t.index ["slug"], name: "index_servers_on_slug", unique: true
   end
@@ -543,8 +544,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_09_174008) do
     t.datetime "invitation_sent_at", precision: nil
     t.datetime "invitation_accepted_at", precision: nil
     t.integer "invitation_limit"
-    t.integer "invited_by_id"
     t.string "invited_by_type"
+    t.integer "invited_by_id"
     t.integer "invitations_count", default: 0
     t.string "authentication_token", limit: 30
     t.datetime "suspended_at"

@@ -48,8 +48,8 @@ class Frame < ApplicationRecord
     [
       room_name.present? ? "Salle #{room_name}" : '',
       bay.present? ? "Ilot #{bay.islet.name}" : '',
-      Frame.model_name.human + " " + (name.present? ? name : 'non précisée'),
-    ].reject(&:blank?).join(' ')
+      Frame.model_name.human + " " + (name.presence || 'non précisée'),
+    ].compact_blank.join(' ')
   end
 
   def self.to_txt(servers_per_bay, detail)
@@ -103,7 +103,7 @@ class Frame < ApplicationRecord
   end
 
   def compact_u
-    self.u = servers.map { |s| s.modele.u }.sum
+    self.u = servers.sum { |s| s.modele.u }
     self
   end
 
