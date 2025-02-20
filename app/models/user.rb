@@ -39,7 +39,7 @@ class User < ApplicationRecord
   end
 
   def to_s
-    name.present? ? name : email.to_s
+    name.presence || email.to_s
   end
 
   def regenerate_authentication_token!
