@@ -17,8 +17,6 @@ class Server < ApplicationRecord
   belongs_to :server_state, optional: true
   belongs_to :stack, optional: true, counter_cache: true
 
-  has_many :memory_components
-
   has_many :cards, -> { joins(:composant).includes(:composant) }
   has_many :card_types, through: :cards
   has_many :ports, through: :cards
@@ -38,9 +36,6 @@ class Server < ApplicationRecord
   validate :validate_network_types_values
 
   accepts_nested_attributes_for :cards,
-                                allow_destroy: true,
-                                reject_if: :all_blank
-  accepts_nested_attributes_for :memory_components,
                                 allow_destroy: true,
                                 reject_if: :all_blank
   accepts_nested_attributes_for :documents,

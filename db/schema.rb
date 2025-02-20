@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_20_111944) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_20_164333) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -323,23 +323,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_20_111944) do
     t.integer "bays_count", default: 0, null: false
   end
 
-  create_table "memory_components", id: :serial, force: :cascade do |t|
-    t.integer "server_id", null: false
-    t.integer "memory_type_id", null: false
-    t.integer "quantity"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["memory_type_id"], name: "index_memory_components_on_memory_type_id"
-    t.index ["server_id"], name: "index_memory_components_on_server_id"
-  end
-
-  create_table "memory_types", id: :serial, force: :cascade do |t|
-    t.integer "quantity"
-    t.string "unit"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-  end
-
   create_table "modeles", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -560,7 +543,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_20_111944) do
   add_foreign_key "external_app_records", "servers"
   add_foreign_key "external_app_requests", "users"
   add_foreign_key "frames", "bays"
-  add_foreign_key "memory_components", "memory_types"
   add_foreign_key "modeles", "architectures"
   add_foreign_key "modeles", "categories"
   add_foreign_key "modeles", "manufacturers"

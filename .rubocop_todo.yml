@@ -393,7 +393,6 @@ Style/MutableConstant:
     - 'app/components/label_component.rb'
     - 'app/controllers/servers_grids_controller.rb'
     - 'app/models/card.rb'
-    - 'app/models/memory_type.rb'
     - 'app/models/pdu.rb'
 
 # Offense count: 9
