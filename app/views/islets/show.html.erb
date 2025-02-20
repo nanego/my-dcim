@@ -70,6 +70,18 @@
     </div>
   </div>
 
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+    <% card.with_header do %>
+      <%= t("show.cards.visualization") %>
+    <% end %>
+
+    <div class="overview">
+      <%= render CardComponent.new(extra_classes: "islet pt-2 px-2") do |card| %>
+        <%= render "bays/overview", bays: @islet.decorated.overviewed_bays_array, islet: @islet.name %>
+      <% end %>
+    </div>
+  <% end %>
+
   <%= render HasManyTurboFrameComponent.new(
     Bay.model_name.human.pluralize, url: bays_path(islet_ids: @islet.id), frame_id: dom_id(Bay, :table)
   ) %>
