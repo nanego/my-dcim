@@ -7,7 +7,8 @@ class RoomsController < ApplicationController
   before_action :set_room, only: %i[show edit update destroy islet]
 
   def index
-    @filter = ProcessorFilter.new(Room.joins(:site).order('sites.position asc, rooms.position asc, rooms.name asc'), params)
+    @rooms = Room.joins(:site).order('sites.position asc, rooms.position asc, rooms.name asc')
+    @filter = ProcessorFilter.new(@rooms, params)
     @rooms = @filter.results
   end
 
