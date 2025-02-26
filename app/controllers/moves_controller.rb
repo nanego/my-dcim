@@ -10,7 +10,11 @@ class MovesController < ApplicationController
     @frames = (@moves.map(&:frame) | @moves.map(&:prev_frame)).compact.uniq
   end
 
-  def show; end
+  def show
+    respond_to do |format|
+      format.json { render :show }
+    end
+  end
 
   def new
     @move = Move.new(moveable_type: "Server")
@@ -41,14 +45,14 @@ class MovesController < ApplicationController
   end
 
   def update
-    @move.prev_frame_id = @move.moveable.try(:frame_id)
-
-    if params[:move][:remove_connections] == 'Oui'
-      @move.clear_connections
-    end
-
     respond_to do |format|
       if @move.update(move_params)
+        @move.prev_frame_id = @move.moveable.try(:frame_id)
+
+        if params[:move][:remove_connections] == 'Oui'
+          @move.clear_connections
+        end
+
         format.html { redirect_to edit_move_path(@move), notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @move }
       else
