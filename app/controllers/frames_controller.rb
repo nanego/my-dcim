@@ -7,7 +7,8 @@ class FramesController < ApplicationController
   before_action :set_frame, only: :show
 
   def index
-    @filter = ProcessorFilter.new(Frame.includes(bay: { islet: :room }).references(bay: { islet: :room }), params)
+    @frames = Frame.includes(bay: { islet: :room }).references(bay: { islet: :room })
+    @filter = ProcessorFilter.new(@frames, params)
     @frames = @filter.results
   end
 

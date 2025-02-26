@@ -10,11 +10,11 @@ class IsletsProcessor < ApplicationProcessor
   end
 
   map :room_ids, filter_with: :non_empty_array do |room_ids:|
-    raw.where(room_id: room_ids)
+    raw.joins(:room).where(room_id: room_ids)
   end
 
   map :site_ids, filter_with: :non_empty_array do |site_ids:|
-    raw.joins(:site).where(site: { id: site_ids })
+    raw.joins(room: :site).where(sites: { id: site_ids })
   end
 
   sortable fields: SORTABLE_FIELDS

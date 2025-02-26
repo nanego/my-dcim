@@ -6,7 +6,8 @@ class ModelesController < ApplicationController
   before_action :set_modele, only: %i[show edit update destroy]
 
   def index
-    @filter = ProcessorFilter.new(Modele.includes(:category, :enclosures).order(:name), params)
+    @modeles = Modele.includes(:category, :enclosures).order(:name)
+    @filter = ProcessorFilter.new(@modeles, params)
     @modeles = @filter.results
 
     @types = @modeles.group_by { |m| m.category.name }.sort_by { |categorie, _modeles| categorie.to_s }
