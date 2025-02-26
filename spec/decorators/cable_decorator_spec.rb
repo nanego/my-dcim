@@ -8,7 +8,7 @@ RSpec.describe CableDecorator, type: :decorator do
 
   describe ".special_case_options_for_select" do
     it { expect(described_class.special_case_options_for_select.pluck(1)).to contain_exactly(true, false) }
-    it { expect(described_class.special_case_options_for_select.pluck(0)).to match_array(I18n.t("boolean").pluck(1)) }
+    it { expect(described_class.special_case_options_for_select.pluck(0)).to match_array(%w[Non Oui]) }
   end
 
   describe ".colors_options_for_select" do

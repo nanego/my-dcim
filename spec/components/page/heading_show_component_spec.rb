@@ -15,9 +15,9 @@ RSpec.describe Page::HeadingShowComponent, type: :component do
     it "renders left_content with a back button" do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component).to have_tag("div.col-12.bg-body") do
         with_tag("div.back-button-container") do
-          with_tag("a.btn.back-button", title: I18n.t("action.back"), href: "http://test.host/sites") do
+          with_tag("a.btn.back-button", title: "Retour", href: "http://test.host/sites") do
             with_tag("i.bi-chevron-left")
-            with_tag("span.ms-2", text: I18n.t("action.back"))
+            with_tag("span.ms-2", text: "Retour")
           end
         end
 
@@ -31,9 +31,9 @@ RSpec.describe Page::HeadingShowComponent, type: :component do
       expect(rendered_component).to have_tag("div.col-12.bg-body") do
         with_tag("div.d-flex") do
           with_tag("div.align-self-center.d-inline-flex") do
-            with_tag("a.btn-info", title: I18n.t("action.edit"), href: "http://test.host/sites/1/edit") do
+            with_tag("a.btn-info", title: "Modifier", href: "http://test.host/sites/1/edit") do
               with_tag("i.bi-pencil")
-              with_tag("span.ms-2.d-none", text: I18n.t("action.edit"))
+              with_tag("span.ms-2.d-none", text: "Modifier")
             end
           end
         end
@@ -55,9 +55,9 @@ RSpec.describe Page::HeadingShowComponent, type: :component do
         with_tag("div.d-flex") do
           with_tag("a.btn", text: "Button")
           with_tag("div.align-self-center.d-inline-flex") do
-            with_tag("a.btn-info", title: I18n.t("action.edit"), href: "http://test.host/sites/1/edit") do
+            with_tag("a.btn-info", title: "Modifier", href: "http://test.host/sites/1/edit") do
               with_tag("i.bi-pencil")
-              with_tag("span.ms-2.d-none", text: I18n.t("action.edit"))
+              with_tag("span.ms-2.d-none", text: "Modifier")
             end
           end
         end
