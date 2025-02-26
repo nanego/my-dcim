@@ -4,7 +4,7 @@ class RoomsController < ApplicationController
   include ServersHelper
   include RoomsHelper
 
-  before_action :set_room, only: %i[show edit update destroy islet]
+  before_action :set_room, only: %i[show edit update destroy]
 
   def index
     @filter = ProcessorFilter.new(Room.joins(:site).order('sites.position asc, rooms.position asc, rooms.name asc'), params)
@@ -20,31 +20,6 @@ class RoomsController < ApplicationController
     respond_to do |format|
       format.html
       format.json
-    end
-  end
-
-  # TODO: Remove this action when possible
-  def islet
-    @islet = Islet.find_by(name: params[:islet], room_id: @room.id)
-    frames = Frames::IncludingServersQuery.call(@room.frames.where('islets.name = ?', @islet.name), 'islets.name, bays.lane')
-    @servers_per_frames = {}
-
-    sorted_frames_per_islet(frames, params[:view]).each do |frame|
-      islet = frame.bay.islet.name
-      @servers_per_frames[islet] ||= {}
-      @servers_per_frames[islet][frame.bay.lane] ||= {}
-      @servers_per_frames[islet][frame.bay.lane][frame.bay] ||= {}
-      @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] ||= []
-      frame.servers.each do |s|
-        @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] << s
-      end
-    end
-
-    respond_to do |format|
-      format.html do
-        render :show
-      end
-      format.txt { send_data Frame.to_txt(@servers_per_frames, params[:bg]) }
     end
   end
 
