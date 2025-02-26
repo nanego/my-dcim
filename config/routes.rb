@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   resources :air_conditioners
-  
+
   resources :moves, except: %i[show] do
     member do
       get :execute, to: 'moves#execute_movement'
