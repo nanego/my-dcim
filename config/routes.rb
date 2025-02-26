@@ -2,7 +2,6 @@
 
 Rails.application.routes.draw do
   resources :air_conditioners
-  resources :documents
   resources :moves do
     member do
       get :execute, to: 'moves#execute_movement'
