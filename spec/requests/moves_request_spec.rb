@@ -15,7 +15,14 @@ RSpec.describe "Moves" do
   end
 
   describe "GET #show" do
-    # include_context "with authenticated user"
+    subject(:response) do
+      get move_path(move)
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated user"
 
     # TODO: test that JSON call is working fine
     # context "with format = json" do
@@ -26,14 +33,7 @@ RSpec.describe "Moves" do
     # end
 
     context "with format = html" do
-      subject(:response) do
-        get get move_path(move)
-
-        # NOTE: used to simplify usage and custom test done in final spec file.
-        @response # rubocop:disable RSpec/InstanceVariable
-      end
-
-      it { expect { response }.to raise_error(ActionController::RoutingError) }
+      it { expect { response }.to raise_error(ActionController::UnknownFormat) }
     end
   end
 

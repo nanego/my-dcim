@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   resources :air_conditioners
 
-  resources :moves, except: %i[show] do
+  resources :moves do
     member do
       get :execute, to: 'moves#execute_movement'
     end
@@ -16,7 +16,6 @@ Rails.application.routes.draw do
       match 'update_connection', to: 'moves#update_connection', via: %i[patch post put]
     end
   end
-  resources :moves, only: %i[show], constraints: ->(request) { request.format == :json }
 
   get 'data_import', action: 'index', controller: 'data_import'
   post 'data_import/ansible'
