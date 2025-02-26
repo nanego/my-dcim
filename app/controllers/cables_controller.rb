@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 class CablesController < ApplicationController
-  before_action :set_cable, only: [:destroy]
+  before_action :set_cable, only: :destroy
 
   def index
-    @cables = Cable.includes(:connections,
-                             connections: %i[port server card],
+    @cables = Cable.includes(connections: %i[port server card],
                              cards: [:card_type],
                              card_types: [:port_type])
       .order(created_at: :desc)
@@ -30,7 +29,7 @@ class CablesController < ApplicationController
         redirect_to cables_path, notice: t(".flashes.destroyed")
       end
 
-      format.js { render 'connections/update' }
+      format.js { render "connections/update" }
       format.json { head :no_content }
     end
   end

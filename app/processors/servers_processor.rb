@@ -18,15 +18,15 @@ class ServersProcessor < ApplicationProcessor
   end
 
   map :bay_ids, filter_with: :non_empty_array do |bay_ids:|
-    raw.joins(:bay).where(bay: { id: bay_ids })
+    raw.joins(frame: :bay).where(bays: { id: bay_ids })
   end
 
   map :islet_ids, filter_with: :non_empty_array do |islet_ids:|
-    raw.joins(:islet).where(islet: { id: islet_ids })
+    raw.joins(frame: { bay: :islet }).where(islets: { id: islet_ids })
   end
 
   map :room_ids, filter_with: :non_empty_array do |room_ids:|
-    raw.joins(:room).where(room: { id: room_ids })
+    raw.joins(frame: { bay: { islet: :room } }).where(rooms: { id: room_ids })
   end
 
   map :modele_ids, filter_with: :non_empty_array do |modele_ids:|
@@ -50,7 +50,7 @@ class ServersProcessor < ApplicationProcessor
   end
 
   map :category_ids, filter_with: :non_empty_array do |category_ids:|
-    raw.joins(:modele).where(modele: { category_id: category_ids })
+    raw.joins(:modele).where(modeles: { category_id: category_ids })
   end
 
   sortable fields: SORTABLE_FIELDS do

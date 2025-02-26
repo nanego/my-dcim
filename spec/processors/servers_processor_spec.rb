@@ -361,4 +361,49 @@ RSpec.describe ServersProcessor do
   describe "when sorting" do
     pending "TODO"
   end
+
+  describe "When searching on every fields" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+    let(:room)     { Room.create(name: "R1", site: sites(:one)) }
+    let(:islet)    { Islet.create!(name: "I1", room:) }
+    let(:bay)      { Bay.create!(name: "A1", islet:, bay_type: bay_types(:one)) }
+    let(:frame)    { Frame.create!(name: "A1", bay:) }
+    let(:category) { Category.create! }
+    let(:modele)   { Modele.create!(name: "Mod", description: "Mod desc", category:, manufacturer: Manufacturer.create!, architecture: Architecture.create!) }
+    let(:gestion)  { Gestion.create!(name: "G1") }
+    let(:domaine)  { Domaine.create!(name: "D1") }
+    let(:cluster)  { Cluster.create!(name: "C1") }
+    let(:stack)    { Stack.create!(name: "S1") }
+
+    let(:server) do
+      Server.create!(name: "wood", numero: 1, **attributes, frame:, modele:, gestion:, domaine:, cluster:, stack:)
+    end
+
+    let(:params) do
+      {
+        q: "wood", frame_ids: frame.id, bay_ids: bay.id, islet_ids: islet.id, room_ids: room.id, modele_ids: modele.id,
+        gestion_ids: gestion.id, domaine_ids: domaine.id, cluster_ids: cluster.id, stack_ids: stack.id,
+        category_ids: category.id
+      }
+    end
+
+    before { server }
+
+    it { expect(result.size).to eq(1) }
+    it { is_expected.to contain_exactly(server) }
+
+    described_class::SORTABLE_FIELDS.each do |field|
+      context "and sort on #{field}" do # rubocop:disable RSpec/ContextWording, RSpec/MultipleMemoizedHelpers
+        let(:params) do
+          {
+            q: "wood", frame_ids: frame.id, bay_ids: bay.id, islet_ids: islet.id, room_ids: room.id, modele_ids: modele.id,
+            gestion_ids: gestion.id, domaine_ids: domaine.id, cluster_ids: cluster.id, stack_ids: stack.id,
+            category_ids: category.id, sort_by: field
+          }
+        end
+
+        it { expect(result.size).to eq(1) }
+        it { is_expected.to contain_exactly(server) }
+      end
+    end
+  end
 end

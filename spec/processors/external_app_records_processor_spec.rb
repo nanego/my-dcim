@@ -59,4 +59,26 @@ RSpec.describe ExternalAppRecordsProcessor do
   describe "when sorting" do
     pending "TODO"
   end
+
+  describe "When searching on every fields" do
+    let(:frame)  { Frame.create!(name: "A1", bay: bays(:one)) }
+    let(:server) { Server.create!(name: "server", numero: 1, modele: modeles(:one), frame:) }
+    let(:record) { ExternalAppRecord.create!(server:, external_serial: "") }
+
+    let(:params) { { frame_ids: frame.id, external_serial_status: "not_found" } }
+
+    before { record }
+
+    it { expect(result.size).to eq(1) }
+    it { is_expected.to contain_exactly(record) }
+
+    described_class::SORTABLE_FIELDS.each do |field|
+      context "and sort on #{field}" do # rubocop:disable RSpec/ContextWording
+        let(:params) { { frame_ids: frame.id, external_serial_status: "not_found", sort_by: field } }
+
+        it { expect(result.size).to eq(1) }
+        it { is_expected.to contain_exactly(record) }
+      end
+    end
+  end
 end

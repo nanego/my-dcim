@@ -55,4 +55,25 @@ RSpec.describe RoomsProcessor do
   describe "when sorting" do
     pending "TODO"
   end
+
+  describe "When searching on every fields" do
+    let(:site) { Site.create!(name: "S1") }
+    let(:room) { Room.create!(name: "wood", site:) }
+
+    let(:params) { { q: "wood", site_ids: site.id } }
+
+    before { room }
+
+    it { expect(result.size).to eq(1) }
+    it { is_expected.to contain_exactly(room) }
+
+    described_class::SORTABLE_FIELDS.each do |field|
+      context "and sort on #{field}" do # rubocop:disable RSpec/ContextWording
+        let(:params) { { q: "wood", site_ids: site.id, sort_by: field } }
+
+        it { expect(result.size).to eq(1) }
+        it { is_expected.to contain_exactly(room) }
+      end
+    end
+  end
 end

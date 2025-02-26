@@ -23,7 +23,7 @@ RSpec.describe CardTypesProcessor do
 
   describe "when filtering by port_type_ids" do
     let(:port_type) { PortType.create!(name: "PT1") }
-    let(:card_type) { CardType.create!(name: "CT1", port_type: port_type) }
+    let(:card_type) { CardType.create!(name: "CT1", port_type:) }
 
     before do
       card_type
@@ -54,5 +54,26 @@ RSpec.describe CardTypesProcessor do
 
   describe "when sorting" do
     pending "TODO"
+  end
+
+  describe "When searching on every fields" do
+    let(:port_type) { PortType.create!(name: "PT1") }
+    let(:card_type) { CardType.create!(name: "wood", port_type:) }
+
+    let(:params) { { q: "wood", port_type_ids: port_type.id } }
+
+    before { card_type }
+
+    it { expect(result.size).to eq(1) }
+    it { is_expected.to contain_exactly(card_type) }
+
+    described_class::SORTABLE_FIELDS.each do |field|
+      context "and sort on #{field}" do # rubocop:disable RSpec/ContextWording
+        let(:params) { { q: "wood", port_type_ids: port_type.id, sort_by: field } }
+
+        it { expect(result.size).to eq(1) }
+        it { is_expected.to contain_exactly(card_type) }
+      end
+    end
   end
 end
