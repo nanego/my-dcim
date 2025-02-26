@@ -303,16 +303,6 @@ fr:
     destroy:
       flashes:
         destroyed: Le disque a bien été supprimé.
-  documents:
-    create:
-      flashes:
-        created: Le document a été créé avec succès.
-    update:
-      flashes:
-        updated: Le document a été mis à jour.
-    destroy:
-      flashes:
-        destroyed: Le document a bien été supprimé.
   domaines:
     index:
       new_domaine: Ajouter un domaine
