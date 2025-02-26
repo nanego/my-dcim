@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Visualization::InfrastructuresController" do
-  let(:user) { User.create!(email: "user@example.com", password: "passwordpassword", role: "user", locale: "fr") }
+  let(:user) { User.create!(email: "user@example.com", password: "passwordpassword", role: "user") }
 
   before { sign_in user }
 

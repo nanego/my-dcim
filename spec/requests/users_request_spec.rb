@@ -3,8 +3,8 @@
 require "rails_helper"
 
 RSpec.describe "Users" do
-  let(:user)       { User.create!(email: "user@example.com", password: "passwordpassword", role: "user", locale: "fr") }
-  let(:admin_user) { User.create!(email: "admin@example.com", password: "passwordpassword", role: "admin", locale: "fr") }
+  let(:user)       { User.create!(email: "user@example.com", password: "passwordpassword", role: "user") }
+  let(:admin_user) { User.create!(email: "admin@example.com", password: "passwordpassword", role: "admin") }
 
   describe "GET #index" do
     context "with admin user" do
@@ -36,7 +36,7 @@ RSpec.describe "Users" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    let(:record) { User.create!(email: "user-target@example.com", password: "passwordpassword", locale: "fr") }
+    let(:record) { User.create!(email: "user-target@example.com", password: "passwordpassword") }
 
     context "with admin user" do
       include_context "with authenticated user" do
@@ -142,7 +142,7 @@ RSpec.describe "Users" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    let(:record) { User.create!(email: "user-target@example.com", password: "passwordpassword", locale: "fr") }
+    let(:record) { User.create!(email: "user-target@example.com", password: "passwordpassword") }
     let(:valid_attributes) { { role: "admin" } }
     let(:invalid_attributes) { { role: "" } }
     let(:params) { { user: valid_attributes } }
@@ -251,7 +251,7 @@ RSpec.describe "Users" do
     end
 
     let(:suspended_user) do
-      User.create!(email: "user2@example.com", password: "passwordpassword", suspended_at: Time.zone.now, locale: "fr")
+      User.create!(email: "user2@example.com", password: "passwordpassword", suspended_at: Time.zone.now)
     end
 
     context "with admin user" do
