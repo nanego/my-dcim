@@ -135,10 +135,9 @@ RSpec.describe BaysProcessor do
     it { is_expected.to contain_exactly(bay) }
 
     described_class::SORTABLE_FIELDS.each do |field|
-      context "and sort on #{field}" do
+      context "and sort on #{field}" do # rubocop:disable RSpec/ContextWording
         let(:params) { { q: "wood", room_ids: room.id, islet_ids: islet.id, manufacturer_ids: manufacturer.id, sort_by: field } }
 
-        # it { binding.b }
         it { expect(result.size).to eq(1) }
         it { is_expected.to contain_exactly(bay) }
       end

@@ -8,7 +8,7 @@ class BaysController < ApplicationController
   def index
     @bays   = Bay.joins(islet: :room).order('rooms.position, islets.name, bays.lane, bays.position')
     @filter = ProcessorFilter.new(@bays, params)
-    @bays = @filter.results
+    @bays = @filter.results.uniq
   end
 
   def show
