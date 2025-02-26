@@ -179,6 +179,7 @@ RSpec.describe CablesProcessor do
       let(:card) do
         Card.create!(server: servers(:one), card_type:, composant: composants(:one))
       end
+
       let(:params) { { card_query: "Card Type A" } }
 
       it { expect(result.size).to eq(1) }
@@ -192,6 +193,7 @@ RSpec.describe CablesProcessor do
       let(:composant) do
         Composant.create!(name: "Composant-A", enclosure: enclosures(:one), type_composant: type_composants(:one))
       end
+
       let(:params) { { card_query: "Composant-A" } }
 
       it { expect(result.size).to eq(1) }
@@ -201,5 +203,41 @@ RSpec.describe CablesProcessor do
 
   describe "when sorting" do
     pending "TODO"
+  end
+
+  describe "When searching on every fields" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+    let(:server)     { Server.create!(name: "A", numero: "numeroA", frame: frames(:one), modele: modeles(:one)) }
+    let(:card_type)  { CardType.create!(port_type:) }
+    let(:port_type)  { PortType.create!(name: "PortType A") }
+    let(:card)       { Card.create!(name: "Card A", server:, card_type:, composant: composants(:one)) }
+    let(:port)       { Port.create!(vlans: "vlan1", card:) }
+    let(:cable)      { Cable.create!(name: "cableA", special_case: true, color: "V", comments: "This is a comment") }
+    let(:connection) { Connection.create!(cable:, port:) }
+
+    let(:params) do
+      {
+        cable_name: "cableA", special_case: "true", color: "V", comments: "comment", vlans: "vlan1",
+        server_ids: server.id, port_type_ids: port_type.id, card_query: "Card A"
+      }
+    end
+
+    before { connection }
+
+    it { expect(result.size).to eq(1) }
+    it { is_expected.to contain_exactly(cable) }
+
+    described_class::SORTABLE_FIELDS.each do |field|
+      context "and sort on #{field}" do # rubocop:disable RSpec/ContextWording, RSpec/MultipleMemoizedHelpers
+        let(:params) do
+          {
+            cable_name: "cableA", special_case: "true", color: "V", comments: "comment", vlans: "vlan1",
+            server_ids: server.id, port_type_ids: port_type.id, card_query: "Card A", sort_by: field
+          }
+        end
+
+        it { expect(result.size).to eq(1) }
+        it { is_expected.to contain_exactly(cable) }
+      end
+    end
   end
 end
