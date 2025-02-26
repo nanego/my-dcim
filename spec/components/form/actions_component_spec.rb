@@ -16,10 +16,10 @@ RSpec.describe Form::ActionsComponent, type: :component do
 
     it do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component).to have_tag("div.col-12.sticky-bottom") do
-        with_tag("a", href: "/islets", text: I18n.t("action.cancel"))
-        with_tag("a", text: I18n.t("action.cancel"), count: 1)
-        with_tag("input.btn-success", type: "submit", value: I18n.t("action.create"))
-        without_tag("input.btn-info", type: "submit", value: I18n.t("action.edit"))
+        with_tag("a", href: "/islets", text: "Annuler")
+        with_tag("a", text: "Annuler", count: 1)
+        with_tag("input.btn-success", type: "submit", value: "Créer")
+        without_tag("input.btn-info", type: "submit", value: "Modifier")
       end
     end
   end
@@ -31,10 +31,10 @@ RSpec.describe Form::ActionsComponent, type: :component do
 
     it do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component).to have_tag("div.col-12.sticky-bottom") do
-        with_tag("a", href: "/islets/1", text: I18n.t("action.cancel"))
-        with_tag("a", text: I18n.t("action.cancel"), count: 1)
-        without_tag("input.btn-success", type: "submit", value: I18n.t("action.create"))
-        with_tag("input.btn-info", type: "submit", value: I18n.t("action.edit"))
+        with_tag("a", href: "/islets/1", text: "Annuler")
+        with_tag("a", text: "Annuler", count: 1)
+        without_tag("input.btn-success", type: "submit", value: "Créer")
+        with_tag("input.btn-info", type: "submit", value: "Modifier")
       end
     end
   end
