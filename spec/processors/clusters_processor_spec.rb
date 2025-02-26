@@ -52,4 +52,24 @@ RSpec.describe ClustersProcessor do
       pending
     end
   end
+
+  describe "When searching on every fields" do
+    let!(:cluster) { Cluster.create!(name: "wood") }
+
+    let(:params) { { q: "wood" } }
+
+    before { cluster }
+
+    it { expect(result.size).to eq(1) }
+    it { is_expected.to contain_exactly(cluster) }
+
+    described_class::SORTABLE_FIELDS.each do |field|
+      context "and sort on #{field}" do # rubocop:disable RSpec/ContextWording
+        let(:params) { { q: "wood", sort_by: field } }
+
+        it { expect(result.size).to eq(1) }
+        it { is_expected.to contain_exactly(cluster) }
+      end
+    end
+  end
 end
