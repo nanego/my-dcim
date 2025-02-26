@@ -2,7 +2,7 @@
 
 class ExternalAppRecordsController < ApplicationController
   def index
-    @external_app_records = ExternalAppRecord.includes(server: :frame).order("server.name")
+    @external_app_records = ExternalAppRecord.includes(server: :frame).order("servers.name")
     @filter = ProcessorFilter.new(@external_app_records, params)
     @external_app_records = @filter.results
 

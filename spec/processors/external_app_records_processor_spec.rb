@@ -71,24 +71,26 @@ RSpec.describe ExternalAppRecordsProcessor do
   end
 
   describe "when filtering by server name" do
-    let(:ear) { external_app_records(:one) }
+    let(:frame)  { Frame.create!(name: "A1", bay: bays(:one)) }
+    let(:server) { Server.create!(name: "ProcessorServer1", numero: 1, modele: modeles(:one), frame:) }
+    let(:ear) { ExternalAppRecord.create!(server:) }
 
-    before do
-      arel = Server.arel_table
-      allow(Server).to receive(:arel_table).and_return(arel)
-      allow(arel).to receive_message_chain(:alias, :[]).with(:name).and_return(Server.arel_table[:name]) # rubocop:disable RSpec/MessageChain
-    end
+    before { ear }
 
     context "with one server name" do
-      let(:params) { { server_name: "ServerName1" } }
+      let(:params) { { server_name: "ProcessorServer1" } }
 
       it { expect(result.size).to eq(1) }
       it { is_expected.to contain_exactly(ear) }
     end
 
     context "with many server names" do
-      let(:second_ear) { external_app_records(:two) }
-      let(:params) { { server_name: "ServerName" } }
+      let(:second_server) { Server.create!(name: "ProcessorServer2", numero: 2, modele: modeles(:one), frame:) }
+      let(:second_ear) { ExternalAppRecord.create!(server: second_server) }
+
+      let(:params) { { server_name: "ProcessorServer" } }
+
+      before { second_ear }
 
       it { expect(result.size).to eq(2) }
       it { is_expected.to contain_exactly(ear, second_ear) }
