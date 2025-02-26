@@ -9,7 +9,7 @@ class RoomsProcessor < ApplicationProcessor
   end
 
   map :site_ids, filter_with: :non_empty_array do |site_ids:|
-    raw.joins(:site).where(site_id: site_ids)
+    raw.where(site_id: site_ids)
   end
 
   sortable fields: SORTABLE_FIELDS
