@@ -40,6 +40,63 @@ RSpec.describe ExternalAppRecordsProcessor do
     end
   end
 
+  describe "when filtering by modele_ids" do
+    let(:ear) { external_app_records(:one) }
+    let(:modele) { ear.server.modele }
+
+    before do
+      external_app_records(:two).update!(server_id: 3)
+    end
+
+    context "with one modele_id" do
+      let(:params) { { modele_ids: [modele.id] } }
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to contain_exactly(ear) }
+    end
+
+    context "with many modele_ids" do
+      let(:another_ear) { external_app_records(:two) }
+      let(:another_modele) { modeles(:two) }
+
+      let(:params) { { frame_ids: [modele.id, another_modele.id] } }
+
+      before do
+        external_app_records(:three).destroy!
+      end
+
+      it { expect(result.size).to eq(2) }
+      it { is_expected.to contain_exactly(ear, another_ear) }
+    end
+  end
+
+  describe "when filtering by server name" do
+    let(:frame)  { Frame.create!(name: "A1", bay: bays(:one)) }
+    let(:server) { Server.create!(name: "ProcessorServer1", numero: 1, modele: modeles(:one), frame:) }
+    let(:ear) { ExternalAppRecord.create!(server:) }
+
+    before { ear }
+
+    context "with one server name" do
+      let(:params) { { server_name: "ProcessorServer1" } }
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to contain_exactly(ear) }
+    end
+
+    context "with many server names" do
+      let(:second_server) { Server.create!(name: "ProcessorServer2", numero: 2, modele: modeles(:one), frame:) }
+      let(:second_ear) { ExternalAppRecord.create!(server: second_server) }
+
+      let(:params) { { server_name: "ProcessorServer" } }
+
+      before { second_ear }
+
+      it { expect(result.size).to eq(2) }
+      it { is_expected.to contain_exactly(ear, second_ear) }
+    end
+  end
+
   describe "when filtering by external_serial_status" do
     context "with external_serial_status = found" do
       let(:params) { { external_serial_status: "found" } }
