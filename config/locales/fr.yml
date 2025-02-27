@@ -841,6 +841,7 @@ fr:
         port_ids: Port
         cable_name: Nom du câble
         server_ids: Matériel
+        server_name: Nom du matériel
         card_query: "Carte : nom, type ou composant"
         colors: Couleurs du câble
         special_case: Backbone réseau
