@@ -11,13 +11,10 @@ class RemoveMemoryRelatedTables < ActiveRecord::Migration[8.0]
       end
 
       create_table :memory_components do |t|
-        t.integer :server_id
-        t.integer :memory_type_id, null: false
+        t.references :server, null: false, type: :integer
+        t.references :memory_type, foreign_key: true, null: false, type: :integer
+
         t.integer :quantity
-
-        t.index :memory_type_id
-
-        t.references :memory_types, foreign_key: true, null: false, type: :integer
 
         t.timestamps null: false
       end
