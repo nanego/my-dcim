@@ -459,6 +459,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_152636) do
     t.index ["frame_id"], name: "index_servers_on_frame_id"
     t.index ["gestion_id"], name: "index_servers_on_gestion_id"
     t.index ["modele_id"], name: "index_servers_on_modele_id"
+    t.index ["numero"], name: "index_servers_on_numero", unique: true
     t.index ["server_state_id"], name: "index_servers_on_server_state_id"
     t.index ["slug"], name: "index_servers_on_slug", unique: true
   end

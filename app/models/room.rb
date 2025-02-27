@@ -34,6 +34,10 @@ class Room < ApplicationRecord
     slug.blank? || name_changed?
   end
 
+  def network_cluster(network_types:)
+    NetworkCluster.new(room: self, network_types:)
+  end
+
   private
 
   def slug_candidates
