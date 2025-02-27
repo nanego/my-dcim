@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_12_105637) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_12_152445) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -154,6 +154,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_105637) do
     t.index ["author_type", "author_id"], name: "index_changelog_entries_on_author_type_and_author_id"
     t.index ["object_type", "object_id"], name: "index_changelog_entries_on_object"
     t.index ["object_type", "object_id"], name: "index_changelog_entries_on_object_type_and_object_id"
+  end
+
+  create_table "cluster_rooms", force: :cascade do |t|
+    t.bigint "cluster_id", null: false
+    t.bigint "room_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cluster_id"], name: "index_cluster_rooms_on_cluster_id"
+    t.index ["room_id"], name: "index_cluster_rooms_on_room_id"
   end
 
   create_table "clusters", id: :serial, force: :cascade do |t|
@@ -487,7 +496,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_105637) do
     t.index ["frame_id"], name: "index_servers_on_frame_id"
     t.index ["gestion_id"], name: "index_servers_on_gestion_id"
     t.index ["modele_id"], name: "index_servers_on_modele_id"
-    t.index ["numero"], name: "index_servers_on_numero", unique: true
     t.index ["server_state_id"], name: "index_servers_on_server_state_id"
     t.index ["slug"], name: "index_servers_on_slug", unique: true
   end
@@ -569,6 +577,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_105637) do
   add_foreign_key "bays", "manufacturers"
   add_foreign_key "card_types", "port_types"
   add_foreign_key "cards", "card_types"
+  add_foreign_key "cluster_rooms", "clusters"
+  add_foreign_key "cluster_rooms", "rooms"
   add_foreign_key "composants", "type_composants"
   add_foreign_key "connections", "cables"
   add_foreign_key "contact_assignments", "contact_roles"
