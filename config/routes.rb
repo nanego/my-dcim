@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   resources :air_conditioners
+
   resources :moves do
     member do
       get :execute, to: 'moves#execute_movement'
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
       match 'update_connection', to: 'moves#update_connection', via: %i[patch post put]
     end
   end
+
   get 'data_import', action: 'index', controller: 'data_import'
   post 'data_import/ansible'
 
