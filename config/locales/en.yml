@@ -130,6 +130,11 @@ en:
       action:
         delete: Delete this connection
 
+  filters:
+    attributes:
+      filter:
+        server_name: Material's name
+
   power_distribution_units:
     index:
       title: Electricity
