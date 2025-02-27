@@ -24,10 +24,6 @@ Rails.application.routes.draw do
   resources :islets do
     get :print, on: :member
   end
-  resources :disk_types
-  resources :memory_types
-  resources :memory_components
-  resources :disks
   resources :server_states
 
   resources :frames do

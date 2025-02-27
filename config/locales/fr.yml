@@ -257,22 +257,6 @@ fr:
         destroyed: La couleur a bien été supprimé.
     show:
       title: Détails de la couleur
-  disk_types:
-    index:
-      new_disk_type: Nouveau type de disque
-    new:
-      title: Nouveau type de disque
-    create:
-      flashes:
-        created: Le type de disque a bien été créé.
-    edit:
-      title: Editer un type de disque
-    update:
-      flashes:
-        updated: Le type de disque a bien été modifié.
-    destroy:
-      flashes:
-        destroyed: Le type de disque a bien été supprimé.
   manufacturers:
     form:
       url_placeholder: "https://url_du_frabricant.com/suite_de_l_url/%s/reste_s_il_y_a"
@@ -293,16 +277,6 @@ fr:
     destroy:
       flashes:
         destroyed: Le constructeur a bien été supprimé.
-  disks:
-    create:
-      flashes:
-        created: Le disque a été créé avec succès.
-    update:
-      flashes:
-        updated: Le disque a été mis à jour.
-    destroy:
-      flashes:
-        destroyed: Le disque a bien été supprimé.
   domaines:
     index:
       new_domaine: Ajouter un domaine
@@ -320,32 +294,6 @@ fr:
     destroy:
       flashes:
         destroyed: Le domaine a bien été supprimé.
-  memory_components:
-    create:
-      flashes:
-        created: Le composant mémoire a été créé avec succès.
-    update:
-      flashes:
-        updated: Le composant mémoire a été mis à jour.
-    destroy:
-      flashes:
-        destroyed: Le composant mémoire a bien été supprimé.
-  memory_types:
-    index:
-      new_memory_type: Nouveau type de RAM
-    new:
-      title: Nouveau type de RAM
-    create:
-      flashes:
-        created: Le type de RAM a bien été créé.
-    edit:
-      title: Modifier un type de RAM
-    update:
-      flashes:
-        updated: Le type de RAM a bien été modifié.
-    destroy:
-      flashes:
-        destroyed: Le type de RAM a bien été supprimé.
   ports:
     index:
       title: Liste des ports cablés
@@ -863,10 +811,6 @@ fr:
     placeholder:
       composant:
         name: 'Nom'
-      disk:
-        quantity: 'Quantité'
-      memory_component:
-        quantity: 'Quantité'
     submit:
       create: Créer
       update: Modifier

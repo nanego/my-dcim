@@ -20,8 +20,6 @@ RSpec.describe Server do
     it { is_expected.to belong_to(:cluster).optional(true) }
     it { is_expected.to belong_to(:server_state).optional(true) }
     it { is_expected.to belong_to(:stack).optional(true) }
-    it { is_expected.to have_many(:memory_components) }
-    it { is_expected.to have_many(:disks) }
     it { is_expected.to have_many(:cards) }
     it { is_expected.to have_many(:card_types).through(:cards) }
     it { is_expected.to have_many(:ports).through(:cards) }
@@ -103,8 +101,6 @@ RSpec.describe Server do
 
   describe "nested attributes" do
     it { is_expected.to accept_nested_attributes_for(:cards) }
-    it { is_expected.to accept_nested_attributes_for(:disks) }
-    it { is_expected.to accept_nested_attributes_for(:memory_components) }
     it { is_expected.to accept_nested_attributes_for(:documents) }
   end
 

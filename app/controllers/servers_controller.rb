@@ -140,8 +140,6 @@ class ServersController < ApplicationController
         :frame, # TODO: Check if it should be removed or if it's used somewhere
         { network_types: [] },
         { cards_attributes: [%i[composant_id card_type_id twin_card_id orientation name first_position _destroy id]] },
-        { disks_attributes: [%i[quantity disk_type_id _destroy id]] },
-        { memory_components_attributes: [%i[quantity memory_type_id _destroy id]] },
         { documents_attributes: [%i[document id _destroy]] },
       ]
     )
