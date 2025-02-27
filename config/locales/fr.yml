@@ -366,6 +366,8 @@ fr:
       title: Dupliquer le modèle %{modele_name}
     preview:
       modal_title: Prévisualisation du modèle %{modele_name}
+    decorator:
+      no_enclosure: Aucune enclosure
   external_app_records:
     index:
       title: Synchronisation avec GLPI
