@@ -95,6 +95,10 @@ en:
       contacts:
         title: Contacts
 
+  modeles:
+    decorator:
+      no_enclosure: No Enclosure
+
   moves:
     index:
       new_move: Plan a new move
