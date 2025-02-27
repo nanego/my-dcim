@@ -7,7 +7,7 @@ class RemoveMemoryRelatedTables < ActiveRecord::Migration[8.0]
         t.integer :quantity
         t.string :unit
 
-        t.timestamps null: false
+        t.timestamps
       end
 
       create_table :memory_components do |t|
@@ -16,7 +16,7 @@ class RemoveMemoryRelatedTables < ActiveRecord::Migration[8.0]
 
         t.integer :quantity
 
-        t.timestamps null: false
+        t.timestamps
       end
     end
 

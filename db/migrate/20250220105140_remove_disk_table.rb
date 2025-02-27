@@ -4,16 +4,12 @@ class RemoveDiskTable < ActiveRecord::Migration[8.0]
   def change
     revert do
       create_table :disks do |t|
-        t.integer :server_id, null: false
-        t.integer :disk_type_id, null: false
+        t.references :server, null: false, type: :integer
+        t.references :disk_type, foreign_key: true, null: false, type: :integer
+
         t.integer :quantity
 
-        t.timestamps null: false
-
-        t.index :disk_type_id
-        t.index :server_id
-
-        t.references :disk_types, foreign_key: true, null: false, type: :integer
+        t.timestamps
       end
     end
 

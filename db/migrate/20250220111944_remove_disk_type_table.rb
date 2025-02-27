@@ -8,7 +8,7 @@ class RemoveDiskTypeTable < ActiveRecord::Migration[8.0]
         t.string :unit
         t.string :technology
 
-        t.timestamps null: false
+        t.timestamps
       end
     end
 
