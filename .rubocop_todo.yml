@@ -393,8 +393,6 @@ Style/MutableConstant:
     - 'app/components/label_component.rb'
     - 'app/controllers/servers_grids_controller.rb'
     - 'app/models/card.rb'
-    - 'app/models/disk_type.rb'
-    - 'app/models/memory_type.rb'
     - 'app/models/pdu.rb'
 
 # Offense count: 9
@@ -510,7 +508,6 @@ Style/SoleNestedConditional:
 # Configuration parameters: Mode.
 Style/StringConcatenation:
   Exclude:
-    - 'app/models/disk_type.rb'
     - 'app/models/frame.rb'
     - 'lib/tasks/fix_duplicated_slots.rake'
     - 'lib/tasks/update_position_by_name.rake'

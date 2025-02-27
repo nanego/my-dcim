@@ -28,22 +28,12 @@ fr:
         one: Type de port
         other: Types de port
       color: Couleur
-      disk: Disque
-      disk_type:
-        one: Type de disque
-        other: Types de disque
-      memory_type:
-        one: Type de RAM
-        other: Types de RAM
       enclosure: Enclosure
       user: Utilisateur
       server_state: Statut
       changelog_entry: Changelog
       cable: Câble
       connection: Connexion
-      memory_component:
-        one: Composant mémoire
-        other: Composants mémoire
       move:
         one: Déplacement prévu
         other: Déplacements prévus
@@ -222,15 +212,6 @@ fr:
         name: Nom
         power: Alimentation
         usage: Types de carte compatibles
-      disk_type:
-        name: Nom
-        quantity: Quantité
-        unit: Unité
-        technology: Technologie
-      memory_type:
-        name: Nom
-        quantity: Quantité
-        unit: Unité
       category:
         name: Nom
         description: Description
