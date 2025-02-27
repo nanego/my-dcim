@@ -27,7 +27,7 @@ module Visualization
 
       @servers = @servers.includes(:frame, :stack, :ports, cards: [:ports])
       # @hubs = RoomHub.for_room(@room, network_types: @filter.network_type)
-      @network_cluster = NetworkCluster.new(room: @room, network_types: @filter.network_type)
+      @network_cluster = @room.network_cluster(network_types: @filter.network_type)
       @concentrateurs_ids = @network_cluster.servers.pluck(:id)
 
       @switchs_lan_ids = @network_cluster.servers.pluck(:id) | @servers.pluck(:id) # Switch LAN

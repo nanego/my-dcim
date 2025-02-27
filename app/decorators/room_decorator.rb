@@ -15,6 +15,10 @@ class RoomDecorator < ApplicationDecorator
     def access_control_options_for_select
       Room.access_controls.keys.map { |a_c| [I18n.t("access_control.#{a_c}"), a_c] }
     end
+
+    def network_clusters_options_for_select
+      Cluster.pluck(:name, :id)
+    end
   end
 
   def badge_color_for_status
