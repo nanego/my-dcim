@@ -4,7 +4,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
   MAX_PORTS_PER_LINE = 24
 
   def slot_label(server, component)
-    cards = server.cards.where('composant_id = ?', component.id)
+    cards = server.cards.where(composant_id: component.id)
     cards_names = cards.pluck(:name).compact_blank
     if cards_names.present?
       if cards.first.twin_card_id.present?
@@ -15,7 +15,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
         cards_names.join('-')
       end
     elsif component.name.present?
-      "#{component.name.include?('SL') ? component.name[2] : component.name}"
+      (component.name.include?('SL') ? component.name[2] : component.name).to_s
     else
       component.position
     end
@@ -130,7 +130,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       port_type_name = "FC"
       cable_name = position.to_s.rjust(2, "0") if cable_name.blank?
     else
-      cable_name = "#{port_data&.cable_name.presence || port_type.try(:name)}".html_safe
+      cable_name = (port_data&.cable_name.presence || port_type.try(:name)).to_s.html_safe
       port_type_name = port_type.name
     end
 
@@ -145,7 +145,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       port_class = "SCSI"
     end
 
-    link_to label.to_s, edit_port_url, id: port_id, title: (port_data.present? ? "#{port_data.vlans}" : ""),
+    link_to label.to_s, edit_port_url, id: port_id, title: (port_data.present? ? port_data.vlans.to_s : ""),
                                        class: "border border-secondary port port#{port_class} #{port_data.try(:cable_color) || "empty"}",
                                        data: { url: edit_port_url, position:, type:, controller: 'tooltip', bs_placement: 'top' }, target: :_top
   end
@@ -207,7 +207,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
   end
 
   def define_background_color(server:, mode: nil)
-    if %w(gestion cluster).include?(mode)
+    if %w[gestion cluster].include?(mode)
       case mode
       when 'gestion'
         parent_type = 'Gestionnaire'

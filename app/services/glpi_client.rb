@@ -59,7 +59,7 @@ class GlpiClient
         attributes[:hard_drives] = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceHardDrive'] : {}
         attributes[:memories] = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceMemory'] : {}
         processors = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceProcessor'] : {}
-        attributes[:processors] = processors.each do |_, proc|
+        attributes[:processors] = processors.each_value do |proc|
           proc["designation"] = get_processor_designation_from_glpi(id: proc["deviceprocessors_id"])
         end
 
@@ -104,9 +104,9 @@ class GlpiClient
 
   def stubs
     Faraday::Adapter::Test::Stubs.new do |stub|
-      stub.get('/Computer?searchText%5Bserial%5D=AZERTY') { |_env| [200, {}, File.read(Rails.root.join('test', 'services', 'computers_results.json'))] }
-      stub.get(/\/Computer\/4090?.*/) { |_env| [200, {}, File.read(Rails.root.join('test', 'services', 'computer_4090_algori.json'))] }
-      stub.get(/\/DeviceProcessor\/28?.*/) { |_env| [200, {}, File.read(Rails.root.join('test', 'services', 'processor_28.json'))] }
+      stub.get('/Computer?searchText%5Bserial%5D=AZERTY') { |_env| [200, {}, Rails.root.join("test/services/computers_results.json").read] }
+      stub.get(/\/Computer\/4090?.*/) { |_env| [200, {}, Rails.root.join("test/services/computer_4090_algori.json").read] }
+      stub.get(/\/DeviceProcessor\/28?.*/) { |_env| [200, {}, Rails.root.join("test/services/processor_28.json").read] }
       stub.get('/initSession') { |_env| [200, {}, '{"session_token":"kuji8uh4v77lgghqoj2c0r2848"}'] }
     end
   end
