@@ -51,7 +51,7 @@ class Modele < ApplicationRecord
     if manufacturer.present?
       "#{manufacturer} #{name}"
     else
-      "#{name}"
+      name.to_s
     end
   end
 

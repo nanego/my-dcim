@@ -103,7 +103,7 @@ class Server < ApplicationRecord
   end
 
   def create_missing_ports
-    cards.each { |card| card.create_missing_ports }
+    cards.each(&:create_missing_ports)
   end
 
   def connected_servers_ids_through_twin_cards_with_color
@@ -112,8 +112,8 @@ class Server < ApplicationRecord
       if port.card&.twin_card_id
         twin_card = Card.find(port.card.twin_card_id)
         twin_card_port = twin_card.ports.includes(:connection).where(position: port.position).first
-        if twin_card_port
-          connections << { server_id: twin_card_port.paired_connection.port.server_id, cable_color: twin_card_port.paired_connection.try(:cable).try(:color) } if twin_card_port.paired_connection
+        if twin_card_port&.paired_connection
+          connections << { server_id: twin_card_port.paired_connection.port.server_id, cable_color: twin_card_port.paired_connection.try(:cable).try(:color) }
         end
         connections << { server_id: twin_card.server_id, cable_color: twin_card_port.try(:connection).try(:cable).try(:color) }
       end
