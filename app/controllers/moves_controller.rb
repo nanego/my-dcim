@@ -188,7 +188,11 @@ class MovesController < ApplicationController
     @frame = Frame.find(params[:frame_id])
 
     @moves = Move.where(frame: @frame, moveable_type: "Server")
-    @moved_servers = @moves.map { |move| server = move.moveable; server.position = move.position; server }
+    @moved_servers = @moves.map do |move|
+      server = move.moveable
+      server.position = move.position
+      server
+    end
 
     @removed_servers = Move.where(prev_frame_id: @frame.id, moveable_type: "Server").map(&:moveable)
 
