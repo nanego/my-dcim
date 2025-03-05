@@ -23,32 +23,6 @@
       </tbody>
     </table>
   </div>
-
-  <div class="float-end">
-    <table class="cm">
-      <thead>
-      <th>CM</th>
-      </thead>
-      <tbody>
-      <tr>
-        <td>
-          <%= ports_by_card(port_type: PortType.find_by_name('RJ'),
-                            port_quantity: server.modele.composants.ordered.where(type_composant_id: 3).count,
-                            ports_data: Port.where(card: server.cards.joins(composant: :type_composant).where('type_composants.name = ?', 'CM')) )%>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <% if server.modele.composants.ordered.where(type_composant_id: 2).count > 0 %>
-    <div class="float-end">
-      <%= ports_by_card(port_type: PortType.find_by_name('IPMI'),
-                        port_quantity: 1,
-                        ports_data: Port.where(card: server.cards.joins(composant: :type_composant).where('type_composants.name = ?', 'IPMI')) ) %>
-      <!-- TODO verif generated link without card_id -->
-    </div>
-  <% end %>
 <% end %>
 
   <%= link_to h(server.name),
