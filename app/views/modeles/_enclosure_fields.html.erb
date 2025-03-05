@@ -62,7 +62,6 @@
           </li>
           <%
             composants = f.object.composants.ordered
-            composants = composants.sort_by! { |c| c.try(:position) || (composants.size + 1) }
           %>
           <%= f.fields_for :composants, composants do |composant_fields| %>
             <%= render partial: "composant_fields", locals: { f: composant_fields } %>
