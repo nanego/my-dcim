@@ -7,7 +7,7 @@ class Enclosure < ApplicationRecord
   belongs_to :modele
   has_many :composants, dependent: :destroy
 
-  enum :display, { vertical: 0, horizontal: 1, grid: 2 }, default: :vertical, validate: true
+  enum :display, { vertical: "vertical", horizontal: "horizontal", grid: "grid" }, validate: true
 
   accepts_nested_attributes_for :composants,
                                 allow_destroy: true,

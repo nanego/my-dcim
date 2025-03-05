@@ -241,8 +241,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_145109) do
     t.integer "position"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.string "display", default: "vertical", null: false
     t.text "grid_areas"
-    t.integer "display", default: 0, null: false
     t.index ["modele_id"], name: "index_enclosures_on_modele_id"
   end
 

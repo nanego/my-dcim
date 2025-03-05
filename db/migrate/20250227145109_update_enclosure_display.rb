@@ -5,49 +5,16 @@ class MigrationEnclosure < ActiveRecord::Base
 end
 
 class UpdateEnclosureDisplay < ActiveRecord::Migration[8.0]
-  def up
-    add_column :enclosures, :tmp_display, :integer, default: 0, null: false
+  def change
+    change_column_default :enclosures, :display, from: nil, to: "vertical"
 
-    MigrationEnclosure.reset_column_information
-    MigrationEnclosure.find_each do |enclosure|
-      display = case enclosure.display
-                when "horizontal"
-                  1
-                when "grid"
-                  2
-                else
-                  0
-                end
-
-      enclosure.update!(tmp_display: display)
+    up_only do
+      MigrationEnclosure.reset_column_information
+      MigrationEnclosure.find_each do |enclosure|
+        enclosure.update!(display: "vertical") if enclosure.display.blank?
+      end
     end
 
-    change_table :enclosures do |t|
-      t.remove :display
-      t.rename :tmp_display, :display
-    end
-  end
-
-  def down
-    add_column :enclosures, :tmp_display, :string
-
-    MigrationEnclosure.reset_column_information
-    MigrationEnclosure.find_each do |enclosure|
-      display = case enclosure.display
-                when 1
-                  "horizontal"
-                when 2
-                  "grid"
-                else
-                  "vertical"
-                end
-
-      enclosure.update!(tmp_display: display)
-    end
-
-    change_table :enclosures do |t|
-      t.remove :display
-      t.rename :tmp_display, :display
-    end
+    change_column_null :enclosures, :display, false
   end
 end
