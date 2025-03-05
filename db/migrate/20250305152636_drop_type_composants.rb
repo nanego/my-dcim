@@ -13,7 +13,7 @@ end
 class DropTypeComposants < ActiveRecord::Migration[8.0]
   def change
     up_only do
-      MigrationComposant.where(type_composant: MigrationTypeComposant.find_by(name: "SLOT")).destroy_all
+      MigrationComposant.where.not(type_composant: MigrationTypeComposant.find_by(name: "SLOT")).destroy_all
     end
 
     revert do
