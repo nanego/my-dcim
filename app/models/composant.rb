@@ -11,7 +11,7 @@ class Composant < ApplicationRecord
 
   validates :name, format: { without: /\s/ }, allow_blank: true
 
-  scope :slots, -> {order("composants.position ASC") }
+  scope :slots, -> { order("composants.position ASC") }
   scope :ordered, -> { order(position: :asc) }
 
   def to_s
