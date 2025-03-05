@@ -9,7 +9,6 @@ RSpec.describe Composant do
   subject(:composant) { described_class.new(name: "SL8") }
 
   describe "associations" do
-    it { is_expected.to belong_to(:type_composant) }
     it { is_expected.to belong_to(:enclosure) }
     it { is_expected.to have_one(:modele).through(:enclosure) }
     it { is_expected.to have_many(:cards) }

@@ -19,11 +19,11 @@ class ModelesController < ApplicationController
 
   def new
     @modele = Modele.new
-    @modele.composants.build(:name => 'ALIM', type_composant_id: 4)
-    @modele.composants.build(:name => 'IPMI', type_composant_id: 4)
-    @modele.composants.build(:name => 'CM', type_composant_id: 4)
+    @modele.composants.build(:name => 'ALIM')
+    @modele.composants.build(:name => 'IPMI')
+    @modele.composants.build(:name => 'CM')
     7.times do |i|
-      @modele.composants.build(:name => "SL#{i + 1}", type_composant_id: 4)
+      @modele.composants.build(:name => "SL#{i + 1}")
     end
   end
 
@@ -107,7 +107,7 @@ class ModelesController < ApplicationController
         {
           enclosures_attributes: [[
             :id, :modele_id, :_destroy, :position, :display, :grid_areas,
-            { composants_attributes: [%i[type_composant_id enclosure_id name position _destroy id]] },
+            { composants_attributes: [%i[enclosure_id name position _destroy id]] },
           ]]
         },
       ]

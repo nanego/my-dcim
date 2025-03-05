@@ -20,7 +20,7 @@
       <template data-nested-form-target="template">
         <%= f.fields_for :composants, f.object.composants.ordered.slots.klass.new,
                                       child_index: child_index do |composant_fields| %>
-          <%= render partial: "composant_fields", locals: { f: composant_fields, type_composant: "SLOT" } %>
+          <%= render partial: "composant_fields", locals: { f: composant_fields } %>
         <% end %>
       </template>
 
@@ -61,11 +61,11 @@
             </fieldset>
           </li>
           <%
-            composants = f.object.composants.ordered.select { |c| c.type_composant == TypeComposant.find_by_name("SLOT") }
+            composants = f.object.composants.ordered
             composants = composants.sort_by! { |c| c.try(:position) || (composants.size + 1) }
           %>
           <%= f.fields_for :composants, composants do |composant_fields| %>
-            <%= render partial: "composant_fields", locals: { f: composant_fields, type_composant: "SLOT" } %>
+            <%= render partial: "composant_fields", locals: { f: composant_fields } %>
           <% end %>
 
           <li class="list-group-item bg-transparent" data-nested-form-target="target"></li>
