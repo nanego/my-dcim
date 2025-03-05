@@ -1,28 +1,6 @@
-<% @prefilled_data = type_composant if local_assigns[:type_composant].present? && @prefilled_data.blank?
-   if @prefilled_data.present?
-     options = TypeComposant.where(name: @prefilled_data).map { |c| [c.name, c.id] }
-   else
-     options = TypeComposant.all.map { |c| [c.name, c.id] }
-   end %>
-
 <li class="nested-form-wrapper composant list-group-item d-flex align-items-center border-top-0 bg-transparent"
     data-new-record="<%= f.object.new_record? %>">
   <%= f.hidden_field :position %>
-
-  <!-- TODO: to removed? -->
-  <% if options.size == 1 %>
-    <%= f.hidden_field :type_composant_id, value: options.first[1].to_s %>
-  <% else %>
-    <span class="input-group input-group-sm">
-      <% if f.object.enclosure&.persisted? %>
-        <span class="input-group-text">
-          <span class="bi bi-arrows-vertical"></span>
-        </span>
-      <% end %>
-
-      <%= f.select :type_composant_id, options, {}, { class: "form-select form-select-sm" } %>
-    </span>
-  <% end %>
 
   <span class="input-group input-group-sm">
     <% if f.object.enclosure&.persisted? %>

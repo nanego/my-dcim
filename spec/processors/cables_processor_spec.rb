@@ -191,7 +191,7 @@ RSpec.describe CablesProcessor do
         Card.create!(server: servers(:one), card_type: card_types(:one), composant:)
       end
       let(:composant) do
-        Composant.create!(name: "Composant-A", enclosure: enclosures(:one), type_composant: type_composants(:one))
+        Composant.create!(name: "Composant-A", enclosure: enclosures(:one))
       end
 
       let(:params) { { card_query: "Composant-A" } }
