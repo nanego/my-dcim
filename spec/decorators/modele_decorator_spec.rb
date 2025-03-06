@@ -32,17 +32,17 @@ RSpec.describe ModeleDecorator, type: :decorator do
     context "when modele has no enclosure" do
       let(:modele) { modeles(:four) }
 
-      it { is_expected.to be_nil }
+      it { is_expected.to have_tag("span.fst-italic.fw-lighter", text: "Aucune enclosure") }
     end
 
-    context "when modele has one enclosure without a display set" do
-      it { is_expected.to eq("-, -") }
-    end
-
-    context "when modele has one enclosure with a display set" do
+    context "when modele has one enclosure" do
       let(:modele) { modeles(:two) }
 
       it { is_expected.to eq("Horizontale") }
+    end
+
+    context "when modele has several enclosures" do
+      it { is_expected.to eq("Verticale, Verticale") }
     end
   end
 end

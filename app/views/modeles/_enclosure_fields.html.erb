@@ -34,7 +34,7 @@
                    role="group"
                    aria-label="Display attribute radio toggle button group"
                    data-enclosure-fields-target="display-radios">
-                <% Enclosure::DISPLAYS.each do |display| %>
+                <% Enclosure.displays.keys.each do |display| %>
                   <%= f.radio_button :display,
                                      display,
                                      class: "btn-check",
@@ -44,9 +44,9 @@
                                      } %>
                   <%= f.label :display, value: display, class: "btn btn-outline-secondary" do %>
                     <i class="<%= class_names("bi",
-                                              "bi-layout-three-columns": display == :vertical,
-                                              "bi-layout-three-columns icon-rotated": display == :horizontal,
-                                              "bi-columns-gap": display == :grid
+                                              "bi-layout-three-columns": display == "vertical",
+                                              "bi-layout-three-columns icon-rotated": display == "horizontal",
+                                              "bi-columns-gap": display == "grid"
                     )%>"></i>
                     <%= Enclosure.human_attribute_name("display.#{display}") %>
                   <% end %>
