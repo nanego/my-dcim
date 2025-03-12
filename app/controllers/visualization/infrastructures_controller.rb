@@ -22,15 +22,14 @@ module Visualization
 
       @servers = Server.where.not(network_types: [])
       # .includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
-
-      # fresh_when last_modified: [@servers.maximum(:updated_at), @concentrateurs.maximum(:updated_at)].max
-
-      @servers = @servers.includes(:frame, :stack, :ports, cards: [:ports])
-      # @hubs = RoomHub.for_room(@room, network_types: @filter.network_type)
       @network_cluster = @room.network_cluster(network_types: @filter.network_type)
       @concentrateurs_ids = @network_cluster.servers.pluck(:id)
 
-      @switchs_lan_ids = @network_cluster.servers.pluck(:id) | @servers.pluck(:id) # Switch LAN
+      fresh_when last_modified: [@servers.maximum(:updated_at), @network_cluster.servers.maximum(:updated_at)].max
+
+      @servers = @servers.includes(:frame, :stack, :ports, cards: [:ports])
+
+      @switchs_lan_ids = @network_cluster.servers.ids | @servers.pluck(:id) # Switch LAN
 
       @connections = {}
       @stacks = @servers.map(&:stack).uniq.compact
