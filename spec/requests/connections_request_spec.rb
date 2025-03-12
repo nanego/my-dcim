@@ -75,24 +75,7 @@ RSpec.describe "Connections" do
     end
   end
 
-  # describe "POST #update_destination_server" do
-  #   subject(:response) do
-  #     post connections_update_destination_server_path(server_id: destination_server)
-
-  #     # NOTE: used to simplify usage and custom test done in final spec file.
-  #     @response
-  #   end
-
-  #   let(:destination_server) { servers(:four) }
-
-  #   include_context "with authenticated user"
-
-  #   context "with an existing server" do
-  #     it do
-  #       expect do
-  #         response
-  #       end.to change(Port, :count).by(3)
-  #     end
-  #   end
-  # end
+  describe "POST #update_destination_server" do
+    pending "TODO"
+  end
 end
