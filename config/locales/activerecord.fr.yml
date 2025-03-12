@@ -253,7 +253,6 @@ fr:
         first_position: N° du 1er port
         twin_card_id: Carte jumelle
       enclosure/display:
-        blank: "-"
         grid: Grille
         horizontal: Horizontale
         vertical: Verticale

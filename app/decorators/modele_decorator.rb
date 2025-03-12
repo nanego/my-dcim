@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ModeleDecorator < ApplicationDecorator
+  include ActionView::Helpers::AssetTagHelper
+
   def network_types_to_human
     return Modele.human_attribute_name("network_types.blank") unless (n_t = network_types.presence)
 
@@ -8,11 +10,9 @@ class ModeleDecorator < ApplicationDecorator
   end
 
   def displays_to_human
-    return nil unless enclosures.any? # TODO : manage "-" in table component
+    return tag.span(I18n.t(".modeles.decorator.no_enclosure"), class: "fst-italic fw-lighter") unless enclosures.any?
 
     enclosures.map do |enclosure|
-      next Enclosure.human_attribute_name("display.blank") if enclosure.display.nil?
-
       Enclosure.human_attribute_name("display.#{enclosure.display}")
     end.join(", ")
   end
