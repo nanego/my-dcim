@@ -12,8 +12,8 @@ class ExternalAppRecordDecorator < ApplicationDecorator
   def external_serial_to_badge_component
     status = external_serial.present? ? :found : :not_found
     text = I18n.t(".activerecord.attributes.external_app_record.external_serials.#{status}").upcase
-    type = status == :found ? :success : :danger
+    color = status == :found ? :success : :danger
 
-    LabelComponent.new(text, type:)
+    BadgeComponent.new(text, color:)
   end
 end
