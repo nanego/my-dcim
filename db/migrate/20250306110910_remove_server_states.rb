@@ -6,7 +6,7 @@ class RemoveServerStates < ActiveRecord::Migration[8.0]
       create_table :server_states do |t|
         t.string :name
 
-        t.timestamps null: false
+        t.timestamps
       end
 
       change_table :servers, bulk: true do |t|
