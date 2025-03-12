@@ -85,24 +85,19 @@ class ImportEquipmentByCsv
   def init_slots(data, server)
     enclosure = server.modele.enclosures.first
 
-    type_composant_slot = TypeComposant.find_by_name('SLOT')
     DEFAULT_NB_OF_SLOTS.times do |i|
       Composant.find_or_create_by!(enclosure_id: enclosure.id,
-                                   type_composant: type_composant_slot,
                                    name: "SL#{i + 1}")
     end
     composant_slot_alim = Composant.find_or_create_by!(enclosure_id: enclosure.id,
-                                                       type_composant: type_composant_slot,
                                                        name: "ALIM")
     composant_slot_cm = Composant.find_or_create_by!(enclosure_id: enclosure.id,
-                                                     type_composant: type_composant_slot,
                                                      name: "CM")
     composant_slot_ipmi = Composant.find_or_create_by!(enclosure_id: enclosure.id,
-                                                       type_composant: type_composant_slot,
                                                        name: "IPMI")
 
     # SLOTS SL
-    slots = Composant.where(enclosure_id: enclosure.id, type_composant_id: type_composant_slot.id)
+    slots = Composant.where(enclosure_id: enclosure.id)
     DEFAULT_NB_OF_SLOTS.times do |index|
       slot_name = "SL#{index + 1}"
       slot_data = data[slot_name]

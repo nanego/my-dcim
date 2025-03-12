@@ -119,12 +119,9 @@ class Frame < ApplicationRecord
                                             position: 1,
                                             display: 'vertical')
     puts "ERROR: #{enclosure}" unless enclosure.valid?
-    type_composant = TypeComposant.find_by_name('SLOT')
-    puts "ERROR: #{type_composant}" unless type_composant.valid?
     4.times do |i|
       line = (i + 1).odd? ? 'L1' : 'L2'
-      composant = Composant.find_or_create_by(type_composant: type_composant,
-                                              position: i + 1,
+      composant = Composant.find_or_create_by(position: i + 1,
                                               enclosure: enclosure,
                                               name: "ALIM_#{line}")
       puts "ERROR: #{composant}" unless composant.valid?

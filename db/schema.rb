@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_27_145109) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_05_152636) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -173,14 +173,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_145109) do
   end
 
   create_table "composants", id: :serial, force: :cascade do |t|
-    t.integer "type_composant_id", null: false
     t.integer "position"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "name"
     t.integer "enclosure_id"
     t.index ["enclosure_id"], name: "index_composants_on_enclosure_id"
-    t.index ["type_composant_id"], name: "index_composants_on_type_composant_id"
   end
 
   create_table "connections", id: :serial, force: :cascade do |t|
@@ -481,10 +479,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_145109) do
     t.integer "servers_count", default: 0, null: false
   end
 
-  create_table "type_composants", id: :serial, force: :cascade do |t|
-    t.string "name"
-  end
-
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -534,7 +528,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_145109) do
   add_foreign_key "bays", "manufacturers"
   add_foreign_key "card_types", "port_types"
   add_foreign_key "cards", "card_types"
-  add_foreign_key "composants", "type_composants"
   add_foreign_key "connections", "cables"
   add_foreign_key "contact_assignments", "contact_roles"
   add_foreign_key "contact_assignments", "contacts"
