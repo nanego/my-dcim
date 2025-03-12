@@ -41,7 +41,6 @@ class BadgeComponentPreview < ViewComponent::Preview
   end
   # @!endgroup
 
-
   # @!group Types
   def type_default
     render BadgeComponent.new("Badge", type: :default)

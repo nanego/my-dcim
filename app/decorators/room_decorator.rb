@@ -22,7 +22,7 @@ class RoomDecorator < ApplicationDecorator
   end
 
   def status_to_component
-    return unless Room.statuses.keys.include? status
+    return unless Room.statuses.key?(status)
 
     text = Room.human_attribute_name("status.#{status}")
     color = BADGE_COLORS[status.to_sym]

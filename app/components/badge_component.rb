@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class BadgeComponent < ApplicationComponent
-  COLORS = %i[primary secondary success info warning danger light dark]
-  TYPES = %i[default pill]
+  COLORS = %i[primary secondary success info warning danger light dark].freeze
+  TYPES = %i[default pill].freeze
 
   erb_template <<~ERB
     <span class="<%= css_classes %>">
