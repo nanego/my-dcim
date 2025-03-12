@@ -112,7 +112,6 @@ Rails/Delegate:
     - 'app/models/port_type.rb'
     - 'app/models/room.rb'
     - 'app/models/server.rb'
-    - 'app/models/server_state.rb'
 
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
@@ -159,7 +158,6 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/port.rb'
     - 'app/models/port_type.rb'
     - 'app/models/server.rb'
-    - 'app/models/server_state.rb'
 
 # Offense count: 5
 # Configuration parameters: IgnoreScopes, Include.

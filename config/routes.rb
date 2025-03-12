@@ -24,7 +24,6 @@ Rails.application.routes.draw do
   resources :islets do
     get :print, on: :member
   end
-  resources :server_states
 
   resources :frames do
     collection do

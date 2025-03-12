@@ -101,6 +101,6 @@ class PowerDistributionUnitsController < ApplicationController
   def search_params
     params.permit(:sort, :sort_by, :page, :per_page, :q,
                   network_types: [], bay_ids: [], islet_ids: [], room_ids: [], frame_ids: [], cluster_ids: [],
-                  gestion_ids: [], domaine_ids: [], modele_ids: [], server_state_ids: [], stack_ids: [])
+                  gestion_ids: [], domaine_ids: [], modele_ids: [], stack_ids: [])
   end
 end
