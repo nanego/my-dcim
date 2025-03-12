@@ -21,7 +21,7 @@
         <% end %>
 
         <% table.with_column(ChangelogEntry.human_attribute_name(:action), sort_by: :action) do |changelog_entry| %>
-          <%= render changelog_entry.action_label_to_component %>
+          <%= render changelog_entry.action_badge_to_component %>
         <% end %>
 
         <% table.with_column(ChangelogEntry.human_attribute_name(:author), sort_by: :author_id) do |changelog_entry| %>
