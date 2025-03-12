@@ -7,3 +7,7 @@ one:
 two:
   room_id: 5
   cluster_id: 2
+
+three:
+  room_id: 6
+  cluster_id: 3

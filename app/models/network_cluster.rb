@@ -6,7 +6,7 @@ class NetworkCluster
   def initialize(room:, network_types:)
     @room = room
     @clusters = room.network_clusters
-    @network_types = network_types
+    @network_types = Array(network_types)
   end
 
   def servers

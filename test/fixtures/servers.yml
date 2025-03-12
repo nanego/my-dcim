@@ -94,3 +94,33 @@ four:
   ipmi_dedie: 1
   position: 39
   stack_id: 1
+
+hub_network1:
+  id: 5
+  frame_id: 5
+  slug: server-name-5
+  name: ServerName5
+  modele_id: 1
+  numero: 1234567890
+  critique: false
+  domaine_id: 1
+  gestion_id: 1
+  position: 1
+  stack_id: 1
+  cluster_id: 3
+  network_types: [gbe]
+
+hub_network2:
+  id: 6
+  frame_id: 4
+  slug: server-name-6
+  name: ServerName6
+  modele_id: 1
+  numero: 1234567891
+  critique: false
+  domaine_id: 1
+  gestion_id: 1
+  position: 1
+  stack_id: 1
+  cluster_id: 3
+  network_types: [gbe]
