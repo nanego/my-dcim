@@ -22,7 +22,7 @@
           <dd class="mb-0 pb-2 ps-3"><%= @changelog_entry.object_id %></dd>
 
           <dt class="pb-2"><%= ChangelogEntry.human_attribute_name(:action) %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= render @changelog_entry.action_label_to_component %></dd>
+          <dd class="mb-0 pb-2 ps-3"><%= render @changelog_entry.action_badge_to_component %></dd>
 
           <dt class="pb-2"><%= ChangelogEntry.human_attribute_name(:author) %></dt>
           <dd class="mb-0 pb-2 ps-3">

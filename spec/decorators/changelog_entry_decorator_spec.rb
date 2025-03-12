@@ -56,7 +56,7 @@ RSpec.describe ChangelogEntryDecorator, type: :decorator do
     it { expect(decorated_changelog_entry.object_changed_attributes_to_sentence).to include("Id") }
   end
 
-  describe "#action_label_to_component" do
+  describe "#action_badge_to_component" do
     let(:object) { ChangelogEntry.new(params) }
     let(:params) { {} }
 
@@ -64,12 +64,12 @@ RSpec.describe ChangelogEntryDecorator, type: :decorator do
       create: :success,
       update: :info,
       destroy: :danger,
-      unknown: :default
+      unknown: :primary
     }.each do |action, expected_type|
       context "with #{action}" do
         let(:params) { { action: action } }
 
-        it { expect(decorated_changelog_entry.action_label_to_component.instance_variable_get(:@type)).to eq(expected_type) }
+        it { expect(decorated_changelog_entry.action_badge_to_component.instance_variable_get(:@color)).to eq(expected_type) }
       end
     end
   end
