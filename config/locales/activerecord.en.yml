@@ -7,6 +7,10 @@ en:
       move: Planned move
       server: I.T. equipment
     attributes:
+      enclosure/display:
+        grid: Grid
+        horizontal: Horizontal
+        vertical: Vertical
       external_app_record:
         external_id: GLPI ID
         external_name: GLPI name

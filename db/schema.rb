@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_20_164333) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_27_145109) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -241,7 +241,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_20_164333) do
     t.integer "position"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "display"
+    t.string "display", default: "vertical", null: false
     t.text "grid_areas"
     t.index ["modele_id"], name: "index_enclosures_on_modele_id"
   end
