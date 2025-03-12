@@ -17,7 +17,7 @@ RSpec.describe RoomDecorator, type: :decorator do
   describe ".network_clusters_options_for_select" do
     it do
       expect(described_class.network_clusters_options_for_select)
-        .to contain_exactly(["Cloud C1", 1], ["elastic", 2])
+        .to contain_exactly(["Cloud C1", 1], ["Gbe Cluster", 3], ["elastic", 2])
     end
   end
 

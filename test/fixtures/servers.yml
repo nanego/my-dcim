@@ -100,7 +100,7 @@ hub_network1:
   frame_id: 5
   slug: server-name-5
   name: ServerName5
-  modele_id: 1
+  modele_id: 2
   numero: 1234567890
   critique: false
   domaine_id: 1
@@ -115,7 +115,7 @@ hub_network2:
   frame_id: 4
   slug: server-name-6
   name: ServerName6
-  modele_id: 1
+  modele_id: 2
   numero: 1234567891
   critique: false
   domaine_id: 1

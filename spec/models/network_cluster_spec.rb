@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe NetworkCluster do
   subject(:network_cluster) { described_class.new(room:, network_types:) }
