@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class CardComponent < ApplicationComponent
+  #TODO: rename TYPES into COLORS
   TYPES = %i[default primary secondary success info warning danger].freeze
 
   renders_one :header

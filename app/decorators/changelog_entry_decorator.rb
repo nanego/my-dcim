@@ -36,12 +36,12 @@ class ChangelogEntryDecorator < ApplicationDecorator
   end
 
   def action_label_to_component
-    types = {
+    colors = {
       create: :success,
       update: :info,
       destroy: :danger
     }
 
-    LabelComponent.new(action, type: types[action.to_sym] || :default)
+    BadgeComponent.new(action, color: colors[action.to_sym] || :default)
   end
 end
