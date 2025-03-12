@@ -21,23 +21,29 @@ RSpec.describe RoomDecorator, type: :decorator do
     end
   end
 
-  describe "#badge_color_for_status" do
-    subject(:badge_color) { decorated_room.badge_color_for_status }
+  describe "#status_to_component" do
+    subject(:badge) { rooms(:one).decorated.status_to_component }
 
     context "with status = active" do
-      it { is_expected.to eq "text-bg-success" }
+      it { is_expected.to be_a BadgeComponent }
+      it { expect(badge.instance_variable_get(:@color)).to eq :success }
+      it { expect(badge.content).to eq "Actif" }
     end
 
     context "with status = passive" do
       before { rooms(:one).status = :passive }
 
-      it { is_expected.to eq "text-bg-warning" }
+      it { is_expected.to be_a BadgeComponent }
+      it { expect(badge.instance_variable_get(:@color)).to eq :warning }
+      it { expect(badge.content).to eq "Passif" }
     end
 
     context "with status = planned" do
       before { rooms(:one).status = :planned }
 
-      it { is_expected.to eq "text-bg-primary" }
+      it { is_expected.to be_a BadgeComponent }
+      it { expect(badge.instance_variable_get(:@color)).to eq :primary }
+      it { expect(badge.content).to eq "Planifié" }
     end
 
     context "with status = unknown" do
