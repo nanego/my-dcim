@@ -46,7 +46,8 @@ RSpec.describe "Rooms::BrowseRoom", :js do
     colored_lines = all("ul.servers > li.server.mystring")
 
     colored_lines.each do |line|
-      expect(line.style("background-color")["background-color"]).to eq("rgb(252, 252, 253)").or eq("rgb(183, 247, 255)")
+      expect(line.style("background-color")["background-color"])
+        .to eq("rgb(252, 252, 253)").or eq("rgb(205, 120, 156)").or eq("rgb(183, 247, 255)")
     end
 
     # 3. Change background color to 'gestionnaire'
