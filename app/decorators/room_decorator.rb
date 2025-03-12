@@ -30,4 +30,8 @@ class RoomDecorator < ApplicationDecorator
 
     I18n.t("access_control.#{a_c}")
   end
+
+  def network_clusters_to_sentence
+    @network_clusters_to_sentence ||= network_clusters.pluck(:name).join(", ")
+  end
 end

@@ -3,5 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe ClusterRoom do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "associations" do
+    it { is_expected.to belong_to(:cluster) }
+    it { is_expected.to belong_to(:room) }
+  end
 end

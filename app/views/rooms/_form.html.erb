@@ -38,8 +38,8 @@
     </fieldset>
 
     <fieldset class="col-12 mt-4">
-      <%= f.label :network_clusters, class: "form-label" %>
-      <%= f.select :network_clusters, RoomDecorator.network_clusters_options_for_select,
+      <%= f.label :network_cluster_ids, class: "form-label" %>
+      <%= f.select :network_cluster_ids, RoomDecorator.network_clusters_options_for_select,
                             { include_blank: t("access_control.blank") },
                             class: "form-select", multiple: true, data: { controller: :select } %>
     </fieldset>
