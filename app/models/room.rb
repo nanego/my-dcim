@@ -8,6 +8,9 @@ class Room < ApplicationRecord
 
   belongs_to :site, counter_cache: true
 
+  has_many :cluster_rooms, dependent: :destroy
+  has_many :network_clusters, class_name: "Cluster", through: :cluster_rooms, source: :cluster
+
   has_many :islets, dependent: :restrict_with_error
   has_many :bays, through: :islets, dependent: :restrict_with_error
   has_many :frames, through: :bays, dependent: :restrict_with_error
@@ -29,6 +32,10 @@ class Room < ApplicationRecord
 
   def should_generate_new_friendly_id?
     slug.blank? || name_changed?
+  end
+
+  def network_cluster(network_types:)
+    NetworkCluster.new(room: self, network_types:)
   end
 
   private

@@ -4,36 +4,36 @@
       <div class="tab-content infrastructure bg-body-tertiary overflow-x-auto w-100">
         <% # TODO: move html here? %>
         <div class="islet">
-          <% if room.id == 4 || room.id == 3 %>
+          <% unless @network_cluster.servers.empty? %>
             <div class="hubs">
-              <% bgColorHub1 = define_background_color(server: hub, mode: params["bg"]) %>
-              <div class="hub_material hub-top server_<%= hub.id %>"
+              <div class="hub_material hub-top server_<%= @network_cluster.room_server.id %>"
                    id="hub1-<%= room.id %>-<%= islet %>"
-                   style="background-color: <%= bgColorHub1 %>"
-                   data-url="<%= server_path(hub) %>">
-                <%= link_to server_path(hub), class: "link-dark", target: :_blank, rel: :noopener do %>
-                  Concentrateur
+                   style="background-color: <%= define_background_color(server: @network_cluster.room_server, mode: params["bg"]) %>"
+                   data-url="<%= server_path(@network_cluster.room_server) %>">
+                <%= link_to server_path(@network_cluster.room_server), class: "link-dark", target: :_blank, rel: :noopener do %>
+                  <%= t(".concentrator") %>
                   <br>
-                  <%= hub %>
+                  <%= @network_cluster.room_server %>
                 <% end %>
               </div>
-              <div class="other_room_hub">
-                <% bgColorHub2 = define_background_color(server: second_hub, mode: params["bg"]) %>
-                <span style="color: grey;"><%= second_room %></span>
-                <div class="hub_material hub-bottom ms-1 server_<%= second_hub.id %>"
-                     data-url="<%= server_path(second_hub) %>"
-                     style="background-color: <%= bgColorHub2 %>"
-                     id="hub2-<%= room.id %>-<%= islet %>">
-                  <%= link_to server_path(second_hub), class: "link-dark",
-                                                                           target: :_blank, rel: :noopener do %>
-                    Concentrateur
-                    <br>
-                    <%= second_hub %>
-                  <% end %>
+              <% @network_cluster.other_rooms_servers.each do |server| %>
+                <div class="other_room_hub">
+                  <span style="color: grey;"><%= server.room %></span>
+                  <div class="hub_material hub-bottom ms-1 server_<%= server.id %>"
+                        data-url="<%= server_path(server) %>"
+                        style="background-color: <%= define_background_color(server: server, mode: params["bg"]) %>"
+                        id="hub2-<%= room.id %>-<%= islet %>">
+                    <%= link_to server_path(server), class: "link-dark", target: :_blank, rel: :noopener do %>
+                      <%= t(".concentrator") %>
+                      <br>
+                      <%= server %>
+                    <% end %>
+                  </div>
                 </div>
-              </div>
+              <% end %>
             </div>
           <% end %>
+
           <div>
             <div class="rooms-overview">
               <% islet.bays.sorted.each do |bay| %>
@@ -113,7 +113,7 @@
 
     <% connections.each do |server_id, connections| %>
       <% connections.each do |connection| %>
-        <% unless concentrateurs_ids.include?(connection[:server_id]) && concentrateurs_ids.exclude?(server_id)  %>
+        <% unless concentrator_ids.include?(connection[:server_id]) && concentrator_ids.exclude?(server_id)  %>
           if(disabled_stacks.indexOf(colors_hash['<%= connection[:cable_color] %>']) < 0) {
             drawInterSwitchsConnections('<%= server_id %>', '<%= connection[:server_id] %>', '<%= connection[:cable_color] %>')
           }

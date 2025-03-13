@@ -65,3 +65,21 @@ en:
       user/visualization_bay_default_orientation:
         front: Front
         back: Back
+      room:
+        access_control: Access control
+        name: Name
+        position: Position
+        content: Content
+        display_on_home_page: Display on home page
+        site_id: Site
+        status: Status
+        surface_area: Surface area
+        network_cluster_ids: Network hub clusters
+        islets_count:
+          zero: 0 islets
+          one: 1 islet
+          other: "%{count} islets"
+        frames_count:
+          zero: 0 frames
+          one: 1 frame
+          other: "%{count} frames"

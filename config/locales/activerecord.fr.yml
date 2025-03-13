@@ -51,6 +51,7 @@ fr:
         site_id: Site
         status: Statut
         surface_area: Superficie
+        network_cluster_ids: Cluster de concentrateurs réseau
         islets_count:
           zero: 0 îlot
           one: 1 îlot

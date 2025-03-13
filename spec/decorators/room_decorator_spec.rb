@@ -14,8 +14,15 @@ RSpec.describe RoomDecorator, type: :decorator do
     it { expect(described_class.access_control_options_for_select.pluck(1)).to match_array(Room.access_controls.keys) }
   end
 
+  describe ".network_clusters_options_for_select" do
+    it do
+      expect(described_class.network_clusters_options_for_select)
+        .to contain_exactly(["Cloud C1", 1], ["Gbe Cluster", 3], ["elastic", 2])
+    end
+  end
+
   describe "#badge_color_for_status" do
-    subject(:badge_color) { rooms(:one).decorated.badge_color_for_status }
+    subject(:badge_color) { decorated_room.badge_color_for_status }
 
     context "with status = active" do
       it { is_expected.to eq "text-bg-success" }
@@ -52,5 +59,11 @@ RSpec.describe RoomDecorator, type: :decorator do
 
       it { is_expected.to eq("Badge") }
     end
+  end
+
+  describe "#network_clusters_to_sentence" do
+    let(:room) { rooms(:five) }
+
+    it { expect(decorated_room.network_clusters_to_sentence).to eq("Cloud C1, elastic") }
   end
 end

@@ -108,7 +108,10 @@ class RoomsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def room_params
     params.expect(
-      room: %i[name description display_on_home_page position status site_id surface_area access_control]
+      room: [
+        :name, :description, :display_on_home_page, :position, :status, :site_id, :surface_area, :access_control,
+        { network_cluster_ids: [] },
+      ]
     )
   end
 end

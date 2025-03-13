@@ -12,7 +12,7 @@ RSpec.describe ProcessorFilter do
   let(:with)    { nil }
 
   describe "#results" do
-    it { expect(filter.results.size).to eq(2) }
+    it { expect(filter.results.size).to eq(3) }
   end
 
   describe "#filled?" do
@@ -50,10 +50,10 @@ RSpec.describe ProcessorFilter do
   end
 
   describe "#total_count" do
-    it { expect(filter.total_count).to eq(2) }
+    it { expect(filter.total_count).to eq(3) }
   end
 
   describe "#results_count" do
-    it { expect(filter.results_count).to eq(2) }
+    it { expect(filter.results_count).to eq(3) }
   end
 end

@@ -8,3 +8,7 @@ cloud_c1:
 elastic:
   id: 2
   name: elastic
+
+gbe_cluster:
+  id: 3
+  name: Gbe Cluster
