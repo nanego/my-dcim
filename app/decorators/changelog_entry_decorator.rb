@@ -35,7 +35,7 @@ class ChangelogEntryDecorator < ApplicationDecorator
     end.to_sentence
   end
 
-  def action_badge_to_component
+  def action_to_badge_component
     colors = {
       create: :success,
       update: :info,

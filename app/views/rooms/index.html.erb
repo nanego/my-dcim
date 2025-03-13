@@ -71,7 +71,7 @@
       <% end %>
 
       <% table.with_column(Room.human_attribute_name(:status), sort_by: :status) do |room| %>
-        <%= render room.decorated.status_to_component %>
+        <%= render room.decorated.status_to_badge_component %>
       <% end %>
 
       <% table.with_column(style: "min-width: 132px; width: 132px") do |room| %>
