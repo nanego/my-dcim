@@ -45,7 +45,7 @@ class Card < ApplicationRecord
   def create_missing_ports
     (1..port_quantity).each do |current_position|
       unless positions_with_ports.include?(current_position)
-        puts "create port #{current_position}"
+        # puts "create port #{current_position}"
         Port.create(position: current_position,
                     card_id: self.id,
                     vlans: nil,
