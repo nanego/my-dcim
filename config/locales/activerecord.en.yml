@@ -38,7 +38,7 @@ en:
         islet: Islet
         frame_id: Frame
         frame: Frame
-        position: surf
+        position: Position
         server_state_id: State
         modele_id: Model
         critique: Critic
