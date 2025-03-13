@@ -1,53 +1,86 @@
 # frozen_string_literal: true
 
 class BadgeComponentPreview < ViewComponent::Preview
-  # @param color select { choices: [primary, secondary, success, info, warning, danger, light, dark] }
-  # @param type select { choices: [default, pill] }
-  def default(color: :primary, type: :default)
-    render BadgeComponent.new("Badge", color:, type:)
+  # @param text "Content of badge"
+  # @param color select :color_options
+  # @param type select :type_options
+  def default(text: "Badge", color: :primary, type: :default)
+    render BadgeComponent.new(text, color:, type:)
   end
 
   # @!group Colors
-  def color_default
-    render BadgeComponent.new("Badge", color: :primary)
+
+  # @param text "Content of badge"
+  # @param type select :type_options
+  def color_default(text: "Badge", type: :default)
+    render BadgeComponent.new(text, color: :primary, type:)
   end
 
-  def color_secondary
-    render BadgeComponent.new("Badge", color: :secondary)
+  # @param text "Content of badge"
+  # @param type select :type_options
+  def color_secondary(text: "Badge", type: :default)
+    render BadgeComponent.new(text, color: :secondary, type:)
   end
 
-  def color_success
-    render BadgeComponent.new("Badge", color: :success)
+  # @param text "Content of badge"
+  # @param type select :type_options
+  def color_success(text: "Badge", type: :default)
+    render BadgeComponent.new(text, color: :success, type:)
   end
 
-  def color_info
-    render BadgeComponent.new("Badge", color: :info)
+  # @param text "Content of badge"
+  # @param type select :type_options
+  def color_info(text: "Badge", type: :default)
+    render BadgeComponent.new(text, color: :info, type:)
   end
 
-  def color_warning
-    render BadgeComponent.new("Badge", color: :warning)
+  # @param text "Content of badge"
+  # @param type select :type_options
+  def color_warning(text: "Badge", type: :default)
+    render BadgeComponent.new(text, color: :warning, type:)
   end
 
-  def color_danger
-    render BadgeComponent.new("Badge", color: :danger)
+  # @param text "Content of badge"
+  # @param type select :type_options
+  def color_danger(text: "Badge", type: :default)
+    render BadgeComponent.new(text, color: :danger, type:)
   end
 
-  def color_light
-    render BadgeComponent.new("Badge", color: :light)
+  # @param text "Content of badge"
+  # @param type select :type_options
+  def color_light(text: "Badge", type: :default)
+    render BadgeComponent.new(text, color: :light, type:)
   end
 
-  def color_dark
-    render BadgeComponent.new("Badge", color: :dark)
+  # @param text "Content of badge"
+  # @param type select :type_options
+  def color_dark(text: "Badge", type: :default)
+    render BadgeComponent.new(text, color: :dark, type:)
   end
   # @!endgroup
 
   # @!group Types
-  def type_default
-    render BadgeComponent.new("Badge", type: :default)
+
+  # @param text "Content of badge"
+  # @param color select :color_options
+  def type_default(text: "Badge", color: :primary)
+    render BadgeComponent.new(text, color:, type: :default)
   end
 
-  def type_pill
-    render BadgeComponent.new("Badge", type: :pill)
+  # @param text "Content of badge"
+  # @param color select :color_options
+  def type_pill(text: "Badge", color: :primary)
+    render BadgeComponent.new(text, color:, type: :pill)
   end
   # @!endgroup
+  
+  private
+  
+  def color_options
+    BadgeComponent::COLORS
+  end
+  
+  def type_options
+    BadgeComponent::TYPES
+  end
 end
