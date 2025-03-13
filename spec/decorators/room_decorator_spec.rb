@@ -21,8 +21,8 @@ RSpec.describe RoomDecorator, type: :decorator do
     end
   end
 
-  describe "#status_to_component" do
-    subject(:badge) { rooms(:one).decorated.status_to_component }
+  describe "#status_to_badge_component" do
+    subject(:badge) { decorated_room.status_to_badge_component }
 
     context "with status = active" do
       it { is_expected.to be_a BadgeComponent }

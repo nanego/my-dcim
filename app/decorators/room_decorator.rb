@@ -21,7 +21,7 @@ class RoomDecorator < ApplicationDecorator
     end
   end
 
-  def status_to_component
+  def status_to_badge_component
     return { plain: nil } unless Room.statuses.key?(status)
 
     text = Room.human_attribute_name("status.#{status}")
