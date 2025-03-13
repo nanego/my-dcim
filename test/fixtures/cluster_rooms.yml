@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  id: 1
-  name: Site 1
+  room_id: 5
+  cluster_id: 1
 
 two:
-  id: 2
-  name: Site 2
+  room_id: 5
+  cluster_id: 2
 
 three:
-  id: 3
-  name: Site 3
+  room_id: 6
+  cluster_id: 3
