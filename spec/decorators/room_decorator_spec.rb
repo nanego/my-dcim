@@ -49,7 +49,7 @@ RSpec.describe RoomDecorator, type: :decorator do
     context "with status = unknown" do
       before { rooms(:one).status = :unknown }
 
-      it { is_expected.to be_nil }
+      it { is_expected.to eq({ plain: nil }) }
     end
   end
 
