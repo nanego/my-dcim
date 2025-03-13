@@ -120,6 +120,8 @@ fr:
     destroy:
       flashes:
         destroyed: L'ilôt a bien été supprimé.
+    infrastructure:
+      concentrator: Concentrateur
   connections:
     edit:
       title: Modifier la connexion

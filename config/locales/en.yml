@@ -134,6 +134,10 @@ en:
       action:
         delete: Delete this connection
 
+  islets:
+    infrastructure:
+      concentrator: Concentrator
+
   filters:
     attributes:
       filter:

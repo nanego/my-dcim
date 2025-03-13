@@ -36,7 +36,7 @@
       <%= turbo_frame_tag "infrastructure_islet" do %>
         <%= render partial: "islets/infrastructure", locals: {
           bays: @bays, network: @filter.network_type, room: @room, islet: @islet, hub: @hub,
-          second_hub: @second_hub, second_room: @second_room, connections: @connections, concentrateurs_ids: @concentrateurs_ids
+          second_hub: @second_hub, second_room: @second_room, connections: @connections, concentrator_ids: @concentrator_ids
         } %>
       <% end %>
     <% else %>

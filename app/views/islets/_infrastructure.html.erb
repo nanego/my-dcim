@@ -11,7 +11,7 @@
                    style="background-color: <%= define_background_color(server: @network_cluster.room_server, mode: params["bg"]) %>"
                    data-url="<%= server_path(@network_cluster.room_server) %>">
                 <%= link_to server_path(@network_cluster.room_server), class: "link-dark", target: :_blank, rel: :noopener do %>
-                  Concentrateur
+                  <%= t(".concentrator") %>
                   <br>
                   <%= @network_cluster.room_server %>
                 <% end %>
@@ -24,7 +24,7 @@
                         style="background-color: <%= define_background_color(server: server, mode: params["bg"]) %>"
                         id="hub2-<%= room.id %>-<%= islet %>">
                     <%= link_to server_path(server), class: "link-dark", target: :_blank, rel: :noopener do %>
-                      Concentrateur
+                      <%= t(".concentrator") %>
                       <br>
                       <%= server %>
                     <% end %>
@@ -113,7 +113,7 @@
 
     <% connections.each do |server_id, connections| %>
       <% connections.each do |connection| %>
-        <% unless concentrateurs_ids.include?(connection[:server_id]) && concentrateurs_ids.exclude?(server_id)  %>
+        <% unless concentrator_ids.include?(connection[:server_id]) && concentrator_ids.exclude?(server_id)  %>
           if(disabled_stacks.indexOf(colors_hash['<%= connection[:cable_color] %>']) < 0) {
             drawInterSwitchsConnections('<%= server_id %>', '<%= connection[:server_id] %>', '<%= connection[:cable_color] %>')
           }

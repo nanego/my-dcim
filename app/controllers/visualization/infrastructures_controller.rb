@@ -23,9 +23,9 @@ module Visualization
       @servers = Server.where.not(network_types: [])
       # .includes(:cards, :ports => [:connection => [:port, :cable =>[:connections => [:port => :card]]]]).
       @network_cluster = @room.network_cluster(network_types: @filter.network_type)
-      @concentrateurs_ids = @network_cluster.servers.pluck(:id)
+      @concentrator_ids = @network_cluster.servers.pluck(:id)
 
-      fresh_when last_modified: [@servers.maximum(:updated_at), @network_cluster.servers.maximum(:updated_at)].max
+      fresh_when last_modified: [@servers.maximum(:updated_at), @network_cluster&.servers&.maximum(:updated_at)].compact.max
 
       @servers = @servers.includes(:frame, :stack, :ports, cards: [:ports])
 
