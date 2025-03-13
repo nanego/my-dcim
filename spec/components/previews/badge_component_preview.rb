@@ -73,13 +73,13 @@ class BadgeComponentPreview < ViewComponent::Preview
     render BadgeComponent.new(text, color:, type: :pill)
   end
   # @!endgroup
-  
+
   private
-  
+
   def color_options
     BadgeComponent::COLORS
   end
-  
+
   def type_options
     BadgeComponent::TYPES
   end
