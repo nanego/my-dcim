@@ -50,7 +50,7 @@ fr:
     tabs:
       details: Détails
 
-  order-in-progress: 'Commande en cours'
+  order-in-progress: "Commande en cours"
   inventories: Inventaires
   label_date: Date
   label_details: Détails
@@ -148,8 +148,7 @@ fr:
       title: Modifier le site
     update:
       flashes:
-        updated:
-          Site a bien été modifié.
+        updated: Site a bien été modifié.
     form:
       add_contact_assignment: Assigner un contact
     destroy:
@@ -301,7 +300,7 @@ fr:
       title: Liste des ports cablés
     update:
       flashes:
-        updated:  Le port a été mis à jour.
+        updated: Le port a été mis à jour.
     destroy:
       flashes:
         destroyed: Le port a été supprimé.
@@ -374,8 +373,11 @@ fr:
     index:
       title: Synchronisation avec GLPI
       start_synchronization: Synchroniser avec GLPI
-      settings: Configuration
+      configuration: Configuration
       synchronised_categories_list: "Liste des catégories qui seront synchronisées : %{categories}"
+      last_complete_synch: "Dernière synchronisation complète :"
+      none: aucune
+      synchronizing: "Synchronisation en cours..."
     settings:
       title: Configuration de la synchronisation
       category_ids: Sélectionner les catégories à activer pour la synchronisation
@@ -570,7 +572,7 @@ fr:
 
   devise:
     registrations:
-      signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'
+      signed_up: "Vous pouvez désormais vous connecter avec Cerbère"
       edit:
         action:
           show_authentication_token: Afficher la clé API
@@ -600,7 +602,7 @@ fr:
         ports: Ports
         unreferenced_client: Le port correspondant de la carte jumelle est câblé
         no_client: Le port correspondant de la carte jumelle n'est pas câblé
-      background_color: 'Couleur de fond : %{bg}'
+      background_color: "Couleur de fond : %{bg}"
       background_choices:
         modele: Modèle
         gestion: Gestionnaire
@@ -702,10 +704,10 @@ fr:
       help-setpoint: "Operate>Valeurs>Air>Temperature Consigne"
       help-min-setpoint: "Operate>Valeurs>Air>Temperature Consigne"
       info-temperatures: "Si T<sub>interne</sub>-T<sub>externe</sub> < DTC start,
-                          alors ventilation = débit minimal
-                          \n\r
-                          Si T<sub>interne</sub>-T<sub>externe</sub> > DTC start + DTC range,
-                          alors ventilation = débit maximal"
+        alors ventilation = débit minimal
+        \n\r
+        Si T<sub>interne</sub>-T<sub>externe</sub> > DTC start + DTC range,
+        alors ventilation = débit maximal"
       day: Jour
       night: Nuit
   bays:
@@ -814,7 +816,7 @@ fr:
   helpers:
     placeholder:
       composant:
-        name: 'Nom'
+        name: "Nom"
     submit:
       create: Créer
       update: Modifier
