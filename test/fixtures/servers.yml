@@ -10,15 +10,6 @@ one:
   critique: false
   domaine_id: 1
   gestion_id: 1
-  fc_total: 1
-  fc_utilise: 1
-  rj45_total: 1
-  rj45_utilise: 1
-  rj45_futur: 1
-  ipmi_utilise: 1
-  ipmi_futur: 1
-  rj45_cm: 1
-  ipmi_dedie: 1
   position: 39
   stack_id: 1
 
@@ -31,15 +22,6 @@ two:
   critique: false
   domaine_id: 1
   gestion_id: 1
-  fc_total: 1
-  fc_utilise: 1
-  rj45_total: 1
-  rj45_utilise: 1
-  rj45_futur: 1
-  ipmi_utilise: 1
-  ipmi_futur: 1
-  rj45_cm: 1
-  ipmi_dedie: 1
   position: 38
   stack_id: 1
 
@@ -61,15 +43,6 @@ with_cluster:
   critique: false
   domaine_id: 1
   gestion_id: 1
-  fc_total: 1
-  fc_utilise: 1
-  rj45_total: 1
-  rj45_utilise: 1
-  rj45_futur: 1
-  ipmi_utilise: 1
-  ipmi_futur: 1
-  rj45_cm: 1
-  ipmi_dedie: 1
   position: 40
   stack_id: 1
 
@@ -83,15 +56,6 @@ four:
   critique: false
   domaine_id: 1
   gestion_id: 1
-  fc_total: 1
-  fc_utilise: 1
-  rj45_total: 1
-  rj45_utilise: 1
-  rj45_futur: 1
-  ipmi_utilise: 1
-  ipmi_futur: 1
-  rj45_cm: 1
-  ipmi_dedie: 1
   position: 39
   stack_id: 1
 
