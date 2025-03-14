@@ -11,7 +11,7 @@ RSpec.describe ServersProcessor do
   let(:attributes) do
     {
       frame: frames(:one), gestion: gestions(:one), domaine: domaines(:switch), modele: modeles(:one),
-      cluster: clusters(:cloud_c1), server_state: server_states(:one), stack: stacks(:red)
+      cluster: clusters(:cloud_c1), stack: stacks(:red)
     }
   end
 

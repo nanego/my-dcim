@@ -30,7 +30,6 @@ fr:
       color: Couleur
       enclosure: Enclosure
       user: Utilisateur
-      server_state: Statut
       changelog_entry: Changelog
       cable: Câble
       connection: Connexion
@@ -90,7 +89,6 @@ fr:
         islet: Ilot
         frame_id: Châssis
         position: Position
-        server_state_id: Etat
         modele_id: Modèle
         critique: Critique
         gestion_id: Gestionnaire

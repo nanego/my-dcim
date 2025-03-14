@@ -52,8 +52,7 @@
           <% if view_type == 'back' %>
             <%= content_tag_for :li, server,
                                 class: class_names("list-group-item truncate server_back #{server.modele.try(:category).try(:name).try(:parameterize)}",
-                                                  striped: server.server_state_id == 1,
-                                                  relegated: highlighted_servers_ids.exclude?(server.id) || (params[:bg]=="wiring" && action_name == "print" && server.server_state_id != 1),
+                                                  relegated: highlighted_servers_ids.exclude?(server.id) || (params[:bg]=="wiring" && action_name == "print"),
                                                   colorized_background: bgModeleColor.present?
                                 ),
                                 style: "min-height: #{settings[:min_height] * (server.modele.try(:u).to_i > 0 ? server.modele.u : 1)}px;padding: 3px 3px 3px 20px;",
@@ -72,8 +71,7 @@
           <% else %>
             <%= content_tag_for :li, server,
                                 class: class_names("list-group-item truncate #{server.modele.try(:category).try(:name).try(:parameterize)}",
-                                                   striped: server.server_state_id == 1,
-                                                   relegated: highlighted_servers_ids.exclude?(server.id) || (params[:bg]=="wiring" && action_name == "print" && server.server_state_id != 1),
+                                                   relegated: highlighted_servers_ids.exclude?(server.id) || (params[:bg]=="wiring" && action_name == "print"),
                                                    colorized_background: bgModeleColor.present?
                                 ),
                                 style: "height: #{settings[:min_height] * u_server - (u_server - 1)}px;background-color:#{bgModeleColor} !important;",

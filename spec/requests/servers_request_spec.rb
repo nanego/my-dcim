@@ -218,8 +218,6 @@ RSpec.describe "/servers" do
   end
 
   describe "GET /import_csv" do
-    fixtures :server_states
-
     before { get import_csv_servers_path }
 
     it { expect(response).to have_http_status(:success) }
@@ -237,7 +235,7 @@ RSpec.describe "/servers" do
     it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
       expect do
         post import_servers_path, params: {
-          import: { file: csv, room_id: Room.first.id, server_state_id: ServerState.first.id }
+          import: { file: csv, room_id: Room.first.id }
         }
       end.to change(Server, :count).by(26).and change(Frame, :count).and change(Bay, :count)
 

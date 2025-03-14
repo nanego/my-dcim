@@ -9,10 +9,9 @@ class ImportEquipmentByCsv
     new(**args).call
   end
 
-  def initialize(file:, room_id:, equipment_status_id:)
+  def initialize(file:, room_id:)
     @file = file
     @room_id = room_id
-    @equipment_status_id = equipment_status_id
   end
 
   def call
@@ -44,7 +43,6 @@ class ImportEquipmentByCsv
           end
 
           server.position = data['Position'] if data['Position'].present?
-          server.server_state = equipment_status
           server.modele = modele
           server.name = data['Nom']
           server.numero = data['Numero']
@@ -72,14 +70,10 @@ class ImportEquipmentByCsv
 
   private
 
-  attr_reader :room_id, :file, :equipment_status_id
+  attr_reader :room_id, :file
 
   def room
     @room ||= Room.find(room_id)
-  end
-
-  def equipment_status
-    @equipment_status ||= ServerState.find_by_id(equipment_status_id)
   end
 
   def init_slots(data, server)
