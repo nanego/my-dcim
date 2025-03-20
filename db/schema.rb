@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_05_152636) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_06_110910) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -409,12 +409,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_152636) do
     t.index ["slug"], name: "index_rooms_on_slug", unique: true
   end
 
-  create_table "server_states", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-  end
-
   create_table "servers", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "modele_id"
@@ -447,7 +441,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_152636) do
     t.string "action_conf_reseau"
     t.integer "position"
     t.integer "cluster_id"
-    t.integer "server_state_id"
     t.string "comment"
     t.string "slug"
     t.string "side"
@@ -460,7 +453,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_152636) do
     t.index ["gestion_id"], name: "index_servers_on_gestion_id"
     t.index ["modele_id"], name: "index_servers_on_modele_id"
     t.index ["numero"], name: "index_servers_on_numero", unique: true
-    t.index ["server_state_id"], name: "index_servers_on_server_state_id"
     t.index ["slug"], name: "index_servers_on_slug", unique: true
   end
 
@@ -556,6 +548,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_152636) do
   add_foreign_key "servers", "clusters"
   add_foreign_key "servers", "gestions"
   add_foreign_key "servers", "modeles"
-  add_foreign_key "servers", "server_states"
   add_foreign_key "servers", "stacks"
 end

@@ -98,8 +98,7 @@ class ServersController < ApplicationController
 
   def import
     value = ImportEquipmentByCsv.call(file: params[:import][:file],
-                                      room_id: params[:import][:room_id],
-                                      equipment_status_id: params[:import][:server_state_id])
+                                      room_id: params[:import][:room_id])
     if value.is_a?(Frame)
       redirect_to frame_path(value), notice: t(".flashes.imported")
     else
@@ -134,7 +133,7 @@ class ServersController < ApplicationController
   def server_params
     params.expect(
       server: [
-        :photo, :stack_id, :server_state_id, :comment, :cluster_id, :position, :frame_id, :gestion_id, :fc_futur,
+        :photo, :stack_id, :comment, :cluster_id, :position, :frame_id, :gestion_id, :fc_futur,
         :rj45_cm, :name, :modele_id, :numero, :critique, :domaine_id, :fc_total, :fc_utilise, :rj45_total,
         :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur, :ipmi_dedie,
         :frame, # TODO: Check if it should be removed or if it's used somewhere
@@ -148,7 +147,7 @@ class ServersController < ApplicationController
   def search_params
     params.permit(:sort, :sort_by, :page, :per_page, :q,
                   network_types: [], bay_ids: [], islet_ids: [], room_ids: [], frame_ids: [], cluster_ids: [],
-                  gestion_ids: [], domaine_ids: [], modele_ids: [], server_state_ids: [], stack_ids: [], category_ids: [])
+                  gestion_ids: [], domaine_ids: [], modele_ids: [], stack_ids: [], category_ids: [])
   end
 
   def track_frame_and_position(old_values, new_values)
