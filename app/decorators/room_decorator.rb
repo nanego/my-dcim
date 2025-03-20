@@ -2,9 +2,9 @@
 
 class RoomDecorator < ApplicationDecorator
   BADGE_COLORS = {
-    active: "text-bg-success",
-    passive: "text-bg-warning",
-    planned: "text-bg-primary"
+    active: :success,
+    passive: :warning,
+    planned: :primary
   }.freeze
 
   class << self
@@ -21,8 +21,13 @@ class RoomDecorator < ApplicationDecorator
     end
   end
 
-  def badge_color_for_status
-    BADGE_COLORS[status.to_sym]
+  def status_to_badge_component
+    return { plain: nil } unless Room.statuses.key?(status)
+
+    text = Room.human_attribute_name("status.#{status}")
+    color = BADGE_COLORS[status.to_sym]
+
+    BadgeComponent.new(text, color:, variant: :pill)
   end
 
   def access_control_to_human

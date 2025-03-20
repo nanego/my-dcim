@@ -9,7 +9,7 @@
     <div class="<%= class_names("islet ms-3", "pt-3": i > 0) %>">
       <% if islet.name.present? %>
         <h6 class="my-2">
-          <%= render LabelComponent.new(type: :primary) do %>
+          <%= render BadgeComponent.new(color: :primary) do %>
             <%= link_to("Ilot #{islet}", visualization_room_path(room, islet: islet.name, view: params[:view], bg: params[:bg])) %>
           <% end %>
         </h6>

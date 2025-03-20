@@ -36,10 +36,10 @@
     <% table.with_column(t("moves.form.initial_bay")) do |move| %>
       <%= link_to move.moveable.frame, frame_path(move.moveable.frame) %>
       <div>
-        <span class="badge text-body bg-secondary-subtle border border-secondary-subtle rounded-pill">
+        <%= render BadgeComponent.new(color: :secondary, variant: :pill) do %>
           <span class="fw-lighter"><%= Server.human_attribute_name(:position) %> :</span>
           <span class="font-monospace"><%= move.moveable.position %></span>
-        </span>
+        <% end %>
       </div>
     <% end %>
 
