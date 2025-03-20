@@ -50,8 +50,4 @@ RSpec.describe ChangelogEntry do
   describe "#split_diff" do
     pending "TODO"
   end
-
-  describe "#action_label_to_component" do
-    pending "TODO"
-  end
 end

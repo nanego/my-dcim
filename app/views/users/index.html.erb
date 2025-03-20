@@ -22,19 +22,16 @@
         <li role="presentation" class="nav-item">
           <%= link_to users_path, class: class_names("nav-link", "active": !params[:filter]) do %>
             <%= t(".unsuspended") %>
-            <span class="<%= class_names("badge text-bg-primary", "text-bg-light": !params[:filter]) %>">
-              <%= User.unsuspended.count %>
-            </span>
+            <%= render BadgeComponent.new(User.unsuspended.count,
+                                          color: params[:filter].present? ? :primary : :light) %>
           <% end %>
         </li>
         <li role="presentation" class="nav-item">
           <%= link_to users_path(filter: :suspended),
                       class: class_names("nav-link", "active": params[:filter] == "suspended") do %>
             <%= t(".suspended") %>
-            <span class="<%= class_names("badge text-bg-primary",
-                                          "text-bg-light": params[:filter] == "suspended") %>">
-              <%= User.suspended.count %>
-            </span>
+            <%= render BadgeComponent.new(User.suspended.count,
+                                          color: params[:filter] == "suspended" ? :light : :primary) %>
           <% end %>
         </li>
       </ul>

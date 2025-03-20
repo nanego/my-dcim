@@ -84,9 +84,7 @@
 
           <dt class="pb-2"><%= Room.human_attribute_name(:status) %></dt>
           <dd class="mb-0 pb-2 ps-3">
-            <span class="badge rounded-pill <%= @room.decorated.badge_color_for_status %>">
-              <%= Room.human_attribute_name("status.#{@room.status}") %>
-            </span>
+            <%= render @room.decorated.status_to_badge_component %>
           </dd>
         </dl>
       <% end %>
@@ -106,7 +104,7 @@
             <div class="<%= class_names("islet", "pt-4": i > 0, "pt-2 px-2": islets.length == 1) %>">
               <% if islet.name.present? %>
                 <h6 class="mb-2">
-                  <%= render LabelComponent.new(type: :primary) do %>
+                  <%= render BadgeComponent.new(color: :primary) do %>
                     <%= link_to("Ilot #{islet}", visualization_room_path(@room, islet: islet.name, view: params[:view], bg: params[:bg])) %>
                   <% end %>
                 </h6>
