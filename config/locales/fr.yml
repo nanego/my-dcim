@@ -383,16 +383,6 @@ fr:
       category_ids: Sélectionner les catégories à activer pour la synchronisation
       flashes:
         saved: "La configuration a bien été mise à jour."
-  server_states:
-    create:
-      flashes:
-        created: Server state a été créé avec succès.
-    update:
-      flashes:
-        updated: Server state a été mis à jour.
-    destroy:
-      flashes:
-        destroyed: Server state a bien été supprimé.
   servers:
     form:
       network_type: Réseau %{type}

@@ -114,7 +114,7 @@
                                             rj45_futur: server.try(:rj45_futur) || 0,
                                             fc_futur: server.try(:fc_futur) } %>
                                 <%= content_tag_for :li, server,
-                                                    class: "server truncate #{server.modele.try(:category).try(:name).try(:parameterize)} #{server.server_state_id == 1 ? 'striped' : ''}",
+                                                    class: "server truncate #{server.modele.try(:category).try(:name).try(:parameterize)}",
                                                     style: "height: #{server_height * u_server}px;background-color:#{bgModeleColor} !important;",
                                                     title: h("#{server.name}"),
                                                     data: data do %>
