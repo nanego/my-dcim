@@ -110,9 +110,7 @@
                                 <% bgModeleColor = define_background_color(server: server, mode: bg) %>
                                 <% u_server = server.modele.try(:u).to_i > 0 ? server.modele.u : 1 %>
                                 <% data = { u: u_server,
-                                            num_u: u_disponibles,
-                                            rj45_futur: server.try(:rj45_futur) || 0,
-                                            fc_futur: server.try(:fc_futur) } %>
+                                            num_u: u_disponibles } %>
                                 <%= content_tag_for :li, server,
                                                     class: "server truncate #{server.modele.try(:category).try(:name).try(:parameterize)}",
                                                     style: "height: #{server_height * u_server}px;background-color:#{bgModeleColor} !important;",
