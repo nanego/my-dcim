@@ -23,8 +23,8 @@ class BadgeComponent < ApplicationComponent
   end
 
   def css_classes
-    "badge text-#{@color}-emphasis bg-#{@color}-subtle border border-#{@color}-subtle \
-    #{"rounded-pill" if @type == :pill}"
+    class_names("badge", "text-#{@color}-emphasis bg-#{@color}-subtle border border-#{@color}-subtle",
+    "rounded-pill": @type == :pill)
   end
 
   def content
