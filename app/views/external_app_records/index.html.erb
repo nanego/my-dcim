@@ -19,7 +19,7 @@
         <span class="ms-2 d-none d-md-inline-flex"><%= t(".start_synchronization") %></span>
       <% end %>
 
-      <%= render ButtonComponent.new(t(".settings"),
+      <%= render ButtonComponent.new(t(".configuration"),
                                      url: settings_external_app_records_path,
                                      variant: :secondary,
                                      icon: "gear",
@@ -33,11 +33,12 @@
     <div id="sync_latest_text">
       <i class="bi bi-info-circle-fill me-2"></i>
       <span>
-        <span class="fst-italic">Dernière synchronisation complète :
+        <span class="fst-italic">
+          <%= t(".last_complete_synch") %>
           <%- if date = ExternalAppRequest.completed.order('updated_at desc').limit(1).pluck(:updated_at).last %>
             <%= l(date) %>
           <%- else %>
-            aucune
+            <%= t(".none")%>
           <%- end %>
         </span>
         <hr>
@@ -46,7 +47,7 @@
     </div>
 
     <div id="current_sync_status" class="d-none">
-      <span id="current_sync_status_label">Synchronisation en cours...</span>
+      <span id="current_sync_status_label"><%= t(".synchronizing") %></span>
       <span class="progress mt-2">
         <span id="current_sync_progress_bar"
               class="progress-bar progress-bar-striped"

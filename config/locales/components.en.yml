@@ -2,13 +2,22 @@ en:
   changelog_entries:
     object_list_component:
       loading: Loading ...
+
+  filter_component:
+    submit: Filter
+    reset: Reset%{filters_count}
+    total_with_filters: "Total: %{results_count} on %{total_count} results"
+    total: "Total: %{count}"
+
   form_errors_component:
     title:
-      one: '1 error occured while saving:'
-      other: '%{count} errors occured while saving:'
+      one: "1 error occured while saving:"
+      other: "%{count} errors occured while saving:"
+
   has_many_turbo_frame_component:
     loading: Loading ...
     see_more_filters: See more filters
+
   list:
     data_table_component:
       empty_table:
