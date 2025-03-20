@@ -27,7 +27,7 @@ class RoomDecorator < ApplicationDecorator
     text = Room.human_attribute_name("status.#{status}")
     color = BADGE_COLORS[status.to_sym]
 
-    BadgeComponent.new(text, color:, type: :pill)
+    BadgeComponent.new(text, color:, variant: :pill)
   end
 
   def access_control_to_human

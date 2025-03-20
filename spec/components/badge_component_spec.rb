@@ -47,8 +47,8 @@ RSpec.describe BadgeComponent, type: :component do
       it { expect { component }.to raise_error(ArgumentError) }
     end
 
-    context "with type" do
-      let(:kwargs) { { type: :pill } }
+    context "with variant" do
+      let(:kwargs) { { variant: :pill } }
 
       it do
         expect(rendered_component.to_html).to have_tag(
@@ -58,8 +58,8 @@ RSpec.describe BadgeComponent, type: :component do
       end
     end
 
-    context "with not valid type" do
-      let(:kwargs) { { type: :unknow } }
+    context "with not valid variant" do
+      let(:kwargs) { { variant: :unknow } }
 
       it { expect { component }.to raise_error(ArgumentError) }
     end

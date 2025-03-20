@@ -3,74 +3,74 @@
 class BadgeComponentPreview < ViewComponent::Preview
   # @param text "Content of badge"
   # @param color select :color_options
-  # @param type select :type_options
-  def default(text: "Badge", color: :primary, type: :default)
-    render BadgeComponent.new(text, color:, type:)
+  # @param variant select :variant_options
+  def default(text: "Badge", color: :primary, variant: :default)
+    render BadgeComponent.new(text, color:, variant:)
   end
 
   # @!group Colors
 
   # @param text "Content of badge"
-  # @param type select :type_options
-  def color_default(text: "Badge", type: :default)
-    render BadgeComponent.new(text, color: :primary, type:)
+  # @param variant select :variant_options
+  def color_default(text: "Badge", variant: :default)
+    render BadgeComponent.new(text, color: :primary, variant:)
   end
 
   # @param text "Content of badge"
-  # @param type select :type_options
-  def color_secondary(text: "Badge", type: :default)
-    render BadgeComponent.new(text, color: :secondary, type:)
+  # @param variant select :variant_options
+  def color_secondary(text: "Badge", variant: :default)
+    render BadgeComponent.new(text, color: :secondary, variant:)
   end
 
   # @param text "Content of badge"
-  # @param type select :type_options
-  def color_success(text: "Badge", type: :default)
-    render BadgeComponent.new(text, color: :success, type:)
+  # @param variant select :variant_options
+  def color_success(text: "Badge", variant: :default)
+    render BadgeComponent.new(text, color: :success, variant:)
   end
 
   # @param text "Content of badge"
-  # @param type select :type_options
-  def color_info(text: "Badge", type: :default)
-    render BadgeComponent.new(text, color: :info, type:)
+  # @param variant select :variant_options
+  def color_info(text: "Badge", variant: :default)
+    render BadgeComponent.new(text, color: :info, variant:)
   end
 
   # @param text "Content of badge"
-  # @param type select :type_options
-  def color_warning(text: "Badge", type: :default)
-    render BadgeComponent.new(text, color: :warning, type:)
+  # @param variant select :variant_options
+  def color_warning(text: "Badge", variant: :default)
+    render BadgeComponent.new(text, color: :warning, variant:)
   end
 
   # @param text "Content of badge"
-  # @param type select :type_options
-  def color_danger(text: "Badge", type: :default)
-    render BadgeComponent.new(text, color: :danger, type:)
+  # @param variant select :variant_options
+  def color_danger(text: "Badge", variant: :default)
+    render BadgeComponent.new(text, color: :danger, variant:)
   end
 
   # @param text "Content of badge"
-  # @param type select :type_options
-  def color_light(text: "Badge", type: :default)
-    render BadgeComponent.new(text, color: :light, type:)
+  # @param variant select :variant_options
+  def color_light(text: "Badge", variant: :default)
+    render BadgeComponent.new(text, color: :light, variant:)
   end
 
   # @param text "Content of badge"
-  # @param type select :type_options
-  def color_dark(text: "Badge", type: :default)
-    render BadgeComponent.new(text, color: :dark, type:)
+  # @param variant select :variant_options
+  def color_dark(text: "Badge", variant: :default)
+    render BadgeComponent.new(text, color: :dark, variant:)
   end
   # @!endgroup
 
-  # @!group Types
+  # @!group Variants
 
   # @param text "Content of badge"
   # @param color select :color_options
-  def type_default(text: "Badge", color: :primary)
-    render BadgeComponent.new(text, color:, type: :default)
+  def variant_default(text: "Badge", color: :primary)
+    render BadgeComponent.new(text, color:, variant: :default)
   end
 
   # @param text "Content of badge"
   # @param color select :color_options
-  def type_pill(text: "Badge", color: :primary)
-    render BadgeComponent.new(text, color:, type: :pill)
+  def variant_pill(text: "Badge", color: :primary)
+    render BadgeComponent.new(text, color:, variant: :pill)
   end
   # @!endgroup
 
@@ -80,7 +80,7 @@ class BadgeComponentPreview < ViewComponent::Preview
     BadgeComponent::COLORS
   end
 
-  def type_options
-    BadgeComponent::TYPES
+  def variant_options
+    BadgeComponent::VARIANTS
   end
 end
