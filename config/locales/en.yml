@@ -54,8 +54,39 @@ en:
       back_wiring: Wiring - Back panel
     port_list: Ports list
 
+  external_app_records:
+    index:
+      title: GLPI synchronization
+      start_synchronization: Synchronize with GLPI
+      configuration: Configuration
+      synchronised_categories_list: "List of categories to be synchronised: %{categories}"
+      last_complete_synch: "Last complete synchronisation:"
+      none: none
+      synchronizing: Synchronizing...
+    settings:
+      title: Synchronisation configuration
+      category_ids: Select the categories to be activated for synchronisation
+      flashes:
+        saved: "The configuration has been updated successfully."
+
+  filters:
+    attributes:
+      filter:
+        q: Search
+        server_name: Material's name
+        external_app_record_frame_ids: Location
+        external_serial_status: Synchronization
+        modele_ids: Model
+    placeholder:
+      search: Search...
+      quicksearch: Quick search
+
   form:
     submit: Confirm
+
+  islets:
+    infrastructure:
+      concentrator: Concentrator
 
   layouts:
     breadcrumb:
@@ -134,15 +165,6 @@ en:
       action:
         delete: Delete this connection
 
-  islets:
-    infrastructure:
-      concentrator: Concentrator
-
-  filters:
-    attributes:
-      filter:
-        server_name: Material's name
-
   power_distribution_units:
     index:
       title: Electricity
@@ -186,6 +208,11 @@ en:
         ports: Ports
         unreferenced_client: The corresponding port on the twin card is wired
         no_client: The corresponding port on the twin card is not wired
+
+  search:
+    index:
+      results: Search results
+      no_results_found: No results found
 
   select:
     placeholder: Type to filter...
@@ -253,12 +280,6 @@ en:
     flashes:
       connections_destroyed: Connections have been deleted.
       connections_not_destroyed: An error prevented the connections from being deleted.
-  bulk:
-    servers:
-      destroy:
-        flashes:
-          destroyed: The I.T. equipments selected has been removed.
-          not_destroyed: An error occurred when deleting at least one I.T. equipment.
 
   show:
     cards:
