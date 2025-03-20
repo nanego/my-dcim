@@ -41,6 +41,11 @@ class ApplicationController < ActionController::Base
     collection.reorder(column => direction)
   end
 
+  def breadcrumb
+    @breadcrumb ||= Breadcrumb.new
+  end
+  helper_method :breadcrumb
+
   private
 
   def prepare_exception_notifier
