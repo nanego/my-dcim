@@ -30,9 +30,9 @@ module Page
       </div>
     ERB
 
-    def initialize(title:, breadcrumb_steps:, back_button_url: nil)
+    def initialize(title:, breadcrumb:, back_button_url: nil)
       @title = title
-      @breadcrumb_steps = breadcrumb_steps
+      @breadcrumb = breadcrumb
       @back_button_url = back_button_url
 
       super
