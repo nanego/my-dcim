@@ -44,9 +44,7 @@
           <% u_server = server.modele.try(:u).to_i > 0 ? server.modele.u : 1 %>
           <% data = {
             u: u_server,
-            num_u: u_disponibles,
-            rj45_futur: server.try(:rj45_futur) || 0,
-            fc_futur: server.try(:fc_futur)
+            num_u: u_disponibles
           } %>
 
           <% if view_type == 'back' %>

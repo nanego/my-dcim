@@ -133,9 +133,8 @@ class ServersController < ApplicationController
   def server_params
     params.expect(
       server: [
-        :photo, :stack_id, :comment, :cluster_id, :position, :frame_id, :gestion_id, :fc_futur,
-        :rj45_cm, :name, :modele_id, :numero, :critique, :domaine_id, :fc_total, :fc_utilise, :rj45_total,
-        :rj45_utilise, :rj45_futur, :ipmi_utilise, :ipmi_futur, :ipmi_dedie,
+        :photo, :stack_id, :comment, :cluster_id, :position, :frame_id, :gestion_id, :name, :modele_id,
+        :numero, :critique, :domaine_id,
         :frame, # TODO: Check if it should be removed or if it's used somewhere
         { network_types: [] },
         { cards_attributes: [%i[composant_id card_type_id twin_card_id orientation name first_position _destroy id]] },
