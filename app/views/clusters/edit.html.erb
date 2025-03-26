@@ -1,14 +1,11 @@
 <%
-  provide(:title, "#{Cluster.model_name.human.pluralize} | #{@cluster} | #{t("action.edit")}")
-
-  breadcrumb_steps = {
-    Cluster.model_name.human.pluralize => clusters_path,
-    @cluster => cluster_path(@cluster),
-    t("action.edit") => ""
-  }
+  breadcrumb
+    .add(Cluster.model_name.human.pluralize, clusters_path)
+    .add(@cluster, cluster_path(@cluster))
+    .add(t("action.edit"))
 %>
 
-<%= render Page::HeadingEditComponent.new(resource: @cluster, title: t(".title"), breadcrumb_steps:) %>
+<%= render Page::HeadingEditComponent.new(resource: @cluster, title: t(".title"), breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>
