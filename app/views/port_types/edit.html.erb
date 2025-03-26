@@ -1,14 +1,11 @@
 <%
-  provide(:title, "#{PortType.model_name.human(count: 2)} | #{@port_type.name} | #{t("action.edit")}")
-
-  breadcrumb_steps = {
-    PortType.model_name.human(count: 2) => port_types_path,
-    @port_type => port_type_path(@port_type),
-    t("action.edit") => ""
-  }
+  breadcrumb
+    .add(PortType.model_name.human(count: 2), port_types_path)
+    .add(@port_type, port_type_path(@port_type))
+    .add(t("action.edit")))
 %>
 
-<%= render Page::HeadingEditComponent.new(resource: @port_type, title: t(".title"), breadcrumb_steps:) %>
+<%= render Page::HeadingEditComponent.new(resource: @port_type, title: t(".title"), breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>

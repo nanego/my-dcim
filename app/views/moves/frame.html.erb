@@ -1,11 +1,11 @@
 <%
-  provide(:title, "#{Move.model_name.human(count: 2)} | #{Bay.model_name.human} #{@frame}")
-
-  breadcrumb_steps = { Move.model_name.human(count: 2) => moves_path, "#{Bay.model_name.human} #{@frame}" => "" }
+  breadcrumb
+  add(Move.model_name.human(count: 2), moves_path)
+    .add("#{Bay.model_name.human} #{@frame}")
 %>
 
 <%= render Page::HeadingComponent.new(
-  title: t(".title", frame: @frame), breadcrumb_steps:, back_button_url: moves_path
+  title: t(".title", frame: @frame), breadcrumb:, back_button_url: moves_path
 ) %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">

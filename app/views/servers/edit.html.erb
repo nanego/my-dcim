@@ -1,11 +1,11 @@
-<% provide(:title, "#{Server.model_name.human} | #{@server.name} | #{t(".title")}") %>
-<% breadcrumb_steps = {
-    Server.model_name.human => servers_path,
-    @server.name => server_path(@server),
-    t("action.edit") => ""
-} %>
+<%
+  breadcrumb
+    .add(Server.model_name.human, servers_path)
+    .add(@server.name, server_path(@server))
+    .add(t("action.edit"))
+%>
 
-<%= render Page::HeadingEditComponent.new(resource: @server, title: t(".title"), breadcrumb_steps:) %>
+<%= render Page::HeadingEditComponent.new(resource: @server, title: t(".title"), breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>
