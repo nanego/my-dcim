@@ -1,12 +1,12 @@
-<% provide(:title, t(".title")) %>
-<% breadcrumb_steps = {
-  Server.model_name.human => servers_path,
-  t("external_app_records.index.title") => external_app_records_path,
-  t("action.configure") => "" }
+<%
+  breadcrumb
+    .add(Server.model_name.human, servers_path)
+    .add(t("external_app_records.index.title"), external_app_records_path)
+    .add(t("action.configure"))
 %>
 
 <%= render Page::HeadingComponent.new(
-  title: t(".title"), breadcrumb_steps:, back_button_url: external_app_records_path
+  title: t(".title"), breadcrumb:, back_button_url: external_app_records_path
 ) %>
 <div class="col-12 p-4 border-top">
   <%= form_with(model: @settings, url: settings_external_app_records_path, method: :put, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>

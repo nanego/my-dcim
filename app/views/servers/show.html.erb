@@ -1,12 +1,13 @@
-<% title = "#{@server.modele.try(:category).try(:name)} #{@server.name}" %>
-<% provide(:title, "#{Server.model_name.human} | #{title}") %>
+<% 
+  title = "#{@server.modele.try(:category).try(:name)} #{@server.name}"
 
-<% breadcrumb_steps = {
-  Server.model_name.human => servers_path,
-  @server.name => ""
-} %>
+  breadcrumb
+    .add(Server.model_name.human, servers_path)
+    .add(@server.name)
+  }
+%>
 
-<%= render Page::HeadingShowComponent.new(resource: @server, title: title, breadcrumb_steps:) do |heading| %>
+<%= render Page::HeadingShowComponent.new(resource: @server, title: title, breadcrumb:) do |heading| %>
   <% heading.with_extra_buttons do %>
     <%= render ButtonComponent.new(t("action.move"),
                                   url: new_move_path(server_id: @server.id),
