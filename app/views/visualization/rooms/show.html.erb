@@ -9,14 +9,14 @@
   provide :title, "#{t("visualization.title")} | #{title}"
 
   breadcrumb_steps = {
-    t("visualization.title") => overview_rooms_path,
-    title => "",
-  }
+    breadcrumb
+    .add(t("visualization.title"), overview_rooms_path)
+    .add(title.dup)
 
   title = t("visualization.title") + " " + title
 %>
 
-<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
 <div class="p-4 border-top d-flex flex-column row-gap-4 room_overview show_room" id="full-overview">
   <div class="card" style="min-height: 55px;">
     <div id="collapseRoomOverviewCardBody" class="collapse show">

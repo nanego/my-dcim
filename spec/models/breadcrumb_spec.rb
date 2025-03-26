@@ -85,7 +85,7 @@ RSpec.describe Breadcrumb do
     it { expect(breadcrumb.steps.second.title).to eq("Server #1") }
     it { expect(breadcrumb.steps.second.url).to eq("/servers/1") }
     it { expect(breadcrumb.steps.third.title).to eq("Edit") }
-    it { expect(breadcrumb.steps.third.url).to eq(nil) }
+    it { expect(breadcrumb.steps.third.url).to be_nil }
     it { expect(breadcrumb.steps.size).to eq(3) }
   end
 
