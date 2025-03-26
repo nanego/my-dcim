@@ -3,7 +3,6 @@
     .add(Contact.model_name.human.pluralize, contacts_path)
     .add(@contact, contact_path(@contact))
     .add(t("action.edit"))
-  }
 %>
 
 <%= render Page::HeadingEditComponent.new(resource: @contact, title: t(".title"), breadcrumb:) %>
