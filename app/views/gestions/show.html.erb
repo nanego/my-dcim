@@ -1,12 +1,10 @@
 <%
-  provide(:title, "#{Gestion.model_name.human.pluralize} | #{@gestion}")
-
-  breadcrumb_steps = {
-    Gestion.model_name.human.pluralize => gestions_path, @gestion => ""
-  }
+  breadcrumb
+    .add(Gestion.model_name.human.pluralize, gestions_path)
+    .add(@gestion)
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @gestion, title: @gestion.name, breadcrumb_steps:) %>
+<%= render Page::HeadingShowComponent.new(resource: @gestion, title: @gestion.name, breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">

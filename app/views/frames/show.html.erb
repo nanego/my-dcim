@@ -1,10 +1,11 @@
 <%
-  provide(:title, "#{Frame.model_name.human.pluralize} | #{@frame.name}")
-  breadcrumb_steps = { Frame.model_name.human.pluralize => frames_path, @frame.name => "" }
+  breadcrumb
+    .add(Frame.model_name.human.pluralize, frames_path)
+    .add(@frame.name)
 %>
 
 <%= render Page::HeadingShowComponent.new(
-  resource: @frame, title: t(".title", frame: @frame.name), breadcrumb_steps:
+  resource: @frame, title: t(".title", frame: @frame.name), breadcrumb:
 ) do |heading| %>
   <% heading.with_extra_buttons do %>
     <% render ButtonComponent.new(t("visualization.title"),
