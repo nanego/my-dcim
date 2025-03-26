@@ -452,12 +452,17 @@ dd {
   }
 
   .btn-collapse-vlans {
-    transition: transform 0.3s ease-in-out;
+    span.bi {
+      display: inline-block;
+      transition: transform 0.3s ease-in-out;
+    }
 
     &[aria-expanded="true"] {
-      transform: rotate(-180deg);
+      span.bi {
+        transform: rotate(-180deg);
+      }
     }
-   }
+  }
 
   .cable {
     &.R {
