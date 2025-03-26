@@ -1,11 +1,8 @@
 <%
-  title = Stack.model_name.human.pluralize
-  breadcrumb_steps = { title => "" }
-
-  provide(:title, title)
+  breadcrumb.add(title = Stack.model_name.human.pluralize)
 %>
 
-<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) do |heading| %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
     <% render ButtonComponent.new(t(".new_stack"),
                                   url: new_stack_path,

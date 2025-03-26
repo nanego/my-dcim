@@ -1,11 +1,12 @@
 <%
   title = t("rooms.infrastructure_view.title")
-  breadcrumb_steps = { t("visualization.title") => overview_rooms_path, title => nil }
-
-  provide(:title, title)
+  
+  breadcrumb
+    .add(t("visualization.title"), overview_rooms_path)
+    .add(title)
 %>
 
-<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
 
 <div data-turbo="true">
   <div class="p-4 border-top d-flex flex-column row-gap-4">

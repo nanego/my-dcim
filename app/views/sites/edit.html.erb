@@ -1,14 +1,11 @@
 <%
-  provide(:title, "#{Site.model_name.human.pluralize} | #{@site.name} | #{t("action.edit")}")
-
-  breadcrumb_steps = {
-    Site.model_name.human.pluralize => sites_path,
-    @site => site_path(@site),
-    t("action.edit") => ""
-  }
+  breadcrumb
+    .add(Site.model_name.human.pluralize, sites_path)
+    .add(@site, site_path(@site))
+    .add(t("action.edit"))
 %>
 
-<%= render Page::HeadingEditComponent.new(resource: @site, title: t(".title"), breadcrumb_steps:) %>
+<%= render Page::HeadingEditComponent.new(resource: @site, title: t(".title"), breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>
