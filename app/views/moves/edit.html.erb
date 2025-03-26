@@ -1,13 +1,10 @@
 <%
-  provide(:title, "#{Move.model_name.human(count: 2)} | #{@move.id} | #{t("action.edit")}")
-
-  breadcrumb_steps = {
-    Move.model_name.human(count: 2) => moves_path,
-    t("action.edit") => ""
-  }
+  breadcrumb
+    .add(Move.model_name.human(count: 2), moves_path)
+    .add(t("action.edit"))
 %>
 
-<%= render Page::HeadingNewComponent.new(resource: @move, title: t(".title"), breadcrumb_steps:) %>
+<%= render Page::HeadingNewComponent.new(resource: @move, title: t(".title"), breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>

@@ -1,12 +1,12 @@
-<% provide(:title, "#{t("power_distribution_units.index.title")} | #{@pdu.name} | #{t(".title")}") %>
-<% breadcrumb_steps = {
-    t("power_distribution_units.index.title") => power_distribution_units_path, # TODO: prefer use ActiveRecord translation of Modele name
-    @pdu.name => power_distribution_unit_path(@pdu),
-    t("action.edit") => ""
-} %>
+<%
+  breadcrumb
+    .add(t("power_distribution_units.index.title"), power_distribution_units_path) # TODO: prefer use ActiveRecord translation of Modele name
+    .add(@pdu.name, power_distribution_unit_path(@pdu))
+    .add(t("action.edit"))
+%>
 
 <%= render Page::HeadingComponent.new(
-  title: t(".title"), breadcrumb_steps:, back_button_url: power_distribution_unit_path(@pdu)
+  title: t(".title"), breadcrumb:, back_button_url: power_distribution_unit_path(@pdu)
 ) do |heading| %>
   <% heading.with_right_content do %>
     <div class="align-self-center d-inline-flex">

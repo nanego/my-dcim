@@ -1,14 +1,11 @@
 <%
-  provide(:title, "#{Room.model_name.human.pluralize} | #{@room.name} | #{t("action.edit")}")
-
-  breadcrumb_steps = {
-    Room.model_name.human.pluralize => rooms_path,
-    @room.name => room_path(@room),
-    t("action.edit") => ""
-  }
+  breadcrumb
+    .add(Room.model_name.human.pluralize, rooms_path)
+    .add(@room.name, room_path(@room))
+    .add(t("action.edit"))
 %>
 
-<%= render Page::HeadingEditComponent.new(resource: @room, title: t(".title"), breadcrumb_steps:) %>
+<%= render Page::HeadingEditComponent.new(resource: @room, title: t(".title"), breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>

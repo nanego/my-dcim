@@ -1,12 +1,12 @@
-<% provide(:title, "#{Server.model_name.human} | #{@original_server.name} | #{t("action.duplicate")}") %>
-<% breadcrumb_steps = {
-    Server.model_name.human => servers_path,
-    @original_server.name => server_path(@original_server),
-    t("action.duplicate") => ""
-} %>
+<%
+  breadcrumb
+    .add(Server.model_name.human, servers_path)
+    .add(@original_server.name, server_path(@original_server))
+    .add(t("action.duplicate"))
+%>
 
 <%= render Page::HeadingEditComponent.new(
-  resource: @original_server, title: t(".title", server_name: @original_server.name), breadcrumb_steps:
+  resource: @original_server, title: t(".title", server_name: @original_server.name), breadcrumb:
 ) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
