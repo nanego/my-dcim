@@ -1,12 +1,10 @@
 <%
-  provide(:title, "#{Color.model_name.human.pluralize} | #{@color.code}")
-
-  breadcrumb_steps = {
-    Color.model_name.human.pluralize => colors_path, @color.code => ""
-  }
+  breadcrumb
+    .add(Color.model_name.human.pluralize, colors_path)
+    .add(@color.code)
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @color, title: @color.code, breadcrumb_steps:) %>
+<%= render Page::HeadingShowComponent.new(resource: @color, title: @color.code, breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
