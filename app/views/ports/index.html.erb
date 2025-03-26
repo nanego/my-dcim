@@ -1,19 +1,17 @@
 <%
   title = t(".title")
-  breadcrumb_steps = {}
-  breadcrumb_steps[t("visualization.title")] = overview_rooms_path
-  if @room.present?
-    breadcrumb_steps["#{Room.model_name.human} #{@room.name}"] = visualization_room_path(@room)
-  elsif @frame.present?
-    breadcrumb_steps["#{Room.model_name.human} #{@frame.room.name}"] = visualization_room_path(@frame.room)
-  end
-  breadcrumb_steps["#{Frame.model_name.human} #{@frame.name}"] = visualization_frame_path(@frame) if @frame.present?
-  breadcrumb_steps[title] = ""
 
-  provide(:title, title)
+  breadcrumb.add(t("visualization.title"), overview_rooms_path)
+  if @room.present?
+    breadcrumb.add("#{Room.model_name.human} #{@room.name}"], visualization_room_path(@room))
+  elsif @frame.present?
+    breadcrumb.add("#{Room.model_name.human} #{@frame.room.name}"], visualization_room_path(@frame.room))
+  end
+  breadcrumb.add("#{Frame.model_name.human} #{@frame.name}"], visualization_frame_path(@frame)) if @frame.present?
+  breadcrumb.add(title)
 %>
 
-<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) do |heading| %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
     <div class="align-self-center">
       <% text_action = @room.present? ? ports_path(room_id: @room.id, format: "txt") : ports_path(frame_id: @frame.id, format: "txt") %>
