@@ -1,7 +1,5 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>
-  <%= content_for?(:title) ? yield(:title) : "Gestion de salle #{Rails.env.development? ? "(dev)" : "DCIM"}" %>
-</title>
+<title><%= breadcrumb.to_title(with_root: true) %></title>
 <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "My DCIM" %>">
 
 <%- if !current_user || current_user.theme == "auto" %>

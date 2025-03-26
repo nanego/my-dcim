@@ -42,7 +42,9 @@ class ApplicationController < ActionController::Base
   end
 
   def breadcrumb
-    @breadcrumb ||= Breadcrumb.new
+    @breadcrumb ||= Breadcrumb.new do |b|
+      b.root { "Gestion de salle #{Rails.env.development? ? "(dev)" : "DCIM"}" }
+    end
   end
   helper_method :breadcrumb
 
@@ -50,7 +52,7 @@ class ApplicationController < ActionController::Base
 
   def prepare_exception_notifier
     request.env["exception_notifier.exception_data"] = {
-      :current_user => current_user
+      current_user: current_user
     }
   end
 
