@@ -424,6 +424,7 @@ fr:
       no_match_serial: "Aucune correspondance pour ce numéro de série : %{serial}"
       glpi_connection_error: "Problème lors de la connexion à GLPI :"
       moves_cta_tooltip: Prévoir son déplacement
+      toggle_vlans: Afficher / Cacher les Vlans
       destroy_connections: Supprimer les connexions
       destroy_connections_confirmation: Confirmez-vous vouloir supprimer toutes les connections de ce matériel I.T. ?
     new:
