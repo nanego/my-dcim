@@ -1,15 +1,13 @@
 <%
   title = t(".title", type: @bay.bay_type&.name, frames: @bay.frames.map(&:name).join(" / "))
-  breadcrumb_steps = {
-    Bay.model_name.human.pluralize => bays_path,
-    title => bay_path(@bay),
-    t("action.edit") => ""
-  }
 
-  provide(:title, "#{Bay.model_name.human.pluralize} | #{title} | #{t("action.edit")}")
+  breadcrumb
+    .add(Bay.model_name.human.pluralize, bays_path)
+    .add(title, bay_path(@bay))
+    .add(t("action.edit"))
 %>
 
-<%= render Page::HeadingEditComponent.new(resource: @bay, title:, breadcrumb_steps:) %>
+<%= render Page::HeadingEditComponent.new(resource: @bay, title:, breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>
