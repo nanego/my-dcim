@@ -8,10 +8,10 @@ $(document).on("click", ".draw_connections_link", function (event) {
 })
 
 $(document).ready(function () {
+  scale_large_slots()
+  window.addEventListener('resize', function (event) {
     scale_large_slots()
-    window.addEventListener('resize', function (event) {
-        scale_large_slots()
-    })
+  })
 })
 
 function scale_large_slots(){
@@ -63,13 +63,17 @@ window.scale_large_slots = scale_large_slots
 // UI hack
 // Get height of all back U, and set front U accordingly
 function reset_u_heights() {
-    let heights = {};
-    $(".frames .view-back li").each(function (index, value) {
-        heights[$(this).data('num-u')] = $(this).height();
-        // console.log('li' + index + ':' + $(this).data('num-u') + ' -> ' + $(this).height());
-    });
-    jQuery.each(heights, function (index, value) {
-        $(".frames .view-front li[data-num-u='" + index + "']").height(value + 'px');
-    });
+  let heights = {};
+
+  document.querySelectorAll(".frames .view-back li").forEach(element => {
+    heights[element.getAttribute("data-num-u")] = element.offsetHeight;
+  });
+
+  Object.keys(heights).forEach(function (key) {
+    let value = heights[key]
+
+    document.querySelector(".frames .view-front li[data-num-u='" + key + "']").style.height = value + "px";
+  });
 }
+
 window.reset_u_heights = reset_u_heights

@@ -158,20 +158,20 @@
 
 <script>
 (function () {
-    var searchParams = new URLSearchParams(window.location.search)
-    var bay_id = searchParams.get('bay-id')
-    var frame_id = searchParams.get('frame-id')
-    if (frame_id) {
-        loadFrame(frame_id, bay_id, "")
-    } else {
-        if (bay_id) {
-            loadBay(bay_id)
-        }
+  var searchParams = new URLSearchParams(window.location.search)
+  var bay_id = searchParams.get('bay-id')
+  var frame_id = searchParams.get('frame-id')
+  if (frame_id) {
+    loadFrame(frame_id, bay_id, "")
+  } else {
+    if (bay_id) {
+      loadBay(bay_id)
     }
+  }
 
-    // Update Breadcrumb and switch li active state, after click on a Room Selection
-    document.getElementById("roomsTab").querySelectorAll("a")
-                                       .forEach(element => element.addEventListener("click", menuRoomsClick))
+  // Update Breadcrumb and switch li active state, after click on a Room Selection
+  document.getElementById("roomsTab").querySelectorAll("a")
+                                     .forEach(element => element.addEventListener("click", menuRoomsClick))
 })();
 
 $(".show_room .overviewed_frame").hover(
