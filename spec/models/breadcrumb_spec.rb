@@ -89,6 +89,22 @@ RSpec.describe Breadcrumb do
     it { expect(breadcrumb.steps.size).to eq(3) }
   end
 
+  describe "#last" do
+    before do
+      breadcrumb.add("Servers", "/servers")
+      breadcrumb.add("Server #1", "/servers/1")
+      breadcrumb.add("Edit")
+    end
+
+    it do
+      expect { |b| breadcrumb.each_steps(&b) }
+        .to yield_successive_args(Breadcrumb::Step, Breadcrumb::Step, Breadcrumb::Step)
+    end
+
+    it { expect(breadcrumb.last.title).to eq("Edit") }
+    it { expect(breadcrumb.last.url).to be_nil }
+  end
+
   describe "#to_title" do
     before do
       breadcrumb.root("Home", "/")

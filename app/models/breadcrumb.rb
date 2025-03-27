@@ -47,6 +47,10 @@ class Breadcrumb
     @steps.each(&)
   end
 
+  def last
+    @steps.last
+  end
+
   def to_title(with_root: true)
     steps = @steps.reverse
     steps << @root_step if with_root
