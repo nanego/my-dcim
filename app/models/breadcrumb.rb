@@ -22,22 +22,12 @@ class Breadcrumb
   end
 
   def root(title = nil, url = nil)
-    if block_given?
-      url = title
-      title = yield
-    end
-
     @root_step = Step.new(title, url)
 
     self
   end
 
   def add(title = nil, url = nil)
-    if block_given?
-      url = title
-      title = yield
-    end
-
     @steps << Step.new(title, url)
 
     self
