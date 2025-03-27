@@ -1,12 +1,10 @@
 <%
-  title = @pdu.name
-
   breadcrumb
     .add(t("power_distribution_units.index.title"), power_distribution_units_path) # TODO: prefer use ActiveRecord translation of Modele name
     .add(@pdu.name)
 %>
 
-<%#<%= render Page::HeadingShowComponent.new(resource: @pdu, title: title, breadcrumb:) do |heading| %>
+<%#<%= render Page::HeadingShowComponent.new(resource: @pdu, title: @pdu.name, breadcrumb:) do |heading| %>
   <%#<% heading.with_extra_buttons do %>
     <%#<%= render ButtonComponent.new(t("action.duplicate"),
                                   url: duplicate_power_distribution_unit_path(@pdu.slug),
