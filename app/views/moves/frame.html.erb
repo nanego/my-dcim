@@ -1,6 +1,6 @@
 <%
   breadcrumb
-  add(Move.model_name.human(count: 2), moves_path)
+    .add(Move.model_name.human(count: 2), moves_path)
     .add("#{Bay.model_name.human} #{@frame}")
 %>
 
