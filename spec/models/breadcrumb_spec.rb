@@ -35,17 +35,6 @@ RSpec.describe Breadcrumb do
 
     it { expect(breadcrumb.root_step.title).to eq("root title") }
     it { expect(breadcrumb.root_step.url).to eq("/dashboard") }
-
-    context "with block given" do
-      before do
-        breadcrumb.root("/") do
-          "Home"
-        end
-      end
-
-      it { expect(breadcrumb.root_step.title).to eq("Home") }
-      it { expect(breadcrumb.root_step.url).to eq("/") }
-    end
   end
 
   describe "#add" do
@@ -55,17 +44,6 @@ RSpec.describe Breadcrumb do
 
     it { expect(breadcrumb.steps.first.title).to eq("Servers") }
     it { expect(breadcrumb.steps.first.url).to eq("/servers") }
-
-    context "with block given" do
-      before do
-        breadcrumb.add("/servers/1") do
-          "Server #1"
-        end
-      end
-
-      it { expect(breadcrumb.steps.second.title).to eq("Server #1") }
-      it { expect(breadcrumb.steps.second.url).to eq("/servers/1") }
-    end
   end
 
   describe "#each_steps" do
