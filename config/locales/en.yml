@@ -176,6 +176,7 @@ en:
       glpi_visit_page: See the PDU page on GLPI
       no_match_serial: "No match for this serial number: %{serial}"
       glpi_connection_error: "Problem connecting to GLPI :"
+      toggle_vlans: Toggle Vlans
       destroy_connections: Delete connections
       destroy_connections_confirmation: Can you confirm that you want to remove all connections from this PDU?
     new:

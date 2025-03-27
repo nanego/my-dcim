@@ -384,6 +384,7 @@
 
     <%= render ChangelogEntries::ObjectListComponent.new(@server) %>
   </div>
+
   <div class="tab-pane fade" id="connections-tab-pane" role="tabpanel" aria-labelledby="connections-tab" tabindex="0">
     <%= render HasManyTurboFrameComponent.new(
       Connection.model_name.human.pluralize,
@@ -392,12 +393,28 @@
       extra_classes: "bg-body-tertiary"
     ) do |c| %>
       <% c.with_actions do %>
-        <%= render ButtonComponent.new(t(".destroy_connections"),
-                                          url: destroy_connections_server_path(@server),
-                                          icon: "trash",
-                                          variant: :danger,
-                                          size: :sm,
-                                          data: { confirm: t(".destroy_connections_confirmation") }) %>
+        <span>
+          <button class="btn btn-sm text-light me-2"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target=".collapse"
+                  aria-expanded="false"
+                  aria-controls="collapse all">
+            <%= t(".toggle_vlans") %>
+          </button>
+
+          <%= render ButtonComponent.new(nil,
+                                         url: destroy_connections_server_path(@server),
+                                         icon: "trash",
+                                         variant: :danger,
+                                         size: :sm,
+                                         data: {
+                                           confirm: t(".destroy_connections_confirmation"),
+                                           tooltip_title: t(".destroy_connections")
+                                         }
+                                        )
+          %>
+        </span>
       <% end %>
     <% end %>
   </div>
