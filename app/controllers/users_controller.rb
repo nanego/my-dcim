@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    if !current_user.admin? && !@user == (current_user)
+    if !current_user.admin? && @user != current_user
       redirect_back_or_to root_path, alert: t(".flashes.access_denied")
     end
   end
