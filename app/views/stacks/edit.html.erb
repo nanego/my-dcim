@@ -1,14 +1,11 @@
 <%
-  provide(:title, "#{Stack.model_name.human.pluralize} | #{@stack.name} | #{t("action.edit")}")
-
-  breadcrumb_steps = {
-    Stack.model_name.human.pluralize => stacks_path,
-    @stack => stack_path(@stack),
-    t("action.edit") => ""
-  }
+  breadcrumb
+    .add(Stack.model_name.human.pluralize, stacks_path)
+    .add(@stack, stack_path(@stack))
+    .add(t("action.edit"))
 %>
 
-<%= render Page::HeadingEditComponent.new(resource: @stack, title: t(".title"), breadcrumb_steps:) %>
+<%= render Page::HeadingEditComponent.new(resource: @stack, title: t(".title"), breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>

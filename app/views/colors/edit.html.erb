@@ -1,14 +1,11 @@
 <%
-  provide(:title, "#{Color.model_name.human.pluralize} | #{@color.code} | #{t("action.edit")}")
-
-  breadcrumb_steps = {
-    Color.model_name.human.pluralize => colors_path,
-    @color.code => color_path(@color),
-    t("action.edit") => ""
-  }
+  breadcrumb
+    .add(Color.model_name.human.pluralize, colors_path)
+    .add(@color.code, color_path(@color))
+    .add(t("action.edit"))
 %>
 
-<%= render Page::HeadingEditComponent.new(resource: @color, title: t(".title"), breadcrumb_steps:) %>
+<%= render Page::HeadingEditComponent.new(resource: @color, title: t(".title"), breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>

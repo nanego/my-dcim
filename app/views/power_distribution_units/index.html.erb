@@ -1,6 +1,9 @@
-<% provide(:title, t(".title")) # TODO: prefer use ActiveRecord translation of Modele name %>
+<%
+  # TODO: prefer use ActiveRecord translation of Modele name
+  breadcrumb.add(t(".title"))
+%>
 
-<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb_steps: { t(".title") => "" } ) do |heading| %>
+<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
     <%= render ButtonComponent.new(t(".new_power_distributon_unit"),
                                     url: new_power_distribution_unit_path,

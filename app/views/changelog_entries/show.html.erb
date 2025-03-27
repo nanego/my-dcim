@@ -1,14 +1,11 @@
 <%
   title = "#{ChangelogEntry.model_name.human} ##{@changelog_entry.id}"
-  provide(:title, "#{t("changelog_entries.title")} | #{title}")
-
-  breadcrumb_steps = {
-    t("changelog_entries.title") => changelog_entries_path,
-    title => ""
-  }
+  breadcrumb
+    .add(t("changelog_entries.title"), changelog_entries_path)
+    .add(title)
 %>
 
-<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:, back_button_url: changelog_entries_path) %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:, back_button_url: changelog_entries_path) %>
 
 <div class="col-12 p-4 border-top gap-4 d-flex flex-column">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">

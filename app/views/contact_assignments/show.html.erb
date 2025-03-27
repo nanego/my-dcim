@@ -1,12 +1,10 @@
 <%
-  provide(:title, "#{ContactAssignment.model_name.human.pluralize} | #{@contact_assignment}")
-
-  breadcrumb_steps = {
-    ContactAssignment.model_name.human.pluralize => contact_assignments_path, @contact_assignment => ""
-  }
+  breadcrumb
+    .add(ContactAssignment.model_name.human.pluralize, contact_assignments_path)
+    .add(@contact_assignment)
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @contact_assignment, title: @contact_assignment, breadcrumb_steps:) %>
+<%= render Page::HeadingShowComponent.new(resource: @contact_assignment, title: @contact_assignment, breadcrumb:) %>
 
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">

@@ -1,12 +1,10 @@
 <%
-  provide(:title, "#{PortType.model_name.human(count: 2)} | #{@port_type}")
-
-  breadcrumb_steps = {
-    PortType.model_name.human(count: 2) => port_types_path, @port_type => ""
-  }
+  breadcrumb
+    .add(PortType.model_name.human(count: 2), port_types_path)
+    .add(@port_type)
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @port_type, title: @port_type.to_s, breadcrumb_steps:) %>
+<%= render Page::HeadingShowComponent.new(resource: @port_type, title: @port_type.to_s, breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">

@@ -1,16 +1,13 @@
 <%
-  provide(:title, "Baie #{@frame.name} | #{Connection.model_name.human.pluralize} | #{t("action.edit")}")
-
-  breadcrumb_steps = {
-    @room.name => room_path(@room),
-    "Baie #{@frame.name}" => frame_path(@frame),
-    Connection.model_name.human.pluralize => cables_path,
-    t("action.edit") => ""
-  }
+  breadcrumb
+    .add(@room.name, room_path(@room))
+    .add("Baie #{@frame.name}", frame_path(@frame))
+    .add(Connection.model_name.human.pluralize, cables_path)
+    .add(t("action.edit"))
 %>
 
 <%= render Page::HeadingComponent.new(
-  title: t(".title"), breadcrumb_steps:, back_button_url: cables_path
+  title: t(".title"), breadcrumb:, back_button_url: cables_path
 ) do |heading| %>
   <% heading.with_right_content do %>
     <% if @cable %>

@@ -1,11 +1,8 @@
 <%
-  title = t(".title")
-  breadcrumb_steps = { title => "" }
-
-  provide(:title, title)
+  breadcrumb.add(title = t(".title"))
 %>
 
-<%= render Page::HeadingComponent.new(title: title, breadcrumb_steps:) %>
+<%= render Page::HeadingComponent.new(title: title, breadcrumb:) %>
 
 <div class="col-12 p-4 border-top">
   <%= form_with model: @user, url: users_settings_path, class: "col-12 col-md-10 col-lg-8 mx-auto" do |f| %>

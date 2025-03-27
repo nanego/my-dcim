@@ -4,9 +4,9 @@ require "rails_helper"
 
 RSpec.describe Page::HeadingComponent, type: :component do
   let(:title) { "Title" }
-  let(:breadcrumb_steps) { { "Sites" => "#url_sites" } }
+  let(:breadcrumb) { Breadcrumb.new.add("Sites", "#url_sites") }
   let(:back_button_url) { nil }
-  let(:component) { described_class.new(title:, breadcrumb_steps:, back_button_url:) }
+  let(:component) { described_class.new(title:, breadcrumb:, back_button_url:) }
   let(:rendered_component) { render_inline(component, &block).to_html }
 
   let(:block) { nil }
