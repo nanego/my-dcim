@@ -98,8 +98,10 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       port_id = port_data.try(:id)
       port_data = include_moved_connections(moved_connections, port_data, port_id) # Add moved connections if any
 
+      span_content = link_to_port(index + 1, port_data, port_type, card_id, port_id)
+
       html += content_tag(:span,
-                          link_to_port(index + 1, port_data, port_type, card_id, port_id),
+                          span_content,
                           class: "port_container float-start
                                   #{twin_card_used_ports && port_data && port_data.cable_name && twin_card_used_ports.exclude?(port_data.position) ? "no_client" : ""}
                           #{twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(index + 1) ? "unreferenced_client" : ""}
@@ -145,9 +147,12 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       port_class = "SCSI"
     end
 
-    link_to label.to_s, edit_port_url, id: port_id, title: (port_data.present? ? "#{port_data.vlans}" : ""),
+    html_content = link_to label.to_s, edit_port_url, id: port_id, title: (port_data.present? ? "#{port_data.vlans}" : ""),
                                        class: "border border-secondary port port#{port_class} #{port_data.try(:cable_color) || "empty"}",
                                        data: { url: edit_port_url, position:, type:, controller: 'tooltip', bs_placement: 'top' }, target: :_top
+    html_content += content_tag(:small, position, class: "position-absolute z-3 top-50 start-50 translate-middle badge rounded-pill bg-secondary d-none", data: { reveal_target: "item" }) if type == ("RJ" ||"XRJ") && port_data && port_data.card.port_ids.count <= 10
+
+    content_tag(:span, html_content, class: "d-flex position-relative")
   end
 
   private

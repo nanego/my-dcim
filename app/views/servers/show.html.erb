@@ -68,7 +68,7 @@
       </div>
 
       <div class="server rounded-bottom-1 bg-body border border-secondary-subtle p-2 mb-2">
-        <span id="back_server_<%= @server.id %>" class="no-decoration-link d-flex flex-row-reverse flex-wrap">
+        <span id="back_server_<%= @server.id %>" class="no-decoration-link d-flex flex-row-reverse flex-wrap" data-controller="reveal" data-reveal-hidden-class="d-none">
             <%= render partial: "servers/draw_server_compact", locals: { server: @server } %>
         </span>
       </div>
