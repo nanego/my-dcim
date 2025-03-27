@@ -1,5 +1,7 @@
 <%%
-  breadcrumb.add(<%= singular_table_name.capitalize %>.model_name.human.pluralize => <%= plural_table_name %>_path, @<%= singular_table_name %>)
+  breadcrumb
+    .add(<%= singular_table_name.capitalize %>.model_name.human.pluralize, <%= plural_table_name %>_path)
+    .add(@<%= singular_table_name %>)
 %>
 
 <%%= render Page::HeadingShowComponent.new(resource: @<%= singular_table_name %>, title: @<%= singular_table_name %>, breadcrumb:) %>
