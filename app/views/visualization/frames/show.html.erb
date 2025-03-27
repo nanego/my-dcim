@@ -37,9 +37,12 @@
 
 <%= render "ports/modal_edit_port" %>
 
-<script type="javascript">
-  reset_u_heights()
-  window.addEventListener("resize", function (event) {
+<script type="text/javascript">
+  window.onload = function () {
     reset_u_heights()
-  })
+
+    window.addEventListener("resize", function (event) {
+      reset_u_heights()
+    })
+  }
 </script>
