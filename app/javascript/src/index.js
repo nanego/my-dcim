@@ -10,7 +10,7 @@ $(document).on("click", ".draw_connections_link", function (event) {
 $(document).ready(function () {
   scale_large_slots()
   window.addEventListener('resize', function (event) {
-      scale_large_slots()
+    scale_large_slots()
   })
 })
 
