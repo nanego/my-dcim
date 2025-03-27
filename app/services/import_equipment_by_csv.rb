@@ -97,7 +97,7 @@ class ImportEquipmentByCsv
       slot_data = data[slot_name]
       if slot_data.present?
         if slot_data[0].is_a?(Integer)
-          valeur = slot_data[1..-1]
+          valeur = slot_data[1..]
           nb_ports = slot_data[0].to_i
         else
           valeur = slot_data
@@ -105,7 +105,7 @@ class ImportEquipmentByCsv
         end
         port_type = PortType.find_or_create_by!(name: valeur)
         card_type = CardType.find_or_create_by!(name: slot_data, port_quantity: nb_ports, port_type: port_type)
-        Card.find_or_create_by!(card_type: card_type, server: server, composant: slots.where("name = ?", slot_name).first)
+        Card.find_or_create_by!(card_type: card_type, server: server, composant: slots.where(name: slot_name).first)
       end
     end
 
