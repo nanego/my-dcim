@@ -2,8 +2,7 @@ module List
   class DataTableComponentPreview < ViewComponent::Preview
     def default
       render_with_template(locals: {
-        displayed_columns: [:product, :price, :sku, :qty, :sales],
-        data: data,
+        data: data
       })
     end
 
