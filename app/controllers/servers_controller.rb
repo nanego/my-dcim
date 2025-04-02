@@ -2,7 +2,6 @@
 
 class ServersController < ApplicationController
   include ServersHelper
-  # include ColumnsPreference
 
   DEFAULT_COLUMNS = %w[name numero modele.category islet bay network_types].freeze
   AVAILABLE_COLUMNS = %w[name numero modele.category islet bay network_types].freeze
