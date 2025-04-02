@@ -1,11 +1,11 @@
 <%
-  provide(:title, "#{User.model_name.human.pluralize} | #{t("action.create")}")
-
-  breadcrumb_steps = { User.model_name.human.pluralize => users_path, t("action.create") => "" }
+  breadcrumb
+    .add(User.model_name.human.pluralize, users_path)
+    .add(t("action.create"))
 %>
 
 
-<%= render Page::HeadingNewComponent.new(resource: @user, title: t(".new_user"), breadcrumb_steps:) %>
+<%= render Page::HeadingNewComponent.new(resource: @user, title: t(".new_user"), breadcrumb:) %>
 
 <div class="col-12 p-4 border-top">
   <%= form_for @user, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" },

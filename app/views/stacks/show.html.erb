@@ -1,12 +1,10 @@
 <%
-  provide(:title, "#{Stack.model_name.human.pluralize} | #{@stack.name}")
-
-  breadcrumb_steps = {
-    Stack.model_name.human.pluralize => stacks_path, @stack.name => ""
-  }
+  breadcrumb
+    .add(Stack.model_name.human.pluralize, stacks_path)
+    .add(title = @stack.name)
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @stack, title: @stack.name, breadcrumb_steps:) %>
+<%= render Page::HeadingShowComponent.new(resource: @stack, title:, breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">

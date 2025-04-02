@@ -1,11 +1,8 @@
 <%
-  title = t(".title")
-  breadcrumb_steps = { title => "" }
-
-  provide(:title, title)
+  breadcrumb.add(title = t(".title"))
 %>
 
-<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render FilterComponent.new(@filter) do |c| %>

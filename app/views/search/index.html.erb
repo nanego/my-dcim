@@ -1,11 +1,8 @@
 <%
-  title = t('.results')
-  breadcrumb_steps = { title => "" }
-
-  provide(:title, title)
+  breadcrumb.add(title = t('.results'))
 %>
 
-<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <turbo-frame id="search_results">
     <% if @results[:servers].any? || @results[:frames].any? %>

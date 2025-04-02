@@ -1,14 +1,11 @@
 <%%
-  provide(:title, "#{<%= singular_table_name.capitalize %>.model_name.human.pluralize} | #{@<%= singular_table_name %>} | #{t("action.edit")}")
-
-  breadcrumb_steps = {
-    <%= singular_table_name.capitalize %>.model_name.human.pluralize => <%= plural_table_name %>_path,
-    @<%= singular_table_name %> => <%= singular_table_name %>_path(@<%= singular_table_name %>),
-    t("action.edit") => ""
-  }
+  breadcrumb
+    .add(<%= singular_table_name.capitalize %>.model_name.human.pluralize, <%= plural_table_name %>_path)
+    .add(@<%= singular_table_name %>, <%= singular_table_name %>_path(@<%= singular_table_name %>))
+    .add(t("action.edit"))
 %>
 
-<%%= render Page::HeadingEditComponent.new(resource: @<%= singular_table_name %>, title: t(".title"), breadcrumb_steps:) %>
+<%%= render Page::HeadingEditComponent.new(resource: @<%= singular_table_name %>, title: t(".title"), breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <%%= render "form" %>
 </div>

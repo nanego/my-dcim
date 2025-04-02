@@ -1,12 +1,10 @@
-<% title = @pdu.name %>
-<% provide(:title, "#{t("power_distribution_units.index.title")} | #{title}") %>
+<%
+  breadcrumb
+    .add(t("power_distribution_units.index.title"), power_distribution_units_path) # TODO: prefer use ActiveRecord translation of Modele name
+    .add(@pdu.name)
+%>
 
-<% breadcrumb_steps = {
-  t("power_distribution_units.index.title") => power_distribution_units_path, # TODO: prefer use ActiveRecord translation of Modele name
-  @pdu.name => ""
-} %>
-
-<%#<%= render Page::HeadingShowComponent.new(resource: @pdu, title: title, breadcrumb_steps:) do |heading| %>
+<%#<%= render Page::HeadingShowComponent.new(resource: @pdu, title: @pdu.name, breadcrumb:) do |heading| %>
   <%#<% heading.with_extra_buttons do %>
     <%#<%= render ButtonComponent.new(t("action.duplicate"),
                                   url: duplicate_power_distribution_unit_path(@pdu.slug),
@@ -18,7 +16,7 @@
 <% # end %>
 
 <%= render Page::HeadingComponent.new(
-  title: title, breadcrumb_steps:, back_button_url: power_distribution_units_path
+  title: @pdu.name, breadcrumb:, back_button_url: power_distribution_units_path
 ) do |heading| %>
   <% heading.with_right_content do %>
     <div class="align-self-center d-inline-flex">

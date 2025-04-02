@@ -1,10 +1,10 @@
 <%
-  provide(:title, "#{Architecture.model_name.human.pluralize} | #{t("action.create")}")
-
-  breadcrumb_steps = { Cluster.model_name.human.pluralize => clusters_path, t("action.create") => "" }
+  breadcrumb
+    .add(Cluster.model_name.human.pluralize, clusters_path)
+    .add(t("action.create"))
 %>
 
-<%= render Page::HeadingNewComponent.new(resource: @cluster, title: t(".title"), breadcrumb_steps:) %>
+<%= render Page::HeadingNewComponent.new(resource: @cluster, title: t(".title"), breadcrumb:) %>
 
 <div class="col-12 p-4 border-top">
   <%= render "form" %>

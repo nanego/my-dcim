@@ -1,12 +1,10 @@
-<% provide(:title, t(".title")) %>
-<% breadcrumb_steps = {
-  Server.model_name.human => servers_path,
-  t(".title") => "" }
+<%
+  breadcrumb
+    .add(Server.model_name.human, servers_path)
+    .add(title = t(".title"))
 %>
 
-<%= render Page::HeadingComponent.new(
-  title: t(".title"), breadcrumb_steps:, back_button_url: servers_path
-) do |heading| %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:, back_button_url: servers_path) do |heading| %>
   <% heading.with_right_content do %>
     <div class="d-flex align-self-center column-gap-2">
       <%= button_to sync_with_glpi_external_app_records_path,

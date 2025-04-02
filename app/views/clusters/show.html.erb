@@ -1,12 +1,10 @@
 <%
-  provide(:title, "#{Cluster.model_name.human.pluralize} | #{@cluster}")
-
-  breadcrumb_steps = {
-    Cluster.model_name.human.pluralize => clusters_path, @cluster => ""
-  }
+  breadcrumb
+    .add(Cluster.model_name.human.pluralize, clusters_path)
+    .add(@cluster)
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @cluster, title: @cluster.name, breadcrumb_steps:) %>
+<%= render Page::HeadingShowComponent.new(resource: @cluster, title: @cluster.name, breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">

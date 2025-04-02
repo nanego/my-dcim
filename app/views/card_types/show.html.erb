@@ -1,12 +1,10 @@
 <%
-  provide(:title, "#{CardType.model_name.human(count: 2)} | #{@card_type}")
-
-  breadcrumb_steps = {
-    CardType.model_name.human(count: 2) => card_types_path, @card_type => ""
-  }
+  breadcrumb
+    .add(CardType.model_name.human(count: 2), card_types_path)
+    .add(@card_type)
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @card_type, title: @card_type.to_s, breadcrumb_steps:) %>
+<%= render Page::HeadingShowComponent.new(resource: @card_type, title: @card_type.to_s, breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
