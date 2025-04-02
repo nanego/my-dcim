@@ -350,17 +350,6 @@ Style/NumericPredicate:
     - 'app/controllers/ports_controller.rb'
     - 'app/helpers/servers_helper.rb'
 
-# Offense count: 24
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantSelf:
-  Exclude:
-    - 'app/models/card.rb'
-    - 'app/models/connection.rb'
-    - 'app/models/frame.rb'
-    - 'app/models/move.rb'
-    - 'app/models/moved_connection.rb'
-    - 'app/models/port.rb'
-
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle, AllowInnerSlashes.

@@ -47,7 +47,7 @@ class Card < ApplicationRecord
       unless positions_with_ports.include?(current_position)
         # puts "create port #{current_position}"
         Port.create(position: current_position,
-                    card_id: self.id,
+                    card_id: id,
                     vlans: nil,
                     color: nil,
                     cablename: nil)
@@ -59,12 +59,12 @@ class Card < ApplicationRecord
     if twin_card_id.present?
       twin_card = Card.where(id: twin_card_id).first
       if twin_card.present? && twin_card.twin_card_id.blank?
-        twin_card.twin_card_id = self.id
+        twin_card.twin_card_id = id
         twin_card.save
       end
       # Remove potential duplications
-      Card.where(twin_card_id: [self.id, twin_card_id])
-        .where.not(id: [self.id, twin_card_id])
+      Card.where(twin_card_id: [id, twin_card_id])
+        .where.not(id: [id, twin_card_id])
         .update_all({ twin_card_id: nil }) # rubocop:disable Rails/SkipsModelValidations
     end
   end

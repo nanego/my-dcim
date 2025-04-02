@@ -12,6 +12,6 @@ class Connection < ApplicationRecord
   has_one :port_type, through: :card_type
 
   def paired_connection
-    cable.connections.where.not(id: self.id).first
+    cable.connections.where.not(id: id).first
   end
 end
