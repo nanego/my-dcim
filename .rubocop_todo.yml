@@ -124,12 +124,6 @@ Rails/Delegate:
     - 'app/models/room.rb'
     - 'app/models/server.rb'
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-Rails/DurationArithmetic:
-  Exclude:
-    - 'spec/support/omniauth.rb'
-
 # Offense count: 22
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: Whitelist, AllowedMethods, AllowedReceivers.

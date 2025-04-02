@@ -12,7 +12,7 @@ OmniAuth.config.mock_auth[:openid_connect] = OmniAuth::AuthHash.new(
   },
   credentials: {
     token: 'valid_access_token',
-    expires_at: Time.zone.now + 1.hour
+    expires_at: 1.hour.from_now
   }
 )
 
@@ -27,6 +27,6 @@ OmniAuth.config.mock_auth[:openid_connect_unknown_user] = OmniAuth::AuthHash.new
   },
   credentials: {
     token: 'valid_access_token',
-    expires_at: Time.zone.now + 1.hour
+    expires_at: 1.hour.from_now
   }
 )
