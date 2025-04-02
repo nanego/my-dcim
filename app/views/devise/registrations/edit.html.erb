@@ -1,6 +1,6 @@
-<% breadcrumb.add(t("users.my_account.edit")) %>
+<% breadcrumb.add(title = t("users.my_account.edit")) %>
 
-<%= render Page::HeadingComponent.new(title: t("users.my_account.edit"), breadcrumb:) %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <%= render FormErrorsComponent.new(resource) %>
   <%= form_for(resource, as: resource_name,

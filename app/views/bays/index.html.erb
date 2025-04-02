@@ -1,8 +1,8 @@
 <%
-  breadcrumb.add(t(".title"))
+  breadcrumb.add(title = t(".title"))
 %>
 
-<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:) do |heading| %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
     <% render ButtonComponent.new(t(".new_bay"),
                                   url: new_bay_path,

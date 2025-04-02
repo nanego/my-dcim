@@ -11,12 +11,6 @@
     breadcrumb.add("#{Islet.model_name.human} #{params[:islet]}")
   end
 
-  if @bay.islet.name.present?
-    breadcrumb.add("#{Islet.model_name.human} #{@bay.islet.name}", visualization_room_path(@bay.room, islet: @bay.islet.name, view: params[:view]))
-  elsif params[:islet].present?
-    breadcrumb.add("#{Islet.model_name.human} #{params[:islet]}")
-  end
-
   breadcrumb.add(title)
 
   title = t("visualization.title") + " " + title

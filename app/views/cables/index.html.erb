@@ -1,8 +1,8 @@
 <%
-  breadcrumb.add(t(".title"))
+  breadcrumb.add(title = t(".title"))
 %>
 
-<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:) %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render FilterComponent.new(@filter) do |c| %>

@@ -1,12 +1,12 @@
 <%
   hide_inventories_sidebar!
-  
+
   breadcrumb
     .add(t("rooms.overview.title"), overview_rooms_path)
-    .add(@current_filters.join)
+    .add(title = @current_filters.join)
 %>
 
-<%= render Page::HeadingComponent.new(title: @current_filters.join, breadcrumb:) %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
 <div class="container-fluid p-4 border-top rooms-overview">
   <div class="row">
     <div class="col-12 col-lg-6" id="rooms-overview" data-spy="affix" data-offset-top="53" data-offset-bottom="20">

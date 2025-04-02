@@ -1,10 +1,10 @@
 <%%
   breadcrumb
     .add(<%= singular_table_name.capitalize %>.model_name.human.pluralize, <%= plural_table_name %>_path)
-    .add(@<%= singular_table_name %>)
+    .add(title = @<%= singular_table_name %>)
 %>
 
-<%%= render Page::HeadingShowComponent.new(resource: @<%= singular_table_name %>, title: @<%= singular_table_name %>, breadcrumb:) %>
+<%%= render Page::HeadingShowComponent.new(resource: @<%= singular_table_name %>, title:, breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <div class="col-12 col-lg-6">
     <%%= render CardComponent.new do |card| %>

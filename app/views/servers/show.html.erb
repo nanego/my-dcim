@@ -6,7 +6,7 @@
     .add(@server.name)
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @server, title: title, breadcrumb:) do |heading| %>
+<%= render Page::HeadingShowComponent.new(resource: @server, title:, breadcrumb:) do |heading| %>
   <% heading.with_extra_buttons do %>
     <%= render ButtonComponent.new(t("action.move"),
                                   url: new_move_path(server_id: @server.id),
