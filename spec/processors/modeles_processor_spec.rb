@@ -123,4 +123,34 @@ RSpec.describe ModelesProcessor do
   describe "when sorting" do
     pending "TODO"
   end
+
+  describe "When searching on every fields" do
+    let(:architecture) { Architecture.create!(name: "A1") }
+    let(:category) { Category.create!(name: "C1") }
+    let(:manufacturer) { Manufacturer.create!(name: "M1") }
+    let(:modele) { Modele.create!(name: "wood", **attributes, manufacturer:, architecture:, category:) }
+
+    let(:params) do
+      { q: "wood", architecture_ids: architecture.id, manufacturer_ids: manufacturer.id, category_ids: category.id }
+    end
+
+    before { modele }
+
+    it { expect(result.size).to eq(1) }
+    it { is_expected.to contain_exactly(modele) }
+
+    described_class::SORTABLE_FIELDS.each do |field|
+      context "and sort on #{field}" do # rubocop:disable RSpec/ContextWording
+        let(:params) do
+          {
+            q: "wood", architecture_ids: architecture.id, manufacturer_ids: manufacturer.id, category_ids: category.id,
+            sort_by: field
+          }
+        end
+
+        it { expect(result.size).to eq(1) }
+        it { is_expected.to contain_exactly(modele) }
+      end
+    end
+  end
 end

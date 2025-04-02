@@ -13,7 +13,7 @@ RSpec.describe ChangelogEntries::ObjectListComponent, type: :component do
         id: "changelog-entries",
         src: "/islets/#{islet.id}/changelog_entries"
       }) do
-        with_text(I18n.t("changelog_entries.object_list_component.loading"))
+        with_text("Chargement en cours ...")
         with_tag("span", with: { class: "spinner-grow" })
       end
     end

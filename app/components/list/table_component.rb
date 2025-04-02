@@ -33,8 +33,8 @@ module List
     end
 
     class TableTag < ApplicationComponent
-      TAG_NAME = nil.freeze
-      CSS_CLASSES = "".freeze
+      TAG_NAME = nil
+      CSS_CLASSES = ""
 
       def initialize(**html_attributes)
         super()
@@ -52,30 +52,38 @@ module List
     end
 
     class TableHead < TableTag
-      TAG_NAME = :thead.freeze
-      CSS_CLASSES = "text-nowrap text-uppercase".freeze
+      TAG_NAME = :thead
+      CSS_CLASSES = "text-nowrap text-uppercase"
     end
 
     class TableBody < TableTag
-      TAG_NAME = :tbody.freeze
-      CSS_CLASSES = "".freeze
+      TAG_NAME = :tbody
+      CSS_CLASSES = ""
     end
 
     class TableFoot < TableTag
-      TAG_NAME = :tfoot.freeze
+      TAG_NAME = :tfoot
     end
 
     class TableRow < TableTag
-      TAG_NAME = :tr.freeze
-      CSS_CLASSES = "".freeze
+      TAG_NAME = :tr
+      CSS_CLASSES = ""
     end
 
     class TableCell < TableTag
-      TAG_NAME = :td.freeze
-      CSS_CLASSES = "align-middle".freeze
-      ALIGN_TYPES = {
-        right: "text-end",
+      TAG_NAME = :td
+      VERTICAL_ALIGN_TYPES = {
+        baseline: "align-baseline",
+        top: "align-top",
+        middle: "align-middle",
+        bottom: "align-bottom",
+        text_top: "align-text-top",
+        text_bottom: "align-text-bottom"
+      }.freeze
+      TEXT_ALIGN_TYPES = {
         left: "text-start",
+        center: "text-center",
+        right: "text-end"
       }.freeze
 
       def initialize(text = nil, **html_attributes)
@@ -83,16 +91,16 @@ module List
 
         @text = text
 
-        css_classes    = html_attributes.delete(:class)
-        css_text_align = ALIGN_TYPES[html_attributes.delete(:align)&.to_sym || :left]
+        css_classes = html_attributes.delete(:class)
+        css_vertical_align = VERTICAL_ALIGN_TYPES[html_attributes.delete(:v_align)&.to_sym || :middle]
+        css_text_align = TEXT_ALIGN_TYPES[html_attributes.delete(:text_align)&.to_sym || :left]
 
         @html_attributes = html_attributes.merge(
           scope: "col",
           class: class_names(
-            self.class::CSS_CLASSES,
+            css_vertical_align,
             css_text_align,
             css_classes,
-            "": (@text.present? && css_classes.nil?),
           ),
         )
       end
@@ -105,8 +113,8 @@ module List
     end
 
     class TableHeadCell < TableCell
-      TAG_NAME = :th.freeze
-      CSS_CLASSES = "bg-primary-subtle".freeze
+      TAG_NAME = :th
+      CSS_CLASSES = "bg-primary-subtle"
     end
   end
 end

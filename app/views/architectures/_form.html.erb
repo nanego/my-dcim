@@ -1,6 +1,10 @@
 <%= form_for(@architecture, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
   <%= render FormErrorsComponent.new(@architecture) %>
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+    <% card.with_header do %>
+      <%= t("show.cards.identification") %>
+    <% end %>
+
     <fieldset class="col-12">
       <%= f.label :name, class: "form-label" %>
       <%= f.text_field :name, class: "form-control" %>

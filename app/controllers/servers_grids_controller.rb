@@ -20,11 +20,10 @@ class ServersGridsController < ApplicationController
 
         begin
           @servers = ServersGrid.new(@merged_params[:servers_grid])
-        rescue => ex
+        rescue StandardError => e
           @servers = ServersGrid.new(params[:servers_grid])
-          logger.error ex.message
+          logger.error e.message
         end
-
       end
       format.csv do
         @servers = ServersGrid.new(params.to_unsafe_h[:servers_grid])

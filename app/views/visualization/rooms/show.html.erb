@@ -6,17 +6,14 @@
 
   title = "#{@room.name} #{@islet ? " #{Islet.model_name.human} #{@islet}" : "" }"
 
-  provide :title, "#{t("visualization.title")} | #{title}"
-
-  breadcrumb_steps = {
-    t("visualization.title") => overview_rooms_path,
-    title => "",
-  }
+  breadcrumb
+    .add(t("visualization.title"), overview_rooms_path)
+    .add(title.dup)
 
   title = t("visualization.title") + " " + title
 %>
 
-<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
 <div class="p-4 border-top d-flex flex-column row-gap-4 room_overview show_room" id="full-overview">
   <div class="card" style="min-height: 55px;">
     <div id="collapseRoomOverviewCardBody" class="collapse show">
@@ -110,11 +107,9 @@
                                 <% bgModeleColor = define_background_color(server: server, mode: bg) %>
                                 <% u_server = server.modele.try(:u).to_i > 0 ? server.modele.u : 1 %>
                                 <% data = { u: u_server,
-                                            num_u: u_disponibles,
-                                            rj45_futur: server.try(:rj45_futur) || 0,
-                                            fc_futur: server.try(:fc_futur) } %>
+                                            num_u: u_disponibles } %>
                                 <%= content_tag_for :li, server,
-                                                    class: "server truncate #{server.modele.try(:category).try(:name).try(:parameterize)} #{server.server_state_id == 1 ? 'striped' : ''}",
+                                                    class: "server truncate #{server.modele.try(:category).try(:name).try(:parameterize)}",
                                                     style: "height: #{server_height * u_server}px;background-color:#{bgModeleColor} !important;",
                                                     title: h("#{server.name}"),
                                                     data: data do %>
@@ -160,20 +155,20 @@
 
 <script>
 (function () {
-    var searchParams = new URLSearchParams(window.location.search)
-    var bay_id = searchParams.get('bay-id')
-    var frame_id = searchParams.get('frame-id')
-    if (frame_id) {
-        loadFrame(frame_id, bay_id, "")
-    } else {
-        if (bay_id) {
-            loadBay(bay_id)
-        }
+  var searchParams = new URLSearchParams(window.location.search)
+  var bay_id = searchParams.get('bay-id')
+  var frame_id = searchParams.get('frame-id')
+  if (frame_id) {
+    loadFrame(frame_id, bay_id, "")
+  } else {
+    if (bay_id) {
+      loadBay(bay_id)
     }
+  }
 
-    // Update Breadcrumb and switch li active state, after click on a Room Selection
-    document.getElementById("roomsTab").querySelectorAll("a")
-                                       .forEach(element => element.addEventListener("click", menuRoomsClick))
+  // Update Breadcrumb and switch li active state, after click on a Room Selection
+  document.getElementById("roomsTab").querySelectorAll("a")
+                                     .forEach(element => element.addEventListener("click", menuRoomsClick))
 })();
 
 $(".show_room .overviewed_frame").hover(
@@ -217,7 +212,7 @@ function menuRoomsClick(e) {
 
   // Update HTML title
   visualization_title = breadcrumb.lastElementChild.previousElementSibling.textContent
-  document.title = visualization_title + " | " + islet_name
+  document.title = islet_name  + " | " + visualization_title
 
   // Update page title
   document.querySelector("h1").textContent = visualization_title + " " + islet_name

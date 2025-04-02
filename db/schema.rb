@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_27_144521) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_06_110910) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -105,7 +105,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_144521) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "comments"
     t.boolean "special_case"
-    t.integer "connections_count", default: 0, null: false
   end
 
   create_table "card_types", id: :serial, force: :cascade do |t|
@@ -138,6 +137,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_144521) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "modeles_count", default: 0, null: false
+    t.boolean "is_glpi_synchronizable", default: false, null: false
   end
 
   create_table "changelog_entries", force: :cascade do |t|
@@ -154,6 +154,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_144521) do
     t.index ["author_type", "author_id"], name: "index_changelog_entries_on_author_type_and_author_id"
     t.index ["object_type", "object_id"], name: "index_changelog_entries_on_object"
     t.index ["object_type", "object_id"], name: "index_changelog_entries_on_object_type_and_object_id"
+  end
+
+  create_table "cluster_rooms", force: :cascade do |t|
+    t.bigint "cluster_id", null: false
+    t.bigint "room_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cluster_id"], name: "index_cluster_rooms_on_cluster_id"
+    t.index ["room_id"], name: "index_cluster_rooms_on_room_id"
   end
 
   create_table "clusters", id: :serial, force: :cascade do |t|
@@ -173,14 +182,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_144521) do
   end
 
   create_table "composants", id: :serial, force: :cascade do |t|
-    t.integer "type_composant_id", null: false
     t.integer "position"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "name"
     t.integer "enclosure_id"
     t.index ["enclosure_id"], name: "index_composants_on_enclosure_id"
-    t.index ["type_composant_id"], name: "index_composants_on_type_composant_id"
   end
 
   create_table "connections", id: :serial, force: :cascade do |t|
@@ -220,24 +227,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_144521) do
     t.string "organization"
   end
 
-  create_table "disk_types", id: :serial, force: :cascade do |t|
-    t.integer "quantity"
-    t.string "unit"
-    t.string "technology"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-  end
-
-  create_table "disks", id: :serial, force: :cascade do |t|
-    t.integer "server_id", null: false
-    t.integer "disk_type_id", null: false
-    t.integer "quantity"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["disk_type_id"], name: "index_disks_on_disk_type_id"
-    t.index ["server_id"], name: "index_disks_on_server_id"
-  end
-
   create_table "documents", id: :serial, force: :cascade do |t|
     t.integer "server_id", null: false
     t.text "document_data"
@@ -259,7 +248,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_144521) do
     t.integer "position"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "display"
+    t.string "display", default: "vertical", null: false
     t.text "grid_areas"
     t.index ["modele_id"], name: "index_enclosures_on_modele_id"
   end
@@ -341,23 +330,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_144521) do
     t.integer "bays_count", default: 0, null: false
   end
 
-  create_table "memory_components", id: :serial, force: :cascade do |t|
-    t.integer "server_id", null: false
-    t.integer "memory_type_id", null: false
-    t.integer "quantity"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["memory_type_id"], name: "index_memory_components_on_memory_type_id"
-    t.index ["server_id"], name: "index_memory_components_on_server_id"
-  end
-
-  create_table "memory_types", id: :serial, force: :cascade do |t|
-    t.integer "quantity"
-    t.string "unit"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-  end
-
   create_table "modeles", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -437,12 +409,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_144521) do
     t.index ["slug"], name: "index_rooms_on_slug", unique: true
   end
 
-  create_table "server_states", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-  end
-
   create_table "servers", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "modele_id"
@@ -450,32 +416,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_144521) do
     t.boolean "critique"
     t.integer "domaine_id"
     t.integer "gestion_id"
-    t.integer "fc_total"
-    t.integer "fc_utilise"
-    t.integer "rj45_total"
-    t.integer "rj45_utilise"
-    t.integer "rj45_futur"
-    t.integer "ipmi_utilise"
-    t.integer "ipmi_futur"
-    t.integer "rj45_cm"
-    t.integer "ipmi_dedie"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "pdu_ondule"
-    t.string "pdu_normal"
     t.integer "frame_id", null: false
-    t.integer "fc_calcule"
-    t.integer "fc_futur"
-    t.string "i"
-    t.integer "rj45_calcule"
-    t.integer "tenGbps_futur"
-    t.string "ip"
-    t.string "hostname"
-    t.string "etat_conf_reseau"
-    t.string "action_conf_reseau"
     t.integer "position"
     t.integer "cluster_id"
-    t.integer "server_state_id"
     t.string "comment"
     t.string "slug"
     t.string "side"
@@ -487,7 +432,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_144521) do
     t.index ["frame_id"], name: "index_servers_on_frame_id"
     t.index ["gestion_id"], name: "index_servers_on_gestion_id"
     t.index ["modele_id"], name: "index_servers_on_modele_id"
-    t.index ["server_state_id"], name: "index_servers_on_server_state_id"
+    t.index ["numero"], name: "index_servers_on_numero", unique: true
     t.index ["slug"], name: "index_servers_on_slug", unique: true
   end
 
@@ -513,10 +458,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_144521) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "servers_count", default: 0, null: false
-  end
-
-  create_table "type_composants", id: :serial, force: :cascade do |t|
-    t.string "name"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
@@ -568,17 +509,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_144521) do
   add_foreign_key "bays", "manufacturers"
   add_foreign_key "card_types", "port_types"
   add_foreign_key "cards", "card_types"
-  add_foreign_key "composants", "type_composants"
+  add_foreign_key "cluster_rooms", "clusters"
+  add_foreign_key "cluster_rooms", "rooms"
   add_foreign_key "connections", "cables"
   add_foreign_key "contact_assignments", "contact_roles"
   add_foreign_key "contact_assignments", "contacts"
   add_foreign_key "contact_assignments", "sites"
-  add_foreign_key "disks", "disk_types"
   add_foreign_key "documents", "servers"
   add_foreign_key "external_app_records", "servers"
   add_foreign_key "external_app_requests", "users"
   add_foreign_key "frames", "bays"
-  add_foreign_key "memory_components", "memory_types"
   add_foreign_key "modeles", "architectures"
   add_foreign_key "modeles", "categories"
   add_foreign_key "modeles", "manufacturers"
@@ -588,6 +528,5 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_27_144521) do
   add_foreign_key "servers", "clusters"
   add_foreign_key "servers", "gestions"
   add_foreign_key "servers", "modeles"
-  add_foreign_key "servers", "server_states"
   add_foreign_key "servers", "stacks"
 end

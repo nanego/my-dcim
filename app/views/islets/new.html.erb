@@ -1,10 +1,10 @@
 <%
-  provide(:title, "#{Islet.model_name.human.pluralize} | #{t("action.create")}")
-
-  breadcrumb_steps = { Islet.model_name.human.pluralize => islets_path, t("action.create") => "" }
+  breadcrumb
+    .add(Islet.model_name.human.pluralize, islets_path)
+    .add(t("action.create"))
 %>
 
-<%= render Page::HeadingNewComponent.new(resource: @islet, title: t(".title"), breadcrumb_steps:) %>
+<%= render Page::HeadingNewComponent.new(resource: @islet, title: t(".title"), breadcrumb:) %>
 
 <div class="col-12 p-4 border-top">
   <%= render "form" %>

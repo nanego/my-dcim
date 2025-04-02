@@ -1,30 +1,22 @@
 <%
   title = t(".title", bay: @bay, bay_type: @bay.bay_type&.name)
 
-  breadcrumb_steps = {
-    t("visualization.title") => overview_rooms_path,
-    @bay.room.name => visualization_room_path(@bay.room, view: params[:view])
-  }
-  if @bay.islet.name.present?
-    breadcrumb_steps["#{Islet.model_name.human} #{@bay.islet.name}"] = visualization_room_path(@bay.room, islet: @bay.islet.name, view: params[:view])
-  elsif params[:islet].present?
-    breadcrumb_steps["#{Islet.model_name.human} #{params[:islet]}"] = ""
-  end
+  breadcrumb
+    .add(t("visualization.title"), overview_rooms_path)
+    .add(@bay.room.name, visualization_room_path(@bay.room, view: params[:view]))
 
   if @bay.islet.name.present?
-    breadcrumb_steps["#{Islet.model_name.human} #{@bay.islet.name}"] = visualization_room_path(@bay.room, islet: @bay.islet.name, view: params[:view])
+    breadcrumb.add("#{Islet.model_name.human} #{@bay.islet.name}", visualization_room_path(@bay.room, islet: @bay.islet.name, view: params[:view]))
   elsif params[:islet].present?
-    breadcrumb_steps["#{Islet.model_name.human} #{params[:islet]}"] = ""
+    breadcrumb.add("#{Islet.model_name.human} #{params[:islet]}")
   end
 
-  breadcrumb_steps[title] = ""
-
-  provide :title, "#{t("visualization.title")} | #{Bay.model_name.human.pluralize} | #{title}"
+  breadcrumb.add(title)
 
   title = t("visualization.title") + " " + title
 %>
 
-<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) do |heading| %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
     <div class="d-flex flex-wrap gap-2 flex-column flex-lg-row">
       <%= render "rooms/action_buttons", view_side: params[:view] %>

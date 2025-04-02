@@ -8,6 +8,6 @@ class Cluster < ApplicationRecord
   scope :sorted, -> { order(Arel.sql('LOWER(name)')) }
 
   def to_s
-    name.present? ? name : " "
+    name.presence || " "
   end
 end

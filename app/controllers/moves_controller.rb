@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class MovesController < ApplicationController
-  before_action :set_move, only: [:show, :edit, :update, :destroy, :execute_movement]
-  before_action :load_form_data, only: [:new, :edit]
+  before_action :set_move, only: %i[show edit update destroy execute_movement]
+  before_action :load_form_data, only: %i[new edit]
   before_action :set_frame_updated, only: %i[frame print]
 
   def index
@@ -10,7 +10,11 @@ class MovesController < ApplicationController
     @frames = (@moves.map(&:frame) | @moves.map(&:prev_frame)).compact.uniq
   end
 
-  def show; end
+  def show
+    respond_to do |format|
+      format.json { render :show }
+    end
+  end
 
   def new
     @move = Move.new(moveable_type: "Server")
@@ -30,7 +34,7 @@ class MovesController < ApplicationController
 
     respond_to do |format|
       if @move.save
-        format.html { redirect_to edit_move_path(@move), notice: 'Move was successfully created.' }
+        format.html { redirect_to edit_move_path(@move), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @move }
       else
         load_form_data
@@ -41,15 +45,15 @@ class MovesController < ApplicationController
   end
 
   def update
-    @move.prev_frame_id = @move.moveable.try(:frame_id)
-
-    if params[:move][:remove_connections] == 'Oui'
-      @move.clear_connections
-    end
-
     respond_to do |format|
       if @move.update(move_params)
-        format.html { redirect_to edit_move_path(@move), notice: 'Move was successfully updated.' }
+        @move.prev_frame_id = @move.moveable.try(:frame_id)
+
+        if params[:move][:remove_connections] == 'Oui'
+          @move.clear_connections
+        end
+
+        format.html { redirect_to edit_move_path(@move), notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @move }
       else
         load_form_data
@@ -62,7 +66,7 @@ class MovesController < ApplicationController
   def destroy
     @move.destroy
     respond_to do |format|
-      format.html { redirect_to moves_url, notice: 'Move a bien été supprimé.' }
+      format.html { redirect_to moves_url, notice: t(".flashes.destroyed") }
       format.json { head :no_content }
     end
   end
@@ -70,7 +74,7 @@ class MovesController < ApplicationController
   def execute_movement
     @move.execute_movement
     respond_to do |format|
-      format.html { redirect_to moves_url, notice: 'Move has been successfully executed.' }
+      format.html { redirect_to moves_url, notice: t(".flashes.executed") }
       format.json { head :no_content }
     end
   end
@@ -113,8 +117,8 @@ class MovesController < ApplicationController
     @moved_connections = MovedConnection.per_servers(@servers)
 
     @current_moved_connections = @moved_connections.where('port_from_id IN (?) OR port_to_id IN (?)',
-                                                 [params[:moved_connection][:port_from_id], params[:moved_connection][:port_to_id]],
-                                                 [params[:moved_connection][:port_from_id], params[:moved_connection][:port_to_id]])
+                                                          [params[:moved_connection][:port_from_id], params[:moved_connection][:port_to_id]],
+                                                          [params[:moved_connection][:port_from_id], params[:moved_connection][:port_to_id]])
 
     if @current_moved_connections.present?
       if @current_moved_connections.size > 1
@@ -155,11 +159,11 @@ class MovesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def move_params
-    params.require(:move).permit(:moveable_type, :moveable_id, :frame_id, :position, :prev_frame_id)
+    params.expect(move: %i[moveable_type moveable_id frame_id position prev_frame_id])
   end
 
   def moved_connection_params
-    params.require(:moved_connection).permit(:port_from_id, :port_to_id, :vlans, :color, :cablename)
+    params.expect(moved_connection: %i[port_from_id port_to_id vlans color cablename])
   end
 
   def load_form_data
@@ -184,11 +188,15 @@ class MovesController < ApplicationController
     @frame = Frame.find(params[:frame_id])
 
     @moves = Move.where(frame: @frame, moveable_type: "Server")
-    @moved_servers = @moves.map { |move| server = move.moveable; server.position = move.position; server }
+    @moved_servers = @moves.map do |move|
+      server = move.moveable
+      server.position = move.position
+      server
+    end
 
     @removed_servers = Move.where(prev_frame_id: @frame.id, moveable_type: "Server").map(&:moveable)
 
-    @servers = ((@frame.servers - @removed_servers) | @moved_servers).sort_by { |server| server.position.present? ? server.position : 0 }.reverse
+    @servers = ((@frame.servers - @removed_servers) | @moved_servers).sort_by { |server| server.position.presence || 0 }.reverse
     @moved_connections = MovedConnection.per_servers(@servers)
   end
 end

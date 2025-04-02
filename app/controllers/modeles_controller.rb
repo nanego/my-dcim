@@ -3,13 +3,14 @@
 class ModelesController < ApplicationController
   include ModelesHelper
 
-  before_action :set_modele, only: [:show, :edit, :update, :destroy]
+  before_action :set_modele, only: %i[show edit update destroy]
 
   def index
-    @filter = ProcessorFilter.new(Modele.includes(:category, :enclosures).order(:name), params)
+    @modeles = Modele.includes(:category, :enclosures).order(:name)
+    @filter = ProcessorFilter.new(@modeles, params)
     @modeles = @filter.results
 
-    @types = @modeles.group_by { |m| m.category.name }.sort_by { |categorie, modeles| categorie.to_s }
+    @types = @modeles.group_by { |m| m.category.name }.sort_by { |categorie, _modeles| categorie.to_s }
   end
 
   def show
@@ -18,11 +19,11 @@ class ModelesController < ApplicationController
 
   def new
     @modele = Modele.new
-    @modele.composants.build(:name => 'ALIM', type_composant_id: 4)
-    @modele.composants.build(:name => 'IPMI', type_composant_id: 4)
-    @modele.composants.build(:name => 'CM', type_composant_id: 4)
+    @modele.composants.build(:name => 'ALIM')
+    @modele.composants.build(:name => 'IPMI')
+    @modele.composants.build(:name => 'CM')
     7.times do |i|
-      @modele.composants.build(:name => "SL#{i + 1}", type_composant_id: 4)
+      @modele.composants.build(:name => "SL#{i + 1}")
     end
   end
 
@@ -35,25 +36,39 @@ class ModelesController < ApplicationController
   def create
     @modele = Modele.new(modele_params)
 
-    respond_to do |format|
-      if @modele.save
-        format.html { redirect_to modele_path(@modele), notice: 'Nouveau modèle ajouté.' }
-        format.json { render :show, status: :created, location: @modele }
-      else
-        format.html { render :new }
-        format.json { render json: @modele.errors, status: :unprocessable_entity }
+    if params[:preview]
+      respond_to do |format|
+        format.turbo_stream { render :preview, status: :unprocessable_entity }
+      end
+    else
+      respond_to do |format|
+        if @modele.save
+          format.html { redirect_to modele_path(@modele), notice: t(".flashes.created") }
+          format.json { render :show, status: :created, location: @modele }
+        else
+          format.html { render :new }
+          format.json { render json: @modele.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
 
   def update
-    respond_to do |format|
-      if @modele.update(modele_params)
-        format.html { redirect_to modele_path(@modele), notice: 'Le modèle a été mis à jour.' }
-        format.json { render :show, status: :ok, location: @modele }
-      else
-        format.html { render :edit }
-        format.json { render json: @modele.errors, status: :unprocessable_entity }
+    @modele.assign_attributes(modele_params)
+
+    if params[:preview]
+      respond_to do |format|
+        format.turbo_stream { render :preview, status: :unprocessable_entity }
+      end
+    else
+      respond_to do |format|
+        if @modele.save
+          format.html { redirect_to modele_path(@modele), notice: t(".flashes.updated") }
+          format.json { render :show, status: :ok, location: @modele }
+        else
+          format.html { render :edit }
+          format.json { render json: @modele.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -61,7 +76,7 @@ class ModelesController < ApplicationController
   def destroy
     if @modele.destroy
       respond_to do |format|
-        format.html { redirect_to modeles_url, notice: 'Modele a bien été supprimé.' }
+        format.html { redirect_to modeles_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
@@ -85,12 +100,16 @@ class ModelesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def modele_params
-    params.require(:modele).permit(
-      :name, :color, :description, :category_id, :architecture_id, :u, :manufacturer_id, :nb_elts,
-      network_types: [],
-      enclosures_attributes: [
-        :id, :modele_id, :_destroy, :position, :display, :grid_areas,
-        composants_attributes: [:type_composant_id, :enclosure_id, :name, :position, :_destroy, :id],
+    params.expect(
+      modele: [
+        :name, :color, :description, :category_id, :architecture_id, :u, :manufacturer_id, :nb_elts,
+        { network_types: [] },
+        {
+          enclosures_attributes: [[
+            :id, :modele_id, :_destroy, :position, :display, :grid_areas,
+            { composants_attributes: [%i[enclosure_id name position _destroy id]] },
+          ]]
+        },
       ]
     )
   end

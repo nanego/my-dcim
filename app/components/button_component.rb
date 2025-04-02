@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ButtonComponent < ApplicationComponent
-  VARIANTS = %i[default primary secondary success danger warning info light dark link outline_primary].freeze
+  VARIANTS = %i[default primary secondary success danger warning info light dark link outline_primary outline_danger].freeze
   SIZES = %i[sm default lg].freeze
 
   def initialize(title, url:, variant: :default, size: :default, icon: nil, is_responsive: false, extra_classes: "", **html_options) # rubocop:disable Metrics/ParameterLists
@@ -25,8 +25,8 @@ class ButtonComponent < ApplicationComponent
             class: "btn btn-#{@variant.to_s.dasherize} btn-#{@size} align-items-center d-inline-flex #{@extra_classes}",
             title: @html_options&.dig(:data, :tooltip_title) || @title,
             **@html_options do
-      concat(tag.i(class: "bi bi-#{@icon}")) if @icon
-      concat(tag.span(@title, class: class_names("ms-2", 'd-none d-md-inline-flex': @is_responsive)))
+      concat(tag.span(class: "bi bi-#{@icon}")) if @icon
+      concat(tag.span(@title, class: class_names("ms-2", "d-none d-md-inline-flex": @is_responsive))) if @title
     end
   end
 end

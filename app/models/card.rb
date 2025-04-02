@@ -20,7 +20,7 @@ class Card < ApplicationRecord
 
   after_commit :set_twin_card
 
-  scope :on_patch_panels, -> () { joins(:server => { :modele => :category }).where("categories.name = 'Patch Panel'") }
+  scope :on_patch_panels, -> { joins(:server => { :modele => :category }).where("categories.name = 'Patch Panel'") }
 
   def to_s
     "Carte #{server} / #{card_type} / #{composant}"
@@ -39,13 +39,13 @@ class Card < ApplicationRecord
   end
 
   def positions_with_ports
-    ports.map { |port| port.position }
+    ports.map(&:position)
   end
 
   def create_missing_ports
     (1..port_quantity).each do |current_position|
       unless positions_with_ports.include?(current_position)
-        puts "create port #{current_position}"
+        # puts "create port #{current_position}"
         Port.create(position: current_position,
                     card_id: self.id,
                     vlans: nil,

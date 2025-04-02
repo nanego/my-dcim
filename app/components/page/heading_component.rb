@@ -5,7 +5,7 @@ module Page
     renders_one :right_content
 
     erb_template <<~ERB
-      <%= render "layouts/breadcrumb", breadcrumb_steps: @breadcrumb_steps %>
+      <%= render "layouts/breadcrumb", breadcrumb: @breadcrumb %>
       <div class="col-12 bg-body pb-5 pt-4 px-4">
         <div class="back-button-container mb-3">
           <% if @back_button_url %>
@@ -30,9 +30,9 @@ module Page
       </div>
     ERB
 
-    def initialize(title:, breadcrumb_steps:, back_button_url: nil)
+    def initialize(title:, breadcrumb:, back_button_url: nil)
       @title = title
-      @breadcrumb_steps = breadcrumb_steps
+      @breadcrumb = breadcrumb
       @back_button_url = back_button_url
 
       super

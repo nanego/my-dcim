@@ -2,7 +2,7 @@
 
 class Modele < ApplicationRecord
   extend FriendlyId
-  friendly_id :slug_candidates, use: [:slugged, :history]
+  friendly_id :slug_candidates, use: %i[slugged history]
 
   has_changelog
 
@@ -15,14 +15,17 @@ class Modele < ApplicationRecord
   belongs_to :category, counter_cache: true
 
   accepts_nested_attributes_for :enclosures,
-                                :allow_destroy => true,
-                                :reject_if     => :all_blank
+                                allow_destroy: true,
+                                reject_if: :all_blank
 
   validate :validate_network_types_values
   normalizes :network_types, with: ->(values) { values.compact_blank }
 
   scope :sorted, -> { order(:name) }
   scope :with_servers, -> { joins(:servers).uniq }
+  scope :glpi_synchronizable, -> { where(category: Category.glpi_synchronizable) }
+  scope :no_pdus, -> { joins(:category).where("categories.name<>'Pdu'") }
+  scope :only_pdus, -> { joins(:category).where("categories.name='Pdu'").order(:name) }
 
   def self.all_sorted
     Modele.includes(:manufacturer).all.sort { |f1, f2| f1.name_with_brand.capitalize <=> f2.name_with_brand.capitalize }
@@ -48,7 +51,7 @@ class Modele < ApplicationRecord
     if manufacturer.present?
       "#{manufacturer} #{name}"
     else
-      "#{name}"
+      name.to_s
     end
   end
 
@@ -63,7 +66,7 @@ class Modele < ApplicationRecord
   def slug_candidates
     [
       :name,
-      [:name, :id],
+      %i[name id],
     ]
   end
 

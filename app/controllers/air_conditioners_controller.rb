@@ -4,7 +4,10 @@ class AirConditionersController < ApplicationController
   before_action :set_air_conditioner, only: %i[show edit update destroy]
 
   def index
-    @filter = ProcessorFilter.new(AirConditioner.joins(:room, :islet).order('rooms.position, islets.name, air_conditioners.name'), params)
+    @air_conditioners = AirConditioner.joins(bay: { islet: :room })
+      .order("rooms.position, islets.name, air_conditioners.name")
+
+    @filter = ProcessorFilter.new(@air_conditioners, params)
     @air_conditioners = @filter.results
   end
 
@@ -58,8 +61,8 @@ class AirConditionersController < ApplicationController
   end
 
   def air_conditioner_params
-    params.require(:air_conditioner).permit(:status, :last_service, :bay_id,
-                                            :name, :air_conditioner_model_id, :position, :lift_pump,
-                                            :start, :range, :setpoint, :min_setpoint)
+    params.expect(air_conditioner: %i[status last_service bay_id
+                                      name air_conditioner_model_id position lift_pump
+                                      start range setpoint min_setpoint])
   end
 end

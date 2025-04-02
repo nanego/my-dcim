@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CardTypesController < ApplicationController
-  before_action :set_card_type, only: [:show, :edit, :update, :destroy]
+  before_action :set_card_type, only: %i[show edit update destroy]
 
   def index
     @filter = ProcessorFilter.new(CardType.sorted, params)
@@ -73,7 +73,7 @@ class CardTypesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def card_type_params
-    params.require(:card_type).permit(:name, :port_type_id, :port_quantity,
-                                      :columns, :rows, :first_position, :max_aligned_ports)
+    params.expect(card_type: %i[name port_type_id port_quantity
+                                columns rows first_position max_aligned_ports])
   end
 end

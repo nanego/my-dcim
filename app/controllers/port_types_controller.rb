@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PortTypesController < ApplicationController
-  before_action :set_port_type, only: [:show, :edit, :update, :destroy]
+  before_action :set_port_type, only: %i[show edit update destroy]
 
   def index
     @port_types = sorted PortType.order('lower(name)')
@@ -58,6 +58,6 @@ class PortTypesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def port_type_params
-    params.require(:port_type).permit(:name, :power)
+    params.expect(port_type: %i[name power])
   end
 end

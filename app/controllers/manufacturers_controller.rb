@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ManufacturersController < ApplicationController
-  before_action :set_manufacturer, only: [:show, :edit, :update, :destroy]
+  before_action :set_manufacturer, only: %i[show edit update destroy]
 
   # GET /manufacturers
   # GET /manufacturers.json
@@ -75,6 +75,6 @@ class ManufacturersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def manufacturer_params
-    params.require(:manufacturer).permit(:name, :description, :documentation_url)
+    params.expect(manufacturer: %i[name description documentation_url])
   end
 end

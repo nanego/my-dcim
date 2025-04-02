@@ -3,11 +3,12 @@
 class BaysController < ApplicationController
   include RoomsHelper
 
-  before_action :set_bay, only: [:edit, :update, :destroy, :show]
+  before_action :set_bay, only: %i[edit update destroy show]
 
   def index
-    @filter = ProcessorFilter.new(Bay.joins(:room, :islet).order('rooms.position, islets.name, bays.lane, bays.position'), params)
-    @bays = @filter.results
+    @bays   = Bay.joins(islet: :room).order("rooms.position, islets.name, bays.lane, bays.position")
+    @filter = ProcessorFilter.new(@bays, params)
+    @bays = @filter.results.uniq
   end
 
   def show
@@ -71,6 +72,6 @@ class BaysController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def bay_params
-    params.require(:bay).permit(:name, :lane, :position, :width, :depth, :access_control, :bay_type_id, :islet_id, :manufacturer_id)
+    params.expect(bay: %i[name lane position width depth access_control bay_type_id islet_id manufacturer_id])
   end
 end

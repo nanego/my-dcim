@@ -1,11 +1,8 @@
 <%
-  title = Room.model_name.human.pluralize
-  breadcrumb_steps = { title => "" }
-
-  provide(:title, title)
+  breadcrumb.add(title = Room.model_name.human.pluralize)
 %>
 
-<%= render Page::HeadingComponent.new(title: title, breadcrumb_steps:) do |heading| %>
+<%= render Page::HeadingComponent.new(title: title, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
     <% render ButtonComponent.new(t(".new_room"),
                                   url: new_room_path,
@@ -67,14 +64,14 @@
         <% end %>
       <% end %>
 
-      <% table.with_column(Room.human_attribute_name(:display_on_home_page), sort_by: :display_on_home_page, class: "text-center") do |room| %>
+      <% table.with_column(Room.human_attribute_name(:display_on_home_page),
+                           sort_by: :display_on_home_page,
+                           text_align: :center) do |room| %>
         <input type="checkbox" <%= room.display_on_home_page ? "checked" : "" %> disabled>
       <% end %>
 
       <% table.with_column(Room.human_attribute_name(:status), sort_by: :status) do |room| %>
-        <span class="badge rounded-pill <%= room.decorated.badge_color_for_status %>">
-          <%= Room.human_attribute_name("status.#{room.status}") %>
-        </span>
+        <%= render room.decorated.status_to_badge_component %>
       <% end %>
 
       <% table.with_column(style: "min-width: 132px; width: 132px") do |room| %>

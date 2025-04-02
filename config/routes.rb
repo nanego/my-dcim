@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   resources :air_conditioners
-  resources :documents
+
   resources :moves do
     member do
       get :execute, to: 'moves#execute_movement'
@@ -13,9 +13,10 @@ Rails.application.routes.draw do
       get :load_connection
       get "/frames/:frame_id", to: "moves#frame", as: :frame
       get "/print/:frame_id", to: "moves#print", as: :print
-      match 'update_connection', to: 'moves#update_connection', via: [:patch, :post, :put]
+      match 'update_connection', to: 'moves#update_connection', via: %i[patch post put]
     end
   end
+
   get 'data_import', action: 'index', controller: 'data_import'
   post 'data_import/ansible'
 
@@ -23,11 +24,6 @@ Rails.application.routes.draw do
   resources :islets do
     get :print, on: :member
   end
-  resources :disk_types
-  resources :memory_types
-  resources :memory_components
-  resources :disks
-  resources :server_states
 
   resources :frames do
     collection do
@@ -39,7 +35,6 @@ Rails.application.routes.draw do
   end
 
   resources :ports, except: %i[create]
-  get 'connections', to: "connections#index"
   get 'connections/edit', :action => 'edit', controller: 'connections'
   post 'connections/update_destination_server', :action => 'update_destination_server', controller: 'connections'
   post 'connections/update', :action => 'update', controller: 'connections'
@@ -57,7 +52,16 @@ Rails.application.routes.draw do
       post :import
     end
 
-    get :duplicate, on: :member
+    member do
+      get :duplicate
+      get :destroy_connections
+    end
+  end
+  resources :power_distribution_units do
+    member do
+      get :duplicate
+      get :destroy_connections
+    end
   end
 
   resources :servers_grids, only: [:index]
@@ -80,6 +84,8 @@ Rails.application.routes.draw do
 
   resources :external_app_records, only: %i[index] do
     collection do
+      get :settings
+      put :settings
       put :sync_all_servers_with_glpi, as: :sync_with_glpi
     end
   end
@@ -108,6 +114,10 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks',
                                     registrations: 'users/registrations',
                                     sessions: 'users/sessions' }
+
+  namespace :bulk do
+    resource :servers, only: :destroy
+  end
 
   namespace :users do
     resource :settings, only: %i[edit update]

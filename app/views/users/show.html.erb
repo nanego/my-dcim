@@ -1,14 +1,12 @@
 <%
   title = @user.name || @user.email
 
-  provide(:title, "#{User.model_name.human.pluralize} | #{title}")
-
-  breadcrumb_steps = {
-    User.model_name.human.pluralize => users_url, title => ""
-  }
+  breadcrumb
+    .add(User.model_name.human.pluralize, users_url)
+    .add(title)
 %>
 
-<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:, back_button_url: users_path) %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:, back_button_url: users_path) %>
 <div class="col-12 p-4 border-top">
   <div class="col-12 col-lg-6">
     <%= render CardComponent.new do |card| %>

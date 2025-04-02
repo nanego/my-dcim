@@ -1,11 +1,8 @@
 <%
-  title = Category.model_name.human.pluralize
-  breadcrumb_steps = { title => "" }
-
-  provide(:title, title)
+  breadcrumb.add(title = Category.model_name.human.pluralize)
 %>
 
-<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) do |heading| %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
     <% render ButtonComponent.new(t(".new_category"),
                                   url: new_category_path,
@@ -25,6 +22,13 @@
       <%= link_to modeles_path(category_ids: category.id) do %>
         <%= Category.human_attribute_name(:modeles_count, count: category.modeles_count) %>
       <% end %>
+    <% end %>
+
+    <% table.with_column(Category.human_attribute_name(:is_glpi_synchronizable),
+                         sort_by: :is_glpi_synchronizable,
+                         text_align: :center,
+                         style: "width: 240px") do |category| %>
+      <input type="checkbox" <%= category.is_glpi_synchronizable ? "checked" : "" %> disabled>
     <% end %>
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |category| %>

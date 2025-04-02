@@ -11,7 +11,7 @@ RSpec.describe ServersProcessor do
   let(:attributes) do
     {
       frame: frames(:one), gestion: gestions(:one), domaine: domaines(:switch), modele: modeles(:one),
-      cluster: clusters(:cloud_c1), server_state: server_states(:one), stack: stacks(:red)
+      cluster: clusters(:cloud_c1), stack: stacks(:red)
     }
   end
 
@@ -326,7 +326,84 @@ RSpec.describe ServersProcessor do
     end
   end
 
+  describe "when filtering by category_id" do
+    let(:category) { Category.create! }
+    let(:modele) { Modele.create!(name: "Mod", description: "Mod desc", category:, manufacturer: Manufacturer.create!, architecture: Architecture.create!) }
+    let(:server) { Server.create!(name: "server", numero: 1, **attributes, modele:) }
+
+    before do
+      server
+    end
+
+    context "with one category_id" do
+      let(:params) { { category_ids: [category.id] } }
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to contain_exactly(server) }
+    end
+
+    context "with many category_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+      let(:another_category) { Category.create! }
+      let(:another_modele) { Modele.create!(name: "Mod2", description: "Mod2 desc", category: another_category, manufacturer: Manufacturer.create!, architecture: Architecture.create!) }
+      let(:another_server) { Server.create!(name: "server2", numero: 2, **attributes, modele: another_modele) }
+
+      let(:params) { { category_ids: [category.id, another_category.id] } }
+
+      before do
+        another_server
+      end
+
+      it { expect(result.size).to eq(2) }
+      it { is_expected.to contain_exactly(server, another_server) }
+    end
+  end
+
   describe "when sorting" do
     pending "TODO"
+  end
+
+  describe "When searching on every fields" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+    let(:room)     { Room.create(name: "R1", site: sites(:one)) }
+    let(:islet)    { Islet.create!(name: "I1", room:) }
+    let(:bay)      { Bay.create!(name: "A1", islet:, bay_type: bay_types(:one)) }
+    let(:frame)    { Frame.create!(name: "A1", bay:) }
+    let(:category) { Category.create! }
+    let(:modele)   { Modele.create!(name: "Mod", description: "Mod desc", category:, manufacturer: Manufacturer.create!, architecture: Architecture.create!) }
+    let(:gestion)  { Gestion.create!(name: "G1") }
+    let(:domaine)  { Domaine.create!(name: "D1") }
+    let(:cluster)  { Cluster.create!(name: "C1") }
+    let(:stack)    { Stack.create!(name: "S1") }
+
+    let(:server) do
+      Server.create!(name: "wood", numero: 1, **attributes, frame:, modele:, gestion:, domaine:, cluster:, stack:)
+    end
+
+    let(:params) do
+      {
+        q: "wood", frame_ids: frame.id, bay_ids: bay.id, islet_ids: islet.id, room_ids: room.id, modele_ids: modele.id,
+        gestion_ids: gestion.id, domaine_ids: domaine.id, cluster_ids: cluster.id, stack_ids: stack.id,
+        category_ids: category.id
+      }
+    end
+
+    before { server }
+
+    it { expect(result.size).to eq(1) }
+    it { is_expected.to contain_exactly(server) }
+
+    described_class::SORTABLE_FIELDS.each do |field|
+      context "and sort on #{field}" do # rubocop:disable RSpec/ContextWording, RSpec/MultipleMemoizedHelpers
+        let(:params) do
+          {
+            q: "wood", frame_ids: frame.id, bay_ids: bay.id, islet_ids: islet.id, room_ids: room.id, modele_ids: modele.id,
+            gestion_ids: gestion.id, domaine_ids: domaine.id, cluster_ids: cluster.id, stack_ids: stack.id,
+            category_ids: category.id, sort_by: field
+          }
+        end
+
+        it { expect(result.size).to eq(1) }
+        it { is_expected.to contain_exactly(server) }
+      end
+    end
   end
 end

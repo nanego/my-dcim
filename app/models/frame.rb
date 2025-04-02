@@ -5,7 +5,7 @@ class Frame < ApplicationRecord
   VIEW_SIDES = { both: 'both', front: 'front', back: 'back' }.freeze
 
   extend FriendlyId
-  friendly_id :slug_candidates, use: [:slugged, :history]
+  friendly_id :slug_candidates, use: %i[slugged history]
 
   has_changelog
   acts_as_list scope: [:bay_id]
@@ -37,7 +37,7 @@ class Frame < ApplicationRecord
   end
 
   def self.all_sorted
-    Frame.includes(:islet => :room, :bay => :islet).sort { |f1, f2| f1.name_with_room_and_islet <=> f2.name_with_room_and_islet }
+    Frame.includes(:islet => :room, :bay => :islet).sort_by(&:name_with_room_and_islet)
   end
 
   def should_generate_new_friendly_id?
@@ -48,17 +48,17 @@ class Frame < ApplicationRecord
     [
       room_name.present? ? "Salle #{room_name}" : '',
       bay.present? ? "Ilot #{bay.islet.name}" : '',
-      Frame.model_name.human + " " + (name.present? ? name : 'non précisée'),
-    ].reject(&:blank?).join(' ')
+      "#{Frame.model_name.human} #{name.presence || "non précisée"}",
+    ].compact_blank.join(' ')
   end
 
   def self.to_txt(servers_per_bay, detail)
     txt = []
     if servers_per_bay.present?
-      servers_per_bay.each do |islet, lanes|
-        lanes.each do |lane, bays|
-          bays.each do |bay, frames|
-            frames.each do |frame, servers|
+      servers_per_bay.each_value do |lanes|
+        lanes.each_value do |bays|
+          bays.each_value do |frames|
+            frames.each_key do |frame|
               txt << frame.to_txt(detail)
             end
           end
@@ -103,7 +103,7 @@ class Frame < ApplicationRecord
   end
 
   def compact_u
-    self.u = servers.map { |s| s.modele.u }.sum
+    self.u = servers.sum { |s| s.modele.u }
     self
   end
 
@@ -119,12 +119,9 @@ class Frame < ApplicationRecord
                                             position: 1,
                                             display: 'vertical')
     puts "ERROR: #{enclosure}" unless enclosure.valid?
-    type_composant = TypeComposant.find_by_name('SLOT')
-    puts "ERROR: #{type_composant}" unless type_composant.valid?
     4.times do |i|
       line = (i + 1).odd? ? 'L1' : 'L2'
-      composant = Composant.find_or_create_by(type_composant: type_composant,
-                                              position: i + 1,
+      composant = Composant.find_or_create_by(position: i + 1,
                                               enclosure: enclosure,
                                               name: "ALIM_#{line}")
       puts "ERROR: #{composant}" unless composant.valid?
@@ -137,7 +134,7 @@ class Frame < ApplicationRecord
                                            port_type: port_type)
     puts "ERROR: #{card_type}" unless card_type.valid?
 
-    ['A', 'B'].each do |line_name|
+    %w[A B].each do |line_name|
       pdu_name = "PDU_#{frame}_#{line_name}"
       pdu = Server.find_or_create_by(frame: frame,
                                      modele: modele,
@@ -160,7 +157,7 @@ class Frame < ApplicationRecord
   def slug_candidates
     [
       :name,
-      [:name, :id],
+      %i[name id],
     ]
   end
 end

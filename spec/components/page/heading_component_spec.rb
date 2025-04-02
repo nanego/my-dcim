@@ -4,9 +4,9 @@ require "rails_helper"
 
 RSpec.describe Page::HeadingComponent, type: :component do
   let(:title) { "Title" }
-  let(:breadcrumb_steps) { { "Sites" => "#url_sites" } }
+  let(:breadcrumb) { Breadcrumb.new.add("Sites", "#url_sites") }
   let(:back_button_url) { nil }
-  let(:component) { described_class.new(title:, breadcrumb_steps:, back_button_url:) }
+  let(:component) { described_class.new(title:, breadcrumb:, back_button_url:) }
   let(:rendered_component) { render_inline(component, &block).to_html }
 
   let(:block) { nil }
@@ -56,7 +56,7 @@ RSpec.describe Page::HeadingComponent, type: :component do
       expect(rendered_component).to have_tag("div.col-12.bg-body") do
         with_tag("div.back-button-container") do
           with_tag("a.btn.back-button", title: "Retour", href: "http://test.host/sites") do
-            with_tag("i.bi-chevron-left")
+            with_tag("span.bi-chevron-left")
             with_tag("span.ms-2", text: "Retour")
           end
         end

@@ -1,22 +1,32 @@
 <%
-  breadcrumb_steps = {
-    Islet.model_name.human.pluralize => islets_path, @islet.name_with_room => ""
-  }
-
-  provide(:title, "#{Islet.model_name.human.pluralize} | #{@islet.name_with_room}")
+  breadcrumb
+    .add(Islet.model_name.human.pluralize, islets_path)
+    .add(title = @islet.name_with_room)
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @islet, title: @islet.name_with_room, breadcrumb_steps:) %>
+<%= render Page::HeadingShowComponent.new(resource: @islet, title:, breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
       <%= render CardComponent.new do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.identification") %>
+        <% end %>
+
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <% %i[name description].each do |attribute_name| %>
             <dt class="pb-2"><%= Islet.human_attribute_name(attribute_name) %></dt>
             <dd class="mb-0 pb-2 ps-3"><%= @islet.public_send(attribute_name) %></dd>
           <% end %>
+        </dl>
+      <% end %>
 
+      <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.features") %>
+        <% end %>
+
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <dt class="pb-2"><%= Islet.human_attribute_name(:cooling_mode) %></dt>
           <dd class="mb-0 pb-2 ps-3"><%= @islet.decorated.cooling_mode_to_human %></dd>
 
@@ -57,6 +67,18 @@
       <% end %>
     </div>
   </div>
+
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+    <% card.with_header do %>
+      <%= t("show.cards.visualization") %>
+    <% end %>
+
+    <div class="overview">
+      <%= render CardComponent.new(extra_classes: "islet pt-2 px-2") do |card| %>
+        <%= render "bays/overview", bays: @islet.decorated.overviewed_bays_array, islet: @islet.name %>
+      <% end %>
+    </div>
+  <% end %>
 
   <%= render HasManyTurboFrameComponent.new(
     Bay.model_name.human.pluralize, url: bays_path(islet_ids: @islet.id), frame_id: dom_id(Bay, :table)

@@ -1,39 +1,51 @@
-<% provide(:title, t(".title")) %>
-<% breadcrumb_steps = {
-  t("servers.index.title") => servers_path,
-  t(".title") => "" }
+<%
+  breadcrumb
+    .add(Server.model_name.human, servers_path)
+    .add(title = t(".title"))
 %>
 
-<%= render Page::HeadingComponent.new(
-  title: t(".title"), breadcrumb_steps:, back_button_url: servers_path
-) do |heading| %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:, back_button_url: servers_path) do |heading| %>
   <% heading.with_right_content do %>
-    <%= button_to 'Démarrer la synchronisation avec GLPI',
-                  sync_with_glpi_external_app_records_path,
-                  id: 'sync_with_glpi_button',
-                  class: "btn btn-outline-primary",
-                  remote: true,
-                  method: :put %>
-  <% end %>
+    <div class="d-flex align-self-center column-gap-2">
+      <%= button_to sync_with_glpi_external_app_records_path,
+                    id: "sync_with_glpi_button",
+                    class: "btn btn-outline-primary d-inline-block",
+                    title: t(".start_synchronization"),
+                    remote: true,
+                    method: :put do %>
+        <i class="bi bi-arrow-repeat"></i>
+        <span class="ms-2 d-none d-md-inline-flex"><%= t(".start_synchronization") %></span>
+      <% end %>
 
-  <p class="mb-0">Listés : <%= @external_app_records_count %> sur <%= @servers_count %> machines connues </p>
+      <%= render ButtonComponent.new(t(".configuration"),
+                                     url: settings_external_app_records_path,
+                                     variant: :secondary,
+                                     icon: "gear",
+                                     is_responsive: true) %>
+    </div>
+  <% end %>
 <% end %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <div class="alert alert-primary mb-0" role="alert" id="sync_alert">
     <div id="sync_latest_text">
       <i class="bi bi-info-circle-fill me-2"></i>
-      <span class="fst-italic">Dernière synchronisation complète :
-        <%- if date = ExternalAppRequest.completed.order('updated_at desc').limit(1).pluck(:updated_at).last %>
-          <%= l(date) %>
-        <%- else %>
-          aucune
-        <%- end %>
+      <span>
+        <span class="fst-italic">
+          <%= t(".last_complete_synch") %>
+          <%- if date = ExternalAppRequest.completed.order('updated_at desc').limit(1).pluck(:updated_at).last %>
+            <%= l(date) %>
+          <%- else %>
+            <%= t(".none")%>
+          <%- end %>
+        </span>
+        <hr>
+        <span class="d-inline-flex"><%= t(".synchronised_categories_list", categories: @synchronised_categories) %></span>
       </span>
     </div>
 
     <div id="current_sync_status" class="d-none">
-      <span id="current_sync_status_label">Synchronisation en cours...</span>
+      <span id="current_sync_status_label"><%= t(".synchronizing") %></span>
       <span class="progress mt-2">
         <span id="current_sync_progress_bar"
               class="progress-bar progress-bar-striped"
@@ -68,6 +80,24 @@
           <%= f.label :external_serial_status %>
         </fieldset>
       </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:modele_ids, Modele.order(:name),
+                                  :id,
+                                  :name,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :modele_ids %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.text_field :server_name, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :server_name %>
+        </fieldset>
+      </div>
     <% end %>
   <% end %>
 
@@ -83,7 +113,7 @@
     <% end %>
     <% table.with_column(ExternalAppRecord.human_attribute_name(:external_serial_status),
                          sort_by: :external_serial,
-                         class: "text-center") do |record| %>
+                         text_align: :center) do |record| %>
       <%= render record.decorated.external_serial_to_badge_component %>
     <% end %>
     <% table.with_column(ExternalAppRecord.human_attribute_name(:external_name), sort_by: :external_name) do |record| %>

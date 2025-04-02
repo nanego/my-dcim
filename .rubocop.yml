@@ -75,6 +75,9 @@ Rails/SkipsModelValidations:
 # Style/AsciiComments:
 #   Enabled: false
 
+Style/QuotedSymbols:
+  EnforcedStyle: double_quotes
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 

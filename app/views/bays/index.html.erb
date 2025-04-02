@@ -1,10 +1,8 @@
 <%
-  breadcrumb_steps = { t(".title") => "" }
-
-  provide(:title, t(".title"))
+  breadcrumb.add(title = t(".title"))
 %>
 
-<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb_steps:) do |heading| %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
     <% render ButtonComponent.new(t(".new_bay"),
                                   url: new_bay_path,
@@ -36,10 +34,15 @@
       <div>
         <fieldset class="form-floating">
           <%= f.collection_select(:islet_ids,
-            Islet.includes(:room).order("rooms.site_id", "rooms.position", "rooms.name", :room_id, :name, :position),
-            :id, :name_with_room,
-            { prompt: true, multiple: true },
-            { class: "form-select", data: { controller: :select }  }) %>
+                                  Islet.includes(:room)
+                                       .order(
+                                         "rooms.site_id", "rooms.position", "rooms.name", :room_id, :name, :position
+                                       ),
+                                  :id,
+                                  :name_with_room,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select }  }
+          ) %>
           <%= f.label :islet_ids %>
         </fieldset>
       </div>
@@ -89,7 +92,7 @@
         <%= bay.position %>
       <% end %>
 
-      <% table.with_column(Server.model_name.human.pluralize) do |bay| %>
+      <% table.with_column(Server.model_name.human(count: 2)) do |bay| %>
         <%= link_to servers_path(bay_ids: bay.id), data: { turbo_frame: :_top } do %>
           <%= Bay.human_attribute_name(:materials_count, count: bay.materials.count) %>
         <% end %>

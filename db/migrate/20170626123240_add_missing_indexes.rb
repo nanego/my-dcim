@@ -25,7 +25,7 @@ class AddMissingIndexes < ActiveRecord::Migration[5.0]
     add_index :pdu_lines, :pdu_id
     add_index :pdu_outlet_groups, :pdu_line_id
     add_index :pdus, :frame_id
-    add_index :ports, [:parent_id, :parent_type]
+    add_index :ports, %i[parent_id parent_type]
     add_index :rooms, :site_id
     add_index :servers, :acte_id
     add_index :servers, :cluster_id
@@ -36,6 +36,6 @@ class AddMissingIndexes < ActiveRecord::Migration[5.0]
     add_index :servers, :server_state_id
     add_index :slots, :composant_id
     add_index :slots, :server_id
-    add_index :users, [:invited_by_id, :invited_by_type]
+    add_index :users, %i[invited_by_id invited_by_type]
   end
 end

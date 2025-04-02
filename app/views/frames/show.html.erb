@@ -1,10 +1,11 @@
 <%
-  provide(:title, "#{Frame.model_name.human.pluralize} | #{@frame.name}")
-  breadcrumb_steps = { Frame.model_name.human.pluralize => frames_path, @frame.name => "" }
+  breadcrumb
+    .add(Frame.model_name.human.pluralize, frames_path)
+    .add(@frame.name)
 %>
 
 <%= render Page::HeadingShowComponent.new(
-  resource: @frame, title: t(".title", frame: @frame.name), breadcrumb_steps:
+  resource: @frame, title: t(".title", frame: @frame.name), breadcrumb:
 ) do |heading| %>
   <% heading.with_extra_buttons do %>
     <% render ButtonComponent.new(t("visualization.title"),
@@ -19,11 +20,24 @@
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
       <%= render CardComponent.new do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.identification") %>
+        <% end %>
+
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <% %i[name u].each do |attribute_name| %>
-            <dt class="pb-2"><%= Frame.human_attribute_name(attribute_name) %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= @frame.public_send(attribute_name) %></dd>
-          <% end %>
+          <dt class="pb-2"><%= Frame.human_attribute_name(:name) %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @frame.name %></dd
+        </dl>
+      <% end %>
+
+      <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.features") %>
+        <% end %>
+
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <dt class="pb-2"><%= Frame.human_attribute_name(:u) %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @frame.u %></dd>
 
           <dt class="pb-2"><%= Frame.human_attribute_name(:width) %></dt>
           <dd class="mb-0 pb-2 ps-3"><%= value_with_unit(@frame.width, :inches) %></dd>
@@ -102,7 +116,7 @@
     </div>
   </div>
   <%= render HasManyTurboFrameComponent.new(
-    Server.model_name.human.pluralize, url: servers_path(frame_ids: @frame.id), frame_id: dom_id(Server, :table)
+    Server.model_name.human(count: 2), url: servers_path(frame_ids: @frame.id), frame_id: dom_id(Server, :table)
   ) %>
   <%= render ChangelogEntries::ObjectListComponent.new(@frame) %>
 </div>

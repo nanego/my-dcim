@@ -6,7 +6,8 @@ class ContactAssignmentsController < ApplicationController
   # GET /contact_assignments
   # GET /contact_assignments.json
   def index
-    @filter = ProcessorFilter.new(ContactAssignment.includes(:site, :contact, :contact_role), params)
+    @contact_assignments = ContactAssignment.includes(:site, :contact, :contact_role)
+    @filter = ProcessorFilter.new(@contact_assignments, params)
     @contact_assignments = @filter.results
   end
 
@@ -77,6 +78,6 @@ class ContactAssignmentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def contact_assignment_params
-    params.require(:contact_assignment).permit(:site_id, :contact_id, :contact_role_id)
+    params.expect(contact_assignment: %i[site_id contact_id contact_role_id])
   end
 end

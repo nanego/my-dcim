@@ -81,4 +81,28 @@ RSpec.describe ContactAssignmentsProcessor do
   describe "when sorting" do
     pending "TODO"
   end
+
+  describe "When searching on every fields" do
+    let(:site) { Site.create!(name: "S1") }
+    let(:contact) { Contact.create!(first_name: "J", last_name: "D") }
+    let(:contact_assignment) do
+      ContactAssignment.create!(site:, contact:, contact_role: contact_roles(:one))
+    end
+
+    let(:params) { { contact_ids: contact.id, site_ids: site.id } }
+
+    before { contact_assignment }
+
+    it { expect(result.size).to eq(1) }
+    it { is_expected.to contain_exactly(contact_assignment) }
+
+    described_class::SORTABLE_FIELDS.each do |field|
+      context "and sort on #{field}" do # rubocop:disable RSpec/ContextWording
+        let(:params) { { contact_ids: contact.id, site_ids: site.id, sort_by: field } }
+
+        it { expect(result.size).to eq(1) }
+        it { is_expected.to contain_exactly(contact_assignment) }
+      end
+    end
+  end
 end

@@ -4,8 +4,8 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
   MAX_PORTS_PER_LINE = 24
 
   def slot_label(server, component)
-    cards = server.cards.where('composant_id = ?', component.id)
-    cards_names = cards.pluck(:name).reject(&:blank?)
+    cards = server.cards.where(composant_id: component.id)
+    cards_names = cards.pluck(:name).compact_blank
     if cards_names.present?
       if cards.first.twin_card_id.present?
         link_to network_frame_path(server.frame, network_frame_id: Card.find(cards.first.twin_card_id).server.frame_id) do
@@ -14,8 +14,10 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       else
         cards_names.join('-')
       end
+    elsif component.name.present?
+      (component.name.include?('SL') ? component.name[2] : component.name).to_s
     else
-      component.name.present? ? "#{component.name.include?('SL') ? component.name[2] : component.name}" : component.position
+      component.position
     end
   end
 
@@ -30,7 +32,6 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
         html += "<td><div class='d-flex'>"
 
         ports_per_cell.times do |cell_index|
-
           position = get_current_position(card.orientation, card_type, cell_index, row_index, column_index, ports_per_cell)
           port_data = card.ports.detect { |p| p.position == position }
           port_id = port_data.try(:id)
@@ -42,7 +43,6 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
           if (cell_index + 1) % number_of_columns_in_cell(card.orientation, ports_per_cell, card_type.max_aligned_ports) == 0 # Every XX ports do
             html += '</div><div class="d-flex">'
           end
-
         end
 
         html += "</div></td>"
@@ -65,7 +65,6 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
         html += "<td><div class='d-flex'>"
 
         ports_per_cell.times do |cell_index|
-
           position = get_current_position(card.orientation, card_type, cell_index, row_index, column_index, ports_per_cell)
           port_data = card.ports.detect { |p| p.position == position }
           port_id = port_data.try(:id)
@@ -81,7 +80,6 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
           if (cell_index + 1) % number_of_columns_in_cell(card.orientation, ports_per_cell, card_type.max_aligned_ports) == 0 # Every XX ports do
             html += '</div><div class="d-flex">'
           end
-
         end
 
         html += "</div></td>"
@@ -123,29 +121,32 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
   end
 
   def link_to_port(position, port_data, port_type, card_id, port_id, default_label = '')
-    cable_name = port_data.try(:cable_name).present? ? port_data.try(:cable_name) : default_label
+    cable_name = port_data&.cable_name.presence || default_label
+
     case port_type.name
     when 'RJ', 'XRJ'
       port_type_name = "RJ"
     when 'FC', 'SC'
       port_type_name = "FC"
+      cable_name = position.to_s.rjust(2, "0") if cable_name.blank?
     else
-      cable_name = "#{port_data.try(:cable_name).present? ? port_data.try(:cable_name) : port_type.try(:name)}".html_safe
+      cable_name = (port_data&.cable_name.presence || port_type.try(:name)).to_s.html_safe
       port_type_name = port_type.name
     end
+
     link_to_port_by_type(cable_name, port_type_name, port_data, position, card_id, port_id)
   end
 
   def link_to_port_by_type(label, type, port_data, position, card_id, port_id)
     edit_port_url = port_id ? connections_edit_path(from_port_id: port_id) : edit_port_path(id: 0, card_id: card_id, position: position)
-    if ['RJ', 'XRJ', 'FC', 'ALIM'].include? type
+    if %w[RJ XRJ FC ALIM].include? type
       port_class = type
     else
       port_class = "SCSI"
     end
 
-    link_to label.to_s, edit_port_url, id: port_id, title: (port_data.present? ? "#{port_data.vlans}" : ""),
-                                       class: "border border-secondary port port#{port_class} #{port_data.try(:cable_color) ? port_data.try(:cable_color) : "empty"}",
+    link_to label.to_s, edit_port_url, id: port_id, title: (port_data.present? ? port_data.vlans.to_s : ""),
+                                       class: "border border-secondary port port#{port_class} #{port_data.try(:cable_color) || "empty"}",
                                        data: { url: edit_port_url, position:, type:, controller: 'tooltip', bs_placement: 'top' }, target: :_top
   end
 
@@ -199,14 +200,14 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
 
   def include_moved_connections(moved_connections, port_data, port_id)
     if port_data.present? && moved_connections.present?
-      connection = moved_connections.select { |c| c.port_from_id == port_id || c.port_to_id == port_id }.first
+      connection = moved_connections.find { |c| c.port_from_id == port_id || c.port_to_id == port_id }
       port_data = connection if connection.present?
     end
     port_data
   end
 
   def define_background_color(server:, mode: nil)
-    if %w(gestion cluster).include?(mode)
+    if %w[gestion cluster].include?(mode)
       case mode
       when 'gestion'
         parent_type = 'Gestionnaire'

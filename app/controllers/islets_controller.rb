@@ -3,12 +3,13 @@
 class IsletsController < ApplicationController
   include RoomsHelper
 
-  before_action :set_islet, only: [:show, :edit, :update, :destroy, :print]
+  before_action :set_islet, only: %i[show edit update destroy print]
   before_action :set_room, only: %i[show print]
   before_action :set_servers_per_frames, only: %i[show print]
 
   def index
-    @filter = ProcessorFilter.new(Islet.joins(:site, :room).order("rooms.site_id asc, rooms.position asc, islets.name asc"), params)
+    @islets = Islet.joins(room: :site).order("rooms.site_id asc, rooms.position asc, islets.name asc")
+    @filter = ProcessorFilter.new(@islets, params)
     @islets = @filter.results
   end
 
@@ -86,7 +87,7 @@ class IsletsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def islet_params
-    params.require(:islet).permit(:name, :room_id, :position, :description, :cooling_mode, :access_control)
+    params.expect(islet: %i[name room_id position description cooling_mode access_control])
   end
 
   def set_room

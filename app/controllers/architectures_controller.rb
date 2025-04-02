@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ArchitecturesController < ApplicationController
-  before_action :set_architecture, only: [:show, :edit, :update, :destroy]
+  before_action :set_architecture, only: %i[show edit update destroy]
 
   # GET /architectures
   # GET /architectures.json
@@ -75,6 +75,6 @@ class ArchitecturesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def architecture_params
-    params.require(:architecture).permit(:name, :description)
+    params.expect(architecture: %i[name description])
   end
 end

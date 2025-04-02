@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DomainesController < ApplicationController
-  before_action :set_domaine, only: [:show, :edit, :update, :destroy]
+  before_action :set_domaine, only: %i[show edit update destroy]
 
   # GET /domaines
   # GET /domaines.json
@@ -75,6 +75,6 @@ class DomainesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def domaine_params
-    params.require(:domaine).permit(:name, :description)
+    params.expect(domaine: %i[name description])
   end
 end

@@ -2,7 +2,7 @@
 
 class Bay < ApplicationRecord
   has_changelog
-  acts_as_list scope: [:lane, :islet_id]
+  acts_as_list scope: %i[lane islet_id]
 
   belongs_to :bay_type
   belongs_to :islet

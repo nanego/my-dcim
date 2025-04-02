@@ -31,3 +31,11 @@ four:
   u: 24
   bay_id: 2
   position: 4
+
+five:
+  id: 5
+  name: MyFrame5
+  slug: myframe5
+  u: 24
+  bay_id: 4
+  position: 1

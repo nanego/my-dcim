@@ -32,3 +32,9 @@ five:
   name: S5
   description: Room n°5
   site_id: 1
+
+room_with_network_cluster_gbe:
+  id: 6
+  name: S6
+  description: Room n°6
+  site_id: 3

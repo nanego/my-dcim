@@ -2,7 +2,7 @@
 
 class Server < ApplicationRecord
   extend FriendlyId
-  friendly_id :slug_candidates, use: [:slugged, :history]
+  friendly_id :slug_candidates, use: %i[slugged history]
 
   has_changelog
 
@@ -14,15 +14,13 @@ class Server < ApplicationRecord
   belongs_to :domaine, optional: true, counter_cache: true
   belongs_to :modele, counter_cache: true
   belongs_to :cluster, optional: true, counter_cache: true
-  belongs_to :server_state, optional: true
   belongs_to :stack, optional: true, counter_cache: true
-
-  has_many :memory_components
-  has_many :disks
 
   has_many :cards, -> { joins(:composant).includes(:composant) }
   has_many :card_types, through: :cards
   has_many :ports, through: :cards
+  has_many :connections, through: :ports
+  has_many :cables, through: :connections
 
   has_many :moves, as: :moveable, dependent: :destroy
 
@@ -31,35 +29,30 @@ class Server < ApplicationRecord
 
   has_many :external_app_record, dependent: :destroy
 
-  validates_presence_of :numero
+  validates :numero, presence: true, uniqueness: true
   validates :name, presence: true
-  validates_uniqueness_of :numero
   validate :numero_cannot_be_a_current_server_name
   validate :validate_network_types_values
 
   accepts_nested_attributes_for :cards,
-                                :allow_destroy => true,
-                                :reject_if => :all_blank
-  accepts_nested_attributes_for :disks,
-                                :allow_destroy => true,
-                                :reject_if => :all_blank
-  accepts_nested_attributes_for :memory_components,
-                                :allow_destroy => true,
-                                :reject_if => :all_blank
+                                allow_destroy: true,
+                                reject_if: :all_blank
   accepts_nested_attributes_for :documents,
-                                :allow_destroy => true,
-                                :reject_if => :all_blank
+                                allow_destroy: true,
+                                reject_if: :all_blank
 
   normalizes :network_types, with: ->(values) { values.compact_blank }
+  normalizes :numero, with: ->(numero) { numero.presence }
 
   before_create :set_default_network_types
 
-  scope :sorted, -> { order(:position => :desc) }
+  scope :sorted, -> { order(position: :desc) }
   scope :sorted_by_name, -> { order('LOWER(name) ASC') }
 
-  scope :no_pdus, -> { joins(:modele => :category).where("categories.name<>'Pdu'") }
-  scope :only_pdus, -> { joins(:modele => :category).where("categories.name='Pdu'").order(:name) }
-  scope :patch_panels, -> { joins(:modele => :category).where("categories.name='Patch Panel'").order(:name) }
+  scope :glpi_synchronizable, -> { joins(modele: :category).merge(Modele.glpi_synchronizable) }
+  scope :no_pdus, -> { joins(modele: :category).where("categories.name<>'Pdu'") }
+  scope :only_pdus, -> { joins(modele: :category).where("categories.name='Pdu'").order(:name) }
+  scope :patch_panels, -> { joins(modele: :category).where("categories.name='Patch Panel'").order(:name) }
 
   scope :search, lambda { |query|
     return if query.blank?
@@ -72,6 +65,12 @@ class Server < ApplicationRecord
       query: "%#{query}%"
     )
   }
+
+  def self.friendly_find_by_numero_or_name(name)
+    name = name.to_s.downcase
+
+    Server.find_by('lower(numero) = ?', name) || Server.friendly.find(name)
+  end
 
   def to_s
     name.to_s
@@ -98,23 +97,23 @@ class Server < ApplicationRecord
       else
         port_type = card.card_type.port_type.name
       end
-      sums[port_type] = sums[port_type].to_i + card.ports.map { |port| port.connection.try(:cable) }.compact.size
+      sums[port_type] = sums[port_type].to_i + card.ports.filter_map { |port| port.connection.try(:cable) }.size
     end
     sums
   end
 
   def create_missing_ports
-    cards.each { |card| card.create_missing_ports }
+    cards.each(&:create_missing_ports)
   end
 
   def connected_servers_ids_through_twin_cards_with_color
     connections = directly_connected_servers_ids_with_color
     connected_ports.each do |port|
-      if port.card && port.card.twin_card_id
+      if port.card&.twin_card_id
         twin_card = Card.find(port.card.twin_card_id)
         twin_card_port = twin_card.ports.includes(:connection).where(position: port.position).first
-        if twin_card_port
-          connections << { server_id: twin_card_port.paired_connection.port.server_id, cable_color: twin_card_port.paired_connection.try(:cable).try(:color) } if twin_card_port.paired_connection
+        if twin_card_port&.paired_connection
+          connections << { server_id: twin_card_port.paired_connection.port.server_id, cable_color: twin_card_port.paired_connection.try(:cable).try(:color) }
         end
         connections << { server_id: twin_card.server_id, cable_color: twin_card_port.try(:connection).try(:cable).try(:color) }
       end
@@ -127,11 +126,11 @@ class Server < ApplicationRecord
   end
 
   def directly_connected_servers_ids_with_color
-    connected_ports.map do |port|
+    connected_ports.filter_map do |port|
       if port.card.present?
         { server_id: port.server_id, cable_color: port.connection.try(:cable).try(:color) }
       end
-    end.compact
+    end
   end
 
   def connected_ports
@@ -157,12 +156,20 @@ class Server < ApplicationRecord
     end
   end
 
+  def destroy_connections!
+    transaction do
+      cables.find_each(&:destroy!)
+    end
+
+    true
+  end
+
   private
 
   def slug_candidates
     [
       :name,
-      [:name, :id],
+      %i[name id],
     ]
   end
 

@@ -16,7 +16,7 @@ class ExternalAppRequest < ApplicationRecord
   scope :in_progress, -> { where(status: :in_progress) }
   scope :completed, -> { where(status: :completed) }
   scope :failed, -> { where(status: :failed) }
-  scope :running, -> { where(status: [:pending, :in_progress]) }
+  scope :running, -> { where(status: %i[pending in_progress]) }
 
   private
 

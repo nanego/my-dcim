@@ -1,13 +1,18 @@
 <%
-  provide(:title, "#{Site.model_name.human.pluralize} | #{@site.name}")
-  breadcrumb_steps = { Site.model_name.human.pluralize => sites_path, @site.name => "" }
+  breadcrumb
+    .add(Site.model_name.human.pluralize, sites_path)
+    .add(title = @site.name)
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @site, title: @site.name, breadcrumb_steps:) %>
+<%= render Page::HeadingShowComponent.new(resource: @site, title:, breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
       <%= render CardComponent.new do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.identification") %>
+        <% end %>
+
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <% %i[name description].each do |attribute_name| %>
             <dt class="pb-2"><%= Site.human_attribute_name(attribute_name) %></dt>
@@ -19,7 +24,7 @@
       <!-- Cards shown on lg, in 2nd and 3rd position (Grid isn't working as Masonry) -->
       <%= render CardComponent.new(extra_classes: "d-none d-lg-flex mt-4") do |card| %>
         <% card.with_header do %>
-          <%= t("display") %>
+          <%= t("show.cards.display") %>
         <% end %>
 
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
@@ -47,6 +52,7 @@
         <% end %>
       <% end %>
     </div>
+
     <div class="col" id="export-to-pdf">
       <%= render CardComponent.new(type: :primary) do |card| %>
         <% card.with_header do %>
@@ -91,7 +97,7 @@
     <div class="col d-lg-none">
       <%= render CardComponent.new(extra_classes: "d-lg-none") do |card| %>
         <% card.with_header do %>
-          <%= t("display") %>
+          <%= t("show.cards.display") %>
         <% end %>
 
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
@@ -119,6 +125,22 @@
       <% end %>
     </div>
   </div>
+
+  <% if (rooms = @site.rooms.order(:position).joins(:frames).distinct).any? %>
+    <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+      <% card.with_header do %>
+        <%= t("show.cards.visualization") %>
+      <% end %>
+
+      <div class="row row-cols-1 row-gap-3">
+        <% rooms.each do |room| %>
+          <div class="col overview">
+            <%= render "rooms/room_overview", room: room %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
 
   <%= render HasManyTurboFrameComponent.new(
     Room.model_name.human.pluralize, url: rooms_path(site_ids: @site.id), frame_id: dom_id(Room, :table)

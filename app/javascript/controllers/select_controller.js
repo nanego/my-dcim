@@ -30,6 +30,7 @@ export default class extends Controller {
   get defaultOptions() {
     return {
       hidePlaceholder: true,
+      maxOptions: null,
       plugins: this.plugins(),
     }
   }

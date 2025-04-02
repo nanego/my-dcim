@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # configures public url for our application
-OmniAuth.config.full_host = Proc.new do |env|
+OmniAuth.config.full_host = proc do |env|
   url = env["rack.session"]["omniauth.origin"] || env["omniauth.origin"]
   # if no url found, fall back to config secrets
   if url.blank?

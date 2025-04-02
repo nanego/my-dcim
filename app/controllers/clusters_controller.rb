@@ -6,7 +6,8 @@ class ClustersController < ApplicationController
   # GET /clusters
   # GET /clusters.json
   def index
-    @filter = ProcessorFilter.new(Cluster.includes(:servers).sorted, params)
+    @clusters = Cluster.includes(:servers).sorted
+    @filter = ProcessorFilter.new(@clusters, params)
     @clusters = @filter.results
   end
 
@@ -76,6 +77,6 @@ class ClustersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def cluster_params
-    params.require(:cluster).permit(:name)
+    params.expect(cluster: [:name])
   end
 end

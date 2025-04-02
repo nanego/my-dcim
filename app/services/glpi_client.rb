@@ -54,17 +54,18 @@ class GlpiClient
       end
       if computer_params.present?
         computer_params.deep_transform_keys(&:underscore)
-        computer = Computer.new(computer_params)
-        computer.hard_drives = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceHardDrive'] : {}
-        computer.memories = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceMemory'] : {}
-        computer.processors = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceProcessor'] : {}
-        computer.processors.each do |proc_id, proc_details|
-          proc_details["designation"] = get_processor_designation_from_glpi(id: proc_details["deviceprocessors_id"])
+
+        attributes = computer_params
+        attributes[:hard_drives] = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceHardDrive'] : {}
+        attributes[:memories] = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceMemory'] : {}
+        processors = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceProcessor'] : {}
+        attributes[:processors] = processors.each_value do |proc|
+          proc["designation"] = get_processor_designation_from_glpi(id: proc["deviceprocessors_id"])
         end
+
+        return Computer.new(attributes)
       end
     end
-
-    return computer
   end
 
   def get_processor_designation_from_glpi(id:)
@@ -103,41 +104,39 @@ class GlpiClient
 
   def stubs
     Faraday::Adapter::Test::Stubs.new do |stub|
-      stub.get('/Computer?searchText%5Bserial%5D=AZERTY') { |env| [200, {}, File.read(Rails.root.join('test', 'services', 'computers_results.json'))] }
-      stub.get(/\/Computer\/4090?.*/) { |env| [200, {}, File.read(Rails.root.join('test', 'services', 'computer_4090_algori.json'))] }
-      stub.get(/\/DeviceProcessor\/28?.*/) { |env| [200, {}, File.read(Rails.root.join('test', 'services', 'processor_28.json'))] }
-      stub.get('/initSession') { |env| [200, {}, '{"session_token":"kuji8uh4v77lgghqoj2c0r2848"}'] }
+      stub.get('/Computer?searchText%5Bserial%5D=AZERTY') { |_env| [200, {}, Rails.root.join("test/services/computers_results.json").read] }
+      stub.get(/\/Computer\/4090?.*/) { |_env| [200, {}, Rails.root.join("test/services/computer_4090_algori.json").read] }
+      stub.get(/\/DeviceProcessor\/28?.*/) { |_env| [200, {}, Rails.root.join("test/services/processor_28.json").read] }
+      stub.get('/initSession') { |_env| [200, {}, '{"session_token":"kuji8uh4v77lgghqoj2c0r2848"}'] }
     end
   end
 
-  class Computer
-    include Virtus.model
+  module Types
+    include Dry.Types()
+  end
 
-    attribute :id, Integer
-    attribute :serial, String
-    attribute :name, String
-    attribute :contact, String
-    attribute :disks, Hash
-    attribute :hard_drives, Hash
-    attribute :memories, Hash
-    attribute :processors, Hash
+  class Computer < Dry::Struct
+    transform_keys(&:to_sym)
+
+    attribute? :id, Types::Coercible::Integer
+    attribute? :serial, Types::Coercible::String
+    attribute? :name, Types::Coercible::String
+    attribute? :contact, Types::Coercible::String
+    attribute? :disks, Types::Coercible::Hash
+    attribute? :hard_drives, Types::Coercible::Hash
+    attribute? :memories, Types::Coercible::Hash
+    attribute? :processors, Types::Coercible::Hash
 
     def hard_drives_total_capacity
       return 0 if hard_drives.blank?
 
-      hard_drives.sum { |key, value| value['capacity'] }
+      hard_drives.sum { |_key, value| value['capacity'] }
     end
 
     def memories_total_size
       return 0 if memories.blank?
 
-      memories.sum { |key, value| value['size'] }
+      memories.sum { |_key, value| value['size'] }
     end
-  end
-
-  class DeviceProcessor
-    include Virtus.model
-
-    attribute :designation, String
   end
 end

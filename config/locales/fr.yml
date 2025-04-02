@@ -25,6 +25,8 @@ fr:
     create: Créer
     execute: Exécuter
     move: Déplacer
+    preview: Prévisualiser
+    configure: Configurer
   export_button:
     label: Exports
     exports:
@@ -38,12 +40,20 @@ fr:
       front_wiring: Cablage - Face avant
       back_wiring: Cablage - Face arrière
     port_list: Liste des ports
+  show:
+    cards:
+      display: Affichage
+      features: Caractéristiques
+      identification: Identification
+      preview: Prévisualisation
+      visualization: Représentation
+    tabs:
+      details: Détails
 
-  order-in-progress: 'Commande en cours'
+  order-in-progress: "Commande en cours"
   inventories: Inventaires
   label_date: Date
   label_details: Détails
-  display: Affichage
 
   access_control:
     badge: Badge
@@ -57,8 +67,7 @@ fr:
         administration: Administration
         informations: Informations
       devices_dropdown:
-        equipments: Matériels
-        search_equipment: Rechercher un matériel
+        search_equipment: Rechercher un équipement
         filter_by: "Filtrer par :"
       projects_dropdown:
         projects: Projets
@@ -78,10 +87,10 @@ fr:
         title: Localisation
         bays: Baies / Doubles-baies
       equipment:
-        title: Matériel
+        title: Équipements
       features:
         title: Caractéristiques
-      exploitation:
+      operating:
         title: Exploitation
       maintenance:
         title: Maintenance
@@ -89,7 +98,6 @@ fr:
         title: Connexion
       contacts:
         title: Contacts
-      servers: Matériels
 
   pages:
     index:
@@ -112,9 +120,14 @@ fr:
     destroy:
       flashes:
         destroyed: L'ilôt a bien été supprimé.
+    infrastructure:
+      concentrator: Concentrateur
   connections:
     edit:
       title: Modifier la connexion
+    update:
+      flashes:
+        updated: La connexion a été mise à jour.
     form:
       action:
         show_more_bay: Voir plus de baies
@@ -135,8 +148,7 @@ fr:
       title: Modifier le site
     update:
       flashes:
-        updated:
-          Site a bien été modifié.
+        updated: Site a bien été modifié.
     form:
       add_contact_assignment: Assigner un contact
     destroy:
@@ -246,22 +258,6 @@ fr:
         destroyed: La couleur a bien été supprimé.
     show:
       title: Détails de la couleur
-  disk_types:
-    index:
-      new_disk_type: Nouveau type de disque
-    new:
-      title: Nouveau type de disque
-    create:
-      flashes:
-        created: Le type de disque a bien été créé.
-    edit:
-      title: Editer un type de disque
-    update:
-      flashes:
-        updated: Le type de disque a bien été modifié.
-    destroy:
-      flashes:
-        destroyed: Le type de disque a bien été supprimé.
   manufacturers:
     form:
       url_placeholder: "https://url_du_frabricant.com/suite_de_l_url/%s/reste_s_il_y_a"
@@ -299,25 +295,15 @@ fr:
     destroy:
       flashes:
         destroyed: Le domaine a bien été supprimé.
-  memory_types:
-    index:
-      new_memory_type: Nouveau type de RAM
-    new:
-      title: Nouveau type de RAM
-    create:
-      flashes:
-        created: Le type de RAM a bien été créé.
-    edit:
-      title: Modifier un type de RAM
-    update:
-      flashes:
-        updated: Le type de RAM a bien été modifié.
-    destroy:
-      flashes:
-        destroyed: Le type de RAM a bien été supprimé.
   ports:
     index:
       title: Liste des ports cablés
+    update:
+      flashes:
+        updated: Le port a été mis à jour.
+    destroy:
+      flashes:
+        destroyed: Le port a été supprimé.
   port_types:
     index:
       new_port_type: Ajouter un type de port
@@ -366,17 +352,41 @@ fr:
       delete_confirmation: Ce modèle ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur ou une enclosure. Voulez-vous continuer ?'
     new:
       title: Nouveau modèle
+    create:
+      flashes:
+        created: Nouveau modèle ajouté.
     edit:
       title: Modification d'un modèle
+    update:
+      flashes:
+        updated: Le modèle a été mis à jour.
+    destroy:
+      flashes:
+        destroyed: Le modèle a bien été supprimé.
     duplicate:
       title: Dupliquer le modèle %{modele_name}
+    preview:
+      modal_title: Prévisualisation du modèle %{modele_name}
+    decorator:
+      no_enclosure: Aucune enclosure
   external_app_records:
     index:
       title: Synchronisation avec GLPI
+      start_synchronization: Synchroniser avec GLPI
+      configuration: Configuration
+      synchronised_categories_list: "Liste des catégories qui seront synchronisées : %{categories}"
+      last_complete_synch: "Dernière synchronisation complète :"
+      none: aucune
+      synchronizing: "Synchronisation en cours..."
+    settings:
+      title: Configuration de la synchronisation
+      category_ids: Sélectionner les catégories à activer pour la synchronisation
+      flashes:
+        saved: "La configuration a bien été mise à jour."
   servers:
     form:
       network_type: Réseau %{type}
-      edit_confirmation: Modifier ce matériel
+      edit_confirmation: Modifier ce matériel I.T.
       add_card: Ajouter une carte
       add_document: Ajouter une pièce jointe
     room:
@@ -398,28 +408,51 @@ fr:
       action:
         import: Importer ce CSV
       download_example_html: "Télécharger un exemple de fichier CSV compatible : %{link}"
+    import:
+      flashes:
+        imported: Les nouveaux matériels I.T. ont été ajoutés.
     index:
-      title: Matériels
-      new_server: Ajouter un matériel
+      new_server: Ajouter un matériel  I.T.
       add_server_via_csv: Ajouter par un fichier CSV
       sync_with_external_apps: Synchroniser avec GLPI
     show:
       back_to_bay: Baie %{name}
-      nb_u: Nb de U
       documentation: Documentation
       attached_documents: "Documents attachés :"
       glpi_data: Données GLPI
-      glpi_visit_page: Voir la page de la machine sur GLPI
+      glpi_visit_page: Voir la page du matériel I.T. sur GLPI
       no_match_serial: "Aucune correspondance pour ce numéro de série : %{serial}"
       glpi_connection_error: "Problème lors de la connexion à GLPI :"
       moves_cta_tooltip: Prévoir son déplacement
+      toggle_vlans: Afficher / Cacher les Vlans
+      destroy_connections: Supprimer les connexions
+      destroy_connections_confirmation: Confirmez-vous vouloir supprimer toutes les connections de ce matériel I.T. ?
     new:
-      title: "Ajouter un matériel"
+      title: Ajouter un matériel I.T.
+    create:
+      flashes:
+        created: Le matériel I.T. a été créé avec succès.
     edit:
-      title: "Modifier le matériel"
-      delete_confirmation: Toutes les données concernant ce matériel seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?
+      title: Modifier le matériel I.T.
+      delete_confirmation: Toutes les données concernant ce matériel I.T. seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?
+    update:
+      flashes:
+        updated: Le matériel I.T. a été mis à jour avec succès.
     duplicate:
-      title: Dupliquer le matériel %{server_name}
+      title: Dupliquer le matériel I.T. %{server_name}
+    destroy:
+      flashes:
+        destroyed: Le matériel I.T. a bien été supprimé.
+        not_destroyed: Une erreur est survenue lors de la suppression du matériel I.T.
+    flashes:
+      connections_destroyed: Les connexions ont été supprimées.
+      connections_not_destroyed: Une erreur a empêché la suppression des connexions.
+  bulk:
+    servers:
+      destroy:
+        flashes:
+          destroyed: Les matériels I.T. sélectionnés ont bien été supprimés.
+          not_destroyed: Une erreur est survenue lors de la suppression d'au moins un matériel I.T.
   glpi:
     computer:
       name: Nom
@@ -431,6 +464,42 @@ fr:
       memories_count: Nombre de barettes
       memories_total: Ram totale
       cpus: Processeurs
+  power_distribution_units:
+    index:
+      title: Électricité
+      new_power_distributon_unit: Ajouter un PDU
+    show:
+      documentation: Documentation
+      attached_documents: "Documents attachés :"
+      glpi_data: Données GLPI
+      glpi_visit_page: Voir la page de la machine sur GLPI
+      no_match_serial: "Aucune correspondance pour ce numéro de série : %{serial}"
+      glpi_connection_error: "Problème lors de la connexion à GLPI :"
+      destroy_connections: Supprimer les connexions
+      destroy_connections_confirmation: Confirmez-vous vouloir supprimer toutes les connections de ce PDU ?
+    new:
+      title: Ajouter un PDU
+    create:
+      flashes:
+        created: Le PDU a été créé avec succès.
+    form:
+      add_card: Ajouter une carte
+      add_document: Ajouter une pièce jointe
+    edit:
+      title: Modifier le PDU
+      delete_confirmation: Toutes les données concernant ce PDU seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?
+    update:
+      flashes:
+        updated: Le PDU a été mis à jour avec succès.
+    duplicate:
+      title: Dupliquer le PDU %{pdu_name}
+    destroy:
+      flashes:
+        destroyed: Le PDU a bien été supprimé.
+        not_destroyed: Une erreur est survenue lors de la suppression du PDU.
+    flashes:
+      connections_destroyed: Les connexions ont été supprimées.
+      connections_not_destroyed: Une erreur a empêché la suppression des connexions.
   frames:
     coupled_frame_label: Châssis couplé à
     no_coupled_frame: Aucun châssis couplé.
@@ -464,13 +533,24 @@ fr:
       execute_confirmation: Voulez-vous vraiment appliquer ce déplacement ?
       frame_table_title: Baies après déplacements
       edit_connections: Modifier les connexions
-      server: Matériel
       action:
-        execute_move: Exécuter le déplacement du serveur et de ses connexions
+        execute_move: Déplacer le serveur et ses connexions
     new:
       title: Nouveau déplacement
+    create:
+      flashes:
+        created: Le déplacement a été créé avec succès.
     edit:
       title: Modifier le déplacement enregistré
+    update:
+      flashes:
+        updated: Le déplacement a été mis à jour.
+    destroy:
+      flashes:
+        destroyed: Le déplacement a été supprimé.
+    execute_movement:
+      flashes:
+        executed: Le déplacement a été exécuté avec succès.
     form:
       initial_bay: Baie de départ
     frame:
@@ -483,7 +563,7 @@ fr:
 
   devise:
     registrations:
-      signed_up: 'Vous pouvez désormais vous connecter avec Cerbère'
+      signed_up: "Vous pouvez désormais vous connecter avec Cerbère"
       edit:
         action:
           show_authentication_token: Afficher la clé API
@@ -513,7 +593,7 @@ fr:
         ports: Ports
         unreferenced_client: Le port correspondant de la carte jumelle est câblé
         no_client: Le port correspondant de la carte jumelle n'est pas câblé
-      background_color: 'Couleur de fond : %{bg}'
+      background_color: "Couleur de fond : %{bg}"
       background_choices:
         modele: Modèle
         gestion: Gestionnaire
@@ -525,8 +605,17 @@ fr:
       new_room: Ajouter une salle
     new:
       title: Nouvelle salle
+    create:
+      flashes:
+        created: La salle a été créée avec succès.
     edit:
       title: Modifier la salle
+    update:
+      flashes:
+        updated: La salle a été mise à jour.
+    destroy:
+      flashes:
+        destroyed: La salle a bien été supprimée.
 
   users:
     my_account:
@@ -576,7 +665,7 @@ fr:
     temperatures: Températures
     index:
       new_air_conditioner: Ajouter une climatisation
-      title: Climatisations
+      title: Climatisation
       delete_confirmation: Cette climatisation sera supprimée. Voulez-vous continuer ?
     create:
       flashes:
@@ -606,10 +695,10 @@ fr:
       help-setpoint: "Operate>Valeurs>Air>Temperature Consigne"
       help-min-setpoint: "Operate>Valeurs>Air>Temperature Consigne"
       info-temperatures: "Si T<sub>interne</sub>-T<sub>externe</sub> < DTC start,
-                          alors ventilation = débit minimal
-                          \n\r
-                          Si T<sub>interne</sub>-T<sub>externe</sub> > DTC start + DTC range,
-                          alors ventilation = débit maximal"
+        alors ventilation = débit minimal
+        \n\r
+        Si T<sub>interne</sub>-T<sub>externe</sub> > DTC start + DTC range,
+        alors ventilation = débit maximal"
       day: Jour
       night: Nuit
   bays:
@@ -634,6 +723,13 @@ fr:
         destroyed: La baie a bien étée supprimé.
     decorator:
       no_frame_warning_text: Veuillez renseigner un châssis à cette baie
+  cables:
+    index:
+      title: Connexions
+      instructions_to_show_hide_vlans: Cliquer pour afficher / cacher les Vlans
+    destroy:
+      flashes:
+        destroyed: La connexion a bien été supprimée.
   contacts:
     index:
       new_contact: Ajouter un contact
@@ -711,11 +807,7 @@ fr:
   helpers:
     placeholder:
       composant:
-        name: 'Nom'
-      disk:
-        quantity: 'Quantité'
-      memory_component:
-        quantity: 'Quantité'
+        name: "Nom"
     submit:
       create: Créer
       update: Modifier
@@ -742,11 +834,22 @@ fr:
         site_ids: Site
         contact_ids: Contact
         network_type: Type de réseaux
-        port_type_ids: Types de port
+        port_type_ids: Type de port
+        port_ids: Port
+        cable_name: Nom du câble
+        server_ids: Matériel
+        server_name: Nom du matériel
+        card_query: "Carte : nom, type ou composant"
+        colors: Couleurs du câble
+        special_case: Backbone réseau
+        comments: Commentaires
+        vlans: Vlans
     placeholder:
-      search: Rechercher ...
+      search: Rechercher...
       quicksearch: Recherche rapide
   search:
     index:
       results: Résultats de la recherche
       no_results_found: Aucun résultat trouvé
+  select:
+    placeholder: Tapez pour filtrer...

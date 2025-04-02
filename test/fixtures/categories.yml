@@ -5,6 +5,7 @@ one:
   name: MyString
   description: MyText
   modeles_count: 1 # Workaround since servers_count not calculated
+  is_glpi_synchronizable: true
 
 two:
   id: 2

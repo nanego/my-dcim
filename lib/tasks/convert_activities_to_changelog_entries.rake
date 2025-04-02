@@ -2,6 +2,7 @@
 
 require "benchmark"
 
+desc "Convert Activities to ChangelogEntries"
 task convert_activities_to_changelog_entries: :environment do
   # Backport old Rails code to make PublicActivity parameters export works
   module ActiveRecord # rubocop:disable Lint/ConstantDefinitionInBlock
@@ -137,7 +138,7 @@ task convert_activities_to_changelog_entries: :environment do
 
       begin
         data = convert_activity_to_changes(activity)
-      rescue
+      rescue StandardError
         failed = true
       end
 

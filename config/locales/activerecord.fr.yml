@@ -1,7 +1,9 @@
 fr:
   activerecord:
     models:
-      server: Serveur
+      server:
+        one: Matériel I.T.
+        other: Matériels I.T.
       room: Salle
       islet: Ilot
       bay: Baie
@@ -26,22 +28,11 @@ fr:
         one: Type de port
         other: Types de port
       color: Couleur
-      disk: Disque
-      disk_type:
-        one: Type de disque
-        other: Types de disque
-      memory_type:
-        one: Type de RAM
-        other: Types de RAM
       enclosure: Enclosure
       user: Utilisateur
-      server_state: Statut
       changelog_entry: Changelog
       cable: Câble
       connection: Connexion
-      memory_component:
-        one: Composant mémoire
-        other: Composants mémoire
       move:
         one: Déplacement prévu
         other: Déplacements prévus
@@ -59,6 +50,7 @@ fr:
         site_id: Site
         status: Statut
         surface_area: Superficie
+        network_cluster_ids: Cluster de concentrateurs réseau
         islets_count:
           zero: 0 îlot
           one: 1 îlot
@@ -93,12 +85,10 @@ fr:
       server:
         name: Nom
         numero: Numéro de série
-        type: Type
         room: Salle
         islet: Ilot
         frame_id: Châssis
         position: Position
-        server_state_id: Etat
         modele_id: Modèle
         critique: Critique
         gestion_id: Gestionnaire
@@ -110,6 +100,7 @@ fr:
         photo: Photo
         frame: Châssis
         span: Slots
+        u: Nb de U
       site:
         name: Nom
         description: Description
@@ -220,18 +211,10 @@ fr:
         name: Nom
         power: Alimentation
         usage: Types de carte compatibles
-      disk_type:
-        name: Nom
-        quantity: Quantité
-        unit: Unité
-        technology: Technologie
-      memory_type:
-        name: Nom
-        quantity: Quantité
-        unit: Unité
       category:
         name: Nom
         description: Description
+        is_glpi_synchronizable: Synchronisation GLPI active
         modeles: Modèles
         modeles_count:
           zero: 0 modèle
@@ -268,6 +251,10 @@ fr:
         orientation: Orientation
         first_position: N° du 1er port
         twin_card_id: Carte jumelle
+      enclosure/display:
+        grid: Grille
+        horizontal: Horizontale
+        vertical: Verticale
       user:
         id: Identifiant
         name: Nom
@@ -346,14 +333,27 @@ fr:
         color: Couleur
         special_case: Backbone réseau
         comments: Commentaires
+      cable/color:
+        black: Noir
+        brown: Marron
+        red: Rouge
+        orange: Orange
+        yellow: Jaune
+        green: Vert
+        turquoise: Turquoise
+        blue: Bleu
+        purple: Violet
+        pink: Rose
+        grey: Gris
+        white: Blanc
       port:
         cablename: Nom du câble
         color: Couleur
         vlans: Vlans
       move:
-        moveable_id: Matériel à déplacer
+        moveable_id: Équipement à déplacer
         frame_id: Baie de destination
-        remove_connections: Supprimer toutes les connexions vers ce matériel ?
+        remove_connections: Supprimer toutes les connexions vers cet équipement ?
         position: Position dans la baie
       moved_connection:
         port_from_id: Port de départ
@@ -369,7 +369,7 @@ fr:
         frame_id: Emplacement
         frame_ids: Emplacement
         id: ID
-        server_id: Matériel
+        server_id: Matériel I.T.
         external_serials:
           found: Trouvé
           not_found: Non trouvé dans GLPI

@@ -19,7 +19,7 @@ RSpec.describe FilterComponent, type: :component do
       expect(rendered_component.to_html).to have_tag("div.card.border-primary") do
         with_tag("div.card-footer") do
           with_tag("input.btn.btn-primary.btn-sm", with: {
-            type: :submit, form: :filters, value: I18n.t("filter_component.submit")
+            type: :submit, form: :filters, value: "Filtrer"
           })
           with_tag("a.btn.btn-link.btn-sm.card-link", text: I18n.t("filter_component.reset", filters_count: nil))
           with_tag("small.ms-auto", text: I18n.t("filter_component.total", count: Frame.count))
@@ -51,7 +51,7 @@ RSpec.describe FilterComponent, type: :component do
 
         with_tag("div.card-footer") do
           with_tag("a.btn.btn-link.btn-sm", text: I18n.t("filter_component.reset", filters_count: " (2)"), with: { href: "http://test.host/frames" })
-          with_tag("small.ms-auto", text: I18n.t("filter_component.total_with_filters", total_count: Frame.count, results_count: 2))
+          with_tag("small.ms-auto", text: I18n.t("filter_component.total_with_filters", total_count: Frame.count, results_count: 3))
         end
       end
     end

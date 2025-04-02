@@ -2,15 +2,18 @@
 
 class BaysProcessor < ApplicationProcessor
   include Sortable
-  SORTABLE_FIELDS = %w[lane position room.name islet.name].freeze
+  SORTABLE_FIELDS = %w[lane position rooms.name islets.name].freeze
 
   map :q do |q:|
-    raw.joins(:frames).where(Frame.arel_table[:name].matches("%#{q}%"))
-      .or(raw.where(id: q))
+    raw.joins(:frames)
+      .where(
+        Frame.arel_table[:name].matches("%#{q}%")
+          .or(Bay.arel_table[:id].eq(q))
+      )
   end
 
   map :room_ids, filter_with: :non_empty_array do |room_ids:|
-    raw.joins(:room).where(rooms: { id: room_ids })
+    raw.joins(islet: :room).where(rooms: { id: room_ids })
   end
 
   map :islet_ids, filter_with: :non_empty_array do |islet_ids:|

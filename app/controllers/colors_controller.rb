@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ColorsController < ApplicationController
-  before_action :set_color, only: [:show, :edit, :update, :destroy]
+  before_action :set_color, only: %i[show edit update destroy]
 
   def index
     @colors = sorted Color.order('parent_type asc, parent_id asc')
@@ -62,6 +62,6 @@ class ColorsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def color_params
-    params.require(:color).permit(:parent_id, :parent_type, :code)
+    params.expect(color: %i[parent_id parent_type code])
   end
 end

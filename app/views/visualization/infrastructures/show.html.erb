@@ -1,11 +1,12 @@
 <%
   title = t("rooms.infrastructure_view.title")
-  breadcrumb_steps = { t("visualization.title") => overview_rooms_path, title => nil }
-
-  provide(:title, title)
+  
+  breadcrumb
+    .add(t("visualization.title"), overview_rooms_path)
+    .add(title)
 %>
 
-<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
 
 <div data-turbo="true">
   <div class="p-4 border-top d-flex flex-column row-gap-4">
@@ -36,7 +37,7 @@
       <%= turbo_frame_tag "infrastructure_islet" do %>
         <%= render partial: "islets/infrastructure", locals: {
           bays: @bays, network: @filter.network_type, room: @room, islet: @islet, hub: @hub,
-          second_hub: @second_hub, second_room: @second_room, connections: @connections, concentrateurs_ids: @concentrateurs_ids
+          second_hub: @second_hub, second_room: @second_room, connections: @connections, concentrator_ids: @concentrator_ids
         } %>
       <% end %>
     <% else %>

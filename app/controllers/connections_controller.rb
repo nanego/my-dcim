@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 class ConnectionsController < ApplicationController
-  def index
-    @connections = sorted Connection.includes(:port, :card, :server, :card_type, :port_type, cable: :connections).order(created_at: :desc)
-    @pagy, @connections = pagy(@connections)
-  end
-
   def edit
     if params[:from_port_id].present? && params[:from_port_id].to_i > 0
       @from_port = Port.find_by_id(params[:from_port_id])
@@ -40,11 +35,14 @@ class ConnectionsController < ApplicationController
     @to_port = @cable.connections.reject { |conn| conn.port_id.to_i == @from_port.id }.first.try(:port) if @cable.present?
 
     # Destination server
-    if @from_port.is_power_input?
-      @to_server = @to_port.present? ? @to_port.server : @frame.pdus.first
+    if @to_port.present?
+      @to_server = @to_port.server
+    elsif @from_port.is_power_input?
+      @to_server = @frame.pdus.first
     else
-      @to_server = @to_port.present? ? @to_port.server : @frame.servers.where.not(position: nil, modele_id: nil).order(:position).first
+      @to_server = @frame.servers.where("position IS NOT NULL AND modele_id IS NOT NULL").order(:position).first
     end
+
     if @to_server
       @to_server.create_missing_ports
       @to_server.reload
@@ -67,7 +65,7 @@ class ConnectionsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to connections_edit_path(from_port_id: from_port.id), notice: 'La connexion a été mise à jour.'
+        redirect_to connections_edit_path(from_port_id: from_port.id), notice: t(".flashes.updated")
       end
       format.js
     end
@@ -75,10 +73,12 @@ class ConnectionsController < ApplicationController
 
   def update_destination_server
     @server = Server.find_by_id(params[:server_id])
+
     if @server
       @server.create_missing_ports
       @server.reload
     end
+
     if params[:with_moved_connection]
       @moved_connections = MovedConnection.per_servers([@server])
     end

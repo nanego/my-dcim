@@ -22,7 +22,7 @@ class Port < ApplicationRecord
   def network_conf(switch_slot)
     cable_name = connection.try(:cable).try(:name)
     if cable_name.present?
-      "#{connection.cable.try(:color)} - #{cable_name} - Switch #{cable_name[0]} - Port #{switch_slot}:#{cable_name[1..-1]} - #{vlans}"
+      "#{connection.cable.try(:color)} - #{cable_name} - Switch #{cable_name[0]} - Port #{switch_slot}:#{cable_name[1..]} - #{vlans}"
     end
   end
 
@@ -61,7 +61,7 @@ class Port < ApplicationRecord
       frames.each do |frame|
         txt << "\r\n#{frame.name_with_room_and_islet}\r\n"
         txt << "---------------\r\n"
-        frame.servers.includes(:modele, :cards => [:ports, :composant]).order('position desc').each do |server|
+        frame.servers.includes(:modele, :cards => %i[ports composant]).order('position desc').each do |server|
           txt << "#{server.name} (#{server.modele.try(:name)})\r\n"
           server.cards.each do |card|
             card.ports.each do |port|
@@ -83,7 +83,7 @@ class Port < ApplicationRecord
       csv << attributes
 
       frames.each do |frame|
-        frame.servers.includes(:modele, :cards => [:ports, :composant]).order('position desc').each do |server|
+        frame.servers.includes(:modele, :cards => %i[ports composant]).order('position desc').each do |server|
           frame_server_info = [frame.name_with_room_and_islet, server.slug, server.name, server.modele.try(:name)]
           used_port_present = false
           server.cards.each do |card|
@@ -106,7 +106,7 @@ class Port < ApplicationRecord
   private
 
   def remove_unused_connections(ports)
-    ports.reject(&:blank?).each do |port|
+    ports.compact_blank.each do |port|
       old_port_destination = port.paired_connection.try(:port)
       if old_port_destination.present? && ports.exclude?(old_port_destination)
         old_port_destination.connection.cable.destroy

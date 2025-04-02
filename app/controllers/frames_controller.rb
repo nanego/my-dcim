@@ -7,7 +7,8 @@ class FramesController < ApplicationController
   before_action :set_frame, only: :show
 
   def index
-    @filter = ProcessorFilter.new(Frame.includes(bay: { islet: :room }).references(bay: { islet: :room }), params)
+    @frames = Frame.includes(bay: { islet: :room }).references(bay: { islet: :room })
+    @filter = ProcessorFilter.new(@frames, params)
     @frames = @filter.results
   end
 
@@ -26,19 +27,6 @@ class FramesController < ApplicationController
     @frame = Frame.friendly.find(params[:id].to_s.downcase)
   end
 
-  def update
-    @frame = Frame.friendly.find(params[:id].to_s.downcase)
-    respond_to do |format|
-      if @frame.update(frame_params)
-        format.html { redirect_to @frame, notice: t(".flashes.updated") }
-        format.json { render :show, status: :ok, location: @frame }
-      else
-        format.html { render :edit }
-        format.json { render json: @frame.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   def create
     @frame = Frame.new(frame_params)
 
@@ -48,6 +36,19 @@ class FramesController < ApplicationController
         format.json { render :show, status: :created, location: @frame }
       else
         format.html { render :new }
+        format.json { render json: @frame.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    @frame = Frame.friendly.find(params[:id].to_s.downcase)
+    respond_to do |format|
+      if @frame.update(frame_params)
+        format.html { redirect_to @frame, notice: t(".flashes.updated") }
+        format.json { render :show, status: :ok, location: @frame }
+      else
+        format.html { render :edit }
         format.json { render json: @frame.errors, status: :unprocessable_entity }
       end
     end
@@ -86,7 +87,7 @@ class FramesController < ApplicationController
       @coupled_frame = @frame.other_frame
     end
 
-    @frames = [@frame, @coupled_frame, @network_frame].reject(&:blank?)
+    @frames = [@frame, @coupled_frame, @network_frame].compact_blank
     @servers_per_frames = {}
 
     @frames.each do |frame|
@@ -114,6 +115,6 @@ class FramesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def frame_params
-    params.require(:frame).permit(:name, :u, :room, :islet, :position, :switch_slot, :width, :bay_id)
+    params.expect(frame: %i[name u room islet position switch_slot width bay_id])
   end
 end

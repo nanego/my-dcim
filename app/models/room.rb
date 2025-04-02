@@ -2,11 +2,14 @@
 
 class Room < ApplicationRecord
   extend FriendlyId
-  friendly_id :slug_candidates, use: [:slugged, :history]
+  friendly_id :slug_candidates, use: %i[slugged history]
 
   has_changelog
 
   belongs_to :site, counter_cache: true
+
+  has_many :cluster_rooms, dependent: :destroy
+  has_many :network_clusters, class_name: "Cluster", through: :cluster_rooms, source: :cluster
 
   has_many :islets, dependent: :restrict_with_error
   has_many :bays, through: :islets, dependent: :restrict_with_error
@@ -31,12 +34,16 @@ class Room < ApplicationRecord
     slug.blank? || name_changed?
   end
 
+  def network_cluster(network_types:)
+    NetworkCluster.new(room: self, network_types:)
+  end
+
   private
 
   def slug_candidates
     [
       :name,
-      [:name, :id],
+      %i[name id],
     ]
   end
 end

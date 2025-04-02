@@ -3,44 +3,44 @@
 class CardComponentPreview < ViewComponent::Preview
   # @param type select { choices: [default, primary, success, info, warning, danger] }
   def default(type: :default)
-    render CardComponent.new(type:) do |card|
+    render CardComponent.new(type:) do
       tag.p "Season fifteen oz of watermelon in one container of gold tequila."
     end
   end
 
   # @!group Types
   def type_default
-    render CardComponent.new(type: :default) do |card|
+    render CardComponent.new(type: :default) do
       tag.p "Season fifteen oz of watermelon in one container of gold tequila."
     end
   end
 
   def type_primary
-    render CardComponent.new(type: :primary) do |card|
+    render CardComponent.new(type: :primary) do
       tag.p "Season fifteen oz of watermelon in one container of gold tequila."
     end
   end
 
   def type_success
-    render CardComponent.new(type: :success) do |card|
+    render CardComponent.new(type: :success) do
       tag.p "Season fifteen oz of watermelon in one container of gold tequila."
     end
   end
 
   def type_info
-    render CardComponent.new(type: :info) do |card|
+    render CardComponent.new(type: :info) do
       tag.p "Season fifteen oz of watermelon in one container of gold tequila."
     end
   end
 
   def type_warning
-    render CardComponent.new(type: :warning) do |card|
+    render CardComponent.new(type: :warning) do
       tag.p "Season fifteen oz of watermelon in one container of gold tequila."
     end
   end
 
   def type_danger
-    render CardComponent.new(type: :danger) do |card|
+    render CardComponent.new(type: :danger) do
       tag.p "Season fifteen oz of watermelon in one container of gold tequila."
     end
   end

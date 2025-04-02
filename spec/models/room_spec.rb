@@ -9,6 +9,8 @@ RSpec.describe Room do
 
   describe "associations" do
     it { is_expected.to belong_to(:site) }
+    it { is_expected.to have_many(:cluster_rooms).dependent(:destroy) }
+    it { is_expected.to have_many(:network_clusters).through(:cluster_rooms) }
     it { is_expected.to have_many(:islets) }
     it { is_expected.to have_many(:bays).through(:islets) }
     it { is_expected.to have_many(:frames).through(:bays) }
@@ -35,5 +37,11 @@ RSpec.describe Room do
 
   describe "#should_generate_new_friendly_id?" do
     pending
+  end
+
+  describe "#network_cluster" do
+    it do
+      expect(room.network_cluster(network_types: :gbe)).to be_a(NetworkCluster)
+    end
   end
 end

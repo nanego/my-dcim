@@ -18,13 +18,12 @@ RSpec.describe Server do
     it { is_expected.to belong_to(:domaine).optional(true) }
     it { is_expected.to belong_to(:modele) }
     it { is_expected.to belong_to(:cluster).optional(true) }
-    it { is_expected.to belong_to(:server_state).optional(true) }
     it { is_expected.to belong_to(:stack).optional(true) }
-    it { is_expected.to have_many(:memory_components) }
-    it { is_expected.to have_many(:disks) }
     it { is_expected.to have_many(:cards) }
     it { is_expected.to have_many(:card_types).through(:cards) }
     it { is_expected.to have_many(:ports).through(:cards) }
+    it { is_expected.to have_many(:connections).through(:ports) }
+    it { is_expected.to have_many(:cables).through(:connections) }
     it { is_expected.to have_many(:moves).dependent(:destroy) }
     it { is_expected.to have_many(:documents) }
   end
@@ -39,6 +38,20 @@ RSpec.describe Server do
     it { is_expected.to validate_presence_of(:numero) }
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_uniqueness_of(:numero) }
+  end
+
+  describe ".friendly_find_by_numero_or_name" do
+    context "with id" do
+      it { expect(described_class.friendly_find_by_numero_or_name(1)).to eq(servers(:one)) }
+    end
+
+    context "with numero" do
+      it { expect(described_class.friendly_find_by_numero_or_name("ABCDEFG32")).to eq(servers(:two)) }
+    end
+
+    context "with slug" do
+      it { expect(described_class.friendly_find_by_numero_or_name("server-name-4")).to eq(servers(:four)) }
+    end
   end
 
   describe "#validate_numero_cannot_be_a_current_server_name" do
@@ -87,9 +100,14 @@ RSpec.describe Server do
 
   describe "nested attributes" do
     it { is_expected.to accept_nested_attributes_for(:cards) }
-    it { is_expected.to accept_nested_attributes_for(:disks) }
-    it { is_expected.to accept_nested_attributes_for(:memory_components) }
     it { is_expected.to accept_nested_attributes_for(:documents) }
+  end
+
+  describe ".glpi_synchronizable" do
+    it do
+      expect(described_class.glpi_synchronizable)
+        .to contain_exactly(servers(:one), servers(:two), servers(:four), servers(:with_cluster))
+    end
   end
 
   describe "#to_s" do
@@ -134,5 +152,48 @@ RSpec.describe Server do
 
   describe "#distant_connections" do
     pending
+  end
+
+  describe "#deep_dup" do
+    pending
+  end
+
+  describe "#destroy_connections!" do
+    context "with a server with connections" do
+      let(:server) { servers(:one) }
+
+      it do
+        expect do
+          server.destroy_connections!
+        end.to change { server.connections.count }.from(4).to(0)
+          .and change { server.cables.count }.from(4).to(0)
+      end
+
+      it do
+        expect do
+          server.destroy_connections!
+        end.to change(Connection, :count).from(5).to(1)
+      end
+
+      it do
+        expect do
+          server.destroy_connections!
+        end.to(change { server.ports.first.updated_at })
+      end
+
+      it { expect(server.destroy_connections!).to be true }
+    end
+
+    context "with a server without connection" do
+      let(:server) { servers(:two) }
+
+      it do
+        expect do
+          server.destroy_connections!
+        end.not_to(change { server.connections.count })
+      end
+
+      it { expect(server.destroy_connections!).to be true }
+    end
   end
 end

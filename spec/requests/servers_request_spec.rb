@@ -5,12 +5,12 @@ require "rails_helper"
 RSpec.describe "/servers" do
   let(:server) { servers(:one) }
   let(:server2) { servers(:two) }
+  let(:pdu) { servers(:pdu) }
 
   before do
     sign_in users(:one)
 
-    server.save
-    server2.save
+    server.save!
   end
 
   describe "GET /index" do
@@ -20,6 +20,7 @@ RSpec.describe "/servers" do
     it { expect(response).to render_template(:index) }
     it { expect(response.body).to include(server.name) }
     it { expect(response.body).to include(server2.name) }
+    it { expect(response.body).not_to include(pdu.name) }
 
     context "when searching on name" do
       before { get servers_path(q: "ServerName1") }
@@ -78,7 +79,7 @@ RSpec.describe "/servers" do
   describe "POST /create" do
     context "with valid parameters" do
       let(:valid_attributes) do
-        server.attributes.except(["id", "numero", "name"]).merge(numero: "new_numero", name: "NewServerName")
+        server.attributes.except(%w[id numero name]).merge(numero: "new_numero", name: "NewServerName")
       end
 
       it "creates a new Server" do
@@ -140,10 +141,12 @@ RSpec.describe "/servers" do
       end
 
       it "does update cards in a server", :aggregate_failures do # rubocop:disable RSpec/ExampleLength
-        patch server_path(server), params: { server: { cards_attributes: { id: 1,
-                                                                           composant_id: 1,
-                                                                           twin_card_id: 2,
-                                                                           orientation: "lr-td" } } }
+        patch server_path(server), params: {
+          server: {
+            name: server.name,
+            cards_attributes: [{ id: 1, composant_id: 1, twin_card_id: 2, orientation: "lr-td" }]
+          }
+        }
 
         assigns(:server).reload
         server.reload
@@ -215,8 +218,6 @@ RSpec.describe "/servers" do
   end
 
   describe "GET /import_csv" do
-    fixtures :server_states
-
     before { get import_csv_servers_path }
 
     it { expect(response).to have_http_status(:success) }
@@ -224,7 +225,7 @@ RSpec.describe "/servers" do
   end
 
   describe "POST /import" do
-    let(:csv) { Rack::Test::UploadedFile.new("#{Rails.root}/test/files/orders.csv") }
+    let(:csv) { Rack::Test::UploadedFile.new(Rails.root.join("test/files/orders.csv").to_s) }
     let(:destination_frame) { Frame.find_by(name: 'MyFrame2') }
     let(:nb_of_servers_in_frame) { destination_frame.servers.count }
     let(:frames_count) { Frame.where(name: 'orders').last.servers.count }
@@ -234,7 +235,7 @@ RSpec.describe "/servers" do
     it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
       expect do
         post import_servers_path, params: {
-          import: { file: csv, room_id: Room.first.id, server_state_id: ServerState.first.id }
+          import: { file: csv, room_id: Room.first.id }
         }
       end.to change(Server, :count).by(26).and change(Frame, :count).and change(Bay, :count)
 
@@ -245,5 +246,13 @@ RSpec.describe "/servers" do
       expect(destination_frame.servers.first.position).to eq 30
       expect(frames_count).to eq 22
     end
+  end
+
+  describe "GET /destroy_connections" do
+    before { get destroy_connections_server_path(server) }
+
+    it { expect(response).to have_http_status(:redirect) }
+    it { expect(server.connections.count).to be_zero }
+    it { expect(flash[:notice]).to be_present }
   end
 end

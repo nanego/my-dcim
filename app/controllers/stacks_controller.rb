@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class StacksController < ApplicationController
-  before_action :set_stack, only: [:show, :edit, :update, :destroy]
+  before_action :set_stack, only: %i[show edit update destroy]
 
   # GET /stacks
   # GET /stacks.json
@@ -75,6 +75,6 @@ class StacksController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def stack_params
-    params.require(:stack).permit(:name, :color)
+    params.expect(stack: %i[name color])
   end
 end

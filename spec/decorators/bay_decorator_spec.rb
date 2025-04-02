@@ -27,8 +27,11 @@ RSpec.describe BayDecorator, type: :decorator do
   describe "#no_frame_warning_icon" do
     subject(:warning_icon) { decorated_bay.no_frame_warning_icon }
 
-    it { is_expected.to include("<span class=\"bay-with-no-frame-warning").once }
-    it { is_expected.to include("<i class=\"bi bi-exclamation-triangle-fill").once }
-    it { is_expected.to include("<span class=\"visually-hidden").once }
+    it do
+      is_expected.to have_tag("span.bay-with-no-frame-warning") do # rubocop:disable RSpec/ImplicitSubject
+        with_tag("span.text-warning")
+        with_tag("span.visually-hidden", text: "Veuillez renseigner un châssis à cette baie")
+      end
+    end
   end
 end

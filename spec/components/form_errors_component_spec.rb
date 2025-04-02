@@ -12,7 +12,7 @@ RSpec.describe FormErrorsComponent, type: :component do
 
   context "with errors" do
     it { expect(rendered_component.to_html).not_to be_nil }
-    it { expect(rendered_component.to_html).to include(I18n.t("form_errors_component.title.one")) }
+    it { expect(rendered_component.to_html).to include("1 erreur lors de la sauvegarde :") }
     it { expect(rendered_component.to_html).to have_tag("li") }
   end
 

@@ -4,10 +4,11 @@ class RoomsController < ApplicationController
   include ServersHelper
   include RoomsHelper
 
-  before_action :set_room, only: %i[show edit update destroy islet]
+  before_action :set_room, only: %i[show edit update destroy]
 
   def index
-    @filter = ProcessorFilter.new(Room.joins(:site).order('sites.position asc, rooms.position asc, rooms.name asc'), params)
+    @rooms = Room.joins(:site).order("sites.position asc, rooms.position asc, rooms.name asc")
+    @filter = ProcessorFilter.new(@rooms, params)
     @rooms = @filter.results
   end
 
@@ -20,31 +21,6 @@ class RoomsController < ApplicationController
     respond_to do |format|
       format.html
       format.json
-    end
-  end
-
-  # TODO: Remove this action when possible
-  def islet
-    @islet = Islet.find_by(name: params[:islet], room_id: @room.id)
-    frames = Frames::IncludingServersQuery.call(@room.frames.where('islets.name = ?', @islet.name), 'islets.name, bays.lane')
-    @servers_per_frames = {}
-
-    sorted_frames_per_islet(frames, params[:view]).each do |frame|
-      islet = frame.bay.islet.name
-      @servers_per_frames[islet] ||= {}
-      @servers_per_frames[islet][frame.bay.lane] ||= {}
-      @servers_per_frames[islet][frame.bay.lane][frame.bay] ||= {}
-      @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] ||= []
-      frame.servers.each do |s|
-        @servers_per_frames[islet][frame.bay.lane][frame.bay][frame] << s
-      end
-    end
-
-    respond_to do |format|
-      format.html do
-        render :show
-      end
-      format.txt { send_data Frame.to_txt(@servers_per_frames, params[:bg]) }
     end
   end
 
@@ -88,7 +64,7 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       if @room.save
-        format.html { redirect_to @room, notice: 'Room was successfully created.' }
+        format.html { redirect_to @room, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @room }
       else
         format.html { render :new }
@@ -100,7 +76,7 @@ class RoomsController < ApplicationController
   def update
     respond_to do |format|
       if @room.update(room_params)
-        format.html { redirect_to @room, notice: 'Room was successfully updated.' }
+        format.html { redirect_to @room, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @room }
       else
         format.html { render :edit }
@@ -112,7 +88,7 @@ class RoomsController < ApplicationController
   def destroy
     if @room.destroy
       respond_to do |format|
-        format.html { redirect_to rooms_url, notice: 'Room a bien été supprimé.' }
+        format.html { redirect_to rooms_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
@@ -131,8 +107,11 @@ class RoomsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def room_params
-    params.require(:room).permit(
-      :name, :description, :display_on_home_page, :position, :status, :site_id, :surface_area, :access_control
+    params.expect(
+      room: [
+        :name, :description, :display_on_home_page, :position, :status, :site_id, :surface_area, :access_control,
+        { network_cluster_ids: [] },
+      ]
     )
   end
 end

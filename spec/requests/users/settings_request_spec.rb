@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "Users::Settings" do
   let(:user) { User.create!(email: "user@example.com", password: "passwordpassword", role: "user") }
-  let(:params) { { user: { locale: "fr" } } }
+  let(:params) { { user: { theme: "light" } } }
 
   before { sign_in user }
 
@@ -42,7 +42,7 @@ RSpec.describe "Users::Settings" do
         expect do
           response
           user.reload
-        end.to change(user, :locale).to("fr")
+        end.to change(user, :theme).to("light")
       end
     end
   end

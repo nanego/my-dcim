@@ -1,6 +1,54 @@
 en:
   activerecord:
+    models:
+      air_conditioner: Air conditioner
+      domaine: Domain
+      gestion: Manager
+      move: Planned move
+      server: I.T. equipment
     attributes:
+      enclosure/display:
+        grid: Grid
+        horizontal: Horizontal
+        vertical: Vertical
+      external_app_record:
+        external_id: GLPI ID
+        external_name: GLPI name
+        external_serial: GLPI serial number
+        external_serial_status: GLPI Synchronization
+        frame_id: Location
+        frame_ids: Location
+        id: ID
+        server_id: I.T. equipment
+        external_serials:
+          found: Found
+          not_found: Not found in GLPI
+      modele:
+        category: Category
+      move:
+        moveable_id: Equipment to move
+        frame_id: Destination bay
+        remove_connections: Delete all connections to this equipment?
+        position: Position in bay
+      server:
+        name: Name
+        numero: Serial number
+        type: Type
+        room: Room
+        islet: Islet
+        frame_id: Frame
+        frame: Frame
+        position: Position
+        modele_id: Model
+        critique: Critic
+        gestion_id: Manager
+        network_types: Network type
+        stack: Stack
+        stack_id: Stack
+        comment: Comment
+        documents: Documents
+        photo: Photo
+        span: Slots
       theme: Theme
       user/locale:
         en: English
@@ -10,9 +58,27 @@ en:
         dark: Dark
         light: Light
       user/visualization_bay_default_background_color:
-        modele: Modele
+        modele: Model
         cluster: Cluster
-        gestion: Gestion
+        gestion: Manager
       user/visualization_bay_default_orientation:
         front: Front
         back: Back
+      room:
+        access_control: Access control
+        name: Name
+        position: Position
+        content: Content
+        display_on_home_page: Display on home page
+        site_id: Site
+        status: Status
+        surface_area: Surface area
+        network_cluster_ids: Network hub clusters
+        islets_count:
+          zero: 0 islets
+          one: 1 islet
+          other: "%{count} islets"
+        frames_count:
+          zero: 0 frames
+          one: 1 frame
+          other: "%{count} frames"

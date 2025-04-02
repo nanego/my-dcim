@@ -51,3 +51,12 @@ six:
   name: CardIPMI
   twin_card_id:
   orientation: "lr-td"
+
+seven:
+  id: 7
+  card_type_id: 4
+  server_id: 3
+  composant_id: 4
+  name: CardAlim
+  twin_card_id:
+  orientation: "lr-td"

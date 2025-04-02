@@ -1,10 +1,300 @@
 en:
+  action:
+    apply: Apply
+    edit: Update
+    delete: Delete
+    back: Back
+    show: See
+    close: Close
+    save: Save
+    cancel: Cancel
+    add: Add
+    confirm: Are you sure?
+    duplicate: Duplicate
+    suspend: Lock
+    unsuspend: Unlock
+    create: Create
+    execute: Execute
+    move: Move
+    preview: Preview
+    configure: Configure
+
+  boolean:
+    true: Yes
+    false: No
+
+  bulk:
+    servers:
+      destroy:
+        flashes:
+          destroyed: The selected materials have been removed.
+          not_destroyed: An error has occurred while deleting at least one piece of material.
+  cables:
+    index:
+      title: Connections
+
+  devise:
+    passwords:
+      new:
+        help_text: We'll send password reset instructions.
+      edit:
+        title: Change your password
+
+  export_button:
+    label: Exports
+    exports:
+      pdf: PDF export
+      txt: Txt export
+      print: Print
+      csv: CSV export
+    faces:
+      front: Front panel
+      back: Back panel
+      front_wiring: Wiring - Front panel
+      back_wiring: Wiring - Back panel
+    port_list: Ports list
+
+  external_app_records:
+    index:
+      title: GLPI synchronization
+      start_synchronization: Synchronize with GLPI
+      configuration: Configuration
+      synchronised_categories_list: "List of categories to be synchronised: %{categories}"
+      last_complete_synch: "Last complete synchronisation:"
+      none: none
+      synchronizing: Synchronizing...
+    settings:
+      title: Synchronisation configuration
+      category_ids: Select the categories to be activated for synchronisation
+      flashes:
+        saved: "The configuration has been updated successfully."
+
+  filters:
+    attributes:
+      filter:
+        q: Search
+        server_name: Material's name
+        external_app_record_frame_ids: Location
+        external_serial_status: Synchronization
+        modele_ids: Model
+    placeholder:
+      search: Search...
+      quicksearch: Quick search
+
+  form:
+    submit: Confirm
+
+  islets:
+    infrastructure:
+      concentrator: Concentrator
+
+  layouts:
+    breadcrumb:
+      home: Home
+      bay:
+        simple: Bay %{name}
+        double: Double bay %{name}
+      islet: Islet %{name}
+    navigation:
+      nav_links_administration:
+        administration: Administration
+        informations: Information
+      devices_dropdown:
+        search_equipment: Search for equipment
+        filter_by: "Filter by:"
+      projects_dropdown:
+        projects: Projects
+        moves: Planned moves
+      visualization_dropdown:
+        overview: Show all rooms
+        capacity: Network capacity view
+        infrastructure: Infrastructure view
+    sidebar:
+      location:
+        title: Location
+        bays: Bays / Double-bays
+      equipment:
+        title: Equipments
+      features:
+        title: Features
+      exploitation:
+        title: Operating
+      maintenance:
+        title: Maintenance
+      connection:
+        title: Connection
+      contacts:
+        title: Contacts
+
+  modeles:
+    decorator:
+      no_enclosure: No Enclosure
+
+  moves:
+    index:
+      new_move: Plan a new move
+      delete_confirmation: Do you really want to delete this move?
+      execute_confirmation: Do you really want to apply this move?
+      frame_table_title: Bays after moving
+      edit_connections: Update connections
+      action:
+        execute_move: Move the server and its connections
+    new:
+      title: New move
+    create:
+      flashes:
+        created: The move was successfully created.
+    edit:
+      title: Update the saved move
+    update:
+      flashes:
+        updated: The move has been updated.
+    destroy:
+      flashes:
+        destroyed: The move has been removed.
+    execute_movement:
+      flashes:
+        executed: The move was successfully executed.
+    form:
+      initial_bay: Departure bay
+    frame:
+      title: Bay %{frame} after move
+      applied_moves: Applied moves
+      loading: LOADING IN PROGRESS
+    moved_connection_form:
+      action:
+        delete: Delete this connection
+
+  power_distribution_units:
+    index:
+      title: Electricity
+      new_power_distributon_unit: Add a PDU
+    show:
+      documentation: Documentation
+      attached_documents: "Attached documents:"
+      glpi_data: GLPI data
+      glpi_visit_page: See the PDU page on GLPI
+      no_match_serial: "No match for this serial number: %{serial}"
+      glpi_connection_error: "Problem connecting to GLPI :"
+      toggle_vlans: Toggle Vlans
+      destroy_connections: Delete connections
+      destroy_connections_confirmation: Can you confirm that you want to remove all connections from this PDU?
+    new:
+      title: Add a PDU
+    create:
+      flashes:
+        created: The PDU has been successfully created.
+    form:
+      add_card: Add a card
+      add_document: Add an attached document
+    edit:
+      title: Update PDU
+      delete_confirmation: All data concerning this PDU will be deleted, along with all associated connections. Would you like to confirm?
+    update:
+      flashes:
+        updated: The PDU has been successfully updated.
+    duplicate:
+      title: Duplicate PDU %{pdu_name}
+    destroy:
+      flashes:
+        destroyed: The PDU has been deleted.
+        not_destroyed: An error occurred while deleting the PDU.
+    flashes:
+      connections_destroyed: The connections have been removed.
+      connections_not_destroyed: An error prevented connections from being deleted.
+
   rooms:
     action_buttons:
       caption:
         ports: Ports
         unreferenced_client: The corresponding port on the twin card is wired
         no_client: The corresponding port on the twin card is not wired
+
+  search:
+    index:
+      results: Search results
+      no_results_found: No results found
+
+  select:
+    placeholder: Type to filter...
+
+  servers:
+    form:
+      network_type: "%{type} network"
+      edit_confirmation: Edit this I.T. equipment
+      add_card: Add a card
+      add_document: Add an attachment
+    room:
+      title: Romm %{room} - Islet %{islet}
+    slot_fields:
+      new_port: New port
+    grid:
+      title: Users Report
+      total: "Total: %{count}"
+    import_csv:
+      title: Importing material via CSV file
+      room_id:
+        label: "Room where servers are imported:"
+        hint: used only if the bay is not specified in the CSV file
+      servers_state:
+        label: "Status of imported servers :"
+      csv_file:
+        label: "CSV file :"
+      action:
+        import: Import this CSV
+      download_example_html: "Download an example of a compatible CSV file: %{link}"
+    import:
+      flashes:
+        imported: New I.T. equipment has been added.
+    index:
+      new_server: Add I.T. equipment
+      add_server_via_csv: Add via CSV file
+      sync_with_external_apps: Synchronize with GLPI
+    show:
+      back_to_bay: Bay %{name}
+      documentation: Documentation
+      attached_documents: "Attached documents :"
+      glpi_data: GLPI data
+      glpi_visit_page: See the I.T. equipment page on GLPI
+      no_match_serial: "No match for this serial number: %{serial}"
+      glpi_connection_error: "Problem connecting to GLPI :"
+      moves_cta_tooltip: Planning its move
+      destroy_connections: Delete connections
+      destroy_connections_confirmation: Can you confirm that you want to remove all connections to this IT equipment?
+    new:
+      title: Add I.T. equipment
+    create:
+      flashes:
+        created: The I.T. material has been successfully created.
+    edit:
+      title: Updating IT equipment
+      delete_confirmation: All data relating to this I.T. equipment will be deleted, along with all associated connections. Would you like to confirm?
+    update:
+      flashes:
+        updated: The I.T. equipment has been successfully updated.
+    duplicate:
+      title: Duplicate I.T. equipment %{server_name}
+    destroy:
+      flashes:
+        destroyed: The I.T. equipment has been removed.
+        not_destroyed: An error occurred when deleting I.T. equipment.
+    flashes:
+      connections_destroyed: Connections have been deleted.
+      connections_not_destroyed: An error prevented the connections from being deleted.
+
+  show:
+    cards:
+      display: Display
+      features: Features
+      identification: Identification
+      preview: Preview
+      visualization: Representation
+
+  unit:
+    square_meter: m²
+    mm: mm
+    inches: inches
+
   users:
     my_account:
       title: My account
@@ -16,10 +306,3 @@ en:
         flashes:
           updated: Your preferences have been updated
     logout: Log out
-
-  devise:
-    passwords:
-      new:
-        help_text: We'll send password reset instructions.
-      edit:
-        title: Change your password

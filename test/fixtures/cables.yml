@@ -14,3 +14,8 @@ three:
   id: 3
   name: T00
   color: T
+
+four:
+  id: 4
+  name: cable4
+  color: O

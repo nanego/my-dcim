@@ -11,10 +11,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    unless current_user.admin?
-      unless @user == current_user
-        redirect_back_or_to root_path, alert: t(".flashes.access_denied")
-      end
+    if !current_user.admin? && @user != current_user
+      redirect_back_or_to root_path, alert: t(".flashes.access_denied")
     end
   end
 
@@ -73,7 +71,7 @@ class UsersController < ApplicationController
   end
 
   def secure_params
-    params.require(:user).permit(:role, :email, :name)
+    params.expect(user: %i[role email name])
   end
 
   def set_user

@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class CategoriesController < ApplicationController
-  before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_category, only: %i[show edit update destroy]
 
   # GET /categories
   # GET /categories.json
   def index
-    @categories = sorted Category.order(:name => :asc).all
+    @filter = ProcessorFilter.new(Category.order(name: :asc), params)
+    @categories = @filter.results
   end
 
   # GET /categories/1
@@ -75,6 +76,6 @@ class CategoriesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def category_params
-    params.require(:category).permit(:name, :description)
+    params.expect(category: %i[name description is_glpi_synchronizable])
   end
 end
