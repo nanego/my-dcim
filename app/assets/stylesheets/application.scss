@@ -91,18 +91,6 @@
   min-height: 60px;
 }
 
-.frame li.server {
-  &.striped {
-    background: repeating-linear-gradient(
-                    -45deg,
-                    #E5E5E5,
-                    #E5E5E5 10px,
-                    #F0F0F0 10px,
-                    #F0F0F0 20px
-    ) !important;
-  }
-}
-
 table.slots, table.cm, table.ipmi {
   margin-left: 8px;
   cursor: default;
