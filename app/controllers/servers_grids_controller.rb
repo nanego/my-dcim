@@ -20,7 +20,7 @@ class ServersGridsController < ApplicationController
 
         begin
           @servers = ServersGrid.new(@merged_params[:servers_grid])
-        rescue => e
+        rescue StandardError => e
           @servers = ServersGrid.new(params[:servers_grid])
           logger.error e.message
         end

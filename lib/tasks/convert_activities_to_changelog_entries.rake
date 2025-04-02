@@ -138,7 +138,7 @@ task convert_activities_to_changelog_entries: :environment do
 
       begin
         data = convert_activity_to_changes(activity)
-      rescue
+      rescue StandardError
         failed = true
       end
 

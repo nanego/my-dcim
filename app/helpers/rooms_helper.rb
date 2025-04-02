@@ -23,7 +23,7 @@ module RoomsHelper
       if frames_sort_order(type_of_view, f.bay.lane) == 'asc'
         [f.bay.islet.name.to_i, f.bay.lane.to_i, f.bay.position.to_i, f.position.to_i]
       else
-        [f.bay.islet.name.to_i, f.bay.lane.to_i, -(f.bay.position.to_i), -(f.position.to_i)]
+        [f.bay.islet.name.to_i, f.bay.lane.to_i, -f.bay.position.to_i, -f.position.to_i]
       end
     end
   end

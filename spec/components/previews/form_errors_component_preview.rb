@@ -8,8 +8,6 @@ class FormErrorsComponentPreview < ViewComponent::Preview
   private
 
   def object
-    Islet.new.tap do |islet|
-      islet.validate
-    end
+    Islet.new.tap(&:validate)
   end
 end

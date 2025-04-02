@@ -48,17 +48,17 @@ class Frame < ApplicationRecord
     [
       room_name.present? ? "Salle #{room_name}" : '',
       bay.present? ? "Ilot #{bay.islet.name}" : '',
-      Frame.model_name.human + " " + (name.presence || 'non précisée'),
+      "#{Frame.model_name.human} #{name.presence || "non précisée"}",
     ].compact_blank.join(' ')
   end
 
   def self.to_txt(servers_per_bay, detail)
     txt = []
     if servers_per_bay.present?
-      servers_per_bay.each do |_islet, lanes|
-        lanes.each do |_lane, bays|
-          bays.each do |_bay, frames|
-            frames.each do |frame, _servers|
+      servers_per_bay.each_value do |lanes|
+        lanes.each_value do |bays|
+          bays.each_value do |frames|
+            frames.each_key do |frame|
               txt << frame.to_txt(detail)
             end
           end
