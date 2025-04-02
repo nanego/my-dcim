@@ -226,14 +226,6 @@ Rake/MethodDefinitionInTask:
   Exclude:
     - 'lib/tasks/convert_activities_to_changelog_entries.rake'
 
-# Offense count: 2
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: AllowedReceivers.
-# AllowedReceivers: params
-Style/CollectionCompact:
-  Exclude:
-    - 'app/models/server.rb'
-
 # Offense count: 6
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.
