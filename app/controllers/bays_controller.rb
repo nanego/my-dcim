@@ -3,11 +3,16 @@
 class BaysController < ApplicationController
   include RoomsHelper
 
+  DEFAULT_COLUMNS = %w[name room islet frame line position materials].freeze
+  AVAILABLE_COLUMNS = %w[name room islet frame line position materials].freeze
+
   before_action :set_bay, only: %i[edit update destroy show]
 
   def index
-    @bays   = Bay.joins(islet: :room).order("rooms.position, islets.name, bays.lane, bays.position")
+    @bays = Bay.joins(:room, :islet).order("rooms.position, islets.name, bays.lane, bays.position")
     @filter = ProcessorFilter.new(@bays, params)
+
+    @bays, @displayed_columns = Columns.new(@bays, params, DEFAULT_COLUMNS, AVAILABLE_COLUMNS, self).perform
     @bays = @filter.results.uniq
   end
 
