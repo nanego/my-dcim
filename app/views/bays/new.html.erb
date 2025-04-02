@@ -1,10 +1,10 @@
 <%
-  provide(:title, "#{Bay.model_name.human.pluralize} | #{t("action.create")}")
-
-  breadcrumb_steps = { Bay.model_name.human.pluralize => bays_path, t("action.create") => "" }
+  breadcrumb
+    .add(Bay.model_name.human.pluralize, bays_path)
+    .add(t("action.create"))
 %>
 
-<%= render Page::HeadingNewComponent.new(resource: @bay, title: t(".title"), breadcrumb_steps:) %>
+<%= render Page::HeadingNewComponent.new(resource: @bay, title: t(".title"), breadcrumb:) %>
 
 <div class="col-12 p-4 border-top">
   <%= render "form" %>

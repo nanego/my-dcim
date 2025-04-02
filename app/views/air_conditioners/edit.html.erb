@@ -1,14 +1,11 @@
 <%
-  provide(:title, "#{AirConditioner.model_name.human} | #{@air_conditioner} | #{t("action.edit")}")
-
-  breadcrumb_steps = {
-    AirConditioner.model_name.human => air_conditioners_path,
-    @air_conditioner => air_conditioner_path(@air_conditioner),
-    t("action.edit") => ""
-  }
+  breadcrumb
+    .add(AirConditioner.model_name.human, air_conditioners_path)
+    .add(@air_conditioner, air_conditioner_path(@air_conditioner))
+    .add(t("action.edit"))
 %>
 
-<%= render Page::HeadingEditComponent.new(resource: @air_conditioner, title: t(".title"), breadcrumb_steps:) %>
+<%= render Page::HeadingEditComponent.new(resource: @air_conditioner, title: t(".title"), breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>

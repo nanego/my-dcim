@@ -1,7 +1,12 @@
-<%= render 'layouts/breadcrumb', breadcrumb_steps: {t("visualization.title") => rooms_path,
-                                          @port.card.server.frame.room.name => room_path(@port.card.server.frame.room),
-                                          "Baie #{@port.card.server.frame.name}" => frame_path(@port.card.server.frame),
-                                          @port.card.server.name => server_path(@port.card.server),
-                                          "Port #{@port.card.try(:composant).try(:name)} #{@port.position}" => ''} %>
+<%
+  breadcrumb
+    .add(t("visualization.title"), rooms_path)
+    .add(@port.card.server.frame.room.name, room_path(@port.card.server.frame.room))
+    .add("Baie #{@port.card.server.frame.name}", frame_path(@port.card.server.frame))
+    .add(@port.card.server.name, server_path(@port.card.server))
+    .add("Port #{@port.card.try(:composant).try(:name)} #{@port.position}")
+%>
+
+<%= render partial: "layouts/breadcrumb", locals: { breadcrumb: } %>
 
 <%= render 'ports/form' %>

@@ -1,15 +1,12 @@
 <%
-  provide(:title, "#{Frame.model_name.human.pluralize} | #{@frame.name} | #{t("action.edit")}")
-
-  breadcrumb_steps = {
-    Frame.model_name.human.pluralize => frames_path,
-    @frame.name => frame_path(@frame),
-    t("action.edit") => ""
-  }
+  breadcrumb
+    .add(Frame.model_name.human.pluralize, frames_path)
+    .add(@frame.name, frame_path(@frame))
+    .add(t("action.edit"))
 %>
 
 <%= render Page::HeadingEditComponent.new(
-  resource: @frame, title: t(".title"), breadcrumb_steps:
+  resource: @frame, title: t(".title"), breadcrumb:
 ) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>

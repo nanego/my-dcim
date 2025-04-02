@@ -41,11 +41,18 @@ class ApplicationController < ActionController::Base
     collection.reorder(column => direction)
   end
 
+  def breadcrumb
+    @breadcrumb ||= Breadcrumb.new do |b|
+      b.root("Gestion de salle #{Rails.env.development? ? "(dev)" : "DCIM"}")
+    end
+  end
+  helper_method :breadcrumb
+
   private
 
   def prepare_exception_notifier
     request.env["exception_notifier.exception_data"] = {
-      :current_user => current_user
+      current_user: current_user
     }
   end
 

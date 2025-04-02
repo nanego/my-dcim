@@ -1,12 +1,8 @@
 <%
-  title = t("changelog_entries.title")
-
-  provide(:title, title)
-
-  breadcrumb_steps = { title => "" }
+  breadcrumb.add(title = t("changelog_entries.title"))
 %>
 
-<%= render Page::HeadingComponent.new(title: title, breadcrumb_steps:) %>
+<%= render Page::HeadingComponent.new(title: title, breadcrumb:) %>
 
 <div class="p-4 border-top">
   <%= turbo_frame_tag "changelog-entries" do %>

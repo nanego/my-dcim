@@ -1,13 +1,10 @@
 <%
-  title = t(".title")
-  breadcrumb_steps = { title => "" }
-
-  provide(:title, title)
-
   hide_inventories_sidebar!
+
+  breadcrumb.add(title = t(".title"))
 %>
 
-<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
 
 <div class="overview container-fluid d-flex flex-column p-4 border-top row-gap-4">
   <% @sites.each do |site| %>

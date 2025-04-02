@@ -1,11 +1,10 @@
-<% provide(:title, "#{Server.model_name.human} | #{t(".title")}") %>
-<% breadcrumb_steps = {
-    Server.model_name.human => servers_path,
-    t(".title") => ""
-  }
+<%
+  breadcrumb
+    .add(Server.model_name.human, servers_path)
+    .add(t(".title"))
 %>
 
-<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb_steps:, back_button_url: servers_path) %>
+<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:, back_button_url: servers_path) %>
 
 <% if @import_error %>
   <div class="alert alert-danger alert-dismissible fade show" role="alert">

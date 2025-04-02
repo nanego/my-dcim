@@ -1,11 +1,8 @@
 <%
-  title = Move.model_name.human(count: 2)
-  breadcrumb_steps = { title => "" }
-
-  provide(:title, title)
+  breadcrumb.add(title = Move.model_name.human(count: 2))
 %>
 
-<%= render Page::HeadingComponent.new(title:, breadcrumb_steps:) do |heading| %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
     <% render ButtonComponent.new(t(".new_move"),
                                   url: new_move_path,

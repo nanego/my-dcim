@@ -1,10 +1,10 @@
 <%%
-  provide(:title, "#{<%= singular_table_name.capitalize %>.model_name.human.pluralize} | #{t("action.create")}")
-
-  breadcrumb_steps = { <%= singular_table_name.capitalize %>.model_name.human.pluralize => <%= plural_table_name %>_path, t("action.create") => "" }
+  breadcrumb
+    .add(<%= singular_table_name.capitalize %>.model_name.human.pluralize, <%= plural_table_name %>_path)
+    .add(t("action.create"))
 %>
 
-<%%= render Page::HeadingNewComponent.new(resource: @<%= singular_table_name %>, title: t(".title"), breadcrumb_steps:) %>
+<%%= render Page::HeadingNewComponent.new(resource: @<%= singular_table_name %>, title: t(".title"), breadcrumb:) %>
 
 <div class="col-12 p-4 border-top">
   <%%= render "form" %>

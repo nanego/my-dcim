@@ -1,14 +1,11 @@
 <%
-  provide(:title, "#{CardType.model_name.human(count: 2)} | #{@card_type} | #{t("action.edit")}")
-
-  breadcrumb_steps = {
-    CardType.model_name.human(count: 2) => card_types_path,
-    @card_type => card_type_path(@card_type),
-    t("action.edit") => ""
-  }
+  breadcrumb
+    .add(CardType.model_name.human(count: 2), card_types_path)
+    .add(@card_type, card_type_path(@card_type))
+    .add(t("action.edit"))
 %>
 
-<%= render Page::HeadingEditComponent.new(resource: @card_type, title: t(".title"), breadcrumb_steps:) %>
+<%= render Page::HeadingEditComponent.new(resource: @card_type, title: t(".title"), breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>
