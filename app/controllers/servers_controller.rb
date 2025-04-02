@@ -127,18 +127,6 @@ class ServersController < ApplicationController
     redirect_to server_path(@server)
   end
 
-  def save_columns
-    session[:server] = search_params[:columns]
-
-    redirect_back_or_to root_path
-  end
-
-  def reset_columns
-    session[:server] = nil
-
-    redirect_back_or_to root_path
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
