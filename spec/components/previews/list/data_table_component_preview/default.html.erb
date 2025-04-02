@@ -1,17 +1,17 @@
-<%= render List::DataTableComponent.new(data) do |table| %>
-  <% table.with_column("Product") do |row| %>
+<%= render List::DataTableComponent.new(data, displayed_columns:) do |table| %>
+  <% table.with_column(:product, "Product") do |row| %>
     <%= row[:product] %>
   <% end %>
-  <% table.with_column("Price") do |row| %>
+  <% table.with_column(:price, "Price") do |row| %>
     <%= row[:price] %>
   <% end %>
-  <% table.with_column("SKU") do |row| %>
+  <% table.with_column(:sku, "SKU") do |row| %>
     <%= row[:sku] %>
   <% end %>
-  <% table.with_column("Quantity") do |row| %>
+  <% table.with_column(:qty, "Quantity") do |row| %>
     <%= row[:qty] %>
   <% end %>
-  <% table.with_column("Sales") do |row| %>
+  <% table.with_column(:sales, "Sales") do |row| %>
     <%= row[:sales] %>
   <% end %>
 <% end %>
