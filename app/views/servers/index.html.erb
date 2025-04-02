@@ -139,8 +139,9 @@
   <% end %>
 
   <section>
-    <%= form_with url: save_columns_servers_path, method: :post do |f| %>
+    <%= form_with url: save_columns_path, method: :post do |f| %>
       <fieldset class="form-floating">
+        <%= hidden_field_tag :model, :server %>
         <%= f.collection_select(:columns, ServersController::AVAILABLE_COLUMNS.index_with { |c| Server.human_attribute_name(c) },
                                 :first,
                                 :second,
@@ -152,7 +153,8 @@
       <%= f.submit %>
     <% end %>
 
-    <%= form_with url: reset_columns_servers_path, method: :post do |f| %>
+    <%= form_with url: reset_columns_path, method: :post do |f| %>
+      <%= hidden_field_tag :model, :server %>
       <%= f.submit "Reset" %>
     <% end %>
   </section>
