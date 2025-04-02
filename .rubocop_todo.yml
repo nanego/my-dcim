@@ -217,13 +217,6 @@ Rails/ThreeStateBooleanColumn:
   Enabled: false
 
 # Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-Rails/WhereNot:
-  Exclude:
-    - 'app/models/server.rb'
-    - 'lib/tasks/update_pdu_lines.rake'
-
-# Offense count: 2
 Rake/ClassDefinitionInTask:
   Exclude:
     - 'lib/tasks/convert_activities_to_changelog_entries.rake'
