@@ -159,32 +159,32 @@
           </span>
         <% end %>
 
-        <% table.with_column(:name, Server.human_attribute_name(:name), sort_by: :name) do |server| %>
+        <% table.with_column(Server.human_attribute_name(:name), name: :name, sort_by: :name) do |server| %>
           <%= link_to server.name, server_path(server), class: "fw-bold", data: { turbo_frame: :_top } %>
         <% end %>
 
-        <% table.with_column(:numero, Server.human_attribute_name(:numero), sort_by: :numero) do |server| %>
+        <% table.with_column(Server.human_attribute_name(:numero), name: :numero, sort_by: :numero) do |server| %>
           <%= link_to server.numero, server_path(server), class: "fw-bold", data: { turbo_frame: :_top } %>
         <% end %>
 
-        <% table.with_column(:"modele.category", Modele.human_attribute_name(:category), sort_by: :"categories.name") do |server| %>
+        <% table.with_column(Modele.human_attribute_name(:category), name: :"modele.category", sort_by: :"categories.name") do |server| %>
           <%= link_to server.modele.category, category_path(server.modele.category),
                       data: { turbo_frame: :_top } if server.modele.try(:category) %>
         <% end %>
 
-        <% table.with_column(:room, Server.human_attribute_name(:room), sort_by: :"rooms.name") do |server| %>
+        <% table.with_column(Server.human_attribute_name(:room), name: :room, sort_by: :"rooms.name") do |server| %>
           <%= link_to server.room, room_path(server.room), data: { turbo_frame: :_top } if server.room %>
         <% end %>
 
-        <% table.with_column(:islet, Islet.model_name.human, sort_by: :"islets.name") do |server| %>
+        <% table.with_column(Islet.model_name.human, name: :islet, sort_by: :"islets.name") do |server| %>
           <%= link_to server.islet, islet_path(server.islet), data: { turbo_frame: :_top } if server.islet %>
         <% end %>
 
-        <% table.with_column(:bay, Bay.model_name.human, sort_by: :"bays.id") do |server| %>
+        <% table.with_column(Bay.model_name.human, name: :bay, sort_by: :"bays.id") do |server| %>
           <%= link_to server.bay, bay_path(server.bay), data: { turbo_frame: :_top } if server.bay %>
         <% end %>
 
-        <% table.with_column(:network_types, Server.human_attribute_name(:network_types)) do |server| %>
+        <% table.with_column(Server.human_attribute_name(:network_types), name: :network_types) do |server| %>
           <%= server.decorated.network_types_to_human %>
         <% end %>
 
