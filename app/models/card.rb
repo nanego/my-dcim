@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Card < ApplicationRecord
-  ORIENTATIONS = %i[lr-td rl-td dt-lr td-lr]
+  ORIENTATIONS = %i[lr-td rl-td dt-lr td-lr].freeze
 
   has_changelog
 

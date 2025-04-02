@@ -325,16 +325,6 @@ Style/MultilineIfModifier:
     - 'db/migrate/20160101134143_create_activities.rb'
     - 'db/migrate/20160411154022_init_coupled_baies.rb'
 
-# Offense count: 3
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: literals, strict
-Style/MutableConstant:
-  Exclude:
-    - 'app/controllers/servers_grids_controller.rb'
-    - 'app/models/card.rb'
-    - 'app/models/pdu.rb'
-
 # Offense count: 9
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle, MinBodyLength.

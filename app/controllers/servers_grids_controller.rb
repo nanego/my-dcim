@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ServersGridsController < ApplicationController
-  DEFAULT_PARAMS = { "column_names" => ["id", "name", "S/N", "type", "frame"], "order" => "name" }
+  DEFAULT_PARAMS = { "column_names" => ["id", "name", "S/N", "type", "frame"], "order" => "name" }.freeze
 
   def index
     respond_to do |format|
