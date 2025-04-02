@@ -23,7 +23,7 @@ class ServersController < ApplicationController
       .order(:name)
 
     @filter = ProcessorFilter.new(@servers, params)
-    @servers, @displayed_columns = Columns.new(@servers, search_params, DEFAULT_COLUMNS, AVAILABLE_COLUMNS).perform
+    @servers, @displayed_columns = Columns.new(@servers, search_params, DEFAULT_COLUMNS, AVAILABLE_COLUMNS, self).perform
     @servers = @filter.results
 
     respond_to do |format|
@@ -125,6 +125,18 @@ class ServersController < ApplicationController
     end
 
     redirect_to server_path(@server)
+  end
+
+  def save_columns
+    session[:server] = search_params[:columns]
+
+    redirect_back_or_to root_path
+  end
+
+  def reset_columns
+    session[:server] = nil
+
+    redirect_back_or_to root_path
   end
 
   private
