@@ -2,7 +2,10 @@
 
 class ServersController < ApplicationController
   include ServersHelper
-  include ColumnsPreference
+  # include ColumnsPreference
+
+  DEFAULT_COLUMNS = %w[name numero modele.category islet bay network_types].freeze
+  AVAILABLE_COLUMNS = %w[name numero modele.category islet bay network_types].freeze
 
   before_action :set_server, only: %i[show edit update destroy destroy_connections]
 
@@ -20,6 +23,7 @@ class ServersController < ApplicationController
       .order(:name)
 
     @filter = ProcessorFilter.new(@servers, params)
+    @servers, @displayed_columns = Columns.new(@servers, search_params, DEFAULT_COLUMNS, AVAILABLE_COLUMNS).perform
     @servers = @filter.results
 
     respond_to do |format|
