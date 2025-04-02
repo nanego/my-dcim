@@ -184,7 +184,7 @@
           <%= link_to server.bay, bay_path(server.bay), data: { turbo_frame: :_top } if server.bay %>
         <% end %>
 
-        <% table.with_column(Server.human_attribute_name(:network_types), :network_types) do |server| %>
+        <% table.with_column(:network_types, Server.human_attribute_name(:network_types)) do |server| %>
           <%= server.decorated.network_types_to_human %>
         <% end %>
 
