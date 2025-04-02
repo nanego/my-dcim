@@ -135,19 +135,27 @@
           <%= f.label :category_ids %>
         </fieldset>
       </div>
-
-      <div>
-        <fieldset class="form-floating">
-          <%= f.collection_select(:columns, c.columns_options(Server, ServersController::AVAILABLE_COLUMNS),
-                                  :first,
-                                  :second,
-                                  { prompt: true, multiple: true, selected: @displayed_columns },
-                                  { class: "form-select", data: { controller: :select } }) %>
-          <%= f.label :columns %>
-        </fieldset>
-      </div>
     <% end %>
   <% end %>
+
+  <section>
+    <%= form_with url: save_columns_servers_path, method: :post do |f| %>
+      <fieldset class="form-floating">
+        <%= f.collection_select(:columns, ServersController::AVAILABLE_COLUMNS.index_with { |c| Server.human_attribute_name(c) },
+                                :first,
+                                :second,
+                                { prompt: true, multiple: true, selected: @displayed_columns },
+                                { class: "form-select", data: { controller: :select } }) %>
+        <%= f.label :columns %>
+      </fieldset>
+
+      <%= f.submit %>
+    <% end %>
+
+    <%= form_with url: reset_columns_servers_path, method: :post do |f| %>
+      <%= f.submit "Reset" %>
+    <% end %>
+  </section>
 
   <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance }) do %>
     <div class="d-flex flex-column row-gap-4">

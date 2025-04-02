@@ -1,19 +1,18 @@
 # frozen_string_literal: true
 
 class Columns
-  def initialize(query, params, default_columns, available_columns)
+  def initialize(query, params, default_columns, available_columns, controller)
     @query = query
     @params = params
     @default_columns = default_columns
     @available_columns = available_columns
+    @controller = controller
     @model = query.model
   end
 
   def perform
       model_associations = @model.reflect_on_all_associations.map(&:name).map(&:to_s)
 
-      # Columns
-      displayed_columns = @params[:columns] || @default_columns
       # Associations
       displayed_associations = displayed_columns & model_associations
       # Associations' attributes
@@ -29,5 +28,15 @@ class Columns
         .includes(displayed_associations_attributes, displayed_associations)
         .references(displayed_associations_attributes, displayed_associations)
         .select(displayed_attributes), displayed_columns]
-    end
+  end
+
+  private
+
+  def displayed_columns
+    @displayed_columns ||= @params[:columns] || @controller.session[session_model_key] || @default_columns
+  end
+
+  def session_model_key
+    @model.model_name.to_s.downcase.to_sym
+  end
 end
