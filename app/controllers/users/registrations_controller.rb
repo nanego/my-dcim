@@ -7,7 +7,7 @@ module Users
     # The path used after sign up. You need to overwrite this method
     # in your own RegistrationsController.
     def after_sign_up_path_for(_resource)
-      return new_user_session_path
+      new_user_session_path
     end
 
     # Signs in a user on sign up. You can overwrite this method in your own

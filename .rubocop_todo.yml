@@ -350,17 +350,6 @@ Style/NumericPredicate:
     - 'app/controllers/ports_controller.rb'
     - 'app/helpers/servers_helper.rb'
 
-# Offense count: 7
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowMultipleReturnValues.
-Style/RedundantReturn:
-  Exclude:
-    - 'app/controllers/application_controller.rb'
-    - 'app/controllers/servers_controller.rb'
-    - 'app/controllers/users/registrations_controller.rb'
-    - 'app/helpers/servers_helper.rb'
-    - 'app/services/glpi_client.rb'
-
 # Offense count: 24
 # This cop supports safe autocorrection (--autocorrect).
 Style/RedundantSelf:

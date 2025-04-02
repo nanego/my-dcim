@@ -224,6 +224,6 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     else
       bg_color = server.modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(server.modele.try(:name) || 'test')[0..5]}", 0.4)
     end
-    return bg_color
+    bg_color
   end
 end
