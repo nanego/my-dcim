@@ -54,6 +54,8 @@ Rails.application.routes.draw do
       post :sort
       get :import_csv
       post :import
+      post :save_columns
+      post :reset_columns
     end
 
     member do
