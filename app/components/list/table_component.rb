@@ -100,7 +100,6 @@ module List
             css_vertical_align,
             css_text_align,
             css_classes,
-            "": (@text.present? && css_classes.nil?),
           ),
         )
       end

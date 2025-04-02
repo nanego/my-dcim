@@ -39,7 +39,7 @@ class Card < ApplicationRecord
   end
 
   def positions_with_ports
-    ports.map { |port| port.position }
+    ports.map(&:position)
   end
 
   def create_missing_ports

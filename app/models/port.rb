@@ -22,7 +22,7 @@ class Port < ApplicationRecord
   def network_conf(switch_slot)
     cable_name = connection.try(:cable).try(:name)
     if cable_name.present?
-      "#{connection.cable.try(:color)} - #{cable_name} - Switch #{cable_name[0]} - Port #{switch_slot}:#{cable_name[1..-1]} - #{vlans}"
+      "#{connection.cable.try(:color)} - #{cable_name} - Switch #{cable_name[0]} - Port #{switch_slot}:#{cable_name[1..]} - #{vlans}"
     end
   end
 
