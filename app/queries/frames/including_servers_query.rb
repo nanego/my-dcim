@@ -7,12 +7,12 @@ module Frames
                                       bay: [:frames],
                                       servers: [
                                         :frame, :gestion, :cluster,
-                                        modele: %i[category composants],
-                                        cards: [
-                                          :composant,
-                                          ports: [:cable, connection: :cable],
-                                          card_type: :port_type,
-                                        ],
+                                        { modele: %i[category composants],
+                                          cards: [
+                                            :composant,
+                                            { ports: [:cable, { connection: :cable }],
+                                              card_type: :port_type },
+                                          ] },
                                       ])
       ar_relation = ar_relation.order(order) if order
       ar_relation

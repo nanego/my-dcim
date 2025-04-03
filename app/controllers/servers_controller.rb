@@ -156,6 +156,6 @@ class ServersController < ApplicationController
     # %W"position frame_id".each do |attribute|
     #  new_params[attribute] = [old_values[attribute].to_s, new_values[attribute]]
     # end
-    return new_params
+    new_params
   end
 end

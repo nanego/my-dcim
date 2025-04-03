@@ -12,7 +12,7 @@ class MovedConnection < ApplicationRecord
   end
 
   def ports
-    [self.port_from, self.port_to].compact
+    [port_from, port_to].compact
   end
 
   def cable_color
@@ -20,8 +20,8 @@ class MovedConnection < ApplicationRecord
   end
 
   def execute_movement
-    self.port_from.connect_to_port(self.port_to, self.cablename, self.color, self.vlans)
-    self.delete
+    port_from.connect_to_port(port_to, cablename, color, vlans)
+    delete
   end
 
   def cable_name

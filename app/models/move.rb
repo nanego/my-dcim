@@ -10,7 +10,7 @@ class Move < ApplicationRecord
   attr_accessor :remove_connections
 
   def clear_connections
-    server = self.moveable
+    server = moveable
     # Delete current moved connections
     MovedConnection.per_servers([server]).delete_all
     # Add moved connection for each port
@@ -23,14 +23,14 @@ class Move < ApplicationRecord
   end
 
   def execute_movement(apply_connections: true)
-    equipment = self.moveable
-    equipment.frame = self.frame
-    equipment.position = self.position
+    equipment = moveable
+    equipment.frame = frame
+    equipment.position = position
     if equipment.save
       if apply_connections
         MovedConnection.per_servers([equipment]).map(&:execute_movement)
       end
-      self.delete
+      delete
     end
   end
 end
