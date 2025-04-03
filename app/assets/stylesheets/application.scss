@@ -945,6 +945,16 @@ body {
     }
   }
 
+  .very-specific-design {
+    .server-component {
+      .port_container {
+        small {
+          font-size: 0.65em;
+        }
+      }
+    }
+  }
+
   /* Bootstrap clean */
   ul.list-group.nested-form-list {
     .list-group-item:last-of-type {
@@ -953,9 +963,10 @@ body {
     }
 
     .list-group-item:not(:first-child) {
-     	border-top-width: 0;
+      border-top-width: 0;
     }
   }
+
 
   /* Tom-Select */
   /* Fix for dark mode */
