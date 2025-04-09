@@ -50,8 +50,6 @@ Rails.application.routes.draw do
       post :sort
       get :import_csv
       post :import
-      post :save_columns
-      post :reset_columns
     end
 
     member do
@@ -74,12 +72,7 @@ Rails.application.routes.draw do
       get :overview
     end
   end
-  resources :bays do
-    collection do
-      post :save_columns
-      post :reset_columns
-    end
-  end
+  resources :bays
   resources :gestions
   resources :domaines
   resources :modeles do
