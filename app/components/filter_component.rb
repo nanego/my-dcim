@@ -71,12 +71,6 @@ class FilterComponent < ApplicationComponent
     end
   end
 
-  def columns_options(model, columns)
-    columns.index_with do |col|
-      model.human_attribute_name(col)
-    end
-  end
-
   class Form < ApplicationComponent
     delegate :call, to: :@block
 
