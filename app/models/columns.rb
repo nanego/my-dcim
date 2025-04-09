@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Columns
-  def initialize(query, params, default_columns, controller)
+  def initialize(query, columns, default_columns, controller)
     @query = query
-    @params = params
+    @columns = columns
     @default_columns = default_columns
     @controller = controller
     @model = query.model
@@ -32,7 +32,7 @@ class Columns
   private
 
   def displayed_columns
-    @displayed_columns ||= @params[:columns] || @controller.session[session_model_key] || @default_columns
+    @displayed_columns ||= @columns || @controller.session[session_model_key] || @default_columns
   end
 
   def session_model_key
