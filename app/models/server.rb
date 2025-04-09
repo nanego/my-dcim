@@ -134,12 +134,12 @@ class Server < ApplicationRecord
   end
 
   def connected_ports
-    distant_connections.map(&:port).reject(&:nil?)
+    distant_connections.filter_map(&:port)
   end
 
   def distant_connections
-    cables_ids = ports.includes(:connection => [:cable]).map(&:connection).reject(&:nil?).map(&:cable).map(&:id)
-    Connection.includes(:cable, :port => [:card]).joins(:cable).where(cable_id: cables_ids).where.not(port_id: ports.map(&:id)).where('port_id IS NOT NULL')
+    cables_ids = ports.includes(:connection => [:cable]).filter_map(&:connection).map(&:cable).map(&:id)
+    Connection.includes(:cable, :port => [:card]).joins(:cable).where(cable_id: cables_ids).where.not(port_id: ports.map(&:id)).where.not(port_id: nil)
   end
 
   def documentation_url
