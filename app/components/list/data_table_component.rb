@@ -174,9 +174,9 @@ module List
       def initialize(title = nil, **options, &block)
         @title = title
         @name = options.delete(:name)
-        @block = block
         @sort_by = options.delete(:sort_by)
         @html_options = options
+        @block = block
 
         super()
       end

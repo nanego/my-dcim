@@ -23,7 +23,7 @@ class ServersController < ApplicationController
       .order(:name)
 
     @filter = ProcessorFilter.new(@servers, params)
-    @servers, @displayed_columns = Columns.new(@servers, search_params, DEFAULT_COLUMNS, self).perform
+    @servers, @displayed_columns = Columns.new(@servers, params[:columns], DEFAULT_COLUMNS, self).perform
     @servers = @filter.results
 
     respond_to do |format|
@@ -151,7 +151,7 @@ class ServersController < ApplicationController
   def search_params
     params.permit(:sort, :sort_by, :page, :per_page, :q,
                   network_types: [], bay_ids: [], islet_ids: [], room_ids: [], frame_ids: [], cluster_ids: [],
-                  gestion_ids: [], domaine_ids: [], modele_ids: [], stack_ids: [], category_ids: [], columns: [])
+                  gestion_ids: [], domaine_ids: [], modele_ids: [], stack_ids: [], category_ids: [])
   end
 
   def track_frame_and_position(old_values, new_values)
