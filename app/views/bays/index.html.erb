@@ -58,8 +58,34 @@
     <% end %>
   <% end %>
 
+  <section>
+    <%= form_with url: save_columns_path, method: :post do |f| %>
+      <fieldset class="form-floating">
+        <%= hidden_field_tag :model, :bay %>
+        <%= f.collection_select(:columns, BaysController::AVAILABLE_COLUMNS.index_with { |c| Bay.human_attribute_name(c) },
+                                :first,
+                                :second,
+                                { prompt: true, multiple: true, selected: @displayed_columns },
+                                { class: "form-select", data: { controller: :select } }) %>
+        <%= f.label :columns %>
+      </fieldset>
+
+      <%= f.check_box :save %>
+      <%= f.label :save, "Save preferences" %>
+
+      <br />
+
+      <%= f.submit "Filter columns" %>
+    <% end %>
+
+    <%= form_with url: reset_columns_path, method: :post do |f| %>
+      <%= hidden_field_tag :model, :bay %>
+      <%= f.submit "Reset preferences" %>
+    <% end %>
+  </section>
+
   <%= turbo_frame_tag(dom_id(Bay, :table), data: { turbo_action: :advance }) do %>
-    <%= render List::DataTableComponent.new(@bays) do |table| %>
+    <%= render List::DataTableComponent.new(@bays, displayed_columns: @displayed_columns) do |table| %>
       <% table.with_bulk_action(url: bulk_bays_path, method: :delete, class: "btn btn-danger btn-sm",
                                 data: { confirm: t("action.confirm") }
       ) do %>
@@ -67,23 +93,23 @@
         </span>
       <% end %>
 
-      <% table.with_column(Bay.human_attribute_name(:name)) do |bay| %>
+      <% table.with_column(Bay.human_attribute_name(:name), name: :name) do |bay| %>
         <%= link_to bay_path(bay), class: "fw-bold", data: { turbo_frame: :_top } do %>
           <% bay.frames.any? ? bay.to_s : bay.decorated.no_frame_warning_icon %>
         <% end %>
       <% end %>
 
-      <% table.with_column(Room.model_name.human, sort_by: :"rooms.name") do |bay| %>
+      <% table.with_column(Room.model_name.human, name: :room, sort_by: :"rooms.name") do |bay| %>
         <%= link_to bay.room, room_path(bay.room), data: { turbo_frame: :_top } %>
       <% end %>
 
     <% unless (turbo_frame_request? && @filter.filled?(:islet_ids)) %>
-      <% table.with_column(Islet.model_name.human, sort_by: :"islets.name") do |bay| %>
+      <% table.with_column(Islet.model_name.human, name: :islet, sort_by: :"islets.name") do |bay| %>
         <%= link_to bay.islet.name_with_room, islet_path(bay.islet), data: { turbo_frame: :_top } %>
       <% end %>
     <% end %>
 
-      <% table.with_column(Frame.model_name.human.pluralize) do |bay| %>
+      <% table.with_column(Frame.model_name.human.pluralize, name: :frame) do |bay| %>
         <%=
           bay.frames.map do |frame|
             link_to(frame.name, frame_path(frame), data: { turbo_frame: :_top })
@@ -91,15 +117,15 @@
         %>
       <% end %>
 
-      <% table.with_column(Bay.human_attribute_name(:lane), sort_by: :lane) do |bay| %>
+      <% table.with_column(Bay.human_attribute_name(:lane), name: :lane, sort_by: :lane) do |bay| %>
         <%= bay.lane %>
       <% end %>
 
-      <% table.with_column(Bay.human_attribute_name(:position), sort_by: :position) do |bay| %>
+      <% table.with_column(Bay.human_attribute_name(:position), name: :position, sort_by: :position) do |bay| %>
         <%= bay.position %>
       <% end %>
 
-      <% table.with_column(Server.model_name.human(count: 2)) do |bay| %>
+      <% table.with_column(Server.model_name.human(count: 2), name: :server) do |bay| %>
         <%= link_to servers_path(bay_ids: bay.id), data: { turbo_frame: :_top } do %>
           <%= Bay.human_attribute_name(:materials_count, count: bay.materials.count) %>
         <% end %>

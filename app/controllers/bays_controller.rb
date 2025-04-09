@@ -3,8 +3,8 @@
 class BaysController < ApplicationController
   include RoomsHelper
 
-  DEFAULT_COLUMNS = %w[name room islet frame line position materials].freeze
-  AVAILABLE_COLUMNS = %w[name room islet frame line position materials].freeze
+  DEFAULT_COLUMNS = %w[name room islet frame lane position server].freeze
+  AVAILABLE_COLUMNS = %w[name room islet frame lane position server].freeze
 
   before_action :set_bay, only: %i[edit update destroy show]
 
