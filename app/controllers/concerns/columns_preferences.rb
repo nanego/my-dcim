@@ -4,40 +4,29 @@ module ColumnsPreferences
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_model, only: %i[save_columns reset_columns]
-
-    def save_columns
-      if save_preferences?
-        session[@model] = columns_params[:columns]
-        redirect_back_or_to root_path
-      else
-        redirect_back_with_params(columns: columns_params[:columns])
-      end
-    end
-
-    def reset_columns
-      session[@model] = nil
-
-      redirect_back_or_to root_path
-    end
+    before_action :set_model, only: :index
+    before_action :columns_action, only: :index
 
     private
 
-    def set_model
-      @model = controller_path.classify.constantize
+    def columns_action
+      if reset_preferences?
+        session[@model] = nil
+      elsif save_preferences?
+        session[@model] = params[:columns]
+      end
     end
 
-    def columns_params
-      params.permit(:save, columns: [])
+    def set_model
+      @model = controller_path.classify.downcase.to_sym
     end
 
     def save_preferences?
-      columns_params[:save] == "1"
+      params[:save].present?
     end
 
-    def redirect_back_with_params(params = {})
-      referer = request.referer || root_path
-      redirect_to("#{referer}?#{params.to_query}")
+    def reset_preferences?
+      params[:reset].present?
     end
   end
 end
