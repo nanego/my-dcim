@@ -30,8 +30,8 @@ class Port < ApplicationRecord
     remove_unused_connections([self, other_port])
     if other_port
       cable = nil
-      if self.connection.present?
-        cable ||= self.connection.cable
+      if connection.present?
+        cable ||= connection.cable
       end
       if other_port.connection.present?
         cable ||= other_port.connection.cable
@@ -51,7 +51,7 @@ class Port < ApplicationRecord
       self.vlans = vlans
       other_port.vlans = self.vlans
 
-      self.save && other_port.save
+      save && other_port.save
     end
   end
 

@@ -70,10 +70,10 @@ class Frame < ApplicationRecord
 
   def to_txt(detail)
     txt = []
-    if self.present?
-      txt << "\r\n#{self.name}\r\n"
+    if present?
+      txt << "\r\n#{name}\r\n"
       txt << "---------------\r\n"
-      self.servers.each do |server|
+      servers.each do |server|
         case detail
         when 'gestion'
           addition = server.gestion.try(:name)

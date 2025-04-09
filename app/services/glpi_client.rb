@@ -63,7 +63,7 @@ class GlpiClient
           proc["designation"] = get_processor_designation_from_glpi(id: proc["deviceprocessors_id"])
         end
 
-        return Computer.new(attributes)
+        Computer.new(attributes)
       end
     end
   end
@@ -77,7 +77,7 @@ class GlpiClient
     end
     processor_params = JSON.parse(resp.body)
     if processor_params.present?
-      return processor_params["designation"]
+      processor_params["designation"]
     end
   end
 
@@ -90,7 +90,7 @@ class GlpiClient
     end
     computer_params = JSON.parse(resp.body).first
     if computer_params.present?
-      return computer_params["id"]
+      computer_params["id"]
     end
   end
 
