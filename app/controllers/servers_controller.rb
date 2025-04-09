@@ -2,6 +2,7 @@
 
 class ServersController < ApplicationController
   include ServersHelper
+  include ColumnsPreferences
 
   DEFAULT_COLUMNS = %w[name numero modele.category islet bay network_types].freeze
   AVAILABLE_COLUMNS = %w[name numero modele.category islet bay network_types domaine gestion frame cluster stack comment critique].freeze
@@ -22,7 +23,7 @@ class ServersController < ApplicationController
       .order(:name)
 
     @filter = ProcessorFilter.new(@servers, params)
-    @servers, @displayed_columns = Columns.new(@servers, search_params, DEFAULT_COLUMNS, AVAILABLE_COLUMNS, self).perform
+    @servers, @displayed_columns = Columns.new(@servers, search_params, DEFAULT_COLUMNS, self).perform
     @servers = @filter.results
 
     respond_to do |format|
