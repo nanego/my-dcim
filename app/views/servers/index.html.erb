@@ -203,6 +203,30 @@
           <%= server.decorated.network_types_to_human %>
         <% end %>
 
+        <% table.with_column(Gestion.model_name.human, name: :gestion) do |server| %>
+          <%= link_to server.gestion, gestion_path(server.gestion), data: { turbo_frame: :_top } if server.gestion %>
+        <% end %>
+
+        <% table.with_column(Frame.model_name.human, name: :frame) do |server| %>
+          <%= link_to server.frame, frame_path(server.frame), data: { turbo_frame: :_top } if server.frame %>
+        <% end %>
+
+        <% table.with_column(Cluster.model_name.human, name: :cluster) do |server| %>
+          <%= link_to server.cluster, cluster_path(server.cluster), data: { turbo_frame: :_top } if server.cluster %>
+        <% end %>
+
+        <% table.with_column(Stack.model_name.human, name: :stack) do |server| %>
+          <%= link_to server.stack, stack_path(server.stack), data: { turbo_frame: :_top } if server.stack %>
+        <% end %>
+
+        <% table.with_column(Server.human_attribute_name(:comment), name: :comment) do |server| %>
+          <%= server.comment %>
+        <% end %>
+
+        <% table.with_column(Server.human_attribute_name(:critique), name: :critique) do |server| %>
+          <%= t("boolean.#{server.critique}") %>
+        <% end %>
+
         <% table.with_column(style: "min-width: 100px; width: 100px") do |server| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
             <%= link_to duplicate_server_path(server), class: "btn btn-success", data: { turbo_frame: :_top } do %>

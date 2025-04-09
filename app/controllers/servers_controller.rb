@@ -4,7 +4,7 @@ class ServersController < ApplicationController
   include ServersHelper
 
   DEFAULT_COLUMNS = %w[name numero modele.category islet bay network_types].freeze
-  AVAILABLE_COLUMNS = %w[name numero modele.category islet bay network_types].freeze
+  AVAILABLE_COLUMNS = %w[name numero modele.category islet bay network_types domaine gestion frame cluster stack comment critique].freeze
 
   before_action :set_server, only: %i[show edit update destroy destroy_connections]
 
