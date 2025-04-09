@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 class Columns
-  def initialize(query, params, default_columns, available_columns, controller)
+  def initialize(query, params, default_columns, controller)
     @query = query
     @params = params
     @default_columns = default_columns
-    @available_columns = available_columns
     @controller = controller
     @model = query.model
   end

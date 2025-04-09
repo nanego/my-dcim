@@ -50,6 +50,8 @@ Rails.application.routes.draw do
       post :sort
       get :import_csv
       post :import
+      post :save_columns
+      post :reset_columns
     end
 
     member do
@@ -72,7 +74,12 @@ Rails.application.routes.draw do
       get :overview
     end
   end
-  resources :bays
+  resources :bays do
+    collection do
+      post :save_columns
+      post :reset_columns
+    end
+  end
   resources :gestions
   resources :domaines
   resources :modeles do
@@ -135,13 +142,6 @@ Rails.application.routes.draw do
     get :reset_authentication_token, on: :member
     patch :suspend, on: :member
     patch :unsuspend, on: :member
-  end
-
-  resources :columns, only: [] do
-    collection do
-      post :save
-      post :reset
-    end
   end
 
   get 'search', to: 'search#index'
