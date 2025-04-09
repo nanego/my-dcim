@@ -150,12 +150,17 @@
         <%= f.label :columns %>
       </fieldset>
 
-      <%= f.submit %>
+      <%= f.check_box :save %>
+      <%= f.label :save, "Save preferences" %>
+
+      <br />
+
+      <%= f.submit "Filter columns" %>
     <% end %>
 
     <%= form_with url: reset_columns_path, method: :post do |f| %>
       <%= hidden_field_tag :model, :server %>
-      <%= f.submit "Reset" %>
+      <%= f.submit "Reset preferences" %>
     <% end %>
   </section>
 
