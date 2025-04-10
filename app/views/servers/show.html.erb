@@ -403,14 +403,14 @@
             <%= t(".toggle_vlans") %>
           </button>
 
-          <%= render ButtonComponent.new(nil,
+          <%= render ButtonComponent.new(t(".destroy_connections"),
                                          url: destroy_connections_server_path(@server),
                                          icon: "trash",
                                          variant: :danger,
                                          size: :sm,
+                                         is_responsive: true,
                                          data: {
-                                           confirm: t(".destroy_connections_confirmation"),
-                                           tooltip_title: t(".destroy_connections")
+                                           confirm: t(".destroy_connections_confirmation")
                                          }
                                         )
           %>
