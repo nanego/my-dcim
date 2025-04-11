@@ -2,6 +2,10 @@
 
 class ServersController < ApplicationController
   include ServersHelper
+  include ColumnsPreferences
+
+  DEFAULT_COLUMNS = %w[name numero modele.category islet bay network_types].freeze
+  AVAILABLE_COLUMNS = %w[name numero modele.category islet bay network_types domaine gestion frame cluster stack comment critique].freeze
 
   before_action :set_server, only: %i[show edit update destroy destroy_connections]
 
@@ -13,13 +17,14 @@ class ServersController < ApplicationController
       logger.warn("DEPRECATION WARNING: Search with 'name' is now deprecated. Use 'q' instead.")
     end
 
-    @servers = Server.no_pdus.includes(frame: { bay: { islet: :room } }, modele: :category)
-      .references(frame: { bay: { islet: :room } }, modele: :category)
+    @servers = Server.no_pdus
+      .includes(@displayed_associations_columns, frame: { bay: { islet: :room } }, modele: :category)
+      .references(@displayed_associations_columns, frame: { bay: { islet: :room } }, modele: :category)
       .order(:name)
-    @filter = ProcessorFilter.new(@servers, params)
 
+    @filter = ProcessorFilter.new(@servers, params)
+    @servers, @displayed_columns = Columns.new(@servers, params[:columns], DEFAULT_COLUMNS, self).perform
     @servers = @filter.results
-    @search_params = search_params
 
     respond_to do |format|
       format.json
