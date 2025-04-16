@@ -93,17 +93,17 @@
         <% end %>
       <% end %>
 
-      <% table.with_column(Room.model_name.human, name: :room, sort_by: :"rooms.name") do |bay| %>
+      <% table.with_column(Room.model_name.human, name: :room_id, sort_by: :"rooms.name") do |bay| %>
         <%= link_to bay.room, room_path(bay.room), data: { turbo_frame: :_top } %>
       <% end %>
 
     <% unless (turbo_frame_request? && @filter.filled?(:islet_ids)) %>
-      <% table.with_column(Islet.model_name.human, name: :islet, sort_by: :"islets.name") do |bay| %>
+      <% table.with_column(Islet.model_name.human, name: :islet_id, sort_by: :"islets.name") do |bay| %>
         <%= link_to bay.islet.name_with_room, islet_path(bay.islet), data: { turbo_frame: :_top } %>
       <% end %>
     <% end %>
 
-      <% table.with_column(Frame.model_name.human.pluralize, name: :frame) do |bay| %>
+      <% table.with_column(Frame.model_name.human.pluralize, name: :frame_id) do |bay| %>
         <%=
           bay.frames.map do |frame|
             link_to(frame.name, frame_path(frame), data: { turbo_frame: :_top })
@@ -119,7 +119,7 @@
         <%= bay.position %>
       <% end %>
 
-      <% table.with_column(Server.model_name.human(count: 2), name: :server) do |bay| %>
+      <% table.with_column(Server.model_name.human(count: 2), name: :server_id) do |bay| %>
         <%= link_to servers_path(bay_ids: bay.id), data: { turbo_frame: :_top } do %>
           <%= Bay.human_attribute_name(:materials_count, count: bay.materials.count) %>
         <% end %>

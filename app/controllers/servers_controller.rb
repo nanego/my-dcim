@@ -6,8 +6,8 @@ class ServersController < ApplicationController
 
   has_preferred_columns :server
 
-  DEFAULT_COLUMNS = %w[name numero modele.category islet bay network_types].freeze
-  AVAILABLE_COLUMNS = %w[name numero modele.category islet bay network_types domaine gestion frame cluster stack comment critique].freeze
+  DEFAULT_COLUMNS = %w[name numero modele.category_id islet_id bay_id network_types].freeze
+  AVAILABLE_COLUMNS = %w[name numero modele.category_id islet_id bay_id network_types domaine_id gestion_id frame_id cluster_id stack_id comment critique].freeze
 
   before_action :set_server, only: %i[show edit update destroy destroy_connections]
 

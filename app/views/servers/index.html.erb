@@ -176,7 +176,7 @@
           <%= link_to server.numero, server_path(server), class: "fw-bold", data: { turbo_frame: :_top } %>
         <% end %>
 
-        <% table.with_column(Modele.human_attribute_name(:category), name: :"modele.category", sort_by: :"categories.name") do |server| %>
+        <% table.with_column(Modele.human_attribute_name(:category), name: :"modele.category_id", sort_by: :"categories.name") do |server| %>
           <%= link_to server.modele.category, category_path(server.modele.category),
                       data: { turbo_frame: :_top } if server.modele.try(:category) %>
         <% end %>
@@ -185,11 +185,11 @@
           <%= link_to server.room, room_path(server.room), data: { turbo_frame: :_top } if server.room %>
         <% end %>
 
-        <% table.with_column(Islet.model_name.human, name: :islet, sort_by: :"islets.name") do |server| %>
+        <% table.with_column(Islet.model_name.human, name: :islet_id, sort_by: :"islets.name") do |server| %>
           <%= link_to server.islet, islet_path(server.islet), data: { turbo_frame: :_top } if server.islet %>
         <% end %>
 
-        <% table.with_column(Bay.model_name.human, name: :bay, sort_by: :"bays.id") do |server| %>
+        <% table.with_column(Bay.model_name.human, name: :bay_id, sort_by: :"bays.id") do |server| %>
           <%= link_to server.bay, bay_path(server.bay), data: { turbo_frame: :_top } if server.bay %>
         <% end %>
 
@@ -197,19 +197,19 @@
           <%= server.decorated.network_types_to_human %>
         <% end %>
 
-        <% table.with_column(Gestion.model_name.human, name: :gestion) do |server| %>
+        <% table.with_column(Gestion.model_name.human, name: :gestion_id) do |server| %>
           <%= link_to server.gestion, gestion_path(server.gestion), data: { turbo_frame: :_top } if server.gestion %>
         <% end %>
 
-        <% table.with_column(Frame.model_name.human, name: :frame) do |server| %>
+        <% table.with_column(Frame.model_name.human, name: :frame_id) do |server| %>
           <%= link_to server.frame, frame_path(server.frame), data: { turbo_frame: :_top } if server.frame %>
         <% end %>
 
-        <% table.with_column(Cluster.model_name.human, name: :cluster) do |server| %>
+        <% table.with_column(Cluster.model_name.human, name: :cluster_id) do |server| %>
           <%= link_to server.cluster, cluster_path(server.cluster), data: { turbo_frame: :_top } if server.cluster %>
         <% end %>
 
-        <% table.with_column(Stack.model_name.human, name: :stack) do |server| %>
+        <% table.with_column(Stack.model_name.human, name: :stack_id) do |server| %>
           <%= link_to server.stack, stack_path(server.stack), data: { turbo_frame: :_top } if server.stack %>
         <% end %>
 
