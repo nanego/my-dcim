@@ -6,8 +6,8 @@ class BaysController < ApplicationController
 
   has_preferred_columns :bay
 
-  DEFAULT_COLUMNS = %w[name room islet frame lane position server].freeze
-  AVAILABLE_COLUMNS = %w[name room islet frame lane position server].freeze
+  DEFAULT_COLUMNS = %w[name room_id islet_id frame_id lane position server_id].freeze
+  AVAILABLE_COLUMNS = %w[name room_id islet_id frame_id lane position server_id].freeze
 
   before_action :set_bay, only: %i[edit update destroy show]
 
