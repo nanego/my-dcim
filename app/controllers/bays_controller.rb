@@ -4,10 +4,10 @@ class BaysController < ApplicationController
   include RoomsHelper
   include ColumnsPreferences
 
-  has_preferred_columns :bay
-
   DEFAULT_COLUMNS = %w[name room_id islet_id frame_id lane position server_id].freeze
   AVAILABLE_COLUMNS = %w[name room_id islet_id frame_id lane position server_id].freeze
+
+  columns_preferences_with model: Bay, default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS
 
   before_action :set_bay, only: %i[edit update destroy show]
 
@@ -15,7 +15,6 @@ class BaysController < ApplicationController
     @bays = Bay.joins(islet: :room).order("rooms.position, islets.name, bays.lane, bays.position")
     @filter = ProcessorFilter.new(@bays, params)
 
-    @bays, @displayed_columns = perform_preferences(@bays)
     @bays = @filter.results.uniq
   end
 

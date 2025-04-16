@@ -7,7 +7,7 @@ class ServersController < ApplicationController
   DEFAULT_COLUMNS = %w[name numero modele.category_id islet_id bay_id network_types].freeze
   AVAILABLE_COLUMNS = %w[name numero modele.category_id islet_id bay_id network_types domaine_id gestion_id frame_id cluster_id stack_id comment critique].freeze
 
-  columns_preferences_with default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS
+  columns_preferences_with model: Server, default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS
 
   before_action :set_server, only: %i[show edit update destroy destroy_connections]
 

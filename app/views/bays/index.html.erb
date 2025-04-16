@@ -58,14 +58,10 @@
     <% end %>
   <% end %>
 
-  <section>
-    <%= render ColumnsPreferenceComponent.new(bays_path(request.query_parameters),
-                                              BaysController::AVAILABLE_COLUMNS.index_with { |c| Bay.human_attribute_name(c) },
-                                              @displayed_columns) %>
-  </section>
+  <%= render ColumnsPreferencesComponent.new(bays_path(request.query_parameters), @columns_preferences) %>
 
   <%= turbo_frame_tag(dom_id(Bay, :table), data: { turbo_action: :advance }) do %>
-    <%= render List::DataTableComponent.new(@bays, displayed_columns: @displayed_columns) do |table| %>
+    <%= render List::DataTableComponent.new(@bays, columns_to_display: @columns_preferences.preferred) do |table| %>
       <% table.with_bulk_action(url: bulk_bays_path, method: :delete, class: "btn btn-danger btn-sm",
                                 data: { confirm: t("action.confirm") }
       ) do %>
