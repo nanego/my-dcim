@@ -12,7 +12,7 @@ class BaysController < ApplicationController
   before_action :set_bay, only: %i[edit update destroy show]
 
   def index
-    @bays = Bay.joins(:room, :islet).order("rooms.position, islets.name, bays.lane, bays.position")
+    @bays = Bay.joins(islet: :room).order("rooms.position, islets.name, bays.lane, bays.position")
     @filter = ProcessorFilter.new(@bays, params)
 
     @bays, @displayed_columns = Columns.new(@bays, params[:columns], DEFAULT_COLUMNS, self).perform

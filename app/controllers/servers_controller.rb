@@ -27,6 +27,7 @@ class ServersController < ApplicationController
     @filter = ProcessorFilter.new(@servers, params)
     @servers, @displayed_columns = Columns.new(@servers, params[:columns], DEFAULT_COLUMNS, self).perform
     @servers = @filter.results
+    @search_params = search_params
 
     respond_to do |format|
       format.json
