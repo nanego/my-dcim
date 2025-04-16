@@ -139,7 +139,9 @@
   <% end %>
 
   <section>
-    <%= render ColumnsPreferenceComponent.new(Server, servers_path, ServersController::AVAILABLE_COLUMNS, @displayed_columns) %>
+    <%= render ColumnsPreferenceComponent.new(servers_path(request.query_parameters),
+                                              ServersController::AVAILABLE_COLUMNS.index_with { |c| Server.human_attribute_name(c) },
+                                              @displayed_columns) %>
   </section>
 
   <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance }) do %>
