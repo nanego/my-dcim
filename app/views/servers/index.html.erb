@@ -139,23 +139,7 @@
   <% end %>
 
   <section>
-    <%= form_with url: servers_path(request.query_parameters), method: :get do |f| %>
-      <fieldset class="form-floating">
-        <%= f.collection_select(:columns, ServersController::AVAILABLE_COLUMNS.index_with { |c| Server.human_attribute_name(c) },
-                                :first,
-                                :second,
-                                { prompt: true, multiple: true, selected: @displayed_columns },
-                                { class: "form-select", data: { controller: :select } }) %>
-        <%= f.label :columns %>
-      </fieldset>
-
-      <%= f.submit "Apply" %>
-      <%= f.submit "Apply and save", name: "save" %>
-    <% end %>
-
-    <%= form_with url: servers_path, method: :get do |f| %>
-      <%= f.submit "Reset preferences", name: "reset" %>
-    <% end %>
+    <%= render ColumnsPreferenceComponent.new(Server, servers_path, ServersController::AVAILABLE_COLUMNS, @displayed_columns) %>
   </section>
 
   <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance }) do %>
