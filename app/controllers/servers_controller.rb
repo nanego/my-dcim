@@ -4,10 +4,10 @@ class ServersController < ApplicationController
   include ServersHelper
   include ColumnsPreferences
 
-  has_preferred_columns :server
-
   DEFAULT_COLUMNS = %w[name numero modele.category_id islet_id bay_id network_types].freeze
   AVAILABLE_COLUMNS = %w[name numero modele.category_id islet_id bay_id network_types domaine_id gestion_id frame_id cluster_id stack_id comment critique].freeze
+
+  columns_preferences_with default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS
 
   before_action :set_server, only: %i[show edit update destroy destroy_connections]
 
@@ -25,7 +25,6 @@ class ServersController < ApplicationController
       .order(:name)
 
     @filter = ProcessorFilter.new(@servers, params)
-    @servers, @displayed_columns = perform_preferences(@servers)
     @servers = @filter.results
     @search_params = search_params
 

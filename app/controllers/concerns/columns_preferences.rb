@@ -3,27 +3,23 @@
 module ColumnsPreferences
   extend ActiveSupport::Concern
 
+  Columns = Data.define(:default, :available, :preferred)
+
   class_methods do
-    attr_reader :__model
+    def columns_preferences_with(default:, available:, key: controller_name, only: :index)
+      before_action(only:) do
+        if params[:reset]
+          session[key] = nil
+        elsif params[:save]
+          session[key] = params[:columns]
+        end
 
-    def has_preferred_columns(model) # rubocop:disable Naming/PredicateName
-      @__model = model
-    end
-  end
-
-  included do
-    before_action :columns_action, only: :index # rubocop:disable Rails/LexicallyScopedActionFilter
-
-    def columns_action
-      if params[:reset].present?
-        session[self.class.__model] = nil
-      elsif params[:save].present?
-        session[self.class.__model] = params[:columns]
+        @columns_preferences = Columns.new(
+          default:,
+          available:,
+          preferred: params[:columns] || session[key] || default
+        )
       end
-    end
-
-    def perform_preferences(query)
-      Columns.new(query, params[:columns], self.class::DEFAULT_COLUMNS, self).perform
     end
   end
 end
