@@ -7,10 +7,10 @@ module List
       DatatableColumn.new(title, **options, &block)
     }
 
-    def initialize(data, displayed_columns: nil, empty_icon: :table, **_options)
+    def initialize(data, columns_to_display: nil, empty_icon: :table, **_options)
       @data = data
       @empty_icon = empty_icon
-      @displayed_columns = displayed_columns&.map(&:to_sym)
+      @columns_to_display = columns_to_display&.map(&:to_sym)
 
       super()
     end
@@ -128,11 +128,11 @@ module List
     end
 
     def show_columns
-      @show_columns ||= if @displayed_columns.nil?
+      @show_columns ||= if @columns_to_display.nil?
                           columns
                         else
                           columns.select do |col|
-                            col.name.nil? || @displayed_columns.include?(col.name)
+                            col.name.nil? || @columns_to_display.include?(col.name)
                           end
                         end
     end

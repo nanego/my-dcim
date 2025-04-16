@@ -152,10 +152,10 @@
           <div class="modal-body">
             <fieldset class="form-floating">
               <%= form.collection_select :columns,
-                                        ServersController::AVAILABLE_COLUMNS.index_with { |c| Server.human_attribute_name(c) },
+                                        @columns_preferences.available.index_with { |c| Server.human_attribute_name(c) },
                                         :first,
                                         :second,
-                                        { prompt: true, multiple: true, selected: @displayed_columns },
+                                        { prompt: true, multiple: true, selected: @columns_preferences.preferred },
                                         { class: "form-select", data: { controller: :select } } %>
               <%= form.label :columns %>
             </fieldset>
@@ -177,7 +177,7 @@
 
   <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance }) do %>
     <div class="d-flex flex-column row-gap-4">
-      <%= render List::DataTableComponent.new(@servers, displayed_columns: @displayed_columns) do |table| %>
+      <%= render List::DataTableComponent.new(@servers, columns_to_display: @columns_preferences.preferred) do |table| %>
         <% table.with_bulk_action(url: bulk_servers_path, method: :delete, class: "btn btn-danger btn-sm",
                                   data: { confirm: t("action.confirm") }
         ) do %>
