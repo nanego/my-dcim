@@ -24,3 +24,5 @@ en:
         title: No data found!
       bulk:
         selected_elements: selected item(s)
+  columns_preferences_modal_component:
+    trigger_modal: Toggle columns

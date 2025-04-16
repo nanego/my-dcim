@@ -3,7 +3,7 @@
 class ColumnsPreferencesModalComponent < ApplicationComponent
   erb_template <<~ERB
     <section>
-      <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#columnsModal">Préférences de colonnes</button>
+      <button type="button" class="btn btn-outline-secondary float-end" data-bs-toggle="modal" data-bs-target="#columnsModal"><%= t(".trigger_modal") %></button>
 
       <div class="modal fade" id="columnsModal" tabindex="1" aria-labelledby="columnsModalLabel" aria-hidden="true">
         <div class="modal-dialog-scrollable modal-dialog modal-dialog-centered">
