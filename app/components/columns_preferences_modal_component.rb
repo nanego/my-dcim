@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ColumnsPreferencesComponent < ApplicationComponent
+class ColumnsPreferencesModalComponent < ApplicationComponent
   erb_template <<~ERB
     <section>
       <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#columnsModal">Préférences de colonnes</button>
@@ -24,11 +24,11 @@ class ColumnsPreferencesComponent < ApplicationComponent
               </fieldset>
             </div>
             <div class="modal-footer">
-              <%= form.submit "Appliquer et sauvegarder les préférences", name: "save", class: "btn btn-primary" %>
+              <%= form.submit t("action.apply"), name: "save", class: "btn btn-primary" %>
               <% end %>
 
               <%= form_with url: @action_path, method: :get do |form| %>
-                <%= form.submit "Réinitialiser", name: "reset", class: "btn btn-danger" %>
+                <%= form.submit t("action.reset"), name: "reset", class: "btn btn-link" %>
               <% end %>
             </div>
           </div>
