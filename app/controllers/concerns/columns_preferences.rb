@@ -21,5 +21,9 @@ module ColumnsPreferences
         session[self.class.__model] = params[:columns]
       end
     end
+
+    def perform_preferences(query)
+      Columns.new(query, params[:columns], self.class::DEFAULT_COLUMNS, self).perform
+    end
   end
 end

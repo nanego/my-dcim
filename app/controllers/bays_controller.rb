@@ -15,7 +15,7 @@ class BaysController < ApplicationController
     @bays = Bay.joins(islet: :room).order("rooms.position, islets.name, bays.lane, bays.position")
     @filter = ProcessorFilter.new(@bays, params)
 
-    @bays, @displayed_columns = Columns.new(@bays, params[:columns], DEFAULT_COLUMNS, self).perform
+    @bays, @displayed_columns = perform_preferences(@bays)
     @bays = @filter.results.uniq
   end
 
