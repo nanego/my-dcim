@@ -14,11 +14,7 @@ RSpec.describe ColumnsPreferencesModalComponent, type: :component do
     )
   end
 
-  # it "renders something useful" do
-  #   expect(
-  #     render_inline(described_class.new(attr: "value")) { "Hello, components!" }.css("p").to_html
-  #   ).to include(
-  #     "Hello, components!"
-  #   )
-  # end
+  it "renders button" do
+    expect(rendered_component.to_html).to have_button(text: t("columns_preferences_modal_component.trigger_modal"))
+  end
 end
