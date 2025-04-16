@@ -20,12 +20,12 @@ class ServersController < ApplicationController
     end
 
     @servers = Server.no_pdus
-      .includes(@displayed_associations_columns, frame: { bay: { islet: :room } }, modele: :category)
-      .references(@displayed_associations_columns, frame: { bay: { islet: :room } }, modele: :category)
+      .includes(frame: { bay: { islet: :room } }, modele: :category)
+      .references(frame: { bay: { islet: :room } }, modele: :category)
       .order(:name)
 
     @filter = ProcessorFilter.new(@servers, params)
-    @servers, @displayed_columns = Columns.new(@servers, params[:columns], DEFAULT_COLUMNS, self).perform
+    @servers, @displayed_columns = perform_preferences(@servers)
     @servers = @filter.results
     @search_params = search_params
 
