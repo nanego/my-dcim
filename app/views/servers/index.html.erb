@@ -151,13 +151,12 @@
           <%= form_with url: servers_path(request.query_parameters), method: :get do |form| %>
           <div class="modal-body">
             <fieldset class="form-floating">
-              <%= form.collection_select :columns,
-                                        @columns_preferences.available.index_with { |c| Server.human_attribute_name(c) },
-                                        :first,
-                                        :second,
-                                        { prompt: true, multiple: true, selected: @columns_preferences.preferred },
-                                        { class: "form-select", data: { controller: :select } } %>
-              <%= form.label :columns %>
+              <% @columns_preferences.available.each do |column| %>
+                <div class="form-check">
+                  <%= check_box_tag "columns[]", column, @columns_preferences.preferred.include?(column), id: "column_#{column}", class: "form-check-input" %>
+                  <%= form.label "column[#{column}]", Server.human_attribute_name(column), class: "form-check-label" %>
+                </div>
+              <% end %>
             </fieldset>
           </div>
           <div class="modal-footer">
@@ -167,8 +166,6 @@
             <%= form_with url: servers_path, method: :get do |form| %>
               <%= form.submit "Réinitialiser", name: "reset", class: "btn btn-danger" %>
             <% end %>
-
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
           </div>
         </div>
       </div>
