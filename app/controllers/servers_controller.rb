@@ -4,6 +4,8 @@ class ServersController < ApplicationController
   include ServersHelper
   include ColumnsPreferences
 
+  has_preferred_columns :server
+
   DEFAULT_COLUMNS = %w[name numero modele.category islet bay network_types].freeze
   AVAILABLE_COLUMNS = %w[name numero modele.category islet bay network_types domaine gestion frame cluster stack comment critique].freeze
 

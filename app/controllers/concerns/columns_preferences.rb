@@ -3,30 +3,23 @@
 module ColumnsPreferences
   extend ActiveSupport::Concern
 
-  included do
-    before_action :set_model, only: :index
-    before_action :columns_action, only: :index
+  class_methods do
+    attr_reader :__model
 
-    private
+    def has_preferred_columns(model) # rubocop:disable Naming/PredicateName
+      @__model = model
+    end
+  end
+
+  included do
+    before_action :columns_action, only: :index # rubocop:disable Rails/LexicallyScopedActionFilter
 
     def columns_action
-      if reset_preferences?
-        session[@model] = nil
-      elsif save_preferences?
-        session[@model] = params[:columns]
+      if params[:reset].present?
+        session[self.class.__model] = nil
+      elsif params[:save].present?
+        session[self.class.__model] = params[:columns]
       end
-    end
-
-    def set_model
-      @model = controller_path.classify.downcase.to_sym
-    end
-
-    def save_preferences?
-      params[:save].present?
-    end
-
-    def reset_preferences?
-      params[:reset].present?
     end
   end
 end
