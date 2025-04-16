@@ -87,6 +87,8 @@ fr:
         numero: Numéro de série
         room: Salle
         islet: Ilot
+        islet_id: Ilot
+        bay_id: Baie
         frame_id: Châssis
         position: Position
         modele_id: Modèle

@@ -138,39 +138,7 @@
     <% end %>
   <% end %>
 
-  <section>
-    <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#columnsModal">Préférences de colonnes</button>
-
-    <div class="modal fade" id="columnsModal" tabindex="1" aria-labelledby="columnsModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="columnsModalLabel">Préférences de colonnes</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <%= form_with url: servers_path(request.query_parameters), method: :get do |form| %>
-          <div class="modal-body">
-            <fieldset class="form-floating">
-              <% @columns_preferences.available.each do |column| %>
-                <div class="form-check">
-                  <%= check_box_tag "columns[]", column, @columns_preferences.preferred.include?(column), id: "column_#{column}", class: "form-check-input" %>
-                  <%= form.label "column[#{column}]", Server.human_attribute_name(column), class: "form-check-label" %>
-                </div>
-              <% end %>
-            </fieldset>
-          </div>
-          <div class="modal-footer">
-            <%= form.submit "Appliquer et sauvegarder les préférences", name: "save", class: "btn btn-primary" %>
-            <% end %>
-
-            <%= form_with url: servers_path, method: :get do |form| %>
-              <%= form.submit "Réinitialiser", name: "reset", class: "btn btn-danger" %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <%= render ColumnsPreferencesComponent.new(servers_path(request.query_parameters), @columns_preferences) %>
 
   <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance }) do %>
     <div class="d-flex flex-column row-gap-4">
