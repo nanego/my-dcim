@@ -59,23 +59,9 @@
   <% end %>
 
   <section>
-    <%= form_with url: bays_path(request.query_parameters), method: :get do |f| %>
-      <fieldset class="form-floating">
-        <%= f.collection_select(:columns, BaysController::AVAILABLE_COLUMNS.index_with { |c| Bay.human_attribute_name(c) },
-                                :first,
-                                :second,
-                                { prompt: true, multiple: true, selected: @displayed_columns },
-                                { class: "form-select", data: { controller: :select } }) %>
-        <%= f.label :columns %>
-      </fieldset>
-
-      <%= f.submit "Apply" %>
-      <%= f.submit "Apply and save", name: "save" %>
-    <% end %>
-
-    <%= form_with url: bays_path, method: :get do |f| %>
-      <%= f.submit "Reset preferences", name: "reset" %>
-    <% end %>
+    <%= render ColumnsPreferenceComponent.new(bays_path(request.query_parameters),
+                                              BaysController::AVAILABLE_COLUMNS.index_with { |c| Bay.human_attribute_name(c) },
+                                              @displayed_columns) %>
   </section>
 
   <%= turbo_frame_tag(dom_id(Bay, :table), data: { turbo_action: :advance }) do %>

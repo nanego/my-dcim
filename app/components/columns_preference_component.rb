@@ -1,36 +1,42 @@
 # frozen_string_literal: true
 
 class ColumnsPreferenceComponent < ApplicationComponent
-  def initialize(model, action_path, available_columns, displayed_columns)
-    @model = model
+  def initialize(action_path, columns, displayed_columns)
     @action_path = action_path
-    @available_columns = available_columns
+    @columns = columns
     @displayed_columns = displayed_columns
 
     super
   end
 
   def call
-    safe_join([
-                form_with(url: @action_path, method: :get) do |f|
-                  safe_join([
-                              content_tag(:fieldset, class: "form-floating") do
-                                concat(f.collection_select(:columns, @available_columns.index_with { |c| @model.human_attribute_name(c) },
-                                                           :first,
-                                                           :second,
-                                                           { prompt: true, multiple: true, selected: @displayed_columns },
-                                                           { class: "form-select", data: { controller: :select } }))
-                                concat f.label :columns
-                              end,
+    concat save_form
+    concat reset_form
+  end
 
-                              f.submit("Apply"),
-                              f.submit("Apply and save", name: "save"),
-                            ])
-                end,
+  private
 
-                form_with(url: @access_control, method: :get) do |f|
-                  f.submit("Reset preferences", name: "Reset")
-                end,
-              ])
+  def save_form
+    form_with(url: @action_path, method: :get) do |f|
+      safe_join([
+                  content_tag(:fieldset, class: "form-floating") do
+                    concat(f.collection_select(:columns, @columns,
+                                               :first,
+                                               :second,
+                                               { prompt: true, multiple: true, selected: @displayed_columns },
+                                               { class: "form-select", data: { controller: :select } }))
+                    concat f.label :columns
+                  end,
+
+                  f.submit("Apply"),
+                  f.submit("Apply and save", name: "save"),
+                ])
+    end
+  end
+
+  def reset_form
+    form_with(url: @access_control, method: :get) do |f|
+      f.submit("Reset preferences", name: "reset")
+    end
   end
 end
