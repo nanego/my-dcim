@@ -12,6 +12,7 @@ fr:
     apply: Appliquer
     edit: Modifier
     delete: Supprimer
+    reset: Réinitialiser
     back: Retour
     show: Voir
     close: Fermer
@@ -694,7 +695,8 @@ fr:
       help-range: "Operate>Composants>Air>Ventilo 1"
       help-setpoint: "Operate>Valeurs>Air>Temperature Consigne"
       help-min-setpoint: "Operate>Valeurs>Air>Temperature Consigne"
-      info-temperatures: "Si T<sub>interne</sub>-T<sub>externe</sub> < DTC start,
+      info-temperatures:
+        "Si T<sub>interne</sub>-T<sub>externe</sub> < DTC start,
         alors ventilation = débit minimal
         \n\r
         Si T<sub>interne</sub>-T<sub>externe</sub> > DTC start + DTC range,
