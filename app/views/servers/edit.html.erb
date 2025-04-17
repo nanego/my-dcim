@@ -1,8 +1,8 @@
 <%
   breadcrumb
-    .add(Server.model_name.human, servers_path)
-    .add(@server.name, server_path(@server))
-    .add(t("action.edit"))
+    .add_step(Server.model_name.human, servers_path)
+    .add_step(@server.name, server_path(@server))
+    .add_step(t("action.edit"))
 %>
 
 <%= render Page::HeadingEditComponent.new(resource: @server, title: t(".title"), breadcrumb:) %>

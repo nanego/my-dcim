@@ -1,8 +1,8 @@
 <%
   breadcrumb
-    .add(t("power_distribution_units.index.title"), power_distribution_units_path)
-    .add(@original_pdu.name, power_distribution_unit_path(@original_pdu))
-    .add(t("action.duplicate"))
+    .add_step(t("power_distribution_units.index.title"), power_distribution_units_path)
+    .add_step(@original_pdu.name, power_distribution_unit_path(@original_pdu))
+    .add_step(t("action.duplicate"))
 %>
 
 <%#= render Page::HeadingComponent.new(

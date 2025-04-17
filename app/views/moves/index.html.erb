@@ -1,5 +1,5 @@
 <%
-  breadcrumb.add(title = Move.model_name.human(count: 2))
+  breadcrumb.add_step(title = Move.model_name.human(count: 2))
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>

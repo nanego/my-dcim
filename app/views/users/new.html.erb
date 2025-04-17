@@ -1,7 +1,7 @@
 <%
   breadcrumb
-    .add(User.model_name.human.pluralize, users_path)
-    .add(t("action.create"))
+    .add_step(User.model_name.human.pluralize, users_path)
+    .add_step(t("action.create"))
 %>
 
 

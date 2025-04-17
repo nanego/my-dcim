@@ -1,7 +1,7 @@
 <%
   breadcrumb
-    .add(PortType.model_name.human(count: 2), port_types_path)
-    .add(@port_type)
+    .add_step(PortType.model_name.human(count: 2), port_types_path)
+    .add_step(@port_type)
 %>
 
 <%= render Page::HeadingShowComponent.new(resource: @port_type, title: @port_type.to_s, breadcrumb:) %>

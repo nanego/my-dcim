@@ -1,8 +1,8 @@
 <%
   breadcrumb
-    .add(Cluster.model_name.human.pluralize, clusters_path)
-    .add(@cluster, cluster_path(@cluster))
-    .add(t("action.edit"))
+    .add_step(Cluster.model_name.human.pluralize, clusters_path)
+    .add_step(@cluster, cluster_path(@cluster))
+    .add_step(t("action.edit"))
 %>
 
 <%= render Page::HeadingEditComponent.new(resource: @cluster, title: t(".title"), breadcrumb:) %>

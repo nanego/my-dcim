@@ -1,8 +1,8 @@
 <%
   breadcrumb
-    .add(Category.model_name.human.pluralize, categories_path)
-    .add(@category, category_path(@category))
-    .add(t("action.edit"))
+    .add_step(Category.model_name.human.pluralize, categories_path)
+    .add_step(@category, category_path(@category))
+    .add_step(t("action.edit"))
 %>
 
 <%= render Page::HeadingEditComponent.new(resource: @category, title: t(".title"), breadcrumb:) %>

@@ -1,8 +1,8 @@
 <%
   breadcrumb
-    .add(AirConditioner.model_name.human, air_conditioners_path)
-    .add(@air_conditioner, air_conditioner_path(@air_conditioner))
-    .add(t("action.edit"))
+    .add_step(AirConditioner.model_name.human, air_conditioners_path)
+    .add_step(@air_conditioner, air_conditioner_path(@air_conditioner))
+    .add_step(t("action.edit"))
 %>
 
 <%= render Page::HeadingEditComponent.new(resource: @air_conditioner, title: t(".title"), breadcrumb:) %>

@@ -1,7 +1,7 @@
 <%
   breadcrumb
-    .add(Domaine.model_name.human.pluralize, domaines_path)
-    .add(t("action.create"))
+    .add_step(Domaine.model_name.human.pluralize, domaines_path)
+    .add_step(t("action.create"))
 %>
 
 <%= render Page::HeadingNewComponent.new(resource: @domaine, title: t(".title"), breadcrumb:) %>

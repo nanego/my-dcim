@@ -1,7 +1,7 @@
 <%
   breadcrumb
-    .add(Move.model_name.human(count: 2), moves_path)
-    .add("#{Bay.model_name.human} #{@frame}")
+    .add_step(Move.model_name.human(count: 2), moves_path)
+    .add_step("#{Bay.model_name.human} #{@frame}")
 %>
 
 <%= render Page::HeadingComponent.new(

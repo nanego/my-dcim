@@ -1,8 +1,8 @@
 <%
   title = t(".title", type: @bay.bay_type&.name, frames: @bay.frames.map(&:name).join(" / "))
   breadcrumb
-    .add(Bay.model_name.human.pluralize, bays_path)
-    .add(title.dup)
+    .add_step(Bay.model_name.human.pluralize, bays_path)
+    .add_step(title.dup)
 
   title = title.concat(@bay.decorated.no_frame_warning_icon).html_safe if @bay.frames.empty?
 %>

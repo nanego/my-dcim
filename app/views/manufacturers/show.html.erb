@@ -1,7 +1,7 @@
 <%
   breadcrumb
-    .add(Manufacturer.model_name.human.pluralize, manufacturers_path)
-    .add(@manufacturer.name)
+    .add_step(Manufacturer.model_name.human.pluralize, manufacturers_path)
+    .add_step(@manufacturer.name)
 %>
 
 <%= render Page::HeadingShowComponent.new(resource: @manufacturer, title: @manufacturer.name, breadcrumb:) %>

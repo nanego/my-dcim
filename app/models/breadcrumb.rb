@@ -27,7 +27,7 @@ class Breadcrumb
     self
   end
 
-  def add(title = nil, url = nil)
+  def add_step(title = nil, url = nil)
     @steps << Step.new(title, url)
 
     self

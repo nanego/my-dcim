@@ -1,7 +1,7 @@
 <%
   breadcrumb
-    .add(Gestion.model_name.human.pluralize, gestions_path)
-    .add(@gestion)
+    .add_step(Gestion.model_name.human.pluralize, gestions_path)
+    .add_step(@gestion)
 %>
 
 <%= render Page::HeadingShowComponent.new(resource: @gestion, title: @gestion.name, breadcrumb:) %>

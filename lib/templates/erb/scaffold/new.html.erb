@@ -1,7 +1,7 @@
 <%%
   breadcrumb
-    .add(<%= singular_table_name.classify %>.model_name.human.pluralize, <%= plural_table_name %>_path)
-    .add(t("action.create"))
+    .add_step(<%= singular_table_name.classify %>.model_name.human.pluralize, <%= plural_table_name %>_path)
+    .add_step(t("action.create"))
 %>
 
 <%%= render Page::HeadingNewComponent.new(resource: @<%= singular_table_name %>, title: t(".title"), breadcrumb:) %>

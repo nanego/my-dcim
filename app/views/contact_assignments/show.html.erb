@@ -1,7 +1,7 @@
 <%
   breadcrumb
-    .add(ContactAssignment.model_name.human.pluralize, contact_assignments_path)
-    .add(@contact_assignment)
+    .add_step(ContactAssignment.model_name.human.pluralize, contact_assignments_path)
+    .add_step(@contact_assignment)
 %>
 
 <%= render Page::HeadingShowComponent.new(resource: @contact_assignment, title: @contact_assignment, breadcrumb:) %>

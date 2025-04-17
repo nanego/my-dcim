@@ -1,7 +1,7 @@
 <%
   breadcrumb
-    .add(Server.model_name.human, servers_path)
-    .add(t(".title"))
+    .add_step(Server.model_name.human, servers_path)
+    .add_step(t(".title"))
 %>
 
 <%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:, back_button_url: servers_path) %>

@@ -1,7 +1,7 @@
 <%
   breadcrumb
-    .add(Category.model_name.human.pluralize, categories_path)
-    .add(t("action.create"))
+    .add_step(Category.model_name.human.pluralize, categories_path)
+    .add_step(t("action.create"))
 %>
 
 <%= render Page::HeadingNewComponent.new(resource: @category, title: t(".title"), breadcrumb:) %>

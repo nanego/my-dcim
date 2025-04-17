@@ -1,7 +1,7 @@
 <%
   breadcrumb
-    .add(Room.model_name.human.pluralize, rooms_path)
-    .add(@room.name)
+    .add_step(Room.model_name.human.pluralize, rooms_path)
+    .add_step(@room.name)
 %>
 
 <%= render Page::HeadingShowComponent.new(resource: @room,

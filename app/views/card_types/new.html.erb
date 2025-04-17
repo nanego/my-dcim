@@ -1,7 +1,7 @@
 <%
   breadcrumb
-    .add(CardType.model_name.human(count: 2), card_types_path)
-    .add(t("action.create"))
+    .add_step(CardType.model_name.human(count: 2), card_types_path)
+    .add_step(t("action.create"))
 %>
 
 <%= render Page::HeadingNewComponent.new(resource: @card_type, title: t(".title"), breadcrumb:) %>
