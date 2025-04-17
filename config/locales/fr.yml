@@ -815,6 +815,9 @@ fr:
     bays:
       show:
         title: Baie %{bay_type} %{bay}
+  servers_grids:
+    index:
+      title: Rechercher un matériel
 
   views:
     pagination:
