@@ -1,8 +1,8 @@
 <%
   breadcrumb
-    .add(Color.model_name.human.pluralize, colors_path)
-    .add(@color.code, color_path(@color))
-    .add(t("action.edit"))
+    .add_step(Color.model_name.human.pluralize, colors_path)
+    .add_step(@color.code, color_path(@color))
+    .add_step(t("action.edit"))
 %>
 
 <%= render Page::HeadingEditComponent.new(resource: @color, title: t(".title"), breadcrumb:) %>
