@@ -1,8 +1,8 @@
 <%
   title = "#{ChangelogEntry.model_name.human} ##{@changelog_entry.id}"
   breadcrumb
-    .add(t("changelog_entries.title"), changelog_entries_path)
-    .add(title)
+    .add_step(t("changelog_entries.title"), changelog_entries_path)
+    .add_step(title)
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:, back_button_url: changelog_entries_path) %>
