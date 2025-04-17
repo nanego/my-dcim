@@ -1,6 +1,6 @@
 <%
   # TODO: prefer use ActiveRecord translation of Modele name
-  breadcrumb.add(t(".title"))
+  breadcrumb.add_step(t(".title"))
 %>
 
 <%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:) do |heading| %>

@@ -1,9 +1,9 @@
 <%
   title = t("rooms.infrastructure_view.title")
-  
+
   breadcrumb
-    .add(t("visualization.title"), overview_rooms_path)
-    .add(title)
+    .add_step(t("visualization.title"), overview_rooms_path)
+    .add_step(title)
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) %>

@@ -1,7 +1,7 @@
 <%
   breadcrumb
-    .add(Islet.model_name.human.pluralize, islets_path)
-    .add(title = @islet.name_with_room)
+    .add_step(Islet.model_name.human.pluralize, islets_path)
+    .add_step(title = @islet.name_with_room)
 %>
 
 <%= render Page::HeadingShowComponent.new(resource: @islet, title:, breadcrumb:) %>

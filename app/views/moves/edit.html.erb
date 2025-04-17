@@ -1,7 +1,7 @@
 <%
   breadcrumb
-    .add(Move.model_name.human(count: 2), moves_path)
-    .add(t("action.edit"))
+    .add_step(Move.model_name.human(count: 2), moves_path)
+    .add_step(t("action.edit"))
 %>
 
 <%= render Page::HeadingNewComponent.new(resource: @move, title: t(".title"), breadcrumb:) %>
