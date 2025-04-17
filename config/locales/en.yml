@@ -282,6 +282,10 @@ en:
       connections_destroyed: Connections have been deleted.
       connections_not_destroyed: An error prevented the connections from being deleted.
 
+  servers_grids:
+    index:
+      title: Search for equipment
+
   show:
     cards:
       display: Display
