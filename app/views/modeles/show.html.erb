@@ -1,7 +1,7 @@
 <%
   breadcrumb
-    .add(Modele.model_name.human.pluralize, modeles_path)
-    .add(@modele.name)
+    .add_step(Modele.model_name.human.pluralize, modeles_path)
+    .add_step(@modele.name)
 %>
 
 <%= render Page::HeadingShowComponent.new(resource: @modele, title: @modele, breadcrumb:) do |heading| %>

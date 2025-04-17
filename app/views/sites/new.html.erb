@@ -1,7 +1,7 @@
 <%
   breadcrumb
-    .add(Site.model_name.human.pluralize, sites_path)
-    .add(t("action.create"))
+    .add_step(Site.model_name.human.pluralize, sites_path)
+    .add_step(t("action.create"))
 %>
 
 <%= render Page::HeadingNewComponent.new(resource: @site, title: t(".title"), breadcrumb:) %>

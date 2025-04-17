@@ -1,7 +1,7 @@
 <%
   breadcrumb
-    .add(t("power_distribution_units.index.title"), power_distribution_units_path) # TODO: prefer use ActiveRecord translation of Modele name
-    .add(t("action.create"))
+    .add_step(t("power_distribution_units.index.title"), power_distribution_units_path) # TODO: prefer use ActiveRecord translation of Modele name
+    .add_step(t("action.create"))
 %>
 
 <%#= render Page::HeadingNewComponent.new(resource: @server, title: t(".title"), breadcrumb:) %>

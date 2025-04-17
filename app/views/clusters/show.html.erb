@@ -1,7 +1,7 @@
 <%
   breadcrumb
-    .add(Cluster.model_name.human.pluralize, clusters_path)
-    .add(@cluster)
+    .add_step(Cluster.model_name.human.pluralize, clusters_path)
+    .add_step(@cluster)
 %>
 
 <%= render Page::HeadingShowComponent.new(resource: @cluster, title: @cluster.name, breadcrumb:) %>

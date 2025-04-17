@@ -1,8 +1,8 @@
 <%
   breadcrumb
-    .add(Room.model_name.human.pluralize, rooms_path)
-    .add(@room.name, room_path(@room))
-    .add(t("action.edit"))
+    .add_step(Room.model_name.human.pluralize, rooms_path)
+    .add_step(@room.name, room_path(@room))
+    .add_step(t("action.edit"))
 %>
 
 <%= render Page::HeadingEditComponent.new(resource: @room, title: t(".title"), breadcrumb:) %>

@@ -1,7 +1,7 @@
 <%
   breadcrumb
-    .add(Stack.model_name.human.pluralize, stacks_path)
-    .add(t("action.create"))
+    .add_step(Stack.model_name.human.pluralize, stacks_path)
+    .add_step(t("action.create"))
 %>
 
 <%= render Page::HeadingNewComponent.new(resource: @stack, title: t(".title"), breadcrumb:) %>

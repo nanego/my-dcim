@@ -1,7 +1,7 @@
 <%
   breadcrumb
-    .add(Architecture.model_name.human.pluralize, architectures_path)
-    .add(t("action.create"))
+    .add_step(Architecture.model_name.human.pluralize, architectures_path)
+    .add_step(t("action.create"))
 %>
 
 <%= render Page::HeadingNewComponent.new(resource: @architecture, title: t(".title"), breadcrumb:) %>
