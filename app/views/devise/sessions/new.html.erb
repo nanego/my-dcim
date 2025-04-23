@@ -1,4 +1,6 @@
-<h1 class="mb-3 h3 fw-normal text-center"><%= t("users.login") %></h1>
+<% breadcrumb.add_step(title = t("users.login")) %>
+
+<h1 class="mb-3 h3 fw-normal text-center"><%= title %></h1>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" } ) do |f| %>
   <% if Rails.env.development? %>
     <%= render FormErrorsComponent.new(resource) %>
