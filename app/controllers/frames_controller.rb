@@ -5,6 +5,9 @@ class FramesController < ApplicationController
   include RoomsHelper
 
   before_action :set_frame, only: :show
+  before_action except: %i[index network] do
+    breadcrumb.add_step(Frame.model_name.human.pluralize, frames_path)
+  end
 
   def index
     @frames = Frame.includes(bay: { islet: :room }).references(bay: { islet: :room })

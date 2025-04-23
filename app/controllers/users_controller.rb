@@ -2,8 +2,11 @@
 
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :admin_only, :except => :show
+  before_action :admin_only, except: :show
   before_action :set_user, only: %i[show update destroy reset_authentication_token suspend unsuspend]
+  before_action only: %i[new show] do
+    breadcrumb.add_step(User.model_name.human.pluralize, users_url)
+  end
 
   def index
     @filter = ProcessorFilter.new(User.order(sign_in_count: :desc), params)

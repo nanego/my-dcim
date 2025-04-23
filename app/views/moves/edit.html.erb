@@ -1,8 +1,4 @@
-<%
-  breadcrumb
-    .add_step(Move.model_name.human(count: 2), moves_path)
-    .add_step(t("action.edit"))
-%>
+<% breadcrumb.add_step(t("action.edit")) %>
 
 <%= render Page::HeadingNewComponent.new(resource: @move, title: t(".title"), breadcrumb:) %>
 <div class="col-12 p-4 border-top">

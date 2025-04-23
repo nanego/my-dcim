@@ -1,8 +1,4 @@
-<%
-  breadcrumb
-    .add_step(Islet.model_name.human.pluralize, islets_path)
-    .add_step(t("action.create"))
-%>
+<% breadcrumb.add_step(t("action.create")) %>
 
 <%= render Page::HeadingNewComponent.new(resource: @islet, title: t(".title"), breadcrumb:) %>
 

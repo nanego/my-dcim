@@ -1,6 +1,5 @@
 <%
   breadcrumb
-    .add_step(Room.model_name.human.pluralize, rooms_path)
     .add_step(@room.name, room_path(@room))
     .add_step(t("action.edit"))
 %>

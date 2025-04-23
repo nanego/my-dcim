@@ -316,9 +316,9 @@ fr:
         position: Position
         width: Largeur
         materials_count:
-          zero: 0 serveur
-          one: 1 serveur
-          other: "%{count} serveurs"
+          zero: 0 matériel
+          one: 1 matériel
+          other: "%{count} matériels"
         bay_frames:
           one: "%{bay}"
           other: Double baie %{bay}

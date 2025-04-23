@@ -734,15 +734,16 @@ fr:
     show:
       title: Baie %{type} %{frames}
     edit:
-      title: Modifier la baie %{type} %{frames}
+      title: Modifier la baie
     update:
       flashes:
         updated: La baie a bien été mise à jour.
     destroy:
       flashes:
-        destroyed: La baie a bien étée supprimé.
+        destroyed: La baie a bien été supprimée.
     decorator:
       no_frame_warning_text: Veuillez renseigner un châssis à cette baie
+    empty: Baie vide
   cables:
     index:
       title: Connexions

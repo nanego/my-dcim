@@ -1,6 +1,5 @@
 <%
   breadcrumb
-    .add_step(Manufacturer.model_name.human.pluralize, manufacturers_path)
     .add_step(@manufacturer, manufacturer_path(@manufacturer))
     .add_step(t("action.edit"))
 %>

@@ -1,8 +1,4 @@
-<%
-  breadcrumb
-    .add_step(Frame.model_name.human.pluralize, frames_path)
-    .add_step(t("action.create"))
-%>
+<% breadcrumb.add_step(t("action.create")) %>
 
 <%= render Page::HeadingNewComponent.new(resource: @frame, title: t(".title"), breadcrumb:) %>
 

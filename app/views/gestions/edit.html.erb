@@ -1,6 +1,5 @@
 <%
   breadcrumb
-    .add_step(Gestion.model_name.human.pluralize, gestions_path)
     .add_step(@gestion, gestion_path(@gestion))
     .add_step(t("action.edit"))
 %>

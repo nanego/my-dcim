@@ -2,6 +2,9 @@
 
 class ColorsController < ApplicationController
   before_action :set_color, only: %i[show edit update destroy]
+  before_action except: %i[index] do
+    breadcrumb.add_step(Color.model_name.human.pluralize, colors_path)
+  end
 
   def index
     @colors = sorted Color.order('parent_type asc, parent_id asc')

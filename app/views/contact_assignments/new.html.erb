@@ -1,8 +1,4 @@
-<%
-  breadcrumb
-    .add_step(ContactAssignment.model_name.human.pluralize, contact_assignments_path)
-    .add_step(t("action.create"))
-%>
+<% breadcrumb.add_step(t("action.create")) %>
 
 <%= render Page::HeadingNewComponent.new(resource: @contact_assignment, title: t(".title"), breadcrumb:) %>
 

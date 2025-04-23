@@ -1,6 +1,5 @@
 <%
   breadcrumb
-    .add_step(Stack.model_name.human.pluralize, stacks_path)
     .add_step(@stack, stack_path(@stack))
     .add_step(t("action.edit"))
 %>

@@ -1,6 +1,5 @@
 <%
   breadcrumb
-    .add_step(ContactRole.model_name.human.pluralize, contact_roles_path)
     .add_step(@contact_role, contact_role_path(@contact_role))
     .add_step(t("action.edit"))
 %>

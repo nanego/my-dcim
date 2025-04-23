@@ -1,8 +1,4 @@
-<%
-  breadcrumb
-    .add_step(Islet.model_name.human.pluralize, islets_path)
-    .add_step(title = @islet.name_with_room)
-%>
+<% breadcrumb.add_step(title = @islet.name_with_room) %>
 
 <%= render Page::HeadingShowComponent.new(resource: @islet, title:, breadcrumb:) %>
 <div class="col-12 p-4 border-top">

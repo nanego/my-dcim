@@ -1,8 +1,4 @@
-<%
-  breadcrumb
-    .add_step(Room.model_name.human.pluralize, rooms_path)
-    .add_step(@room.name)
-%>
+<% breadcrumb.add_step(@room.name) %>
 
 <%= render Page::HeadingShowComponent.new(resource: @room,
                                           title: "#{Room.model_name.human} #{@room.name}",

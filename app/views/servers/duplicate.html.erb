@@ -1,6 +1,5 @@
 <%
   breadcrumb
-    .add_step(Server.model_name.human, servers_path)
     .add_step(@original_server.name, server_path(@original_server))
     .add_step(t("action.duplicate"))
 %>

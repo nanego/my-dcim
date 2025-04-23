@@ -1,8 +1,4 @@
-<%
-  breadcrumb
-    .add_step(Frame.model_name.human.pluralize, frames_path)
-    .add_step(@frame.name)
-%>
+<% breadcrumb.add_step(@frame.name) %>
 
 <%= render Page::HeadingShowComponent.new(
   resource: @frame, title: t(".title", frame: @frame.name), breadcrumb:

@@ -1,13 +1,12 @@
 <%
-  title = t(".title", type: @bay.bay_type&.name, frames: @bay.frames.map(&:name).join(" / "))
+  title = @bay.frames.map(&:name).join(" / ")
 
   breadcrumb
-    .add_step(Bay.model_name.human.pluralize, bays_path)
     .add_step(title, bay_path(@bay))
     .add_step(t("action.edit"))
 %>
 
-<%= render Page::HeadingEditComponent.new(resource: @bay, title:, breadcrumb:) %>
+<%= render Page::HeadingEditComponent.new(resource: @bay, title: t(".title"), breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>

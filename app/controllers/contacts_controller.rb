@@ -2,6 +2,9 @@
 
 class ContactsController < ApplicationController
   before_action :set_contact, only: %i[show edit update destroy]
+  before_action except: %i[index] do
+    breadcrumb.add_step(Contact.model_name.human.pluralize, contacts_path)
+  end
 
   # GET /contacts
   # GET /contacts.json
