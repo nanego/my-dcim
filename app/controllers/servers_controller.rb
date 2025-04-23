@@ -5,7 +5,7 @@ class ServersController < ApplicationController
   include ColumnsPreferences
 
   DEFAULT_COLUMNS = %w[name numero modele.category_id islet_id bay_id network_types].freeze
-  AVAILABLE_COLUMNS = %w[name numero modele.category_id islet_id bay_id network_types domaine_id gestion_id frame_id cluster_id stack_id comment critique].freeze
+  AVAILABLE_COLUMNS = %w[name numero modele.category_id islet_id bay_id network_types gestion_id frame_id cluster_id stack_id comment critique].freeze
 
   columns_preferences_with model: Server, default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS
 

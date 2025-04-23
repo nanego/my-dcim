@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "/servers" do
+RSpec.describe "/servers", type: :request do
   let(:server) { servers(:one) }
   let(:server2) { servers(:two) }
   let(:pdu) { servers(:pdu) }
@@ -16,7 +16,7 @@ RSpec.describe "/servers" do
   describe "GET /index" do
     before { get servers_path }
 
-    include_examples "with preferred columns", ServersController::AVAILABLE_COLUMNS
+    include_examples "with preferred columns", Server, ServersController::AVAILABLE_COLUMNS
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
