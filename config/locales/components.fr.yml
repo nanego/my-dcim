@@ -20,5 +20,5 @@ fr:
         title: Aucune donnée trouvée !
       bulk:
         selected_elements: élément(s) sélectionné(s)
-  columns_preferences_modal_component:
+  columns_preferences_dropdown_component:
     trigger_modal: Afficher les colonnes

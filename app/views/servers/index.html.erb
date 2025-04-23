@@ -138,7 +138,7 @@
     <% end %>
   <% end %>
 
-  <%= render ColumnsPreferencesModalComponent.new(servers_path(request.query_parameters), @columns_preferences) %>
+  <%= render ColumnsPreferencesDropdownComponent.new(servers_path(request.query_parameters), @columns_preferences) %>
 
   <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance }) do %>
     <div class="d-flex flex-column row-gap-4">

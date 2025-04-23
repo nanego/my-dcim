@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe ColumnsPreferencesModalComponent, type: :component do
+RSpec.describe ColumnsPreferencesDropdownComponent, type: :component do
   let(:component) { described_class.new("#", columns_preferences) }
   let(:rendered_component) { render_inline(component) }
   let(:columns_preferences) do
