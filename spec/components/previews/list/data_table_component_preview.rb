@@ -2,7 +2,7 @@ module List
   class DataTableComponentPreview < ViewComponent::Preview
     def default
       render_with_template(locals: {
-        data: data
+        data: data,
       })
     end
 
