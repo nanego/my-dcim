@@ -2,6 +2,9 @@
 
 class ManufacturersController < ApplicationController
   before_action :set_manufacturer, only: %i[show edit update destroy]
+  before_action except: %i[index] do
+    breadcrumb.add_step(Manufacturer.model_name.human.pluralize, manufacturers_path)
+  end
 
   # GET /manufacturers
   # GET /manufacturers.json

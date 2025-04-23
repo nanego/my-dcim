@@ -2,6 +2,9 @@
 
 class PortTypesController < ApplicationController
   before_action :set_port_type, only: %i[show edit update destroy]
+  before_action except: %i[index] do
+    breadcrumb.add_step(PortType.model_name.human(count: 2), port_types_path)
+  end
 
   def index
     @port_types = sorted PortType.order('lower(name)')

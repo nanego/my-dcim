@@ -1,6 +1,5 @@
 <%
   breadcrumb
-    .add_step(ContactAssignment.model_name.human.pluralize, contact_assignments_path)
     .add_step(@contact_assignment, contact_assignment_path(@contact_assignment))
     .add_step(t("action.edit"))
 %>
