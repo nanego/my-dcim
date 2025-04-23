@@ -107,7 +107,7 @@
         <% end %>
       <% end %>
 
-      <% table.with_column(style: "min-width: 132px; width: 132px") do |bay| %>
+      <% table.with_column(style: "min-width: 132px; width: 132px", show_column: true) do |bay| %>
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
           <%= render partial: "bays/export_button", locals: { bay: bay } %>
           <%= link_to visualization_bay_path(bay), class: "btn btn-primary", data: { turbo_frame: :_top } do %>

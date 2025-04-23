@@ -5,6 +5,19 @@ require "rails_helper"
 RSpec.describe "Bays" do
   let(:bay) { bays(:one) }
 
+  describe "GET #index" do
+    before do
+      sign_in users(:one)
+
+      get servers_path
+    end
+
+    include_examples "with preferred columns", BaysController::AVAILABLE_COLUMNS
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:index) }
+  end
+
   describe "GET #print" do
     subject(:response) do
       get print_visualization_bay_path(bay)
