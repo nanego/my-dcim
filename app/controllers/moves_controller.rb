@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MovesController < ApplicationController
+class MovesController < ApplicationController # rubocop:disable Metrics/ClassLength
   before_action :set_move, only: %i[show edit update destroy execute_movement]
   before_action :load_form_data, only: %i[new edit]
   before_action :set_frame_updated, only: %i[frame print]
