@@ -203,7 +203,7 @@
           <%= t("boolean.#{server.critique}") %>
         <% end %>
 
-        <% table.with_column(style: "min-width: 100px; width: 100px") do |server| %>
+        <% table.with_column(style: "min-width: 100px; width: 100px", show_column: true) do |server| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
             <%= link_to duplicate_server_path(server), class: "btn btn-success", data: { turbo_frame: :_top } do %>
               <span class="bi bi-copy" title="<%= t("action.duplicate") %>" aria-hidden="true"
