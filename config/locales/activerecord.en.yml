@@ -9,6 +9,7 @@ en:
       islet: Islet
       bay: Bay
       frame: Frame
+      room: Room
     attributes:
       enclosure/display:
         grid: Grid
@@ -57,6 +58,14 @@ en:
         bay_id: Bay
         gestion: Manager
         gestion_id: Manager
+      bay:
+        name: Name
+        room: Room
+        islet: Islet
+        frame_id: Frame
+        lane: Lane
+        position: Position
+        server_id: I.T. Equipment
       theme: Theme
       user/locale:
         en: English

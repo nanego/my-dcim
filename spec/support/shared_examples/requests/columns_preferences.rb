@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.shared_context "with preferred columns" do |model, available_columns|
+RSpec.shared_context "with preferred columns" do |available_columns|
   let(:columns) { available_columns }
 
   context "with preferred columns in URL" do
@@ -10,7 +10,7 @@ RSpec.shared_context "with preferred columns" do |model, available_columns|
 
     it "renders all available columns" do
       columns.each do |column|
-        expect(response.body).to have_tag("th", text: model.human_attribute_name(column))
+        expect(response.body).to have_tag("th[name='#{column}']")
       end
     end
 
@@ -23,13 +23,13 @@ RSpec.shared_context "with preferred columns" do |model, available_columns|
 
       it "renders preferred columns" do
         columns.each do |column|
-          expect(response.body).to have_tag("th", text: model.human_attribute_name(column))
+          expect(response.body).to have_tag("th[name='#{column}']")
         end
       end
 
       it "does not render non-preferred columns" do
         (available_columns - columns).each do |column|
-          expect(response.body).not_to have_tag("th", text: model.human_attribute_name(column))
+          expect(response.body).not_to have_tag("th[name='#{column}']")
         end
       end
     end

@@ -76,7 +76,7 @@ module List
     end
 
     def render_head_cell(col)
-      render(List::TableComponent::TableHeadCell.new) do
+      render(List::TableComponent::TableHeadCell.new(name: col.name)) do
         if (sort_by = col.sort_by)
           link_to_sort col.title, sort_by
         else
