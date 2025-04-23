@@ -1,8 +1,4 @@
-<%
-  breadcrumb
-    .add_step(Site.model_name.human.pluralize, sites_path)
-    .add_step(t("action.create"))
-%>
+<% breadcrumb.add_step(t("action.create")) %>
 
 <%= render Page::HeadingNewComponent.new(resource: @site, title: t(".title"), breadcrumb:) %>
 <div class="col-12 p-4 border-top">

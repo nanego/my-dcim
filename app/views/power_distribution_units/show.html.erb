@@ -1,8 +1,4 @@
-<%
-  breadcrumb
-    .add_step(t("power_distribution_units.index.title"), power_distribution_units_path) # TODO: prefer use ActiveRecord translation of Modele name
-    .add_step(@pdu.name)
-%>
+<% breadcrumb.add_step(@pdu.name) %>
 
 <%#<%= render Page::HeadingShowComponent.new(resource: @pdu, title: @pdu.name, breadcrumb:) do |heading| %>
   <%#<% heading.with_extra_buttons do %>

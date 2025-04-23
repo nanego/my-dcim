@@ -1,6 +1,5 @@
 <%
   breadcrumb
-    .add_step(Cluster.model_name.human.pluralize, clusters_path)
     .add_step(@cluster, cluster_path(@cluster))
     .add_step(t("action.edit"))
 %>

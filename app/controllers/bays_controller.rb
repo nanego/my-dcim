@@ -4,6 +4,9 @@ class BaysController < ApplicationController
   include RoomsHelper
 
   before_action :set_bay, only: %i[edit update destroy show]
+  before_action except: %i[index] do
+    breadcrumb.add_step(t("bays.index.title"), bays_path)
+  end
 
   def index
     @bays   = Bay.joins(islet: :room).order("rooms.position, islets.name, bays.lane, bays.position")

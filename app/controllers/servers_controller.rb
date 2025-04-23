@@ -4,6 +4,9 @@ class ServersController < ApplicationController
   include ServersHelper
 
   before_action :set_server, only: %i[show edit update destroy destroy_connections]
+  before_action except: %i[index] do
+    breadcrumb.add_step(Server.model_name.human, servers_path)
+  end
 
   def index
     # Let server knows that now name is not used anymore for research

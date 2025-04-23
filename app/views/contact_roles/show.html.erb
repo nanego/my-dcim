@@ -1,8 +1,4 @@
-<%
-  breadcrumb
-    .add_step(ContactRole.model_name.human.pluralize, contact_roles_path)
-    .add_step(@contact_role)
-%>
+<% breadcrumb.add_step(@contact_role) %>
 
 <%= render Page::HeadingShowComponent.new(resource: @contact_role, title: @contact_role, breadcrumb:) %>
 

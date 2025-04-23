@@ -5,6 +5,9 @@ class RoomsController < ApplicationController
   include RoomsHelper
 
   before_action :set_room, only: %i[show edit update destroy]
+  before_action except: %i[index overview filtered_overview] do
+    breadcrumb.add_step(Room.model_name.human.pluralize, rooms_path)
+  end
 
   def index
     @rooms = Room.joins(:site).order("sites.position asc, rooms.position asc, rooms.name asc")

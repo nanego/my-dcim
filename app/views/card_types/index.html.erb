@@ -1,5 +1,5 @@
 <%
-  breadcrumb.add_step(title = CardType.model_name.human.pluralize)
+  breadcrumb.add_step(title = CardType.model_name.human(count: 2))
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>

@@ -1,6 +1,5 @@
 <%
   breadcrumb
-    .add_step(Color.model_name.human.pluralize, colors_path)
     .add_step(@color.code, color_path(@color))
     .add_step(t("action.edit"))
 %>

@@ -1,8 +1,4 @@
-<%
-  breadcrumb
-    .add_step(Color.model_name.human.pluralize, colors_path)
-    .add_step(title = @color.code)
-%>
+<% breadcrumb.add_step(title = @color.code) %>
 
 <%= render Page::HeadingShowComponent.new(resource: @color, title:, breadcrumb:) %>
 <div class="col-12 p-4 border-top">

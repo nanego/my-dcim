@@ -1,6 +1,5 @@
 <%
   breadcrumb
-    .add_step(Islet.model_name.human.pluralize, islets_path)
     .add_step(@islet.name_with_room, islet_path(@islet))
     .add_step(t("action.edit"))
 %>

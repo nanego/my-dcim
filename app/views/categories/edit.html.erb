@@ -1,6 +1,5 @@
 <%
   breadcrumb
-    .add_step(Category.model_name.human.pluralize, categories_path)
     .add_step(@category, category_path(@category))
     .add_step(t("action.edit"))
 %>
