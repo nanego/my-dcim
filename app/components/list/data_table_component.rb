@@ -174,12 +174,9 @@ module List
       def initialize(title = nil, **options, &block)
         @title = title
         @name = options.delete(:name)
-        @show_column = options.delete(:show_column)
         @sort_by = options.delete(:sort_by)
         @html_options = options
         @block = block
-
-        raise ArgumentError, "Un-named '#{@title}' column requires the show_column option set to true" if @name.nil? && @show_column.blank?
 
         super()
       end
