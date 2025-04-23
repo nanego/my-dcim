@@ -9,7 +9,7 @@ RSpec.describe "Bays" do
     before do
       sign_in users(:one)
 
-      get servers_path
+      get bays_path
     end
 
     include_examples "with preferred columns", BaysController::AVAILABLE_COLUMNS
