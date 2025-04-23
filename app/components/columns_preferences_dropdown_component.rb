@@ -5,7 +5,7 @@ class ColumnsPreferencesDropdownComponent < ApplicationComponent
     <section>
       <div class="dropdown d-flex justify-content-end">
         <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-          <%= t(".trigger_modal") %>
+          <%= t(".trigger") %>
         </button>
 
         <div class="dropdown-menu p-4">
@@ -21,13 +21,13 @@ class ColumnsPreferencesDropdownComponent < ApplicationComponent
             <div class="dropdown-divider my-3"></div>
           <div class="d-flex">
             <%= form.submit t("action.apply"), name: "save", class: "btn btn-primary" %>
-            <% end %>
+          <% end %>
 
             <%= form_with url: @action_path, method: :get do |form| %>
               <%= form.submit t("action.reset"), name: "reset", class: "btn btn-link" %>
             <% end %>
           </div>
-      </div>
+        </div>
     </section>
   ERB
 

@@ -15,6 +15,6 @@ RSpec.describe ColumnsPreferencesDropdownComponent, type: :component do
   end
 
   it "renders button" do
-    expect(rendered_component.to_html).to have_button(text: t("columns_preferences_modal_component.trigger_modal"))
+    expect(rendered_component.to_html).to have_button(text: t("columns_preferences_dropdown_component.trigger"))
   end
 end
