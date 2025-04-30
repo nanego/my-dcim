@@ -117,7 +117,7 @@ Rails.application.routes.draw do
 
   namespace :bulk do
     %i[servers sites rooms islets bays frames air_conditioners power_distribution_units modeles categories
-      architectures manufacturers].each do |res|
+      architectures manufacturers stacks].each do |res|
       resource res, only: :destroy
     end
   end

@@ -9,3 +9,7 @@ red:
 orange:
   id: 2
   name: orange
+
+blue:
+  id: 3
+  name: bleu
