@@ -13,7 +13,7 @@ class ColumnsPreferencesDropdownComponent < ApplicationComponent
             <fieldset class="form-floating">
               <% @columns_preferences.available_columns_options.each do |column, column_name| %>
                 <div class="form-check">
-                  <%= check_box_tag "columns[]", column, @columns_preferences.preferred.include?(column), id: "column_\#{column}", class: "form-check-input" %>
+                  <%= form.check_box :columns, { multiple: true, checked: @columns_preferences.preferred.include?(column), id: "column_\#{column}", class: "form-check-input" }, column, nil %>
                   <%= form.label "column_\#{column}", column_name, class: "form-check-label" %>
                 </div>
               <% end %>
@@ -21,11 +21,11 @@ class ColumnsPreferencesDropdownComponent < ApplicationComponent
             <div class="dropdown-divider my-3"></div>
           <div class="d-flex">
             <%= form.submit t("action.apply"), name: "save", class: "btn btn-primary" %>
-          <% end %>
 
             <%= form_with url: @action_path, method: :get do |form| %>
               <%= form.submit t("action.reset"), name: "reset", class: "btn btn-link" %>
             <% end %>
+          <% end %>
           </div>
         </div>
     </section>
