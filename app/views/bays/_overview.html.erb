@@ -2,7 +2,9 @@
  <div class="d-inline-grid gap-2">
     <% bays.each do |bay| %>
       <% if bay == :no_bay %>
-        <span class="bay"></span>
+        <span class="bay">
+          <span class="bi bi-plus-circle-fill"></span>
+        </span>
       <% else %>
         <span class="d-flex"
             style="grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
@@ -36,7 +38,9 @@
             <% else %>
               <span class="<%= class_names(
                                   "bay d-flex bg-body-tertiary border-secondary-subtle border py-2 align-items-center",
-                                  "border-start-0": i.odd?) %>"></span>
+                                  "border-start-0": i.odd?) %>">
+                                    <span class=""><span class="bi bi-plus-circle-fill"></span></span>
+              </span>
             <% end %>
           <% end %>
         </span>
