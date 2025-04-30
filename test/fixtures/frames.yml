@@ -41,9 +41,9 @@ five:
   position: 1
 
 six:
-  id: 6
-  name: MyFrame6
-  slug: myframe6
+  id: 66
+  name: MyFrame66
+  slug: myframe66
   u: 48
   bay_id: 1
   position: 2
