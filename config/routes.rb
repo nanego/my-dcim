@@ -117,6 +117,7 @@ Rails.application.routes.draw do
 
   namespace :bulk do
     resource :servers, only: :destroy
+    resource :sites, only: :destroy
   end
 
   namespace :users do

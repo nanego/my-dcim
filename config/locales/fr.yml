@@ -453,6 +453,11 @@ fr:
         flashes:
           destroyed: Les matériels I.T. sélectionnés ont bien été supprimés.
           not_destroyed: Une erreur est survenue lors de la suppression d'au moins un matériel I.T.
+    sites:
+      destroy:
+        flashes:
+          destroyed: Les isites sélectionnés ont bien été supprimés.
+          not_destroyed: Une erreur est survenue lors de la suppression d'au moins un site
   glpi:
     computer:
       name: Nom
