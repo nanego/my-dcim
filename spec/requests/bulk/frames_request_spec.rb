@@ -7,14 +7,22 @@ RSpec.describe "/bulk/frames" do
 
   describe "DELETE /destroy" do
     context "with frames without associations" do
+      let(:frame_a) { Frame.new(bay: bays(:one)) }
+      let(:frame_b) { Frame.new(bay: bays(:two)) }
+
+      before do
+        frame_a.save!
+        frame_b.save!
+      end
+
       it do
         expect do
-          delete bulk_frames_path(ids: [frames(:two).id, frames(:six).id])
+          delete bulk_frames_path(ids: [frame_a.id, frame_b.id])
         end.to change(Frame, :count).by(-2)
       end
 
       it do
-        delete bulk_frames_path(ids: [frames(:two).id, frames(:six).id])
+        delete bulk_frames_path(ids: [frame_a.id, frame_b.id])
         expect(response).to redirect_to(frames_path)
       end
     end
