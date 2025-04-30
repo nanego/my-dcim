@@ -101,6 +101,23 @@
         <%= bay.position %>
       <% end %>
 
+      <% table.with_column(Bay.human_attribute_name(:width), name: :width, sort_by: :position) do |bay| %>
+        <%= bay.width %>
+      <% end %>
+
+      <% table.with_column(Bay.human_attribute_name(:depth), name: :depth, sort_by: :position) do |bay| %>
+        <%= bay.depth %>
+      <% end %>
+
+      <% table.with_column(Bay.human_attribute_name(:bay_type_id), name: :bay_type_id, sort_by: :position) do |bay| %>
+        <%= bay.bay_type %>
+      <% end %>
+
+      <% table.with_column(Bay.human_attribute_name(:access_control), name: :access_control, sort_by: :position) do |bay| %>
+        <%= bay.access_control %>
+      <% end %>
+
+
       <% table.with_column(Server.model_name.human(count: 2), name: :server_id) do |bay| %>
         <%= link_to servers_path(bay_ids: bay.id), data: { turbo_frame: :_top } do %>
           <%= Bay.human_attribute_name(:materials_count, count: bay.materials.count) %>
