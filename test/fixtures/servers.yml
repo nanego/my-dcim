@@ -88,3 +88,12 @@ hub_network2:
   stack_id: 1
   cluster_id: 3
   network_types: [gbe]
+
+pdu2:
+  id: 7
+  frame_id: 1
+  name: PDU_2
+  modele_id: 3
+  side: right
+  color: B
+  numero: pdu_2

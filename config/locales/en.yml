@@ -281,7 +281,12 @@ en:
     flashes:
       connections_destroyed: Connections have been deleted.
       connections_not_destroyed: An error prevented the connections from being deleted.
-
+  bulk:
+    resource:
+      destroy:
+        flashes:
+          destroyed: The selected %{resource} have successfully been deleted.
+          not_destroyed: An error occured while deleting at least one %{resource}
   show:
     cards:
       display: Display
