@@ -12,3 +12,11 @@ elastic:
 gbe_cluster:
   id: 3
   name: Gbe Cluster
+
+four:
+  id: 4
+  name: Fourth
+
+five:
+  id: 5
+  name: Fifth

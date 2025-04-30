@@ -1,0 +1,35 @@
+# frozen_string_literal: true
+
+require "rails_helper"
+
+RSpec.describe "/bulk/clusters" do
+  before { sign_in users(:one) }
+
+  describe "DELETE /destroy" do
+    context "with clusters without associations" do
+      it do
+        expect do
+          delete bulk_clusters_path(ids: [clusters(:four).id, clusters(:five).id])
+        end.to change(Cluster, :count).by(-2)
+      end
+
+      it do
+        delete bulk_clusters_path(ids: [clusters(:four).id, clusters(:five).id])
+        expect(response).to redirect_to(clusters_path)
+      end
+    end
+
+    context "with a cluster with associations" do
+      it do
+        expect do
+          delete bulk_clusters_path(ids: [clusters(:cloud_c1).id])
+        end.not_to change(Cluster, :count)
+      end
+
+      it do
+        delete bulk_clusters_path(ids: [clusters(:cloud_c1).id])
+        expect(response).to redirect_to(clusters_path)
+      end
+    end
+  end
+end
