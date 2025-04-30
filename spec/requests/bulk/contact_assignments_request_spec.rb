@@ -7,14 +7,22 @@ RSpec.describe "/bulk/contact_assignments" do
 
   describe "DELETE /destroy" do
     context "with contact assignments without associations" do
+      let(:contact_assignments_one) { ContactAssignment.new(site: sites(:one), contact: contacts(:one), contact_role: contact_roles(:one)) }
+      let(:contact_assignments_two) { ContactAssignment.new(site: sites(:two), contact: contacts(:two), contact_role: contact_roles(:two)) }
+
+      before do
+        contact_assignments_one.save!
+        contact_assignments_two.save!
+      end
+
       it do
         expect do
-          delete bulk_contact_assignments_path(ids: [contact_assignments(:one).id, contact_assignments(:two).id])
+          delete bulk_contact_assignments_path(ids: [contact_assignments_one.id, contact_assignments_two.id])
         end.to change(ContactAssignment, :count).by(-2)
       end
 
       it do
-        delete bulk_contact_assignments_path(ids: [contact_assignments(:one).id, contact_assignments(:two).id])
+        delete bulk_contact_assignments_path(ids: [contact_assignments_one.id, contact_assignments_two.id])
         expect(response).to redirect_to(contact_assignments_path)
       end
     end
