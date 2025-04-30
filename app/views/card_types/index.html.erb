@@ -34,6 +34,13 @@
   <% end %>
 
   <%= render List::DataTableComponent.new(@card_types) do |table| %>
+    <% table.with_bulk_action(url: bulk_card_types_path, method: :delete, class: "btn btn-danger btn-sm",
+                              data: { confirm: t("action.confirm") }
+    ) do %>
+      <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>">
+      </span>
+    <% end %>
+
     <% table.with_column(CardType.human_attribute_name(:name), sort_by: :name) do |card_type| %>
       <%= link_to card_type, card_type_path(card_type), class: "fw-bold" %>
     <% end %>
