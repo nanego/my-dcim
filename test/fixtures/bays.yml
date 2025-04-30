@@ -31,3 +31,11 @@ four:
   position: 1
   bay_type_id: 2
   islet_id: 4
+
+five:
+  id : 5
+  name: MyBay5
+  lane: 1
+  position: 1
+  bay_type_id: 2
+  islet_id: 1
