@@ -456,8 +456,13 @@ fr:
     sites:
       destroy:
         flashes:
-          destroyed: Les isites sélectionnés ont bien été supprimés.
+          destroyed: Les sites sélectionnés ont bien été supprimés.
           not_destroyed: Une erreur est survenue lors de la suppression d'au moins un site
+    rooms:
+      destroy:
+        flashes:
+          destroyed: Les salles sélectionnés ont bien été supprimés.
+          not_destroyed: Une erreur est survenue lors de la suppression d'au moins une salle
   glpi:
     computer:
       name: Nom
