@@ -1,10 +1,10 @@
 <%
-  breadcrumb.add(title = "Rechercher un matériel")
+  breadcrumb.add_step(title = t(".title"))
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
-    <% render ButtonComponent.new("Exporter au format CSV",
+    <% render ButtonComponent.new(t("export_button.exports.csv"),
                                   url: url_for(format: :csv, params: @merged_params || {}),
                                   variant: :outline_primary,
                                   icon: "filetype-csv",

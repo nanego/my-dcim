@@ -2,6 +2,9 @@
 
 class StacksController < ApplicationController
   before_action :set_stack, only: %i[show edit update destroy]
+  before_action except: %i[index] do
+    breadcrumb.add_step(Stack.model_name.human.pluralize, stacks_path)
+  end
 
   # GET /stacks
   # GET /stacks.json

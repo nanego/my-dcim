@@ -6,6 +6,9 @@ class IsletsController < ApplicationController
   before_action :set_islet, only: %i[show edit update destroy print]
   before_action :set_room, only: %i[show print]
   before_action :set_servers_per_frames, only: %i[show print]
+  before_action except: %i[index] do
+    breadcrumb.add_step(Islet.model_name.human.pluralize, islets_path)
+  end
 
   def index
     @islets = Islet.joins(room: :site).order("rooms.site_id asc, rooms.position asc, islets.name asc")

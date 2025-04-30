@@ -2,6 +2,9 @@
 
 class CardTypesController < ApplicationController
   before_action :set_card_type, only: %i[show edit update destroy]
+  before_action except: %i[index] do
+    breadcrumb.add_step(CardType.model_name.human(count: 2), card_types_path)
+  end
 
   def index
     @filter = ProcessorFilter.new(CardType.sorted, params)

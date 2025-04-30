@@ -16,7 +16,7 @@ RSpec.describe Breadcrumb do
       subject(:breadcrumb) do
         described_class.new("root title", "/dashboard") do |b|
           b.root("Home", "/")
-          b.add("Servers", "/servers")
+          b.add_step("Servers", "/servers")
         end
       end
 
@@ -37,9 +37,9 @@ RSpec.describe Breadcrumb do
     it { expect(breadcrumb.root_step.url).to eq("/dashboard") }
   end
 
-  describe "#add" do
+  describe "#add_step" do
     before do
-      breadcrumb.add("Servers", "/servers")
+      breadcrumb.add_step("Servers", "/servers")
     end
 
     it { expect(breadcrumb.steps.first.title).to eq("Servers") }
@@ -48,9 +48,9 @@ RSpec.describe Breadcrumb do
 
   describe "#each_steps" do
     before do
-      breadcrumb.add("Servers", "/servers")
-      breadcrumb.add("Server #1", "/servers/1")
-      breadcrumb.add("Edit")
+      breadcrumb.add_step("Servers", "/servers")
+      breadcrumb.add_step("Server #1", "/servers/1")
+      breadcrumb.add_step("Edit")
     end
 
     it do
@@ -69,9 +69,9 @@ RSpec.describe Breadcrumb do
 
   describe "#last" do
     before do
-      breadcrumb.add("Servers", "/servers")
-      breadcrumb.add("Server #1", "/servers/1")
-      breadcrumb.add("Edit")
+      breadcrumb.add_step("Servers", "/servers")
+      breadcrumb.add_step("Server #1", "/servers/1")
+      breadcrumb.add_step("Edit")
     end
 
     it do
@@ -86,9 +86,9 @@ RSpec.describe Breadcrumb do
   describe "#to_title" do
     before do
       breadcrumb.root("Home", "/")
-      breadcrumb.add("Servers", "/servers")
-      breadcrumb.add("Server #1", "/servers/1")
-      breadcrumb.add("Edit")
+      breadcrumb.add_step("Servers", "/servers")
+      breadcrumb.add_step("Server #1", "/servers/1")
+      breadcrumb.add_step("Edit")
     end
 
     it { expect(breadcrumb.to_title).to eq("Edit | Server #1 | Servers | Home") }

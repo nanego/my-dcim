@@ -1,8 +1,7 @@
 <%
   breadcrumb
-    .add(PortType.model_name.human(count: 2), port_types_path)
-    .add(@port_type, port_type_path(@port_type))
-    .add(t("action.edit"))
+    .add_step(@port_type, port_type_path(@port_type))
+    .add_step(t("action.edit"))
 %>
 
 <%= render Page::HeadingEditComponent.new(resource: @port_type, title: t(".title"), breadcrumb:) %>

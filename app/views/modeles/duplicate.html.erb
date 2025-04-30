@@ -1,8 +1,7 @@
 <%
   breadcrumb
-    .add(Modele.model_name.human.pluralize, modeles_path)
-    .add(@original_modele.name, modele_path(@original_modele))
-    .add(t("action.duplicate"))
+    .add_step(@original_modele.name, modele_path(@original_modele))
+    .add_step(t("action.duplicate"))
 %>
 
 <%= render Page::HeadingEditComponent.new(
