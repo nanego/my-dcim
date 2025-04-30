@@ -46,6 +46,12 @@
 
   <%= turbo_frame_tag(dom_id(Islet, :table), data: { turbo_action: :advance }) do %>
     <%= render List::DataTableComponent.new(@islets) do |table| %>
+      <% table.with_bulk_action(url: bulk_islets_path, method: :delete, class: "btn btn-danger btn-sm",
+                                data: { confirm: t("action.confirm") }
+      ) do %>
+        <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>">
+        </span>
+      <% end %>
       <% table.with_column(Islet.model_name.human, sort_by: :name) do |islet| %>
         <%= link_to islet.name_with_room, islet_path(islet), class: "fw-bold", data: { turbo_frame: :_top } %>
       <% end %>

@@ -463,6 +463,11 @@ fr:
         flashes:
           destroyed: Les salles sélectionnés ont bien été supprimés.
           not_destroyed: Une erreur est survenue lors de la suppression d'au moins une salle
+    islets:
+      destroy:
+        flashes:
+          destroyed: Les ilôts sélectionnés ont bien été supprimés.
+          not_destroyed: Une erreur est survenue lors de la suppression d'au moins un ilôt
   glpi:
     computer:
       name: Nom
