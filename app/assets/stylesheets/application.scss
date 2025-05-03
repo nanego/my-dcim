@@ -945,6 +945,16 @@ body {
     }
   }
 
+  .very-specific-design {
+    .server-component {
+      .port_container {
+        small {
+          font-size: 0.65em;
+        }
+      }
+    }
+  }
+
   /* Tom-Select */
   /* Fix for dark mode */
   .ts-dropdown, .ts-control, .ts-control input {
