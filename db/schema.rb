@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_06_110910) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_07_150024) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -529,4 +529,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_110910) do
   add_foreign_key "servers", "gestions"
   add_foreign_key "servers", "modeles"
   add_foreign_key "servers", "stacks"
+  
+  create_view "servers_frames_view", sql_definition: <<-SQL
+      SELECT servers.id,
+      servers.name,
+      'Server'::text AS record_type
+     FROM servers
+  UNION ALL
+   SELECT frames.id,
+      frames.name,
+      'Frame'::text AS record_type
+     FROM frames;
+  SQL
 end
