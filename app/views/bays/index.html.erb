@@ -124,6 +124,10 @@
         <% end %>
       <% end %>
 
+      <% table.with_column(Manufacturer.model_name.human, name: :manufacturer_id) do |bay| %>
+        <%= link_to bay.manufacturer.name, manufacturer_path(bay.manufacturer), data: { turbo_frame: :_top } if bay.manufacturer %>
+      <% end %>
+
       <% table.with_column(style: "min-width: 132px; width: 132px") do |bay| %>
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
           <%= render partial: "bays/export_button", locals: { bay: bay } %>

@@ -183,6 +183,10 @@
           <%= link_to server.gestion, gestion_path(server.gestion), data: { turbo_frame: :_top } if server.gestion %>
         <% end %>
 
+        <% table.with_column(Domaine.model_name.human, name: :domaine_id) do |server| %>
+          <%= link_to server.domaine, domaine_path(server.domaine), data: { turbo_frame: :_top } if server.domaine %>
+        <% end %>
+
         <% table.with_column(Frame.model_name.human, name: :frame_id) do |server| %>
           <%= link_to server.frame, frame_path(server.frame), data: { turbo_frame: :_top } if server.frame %>
         <% end %>
@@ -193,6 +197,26 @@
 
         <% table.with_column(Stack.model_name.human, name: :stack_id) do |server| %>
           <%= link_to server.stack, stack_path(server.stack), data: { turbo_frame: :_top } if server.stack %>
+        <% end %>
+
+        <% table.with_column(Server.human_attribute_name(:position), name: :position) do |server| %>
+          <%= server.position %>
+        <% end %>
+
+        <% table.with_column(Server.human_attribute_name(:slug), name: :slug) do |server| %>
+          <%= server.slug %>
+        <% end %>
+
+        <% table.with_column(Server.human_attribute_name(:side), name: :side) do |server| %>
+          <%= server.side %>
+        <% end %>
+
+        <% table.with_column(Color.model_name.human, name: :color) do |server| %>
+          <% if server.color %>
+            <%= tag.div class: "w-100 h-100", style: "background-color:#{server.color.code}" do %>
+              &nbsp;
+            <% end %>
+          <% end %>
         <% end %>
 
         <% table.with_column(Server.human_attribute_name(:comment), name: :comment) do |server| %>
