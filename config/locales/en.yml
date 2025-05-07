@@ -3,6 +3,7 @@ en:
     apply: Apply
     edit: Update
     delete: Delete
+    reset: Reset
     back: Back
     show: See
     close: Close
