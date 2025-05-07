@@ -529,16 +529,30 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_07_150024) do
   add_foreign_key "servers", "gestions"
   add_foreign_key "servers", "modeles"
   add_foreign_key "servers", "stacks"
-  
+
   create_view "servers_frames_view", sql_definition: <<-SQL
       SELECT servers.id,
       servers.name,
+      servers.numero,
+      ( SELECT m.name
+             FROM modeles m
+            WHERE (m.id = servers.modele_id)) AS modele_name,
+      NULL::character varying AS islet_name,
+      NULL::character varying AS room_name,
       'Server'::text AS record_type
      FROM servers
   UNION ALL
-   SELECT frames.id,
-      frames.name,
+   SELECT f.id,
+      f.name,
+      NULL::character varying AS numero,
+      NULL::character varying AS modele_name,
+      ( SELECT i.name
+             FROM islets i
+            WHERE (i.id = f.id)) AS islet_name,
+      ( SELECT r.name
+             FROM rooms r
+            WHERE (r.id = f.id)) AS room_name,
       'Frame'::text AS record_type
-     FROM frames;
+     FROM frames f;
   SQL
 end

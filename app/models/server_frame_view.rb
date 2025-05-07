@@ -7,4 +7,10 @@ class ServerFrameView < ApplicationRecord
 
   scope :servers, -> { where(record_type: "Server") }
   scope :frames, -> { where(record_type: "Frame") }
+
+  scope :search, lambda { |query|
+    return if query.blank?
+
+    # TODO
+  }
 end
