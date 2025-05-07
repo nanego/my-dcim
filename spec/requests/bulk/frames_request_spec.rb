@@ -7,12 +7,12 @@ RSpec.describe "/bulk/frames" do
 
   describe "DELETE /destroy" do
     context "with frames without associations" do
-      let(:frame_a) { Frame.new(bay: bays(:one)) }
-      let(:frame_b) { Frame.new(bay: bays(:two)) }
+      let(:frame_a) { Frame.create!(bay: bays(:one)) }
+      let(:frame_b) { Frame.create!(bay: bays(:two)) }
 
       before do
-        frame_a.save!
-        frame_b.save!
+        frame_a
+        frame_b
       end
 
       it do

@@ -7,12 +7,12 @@ RSpec.describe "/bulk/clusters" do
 
   describe "DELETE /destroy" do
     context "with clusters without associations" do
-      let(:cluster_a) { Cluster.new(name: "ClusterA") }
-      let(:cluster_b) { Cluster.new(name: "ClusterB") }
+      let(:cluster_a) { Cluster.create!(name: "ClusterA") }
+      let(:cluster_b) { Cluster.create!(name: "ClusterB") }
 
       before do
-        cluster_a.save!
-        cluster_b.save!
+        cluster_a
+        cluster_b
       end
 
       it do

@@ -23,7 +23,7 @@ RSpec.describe "/bulk/architectures" do
       it do
         expect do
           delete bulk_architectures_path(ids: [architectures(:rackable).id])
-        end.not_to change(Frame, :count)
+        end.not_to change(Architecture, :count)
       end
 
       it do

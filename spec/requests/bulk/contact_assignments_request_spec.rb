@@ -7,12 +7,12 @@ RSpec.describe "/bulk/contact_assignments" do
 
   describe "DELETE /destroy" do
     context "with contact assignments without associations" do
-      let(:contact_assignments_one) { ContactAssignment.new(site: sites(:one), contact: contacts(:one), contact_role: contact_roles(:one)) }
-      let(:contact_assignments_two) { ContactAssignment.new(site: sites(:two), contact: contacts(:two), contact_role: contact_roles(:two)) }
+      let(:contact_assignments_one) { ContactAssignment.create!(site: sites(:one), contact: contacts(:one), contact_role: contact_roles(:one)) }
+      let(:contact_assignments_two) { ContactAssignment.create!(site: sites(:two), contact: contacts(:two), contact_role: contact_roles(:two)) }
 
       before do
-        contact_assignments_one.save!
-        contact_assignments_two.save!
+        contact_assignments_one
+        contact_assignments_two
       end
 
       it do

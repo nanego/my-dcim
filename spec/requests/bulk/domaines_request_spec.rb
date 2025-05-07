@@ -23,7 +23,7 @@ RSpec.describe "/bulk/domaines" do
       it do
         expect do
           delete bulk_domaines_path(ids: [domaines(:switch).id])
-        end.not_to change(CardType, :count)
+        end.not_to change(Domaine, :count)
       end
 
       it do

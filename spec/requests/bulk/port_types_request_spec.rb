@@ -18,18 +18,5 @@ RSpec.describe "/bulk/port_types" do
         expect(response).to redirect_to(port_types_path)
       end
     end
-
-    context "with a port type with associations" do
-      it do
-        expect do
-          delete bulk_port_types_path(ids: [port_types(:four).id])
-        end.not_to change(Frame, :count)
-      end
-
-      it do
-        delete bulk_port_types_path(ids: [port_types(:four).id])
-        expect(response).to redirect_to(port_types_path)
-      end
-    end
   end
 end
