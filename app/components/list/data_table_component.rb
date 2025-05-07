@@ -28,7 +28,7 @@ module List
               render List::TableComponent::TableRow.new do
                 concat(render_bulk_head_checkbox) if bulk_actions?
 
-                show_columns.each do |col|
+                displayed_columns.each do |col|
                   concat(render_head_cell(col))
                 end
               end
@@ -89,7 +89,7 @@ module List
       render List::TableComponent::TableRow.new do
         concat(render_bulk_checkbox(row)) if bulk_actions?
 
-        show_columns.each do |col|
+        displayed_columns.each do |col|
           concat render List::TableComponent::TableCell.new(render_col(col, row), **col.html_options)
         end
       end
@@ -127,8 +127,8 @@ module List
       sanitize(direction == :desc ? "&#x2193;" : "&#x2191;")
     end
 
-    def show_columns
-      @show_columns ||= if @columns_to_display.nil?
+    def displayed_columns
+      @displayed_columns ||= if @columns_to_display.nil?
                           columns
                         else
                           columns.select do |col|
