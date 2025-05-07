@@ -14,6 +14,7 @@ module ColumnsPreferences
       before_action(only:) do
         if params[:reset]
           session[key] = nil
+          redirect_back fallback_location: root_path
         elsif params[:save]
           session[key] = params[:columns]
         end
