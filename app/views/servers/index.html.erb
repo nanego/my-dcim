@@ -199,15 +199,15 @@
           <%= link_to server.stack, stack_path(server.stack), data: { turbo_frame: :_top } if server.stack %>
         <% end %>
 
-        <% table.with_column(Server.human_attribute_name(:position), name: :position) do |server| %>
+        <% table.with_column(Server.human_attribute_name(:position), name: :position, sort_by: :position) do |server| %>
           <%= server.position %>
         <% end %>
 
-        <% table.with_column(Server.human_attribute_name(:slug), name: :slug) do |server| %>
+        <% table.with_column(Server.human_attribute_name(:slug), name: :slug, sort_by: :slug) do |server| %>
           <%= server.slug %>
         <% end %>
 
-        <% table.with_column(Server.human_attribute_name(:side), name: :side) do |server| %>
+        <% table.with_column(Server.human_attribute_name(:side), name: :side, sort_by: :side) do |server| %>
           <%= server.side %>
         <% end %>
 
@@ -219,11 +219,11 @@
           <% end %>
         <% end %>
 
-        <% table.with_column(Server.human_attribute_name(:comment), name: :comment) do |server| %>
+        <% table.with_column(Server.human_attribute_name(:comment), name: :comment, sort_by: :comment) do |server| %>
           <%= server.comment %>
         <% end %>
 
-        <% table.with_column(Server.human_attribute_name(:critique), name: :critique) do |server| %>
+        <% table.with_column(Server.human_attribute_name(:critique), name: :critique, sort_by: :critique) do |server| %>
           <%= t("boolean.#{server.critique}") %>
         <% end %>
 

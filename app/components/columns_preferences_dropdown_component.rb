@@ -21,10 +21,7 @@ class ColumnsPreferencesDropdownComponent < ApplicationComponent
             <div class="dropdown-divider my-3"></div>
           <div class="d-flex">
             <%= form.submit t("action.apply"), name: "save", class: "btn btn-primary" %>
-
-            <%= form_with url: @action_path, method: :get do |form| %>
-              <%= form.submit t("action.reset"), name: "reset", class: "btn btn-link" %>
-            <% end %>
+            <%= form.submit t("action.reset"), name: "reset", class: "btn btn-link" %>
           <% end %>
           </div>
         </div>

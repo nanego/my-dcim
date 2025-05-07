@@ -15,9 +15,10 @@ RSpec.shared_context "with preferred columns" do |available_columns|
     end
 
     context "when hiding columns" do
+      let(:hidden_column) { available_columns.sample }
       let(:columns) do
         available_columns.dup.tap do |arr|
-          arr.delete_at(rand(arr.size))
+          arr.delete(hidden_column)
         end
       end
 
@@ -28,9 +29,7 @@ RSpec.shared_context "with preferred columns" do |available_columns|
       end
 
       it "does not render non-preferred columns" do
-        (available_columns - columns).each do |column|
-          expect(response.body).not_to have_tag("th[data-name='#{column}']")
-        end
+        expect(response.body).not_to have_tag("th[data-name='#{hidden_column}']")
       end
     end
   end
