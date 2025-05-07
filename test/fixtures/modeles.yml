@@ -33,3 +33,10 @@ four:
   architecture_id: 1
   manufacturer_id: 1
   category_id: 1
+
+five:
+  id: 5
+  name: PDU_25
+  architecture_id: 1
+  manufacturer_id: 1
+  category_id: 3

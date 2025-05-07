@@ -8,3 +8,7 @@ rackable:
 tour:
   id: 2
   name: Tour
+
+three:
+  id: 3
+  name: Without association

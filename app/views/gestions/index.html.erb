@@ -14,6 +14,13 @@
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render List::DataTableComponent.new(@gestions) do |table| %>
+    <% table.with_bulk_action(url: bulk_gestions_path, method: :delete, class: "btn btn-danger btn-sm",
+                              data: { confirm: t("action.confirm") }
+    ) do %>
+      <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>">
+      </span>
+    <% end %>
+
     <% table.with_column(Gestion.human_attribute_name(:name), sort_by: :name) do |gestion| %>
       <%= link_to gestion, gestion_path(gestion), class: "fw-bold" %>
     <% end %>

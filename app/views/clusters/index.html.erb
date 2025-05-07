@@ -25,6 +25,13 @@
   <% end %>
 
   <%= render List::DataTableComponent.new(@clusters) do |table| %>
+    <% table.with_bulk_action(url: bulk_clusters_path, method: :delete, class: "btn btn-danger btn-sm",
+                              data: { confirm: t("action.confirm") }
+    ) do %>
+      <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>">
+      </span>
+    <% end %>
+
     <% table.with_column(Cluster.human_attribute_name(:name), sort_by: :name) do |cluster| %>
       <%= link_to cluster, cluster_path(cluster), class: "fw-bold" %>
     <% end %>

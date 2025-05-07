@@ -10,3 +10,11 @@ fortinet:
 juniper:
   id: 2
   name: juniper
+
+three:
+  id: 3
+  name: Third
+
+four:
+  id: 4
+  name: Fourth
