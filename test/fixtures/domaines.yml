@@ -9,3 +9,7 @@ switch:
 stock:
   id: 2
   name: Stock
+
+three:
+  id: 3
+  name: Three

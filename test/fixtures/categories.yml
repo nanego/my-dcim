@@ -16,3 +16,13 @@ three:
   id: 3
   name: Pdu
   description: Pour les PDUs
+
+four:
+  id: 4
+  name: MyString
+  description: MyText
+
+five:
+  id: 5
+  name: MyString
+  description: MyText

@@ -19,3 +19,8 @@ four:
   id: 4
   name: Islet4
   room_id: 6
+
+five:
+  id: 5
+  name: Islet5
+  room_id: 1

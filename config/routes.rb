@@ -116,7 +116,11 @@ Rails.application.routes.draw do
                                     sessions: 'users/sessions' }
 
   namespace :bulk do
-    resource :servers, only: :destroy
+    %i[servers sites rooms islets bays frames air_conditioners power_distribution_units modeles categories
+       architectures manufacturers stacks card_types port_types domaines gestions clusters colors cables
+       contacts contact_roles contact_assignments].each do |res|
+      resource res, only: :destroy
+    end
   end
 
   namespace :users do

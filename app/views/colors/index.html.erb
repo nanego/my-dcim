@@ -6,6 +6,13 @@
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render List::DataTableComponent.new(@colors) do |table| %>
+    <% table.with_bulk_action(url: bulk_colors_path, method: :delete, class: "btn btn-danger btn-sm",
+                              data: { confirm: t("action.confirm") }
+    ) do %>
+      <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>">
+      </span>
+    <% end %>
+
     <% table.with_column(class: "position-relative") do |color| %>
       <%= tag.div class: "position-absolute top-0 start-0 bottom-0 end-0", style: "background-color:#{color.code}" do %>
         &nbsp;

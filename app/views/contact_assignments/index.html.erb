@@ -38,6 +38,13 @@
   <%= turbo_frame_tag(dom_id(ContactAssignment, :table), data: { turbo_action: :advance }) do %>
     <div class="d-flex flex-column row-gap-4">
       <%= render List::DataTableComponent.new(@contact_assignments) do |table| %>
+        <% table.with_bulk_action(url: bulk_contact_assignments_path, method: :delete, class: "btn btn-danger btn-sm",
+                                  data: { confirm: t("action.confirm") }
+        ) do %>
+          <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>">
+          </span>
+        <% end %>
+
         <% unless turbo_frame_request? %>
           <% table.with_column(ContactAssignment.human_attribute_name(:id)) do |contact_assignment| %>
             <%= link_to contact_assignment.id,

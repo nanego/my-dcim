@@ -10,3 +10,8 @@ two:
   id: 2
   name: MyString
   description: MyText
+
+three:
+  id: 3
+  name: Third
+  description: My third description

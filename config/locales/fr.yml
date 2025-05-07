@@ -448,11 +448,11 @@ fr:
       connections_destroyed: Les connexions ont été supprimées.
       connections_not_destroyed: Une erreur a empêché la suppression des connexions.
   bulk:
-    servers:
+    resource:
       destroy:
         flashes:
-          destroyed: Les matériels I.T. sélectionnés ont bien été supprimés.
-          not_destroyed: Une erreur est survenue lors de la suppression d'au moins un matériel I.T.
+          destroyed: Les %{resource} sélectionné(e)s ont bien été supprimés.
+          not_destroyed: Une erreur est survenue lors de la suppression d'au moins un(e) %{resource}
   glpi:
     computer:
       name: Nom

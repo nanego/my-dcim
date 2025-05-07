@@ -16,6 +16,13 @@
   <div id="map" class="border rounded" style="height: 450px;"></div>
 
   <%= render List::DataTableComponent.new(@sites) do |table| %>
+    <% table.with_bulk_action(url: bulk_sites_path, method: :delete, class: "btn btn-danger btn-sm",
+                                  data: { confirm: t("action.confirm") }
+        ) do %>
+      <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>">
+      </span>
+    <% end %>
+
     <% table.with_column(Site.human_attribute_name(:name), sort_by: :name) do |site| %>
       <%= link_to site.name, site_path(site), class: "fw-bold" %>
     <% end %>

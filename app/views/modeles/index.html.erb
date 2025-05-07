@@ -60,6 +60,13 @@
           <% end %>
 
           <%= render List::DataTableComponent.new(modeles) do |table| %>
+            <% table.with_bulk_action(url: bulk_modeles_path, method: :delete, class: "btn btn-danger btn-sm",
+                                  data: { confirm: t("action.confirm") }
+            ) do %>
+              <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>">
+              </span>
+            <% end %>
+
             <% table.with_column(class: "p-0", style: "width: 40px; height: 40px;") do |modele| %>
               <% bgModeleColor = modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(modele.try(:name) || "test")[0..5]}", 0.4) %>
               <div class="h-100" style="background-color: <%= bgModeleColor %> !important;"></div>

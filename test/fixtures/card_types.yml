@@ -21,3 +21,9 @@ four:
   name: 6ALIM
   port_type_id: 3
   port_quantity: 6
+
+five:
+  id: 5
+  name: Card5
+  port_type_id: 3
+  port_quantity: 6

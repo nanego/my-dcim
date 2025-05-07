@@ -61,6 +61,13 @@
 
   <%= turbo_frame_tag(dom_id(Frame, :table), data: { turbo_action: :advance }) do %>
     <%= render List::DataTableComponent.new(@frames) do |table| %>
+      <% table.with_bulk_action(url: bulk_frames_path, method: :delete, class: "btn btn-danger btn-sm",
+                                      data: { confirm: t("action.confirm") }
+      ) do %>
+        <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>">
+        </span>
+      <% end %>
+
       <% table.with_column(Frame.human_attribute_name(:name), sort_by: :name) do |frame| %>
         <b>
           <%= link_to frame.name, frame, data: { turbo_frame: :_top } %>
