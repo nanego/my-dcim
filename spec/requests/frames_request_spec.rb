@@ -31,9 +31,9 @@ RSpec.describe "Frames" do
 
     context 'with non-existent frame' do
       it 'raises not found error' do
-        expect {
+        expect do
           get network_frame_path('non-existent-frame', network_frame_id: network_frame.slug)
-        }.to raise_error(ActiveRecord::RecordNotFound)
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
