@@ -12,6 +12,7 @@ fr:
     apply: Appliquer
     edit: Modifier
     delete: Supprimer
+    reset: Réinitialiser
     back: Retour
     show: Voir
     close: Fermer
