@@ -16,12 +16,13 @@ RSpec.describe ColumnsPreferencesDropdownComponent, type: :component do
 
   it "renders the component" do # rubocop:disable RSpec/ExampleLength
     expect(rendered_component.to_html).to have_tag("div.dropdown") do
-      with_tag('form[action="#"]', count: 2) do
+      with_tag('form[action="#"]') do
         columns_preferences.available do |column|
           with_tag("input[type=\"checkbox\"][id=#{column}_id]")
         end
 
-        with_tag("input[type=\"submit\"]")
+        with_tag("input[type=\"submit\"]", value: t("action.apply"))
+        with_tag("input[type=\"submit\"]", value: t("action.reset"))
       end
     end
   end
