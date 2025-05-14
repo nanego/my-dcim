@@ -2,12 +2,19 @@
 
 class BaysController < ApplicationController
   include RoomsHelper
+  include ColumnsPreferences
+
+  DEFAULT_COLUMNS = %w[name room_id islet_id frame_id lane position server_id].freeze
+  AVAILABLE_COLUMNS = %w[name room_id islet_id frame_id lane position server_id width depth bay_type_id access_control manufacturer_id].freeze
+
+  columns_preferences_with model: Bay, default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS
 
   before_action :set_bay, only: %i[edit update destroy show]
 
   def index
-    @bays   = Bay.joins(islet: :room).order("rooms.position, islets.name, bays.lane, bays.position")
+    @bays = Bay.joins(islet: :room).order("rooms.position, islets.name, bays.lane, bays.position")
     @filter = ProcessorFilter.new(@bays, params)
+
     @bays = @filter.results.uniq
   end
 
