@@ -54,18 +54,6 @@ class Server < ApplicationRecord
   scope :only_pdus, -> { joins(modele: :category).where("categories.name='Pdu'").order(:name) }
   scope :patch_panels, -> { joins(modele: :category).where("categories.name='Patch Panel'").order(:name) }
 
-  scope :search, lambda { |query|
-    return if query.blank?
-
-    joins(modele: :manufacturer).where(
-      'servers.name ILIKE :query OR
-      servers.numero ILIKE :query OR
-      modeles.name ILIKE :query OR
-      manufacturers.name ILIKE :query',
-      query: "%#{query}%"
-    )
-  }
-
   def self.friendly_find_by_numero_or_name(name)
     name = name.to_s.downcase
 
