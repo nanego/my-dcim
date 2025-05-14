@@ -1,6 +1,6 @@
 <%%
   breadcrumb
-    .add(<%= singular_table_name.capitalize %>.model_name.human.pluralize, <%= plural_table_name %>_path)
+    .add(<%= singular_table_name.classify %>.model_name.human.pluralize, <%= plural_table_name %>_path)
     .add(t("action.create"))
 %>
 
