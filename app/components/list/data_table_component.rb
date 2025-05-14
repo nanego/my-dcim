@@ -7,9 +7,10 @@ module List
       DatatableColumn.new(title, **options, &block)
     }
 
-    def initialize(data, empty_icon: :table, **_options)
+    def initialize(data, columns_to_display: nil, empty_icon: :table, **_options)
       @data = data
       @empty_icon = empty_icon
+      @columns_to_display = columns_to_display&.map(&:to_sym)
 
       super()
     end
@@ -27,7 +28,7 @@ module List
               render List::TableComponent::TableRow.new do
                 concat(render_bulk_head_checkbox) if bulk_actions?
 
-                columns.each do |col|
+                displayed_columns.each do |col|
                   concat(render_head_cell(col))
                 end
               end
@@ -75,7 +76,7 @@ module List
     end
 
     def render_head_cell(col)
-      render(List::TableComponent::TableHeadCell.new) do
+      render(List::TableComponent::TableHeadCell.new(data: { name: col.name })) do
         if (sort_by = col.sort_by)
           link_to_sort col.title, sort_by
         else
@@ -88,7 +89,7 @@ module List
       render List::TableComponent::TableRow.new do
         concat(render_bulk_checkbox(row)) if bulk_actions?
 
-        columns.each do |col|
+        displayed_columns.each do |col|
           concat render List::TableComponent::TableCell.new(render_col(col, row), **col.html_options)
         end
       end
@@ -126,6 +127,16 @@ module List
       sanitize(direction == :desc ? "&#x2193;" : "&#x2191;")
     end
 
+    def displayed_columns
+      @displayed_columns ||= if @columns_to_display.nil?
+                               columns
+                             else
+                               columns.select do |col|
+                                 col.name.nil? || @columns_to_display.include?(col.name)
+                               end
+                             end
+    end
+
     class DatatableBulkAction < ApplicationComponent
       attr_reader :title, :url, :method, :options
 
@@ -158,13 +169,14 @@ module List
     end
 
     class DatatableColumn < ApplicationComponent
-      attr_reader :title, :sort_by, :html_options
+      attr_reader :title, :name, :sort_by, :html_options
 
       def initialize(title = nil, **options, &block)
         @title = title
-        @block = block
+        @name = options.delete(:name)
         @sort_by = options.delete(:sort_by)
         @html_options = options
+        @block = block
 
         super()
       end

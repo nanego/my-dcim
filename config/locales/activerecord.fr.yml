@@ -87,6 +87,8 @@ fr:
         numero: Numéro de série
         room: Salle
         islet: Ilot
+        islet_id: Ilot
+        bay_id: Baie
         frame_id: Châssis
         position: Position
         modele_id: Modèle
@@ -322,6 +324,10 @@ fr:
         islet_id: Salle et Ilot
         bay_type_id: Type de baie
         manufacturer_id: Constructeur
+        islet_id: Ilot
+        room_id: Salle
+        server_id: Matériel
+        frame_id: Châssis
       connection:
         cable: Câble
         port: Port

@@ -86,7 +86,8 @@
                                   :id,
                                   :name,
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
+                                  { class: "form-select", data: { controller: :select } })
+                                  %>
           <%= f.label :modele_ids %>
         </fieldset>
       </div>
@@ -137,9 +138,11 @@
     <% end %>
   <% end %>
 
+  <%= render ColumnsPreferencesDropdownComponent.new(servers_path(request.query_parameters), @columns_preferences) %>
+
   <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance }) do %>
     <div class="d-flex flex-column row-gap-4">
-      <%= render List::DataTableComponent.new(@servers) do |table| %>
+      <%= render List::DataTableComponent.new(@servers, columns_to_display: @columns_preferences.preferred) do |table| %>
         <% table.with_bulk_action(url: bulk_servers_path, method: :delete, class: "btn btn-danger btn-sm",
                                   data: { confirm: t("action.confirm") }
         ) do %>
@@ -147,33 +150,81 @@
           </span>
         <% end %>
 
-        <% table.with_column(Server.human_attribute_name(:name), sort_by: :name) do |server| %>
+        <% table.with_column(Server.human_attribute_name(:name), name: :name, sort_by: :name) do |server| %>
           <%= link_to server.name, server_path(server), class: "fw-bold", data: { turbo_frame: :_top } %>
         <% end %>
 
-        <% table.with_column(Server.human_attribute_name(:numero), sort_by: :numero) do |server| %>
+        <% table.with_column(Server.human_attribute_name(:numero), name: :numero, sort_by: :numero) do |server| %>
           <%= link_to server.numero, server_path(server), class: "fw-bold", data: { turbo_frame: :_top } %>
         <% end %>
 
-        <% table.with_column(Modele.human_attribute_name(:category), sort_by: :"categories.name") do |server| %>
+        <% table.with_column(Modele.human_attribute_name(:category), name: :"modele.category_id", sort_by: :"categories.name") do |server| %>
           <%= link_to server.modele.category, category_path(server.modele.category),
                       data: { turbo_frame: :_top } if server.modele.try(:category) %>
         <% end %>
 
-        <% table.with_column(Server.human_attribute_name(:room), sort_by: :"rooms.name") do |server| %>
+        <% table.with_column(Server.human_attribute_name(:room), name: :room, sort_by: :"rooms.name") do |server| %>
           <%= link_to server.room, room_path(server.room), data: { turbo_frame: :_top } if server.room %>
         <% end %>
 
-        <% table.with_column(Islet.model_name.human, sort_by: :"islets.name") do |server| %>
+        <% table.with_column(Islet.model_name.human, name: :islet_id, sort_by: :"islets.name") do |server| %>
           <%= link_to server.islet, islet_path(server.islet), data: { turbo_frame: :_top } if server.islet %>
         <% end %>
 
-        <% table.with_column(Bay.model_name.human, sort_by: :"bays.id") do |server| %>
+        <% table.with_column(Bay.model_name.human, name: :bay_id, sort_by: :"bays.id") do |server| %>
           <%= link_to server.bay, bay_path(server.bay), data: { turbo_frame: :_top } if server.bay %>
         <% end %>
 
-        <% table.with_column(Server.human_attribute_name(:network_types)) do |server| %>
+        <% table.with_column(Server.human_attribute_name(:network_types), name: :network_types) do |server| %>
           <%= server.decorated.network_types_to_human %>
+        <% end %>
+
+        <% table.with_column(Gestion.model_name.human, name: :gestion_id) do |server| %>
+          <%= link_to server.gestion, gestion_path(server.gestion), data: { turbo_frame: :_top } if server.gestion %>
+        <% end %>
+
+        <% table.with_column(Domaine.model_name.human, name: :domaine_id) do |server| %>
+          <%= link_to server.domaine, domaine_path(server.domaine), data: { turbo_frame: :_top } if server.domaine %>
+        <% end %>
+
+        <% table.with_column(Frame.model_name.human, name: :frame_id) do |server| %>
+          <%= link_to server.frame, frame_path(server.frame), data: { turbo_frame: :_top } if server.frame %>
+        <% end %>
+
+        <% table.with_column(Cluster.model_name.human, name: :cluster_id) do |server| %>
+          <%= link_to server.cluster, cluster_path(server.cluster), data: { turbo_frame: :_top } if server.cluster %>
+        <% end %>
+
+        <% table.with_column(Stack.model_name.human, name: :stack_id) do |server| %>
+          <%= link_to server.stack, stack_path(server.stack), data: { turbo_frame: :_top } if server.stack %>
+        <% end %>
+
+        <% table.with_column(Server.human_attribute_name(:position), name: :position, sort_by: :position) do |server| %>
+          <%= server.position %>
+        <% end %>
+
+        <% table.with_column(Server.human_attribute_name(:slug), name: :slug, sort_by: :slug) do |server| %>
+          <%= server.slug %>
+        <% end %>
+
+        <% table.with_column(Server.human_attribute_name(:side), name: :side, sort_by: :side) do |server| %>
+          <%= server.side %>
+        <% end %>
+
+        <% table.with_column(Color.model_name.human, name: :color) do |server| %>
+          <% if server.color %>
+            <%= tag.div class: "w-100 h-100", style: "background-color:#{server.color.code}" do %>
+              &nbsp;
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% table.with_column(Server.human_attribute_name(:comment), name: :comment, sort_by: :comment) do |server| %>
+          <%= server.comment %>
+        <% end %>
+
+        <% table.with_column(Server.human_attribute_name(:critique), name: :critique, sort_by: :critique) do |server| %>
+          <%= t("boolean.#{server.critique}") %>
         <% end %>
 
         <% table.with_column(style: "min-width: 100px; width: 100px") do |server| %>

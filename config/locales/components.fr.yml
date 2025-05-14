@@ -1,8 +1,8 @@
 fr:
   form_errors_component:
     title:
-      one: '1 erreur lors de la sauvegarde :'
-      other: '%{count} erreurs lors de la sauvegarde :'
+      one: "1 erreur lors de la sauvegarde :"
+      other: "%{count} erreurs lors de la sauvegarde :"
   filter_component:
     submit: Filtrer
     reset: Réinitialiser%{filters_count}
@@ -20,3 +20,5 @@ fr:
         title: Aucune donnée trouvée !
       bulk:
         selected_elements: élément(s) sélectionné(s)
+  columns_preferences_dropdown_component:
+    trigger: Afficher les colonnes

@@ -15,7 +15,7 @@ class ProcessorFilter < Filter
   end
 
   def total_count
-    @total_count ||= @records.count
+    @total_count ||= @records.count(:all)
   end
 
   def results_count

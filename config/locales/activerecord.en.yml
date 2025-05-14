@@ -6,6 +6,10 @@ en:
       gestion: Manager
       move: Planned move
       server: I.T. equipment
+      islet: Islet
+      bay: Bay
+      frame: Frame
+      room: Room
     attributes:
       enclosure/display:
         grid: Grid
@@ -24,6 +28,7 @@ en:
           found: Found
           not_found: Not found in GLPI
       modele:
+        category_id: Category
         category: Category
       move:
         moveable_id: Equipment to move
@@ -36,12 +41,14 @@ en:
         type: Type
         room: Room
         islet: Islet
+        islet_id: Islet
         frame_id: Frame
         frame: Frame
         position: Position
         modele_id: Model
         critique: Critic
         gestion_id: Manager
+        gestion: Manager
         network_types: Network type
         stack: Stack
         stack_id: Stack
@@ -49,6 +56,15 @@ en:
         documents: Documents
         photo: Photo
         span: Slots
+        bay_id: Bay
+      bay:
+        name: Name
+        room: Room
+        islet: Islet
+        frame_id: Frame
+        lane: Lane
+        position: Position
+        server_id: I.T. Equipment
       theme: Theme
       user/locale:
         en: English

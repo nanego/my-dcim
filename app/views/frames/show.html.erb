@@ -116,7 +116,7 @@
     </div>
   </div>
   <%= render HasManyTurboFrameComponent.new(
-    Server.model_name.human(count: 2), url: servers_path(frame_ids: @frame.id), frame_id: dom_id(Server, :table)
+    Server.model_name.human(count: 2), url: servers_path(frame_ids: @frame.id, sort_by: :position, sort: "desc"), frame_id: dom_id(Server, :table)
   ) %>
   <%= render ChangelogEntries::ObjectListComponent.new(@frame) %>
 </div>
