@@ -181,9 +181,7 @@ module List
         super()
       end
 
-      def call(row)
-        @block.call(row)
-      end
+      delegate :call, to: :@block
 
       def block?
         @block.present?
