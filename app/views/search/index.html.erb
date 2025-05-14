@@ -5,6 +5,7 @@
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do %>
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <turbo-frame id="search_results">
+    <% if @results.any? %>
       <ul class="list-group">
         <% @results.servers.each do |server| %>
           <%= link_to server_path(server), data: { turbo_frame: "_top" } do %>
@@ -29,7 +30,10 @@
             <% end %>
         <% end %>
       </ul>
+    <% else %>
+      <p><%= t('.no_results_found') %></p>
     <% end %>
+  <% end %>
   </turbo-frame>
 </div>
 
