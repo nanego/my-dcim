@@ -48,6 +48,14 @@ class ApplicationController < ActionController::Base
   end
   helper_method :breadcrumb
 
+  def create_another_one_path(default_path)
+    if params[:create_another_one].present?
+      request.referer || root_path
+    else
+      default_path
+    end
+  end
+
   private
 
   def prepare_exception_notifier
