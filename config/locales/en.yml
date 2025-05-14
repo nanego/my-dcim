@@ -180,6 +180,7 @@ en:
       toggle_vlans: Toggle Vlans
       destroy_connections: Delete connections
       destroy_connections_confirmation: Can you confirm that you want to remove all connections from this PDU?
+      warning_no_frame: The current frame no longer exists, please enter a new one.
     new:
       title: Add a PDU
     create:
