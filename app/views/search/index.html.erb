@@ -2,7 +2,8 @@
   breadcrumb.add(title = t('.results'))
 %>
 
-<%= render Page::HeadingComponent.new(title:, breadcrumb:) do %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
+
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <turbo-frame id="search_results">
     <% if @results.any? %>
@@ -36,7 +37,6 @@
     <% end %>
   </turbo-frame>
 </div>
-<% end %>
 
 <script>
   // Focus on the first list item or at the end of the search input field if no results
