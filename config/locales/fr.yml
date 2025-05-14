@@ -477,6 +477,7 @@ fr:
       glpi_connection_error: "Problème lors de la connexion à GLPI :"
       destroy_connections: Supprimer les connexions
       destroy_connections_confirmation: Confirmez-vous vouloir supprimer toutes les connections de ce PDU ?
+      warning_no_frame: Le châssis actuel n'existe plus, veuillez en renseigner un.
     new:
       title: Ajouter un PDU
     create:

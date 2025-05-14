@@ -192,70 +192,77 @@
             <%= t("layouts.sidebar.location.title") %>
           <% end %>
 
-          <dl class="show-page_dl d-grid row-gap-2 mb-0">
-            <dt class="pb-2"><%= Site.model_name.human %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= link_to @pdu.room.site, site_path(@pdu.room.site) %></dd>
+          <% if @pdu.frame.present? %>
+            <dl class="show-page_dl d-grid row-gap-2 mb-0">
+              <dt class="pb-2"><%= Site.model_name.human %></dt>
+              <dd class="mb-0 pb-2 ps-3"><%= link_to @pdu.room.site, site_path(@pdu.room.site) %></dd>
 
-            <dt class="pb-2"><%= Room.model_name.human %></dt>
-            <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
-              <%= link_to @pdu.room.try(:name), @pdu.room %>
-              <%= link_to visualization_room_path(@pdu.room),
-                          class: "btn btn-primary btn-sm",
-                          data: { turbo_frame: :_top } do %>
-                <span class="bi bi-diagram-3-fill"
-                      aria-hidden="true"
-                      data-controller="tooltip"
-                      data-bs-placement="left"
-                      title="<%= t("visualization.title") %>"></span>
-                <span class="visually-hidden"><%= t("visualization.title") %></span>
-              <% end %>
-            </dd>
+              <dt class="pb-2"><%= Room.model_name.human %></dt>
+              <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
+                <%= link_to @pdu.room.try(:name), @pdu.room %>
+                <%= link_to visualization_room_path(@pdu.room),
+                            class: "btn btn-primary btn-sm",
+                            data: { turbo_frame: :_top } do %>
+                  <span class="bi bi-diagram-3-fill"
+                        aria-hidden="true"
+                        data-controller="tooltip"
+                        data-bs-placement="left"
+                        title="<%= t("visualization.title") %>"></span>
+                  <span class="visually-hidden"><%= t("visualization.title") %></span>
+                <% end %>
+              </dd>
 
-            <dt class="pb-2"><%= Islet.model_name.human %></dt>
-            <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
-              <%= link_to @pdu.islet.name_with_room, islet_path(@pdu.islet) %>
-              <%= link_to visualization_room_path(@pdu.room, islet: @pdu.islet.name),
-                          class: "btn btn-primary btn-sm",
-                          data: { turbo_frame: :_top } do %>
-                <span class="bi bi-diagram-3-fill"
-                      aria-hidden="true"
-                      data-controller="tooltip"
-                      data-bs-placement="left"
-                      title="<%= t("visualization.title") %>"></span>
-                <span class="visually-hidden"><%= t("visualization.title") %></span>
-              <% end %>
-            </dd>
+              <dt class="pb-2"><%= Islet.model_name.human %></dt>
+              <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
+                <%= link_to @pdu.islet.name_with_room, islet_path(@pdu.islet) %>
+                <%= link_to visualization_room_path(@pdu.room, islet: @pdu.islet.name),
+                            class: "btn btn-primary btn-sm",
+                            data: { turbo_frame: :_top } do %>
+                  <span class="bi bi-diagram-3-fill"
+                        aria-hidden="true"
+                        data-controller="tooltip"
+                        data-bs-placement="left"
+                        title="<%= t("visualization.title") %>"></span>
+                  <span class="visually-hidden"><%= t("visualization.title") %></span>
+                <% end %>
+              </dd>
 
-            <dt class="pb-2"><%= Bay.model_name.human %></dt>
-            <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
-              <%= link_to @pdu.bay, bay_path(@pdu.bay) %>
-              <%= link_to visualization_bay_path(@pdu.bay),
-                          class: "btn btn-primary btn-sm",
-                          data: { turbo_frame: :_top } do %>
-                <span class="bi bi-diagram-3-fill"
-                      aria-hidden="true"
-                      data-controller="tooltip"
-                      data-bs-placement="left"
-                      title="<%= t("visualization.title") %>"></span>
-                <span class="visually-hidden"><%= t("visualization.title") %></span>
-              <% end %>
-            </dd>
+              <dt class="pb-2"><%= Bay.model_name.human %></dt>
+              <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
+                <%= link_to @pdu.bay, bay_path(@pdu.bay) %>
+                <%= link_to visualization_bay_path(@pdu.bay),
+                            class: "btn btn-primary btn-sm",
+                            data: { turbo_frame: :_top } do %>
+                  <span class="bi bi-diagram-3-fill"
+                        aria-hidden="true"
+                        data-controller="tooltip"
+                        data-bs-placement="left"
+                        title="<%= t("visualization.title") %>"></span>
+                  <span class="visually-hidden"><%= t("visualization.title") %></span>
+                <% end %>
+              </dd>
 
-            <dt class="pb-2"><%= Frame.model_name.human %></dt>
-            <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
-              <%= link_to @pdu.frame.try(:name), frame_path(@pdu.frame) %>
-              <%= link_to visualization_frame_path(@pdu.frame),
-                          class: "btn btn-primary btn-sm",
-                          data: { turbo_frame: :_top } do %>
-                <span class="bi bi-diagram-3-fill"
-                      aria-hidden="true"
-                      data-controller="tooltip"
-                      data-bs-placement="left"
-                      title="<%= t("visualization.title") %>"></span>
-                <span class="visually-hidden"><%= t("visualization.title") %></span>
-              <% end %>
-            </dd>
-          </dl>
+              <dt class="pb-2"><%= Frame.model_name.human %></dt>
+              <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
+                <%= link_to @pdu.frame.try(:name), frame_path(@pdu.frame) %>
+                <%= link_to visualization_frame_path(@pdu.frame),
+                            class: "btn btn-primary btn-sm",
+                            data: { turbo_frame: :_top } do %>
+                  <span class="bi bi-diagram-3-fill"
+                        aria-hidden="true"
+                        data-controller="tooltip"
+                        data-bs-placement="left"
+                        title="<%= t("visualization.title") %>"></span>
+                  <span class="visually-hidden"><%= t("visualization.title") %></span>
+                <% end %>
+              </dd>
+            </dl>
+          <% else %>
+            <div class="text-center">
+              <p class="bi bi-exclamation-triangle text-warning h1"></p>
+              <p class="text-secondary-emphasis w-75 mx-auto"><%= t(".warning_no_frame") %></p>
+            </div>
+          <% end %>
         <% end %>
 
         <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
