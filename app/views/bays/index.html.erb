@@ -101,19 +101,19 @@
         <%= bay.position %>
       <% end %>
 
-      <% table.with_column(Bay.human_attribute_name(:width), name: :width, sort_by: :position) do |bay| %>
+      <% table.with_column(Bay.human_attribute_name(:width), name: :width, sort_by: :width) do |bay| %>
         <%= bay.width %>
       <% end %>
 
-      <% table.with_column(Bay.human_attribute_name(:depth), name: :depth, sort_by: :position) do |bay| %>
+      <% table.with_column(Bay.human_attribute_name(:depth), name: :depth, sort_by: :depth) do |bay| %>
         <%= bay.depth %>
       <% end %>
 
-      <% table.with_column(Bay.human_attribute_name(:bay_type_id), name: :bay_type_id, sort_by: :position) do |bay| %>
+      <% table.with_column(Bay.human_attribute_name(:bay_type_id), name: :bay_type_id, sort_by: :bay_type_id) do |bay| %>
         <%= bay.bay_type %>
       <% end %>
 
-      <% table.with_column(Bay.human_attribute_name(:access_control), name: :access_control, sort_by: :position) do |bay| %>
+      <% table.with_column(Bay.human_attribute_name(:access_control), name: :access_control, sort_by: :access_control) do |bay| %>
         <%= bay.access_control %>
       <% end %>
 
