@@ -31,7 +31,7 @@ class GestionsController < ApplicationController
 
     respond_to do |format|
       if @gestion.save
-        format.html { redirect_to @gestion, notice: t(".flashes.created") }
+        format.html { redirect_to create_another_one_path(@gestion), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @gestion }
       else
         format.html { render :new }
