@@ -14,8 +14,18 @@ module Form
       cancel_url = @is_edit ? @form.object : polymorphic_path(@form.object.class)
 
       tag.div class: "col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top" do
+        concat(render_new_one_checkbox)
         concat(link_to(t("action.cancel"), cancel_url, class: "btn btn-outline-secondary me-2"))
         concat(@form.submit(class: class_names("btn", "btn-info": @is_edit, "btn-success": @is_new)))
+      end
+    end
+
+    private
+
+    def render_new_one_checkbox
+      tag.span(class: "me-2 form-check") do
+        concat(check_box_tag(:create_new_one, class: "form-check-input"))
+        concat(@form.label, text: "test")
       end
     end
   end
