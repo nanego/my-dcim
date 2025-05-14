@@ -2,6 +2,10 @@
 
 class PowerDistributionUnitsController < ApplicationController
   before_action :set_pdu, only: %i[show edit update destroy destroy_connections]
+  before_action except: %i[index] do
+    # TODO: prefer use ActiveRecord translation of Modele name
+    breadcrumb.add_step(t("power_distribution_units.index.title"), power_distribution_units_path)
+  end
 
   def index
     @pdus = Server.only_pdus.includes(:frame, :room, :islet, bay: :frames, modele: :category)

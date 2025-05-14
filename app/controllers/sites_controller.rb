@@ -2,6 +2,9 @@
 
 class SitesController < ApplicationController
   before_action :set_site, only: %i[show edit update destroy]
+  before_action except: %i[index] do
+    breadcrumb.add_step(Site.model_name.human.pluralize, sites_path)
+  end
 
   def index
     @sites = sorted Site.sorted

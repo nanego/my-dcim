@@ -10,6 +10,9 @@ class BaysController < ApplicationController
   columns_preferences_with model: Bay, default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS
 
   before_action :set_bay, only: %i[edit update destroy show]
+  before_action except: %i[index] do
+    breadcrumb.add_step(t("bays.index.title"), bays_path)
+  end
 
   def index
     @bays = Bay.joins(islet: :room).order("rooms.position, islets.name, bays.lane, bays.position")

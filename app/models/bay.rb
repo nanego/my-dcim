@@ -19,7 +19,7 @@ class Bay < ApplicationRecord
   scope :sorted_by_room, -> { joins(:room, :islet).order(:site_id, 'rooms.position', 'rooms.name', 'islets.name', :lane, 'bays.position') }
 
   def to_s
-    frames.map(&:name).sort.join(" / ")
+    frames.any? ? list_frames : I18n.t("bays.empty")
   end
 
   def detailed_name
@@ -27,6 +27,6 @@ class Bay < ApplicationRecord
   end
 
   def list_frames
-    frames.pluck(:name).join(' / ')
+    frames.pluck(:name).sort.join(' / ')
   end
 end

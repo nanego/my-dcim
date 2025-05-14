@@ -2,6 +2,9 @@
 
 class ContactRolesController < ApplicationController
   before_action :set_contact_role, only: %i[show edit update destroy]
+  before_action except: %i[index] do
+    breadcrumb.add_step(ContactRole.model_name.human.pluralize, contact_roles_path)
+  end
 
   # GET /contact_roles
   # GET /contact_roles.json

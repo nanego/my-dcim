@@ -1,8 +1,4 @@
-<%
-  breadcrumb
-    .add(User.model_name.human.pluralize, users_path)
-    .add(t("action.create"))
-%>
+<% breadcrumb.add_step(t("action.create")) %>
 
 
 <%= render Page::HeadingNewComponent.new(resource: @user, title: t(".new_user"), breadcrumb:) %>

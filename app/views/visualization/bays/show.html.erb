@@ -2,16 +2,16 @@
   title = t(".title", bay: @bay, bay_type: @bay.bay_type&.name)
 
   breadcrumb
-    .add(t("visualization.title"), overview_rooms_path)
-    .add(@bay.room.name, visualization_room_path(@bay.room, view: params[:view]))
+    .add_step(t("visualization.title"), overview_rooms_path)
+    .add_step(@bay.room.name, visualization_room_path(@bay.room, view: params[:view]))
 
   if @bay.islet.name.present?
-    breadcrumb.add("#{Islet.model_name.human} #{@bay.islet.name}", visualization_room_path(@bay.room, islet: @bay.islet.name, view: params[:view]))
+    breadcrumb.add_step("#{Islet.model_name.human} #{@bay.islet.name}", visualization_room_path(@bay.room, islet: @bay.islet.name, view: params[:view]))
   elsif params[:islet].present?
-    breadcrumb.add("#{Islet.model_name.human} #{params[:islet]}")
+    breadcrumb.add_step("#{Islet.model_name.human} #{params[:islet]}")
   end
 
-  breadcrumb.add(title)
+  breadcrumb.add_step(title)
 
   title = t("visualization.title") + " " + title
 %>
