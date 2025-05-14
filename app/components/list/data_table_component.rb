@@ -129,12 +129,12 @@ module List
 
     def displayed_columns
       @displayed_columns ||= if @columns_to_display.nil?
-                          columns
-                        else
-                          columns.select do |col|
-                            col.name.nil? || @columns_to_display.include?(col.name)
-                          end
-                        end
+                               columns
+                             else
+                               columns.select do |col|
+                                 col.name.nil? || @columns_to_display.include?(col.name)
+                               end
+                             end
     end
 
     class DatatableBulkAction < ApplicationComponent
