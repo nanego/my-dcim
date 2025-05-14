@@ -11,6 +11,13 @@ class ServerFrameView < ApplicationRecord
   scope :search, lambda { |query|
     return if query.blank?
 
-    # TODO
+    where(
+      'name ILIKE :query OR
+      numero ILIKE :query OR
+      modele_name ILIKE :query OR
+      islet_name ILIKE :query OR
+      room_name ILIKE :query',
+      query: "%#{query}%"
+    )
   }
 end
