@@ -1,5 +1,5 @@
 <%%
-  breadcrumb.add(title = <%= singular_table_name.capitalize %>.model_name.human.pluralize)
+  breadcrumb.add(title = <%= singular_table_name.classify %>.model_name.human.pluralize)
 %>
 
 <%%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
@@ -15,7 +15,7 @@
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%%= render List::DataTableComponent.new(@<%= plural_table_name %>) do |table| %>
   <% attributes.each do |attribute| -%>
-  <%% table.with_column(<%= singular_table_name.capitalize %>.human_attribute_name(:<%= attribute.column_name %>)) do |<%= singular_table_name %>| %>
+  <%% table.with_column(<%= singular_table_name.classify %>.human_attribute_name(:<%= attribute.column_name %>)) do |<%= singular_table_name %>| %>
       <%%= <%= singular_table_name %>.<%= attribute.name %> %>
     <%% end %>
   <% end -%>
