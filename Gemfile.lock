@@ -232,6 +232,10 @@ GEM
       bigdecimal
       rake (>= 13)
     hashie (5.0.0)
+    hotwire-livereload (2.0.0)
+      actioncable (>= 7.0.0)
+      listen (>= 3.0.0)
+      railties (>= 7.0.0)
     htmlbeautifier (1.4.3)
     htmlentities (4.3.4)
     i18n (1.14.7)
@@ -633,6 +637,7 @@ DEPENDENCIES
   formulaic
   friendly_id (~> 5.2)
   geocoder
+  hotwire-livereload
   image_processing (~> 1.2)
   importmap-rails (~> 2.0)
   jbuilder
@@ -758,6 +763,7 @@ CHECKSUMS
   google-protobuf (4.29.3-x86_64-darwin) sha256=2d1051fd88ca2c7f6a09d2f12feabe8ded7b13f049799423b62d83ee88f968b4
   google-protobuf (4.29.3-x86_64-linux) sha256=4ac194b06c59559457ce1d1d57d03760b50e009dbcfe5ef065a1af48ce4a2d0e
   hashie (5.0.0) sha256=9d6c4e51f2a36d4616cbc8a322d619a162d8f42815a792596039fc95595603da
+  hotwire-livereload (2.0.0) sha256=8ebdc603f92f8dc8e61ad6f263567a0e41b1d2a43b2a4fb462f75db7f3d47c96
   htmlbeautifier (1.4.3) sha256=b43d08f7e2aa6ae1b5a6f0607b4ed8954c8d4a8e85fd2336f975dda1e4db385b
   htmlentities (4.3.4) sha256=125a73c6c9f2d1b62100b7c3c401e3624441b663762afa7fe428476435a673da
   i18n (1.14.7) sha256=ceba573f8138ff2c0915427f1fc5bdf4aa3ab8ae88c8ce255eb3ecf0a11a5d0f
