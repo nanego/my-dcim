@@ -37,9 +37,7 @@ class Breadcrumb
     @steps.each(&)
   end
 
-  def last
-    @steps.last
-  end
+  delegate :last, to: :@steps
 
   def to_title(with_root: true)
     steps = @steps.reverse
