@@ -2,10 +2,11 @@
 
 module Form
   class ActionsComponent < ApplicationComponent
-    def initialize(form)
+    def initialize(form, display_create_another_one: true)
       @form = form
       @is_edit = form.object.persisted?
       @is_new = !@is_edit
+      @display_create_another_one = display_create_another_one
 
       super
     end
@@ -14,7 +15,7 @@ module Form
       cancel_url = @is_edit ? @form.object : polymorphic_path(@form.object.class)
 
       tag.div class: "col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top" do
-        concat(render_another_one_checkbox)
+        concat(render_another_one_checkbox) if @display_create_another_one
         concat(link_to(t("action.cancel"), cancel_url, class: "btn btn-outline-secondary me-2"))
         concat(@form.submit(class: class_names("btn", "btn-info": @is_edit, "btn-success": @is_new)))
       end
