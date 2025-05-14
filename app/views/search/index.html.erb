@@ -7,35 +7,36 @@
   <turbo-frame id="search_results">
     <% if @results.any? %>
       <ul class="list-group">
-        <% @results.servers.each do |server| %>
-          <%= link_to server_path(server), data: { turbo_frame: "_top" } do %>
+        <% @results.each do |record| %>
+          <% if record.is_a? Server %>
+            <%= link_to server_path(record), data: { turbo_frame: "_top" } do %>
               <li class="list-group-item d-flex align-items-start">
                 <i class="bi bi-hdd me-3" style="font-size: 2rem;"></i>
                 <div>
-                  <h5><%= server.name %></h5>
-                  <%= server.modele&.name_with_brand %>
+                  <h5><%= record.name %></h5>
+                  <%= record.modele&.name_with_brand %>
                 </div>
               </li>
             <% end %>
-        <% end %>
-        <% @results.frames.each do |frame| %>
-          <%= link_to frame_path(frame), data: { turbo_frame: "_top" } do %>
+          <% else %>
+            <%= link_to frame_path(record), data: { turbo_frame: "_top" } do %>
               <li class="list-group-item d-flex align-items-start">
                 <i class="bi bi-geo-alt me-3" style="font-size: 2rem;"></i>
                 <div>
-                  <h5><%= frame.name %></h5>
-                  <%= frame.name_with_room_and_islet %>
+                  <h5><%= record.name %></h5>
+                  <%= record.name_with_room_and_islet %>
                 </div>
               </li>
             <% end %>
+          <% end %>
         <% end %>
       </ul>
     <% else %>
       <p><%= t('.no_results_found') %></p>
     <% end %>
-  <% end %>
   </turbo-frame>
 </div>
+<% end %>
 
 <script>
   // Focus on the first list item or at the end of the search input field if no results
