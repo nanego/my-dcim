@@ -1,4 +1,4 @@
-# frozen_string_literal: truegd
+# frozen_string_literal: true
 
 class ServerFrameView < ApplicationRecord
   self.primary_key = :id
