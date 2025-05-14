@@ -179,6 +179,10 @@
           <%= server.decorated.network_types_to_human %>
         <% end %>
 
+        <% table.with_column(Server.human_attribute_name(:position), name: :position, sort_by: :position) do |server| %>
+          <%= server.position %>
+        <% end %>
+
         <% table.with_column(Gestion.model_name.human, name: :gestion_id) do |server| %>
           <%= link_to server.gestion, gestion_path(server.gestion), data: { turbo_frame: :_top } if server.gestion %>
         <% end %>
@@ -197,10 +201,6 @@
 
         <% table.with_column(Stack.model_name.human, name: :stack_id) do |server| %>
           <%= link_to server.stack, stack_path(server.stack), data: { turbo_frame: :_top } if server.stack %>
-        <% end %>
-
-        <% table.with_column(Server.human_attribute_name(:position), name: :position, sort_by: :position) do |server| %>
-          <%= server.position %>
         <% end %>
 
         <% table.with_column(Server.human_attribute_name(:slug), name: :slug, sort_by: :slug) do |server| %>
