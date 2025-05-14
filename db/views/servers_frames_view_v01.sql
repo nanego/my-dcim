@@ -1,21 +1,25 @@
-select
-  id,
-  name,
-  numero,
-  (select name from modeles m where m.id = modele_id) as modele_name,
-  NULL as islet_name,
-  NULL as room_name,
-  'Server' as record_type
-from servers
+SELECT
+  s.id,
+  s.name,
+  s.numero,
+  mo.name AS modele_name,
+  m.name AS manufacturer_name,
+  NULL AS islet_name,
+  NULL AS room_name,
+  'Server' AS record_type
+FROM servers s
+LEFT JOIN modeles mo ON mo.id = s.modele_id
+LEFT JOIN manufacturers m ON m.id = mo.manufacturer_id
 
 UNION ALL
 
-select
-  id,
-  name,
+SELECT
+  f.id,
+  f.name,
   NULL,
   NULL,
-  (select name from islets i where i.id = f.id) as islet_name,
-  (select name from rooms r where r.id = f.id) as room_name,
-  'Frame' as record_type
-from frames f;
+  NULL,
+  (SELECT name FROM islets i WHERE i.id = f.id LIMIT 1) AS islet_name,
+  (SELECT name FROM rooms r WHERE r.id = f.id LIMIT 1) AS room_name,
+  'Frame' AS record_type
+FROM frames f;
