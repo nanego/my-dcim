@@ -5,6 +5,7 @@ en:
       domaine: Domain
       gestion: Manager
       move: Planned move
+      moves_project: Moves projects
       server: I.T. equipment
       islet: Islet
       bay: Bay
@@ -30,6 +31,8 @@ en:
       modele:
         category_id: Category
         category: Category
+      move_project:
+        name: Name
       move:
         moveable_id: Equipment to move
         frame_id: Destination bay
