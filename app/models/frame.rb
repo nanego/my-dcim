@@ -20,18 +20,6 @@ class Frame < ApplicationRecord
 
   scope :sorted, -> { order(:position) }
 
-  scope :search, lambda { |query|
-    return if query.blank?
-
-    joins(bay: { islet: { room: :site } }).where(
-      'frames.name ILIKE :query OR
-        islets.name ILIKE :query OR
-        rooms.name ILIKE :query OR
-        sites.name ILIKE :query',
-      query: "%#{query}%"
-    )
-  }
-
   def to_s
     name.to_s
   end
