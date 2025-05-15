@@ -59,9 +59,13 @@ class GlpiClient
         attributes[:hard_drives] = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceHardDrive'] : {}
         attributes[:memories] = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceMemory'] : {}
         processors = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceProcessor'] : {}
-        attributes[:processors] = processors.each_value do |proc|
-          proc["designation"] = get_processor_designation_from_glpi(id: proc["deviceprocessors_id"])
-        end
+        attributes[:processors] = if processors.present?
+                                    processors.each_value do |proc|
+                                      proc["designation"] = get_processor_designation_from_glpi(id: proc["deviceprocessors_id"])
+                                    end
+                                  else
+                                    {}
+                                  end
 
         Computer.new(attributes)
       end
