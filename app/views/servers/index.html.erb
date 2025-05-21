@@ -191,6 +191,14 @@
           <%= link_to server.domaine, domaine_path(server.domaine), data: { turbo_frame: :_top } if server.domaine %>
         <% end %>
 
+        <% table.with_column(Modele.model_name.human, name: :modele_id) do |server| %>
+          <%= link_to server.modele.name, modele_path(server.modele), data: { turbo_frame: :_top } if server.modele %>
+        <% end %>
+
+        <% table.with_column(Server.human_attribute_name(:u), name: :u, sort_by: :"frame.u") do |server| %>
+          <%= server.frame.u %>
+        <% end %>
+
         <% table.with_column(Frame.model_name.human, name: :frame_id) do |server| %>
           <%= link_to server.frame, frame_path(server.frame), data: { turbo_frame: :_top } if server.frame %>
         <% end %>
