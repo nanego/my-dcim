@@ -130,7 +130,7 @@ RSpec.describe MovesProjectsController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete moves_project_path(moves_project)
+      delete moves_project_path(moves_projects(:empty))
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable

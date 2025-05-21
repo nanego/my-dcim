@@ -1,16 +1,17 @@
 <div class="row gy-4">
   <div class="col-12 col-lg-6">
-    <%= render FormErrorsComponent.new(@move) %>
+    <%= render FormErrorsComponent.new(move) %>
 
-    <%= form_for(@move, html: { class: "bg-body-tertiary p-4 rounded border moves_form server_form_fields",
-                                role: "form"
-                              }) do |f| %>
+    <%= form_with(
+      model: [moves_project_step, move],
+      html: { class: "bg-body-tertiary p-4 rounded border moves_form server_form_fields", role: "form" },
+    ) do |f| %>
       <div class="row g-3">
         <fieldset class="col-12">
-          <%= f.hidden_field :moveable_type, value: @move.moveable_type %>
+          <%= f.hidden_field :moveable_type, value: move.moveable_type %>
           <%= f.label :moveable_id, class: "form-label" %>
           <%= f.select :moveable_id,
-                      grouped_options_for_select(@all_servers_per_frame, { selected: @move.moveable_id }),
+                      grouped_options_for_select(@all_servers_per_frame, { selected: move.moveable_id }),
                       { include_blank: true },
                       {
                         onchange: "select_server(this.value);",
@@ -39,7 +40,7 @@
         <fieldset class="col-12 mt-4">
           <%= f.label :frame_id, class: "form-label" %>
           <%= f.select :frame_id,
-                       grouped_options_for_select(@all_frames_per_room, { selected: @move.frame_id }),
+                       grouped_options_for_select(@all_frames_per_room, { selected: move.frame_id }),
                        { include_blank: true },
                        {
                          onchange: "select_frame(this.value, 'front')",
@@ -51,8 +52,8 @@
         </fieldset>
 
         <div id="bay_size_container" class="col-12 mt-0">
-          <% if @move.frame %>
-            <%= render partial: "moves/select_bay_position", locals: { f: , move: @move, frame_size: @move.frame.u } %>
+          <% if move.frame %>
+            <%= render partial: "moves/select_bay_position", locals: { f: , move: move, frame_size: move.frame.u } %>
           <% end %>
         </div>
 
@@ -66,26 +67,26 @@
         </fieldset>
 
         <div class="col-12 mt-4 text-end">
-          <% submit_text = @move.persisted? ? t("action.edit") : t("action.create") %>
-          <%= f.submit submit_text, class: class_names("btn", "btn-info": @move.persisted?, "btn-success": !@move.persisted?) %>
+          <% submit_text = move.persisted? ? t("action.edit") : t("action.create") %>
+          <%= f.submit submit_text, class: class_names("btn", "btn-info": move.persisted?, "btn-success": !move.persisted?) %>
         </div>
       </div>
     <% end %>
   </div>
 
   <div class="col-12 col-lg-6" id="frame">
-    <% if @move.persisted? %>
-        <% @move.moveable.position = @move.position %>
+    <% if move.persisted? %>
+        <% move.moveable.position = move.position %>
         <%= render partial: "frames/show_frame",
                    locals: {
-                     frame: @move.frame,
-                     servers: (@move.frame.servers.where.not(id: @move.moveable) | [@move.moveable]).sort_by { |server|
+                     frame: move.frame,
+                     servers: (move.frame.servers.where.not(id: move.moveable) | [move.moveable]).sort_by { |server|
                        server.position.present? ? server.position : 0
                      }.reverse,
                      settings: Frame::DEFAULT_SETTINGS.merge({ min_height: 27 }),
                      view_type: "front",
                      editable: false,
-                     highlighted_servers: [@move.moveable],
+                     highlighted_servers: [move.moveable],
                      clickable_lines: true
                    }
         %>
@@ -96,7 +97,7 @@
 <script>
 $(document).ready(function(){
     loadPaletteColorPicker('[name="move[color]"]');
-    select_server(<%= @move.moveable_id %>);
+    select_server(<%= move.moveable_id %>);
 });
 
 function select_server(server_id){
@@ -104,7 +105,7 @@ function select_server(server_id){
       console.log("Selected server : " + JSON.stringify(server_id));
       $.ajax({
         method: "GET",
-        url: "<%= load_server_moves_path %>",
+        url: "<%= load_server_moves_project_step_moves_path(moves_project_step) %>",
         data: { server_id: server_id }
       }).done(function(){
         document.getElementById("servers_server_container").classList.remove("d-none");
@@ -121,7 +122,7 @@ function select_frame(frame_id, view){
       console.log("Selected frame : " + JSON.stringify(frame_id));
       $.ajax({
         method: "GET",
-        url: "<%= load_frame_moves_path %>",
+        url: "<%= load_server_moves_project_step_moves_path(moves_project_step) %>",
         data: { frame_id: frame_id, view: view }
       }).done(function(){
         // $('#frame').show();

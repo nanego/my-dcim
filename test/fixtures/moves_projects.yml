@@ -7,3 +7,8 @@ one:
 two:
   id: 2
   name: "B"
+
+# Should not have steps and moves
+empty:
+  id: 3
+  name: "C"
