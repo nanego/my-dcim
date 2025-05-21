@@ -1,5 +1,5 @@
 <%
-  breadcrumb.add(title = Color.model_name.human.pluralize)
+  breadcrumb.add_step(title = Color.model_name.human.pluralize)
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) %>

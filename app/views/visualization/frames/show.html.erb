@@ -1,16 +1,16 @@
 <%
 
   breadcrumb
-    .add(t("visualization.title"), overview_rooms_path)
-    .add(@room.name, ((@frame.present? || params[:islet].present?) ? visualization_room_path(@room, view: params[:view]) : ""))
+    .add_step(t("visualization.title"), overview_rooms_path)
+    .add_step(@room.name, ((@frame.present? || params[:islet].present?) ? visualization_room_path(@room, view: params[:view]) : ""))
 
   if @frame.present? && @frame.bay.islet.name.present?
-    breadcrumb.add(t("layouts.breadcrumb.islet", name: @frame.bay.islet.name), visualization_room_path(@room, islet: @frame.bay.islet.name, view: params[:view]))
+    breadcrumb.add_step(t("layouts.breadcrumb.islet", name: @frame.bay.islet.name), visualization_room_path(@room, islet: @frame.bay.islet.name, view: params[:view]))
   elsif params[:islet].present?
-    breadcrumb.add(t("layouts.breadcrumb.islet", name: params[:islet]))
+    breadcrumb.add_step(t("layouts.breadcrumb.islet", name: params[:islet]))
   end
-  breadcrumb.add(t("layouts.breadcrumb.bay.double", name: @frame.bay), visualization_bay_path(@frame.bay_id, view: params[:view])) if @frame.has_coupled_frame?
-  breadcrumb.add(t("layouts.breadcrumb.bay.simple", name: @frame.name)) if @frame.present?
+  breadcrumb.add_step(t("layouts.breadcrumb.bay.double", name: @frame.bay), visualization_bay_path(@frame.bay_id, view: params[:view])) if @frame.has_coupled_frame?
+  breadcrumb.add_step(t("layouts.breadcrumb.bay.simple", name: @frame.name)) if @frame.present?
 
   title = "#{t("visualization.title")} #{t("layouts.breadcrumb.bay.simple", name: @frame.name)}"
 %>

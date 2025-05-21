@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Page::HeadingNewComponent, type: :component do
   let(:title) { "Title" }
-  let(:breadcrumb) { Breadcrumb.new.add("Sites", "#url_sites") }
+  let(:breadcrumb) { Breadcrumb.new.add_step("Sites", "#url_sites") }
   let(:resource) { sites(:one) }
   let(:component) { described_class.new(resource:, title:, breadcrumb:) }
   let(:rendered_component) { render_inline(component, &block).to_html }

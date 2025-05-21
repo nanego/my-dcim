@@ -2,6 +2,9 @@
 
 class ClustersController < ApplicationController
   before_action :set_cluster, only: %i[show edit update destroy]
+  before_action except: %i[index] do
+    breadcrumb.add_step(Cluster.model_name.human.pluralize, clusters_path)
+  end
 
   # GET /clusters
   # GET /clusters.json

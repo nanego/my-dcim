@@ -1,8 +1,4 @@
-<%
-  breadcrumb
-    .add(AirConditioner.model_name.human , air_conditioners_path)
-    .add(@air_conditioner)
-%>
+<% breadcrumb.add_step(@air_conditioner) %>
 
 <%= render Page::HeadingShowComponent.new(resource: @air_conditioner, title: @air_conditioner, breadcrumb:) %>
 <div class="col-12 p-4 border-top">

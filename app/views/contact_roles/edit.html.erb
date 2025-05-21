@@ -1,8 +1,7 @@
 <%
   breadcrumb
-    .add(ContactRole.model_name.human.pluralize, contact_roles_path)
-    .add(@contact_role, contact_role_path(@contact_role))
-    .add(t("action.edit"))
+    .add_step(@contact_role, contact_role_path(@contact_role))
+    .add_step(t("action.edit"))
 %>
 
 <%= render Page::HeadingEditComponent.new(resource: @contact_role, title: t(".title"), breadcrumb:) %>

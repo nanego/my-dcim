@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
-class MovesController < ApplicationController
+class MovesController < ApplicationController # rubocop:disable Metrics/ClassLength
   before_action :set_move, only: %i[show edit update destroy execute_movement]
   before_action :load_form_data, only: %i[new edit]
   before_action :set_frame_updated, only: %i[frame print]
+  before_action except: %i[index] do
+    breadcrumb.add_step(Move.model_name.human(count: 2), moves_path)
+  end
 
   def index
     @moves = Move.order(created_at: :asc)

@@ -1,8 +1,7 @@
 <%
   breadcrumb
-    .add(Islet.model_name.human.pluralize, islets_path)
-    .add(@islet.name_with_room, islet_path(@islet))
-    .add(t("action.edit"))
+    .add_step(@islet.name_with_room, islet_path(@islet))
+    .add_step(t("action.edit"))
 %>
 
 <%= render Page::HeadingEditComponent.new(

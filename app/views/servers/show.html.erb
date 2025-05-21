@@ -1,9 +1,7 @@
 <%
   title = "#{@server.modele.try(:category).try(:name)} #{@server.name}"
 
-  breadcrumb
-    .add(Server.model_name.human, servers_path)
-    .add(@server.name)
+  breadcrumb.add_step(@server.name)
 %>
 
 <%= render Page::HeadingShowComponent.new(resource: @server, title:, breadcrumb:) do |heading| %>

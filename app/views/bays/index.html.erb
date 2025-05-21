@@ -1,5 +1,5 @@
 <%
-  breadcrumb.add(title = t(".title"))
+  breadcrumb.add_step(title = t(".title"))
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
@@ -131,7 +131,11 @@
       <% table.with_column(style: "min-width: 132px; width: 132px") do |bay| %>
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
           <%= render partial: "bays/export_button", locals: { bay: bay } %>
-          <%= link_to visualization_bay_path(bay), class: "btn btn-primary", data: { turbo_frame: :_top } do %>
+          <% has_frame = bay.frames.any? %>
+          <%= link_to visualization_bay_path(bay),
+                      class: class_names("btn btn-primary", disabled: !has_frame),
+                      aria_disabled: !has_frame,
+                      data: { turbo_frame: :_top } do %>
             <span class="bi bi-diagram-3-fill"
                   aria-hidden="true"
                   data-controller="tooltip"

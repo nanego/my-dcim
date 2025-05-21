@@ -1,8 +1,4 @@
-<%
-  breadcrumb
-    .add(Modele.model_name.human.pluralize, modeles_path)
-    .add(@modele.name)
-%>
+<% breadcrumb.add_step(@modele.name) %>
 
 <%= render Page::HeadingShowComponent.new(resource: @modele, title: @modele, breadcrumb:) do |heading| %>
   <% heading.with_extra_buttons do %>

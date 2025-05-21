@@ -1,9 +1,9 @@
 <%
   breadcrumb
-    .add(@room.name, room_path(@room))
-    .add("Baie #{@frame.name}", frame_path(@frame))
-    .add(Connection.model_name.human.pluralize, cables_path)
-    .add(t("action.edit"))
+    .add_step(@room.name, room_path(@room))
+    .add_step(t("layouts.breadcrumb.bay.simple", name: @frame.name), frame_path(@frame))
+    .add_step(Connection.model_name.human.pluralize, cables_path)
+    .add_step(t("action.edit"))
 %>
 
 <%= render Page::HeadingComponent.new(
