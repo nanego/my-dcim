@@ -5,7 +5,11 @@ require "rails_helper"
 RSpec.describe MovesProject do
   # it_behaves_like "changelogable", new_attributes: {  }
 
-  subject(:move) { described_class.new(name: "A") }
+  subject(:move_project) { described_class.new(name: "A") }
+
+  describe "associations" do
+    it { is_expected.to have_many(:steps) }
+  end
 
   describe "validations" do
     it { is_expected.to be_valid }
@@ -14,6 +18,6 @@ RSpec.describe MovesProject do
   end
 
   describe "#to_s" do
-    it { expect(move.to_s).to eq("A") }
+    it { expect(move_project.to_s).to eq("A") }
   end
 end

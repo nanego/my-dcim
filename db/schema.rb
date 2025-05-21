@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_14_102256) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_14_144343) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -375,6 +375,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_14_102256) do
     t.index ["prev_frame_id"], name: "index_moves_on_prev_frame_id"
   end
 
+  create_table "moves_project_steps", force: :cascade do |t|
+    t.bigint "moves_project_id", null: false
+    t.string "name", null: false
+    t.integer "position", default: 1, null: false
+    t.date "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["moves_project_id"], name: "index_moves_project_steps_on_moves_project_id"
+  end
+
   create_table "moves_projects", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -530,6 +540,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_14_102256) do
   add_foreign_key "modeles", "manufacturers"
   add_foreign_key "moves", "frames"
   add_foreign_key "moves", "frames", column: "prev_frame_id"
+  add_foreign_key "moves_project_steps", "moves_projects"
   add_foreign_key "rooms", "sites"
   add_foreign_key "servers", "clusters"
   add_foreign_key "servers", "gestions"
