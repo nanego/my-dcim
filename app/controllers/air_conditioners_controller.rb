@@ -27,7 +27,7 @@ class AirConditionersController < ApplicationController
 
     respond_to do |format|
       if @air_conditioner.save
-        format.html { redirect_to @air_conditioner, notice: t(".flashes.created") }
+        format.html { redirect_to create_another_one_path(@air_conditioner), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @air_conditioner }
       else
         format.html { render :new, status: :unprocessable_entity }

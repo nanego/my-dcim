@@ -31,7 +31,7 @@ class DomainesController < ApplicationController
 
     respond_to do |format|
       if @domaine.save
-        format.html { redirect_to @domaine, notice: t(".flashes.created") }
+        format.html { redirect_to create_another_one_path(@domaine), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @domaine }
       else
         format.html { render :new }

@@ -26,7 +26,7 @@ class SitesController < ApplicationController
 
     respond_to do |format|
       if @site.save
-        format.html { redirect_to @site, notice: t(".flashes.created") }
+        format.html { redirect_to create_another_one_path(@site), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @site }
       else
         format.html { render :new }
