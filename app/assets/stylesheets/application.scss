@@ -749,6 +749,11 @@ body {
 
     &-links {
       &-item {
+        display: flex;
+        align-items: baseline;
+        gap: 0.3rem;
+        justify-content: space-between;
+
         .mydcim-sidebar-links-create {
           visibility: hidden;
         }
