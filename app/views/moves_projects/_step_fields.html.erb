@@ -1,18 +1,19 @@
 <div class="nested-form-wrapper list-group-item"
     data-new-record="<%= f.object.new_record? %>"
     data-sortable-item>
-  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-    <div class="row g-2">
-      <%= f.hidden_field :position, class: "form-control", data: { sortable_field: true } %>
 
-      <span class="col-12 mt-2 col-md-3 col-xl-2 mt-md-0">
-        <%= f.label :name, class: "form-label col-form-label-sm p-0" %>
+  <%= f.hidden_field :position, class: "form-control", data: { sortable_field: true } %>
+  
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+    <div class="row g-3">
+      <fieldset class="col-md-6 col-12">
+        <%= f.label :name, class: "form-label" %>
         <%= f.text_field :name, class: "form-control" %>
-      </span>
-      <span class="col-12 mt-2 col-md-3 col-xl-2 mt-md-0">
-        <%= f.label :date, class: "form-label col-form-label-sm p-0" %>
+      </fieldset>
+      <fieldset class="col-md-6 col-12">
+        <%= f.label :date, class: "form-label" %>
         <%= f.date_field :date, class: "form-control" %>
-      </span>
+      </fieldset>
     </div>
 
     <% card.with_footer do %>
