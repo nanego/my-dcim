@@ -1,9 +1,7 @@
 <%
   title = @user.name || @user.email
 
-  breadcrumb
-    .add(User.model_name.human.pluralize, users_url)
-    .add(title)
+  breadcrumb.add_step(title)
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:, back_button_url: users_path) %>

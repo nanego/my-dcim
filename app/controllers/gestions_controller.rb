@@ -2,6 +2,9 @@
 
 class GestionsController < ApplicationController
   before_action :set_gestion, only: %i[show edit update destroy]
+  before_action except: %i[index] do
+    breadcrumb.add_step(Gestion.model_name.human.pluralize, gestions_path)
+  end
 
   # GET /gestions
   # GET /gestions.json

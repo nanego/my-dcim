@@ -1,5 +1,5 @@
 <%
-  breadcrumb.add(title = Architecture.model_name.human.pluralize)
+  breadcrumb.add_step(title = Architecture.model_name.human.pluralize)
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>

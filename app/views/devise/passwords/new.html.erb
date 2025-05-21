@@ -1,4 +1,6 @@
-<h1 class="mb-3 h3 fw-normal text-center"><%= t(".forgot_your_password") %></h1>
+<% breadcrumb.add_step(title = t(".forgot_your_password")) %>
+
+<h1 class="mb-3 h3 fw-normal text-center"><%= title %></h1>
 <%= render FormErrorsComponent.new(resource) %>
 <%= form_for(resource, as: resource_name, url: password_path(resource_name),
                                           html: { role: "form", method: :post }) do |f| %>

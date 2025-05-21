@@ -1,8 +1,7 @@
 <%
   breadcrumb
-    .add(Server.model_name.human, servers_path)
-    .add(t("external_app_records.index.title"), external_app_records_path)
-    .add(t("action.configure"))
+    .add_step(t("external_app_records.index.title"), external_app_records_path)
+    .add_step(t("action.configure"))
 %>
 
 <%= render Page::HeadingComponent.new(

@@ -2,6 +2,9 @@
 
 class AirConditionersController < ApplicationController
   before_action :set_air_conditioner, only: %i[show edit update destroy]
+  before_action except: %i[index] do
+    breadcrumb.add_step(AirConditioner.model_name.human, air_conditioners_path)
+  end
 
   def index
     @air_conditioners = AirConditioner.joins(bay: { islet: :room })

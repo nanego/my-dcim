@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class ExternalAppRecordsController < ApplicationController
+  before_action do
+    breadcrumb.add_step(Server.model_name.human, servers_path)
+  end
+
   def index
     @external_app_records = ExternalAppRecord.includes(server: :frame).order("servers.name")
     @filter = ProcessorFilter.new(@external_app_records, params)

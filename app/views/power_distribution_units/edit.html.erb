@@ -1,8 +1,7 @@
 <%
   breadcrumb
-    .add(t("power_distribution_units.index.title"), power_distribution_units_path) # TODO: prefer use ActiveRecord translation of Modele name
-    .add(@pdu.name, power_distribution_unit_path(@pdu))
-    .add(t("action.edit"))
+    .add_step(@pdu.name, power_distribution_unit_path(@pdu))
+    .add_step(t("action.edit"))
 %>
 
 <%= render Page::HeadingComponent.new(

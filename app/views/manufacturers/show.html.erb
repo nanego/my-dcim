@@ -1,8 +1,4 @@
-<%
-  breadcrumb
-    .add(Manufacturer.model_name.human.pluralize, manufacturers_path)
-    .add(@manufacturer.name)
-%>
+<% breadcrumb.add_step(@manufacturer.name) %>
 
 <%= render Page::HeadingShowComponent.new(resource: @manufacturer, title: @manufacturer.name, breadcrumb:) %>
 <div class="col-12 p-4 border-top">

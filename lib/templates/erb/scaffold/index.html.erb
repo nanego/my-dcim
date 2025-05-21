@@ -1,5 +1,5 @@
 <%%
-  breadcrumb.add(title = <%= singular_table_name.classify %>.model_name.human.pluralize)
+  breadcrumb.add_step(title = <%= singular_table_name.classify %>.model_name.human.pluralize)
 %>
 
 <%%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>

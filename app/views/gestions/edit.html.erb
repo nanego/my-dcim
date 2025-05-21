@@ -1,8 +1,7 @@
 <%
   breadcrumb
-    .add(Gestion.model_name.human.pluralize, gestions_path)
-    .add(@gestion, gestion_path(@gestion))
-    .add(t("action.edit"))
+    .add_step(@gestion, gestion_path(@gestion))
+    .add_step(t("action.edit"))
 %>
 
 <%= render Page::HeadingEditComponent.new(resource: @gestion, title: t(".title"), breadcrumb:) %>

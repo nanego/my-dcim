@@ -1,8 +1,7 @@
 <%
   breadcrumb
-    .add(Modele.model_name.human.pluralize, modeles_path)
-    .add(@modele, modele_path(@modele))
-    .add(t("action.edit"))
+    .add_step(@modele, modele_path(@modele))
+    .add_step(t("action.edit"))
 %>
 
 <%= render Page::HeadingEditComponent.new(resource: @modele, title: t(".title"), breadcrumb:) %>

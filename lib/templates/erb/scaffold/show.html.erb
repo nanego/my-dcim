@@ -1,7 +1,7 @@
 <%%
   breadcrumb
-    .add(<%= singular_table_name.classify %>.model_name.human.pluralize, <%= plural_table_name %>_path)
-    .add(title = @<%= singular_table_name %>)
+    .add_step(<%= singular_table_name.classify %>.model_name.human.pluralize, <%= plural_table_name %>_path)
+    .add_step(title = @<%= singular_table_name %>)
 %>
 
 <%%= render Page::HeadingShowComponent.new(resource: @<%= singular_table_name %>, title:, breadcrumb:) %>

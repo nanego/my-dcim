@@ -4,6 +4,9 @@ class ModelesController < ApplicationController
   include ModelesHelper
 
   before_action :set_modele, only: %i[show edit update destroy]
+  before_action except: %i[index] do
+    breadcrumb.add_step(Modele.model_name.human.pluralize, modeles_path)
+  end
 
   def index
     @modeles = Modele.includes(:category, :enclosures).order(:name)

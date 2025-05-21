@@ -1,8 +1,4 @@
-<%
-  breadcrumb
-    .add(Cluster.model_name.human.pluralize, clusters_path)
-    .add(@cluster)
-%>
+<% breadcrumb.add_step(@cluster) %>
 
 <%= render Page::HeadingShowComponent.new(resource: @cluster, title: @cluster.name, breadcrumb:) %>
 <div class="col-12 p-4 border-top">

@@ -7,8 +7,8 @@
   title = "#{@room.name} #{@islet ? " #{Islet.model_name.human} #{@islet}" : "" }"
 
   breadcrumb
-    .add(t("visualization.title"), overview_rooms_path)
-    .add(title.dup)
+    .add_step(t("visualization.title"), overview_rooms_path)
+    .add_step(title.dup)
 
   title = t("visualization.title") + " " + title
 %>

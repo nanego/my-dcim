@@ -1,5 +1,5 @@
 <%
-  breadcrumb.add(title = MovesProject.model_name.human.pluralize)
+  breadcrumb.add_step(title = MovesProject.model_name.human.pluralize)
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
@@ -17,7 +17,7 @@
     <% table.with_column(MovesProject.human_attribute_name(:name)) do |moves_project| %>
       <%= moves_project.name %>
     <% end %>
-  
+
     <% table.with_column(style: "min-width: 70px; width: 70px") do |moves_project| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= link_to edit_moves_project_path(moves_project), class: "btn btn-info" do %>

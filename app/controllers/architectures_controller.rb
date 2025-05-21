@@ -2,6 +2,9 @@
 
 class ArchitecturesController < ApplicationController
   before_action :set_architecture, only: %i[show edit update destroy]
+  before_action except: %i[index] do
+    breadcrumb.add_step(Architecture.model_name.human.pluralize, architectures_path)
+  end
 
   # GET /architectures
   # GET /architectures.json

@@ -1,8 +1,4 @@
-<%
-  breadcrumb
-    .add(Move.model_name.human(count: 2), moves_path)
-    .add("#{Bay.model_name.human} #{@frame}")
-%>
+<% breadcrumb.add_step("#{Bay.model_name.human} #{@frame}") %>
 
 <%= render Page::HeadingComponent.new(
   title: t(".title", frame: @frame), breadcrumb:, back_button_url: moves_path

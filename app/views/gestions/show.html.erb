@@ -1,8 +1,4 @@
-<%
-  breadcrumb
-    .add(Gestion.model_name.human.pluralize, gestions_path)
-    .add(@gestion)
-%>
+<% breadcrumb.add_step(@gestion) %>
 
 <%= render Page::HeadingShowComponent.new(resource: @gestion, title: @gestion.name, breadcrumb:) %>
 <div class="col-12 p-4 border-top">

@@ -1,8 +1,8 @@
 <%%
   breadcrumb
-    .add(<%= singular_table_name.classify %>.model_name.human.pluralize, <%= plural_table_name %>_path)
-    .add(@<%= singular_table_name %>, <%= singular_table_name %>_path(@<%= singular_table_name %>))
-    .add(t("action.edit"))
+    .add_step(<%= singular_table_name.classify %>.model_name.human.pluralize, <%= plural_table_name %>_path)
+    .add_step(@<%= singular_table_name %>, <%= singular_table_name %>_path(@<%= singular_table_name %>))
+    .add_step(t("action.edit"))
 %>
 
 <%%= render Page::HeadingEditComponent.new(resource: @<%= singular_table_name %>, title: t(".title"), breadcrumb:) %>

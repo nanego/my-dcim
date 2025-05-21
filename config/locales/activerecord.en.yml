@@ -2,16 +2,57 @@ en:
   activerecord:
     models:
       air_conditioner: Air conditioner
+      air_conditioner_model: Air conditioner model
+      architecture: Architecture
+      bay: Bay
+      cable: Cable
+      card: Card
+      card_type: Card type
+      category: Category
+      changelog_entry: Changelog
+      cluster: Cluster
+      color: Color
+      connection: Connection
+      contact: Contact
+      contact_assignment: Assignment
+      contact_role: Role
       domaine: Domain
+      enclosure: Enclosure
+      frame: Frame
       gestion: Manager
+      islet: Islet
+      manufacturer: Manufacturer
+      modele: Model
       move: Planned move
       moves_project: Moves projects
-      server: I.T. equipment
-      islet: Islet
-      bay: Bay
-      frame: Frame
+      port_type: Port type
       room: Room
+      server: I.T. equipment
+      stack: Stack
+      user: User
+
     attributes:
+      bay:
+        access_control: Access control
+        depth: Depth
+        lane: Lane
+        name: Name
+        position: Position
+        width: Width
+        room: Room
+        islet: Islet
+        materials_count:
+          zero: 0 equipment
+          one: 1 equipment
+          other: "%{count} equipments"
+        bay_frames:
+          one: "%{bay}"
+          other: Double bay %{bay}
+        islet_id: Room and islet
+        bay_type_id: Bay type
+        manufacturer_id: Manufacturer
+        frame_id: Frame
+        server_id: I.T. Equipment
       enclosure/display:
         grid: Grid
         horizontal: Horizontal
@@ -60,14 +101,6 @@ en:
         photo: Photo
         span: Slots
         bay_id: Bay
-      bay:
-        name: Name
-        room: Room
-        islet: Islet
-        frame_id: Frame
-        lane: Lane
-        position: Position
-        server_id: I.T. Equipment
       theme: Theme
       user/locale:
         en: English

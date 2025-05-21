@@ -1,4 +1,6 @@
-<h1 class="mb-3 h3 fw-normal text-center"><%= t(".sign_up") %></h1>
+<% breadcrumb.add_step(title = t(".sign_up")) %>
+
+<h1 class="mb-3 h3 fw-normal text-center"><%= title %></h1>
 <%= render FormErrorsComponent.new(resource) %>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { role: "form" }) do |f| %>
   <fieldset class="form-floating">

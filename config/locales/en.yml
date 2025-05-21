@@ -1,4 +1,10 @@
 en:
+  access_control:
+    badge: Badge
+    key: Key
+    locken_key: Locken key
+    blank: No control
+
   action:
     apply: Apply
     edit: Update
@@ -19,6 +25,30 @@ en:
     move: Move
     preview: Preview
     configure: Configure
+
+  bays:
+    index:
+      new_bay: Add a single or double bay
+      title: Bays and double bays
+      delete_confirmation: This bay cannot be deleted as long as it is associated with at least one frame. Would you like to continue?
+    new:
+      title: New bay
+    create:
+      flashes:
+        created: The bay has been added.
+    show:
+      title: Bay %{type} %{frames}
+    edit:
+      title: Update the bay
+    update:
+      flashes:
+        updated: The bay has been updated.
+    destroy:
+      flashes:
+        destroyed: The bay has been removed.
+    decorator:
+      no_frame_warning_text: Please enter a frame for this bay
+    empty: Empty bay
 
   boolean:
     true: Yes
@@ -77,7 +107,10 @@ en:
         server_name: Material's name
         external_app_record_frame_ids: Location
         external_serial_status: Synchronization
+        islet_ids: Islet
+        manufacturer_ids: Manufacturer
         modele_ids: Model
+        room_ids: Room
     placeholder:
       search: Search...
       quicksearch: Quick search
@@ -301,6 +334,11 @@ en:
     flashes:
       connections_destroyed: Connections have been deleted.
       connections_not_destroyed: An error prevented the connections from being deleted.
+
+  servers_grids:
+    index:
+      title: Search for equipment
+
   show:
     cards:
       display: Display

@@ -36,7 +36,7 @@ fr:
       move:
         one: Déplacement prévu
         other: Déplacements prévus
-      moves_project: Projects de déplacements
+      moves_project: Projets de déplacements
       contact: Contact
       contact_role: Rôle
       contact_assignment: Assignation
@@ -316,16 +316,16 @@ fr:
         position: Position
         width: Largeur
         materials_count:
-          zero: 0 serveur
-          one: 1 serveur
-          other: "%{count} serveurs"
+          zero: 0 matériel
+          one: 1 matériel
+          other: "%{count} matériels"
         bay_frames:
           one: "%{bay}"
           other: Double baie %{bay}
-        islet_id: Salle et Ilot
         bay_type_id: Type de baie
         manufacturer_id: Constructeur
-        islet_id: Ilot
+        islet: Ilot
+        islet_id: Salle et Ilot
         room_id: Salle
         server_id: Matériel
         frame_id: Châssis
