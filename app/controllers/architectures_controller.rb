@@ -31,7 +31,7 @@ class ArchitecturesController < ApplicationController
 
     respond_to do |format|
       if @architecture.save
-        format.html { redirect_to @architecture, notice: t(".flashes.created") }
+        format.html { redirect_to create_another_one_path(@architecture), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @architecture }
       else
         format.html { render :new }

@@ -32,7 +32,7 @@ class CategoriesController < ApplicationController
 
     respond_to do |format|
       if @category.save
-        format.html { redirect_to @category, notice: t(".flashes.created") }
+        format.html { redirect_to create_another_one_path(@category), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @category }
       else
         format.html { render :new }

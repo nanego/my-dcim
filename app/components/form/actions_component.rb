@@ -2,7 +2,7 @@
 
 module Form
   class ActionsComponent < ApplicationComponent
-    def initialize(form, display_create_another_one: true)
+    def initialize(form, display_create_another_one: false)
       @form = form
       @is_edit = form.object.persisted?
       @is_new = !@is_edit
