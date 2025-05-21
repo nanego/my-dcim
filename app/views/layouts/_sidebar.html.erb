@@ -13,35 +13,50 @@
           <%= t(".location.title") %>
         </strong>
         <ul class="list-unstyled fw-normal pb-2 small">
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to Site.model_name.human.pluralize,
                         sites_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "sites") %>
+              <%= link_to new_site_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+                <span class="bi bi-plus"></span>
+              <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to Room.model_name.human.pluralize,
                         rooms_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                           active: controller.controller_name == "rooms" && !hide_inventories_sidebar?) %>
+            <%= link_to new_room_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus"></span>
+            <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to Islet.model_name.human.pluralize,
                         islets_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "islets") %>
+            <%= link_to new_islet_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus"></span>
+            <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to t(".location.bays"),
                         bays_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "bays") %>
+            <%= link_to new_bay_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus"></span>
+            <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to Frame.model_name.human.pluralize,
                         frames_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "frames") %>
+            <%= link_to new_frame_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus"></span>
+            <% end %>
           </li>
         </ul>
       </li>

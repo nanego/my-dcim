@@ -748,6 +748,16 @@ body {
     }
 
     &-links {
+      &-item {
+        .mydcim-sidebar-links-create {
+          visibility: hidden;
+        }
+
+        &:hover .mydcim-sidebar-links-create {
+          visibility: visible;
+        }
+      }
+
       &-link {
         padding: .1875rem .5rem;
         margin-top: .125rem;
