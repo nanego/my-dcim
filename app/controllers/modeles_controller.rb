@@ -46,7 +46,7 @@ class ModelesController < ApplicationController
           format.html { redirect_to modele_path(@modele), notice: t(".flashes.created") }
           format.json { render :show, status: :created, location: @modele }
         else
-          format.html { render :new }
+          format.html { render :new, status: :unprocessable_entity }
           format.json { render json: @modele.errors, status: :unprocessable_entity }
         end
       end
@@ -66,7 +66,7 @@ class ModelesController < ApplicationController
           format.html { redirect_to modele_path(@modele), notice: t(".flashes.updated") }
           format.json { render :show, status: :ok, location: @modele }
         else
-          format.html { render :edit }
+          format.html { render :edit, status: :unprocessable_entity }
           format.json { render json: @modele.errors, status: :unprocessable_entity }
         end
       end
