@@ -39,19 +39,24 @@ RSpec.describe "ContactsController" do
 
   describe "#create" do
     context "with valid parameters" do
-      let(:valid_attributes) do
-        contact.attributes.except("id").merge("first_name" => "John", "last_name" => "Doe")
+      subject(:response) do
+        post contacts_path, params: params
+
+        # NOTE: used to simplify usage and custom test done in final spec file.
+        @response # rubocop:disable RSpec/InstanceVariable
       end
+
+      let(:params) { { contact: contact.attributes.except("id").merge("first_name" => "John", "last_name" => "Doe") } }
+
+      it_behaves_like "with create another one"
 
       it "creates a new Contact" do
         expect do
-          post contacts_path, params: { contact: valid_attributes }
+          response
         end.to change(Contact, :count).by(1)
       end
 
       it "redirects to the created contact" do
-        post contacts_path, params: { contact: valid_attributes }
-
         expect(response).to redirect_to(contact_path(assigns(:contact)))
       end
     end

@@ -79,6 +79,8 @@ RSpec.describe "/servers" do
   end
 
   describe "POST /create" do
+    it_behaves_like "with create another one"
+
     context "with valid parameters" do
       let(:valid_attributes) do
         server.attributes.except(%w[id numero name]).merge(numero: "new_numero", name: "NewServerName")
