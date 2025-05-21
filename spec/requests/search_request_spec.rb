@@ -15,16 +15,15 @@ RSpec.describe "SearchController" do
         get search_path, params: { query: 'A' }, headers: { 'ACCEPT' => 'text/html' }
 
         expect(response).to have_http_status(:ok)
-        expect(assigns(:results)[:servers]).to include(servers(:one))
-        expect(assigns(:results)[:frames]).to include(frames(:one))
+        expect(assigns(:results).pluck(:id)).to include(servers(:one).id)
+        expect(assigns(:results).pluck(:id)).to include(frames(:one).id)
       end
 
       it "returns no results when query does not match any object" do
         get search_path, params: { query: 'UnknownSever' }
 
         expect(response).to have_http_status(:ok)
-        expect(assigns(:results)[:servers]).to be_empty
-        expect(assigns(:results)[:frames]).to be_empty
+        expect(assigns(:results)).to be_empty
       end
     end
 
@@ -33,8 +32,7 @@ RSpec.describe "SearchController" do
         get search_path
 
         expect(response).to have_http_status(:ok)
-        expect(assigns(:results)[:servers]).to be_empty
-        expect(assigns(:results)[:frames]).to be_empty
+        expect(assigns(:results)).to be_empty
       end
     end
   end

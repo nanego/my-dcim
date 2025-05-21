@@ -3,32 +3,29 @@
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
+
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <turbo-frame id="search_results">
-    <% if @results[:servers].any? || @results[:frames].any? %>
+    <% if @results.any? %>
       <ul class="list-group">
-        <% if @results[:frames].any? %>
-          <% @results[:frames].each do |frame| %>
-            <%= link_to frame_path(frame), data: { turbo_frame: "_top" } do %>
-              <li class="list-group-item d-flex align-items-start">
-                <i class="bi bi-geo-alt me-3" style="font-size: 2rem;"></i>
-                <div>
-                  <h5><%= frame.name %></h5>
-                  <%= frame.name_with_room_and_islet %>
-                </div>
-              </li>
-            <% end %>
-          <% end %>
-        <% end %>
-
-        <% if @results[:servers].any? %>
-          <% @results[:servers].each do |server| %>
-            <%= link_to server_path(server), data: { turbo_frame: "_top" } do %>
+        <% @results.each do |record| %>
+          <% if record.is_a? Server %>
+            <%= link_to server_path(record), data: { turbo_frame: "_top" } do %>
               <li class="list-group-item d-flex align-items-start">
                 <i class="bi bi-hdd me-3" style="font-size: 2rem;"></i>
                 <div>
-                  <h5><%= server.name %></h5>
-                  <%= server.modele.name_with_brand %>
+                  <h5><%= record.name %></h5>
+                  <%= record.modele&.name_with_brand %>
+                </div>
+              </li>
+            <% end %>
+          <% else %>
+            <%= link_to frame_path(record), data: { turbo_frame: "_top" } do %>
+              <li class="list-group-item d-flex align-items-start">
+                <i class="bi bi-geo-alt me-3" style="font-size: 2rem;"></i>
+                <div>
+                  <h5><%= record.name %></h5>
+                  <%= record.name_with_room_and_islet %>
                 </div>
               </li>
             <% end %>

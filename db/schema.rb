@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_06_110910) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_07_150024) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -484,8 +484,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_110910) do
     t.datetime "invitation_sent_at", precision: nil
     t.datetime "invitation_accepted_at", precision: nil
     t.integer "invitation_limit"
-    t.string "invited_by_type"
     t.integer "invited_by_id"
+    t.string "invited_by_type"
     t.integer "invitations_count", default: 0
     t.string "authentication_token", limit: 30
     t.datetime "suspended_at"
@@ -529,4 +529,34 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_06_110910) do
   add_foreign_key "servers", "gestions"
   add_foreign_key "servers", "modeles"
   add_foreign_key "servers", "stacks"
+
+  create_view "servers_frames_view", sql_definition: <<-SQL
+      SELECT s.id,
+      s.name,
+      s.numero,
+      mo.name AS modele_name,
+      m.name AS manufacturer_name,
+      NULL::character varying AS islet_name,
+      NULL::character varying AS room_name,
+      'Server'::text AS record_type
+     FROM ((servers s
+       LEFT JOIN modeles mo ON ((mo.id = s.modele_id)))
+       LEFT JOIN manufacturers m ON ((m.id = mo.manufacturer_id)))
+  UNION ALL
+   SELECT f.id,
+      f.name,
+      NULL::character varying AS numero,
+      NULL::character varying AS modele_name,
+      NULL::character varying AS manufacturer_name,
+      ( SELECT i.name
+             FROM islets i
+            WHERE (i.id = f.id)
+           LIMIT 1) AS islet_name,
+      ( SELECT r.name
+             FROM rooms r
+            WHERE (r.id = f.id)
+           LIMIT 1) AS room_name,
+      'Frame'::text AS record_type
+     FROM frames f;
+  SQL
 end
