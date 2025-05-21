@@ -322,10 +322,10 @@ fr:
         bay_frames:
           one: "%{bay}"
           other: Double baie %{bay}
-        islet_id: Salle et Ilot
         bay_type_id: Type de baie
         manufacturer_id: Constructeur
-        islet_id: Ilot
+        islet: Ilot
+        islet_id: Salle et Ilot
         room_id: Salle
         server_id: Matériel
         frame_id: Châssis

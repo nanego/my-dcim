@@ -39,6 +39,8 @@ en:
         name: Name
         position: Position
         width: Width
+        room: Room
+        islet: Islet
         materials_count:
           zero: 0 equipment
           one: 1 equipment
@@ -48,7 +50,9 @@ en:
           other: Double bay %{bay}
         islet_id: Room and islet
         bay_type_id: Bay type
-        manufacturer_id: manufacturer
+        manufacturer_id: Manufacturer
+        frame_id: Frame
+        server_id: I.T. Equipment
       enclosure/display:
         grid: Grid
         horizontal: Horizontal
@@ -97,14 +101,6 @@ en:
         photo: Photo
         span: Slots
         bay_id: Bay
-      bay:
-        name: Name
-        room: Room
-        islet: Islet
-        frame_id: Frame
-        lane: Lane
-        position: Position
-        server_id: I.T. Equipment
       theme: Theme
       user/locale:
         en: English
