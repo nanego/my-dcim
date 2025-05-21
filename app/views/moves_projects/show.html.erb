@@ -1,6 +1,6 @@
 <%
   breadcrumb
-    .add_step(MovesProject.model_name.human.pluralize, moves_projects_path)
+    .add_step(MovesProject.model_name.human(count: 2), moves_projects_path)
     .add_step(title = @moves_project)
 %>
 
