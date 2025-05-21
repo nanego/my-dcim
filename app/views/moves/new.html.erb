@@ -1,7 +1,10 @@
 <% breadcrumb.add_step(t("action.create")) %>
 
-<%= render Page::HeadingNewComponent.new(resource: @move, title: t(".title"), breadcrumb:) %>
+<%= render Page::HeadingNewComponent.new(
+  resource: @move, title: t(".title"), breadcrumb:,
+  back_button_url: moves_project_path(@moves_project_step.moves_project),
+) %>
 
 <div class="col-12 p-4 border-top">
-  <%= render "form" %>
+  <%= render partial: "form", locals: { move: @move, moves_project_step: @moves_project_step } %>
 </div>

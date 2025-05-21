@@ -11,17 +11,38 @@ RSpec.describe Page::HeadingNewComponent, type: :component do
 
   let(:block) { nil }
 
-  it "renders a back button" do # rubocop:disable RSpec/ExampleLength
-    expect(rendered_component).to have_tag("div.col-12.bg-body") do
-      with_tag("div.back-button-container") do
-        with_tag("a.btn.back-button", title: "Retour", href: "http://test.host/sites") do
-          with_tag("span.bi-chevron-left")
-          with_tag("span.ms-2", text: "Retour")
+  context "without back_button_url specified" do
+    it do # rubocop:disable RSpec/ExampleLength
+      expect(rendered_component).to have_tag("div.col-12.bg-body") do
+        with_tag("div.back-button-container") do
+          with_tag("a.btn.back-button", title: "Retour", href: "http://test.host/sites") do
+            with_tag("span.bi-chevron-left")
+            with_tag("span.ms-2", text: "Retour")
+          end
+        end
+
+        with_tag("div.d-flex") do
+          with_tag("h1", text: "Title")
         end
       end
+    end
+  end
 
-      with_tag("div.d-flex") do
-        with_tag("h1", text: "Title")
+  context "with back_button_url specified" do
+    let(:component) { described_class.new(resource:, title:, breadcrumb:, back_button_url: "/bays") }
+
+    it do # rubocop:disable RSpec/ExampleLength
+      expect(rendered_component).to have_tag("div.col-12.bg-body") do
+        with_tag("div.back-button-container") do
+          with_tag("a.btn.back-button", title: "Retour", href: "/bays") do
+            with_tag("span.bi-chevron-left")
+            with_tag("span.ms-2", text: "Retour")
+          end
+        end
+
+        with_tag("div.d-flex") do
+          with_tag("h1", text: "Title")
+        end
       end
     end
   end

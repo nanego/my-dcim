@@ -7,17 +7,6 @@
 <%= render Page::HeadingShowComponent.new(resource: @moves_project, title:, breadcrumb:) %>
 
 <div class="col-12 p-4 border-top">
-  <div class="col-12 col-lg-6">
-    <%= render CardComponent.new do |card| %>
-      <dl class="show-page_dl d-grid row-gap-2 mb-0">
-        <% %i[name].each do |attribute_name| %>
-          <dt class="pb-2"><%= MovesProject.human_attribute_name(attribute_name) %> :</dt>
-          <dd class="mb-0 pb-2 ps-3"><%= @moves_project.public_send(attribute_name) %></dd>
-        <% end %>
-      </dl>
-    <% end %>
-  </div>
-
   <% @moves_project.steps.each do |moves_project_step| %>
     <div class="col-12 pt-4">
       <%= render CardComponent.new do |card| %>
@@ -25,7 +14,14 @@
           <h4><%= moves_project_step.name %></h4>
         <% end %>
 
-        <p>Déplacements prévues (à venir)</p>
+        <%= turbo_frame_tag(dom_id(Move, :table), loading: :lazy, src: moves_project_step_moves_path(moves_project_step)) do %>
+          <div class="w-100 d-flex justify-content-center align-items-center gap-3">
+            <span role="status"><%= t("has_many_turbo_frame_component.loading") %></span>
+            <span class="spinner-grow text-<%= @type %>" aria-hidden="true"></span>
+          </div>
+        <% end %>
+
+        <%= link_to "Nouveau déplacement", new_moves_project_step_move_path(moves_project_step) %>
       <% end %>
     </div>
   <% end %>

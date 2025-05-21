@@ -9,6 +9,7 @@ RSpec.describe MovesProject do
 
   describe "associations" do
     it { is_expected.to have_many(:steps) }
+    it { is_expected.to have_many(:moves).through(:steps) }
   end
 
   describe "validations" do
