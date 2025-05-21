@@ -216,6 +216,8 @@ en:
     destroy:
       flashes:
         destroyed: The project has been removed.
+    form:
+      add_step: Add a step
 
   power_distribution_units:
     index:

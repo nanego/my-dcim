@@ -359,6 +359,9 @@ fr:
         vlans: Vlans
       moves_project:
         name: Nom
+        date: Date
+      moves_project_step:
+        name: Nom
       move:
         moveable_id: Équipement à déplacer
         frame_id: Baie de destination

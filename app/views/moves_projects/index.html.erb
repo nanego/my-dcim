@@ -15,7 +15,7 @@
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render List::DataTableComponent.new(@moves_projects) do |table| %>
     <% table.with_column(MovesProject.human_attribute_name(:name)) do |moves_project| %>
-      <%= moves_project.name %>
+      <%= link_to moves_project.name, moves_project_path(moves_project) %>
     <% end %>
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |moves_project| %>

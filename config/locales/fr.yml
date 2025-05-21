@@ -562,11 +562,10 @@ fr:
     moved_connection_form:
       action:
         delete: Supprimer cette connexion
-
   moves_projects:
     index:
       new_moves_project: Nouveau projet
-      delete_confirmation: Êtes-vous sûr de vouloir supprimer ce project ?
+      delete_confirmation: Êtes-vous sûr de vouloir supprimer ce projet ?
     new:
       title: Nouveau projet
     create:
@@ -580,6 +579,8 @@ fr:
     destroy:
       flashes:
         destroyed: Le projet a été supprimé.
+    form:
+      add_step: Ajouter une étape
 
   devise:
     registrations:

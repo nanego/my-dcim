@@ -50,7 +50,15 @@ RSpec.describe MovesProjectsController do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    let(:valid_attributes) { { name: "A" } }
+    let(:valid_attributes) do
+      {
+        name: "A",
+        steps_attributes: [
+          { name: "1", position: "1" },
+          { name: "2", position: "2" },
+        ]
+      }
+    end
     let(:params) { { moves_project: valid_attributes } }
 
     include_context "with authenticated user"

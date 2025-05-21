@@ -66,6 +66,11 @@ class MovesProjectsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def moves_project_params
-    params.expect(moves_project: [:name])
+    params.expect(
+      moves_project: [
+        :name,
+        { steps_attributes: [%i[name position date _destroy id]] },
+      ]
+    )
   end
 end

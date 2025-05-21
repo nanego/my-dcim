@@ -5,8 +5,39 @@
       <%= f.label :name, class: "form-label" %>
       <%= f.text_field :name, class: "form-control" %>
     </fieldset>
-    
   <% end %>
+
+  <fieldset data-controller="nested-form" class="col-12">
+    <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+      <div class="row g-3">
+        <template data-nested-form-target="template">
+          <%= f.fields_for :steps, f.object.steps.klass.new,
+                                        child_index: "__NEW_RECORD__" do |step_fields| %>
+            <%= render partial: "step_fields", locals: { f: step_fields } %>
+          <% end %>
+        </template>
+
+        <%= f.fields_for :steps do |step_fields| %>
+          <%= render partial: "step_fields", locals: { f: step_fields } %>
+        <% end %>
+
+        <div data-nested-form-target="target"></div>
+      </div>
+      <div class="modal fade" tabindex="-1" id="previewModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content" id="ts_modele_form_preview"></div>
+        </div>
+      </div>
+
+      <% card.with_footer do %>
+        <span class="mx-auto">
+          <button type="button" class="btn btn-outline-success btn-sm" data-action="nested-form#add">
+            <span class="bi bi-plus-lg" aria-hidden="true"></span> <%= t(".add_step") %>
+          </button>
+        </span>
+      <% end %>
+    <% end %>
+  </fieldset>
 
   <%= render Form::ActionsComponent.new(f) %>
 <% end %>
