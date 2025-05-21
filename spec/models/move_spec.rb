@@ -16,6 +16,8 @@ RSpec.describe Move do
 
   describe "validations" do
     it { is_expected.to be_valid }
+
+    it { is_expected.to validate_presence_of(:position) }
   end
 
   describe "#clear_connections" do

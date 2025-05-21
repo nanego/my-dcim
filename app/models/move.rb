@@ -8,6 +8,8 @@ class Move < ApplicationRecord
   belongs_to :frame
   belongs_to :prev_frame, class_name: "Frame"
 
+  validates :position, presence: true
+
   attr_accessor :remove_connections
 
   def clear_connections
