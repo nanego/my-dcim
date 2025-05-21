@@ -5,9 +5,9 @@ require 'rails_helper'
 RSpec.describe MovesProjectStep do
   # it_behaves_like "changelogable", new_attributes: {  }
 
-  subject(:move_project_step) { described_class.new(name: "A", move_project:) }
+  subject(:move_project_step) { described_class.new(name: "A", moves_project:) }
 
-  let(:move_project) { described_class.new(name: "A") }
+  let(:moves_project) { MovesProject.new(name: "A") }
 
   describe "associations" do
     it { is_expected.to belong_to(:moves_project) }
