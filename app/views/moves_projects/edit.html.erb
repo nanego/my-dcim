@@ -1,0 +1,11 @@
+<%
+  breadcrumb
+    .add(MovesProject.model_name.human.pluralize, moves_projects_path)
+    .add(@moves_project, moves_project_path(@moves_project))
+    .add(t("action.edit"))
+%>
+
+<%= render Page::HeadingEditComponent.new(resource: @moves_project, title: t(".title"), breadcrumb:) %>
+<div class="col-12 p-4 border-top">
+  <%= render "form" %>
+</div>

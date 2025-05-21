@@ -1,0 +1,11 @@
+<%
+  breadcrumb
+    .add(MovesProject.model_name.human.pluralize, moves_projects_path)
+    .add(t("action.create"))
+%>
+
+<%= render Page::HeadingNewComponent.new(resource: @moves_project, title: t(".title"), breadcrumb:) %>
+
+<div class="col-12 p-4 border-top">
+  <%= render "form" %>
+</div>

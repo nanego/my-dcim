@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  root to: "pages#index"
+
   resources :air_conditioners
 
+  resources :moves_projects
   resources :moves do
     member do
       get :execute, to: 'moves#execute_movement'
@@ -109,7 +112,6 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: 'pages#index'
   get :about, to: 'pages#about'
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks',
                                     registrations: 'users/registrations',
