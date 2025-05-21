@@ -79,21 +79,25 @@ RSpec.describe "/servers" do
   end
 
   describe "POST /create" do
-    it_behaves_like "with create another one"
-
     context "with valid parameters" do
-      let(:valid_attributes) do
-        server.attributes.except(%w[id numero name]).merge(numero: "new_numero", name: "NewServerName")
+      subject(:response) do
+        post servers_path, params: params
+
+        # NOTE: used to simplify usage and custom test done in final spec file.
+        @response # rubocop:disable RSpec/InstanceVariable
       end
+
+      let(:params) { { server: server.attributes.except(%w[id numero name]).merge(numero: "new_numero", name: "NewServerName") } }
+
+      it_behaves_like "with create another one"
 
       it "creates a new Server" do
         expect do
-          post servers_path, params: { server: valid_attributes }
+          response
         end.to change(Server, :count).by(1)
       end
 
       it "redirects to the created server" do
-        post servers_path, params: { server: valid_attributes }
         expect(response).to redirect_to(server_path(assigns(:server)))
       end
     end
