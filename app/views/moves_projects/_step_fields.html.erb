@@ -1,0 +1,29 @@
+<div class="nested-form-wrapper list-group-item"
+    data-new-record="<%= f.object.new_record? %>">
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+    <div class="row g-2">
+      <span class="col-12 mt-2 col-md-3 col-xl-2 mt-md-0">
+        <%= f.label MovesProjectStep.human_attribute_name(:name), class: "form-label col-form-label-sm p-0" %>
+        <%= f.text_field :name, class: "form-control" %>
+      </span>
+      <span class="col-12 mt-2 col-md-3 col-xl-2 mt-md-0">
+        <%= f.label MovesProjectStep.human_attribute_name(:position), class: "form-label col-form-label-sm p-0" %>
+        <%= f.number_field :position, class: "form-control" %>
+      </span>
+      <span class="col-12 mt-2 col-md-3 col-xl-2 mt-md-0">
+        <%= f.label MovesProjectStep.human_attribute_name(:date), class: "form-label col-form-label-sm p-0" %>
+        <%= f.date_field :date, class: "form-control" %>
+      </span>
+    </div>
+
+    <% card.with_footer do %>
+      <span class="ms-auto">
+        <%= f.hidden_field :_destroy %>
+        <button type="button" data-action="nested-form#remove" class="btn btn-danger btn-sm float-end">
+          <span class="bi bi-trash me-1"></span>
+          <span><%= t("action.delete") %></span>
+        </button>
+      </span>
+    <% end %>
+  <% end %>
+</div>

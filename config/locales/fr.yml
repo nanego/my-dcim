@@ -545,6 +545,14 @@ fr:
     destroy:
       flashes:
         destroyed: Le projet a été supprimé.
+    form:
+      add_step: Ajouter une étape
+  moves_project_steps:
+    index:
+      new_moves_project_step: Nouvelle étape
+      delete_confirmation: Êtes-vous sûr de vouloir supprimer cette étape ?
+    new:
+      title: Nouvelle étape
   moves:
     index:
       new_move: Prévoir un nouveau déplacement

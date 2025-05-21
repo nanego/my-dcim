@@ -5,6 +5,7 @@
 %>
 
 <%= render Page::HeadingShowComponent.new(resource: @moves_project, title:, breadcrumb:) %>
+
 <div class="col-12 p-4 border-top">
   <div class="col-12 col-lg-6">
     <%= render CardComponent.new do |card| %>
@@ -16,5 +17,18 @@
       </dl>
     <% end %>
   </div>
+
+  <% @moves_project.steps.each do |moves_project_step| %>
+    <div class="col-12 pt-4">
+      <%= render CardComponent.new do |card| %>
+        <% card.with_header do %>
+          <h4><%= moves_project_step.name %></h4>
+        <% end %>
+
+        <p>Déplacements prévues (à venir)</p>
+      <% end %>
+    </div>
+  <% end %>
+
   <%= render ChangelogEntries::ObjectListComponent.new(@moves_project) %>
 </div>
