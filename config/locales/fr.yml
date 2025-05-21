@@ -528,25 +528,6 @@ fr:
         destroyed: Frame a bien été supprimé.
     network:
       title: Vue réseau
-  moves_projects:
-    index:
-      new_moves_project: Nouveau projet
-      delete_confirmation: Êtes-vous sûr de vouloir supprimer ce projet ?
-    new:
-      title: Nouveau projet
-    create:
-      flashes:
-        created: Le projet a été créé avec succès.
-    edit:
-      title: Edition de projet
-    update:
-      flashes:
-        updated: Le projet a été mis à jour.
-    destroy:
-      flashes:
-        destroyed: Le projet a été supprimé.
-    form:
-      add_step: Ajouter une étape
   moves:
     index:
       new_move: Prévoir un nouveau déplacement
@@ -581,6 +562,25 @@ fr:
     moved_connection_form:
       action:
         delete: Supprimer cette connexion
+  moves_projects:
+    index:
+      new_moves_project: Nouveau projet
+      delete_confirmation: Êtes-vous sûr de vouloir supprimer ce projet ?
+    new:
+      title: Nouveau projet
+    create:
+      flashes:
+        created: Le projet a été créé avec succès.
+    edit:
+      title: Edition de projet
+    update:
+      flashes:
+        updated: Le projet a été mis à jour.
+    destroy:
+      flashes:
+        destroyed: Le projet a été supprimé.
+    form:
+      add_step: Ajouter une étape
 
   devise:
     registrations:

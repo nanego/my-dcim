@@ -164,26 +164,6 @@ en:
     decorator:
       no_enclosure: No Enclosure
 
-  moves_projects:
-    index:
-      new_moves_project: New project
-      delete_confirmation: Are you sure you wan to destroy this project?
-    new:
-      title: New project
-    create:
-      flashes:
-        created: The project was successfully created.
-    edit:
-      title: Edit projet
-    update:
-      flashes:
-        updated: The project has been updated.
-    destroy:
-      flashes:
-        destroyed: The project has been removed.
-    form:
-      add_step: Add a step
-
   moves:
     index:
       new_move: Plan a new move
@@ -218,6 +198,26 @@ en:
     moved_connection_form:
       action:
         delete: Delete this connection
+
+  moves_projects:
+    index:
+      new_moves_project: New project
+      delete_confirmation: Are you sure you wan to destroy this project?
+    new:
+      title: New project
+    create:
+      flashes:
+        created: The project was successfully created.
+    edit:
+      title: Edit projet
+    update:
+      flashes:
+        updated: The project has been updated.
+    destroy:
+      flashes:
+        destroyed: The project has been removed.
+    form:
+      add_step: Add a step
 
   power_distribution_units:
     index:
