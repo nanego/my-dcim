@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
 
   def create_another_one_path(default_path)
     if params[:create_another_one].present?
-      request.referer || root_path
+      url_for(action: :new) || root_path
     else
       default_path
     end
