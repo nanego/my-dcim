@@ -531,7 +531,7 @@ fr:
   moves_projects:
     index:
       new_moves_project: Nouveau projet
-      delete_confirmation: Êtes-vous sûr de vouloir supprimer ce project ?
+      delete_confirmation: Êtes-vous sûr de vouloir supprimer ce projet ?
     new:
       title: Nouveau projet
     create:
