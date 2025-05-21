@@ -8,6 +8,7 @@ RSpec.describe Move do
   subject(:move) { described_class.new(moveable: Server.new, frame: Frame.new, prev_frame: Frame.new) }
 
   describe "associations" do
+    it { is_expected.to belong_to(:step) }
     it { is_expected.to belong_to(:moveable) }
     it { is_expected.to belong_to(:prev_frame) }
     it { is_expected.to belong_to(:frame) }

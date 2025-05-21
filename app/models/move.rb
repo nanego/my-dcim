@@ -3,6 +3,7 @@
 class Move < ApplicationRecord
   has_changelog
 
+  belongs_to :step, class_name: "MovesProjectStep", foreign_key: :moves_project_step_id, inverse_of: :moves
   belongs_to :moveable, polymorphic: true
   belongs_to :frame
   belongs_to :prev_frame, class_name: "Frame"
@@ -26,10 +27,10 @@ class Move < ApplicationRecord
     equipment = moveable
     equipment.frame = frame
     equipment.position = position
+
     if equipment.save
-      if apply_connections
-        MovedConnection.per_servers([equipment]).map(&:execute_movement)
-      end
+      MovedConnection.per_servers([equipment]).map(&:execute_movement) if apply_connections
+
       delete
     end
   end

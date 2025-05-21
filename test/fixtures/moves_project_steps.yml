@@ -2,8 +2,10 @@
 
 one:
   id: 1
+  moves_project_id: 1
   name: "A"
 
 two:
   id: 2
+  moves_project_id: 2
   name: "B"
