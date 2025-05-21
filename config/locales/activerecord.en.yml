@@ -72,7 +72,10 @@ en:
       modele:
         category_id: Category
         category: Category
-      move_project:
+      moves_project:
+        name: Name
+        date: Date
+      moves_project_step:
         name: Name
       move:
         moveable_id: Equipment to move
