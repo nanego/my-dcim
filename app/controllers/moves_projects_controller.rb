@@ -9,7 +9,9 @@ class MovesProjectsController < ApplicationController
   end
 
   # GET /moves_projects/1 or /moves_projects/1.json
-  def show; end
+  def show
+    @frames = (@moves_project.moves.map(&:frame) | @moves_project.moves.map(&:prev_frame)).compact.uniq
+  end
 
   # GET /moves_projects/new
   def new

@@ -532,10 +532,10 @@ fr:
   moves:
     index:
       new_move: Prévoir un nouveau déplacement
-      delete_confirmation: Voulez-vous vraiment supprimer ce déplacement ?
-      execute_confirmation: Voulez-vous vraiment appliquer ce déplacement ?
       frame_table_title: Baies après déplacements
       edit_connections: Modifier les connexions
+      delete_confirmation: Voulez-vous vraiment supprimer ce déplacement ?
+      execute_confirmation: Voulez-vous vraiment appliquer ce déplacement ?
       action:
         execute_move: Déplacer le serveur et ses connexions
     new:
@@ -571,6 +571,8 @@ fr:
       new_moves_project: Nouveau projet
       delete_confirmation: Êtes-vous sûr de vouloir supprimer ce projet ?
     show:
+      frame_table_title: Baies après déplacements
+      edit_connections: Modifier les connexions
       execute_confirmation: Voulez-vous vraiment appliquer ces déplacements ?
       action:
         execute_step_moves: Déplacer le serveur et ses connexions
@@ -591,6 +593,10 @@ fr:
       add_step: Ajouter une étape
 
   moves_project_steps:
+    frame:
+      title: Baie %{frame} après déplacement
+      applied_moves: Déplacements appliqués
+      loading: CHARGEMENT EN COURS
     execute:
       flashes:
         executed: Les déplacements ont étés exécutés avec succès.
