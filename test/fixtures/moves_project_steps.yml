@@ -9,3 +9,13 @@ two:
   id: 2
   moves_project_id: 2
   name: "B"
+
+planned:
+  id: 3
+  moves_project_id: 3
+  name: "C"
+
+executed:
+  id: 4
+  moves_project_id: 4
+  name: "D"

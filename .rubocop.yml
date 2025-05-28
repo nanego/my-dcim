@@ -38,10 +38,10 @@ Metrics/AbcSize:
   Exclude:
     - "db/**/*.rb"
 
-# Metrics/BlockLength:
-#   Exclude:
-#     - "spec/**/*.rb"
-#     - "config/**/*.rb"
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*.rb"
+    - "config/**/*.rb"
 
 Metrics/MethodLength:
   Exclude:

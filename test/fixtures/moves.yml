@@ -15,3 +15,20 @@ two:
   position: 41
   frame_id: 1
   prev_frame_id: 3
+
+planned:
+  moves_project_step_id: 3
+  moveable_type: Server
+  moveable_id: 1
+  position: 41
+  frame_id: 1
+  prev_frame_id: 3
+
+executed:
+  moves_project_step_id: 4
+  moveable_type: Server
+  moveable_id: 1
+  position: 41
+  frame_id: 1
+  prev_frame_id: 3
+  executed_at: "2025-05-01 00:00:00"

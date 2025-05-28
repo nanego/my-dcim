@@ -532,10 +532,10 @@ fr:
   moves:
     index:
       new_move: Prévoir un nouveau déplacement
-      delete_confirmation: Voulez-vous vraiment supprimer ce déplacement ?
-      execute_confirmation: Voulez-vous vraiment appliquer ce déplacement ?
       frame_table_title: Baies après déplacements
       edit_connections: Modifier les connexions
+      delete_confirmation: Voulez-vous vraiment supprimer ce déplacement ?
+      execute_confirmation: Voulez-vous vraiment appliquer ce déplacement ?
       action:
         execute_move: Déplacer le serveur et ses connexions
     new:
@@ -551,9 +551,11 @@ fr:
     destroy:
       flashes:
         destroyed: Le déplacement a été supprimé.
-    execute_movement:
+        already_executed: Le déplacement a déjà été exécuté, impossible de supprimer.
+    execute:
       flashes:
         executed: Le déplacement a été exécuté avec succès.
+        already_executed: Le déplacement a déjà été exécuté.
     form:
       initial_bay: Baie de départ
     frame:
@@ -568,6 +570,12 @@ fr:
     index:
       new_moves_project: Nouveau projet
       delete_confirmation: Êtes-vous sûr de vouloir supprimer ce projet ?
+    show:
+      frame_table_title: Baies après déplacements
+      edit_connections: Modifier les connexions
+      execute_confirmation: Voulez-vous vraiment appliquer ces déplacements ?
+      action:
+        execute_step_moves: Déplacer le serveur et ses connexions
     new:
       title: Nouveau projet
     create:
@@ -583,6 +591,15 @@ fr:
         destroyed: Le projet a été supprimé.
     form:
       add_step: Ajouter une étape
+
+  moves_project_steps:
+    frame:
+      title: Baie %{frame} après déplacement
+      applied_moves: Déplacements appliqués
+      loading: CHARGEMENT EN COURS
+    execute:
+      flashes:
+        executed: Les déplacements ont étés exécutés avec succès.
 
   devise:
     registrations:

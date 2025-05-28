@@ -5,18 +5,25 @@ Rails.application.routes.draw do
 
   resources :air_conditioners
 
-  resources :moves_projects
+  resources :moves_projects do
+    resources :moves_project_steps, only: [] do
+      member do
+        get :frame, path: "/frames/:frame_id"
+        get :print, path: "/frames/:frame_id/print"
+        patch :execute
+      end
+    end
+  end
+
   resources :moves_project_steps, only: [] do
     resources :moves do
       member do
-        get :execute, to: 'moves#execute_movement'
+        patch :execute
       end
       collection do
         get :load_server
         get :load_frame
         get :load_connection
-        get "/frames/:frame_id", to: "moves#frame", as: :frame
-        get "/print/:frame_id", to: "moves#print", as: :print
         match "update_connection", to: "moves#update_connection", via: %i[patch post put]
       end
     end

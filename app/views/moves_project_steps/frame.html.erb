@@ -1,0 +1,91 @@
+<% breadcrumb.add_step("#{Bay.model_name.human} #{@frame}") %>
+
+<%= render Page::HeadingComponent.new(
+  title: t(".title", frame: @frame), breadcrumb:, back_button_url: moves_project_step_moves_path(@moves_project_step)
+) %>
+
+<div class="p-4 border-top d-flex flex-column row-gap-4">
+  <div class="card-islet">
+    <% if @room.present? %>
+      <div><h3>Salle <%= @room.name %> - Ilot <%= @frame.islet %></h3></div>
+    <% end %>
+    <div class="frames row g-4 p-0">
+      <div class="view-back col-12 col-lg-6">
+        <%= render partial: "frames/show_frame",
+                    locals: {
+                      frame: @frame,
+                      servers: @servers,
+                      settings: Frame::DEFAULT_SETTINGS.merge({ min_height: 20 }),
+                      editable: false,
+                      view_type: "back"
+                    }
+        %>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div id="moved_connection_form_loading" class="text-center text-bg-warning fw-bold pt-1">
+          <%= t(".loading") %>
+        </div>
+        <div class="moved_connection_form" id="connection_form"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <h3><%= t(".applied_moves") %></h3>
+    <table class="table table-striped table-bordered table-hover align-middle">
+      <tbody>
+      <%= content_tag_for(:tr, @moves) do |move| %>
+        <td>
+          <%= link_to "#{move.moveable.try(:modele).try(:category)} #{move.moveable} vers la baie #{move.frame}",
+                      edit_moves_project_step_move_path(move) %>
+        </td>
+        <td class="text-center" style="min-width: 50px; width: 50px;">
+          <%= link_to moves_project_step_move_path(move),
+                      method: :delete,
+                      data: { confirm: t("moves.index.delete_confirmation") },
+                      class: "btn btn-danger btn-sm" do %>
+            <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                        data-controller="tooltip"
+                                                                        data-bs-placement="left"></span>
+            <span class="visually-hidden"><%= t("action.delete") %></span>
+          <% end %>
+        </td>
+      <% end %>
+      <%= content_tag_for(:tr, @moved_connections) do |connection| %>
+        <td>
+          <%= "Connexion entre #{connection.port_from.server.try(:modele).try(:category)} #{connection.port_from.server} (port ##{connection.port_from_id}) et #{connection.port_to.try(:server).try(:modele).try(:category)} #{connection.port_to.try(:server)} (port ##{connection.port_to_id}) => vlans:#{connection.vlans} cablename:#{connection.cablename} couleur:#{connection.color}" %>
+        </td>
+        <td></td>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+    $('#moved_connection_form_loading').hide();
+    loadPaletteColorPicker('[name="move[color]"]');
+    $(".frame").on('click', '.port', function(e){
+        e.preventDefault();
+        loadConnectionForm(e.target.id);
+    });
+});
+
+function loadConnectionForm(port_id){
+    if(port_id != undefined && port_id != ''){
+        $('#moved_connection_form_loading').show();
+        console.log("Selected port : " + JSON.stringify(port_id));
+        $.ajax({
+            method: "GET",
+            url: "<%= load_server_moves_project_step_moves_path(@moves_project_step) %>",
+            data: { port_id: port_id }
+        }).done(function(){
+            $('.connection_form').show();
+            $('#moved_connection_form_loading').hide();
+        });
+    }else{
+        $('.connection_form').hide();
+    }
+}
+</script>

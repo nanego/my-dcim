@@ -25,7 +25,7 @@ class MovedConnectionTest < ActiveSupport::TestCase
     port_from = @connection.port_from
     refute port_from.cablename == @connection.cablename
 
-    @connection.execute_movement
+    @connection.execute!
 
     port_from.reload
     assert port_from.cable_name == @connection.cablename
