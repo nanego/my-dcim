@@ -5,6 +5,8 @@ class MovesProjectStep < ApplicationRecord
 
   belongs_to :moves_project
 
+  acts_as_list scope: :moves_project
+
   validates :name, presence: true
 
   def to_s
