@@ -201,12 +201,24 @@ RSpec.describe MovesController do
 
     it { expect(response).to have_http_status(:redirect) }
     it { expect(response).to redirect_to(moves_project_path(step)) }
-    it { expect { response ; move.reload }.to change(move, :executed_at).from(nil) }
+
+    it do
+      expect do
+        response
+        move.reload
+      end.to change(move, :executed_at).from(nil)
+    end
 
     context "when executed" do
       let(:move) { moves(:executed) }
 
-      it { expect { response ; move.reload }.not_to change(move, :executed_at) }
+      it do
+        expect do
+          response
+          move.reload
+        end.not_to change(move, :executed_at)
+      end
+
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(moves_project_path(step)) }
     end

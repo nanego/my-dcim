@@ -43,12 +43,12 @@ RSpec.describe Move do
   end
 
   describe "#executed?" do
-    it { expect(move.executed?).to eq(false) }
+    it { expect(move.executed?).to be(false) }
 
     context "when executed" do
       before { move.executed_at = Time.zone.now }
 
-      it { expect(move.executed?).to eq(true) }
+      it { expect(move.executed?).to be(true) }
     end
   end
 end

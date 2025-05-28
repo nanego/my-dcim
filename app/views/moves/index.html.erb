@@ -62,6 +62,7 @@
                         execute_moves_project_step_move_path(@moves_project_step, move),
                         title: t(".action.execute_move"),
                         data: {
+                          turbo: true,
                           turbo_method: :patch,
                           confirm: t(".execute_confirmation"),
                           controller: "tooltip",

@@ -29,10 +29,10 @@ RSpec.describe MovesProjectStep do
   end
 
   describe "#executed?" do
-    it { expect(moves_project_steps(:planned).executed?).to eq(false) }
+    it { expect(moves_project_steps(:planned).executed?).to be(false) }
 
     context "when executed" do
-      it { expect(moves_project_steps(:executed).executed?).to eq(true) }
+      it { expect(moves_project_steps(:executed).executed?).to be(true) }
     end
   end
 end
