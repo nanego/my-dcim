@@ -104,6 +104,7 @@ fr:
         frame: Châssis
         span: Slots
         u: Nb de U
+        u_used: U utilisés
       site:
         name: Nom
         description: Description

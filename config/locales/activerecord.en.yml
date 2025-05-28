@@ -104,6 +104,7 @@ en:
         photo: Photo
         span: Slots
         bay_id: Bay
+        u_used: U used
       theme: Theme
       user/locale:
         en: English
