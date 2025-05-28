@@ -17,7 +17,7 @@ Rails.application.routes.draw do
         get :load_connection
         get "/frames/:frame_id", to: "moves#frame", as: :frame
         get "/print/:frame_id", to: "moves#print", as: :print
-        match 'update_connection', to: 'moves#update_connection', via: %i[patch post put]
+        match "update_connection", to: "moves#update_connection", via: %i[patch post put]
       end
     end
   end

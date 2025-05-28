@@ -122,7 +122,7 @@ function select_frame(frame_id, view){
       console.log("Selected frame : " + JSON.stringify(frame_id));
       $.ajax({
         method: "GET",
-        url: "<%= load_server_moves_project_step_moves_path(moves_project_step) %>",
+        url: "<%= load_frame_moves_project_step_moves_path(moves_project_step) %>",
         data: { frame_id: frame_id, view: view }
       }).done(function(){
         // $('#frame').show();
