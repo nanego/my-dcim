@@ -7,7 +7,8 @@ export default class StepSortable extends Controller {
   connect() {
     this.sortable = Sortable.create(this.containerTarget, {
       animation: 150,
-      onEnd: this.reorder.bind(this)
+      onEnd: this.reorder.bind(this),
+      handle: ".step-position-handle"
     })
   }
 
