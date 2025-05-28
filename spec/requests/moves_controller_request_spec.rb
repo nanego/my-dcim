@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Moves" do
+RSpec.describe MovesController do
   let(:move) { moves(:one) }
   let(:step) { move.step }
 
@@ -174,9 +174,21 @@ RSpec.describe "Moves" do
 
     it { expect(response).to have_http_status(:redirect) }
     it { expect(response).to redirect_to(moves_project_path(step)) }
+
+    context "when executed" do
+      let(:move) { moves(:executed) }
+
+      it do
+        expect do
+          response
+        end.not_to change(Move, :count)
+      end
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_project_path(step)) }
+    end
   end
 
-  # TODO: fixme
   describe "GET #execute" do
     subject(:response) do
       patch execute_moves_project_step_move_path(step, move)
@@ -189,11 +201,14 @@ RSpec.describe "Moves" do
 
     it { expect(response).to have_http_status(:redirect) }
     it { expect(response).to redirect_to(moves_project_path(step)) }
+    it { expect { response ; move.reload }.to change(move, :executed_at).from(nil) }
 
-    it do
-      expect do
-        response
-      end.to change(Move, :count).by(-1)
+    context "when executed" do
+      let(:move) { moves(:executed) }
+
+      it { expect { response ; move.reload }.not_to change(move, :executed_at) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_project_path(step)) }
     end
   end
 
