@@ -214,7 +214,7 @@ en:
       flashes:
         created: The project was successfully created.
     edit:
-      title: Edit projet
+      title: Edit project
     update:
       flashes:
         updated: The project has been updated.

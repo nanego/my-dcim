@@ -973,6 +973,18 @@ body {
     }
   }
 
+  /* Bootstrap clean */
+  ul.list-group.nested-form-list {
+    .list-group-item:last-of-type {
+      border-bottom-right-radius: inherit;
+      border-bottom-left-radius: inherit;
+    }
+
+    .list-group-item:not(:first-child) {
+     	border-top-width: 0;
+    }
+  }
+
   /* Tom-Select */
   /* Fix for dark mode */
   .ts-dropdown, .ts-control, .ts-control input {

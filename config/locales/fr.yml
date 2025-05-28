@@ -579,7 +579,7 @@ fr:
       flashes:
         created: Le projet a été créé avec succès.
     edit:
-      title: Edition de projet
+      title: Modifier le projet
     update:
       flashes:
         updated: Le projet a été mis à jour.
