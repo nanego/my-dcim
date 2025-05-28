@@ -28,7 +28,7 @@ RSpec.describe MovedConnection do
     it { expect(moved_connection.cable_color).to eq moved_connection.color }
   end
 
-  describe "#execute_movement" do
+  describe "#execute!" do
     pending
   end
 

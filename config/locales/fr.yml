@@ -551,9 +551,11 @@ fr:
     destroy:
       flashes:
         destroyed: Le déplacement a été supprimé.
-    execute_movement:
+        already_executed: Le déplacement a déjà été exécuté, impossible de le supprimer.
+    execute:
       flashes:
         executed: Le déplacement a été exécuté avec succès.
+        already_executed: Le déplacement a déjà été exécuté.
     form:
       initial_bay: Baie de départ
     frame:
@@ -568,6 +570,10 @@ fr:
     index:
       new_moves_project: Nouveau projet
       delete_confirmation: Êtes-vous sûr de vouloir supprimer ce projet ?
+    show:
+      execute_confirmation: Voulez-vous vraiment appliquer ces déplacements ?
+      action:
+        execute_step_moves: Déplacer le serveur et ses connexions
     new:
       title: Nouveau projet
     create:
@@ -583,6 +589,11 @@ fr:
         destroyed: Le projet a été supprimé.
     form:
       add_step: Ajouter une étape
+
+  moves_project_steps:
+    execute:
+      flashes:
+        executed: Les déplacements ont été exécutés avec succès.
 
   devise:
     registrations:

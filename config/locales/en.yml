@@ -186,9 +186,15 @@ en:
     destroy:
       flashes:
         destroyed: The move has been removed.
-    execute_movement:
+        already_executed: The move has already been executed, it can't be removed.
+    execute:
       flashes:
         executed: The move was successfully executed.
+        already_executed: The move has already been executed.
+    show:
+      execute_confirmation: Do you really want to apply these moves?
+      action:
+        execute_step_moves: Move the servers and their connections
     form:
       initial_bay: Departure bay
     frame:
@@ -218,6 +224,11 @@ en:
         destroyed: The project has been removed.
     form:
       add_step: Add a step
+
+  moves_project_steps:
+    execute:
+      flashes:
+        executed: The moves was successfully executed.
 
   power_distribution_units:
     index:

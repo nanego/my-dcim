@@ -25,7 +25,7 @@ class MovesProjectsController < ApplicationController
 
     respond_to do |format|
       if @moves_project.save
-        format.html { redirect_to @moves_project, notice: t(".flashes.created") }
+        format.html { redirect_to moves_project_path(@moves_project), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @moves_project }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class MovesProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @moves_project.update(moves_project_params)
-        format.html { redirect_to @moves_project, notice: t(".flashes.updated") }
+        format.html { redirect_to moves_project_path(@moves_project), notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @moves_project }
       else
         format.html { render :edit, status: :unprocessable_entity }
