@@ -1,10 +1,11 @@
 <li class="nested-form-wrapper composant list-group-item d-flex align-items-center border-top-0 bg-transparent"
-    data-new-record="<%= f.object.new_record? %>">
-  <%= f.hidden_field :position %>
+    data-new-record="<%= f.object.new_record? %>"
+    data-sortable-item>
+  <%= f.hidden_field :position, data: { sortable_field: true } %>
 
   <span class="input-group input-group-sm">
     <% if f.object.enclosure&.persisted? %>
-      <span class="input-group-text">
+      <span class="input-group-text ui-sortable-handle">
         <span class="handle bi bi-arrows-vertical"></span>
       </span>
     <% end %>

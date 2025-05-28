@@ -1,34 +1,20 @@
-import { Controller } from "@hotwired/stimulus"
-import Sortable from "sortablejs"
+import SortableController from "./sortable_controller"
 
-const sortableOptions = {
-  handle: ".handle",
-  animation: 150,
-  filter: ".fitlered",
-  onEnd: function (evt) {
-    evt.to.querySelectorAll("li.composant").forEach((item, index) => {
-      item.querySelector("input[name*='[position]']").value = index + 1
-    });
-  },
-  onMove: function (evt) {
-    return evt.related.className.indexOf("filtered") === -1;
-  }
-}
+export default class EnclosureFields extends SortableController {
+  static targets = ["gridArea", "displayRadioButton"]
 
-export default class extends Controller {
-  static targets = ["sortableList", "gridArea", "displayRadioButton"]
+  connect(){
+    super.connect()
 
-  connect() {
-    this.sortable = Sortable.create(this.sortableListTarget, sortableOptions)
+    this.sortable.options.filter = ".filtered"
+    this.sortable.options.onMove = function (evt) {
+      return evt.related.className.indexOf("filtered") === -1;
+    }
 
     // Show grid area on page load
     this.displayRadioButtonTargets.forEach((radio) => {
       if (radio.checked) this.toggleGridTextArea(radio)
     })
-  }
-
-  disconnect() {
-    this.sortable.destroy()
   }
 
   displayValueChange(event) {

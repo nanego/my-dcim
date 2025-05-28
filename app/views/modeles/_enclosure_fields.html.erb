@@ -1,6 +1,5 @@
 <div class="nested-form-wrapper col-12 col-md-6 col-xxl-4"
-     data-new-record="<%= f.object.new_record? %>"
-     data-controller="enclosure-fields">
+     data-new-record="<%= f.object.new_record? %>">
   <div class="card enclosure-fields">
     <div class="card-header d-flex justify-content-between align-items-center">
       <h6 class="mb-0">
@@ -25,7 +24,7 @@
       </template>
 
       <div class="card-body">
-        <ul class="list-group bg-body-tertiary" data-enclosure-fields-target="sortableList">
+        <ul class="list-group bg-body-tertiary" data-controller="enclosure-fields" data-enclosure-fields-target="container">
           <li class="list-group-item bg-transparent filtered">
             <fieldset>
               <%= f.label :display, class:"form-check-label" %>
