@@ -193,7 +193,7 @@ en:
     show:
       execute_confirmation: Do you really want to apply these moves?
       action:
-        execute_step_moves: Move the servers and their connections
+        execute_step_moves: Move servers and their connections
     form:
       initial_bay: Departure bay
     frame:

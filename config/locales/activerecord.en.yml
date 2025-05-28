@@ -82,6 +82,9 @@ en:
         frame_id: Destination bay
         remove_connections: Delete all connections to this equipment?
         position: Position in bay
+        statuses:
+          executed: Executed
+          planned: Planned
       server:
         name: Name
         numero: Serial number

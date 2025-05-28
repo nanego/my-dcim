@@ -572,7 +572,7 @@ fr:
     show:
       execute_confirmation: Voulez-vous vraiment appliquer ces déplacements ?
       action:
-        execute_step_moves: Déplacer le serveur et ses connexions
+        execute_step_moves: Déplacer les serveurs et leurs connexions
     new:
       title: Nouveau projet
     create:

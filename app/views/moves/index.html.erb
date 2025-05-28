@@ -52,7 +52,7 @@
       <% end %>
 
      <% table.with_column(Move.human_attribute_name(:status)) do |move| %>
-        <%= move.status %>
+        <%= render move.decorated.status_to_badge_component %>
       <% end %>
 
       <% table.with_column(style: "min-width: 70px; width: 70px") do |move| %>
@@ -72,7 +72,9 @@
                         class: "btn btn-outline-primary",
                         aria: { hidden: true }
             %>
-            <%= link_to edit_moves_project_step_move_path(@moves_project_step, move), class: "btn btn-outline-info" do %>
+            <%= link_to edit_moves_project_step_move_path(@moves_project_step, move),
+                        class: "btn btn-outline-info",
+                        data: { turbo_frame: :_top } do %>
               <span class="bi bi-pencil"
                     title="<%= t("action.edit") %>"
                     aria-hidden="true"
