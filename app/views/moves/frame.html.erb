@@ -1,7 +1,7 @@
 <% breadcrumb.add_step("#{Bay.model_name.human} #{@frame}") %>
 
 <%= render Page::HeadingComponent.new(
-  title: t(".title", frame: @frame), breadcrumb:, back_button_url: moves_path
+  title: t(".title", frame: @frame), breadcrumb:, back_button_url: moves_project_step_moves_path(@moves_project_step)
 ) %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">

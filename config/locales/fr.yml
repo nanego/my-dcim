@@ -528,6 +528,7 @@ fr:
         destroyed: Frame a bien été supprimé.
     network:
       title: Vue réseau
+
   moves:
     index:
       new_move: Prévoir un nouveau déplacement
@@ -562,6 +563,7 @@ fr:
     moved_connection_form:
       action:
         delete: Supprimer cette connexion
+
   moves_projects:
     index:
       new_moves_project: Nouveau projet
