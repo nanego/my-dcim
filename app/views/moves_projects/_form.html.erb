@@ -17,9 +17,11 @@
           <% end %>
         </template>
 
+        <div data-controller="step-sortable" data-step-sortable-target="container">
         <%= f.fields_for :steps do |step_fields| %>
           <%= render partial: "step_fields", locals: { f: step_fields } %>
         <% end %>
+        </div>
 
         <div data-nested-form-target="target"></div>
       </div>
