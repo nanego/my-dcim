@@ -551,7 +551,7 @@ fr:
     destroy:
       flashes:
         destroyed: Le déplacement a été supprimé.
-        already_executed: Le déplacement a déjà été exécuté, impossible de supprimer.
+        already_executed: Le déplacement a déjà été exécuté, impossible de le supprimer.
     execute:
       flashes:
         executed: Le déplacement a été exécuté avec succès.
@@ -593,7 +593,7 @@ fr:
   moves_project_steps:
     execute:
       flashes:
-        executed: Les déplacements ont étés exécutés avec succès.
+        executed: Les déplacements ont été exécutés avec succès.
 
   devise:
     registrations:
