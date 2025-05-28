@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import Sortable from "sortablejs"
 
-export default class StepSortable extends Controller {
+export default class extends Controller {
   static targets = ["container"]
 
   connect() {
@@ -13,8 +13,8 @@ export default class StepSortable extends Controller {
   }
 
   reorder() {
-    this.containerTarget.querySelectorAll("[data-step-sortable-item]").forEach((item, index) => {
-      const positionField = item.querySelector("[data-position-field]")
+    this.containerTarget.querySelectorAll("[data-sortable-item]").forEach((item, index) => {
+      const positionField = item.querySelector("[data-sortable-field]")
       positionField.value = index + 1
     })
   }

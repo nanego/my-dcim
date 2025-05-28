@@ -1,9 +1,9 @@
 <div class="nested-form-wrapper list-group-item"
     data-new-record="<%= f.object.new_record? %>"
-    data-step-sortable-item>
+    data-sortable-item>
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <div class="row g-2">
-      <%= f.hidden_field :position, class: "form-control", data: { position_field: true } %>
+      <%= f.hidden_field :position, class: "form-control", data: { sortable_field: true } %>
 
       <span class="col-12 mt-2 col-md-3 col-xl-2 mt-md-0">
         <%= f.label :name, class: "form-label col-form-label-sm p-0" %>
