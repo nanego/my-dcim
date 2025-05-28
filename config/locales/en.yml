@@ -136,13 +136,12 @@ en:
       devices_dropdown:
         search_equipment: Search for equipment
         filter_by: "Filter by:"
-      projects_dropdown:
-        projects: Projects
-        moves: Planned moves
       visualization_dropdown:
         overview: Show all rooms
         capacity: Network capacity view
         infrastructure: Infrastructure view
+    header:
+      projects: Projects
     sidebar:
       location:
         title: Location

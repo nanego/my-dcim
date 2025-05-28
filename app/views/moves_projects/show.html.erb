@@ -6,14 +6,32 @@
 
 <%= render Page::HeadingShowComponent.new(resource: @moves_project, title:, breadcrumb:) %>
 
-<div class="col-12 p-4 border-top">
+<div class="col-12 pb-4 px-4 border-top">
   <% @moves_project.steps.each do |moves_project_step| %>
     <div class="col-12 pt-4">
-      <%= render CardComponent.new do |card| %>
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
         <% card.with_header do %>
-          <h4><%= moves_project_step %></h4>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="d-inline-flex align-items-center">
+              <h4><%= moves_project_step.name %></h4>
+              <% if date = moves_project_step.date %>
+                <span class="ms-3 small">
+                  <span class="bi bi-calendar-event"></span>
+                  <span class="fw-lighter me-2"><%= l(date) %></span>
+                </span>
+              <% end %>
+            </span>
+            <div class="small">
+              <%= link_to new_moves_project_step_move_path(moves_project_step),
+                          class: "link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" do %>
+                <span class="bi bi-plus-lg"></span>
+                <span><%= t("moves.new.title") %></span>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
 
-          <% if moves_project_step.moves.any? && !moves_project_step.executed? %>
+        <% if moves_project_step.moves.any? && !moves_project_step.executed? %>
             <%= link_to(
               t("action.execute"), execute_moves_project_moves_project_step_path(@moves_project, moves_project_step),
               title: t(".action.execute_step_moves"),
@@ -29,7 +47,6 @@
               aria: { hidden: true }
             ) %>
           <% end %>
-        <% end %>
 
         <%= turbo_frame_tag(dom_id(Move, :table), loading: :lazy, src: moves_project_step_moves_path(moves_project_step)) do %>
           <div class="w-100 d-flex justify-content-center align-items-center gap-3">
@@ -37,8 +54,6 @@
             <span class="spinner-grow text-<%= @type %>" aria-hidden="true"></span>
           </div>
         <% end %>
-
-        <%= link_to "Nouveau déplacement", new_moves_project_step_move_path(moves_project_step) %>
       <% end %>
     </div>
   <% end %>

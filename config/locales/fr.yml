@@ -70,13 +70,12 @@ fr:
       devices_dropdown:
         search_equipment: Rechercher un équipement
         filter_by: "Filtrer par :"
-      projects_dropdown:
-        projects: Projets
-        moves: Déplacements prévus
       visualization_dropdown:
         overview: Afficher toutes les salles
         capacity: Vue capacité réseau
         infrastructure: Vue infrastructure
+    header:
+      projects: Projets
     breadcrumb:
       home: Accueil
       bay:
