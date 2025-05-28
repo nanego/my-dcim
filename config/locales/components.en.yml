@@ -21,7 +21,7 @@ en:
   list:
     data_table_component:
       empty_table:
-        title: No data found!
+        title: No data found
       bulk:
         selected_elements: selected item(s)
   columns_preferences_dropdown_component:

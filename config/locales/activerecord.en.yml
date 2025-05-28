@@ -74,14 +74,17 @@ en:
         category: Category
       moves_project:
         name: Name
-        date: Date
       moves_project_step:
         name: Name
+        date: Planned on
       move:
         moveable_id: Equipment to move
         frame_id: Destination bay
         remove_connections: Delete all connections to this equipment?
         position: Position in bay
+        statuses:
+          executed: Executed
+          planned: Planned
       server:
         name: Name
         numero: Serial number

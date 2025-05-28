@@ -17,7 +17,7 @@ fr:
   list:
     data_table_component:
       empty_table:
-        title: Aucune donnée trouvée !
+        title: Aucune donnée trouvée
       bulk:
         selected_elements: élément(s) sélectionné(s)
   columns_preferences_dropdown_component:
