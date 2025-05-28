@@ -14,9 +14,6 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   def index
     @moves_project = @moves_project_step.moves_project
     @moves = @moves_project_step.moves.order(created_at: :asc)
-
-    # TODO: use previous steps moves
-    @frames = (@moves_project_step.moves.map(&:frame) | @moves_project_step.moves.map(&:prev_frame)).compact.uniq
   end
 
   def show

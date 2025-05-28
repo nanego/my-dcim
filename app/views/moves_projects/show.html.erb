@@ -11,7 +11,7 @@
     <div class="col-12 pt-4">
       <%= render CardComponent.new do |card| %>
         <% card.with_header do %>
-          <h4><%= moves_project_step %></h4>
+          <h4><%= link_to moves_project_step, moves_project_step_moves_path(@moves_project, moves_project_step) %></h4>
 
           <% if moves_project_step.moves.any? && !moves_project_step.executed? %>
             <%= link_to(
@@ -47,7 +47,7 @@
     <h2><%= t(".frame_table_title") %></h2>
     <table class="table table-striped table-bordered table-hover align_middle">
       <tbody>
-        <%= content_tag_for(:tr, @frames) do |frame| %>
+        <%= content_tag_for(:tr, @moves_project.steps.last.frames_with_effective_moves) do |frame| %>
           <td class="w-100"><%= link_to frame, frame_moves_project_moves_project_step_path(@moves_project, @moves_project.steps.last, frame) %></td>
           <td class="d-flex justify-content-center column-gap-1"
               style="min-width: 400px; width: 400px;"
