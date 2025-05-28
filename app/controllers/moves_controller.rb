@@ -2,7 +2,7 @@
 
 class MovesController < ApplicationController # rubocop:disable Metrics/ClassLength
   before_action :set_moves_project_step
-  before_action :set_move, only: %i[show edit update destroy execute_movement]
+  before_action :set_move, only: %i[show edit update destroy execute]
   before_action :load_form_data, only: %i[new edit]
   before_action :set_frame_updated, only: %i[frame print]
 
