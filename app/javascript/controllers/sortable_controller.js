@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import Sortable from "sortablejs"
 
-export default class extends Controller {
+export default class SortableController extends Controller {
   static targets = ["container"]
 
   connect() {
