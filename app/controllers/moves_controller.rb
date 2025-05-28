@@ -71,20 +71,34 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def destroy
-    @move.destroy
+    if @move.executed?
+      respond_to do |format|
+        format.html { redirect_to moves_project_path(@moves_project_step.moves_project), alert: t(".flashes.already_executed") }
+        format.json { head :bad_request }
+      end
+    else
+      @move.destroy
 
-    respond_to do |format|
-      format.html { redirect_to moves_project_path(@moves_project_step.moves_project), notice: t(".flashes.destroyed") }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to moves_project_path(@moves_project_step.moves_project), notice: t(".flashes.destroyed") }
+        format.json { head :no_content }
+      end
     end
   end
 
-  def execute_movement
-    @move.execute_movement
+  def execute
+    if @move.executed?
+      respond_to do |format|
+        format.html { redirect_to moves_project_path(@moves_project_step.moves_project), alert: t(".flashes.already_executed") }
+        format.json { head :bad_request }
+      end
+    else
+      @move.execute!
 
-    respond_to do |format|
-      format.html { redirect_to moves_project_path(@moves_project_step.moves_project), notice: t(".flashes.executed") }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to moves_project_path(@moves_project_step.moves_project), notice: t(".flashes.executed") }
+        format.json { head :no_content }
+      end
     end
   end
 

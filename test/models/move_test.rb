@@ -43,7 +43,7 @@ class MoveTest < ActiveSupport::TestCase
 
   test 'execution of a movement' do
     assert @move.moveable.position != @move.position
-    @move.execute_movement
+    @move.execute!
     assert @move.moveable.reload.frame == @move.frame
     assert @move.moveable.reload.position == @move.position
     assert_empty Move.where(id: @move.id)
@@ -54,7 +54,7 @@ class MoveTest < ActiveSupport::TestCase
     @port_from = @moved_connection.port_from
     assert @port_from.cable_name != @moved_connection.cablename
 
-    @move.execute_movement
+    @move.execute!
 
     assert @move.moveable.reload.frame == @move.frame
     assert @port_from.reload.cable_name == @moved_connection.cablename

@@ -28,7 +28,7 @@ RSpec.describe Move do
     pending
   end
 
-  describe "#execute_movement" do
+  describe "#execute!" do
     pending
   end
 end

@@ -179,7 +179,7 @@ RSpec.describe "Moves" do
   # TODO: fixme
   xdescribe "GET #execute" do
     subject(:response) do
-      get execute_moves_project_step_move_path(step, move)
+      patch execute_moves_project_step_move_path(step, move)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable

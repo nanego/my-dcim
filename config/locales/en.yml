@@ -186,7 +186,7 @@ en:
     destroy:
       flashes:
         destroyed: The move has been removed.
-    execute_movement:
+    execute:
       flashes:
         executed: The move was successfully executed.
     form:

@@ -11,4 +11,14 @@ class MovesProjectStep < ApplicationRecord
   def to_s
     name
   end
+
+  def execute!(apply_connections: true)
+    transaction do
+      moves.find_each { |move| move.execute!(apply_connections:) }
+    end
+  end
+
+  def executed?
+    moves.any?(&:executed?)
+  end
 end

@@ -3,6 +3,8 @@
 class Move < ApplicationRecord
   has_changelog
 
+  attr_accessor :remove_connections
+
   belongs_to :step, class_name: "MovesProjectStep", foreign_key: :moves_project_step_id, inverse_of: :moves
   belongs_to :moveable, polymorphic: true
   belongs_to :frame
@@ -10,7 +12,7 @@ class Move < ApplicationRecord
 
   validates :position, presence: true
 
-  attr_accessor :remove_connections
+  scope :not_executed, -> { where(executed_at: nil) }
 
   def clear_connections
     server = moveable
@@ -25,15 +27,27 @@ class Move < ApplicationRecord
     end
   end
 
-  def execute_movement(apply_connections: true)
-    equipment = moveable
-    equipment.frame = frame
-    equipment.position = position
+  def status
+    executed? ? :executed : :planned
+  end
 
-    if equipment.save
-      MovedConnection.per_servers([equipment]).map(&:execute_movement) if apply_connections
+  def execute!(apply_connections: true)
+    return if executed?
 
-      delete
+    transaction(requires_new: true) do
+      equipment = moveable
+      equipment.frame = frame
+      equipment.position = position
+
+      if equipment.save!
+        MovedConnection.per_servers([equipment]).map(&:execute!) if apply_connections
+
+        update!(executed_at: Time.zone.now)
+      end
     end
+  end
+
+  def executed?
+    executed_at?
   end
 end
