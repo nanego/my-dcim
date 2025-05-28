@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        ruby-version: ['3.4.2']
+        ruby-version: ['3.4.4']
       fail-fast: false
 
     env:
