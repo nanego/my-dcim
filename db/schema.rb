@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_14_144343) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_21_100006) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -370,8 +370,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_14_144343) do
     t.integer "prev_frame_id", null: false
     t.integer "frame_id", null: false
     t.integer "position"
+    t.bigint "moves_project_step_id", null: false
     t.index ["frame_id"], name: "index_moves_on_frame_id"
     t.index ["moveable_type", "moveable_id"], name: "index_moves_on_moveable_type_and_moveable_id"
+    t.index ["moves_project_step_id"], name: "index_moves_on_moves_project_step_id"
     t.index ["prev_frame_id"], name: "index_moves_on_prev_frame_id"
   end
 
@@ -540,6 +542,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_14_144343) do
   add_foreign_key "modeles", "manufacturers"
   add_foreign_key "moves", "frames"
   add_foreign_key "moves", "frames", column: "prev_frame_id"
+  add_foreign_key "moves", "moves_project_steps"
   add_foreign_key "moves_project_steps", "moves_projects"
   add_foreign_key "rooms", "sites"
   add_foreign_key "servers", "clusters"

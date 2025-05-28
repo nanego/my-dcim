@@ -1,15 +1,19 @@
 # frozen_string_literal: true
 
 class MovesController < ApplicationController # rubocop:disable Metrics/ClassLength
+  before_action :set_moves_project_step
   before_action :set_move, only: %i[show edit update destroy execute_movement]
   before_action :load_form_data, only: %i[new edit]
   before_action :set_frame_updated, only: %i[frame print]
-  before_action except: %i[index] do
-    breadcrumb.add_step(Move.model_name.human(count: 2), moves_path)
+
+  before_action do
+    breadcrumb.add_step(MovesProject.model_name.human.pluralize, moves_projects_path)
+    breadcrumb.add_step(@moves_project_step.moves_project, moves_project_path(@moves_project_step.moves_project))
+    breadcrumb.add_step(Move.model_name.human(count: 2), moves_project_step_moves_path(@moves_project_step)) unless action_name == "index"
   end
 
   def index
-    @moves = Move.order(created_at: :asc)
+    @moves = @moves_project_step.moves.order(created_at: :asc)
     @frames = (@moves.map(&:frame) | @moves.map(&:prev_frame)).compact.uniq
   end
 
@@ -20,14 +24,14 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def new
-    @move = Move.new(moveable_type: "Server")
+    @move = @moves_project_step.moves.build(moveable_type: "Server")
     @move.moveable = Server.friendly.select(:id).find(params[:server_id]) if params[:server_id].present?
   end
 
   def edit; end
 
   def create
-    @move = Move.new(move_params)
+    @move = @moves_project_step.moves.build(move_params)
 
     @move.prev_frame_id = @move.moveable.try(:frame_id)
 
@@ -37,7 +41,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
     respond_to do |format|
       if @move.save
-        format.html { redirect_to edit_move_path(@move), notice: t(".flashes.created") }
+        format.html { redirect_to moves_project_path(@moves_project_step.moves_project), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @move }
       else
         load_form_data
@@ -56,7 +60,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
           @move.clear_connections
         end
 
-        format.html { redirect_to edit_move_path(@move), notice: t(".flashes.updated") }
+        format.html { redirect_to moves_project_path(@moves_project_step.moves_project), notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @move }
       else
         load_form_data
@@ -68,16 +72,18 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
   def destroy
     @move.destroy
+
     respond_to do |format|
-      format.html { redirect_to moves_url, notice: t(".flashes.destroyed") }
+      format.html { redirect_to moves_project_path(@moves_project_step.moves_project), notice: t(".flashes.destroyed") }
       format.json { head :no_content }
     end
   end
 
   def execute_movement
     @move.execute_movement
+
     respond_to do |format|
-      format.html { redirect_to moves_url, notice: t(".flashes.executed") }
+      format.html { redirect_to moves_project_path(@moves_project_step.moves_project), notice: t(".flashes.executed") }
       format.json { head :no_content }
     end
   end
@@ -90,7 +96,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   def load_frame
     @frame = Frame.find(params[:frame_id])
     @view = params[:view]
-    @move = Move.new(moveable_type: 'Server')
+    @move = @moves_project_step.moves.build(moveable_type: 'Server')
   end
 
   def load_connection
@@ -155,9 +161,13 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
   private
 
+  def set_moves_project_step
+    @moves_project_step = MovesProjectStep.find(params[:moves_project_step_id])
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_move
-    @move = Move.find(params[:id])
+    @move = @moves_project_step.moves.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
@@ -190,14 +200,14 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   def set_frame_updated
     @frame = Frame.find(params[:frame_id])
 
-    @moves = Move.where(frame: @frame, moveable_type: "Server")
+    @moves = @moves_project_step.moves.where(frame: @frame, moveable_type: "Server")
     @moved_servers = @moves.map do |move|
       server = move.moveable
       server.position = move.position
       server
     end
 
-    @removed_servers = Move.where(prev_frame_id: @frame.id, moveable_type: "Server").map(&:moveable)
+    @removed_servers = @moves_project_step.moves.where(prev_frame_id: @frame.id, moveable_type: "Server").map(&:moveable)
 
     @servers = ((@frame.servers - @removed_servers) | @moved_servers).sort_by { |server| server.position.presence || 0 }.reverse
     @moved_connections = MovedConnection.per_servers(@servers)

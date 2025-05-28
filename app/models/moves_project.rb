@@ -5,6 +5,7 @@ class MovesProject < ApplicationRecord
 
   has_many :steps, -> { order(:position) }, class_name: "MovesProjectStep", dependent: :restrict_with_error,
                                             inverse_of: :moves_project
+  has_many :moves, through: :steps
 
   validates :name, presence: true
 
