@@ -136,13 +136,12 @@ en:
       devices_dropdown:
         search_equipment: Search for equipment
         filter_by: "Filter by:"
-      projects_dropdown:
-        projects: Projects
-        moves: Planned moves
       visualization_dropdown:
         overview: Show all rooms
         capacity: Network capacity view
         infrastructure: Infrastructure view
+    header:
+      projects: Projects
     sidebar:
       location:
         title: Location
@@ -194,7 +193,7 @@ en:
     show:
       execute_confirmation: Do you really want to apply these moves?
       action:
-        execute_step_moves: Move the servers and their connections
+        execute_step_moves: Move servers and their connections
     form:
       initial_bay: Departure bay
     frame:
@@ -215,7 +214,7 @@ en:
       flashes:
         created: The project was successfully created.
     edit:
-      title: Edit projet
+      title: Edit project
     update:
       flashes:
         updated: The project has been updated.

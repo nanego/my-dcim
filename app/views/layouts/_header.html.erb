@@ -32,7 +32,9 @@
         <ul class="navbar-nav order-1 order-lg-0">
           <%= render "layouts/navigation/visualization_dropdown" %>
           <%= render "layouts/navigation/devices_dropdown" %>
-          <%= render "layouts/navigation/projects_dropdown" %>
+          <li class="nav-item" role="menuitem">
+            <%= link_to t(".projects"), moves_projects_path, class: "nav-link" %>
+          </li>
         </ul>
 
         <%= render "search/search_field" %>
