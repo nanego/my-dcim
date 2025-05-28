@@ -1,5 +1,5 @@
 <aside id="mydcim-inventories-sidebar"
-       class="<%= class_names("mydcim-sidebar offcanvas-lg offcanvas-start border-end col-lg-2 p-0 w-auto bg-body-secondary border-secondary-subtle", offcanvas: hide_inventories_sidebar?) %>"
+       class="<%= class_names("mydcim-sidebar offcanvas-lg offcanvas-start border-end col-lg-2 pl-0 w-auto bg-body-secondary border-secondary-subtle", offcanvas: hide_inventories_sidebar?) %>"
        tabindex="-1" aria-labelledby="sidebarMenuLabel">
   <div class="<%= class_names("offcanvas-header", "d-flex": hide_inventories_sidebar?) %>">
     <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" data-bs-target="#mydcim-inventories-sidebar" aria-label="<%= t("action.close") %>"></button>
@@ -13,35 +13,50 @@
           <%= t(".location.title") %>
         </strong>
         <ul class="list-unstyled fw-normal pb-2 small">
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to Site.model_name.human.pluralize,
                         sites_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "sites") %>
+              <%= link_to new_site_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+                <span class="bi bi-plus-lg"></span>
+              <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to Room.model_name.human.pluralize,
                         rooms_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                           active: controller.controller_name == "rooms" && !hide_inventories_sidebar?) %>
+            <%= link_to new_room_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to Islet.model_name.human.pluralize,
                         islets_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "islets") %>
+            <%= link_to new_islet_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to t(".location.bays"),
                         bays_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "bays") %>
+            <%= link_to new_bay_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to Frame.model_name.human.pluralize,
                         frames_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "frames") %>
+            <%= link_to new_frame_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
         </ul>
       </li>
@@ -52,23 +67,32 @@
           <%= t(".equipment.title") %>
         </strong>
         <ul class="list-unstyled fw-normal pb-2 small">
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to Server.model_name.human,
                         servers_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "servers") %>
+            <%= link_to new_server_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to t("air_conditioners.index.title"),
                         air_conditioners_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "air_conditioners") %>
+            <%= link_to new_air_conditioner_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to t("power_distribution_units.index.title"),
                         power_distribution_units_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "power_distribution_units") %>
+            <%= link_to new_power_distribution_unit_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
         </ul>
       </li>
@@ -79,80 +103,113 @@
           <%= t(".features.title") %>
         </strong>
         <ul class="list-unstyled fw-normal pb-2 small">
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to Modele.model_name.human.pluralize,
                         modeles_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "modeles") %>
+            <%= link_to new_modele_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to Category.model_name.human.pluralize,
                         categories_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "categories") %>
+            <%= link_to new_category_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to Architecture.model_name.human.pluralize,
                         architectures_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "architectures") %>
+            <%= link_to new_architecture_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to Manufacturer.model_name.human.pluralize,
                         manufacturers_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "manufacturers") %>
+            <%= link_to new_manufacturer_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to Stack.model_name.human.pluralize,
                         stacks_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "stacks") %>
+            <%= link_to new_stack_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to CardType.model_name.human(count: 2),
                         card_types_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "card_types") %>
+            <%= link_to new_card_type_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to PortType.model_name.human(count: 2),
                         port_types_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "port_types") %>
+            <%= link_to new_port_type_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
         </ul>
       </li>
       <!-- Exploitation -->
       <li class="mydcim-sidebar-links-group py-2">
         <strong class="mydcim-sidebar-links-heading d-flex align-items-center fw-semibold">
-          <i class="bi bi-briefcase me-2 text-success"></i>
+          <i class="bi bi-briefcase me-2"></i>
           <%= t(".operating.title") %>
         </strong>
         <ul class="list-unstyled fw-normal pb-2 small">
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to Domaine.model_name.human.pluralize,
                         domaines_path,
                         class: class_names("mydcim-sidebar-links-link mydcim-sidebar-links-link-exploitation d-inline-block rounded",
                                           active: controller.controller_name == "domaines") %>
+            <%= link_to new_domaine_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to Gestion.model_name.human.pluralize,
                         gestions_path,
                         class: class_names("mydcim-sidebar-links-link mydcim-sidebar-links-link-exploitation d-inline-block rounded",
                                           active: controller.controller_name == "gestions") %>
+            <%= link_to new_gestion_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to Cluster.model_name.human.pluralize,
                         clusters_path,
                         class: class_names("mydcim-sidebar-links-link mydcim-sidebar-links-link-exploitation d-inline-block rounded",
                                           active: controller.controller_name == "clusters") %>
+            <%= link_to new_cluster_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to Color.model_name.human.pluralize,
                         colors_path,
                         class: class_names("mydcim-sidebar-links-link mydcim-sidebar-links-link-exploitation d-inline-block rounded",
                                           active: controller.controller_name == "colors") %>
+            <%= link_to new_color_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
         </ul>
       </li>
@@ -163,7 +220,7 @@
           <%= t(".connection.title") %>
         </strong>
         <ul class="list-unstyled fw-normal pb-2 small">
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to Connection.model_name.human.pluralize,
                         cables_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
@@ -178,23 +235,32 @@
           <%= t(".contacts.title") %>
         </strong>
         <ul class="list-unstyled fw-normal pb-2 small">
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to Contact.model_name.human.pluralize,
                         contacts_path,
                         class: class_names("mydcim-sidebar-links-link mydcim-sidebar-links-link-warning d-inline-block rounded",
                                           active: controller.controller_name == "contacts") %>
+            <%= link_to new_contact_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to ContactRole.model_name.human.pluralize,
                         contact_roles_path,
                         class: class_names("mydcim-sidebar-links-link mydcim-sidebar-links-link-warning d-inline-block rounded",
                                           active: controller.controller_name == "contact_roles") %>
+            <%= link_to new_contact_role_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
-          <li>
+          <li class="mydcim-sidebar-links-item">
             <%= link_to ContactAssignment.model_name.human.pluralize,
                         contact_assignments_path,
                         class: class_names("mydcim-sidebar-links-link mydcim-sidebar-links-link-warning d-inline-block rounded",
                                           active: controller.controller_name == "contact_assignments") %>
+            <%= link_to new_contact_assignment_path, class: "mydcim-sidebar-links-create btn btn-outline-success btn-sm" do %>
+              <span class="bi bi-plus-lg"></span>
+            <% end %>
           </li>
         </ul>
       </li>
