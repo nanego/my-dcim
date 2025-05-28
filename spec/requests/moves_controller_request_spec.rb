@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Moves" do
+RSpec.describe MovesController do
   let(:move) { moves(:one) }
   let(:step) { move.step }
 
@@ -174,12 +174,24 @@ RSpec.describe "Moves" do
 
     it { expect(response).to have_http_status(:redirect) }
     it { expect(response).to redirect_to(moves_project_path(step)) }
+
+    context "when executed" do
+      let(:move) { moves(:executed) }
+
+      it do
+        expect do
+          response
+        end.not_to change(Move, :count)
+      end
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_project_path(step)) }
+    end
   end
 
-  # TODO: fixme
-  xdescribe "GET #execute" do
+  describe "GET #execute" do
     subject(:response) do
-      get execute_moves_project_step_move_path(step, move)
+      patch execute_moves_project_step_move_path(step, move)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -193,7 +205,22 @@ RSpec.describe "Moves" do
     it do
       expect do
         response
-      end.to change(Move, :count).by(-1)
+        move.reload
+      end.to change(move, :executed_at).from(nil)
+    end
+
+    context "when executed" do
+      let(:move) { moves(:executed) }
+
+      it do
+        expect do
+          response
+          move.reload
+        end.not_to change(move, :executed_at)
+      end
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_project_path(step)) }
     end
   end
 

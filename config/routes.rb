@@ -5,11 +5,18 @@ Rails.application.routes.draw do
 
   resources :air_conditioners
 
-  resources :moves_projects
+  resources :moves_projects do
+    resources :moves_project_steps, only: [] do
+      member do
+        patch :execute
+      end
+    end
+  end
+
   resources :moves_project_steps, only: [] do
     resources :moves do
       member do
-        get :execute, to: 'moves#execute_movement'
+        patch :execute
       end
       collection do
         get :load_server

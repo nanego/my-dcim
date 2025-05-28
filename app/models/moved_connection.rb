@@ -19,9 +19,9 @@ class MovedConnection < ApplicationRecord
     color
   end
 
-  def execute_movement
+  def execute!
     port_from.connect_to_port(port_to, cablename, color, vlans)
-    delete
+    delete # TODO: does this must be removed ?
   end
 
   def cable_name

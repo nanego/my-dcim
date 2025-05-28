@@ -43,23 +43,27 @@ class MoveTest < ActiveSupport::TestCase
 
   test 'execution of a movement' do
     assert @move.moveable.position != @move.position
-    @move.execute_movement
+    assert_nil @move.executed_at
+    @move.execute!
     assert @move.moveable.reload.frame == @move.frame
     assert @move.moveable.reload.position == @move.position
-    assert_empty Move.where(id: @move.id)
+    assert @move.executed_at
+    assert Move.where(id: @move.id)
   end
 
   test 'execution of a movement with connections' do
     @moved_connection = MovedConnection.per_servers([@move.moveable]).first
     @port_from = @moved_connection.port_from
     assert @port_from.cable_name != @moved_connection.cablename
+    assert_nil @move.executed_at
 
-    @move.execute_movement
+    @move.execute!
 
     assert @move.moveable.reload.frame == @move.frame
     assert @port_from.reload.cable_name == @moved_connection.cablename
 
-    assert_empty Move.where(id: @move.id)
+    assert @move.executed_at
+    assert Move.where(id: @move.id)
     assert_empty MovedConnection.where(id: @moved_connection.id)
   end
 end
