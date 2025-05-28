@@ -195,7 +195,7 @@
           <%= link_to server.modele.name, modele_path(server.modele), data: { turbo_frame: :_top } if server.modele %>
         <% end %>
 
-        <% table.with_column(Server.human_attribute_name(:u_used), name: :u_used, sort_by: :"modele.u") do |server| %>
+        <% table.with_column(Server.human_attribute_name(:u), name: :u, sort_by: :"modele.u") do |server| %>
           <%= server.modele.u %>
         <% end %>
 
