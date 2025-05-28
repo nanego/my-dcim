@@ -23,4 +23,16 @@ RSpec.describe MovesProjectStep do
   describe "#to_s" do
     it { expect(move_project_step.to_s).to eq("A") }
   end
+
+  describe "#execute!" do
+    pending
+  end
+
+  describe "#executed?" do
+    it { expect(moves_project_steps(:planned).executed?).to eq(false) }
+
+    context "when executed" do
+      it { expect(moves_project_steps(:executed).executed?).to eq(true) }
+    end
+  end
 end

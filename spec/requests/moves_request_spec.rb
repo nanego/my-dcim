@@ -177,7 +177,7 @@ RSpec.describe "Moves" do
   end
 
   # TODO: fixme
-  xdescribe "GET #execute" do
+  describe "GET #execute" do
     subject(:response) do
       patch execute_moves_project_step_move_path(step, move)
 

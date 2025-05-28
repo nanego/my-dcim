@@ -28,7 +28,27 @@ RSpec.describe Move do
     pending
   end
 
+  describe "#status" do
+    it { expect(move.status).to eq(:planned) }
+
+    context "when executed" do
+      before { move.executed_at = Time.zone.now }
+
+      it { expect(move.status).to eq(:executed) }
+    end
+  end
+
   describe "#execute!" do
     pending
+  end
+
+  describe "#executed?" do
+    it { expect(move.executed?).to eq(false) }
+
+    context "when executed" do
+      before { move.executed_at = Time.zone.now }
+
+      it { expect(move.executed?).to eq(true) }
+    end
   end
 end
