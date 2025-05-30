@@ -24,6 +24,7 @@ fr:
     suspend: Verrouiller
     unsuspend: Déverrouiller
     create: Créer
+    create_more: Créer à nouveau
     execute: Exécuter
     move: Déplacer
     preview: Prévisualiser

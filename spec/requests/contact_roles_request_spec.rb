@@ -39,19 +39,24 @@ RSpec.describe "ContactRolesController" do
 
   describe "#create" do
     context "with valid parameters" do
-      let(:valid_attributes) do
-        contact_role.attributes.except("id").merge("name" => "SECU")
+      subject(:response) do
+        post contact_roles_path, params: params
+
+        # NOTE: used to simplify usage and custom test done in final spec file.
+        @response # rubocop:disable RSpec/InstanceVariable
       end
+
+      let(:params) { { contact_role: contact_role.attributes.except("id").merge("name" => "SECU") } }
+
+      it_behaves_like "with create another one"
 
       it "creates a new ContactRole" do
         expect do
-          post contact_roles_path, params: { contact_role: valid_attributes }
+          response
         end.to change(ContactRole, :count).by(1)
       end
 
       it "redirects to the created contact_role" do
-        post contact_roles_path, params: { contact_role: valid_attributes }
-
         expect(response).to redirect_to(contact_role_path(assigns(:contact_role)))
       end
     end
