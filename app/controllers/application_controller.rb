@@ -69,7 +69,9 @@ class ApplicationController < ActionController::Base
   end
 
   def layout_by_resource
-    if devise_controller? && !user_signed_in?
+    if turbo_frame_request?
+      false
+    elsif devise_controller? && !user_signed_in?
       "devise"
     else
       "application"

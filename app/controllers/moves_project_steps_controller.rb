@@ -2,7 +2,7 @@
 
 class MovesProjectStepsController < ApplicationController
   before_action :set_moves_project
-  before_action :set_moves_project_step, only: %i[frame execute]
+  before_action :set_moves_project_step, only: %i[frame print execute]
   before_action :set_frame_updated, only: %i[frame print]
 
   before_action do
