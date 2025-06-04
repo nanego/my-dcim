@@ -70,7 +70,7 @@
   }
 }
 
-.frame .server.ui-sortable-handle {
+.ui-sortable-handle {
   cursor: move;
 }
 
@@ -748,6 +748,35 @@ body {
     }
 
     &-links {
+      &-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        justify-content: space-between;
+
+        .mydcim-sidebar-links-create {
+          visibility: hidden;
+        }
+
+        &:hover {
+          .mydcim-sidebar-links-create {
+            visibility: visible;
+          }
+
+          .mydcim-sidebar-links-link {
+            background-color: var(--bs-primary-bg-subtle);
+
+            &.mydcim-sidebar-links-link-exploitation {
+              background-color: var(--bs-success-bg-subtle);
+            }
+
+            &.mydcim-sidebar-links-link-warning {
+              background-color: var(--bs-warning-bg-subtle);
+            }
+          }
+        }
+      }
+
       &-link {
         padding: .1875rem .5rem;
         margin-top: .125rem;
@@ -755,7 +784,6 @@ body {
         color: var(--bs-body-color);
         text-decoration: none;
 
-        &:hover,
         &.active,
         &:focus {
           background-color: var(--bs-primary-bg-subtle);
@@ -942,6 +970,18 @@ body {
       &:hover {
         text-decoration: underline;
       }
+    }
+  }
+
+  /* Bootstrap clean */
+  ul.list-group.nested-form-list {
+    .list-group-item:last-of-type {
+      border-bottom-right-radius: inherit;
+      border-bottom-left-radius: inherit;
+    }
+
+    .list-group-item:not(:first-child) {
+     	border-top-width: 0;
     }
   }
 

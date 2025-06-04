@@ -70,13 +70,12 @@ fr:
       devices_dropdown:
         search_equipment: Rechercher un équipement
         filter_by: "Filtrer par :"
-      projects_dropdown:
-        projects: Projets
-        moves: Déplacements prévus
       visualization_dropdown:
         overview: Afficher toutes les salles
         capacity: Vue capacité réseau
         infrastructure: Vue infrastructure
+    header:
+      projects: Projets
     breadcrumb:
       home: Accueil
       bay:
@@ -551,7 +550,7 @@ fr:
     destroy:
       flashes:
         destroyed: Le déplacement a été supprimé.
-        already_executed: Le déplacement a déjà été exécuté, impossible de supprimer.
+        already_executed: Le déplacement a déjà été exécuté, impossible de le supprimer.
     execute:
       flashes:
         executed: Le déplacement a été exécuté avec succès.
@@ -575,14 +574,14 @@ fr:
       edit_connections: Modifier les connexions
       execute_confirmation: Voulez-vous vraiment appliquer ces déplacements ?
       action:
-        execute_step_moves: Déplacer le serveur et ses connexions
+        execute_step_moves: Déplacer les serveurs et leurs connexions
     new:
       title: Nouveau projet
     create:
       flashes:
         created: Le projet a été créé avec succès.
     edit:
-      title: Edition de projet
+      title: Modifier le projet
     update:
       flashes:
         updated: Le projet a été mis à jour.
@@ -599,7 +598,7 @@ fr:
       loading: CHARGEMENT EN COURS
     execute:
       flashes:
-        executed: Les déplacements ont étés exécutés avec succès.
+        executed: Les déplacements ont été exécutés avec succès.
 
   devise:
     registrations:

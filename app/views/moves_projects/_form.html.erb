@@ -1,5 +1,6 @@
 <%= form_for(@moves_project, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
   <%= render FormErrorsComponent.new(@moves_project) %>
+
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <fieldset class="col-12 ">
       <%= f.label :name, class: "form-label" %>
@@ -8,8 +9,8 @@
   <% end %>
 
   <fieldset data-controller="nested-form" class="col-12">
-    <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
-      <div class="row g-3">
+    <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
+      <div>
         <template data-nested-form-target="template">
           <%= f.fields_for :steps, f.object.steps.klass.new,
                                         child_index: "__NEW_RECORD__" do |step_fields| %>
@@ -17,11 +18,13 @@
           <% end %>
         </template>
 
-        <%= f.fields_for :steps do |step_fields| %>
-          <%= render partial: "step_fields", locals: { f: step_fields } %>
-        <% end %>
+        <ul class="list-group nested-form-list p-0 m-0" data-controller="sortable" data-sortable-target="container">
+          <%= f.fields_for :steps do |step_fields| %>
+            <%= render partial: "step_fields", locals: { f: step_fields } %>
+          <% end %>
 
-        <div data-nested-form-target="target"></div>
+          <div data-nested-form-target="target"></div>
+        </ul>
       </div>
       <div class="modal fade" tabindex="-1" id="previewModal">
         <div class="modal-dialog modal-dialog-centered">

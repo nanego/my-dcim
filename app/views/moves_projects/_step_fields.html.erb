@@ -1,29 +1,36 @@
-<div class="nested-form-wrapper list-group-item"
-    data-new-record="<%= f.object.new_record? %>">
-  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-    <div class="row g-2">
-      <span class="col-12 mt-2 col-md-3 col-xl-2 mt-md-0">
-        <%= f.label :name, class: "form-label col-form-label-sm p-0" %>
-        <%= f.text_field :name, class: "form-control" %>
-      </span>
-      <span class="col-12 mt-2 col-md-3 col-xl-2 mt-md-0">
-        <%= f.label :position, class: "form-label col-form-label-sm p-0" %>
-        <%= f.number_field :position, class: "form-control" %>
-      </span>
-      <span class="col-12 mt-2 col-md-3 col-xl-2 mt-md-0">
-        <%= f.label :date, class: "form-label col-form-label-sm p-0" %>
-        <%= f.date_field :date, class: "form-control" %>
-      </span>
-    </div>
+<li class="nested-form-wrapper list-group-item bg-body-tertiary d-flex justify-content-between align-items-center m-0"
+    data-new-record="<%= f.object.new_record? %>"
+    data-sortable-item>
+  <%= f.hidden_field :position, class: "form-control", data: { sortable_field: true } %>
 
-    <% card.with_footer do %>
-      <span class="ms-auto">
-        <%= f.hidden_field :_destroy %>
-        <button type="button" data-action="nested-form#remove" class="btn btn-danger btn-sm float-end">
-          <span class="bi bi-trash me-1"></span>
-          <span><%= t("action.delete") %></span>
-        </button>
-      </span>
-    <% end %>
-  <% end %>
-</div>
+  <span class="bi bi-list ui-sortable-handle text-body-tertiary"></span>
+
+  <span class="row d-inline-flex flex-grow-1 mx-2 align-items-center">
+    <fieldset class="row col-12 col-xl-6">
+      <%= f.label :name, class: "col-form-label col-4 col-xl-5 col-xxl-4 text-end" %>
+      <div class="col-8 col-xl-7 col-xxl-8">
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+    </fieldset>
+    <fieldset class="row col-12 col-xl-6 mt-2 mt-xl-0">
+      <%= f.label :date, class: "col-form-label col-4 col-xl-5 col-xxl-4 text-end" %>
+      <div class="col-8 col-xl-7 col-xxl-8">
+        <%= f.date_field :date, class: "form-control" %>
+      </div>
+    </fieldset>
+  </span>
+
+  <span>
+    <%= f.hidden_field :_destroy %>
+
+    <button type="button"
+            data-action="nested-form#remove"
+            class="btn btn-outline-danger btn-sm float-end"
+            title="<%= t("action.delete") %>"
+            aria-hidden="true"
+            data-controller="tooltip"
+            data-bs-placement="left">
+      <span class="bi bi-trash"></span>
+    </button>
+  </span>
+</li>
