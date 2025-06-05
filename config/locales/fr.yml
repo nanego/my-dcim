@@ -415,6 +415,7 @@ fr:
     index:
       new_server: Ajouter un matériel  I.T.
       add_server_via_csv: Ajouter par un fichier CSV
+      export_via_csv: Exporter en CSV
       sync_with_external_apps: Synchroniser avec GLPI
     show:
       back_to_bay: Baie %{name}
