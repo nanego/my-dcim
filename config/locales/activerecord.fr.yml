@@ -369,6 +369,7 @@ fr:
         frame_id: Baie de destination
         remove_connections: Supprimer toutes les connexions vers cet équipement ?
         position: Position dans la baie
+        status: État
         statuses:
           executed: Exécuté
           planned: Planifié
