@@ -13,7 +13,9 @@
         <% card.with_header do %>
           <div class="d-flex justify-content-between align-items-center">
             <span class="d-inline-flex align-items-center">
-              <h4><%= moves_project_step.name %></h4>
+              <h4>
+                <%= link_to moves_project_step, moves_project_step_moves_path(moves_project_step) %>
+              </h4>
               <% if date = moves_project_step.date %>
                 <span class="ms-3 small">
                   <span class="bi bi-calendar-event"></span>
@@ -57,6 +59,13 @@
           <% end %>
         <% end %>
       <% end %>
+    </div>
+  <% end %>
+
+  <%= turbo_frame_tag(dom_id(Move, :frames), loading: :lazy, src: moves_project_step_moves_path(@moves_project.steps.last)) do %>
+    <div class="w-100 d-flex justify-content-center align-items-center gap-3">
+      <span role="status"><%= t("has_many_turbo_frame_component.loading") %></span>
+      <span class="spinner-grow text-<%= @type %>" aria-hidden="true"></span>
     </div>
   <% end %>
 

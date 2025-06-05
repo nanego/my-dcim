@@ -35,4 +35,11 @@ RSpec.describe MovesProjectStep do
       it { expect(moves_project_steps(:executed).executed?).to be(true) }
     end
   end
+
+  describe "#frames_with_effective_moves" do
+    it do
+      expect(moves_project_steps(:planned).frames_with_effective_moves)
+        .to contain_exactly(frames(:one), frames(:three))
+    end
+  end
 end

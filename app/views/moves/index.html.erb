@@ -12,91 +12,130 @@
   <% end %>
 <% end %>
 
-<%= turbo_frame_tag(dom_id(Move, :table), data: { turbo_action: :advance }) do %>
-  <div class="d-flex flex-column row-gap-4">
-    <%= render List::DataTableComponent.new(@moves) do |table| %>
-      <% table.with_column(Server.model_name.human) do |move| %>
-        <%= link_to move.moveable, server_path(move.moveable), data: { turbo_frame: :_top } %>
-        <div class="small">
-          <span class="fw-lighter"><%= Server.human_attribute_name(:numero) %> :</span>
-          <span class="font-monospace text-body"><%= move.moveable.numero %></span>
-        </div>
-      <% end %>
+<div class="p-4 border-top d-flex flex-column row-gap-4">
+  <%= turbo_frame_tag(dom_id(Move, :table), data: { turbo_action: :advance }) do %>
+    <div class="d-flex flex-column row-gap-4">
+      <%= render List::DataTableComponent.new(@moves) do |table| %>
+        <% table.with_column(Server.model_name.human) do |move| %>
+          <%= link_to move.moveable, server_path(move.moveable), data: { turbo_frame: :_top } %>
+          <div class="small">
+            <span class="fw-lighter"><%= Server.human_attribute_name(:numero) %> :</span>
+            <span class="font-monospace text-body"><%= move.moveable.numero %></span>
+          </div>
+        <% end %>
 
-      <% table.with_column(Gestion.model_name.human) do |move| %>
-        <%= move.moveable.gestion %>
-      <% end %>
+        <% table.with_column(Gestion.model_name.human) do |move| %>
+          <%= move.moveable.gestion %>
+        <% end %>
 
-      <% table.with_column(Domaine.model_name.human) do |move| %>
-        <%= move.moveable.domaine %>
-      <% end %>
+        <% table.with_column(Domaine.model_name.human) do |move| %>
+          <%= move.moveable.domaine %>
+        <% end %>
 
-      <% table.with_column(t("moves.form.initial_bay")) do |move| %>
-        <%= link_to move.moveable.frame,
-                    frame_moves_project_step_moves_path(@moves_project_step, move.moveable.frame),
-                    data: { turbo_frame: :_top } %>
-        <div class="small">
-          <span class="fw-lighter"><%= Server.human_attribute_name(:position) %> :</span>
-          <span class="font-monospace"><%= move.moveable.position %></span>
-        </div>
-      <% end %>
+        <% table.with_column(t("moves.form.initial_bay")) do |move| %>
+          <%= link_to move.moveable.frame,
+                      frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, move.moveable.frame),
+                      data: { turbo_frame: :_top } %>
+          <div class="small">
+            <span class="fw-lighter"><%= Server.human_attribute_name(:position) %> :</span>
+            <span class="font-monospace"><%= move.moveable.position %></span>
+          </div>
+        <% end %>
 
-      <% table.with_column(Move.human_attribute_name(:frame_id)) do |move| %>
-        <%= link_to move.frame,
-                    frame_moves_project_step_moves_path(@moves_project_step, move.frame),
-                    data: { turbo_frame: :_top } %>
-        <div class="small">
-          <span class="fw-lighter"><%= Server.human_attribute_name(:position) %> :</span>
-          <span class="font-monospace"><%= move.position %></span>
-        </div>
-      <% end %>
+        <% table.with_column(Move.human_attribute_name(:frame_id)) do |move| %>
+          <%= link_to move.frame,
+                      frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, move.frame),
+                      data: { turbo_frame: :_top } %>
+          <div class="small">
+            <span class="fw-lighter"><%= Server.human_attribute_name(:position) %> :</span>
+            <span class="font-monospace"><%= move.position %></span>
+          </div>
+        <% end %>
 
-     <% table.with_column(Move.human_attribute_name(:status)) do |move| %>
-        <%= render move.decorated.status_to_badge_component %>
-      <% end %>
+      <% table.with_column(Move.human_attribute_name(:status)) do |move| %>
+          <%= render move.decorated.status_to_badge_component %>
+        <% end %>
 
-      <% table.with_column(style: "min-width: 70px; width: 70px") do |move| %>
-        <div class="btn-group btn-group-sm" role="group" aria-label="...">
-          <% unless move.executed? %>
-            <%= link_to t("action.execute"),
-                        execute_moves_project_step_move_path(@moves_project_step, move),
-                        title: t(".action.execute_move"),
-                        data: {
-                          turbo: true,
-                          turbo_method: :patch,
-                          confirm: t(".execute_confirmation"),
-                          controller: "tooltip",
-                          bs_placement: "left",
-                          turbo_frame: :_top
-                        },
-                        class: "btn btn-outline-primary",
-                        aria: { hidden: true }
-            %>
-            <%= link_to edit_moves_project_step_move_path(@moves_project_step, move),
-                        class: "btn btn-outline-info",
-                        data: { turbo_frame: :_top } do %>
-              <span class="bi bi-pencil"
-                    title="<%= t("action.edit") %>"
-                    aria-hidden="true"
-                    data-controller="tooltip"
-                    data-bs-placement="left"></span>
-              <span class="visually-hidden"><%= t("action.edit") %></span>
+        <% table.with_column(style: "min-width: 70px; width: 70px") do |move| %>
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <% unless move.executed? %>
+              <%= link_to t("action.execute"),
+                          execute_moves_project_step_move_path(@moves_project_step, move),
+                          title: t(".action.execute_move"),
+                          data: {
+                            turbo: true,
+                            turbo_method: :patch,
+                            confirm: t(".execute_confirmation"),
+                            controller: "tooltip",
+                            bs_placement: "left",
+                            turbo_frame: :_top
+                          },
+                          class: "btn btn-outline-primary",
+                          aria: { hidden: true }
+              %>
+              <%= link_to edit_moves_project_step_move_path(@moves_project_step, move),
+                          class: "btn btn-outline-info",
+                          data: { turbo_frame: :_top } do %>
+                <span class="bi bi-pencil"
+                      title="<%= t("action.edit") %>"
+                      aria-hidden="true"
+                      data-controller="tooltip"
+                      data-bs-placement="left"></span>
+                <span class="visually-hidden"><%= t("action.edit") %></span>
+              <% end %>
+              <%= link_to moves_project_step_move_path(@moves_project_step, move),
+                          method: :delete,
+                          data: {
+                            confirm: t(".delete_confirmation"),
+                            turbo_frame: :_top,
+                          },
+                          class: "btn btn-outline-danger" do %>
+                <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                            data-controller="tooltip"
+                                                                            data-bs-placement="left"></span>
+                <span class="visually-hidden"><%= t("action.delete") %></span>
+              <% end %>
             <% end %>
-            <%= link_to moves_project_step_move_path(@moves_project_step, move),
-                        method: :delete,
-                        data: {
-                          confirm: t(".delete_confirmation"),
-                          turbo_frame: :_top,
-                        },
-                        class: "btn btn-outline-danger" do %>
-              <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
-                                                                          data-controller="tooltip"
-                                                                          data-bs-placement="left"></span>
-              <span class="visually-hidden"><%= t("action.delete") %></span>
-            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= turbo_frame_tag(dom_id(Move, :frames), data: { turbo_action: :advance }) do %>
+    <div class="table-responsive">
+      <h2><%= t(".frame_table_title") %></h2>
+      <table class="table table-striped table-bordered table-hover align_middle">
+        <tbody>
+          <%= content_tag_for(:tr, @moves_project_step.frames_with_effective_moves) do |frame| %>
+            <td class="w-100"><%= link_to frame, frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame) %></td>
+            <td class="d-flex justify-content-center column-gap-1"
+                style="min-width: 400px; width: 400px;"
+                data-controller="frame-export-pdf"
+                data-frame-export-pdf-model-ids-value="<%= [frame.id] %>"
+                data-frame-export-pdf-filename-value="move-frame-<%= frame.name %>"
+                data-frame-export-pdf-is-move-value="true">
+              <%= link_to frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame), class: "btn btn-info btn-sm", data: { turbo_frame: :_top } do %>
+                <span class="bi bi-pencil"></span>
+                <span><%= t(".edit_connections") %></span>
+              <% end %>
+              <%= link_to print_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame), class: "btn btn-sm btn-outline-primary", data: { turbo_frame: :_top }, target: :_blank do %>
+                <span class="bi bi-printer" aria-hidden="true"></span>
+                <%= t("export_button.exports.print") %>
+              <% end %>
+              <a role="button" class="btn btn-sm btn-outline-primary d-flex align-items-center export-button-move"
+                              data-action="click->frame-export-pdf#export" data-view-target="front">
+                <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+                <span class="text-truncate d-inline-block ms-2">
+                  <%= t("export_button.exports.pdf") %>
+                </span>
+                <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none " role="status"
+                      aria-hidden="true" data-frame-export-pdf-target="spinner"></span>
+              </a>
+            </td>
           <% end %>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-<% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>
