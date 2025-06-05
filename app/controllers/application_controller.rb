@@ -49,9 +49,7 @@ class ApplicationController < ActionController::Base
   helper_method :breadcrumb
 
   def redirect_to_new_or_to(options = {}, response_options = {})
-    if params[:create_another_one].present?
-      options = url_for(action: :new)
-    end
+    options = url_for(action: :new) if params[:create_another_one].present?
 
     redirect_to options, response_options
   end
