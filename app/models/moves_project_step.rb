@@ -23,4 +23,14 @@ class MovesProjectStep < ApplicationRecord
   def executed?
     moves.any?(&:executed?)
   end
+
+  def frames_with_effective_moves
+    @frames_with_effective_moves ||= begin
+      moves = Move.includes(:frame, :prev_frame)
+        .where(step: moves_project.steps.where(position: ..position))
+        .not_executed
+
+      (moves.map(&:frame) | moves.map(&:prev_frame)).compact.uniq
+    end
+  end
 end
