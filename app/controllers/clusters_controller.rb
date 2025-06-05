@@ -33,7 +33,7 @@ class ClustersController < ApplicationController
 
     respond_to do |format|
       if @cluster.save
-        format.html { redirect_to create_another_one_path(@cluster), notice: t(".flashes.created") }
+        format.html { redirect_to_new_or_to(@cluster, notice: t(".flashes.created")) }
         format.json { render :show, status: :created, location: @cluster }
       else
         format.html { render :new }

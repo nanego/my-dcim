@@ -23,7 +23,7 @@ class PortTypesController < ApplicationController
 
     respond_to do |format|
       if @port_type.save
-        format.html { redirect_to create_another_one_path(@port_type), notice: t(".flashes.created") }
+        format.html { redirect_to_new_or_to(@port_type, notice: t(".flashes.created")) }
         format.json { render :show, status: :created, location: @port_type }
       else
         format.html { render :new }

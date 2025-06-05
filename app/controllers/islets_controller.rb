@@ -39,7 +39,7 @@ class IsletsController < ApplicationController
 
     respond_to do |format|
       if @islet.save
-        format.html { redirect_to create_another_one_path(@islet), notice: t('.flashes.created') }
+        format.html { redirect_to_new_or_to(@islet, notice: t('.flashes.created')) }
         format.json { render :show, status: :created, location: @islet }
       else
         format.html { render :new }

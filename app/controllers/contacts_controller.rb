@@ -32,7 +32,7 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.save
-        format.html { redirect_to create_another_one_path(@contact), notice: t(".flashes.created") }
+        format.html { redirect_to_new_or_to(@contact, notice: t(".flashes.created")) }
         format.json { render :show, status: :created, location: @contact }
       else
         format.html { render :new }

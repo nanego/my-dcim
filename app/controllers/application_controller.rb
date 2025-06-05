@@ -48,12 +48,12 @@ class ApplicationController < ActionController::Base
   end
   helper_method :breadcrumb
 
-  def create_another_one_path(default_path)
+  def redirect_to_new_or_to(options = {}, response_options = {})
     if params[:create_another_one].present?
-      url_for(action: :new) || root_path
-    else
-      default_path
+      options = url_for(action: :new)
     end
+
+    redirect_to options, response_options
   end
 
   private

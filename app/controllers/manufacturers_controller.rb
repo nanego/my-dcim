@@ -31,7 +31,7 @@ class ManufacturersController < ApplicationController
 
     respond_to do |format|
       if @manufacturer.save
-        format.html { redirect_to create_another_one_path(@manufacturer), notice: t(".flashes.created") }
+        format.html { redirect_to_new_or_to(@manufacturer, notice: t(".flashes.created")) }
         format.json { render :show, status: :created, location: @manufacturer }
       else
         format.html { render :new }

@@ -31,7 +31,7 @@ class StacksController < ApplicationController
 
     respond_to do |format|
       if @stack.save
-        format.html { redirect_to create_another_one_path(@stack), notice: t(".flashes.created") }
+        format.html { redirect_to_new_or_to(@stack, notice: t(".flashes.created")) }
         format.json { render :show, status: :created, location: @stack }
       else
         format.html { render :new }
