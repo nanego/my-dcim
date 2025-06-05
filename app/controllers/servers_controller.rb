@@ -105,7 +105,9 @@ class ServersController < ApplicationController
     head :ok # render empty body, status only
   end
 
-  def import_csv; end
+  def export_csv
+    send_data Server.to_csv(DEFAULT_COLUMNS), filename: "#{DateTime.now.strftime("%Y%m%d")}-servers.csv"
+  end
 
   def import
     value = ImportEquipmentByCsv.call(file: params[:import][:file],

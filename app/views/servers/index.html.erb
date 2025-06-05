@@ -11,6 +11,12 @@
                                      icon: "arrow-repeat",
                                      is_responsive: true) %>
 
+      <%= render ButtonComponent.new(t(".export_via_csv"),
+                                     url: export_csv_servers_path,
+                                     variant: :outline_primary,
+                                     icon: "box-arrow-up",
+                                     is_responsive: true) %>
+
       <%= render ButtonComponent.new(t(".add_server_via_csv"),
                                      url: import_csv_servers_path,
                                      variant: :success,
