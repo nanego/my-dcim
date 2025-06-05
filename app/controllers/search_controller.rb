@@ -2,7 +2,7 @@
 
 class SearchController < ApplicationController
   def index
-    query = params[:query].downcase
+    query = params[:query]&.downcase
 
     @results = if params[:query]
                  search_result = ServerFrameView.search(query)
