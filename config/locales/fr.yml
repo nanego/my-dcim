@@ -530,8 +530,9 @@ fr:
 
   moves:
     index:
-      new_move: Prévoir un nouveau déplacement
-      frame_table_title: Baies après déplacements
+      planned_on: Planifié le
+      new_move: Prévoir un déplacement
+      frame_table_title: Châssis après déplacements
       edit_connections: Modifier les connexions
       delete_confirmation: Voulez-vous vraiment supprimer ce déplacement ?
       execute_confirmation: Voulez-vous vraiment appliquer ce déplacement ?
@@ -570,7 +571,7 @@ fr:
       new_moves_project: Nouveau projet
       delete_confirmation: Êtes-vous sûr de vouloir supprimer ce projet ?
     show:
-      frame_table_title: Baies après déplacements
+      frame_table_title: Châssis après déplacements
       edit_connections: Modifier les connexions
       execute_confirmation: Voulez-vous vraiment appliquer ces déplacements ?
       action:
@@ -593,7 +594,7 @@ fr:
 
   moves_project_steps:
     frame:
-      title: Baie %{frame} après déplacement
+      title: Châssis %{frame} après déplacement
       applied_moves: Déplacements appliqués
       loading: CHARGEMENT EN COURS
     execute:

@@ -1,5 +1,5 @@
 <%
-  breadcrumb.add_step(title = Move.model_name.human(count: 2))
+  breadcrumb.add_step(title = @moves_project_step)
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
@@ -9,6 +9,14 @@
                                   variant: :success,
                                   icon: "plus-lg",
                                   is_responsive: true) %>
+  <% end %>
+
+  <% if date = @moves_project_step.date %>
+    <p class="mt-2">
+      <span class="bi bi-calendar-event"></span>
+      <span class="ms-1 fw-lighter"><%= t(".planned_on") %></span>
+      <span class="font-monospace"><%= l(date) %></span>
+    </p>
   <% end %>
 <% end %>
 
@@ -56,7 +64,7 @@
           <%= render move.decorated.status_to_badge_component %>
         <% end %>
 
-        <% table.with_column(style: "min-width: 70px; width: 70px") do |move| %>
+        <% table.with_column(style: "min-width: 120px; width: 120px") do |move| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
             <% unless move.executed? %>
               <%= link_to t("action.execute"),
@@ -103,39 +111,70 @@
   <% end %>
 
   <%= turbo_frame_tag(dom_id(Move, :frames), data: { turbo_action: :advance }) do %>
-    <div class="table-responsive">
-      <h2><%= t(".frame_table_title") %></h2>
-      <table class="table table-striped table-bordered table-hover align_middle">
-        <tbody>
-          <%= content_tag_for(:tr, @moves_project_step.frames_with_effective_moves) do |frame| %>
-            <td class="w-100"><%= link_to frame, frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame) %></td>
-            <td class="d-flex justify-content-center column-gap-1"
-                style="min-width: 400px; width: 400px;"
-                data-controller="frame-export-pdf"
-                data-frame-export-pdf-model-ids-value="<%= [frame.id] %>"
-                data-frame-export-pdf-filename-value="move-frame-<%= frame.name %>"
-                data-frame-export-pdf-is-move-value="true">
-              <%= link_to frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame), class: "btn btn-info btn-sm", data: { turbo_frame: :_top } do %>
-                <span class="bi bi-pencil"></span>
-                <span><%= t(".edit_connections") %></span>
-              <% end %>
-              <%= link_to print_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame), class: "btn btn-sm btn-outline-primary", data: { turbo_frame: :_top }, target: :_blank do %>
-                <span class="bi bi-printer" aria-hidden="true"></span>
-                <%= t("export_button.exports.print") %>
-              <% end %>
-              <a role="button" class="btn btn-sm btn-outline-primary d-flex align-items-center export-button-move"
-                              data-action="click->frame-export-pdf#export" data-view-target="front">
-                <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
-                <span class="text-truncate d-inline-block ms-2">
-                  <%= t("export_button.exports.pdf") %>
-                </span>
-                <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none " role="status"
-                      aria-hidden="true" data-frame-export-pdf-target="spinner"></span>
-              </a>
-            </td>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+    <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+      <% card.with_header do %>
+        <%= t(".frame_table_title") %>
+      <% end %>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover align_middle mb-0">
+          <tbody>
+            <%= content_tag_for(:tr, @moves_project_step.frames_with_effective_moves) do |frame| %>
+              <td class="w-100">
+                <%= link_to frame,
+                            frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame),
+                            data: { turbo_frame: :_top }
+                %>
+              </td>
+              <td class="d-flex justify-content-center column-gap-1"
+                  style="min-width: 100px; width: 100px;"
+                  data-controller="frame-export-pdf"
+                  data-frame-export-pdf-model-ids-value="<%= [frame.id] %>"
+                  data-frame-export-pdf-filename-value="move-frame-<%= frame.name %>"
+                  data-frame-export-pdf-moves-project-id-value="<%= @moves_project.id %>"
+                  data-frame-export-pdf-moves-project-step-id-value="<%= @moves_project_step.id %>"
+                  data-frame-export-pdf-filename-value="move-frame-<%= frame.name %>"
+                  data-frame-export-pdf-is-move-value="true">
+                <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                  <%= link_to frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame),
+                              class: "btn btn-outline-info",
+                              data: { turbo_frame: :_top } do %>
+                    <span class="bi bi-pencil"
+                          title="<%= t(".edit_connections") %>"
+                          aria-hidden="true"
+                          data-controller="tooltip"
+                          data-bs-placement="left"></span>
+                    <span class="visually-hidden"><%= t(".edit_connections") %></span>
+                  <% end %>
+                  <%= link_to print_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame),
+                              class: "btn btn-sm btn-outline-primary",
+                              data: { turbo_frame: :_top },
+                              target: :_blank do %>
+                    <span class="bi bi-printer"
+                          title="<%= t("export_button.exports.print") %>"
+                          aria-hidden="true"
+                          data-controller="tooltip"
+                          data-bs-placement="left"></span>
+                    <span class="visually-hidden"><%= t("export_button.exports.print") %></span>
+                  <% end %>
+                  <a role="button" class="btn btn-sm btn-outline-primary d-flex align-items-center export-button-move"
+                                  data-action="click->frame-export-pdf#export" data-view-target="front">
+                    <span class="bi bi-file-earmark-pdf"
+                          title="<%= t("export_button.exports.pdf") %>"
+                          aria-hidden="true"
+                          data-controller="tooltip"
+                          data-bs-placement="left"
+                          data-frame-export-pdf-target="buttonIcon"></span>
+                    <span class="visually-hidden"><%= t("export_button.exports.pdf") %></span>
+                    <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none " role="status"
+                          aria-hidden="true" data-frame-export-pdf-target="spinner"></span>
+                  </a>
+                </div>
+              </td>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
   <% end %>
 </div>

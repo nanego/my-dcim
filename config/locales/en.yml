@@ -165,10 +165,11 @@ en:
 
   moves:
     index:
-      new_move: Plan a new move
+      planned_on: Planned on
+      new_move: Plan a move
       delete_confirmation: Do you really want to delete this move?
       execute_confirmation: Do you really want to apply this move?
-      frame_table_title: Bays after moving
+      frame_table_title: Frames after moving
       edit_connections: Update connections
       action:
         execute_move: Move the server and its connections
@@ -207,7 +208,11 @@ en:
   moves_projects:
     index:
       new_moves_project: New project
-      delete_confirmation: Are you sure you wan to destroy this project?
+      delete_confirmation: Are you sure you wan to destroy this project
+    show:
+      frame_table_title: Frames after moving
+      edit_connections: Edit connections
+      execute_confirmation: Do you really want to apply these moves?
     new:
       title: New project
     create:

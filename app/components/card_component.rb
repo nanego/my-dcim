@@ -10,7 +10,7 @@ class CardComponent < ApplicationComponent
   erb_template <<~ERB
     <%= tag.div(**@html_attributes) do %>
       <% if header? %>
-        <div class="<%= class_names("card-header", "text-bg-\#{@type}": @type) %>">
+        <div class="<%= class_names("card-header fw-bold", "text-bg-\#{@type}": @type) %>">
           <%= header %>
         </div>
       <% end %>
