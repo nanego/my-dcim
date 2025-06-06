@@ -81,6 +81,7 @@ RSpec.describe "/modeles" do
     let(:params) { { modele: valid_attributes } }
 
     include_context "with authenticated user"
+    it_behaves_like "with create another one"
 
     context "with valid parameters" do
       it { expect { response }.to change(Modele, :count).by(1) }

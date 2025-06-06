@@ -70,6 +70,7 @@ RSpec.describe "Stacks" do
     let(:params) { { stack: valid_attributes } }
 
     include_context "with authenticated user"
+    it_behaves_like "with create another one"
 
     context "with valid parameters" do
       it { expect { response }.to change(Stack, :count).by(1) }
