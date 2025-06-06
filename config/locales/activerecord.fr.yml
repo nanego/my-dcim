@@ -39,6 +39,9 @@ fr:
       moves_project:
         one: Projet de déplacement
         other: Projets de déplacement
+      moves_project_step:
+        one: Étape du projet
+        other: Étapes du projet
       contact: Contact
       contact_role: Rôle
       contact_assignment: Assignation

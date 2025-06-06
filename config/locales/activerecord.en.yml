@@ -24,7 +24,8 @@ en:
       manufacturer: Manufacturer
       modele: Model
       move: Planned move
-      moves_project: Moves projects
+      moves_project: Moves project
+      moves_project_steps: Project step
       port_type: Port type
       room: Room
       server: I.T. equipment
