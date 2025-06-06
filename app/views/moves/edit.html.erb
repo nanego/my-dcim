@@ -1,7 +1,7 @@
-<% breadcrumb.add_step(t("action.edit")) %>
+<% breadcrumb.add_step(title = t(".title")) %>
 
 <%= render Page::HeadingNewComponent.new(
-  resource: @move, title: t(".title"), breadcrumb:,
+  resource: @move, title:, breadcrumb:,
   back_button_url: moves_project_path(@moves_project_step.moves_project),
 ) %>
 

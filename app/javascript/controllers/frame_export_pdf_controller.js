@@ -16,9 +16,12 @@ const exportOptions = {
 }
 
 export default class extends ExportPdfController {
+  static targets = ["buttonIcon"]
   static values = {
     modelIds: Array,
-    isMove: Boolean
+    isMove: Boolean,
+    movesProjectId: String,
+    movesProjectStepId: String,
   }
 
   async export(event) {
@@ -28,6 +31,7 @@ export default class extends ExportPdfController {
     const bgWiring = event.target.dataset.bgWiring
 
     this.showSpinner()
+    if (this.isMoveValue) this.hideButtonIcon()
 
     const pdfDoc = await this.generatePDF(viewTarget, bgWiring)
     const pdfBytes = await pdfDoc.save()
@@ -36,6 +40,7 @@ export default class extends ExportPdfController {
     saveAs(blob, `${this.filenameValue}_${viewTarget}${ bgWiring ? "_wiring" : ""}.pdf`)
 
     this.hideSpinner()
+    if (this.isMoveValue) this.showButtonIcon()
   }
 
   async generatePDF(viewTarget, bgWiring) {
@@ -44,8 +49,9 @@ export default class extends ExportPdfController {
     for (let i = 0; i < this.modelIdsValue.length; i++) {
       const modelId = this.modelIdsValue[i]
 
-      const url = this.isMoveValue ? `moves/print/${modelId}`:
-                                     `/visualization/frames/${modelId}/print?view=${viewTarget}${ bgWiring ? "&bg=wiring" : ""}`
+      const url = this.isMoveValue ?
+        `/moves_projects/${this.movesProjectIdValue}/moves_project_steps/${this.movesProjectStepIdValue}/frames/${modelId}/print`:
+        `/visualization/frames/${modelId}/print?view=${viewTarget}${ bgWiring ? "&bg=wiring" : ""}`
 
       const response = await get(url)
 
@@ -65,5 +71,13 @@ export default class extends ExportPdfController {
     }
 
     return pdfDoc
+  }
+
+  showButtonIcon() {
+    this.buttonIconTarget.classList.remove("d-none")
+  }
+
+  hideButtonIcon() {
+    this.buttonIconTarget.classList.add("d-none")
   }
 }

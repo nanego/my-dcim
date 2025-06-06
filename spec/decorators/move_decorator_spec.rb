@@ -11,7 +11,7 @@ RSpec.describe MoveDecorator, type: :decorator do
 
     context "with move planned" do
       it { is_expected.to be_a BadgeComponent }
-      it { expect(badge.instance_variable_get(:@color)).to eq :secondary }
+      it { expect(badge.instance_variable_get(:@color)).to eq :primary }
       it { expect(badge.content).to eq "Planifié" }
     end
 
