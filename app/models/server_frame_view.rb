@@ -5,7 +5,7 @@ class ServerFrameView < ApplicationRecord
   self.table_name = "servers_frames_view"
   readonly
 
-  scope :servers, -> { Server.includes(modele: :manufacturer).find(where(record_type: "Server").pluck(:id)) }
+  scope :servers, -> { Server.includes(modele: %i[manufacturer category]).find(where(record_type: "Server").pluck(:id)) }
   scope :frames, -> { Frame.includes(bay: { islet: { room: :site } }).find(where(record_type: "Frame").pluck(:id)) }
 
   scope :search, lambda { |query|
