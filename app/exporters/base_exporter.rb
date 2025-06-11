@@ -6,15 +6,29 @@ class BaseExporter
     @attributes = attributes
   end
 
-  def process
+  def process_data
     @records.map do |record|
       {}.tap do |new_record|
         @attributes.each do |attribute|
-          # If model has this attribute, call it
-          # If the exporter has a public method with the same attribute name, call it
-          # Otherwise, raise an exception
+          new_record[attribute] = format_value(record_attribute_value(record, attribute))
         end
       end
     end
+  end
+
+  private
+
+  def record_attribute_value(record, attribute)
+    if record.respond_to? attribute
+      record.public_send(attribute)
+    elsif respond_to? attribute
+      public_send(attribute)
+    else
+      raise "Attribute '#{attribute}' is not defined by either #{record.class} or #{self.class}"
+    end
+  end
+
+  def format_value(value)
+    value.to_s.gsub(/[\r\n]+/, ' ')
   end
 end

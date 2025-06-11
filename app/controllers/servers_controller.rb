@@ -106,7 +106,7 @@ class ServersController < ApplicationController
   end
 
   def export_csv
-    send_data Server.to_csv(DEFAULT_COLUMNS), filename: "#{DateTime.now.strftime("%Y%m%d")}-servers.csv"
+    send_data Server.to_csv(Server.limit(5), Server.attribute_names), filename: "#{DateTime.now.strftime("%Y-%m-%d-%H-%M-%S")}-servers.csv"
   end
 
   def import
