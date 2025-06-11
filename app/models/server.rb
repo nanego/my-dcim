@@ -152,14 +152,14 @@ class Server < ApplicationRecord
     true
   end
 
-  def self.to_csv(attributes)
-    records = Server.limit(5)
+  def self.to_csv(records, attributes)
+    data = ServerExporter.new(records, attributes).process_data
 
     CSV.generate(headers: true) do |csv|
       csv << Server.attribute_names
 
-      records.each do |record|
-        csv << record.attributes
+      data.each do |record|
+        csv << record.values
       end
     end
   end
