@@ -11,11 +11,19 @@
                                      icon: "arrow-repeat",
                                      is_responsive: true) %>
 
-      <%= render ButtonComponent.new(t(".export_via_csv"),
-                                     url: export_csv_servers_path,
-                                     variant: :outline_primary,
-                                     icon: "box-arrow-up",
-                                     is_responsive: true) %>
+      <% page = params[:page] || 1 %>
+      <section>
+        <div class="dropdown d-flex justify-content-end">
+          <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+            <%= t(".export_via_csv") %>
+          </button>
+
+          <div class="dropdown-menu p-4">
+            <%= link_to "Exporter la page actuelle (#{page})", export_csv_servers_path(page:) %>
+            <%= link_to "Exporter tout", export_csv_servers_path %>
+          </div>
+        </div>
+      </section>
 
       <%= render ButtonComponent.new(t(".add_server_via_csv"),
                                      url: import_csv_servers_path,
