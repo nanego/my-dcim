@@ -26,8 +26,10 @@ module Form
     private
 
     def render_another_one_checkbox
+      checked = params[:create_another_one] == "1"
+
       tag.span(class: "me-3 form-check form-check-inline") do
-        concat(check_box_tag(:create_another_one, class: "form-check-input"))
+        concat(check_box_tag(:create_another_one, "1", checked, class: "form-check-input"))
         concat(label_tag(:create_another_one, t("action.create_more"), class: "form-check-label"))
       end
     end
