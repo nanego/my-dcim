@@ -72,6 +72,7 @@ RSpec.describe "Islets" do
     let(:params) { { islet: valid_attributes } }
 
     include_context "with authenticated user"
+    it_behaves_like "with create another one"
 
     context "with valid parameters" do
       it { expect { response }.to change(Islet, :count).by(1) }

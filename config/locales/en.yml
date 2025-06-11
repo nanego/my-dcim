@@ -21,6 +21,7 @@ en:
     suspend: Lock
     unsuspend: Unlock
     create: Create
+    create_more: Create more
     execute: Execute
     move: Move
     preview: Preview

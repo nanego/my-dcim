@@ -34,7 +34,7 @@ class ContactAssignmentsController < ApplicationController
 
     respond_to do |format|
       if @contact_assignment.save
-        format.html { redirect_to contact_assignment_path(@contact_assignment), notice: t(".flashes.created") }
+        format.html { redirect_to_new_or_to(@contact_assignment, notice: t(".flashes.created")) }
         format.json { render :show, status: :created, location: @contact_assignment }
       else
         format.html { render :new }

@@ -41,22 +41,31 @@ RSpec.describe "ContactAssignmentsController" do
 
   describe "#create" do
     context "with valid parameters" do
+      subject(:response) do
+        post contact_assignments_path, params: params
+
+        # NOTE: used to simplify usage and custom test done in final spec file.
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+
       before { contact_assignment }
 
-      let(:valid_attributes) do
-        contact_assignment.attributes.except("id")
-          .merge("site_id" => sites(:two).id, "contact_id" => contacts(:two).id, "contact_role_id" => contact_roles(:two).id)
+      let(:params) do
+        {
+          contact_assignment: contact_assignment.attributes.except("id")
+            .merge("site_id" => sites(:two).id, "contact_id" => contacts(:two).id, "contact_role_id" => contact_roles(:two).id)
+        }
       end
+
+      it_behaves_like "with create another one"
 
       it "creates a new ContactAssignment" do
         expect do
-          post contact_assignments_path, params: { contact_assignment: valid_attributes }
+          response
         end.to change(ContactAssignment, :count).by(1)
       end
 
       it "redirects to the created contact_assignment" do
-        post contact_assignments_path, params: { contact_assignment: valid_attributes }
-
         expect(response).to redirect_to(contact_assignment_path(assigns(:contact_assignment)))
       end
     end

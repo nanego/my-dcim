@@ -23,7 +23,7 @@ class ColorsController < ApplicationController
 
     respond_to do |format|
       if @color.save
-        format.html { redirect_to @color, notice: t(".flashes.created") }
+        format.html { redirect_to_new_or_to(@color, notice: t(".flashes.created")) }
         format.json { render :show, status: :created, location: @color }
       else
         format.html { render :new }

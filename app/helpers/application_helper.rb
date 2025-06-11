@@ -3,6 +3,8 @@
 module ApplicationHelper
   include Pagy::Frontend
 
+  CREATE_ANOTHER_ONE_ACTIONS = %w[new create].freeze
+
   def accepted_format_for_attachment(model_klass, attribute_name)
     validator = model_klass.validators_on(attribute_name.to_sym).find do |v|
       v.is_a?(ActiveStorageValidations::ContentTypeValidator)
@@ -21,5 +23,9 @@ module ApplicationHelper
 
   def surface_area_with_suffix(surface_area)
     value_with_unit(surface_area, "square_meter")
+  end
+
+  def display_create_another_one
+    action_name.in? CREATE_ANOTHER_ONE_ACTIONS
   end
 end
