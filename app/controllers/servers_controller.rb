@@ -106,7 +106,14 @@ class ServersController < ApplicationController
   end
 
   def export_csv
-    send_data Server.to_csv(Server.limit(5), @columns_preferences.preferred), filename: "#{DateTime.now.strftime("%Y-%m-%d-%H-%M-%S")}-servers.csv"
+    @servers = Server.no_pdus
+      .includes(frame: { bay: { islet: :room } }, modele: :category)
+      .references(frame: { bay: { islet: :room } }, modele: :category)
+      .order(:name)
+
+    _, @servers = pagy(@servers) if params[:page]
+
+    send_data Server.to_csv(@servers, @columns_preferences.preferred), filename: "#{DateTime.now.strftime("%Y-%m-%d-%H-%M-%S")}-servers.csv"
   end
 
   def import
