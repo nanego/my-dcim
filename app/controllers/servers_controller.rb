@@ -105,6 +105,8 @@ class ServersController < ApplicationController
     head :ok # render empty body, status only
   end
 
+  def import_csv; end
+
   def export_csv
     @servers = Server.no_pdus
       .includes(frame: { bay: { islet: :room } }, modele: :category)
