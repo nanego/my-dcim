@@ -4,11 +4,11 @@ class ServersController < ApplicationController
   include ServersHelper
   include ColumnsPreferences
 
-  DEFAULT_COLUMNS = %w[name numero modele.category_id islet_id bay_id network_types position].freeze
-  AVAILABLE_COLUMNS = %w[name numero modele.category_id islet_id bay_id network_types position gestion_id frame_id cluster_id
+  DEFAULT_COLUMNS = %w[name numero modele_category_id islet_id bay_id network_types position].freeze
+  AVAILABLE_COLUMNS = %w[name numero modele_category_id islet_id bay_id network_types position gestion_id frame_id cluster_id
                          stack_id domaine_id modele_id u slug side color comment critique].freeze
 
-  columns_preferences_with model: Server, default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS
+  columns_preferences_with model: Server, default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS, only: %i[index export_csv]
 
   before_action :set_server, only: %i[show edit update destroy destroy_connections]
   before_action except: %i[index] do
@@ -106,7 +106,7 @@ class ServersController < ApplicationController
   end
 
   def export_csv
-    send_data Server.to_csv(Server.limit(5), Server.attribute_names), filename: "#{DateTime.now.strftime("%Y-%m-%d-%H-%M-%S")}-servers.csv"
+    send_data Server.to_csv(Server.limit(5), @columns_preferences.preferred), filename: "#{DateTime.now.strftime("%Y-%m-%d-%H-%M-%S")}-servers.csv"
   end
 
   def import
