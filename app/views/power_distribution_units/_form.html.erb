@@ -186,12 +186,14 @@
 
   <%#= render Form::ActionsComponent.new(f) %>
   <div class="col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top">
-    <span class="me-2 form-check form-check-inline">
-      <%= check_box_tag :create_another_one, class: "form-check-input" %>
-      <%= label_tag :create_another_one, t("action.create_more"), class: "form-check-label" %>
-    </span>
+    <span class="d-inline-flex align-items-center me-auto">
+      <span class="me-3 form-check form-check-inline">
+        <%= check_box_tag :create_another_one, class: "form-check-input" %>
+        <%= label_tag :create_another_one, t("action.create_more"), class: "form-check-label" %>
+      </span>
 
-    <%= link_to(t("action.cancel"), dynamic_url, class: "btn btn-outline-secondary me-2") %>
-    <%= f.submit(class: class_names("btn", 'btn-info': is_edit, 'btn-success': is_new)) %>
+      <%= link_to(t("action.cancel"), dynamic_url, class: "btn btn-outline-secondary me-2") %>
+      <%= f.submit(class: class_names("btn", 'btn-info': is_edit, 'btn-success': is_new)) %>
+    </span>
   </div>
 <% end %>
