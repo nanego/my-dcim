@@ -39,7 +39,7 @@ class BaysController < ApplicationController
 
     respond_to do |format|
       if @bay.save
-        format.html { redirect_to @bay, notice: t(".flashes.created") }
+        format.html { redirect_to_new_or_to(@bay, notice: t(".flashes.created")) }
         format.json { render :show, status: :created, location: @bay }
       else
         format.html { render :new }

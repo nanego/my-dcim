@@ -35,7 +35,7 @@ class PowerDistributionUnitsController < ApplicationController
 
     respond_to do |format|
       if @pdu.save
-        format.html { redirect_to power_distribution_unit_path(@pdu), notice: t(".flashes.created") }
+        format.html { redirect_to_new_or_to(power_distribution_unit_path(@pdu), notice: t(".flashes.created")) }
         format.json { render :show, status: :created, location: @pdu }
       else
         format.html { render :new }

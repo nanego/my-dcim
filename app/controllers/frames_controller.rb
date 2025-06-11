@@ -35,7 +35,7 @@ class FramesController < ApplicationController
 
     respond_to do |format|
       if @frame.save
-        format.html { redirect_to @frame, notice: t(".flashes.created") }
+        format.html { redirect_to_new_or_to(@frame, notice: t(".flashes.created")) }
         format.json { render :show, status: :created, location: @frame }
       else
         format.html { render :new }

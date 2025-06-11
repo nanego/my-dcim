@@ -29,7 +29,7 @@ class CardTypesController < ApplicationController
 
     respond_to do |format|
       if @card_type.save
-        format.html { redirect_to card_type_path(@card_type), notice: t(".flashes.created") }
+        format.html { redirect_to_new_or_to(card_type_path(@card_type), notice: t(".flashes.created")) }
         format.json { render :show, status: :created, location: @card_type }
       else
         format.html { render :new }
