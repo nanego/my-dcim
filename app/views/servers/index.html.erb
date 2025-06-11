@@ -11,6 +11,8 @@
                                      icon: "arrow-repeat",
                                      is_responsive: true) %>
 
+      <%= render ExportDropdownComponent.new(url: export_csv_servers_path, page_url: export_csv_servers_path(page: params[:page] || 1)) %>
+
       <%= render ButtonComponent.new(t(".add_server_via_csv"),
                                      url: import_csv_servers_path,
                                      variant: :success,
@@ -158,7 +160,7 @@
           <%= link_to server.numero, server_path(server), class: "fw-bold", data: { turbo_frame: :_top } %>
         <% end %>
 
-        <% table.with_column(Modele.human_attribute_name(:category), name: :"modele.category_id", sort_by: :"categories.name") do |server| %>
+        <% table.with_column(Modele.human_attribute_name(:category), name: :"modele_category_id", sort_by: :"categories.name") do |server| %>
           <%= link_to server.modele.category, category_path(server.modele.category),
                       data: { turbo_frame: :_top } if server.modele.try(:category) %>
         <% end %>

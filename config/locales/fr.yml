@@ -42,6 +42,9 @@ fr:
       front_wiring: Cablage - Face avant
       back_wiring: Cablage - Face arrière
     port_list: Liste des ports
+    page:
+      current: Exporter la page actuelle
+      all: Exporter tout
   show:
     cards:
       display: Affichage
@@ -415,6 +418,7 @@ fr:
     index:
       new_server: Ajouter un matériel  I.T.
       add_server_via_csv: Ajouter par un fichier CSV
+      export_via_csv: Exporter en CSV
       sync_with_external_apps: Synchroniser avec GLPI
     show:
       back_to_bay: Baie %{name}
