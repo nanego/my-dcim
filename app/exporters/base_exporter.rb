@@ -22,7 +22,7 @@ class BaseExporter
     if record.respond_to? attribute
       record.public_send(attribute)
     elsif respond_to? attribute
-      public_send(attribute)
+      public_send(attribute, record)
     else
       raise "Attribute '#{attribute}' is not defined by either #{record.class} or #{self.class}"
     end
