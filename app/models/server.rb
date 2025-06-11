@@ -156,8 +156,7 @@ class Server < ApplicationRecord
     data = ServerExporter.new(records, attributes).process_data
 
     CSV.generate(headers: true) do |csv|
-      # TODO: Translate attributes ?
-      csv << attributes
+      csv << attributes.map { |attr| Server.human_attribute_name(attr) }
 
       data.each do |record|
         csv << record.values
