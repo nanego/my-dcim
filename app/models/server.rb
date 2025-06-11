@@ -152,18 +152,6 @@ class Server < ApplicationRecord
     true
   end
 
-  def self.to_csv(records, attributes)
-    data = ServerExporter.new(records, attributes).process_data
-
-    CSV.generate(headers: true) do |csv|
-      csv << attributes.map { |attr| Server.human_attribute_name(attr) }
-
-      data.each do |record|
-        csv << record.values
-      end
-    end
-  end
-
   private
 
   def slug_candidates
