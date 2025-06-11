@@ -2,9 +2,11 @@
 
 class SearchController < ApplicationController
   def index
+    query = params[:query]&.downcase
+
     @results = if params[:query]
-                 search_result = ServerFrameView.search(params[:query])
-                 (search_result.servers + search_result.frames).sort_by(&:name)
+                 search_result = ServerFrameView.search(query)
+                 (search_result.servers + search_result.frames).sort_by { |r| r.name&.downcase }
                else
                  []
                end
