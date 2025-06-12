@@ -65,15 +65,21 @@
       </div>
     <% end %>
 
-    <%= turbo_frame_tag(
-      dom_id(Move, :frames),
-      loading: :lazy,
-      src: moves_project_step_moves_path(@moves_project.steps.last),
-      class: "pt-4"
-    ) do %>
-      <div class="w-100 d-flex justify-content-center align-items-center gap-3">
-        <span role="status"><%= t("has_many_turbo_frame_component.loading") %></span>
-        <span class="spinner-grow text-<%= @type %>" aria-hidden="true"></span>
+    <% if @moves_project.steps.any? %>
+      <%= turbo_frame_tag(
+        dom_id(Move, :frames),
+        loading: :lazy,
+        src: moves_project_step_moves_path(@moves_project.steps.last),
+        class: "pt-4"
+      ) do %>
+        <div class="w-100 d-flex justify-content-center align-items-center gap-3">
+          <span role="status"><%= t("has_many_turbo_frame_component.loading") %></span>
+          <span class="spinner-grow text-<%= @type %>" aria-hidden="true"></span>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="col-12">
+        <%= render CardEmptyDataComponent.new %>
       </div>
     <% end %>
   </div>

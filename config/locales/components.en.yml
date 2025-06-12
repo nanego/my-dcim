@@ -1,4 +1,7 @@
 en:
+  card_empty_data_component:
+    title: No data found
+
   changelog_entries:
     object_list_component:
       loading: Loading ...
@@ -20,8 +23,6 @@ en:
 
   list:
     data_table_component:
-      empty_table:
-        title: No data found
       bulk:
         selected_elements: selected item(s)
   columns_preferences_dropdown_component:
