@@ -75,10 +75,10 @@ $(document).ready(function(){
 function loadConnectionForm(port_id){
     if(port_id != undefined && port_id != ''){
         $('#moved_connection_form_loading').show();
-        console.log("Selected port : " + JSON.stringify(port_id));
+        console.debug("Selected port : " + JSON.stringify(port_id));
         $.ajax({
             method: "GET",
-            url: "<%= load_server_moves_project_step_moves_path(@moves_project_step) %>",
+            url: "<%= load_connection_moves_project_step_moves_path(@moves_project_step) %>",
             data: { port_id: port_id }
         }).done(function(){
             $('.connection_form').show();
