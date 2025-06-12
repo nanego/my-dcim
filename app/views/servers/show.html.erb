@@ -6,10 +6,9 @@
 
 <%= render Page::HeadingShowComponent.new(resource: @server, title:, breadcrumb:) do |heading| %>
   <% heading.with_extra_buttons do %>
-    <%# TODO: requires a step)
-    <%#= render ButtonComponent.new(
+    <%= render ButtonComponent.new(
       t("action.move"),
-      url: "#",
+      url: new_move_path,
       variant: :outline_primary,
       icon: "box-seam",
       is_responsive: true,
