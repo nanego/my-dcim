@@ -1,24 +1,30 @@
 fr:
+  card_empty_data_component:
+    title: Aucune donnée trouvée
+
   form_errors_component:
     title:
       one: "1 erreur lors de la sauvegarde :"
       other: "%{count} erreurs lors de la sauvegarde :"
+
   filter_component:
     submit: Filtrer
     reset: Réinitialiser%{filters_count}
     total_with_filters: "Total: %{results_count} sur %{total_count} résultats"
     total: "Total: %{count}"
+
   has_many_turbo_frame_component:
     loading: Chargement en cours ...
     see_more_filters: Voir plus de filtres
+
   changelog_entries:
     object_list_component:
       loading: Chargement en cours ...
+
   list:
     data_table_component:
-      empty_table:
-        title: Aucune donnée trouvée
       bulk:
         selected_elements: élément(s) sélectionné(s)
+
   columns_preferences_dropdown_component:
     trigger: Afficher les colonnes
