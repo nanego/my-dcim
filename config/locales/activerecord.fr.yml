@@ -370,6 +370,7 @@ fr:
       move:
         moveable_id: Équipement à déplacer
         frame_id: Baie de destination
+        prev_frame_id: Châssis de départ
         remove_connections: Supprimer toutes les connexions vers cet équipement ?
         position: Position dans la baie
         status: État
