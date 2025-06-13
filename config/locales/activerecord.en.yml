@@ -80,9 +80,9 @@ en:
         date: Planned on
       move:
         moveable_id: Equipment to move
-        frame_id: Destination bay
+        frame_id: Destination frame
         remove_connections: Delete all connections to this equipment?
-        position: Position in bay
+        position: Position in frame
         status: State
         statuses:
           executed: Executed

@@ -197,9 +197,9 @@ en:
       action:
         execute_step_moves: Move servers and their connections
     form:
-      initial_bay: Departure bay
+      initial_bay: Departure frame
     frame:
-      title: Bay %{frame} after move
+      title: Frame %{frame} after move
       applied_moves: Applied moves
       loading: LOADING IN PROGRESS
     moved_connection_form:
