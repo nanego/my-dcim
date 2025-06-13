@@ -7,6 +7,8 @@ class MovesProject < ApplicationRecord
                                             inverse_of: :moves_project
   has_many :moves, through: :steps
 
+  belongs_to :created_by, optional: true, class_name: "User"
+
   validates :name, presence: true
 
   accepts_nested_attributes_for :steps, allow_destroy: true, reject_if: :all_blank

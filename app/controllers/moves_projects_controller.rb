@@ -22,6 +22,7 @@ class MovesProjectsController < ApplicationController
   # POST /moves_projects or /moves_projects.json
   def create
     @moves_project = MovesProject.new(moves_project_params)
+    @moves_project.created_by = current_user
 
     respond_to do |format|
       if @moves_project.save

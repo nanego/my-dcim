@@ -26,6 +26,10 @@
       <%= moves_project.moves.size %>
     <% end %>
 
+    <% table.with_column(MovesProject.human_attribute_name(:created_by)) do |moves_project| %>
+      <%= moves_project.created_by %>
+    <% end %>
+
     <% table.with_column(style: "min-width: 70px; width: 70px") do |moves_project| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= link_to edit_moves_project_path(moves_project), class: "btn btn-info" do %>

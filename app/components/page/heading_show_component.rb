@@ -27,6 +27,8 @@ module Page
                                               is_responsive: true)))
           end
         end
+
+        content
       end
     end
   end

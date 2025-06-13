@@ -2,7 +2,9 @@
   breadcrumb.add_step(title = @moves_project_step)
 %>
 
-<%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
+<%= render Page::HeadingComponent.new(
+  title:, breadcrumb:, back_button_url: moves_project_path(@moves_project_step.moves_project)
+) do |heading| %>
   <% heading.with_right_content do %>
     <% render ButtonComponent.new(t(".new_move"),
                                   url: new_moves_project_step_move_path(@moves_project_step),
