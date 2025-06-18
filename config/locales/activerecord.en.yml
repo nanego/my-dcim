@@ -75,6 +75,7 @@ en:
         category: Category
       moves_project:
         name: Name
+        created_by: Created by
       moves_project_step:
         name: Name
         date: Planned on

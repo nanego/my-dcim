@@ -60,12 +60,21 @@ RSpec.describe MovesProjectsController do
       }
     end
     let(:params) { { moves_project: valid_attributes } }
+    let(:moves_project) { MovesProject.last }
 
-    include_context "with authenticated user"
+    include_context "with authenticated user" do
+      let(:user) { User.create!(email: "user@example.com", password: "passwordpassword") }
+    end
 
     context "with valid parameters" do
       it { expect { response }.to change(MovesProject, :count).by(1) }
       it { expect(response).to redirect_to(moves_project_path(assigns(:moves_project))) }
+
+      it "sets current_user as created_by" do
+        response
+
+        expect(moves_project.created_by).to eq(user)
+      end
     end
 
     context "without attributes" do

@@ -10,6 +10,8 @@ RSpec.describe MovesProject do
   describe "associations" do
     it { is_expected.to have_many(:steps) }
     it { is_expected.to have_many(:moves).through(:steps) }
+
+    it { is_expected.to belong_to(:created_by).optional.class_name("User") }
   end
 
   describe "validations" do

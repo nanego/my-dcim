@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_28_130755) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_13_132815) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -392,6 +392,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_28_130755) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "created_by_id"
+    t.index ["created_by_id"], name: "index_moves_projects_on_created_by_id"
   end
 
   create_table "port_types", id: :serial, force: :cascade do |t|
@@ -545,6 +547,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_28_130755) do
   add_foreign_key "moves", "frames", column: "prev_frame_id"
   add_foreign_key "moves", "moves_project_steps"
   add_foreign_key "moves_project_steps", "moves_projects"
+  add_foreign_key "moves_projects", "users", column: "created_by_id"
   add_foreign_key "rooms", "sites"
   add_foreign_key "servers", "clusters"
   add_foreign_key "servers", "gestions"
