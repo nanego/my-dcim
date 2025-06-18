@@ -6,11 +6,11 @@ class ServerExporter < BaseExporter
   end
 
   def islet_id(record)
-    record.islet.id
+    record.frame.bay.islet.id
   end
 
   def bay_id(record)
-    record.bay.id
+    record.frame.bay.id
   end
 
   def u(record)
