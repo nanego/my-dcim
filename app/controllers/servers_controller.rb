@@ -113,7 +113,10 @@ class ServersController < ApplicationController
       .references(frame: { bay: { islet: :room } }, modele: :category)
       .order(:name)
 
+    @filter = ProcessorFilter.new(@servers, params)
+    @server = @filter.results
     _, @servers = pagy(@servers) if params[:page]
+
     exporter = ServerExporter.new(@servers, @columns_preferences.preferred)
 
     respond_to do |format|

@@ -18,9 +18,9 @@ class ExportDropdownComponent < ApplicationComponent
     </div>
   ERB
 
-  def initialize(url:, page:)
+  def initialize(url:, **params)
     @url = url
-    @page = page
+    @params = params
 
     super
   end
@@ -28,7 +28,7 @@ class ExportDropdownComponent < ApplicationComponent
   private
 
   def current_page_export(format:)
-    public_send(@url, page: @page, format:)
+    public_send(@url, format:, **@params)
   end
 
   def all_pages_export(format:)

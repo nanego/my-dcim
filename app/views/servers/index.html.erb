@@ -11,7 +11,7 @@
                                      icon: "arrow-repeat",
                                      is_responsive: true) %>
 
-      <%= render ExportDropdownComponent.new(url: :export_servers_path, page: params[:page] || 1) %>
+      <%= render ExportDropdownComponent.new(url: :export_servers_path, page: params[:page] || 1, **request.query_parameters) %>
 
       <%= render ButtonComponent.new(t(".add_server_via_csv"),
                                      url: import_csv_servers_path,
