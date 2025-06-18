@@ -4,15 +4,15 @@ class ExportDropdownComponent < ApplicationComponent
   erb_template <<~ERB
     <div class="dropdown">
       <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <%= t("export_button.exports.csv") %>
+        <%= t(".label") %>
       </button>
 
       <ul class="dropdown-menu dropdown-menu-end">
         <li>
-          <%= link_to t("export_button.page.current"), current_page_export(format: :csv), class: "dropdown-item" %>
+          <%= link_to t(".export.current_page"), current_page_export(format: :csv), class: "dropdown-item" %>
         </li>
         <li>
-          <%= link_to t("export_button.page.all"), all_pages_export(format: :csv), class: "dropdown-item" %>
+          <%= link_to t(".export.all_pages"), all_pages_export(format: :csv), class: "dropdown-item" %>
         </li>
       </ul>
     </div>
