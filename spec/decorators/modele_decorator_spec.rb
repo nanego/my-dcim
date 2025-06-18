@@ -32,7 +32,7 @@ RSpec.describe ModeleDecorator, type: :decorator do
     context "when modele has no enclosure" do
       let(:modele) { modeles(:four) }
 
-      it { is_expected.to have_tag("span.fst-italic.fw-lighter", text: "Aucune enclosure") }
+      it { is_expected.to have_tag("span.fst-italic.fw-light.text-body-secondary", text: "Aucune enclosure") }
     end
 
     context "when modele has one enclosure" do
