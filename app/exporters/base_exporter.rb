@@ -1,34 +1,45 @@
 # frozen_string_literal: true
 
 class BaseExporter
-  def initialize(records, attributes)
+  def initialize(records, attribute_names)
     @records = records
-    @attributes = attributes
+    @attribute_names = attribute_names
   end
 
   def process_data
     @records.map do |record|
-      {}.tap do |new_record|
-        @attributes.each do |attribute|
-          new_record[attribute] = format_value(record_attribute_value(record, attribute))
-        end
+      @attribute_names.index_with do |attribute_name|
+        record_attribute_value(record, attribute_name)
       end
+    end
+  end
+
+  class UndefinedAttributeExporter < StandardError
+    def initialize(attribute, model, exporter)
+      super("Attribute '#{attribute}' is not defined by either #{model} or #{exporter.class}")
     end
   end
 
   private
 
-  def record_attribute_value(record, attribute)
-    if record.respond_to? attribute
-      record.public_send(attribute)
-    elsif respond_to? attribute
-      public_send(attribute, record)
+  def record_attribute_value(record, attribute_name)
+    if respond_to? attribute_name
+      public_send(attribute_name, record)
+    elsif record.respond_to? attribute_name
+      format_value(record.public_send(attribute_name))
     else
-      raise "Attribute '#{attribute}' is not defined by either #{record.class} or #{self.class}"
+      raise UndefinedAttributeExporter.new(attribute_name, record.class, self)
     end
   end
 
   def format_value(value)
-    value.to_s.gsub(/[\r\n]+/, ' ')
+    case value
+    when Array
+      value.join(';').gsub(/[\r\n]+/, ' ')
+    when String
+      value.gsub(/[\r\n]+/, ' ')
+    else
+      value
+    end
   end
 end
