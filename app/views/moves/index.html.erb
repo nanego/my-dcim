@@ -43,7 +43,13 @@
         <% table.with_column(t("moves.form.initial_bay")) do |move| %>
           <%= link_to move.moveable.frame,
                       frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, move.moveable.frame),
-                      data: { turbo_frame: :_top } %>
+                      title: move.moveable.frame.name_with_room_and_islet,
+                      data: {
+                        turbo_frame: :_top,
+                        controller: "tooltip",
+                        bs_placement: "top"
+                      }
+          %>
           <div class="small">
             <span class="fw-lighter"><%= Server.human_attribute_name(:position) %> :</span>
             <span class="font-monospace"><%= move.moveable.position %></span>
@@ -53,15 +59,26 @@
         <% table.with_column(Move.human_attribute_name(:frame_id)) do |move| %>
           <%= link_to move.frame,
                       frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, move.frame),
-                      data: { turbo_frame: :_top } %>
+                      title: move.frame.name_with_room_and_islet,
+                      data: {
+                        turbo_frame: :_top,
+                        controller: "tooltip",
+                        bs_placement: "top"
+                      }
+          %>
           <div class="small">
             <span class="fw-lighter"><%= Server.human_attribute_name(:position) %> :</span>
             <span class="font-monospace"><%= move.position %></span>
           </div>
         <% end %>
 
-      <% table.with_column(Move.human_attribute_name(:status)) do |move| %>
-          <%= render move.decorated.status_to_badge_component %>
+        <% table.with_column(Move.human_attribute_name(:status)) do |move| %>
+          <span data-controller="tooltip"
+                data-bs-placement="top"
+                title="<%= l(move.executed_at) if move.executed_at.present?  %>"
+          >
+            <%= render move.decorated.status_to_badge_component %>
+          </span>
         <% end %>
 
         <% table.with_column(style: "min-width: 120px; width: 120px") do |move| %>
