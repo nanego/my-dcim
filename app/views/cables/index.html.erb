@@ -124,7 +124,7 @@
                     <% if from_connection&.port&.vlans.present? %>
                       <%= from_connection.port.vlans %>
                     <% else %>
-                      <span class="fst-italic fw-lighter">n/c</span>
+                      <span class="fst-italic fw-light text-body-secondary">n/c</span>
                     <% end %>
                   </span>
                   <span class="col-4 col-xl-3 text-center fw-bold user-select-none">
@@ -134,7 +134,7 @@
                     <% if to_connection&.port&.vlans.present? %>
                       <%= to_connection.port.vlans %>
                     <% else %>
-                      <span class="fst-italic fw-lighter">n/c</span>
+                      <span class="fst-italic fw-light text-body-secondary">n/c</span>
                     <% end %>
                   </span>
                 </div>

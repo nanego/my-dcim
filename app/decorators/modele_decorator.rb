@@ -10,7 +10,7 @@ class ModeleDecorator < ApplicationDecorator
   end
 
   def displays_to_human
-    return tag.span(I18n.t(".modeles.decorator.no_enclosure"), class: "fst-italic fw-lighter") unless enclosures.any?
+    return tag.span(I18n.t(".modeles.decorator.no_enclosure"), class: "fst-italic fw-light text-body-secondary") unless enclosures.any?
 
     enclosures.map do |enclosure|
       Enclosure.human_attribute_name("display.#{enclosure.display}")
