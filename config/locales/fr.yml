@@ -42,9 +42,6 @@ fr:
       front_wiring: Cablage - Face avant
       back_wiring: Cablage - Face arrière
     port_list: Liste des ports
-    page:
-      current: Exporter la page actuelle
-      all: Exporter tout
   show:
     cards:
       display: Affichage
@@ -737,7 +734,8 @@ fr:
       help-range: "Operate>Composants>Air>Ventilo 1"
       help-setpoint: "Operate>Valeurs>Air>Temperature Consigne"
       help-min-setpoint: "Operate>Valeurs>Air>Temperature Consigne"
-      info-temperatures: "Si T<sub>interne</sub>-T<sub>externe</sub> < DTC start,
+      info-temperatures:
+        "Si T<sub>interne</sub>-T<sub>externe</sub> < DTC start,
         alors ventilation = débit minimal
         \n\r
         Si T<sub>interne</sub>-T<sub>externe</sub> > DTC start + DTC range,
