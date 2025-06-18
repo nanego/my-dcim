@@ -8,7 +8,7 @@ class ServersController < ApplicationController
   AVAILABLE_COLUMNS = %w[name numero modele_category_id islet_id bay_id network_types position gestion_id frame_id cluster_id
                          stack_id domaine_id modele_id u slug side color comment critique].freeze
 
-  columns_preferences_with model: Server, default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS, only: %i[index export_csv]
+  columns_preferences_with model: Server, default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS, only: %i[index export]
 
   before_action :set_server, only: %i[show edit update destroy destroy_connections]
   before_action except: %i[index] do
@@ -107,7 +107,7 @@ class ServersController < ApplicationController
 
   def import_csv; end
 
-  def export_csv
+  def export
     @servers = Server.no_pdus
       .includes(frame: { bay: { islet: :room } }, modele: :category)
       .references(frame: { bay: { islet: :room } }, modele: :category)
