@@ -33,6 +33,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
     @move = @moves_project_step.moves.build(move_params)
 
     @move.prev_frame_id = @move.moveable.try(:frame_id)
+    @move.prev_position = @move.moveable.try(:position)
 
     if params[:move][:remove_connections] == 'Oui'
       @move.clear_connections
@@ -53,8 +54,6 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   def update
     respond_to do |format|
       if @move.update(move_params)
-        @move.prev_frame_id = @move.moveable.try(:frame_id)
-
         if params[:move][:remove_connections] == 'Oui'
           @move.clear_connections
         end
@@ -179,7 +178,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def move_params
-    params.expect(move: %i[moveable_type moveable_id frame_id position prev_frame_id])
+    params.expect(move: %i[moveable_type moveable_id frame_id position])
   end
 
   def moved_connection_params

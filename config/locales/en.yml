@@ -196,8 +196,6 @@ en:
       execute_confirmation: Do you really want to apply these moves?
       action:
         execute_step_moves: Move servers and their connections
-    form:
-      initial_bay: Departure frame
     frame:
       title: Frame %{frame} after move
       applied_moves: Applied moves

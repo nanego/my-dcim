@@ -42,10 +42,10 @@
           <%= move.moveable.domaine %>
         <% end %>
 
-        <% table.with_column(t("moves.form.initial_bay")) do |move| %>
-          <%= link_to move.moveable.frame,
-                      frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, move.moveable.frame),
-                      title: move.moveable.frame.name_with_room_and_islet,
+        <% table.with_column(Move.human_attribute_name(:prev_frame_id)) do |move| %>
+          <%= link_to move.prev_frame,
+                      frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, move.prev_frame),
+                      title: move.prev_frame.name_with_room_and_islet,
                       data: {
                         turbo_frame: :_top,
                         controller: "tooltip",
@@ -54,7 +54,7 @@
           %>
           <div class="small">
             <span class="fw-light text-body-secondary"><%= Server.human_attribute_name(:position) %> :</span>
-            <span class="font-monospace"><%= move.moveable.position %></span>
+            <span class="font-monospace"><%= move.prev_position.presence %></span>
           </div>
         <% end %>
 
@@ -146,7 +146,7 @@
                 %>
               </td>
               <td class="d-flex justify-content-center column-gap-1"
-                  style="min-width: 100px; width: 100px;"
+                  style="min-width: 230px; width: 230px;"
                   data-controller="frame-export-pdf"
                   data-frame-export-pdf-model-ids-value="<%= [frame.id] %>"
                   data-frame-export-pdf-filename-value="move-frame-<%= frame.name %>"
@@ -155,16 +155,10 @@
                   data-frame-export-pdf-filename-value="move-frame-<%= frame.name %>"
                   data-frame-export-pdf-is-move-value="true">
                 <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                  <%= link_to frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame),
-                              class: "btn btn-outline-info",
-                              data: { turbo_frame: :_top } do %>
-                    <span class="bi bi-pencil"
-                          title="<%= t(".edit_connections") %>"
-                          aria-hidden="true"
-                          data-controller="tooltip"
-                          data-bs-placement="left"></span>
-                    <span class="visually-hidden"><%= t(".edit_connections") %></span>
-                  <% end %>
+                  <%= link_to t(".edit_connections"),
+                              frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame),
+                              class: "btn btn-outline-primary",
+                              data: { turbo_frame: :_top } %>
                   <%= link_to print_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame),
                               class: "btn btn-sm btn-outline-primary",
                               data: { turbo_frame: :_top },

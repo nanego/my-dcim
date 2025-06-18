@@ -42,6 +42,14 @@ class Move < ApplicationRecord
       if equipment.save!
         MovedConnection.per_servers([equipment]).map(&:execute!) if apply_connections
 
+        # Update prev_frame and prev_position for incoming moves
+        Move.not_executed
+          .where(moveable: equipment)
+          .where.not(id: self)
+          .find_each do |move|
+            move.update(prev_frame_id: frame.id, prev_position: position)
+          end
+
         update!(executed_at: Time.zone.now)
       end
     end
