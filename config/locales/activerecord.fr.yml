@@ -364,6 +364,7 @@ fr:
         vlans: Vlans
       moves_project:
         name: Nom
+        created_by: Créé par
       moves_project_step:
         name: Nom
         date: Planifié le

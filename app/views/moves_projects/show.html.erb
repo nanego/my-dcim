@@ -4,7 +4,15 @@
     .add_step(title = @moves_project)
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @moves_project, title:, breadcrumb:) %>
+<%= render Page::HeadingShowComponent.new(resource: @moves_project, title:, breadcrumb:) do |heading| %>
+  <% if created_by = @moves_project.created_by %>
+    <p class="mt-2">
+      <span class="bi bi-person"></span>
+      <span class="ms-1 fw-lighter"><%= MovesProject.human_attribute_name(:created_by) %></span>
+      <span class="font-monospace"><%= created_by %></span>
+    </p>
+  <% end %>
+<% end %>
 
 <div class="col-12 pb-4 px-4 border-top">
   <div class="row row-gap-4 pt-4">
