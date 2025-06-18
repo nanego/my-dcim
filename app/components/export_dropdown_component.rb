@@ -9,19 +9,28 @@ class ExportDropdownComponent < ApplicationComponent
 
       <ul class="dropdown-menu dropdown-menu-end">
         <li>
-          <%= link_to t("export_button.page.current"), @page_url, class: "dropdown-item" %>
+          <%= link_to t("export_button.page.current"), current_page_export(format: :csv), class: "dropdown-item" %>
         </li>
         <li>
-          <%= link_to t("export_button.page.all"), @url, class: "dropdown-item" %>
+          <%= link_to t("export_button.page.all"), all_pages_export(format: :csv), class: "dropdown-item" %>
         </li>
       </ul>
     </div>
   ERB
 
-  def initialize(url:, page_url:)
+  def initialize(url:)
     @url = url
-    @page_url = page_url
 
     super
+  end
+
+  private
+
+  def current_page_export(format:)
+    public_send(@url, page: params[:page] || 1, format:)
+  end
+
+  def all_pages_export(format:)
+    public_send(@url, format:)
   end
 end
