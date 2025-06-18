@@ -16,7 +16,7 @@ RSpec.describe "/servers" do
   describe "GET /index" do
     before { get servers_path }
 
-    include_examples "with preferred columns", ServersController::AVAILABLE_COLUMNS
+    it_behaves_like "with preferred columns", ServersController::AVAILABLE_COLUMNS
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }

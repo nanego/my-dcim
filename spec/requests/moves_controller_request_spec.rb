@@ -82,8 +82,7 @@ RSpec.describe MovesController do
       {
         moveable_type: "Server",
         moveable_id: servers(:one).id,
-        frame_id: frames(:one).id,
-        prev_frame_id: frames(:two).id,
+        frame_id: frames(:two).id,
         position: 40
       }
     end
@@ -94,6 +93,13 @@ RSpec.describe MovesController do
     context "with valid parameters" do
       it { expect { response }.to change(Move, :count).by(1) }
       it { expect(response).to redirect_to(moves_project_path(step)) }
+    end
+
+    context "with valid parameters, it updates prev_frame_id and prev_position" do
+      before { response }
+
+      it { expect(Move.last.prev_frame_id).to eq(frames(:one).id) }
+      it { expect(Move.last.prev_position).to eq(servers(:one).position) }
     end
 
     context "without attributes" do
