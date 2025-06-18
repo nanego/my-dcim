@@ -2,6 +2,12 @@ en:
   card_empty_data_component:
     title: No data found
 
+  export_dropdown_component:
+    label: "CSV Export"
+    export:
+      current_page: "Export the current page"
+      all_pages: "Export everything"
+
   changelog_entries:
     object_list_component:
       loading: Loading ...

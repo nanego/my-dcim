@@ -85,9 +85,6 @@ en:
       front_wiring: Wiring - Front panel
       back_wiring: Wiring - Back panel
     port_list: Ports list
-    page:
-      current: Export the current page
-      all: Export everything
 
   external_app_records:
     index:
