@@ -54,11 +54,13 @@ class BaseExporter
   end
 
   def format_value(value)
+    normalize_line_endings = ->(str) { str.gsub("\r", "\\r").gsub("\n", "\\n") }
+
     case value
     when Array
-      value.join(';').gsub(/[\r\n]+/, ' ')
+      normalize_line_endings.call(value.join(";"))
     when String
-      value.gsub(/[\r\n]+/, ' ')
+      normalize_line_endings.call(value)
     else
       value
     end

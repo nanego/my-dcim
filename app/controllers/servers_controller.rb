@@ -114,8 +114,11 @@ class ServersController < ApplicationController
       .order(:name)
 
     _, @servers = pagy(@servers) if params[:page]
+    exporter = ServerExporter.new(@servers, @columns_preferences.preferred)
 
-    send_data ServerExporter.new(@servers, @columns_preferences.preferred).to_csv, filename: "#{DateTime.now.strftime("%Y-%m-%d-%H-%M-%S")}-servers.csv"
+    respond_to do |format|
+      format.csv { send_data exporter.to_csv, filename: "#{DateTime.now.strftime("%Y-%m-%d-%H-%M-%S")}-servers.csv" }
+    end
   end
 
   def import
