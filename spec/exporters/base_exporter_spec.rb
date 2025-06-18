@@ -7,12 +7,16 @@ RSpec.describe BaseExporter do
   let(:records) { [servers(:one)] }
   let(:attributes) { %i[numero position] }
 
+  describe "default attribute names" do
+    it { expect(described_class::DEFAULT_ATTRIBUTE_NAMES).to eq(%w[id created_at updated_at]) }
+  end
+
   describe "#to_csv" do
     context "with valid attributes" do
       it do
         expected_csv = <<~CSV
           Id,#{Server.human_attribute_name(:created_at)},#{Server.human_attribute_name(:updated_at)},#{Server.human_attribute_name(:numero)},#{Server.human_attribute_name(:position)}
-          1,#{servers(:one).created_at},#{servers(:one).updated_at},CZ31535FEY,39
+          #{servers(:one).id},#{servers(:one).created_at},#{servers(:one).updated_at},#{servers(:one).numero},#{servers(:one).position}
         CSV
 
         expect(exporter.to_csv).to eq(expected_csv)
