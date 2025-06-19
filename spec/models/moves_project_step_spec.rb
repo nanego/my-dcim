@@ -36,10 +36,14 @@ RSpec.describe MovesProjectStep do
     end
   end
 
-  describe "#frames_with_effective_moves" do
+  describe "#frames_with_moves_at_current_step" do
     it do
-      expect(moves_project_steps(:planned).frames_with_effective_moves)
+      expect(moves_project_steps(:planned).frames_with_moves_at_current_step)
         .to contain_exactly(frames(:one), frames(:three))
     end
+  end
+
+  describe "#servers_moves_for_frame_at_current_step" do
+    pending
   end
 end
