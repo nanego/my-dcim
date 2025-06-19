@@ -2,6 +2,9 @@
 
 module Users
   class RegistrationsController < Devise::RegistrationsController
+
+    before_action :admin_only, only: [:new, :create]
+
     protected
 
     # The path used after sign up. You need to overwrite this method

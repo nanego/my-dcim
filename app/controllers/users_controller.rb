@@ -67,12 +67,6 @@ class UsersController < ApplicationController
 
   private
 
-  def admin_only
-    return if current_user.admin?
-
-    redirect_to root_path, alert: t(".flashes.access_denied")
-  end
-
   def secure_params
     params.expect(user: %i[role email name])
   end
