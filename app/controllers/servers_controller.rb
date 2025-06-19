@@ -114,7 +114,7 @@ class ServersController < ApplicationController
       .order(:name)
 
     @filter = ProcessorFilter.new(@servers, params)
-    @server = @filter.results
+    @servers = @filter.results
     _, @servers = pagy(@servers) if params[:page]
 
     exporter = ServerExporter.new(@servers, @columns_preferences.preferred)
