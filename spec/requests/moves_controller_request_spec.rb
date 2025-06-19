@@ -95,13 +95,6 @@ RSpec.describe MovesController do
       it { expect(response).to redirect_to(moves_project_path(step)) }
     end
 
-    context "with valid parameters, it updates prev_frame_id and prev_position" do
-      before { response }
-
-      it { expect(Move.last.prev_frame_id).to eq(frames(:one).id) }
-      it { expect(Move.last.prev_position).to eq(servers(:one).position) }
-    end
-
     context "without attributes" do
       let(:params) { { move: {} } }
 

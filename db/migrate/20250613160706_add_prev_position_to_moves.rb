@@ -12,8 +12,8 @@ class AddPrevPositionToMoves < ActiveRecord::Migration[8.0]
 
     up_only do
       say_with_time "Fill prev_position attribute" do
-        MigrationMoves.find_each do |move|
-          move.update(prev_position: move.moveable.position) unless move.executed_at?
+        MigrationMoves.where(executed_at: nil).find_each do |move|
+          move.update(prev_position: move.moveable.position)
         end
       end
     end

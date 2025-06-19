@@ -12,6 +12,9 @@ class Move < ApplicationRecord
 
   validates :position, presence: true
 
+  before_validation :refresh_prev_data
+  before_save :refresh_prev_data
+
   scope :not_executed, -> { where(executed_at: nil) }
 
   def clear_connections
@@ -57,5 +60,13 @@ class Move < ApplicationRecord
 
   def executed?
     executed_at?
+  end
+
+  def refresh_prev_data
+    return if executed?
+    return unless moveable
+
+    self.prev_frame_id = moveable.frame_id
+    self.prev_position = moveable.position
   end
 end

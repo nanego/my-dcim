@@ -32,9 +32,6 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   def create
     @move = @moves_project_step.moves.build(move_params)
 
-    @move.prev_frame_id = @move.moveable.try(:frame_id)
-    @move.prev_position = @move.moveable.try(:position)
-
     if params[:move][:remove_connections] == 'Oui'
       @move.clear_connections
     end
