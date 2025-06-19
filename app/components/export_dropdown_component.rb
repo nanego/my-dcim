@@ -3,8 +3,12 @@
 class ExportDropdownComponent < ApplicationComponent
   erb_template <<~ERB
     <div class="dropdown">
-      <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <%= t(".label") %>
+      <button class="btn btn-outline-primary dropdown-toggle btn-sm d-flex align-items-center"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false">
+        <span class="bi bi-filetype-csv me-1"></span>
+        <%= t("export_button.exports.csv") %>
       </button>
 
       <ul class="dropdown-menu dropdown-menu-end">

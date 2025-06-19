@@ -3,7 +3,6 @@ en:
     title: No data found
 
   export_dropdown_component:
-    label: "CSV Export"
     export:
       current_page: "Export the current page"
       all_pages: "Export everything"
