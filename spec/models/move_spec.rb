@@ -49,7 +49,24 @@ RSpec.describe Move do
   end
 
   describe "#execute!" do
-    pending
+    subject(:execution) { move.execute! }
+
+    let(:move) { moves(:planned) }
+
+    it do
+      expect do
+        execution
+        move.reload
+      end.to change(move, :executed_at).from(nil)
+        .and change(move.moveable, :position)
+    end
+
+    context "with connections" do
+    end
+
+    context "wehn already executed" do
+      let(:move) { moves(:executed) }
+    end
   end
 
   describe "#executed?" do
