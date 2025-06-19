@@ -24,13 +24,27 @@ class MovesProjectStep < ApplicationRecord
     moves.any?(&:executed?)
   end
 
-  def frames_with_effective_moves
-    @frames_with_effective_moves ||= begin
+  def frames_with_moves_at_current_step
+    @frames_with_moves_at_current_step ||= begin
       moves = Move.includes(:frame, :prev_frame)
         .where(step: moves_project.steps.where(position: ..position))
-        .not_executed
 
       (moves.map(&:frame) | moves.map(&:prev_frame)).compact.uniq
     end
+  end
+
+  def servers_moves_for_frame_at_current_step(frame)
+    moved = Move.includes(:frame, :prev_frame)
+      .where(step: moves_project.steps.where(position: ..position))
+      .where(frame:, moveable_type: "Server").map do |move|
+      move.moveable.position = move.position
+      move.moveable
+    end
+
+    removed = Move.includes(:frame, :prev_frame)
+      .where(step: moves_project.steps.where(position: ..position))
+      .where(prev_frame: frame, moveable_type: "Server").map(&:moveable)
+
+    ((frame.servers - removed) | moved).sort_by { |server| server.position.presence || 0 }.reverse
   end
 end
