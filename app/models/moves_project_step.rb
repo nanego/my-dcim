@@ -36,7 +36,9 @@ class MovesProjectStep < ApplicationRecord
   def servers_moves_for_frame_at_current_step(frame)
     moved = Move.includes(:frame, :prev_frame)
       .where(step: moves_project.steps.where(position: ..position))
-      .where(frame:, moveable_type: "Server").map do |move|
+      .where(frame:, moveable_type: "Server")
+      .sort_by { |move| move.step.position }
+      .map do |move|
       move.moveable.position = move.position
       move.moveable
     end
