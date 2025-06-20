@@ -18,13 +18,13 @@
   <div class="row row-gap-4 pt-4">
     <% @moves_project.steps.each do |moves_project_step| %>
       <div class="col-12">
-        <%= render CardComponent.new(extra_classes: "") do |card| %>
+        <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
           <div class="d-flex justify-content-between align-items-center mb-4">
             <span class="d-inline-flex align-items-center">
               <h4 class="mb-0">
                 <%= link_to moves_project_step,
                             moves_project_step_moves_path(moves_project_step),
-                            class: "link-secondary" %>
+                            class: "link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" %>
               </h4>
               <% if date = moves_project_step.date %>
                 <span class="ms-3">

@@ -12,7 +12,7 @@ RSpec.describe "Bays" do
       get bays_path
     end
 
-    include_examples "with preferred columns", BaysController::AVAILABLE_COLUMNS
+    it_behaves_like "with preferred columns", BaysController::AVAILABLE_COLUMNS
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }

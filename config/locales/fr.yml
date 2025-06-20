@@ -557,8 +557,6 @@ fr:
       flashes:
         executed: Le déplacement a été exécuté avec succès.
         already_executed: Le déplacement a déjà été exécuté.
-    form:
-      initial_bay: Châssis de départ
     frame:
       title: Châssis %{frame} après déplacement
       applied_moves: Déplacements appliqués
