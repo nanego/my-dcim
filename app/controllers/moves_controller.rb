@@ -103,9 +103,10 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def load_frame
-    @frame = Frame.find(params[:frame_id])
+    @frame = Frame.friendly.find(params[:frame_id])
     @view = params[:view]
     @move = @moves_project_step.moves.build(moveable_type: 'Server')
+    @servers = @moves_project_step.servers_moves_for_frame_at_current_step(@frame)
   end
 
   def load_connection
