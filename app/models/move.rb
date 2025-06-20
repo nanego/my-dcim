@@ -12,6 +12,9 @@ class Move < ApplicationRecord
 
   validates :position, presence: true
 
+  before_validation :refresh_prev_data
+  before_save :refresh_prev_data
+
   scope :not_executed, -> { where(executed_at: nil) }
 
   def clear_connections
@@ -42,6 +45,14 @@ class Move < ApplicationRecord
       if equipment.save!
         MovedConnection.per_servers([equipment]).map(&:execute!) if apply_connections
 
+        # Update prev_frame and prev_position for incoming moves
+        Move.not_executed
+          .where(moveable: equipment)
+          .where.not(id: self)
+          .find_each do |move|
+            move.update(prev_frame_id: frame.id, prev_position: position)
+          end
+
         update!(executed_at: Time.zone.now)
       end
     end
@@ -49,5 +60,13 @@ class Move < ApplicationRecord
 
   def executed?
     executed_at?
+  end
+
+  def refresh_prev_data
+    return if executed?
+    return unless moveable
+
+    self.prev_frame_id = moveable.frame_id
+    self.prev_position = moveable.position
   end
 end

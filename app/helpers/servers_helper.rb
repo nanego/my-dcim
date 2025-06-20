@@ -73,9 +73,9 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
           html += content_tag(:span,
                               link_to_port(position, port_data, card_type.port_type, card.id, port_id, (position - 1 + card.first_port_position).to_s.rjust(2, "0")),
                               class: "port_container d-flex
-                                      #{twin_card_used_ports && port_data && port_data.cable_name && twin_card_used_ports.exclude?(port_data.position) ? "no_client" : ""}
-                                      #{twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(position) ? "unreferenced_client" : ""}
-                                      #{selected_port.present? && port_id == selected_port.try(:id) ? "selected" : ""}")
+                                      #{"no_client" if twin_card_used_ports && port_data && port_data.cable_name && twin_card_used_ports.exclude?(port_data.position)}
+                                      #{"unreferenced_client" if twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(position)}
+                                      #{"selected" if selected_port.present? && port_id == selected_port.try(:id)}")
 
           if (cell_index + 1) % number_of_columns_in_cell(card.orientation, ports_per_cell, card_type.max_aligned_ports) == 0 # Every XX ports do
             html += '</div><div class="d-flex">'
@@ -101,9 +101,9 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       html += content_tag(:span,
                           link_to_port(index + 1, port_data, port_type, card_id, port_id),
                           class: "port_container float-start
-                                  #{twin_card_used_ports && port_data && port_data.cable_name && twin_card_used_ports.exclude?(port_data.position) ? "no_client" : ""}
-                          #{twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(index + 1) ? "unreferenced_client" : ""}
-                          #{selected_port.present? && port_id == selected_port.try(:id) ? "selected" : ""}")
+                                  #{"no_client" if twin_card_used_ports && port_data && port_data.cable_name && twin_card_used_ports.exclude?(port_data.position)}
+                          #{"unreferenced_client" if twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(index + 1)}
+                          #{"selected" if selected_port.present? && port_id == selected_port.try(:id)}")
     end
     html.html_safe
   end

@@ -81,6 +81,7 @@ en:
         date: Planned on
       move:
         moveable_id: Equipment to move
+        prev_frame_id: Departure frame
         frame_id: Destination frame
         remove_connections: Delete all connections to this equipment?
         position: Position in frame

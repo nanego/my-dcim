@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_13_132815) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_13_160706) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -372,6 +372,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_13_132815) do
     t.integer "position"
     t.bigint "moves_project_step_id", null: false
     t.datetime "executed_at"
+    t.integer "prev_position"
     t.index ["frame_id"], name: "index_moves_on_frame_id"
     t.index ["moveable_type", "moveable_id"], name: "index_moves_on_moveable_type_and_moveable_id"
     t.index ["moves_project_step_id"], name: "index_moves_on_moves_project_step_id"

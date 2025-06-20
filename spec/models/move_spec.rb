@@ -51,4 +51,18 @@ RSpec.describe Move do
       it { expect(move.executed?).to be(true) }
     end
   end
+
+  describe "#refresh_prev_data" do
+    let(:move) { moves(:one) }
+
+    before do
+      move.moveable.frame_id = 2
+      move.moveable.position = 3
+
+      move.save
+    end
+
+    it { expect(move.prev_frame_id).to eq(2) }
+    it { expect(move.prev_position).to eq(3) }
+  end
 end

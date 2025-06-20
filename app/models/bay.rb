@@ -23,7 +23,7 @@ class Bay < ApplicationRecord
   end
 
   def detailed_name
-    "#{room} #{islet.blank? ? "" : "Ilot #{islet.name}"}#{lane.blank? ? "" : " Ligne #{lane}"}#{position.blank? ? "" : " Position #{position}"}#{frames.any? ? " (#{list_frames})" : ""}"
+    "#{room} #{"Ilot #{islet.name}" if islet.present?}#{" Ligne #{lane}" if lane.present?}#{" Position #{position}" if position.present?}#{" (#{list_frames})" if frames.any?}"
   end
 
   def list_frames
