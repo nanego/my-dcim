@@ -44,6 +44,9 @@ RSpec.describe MovesProjectStep do
   end
 
   describe "#servers_moves_for_frame_at_current_step" do
-    pending
+    it do
+      expect(moves_project_steps(:planned).servers_moves_for_frame_at_current_step(frames(:one)))
+        .to contain_exactly(servers(:two), servers(:with_cluster))
+    end
   end
 end
