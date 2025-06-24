@@ -25,7 +25,7 @@
               <ul>
                 <% rooms = site.rooms.sorted.distinct %>
                 <% rooms.each do |room| %>
-                  <% islets = room.islets.sorted.not_empty.has_name.distinct %>
+                  <% islets = room.islets.sorted.has_name.distinct %>
                   <% islets.each do |islet| %>
                     <%- is_current_islet_active = islet == @islet || (@islet.blank? && @room == room) %>
                     <li role="presentation" class="<%= class_names(active: is_current_islet_active) %>">
