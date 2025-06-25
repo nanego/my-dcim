@@ -1,10 +1,11 @@
-$("#frame").html("<%= escape_javascript(render partial: 'frames/show_frame', locals: {frame: @frame,
-                                            servers: (@frame.servers).sort_by { |server| server.position.present? ? server.position : 0}.reverse,
-                                            settings: Frame::DEFAULT_SETTINGS.merge({:min_height => 27 }),
-                                            view_type: @view,
-                                            editable: false,
-                                            clickable_lines: true
-                                            # , highlighted_servers: [@move.moveable]
+$("#frame").html("<%= escape_javascript(render partial: "frames/show_frame", locals: {
+  frame: @frame,
+  servers: @servers,
+  settings: Frame::DEFAULT_SETTINGS.merge({min_height: 27 }),
+  view_type: @view,
+  editable: false,
+  clickable_lines: true
+  # , highlighted_servers: [@move.moveable]
 }) %>");
 
 <% f = ActionView::Base.default_form_builder.new(:move, @move, self, {}) %>
