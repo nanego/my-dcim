@@ -3,15 +3,15 @@
 module Users
   class RegistrationsController < Devise::RegistrationsController
     before_action :admin_only, only: %i[new create]
-    before_action :set_user, only: %i[edit_user update_user]
+    before_action :set_user, only: %i[edit update]
 
-    def edit_user; end
+    def edit; end
 
-    def update_user
+    def update
       if @user.update(user_params)
         redirect_to user_path(@user), notice: t(".flashes.updated")
       else
-        render :edit_user, status: :unprocessable_entity
+        render :edit, status: :unprocessable_entity
       end
     end
 

@@ -6,7 +6,7 @@
 <%= render Page::HeadingComponent.new(title: title, breadcrumb:) %>
 
 <div class="col-12 p-4 border-top">
-  <%= form_with model: @user, url: users_update_user_path(user_id: @user.id), method: :patch, class: "col-12 col-md-10 col-lg-8 mx-auto" do |form| %>
+  <%= form_with model: @user, url: user_registration_path(user_id: @user.id), method: :patch, class: "col-12 col-md-10 col-lg-8 mx-auto" do |form| %>
     <%= render FormErrorsComponent.new(@user) %>
 
     <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do %>

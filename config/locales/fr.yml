@@ -665,9 +665,9 @@ fr:
       change_email: Changer mon email
       change_api_key: Changer
     registrations:
-      edit_user:
+      edit:
         title: "Modifier un compte utilisateur"
-      update_user:
+      update:
         flashes:
           updated: "L'utilisateur a été mis à jour"
     settings:

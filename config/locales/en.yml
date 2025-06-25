@@ -373,9 +373,9 @@ en:
       title: My account
       settings: My preferences
     registrations:
-      edit_user:
+      edit:
         title: "Edit a user account"
-      update_user:
+      update:
         flashes:
           updated: "The user has been updated"
     settings:

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class UserPolicy < ApplicationPolicy
-  def edit_user?
+  def edit?
     user.admin?
   end
 
-  def update_user?
+  def update?
     user.admin?
   end
 end
