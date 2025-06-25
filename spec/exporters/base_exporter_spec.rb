@@ -14,12 +14,10 @@ RSpec.describe BaseExporter do
   describe "#to_csv" do
     context "with valid attributes" do
       it do
-        expected_csv = <<~CSV
+        expect(exporter.to_csv).to eq <<~CSV
           Id,#{Server.human_attribute_name(:created_at)},#{Server.human_attribute_name(:updated_at)},#{Server.human_attribute_name(:numero)},#{Server.human_attribute_name(:position)}
           #{servers(:one).id},#{servers(:one).created_at},#{servers(:one).updated_at},#{servers(:one).numero},#{servers(:one).position}
         CSV
-
-        expect(exporter.to_csv).to eq(expected_csv)
       end
     end
 

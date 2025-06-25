@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class BaseExporter
+  class UndefinedAttributeExporter < StandardError
+    def initialize(attribute, model, exporter)
+      super("Attribute '#{attribute}' is not defined by either #{model} or #{exporter}")
+    end
+  end
+
   DEFAULT_ATTRIBUTE_NAMES = %w[id created_at updated_at].freeze
 
   def initialize(records, attribute_names)
@@ -20,12 +26,6 @@ class BaseExporter
       data.each do |record|
         csv << record.values
       end
-    end
-  end
-
-  class UndefinedAttributeExporter < StandardError
-    def initialize(attribute, model, exporter)
-      super("Attribute '#{attribute}' is not defined by either #{model} or #{exporter}")
     end
   end
 
