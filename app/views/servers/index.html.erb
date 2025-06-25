@@ -262,13 +262,20 @@
         <% end %>
       <% end %>
 
-      <div class="d-flex justify-content-between align-items-center">
-        <% if @pagy.pages > 1 %>
-          <%== pagy_bootstrap_nav(@pagy) %>
-        <% end %>
-
-        <%= render ExportDropdownComponent.new(url: :export_servers_path, page: params[:page] || 1, **request.query_parameters) %>
-      </div>
+      <% if @pagy.pages > 1 || !turbo_frame_request? %>
+        <div class="d-flex justify-content-between align-items-center">
+          <% if @pagy.pages > 1 %>
+            <%== pagy_bootstrap_nav(@pagy) %>
+          <% end %>
+          <% unless turbo_frame_request? %>
+            <%= render ExportDropdownComponent.new(
+              url: :export_servers_path,
+              pagy: @pagy,
+              **request.query_parameters
+            ) %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 </div>

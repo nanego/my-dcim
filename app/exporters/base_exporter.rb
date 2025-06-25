@@ -18,24 +18,25 @@ class BaseExporter
     return "" if @records.empty?
 
     model = @records.first.class
-    data = process_data(attributes)
 
     CSV.generate(headers: true) do |csv|
       csv << attributes.map { |attr| model.human_attribute_name(attr) }
 
-      data.each do |record|
-        csv << record.values
+      process_data_to_rows do |row|
+        csv << row
       end
     end
   end
 
   private
 
-  def process_data(attribute_names)
-    @records.map do |record|
-      attribute_names.index_with do |attribute_name|
+  def process_data_to_rows
+    @records.each do |record|
+      values = attributes.map do |attribute_name|
         record_attribute_value(record, attribute_name)
       end
+
+      yield values
     end
   end
 
@@ -44,9 +45,9 @@ class BaseExporter
   end
 
   def record_attribute_value(record, attribute_name)
-    if respond_to? attribute_name
+    if respond_to?(attribute_name)
       public_send(attribute_name, record)
-    elsif record.respond_to? attribute_name
+    elsif record.respond_to?(attribute_name)
       format_value(record.public_send(attribute_name))
     else
       raise UndefinedAttributeExporter.new(attribute_name, record.class, self.class)
@@ -54,13 +55,9 @@ class BaseExporter
   end
 
   def format_value(value)
-    normalize_line_endings = ->(str) { str.gsub("\r", "\\r").gsub("\n", "\\n") }
-
     case value
     when Array
-      normalize_line_endings.call(value.join(";"))
-    when String
-      normalize_line_endings.call(value)
+      value.join(";")
     else
       value
     end

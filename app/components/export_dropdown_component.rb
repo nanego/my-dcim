@@ -2,7 +2,7 @@
 
 class ExportDropdownComponent < ApplicationComponent
   erb_template <<~ERB
-    <div class="dropdown">
+    <div class="dropdown ms-auto">
       <button class="btn btn-outline-primary dropdown-toggle btn-sm d-flex align-items-center"
               type="button"
               data-bs-toggle="dropdown"
@@ -15,15 +15,18 @@ class ExportDropdownComponent < ApplicationComponent
         <li>
           <%= link_to t(".export.current_page"), current_page_export(format: :csv), class: "dropdown-item" %>
         </li>
-        <li>
-          <%= link_to t(".export.all_pages"), all_pages_export(format: :csv), class: "dropdown-item" %>
-        </li>
+        <% if @pagy.next.present? %>
+          <li>
+            <%= link_to t(".export.all_pages"), all_pages_export(format: :csv), class: "dropdown-item" %>
+          </li>
+        <% end %>
       </ul>
     </div>
   ERB
 
-  def initialize(url:, **params)
+  def initialize(url:, pagy:, **params)
     @url = url
+    @pagy = pagy
     @params = params
 
     super
@@ -32,10 +35,10 @@ class ExportDropdownComponent < ApplicationComponent
   private
 
   def current_page_export(format:)
-    public_send(@url, format:, **@params)
+    public_send(@url, format:, page: @pagy.page, **@params)
   end
 
   def all_pages_export(format:)
-    public_send(@url, format:)
+    public_send(@url, format:, **@params.except(:page))
   end
 end
