@@ -8,7 +8,7 @@ RSpec.describe UserPolicy, type: :policy do
   let(:context) { { user: } }
   let(:role) { :admin }
 
-  before { context[:user].role = role  }
+  before { context[:user].role = role }
 
   describe_rule :edit_user? do
     succeed "when an admin user asks"
