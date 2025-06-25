@@ -36,7 +36,7 @@ RSpec.describe "Users::Registrations" do
 
     context "with valid data" do
       it { expect(response).to have_http_status(:redirect) }
-      it { expect(response).to redirect_to(user_path(user)) }
+      it { expect(response).to redirect_to(user_path(user)) } # rubocop:disable RSpec/EmptyLineAfterExample
       it do
         expect do
           response
