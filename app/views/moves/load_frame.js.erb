@@ -9,3 +9,10 @@ $("#frame").html("<%= escape_javascript(render partial: "frames/show_frame", loc
 }) %>");
 
 <% f = ActionView::Base.default_form_builder.new(:move, @move, self, {}) %>
+
+$("#bay_size_container").html("<%=
+                                  escape_javascript(
+                                    render partial: 'moves/select_bay_position',
+                                    locals: { f: f, move: @move, frame_size: @frame.u }
+                                  )
+                                %>");
