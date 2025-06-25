@@ -6,9 +6,17 @@
 #
 one:
   id: 1
+  name: User1
   email: contact1@yopmail.com
   encrypted_password: $2a$10$5iKaHrlajUNurPi/N7cHduDiufXpCz/9Aug3L660HdPpfUWgTeXju
 
 two:
+  name: User2
   email: contact2@yopmail.com
   encrypted_password: $2a$10$5iKaHrlajUNurPi/N7cHduDiufXpCz/9Aug3L660HdPpfUWgTeXju
+
+admin:
+  name: Admin
+  email: admin@yopmail.com
+  encrypted_password: $2a$10$5iKaHrlajUNurPi/N7cHduDiufXpCz/9Aug3L660HdPpfUWgTeXju
+  role: admin

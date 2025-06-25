@@ -9,7 +9,7 @@ module Users
 
     def update_user
       if @user.update(user_params)
-        redirect_to users_path, notice: t(".flashes.updated")
+        redirect_to user_path(@user), notice: t(".flashes.updated")
       else
         render :edit_user, status: :unprocessable_entity
       end
