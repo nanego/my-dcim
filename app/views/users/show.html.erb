@@ -8,7 +8,7 @@
   <% heading.with_right_content do %>
     <% if allowed_to?(:edit_user?, @user) %>
       <%= render ButtonComponent.new(t("action.edit"),
-                                  url: edit_user_path(user_id: @user),
+                                  url: users_edit_user_path(user_id: @user),
                                   variant: :info,
                                   icon: :pencil,
                                   is_responsive: true) %>

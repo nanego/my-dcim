@@ -10,7 +10,7 @@ RSpec.describe "Users::Registrations" do
 
   describe "GET /edit_user" do
     subject(:response) do
-      get(edit_user_path(user_id: user.id))
+      get(users_edit_user_path(user_id: user.id))
 
       @response
     end
@@ -27,7 +27,7 @@ RSpec.describe "Users::Registrations" do
 
   describe "PATCH /update_user" do
     subject(:response) do
-      patch(update_user_path(user_id: user.id, params:))
+      patch(users_update_user_path(user_id: user.id, params:))
 
       @response
     end

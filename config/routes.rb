@@ -127,8 +127,8 @@ Rails.application.routes.draw do
                                     sessions: 'users/sessions' }
 
   devise_scope :user do
-    get 'users/edit_user', to: 'users/registrations#edit_user', as: :edit_user
-    patch 'user/update_user', to: 'users/registrations#update_user', as: :update_user
+    get 'users/edit_user', to: 'users/registrations#edit_user'
+    patch 'users/update_user', to: 'users/registrations#update_user'
   end
 
   namespace :bulk do
