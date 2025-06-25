@@ -197,7 +197,12 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
   def get_all_servers_per_frame # rubocop:disable Naming/AccessorMethodName
     @all_servers_per_frame = Frame.order(:name).to_h do |frame|
-      [frame.name, frame.servers.map { |v| [v.name, v.id, { data: { frame_name: frame.name } }] }]
+      [
+        frame.name,
+        @moves_project_step.servers_moves_for_frame_at_current_step(frame).map do |v|
+          [v.name, v.id, { data: { frame_name: frame.name } }]
+        end,
+      ]
     end
   end
 end

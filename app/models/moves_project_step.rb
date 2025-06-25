@@ -49,4 +49,8 @@ class MovesProjectStep < ApplicationRecord
 
     ((frame.servers - removed) | moved).sort_by { |server| server.position.presence || 0 }.reverse
   end
+
+  def previous_steps
+    moves_project.steps.where(position: ...position).order(:position)
+  end
 end
