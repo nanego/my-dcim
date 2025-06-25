@@ -664,12 +664,6 @@ fr:
       change_password: Changer mon mot de passe
       change_email: Changer mon email
       change_api_key: Changer
-    registrations:
-      edit:
-        title: "Modifier un compte utilisateur"
-      update:
-        flashes:
-          updated: "L'utilisateur a été mis à jour"
     settings:
       edit:
         title: Modifier mes préférences
@@ -691,6 +685,8 @@ fr:
       action:
         show_authentication_token: Afficher la clé API
         hide_authentication_token: Cacher la clé API
+    edit:
+      title: "Modifier un compte utilisateur"
     flashes:
       access_denied: Vous ne pouvez effectuer cette opréation
       authentication_token_reset: La clé API a été réinitialisée

@@ -28,6 +28,31 @@ RSpec.describe "Users" do
     end
   end
 
+  describe "GET /edit_user" do
+    subject(:response) do
+      get(edit_user_path(user))
+
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    context "when user is admin" do
+      include_context "with authenticated user" do
+        let(:user) { users(:admin) }
+      end
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(:edit) }
+    end
+
+    context "when current user is not admin" do
+      include_context "with authenticated user" do
+        let(:user) { users(:one) }
+      end
+
+      it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
+    end
+  end
+
   describe "GET #show" do
     subject(:response) do
       get user_path(record)

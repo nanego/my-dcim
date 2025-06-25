@@ -372,12 +372,6 @@ en:
     my_account:
       title: My account
       settings: My preferences
-    registrations:
-      edit:
-        title: "Edit a user account"
-      update:
-        flashes:
-          updated: "The user has been updated"
     settings:
       edit:
         title: Edit my preferences
@@ -385,3 +379,7 @@ en:
         flashes:
           updated: Your preferences have been updated
     logout: Log out
+    edit:
+      title: "Edit a user account"
+    flashes:
+      updated: User account updated

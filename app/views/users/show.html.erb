@@ -4,17 +4,7 @@
   breadcrumb.add_step(title)
 %>
 
-<%= render Page::HeadingComponent.new(title:, breadcrumb:, back_button_url: users_path) do |heading| %>
-  <% heading.with_right_content do %>
-    <% if allowed_to?(:edit_user?, @user) %>
-      <%= render ButtonComponent.new(t("action.edit"),
-                                  url: users_edit_user_path(user_id: @user),
-                                  variant: :info,
-                                  icon: :pencil,
-                                  is_responsive: true) %>
-    <% end %>
-  <% end %>
-<% end %>
+<%= render Page::HeadingShowComponent.new(resource: @user, title:, breadcrumb:) %>
 
 <div class="col-12 p-4 border-top">
   <div class="col-12 col-lg-6">
