@@ -664,6 +664,12 @@ fr:
       change_password: Changer mon mot de passe
       change_email: Changer mon email
       change_api_key: Changer
+    registrations:
+      edit_user:
+        title: "Modifier un compte utilisateur"
+      update_user:
+        flashes:
+          updated: "L'utilisateur a été mis à jour"
     settings:
       edit:
         title: Modifier mes préférences
@@ -733,7 +739,8 @@ fr:
       help-range: "Operate>Composants>Air>Ventilo 1"
       help-setpoint: "Operate>Valeurs>Air>Temperature Consigne"
       help-min-setpoint: "Operate>Valeurs>Air>Temperature Consigne"
-      info-temperatures: "Si T<sub>interne</sub>-T<sub>externe</sub> < DTC start,
+      info-temperatures:
+        "Si T<sub>interne</sub>-T<sub>externe</sub> < DTC start,
         alors ventilation = débit minimal
         \n\r
         Si T<sub>interne</sub>-T<sub>externe</sub> > DTC start + DTC range,

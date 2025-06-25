@@ -126,6 +126,11 @@ Rails.application.routes.draw do
                                     registrations: 'users/registrations',
                                     sessions: 'users/sessions' }
 
+  devise_scope :user do
+    get 'users/edit_user', to: 'users/registrations#edit_user', as: :edit_user
+    patch 'user/update_user', to: 'users/registrations#update_user', as: :update_user
+  end
+
   namespace :bulk do
     %i[servers sites rooms islets bays frames air_conditioners power_distribution_units modeles categories
        architectures manufacturers stacks card_types port_types domaines gestions clusters colors cables

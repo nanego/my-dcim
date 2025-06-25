@@ -90,6 +90,14 @@
               <span class="visually-hidden"><%= t("action.suspend") %></span>
             <% end %>
           <% end %>
+          <% if allowed_to?(:edit_user?, user) %>
+            <%= link_to edit_user_path(user_id: user.id), class: "btn btn-outline-primary" do %>
+              <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
+                                                                          data-controller="tooltip"
+                                                                          data-bs-placement="left"></span>
+              <span class="visually-hidden"><%= t("action.edit") %></span>
+            <% end %>
+          <% end %>
           <%= link_to user_path(user), method: :delete, data: { confirm: t("action.confirm") },
                                                         class: "btn btn-danger" do %>
             <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"

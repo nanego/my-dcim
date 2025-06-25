@@ -2,8 +2,18 @@
 
 module Users
   class RegistrationsController < Devise::RegistrationsController
+    before_action :admin_only, only: %i[new create]
+    before_action :set_user, only: %i[edit_user update_user]
 
-    before_action :admin_only, only: [:new, :create]
+    def edit_user; end
+
+    def update_user
+      if @user.update(user_params)
+        redirect_to users_path, notice: t(".flashes.updated")
+      else
+        render :edit_user, status: :unprocessable_entity
+      end
+    end
 
     protected
 
@@ -17,6 +27,16 @@ module Users
     # RegistrationsController.
     def sign_up(resource_name, resource)
       # DO NOT sign_in(resource_name, resource)
+    end
+
+    private
+
+    def set_user
+      authorize! @user = User.find(params[:user_id])
+    end
+
+    def user_params
+      params.expect(user: %i[name email])
     end
   end
 end
