@@ -9,10 +9,10 @@ RSpec.describe "Users::Registrations" do
   before { sign_in current_user }
 
   describe "GET /edit_user" do
-    subject(:response) do # rubocop:disable RSpec/InstanceVariable
+    subject(:response) do
       get(users_edit_user_path(user_id: user.id))
 
-      @response
+      @response # rubocop:disable RSpec/InstanceVariable
     end
 
     it { expect(response).to have_http_status(:success) }
@@ -26,17 +26,16 @@ RSpec.describe "Users::Registrations" do
   end
 
   describe "PATCH /update_user" do
-    subject(:response) do # rubocop:disable RSpec/InstanceVariable
+    subject(:response) do
       patch(users_update_user_path(user_id: user.id, params:))
 
-      @response
+      @response # rubocop:disable RSpec/InstanceVariable
     end
 
     let(:params) { { user: { name: "newFirstName" } } }
 
     context "with valid data" do
       it { expect(response).to have_http_status(:redirect) }
-
       it { expect(response).to redirect_to(user_path(user)) }
       it do
         expect do
