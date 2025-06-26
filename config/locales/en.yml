@@ -386,3 +386,13 @@ en:
       title: "Edit a user account"
     flashes:
       updated: User account updated
+
+  visualization:
+    infrastructures:
+      show:
+        loading: Loading ...
+        edit_clusters: Edit clusters
+      edit_room_clusters:
+        flashes:
+          success: Clusters have successfully been updated
+          failure: An error occured while updating clusters

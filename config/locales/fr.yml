@@ -838,6 +838,11 @@ fr:
     infrastructures:
       show:
         loading: Chargement en cours ...
+        edit_clusters: Modifier les clusters
+      edit_room_clusters:
+        flashes:
+          success: Les cluster ont bien été mis à jour
+          failure: Une erreur est survenue lors de la mise à jour des cluster
     bays:
       show:
         title: Baie %{bay_type} %{bay}
