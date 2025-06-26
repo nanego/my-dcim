@@ -52,4 +52,19 @@ RSpec.describe UserPolicy, type: :policy do # rubocop:disable RSpec/EmptyExample
       end
     end
   end
+
+  %i[destroy? suspend? unsuspend?].each do |rule|
+    describe_rule rule do
+      succeed "when an admin user asks"
+      failed "when user asks for itself" do
+        let(:record) { user }
+      end
+
+      %i[user vip].freeze.each do |unauthorized_role|
+        failed "when user is #{unauthorized_role}" do
+          let(:role) { unauthorized_role }
+        end
+      end
+    end
+  end
 end

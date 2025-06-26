@@ -61,8 +61,8 @@
     <% end %>
 
     <% table.with_column do |user| %>
-      <% unless user == current_user %>
-        <div class="btn-group btn-group-sm" role="group" aria-label="...">
+      <div class="btn-group btn-group-sm" role="group" aria-label="...">
+        <% if allowed_to?(:suspend?, user) %>
           <% if user.suspended? %>
             <%= link_to unsuspend_user_path(user), data: { confirm: t("action.confirm") },
                                                     method: :patch,
@@ -82,14 +82,16 @@
               <span class="visually-hidden"><%= t("action.suspend") %></span>
             <% end %>
           <% end %>
-          <% if allowed_to?(:edit?, user) %>
-            <%= link_to edit_user_path(user), class: "btn btn-outline-info" do %>
-              <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
-                                                                          data-controller="tooltip"
-                                                                          data-bs-placement="left"></span>
-              <span class="visually-hidden"><%= t("action.edit") %></span>
-            <% end %>
+        <% end %>
+        <% if allowed_to?(:edit?, user) %>
+          <%= link_to edit_user_path(user), class: "btn btn-outline-info" do %>
+            <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
+                                                                        data-controller="tooltip"
+                                                                        data-bs-placement="left"></span>
+            <span class="visually-hidden"><%= t("action.edit") %></span>
           <% end %>
+        <% end %>
+        <% if allowed_to?(:destroy?, user) %>
           <%= link_to user_path(user), method: :delete, data: { confirm: t("action.confirm") },
                                                         class: "btn btn-outline-danger" do %>
             <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
