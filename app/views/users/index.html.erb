@@ -62,25 +62,37 @@
 
     <% table.with_column do |user| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
-        <% if allowed_to?(:suspend?, user) %>
-          <% if user.suspended? %>
-            <%= link_to unsuspend_user_path(user), data: { confirm: t("action.confirm") },
-                                                    method: :patch,
-                                                    class: "btn btn-outline-primary" do %>
+        <% if user.suspended? %>
+          <% if allowed_to?(:suspend?, user) %>
+            <%= link_to unsuspend_user_path(user),
+                        data: { confirm: t("action.confirm") },
+                        method: :patch,
+                        class: "btn btn-outline-primary" do %>
               <span class="bi bi-unlock" title="<%= t("action.unsuspend") %>" aria-hidden="true"
                                                                               data-controller="tooltip"
                                                                               data-bs-placement="left"></span>
               <span class="visually-hidden"><%= t("action.unsuspend") %></span>
             <% end %>
           <% else %>
-            <%= link_to suspend_user_path(user), data: { confirm: t("action.confirm") },
-                                                  method: :patch,
-                                                  class: "btn btn-outline-primary" do %>
+            <a class="btn btn-outline-primary disabled" aria-disabled="true">
+              <span class="bi bi-unlock" title="<%= t("action.unsuspend") %>"></span>
+            </a>
+          <% end %>
+        <% else %>
+          <% if allowed_to?(:unsuspend?, user) %>
+            <%= link_to suspend_user_path(user),
+                        data: { confirm: t("action.confirm") },
+                        method: :patch,
+                        class: "btn btn-outline-primary" do %>
               <span class="bi bi-lock" title="<%= t("action.suspend") %>" aria-hidden="true"
                                                                           data-controller="tooltip"
                                                                           data-bs-placement="left"></span>
               <span class="visually-hidden"><%= t("action.suspend") %></span>
             <% end %>
+          <% else %>
+            <a class="btn btn-outline-primary disabled" aria-disabled="true">
+              <span class="bi bi-lock" title="<%= t("action.suspend") %>"></span>
+            </a>
           <% end %>
         <% end %>
         <% if allowed_to?(:edit?, user) %>
@@ -99,6 +111,10 @@
                                                                         data-bs-placement="left"></span>
             <span class="visually-hidden"><%= t("action.delete") %></span>
           <% end %>
+        <% else %>
+          <a class="btn btn-outline-danger disabled" aria-disabled="true">
+            <span class="bi bi-trash" title="<%= t("action.delete") %>"></span>
+          </a>
         <% end %>
       </div>
     <% end %>
