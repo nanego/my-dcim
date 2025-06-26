@@ -12,6 +12,8 @@ class UsersController < ApplicationController
     authorize! @users = @filter.results
   end
 
+  def show; end
+
   def new
     authorize! @user = User.new
   end
