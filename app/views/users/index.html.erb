@@ -40,6 +40,10 @@
       <%= link_to user.id, user %>
     <% end %>
 
+    <% table.with_column(User.human_attribute_name(:name), sort_by: :name) do |user| %>
+      <%= user.name %>
+    <% end %>
+
     <% table.with_column(User.human_attribute_name(:email), sort_by: :email) do |user| %>
       <%= user.email %>
     <% end %>
@@ -54,18 +58,6 @@
 
     <% table.with_column(User.human_attribute_name(:created_at), sort_by: :created_at) do |user| %>
       <%= l user.created_at %>
-    <% end %>
-
-    <% table.with_column(User.human_attribute_name(:role), sort_by: :role) do |user| %>
-      <%= form_for(user) do |f| %>
-        <div class="align-items-center d-flex flex-column flex-lg-row gap-1">
-          <%= f.select(:role,
-                       User.roles.keys.map { |role| [User.human_attribute_name("role.#{role}"), role] },
-                       {},
-                       class: "form-select form-select-sm") %>
-          <%= f.submit t(".change_role"), class: "btn btn-sm btn-outline-info" %>
-        </div>
-      <% end %>
     <% end %>
 
     <% table.with_column do |user| %>

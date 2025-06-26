@@ -3,7 +3,7 @@
   breadcrumb.add_step(title = t(".title"))
 %>
 
-<%= render Page::HeadingComponent.new(title: title, breadcrumb:) %>
+<%= render Page::HeadingEditComponent.new(resource: @user, title:, breadcrumb:) %>
 
 <div class="col-12 p-4 border-top">
   <%= form_with model: @user, url: user_path(@user), method: :patch, class: "col-12 col-md-10 col-lg-8 mx-auto" do |form| %>
@@ -18,6 +18,14 @@
       <fieldset class="col-12 mt-4">
         <%= form.label :email, class: "form-label" %>
         <%= form.email_field :email, class: "form-control" %>
+      </fieldset>
+
+      <fieldset class="col-12 mt-4">
+        <%= form.label :role, class: "form-label" %>
+        <%= form.select(:role,
+                       User.roles.keys.map { |role| [User.human_attribute_name("role.#{role}"), role] },
+                       {},
+                       class: "form-select form-select-sm") %>
       </fieldset>
 
       <div class="col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top">

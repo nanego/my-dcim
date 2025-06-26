@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     if @user.update(secure_params)
       redirect_to users_path, notice: t(".flashes.updated")
     else
-      redirect_back fallback_location: users_path, alert: t(".flashes.cant_be_updated")
+      render :edit, status: :unprocessable_entity
     end
   end
 
