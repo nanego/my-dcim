@@ -2,8 +2,7 @@
 
 module Users
   class RegistrationsController < Devise::RegistrationsController
-
-    before_action :admin_only, only: [:new, :create]
+    before_action :admin_only, only: %i[new create]
 
     protected
 

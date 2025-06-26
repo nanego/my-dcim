@@ -158,7 +158,7 @@
           <%= link_to server.numero, server_path(server), class: "fw-bold", data: { turbo_frame: :_top } %>
         <% end %>
 
-        <% table.with_column(Modele.human_attribute_name(:category), name: :"modele.category_id", sort_by: :"categories.name") do |server| %>
+        <% table.with_column(Modele.human_attribute_name(:category), name: :"modele_category_id", sort_by: :"categories.name") do |server| %>
           <%= link_to server.modele.category, category_path(server.modele.category),
                       data: { turbo_frame: :_top } if server.modele.try(:category) %>
         <% end %>
@@ -262,8 +262,19 @@
         <% end %>
       <% end %>
 
-      <% if @pagy.pages > 1 %>
-        <%== pagy_bootstrap_nav(@pagy) %>
+      <% if @pagy.pages > 1 || !turbo_frame_request? %>
+        <div class="d-flex justify-content-between align-items-center">
+          <% if @pagy.pages > 1 %>
+            <%== pagy_bootstrap_nav(@pagy) %>
+          <% end %>
+          <% unless turbo_frame_request? %>
+            <%= render ExportDropdownComponent.new(
+              url: :export_servers_path,
+              pagy: @pagy,
+              **request.query_parameters
+            ) %>
+          <% end %>
+        </div>
       <% end %>
     </div>
   <% end %>
