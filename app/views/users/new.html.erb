@@ -1,29 +1,7 @@
 <% breadcrumb.add_step(t("action.create")) %>
 
-
 <%= render Page::HeadingNewComponent.new(resource: @user, title: t(".new_user"), breadcrumb:) %>
 
 <div class="col-12 p-4 border-top">
-  <%= form_for @user, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" },
-                      url: add_user_users_path do |f| %>
-    <%= render FormErrorsComponent.new(@user) %>
-    <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-      <fieldset class="col-12">
-        <%= f.label :name, class: "from-label" %>
-        <%= f.text_field :name, class: "form-control" %>
-      </fieldset>
-      <fieldset class="col-12 mt-4">
-        <%= f.label :email, class: "from-label" %>
-        <%= f.text_field :email, class: "form-control" %>
-      </fieldset>
-      <fieldset class="col-12 mt-4">
-        <%= f.label :role, class: "from-label" %>
-        <%= f.select(:role, User.roles.keys.map { |role| [User.human_attribute_name("role.#{role}"), role] },
-                            {},
-                            class: "form-select") %>
-      </fieldset>
-    <% end %>
-
-    <%= render Form::ActionsComponent.new(f) %>
-  <% end %>
+  <%= render "form" %>
 </div>

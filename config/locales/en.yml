@@ -1,7 +1,7 @@
 en:
   action_policy:
     flashes:
-      unauthorized: You are not authorized to perform this action
+      unauthorized: You don't have the necessary authorizations
   access_control:
     badge: Badge
     key: Key
