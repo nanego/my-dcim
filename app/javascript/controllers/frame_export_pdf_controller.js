@@ -1,4 +1,4 @@
-import ExportPdfController from "./export_pdf_controller.js"
+import ExportPdfController from "controllers/export_pdf_controller.js"
 
 import { get } from "@rails/request.js"
 import { html2pdf, saveAs, PDFDocument } from "html2pdf.js"

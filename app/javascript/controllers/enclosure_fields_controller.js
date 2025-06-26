@@ -1,4 +1,4 @@
-import SortableController from "./sortable_controller"
+import SortableController from "controllers/sortable_controller"
 
 export default class EnclosureFields extends SortableController {
   static targets = ["gridArea", "displayRadioButton"]
