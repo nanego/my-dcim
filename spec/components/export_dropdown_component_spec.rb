@@ -18,7 +18,7 @@ RSpec.describe ExportDropdownComponent, type: :component do
     end
   end
 
-  context "with next page" do
+  context "with no next page" do
     let(:pagy) { Pagy.new(count: 10) }
 
     it "renders the component" do # rubocop:disable RSpec/ExampleLength
