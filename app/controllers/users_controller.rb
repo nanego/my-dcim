@@ -9,17 +9,11 @@ class UsersController < ApplicationController
 
   def index
     @filter = ProcessorFilter.new(User.order(sign_in_count: :desc), params)
-    @users = @filter.results
-  end
-
-  def show
-    if !current_user.admin? && @user != current_user
-      redirect_back_or_to root_path, alert: t(".flashes.access_denied")
-    end
+    authorize! @users = @filter.results
   end
 
   def new
-    @user = User.new
+    authorize! @user = User.new
   end
 
   def add_user
@@ -35,18 +29,10 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
-    if @user.update(user_params)
-      redirect_to user_path(@user), notice: t(".flashes.updated")
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
-  def update
     if @user.update(secure_params)
       redirect_to users_path, notice: t(".flashes.updated")
     else
-      redirect_to users_path, alert: t(".flashes.cant_be_updated")
+      redirect_back fallback_location: users_path, alert: t(".flashes.cant_be_updated")
     end
   end
 

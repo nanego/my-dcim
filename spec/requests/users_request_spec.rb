@@ -7,12 +7,17 @@ RSpec.describe "Users" do
   let(:admin_user) { User.create!(email: "admin@example.com", password: "passwordpassword", role: "admin") }
 
   describe "GET #index" do
+    subject(:response) do
+      get users_path
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
     context "with admin user" do
       include_context "with authenticated user" do
         let(:user) { admin_user }
       end
-
-      before { get users_path }
 
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:index) }
@@ -20,34 +25,6 @@ RSpec.describe "Users" do
 
     context "with regular user" do
       include_context "with authenticated user"
-
-      before { get users_path }
-
-      it { expect(response).to have_http_status(:redirect) }
-      it { expect(response).to redirect_to(root_path) }
-    end
-  end
-
-  describe "GET /edit_user" do
-    subject(:response) do
-      get(edit_user_path(user))
-
-      @response # rubocop:disable RSpec/InstanceVariable
-    end
-
-    context "when user is admin" do
-      include_context "with authenticated user" do
-        let(:user) { users(:admin) }
-      end
-
-      it { expect(response).to have_http_status(:success) }
-      it { expect(response).to render_template(:edit) }
-    end
-
-    context "when current user is not admin" do
-      include_context "with authenticated user" do
-        let(:user) { users(:one) }
-      end
 
       it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
     end
@@ -83,8 +60,7 @@ RSpec.describe "Users" do
     context "with regular user" do
       include_context "with authenticated user"
 
-      it { expect(response).to have_http_status(:redirect) }
-      it { expect(response).to redirect_to(root_path) }
+      it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
     end
 
     context "with user is current_user" do
@@ -98,12 +74,16 @@ RSpec.describe "Users" do
   end
 
   describe "GET #new" do
+    subject(:response) do
+      get(new_user_path)
+
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
     context "with admin user" do
       include_context "with authenticated user" do
         let(:user) { admin_user }
       end
-
-      before { get new_user_path }
 
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:new) }
@@ -112,10 +92,7 @@ RSpec.describe "Users" do
     context "with regular user" do
       include_context "with authenticated user"
 
-      before { get new_user_path }
-
-      it { expect(response).to have_http_status(:redirect) }
-      it { expect(response).to redirect_to(root_path) }
+      it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
     end
   end
 
@@ -159,21 +136,54 @@ RSpec.describe "Users" do
     end
   end
 
+  describe "GET /edit" do
+    subject(:response) do
+      get(edit_user_path(user))
+
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    context "when user is admin" do
+      include_context "with authenticated user" do
+        let(:user) { users(:admin) }
+      end
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(:edit) }
+    end
+
+    context "when current user is not admin" do
+      include_context "with authenticated user" do
+        let(:user) { users(:one) }
+      end
+
+      it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
+    end
+  end
+
   describe "PATCH #update" do
     subject(:response) do
-      patch user_path(record), params: params
+      patch(user_path(record), params: params)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
     let(:record) { User.create!(email: "user-target@example.com", password: "passwordpassword") }
-    let(:valid_attributes) { { role: "admin" } }
+    let(:valid_attributes) { { role: "admin", name: "newFirstName" } }
     let(:invalid_attributes) { { role: "" } }
     let(:params) { { user: valid_attributes } }
 
     include_context "with authenticated user" do
       let(:user) { admin_user }
+    end
+
+    context "when user is not admin" do
+      include_context "with authenticated user" do
+        let(:user) { users(:one) }
+      end
+
+      it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
     end
 
     context "with valid parameters" do
@@ -231,8 +241,7 @@ RSpec.describe "Users" do
     context "with regular user" do
       include_context "with authenticated user"
 
-      it { expect(response).to have_http_status(:redirect) }
-      it { expect(response).to redirect_to(root_path) }
+      it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
     end
   end
 
@@ -262,8 +271,7 @@ RSpec.describe "Users" do
     context "with regular user" do
       include_context "with authenticated user"
 
-      it { expect(response).to have_http_status(:redirect) }
-      it { expect(response).to redirect_to(root_path) }
+      it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
     end
   end
 
@@ -297,8 +305,7 @@ RSpec.describe "Users" do
     context "with regular user" do
       include_context "with authenticated user"
 
-      it { expect(response).to have_http_status(:redirect) }
-      it { expect(response).to redirect_to(root_path) }
+      it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
     end
   end
 end
