@@ -10,7 +10,7 @@ RSpec.describe UserPolicy, type: :policy do # rubocop:disable RSpec/EmptyExample
 
   before { context[:user].role = role }
 
-  describe_rule :edit_user? do
+  describe_rule :index? do
     succeed "when an admin user asks"
 
     %i[user vip].each do |unauthorized_role|
@@ -20,7 +20,30 @@ RSpec.describe UserPolicy, type: :policy do # rubocop:disable RSpec/EmptyExample
     end
   end
 
-  describe_rule :update_user? do
+  describe_rule :show? do
+    succeed "when an admin user asks"
+    succeed "when user asks for itself" do
+      let(:record) { user }
+    end
+
+    %i[user vip].each do |unauthorized_role|
+      failed "when user is #{unauthorized_role}" do
+        let(:role) { unauthorized_role }
+      end
+    end
+  end
+
+  describe_rule :new? do
+    succeed "when an admin user asks"
+
+    %i[user vip].each do |unauthorized_role|
+      failed "when user is #{unauthorized_role}" do
+        let(:role) { unauthorized_role }
+      end
+    end
+  end
+
+  describe_rule :manage? do
     succeed "when an admin user asks"
 
     %i[user vip].each do |unauthorized_role|

@@ -9,11 +9,11 @@ class UserPolicy < ApplicationPolicy
     user.admin? || user == record
   end
 
-  def manage?
+  def new?
     user.admin?
   end
 
-  def new?
+  def manage?
     user.admin?
   end
 end
