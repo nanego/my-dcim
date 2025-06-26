@@ -94,6 +94,7 @@ gem "letter_opener", group: :development
 # Geocode Sites positions
 gem "geocoder"
 
+gem "action_policy"
 gem "brakeman", group: %i[test development], require: false
 gem "csv"
 gem "debug", group: %i[test development], platforms: %i[mri windows], require: "debug/prelude"

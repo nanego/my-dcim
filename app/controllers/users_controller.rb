@@ -2,25 +2,20 @@
 
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :admin_only, except: :show
-  before_action :set_user, only: %i[show update destroy reset_authentication_token suspend unsuspend]
+  before_action :set_user, only: %i[show edit update destroy reset_authentication_token suspend unsuspend]
   before_action only: %i[new show] do
     breadcrumb.add_step(User.model_name.human.pluralize, users_url)
   end
 
   def index
     @filter = ProcessorFilter.new(User.order(sign_in_count: :desc), params)
-    @users = @filter.results
+    authorize! @users = @filter.results
   end
 
-  def show
-    if !current_user.admin? && @user != current_user
-      redirect_back_or_to root_path, alert: t(".flashes.access_denied")
-    end
-  end
+  def show; end
 
   def new
-    @user = User.new
+    authorize! @user = User.new
   end
 
   def add_user
@@ -33,11 +28,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit; end
+
   def update
     if @user.update(secure_params)
       redirect_to users_path, notice: t(".flashes.updated")
     else
-      redirect_to users_path, alert: t(".flashes.cant_be_updated")
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -72,6 +69,6 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.find(params[:id])
+    authorize! @user = User.find(params[:id])
   end
 end
