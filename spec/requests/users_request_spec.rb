@@ -170,7 +170,7 @@ RSpec.describe "Users" do
     end
 
     let(:record) { User.create!(email: "user-target@example.com", password: "passwordpassword") }
-    let(:valid_attributes) { { role: "admin", name: "newFirstName" } }
+    let(:valid_attributes) { { role: "admin" } }
     let(:invalid_attributes) { { role: "" } }
     let(:params) { { user: valid_attributes } }
 
