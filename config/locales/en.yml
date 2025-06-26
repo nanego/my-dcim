@@ -379,3 +379,13 @@ en:
         flashes:
           updated: Your preferences have been updated
     logout: Log out
+
+  visualization:
+    infrastructures:
+      show:
+        loading: Loading ...
+        edit_clusters: Edit clusters
+      edit_room_clusters:
+        flashes:
+          success: Clusters have successfully been updated
+          failure: An error occured while updating clusters
