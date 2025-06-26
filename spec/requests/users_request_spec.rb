@@ -26,7 +26,8 @@ RSpec.describe "Users" do
     context "with regular user" do
       include_context "with authenticated user"
 
-      it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(root_path) }
     end
   end
 
@@ -60,7 +61,8 @@ RSpec.describe "Users" do
     context "with regular user" do
       include_context "with authenticated user"
 
-      it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(root_path) }
     end
 
     context "with user is current_user" do
@@ -92,7 +94,8 @@ RSpec.describe "Users" do
     context "with regular user" do
       include_context "with authenticated user"
 
-      it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(root_path) }
     end
   end
 
@@ -157,7 +160,8 @@ RSpec.describe "Users" do
         let(:user) { users(:one) }
       end
 
-      it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(root_path) }
     end
   end
 
@@ -183,7 +187,8 @@ RSpec.describe "Users" do
         let(:user) { users(:one) }
       end
 
-      it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(root_path) }
     end
 
     context "with valid parameters" do
@@ -244,7 +249,8 @@ RSpec.describe "Users" do
     context "with regular user" do
       include_context "with authenticated user"
 
-      it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(root_path) }
     end
 
     context "when user asks for itself" do
@@ -254,7 +260,8 @@ RSpec.describe "Users" do
         let(:user) { admin_user }
       end
 
-      it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(root_path) }
     end
   end
 
@@ -286,7 +293,8 @@ RSpec.describe "Users" do
     context "with regular user" do
       include_context "with authenticated user"
 
-      it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(root_path) }
     end
 
     context "with target user same as current user" do
@@ -296,7 +304,8 @@ RSpec.describe "Users" do
         let(:user) { admin_user }
       end
 
-      it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(root_path) }
     end
   end
 
@@ -330,7 +339,8 @@ RSpec.describe "Users" do
     context "with regular user" do
       include_context "with authenticated user"
 
-      it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(root_path) }
     end
   end
 end
