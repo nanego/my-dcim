@@ -1,4 +1,7 @@
 en:
+  action_policy:
+    flashes:
+      unauthorized: You are not authorized to perform this action
   access_control:
     badge: Badge
     key: Key
@@ -379,3 +382,7 @@ en:
         flashes:
           updated: Your preferences have been updated
     logout: Log out
+    edit:
+      title: "Edit a user account"
+    flashes:
+      updated: User account updated

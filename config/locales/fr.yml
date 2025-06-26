@@ -1,4 +1,7 @@
 fr:
+  action_policy:
+    flashes:
+      unauthorized: Vous n'êtes pas autorisé à réaliser cette action
   boolean:
     true: Oui
     false: Non
@@ -685,6 +688,8 @@ fr:
       action:
         show_authentication_token: Afficher la clé API
         hide_authentication_token: Cacher la clé API
+    edit:
+      title: "Modifier un compte utilisateur"
     flashes:
       access_denied: Vous ne pouvez effectuer cette opréation
       authentication_token_reset: La clé API a été réinitialisée

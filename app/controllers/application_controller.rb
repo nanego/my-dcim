@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, with: :show_not_found_error
   rescue_from ActiveRecord::RecordNotUnique, with: :show_api_error
+  rescue_from ActionPolicy::Unauthorized, with: :handle_unauthorized
 
   layout :layout_by_resource
 
@@ -78,6 +79,10 @@ class ApplicationController < ActionController::Base
     raise exception unless request.format == :json
 
     render json: { exception: { name: exception.class.name, message: exception.message } }, status: :internal_server_error
+  end
+
+  def handle_unauthorized
+    redirect_back fallback_location: root_path, alert: t("action_policy.flashes.unauthorized")
   end
 
   def layout_by_resource
