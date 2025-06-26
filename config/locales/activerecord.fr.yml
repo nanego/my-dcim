@@ -109,6 +109,7 @@ fr:
         frame: Châssis
         span: Slots
         u: Nb de U
+        modele_category_id: Catégorie
       site:
         name: Nom
         description: Description

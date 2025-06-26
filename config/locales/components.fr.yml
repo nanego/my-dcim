@@ -2,6 +2,11 @@ fr:
   card_empty_data_component:
     title: Aucune donnée trouvée
 
+  export_dropdown_component:
+    export:
+      current_page: "Exporter la page actuelle"
+      all_pages: "Exporter tout"
+
   form_errors_component:
     title:
       one: "1 erreur lors de la sauvegarde :"

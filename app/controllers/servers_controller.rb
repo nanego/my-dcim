@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-class ServersController < ApplicationController
+class ServersController < ApplicationController # rubocop:disable Metrics/ClassLength
   include ServersHelper
   include ColumnsPreferences
 
-  DEFAULT_COLUMNS = %w[name numero modele.category_id islet_id bay_id network_types position].freeze
-  AVAILABLE_COLUMNS = %w[name numero modele.category_id islet_id bay_id network_types position gestion_id frame_id cluster_id
+  DEFAULT_COLUMNS = %w[name numero modele_category_id islet_id bay_id network_types position].freeze
+  AVAILABLE_COLUMNS = %w[name numero modele_category_id islet_id bay_id network_types position gestion_id frame_id cluster_id
                          stack_id domaine_id modele_id u slug side color comment critique].freeze
 
-  columns_preferences_with model: Server, default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS
+  columns_preferences_with model: Server, default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS, only: %i[index export]
 
   before_action :set_server, only: %i[show edit update destroy destroy_connections]
   before_action except: %i[index] do
@@ -106,6 +106,23 @@ class ServersController < ApplicationController
   end
 
   def import_csv; end
+
+  def export
+    @servers = Server.no_pdus
+      .includes(frame: { bay: { islet: :room } }, modele: :category)
+      .references(frame: { bay: { islet: :room } }, modele: :category)
+      .order(:name)
+
+    @filter = ProcessorFilter.new(@servers, params)
+    @servers = @filter.results
+    _, @servers = pagy(@servers) if params[:page]
+
+    exporter = ServerExporter.new(@servers, @columns_preferences.preferred)
+
+    respond_to do |format|
+      format.csv { send_data exporter.to_csv, filename: "#{DateTime.now.strftime("%Y-%m-%d-%H-%M-%S")}-servers.csv" }
+    end
+  end
 
   def import
     value = ImportEquipmentByCsv.call(file: params[:import][:file],

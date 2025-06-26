@@ -62,6 +62,7 @@ Rails.application.routes.draw do
       post :sort
       get :import_csv
       post :import
+      get :export
     end
 
     member do
