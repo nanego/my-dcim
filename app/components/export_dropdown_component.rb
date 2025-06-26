@@ -2,7 +2,7 @@
 
 class ExportDropdownComponent < ApplicationComponent
   erb_template <<~ERB
-    <div class="dropdown ms-auto">
+    <div class="dropdown">
       <button class="btn btn-outline-primary dropdown-toggle btn-sm d-flex align-items-center"
               type="button"
               data-bs-toggle="dropdown"
