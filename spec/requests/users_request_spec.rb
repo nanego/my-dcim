@@ -219,11 +219,13 @@ RSpec.describe "Users" do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete user_path(user)
+      delete user_path(target_user)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
+
+    let(:target_user) { users(:two) }
 
     context "with admin user" do
       include_context "with authenticated user" do
@@ -241,6 +243,16 @@ RSpec.describe "Users" do
 
     context "with regular user" do
       include_context "with authenticated user"
+
+      it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
+    end
+
+    context "when user asks for itself" do
+      let(:target_user) { admin_user }
+
+      include_context "with authenticated user" do
+        let(:user) { admin_user }
+      end
 
       it { expect { response }.to raise_error(ActionPolicy::Unauthorized) }
     end
