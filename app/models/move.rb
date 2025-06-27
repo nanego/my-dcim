@@ -66,7 +66,12 @@ class Move < ApplicationRecord
     return if executed?
     return unless moveable
 
-    self.prev_frame_id = moveable.frame_id
-    self.prev_position = moveable.position
+    if (move = step.previous_steps.last&.moves&.where(moveable:)&.last)
+      prev_frame_id = move.frame_id
+      prev_position = move.position
+    end
+
+    self.prev_frame_id = prev_frame_id || moveable.frame_id
+    self.prev_position = prev_position || moveable.position
   end
 end
