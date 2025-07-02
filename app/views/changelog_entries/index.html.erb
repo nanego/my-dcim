@@ -20,6 +20,17 @@
 
       <div>
         <fieldset class="form-floating">
+          <%= f.collection_select(:authors, User.all.map { |u| [u.id, u.name] },
+                                  :first,
+                                  :second,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :authors %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
           <%= f.collection_select(:object_types, ApplicationRecord.models.map { |model| [model.model_name.human, model.name] },
                                   :second,
                                   :first,

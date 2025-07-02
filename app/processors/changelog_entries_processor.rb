@@ -5,6 +5,10 @@ class ChangelogEntriesProcessor < ApplicationProcessor
     raw.where(action: actions)
   end
 
+  map :authors, filter_with: :non_empty_array do |authors:|
+    raw.where(author: authors)
+  end
+
   map :object_types, filter_with: :non_empty_array do |object_types:|
     raw.where(object_type: object_types)
   end

@@ -8,10 +8,6 @@ RSpec.describe ChangelogEntriesProcessor do
   let(:input) { ChangelogEntry.all }
   let(:params) { {} }
 
-  describe "when searching" do
-    pending "TODO"
-  end
-
   describe "when filtering by actions" do
     let(:updated_changelog_entry) { ChangelogEntry.create!(object: sites(:one), action: :update) }
     let(:destroyed_changelog_entry) { ChangelogEntry.create!(object: sites(:one), action: :destroy) }
@@ -33,6 +29,30 @@ RSpec.describe ChangelogEntriesProcessor do
 
       it { expect(result.size).to eq(2) }
       it { is_expected.to contain_exactly(updated_changelog_entry, destroyed_changelog_entry) }
+    end
+  end
+
+  describe "when filtering by authors" do
+    let(:one_changelog_entry) { ChangelogEntry.create!(object: sites(:one), action: :update, author: users(:one)) }
+    let(:two_changelog_entry) { ChangelogEntry.create!(object: sites(:one), action: :update, author: users(:two)) }
+
+    before do
+      one_changelog_entry
+      two_changelog_entry
+    end
+
+    context "with one author" do
+      let(:params) { { authors: users(:one).id } }
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to contain_exactly(one_changelog_entry) }
+    end
+
+    context "with many authors" do
+      let(:params) { { authors: [users(:one).id, users(:two).id] } }
+
+      it { expect(result.size).to eq(2) }
+      it { is_expected.to contain_exactly(one_changelog_entry, two_changelog_entry) }
     end
   end
 
