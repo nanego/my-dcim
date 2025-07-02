@@ -354,8 +354,13 @@ table.card_layout {
 .connection_form {
   .back_server {
     .selected {
-      padding: 2px 1px;
-      background-color: #ee3b3b;
+      transform: scale(1.2);
+      z-index: 10;
+
+      a {
+        outline-color: var(--bs-primary-border-subtle);
+        box-shadow: 0 0 6px 3px rgba(var(--bs-primary-rgb), 1.0);
+      }
     }
 
     .very-specific-design {
@@ -814,8 +819,13 @@ body {
 
   .moved_connection_form {
     .selected {
-      padding:2px 1px;
-      background-color: #ee3b3b;
+      transform: scale(1.2);
+      z-index: 10;
+
+      a {
+        outline-color: var(--bs-primary-border-subtle);
+        box-shadow: 0 0 6px 3px rgba(var(--bs-primary-rgb), 1.0);
+      }
     }
   }
 
