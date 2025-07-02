@@ -8,6 +8,38 @@ RSpec.describe ChangelogEntriesProcessor do
   let(:input) { ChangelogEntry.all }
   let(:params) { {} }
 
+  describe "when searching" do
+    context "with an object id" do
+      let(:one_changelog_entry) { ChangelogEntry.create!(object: users(:one), action: :update) }
+      let(:two_changelog_entry) { ChangelogEntry.create!(object: users(:two), action: :update) }
+
+      let(:params) { { q: users(:one).id.to_s } }
+
+      before do
+        one_changelog_entry
+        two_changelog_entry
+      end
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to contain_exactly(one_changelog_entry) }
+    end
+
+    context "with an object name" do
+      let(:one_changelog_entry) { ChangelogEntry.create!(object: users(:one), action: :update) }
+      let(:two_changelog_entry) { ChangelogEntry.create!(object: users(:two), action: :update) }
+
+      let(:params) { { q: users(:one).name.to_s } }
+
+      before do
+        one_changelog_entry
+        two_changelog_entry
+      end
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to contain_exactly(one_changelog_entry) }
+    end
+  end
+
   describe "when filtering by actions" do
     let(:updated_changelog_entry) { ChangelogEntry.create!(object: sites(:one), action: :update) }
     let(:destroyed_changelog_entry) { ChangelogEntry.create!(object: sites(:one), action: :destroy) }
