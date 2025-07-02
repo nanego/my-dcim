@@ -137,7 +137,7 @@
 
 # Limit extra: Allow the client to request a custom limit per page with an optional selector UI
 # See https://ddnexus.github.io/pagy/docs/extras/limit
-# require 'pagy/extras/limit'
+require 'pagy/extras/limit'
 # set to false only if you want to make :limit_extra an opt-in variable
 # Pagy::DEFAULT[:limit_extra] = false    # default true
 # Pagy::DEFAULT[:limit_param] = :limit   # default
