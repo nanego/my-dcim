@@ -6,6 +6,22 @@ RSpec.describe ChangelogEntryDecorator, type: :decorator do
   let(:object) { ChangelogEntry.new(object_type: "Color", object_changed_attributes: { id: [nil, 42] }) }
   let(:decorated_changelog_entry) { described_class.decorate(object) }
 
+  describe ".authors_options" do
+    it { expect(described_class.authors_options).to match_array(User.pluck(:id, :name)) }
+  end
+
+  describe ".object_types_options" do
+    before do
+      allow(ApplicationRecord).to receive(:models).and_return([User, Room])
+    end
+
+    it do
+      expect(described_class.object_types_options).to contain_exactly(
+        [User.model_name.human, User.name], [Room.model_name.human, Room.name]
+      )
+    end
+  end
+
   describe "#object_link_to" do
     let(:view_context) do
       controller_class = Class.new(ActionView::TestCase::TestController)

@@ -20,7 +20,7 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:authors, User.all.map { |u| [u.id, u.name] },
+          <%= f.collection_select(:authors, ChangelogEntryDecorator.authors_options,
                                   :first,
                                   :second,
                                   { prompt: true, multiple: true },
@@ -31,7 +31,7 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:object_types, ApplicationRecord.models.map { |model| [model.model_name.human, model.name] },
+          <%= f.collection_select(:object_types, ChangelogEntryDecorator.object_types_options,
                                   :second,
                                   :first,
                                   { prompt: true, multiple: true },
