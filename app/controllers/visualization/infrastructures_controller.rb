@@ -16,10 +16,6 @@ module Visualization
 
     private
 
-    def room_params
-      params.expect(room: [:id, { network_cluster_ids: [] }])
-    end
-
     def load_data!
       @islet = Islet.find(@filter.islet_id)
       @room = @islet.room
