@@ -6,7 +6,7 @@
        connections.each { |c| twin_card_used_ports << c.port.position if c && c.port }
   end %>
 
-  <span class="server-component"
+  <span class="<%= class_names("server-component d-flex", "flex-column": (card.orientation == "td-lr" || card.orientation == "dt-lr")) %>"
         data-server-name="<%= server.name %>"
         data-server-id="<%= server.id %>"
         data-composant-id="<%= card.id %>"
