@@ -38,7 +38,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
 
           html += content_tag(:span,
                               link_to_port_without_label(position, port_data, card_type.port_type, card.id, port_id),
-                              class: "port_container d-flex")
+                              class: "port_container d-flex align-items-center")
 
           if (cell_index + 1) % number_of_columns_in_cell(card.orientation, ports_per_cell, card_type.max_aligned_ports) == 0 # Every XX ports do
             html += '</div><div class="d-flex">'
@@ -69,13 +69,27 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
           port_data = card.ports.detect { |p| p.position == position }
           port_id = port_data.try(:id)
           port_data = include_moved_connections(moved_connections, port_data, port_id) # Add moved connections if any
+          type = card_type.port_type
+          is_vertical_card = %w[td-lr dt-lr].include?(card.orientation)
+
+          html_content = link_to_port(
+            position, port_data, type, card.id, port_id, (position - 1 + card.first_port_position).to_s.rjust(2, "0")
+          )
+          if %w[RJ XRJ].include?(type.to_s) && (2..10).cover?(card_type.port_quantity)
+            html_content += content_tag(:small,
+                                        position - 1 + card.first_port_position,
+                                        class: class_names("ms-1": is_vertical_card))
+          end
 
           html += content_tag(:span,
-                              link_to_port(position, port_data, card_type.port_type, card.id, port_id, (position - 1 + card.first_port_position).to_s.rjust(2, "0")),
-                              class: "port_container d-flex
-                                      #{"no_client" if twin_card_used_ports && port_data && port_data.cable_name && twin_card_used_ports.exclude?(port_data.position)}
-                                      #{"unreferenced_client" if twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(position)}
-                                      #{"selected" if selected_port.present? && port_id == selected_port.try(:id)}")
+                              html_content,
+                              class: class_names(
+                                "port_container d-flex align-items-center",
+                                no_client: twin_card_used_ports && port_data && port_data.cable_name && twin_card_used_ports.exclude?(port_data.position),
+                                unreferenced_client: twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(position),
+                                selected: selected_port.present? && port_id == selected_port.try(:id),
+                                "flex-column": !is_vertical_card
+                              ))
 
           if (cell_index + 1) % number_of_columns_in_cell(card.orientation, ports_per_cell, card_type.max_aligned_ports) == 0 # Every XX ports do
             html += '</div><div class="d-flex">'
@@ -96,15 +110,28 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     port_quantity.to_i.times do |index|
       port_data = ports_data.detect { |p| p.position == index + 1 }
       port_id = port_data.try(:id)
+      is_vertical_card = %w[td-lr dt-lr].include?(port_data&.card&.orientation)
       port_data = include_moved_connections(moved_connections, port_data, port_id) # Add moved connections if any
 
+      html_content = link_to_port(index + 1, port_data, port_type, card_id, port_id)
+
+      if %w[RJ XRJ].include?(port_type.to_s) && (2..10).cover?(port_quantity)
+        html_content += content_tag(:small,
+                                    index + 1,
+                                    class: class_names("ms-1": is_vertical_card))
+      end
+
       html += content_tag(:span,
-                          link_to_port(index + 1, port_data, port_type, card_id, port_id),
-                          class: "port_container float-start
-                                  #{"no_client" if twin_card_used_ports && port_data && port_data.cable_name && twin_card_used_ports.exclude?(port_data.position)}
-                          #{"unreferenced_client" if twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(index + 1)}
-                          #{"selected" if selected_port.present? && port_id == selected_port.try(:id)}")
+                          html_content,
+                          class: class_names(
+                            "port_container float-start d-flex align-items-center",
+                            no_client: twin_card_used_ports && port_data && port_data.cable_name && twin_card_used_ports.exclude?(port_data.position),
+                            unreferenced_client: twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(index + 1),
+                            selected: selected_port.present? && port_id == selected_port.try(:id),
+                            "flex-column": !is_vertical_card
+                          ))
     end
+
     html.html_safe
   end
 
@@ -139,15 +166,20 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
 
   def link_to_port_by_type(label, type, port_data, position, card_id, port_id)
     edit_port_url = port_id ? connections_edit_path(from_port_id: port_id) : edit_port_path(id: 0, card_id: card_id, position: position)
+
     if %w[RJ XRJ FC ALIM].include? type
       port_class = type
     else
       port_class = "SCSI"
     end
 
-    link_to label.to_s, edit_port_url, id: port_id, title: (port_data.present? ? port_data.vlans.to_s : ""),
-                                       class: "border border-secondary port port#{port_class} #{port_data.try(:cable_color) || "empty"}",
-                                       data: { url: edit_port_url, position:, type:, controller: 'tooltip', bs_placement: 'top' }, target: :_top
+    link_to label.to_s,
+            edit_port_url,
+            id: port_id,
+            title: (port_data.present? ? port_data.vlans.to_s : ""),
+            class: "border border-secondary port port#{port_class} #{port_data.try(:cable_color) || "empty"}",
+            data: { url: edit_port_url, position:, type:, controller: 'tooltip', bs_placement: 'top' },
+            target: :_top
   end
 
   private
