@@ -109,7 +109,9 @@ Rails.application.routes.draw do
   resources :contact_assignments
 
   namespace :visualization do
-    resource :infrastructure, only: :show
+    resource :infrastructure, only: :show do
+      patch :edit_room_clusters
+    end
     resource :network_capacity, only: :show
     resources :rooms, only: :show do
       get :print, on: :member

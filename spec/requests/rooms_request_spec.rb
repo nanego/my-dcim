@@ -27,4 +27,30 @@ RSpec.describe "Rooms" do
       it { expect(response).to render_template("layouts/pdf") }
     end
   end
+
+  describe "PATCH #update" do
+    subject(:response) do
+      patch(room_path(room), params:)
+
+      @repsonse # rubocop:disable RSpec/InstanceVariable
+    end
+
+    before do
+      sign_in users(:one)
+    end
+
+    context "when infrastructure request" do
+      let(:cluster) { clusters(:cloud_c1) }
+      let(:params) { { room: { id: room.id, network_cluster_ids: [cluster.id] }, infrastructure: true } }
+
+      it { expect(response).to redirect_to(root_path) }
+
+      it do
+        expect do
+          response
+          room.reload
+        end.to change(room, :network_cluster_ids).from([]).to([cluster.id])
+      end
+    end
+  end
 end
