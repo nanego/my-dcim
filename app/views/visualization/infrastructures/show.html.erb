@@ -56,10 +56,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body overflow-y-visible">
-                <%= form_with model: @room, url: edit_room_clusters_visualization_infrastructure_path, method: :patch, data: { turbo_frame: "_top" } do |form| %>
-                  <fieldset class="col-12 mt-4">
-                    <%= form.hidden_field :id %>
+                <%= form_with model: @room, url: room_path(@room), method: :patch, data: { turbo_frame: "_top" } do |form| %>
+                  <%= form.hidden_field :id %>
+                  <%= hidden_field_tag :infrastructure, true %>
 
+                  <fieldset class="col-12 mt-4">
                     <%= form.label :network_cluster_ids, class: "form-label" %>
                     <%= form.select :network_cluster_ids, RoomDecorator.network_clusters_options_for_select,
                                           { include_blank: t("access_control.blank") },

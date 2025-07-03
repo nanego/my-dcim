@@ -655,6 +655,7 @@ fr:
     update:
       flashes:
         updated: La salle a été mise à jour.
+        failure: Une erreur est survenue lors de la mise à jour de la salle
     destroy:
       flashes:
         destroyed: La salle a bien été supprimée.
@@ -839,10 +840,6 @@ fr:
       show:
         loading: Chargement en cours ...
         edit_clusters: Modifier les clusters
-      edit_room_clusters:
-        flashes:
-          success: Les cluster ont bien été mis à jour
-          failure: Une erreur est survenue lors de la mise à jour des cluster
     bays:
       show:
         title: Baie %{bay_type} %{bay}

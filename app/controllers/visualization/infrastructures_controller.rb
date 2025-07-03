@@ -14,16 +14,6 @@ module Visualization
       load_data! if turbo_frame_request?
     end
 
-    def edit_room_clusters
-      @room = Room.find(room_params[:id])
-
-      if @room.update(room_params)
-        redirect_back fallback_location: root_path, notice: t(".flashes.success")
-      else
-        redirect_back fallback_location: root_path, alert: t(".flashes.failure")
-      end
-    end
-
     private
 
     def room_params
