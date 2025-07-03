@@ -1069,6 +1069,13 @@ body {
   .table-responsive .btn-group-vertical {
       position: static;
   }
+
+  .pagination-component {
+    display: inline-flex;
+    gap: 1em;
+    align-items: baseline;
+    width: fit-content;
+  }
 }
 
 @include color-mode(dark) {
