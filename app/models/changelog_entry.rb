@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ChangelogEntry < ApplicationRecord
+  ACTIONS = %i[create update destroy].freeze
+
   belongs_to :object, polymorphic: true, optional: true
   belongs_to :author, polymorphic: true, optional: true, default: -> { ChangelogContext.author }
 
