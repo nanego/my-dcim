@@ -642,6 +642,8 @@ fr:
         cluster: Cluster
       dragn_drop:
         enable: Activer le drag'n drop
+    edit_clusters_modal:
+      edit_clusters: Modifier les clusters
     index:
       delete_confirmation: Cette salle ne pourra pas être supprimée tant qu'elle sera associée à au moins un ilôt. Voulez-vous continuer ?
       new_room: Ajouter une salle
@@ -839,7 +841,7 @@ fr:
     infrastructures:
       show:
         loading: Chargement en cours ...
-        edit_clusters: Modifier les clusters
+        edit_clusters: Edit clusters
     bays:
       show:
         title: Baie %{bay_type} %{bay}
