@@ -10,7 +10,7 @@ class PaginationComponent < ApplicationComponent
       <%== pagy_bootstrap_nav(@pagy) %>
 
       <div class="d-flex align-items-baseline gap-2">
-        <label for="items-per-page" class="form-label text-nowrap">
+        <label for="items-per-page" class="form-label text-nowrap text-secondary">
           <%= t(".items_per_page") %>
         </label>
         <select id="items-per-page" class="form-select form-select-sm" onchange="window.location.href = this.value;">
