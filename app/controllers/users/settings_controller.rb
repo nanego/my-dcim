@@ -22,7 +22,7 @@ module Users
 
     def settings_params
       params.expect(
-        user: %i[locale theme visualization_bay_default_background_color visualization_bay_default_orientation]
+        user: %i[locale theme items_per_page visualization_bay_default_background_color visualization_bay_default_orientation]
       )
     end
   end
