@@ -48,7 +48,19 @@
           second_hub: @second_hub, second_room: @second_room, connections: @connections, concentrator_ids: @concentrator_ids
         } %>
 
-        <%= render partial: "rooms/edit_clusters_modal", locals: { room: @room } %>
+        <div class="modal fade" id="editInfrastructureIsletModal" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content overflow-visible">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel"><%= t(".edit_clusters") %></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body overflow-y-visible">
+                <%= render partial: "rooms/edit_clusters", locals: { room: @room } %>
+              </div>
+            </div>
+          </div>
+        </div>
       <% end %>
     <% else %>
       <%= turbo_frame_tag "infrastructure_islet", src: visualization_infrastructure_path(**@filter.to_h) do %>

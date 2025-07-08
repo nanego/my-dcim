@@ -77,19 +77,25 @@ class RoomsController < ApplicationController
   end
 
   def update
-    update_success = @room.update(room_params)
-
-    if params[:infrastructure]
-      infrastructure_update_result(update_success)
-    else
-      respond_to do |format|
-        if update_success
-          format.html { redirect_to @room, notice: t(".flashes.updated") }
-          format.json { render :show, status: :ok, location: @room }
-        else
-          format.html { render :edit }
-          format.json { render json: @room.errors, status: :unprocessable_entity }
+    respond_to do |format|
+      if @room.update(room_params)
+        format.html do
+          if params[:infrastructure]
+            redirect_back fallback_location: root_path, notice: t(".flashes.updated")
+          else
+            redirect_to @room, notice: t(".flashes.updated")
+          end
         end
+        format.json { render :show, status: :ok, location: @room }
+      else
+        format.html do
+          if params[:infrastructure]
+            redirect_back fallback_location: root_path, alert: t(".flashes.failure")
+          else
+            render :edit
+          end
+        end
+        format.json { render json: @room.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -108,14 +114,6 @@ class RoomsController < ApplicationController
   end
 
   private
-
-  def infrastructure_update_result(success)
-    if success
-      redirect_back fallback_location: root_path, notice: t(".flashes.updated")
-    else
-      redirect_back fallback_location: root_path, alert: t(".flashes.failure")
-    end
-  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_room
