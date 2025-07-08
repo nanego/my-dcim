@@ -55,6 +55,12 @@ class ApplicationController < ActionController::Base
     redirect_to options, response_options
   end
 
+  protected
+
+  def limit
+    params[:limit] || current_user.items_per_page
+  end
+
   private
 
   def admin_only

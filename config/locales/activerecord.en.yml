@@ -115,6 +115,7 @@ en:
       theme: Theme
       user:
         is_admin: Is administrator
+        items_per_page: Items per page
       user/locale:
         en: English
         fr: Français

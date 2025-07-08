@@ -3,8 +3,6 @@
 class PaginationComponent < ApplicationComponent
   include Pagy::Frontend
 
-  LIMITS = [25, 50, 100, 150, 200].freeze
-
   erb_template <<~ERB
     <div class="pagination-component">
       <%== pagy_bootstrap_nav(@pagy) %>
@@ -14,7 +12,7 @@ class PaginationComponent < ApplicationComponent
           <%= t(".items_per_page") %>
         </label>
         <select id="items-per-page" class="form-select form-select-sm" onchange="window.location.href = this.value;">
-          <% LIMITS.each do |size| %>
+          <% User::AVAILABLE_ITEMS_PER_PAGE.each do |size| %>
             <option value="<%= url_for(pagy_params_for_items(size)) %>" <%= 'selected' if size == @pagy.limit %>>
               <%= size %>
             </option>
