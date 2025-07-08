@@ -213,7 +213,6 @@ Pagy::DEFAULT[:limit] = 100
 require "pagy/extras/size"
 Pagy::DEFAULT[:size] = [2, 2, 2, 2]
 
-require "pagy/extras/limit"
 Pagy::DEFAULT[:limit_max] = 200
 
 require "pagy/extras/bootstrap"
