@@ -24,7 +24,7 @@
           <span id="all_destinations">
             <%= select_tag "to_server",
                           options_for_select(
-                            @selected_port.server.frame.servers.map { |v| [v.name, v.id] },
+                            @servers.map { |v| [v.name, v.id] },
                             { selected: @destination_port.present? ? @destination_port.server&.id : nil }
                           ),
                           include_blank: true,
