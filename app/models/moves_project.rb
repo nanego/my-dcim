@@ -26,4 +26,8 @@ class MovesProject < ApplicationRecord
   def archived?
     archived_at && archived_at < DateTime.now
   end
+
+  def unarchived?
+    !archived?
+  end
 end

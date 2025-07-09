@@ -14,7 +14,7 @@
   <% end %>
 
   <% heading.with_extra_buttons do %>
-    <% unless @moves_project.archived? %>
+    <% if @moves_project.unarchived? %>
       <%= link_to archive_moves_project_path(@moves_project),
                   method: :patch,
                   data: { confirm: t(".archive_confirmation") },
@@ -51,13 +51,16 @@
                 </span>
               <% end %>
             </span>
-            <div class="small">
-              <%= link_to new_moves_project_step_move_path(moves_project_step),
-                          class: "link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" do %>
-                <span class="bi bi-plus-lg"></span>
-                <span><%= t("moves.new.title") %></span>
-              <% end %>
-            </div>
+
+            <% if @moves_project.unarchived? %>
+              <div class="small">
+                <%= link_to new_moves_project_step_move_path(moves_project_step),
+                            class: "link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" do %>
+                  <span class="bi bi-plus-lg"></span>
+                  <span><%= t("moves.new.title") %></span>
+                <% end %>
+              </div>
+            <% end %>
           </div>
 
           <%= turbo_frame_tag(dom_id(Move, :table), loading: :lazy, src: moves_project_step_moves_path(moves_project_step)) do %>
@@ -67,7 +70,7 @@
             </div>
           <% end %>
 
-          <% if moves_project_step.moves.any? && !moves_project_step.executed? %>
+          <% if @moves_project.unarchived? && moves_project_step.moves.any? && !moves_project_step.executed? %>
             <% card.with_footer do %>
               <%= link_to(
                 t("action.execute"), execute_moves_project_moves_project_step_path(@moves_project, moves_project_step),
