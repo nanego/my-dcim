@@ -49,4 +49,26 @@ RSpec.describe MovesProjectStep do
         .to contain_exactly(servers(:two), servers(:with_cluster))
     end
   end
+
+  describe "#previous_steps" do
+    context "with a project with many steps" do
+      let(:step_one) { moves_project_steps(:step_one) }
+      let(:step_two) { moves_project_steps(:step_two) }
+      let(:step_three) { moves_project_steps(:step_three) }
+
+      it { expect(step_one.previous_steps).to be_empty }
+      it { expect(step_two.previous_steps).to contain_exactly(step_one) }
+      it { expect(step_three.previous_steps).to contain_exactly(step_one, step_two) }
+    end
+  end
+
+  describe "#previous_step" do
+    context "with a project with many steps" do
+      let(:step_one) { moves_project_steps(:step_one) }
+      let(:step_two) { moves_project_steps(:step_two) }
+
+      it { expect(step_one.previous_step).to be_nil }
+      it { expect(step_two.previous_step).to eq(step_one) }
+    end
+  end
 end

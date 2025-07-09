@@ -25,10 +25,12 @@ class Move < ApplicationRecord
     MovedConnection.per_servers([server]).delete_all
     # Add moved connection for each port
     server.ports.each do |p|
-      MovedConnection.create({ port_from_id: p.id,
-                               vlans: "",
-                               color: "",
-                               cablename: "" })
+      MovedConnection.create({
+        port_from_id: p.id,
+        vlans: "",
+        color: "",
+        cablename: ""
+      })
     end
   end
 
@@ -64,11 +66,22 @@ class Move < ApplicationRecord
     executed_at?
   end
 
+  def previous_moves
+    return nil unless step&.previous_step
+
+    step.previous_step.moves
+  end
+
   def refresh_prev_data
     return if executed?
     return unless moveable
 
-    self.prev_frame_id = moveable.frame_id
-    self.prev_position = moveable.position
+    if (move = previous_moves&.where(moveable:)&.last)
+      prev_frame_id = move.frame_id
+      prev_position = move.position
+    end
+
+    self.prev_frame_id = prev_frame_id || moveable.frame_id
+    self.prev_position = prev_position || moveable.position
   end
 end
