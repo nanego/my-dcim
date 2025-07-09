@@ -21,7 +21,7 @@ class ModelesController < ApplicationController
   end
 
   def new
-    @modele = Modele.new
+    @modele = Modele.new(new_modele_params)
     @modele.composants.build(:name => "ALIM")
     @modele.composants.build(:name => "IPMI")
     @modele.composants.build(:name => "CM")
@@ -115,5 +115,9 @@ class ModelesController < ApplicationController
         },
       ]
     )
+  end
+
+  def new_modele_params
+    params.permit(%i[manufacturer_id architecture_id category_id])
   end
 end

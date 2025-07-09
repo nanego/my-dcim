@@ -22,6 +22,16 @@ RSpec.describe HasManyTurboFrameComponent, type: :component do
     end
   end
 
+  context "with new path" do
+    let(:component) { described_class.new("Title", url:, frame_id: :table_islet, new_path: new_bay_path) }
+
+    it do
+      expect(rendered_component.to_html).to have_tag("div.card") do
+        with_tag("a.btn", href: new_bay_path, text: t("action.create"))
+      end
+    end
+  end
+
   context "with html attributes" do
     let(:component) do
       described_class.new("Title", url:, frame_id: :table_islet, id: "custom", type: :secondary, data: { key: :value })
