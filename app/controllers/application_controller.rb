@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def limit
-    params[:limit] || current_user.items_per_page
+    params[Pagy::DEFAULT[:limit_param]] || current_user.items_per_page
   end
 
   private
