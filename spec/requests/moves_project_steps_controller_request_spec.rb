@@ -28,6 +28,12 @@ RSpec.describe MovesProjectStepsController do
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:frame) }
     end
+
+    context "with archived moves project" do
+      let(:moves_project_step) { moves_project_steps(:archived) }
+
+      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
+    end
   end
 
   describe "GET #print" do
@@ -50,6 +56,12 @@ RSpec.describe MovesProjectStepsController do
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:print) }
       it { expect(response).to render_template("layouts/pdf") }
+    end
+
+    context "with archived moves project" do
+      let(:moves_project_step) { moves_project_steps(:archived) }
+
+      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
     end
   end
 
@@ -87,6 +99,12 @@ RSpec.describe MovesProjectStepsController do
 
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(moves_project_path(moves_project)) }
+    end
+
+    context "with archived moves project" do
+      let(:moves_project_step) { moves_project_steps(:archived) }
+
+      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
     end
   end
 end

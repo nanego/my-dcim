@@ -68,6 +68,12 @@ RSpec.describe MovesController do
 
       it { expect(server).to eq(assigns(:move).moveable) }
     end
+
+    context "with an archived moves project" do
+      let(:move) { moves(:archived) }
+
+      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
+    end
   end
 
   describe "POST #create" do
@@ -106,15 +112,32 @@ RSpec.describe MovesController do
 
       it { expect { response }.to raise_error(ActionController::ParameterMissing) }
     end
+
+    context "with an archived moves project" do
+      let(:move) { moves(:archived) }
+
+      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
+    end
   end
 
   describe "GET #edit" do
-    include_context "with authenticated user"
+    subject(:response) do
+      get edit_moves_project_step_move_path(step, move)
 
-    before { get edit_moves_project_step_move_path(step, move) }
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated user"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:edit) }
+
+    context "with an archived moves project" do
+      let(:move) { moves(:archived) }
+
+      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
+    end
   end
 
   describe "PATCH #update" do
@@ -153,6 +176,12 @@ RSpec.describe MovesController do
 
       it { expect { response }.to raise_error(ActionController::ParameterMissing) }
     end
+
+    context "with an archived moves project" do
+      let(:move) { moves(:archived) }
+
+      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
+    end
   end
 
   describe "DELETE #destroy" do
@@ -185,6 +214,12 @@ RSpec.describe MovesController do
 
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(moves_project_path(step)) }
+    end
+
+    context "with an archived moves project" do
+      let(:move) { moves(:archived) }
+
+      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
     end
   end
 
@@ -220,6 +255,12 @@ RSpec.describe MovesController do
 
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(moves_project_path(step)) }
+    end
+
+    context "with an archived moves project" do
+      let(:move) { moves(:archived) }
+
+      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
     end
   end
 end
