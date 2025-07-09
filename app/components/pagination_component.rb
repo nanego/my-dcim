@@ -8,19 +8,18 @@ class PaginationComponent < ApplicationComponent
       <%== pagy_bootstrap_nav(@pagy) %>
 
       <div class="d-flex align-items-baseline gap-2">
-        <label for="items-per-page" class="form-label text-nowrap text-secondary">
-          <%= t(".items_per_page") %>
-        </label>
-        <select id="items-per-page" class="form-select form-select-sm" onchange="window.location.href = this.value;">
-          <% User::AVAILABLE_ITEMS_PER_PAGE.each do |size| %>
-            <option value="<%= url_for(pagy_params_for_items(size)) %>" <%= 'selected' if size == @pagy.limit %>>
-              <%= size %>
-            </option>
-          <% end %>
-        </select>
+        <%= label_tag :items_per_page, t(".items_per_page"), class: "form-label text-nowrap text-secondary" %>
+        <%= select_tag(
+            :items_per_page,
+            options_for_select(options, selected_items_per_page),
+            onchange: "window.location.href = this.value",
+            class: "form-select form-select-sm"
+          ) %>
       </div>
     </div>
   ERB
+
+  # TODO: Set default items per page
 
   def initialize(pagy:, params:)
     @pagy = pagy
@@ -35,7 +34,18 @@ class PaginationComponent < ApplicationComponent
 
   private
 
+  def options
+    @options ||= User::AVAILABLE_ITEMS_PER_PAGE.index_with do |item|
+      url_for(pagy_params_for_items(item))
+    end
+  end
+
   def pagy_params_for_items(size)
     @params.to_unsafe_h.merge(limit: size, page: 1)
+  end
+
+  def selected_items_per_page
+    item = @pagy.vars[:items] || @params[:limit]&.to_i || DEFAULT_ITEMS_PER_PAGE
+    options[item]
   end
 end
