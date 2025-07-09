@@ -4,13 +4,29 @@
     .add_step(title = @moves_project)
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @moves_project, title:, breadcrumb:) do |heading| %>
+<%= render Page::HeadingShowComponent.new(resource: @moves_project, title:, breadcrumb:, editable: !@moves_project.archived?) do |heading| %>
   <% if created_by = @moves_project.created_by %>
     <p class="mt-2">
       <span class="bi bi-person"></span>
       <span class="ms-1 fw-light text-body-secondary"><%= MovesProject.human_attribute_name(:created_by) %></span>
       <span class="font-monospace"><%= created_by %></span>
     </p>
+  <% end %>
+
+  <% heading.with_extra_buttons do %>
+    <% unless @moves_project.archived? %>
+      <%= link_to archive_moves_project_path(@moves_project),
+                  method: :patch,
+                  data: { confirm: t(".archive_confirmation") },
+                  class: "btn btn-primary me-2" do %>
+        <span class="bi bi-archive"
+              title="<%= t("action.archive") %>"
+              data-controller="tooltip"
+              data-bs-placement="left"
+              aria-hidden="true"></span>
+        <span><%= t("action.archive") %></span>
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>
 

@@ -29,7 +29,7 @@ class MovesProjectStepsController < ApplicationController
   private
 
   def set_moves_project
-    @moves_project = MovesProject.find(params[:moves_project_id])
+    @moves_project = MovesProject.unarchived.find(params[:moves_project_id])
   end
 
   # Use callbacks to share common setup or constraints between actions.
