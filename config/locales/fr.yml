@@ -1,7 +1,4 @@
 fr:
-  action_policy:
-    flashes:
-      unauthorized: Vous n'avez pas les autorisations nécessaires
   boolean:
     true: Oui
     false: Non
