@@ -106,7 +106,8 @@ RSpec.describe MovesProjectsController do
     context "with archived moves project" do
       let(:moves_project) { moves_projects(:archived) }
 
-      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_projects_path) }
     end
   end
 
@@ -150,7 +151,8 @@ RSpec.describe MovesProjectsController do
     context "with archived moves project" do
       let(:moves_project) { moves_projects(:archived) }
 
-      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_projects_path) }
     end
   end
 
@@ -178,7 +180,8 @@ RSpec.describe MovesProjectsController do
     context "with archived moves project" do
       let(:moves_project) { moves_projects(:archived) }
 
-      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_projects_path) }
     end
   end
 
@@ -205,7 +208,8 @@ RSpec.describe MovesProjectsController do
     context "with archived moves project" do
       let(:moves_project) { moves_projects(:archived) }
 
-      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_projects_path) }
     end
   end
 end
