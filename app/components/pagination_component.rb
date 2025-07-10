@@ -3,6 +3,8 @@
 class PaginationComponent < ApplicationComponent
   include Pagy::Frontend
 
+  DEFAULT_ITEMS_PER_PAGE = 100
+
   erb_template <<~ERB
     <div class="pagination-component">
       <%== pagy_bootstrap_nav(@pagy) %>
@@ -21,9 +23,10 @@ class PaginationComponent < ApplicationComponent
 
   # TODO: Set default items per page
 
-  def initialize(pagy:, params:)
+  def initialize(pagy:, params:, default_limit:)
     @pagy = pagy
     @params = params
+    @default_limit = default_limit
 
     super
   end
@@ -45,7 +48,7 @@ class PaginationComponent < ApplicationComponent
   end
 
   def selected_items_per_page
-    item = @pagy.vars[:items] || @params[:limit]&.to_i || DEFAULT_ITEMS_PER_PAGE
-    options[item]
+    page_length = @pagy.vars[:limit] || @default_limit
+    options[page_length.to_i]
   end
 end

@@ -177,7 +177,7 @@
         <% end %>
       <% end %>
 
-      <%== render PaginationComponent.new(pagy: @pagy, params:) %>
+      <%== render PaginationComponent.new(pagy: @pagy, params:, default_limit: current_user.items_per_page) %>
     </div>
   <% end %>
 </div>
