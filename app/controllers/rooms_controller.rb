@@ -92,7 +92,7 @@ class RoomsController < ApplicationController
           if params[:infrastructure]
             redirect_back fallback_location: root_path, alert: t(".flashes.failure")
           else
-            render :edit
+            render :edit, status: :unprocessable_entity
           end
         end
         format.json { render json: @room.errors, status: :unprocessable_entity }

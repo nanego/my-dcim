@@ -32,11 +32,32 @@ RSpec.describe "Rooms" do
     subject(:response) do
       patch(room_path(room), params:)
 
-      @repsonse # rubocop:disable RSpec/InstanceVariable
+      @response # rubocop:disable RSpec/InstanceVariable
     end
 
     before do
       sign_in users(:one)
+    end
+
+    context "with invalid data" do
+      let(:params) { { room: { site_id: 123_456 } } }
+
+      it { expect(response).to have_http_status(:unprocessable_entity) }
+      it { expect(response).to render_template(:edit) }
+    end
+
+    context "with valid data" do
+      let(:params) { { room: { name: "newName" } } }
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(room_path("newname")) }
+
+      it do
+        expect do
+          response
+          room.reload
+        end.to change(room, :name).from("S1").to("newName")
+      end
     end
 
     context "when infrastructure request" do
