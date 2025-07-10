@@ -21,8 +21,6 @@ class PaginationComponent < ApplicationComponent
     </div>
   ERB
 
-  # TODO: Set default items per page
-
   def initialize(pagy:, params:, default_limit:)
     @pagy = pagy
     @params = params
@@ -44,7 +42,7 @@ class PaginationComponent < ApplicationComponent
   end
 
   def pagy_params_for_items(size)
-    @params.to_unsafe_h.merge(limit: size, page: 1)
+    @params.merge(@pagy.vars[:limit_param] => size, @pagy.vars[:page_param] => 1)
   end
 
   def selected_items_per_page
