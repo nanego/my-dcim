@@ -44,9 +44,43 @@ RSpec.describe MovesProjectStep do
   end
 
   describe "#servers_moves_for_frame_at_current_step" do
-    it do
-      expect(moves_project_steps(:planned).servers_moves_for_frame_at_current_step(frames(:one)))
-        .to contain_exactly(servers(:two), servers(:with_cluster))
+    context "with a move in a one-step project" do
+      it do
+        expect(moves_project_steps(:planned).servers_moves_for_frame_at_current_step(frames(:one)))
+          .to contain_exactly(servers(:two), servers(:with_cluster))
+      end
+    end
+
+    context "with a move in a multi-steps project" do
+      it do
+        expect(moves_project_steps(:step_one).servers_moves_for_frame_at_current_step(frames(:one)))
+          .to contain_exactly(servers(:two), servers(:with_cluster))
+      end
+
+      it do
+        expect(moves_project_steps(:step_one).servers_moves_for_frame_at_current_step(frames(:three)))
+          .to contain_exactly(servers(:one))
+      end
+
+      it do
+        expect(moves_project_steps(:step_two).servers_moves_for_frame_at_current_step(frames(:one)))
+          .to contain_exactly(servers(:two), servers(:with_cluster))
+      end
+
+      it do
+        expect(moves_project_steps(:step_two).servers_moves_for_frame_at_current_step(frames(:three)))
+          .to be_empty
+      end
+
+      it do
+        expect(moves_project_steps(:step_three).servers_moves_for_frame_at_current_step(frames(:one)))
+          .to contain_exactly(servers(:with_cluster))
+      end
+
+      it do
+        expect(moves_project_steps(:step_three).servers_moves_for_frame_at_current_step(frames(:four)))
+          .to contain_exactly(servers(:one), servers(:two), servers(:four), servers(:hub_network2))
+      end
     end
   end
 
