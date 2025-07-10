@@ -44,9 +44,65 @@ RSpec.describe MovesProjectStep do
   end
 
   describe "#servers_moves_for_frame_at_current_step" do
-    it do
-      expect(moves_project_steps(:planned).servers_moves_for_frame_at_current_step(frames(:one)))
-        .to contain_exactly(servers(:two), servers(:with_cluster))
+    context "with a move in a one-step project" do
+      it do
+        expect(moves_project_steps(:planned).servers_moves_for_frame_at_current_step(frames(:one)))
+          .to contain_exactly(servers(:two), servers(:with_cluster))
+      end
+    end
+
+    context "with a move in a multi-steps project" do
+      it do
+        expect(moves_project_steps(:step_one).servers_moves_for_frame_at_current_step(frames(:one)))
+          .to contain_exactly(servers(:two), servers(:with_cluster))
+      end
+
+      it do
+        expect(moves_project_steps(:step_one).servers_moves_for_frame_at_current_step(frames(:three)))
+          .to contain_exactly(servers(:one))
+      end
+
+      it do
+        expect(moves_project_steps(:step_two).servers_moves_for_frame_at_current_step(frames(:one)))
+          .to contain_exactly(servers(:two), servers(:with_cluster))
+      end
+
+      it do
+        expect(moves_project_steps(:step_two).servers_moves_for_frame_at_current_step(frames(:three)))
+          .to be_empty
+      end
+
+      it do
+        expect(moves_project_steps(:step_three).servers_moves_for_frame_at_current_step(frames(:one)))
+          .to contain_exactly(servers(:with_cluster))
+      end
+
+      it do
+        expect(moves_project_steps(:step_three).servers_moves_for_frame_at_current_step(frames(:four)))
+          .to contain_exactly(servers(:one), servers(:two), servers(:four), servers(:hub_network2))
+      end
+    end
+  end
+
+  describe "#previous_steps" do
+    context "with a project with many steps" do
+      let(:step_one) { moves_project_steps(:step_one) }
+      let(:step_two) { moves_project_steps(:step_two) }
+      let(:step_three) { moves_project_steps(:step_three) }
+
+      it { expect(step_one.previous_steps).to be_empty }
+      it { expect(step_two.previous_steps).to contain_exactly(step_one) }
+      it { expect(step_three.previous_steps).to contain_exactly(step_one, step_two) }
+    end
+  end
+
+  describe "#previous_step" do
+    context "with a project with many steps" do
+      let(:step_one) { moves_project_steps(:step_one) }
+      let(:step_two) { moves_project_steps(:step_two) }
+
+      it { expect(step_one.previous_step).to be_nil }
+      it { expect(step_two.previous_step).to eq(step_one) }
     end
   end
 end
