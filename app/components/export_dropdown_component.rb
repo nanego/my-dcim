@@ -12,14 +12,14 @@ class ExportDropdownComponent < ApplicationComponent
       </button>
 
       <ul class="dropdown-menu dropdown-menu-end">
-        <li>
-          <%= link_to t(".export.current_page"), current_page_export(format: :csv), class: "dropdown-item" %>
-        </li>
-        <% if @pagy.next.present? %>
+        <% if @pagy.next %>
           <li>
-            <%= link_to t(".export.all_pages"), all_pages_export(format: :csv), class: "dropdown-item" %>
+            <%= link_to t(".export.current_page"), current_page_export(format: :csv), class: "dropdown-item" %>
           </li>
         <% end %>
+        <li>
+          <%= link_to t(".export.all_pages"), all_pages_export(format: :csv), class: "dropdown-item" %>
+        </li>
       </ul>
     </div>
   ERB
@@ -35,10 +35,12 @@ class ExportDropdownComponent < ApplicationComponent
   private
 
   def current_page_export(format:)
-    public_send(@url, format:, page: @pagy.page, **@params)
+    params = @params.dup
+    params[@pagy.vars[:page_param].to_s] = @pagy.page
+    public_send(@url, format:, **params)
   end
 
   def all_pages_export(format:)
-    public_send(@url, format:, **@params.except(:page))
+    public_send(@url, format:, **@params.except(@pagy.vars[:page_param].to_s))
   end
 end

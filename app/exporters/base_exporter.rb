@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 class BaseExporter
-  class UndefinedAttributeExporter < StandardError
+  class UndefinedAttributeError < StandardError
     def initialize(attribute, model, exporter)
-      super("Attribute '#{attribute}' is not defined by either #{model} or #{exporter}")
+      super("Attribute '#{attribute}' is not defined by either #{model.class} or #{exporter.class}")
     end
   end
 
   DEFAULT_ATTRIBUTE_NAMES = %w[id created_at updated_at].freeze
+
+  cattr_accessor :model_klass
 
   def initialize(records, attribute_names)
     @records = records
@@ -15,12 +17,8 @@ class BaseExporter
   end
 
   def to_csv
-    return "" if @records.empty?
-
-    model = @records.first.class
-
-    CSV.generate(headers: true) do |csv|
-      csv << attributes.map { |attr| model.human_attribute_name(attr) }
+    CSV.generate do |csv|
+      csv << headers
 
       process_data_to_rows do |row|
         csv << row
@@ -29,6 +27,16 @@ class BaseExporter
   end
 
   private
+
+  def model_klass
+    @model_klass ||= self.class.model_klass \
+        || self.class.name.chomp("Exporter").safe_constantize \
+        || raise("Can't find model for #{self.class.name}")
+  end
+
+  def headers
+    @headers ||= attributes.map { |attr| model_klass.human_attribute_name(attr) }
+  end
 
   def process_data_to_rows
     @records.each do |record|
@@ -50,7 +58,7 @@ class BaseExporter
     elsif record.respond_to?(attribute_name)
       format_value(record.public_send(attribute_name))
     else
-      raise UndefinedAttributeExporter.new(attribute_name, record.class, self.class)
+      raise UndefinedAttributeError.new(attribute_name, record, self)
     end
   end
 
