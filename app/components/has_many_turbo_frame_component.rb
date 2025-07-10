@@ -14,7 +14,6 @@ class HasManyTurboFrameComponent < ApplicationComponent
           <% if actions? %>
             <%= actions %>
           <% else %>
-
           <div>
             <% if @new_path %>
               <%= render ButtonComponent.new(t("action.create"),
