@@ -72,7 +72,8 @@ RSpec.describe MovesController do
     context "with an archived moves project" do
       let(:move) { moves(:archived) }
 
-      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_projects_path) }
     end
   end
 
@@ -116,7 +117,8 @@ RSpec.describe MovesController do
     context "with an archived moves project" do
       let(:move) { moves(:archived) }
 
-      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_projects_path) }
     end
   end
 
@@ -136,7 +138,8 @@ RSpec.describe MovesController do
     context "with an archived moves project" do
       let(:move) { moves(:archived) }
 
-      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_projects_path) }
     end
   end
 
@@ -180,7 +183,8 @@ RSpec.describe MovesController do
     context "with an archived moves project" do
       let(:move) { moves(:archived) }
 
-      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_projects_path) }
     end
   end
 
@@ -219,7 +223,8 @@ RSpec.describe MovesController do
     context "with an archived moves project" do
       let(:move) { moves(:archived) }
 
-      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_projects_path) }
     end
   end
 
@@ -260,7 +265,8 @@ RSpec.describe MovesController do
     context "with an archived moves project" do
       let(:move) { moves(:archived) }
 
-      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_projects_path) }
     end
   end
 end

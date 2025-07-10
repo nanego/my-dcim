@@ -207,6 +207,8 @@ en:
     moved_connection_form:
       action:
         delete: Delete this connection
+    flashes:
+      archived: This project is archived
 
   moves_projects:
     index:
@@ -236,11 +238,15 @@ en:
         archived: The project has been archived.
     form:
       add_step: Add a step
+    flashes:
+      archived: This project is archived
 
   moves_project_steps:
     execute:
       flashes:
         executed: The moves was successfully executed.
+    flashes:
+      archived: This project is archived
 
   power_distribution_units:
     index:

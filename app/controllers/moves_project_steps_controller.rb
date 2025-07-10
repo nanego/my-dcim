@@ -2,6 +2,7 @@
 
 class MovesProjectStepsController < ApplicationController
   before_action :set_moves_project
+  before_action :redirect_if_archived, except: %i[frame print]
   before_action :set_moves_project_step, only: %i[frame print execute]
   before_action :set_frame_updated, only: %i[frame print]
 
@@ -29,7 +30,13 @@ class MovesProjectStepsController < ApplicationController
   private
 
   def set_moves_project
-    @moves_project = MovesProject.unarchived.find(params[:moves_project_id])
+    @moves_project = MovesProject.find(params[:moves_project_id])
+  end
+
+  def redirect_if_archived
+    return if @moves_project.unarchived?
+
+    redirect_to moves_projects_path, alert: t(".flashes.archived")
   end
 
   # Use callbacks to share common setup or constraints between actions.

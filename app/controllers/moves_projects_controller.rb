@@ -2,6 +2,7 @@
 
 class MovesProjectsController < ApplicationController
   before_action :set_moves_project, only: %i[edit update destroy archive]
+  before_action :redirect_if_archived, except: %i[index show new create]
 
   # GET /moves_projects or /moves_projects.json
   def index
@@ -70,7 +71,13 @@ class MovesProjectsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_moves_project
-    @moves_project = MovesProject.unarchived.find(params.expect(:id))
+    @moves_project = MovesProject.find(params.expect(:id))
+  end
+
+  def redirect_if_archived
+    return if @moves_project.unarchived?
+
+    redirect_to moves_projects_path, alert: t(".flashes.archived")
   end
 
   # Only allow a list of trusted parameters through.

@@ -20,11 +20,11 @@ class MovesProject < ApplicationRecord
   end
 
   def archive!
-    update!(archived_at: DateTime.now)
+    update!(archived_at: Time.zone.now)
   end
 
   def archived?
-    archived_at && archived_at < DateTime.now
+    archived_at && archived_at < Time.zone.now
   end
 
   def unarchived?

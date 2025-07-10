@@ -568,6 +568,8 @@ fr:
     moved_connection_form:
       action:
         delete: Supprimer cette connexion
+    flashes:
+      archived: Ce projet est archivé
 
   moves_projects:
     index:
@@ -599,6 +601,8 @@ fr:
         archived: Le projet a été archivé.
     form:
       add_step: Ajouter une étape
+    flashes:
+      archived: Ce projet est archivé
 
   moves_project_steps:
     frame:
@@ -608,6 +612,8 @@ fr:
     execute:
       flashes:
         executed: Les déplacements ont été exécutés avec succès.
+    flashes:
+      archived: Ce projet est archivé
 
   devise:
     registrations:
