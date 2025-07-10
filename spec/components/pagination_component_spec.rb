@@ -3,13 +3,30 @@
 require "rails_helper"
 
 RSpec.describe PaginationComponent, type: :component do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:rendered_component) { render_inline(component) }
+  let(:component) { described_class.new(pagy:, params: {}, default_limit: 100) }
+  let(:pagy) { Pagy.new(count: 101) }
 
-  # it "renders something useful" do
-  #   expect(
-  #     render_inline(described_class.new(attr: "value")) { "Hello, components!" }.css("p").to_html
-  #   ).to include(
-  #     "Hello, components!"
-  #   )
-  # end
+  before do
+    allow(component).to receive(:url_for).and_return("/path")
+  end
+
+  context "with several pages" do
+    it do # rubocop:disable RSpec/ExampleLength
+      expect(rendered_component.to_html).to have_tag("div.pagination-component") do
+        with_tag("nav.pagy-bootstrap")
+        with_tag("select#items_per_page") do
+          User::AVAILABLE_ITEMS_PER_PAGE.each do |item|
+            with_tag("option", text: item)
+          end
+        end
+      end
+    end
+  end
+
+  context "with no pages" do
+    let(:pagy) { Pagy.new(count: 1) }
+
+    it { expect(rendered_component.to_html).to be_empty }
+  end
 end
