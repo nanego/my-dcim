@@ -113,6 +113,8 @@ en:
         bay_id: Bay
         modele_category_id: Category
       theme: Theme
+      user:
+        items_per_page: Items per page
       user/locale:
         en: English
         fr: Français

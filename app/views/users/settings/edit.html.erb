@@ -18,6 +18,14 @@
       </fieldset>
 
       <fieldset class="col-12 mt-4">
+        <%= f.label :items_per_page, class: "form-label" %>
+        <%= f.select :items_per_page,
+                     User::AVAILABLE_ITEMS_PER_PAGE,
+                     {},
+                     class: "form-select" %>
+      </fieldset>
+
+      <fieldset class="col-12 mt-4">
         <%= f.label :visualization_bay_default_background_color, class: "form-label" %>
         <%= f.select :visualization_bay_default_background_color,
                      UserDecorator::available_background_colors_for_options,
