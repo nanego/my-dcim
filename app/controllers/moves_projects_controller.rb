@@ -1,15 +1,18 @@
 # frozen_string_literal: true
 
 class MovesProjectsController < ApplicationController
-  before_action :set_moves_project, only: %i[show edit update destroy]
+  before_action :set_moves_project, only: %i[edit update destroy archive]
+  before_action :redirect_if_archived, except: %i[index show new create]
 
   # GET /moves_projects or /moves_projects.json
   def index
-    @moves_projects = MovesProject.all
+    @moves_projects = MovesProject.unarchived.all
   end
 
   # GET /moves_projects/1 or /moves_projects/1.json
-  def show; end
+  def show
+    @moves_project = MovesProject.find(params.expect(:id))
+  end
 
   # GET /moves_projects/new
   def new
@@ -58,11 +61,23 @@ class MovesProjectsController < ApplicationController
     end
   end
 
+  def archive
+    @moves_project.archive!
+
+    redirect_back fallback_location: moves_projects_path, notice: t(".flashes.archived")
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_moves_project
     @moves_project = MovesProject.find(params.expect(:id))
+  end
+
+  def redirect_if_archived
+    return if @moves_project.unarchived?
+
+    redirect_to moves_projects_path, alert: t(".flashes.archived")
   end
 
   # Only allow a list of trusted parameters through.

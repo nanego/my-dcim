@@ -91,12 +91,24 @@ RSpec.describe MovesProjectsController do
   end
 
   describe "GET #edit" do
-    include_context "with authenticated user"
+    subject(:response) do
+      get edit_moves_project_path(moves_project)
 
-    before { get edit_moves_project_path(moves_project) }
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated user"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:edit) }
+
+    context "with archived moves project" do
+      let(:moves_project) { moves_projects(:archived) }
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_projects_path) }
+    end
   end
 
   describe "PATCH #update" do
@@ -135,15 +147,24 @@ RSpec.describe MovesProjectsController do
 
       it { expect { response }.to raise_error(ActionController::ParameterMissing) }
     end
+
+    context "with archived moves project" do
+      let(:moves_project) { moves_projects(:archived) }
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_projects_path) }
+    end
   end
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete moves_project_path(moves_projects(:empty))
+      delete moves_project_path(moves_project)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
+
+    let(:moves_project) { moves_projects(:empty) }
 
     include_context "with authenticated user"
 
@@ -155,5 +176,40 @@ RSpec.describe MovesProjectsController do
 
     it { expect(response).to have_http_status(:redirect) }
     it { expect(response).to redirect_to(moves_projects_path) }
+
+    context "with archived moves project" do
+      let(:moves_project) { moves_projects(:archived) }
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_projects_path) }
+    end
+  end
+
+  describe "PATCH #archive" do
+    subject(:response) do
+      patch archive_moves_project_path(moves_project)
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated user"
+
+    it { expect(response).to have_http_status(:redirect) }
+    it { expect(response).to redirect_to(moves_projects_path) }
+
+    it do
+      expect do
+        response
+        moves_project.reload
+      end.to change(moves_project, :archived_at).from(nil)
+    end
+
+    context "with archived moves project" do
+      let(:moves_project) { moves_projects(:archived) }
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_projects_path) }
+    end
   end
 end

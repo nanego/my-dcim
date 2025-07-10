@@ -19,3 +19,8 @@ executed:
   id: 4
   moves_project_id: 4
   name: "D"
+
+archived:
+  id: 5
+  moves_project_id: 6
+  name: "Archived"

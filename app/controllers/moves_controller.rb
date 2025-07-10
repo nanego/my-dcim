@@ -2,6 +2,7 @@
 
 class MovesController < ApplicationController # rubocop:disable Metrics/ClassLength
   before_action :set_moves_project_step
+  before_action :redirect_if_archived, except: %i[index show load_server load_frame load_connection]
   before_action :set_move, only: %i[show edit update destroy execute]
   before_action :load_form_data, only: %i[new edit]
 
@@ -167,6 +168,12 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
   def set_moves_project_step
     @moves_project_step = MovesProjectStep.find(params[:moves_project_step_id])
+  end
+
+  def redirect_if_archived
+    return if @moves_project_step.moves_project.unarchived?
+
+    redirect_to moves_projects_path, alert: t(".flashes.archived")
   end
 
   # Use callbacks to share common setup or constraints between actions.

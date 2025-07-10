@@ -32,3 +32,11 @@ executed:
   frame_id: 3
   prev_frame_id: 1
   executed_at: "2025-05-01 00:00:00"
+
+archived:
+  moves_project_step_id: 5
+  moveable_type: Server
+  moveable_id: 1
+  position: 41
+  frame_id: 3
+  prev_frame_id: 1

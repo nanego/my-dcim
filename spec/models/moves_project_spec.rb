@@ -23,4 +23,36 @@ RSpec.describe MovesProject do
   describe "#to_s" do
     it { expect(move_project.to_s).to eq("A") }
   end
+
+  describe "#archive!" do
+    it do
+      expect do
+        move_project.archive!
+      end.to change(move_project, :archived_at).from(nil)
+    end
+  end
+
+  describe "#archived?" do
+    context "when not archived" do
+      it { expect(move_project.archived?).to be_nil }
+    end
+
+    context "when archived" do
+      subject(:move_project) { described_class.new(name: "A", archived_at: 2.years.ago) }
+
+      it { expect(move_project.archived?).to be(true) }
+    end
+  end
+
+  describe "#unarchived?" do
+    context "when not archived" do
+      it { expect(move_project.unarchived?).to be(true) }
+    end
+
+    context "when archived" do
+      subject(:move_project) { described_class.new(name: "A", archived_at: 2.years.ago) }
+
+      it { expect(move_project.unarchived?).to be(false) }
+    end
+  end
 end

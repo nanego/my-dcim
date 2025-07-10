@@ -88,5 +88,12 @@ RSpec.describe MovesProjectStepsController do
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(moves_project_path(moves_project)) }
     end
+
+    context "with archived moves project" do
+      let(:moves_project_step) { moves_project_steps(:archived) }
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_projects_path) }
+    end
   end
 end

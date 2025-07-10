@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   resources :air_conditioners
 
   resources :moves_projects do
+    member do
+      patch :archive
+    end
+
     resources :moves_project_steps, only: [] do
       member do
         get :frame, path: "/frames/:frame_id"
