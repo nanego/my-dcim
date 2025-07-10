@@ -6,11 +6,4 @@ class ApplicationRecord < ActiveRecord::Base
   primary_abstract_class
 
   self.store_attribute_unset_values_fallback_to_default = true
-
-  class << self
-    def models
-      Rails.application.eager_load!
-      descendants
-    end
-  end
 end

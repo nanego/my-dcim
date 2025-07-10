@@ -7,7 +7,11 @@ class ChangelogEntryDecorator < ApplicationDecorator
     end
 
     def object_types_options
-      ApplicationRecord.models.map { |model| [model.model_name.human, model.name] }
+      ChangelogEntry.distinct.pluck(:object_type).map do |type|
+        model = type.safe_constantize
+
+        [model.model_name.human, model.name]
+      end
     end
   end
 
