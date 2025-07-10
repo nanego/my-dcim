@@ -21,7 +21,7 @@ class ModelesController < ApplicationController
   end
 
   def new
-    @modele = Modele.new
+    @modele = Modele.new(modele_params)
     @modele.composants.build(:name => 'ALIM')
     @modele.composants.build(:name => 'IPMI')
     @modele.composants.build(:name => 'CM')
