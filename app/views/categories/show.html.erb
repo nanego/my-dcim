@@ -35,7 +35,7 @@
     Modele.model_name.human.pluralize,
     url: modeles_path(category_ids: @category.id),
     frame_id: dom_id(Modele, :table),
-    new_path: new_modele_path(category_id: @category.id)
+    new_path: new_modele_path("modele[category_id]" => @category.id)
   ) %>
   <%= render ChangelogEntries::ObjectListComponent.new(@category) %>
 </div>
