@@ -347,6 +347,7 @@ fr:
       flashes:
         destroyed: La catégorie a bien été supprimée.
   modeles:
+    add_new: Ajouter un modèle
     form:
       add_enclosure: Ajouter une enclosure
     enclosure_fields:
