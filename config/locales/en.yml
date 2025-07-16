@@ -214,12 +214,12 @@ en:
     index:
       new_moves_project: New project
       delete_confirmation: Are you sure you want to destroy this project?
-      archive_confirmation: Are you sure to archive this projects?
+      archive_confirmation: Are you sure you want to archive this project?
     show:
       frame_table_title: Frames after moving
       edit_connections: Edit connections
       execute_confirmation: Do you really want to apply these moves?
-      archive_confirmation: Are you sure to archive this project?
+      archive_confirmation: Are you sure you want to archive this project?
     new:
       title: New project
     create:

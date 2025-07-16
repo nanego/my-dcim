@@ -574,13 +574,13 @@ fr:
   moves_projects:
     index:
       new_moves_project: Nouveau projet
-      delete_confirmation: Êtes-vous sûr d'archiver supprimer ce projet ?
+      delete_confirmation: Êtes-vous sûr de vouloir supprimer ce projet ?
       archive_confirmation: Êtes-vous sûr d'archiver ce projet ?
     show:
       frame_table_title: Châssis après déplacements
       edit_connections: Modifier les connexions
       execute_confirmation: Voulez-vous vraiment appliquer ces déplacements ?
-      archive_confirmation: Êtes-vous sûr de vouloir ce projet ?
+      archive_confirmation: Êtes-vous sûr de vouloir archiver ce projet ?
       action:
         execute_step_moves: Déplacer les serveurs et leurs connexions
     new:
