@@ -575,7 +575,7 @@ fr:
     index:
       new_moves_project: Nouveau projet
       delete_confirmation: Êtes-vous sûr de vouloir supprimer ce projet ?
-      archive_confirmation: Êtes-vous sûr d'archiver ce projet ?
+      archive_confirmation: Êtes-vous sûr de vouloir archiver ce projet ?
     show:
       frame_table_title: Châssis après déplacements
       edit_connections: Modifier les connexions
