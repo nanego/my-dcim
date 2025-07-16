@@ -37,7 +37,7 @@ RSpec.describe "/architectures" do
     end
 
     context "without attributes" do
-      let(:params) { { category: {} } }
+      let(:params) { { architecture: {} } }
 
       it { expect { response }.to raise_error(ActionController::ParameterMissing) }
     end
