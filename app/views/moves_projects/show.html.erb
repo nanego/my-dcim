@@ -15,17 +15,16 @@
 
   <% heading.with_extra_buttons do %>
     <% if @moves_project.unarchived? %>
-      <%= link_to archive_moves_project_path(@moves_project),
-                  method: :patch,
-                  data: { confirm: t(".archive_confirmation") },
-                  class: "btn btn-primary me-2" do %>
-        <span class="bi bi-archive"
-              title="<%= t("action.archive") %>"
-              data-controller="tooltip"
-              data-bs-placement="left"
-              aria-hidden="true"></span>
-        <span><%= t("action.archive") %></span>
-      <% end %>
+      <%= render ButtonComponent.new(
+        t("action.archive"),
+        url: archive_moves_project_path(@moves_project),
+        method: :patch,
+        variant: :primary,
+        icon: :archive,
+        is_responsive: true,
+        extra_classes: "me-2",
+        data: { confirm: t(".archive_confirmation") }
+      ) %>
     <% end %>
   <% end %>
 <% end %>
