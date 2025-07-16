@@ -11,9 +11,23 @@ class MovesProject < ApplicationRecord
 
   validates :name, presence: true
 
+  scope :unarchived, -> { where(archived_at: nil) }
+
   accepts_nested_attributes_for :steps, allow_destroy: true, reject_if: :all_blank
 
   def to_s
     name
+  end
+
+  def archive!
+    update!(archived_at: Time.zone.now)
+  end
+
+  def archived?
+    archived_at && archived_at < Time.zone.now
+  end
+
+  def unarchived?
+    !archived?
   end
 end

@@ -4,13 +4,28 @@
     .add_step(title = @moves_project)
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @moves_project, title:, breadcrumb:) do |heading| %>
+<%= render Page::HeadingShowComponent.new(resource: @moves_project, title:, breadcrumb:, editable: !@moves_project.archived?) do |heading| %>
   <% if created_by = @moves_project.created_by %>
     <p class="mt-2">
       <span class="bi bi-person"></span>
       <span class="ms-1 fw-light text-body-secondary"><%= MovesProject.human_attribute_name(:created_by) %></span>
       <span class="font-monospace"><%= created_by %></span>
     </p>
+  <% end %>
+
+  <% heading.with_extra_buttons do %>
+    <% if @moves_project.unarchived? %>
+      <%= render ButtonComponent.new(
+        t("action.archive"),
+        url: archive_moves_project_path(@moves_project),
+        method: :patch,
+        variant: :primary,
+        icon: :archive,
+        is_responsive: true,
+        extra_classes: "me-2",
+        data: { confirm: t(".archive_confirmation") }
+      ) %>
+    <% end %>
   <% end %>
 <% end %>
 
@@ -35,13 +50,16 @@
                 </span>
               <% end %>
             </span>
-            <div class="small">
-              <%= link_to new_moves_project_step_move_path(moves_project_step),
-                          class: "link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" do %>
-                <span class="bi bi-plus-lg"></span>
-                <span><%= t("moves.new.title") %></span>
-              <% end %>
-            </div>
+
+            <% if @moves_project.unarchived? %>
+              <div class="small">
+                <%= link_to new_moves_project_step_move_path(moves_project_step),
+                            class: "link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" do %>
+                  <span class="bi bi-plus-lg"></span>
+                  <span><%= t("moves.new.title") %></span>
+                <% end %>
+              </div>
+            <% end %>
           </div>
 
           <%= turbo_frame_tag(dom_id(Move, :table), loading: :lazy, src: moves_project_step_moves_path(moves_project_step)) do %>
@@ -51,7 +69,7 @@
             </div>
           <% end %>
 
-          <% if moves_project_step.moves.any? && !moves_project_step.executed? %>
+          <% if @moves_project.unarchived? && moves_project_step.moves.any? && !moves_project_step.executed? %>
             <% card.with_footer do %>
               <%= link_to(
                 t("action.execute"), execute_moves_project_moves_project_step_path(@moves_project, moves_project_step),

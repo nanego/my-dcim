@@ -64,4 +64,18 @@ RSpec.describe Page::HeadingShowComponent, type: :component do
       end
     end
   end
+
+  context "when not editable" do
+    let(:component) { described_class.new(resource:, title:, breadcrumb:, editable: false) }
+
+    it "does not render edit button" do # rubocop:disable RSpec/ExampleLength
+      expect(rendered_component).to have_tag("div.col-12.bg-body") do
+        with_tag("div.d-flex") do
+          with_tag("div.align-self-center.d-inline-flex") do
+            without_tag("a.btn-info", title: "Modifier", href: "http://test.host/sites/1/edit")
+          end
+        end
+      end
+    end
+  end
 end
