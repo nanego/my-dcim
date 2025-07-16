@@ -32,6 +32,17 @@
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |moves_project| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
+        <%= link_to archive_moves_project_path(moves_project),
+                    method: :patch,
+                    data: { confirm: t(".archive_confirmation") },
+                    class: "btn btn-primary" do %>
+          <span class="bi bi-archive"
+                title="<%= t("action.archive") %>"
+                data-controller="tooltip"
+                data-bs-placement="left"
+                aria-hidden="true"></span>
+          <span class="visually-hidden"><%= t("action.archive") %></span>
+        <% end %>
         <%= link_to edit_moves_project_path(moves_project), class: "btn btn-info" do %>
           <span class="bi bi-pencil"
                 title="<%= t("action.edit") %>"

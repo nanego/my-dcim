@@ -20,3 +20,8 @@ executed:
 empty:
   id: 5
   name: "E"
+
+archived:
+  id: 6
+  name: "Archived"
+  archived_at: "2025-07-01 12:34:56"

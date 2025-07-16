@@ -6,11 +6,13 @@
   title:, breadcrumb:, back_button_url: moves_project_path(@moves_project_step.moves_project)
 ) do |heading| %>
   <% heading.with_right_content do %>
-    <% render ButtonComponent.new(t(".new_move"),
-                                  url: new_moves_project_step_move_path(@moves_project_step),
-                                  variant: :success,
-                                  icon: "plus-lg",
-                                  is_responsive: true) %>
+    <% if @moves_project.unarchived? %>
+      <% render ButtonComponent.new(t(".new_move"),
+                                    url: new_moves_project_step_move_path(@moves_project_step),
+                                    variant: :success,
+                                    icon: "plus-lg",
+                                    is_responsive: true) %>
+    <% end %>
   <% end %>
 
   <% if date = @moves_project_step.date %>
@@ -85,7 +87,7 @@
 
         <% table.with_column(style: "min-width: 120px; width: 120px") do |move| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <% unless move.executed? %>
+            <% unless @moves_project.archived? || move.executed? %>
               <%= link_to t("action.execute"),
                           execute_moves_project_step_move_path(@moves_project_step, move),
                           title: t(".action.execute_move"),
@@ -146,7 +148,6 @@
                 %>
               </td>
               <td class="d-flex justify-content-center column-gap-1"
-                  style="min-width: 230px; width: 230px;"
                   data-controller="frame-export-pdf"
                   data-frame-export-pdf-model-ids-value="<%= [frame.id] %>"
                   data-frame-export-pdf-filename-value="move-frame-<%= frame.name %>"
@@ -155,10 +156,12 @@
                   data-frame-export-pdf-filename-value="move-frame-<%= frame.name %>"
                   data-frame-export-pdf-is-move-value="true">
                 <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                  <%= link_to t(".edit_connections"),
-                              frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame),
-                              class: "btn btn-outline-primary",
-                              data: { turbo_frame: :_top } %>
+                  <% if @moves_project.unarchived? %>
+                    <%= link_to t(".edit_connections"),
+                                frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame),
+                                class: "btn btn-outline-primary text-nowrap",
+                                data: { turbo_frame: :_top } %>
+                  <% end %>
                   <%= link_to print_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame),
                               class: "btn btn-sm btn-outline-primary",
                               data: { turbo_frame: :_top },

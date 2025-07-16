@@ -4,10 +4,11 @@ module Page
   class HeadingShowComponent < ApplicationComponent
     renders_one :extra_buttons
 
-    def initialize(resource:, title:, breadcrumb:)
+    def initialize(resource:, title:, breadcrumb:, editable: true)
       @resource = resource
       @title = title
       @breadcrumb = breadcrumb
+      @editable = editable
 
       super
     end
@@ -20,11 +21,13 @@ module Page
           tag.div class: "align-self-center d-inline-flex" do
             concat(extra_buttons) if extra_buttons?
 
-            concat(render(ButtonComponent.new(t("action.edit"),
-                                              url: [:edit, @resource],
-                                              variant: :info,
-                                              icon: "pencil",
-                                              is_responsive: true)))
+            if @editable
+              concat(render(ButtonComponent.new(t("action.edit"),
+                                                url: [:edit, @resource],
+                                                variant: :info,
+                                                icon: "pencil",
+                                                is_responsive: true)))
+            end
           end
         end
 

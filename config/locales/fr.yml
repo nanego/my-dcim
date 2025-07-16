@@ -13,6 +13,7 @@ fr:
     submit: Valider
   action:
     apply: Appliquer
+    archive: Archiver
     edit: Modifier
     delete: Supprimer
     reset: Réinitialiser
@@ -567,15 +568,19 @@ fr:
     moved_connection_form:
       action:
         delete: Supprimer cette connexion
+    flashes:
+      archived: Ce projet est archivé
 
   moves_projects:
     index:
       new_moves_project: Nouveau projet
       delete_confirmation: Êtes-vous sûr de vouloir supprimer ce projet ?
+      archive_confirmation: Êtes-vous sûr de vouloir archiver ce projet ?
     show:
       frame_table_title: Châssis après déplacements
       edit_connections: Modifier les connexions
       execute_confirmation: Voulez-vous vraiment appliquer ces déplacements ?
+      archive_confirmation: Êtes-vous sûr de vouloir archiver ce projet ?
       action:
         execute_step_moves: Déplacer les serveurs et leurs connexions
     new:
@@ -591,8 +596,13 @@ fr:
     destroy:
       flashes:
         destroyed: Le projet a été supprimé.
+    archive:
+      flashes:
+        archived: Le projet a été archivé.
     form:
       add_step: Ajouter une étape
+    flashes:
+      archived: Ce projet est archivé
 
   moves_project_steps:
     frame:
@@ -602,6 +612,8 @@ fr:
     execute:
       flashes:
         executed: Les déplacements ont été exécutés avec succès.
+    flashes:
+      archived: Ce projet est archivé
 
   devise:
     registrations:
