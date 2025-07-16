@@ -115,7 +115,11 @@ en:
       theme: Theme
       user:
         is_admin: Is administrator
+        locale: Language
+        theme: Theme
         items_per_page: Items per page
+        visualization_bay_default_background_color: Bays' default color
+        visualization_bay_default_orientation: Bays' default orientation
       user/locale:
         en: English
         fr: Français
