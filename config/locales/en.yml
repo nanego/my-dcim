@@ -161,6 +161,7 @@ en:
         title: Contacts
 
   modeles:
+    add_new: Add a model
     decorator:
       no_enclosure: No Enclosure
 

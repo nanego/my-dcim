@@ -36,7 +36,8 @@
     Modele.model_name.human.pluralize,
     url: modeles_path(manufacturer_ids: @manufacturer.id),
     frame_id: dom_id(Modele, :table),
-    new_path: new_modele_path("modele[manufacturer_id]" => @manufacturer.id)
+    new_path: new_modele_path("modele[manufacturer_id]" => @manufacturer.id),
+    new_label: t("modeles.add_new")
   ) %>
   <%= render HasManyTurboFrameComponent.new(
     Bay.model_name.human.pluralize,
