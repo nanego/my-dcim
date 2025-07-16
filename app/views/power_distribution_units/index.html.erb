@@ -148,9 +148,7 @@
         <% end %>
       <% end %>
 
-      <% if @pagy.pages > 1 %>
-        <%== pagy_bootstrap_nav(@pagy) %>
-      <% end %>
+      <%== render PaginationComponent.new(pagy: @pagy, params: request.query_parameters, default_limit: current_user.items_per_page) %>
     </div>
   <% end %>
 </div>
