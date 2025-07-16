@@ -71,6 +71,7 @@ RSpec.describe "CardTypes" do
     let(:params) { { card_type: valid_attributes } }
 
     include_context "with authenticated user"
+    it_behaves_like "with create another one"
 
     context "with valid parameters" do
       it { expect { response }.to change(CardType, :count).by(1) }
