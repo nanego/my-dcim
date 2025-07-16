@@ -6,7 +6,7 @@ class PaginationComponent < ApplicationComponent
   DEFAULT_ITEMS_PER_PAGE = 100
 
   erb_template <<~ERB
-    <div class="d-inline-flex align-items-baseline gap-2 flex-wrap" style="width: fit-content;">
+    <div class="pagination-component">
       <%== pagy_bootstrap_nav(@pagy) %>
 
       <div class="d-flex align-items-baseline gap-2">
