@@ -148,7 +148,7 @@
         <% end %>
       <% end %>
 
-      <%== render PaginationComponent.new(pagy: @pagy, params: request.query_parameters, default_limit: current_user.items_per_page) %>
+      <%== render PaginationComponent.new(pagy: @pagy, params: request.query_parameters, limit: @limit) %>
     </div>
   <% end %>
 </div>

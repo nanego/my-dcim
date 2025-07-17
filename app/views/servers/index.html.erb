@@ -263,7 +263,7 @@
       <% end %>
 
       <div class="d-flex justify-content-between align-items-center">
-        <%== render PaginationComponent.new(pagy: @pagy, params: request.query_parameters, default_limit: current_user.items_per_page) %>
+        <%== render PaginationComponent.new(pagy: @pagy, params: request.query_parameters, limit: @limit) %>
         <span class="ms-auto">
           <%= render ExportDropdownComponent.new(
             url: :export_servers_path,
