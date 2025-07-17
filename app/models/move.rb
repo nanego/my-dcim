@@ -25,12 +25,12 @@ class Move < ApplicationRecord
     MovedConnection.per_servers([server]).delete_all
     # Add moved connection for each port
     server.ports.each do |p|
-      MovedConnection.create({
+      MovedConnection.create(
         port_from_id: p.id,
         vlans: "",
         color: "",
         cablename: ""
-      })
+      )
     end
   end
 
