@@ -19,10 +19,10 @@ class PaginationComponent < ApplicationComponent
     </div>
   ERB
 
-  def initialize(pagy:, params:, default_limit:)
+  def initialize(pagy:, params:, limit:)
     @pagy = pagy
     @params = params
-    @default_limit = default_limit
+    @limit = limit
 
     super
   end
@@ -44,7 +44,6 @@ class PaginationComponent < ApplicationComponent
   end
 
   def selected_items_per_page
-    page_length = @pagy.vars[:limit] || @default_limit
-    options[page_length.to_i]
+    options[@limit.to_i]
   end
 end

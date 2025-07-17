@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe PaginationComponent, type: :component do
   let(:rendered_component) { render_inline(component) }
-  let(:component) { described_class.new(pagy:, params: {}, default_limit: 100) }
+  let(:component) { described_class.new(pagy:, params: {}, limit: 100) }
   let(:pagy) { Pagy.new(count: 101) }
 
   before do
