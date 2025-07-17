@@ -3,8 +3,6 @@
 class PaginationComponent < ApplicationComponent
   include Pagy::Frontend
 
-  DEFAULT_ITEMS_PER_PAGE = 100
-
   erb_template <<~ERB
     <div class="pagination-component">
       <%== pagy_bootstrap_nav(@pagy) %>
