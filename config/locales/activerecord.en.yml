@@ -145,3 +145,25 @@ en:
           zero: 0 frames
           one: 1 frame
           other: "%{count} frames"
+
+    errors:
+      models:
+        composant:
+          attributes:
+            name:
+              invalid: cannot contain any spaces
+
+        move:
+          attributes:
+            moveable_id:
+              taken: already has a move planned for this step
+
+        server:
+          attributes:
+            numero:
+              invalid: cannot be identical to an equipment name
+
+        user:
+          attributes:
+            email:
+              invalid: Invalid email address

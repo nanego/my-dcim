@@ -420,15 +420,22 @@ fr:
 
     errors:
       models:
-        user:
-          attributes:
-            email:
-              invalid: L'adresse email est invalide
-        server:
-          attributes:
-            numero:
-              invalid: ne peut pas être identique à un nom de machine
         composant:
           attributes:
             name:
               invalid: ne peut pas contenir d'espace
+
+        move:
+          attributes:
+            moveable_id:
+              taken: a déjà un déplacement de prévu dans cette étape
+
+        server:
+          attributes:
+            numero:
+              invalid: ne peut pas être identique à un nom de machine
+
+        user:
+          attributes:
+            email:
+              invalid: L'adresse email est invalide

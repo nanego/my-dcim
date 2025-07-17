@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Move do
   # it_behaves_like "changelogable", new_attributes: {  }
@@ -22,6 +22,16 @@ RSpec.describe Move do
     it { is_expected.to be_valid }
 
     it { is_expected.to validate_presence_of(:position) }
+
+    context "when server already been move in this step" do
+      let(:other_move) do
+        described_class.create(
+          moveable: moves(:one).moveable, step: moves(:one).step, position: 1, frame: Frame.new, prev_frame: Frame.new
+        )
+      end
+
+      it { expect(other_move.errors.where(:moveable_id, :taken).count).to eq(1) }
+    end
   end
 
   describe "#clear_connections" do
