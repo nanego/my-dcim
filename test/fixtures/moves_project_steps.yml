@@ -24,3 +24,21 @@ archived:
   id: 5
   moves_project_id: 6
   name: "Archived"
+
+step_one:
+  id: 6
+  moves_project_id: 7
+  name: "Step 1"
+  position: 1
+
+step_two:
+  id: 7
+  moves_project_id: 7
+  name: "Step 2"
+  position: 2
+
+step_three:
+  id: 8
+  moves_project_id: 7
+  name: "Step 3"
+  position: 3
