@@ -31,5 +31,8 @@ fr:
       bulk:
         selected_elements: élément(s) sélectionné(s)
 
+  pagination_component:
+    items_per_page: Éléments par page
+
   columns_preferences_dropdown_component:
     trigger: Afficher les colonnes

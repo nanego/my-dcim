@@ -113,6 +113,12 @@ en:
         bay_id: Bay
         modele_category_id: Category
       theme: Theme
+      user:
+        locale: Language
+        theme: Theme
+        items_per_page: Items per page
+        visualization_bay_default_background_color: Bays' default color
+        visualization_bay_default_orientation: Bays' default orientation
       user/locale:
         en: English
         fr: Français

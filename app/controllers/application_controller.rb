@@ -55,6 +55,12 @@ class ApplicationController < ActionController::Base
     redirect_to options, response_options
   end
 
+  protected
+
+  def limit
+    @limit ||= params[Pagy::DEFAULT[:limit_param]] || current_user.items_per_page
+  end
+
   private
 
   def admin_only
