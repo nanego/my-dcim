@@ -40,9 +40,9 @@ archived:
   position: 41
   frame_id: 3
   prev_frame_id: 1
-  
+
 move_step_one:
-  moves_project_step_id: 5
+  moves_project_step_id: 6
   moveable_type: Server
   moveable_id: 1
   position: 40
@@ -50,7 +50,7 @@ move_step_one:
   prev_frame_id: 1
 
 move_step_two:
-  moves_project_step_id: 6
+  moves_project_step_id: 7
   moveable_type: Server
   moveable_id: 1
   position: 40
@@ -58,17 +58,17 @@ move_step_two:
   prev_frame_id: 3
 
 move_step_three:
-  moves_project_step_id: 6
+  moves_project_step_id: 7
   moveable_type: Server
-  moveable_id: 1
+  moveable_id: 2
   position: 40
   frame_id: 4
   prev_frame_id: 5
 
 move_step_four:
-  moves_project_step_id: 7
+  moves_project_step_id: 8
   moveable_type: Server
   moveable_id: 1
   position: 40
   frame_id: 4
-  prev_frame_id: 1
+  prev_frame_id: 5
