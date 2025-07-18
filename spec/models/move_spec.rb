@@ -62,17 +62,44 @@ RSpec.describe Move do
     end
   end
 
-  describe "#refresh_prev_data" do
-    let(:move) { moves(:one) }
-
-    before do
-      move.moveable.frame_id = 2
-      move.moveable.position = 3
-
-      move.save
+  describe "#previous_moves" do
+    context "with a move in a one-step project" do
+      it { expect(move.previous_moves).to be_nil }
     end
 
-    it { expect(move.prev_frame_id).to eq(2) }
-    it { expect(move.prev_position).to eq(3) }
+    context "with a move in a multi-steps project" do
+      let(:move_step_one) { moves(:move_step_one) }
+      let(:move_step_two) { moves(:move_step_two) }
+      let(:move_step_four) { moves(:move_step_four) }
+
+      it { expect(move_step_one.previous_moves).to be_nil }
+      it { expect(move_step_two.previous_moves).to contain_exactly(move_step_one) }
+      it { expect(move_step_four.previous_moves).to contain_exactly(move_step_two, moves(:move_step_three)) }
+    end
+  end
+
+  describe "#refresh_prev_data" do
+    context "with a move in a one-step project" do
+      let(:move) { moves(:one) }
+
+      before do
+        move.moveable.frame_id = 2
+        move.moveable.position = 3
+
+        move.save
+      end
+
+      it { expect(move.prev_frame_id).to eq(2) }
+      it { expect(move.prev_position).to eq(3) }
+    end
+
+    context "with a move in a multi-steps project" do
+      let(:move) { moves(:move_step_two) }
+
+      before { move.save }
+
+      it { expect(move.prev_frame_id).to eq(3) }
+      it { expect(move.prev_position).to eq(40) }
+    end
   end
 end

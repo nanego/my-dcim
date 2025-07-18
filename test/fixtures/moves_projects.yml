@@ -25,3 +25,7 @@ archived:
   id: 6
   name: "Archived"
   archived_at: "2025-07-01 12:34:56"
+
+with_steps:
+  id: 7
+  name: "F"
