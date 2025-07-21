@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "/port_types" do
-  describe "GET /new" do
+  describe "GET #new" do
     subject(:response) do
       get new_port_type_path
 
@@ -17,7 +17,7 @@ RSpec.describe "/port_types" do
     it { expect(response).to render_template(:new) }
   end
 
-  describe "POST /create" do
+  describe "POST #create" do
     subject(:response) do
       post(port_types_path, params:)
 

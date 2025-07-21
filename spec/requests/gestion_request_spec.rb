@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "/gestions" do
-  describe "GET /new" do
+  describe "GET #new" do
     subject(:response) do
       get new_gestion_path
 
@@ -17,7 +17,7 @@ RSpec.describe "/gestions" do
     it { expect(response).to render_template(:new) }
   end
 
-  describe "POST /create" do
+  describe "POST #create" do
     subject(:response) do
       post(gestions_path, params:)
 

@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "/manufacturers" do
-  describe "GET /new" do
+  describe "GET #new" do
     subject(:response) do
       get new_manufacturer_path
 
@@ -17,7 +17,7 @@ RSpec.describe "/manufacturers" do
     it { expect(response).to render_template(:new) }
   end
 
-  describe "POST /create" do
+  describe "POST #create" do
     subject(:response) do
       post(manufacturers_path, params:)
 

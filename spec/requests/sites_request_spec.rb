@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "/sites" do
-  describe "GET /new" do
+  describe "GET #new" do
     subject(:response) do
       get new_site_path
 
@@ -17,7 +17,7 @@ RSpec.describe "/sites" do
     it { expect(response).to render_template(:new) }
   end
 
-  describe "POST /create" do
+  describe "POST #create" do
     subject(:response) do
       post(sites_path, params:)
 
@@ -46,6 +46,15 @@ RSpec.describe "/sites" do
       let(:params) { {} }
 
       it { expect { response }.to raise_error(ActionController::ParameterMissing) }
+    end
+
+    context "with invalid parameters" do
+      let(:params) { { site: { delivery_map: } } }
+
+      let(:delivery_map) { Rack::Test::UploadedFile.new("spec/fixtures/files/text.txt", "text/txt") }
+
+      it { expect(response).to render_template(:new) }
+      it { expect { response }.not_to change(Site, :count) }
     end
   end
 end

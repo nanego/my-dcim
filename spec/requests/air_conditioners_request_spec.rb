@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "/air_conditioners" do
-  describe "GET /new" do
+  describe "GET #new" do
     subject(:response) do
       get new_air_conditioner_path
 
@@ -17,7 +17,7 @@ RSpec.describe "/air_conditioners" do
     it { expect(response).to render_template(:new) }
   end
 
-  describe "POST /create" do
+  describe "POST #create" do
     subject(:response) do
       post(air_conditioners_path, params:)
 

@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "/clusters" do
-  describe "GET /new" do
+  describe "GET #new" do
     subject(:response) do
       get new_cluster_path
 
@@ -17,7 +17,7 @@ RSpec.describe "/clusters" do
     it { expect(response).to render_template(:new) }
   end
 
-  describe "POST /create" do
+  describe "POST #create" do
     subject(:response) do
       post(clusters_path, params:)
 
