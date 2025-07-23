@@ -114,7 +114,19 @@ en:
         modele_category_id: Category
       theme: Theme
       user:
+        id: Identifier
+        name: Name
+        email: Email
+        last_sign_in_at: Last connection at
+        created_at: Account created at
+        role: Role
+        authentication_token: API key
         is_admin: Is administrator
+        locale: Language
+        theme: Theme
+        items_per_page: Items per page
+        visualization_bay_default_background_color: Bays' default color
+        visualization_bay_default_orientation: Bays' default orientation
       user/locale:
         en: English
         fr: Français
