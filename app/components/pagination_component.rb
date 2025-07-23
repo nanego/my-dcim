@@ -5,7 +5,9 @@ class PaginationComponent < ApplicationComponent
 
   erb_template <<~ERB
     <div class="pagination-component">
-      <%== pagy_bootstrap_nav(@pagy) %>
+      <% if render_pagination? %>
+        <%== pagy_bootstrap_nav(@pagy) %>
+      <% end %>
 
       <div class="d-flex align-items-baseline gap-2">
         <%= label_tag :items_per_page, t(".items_per_page"), class: "form-label text-nowrap text-secondary" %>
@@ -27,11 +29,11 @@ class PaginationComponent < ApplicationComponent
     super
   end
 
-  def render?
+  private
+
+  def render_pagination?
     @pagy.pages > 1
   end
-
-  private
 
   def options
     @options ||= User::AVAILABLE_ITEMS_PER_PAGE.index_with do |item|

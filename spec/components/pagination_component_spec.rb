@@ -27,6 +27,11 @@ RSpec.describe PaginationComponent, type: :component do
   context "with no pages" do
     let(:pagy) { Pagy.new(count: 1) }
 
-    it { expect(rendered_component.to_html).to be_empty }
+    it do
+      expect(rendered_component.to_html).to have_tag("div.pagination-component") do
+        without_tag("nav.pagy-bootstrap.nav")
+        with_tag("select#items_per_page")
+      end
+    end
   end
 end
