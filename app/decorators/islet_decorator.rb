@@ -37,10 +37,16 @@ class IsletDecorator < ApplicationDecorator
   end
 
   def overviewed_bays_array
-    @overviewed_bays_array ||= bays.sorted.group_by(&:lane).map do |_, bays|
-      Array.new(bays.last.position) do |i|
-        (bay = bays.to_a.find { |b| b.position == i + 1 }) ? bay : :no_bay
+    @overviewed_bays_array ||= begin
+      h = Hash.new
+
+      bays.sorted.group_by(&:lane).map do |lane, bays|
+        h.store(lane, Array.new(bays.last.position) do |i|
+          (bay = bays.to_a.find { |b| b.position == i + 1 }) ? bay : :no_bay
+        end)
       end
-    end.flatten
+
+      h
+    end
   end
 end
