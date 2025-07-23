@@ -2,7 +2,7 @@
 
 class UsersProcessor < ApplicationProcessor
   include Sortable
-  SORTABLE_FIELDS = %w[id name email last_sign_in_at created_at role].freeze
+  SORTABLE_FIELDS = %w[id name email last_sign_in_at created_at is_admin].freeze
 
   match :filter, activate_always: true do
     having "suspended" do

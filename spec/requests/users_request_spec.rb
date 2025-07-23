@@ -3,8 +3,8 @@
 require "rails_helper"
 
 RSpec.describe "Users" do
-  let(:user)       { User.create!(email: "user@example.com", password: "passwordpassword", role: "user") }
-  let(:admin_user) { User.create!(email: "admin@example.com", password: "passwordpassword", role: "admin") }
+  let(:user)       { User.create!(email: "user@example.com", password: "passwordpassword") }
+  let(:admin_user) { User.create!(email: "admin@example.com", password: "passwordpassword", is_admin: true) }
 
   describe "GET #index" do
     subject(:response) do
