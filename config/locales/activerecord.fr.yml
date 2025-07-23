@@ -275,6 +275,7 @@ fr:
         authentication_token: Clé API
         locale: Langue
         theme: Thème
+        items_per_page: Éléments par page
         visualization_bay_default_background_color: Couleur par défault des baies
         visualization_bay_default_orientation: Orientation par défaut des baies
       user/role:

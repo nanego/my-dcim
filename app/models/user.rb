@@ -3,6 +3,8 @@
 class User < ApplicationRecord
   AVAILABLE_LOCALES = I18n.available_locales.map(&:to_s).freeze
   AVAILABLE_THEMES = %w[auto dark light].freeze
+  AVAILABLE_ITEMS_PER_PAGE = [25, 50, 100, 150, 200].freeze
+  DEFAULT_ITEMS_PER_PAGE = 100
   AVAILABLE_BAY_BACKGROUND_COLORS = %w[modele gestion cluster].freeze
   AVAILABLE_BAY_ORIENTATIONS = %w[front back].freeze
 
@@ -18,12 +20,14 @@ class User < ApplicationRecord
   store_attribute :settings, :theme, :string, default: AVAILABLE_THEMES.first
   store_attribute :settings, :visualization_bay_default_background_color, :string, default: AVAILABLE_BAY_BACKGROUND_COLORS.first
   store_attribute :settings, :visualization_bay_default_orientation, :string, default: AVAILABLE_BAY_ORIENTATIONS.first
+  store_attribute :settings, :items_per_page, :integer, default: DEFAULT_ITEMS_PER_PAGE
 
   validates :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   validates :locale, inclusion: { in: AVAILABLE_LOCALES }, allow_nil: true
   validates :theme, inclusion: { in: AVAILABLE_THEMES }, allow_nil: true
+  validates :items_per_page, inclusion: { in: AVAILABLE_ITEMS_PER_PAGE }, allow_nil: true
   validates :visualization_bay_default_background_color, inclusion: { in: AVAILABLE_BAY_BACKGROUND_COLORS }, allow_nil: true
   validates :visualization_bay_default_orientation, inclusion: { in: AVAILABLE_BAY_ORIENTATIONS }, allow_nil: true
 

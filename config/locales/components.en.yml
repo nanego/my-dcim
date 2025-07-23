@@ -30,5 +30,9 @@ en:
     data_table_component:
       bulk:
         selected_elements: selected item(s)
+
+  pagination_component:
+    items_per_page: Items per page
+
   columns_preferences_dropdown_component:
     trigger: Toggle columns
