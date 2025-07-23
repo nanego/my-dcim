@@ -55,6 +55,16 @@ class ApplicationController < ActionController::Base
     redirect_to options, response_options
   end
 
+  def form_redirect_to(options = {}, response_options = {})
+    if params[:redirect_to_on_success] == "back"
+      redirect_back_or_to options, **response_options
+    elsif params[:redirect_to_on_success]
+      redirect_to params[:redirect_to_on_success], response_options
+    else
+      redirect_to options, response_options
+    end
+  end
+
   private
 
   def admin_only

@@ -79,22 +79,10 @@ class RoomsController < ApplicationController
   def update
     respond_to do |format|
       if @room.update(room_params)
-        format.html do
-          if params[:infrastructure]
-            redirect_back fallback_location: root_path, notice: t(".flashes.updated")
-          else
-            redirect_to @room, notice: t(".flashes.updated")
-          end
-        end
+        format.html { form_redirect_to room_path(@room), notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @room }
       else
-        format.html do
-          if params[:infrastructure]
-            redirect_back fallback_location: root_path, alert: t(".flashes.failure")
-          else
-            render :edit, status: :unprocessable_entity
-          end
-        end
+        format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @room.errors, status: :unprocessable_entity }
       end
     end
