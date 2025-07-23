@@ -7,6 +7,59 @@ RSpec.describe "Frames" do
   let(:coupled_frame) { frames(:two) }
   let(:network_frame) { frames(:three) }
 
+  describe "GET #new" do
+    subject(:response) do
+      get new_frame_path
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated user"
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:new) }
+  end
+
+  describe "POST #create" do
+    subject(:response) do
+      post(frames_path, params:)
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:params) { { frame: { name: "Frame 1", bay_id: bays(:one).id } } }
+
+    include_context "with authenticated user"
+    it_behaves_like "with create another one"
+
+    context "with valid parameters" do
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(frame_path(assigns(:frame))) }
+      it { expect { response }.to change(Frame, :count).by(1) }
+    end
+
+    context "with invalid parameters" do
+      let(:params) { { frame: { name: "Frame 1", bay_id: 9999 } } }
+
+      it { expect(response).to render_template(:new) }
+      it { expect { response }.not_to change(Frame, :count) }
+    end
+
+    context "without attributes" do
+      let(:params) { { frame: {} } }
+
+      it { expect { response }.to raise_error(ActionController::ParameterMissing) }
+    end
+
+    context "without parameters" do
+      let(:params) { {} }
+
+      it { expect { response }.to raise_error(ActionController::ParameterMissing) }
+    end
+  end
+
   describe "GET #network" do
     subject(:response) do
       get network_frame_path(frame, network_frame_id: network_frame.slug)
