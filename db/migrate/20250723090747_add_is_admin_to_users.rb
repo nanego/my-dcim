@@ -19,7 +19,9 @@ class AddIsAdminToUsers < ActiveRecord::Migration[8.0]
   end
 
   def down
-    remove_column :users, :is_admin
-    add_column :users, :role, :integer
+    change_table :users, bulk: true do |t|
+      t.remove :is_admin
+      t.integer :role
+    end
   end
 end
