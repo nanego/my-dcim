@@ -12,7 +12,7 @@ class ExternalAppRecordsController < ApplicationController
 
     @synchronised_categories = Category.glpi_synchronizable.pluck(:name).compact_blank.join(", ")
 
-    @pagy, @external_app_records = pagy(@external_app_records, limit:)
+    @pagy, @external_app_records = pagy(@external_app_records)
   end
 
   def settings

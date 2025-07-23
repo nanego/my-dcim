@@ -34,7 +34,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
 
     respond_to do |format|
       format.json
-      format.html { @pagy, @servers = pagy(@servers, limit:) }
+      format.html { @pagy, @servers = pagy(@servers) }
     end
   end
 
