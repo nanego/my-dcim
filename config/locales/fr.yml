@@ -454,6 +454,7 @@ fr:
     flashes:
       connections_destroyed: Les connexions ont été supprimées.
       connections_not_destroyed: Une erreur a empêché la suppression des connexions.
+    add_new: Ajouter un matériel I.T.
   bulk:
     resource:
       destroy:

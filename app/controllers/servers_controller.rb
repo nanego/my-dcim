@@ -42,6 +42,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
 
   def new
     @server = Server.new
+    @server.assign_attributes(server_params) if params[:server]
   end
 
   def edit; end
