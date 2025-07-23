@@ -60,11 +60,11 @@ RSpec.describe "Rooms" do
       end
     end
 
-    context "when infrastructure request" do
+    context "when request back on succes" do
       let(:cluster) { clusters(:cloud_c1) }
-      let(:params) { { room: { id: room.id, network_cluster_ids: [cluster.id] }, infrastructure: true } }
+      let(:params) { { room: { network_cluster_ids: [cluster.id] }, redirect_to_on_success: :back } }
 
-      it { expect(response).to redirect_to(root_path) }
+      it { expect(response).to redirect_to(room_path(room)) }
 
       it do
         expect do
