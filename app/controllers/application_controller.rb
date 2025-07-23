@@ -55,13 +55,13 @@ class ApplicationController < ActionController::Base
     redirect_to options, response_options
   end
 
-  protected
-
-  def limit
-    @limit ||= params[Pagy::DEFAULT[:limit_param]] || current_user.items_per_page
-  end
-
   private
+
+  def pagy_get_limit(vars)
+    limit_params = vars[:limit] || Pagy::DEFAULT[:limit_param]
+
+    params[limit_params] || current_user.items_per_page
+  end
 
   def admin_only
     return if current_user.present? && current_user.admin?

@@ -177,7 +177,7 @@
         <% end %>
       <% end %>
 
-      <%== render PaginationComponent.new(pagy: @pagy, params: request.query_parameters, limit: @limit) %>
+      <%== render PaginationComponent.new(pagy: @pagy) %>
     </div>
   <% end %>
 </div>

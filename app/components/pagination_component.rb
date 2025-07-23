@@ -5,9 +5,7 @@ class PaginationComponent < ApplicationComponent
 
   erb_template <<~ERB
     <div class="pagination-component">
-      <% if render_pagination? %>
-        <%== pagy_bootstrap_nav(@pagy) %>
-      <% end %>
+      <%== pagy_bootstrap_nav(@pagy) %>
 
       <div class="d-flex align-items-baseline gap-2">
         <%= label_tag :items_per_page, t(".items_per_page"), class: "form-label text-nowrap text-secondary" %>
@@ -21,19 +19,14 @@ class PaginationComponent < ApplicationComponent
     </div>
   ERB
 
-  def initialize(pagy:, params:, limit:)
+  def initialize(pagy:, params: nil)
     @pagy = pagy
     @params = params
-    @limit = limit
 
     super
   end
 
   private
-
-  def render_pagination?
-    @pagy.pages > 1
-  end
 
   def options
     @options ||= User::AVAILABLE_ITEMS_PER_PAGE.index_with do |item|
@@ -42,10 +35,10 @@ class PaginationComponent < ApplicationComponent
   end
 
   def pagy_params_for_items(size)
-    @params.merge(@pagy.vars[:limit_param] => size, @pagy.vars[:page_param] => 1)
+    (@params || request.query_parameters).merge(@pagy.vars[:limit_param] => size, @pagy.vars[:page_param] => 1)
   end
 
   def selected_items_per_page
-    options[@limit.to_i]
+    options[@pagy.limit]
   end
 end
