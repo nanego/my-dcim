@@ -3,7 +3,7 @@
 class ChangelogEntryDecorator < ApplicationDecorator
   class << self
     def authors_options
-      User.pluck(:id, :name)
+      User.select(:id, :name, :email).map { |u| [u.id, u.to_s] }
     end
 
     def object_types_options

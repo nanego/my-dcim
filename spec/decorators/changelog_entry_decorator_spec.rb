@@ -7,12 +7,16 @@ RSpec.describe ChangelogEntryDecorator, type: :decorator do
   let(:decorated_changelog_entry) { described_class.decorate(object) }
 
   describe ".authors_options" do
-    it { expect(described_class.authors_options).to match_array(User.pluck(:id, :name)) }
+    it { expect(described_class.authors_options).to match_array(User.select(:id, :name, :email).map { |u| [u.id, u.to_s] }) }
   end
 
   describe ".object_types_options" do
+    let(:entry_user) { ChangelogEntry.create!(object: users(:one), action: "create") }
+    let(:entry_room) { ChangelogEntry.create!(object: rooms(:one), action: "create") }
+
     before do
-      allow(ApplicationRecord).to receive(:models).and_return([User, Room])
+      entry_user
+      entry_room
     end
 
     it do
