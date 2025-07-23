@@ -17,11 +17,10 @@
     </fieldset>
 
     <fieldset class="col-12 mt-4">
-      <%= f.label :role, class: "form-label" %>
-      <%= f.select(:role,
-                     User.roles.keys.map { |role| [User.human_attribute_name("role.#{role}"), role] },
-                     {},
-                     class: "form-select form-select-sm") %>
+      <div class="form-check">
+        <%= f.label :is_admin, class: "form-check-label" %>
+        <%= f.check_box :is_admin, class: "form-check-input form-check-sm" %>
+      </div>
     </fieldset>
   <% end %>
 

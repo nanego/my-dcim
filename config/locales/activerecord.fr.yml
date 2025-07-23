@@ -271,6 +271,7 @@ fr:
         last_sign_in_at: Dernière connexion le
         created_at: Compte créé le
         role: Rôle
+        is_admin: Est administrateur
         authentication_token: Clé API
         locale: Langue
         theme: Thème

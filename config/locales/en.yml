@@ -1,4 +1,7 @@
 en:
+  boolean:
+    true: "Yes"
+    false: "No"
   access_control:
     badge: Badge
     key: Key
@@ -51,10 +54,6 @@ en:
     decorator:
       no_frame_warning_text: Please enter a frame for this bay
     empty: Empty bay
-
-  boolean:
-    true: Yes
-    false: No
 
   bulk:
     resource:

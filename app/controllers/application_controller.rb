@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
   def admin_only
     return if current_user.present? && current_user.admin?
 
-    redirect_to root_path, alert: t(".flashes.access_denied")
+    redirect_to root_path, alert: t("users.flashes.access_denied")
   end
 
   def prepare_exception_notifier
