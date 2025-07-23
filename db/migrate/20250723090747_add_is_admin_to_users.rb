@@ -7,7 +7,7 @@ class MigrationUser < ActiveRecord::Base
 end
 
 class AddIsAdminToUsers < ActiveRecord::Migration[8.0]
-  def change
+  def up
     add_column :users, :is_admin, :boolean, default: false
 
     MigrationUser.find_each do |user|
@@ -15,5 +15,10 @@ class AddIsAdminToUsers < ActiveRecord::Migration[8.0]
     end
 
     remove_column :users, :role, :integer
+  end
+
+  def down
+    remove_column :users, :is_admin
+    add_column :users, :role, :integer
   end
 end
