@@ -25,7 +25,7 @@ class HasManyTurboFrameComponent < ApplicationComponent
                                             url: @new_path,
                                             icon: "plus-lg",
                                             size: :sm,
-                                            variant: :success,
+                                            variant: :light,
                                             is_responsive: true,
                                             extra_classes: "ms-3") %>
             <% end %>
