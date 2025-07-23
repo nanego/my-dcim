@@ -10,6 +10,7 @@ class AddIsAdminToUsers < ActiveRecord::Migration[8.0]
   def up
     add_column :users, :is_admin, :boolean, default: false
 
+    MigrationUser.reset_column_information
     MigrationUser.find_each do |user|
       user.update!(is_admin: true) if user.admin?
     end
