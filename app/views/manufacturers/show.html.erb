@@ -42,7 +42,9 @@
   <%= render HasManyTurboFrameComponent.new(
     Bay.model_name.human.pluralize,
     url: bays_path(manufacturer_ids: @manufacturer.id),
-    frame_id: dom_id(Bay, :table)
+    frame_id: dom_id(Bay, :table),
+    new_path: new_bay_path(bay: { manufacturer_id: @manufacturer.id }),
+    new_label: t("bays.add_new")
   ) %>
   <%= render ChangelogEntries::ObjectListComponent.new(@manufacturer) %>
 </div>
