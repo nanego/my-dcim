@@ -53,6 +53,7 @@ en:
     decorator:
       no_frame_warning_text: Please enter a frame for this bay
     empty: Empty bay
+    add_new: Add a bay
 
   boolean:
     true: Yes
@@ -67,6 +68,9 @@ en:
   cables:
     index:
       title: Connections
+
+  contact_assignments:
+    add_new: Add an assignment
 
   devise:
     passwords:
@@ -125,6 +129,7 @@ en:
   islets:
     infrastructure:
       concentrator: Concentrator
+    add_new: Add an islet
 
   layouts:
     breadcrumb:
@@ -276,12 +281,16 @@ en:
       connections_destroyed: The connections have been removed.
       connections_not_destroyed: An error prevented connections from being deleted.
 
+  frames:
+    add_new: Add a frame
+
   rooms:
     action_buttons:
       caption:
         ports: Ports
         unreferenced_client: The corresponding port on the twin card is wired
         no_client: The corresponding port on the twin card is not wired
+    add_new: Add a room
 
   search:
     index:
