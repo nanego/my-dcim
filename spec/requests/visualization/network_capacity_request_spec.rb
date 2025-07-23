@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Visualization::NetworkCapacitiyController" do
-  let(:user) { User.create!(email: "user@example.com", password: "passwordpassword", role: "user") }
+  let(:user) { User.create!(email: "user@example.com", password: "passwordpassword") }
 
   before { sign_in user }
 

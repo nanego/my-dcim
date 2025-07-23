@@ -11,10 +11,6 @@
                             class: "col-12 col-md-10 col-lg-8 mx-auto"
                           }) do |f| %>
     <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-      <fieldset class="col-12">
-        <%= f.label :role, class: "form-label" %>
-        <%= f.text_field :role, disabled: true, class: "form-control" %>
-      </fieldset>
       <fieldset class="col-12 mt-4">
         <%= f.label :login, class: "form-label" %>
         <%= f.text_field :name, autofocus: true, class: "form-control" %>

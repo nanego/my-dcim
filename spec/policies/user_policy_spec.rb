@@ -6,17 +6,15 @@ RSpec.describe UserPolicy, type: :policy do # rubocop:disable RSpec/EmptyExample
   let(:user) { users(:one) }
   let(:record) { users(:two) }
   let(:context) { { user: } }
-  let(:role) { :admin }
+  let(:is_admin) { true }
 
-  before { context[:user].role = role }
+  before { context[:user].is_admin = is_admin }
 
   describe_rule :index? do
     succeed "when an admin user asks"
 
-    %i[user vip].each do |unauthorized_role|
-      failed "when user is #{unauthorized_role}" do
-        let(:role) { unauthorized_role }
-      end
+    failed "when user is not admin" do
+      let(:is_admin) { false }
     end
   end
 
@@ -26,30 +24,24 @@ RSpec.describe UserPolicy, type: :policy do # rubocop:disable RSpec/EmptyExample
       let(:record) { user }
     end
 
-    %i[user vip].each do |unauthorized_role|
-      failed "when user is #{unauthorized_role}" do
-        let(:role) { unauthorized_role }
-      end
+    failed "when user is not admin" do
+      let(:is_admin) { false }
     end
   end
 
   describe_rule :new? do
     succeed "when an admin user asks"
 
-    %i[user vip].each do |unauthorized_role|
-      failed "when user is #{unauthorized_role}" do
-        let(:role) { unauthorized_role }
-      end
+    failed "when user is not admin" do
+      let(:is_admin) { false }
     end
   end
 
   describe_rule :manage? do
     succeed "when an admin user asks"
 
-    %i[user vip].each do |unauthorized_role|
-      failed "when user is #{unauthorized_role}" do
-        let(:role) { unauthorized_role }
-      end
+    failed "when user is not admin" do
+      let(:is_admin) { false }
     end
   end
 
@@ -60,10 +52,8 @@ RSpec.describe UserPolicy, type: :policy do # rubocop:disable RSpec/EmptyExample
         let(:record) { user }
       end
 
-      %i[user vip].freeze.each do |unauthorized_role|
-        failed "when user is #{unauthorized_role}" do
-          let(:role) { unauthorized_role }
-        end
+      failed "when user is not admin" do
+        let(:is_admin) { false }
       end
     end
   end

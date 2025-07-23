@@ -6,8 +6,6 @@ class User < ApplicationRecord
   AVAILABLE_BAY_BACKGROUND_COLORS = %w[modele gestion cluster].freeze
   AVAILABLE_BAY_ORIENTATIONS = %w[front back].freeze
 
-  enum :role, { user: 0, vip: 1, admin: 2 }
-
   acts_as_token_authenticatable
   has_changelog except: %i[sign_in_count current_sign_in_at last_sign_in_at current_sign_in_ip last_sign_in_ip]
 
@@ -29,14 +27,11 @@ class User < ApplicationRecord
   validates :visualization_bay_default_background_color, inclusion: { in: AVAILABLE_BAY_BACKGROUND_COLORS }, allow_nil: true
   validates :visualization_bay_default_orientation, inclusion: { in: AVAILABLE_BAY_ORIENTATIONS }, allow_nil: true
 
-  after_initialize :set_default_role, :if => :new_record?
-
+  scope :admin, -> { where(is_admin: true) }
   scope :unsuspended, -> { where(suspended_at: nil) }
   scope :suspended, -> { where.not(suspended_at: nil) }
 
-  def set_default_role
-    self.role ||= :user
-  end
+  alias_attribute :admin?, :is_admin
 
   def to_s
     name.presence || email.to_s

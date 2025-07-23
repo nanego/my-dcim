@@ -113,6 +113,8 @@ en:
         bay_id: Bay
         modele_category_id: Category
       theme: Theme
+      user:
+        is_admin: Is administrator
       user/locale:
         en: English
         fr: Français
