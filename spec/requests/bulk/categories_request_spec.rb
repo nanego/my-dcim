@@ -3,9 +3,9 @@
 require "rails_helper"
 
 RSpec.describe "/bulk/categories" do
-  before { sign_in users(:one) }
-
   describe "DELETE /destroy" do
+    before { sign_in users(:one) }
+
     context "with categories without associations" do
       it do
         expect do

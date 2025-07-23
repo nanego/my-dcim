@@ -80,40 +80,40 @@ RSpec.describe "/power_distribution_units" do
   end
 
   describe "POST /create" do
+    subject(:response) do
+      post(power_distribution_units_path, params:)
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:params) do
+      { power_distribution_unit: pdu.attributes.except(%w[id numero name]).merge(numero: "new_numero", name: "NewServerName") }
+    end
+
+    it_behaves_like "with create another one"
+
     context "with valid parameters" do
-      let(:valid_attributes) do
-        pdu.attributes.except(%w[id numero name]).merge(numero: "new_numero", name: "NewServerName")
-      end
+      it { expect { response }.to change(Server, :count).by(1) }
+      it { expect(response).to redirect_to(power_distribution_unit_path(assigns(:pdu))) }
+    end
 
-      it "creates a new PDU" do
-        expect do
-          post power_distribution_units_path, params: { power_distribution_unit: valid_attributes }
-        end.to change(Server, :count).by(1)
-      end
+    context "with no attributes" do
+      let(:params) { { power_distribution_unit: {} } }
 
-      it "redirects to the created pdu" do
-        post power_distribution_units_path, params: { power_distribution_unit: valid_attributes }
-        expect(response).to redirect_to(power_distribution_unit_path(assigns(:pdu)))
-      end
+      it { expect { response }.to raise_error(ActionController::ParameterMissing) }
+    end
+
+    context "with no parameters" do
+      let(:params) { {} }
+
+      it { expect { response }.to raise_error(ActionController::ParameterMissing) }
     end
 
     context "with invalid parameters" do
-      let(:invalid_attributes) { { name: "" } }
+      let(:params) { { power_distribution_unit: { name: "" } } }
 
-      it "does not create a new PDU without attributes" do
-        expect { post power_distribution_units_path, params: { power_distribution_unit: {} } }
-          .to raise_error(ActionController::ParameterMissing)
-      end
-
-      it "does not create a new PDU without parameters" do
-        expect { post power_distribution_units_path, params: {} }
-          .to raise_error(ActionController::ParameterMissing)
-      end
-
-      it "does not create a new PDU with invalid parameters" do
-        post power_distribution_units_path, params: { power_distribution_unit: invalid_attributes }
-        expect(response).to render_template(:new)
-      end
+      it { expect(response).to render_template(:new) }
     end
   end
 
