@@ -39,6 +39,8 @@ class RoomsControllerTest < ActionController::TestCase
   end
 
   test "should create room" do
+    @room = rooms(:two)
+
     assert_difference('Room.count') do
       post :create, params: { room: { description: @room.description, name: @room.name, site_id: @room.site_id } }
     end

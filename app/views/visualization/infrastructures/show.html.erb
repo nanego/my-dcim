@@ -6,7 +6,15 @@
     .add_step(title)
 %>
 
-<%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
+  <% heading.with_right_content do %>
+    <button id="openEditClusterModal" class="btn btn-info align-items-center d-inline-flex" data-bs-toggle="modal" data-bs-target="#editInfrastructureIsletModal" disabled>
+      <span class="bi bi-pencil"></span>
+      <span class="ms-2"><%= t(".edit_clusters") %></span>
+    </button>
+  <% end %>
+<% end %>
+
 
 <div data-turbo="true">
   <div class="p-4 border-top d-flex flex-column row-gap-4">
@@ -39,6 +47,20 @@
           bays: @bays, network: @filter.network_type, room: @room, islet: @islet, hub: @hub,
           second_hub: @second_hub, second_room: @second_room, connections: @connections, concentrator_ids: @concentrator_ids
         } %>
+
+        <div class="modal fade" id="editInfrastructureIsletModal" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content overflow-visible">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel"><%= t(".edit_clusters") %></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body overflow-y-visible">
+                <%= render partial: "rooms/edit_clusters", locals: { room: @room } %>
+              </div>
+            </div>
+          </div>
+        </div>
       <% end %>
     <% else %>
       <%= turbo_frame_tag "infrastructure_islet", src: visualization_infrastructure_path(**@filter.to_h) do %>
@@ -61,6 +83,10 @@
   var lines = []
   var current_connections = []
 
+  document.addEventListener("turbo:before-fetch-request", () => {
+    $("#openEditClusterModal").attr("disabled", true)
+  })
+
   document.addEventListener("turbo:before-frame-render", function() {
     lines.forEach(function (line) {
       line.remove()
@@ -70,6 +96,7 @@
   })
 
   document.addEventListener("turbo:frame-render", function () {
+    $("#openEditClusterModal").attr("disabled", false)
     drawCurrentLines()
 
     $(".infrastructure").on('scroll', AnimEvent.add(function() {
