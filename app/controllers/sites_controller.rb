@@ -13,7 +13,7 @@ class SitesController < ApplicationController
   def show; end
 
   def new
-    @site = Site.new
+    authorize! @site = Site.new
     @site.contact_assignments.build
   end
 
@@ -64,7 +64,7 @@ class SitesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_site
-    @site = Site.find(params[:id])
+    authorize! @site = Site.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
