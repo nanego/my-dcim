@@ -65,7 +65,7 @@ class UsersController < ApplicationController
   private
 
   def secure_params
-    params.expect(user: %i[email name is_admin])
+    params.expect(user: %i[email name role is_admin])
   end
 
   def set_user

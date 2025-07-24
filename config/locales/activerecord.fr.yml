@@ -279,9 +279,9 @@ fr:
         visualization_bay_default_background_color: Couleur par défault des baies
         visualization_bay_default_orientation: Orientation par défaut des baies
       user/role:
-        user: Utilisateur
-        admin: Administrateur
-        vip: VIP
+        reader: Lecteur
+        writer: Éditeur
+        none: Aucun rôle
       user/locale:
         fr: Français
         en: English

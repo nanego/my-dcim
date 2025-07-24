@@ -127,6 +127,10 @@ en:
         items_per_page: Items per page
         visualization_bay_default_background_color: Bays' default color
         visualization_bay_default_orientation: Bays' default orientation
+      user/role:
+        reader: Reader
+        writer: Writer
+        none: No role
       user/locale:
         en: English
         fr: Français
