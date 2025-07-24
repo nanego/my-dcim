@@ -282,6 +282,7 @@ fr:
       user/role:
         reader: Lecteur
         writer: Éditeur
+        none: Aucun rôle
       user/locale:
         fr: Français
         en: English
