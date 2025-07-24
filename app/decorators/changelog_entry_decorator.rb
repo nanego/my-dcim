@@ -1,6 +1,20 @@
 # frozen_string_literal: true
 
 class ChangelogEntryDecorator < ApplicationDecorator
+  class << self
+    def authors_options
+      User.select(:id, :name, :email).map { |u| [u.id, u.to_s] }
+    end
+
+    def object_types_options
+      ChangelogEntry.distinct.pluck(:object_type).map do |type|
+        model = type.safe_constantize
+
+        [model.model_name.human, model.name]
+      end
+    end
+  end
+
   def object_link_to(view_context, **html_attributes)
     return object_display_name unless object.object
 
