@@ -4,7 +4,58 @@
 
 <%= render Page::HeadingComponent.new(title: title, breadcrumb:) %>
 
-<div class="p-4 border-top">
+<div class="p-4 border-top d-flex flex-column row-gap-4">
+  <%= render FilterComponent.new(@filter) do |c| %>
+    <% c.with_form do |f| %>
+      <div class="w-100">
+        <fieldset class="form-floating">
+          <%= f.text_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :q %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:actions, ChangelogEntry::ACTIONS,
+                                  :to_s,
+                                  :to_s,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :actions %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:authors, ChangelogEntryDecorator.authors_options,
+                                  :first,
+                                  :second,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :authors %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:object_types, ChangelogEntryDecorator.object_types_options,
+                                  :second,
+                                  :first,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :object_types %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.date_field :date, class: "form-control" %>
+          <%= f.label :date %>
+        </fieldset>
+      </div>
+    <% end %>
+  <% end %>
+
   <%= turbo_frame_tag "changelog-entries" do %>
     <div class="d-flex flex-column row-gap-4">
       <%= render List::DataTableComponent.new(decorate(@changelog_entries)) do |table| %>
