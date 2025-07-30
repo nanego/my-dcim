@@ -35,7 +35,7 @@
     </div>
   </div>
 
-  <%= render List::DataTableComponent.new(@users) do |table| %>
+  <%= render List::DataTableComponent.new(decorate(@users)) do |table| %>
     <% table.with_column(User.human_attribute_name(:id), sort_by: :id) do |user| %>
       <%= link_to user.id, user %>
     <% end %>
@@ -46,6 +46,10 @@
 
     <% table.with_column(User.human_attribute_name(:email), sort_by: :email) do |user| %>
       <%= user.email %>
+    <% end %>
+
+    <% table.with_column(User.human_attribute_name(:role), sort_by: :role) do |user| %>
+      <%= user.role_human_name %>
     <% end %>
 
     <% table.with_column(User.human_attribute_name(:last_sign_in_at), sort_by: :last_sign_in_at) do |user| %>
