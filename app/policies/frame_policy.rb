@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class FramePolicy < ApplicationPolicy
-  def manage?
+  def sort?
+    user.reader? || user.writer?
   end
 
-  def show?
+  def network?
+    user.reader?
   end
 end

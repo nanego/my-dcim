@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ModelePolicy < ApplicationPolicy
+class PowerDistributionUnitPolicy < ApplicationPolicy
   def duplicate?
     user.writer?
   end

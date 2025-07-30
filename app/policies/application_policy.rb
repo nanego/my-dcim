@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationPolicy < ActionPolicy::Base
+  pre_check :allow_admins
+
   def new?
     user.writer?
   end
@@ -15,5 +17,11 @@ class ApplicationPolicy < ActionPolicy::Base
 
   def show?
     user.reader? || user.writer?
+  end
+
+  private
+
+  def allow_admins
+    allow! if user.admin?
   end
 end
