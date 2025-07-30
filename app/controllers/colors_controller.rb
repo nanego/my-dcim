@@ -13,13 +13,13 @@ class ColorsController < ApplicationController
   def show; end
 
   def new
-    @color = Color.new
+    authorize! @color = Color.new
   end
 
   def edit; end
 
   def create
-    @color = Color.new(color_params)
+    authorize! @color = Color.new(color_params)
 
     respond_to do |format|
       if @color.save
@@ -60,7 +60,7 @@ class ColorsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_color
-    @color = Color.find(params[:id])
+    authorize! @color = Color.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
