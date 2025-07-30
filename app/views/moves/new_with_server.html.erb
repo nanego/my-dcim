@@ -1,0 +1,41 @@
+<% breadcrumb.add_step(t("action.create")) %>
+
+<%= render Page::HeadingNewComponent.new(
+  resource: @move, title: 't(".title")', breadcrumb:,
+  back_button_url: server_path(@move.moveable),
+) %>
+
+<div class="col-12 p-4 border-top">
+  <div class="row gy-4">
+    <div class="col-12 col-lg-6">
+      <%= render FormErrorsComponent.new(@move) %>
+
+      <%= form_with(
+        model: @move,
+        html: { class: "bg-body-tertiary p-4 rounded border moves_form server_form_fields", role: "form" },
+      ) do |f| %>
+        <div class="row g-3">
+          <fieldset class="col-12">
+            <%= f.hidden_field :moveable_type, value: @move.moveable_type %>
+            <%= f.label :moveable_id, class: "form-label" %>
+            <%= f.select :moveable_id,
+                        grouped_options_for_select(@all_servers_per_frame, { selected: @move.moveable_id }),
+                        { include_blank: true },
+                        {
+                          onchange: "select_server(this.value);",
+                          class: "form-select",
+                          data: { controller: "select" },
+                          placeholder: t("select.placeholder")
+                        }
+            %>
+          </fieldset>
+
+          <div class="col-12 mt-4 text-end">
+            <% submit_text = @move.persisted? ? t("action.edit") : t("action.create") %>
+            <%= f.submit submit_text, class: class_names("btn", "btn-info": @move.persisted?, "btn-success": !@move.persisted?) %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

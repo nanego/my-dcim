@@ -28,7 +28,11 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
   def new
     @move = @moves_project_step.moves.build(moveable_type: "Server")
-    @move.moveable = Server.friendly.select(:id).find(params[:server_id]) if params[:server_id].present?
+
+    if params[:server_id].present?
+      @move.moveable = Server.friendly.select(:id, :slug).find(params[:server_id])
+      render :new_with_server
+    end
   end
 
   def edit; end
@@ -181,6 +185,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def redirect_if_archived
+    return if @moves_project_step.moves_project.nil?
     return if @moves_project_step.moves_project.unarchived?
 
     redirect_to moves_projects_path, alert: t(".flashes.archived")
