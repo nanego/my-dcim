@@ -1,5 +1,4 @@
 <%= form_with model: room, url: room_path(room), data: { turbo_frame: "_top" } do |form| %>
-  <%= form.hidden_field :id %>
   <%= hidden_field_tag :redirect_to_on_success, :back %>
 
   <fieldset class="col-12 mt-4">

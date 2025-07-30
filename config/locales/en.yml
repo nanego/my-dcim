@@ -286,7 +286,6 @@ en:
     update:
       flashes:
         success: The room has successfully been updated
-        failure: An error occured while updating the room
 
   search:
     index:

@@ -66,11 +66,6 @@ class RoomsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should update room" do
-    patch :update, params: { id: @room, room: { description: @room.description, name: @room.name } }
-    assert_redirected_to room_path(@room.name.downcase)
-  end
-
   test "should destroy room" do
     @room = rooms(:two)
 

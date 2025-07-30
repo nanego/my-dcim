@@ -657,7 +657,6 @@ fr:
     update:
       flashes:
         updated: La salle a été mise à jour.
-        failure: Une erreur est survenue lors de la mise à jour de la salle
     destroy:
       flashes:
         destroyed: La salle a bien été supprimée.
