@@ -14,10 +14,22 @@ class HasManyTurboFrameComponent < ApplicationComponent
           <% if actions? %>
             <%= actions %>
           <% else %>
-        <%= link_to @url, class: class_names("link-light", "link-dark": @type == :warning) do %>
+          <span>
+            <%= link_to @url, class: class_names("link-light", "link-dark": @type == :warning) do %>
               <%= t(".see_more_filters") %>
               <% end %>
-          <% end %>
+            <% end %>
+
+            <% if @new_path %>
+              <%= render ButtonComponent.new(@new_label,
+                                            url: @new_path,
+                                            icon: "plus-lg",
+                                            size: :sm,
+                                            variant: :light,
+                                            is_responsive: true,
+                                            extra_classes: "ms-3") %>
+            <% end %>
+          </span>
         </div>
       <% end %>
 
@@ -30,11 +42,13 @@ class HasManyTurboFrameComponent < ApplicationComponent
     <% end %>
   ERB
 
-  def initialize(title, url:, frame_id:, type: :primary, **html_options)
+  def initialize(title, url:, frame_id:, new_path: nil, new_label: nil, type: :primary, **html_options)
     @title = title
     @url = url
     @frame_id = frame_id
     @type = type
+    @new_path = new_path
+    @new_label = new_label
     @extra_classes = class_names("mt-4", "bg-body-tertiary")
     @html_options = html_options
 
