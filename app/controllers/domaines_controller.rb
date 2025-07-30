@@ -10,6 +10,7 @@ class DomainesController < ApplicationController
   # GET /domaines.json
   def index
     @domaines = sorted Domaine.sorted
+    authorize! @domaines
   end
 
   # GET /domaines/1

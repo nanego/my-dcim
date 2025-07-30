@@ -9,7 +9,7 @@ class ArchitecturesController < ApplicationController
   # GET /architectures
   # GET /architectures.json
   def index
-    @architectures = sorted Architecture.all
+    authorize!(@architectures = sorted(Architecture.all))
   end
 
   # GET /architectures/1

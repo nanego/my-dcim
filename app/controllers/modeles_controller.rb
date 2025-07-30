@@ -9,7 +9,7 @@ class ModelesController < ApplicationController
   end
 
   def index
-    @modeles = Modele.includes(:category, :enclosures).order(:name)
+    authorize! @modeles = Modele.includes(:category, :enclosures).order(:name)
     @filter = ProcessorFilter.new(@modeles, params)
     @modeles = @filter.results
 

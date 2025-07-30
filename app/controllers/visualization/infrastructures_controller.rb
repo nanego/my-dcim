@@ -3,6 +3,8 @@
 module Visualization
   class InfrastructuresController < BaseController
     def show
+      authorize! with: InfrastructurePolicy
+
       @filter = Filter.new(params, %i[network_type islet_id])
 
       unless @filter.filled?
