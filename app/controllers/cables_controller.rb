@@ -38,6 +38,6 @@ class CablesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_cable
-    @cable = Cable.find(params[:id])
+    authorize! @cable = Cable.find(params[:id])
   end
 end

@@ -26,7 +26,7 @@ class IsletsController < ApplicationController
 
   # GET /islets/new
   def new
-    @islet = Islet.new
+    authorize! @islet = Islet.new
     @islet.assign_attributes(islet_params) if params[:islet]
   end
 
@@ -36,7 +36,7 @@ class IsletsController < ApplicationController
   # POST /islets
   # POST /islets.json
   def create
-    @islet = Islet.new(islet_params)
+    authorize! @islet = Islet.new(islet_params)
 
     respond_to do |format|
       if @islet.save
@@ -86,7 +86,7 @@ class IsletsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_islet
-    @islet = Islet.find(params[:id])
+    authorize! @islet = Islet.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

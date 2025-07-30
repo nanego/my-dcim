@@ -20,7 +20,7 @@ class ClustersController < ApplicationController
 
   # GET /clusters/new
   def new
-    @cluster = Cluster.new
+    authorize! @cluster = Cluster.new
   end
 
   # GET /clusters/1/edit
@@ -29,7 +29,7 @@ class ClustersController < ApplicationController
   # POST /clusters
   # POST /clusters.json
   def create
-    @cluster = Cluster.new(cluster_params)
+    authorize! @cluster = Cluster.new(cluster_params)
 
     respond_to do |format|
       if @cluster.save
@@ -75,7 +75,7 @@ class ClustersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_cluster
-    @cluster = Cluster.find(params[:id])
+    authorize! @cluster = Cluster.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
