@@ -4,6 +4,7 @@ one:
   id: 1
   name: S1
   description: Room n°1
+  slug: s1
   site_id: 1
   display_on_home_page: true
 

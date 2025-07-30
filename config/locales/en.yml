@@ -289,6 +289,11 @@ en:
         ports: Ports
         unreferenced_client: The corresponding port on the twin card is wired
         no_client: The corresponding port on the twin card is not wired
+    edit_clusters_modal:
+      edit_clusters: Edit clusters
+    update:
+      flashes:
+        success: The room has successfully been updated
 
   search:
     index:
@@ -394,3 +399,9 @@ en:
       title: "Edit a user account"
     flashes:
       updated: User account updated
+
+  visualization:
+    infrastructures:
+      show:
+        loading: Loading ...
+        edit_clusters: Edit clusters

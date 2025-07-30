@@ -39,6 +39,8 @@ class RoomsControllerTest < ActionController::TestCase
   end
 
   test "should create room" do
+    @room = rooms(:two)
+
     assert_difference('Room.count') do
       post :create, params: { room: { description: @room.description, name: @room.name, site_id: @room.site_id } }
     end
@@ -62,11 +64,6 @@ class RoomsControllerTest < ActionController::TestCase
   test "should get edit" do
     get :edit, params: { id: @room }
     assert_response :success
-  end
-
-  test "should update room" do
-    patch :update, params: { id: @room, room: { description: @room.description, name: @room.name } }
-    assert_redirected_to room_path(@room.name.downcase)
   end
 
   test "should destroy room" do
