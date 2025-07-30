@@ -6,7 +6,7 @@ module Authorization
   included do
     authorize :user, through: :action_policy_user
 
-    # verify_authorized
+    verify_authorized
 
     rescue_from ActionPolicy::Unauthorized, with: :user_not_authorized
 

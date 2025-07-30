@@ -130,7 +130,6 @@ en:
       user/role:
         reader: Reader
         writer: Writer
-        none: No role
       user/locale:
         en: English
         fr: Français
