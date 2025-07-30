@@ -3,19 +3,17 @@
 class ApplicationPolicy < ActionPolicy::Base
   pre_check :allow_admins
 
-  def show?
+  alias_rule :show?, to: :index?
+
+  def index?
     user.reader? || user.writer?
   end
 
-  def new?
+  def create?
     user.writer?
   end
 
-  def edit?
-    user.writer?
-  end
-
-  def destroy?
+  def manage?
     user.writer?
   end
 

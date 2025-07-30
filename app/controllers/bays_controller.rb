@@ -15,7 +15,7 @@ class BaysController < ApplicationController
   end
 
   def index
-    @bays = Bay.joins(islet: :room).order("rooms.position, islets.name, bays.lane, bays.position")
+    authorize! @bays = Bay.joins(islet: :room).order("rooms.position, islets.name, bays.lane, bays.position")
     @filter = ProcessorFilter.new(@bays, params)
 
     @bays = @filter.results.uniq

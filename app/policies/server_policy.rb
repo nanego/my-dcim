@@ -9,7 +9,15 @@ class ServerPolicy < ApplicationPolicy
     user.writer?
   end
 
+  def import_csv?
+    user.writer?
+  end
+
   def duplicate?
     user.writer?
+  end
+
+  def export?
+    user.reader? || user.writer?
   end
 end
