@@ -1,0 +1,15 @@
+<%= form_with model: room, url: room_path(room), data: { turbo_frame: "_top" } do |form| %>
+  <%= hidden_field_tag :redirect_to_on_success, :back %>
+
+  <fieldset class="col-12 mt-4">
+    <%= form.label :network_cluster_ids, class: "form-label" %>
+    <%= form.select :network_cluster_ids, RoomDecorator.network_clusters_options_for_select,
+                          { include_blank: t("access_control.blank") },
+                          class: "form-select", multiple: true, data: { controller: :select } %>
+  </fieldset>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t("action.cancel") %></button>
+    <%= form.submit(class: "btn btn-info") %>
+  </div>
+<% end %>
