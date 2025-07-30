@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class UserPolicy < ApplicationPolicy
+  skip_pre_check :allow_admins
+
   def index?
     user.admin?
   end
