@@ -20,7 +20,7 @@ class ContactAssignmentsController < ApplicationController
 
   # GET /contact_assignments/new
   def new
-    @contact_assignment = ContactAssignment.new
+    authorize! @contact_assignment = ContactAssignment.new
     @contact_assignment.assign_attributes(contact_assignment_params) if params[:contact_assignment].present?
   end
 
@@ -30,7 +30,7 @@ class ContactAssignmentsController < ApplicationController
   # POST /contact_assignments
   # POST /contact_assignments.json
   def create
-    @contact_assignment = ContactAssignment.new(contact_assignment_params)
+    authorize! @contact_assignment = ContactAssignment.new(contact_assignment_params)
 
     respond_to do |format|
       if @contact_assignment.save
@@ -76,7 +76,7 @@ class ContactAssignmentsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_contact_assignment
-    @contact_assignment = ContactAssignment.find(params[:id])
+    authorize! @contact_assignment = ContactAssignment.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

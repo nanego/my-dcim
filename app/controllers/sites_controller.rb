@@ -22,7 +22,7 @@ class SitesController < ApplicationController
   end
 
   def create
-    @site = Site.new(site_params)
+    authorize! @site = Site.new(site_params)
 
     respond_to do |format|
       if @site.save
