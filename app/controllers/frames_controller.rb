@@ -10,7 +10,7 @@ class FramesController < ApplicationController
   end
 
   def index
-    @frames = Frame.includes(bay: { islet: :room }).references(bay: { islet: :room })
+    authorize! @frames = Frame.includes(bay: { islet: :room }).references(bay: { islet: :room })
     @filter = ProcessorFilter.new(@frames, params)
     @frames = @filter.results
   end
