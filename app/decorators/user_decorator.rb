@@ -24,6 +24,6 @@ class UserDecorator < ApplicationDecorator
   end
 
   def role_human_name
-    User.human_attribute_name("role.#{role || "none"}")
+    User.human_attribute_name("role.#{role}")
   end
 end

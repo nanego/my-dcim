@@ -20,7 +20,7 @@
       <%= f.label :role, class: "form-label" %>
       <%= f.select(:role,
                     UserDecorator.roles_for_options,
-                    { include_blank: User.human_attribute_name("role.none") },
+                    {},
                     class: "form-select form-select-sm") %>
     </fieldset>
 

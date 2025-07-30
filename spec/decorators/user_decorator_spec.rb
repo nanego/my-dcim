@@ -33,10 +33,6 @@ RSpec.describe UserDecorator, type: :decorator do
       user.role = role
     end
 
-    context "when no role" do
-      it { expect(decorated_user.role_human_name).to eq(User.human_attribute_name("role.none")) }
-    end
-
     context "when role is reader" do
       let(:role) { :reader }
 
