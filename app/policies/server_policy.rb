@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SitePolicy < ApplicationPolicy
+class ServerPolicy < ApplicationPolicy
   def sort?
     user.writer?
   end
