@@ -8,6 +8,8 @@ class User < ApplicationRecord
   AVAILABLE_BAY_BACKGROUND_COLORS = %w[modele gestion cluster].freeze
   AVAILABLE_BAY_ORIENTATIONS = %w[front back].freeze
 
+  enum :role, { reader: 0, writer: 1 }
+
   acts_as_token_authenticatable
   has_changelog except: %i[sign_in_count current_sign_in_at last_sign_in_at current_sign_in_ip last_sign_in_ip]
 

@@ -17,5 +17,13 @@ class UserDecorator < ApplicationDecorator
     def available_bay_orientations_for_options
       User::AVAILABLE_BAY_ORIENTATIONS.map { |orientation| [User.human_attribute_name("visualization_bay_default_orientation.#{orientation}"), orientation] }
     end
+
+    def roles_for_options
+      User.roles.keys.map { |role| [User.human_attribute_name("role.#{role}"), role] }
+    end
+  end
+
+  def role_human_name
+    User.human_attribute_name("role.#{role}")
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_23_090747) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_24_082513) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -514,6 +514,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_23_090747) do
     t.datetime "suspended_at"
     t.jsonb "settings", default: {}
     t.boolean "is_admin", default: false
+    t.integer "role", default: 0, null: false
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true

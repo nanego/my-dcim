@@ -31,6 +31,10 @@ RSpec.describe User do
     it { expect(user.to_s).to eq "user@example.com" }
   end
 
+  describe "enumerize user role" do
+    it { is_expected.to define_enum_for(:role).with_values(%i[reader writer]) }
+  end
+
   describe "#regenerate_authentication_token!" do
     before do
       user.update!(authentication_token: "auth_token")
