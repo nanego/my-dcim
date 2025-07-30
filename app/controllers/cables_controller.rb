@@ -9,6 +9,7 @@ class CablesController < ApplicationController
                              card_types: [:port_type])
       .order(created_at: :desc)
     @filter = ProcessorFilter.new(@cables, params)
+    authorize! @cables
 
     @pagy, @cables = pagy(@filter.results.distinct)
   end

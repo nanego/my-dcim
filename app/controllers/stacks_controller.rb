@@ -9,7 +9,7 @@ class StacksController < ApplicationController
   # GET /stacks
   # GET /stacks.json
   def index
-    @stacks = sorted Stack.all
+    authorize!(@stacks = sorted(Stack.all))
   end
 
   # GET /stacks/1
