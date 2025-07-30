@@ -19,7 +19,7 @@
     <fieldset class="col-12 mt-4">
       <%= f.label :role, class: "form-label" %>
       <%= f.select(:role,
-                    User.roles.keys.map { |role| [User.human_attribute_name("role.#{role}"), role] },
+                    UserDecorator.roles_for_options,
                     { include_blank: User.human_attribute_name("role.none") },
                     class: "form-select form-select-sm") %>
     </fieldset>
