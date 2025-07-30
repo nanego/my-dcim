@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-class SitePolicy < ApplicationPolicy
-  def manage?
-  end
+require "rails_helper"
 
-  def show?
-  end
+RSpec.describe SitePolicy, type: :policy do
+  it_behaves_like "with default resource policies"
 end

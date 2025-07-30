@@ -2,6 +2,6 @@
 
 class RoomPolicy < ApplicationPolicy
   def overview?
-    user.reader?
+    user.reader? || user.writer?
   end
 end
