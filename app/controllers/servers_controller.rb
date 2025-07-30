@@ -23,7 +23,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
       logger.warn("DEPRECATION WARNING: Search with 'name' is now deprecated. Use 'q' instead.")
     end
 
-    @servers = Server.no_pdus
+    authorize! @servers = Server.no_pdus
       .includes(frame: { bay: { islet: :room } }, modele: :category)
       .references(frame: { bay: { islet: :room } }, modele: :category)
       .order(:name)
@@ -108,10 +108,12 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
     head :ok # render empty body, status only
   end
 
-  def import_csv; end
+  def import_csv
+    authorize!
+  end
 
   def export
-    @servers = Server.no_pdus
+    authorize! @servers = Server.no_pdus
       .includes(frame: { bay: { islet: :room } }, modele: :category)
       .references(frame: { bay: { islet: :room } }, modele: :category)
       .order(:name)

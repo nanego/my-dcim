@@ -3,6 +3,8 @@
 module Visualization
   class NetworkCapacitiesController < BaseController
     def show
+      authorize! with: NetworkCapacityPolicy
+
       @filter = Filter.new(params, %i[network_type islet_id])
       @filter_filled = @filter.filled?
 

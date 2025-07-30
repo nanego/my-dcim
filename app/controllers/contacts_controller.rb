@@ -10,7 +10,7 @@ class ContactsController < ApplicationController
   # GET /contacts.json
   def index
     @filter = ProcessorFilter.new(Contact.all, params)
-    @contacts = @filter.results
+    authorize!(@contacts = @filter.results)
   end
 
   # GET /contacts/1

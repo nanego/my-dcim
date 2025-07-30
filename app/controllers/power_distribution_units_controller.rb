@@ -8,6 +8,7 @@ class PowerDistributionUnitsController < ApplicationController
   end
 
   def index
+    authorize! with: PowerDistributionUnitPolicy
     @pdus = Server.only_pdus.includes(:frame, :room, :islet, bay: :frames, modele: :category)
       .references(:room, :islet, :bay, modele: :category)
       .order(:name)

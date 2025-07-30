@@ -10,7 +10,7 @@ class CategoriesController < ApplicationController
   # GET /categories.json
   def index
     @filter = ProcessorFilter.new(Category.order(name: :asc), params)
-    @categories = @filter.results
+    authorize! @categories = @filter.results
   end
 
   # GET /categories/1
