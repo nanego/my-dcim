@@ -18,7 +18,7 @@ class DomainesController < ApplicationController
 
   # GET /domaines/new
   def new
-    @domaine = Domaine.new
+    authorize! @domaine = Domaine.new
   end
 
   # GET /domaines/1/edit
@@ -27,7 +27,7 @@ class DomainesController < ApplicationController
   # POST /domaines
   # POST /domaines.json
   def create
-    @domaine = Domaine.new(domaine_params)
+    authorize! @domaine = Domaine.new(domaine_params)
 
     respond_to do |format|
       if @domaine.save
@@ -73,7 +73,7 @@ class DomainesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_domaine
-    @domaine = Domaine.find(params[:id])
+    authorize! @domaine = Domaine.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

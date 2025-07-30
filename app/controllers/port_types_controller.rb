@@ -13,13 +13,13 @@ class PortTypesController < ApplicationController
   def show; end
 
   def new
-    @port_type = PortType.new
+    authorize! @port_type = PortType.new
   end
 
   def edit; end
 
   def create
-    @port_type = PortType.new(port_type_params)
+    authorize! @port_type = PortType.new(port_type_params)
 
     respond_to do |format|
       if @port_type.save
@@ -56,7 +56,7 @@ class PortTypesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_port_type
-    @port_type = PortType.find(params[:id])
+    authorize! @port_type = PortType.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

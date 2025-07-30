@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class RoomPolicy < ApplicationPolicy
-  def manage?
-  end
-
-  def show?
+  def overview?
+    user.reader?
   end
 end

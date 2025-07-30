@@ -23,15 +23,15 @@ class FramesController < ApplicationController
   end
 
   def new
-    @frame = Frame.new
+    authorize! @frame = Frame.new
   end
 
   def edit
-    @frame = Frame.friendly.find(params[:id].to_s.downcase)
+    authorize! @frame = Frame.friendly.find(params[:id].to_s.downcase)
   end
 
   def create
-    @frame = Frame.new(frame_params)
+    authorize! @frame = Frame.new(frame_params)
 
     respond_to do |format|
       if @frame.save
@@ -45,7 +45,7 @@ class FramesController < ApplicationController
   end
 
   def update
-    @frame = Frame.friendly.find(params[:id].to_s.downcase)
+    authorize! @frame = Frame.friendly.find(params[:id].to_s.downcase)
     respond_to do |format|
       if @frame.update(frame_params)
         format.html { redirect_to @frame, notice: t(".flashes.updated") }
@@ -58,6 +58,8 @@ class FramesController < ApplicationController
   end
 
   def sort
+    authorize! to: :sort?
+
     params[:frame].each_with_index do |id, index|
       Frame.where(id: id).update_all(position: index + 1) # rubocop:disable Rails/SkipsModelValidations
     end if params[:frame].present?
@@ -65,7 +67,7 @@ class FramesController < ApplicationController
   end
 
   def destroy
-    @frame = Frame.friendly.find(params[:id].to_s.downcase)
+    authorize! @frame = Frame.friendly.find(params[:id].to_s.downcase)
     if @frame.destroy
       respond_to do |format|
         format.html { redirect_to frames_url, notice: t(".flashes.destroyed") }
@@ -80,7 +82,7 @@ class FramesController < ApplicationController
 
   def network
     # Set frames for this network
-    @frame = Frames::IncludingServersQuery.call(Frame).friendly.find(params[:id].to_s.downcase)
+    authorize! @frame = Frames::IncludingServersQuery.call(Frame).friendly.find(params[:id].to_s.downcase)
     @coupled_frame = @frame.other_frame
     if @coupled_frame.present?
       @network_frame = Frames::IncludingServersQuery.call(Frame).friendly.find(params[:network_frame_id].to_s.downcase)
@@ -113,7 +115,7 @@ class FramesController < ApplicationController
   private
 
   def set_frame
-    @frame = Frame.friendly.find(params[:id].to_s.downcase)
+    authorize! @frame = Frame.friendly.find(params[:id].to_s.downcase)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
