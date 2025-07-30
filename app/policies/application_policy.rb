@@ -3,11 +3,11 @@
 class ApplicationPolicy < ActionPolicy::Base
   pre_check :allow_admins
 
-  def new?
-    user.writer?
+  def show?
+    user.reader? || user.writer?
   end
 
-  def destroy?
+  def new?
     user.writer?
   end
 
@@ -15,8 +15,8 @@ class ApplicationPolicy < ActionPolicy::Base
     user.writer?
   end
 
-  def show?
-    user.reader? || user.writer?
+  def destroy?
+    user.writer?
   end
 
   private
