@@ -11,6 +11,7 @@ class AddNewRolesToUsers < ActiveRecord::Migration[8.0]
     add_column :users, :role, :integer, null: false, default: 0
 
     up_only do
+      MigrationUser.reset_column_information
       MigrationUser.update_all(role: :writer)
     end
   end
