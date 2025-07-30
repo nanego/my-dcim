@@ -2,10 +2,10 @@
 
 class FramePolicy < ApplicationPolicy
   def sort?
-    user.reader? || user.writer?
+    user.writer?
   end
 
   def network?
-    user.reader?
+    user.reader? || user.writer?
   end
 end
