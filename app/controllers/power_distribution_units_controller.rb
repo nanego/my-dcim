@@ -25,13 +25,13 @@ class PowerDistributionUnitsController < ApplicationController
   def show; end
 
   def new
-    @pdu = Server.new
+    authorize!(@pdu = Server.new, with: PowerDistributionUnitPolicy)
   end
 
   def edit; end
 
   def create
-    @pdu = Server.new(pdu_params)
+    authorize!(@pdu = Server.new(pdu_params), with: PowerDistributionUnitPolicy)
 
     respond_to do |format|
       if @pdu.save
@@ -69,7 +69,7 @@ class PowerDistributionUnitsController < ApplicationController
   end
 
   def duplicate
-    @original_pdu = Server.friendly.find(params[:id].to_s.downcase)
+    authorize!(@original_pdu = Server.friendly.find(params[:id].to_s.downcase), with: PowerDistributionUnitPolicy)
     @pdu = @original_pdu.deep_dup
   end
 
@@ -86,7 +86,7 @@ class PowerDistributionUnitsController < ApplicationController
   private
 
   def set_pdu
-    @pdu = Server.friendly_find_by_numero_or_name(params[:id])
+    authorize!(@pdu = Server.friendly_find_by_numero_or_name(params[:id]), with: PowerDistributionUnitPolicy)
   end
 
   def pdu_params

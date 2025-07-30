@@ -19,13 +19,13 @@ class CardTypesController < ApplicationController
   def show; end
 
   def new
-    @card_type = CardType.new
+    authorize! @card_type = CardType.new
   end
 
   def edit; end
 
   def create
-    @card_type = CardType.new(card_type_params)
+    authorize! @card_type = CardType.new(card_type_params)
 
     respond_to do |format|
       if @card_type.save
@@ -71,7 +71,7 @@ class CardTypesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_card_type
-    @card_type = CardType.find(params[:id])
+    authorize! @card_type = CardType.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

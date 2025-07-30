@@ -18,7 +18,7 @@ class ManufacturersController < ApplicationController
 
   # GET /manufacturers/new
   def new
-    @manufacturer = Manufacturer.new
+    authorize! @manufacturer = Manufacturer.new
   end
 
   # GET /manufacturers/1/edit
@@ -27,7 +27,7 @@ class ManufacturersController < ApplicationController
   # POST /manufacturers
   # POST /manufacturers.json
   def create
-    @manufacturer = Manufacturer.new(manufacturer_params)
+    authorize! @manufacturer = Manufacturer.new(manufacturer_params)
 
     respond_to do |format|
       if @manufacturer.save
@@ -73,7 +73,7 @@ class ManufacturersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_manufacturer
-    @manufacturer = Manufacturer.find(params[:id])
+    authorize! @manufacturer = Manufacturer.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
