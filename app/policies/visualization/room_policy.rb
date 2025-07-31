@@ -3,7 +3,7 @@
 module Visualization
   class RoomPolicy < ApplicationPolicy
     def print?
-      user.reader?
+      index?
     end
   end
 end

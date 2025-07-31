@@ -13,7 +13,9 @@ RSpec.describe ModelePolicy, type: :policy do
     user.role = role
   end
 
-  it_behaves_like "with default resource policies"
+  it_behaves_like "with default index policy"
+  it_behaves_like "with default create policy"
+  it_behaves_like "with default manage policy"
 
   describe_rule :duplicate? do
     context "when user is admin" do # rubocop:disable Spec/EmptyExampleGroup
