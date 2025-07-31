@@ -2,6 +2,6 @@
 
 class ModelePolicy < ApplicationPolicy
   def duplicate?
-    user.writer?
+    manage?
   end
 end
