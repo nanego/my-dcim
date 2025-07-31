@@ -129,7 +129,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   end
 
   def import
-    authorize! to: :import?
+    authorize!
 
     value = ImportEquipmentByCsv.call(file: params[:import][:file],
                                       room_id: params[:import][:room_id])

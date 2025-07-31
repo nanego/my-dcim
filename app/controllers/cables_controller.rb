@@ -4,12 +4,11 @@ class CablesController < ApplicationController
   before_action :set_cable, only: :destroy
 
   def index
-    @cables = Cable.includes(connections: %i[port server card],
-                             cards: [:card_type],
-                             card_types: [:port_type])
+    authorize! @cables = Cable.includes(connections: %i[port server card],
+                                        cards: [:card_type],
+                                        card_types: [:port_type])
       .order(created_at: :desc)
     @filter = ProcessorFilter.new(@cables, params)
-    authorize! @cables
 
     @pagy, @cables = pagy(@filter.results.distinct)
   end
