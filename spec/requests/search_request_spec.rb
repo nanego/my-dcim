@@ -7,7 +7,7 @@ RSpec.describe "SearchController" do
     fixtures :servers, :frames
 
     before do
-      sign_in users(:one)
+      sign_in users(:admin)
     end
 
     context "when query is present" do
