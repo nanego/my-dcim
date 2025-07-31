@@ -2,6 +2,6 @@
 
 class PowerDistributionUnitPolicy < ApplicationPolicy
   def duplicate?
-    user.writer?
+    manage?
   end
 end

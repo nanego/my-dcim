@@ -2,6 +2,6 @@
 
 class IsletPolicy < ApplicationPolicy
   def print?
-    user.reader? || user.writer?
+    index?
   end
 end
