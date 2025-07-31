@@ -2,22 +2,22 @@
 
 class ServerPolicy < ApplicationPolicy
   def sort?
-    user.writer?
+    manage?
   end
 
   def import?
-    user.writer?
+    manage?
   end
 
   def import_csv?
-    user.writer?
+    manage?
   end
 
   def duplicate?
-    user.writer?
+    manage?
   end
 
   def export?
-    user.reader? || user.writer?
+    index?
   end
 end

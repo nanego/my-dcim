@@ -6,17 +6,17 @@ class MovesProjectsController < ApplicationController
 
   # GET /moves_projects or /moves_projects.json
   def index
-    @moves_projects = MovesProject.unarchived.all
+    authorize! @moves_projects = MovesProject.unarchived.all
   end
 
   # GET /moves_projects/1 or /moves_projects/1.json
   def show
-    @moves_project = MovesProject.find(params.expect(:id))
+    authorize! @moves_project = MovesProject.find(params.expect(:id))
   end
 
   # GET /moves_projects/new
   def new
-    @moves_project = MovesProject.new
+    authorize! @moves_project = MovesProject.new
   end
 
   # GET /moves_projects/1/edit
@@ -24,7 +24,7 @@ class MovesProjectsController < ApplicationController
 
   # POST /moves_projects or /moves_projects.json
   def create
-    @moves_project = MovesProject.new(moves_project_params)
+    authorize! @moves_project = MovesProject.new(moves_project_params)
     @moves_project.created_by = current_user
 
     respond_to do |format|
@@ -71,7 +71,7 @@ class MovesProjectsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_moves_project
-    @moves_project = MovesProject.find(params.expect(:id))
+    authorize! @moves_project = MovesProject.find(params.expect(:id))
   end
 
   def redirect_if_archived

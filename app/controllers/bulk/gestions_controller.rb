@@ -18,7 +18,7 @@ module Bulk
     private
 
     def set_gestions
-      @gestions = Gestion.where(id: params[:ids])
+      authorize! @gestions = Gestion.where(id: params[:ids]), with: GestionPolicy
     end
   end
 end
