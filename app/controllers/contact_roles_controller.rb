@@ -10,7 +10,7 @@ class ContactRolesController < ApplicationController
   # GET /contact_roles.json
   def index
     @filter = ProcessorFilter.new(ContactRole.all, params)
-    authorize!(@contact_roles = @filter.results)
+    authorize! @contact_roles = @filter.results
   end
 
   # GET /contact_roles/1
