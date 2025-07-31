@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe FramePolicy, type: :policy do
+RSpec.describe DataImportPolicy, type: :policy do
   let(:user) { users(:one) }
   let(:context) { { user: } }
   let(:is_admin) { false }
@@ -14,10 +14,8 @@ RSpec.describe FramePolicy, type: :policy do
   end
 
   it_behaves_like "with default index policy"
-  it_behaves_like "with default create policy"
-  it_behaves_like "with default manage policy"
 
-  describe_rule :sort? do
+  describe_rule :ansible? do
     context "when user is admin" do # rubocop:disable Spec/EmptyExampleGroup
       succeed "when an admin user asks" do
         let(:is_admin) { true }
@@ -28,26 +26,6 @@ RSpec.describe FramePolicy, type: :policy do
       failed "when user with no role asks"
 
       failed "when a reader user asks" do
-        let(:role) { :reader }
-      end
-
-      succeed "when a writer user asks" do
-        let(:role) { :writer }
-      end
-    end
-  end
-
-  describe_rule :network? do
-    context "when user is admin" do # rubocop:disable Spec/EmptyExampleGroup
-      succeed "when an admin user asks" do
-        let(:is_admin) { true }
-      end
-    end
-
-    context "when user is not admin" do # rubocop:disable Spec/EmptyExampleGroup
-      failed "when user with no role asks"
-
-      succeed "when a reader user asks" do
         let(:role) { :reader }
       end
 

@@ -3,7 +3,7 @@
 module Visualization
   class BayPolicy < ApplicationPolicy
     def print?
-      user.reader?
+      index?
     end
   end
 end

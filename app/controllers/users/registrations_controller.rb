@@ -2,7 +2,8 @@
 
 module Users
   class RegistrationsController < Devise::RegistrationsController
-    # TODO: Add policies
+    skip_before_authorized
+
     before_action :admin_only, only: %i[new create]
 
     protected
