@@ -3,9 +3,13 @@
 class DataImportController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:ansible]
 
-  def index; end
+  def index
+    authorize! with: DataImportPolicy
+  end
 
   def ansible
+    authorize! with: DataImportPolicy
+
     respond_to do |format|
       format.html
       format.js

@@ -6,7 +6,7 @@ class ExternalAppRecordsController < ApplicationController
   end
 
   def index
-    @external_app_records = ExternalAppRecord.includes(:server, :frame).order("servers.name")
+    authorize! @external_app_records = ExternalAppRecord.includes(:server, :frame).order("servers.name")
     @filter = ProcessorFilter.new(@external_app_records, params)
     @external_app_records = @filter.results
 
@@ -16,6 +16,8 @@ class ExternalAppRecordsController < ApplicationController
   end
 
   def settings
+    authorize!
+
     @settings = ExternalAppRecordSetting.new(settings_params)
 
     return unless params[:commit]
@@ -26,6 +28,8 @@ class ExternalAppRecordsController < ApplicationController
   end
 
   def sync_all_servers_with_glpi
+    authorize!
+
     if ExternalAppRequest.exists?(status: %w[pending in_progress], external_app_name: "glpi")
       render json: { error: "Another request is already in progress" }
     else

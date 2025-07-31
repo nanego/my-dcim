@@ -7,7 +7,7 @@ RSpec.describe "Bays" do
 
   describe "GET #index" do
     before do
-      sign_in users(:one)
+      sign_in users(:admin)
 
       get bays_path
     end

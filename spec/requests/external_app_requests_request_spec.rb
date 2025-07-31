@@ -6,7 +6,7 @@ RSpec.describe "ExternalAppRequests" do
   let(:request) { external_app_requests(:one) }
 
   before do
-    sign_in users(:one)
+    sign_in users(:admin)
 
     request
   end
