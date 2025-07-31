@@ -92,9 +92,7 @@ class ModelesController < ApplicationController
   end
 
   def duplicate
-    authorize! to: :duplicate?
-
-    @original_modele = Modele.friendly.find(params[:id].to_s.downcase)
+    authorize! @original_modele = Modele.friendly.find(params[:id].to_s.downcase)
     @modele = @original_modele.deep_dup
   end
 

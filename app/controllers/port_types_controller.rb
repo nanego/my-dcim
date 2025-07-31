@@ -7,7 +7,7 @@ class PortTypesController < ApplicationController
   end
 
   def index
-    authorize!(@port_types = sorted(PortType.order('lower(name)')))
+    authorize! @port_types = sorted(PortType.order('lower(name)'))
   end
 
   def show; end

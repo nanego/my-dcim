@@ -11,9 +11,9 @@ class IsletsController < ApplicationController
   end
 
   def index
-    @islets = Islet.joins(room: :site).order("rooms.site_id asc, rooms.position asc, islets.name asc")
+    authorize! @islets = Islet.joins(room: :site).order("rooms.site_id asc, rooms.position asc, islets.name asc")
     @filter = ProcessorFilter.new(@islets, params)
-    authorize! @islets = @filter.results
+    @islets = @filter.results
   end
 
   def show
