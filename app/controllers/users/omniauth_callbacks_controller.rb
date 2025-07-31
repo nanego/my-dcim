@@ -2,7 +2,8 @@
 
 module Users
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
-    # TODO: Add policies
+    skip_before_authorized
+
     def openid_connect
       auth = request.env["omniauth.auth"]
       @user = User.where("lower(email) = ?", auth["info"]["email"].downcase).first

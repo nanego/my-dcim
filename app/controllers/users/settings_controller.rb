@@ -3,6 +3,7 @@
 module Users
   class SettingsController < ApplicationController
     before_action :set_user, only: %i[edit update]
+    skip_before_authorized
 
     def edit; end
 
