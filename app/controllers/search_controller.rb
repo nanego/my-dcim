@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SearchController < ApplicationController
-  skip_before_authorized
+  skip_verify_authorized
 
   def index
     query = params[:query]&.downcase
