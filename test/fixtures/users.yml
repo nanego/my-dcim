@@ -20,3 +20,13 @@ admin:
   email: admin@yopmail.com
   encrypted_password: $2a$10$5iKaHrlajUNurPi/N7cHduDiufXpCz/9Aug3L660HdPpfUWgTeXju
   is_admin: true
+
+reader:
+  name: Reader
+  email: reader@yopmail.com
+  encrypted_password: $2a$10$5iKaHrlajUNurPi/N7cHduDiufXpCz/9Aug3L660HdPpfUWgTeXju
+
+writer:
+  name: Writer
+  email: writer@yopmail.com
+  encrypted_password: $2a$10$5iKaHrlajUNurPi/N7cHduDiufXpCz/9Aug3L660HdPpfUWgTeXju

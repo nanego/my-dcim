@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "/bulk/clusters" do
-  before { sign_in users(:one) }
+  before { sign_in users(:admin) }
 
   describe "DELETE /destroy" do
     context "with clusters without associations" do

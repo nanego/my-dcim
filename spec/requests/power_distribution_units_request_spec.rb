@@ -8,7 +8,7 @@ RSpec.describe "/power_distribution_units" do
   let(:server) { servers(:one) }
 
   before do
-    sign_in users(:one)
+    sign_in users(:admin)
 
     pdu.save
     server.save
