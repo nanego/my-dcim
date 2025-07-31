@@ -9,7 +9,7 @@ class GestionsController < ApplicationController
   # GET /gestions
   # GET /gestions.json
   def index
-    authorize!(@gestions = sorted(Gestion.all))
+    authorize! @gestions = sorted(Gestion.all)
   end
 
   # GET /gestions/1

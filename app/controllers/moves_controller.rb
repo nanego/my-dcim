@@ -14,7 +14,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
   def index
     @moves_project = @moves_project_step.moves_project
-    @moves = @moves_project_step.moves.order(created_at: :asc)
+    authorize! @moves = @moves_project_step.moves.order(created_at: :asc)
   end
 
   def show
@@ -24,14 +24,14 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def new
-    @move = @moves_project_step.moves.build(moveable_type: "Server")
+    authorize! @move = @moves_project_step.moves.build(moveable_type: "Server")
     @move.moveable = Server.friendly.select(:id).find(params[:server_id]) if params[:server_id].present?
   end
 
   def edit; end
 
   def create
-    @move = @moves_project_step.moves.build(move_params)
+    authorize! @move = @moves_project_step.moves.build(move_params)
 
     if params[:move][:remove_connections] == 'Oui'
       @move.clear_connections
@@ -129,6 +129,8 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def update_connection
+    authorize!
+
     @port_from = Port.find(params[:moved_connection][:port_from_id])
     @port_to = Port.find(params[:moved_connection][:port_to_id])
     @servers = [@port_from.server, @port_to.try(:server)].compact
@@ -178,7 +180,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
   # Use callbacks to share common setup or constraints between actions.
   def set_move
-    @move = @moves_project_step.moves.find(params[:id])
+    authorize! @move = @moves_project_step.moves.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

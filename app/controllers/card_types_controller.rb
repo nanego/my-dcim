@@ -8,7 +8,7 @@ class CardTypesController < ApplicationController
 
   def index
     @filter = ProcessorFilter.new(CardType.sorted, params)
-    authorize!(@card_types = @filter.results)
+    authorize! @card_types = @filter.results
 
     respond_to do |format|
       format.html

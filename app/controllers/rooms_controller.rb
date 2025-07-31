@@ -10,9 +10,8 @@ class RoomsController < ApplicationController
   end
 
   def index
-    @rooms = Room.joins(:site).order("sites.position asc, rooms.position asc, rooms.name asc")
+    authorize! @rooms = Room.joins(:site).order("sites.position asc, rooms.position asc, rooms.name asc")
     @filter = ProcessorFilter.new(@rooms, params)
-    authorize! @rooms = @filter.results
   end
 
   def show
@@ -28,7 +27,7 @@ class RoomsController < ApplicationController
   end
 
   def overview
-    authorize! to: :overview?
+    authorize!
     @sites = Site.order(:position).joins(:rooms => :frames).distinct
 
     if params[:cluster_id].present? ||

@@ -18,7 +18,7 @@ module Bulk
     private
 
     def set_modeles
-      @modeles = Modele.where(id: params[:ids])
+      authorize! @modeles = Modele.where(id: params[:ids]), with: ModelePolicy
     end
   end
 end

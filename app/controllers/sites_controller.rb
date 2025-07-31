@@ -7,8 +7,7 @@ class SitesController < ApplicationController
   end
 
   def index
-    @sites = sorted Site.sorted
-    authorize! @sites
+    authorize! @sites = sorted(Site.sorted)
   end
 
   def show; end
