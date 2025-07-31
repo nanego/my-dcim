@@ -18,7 +18,7 @@ module Bulk
     private
 
     def set_stacks
-      @stacks = Stack.where(id: params[:ids])
+      authorize! @stacks = Stack.where(id: params[:ids]), with: StackPolicy
     end
   end
 end

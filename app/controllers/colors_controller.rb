@@ -7,7 +7,7 @@ class ColorsController < ApplicationController
   end
 
   def index
-    authorize!(@colors = sorted(Color.order('parent_type asc, parent_id asc')))
+    authorize! @colors = sorted(Color.order('parent_type asc, parent_id asc'))
   end
 
   def show; end
