@@ -1,7 +1,7 @@
-<% breadcrumb.add_step(t("action.create")) %>
+<% breadcrumb.add_step("Choix de l'étape") %>
 
 <%= render Page::HeadingNewComponent.new(
-  resource: @move, title: t("moves.new.title"), breadcrumb:,
+  resource: @move, title: "Nouveau déplacement pour #{@move.moveable}", breadcrumb:,
   back_button_url: server_path(@move.moveable),
 ) %>
 
@@ -15,20 +15,8 @@
         html: { class: "bg-body-tertiary p-4 rounded border moves_form server_form_fields", role: "form" },
       ) do |f| %>
         <div class="row g-3">
-          <fieldset class="col-12">
-            <%= f.hidden_field :moveable_type, value: @move.moveable_type %>
-            <%= f.label :moveable_id, class: "form-label" %>
-            <%= f.select :moveable_id,
-                        grouped_options_for_select(@all_servers_per_frame, { selected: @move.moveable_id }),
-                        { include_blank: true },
-                        {
-                          onchange: "select_server(this.value);",
-                          class: "form-select",
-                          data: { controller: "select" },
-                          placeholder: t("select.placeholder"),
-                        }
-            %>
-          </fieldset>
+          <%= f.hidden_field :moveable_type, value: @move.moveable_type %>
+          <%= f.hidden_field :moveable_id, value: @move.moveable_id %>
 
           <fieldset class="col-12">
             <%= f.label :moves_project_step_id, class: "form-label" %>
