@@ -28,7 +28,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
   def new
     @move = @moves_project_step.moves.build(moveable_type: "Server")
-    @move.moveable = Server.friendly.select(:id, :slug).find(params[:server_id]) if params[:server_id]
+    @move.moveable = Server.friendly.select(:id, :slug, :name).find(params[:server_id]) if params[:server_id]
 
     render :new_unscoped unless @moves_project_step.persisted?
   end
