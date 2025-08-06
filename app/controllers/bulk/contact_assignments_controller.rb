@@ -18,7 +18,8 @@ module Bulk
     private
 
     def set_contact_assignments
-      authorize! @contact_assignments = ContactAssignment.where(id: params[:ids]), with: ContactAssignmentPolicy
+      @contact_assignments = ContactAssignment.where(id: params[:ids])
+      authorize! @contact_assignments, with: ContactAssignmentPolicy
     end
   end
 end

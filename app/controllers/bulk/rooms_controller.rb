@@ -18,7 +18,8 @@ module Bulk
     private
 
     def set_rooms
-      authorize! @rooms = Room.where(id: params[:ids]), with: RoomPolicy
+      @rooms = Room.where(id: params[:ids])
+      authorize! @rooms, with: RoomPolicy
     end
   end
 end
