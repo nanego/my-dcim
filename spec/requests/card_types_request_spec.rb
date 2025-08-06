@@ -52,7 +52,7 @@ RSpec.describe "CardTypes" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:new) }
@@ -70,7 +70,7 @@ RSpec.describe "CardTypes" do
     let(:invalid_attributes) { { name: "" } }
     let(:params) { { card_type: valid_attributes } }
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
     it_behaves_like "with create another one"
 
     context "with valid parameters" do
@@ -105,7 +105,7 @@ RSpec.describe "CardTypes" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:edit) }
@@ -123,7 +123,7 @@ RSpec.describe "CardTypes" do
     let(:invalid_attributes) { { port_type_id: "" } }
     let(:params) { { card_type: valid_attributes } }
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with valid parameters" do
       it do
@@ -164,7 +164,7 @@ RSpec.describe "CardTypes" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with an card_type without cards" do
       let(:card_type) { card_types(:three) }

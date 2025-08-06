@@ -13,7 +13,7 @@ RSpec.describe "Rooms" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:new) }
@@ -29,7 +29,7 @@ RSpec.describe "Rooms" do
 
     let(:params) { { room: { name: "Room 1", site_id: sites(:one).id } } }
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
     it_behaves_like "with create another one"
 
     context "with valid parameters" do
@@ -66,7 +66,7 @@ RSpec.describe "Rooms" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with not found room" do
       let(:room) { Room.new(id: 999_999_999) }
