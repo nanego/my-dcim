@@ -8,17 +8,19 @@
                                   url: new_category_path,
                                   variant: :success,
                                   icon: "plus-lg",
-                                  is_responsive: true) %>
+                                  is_responsive: true) if allowed_to?(:create?) %>
   <% end %>
 <% end %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render List::DataTableComponent.new(@categories) do |table| %>
-    <% table.with_bulk_action(url: bulk_categories_path, method: :delete, class: "btn btn-danger btn-sm",
-                              data: { confirm: t("action.confirm") }
-    ) do %>
-      <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>">
-      </span>
+    <% if allowed_to?(:destroy?) %>
+      <% table.with_bulk_action(url: bulk_categories_path, method: :delete, class: "btn btn-danger btn-sm",
+                                data: { confirm: t("action.confirm") }
+      ) do %>
+        <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>">
+        </span>
+      <% end %>
     <% end %>
 
     <% table.with_column(Category.human_attribute_name(:name), sort_by: :name) do |category| %>
@@ -40,18 +42,23 @@
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |category| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
-        <%= link_to edit_category_path(category), class: "btn btn-info" do %>
-          <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
-                                                                     data-controller="tooltip"
-                                                                     data-bs-placement="left"></span>
-          <span class="visually-hidden"><%= t("action.edit") %></span>
+        <% if allowed_to?(:update?, category) %>
+          <%= link_to edit_category_path(category), class: "btn btn-info" do %>
+            <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
+                                                                      data-controller="tooltip"
+                                                                      data-bs-placement="left"></span>
+            <span class="visually-hidden"><%= t("action.edit") %></span>
+          <% end %>
         <% end %>
-        <%= link_to category, method: :delete, data: { confirm: t(".delete_confirmation") },
-                                               class: "btn btn-danger" do %>
-          <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
-                                                                     data-controller="tooltip"
-                                                                     data-bs-placement="left"></span>
-          <span class="visually-hidden"><%= t("action.delete") %></span>
+
+        <% if allowed_to?(:destroy?, category) %>
+          <%= link_to category, method: :delete, data: { confirm: t(".delete_confirmation") },
+                                                class: "btn btn-danger" do %>
+            <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                      data-controller="tooltip"
+                                                                      data-bs-placement="left"></span>
+            <span class="visually-hidden"><%= t("action.delete") %></span>
+          <% end %>
         <% end %>
       </div>
     <% end %>
