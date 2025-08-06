@@ -112,6 +112,10 @@ en:
         manufacturer_ids: Manufacturer
         modele_ids: Model
         room_ids: Room
+        actions: Actions
+        authors: Authors
+        object_types: Object types
+        date: Date
     placeholder:
       search: Search...
       quicksearch: Quick search
