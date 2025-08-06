@@ -18,7 +18,8 @@ module Bulk
     private
 
     def set_domaines
-      authorize! @domaines = Domaine.where(id: params[:ids]), with: DomainePolicy
+      @domaines = Domaine.where(id: params[:ids])
+      authorize! @domaines, with: DomainePolicy
     end
   end
 end

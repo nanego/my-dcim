@@ -18,7 +18,8 @@ module Bulk
     private
 
     def set_port_types
-      authorize! @port_types = PortType.where(id: params[:ids]), with: PortTypePolicy
+      @port_types = PortType.where(id: params[:ids])
+      authorize! @port_types, with: PortTypePolicy
     end
   end
 end

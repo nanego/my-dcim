@@ -20,7 +20,8 @@ module Bulk
     private
 
     def set_power_distribution_units
-      authorize! @power_distribution_units = Server.only_pdus.where(id: params[:ids]), with: PowerDistributionUnitPolicy
+      @power_distribution_units = Server.only_pdus.where(id: params[:ids])
+      authorize! @power_distribution_units, with: PowerDistributionUnitPolicy
     end
   end
 end

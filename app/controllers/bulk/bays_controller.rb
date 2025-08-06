@@ -18,7 +18,8 @@ module Bulk
     private
 
     def set_bays
-      authorize! @bays = Bay.where(id: params[:ids]), with: BayPolicy
+      @bays = Bay.where(id: params[:ids])
+      authorize! @bays, with: BayPolicy
     end
   end
 end

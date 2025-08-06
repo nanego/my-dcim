@@ -18,7 +18,8 @@ module Bulk
     private
 
     def set_sites
-      authorize! @sites = Site.where(id: params[:ids]), with: SitePolicy
+      @sites = Site.where(id: params[:ids])
+      authorize! @sites, with: SitePolicy
     end
   end
 end
