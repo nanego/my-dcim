@@ -30,6 +30,7 @@ fr:
     move: Déplacer
     preview: Prévisualiser
     configure: Configurer
+    continue: Continuer
   export_button:
     label: Exports
     exports:
