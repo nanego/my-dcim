@@ -89,7 +89,7 @@ RSpec.describe "Rooms" do
     end
 
     before do
-      sign_in users(:one)
+      sign_in users(:admin)
     end
 
     context "with invalid data" do
