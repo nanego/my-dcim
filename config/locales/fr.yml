@@ -905,6 +905,10 @@ fr:
         special_case: Backbone réseau
         comments: Commentaires
         vlans: Vlans
+        actions: Actions
+        authors: Auteurs
+        object_types: Types d'objet
+        date: Date
     placeholder:
       search: Rechercher...
       quicksearch: Recherche rapide

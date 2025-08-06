@@ -3,7 +3,7 @@
 class ChangelogEntryDecorator < ApplicationDecorator
   class << self
     def authors_options
-      User.select(:id, :name, :email).map { |u| [u.id, u.to_s] }
+      User.order(:name).select(:id, :name, :email).map { |u| [u.id, u.to_s] }
     end
 
     def object_types_options
@@ -11,7 +11,7 @@ class ChangelogEntryDecorator < ApplicationDecorator
         model = type.safe_constantize
 
         [model.model_name.human, model.name]
-      end
+      end.sort
     end
   end
 
