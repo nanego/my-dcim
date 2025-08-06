@@ -18,8 +18,7 @@ module Bulk
     private
 
     def set_servers
-      @servers = Server.where(id: params[:ids])
-      authorize! @servers, with: ServerPolicy
+      authorize! @servers = Server.where(id: params[:ids]), with: ServerPolicy
     end
   end
 end

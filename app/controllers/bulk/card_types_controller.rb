@@ -18,8 +18,7 @@ module Bulk
     private
 
     def set_card_types
-      @card_types = CardType.where(id: params[:ids])
-      authorize! @card_types, with: CardTypePolicy
+      authorize! @card_types = CardType.where(id: params[:ids]), with: CardTypePolicy
     end
   end
 end

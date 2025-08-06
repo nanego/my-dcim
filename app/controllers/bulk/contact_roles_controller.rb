@@ -18,8 +18,7 @@ module Bulk
     private
 
     def set_contact_roles
-      @contact_roles = ContactRole.where(id: params[:ids])
-      authorize! @contact_roles, with: ContactRolePolicy
+      authorize! @contact_roles = ContactRole.where(id: params[:ids]), with: ContactRolePolicy
     end
   end
 end
