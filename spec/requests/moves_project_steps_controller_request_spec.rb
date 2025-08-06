@@ -62,7 +62,7 @@ RSpec.describe MovesProjectStepsController do
 
     let(:moves_project_step) { moves_project_steps(:planned) }
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:redirect) }
     it { expect(response).to redirect_to(moves_project_path(moves_project)) }
