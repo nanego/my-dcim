@@ -1,7 +1,7 @@
 <% breadcrumb.add_step(t("action.create")) %>
 
 <%= render Page::HeadingNewComponent.new(
-  resource: @move, title: 't(".title")', breadcrumb:,
+  resource: @move, title: t("moves.new.title"), breadcrumb:,
   back_button_url: server_path(@move.moveable),
 ) %>
 
@@ -25,14 +25,27 @@
                           onchange: "select_server(this.value);",
                           class: "form-select",
                           data: { controller: "select" },
-                          placeholder: t("select.placeholder")
+                          placeholder: t("select.placeholder"),
+                        }
+            %>
+          </fieldset>
+
+          <fieldset class="col-12">
+            <%= f.label :moves_project_step_id, class: "form-label" %>
+            <%= f.select :moves_project_step_id,
+                        MovesProjectStepDecorator.grouped_by_project_options_for_select,
+                        { include_blank: true },
+                        {
+                          onchange: "select_server(this.value);",
+                          class: "form-select",
+                          data: { controller: "select" },
+                          placeholder: t("select.placeholder"),
                         }
             %>
           </fieldset>
 
           <div class="col-12 mt-4 text-end">
-            <% submit_text = @move.persisted? ? t("action.edit") : t("action.create") %>
-            <%= f.submit submit_text, class: class_names("btn", "btn-info": @move.persisted?, "btn-success": !@move.persisted?) %>
+            <%= f.submit t("action.continue"), name: "unscoped", class: "btn btn-success" %>
           </div>
         </div>
       <% end %>
