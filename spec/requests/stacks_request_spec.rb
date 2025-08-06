@@ -52,7 +52,7 @@ RSpec.describe "Stacks" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:new) }
@@ -69,7 +69,8 @@ RSpec.describe "Stacks" do
     let(:valid_attributes) { { name: "New Stack" } }
     let(:params) { { stack: valid_attributes } }
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
+
     it_behaves_like "with create another one"
 
     context "with valid parameters" do
@@ -98,7 +99,7 @@ RSpec.describe "Stacks" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:edit) }
@@ -115,7 +116,7 @@ RSpec.describe "Stacks" do
     let(:valid_attributes) { { name: "Blue" } }
     let(:params) { { stack: valid_attributes } }
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with valid parameters" do
       it do
@@ -150,7 +151,7 @@ RSpec.describe "Stacks" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with an stack without servers" do
       let(:stack) { stacks(:orange) }

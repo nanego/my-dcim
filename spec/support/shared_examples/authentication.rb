@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.shared_context "with authenticated user" do
-  let(:user) { User.create!(email: "user@example.com", password: "passwordpassword", is_admin: true) }
+  let(:user) { User.create!(email: "user@example.com", password: "passwordpassword") }
   let(:_keep_user_logged_out) { false }
 
   context "with logged out user" do
@@ -13,5 +13,11 @@ RSpec.shared_context "with authenticated user" do
 
   before do
     sign_in(user) unless _keep_user_logged_out
+  end
+end
+
+RSpec.shared_context "with authenticated admin" do
+  include_context "with authenticated user" do
+    let(:user) { users(:admin) }
   end
 end
