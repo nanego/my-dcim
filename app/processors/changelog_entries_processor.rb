@@ -2,10 +2,12 @@
 
 class ChangelogEntriesProcessor < ApplicationProcessor
   map :q do |q:|
+    q = q.downcase
+
     changelog_entries_table = ChangelogEntry.arel_table
     object_id_condition = changelog_entries_table[:object_id].eq(q.to_i)
 
-    object_name_filtered_entries_ids = raw.to_a.select { |entry| entry.object_name.include?(q) }.pluck(:id)
+    object_name_filtered_entries_ids = raw.to_a.select { |entry| entry.object_name.downcase.include?(q) }.pluck(:id)
     object_name_condition = changelog_entries_table[:id].in(object_name_filtered_entries_ids)
 
     combined_conditions = object_id_condition.or(object_name_condition)
