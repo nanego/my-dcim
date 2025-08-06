@@ -26,7 +26,7 @@ RSpec.describe "Bays" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:new) }
@@ -44,7 +44,7 @@ RSpec.describe "Bays" do
       { bay: { name: "Bay 1", bay_type_id: bay_types(:one).id, islet_id: islets(:one).id } }
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
     it_behaves_like "with create another one"
 
     context "with valid parameters" do
@@ -81,7 +81,7 @@ RSpec.describe "Bays" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with not found bay" do
       let(:bay) { Bay.new(id: 999_999_999) }

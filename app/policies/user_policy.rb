@@ -23,6 +23,10 @@ class UserPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def add_user?
+    manage?
+  end
+
   def suspend?
     user.admin? && user != record
   end

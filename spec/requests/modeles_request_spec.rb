@@ -55,7 +55,7 @@ RSpec.describe "/modeles" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:new) }
@@ -80,7 +80,7 @@ RSpec.describe "/modeles" do
     let(:invalid_attributes) { { name: "" } }
     let(:params) { { modele: valid_attributes } }
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
     it_behaves_like "with create another one"
 
     context "with valid parameters" do
@@ -129,7 +129,7 @@ RSpec.describe "/modeles" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     before { response }
 
@@ -150,7 +150,7 @@ RSpec.describe "/modeles" do
     let(:invalid_attributes) { { category_id: "" } }
     let(:params) { { modele: valid_attributes } }
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with valid parameters" do
       it do
@@ -204,7 +204,7 @@ RSpec.describe "/modeles" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with a modele not referenced on Server" do
       let(:modele) { modeles(:four) }
@@ -239,7 +239,7 @@ RSpec.describe "/modeles" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:duplicate) }
