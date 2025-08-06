@@ -4,7 +4,7 @@ require "test_helper"
 
 class AirConditionersControllerTest < ActionDispatch::IntegrationTest
   setup do
-    sign_in users(:one)
+    sign_in users(:admin)
     @air_conditioner = air_conditioners(:one)
   end
 
