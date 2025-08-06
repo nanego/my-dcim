@@ -1,6 +1,6 @@
 <% breadcrumb.add_step(title = @islet.name_with_room) %>
 
-<%= render Page::HeadingShowComponent.new(resource: @islet, title:, breadcrumb:) %>
+<%= render Page::HeadingShowComponent.new(resource: @islet, title:, breadcrumb:, editable: allowed_to?(:update?, @islet)) %>
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
@@ -45,15 +45,18 @@
           <dt class="pb-2"><%= Room.model_name.human %></dt>
           <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
             <%= link_to @islet.room, room_path(@islet.room) %>
-            <%= link_to visualization_room_path(@islet.room),
-                        class: "btn btn-primary btn-sm",
-                        data: { turbo_frame: :_top } do %>
-              <span class="bi bi-diagram-3-fill"
-                    aria-hidden="true"
-                    data-controller="tooltip"
-                    data-bs-placement="left"
-                    title="<%= t("visualization.title") %>"></span>
-              <span class="visually-hidden"><%= t("visualization.title") %></span>
+
+            <% if allowed_to?(:show?, @islet.room, with: Visualization::RoomPolicy) %>
+              <%= link_to visualization_room_path(@islet.room),
+                          class: "btn btn-primary btn-sm",
+                          data: { turbo_frame: :_top } do %>
+                <span class="bi bi-diagram-3-fill"
+                      aria-hidden="true"
+                      data-controller="tooltip"
+                      data-bs-placement="left"
+                      title="<%= t("visualization.title") %>"></span>
+                <span class="visually-hidden"><%= t("visualization.title") %></span>
+              <% end %>
             <% end %>
           </dd>
 

@@ -8,7 +8,7 @@
                                   url: new_frame_path,
                                   variant: :success,
                                   icon: "plus-lg",
-                                  is_responsive: true) %>
+                                  is_responsive: true) if allowed_to?(:create?) %>
   <% end %>
 <% end %>
 
@@ -92,21 +92,29 @@
 
       <% table.with_column(style: "min-width: 70px; width: 70px") do |frame| %>
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
-          <%= link_to visualization_frame_path(frame), class: "btn btn-primary", data: { turbo_frame: :_top } do %>
-            <span class="bi bi-diagram-3-fill" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("visualization.title") %>"></span>
-            <span class="visually-hidden"><%= t("visualization.title") %></span>
+          <% if allowed_to?(:show?, frame, with: Visualization::FramePolicy) %>
+            <%= link_to visualization_frame_path(frame), class: "btn btn-primary", data: { turbo_frame: :_top } do %>
+              <span class="bi bi-diagram-3-fill" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("visualization.title") %>"></span>
+              <span class="visually-hidden"><%= t("visualization.title") %></span>
+            <% end %>
           <% end %>
-          <%= link_to edit_frame_path(frame), class: "btn btn-info", data: { turbo_frame: :_top } do %>
-            <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
-                                                                      data-controller="tooltip"
-                                                                      data-bs-placement="left"></span>
-            <span class="visually-hidden"><%= t("action.edit") %></span>
+
+          <% if allowed_to?(:update?, frame) %>
+            <%= link_to edit_frame_path(frame), class: "btn btn-info", data: { turbo_frame: :_top } do %>
+              <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
+                                                                        data-controller="tooltip"
+                                                                        data-bs-placement="left"></span>
+              <span class="visually-hidden"><%= t("action.edit") %></span>
+            <% end %>
           <% end %>
-          <%= link_to frame, method: :delete, data: { turbo_frame: :_top, confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
-            <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
-                                                                      data-controller="tooltip"
-                                                                      data-bs-placement="left"></span>
-            <span class="visually-hidden"><%= t("action.delete") %></span>
+
+          <% if allowed_to?(:destroy?, frame) %>
+            <%= link_to frame, method: :delete, data: { turbo_frame: :_top, confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
+              <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                        data-controller="tooltip"
+                                                                        data-bs-placement="left"></span>
+              <span class="visually-hidden"><%= t("action.delete") %></span>
+            <% end %>
           <% end %>
         </div>
       <% end %>

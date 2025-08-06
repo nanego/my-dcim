@@ -8,7 +8,7 @@
                                   url: new_site_path,
                                   variant: :success,
                                   icon: "plus-lg",
-                                  is_responsive: true) %>
+                                  is_responsive: true) if allowed_to?(:manage?) %>
   <% end %>
 <% end %>
 
@@ -16,11 +16,13 @@
   <div id="map" class="border rounded" style="height: 450px;"></div>
 
   <%= render List::DataTableComponent.new(@sites) do |table| %>
-    <% table.with_bulk_action(url: bulk_sites_path, method: :delete, class: "btn btn-danger btn-sm",
-                                  data: { confirm: t("action.confirm") }
-        ) do %>
-      <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>">
-      </span>
+    <% if allowed_to?(:create?) %>
+      <% table.with_bulk_action(url: bulk_sites_path, method: :delete, class: "btn btn-danger btn-sm",
+                                    data: { confirm: t("action.confirm") }
+          ) do %>
+        <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>">
+        </span>
+      <% end %>
     <% end %>
 
     <% table.with_column(Site.human_attribute_name(:name), sort_by: :name) do |site| %>
@@ -39,16 +41,22 @@
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |site| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
-        <%= link_to edit_site_path(site), class: "btn btn-info" do %>
-          <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
-          <span class="visually-hidden"><%= t("action.edit") %></span>
+        <% if allowed_to?(:update?, site) %>
+          <%= link_to edit_site_path(site), class: "btn btn-info" do %>
+            <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
+            <span class="visually-hidden"><%= t("action.edit") %></span>
+          <% end %>
         <% end %>
-        <%= link_to site, method: :delete, data: { confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
-          <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
-          <span class="visually-hidden"><%= t("action.delete") %></span>
+
+        <% if allowed_to?(:destroy?, site) %>
+          <%= link_to site, method: :delete, data: { confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
+            <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
+            <span class="visually-hidden"><%= t("action.delete") %></span>
+          <% end %>
         <% end %>
       </div>
     <% end %>
+
   <% end %>
 </div>
 
