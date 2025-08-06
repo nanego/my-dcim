@@ -4,7 +4,7 @@ require File.expand_path("../../test_helper", __FILE__)
 
 class DomainesControllerTest < ActionController::TestCase
   setup do
-    sign_in users(:one)
+    sign_in users(:admin)
     @domaine = domaines(:switch)
   end
 
