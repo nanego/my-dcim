@@ -21,7 +21,9 @@
   <%= render HasManyTurboFrameComponent.new(
     Server.model_name.human(count: 2),
     url: servers_path(domaine_ids: @domaine.id),
-    frame_id: dom_id(Server, :table)
+    frame_id: dom_id(Server, :table),
+    new_path: new_server_path(server: { domaine_id: @domaine.id }),
+    new_label: t("servers.add_new")
   ) %>
   <%= render ChangelogEntries::ObjectListComponent.new(@domaine) %>
 </div>

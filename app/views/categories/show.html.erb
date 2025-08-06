@@ -32,7 +32,11 @@
     </div>
   </div>
   <%= render HasManyTurboFrameComponent.new(
-    Modele.model_name.human.pluralize, url: modeles_path(category_ids: @category.id), frame_id: dom_id(Modele, :table)
+    Modele.model_name.human.pluralize,
+    url: modeles_path(category_ids: @category.id),
+    frame_id: dom_id(Modele, :table),
+    new_path: new_modele_path(modele: { category_id: @category.id }),
+    new_label: t("modeles.add_new")
   ) %>
   <%= render ChangelogEntries::ObjectListComponent.new(@category) %>
 </div>

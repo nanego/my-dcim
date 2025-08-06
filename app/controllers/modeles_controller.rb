@@ -22,6 +22,7 @@ class ModelesController < ApplicationController
 
   def new
     @modele = Modele.new
+    @modele.assign_attributes(modele_params) if params[:modele]
     @modele.composants.build(:name => 'ALIM')
     @modele.composants.build(:name => 'IPMI')
     @modele.composants.build(:name => 'CM')
