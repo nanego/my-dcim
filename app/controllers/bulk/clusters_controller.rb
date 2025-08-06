@@ -18,7 +18,8 @@ module Bulk
     private
 
     def set_clusters
-      authorize! @clusters = Cluster.where(id: params[:ids]), with: ClusterPolicy
+      @clusters = Cluster.where(id: params[:ids])
+      authorize! @clusters, with: ClusterPolicy
     end
   end
 end
