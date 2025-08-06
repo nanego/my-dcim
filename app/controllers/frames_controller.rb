@@ -58,7 +58,7 @@ class FramesController < ApplicationController
   end
 
   def sort
-    authorize! to: :sort?
+    authorize!
 
     params[:frame].each_with_index do |id, index|
       Frame.where(id: id).update_all(position: index + 1) # rubocop:disable Rails/SkipsModelValidations
