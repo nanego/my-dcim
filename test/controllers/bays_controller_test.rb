@@ -4,7 +4,7 @@ require File.expand_path("../../test_helper", __FILE__)
 
 class BaysControllerTest < ActionController::TestCase
   setup do
-    sign_in users(:one)
+    sign_in users(:admin)
     @bay = bays(:one)
   end
 

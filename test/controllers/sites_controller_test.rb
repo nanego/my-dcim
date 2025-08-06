@@ -4,7 +4,7 @@ require "test_helper"
 
 class SitesControllerTest < ActionController::TestCase
   setup do
-    sign_in users(:one)
+    sign_in users(:admin)
     @site = sites(:one)
   end
 

@@ -4,7 +4,7 @@ require File.expand_path("../../test_helper", __FILE__)
 
 class CategoriesControllerTest < ActionController::TestCase
   setup do
-    sign_in users(:one)
+    sign_in users(:admin)
     @category = categories(:one)
   end
 
