@@ -18,7 +18,8 @@ module Bulk
     private
 
     def set_contacts
-      authorize! @contacts = Contact.where(id: params[:ids]), with: ContactPolicy
+      @contacts = Contact.where(id: params[:ids])
+      authorize! @contacts, with: ContactPolicy
     end
   end
 end
