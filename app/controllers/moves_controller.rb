@@ -113,6 +113,9 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   def load_connection
     @selected_port = Port.find(params[:port_id])
     @server = @selected_port.server
+    @frame = Frame.friendly.find(params[:frame_id])
+    @servers = @moves_project_step.servers_moves_for_frame_at_current_step(@frame)
+
     @moved_connections = MovedConnection.per_servers([@server])
     # TODO: Deal with conflicts if there is more than 1 result
     @moved_connection = @moved_connections.where(port_from_id: params[:port_id])
@@ -204,7 +207,12 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
   def get_all_servers_per_frame # rubocop:disable Naming/AccessorMethodName
     @all_servers_per_frame = Frame.order(:name).to_h do |frame|
-      [frame.name, frame.servers.map { |v| [v.name, v.id, { data: { frame_name: frame.name } }] }]
+      [
+        frame.name,
+        @moves_project_step.servers_moves_for_frame_at_current_step(frame).map do |v|
+          [v.name, v.id, { data: { frame_name: frame.name } }]
+        end,
+      ]
     end
   end
 end

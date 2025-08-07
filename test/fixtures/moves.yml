@@ -68,7 +68,7 @@ move_step_three:
 move_step_four:
   moves_project_step_id: 8
   moveable_type: Server
-  moveable_id: 1
+  moveable_id: 2
   position: 40
   frame_id: 4
   prev_frame_id: 5
