@@ -4,7 +4,7 @@ require "test_helper"
 
 class DataImportControllerTest < ActionController::TestCase
   setup do
-    sign_in users(:one)
+    sign_in users(:admin)
   end
 
   test "should get ansible" do
