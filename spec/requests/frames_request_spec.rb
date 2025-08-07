@@ -15,7 +15,7 @@ RSpec.describe "Frames" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:new) }
@@ -31,7 +31,7 @@ RSpec.describe "Frames" do
 
     let(:params) { { frame: { name: "Frame 1", bay_id: bays(:one).id } } }
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
     it_behaves_like "with create another one"
 
     context "with valid parameters" do
@@ -97,7 +97,7 @@ RSpec.describe "Frames" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with not found frame" do
       let(:frame) { Frame.new(id: 999_999_999) }

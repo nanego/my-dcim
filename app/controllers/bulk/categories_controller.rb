@@ -19,6 +19,7 @@ module Bulk
 
     def set_categories
       @categories = Category.where(id: params[:ids])
+      authorize! @categories, with: CategoryPolicy
     end
   end
 end

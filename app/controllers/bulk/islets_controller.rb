@@ -19,6 +19,7 @@ module Bulk
 
     def set_islets
       @islets = Islet.where(id: params[:ids])
+      authorize! @islets, with: IsletPolicy
     end
   end
 end

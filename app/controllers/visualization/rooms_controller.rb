@@ -26,7 +26,7 @@ module Visualization
     private
 
     def set_room
-      @room = Room.friendly.find(params[:id].to_s.downcase)
+      authorize! @room = Room.friendly.find(params[:id].to_s.downcase)
     end
 
     def set_servers_per_frames

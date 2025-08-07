@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "/bulk/sites" do
-  before { sign_in users(:one) }
+  before { sign_in users(:admin) }
 
   describe "DELETE /destroy" do
     context "with sites without associations" do

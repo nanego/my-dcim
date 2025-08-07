@@ -6,7 +6,7 @@ RSpec.describe "ExternalAppRecords" do
   let(:ext_app_rec) { external_app_records(:one) }
 
   before do
-    sign_in users(:one)
+    sign_in users(:admin)
 
     ext_app_rec
   end

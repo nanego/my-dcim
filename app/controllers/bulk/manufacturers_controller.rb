@@ -19,6 +19,7 @@ module Bulk
 
     def set_manufacturers
       @manufacturers = Manufacturer.where(id: params[:ids])
+      authorize! @manufacturers, with: ManufacturerPolicy
     end
   end
 end

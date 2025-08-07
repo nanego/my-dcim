@@ -19,6 +19,7 @@ module Bulk
 
     def set_cables
       @cables = Cable.where(id: params[:ids])
+      authorize! @cables, with: CablePolicy
     end
   end
 end
