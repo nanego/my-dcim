@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe UserDecorator, type: :decorator do
   let(:user) { users(:one) }
@@ -43,6 +43,40 @@ RSpec.describe UserDecorator, type: :decorator do
       let(:role) { :writer }
 
       it { expect(decorated_user.role_human_name).to eq(User.human_attribute_name("role.writer")) }
+    end
+  end
+
+  describe "#admin_badge_component" do
+    subject(:badge) { decorated_user.admin_badge_component }
+
+    it { is_expected.to be_a BadgeComponent }
+    it { expect(badge.instance_variable_get(:@color)).to eq :warning }
+    it { expect(badge.content).to eq "Admin" }
+  end
+
+  describe "#role_to_badge_component" do
+    subject(:badge) { decorated_user.role_to_badge_component }
+
+    let(:role) { nil }
+
+    before do
+      user.role = role
+    end
+
+    context "when role is reader" do
+      let(:role) { :reader }
+
+      it { is_expected.to be_a BadgeComponent }
+      it { expect(badge.instance_variable_get(:@color)).to eq :info }
+      it { expect(badge.content).to eq "Lecteur" }
+    end
+
+    context "when role is writer" do
+      let(:role) { :writer }
+
+      it { is_expected.to be_a BadgeComponent }
+      it { expect(badge.instance_variable_get(:@color)).to eq :primary }
+      it { expect(badge.content).to eq "Éditeur" }
     end
   end
 end

@@ -265,19 +265,20 @@ fr:
         horizontal: Horizontale
         vertical: Verticale
       user:
-        id: Identifiant
+        id: "#"
         name: Nom
         email: Adresse mail
         last_sign_in_at: Dernière connexion le
         created_at: Compte créé le
         role: Rôle
-        is_admin: Est administrateur
+        is_admin: Administrateur ?
         authentication_token: Clé API
         locale: Langue
         theme: Thème
         items_per_page: Éléments par page
         visualization_bay_default_background_color: Couleur par défault des baies
         visualization_bay_default_orientation: Orientation par défaut des baies
+        admin: Admin
       user/role:
         reader: Lecteur
         writer: Éditeur

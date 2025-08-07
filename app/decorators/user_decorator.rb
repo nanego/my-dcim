@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class UserDecorator < ApplicationDecorator
+  include ActionView::Context
+  include ActionView::Helpers::AssetTagHelper
+  include ActionView::Helpers::TextHelper
+
   class << self
     def available_locales_for_options
       User::AVAILABLE_LOCALES.map { |locale| [User.human_attribute_name("locale.#{locale}"), locale] }
@@ -25,5 +29,15 @@ class UserDecorator < ApplicationDecorator
 
   def role_human_name
     User.human_attribute_name("role.#{role}")
+  end
+
+  def admin_badge_component
+    BadgeComponent.new(User.human_attribute_name("admin"), color: :warning)
+  end
+
+  def role_to_badge_component
+    color = role == "writer" ? :primary : :info
+
+    BadgeComponent.new(role_human_name, color:)
   end
 end

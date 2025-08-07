@@ -49,7 +49,8 @@
     <% end %>
 
     <% table.with_column(User.human_attribute_name(:role), sort_by: :role) do |user| %>
-      <%= user.role_human_name %>
+      <%= render user.role_to_badge_component %>
+      <%= render user.decorated.admin_badge_component if user.is_admin %>
     <% end %>
 
     <% table.with_column(User.human_attribute_name(:last_sign_in_at), sort_by: :last_sign_in_at) do |user| %>
@@ -64,7 +65,7 @@
       <%= l user.created_at %>
     <% end %>
 
-    <% table.with_column do |user| %>
+    <% table.with_column(style: "min-width: 70px; width: 70px") do |user| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <% if user.suspended? %>
           <% if allowed_to?(:suspend?, user) %>
@@ -78,9 +79,9 @@
               <span class="visually-hidden"><%= t("action.unsuspend") %></span>
             <% end %>
           <% else %>
-            <a class="btn btn-outline-primary disabled" aria-disabled="true">
+            <button class="btn btn-outline-primary" disabled>
               <span class="bi bi-unlock" title="<%= t("action.unsuspend") %>"></span>
-            </a>
+            </button>
           <% end %>
         <% else %>
           <% if allowed_to?(:unsuspend?, user) %>
@@ -94,9 +95,9 @@
               <span class="visually-hidden"><%= t("action.suspend") %></span>
             <% end %>
           <% else %>
-            <a class="btn btn-outline-primary disabled" aria-disabled="true">
+            <button class="btn btn-outline-primary" disabled>
               <span class="bi bi-lock" title="<%= t("action.suspend") %>"></span>
-            </a>
+            </button>
           <% end %>
         <% end %>
         <% if allowed_to?(:edit?, user) %>
@@ -116,9 +117,9 @@
             <span class="visually-hidden"><%= t("action.delete") %></span>
           <% end %>
         <% else %>
-          <a class="btn btn-outline-danger disabled" aria-disabled="true">
+          <button class="btn btn-outline-danger" disabled>
             <span class="bi bi-trash" title="<%= t("action.delete") %>"></span>
-          </a>
+          </button>
         <% end %>
       </div>
     <% end %>
