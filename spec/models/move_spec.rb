@@ -62,10 +62,13 @@ RSpec.describe Move do
     end
 
     context "with connections" do
+      pending "# TODO"
     end
 
     context "wehn already executed" do
       let(:move) { moves(:executed) }
+
+      pending "# TODO"
     end
   end
 
