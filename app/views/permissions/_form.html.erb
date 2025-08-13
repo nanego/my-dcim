@@ -1,0 +1,52 @@
+<%= form_for(@permission, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+  <%= render FormErrorsComponent.new(@permission) %>
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+    <fieldset class="col-12 ">
+      <%= f.label :name, class: "form-label" %>
+      <%= f.text_field :name, class: "form-control" %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :domaine_ids, "Domaines concernés", class: "form-label" %>
+      <%= f.select :domaine_ids, Domaine.pluck(:name, :id),
+                            { include_blank: t("access_control.blank") },
+                            class: "form-select", multiple: true, data: { controller: :select } %>
+    </fieldset>
+  <% end %>
+
+  <%= render CardComponent.new(extra_classes: "mt-4 bg-body-tertiary",
+                               data: { controller: "nested-form"}) do |card| %>
+    <% card.with_header do %>
+      Utilisateurs
+    <% end %>
+
+    <template data-nested-form-target="template">
+      <%= f.fields_for :permission_users, child_index: "__NEW_RECORD__" do |permission_user_fields| %>
+        <%= render partial: "permission_user_fields", locals: { f: permission_user_fields } %>
+      <% end %>
+    </template>
+
+    <div class="d-none d-md-block border-bottom pb-3">
+      <div class="row">
+        <span class="col-7">User</span>
+        <span class="col-4">Role</span>
+        <span class="col-1"></span>
+      </div>
+    </div>
+
+    <%= f.fields_for :permission_users do |permission_user_fields| %>
+      <%= render partial: "permission_user_fields", locals: { f: permission_user_fields } %>
+    <% end %>
+    <div data-nested-form-target="target"></div>
+
+    <% card.with_footer do %>
+      <span class="ms-auto me-auto">
+        <button type="button" class="btn btn-outline-success btn-sm" data-action="nested-form#add">
+          <span class="bi bi-person-plus" aria-hidden="true"></span> <%= t(".add_permission_user") %>
+        </button>
+      </span>
+    <% end %>
+  <% end %>
+
+  <%= render Form::ActionsComponent.new(f) %>
+<% end %>
