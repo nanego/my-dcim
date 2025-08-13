@@ -26,4 +26,14 @@ class UserDecorator < ApplicationDecorator
   def role_human_name
     User.human_attribute_name("role.#{role}")
   end
+
+  def admin_badge_component
+    BadgeComponent.new(User.human_attribute_name("admin"), color: :warning)
+  end
+
+  def role_to_badge_component
+    color = role == "writer" ? :primary : :info
+
+    BadgeComponent.new(role_human_name, color:)
+  end
 end
