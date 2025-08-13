@@ -9,7 +9,7 @@ class MovesProjectStepDecorator < ApplicationDecorator
         .merge(MovesProject.unarchived)
         .group_by(&:moves_project)
         .map do |moves_project, steps|
-          [moves_project.to_s, steps.map { |step| [step.to_s, step.id] }]
+        [moves_project.to_s, steps.map { |step| [step.to_s, step.id] }]
       end
 
       grouped_options_for_select(grouped_steps)
