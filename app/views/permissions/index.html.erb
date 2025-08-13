@@ -17,7 +17,15 @@
     <% table.with_column(Permission.human_attribute_name(:name)) do |permission| %>
       <%= permission.name %>
     <% end %>
-  
+
+    <% table.with_column(Permission.human_attribute_name(:domaines)) do |permission| %>
+      TODO
+    <% end %>
+
+    <% table.with_column(Permission.human_attribute_name(:users)) do |permission| %>
+      TODO
+    <% end %>
+
     <% table.with_column(style: "min-width: 70px; width: 70px") do |permission| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= link_to edit_permission_path(permission), class: "btn btn-info" do %>
