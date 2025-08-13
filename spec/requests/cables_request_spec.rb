@@ -7,7 +7,7 @@ RSpec.describe "Cables" do
   let(:params) { {} }
 
   before do
-    sign_in users(:one)
+    sign_in users(:admin)
 
     cable
   end

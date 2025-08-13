@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "/bulk/rooms" do
-  before { sign_in users(:one) }
+  before { sign_in users(:admin) }
 
   describe "DELETE /destroy" do
     context "with rooms without associations" do

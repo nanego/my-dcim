@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "/bulk/contact_assignments" do
-  before { sign_in users(:one) }
+  before { sign_in users(:admin) }
 
   describe "DELETE /destroy" do
     context "with contact assignments without associations" do

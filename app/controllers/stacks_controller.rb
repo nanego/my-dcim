@@ -9,7 +9,7 @@ class StacksController < ApplicationController
   # GET /stacks
   # GET /stacks.json
   def index
-    @stacks = sorted Stack.all
+    authorize! @stacks = sorted(Stack.all)
   end
 
   # GET /stacks/1
@@ -18,7 +18,7 @@ class StacksController < ApplicationController
 
   # GET /stacks/new
   def new
-    @stack = Stack.new
+    authorize! @stack = Stack.new
   end
 
   # GET /stacks/1/edit
@@ -27,7 +27,7 @@ class StacksController < ApplicationController
   # POST /stacks
   # POST /stacks.json
   def create
-    @stack = Stack.new(stack_params)
+    authorize! @stack = Stack.new(stack_params)
 
     respond_to do |format|
       if @stack.save
@@ -73,7 +73,7 @@ class StacksController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_stack
-    @stack = Stack.find(params[:id])
+    authorize! @stack = Stack.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

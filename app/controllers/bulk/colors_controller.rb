@@ -19,6 +19,7 @@ module Bulk
 
     def set_colors
       @colors = Color.where(id: params[:ids])
+      authorize! @colors, with: ColorPolicy
     end
   end
 end

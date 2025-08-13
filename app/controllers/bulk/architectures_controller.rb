@@ -19,6 +19,7 @@ module Bulk
 
     def set_architectures
       @architectures = Architecture.where(id: params[:ids])
+      authorize! @architectures, with: ArchitecturePolicy
     end
   end
 end
