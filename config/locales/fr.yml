@@ -882,6 +882,7 @@ fr:
     index:
       title: Permissions
       new_permission: Nouvelle permission
+      delete_confirmation: Vous êtes sûr de vouloir supprimer cette permission ?
     new:
       title: Nouvelle permission
     edit:
