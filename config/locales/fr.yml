@@ -64,6 +64,9 @@ fr:
     locken_key: Clé Locken
     blank: Pas de contrôle
 
+  cluster:
+    blank: Pas de cluster
+
   layouts:
     navigation:
       nav_links_administration:
@@ -849,7 +852,7 @@ fr:
     infrastructures:
       show:
         loading: Chargement en cours ...
-        edit_clusters: Edit clusters
+        edit_clusters: Modifier les clusters
     bays:
       show:
         title: Baie %{bay_type} %{bay}
