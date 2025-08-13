@@ -8,7 +8,7 @@
       variant: :success,
       icon: "plus-lg",
       is_responsive: true
-    ) if allowed_to?(:manage?) %>
+    ) if allowed_to?(:create?) %>
   <% end %>
 <% end %>
 
@@ -16,7 +16,7 @@
   <div id="map" class="border rounded" style="height: 450px;"></div>
 
   <%= render List::DataTableComponent.new(@sites) do |table| %>
-    <% if allowed_to?(:create?) %>
+    <% if allowed_to?(:destroy?) %>
       <% table.with_bulk_action(
         url: bulk_sites_path,
         method: :delete,
