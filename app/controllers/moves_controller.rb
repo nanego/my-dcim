@@ -188,11 +188,11 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   private
 
   def set_moves_project_step
-    @moves_project_step = MovesProjectStep.new
-
-    return unless params[:moves_project_step_id]
-
-    @moves_project_step = MovesProjectStep.find(params[:moves_project_step_id])
+    @moves_project_step = if params[:moves_project_step_id]
+                            MovesProjectStep.find(params[:moves_project_step_id])
+                          else
+                            MovesProjectStep.new
+                          end
   end
 
   def redirect_if_archived

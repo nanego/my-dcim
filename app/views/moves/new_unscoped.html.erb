@@ -1,7 +1,7 @@
-<% breadcrumb.add_step("Choix de l'étape") %>
+<% breadcrumb.add_step(t(".breadcrumb.title")) %>
 
 <%= render Page::HeadingNewComponent.new(
-  resource: @move, title: "Nouveau déplacement pour #{@move.moveable}", breadcrumb:,
+  resource: @move, title: t(".title", moveable_name: @move.moveable), breadcrumb:,
   back_button_url: server_path(@move.moveable),
 ) %>
 
