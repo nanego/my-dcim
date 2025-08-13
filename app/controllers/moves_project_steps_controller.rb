@@ -48,5 +48,6 @@ class MovesProjectStepsController < ApplicationController
     @frame = Frame.friendly.find(params[:frame_id])
     @servers = @moves_project_step.servers_moves_for_frame_at_current_step(@frame)
     @moved_connections = MovedConnection.per_servers(@servers)
+    @moves = @moves_project_step.moves.where(frame: @frame, moveable_type: "Server")
   end
 end
