@@ -7,8 +7,13 @@ class DataImportControllerTest < ActionController::TestCase
     sign_in users(:admin)
   end
 
-  test "should get ansible" do
+  test "should get index" do
     get :index
+    assert_response :success
+  end
+
+  test "should get ansible" do
+    post :ansible
     assert_response :success
   end
 end
