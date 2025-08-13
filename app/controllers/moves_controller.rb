@@ -43,7 +43,6 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
       if @move.valid?
         redirect_to new_moves_project_step_move_path(@move.step, server_id: @move.moveable)
       else
-        load_form_data
         render :new_unscoped
       end
 
@@ -222,6 +221,8 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def load_form_data
+    return unless @moves_project_step.persisted?
+
     get_all_servers_per_frame
     get_all_frames_per_room
   end
