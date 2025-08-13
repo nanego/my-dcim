@@ -32,7 +32,7 @@ RSpec.describe MovesProjectStepDecorator, type: :decorator do
         end
     end
 
-    it do
+    it do # rubocop:disable RSpec/ExampleLength
       expect(described_class.grouped_by_project_options_for_select)
         .to have_tag("optgroup", with: { label: "F" }) do
           with_tag("option", with: { value: "6" }, text: "Step 1")
