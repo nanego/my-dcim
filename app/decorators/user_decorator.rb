@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 class UserDecorator < ApplicationDecorator
-  include ActionView::Context
-  include ActionView::Helpers::AssetTagHelper
-  include ActionView::Helpers::TextHelper
-
   class << self
     def available_locales_for_options
       User::AVAILABLE_LOCALES.map { |locale| [User.human_attribute_name("locale.#{locale}"), locale] }
