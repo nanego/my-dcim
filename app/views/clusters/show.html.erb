@@ -1,6 +1,12 @@
 <% breadcrumb.add_step(@cluster) %>
 
-<%= render Page::HeadingShowComponent.new(resource: @cluster, title: @cluster.name, breadcrumb:) %>
+<%= render Page::HeadingShowComponent.new(
+  resource: @cluster,
+  title: @cluster.name,
+  breadcrumb:,
+  editable: allowed_to?(:update?, @cluster)
+) %>
+
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
@@ -18,10 +24,12 @@
       <% end %>
     </div>
   </div>
+
   <%= render HasManyTurboFrameComponent.new(
     Server.model_name.human(count: 2),
     url: servers_path(cluster_ids: @cluster.id),
     frame_id: dom_id(Server, :table)
   ) %>
+
   <%= render ChangelogEntries::ObjectListComponent.new(@cluster) %>
 </div>
