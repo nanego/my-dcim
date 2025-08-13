@@ -65,7 +65,7 @@ RSpec.describe Move do
       pending "# TODO"
     end
 
-    context "wehn already executed" do
+    context "when already executed" do
       let(:move) { moves(:executed) }
 
       pending "# TODO"
