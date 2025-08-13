@@ -8,13 +8,16 @@
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
-    <button id="openEditClusterModal" class="btn btn-info align-items-center d-inline-flex" data-bs-toggle="modal" data-bs-target="#editInfrastructureIsletModal" disabled>
+    <button id="openEditClusterModal"
+            class="btn btn-info align-items-center d-inline-flex"
+            data-bs-toggle="modal"
+            data-bs-target="#editInfrastructureIsletModal"
+            disabled>
       <span class="bi bi-pencil"></span>
       <span class="ms-2"><%= t(".edit_clusters") %></span>
     </button>
   <% end %>
 <% end %>
-
 
 <div data-turbo="true">
   <div class="p-4 border-top d-flex flex-column row-gap-4">
