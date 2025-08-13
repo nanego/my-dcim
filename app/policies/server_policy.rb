@@ -20,8 +20,4 @@ class ServerPolicy < ApplicationPolicy
   def export?
     index?
   end
-
-  def destroy_connections?
-    manage?
-  end
 end

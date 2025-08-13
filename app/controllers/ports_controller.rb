@@ -25,11 +25,11 @@ class PortsController < ApplicationController
   end
 
   def show
-    authorize! @port = Port.find_by_id(params[:id]), with: PortPolicy
+    authorize! @port = Port.find_by_id(params[:id])
   end
 
   def edit
-    authorize! with: PortPolicy
+    authorize!
 
     if params[:id].present? && params[:id].to_i > 0
       redirect_to connections_edit_path(from_port_id: params[:id])
@@ -44,7 +44,7 @@ class PortsController < ApplicationController
   end
 
   def update
-    authorize! @port = Port.find_by_id(params[:id]), with: PortPolicy
+    authorize! @port = Port.find_by_id(params[:id])
 
     respond_to do |format|
       if @port.update(port_params)
@@ -59,8 +59,7 @@ class PortsController < ApplicationController
   end
 
   def destroy
-    @port = Port.find_by_id(params[:id])
-    authorize! @port, with: PortPolicy
+    authorize! @port = Port.find_by_id(params[:id])
 
     server = @port.card.server
     @port.destroy
