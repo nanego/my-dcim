@@ -400,6 +400,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_27_090459) do
     t.index ["created_by_id"], name: "index_moves_projects_on_created_by_id"
   end
 
+  create_table "permissions", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "port_types", id: :serial, force: :cascade do |t|
     t.string "name"
     t.boolean "power"
