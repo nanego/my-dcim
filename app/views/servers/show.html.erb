@@ -4,7 +4,11 @@
   breadcrumb.add_step(@server.name)
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @server, title:, breadcrumb:, editable: allowed_to?(:update?, @server)) do |heading| %>
+<%= render Page::HeadingShowComponent.new(
+  resource: @server,
+  title:, breadcrumb:,
+  editable: allowed_to?(:update?, @server)
+) do |heading| %>
   <% heading.with_extra_buttons do %>
     <%# TODO: requires a step)
     <%#= render ButtonComponent.new(
@@ -21,12 +25,14 @@
         tooltip_title: t(".moves_cta_tooltip")
       }
     ) %>
-    <%= render ButtonComponent.new(t("action.duplicate"),
-                                  url: duplicate_server_path(@server.slug),
-                                  variant: :success,
-                                  icon: "copy",
-                                  is_responsive: true,
-                                  extra_classes: "me-2") if allowed_to?(:duplicate?, @server) %>
+    <%= render ButtonComponent.new(
+      t("action.duplicate"),
+      url: duplicate_server_path(@server.slug),
+      variant: :success,
+      icon: "copy",
+      is_responsive: true,
+      extra_classes: "me-2"
+    ) if allowed_to?(:duplicate?, @server) %>
   <% end %>
 <% end %>
 
@@ -416,16 +422,15 @@
             <%= t(".toggle_vlans") %>
           </button>
 
-          <%= render ButtonComponent.new(t(".destroy_connections"),
-                                         url: destroy_connections_server_path(@server),
-                                         icon: "trash",
-                                         variant: :danger,
-                                         size: :sm,
-                                         is_responsive: true,
-                                         data: {
-                                           confirm: t(".destroy_connections_confirmation")
-                                         }
-                                        ) if allowed_to?(:destroy_connections?)
+          <%= render ButtonComponent.new(
+            t(".destroy_connections"),
+            url: destroy_connections_server_path(@server),
+            icon: "trash",
+            variant: :danger,
+            size: :sm,
+            is_responsive: true,
+            data: { confirm: t(".destroy_connections_confirmation") }
+          ) if allowed_to?(:destroy_connections?)
           %>
         </span>
       <% end %>

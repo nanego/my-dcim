@@ -12,22 +12,29 @@
 <% # end %>
 
 <%= render Page::HeadingComponent.new(
-  title: @pdu.name, breadcrumb:, back_button_url: power_distribution_units_path
+  title: @pdu.name,
+  breadcrumb:,
+  back_button_url: power_distribution_units_path
 ) do |heading| %>
   <% heading.with_right_content do %>
     <div class="align-self-center d-inline-flex">
-      <%= render ButtonComponent.new(t("action.duplicate"),
-                                    url: duplicate_power_distribution_unit_path(@pdu.slug),
-                                    variant: :success,
-                                    icon: "copy",
-                                    is_responsive: true,
-                                    extra_classes: "me-2") if allowed_to?(:duplicate?, with: ServerPolicy) %>
-      <%= render ButtonComponent.new(t("action.edit"),
-                                    url: edit_power_distribution_unit_path(@pdu.slug),
-                                    variant: :info,
-                                    icon: "pencil",
-                                    is_responsive: true,
-                                    extra_classes: "me-2") if allowed_to?(:update?, @pdu, with: ServerPolicy) %>
+      <%= render ButtonComponent.new(
+        t("action.duplicate"),
+        url: duplicate_power_distribution_unit_path(@pdu.slug),
+        variant: :success,
+        icon: "copy",
+        is_responsive: true,
+        extra_classes: "me-2"
+      ) if allowed_to?(:duplicate?, with: ServerPolicy) %>
+
+      <%= render ButtonComponent.new(
+        t("action.edit"),
+        url: edit_power_distribution_unit_path(@pdu.slug),
+        variant: :info,
+        icon: "pencil",
+        is_responsive: true,
+        extra_classes: "me-2"
+      ) if allowed_to?(:update?, @pdu, with: ServerPolicy) %>
     </div>
   <% end %>
 <% end %>
@@ -374,12 +381,14 @@
       extra_classes: "bg-body-tertiary"
     ) do |c| %>
       <% c.with_actions do %>
-        <%= render ButtonComponent.new(t(".destroy_connections"),
-                                          url: destroy_connections_server_path(@pdu),
-                                          icon: "trash",
-                                          variant: :danger,
-                                          size: :sm,
-                                          data: { confirm: t(".destroy_connections_confirmation") }) if allowed_to?(:destroy_connections?, with: ServerPolicy) %>
+        <%= render ButtonComponent.new(
+          t(".destroy_connections"),
+          url: destroy_connections_server_path(@pdu),
+          icon: "trash",
+          variant: :danger,
+          size: :sm,
+          data: { confirm: t(".destroy_connections_confirmation") }
+        ) if allowed_to?(:destroy_connections?, with: ServerPolicy) %>
       <% end %>
     <% end %>
   </div>

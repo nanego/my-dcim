@@ -1,17 +1,23 @@
 <% breadcrumb.add_step(@frame.name) %>
 
 <%= render Page::HeadingShowComponent.new(
-  resource: @frame, title: t(".title", frame: @frame.name), breadcrumb:, editable: allowed_to?(:update?, @frame)
+  resource: @frame,
+  title: t(".title", frame: @frame.name),
+  breadcrumb:,
+  editable: allowed_to?(:update?, @frame)
 ) do |heading| %>
   <% heading.with_extra_buttons do %>
-    <% render ButtonComponent.new(t("visualization.title"),
-                                  url: visualization_frame_path(@frame),
-                                  variant: :primary,
-                                  icon: "diagram-3-fill",
-                                  is_responsive: true,
-                                  extra_classes: "me-2") if allowed_to?(:show?, @frame, with: Visualization::FramePolicy) %>
+    <% render ButtonComponent.new(
+      t("visualization.title"),
+      url: visualization_frame_path(@frame),
+      variant: :primary,
+      icon: "diagram-3-fill",
+      is_responsive: true,
+      extra_classes: "me-2"
+    ) if allowed_to?(:show?, @frame, with: Visualization::FramePolicy) %>
   <% end %>
 <% end %>
+
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
@@ -22,7 +28,7 @@
 
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <dt class="pb-2"><%= Frame.human_attribute_name(:name) %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= @frame.name %></dd
+          <dd class="mb-0 pb-2 ps-3"><%= @frame.name %></dd>
         </dl>
       <% end %>
 

@@ -48,7 +48,9 @@
     <li><hr class="dropdown-divider"></li>
 
     <li>
-      <%= link_to islet_path(islet, format: :txt, view: "", bg: ""), class: "dropdown-item", data: { turbo_frame: :_top } do %>
+      <%= link_to islet_path(islet, format: :txt, view: "", bg: ""),
+                  class: "dropdown-item",
+                  data: { turbo_frame: :_top } do %>
         <span class="bi bi-file-earmark-text" aria-hidden="true"></span>
         <%= t("export_button.exports.txt") %>
       <% end %>

@@ -1,14 +1,14 @@
-<%
-  breadcrumb.add_step(title = Room.model_name.human.pluralize)
-%>
+<% breadcrumb.add_step(title = Room.model_name.human.pluralize) %>
 
 <%= render Page::HeadingComponent.new(title: title, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
-    <% render ButtonComponent.new(t(".new_room"),
-                                  url: new_room_path,
-                                  variant: :success,
-                                  icon: "plus-lg",
-                                  is_responsive: true) if allowed_to?(:create?) %>
+    <% render ButtonComponent.new(
+      t(".new_room"),
+      url: new_room_path,
+      variant: :success,
+      icon: "plus-lg",
+      is_responsive: true
+    ) if allowed_to?(:create?) %>
   <% end %>
 <% end %>
 
@@ -36,11 +36,13 @@
   <%= turbo_frame_tag(dom_id(Room, :table), data: { turbo_action: :advance }) do %>
     <%= render List::DataTableComponent.new(@rooms) do |table| %>
       <% if allowed_to?(:destroy?) %>
-        <% table.with_bulk_action(url: bulk_rooms_path, method: :delete, class: "btn btn-danger btn-sm",
-                                  data: { confirm: t("action.confirm") }
+        <% table.with_bulk_action(
+          url: bulk_rooms_path,
+          method: :delete,
+          class: "btn btn-danger btn-sm",
+          data: { confirm: t("action.confirm") }
         ) do %>
-          <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>">
-          </span>
+          <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
         <% end %>
       <% end %>
 

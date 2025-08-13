@@ -8,18 +8,25 @@
   end
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @bay, title:, breadcrumb:, editable: allowed_to?(:update?, @bay)) do |heading| %>
+<%= render Page::HeadingShowComponent.new(
+  resource: @bay,
+  title:, breadcrumb:,
+  editable: allowed_to?(:update?, @bay)
+) do |heading| %>
   <% if @bay.frames.any? %>
     <% heading.with_extra_buttons do %>
-      <% render ButtonComponent.new(t("visualization.title"),
-                                    url: visualization_bay_path(@bay),
-                                    variant: :primary,
-                                    icon: "diagram-3-fill",
-                                    is_responsive: true,
-                                    extra_classes: "me-2") if allowed_to?(:show?, @bay, with: Visualization::BayPolicy) %>
+      <% render ButtonComponent.new(
+        t("visualization.title"),
+        url: visualization_bay_path(@bay),
+        variant: :primary,
+        icon: "diagram-3-fill",
+        is_responsive: true,
+        extra_classes: "me-2"
+      ) if allowed_to?(:show?, @bay, with: Visualization::BayPolicy) %>
     <% end %>
   <% end %>
 <% end %>
+
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
@@ -111,6 +118,7 @@
       <% end %>
     </div>
   </div>
+
   <%= render HasManyTurboFrameComponent.new(
     Frame.model_name.human.pluralize, url: frames_path(bay_ids: @bay.id), frame_id: dom_id(Frame, :table)
   ) %>

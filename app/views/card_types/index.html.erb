@@ -1,14 +1,14 @@
-<%
-  breadcrumb.add_step(title = CardType.model_name.human(count: 2))
-%>
+<% breadcrumb.add_step(title = CardType.model_name.human(count: 2)) %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
-    <% render ButtonComponent.new(t(".new_card_type"),
-                                  url: new_card_type_path,
-                                  variant: :success,
-                                  icon: "plus-lg",
-                                  is_responsive: true) if allowed_to?(:create?) %>
+    <% render ButtonComponent.new(
+      t(".new_card_type"),
+      url: new_card_type_path,
+      variant: :success,
+      icon: "plus-lg",
+      is_responsive: true
+    ) if allowed_to?(:create?) %>
   <% end %>
 <% end %>
 
@@ -35,11 +35,13 @@
 
   <%= render List::DataTableComponent.new(@card_types) do |table| %>
     <% if allowed_to?(:destroy?) %>
-      <% table.with_bulk_action(url: bulk_card_types_path, method: :delete, class: "btn btn-danger btn-sm",
-                                data: { confirm: t("action.confirm") }
+      <% table.with_bulk_action(
+        url: bulk_card_types_path,
+        method: :delete,
+        class: "btn btn-danger btn-sm",
+        data: { confirm: t("action.confirm") }
       ) do %>
-        <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>">
-        </span>
+        <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
       <% end %>
     <% end %>
 

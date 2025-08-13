@@ -1,6 +1,12 @@
 <% breadcrumb.add_step(title = @site.name) %>
 
-<%= render Page::HeadingShowComponent.new(resource: @site, title:, breadcrumb:, editable: allowed_to?(:manage?)) %>
+<%= render Page::HeadingShowComponent.new(
+  resource: @site,
+  title:,
+  breadcrumb:,
+  editable: allowed_to?(:manage?)
+) %>
+
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
@@ -39,12 +45,14 @@
         extra_classes: "d-none d-lg-flex bg-body-tertiary mt-4"
       ) do |c| %>
         <% c.with_actions do %>
-          <%= render ButtonComponent.new(t("action.edit"),
-                                            url: edit_site_path(@site, anchor: "contact_assignments"),
-                                            icon: "pencil",
-                                            size: :sm,
-                                            is_responsive: true,
-                                            extra_classes: "btn-info") if allowed_to?(:create?, with: ContactAssignmentPolicy) %>
+          <%= render ButtonComponent.new(
+            t("action.edit"),
+            url: edit_site_path(@site, anchor: "contact_assignments"),
+            icon: "pencil",
+            size: :sm,
+            is_responsive: true,
+            extra_classes: "btn-info"
+          ) if allowed_to?(:create?, with: ContactAssignmentPolicy) %>
         <% end %>
       <% end %>
     </div>
@@ -111,12 +119,14 @@
         frame_id: dom_id(ContactAssignment, :table)
       ) do |c| %>
         <% c.with_actions do %>
-          <%= render ButtonComponent.new(t("action.edit"),
-                                            url: edit_site_path(@site, anchor: "contact_assignments"),
-                                            icon: "pencil",
-                                            size: :sm,
-                                            is_responsive: true,
-                                            extra_classes: "btn-outline-dark") %>
+          <%= render ButtonComponent.new(
+            t("action.edit"),
+            url: edit_site_path(@site, anchor: "contact_assignments"),
+            icon: "pencil",
+            size: :sm,
+            is_responsive: true,
+            extra_classes: "btn-outline-dark"
+          ) if allowed_to?(:create?, with: ContactAssignmentPolicy) %>
         <% end %>
       <% end %>
     </div>
