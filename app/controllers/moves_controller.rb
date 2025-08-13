@@ -43,7 +43,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
       if @move.valid?
         redirect_to new_moves_project_step_move_path(@move.step, server_id: @move.moveable)
       else
-        render :new_unscoped
+        render :new_unscoped, status: :unprocessable_entity
       end
 
       return
