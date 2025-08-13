@@ -880,9 +880,9 @@ fr:
       title: Rechercher un matériel
   permission_scopes:
     index:
-      title: Périmètre
-      new_permission_scope: Nouveau périmètre
-      delete_confirmation: Vous êtes sûr de vouloir supprimer cette périmètre ?
+      title: Permissions
+      new_permission: Nouvelle permission
+      delete_confirmation: Vous êtes sûr de vouloir supprimer cette permission ?
     new:
       title: Nouveau périmètre
     create:
