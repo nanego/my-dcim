@@ -2,6 +2,7 @@
 
 class FramesProcessor < ApplicationProcessor
   include Sortable
+
   SORTABLE_FIELDS = %w[name u rooms.name islets.name].freeze
 
   map :q do |q:|

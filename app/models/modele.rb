@@ -2,6 +2,7 @@
 
 class Modele < ApplicationRecord
   extend FriendlyId
+
   friendly_id :slug_candidates, use: %i[slugged history]
 
   has_changelog

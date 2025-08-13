@@ -2,6 +2,7 @@
 
 class ModelesProcessor < ApplicationProcessor
   include Sortable
+
   SORTABLE_FIELDS = %w[name servers_count].freeze
 
   map :q do |q:|
