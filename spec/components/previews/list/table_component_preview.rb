@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module List
   class TableComponentPreview < ViewComponent::Preview
     def default

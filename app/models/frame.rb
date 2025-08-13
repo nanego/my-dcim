@@ -83,11 +83,11 @@ class Frame < ApplicationRecord
   end
 
   def has_coupled_frame?
-    bay.frames.count > 1
+    bay.frames.many?
   end
 
   def has_no_coupled_frame?
-    bay.frames.count == 1
+    bay.frames.one?
   end
 
   def compact_u
