@@ -145,7 +145,7 @@ class Server < ApplicationRecord
     end
   end
 
-  def destroy_connections!
+  def destroy_connections! # rubocop:disable Naming/PredicateMethod
     transaction do
       cables.find_each(&:destroy!)
     end

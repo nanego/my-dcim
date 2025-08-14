@@ -25,7 +25,7 @@ module ApplicationHelper
     value_with_unit(surface_area, "square_meter")
   end
 
-  def display_create_another_one
-    action_name.in? CREATE_ANOTHER_ONE_ACTIONS
+  def display_create_another_one # rubocop:disable Naming/PredicateMethod
+    action_name.in?(CREATE_ANOTHER_ONE_ACTIONS)
   end
 end
