@@ -250,7 +250,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       end
       color = Color.where(parent_type: parent_type, parent_id: parent_id).first
       if color.blank? || color.code.blank?
-        color = Color.create!(parent_type: parent_type, parent_id: parent_id, code: lighten_color("##{Digest::MD5.hexdigest(parent_id.to_s || 'test')[0..5]}", 0.4))
+        color = Color.create!(parent_type: parent_type, parent_id: parent_id, code: lighten_color("##{Digest::MD5.hexdigest(parent_id.to_s.presence || 'test')[0..5]}", 0.4))
       end
       bg_color = color.code
     else
