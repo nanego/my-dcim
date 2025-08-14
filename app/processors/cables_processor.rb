@@ -2,6 +2,7 @@
 
 class CablesProcessor < ApplicationProcessor
   include Sortable
+
   SORTABLE_FIELDS = %w[special_case].freeze
 
   map :cable_name do |cable_name:|

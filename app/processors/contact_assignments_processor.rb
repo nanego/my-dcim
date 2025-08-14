@@ -2,6 +2,7 @@
 
 class ContactAssignmentsProcessor < ApplicationProcessor
   include Sortable
+
   SORTABLE_FIELDS = %w[id site_id contact_id contact_role_id].freeze
 
   map :site_ids, filter_with: :non_empty_array do |site_ids:|

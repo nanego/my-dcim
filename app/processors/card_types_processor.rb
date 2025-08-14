@@ -2,6 +2,7 @@
 
 class CardTypesProcessor < ApplicationProcessor
   include Sortable
+
   SORTABLE_FIELDS = %w[name port_type_id port_quantity].freeze
 
   map :q do |q:|
