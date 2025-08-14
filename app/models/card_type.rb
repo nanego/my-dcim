@@ -9,7 +9,7 @@ class CardType < ApplicationRecord
   has_many :cards, dependent: :restrict_with_error
   has_many :servers, through: :cards
 
-  scope :sorted, -> { order("port_type_id", "port_quantity asc") }
+  scope :sorted, -> { order(:port_type_id, :port_quantity) }
 
   def to_s
     name.to_s

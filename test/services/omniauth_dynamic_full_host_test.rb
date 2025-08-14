@@ -32,6 +32,7 @@ end
 
 class ExampleStrategy
   include OmniAuth::Strategy
+
   attr_reader :last_env
 
   option :name, 'test'

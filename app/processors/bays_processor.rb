@@ -2,6 +2,7 @@
 
 class BaysProcessor < ApplicationProcessor
   include Sortable
+
   SORTABLE_FIELDS = %w[lane position rooms.name islets.name width depth bay_type_id access_control].freeze
 
   map :q do |q:|

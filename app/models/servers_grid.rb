@@ -77,7 +77,7 @@ class ServersGrid
     record.modele.try(:category)
   end
   column(:nb_elts, :order => proc { |scope|
-    scope.joins(:modele).order("nb_elts")
+    scope.joins(:modele).order(:nb_elts)
   }) do |record|
     record.modele.try(:nb_elts)
   end
@@ -87,7 +87,7 @@ class ServersGrid
     record.modele.try(:architecture)
   end
   column(:u, :order => proc { |scope|
-    scope.joins(:modele).order("u")
+    scope.joins(:modele).order(:u)
   }) do |record|
     record.modele.try(:u)
   end
@@ -100,7 +100,7 @@ class ServersGrid
     scope.joins(:modele).order("modeles.name")
   }, &:modele)
   column('S/N', :order => proc { |scope|
-    scope.order("numero")
+    scope.order(:numero)
   }, &:numero)
   column(:position)
   column(:critique, :mandatory => false) do

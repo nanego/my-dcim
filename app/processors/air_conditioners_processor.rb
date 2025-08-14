@@ -2,6 +2,7 @@
 
 class AirConditionersProcessor < ApplicationProcessor
   include Sortable
+
   SORTABLE_FIELDS = %w[rooms.name islets.name name].freeze
 
   map :q do |q:|

@@ -5,6 +5,7 @@ class Frame < ApplicationRecord
   VIEW_SIDES = { both: 'both', front: 'front', back: 'back' }.freeze
 
   extend FriendlyId
+
   friendly_id :slug_candidates, use: %i[slugged history]
 
   has_changelog

@@ -2,6 +2,7 @@
 
 class ExternalAppRecordsProcessor < ApplicationProcessor
   include Sortable
+
   SORTABLE_FIELDS = %w[
     server_id servers.name servers.numero external_name external_id external_serial frames.name
   ].freeze
