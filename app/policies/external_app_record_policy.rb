@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class ExternalAppRecordPolicy < ApplicationPolicy
+  def index?
+    manage?
+  end
+
   def settings?
     index?
   end

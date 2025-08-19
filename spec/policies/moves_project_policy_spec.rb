@@ -13,9 +13,28 @@ RSpec.describe MovesProjectPolicy, type: :policy do
     user.role = role
   end
 
-  it_behaves_like "with default index policy"
   it_behaves_like "with default create policy"
   it_behaves_like "with default manage policy"
+
+  describe_rule :index? do
+    context "when user is admin" do # rubocop:disable Spec/EmptyExampleGroup
+      succeed "when an admin user asks" do
+        let(:is_admin) { true }
+      end
+    end
+
+    context "when user is not admin" do # rubocop:disable Spec/EmptyExampleGroup
+      failed "when user with no role asks"
+
+      failed "when a reader user asks" do
+        let(:role) { :reader }
+      end
+
+      succeed "when a writer user asks" do
+        let(:role) { :writer }
+      end
+    end
+  end
 
   describe_rule :archive? do
     context "when user is admin" do # rubocop:disable Spec/EmptyExampleGroup

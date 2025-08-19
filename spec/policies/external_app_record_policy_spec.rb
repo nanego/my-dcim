@@ -13,7 +13,25 @@ RSpec.describe ExternalAppRecordPolicy, type: :policy do
     user.role = role
   end
 
-  it_behaves_like "with default index policy"
+  describe_rule :archive? do
+    context "when user is admin" do # rubocop:disable Spec/EmptyExampleGroup
+      succeed "when an admin user asks" do
+        let(:is_admin) { true }
+      end
+    end
+
+    context "when user is not admin" do # rubocop:disable Spec/EmptyExampleGroup
+      failed "when user with no role asks"
+
+      failed "when a reader user asks" do
+        let(:role) { :reader }
+      end
+
+      succeed "when a writer user asks" do
+        let(:role) { :writer }
+      end
+    end
+  end
 
   describe_rule :sync_all_servers_with_glpi? do
     context "when user is admin" do # rubocop:disable Spec/EmptyExampleGroup
@@ -45,7 +63,7 @@ RSpec.describe ExternalAppRecordPolicy, type: :policy do
     context "when user is not admin" do # rubocop:disable Spec/EmptyExampleGroup
       failed "when user with no role asks"
 
-      succeed "when a reader user asks" do
+      failed "when a reader user asks" do
         let(:role) { :reader }
       end
 
