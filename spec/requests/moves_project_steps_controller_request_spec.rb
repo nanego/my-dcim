@@ -16,7 +16,7 @@ RSpec.describe MovesProjectStepsController do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with not found frame" do
       before { move.frame_id = 999_999_999 }
@@ -38,7 +38,7 @@ RSpec.describe MovesProjectStepsController do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with not found frame" do
       before { move.frame_id = 999_999_999 }
