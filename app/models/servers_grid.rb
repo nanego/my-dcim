@@ -15,14 +15,14 @@ class ServersGrid
   # Filters
   #########
 
-  filter :id, :string, :multiple => ','
+  filter :id, :string, :multiple => ","
   filter :name do |value|
     where("LOWER(servers.name) LIKE ?", "%#{value.downcase}%")
   end
   filter :serial_number do |value|
-    where('LOWER(servers.numero) LIKE ?', "%#{value.downcase}%")
+    where("LOWER(servers.numero) LIKE ?", "%#{value.downcase}%")
   end
-  filter 'Catégorie', :enum, multiple: true, :select => Category.sorted.map { |r| [r.to_s, r.id] } do |value|
+  filter "Catégorie", :enum, multiple: true, :select => Category.sorted.map { |r| [r.to_s, r.id] } do |value|
     joins(:modele).where(modeles: { category_id: value })
   end
   filter :nb_elts, :integer do |value|
@@ -99,7 +99,7 @@ class ServersGrid
   column(:modele, :order => proc { |scope|
     scope.joins(:modele).order("modeles.name")
   }, &:modele)
-  column('S/N', :order => proc { |scope|
+  column("S/N", :order => proc { |scope|
     scope.order(:numero)
   }, &:numero)
   column(:position)
@@ -125,6 +125,6 @@ class ServersGrid
   # column(:network)
 
   column("Actions", :html => true, :mandatory => false) do |record|
-    link_to(t("action.edit"), edit_server_path(record.slug), class: 'btn btn-primary').to_s + '<span style="margin-left:10px">'.html_safe + link_to('Supprimer', server_path(record.slug), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger').to_s + '</span>'.html_safe
+    link_to(t("action.edit"), edit_server_path(record.slug), class: "btn btn-primary").to_s + '<span style="margin-left:10px">'.html_safe + link_to("Supprimer", server_path(record.slug), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger").to_s + "</span>".html_safe
   end
 end

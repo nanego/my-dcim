@@ -22,9 +22,9 @@ class ModelesController < ApplicationController
 
   def new
     @modele = Modele.new
-    @modele.composants.build(:name => 'ALIM')
-    @modele.composants.build(:name => 'IPMI')
-    @modele.composants.build(:name => 'CM')
+    @modele.composants.build(:name => "ALIM")
+    @modele.composants.build(:name => "IPMI")
+    @modele.composants.build(:name => "CM")
     7.times do |i|
       @modele.composants.build(:name => "SL#{i + 1}")
     end
@@ -84,7 +84,7 @@ class ModelesController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to({ action: 'index' }, alert: @modele.errors.full_messages_for(:base).join(", ")) }
+        format.html { redirect_to({ action: "index" }, alert: @modele.errors.full_messages_for(:base).join(", ")) }
       end
     end
   end

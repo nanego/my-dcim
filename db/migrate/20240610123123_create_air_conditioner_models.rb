@@ -8,6 +8,6 @@ class CreateAirConditionerModels < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
-    AirConditionerModel.create(name: 'Standard Model', manufacturer: Manufacturer.first)
+    AirConditionerModel.create(name: "Standard Model", manufacturer: Manufacturer.first)
   end
 end

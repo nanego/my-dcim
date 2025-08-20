@@ -9,7 +9,7 @@ RSpec.describe ChangelogEntries::ObjectListComponent, type: :component do
     let(:rendered_component) { render_inline(component) }
 
     it "renders component" do # rubocop:disable RSpec/ExampleLength
-      expect(rendered_component.to_html).to have_tag('turbo-frame', with: {
+      expect(rendered_component.to_html).to have_tag("turbo-frame", with: {
         id: "changelog-entries",
         src: "/islets/#{islet.id}/changelog_entries"
       }) do

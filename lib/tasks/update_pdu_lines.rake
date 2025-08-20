@@ -17,19 +17,19 @@ namespace :update_pdu_lines do
 
     # CREATE non-alternated PDUs
     #
-    category = Category.find_or_create_by(name: 'Pdu')
+    category = Category.find_or_create_by(name: "Pdu")
     puts "ERROR: #{category}" unless category.valid?
-    modele = Modele.find_or_create_by(name: 'Pdu 24 non alternés',
+    modele = Modele.find_or_create_by(name: "Pdu 24 non alternés",
                                       category: category)
     puts "ERROR: #{modele}" unless modele.valid?
     enclosure = Enclosure.find_or_create_by(modele: modele,
                                             position: 1,
-                                            display: 'vertical')
+                                            display: "vertical")
     puts "ERROR: #{enclosure}" unless enclosure.valid?
-    type_composant = TypeComposant.find_by_name('SLOT')
+    type_composant = TypeComposant.find_by_name("SLOT")
     puts "ERROR: #{type_composant}" unless type_composant.valid?
     4.times do |i|
-      line = [0, 1].include?(i) ? 'L1' : 'L2'
+      line = [0, 1].include?(i) ? "L1" : "L2"
       composant = Composant.find_or_create_by(type_composant: type_composant,
                                               position: i + 1,
                                               enclosure: enclosure,
@@ -37,9 +37,9 @@ namespace :update_pdu_lines do
       puts "ERROR: #{composant}" unless composant.valid?
     end
 
-    port_type = PortType.find_by_name('ALIM')
+    port_type = PortType.find_by_name("ALIM")
     puts "ERROR: #{port_type}" unless port_type.valid?
-    card_type = CardType.find_or_create_by(name: '6ALIM',
+    card_type = CardType.find_or_create_by(name: "6ALIM",
                                            port_quantity: 6,
                                            port_type: port_type)
     puts "ERROR: #{card_type}" unless card_type.valid?

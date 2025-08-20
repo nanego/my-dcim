@@ -7,7 +7,7 @@ class PortTypesController < ApplicationController
   end
 
   def index
-    @port_types = sorted PortType.order('lower(name)')
+    @port_types = sorted PortType.order("lower(name)")
   end
 
   def show; end

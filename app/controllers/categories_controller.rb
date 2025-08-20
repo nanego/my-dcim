@@ -65,7 +65,7 @@ class CategoriesController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to({ action: 'index' }, alert: @category.errors.full_messages_for(:base).join(", ")) }
+        format.html { redirect_to({ action: "index" }, alert: @category.errors.full_messages_for(:base).join(", ")) }
       end
     end
   end

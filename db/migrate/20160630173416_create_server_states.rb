@@ -14,6 +14,6 @@ class CreateServerStates < ActiveRecord::Migration[4.2]
 
     add_column :serveurs, :server_state_id, :integer
 
-    MigrationServerState.create(title: 'Order In Progress')
+    MigrationServerState.create(title: "Order In Progress")
   end
 end

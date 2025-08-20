@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Gestion do
   subject(:gestion) { described_class.new(name: "DIS/GIL") }
