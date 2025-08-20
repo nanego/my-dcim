@@ -18,8 +18,7 @@ module Bulk
     private
 
     def set_air_conditioners
-      @air_conditioners = AirConditioner.where(id: params[:ids])
-      authorize! @air_conditioners, with: AirConditionerPolicy
+      authorize! @air_conditioners = AirConditioner.where(id: params[:ids])
     end
   end
 end
