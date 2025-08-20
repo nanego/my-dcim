@@ -55,7 +55,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
         format.json { render :show, status: :created, location: @server }
       else
         format.html { render :new }
-        format.json { render json: @server.errors, status: :unprocessable_entity }
+        format.json { render json: @server.errors, status: :unprocessable_content }
       end
     end
   end
@@ -67,7 +67,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
         format.json { render :show, status: :ok, location: @server }
       else
         format.html { render :edit }
-        format.json { render json: @server.errors, status: :unprocessable_entity }
+        format.json { render json: @server.errors, status: :unprocessable_content }
       end
     end
   end
@@ -89,9 +89,9 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   end
 
   def sort
-    room = Room.find_by_name(params[:room]) unless params[:room].include?('non ')
-    frame = room.frames.where('islets.name = ? AND frames.name = ?', params[:islet], params[:frame]).first
-    positions = params[:positions].split(',')
+    room = Room.find_by_name(params[:room]) unless params[:room].include?("non ")
+    frame = room.frames.where("islets.name = ? AND frames.name = ?", params[:islet], params[:frame]).first
+    positions = params[:positions].split(",")
 
     params[:server].each_with_index do |id, index|
       if positions[index].present?
@@ -179,8 +179,8 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
 
   def track_frame_and_position(old_values, new_values)
     new_params = {}
-    new_params['frame'] = [Frame.find_by_id(old_values['frame_id']).to_s, Frame.find_by_id(new_values['frame_id']).to_s]
-    new_params['position'] = [old_values['position'].to_s, new_values['position'].to_s]
+    new_params["frame"] = [Frame.find_by_id(old_values["frame_id"]).to_s, Frame.find_by_id(new_values["frame_id"]).to_s]
+    new_params["position"] = [old_values["position"].to_s, new_values["position"].to_s]
     # %W"position frame_id".each do |attribute|
     #  new_params[attribute] = [old_values[attribute].to_s, new_values[attribute]]
     # end

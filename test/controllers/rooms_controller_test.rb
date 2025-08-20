@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class RoomsControllerTest < ActionController::TestCase
   setup do
@@ -41,7 +41,7 @@ class RoomsControllerTest < ActionController::TestCase
   test "should create room" do
     @room = rooms(:two)
 
-    assert_difference('Room.count') do
+    assert_difference("Room.count") do
       post :create, params: { room: { description: @room.description, name: @room.name, site_id: @room.site_id } }
     end
 
@@ -55,7 +55,7 @@ class RoomsControllerTest < ActionController::TestCase
   end
 
   test "should show specific islet" do
-    get :show, params: { id: @room, islet: 'Islet1' }
+    get :show, params: { id: @room, islet: "Islet1" }
     assert_response :success
     assert_not_nil assigns(:room)
     assert_not_nil assigns(:islet)
@@ -69,7 +69,7 @@ class RoomsControllerTest < ActionController::TestCase
   test "should destroy room" do
     @room = rooms(:two)
 
-    assert_difference('Room.count', -1) do
+    assert_difference("Room.count", -1) do
       delete :destroy, params: { id: @room }
     end
 
@@ -77,7 +77,7 @@ class RoomsControllerTest < ActionController::TestCase
   end
 
   test "should not destroy room that have islets" do
-    assert_difference('Room.count', 0) do
+    assert_difference("Room.count", 0) do
       delete :destroy, params: { id: @room }
     end
 

@@ -30,11 +30,11 @@ class PortsController < ApplicationController
     if params[:id].present? && params[:id].to_i > 0
       redirect_to connections_edit_path(from_port_id: params[:id])
     else
-      @port = Port.find_or_create_by(position: params['position'],
-                                     card_id: params['card_id'],
-                                     vlans: params['vlans'],
-                                     color: params['color'],
-                                     cablename: params['cablename'])
+      @port = Port.find_or_create_by(position: params["position"],
+                                     card_id: params["card_id"],
+                                     vlans: params["vlans"],
+                                     color: params["color"],
+                                     cablename: params["cablename"])
       redirect_to connections_edit_path(from_port_id: @port)
     end
   end
@@ -49,7 +49,7 @@ class PortsController < ApplicationController
         format.json { render :show, status: :ok, location: @port.server }
       else
         format.html { render :edit }
-        format.json { render json: @port.errors, status: :unprocessable_entity }
+        format.json { render json: @port.errors, status: :unprocessable_content }
       end
     end
   end

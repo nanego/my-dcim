@@ -71,21 +71,21 @@ RSpec.describe "Frames" do
     it { is_expected.to have_http_status(:success) }
     it { is_expected.to render_template(:network) }
 
-    context 'when frame is the coupled frame' do
+    context "when frame is the coupled frame" do
       subject(:response) do
         get network_frame_path(coupled_frame, network_frame_id: network_frame.slug)
         @response # rubocop:disable RSpec/InstanceVariable
       end
 
-      it 'renders successfully' do
+      it "renders successfully" do
         expect(response).to have_http_status(:success)
       end
     end
 
-    context 'with non-existent frame' do
-      it 'raises not found error' do
+    context "with non-existent frame" do
+      it "raises not found error" do
         expect do
-          get network_frame_path('non-existent-frame', network_frame_id: network_frame.slug)
+          get network_frame_path("non-existent-frame", network_frame_id: network_frame.slug)
         end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end

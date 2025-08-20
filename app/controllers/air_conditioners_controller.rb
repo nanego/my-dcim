@@ -30,8 +30,8 @@ class AirConditionersController < ApplicationController
         format.html { redirect_to_new_or_to(@air_conditioner, notice: t(".flashes.created")) }
         format.json { render :show, status: :created, location: @air_conditioner }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @air_conditioner.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @air_conditioner.errors, status: :unprocessable_content }
       end
     end
   end
@@ -42,8 +42,8 @@ class AirConditionersController < ApplicationController
         format.html { redirect_to @air_conditioner, notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @air_conditioner }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @air_conditioner.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @air_conditioner.errors, status: :unprocessable_content }
       end
     end
   end

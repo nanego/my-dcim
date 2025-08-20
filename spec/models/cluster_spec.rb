@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Cluster do
   subject(:cluster) { described_class.new(name: "Cloud-C5") }

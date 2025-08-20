@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe BayType do
   subject(:bay_type) { described_class.new(name: "single") }

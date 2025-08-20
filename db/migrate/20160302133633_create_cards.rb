@@ -16,12 +16,12 @@ class CreateCards < ActiveRecord::Migration[4.2]
       t.string :name
     end
 
-    MigrationPortType.create!(name: 'FC')
-    MigrationPortType.create!(name: 'RJ')
-    MigrationPortType.create!(name: 'VGA')
-    MigrationPortType.create!(name: 'SCSI')
-    MigrationPortType.create!(name: 'ISCI')
-    MigrationPortType.create!(name: 'SAS')
-    MigrationPortType.create!(name: 'IPMI')
+    MigrationPortType.create!(name: "FC")
+    MigrationPortType.create!(name: "RJ")
+    MigrationPortType.create!(name: "VGA")
+    MigrationPortType.create!(name: "SCSI")
+    MigrationPortType.create!(name: "ISCI")
+    MigrationPortType.create!(name: "SAS")
+    MigrationPortType.create!(name: "IPMI")
   end
 end

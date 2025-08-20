@@ -62,19 +62,19 @@ class AddAttributesToServers < ActiveRecord::Migration[5.0]
     MigrationCategory.reset_column_information
     MigrationModele.reset_column_information
 
-    category = MigrationCategory.create(name: 'Pdu')
+    category = MigrationCategory.create(name: "Pdu")
     puts "ERROR: #{category}" unless category.valid?
-    modele = MigrationModele.create(name: 'Pdu 24',
+    modele = MigrationModele.create(name: "Pdu 24",
                                     category: category)
     puts "ERROR: #{modele}" unless modele.valid?
     enclosure = MigrationEnclosure.create(modele: modele,
                                           position: 1,
-                                          display: 'vertical')
+                                          display: "vertical")
     puts "ERROR: #{enclosure}" unless enclosure.valid?
-    type_composant = MigrationTypeComposant.find_by_name('SLOT')
+    type_composant = MigrationTypeComposant.find_by_name("SLOT")
     puts "ERROR: #{type_composant}" unless type_composant.valid?
     4.times do |i|
-      line = (i + 1).odd? ? 'L1' : 'L2'
+      line = (i + 1).odd? ? "L1" : "L2"
       composant = MigrationComposant.create(type_composant: type_composant,
                                             position: i + 1,
                                             enclosure: enclosure,
@@ -82,9 +82,9 @@ class AddAttributesToServers < ActiveRecord::Migration[5.0]
       puts "ERROR: #{composant}" unless composant.valid?
     end
 
-    port_type = MigrationPortType.find_by_name('ALIM')
+    port_type = MigrationPortType.find_by_name("ALIM")
     puts "ERROR: #{port_type}" unless port_type.valid?
-    card_type = MigrationCardType.find_or_create_by(name: '6ALIM',
+    card_type = MigrationCardType.find_or_create_by(name: "6ALIM",
                                                     port_quantity: 6,
                                                     port_type: port_type)
     puts "ERROR: #{card_type}" unless card_type.valid?
@@ -97,7 +97,7 @@ class AddAttributesToServers < ActiveRecord::Migration[5.0]
                                      numero: pdu_name,
                                      name: pdu_name,
                                      side: Pdu.calculated_side(frame, line_name),
-                                     color: line_name == 'A' ? 'J' : 'B')
+                                     color: line_name == "A" ? "J" : "B")
         puts "ERROR: #{pdu}" unless pdu.valid?
         enclosure.composants.each do |composant|
           card = MigrationCard.create(card_type: card_type,

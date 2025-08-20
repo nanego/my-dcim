@@ -20,7 +20,7 @@ class ManufacturersControllerTest < ActionController::TestCase
   end
 
   test "should create manufacturer" do
-    assert_difference('Manufacturer.count') do
+    assert_difference("Manufacturer.count") do
       post :create, params: { manufacturer: { description: @manufacturer.description, name: @manufacturer.name } }
     end
 
@@ -45,7 +45,7 @@ class ManufacturersControllerTest < ActionController::TestCase
   test "should destroy manufacturer" do
     @manufacturer = Manufacturer.create
 
-    assert_difference('Manufacturer.count', -1) do
+    assert_difference("Manufacturer.count", -1) do
       delete :destroy, params: { id: @manufacturer }
     end
 
@@ -53,7 +53,7 @@ class ManufacturersControllerTest < ActionController::TestCase
   end
 
   test "should not destroy manufacturer that have modeles" do
-    assert_difference('Manufacturer.count', 0) do
+    assert_difference("Manufacturer.count", 0) do
       delete :destroy, params: { id: @manufacturer }
     end
 
