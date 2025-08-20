@@ -58,6 +58,7 @@ class RoomsController < ApplicationController
 
   def new
     @room = Room.new
+    @room.assign_attributes(room_params) if params[:room]
   end
 
   def edit; end

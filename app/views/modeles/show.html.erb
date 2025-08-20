@@ -54,7 +54,11 @@
     </div>
   </div>
   <%= render HasManyTurboFrameComponent.new(
-    Server.model_name.human(count: 2), url: servers_path(modele_ids: @modele.id), frame_id: dom_id(Server, :table)
+    Server.model_name.human(count: 2),
+    url: servers_path(modele_ids: @modele.id),
+    frame_id: dom_id(Server, :table),
+    new_path: new_server_path(server: { modele_id: @modele.id }),
+    new_label: t("servers.add_new")
   ) %>
   <%= render ChangelogEntries::ObjectListComponent.new(@modele) %>
 </div>

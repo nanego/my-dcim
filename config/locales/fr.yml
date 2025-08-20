@@ -128,6 +128,7 @@ fr:
         destroyed: L'ilôt a bien été supprimé.
     infrastructure:
       concentrator: Concentrateur
+    add_new: Ajouter un ilôt
   connections:
     edit:
       title: Modifier la connexion
@@ -347,6 +348,7 @@ fr:
       flashes:
         destroyed: La catégorie a bien été supprimée.
   modeles:
+    add_new: Ajouter un modèle
     form:
       add_enclosure: Ajouter une enclosure
     enclosure_fields:
@@ -453,6 +455,7 @@ fr:
     flashes:
       connections_destroyed: Les connexions ont été supprimées.
       connections_not_destroyed: Une erreur a empêché la suppression des connexions.
+    add_new: Ajouter un matériel I.T.
   bulk:
     resource:
       destroy:
@@ -533,6 +536,7 @@ fr:
         destroyed: Frame a bien été supprimé.
     network:
       title: Vue réseau
+    add_new: Ajouter un châssis
 
   moves:
     index:
@@ -677,6 +681,7 @@ fr:
     destroy:
       flashes:
         destroyed: La salle a bien été supprimée.
+    add_new: Ajouter une salle
 
   users:
     my_account:
@@ -788,6 +793,7 @@ fr:
     decorator:
       no_frame_warning_text: Veuillez renseigner un châssis à cette baie
     empty: Baie vide
+    add_new: Ajouter une baie
   cables:
     index:
       title: Connexions
@@ -849,6 +855,7 @@ fr:
     destroy:
       flashes:
         destroyed: L'assignation a bien été supprimée.
+    add_new: Ajouter une assignation
   visualization:
     title: Visualisation
     network_capacities:

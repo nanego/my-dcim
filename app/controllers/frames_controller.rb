@@ -24,6 +24,7 @@ class FramesController < ApplicationController
 
   def new
     @frame = Frame.new
+    @frame.assign_attributes(frame_params) if params[:frame]
   end
 
   def edit
