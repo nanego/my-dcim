@@ -5,7 +5,9 @@
                   should_show_heading: false
   } %>
 
-<div>
+<div class="fs-5 mt-4">
+  <h2><%= Connection.model_name.human(count: @connections.size) %></h1>
+
   <% @connections.each do |connection| %>
     <p>
       <%= connection.description %>

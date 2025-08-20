@@ -32,7 +32,9 @@ fr:
       user: Utilisateur
       changelog_entry: Changelog
       cable: Câble
-      connection: Connexion
+      connection:
+        one: Connexion
+        other: Connexions
       move:
         one: Déplacement prévu
         other: Déplacements prévus
