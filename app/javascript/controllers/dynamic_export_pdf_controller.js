@@ -3,6 +3,8 @@ import ExportPdfController from "controllers/export_pdf_controller"
 import { get } from "@rails/request.js"
 import { html2pdf, saveAs, PDFDocument } from "html2pdf.js"
 
+/* Seems not to be used `/moves_projects/${this.movesProjectIdValue}/moves_project_steps/${this.movesProjectStepIdValue}/frames/${modelId}/print` */
+
 const exportOptions = {
   margin: 10,
   image: {
@@ -33,7 +35,9 @@ export default class extends ExportPdfController {
     this.showSpinner()
     if (this.isMoveValue) this.hideButtonIcon()
 
-    const pdfDoc = await this.generatePDF(viewTarget, bgWiring)
+    const urls = event.target.dataset.exportUrls.split(";");
+
+    const pdfDoc = await this.generatePDF(urls, viewTarget, bgWiring)
     const pdfBytes = await pdfDoc.save()
     const blob = new Blob([pdfBytes], { type: "application/pdf" })
 
@@ -43,15 +47,11 @@ export default class extends ExportPdfController {
     if (this.isMoveValue) this.showButtonIcon()
   }
 
-  async generatePDF(viewTarget, bgWiring) {
+  async generatePDF(urls, viewTarget, bgWiring) {
     const pdfDoc = await PDFDocument.create();
 
-    for (let i = 0; i < this.modelIdsValue.length; i++) {
-      const modelId = this.modelIdsValue[i]
-
-      const url = this.isMoveValue ?
-        `/moves_projects/${this.movesProjectIdValue}/moves_project_steps/${this.movesProjectStepIdValue}/frames/${modelId}/print`:
-        `/visualization/frames/${modelId}/print?view=${viewTarget}${ bgWiring ? "&bg=wiring" : ""}`
+    for (let i = 0; i < urls.length; i++) {
+      const url = urls[i]
 
       const response = await get(url)
 
