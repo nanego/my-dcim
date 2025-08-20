@@ -1,14 +1,14 @@
 <div class="dropdown btn-group-sm btn-group"
-     data-controller="frame-export-pdf"
-     data-frame-export-pdf-model-ids-value="<%= room.frames.order(:islet_id, :name).pluck(:id) %>"
-     data-frame-export-pdf-filename-value="room-<%= room.name %>">
+     data-controller="dynamic-export-pdf"
+     data-dynamic-export-pdf-model-ids-value="<%= room.frames.order(:islet_id, :name).pluck(:id) %>"
+     data-dynamic-export-pdf-filename-value="room-<%= room.name %>">
   <button type="button"
           class="btn btn-outline-primary dropdown-toggle d-flex align-items-center export-button"
           data-bs-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false">
     <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none me-2" role="status" aria-hidden="true"
-          data-frame-export-pdf-target="spinner"></span>
+          data-dynamic-export-pdf-target="spinner"></span>
     <span class="text-truncate d-inline-block">
       <%= t("export_button.label") %>
     </span>
@@ -19,26 +19,26 @@
       <h6 class="dropdown-header"><%= t("export_button.exports.pdf") %></h6>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->frame-export-pdf#export" data-view-target="front">
+      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-view-target="front">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.front") %>
       </a>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->frame-export-pdf#export" data-view-target="back">
+      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-view-target="back">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.back") %>
       </a>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->frame-export-pdf#export" data-view-target="front"
+      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-view-target="front"
                                                                                     data-bg-wiring="true">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.front_wiring") %>
       </a>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->frame-export-pdf#export" data-view-target="back"
+      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-view-target="back"
                                                                                     data-bg-wiring="true">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.back_wiring") %>
