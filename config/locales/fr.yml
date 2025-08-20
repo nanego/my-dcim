@@ -864,6 +864,17 @@ fr:
   servers_grids:
     index:
       title: Rechercher un matériel
+  permissions:
+    index:
+      title: Permissions
+      new_permission: Nouvelle permission
+      delete_confirmation: Vous êtes sûr de vouloir supprimer cette permission ?
+    new:
+      title: Nouvelle permission
+    edit:
+      title: Editier la permission %{name}
+    form:
+      add_permission_user: Ajouter un utilisateur
 
   views:
     pagination:
