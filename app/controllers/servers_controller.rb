@@ -2,6 +2,7 @@
 
 class ServersController < ApplicationController # rubocop:disable Metrics/ClassLength
   include ServersHelper
+  include RoomsHelper
   include ColumnsPreferences
 
   DEFAULT_COLUMNS = %w[name numero modele_category_id islet_id bay_id network_types position].freeze
@@ -109,6 +110,25 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   end
 
   def cables_export
+    @connections = decorate(MovedConnection.per_servers([@server]))
+
+    @servers_per_frames = {}
+    sort_order = frames_sort_order(:back, @server.bay.lane)
+
+    Frames::IncludingServersQuery.call(@server.bay.frames, "frames.position #{sort_order}").each do |frame|
+      room = @server.bay.islet.room_id
+      islet = frame.bay.islet.name
+      @servers_per_frames[room] ||= {}
+      @servers_per_frames[room][islet] ||= {}
+      @servers_per_frames[room][islet][frame.bay.lane] ||= {}
+      @servers_per_frames[room][islet][frame.bay.lane][frame.bay] ||= {}
+      @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] ||= []
+
+      frame.servers.each do |s|
+        @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] << s
+      end
+    end
+
     render layout: "pdf"
   end
 

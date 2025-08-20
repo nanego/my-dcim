@@ -1,1 +1,14 @@
-test
+<%= render partial: "servers/room", locals: {
+                  room: @server.bay.room,
+                  islets: @servers_per_frames[@server.bay.islet.room_id],
+                  view_side: :back,
+                  should_show_heading: false
+  } %>
+
+<div>
+  <% @connections.each do |connection| %>
+    <p>
+      <%= connection.description %>
+    </p>
+  <% end %>
+</div>
