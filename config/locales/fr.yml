@@ -435,6 +435,7 @@ fr:
       toggle_vlans: Afficher / Cacher les Vlans
       destroy_connections: Supprimer les connexions
       destroy_connections_confirmation: Confirmez-vous vouloir supprimer toutes les connections de ce matériel I.T. ?
+      export: Exporter
     new:
       title: Ajouter un matériel I.T.
     create:
