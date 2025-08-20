@@ -6,26 +6,14 @@
 
 <%= render Page::HeadingShowComponent.new(resource: @server, title:, breadcrumb:) do |heading| %>
   <% heading.with_extra_buttons do %>
-    <%#= render ButtonComponent.new(
-      t(".export"),
-      url: "#",
-      variant: :outline_primary,
-      icon: :"file-earmark-pdf",
-      extra_classes: "me-2",
-      data: { controller: "dynamic-export-pdf",
-        dynamic_export_pdf_filename_value: @server.friendly_id,
-        export_urls: cables_export_server_path(@server),
-        action: "click->dynamic-export-pdf#export"
-      }
-    ) %>
-
     <button class="btn btn-outline-primary me-2" data-controller="dynamic-export-pdf" data-action="click->dynamic-export-pdf#export"
-            data-dynamic-export-pdf-filename-value="<%= @server.friendly_id %>" data-export-urls="<%= cables_export_server_path(@server) %>">
+            data-dynamic-export-pdf-filename-param="<%= @server.friendly_id %>"
+            data-dynamic-export-pdf-urls-param="<%= cables_export_server_path(@server) %>">
       <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none me-" role="status" aria-hidden="true"
             data-dynamic-export-pdf-target="spinner"></span>
       <span class="bi bi-file-earmark-pdf"></span>
 
-      <%= t(".export") %>
+      <span><%= t(".export") %></span>
     </button>
 
     <%= render ButtonComponent.new(
