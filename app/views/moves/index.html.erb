@@ -148,13 +148,13 @@
                 %>
               </td>
               <td class="d-flex justify-content-center column-gap-1"
-                  data-controller="frame-export-pdf"
-                  data-frame-export-pdf-model-ids-value="<%= [frame.id] %>"
-                  data-frame-export-pdf-filename-value="move-frame-<%= frame.name %>"
-                  data-frame-export-pdf-moves-project-id-value="<%= @moves_project.id %>"
-                  data-frame-export-pdf-moves-project-step-id-value="<%= @moves_project_step.id %>"
-                  data-frame-export-pdf-filename-value="move-frame-<%= frame.name %>"
-                  data-frame-export-pdf-is-move-value="true">
+                  data-controller="dynamic-export-pdf"
+                  data-dynamic-export-pdf-model-ids-value="<%= [frame.id] %>"
+                  data-dynamic-export-pdf-filename-value="move-frame-<%= frame.name %>"
+                  data-dynamic-export-pdf-moves-project-id-value="<%= @moves_project.id %>"
+                  data-dynamic-export-pdf-moves-project-step-id-value="<%= @moves_project_step.id %>"
+                  data-dynamic-export-pdf-filename-value="move-frame-<%= frame.name %>"
+                  data-dynamic-export-pdf-is-move-value="true">
                 <div class="btn-group btn-group-sm" role="group" aria-label="...">
                   <% if @moves_project.unarchived? %>
                     <%= link_to t(".edit_connections"),
@@ -174,16 +174,16 @@
                     <span class="visually-hidden"><%= t("export_button.exports.print") %></span>
                   <% end %>
                   <a role="button" class="btn btn-sm btn-outline-primary d-flex align-items-center export-button-move"
-                                  data-action="click->frame-export-pdf#export" data-view-target="front">
+                                  data-action="click->dynamic-export-pdf#export" data-view-target="front">
                     <span class="bi bi-file-earmark-pdf"
                           title="<%= t("export_button.exports.pdf") %>"
                           aria-hidden="true"
                           data-controller="tooltip"
                           data-bs-placement="left"
-                          data-frame-export-pdf-target="buttonIcon"></span>
+                          data-dynamic-export-pdf-target="buttonIcon"></span>
                     <span class="visually-hidden"><%= t("export_button.exports.pdf") %></span>
                     <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none " role="status"
-                          aria-hidden="true" data-frame-export-pdf-target="spinner"></span>
+                          aria-hidden="true" data-dynamic-export-pdf-target="spinner"></span>
                   </a>
                 </div>
               </td>
