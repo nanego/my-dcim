@@ -30,6 +30,7 @@ class BaysController < ApplicationController
 
   def new
     @bay = Bay.new
+    @bay.assign_attributes(bay_params) if params[:bay]
   end
 
   def edit; end

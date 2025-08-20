@@ -27,6 +27,7 @@ class IsletsController < ApplicationController
   # GET /islets/new
   def new
     @islet = Islet.new
+    @islet.assign_attributes(islet_params) if params[:islet]
   end
 
   # GET /islets/1/edit

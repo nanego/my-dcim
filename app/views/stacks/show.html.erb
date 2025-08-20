@@ -35,7 +35,9 @@
   <%= render HasManyTurboFrameComponent.new(
     Server.model_name.human(count: 2),
     url: servers_path(stack_ids: @stack.id),
-    frame_id: dom_id(Server, :table)
+    frame_id: dom_id(Server, :table),
+    new_path: new_server_path(server: { stack_id: @stack.id }),
+    new_label: t("servers.add_new")
   ) %>
   <%= render ChangelogEntries::ObjectListComponent.new(@stack) %>
 </div>
