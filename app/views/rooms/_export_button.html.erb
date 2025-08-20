@@ -1,7 +1,4 @@
-<div class="dropdown btn-group-sm btn-group"
-     data-controller="dynamic-export-pdf"
-     data-dynamic-export-pdf-model-ids-value="<%= room.frames.order(:islet_id, :name).pluck(:id) %>"
-     data-dynamic-export-pdf-filename-value="room-<%= room.name %>">
+<div class="dropdown btn-group-sm btn-group" data-controller="dynamic-export-pdf">
   <button type="button"
           class="btn btn-outline-primary dropdown-toggle d-flex align-items-center export-button"
           data-bs-toggle="dropdown"
@@ -19,27 +16,33 @@
       <h6 class="dropdown-header"><%= t("export_button.exports.pdf") %></h6>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-view-target="front">
+      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-view-target="front"
+         data-dynamic-export-pdf-urls-param="<%= room.print_frames_paths(view: :front).join(";")%>"
+         data-dynamic-export-pdf-filename-param="room-<%= room.name %>-front">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.front") %>
       </a>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-view-target="back">
+      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-view-target="back"
+         data-dynamic-export-pdf-urls-param="<%= room.print_frames_paths(view: :back).join(";")%>"
+         data-dynamic-export-pdf-filename-param="room-<%= room.name %>-back">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.back") %>
       </a>
     </li>
     <li>
       <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-view-target="front"
-                                                                                    data-bg-wiring="true">
+         data-dynamic-export-pdf-urls-param="<%= room.print_frames_paths(view: :front, bg: :wiring).join(";")%>"
+         data-dynamic-export-pdf-filename-param="room-<%= room.name %>-front_wiring" data-bg-wiring="true">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.front_wiring") %>
       </a>
     </li>
     <li>
       <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-view-target="back"
-                                                                                    data-bg-wiring="true">
+         data-dynamic-export-pdf-urls-param="<%= room.print_frames_paths(view: :back, bg: :wiring).join(";")%>"
+         data-dynamic-export-pdf-filename-param="room-<%= room.name %>-back_wiring" data-bg-wiring="true">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.back_wiring") %>
       </a>
