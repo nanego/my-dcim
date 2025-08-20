@@ -829,7 +829,7 @@ body {
     }
   }
 
-  table, .card-islet {
+  .card-islet {
     a:not(.btn):not(.dropdown-item) {
       text-decoration: none;
 
@@ -988,7 +988,7 @@ body {
   }
 
   .ts-dropdown {
-    z-index: 9999;
+    z-index: 8888;
   }
 
   /* Tom-Select fix for bootstrap floating label */

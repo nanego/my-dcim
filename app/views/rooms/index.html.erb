@@ -15,7 +15,10 @@
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
-      <div class="w-100">
+      <div class="w-100 input-group">
+        <span class="input-group-text">
+          <i class="bi bi-search"></i>
+        </span>
         <fieldset class="form-floating">
           <%= f.text_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
           <%= f.label :q %>
@@ -52,7 +55,7 @@
         <% end %>
       <% end %>
 
-      <% table.with_column(Room.human_attribute_name(:position), sort_by: :position) do |room| %>
+      <% table.with_column(Room.human_attribute_name(:position), sort_by: :position, class: "text-end") do |room| %>
         <%= room.position %>
       <% end %>
 
