@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Contact do
   subject(:contact) { described_class.new(first_name: "John", last_name: "Doe") }

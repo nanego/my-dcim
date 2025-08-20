@@ -16,7 +16,7 @@ class Bay < ApplicationRecord
 
   scope :sorted, -> { order(:lane, :position) }
 
-  scope :sorted_by_room, -> { joins(:room, :islet).order(:site_id, 'rooms.position', 'rooms.name', 'islets.name', :lane, 'bays.position') }
+  scope :sorted_by_room, -> { joins(:room, :islet).order(:site_id, "rooms.position", "rooms.name", "islets.name", :lane, "bays.position") }
 
   def to_s
     frames.any? ? list_frames : I18n.t("bays.empty")
@@ -27,6 +27,6 @@ class Bay < ApplicationRecord
   end
 
   def list_frames
-    frames.pluck(:name).sort.join(' / ')
+    frames.pluck(:name).sort.join(" / ")
   end
 end

@@ -117,7 +117,7 @@ RSpec.describe "/modeles" do
       end
 
       it { expect(response).to render_template(:preview) }
-      it { expect(response).to have_http_status(:unprocessable_entity) }
+      it { expect(response).to have_http_status(:unprocessable_content) }
     end
   end
 
@@ -192,7 +192,7 @@ RSpec.describe "/modeles" do
       end
 
       it { expect(response).to render_template(:preview) }
-      it { expect(response).to have_http_status(:unprocessable_entity) }
+      it { expect(response).to have_http_status(:unprocessable_content) }
     end
   end
 

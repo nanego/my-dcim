@@ -217,7 +217,7 @@ RSpec.describe "Users" do
     context "with invalid parameters" do
       let(:params) { { user: invalid_attributes } }
 
-      it { expect(response).to have_http_status(:unprocessable_entity) }
+      it { expect(response).to have_http_status(:unprocessable_content) }
       it { expect(response).to render_template(:edit) }
     end
   end

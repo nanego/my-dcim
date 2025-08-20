@@ -20,7 +20,7 @@ class ClustersControllerTest < ActionController::TestCase
   end
 
   test "should create cluster" do
-    assert_difference('Cluster.count') do
+    assert_difference("Cluster.count") do
       post :create, params: { cluster: { name: @cluster.name } }
     end
 
@@ -45,7 +45,7 @@ class ClustersControllerTest < ActionController::TestCase
   test "should destroy cluster" do
     @cluster = Cluster.create
 
-    assert_difference('Cluster.count', -1) do
+    assert_difference("Cluster.count", -1) do
       delete :destroy, params: { id: @cluster }
     end
 
@@ -53,7 +53,7 @@ class ClustersControllerTest < ActionController::TestCase
   end
 
   test "should not destroy cluster that have servers" do
-    assert_difference('Cluster.count', 0) do
+    assert_difference("Cluster.count", 0) do
       delete :destroy, params: { id: @cluster }
     end
 

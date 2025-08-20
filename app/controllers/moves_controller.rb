@@ -43,7 +43,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
       if @move.valid?
         redirect_to new_moves_project_step_move_path(@move.step, server_id: @move.moveable)
       else
-        render :new_unscoped, status: :unprocessable_entity
+        render :new_unscoped, status: :unprocessable_content
       end
 
       return
@@ -51,7 +51,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
     @move = @moves_project_step.moves.build(move_params)
 
-    if params[:move][:remove_connections] == 'Oui'
+    if params[:move][:remove_connections] == "Oui"
       @move.clear_connections
     end
 
@@ -62,7 +62,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
       else
         load_form_data
         format.html { render :new }
-        format.json { render json: @move.errors, status: :unprocessable_entity }
+        format.json { render json: @move.errors, status: :unprocessable_content }
       end
     end
   end
@@ -70,7 +70,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   def update
     respond_to do |format|
       if @move.update(move_params)
-        if params[:move][:remove_connections] == 'Oui'
+        if params[:move][:remove_connections] == "Oui"
           @move.clear_connections
         end
 
@@ -79,7 +79,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
       else
         load_form_data
         format.html { render :edit }
-        format.json { render json: @move.errors, status: :unprocessable_entity }
+        format.json { render json: @move.errors, status: :unprocessable_content }
       end
     end
   end
@@ -124,7 +124,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   def load_frame
     @frame = Frame.friendly.find(params[:frame_id])
     @view = params[:view]
-    @move = @moves_project_step.moves.build(moveable_type: 'Server')
+    @move = @moves_project_step.moves.build(moveable_type: "Server")
     @servers = @moves_project_step.servers_moves_for_frame_at_current_step(@frame)
   end
 
@@ -157,7 +157,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
     # Current connections for all servers, necessary to refresh visible servers ports
     @moved_connections = MovedConnection.per_servers(@servers)
 
-    @current_moved_connections = @moved_connections.where('port_from_id IN (?) OR port_to_id IN (?)',
+    @current_moved_connections = @moved_connections.where("port_from_id IN (?) OR port_to_id IN (?)",
                                                           [params[:moved_connection][:port_from_id], params[:moved_connection][:port_to_id]],
                                                           [params[:moved_connection][:port_from_id], params[:moved_connection][:port_to_id]])
 
@@ -172,7 +172,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
       @moved_connection = MovedConnection.new
     end
 
-    if params[:moved_connection][:remove_connection] == '1'
+    if params[:moved_connection][:remove_connection] == "1"
       @moved_connection.update({ vlans: "",
                                  cablename: "",
                                  color: "",
@@ -230,7 +230,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   def get_all_frames_per_room # rubocop:disable Naming/AccessorMethodName
     @all_frames_per_room = []
     Room.order(:position).each do |room|
-      @all_frames_per_room << [room.name, room.frames.order('frames.name').collect { |v| [v.name, v.id] }]
+      @all_frames_per_room << [room.name, room.frames.order("frames.name").collect { |v| [v.name, v.id] }]
     end
   end
 

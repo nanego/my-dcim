@@ -33,7 +33,7 @@ class CardTypesController < ApplicationController
         format.json { render :show, status: :created, location: @card_type }
       else
         format.html { render :new }
-        format.json { render json: @card_type.errors, status: :unprocessable_entity }
+        format.json { render json: @card_type.errors, status: :unprocessable_content }
       end
     end
   end
@@ -47,7 +47,7 @@ class CardTypesController < ApplicationController
         format.json { render :show, status: :ok, location: @card_type }
       else
         format.html { render :edit }
-        format.json { render json: @card_type.errors, status: :unprocessable_entity }
+        format.json { render json: @card_type.errors, status: :unprocessable_content }
       end
     end
   end

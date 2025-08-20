@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Card do
   # it_behaves_like "changelogable", object: -> { described_class.new }, new_attributes: { name: "New name" }

@@ -14,7 +14,7 @@ RSpec.describe CaptionComponent, type: :component do
     end
 
     it "renders component" do
-      expect(rendered_component.to_html).to have_tag('span.caption-component') do
+      expect(rendered_component.to_html).to have_tag("span.caption-component") do
         with_tag("span.caption-component-button")
         with_tag("span.caption-component-content", text: "This is the main content")
       end

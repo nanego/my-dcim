@@ -9,6 +9,6 @@ class RenameCategoryColumn < ActiveRecord::Migration[4.2]
     rename_column :modeles, :categorie_id, :category_id
   end
 
-  MigrationCategory.find_or_create_by!(title: 'Blank Panel', published: true)
-  MigrationCategory.find_or_create_by!(title: 'Patch Panel', published: true)
+  MigrationCategory.find_or_create_by!(title: "Blank Panel", published: true)
+  MigrationCategory.find_or_create_by!(title: "Patch Panel", published: true)
 end

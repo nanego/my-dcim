@@ -95,7 +95,7 @@ RSpec.describe "Rooms" do
     context "with invalid data" do
       let(:params) { { room: { site_id: 123_456 } } }
 
-      it { expect(response).to have_http_status(:unprocessable_entity) }
+      it { expect(response).to have_http_status(:unprocessable_content) }
       it { expect(response).to render_template(:edit) }
     end
 

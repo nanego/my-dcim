@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe ChangelogEntry do
   subject(:changelog_entry) { described_class.new }

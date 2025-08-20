@@ -20,7 +20,7 @@ class DomainesControllerTest < ActionController::TestCase
   end
 
   test "should create domaine" do
-    assert_difference('Domaine.count') do
+    assert_difference("Domaine.count") do
       post :create, params: { domaine: { description: @domaine.description, name: @domaine.name } }
     end
 
@@ -45,7 +45,7 @@ class DomainesControllerTest < ActionController::TestCase
   test "should destroy domaine" do
     @domaine = Domaine.create
 
-    assert_difference('Domaine.count', -1) do
+    assert_difference("Domaine.count", -1) do
       delete :destroy, params: { id: @domaine }
     end
 
@@ -53,7 +53,7 @@ class DomainesControllerTest < ActionController::TestCase
   end
 
   test "should not destroy domaine that have modeles" do
-    assert_difference('Domaine.count', 0) do
+    assert_difference("Domaine.count", 0) do
       delete :destroy, params: { id: @domaine }
     end
 

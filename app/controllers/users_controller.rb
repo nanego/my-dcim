@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     if @user.update(secure_params)
       redirect_to users_path, notice: t(".flashes.updated")
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 

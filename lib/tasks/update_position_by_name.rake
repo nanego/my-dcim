@@ -17,7 +17,7 @@ namespace :update_ports_position do
 
       # Set correct position
       switch.ports.each do |port|
-        if port.card.composant.name == 'CM' && port.cable_name.present?
+        if port.card.composant.name == "CM" && port.cable_name.present?
           array << "#{port.cable_name} / #{port.position - 1}"
           port.position = port.cable_name[1..].to_i + (1 - first_position)
           port.save

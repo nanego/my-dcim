@@ -5,11 +5,11 @@ class ConnectionsController < ApplicationController
     if params[:from_port_id].present? && params[:from_port_id].to_i > 0
       @from_port = Port.find_by_id(params[:from_port_id])
     else
-      @from_port = Port.create(position: params['position'],
-                               card_id: params['card_id'],
-                               vlans: params['vlans'],
-                               color: params['color'],
-                               cablename: params['cablename'])
+      @from_port = Port.create(position: params["position"],
+                               card_id: params["card_id"],
+                               vlans: params["vlans"],
+                               color: params["color"],
+                               cablename: params["cablename"])
     end
 
     @frame = @from_port.server.frame

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe ChangelogEntryDecorator, type: :decorator do
   let(:object) { ChangelogEntry.new(object_type: "Color", object_changed_attributes: { id: [nil, 42] }) }
@@ -51,15 +51,15 @@ RSpec.describe ChangelogEntryDecorator, type: :decorator do
     end
   end
 
-  describe '#object_pre_change_attributes' do
+  describe "#object_pre_change_attributes" do
     it { expect(decorated_changelog_entry.object_pre_change_attributes).to eq({ "id" => nil }) }
   end
 
-  describe '#object_pre_change_attributes_to_json' do
+  describe "#object_pre_change_attributes_to_json" do
     it { expect(decorated_changelog_entry.object_pre_change_attributes_to_json).to include("id", "null") }
   end
 
-  describe '#object_post_change_attributes' do
+  describe "#object_post_change_attributes" do
     it { expect(decorated_changelog_entry.object_post_change_attributes).to eq({ "id" => 42 }) }
   end
 

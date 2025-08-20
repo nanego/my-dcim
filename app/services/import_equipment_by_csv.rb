@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'csv'
+require "csv"
 
 class ImportEquipmentByCsv
   DEFAULT_NB_OF_SLOTS = 7
@@ -18,38 +18,38 @@ class ImportEquipmentByCsv
     ApplicationRecord.transaction do
       new_frame = nil
       f = nil
-      CSV.foreach(file.path, headers: true, col_sep: ';') do |row|
+      CSV.foreach(file.path, headers: true, col_sep: ";") do |row|
         data = row.to_hash
         if data.present?
-          modele = Modele.find_by_name(data['Modele'])
+          modele = Modele.find_by_name(data["Modele"])
 
           raise "Modèle inconnu - #{data["Modele"]}" if modele.blank?
           raise "Modèle incomplet : Pas d'enclosure - #{data["Modele"]}" if modele.enclosures.empty?
-          raise "Les numéros de série doivent être présent" if data['Numero'].blank?
+          raise "Les numéros de série doivent être présent" if data["Numero"].blank?
 
           server = Server.new
-          f = Frame.find_by_name(data['Baie']) if data['Baie'].present?
-          if data['Baie'].present? && f.present?
+          f = Frame.find_by_name(data["Baie"]) if data["Baie"].present?
+          if data["Baie"].present? && f.present?
             server.frame = f
           else
             if new_frame.nil?
               islet = room.islets.first
               bay = islet.bays.create!(lane: 1,
-                                       name: file.original_filename.sub('.csv', ''),
+                                       name: file.original_filename.sub(".csv", ""),
                                        bay_type_id: 1)
               new_frame = bay.frames.create!(name: bay.name)
             end
             server.frame = new_frame
           end
 
-          server.position = data['Position'] if data['Position'].present?
+          server.position = data["Position"] if data["Position"].present?
           server.modele = modele
-          server.name = data['Nom']
-          server.numero = data['Numero']
-          server.critique = (data['Critique'] == 'oui')
-          server.cluster = Cluster.find_or_create_by!(name: data['Cluster'])
-          server.domaine = Domaine.find_or_create_by!(name: data['Domaine'])
-          server.comment = data['Comment'] if data['Comment'].present?
+          server.name = data["Nom"]
+          server.numero = data["Numero"]
+          server.critique = (data["Critique"] == "oui")
+          server.cluster = Cluster.find_or_create_by!(name: data["Cluster"])
+          server.domaine = Domaine.find_or_create_by!(name: data["Domaine"])
+          server.comment = data["Comment"] if data["Comment"].present?
           init_slots(data, server)
           unless server.save
             raise "Erreur lors de l'ajout d'une machine - Les numéros de série doivent être uniques"
@@ -110,22 +110,22 @@ class ImportEquipmentByCsv
     end
 
     # SLOTS CM
-    valeur = 'RJ'
-    nb_ports = data['CM'].to_s.gsub(valeur, '').to_i
+    valeur = "RJ"
+    nb_ports = data["CM"].to_s.gsub(valeur, "").to_i
     port_type = PortType.find_or_create_by!(name: valeur)
     card_cm = CardType.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
     Card.find_or_create_by!(card_type: card_cm, server: server, composant: composant_slot_cm)
 
     # SLOTS IPMI
-    valeur = 'RJ'
-    nb_ports = data['IPMI'].to_s.gsub(valeur, '').to_i
+    valeur = "RJ"
+    nb_ports = data["IPMI"].to_s.gsub(valeur, "").to_i
     port_type = PortType.find_or_create_by!(name: valeur)
     card_ipmi = CardType.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
     Card.find_or_create_by!(card_type: card_ipmi, server: server, composant: composant_slot_ipmi)
 
     # SLOTS ALIM
-    valeur = 'ALIM'
-    nb_ports = data['Alim'].to_s.gsub(valeur, '').to_i
+    valeur = "ALIM"
+    nb_ports = data["Alim"].to_s.gsub(valeur, "").to_i
     port_type = PortType.find_or_create_by!(name: valeur)
     card_alim = CardType.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
     Card.find_or_create_by!(card_type: card_alim, server: server, composant: composant_slot_alim)

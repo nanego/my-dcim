@@ -11,7 +11,7 @@ class CreateBayTypes < ActiveRecord::Migration[4.2]
       t.integer :size
     end
 
-    MigrationBayType.create(name: 'single', size: 1)
-    MigrationBayType.create(name: 'double', size: 2)
+    MigrationBayType.create(name: "single", size: 1)
+    MigrationBayType.create(name: "double", size: 2)
   end
 end

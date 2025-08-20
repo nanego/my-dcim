@@ -5,7 +5,7 @@ class Pdu
 
   def self.calculated_side(frame, name)
     if frame.bay.bay_type.size <= 1
-      if name == 'A'
+      if name == "A"
         SIDES[:left]
       else
         SIDES[:right]

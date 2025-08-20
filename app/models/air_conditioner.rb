@@ -9,8 +9,8 @@ class AirConditioner < ApplicationRecord
   has_one :room, through: :bay
   has_one :islet, through: :bay
 
-  enum :status, { on: 'on', degraded: 'degraded', off: 'off' }
-  enum :position, { left: 'left', right: 'right' }
+  enum :status, { on: "on", degraded: "degraded", off: "off" }
+  enum :position, { left: "left", right: "right" }
 
   validates :status, inclusion: { in: statuses.values }
   validates :position, inclusion: { in: positions.values }

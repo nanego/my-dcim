@@ -20,7 +20,7 @@ class ArchitecturesControllerTest < ActionController::TestCase
   end
 
   test "should create architecture" do
-    assert_difference('Architecture.count') do
+    assert_difference("Architecture.count") do
       post :create, params: { architecture: { description: @architecture.description, name: @architecture.name } }
     end
 
@@ -45,7 +45,7 @@ class ArchitecturesControllerTest < ActionController::TestCase
   test "should destroy architecture" do
     @architecture = Architecture.create
 
-    assert_difference('Architecture.count', -1) do
+    assert_difference("Architecture.count", -1) do
       delete :destroy, params: { id: @architecture }
     end
 
@@ -53,7 +53,7 @@ class ArchitecturesControllerTest < ActionController::TestCase
   end
 
   test "should not destroy architecture that have modeles" do
-    assert_difference('Architecture.count', 0) do
+    assert_difference("Architecture.count", 0) do
       delete :destroy, params: { id: @architecture }
     end
 

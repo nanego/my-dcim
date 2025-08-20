@@ -43,7 +43,7 @@ class BaysController < ApplicationController
         format.json { render :show, status: :created, location: @bay }
       else
         format.html { render :new }
-        format.json { render json: @bay.errors, status: :unprocessable_entity }
+        format.json { render json: @bay.errors, status: :unprocessable_content }
       end
     end
   end
@@ -55,7 +55,7 @@ class BaysController < ApplicationController
         format.json { render :show, status: :ok, location: @bay }
       else
         format.html { render :edit }
-        format.json { render json: @bay.errors, status: :unprocessable_entity }
+        format.json { render json: @bay.errors, status: :unprocessable_content }
       end
     end
   end

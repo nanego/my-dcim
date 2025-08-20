@@ -35,7 +35,7 @@ class GestionsController < ApplicationController
         format.json { render :show, status: :created, location: @gestion }
       else
         format.html { render :new }
-        format.json { render json: @gestion.errors, status: :unprocessable_entity }
+        format.json { render json: @gestion.errors, status: :unprocessable_content }
       end
     end
   end
@@ -49,7 +49,7 @@ class GestionsController < ApplicationController
         format.json { render :show, status: :ok, location: @gestion }
       else
         format.html { render :edit }
-        format.json { render json: @gestion.errors, status: :unprocessable_entity }
+        format.json { render json: @gestion.errors, status: :unprocessable_content }
       end
     end
   end

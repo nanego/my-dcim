@@ -4,10 +4,10 @@ class ExternalAppRequest < ApplicationRecord
   belongs_to :user
 
   enum :status, {
-    pending: 'pending',
-    in_progress: 'in_progress',
-    completed: 'completed',
-    failed: 'failed'
+    pending: "pending",
+    in_progress: "in_progress",
+    completed: "completed",
+    failed: "failed"
   }
 
   after_initialize :set_defaults

@@ -20,7 +20,7 @@ class FramesControllerTest < ActionController::TestCase
   end
 
   test "should create frame" do
-    assert_difference('Frame.count') do
+    assert_difference("Frame.count") do
       post :create, params: { frame: { name: "MyFrame6", bay_id: 1 } }
     end
 
@@ -45,13 +45,13 @@ class FramesControllerTest < ActionController::TestCase
   test "should destroy frame" do
     @frame = frames(:two)
 
-    assert_difference('Frame.count', -1) do
+    assert_difference("Frame.count", -1) do
       delete :destroy, params: { id: @frame }
     end
   end
 
   test "should not destroy frame it has many servers Server n°1 & 2 and pdu Pdu n°1" do
-    assert_difference('Frame.count', 0) do
+    assert_difference("Frame.count", 0) do
       delete :destroy, params: { id: @frame }
     end
 
