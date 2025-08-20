@@ -20,6 +20,7 @@ const exportOptions = {
 export default class extends ExportPdfController {
   static targets = ["buttonIcon"]
   static values = {
+    filename: String,
     modelIds: Array,
     isMove: Boolean,
     movesProjectId: String,
@@ -27,27 +28,25 @@ export default class extends ExportPdfController {
   }
 
   async export(event) {
-    const viewTarget = event.target.closest("a").dataset.viewTarget
-    if (!viewTarget) return
-
-    const bgWiring = event.target.dataset.bgWiring
-
     this.showSpinner()
     if (this.isMoveValue) this.hideButtonIcon()
 
-    const urls = event.target.dataset.exportUrls.split(";");
+    const urls = event.currentTarget.dataset.exportUrls.split(";");
 
-    const pdfDoc = await this.generatePDF(urls, viewTarget, bgWiring)
+    const pdfDoc = await this.generatePDF(urls)
     const pdfBytes = await pdfDoc.save()
     const blob = new Blob([pdfBytes], { type: "application/pdf" })
 
-    saveAs(blob, `${this.filenameValue}_${viewTarget}${ bgWiring ? "_wiring" : ""}.pdf`)
+    saveAs(blob, `${this.filenameValue}.pdf`)
+
+    //  TODO: Handle this case in frame export
+    // saveAs(blob, `${this.filenameValue}_${viewTarget}${ bgWiring ? "_wiring" : ""}.pdf`)
 
     this.hideSpinner()
     if (this.isMoveValue) this.showButtonIcon()
   }
 
-  async generatePDF(urls, viewTarget, bgWiring) {
+  async generatePDF(urls) {
     const pdfDoc = await PDFDocument.create();
 
     for (let i = 0; i < urls.length; i++) {
