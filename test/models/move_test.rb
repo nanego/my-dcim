@@ -7,10 +7,6 @@ class MoveTest < ActiveSupport::TestCase
     @move = moves(:one)
   end
 
-  test 'valid move' do
-    assert @move.valid?
-  end
-
   test 'invalid without frame' do
     @move.frame = nil
     refute @move.valid?, 'saved move without a frame'

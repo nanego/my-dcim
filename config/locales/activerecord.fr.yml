@@ -372,6 +372,7 @@ fr:
         name: Nom
         date: Planifié le
       move:
+        moves_project_step_id: Étape
         moveable_id: Équipement à déplacer
         frame_id: Châssis de destination
         prev_frame_id: Châssis de départ
