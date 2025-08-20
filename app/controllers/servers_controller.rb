@@ -10,7 +10,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
 
   columns_preferences_with model: Server, default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS, only: %i[index export]
 
-  before_action :set_server, only: %i[show edit update destroy destroy_connections]
+  before_action :set_server, only: %i[show edit update destroy destroy_connections cables_export]
   before_action except: %i[index] do
     breadcrumb.add_step(Server.model_name.human, servers_path)
   end
@@ -106,6 +106,10 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
 
   def import_csv
     authorize!
+  end
+
+  def cables_export
+    render layout: "pdf"
   end
 
   def export

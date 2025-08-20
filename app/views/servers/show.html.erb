@@ -7,6 +7,14 @@
 <%= render Page::HeadingShowComponent.new(resource: @server, title:, breadcrumb:) do |heading| %>
   <% heading.with_extra_buttons do %>
     <%= render ButtonComponent.new(
+      t(".export"),
+      url: cables_export_server_path(@server),
+      variant: :outline_primary,
+      icon: :"file-earmark-pdf",
+      extra_classes: "me-2"
+    ) %>
+
+    <%= render ButtonComponent.new(
       t("action.move"),
       url: new_move_path(server_id: @server.id),
       variant: :outline_primary,
