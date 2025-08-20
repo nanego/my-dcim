@@ -3,8 +3,6 @@ import ExportPdfController from "controllers/export_pdf_controller"
 import { get } from "@rails/request.js"
 import { html2pdf, saveAs, PDFDocument } from "html2pdf.js"
 
-/* Seems not to be used `/moves_projects/${this.movesProjectIdValue}/moves_project_steps/${this.movesProjectStepIdValue}/frames/${modelId}/print` */
-
 const exportOptions = {
   margin: 10,
   image: {
