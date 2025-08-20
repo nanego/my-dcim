@@ -71,7 +71,7 @@ class RoomsController < ApplicationController
         format.json { render :show, status: :created, location: @room }
       else
         format.html { render :new }
-        format.json { render json: @room.errors, status: :unprocessable_entity }
+        format.json { render json: @room.errors, status: :unprocessable_content }
       end
     end
   end
@@ -82,8 +82,8 @@ class RoomsController < ApplicationController
         format.html { form_redirect_to room_path(@room), notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @room }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @room.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @room.errors, status: :unprocessable_content }
       end
     end
   end

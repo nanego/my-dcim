@@ -55,7 +55,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
         format.json { render :show, status: :created, location: @server }
       else
         format.html { render :new }
-        format.json { render json: @server.errors, status: :unprocessable_entity }
+        format.json { render json: @server.errors, status: :unprocessable_content }
       end
     end
   end
@@ -67,7 +67,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
         format.json { render :show, status: :ok, location: @server }
       else
         format.html { render :edit }
-        format.json { render json: @server.errors, status: :unprocessable_entity }
+        format.json { render json: @server.errors, status: :unprocessable_content }
       end
     end
   end

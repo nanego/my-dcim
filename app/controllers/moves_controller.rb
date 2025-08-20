@@ -43,7 +43,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
       if @move.valid?
         redirect_to new_moves_project_step_move_path(@move.step, server_id: @move.moveable)
       else
-        render :new_unscoped, status: :unprocessable_entity
+        render :new_unscoped, status: :unprocessable_content
       end
 
       return
@@ -62,7 +62,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
       else
         load_form_data
         format.html { render :new }
-        format.json { render json: @move.errors, status: :unprocessable_entity }
+        format.json { render json: @move.errors, status: :unprocessable_content }
       end
     end
   end
@@ -79,7 +79,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
       else
         load_form_data
         format.html { render :edit }
-        format.json { render json: @move.errors, status: :unprocessable_entity }
+        format.json { render json: @move.errors, status: :unprocessable_content }
       end
     end
   end

@@ -43,7 +43,7 @@ class IsletsController < ApplicationController
         format.json { render :show, status: :created, location: @islet }
       else
         format.html { render :new }
-        format.json { render json: @islet.errors, status: :unprocessable_entity }
+        format.json { render json: @islet.errors, status: :unprocessable_content }
       end
     end
   end
@@ -57,7 +57,7 @@ class IsletsController < ApplicationController
         format.json { render :show, status: :ok, location: @islet }
       else
         format.html { render :edit }
-        format.json { render json: @islet.errors, status: :unprocessable_entity }
+        format.json { render json: @islet.errors, status: :unprocessable_content }
       end
     end
   end

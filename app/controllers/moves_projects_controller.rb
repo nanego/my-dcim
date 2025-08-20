@@ -32,8 +32,8 @@ class MovesProjectsController < ApplicationController
         format.html { redirect_to moves_project_path(@moves_project), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @moves_project }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @moves_project.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @moves_project.errors, status: :unprocessable_content }
       end
     end
   end
@@ -45,8 +45,8 @@ class MovesProjectsController < ApplicationController
         format.html { redirect_to moves_project_path(@moves_project), notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @moves_project }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @moves_project.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @moves_project.errors, status: :unprocessable_content }
       end
     end
   end

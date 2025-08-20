@@ -49,7 +49,7 @@ class PortsController < ApplicationController
         format.json { render :show, status: :ok, location: @port.server }
       else
         format.html { render :edit }
-        format.json { render json: @port.errors, status: :unprocessable_entity }
+        format.json { render json: @port.errors, status: :unprocessable_content }
       end
     end
   end
