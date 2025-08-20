@@ -80,6 +80,7 @@ en:
         name: Name
         date: Planned on
       move:
+        moves_project_step_id: Move step
         moveable_id: Equipment to move
         prev_frame_id: Departure frame
         frame_id: Destination frame

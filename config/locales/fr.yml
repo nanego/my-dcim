@@ -30,6 +30,7 @@ fr:
     move: Déplacer
     preview: Prévisualiser
     configure: Configurer
+    continue: Continuer
   export_button:
     label: Exports
     exports:
@@ -545,6 +546,10 @@ fr:
         execute_move: Déplacer le serveur et ses connexions
     new:
       title: Nouveau déplacement
+    new_unscoped:
+      breadcrumb:
+        title: Choix de l'étape
+      title: "Nouveau déplacement pour %{moveable_name}"
     create:
       flashes:
         created: Le déplacement a été créé avec succès.

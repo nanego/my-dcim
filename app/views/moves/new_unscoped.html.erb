@@ -1,0 +1,42 @@
+<% breadcrumb.add_step(t(".breadcrumb.title")) %>
+
+<%= render Page::HeadingNewComponent.new(
+  resource: @move, title: t(".title", moveable_name: @move.moveable), breadcrumb:,
+  back_button_url: server_path(@move.moveable),
+) %>
+
+<div class="col-12 p-4 border-top">
+  <div class="row gy-4">
+    <div class="col-12 col-lg-6">
+      <%= render FormErrorsComponent.new(@move) %>
+
+      <%= form_with(
+        model: @move,
+        html: { class: "bg-body-tertiary p-4 rounded border moves_form server_form_fields", role: "form" },
+      ) do |f| %>
+        <div class="row g-3">
+          <%= f.hidden_field :moveable_type, value: @move.moveable_type %>
+          <%= f.hidden_field :moveable_id, value: @move.moveable_id %>
+
+          <fieldset class="col-12">
+            <%= f.label :moves_project_step_id, class: "form-label" %>
+            <%= f.select :moves_project_step_id,
+                        MovesProjectStepDecorator.grouped_by_project_options_for_select,
+                        { include_blank: true },
+                        {
+                          onchange: "select_server(this.value);",
+                          class: "form-select",
+                          data: { controller: "select" },
+                          placeholder: t("select.placeholder"),
+                        }
+            %>
+          </fieldset>
+
+          <div class="col-12 mt-4 text-end">
+            <%= f.submit t("action.continue"), name: "unscoped", class: "btn btn-success" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

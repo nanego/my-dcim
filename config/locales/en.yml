@@ -27,6 +27,7 @@ en:
     move: Move
     preview: Preview
     configure: Configure
+    continue: Continue
 
   bays:
     index:
@@ -184,6 +185,10 @@ en:
         execute_move: Move the server and its connections
     new:
       title: New move
+    new_unscoped:
+      breadcrumb:
+        title: Step selection
+      title: "New move for %{moveable_name}"
     create:
       flashes:
         created: The move was successfully created.
