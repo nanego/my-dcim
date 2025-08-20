@@ -18,16 +18,14 @@ const exportOptions = {
 export default class extends ExportPdfController {
   static targets = ["buttonIcon"]
   static values = {
-    isMove: Boolean,
+    hasButtonIcon: Boolean,
     movesProjectId: String,
     movesProjectStepId: String,
   }
 
   async export(event) {
     this.showSpinner()
-
-    //  TODO: Generalize this behaviour to not depend on moves
-    if (this.isMoveValue) this.hideButtonIcon()
+    if (this.hasButtonIconValue) this.hideButtonIcon()
 
     let { filename, urls } = event.params
     urls = urls.split(";");
@@ -39,15 +37,13 @@ export default class extends ExportPdfController {
     saveAs(blob, `${filename}.pdf`)
 
     this.hideSpinner()
-    if (this.isMoveValue) this.showButtonIcon()
+    if (this.hasButtonIconValue) this.showButtonIcon()
   }
 
   async generatePDF(urls) {
     const pdfDoc = await PDFDocument.create();
 
-    for (let i = 0; i < urls.length; i++) {
-      const url = urls[i]
-
+    for (const url of urls) {
       const response = await get(url)
 
       if (response.ok) {
