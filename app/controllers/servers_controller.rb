@@ -111,8 +111,6 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
 
   def cables_export
     @connections = decorate(MovedConnection.per_servers([@server]))
-
-    # TODO: Factorize this part, also present in Visualization::BaysController
     @servers_per_frames = {}
     sort_order = frames_sort_order(:back, @server.bay.lane)
 
