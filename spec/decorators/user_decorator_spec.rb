@@ -46,14 +46,6 @@ RSpec.describe UserDecorator, type: :decorator do
     end
   end
 
-  describe "#admin_badge_component" do
-    subject(:badge) { decorated_user.admin_badge_component }
-
-    it { is_expected.to be_a BadgeComponent }
-    it { expect(badge.instance_variable_get(:@color)).to eq :warning }
-    it { expect(badge.content).to eq "Admin" }
-  end
-
   describe "#role_to_badge_component" do
     subject(:badge) { decorated_user.role_to_badge_component }
 
@@ -61,6 +53,14 @@ RSpec.describe UserDecorator, type: :decorator do
 
     before do
       user.role = role
+    end
+
+    context "when role is admin" do
+      let(:user) { users(:admin) }
+
+      it { is_expected.to be_a BadgeComponent }
+      it { expect(badge.instance_variable_get(:@color)).to eq :warning }
+      it { expect(badge.content).to eq "Admin" }
     end
 
     context "when role is reader" do

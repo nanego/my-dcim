@@ -50,7 +50,6 @@
 
     <% table.with_column(User.human_attribute_name(:role), sort_by: :role) do |user| %>
       <%= render user.role_to_badge_component %>
-      <%= render user.decorated.admin_badge_component if user.is_admin %>
     <% end %>
 
     <% table.with_column(User.human_attribute_name(:last_sign_in_at), sort_by: :last_sign_in_at) do |user| %>
