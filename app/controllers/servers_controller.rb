@@ -90,7 +90,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   end
 
   def sort
-    authorize! to: :sort?
+    authorize!
 
     room = Room.find_by_name(params[:room]) unless params[:room].include?("non ")
     frame = room.frames.where("islets.name = ? AND frames.name = ?", params[:islet], params[:frame]).first

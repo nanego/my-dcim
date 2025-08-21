@@ -6,7 +6,7 @@ class ApplicationPolicy < ActionPolicy::Base
   alias_rule :show?, to: :index?
 
   def index?
-    user.reader? || user.writer?
+    true
   end
 
   def create?
