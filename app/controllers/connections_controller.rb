@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class ConnectionsController < ApplicationController
-  def edit
+  def edit # rubocop:disable Metrics/AbcSize
+    authorize!
+
     if params[:from_port_id].present? && params[:from_port_id].to_i > 0
       @from_port = Port.find_by_id(params[:from_port_id])
     else
@@ -50,6 +52,8 @@ class ConnectionsController < ApplicationController
   end
 
   def update
+    authorize!
+
     from_port = Port.find(params[:connection][:from_port_id])
     to_port = Port.find(params[:connection][:to_port_id])
 
@@ -72,6 +76,8 @@ class ConnectionsController < ApplicationController
   end
 
   def update_destination_server
+    authorize!
+
     @server = Server.find_by_id(params[:server_id])
 
     if @server
@@ -85,6 +91,8 @@ class ConnectionsController < ApplicationController
   end
 
   def draw
+    authorize!
+
     @server = Server.find_by_id(params[:server_id])
     @connections_through_twin_cards = {}
     @server.cards.each do |card|

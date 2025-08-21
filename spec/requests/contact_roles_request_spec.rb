@@ -6,7 +6,7 @@ RSpec.describe "ContactRolesController" do
   let(:contact_role) { contact_roles(:one) }
 
   before do
-    sign_in users(:one)
+    sign_in users(:admin)
   end
 
   describe "#index" do

@@ -2,6 +2,8 @@
 
 module Users
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+    skip_verify_authorized
+
     def openid_connect
       auth = request.env["omniauth.auth"]
       @user = User.where("lower(email) = ?", auth["info"]["email"].downcase).first

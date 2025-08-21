@@ -3,11 +3,11 @@
 
   breadcrumb.add_step(t("visualization.title"), overview_rooms_path)
   if @room.present?
-    breadcrumb.add_step("#{Room.model_name.human} #{@room.name}"], visualization_room_path(@room))
+    breadcrumb.add_step("#{Room.model_name.human} #{@room.name}", visualization_room_path(@room))
   elsif @frame.present?
-    breadcrumb.add_step("#{Room.model_name.human} #{@frame.room.name}"], visualization_room_path(@frame.room))
+    breadcrumb.add_step("#{Room.model_name.human} #{@frame.room.name}", visualization_room_path(@frame.room))
   end
-  breadcrumb.add_step("#{Frame.model_name.human} #{@frame.name}"], visualization_frame_path(@frame)) if @frame.present?
+  breadcrumb.add_step("#{Frame.model_name.human} #{@frame.name}", visualization_frame_path(@frame)) if @frame.present?
   breadcrumb.add_step(title)
 %>
 

@@ -4,7 +4,7 @@ require "test_helper"
 
 class RoomsControllerTest < ActionController::TestCase
   setup do
-    sign_in users(:one)
+    sign_in users(:admin)
     @room = rooms(:one)
     @islet = islets(:one)
   end

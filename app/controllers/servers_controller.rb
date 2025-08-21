@@ -23,7 +23,7 @@ class ServersController < ApplicationController
       logger.warn("DEPRECATION WARNING: Search with 'name' is now deprecated. Use 'q' instead.")
     end
 
-    @servers = Server.no_pdus
+    authorize! @servers = Server.no_pdus
       .includes(frame: { bay: { islet: :room } }, modele: :category)
       .references(frame: { bay: { islet: :room } }, modele: :category)
       .order(:name)
@@ -41,14 +41,14 @@ class ServersController < ApplicationController
   def show; end
 
   def new
-    @server = Server.new
+    authorize! @server = Server.new
     @server.assign_attributes(server_params) if params[:server]
   end
 
   def edit; end
 
   def create
-    @server = Server.new(server_params)
+    authorize! @server = Server.new(server_params)
 
     respond_to do |format|
       if @server.save
@@ -86,6 +86,8 @@ class ServersController < ApplicationController
   end
 
   def sort
+    authorize!
+
     room = Room.find_by_name(params[:room]) unless params[:room].include?("non ")
     frame = room.frames.where("islets.name = ? AND frames.name = ?", params[:islet], params[:frame]).first
     positions = params[:positions].split(",")
@@ -102,10 +104,12 @@ class ServersController < ApplicationController
     head :ok # render empty body, status only
   end
 
-  def import_csv; end
+  def import_csv
+    authorize!
+  end
 
   def export
-    @servers = Server.no_pdus
+    authorize! @servers = Server.no_pdus
       .includes(frame: { bay: { islet: :room } }, modele: :category)
       .references(frame: { bay: { islet: :room } }, modele: :category)
       .order(:name)
@@ -122,6 +126,8 @@ class ServersController < ApplicationController
   end
 
   def import
+    authorize!
+
     value = ImportEquipmentByCsv.call(file: params[:import][:file],
                                       room_id: params[:import][:room_id])
     if value.is_a?(Frame)
@@ -133,7 +139,7 @@ class ServersController < ApplicationController
   end
 
   def duplicate
-    @original_server = Server.friendly.find(params[:id].to_s.downcase)
+    authorize! @original_server = Server.friendly.find(params[:id].to_s.downcase)
     @server = @original_server.deep_dup
   end
 
@@ -151,7 +157,7 @@ class ServersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_server
-    @server = Server.friendly_find_by_numero_or_name(params[:id])
+    authorize! @server = Server.friendly_find_by_numero_or_name(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

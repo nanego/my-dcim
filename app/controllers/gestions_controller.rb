@@ -9,7 +9,7 @@ class GestionsController < ApplicationController
   # GET /gestions
   # GET /gestions.json
   def index
-    @gestions = sorted Gestion.all
+    authorize! @gestions = sorted(Gestion.all)
   end
 
   # GET /gestions/1
@@ -18,7 +18,7 @@ class GestionsController < ApplicationController
 
   # GET /gestions/new
   def new
-    @gestion = Gestion.new
+    authorize! @gestion = Gestion.new
   end
 
   # GET /gestions/1/edit
@@ -27,7 +27,7 @@ class GestionsController < ApplicationController
   # POST /gestions
   # POST /gestions.json
   def create
-    @gestion = Gestion.new(gestion_params)
+    authorize! @gestion = Gestion.new(gestion_params)
 
     respond_to do |format|
       if @gestion.save
@@ -73,7 +73,7 @@ class GestionsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_gestion
-    @gestion = Gestion.find(params[:id])
+    authorize! @gestion = Gestion.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

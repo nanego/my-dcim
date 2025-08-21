@@ -36,7 +36,7 @@ RSpec.describe MovesProjectsController do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:new) }
@@ -62,9 +62,7 @@ RSpec.describe MovesProjectsController do
     let(:params) { { moves_project: valid_attributes } }
     let(:moves_project) { MovesProject.last }
 
-    include_context "with authenticated user" do
-      let(:user) { User.create!(email: "user@example.com", password: "passwordpassword") }
-    end
+    include_context "with authenticated admin"
 
     context "with valid parameters" do
       it { expect { response }.to change(MovesProject, :count).by(1) }
@@ -98,7 +96,7 @@ RSpec.describe MovesProjectsController do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:edit) }
@@ -122,7 +120,7 @@ RSpec.describe MovesProjectsController do
     let(:valid_attributes) { { name: "B" } }
     let(:params) { { moves_project: valid_attributes } }
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with valid parameters" do
       it do
@@ -166,7 +164,7 @@ RSpec.describe MovesProjectsController do
 
     let(:moves_project) { moves_projects(:empty) }
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it do
       expect do
@@ -193,7 +191,7 @@ RSpec.describe MovesProjectsController do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:redirect) }
     it { expect(response).to redirect_to(moves_projects_path) }

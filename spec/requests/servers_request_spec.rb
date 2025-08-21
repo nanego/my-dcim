@@ -8,7 +8,7 @@ RSpec.describe "/servers" do
   let(:pdu) { servers(:pdu) }
 
   before do
-    sign_in users(:one)
+    sign_in users(:admin)
 
     server.save!
   end

@@ -13,7 +13,7 @@ RSpec.describe "Connections" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:edit) }
@@ -31,7 +31,7 @@ RSpec.describe "Connections" do
     let(:invalid_attributes) { { from_port_id: "", to_port_id: "" } }
     let(:params) { { connection: valid_attributes } }
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with valid parameters" do
       it do

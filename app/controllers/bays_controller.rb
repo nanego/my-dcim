@@ -15,7 +15,7 @@ class BaysController < ApplicationController
   end
 
   def index
-    @bays = Bay.joins(islet: :room).order("rooms.position, islets.name, bays.lane, bays.position")
+    authorize! @bays = Bay.joins(islet: :room).order("rooms.position, islets.name, bays.lane, bays.position")
     @filter = ProcessorFilter.new(@bays, params)
 
     @bays = @filter.results.uniq
@@ -29,14 +29,14 @@ class BaysController < ApplicationController
   end
 
   def new
-    @bay = Bay.new
+    authorize! @bay = Bay.new
     @bay.assign_attributes(bay_params) if params[:bay]
   end
 
   def edit; end
 
   def create
-    @bay = Bay.new(bay_params)
+    authorize! @bay = Bay.new(bay_params)
 
     respond_to do |format|
       if @bay.save
@@ -78,7 +78,7 @@ class BaysController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_bay
-    @bay = Bay.find(params[:id])
+    authorize! @bay = Bay.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

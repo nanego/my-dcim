@@ -22,7 +22,7 @@ module Visualization
     private
 
     def set_bay
-      @bay = Bay.find(params[:id])
+      authorize! @bay = Bay.find(params[:id])
     end
 
     def set_servers_per_frames

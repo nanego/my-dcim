@@ -53,7 +53,7 @@ RSpec.describe "Islets" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:new) }
@@ -71,7 +71,7 @@ RSpec.describe "Islets" do
     let(:invalid_attributes) { { name: "" } }
     let(:params) { { islet: valid_attributes } }
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
     it_behaves_like "with create another one"
 
     context "with valid parameters" do
@@ -106,7 +106,7 @@ RSpec.describe "Islets" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:edit) }
@@ -124,7 +124,7 @@ RSpec.describe "Islets" do
     let(:invalid_attributes) { { room_id: "" } }
     let(:params) { { islet: valid_attributes } }
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with valid parameters" do
       it do
@@ -165,7 +165,7 @@ RSpec.describe "Islets" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with an islet without bays" do
       let(:islet) { islets(:three) }
@@ -200,7 +200,7 @@ RSpec.describe "Islets" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with not found islet" do
       let(:islet) { Islet.new(id: 999_999_999) }

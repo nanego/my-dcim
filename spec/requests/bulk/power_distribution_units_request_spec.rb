@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "/bulk/power_distribution_units" do
-  before { sign_in users(:one) }
+  before { sign_in users(:admin) }
 
   describe "DELETE /destroy" do
     context "with a power distribution units without association" do

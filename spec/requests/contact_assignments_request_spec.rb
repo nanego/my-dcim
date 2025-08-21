@@ -8,7 +8,7 @@ RSpec.describe "ContactAssignmentsController" do
   end
 
   before do
-    sign_in users(:one)
+    sign_in users(:admin)
   end
 
   describe "#index" do

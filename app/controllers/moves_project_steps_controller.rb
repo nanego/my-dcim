@@ -41,11 +41,11 @@ class MovesProjectStepsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_moves_project_step
-    @moves_project_step = @moves_project.steps.find(params.expect(:id))
+    authorize! @moves_project_step = @moves_project.steps.find(params.expect(:id))
   end
 
   def set_frame_updated
-    @frame = Frame.friendly.find(params[:frame_id])
+    authorize! @frame = Frame.friendly.find(params[:frame_id]), with: FramePolicy, to: :show?
     @servers = @moves_project_step.servers_moves_for_frame_at_current_step(@frame)
     @moved_connections = MovedConnection.per_servers(@servers)
     @moves = @moves_project_step.moves.where(frame: @frame, moveable_type: "Server")

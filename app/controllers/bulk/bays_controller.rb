@@ -18,7 +18,7 @@ module Bulk
     private
 
     def set_bays
-      @bays = Bay.where(id: params[:ids])
+      authorize! @bays = Bay.where(id: params[:ids])
     end
   end
 end

@@ -11,7 +11,7 @@ RSpec.describe "/sites" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:new) }
@@ -27,7 +27,7 @@ RSpec.describe "/sites" do
 
     let(:params) { { site: { name: "Site 1" } } }
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
     it_behaves_like "with create another one"
 
     context "with valid parameters" do

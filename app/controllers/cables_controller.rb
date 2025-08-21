@@ -4,9 +4,9 @@ class CablesController < ApplicationController
   before_action :set_cable, only: :destroy
 
   def index
-    @cables = Cable.includes(connections: %i[port server card],
-                             cards: [:card_type],
-                             card_types: [:port_type])
+    authorize! @cables = Cable.includes(connections: %i[port server card],
+                                        cards: [:card_type],
+                                        card_types: [:port_type])
       .order(created_at: :desc)
     @filter = ProcessorFilter.new(@cables, params)
 
@@ -38,6 +38,6 @@ class CablesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_cable
-    @cable = Cable.find(params[:id])
+    authorize! @cable = Cable.find(params[:id])
   end
 end

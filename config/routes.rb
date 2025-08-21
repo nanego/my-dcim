@@ -130,7 +130,8 @@ Rails.application.routes.draw do
   get :about, to: "pages#about"
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks",
                                     registrations: "users/registrations",
-                                    sessions: "users/sessions" }
+                                    sessions: "users/sessions",
+                                    passwords: "users/passwords" }
 
   namespace :bulk do
     %i[servers sites rooms islets bays frames air_conditioners power_distribution_units modeles categories

@@ -3,8 +3,8 @@
 require "rails_helper"
 
 RSpec.describe "Users" do
-  let(:user)       { User.create!(email: "user@example.com", password: "passwordpassword") }
-  let(:admin_user) { User.create!(email: "admin@example.com", password: "passwordpassword", is_admin: true) }
+  let(:user)       { users(:one) }
+  let(:admin_user) { users(:admin) }
 
   describe "GET #index" do
     subject(:response) do
@@ -15,9 +15,7 @@ RSpec.describe "Users" do
     end
 
     context "with admin user" do
-      include_context "with authenticated user" do
-        let(:user) { admin_user }
-      end
+      include_context "with authenticated admin"
 
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:index) }
@@ -42,9 +40,7 @@ RSpec.describe "Users" do
     let(:record) { User.create!(email: "user-target@example.com", password: "passwordpassword") }
 
     context "with admin user" do
-      include_context "with authenticated user" do
-        let(:user) { admin_user }
-      end
+      include_context "with authenticated admin"
 
       context "with not found user" do
         let(:record) { User.new(id: 999_999_999) }
@@ -83,9 +79,7 @@ RSpec.describe "Users" do
     end
 
     context "with admin user" do
-      include_context "with authenticated user" do
-        let(:user) { admin_user }
-      end
+      include_context "with authenticated admin"
 
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:new) }
@@ -111,9 +105,7 @@ RSpec.describe "Users" do
     let(:invalid_attributes) { { email: "" } }
     let(:params) { { user: valid_attributes } }
 
-    include_context "with authenticated user" do
-      let(:user) { admin_user }
-    end
+    include_context "with authenticated admin"
 
     context "with valid parameters" do
       it { expect { response }.to change(User, :count).by(1) }
@@ -147,9 +139,7 @@ RSpec.describe "Users" do
     end
 
     context "when user is admin" do
-      include_context "with authenticated user" do
-        let(:user) { users(:admin) }
-      end
+      include_context "with authenticated admin"
 
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:edit) }
@@ -178,14 +168,10 @@ RSpec.describe "Users" do
     let(:invalid_attributes) { { email: "" } }
     let(:params) { { user: valid_attributes } }
 
-    include_context "with authenticated user" do
-      let(:user) { admin_user }
-    end
+    include_context "with authenticated admin"
 
     context "when user is not admin" do
-      include_context "with authenticated user" do
-        let(:user) { users(:one) }
-      end
+      include_context "with authenticated user"
 
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(root_path) }
@@ -233,9 +219,7 @@ RSpec.describe "Users" do
     let(:target_user) { users(:two) }
 
     context "with admin user" do
-      include_context "with authenticated user" do
-        let(:user) { admin_user }
-      end
+      include_context "with authenticated admin"
 
       it do
         expect do
@@ -256,9 +240,7 @@ RSpec.describe "Users" do
     context "when user asks for itself" do
       let(:target_user) { admin_user }
 
-      include_context "with authenticated user" do
-        let(:user) { admin_user }
-      end
+      include_context "with authenticated admin"
 
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(root_path) }
@@ -276,9 +258,7 @@ RSpec.describe "Users" do
     let(:target_user) { users(:one) }
 
     context "with admin user" do
-      include_context "with authenticated user" do
-        let(:user) { admin_user }
-      end
+      include_context "with authenticated admin"
 
       it do
         expect do
@@ -322,9 +302,7 @@ RSpec.describe "Users" do
     end
 
     context "with admin user" do
-      include_context "with authenticated user" do
-        let(:user) { admin_user }
-      end
+      include_context "with authenticated admin"
 
       it do
         expect do
