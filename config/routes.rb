@@ -64,7 +64,6 @@ Rails.application.routes.draw do
   resources :stacks
   resources :servers do
     collection do
-      get :grid
       post :sort
       get :import_csv
       post :import

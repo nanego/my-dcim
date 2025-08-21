@@ -15,7 +15,9 @@ module Authorization
     end
 
     def user_not_authorized(exception)
-      logger.debug "[Authorization] user unauthorized. #{exception.policy}##{exception.rule} returns false"
+      logger.debug "[Authorization] user unauthorized. #{exception.policy}##{exception.rule} returns false" \
+                   "with message: #{exception.result.reasons.full_messages}"
+
       redirect_back fallback_location: root_path, alert: exception.result.message
     end
   end
