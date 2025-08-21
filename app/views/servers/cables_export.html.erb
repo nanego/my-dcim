@@ -5,12 +5,14 @@
                   should_show_heading: false
   } %>
 
-<div class="fs-5 mt-4">
-  <h2><%= Connection.model_name.human(count: @connections.size) %></h1>
+<% unless @connections.empty? %>
+  <div class="fs-5 mt-4">
+    <h2><%= Connection.model_name.human %></h1>
 
-  <% @connections.each do |connection| %>
-    <p>
-      <%= connection.description %>
-    </p>
-  <% end %>
-</div>
+    <% @connections.each do |connection| %>
+      <p>
+        <%= connection.description %>
+      </p>
+    <% end %>
+  </div>
+<% end %>
