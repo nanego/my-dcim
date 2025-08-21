@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ServersController < ApplicationController # rubocop:disable Metrics/ClassLength
+class ServersController < ApplicationController
   include ServersHelper
   include ColumnsPreferences
 
@@ -83,10 +83,6 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
         format.json { head :bad_request }
       end
     end
-  end
-
-  def grid
-    @servers = ServersGrid.new(params[:servers_grid])
   end
 
   def sort
@@ -176,15 +172,5 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
     params.permit(:sort, :sort_by, :page, :per_page, :q,
                   network_types: [], bay_ids: [], islet_ids: [], room_ids: [], frame_ids: [], cluster_ids: [],
                   gestion_ids: [], domaine_ids: [], modele_ids: [], stack_ids: [], category_ids: [])
-  end
-
-  def track_frame_and_position(old_values, new_values)
-    new_params = {}
-    new_params["frame"] = [Frame.find_by_id(old_values["frame_id"]).to_s, Frame.find_by_id(new_values["frame_id"]).to_s]
-    new_params["position"] = [old_values["position"].to_s, new_values["position"].to_s]
-    # %W"position frame_id".each do |attribute|
-    #  new_params[attribute] = [old_values[attribute].to_s, new_values[attribute]]
-    # end
-    new_params
   end
 end
