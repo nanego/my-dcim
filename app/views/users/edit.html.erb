@@ -7,5 +7,5 @@ breadcrumb
 <%= render Page::HeadingEditComponent.new(resource: @user, title: t(".title"), breadcrumb:) %>
 
 <div class="col-12 p-4 border-top">
-  <%= render "form" %>
+  <%= render partial: "form", locals: { url: user_path(@user) } %>
 </div>
