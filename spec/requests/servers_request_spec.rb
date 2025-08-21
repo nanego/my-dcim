@@ -263,4 +263,11 @@ RSpec.describe "/servers" do
     it { expect(server.connections.count).to be_zero }
     it { expect(flash[:notice]).to be_present }
   end
+
+  describe "GET /cables_export" do
+    before { get cables_export_server_path(server) }
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:cables_export) }
+  end
 end
