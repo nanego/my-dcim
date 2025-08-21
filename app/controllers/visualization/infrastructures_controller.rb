@@ -3,7 +3,7 @@
 module Visualization
   class InfrastructuresController < BaseController
     def show
-      @filter = Filter.new(params, %i[network_type islet_id])
+      authorize! @filter = Filter.new(params, %i[network_type islet_id])
 
       unless @filter.filled?
         islet_id = Islet.sorted.not_empty.has_name.distinct.first.id
@@ -41,6 +41,10 @@ module Visualization
       end
 
       @network = @filter.network_type # TODO: take from params and raise error if not good
+    end
+
+    def default_authorization_policy_class
+      InfrastructurePolicy
     end
   end
 end

@@ -47,7 +47,7 @@ RSpec.describe MovesController do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:new) }
@@ -106,7 +106,7 @@ RSpec.describe MovesController do
     end
     let(:params) { { move: valid_attributes } }
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with valid parameters" do
       it { expect { response }.to change(Move, :count).by(1) }
@@ -169,7 +169,7 @@ RSpec.describe MovesController do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:edit) }
@@ -193,7 +193,7 @@ RSpec.describe MovesController do
     let(:valid_attributes) { { position: 8 } }
     let(:params) { { move: valid_attributes } }
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with valid parameters" do
       it do
@@ -235,7 +235,7 @@ RSpec.describe MovesController do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it do
       expect do
@@ -275,7 +275,7 @@ RSpec.describe MovesController do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:redirect) }
     it { expect(response).to redirect_to(moves_project_path(step)) }

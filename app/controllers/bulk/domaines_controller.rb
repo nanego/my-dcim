@@ -18,7 +18,7 @@ module Bulk
     private
 
     def set_domaines
-      @domaines = Domaine.where(id: params[:ids])
+      authorize! @domaines = Domaine.where(id: params[:ids])
     end
   end
 end

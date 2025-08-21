@@ -10,7 +10,7 @@ class ContactRolesController < ApplicationController
   # GET /contact_roles.json
   def index
     @filter = ProcessorFilter.new(ContactRole.all, params)
-    @contact_roles = @filter.results
+    authorize! @contact_roles = @filter.results
   end
 
   # GET /contact_roles/1
@@ -19,7 +19,7 @@ class ContactRolesController < ApplicationController
 
   # GET /contact_roles/new
   def new
-    @contact_role = ContactRole.new
+    authorize! @contact_role = ContactRole.new
   end
 
   # GET /contact_roles/1/edit
@@ -28,7 +28,7 @@ class ContactRolesController < ApplicationController
   # POST /contact_roles
   # POST /contact_roles.json
   def create
-    @contact_role = ContactRole.new(contact_role_params)
+    authorize! @contact_role = ContactRole.new(contact_role_params)
 
     respond_to do |format|
       if @contact_role.save
@@ -74,7 +74,7 @@ class ContactRolesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_contact_role
-    @contact_role = ContactRole.find(params[:id])
+    authorize! @contact_role = ContactRole.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

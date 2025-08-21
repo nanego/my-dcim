@@ -2,6 +2,8 @@
 
 module Users
   class SettingsController < ApplicationController
+    skip_verify_authorized
+
     before_action :set_user, only: %i[edit update]
 
     def edit; end

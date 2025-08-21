@@ -2,6 +2,8 @@
 
 module Users
   class RegistrationsController < Devise::RegistrationsController
+    skip_verify_authorized
+
     before_action :admin_only, only: %i[new create]
 
     protected

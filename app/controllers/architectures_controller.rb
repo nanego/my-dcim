@@ -9,7 +9,7 @@ class ArchitecturesController < ApplicationController
   # GET /architectures
   # GET /architectures.json
   def index
-    @architectures = sorted Architecture.all
+    authorize! @architectures = sorted(Architecture.all)
   end
 
   # GET /architectures/1
@@ -18,7 +18,7 @@ class ArchitecturesController < ApplicationController
 
   # GET /architectures/new
   def new
-    @architecture = Architecture.new
+    authorize! @architecture = Architecture.new
   end
 
   # GET /architectures/1/edit
@@ -27,7 +27,7 @@ class ArchitecturesController < ApplicationController
   # POST /architectures
   # POST /architectures.json
   def create
-    @architecture = Architecture.new(architecture_params)
+    authorize! @architecture = Architecture.new(architecture_params)
 
     respond_to do |format|
       if @architecture.save
@@ -73,7 +73,7 @@ class ArchitecturesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_architecture
-    @architecture = Architecture.find(params[:id])
+    authorize! @architecture = Architecture.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

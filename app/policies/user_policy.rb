@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class UserPolicy < ApplicationPolicy
+  skip_pre_check :allow_admins
+
   def index?
     user.admin?
   end
@@ -9,7 +11,7 @@ class UserPolicy < ApplicationPolicy
     user.admin? || user == record
   end
 
-  def new?
+  def create?
     user.admin?
   end
 
@@ -19,6 +21,10 @@ class UserPolicy < ApplicationPolicy
 
   def manage?
     user.admin?
+  end
+
+  def add_user?
+    manage?
   end
 
   def suspend?

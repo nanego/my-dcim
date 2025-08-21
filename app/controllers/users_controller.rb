@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   def add_user
-    @user = User.new(secure_params)
+    authorize! @user = User.new(secure_params)
 
     if @user.save
       redirect_to users_path, notice: t(".flashes.created")

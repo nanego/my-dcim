@@ -7,7 +7,7 @@ class AirConditionersController < ApplicationController
   end
 
   def index
-    @air_conditioners = AirConditioner.joins(bay: { islet: :room })
+    authorize! @air_conditioners = AirConditioner.joins(bay: { islet: :room })
       .order("rooms.position, islets.name, air_conditioners.name")
 
     @filter = ProcessorFilter.new(@air_conditioners, params)
@@ -17,13 +17,13 @@ class AirConditionersController < ApplicationController
   def show; end
 
   def new
-    @air_conditioner = AirConditioner.new
+    authorize! @air_conditioner = AirConditioner.new
   end
 
   def edit; end
 
   def create
-    @air_conditioner = AirConditioner.new(air_conditioner_params)
+    authorize! @air_conditioner = AirConditioner.new(air_conditioner_params)
 
     respond_to do |format|
       if @air_conditioner.save
@@ -60,7 +60,7 @@ class AirConditionersController < ApplicationController
   private
 
   def set_air_conditioner
-    @air_conditioner = AirConditioner.find(params[:id])
+    authorize! @air_conditioner = AirConditioner.find(params[:id])
   end
 
   def air_conditioner_params

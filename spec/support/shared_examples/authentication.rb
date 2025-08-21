@@ -15,3 +15,9 @@ RSpec.shared_context "with authenticated user" do
     sign_in(user) unless _keep_user_logged_out
   end
 end
+
+RSpec.shared_context "with authenticated admin" do
+  include_context "with authenticated user" do
+    let(:user) { users(:admin) }
+  end
+end

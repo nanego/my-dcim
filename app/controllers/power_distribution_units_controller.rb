@@ -8,7 +8,7 @@ class PowerDistributionUnitsController < ApplicationController
   end
 
   def index
-    @pdus = Server.only_pdus.includes(:frame, :room, :islet, bay: :frames, modele: :category)
+    authorize! @pdus = Server.only_pdus.includes(:frame, :room, :islet, bay: :frames, modele: :category)
       .references(:room, :islet, :bay, modele: :category)
       .order(:name)
     @filter = ProcessorFilter.new(@pdus, params)
@@ -25,13 +25,13 @@ class PowerDistributionUnitsController < ApplicationController
   def show; end
 
   def new
-    @pdu = Server.new
+    authorize! @pdu = Server.new
   end
 
   def edit; end
 
   def create
-    @pdu = Server.new(pdu_params)
+    authorize! @pdu = Server.new(pdu_params)
 
     respond_to do |format|
       if @pdu.save
@@ -69,7 +69,7 @@ class PowerDistributionUnitsController < ApplicationController
   end
 
   def duplicate
-    @original_pdu = Server.friendly.find(params[:id].to_s.downcase)
+    authorize! @original_pdu = Server.friendly.find(params[:id].to_s.downcase)
     @pdu = @original_pdu.deep_dup
   end
 
@@ -86,7 +86,7 @@ class PowerDistributionUnitsController < ApplicationController
   private
 
   def set_pdu
-    @pdu = Server.friendly_find_by_numero_or_name(params[:id])
+    authorize! @pdu = Server.friendly_find_by_numero_or_name(params[:id])
   end
 
   def pdu_params
@@ -104,5 +104,9 @@ class PowerDistributionUnitsController < ApplicationController
     params.permit(:sort, :sort_by, :page, :per_page, :q,
                   network_types: [], bay_ids: [], islet_ids: [], room_ids: [], frame_ids: [], cluster_ids: [],
                   gestion_ids: [], domaine_ids: [], modele_ids: [], stack_ids: [])
+  end
+
+  def default_authorization_policy_class
+    PowerDistributionUnitPolicy
   end
 end

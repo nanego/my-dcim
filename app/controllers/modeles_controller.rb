@@ -9,7 +9,7 @@ class ModelesController < ApplicationController
   end
 
   def index
-    @modeles = Modele.includes(:category, :enclosures).order(:name)
+    authorize! @modeles = Modele.includes(:category, :enclosures).order(:name)
     @filter = ProcessorFilter.new(@modeles, params)
     @modeles = @filter.results
 
@@ -21,7 +21,7 @@ class ModelesController < ApplicationController
   end
 
   def new
-    @modele = Modele.new
+    authorize! @modele = Modele.new
     @modele.assign_attributes(modele_params) if params[:modele]
     @modele.composants.build(:name => "ALIM")
     @modele.composants.build(:name => "IPMI")
@@ -39,7 +39,7 @@ class ModelesController < ApplicationController
   end
 
   def create
-    @modele = Modele.new(modele_params)
+    authorize! @modele = Modele.new(modele_params)
 
     if params[:preview]
       respond_to do |format|
@@ -92,7 +92,7 @@ class ModelesController < ApplicationController
   end
 
   def duplicate
-    @original_modele = Modele.friendly.find(params[:id].to_s.downcase)
+    authorize! @original_modele = Modele.friendly.find(params[:id].to_s.downcase)
     @modele = @original_modele.deep_dup
   end
 
@@ -100,7 +100,7 @@ class ModelesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_modele
-    @modele = Modele.friendly.find(params[:id].to_s.downcase)
+    authorize! @modele = Modele.friendly.find(params[:id].to_s.downcase)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

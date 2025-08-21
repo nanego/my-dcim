@@ -4,6 +4,8 @@ class ServersGridsController < ApplicationController
   DEFAULT_PARAMS = { "column_names" => ["id", "name", "S/N", "type", "frame"], "order" => "name" }.freeze
 
   def index
+    authorize!
+
     respond_to do |format|
       format.html do
         if params[:servers_grid].present?
