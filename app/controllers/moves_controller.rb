@@ -8,8 +8,11 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
   before_action do
     breadcrumb.add_step(MovesProject.model_name.human.pluralize, moves_projects_path)
-    breadcrumb.add_step(@moves_project_step.moves_project, moves_project_path(@moves_project_step.moves_project))
-    breadcrumb.add_step(@moves_project_step, moves_project_step_moves_path(@moves_project_step)) unless action_name == "index"
+
+    if params[:moves_project_step_id]
+      breadcrumb.add_step(@moves_project_step.moves_project, moves_project_path(@moves_project_step.moves_project))
+      breadcrumb.add_step(@moves_project_step, moves_project_step_moves_path(@moves_project_step)) unless action_name == "index"
+    end
   end
 
   def index
@@ -26,11 +29,26 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   def new
     authorize! @move = @moves_project_step.moves.build(moveable_type: "Server")
     @move.moveable = Server.friendly.select(:id).find(params[:server_id]) if params[:server_id].present?
+
+    render :new_unscoped unless @moves_project_step.persisted?
   end
 
   def edit; end
 
   def create
+    if params[:unscoped]
+      authorize! @move = Move.new(moveable_type: "Server", position: 1, frame: Frame.new, prev_frame: Frame.new)
+      @move.assign_attributes(unscoped_move_params)
+
+      if @move.valid?
+        redirect_to new_moves_project_step_move_path(@move.step, server_id: @move.moveable)
+      else
+        render :new_unscoped, status: :unprocessable_entity
+      end
+
+      return
+    end
+
     authorize! @move = @moves_project_step.moves.build(move_params)
 
     if params[:move][:remove_connections] == 'Oui'
@@ -172,10 +190,15 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   private
 
   def set_moves_project_step
-    @moves_project_step = MovesProjectStep.find(params[:moves_project_step_id])
+    @moves_project_step = if params[:moves_project_step_id]
+                            MovesProjectStep.find(params[:moves_project_step_id])
+                          else
+                            MovesProjectStep.new
+                          end
   end
 
   def redirect_if_archived
+    return if @moves_project_step.moves_project.nil?
     return if @moves_project_step.moves_project.unarchived?
 
     redirect_to moves_projects_path, alert: t(".flashes.archived")
@@ -191,11 +214,17 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
     params.expect(move: %i[moveable_type moveable_id frame_id position])
   end
 
+  def unscoped_move_params
+    params.expect(move: %i[moveable_type moveable_id moves_project_step_id])
+  end
+
   def moved_connection_params
     params.expect(moved_connection: %i[port_from_id port_to_id vlans color cablename])
   end
 
   def load_form_data
+    return unless @moves_project_step.persisted?
+
     get_all_servers_per_frame
     get_all_frames_per_room
   end

@@ -14,6 +14,6 @@ class ExternalAppRecordDecorator < ApplicationDecorator
     text = I18n.t(".activerecord.attributes.external_app_record.external_serials.#{status}").upcase
     color = status == :found ? :success : :danger
 
-    BadgeComponent.new(text, color:)
+    BadgeComponent.new(text, color:, variant: :pill)
   end
 end

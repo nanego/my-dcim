@@ -3,8 +3,9 @@
 require "rails_helper"
 
 RSpec.describe MovesController do
-  let(:move) { moves(:one) }
+  let(:move) { moves(:planned) }
   let(:step) { move.step }
+  let(:server) { servers(:one) }
 
   describe "GET #index" do
     include_context "with authenticated user"
@@ -59,14 +60,24 @@ RSpec.describe MovesController do
         @response # rubocop:disable RSpec/InstanceVariable
       end
 
-      let(:server) { servers(:one) }
-
       before { response }
 
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:new) }
 
       it { expect(server).to eq(assigns(:move).moveable) }
+    end
+
+    context "with a params[:server_id] passed and not scoped by a moves project" do
+      subject(:response) do
+        get new_move_path(server_id: server.id)
+
+        # NOTE: used to simplify usage and custom test done in final spec file.
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(:new_unscoped) }
     end
 
     context "with an archived moves project" do
@@ -119,6 +130,34 @@ RSpec.describe MovesController do
 
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(moves_projects_path) }
+    end
+
+    context "with a params[:unscoped] passed" do
+      subject(:response) do
+        post moves_project_step_moves_path(step), params: params
+
+        # NOTE: used to simplify usage and custom test done in final spec file.
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+
+      let(:params) { { move: { moveable_id: servers(:two).id, moveable_type: "Server", moves_project_step_id: step.id }, unscoped: "Continue" } }
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(new_moves_project_step_move_path(step, server_id: servers(:two).id)) }
+    end
+
+    context "with a params[:unscoped] passed and invalid params" do
+      subject(:response) do
+        post moves_project_step_moves_path(step), params: params
+
+        # NOTE: used to simplify usage and custom test done in final spec file.
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+
+      let(:params) { { move: { moveable_id: servers(:two).id, moveable_type: "Server", moves_project_step_id: nil }, unscoped: "Continue" } }
+
+      it { expect(response).to have_http_status(:unprocessable_entity) }
+      it { expect(response).to render_template(:new_unscoped) }
     end
   end
 

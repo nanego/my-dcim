@@ -8,7 +8,6 @@ RSpec.describe MovesProjectStepsController do
   let(:move) { moves_project_step.moves.first }
 
   describe "GET #frame" do
-    # it { binding.b }
     subject(:response) do
       get frame_moves_project_moves_project_step_path(moves_project, moves_project_step, move.frame_id)
 
