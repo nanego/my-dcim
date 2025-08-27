@@ -7,7 +7,7 @@ RSpec.describe Move do
 
   subject(:move) do
     described_class.new(
-      step: MovesProjectStep.new, moveable: Server.new, position: 1, frame: Frame.new, prev_frame: Frame.new
+      step: MovesProjectStep.new, moveable: Server.new, position: 1, frame: Frame.new, prev_frame: Frame.new,
     )
   end
 
@@ -26,7 +26,7 @@ RSpec.describe Move do
     context "when server already been move in this step" do
       let(:other_move) do
         described_class.create(
-          moveable: moves(:one).moveable, step: moves(:one).step, position: 1, frame: Frame.new, prev_frame: Frame.new
+          moveable: moves(:one).moveable, step: moves(:one).step, position: 1, frame: Frame.new, prev_frame: Frame.new,
         )
       end
 

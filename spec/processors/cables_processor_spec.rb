@@ -217,7 +217,7 @@ RSpec.describe CablesProcessor do
     let(:params) do
       {
         cable_name: "cableA", special_case: "true", color: "V", comments: "comment", vlans: "vlan1",
-        server_ids: server.id, port_type_ids: port_type.id, card_query: "Card A"
+        server_ids: server.id, port_type_ids: port_type.id, card_query: "Card A",
       }
     end
 
@@ -231,7 +231,7 @@ RSpec.describe CablesProcessor do
         let(:params) do
           {
             cable_name: "cableA", special_case: "true", color: "V", comments: "comment", vlans: "vlan1",
-            server_ids: server.id, port_type_ids: port_type.id, card_query: "Card A", sort_by: field
+            server_ids: server.id, port_type_ids: port_type.id, card_query: "Card A", sort_by: field,
           }
         end
 

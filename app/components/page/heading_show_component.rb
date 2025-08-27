@@ -15,7 +15,7 @@ module Page
 
     def call
       render HeadingComponent.new(
-        title: @title, breadcrumb: @breadcrumb, back_button_url: polymorphic_path(@resource.class)
+        title: @title, breadcrumb: @breadcrumb, back_button_url: polymorphic_path(@resource.class),
       ) do |heading|
         heading.with_right_content do
           tag.div class: "align-self-center d-inline-flex" do

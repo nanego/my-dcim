@@ -9,7 +9,7 @@ class BaysProcessor < ApplicationProcessor
     raw.joins(:frames)
       .where(
         Frame.arel_table[:name].matches("%#{q}%")
-          .or(Bay.arel_table[:id].eq(q))
+          .or(Bay.arel_table[:id].eq(q)),
       )
   end
 

@@ -62,6 +62,7 @@ GEM
       activemodel (>= 6.1.4)
       activestorage (>= 6.1.4)
       activesupport (>= 6.1.4)
+      marcel (>= 1.0.3)
     activejob (8.0.2.1)
       activesupport (= 8.0.2.1)
       globalid (>= 0.3.6)
@@ -953,4 +954,4 @@ RUBY VERSION
    ruby 3.4.5p51
 
 BUNDLED WITH
-   2.6.2
+   2.7.1

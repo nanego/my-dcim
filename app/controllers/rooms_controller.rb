@@ -115,7 +115,7 @@ class RoomsController < ApplicationController
       room: [
         :name, :description, :display_on_home_page, :position, :status, :site_id, :surface_area, :access_control,
         { network_cluster_ids: [] },
-      ]
+      ],
     )
   end
 end

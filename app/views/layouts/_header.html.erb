@@ -32,9 +32,12 @@
         <ul class="navbar-nav order-1 order-lg-0">
           <%= render "layouts/navigation/visualization_dropdown" %>
           <%= render "layouts/navigation/devices_dropdown" %>
-          <li class="nav-item" role="menuitem">
-            <%= link_to t(".projects"), moves_projects_path, class: "nav-link" %>
-          </li>
+
+          <% if allowed_to?(:index?, with: MovesProjectPolicy) %>
+            <li class="nav-item" role="menuitem">
+              <%= link_to t(".projects"), moves_projects_path, class: "nav-link" %>
+            </li>
+          <% end %>
         </ul>
 
         <%= render "search/search_field" %>

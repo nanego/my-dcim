@@ -13,7 +13,7 @@ if Rails.env.development?
     Rack::MiniProfilerRails.render_notification_handler(
       Rack::MiniProfilerRails.shorten_identifier(payload[:identifier]),
       finish,
-      start
+      start,
     )
   end
 end

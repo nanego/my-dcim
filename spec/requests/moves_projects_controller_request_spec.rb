@@ -6,7 +6,7 @@ RSpec.describe MovesProjectsController do
   let(:moves_project) { moves_projects(:one) }
 
   describe "GET #index" do
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     before { get moves_projects_path }
 
@@ -22,7 +22,7 @@ RSpec.describe MovesProjectsController do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:show) }
@@ -56,7 +56,7 @@ RSpec.describe MovesProjectsController do
         steps_attributes: [
           { name: "1", position: "1" },
           { name: "2", position: "2" },
-        ]
+        ],
       }
     end
     let(:params) { { moves_project: valid_attributes } }

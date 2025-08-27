@@ -6,7 +6,7 @@ class ColumnsPreferencesDropdownComponentPreview < ViewComponent::Preview
                                                           model: Server,
                                                           default: %w[id name],
                                                           available: %w[id name numero],
-                                                          preferred: %w[id name]
+                                                          preferred: %w[id name],
                                                         ))
   end
 end

@@ -10,7 +10,7 @@ RSpec.describe ColumnsPreferencesDropdownComponent, type: :component do
       model: Server,
       default: %w[id name],
       available: %w[id name numero],
-      preferred: %w[id name]
+      preferred: %w[id name],
     )
   end
 

@@ -39,3 +39,9 @@ five:
   vlans: 123a
   color: O
   cablename: v32o
+
+six:
+  id: 6
+
+seven:
+  id: 7

@@ -11,7 +11,7 @@ RSpec.describe ChangelogEntries::ObjectListComponent, type: :component do
     it "renders component" do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component.to_html).to have_tag("turbo-frame", with: {
         id: "changelog-entries",
-        src: "/islets/#{islet.id}/changelog_entries"
+        src: "/islets/#{islet.id}/changelog_entries",
       }) do
         with_text("Chargement en cours ...")
         with_tag("span", with: { class: "spinner-grow" })

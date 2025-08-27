@@ -54,12 +54,14 @@ class MoveTest < ActiveSupport::TestCase
     assert_nil @move.executed_at
 
     @move.execute!
+    @moved_connection.reload
 
     assert @move.moveable.reload.frame == @move.frame
     assert @port_from.reload.cable_name == @moved_connection.cablename
 
     assert @move.executed_at
     assert Move.where(id: @move.id)
-    assert_empty MovedConnection.where(id: @moved_connection.id)
+    assert @moved_connection.executed_at
+    assert MovedConnection.where(id: @moved_connection.id)
   end
 end
