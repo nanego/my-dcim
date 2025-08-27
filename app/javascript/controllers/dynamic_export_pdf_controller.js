@@ -19,8 +19,6 @@ export default class extends ExportPdfController {
   static targets = ["buttonIcon"]
   static values = {
     hasButtonIcon: Boolean,
-    movesProjectId: String,
-    movesProjectStepId: String,
   }
 
   async export(event) {

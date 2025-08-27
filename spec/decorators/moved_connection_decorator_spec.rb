@@ -8,8 +8,9 @@ RSpec.describe MovedConnectionDecorator, type: :decorator do
 
   describe "#description" do
     it do
-      expect(decorated_moved_connection.description).to eq("Connexion entre MyString ServerName1 (port #1) et MyString ServerName1 " \
-                                                           "(port #2) => vlans:vlan01 cablename:NouveauNomDuCableUn couleur:Blue")
+      expect(decorated_moved_connection.description)
+        .to eq("Connexion entre MyString ServerName1 (port #1) et MyString ServerName1 " \
+               "(port #2) => vlans:vlan01 cablename:NouveauNomDuCableUn couleur:Blue")
     end
   end
 end

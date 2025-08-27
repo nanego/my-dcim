@@ -128,7 +128,9 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
       end
     end
 
-    render layout: "pdf"
+    respond_to do |format|
+      format.pdf { render layout: "pdf", formats: :html }
+    end
   end
 
   def export

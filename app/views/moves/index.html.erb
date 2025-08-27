@@ -147,11 +147,7 @@
                             data: { turbo_frame: :_top }
                 %>
               </td>
-              <td class="d-flex justify-content-center column-gap-1"
-                  data-controller="dynamic-export-pdf"
-                  data-dynamic-export-pdf-moves-project-id-value="<%= @moves_project.id %>"
-                  data-dynamic-export-pdf-moves-project-step-id-value="<%= @moves_project_step.id %>"
-                  data-dynamic-export-pdf-has-button-icon-value="true">
+              <td class="d-flex justify-content-center column-gap-1" data-controller="dynamic-export-pdf" data-dynamic-export-pdf-has-button-icon-value="true">
                 <div class="btn-group btn-group-sm" role="group" aria-label="...">
                   <% if @moves_project.unarchived? %>
                     <%= link_to t(".edit_connections"),
