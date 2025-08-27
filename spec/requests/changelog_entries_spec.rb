@@ -5,9 +5,10 @@ require "rails_helper"
 RSpec.describe "ChangelogEntries" do
   let(:object) { Color.create!(code: "FFFFFF") }
   let(:changelog_entry) { ChangelogEntry.create!(object: object, action: "create") }
+  let(:admin_user) { users(:admin) }
 
   describe "GET #index" do
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     before { get changelog_entries_path }
 
@@ -23,7 +24,7 @@ RSpec.describe "ChangelogEntries" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with not found changelog_entry" do
       let(:changelog_entry) { ChangelogEntry.new(id: 999_999_999) }
