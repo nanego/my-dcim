@@ -28,6 +28,7 @@ class Port < ApplicationRecord
 
   def connect_to_port(other_port, cable_name, cable_color, vlans, special_case = nil, comments = nil)
     remove_unused_connections([self, other_port])
+
     if other_port
       cable = nil
       if connection.present?

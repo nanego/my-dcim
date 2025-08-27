@@ -117,11 +117,15 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def load_server
+    authorize!
+
     @server = Server.includes(:cards => [:card_type => :port_type], :ports => [:connection => :cable]).find(params[:server_id])
     @moved_connections = MovedConnection.per_servers([@server])
   end
 
   def load_frame
+    authorize!
+
     @frame = Frame.friendly.find(params[:frame_id])
     @view = params[:view]
     @move = @moves_project_step.moves.build(moveable_type: "Server")
@@ -129,6 +133,8 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def load_connection
+    authorize!
+
     @selected_port = Port.find(params[:port_id])
     @server = @selected_port.server
     @frame = Frame.friendly.find(params[:frame_id])
