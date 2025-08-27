@@ -264,10 +264,10 @@ RSpec.describe "/servers" do
     it { expect(flash[:notice]).to be_present }
   end
 
-  describe "GET /cables_export" do
-    before { get cables_export_server_path(server) }
+  describe "GET /export_cables" do
+    before { get export_cables_server_path(server) }
 
     it { expect(response).to have_http_status(:success) }
-    it { expect(response).to render_template(:cables_export) }
+    it { expect(response).to render_template(:export_cables) }
   end
 end
