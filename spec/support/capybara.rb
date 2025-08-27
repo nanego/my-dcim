@@ -7,7 +7,7 @@ Capybara.register_driver(:cuprite) do |app|
     window_size: [1920, 1080],
     browser_options: {},
     inspector: ENV.fetch("CUPRITE_INSPECTOR", nil),
-    js_errors: true
+    js_errors: true,
   }
 
   options[:headless] = ENV.fetch("CUPRITE_HEADLESS", nil) != "false"

@@ -88,7 +88,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
                                 no_client: twin_card_used_ports && port_data && port_data.cable_name && twin_card_used_ports.exclude?(port_data.position),
                                 unreferenced_client: twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(position),
                                 selected: selected_port.present? && port_id == selected_port.try(:id),
-                                "flex-column": !is_vertical_card
+                                "flex-column": !is_vertical_card,
                               ))
 
           if (cell_index + 1) % number_of_columns_in_cell(card.orientation, ports_per_cell, card_type.max_aligned_ports) == 0 # Every XX ports do
@@ -128,7 +128,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
                             no_client: twin_card_used_ports && port_data && port_data.cable_name && twin_card_used_ports.exclude?(port_data.position),
                             unreferenced_client: twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(index + 1),
                             selected: selected_port.present? && port_id == selected_port.try(:id),
-                            "flex-column": !is_vertical_card
+                            "flex-column": !is_vertical_card,
                           ))
     end
 

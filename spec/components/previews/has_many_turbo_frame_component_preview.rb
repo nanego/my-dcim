@@ -11,7 +11,7 @@ class HasManyTurboFrameComponentPreview < ViewComponent::Preview
              url: servers_path(frame_ids: Frame.first.id),
              frame_id: "table_server",
              new_path: new_server_path,
-             new_label: "Add a server"
+             new_label: "Add a server",
            ))
   end
 end

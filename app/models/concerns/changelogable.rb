@@ -41,7 +41,7 @@ module Changelogable
     changelog_entries.create!(
       action: action,
       object_changed_attributes: object_changes,
-      metadata: ChangelogContext.metadata.to_h.merge(metadata)
+      metadata: ChangelogContext.metadata.to_h.merge(metadata),
     )
   end
 

@@ -101,7 +101,7 @@ RSpec.describe MovesController do
         moveable_type: "Server",
         moveable_id: servers(:four).id,
         frame_id: frames(:two).id,
-        position: 40
+        position: 40,
       }
     end
     let(:params) { { move: valid_attributes } }

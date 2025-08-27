@@ -13,7 +13,7 @@ class Cable < ApplicationRecord
     Vi: :purple,
     P: :pink,
     G: :grey,
-    W: :white
+    W: :white,
   }.freeze
 
   has_changelog

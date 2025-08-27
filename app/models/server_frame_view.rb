@@ -18,7 +18,7 @@ class ServerFrameView < ApplicationRecord
       manufacturer_name ILIKE :query OR
       islet_name ILIKE :query OR
       room_name ILIKE :query',
-      query: "%#{query}%"
+      query: "%#{query}%",
     )
   }
 end
