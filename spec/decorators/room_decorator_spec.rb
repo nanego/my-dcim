@@ -77,10 +77,11 @@ RSpec.describe RoomDecorator, type: :decorator do
 
   describe "#print_frames_paths" do
     it do
-      expect(decorated_room.print_frames_paths).to contain_exactly(print_visualization_frame_path(frames(:one).id),
-                                                                   print_visualization_frame_path(frames(:two).id),
-                                                                   print_visualization_frame_path(frames(:three).id),
-                                                                   print_visualization_frame_path(frames(:four).id))
+      expect(decorated_room.print_frames_paths)
+        .to contain_exactly(print_visualization_frame_path(frames(:one).id),
+                            print_visualization_frame_path(frames(:two).id),
+                            print_visualization_frame_path(frames(:three).id),
+                            print_visualization_frame_path(frames(:four).id))
     end
   end
 end
