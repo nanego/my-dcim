@@ -217,7 +217,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def move_params
-    params.expect(move: %i[moveable_type moveable_id frame_id position])
+    params.expect(move: %i[moveable_type moveable_id frame_id step_id position])
   end
 
   def unscoped_move_params

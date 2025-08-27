@@ -5,10 +5,14 @@ class Move < ApplicationRecord
 
   attr_accessor :remove_connections
 
+  alias_attribute :step_id, :moves_project_step_id
+
   belongs_to :step, class_name: "MovesProjectStep", foreign_key: :moves_project_step_id, inverse_of: :moves
   belongs_to :moveable, polymorphic: true
   belongs_to :frame
   belongs_to :prev_frame, class_name: "Frame"
+
+  has_one :moves_project, through: :step
 
   validates :moveable_id, uniqueness: { scope: %i[step moveable_type] }
 
