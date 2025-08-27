@@ -84,7 +84,7 @@ class MovesProjectsController < ApplicationController
       moves_project: [
         :name,
         { steps_attributes: [%i[name position date _destroy id]] },
-      ]
+      ],
     )
   end
 end

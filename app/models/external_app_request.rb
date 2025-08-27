@@ -7,7 +7,7 @@ class ExternalAppRequest < ApplicationRecord
     pending: "pending",
     in_progress: "in_progress",
     completed: "completed",
-    failed: "failed"
+    failed: "failed",
   }
 
   after_initialize :set_defaults

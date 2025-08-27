@@ -14,7 +14,7 @@ RSpec.describe BadgeComponent, type: :component do
       it do
         expect(rendered_component.to_html).to have_tag(
           "span.text-primary-emphasis.bg-primary-subtle.border.border-primary-subtle",
-          text: /Text as argument/
+          text: /Text as argument/,
         )
       end
     end
@@ -25,7 +25,7 @@ RSpec.describe BadgeComponent, type: :component do
       it do
         expect(rendered_component.to_html).to have_tag(
           "span.text-primary-emphasis.bg-primary-subtle.border.border-primary-subtle",
-          text: /Text as block/
+          text: /Text as block/,
         )
       end
     end
@@ -36,7 +36,7 @@ RSpec.describe BadgeComponent, type: :component do
       it do
         expect(rendered_component.to_html).to have_tag(
           "span.text-success-emphasis.bg-success-subtle.border.border-success-subtle",
-          text: /Text as argument/
+          text: /Text as argument/,
         )
       end
     end
@@ -53,7 +53,7 @@ RSpec.describe BadgeComponent, type: :component do
       it do
         expect(rendered_component.to_html).to have_tag(
           "span.badge.rounded-pill",
-          text: /Text as argument/
+          text: /Text as argument/,
         )
       end
     end

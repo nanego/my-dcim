@@ -29,14 +29,14 @@ RSpec.describe AirConditionersProcessor do
     let(:bay)  { Bay.create!(room: room, bay_type: bay_types(:one)) }
     let(:air_conditioner) do
       AirConditioner.create!(
-        bay: bay, air_conditioner_model: air_conditioner_models(:one), status: :on, position: :left
+        bay: bay, air_conditioner_model: air_conditioner_models(:one), status: :on, position: :left,
       )
     end
 
     before do
       air_conditioner
       AirConditioner.create!(
-        bay: bays(:one), air_conditioner_model: air_conditioner_models(:one), status: :on, position: :left
+        bay: bays(:one), air_conditioner_model: air_conditioner_models(:one), status: :on, position: :left,
       )
     end
 
@@ -52,7 +52,7 @@ RSpec.describe AirConditionersProcessor do
       let(:bay_second)  { Bay.create!(room: room, bay_type: bay_types(:one)) }
       let(:air_conditioner_second) do
         AirConditioner.create!(
-          bay: bay_second, air_conditioner_model: air_conditioner_models(:one), status: :on, position: :left
+          bay: bay_second, air_conditioner_model: air_conditioner_models(:one), status: :on, position: :left,
         )
       end
 
@@ -72,14 +72,14 @@ RSpec.describe AirConditionersProcessor do
     let(:bay)   { Bay.create!(islet: islet, bay_type: bay_types(:one)) }
     let(:air_conditioner) do
       AirConditioner.create!(
-        bay: bay, air_conditioner_model: air_conditioner_models(:one), status: :on, position: :left
+        bay: bay, air_conditioner_model: air_conditioner_models(:one), status: :on, position: :left,
       )
     end
 
     before do
       air_conditioner
       AirConditioner.create!(
-        bay: bays(:one), air_conditioner_model: air_conditioner_models(:one), status: :on, position: :left
+        bay: bays(:one), air_conditioner_model: air_conditioner_models(:one), status: :on, position: :left,
       )
     end
 
@@ -95,7 +95,7 @@ RSpec.describe AirConditionersProcessor do
       let(:bay_second)   { Bay.create!(islet: islet_second, bay_type: bay_types(:one)) }
       let(:air_conditioner_second) do
         AirConditioner.create!(
-          bay: bay_second, air_conditioner_model: air_conditioner_models(:one), status: :on, position: :left
+          bay: bay_second, air_conditioner_model: air_conditioner_models(:one), status: :on, position: :left,
         )
       end
 
@@ -120,7 +120,7 @@ RSpec.describe AirConditionersProcessor do
     let(:bay)   { Bay.create!(islet:, bay_type: bay_types(:one)) }
     let(:air_conditioner) do
       AirConditioner.create!(
-        name: "wood", bay:, air_conditioner_model: air_conditioner_models(:one), status: :on, position: :left
+        name: "wood", bay:, air_conditioner_model: air_conditioner_models(:one), status: :on, position: :left,
       )
     end
 

@@ -23,7 +23,7 @@ module Visualization
       authorize! @frame = Frame.includes(servers: [modele: %i[category composants],
                                                    cards: [:composant,
                                                            { ports: [connection: [cable: :connections]],
-                                                             card_type: [:port_type] },]],
+                                                             card_type: [:port_type] }]],
                                          bay: [islet: [:room]])
         .friendly
         .find(params[:id].to_s.downcase)

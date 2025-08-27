@@ -23,7 +23,7 @@ module ColumnsPreferences
           model:,
           default:,
           available:,
-          preferred: params[:columns] || session[key] || default
+          preferred: params[:columns] || session[key] || default,
         )
       end
     end

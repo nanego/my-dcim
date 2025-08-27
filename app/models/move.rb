@@ -29,7 +29,7 @@ class Move < ApplicationRecord
         port_from_id: p.id,
         vlans: "",
         color: "",
-        cablename: ""
+        cablename: "",
       )
     end
   end

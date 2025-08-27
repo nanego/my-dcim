@@ -7,7 +7,7 @@ RSpec.describe ApplicationHelper do
     context "with a model and attribute using ContentTypeValidator" do
       it do
         expect(helper.accepted_format_for_attachment(Site, "delivery_map")).to eq(
-          "image/png, image/jpeg, image/gif, application/pdf"
+          "image/png, image/jpeg, image/gif, application/pdf",
         )
       end
     end

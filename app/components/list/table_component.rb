@@ -78,12 +78,12 @@ module List
         middle: "align-middle",
         bottom: "align-bottom",
         text_top: "align-text-top",
-        text_bottom: "align-text-bottom"
+        text_bottom: "align-text-bottom",
       }.freeze
       TEXT_ALIGN_TYPES = {
         left: "text-start",
         center: "text-center",
-        right: "text-end"
+        right: "text-end",
       }.freeze
 
       def initialize(text = nil, **html_attributes)

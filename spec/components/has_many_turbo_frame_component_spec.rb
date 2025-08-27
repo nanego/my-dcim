@@ -21,7 +21,7 @@ RSpec.describe HasManyTurboFrameComponent, type: :component do
 
         with_tag("turbo-frame", with: {
           id: "table_islet",
-          src: url
+          src: url,
         }) do
           with_text("Chargement en cours ...")
           with_tag("span", with: { class: "spinner-grow" })

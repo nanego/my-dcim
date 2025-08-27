@@ -113,9 +113,9 @@ class ModelesController < ApplicationController
           enclosures_attributes: [[
             :id, :modele_id, :_destroy, :position, :display, :grid_areas,
             { composants_attributes: [%i[enclosure_id name position _destroy id]] },
-          ]]
+          ]],
         },
-      ]
+      ],
     )
   end
 end

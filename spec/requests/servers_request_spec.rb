@@ -152,8 +152,8 @@ RSpec.describe "/servers" do
         patch server_path(server), params: {
           server: {
             name: server.name,
-            cards_attributes: [{ id: 1, composant_id: 1, twin_card_id: 2, orientation: "lr-td" }]
-          }
+            cards_attributes: [{ id: 1, composant_id: 1, twin_card_id: 2, orientation: "lr-td" }],
+          },
         }
 
         assigns(:server).reload
@@ -243,7 +243,7 @@ RSpec.describe "/servers" do
     it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
       expect do
         post import_servers_path, params: {
-          import: { file: csv, room_id: Room.first.id }
+          import: { file: csv, room_id: Room.first.id },
         }
       end.to change(Server, :count).by(26).and change(Frame, :count).and change(Bay, :count)
 

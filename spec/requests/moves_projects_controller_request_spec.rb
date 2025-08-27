@@ -56,7 +56,7 @@ RSpec.describe MovesProjectsController do
         steps_attributes: [
           { name: "1", position: "1" },
           { name: "2", position: "2" },
-        ]
+        ],
       }
     end
     let(:params) { { moves_project: valid_attributes } }

@@ -53,7 +53,7 @@ class CableDecorator < ApplicationDecorator
                class: class_names(
                  "me-0 port #{color} text-body-emphasis #{port_type_class}",
                  "fst-italic fw-light text-body-secondary": name.blank?,
-                 no_client: port && port.cable_name && twin_card_used_ports&.exclude?(port.position)
+                 no_client: port && port.cable_name && twin_card_used_ports&.exclude?(port.position),
                )
     else
       tag.span "n/c", class: "badge empty me-0 border text-body-emphasis fst-italic fw-light text-body-secondary"

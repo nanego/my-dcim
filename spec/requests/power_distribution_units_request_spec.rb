@@ -147,8 +147,8 @@ RSpec.describe "/power_distribution_units" do
         patch power_distribution_unit_path(pdu), params: {
           power_distribution_unit: {
             name: pdu.name,
-            cards_attributes: [{ id: 7, composant_id: 1, twin_card_id: 2, orientation: "lr-td" }]
-          }
+            cards_attributes: [{ id: 7, composant_id: 1, twin_card_id: 2, orientation: "lr-td" }],
+          },
         }
 
         assigns(:pdu).reload

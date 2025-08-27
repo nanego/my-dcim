@@ -84,7 +84,7 @@ RSpec.describe ChangelogEntryDecorator, type: :decorator do
       create: :success,
       update: :info,
       destroy: :danger,
-      unknown: :primary
+      unknown: :primary,
     }.each do |action, expected_type|
       context "with #{action}" do
         let(:params) { { action: action } }

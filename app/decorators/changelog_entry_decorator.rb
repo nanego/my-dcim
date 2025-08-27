@@ -53,7 +53,7 @@ class ChangelogEntryDecorator < ApplicationDecorator
     colors = {
       create: :success,
       update: :info,
-      destroy: :danger
+      destroy: :danger,
     }
 
     BadgeComponent.new(action, color: colors[action.to_sym] || :primary)

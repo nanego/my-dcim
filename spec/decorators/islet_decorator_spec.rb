@@ -10,7 +10,7 @@ RSpec.describe IsletDecorator, type: :decorator do
     let(:expected_response) do
       {
         "Site 1" => [["S1 Ilot Islet1", 1], ["S1 Ilot Islet2", 2]],
-        "Site 3" => [["S6", 4]]
+        "Site 3" => [["S6", 4]],
       }
     end
 

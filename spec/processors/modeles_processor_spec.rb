@@ -144,7 +144,7 @@ RSpec.describe ModelesProcessor do
         let(:params) do
           {
             q: "wood", architecture_ids: architecture.id, manufacturer_ids: manufacturer.id, category_ids: category.id,
-            sort_by: field
+            sort_by: field,
           }
         end
 

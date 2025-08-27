@@ -53,7 +53,7 @@ RSpec.describe "ContactAssignmentsController" do
       let(:params) do
         {
           contact_assignment: contact_assignment.attributes.except("id")
-            .merge("site_id" => sites(:two).id, "contact_id" => contacts(:two).id, "contact_role_id" => contact_roles(:two).id)
+            .merge("site_id" => sites(:two).id, "contact_id" => contacts(:two).id, "contact_role_id" => contact_roles(:two).id),
         }
       end
 
