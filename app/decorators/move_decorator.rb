@@ -11,6 +11,6 @@ class MoveDecorator < ApplicationDecorator
   end
 
   def steps_options_for_select
-    options_for_select(moves_project.steps.pluck(:name, :id))
+    options_for_select(moves_project.steps.pluck(:name, :id), { selected: step_id })
   end
 end
