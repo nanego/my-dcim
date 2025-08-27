@@ -878,17 +878,17 @@ fr:
   servers_grids:
     index:
       title: Rechercher un matériel
-  permissions:
+  permission_scopes:
     index:
-      title: Permissions
-      new_permission: Nouvelle permission
-      delete_confirmation: Vous êtes sûr de vouloir supprimer cette permission ?
+      title: Périmètre
+      new_permission_scope: Nouveau périmètre
+      delete_confirmation: Vous êtes sûr de vouloir supprimer cette périmètre ?
     new:
-      title: Nouvelle permission
+      title: Nouvelle périmètre
     edit:
-      title: Editier la permission %{name}
+      title: Editier la périmètre %{name}
     form:
-      add_permission_user: Ajouter un utilisateur
+      add_permission_scope_user: Ajouter un utilisateur
 
   views:
     pagination:

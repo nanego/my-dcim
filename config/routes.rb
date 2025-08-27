@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :permissions
   root to: "pages#index"
 
   resources :air_conditioners
@@ -156,6 +155,7 @@ Rails.application.routes.draw do
     patch :suspend, on: :member
     patch :unsuspend, on: :member
   end
+  resources :permission_scopes
 
   get "search", to: "search#index"
 

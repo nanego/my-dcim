@@ -1,11 +1,11 @@
 <%
-  breadcrumb.add_step(title = Permission.model_name.human.pluralize)
+  breadcrumb.add_step(title = PermissionScope.model_name.human.pluralize)
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
-    <% render ButtonComponent.new(t(".new_permission"),
-                                  url: new_permission_path,
+    <% render ButtonComponent.new(t(".new_permission_scope"),
+                                  url: new_permission_scope_path,
                                   variant: :success,
                                   icon: "plus-lg",
                                   is_responsive: true) %>
@@ -13,22 +13,22 @@
 <% end %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
-  <%= render List::DataTableComponent.new(@permissions) do |table| %>
-    <% table.with_column(Permission.human_attribute_name(:name)) do |permission| %>
-      <%= permission.name %>
+  <%= render List::DataTableComponent.new(@permission_scopes) do |table| %>
+    <% table.with_column(PermissionScope.human_attribute_name(:name)) do |permission_scope| %>
+      <%= permission_scope.name %>
     <% end %>
 
-    <% table.with_column(Permission.human_attribute_name(:domaines)) do |permission| %>
+    <% table.with_column(PermissionScope.human_attribute_name(:domaines)) do |permission_scope| %>
       TODO
     <% end %>
 
-    <% table.with_column(Permission.human_attribute_name(:users)) do |permission| %>
+    <% table.with_column(PermissionScope.human_attribute_name(:users)) do |permission_scope| %>
       TODO
     <% end %>
 
-    <% table.with_column(style: "min-width: 70px; width: 70px") do |permission| %>
+    <% table.with_column(style: "min-width: 70px; width: 70px") do |permission_scope| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
-        <%= link_to edit_permission_path(permission), class: "btn btn-info" do %>
+        <%= link_to edit_permission_scope_path(permission_scope), class: "btn btn-info" do %>
           <span class="bi bi-pencil"
                 title="<%= t("action.edit") %>"
                 data-controller="tooltip"
@@ -36,7 +36,7 @@
                 aria-hidden="true"></span>
           <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
-        <%= link_to permission_path(permission),
+        <%= link_to permission_scope_path(permission_scope),
                     method: :delete,
                     data: { confirm: t(".delete_confirmation") },
                     class: "btn btn-danger" do %>
