@@ -2,6 +2,6 @@
 
 require 'rails_helper'
 
-RSpec.describe Permission do
+RSpec.describe PermissionScope do
   pending "add some examples to (or delete) #{__FILE__}"
 end
