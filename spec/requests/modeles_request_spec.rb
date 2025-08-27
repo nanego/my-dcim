@@ -74,7 +74,7 @@ RSpec.describe "/modeles" do
         name: "New Modele",
         category_id: modele.category_id,
         architecture_id: modele.architecture_id,
-        manufacturer_id: modele.manufacturer_id
+        manufacturer_id: modele.manufacturer_id,
       }
     end
     let(:invalid_attributes) { { name: "" } }
@@ -112,7 +112,7 @@ RSpec.describe "/modeles" do
         {
           modele: { name: "Modele" },
           preview: "preview",
-          format: :turbo_stream
+          format: :turbo_stream,
         }
       end
 
@@ -187,7 +187,7 @@ RSpec.describe "/modeles" do
         {
           modele: { name: "Modele" },
           preview: "preview",
-          format: :turbo_stream
+          format: :turbo_stream,
         }
       end
 

@@ -4,7 +4,7 @@ class RoomDecorator < ApplicationDecorator
   BADGE_COLORS = {
     active: :success,
     passive: :warning,
-    planned: :primary
+    planned: :primary,
   }.freeze
 
   class << self

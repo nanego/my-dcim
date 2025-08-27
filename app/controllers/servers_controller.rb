@@ -170,7 +170,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
         { network_types: [] },
         { cards_attributes: [%i[composant_id card_type_id twin_card_id orientation name first_position _destroy id]] },
         { documents_attributes: [%i[document id _destroy]] },
-      ]
+      ],
     )
   end
 

@@ -11,7 +11,7 @@ RSpec.describe ServersProcessor do
   let(:attributes) do
     {
       frame: frames(:one), gestion: gestions(:one), domaine: domaines(:switch), modele: modeles(:one),
-      cluster: clusters(:cloud_c1), stack: stacks(:red)
+      cluster: clusters(:cloud_c1), stack: stacks(:red),
     }
   end
 
@@ -382,7 +382,7 @@ RSpec.describe ServersProcessor do
       {
         q: "wood", frame_ids: frame.id, bay_ids: bay.id, islet_ids: islet.id, room_ids: room.id, modele_ids: modele.id,
         gestion_ids: gestion.id, domaine_ids: domaine.id, cluster_ids: cluster.id, stack_ids: stack.id,
-        category_ids: category.id
+        category_ids: category.id,
       }
     end
 
@@ -397,7 +397,7 @@ RSpec.describe ServersProcessor do
           {
             q: "wood", frame_ids: frame.id, bay_ids: bay.id, islet_ids: islet.id, room_ids: room.id, modele_ids: modele.id,
             gestion_ids: gestion.id, domaine_ids: domaine.id, cluster_ids: cluster.id, stack_ids: stack.id,
-            category_ids: category.id, sort_by: field
+            category_ids: category.id, sort_by: field,
           }
         end
 

@@ -96,7 +96,7 @@ class PowerDistributionUnitsController < ApplicationController
         :frame, # TODO: Check if it should be removed or if it's used somewhere
         { cards_attributes: [%i[composant_id card_type_id twin_card_id orientation name first_position _destroy id]] },
         { documents_attributes: [%i[document id _destroy]] },
-      ]
+      ],
     )
   end
 
