@@ -420,6 +420,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_27_143937) do
 
   create_table "permission_scopes", force: :cascade do |t|
     t.string "name", null: false
+    t.integer "role", default: 0, null: false
+    t.boolean "all_domains", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
