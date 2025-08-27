@@ -37,7 +37,7 @@
       <%= content_tag_for(:tr, @moves) do |move| %>
         <td>
           <%= link_to "#{move.moveable.try(:modele).try(:category)} #{move.moveable} vers la baie #{move.frame}",
-                      edit_moves_project_step_move_path(move) %>
+                      edit_moves_project_step_move_path(move.step, move) %>
         </td>
         <td class="text-center" style="min-width: 50px; width: 50px;">
           <%= link_to moves_project_step_move_path(move),

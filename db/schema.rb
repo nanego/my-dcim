@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_24_082513) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_27_090459) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -358,6 +358,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_24_082513) do
     t.string "color"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.datetime "executed_at", precision: nil
     t.index ["port_from_id"], name: "index_moved_connections_on_port_from_id"
     t.index ["port_to_id"], name: "index_moved_connections_on_port_to_id"
   end
