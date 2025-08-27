@@ -47,6 +47,7 @@ fr:
       contact: Contact
       contact_role: Rôle
       contact_assignment: Assignation
+      permission_scope: Périmètre
 
     attributes:
       room:
