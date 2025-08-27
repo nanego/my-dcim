@@ -26,7 +26,6 @@ export default class extends ExportPdfController {
     if (this.hasButtonIconValue) this.hideButtonIcon()
 
     let { filename, urls } = event.params
-    urls = urls.split(";");
 
     const pdfDoc = await this.generatePDF(urls)
     const pdfBytes = await pdfDoc.save()
