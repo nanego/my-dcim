@@ -9,7 +9,7 @@
                                      url: external_app_records_path,
                                      variant: :outline_primary,
                                      icon: "arrow-repeat",
-                                     is_responsive: true) %>
+                                     is_responsive: true) if allowed_to?(:index?, with: ExternalAppRecordPolicy) %>
 
       <%= render ButtonComponent.new(t(".add_server_via_csv"),
                                      url: import_csv_servers_path,

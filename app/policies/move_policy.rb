@@ -1,20 +1,22 @@
 # frozen_string_literal: true
 
 class MovePolicy < ApplicationPolicy
+  pre_check :deny_readers
+
   def execute?
     manage?
   end
 
   def load_server?
-    index?
+    manage?
   end
 
   def load_frame?
-    index?
+    manage?
   end
 
   def load_connection?
-    index?
+    manage?
   end
 
   def update_connection?

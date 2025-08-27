@@ -3,9 +3,9 @@
 require "rails_helper"
 
 RSpec.describe MovesProjectPolicy, type: :policy do
-  it_behaves_like "with default index policy"
   it_behaves_like "with default create policy"
   it_behaves_like "with default manage policy"
 
+  it_behaves_like "act as manage policy", for: :index?
   it_behaves_like "act as manage policy", for: :archive?
 end

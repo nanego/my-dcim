@@ -22,4 +22,8 @@ class ApplicationPolicy < ActionPolicy::Base
   def allow_admins
     allow! if user.admin?
   end
+
+  def deny_readers
+    deny! if user.reader?
+  end
 end

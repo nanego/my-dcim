@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 class MovesProjectStepPolicy < ApplicationPolicy
+  pre_check :deny_readers
+
   def frame?
-    index?
+    manage?
   end
 
   def print?
-    index?
+    manage?
   end
 
   def execute?
