@@ -82,6 +82,16 @@ RSpec.describe MovesProjectStep do
           .to contain_exactly(servers(:two), servers(:four), servers(:hub_network2))
       end
     end
+
+    context "with an equipment being moved in the same frame" do
+      let(:servers_array) do
+        moves_project_steps(:step_same_frame_move).servers_moves_for_frame_at_current_step(frames(:one))
+      end
+
+      it { expect(servers_array).to contain_exactly(servers(:one), servers(:two), servers(:with_cluster)) }
+      it { expect(servers_array.first).to eq(servers(:one)) }
+      it { expect(servers_array.first.position).to eq(41) }
+    end
   end
 
   describe "#previous_steps" do

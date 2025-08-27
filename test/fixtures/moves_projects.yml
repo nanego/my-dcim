@@ -29,3 +29,7 @@ archived:
 with_steps:
   id: 7
   name: "F"
+
+same_frame:
+  id: 8
+  name: "Same frame"

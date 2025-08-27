@@ -42,3 +42,9 @@ step_three:
   moves_project_id: 7
   name: "Step 3"
   position: 3
+
+step_same_frame_move:
+  id: 9
+  moves_project_id: 8
+  name: "Step"
+  position: 1
