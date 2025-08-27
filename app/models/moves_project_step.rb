@@ -45,9 +45,11 @@ class MovesProjectStep < ApplicationRecord
 
     removed = Move.includes(:prev_frame)
       .where(step: moves_project.steps.where(position: ..position))
-      .where(prev_frame: frame, moveable_type: "Server").map(&:moveable)
+      .where(prev_frame: frame, moveable_type: "Server")
+      .where.not("prev_frame_id = :frame AND frame_id = :frame", frame:)
+      .map(&:moveable)
 
-    ((frame.servers | moved) - removed).sort_by { |server| server.position.presence || 0 }.reverse
+    ((moved | frame.servers) - removed).sort_by { |server| server.position.presence || 0 }.reverse
   end
 
   def previous_steps
