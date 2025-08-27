@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-json.array! @moves, partial: 'moves/move', as: :move
+json.array! @moves, partial: "moves/move", as: :move

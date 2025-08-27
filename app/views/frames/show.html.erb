@@ -22,7 +22,7 @@
 
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <dt class="pb-2"><%= Frame.human_attribute_name(:name) %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= @frame.name %></dd
+          <dd class="mb-0 pb-2 ps-3"><%= @frame.name %></dd>
         </dl>
       <% end %>
 
@@ -112,7 +112,11 @@
     </div>
   </div>
   <%= render HasManyTurboFrameComponent.new(
-    Server.model_name.human(count: 2), url: servers_path(frame_ids: @frame.id, sort_by: :position, sort: "desc"), frame_id: dom_id(Server, :table)
+    Server.model_name.human(count: 2),
+    url: servers_path(frame_ids: @frame.id, sort_by: :position, sort: "desc"),
+    frame_id: dom_id(Server, :table),
+    new_path: new_server_path(server: { frame_id: @frame.id }),
+    new_label: t("servers.add_new")
   ) %>
   <%= render ChangelogEntries::ObjectListComponent.new(@frame) %>
 </div>

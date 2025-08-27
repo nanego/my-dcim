@@ -11,7 +11,7 @@ namespace :duplicated_slots do
       servers = []
       modele.enclosures.each do |enclosure|
         composants_names = enclosure.composants.map(&:name)
-        if composants_names.include?('SL1') && composants_names.include?('1')
+        if composants_names.include?("SL1") && composants_names.include?("1")
           # Potential duplicated slot
           puts "****** Modele ##{modele.id} - #{modele.name}"
 

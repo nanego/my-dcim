@@ -5,7 +5,7 @@ class Gestion < ApplicationRecord
 
   has_many :servers, dependent: :restrict_with_error
 
-  scope :sorted, -> { order(Arel.sql('LOWER(name)')) }
+  scope :sorted, -> { order(Arel.sql("LOWER(name)")) }
 
   def to_s
     name.to_s

@@ -14,7 +14,7 @@ class ServersGridsController < ApplicationController
           params[:servers_grid] = DEFAULT_PARAMS
         end
 
-        if session[:servers_grid_params].present? && session[:servers_grid_params][current_user.id.to_s].present? && params[:reset] != 't'
+        if session[:servers_grid_params].present? && session[:servers_grid_params][current_user.id.to_s].present? && params[:reset] != "t"
           @merged_params = params.to_unsafe_h.slice(:servers_grid).merge(session[:servers_grid_params][current_user.id.to_s])
         else
           @merged_params = params.to_unsafe_h.slice(:servers_grid)

@@ -15,9 +15,9 @@ class CreateComposants < ActiveRecord::Migration[4.2]
       t.integer :position
       t.timestamps null: false
     end
-    MigrationTypeComposant.create!(title: 'ALIM')
-    MigrationTypeComposant.create!(title: 'IPMI')
-    MigrationTypeComposant.create!(title: 'CM')
-    MigrationTypeComposant.create!(title: 'SLOT')
+    MigrationTypeComposant.create!(title: "ALIM")
+    MigrationTypeComposant.create!(title: "IPMI")
+    MigrationTypeComposant.create!(title: "CM")
+    MigrationTypeComposant.create!(title: "SLOT")
   end
 end

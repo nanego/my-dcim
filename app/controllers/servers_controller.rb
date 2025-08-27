@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ServersController < ApplicationController # rubocop:disable Metrics/ClassLength
+class ServersController < ApplicationController
   include ServersHelper
   include ColumnsPreferences
 
@@ -42,6 +42,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
 
   def new
     authorize! @server = Server.new
+    @server.assign_attributes(server_params) if params[:server]
   end
 
   def edit; end
@@ -55,7 +56,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
         format.json { render :show, status: :created, location: @server }
       else
         format.html { render :new }
-        format.json { render json: @server.errors, status: :unprocessable_entity }
+        format.json { render json: @server.errors, status: :unprocessable_content }
       end
     end
   end
@@ -67,7 +68,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
         format.json { render :show, status: :ok, location: @server }
       else
         format.html { render :edit }
-        format.json { render json: @server.errors, status: :unprocessable_entity }
+        format.json { render json: @server.errors, status: :unprocessable_content }
       end
     end
   end
@@ -84,16 +85,12 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
     end
   end
 
-  def grid
-    @servers = ServersGrid.new(params[:servers_grid])
-  end
-
   def sort
-    authorize! to: :sort?
+    authorize!
 
-    room = Room.find_by_name(params[:room]) unless params[:room].include?('non ')
-    frame = room.frames.where('islets.name = ? AND frames.name = ?', params[:islet], params[:frame]).first
-    positions = params[:positions].split(',')
+    room = Room.find_by_name(params[:room]) unless params[:room].include?("non ")
+    frame = room.frames.where("islets.name = ? AND frames.name = ?", params[:islet], params[:frame]).first
+    positions = params[:positions].split(",")
 
     params[:server].each_with_index do |id, index|
       if positions[index].present?
@@ -181,15 +178,5 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
     params.permit(:sort, :sort_by, :page, :per_page, :q,
                   network_types: [], bay_ids: [], islet_ids: [], room_ids: [], frame_ids: [], cluster_ids: [],
                   gestion_ids: [], domaine_ids: [], modele_ids: [], stack_ids: [], category_ids: [])
-  end
-
-  def track_frame_and_position(old_values, new_values)
-    new_params = {}
-    new_params['frame'] = [Frame.find_by_id(old_values['frame_id']).to_s, Frame.find_by_id(new_values['frame_id']).to_s]
-    new_params['position'] = [old_values['position'].to_s, new_values['position'].to_s]
-    # %W"position frame_id".each do |attribute|
-    #  new_params[attribute] = [old_values[attribute].to_s, new_values[attribute]]
-    # end
-    new_params
   end
 end

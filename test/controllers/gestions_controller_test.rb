@@ -20,7 +20,7 @@ class GestionsControllerTest < ActionController::TestCase
   end
 
   test "should create gestion" do
-    assert_difference('Gestion.count') do
+    assert_difference("Gestion.count") do
       post :create, params: { gestion: { description: @gestion.description, name: @gestion.name } }
     end
 
@@ -45,13 +45,13 @@ class GestionsControllerTest < ActionController::TestCase
   test "should destroy gestion" do
     @gestion = Gestion.create
 
-    assert_difference('Gestion.count', -1) do
+    assert_difference("Gestion.count", -1) do
       delete :destroy, params: { id: @gestion }
     end
   end
 
   test "should not destroy gestion it has many servers Server n°1 & 2" do
-    assert_difference('Gestion.count', 0) do
+    assert_difference("Gestion.count", 0) do
       delete :destroy, params: { id: @gestion }
     end
 

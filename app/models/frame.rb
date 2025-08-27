@@ -2,7 +2,7 @@
 
 class Frame < ApplicationRecord
   DEFAULT_SETTINGS = { max_u: 38, max_elts: 24, max_rj45: 48, max_fc: 12 }.freeze
-  VIEW_SIDES = { both: 'both', front: 'front', back: 'back' }.freeze
+  VIEW_SIDES = { both: "both", front: "front", back: "back" }.freeze
 
   extend FriendlyId
 
@@ -35,10 +35,10 @@ class Frame < ApplicationRecord
 
   def name_with_room_and_islet
     [
-      room_name.present? ? "Salle #{room_name}" : '',
-      bay.present? ? "Ilot #{bay.islet.name}" : '',
+      room_name.present? ? "Salle #{room_name}" : "",
+      bay.present? ? "Ilot #{bay.islet.name}" : "",
       "#{Frame.model_name.human} #{name.presence || "non précisée"}",
-    ].compact_blank.join(' ')
+    ].compact_blank.join(" ")
   end
 
   def self.to_txt(servers_per_bay, detail)
@@ -64,9 +64,9 @@ class Frame < ApplicationRecord
       txt << "---------------\r\n"
       servers.each do |server|
         case detail
-        when 'gestion'
+        when "gestion"
           addition = server.gestion.try(:name)
-        when 'cluster'
+        when "cluster"
           addition = server.cluster.try(:name)
         end
         txt << "[#{server.position.to_s.rjust(2, "0")}] #{server.name} #{"(#{addition})" if addition.present?}\r\n"
@@ -99,26 +99,26 @@ class Frame < ApplicationRecord
   def init_pdus
     frame = self
 
-    category = Category.find_or_create_by(name: 'Pdu')
+    category = Category.find_or_create_by(name: "Pdu")
     puts "ERROR: #{category}" unless category.valid?
-    modele = Modele.find_or_create_by(name: 'Pdu 24',
+    modele = Modele.find_or_create_by(name: "Pdu 24",
                                       category: category)
     puts "ERROR: #{modele}" unless modele.valid?
     enclosure = Enclosure.find_or_create_by(modele: modele,
                                             position: 1,
-                                            display: 'vertical')
+                                            display: "vertical")
     puts "ERROR: #{enclosure}" unless enclosure.valid?
     4.times do |i|
-      line = (i + 1).odd? ? 'L1' : 'L2'
+      line = (i + 1).odd? ? "L1" : "L2"
       composant = Composant.find_or_create_by(position: i + 1,
                                               enclosure: enclosure,
                                               name: "ALIM_#{line}")
       puts "ERROR: #{composant}" unless composant.valid?
     end
 
-    port_type = PortType.find_by_name('ALIM')
+    port_type = PortType.find_by_name("ALIM")
     puts "ERROR: #{port_type}" unless port_type.valid?
-    card_type = CardType.find_or_create_by(name: '6ALIM',
+    card_type = CardType.find_or_create_by(name: "6ALIM",
                                            port_quantity: 6,
                                            port_type: port_type)
     puts "ERROR: #{card_type}" unless card_type.valid?
@@ -130,7 +130,7 @@ class Frame < ApplicationRecord
                                      numero: pdu_name,
                                      name: pdu_name,
                                      side: Pdu.calculated_side(frame, line_name),
-                                     color: line_name == 'A' ? 'J' : 'B')
+                                     color: line_name == "A" ? "J" : "B")
       puts "ERROR: #{pdu}" unless pdu.valid?
       enclosure.composants.each do |composant|
         card = Card.find_or_create_by(card_type: card_type,

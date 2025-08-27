@@ -156,7 +156,7 @@ RSpec.describe MovesController do
 
       let(:params) { { move: { moveable_id: servers(:two).id, moveable_type: "Server", moves_project_step_id: nil }, unscoped: "Continue" } }
 
-      it { expect(response).to have_http_status(:unprocessable_entity) }
+      it { expect(response).to have_http_status(:unprocessable_content) }
       it { expect(response).to render_template(:new_unscoped) }
     end
   end
