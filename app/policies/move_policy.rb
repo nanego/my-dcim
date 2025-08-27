@@ -7,6 +7,18 @@ class MovePolicy < ApplicationPolicy
     manage?
   end
 
+  def load_server?
+    manage?
+  end
+
+  def load_frame?
+    manage?
+  end
+
+  def load_connection?
+    manage?
+  end
+
   def update_connection?
     manage?
   end
