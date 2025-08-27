@@ -33,7 +33,7 @@
           <%= render "layouts/navigation/visualization_dropdown" %>
           <%= render "layouts/navigation/devices_dropdown" %>
 
-          <% if allowed_to?(:index?, with: ExternalAppRecordPolicy) %>
+          <% if allowed_to?(:index?, with: MovesProjectPolicy) %>
             <li class="nav-item" role="menuitem">
               <%= link_to t(".projects"), moves_projects_path, class: "nav-link" %>
             </li>

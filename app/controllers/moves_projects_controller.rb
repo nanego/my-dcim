@@ -10,9 +10,7 @@ class MovesProjectsController < ApplicationController
   end
 
   # GET /moves_projects/1 or /moves_projects/1.json
-  def show
-    authorize! @moves_project = MovesProject.find(params.expect(:id))
-  end
+  def show; end
 
   # GET /moves_projects/new
   def new

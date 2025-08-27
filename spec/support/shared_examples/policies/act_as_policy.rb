@@ -19,8 +19,6 @@ RSpec.shared_context "act as index policy", type: :policy do |**kwargs| # ruboco
     end
 
     context "when user is not admin" do # rubocop:disable Spec/EmptyExampleGroup
-      succeed "when user with no role asks"
-
       succeed "when a reader user asks" do
         let(:role) { :reader }
       end
@@ -51,8 +49,6 @@ RSpec.shared_context "act as create policy", type: :policy do |**kwargs| # ruboc
     end
 
     context "when user is not admin" do # rubocop:disable Spec/EmptyExampleGroup
-      failed "when user with no role asks"
-
       failed "when a reader user asks" do
         let(:role) { :reader }
       end
@@ -83,8 +79,6 @@ RSpec.shared_context "act as manage policy", type: :policy do |**kwargs| # ruboc
     end
 
     context "when user is not admin" do # rubocop:disable Spec/EmptyExampleGroup
-      failed "when user with no role asks"
-
       failed "when a reader user asks" do
         let(:role) { :reader }
       end
