@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ServersController < ApplicationController
+class ServersController < ApplicationController # rubocop:disable Metrics/ClassLength
   include ServersHelper
   include ColumnsPreferences
 
