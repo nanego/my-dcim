@@ -18,8 +18,7 @@ module Bulk
     private
 
     def set_frames
-      @frames = Frame.where(id: params[:ids])
-      authorize! @frames, with: FramePolicy
+      authorize! @frames = Frame.where(id: params[:ids])
     end
   end
 end

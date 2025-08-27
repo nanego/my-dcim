@@ -45,14 +45,11 @@
         extra_classes: "d-none d-lg-flex bg-body-tertiary mt-4"
       ) do |c| %>
         <% c.with_actions do %>
-          <%= render ButtonComponent.new(
-            t("action.edit"),
-            url: edit_site_path(@site, anchor: "contact_assignments"),
-            icon: "pencil",
-            size: :sm,
-            is_responsive: true,
-            extra_classes: "btn-info"
-          ) if allowed_to?(:create?, with: ContactAssignmentPolicy) %>
+          <%= link_to edit_site_path(@site, anchor: "contact_assignments"),
+                      class: "link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover small" do %>
+            <span class="bi bi-pencil"></span>
+            <span><%= t("action.edit") %></span>
+          <% end %>
         <% end %>
       <% end %>
     </div>
@@ -116,7 +113,9 @@
         ContactAssignment.model_name.human.pluralize,
         type: :warning,
         url: contact_assignments_path(site_ids: @site.id),
-        frame_id: dom_id(ContactAssignment, :table)
+        frame_id: dom_id(ContactAssignment, :table),
+        new_path: new_contact_assignment_path(contact_assignment: { site_id: @site.id }),
+        new_label: t("contact_assignments.add_new"),
       ) do |c| %>
         <% c.with_actions do %>
           <%= render ButtonComponent.new(
@@ -149,7 +148,11 @@
   <% end %>
 
   <%= render HasManyTurboFrameComponent.new(
-    Room.model_name.human.pluralize, url: rooms_path(site_ids: @site.id), frame_id: dom_id(Room, :table)
+    Room.model_name.human.pluralize,
+    url: rooms_path(site_ids: @site.id),
+    frame_id: dom_id(Room, :table),
+    new_path: new_room_path(room: { site_id: @site.id }),
+    new_label: t("rooms.add_new")
   ) %>
 
   <%= render ChangelogEntries::ObjectListComponent.new(@site) %>

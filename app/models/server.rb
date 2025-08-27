@@ -2,6 +2,7 @@
 
 class Server < ApplicationRecord
   extend FriendlyId
+
   friendly_id :slug_candidates, use: %i[slugged history]
 
   has_changelog
@@ -47,7 +48,7 @@ class Server < ApplicationRecord
   before_create :set_default_network_types
 
   scope :sorted, -> { order(position: :desc) }
-  scope :sorted_by_name, -> { order('LOWER(name) ASC') }
+  scope :sorted_by_name, -> { order("LOWER(name) ASC") }
 
   scope :glpi_synchronizable, -> { joins(modele: :category).merge(Modele.glpi_synchronizable) }
   scope :no_pdus, -> { joins(modele: :category).where("categories.name<>'Pdu'") }
@@ -57,7 +58,7 @@ class Server < ApplicationRecord
   def self.friendly_find_by_numero_or_name(name)
     name = name.to_s.downcase
 
-    Server.find_by('lower(numero) = ?', name) || Server.friendly.find(name)
+    Server.find_by("lower(numero) = ?", name) || Server.friendly.find(name)
   end
 
   def to_s
@@ -78,10 +79,10 @@ class Server < ApplicationRecord
 
   def ports_per_type
     # Number of ports per type
-    sums = { 'XRJ' => 0, 'RJ' => 0, 'FC' => 0, 'IPMI' => 0 }
+    sums = { "XRJ" => 0, "RJ" => 0, "FC" => 0, "IPMI" => 0 }
     cards.each do |card|
-      if card.composant.name == 'IPMI'
-        port_type = 'IPMI'
+      if card.composant.name == "IPMI"
+        port_type = "IPMI"
       else
         port_type = card.card_type.port_type.name
       end
@@ -144,7 +145,7 @@ class Server < ApplicationRecord
     end
   end
 
-  def destroy_connections!
+  def destroy_connections! # rubocop:disable Naming/PredicateMethod
     transaction do
       cables.find_each(&:destroy!)
     end

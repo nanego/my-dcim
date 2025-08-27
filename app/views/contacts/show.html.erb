@@ -45,7 +45,9 @@
       type: :warning,
       url: contact_assignments_path(contact_ids: @contact.id),
       frame_id: dom_id(ContactAssignment, :table),
-      extra_classes: "bg-body-tertiary mt-4"
+      extra_classes: "bg-body-tertiary mt-4",
+      new_path: new_contact_assignment_path(contact_assignment: { contact_id: @contact.id }),
+      new_label: t("contact_assignments.add_new")
   ) %>
 
   <%= render ChangelogEntries::ObjectListComponent.new(@contact) %>

@@ -12,7 +12,7 @@ class CreateActivities < ActiveRecord::Migration[4.2]
       t.belongs_to :recipient, :polymorphic => true
 
       t.timestamps
-    end unless table_exists? 'activities'
+    end unless table_exists? "activities"
 
     add_index :activities, %i[trackable_id trackable_type] unless index_exists?(:activities, %i[trackable_id trackable_type])
     add_index :activities, %i[owner_id owner_type] unless index_exists?(:activities, %i[owner_id owner_type])

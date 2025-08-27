@@ -22,9 +22,11 @@ class ModelesController < ApplicationController
 
   def new
     authorize! @modele = Modele.new
-    @modele.composants.build(:name => 'ALIM')
-    @modele.composants.build(:name => 'IPMI')
-    @modele.composants.build(:name => 'CM')
+    @modele.assign_attributes(modele_params) if params[:modele]
+    @modele.composants.build(:name => "ALIM")
+    @modele.composants.build(:name => "IPMI")
+    @modele.composants.build(:name => "CM")
+
     7.times do |i|
       @modele.composants.build(:name => "SL#{i + 1}")
     end
@@ -41,7 +43,7 @@ class ModelesController < ApplicationController
 
     if params[:preview]
       respond_to do |format|
-        format.turbo_stream { render :preview, status: :unprocessable_entity }
+        format.turbo_stream { render :preview, status: :unprocessable_content }
       end
     else
       respond_to do |format|
@@ -49,8 +51,8 @@ class ModelesController < ApplicationController
           format.html { redirect_to_new_or_to(modele_path(@modele), notice: t(".flashes.created")) }
           format.json { render :show, status: :created, location: @modele }
         else
-          format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @modele.errors, status: :unprocessable_entity }
+          format.html { render :new, status: :unprocessable_content }
+          format.json { render json: @modele.errors, status: :unprocessable_content }
         end
       end
     end
@@ -61,7 +63,7 @@ class ModelesController < ApplicationController
 
     if params[:preview]
       respond_to do |format|
-        format.turbo_stream { render :preview, status: :unprocessable_entity }
+        format.turbo_stream { render :preview, status: :unprocessable_content }
       end
     else
       respond_to do |format|
@@ -69,8 +71,8 @@ class ModelesController < ApplicationController
           format.html { redirect_to modele_path(@modele), notice: t(".flashes.updated") }
           format.json { render :show, status: :ok, location: @modele }
         else
-          format.html { render :edit, status: :unprocessable_entity }
-          format.json { render json: @modele.errors, status: :unprocessable_entity }
+          format.html { render :edit, status: :unprocessable_content }
+          format.json { render json: @modele.errors, status: :unprocessable_content }
         end
       end
     end
@@ -84,7 +86,7 @@ class ModelesController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to({ action: 'index' }, alert: @modele.errors.full_messages_for(:base).join(", ")) }
+        format.html { redirect_to({ action: "index" }, alert: @modele.errors.full_messages_for(:base).join(", ")) }
       end
     end
   end

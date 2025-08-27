@@ -120,7 +120,11 @@
   </div>
 
   <%= render HasManyTurboFrameComponent.new(
-    Frame.model_name.human.pluralize, url: frames_path(bay_ids: @bay.id), frame_id: dom_id(Frame, :table)
+    Frame.model_name.human.pluralize,
+    url: frames_path(bay_ids: @bay.id),
+    frame_id: dom_id(Frame, :table),
+    new_path: new_frame_path(frame: { bay_id: @bay.id }),
+    new_label: t("frames.add_new")
   ) %>
 
   <%= render ChangelogEntries::ObjectListComponent.new(@bay) %>

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe PortType do
   subject(:port_type) { described_class.new(name: "ALIM") }

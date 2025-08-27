@@ -9,13 +9,13 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     if cards_names.present?
       if cards.first.twin_card_id.present?
         link_to network_frame_path(server.frame, network_frame_id: Card.find(cards.first.twin_card_id).server.frame_id) do
-          "<span class='bi bi-upload me-1' aria-hidden='true'></span>#{cards_names.join('-')}".html_safe
+          "<span class='bi bi-upload me-1' aria-hidden='true'></span>#{cards_names.join("-")}".html_safe
         end
       else
-        cards_names.join('-')
+        cards_names.join("-")
       end
     elsif component.name.present?
-      (component.name.include?('SL') ? component.name[2] : component.name).to_s
+      (component.name.include?("SL") ? component.name[2] : component.name).to_s
     else
       component.position
     end
@@ -137,9 +137,9 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
 
   def link_to_port_without_label(position, port_data, port_type, card_id, port_id)
     port_type_name = case port_type.name
-                     when 'RJ', 'XRJ'
+                     when "RJ", "XRJ"
                        "RJ"
-                     when 'FC', 'SC'
+                     when "FC", "SC"
                        "FC"
                      else
                        port_type.name
@@ -147,13 +147,13 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     link_to_port_by_type("", port_type_name, port_data, position, card_id, port_id)
   end
 
-  def link_to_port(position, port_data, port_type, card_id, port_id, default_label = '')
+  def link_to_port(position, port_data, port_type, card_id, port_id, default_label = "")
     cable_name = port_data&.cable_name.presence || default_label
 
     case port_type.name
-    when 'RJ', 'XRJ'
+    when "RJ", "XRJ"
       port_type_name = "RJ"
-    when 'FC', 'SC'
+    when "FC", "SC"
       port_type_name = "FC"
       cable_name = position.to_s.rjust(2, "0") if cable_name.blank?
     else
@@ -178,7 +178,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
             id: port_id,
             title: (port_data.present? ? port_data.vlans.to_s : ""),
             class: "border border-secondary port port#{port_class} #{port_data.try(:cable_color) || "empty"}",
-            data: { url: edit_port_url, position:, type:, controller: 'tooltip', bs_placement: 'top' },
+            data: { url: edit_port_url, position:, type:, controller: "tooltip", bs_placement: "top" },
             target: :_top
   end
 
@@ -190,7 +190,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     max_aligned_ports = (card_type.max_aligned_ports.to_i > 0 ? card_type.max_aligned_ports.to_i : MAX_PORTS_PER_LINE)
 
     case card_orientation
-    when 'dt-lr'
+    when "dt-lr"
       number_of_columns_in_cell = ports_per_cell.to_i / max_aligned_ports
       column_index_in_cell = cell_index % number_of_columns_in_cell
       line_index_in_cell = cell_index / number_of_columns_in_cell
@@ -199,7 +199,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       position = (row_index * card_type.columns * ports_per_cell) +
                  (column_index * ports_per_cell) +
                  position_in_cell
-    when 'td-lr'
+    when "td-lr"
       number_of_columns_in_cell = ports_per_cell.to_i / max_aligned_ports
       column_index_in_cell = cell_index % number_of_columns_in_cell
       line_index_in_cell = cell_index / number_of_columns_in_cell
@@ -208,7 +208,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       position = (row_index * card_type.columns * ports_per_cell) +
                  (column_index * ports_per_cell) +
                  position_in_cell
-    when 'rl-td'
+    when "rl-td"
       position = max_aligned_ports - ((row_index * card_type.columns * ports_per_cell) +
         (column_index * ports_per_cell) + cell_index)
     else
@@ -222,7 +222,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
 
   def number_of_columns_in_cell(orientation, ports_per_cell, max_aligned_ports)
     case orientation
-    when 'dt-lr', 'td-lr'
+    when "dt-lr", "td-lr"
       (ports_per_cell.to_i / max_aligned_ports.to_i).to_i
     else
       # lr-td, rl-td
@@ -241,20 +241,20 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
   def define_background_color(server:, mode: nil)
     if %w[gestion cluster].include?(mode)
       case mode
-      when 'gestion'
-        parent_type = 'Gestionnaire'
+      when "gestion"
+        parent_type = "Gestionnaire"
         parent_id = server.gestion.try(:name)
-      when 'cluster'
-        parent_type = 'Cluster'
+      when "cluster"
+        parent_type = "Cluster"
         parent_id = server.cluster.try(:name)
       end
       color = Color.where(parent_type: parent_type, parent_id: parent_id).first
       if color.blank? || color.code.blank?
-        color = Color.create!(parent_type: parent_type, parent_id: parent_id, code: lighten_color("##{Digest::MD5.hexdigest(parent_id.to_s || 'test')[0..5]}", 0.4))
+        color = Color.create!(parent_type: parent_type, parent_id: parent_id, code: lighten_color("##{Digest::MD5.hexdigest(parent_id.to_s.presence || "test")[0..5]}", 0.4))
       end
       bg_color = color.code
     else
-      bg_color = server.modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(server.modele.try(:name) || 'test')[0..5]}", 0.4)
+      bg_color = server.modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(server.modele.try(:name) || "test")[0..5]}", 0.4)
     end
     bg_color
   end

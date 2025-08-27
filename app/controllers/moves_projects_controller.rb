@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MovesProjectsController < ApplicationController
-  before_action :set_moves_project, only: %i[edit update destroy archive]
+  before_action :set_moves_project, only: %i[show edit update destroy archive]
   before_action :redirect_if_archived, except: %i[index show new create]
 
   # GET /moves_projects or /moves_projects.json
@@ -10,9 +10,7 @@ class MovesProjectsController < ApplicationController
   end
 
   # GET /moves_projects/1 or /moves_projects/1.json
-  def show
-    authorize! @moves_project = MovesProject.find(params.expect(:id))
-  end
+  def show; end
 
   # GET /moves_projects/new
   def new
@@ -32,8 +30,8 @@ class MovesProjectsController < ApplicationController
         format.html { redirect_to moves_project_path(@moves_project), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @moves_project }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @moves_project.errors, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
+        format.json { render json: @moves_project.errors, status: :unprocessable_content }
       end
     end
   end
@@ -45,8 +43,8 @@ class MovesProjectsController < ApplicationController
         format.html { redirect_to moves_project_path(@moves_project), notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @moves_project }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @moves_project.errors, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
+        format.json { render json: @moves_project.errors, status: :unprocessable_content }
       end
     end
   end

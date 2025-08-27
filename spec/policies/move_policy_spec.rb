@@ -3,117 +3,13 @@
 require "rails_helper"
 
 RSpec.describe MovePolicy, type: :policy do
-  let(:user) { users(:one) }
-  let(:context) { { user: } }
-  let(:is_admin) { false }
-  let(:role) { nil }
-
-  before do
-    user.is_admin = is_admin
-    user.role = role
-  end
-
   it_behaves_like "with default index policy"
   it_behaves_like "with default create policy"
   it_behaves_like "with default manage policy"
 
-  describe_rule :execute? do
-    context "when user is admin" do # rubocop:disable Spec/EmptyExampleGroup
-      succeed "when an admin user asks" do
-        let(:is_admin) { true }
-      end
-    end
-
-    context "when user is not admin" do # rubocop:disable Spec/EmptyExampleGroup
-      failed "when user with no role asks"
-
-      failed "when a reader user asks" do
-        let(:role) { :reader }
-      end
-
-      succeed "when a writer user asks" do
-        let(:role) { :writer }
-      end
-    end
-  end
-
-  describe_rule :load_server? do
-    context "when user is admin" do # rubocop:disable Spec/EmptyExampleGroup
-      succeed "when an admin user asks" do
-        let(:is_admin) { true }
-      end
-    end
-
-    context "when user is not admin" do # rubocop:disable Spec/EmptyExampleGroup
-      failed "when user with no role asks"
-
-      succeed "when a reader user asks" do
-        let(:role) { :reader }
-      end
-
-      succeed "when a writer user asks" do
-        let(:role) { :writer }
-      end
-    end
-  end
-
-  describe_rule :load_frame? do
-    context "when user is admin" do # rubocop:disable Spec/EmptyExampleGroup
-      succeed "when an admin user asks" do
-        let(:is_admin) { true }
-      end
-    end
-
-    context "when user is not admin" do # rubocop:disable Spec/EmptyExampleGroup
-      failed "when user with no role asks"
-
-      succeed "when a reader user asks" do
-        let(:role) { :reader }
-      end
-
-      succeed "when a writer user asks" do
-        let(:role) { :writer }
-      end
-    end
-  end
-
-  describe_rule :load_connection? do
-    context "when user is admin" do # rubocop:disable Spec/EmptyExampleGroup
-      succeed "when an admin user asks" do
-        let(:is_admin) { true }
-      end
-    end
-
-    context "when user is not admin" do # rubocop:disable Spec/EmptyExampleGroup
-      failed "when user with no role asks"
-
-      succeed "when a reader user asks" do
-        let(:role) { :reader }
-      end
-
-      succeed "when a writer user asks" do
-        let(:role) { :writer }
-      end
-    end
-  end
-
-  describe_rule :update_connection? do
-    context "when user is admin" do # rubocop:disable Spec/EmptyExampleGroup
-      succeed "when an admin user asks" do
-        let(:is_admin) { true }
-      end
-    end
-
-    context "when user is not admin" do # rubocop:disable Spec/EmptyExampleGroup
-      failed "when user with no role asks"
-
-      failed "when a reader user asks" do
-        let(:role) { :reader }
-      end
-
-      succeed "when a writer user asks" do
-        let(:role) { :writer }
-      end
-    end
-  end
+  it_behaves_like "act as manage policy", for: :execute?
+  it_behaves_like "act as index policy", for: :load_server?
+  it_behaves_like "act as index policy", for: :load_frame?
+  it_behaves_like "act as index policy", for: :load_connection?
+  it_behaves_like "act as manage policy", for: :update_connection?
 end

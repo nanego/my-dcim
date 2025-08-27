@@ -1,4 +1,4 @@
-<%= form_for(@user, html: { class: "col-12 col-md-10 col-lg-8 mx-auto" }) do |f| %>
+<%= form_for(@user, html: { class: "col-12 col-md-10 col-lg-8 mx-auto" }, url:) do |f| %>
   <%= render FormErrorsComponent.new(@user) %>
 
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>

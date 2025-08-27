@@ -6,7 +6,7 @@ require File.expand_path("../../../app/services/glpi_client", __FILE__)
 class GlpiClientTest < ActiveSupport::TestCase
   def test_load_computer_details_by_serial
     client = GlpiClient.new
-    computer = client.computer(serial: 'AZERTY')
+    computer = client.computer(serial: "AZERTY")
     assert computer.id == 4090
     assert computer.serial == "c27xmq1"
     assert computer.name == "argoli"

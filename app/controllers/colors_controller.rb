@@ -7,7 +7,7 @@ class ColorsController < ApplicationController
   end
 
   def index
-    authorize! @colors = sorted(Color.order('parent_type asc, parent_id asc'))
+    authorize! @colors = sorted(Color.order(:parent_type, :parent_id))
   end
 
   def show; end
@@ -27,7 +27,7 @@ class ColorsController < ApplicationController
         format.json { render :show, status: :created, location: @color }
       else
         format.html { render :new }
-        format.json { render json: @color.errors, status: :unprocessable_entity }
+        format.json { render json: @color.errors, status: :unprocessable_content }
       end
     end
   end
@@ -41,7 +41,7 @@ class ColorsController < ApplicationController
         format.json { render :show, status: :ok, location: @color }
       else
         format.html { render :edit }
-        format.json { render json: @color.errors, status: :unprocessable_entity }
+        format.json { render json: @color.errors, status: :unprocessable_content }
       end
     end
   end

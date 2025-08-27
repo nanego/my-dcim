@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangelogEntriesController < ApplicationController
   def index
     authorize! @changelog_entries = sorted(changelog_scope.includes(:author, :object).order(created_at: :desc))

@@ -5,7 +5,7 @@
   <% if Rails.env.development? %>
     <%= render FormErrorsComponent.new(resource) %>
     <fieldset class="form-floating">
-      <%= f.email_field :email, class: "form-control mb-n2 rounded-bottom-0", placeholder: "name@example.com" %>
+      <%= f.email_field :email, class: "form-control mb-n2 rounded-bottom-0", placeholder: "name@example.com", autofocus: true %>
       <%= f.label :email %>
     </fieldset>
     <fieldset class="form-floating">

@@ -3,5 +3,5 @@
 <%= render Page::HeadingNewComponent.new(resource: @user, title: t(".new_user"), breadcrumb:) %>
 
 <div class="col-12 p-4 border-top">
-  <%= render "form" %>
+  <%= render partial: "form", locals: { url: add_user_users_path } %>
 </div>

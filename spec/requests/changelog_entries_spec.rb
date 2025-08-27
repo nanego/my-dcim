@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe "ChangelogEntries" do
   let(:object) { Color.create!(code: "FFFFFF") }

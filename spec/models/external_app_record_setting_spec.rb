@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe ExternalAppRecordSetting do
   subject(:settings) { described_class.new(attributes) }

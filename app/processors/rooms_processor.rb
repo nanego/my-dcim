@@ -2,6 +2,7 @@
 
 class RoomsProcessor < ApplicationProcessor
   include Sortable
+
   SORTABLE_FIELDS = %w[name position sites.name islets_count display_on_home_page status].freeze
 
   map :q do |q:|

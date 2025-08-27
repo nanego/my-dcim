@@ -35,7 +35,7 @@ class DomainesController < ApplicationController
         format.json { render :show, status: :created, location: @domaine }
       else
         format.html { render :new }
-        format.json { render json: @domaine.errors, status: :unprocessable_entity }
+        format.json { render json: @domaine.errors, status: :unprocessable_content }
       end
     end
   end
@@ -49,7 +49,7 @@ class DomainesController < ApplicationController
         format.json { render :show, status: :ok, location: @domaine }
       else
         format.html { render :edit }
-        format.json { render json: @domaine.errors, status: :unprocessable_entity }
+        format.json { render json: @domaine.errors, status: :unprocessable_content }
       end
     end
   end

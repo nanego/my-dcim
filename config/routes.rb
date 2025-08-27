@@ -33,8 +33,10 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'data_import', action: 'index', controller: 'data_import'
-  post 'data_import/ansible'
+  resources :moves, only: %i[new create]
+
+  get "data_import", action: "index", controller: "data_import"
+  post "data_import/ansible"
 
   resources :sites
   resources :islets do
@@ -51,10 +53,10 @@ Rails.application.routes.draw do
   end
 
   resources :ports, except: %i[create]
-  get 'connections/edit', :action => 'edit', controller: 'connections'
-  post 'connections/update_destination_server', :action => 'update_destination_server', controller: 'connections'
-  post 'connections/update', :action => 'update', controller: 'connections'
-  get 'connections/draw', :action => 'draw', controller: 'connections', as: :draw_connections
+  get "connections/edit", :action => "edit", controller: "connections"
+  post "connections/update_destination_server", :action => "update_destination_server", controller: "connections"
+  post "connections/update", :action => "update", controller: "connections"
+  get "connections/draw", :action => "draw", controller: "connections", as: :draw_connections
   resources :cables, only: %i[index destroy]
   resources :port_types
 
@@ -62,7 +64,6 @@ Rails.application.routes.draw do
   resources :stacks
   resources :servers do
     collection do
-      get :grid
       post :sort
       get :import_csv
       post :import
@@ -126,11 +127,11 @@ Rails.application.routes.draw do
     end
   end
 
-  get :about, to: 'pages#about'
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks',
-                                    registrations: 'users/registrations',
-                                    sessions: 'users/sessions',
-                                    passwords: 'users/passwords' }
+  get :about, to: "pages#about"
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks",
+                                    registrations: "users/registrations",
+                                    sessions: "users/sessions",
+                                    passwords: "users/passwords" }
 
   namespace :bulk do
     %i[servers sites rooms islets bays frames air_conditioners power_distribution_units modeles categories
@@ -154,7 +155,7 @@ Rails.application.routes.draw do
     patch :unsuspend, on: :member
   end
 
-  get 'search', to: 'search#index'
+  get "search", to: "search#index"
 
   resources :changelog_entries, only: %i[index show]
   get "/:object_type/:object_id/changelog_entries", to: "changelog_entries#index", as: :object_changelog_entries

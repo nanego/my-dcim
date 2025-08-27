@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'faraday'
-require 'json'
+require "faraday"
+require "json"
 
 class GlpiClient
   API_URL = Rails.application.credentials.glpi_api_url
@@ -56,9 +56,9 @@ class GlpiClient
         computer_params.deep_transform_keys(&:underscore)
 
         attributes = computer_params
-        attributes[:hard_drives] = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceHardDrive'] : {}
-        attributes[:memories] = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceMemory'] : {}
-        processors = computer_params['_devices'].present? ? computer_params['_devices']['Item_DeviceProcessor'] : {}
+        attributes[:hard_drives] = computer_params["_devices"].present? ? computer_params["_devices"]["Item_DeviceHardDrive"] : {}
+        attributes[:memories] = computer_params["_devices"].present? ? computer_params["_devices"]["Item_DeviceMemory"] : {}
+        processors = computer_params["_devices"].present? ? computer_params["_devices"]["Item_DeviceProcessor"] : {}
         attributes[:processors] = if processors.present?
                                     processors.each_value do |proc|
                                       proc["designation"] = get_processor_designation_from_glpi(id: proc["deviceprocessors_id"])
@@ -108,10 +108,10 @@ class GlpiClient
 
   def stubs
     Faraday::Adapter::Test::Stubs.new do |stub|
-      stub.get('/Computer?searchText%5Bserial%5D=AZERTY') { |_env| [200, {}, Rails.root.join("test/services/computers_results.json").read] }
+      stub.get("/Computer?searchText%5Bserial%5D=AZERTY") { |_env| [200, {}, Rails.root.join("test/services/computers_results.json").read] }
       stub.get(/\/Computer\/4090?.*/) { |_env| [200, {}, Rails.root.join("test/services/computer_4090_algori.json").read] }
       stub.get(/\/DeviceProcessor\/28?.*/) { |_env| [200, {}, Rails.root.join("test/services/processor_28.json").read] }
-      stub.get('/initSession') { |_env| [200, {}, '{"session_token":"kuji8uh4v77lgghqoj2c0r2848"}'] }
+      stub.get("/initSession") { |_env| [200, {}, '{"session_token":"kuji8uh4v77lgghqoj2c0r2848"}'] }
     end
   end
 
@@ -134,13 +134,13 @@ class GlpiClient
     def hard_drives_total_capacity
       return 0 if hard_drives.blank?
 
-      hard_drives.sum { |_key, value| value['capacity'] }
+      hard_drives.sum { |_key, value| value["capacity"] }
     end
 
     def memories_total_size
       return 0 if memories.blank?
 
-      memories.sum { |_key, value| value['size'] }
+      memories.sum { |_key, value| value["size"] }
     end
   end
 end

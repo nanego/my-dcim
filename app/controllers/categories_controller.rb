@@ -36,7 +36,7 @@ class CategoriesController < ApplicationController
         format.json { render :show, status: :created, location: @category }
       else
         format.html { render :new }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
+        format.json { render json: @category.errors, status: :unprocessable_content }
       end
     end
   end
@@ -50,7 +50,7 @@ class CategoriesController < ApplicationController
         format.json { render :show, status: :ok, location: @category }
       else
         format.html { render :edit }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
+        format.json { render json: @category.errors, status: :unprocessable_content }
       end
     end
   end
@@ -65,7 +65,7 @@ class CategoriesController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to({ action: 'index' }, alert: @category.errors.full_messages_for(:base).join(", ")) }
+        format.html { redirect_to({ action: "index" }, alert: @category.errors.full_messages_for(:base).join(", ")) }
       end
     end
   end
