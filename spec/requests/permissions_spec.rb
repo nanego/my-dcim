@@ -14,9 +14,9 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/permissions" do
+RSpec.describe PermissionScopesController do
   # This should return the minimal set of attributes required to create a valid
-  # Permission. As you add validations to Permission, be sure to
+  # PermissionScope. As you add validations to PermissionScope, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
     skip("Add a hash of attributes valid for your model")
@@ -28,58 +28,58 @@ RSpec.describe "/permissions" do
 
   describe "GET /index" do
     it "renders a successful response" do
-      Permission.create! valid_attributes
-      get permissions_url
+      PermissionScope.create! valid_attributes
+      get permission_scopes_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /show" do
     it "renders a successful response" do
-      permission = Permission.create! valid_attributes
-      get permission_url(permission)
+      permission_scope = PermissionScope.create! valid_attributes
+      get permission_scope_url(permission_scope)
       expect(response).to be_successful
     end
   end
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_permission_url
+      get new_permission_scope_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /edit" do
     it "renders a successful response" do
-      permission = Permission.create! valid_attributes
-      get edit_permission_url(permission)
+      permission_scope = PermissionScope.create! valid_attributes
+      get edit_permission_scope_url(permission_scope)
       expect(response).to be_successful
     end
   end
 
   describe "POST /create" do
     context "with valid parameters" do
-      it "creates a new Permission" do
+      it "creates a new PermissionScope" do
         expect do
-          post permissions_url, params: { permission: valid_attributes }
-        end.to change(Permission, :count).by(1)
+          post permission_scopes_url, params: { permission_scope: valid_attributes }
+        end.to change(PermissionScope, :count).by(1)
       end
 
-      it "redirects to the created permission" do
-        post permissions_url, params: { permission: valid_attributes }
-        expect(response).to redirect_to(permission_url(Permission.last))
+      it "redirects to the created permission_scope" do
+        post permission_scopes_url, params: { permission_scope: valid_attributes }
+        expect(response).to redirect_to(permission_scope_url(PermissionScope.last))
       end
     end
 
     context "with invalid parameters" do
-      it "does not create a new Permission" do
+      it "does not create a new PermissionScope" do
         expect do
-          post permissions_url, params: { permission: invalid_attributes }
-        end.not_to change(Permission, :count)
+          post permission_scopes_url, params: { permission_scope: invalid_attributes }
+        end.not_to change(PermissionScope, :count)
       end
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
-        post permissions_url, params: { permission: invalid_attributes }
+        post permission_scopes_url, params: { permission_scope: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -91,42 +91,42 @@ RSpec.describe "/permissions" do
         skip("Add a hash of attributes valid for your model")
       end
 
-      it "updates the requested permission" do
-        permission = Permission.create! valid_attributes
-        patch permission_url(permission), params: { permission: new_attributes }
-        permission.reload
+      it "updates the requested permission_scope" do
+        permission_scope = PermissionScope.create! valid_attributes
+        patch permission_scope_url(permission_scope), params: { permission_scope: new_attributes }
+        permission_scope.reload
         skip("Add assertions for updated state")
       end
 
-      it "redirects to the permission" do
-        permission = Permission.create! valid_attributes
-        patch permission_url(permission), params: { permission: new_attributes }
-        permission.reload
-        expect(response).to redirect_to(permission_url(permission))
+      it "redirects to the permission_scope" do
+        permission_scope = PermissionScope.create! valid_attributes
+        patch permission_scope_url(permission_scope), params: { permission_scope: new_attributes }
+        permission_scope.reload
+        expect(response).to redirect_to(permission_scope_url(permission_scope))
       end
     end
 
     context "with invalid parameters" do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        permission = Permission.create! valid_attributes
-        patch permission_url(permission), params: { permission: invalid_attributes }
+        permission_scope = PermissionScope.create! valid_attributes
+        patch permission_scope_url(permission_scope), params: { permission_scope: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
   end
 
   describe "DELETE /destroy" do
-    it "destroys the requested permission" do
-      permission = Permission.create! valid_attributes
+    it "destroys the requested permission_scope" do
+      permission_scope = PermissionScope.create! valid_attributes
       expect do
-        delete permission_url(permission)
-      end.to change(Permission, :count).by(-1)
+        delete permission_scope_url(permission_scope)
+      end.to change(PermissionScope, :count).by(-1)
     end
 
-    it "redirects to the permissions list" do
-      permission = Permission.create! valid_attributes
-      delete permission_url(permission)
-      expect(response).to redirect_to(permissions_url)
+    it "redirects to the permission_scopes list" do
+      permission_scope = PermissionScope.create! valid_attributes
+      delete permission_scope_url(permission_scope)
+      expect(response).to redirect_to(permission_scopes_url)
     end
   end
 end
