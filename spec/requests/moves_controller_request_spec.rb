@@ -8,7 +8,7 @@ RSpec.describe MovesController do
   let(:server) { servers(:one) }
 
   describe "GET #index" do
-    include_context "with authenticated user"
+    include_context "with authenticated writer"
 
     before { get moves_project_step_moves_path(step) }
 
@@ -24,7 +24,7 @@ RSpec.describe MovesController do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated writer"
 
     # TODO: test that JSON call is working fine
     # context "with format = json" do

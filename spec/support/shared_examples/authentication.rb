@@ -21,3 +21,15 @@ RSpec.shared_context "with authenticated admin" do
     let(:user) { users(:admin) }
   end
 end
+
+RSpec.shared_context "with authenticated writer" do
+  include_context "with authenticated user" do
+    let(:user) { users(:writer) }
+  end
+end
+
+RSpec.shared_context "with authenticated reader" do
+  include_context "with authenticated user" do
+    let(:user) { users(:reader) }
+  end
+end
