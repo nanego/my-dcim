@@ -72,7 +72,7 @@ class PermissionScopesController < ApplicationController
       permission_scope: [
         :name, :role, :all_domains,
         { domaine_ids: [], user_ids: [] },
-      ]
+      ],
     )
   end
 end
