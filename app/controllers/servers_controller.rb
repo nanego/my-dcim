@@ -110,7 +110,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   end
 
   def export_cables
-    @cables = decorate(@server.cables)
+    @cables = decorate(@server.cables.includes(ports: { server: { modele: :category } }))
     @servers_per_frames = {}
     sort_order = frames_sort_order(:back, @server.bay.lane)
 
