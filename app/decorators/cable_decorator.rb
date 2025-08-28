@@ -70,7 +70,7 @@ class CableDecorator < ApplicationDecorator
                                from_port_id: port_from.id,
                                to_server_category: port_to.try(:server).try(:modele).try(:category),
                                to_server: port_to.try(:server),
-                               to_port_id: port_to.id,
+                               to_port_id: port_to.try(:id),
                                vlans: port_from.vlans,
                                cablename: port_from.cable_name,
                                color: port_from.color)
