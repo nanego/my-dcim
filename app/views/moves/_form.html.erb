@@ -7,6 +7,22 @@
       html: { class: "bg-body-tertiary p-4 rounded border moves_form server_form_fields", role: "form" },
     ) do |f| %>
       <div class="row g-3">
+        <fieldset class="mb-4">
+          <%= f.label :moves_project_step_id, class: "form-label" %>
+          <%= f.select :moves_project_step_id,
+                      move.decorated.steps_options_for_select,
+                      {},
+                      {
+                        onchange: "select_frame(this.value, 'front')",
+                        class: "form-select",
+                        data: { controller: "select" },
+                        placeholder: t("select.placeholder")
+                      }
+          %>
+        </fieldset>
+
+        <hr class="border-1 border-secondary-subtle">
+
         <fieldset class="col-12">
           <%= f.hidden_field :moveable_type, value: move.moveable_type %>
           <%= f.label :moveable_id, class: "form-label" %>
@@ -33,7 +49,7 @@
           </div>
 
           <div class="col-12 mt-2">
-            <input id="initial_bay_name" type="text" class="form-control" disabled></input>
+            <input id="initial_bay_name" type="text" class="form-control" disabled>
           </div>
         </div>
 
