@@ -28,6 +28,7 @@ en:
     preview: Preview
     configure: Configure
     continue: Continue
+    export: Export
 
   bays:
     index:
@@ -369,7 +370,6 @@ en:
       moves_cta_tooltip: Planning its move
       destroy_connections: Delete connections
       destroy_connections_confirmation: Can you confirm that you want to remove all connections to this IT equipment?
-      export: Export
     new:
       title: Add I.T. equipment
     create:

@@ -1,6 +1,4 @@
-<div class="dropdown btn-group btn-group-sm"
-     data-controller="dynamic-export-pdf"
-     data-dynamic-export-pdf-filename-value="islet-<%= islet.name %>">
+<div class="dropdown btn-group btn-group-sm" data-controller="dynamic-export-pdf">
   <button type="button"
           class="btn btn-outline-primary dropdown-toggle d-flex align-items-center export-button"
           data-bs-toggle="dropdown"
@@ -18,29 +16,29 @@
       <h6 class="dropdown-header"><%= t("export_button.exports.pdf") %></h6>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-view-target="front"
+      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-dynamic-export-pdf-filename-param="islet-<%= islet.name %>-front"
          data-dynamic-export-pdf-urls-param="<%= islet.print_frames_paths(view: :front).to_json %>">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.front") %>
       </a>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-view-target="back"
+      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-dynamic-export-pdf-filename-param="islet-<%= islet.name %>-back"
          data-dynamic-export-pdf-urls-param="<%= islet.print_frames_paths(view: :back).to_json %>">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.back") %>
       </a>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-view-target="front"
-         data-dynamic-export-pdf-urls-param="<%= islet.print_frames_paths(view: :front, bg: :wiring).to_json %>" data-bg-wiring="true">
+      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-dynamic-export-pdf-filename-param="islet-<%= islet.name %>-front_wiring"
+         data-dynamic-export-pdf-urls-param="<%= islet.print_frames_paths(view: :front, bg: :wiring).to_json %>">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.front_wiring") %>
       </a>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-view-target="back"
-         data-dynamic-export-pdf-urls-param="<%= islet.print_frames_paths(view: :back, bg: :wiring).to_json %>" data-bg-wiring="true">
+      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-dynamic-export-pdf-filename-param="islet-<%= islet.name %>-back_wiring"
+         data-dynamic-export-pdf-urls-param="<%= islet.print_frames_paths(view: :back, bg: :wiring).to_json %>">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.back_wiring") %>
       </a>
