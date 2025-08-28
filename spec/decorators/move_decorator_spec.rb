@@ -25,9 +25,12 @@ RSpec.describe MoveDecorator, type: :decorator do
   end
 
   describe "#steps_options_for_select" do
-    it do
-      expect(decorated_move.steps_options_for_select)
-        .to have_tag("option", text: "C", with: { value: 3, selected: "selected" })
-    end
+    let(:object) { moves(:move_step_one) }
+    let(:options) { decorated_move.steps_options_for_select }
+
+    it { expect(options).to have_tag("option", count: 3) }
+    it { expect(options).to have_tag("option", text: "Step 1", with: { value: 6, selected: "selected" }) }
+    it { expect(options).to have_tag("option", text: "Step 2", with: { value: 7 }) }
+    it { expect(options).to have_tag("option", text: "Step 3", with: { value: 8 }) }
   end
 end
