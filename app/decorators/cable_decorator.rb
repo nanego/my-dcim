@@ -59,4 +59,20 @@ class CableDecorator < ApplicationDecorator
       tag.span "n/c", class: "badge empty me-0 border text-body-emphasis fst-italic fw-light text-body-secondary"
     end
   end
+
+  def description
+    port_from = ports.first
+    port_to = ports.second
+
+    Cable.human_attribute_name(:description,
+                               from_server_category: port_from.server.try(:modele).try(:category),
+                               from_server: port_from.server,
+                               from_port_id: port_from.id,
+                               to_server_category: port_to.try(:server).try(:modele).try(:category),
+                               to_server: port_to.try(:server),
+                               to_port_id: port_to.id,
+                               vlans: port_from.vlans,
+                               cablename: port_from.cable_name,
+                               color: port_from.color)
+  end
 end

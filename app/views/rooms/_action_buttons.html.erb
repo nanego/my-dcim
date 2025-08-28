@@ -63,28 +63,28 @@
         </li>
         <li>
           <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-dynamic-export-pdf-filename-param="frame-<%= params[:id] %>-front"
-             data-dynamic-export-pdf-urls-param="<%= [print_visualization_frame_path(params[:id], view: :front)] %>">
+             data-dynamic-export-pdf-urls-param="<%= [print_visualization_frame_path(params[:id], view: :front)].to_json %>">
             <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
             <%= t("export_button.faces.front") %>
           </a>
         </li>
         <li>
           <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-dynamic-export-pdf-filename-param="frame-<%= params[:id] %>-back"
-             data-dynamic-export-pdf-urls-param="<%= [print_visualization_frame_path(params[:id], view: :back)] %>">
+             data-dynamic-export-pdf-urls-param="<%= [print_visualization_frame_path(params[:id], view: :back)].to_json %>">
             <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
             <%= t("export_button.faces.back") %>
           </a>
         </li>
         <li>
           <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-dynamic-export-pdf-filename-param="frame-<%= params[:id] %>-front_wiring"
-             data-dynamic-export-pdf-urls-param="<%= [print_visualization_frame_path(params[:id], view: :front, bg: :wiring)] %>">
+             data-dynamic-export-pdf-urls-param="<%= [print_visualization_frame_path(params[:id], view: :front, bg: :wiring)].to_json %>">
             <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
             <%= t("export_button.faces.front_wiring") %>
           </a>
         </li>
         <li>
           <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-dynamic-export-pdf-filename-param="frame-<%= params[:id] %>-back_wiring"
-             data-dynamic-export-pdf-urls-param="<%= [print_visualization_frame_path(params[:id], view: :back, bg: :wiring)] %>">
+             data-dynamic-export-pdf-urls-param="<%= [print_visualization_frame_path(params[:id], view: :back, bg: :wiring)].to_json %>">
             <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
             <%= t("export_button.faces.back_wiring") %>
           </a>
