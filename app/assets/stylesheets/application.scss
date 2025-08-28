@@ -876,6 +876,10 @@ body {
     max-width: 100px;
   }
 
+  .export-button-server {
+    max-width: fit-content;
+  }
+
   .icon-rotated {
     transform: rotate(90deg);
     display: inline-block;

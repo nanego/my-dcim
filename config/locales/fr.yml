@@ -31,6 +31,8 @@ fr:
     preview: Prévisualiser
     configure: Configurer
     continue: Continuer
+    export: Exporter
+
   export_button:
     label: Exports
     exports:

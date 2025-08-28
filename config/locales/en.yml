@@ -28,6 +28,7 @@ en:
     preview: Preview
     configure: Configure
     continue: Continue
+    export: Export
 
   bays:
     index:
