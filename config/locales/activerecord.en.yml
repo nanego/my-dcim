@@ -73,6 +73,8 @@ en:
       modele:
         category_id: Category
         category: Category
+      moved_connection:
+        description: "Connection between %{from_server_category} %{from_server} (port #%{from_port_id}) and %{to_server_category} %{to_server} (port #%{to_port_id}) => vlans:%{vlans} cablename:%{cablename} color:%{color}"
       moves_project:
         name: Name
         created_by: Created by

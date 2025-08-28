@@ -17,7 +17,7 @@
     </li>
 
     <li>
-      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-view-target="front"
+      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export"
         data-dynamic-export-pdf-urls-param="<%= bay.print_frames_paths(view: :front).to_json %>"
         data-dynamic-export-pdf-filename-param="bay-<%= bay.id %>-front">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
@@ -25,7 +25,7 @@
       </a>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-view-target="back"
+      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export"
         data-dynamic-export-pdf-urls-param="<%= bay.print_frames_paths(view: :back).to_json %>"
         data-dynamic-export-pdf-filename-param="bay-<%= bay.id %>-back">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
@@ -33,7 +33,7 @@
       </a>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-view-target="front"
+      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export"
         data-dynamic-export-pdf-urls-param="<%= bay.print_frames_paths(view: :front, bg: :wiring).to_json %>"
         data-dynamic-export-pdf-filename-param="bay-<%= bay.id %>-front_wiring">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
@@ -41,7 +41,7 @@
       </a>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export" data-view-target="back"
+      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export"
         data-dynamic-export-pdf-urls-param="<%= bay.print_frames_paths(view: :back, bg: :wiring).to_json %>"
         data-dynamic-export-pdf-filename-param="bay-<%= bay.id %>-back_wiring">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
