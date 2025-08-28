@@ -48,3 +48,15 @@ step_same_frame_move:
   moves_project_id: 8
   name: "Step"
   position: 1
+
+first_step_move_back:
+  id: 10
+  moves_project_id: 9
+  name: "Move back Step 1"
+  position: 1
+
+second_step_move_back:
+  id: 11
+  moves_project_id: 9
+  name: "Move back Step 2"
+  position: 2

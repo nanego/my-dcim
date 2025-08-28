@@ -92,6 +92,16 @@ RSpec.describe MovesProjectStep do
       it { expect(servers_array.first).to eq(servers(:one)) }
       it { expect(servers_array.first.position).to eq(41) }
     end
+
+    context "with an equipment being moved back in the same frame" do
+      let(:servers_array) do
+        moves_project_steps(:second_step_move_back).servers_moves_for_frame_at_current_step(frames(:one))
+      end
+
+      it { expect(servers_array).to contain_exactly(servers(:one), servers(:two), servers(:with_cluster)) }
+      it { expect(servers_array.first).to eq(servers(:one)) }
+      it { expect(servers_array.first.position).to eq(41) }
+    end
   end
 
   describe "#previous_steps" do

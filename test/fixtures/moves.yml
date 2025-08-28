@@ -80,3 +80,20 @@ move_same_frame:
   position: 41
   frame_id: 1
   prev_frame_id: 1
+
+move_back_inital:
+  moves_project_step_id: 10
+  moveable_type: Server
+  moveable_id: 1
+  position: 41
+  frame_id: 4
+  prev_frame_id: 1
+  executed_at: "2025-05-01 00:00:00"
+
+move_back_revert:
+  moves_project_step_id: 11
+  moveable_type: Server
+  moveable_id: 1
+  position: 41
+  frame_id: 1
+  prev_frame_id: 4
