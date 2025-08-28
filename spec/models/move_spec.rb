@@ -16,6 +16,8 @@ RSpec.describe Move do
     it { is_expected.to belong_to(:moveable) }
     it { is_expected.to belong_to(:prev_frame) }
     it { is_expected.to belong_to(:frame) }
+
+    it { is_expected.to have_one(:moves_project).through(:step) }
   end
 
   describe "validations" do

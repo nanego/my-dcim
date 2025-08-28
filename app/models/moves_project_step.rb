@@ -35,6 +35,7 @@ class MovesProjectStep < ApplicationRecord
 
   def servers_moves_for_frame_at_current_step(frame)
     moved = Move.includes(:frame)
+      .not_executed
       .where(step: moves_project.steps.where(position: ..position))
       .where(frame:, moveable_type: "Server")
       .sort_by { |move| move.step.position }
@@ -44,6 +45,7 @@ class MovesProjectStep < ApplicationRecord
     end
 
     removed = Move.includes(:prev_frame)
+      .not_executed
       .where(step: moves_project.steps.where(position: ..position))
       .where(prev_frame: frame, moveable_type: "Server")
       .where.not("prev_frame_id = :frame AND frame_id = :frame", frame:)

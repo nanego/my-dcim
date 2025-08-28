@@ -10,6 +10,8 @@ class Move < ApplicationRecord
   belongs_to :frame
   belongs_to :prev_frame, class_name: "Frame"
 
+  has_one :moves_project, through: :step
+
   validates :moveable_id, uniqueness: { scope: %i[step moveable_type] }
 
   validates :position, presence: true
