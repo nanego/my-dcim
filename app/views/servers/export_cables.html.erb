@@ -5,13 +5,13 @@
                   should_show_heading: false
   } %>
 
-<% unless @connections.empty? %>
+<% unless @cables.empty? %>
   <div class="fs-5 mt-4">
-    <h2><%= Connection.model_name.human %></h1>
+    <h2><%= Cable.model_name.human %></h1>
 
-    <% @connections.each do |connection| %>
+    <% @cables.each do |cable| %>
       <p>
-        <%= connection.description %>
+        <%= cable.description %>
       </p>
     <% end %>
   </div>
