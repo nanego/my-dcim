@@ -23,4 +23,11 @@ RSpec.describe MoveDecorator, type: :decorator do
       it { expect(badge.content).to eq "Exécuté" }
     end
   end
+
+  describe "#steps_options_for_select" do
+    it do
+      expect(decorated_move.steps_options_for_select)
+        .to have_tag("option", text: "C", with: { value: 3, selected: "selected" })
+    end
+  end
 end

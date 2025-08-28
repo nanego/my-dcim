@@ -90,7 +90,6 @@ en:
         statuses:
           executed: Executed
           planned: Planned
-        step_id: Step
       server:
         name: Name
         numero: Serial number

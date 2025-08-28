@@ -382,7 +382,6 @@ fr:
         statuses:
           executed: Exécuté
           planned: Planifié
-        step_id: Étape
       moved_connection:
         port_from_id: Port de départ
         port_to_id: Port de destination
