@@ -1,6 +1,12 @@
 <% breadcrumb.add_step(title = @site.name) %>
 
-<%= render Page::HeadingShowComponent.new(resource: @site, title:, breadcrumb:) %>
+<%= render Page::HeadingShowComponent.new(
+  resource: @site,
+  title:,
+  breadcrumb:,
+  editable: allowed_to?(:update?, @site)
+) %>
+
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
@@ -112,12 +118,14 @@
         new_label: t("contact_assignments.add_new"),
       ) do |c| %>
         <% c.with_actions do %>
-          <%= render ButtonComponent.new(t("action.edit"),
-                                            url: edit_site_path(@site, anchor: "contact_assignments"),
-                                            icon: "pencil",
-                                            size: :sm,
-                                            is_responsive: true,
-                                            extra_classes: "btn-outline-dark") %>
+          <%= render ButtonComponent.new(
+            t("action.edit"),
+            url: edit_site_path(@site, anchor: "contact_assignments"),
+            icon: "pencil",
+            size: :sm,
+            is_responsive: true,
+            extra_classes: "btn-outline-dark"
+          ) if allowed_to?(:create?, with: ContactAssignmentPolicy) %>
         <% end %>
       <% end %>
     </div>

@@ -1,6 +1,4 @@
-<%
-  breadcrumb.add_step(title = t(".title"))
-%>
+<% breadcrumb.add_step(title = t(".title")) %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
 
@@ -83,11 +81,15 @@
   <%= turbo_frame_tag(dom_id(Connection, :table), data: { turbo_action: :advance }) do %>
     <div class="cable-index-servers d-flex flex-column row-gap-4">
       <%= render List::DataTableComponent.new(@cables) do |table| %>
-        <% table.with_bulk_action(url: bulk_cables_path, method: :delete, class: "btn btn-danger btn-sm",
-                                  data: { confirm: t("action.confirm") }
-        ) do %>
-          <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>">
-          </span>
+        <% if allowed_to?(:destroy?) %>
+          <% table.with_bulk_action(
+            url: bulk_cables_path,
+            method: :delete,
+            class: "btn btn-danger btn-sm",
+            data: { confirm: t("action.confirm") }
+          ) do %>
+            <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
+          <% end %>
         <% end %>
 
         <% table.with_column("Matériels connectés", v_align: :baseline) do |cable| %>
@@ -156,22 +158,27 @@
 
         <% table.with_column(style: "min-width: 50px; width: 50px", v_align: :baseline) do |cable| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <%= link_to connections_edit_path(from_port_id: cable.ports.first),
-                        class: "btn btn-info",
-                        data: { turbo_frame: :_top } do %>
-              <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
-                                                                         data-controller="tooltip"
-                                                                         data-bs-placement="left"></span>
-              <span class="visually-hidden"><%= t("action.edit") %></span>
-            <% end %>
-            <%= link_to cable_path(cable),
-                        method: :delete,
-                        data: { confirm: t("action.confirm"), turbo_frame: :_top },
-                        class: "btn btn-danger" do %>
-              <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+            <% if allowed_to?(:update?, cable) %>
+              <%= link_to connections_edit_path(from_port_id: cable.ports.first),
+                          class: "btn btn-info",
+                          data: { turbo_frame: :_top } do %>
+                <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
                                                                           data-controller="tooltip"
                                                                           data-bs-placement="left"></span>
-              <span class="visually-hidden"><%= t("action.delete") %></span>
+                <span class="visually-hidden"><%= t("action.edit") %></span>
+              <% end %>
+            <% end %>
+
+            <% if allowed_to?(:destroy?, cable) %>
+              <%= link_to cable_path(cable),
+                          method: :delete,
+                          data: { confirm: t("action.confirm"), turbo_frame: :_top },
+                          class: "btn btn-danger" do %>
+                <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                            data-controller="tooltip"
+                                                                            data-bs-placement="left"></span>
+                <span class="visually-hidden"><%= t("action.delete") %></span>
+              <% end %>
             <% end %>
           </div>
         <% end %>

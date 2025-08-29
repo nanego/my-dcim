@@ -1,14 +1,14 @@
-<%
-  breadcrumb.add_step(title = Cluster.model_name.human.pluralize)
-%>
+<% breadcrumb.add_step(title = Cluster.model_name.human.pluralize) %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
-    <% render ButtonComponent.new(t(".new_cluster"),
-                                  url: new_cluster_path,
-                                  variant: :success,
-                                  icon: "plus-lg",
-                                  is_responsive: true) %>
+    <% render ButtonComponent.new(
+      t(".new_cluster"),
+      url: new_cluster_path,
+      variant: :success,
+      icon: "plus-lg",
+      is_responsive: true
+    ) if allowed_to?(:create?) %>
   <% end %>
 <% end %>
 
@@ -25,11 +25,15 @@
   <% end %>
 
   <%= render List::DataTableComponent.new(@clusters) do |table| %>
-    <% table.with_bulk_action(url: bulk_clusters_path, method: :delete, class: "btn btn-danger btn-sm",
-                              data: { confirm: t("action.confirm") }
-    ) do %>
-      <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>">
-      </span>
+    <% if allowed_to?(:destroy?) %>
+      <% table.with_bulk_action(
+        url: bulk_clusters_path,
+        method: :delete,
+        class: "btn btn-danger btn-sm",
+        data: { confirm: t("action.confirm") }
+      ) do %>
+        <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
+      <% end %>
     <% end %>
 
     <% table.with_column(Cluster.human_attribute_name(:name), sort_by: :name) do |cluster| %>
@@ -44,18 +48,23 @@
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |cluster| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
-        <%= link_to edit_cluster_path(cluster), class: "btn btn-info" do %>
-          <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
-                                                                     data-controller="tooltip"
-                                                                     data-bs-placement="left"></span>
-          <span class="visually-hidden"><%= t("action.edit") %></span>
+        <% if allowed_to?(:update?, cluster) %>
+          <%= link_to edit_cluster_path(cluster), class: "btn btn-info" do %>
+            <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
+                                                                        data-controller="tooltip"
+                                                                        data-bs-placement="left"></span>
+            <span class="visually-hidden"><%= t("action.edit") %></span>
+          <% end %>
         <% end %>
-        <%= link_to cluster, method: :delete, data: { confirm: t(".delete_confirmation") },
-                                              class: "btn btn-danger" do %>
-          <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
-                                                                      data-controller="tooltip"
-                                                                      data-bs-placement="left"></span>
-          <span class="visually-hidden"><%= t("action.delete") %></span>
+
+        <% if allowed_to?(:destroy?, cluster) %>
+          <%= link_to cluster, method: :delete, data: { confirm: t(".delete_confirmation") },
+                                                class: "btn btn-danger" do %>
+            <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                        data-controller="tooltip"
+                                                                        data-bs-placement="left"></span>
+            <span class="visually-hidden"><%= t("action.delete") %></span>
+          <% end %>
         <% end %>
       </div>
     <% end %>

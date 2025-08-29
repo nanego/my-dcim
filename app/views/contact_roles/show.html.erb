@@ -1,6 +1,11 @@
 <% breadcrumb.add_step(@contact_role) %>
 
-<%= render Page::HeadingShowComponent.new(resource: @contact_role, title: @contact_role, breadcrumb:) %>
+<%= render Page::HeadingShowComponent.new(
+  resource: @contact_role,
+  title: @contact_role,
+  breadcrumb:,
+  editable: allowed_to?(:update?, @contact_role)
+) %>
 
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
