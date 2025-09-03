@@ -59,7 +59,7 @@
                     data-controller="export-pdf"
                     data-action="click->export-pdf#export"
                     data-export-pdf-filename-value="<%= "#{Site.model_name.human.downcase}_#{@site.name.parameterize}" %>"
-                    data-html2canvas-ignore="true" >
+                    data-html2canvas-ignore="true">
               <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
               <span class="text-truncate d-none d-md-inline-block ms-2">
                 <%= t("export_button.exports.pdf") %>

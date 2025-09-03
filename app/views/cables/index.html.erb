@@ -96,50 +96,7 @@
             to_connection = cable.connections.second
           %>
           <div class="cable-index-servers">
-            <div class="d-flex">
-              <div class="d-flex align-items-center row-cols-3 justify-content-center flex-grow-1">
-                <%= cable.decorated.server_connected_with_link(from_connection, from: true) %>
-                <span class="d-inline-flex align-items-center justify-content-center col-4 col-xl-3">
-                  <%= cable.decorated.draw_port(from_connection) %>
-                  <hr class="cable border <%= cable.color %> border-t px-3 opacity-100">
-                  <%= cable.decorated.draw_port(to_connection) %>
-                </span>
-                <%= cable.decorated.server_connected_with_link(to_connection) %>
-              </div>
-
-              <button class="btn btn-collapse-vlans ms-auto"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseVlansPanel-<%= cable.id %>"
-                      aria-expanded="false"
-                      aria-controls="collapseVlansPanel-<%= cable.id %>">
-                <span class="bi bi-chevron-down"></span>
-              </button>
-            </div>
-
-            <div class="collapse px-4" id="collapseVlansPanel-<%= cable.id %>">
-              <div class="vlans-card my-2 mx-auto pt-2">
-                <div class="d-flex row-cols-3 justify-content-center">
-                  <span class="col text-end text-break">
-                    <% if from_connection&.port&.vlans.present? %>
-                      <%= from_connection.port.vlans %>
-                    <% else %>
-                      <span class="fst-italic fw-light text-body-secondary">n/c</span>
-                    <% end %>
-                  </span>
-                  <span class="col-4 col-xl-3 text-center fw-bold user-select-none">
-                    <%= Port.human_attribute_name(:vlans) %>
-                  </span>
-                  <span class="col text-break">
-                    <% if to_connection&.port&.vlans.present? %>
-                      <%= to_connection.port.vlans %>
-                    <% else %>
-                      <span class="fst-italic fw-light text-body-secondary">n/c</span>
-                    <% end %>
-                  </span>
-                </div>
-              </div>
-            </div>
+            <%= render partial: "draw", locals: { cable:, from_connection:, to_connection: } %>
           </div>
         <% end %>
 

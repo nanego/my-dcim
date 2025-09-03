@@ -1,18 +1,24 @@
-<%= render partial: "servers/room", locals: {
-                  room: @server.bay.room,
-                  islets: @servers_per_frames[@server.bay.islet.room_id],
-                  view_side: :back,
-                  should_show_heading: false
-  } %>
+<h1 class="text-center mb-4">
+  <%= "#{@server.modele.try(:category).try(:name)} #{@server.name} #{@server.bay.name} U#{@server.position}" %>
+</h1>
 
-<% unless @cables.empty? %>
-  <div class="fs-5 mt-4">
-    <h2><%= Cable.model_name.human %></h1>
+<div class="d-flex justify-content-center flex-column gap-3">
+  <%= render partial: "servers/draw_server_compact", locals: { server: @server } %>
 
-    <% @cables.each do |cable| %>
-      <p>
-        <%= cable.description %>
-      </p>
+  <% unless @cables.empty? %>
+    <%= render List::DataTableComponent.new(@cables) do |table| %>
+      <% table.with_column(Connection.model_name.human.pluralize, v_align: :baseline) do |cable| %>
+        <%
+          if (first_connection = cable.connections.first).server == @server
+            from_connection = first_connection
+            to_connection = cable.connections.second
+          else
+            from_connection = cable.connections.second
+            to_connection = first_connection
+          end
+        %>
+        <% render partial: "cables/draw", locals: { cable:, from_connection:, to_connection: } %>
+      <% end %>
     <% end %>
-  </div>
-<% end %>
+  <% end %>
+</div>

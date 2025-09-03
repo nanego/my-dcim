@@ -265,7 +265,7 @@ RSpec.describe "/servers" do
   end
 
   describe "GET /export_cables" do
-    before { get export_cables_server_path(server, format: :pdf) }
+    before { get export_cables_server_path(server) }
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:export_cables) }

@@ -594,8 +594,14 @@ body {
     background-color: white;
   }
 
-  h3 {
+  h1, h3 {
     color: black;
+  }
+
+  .very-specific-design {
+    th {
+      color: black;
+    }
   }
 }
 

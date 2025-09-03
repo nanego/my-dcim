@@ -7,14 +7,19 @@
 <%= render Page::HeadingShowComponent.new(resource: @server, title:, breadcrumb:) do |heading| %>
   <% heading.with_extra_buttons do %>
     <button class="btn btn-outline-primary me-2 d-flex align-items-center export-button-server"
-            data-controller="dynamic-export-pdf" data-action="click->dynamic-export-pdf#export"
+            data-bs-title="<%= t(".export_cta_tooltip") %>"
+            data-aria-label="<%= t(".export_cta_tooltip") %>"
+            data-bs-trigger="hover"
+            data-controller="dynamic-export-pdf tooltip"
+            data-action="click->dynamic-export-pdf#export"
             data-dynamic-export-pdf-has-button-icon-value="true"
             data-dynamic-export-pdf-filename-param="<%= @server.friendly_id %>"
-            data-dynamic-export-pdf-urls-param="<%= [export_cables_server_path(@server, format: :pdf)].to_json %>">
+            data-dynamic-export-pdf-urls-param="<%= [export_cables_server_path(@server)].to_json %>"
+            data-bs-placement="bottom">
       <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none me-2" role="status" aria-hidden="true"
             data-dynamic-export-pdf-target="spinner"></span>
-      <span class="bi bi-file-earmark-pdf me-2" data-dynamic-export-pdf-target="buttonIcon"></span>
-      <span><%= t("action.export") %></span>
+      <span class="bi bi-file-earmark-pdf" data-dynamic-export-pdf-target="buttonIcon"></span>
+      <span class="ms-2 d-none d-md-inline-flex"><%= t("action.export") %></span>
     </button>
 
     <%= render ButtonComponent.new(
@@ -31,12 +36,14 @@
         tooltip_title: t(".moves_cta_tooltip")
       }
     ) %>
-    <%= render ButtonComponent.new(t("action.duplicate"),
-                                  url: duplicate_server_path(@server.slug),
-                                  variant: :success,
-                                  icon: "copy",
-                                  is_responsive: true,
-                                  extra_classes: "me-2") %>
+    <%= render ButtonComponent.new(
+      t("action.duplicate"),
+      url: duplicate_server_path(@server.slug),
+      variant: :success,
+      icon: "copy",
+      is_responsive: true,
+      extra_classes: "me-2"
+    ) %>
   <% end %>
 <% end %>
 
