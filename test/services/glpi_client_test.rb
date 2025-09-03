@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require File.expand_path("../../test_helper", __FILE__)
-require File.expand_path("../../../app/services/glpi_client", __FILE__)
+require File.expand_path("../test_helper", __dir__)
+require File.expand_path("../../app/services/glpi_client", __dir__)
 
 class GlpiClientTest < ActiveSupport::TestCase
   def test_load_computer_details_by_serial

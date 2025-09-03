@@ -20,7 +20,7 @@ class Card < ApplicationRecord
 
   after_commit :set_twin_card
 
-  scope :on_patch_panels, -> { joins(:server => { :modele => :category }).where("categories.name = 'Patch Panel'") }
+  scope :on_patch_panels, -> { joins(server: { modele: :category }).where("categories.name = 'Patch Panel'") }
 
   def to_s
     "Carte #{server} / #{card_type} / #{composant}"

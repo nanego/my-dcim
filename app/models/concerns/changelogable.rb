@@ -8,7 +8,7 @@ module Changelogable
   module ClassMethods
     attr_accessor :_changelogable_except_attributes
 
-    def has_changelog(except: []) # rubocop:disable Naming/PredicateName
+    def has_changelog(except: [])
       @_changelogable_except_attributes = CHANGELOGABLE_DEFAULT_SKIP_ATTRIBUTES.dup.append(*except)
 
       has_many :changelog_entries, -> { order(created_at: :desc) }, as: :object

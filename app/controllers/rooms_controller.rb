@@ -15,7 +15,7 @@ class RoomsController < ApplicationController
   end
 
   def show
-    @sites = Site.joins(:rooms).includes(:rooms => [:bays => [:bay_type]]).order(:position).distinct
+    @sites = Site.joins(:rooms).includes(rooms: [bays: [:bay_type]]).order(:position).distinct
     @islet = Islet.find_by(name: params[:islet], room_id: @room.id) if params[:islet].present?
 
     @air_conditioners = AirConditioner.all
@@ -28,13 +28,13 @@ class RoomsController < ApplicationController
 
   def overview
     authorize!
-    @sites = Site.order(:position).joins(:rooms => :frames).distinct
+    @sites = Site.order(:position).joins(rooms: :frames).distinct
 
     if params[:cluster_id].present? ||
        params[:gestion_id].present? ||
        params[:modele_id].present?
-      @frames = Frame.preload(:servers => [:gestion, :cluster, { :modele => :category, :card_types => :port_type, :cards => [:composant, { :ports => [:connection => :cable] }] }])
-        .includes(:bay => [:frames, { :islet => :room }])
+      @frames = Frame.preload(servers: [:gestion, :cluster, { modele: :category, card_types: :port_type, cards: [:composant, { ports: [connection: :cable] }] }])
+        .includes(bay: [:frames, { islet: :room }])
         .order("rooms.position asc, islets.name asc, bays.position asc, frames.position asc")
       @current_filters = []
       if params[:cluster_id].present?

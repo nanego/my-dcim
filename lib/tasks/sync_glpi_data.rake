@@ -2,7 +2,7 @@
 
 namespace :sync_glpi_data do
   desc "Sync all servers with GLPI records"
-  task :sync_all_servers => :environment do
+  task sync_all_servers: :environment do
     client = GlpiClient.new
 
     servers = Server.glpi_synchronizable
@@ -16,7 +16,7 @@ namespace :sync_glpi_data do
   end
 
   desc "Clear all ExternalAppRecord"
-  task :clear_all_external_records => :environment do
+  task clear_all_external_records: :environment do
     ExternalAppRecord.destroy_all
   end
 end

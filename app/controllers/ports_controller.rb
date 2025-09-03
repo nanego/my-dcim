@@ -11,7 +11,7 @@ class PortsController < ApplicationController
       @room = Room.find_by_id(params[:room_id])
       @frames = @room.frames
       if params[:islet].present?
-        @frames = @frames.joins(:bay => :islet).where(islets: { name: params[:islet] })
+        @frames = @frames.joins(bay: :islet).where(islets: { name: params[:islet] })
       elsif params[:bay_id].present?
         @frames = @frames.joins(:bay).where(bays: { id: params[:bay_id] })
       end
@@ -31,7 +31,7 @@ class PortsController < ApplicationController
   def edit
     authorize!
 
-    if params[:id].present? && params[:id].to_i > 0
+    if params[:id].present? && params[:id].to_i.positive?
       redirect_to connections_edit_path(from_port_id: params[:id])
     else
       @port = Port.find_or_create_by(position: params["position"],
