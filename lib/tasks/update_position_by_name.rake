@@ -4,7 +4,7 @@
 
 namespace :update_ports_position do
   desc "Update ports position by name"
-  task :update_by_name => :environment do
+  task update_by_name: :environment do
     model_name = "X670-48x"
     first_position = 1 # 0 or 1
 

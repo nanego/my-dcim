@@ -17,7 +17,7 @@ class Frame < ApplicationRecord
   has_many :servers, -> { no_pdus.order("servers.position desc") }, class_name: "Server", dependent: :restrict_with_error
   has_one :islet, through: :bay
   has_one :room, through: :islet
-  delegate :name, :to => :room, :prefix => true, :allow_nil => true
+  delegate :name, to: :room, prefix: true, allow_nil: true
 
   scope :sorted, -> { order(:position) }
 
@@ -26,7 +26,7 @@ class Frame < ApplicationRecord
   end
 
   def self.all_sorted
-    Frame.includes(:islet => :room, :bay => :islet).sort_by(&:name_with_room_and_islet)
+    Frame.includes(islet: :room, bay: :islet).sort_by(&:name_with_room_and_islet)
   end
 
   def should_generate_new_friendly_id?

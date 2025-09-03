@@ -109,15 +109,15 @@ Rails.application.configure do
   }
 
   # ActionMailer Config
-  config.action_mailer.default_url_options = { :host => Rails.application.credentials.domain_name }
+  config.action_mailer.default_url_options = { host: Rails.application.credentials.domain_name }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false
 
   Rails.application.config.middleware.use ExceptionNotification::Rack,
-                                          :email => {
-                                            :email_prefix => "[DCIM] ",
-                                            :sender_address => [Rails.application.credentials.sender_address],
-                                            :exception_recipients => [Rails.application.credentials.exception_recipients],
+                                          email: {
+                                            email_prefix: "[DCIM] ",
+                                            sender_address: [Rails.application.credentials.sender_address],
+                                            exception_recipients: [Rails.application.credentials.exception_recipients],
                                           }
 end
