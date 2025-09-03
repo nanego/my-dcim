@@ -202,16 +202,6 @@ Rails/RedundantActiveRecordAllMethod:
     - 'db/migrate/20170803155630_init_cables_from_current_ports.rb'
     - 'db/migrate/20180110152701_add_attributes_to_servers.rb'
 
-# Offense count: 4
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, Include.
-# SupportedStyles: assert_not, refute
-# Include: **/test/**/*
-Rails/RefuteMethods:
-  Exclude:
-    - 'test/models/move_test.rb'
-    - 'test/models/server_test.rb'
-
 # Offense count: 13
 # Configuration parameters: Include.
 # Include: db/**/*.rb
