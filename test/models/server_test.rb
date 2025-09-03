@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require File.expand_path("../../test_helper", __FILE__)
+require File.expand_path("../test_helper", __dir__)
 
 class ServerTest < ActiveSupport::TestCase
   test "scope only_pdus" do
     assert_includes Server.only_pdus, servers(:pdu)
-    refute_includes Server.only_pdus, servers(:one)
+    assert_not_includes Server.only_pdus, servers(:one)
   end
 
   test "scope no_pdus" do
-    refute_includes Server.no_pdus, servers(:pdu)
+    assert_not_includes Server.no_pdus, servers(:pdu)
     assert_includes Server.no_pdus, servers(:one)
   end
 

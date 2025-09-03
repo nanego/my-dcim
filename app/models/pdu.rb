@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Pdu
-  SIDES = { :right => "right", :left => "left" }.freeze
+  SIDES = { right: "right", left: "left" }.freeze
 
   def self.calculated_side(frame, name)
     if frame.bay.bay_type.size <= 1

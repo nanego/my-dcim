@@ -40,7 +40,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
                               link_to_port_without_label(position, port_data, card_type.port_type, card.id, port_id),
                               class: "port_container d-flex align-items-center")
 
-          if (cell_index + 1) % number_of_columns_in_cell(card.orientation, ports_per_cell, card_type.max_aligned_ports) == 0 # Every XX ports do
+          if ((cell_index + 1) % number_of_columns_in_cell(card.orientation, ports_per_cell, card_type.max_aligned_ports)).zero? # Every XX ports do
             html += '</div><div class="d-flex">'
           end
         end
@@ -91,7 +91,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
                                 "flex-column": !is_vertical_card,
                               ))
 
-          if (cell_index + 1) % number_of_columns_in_cell(card.orientation, ports_per_cell, card_type.max_aligned_ports) == 0 # Every XX ports do
+          if ((cell_index + 1) % number_of_columns_in_cell(card.orientation, ports_per_cell, card_type.max_aligned_ports)).zero? # Every XX ports do
             html += '</div><div class="d-flex">'
           end
         end
@@ -185,9 +185,9 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
   private
 
   def get_current_position(card_orientation, card_type, cell_index, row_index, column_index, ports_per_cell)
-    return 0 if ports_per_cell == 0
+    return 0 if ports_per_cell.zero?
 
-    max_aligned_ports = (card_type.max_aligned_ports.to_i > 0 ? card_type.max_aligned_ports.to_i : MAX_PORTS_PER_LINE)
+    max_aligned_ports = (card_type.max_aligned_ports.to_i.positive? ? card_type.max_aligned_ports.to_i : MAX_PORTS_PER_LINE)
 
     case card_orientation
     when "dt-lr"

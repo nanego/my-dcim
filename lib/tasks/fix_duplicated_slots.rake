@@ -5,8 +5,8 @@
 
 namespace :duplicated_slots do
   desc "Fix duplicated slots"
-  task :fix => :environment do
-    Modele.includes(:enclosures => :composants)
+  task fix: :environment do
+    Modele.includes(enclosures: :composants)
       .find_each do |modele|
       servers = []
       modele.enclosures.each do |enclosure|

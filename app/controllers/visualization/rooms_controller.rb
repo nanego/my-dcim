@@ -8,7 +8,7 @@ module Visualization
     before_action :set_servers_per_frames, only: %i[show print]
 
     def show
-      @sites = Site.joins(:rooms).includes(:rooms => [:bays => [:bay_type]]).order(:position).distinct
+      @sites = Site.joins(:rooms).includes(rooms: [bays: [:bay_type]]).order(:position).distinct
       @islet = Islet.find_by(name: params[:islet], room_id: @room.id) if params[:islet].present?
 
       @air_conditioners = AirConditioner.all
