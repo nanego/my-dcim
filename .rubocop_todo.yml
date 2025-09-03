@@ -338,16 +338,6 @@ Style/Next:
     - 'lib/tasks/update_pdu_lines.rake'
     - 'lib/tasks/update_position_by_name.rake'
 
-# Offense count: 6
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: EnforcedStyle, AllowedMethods, AllowedPatterns.
-# SupportedStyles: predicate, comparison
-Style/NumericPredicate:
-  Exclude:
-    - 'app/controllers/connections_controller.rb'
-    - 'app/controllers/ports_controller.rb'
-    - 'app/helpers/servers_helper.rb'
-
 # Offense count: 162
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowHeredoc, AllowURI, AllowQualifiedName, URISchemes, IgnoreCopDirectives, AllowedPatterns, SplitStrings.

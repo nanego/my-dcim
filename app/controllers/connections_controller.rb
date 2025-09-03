@@ -4,7 +4,7 @@ class ConnectionsController < ApplicationController
   def edit # rubocop:disable Metrics/AbcSize
     authorize!
 
-    if params[:from_port_id].present? && params[:from_port_id].to_i > 0
+    if params[:from_port_id].present? && params[:from_port_id].to_i.positive?
       @from_port = Port.find_by_id(params[:from_port_id])
     else
       @from_port = Port.create(position: params["position"],
