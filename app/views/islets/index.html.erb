@@ -85,7 +85,7 @@
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
           <%= render partial: "islets/export_button", locals: { islet: islet } %>
 
-          <% if allowed_to?(:edit?, islet) %>
+          <% if allowed_to?(:update?, islet) %>
             <%= link_to edit_islet_path(islet), class: "btn btn-info", data: { turbo_frame: :_top } do %>
               <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
               <span class="visually-hidden"><%= t("action.edit") %></span>

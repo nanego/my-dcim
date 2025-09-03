@@ -162,7 +162,7 @@
             <% end %>
           <% end %>
 
-          <% if allowed_to?(:destroy?) %>
+          <% if allowed_to?(:destroy?, bay) %>
             <%= link_to bay,
                         method: :delete,
                         data: { turbo_frame: :_top, confirm: t(".delete_confirmation") },

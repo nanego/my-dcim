@@ -45,10 +45,12 @@
         extra_classes: "d-none d-lg-flex bg-body-tertiary mt-4"
       ) do |c| %>
         <% c.with_actions do %>
-          <%= link_to edit_site_path(@site, anchor: "contact_assignments"),
-                      class: "link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover small" do %>
-            <span class="bi bi-pencil"></span>
-            <span><%= t("action.edit") %></span>
+          <% if allowed_to?(:update?, @site) %>
+            <%= link_to edit_site_path(@site, anchor: "contact_assignments"),
+                        class: "link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover small" do %>
+              <span class="bi bi-pencil"></span>
+              <span><%= t("action.edit") %></span>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>
@@ -118,14 +120,13 @@
         new_label: t("contact_assignments.add_new"),
       ) do |c| %>
         <% c.with_actions do %>
-          <%= render ButtonComponent.new(
-            t("action.edit"),
-            url: edit_site_path(@site, anchor: "contact_assignments"),
-            icon: "pencil",
-            size: :sm,
-            is_responsive: true,
-            extra_classes: "btn-outline-dark"
-          ) if allowed_to?(:create?, with: ContactAssignmentPolicy) %>
+          <% if allowed_to?(:update?, @site) %>
+            <%= link_to edit_site_path(@site, anchor: "contact_assignments"),
+                        class: "link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover small" do %>
+              <span class="bi bi-pencil"></span>
+              <span><%= t("action.edit") %></span>
+            <% end %>
+          <% end %>
         <% end %>
       <% end %>
     </div>

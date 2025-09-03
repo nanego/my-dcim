@@ -25,7 +25,7 @@
         icon: "copy",
         is_responsive: true,
         extra_classes: "me-2"
-      ) if allowed_to?(:duplicate?, with: ServerPolicy) %>
+      ) if allowed_to?(:duplicate?, @pdu, with: PowerDistributionUnitPolicy) %>
 
       <%= render ButtonComponent.new(
         t("action.edit"),
@@ -34,7 +34,7 @@
         icon: "pencil",
         is_responsive: true,
         extra_classes: "me-2"
-      ) if allowed_to?(:update?, @pdu, with: ServerPolicy) %>
+      ) if allowed_to?(:update?, @pdu, with: PowerDistributionUnitPolicy) %>
     </div>
   <% end %>
 <% end %>
@@ -388,7 +388,7 @@
           variant: :danger,
           size: :sm,
           data: { confirm: t(".destroy_connections_confirmation") }
-        ) if allowed_to?(:destroy_connections?, with: ServerPolicy) %>
+        ) if allowed_to?(:destroy_connections?, @pdu, with: PowerDistributionUnitPolicy) %>
       <% end %>
     <% end %>
   </div>

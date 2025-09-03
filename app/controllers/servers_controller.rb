@@ -85,6 +85,21 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
     end
   end
 
+  def duplicate
+    authorize! @original_server = Server.friendly.find(params[:id].to_s.downcase)
+    @server = @original_server.deep_dup
+  end
+
+  def destroy_connections
+    if @server.destroy_connections!
+      flash[:notice] = t(".flashes.connections_destroyed")
+    else
+      flash[:alert] = t(".flashes.connections_not_destroyed")
+    end
+
+    redirect_to server_path(@server)
+  end
+
   def sort
     authorize!
 
@@ -108,6 +123,19 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
     authorize!
   end
 
+  def import
+    authorize!
+
+    value = ImportEquipmentByCsv.call(file: params[:import][:file],
+                                      room_id: params[:import][:room_id])
+    if value.is_a?(Frame)
+      redirect_to frame_path(value), notice: t(".flashes.imported")
+    else
+      @import_error = value
+      render :import_csv
+    end
+  end
+
   def export
     authorize! @servers = Server.no_pdus
       .includes(frame: { bay: { islet: :room } }, modele: :category)
@@ -123,34 +151,6 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
     respond_to do |format|
       format.csv { send_data exporter.to_csv, filename: "#{DateTime.now.strftime("%Y-%m-%d-%H-%M-%S")}-servers.csv" }
     end
-  end
-
-  def import
-    authorize!
-
-    value = ImportEquipmentByCsv.call(file: params[:import][:file],
-                                      room_id: params[:import][:room_id])
-    if value.is_a?(Frame)
-      redirect_to frame_path(value), notice: t(".flashes.imported")
-    else
-      @import_error = value
-      render :import_csv
-    end
-  end
-
-  def duplicate
-    authorize! @original_server = Server.friendly.find(params[:id].to_s.downcase)
-    @server = @original_server.deep_dup
-  end
-
-  def destroy_connections
-    if @server.destroy_connections!
-      flash[:notice] = t(".flashes.connections_destroyed")
-    else
-      flash[:alert] = t(".flashes.connections_not_destroyed")
-    end
-
-    redirect_to server_path(@server)
   end
 
   private
