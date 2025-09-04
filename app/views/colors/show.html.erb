@@ -1,6 +1,12 @@
 <% breadcrumb.add_step(title = @color.code) %>
 
-<%= render Page::HeadingShowComponent.new(resource: @color, title:, breadcrumb:) %>
+<%= render Page::HeadingShowComponent.new(
+  resource: @color,
+  title:,
+  breadcrumb:,
+  editable: allowed_to?(:update?, @color)
+) %>
+
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
