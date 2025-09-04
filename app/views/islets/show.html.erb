@@ -80,7 +80,7 @@
 
     <div class="overview">
       <%= render CardComponent.new(extra_classes: "islet pt-2 px-2") do |card| %>
-        <%= render "bays/overview", bays: @islet.decorated.overviewed_bays_array, islet: @islet.name %>
+        <%= render "bays/overview", bays_per_lane: @islet.decorated.overviewed_bays_array, islet: @islet %>
       <% end %>
     </div>
   <% end %>
