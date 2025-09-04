@@ -245,6 +245,23 @@
 
         <% table.with_column(style: "min-width: 100px; width: 100px") do |server| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <button class="btn btn-outline-primary"
+                    data-bs-title="<%= t("servers.show.export_cta_tooltip") %>"
+                    data-aria-label="<%= t("servers.show.export_cta_tooltip") %>"
+                    data-bs-trigger="hover"
+                    data-controller="dynamic-export-pdf tooltip"
+                    data-action="click->dynamic-export-pdf#export"
+                    data-dynamic-export-pdf-has-button-icon-value="true"
+                    data-dynamic-export-pdf-filename-param="<%= server.friendly_id %>"
+                    data-dynamic-export-pdf-urls-param="<%= [export_cables_server_path(server)].to_json %>"
+                    data-bs-placement="left">
+              <span class="spinner-border spinner-border-sm d-flex d-none"
+                    role="status"
+                    aria-hidden="true"
+                    data-dynamic-export-pdf-target="spinner"></span>
+              <span class="bi bi-file-earmark-pdf" data-dynamic-export-pdf-target="buttonIcon"></span>
+            </button>
+            
             <% if allowed_to?(:duplicate?, server) %>
               <%= link_to duplicate_server_path(server), class: "btn btn-success", data: { turbo_frame: :_top } do %>
                 <span class="bi bi-copy" title="<%= t("action.duplicate") %>" aria-hidden="true"

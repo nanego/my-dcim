@@ -134,7 +134,7 @@
 
       <% table.with_column(style: "min-width: 132px; width: 132px") do |bay| %>
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
-          <%= render partial: "bays/export_button", locals: { bay: bay } %>
+          <%= render partial: "bays/export_button", locals: { bay: decorate(bay) } %>
 
           <% if allowed_to?(:show?, bay, with: Visualization::BayPolicy) %>
             <% has_frame = bay.frames.any? %>

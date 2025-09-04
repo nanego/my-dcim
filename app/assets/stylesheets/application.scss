@@ -594,8 +594,14 @@ body {
     background-color: white;
   }
 
-  h3 {
+  h1, h3 {
     color: black;
+  }
+
+  .very-specific-design {
+    th {
+      color: black;
+    }
   }
 }
 
@@ -876,6 +882,10 @@ body {
     max-width: 100px;
   }
 
+  .export-button-server {
+    max-width: fit-content;
+  }
+
   .icon-rotated {
     transform: rotate(90deg);
     display: inline-block;
@@ -979,6 +989,11 @@ body {
     .list-group-item:not(:first-child) {
       border-top-width: 0;
     }
+  }
+
+  .spinner-border-sm {
+    --bs-spinner-width: 0.875rem;
+    --bs-spinner-height: 0.875rem;
   }
 
   /* Tom-Select */

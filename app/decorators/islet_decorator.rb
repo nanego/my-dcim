@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class IsletDecorator < ApplicationDecorator
+  include Rails.application.routes.url_helpers
+
   class << self
     def grouped_by_sites_options_for_select
       Islet.includes(:site, room: :islets).sorted.not_empty.has_name.distinct.group_by(&:site).to_h do |site, islets|
@@ -42,5 +44,11 @@ class IsletDecorator < ApplicationDecorator
         (bay = bays.to_a.find { |b| b.position == i + 1 }) ? bay : :no_bay
       end
     end.flatten
+  end
+
+  def print_frames_paths(**)
+    frames.order(:name).pluck(:id).map do |frame_id|
+      print_visualization_frame_path(frame_id, **)
+    end
   end
 end
