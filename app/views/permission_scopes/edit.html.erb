@@ -1,0 +1,12 @@
+<%
+  breadcrumb
+    .add_step(PermissionScope.model_name.human.pluralize, permission_scopes_path)
+    .add_step(@permission_scope, permission_scope_path(@permission_scope))
+    .add_step(t("action.edit"))
+%>
+
+<%= render Page::HeadingEditComponent.new(resource: @permission_scope, title: t(".title", name: @permission_scope), breadcrumb:) %>
+
+<div class="col-12 p-4 border-top">
+  <%= render "form" %>
+</div>
