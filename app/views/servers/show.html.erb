@@ -4,7 +4,11 @@
   breadcrumb.add_step(@server.name)
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @server, title:, breadcrumb:) do |heading| %>
+<%= render Page::HeadingShowComponent.new(
+  resource: @server,
+  title:, breadcrumb:,
+  editable: allowed_to?(:update?, @server)
+) do |heading| %>
   <% heading.with_extra_buttons do %>
     <button class="btn btn-outline-primary me-2 d-flex align-items-center export-button-server"
             data-bs-title="<%= t(".export_cta_tooltip") %>"
@@ -21,7 +25,7 @@
       <span class="bi bi-file-earmark-pdf" data-dynamic-export-pdf-target="buttonIcon"></span>
       <span class="ms-2 d-none d-md-inline-flex"><%= t("action.export") %></span>
     </button>
-
+    
     <%= render ButtonComponent.new(
       t("action.move"),
       url: new_move_path(server_id: @server.id),
@@ -43,7 +47,7 @@
       icon: "copy",
       is_responsive: true,
       extra_classes: "me-2"
-    ) %>
+    ) if allowed_to?(:duplicate?, @server) %>
   <% end %>
 <% end %>
 
@@ -247,60 +251,72 @@
             <dt class="pb-2"><%= Room.model_name.human %></dt>
             <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
               <%= link_to @server.room.try(:name), @server.room %>
-              <%= link_to visualization_room_path(@server.room),
-                          class: "btn btn-primary btn-sm",
-                          data: { turbo_frame: :_top } do %>
-                <span class="bi bi-diagram-3-fill"
-                      aria-hidden="true"
-                      data-controller="tooltip"
-                      data-bs-placement="left"
-                      title="<%= t("visualization.title") %>"></span>
-                <span class="visually-hidden"><%= t("visualization.title") %></span>
+
+              <% if allowed_to?(:show?, @server.room, with: Visualization::RoomPolicy) %>
+                <%= link_to visualization_room_path(@server.room),
+                            class: "btn btn-primary btn-sm",
+                            data: { turbo_frame: :_top } do %>
+                  <span class="bi bi-diagram-3-fill"
+                        aria-hidden="true"
+                        data-controller="tooltip"
+                        data-bs-placement="left"
+                        title="<%= t("visualization.title") %>"></span>
+                  <span class="visually-hidden"><%= t("visualization.title") %></span>
+                <% end %>
               <% end %>
             </dd>
 
             <dt class="pb-2"><%= Islet.model_name.human %></dt>
             <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
               <%= link_to @server.islet.name_with_room, islet_path(@server.islet) %>
-              <%= link_to visualization_room_path(@server.room, islet: @server.islet.name),
-                          class: "btn btn-primary btn-sm",
-                          data: { turbo_frame: :_top } do %>
-                <span class="bi bi-diagram-3-fill"
-                      aria-hidden="true"
-                      data-controller="tooltip"
-                      data-bs-placement="left"
-                      title="<%= t("visualization.title") %>"></span>
-                <span class="visually-hidden"><%= t("visualization.title") %></span>
+
+              <% if allowed_to?(:show?, @server.room, with: Visualization::RoomPolicy) %>
+                <%= link_to visualization_room_path(@server.room, islet: @server.islet.name),
+                            class: "btn btn-primary btn-sm",
+                            data: { turbo_frame: :_top } do %>
+                  <span class="bi bi-diagram-3-fill"
+                        aria-hidden="true"
+                        data-controller="tooltip"
+                        data-bs-placement="left"
+                        title="<%= t("visualization.title") %>"></span>
+                  <span class="visually-hidden"><%= t("visualization.title") %></span>
+                <% end %>
               <% end %>
             </dd>
 
             <dt class="pb-2"><%= Bay.model_name.human %></dt>
             <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
               <%= link_to @server.bay, bay_path(@server.bay) %>
-              <%= link_to visualization_bay_path(@server.bay),
-                          class: "btn btn-primary btn-sm",
-                          data: { turbo_frame: :_top } do %>
-                <span class="bi bi-diagram-3-fill"
-                      aria-hidden="true"
-                      data-controller="tooltip"
-                      data-bs-placement="left"
-                      title="<%= t("visualization.title") %>"></span>
-                <span class="visually-hidden"><%= t("visualization.title") %></span>
+
+              <% if allowed_to?(:show?, @server.bay, with: Visualization::BayPolicy) %>
+                <%= link_to visualization_bay_path(@server.bay),
+                            class: "btn btn-primary btn-sm",
+                            data: { turbo_frame: :_top } do %>
+                  <span class="bi bi-diagram-3-fill"
+                        aria-hidden="true"
+                        data-controller="tooltip"
+                        data-bs-placement="left"
+                        title="<%= t("visualization.title") %>"></span>
+                  <span class="visually-hidden"><%= t("visualization.title") %></span>
+                <% end %>
               <% end %>
             </dd>
 
             <dt class="pb-2"><%= Frame.model_name.human %></dt>
             <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
               <%= link_to @server.frame.try(:name), frame_path(@server.frame) %>
-              <%= link_to visualization_frame_path(@server.frame),
-                          class: "btn btn-primary btn-sm",
-                          data: { turbo_frame: :_top } do %>
-                <span class="bi bi-diagram-3-fill"
-                      aria-hidden="true"
-                      data-controller="tooltip"
-                      data-bs-placement="left"
-                      title="<%= t("visualization.title") %>"></span>
-                <span class="visually-hidden"><%= t("visualization.title") %></span>
+
+              <% if allowed_to?(:show?, @server.frame, with: Visualization::FramePolicy) %>
+                <%= link_to visualization_frame_path(@server.frame),
+                            class: "btn btn-primary btn-sm",
+                            data: { turbo_frame: :_top } do %>
+                  <span class="bi bi-diagram-3-fill"
+                        aria-hidden="true"
+                        data-controller="tooltip"
+                        data-bs-placement="left"
+                        title="<%= t("visualization.title") %>"></span>
+                  <span class="visually-hidden"><%= t("visualization.title") %></span>
+                <% end %>
               <% end %>
             </dd>
 
@@ -412,7 +428,7 @@
     ) do |c| %>
       <% c.with_actions do %>
         <span>
-          <button class="btn btn-sm text-light me-2"
+          <button class="btn btn-sm text-body-tertiary me-2"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target=".collapse"
@@ -421,16 +437,15 @@
             <%= t(".toggle_vlans") %>
           </button>
 
-          <%= render ButtonComponent.new(t(".destroy_connections"),
-                                         url: destroy_connections_server_path(@server),
-                                         icon: "trash",
-                                         variant: :danger,
-                                         size: :sm,
-                                         is_responsive: true,
-                                         data: {
-                                           confirm: t(".destroy_connections_confirmation")
-                                         }
-                                        )
+          <%= render ButtonComponent.new(
+            t(".destroy_connections"),
+            url: destroy_connections_server_path(@server),
+            icon: "trash",
+            variant: :danger,
+            size: :sm,
+            is_responsive: true,
+            data: { confirm: t(".destroy_connections_confirmation") }
+          ) if allowed_to?(:destroy_connections?, @server)
           %>
         </span>
       <% end %>

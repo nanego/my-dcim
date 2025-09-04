@@ -50,27 +50,33 @@
 
     <li><hr class="dropdown-divider"></li>
 
-    <li>
-      <%= link_to visualization_room_path(room, format: :txt, view: "", islet: "", bg: ""), class: "dropdown-item", data: { turbo_frame: :_top } do %>
-        <span class="bi bi-file-earmark-text" aria-hidden="true"></span>
-        <%= t("export_button.exports.txt") %>
-      <% end %>
-    </li>
+    <% if allowed_to?(:show?, with: Visualization::RoomPolicy) %>
+      <li>
+        <%= link_to visualization_room_path(room, format: :txt, view: "", islet: "", bg: ""), class: "dropdown-item", data: { turbo_frame: :_top } do %>
+          <span class="bi bi-file-earmark-text" aria-hidden="true"></span>
+          <%= t("export_button.exports.txt") %>
+        <% end %>
+      </li>
+    <% end %>
 
-    <li>
-      <%= link_to print_visualization_room_path(room), class: "dropdown-item", target: :_blank do %>
-        <span class="bi bi-printer" aria-hidden="true"></span>
-        <%= t("export_button.exports.print") %>
-      <% end %>
-    </li>
+    <% if allowed_to?(:print?, with: Visualization::RoomPolicy) %>
+      <li>
+        <%= link_to print_visualization_room_path(room), class: "dropdown-item", target: :_blank do %>
+          <span class="bi bi-printer" aria-hidden="true"></span>
+          <%= t("export_button.exports.print") %>
+        <% end %>
+      </li>
+    <% end %>
 
-    <li><hr class="dropdown-divider"></li>
+    <% if allowed_to?(:show?, with: PortPolicy) %>
+      <li><hr class="dropdown-divider"></li>
 
-    <li>
-      <%= link_to ports_path(room_id: room.id, frame_id: @frame.try(:id)), class: "dropdown-item", data: { turbo_frame: :_top } do %>
-        <span class="bi bi-card-list" aria-hidden="true"></span>
-        <%= t("export_button.port_list") %>
-      <% end %>
-    </li>
+      <li>
+        <%= link_to ports_path(room_id: room.id, frame_id: @frame.try(:id)), class: "dropdown-item", data: { turbo_frame: :_top } do %>
+          <span class="bi bi-card-list" aria-hidden="true"></span>
+          <%= t("export_button.port_list") %>
+        <% end %>
+      </li>
+    <% end %>
   </ul>
 </div>

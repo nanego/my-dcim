@@ -119,6 +119,7 @@ en:
         external_app_record_frame_ids: Location
         external_serial_status: Synchronization
         islet_ids: Islet
+        islet_id: Islet
         manufacturer_ids: Manufacturer
         modele_ids: Model
         room_ids: Room

@@ -1,14 +1,14 @@
-<%
-  breadcrumb.add_step(title = Room.model_name.human.pluralize)
-%>
+<% breadcrumb.add_step(title = Room.model_name.human.pluralize) %>
 
 <%= render Page::HeadingComponent.new(title: title, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
-    <% render ButtonComponent.new(t(".new_room"),
-                                  url: new_room_path,
-                                  variant: :success,
-                                  icon: "plus-lg",
-                                  is_responsive: true) %>
+    <% render ButtonComponent.new(
+      t(".new_room"),
+      url: new_room_path,
+      variant: :success,
+      icon: "plus-lg",
+      is_responsive: true
+    ) if allowed_to?(:create?) %>
   <% end %>
 <% end %>
 
@@ -35,11 +35,15 @@
 
   <%= turbo_frame_tag(dom_id(Room, :table), data: { turbo_action: :advance }) do %>
     <%= render List::DataTableComponent.new(@rooms) do |table| %>
-      <% table.with_bulk_action(url: bulk_rooms_path, method: :delete, class: "btn btn-danger btn-sm",
-                                data: { confirm: t("action.confirm") }
-      ) do %>
-        <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>">
-        </span>
+      <% if allowed_to?(:destroy?) %>
+        <% table.with_bulk_action(
+          url: bulk_rooms_path,
+          method: :delete,
+          class: "btn btn-danger btn-sm",
+          data: { confirm: t("action.confirm") }
+        ) do %>
+          <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
+        <% end %>
       <% end %>
 
       <% table.with_column(Room.human_attribute_name(:name), sort_by: :name) do |room| %>
@@ -82,17 +86,25 @@
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
           <%= render partial: "rooms/export_button", locals: { room: decorate(room) } %>
 
-          <%= link_to visualization_room_path(room), class: "btn btn-primary", data: { turbo_frame: :_top } do %>
-            <span class="bi bi-diagram-3-fill" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("visualization.title") %>"></span>
-            <span class="visually-hidden"><%= t("visualization.title") %></span>
+          <% if allowed_to?(:show?, room, with: Visualization::RoomPolicy) %>
+            <%= link_to visualization_room_path(room), class: "btn btn-primary", data: { turbo_frame: :_top } do %>
+              <span class="bi bi-diagram-3-fill" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("visualization.title") %>"></span>
+              <span class="visually-hidden"><%= t("visualization.title") %></span>
+            <% end %>
           <% end %>
-          <%= link_to edit_room_path(room), class: "btn btn-info", data: { turbo_frame: :_top } do %>
-            <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
-            <span class="visually-hidden"><%= t("action.edit") %></span>
+
+          <% if allowed_to?(:update?, room) %>
+            <%= link_to edit_room_path(room), class: "btn btn-info", data: { turbo_frame: :_top } do %>
+              <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
+              <span class="visually-hidden"><%= t("action.edit") %></span>
+            <% end %>
           <% end %>
-          <%= link_to room, method: :delete, data: { turbo_frame: :_top, confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
-            <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
+
+          <% if allowed_to?(:destroy?, room) %>
+            <%= link_to room, method: :delete, data: { turbo_frame: :_top, confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
+              <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
               <span class="visually-hidden"><%= t("action.delete") %></span>
+            <% end %>
           <% end %>
         </div>
       <% end %>

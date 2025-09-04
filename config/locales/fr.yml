@@ -903,6 +903,7 @@ fr:
         external_serial_status: Synchronisation
         manufacturer_ids: Constructeur
         islet_ids: Ilot
+        islet_id: Ilot
         room_ids: Salle
         domaine_ids: Domaine
         gestion_ids: Gestionnaire

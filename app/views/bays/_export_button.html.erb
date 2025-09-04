@@ -51,26 +51,37 @@
 
     <li><hr class="dropdown-divider"></li>
 
-    <li><%= link_to visualization_bay_path(bay, format: :txt, view: "", bg: ""), class: "dropdown-item", data: { turbo_frame: :_top } do %>
-        <span class="bi bi-file-earmark-text" aria-hidden="true"></span>
-        <%= t("export_button.exports.txt") %>
-      <% end %>
-    </li>
+    <% if allowed_to?(:show?, bay, with: Visualization::BayPolicy) %>
+      <li>
+        <%= link_to visualization_bay_path(bay, format: :txt, view: "", bg: ""),
+                    class: "dropdown-item",
+                    data: { turbo_frame: :_top } do %>
+          <span class="bi bi-file-earmark-text" aria-hidden="true"></span>
+          <%= t("export_button.exports.txt") %>
+        <% end %>
+      </li>
+    <% end %>
 
-    <li>
-      <%= link_to print_visualization_bay_path(bay), class: "dropdown-item", target: :_blank do %>
-        <span class="bi bi-printer" aria-hidden="true"></span>
-        <%= t("export_button.exports.print") %>
-      <% end %>
-    </li>
+    <% if allowed_to?(:print?, bay, with: Visualization::BayPolicy) %>
+      <li>
+        <%= link_to print_visualization_bay_path(bay), class: "dropdown-item", target: :_blank do %>
+          <span class="bi bi-printer" aria-hidden="true"></span>
+          <%= t("export_button.exports.print") %>
+        <% end %>
+      </li>
+    <% end %>
 
-    <li><hr class="dropdown-divider"></li>
+    <% if allowed_to?(:index?, with: PortPolicy) %>
+      <li><hr class="dropdown-divider"></li>
 
-    <li>
-      <%= link_to ports_path(room_id: bay.islet.room_id, bay_id: bay.id), class: "dropdown-item", data: { turbo_frame: :_top } do %>
-        <span class="bi bi-card-list" aria-hidden="true"></span>
-        <%= t("export_button.port_list") %>
-      <% end %>
-    </li>
+      <li>
+        <%= link_to ports_path(room_id: bay.islet.room_id, bay_id: bay.id),
+                    class: "dropdown-item",
+                    data: { turbo_frame: :_top } do %>
+          <span class="bi bi-card-list" aria-hidden="true"></span>
+          <%= t("export_button.port_list") %>
+        <% end %>
+      </li>
+    <% end %>
   </ul>
 </div>
