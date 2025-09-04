@@ -119,7 +119,7 @@
     Islet.model_name.human.pluralize,
     url: islets_path(room_ids: @room.id),
     frame_id: dom_id(Islet, :table),
-    new_path: new_islet_path(islet: { room_id: @room.id }),
+    new_path: (new_islet_path(islet: { room_id: @room.id }) if allowed_to?(:create?, with: IsletPolicy)),
     new_label: t("islets.add_new")
   ) %>
 

@@ -29,7 +29,7 @@
     Server.model_name.human(count: 2),
     url: servers_path(cluster_ids: @cluster.id),
     frame_id: dom_id(Server, :table),
-    new_path: new_server_path(server: { cluster_id: @cluster.id }),
+    new_path: (new_server_path(server: { cluster_id: @cluster.id }) if allowed_to?(:create?, with: ServerPolicy)),
     new_label: t("servers.add_new")
   ) %>
 
