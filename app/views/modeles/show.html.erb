@@ -1,13 +1,20 @@
 <% breadcrumb.add_step(@modele.name) %>
 
-<%= render Page::HeadingShowComponent.new(resource: @modele, title: @modele, breadcrumb:) do |heading| %>
+<%= render Page::HeadingShowComponent.new(
+  resource: @modele,
+  title: @modele,
+  breadcrumb:,
+  editable: allowed_to?(:update?, @modele)
+) do |heading| %>
   <% heading.with_extra_buttons do %>
-    <% render ButtonComponent.new(t("action.duplicate"),
-                                  url: duplicate_modele_path(@modele),
-                                  variant: :success,
-                                  icon: "copy",
-                                  is_responsive: true,
-                                  extra_classes: "me-2") %>
+    <% render ButtonComponent.new(
+      t("action.duplicate"),
+      url: duplicate_modele_path(@modele),
+      variant: :success,
+      icon: "copy",
+      is_responsive: true,
+      extra_classes: "me-2"
+    ) if allowed_to?(:duplicate?, @modele) %>
   <% end %>
 <% end %>
 
@@ -53,6 +60,7 @@
       <% end %>
     </div>
   </div>
+
   <%= render HasManyTurboFrameComponent.new(
     Server.model_name.human(count: 2),
     url: servers_path(modele_ids: @modele.id),
@@ -60,5 +68,6 @@
     new_path: new_server_path(server: { modele_id: @modele.id }),
     new_label: t("servers.add_new")
   ) %>
+
   <%= render ChangelogEntries::ObjectListComponent.new(@modele) %>
 </div>

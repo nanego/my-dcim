@@ -1,27 +1,31 @@
-<%
-  breadcrumb.add_step(title = Server.model_name.human)
-%>
+<% breadcrumb.add_step(title = Server.model_name.human) %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
     <div class="d-flex align-self-center column-gap-2">
-      <%= render ButtonComponent.new(t(".sync_with_external_apps"),
-                                     url: external_app_records_path,
-                                     variant: :outline_primary,
-                                     icon: "arrow-repeat",
-                                     is_responsive: true) if allowed_to?(:index?, with: ExternalAppRecordPolicy) %>
+      <%= render ButtonComponent.new(
+        t(".sync_with_external_apps"),
+        url: external_app_records_path,
+        variant: :outline_primary,
+        icon: "arrow-repeat",
+        is_responsive: true
+      ) if allowed_to?(:index?, with: ExternalAppRecordPolicy) %>
 
-      <%= render ButtonComponent.new(t(".add_server_via_csv"),
-                                     url: import_csv_servers_path,
-                                     variant: :success,
-                                     icon: "filetype-csv",
-                                     is_responsive: true) %>
+      <%= render ButtonComponent.new(
+        t(".add_server_via_csv"),
+        url: import_csv_servers_path,
+        variant: :success,
+        icon: "filetype-csv",
+        is_responsive: true
+      ) if allowed_to?(:import_csv?) %>
 
-      <%= render ButtonComponent.new(t(".new_server"),
-                                     url: new_server_path,
-                                     variant: :success,
-                                     icon: "plus-lg",
-                                     is_responsive: true) %>
+      <%= render ButtonComponent.new(
+        t(".new_server"),
+        url: new_server_path,
+        variant: :success,
+        icon: "plus-lg",
+        is_responsive: true
+      ) if allowed_to?(:create?) %>
     </div>
   <% end %>
 <% end %>
@@ -143,11 +147,15 @@
   <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance }) do %>
     <div class="d-flex flex-column row-gap-4">
       <%= render List::DataTableComponent.new(@servers, columns_to_display: @columns_preferences.preferred) do |table| %>
-        <% table.with_bulk_action(url: bulk_servers_path, method: :delete, class: "btn btn-danger btn-sm",
-                                  data: { confirm: t("action.confirm") }
-        ) do %>
-          <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>">
-          </span>
+        <% if allowed_to?(:destroy?) %>
+          <% table.with_bulk_action(
+            url: bulk_servers_path,
+            method: :delete,
+            class: "btn btn-danger btn-sm",
+            data: { confirm: t("action.confirm") }
+          ) do %>
+            <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
+          <% end %>
         <% end %>
 
         <% table.with_column(Server.human_attribute_name(:name), name: :name, sort_by: :name) do |server| %>
@@ -237,26 +245,34 @@
 
         <% table.with_column(style: "min-width: 100px; width: 100px") do |server| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <%= link_to duplicate_server_path(server), class: "btn btn-success", data: { turbo_frame: :_top } do %>
-              <span class="bi bi-copy" title="<%= t("action.duplicate") %>" aria-hidden="true"
-                                                                            data-controller="tooltip"
-                                                                            data-bs-placement="left"></span>
-              <span class="visually-hidden"><%= t("action.duplicate") %></span>
+            <% if allowed_to?(:duplicate?, server) %>
+              <%= link_to duplicate_server_path(server), class: "btn btn-success", data: { turbo_frame: :_top } do %>
+                <span class="bi bi-copy" title="<%= t("action.duplicate") %>" aria-hidden="true"
+                                                                              data-controller="tooltip"
+                                                                              data-bs-placement="left"></span>
+                <span class="visually-hidden"><%= t("action.duplicate") %></span>
+              <% end %>
             <% end %>
-            <%= link_to edit_server_path(server), class: "btn btn-info", data: { turbo_frame: :_top } do %>
-              <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
-                                                                        data-controller="tooltip"
-                                                                        data-bs-placement="left"></span>
-              <span class="visually-hidden"><%= t("action.edit") %></span>
-            <% end %>
-            <%= link_to server_path(server, @search_params),
-                        method: :delete,
-                        data: { turbo_frame: :_top, confirm: t("action.confirm") },
-                        class: "btn btn-danger" do %>
-              <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+
+            <% if allowed_to?(:update?, server) %>
+              <%= link_to edit_server_path(server), class: "btn btn-info", data: { turbo_frame: :_top } do %>
+                <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
                                                                           data-controller="tooltip"
                                                                           data-bs-placement="left"></span>
-              <span class="visually-hidden"><%= t("action.delete") %></span>
+                <span class="visually-hidden"><%= t("action.edit") %></span>
+              <% end %>
+            <% end %>
+
+            <% if allowed_to?(:destroy?, server) %>
+              <%= link_to server_path(server, @search_params),
+                          method: :delete,
+                          data: { turbo_frame: :_top, confirm: t("action.confirm") },
+                          class: "btn btn-danger" do %>
+                <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                            data-controller="tooltip"
+                                                                            data-bs-placement="left"></span>
+                <span class="visually-hidden"><%= t("action.delete") %></span>
+              <% end %>
             <% end %>
           </div>
         <% end %>
@@ -264,13 +280,16 @@
 
       <div class="d-flex justify-content-between align-items-center">
         <%== render PaginationComponent.new(pagy: @pagy) %>
-        <span class="ms-auto">
-          <%= render ExportDropdownComponent.new(
-            url: :export_servers_path,
-            pagy: @pagy,
-            **request.query_parameters
-          ) %>
-        </span>
+
+        <% if allowed_to?(:export?) %>
+          <span class="ms-auto">
+            <%= render ExportDropdownComponent.new(
+              url: :export_servers_path,
+              pagy: @pagy,
+              **request.query_parameters
+            ) %>
+          </span>
+        <% end %>
       </div>
     </div>
   <% end %>

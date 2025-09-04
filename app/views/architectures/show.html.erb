@@ -1,6 +1,12 @@
 <% breadcrumb.add_step(@architecture) %>
 
-<%= render Page::HeadingShowComponent.new(resource: @architecture, title: @architecture, breadcrumb:) %>
+<%= render Page::HeadingShowComponent.new(
+  resource: @architecture,
+  title: @architecture,
+  breadcrumb:,
+  editable: allowed_to?(:update?, @architecture)
+) %>
+
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">

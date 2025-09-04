@@ -1,15 +1,20 @@
 <% breadcrumb.add_step(@room.name) %>
 
-<%= render Page::HeadingShowComponent.new(resource: @room,
-                                          title: "#{Room.model_name.human} #{@room.name}",
-                                          breadcrumb:) do |heading| %>
+<%= render Page::HeadingShowComponent.new(
+  resource: @room,
+  title: "#{Room.model_name.human} #{@room.name}",
+  breadcrumb:,
+  editable: allowed_to?(:update?, @room)
+) do |heading| %>
   <% heading.with_extra_buttons do %>
-   <% render ButtonComponent.new(t("visualization.title"),
-                                 url: visualization_room_path(@room),
-                                 variant: :primary,
-                                 icon: "diagram-3-fill",
-                                 is_responsive: true,
-                                 extra_classes: "me-2") %>
+   <% render ButtonComponent.new(
+     t("visualization.title"),
+    url: visualization_room_path(@room),
+    variant: :primary,
+    icon: "diagram-3-fill",
+    is_responsive: true,
+    extra_classes: "me-2"
+   ) if allowed_to?(:show?, @room, with: Visualization::RoomPolicy) %>
   <% end %>
 <% end %>
 
@@ -117,5 +122,6 @@
     new_path: new_islet_path(islet: { room_id: @room.id }),
     new_label: t("islets.add_new")
   ) %>
+
   <%= render ChangelogEntries::ObjectListComponent.new(@room) %>
 </div>

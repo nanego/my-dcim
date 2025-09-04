@@ -8,18 +8,25 @@
   end
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @bay, title:, breadcrumb:) do |heading| %>
+<%= render Page::HeadingShowComponent.new(
+  resource: @bay,
+  title:, breadcrumb:,
+  editable: allowed_to?(:update?, @bay)
+) do |heading| %>
   <% if @bay.frames.any? %>
     <% heading.with_extra_buttons do %>
-      <% render ButtonComponent.new(t("visualization.title"),
-                                    url: visualization_bay_path(@bay),
-                                    variant: :primary,
-                                    icon: "diagram-3-fill",
-                                    is_responsive: true,
-                                    extra_classes: "me-2") %>
+      <% render ButtonComponent.new(
+        t("visualization.title"),
+        url: visualization_bay_path(@bay),
+        variant: :primary,
+        icon: "diagram-3-fill",
+        is_responsive: true,
+        extra_classes: "me-2"
+      ) if allowed_to?(:show?, @bay, with: Visualization::BayPolicy) %>
     <% end %>
   <% end %>
 <% end %>
+
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
@@ -70,30 +77,36 @@
           <dt class="pb-2"><%= Room.model_name.human %></dt>
           <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
             <%= link_to @bay.room.name_with_site, room_path(@bay.room) %>
-            <%= link_to visualization_room_path(@bay.room),
-                        class: "btn btn-primary btn-sm",
-                        data: { turbo_frame: :_top } do %>
-              <span class="bi bi-diagram-3-fill"
-                    aria-hidden="true"
-                    data-controller="tooltip"
-                    data-bs-placement="left"
-                    title="<%= t("visualization.title") %>"></span>
-              <span class="visually-hidden"><%= t("visualization.title") %></span>
+
+            <% if allowed_to?(:show?, @bay.room, with: Visualization::RoomPolicy) %>
+              <%= link_to visualization_room_path(@bay.room),
+                          class: "btn btn-primary btn-sm",
+                          data: { turbo_frame: :_top } do %>
+                <span class="bi bi-diagram-3-fill"
+                      aria-hidden="true"
+                      data-controller="tooltip"
+                      data-bs-placement="left"
+                      title="<%= t("visualization.title") %>"></span>
+                <span class="visually-hidden"><%= t("visualization.title") %></span>
+              <% end %>
             <% end %>
           </dd>
 
           <dt class="pb-2"><%= Islet.model_name.human %></dt>
           <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
             <%= link_to @bay.islet.name_with_room, islet_path(@bay.islet) %>
-            <%= link_to visualization_room_path(@bay.room, islet: @bay.islet.name),
-                        class: "btn btn-primary btn-sm",
-                        data: { turbo_frame: :_top } do %>
-              <span class="bi bi-diagram-3-fill"
-                    aria-hidden="true"
-                    data-controller="tooltip"
-                    data-bs-placement="left"
-                    title="<%= t("visualization.title") %>"></span>
-              <span class="visually-hidden"><%= t("visualization.title") %></span>
+
+            <% if allowed_to?(:show?, @bay.room, with: Visualization::RoomPolicy) %>
+              <%= link_to visualization_room_path(@bay.room, islet: @bay.islet.name),
+                          class: "btn btn-primary btn-sm",
+                          data: { turbo_frame: :_top } do %>
+                <span class="bi bi-diagram-3-fill"
+                      aria-hidden="true"
+                      data-controller="tooltip"
+                      data-bs-placement="left"
+                      title="<%= t("visualization.title") %>"></span>
+                <span class="visually-hidden"><%= t("visualization.title") %></span>
+              <% end %>
             <% end %>
           </dd>
 
@@ -105,6 +118,7 @@
       <% end %>
     </div>
   </div>
+
   <%= render HasManyTurboFrameComponent.new(
     Frame.model_name.human.pluralize,
     url: frames_path(bay_ids: @bay.id),

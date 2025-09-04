@@ -1,17 +1,23 @@
 <% breadcrumb.add_step(@frame.name) %>
 
 <%= render Page::HeadingShowComponent.new(
-  resource: @frame, title: t(".title", frame: @frame.name), breadcrumb:
+  resource: @frame,
+  title: t(".title", frame: @frame.name),
+  breadcrumb:,
+  editable: allowed_to?(:update?, @frame)
 ) do |heading| %>
   <% heading.with_extra_buttons do %>
-    <% render ButtonComponent.new(t("visualization.title"),
-                                  url: visualization_frame_path(@frame),
-                                  variant: :primary,
-                                  icon: "diagram-3-fill",
-                                  is_responsive: true,
-                                  extra_classes: "me-2") %>
+    <% render ButtonComponent.new(
+      t("visualization.title"),
+      url: visualization_frame_path(@frame),
+      variant: :primary,
+      icon: "diagram-3-fill",
+      is_responsive: true,
+      extra_classes: "me-2"
+    ) if allowed_to?(:show?, @frame, with: Visualization::FramePolicy) %>
   <% end %>
 <% end %>
+
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
@@ -61,45 +67,54 @@
           <dt class="pb-2"><%= Room.model_name.human %></dt>
           <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
             <%= link_to @frame.room.name_with_site, room_path(@frame.room) %>
-            <%= link_to visualization_room_path(@frame.room),
-                        class: "btn btn-primary btn-sm",
-                        data: { turbo_frame: :_top } do %>
-              <span class="bi bi-diagram-3-fill"
-                    aria-hidden="true"
-                    data-controller="tooltip"
-                    data-bs-placement="left"
-                    title="<%= t("visualization.title") %>"></span>
-              <span class="visually-hidden"><%= t("visualization.title") %></span>
+
+            <% if allowed_to?(:show?, @frame.room, with: Visualization::RoomPolicy) %>
+              <%= link_to visualization_room_path(@frame.room),
+                          class: "btn btn-primary btn-sm",
+                          data: { turbo_frame: :_top } do %>
+                <span class="bi bi-diagram-3-fill"
+                      aria-hidden="true"
+                      data-controller="tooltip"
+                      data-bs-placement="left"
+                      title="<%= t("visualization.title") %>"></span>
+                <span class="visually-hidden"><%= t("visualization.title") %></span>
+              <% end %>
             <% end %>
           </dd>
 
           <dt class="pb-2"><%= Islet.model_name.human %></dt>
           <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
             <%= link_to @frame.islet.name_with_room, islet_path(@frame.islet) %>
-            <%= link_to visualization_room_path(@frame.room, islet: @frame.islet.name),
-                        class: "btn btn-primary btn-sm",
-                        data: { turbo_frame: :_top } do %>
-              <span class="bi bi-diagram-3-fill"
-                    aria-hidden="true"
-                    data-controller="tooltip"
-                    data-bs-placement="left"
-                    title="<%= t("visualization.title") %>"></span>
-              <span class="visually-hidden"><%= t("visualization.title") %></span>
+
+            <% if allowed_to?(:show?, @frame.room, with: Visualization::RoomPolicy) %>
+              <%= link_to visualization_room_path(@frame.room, islet: @frame.islet.name),
+                          class: "btn btn-primary btn-sm",
+                          data: { turbo_frame: :_top } do %>
+                <span class="bi bi-diagram-3-fill"
+                      aria-hidden="true"
+                      data-controller="tooltip"
+                      data-bs-placement="left"
+                      title="<%= t("visualization.title") %>"></span>
+                <span class="visually-hidden"><%= t("visualization.title") %></span>
+              <% end %>
             <% end %>
           </dd>
 
           <dt class="pb-2"><%= Bay.model_name.human %></dt>
           <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
             <%= link_to @frame.bay, bay_path(@frame.bay) %>
-            <%= link_to visualization_bay_path(@frame.bay),
-                        class: "btn btn-primary btn-sm",
-                        data: { turbo_frame: :_top } do %>
-              <span class="bi bi-diagram-3-fill"
-                    aria-hidden="true"
-                    data-controller="tooltip"
-                    data-bs-placement="left"
-                    title="<%= t("visualization.title") %>"></span>
-              <span class="visually-hidden"><%= t("visualization.title") %></span>
+
+            <% if allowed_to?(:show?, @frame.bay, with: Visualization::BayPolicy) %>
+              <%= link_to visualization_bay_path(@frame.bay),
+                          class: "btn btn-primary btn-sm",
+                          data: { turbo_frame: :_top } do %>
+                <span class="bi bi-diagram-3-fill"
+                      aria-hidden="true"
+                      data-controller="tooltip"
+                      data-bs-placement="left"
+                      title="<%= t("visualization.title") %>"></span>
+                <span class="visually-hidden"><%= t("visualization.title") %></span>
+              <% end %>
             <% end %>
           </dd>
 

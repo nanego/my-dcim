@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 class ServerPolicy < ApplicationPolicy
+  def duplicate?
+    manage?
+  end
+
+  def destroy_connections?
+    manage?
+  end
+
   def sort?
     manage?
   end
@@ -10,10 +18,6 @@ class ServerPolicy < ApplicationPolicy
   end
 
   def import_csv?
-    manage?
-  end
-
-  def duplicate?
     manage?
   end
 
