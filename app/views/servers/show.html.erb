@@ -23,7 +23,7 @@
         bs_placement: :bottom,
         tooltip_title: t(".moves_cta_tooltip")
       }
-    ) %>
+    ) if allowed_to?(:create?, with: MovePolicy) %>
     <%= render ButtonComponent.new(
       t("action.duplicate"),
       url: duplicate_server_path(@server.slug),
