@@ -36,10 +36,12 @@ export default class extends Controller {
       lockOptgroupOrder: true,
       onInitialize: function() {
         Object.keys(this.options).forEach((key) => {
-          this.updateOption(this.options[key].value, {
-            ...this.options[key],
-            groupName: this.optgroups[this.options[key].optgroup].label
-          })
+          if (this.options[key].optgroup !== undefined) {
+            this.updateOption(this.options[key].value, {
+              ...this.options[key],
+              groupName: this.optgroups[this.options[key].optgroup].label
+            })
+          }
         })
       }
     }
