@@ -89,7 +89,7 @@
     Bay.model_name.human.pluralize,
     url: bays_path(islet_ids: @islet.id),
     frame_id: dom_id(Bay, :table),
-    new_path: new_bay_path(bay: { islet_id: @islet.id }),
+    new_path: (new_bay_path(bay: { islet_id: @islet.id }) if allowed_to?(:create?, with: BayPolicy)),
     new_label: t("bays.add_new")
   ) %>
 

@@ -123,7 +123,7 @@
     Frame.model_name.human.pluralize,
     url: frames_path(bay_ids: @bay.id),
     frame_id: dom_id(Frame, :table),
-    new_path: new_frame_path(frame: { bay_id: @bay.id }),
+    new_path: (new_frame_path(frame: { bay_id: @bay.id }) if allowed_to?(:create?, with: FramePolicy)),
     new_label: t("frames.add_new")
   ) %>
 
