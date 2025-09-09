@@ -4,7 +4,7 @@ class ChangelogEntryPolicy < ApplicationPolicy
   authorize :scoped_object, optional: true
 
   def index?
-    return true if scoped_object.present?
+    return allowed_to?(:show?, scoped_object) if scoped_object.present?
 
     manage?
   end
