@@ -116,8 +116,6 @@
         type: :warning,
         url: contact_assignments_path(site_ids: @site.id),
         frame_id: dom_id(ContactAssignment, :table),
-        new_path: new_contact_assignment_path(contact_assignment: { site_id: @site.id }),
-        new_label: t("contact_assignments.add_new"),
       ) do |c| %>
         <% c.with_actions do %>
           <% if allowed_to?(:update?, @site) %>
@@ -152,7 +150,7 @@
     Room.model_name.human.pluralize,
     url: rooms_path(site_ids: @site.id),
     frame_id: dom_id(Room, :table),
-    new_path: new_room_path(room: { site_id: @site.id }),
+    new_path: (new_room_path(room: { site_id: @site.id }) if allowed_to?(:create?, with: RoomPolicy)),
     new_label: t("rooms.add_new")
   ) %>
 
