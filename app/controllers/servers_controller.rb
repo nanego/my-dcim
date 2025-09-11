@@ -12,7 +12,8 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   columns_preferences_with model: Server, default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS, only: %i[index export]
 
   before_action :set_server, only: %i[show edit update destroy destroy_connections export_cables]
-  before_action except: %i[index] do
+  before_action :set_cables, only: %i[export_cables]
+  before_action except: %i[index export_cables export destroy_connections] do
     breadcrumb.add_step(Server.model_name.human, servers_path)
   end
 
@@ -155,7 +156,6 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   end
 
   def export_cables
-    @cables = decorate(@server.cables.includes(ports: { server: { modele: :category } }))
     @servers_per_frames = {}
     sort_order = frames_sort_order(:back, @server.bay.lane)
 
@@ -181,6 +181,13 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   # Use callbacks to share common setup or constraints between actions.
   def set_server
     authorize! @server = Server.friendly_find_by_numero_or_name(params[:id])
+  end
+
+  def set_cables
+    @cables = @server.cables.includes(ports: { server: { modele: :category } })
+    alim_cables = @cables.joins(:port_types).where(port_types: PortType.where(name: "ALIM")).uniq
+
+    @cables = decorate(@cables.where.not(id: alim_cables.pluck(:id)) + alim_cables)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

@@ -19,6 +19,9 @@
         %>
         <% render partial: "cables/draw", locals: { cable:, from_connection:, to_connection: } %>
       <% end %>
+      <% table.with_column("", v_align: :center, text_align: :center) do |cable| %>
+        <%= check_box_tag("") %>
+      <% end %>
     <% end %>
   <% end %>
 </div>
