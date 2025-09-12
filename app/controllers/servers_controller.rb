@@ -186,8 +186,9 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   def set_cables
     @cables = @server.cables.includes(ports: { server: { modele: :category } })
     alim_cables = @cables.joins(:port_types).where(port_types: PortType.where(name: "ALIM")).uniq
+    other_cables = @cables.select { |c| alim_cables.exclude?(c) }
 
-    @cables = decorate(@cables.where.not(id: alim_cables.pluck(:id)) + alim_cables)
+    @cables = decorate(other_cables + alim_cables)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

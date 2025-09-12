@@ -2,8 +2,13 @@
 
 class MovedConnectionDecorator < ApplicationDecorator
   def description
-    "Connexion entre #{port_from.server.try(:modele).try(:category)} #{port_from.server} (port ##{port_from_id}) et" \
-      "#{port_to.try(:server).try(:modele).try(:category)} #{port_to.try(:server)} (port ##{port_to_id}) => vlans:#{vlans}" \
-      "cablename:#{cablename} couleur:#{color}"
+    I18n.t("moved_connections.decorator.description",
+           port_from_server: port_from.server.decorated.full_name,
+           port_from_id:,
+           port_to_server: port_to.server.decorated.full_name,
+           port_to_id:,
+           vlans:,
+           cablename:,
+           color:)
   end
 end

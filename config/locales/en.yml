@@ -181,6 +181,10 @@ en:
     decorator:
       no_enclosure: No Enclosure
 
+  moved_connections:
+    decorator:
+      description: "Connection between %{port_from_server} (port #%{port_from_id}) and %{port_to_server} (port #%{port_to_id}) => vlans: %{vlans} // cablename: %{cablename} // color: %{color}"
+
   moves:
     index:
       planned_on: Planned on

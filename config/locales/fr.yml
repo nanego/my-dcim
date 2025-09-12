@@ -541,6 +541,10 @@ fr:
       title: Vue réseau
     add_new: Ajouter un châssis
 
+  moved_connections:
+    decorator:
+      description: "Connexion entre %{port_from_server} (port #%{port_from_id}) et %{port_to_server} (port #%{port_to_id}) => vlans : %{vlans} // nom du câble : %{cablename} // couleur : %{color}"
+
   moves:
     index:
       planned_on: Planifié le
