@@ -73,6 +73,7 @@ Rails.application.routes.draw do
     member do
       get :duplicate
       get :destroy_connections
+      get :export_cables
     end
   end
   resources :power_distribution_units do

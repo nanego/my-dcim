@@ -84,7 +84,7 @@
 
       <% table.with_column(style: "min-width: 132px; width: 132px") do |room| %>
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
-          <%= render partial: "rooms/export_button", locals: { room: room } %>
+          <%= render partial: "rooms/export_button", locals: { room: decorate(room) } %>
 
           <% if allowed_to?(:show?, room, with: Visualization::RoomPolicy) %>
             <%= link_to visualization_room_path(room), class: "btn btn-primary", data: { turbo_frame: :_top } do %>

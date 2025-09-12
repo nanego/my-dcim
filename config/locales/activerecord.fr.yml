@@ -32,7 +32,9 @@ fr:
       user: Utilisateur
       changelog_entry: Changelog
       cable: Câble
-      connection: Connexion
+      connection:
+        one: Connexion
+        other: Connexions
       move:
         one: Déplacement prévu
         other: Déplacements prévus
@@ -348,6 +350,7 @@ fr:
         color: Couleur
         special_case: Backbone réseau
         comments: Commentaires
+        description: "Connexion entre %{from_server_category} %{from_server} (port #%{from_port_id}) et %{to_server_category} %{to_server} (port #%{to_port_id}) => vlans:%{vlans} cablename:%{cablename} couleur:%{color}"
       cable/color:
         black: Noir
         brown: Marron

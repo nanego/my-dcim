@@ -4,6 +4,7 @@ class BayDecorator < ApplicationDecorator
   include ActionView::Context
   include ActionView::Helpers::AssetTagHelper
   include ActionView::Helpers::TextHelper
+  include Rails.application.routes.url_helpers
 
   class << self
     def access_control_options_for_select
@@ -24,6 +25,12 @@ class BayDecorator < ApplicationDecorator
                       aria: { hidden: true },
                       data: { controller: "tooltip", bs_placement: "right" }))
       concat(tag.span(I18n.t(".bays.decorator.no_frame_warning_text"), class: "visually-hidden"))
+    end
+  end
+
+  def print_frames_paths(**)
+    frames.order(:name).pluck(:id).map do |frame_id|
+      print_visualization_frame_path(frame_id, **)
     end
   end
 end

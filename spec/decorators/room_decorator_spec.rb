@@ -3,6 +3,8 @@
 require "rails_helper"
 
 RSpec.describe RoomDecorator, type: :decorator do
+  include Rails.application.routes.url_helpers
+
   let(:room) { rooms(:one) }
   let(:decorated_room) { room.decorated }
 
@@ -71,5 +73,15 @@ RSpec.describe RoomDecorator, type: :decorator do
     let(:room) { rooms(:five) }
 
     it { expect(decorated_room.network_clusters_to_sentence).to eq("Cloud C1, elastic") }
+  end
+
+  describe "#print_frames_paths" do
+    it do
+      expect(decorated_room.print_frames_paths)
+        .to contain_exactly(print_visualization_frame_path(frames(:one).id),
+                            print_visualization_frame_path(frames(:two).id),
+                            print_visualization_frame_path(frames(:three).id),
+                            print_visualization_frame_path(frames(:four).id))
+    end
   end
 end

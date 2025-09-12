@@ -120,4 +120,11 @@ RSpec.describe CableDecorator, type: :decorator do
       it { is_expected.not_to have_tag("span.badge.empty", text: "n/c") }
     end
   end
+
+  describe "#description" do
+    it do
+      expect(decorated_cable.description)
+        .to eq("Connexion entre MyString ServerName1 (port #1) et MyString ServerName1 (port #2) => vlans:123a cablename:cableXYZ couleur:P")
+    end
+  end
 end

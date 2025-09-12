@@ -3,6 +3,8 @@
 require "rails_helper"
 
 RSpec.describe IsletDecorator, type: :decorator do
+  include Rails.application.routes.url_helpers
+
   let(:islet) { islets(:one) }
   let(:decorated_islet) { islet.decorated }
 
@@ -72,6 +74,13 @@ RSpec.describe IsletDecorator, type: :decorator do
       it do
         expect(decorated_islet.overviewed_bays_array).to contain_exactly(bays(:one), :no_bay, :no_bay, bays(:three))
       end
+    end
+  end
+
+  describe "#print_frames_paths" do
+    it do
+      expect(decorated_islet.print_frames_paths)
+        .to contain_exactly(print_visualization_frame_path(frames(:one).id), print_visualization_frame_path(frames(:two).id))
     end
   end
 end

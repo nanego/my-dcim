@@ -25,4 +25,14 @@ RSpec.describe ServerDecorator, type: :decorator do
       it { is_expected.to eq("Backbone 10Gbps, Backbone Fibre") }
     end
   end
+
+  describe "#full_name" do
+    it { expect(decorated_server.full_name).to eq("MyString ServerName1") }
+
+    context "when server has no model" do
+      before { server.modele = nil }
+
+      it { expect(decorated_server.full_name).to eq("ServerName1") }
+    end
+  end
 end

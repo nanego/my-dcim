@@ -28,6 +28,7 @@ en:
     preview: Preview
     configure: Configure
     continue: Continue
+    export: Export
 
   bays:
     index:
@@ -179,6 +180,10 @@ en:
     add_new: Add a model
     decorator:
       no_enclosure: No Enclosure
+
+  moved_connections:
+    decorator:
+      description: "Connection between %{port_from_server} (port #%{port_from_id}) and %{port_to_server} (port #%{port_to_id}) => vlans: %{vlans} // cablename: %{cablename} // color: %{color}"
 
   moves:
     index:
@@ -368,6 +373,7 @@ en:
       no_match_serial: "No match for this serial number: %{serial}"
       glpi_connection_error: "Problem connecting to GLPI :"
       moves_cta_tooltip: Planning its move
+      export_cta_tooltip: PDF export for cable installers
       destroy_connections: Delete connections
       destroy_connections_confirmation: Can you confirm that you want to remove all connections to this IT equipment?
     new:
