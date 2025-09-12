@@ -16,21 +16,21 @@
     </fieldset>
 
     <fieldset class="col-12 mt-4">
-      <%= f.label :domaine_ids, "Domaines concernés", class: "form-label" %>
+      <%= f.label :domaine_ids, class: "form-label" %>
       <%= f.select :domaine_ids, Domaine.pluck(:name, :id),
                             { include_blank: t("access_control.blank") },
                             class: "form-select", multiple: true, data: { controller: :select } %>
     </fieldset>
 
     <fieldset class="col-12 mt-4">
-      <%= f.label :all_domains, "Tous les domaines", class: "form-label" do |translation| %>
+      <%= f.label :all_domains, class: "form-label" do |translation| %>
         <%= f.checkbox :all_domains, class: "" %>
         <%= translation %>
       <% end %>
     </fieldset>
 
     <fieldset class="col-12 mt-4">
-      <%= f.label :user_ids, "Utilisateurs concernés", class: "form-label" %>
+      <%= f.label :user_ids, class: "form-label" %>
       <%= f.select :user_ids, User.pluck(:email, :id),
                             { include_blank: t("access_control.blank") },
                             class: "form-select", multiple: true, data: { controller: :select } %>

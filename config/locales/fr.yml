@@ -885,10 +885,17 @@ fr:
       delete_confirmation: Vous êtes sûr de vouloir supprimer cette périmètre ?
     new:
       title: Nouvelle périmètre
+    create:
+      flashes:
+        created: Le périmètre a bien été créé.
     edit:
       title: Editier la périmètre %{name}
-    form:
-      add_permission_scope_user: Ajouter un utilisateur
+    update:
+      flashes:
+        updated: Le périmètre a bien été mis à jour.
+    destroy:
+      flashes:
+        destroyed: Le périmètre a bien été supprimé.
 
   views:
     pagination:

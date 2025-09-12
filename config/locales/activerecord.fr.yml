@@ -424,6 +424,12 @@ fr:
       contact_assignments:
         contact_role: Le rôle assigné à un contact
         contact: Le contact assigné à un rôle
+      permission_scope:
+        name: Nom
+        role: Rôle
+        all_domains: Tous les domaines
+        domaine_ids: Domaines
+        user_ids: Utilisateurs
 
     errors:
       models:

@@ -31,6 +31,7 @@ en:
       server: I.T. equipment
       stack: Stack
       user: User
+      permission_scope: Permission Scope
 
     attributes:
       bay:
@@ -166,6 +167,12 @@ en:
           zero: 0 frames
           one: 1 frame
           other: "%{count} frames"
+      permission_scope:
+        name: Name
+        role: Role
+        all_domains: All domains
+        domaine_ids: Domains
+        user_ids: Users
 
     errors:
       models:

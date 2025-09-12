@@ -25,7 +25,7 @@ class PermissionScopesController < ApplicationController
 
     respond_to do |format|
       if @permission_scope.save
-        format.html { redirect_to @permission_scope, notice: "PermissionScope was successfully created." }
+        format.html { redirect_to @permission_scope, notice: t(".flashes.created") }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -36,7 +36,7 @@ class PermissionScopesController < ApplicationController
   def update
     respond_to do |format|
       if @permission_scope.update(permission_scope_params)
-        format.html { redirect_to @permission_scope, notice: "PermissionScope was successfully updated." }
+        format.html { redirect_to @permission_scope, notice: t(".flashes.updated") }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -48,7 +48,7 @@ class PermissionScopesController < ApplicationController
     @permission_scope.destroy!
 
     respond_to do |format|
-      format.html { redirect_to permission_scopes_path, status: :see_other, notice: "PermissionScope was successfully destroyed." }
+      format.html { redirect_to permission_scopes_path, status: :see_other, notice: t(".flashes.destroyed") }
     end
   end
 
