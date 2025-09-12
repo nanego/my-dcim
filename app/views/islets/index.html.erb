@@ -83,7 +83,7 @@
 
       <% table.with_column(style: "min-width: 132px; width: 132px") do |islet| %>
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
-          <%= render partial: "islets/export_button", locals: { islet: islet } %>
+          <%= render partial: "islets/export_button", locals: { islet: decorate(islet) } %>
 
           <% if allowed_to?(:update?, islet) %>
             <%= link_to edit_islet_path(islet), class: "btn btn-info", data: { turbo_frame: :_top } do %>

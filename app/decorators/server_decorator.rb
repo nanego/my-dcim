@@ -6,4 +6,8 @@ class ServerDecorator < ApplicationDecorator
 
     n_t.map { |type| Modele.human_attribute_name("network_types.#{type}") }.join(", ")
   end
+
+  def full_name
+    [modele&.category, name].compact.join(" ")
+  end
 end

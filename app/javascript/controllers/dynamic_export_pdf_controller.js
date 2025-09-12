@@ -18,41 +18,29 @@ const exportOptions = {
 export default class extends ExportPdfController {
   static targets = ["buttonIcon"]
   static values = {
-    modelIds: Array,
-    isMove: Boolean,
-    movesProjectId: String,
-    movesProjectStepId: String,
+    hasButtonIcon: Boolean,
   }
 
   async export(event) {
-    const viewTarget = event.target.closest("a").dataset.viewTarget
-    if (!viewTarget) return
-
-    const bgWiring = event.target.dataset.bgWiring
-
     this.showSpinner()
-    if (this.isMoveValue) this.hideButtonIcon()
+    if (this.hasButtonIconValue) this.hideButtonIcon()
 
-    const pdfDoc = await this.generatePDF(viewTarget, bgWiring)
+    let { filename, urls } = event.params
+
+    const pdfDoc = await this.generatePDF(urls)
     const pdfBytes = await pdfDoc.save()
     const blob = new Blob([pdfBytes], { type: "application/pdf" })
 
-    saveAs(blob, `${this.filenameValue}_${viewTarget}${ bgWiring ? "_wiring" : ""}.pdf`)
+    saveAs(blob, `${filename}.pdf`)
 
     this.hideSpinner()
-    if (this.isMoveValue) this.showButtonIcon()
+    if (this.hasButtonIconValue) this.showButtonIcon()
   }
 
-  async generatePDF(viewTarget, bgWiring) {
+  async generatePDF(urls) {
     const pdfDoc = await PDFDocument.create();
 
-    for (let i = 0; i < this.modelIdsValue.length; i++) {
-      const modelId = this.modelIdsValue[i]
-
-      const url = this.isMoveValue ?
-        `/moves_projects/${this.movesProjectIdValue}/moves_project_steps/${this.movesProjectStepIdValue}/frames/${modelId}/print`:
-        `/visualization/frames/${modelId}/print?view=${viewTarget}${ bgWiring ? "&bg=wiring" : ""}`
-
+    for (const url of urls) {
       const response = await get(url)
 
       if (response.ok) {

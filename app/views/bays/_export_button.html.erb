@@ -1,14 +1,11 @@
-<div class="btn-group btn-group-sm"
-     data-controller="frame-export-pdf"
-     data-frame-export-pdf-model-ids-value="<%= bay.frames.order(:name).pluck(:id) %>"
-     data-frame-export-pdf-filename-value="bay-<%= bay.id %>">
+<div class="btn-group btn-group-sm" data-controller="dynamic-export-pdf">
   <button type="button"
           class="btn btn-outline-primary dropdown-toggle d-flex align-items-center export-button"
           data-bs-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false">
     <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none me-" role="status" aria-hidden="true"
-          data-frame-export-pdf-target="spinner"></span>
+          data-dynamic-export-pdf-target="spinner"></span>
     <span class="text-truncate d-inline-block">
       <%= t("export_button.label") %>
     </span>
@@ -18,28 +15,35 @@
     <li>
       <h6 class="dropdown-header"><%= t("export_button.exports.pdf") %></h6>
     </li>
+
     <li>
-      <a role="button" class="dropdown-item" data-action="click->frame-export-pdf#export" data-view-target="front">
+      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export"
+        data-dynamic-export-pdf-urls-param="<%= bay.print_frames_paths(view: :front).to_json %>"
+        data-dynamic-export-pdf-filename-param="bay-<%= bay.id %>-front">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.front") %>
       </a>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->frame-export-pdf#export" data-view-target="back">
+      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export"
+        data-dynamic-export-pdf-urls-param="<%= bay.print_frames_paths(view: :back).to_json %>"
+        data-dynamic-export-pdf-filename-param="bay-<%= bay.id %>-back">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.back") %>
       </a>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->frame-export-pdf#export" data-view-target="front"
-                                                                                    data-bg-wiring="true">
+      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export"
+        data-dynamic-export-pdf-urls-param="<%= bay.print_frames_paths(view: :front, bg: :wiring).to_json %>"
+        data-dynamic-export-pdf-filename-param="bay-<%= bay.id %>-front_wiring">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.front_wiring") %>
       </a>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->frame-export-pdf#export" data-view-target="back"
-                                                                                    data-bg-wiring="true">
+      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export"
+        data-dynamic-export-pdf-urls-param="<%= bay.print_frames_paths(view: :back, bg: :wiring).to_json %>"
+        data-dynamic-export-pdf-filename-param="bay-<%= bay.id %>-back_wiring">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.back_wiring") %>
       </a>

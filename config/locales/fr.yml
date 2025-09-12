@@ -31,6 +31,8 @@ fr:
     preview: Prévisualiser
     configure: Configurer
     continue: Continuer
+    export: Exporter
+
   export_button:
     label: Exports
     exports:
@@ -432,6 +434,7 @@ fr:
       no_match_serial: "Aucune correspondance pour ce numéro de série : %{serial}"
       glpi_connection_error: "Problème lors de la connexion à GLPI :"
       moves_cta_tooltip: Prévoir son déplacement
+      export_cta_tooltip: Export PDF pour les câbleurs
       toggle_vlans: Afficher / Cacher les Vlans
       destroy_connections: Supprimer les connexions
       destroy_connections_confirmation: Confirmez-vous vouloir supprimer toutes les connections de ce matériel I.T. ?
@@ -537,6 +540,10 @@ fr:
     network:
       title: Vue réseau
     add_new: Ajouter un châssis
+
+  moved_connections:
+    decorator:
+      description: "Connexion entre %{port_from_server} (port #%{port_from_id}) et %{port_to_server} (port #%{port_to_id}) => vlans : %{vlans} // nom du câble : %{cablename} // couleur : %{color}"
 
   moves:
     index:

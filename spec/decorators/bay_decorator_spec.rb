@@ -3,6 +3,8 @@
 require "rails_helper"
 
 RSpec.describe BayDecorator, type: :decorator do
+  include Rails.application.routes.url_helpers
+
   let(:bay) { bays(:one) }
   let(:decorated_bay) { bay.decorated }
 
@@ -32,6 +34,13 @@ RSpec.describe BayDecorator, type: :decorator do
         with_tag("span.text-warning")
         with_tag("span.visually-hidden", text: "Veuillez renseigner un châssis à cette baie")
       end
+    end
+  end
+
+  describe "#print_frames_paths" do
+    it do
+      expect(decorated_bay.print_frames_paths)
+        .to contain_exactly(print_visualization_frame_path(frames(:one).id), print_visualization_frame_path(frames(:two).id))
     end
   end
 end
