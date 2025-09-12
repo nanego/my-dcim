@@ -430,6 +430,9 @@ fr:
         all_domains: Tous les domaines
         domaine_ids: Domaines
         user_ids: Utilisateurs
+      permission_scope/role:
+        reader: Lecteur
+        writer: Éditeur
 
     errors:
       models:

@@ -1,0 +1,12 @@
+# frozen_string_literal: true
+
+require "rails_helper"
+
+RSpec.describe PermissionScopeDecorator, type: :decorator do
+  let(:permission_scope) { permission_scopes(:one) }
+  let(:decorated_permission_scope) { permission_scope.decorated }
+
+  describe ".roles_for_options" do
+    it { expect(described_class.roles_for_options.pluck(1)).to match_array(PermissionScope.roles.pluck(0)) }
+  end
+end

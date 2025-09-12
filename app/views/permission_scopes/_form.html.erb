@@ -6,11 +6,10 @@
       <%= f.text_field :name, class: "form-control" %>
     </fieldset>
 
-    <%# TODO: move to a PermissionScope decorator %>
     <fieldset class="col-12 mt-4">
       <%= f.label :role, class: "form-label" %>
       <%= f.select(:role,
-                    UserDecorator.roles_for_options,
+                    PermissionScopeDecorator.roles_for_options,
                     {},
                     class: "form-select") %>
     </fieldset>

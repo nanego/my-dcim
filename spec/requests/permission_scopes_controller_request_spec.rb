@@ -84,7 +84,7 @@ RSpec.describe PermissionScopesController do
     context "with valid parameters" do
       let(:new_attributes) { permission_scope.attributes.except("name").merge(name: "New name") }
 
-      it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
+      it :aggregate_failures do
         patch permission_scope_path(permission_scope), params: { permission_scope: new_attributes }
         permission_scope.reload
         # assigns(:permission_scope).reload
