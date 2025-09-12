@@ -15,10 +15,26 @@
         <% end %>
 
         <dt class="pb-2"><%= PermissionScope.human_attribute_name(:domaine_ids) %> :</dt>
-        <dd class="mb-0 pb-2 ps-3"><%= @permission_scope.domaines.pluck(:name).join(", ") %></dd>
+        <dd class="mb-0 pb-2 ps-3">
+          <% if @permission_scope.all_domains? %>
+            ALL
+          <% else %>
+            <ul>
+            <% @permission_scope.domaines.each do |domain| %>
+              <li><%= link_to domain, domaine_path(domain) %></li>
+            <% end %>
+            </ul>
+          <% end %>
+        </dd>
 
         <dt class="pb-2"><%= PermissionScope.human_attribute_name(:user_ids) %> :</dt>
-        <dd class="mb-0 pb-2 ps-3"><%= @permission_scope.users.pluck(:email).join(", ") %></dd>
+        <dd class="mb-0 pb-2 ps-3">
+          <ul>
+          <% @permission_scope.users.each do |user| %>
+            <li><%= link_to user, user_path(user) %></li>
+          <% end %>
+          </ul>
+        </dd>
       </dl>
     <% end %>
   </div>

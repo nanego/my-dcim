@@ -15,4 +15,10 @@ class PermissionScope < ApplicationRecord
   def to_s
     name
   end
+
+  def allowed_domains
+    return Domaine.all if all_domains?
+
+    domaines
+  end
 end

@@ -15,15 +15,27 @@
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render List::DataTableComponent.new(@permission_scopes) do |table| %>
     <% table.with_column(PermissionScope.human_attribute_name(:name)) do |permission_scope| %>
-      <%= permission_scope.name %>
-    <% end %>
-
-    <% table.with_column(PermissionScope.human_attribute_name(:domaines)) do |permission_scope| %>
-      TODO
+      <%= link_to permission_scope.name, permission_scope_path(permission_scope) %>
     <% end %>
 
     <% table.with_column(PermissionScope.human_attribute_name(:users)) do |permission_scope| %>
-      TODO
+      <ul>
+      <% permission_scope.users.each do |user| %>
+        <li><%= link_to user, user_path(user) %></li>
+      <% end %>
+      </ul>
+    <% end %>
+
+    <% table.with_column(PermissionScope.human_attribute_name(:domaines)) do |permission_scope| %>
+      <% if permission_scope.all_domains? %>
+        ALL
+      <% else %>
+        <ul>
+        <% permission_scope.domaines.each do |domain| %>
+          <li><%= link_to domain, domaine_path(domain) %></li>
+        <% end %>
+        </ul>
+      <% end %>
     <% end %>
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |permission_scope| %>

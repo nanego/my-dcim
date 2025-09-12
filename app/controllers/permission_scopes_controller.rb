@@ -1,29 +1,27 @@
 # frozen_string_literal: true
 
 class PermissionScopesController < ApplicationController
-  skip_verify_authorized # TODO: remove me
-
   before_action :set_permission_scope, only: %i[show edit update destroy]
 
-  # GET /permission_scopes or /permission_scopes.json
+  # GET /permission_scopes
   def index
-    @permission_scopes = PermissionScope.all
+    @permission_scopes = authorize! PermissionScope.all
   end
 
-  # GET /permission_scopes/1 or /permission_scopes/1.json
+  # GET /permission_scopes/1
   def show; end
 
   # GET /permission_scopes/new
   def new
-    @permission_scope = PermissionScope.new
+    @permission_scope = authorize! PermissionScope.new
   end
 
   # GET /permission_scopes/1/edit
   def edit; end
 
-  # POST /permission_scopes or /permission_scopes.json
+  # POST /permission_scopes
   def create
-    @permission_scope = PermissionScope.new(permission_scope_params)
+    @permission_scope = authorize! PermissionScope.new(permission_scope_params)
 
     respond_to do |format|
       if @permission_scope.save
@@ -36,7 +34,7 @@ class PermissionScopesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /permission_scopes/1 or /permission_scopes/1.json
+  # PATCH/PUT /permission_scopes/1
   def update
     respond_to do |format|
       if @permission_scope.update(permission_scope_params)
@@ -49,7 +47,7 @@ class PermissionScopesController < ApplicationController
     end
   end
 
-  # DELETE /permission_scopes/1 or /permission_scopes/1.json
+  # DELETE /permission_scopes/1
   def destroy
     @permission_scope.destroy!
 
@@ -63,7 +61,7 @@ class PermissionScopesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_permission_scope
-    @permission_scope = PermissionScope.find(params.expect(:id))
+    @permission_scope = authorize! PermissionScope.find(params.expect(:id))
   end
 
   # Only allow a list of trusted parameters through.
