@@ -8,7 +8,7 @@ class PermissionScopeDecorator < ApplicationDecorator
 
     def users_for_options
       User.select(:email, :name, :id)
-          .map { |user| [user.to_s, user.id] }
+        .map { |user| [user.to_s, user.id] }
     end
   end
 end

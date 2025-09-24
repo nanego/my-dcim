@@ -14,7 +14,7 @@ RSpec.describe PermissionScopeDecorator, type: :decorator do
     it do
       expect(described_class.users_for_options)
         .to match_array(
-          users.map { |u| [u.to_s, u.id] }
+          users.map { |u| [u.to_s, u.id] },
         )
     end
   end
