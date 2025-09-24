@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class ServerPolicy < ApplicationPolicy
+  relation_scope do |relation|
+    # TODO: servers where user.permitted_domains match
+  end
+
   def duplicate?
     manage?
   end
