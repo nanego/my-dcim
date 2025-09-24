@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe PermissionScope do
   # it_behaves_like "changelogable", new_attributes: {  }
 
-  subject(:permission_scope) { described_class.new(name: "A") }
+  subject(:permission_scope) { described_class.new(name: "A", all_domains: true) }
 
   describe "associations" do
     it { is_expected.to have_many(:permission_scope_domains) }
@@ -18,6 +18,30 @@ RSpec.describe PermissionScope do
     it { is_expected.to be_valid }
 
     it { is_expected.to validate_presence_of(:name) }
+
+    describe "validate domains" do
+      context "when all_domains false and domaines empty" do
+        subject(:permission_scope) { described_class.new(name: "A", all_domains: false) }
+
+        it { is_expected.not_to be_valid }
+      end
+
+      context "when all_domains true and domaines empty" do
+        subject(:permission_scope) do
+          described_class.new(name: "A", all_domains: true, domaines: [])
+        end
+
+        it { is_expected.to be_valid }
+      end
+
+      context "when all_domains false and domaines not empty" do
+        subject(:permission_scope) do
+          described_class.new(name: "A", all_domains: false, domaines: [domaines(:switch)])
+        end
+
+        it { is_expected.to be_valid }
+      end
+    end
   end
 
   describe "#to_s" do

@@ -11,6 +11,7 @@ class PermissionScope < ApplicationRecord
   has_many :users, through: :permission_scope_users
 
   validates :name, presence: true
+  validate :validate_domains
 
   def to_s
     name
@@ -20,5 +21,14 @@ class PermissionScope < ApplicationRecord
     return Domaine.all if all_domains?
 
     domaines
+  end
+
+  private
+
+  def validate_domains
+    return if all_domains?
+    return unless domaines.empty?
+
+    errors.add(:domaine_ids, :blank)
   end
 end

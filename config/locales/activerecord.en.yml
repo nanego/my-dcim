@@ -198,3 +198,8 @@ en:
           attributes:
             email:
               invalid: Invalid email address
+
+        permission_scope:
+          attributes:
+            domaine_ids:
+              blank: can't be blank, or all domains must be checked

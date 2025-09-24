@@ -455,3 +455,8 @@ fr:
           attributes:
             email:
               invalid: L'adresse email est invalide
+
+        permission_scope:
+          attributes:
+            domaine_ids:
+              blank: doit être rempli, ou tout les domaines doit être coché
