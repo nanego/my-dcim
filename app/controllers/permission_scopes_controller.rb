@@ -3,6 +3,10 @@
 class PermissionScopesController < ApplicationController
   before_action :set_permission_scope, only: %i[show edit update destroy]
 
+  before_action except: :index do
+    breadcrumb.add_step(PermissionScope.model_name.human.pluralize, permission_scopes_path)
+  end
+
   # GET /permission_scopes
   def index
     @permission_scopes = authorize! PermissionScope.all

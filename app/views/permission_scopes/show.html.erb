@@ -1,6 +1,5 @@
 <%
   breadcrumb
-    .add_step(PermissionScope.model_name.human.pluralize, permission_scopes_path)
     .add_step(title = @permission_scope)
 %>
 
@@ -17,7 +16,7 @@
         <dt class="pb-2"><%= PermissionScope.human_attribute_name(:domaine_ids) %> :</dt>
         <dd class="mb-0 pb-2 ps-3">
           <% if @permission_scope.all_domains? %>
-            ALL
+            <%= PermissionScope.human_attribute_name(:all_domains) %>
           <% else %>
             <ul>
             <% @permission_scope.domaines.each do |domain| %>
