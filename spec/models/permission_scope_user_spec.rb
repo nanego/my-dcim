@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe PermissionScopeUser do
   subject(:permission_scope_user) do
-    described_class.new(permission_scope: permission_scopes(:one), user: users(:one))
+    described_class.new(permission_scope: permission_scopes(:all), user: users(:one))
   end
 
   describe "associations" do

@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe PermissionScopeDomain do
   subject(:permission_scope_user) do
-    described_class.new(permission_scope: permission_scopes(:one), domaine: domaines(:three))
+    described_class.new(permission_scope: permission_scopes(:all), domaine: domaines(:three))
   end
 
   describe "associations" do

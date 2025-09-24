@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe PermissionScopeDecorator, type: :decorator do
-  let(:permission_scope) { permission_scopes(:one) }
+  let(:permission_scope) { permission_scopes(:all) }
   let(:decorated_permission_scope) { permission_scope.decorated }
 
   describe ".roles_for_options" do

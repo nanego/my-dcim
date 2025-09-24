@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe PermissionScopesController do
-  let(:permission_scope) { permission_scopes(:one) }
+  let(:permission_scope) { permission_scopes(:all) }
 
   before do
     sign_in users(:admin)

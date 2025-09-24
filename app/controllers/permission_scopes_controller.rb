@@ -31,7 +31,7 @@ class PermissionScopesController < ApplicationController
       if @permission_scope.save
         format.html { redirect_to @permission_scope, notice: t(".flashes.created") }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
       end
     end
   end
@@ -42,7 +42,7 @@ class PermissionScopesController < ApplicationController
       if @permission_scope.update(permission_scope_params)
         format.html { redirect_to @permission_scope, notice: t(".flashes.updated") }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
       end
     end
   end
