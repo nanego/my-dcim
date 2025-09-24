@@ -111,9 +111,7 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:domaine_ids, Domaine.sorted,
-                                  :id,
-                                  :name,
+          <%= f.select(:domaine_ids, ServerDecorator.domains_for_options(current_user),
                                   { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :domaine_ids %>
