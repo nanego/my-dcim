@@ -31,6 +31,7 @@ en:
       server: I.T. equipment
       stack: Stack
       user: User
+      permission_scope: Permission Scope
 
     attributes:
       bay:
@@ -166,6 +167,15 @@ en:
           zero: 0 frames
           one: 1 frame
           other: "%{count} frames"
+      permission_scope:
+        name: Name
+        role: Role
+        all_domains: All domains
+        domaine_ids: Domains
+        user_ids: Users
+      permission_scope/role:
+        reader: Reader
+        writer: Writer
 
     errors:
       models:
@@ -188,3 +198,8 @@ en:
           attributes:
             email:
               invalid: Invalid email address
+
+        permission_scope:
+          attributes:
+            domaine_ids:
+              blank: can't be blank, or "All domains" must be checked

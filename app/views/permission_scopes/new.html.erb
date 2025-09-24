@@ -1,0 +1,10 @@
+<%
+  breadcrumb
+    .add_step(t("action.create"))
+%>
+
+<%= render Page::HeadingNewComponent.new(resource: @permission_scope, title: t(".title"), breadcrumb:) %>
+
+<div class="col-12 p-4 border-top">
+  <%= render "form" %>
+</div>

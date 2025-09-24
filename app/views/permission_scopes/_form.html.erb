@@ -1,0 +1,40 @@
+<%= form_for(@permission_scope, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+  <%= render FormErrorsComponent.new(@permission_scope) %>
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+    <fieldset class="col-12 ">
+      <%= f.label :name, class: "form-label" %>
+      <%= f.text_field :name, class: "form-control" %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :role, class: "form-label" %>
+      <%= f.select(:role,
+                    PermissionScopeDecorator.roles_for_options,
+                    {},
+                    class: "form-select") %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :domaine_ids, class: "form-label" %>
+      <%= f.select :domaine_ids, Domaine.pluck(:name, :id),
+                            { include_blank: t("access_control.blank") },
+                            class: "form-select", multiple: true, data: { controller: :select } %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :all_domains, class: "form-label" do |translation| %>
+        <%= f.checkbox :all_domains, class: "" %>
+        <%= translation %>
+      <% end %>
+    </fieldset>
+
+    <fieldset class="col-12 mt-4">
+      <%= f.label :user_ids, class: "form-label" %>
+      <%= f.select :user_ids, PermissionScopeDecorator.users_for_options,
+                            { include_blank: t("access_control.blank") },
+                            class: "form-select", multiple: true, data: { controller: :select } %>
+    </fieldset>
+  <% end %>
+
+  <%= render Form::ActionsComponent.new(f) %>
+<% end %>
