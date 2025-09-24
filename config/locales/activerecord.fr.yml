@@ -459,4 +459,4 @@ fr:
         permission_scope:
           attributes:
             domaine_ids:
-              blank: doit être rempli, ou tout les domaines doit être coché
+              blank: doit être rempli, ou "Tous les domaines" doit être coché

@@ -202,4 +202,4 @@ en:
         permission_scope:
           attributes:
             domaine_ids:
-              blank: can't be blank, or all domains must be checked
+              blank: can't be blank, or "All domains" must be checked
