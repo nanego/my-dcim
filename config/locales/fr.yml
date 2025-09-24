@@ -884,12 +884,12 @@ fr:
       new_permission_scope: Nouveau périmètre
       delete_confirmation: Vous êtes sûr de vouloir supprimer cette périmètre ?
     new:
-      title: Nouvelle périmètre
+      title: Nouveau périmètre
     create:
       flashes:
         created: Le périmètre a bien été créé.
     edit:
-      title: Editier la périmètre %{name}
+      title: Editier le périmètre %{name}
     update:
       flashes:
         updated: Le périmètre a bien été mis à jour.

@@ -9,4 +9,13 @@ RSpec.describe PermissionScopeDecorator, type: :decorator do
   describe ".roles_for_options" do
     it { expect(described_class.roles_for_options.pluck(1)).to match_array(PermissionScope.roles.pluck(0)) }
   end
+
+  describe ".users_for_options" do
+    it do
+      expect(described_class.users_for_options)
+        .to match_array(
+          users.map { |u| [u.to_s, u.id] }
+        )
+    end
+  end
 end

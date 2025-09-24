@@ -18,7 +18,7 @@
       <%= link_to permission_scope.name, permission_scope_path(permission_scope) %>
     <% end %>
 
-    <% table.with_column(PermissionScope.human_attribute_name(:users)) do |permission_scope| %>
+    <% table.with_column(PermissionScope.human_attribute_name(:user_ids)) do |permission_scope| %>
       <ul>
       <% permission_scope.users.each do |user| %>
         <li><%= link_to user, user_path(user) %></li>
@@ -26,9 +26,9 @@
       </ul>
     <% end %>
 
-    <% table.with_column(PermissionScope.human_attribute_name(:domaines)) do |permission_scope| %>
+    <% table.with_column(PermissionScope.human_attribute_name(:domaine_ids)) do |permission_scope| %>
       <% if permission_scope.all_domains? %>
-        ALL
+        <%= PermissionScope.human_attribute_name(:all_domains) %>
       <% else %>
         <ul>
         <% permission_scope.domaines.each do |domain| %>
