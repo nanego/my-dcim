@@ -25,7 +25,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
       logger.warn("DEPRECATION WARNING: Search with 'name' is now deprecated. Use 'q' instead.")
     end
 
-    authorize! @servers = Server.no_pdus
+    authorize! @servers = scoped_servers.no_pdus
       .includes(frame: { bay: { islet: :room } }, modele: :category)
       .references(frame: { bay: { islet: :room } }, modele: :category)
       .order(:name)
@@ -177,9 +177,13 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
 
   private
 
+  def scoped_servers
+    authorized_scope(Server.all)
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_server
-    authorize! @server = Server.friendly_find_by_numero_or_name(params[:id])
+    authorize! @server = scoped_servers.friendly_find_by_numero_or_name(params[:id])
   end
 
   def set_cables

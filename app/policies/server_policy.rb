@@ -2,7 +2,9 @@
 
 class ServerPolicy < ApplicationPolicy
   relation_scope do |relation|
-    # TODO: servers where user.permitted_domains match
+    return relation if user.admin?
+
+    relation.where(domaine: user.permitted_domains)
   end
 
   def duplicate?
