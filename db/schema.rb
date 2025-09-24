@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_27_090459) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_27_143937) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -400,6 +400,32 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_27_090459) do
     t.index ["created_by_id"], name: "index_moves_projects_on_created_by_id"
   end
 
+  create_table "permission_scope_domains", force: :cascade do |t|
+    t.bigint "permission_scope_id", null: false
+    t.bigint "domaine_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["domaine_id"], name: "index_permission_scope_domains_on_domaine_id"
+    t.index ["permission_scope_id"], name: "index_permission_scope_domains_on_permission_scope_id"
+  end
+
+  create_table "permission_scope_users", force: :cascade do |t|
+    t.bigint "permission_scope_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["permission_scope_id"], name: "index_permission_scope_users_on_permission_scope_id"
+    t.index ["user_id"], name: "index_permission_scope_users_on_user_id"
+  end
+
+  create_table "permission_scopes", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "role", default: 0, null: false
+    t.boolean "all_domains", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "port_types", id: :serial, force: :cascade do |t|
     t.string "name"
     t.boolean "power"
@@ -553,6 +579,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_27_090459) do
   add_foreign_key "moves", "moves_project_steps"
   add_foreign_key "moves_project_steps", "moves_projects"
   add_foreign_key "moves_projects", "users", column: "created_by_id"
+  add_foreign_key "permission_scope_domains", "domaines"
+  add_foreign_key "permission_scope_domains", "permission_scopes"
+  add_foreign_key "permission_scope_users", "permission_scopes"
+  add_foreign_key "permission_scope_users", "users"
   add_foreign_key "rooms", "sites"
   add_foreign_key "servers", "clusters"
   add_foreign_key "servers", "gestions"

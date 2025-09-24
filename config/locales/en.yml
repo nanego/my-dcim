@@ -324,6 +324,25 @@ en:
         success: The room has successfully been updated
     add_new: Add a room
 
+  permission_scopes:
+    index:
+      title: Permission Scope
+      new_permission_scope: New permission scope
+      delete_confirmation: Are you sure to destroy this permission scope ?
+    new:
+      title: New Permission Scope
+    create:
+      flashes:
+        created: Permission Scope as been successfully created.
+    edit:
+      title: Edit Permission Scope - %{name}
+    update:
+      flashes:
+        updated: Permission Scope as been successfully updated.
+    destroy:
+      flashes:
+        destroyed: Permission Scope as been successfully destroyed.
+
   search:
     index:
       results: Search results
