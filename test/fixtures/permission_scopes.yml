@@ -6,6 +6,7 @@
 #
 all:
   name: All
+  all_domains: true
 
 with_users:
   id: 2
