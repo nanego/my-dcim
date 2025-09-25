@@ -158,16 +158,6 @@ Rails/Output:
     - 'app/models/frame.rb'
     - 'db/migrate/20180110152701_add_attributes_to_servers.rb'
 
-# Offense count: 4
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: AllowedReceivers.
-# AllowedReceivers: ActionMailer::Preview, ActiveSupport::TimeZone
-Rails/RedundantActiveRecordAllMethod:
-  Exclude:
-    - 'db/migrate/20170727132107_create_enclosures.rb'
-    - 'db/migrate/20170803155630_init_cables_from_current_ports.rb'
-    - 'db/migrate/20180110152701_add_attributes_to_servers.rb'
-
 # Offense count: 13
 # Configuration parameters: Include.
 # Include: db/**/*.rb
