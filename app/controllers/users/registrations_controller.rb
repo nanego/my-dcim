@@ -4,7 +4,7 @@ module Users
   class RegistrationsController < Devise::RegistrationsController
     skip_verify_authorized
 
-    before_action :admin_only, only: %i[new create]
+    before_action :admin_only, only: %i[new create] # rubocop:disable Rails/LexicallyScopedActionFilter
 
     protected
 

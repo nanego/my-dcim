@@ -149,13 +149,6 @@ Rails/InverseOf:
     - 'app/models/frame.rb'
     - 'app/models/server.rb'
 
-# Offense count: 1
-# Configuration parameters: Include.
-# Include: **/app/controllers/**/*.rb, **/app/mailers/**/*.rb
-Rails/LexicallyScopedActionFilter:
-  Exclude:
-    - 'app/controllers/users/registrations_controller.rb'
-
 # Offense count: 17
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: Include.
