@@ -135,7 +135,6 @@ Rails/HasManyOrHasOneDependent:
     - 'app/models/bay_type.rb'
     - 'app/models/card.rb'
     - 'app/models/composant.rb'
-    - 'app/models/concerns/changelogable.rb'
     - 'app/models/port.rb'
     - 'app/models/port_type.rb'
     - 'app/models/server.rb'
@@ -145,7 +144,6 @@ Rails/HasManyOrHasOneDependent:
 # Include: **/app/models/**/*.rb
 Rails/InverseOf:
   Exclude:
-    - 'app/models/concerns/changelogable.rb'
     - 'app/models/frame.rb'
     - 'app/models/server.rb'
 
