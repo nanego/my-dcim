@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ServersGrid
+class ServersGrid # rubocop:disable Metrics/ClassLength
   include Datagrid
 
   #########
@@ -125,6 +125,12 @@ class ServersGrid
   # column(:network)
 
   column("Actions", html: true, mandatory: false) do |record|
-    link_to(t("action.edit"), edit_server_path(record.slug), class: "btn btn-primary").to_s + '<span style="margin-left:10px">'.html_safe + link_to("Supprimer", server_path(record.slug), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger").to_s + "</span>".html_safe
+    edit_link = link_to(t("action.edit"), edit_server_path(record.slug), class: "btn btn-primary").to_s
+    delete_link = link_to("Supprimer", server_path(record.slug), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger").to_s
+
+    <<~HTML.html_safe # rubocop:disable Rails/OutputSafety
+      #{edit_link}
+      <span style="margin-left:10px">#{delete_link}</span>
+    HTML
   end
 end

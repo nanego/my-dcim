@@ -14,7 +14,5 @@ class Composant < ApplicationRecord
   scope :slots, -> { ordered } # TODO: remove
   scope :ordered, -> { order(position: :asc) }
 
-  def to_s
-    name.to_s
-  end
+  delegate :to_s, to: :name
 end

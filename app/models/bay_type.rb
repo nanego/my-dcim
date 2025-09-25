@@ -5,7 +5,5 @@ class BayType < ApplicationRecord
 
   has_many :bays
 
-  def to_s
-    name.to_s
-  end
+  delegate :to_s, to: :name
 end

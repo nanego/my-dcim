@@ -7,7 +7,5 @@ class Domaine < ApplicationRecord
 
   scope :sorted, -> { order(Arel.sql("LOWER(name)")) }
 
-  def to_s
-    name.to_s
-  end
+  delegate :to_s, to: :name
 end

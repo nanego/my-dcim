@@ -2,7 +2,7 @@
 
 class CreateCardsServeurs < ActiveRecord::Migration[4.2]
   def change
-    create_table :cards_serveurs do |t|
+    create_table :cards_serveurs do |t| # rubocop:disable Rails/CreateTableWithTimestamps
       t.integer :card_id
       t.integer :serveur_id
       t.integer :composant_id

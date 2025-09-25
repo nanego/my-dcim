@@ -11,11 +11,11 @@ class GlpiClient
   attr_reader :connection, :session_token
 
   def initialize(connection = Faraday.new(API_URL, { ssl: { verify: false }, proxy: PROXY_URL }))
-    if Rails.env.production?
-      @connection = connection
-    else
-      @connection = Faraday.new { |b| b.adapter(:test, stubs) }
-    end
+    @connection = if Rails.env.production?
+                    connection
+                  else
+                    Faraday.new { |b| b.adapter(:test, stubs) }
+                  end
     @session_token = init_session
   end
 

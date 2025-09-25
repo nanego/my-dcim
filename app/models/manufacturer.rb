@@ -8,7 +8,5 @@ class Manufacturer < ApplicationRecord
 
   scope :sorted, -> { order(:name) }
 
-  def to_s
-    name.to_s
-  end
+  delegate :to_s, to: :name
 end

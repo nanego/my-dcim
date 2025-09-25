@@ -2,7 +2,7 @@
 
 require "csv"
 
-class ImportEquipmentByCsv
+class ImportEquipmentByCsv # rubocop:disable Metrics/ClassLength
   DEFAULT_NB_OF_SLOTS = 7
 
   def self.call(**args)

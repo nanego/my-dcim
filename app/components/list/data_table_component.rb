@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module List
-  class DataTableComponent < ApplicationComponent
+  class DataTableComponent < ApplicationComponent # rubocop:disable Metrics/ClassLength
     renders_many :bulk_actions, ->(*args, **kwargs) { DatatableBulkAction.new(*args, **kwargs) }
     renders_many :columns, lambda { |title = nil, **options, &block|
       DatatableColumn.new(title, **options, &block)
