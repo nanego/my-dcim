@@ -6,7 +6,7 @@ end
 
 class CreateBayTypes < ActiveRecord::Migration[4.2]
   def change
-    create_table :bay_types do |t|
+    create_table :bay_types do |t| # rubocop:disable Rails/CreateTableWithTimestamps
       t.string :name
       t.integer :size
     end
