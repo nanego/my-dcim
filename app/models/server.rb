@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Server < ApplicationRecord
+class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
   extend FriendlyId
 
   friendly_id :slug_candidates, use: %i[slugged history]

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ConnectionsController < ApplicationController
+class ConnectionsController < ApplicationController # rubocop:disable Metrics/ClassLength
   def edit # rubocop:disable Metrics/AbcSize
     authorize!
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Frame < ApplicationRecord
+class Frame < ApplicationRecord # rubocop:disable Metrics/ClassLength
   DEFAULT_SETTINGS = { max_u: 38, max_elts: 24, max_rj45: 48, max_fc: 12 }.freeze
   VIEW_SIDES = { both: "both", front: "front", back: "back" }.freeze
 

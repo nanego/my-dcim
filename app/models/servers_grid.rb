@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ServersGrid
+class ServersGrid # rubocop:disable Metrics/ClassLength
   include Datagrid
 
   #########
