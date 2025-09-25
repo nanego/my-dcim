@@ -38,9 +38,16 @@ class BaysController < ApplicationController
   def create
     authorize! @bay = Bay.new(bay_params)
 
+    unless @bay.position.nil?
+      position = @bay.position
+      @bay.position = nil
+    end
+
     respond_to do |format|
       if @bay.save
-        format.html { redirect_to_new_or_to(@bay, notice: t(".flashes.created")) }
+        @bay.set_list_position(position) if position
+
+        format.html { form_redirect_to_new_or_to(@bay, notice: t(".flashes.created")) }
         format.json { render :show, status: :created, location: @bay }
       else
         format.html { render :new }
@@ -62,14 +69,16 @@ class BaysController < ApplicationController
   end
 
   def destroy
-    if @bay.destroy
-      respond_to do |format|
-        format.html { redirect_to bays_url, notice: t(".flashes.destroyed") }
-        format.json { head :no_content }
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_to bays_url, alert: @bay.errors.full_messages_for(:base).join(", ") }
+    Bay.acts_as_list_no_update do
+      if @bay.destroy
+        respond_to do |format|
+          format.html { form_redirect_to bays_url, notice: t(".flashes.destroyed") }
+          format.json { head :no_content }
+        end
+      else
+        respond_to do |format|
+          format.html { form_redirect_to bays_url, alert: @bay.errors.full_messages_for(:base).join(", ") }
+        end
       end
     end
   end

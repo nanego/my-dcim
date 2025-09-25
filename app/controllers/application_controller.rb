@@ -65,6 +65,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def form_redirect_to_new_or_to(options = {}, response_options = {})
+    if params[:create_another_one].present?
+      options = url_for(action: :new, create_another_one: "1", redirect_to_on_success: params[:redirect_to_on_success])
+
+      redirect_to options, response_options
+    else
+      form_redirect_to(options, response_options)
+    end
+  end
+
   private
 
   def pagy_get_limit(vars)

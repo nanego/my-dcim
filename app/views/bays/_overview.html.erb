@@ -4,8 +4,10 @@
       <% bays.each.with_index(1) do |bay, i| %>
         <% if bay == :no_bay %>
           <span class="d-flex" style="grid-row:<%= "#{lane.to_i}/#{lane.to_i+1}" %>; grid-column: <%= "#{i}/#{i+1}" %>;">
-            <span class="bay">
-              <span class="bi bi-plus-circle-fill"></span>
+            <span class="bay d-flex">
+              <%= render Overview::ShortcutButtonComponent.new(
+                islet.id, i, lane.to_i
+              ) %>
             </span>
           </span>
         <% else %>
@@ -38,7 +40,7 @@
                 </span>
               <% else %>
                 <span class="bay d-flex bg-body-tertiary border-secondary-subtle border">
-                  <%= render Overview::CreateDeleteButtonComponent.new(
+                  <%= render Overview::ShortcutButtonComponent.new(
                     bay.id, j+1, class: class_names("border-start-0": j.odd?)
                   ) %>
                 </span>
@@ -48,8 +50,10 @@
         <% end %>
       <% end %>
       <span class="d-flex" style="grid-row:<%= "#{lane.to_i}/#{lane.to_i+1}" %>;">
-        <span class="bay">
-          <span class="bi bi-plus-circle-fill"></span>
+        <span class="bay d-flex">
+          <%= render Overview::ShortcutButtonComponent.new(
+            islet.id, nil, lane.to_i
+          ) %>
         </span>
       </span>
     <% end %>
