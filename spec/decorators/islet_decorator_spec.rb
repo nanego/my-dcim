@@ -63,9 +63,13 @@ RSpec.describe IsletDecorator, type: :decorator do
     end
 
     context "with several bays on one lane and with one missing bay" do
-      before { bays(:three).update(lane: 1, position: 3) }
+      before { bays(:three).update(lane: 1, position: 4) }
 
-      it { expect(decorated_islet.overviewed_bays_array).to contain_exactly([1, [bays(:one), :no_bay, bays(:three)]]) }
+      it do
+        expect(decorated_islet.overviewed_bays_array).to contain_exactly(
+          [1, [bays(:one), :no_bay, bays(:five), bays(:three)]],
+        )
+      end
     end
 
     context "with several bays on two lanes and with missing bays" do
@@ -73,7 +77,7 @@ RSpec.describe IsletDecorator, type: :decorator do
 
       it do
         expect(decorated_islet.overviewed_bays_array).to contain_exactly(
-          [1, [bays(:one)]], [2, [:no_bay, :no_bay, bays(:three)]]
+          [1, [bays(:one), bays(:five)]], [2, [:no_bay, :no_bay, bays(:three)]]
         )
       end
     end

@@ -39,7 +39,7 @@
         <%= f.number_field :switch_slot, class: "form-control" %>
       </fieldset>
 
-      <% if @frame.persisted? %>
+      <% if @frame.persisted? && @frame.bay %>
         <div class="col-12 mt-4">
           <span class="form-label d-block"><%= t("frames.coupled_frame_label") %></span>
           <%= f.object.other_frame.present? ? link_to(f.object.other_frame.name, frame_path(f.object.other_frame))

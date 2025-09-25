@@ -76,10 +76,12 @@ class Frame < ApplicationRecord
   end
 
   def other_frame
-    (bay.frames - [self]).first
+    other_frames.first
   end
 
   def other_frames
+    return [] unless bay
+
     bay.frames - [self]
   end
 
