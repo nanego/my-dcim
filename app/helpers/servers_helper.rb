@@ -9,7 +9,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     if cards_names.present?
       if cards.first.twin_card_id.present?
         link_to network_frame_path(server.frame, network_frame_id: Card.find(cards.first.twin_card_id).server.frame_id) do
-          "<span class='bi bi-upload me-1' aria-hidden='true'></span>#{cards_names.join("-")}".html_safe
+          "<span class='bi bi-upload me-1' aria-hidden='true'></span>#{cards_names.join("-")}".html_safe # rubocop:disable Rails/OutputSafety
         end
       else
         cards_names.join("-")
@@ -51,7 +51,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       html += "</tr>"
     end
     html += "</table>"
-    html.html_safe
+    html.html_safe # rubocop:disable Rails/OutputSafety
   end
 
   def ports_by_card_with_presentation(card:, selected_port: nil, moved_connections: [], twin_card_used_ports: [])
@@ -102,7 +102,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       html += "</tr>"
     end
     html += "</table>"
-    html.html_safe
+    html.html_safe # rubocop:disable Rails/OutputSafety
   end
 
   def ports_by_card(port_type:, port_quantity:, ports_data:, card_id: nil, selected_port: nil, moved_connections: [], twin_card_used_ports: [])
@@ -132,7 +132,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
                           ))
     end
 
-    html.html_safe
+    html.html_safe # rubocop:disable Rails/OutputSafety
   end
 
   def link_to_port_without_label(position, port_data, port_type, card_id, port_id)
@@ -157,7 +157,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       port_type_name = "FC"
       cable_name = position.to_s.rjust(2, "0") if cable_name.blank?
     else
-      cable_name = (port_data&.cable_name.presence || port_type.try(:name)).to_s.html_safe
+      cable_name = (port_data&.cable_name.presence || port_type.try(:name)).to_s.html_safe # rubocop:disable Rails/OutputSafety
       port_type_name = port_type.name
     end
 

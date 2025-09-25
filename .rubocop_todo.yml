@@ -158,11 +158,6 @@ Rails/Output:
     - 'app/models/frame.rb'
     - 'db/migrate/20180110152701_add_attributes_to_servers.rb'
 
-# Offense count: 5
-Rails/OutputSafety:
-  Exclude:
-    - 'app/helpers/servers_helper.rb'
-
 # Offense count: 4
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: AllowedReceivers.
