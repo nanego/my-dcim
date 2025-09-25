@@ -935,6 +935,10 @@ body {
         padding-bottom: var(--bs-card-spacer-y);
       }
 
+      .d-inline-grid {
+        grid-auto-rows: 1fr;
+      }
+
       .bay {
         width: 100px;
       }
