@@ -21,9 +21,7 @@ class Frame < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   scope :sorted, -> { order(:position) }
 
-  def to_s
-    name.to_s
-  end
+  delegate :to_s, to: :name
 
   def self.all_sorted
     Frame.includes(islet: :room, bay: :islet).sort_by(&:name_with_room_and_islet)

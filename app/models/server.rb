@@ -61,9 +61,7 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
     Server.find_by("lower(numero) = ?", name) || Server.friendly.find(name)
   end
 
-  def to_s
-    name.to_s
-  end
+  delegate :to_s, to: :name
 
   def should_generate_new_friendly_id?
     slug.blank? || name_changed?
