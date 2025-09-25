@@ -643,23 +643,23 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  action_policy
+  action_policy (~> 0.7)
   active_record_doctor
-  active_storage_validations
-  acts_as_list
+  active_storage_validations (~> 3.0)
+  acts_as_list (~> 1.2)
   bootsnap
   bootstrap (~> 5.3.2)
   brakeman
   byebug
   capybara (>= 2.15)
-  csv
+  csv (~> 3.3)
   cuprite
-  dalli
-  dartsass-sprockets
+  dalli (~> 3.2)
+  dartsass-sprockets (~> 3.1)
   datagrid
   debug
   dekorator (~> 1.4)
-  devise
+  devise (~> 4.9)
   devise-i18n
   devise_invitable
   diffy (~> 3.4)
@@ -668,13 +668,13 @@ DEPENDENCIES
   faraday
   formulaic
   friendly_id (~> 5.2)
-  geocoder
-  hotwire-livereload
+  geocoder (~> 1.8)
+  hotwire-livereload (~> 2.0)
   image_processing (~> 1.2)
   importmap-rails (~> 2.0)
   jbuilder
-  jquery-rails
-  jquery-ui-rails
+  jquery-rails (~> 4.6)
+  jquery-ui-rails (~> 8.0)
   kaminari
   letter_opener
   listen (~> 3.3)
@@ -685,7 +685,7 @@ DEPENDENCIES
   omniauth-rails_csrf_protection
   omniauth_openid_connect (~> 0.7.0)
   pagy
-  passenger
+  passenger (~> 6.0)
   pg
   puma
   rack-mini-profiler
@@ -693,11 +693,11 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n (~> 8.0.x)
   record_tag_helper (~> 1.0)
-  requestjs-rails
+  requestjs-rails (~> 0.0.12)
   rspec-activemodel-mocks
   rspec-html-matchers
   rspec-rails
-  rubanok
+  rubanok (~> 0.5)
   rubocop
   rubocop-capybara
   rubocop-performance
@@ -705,7 +705,7 @@ DEPENDENCIES
   rubocop-rake
   rubocop-rspec
   rubocop-rspec_rails
-  scenic
+  scenic (~> 1.8)
   shoulda-matchers
   shrine (~> 3.0.x)
   simple_token_authentication!
@@ -715,8 +715,8 @@ DEPENDENCIES
   stimulus-rails (~> 1.2)
   store_attribute (~> 1.2)
   terser
-  turbo-rails
-  view_component
+  turbo-rails (~> 2.0)
+  view_component (~> 3.21)
   web-console (>= 4.1.0)
 
 CHECKSUMS

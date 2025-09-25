@@ -7,7 +7,7 @@ ruby file: ".ruby-version"
 gem "rails", "~> 8.0.0"
 
 gem "bootstrap", "~> 5.3.2"
-gem "dartsass-sprockets"
+gem "dartsass-sprockets", "~> 3.1"
 gem "jbuilder"
 gem "nokogiri", "~> 1.18"
 gem "rails-i18n", "~> 8.0.x"
@@ -15,7 +15,7 @@ gem "sprockets-rails", require: "sprockets/railtie"
 gem "terser"
 
 # Authentication
-gem "devise"
+gem "devise", "~> 4.9"
 gem "devise-i18n"
 gem "devise_invitable"
 gem "omniauth", "~> 2.1.0"
@@ -74,13 +74,13 @@ group :test do
 end
 
 group :production do
-  gem "dalli"
+  gem "dalli", "~> 3.2"
   gem "mini_racer", "~> 0.16.0"
-  gem "passenger"
+  gem "passenger", "~> 6.0"
 end
 
-gem "active_storage_validations"
-gem "acts_as_list"
+gem "active_storage_validations", "~> 3.0"
+gem "acts_as_list", "~> 1.2"
 gem "friendly_id", "~> 5.2"
 gem "record_tag_helper", "~> 1.0" # Add helpers removed from Rails core in Rails 5
 
@@ -92,22 +92,22 @@ gem "exception_notification"
 gem "letter_opener", group: :development
 
 # Geocode Sites positions
-gem "geocoder"
+gem "geocoder", "~> 1.8"
 
-gem "action_policy"
+gem "action_policy", "~> 0.7"
 gem "brakeman", group: %i[test development], require: false
-gem "csv"
+gem "csv", "~> 3.3"
 gem "debug", group: %i[test development], platforms: %i[mri windows], require: "debug/prelude"
 gem "dekorator", "~> 1.4"
 gem "diffy", "~> 3.4"
-gem "hotwire-livereload", group: :development
+gem "hotwire-livereload", "~> 2.0", group: :development
 gem "importmap-rails", "~> 2.0"
-gem "jquery-rails"
-gem "jquery-ui-rails"
-gem "requestjs-rails"
-gem "rubanok"
-gem "scenic"
+gem "jquery-rails", "~> 4.6"
+gem "jquery-ui-rails", "~> 8.0"
+gem "requestjs-rails", "~> 0.0.12"
+gem "rubanok", "~> 0.5"
+gem "scenic", "~> 1.8"
 gem "stimulus-rails", "~> 1.2"
 gem "store_attribute", "~> 1.2"
-gem "turbo-rails"
-gem "view_component"
+gem "turbo-rails", "~> 2.0"
+gem "view_component", "~> 3.21"
