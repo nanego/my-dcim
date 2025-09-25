@@ -78,9 +78,11 @@ class User < ApplicationRecord
   def permitted_domains
     @permitted_domains ||= begin
       ids = permission_scopes.includes(:domaines).map do |permission_scope|
-        return Domaine.all if permission_scope.all_domains?
-
-        permission_scope.domaines.ids
+        if permission_scope.all_domains?
+          Domaine.all
+        else
+          permission_scope.domaines.ids
+        end
       end
 
       Domaine.where(id: ids.flatten)
