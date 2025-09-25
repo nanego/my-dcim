@@ -167,11 +167,11 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
   def link_to_port_by_type(label, type, port_data, position, card_id, port_id)
     edit_port_url = port_id ? connections_edit_path(from_port_id: port_id) : edit_port_path(id: 0, card_id: card_id, position: position)
 
-    if %w[RJ XRJ FC ALIM].include? type
-      port_class = type
-    else
-      port_class = "SCSI"
-    end
+    port_class = if %w[RJ XRJ FC ALIM].include? type
+                   type
+                 else
+                   "SCSI"
+                 end
 
     link_to label.to_s,
             edit_port_url,

@@ -81,11 +81,11 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
     # Number of ports per type
     sums = { "XRJ" => 0, "RJ" => 0, "FC" => 0, "IPMI" => 0 }
     cards.each do |card|
-      if card.composant.name == "IPMI"
-        port_type = "IPMI"
-      else
-        port_type = card.card_type.port_type.name
-      end
+      port_type = if card.composant.name == "IPMI"
+                    "IPMI"
+                  else
+                    card.card_type.port_type.name
+                  end
       sums[port_type] = sums[port_type].to_i + card.ports.filter_map { |port| port.connection.try(:cable) }.size
     end
     sums

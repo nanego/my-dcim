@@ -186,18 +186,6 @@ Rake/MethodDefinitionInTask:
   Exclude:
     - 'lib/tasks/convert_activities_to_changelog_entries.rake'
 
-# Offense count: 6
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.
-# SupportedStyles: assign_to_condition, assign_inside_condition
-Style/ConditionalAssignment:
-  Exclude:
-    - 'app/controllers/connections_controller.rb'
-    - 'app/controllers/servers_grids_controller.rb'
-    - 'app/helpers/servers_helper.rb'
-    - 'app/models/server.rb'
-    - 'app/services/glpi_client.rb'
-
 # Offense count: 3
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: MaxUnannotatedPlaceholdersAllowed, Mode, AllowedMethods, AllowedPatterns.
