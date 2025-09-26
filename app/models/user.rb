@@ -24,6 +24,9 @@ class User < ApplicationRecord
   store_attribute :settings, :visualization_bay_default_orientation, :string, default: AVAILABLE_BAY_ORIENTATIONS.first
   store_attribute :settings, :items_per_page, :integer, default: DEFAULT_ITEMS_PER_PAGE
 
+  has_many :permission_scope_users, dependent: :destroy
+  has_many :permission_scopes, through: :permission_scope_users
+
   validates :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
@@ -69,5 +72,23 @@ class User < ApplicationRecord
 
   def unsuspend!
     update!(suspended_at: nil)
+  end
+
+  def permitted_domains
+    @permitted_domains ||= begin
+      scopes = permission_scopes.includes(:domaines)
+
+      return if scopes.empty?
+
+      ids = scopes.map do |permission_scope|
+        if permission_scope.all_domains?
+          Domaine.all
+        else
+          permission_scope.domaines.ids
+        end
+      end
+
+      Domaine.where(id: ids.flatten)
+    end
   end
 end
