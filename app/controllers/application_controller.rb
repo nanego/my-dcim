@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
   before_action :prepare_exception_notifier
+  before_action :no_permission_scope
 
   etag { Rails.application.importmap.digest(resolver: helpers) if request.format&.html? }
 
@@ -115,5 +116,13 @@ class ApplicationController < ActionController::Base
     else
       "application"
     end
+  end
+
+  def no_permission_scope
+    return unless current_user
+    return if current_user.admin?
+    return if current_user.permitted_domains.any?
+
+    render "no_permission_scope", layout: false
   end
 end
