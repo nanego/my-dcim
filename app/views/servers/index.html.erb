@@ -109,9 +109,7 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:domaine_ids, Domaine.sorted,
-                                  :id,
-                                  :name,
+          <%= f.select(:domaine_ids, ServerDecorator.domains_for_options(current_user),
                                   { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :domaine_ids %>
@@ -261,7 +259,7 @@
                     data-dynamic-export-pdf-target="spinner"></span>
               <span class="bi bi-file-earmark-pdf" data-dynamic-export-pdf-target="buttonIcon"></span>
             </button>
-            
+
             <% if allowed_to?(:duplicate?, server) %>
               <%= link_to duplicate_server_path(server), class: "btn btn-success", data: { turbo_frame: :_top } do %>
                 <span class="bi bi-copy" title="<%= t("action.duplicate") %>" aria-hidden="true"
