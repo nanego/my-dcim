@@ -15,14 +15,6 @@
     </fieldset>
 
     <fieldset class="col-12 mt-4">
-      <%= f.label :role, class: "form-label" %>
-      <%= f.select(:role,
-                    PermissionScopeDecorator.roles_for_options,
-                    {},
-                    class: "form-select") %>
-    </fieldset>
-
-    <fieldset class="col-12 mt-4">
       <%= f.label :domaine_ids, class: "form-label" %>
       <%= f.select :domaine_ids, Domaine.pluck(:name, :id),
                             { include_blank: t("access_control.blank") },
