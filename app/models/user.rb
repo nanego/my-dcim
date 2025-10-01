@@ -8,8 +8,6 @@ class User < ApplicationRecord
   AVAILABLE_BAY_BACKGROUND_COLORS = %w[modele gestion cluster].freeze
   AVAILABLE_BAY_ORIENTATIONS = %w[front back].freeze
 
-  enum :role, { reader: 0, writer: 1 } # TODO: remove with migration into PermissionScope
-
   acts_as_token_authenticatable
   has_changelog except: %i[sign_in_count current_sign_in_at last_sign_in_at current_sign_in_ip last_sign_in_ip]
 
@@ -76,9 +74,13 @@ class User < ApplicationRecord
   end
 
   def writer?
-    @editor ||= permission_scopes.any? do |permission_scope|
+    @writer ||= permission_scopes.select(:role).any? do |permission_scope|
       permission_scope.writer?
     end
+  end
+
+  def reader?
+    !writer?
   end
 
   def permitted_domains
