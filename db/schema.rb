@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_01_124600) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_01_135052) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -96,6 +96,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_01_124600) do
     t.index ["bay_type_id"], name: "index_bays_on_bay_type_id"
     t.index ["islet_id"], name: "index_bays_on_islet_id"
     t.index ["manufacturer_id"], name: "index_bays_on_manufacturer_id"
+    t.index ["position", "islet_id", "lane"], name: "index_bays_on_position_and_islet_id_and_lane", unique: true
   end
 
   create_table "cables", id: :serial, force: :cascade do |t|
