@@ -1,5 +1,5 @@
 <%= form_for(@bay, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
-  <%= hidden_field_tag(:redirect_to_on_success, overview_rooms_path) if params[:redirect_to_on_success] %>
+  <%= hidden_field_tag(:redirect_to_on_success, params[:redirect_to_on_success]) if params[:redirect_to_on_success] %>
 
   <%= render FormErrorsComponent.new(@bay) %>
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>

@@ -6,7 +6,8 @@ RSpec.describe Overview::ShortcutButtonComponent, type: :component do
   let(:id) { 1 }
   let(:position) { nil }
   let(:lane) { 1 }
-  let(:component) { described_class.new(id, position, lane) }
+  let(:redirection) { "/rooms/overview" }
+  let(:component) { described_class.new(id, position, redirection, lane) }
   let(:rendered_component) { render_inline(component).to_html }
 
   describe "CreateBayButtonComponent" do
@@ -15,7 +16,7 @@ RSpec.describe Overview::ShortcutButtonComponent, type: :component do
         with_tag(
           "a.link-success",
           with: {
-            href: "/bays/new?bay%5Bislet_id%5D=1&bay%5Blane%5D=1&bay%5Bposition%5D=&redirect_to_on_success=1",
+            href: "/bays/new?bay%5Bislet_id%5D=1&bay%5Blane%5D=1&bay%5Bposition%5D=&redirect_to_on_success=%2Frooms%2Foverview",
             title: "Ajouter une baie",
             "data-controller": "tooltip",
           },
@@ -50,7 +51,7 @@ RSpec.describe Overview::ShortcutButtonComponent, type: :component do
         with_tag(
           "a.link-success",
           with: {
-            href: "/frames/new?frame%5Bbay_id%5D=1&frame%5Bposition%5D=2&redirect_to_on_success=1",
+            href: "/frames/new?frame%5Bbay_id%5D=1&frame%5Bposition%5D=2&redirect_to_on_success=%2Frooms%2Foverview",
             title: "Ajouter un châssis",
             "data-controller": "tooltip",
           },
