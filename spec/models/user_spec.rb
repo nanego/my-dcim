@@ -111,4 +111,26 @@ RSpec.describe User do
       end.to change(user, :suspended_at).to(nil)
     end
   end
+
+  describe "#writer?" do
+    it { expect(user.writer?).to eq(false) }
+
+    context "when is in a permission_scope with role writer" do
+      subject(:user) do
+        described_class.new(email: "user@example.com", permission_scopes: [permission_scopes(:writer)])
+      end
+
+      it { expect(user.writer?).to eq(true) }
+    end
+  end
+
+  describe "#permitted_domains" do
+    it { expect(user.permitted_domains).to be_empty }
+
+    context "with permission_scopes" do
+      subject(:user) { users(:writer) }
+
+      it { expect(user.permitted_domains).to match_array(Domaine.all) }
+    end
+  end
 end

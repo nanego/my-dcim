@@ -28,6 +28,7 @@ reader:
   role: reader
 
 writer:
+  id: 5
   name: Writer
   email: writer@yopmail.com
   encrypted_password: $2a$10$5iKaHrlajUNurPi/N7cHduDiufXpCz/9Aug3L660HdPpfUWgTeXju

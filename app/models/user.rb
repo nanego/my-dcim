@@ -75,11 +75,17 @@ class User < ApplicationRecord
     update!(suspended_at: nil)
   end
 
+  def writer?
+    @editor ||= permission_scopes.any? do |permission_scope|
+      permission_scope.writer?
+    end
+  end
+
   def permitted_domains
     @permitted_domains ||= begin
       scopes = permission_scopes.includes(:domaines)
 
-      return if scopes.empty?
+      return [] if scopes.empty?
 
       ids = scopes.map do |permission_scope|
         if permission_scope.all_domains?
