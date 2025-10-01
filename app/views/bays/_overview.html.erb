@@ -6,7 +6,7 @@
           <span class="d-flex" style="grid-row:<%= "#{lane.to_i}/#{lane.to_i+1}" %>; grid-column: <%= "#{i}/#{i+1}" %>;">
             <span class="bay d-flex">
               <%= render Overview::ShortcutButtonComponent.new(
-                islet.id, i, lane.to_i
+                islet.id, i, request.path, lane.to_i
               ) %>
             </span>
           </span>
@@ -41,7 +41,7 @@
               <% else %>
                 <span class="bay d-flex bg-body-tertiary border-secondary-subtle border">
                   <%= render Overview::ShortcutButtonComponent.new(
-                    bay.id, j+1, class: class_names("border-start-0": j.odd?)
+                    bay.id, j+1, request.path, class: class_names("border-start-0": j.odd?)
                   ) %>
                 </span>
               <% end %>
@@ -52,7 +52,7 @@
       <span class="d-flex" style="grid-row:<%= "#{lane.to_i}/#{lane.to_i+1}" %>;">
         <span class="bay d-flex">
           <%= render Overview::ShortcutButtonComponent.new(
-            islet.id, nil, lane.to_i
+            islet.id, nil, request.path, lane.to_i
           ) %>
         </span>
       </span>
