@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_relative "20250724082513_add_new_roles_to_users"
 
 class MigrationUser < ActiveRecord::Base

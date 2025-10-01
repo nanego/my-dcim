@@ -74,9 +74,7 @@ class User < ApplicationRecord
   end
 
   def writer?
-    @writer ||= permission_scopes.select(:role).any? do |permission_scope|
-      permission_scope.writer?
-    end
+    @writer ||= permission_scopes.select(:role).any?(&:writer?)
   end
 
   def reader?

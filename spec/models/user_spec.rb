@@ -113,14 +113,14 @@ RSpec.describe User do
   end
 
   describe "#writer?" do
-    it { expect(user.writer?).to eq(false) }
+    it { expect(user.writer?).to be(false) }
 
     context "when is in a permission_scope with role writer" do
       subject(:user) do
         described_class.new(email: "user@example.com", permission_scopes: [permission_scopes(:writer)])
       end
 
-      it { expect(user.writer?).to eq(true) }
+      it { expect(user.writer?).to be(true) }
     end
   end
 
