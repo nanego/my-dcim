@@ -1,6 +1,4 @@
-<%
-  breadcrumb.add_step(title = User.model_name.human.pluralize)
-%>
+<% breadcrumb.add_step(title = User.model_name.human.pluralize) %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
@@ -36,16 +34,12 @@
   </div>
 
   <%= render List::DataTableComponent.new(decorate(@users)) do |table| %>
-    <% table.with_column(User.human_attribute_name(:id), sort_by: :id) do |user| %>
-      <%= link_to user.id, user %>
+    <% table.with_column(User.human_attribute_name(:email), sort_by: :email) do |user| %>
+      <%= link_to user.email, user %>
     <% end %>
 
     <% table.with_column(User.human_attribute_name(:name), sort_by: :name) do |user| %>
       <%= user.name %>
-    <% end %>
-
-    <% table.with_column(User.human_attribute_name(:email), sort_by: :email) do |user| %>
-      <%= user.email %>
     <% end %>
 
     <% table.with_column(User.human_attribute_name(:role), sort_by: :role) do |user| %>
