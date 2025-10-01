@@ -15,3 +15,9 @@ with_users:
 with_domains:
   id: 3
   name: With domains
+
+writer:
+  id: 4
+  name: All writer
+  all_domains: true
+  role: 1
