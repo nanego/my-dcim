@@ -77,7 +77,7 @@ RSpec.describe IsletDecorator, type: :decorator do
 
       it do
         expect(decorated_islet.overviewed_bays_array).to contain_exactly(
-          [1, [bays(:one), bays(:five)]], [2, [:no_bay, :no_bay, bays(:three)]]
+          [1, [bays(:one), :no_bay, bays(:five)]], [2, [:no_bay, :no_bay, bays(:three)]]
         )
       end
     end
