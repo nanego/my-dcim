@@ -9,7 +9,6 @@ class Frame < ApplicationRecord
   friendly_id :slug_candidates, use: %i[slugged history]
 
   has_changelog
-  acts_as_list scope: [:bay_id]
 
   belongs_to :bay
   has_many :materials, -> { order("servers.position desc") }, class_name: "Server", dependent: :restrict_with_error
@@ -18,6 +17,10 @@ class Frame < ApplicationRecord
   has_one :islet, through: :bay
   has_one :room, through: :islet
   delegate :name, to: :room, prefix: true, allow_nil: true
+
+  validates :position, uniqueness: { scope: :bay_id }
+
+  before_create :set_position
 
   scope :sorted, -> { order(:position) }
 
@@ -141,6 +144,20 @@ class Frame < ApplicationRecord
         puts "ERROR: #{card}" unless card.valid?
       end
     end
+  end
+
+  def last_position_used
+    @last_position_used ||= bay.frames.maximum(:position) || 0
+  end
+
+  def next_free_position
+    last_position_used + 1
+  end
+
+  def set_position
+    return if position.present?
+
+    self.position = next_free_position
   end
 
   private

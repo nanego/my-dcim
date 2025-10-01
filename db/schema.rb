@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_27_143937) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_01_124600) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -285,6 +285,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_27_143937) do
     t.integer "bay_id", null: false
     t.float "width"
     t.index ["bay_id"], name: "index_frames_on_bay_id"
+    t.index ["position", "bay_id"], name: "index_frames_on_position_and_bay_id", unique: true
     t.index ["slug"], name: "index_frames_on_slug", unique: true
   end
 
