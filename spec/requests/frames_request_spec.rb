@@ -2,10 +2,36 @@
 
 require "rails_helper"
 
-RSpec.describe "Frames" do
+RSpec.describe "FramesController" do
   let(:frame) { frames(:one) }
   let(:coupled_frame) { frames(:two) }
   let(:network_frame) { frames(:three) }
+
+  describe "GET #index" do
+    before do
+      sign_in users(:admin)
+
+      get frames_path
+    end
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:index) }
+    it { expect(assigns(:frames)).to be_present }
+  end
+
+  describe "GET #show" do
+    subject(:response) do
+      get frame_path(frame)
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:show) }
+  end
 
   describe "GET #new" do
     subject(:response) do
@@ -58,6 +84,124 @@ RSpec.describe "Frames" do
 
       it { expect { response }.to raise_error(ActionController::ParameterMissing) }
     end
+
+    context "when request back on succes" do
+      let(:params) do
+        {
+          frame: { name: "Frame 1", bay_id: bays(:one).id },
+          redirect_to_on_success: overview_rooms_path,
+        }
+      end
+
+      it { expect(response).to redirect_to(overview_rooms_path) }
+
+      it do
+        expect do
+          response
+        end.to change(Frame, :count).by(1)
+      end
+    end
+  end
+
+  describe "GET #edit" do
+    subject(:response) do
+      get edit_frame_path(frame)
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:edit) }
+  end
+
+  describe "PATCH #update" do
+    subject(:response) do
+      patch(frame_path(frame), params:)
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:params) do
+      { frame: { name: "New Frame name" } }
+    end
+
+    include_context "with authenticated admin"
+
+    context "with valid parameters" do
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(frame_path(assigns(:frame))) }
+
+      it do
+        expect do
+          response
+          frame.reload
+        end.to change(frame, :name).to("New Frame name")
+      end
+    end
+
+    context "with invalid parameters" do
+      let(:params) { { frame: { name: "Frame 1", bay_id: nil } } }
+
+      it { expect(response).to render_template(:edit) }
+
+      it do
+        expect do
+          response
+          frame.reload
+        end.not_to change(frame, :name)
+      end
+    end
+
+    context "without attributes" do
+      let(:params) { { frame: {} } }
+
+      it { expect { response }.to raise_error(ActionController::ParameterMissing) }
+    end
+
+    context "without parameters" do
+      let(:params) { {} }
+
+      it { expect { response }.to raise_error(ActionController::ParameterMissing) }
+    end
+  end
+
+  describe "DELETE #destroy" do
+    subject(:response) do
+      delete frame_path(frame)
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
+
+    context "with frame without any IT equipments" do
+      let(:frame) { frames(:two) }
+
+      it do
+        expect do
+          response
+        end.to change(Frame, :count).by(-1)
+      end
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(frames_path) }
+    end
+
+    context "with frame with IT equipments" do
+      it do
+        expect do
+          response
+        end.not_to change(Frame, :count)
+      end
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(frames_path) }
+    end
   end
 
   describe "GET #network" do
@@ -88,27 +232,6 @@ RSpec.describe "Frames" do
           get network_frame_path("non-existent-frame", network_frame_id: network_frame.slug)
         end.to raise_error(ActiveRecord::RecordNotFound)
       end
-    end
-  end
-
-  describe "GET #print" do
-    subject(:response) do
-      get print_visualization_frame_path(frame)
-      @response # rubocop:disable RSpec/InstanceVariable
-    end
-
-    include_context "with authenticated admin"
-
-    context "with not found frame" do
-      let(:frame) { Frame.new(id: 999_999_999) }
-
-      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
-    end
-
-    context "with existing frame" do
-      it { expect(response).to have_http_status(:success) }
-      it { expect(response).to render_template(:print) }
-      it { expect(response).to render_template("layouts/pdf") }
     end
   end
 end

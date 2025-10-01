@@ -31,6 +31,16 @@ en:
       bulk:
         selected_elements: selected item(s)
 
+  overview:
+    shortcut_button_component:
+      delete_frame:
+        title: Delete empty bay
+        confirm: Are you sure you want to delete this bay?
+      create_frame:
+        title: Add a frame
+      create_bay:
+        title: Add a bay
+
   pagination_component:
     items_per_page: Items per page
 

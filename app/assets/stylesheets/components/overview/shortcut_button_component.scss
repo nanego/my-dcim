@@ -1,0 +1,71 @@
+.shortcut-button-component {
+  display: inline-flex;
+  width: 100%;
+
+  padding: 2px;
+
+  a {
+    display: none;
+    width: 50%;
+
+    &:only-child {
+      width: 100%;
+    }
+
+    border: 2px dashed;
+    align-items: center;
+    justify-content: center;
+
+    &.link-danger {
+      border-radius: 5px 0 0 5px;
+      border-color: rgba(var(--bs-danger-rgb), var(--bs-border-opacity));
+      border-right: 0;
+    }
+
+    &.link-success {
+      border-radius: 5px;
+      border-color: rgba(var(--bs-success-rgb), var(--bs-border-opacity));
+
+      &:not(:only-child) {
+        border-left: 0;
+        border-radius: 0 5px 5px 0;
+      }
+    }
+  }
+
+  &:hover {
+    a {
+      display: inline-flex;
+
+      &.link-danger {
+        &:hover {
+          border-color: rgba(204, 73, 73, 1);
+        }
+      }
+
+      &.link-success {
+        &:hover {
+          border-color: rgba(64, 208, 135, 1);
+        }
+      }
+    }
+  }
+
+  @media (hover: none) {
+    a {
+      display: inline-flex;
+
+      &.link-danger {
+        &:hover {
+          border-color: rgba(204, 73, 73, 1);
+        }
+      }
+
+      &.link-success {
+        &:hover {
+          border-color: rgba(64, 208, 135, 1);
+        }
+      }
+    }
+  }
+}

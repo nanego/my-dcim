@@ -40,7 +40,7 @@ class BaysController < ApplicationController
 
     respond_to do |format|
       if @bay.save
-        format.html { redirect_to_new_or_to(@bay, notice: t(".flashes.created")) }
+        format.html { form_redirect_to_new_or_to(@bay, notice: t(".flashes.created")) }
         format.json { render :show, status: :created, location: @bay }
       else
         format.html { render :new }
@@ -64,12 +64,12 @@ class BaysController < ApplicationController
   def destroy
     if @bay.destroy
       respond_to do |format|
-        format.html { redirect_to bays_url, notice: t(".flashes.destroyed") }
+        format.html { form_redirect_to bays_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to bays_url, alert: @bay.errors.full_messages_for(:base).join(", ") }
+        format.html { form_redirect_to bays_url, alert: @bay.errors.full_messages_for(:base).join(", ") }
       end
     end
   end
