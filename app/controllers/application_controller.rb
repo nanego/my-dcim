@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
   def form_redirect_to(options = {}, response_options = {})
     if params[:redirect_to_on_success] == "back"
       redirect_back_or_to options, **response_options
-    elsif params[:redirect_to_on_success]
+    elsif params[:redirect_to_on_success].present?
       redirect_to params[:redirect_to_on_success], response_options
     else
       redirect_to options, response_options
