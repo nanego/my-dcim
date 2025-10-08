@@ -9,7 +9,6 @@ class UsersController < ApplicationController
 
   def index
     @filter = ProcessorFilter.new(User.order(sign_in_count: :desc), params)
-    @search_params = search_params
 
     authorize! @users = @filter.results
   end
@@ -71,7 +70,7 @@ class UsersController < ApplicationController
   end
 
   def search_params
-    params.permit(:sort, :sort_by, :filter)
+    params.permit(*UsersProcessor.fields_set)
   end
 
   def set_user

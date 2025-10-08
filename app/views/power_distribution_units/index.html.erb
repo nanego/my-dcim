@@ -148,7 +148,7 @@
             <% end %>
 
             <% if allowed_to?(:destroy?, pdu, with: PowerDistributionUnitPolicy) %>
-              <%= link_to power_distribution_unit_path(pdu, @search_params),
+              <%= link_to power_distribution_unit_path(pdu, @filter.attributes),
                           method: :delete,
                           data: { turbo_frame: :_top, confirm: t("action.confirm") },
                           class: "btn btn-danger" do %>

@@ -32,7 +32,6 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
 
     @filter = ProcessorFilter.new(@servers, params)
     @servers = @filter.results
-    @search_params = search_params
 
     respond_to do |format|
       format.json
