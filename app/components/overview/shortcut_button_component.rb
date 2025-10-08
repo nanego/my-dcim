@@ -3,17 +3,20 @@
 module Overview
   class ShortcutButtonComponent < ApplicationComponent
     def initialize(id, position, redirection, lane = nil, **html_options)
-      @button = if lane.present?
-                  CreateBayButtonComponent.new(id, position, lane, redirection, **html_options)
-                else
-                  CreateFrameDeleteBayButtonComponent.new(id, position, redirection, **html_options)
-                end
+      @args = [id, position, redirection, lane]
+      @html_options = html_options
 
       super
     end
 
     def call
-      render @button
+      render button_klass.new(*@args, **@html_options)
+    end
+    
+    private
+    
+    def button_klass
+      lane.present? ? CreateBayButtonComponent : CreateFrameDeleteBayButtonComponent
     end
   end
 
