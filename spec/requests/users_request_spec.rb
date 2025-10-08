@@ -210,13 +210,14 @@ RSpec.describe "Users" do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete user_path(target_user)
+      delete user_path(target_user, params:)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
     let(:target_user) { users(:two) }
+    let(:params) { {} }
 
     context "with admin user" do
       include_context "with authenticated admin"
@@ -228,6 +229,15 @@ RSpec.describe "Users" do
       end
 
       it { expect(response).to have_http_status(:redirect) }
+    end
+
+    context "with sort and filters params" do
+      let(:params) { { sort: "asc", sort_by: :created_at } }
+
+      include_context "with authenticated admin"
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(users_path({ sort: "asc", sort_by: :created_at })) }
     end
 
     context "with regular user" do
@@ -249,13 +259,14 @@ RSpec.describe "Users" do
 
   describe "PATCH #suspend" do
     subject(:response) do
-      patch suspend_user_path(target_user)
+      patch suspend_user_path(target_user, params:)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
     let(:target_user) { users(:one) }
+    let(:params) { {} }
 
     context "with admin user" do
       include_context "with authenticated admin"
@@ -268,6 +279,15 @@ RSpec.describe "Users" do
       end
 
       it { expect(response).to have_http_status(:redirect) }
+    end
+
+    context "with sort and filters params" do
+      let(:params) { { sort: "asc", sort_by: :created_at } }
+
+      include_context "with authenticated admin"
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(users_path({ sort: "asc", sort_by: :created_at })) }
     end
 
     context "with regular user" do
@@ -291,7 +311,7 @@ RSpec.describe "Users" do
 
   describe "PATCH #unsuspend" do
     subject(:response) do
-      patch unsuspend_user_path(suspended_user)
+      patch unsuspend_user_path(suspended_user, params:)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -300,6 +320,7 @@ RSpec.describe "Users" do
     let(:suspended_user) do
       User.create!(email: "user2@example.com", password: "passwordpassword", suspended_at: Time.zone.now)
     end
+    let(:params) { {} }
 
     context "with admin user" do
       include_context "with authenticated admin"
@@ -312,6 +333,15 @@ RSpec.describe "Users" do
       end
 
       it { expect(response).to have_http_status(:redirect) }
+    end
+
+    context "with sort and filters params" do
+      let(:params) { { sort: "asc", sort_by: :created_at } }
+
+      include_context "with authenticated admin"
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(users_path({ sort: "asc", sort_by: :created_at })) }
     end
 
     context "with regular user" do

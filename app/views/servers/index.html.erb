@@ -261,7 +261,7 @@
                     data-dynamic-export-pdf-target="spinner"></span>
               <span class="bi bi-file-earmark-pdf" data-dynamic-export-pdf-target="buttonIcon"></span>
             </button>
-            
+
             <% if allowed_to?(:duplicate?, server) %>
               <%= link_to duplicate_server_path(server), class: "btn btn-success", data: { turbo_frame: :_top } do %>
                 <span class="bi bi-copy" title="<%= t("action.duplicate") %>" aria-hidden="true"
@@ -281,7 +281,7 @@
             <% end %>
 
             <% if allowed_to?(:destroy?, server) %>
-              <%= link_to server_path(server, @search_params),
+              <%= link_to server_path(server, @filter.attributes),
                           method: :delete,
                           data: { turbo_frame: :_top, confirm: t("action.confirm") },
                           class: "btn btn-danger" do %>

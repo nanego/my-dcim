@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 
   def index
     @filter = ProcessorFilter.new(User.order(sign_in_count: :desc), params)
+
     authorize! @users = @filter.results
   end
 
@@ -41,7 +42,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
 
-    redirect_to users_path, notice: t(".flashes.destroyed")
+    redirect_to users_path(search_params), notice: t(".flashes.destroyed")
   end
 
   def reset_authentication_token
@@ -53,19 +54,23 @@ class UsersController < ApplicationController
   def suspend
     @user.suspend!
 
-    redirect_to users_path, notice: t(".flashes.suspended")
+    redirect_to users_path(search_params), notice: t(".flashes.suspended")
   end
 
   def unsuspend
     @user.unsuspend!
 
-    redirect_to users_path, notice: t(".flashes.unsuspended")
+    redirect_to users_path(search_params), notice: t(".flashes.unsuspended")
   end
 
   private
 
   def secure_params
     params.expect(user: %i[email name role is_admin])
+  end
+
+  def search_params
+    params.permit(*UsersProcessor.fields_set)
   end
 
   def set_user
