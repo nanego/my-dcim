@@ -14,7 +14,6 @@ class PowerDistributionUnitsController < ApplicationController
     @filter = ProcessorFilter.new(@pdus, params)
 
     @pdus = @filter.results
-    @search_params = search_params
 
     respond_to do |format|
       format.json
