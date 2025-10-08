@@ -17,14 +17,14 @@
     <div class="col-md-12">
       <ul class="nav nav-pills mb-2" role="tablist">
         <li role="presentation" class="nav-item">
-          <%= link_to users_path, class: class_names("nav-link", "active": !params[:filter]) do %>
+          <%= link_to users_path(@search_params.except(:filter)), class: class_names("nav-link", "active": !params[:filter]) do %>
             <%= t(".unsuspended") %>
             <%= render BadgeComponent.new(User.unsuspended.count,
                                           color: params[:filter].present? ? :primary : :light) %>
           <% end %>
         </li>
         <li role="presentation" class="nav-item">
-          <%= link_to users_path(filter: :suspended),
+          <%= link_to users_path(@search_params.merge(filter: :suspended)),
                       class: class_names("nav-link", "active": params[:filter] == "suspended") do %>
             <%= t(".suspended") %>
             <%= render BadgeComponent.new(User.suspended.count,
@@ -68,7 +68,7 @@
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <% if user.suspended? %>
           <% if allowed_to?(:suspend?, user) %>
-            <%= link_to unsuspend_user_path(user),
+            <%= link_to unsuspend_user_path(user, @search_params),
                         data: { confirm: t("action.confirm") },
                         method: :patch,
                         class: "btn btn-outline-primary" do %>
@@ -84,7 +84,7 @@
           <% end %>
         <% else %>
           <% if allowed_to?(:unsuspend?, user) %>
-            <%= link_to suspend_user_path(user),
+            <%= link_to suspend_user_path(user, @search_params),
                         data: { confirm: t("action.confirm") },
                         method: :patch,
                         class: "btn btn-outline-primary" do %>
@@ -108,7 +108,7 @@
           <% end %>
         <% end %>
         <% if allowed_to?(:destroy?, user) %>
-          <%= link_to user_path(user), method: :delete, data: { confirm: t("action.confirm") },
+          <%= link_to user_path(user, @search_params), method: :delete, data: { confirm: t("action.confirm") },
                                                         class: "btn btn-outline-danger" do %>
             <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
                                                                         data-controller="tooltip"
