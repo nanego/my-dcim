@@ -230,6 +230,8 @@ en:
         delete: Delete this connection
     flashes:
       archived: This project is archived
+    decorator:
+      confirm_delete_message: "By deleting this equipment, you will also delete the following moves:\n\n - %{moves}\n\n Are you sure you want to delete it?"
 
   moves_projects:
     index:

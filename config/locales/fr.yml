@@ -586,6 +586,8 @@ fr:
         delete: Supprimer cette connexion
     flashes:
       archived: Ce projet est archivé
+    decorator:
+      confirm_delete_message: "En supprimant ce matériel, vous allez aussi supprimer les déplacements suivants :\n\n - %{moves}\n\n Confirmez-vous la suppression ?"
 
   moves_projects:
     index:
