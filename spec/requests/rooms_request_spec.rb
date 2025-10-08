@@ -83,7 +83,7 @@ RSpec.describe "Rooms" do
 
   describe "PATCH #update" do
     subject(:response) do
-      patch(room_path(room), params:)
+      patch(room_path(room), params:, headers: { REFERER: "/visualization/infrastructure" })
 
       @response # rubocop:disable RSpec/InstanceVariable
     end
@@ -117,7 +117,7 @@ RSpec.describe "Rooms" do
       let(:cluster) { clusters(:cloud_c1) }
       let(:params) { { room: { network_cluster_ids: [cluster.id] }, redirect_to_on_success: :back } }
 
-      it { expect(response).to redirect_to(room_path(room)) }
+      it { expect(response).to redirect_to(visualization_infrastructure_path) }
 
       it do
         expect do

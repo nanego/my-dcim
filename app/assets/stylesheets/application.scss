@@ -22,8 +22,6 @@
  *= require tom-select.bootstrap5
  */
 
-@import "jquery-ui.css";
-
 // import the CSS framework
 @import "bootstrap-variables.scss";
 @import "bootstrap-icons.scss";
@@ -935,6 +933,10 @@ body {
       &:not(:last-child) {
         border-bottom: 1px solid var(--bs-border-color);
         padding-bottom: var(--bs-card-spacer-y);
+      }
+
+      .d-inline-grid {
+        grid-auto-rows: 1fr;
       }
 
       .bay {

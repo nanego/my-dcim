@@ -2,7 +2,6 @@
 
 class Bay < ApplicationRecord
   has_changelog
-  acts_as_list scope: %i[lane islet_id]
 
   belongs_to :bay_type
   belongs_to :islet
@@ -14,8 +13,11 @@ class Bay < ApplicationRecord
 
   enum :access_control, { badge: 0, key: 1, locken_key: 2 }
 
-  scope :sorted, -> { order(:lane, :position) }
+  validates :position, uniqueness: { scope: %i[islet_id lane] }
 
+  before_create :set_position
+
+  scope :sorted, -> { order(:lane, :position) }
   scope :sorted_by_room, -> { joins(:room, :islet).order(:site_id, "rooms.position", "rooms.name", "islets.name", :lane, "bays.position") }
 
   def to_s
@@ -28,5 +30,19 @@ class Bay < ApplicationRecord
 
   def list_frames
     frames.pluck(:name).sort.join(" / ")
+  end
+
+  def last_position_used
+    @last_position_used ||= islet.bays.where(lane:).maximum(:position) || 0
+  end
+
+  def next_free_position
+    last_position_used + 1
+  end
+
+  def set_position
+    return if position.present?
+
+    self.position = next_free_position
   end
 end

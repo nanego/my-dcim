@@ -22,7 +22,7 @@ three:
   slug: myframe3
   u: 24
   bay_id: 2
-  position: 3
+  position: 1
 
 four:
   id: 4
@@ -30,7 +30,7 @@ four:
   slug: myframe4
   u: 24
   bay_id: 2
-  position: 4
+  position: 2
 
 five:
   id: 5
