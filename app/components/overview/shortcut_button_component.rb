@@ -3,35 +3,32 @@
 module Overview
   class ShortcutButtonComponent < ApplicationComponent
     def initialize(id, position, redirection, lane = nil, **html_options)
-      @args = [id, position, redirection, lane]
+      @id = id
+      @position = position
+      @redirection = redirection
+      @lane = lane
+
       @html_options = html_options
 
       super
     end
 
     def call
-      render button_klass.new(*@args, **@html_options)
+      render button_klass.new(@id, @position, @redirection, @lane, **@html_options)
     end
-    
+
     private
-    
+
     def button_klass
-      lane.present? ? CreateBayButtonComponent : CreateFrameDeleteBayButtonComponent
+      @lane.present? ? CreateBayButtonComponent : CreateFrameDeleteBayButtonComponent
     end
   end
 
   class CreateFrameDeleteBayButtonComponent < ShortcutButtonComponent
-    def initialize(bay_id, position, redirection, **html_options) # rubocop:disable Lint/MissingSuper
-      @bay_id = bay_id
-      @position = position
-      @redirection = redirection
-      @html_options = html_options
-    end
-
     def call
       tag.span(class: "shortcut-button-component") do
         concat(
-          link_to bay_path(@bay_id, params: { redirect_to_on_success: :back }),
+          link_to bay_path(@id, params: { redirect_to_on_success: :back }),
                   method: :delete,
                   class: "link-danger",
                   title: t(".delete_frame.title"),
@@ -45,7 +42,7 @@ module Overview
           end,
         )
         concat(
-          link_to new_frame_path(frame: { bay_id: @bay_id, position: @position }, redirect_to_on_success: @redirection),
+          link_to new_frame_path(frame: { bay_id: @id, position: @position }, redirect_to_on_success: @redirection),
                   class: "link-success",
                   title: t(".create_frame.title"),
                   aria: { hidden: true },
@@ -61,17 +58,9 @@ module Overview
   end
 
   class CreateBayButtonComponent < ShortcutButtonComponent
-    def initialize(islet_id, position, lane, redirection, **html_options) # rubocop:disable Lint/MissingSuper
-      @islet_id = islet_id
-      @position = position
-      @lane = lane
-      @redirection = redirection
-      @html_options = html_options
-    end
-
     def call
       tag.span(class: "shortcut-button-component") do
-        link_to new_bay_path(bay: { islet_id: @islet_id, position: @position, lane: @lane },
+        link_to new_bay_path(bay: { islet_id: @id, position: @position, lane: @lane },
                              redirect_to_on_success: @redirection),
                 class: "link-success",
                 title: t(".create_bay.title"),
