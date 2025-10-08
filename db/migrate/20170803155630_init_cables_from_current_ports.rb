@@ -2,7 +2,7 @@
 
 class InitCablesFromCurrentPorts < ActiveRecord::Migration[5.0]
   def up
-    Port.all.find_each do |port|
+    Port.find_each do |port|
       cable = Cable.create(name: port.cablename, color: port.color)
       Connection.create(port: port, cable: cable)
     end

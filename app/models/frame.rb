@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Frame < ApplicationRecord
+class Frame < ApplicationRecord # rubocop:disable Metrics/ClassLength
   DEFAULT_SETTINGS = { max_u: 38, max_elts: 24, max_rj45: 48, max_fc: 12 }.freeze
   VIEW_SIDES = { both: "both", front: "front", back: "back" }.freeze
 
@@ -21,9 +21,7 @@ class Frame < ApplicationRecord
 
   scope :sorted, -> { order(:position) }
 
-  def to_s
-    name.to_s
-  end
+  delegate :to_s, to: :name
 
   def self.all_sorted
     Frame.includes(islet: :room, bay: :islet).sort_by(&:name_with_room_and_islet)

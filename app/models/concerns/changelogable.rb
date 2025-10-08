@@ -11,7 +11,8 @@ module Changelogable
     def has_changelog(except: [])
       @_changelogable_except_attributes = CHANGELOGABLE_DEFAULT_SKIP_ATTRIBUTES.dup.append(*except)
 
-      has_many :changelog_entries, -> { order(created_at: :desc) }, as: :object
+      has_many :changelog_entries, -> { order(created_at: :desc) }, as: :object, dependent: nil,
+                                                                    inverse_of: :object
 
       after_create_commit :changelog_entry_on_create
       after_update_commit :changelog_entry_on_update

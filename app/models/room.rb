@@ -23,9 +23,7 @@ class Room < ApplicationRecord
   scope :sorted, -> { order(:site_id, :position, :name) }
   scope :not_empty, -> { joins(:servers) }
 
-  def to_s
-    name.to_s
-  end
+  delegate :to_s, to: :name
 
   def name_with_site
     [site, name].join(" - ")

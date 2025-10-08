@@ -60,7 +60,6 @@ RSpec/PendingWithoutReason:
 RSpec/NestedGroups:
   Max: 4
 
-
 # Rails/ActionOrder:
 #   ExpectedOrder: [index, show, new, create, edit, update, destroy]
 
@@ -74,6 +73,9 @@ Rails/SkipsModelValidations:
 
 # Style/AsciiComments:
 #   Enabled: false
+
+Style/Documentation:
+  Enabled: false
 
 Style/QuotedSymbols:
   EnforcedStyle: double_quotes
