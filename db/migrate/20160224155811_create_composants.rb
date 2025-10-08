@@ -6,7 +6,7 @@ end
 
 class CreateComposants < ActiveRecord::Migration[4.2]
   def change
-    create_table :type_composants do |t|
+    create_table :type_composants do |t| # rubocop:disable Rails/CreateTableWithTimestamps
       t.string :title
     end
     create_table :composants do |t|

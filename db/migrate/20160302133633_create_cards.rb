@@ -6,13 +6,13 @@ end
 
 class CreateCards < ActiveRecord::Migration[4.2]
   def change
-    create_table :cards do |t|
+    create_table :cards do |t| # rubocop:disable Rails/CreateTableWithTimestamps
       t.string :name
       t.integer :port_type_id
       t.integer :port_quantity
     end
 
-    create_table :port_types do |t|
+    create_table :port_types do |t| # rubocop:disable Rails/CreateTableWithTimestamps
       t.string :name
     end
 

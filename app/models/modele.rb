@@ -36,9 +36,7 @@ class Modele < ApplicationRecord
     Modele.includes(:manufacturer).with_servers.sort { |f1, f2| f1.name_with_brand.capitalize <=> f2.name_with_brand.capitalize }
   end
 
-  def to_s
-    name.to_s
-  end
+  delegate :to_s, to: :name
 
   def is_a_pdu?
     category.pdu?

@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
-class ConnectionsController < ApplicationController
+class ConnectionsController < ApplicationController # rubocop:disable Metrics/ClassLength
   def edit # rubocop:disable Metrics/AbcSize
     authorize!
 
-    if params[:from_port_id].present? && params[:from_port_id].to_i.positive?
-      @from_port = Port.find_by_id(params[:from_port_id])
-    else
-      @from_port = Port.create(position: params["position"],
+    @from_port = if params[:from_port_id].present? && params[:from_port_id].to_i.positive?
+                   Port.find_by_id(params[:from_port_id])
+                 else
+                   Port.create(position: params["position"],
                                card_id: params["card_id"],
                                vlans: params["vlans"],
                                color: params["color"],
                                cablename: params["cablename"])
-    end
+                 end
 
     @frame = @from_port.server.frame
     @room = @frame.room
@@ -37,13 +37,13 @@ class ConnectionsController < ApplicationController
     @to_port = @cable.connections.reject { |conn| conn.port_id.to_i == @from_port.id }.first.try(:port) if @cable.present?
 
     # Destination server
-    if @to_port.present?
-      @to_server = @to_port.server
-    elsif @from_port.is_power_input?
-      @to_server = @frame.pdus.first
-    else
-      @to_server = @frame.servers.where("position IS NOT NULL AND modele_id IS NOT NULL").order(:position).first
-    end
+    @to_server = if @to_port.present?
+                   @to_port.server
+                 elsif @from_port.is_power_input?
+                   @frame.pdus.first
+                 else
+                   @frame.servers.where("position IS NOT NULL AND modele_id IS NOT NULL").order(:position).first
+                 end
 
     if @to_server
       @to_server.create_missing_ports

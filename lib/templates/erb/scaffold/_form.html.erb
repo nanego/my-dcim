@@ -1,4 +1,4 @@
-<%%= form_for(@<%= singular_table_name %>, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+<%%= form_with(model: @<%= singular_table_name %>, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
   <%%= render FormErrorsComponent.new(@<%= singular_table_name %>) %>
   <%%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <% attributes.each_with_index do |attribute, index| -%>

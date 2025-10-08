@@ -17,9 +17,7 @@ class Islet < ApplicationRecord
   scope :not_empty, -> { joins(:materials) }
   scope :has_name, -> { where.not(name: nil) }
 
-  def to_s
-    name.to_s
-  end
+  delegate :to_s, to: :name
 
   def name_with_room
     "#{[Islet.model_name.human, name].join(" ")} #{room}"

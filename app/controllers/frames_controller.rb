@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FramesController < ApplicationController
+class FramesController < ApplicationController # rubocop:disable Metrics/ClassLength
   include ServersHelper
   include RoomsHelper
 

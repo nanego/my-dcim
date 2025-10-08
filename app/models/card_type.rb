@@ -11,7 +11,5 @@ class CardType < ApplicationRecord
 
   scope :sorted, -> { order(:port_type_id, :port_quantity) }
 
-  def to_s
-    name.to_s
-  end
+  delegate :to_s, to: :name
 end
