@@ -31,6 +31,16 @@ fr:
       bulk:
         selected_elements: élément(s) sélectionné(s)
 
+  overview:
+    shortcut_button_component:
+      delete_frame:
+        title: Supprimer la baie vide
+        confirm: Êtes-vous sûr de vouloir supprimer cette baie ?
+      create_frame:
+        title: Ajouter un châssis
+      create_bay:
+        title: Ajouter une baie
+
   pagination_component:
     items_per_page: Éléments par page
 

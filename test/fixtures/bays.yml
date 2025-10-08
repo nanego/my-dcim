@@ -5,7 +5,7 @@ one:
   name: MyBay1
   lane: 1
   position: 1
-  bay_type_id: 1
+  bay_type_id: 2
   islet_id: 1
 
 two:
@@ -20,7 +20,7 @@ three:
   id : 3
   name: MyBay3
   lane: 1
-  position: 1
+  position: 2
   bay_type_id: 2
   islet_id: 1
 
@@ -36,6 +36,6 @@ five:
   id : 5
   name: MyBay5
   lane: 1
-  position: 1
-  bay_type_id: 2
+  position: 3
+  bay_type_id: 1
   islet_id: 1

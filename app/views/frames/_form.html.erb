@@ -1,4 +1,6 @@
 <%= form_for(@frame, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+  <%= redirect_to_on_success_hidden_field_tag(params[:redirect_to_on_success]) %>
+
   <%= render FormErrorsComponent.new(@frame) %>
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <% card.with_header do %>
@@ -37,7 +39,7 @@
         <%= f.number_field :switch_slot, class: "form-control" %>
       </fieldset>
 
-      <% if @frame.persisted? %>
+      <% if @frame.persisted? && @frame.bay %>
         <div class="col-12 mt-4">
           <span class="form-label d-block"><%= t("frames.coupled_frame_label") %></span>
           <%= f.object.other_frame.present? ? link_to(f.object.other_frame.name, frame_path(f.object.other_frame))

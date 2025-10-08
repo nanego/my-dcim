@@ -18,6 +18,7 @@ RSpec.describe Frame do
 
   describe "validations" do
     it { is_expected.to be_valid }
+    it { is_expected.to validate_uniqueness_of(:position).scoped_to(:bay_id) }
   end
 
   describe "#to_s" do
@@ -68,5 +69,30 @@ RSpec.describe Frame do
 
   describe "#init_pdus" do
     pending
+  end
+
+  describe "#last_position_used" do
+    it { expect(frame.last_position_used).to eq 2 }
+  end
+
+  describe "#next_free_position" do
+    it { expect(frame.next_free_position).to eq 3 }
+  end
+
+  describe "#set_position" do
+    let(:frame) { described_class.new(bay_id: 1, position:) }
+    let(:position) { nil }
+
+    before { frame.save }
+
+    context "with position is nil" do
+      it { expect(frame.position).to eq 3 }
+    end
+
+    context "with position is not nil" do
+      let(:position) { 8 }
+
+      it { expect(frame.position).to eq 8 }
+    end
   end
 end
