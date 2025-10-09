@@ -168,7 +168,7 @@
                     <span class="visually-hidden"><%= t("export_button.exports.print") %></span>
                   <% end %>
 
-                  <a role="button" class="btn btn-sm btn-outline-primary d-flex align-items-center export-button-move"
+                  <button type="button" class="btn btn-sm btn-outline-primary d-flex align-items-center export-button-move"
                      data-dynamic-export-pdf-urls-param="<%= [print_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame)].to_json %>"
                      data-dynamic-export-pdf-filename-param="move-frame-<%= frame.name %>"
                      data-action="click->dynamic-export-pdf#export">
@@ -181,7 +181,7 @@
                     <span class="visually-hidden"><%= t("export_button.exports.pdf") %></span>
                     <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none " role="status"
                           aria-hidden="true" data-dynamic-export-pdf-target="spinner"></span>
-                  </a>
+                  </button>
                 </div>
               </td>
             <% end %>
