@@ -90,6 +90,7 @@ Rails/BulkChangeTable:
     - 'db/migrate/20180703065120_add_orientation_to_cards.rb'
     - 'db/migrate/20180709090152_add_comments_to_cables.rb'
     - 'db/migrate/20220523095022_add_address_to_sites.rb'
+    - 'db/migrate/20230418160353_add_missing_not_nullable_to_existing_tables.rb'
 
 # Offense count: 20
 # This cop supports unsafe autocorrection (--autocorrect-all).

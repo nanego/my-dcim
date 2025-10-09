@@ -1,0 +1,119 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "21b5705b7e4e1726b7d404f2b1af1767ff045e62ee69ca6c8cdd4e43a33cdbfd",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/servers/show.html.erb",
+      "line": 145,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(t(\".documentation\"), Server.new(server_params).documentation_url, :target => :_blank, :rel => :noopener)",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "ServersController",
+          "method": "create",
+          "line": 56,
+          "file": "app/controllers/servers_controller.rb",
+          "rendered": {
+            "name": "servers/show",
+            "file": "app/views/servers/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "servers/show"
+      },
+      "user_input": "Server.new(server_params).documentation_url",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "3e9d9fb05d8227b081e1dfbc8b809e72309f3b815a746874a42fc2fdac2399c9",
+      "check_name": "LinkToHref",
+      "message": "Unsafe parameter value in `link_to` href",
+      "file": "app/components/filter_component.rb",
+      "line": 52,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(url_for(request.query_parameters))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "FilterComponent",
+        "method": "filter_badge_tag"
+      },
+      "user_input": "request.query_parameters",
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "cc17201c40c767e98b13ea607f86fb6cc27b4fad3f56433e55652409ac274331",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/power_distribution_units/show.html.erb",
+      "line": 126,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(t(\".documentation\"), Server.new(pdu_params).documentation_url, :target => :_blank, :rel => :noopener)",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "PowerDistributionUnitsController",
+          "method": "create",
+          "line": 41,
+          "file": "app/controllers/power_distribution_units_controller.rb",
+          "rendered": {
+            "name": "power_distribution_units/show",
+            "file": "app/views/power_distribution_units/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "power_distribution_units/show"
+      },
+      "user_input": "Server.new(pdu_params).documentation_url",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Remote Code Execution",
+      "warning_code": 24,
+      "fingerprint": "d10cc26e4041da203de5109afffe93b0de9d301e4924c9b75b707754a3957c03",
+      "check_name": "UnsafeReflection",
+      "message": "Unsafe reflection method `safe_constantize` called on parameter value",
+      "file": "app/controllers/changelog_entries_controller.rb",
+      "line": 22,
+      "link": "https://brakemanscanner.org/docs/warning_types/remote_code_execution/",
+      "code": "params[:object_type].camelize.singularize.safe_constantize",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ChangelogEntriesController",
+        "method": "scoped_object"
+      },
+      "user_input": "params[:object_type].camelize.singularize",
+      "confidence": "High",
+      "cwe_id": [
+        470
+      ],
+      "note": ""
+    }
+  ],
+  "brakeman_version": "7.1.1"
+}
