@@ -16,36 +16,36 @@
       <h6 class="dropdown-header"><%= t("export_button.exports.pdf") %></h6>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export"
+      <button type="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export"
          data-dynamic-export-pdf-urls-param="<%= room.print_frames_paths(view: :front).to_json %>"
          data-dynamic-export-pdf-filename-param="room-<%= room.name %>-front">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.front") %>
-      </a>
+      </button>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export"
+      <button type="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export"
          data-dynamic-export-pdf-urls-param="<%= room.print_frames_paths(view: :back).to_json %>"
          data-dynamic-export-pdf-filename-param="room-<%= room.name %>-back">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.back") %>
-      </a>
+      </button>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export"
+      <button type="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export"
          data-dynamic-export-pdf-urls-param="<%= room.print_frames_paths(view: :front, bg: :wiring).to_json %>"
          data-dynamic-export-pdf-filename-param="room-<%= room.name %>-front_wiring" data-bg-wiring="true">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.front_wiring") %>
-      </a>
+      </button>
     </li>
     <li>
-      <a role="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export"
+      <button type="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export"
          data-dynamic-export-pdf-urls-param="<%= room.print_frames_paths(view: :back, bg: :wiring).to_json %>"
          data-dynamic-export-pdf-filename-param="room-<%= room.name %>-back_wiring" data-bg-wiring="true">
         <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
         <%= t("export_button.faces.back_wiring") %>
-      </a>
+      </button>
     </li>
 
     <li><hr class="dropdown-divider"></li>
