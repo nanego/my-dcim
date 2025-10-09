@@ -5,7 +5,8 @@
   padding: 2px;
 
   a {
-    display: none;
+    display: inline-flex;
+    visibility: hidden;
     width: 50%;
 
     &:only-child {
@@ -35,7 +36,7 @@
 
   &:hover {
     a {
-      display: inline-flex;
+      visibility: visible;
 
       &.link-danger {
         &:hover {
@@ -53,7 +54,7 @@
 
   @media (hover: none) {
     a {
-      display: inline-flex;
+      visibility: visible;
 
       &.link-danger {
         &:hover {
