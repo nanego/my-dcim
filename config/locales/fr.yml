@@ -880,22 +880,22 @@ fr:
       title: Rechercher un matériel
   permission_scopes:
     index:
-      title: Périmètre
-      new_permission_scope: Nouveau périmètre
-      delete_confirmation: Vous êtes sûr de vouloir supprimer cette périmètre ?
+      title: Permissions
+      new_permission_scope: Nouvelle permission
+      delete_confirmation: Vous êtes sûr de vouloir supprimer cette permission ?
     new:
-      title: Nouveau périmètre
+      title: Nouvelle permission
     create:
       flashes:
-        created: Le périmètre a bien été créé.
+        created: La permission a bien été créé.
     edit:
-      title: Editier le périmètre %{name}
+      title: Editier la permission %{name}
     update:
       flashes:
-        updated: Le périmètre a bien été mis à jour.
+        updated: La permission a bien été mis à jour.
     destroy:
       flashes:
-        destroyed: Le périmètre a bien été supprimé.
+        destroyed: La permission a bien été supprimé.
 
   views:
     pagination:
