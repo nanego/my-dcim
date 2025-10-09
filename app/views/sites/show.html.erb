@@ -130,12 +130,12 @@
     </div>
   </div>
 
-  <% if (rooms = authorized_scope(@site.rooms).order(:position).joins(:frames).distinct).any? %>
-    <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
-      <% card.with_header do %>
-        <%= t("show.cards.visualization") %>
-      <% end %>
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+    <% card.with_header do %>
+      <%= t("show.cards.visualization") %>
+    <% end %>
 
+    <% if (rooms = authorized_scope(@site.rooms).order(:position).joins(:bays).distinct).any? %>
       <div class="row row-cols-1 row-gap-3">
         <% rooms.each do |room| %>
           <div class="col overview">
@@ -143,6 +143,8 @@
           </div>
         <% end %>
       </div>
+    <% else %>
+      <%= render CardEmptyDataComponent.new(icon: :slash_circle, text: t("rooms.empty_overview")) %>
     <% end %>
   <% end %>
 

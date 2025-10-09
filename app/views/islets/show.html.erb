@@ -89,11 +89,15 @@
       <%= t("show.cards.visualization") %>
     <% end %>
 
-    <div class="overview">
-      <%= render CardComponent.new(extra_classes: "islet pt-2 px-2") do |card| %>
-        <%= render "visualization/rooms/bay_overview", bays_per_lane: @islet.decorated.overviewed_bays_array(current_user), islet: @islet %>
-      <% end %>
-    </div>
+    <% if (bays_per_lane = @islet.decorated.overviewed_bays_array(current_user)).any? %>
+      <div class="overview">
+        <%= render CardComponent.new(extra_classes: "islet pt-2 px-2") do |card| %>
+          <%= render "visualization/rooms/bay_overview", bays_per_lane:, islet: @islet %>
+        <% end %>
+      </div>
+    <% else %>
+      <%= render CardEmptyDataComponent.new(icon: :slash_circle, text: t("rooms.empty_overview")) %>
+    <% end %>
   <% end %>
 
   <%= render HasManyTurboFrameComponent.new(

@@ -94,27 +94,30 @@
       <%= t("show.cards.visualization") %>
     <% end %>
 
-    <div class="overview row row-cols-1 row-gap-4">
-      <div class="col">
-        <%= render CardComponent.new do |card| %>
-          <% islets = authorized_scope(@room.islets).sorted %>
-          <% islets.each_with_index do |islet, i| %>
-            <div class="<%= class_names("islet", "pt-4": i > 0, "pt-2 px-2": islets.length == 1) %>">
-              <% if islet.name.present? %>
-                <h6 class="mb-2">
-                  <%= render BadgeComponent.new(color: :primary) do %>
-                    <%= link_to("Ilot #{islet}", visualization_room_path(@room, islet: islet.name, view: params[:view], bg: params[:bg])) %>
-                  <% end %>
-                </h6>
-              <% end %>
-              <%= render "visualization/rooms/bay_overview",
+    <% if (islets = authorized_scope(@room.islets).sorted.joins(:bays).distinct).any? %>
+      <div class="overview row row-cols-1 row-gap-4">
+        <div class="col">
+          <%= render CardComponent.new do |card| %>
+            <% islets.each_with_index do |islet, i| %>
+              <div class="<%= class_names("islet", "pt-4": i > 0, "pt-2 px-2": islets.length == 1) %>">
+                <% if islet.name.present? %>
+                  <h6 class="mb-2">
+                    <%= render BadgeComponent.new(color: :primary) do %>
+                      <%= link_to("Ilot #{islet}", visualization_room_path(@room, islet: islet.name, view: params[:view], bg: params[:bg])) %>
+                    <% end %>
+                  </h6>
+                <% end %>
+                <%= render "visualization/rooms/bay_overview",
                          bays_per_lane: islet.decorated.overviewed_bays_array(current_user),
                          islet: islet %>
-            </div>
+              </div>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
-    </div>
+    <% else %>
+      <%= render CardEmptyDataComponent.new(icon: :slash_circle, text: t("rooms.empty_overview")) %>
+    <% end %>
   <% end %>
 
   <%= render HasManyTurboFrameComponent.new(
