@@ -20,7 +20,7 @@ RSpec.describe CardEmptyDataComponent, type: :component do
   context "with manually set icon and text" do
     let(:component) { described_class.new(icon: :slash_circle, text: "Texte alternatif") }
 
-    it "renders the component" do
+    it "renders the component" do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component.to_html).to have_tag("div", class: "card text-center text-secondary-emphasis") do
         with_tag("div", class: "card-body") do
           with_tag("span", class: "bi bi-slash-circle fs-1 text-secondary text-opacity-25")
