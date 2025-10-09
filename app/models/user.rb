@@ -26,6 +26,7 @@ class User < ApplicationRecord
 
   validates :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  normalizes :email, with: ->(email) { email.strip.downcase.presence }
 
   validates :locale, inclusion: { in: AVAILABLE_LOCALES }, allow_nil: true
   validates :theme, inclusion: { in: AVAILABLE_THEMES }, allow_nil: true
