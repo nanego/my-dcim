@@ -7,15 +7,16 @@ class PaginationComponent < ApplicationComponent
     <div class="pagination-component">
       <%== pagy_bootstrap_nav(@pagy) %>
 
-      <div class="d-flex align-items-baseline gap-2">
-        <%= label_tag :items_per_page, t(".items_per_page"), class: "form-label text-nowrap text-secondary" %>
-        <%= select_tag(
-            :items_per_page,
-            options_for_select(options, selected_items_per_page),
-            onchange: "window.location.href = this.value",
-            class: "form-select form-select-sm"
-          ) %>
-      </div>
+      <%= form_with url: url_for(toto: true), method: :get, data: { controller: "form-update" },
+                    class: "d-flex align-items-baseline gap-2" do |f| %>
+        <%= helpers.hash_to_hidden_fields(query_parameters) %>
+
+        <%= f.label @pagy.vars[:limit_param], t(".items_per_page"), class: "form-label text-nowrap text-secondary" %>
+        <%= f.select @pagy.vars[:limit_param], options_for_select(User::AVAILABLE_ITEMS_PER_PAGE, @pagy.limit),
+                                      {},
+                                      class: "form-select form-select-sm",
+                                      data: { action: "change->form-update#update" } %>
+      <% end %>
     </div>
   ERB
 
@@ -28,17 +29,7 @@ class PaginationComponent < ApplicationComponent
 
   private
 
-  def options
-    @options ||= User::AVAILABLE_ITEMS_PER_PAGE.index_with do |item|
-      url_for(pagy_params_for_items(item))
-    end
-  end
-
-  def pagy_params_for_items(size)
-    (@params || request.query_parameters).merge(@pagy.vars[:limit_param] => size, @pagy.vars[:page_param] => 1)
-  end
-
-  def selected_items_per_page
-    options[@pagy.limit]
+  def query_parameters
+    (@params || request.query_parameters).merge(@pagy.vars[:page_param] => 1)
   end
 end
