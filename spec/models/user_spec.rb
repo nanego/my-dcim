@@ -27,6 +27,26 @@ RSpec.describe User do
     it { is_expected.to allow_value(nil).for(:visualization_bay_default_orientation) }
   end
 
+  describe "email is normalized" do
+    context "with an upcase email" do
+      before { user.email = "EMAIL@EMAIL.COM" }
+
+      it { expect(user.email).to eq("email@email.com") }
+    end
+
+    context "with an empty email" do
+      before { user.email = "" }
+
+      it { expect(user.email).to be_nil }
+    end
+
+    context "with a nil email" do
+      before { user.email = nil }
+
+      it { expect(user.email).to be_nil }
+    end
+  end
+
   describe "#to_s" do
     it { expect(user.to_s).to eq "user@example.com" }
   end
