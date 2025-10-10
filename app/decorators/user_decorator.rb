@@ -19,18 +19,19 @@ class UserDecorator < ApplicationDecorator
     end
 
     def roles_for_options
-      User.roles.keys.map { |role| [User.human_attribute_name("role.#{role}"), role] }
+      # User.roles.keys.map { |role| [User.human_attribute_name("role.#{role}"), role] }
     end
   end
 
   def role_human_name
-    User.human_attribute_name("role.#{role}")
+    # User.human_attribute_name("role.#{role}")
   end
 
   def role_to_badge_component
-    return BadgeComponent.new(User.human_attribute_name("admin"), color: :warning) if is_admin
+    # return BadgeComponent.new(User.human_attribute_name("admin"), color: :warning) if is_admin
 
-    color = role == "writer" ? :primary : :info
-    BadgeComponent.new(role_human_name, color:)
+    # color = role == "writer" ? :primary : :info
+    # BadgeComponent.new(role_human_name, color:)
+    BadgeComponent.new("todo", color: :info)
   end
 end
