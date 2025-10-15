@@ -3,7 +3,7 @@
 require "simplecov-console"
 
 SimpleCov.start :rails do
-  project_name "<%= application_name %>"
+  project_name "MyDCIM"
 
   # add_group "Admin", "app/admin"
   # add_group "Channels", "app/channels"
