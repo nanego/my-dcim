@@ -7,7 +7,7 @@ class SitesController < ApplicationController
   end
 
   def index
-    authorize! @sites = sorted(Site.sorted)
+    authorize! @sites = sorted(scoped_sites.sorted)
   end
 
   def show; end
@@ -62,9 +62,13 @@ class SitesController < ApplicationController
 
   private
 
+  def scoped_sites
+    authorized_scope(Site.all)
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_site
-    authorize! @site = Site.find(params[:id])
+    authorize! @site = scoped_sites.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

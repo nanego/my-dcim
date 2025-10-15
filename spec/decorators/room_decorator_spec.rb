@@ -8,8 +8,8 @@ RSpec.describe RoomDecorator, type: :decorator do
   let(:room) { rooms(:one) }
   let(:decorated_room) { room.decorated }
 
-  describe ".statuses_for_options" do
-    it { expect(described_class.statuses_for_options.pluck(1)).to match_array(Room.statuses.keys) }
+  describe ".statuses_options_for_select" do
+    it { expect(described_class.statuses_options_for_select.pluck(1)).to match_array(Room.statuses.keys) }
   end
 
   describe ".access_control_options_for_select" do

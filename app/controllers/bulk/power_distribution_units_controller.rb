@@ -19,8 +19,16 @@ module Bulk
 
     private
 
+    def scoped_power_distribution_units
+      Server.only_pdus
+    end
+
     def set_power_distribution_units
-      authorize! @power_distribution_units = Server.only_pdus.where(id: params[:ids])
+      authorize! @power_distribution_units = scoped_power_distribution_units.where(id: params[:ids])
+    end
+
+    def default_authorization_policy_class
+      PowerDistributionUnitPolicy
     end
   end
 end

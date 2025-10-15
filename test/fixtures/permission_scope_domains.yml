@@ -7,3 +7,7 @@
 one:
   permission_scope_id: 3
   domaine_id: 1
+
+reader_one:
+  permission_scope_id: 5
+  domaine_id: 3

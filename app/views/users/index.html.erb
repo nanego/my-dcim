@@ -42,7 +42,7 @@
       <%= user.name %>
     <% end %>
 
-    <% table.with_column(User.human_attribute_name(:role), sort_by: :role) do |user| %>
+    <% table.with_column(User.human_attribute_name(:role)) do |user| %>
       <%= render user.role_to_badge_component %>
     <% end %>
 

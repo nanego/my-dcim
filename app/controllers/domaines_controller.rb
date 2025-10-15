@@ -9,7 +9,7 @@ class DomainesController < ApplicationController
   # GET /domaines
   # GET /domaines.json
   def index
-    authorize! @domaines = sorted(Domaine.sorted)
+    authorize! @domaines = sorted(scoped_domains.sorted)
   end
 
   # GET /domaines/1
@@ -71,9 +71,13 @@ class DomainesController < ApplicationController
 
   private
 
+  def scoped_domains
+    authorized_scope(Domaine.all)
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_domaine
-    authorize! @domaine = Domaine.find(params[:id])
+    authorize! @domaine = scoped_domains.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

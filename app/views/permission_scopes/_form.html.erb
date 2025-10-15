@@ -9,7 +9,7 @@
     <fieldset class="col-12 mt-4">
       <%= f.label :role, class: "form-label" %>
       <%= f.select(:role,
-                    PermissionScopeDecorator.roles_for_options,
+                    PermissionScopeDecorator.roles_options_for_select,
                     {},
                     class: "form-select") %>
     </fieldset>
@@ -30,7 +30,7 @@
 
     <fieldset class="col-12 mt-4">
       <%= f.label :user_ids, class: "form-label" %>
-      <%= f.select :user_ids, PermissionScopeDecorator.users_for_options,
+      <%= f.select :user_ids, PermissionScopeDecorator.users_options_for_select,
                             { include_blank: t("access_control.blank") },
                             class: "form-select", multiple: true, data: { controller: :select } %>
     </fieldset>

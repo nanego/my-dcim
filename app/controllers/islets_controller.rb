@@ -11,7 +11,7 @@ class IsletsController < ApplicationController
   end
 
   def index
-    authorize! @islets = Islet.joins(room: :site).order("rooms.site_id asc, rooms.position asc, islets.name asc")
+    authorize! @islets = scoped_islets.joins(room: :site).order("rooms.site_id asc, rooms.position asc, islets.name asc")
     @filter = ProcessorFilter.new(@islets, params)
     @islets = @filter.results
   end
@@ -84,9 +84,13 @@ class IsletsController < ApplicationController
 
   private
 
+  def scoped_islets
+    authorized_scope(Islet.all)
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_islet
-    authorize! @islet = Islet.find(params[:id])
+    authorize! @islet = scoped_islets.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

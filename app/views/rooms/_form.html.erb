@@ -75,7 +75,7 @@
 
     <fieldset class="col-12 mt-4">
       <%= f.label :status, class: "form-label" %>
-      <%= f.select :status, RoomDecorator::statuses_for_options,
+      <%= f.select :status, RoomDecorator::statuses_options_for_select,
                             { },
                             class: "form-select" %>
     </fieldset>

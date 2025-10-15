@@ -17,8 +17,12 @@ module Bulk
 
     private
 
+    def scoped_rooms
+      authorized_scope(Room.all)
+    end
+
     def set_rooms
-      authorize! @rooms = Room.where(id: params[:ids])
+      authorize! @rooms = scoped_rooms.where(id: params[:ids])
     end
   end
 end

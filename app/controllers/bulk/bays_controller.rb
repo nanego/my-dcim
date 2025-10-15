@@ -17,8 +17,12 @@ module Bulk
 
     private
 
+    def scoped_bays
+      authorized_scope(Bay.all)
+    end
+
     def set_bays
-      authorize! @bays = Bay.where(id: params[:ids])
+      authorize! @bays = scoped_bays.where(id: params[:ids])
     end
   end
 end

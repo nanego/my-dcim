@@ -6,13 +6,13 @@ RSpec.describe PermissionScopeDecorator, type: :decorator do
   let(:permission_scope) { permission_scopes(:all) }
   let(:decorated_permission_scope) { permission_scope.decorated }
 
-  describe ".roles_for_options" do
-    it { expect(described_class.roles_for_options.pluck(1)).to match_array(PermissionScope.roles.pluck(0)) }
+  describe ".roles_options_for_select" do
+    it { expect(described_class.roles_options_for_select.pluck(1)).to match_array(PermissionScope.roles.pluck(0)) }
   end
 
-  describe ".users_for_options" do
+  describe ".users_options_for_select" do
     it do
-      expect(described_class.users_for_options)
+      expect(described_class.users_options_for_select)
         .to match_array(
           users.map { |u| [u.to_s, u.id] },
         )

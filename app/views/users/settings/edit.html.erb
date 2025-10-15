@@ -9,12 +9,12 @@
     <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
       <fieldset class="col-12">
         <%= f.label :locale, class: "form-label" %>
-        <%= f.select :locale, UserDecorator::available_locales_for_options, {}, class: "form-select" %>
+        <%= f.select :locale, UserDecorator.available_locales_options_for_select, {}, class: "form-select" %>
       </fieldset>
 
       <fieldset class="col-12 mt-4">
         <%= f.label :theme, class: "form-label" %>
-        <%= f.select :theme, UserDecorator::available_themes_for_options, {}, class: "form-select" %>
+        <%= f.select :theme, UserDecorator.available_themes_options_for_select, {}, class: "form-select" %>
       </fieldset>
 
       <fieldset class="col-12 mt-4">
@@ -28,7 +28,7 @@
       <fieldset class="col-12 mt-4">
         <%= f.label :visualization_bay_default_background_color, class: "form-label" %>
         <%= f.select :visualization_bay_default_background_color,
-                     UserDecorator::available_background_colors_for_options,
+                     UserDecorator.available_background_colors_options_for_select,
                      {},
                      class: "form-select" %>
       </fieldset>
@@ -36,7 +36,7 @@
       <fieldset class="col-12 mt-4">
         <%= f.label :visualization_bay_default_orientation, class: "form-label" %>
         <%= f.select :visualization_bay_default_orientation,
-                     UserDecorator::available_bay_orientations_for_options,
+                     UserDecorator.available_bay_orientations_options_for_select,
                      {},
                      class: "form-select" %>
       </fieldset>
