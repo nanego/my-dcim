@@ -17,8 +17,12 @@ module Bulk
 
     private
 
+    def scoped_servers
+      authorized_scope(Server.all)
+    end
+
     def set_servers
-      authorize! @servers = Server.where(id: params[:ids])
+      authorize! @servers = authorized_scope.where(id: params[:ids])
     end
   end
 end

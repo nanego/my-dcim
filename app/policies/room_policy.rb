@@ -4,16 +4,7 @@ class RoomPolicy < ApplicationPolicy
   relation_scope do |relation|
     return relation if user.admin?
 
-    # TODO: call frame policy scope directly?
-    relation.where(islet:
-      Islet.where(bay:
-        Bay.where(frame:
-          Frame.where(
-            server: Server.where(domaine: user.permitted_domains)
-          )
-        )
-      )
-    )
+    relation.where(islets: authorized_scope(Islet.all))
   end
 
   def overview?

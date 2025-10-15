@@ -4,8 +4,7 @@ class FramePolicy < ApplicationPolicy
   relation_scope do |relation|
     return relation if user.admin?
 
-    # TODO: call frame policy scope directly?
-    relation.where(server: Server.where(domaine: user.permitted_domains))
+    relation.where(servers: authorized_scope(Server.all))
   end
 
   def sort?

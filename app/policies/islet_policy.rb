@@ -4,14 +4,7 @@ class IsletPolicy < ApplicationPolicy
   relation_scope do |relation|
     return relation if user.admin?
 
-    # TODO: call frame policy scope directly?
-    relation.where(bay:
-      Bay.where(frame:
-        Frame.where(
-          server: Server.where(domaine: user.permitted_domains)
-        )
-      )
-    )
+    relation.where(bays: authorized_scope(Bay.all))
   end
 
   def print?

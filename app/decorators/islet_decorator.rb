@@ -4,6 +4,24 @@ class IsletDecorator < ApplicationDecorator
   include Rails.application.routes.url_helpers
 
   class << self
+    def for_options(user)
+      islets = Islet.includes(:room)
+        .sorted
+        .order(
+          "rooms.site_id", "rooms.position", "rooms.name"
+        )
+
+      authorized_scope(islets, user:).map { |i| [i.name_with_room, i.id] }
+    end
+
+    def sites_for_options(user)
+      SiteDecorator.for_options(user)
+    end
+
+    def rooms_for_options(user)
+      RoomDecorator.for_options(user)
+    end
+
     def grouped_by_sites_options_for_select
       Islet.includes(:site, room: :islets).sorted.not_empty.has_name.distinct.group_by(&:site).to_h do |site, islets|
         islets = islets.map do |i|

@@ -24,7 +24,7 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:room_ids, Room.sorted, :id, :name_with_site,
+          <%= f.select(:room_ids, BayDecorator.rooms_for_options(current_user),
                                   { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select }  }) %>
           <%= f.label :room_ids %>
@@ -33,13 +33,7 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:islet_ids,
-                                  Islet.includes(:room)
-                                       .order(
-                                         "rooms.site_id", "rooms.position", "rooms.name", :room_id, :name, :position
-                                       ),
-                                  :id,
-                                  :name_with_room,
+          <%= f.select(:islet_ids, BayDecorator.islets_for_options(current_user),
                                   { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select }  }
           ) %>

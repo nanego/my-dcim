@@ -7,6 +7,18 @@ class BayDecorator < ApplicationDecorator
   include Rails.application.routes.url_helpers
 
   class << self
+    def for_options(user)
+      authorized_scope(Bay.sorted, user:).map { |b| [b.to_s, b.id] }
+    end
+
+    def rooms_for_options(user)
+      RoomDecorator.for_options(user)
+    end
+
+    def islets_for_options(user)
+      IsletDecorator.for_options(user)
+    end
+
     def access_control_options_for_select
       Bay.access_controls.keys.map { |a_c| [I18n.t("access_control.#{a_c}"), a_c] }
     end

@@ -2,8 +2,28 @@
 
 class ServerDecorator < ApplicationDecorator
   class << self
+    def for_options(user)
+      authorized_scope(Server.sorted, user:).map { |d| [d.name, d.id] }
+    end
+
+    def rooms_for_options(user)
+      RoomDecorator.for_options(user)
+    end
+
+    def islets_for_options(user)
+      IsletDecorator.for_options(user)
+    end
+
+    def bays_for_options(user)
+      BayDecorator.for_options(user)
+    end
+
+    def frames_for_options(user)
+      FrameDecorator.for_options(user)
+    end
+
     def domains_for_options(user)
-      user.permitted_domains.sorted.map { |d| [d.name, d.id] }
+      DomaineDecorator.for_options(user)
     end
   end
 

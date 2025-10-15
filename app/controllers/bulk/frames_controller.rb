@@ -17,8 +17,12 @@ module Bulk
 
     private
 
+    def scoped_frames
+      authorized_scope(Frame.all)
+    end
+
     def set_frames
-      authorize! @frames = Frame.where(id: params[:ids])
+      authorize! @frames = scoped_frames.where(id: params[:ids])
     end
   end
 end

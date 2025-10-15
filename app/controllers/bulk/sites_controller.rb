@@ -17,8 +17,12 @@ module Bulk
 
     private
 
+    def scoped_sites
+      authorized_scope(Site.all)
+    end
+
     def set_sites
-      authorize! @sites = Site.where(id: params[:ids])
+      authorize! @sites = scoped_sites.where(id: params[:ids])
     end
   end
 end

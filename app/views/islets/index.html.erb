@@ -24,7 +24,7 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:site_ids, Site.order(:name), :id, :name,
+          <%= f.select(:site_ids, IsletDecorator.sites_for_options(current_user),
                                   { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select }  }) %>
           <%= f.label :site_ids %>
@@ -33,9 +33,7 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:room_ids,
-                                  Room.order(:position), # TODO: check if good
-                                  :id, :name,
+          <%= f.select(:room_ids, IsletDecorator.rooms_for_options(current_user),
                                   { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select }  }) %>
           <%= f.label :room_ids %>
