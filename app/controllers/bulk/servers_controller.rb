@@ -18,7 +18,7 @@ module Bulk
     private
 
     def scoped_servers
-      authorized_scope(Server.all)
+      authorized_scope(Server.no_pdus)
     end
 
     def set_servers

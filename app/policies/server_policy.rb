@@ -2,6 +2,8 @@
 
 class ServerPolicy < ApplicationPolicy
   relation_scope do |relation|
+    relation = relation.no_pdus
+
     return relation if user.admin?
 
     relation.where(domaine: user.permitted_domains)

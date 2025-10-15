@@ -8,7 +8,7 @@ class PowerDistributionUnitsController < ApplicationController
   end
 
   def index
-    authorize! @pdus = Server.only_pdus.includes(:frame, :room, :islet, bay: :frames, modele: :category)
+    authorize! @pdus = scoped_power_distribution_units.includes(:frame, :room, :islet, bay: :frames, modele: :category)
       .references(:room, :islet, :bay, modele: :category)
       .order(:name)
     @filter = ProcessorFilter.new(@pdus, params, with: PowerDistributionUnitsProcessor)
@@ -68,7 +68,7 @@ class PowerDistributionUnitsController < ApplicationController
   end
 
   def duplicate
-    authorize! @original_pdu = Server.friendly.find(params[:id].to_s.downcase)
+    authorize! @original_pdu = scoped_power_distribution_units.friendly.find(params[:id].to_s.downcase)
     @pdu = @original_pdu.deep_dup
   end
 
@@ -84,8 +84,12 @@ class PowerDistributionUnitsController < ApplicationController
 
   private
 
+  def scoped_power_distribution_units
+    Server.only_pdus
+  end
+
   def set_pdu
-    authorize! @pdu = Server.friendly_find_by_numero_or_name(params[:id])
+    authorize! @pdu = scoped_power_distribution_units.friendly_find_by_numero_or_name(params[:id])
   end
 
   def pdu_params

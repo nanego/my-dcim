@@ -87,7 +87,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   end
 
   def duplicate
-    authorize! @original_server = Server.friendly.find(params[:id].to_s.downcase)
+    authorize! @original_server = scoped_servers.friendly.find(params[:id].to_s.downcase)
     @server = @original_server.deep_dup
   end
 
@@ -110,7 +110,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
 
     params[:server].each_with_index do |id, index|
       if positions[index].present?
-        server = Server.find_by_id(id)
+        server = scoped_servers.find_by_id(id)
         new_params = { position: positions[index] }
         new_params[:frame_id] = frame.id if frame.present?
 
@@ -138,7 +138,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   end
 
   def export
-    authorize! @servers = Server.no_pdus
+    authorize! @servers = scoped_servers
       .includes(frame: { bay: { islet: :room } }, modele: :category)
       .references(frame: { bay: { islet: :room } }, modele: :category)
       .order(:name)
@@ -178,7 +178,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   private
 
   def scoped_servers
-    authorized_scope(Server.all)
+    authorized_scope(Server.no_pdus)
   end
 
   # Use callbacks to share common setup or constraints between actions.
