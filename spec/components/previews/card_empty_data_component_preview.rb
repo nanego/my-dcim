@@ -3,7 +3,7 @@
 class CardEmptyDataComponentPreview < ViewComponent::Preview
   # @param icon text "Add an icon name from the https://icons.getbootstrap.com/"
   # @param text text
-  def default(icon: "table", text: nil)
+  def default(icon: :slash_circle, text: nil)
     render CardEmptyDataComponent.new(icon:, text:)
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CardEmptyDataComponent < ApplicationComponent
-  def initialize(icon: :table, text: I18n.t("card_empty_data_component.title"), **_options)
+  def initialize(icon: :slash_circle, text: I18n.t("card_empty_data_component.title"), **_options)
     @icon = icon.to_s.dasherize
     @text = text
 
