@@ -4,7 +4,7 @@ class IsletDecorator < ApplicationDecorator
   include Rails.application.routes.url_helpers
 
   class << self
-    def for_options(user)
+    def options_for_select(user)
       islets = Islet.includes(:room)
         .sorted
         .order(

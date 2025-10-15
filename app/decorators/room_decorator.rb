@@ -10,7 +10,7 @@ class RoomDecorator < ApplicationDecorator
   }.freeze
 
   class << self
-    def for_options(user)
+    def options_for_select(user)
       authorized_scope(Room.sorted, user:).map { |r| [r.name_with_site, r.id] }
     end
 

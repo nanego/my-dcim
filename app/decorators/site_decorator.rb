@@ -2,7 +2,7 @@
 
 class SiteDecorator < ApplicationDecorator
   class << self
-    def for_options(user)
+    def options_for_select(user)
       authorized_scope(Site.sorted, user:).map { |s| [s.name, s.id] }
     end
   end

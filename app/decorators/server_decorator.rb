@@ -2,8 +2,8 @@
 
 class ServerDecorator < ApplicationDecorator
   class << self
-    def for_options(user)
-      authorized_scope(Server.sorted, user:).map { |d| [d.name, d.id] }
+    def options_for_select(user)
+      authorized_scope(Server.no_pdus.sorted, user:).map { |d| [d.name, d.id] }
     end
 
     def rooms_options_for_select(user)

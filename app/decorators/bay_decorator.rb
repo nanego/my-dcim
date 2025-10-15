@@ -7,7 +7,7 @@ class BayDecorator < ApplicationDecorator
   include Rails.application.routes.url_helpers
 
   class << self
-    def for_options(user)
+    def options_for_select(user)
       authorized_scope(Bay.sorted, user:).map { |b| [b.to_s, b.id] }
     end
 

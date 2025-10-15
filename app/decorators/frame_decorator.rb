@@ -2,7 +2,7 @@
 
 class FrameDecorator < ApplicationDecorator
   class << self
-    def for_options(user)
+    def options_for_select(user)
       authorized_scope(Frame.sorted, user:).map { |f| [f.name, f.id] }
     end
 
