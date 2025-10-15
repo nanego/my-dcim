@@ -11,3 +11,7 @@ one:
 five:
   permission_scope_id: 4
   user_id: 5
+
+reader:
+  permission_scope_id: 5
+  user_id: 4

@@ -21,3 +21,8 @@ writer:
   name: All writer
   all_domains: true
   role: 1
+
+reader:
+  id: 5
+  name: Reader
+  role: 0
