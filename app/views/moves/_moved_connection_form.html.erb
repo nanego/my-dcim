@@ -65,7 +65,11 @@
                                     disabled: @destination_port.present? ? false : :disabled %>
     <span>
       <%= f.hidden_field :remove_connection, value: "0" %>
-      <%= link_to t(".action.delete"), "#", class:"text-danger", onclick: "remove_connection()" %>
+      <button type="button"
+              class="btn btn-link link-danger link-underline link-underline-opacity-0 link-underline-opacity-100-hover"
+              onclick="remove_connection()">
+        <%= t(".action.delete") %>
+      </button>
     </span>
   </div>
 <% end %>
@@ -110,6 +114,7 @@ function select_destination_port(port_id){
 
 function remove_connection(){
   $('form #moved_connection_remove_connection')[0].value = '1';
+  // TODO: calling submit crash the page, because it search for a view "update_connection"
   $('form.moved_connection').trigger('submit.rails');
 }
 </script>
