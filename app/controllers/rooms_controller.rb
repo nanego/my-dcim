@@ -15,11 +15,6 @@ class RoomsController < ApplicationController
   end
 
   def show
-    @sites = Site.joins(:rooms).includes(rooms: [bays: [:bay_type]]).order(:position).distinct
-    @islet = Islet.find_by(name: params[:islet], room_id: @room.id) if params[:islet].present?
-
-    @air_conditioners = AirConditioner.all
-
     respond_to do |format|
       format.html
       format.json

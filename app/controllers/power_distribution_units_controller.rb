@@ -11,7 +11,7 @@ class PowerDistributionUnitsController < ApplicationController
     authorize! @pdus = Server.only_pdus.includes(:frame, :room, :islet, bay: :frames, modele: :category)
       .references(:room, :islet, :bay, modele: :category)
       .order(:name)
-    @filter = ProcessorFilter.new(@pdus, params)
+    @filter = ProcessorFilter.new(@pdus, params, with: PowerDistributionUnitsProcessor)
 
     @pdus = @filter.results
 

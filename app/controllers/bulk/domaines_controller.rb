@@ -17,12 +17,12 @@ module Bulk
 
     private
 
-    def scoped_sites
+    def scoped_domaines
       authorized_scope(Domaine.all)
     end
 
     def set_domaines
-      authorize! @domaines = scoped_sites.where(id: params[:ids])
+      authorize! @domaines = scoped_domaines.where(id: params[:ids])
     end
   end
 end
