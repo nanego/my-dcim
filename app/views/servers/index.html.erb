@@ -44,7 +44,7 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.select(:room_ids, ServerDecorator.rooms_for_options(current_user),
+          <%= f.select(:room_ids, ServerDecorator.rooms_options_for_select(current_user),
                                   { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :room_ids %>
@@ -53,7 +53,7 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.select(:islet_ids, ServerDecorator.islets_for_options(current_user),
+          <%= f.select(:islet_ids, ServerDecorator.islets_options_for_select(current_user),
                                   { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :islet_ids %>
@@ -62,7 +62,7 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.select(:bay_ids, ServerDecorator.bays_for_options(current_user),
+          <%= f.select(:bay_ids, ServerDecorator.bays_options_for_select(current_user),
                                   { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :bay_ids %>
@@ -71,7 +71,7 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.select(:frame_ids, ServerDecorator.frames_for_options(current_user),
+          <%= f.select(:frame_ids, ServerDecorator.frames_options_for_select(current_user),
                                   { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :frame_ids %>
@@ -103,7 +103,7 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.select(:domaine_ids, ServerDecorator.domains_for_options(current_user),
+          <%= f.select(:domaine_ids, ServerDecorator.domains_options_for_select(current_user),
                                   { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
           <%= f.label :domaine_ids %>

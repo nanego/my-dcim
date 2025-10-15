@@ -11,12 +11,12 @@ class BayDecorator < ApplicationDecorator
       authorized_scope(Bay.sorted, user:).map { |b| [b.to_s, b.id] }
     end
 
-    def rooms_for_options(user)
-      RoomDecorator.for_options(user)
+    def rooms_options_for_select(user)
+      RoomDecorator.options_for_select(user)
     end
 
-    def islets_for_options(user)
-      IsletDecorator.for_options(user)
+    def islets_options_for_select(user)
+      IsletDecorator.options_for_select(user)
     end
 
     def access_control_options_for_select

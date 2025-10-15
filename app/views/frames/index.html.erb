@@ -24,7 +24,7 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.select(:room_ids, FrameDecorator.rooms_for_options(current_user),
+          <%= f.select(:room_ids, FrameDecorator.rooms_options_for_select(current_user),
                                   { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select }  }) %>
           <%= f.label :room_ids %>
@@ -33,7 +33,7 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.select(:islet_ids, FrameDecorator.islets_for_options(current_user),
+          <%= f.select(:islet_ids, FrameDecorator.islets_options_for_select(current_user),
                                   { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select }  }) %>
           <%= f.label :islet_ids %>
@@ -42,7 +42,7 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.select(:bay_ids, FrameDecorator.bays_for_options(current_user),
+          <%= f.select(:bay_ids, FrameDecorator.bays_options_for_select(current_user),
                                   { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select }  }) %>
           <%= f.label :bay_ids %>

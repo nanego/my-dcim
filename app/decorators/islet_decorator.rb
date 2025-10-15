@@ -14,12 +14,12 @@ class IsletDecorator < ApplicationDecorator
       authorized_scope(islets, user:).map { |i| [i.name_with_room, i.id] }
     end
 
-    def sites_for_options(user)
-      SiteDecorator.for_options(user)
+    def sites_options_for_select(user)
+      SiteDecorator.options_for_select(user)
     end
 
-    def rooms_for_options(user)
-      RoomDecorator.for_options(user)
+    def rooms_options_for_select(user)
+      RoomDecorator.options_for_select(user)
     end
 
     def grouped_by_sites_options_for_select

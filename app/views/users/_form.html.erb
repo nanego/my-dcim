@@ -19,7 +19,7 @@
     <fieldset class="col-12 mt-4">
       <%= f.label :role, class: "form-label" %>
       <%= f.select(:role,
-                    UserDecorator.roles_for_options,
+                    UserDecorator.roles_options_for_select,
                     {},
                     class: "form-select") %>
     </fieldset>

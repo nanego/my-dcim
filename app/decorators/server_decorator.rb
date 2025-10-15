@@ -6,24 +6,24 @@ class ServerDecorator < ApplicationDecorator
       authorized_scope(Server.sorted, user:).map { |d| [d.name, d.id] }
     end
 
-    def rooms_for_options(user)
-      RoomDecorator.for_options(user)
+    def rooms_options_for_select(user)
+      RoomDecorator.options_for_select(user)
     end
 
-    def islets_for_options(user)
-      IsletDecorator.for_options(user)
+    def islets_options_for_select(user)
+      IsletDecorator.options_for_select(user)
     end
 
-    def bays_for_options(user)
-      BayDecorator.for_options(user)
+    def bays_options_for_select(user)
+      BayDecorator.options_for_select(user)
     end
 
-    def frames_for_options(user)
-      FrameDecorator.for_options(user)
+    def frames_options_for_select(user)
+      FrameDecorator.options_for_select(user)
     end
 
-    def domains_for_options(user)
-      DomaineDecorator.for_options(user)
+    def domains_options_for_select(user)
+      DomaineDecorator.options_for_select(user)
     end
   end
 
