@@ -8,6 +8,10 @@ class CableDecorator < ApplicationDecorator
   include ActionView::Context
 
   class << self
+    def servers_options_for_select(user)
+      ServerDecorator.options_for_select(user)
+    end
+
     def special_case_options_for_select
       [true, false].map do |s|
         [I18n.t("boolean.#{s}"), s]
