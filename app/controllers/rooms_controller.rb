@@ -12,6 +12,7 @@ class RoomsController < ApplicationController
   def index
     authorize! @rooms = Room.joins(:site).order("sites.position asc, rooms.position asc, rooms.name asc")
     @filter = ProcessorFilter.new(@rooms, params)
+    @rooms = @filter.results
   end
 
   def show
