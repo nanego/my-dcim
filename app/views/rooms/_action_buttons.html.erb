@@ -45,10 +45,10 @@
   <% end %>
 
   <% if allowed_to?(:sort?, with: ServerPolicy) %>
-    <%= link_to "#", class: "btn btn-sm btn-outline-primary align-items-center", id: "drag-n-drop-switcher" do %>
+    <button type="button" class="btn btn-sm btn-outline-primary align-items-center" id="drag-n-drop-switcher">
       <span class="bi bi-arrows-move" aria-hidden="true"></span>
       <%= t(".dragn_drop.enable") %>
-    <% end %>
+    </button>
   <% end %>
 
   <% if @room.present? && !@room.kind_of?(String) %>

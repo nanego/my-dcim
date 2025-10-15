@@ -2,19 +2,19 @@
   <%= link_to Server.model_name.human(count: 2), servers_grids_path, class: "nav-link d-block d-lg-none" %>
 </li>
 <li class="nav-item dropdown d-none d-lg-block" role="menuitem">
-  <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+  <button class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown"
     aria-expanded="false">
     <%= Server.model_name.human(count: 2) %>
-  </a>
+  </button>
   <ul class="dropdown-menu">
     <li><%= link_to t(".search_equipment"), servers_grids_path, class: "dropdown-item" %></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header"><%= t(".filter_by") %></h6></li>
     <li class="nav-item dropdown-submenu" role="menuitem">
-      <a href="#" class="dropdown-toggle dropdown-item" data-bs-toggle="dropdown" role="button" aria-haspopup="true"
+      <button class="dropdown-toggle dropdown-item" data-bs-toggle="dropdown" type="button" aria-haspopup="true"
         aria-expanded="false">
         <%= Gestion.model_name.human %>
-      </a>
+      </button>
       <ul class="dropdown-menu">
         <% Gestion.order(Gestion.arel_table[:name].lower).each do |c| %>
           <li>
@@ -26,10 +26,10 @@
       </ul>
     </li>
     <li class="nav-item dropdown-submenu" role="menuitem">
-      <a href="#" class="dropdown-toggle dropdown-item" data-bs-toggle="dropdown" role="button" aria-haspopup="true"
+      <button class="dropdown-toggle dropdown-item" data-bs-toggle="dropdown" type="button" aria-haspopup="true"
         aria-expanded="false">
         <%= Cluster.model_name.human %>
-      </a>
+      </button>
       <ul class="dropdown-menu overflow-auto" style="max-height:70vh;">
         <li>
           <% Cluster.order(Cluster.arel_table[:name].lower).in_groups(3).each do |clusters| %>
@@ -51,10 +51,10 @@
       </ul>
     </li>
     <li class="nav-item dropdown-submenu" role="menuitem">
-      <a href="#" class="dropdown-toggle dropdown-item" data-bs-toggle="dropdown" role="button" aria-haspopup="true"
+      <button class="dropdown-toggle dropdown-item" data-bs-toggle="dropdown" type="button" aria-haspopup="true"
         aria-expanded="false">
         <%= Modele.model_name.human %>
-      </a>
+      </button>
       <ul class="dropdown-menu overflow-auto modeles"
           style="max-height:70vh;">
         <% Modele.all_sorted_with_servers.each do |modele| %>
