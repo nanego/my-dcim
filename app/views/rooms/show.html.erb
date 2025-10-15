@@ -103,7 +103,10 @@
                 <% if islet.name.present? %>
                   <h6 class="mb-2">
                     <%= render BadgeComponent.new(color: :primary) do %>
-                      <%= link_to("Ilot #{islet}", visualization_room_path(@room, islet: islet.name, view: params[:view], bg: params[:bg])) %>
+                      <%= link_to(
+                        islet.decorated.full_name,
+                        visualization_room_path(@room, islet: islet.name, view: params[:view], bg: params[:bg])
+                      ) %>
                     <% end %>
                   </h6>
                 <% end %>

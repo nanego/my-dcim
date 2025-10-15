@@ -20,6 +20,6 @@ class Islet < ApplicationRecord
   delegate :to_s, to: :name
 
   def name_with_room
-    "#{[Islet.model_name.human, name].join(" ")} #{room}"
+    "#{decorated.full_name} #{room}"
   end
 end
