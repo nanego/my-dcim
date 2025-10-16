@@ -1,16 +1,22 @@
 # frozen_string_literal: true
 
 class CablesController < ApplicationController
+  before_action :set_server, only: :index
   before_action :set_cable, only: :destroy
 
   def index
-    authorize! @cables = Cable.includes(connections: %i[port server card],
-                                        cards: [:card_type],
-                                        card_types: [:port_type])
-      .order(created_at: :desc)
-    @filter = ProcessorFilter.new(@cables, params)
+    if @server
+      authorize! @cables = @server.cables.includes(:cards, :port_types, ports: { server: { modele: :category } })
+      @cables = @cables.sorted
+    else
+      authorize! @cables = Cable.includes(connections: %i[port server card],
+                                          cards: [:card_type],
+                                          card_types: [:port_type])
+        .order(created_at: :desc)
 
-    @pagy, @cables = pagy(@filter.results.distinct)
+      @filter = ProcessorFilter.new(@cables, params)
+      @pagy, @cables = pagy(@filter.results.distinct)
+    end
   end
 
   def destroy
@@ -35,6 +41,12 @@ class CablesController < ApplicationController
   end
 
   private
+
+  def set_server
+    return unless params[:server_id]
+
+    @server = Server.find(params[:server_id])
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_cable
