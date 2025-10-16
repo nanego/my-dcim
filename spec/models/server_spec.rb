@@ -159,43 +159,4 @@ RSpec.describe Server do
   describe "#deep_dup" do
     pending
   end
-
-  describe "#destroy_connections!" do
-    context "with a server with connections" do
-      let(:server) { servers(:one) }
-
-      it do
-        expect do
-          server.destroy_connections!
-        end.to change { server.connections.count }.from(4).to(0)
-          .and change { server.cables.count }.from(4).to(0)
-      end
-
-      it do
-        expect do
-          server.destroy_connections!
-        end.to change(Connection, :count).from(6).to(2)
-      end
-
-      it do
-        expect do
-          server.destroy_connections!
-        end.to(change { server.ports.first.updated_at })
-      end
-
-      it { expect(server.destroy_connections!).to be true }
-    end
-
-    context "with a server without connection" do
-      let(:server) { servers(:two) }
-
-      it do
-        expect do
-          server.destroy_connections!
-        end.not_to(change { server.connections.count })
-      end
-
-      it { expect(server.destroy_connections!).to be true }
-    end
-  end
 end

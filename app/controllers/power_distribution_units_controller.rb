@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PowerDistributionUnitsController < ApplicationController
-  before_action :set_pdu, only: %i[show edit update destroy destroy_connections]
+  before_action :set_pdu, only: %i[show edit update destroy]
   before_action except: %i[index] do
     # TODO: prefer use ActiveRecord translation of Modele name
     breadcrumb.add_step(t("power_distribution_units.index.title"), power_distribution_units_path)
@@ -70,16 +70,6 @@ class PowerDistributionUnitsController < ApplicationController
   def duplicate
     authorize! @original_pdu = scoped_power_distribution_units.friendly.find(params[:id].to_s.downcase)
     @pdu = @original_pdu.deep_dup
-  end
-
-  def destroy_connections
-    if @pdu.destroy_connections!
-      flash[:notice] = t(".flashes.connections_destroyed")
-    else
-      flash[:alert] = t(".flashes.connections_not_destroyed")
-    end
-
-    redirect_to power_distribution_unit_path(@pdu)
   end
 
   private

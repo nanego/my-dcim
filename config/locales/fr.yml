@@ -441,8 +441,6 @@ fr:
       moves_cta_tooltip: Prévoir son déplacement
       export_cta_tooltip: Export PDF pour les câbleurs
       toggle_vlans: Afficher / Cacher les Vlans
-      destroy_connections: Supprimer les connexions
-      destroy_connections_confirmation: Confirmez-vous vouloir supprimer toutes les connections de ce matériel I.T. ?
     new:
       title: Ajouter un matériel I.T.
     create:
@@ -492,8 +490,6 @@ fr:
       glpi_visit_page: Voir la page de la machine sur GLPI
       no_match_serial: "Aucune correspondance pour ce numéro de série : %{serial}"
       glpi_connection_error: "Problème lors de la connexion à GLPI :"
-      destroy_connections: Supprimer les connexions
-      destroy_connections_confirmation: Confirmez-vous vouloir supprimer toutes les connections de ce PDU ?
       warning_no_frame: Le châssis actuel n'existe plus, veuillez en renseigner un.
     new:
       title: Ajouter un PDU

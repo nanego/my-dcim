@@ -427,27 +427,14 @@
       extra_classes: "bg-body-tertiary"
     ) do |c| %>
       <% c.with_actions do %>
-        <span>
-          <button class="btn btn-sm text-body-tertiary me-2"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target=".collapse"
-                  aria-expanded="false"
-                  aria-controls="collapse all">
-            <%= t(".toggle_vlans") %>
-          </button>
-
-          <%= render ButtonComponent.new(
-            t(".destroy_connections"),
-            url: destroy_connections_server_path(@server),
-            icon: "trash",
-            variant: :danger,
-            size: :sm,
-            is_responsive: true,
-            data: { confirm: t(".destroy_connections_confirmation") }
-          ) if allowed_to?(:destroy_connections?, @server)
-          %>
-        </span>
+        <button class="btn btn-sm text-body-tertiary me-2"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target=".collapse"
+                aria-expanded="false"
+                aria-controls="collapse all">
+          <%= t(".toggle_vlans") %>
+        </button>
       <% end %>
     <% end %>
   </div>

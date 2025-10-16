@@ -11,8 +11,8 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
 
   columns_preferences_with model: Server, default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS, only: %i[index export]
 
-  before_action :set_server, only: %i[show edit update destroy destroy_connections export_cables]
-  before_action except: %i[index export_cables export destroy_connections] do
+  before_action :set_server, only: %i[show edit update destroy export_cables]
+  before_action except: %i[index export_cables export] do
     breadcrumb.add_step(Server.model_name.human, servers_path)
   end
 
@@ -88,16 +88,6 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   def duplicate
     authorize! @original_server = scoped_servers.friendly.find(params[:id].to_s.downcase)
     @server = @original_server.deep_dup
-  end
-
-  def destroy_connections
-    if @server.destroy_connections!
-      flash[:notice] = t(".flashes.connections_destroyed")
-    else
-      flash[:alert] = t(".flashes.connections_not_destroyed")
-    end
-
-    redirect_to server_path(@server)
   end
 
   def sort
