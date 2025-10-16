@@ -31,19 +31,19 @@
 </div>
 
 <div class="collapse px-4" id="collapseVlansPanel-<%= cable.id %>" data-html2canvas-ignore="true">
-  <div class="vlans-card my-2 mx-auto pt-2">
-    <div class="d-flex row-cols-3 justify-content-center">
-      <span class="col text-end text-break">
+  <div class="vlans-card d-flex my-2 mx-auto pt-2">
+    <div class="d-inline-flex justify-content-evenly mx-auto">
+      <span class="text-end text-break">
         <% if from_connection&.port&.vlans.present? %>
           <%= from_connection.port.vlans %>
         <% else %>
           <span class="fst-italic fw-light text-body-secondary">n/c</span>
         <% end %>
       </span>
-      <span class="col-4 col-xl-3 text-center fw-bold user-select-none">
+      <span class="text-center fw-bold user-select-none mx-2">
         <%= Port.human_attribute_name(:vlans) %>
       </span>
-      <span class="col text-break">
+      <span class="text-break">
         <% if to_connection&.port&.vlans.present? %>
           <%= to_connection.port.vlans %>
         <% else %>
