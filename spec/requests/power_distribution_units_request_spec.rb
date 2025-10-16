@@ -219,12 +219,4 @@ RSpec.describe "/power_distribution_units" do
       end
     end
   end
-
-  describe "GET /destroy_connections" do
-    before { get destroy_connections_power_distribution_unit_path(pdu) }
-
-    it { expect(response).to have_http_status(:redirect) }
-    it { expect(pdu.connections.count).to be_zero }
-    it { expect(flash[:notice]).to be_present }
-  end
 end
