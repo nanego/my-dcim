@@ -25,7 +25,7 @@
       <span class="bi bi-file-earmark-pdf" data-dynamic-export-pdf-target="buttonIcon"></span>
       <span class="ms-2 d-none d-md-inline-flex"><%= t("action.export") %></span>
     </button>
-    
+
     <%= render ButtonComponent.new(
       t("action.move"),
       url: new_move_path(server_id: @server.id),
@@ -422,7 +422,7 @@
   <div class="tab-pane fade" id="connections-tab-pane" role="tabpanel" aria-labelledby="connections-tab" tabindex="0">
     <%= render HasManyTurboFrameComponent.new(
       Connection.model_name.human.pluralize,
-      url: cables_path(server_ids: @server.id),
+      url: server_cables_path(@server.id),
       frame_id: dom_id(Connection, :table),
       extra_classes: "bg-body-tertiary"
     ) do |c| %>

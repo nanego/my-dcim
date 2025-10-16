@@ -75,6 +75,8 @@ Rails.application.routes.draw do
       get :destroy_connections
       get :export_cables
     end
+
+    resources :cables, only: :index
   end
   resources :power_distribution_units do
     member do
