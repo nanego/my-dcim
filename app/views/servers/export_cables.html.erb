@@ -8,16 +8,9 @@
   <% unless @cables.empty? %>
     <%= render List::DataTableComponent.new(@cables) do |table| %>
       <% table.with_column(Connection.model_name.human.pluralize, v_align: :baseline) do |cable| %>
-        <%
-          if (first_connection = cable.connections.first).server == @server
-            from_connection = first_connection
-            to_connection = cable.connections.second
-          else
-            from_connection = cable.connections.second
-            to_connection = first_connection
-          end
-        %>
-        <% render partial: "cables/draw", locals: { cable:, from_connection:, to_connection: } %>
+        <div class="cable-index-servers">
+          <%= render partial: "cables/draw", locals: { cable:, server: @server } %>
+        </div>
       <% end %>
       <% table.with_column("", v_align: :center, text_align: :center) do |cable| %>
         <%= check_box_tag("") %>

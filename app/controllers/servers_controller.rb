@@ -12,7 +12,6 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   columns_preferences_with model: Server, default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS, only: %i[index export]
 
   before_action :set_server, only: %i[show edit update destroy destroy_connections export_cables]
-  before_action :set_cables, only: %i[export_cables]
   before_action except: %i[index export_cables export destroy_connections] do
     breadcrumb.add_step(Server.model_name.human, servers_path)
   end
@@ -172,6 +171,8 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
       end
     end
 
+    @cables = decorate(@server.cables.sorted)
+
     render layout: "pdf"
   end
 
@@ -184,14 +185,6 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   # Use callbacks to share common setup or constraints between actions.
   def set_server
     authorize! @server = scoped_servers.friendly_find_by_numero_or_name(params[:id])
-  end
-
-  def set_cables
-    @cables = @server.cables.includes(ports: { server: { modele: :category } })
-    alim_cables = @cables.joins(:port_types).where(port_types: PortType.where(name: "ALIM")).uniq
-    other_cables = @cables.select { |c| alim_cables.exclude?(c) }
-
-    @cables = decorate(other_cables + alim_cables)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

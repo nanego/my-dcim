@@ -1,3 +1,13 @@
+<%
+  if (first_connection = cable.connections.first).server == server
+    from_connection = first_connection
+    to_connection = cable.connections.second
+  else
+    from_connection = cable.connections.second
+    to_connection = first_connection
+  end
+%>
+
 <div class="d-flex">
   <div class="d-flex align-items-center row-cols-3 justify-content-center flex-grow-1">
     <%= cable.decorated.server_connected_with_link(from_connection, from: true) %>
