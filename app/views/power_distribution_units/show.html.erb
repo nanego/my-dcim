@@ -1,15 +1,15 @@
 <% breadcrumb.add_step(@pdu.name) %>
 
-<%#<%= render Page::HeadingShowComponent.new(resource: @pdu, title: @pdu.name, breadcrumb:) do |heading| %>
-  <%#<% heading.with_extra_buttons do %>
-    <%#<%= render ButtonComponent.new(t("action.duplicate"),
+<%# <%= render Page::HeadingShowComponent.new(resource: @pdu, title: @pdu.name, breadcrumb:) do |heading| %>
+  <%# <% heading.with_extra_buttons do %>
+    <%# <%= render ButtonComponent.new(t("action.duplicate"),
                                   url: duplicate_power_distribution_unit_path(@pdu.slug),
                                   variant: :success,
                                   icon: "copy",
                                   is_responsive: true,
                                   extra_classes: "me-2") %>
-  <% # end %>
-<% # end %>
+  <%# end %>
+<%# end %>
 
 <%= render Page::HeadingComponent.new(
   title: @pdu.name,
