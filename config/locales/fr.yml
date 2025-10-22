@@ -232,6 +232,8 @@ fr:
       flashes:
         updated: La stack a bien été modifiée.
     destroy:
+      title: Suppression
+      delete-confirm: Voulez-vous vraiment supprimer cette ressource ?
       flashes:
         destroyed: La stack a bien été supprimé.
   card_types:

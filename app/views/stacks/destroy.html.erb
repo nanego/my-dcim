@@ -1,0 +1,24 @@
+<%
+  breadcrumb
+    .add_step(@stack, stack_path(@stack))
+    .add_step(t("action.delete"))
+%>
+<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:) %>
+<div class="col-12 p-4 border-top">
+  <p class="text-danger fw-bold">
+    <%= t(".delete-confirm") %>
+  </p>
+  <%= render ButtonComponent.new(
+    t("action.cancel"),
+    url: :back,
+    is_responsive: true
+  )%>
+  <%= render ButtonComponent.new(
+    t("action.delete"),
+    url: stack_path(@stack, confirm: true),
+    method: :delete,
+    variant: :danger,
+    icon: "trash",
+    is_responsive: true
+  )%>
+</div>
