@@ -28,7 +28,7 @@ module Overview
     def call
       tag.span(class: "shortcut-button-component") do
         concat(
-          link_to bay_path(@id, params: { redirect_to_on_success: :back }),
+          link_to(bay_path(@id, params: { redirect_to_on_success: :back }),
                   method: :delete,
                   class: "link-danger",
                   title: t(".delete_frame.title"),
@@ -37,19 +37,19 @@ module Overview
                     confirm: t(".delete_frame.confirm"),
                     controller: "tooltip",
                     bs_placement: "bottom",
-                  } do
+                  }) do
             tag.span(class: "bi bi-dash-circle-fill")
           end,
         )
         concat(
-          link_to new_frame_path(frame: { bay_id: @id, position: @position }, redirect_to_on_success: @redirection),
+          link_to(new_frame_path(frame: { bay_id: @id, position: @position }, redirect_to_on_success: @redirection),
                   class: "link-success",
                   title: t(".create_frame.title"),
                   aria: { hidden: true },
                   data: {
                     controller: "tooltip",
                     bs_placement: "bottom",
-                  } do
+                  }) do
             tag.span(class: "bi bi-plus-circle-fill")
           end,
         )
