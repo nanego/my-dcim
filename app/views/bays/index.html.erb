@@ -24,19 +24,20 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.select(:room_ids, BayDecorator.rooms_options_for_select(current_user),
+          <%= f.select :room_ids, BayDecorator.rooms_options_for_select(current_user),
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select }  }) %>
+                                  { class: "form-select", data: { controller: :select } }
+          %>
           <%= f.label :room_ids %>
         </fieldset>
       </div>
 
       <div>
         <fieldset class="form-floating">
-          <%= f.select(:islet_ids, BayDecorator.islets_options_for_select(current_user),
+          <%= f.select :islet_ids, BayDecorator.islets_options_for_select(current_user),
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select }  }
-          ) %>
+                                  { class: "form-select", data: { controller: :select } }
+          %>
           <%= f.label :islet_ids %>
         </fieldset>
       </div>

@@ -5,18 +5,11 @@ require "rails_helper"
 RSpec.describe ChangelogEntryPolicy, type: :policy do
   let(:user) { users(:one) }
   let(:context) { { user: } }
-  let(:is_admin) { false }
-  let(:role) { nil }
-
-  before do
-    user.is_admin = is_admin
-    user.role = role
-  end
 
   describe_rule :index? do
     context "when user is admin" do # rubocop:disable RSpec/EmptyExampleGroup
       succeed "when an admin user asks" do
-        let(:is_admin) { true }
+        let(:user) { users(:admin) }
       end
     end
 
@@ -24,16 +17,16 @@ RSpec.describe ChangelogEntryPolicy, type: :policy do
       failed "when user with no role asks"
 
       failed "when a reader user asks" do
-        let(:role) { :reader }
+        let(:user) { users(:reader) }
       end
 
       succeed "when a reader users asks with a scoped_object (ChangelogEntries::ObjectList context)" do
-        let(:role) { :reader }
+        let(:user) { users(:reader) }
         let(:context) { { user:, scoped_object: Server.first } }
       end
 
       succeed "when a writer user asks" do
-        let(:role) { :writer }
+        let(:user) { users(:writer) }
       end
     end
   end
