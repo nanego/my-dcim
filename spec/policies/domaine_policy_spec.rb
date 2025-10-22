@@ -15,13 +15,13 @@ RSpec.describe DomainePolicy, type: :policy do
     context "with admin" do
       let(:user) { users(:admin) }
 
-      it { is_expected.to eq(target) }
+      it { is_expected.to match_array(target) }
     end
 
     context "with reader user" do
       let(:user) { users(:reader) }
 
-      it { is_expected.to eq([domaines(:three)]) }
+      it { is_expected.to contain_exactly(domaines(:three)) }
     end
   end
 

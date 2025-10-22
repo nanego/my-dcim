@@ -19,3 +19,8 @@ four:
   id: 4
   name: cable4
   color: O
+
+five:
+  id: 5
+  name: cable5
+  color: O

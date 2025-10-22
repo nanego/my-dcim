@@ -15,13 +15,13 @@ RSpec.describe BayPolicy, type: :policy do
     context "with admin" do
       let(:user) { users(:admin) }
 
-      it { is_expected.to eq(target) }
+      it { is_expected.to match_array(target) }
     end
 
     context "with reader user" do
       let(:user) { users(:reader) }
 
-      it { is_expected.to eq([bays(:one)]) }
+      it { is_expected.to contain_exactly(bays(:one)) }
     end
   end
 

@@ -23,7 +23,7 @@ RSpec.describe "/servers" do
 
     it_behaves_like "with preferred columns", ServersController::AVAILABLE_COLUMNS, route: :servers_path
 
-    it { expect { response }.to have_authorized_scope(:active_record_relation).with(ServerPolicy) }
+    it { expect { response }.to have_authorized_scope(:active_record_relation).with(ServerPolicy) } # TODO: apply on other controllers
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
     it { expect(response.body).to include(server.name) }
