@@ -97,3 +97,16 @@ pdu2:
   side: right
   color: B
   numero: pdu_2
+
+accesible_to_readers:
+  id: 8
+  frame_id: 1
+  name: ReadableServer
+  slug: readableserver
+  modele_id: 1
+  numero: CZ81535FEY
+  critique: false
+  domaine_id: 3
+  gestion_id: 1
+  position: 39
+  stack_id: 1

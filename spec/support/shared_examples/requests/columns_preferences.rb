@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-RSpec.shared_context "with preferred columns" do |available_columns|
+RSpec.shared_context "with preferred columns" do |available_columns, route: nil|
   let(:columns) { available_columns }
 
   context "with preferred columns in URL" do
     before do
-      get url_for(columns:)
+      get(route.nil? ? url_for(columns:) : public_send(route, columns:))
     end
 
     it "renders all available columns" do

@@ -13,11 +13,17 @@ RSpec.describe "/servers" do
     server.save!
   end
 
-  describe "GET /index" do
-    before { get servers_path }
+  describe "GET #index" do
+    subject(:response) do
+      get servers_path
 
-    it_behaves_like "with preferred columns", ServersController::AVAILABLE_COLUMNS
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
 
+    it_behaves_like "with preferred columns", ServersController::AVAILABLE_COLUMNS, route: :servers_path
+
+    it { expect { response }.to have_authorized_scope(:active_record_relation).with(ServerPolicy) }
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
     it { expect(response.body).to include(server.name) }
@@ -34,7 +40,7 @@ RSpec.describe "/servers" do
     end
   end
 
-  describe "GET /show" do
+  describe "GET #show" do
     before { get server_path(server) }
 
     it { expect(response).to have_http_status(:success) }
@@ -64,21 +70,21 @@ RSpec.describe "/servers" do
     end
   end
 
-  describe "GET /new" do
+  describe "GET #new" do
     before { get new_server_path }
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:new) }
   end
 
-  describe "GET /duplicate" do
+  describe "GET #duplicate" do
     before { get duplicate_server_path(server) }
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:duplicate) }
   end
 
-  describe "POST /create" do
+  describe "POST #create" do
     context "with valid parameters" do
       subject(:response) do
         post servers_path, params: params
@@ -122,14 +128,14 @@ RSpec.describe "/servers" do
     end
   end
 
-  describe "GET /edit" do
+  describe "GET #edit" do
     before { get edit_server_path(server) }
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:edit) }
   end
 
-  describe "PATCH /update" do
+  describe "PATCH #update" do
     context "with valid parameters" do
       let(:new_attributes) { server.attributes.except("name").merge(name: "New name") }
 
@@ -192,7 +198,7 @@ RSpec.describe "/servers" do
     end
   end
 
-  describe "DELETE /destroy" do
+  describe "DELETE #destroy" do
     context "with a server without association" do
       it "destroys the requested server" do
         expect do
@@ -225,14 +231,14 @@ RSpec.describe "/servers" do
     end
   end
 
-  describe "GET /import_csv" do
+  describe "GET #import_csv" do
     before { get import_csv_servers_path }
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:import_csv) }
   end
 
-  describe "POST /import" do
+  describe "POST #import" do
     let(:csv) { Rack::Test::UploadedFile.new(Rails.root.join("test/files/orders.csv").to_s) }
     let(:destination_frame) { Frame.find_by(name: "MyFrame2") }
     let(:nb_of_servers_in_frame) { destination_frame.servers.count }
@@ -256,7 +262,7 @@ RSpec.describe "/servers" do
     end
   end
 
-  describe "GET /destroy_connections" do
+  describe "GET #destroy_connections" do
     before { get destroy_connections_server_path(server) }
 
     it { expect(response).to have_http_status(:redirect) }
@@ -264,7 +270,7 @@ RSpec.describe "/servers" do
     it { expect(flash[:notice]).to be_present }
   end
 
-  describe "GET /export_cables" do
+  describe "GET #export_cables" do
     before { get export_cables_server_path(server) }
 
     it { expect(response).to have_http_status(:success) }
