@@ -7,13 +7,13 @@ RSpec.describe ChangelogEntryPolicy, type: :policy do
   let(:context) { { user: } }
 
   describe_rule :index? do
-    context "when user is admin" do # rubocop:disable RSpec/EmptyExampleGroup
+    context "when user is admin" do
       succeed "when an admin user asks" do
         let(:user) { users(:admin) }
       end
     end
 
-    context "when user is not admin" do # rubocop:disable RSpec/EmptyExampleGroup
+    context "when user is not admin" do
       failed "when user with no role asks"
 
       failed "when a reader user asks" do

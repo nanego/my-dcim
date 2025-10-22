@@ -10,7 +10,7 @@ RSpec.describe ServerDecorator, type: :decorator do
   describe ".options_for_select" do
     it do
       expect(described_class.options_for_select(user))
-        .to contain_exactly(["ServerName1", 1], ["ServerName2", 2], ["ServerName3", 740841338], ["ServerName4", 4], ["ServerName5", 5], ["ServerName6", 6])
+        .to contain_exactly(["ServerName1", 1], ["ServerName2", 2], ["ServerName3", 740_841_338], ["ServerName4", 4], ["ServerName5", 5], ["ServerName6", 6])
     end
   end
 

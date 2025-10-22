@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe PermissionScopePolicy, type: :policy do # rubocop:disable RSpec/EmptyExampleGroup
+RSpec.describe PermissionScopePolicy, type: :policy do
   let(:user) { users(:one) }
   let(:record) { users(:two) }
   let(:context) { { user: } }

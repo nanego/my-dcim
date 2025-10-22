@@ -36,7 +36,7 @@ RSpec.describe FrameDecorator, type: :decorator do
   describe ".access_control_options_for_select" do
     it do
       expect(described_class.access_control_options_for_select)
-        .to contain_exactly(["Badge", "badge"], ["Clé", "key"], ["Clé Locken", "locken_key"])
+        .to contain_exactly(%w[Badge badge], %w[Clé key], ["Clé Locken", "locken_key"])
     end
   end
 end

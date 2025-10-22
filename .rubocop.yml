@@ -8,6 +8,9 @@ plugins:
 
 inherit_from: .rubocop_todo.yml
 
+inherit_gem:
+  action_policy: config/rubocop-rspec.yml
+
 AllCops:
   NewCops: enable
   DisplayCopNames: true

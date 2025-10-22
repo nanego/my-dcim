@@ -10,13 +10,13 @@ RSpec.shared_context "act as index policy", type: :policy do |**kwargs| # ruboco
   end
 
   describe_rule kwargs[:for] do
-    context "when user is admin" do # rubocop:disable RSpec/EmptyExampleGroup
+    context "when user is admin" do
       succeed "when an admin user asks" do
         let(:is_admin) { true }
       end
     end
 
-    context "when user is not admin" do # rubocop:disable RSpec/EmptyExampleGroup
+    context "when user is not admin" do
       succeed "when a reader user asks" do
         let(:user) { users(:reader) }
       end
@@ -38,13 +38,13 @@ RSpec.shared_context "act as create policy", type: :policy do |**kwargs| # ruboc
   end
 
   describe_rule kwargs[:for] do
-    context "when user is admin" do # rubocop:disable RSpec/EmptyExampleGroup
+    context "when user is admin" do
       succeed "when an admin user asks" do
         let(:is_admin) { true }
       end
     end
 
-    context "when user is not admin" do # rubocop:disable RSpec/EmptyExampleGroup
+    context "when user is not admin" do
       failed "when a reader user asks" do
         let(:user) { users(:reader) }
       end
@@ -66,13 +66,13 @@ RSpec.shared_context "act as manage policy", type: :policy do |**kwargs| # ruboc
   end
 
   describe_rule kwargs[:for] do
-    context "when user is admin" do # rubocop:disable RSpec/EmptyExampleGroup
+    context "when user is admin" do
       succeed "when an admin user asks" do
         let(:is_admin) { true }
       end
     end
 
-    context "when user is not admin" do # rubocop:disable RSpec/EmptyExampleGroup
+    context "when user is not admin" do
       failed "when a reader user asks" do
         let(:user) { users(:reader) }
       end
