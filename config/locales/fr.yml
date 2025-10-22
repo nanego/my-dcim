@@ -1,4 +1,9 @@
 fr:
+  application:
+    no_permission_scope:
+      text: Permissions non configurées
+      subtext_html: Contactez un <strong>administrateur</strong>.
+
   boolean:
     true: Oui
     false: Non

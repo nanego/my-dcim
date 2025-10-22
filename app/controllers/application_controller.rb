@@ -76,6 +76,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def current_user_has_permission
+    @current_user_has_permission = current_user.admin? || current_user.permitted_domains.any?
+  end
+  helper_method :current_user_has_permission
+
   private
 
   def pagy_get_limit(vars)
@@ -120,9 +125,8 @@ class ApplicationController < ActionController::Base
 
   def no_permission_scope
     return unless current_user
-    return if current_user.admin?
-    return if current_user.permitted_domains.any?
+    return if current_user_has_permission
 
-    render "no_permission_scope", layout: false
+    render "no_permission_scope", layout: "application"
   end
 end

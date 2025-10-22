@@ -1,21 +1,25 @@
 <header class="mydcim-header navbar navbar-expand-lg sticky-top border-bottom border-secondary-subtle bg-body-secondary">
   <nav class="container-fluid flex-wrap flex-lg-nowrap" role="menu" aria-label="Main navigation">
-    <button class="<%= class_names("navbar-toggler", "d-block": hide_inventories_sidebar?) %>"
-            type="button" data-bs-toggle="offcanvas" data-bs-target="#mydcim-inventories-sidebar"
-            aria-controls="mydcim-inventories-sidebar"
-            aria-label="Toggle <%= t("inventories") %> navigation">
-      <i class="bi bi-list"></i>
-    </button>
+    <% if current_user_has_permission %>
+      <button class="<%= class_names("navbar-toggler", "d-block": hide_inventories_sidebar?) %>"
+              type="button" data-bs-toggle="offcanvas" data-bs-target="#mydcim-inventories-sidebar"
+              aria-controls="mydcim-inventories-sidebar"
+              aria-label="Toggle <%= t("inventories") %> navigation">
+        <i class="bi bi-list"></i>
+      </button>
+    <% end %>
     <%= link_to root_path, class: "navbar-brand me-lg-3" do %>
       <%= image_tag "datacenter-02.png", style: "height: 40px;" %>
     <% end %>
     <span>
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mydcim-navbar"
-              aria-controls="mydcim-navbar"
-              aria-label="Toggle Main navigation with focus on search bar"
-              onclick="document.getElementById('query').focus();">
-        <i class="bi bi-search"></i>
-      </button>
+      <% if current_user_has_permission %>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mydcim-navbar"
+                aria-controls="mydcim-navbar"
+                aria-label="Toggle Main navigation with focus on search bar"
+                onclick="document.getElementById('query').focus();">
+          <i class="bi bi-search"></i>
+        </button>
+      <% end %>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mydcim-navbar"
               aria-controls="mydcim-navbar"
               aria-label="Toggle Main navigation">
@@ -30,8 +34,10 @@
       </div>
       <div class="offcanvas-body d-flex flex-column flex-lg-row justify-content-lg-between">
         <ul class="navbar-nav order-1 order-lg-0">
-          <%= render "layouts/navigation/visualization_dropdown" %>
-          <%= render "layouts/navigation/devices_dropdown" %>
+          <% if current_user_has_permission %>
+            <%= render "layouts/navigation/visualization_dropdown" %>
+            <%= render "layouts/navigation/devices_dropdown" %>
+          <% end %>
 
           <% if allowed_to?(:index?, with: MovesProjectPolicy) %>
             <li class="nav-item" role="menuitem">
@@ -40,7 +46,7 @@
           <% end %>
         </ul>
 
-        <%= render "search/search_field" %>
+        <%= render "search/search_field" if current_user_has_permission %>
 
         <ul class="navbar-nav order-2">
           <%= render "layouts/navigation/nav_links_administration" %>
