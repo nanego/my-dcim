@@ -2,16 +2,13 @@
 
 require "rails_helper"
 
-# Example:
-#
-# describe DomaineDecorator, type: :decorator do
-#   let(:object) { User.new(first_name: "John", last_name: "Doe") }
-#   let(:decorated_user) { described_class.new(object) }
-#
-#   describe "#full_name" do
-#     it { expect(decorated_user.full_name).to eq("John Doe") }
-#   end
-# end
 RSpec.describe DomaineDecorator, type: :decorator do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:user) { users(:admin) }
+
+  describe ".options_for_select" do
+    it do
+      expect(described_class.options_for_select(user))
+        .to contain_exactly(["Stock", 2], ["Switch", 1], ["Three", 3])
+    end
+  end
 end

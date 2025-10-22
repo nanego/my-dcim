@@ -17,21 +17,16 @@ class UserDecorator < ApplicationDecorator
     def available_bay_orientations_options_for_select
       User::AVAILABLE_BAY_ORIENTATIONS.map { |orientation| [User.human_attribute_name("visualization_bay_default_orientation.#{orientation}"), orientation] }
     end
-
-    def roles_options_for_select
-      # User.roles.keys.map { |role| [User.human_attribute_name("role.#{role}"), role] }
-    end
   end
 
   def role_human_name
-    # User.human_attribute_name("role.#{role}")
+    User.human_attribute_name("role.#{writer? ? :writer : :reader}")
   end
 
   def role_to_badge_component
-    # return BadgeComponent.new(User.human_attribute_name("admin"), color: :warning) if is_admin
+    return BadgeComponent.new(User.human_attribute_name("admin"), color: :warning) if is_admin
 
-    # color = role == "writer" ? :primary : :info
-    # BadgeComponent.new(role_human_name, color:)
-    BadgeComponent.new("todo", color: :info)
+    color = writer? ? :primary : :info
+    BadgeComponent.new(role_human_name, color:)
   end
 end
