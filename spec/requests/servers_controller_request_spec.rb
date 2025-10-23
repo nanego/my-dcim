@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "/servers" do
+RSpec.describe ServersController do
   let(:server) { servers(:one) }
   let(:server2) { servers(:two) }
   let(:pdu) { servers(:pdu) }
@@ -15,15 +15,17 @@ RSpec.describe "/servers" do
 
   describe "GET #index" do
     subject(:response) do
-      get servers_path
+      get servers_path(params)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
+    let(:params) { {} }
+
     it_behaves_like "with preferred columns", ServersController::AVAILABLE_COLUMNS, route: :servers_path
 
-    it { expect { response }.to have_authorized_scope(:active_record_relation).with(ServerPolicy) } # TODO: apply on other controllers
+    it { expect { response }.to have_authorized_scope(:active_record_relation).with(ServerPolicy) }
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
     it { expect(response.body).to include(server.name) }
@@ -31,7 +33,7 @@ RSpec.describe "/servers" do
     it { expect(response.body).not_to include(pdu.name) }
 
     context "when searching on name" do
-      before { get servers_path(q: "ServerName1") }
+      let(:params) { { q: "ServerName1" } }
 
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:index) }

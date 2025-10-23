@@ -2,34 +2,33 @@
 
 require "rails_helper"
 
-RSpec.describe "/bulk/servers" do
+RSpec.describe Bulk::ServersController do
   before { sign_in users(:admin) }
 
-  describe "DELETE /destroy" do
-    context "with a server without association" do
-      it do
-        expect do
-          delete bulk_servers_path(ids: [servers(:two).id, servers(:four).id])
-        end.to change(Server, :count).by(-2)
-      end
+  describe "DELETE #destroy" do
+    subject(:response) do
+      delete bulk_servers_path(ids:)
 
-      it do
-        delete bulk_servers_path(ids: [servers(:two).id, servers(:four).id])
-        expect(response).to redirect_to(servers_path)
-      end
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    context "with a server with association" do
-      it do
-        expect do
-          delete bulk_servers_path(ids: [servers(:one)])
-        end.not_to change(Server, :count)
-      end
+    let(:ids) { [] }
 
-      it do
-        delete bulk_servers_path(ids: [servers(:one)])
-        expect(response).to redirect_to(servers_path)
-      end
+    context "with servers without associations" do
+      let(:ids) { [servers(:two).id, servers(:four).id] }
+
+      it { expect { response }.to have_authorized_scope(:active_record_relation).with(ServerPolicy) }
+      it { expect { response }.to change(Server, :count).by(-2) }
+      it { expect(response).to redirect_to(servers_path) }
+    end
+
+    context "with a server with associations" do
+      let(:ids) { [servers(:one).id] }
+
+      it { expect { response }.to have_authorized_scope(:active_record_relation).with(ServerPolicy) }
+      it { expect { response }.not_to change(Server, :count) }
+      it { expect(response).to redirect_to(servers_path) }
     end
   end
 end

@@ -2,34 +2,33 @@
 
 require "rails_helper"
 
-RSpec.describe "/bulk/rooms" do
+RSpec.describe Bulk::RoomsController do
   before { sign_in users(:admin) }
 
-  describe "DELETE /destroy" do
-    context "with rooms without associations" do
-      it do
-        expect do
-          delete bulk_rooms_path(ids: [rooms(:two).id, rooms(:three).id])
-        end.to change(Room, :count).by(-2)
-      end
+  describe "DELETE #destroy" do
+    subject(:response) do
+      delete bulk_rooms_path(ids:)
 
-      it do
-        delete bulk_rooms_path(ids: [rooms(:two).id, rooms(:three).id])
-        expect(response).to redirect_to(rooms_path)
-      end
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:ids) { [] }
+
+    context "with rooms without associations" do
+      let(:ids) { [rooms(:two).id, rooms(:three).id] }
+
+      it { expect { response }.to have_authorized_scope(:active_record_relation).with(RoomPolicy) }
+      it { expect { response }.to change(Room, :count).by(-2) }
+      it { expect(response).to redirect_to(rooms_path) }
     end
 
     context "with a room with associations" do
-      it do
-        expect do
-          delete bulk_rooms_path(ids: [rooms(:one).id])
-        end.not_to change(Room, :count)
-      end
+      let(:ids) { [rooms(:one).id] }
 
-      it do
-        delete bulk_rooms_path(ids: [rooms(:one).id])
-        expect(response).to redirect_to(rooms_path)
-      end
+      it { expect { response }.to have_authorized_scope(:active_record_relation).with(RoomPolicy) }
+      it { expect { response }.not_to change(Room, :count) }
+      it { expect(response).to redirect_to(rooms_path) }
     end
   end
 end

@@ -22,7 +22,7 @@ module Bulk
     end
 
     def set_servers
-      authorize! @servers = authorized_scope.where(id: params[:ids])
+      authorize! @servers = scoped_servers.where(id: params[:ids])
     end
   end
 end

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "BaysController" do
+RSpec.describe BaysController do
   let(:bay) { bays(:one) }
 
   describe "GET #index" do
@@ -12,8 +12,9 @@ RSpec.describe "BaysController" do
       get bays_path
     end
 
-    it_behaves_like "with preferred columns", BaysController::AVAILABLE_COLUMNS
+    it_behaves_like "with preferred columns", BaysController::AVAILABLE_COLUMNS, route: :bays_path
 
+    it { expect { response }.to have_authorized_scope(:active_record_relation).with(BayPolicy) }
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
     it { expect(assigns(:bays)).to be_present }

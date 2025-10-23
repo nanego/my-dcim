@@ -2,34 +2,33 @@
 
 require "rails_helper"
 
-RSpec.describe "/bulk/islets" do
+RSpec.describe Bulk::IsletsController do
   before { sign_in users(:admin) }
 
-  describe "DELETE /destroy" do
-    context "with islets without associations" do
-      it do
-        expect do
-          delete bulk_islets_path(ids: [islets(:three).id, islets(:five).id])
-        end.to change(Islet, :count).by(-2)
-      end
+  describe "DELETE #destroy" do
+    subject(:response) do
+      delete bulk_islets_path(ids:)
 
-      it do
-        delete bulk_islets_path(ids: [islets(:three).id, islets(:five).id])
-        expect(response).to redirect_to(islets_path)
-      end
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    context "with a islets with associations" do
-      it do
-        expect do
-          delete bulk_islets_path(ids: [islets(:one).id])
-        end.not_to change(Islet, :count)
-      end
+    let(:ids) { [] }
 
-      it do
-        delete bulk_islets_path(ids: [islets(:one).id])
-        expect(response).to redirect_to(islets_path)
-      end
+    context "with islets without associations" do
+      let(:ids) { [islets(:three).id, islets(:five).id] }
+
+      it { expect { response }.to have_authorized_scope(:active_record_relation).with(IsletPolicy) }
+      it { expect { response }.to change(Islet, :count).by(-2) }
+      it { expect(response).to redirect_to(islets_path) }
+    end
+
+    context "with a islet with associations" do
+      let(:ids) { [islets(:one).id] }
+
+      it { expect { response }.to have_authorized_scope(:active_record_relation).with(IsletPolicy) }
+      it { expect { response }.not_to change(Islet, :count) }
+      it { expect(response).to redirect_to(islets_path) }
     end
   end
 end

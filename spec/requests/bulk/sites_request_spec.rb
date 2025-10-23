@@ -2,34 +2,60 @@
 
 require "rails_helper"
 
-RSpec.describe "/bulk/sites" do
+RSpec.describe Bulk::SitesController do
   before { sign_in users(:admin) }
 
-  describe "DELETE /destroy" do
-    context "with sites without associations" do
-      it do
-        expect do
-          delete bulk_sites_path(ids: [sites(:four).id, sites(:five).id])
-        end.to change(Site, :count).by(-2)
-      end
+  describe "DELETE #destroy" do
+    subject(:response) do
+      delete bulk_sites_path(ids:)
 
-      it do
-        delete bulk_sites_path(ids: [sites(:four).id, sites(:five).id])
-        expect(response).to redirect_to(sites_path)
-      end
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:ids) { [] }
+
+    context "with sites without associations" do
+      let(:ids) { [sites(:four).id, sites(:five).id] }
+
+      it { expect { response }.to have_authorized_scope(:active_record_relation).with(SitePolicy) }
+      it { expect { response }.to change(Site, :count).by(-2) }
+      it { expect(response).to redirect_to(sites_path) }
     end
 
     context "with a site with associations" do
-      it do
-        expect do
-          delete bulk_sites_path(ids: [sites(:one).id])
-        end.not_to change(Site, :count)
-      end
+      let(:ids) { [sites(:one).id] }
 
-      it do
-        delete bulk_sites_path(ids: [sites(:one).id])
-        expect(response).to redirect_to(sites_path)
-      end
+      it { expect { response }.to have_authorized_scope(:active_record_relation).with(SitePolicy) }
+      it { expect { response }.not_to change(Site, :count) }
+      it { expect(response).to redirect_to(sites_path) }
     end
+
+    # -----
+    # context "with sites without associations" do
+    #   it do
+    #     expect do
+    #       delete bulk_sites_path(ids: [sites(:four).id, sites(:five).id])
+    #     end.to change(Site, :count).by(-2)
+    #   end
+
+    #   it do
+    #     delete bulk_sites_path(ids: [sites(:four).id, sites(:five).id])
+    #     expect(response).to redirect_to(sites_path)
+    #   end
+    # end
+
+    # context "with a site with associations" do
+    #   it do
+    #     expect do
+    #       delete bulk_sites_path(ids: [sites(:one).id])
+    #     end.not_to change(Site, :count)
+    #   end
+
+    #   it do
+    #     delete bulk_sites_path(ids: [sites(:one).id])
+    #     expect(response).to redirect_to(sites_path)
+    #   end
+    # end
   end
 end

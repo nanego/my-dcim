@@ -2,21 +2,25 @@
 
 require "rails_helper"
 
-RSpec.describe "/bulk/cables" do
+RSpec.describe Bulk::CablesController do
   before { sign_in users(:admin) }
 
-  describe "DELETE /destroy" do
-    context "with cables without associations" do
-      it do
-        expect do
-          delete bulk_cables_path(ids: [cables(:one).id, cables(:two).id])
-        end.to change(Cable, :count).by(-2)
-      end
+  describe "DELETE #destroy" do
+    subject(:response) do
+      delete bulk_cables_path(ids:)
 
-      it do
-        delete bulk_cables_path(ids: [cables(:one).id, cables(:two).id])
-        expect(response).to redirect_to(cables_path)
-      end
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:ids) { [] }
+
+    context "with cables without associations" do
+      let(:ids) { [cables(:one).id, cables(:two).id] }
+
+      it { expect { response }.to have_authorized_scope(:active_record_relation).with(CablePolicy) }
+      it { expect { response }.to change(Cable, :count).by(-2) }
+      it { expect(response).to redirect_to(cables_path) }
     end
   end
 end

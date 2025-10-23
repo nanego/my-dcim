@@ -8,6 +8,11 @@ RSpec.describe User do
   it_behaves_like "changelogable", object: -> { described_class.new(email: "user@example.com") },
                                    new_attributes: { email: "admin@example.com" }
 
+  describe "associations" do
+    it { is_expected.to have_many(:permission_scope_users) }
+    it { is_expected.to have_many(:permission_scopes).through(:permission_scope_users) }
+  end
+
   describe "validations" do
     it { is_expected.to be_valid }
 

@@ -17,6 +17,7 @@ two:
   id: 2
   frame_id: 1
   name: ServerName2
+  slug: servername2
   modele_id: 1
   numero: ABCDEFG32
   critique: false

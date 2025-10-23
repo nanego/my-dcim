@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "Rooms::BrowseRoom", :js do
   let(:room) { rooms(:one) }
 
-  it("browse a room, islets and bays, change view and background color") do # rubocop:disable RSpec/MultipleExpectations
+  it "browse a room, islets and bays, change view and background color", :aggregate_failures do
     sign_in(users(:one))
 
     visit visualization_room_path(room)

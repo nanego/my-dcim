@@ -2,34 +2,33 @@
 
 require "rails_helper"
 
-RSpec.describe "/bulk/domaines" do
+RSpec.describe Bulk::DomainesController do
   before { sign_in users(:admin) }
 
-  describe "DELETE /destroy" do
-    context "with domaines without associations" do
-      it do
-        expect do
-          delete bulk_domaines_path(ids: [domaines(:three).id, domaines(:stock).id])
-        end.to change(Domaine, :count).by(-2)
-      end
+  describe "DELETE #destroy" do
+    subject(:response) do
+      delete bulk_domaines_path(ids:)
 
-      it do
-        delete bulk_domaines_path(ids: [domaines(:three).id, domaines(:stock).id])
-        expect(response).to redirect_to(domaines_path)
-      end
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    context "with a domaine type with associations" do
-      it do
-        expect do
-          delete bulk_domaines_path(ids: [domaines(:switch).id])
-        end.not_to change(Domaine, :count)
-      end
+    let(:ids) { [] }
 
-      it do
-        delete bulk_domaines_path(ids: [domaines(:switch).id])
-        expect(response).to redirect_to(domaines_path)
-      end
+    context "with domains without associations" do
+      let(:ids) { [domaines(:three).id, domaines(:stock).id] }
+
+      it { expect { response }.to have_authorized_scope(:active_record_relation).with(DomainePolicy) }
+      it { expect { response }.to change(Domaine, :count).by(-2) }
+      it { expect(response).to redirect_to(domaines_path) }
+    end
+
+    context "with a domain with associations" do
+      let(:ids) { [domaines(:switch).id] }
+
+      it { expect { response }.to have_authorized_scope(:active_record_relation).with(DomainePolicy) }
+      it { expect { response }.not_to change(Domaine, :count) }
+      it { expect(response).to redirect_to(domaines_path) }
     end
   end
 end
