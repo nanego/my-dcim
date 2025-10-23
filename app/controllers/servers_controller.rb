@@ -25,7 +25,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
       logger.warn("DEPRECATION WARNING: Search with 'name' is now deprecated. Use 'q' instead.")
     end
 
-    authorize! @servers = scoped_servers.no_pdus
+    authorize! @servers = scoped_servers
       .includes(frame: { bay: { islet: :room } }, modele: :category)
       .references(frame: { bay: { islet: :room } }, modele: :category)
       .order(:name)

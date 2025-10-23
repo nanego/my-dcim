@@ -56,10 +56,6 @@ RSpec.describe User do
     it { expect(user.to_s).to eq "user@example.com" }
   end
 
-  describe "enumerize user role" do
-    it { is_expected.to define_enum_for(:role).with_values(%i[reader writer]) }
-  end
-
   describe "#regenerate_authentication_token!" do
     before do
       user.update!(authentication_token: "auth_token")
@@ -122,7 +118,7 @@ RSpec.describe User do
 
     context "when is in a permission_scope with role writer" do
       subject(:user) do
-        described_class.new(email: "user@example.com", permission_scopes: [permission_scopes(:writer)])
+        described_class.create(email: "user@example.com", permission_scopes: [permission_scopes(:writer)])
       end
 
       it { expect(user.writer?).to be(true) }

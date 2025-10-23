@@ -10,7 +10,7 @@ RSpec.describe ApplicationDecorator, type: :decorator do
       expect(ServerDecorator.authorized_scope(Server.all, user:))
         .to contain_exactly(
           servers(:one), servers(:two), servers(:with_cluster), servers(:four),
-          servers(:hub_network1), servers(:hub_network2)
+          servers(:hub_network1), servers(:hub_network2), servers(:accesible_to_readers),
         )
     end
   end

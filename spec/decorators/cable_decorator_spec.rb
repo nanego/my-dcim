@@ -10,7 +10,10 @@ RSpec.describe CableDecorator, type: :decorator do
   describe ".servers_options_for_select" do
     it do
       expect(described_class.servers_options_for_select(user))
-        .to contain_exactly(["ServerName1", 1], ["ServerName2", 2], ["ServerName3", 740_841_338], ["ServerName4", 4], ["ServerName5", 5], ["ServerName6", 6])
+        .to contain_exactly(
+          ["ReadableServer", 8], ["ServerName1", 1], ["ServerName2", 2], ["ServerName3", 740_841_338],
+          ["ServerName4", 4], ["ServerName5", 5], ["ServerName6", 6],
+        )
     end
   end
 

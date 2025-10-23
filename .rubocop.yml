@@ -90,7 +90,7 @@ Style/StringLiteralsInInterpolation:
   EnforcedStyle: double_quotes
 
 Style/TrailingCommaInArguments:
-  EnforcedStyleForMultiline: comma
+  EnforcedStyleForMultiline: diff_comma
 
 Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: diff_comma

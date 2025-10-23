@@ -8,7 +8,7 @@ class IsletDecorator < ApplicationDecorator
       islets = Islet.includes(:room)
         .sorted
         .order(
-          "rooms.site_id", "rooms.position", "rooms.name"
+          "rooms.site_id", "rooms.position", "rooms.name",
         )
 
       authorized_scope(islets, user:).map { |i| [i.name_with_room, i.id] }

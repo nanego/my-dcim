@@ -106,7 +106,9 @@ RSpec.describe Server do
   describe ".glpi_synchronizable" do
     it do
       expect(described_class.glpi_synchronizable)
-        .to contain_exactly(servers(:one), servers(:two), servers(:four), servers(:with_cluster))
+        .to contain_exactly(
+          servers(:one), servers(:two), servers(:four), servers(:with_cluster), servers(:accesible_to_readers),
+        )
     end
   end
 
@@ -172,7 +174,7 @@ RSpec.describe Server do
       it do
         expect do
           server.destroy_connections!
-        end.to change(Connection, :count).from(5).to(1)
+        end.to change(Connection, :count).from(6).to(2)
       end
 
       it do

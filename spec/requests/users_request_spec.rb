@@ -37,7 +37,9 @@ RSpec.describe "Users" do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    let(:record) { User.create!(email: "user-target@example.com", password: "passwordpassword") }
+    let(:record) do
+      User.create!(email: "user-target@example.com", password: "passwordpassword", permission_scopes: [permission_scopes(:all)])
+    end
 
     context "with admin user" do
       include_context "with authenticated admin"
@@ -131,7 +133,7 @@ RSpec.describe "Users" do
     end
   end
 
-  describe "GET /edit" do
+  describe "GET #edit" do
     subject(:response) do
       get(edit_user_path(user))
 
@@ -147,7 +149,7 @@ RSpec.describe "Users" do
 
     context "when current user is not admin" do
       include_context "with authenticated user" do
-        let(:user) { users(:one) }
+        let(:user) { users(:reader) }
       end
 
       it { expect(response).to have_http_status(:redirect) }
