@@ -24,7 +24,7 @@ class RoomsController < ApplicationController
 
   def overview
     authorize!
-    @sites = Site.order(:position).joins(rooms: :frames).distinct
+    @sites = authorized_scope(Site.all).order(:position).joins(rooms: :frames).distinct
 
     if params[:cluster_id].present? ||
        params[:gestion_id].present? ||
