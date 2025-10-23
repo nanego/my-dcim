@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Islets" do
+RSpec.describe IsletsController do
   let(:islet) { islets(:one) }
 
   describe "GET #index" do
@@ -18,9 +18,8 @@ RSpec.describe "Islets" do
     it { expect(response).to render_template(:index) }
     it { expect(response.body).to include(islet.name) }
 
-    it do
-      expect { response }.to have_rubanok_processed(Islet.all).with(IsletsProcessor)
-    end
+    it { expect { response }.to have_authorized_scope(:active_record_relation).with(BayPolicy) }
+    it { expect { response }.to have_rubanok_processed(Islet.all).with(IsletsProcessor) }
   end
 
   describe "GET #show" do

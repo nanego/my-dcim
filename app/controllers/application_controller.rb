@@ -76,10 +76,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def current_user_has_permission
+  def current_user_has_permission?
     @current_user_has_permission = current_user.admin? || current_user.permitted_domains.any?
   end
-  helper_method :current_user_has_permission
+  helper_method :current_user_has_permission?
 
   private
 
@@ -125,7 +125,7 @@ class ApplicationController < ActionController::Base
 
   def no_permission_scope
     return unless current_user
-    return if current_user_has_permission
+    return if current_user_has_permission?
 
     render "no_permission_scope", layout: "application"
   end

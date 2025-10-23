@@ -9,6 +9,6 @@ RSpec.describe "No Permission Scope" do
     visit root_path
     expect(page).to have_current_path(root_path)
 
-    expect(all(".alert.alert-info > p").first.text).to eq("Permissions not configured")
+    expect(first(".alert.alert-info > p").text).to eq("Permissions not configured")
   end
 end

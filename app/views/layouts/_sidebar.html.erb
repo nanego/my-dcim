@@ -1,4 +1,4 @@
-<% if current_user_has_permission %>
+<% if current_user_has_permission? %>
   <aside id="mydcim-inventories-sidebar"
         class="<%= class_names("mydcim-sidebar offcanvas-lg offcanvas-start border-end col-lg-2 p-0 w-auto bg-body-secondary border-secondary-subtle", offcanvas: hide_inventories_sidebar?) %>"
         tabindex="-1" aria-labelledby="sidebarMenuLabel">
