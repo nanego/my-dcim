@@ -233,7 +233,8 @@ fr:
         updated: La stack a bien été modifiée.
     destroy:
       title: Suppression
-      delete-confirm: Voulez-vous vraiment supprimer cette ressource ?
+      delete-confirm: Voulez-vous vraiment supprimer cette Stack ?
+      dependencies_title: "Materiel dépendants :"
       flashes:
         destroyed: La stack a bien été supprimé.
   card_types:
@@ -290,6 +291,8 @@ fr:
       flashes:
         updated: Le constructeur a bien été modifié.
     destroy:
+      title: Suppression
+      delete-confirm: Voulez-vous vraiment supprimer ce Constructeur ?
       flashes:
         destroyed: Le constructeur a bien été supprimé.
   domaines:

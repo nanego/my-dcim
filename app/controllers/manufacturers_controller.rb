@@ -57,6 +57,11 @@ class ManufacturersController < ApplicationController
   # DELETE /manufacturers/1
   # DELETE /manufacturers/1.json
   def destroy
+    unless params["confirm"] == "true"
+      render
+      return
+    end
+
     if @manufacturer.destroy
       respond_to do |format|
         format.html { redirect_to manufacturers_url, notice: t(".flashes.destroyed") }
