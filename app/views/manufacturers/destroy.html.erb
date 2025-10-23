@@ -1,6 +1,6 @@
 <%
   breadcrumb
-    .add_step(@stack, stack_path(@stack))
+    .add_step(@manufacturer, manufacturer_path(@manufacturer))
     .add_step(t("action.delete"))
 %>
 
@@ -21,13 +21,12 @@
 
   <%= render ButtonComponent.new(
     t("action.delete"),
-    url: stack_path(@stack, confirm: @stack.servers.empty?),
+    url: manufacturer_path(@manufacturer, confirm: true),
     method: :delete,
     variant: :danger,
     icon: "trash",
     is_responsive: true,
-    extra_classes: @stack.servers.empty? ? "" : "opacity-50"
   )%>
 
-  <%= render DeleteDependency::MainComponent.new(@stack) %>
+  <%= render DeleteDependency::MainComponent.new(@manufacturer) %>
 </div>
