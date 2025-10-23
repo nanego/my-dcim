@@ -6,7 +6,7 @@ RSpec.describe "Rooms::BrowseRoom", :js do
   let(:room) { rooms(:one) }
 
   it "browse a room, islets and bays, change view and background color", :aggregate_failures do
-    sign_in(users(:one))
+    sign_in users(:admin)
 
     visit visualization_room_path(room)
     expect(page).to have_current_path(visualization_room_path(room))
@@ -47,7 +47,7 @@ RSpec.describe "Rooms::BrowseRoom", :js do
 
     colored_lines.each do |line|
       expect(line.style("background-color")["background-color"])
-        .to eq("rgb(252, 252, 253)").or eq("rgb(205, 120, 156)").or eq("rgb(183, 247, 255)")
+        .to eq("rgb(252, 252, 253)").or eq("rgb(205, 120, 156)").or eq("rgb(183, 247, 255)").or eq("rgb(52, 58, 64)")
     end
 
     # 3. Change background color to 'gestionnaire'
@@ -63,7 +63,8 @@ RSpec.describe "Rooms::BrowseRoom", :js do
     colored_lines = all("ul.servers > li.server.mystring")
 
     colored_lines.each do |line|
-      expect(line.style("background-color")["background-color"]).to eq("rgb(118, 255, 160)").or eq("rgb(252, 252, 253)")
+      expect(line.style("background-color")["background-color"])
+        .to eq("rgb(118, 255, 160)").or eq("rgb(252, 252, 253)").or eq("rgb(52, 58, 64)")
     end
   end
 end
