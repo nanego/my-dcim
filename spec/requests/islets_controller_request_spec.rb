@@ -41,6 +41,12 @@ RSpec.describe IsletsController do
     context "with existing islet" do
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:show) }
+
+      it :aggregate_failures do
+        response
+        expect(assigns(:room)).to be_present
+        expect(assigns(:islet)).to be_present
+      end
     end
   end
 
