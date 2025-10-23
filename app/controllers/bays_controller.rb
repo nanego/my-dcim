@@ -9,13 +9,13 @@ class BaysController < ApplicationController
 
   columns_preferences_with model: Bay, default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS
 
-  before_action :set_bay, only: %i[edit update destroy show]
+  before_action :set_bay, only: %i[show edit update destroy]
   before_action except: %i[index] do
     breadcrumb.add_step(t("bays.index.title"), bays_path)
   end
 
   def index
-    authorize! @bays = Bay.joins(islet: :room).order("rooms.position, islets.name, bays.lane, bays.position")
+    authorize! @bays = scoped_bays.joins(islet: :room).order("rooms.position, islets.name, bays.lane, bays.position")
     @filter = ProcessorFilter.new(@bays, params)
 
     @bays = @filter.results.uniq
@@ -76,9 +76,13 @@ class BaysController < ApplicationController
 
   private
 
+  def scoped_bays
+    authorized_scope(Bay.all)
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_bay
-    authorize! @bay = Bay.find(params[:id])
+    authorize! @bay = scoped_bays.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

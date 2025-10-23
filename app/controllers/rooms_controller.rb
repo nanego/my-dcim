@@ -10,16 +10,12 @@ class RoomsController < ApplicationController
   end
 
   def index
-    authorize! @rooms = Room.joins(:site).order("sites.position asc, rooms.position asc, rooms.name asc")
+    authorize! @rooms = scoped_rooms.joins(:site).order("sites.position asc, rooms.position asc, rooms.name asc")
     @filter = ProcessorFilter.new(@rooms, params)
+    @rooms = @filter.results
   end
 
   def show
-    @sites = Site.joins(:rooms).includes(rooms: [bays: [:bay_type]]).order(:position).distinct
-    @islet = Islet.find_by(name: params[:islet], room_id: @room.id) if params[:islet].present?
-
-    @air_conditioners = AirConditioner.all
-
     respond_to do |format|
       format.html
       format.json
@@ -28,7 +24,7 @@ class RoomsController < ApplicationController
 
   def overview
     authorize!
-    @sites = Site.order(:position).joins(rooms: :frames).distinct
+    @sites = authorized_scope(Site.all).order(:position).joins(rooms: :frames).distinct
 
     if params[:cluster_id].present? ||
        params[:gestion_id].present? ||
@@ -104,9 +100,13 @@ class RoomsController < ApplicationController
 
   private
 
+  def scoped_rooms
+    authorized_scope(Room.all)
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_room
-    authorize! @room = Room.friendly.find(params[:id].to_s.downcase)
+    authorize! @room = scoped_rooms.friendly.find(params[:id].to_s.downcase)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

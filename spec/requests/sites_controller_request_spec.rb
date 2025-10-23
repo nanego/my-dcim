@@ -2,7 +2,43 @@
 
 require "rails_helper"
 
-RSpec.describe "/sites" do
+RSpec.describe SitesController do
+  let(:site) { sites(:one) }
+
+  describe "GET #index" do
+    subject(:response) do
+      get sites_path
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    before { sign_in users(:admin) }
+
+    it { expect { response }.to have_authorized_scope(:active_record_relation).with(SitePolicy) }
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:index) }
+
+    it do
+      response
+      expect(assigns(:sites)).to be_present
+    end
+  end
+
+  describe "GET #show" do
+    subject(:response) do
+      get site_path(site)
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:show) }
+  end
+
   describe "GET #new" do
     subject(:response) do
       get new_site_path

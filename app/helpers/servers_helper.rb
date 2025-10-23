@@ -73,7 +73,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
           is_vertical_card = %w[td-lr dt-lr].include?(card.orientation)
 
           html_content = link_to_port(
-            position, port_data, type, card.id, port_id, (position - 1 + card.first_port_position).to_s.rjust(2, "0")
+            position, port_data, type, card.id, port_id, (position - 1 + card.first_port_position).to_s.rjust(2, "0"),
           )
           if %w[RJ XRJ].include?(type.to_s) && (2..10).cover?(card_type.port_quantity)
             html_content += content_tag(:small,

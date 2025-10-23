@@ -8,6 +8,11 @@ RSpec.describe User do
   it_behaves_like "changelogable", object: -> { described_class.new(email: "user@example.com") },
                                    new_attributes: { email: "admin@example.com" }
 
+  describe "associations" do
+    it { is_expected.to have_many(:permission_scope_users) }
+    it { is_expected.to have_many(:permission_scopes).through(:permission_scope_users) }
+  end
+
   describe "validations" do
     it { is_expected.to be_valid }
 
@@ -49,10 +54,6 @@ RSpec.describe User do
 
   describe "#to_s" do
     it { expect(user.to_s).to eq "user@example.com" }
-  end
-
-  describe "enumerize user role" do
-    it { is_expected.to define_enum_for(:role).with_values(%i[reader writer]) }
   end
 
   describe "#regenerate_authentication_token!" do
@@ -109,6 +110,28 @@ RSpec.describe User do
         user.unsuspend!
         user.reload
       end.to change(user, :suspended_at).to(nil)
+    end
+  end
+
+  describe "#writer?" do
+    it { expect(user.writer?).to be(false) }
+
+    context "when is in a permission_scope with role writer" do
+      subject(:user) do
+        described_class.create(email: "user@example.com", permission_scopes: [permission_scopes(:writer)])
+      end
+
+      it { expect(user.writer?).to be(true) }
+    end
+  end
+
+  describe "#permitted_domains" do
+    it { expect(user.permitted_domains).to be_empty }
+
+    context "with permission_scopes" do
+      subject(:user) { users(:writer) }
+
+      it { expect(user.permitted_domains).to match_array(Domaine.all) }
     end
   end
 end

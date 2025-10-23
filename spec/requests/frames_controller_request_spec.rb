@@ -2,21 +2,29 @@
 
 require "rails_helper"
 
-RSpec.describe "FramesController" do
+RSpec.describe FramesController do
   let(:frame) { frames(:one) }
   let(:coupled_frame) { frames(:two) }
   let(:network_frame) { frames(:three) }
 
   describe "GET #index" do
-    before do
-      sign_in users(:admin)
-
+    subject(:response) do
       get frames_path
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
     end
 
+    before { sign_in users(:admin) }
+
+    it { expect { response }.to have_authorized_scope(:active_record_relation).with(FramePolicy) }
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
-    it { expect(assigns(:frames)).to be_present }
+
+    it do
+      response
+      expect(assigns(:frames)).to be_present
+    end
   end
 
   describe "GET #show" do
@@ -207,6 +215,7 @@ RSpec.describe "FramesController" do
   describe "GET #network" do
     subject(:response) do
       get network_frame_path(frame, network_frame_id: network_frame.slug)
+
       @response # rubocop:disable RSpec/InstanceVariable
     end
 

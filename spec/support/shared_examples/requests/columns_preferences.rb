@@ -1,11 +1,20 @@
 # frozen_string_literal: true
 
-RSpec.shared_context "with preferred columns" do |available_columns|
+RSpec.shared_context "with preferred columns" do |available_columns, route: nil|
   let(:columns) { available_columns }
 
   context "with preferred columns in URL" do
-    before do
-      get url_for(columns:)
+    if route
+      let(:response) do
+        get public_send(route, columns:)
+
+        # NOTE: used to simplify usage and custom test done in final spec file.
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+    else
+      before do
+        get url_for(columns:)
+      end
     end
 
     it "renders all available columns" do

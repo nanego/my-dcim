@@ -17,8 +17,12 @@ module Bulk
 
     private
 
+    def scoped_cables
+      authorized_scope(Cable.all)
+    end
+
     def set_cables
-      authorize! @cables = Cable.where(id: params[:ids])
+      authorize! @cables = scoped_cables.where(id: params[:ids])
     end
   end
 end

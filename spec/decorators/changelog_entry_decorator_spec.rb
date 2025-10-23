@@ -21,7 +21,7 @@ RSpec.describe ChangelogEntryDecorator, type: :decorator do
 
     it do
       expect(described_class.object_types_options).to contain_exactly(
-        [User.model_name.human, User.name], [Room.model_name.human, Room.name]
+        [User.model_name.human, User.name], [Room.model_name.human, Room.name],
       )
     end
   end

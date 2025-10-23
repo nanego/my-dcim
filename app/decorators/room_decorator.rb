@@ -10,7 +10,15 @@ class RoomDecorator < ApplicationDecorator
   }.freeze
 
   class << self
-    def statuses_for_options
+    def options_for_select(user)
+      authorized_scope(Room.sorted, user:).map { |r| [r.name_with_site, r.id] }
+    end
+
+    def sites_options_for_select(user)
+      SiteDecorator.options_for_select(user)
+    end
+
+    def statuses_options_for_select
       Room.statuses.keys.map { |status| [Room.human_attribute_name("status.#{status}"), status] }
     end
 
