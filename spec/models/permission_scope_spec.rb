@@ -44,21 +44,11 @@ RSpec.describe PermissionScope do
     end
   end
 
-  describe "#to_s" do
-    it { expect(permission_scope.name).to eq("A") }
+  describe "enumerize user role" do
+    it { is_expected.to define_enum_for(:role).with_values(%i[reader writer]) }
   end
 
-  describe "#allowed_domains" do
-    context "when all_domains is true" do
-      subject(:permission_scope) { described_class.new(name: "A", all_domains: true) }
-
-      it { expect(permission_scope.allowed_domains).to eq(Domaine.all) }
-    end
-
-    context "when all_domains is false" do
-      subject(:permission_scope) { permission_scopes(:with_domains) }
-
-      it { expect(permission_scope.allowed_domains).to eq([Domaine.find(1)]) }
-    end
+  describe "#to_s" do
+    it { expect(permission_scope.name).to eq("A") }
   end
 end

@@ -4,13 +4,13 @@ class FramesController < ApplicationController # rubocop:disable Metrics/ClassLe
   include ServersHelper
   include RoomsHelper
 
-  before_action :set_frame, only: :show
+  before_action :set_frame, only: %i[show edit update destroy]
   before_action except: %i[index network] do
     breadcrumb.add_step(Frame.model_name.human.pluralize, frames_path)
   end
 
   def index
-    authorize! @frames = Frame.includes(bay: { islet: :room }).references(bay: { islet: :room })
+    authorize! @frames = scoped_frames.includes(bay: { islet: :room }).references(bay: { islet: :room })
     @filter = ProcessorFilter.new(@frames, params)
     @frames = @filter.results
   end
@@ -27,9 +27,7 @@ class FramesController < ApplicationController # rubocop:disable Metrics/ClassLe
     @frame.assign_attributes(frame_params) if params[:frame]
   end
 
-  def edit
-    authorize! @frame = Frame.friendly.find(params[:id].to_s.downcase)
-  end
+  def edit; end
 
   def create
     authorize! @frame = Frame.new(frame_params)
@@ -46,7 +44,6 @@ class FramesController < ApplicationController # rubocop:disable Metrics/ClassLe
   end
 
   def update
-    authorize! @frame = Frame.friendly.find(params[:id].to_s.downcase)
     respond_to do |format|
       if @frame.update(frame_params)
         format.html { redirect_to @frame, notice: t(".flashes.updated") }
@@ -68,7 +65,6 @@ class FramesController < ApplicationController # rubocop:disable Metrics/ClassLe
   end
 
   def destroy
-    authorize! @frame = Frame.friendly.find(params[:id].to_s.downcase)
     if @frame.destroy
       respond_to do |format|
         format.html { redirect_to frames_url, notice: t(".flashes.destroyed") }
@@ -115,8 +111,12 @@ class FramesController < ApplicationController # rubocop:disable Metrics/ClassLe
 
   private
 
+  def scoped_frames
+    authorized_scope(Frame.all)
+  end
+
   def set_frame
-    authorize! @frame = Frame.friendly.find(params[:id].to_s.downcase)
+    authorize! @frame = scoped_frames.friendly.find(params[:id].to_s.downcase)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

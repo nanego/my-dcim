@@ -8,7 +8,7 @@
     <%= render "layouts/messages" %>
     <div class="mydcim-wrapper container-fluid">
       <div class="row flex-nowrap">
-        <%= render "layouts/sidebar" %>
+        <%= render "layouts/sidebar" if current_user_has_permission? %>
         <main class="mydcim-main p-0 mt-0 ms-sm-auto w-auto flex-fill bg-body-tertiary" role="main">
           <%= yield %>
         </main>

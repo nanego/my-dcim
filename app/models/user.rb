@@ -8,8 +8,6 @@ class User < ApplicationRecord
   AVAILABLE_BAY_BACKGROUND_COLORS = %w[modele gestion cluster].freeze
   AVAILABLE_BAY_ORIENTATIONS = %w[front back].freeze
 
-  enum :role, { reader: 0, writer: 1 } # TODO: remove with migration into PermissionScope
-
   acts_as_token_authenticatable
   has_changelog except: %i[sign_in_count current_sign_in_at last_sign_in_at current_sign_in_ip last_sign_in_ip]
 
@@ -23,6 +21,9 @@ class User < ApplicationRecord
   store_attribute :settings, :visualization_bay_default_background_color, :string, default: AVAILABLE_BAY_BACKGROUND_COLORS.first
   store_attribute :settings, :visualization_bay_default_orientation, :string, default: AVAILABLE_BAY_ORIENTATIONS.first
   store_attribute :settings, :items_per_page, :integer, default: DEFAULT_ITEMS_PER_PAGE
+
+  has_many :permission_scope_users, dependent: :destroy
+  has_many :permission_scopes, through: :permission_scope_users
 
   validates :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
@@ -70,5 +71,33 @@ class User < ApplicationRecord
 
   def unsuspend!
     update!(suspended_at: nil)
+  end
+
+  def writer?
+    @writer ||= permission_scopes.writer.any?
+  end
+
+  def reader?
+    !writer?
+  end
+
+  def permitted_domains
+    @permitted_domains ||= begin
+      scopes = permission_scopes.includes(:domaines)
+
+      if scopes.empty?
+        []
+      else
+        ids = scopes.map do |permission_scope|
+          if permission_scope.all_domains?
+            Domaine.all
+          else
+            permission_scope.domaines.ids
+          end
+        end
+
+        Domaine.where(id: ids.flatten)
+      end
+    end
   end
 end

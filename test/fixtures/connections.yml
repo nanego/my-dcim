@@ -24,3 +24,8 @@ five:
   id: 5
   cable_id: 4
   port_id: 5
+
+six:
+  id: 6
+  cable_id: 5
+  port_id: 8

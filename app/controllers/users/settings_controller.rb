@@ -3,6 +3,7 @@
 module Users
   class SettingsController < ApplicationController
     skip_verify_authorized
+    skip_before_action :no_permission_scope, only: %i[edit update]
 
     before_action :set_user, only: %i[edit update]
 

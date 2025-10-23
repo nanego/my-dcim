@@ -5,6 +5,17 @@ require "rails_helper"
 RSpec.describe CableDecorator, type: :decorator do
   let(:cable) { cables(:one) }
   let(:decorated_cable) { cable.decorated }
+  let(:user) { users(:admin) }
+
+  describe ".servers_options_for_select" do
+    it do
+      expect(described_class.servers_options_for_select(user))
+        .to contain_exactly(
+          ["ReadableServer", 8], ["ServerName1", 1], ["ServerName2", 2], ["ServerName3", 740_841_338],
+          ["ServerName4", 4], ["ServerName5", 5], ["ServerName6", 6],
+        )
+    end
+  end
 
   describe ".special_case_options_for_select" do
     it { expect(described_class.special_case_options_for_select.pluck(1)).to contain_exactly(true, false) }

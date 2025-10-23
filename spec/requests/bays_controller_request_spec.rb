@@ -2,21 +2,29 @@
 
 require "rails_helper"
 
-RSpec.describe "BaysController" do
+RSpec.describe BaysController do
   let(:bay) { bays(:one) }
 
   describe "GET #index" do
-    before do
-      sign_in users(:admin)
-
+    subject(:response) do
       get bays_path
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    it_behaves_like "with preferred columns", BaysController::AVAILABLE_COLUMNS
+    before { sign_in users(:admin) }
 
+    it_behaves_like "with preferred columns", BaysController::AVAILABLE_COLUMNS, route: :bays_path
+
+    it { expect { response }.to have_authorized_scope(:active_record_relation).with(BayPolicy) }
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
-    it { expect(assigns(:bays)).to be_present }
+
+    it do
+      response
+      expect(assigns(:bays)).to be_present
+    end
   end
 
   describe "GET #show" do

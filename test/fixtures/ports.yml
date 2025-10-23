@@ -45,3 +45,9 @@ six:
 
 seven:
   id: 7
+
+height:
+  id: 8
+  position: 1
+  card_id: 8
+  color: 0

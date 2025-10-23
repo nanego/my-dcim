@@ -47,14 +47,14 @@ RSpec.describe MovesProjectStep do
     context "with a move in a one-step project" do
       it do
         expect(moves_project_steps(:planned).servers_moves_for_frame_at_current_step(frames(:one)))
-          .to contain_exactly(servers(:two), servers(:with_cluster))
+          .to contain_exactly(servers(:two), servers(:with_cluster), servers(:accesible_to_readers))
       end
     end
 
     context "with a move in a multi-steps project" do
       it do
         expect(moves_project_steps(:step_one).servers_moves_for_frame_at_current_step(frames(:one)))
-          .to contain_exactly(servers(:two), servers(:with_cluster))
+          .to contain_exactly(servers(:two), servers(:with_cluster), servers(:accesible_to_readers))
       end
 
       it do
@@ -64,7 +64,7 @@ RSpec.describe MovesProjectStep do
 
       it do
         expect(moves_project_steps(:step_two).servers_moves_for_frame_at_current_step(frames(:one)))
-          .to contain_exactly(servers(:two), servers(:with_cluster))
+          .to contain_exactly(servers(:two), servers(:with_cluster), servers(:accesible_to_readers))
       end
 
       it do
@@ -74,7 +74,7 @@ RSpec.describe MovesProjectStep do
 
       it do
         expect(moves_project_steps(:step_three).servers_moves_for_frame_at_current_step(frames(:one)))
-          .to contain_exactly(servers(:two), servers(:with_cluster))
+          .to contain_exactly(servers(:two), servers(:with_cluster), servers(:accesible_to_readers))
       end
 
       it do
@@ -88,7 +88,11 @@ RSpec.describe MovesProjectStep do
         moves_project_steps(:step_same_frame_move).servers_moves_for_frame_at_current_step(frames(:one))
       end
 
-      it { expect(servers_array).to contain_exactly(servers(:one), servers(:two), servers(:with_cluster)) }
+      it do
+        expect(servers_array)
+          .to contain_exactly(servers(:one), servers(:two), servers(:with_cluster), servers(:accesible_to_readers))
+      end
+
       it { expect(servers_array.first).to eq(servers(:one)) }
       it { expect(servers_array.first.position).to eq(41) }
     end
@@ -98,7 +102,11 @@ RSpec.describe MovesProjectStep do
         moves_project_steps(:second_step_move_back).servers_moves_for_frame_at_current_step(frames(:one))
       end
 
-      it { expect(servers_array).to contain_exactly(servers(:one), servers(:two), servers(:with_cluster)) }
+      it do
+        expect(servers_array)
+          .to contain_exactly(servers(:one), servers(:two), servers(:with_cluster), servers(:accesible_to_readers))
+      end
+
       it { expect(servers_array.first).to eq(servers(:one)) }
       it { expect(servers_array.first.position).to eq(41) }
     end

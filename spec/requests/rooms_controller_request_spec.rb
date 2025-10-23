@@ -2,8 +2,29 @@
 
 require "rails_helper"
 
-RSpec.describe "Rooms" do
+RSpec.describe RoomsController do
   let(:room) { rooms(:one) }
+
+  describe "GET #index" do
+    subject(:response) do
+      get rooms_path
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    before { sign_in users(:admin) }
+
+    it { expect { response }.to have_authorized_scope(:active_record_relation).with(RoomPolicy) }
+    it { expect { response }.to have_rubanok_processed(Room.all).with(RoomsProcessor) }
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:index) }
+
+    it do
+      response
+      expect(assigns(:filter)).to be_present
+    end
+  end
 
   describe "GET #new" do
     subject(:response) do

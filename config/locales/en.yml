@@ -30,6 +30,11 @@ en:
     continue: Continue
     export: Export
 
+  application:
+    no_permission_scope:
+      text: Permissions not configured
+      subtext_html: Contact an <strong>administrator</strong>.
+
   bays:
     index:
       new_bay: Add a single or double bay

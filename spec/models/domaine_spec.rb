@@ -9,6 +9,8 @@ RSpec.describe Domaine do
 
   describe "associations" do
     it { is_expected.to have_many(:servers) }
+    it { is_expected.to have_many(:permission_scope_domains) }
+    it { is_expected.to have_many(:permission_scopes).through(:permission_scope_domains) }
   end
 
   describe "#to_s" do

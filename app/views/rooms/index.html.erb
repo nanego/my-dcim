@@ -24,7 +24,7 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:site_ids, Site.sorted, :id, :name,
+          <%= f.select(:site_ids, RoomDecorator.sites_options_for_select(current_user),
                                   { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select }  }) %>
           <%= f.label :site_ids %>

@@ -17,8 +17,12 @@ module Bulk
 
     private
 
+    def scoped_islets
+      authorized_scope(Islet.all)
+    end
+
     def set_islets
-      authorize! @islets = Islet.where(id: params[:ids])
+      authorize! @islets = scoped_islets.where(id: params[:ids])
     end
   end
 end

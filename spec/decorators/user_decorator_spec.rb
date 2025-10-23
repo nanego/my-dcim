@@ -6,41 +6,31 @@ RSpec.describe UserDecorator, type: :decorator do
   let(:user) { users(:one) }
   let(:decorated_user) { user.decorated }
 
-  describe ".available_locales_for_options" do
-    it { expect(described_class.available_locales_for_options.pluck(1)).to match_array(User::AVAILABLE_LOCALES) }
+  describe ".available_locales_options_for_select" do
+    it { expect(described_class.available_locales_options_for_select.pluck(1)).to match_array(User::AVAILABLE_LOCALES) }
   end
 
-  describe ".available_themes_for_options" do
-    it { expect(described_class.available_themes_for_options.pluck(1)).to match_array(User::AVAILABLE_THEMES) }
+  describe ".available_themes_options_for_select" do
+    it { expect(described_class.available_themes_options_for_select.pluck(1)).to match_array(User::AVAILABLE_THEMES) }
   end
 
-  describe ".available_background_colors_for_options" do
-    it { expect(described_class.available_background_colors_for_options.pluck(1)).to match_array(User::AVAILABLE_BAY_BACKGROUND_COLORS) }
+  describe ".available_background_colors_options_for_select" do
+    it { expect(described_class.available_background_colors_options_for_select.pluck(1)).to match_array(User::AVAILABLE_BAY_BACKGROUND_COLORS) }
   end
 
-  describe ".available_bay_orientations_for_options" do
-    it { expect(described_class.available_bay_orientations_for_options.pluck(1)).to match_array(User::AVAILABLE_BAY_ORIENTATIONS) }
-  end
-
-  describe ".roles_for_options" do
-    it { expect(described_class.roles_for_options.pluck(1)).to match_array(User.roles.pluck(0)) }
+  describe ".available_bay_orientations_options_for_select" do
+    it { expect(described_class.available_bay_orientations_options_for_select.pluck(1)).to match_array(User::AVAILABLE_BAY_ORIENTATIONS) }
   end
 
   describe "#role_human_name" do
-    let(:role) { nil }
-
-    before do
-      user.role = role
-    end
-
     context "when role is reader" do
-      let(:role) { :reader }
+      let(:user) { users(:reader) }
 
       it { expect(decorated_user.role_human_name).to eq(User.human_attribute_name("role.reader")) }
     end
 
     context "when role is writer" do
-      let(:role) { :writer }
+      let(:user) { users(:writer) }
 
       it { expect(decorated_user.role_human_name).to eq(User.human_attribute_name("role.writer")) }
     end
@@ -48,12 +38,6 @@ RSpec.describe UserDecorator, type: :decorator do
 
   describe "#role_to_badge_component" do
     subject(:badge) { decorated_user.role_to_badge_component }
-
-    let(:role) { nil }
-
-    before do
-      user.role = role
-    end
 
     context "when role is admin" do
       let(:user) { users(:admin) }
@@ -64,7 +48,7 @@ RSpec.describe UserDecorator, type: :decorator do
     end
 
     context "when role is reader" do
-      let(:role) { :reader }
+      let(:user) { users(:reader) }
 
       it { is_expected.to be_a BadgeComponent }
       it { expect(badge.instance_variable_get(:@color)).to eq :info }
@@ -72,7 +56,7 @@ RSpec.describe UserDecorator, type: :decorator do
     end
 
     context "when role is writer" do
-      let(:role) { :writer }
+      let(:user) { users(:writer) }
 
       it { is_expected.to be_a BadgeComponent }
       it { expect(badge.instance_variable_get(:@color)).to eq :primary }

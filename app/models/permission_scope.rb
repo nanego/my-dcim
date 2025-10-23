@@ -17,12 +17,6 @@ class PermissionScope < ApplicationRecord
     name
   end
 
-  def allowed_domains
-    return Domaine.all if all_domains?
-
-    domaines
-  end
-
   private
 
   def validate_domains

@@ -9,12 +9,6 @@ class RoomsControllerTest < ActionController::TestCase
     @islet = islets(:one)
   end
 
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:rooms)
-  end
-
   test "should get overview" do
     get :overview
     assert_response :success
@@ -46,19 +40,6 @@ class RoomsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to room_path(assigns(:room))
-  end
-
-  test "should show room" do
-    get :show, params: { id: @room }
-    assert_response :success
-    assert_not_nil assigns(:room)
-  end
-
-  test "should show specific islet" do
-    get :show, params: { id: @room, islet: "Islet1" }
-    assert_response :success
-    assert_not_nil assigns(:room)
-    assert_not_nil assigns(:islet)
   end
 
   test "should get edit" do

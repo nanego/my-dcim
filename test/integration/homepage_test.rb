@@ -9,7 +9,7 @@ class HomepageTest < ActionDispatch::IntegrationTest
   end
 
   test "logged in user visits homepage" do
-    sign_in users(:one)
+    sign_in users(:reader)
     visit root_url
 
     assert page.first("main").has_content?("Gestion de salle")

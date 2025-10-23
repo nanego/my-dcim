@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Cables" do
+RSpec.describe CablesController do
   let(:cable) { cables(:one) }
   let(:params) { {} }
 
@@ -23,6 +23,7 @@ RSpec.describe "Cables" do
     it { expect(response).to render_template(:index) }
     it { expect(response.body).to include(cable.id.to_s) }
 
+    it { expect { response }.to have_authorized_scope(:active_record_relation).with(CablePolicy) }
     it { expect { response }.to have_rubanok_processed(Cable.all).with(CablesProcessor) }
 
     context "when searching on server" do
@@ -33,6 +34,7 @@ RSpec.describe "Cables" do
       it { expect(response.body).to include(cable.name) }
       it { expect(response.body).not_to include(cables(:four).name) }
 
+      it { expect { response }.to have_authorized_scope(:active_record_relation).with(CablePolicy) }
       it { expect { response }.to have_rubanok_processed(Cable.all).with(CablesProcessor) }
     end
   end

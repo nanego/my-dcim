@@ -143,7 +143,7 @@ RSpec.describe MovesController do
       let(:params) { { move: { moveable_id: servers(:two).id, moveable_type: "Server", moves_project_step_id: step.id }, unscoped: "Continue" } }
 
       it { expect(response).to have_http_status(:redirect) }
-      it { expect(response).to redirect_to(new_moves_project_step_move_path(step, server_id: servers(:two).id)) }
+      it { expect(response).to redirect_to(new_moves_project_step_move_path(step, server_id: servers(:two).to_param)) }
     end
 
     context "with a params[:unscoped] passed and invalid params" do

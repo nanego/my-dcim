@@ -60,3 +60,12 @@ seven:
   name: CardAlim
   twin_card_id:
   orientation: "lr-td"
+
+height:
+  id: 8
+  card_type_id: 4
+  server_id: 8
+  composant_id: 4
+  name: CardAlim
+  twin_card_id:
+  orientation: "lr-td"

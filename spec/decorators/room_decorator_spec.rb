@@ -7,9 +7,24 @@ RSpec.describe RoomDecorator, type: :decorator do
 
   let(:room) { rooms(:one) }
   let(:decorated_room) { room.decorated }
+  let(:user) { users(:admin) }
 
-  describe ".statuses_for_options" do
-    it { expect(described_class.statuses_for_options.pluck(1)).to match_array(Room.statuses.keys) }
+  describe ".options_for_select" do
+    it do
+      expect(described_class.options_for_select(user))
+        .to contain_exactly(["Site 1 - S1", 1], ["Site 1 - S2", 2], ["Site 1 - S5", 5], ["Site 2 - S3", 3], ["Site 2 - S4", 4], ["Site 3 - S6", 6])
+    end
+  end
+
+  describe ".sites_options_for_select" do
+    it do
+      expect(described_class.sites_options_for_select(user))
+        .to contain_exactly(["Site 1", 1], ["Site 2", 2], ["Site 3", 3], ["Site 4", 4], ["Site 5", 5])
+    end
+  end
+
+  describe ".statuses_options_for_select" do
+    it { expect(described_class.statuses_options_for_select.pluck(1)).to match_array(Room.statuses.keys) }
   end
 
   describe ".access_control_options_for_select" do
