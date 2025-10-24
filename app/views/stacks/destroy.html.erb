@@ -4,30 +4,11 @@
     .add_step(t("action.delete"))
 %>
 
-<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:) %>
+<%= render Page::HeadingComponent.new(title: t("action.delete"), breadcrumb:) %>
 
 <div class="col-12 p-4 border-top">
 
-  <p class="text-danger fw-bold">
-    <%= t(".delete-confirm") %>
-  </p>
 
-  <%= render ButtonComponent.new(
-    t("action.cancel"),
-    url: :back,
-    variant: :info,
-    is_responsive: true
-  )%>
+  <%= render DeleteDependency::ConfirmComponent.new(@stack, stack_path(@stack, confirm: true)) %>
 
-  <%= render ButtonComponent.new(
-    t("action.delete"),
-    url: stack_path(@stack, confirm: @stack.servers.empty?),
-    method: :delete,
-    variant: :danger,
-    icon: "trash",
-    is_responsive: true,
-    extra_classes: @stack.servers.empty? ? "" : "opacity-50"
-  )%>
-
-  <%= render DeleteDependency::MainComponent.new(@stack) %>
 </div>
