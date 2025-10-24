@@ -79,6 +79,11 @@ class ModelesController < ApplicationController
   end
 
   def destroy
+    unless params["confirm"] == "true"
+      render
+      return
+    end
+
     if @modele.destroy
       respond_to do |format|
         format.html { redirect_to modeles_url, notice: t(".flashes.destroyed") }

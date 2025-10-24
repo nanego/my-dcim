@@ -5,7 +5,6 @@ module DeletableDependencies
 
   ALLOW_DEPEDENCY_OPTIONS = %i[
     restrict_with_error
-    destroy
   ].freeze
 
   included do
@@ -34,6 +33,7 @@ module DeletableDependencies
 
         {
           klass: a.klass,
+          asso_name: a.name,
           records:,
         }
       end
@@ -50,7 +50,8 @@ module DeletableDependencies
 
     # default behavior
     return false unless ALLOW_DEPEDENCY_OPTIONS.include?(asso.options[:dependent])
-    return false unless asso.name != changelog_entries
+    return false if %i[changelog_entries slugs].include? asso.name
+    return false if asso.class_name.start_with?("ActiveStorage::")
 
     # exept is not above default config
     expect.nil? || expect.exclude?(asso.name)
