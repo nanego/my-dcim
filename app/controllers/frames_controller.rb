@@ -65,6 +65,11 @@ class FramesController < ApplicationController # rubocop:disable Metrics/ClassLe
   end
 
   def destroy
+    unless params["confirm"] == "true"
+      render
+      return
+    end
+
     if @frame.destroy
       respond_to do |format|
         format.html { redirect_to frames_url, notice: t(".flashes.destroyed") }

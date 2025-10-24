@@ -59,6 +59,11 @@ class ClustersController < ApplicationController
   # DELETE /clusters/1
   # DELETE /clusters/1.json
   def destroy
+    unless params["confirm"] == "true"
+      render
+      return
+    end
+
     if @cluster.destroy
       respond_to do |format|
         format.html { redirect_to clusters_url, notice: t(".flashes.destroyed") }

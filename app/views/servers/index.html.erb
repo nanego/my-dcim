@@ -277,7 +277,7 @@
             <% if allowed_to?(:destroy?, server) %>
               <%= link_to server_path(server, @filter.attributes),
                           method: :delete,
-                          data: { turbo_frame: :_top, confirm: t("action.confirm") },
+                          data: { turbo_frame: :_top },
                           class: "btn btn-danger" do %>
                 <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
                                                                             data-controller="tooltip"

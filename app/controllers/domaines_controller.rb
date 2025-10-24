@@ -57,6 +57,11 @@ class DomainesController < ApplicationController
   # DELETE /domaines/1
   # DELETE /domaines/1.json
   def destroy
+    unless params["confirm"] == "true"
+      render
+      return
+    end
+
     if @domaine.destroy
       respond_to do |format|
         format.html { redirect_to domaines_url, notice: t(".flashes.destroyed") }

@@ -50,7 +50,6 @@
         <% if allowed_to?(:destroy?, architecture) %>
           <%= link_to architecture_path(architecture),
                       method: :delete,
-                      data: { confirm: t(".delete_confirmation") },
                       class: "btn btn-danger" do %>
             <span class="bi bi-trash"
                   title="<%= t("action.delete") %>"

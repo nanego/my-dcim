@@ -58,6 +58,11 @@ class ContactsController < ApplicationController
   # DELETE /contacts/1
   # DELETE /contacts/1.json
   def destroy
+    unless params["confirm"] == "true"
+      render
+      return
+    end
+
     if @contact.destroy
       respond_to do |format|
         format.html { redirect_to contacts_path, notice: t(".flashes.destroyed") }

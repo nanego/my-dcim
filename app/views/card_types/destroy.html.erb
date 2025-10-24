@@ -1,0 +1,14 @@
+<%
+  breadcrumb
+    .add_step(@card_type, card_type_path(@card_type))
+    .add_step(t("action.delete"))
+%>
+
+<%= render Page::HeadingComponent.new(title: t("action.delete"), breadcrumb:) %>
+
+<div class="col-12 p-4 border-top">
+
+
+  <%= render DeleteDependency::ConfirmComponent.new(@card_type, card_type_path(@card_type, confirm: true)) %>
+
+</div>

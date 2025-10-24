@@ -55,6 +55,11 @@ class CardTypesController < ApplicationController
   # DELETE /card_types/1
   # DELETE /card_types/1.json
   def destroy
+    unless params["confirm"] == "true"
+      render
+      return
+    end
+
     if @card_type.destroy
       respond_to do |format|
         format.html { redirect_to card_types_path, notice: t(".flashes.destroyed") }
