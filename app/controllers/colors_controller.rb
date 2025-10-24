@@ -49,6 +49,11 @@ class ColorsController < ApplicationController
   # DELETE /colors/1
   # DELETE /colors/1.json
   def destroy
+    unless params["confirm"] == "true"
+      render
+      return
+    end
+
     @color.destroy
     respond_to do |format|
       format.html { redirect_to colors_url, notice: t(".flashes.destroyed") }
