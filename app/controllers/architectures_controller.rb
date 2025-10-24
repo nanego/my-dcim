@@ -57,6 +57,11 @@ class ArchitecturesController < ApplicationController
   # DELETE /architectures/1
   # DELETE /architectures/1.json
   def destroy
+    unless params["confirm"] == "true"
+      render
+      return
+    end
+
     if @architecture.destroy
       respond_to do |format|
         format.html { redirect_to architectures_url, notice: t(".destroy.flashes.destroyed") }

@@ -1,0 +1,14 @@
+<%
+  breadcrumb
+    .add_step(@air_conditioner, air_conditioner_path(@air_conditioner))
+    .add_step(t("action.delete"))
+%>
+
+<%= render Page::HeadingComponent.new(title: t("action.delete"), breadcrumb:) %>
+
+<div class="col-12 p-4 border-top">
+
+
+  <%= render DeleteDependency::ConfirmComponent.new(@air_conditioner, air_conditioner_path(@air_conditioner, confirm: true)) %>
+
+</div>

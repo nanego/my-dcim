@@ -69,6 +69,12 @@ class FramesController < ApplicationController # rubocop:disable Metrics/ClassLe
 
   def destroy
     authorize! @frame = Frame.friendly.find(params[:id].to_s.downcase)
+
+    unless params["confirm"] == "true"
+      render
+      return
+    end
+
     if @frame.destroy
       respond_to do |format|
         format.html { redirect_to frames_url, notice: t(".flashes.destroyed") }
