@@ -66,6 +66,11 @@ class IsletsController < ApplicationController
   # DELETE /islets/1
   # DELETE /islets/1.json
   def destroy
+    unless params["confirm"] == "true"
+      render
+      return
+    end
+
     if @islet.destroy
       respond_to do |format|
         format.html { redirect_to islets_url, notice: t(".flashes.destroyed") }
