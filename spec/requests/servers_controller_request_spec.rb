@@ -202,21 +202,37 @@ RSpec.describe ServersController do
     end
   end
 
-  describe "DELETE #destroy" do
+  describe "DELETE /destroy" do
+    context "without confirm" do
+      subject(:response) do
+        delete server_path(server2)
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+
+      it do
+        expect do
+          response
+        end.not_to change(Server, :count)
+      end
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(Server.exists?(server.id)).to be true }
+    end
+
     context "with a server without association" do
       it "destroys the requested server" do
         expect do
-          delete server_path(server2)
+          delete server_path(server2, confirm: true)
         end.to change(Server, :count).by(-1)
       end
 
       it "redirects to the servers list" do
-        delete server_path(server2)
+        delete server_path(server2, confirm: true)
         expect(response).to redirect_to(servers_path)
       end
 
       it "redirects to the servers list and keep params" do
-        delete server_path(server2, params: { sort: "asc", sort_by: "rooms.name" })
+        delete server_path(server2, params: { sort: "asc", sort_by: "rooms.name" }, confirm: true)
         expect(response).to redirect_to(servers_path({ sort: "asc", sort_by: "rooms.name" }))
       end
     end
@@ -224,12 +240,12 @@ RSpec.describe ServersController do
     context "with a server with association" do
       it "does not destroy the requested server" do
         expect do
-          delete server_path(server)
+          delete server_path(server, confirm: true)
         end.not_to change(Server, :count)
       end
 
       it "redirects to the servers list" do
-        delete server_path(server)
+        delete server_path(server, confirm: true)
         expect(response).to redirect_to(servers_path)
       end
     end
