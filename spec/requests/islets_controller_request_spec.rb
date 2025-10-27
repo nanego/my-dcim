@@ -164,13 +164,29 @@ RSpec.describe IsletsController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete islet_path(islet)
+      delete islet_path(islet, confirm: true)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
     include_context "with authenticated admin"
+
+    context "without confirm" do
+      subject(:response) do
+        delete islet_path(islet)
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+
+      it do
+        expect do
+          response
+        end.not_to change(Islet, :count)
+      end
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(Islet.exists?(islet.id)).to be true }
+    end
 
     context "with an islet without bays" do
       let(:islet) { islets(:three) }
