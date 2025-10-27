@@ -2,7 +2,6 @@
 
 class ApplicationRecord < ActiveRecord::Base
   include Changelogable
-  include DeletableDependencies
 
   primary_abstract_class
 
