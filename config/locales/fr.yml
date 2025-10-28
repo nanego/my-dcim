@@ -981,5 +981,5 @@ fr:
     placeholder: Tapez pour filtrer...
   delete_dependency_component:
       restrict_dependency_exist_message: "La suppression est impossible à cause de ces resources :"
-      destroy_dependency_exist_message: "Cela entraînera la suppression de ces ressources :"
+      destroy_dependency_exist_message: "Cela entraînera la suppression des ressources ci dessous :"
       confirm: Êtes-vous sûr de vouloir supprimer cette ressource ? Cette action est irréversible.

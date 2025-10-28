@@ -28,11 +28,11 @@ class DeleteDependencyComponent < ApplicationComponent
       )%>
 
       <% unless @destroy_records.empty? %>
-        <p><%= t(".destroy_dependency_exist_message") %></p>
+        <p class="mt-5 mb-4"><%= t(".destroy_dependency_exist_message") %></p>
       <% end %>
 
     <% else %>
-      <p><%= t(".restrict_dependency_exist_message") %></p>
+      <p class="mb-4"><%= t(".restrict_dependency_exist_message") %></p>
     <% end %>
 
     <% dependencies = @restricting_records.empty? ? @destroy_records : @restricting_records %>
@@ -109,7 +109,7 @@ class DeleteDependencyComponent < ApplicationComponent
 
   class CollectionComponent < ApplicationComponent
     erb_template <<~ERB
-      <h4 class="mt-5"><%= @asso.klass.model_name.human %></h4>
+      <h4><%= @asso.klass.model_name.human %></h4>
       <p><small>(<%= @asso.name %>)</small></p>
       <ul class="list-group" style="width: 18rem;">
         <% @records.each do |record| %>
