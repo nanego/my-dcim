@@ -7,8 +7,5 @@
 <%= render Page::HeadingComponent.new(title: t("action.delete"), breadcrumb:) %>
 
 <div class="col-12 p-4 border-top">
-
-
-  <%= render DeleteDependency::ConfirmComponent.new(@cluster, cluster_path(@cluster, confirm: true)) %>
-
+  <%= render DeleteDependencyComponent.new(@cluster, cluster_path(@cluster, confirm: true)) %>
 </div>
