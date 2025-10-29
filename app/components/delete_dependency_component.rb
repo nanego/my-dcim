@@ -27,19 +27,16 @@ class DeleteDependencyComponent < ApplicationComponent
         is_responsive: true,
       )%>
 
-      <% unless @destroy_records.empty? %>
-        <p class="mt-5 mb-4"><%= t(".destroy_dependency_exist_message") %></p>
-      <% end %>
-
-    <% else %>
-      <p class="mb-4"><%= t(".restrict_dependency_exist_message") %></p>
     <% end %>
 
-    <% dependencies = @restricting_records.empty? ? @destroy_records : @restricting_records %>
-    <% unless dependencies.empty? %>
+    <% [
+      {dep: @restricting_records, grp_title: t(".restrict_dependency_title")},
+      {dep: @destroy_records, grp_title: t(".destroy_dependency_title")},
+    ].filter { |grp| !grp[:dep].empty? }.each do |group| %>
 
-      <div class="d-flex flex-wrap gap-3">
-        <% dependencies.each do |dependency| %>
+      <h2 class="mt-3"><%= group[:grp_title] %></h2>
+      <div class="d-flex flex-wrap gap-3 mt-3">
+        <% group[:dep].each do |dependency| %>
           <div>
             <%= render CollectionComponent.new dependency[:association], dependency[:records] %>
           </div>
@@ -49,7 +46,7 @@ class DeleteDependencyComponent < ApplicationComponent
     <% end %>
   ERB
 
-  def initialize(record, confirmation_path, only: nil, exept: nil)
+  def initialize(record, confirmation_path:, only: nil, exept: nil)
     @confirmation_path = confirmation_path
     @only = only
     @exept = exept
@@ -78,7 +75,7 @@ class DeleteDependencyComponent < ApplicationComponent
 
       # don't fetch records if they are not restricting
       # and we already found other restricting records
-      next if !asso_restricting && !@restricting_records.empty?
+      # next if !asso_restricting && !@restricting_records.empty?
 
       # get records
       records = record.public_send(a.name)
