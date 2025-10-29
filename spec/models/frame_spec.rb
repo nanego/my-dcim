@@ -72,11 +72,11 @@ RSpec.describe Frame do
   end
 
   describe "#last_position_used" do
-    it { expect(frame.last_position_used).to eq 2 }
+    it { expect(frame.send(:last_position_used)).to eq 2 }
   end
 
   describe "#next_free_position" do
-    it { expect(frame.next_free_position).to eq 3 }
+    it { expect(frame.send(:next_free_position)).to eq 3 }
   end
 
   describe "#set_position" do
