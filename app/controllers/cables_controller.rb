@@ -44,7 +44,7 @@ class CablesController < ApplicationController
 
   def scoped_cables
     authorized_scope(Cable.all)
-  end 
+  end
 
   def set_server
     return unless params[:server_id]
