@@ -59,13 +59,13 @@ RSpec.describe IsletDecorator, type: :decorator do
     end
 
     context "with empty name" do
-    let(:islet) { Islet.new(name: "") }
+      let(:islet) { Islet.new(name: "") }
 
       it { is_expected.to eq("Ilot") }
     end
 
     context "with nil name" do
-    let(:islet) { Islet.new(name: nil) }
+      let(:islet) { Islet.new(name: nil) }
 
       it { is_expected.to eq("Ilot") }
     end
