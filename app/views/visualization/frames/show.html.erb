@@ -1,7 +1,7 @@
 <%
 
   breadcrumb
-    .add_step(t("visualization.title"), overview_rooms_path)
+    .add_step(t("visualization.title"))
     .add_step(@room.name, ((@frame.present? || params[:islet].present?) ? visualization_room_path(@room, view: params[:view]) : ""))
 
   if @frame.present? && @frame.bay.islet.name.present?

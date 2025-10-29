@@ -2,7 +2,7 @@
   title = t("rooms.infrastructure_view.title")
 
   breadcrumb
-    .add_step(t("visualization.title"), overview_rooms_path)
+    .add_step(t("visualization.title"))
     .add_step(title)
 %>
 
@@ -48,7 +48,7 @@
 
     <% if turbo_frame_request? %>
       <%= turbo_frame_tag "infrastructure_islet" do %>
-        <%= render partial: "islets/infrastructure", locals: {
+        <%= render partial: "visualization/infrastructures/islet", locals: {
           bays: @bays, network: @filter.network_type, room: @room, islet: @islet, hub: @hub,
           second_hub: @second_hub, second_room: @second_room, connections: @connections, concentrator_ids: @concentrator_ids
         } %>
@@ -61,7 +61,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body overflow-y-visible">
-                <%= render partial: "rooms/edit_clusters", locals: { room: @room } %>
+                <%= render partial: "visualization/infrastructures/edit_clusters", locals: { room: @room } %>
               </div>
             </div>
           </div>

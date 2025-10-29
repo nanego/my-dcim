@@ -1,7 +1,7 @@
 <%
   title = t(".title")
 
-  breadcrumb.add_step(t("visualization.title"), overview_rooms_path)
+  breadcrumb.add_step(t("visualization.title"))
   if @room.present?
     breadcrumb.add_step("#{Room.model_name.human} #{@room.name}", visualization_room_path(@room))
   elsif @frame.present?

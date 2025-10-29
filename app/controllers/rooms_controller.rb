@@ -5,7 +5,7 @@ class RoomsController < ApplicationController
   include RoomsHelper
 
   before_action :set_room, only: %i[show edit update destroy]
-  before_action except: %i[index overview filtered_overview] do
+  before_action except: %i[index] do
     breadcrumb.add_step(Room.model_name.human.pluralize, rooms_path)
   end
 
@@ -21,36 +21,6 @@ class RoomsController < ApplicationController
       format.json
     end
   end
-
-  def overview
-    authorize!
-    @sites = authorized_scope(Site.all).order(:position).joins(rooms: :frames).distinct
-
-    if params[:cluster_id].present? ||
-       params[:gestion_id].present? ||
-       params[:modele_id].present?
-      @frames = Frame.preload(servers: [:gestion, :cluster, { modele: :category, card_types: :port_type, cards: [:composant, { ports: [connection: :cable] }] }])
-        .includes(bay: [:frames, { islet: :room }])
-        .order("rooms.position asc, islets.name asc, bays.position asc, frames.position asc")
-      @current_filters = []
-      if params[:cluster_id].present?
-        @frames = @frames.joins(:materials).where("servers.cluster_id = ? ", params[:cluster_id])
-        @filtered_servers = Server.where("servers.cluster_id = ? ", params[:cluster_id])
-        @current_filters << "Cluster #{Cluster.find_by_id(params[:cluster_id])} "
-      elsif params[:gestion_id].present?
-        @frames = @frames.joins(:materials).where("servers.gestion_id = ? ", params[:gestion_id])
-        @filtered_servers = Server.where("servers.gestion_id = ? ", params[:gestion_id])
-        @current_filters << "Gestionnaire #{Gestion.find_by_id(params[:gestion_id])} "
-      elsif params[:modele_id].present?
-        @frames = @frames.joins(:materials).where("servers.modele_id = ? ", params[:modele_id])
-        @filtered_servers = Server.where("servers.modele_id = ? ", params[:modele_id])
-        @current_filters << "Modèle #{Modele.find_by_id(params[:modele_id])} "
-      end
-      render :filtered_overview
-    end
-  end
-
-  def filtered_overview; end
 
   def new
     authorize! @room = Room.new

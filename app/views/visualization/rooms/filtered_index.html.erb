@@ -1,0 +1,38 @@
+<%
+  hide_inventories_sidebar!
+
+  breadcrumb
+    .add_step(t("visualization.title"))
+    .add_step(title = @current_filters.join)
+%>
+
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
+<div class="container-fluid p-4 border-top overview rooms-overview">
+  <div class="row">
+    <div class="col-12 col-lg-6" id="rooms-overview" data-spy="affix" data-offset-top="53" data-offset-bottom="20">
+      <% @sites.each do |site| %>
+        <div class="text-center">
+          <h3><%= site %></h3>
+        </div>
+        <% rooms = site.rooms.order(:position).joins(:frames).distinct %>
+        <% rooms.each do |room| %>
+          <%= render partial: "visualization/rooms/room_overview", locals: { room: room } %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-12 col-lg-6">
+      <% @frames.each do |frame| %>
+        <% settings = Frame::DEFAULT_SETTINGS.merge({min_height: params[:view]=="back" ? 20 : 27 }) %>
+          <%= render partial: "frames/show_frame",
+                     locals: {
+                       frame:,
+                       servers: frame.servers,
+                       settings:,
+                       view_type: params[:view],
+                       editable: false,
+                       highlighted_servers: @filtered_servers
+                     } %>
+      <% end %>
+    </div>
+  </div>
+</div>

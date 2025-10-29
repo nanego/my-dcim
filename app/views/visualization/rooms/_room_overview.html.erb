@@ -14,7 +14,9 @@
           <% end %>
         </h6>
       <% end %>
-      <%= render "bays/overview", bays_per_lane: islet.decorated.overviewed_bays_array, islet: islet %>
+      <%= render "visualization/rooms/bay_overview",
+                 bays_per_lane: islet.decorated.overviewed_bays_array,
+                 islet: islet %>
     </div>
   <% end %>
 <% end %>
