@@ -181,7 +181,7 @@ RSpec.describe BaysController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete bay_path(bay), params:, headers: { REFERER: "/rooms/overview" }
+      delete bay_path(bay), params:, headers: { REFERER: "/visualization/rooms" }
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
