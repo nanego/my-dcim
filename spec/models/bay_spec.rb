@@ -72,7 +72,7 @@ RSpec.describe Bay do
   end
 
   describe "#last_lane_used" do
-    it { expect(bay.last_lane_used).to eq 1 }
+    it { expect(bay.send(:last_lane_used)).to eq 1 }
   end
 
   describe "#set_lane" do
@@ -93,11 +93,11 @@ RSpec.describe Bay do
   end
 
   describe "#last_position_used" do
-    it { expect(bay.last_position_used).to eq 3 }
+    it { expect(bay.send(:last_position_used)).to eq 3 }
   end
 
   describe "#next_free_position" do
-    it { expect(bay.next_free_position).to eq 4 }
+    it { expect(bay.send(:next_free_position)).to eq 4 }
   end
 
   describe "#set_position" do

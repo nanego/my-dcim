@@ -144,6 +144,8 @@ class Frame < ApplicationRecord # rubocop:disable Metrics/ClassLength
     end
   end
 
+  private
+
   def last_position_used
     @last_position_used ||= bay.frames.maximum(:position) || 0
   end
@@ -157,8 +159,6 @@ class Frame < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
     self.position = next_free_position
   end
-
-  private
 
   def slug_candidates
     [

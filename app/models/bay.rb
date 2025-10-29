@@ -33,6 +33,8 @@ class Bay < ApplicationRecord
     frames.pluck(:name).sort.join(" / ")
   end
 
+  private
+
   def last_lane_used
     @last_lane_used ||= islet.bays.maximum(:lane) || 1
   end
