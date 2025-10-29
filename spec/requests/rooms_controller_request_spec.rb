@@ -15,10 +15,11 @@ RSpec.describe RoomsController do
 
     before { sign_in users(:admin) }
 
-    it { expect { response }.to have_authorized_scope(:active_record_relation).with(RoomPolicy) }
-    it { expect { response }.to have_rubanok_processed(Room.all).with(RoomsProcessor) }
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
+
+    it { expect { response }.to have_authorized_scope(:active_record_relation).with(RoomPolicy) }
+    it { expect { response }.to have_rubanok_processed(Room.all).with(RoomsProcessor) }
 
     it do
       response

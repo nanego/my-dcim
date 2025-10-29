@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "/power_distribution_units" do
+RSpec.describe PowerDistributionUnitsController do
   let(:pdu) { servers(:pdu) }
   let(:pdu2) { Server.create(name: "PDU 2", frame_id: 2, modele_id: 3, numero: "PDU_2") }
   let(:server) { servers(:one) }
@@ -15,8 +15,15 @@ RSpec.describe "/power_distribution_units" do
     pdu2
   end
 
-  describe "GET /index" do
-    before { get power_distribution_units_path }
+  describe "GET #index" do
+    subject(:response) do
+      get power_distribution_units_path(params)
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:params) { {} }
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
@@ -24,8 +31,10 @@ RSpec.describe "/power_distribution_units" do
     it { expect(response.body).to include(pdu2.name) }
     it { expect(response.body).not_to include(server.name) }
 
+    it { expect { response }.to have_rubanok_processed(Server.only_pdus).with(PowerDistributionUnitsProcessor) }
+
     context "when searching on name" do
-      before { get power_distribution_units_path(q: "PDU_FRAME") }
+      let(:params) { { q: "PDU_FRAME" } }
 
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:index) }
@@ -35,7 +44,7 @@ RSpec.describe "/power_distribution_units" do
     end
   end
 
-  describe "GET /show" do
+  describe "GET #show" do
     before { get power_distribution_unit_path(pdu) }
 
     it { expect(response).to have_http_status(:success) }
@@ -65,21 +74,21 @@ RSpec.describe "/power_distribution_units" do
     end
   end
 
-  describe "GET /new" do
+  describe "GET #new" do
     before { get new_power_distribution_unit_path }
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:new) }
   end
 
-  describe "GET /duplicate" do
+  describe "GET #duplicate" do
     before { get duplicate_power_distribution_unit_path(pdu) }
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:duplicate) }
   end
 
-  describe "POST /create" do
+  describe "POST #create" do
     subject(:response) do
       post(power_distribution_units_path, params:)
 
@@ -117,14 +126,14 @@ RSpec.describe "/power_distribution_units" do
     end
   end
 
-  describe "GET /edit" do
+  describe "GET #edit" do
     before { get edit_power_distribution_unit_path(pdu) }
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:edit) }
   end
 
-  describe "PATCH /update" do
+  describe "PATCH #update" do
     context "with valid parameters" do
       let(:new_attributes) { pdu.attributes.except("name").merge(name: "New name") }
 
@@ -187,7 +196,7 @@ RSpec.describe "/power_distribution_units" do
     end
   end
 
-  describe "DELETE /destroy" do
+  describe "DELETE #destroy" do
     context "with a pdu without association" do
       it "destroys the requested pdu" do
         expect do
@@ -220,7 +229,7 @@ RSpec.describe "/power_distribution_units" do
     end
   end
 
-  describe "GET /destroy_connections" do
+  describe "GET #destroy_connections" do
     before { get destroy_connections_power_distribution_unit_path(pdu) }
 
     it { expect(response).to have_http_status(:redirect) }

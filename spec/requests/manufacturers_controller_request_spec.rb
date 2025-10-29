@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "/manufacturers" do
+RSpec.describe ManufacturersController do
   describe "GET #new" do
     subject(:response) do
       get new_manufacturer_path
