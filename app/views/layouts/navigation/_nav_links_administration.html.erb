@@ -6,10 +6,10 @@
 
 <% if current_user.try(:admin?) %>
   <li class="nav-item dropdown" role="menuitem">
-    <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+    <button class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown"
       aria-expanded="false">
       <%= t(".administration") %>
-    </a>
+    </button>
     <ul class="dropdown-menu">
       <li role="menuitem"><%= link_to User.model_name.human.pluralize, users_path, class: "dropdown-item" %></li>
       <li role="menuitem"><%= link_to PermissionScope.model_name.human.pluralize, permission_scopes_path, class: "dropdown-item" %></li>
@@ -20,10 +20,10 @@
 <% end %>
 
 <li class="nav-item dropdown" role="menuitem">
-  <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+  <button class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown"
     aria-expanded="false">
     <%= t("users.my_account.title") %>
-  </a>
+  </button>
   <ul class="dropdown-menu dropdown-menu-end">
     <li role="menuitem">
       <%= link_to t("users.my_account.edit"), edit_user_registration_path, class: "dropdown-item" %>
