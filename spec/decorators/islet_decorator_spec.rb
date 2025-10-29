@@ -52,18 +52,20 @@ RSpec.describe IsletDecorator, type: :decorator do
   describe "#full_name" do
     subject(:full_name) { decorated_islet.full_name }
 
+    let(:islet) { Islet.new(name: "Islet1") }
+
     context "with name" do
       it { is_expected.to eq("Ilot Islet1") }
     end
 
     context "with empty name" do
-      before { islet.name = "" }
+    let(:islet) { Islet.new(name: "") }
 
       it { is_expected.to eq("Ilot") }
     end
 
     context "with nil name" do
-      before { islet.name = nil }
+    let(:islet) { Islet.new(name: nil) }
 
       it { is_expected.to eq("Ilot") }
     end
