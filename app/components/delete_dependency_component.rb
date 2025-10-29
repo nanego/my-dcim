@@ -15,7 +15,7 @@ class DeleteDependencyComponent < ApplicationComponent
       {dependencies: @record_dependencies.destroyable, grp_title: t(".destroy_dependency_title")},
     ].filter { |grp| !grp[:dependencies].empty? }.each do |group| %>
 
-      <h2 class="mt-3"><%= group[:grp_title] %></h2>
+      <h3 class="mt-5"><%= group[:grp_title] %></h3>
       <div class="d-flex flex-wrap gap-3 mt-3">
         <% group[:dependencies].each do |dependency| %>
           <%= render CollectionComponent.new(dependency) %>
@@ -33,15 +33,22 @@ class DeleteDependencyComponent < ApplicationComponent
   end
 
   class CollectionComponent < ApplicationComponent
+    MAX_RECORD_TO_SHOW = 20
+
     erb_template <<~ERB
       <div>
-        <h4><%= @dependency.title %></h4>
+        <h5><%= @dependency.title %></h5>
         <p><small>(<%= @dependency.name %>)</small></p>
 
         <ul class="list-group" style="width: 18rem;">
-          <% records.each do |record| %>
-            <li class="list-group-item">
+          <% records.slice(0, MAX_RECORD_TO_SHOW).each do |record| %>
+            <li class="list-group-item overflow-hidden">
               <%= record.display_name %>
+            </li>
+          <% end %>
+          <% if records.length > MAX_RECORD_TO_SHOW %>
+            <li class="list-group-item">
+              <%= t(".and_more", n_more: records.length - MAX_RECORD_TO_SHOW) %>
             </li>
           <% end %>
         </ul>

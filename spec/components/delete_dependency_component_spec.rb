@@ -24,7 +24,7 @@ RSpec.describe DeleteDependencyComponent, type: :component do
       )
     end
 
-    it { expect(rendered_component).to have_tag("h4", title: Document.model_name.human) }
+    it { expect(rendered_component).to have_tag("h5", title: Document.model_name.human) }
     it { expect(rendered_component).to have_tag("li.list-group-item", title: "this is a filename") }
     it { expect(rendered_component).not_to have_tag("a.btn-danger") }
     it { expect(rendered_component).not_to have_tag("a.btn-default") }
@@ -40,7 +40,7 @@ RSpec.describe DeleteDependencyComponent, type: :component do
 
       it { expect(rendered_component).to have_tag("a.btn-danger", href: confirmation_path) }
       it { expect(rendered_component).to have_tag("a.btn-default") }
-      it { expect(rendered_component).to have_tag("h4", title: ContactAssignment.model_name.human) }
+      it { expect(rendered_component).to have_tag("h5", title: ContactAssignment.model_name.human) }
       it { expect(rendered_component).to have_tag("li.list-group-item", title: ContactAssignment.new.to_s) }
     end
 
@@ -53,7 +53,7 @@ RSpec.describe DeleteDependencyComponent, type: :component do
 
       it { expect(rendered_component).to have_tag("a.btn-danger", href: "confirmation-path") }
       it { expect(rendered_component).to have_tag("a.btn-default") }
-      it { expect(rendered_component).not_to have_tag("h4", title: ContactAssignment.model_name.human) }
+      it { expect(rendered_component).not_to have_tag("h5", title: ContactAssignment.model_name.human) }
       it { expect(rendered_component).not_to have_tag("li.list-group-item") }
     end
   end
