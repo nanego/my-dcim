@@ -4,14 +4,10 @@ require "rails_helper"
 
 RSpec.describe DeleteDependencyComponent, type: :component do
   let(:confirmation_path) { "/confirmation-path" }
-  let(:component) do
-    # stubbing url_for since it cannot found url for stubbed records
-    component = described_class.new(record, confirmation_path:)
-    allow(component).to receive(:url_for).and_return("/fake/url")
-    component
-  end
-
+  let(:component) { described_class.new(record, confirmation_path:) }
   let(:rendered_component) { render_inline(component).to_html }
+
+  before { allow(component).to receive(:url_for).and_return("/fake/url") }
 
   context "with restricting dependency" do
     let(:record) do
