@@ -202,7 +202,7 @@ RSpec.describe ServersController do
     end
   end
 
-  describe "DELETE /destroy" do
+  describe "DELETE #destroy" do
     context "without confirm" do
       subject(:response) do
         delete server_path(server2)
