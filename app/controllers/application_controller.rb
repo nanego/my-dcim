@@ -89,12 +89,6 @@ class ApplicationController < ActionController::Base
     params[limit_params] || current_user.items_per_page
   end
 
-  def admin_only
-    return if current_user.present? && current_user.admin?
-
-    redirect_to root_path, alert: t("users.flashes.access_denied")
-  end
-
   def prepare_exception_notifier
     request.env["exception_notifier.exception_data"] = {
       current_user: current_user,
