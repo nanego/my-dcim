@@ -2,7 +2,7 @@
 
 class DeleteDependencyComponent < ApplicationComponent
   erb_template <<~ERB
-    <% if @restricting_records.empty? %>
+    <% if @record_dependencies.restricted_with_error.blank? %>
       <p><%= t(".confirm") %></p>
 
       <%= render ButtonComponent.new(t("action.cancel"), url: :back, variant: :info, is_responsive: true) %>
@@ -11,19 +11,21 @@ class DeleteDependencyComponent < ApplicationComponent
     <% end %>
 
     <% [
-      {dep: @record_dependencies.restricted_with_error, grp_title: t(".restrict_dependency_title")},
-      {dep: @record_dependencies.destroyable, grp_title: t(".destroy_dependency_title")},
-    ].filter { |grp| !grp[:dep].empty? }.each do |group| %>
+      {dependencies: @record_dependencies.restricted_with_error, grp_title: t(".restrict_dependency_title")},
+      {dependencies: @record_dependencies.destroyable, grp_title: t(".destroy_dependency_title")},
+    ].filter { |grp| !grp[:dependencies].empty? }.each do |group| %>
+
       <h2 class="mt-3"><%= group[:grp_title] %></h2>
       <div class="d-flex flex-wrap gap-3 mt-3">
-        <% group[:dep].each do |dependency| %>
+        <% group[:dependencies].each do |dependency| %>
           <%= render CollectionComponent.new(dependency) %>
         <% end %>
       </div>
+
     <% end %>
   ERB
 
-  def initialize(record, confirmation_path:, only: [], exept: [])
+  def initialize(record, confirmation_path:, only: nil, except: nil)
     @confirmation_path = confirmation_path
     @record_dependencies = RecordDependencies.new(record, only:, except:)
 
@@ -33,11 +35,11 @@ class DeleteDependencyComponent < ApplicationComponent
   class CollectionComponent < ApplicationComponent
     erb_template <<~ERB
       <div>
-        <h4><%= @dependency.klass.model_name.human %></h4>
+        <h4><%= @dependency.title %></h4>
         <p><small>(<%= @dependency.name %>)</small></p>
 
         <ul class="list-group" style="width: 18rem;">
-          <% decorate(@dependency.records).each do |record| %>
+          <% records.each do |record| %>
             <li class="list-group-item">
               <%= record.display_name %>
             </li>
@@ -50,6 +52,12 @@ class DeleteDependencyComponent < ApplicationComponent
       @dependency = dependency
 
       super
+    end
+
+    def records
+      helpers.decorate(@dependency.records)
+    rescue Dekorator::DecoratorNotFound
+      helpers.decorate(@dependency.records, with: ApplicationDecorator)
     end
   end
 end
