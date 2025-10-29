@@ -7,4 +7,8 @@ class ApplicationDecorator < Dekorator::Base
       klass.new(user:).apply_scope(relation, type: :active_record_relation)
     end
   end
+
+  def display_name
+    to_s
+  end
 end

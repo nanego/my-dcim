@@ -234,6 +234,9 @@ fr:
       flashes:
         updated: La stack a bien été modifiée.
     destroy:
+      title: Suppression
+      delete-confirm: Voulez-vous vraiment supprimer cette Stack ?
+      dependencies_title: "Materiel dépendants :"
       flashes:
         destroyed: La stack a bien été supprimé.
   card_types:
@@ -290,6 +293,8 @@ fr:
       flashes:
         updated: Le constructeur a bien été modifié.
     destroy:
+      title: Suppression
+      delete-confirm: Voulez-vous vraiment supprimer ce Constructeur ?
       flashes:
         destroyed: Le constructeur a bien été supprimé.
   domaines:
@@ -964,3 +969,8 @@ fr:
       no_results_found: Aucun résultat trouvé
   select:
     placeholder: Tapez pour filtrer...
+  delete_dependency_component:
+      restrict_dependency_title: "Ressources empêchants la suppréssion :"
+      destroy_dependency_title: "Ressources qui seront supprimées lors de la suppréssion :"
+      confirm: Êtes-vous sûr de vouloir supprimer cette ressource ? Cette action est irréversible.
+      and_more: Et %{n_more} autres ...

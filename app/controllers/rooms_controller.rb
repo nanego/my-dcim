@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RoomsController < ApplicationController
+class RoomsController < ApplicationController # rubocop:disable Metrics/ClassLength
   include ServersHelper
   include RoomsHelper
 
@@ -86,6 +86,11 @@ class RoomsController < ApplicationController
   end
 
   def destroy
+    unless params["confirm"] == "true"
+      render
+      return
+    end
+
     if @room.destroy
       respond_to do |format|
         format.html { redirect_to rooms_url, notice: t(".flashes.destroyed") }
