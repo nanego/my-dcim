@@ -71,12 +71,33 @@ RSpec.describe Bay do
     end
   end
 
+  describe "#last_lane_used" do
+    it { expect(bay.send(:last_lane_used)).to eq 1 }
+  end
+
+  describe "#set_lane" do
+    let(:bay) { described_class.new(islet_id: 1, lane:, bay_type: bay_types(:one)) }
+    let(:lane) { nil }
+
+    before { bay.save }
+
+    context "with lane is nil" do
+      it { expect(bay.lane).to eq 1 }
+    end
+
+    context "with lane is not nil" do
+      let(:lane) { 2 }
+
+      it { expect(bay.lane).to eq 2 }
+    end
+  end
+
   describe "#last_position_used" do
-    it { expect(bay.last_position_used).to eq 3 }
+    it { expect(bay.send(:last_position_used)).to eq 3 }
   end
 
   describe "#next_free_position" do
-    it { expect(bay.next_free_position).to eq 4 }
+    it { expect(bay.send(:next_free_position)).to eq 4 }
   end
 
   describe "#set_position" do

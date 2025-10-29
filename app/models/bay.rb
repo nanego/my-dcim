@@ -15,6 +15,7 @@ class Bay < ApplicationRecord
 
   validates :position, uniqueness: { scope: %i[islet_id lane] }
 
+  before_create :set_lane
   before_create :set_position
 
   scope :sorted, -> { order(:lane, :position) }
@@ -30,6 +31,18 @@ class Bay < ApplicationRecord
 
   def list_frames
     frames.pluck(:name).sort.join(" / ")
+  end
+
+  private
+
+  def last_lane_used
+    @last_lane_used ||= islet.bays.maximum(:lane) || 1
+  end
+
+  def set_lane
+    return if lane.present?
+
+    self.lane = last_lane_used
   end
 
   def last_position_used
