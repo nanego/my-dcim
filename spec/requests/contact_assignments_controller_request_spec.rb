@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "ContactAssignmentsController" do
+RSpec.describe ContactAssignmentsController do
   let(:contact_assignment) do
     ContactAssignment.create!(site: sites(:one), contact: contacts(:one), contact_role: contact_roles(:one))
   end
@@ -12,12 +12,17 @@ RSpec.describe "ContactAssignmentsController" do
   end
 
   describe "#index" do
-    before { get contact_assignments_path }
+    subject(:response) do
+      get contact_assignments_path
+
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
-
     it { expect(response.body).to include(contact_assignment.site_id.to_s) }
+
+    it { expect { response }.to have_rubanok_processed(ContactAssignment.all).with(ContactAssignmentsProcessor) }
   end
 
   describe "#show" do

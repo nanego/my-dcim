@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "ExternalAppRequests" do
+RSpec.describe ExternalAppRequestsController do
   let(:request) { external_app_requests(:one) }
 
   before do

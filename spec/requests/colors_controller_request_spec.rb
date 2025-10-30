@@ -2,10 +2,10 @@
 
 require "rails_helper"
 
-RSpec.describe "/architectures" do
+RSpec.describe ColorsController do
   describe "GET #new" do
     subject(:response) do
-      get new_architecture_path
+      get new_color_path
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -19,25 +19,25 @@ RSpec.describe "/architectures" do
 
   describe "POST #create" do
     subject(:response) do
-      post(architectures_path, params:)
+      post(colors_path, params:)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    let(:params) { { architecture: { name: "Arhitecture 1", description: "Description 1" } } }
+    let(:params) { { color: { code: "#aabbcc" } } }
 
     include_context "with authenticated admin"
     it_behaves_like "with create another one"
 
     context "with valid parameters" do
       it { expect(response).to have_http_status(:redirect) }
-      it { expect(response).to redirect_to(architecture_path(assigns(:architecture))) }
-      it { expect { response }.to change(Architecture, :count).by(1) }
+      it { expect(response).to redirect_to(color_path(assigns(:color))) }
+      it { expect { response }.to change(Color, :count).by(1) }
     end
 
     context "without attributes" do
-      let(:params) { { architecture: {} } }
+      let(:params) { { color: {} } }
 
       it { expect { response }.to raise_error(ActionController::ParameterMissing) }
     end
