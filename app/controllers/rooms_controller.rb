@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RoomsController < ApplicationController # rubocop:disable Metrics/ClassLength
+class RoomsController < ApplicationController
   include ServersHelper
   include RoomsHelper
 
