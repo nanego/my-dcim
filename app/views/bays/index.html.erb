@@ -80,7 +80,7 @@
 
     <% unless (turbo_frame_request? && @filter.filled?(:islet_ids)) %>
       <% table.with_column(Islet.model_name.human, name: :islet_id, sort_by: :"islets.name") do |bay| %>
-        <%= link_to bay.islet.name_with_room, islet_path(bay.islet), data: { turbo_frame: :_top } %>
+        <%= link_to bay.islet.decorated.name_with_room, islet_path(bay.islet), data: { turbo_frame: :_top } %>
       <% end %>
     <% end %>
 

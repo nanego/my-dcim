@@ -18,8 +18,4 @@ class Islet < ApplicationRecord
   scope :has_name, -> { where.not(name: nil) }
 
   delegate :to_s, to: :name
-
-  def name_with_room
-    "#{decorated.full_name} #{room}"
-  end
 end

@@ -71,6 +71,12 @@ RSpec.describe IsletDecorator, type: :decorator do
     end
   end
 
+  describe "#name_with_room" do
+    subject(:name_with_room) { decorated_islet.name_with_room }
+
+    it { is_expected.to eq("Ilot Islet1 S1") }
+  end
+
   describe "#cooling_mode_to_human" do
     subject(:cooling_mode_sentence) { decorated_islet.cooling_mode_to_human }
 
