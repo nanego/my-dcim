@@ -56,7 +56,7 @@
       <% end %>
 
       <% table.with_column(Islet.model_name.human, sort_by: :name) do |islet| %>
-        <%= link_to islet.name_with_room, islet_path(islet), class: "fw-bold", data: { turbo_frame: :_top } %>
+        <%= link_to islet.decorated.name_with_room, islet_path(islet), class: "fw-bold", data: { turbo_frame: :_top } %>
       <% end %>
 
       <% table.with_column(Site.model_name.human, sort_by: :"sites.name") do |islet| %>
