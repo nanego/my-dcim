@@ -26,6 +26,13 @@ class RecordDependencies
     @except = except
   end
 
+  def grouped_by_dependent
+    [
+      [:restrict, restricted_with_error],
+      [:destroy, destroyable],
+    ]
+  end
+
   def destroyable
     dependencies_per_type[:destroy] || []
   end

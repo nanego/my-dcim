@@ -10,14 +10,10 @@ class DeleteDependencyComponent < ApplicationComponent
                                                          icon: :trash, is_responsive: true) %>
     <% end %>
 
-    <% [
-      {dependencies: @record_dependencies.restricted_with_error, grp_title: t(".restrict_dependency_title")},
-      {dependencies: @record_dependencies.destroyable, grp_title: t(".destroy_dependency_title")},
-    ].filter { |grp| !grp[:dependencies].empty? }.each do |group| %>
-
-      <h3 class="mt-5"><%= group[:grp_title] %></h3>
+    <% @record_dependencies.grouped_by_dependent.each do |type, dependencies| %>
+      <h3 class="mt-5"><%= t(".\#{type}_dependency_title") %></h3>
       <div class="d-flex flex-wrap gap-3 mt-3">
-        <% group[:dependencies].each do |dependency| %>
+        <% dependencies.each do |dependency| %>
           <%= render CollectionComponent.new(dependency) %>
         <% end %>
       </div>
