@@ -2,8 +2,8 @@
 
 require "rails_helper"
 
-RSpec.describe "SearchController" do
-  describe "GET /index", :aggregate_failures do
+RSpec.describe SearchController do
+  describe "GET #index", :aggregate_failures do
     fixtures :servers, :frames
 
     before do

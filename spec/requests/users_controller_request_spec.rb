@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Users" do
+RSpec.describe UsersController do
   let(:user)       { users(:one) }
   let(:admin_user) { users(:admin) }
 
@@ -19,6 +19,8 @@ RSpec.describe "Users" do
 
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:index) }
+
+      it { expect { response }.to have_rubanok_processed(User.all).with(UsersProcessor) }
     end
 
     context "with regular user" do

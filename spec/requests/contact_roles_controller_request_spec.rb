@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "ContactRolesController" do
+RSpec.describe ContactRolesController do
   let(:contact_role) { contact_roles(:one) }
 
   before do
@@ -10,12 +10,17 @@ RSpec.describe "ContactRolesController" do
   end
 
   describe "#index" do
-    before { get contact_roles_path }
+    subject(:response) do
+      get contact_roles_path
+
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
-
     it { expect(response.body).to include(contact_role.name) }
+
+    it { expect { response }.to have_rubanok_processed(ContactRole.all).with(ContactRolesProcessor) }
   end
 
   describe "#show" do

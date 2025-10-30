@@ -2,10 +2,10 @@
 
 require "rails_helper"
 
-RSpec.describe "/port_types" do
+RSpec.describe GestionsController do
   describe "GET #new" do
     subject(:response) do
-      get new_port_type_path
+      get new_gestion_path
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -19,25 +19,25 @@ RSpec.describe "/port_types" do
 
   describe "POST #create" do
     subject(:response) do
-      post(port_types_path, params:)
+      post(gestions_path, params:)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    let(:params) { { port_type: { name: "Port Type 1" } } }
+    let(:params) { { gestion: { name: "Gestion 1", description: "Description 1" } } }
 
     include_context "with authenticated admin"
     it_behaves_like "with create another one"
 
     context "with valid parameters" do
       it { expect(response).to have_http_status(:redirect) }
-      it { expect(response).to redirect_to(port_type_path(assigns(:port_type))) }
-      it { expect { response }.to change(PortType, :count).by(1) }
+      it { expect(response).to redirect_to(gestion_path(assigns(:gestion))) }
+      it { expect { response }.to change(Gestion, :count).by(1) }
     end
 
     context "without attributes" do
-      let(:params) { { port_type: {} } }
+      let(:params) { { gestion: {} } }
 
       it { expect { response }.to raise_error(ActionController::ParameterMissing) }
     end

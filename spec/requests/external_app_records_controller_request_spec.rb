@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "ExternalAppRecords" do
+RSpec.describe ExternalAppRecordsController do
   let(:ext_app_rec) { external_app_records(:one) }
 
   before do
@@ -12,14 +12,22 @@ RSpec.describe "ExternalAppRecords" do
   end
 
   describe "GET #index" do
-    before { get external_app_records_path }
+    subject(:response) do
+      get external_app_records_path(params)
+
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:params) { {} }
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
     it { expect(response.body).to include(ext_app_rec.server.numero) }
 
+    it { expect { response }.to have_rubanok_processed(ExternalAppRecord.all).with(ExternalAppRecordsProcessor) }
+
     context "when searching on external_serial_status" do
-      before { get external_app_records_path(external_serial_status: "found") }
+      let(:params) { { external_serial_status: "found" } }
 
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:index) }

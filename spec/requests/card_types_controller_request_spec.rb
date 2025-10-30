@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "CardTypes" do
+RSpec.describe CardTypesController do
   let(:card_type) { card_types(:one) }
 
   describe "GET #index" do
@@ -14,12 +14,16 @@ RSpec.describe "CardTypes" do
 
     include_context "with authenticated user"
 
-    before { response }
-
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
     it { expect(response.body).to include(card_type.name) }
-    it { expect(assigns(:card_types)).not_to be_nil }
+
+    it { expect { response }.to have_rubanok_processed(CardType.all).with(CardTypesProcessor) }
+
+    it do
+      response
+      expect(assigns(:card_types)).not_to be_nil
+    end
   end
 
   describe "GET #show" do

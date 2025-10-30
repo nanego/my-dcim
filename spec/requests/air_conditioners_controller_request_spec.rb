@@ -2,7 +2,30 @@
 
 require "rails_helper"
 
-RSpec.describe "/air_conditioners" do
+RSpec.describe AirConditionersController do
+  let(:air_conditioner) { air_conditioners(:one) }
+
+  describe "GET #index" do
+    subject(:response) do
+      get air_conditioners_path
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    before { sign_in users(:admin) }
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:index) }
+
+    it { expect { response }.to have_rubanok_processed(AirConditioner.all).with(AirConditionersProcessor) }
+
+    it do
+      response
+      expect(assigns(:air_conditioners)).to be_present
+    end
+  end
+
   describe "GET #new" do
     subject(:response) do
       get new_air_conditioner_path

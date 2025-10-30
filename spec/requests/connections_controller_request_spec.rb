@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Connections" do
+RSpec.describe ConnectionsController do
   let(:connection) { connections(:one) }
 
   describe "GET #edit" do

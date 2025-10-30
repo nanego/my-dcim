@@ -2,7 +2,30 @@
 
 require "rails_helper"
 
-RSpec.describe "/categories" do
+RSpec.describe CategoriesController do
+  let(:category) { categories(:one) }
+
+  describe "GET #index" do
+    subject(:response) do
+      get categories_path
+
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated user"
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:index) }
+    it { expect(response.body).to include(category.name) }
+
+    it { expect { response }.to have_rubanok_processed(Category.all).with(CategoriesProcessor) }
+
+    it do
+      response
+      expect(assigns(:categories)).not_to be_nil
+    end
+  end
+
   describe "GET #new" do
     subject(:response) do
       get new_category_path

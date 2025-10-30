@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Stacks" do
+RSpec.describe StacksController do
   let(:stack) { stacks(:red) }
 
   describe "GET #index" do

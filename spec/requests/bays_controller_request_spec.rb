@@ -17,9 +17,11 @@ RSpec.describe BaysController do
 
     it_behaves_like "with preferred columns", BaysController::AVAILABLE_COLUMNS, route: :bays_path
 
-    it { expect { response }.to have_authorized_scope(:active_record_relation).with(BayPolicy) }
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
+
+    it { expect { response }.to have_authorized_scope(:active_record_relation).with(BayPolicy) }
+    it { expect { response }.to have_rubanok_processed(Bay.all).with(BaysProcessor) }
 
     it do
       response
