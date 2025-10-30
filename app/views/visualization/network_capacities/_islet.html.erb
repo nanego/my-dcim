@@ -1,4 +1,4 @@
-<% # TODO: create a component to represent a bay %>
+<%# TODO: create a component to represent a bay %>
 <div class="room_overview show_room rooms-network-capacity" id="network-capacity">
   <div class="card">
     <div class="card-body d-flex">
@@ -11,7 +11,7 @@
                   <div class="couple" style="grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
                     grid-row: <%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;">
                     <% frames.each_with_index do |frame, index| %>
-                      <% # TODO: move in the action or a model method %>
+                      <%# TODO: move in the action or a model method %>
                       <% servers = frame.servers.includes(:bay, :stack, modele: { enclosures: :composants },
                                                                         cards:  [{ card_type: :port_type }, { ports: :cable }])
                               .where("servers.network_types @> ?", "{#{network}}") # Switch LAN
@@ -47,7 +47,7 @@
                                           <% components_per_enclosure.each do |component| %>
                                             <td class="slot_column border-0">
                                               <% cards.select { |card| card.composant_id == component.id }.each do |card| %>
-                                                <%= render partial: 'rooms/capacity_component', locals: { server: server, component: component, card: card } %>
+                                                <%= render partial: "visualization/network_capacities/capacity_component", locals: { server: server, component: component, card: card } %>
                                               <% end %>
                                             </td>
                                           <% end %>
@@ -60,7 +60,7 @@
                                     <% else %>
                                       <% components_per_enclosure.each do |component| %>
                                         <% cards.select { |card| card.composant_id == component.id }.each do |card| %>
-                                          <%= render partial: 'rooms/capacity_component', locals: { server: server, component: component, card: card } %>
+                                          <%= render partial: "visualization/network_capacities/capacity_component", locals: { server: server, component: component, card: card } %>
                                           <span class="sum">
                                           <%= card.cables.size %> /
                                             <%= card.port_quantity %>

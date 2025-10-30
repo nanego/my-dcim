@@ -1,7 +1,10 @@
 <%
   hide_inventories_sidebar!
 
-  breadcrumb.add_step(title = t(".title"))
+  breadcrumb
+    .add_step(t("visualization.title"))
+    .add_step(t("visualization.rooms.index.title"), visualization_rooms_path)
+    .add_step(title = t(".title"))
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
@@ -15,7 +18,7 @@
       <% rooms = site.rooms.order(:position).joins(:frames).distinct %>
       <% rooms.each do |room| %>
         <div class="col-sm-12 col-xxl-6">
-          <%= render "rooms/room_overview", room: room %>
+          <%= render "visualization/rooms/room_overview", room: room %>
         </div>
       <% end %>
     </div>

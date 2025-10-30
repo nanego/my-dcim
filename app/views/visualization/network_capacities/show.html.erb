@@ -2,7 +2,7 @@
   title = t("rooms.capacity_view.title")
 
   breadcrumb
-    .add_step(t("visualization.title"), overview_rooms_path)
+    .add_step(t("visualization.title"))
     .add_step(title)
 %>
 
@@ -35,7 +35,8 @@
 
     <% if turbo_frame_request? %>
       <%= turbo_frame_tag "network_capacity_islet" do %>
-        <%= render partial: "islets/network_capacity", locals: { bays: @bays, network: @filter.network_type, room: @room, islet: @islet } %>
+        <%= render partial: "visualization/network_capacities/islet",
+                   locals: { bays: @bays, network: @filter.network_type, room: @room, islet: @islet } %>
       <% end %>
     <% else %>
       <%= turbo_frame_tag "network_capacity_islet", src: visualization_network_capacity_path(**@filter.to_h) do %>

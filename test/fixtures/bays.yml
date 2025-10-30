@@ -2,7 +2,6 @@
 
 one:
   id: 1
-  name: MyBay1
   lane: 1
   position: 1
   bay_type_id: 2
@@ -10,7 +9,6 @@ one:
 
 two:
   id : 2
-  name: MyBay2
   lane: 1
   position: 1
   bay_type_id: 2
@@ -18,7 +16,6 @@ two:
 
 three:
   id : 3
-  name: MyBay3
   lane: 1
   position: 2
   bay_type_id: 2
@@ -26,7 +23,6 @@ three:
 
 four:
   id: 4
-  name: MyBay4
   lane: 1
   position: 1
   bay_type_id: 2
@@ -34,7 +30,6 @@ four:
 
 five:
   id : 5
-  name: MyBay5
   lane: 1
   position: 3
   bay_type_id: 1
