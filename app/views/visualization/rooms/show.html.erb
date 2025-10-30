@@ -7,7 +7,8 @@
   title = "#{@room.name} #{@islet ? " #{Islet.model_name.human} #{@islet}" : "" }"
 
   breadcrumb
-    .add_step(t("visualization.title"), visualization_rooms_path)
+    .add_step(t("visualization.title"))
+    .add_step(t("visualization.rooms.index.title"), visualization_rooms_path)
     .add_step(title.dup)
 
   title = t("visualization.title") + " " + title
@@ -211,7 +212,7 @@ function menuRoomsClick(e) {
   breadcrumb.lastElementChild.textContent = islet_name
 
   // Update HTML title
-  visualization_title = breadcrumb.lastElementChild.previousElementSibling.textContent
+  visualization_title = breadcrumb.children[1].textContent
   document.title = islet_name  + " | " + visualization_title
 
   // Update page title
