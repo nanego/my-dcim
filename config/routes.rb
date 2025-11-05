@@ -129,10 +129,16 @@ Rails.application.routes.draw do
   end
 
   get :about, to: "pages#about"
-  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks",
-                                    registrations: "users/registrations",
-                                    sessions: "users/sessions",
-                                    passwords: "users/passwords" }
+  devise_for :users, skip: %i[registrations], controllers: {
+    omniauth_callbacks: "users/omniauth_callbacks",
+    sessions: "users/sessions",
+    passwords: "users/passwords",
+  }
+  as :user do
+    get "users/edit" => "users/registrations#edit", as: :edit_user_registration
+    patch "users" => "users/registrations#update", as: :user_registration
+    delete "users" => "users/registrations#destroy"
+  end
 
   namespace :bulk do
     %i[servers sites rooms islets bays frames air_conditioners power_distribution_units modeles categories
