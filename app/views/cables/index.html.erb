@@ -3,75 +3,79 @@
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
-  <%= render FilterComponent.new(@filter) do |c| %>
-    <% c.with_form do |f| %>
-      <%= pagy_to_hidden_fields(@pagy) %>
-      <div>
-        <fieldset class="form-floating">
-          <%= f.select :server_ids, CableDecorator.servers_options_for_select(current_user),
+  <% if @filter %>
+    <%= render FilterComponent.new(@filter) do |c| %>
+      <% c.with_form do |f| %>
+        <%= pagy_to_hidden_fields(@pagy) if @pagy %>
+        <div>
+          <fieldset class="form-floating">
+            <%= f.select :server_ids, CableDecorator.servers_options_for_select(current_user),
                                   { prompt: true, multiple: true },
                                   { class: "form-select",
                                     data: { controller: :select } } %>
-          <%= f.label :server_ids %>
-        </fieldset>
-      </div>
+            <%= f.label :server_ids %>
+          </fieldset>
+        </div>
 
-      <div>
-        <fieldset class="form-floating">
-          <%= f.select :special_case, CableDecorator.special_case_options_for_select,
-                                      { prompt: true },
-                                      { class: "form-select", data: { controller: :select } } %>
-          <%= f.label :special_case %>
-        </fieldset>
-      </div>
+        <div>
+          <fieldset class="form-floating">
+            <%= f.select :special_case,
+                         CableDecorator.special_case_options_for_select,
+                         { prompt: true },
+                         { class: "form-select", data: { controller: :select } } %>
+            <%= f.label :special_case %>
+          </fieldset>
+        </div>
 
-      <div>
-        <fieldset class="form-floating">
-          <%= f.collection_select(:port_type_ids, PortType.order(:name),
-                                  :id,
-                                  :name,
-                                  { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
-          <%= f.label :port_type_ids %>
-        </fieldset>
-      </div>
+        <div>
+          <fieldset class="form-floating">
+            <%= f.collection_select(:port_type_ids, PortType.order(:name),
+                                    :id,
+                                    :name,
+                                    { prompt: true, multiple: true },
+                                    { class: "form-select", data: { controller: :select } }) %>
+            <%= f.label :port_type_ids %>
+          </fieldset>
+        </div>
 
-      <div>
-        <fieldset class="form-floating">
-          <%= f.select :colors, CableDecorator.colors_options_for_select,
-                                { prompt: true, multiple: true },
-                                { class: "form-select", data: { controller: :select } } %>
-          <%= f.label :colors %>
-        </fieldset>
-      </div>
+        <div>
+          <fieldset class="form-floating">
+            <%= f.select :colors,
+                         CableDecorator.colors_options_for_select,
+                         { prompt: true, multiple: true },
+                         { class: "form-select", data: { controller: :select } } %>
+            <%= f.label :colors %>
+          </fieldset>
+        </div>
 
-      <div>
-        <fieldset class="form-floating">
-          <%= f.text_field :cable_name, class: "form-control", placeholder: t("filters.placeholder.search") %>
-          <%= f.label :cable_name %>
-        </fieldset>
-      </div>
+        <div>
+          <fieldset class="form-floating">
+            <%= f.text_field :cable_name, class: "form-control", placeholder: t("filters.placeholder.search") %>
+            <%= f.label :cable_name %>
+          </fieldset>
+        </div>
 
-      <div>
-        <fieldset class="form-floating">
-          <%= f.text_field :card_query, class: "form-control", placeholder: t("filters.placeholder.search") %>
-          <%= f.label :card_query %>
-        </fieldset>
-      </div>
+        <div>
+          <fieldset class="form-floating">
+            <%= f.text_field :card_query, class: "form-control", placeholder: t("filters.placeholder.search") %>
+            <%= f.label :card_query %>
+          </fieldset>
+        </div>
 
-      <div>
-        <fieldset class="form-floating">
-          <%= f.text_field :comments, class: "form-control", placeholder: t("filters.placeholder.search") %>
-          <%= f.label :comments %>
-        </fieldset>
-      </div>
+        <div>
+          <fieldset class="form-floating">
+            <%= f.text_field :comments, class: "form-control", placeholder: t("filters.placeholder.search") %>
+            <%= f.label :comments %>
+          </fieldset>
+        </div>
 
-      <div>
-        <fieldset class="form-floating">
-          <%= f.text_field :vlans, class: "form-control", placeholder: t("filters.placeholder.search") %>
-          <%= f.label :vlans %>
-        </fieldset>
-      </div>
+        <div>
+          <fieldset class="form-floating">
+            <%= f.text_field :vlans, class: "form-control", placeholder: t("filters.placeholder.search") %>
+            <%= f.label :vlans %>
+          </fieldset>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 
@@ -90,12 +94,8 @@
         <% end %>
 
         <% table.with_column("Matériels connectés", v_align: :baseline) do |cable| %>
-          <%
-            from_connection = cable.connections.first
-            to_connection = cable.connections.second
-          %>
           <div class="cable-index-servers">
-            <%= render partial: "draw", locals: { cable:, from_connection:, to_connection: } %>
+            <%= render partial: "draw", locals: { cable:, server: @server } %>
           </div>
         <% end %>
 
@@ -106,7 +106,11 @@
           <%= cable.special_case ? t("boolean.true") : t("boolean.false") %>
         <% end %>
 
-        <% table.with_column(Cable.human_attribute_name(:comments), sort_by: :comments, v_align: :baseline) do |cable| %>
+        <% table.with_column(
+          Cable.human_attribute_name(:comments),
+          sort_by: :comments,
+          style: "width: 20%;",
+          v_align: :baseline) do |cable| %>
           <%= cable.comments %>
         <% end %>
 
@@ -138,7 +142,7 @@
         <% end %>
       <% end %>
 
-      <%== render PaginationComponent.new(pagy: @pagy) %>
+      <%== render PaginationComponent.new(pagy: @pagy) if @pagy %>
     </div>
   <% end %>
 </div>

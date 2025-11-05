@@ -143,14 +143,6 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
     end
   end
 
-  def destroy_connections! # rubocop:disable Naming/PredicateMethod
-    transaction do
-      cables.find_each(&:destroy!)
-    end
-
-    true
-  end
-
   private
 
   def slug_candidates
