@@ -40,7 +40,7 @@
       <div>
         <fieldset class="form-floating">
           <%= f.select :islet_ids,
-                       IsletDecorator.options_for_select(current_user),
+                       PowerDistributionUnitDecorator.islets_options_for_select(current_user),
                        { prompt: true, multiple: true },
                        { class: "form-select", data: { controller: :select } } %>
           <%= f.label :islet_ids %>
