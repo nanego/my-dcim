@@ -61,7 +61,7 @@
     <fieldset class="col-12">
       <%= f.label :islet_id, class: "form-label" %>
       <%= f.select :islet_id,
-                   IsletDecorator.options_for_select(current_user),
+                   BayDecorator.islets_options_for_select(current_user),
                    { prompt: true },
                    { class: "form-select", data: { controller: "select" }, placeholder: t("select.placeholder") } %>
     </fieldset>
