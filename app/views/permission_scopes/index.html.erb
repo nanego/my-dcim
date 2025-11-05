@@ -19,11 +19,7 @@
     <% end %>
 
     <% table.with_column(PermissionScope.human_attribute_name(:user_ids)) do |permission_scope| %>
-      <ul>
-      <% permission_scope.users.each do |user| %>
-        <li><%= link_to user, user_path(user) %></li>
-      <% end %>
-      </ul>
+      <%= permission_scope.users.size %>
     <% end %>
 
     <% table.with_column(PermissionScope.human_attribute_name(:domaine_ids)) do |permission_scope| %>

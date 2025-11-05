@@ -4,38 +4,54 @@
 %>
 
 <%= render Page::HeadingShowComponent.new(resource: @permission_scope, title:, breadcrumb:) %>
+
 <div class="col-12 p-4 border-top">
-  <div class="col-12 col-lg-6">
-    <%= render CardComponent.new do |card| %>
-      <dl class="show-page_dl d-grid row-gap-2 mb-0">
-        <% %i[name].each do |attribute_name| %>
-          <dt class="pb-2"><%= PermissionScope.human_attribute_name(attribute_name) %> :</dt>
-          <dd class="mb-0 pb-2 ps-3"><%= @permission_scope.public_send(attribute_name) %></dd>
+  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+    <div class="col">
+      <%= render CardComponent.new do |card| %>
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <% %i[name].each do |attribute_name| %>
+            <dt class="pb-2"><%= PermissionScope.human_attribute_name(attribute_name) %> :</dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @permission_scope.public_send(attribute_name) %></dd>
+          <% end %>
+        </dl>
+      <% end %>
+
+      <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
+        <% card.with_header do %>
+          <%= PermissionScope.human_attribute_name(:domaine_ids) %>
         <% end %>
 
-        <dt class="pb-2"><%= PermissionScope.human_attribute_name(:domaine_ids) %> :</dt>
-        <dd class="mb-0 pb-2 ps-3">
-          <% if @permission_scope.all_domains? %>
-            <%= PermissionScope.human_attribute_name(:all_domains) %>
-          <% else %>
-            <ul>
-            <% @permission_scope.domaines.each do |domain| %>
-              <li><%= link_to domain, domaine_path(domain) %></li>
-            <% end %>
-            </ul>
-          <% end %>
-        </dd>
-
-        <dt class="pb-2"><%= PermissionScope.human_attribute_name(:user_ids) %> :</dt>
-        <dd class="mb-0 pb-2 ps-3">
+        <% if @permission_scope.all_domains? %>
+          <%= PermissionScope.human_attribute_name(:all_domains) %>
+        <% else %>
           <ul>
-          <% @permission_scope.users.each do |user| %>
-            <li><%= link_to user, user_path(user) %></li>
+          <% @permission_scope.domaines.each do |domain| %>
+            <li><%= link_to domain, domaine_path(domain) %></li>
           <% end %>
           </ul>
-        </dd>
-      </dl>
-    <% end %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="col">
+      <%= render CardComponent.new do |card| %>
+        <% card.with_header do %>
+          <%= PermissionScope.human_attribute_name(:user_ids) %>
+        <% end %>
+
+        <ul>
+        <% @permission_scope.users.each do |user| %>
+          <li><%= link_to user, user_path(user) %> - [destroy]</li>
+        <% end %>
+        </ul>
+
+        <hr>
+
+        [form]
+      <% end %>
+    </div>
   </div>
+
   <%= render ChangelogEntries::ObjectListComponent.new(@permission_scope) %>
 </div>

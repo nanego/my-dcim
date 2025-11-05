@@ -9,7 +9,7 @@ class PermissionScopesController < ApplicationController
 
   # GET /permission_scopes
   def index
-    @permission_scopes = authorize! PermissionScope.all
+    @permission_scopes = authorize! PermissionScope.includes(:users)
   end
 
   # GET /permission_scopes/1
