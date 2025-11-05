@@ -26,7 +26,7 @@ RSpec.describe CablesController do
     it { expect { response }.to have_authorized_scope(:active_record_relation).with(CablePolicy) }
     it { expect { response }.to have_rubanok_processed(Cable.all).with(CablesProcessor) }
 
-    context "when searching on server" do
+    context "when searching on servers" do
       let(:params) { { server_ids: servers(:one).id } }
 
       it { expect(response).to have_http_status(:success) }
@@ -36,6 +36,23 @@ RSpec.describe CablesController do
 
       it { expect { response }.to have_authorized_scope(:active_record_relation).with(CablePolicy) }
       it { expect { response }.to have_rubanok_processed(Cable.all).with(CablesProcessor) }
+    end
+
+    context "when calling server_cables_path" do
+      subject(:response) do
+        get server_cables_path(params)
+
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+
+      let(:params) { { server_id: servers(:one).id } }
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(:index) }
+      it { expect(response.body).to include(cable.name) }
+      it { expect(response.body).not_to include(cables(:four).name) }
+
+      it { expect { response }.not_to have_rubanok_processed(Cable.all).with(CablesProcessor) }
     end
   end
 

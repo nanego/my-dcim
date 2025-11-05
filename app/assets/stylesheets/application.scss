@@ -810,9 +810,9 @@ body {
     }
   }
 
-  .moves_form{
-    .server{
-      &.relegated{
+  .moves_form {
+    .server {
+      &.relegated {
         filter:alpha(opacity=40);
         -moz-opacity:0.4;
         -khtml-opacity: 0.4;

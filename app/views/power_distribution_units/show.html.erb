@@ -1,15 +1,15 @@
 <% breadcrumb.add_step(@pdu.name) %>
 
-<%#<%= render Page::HeadingShowComponent.new(resource: @pdu, title: @pdu.name, breadcrumb:) do |heading| %>
-  <%#<% heading.with_extra_buttons do %>
-    <%#<%= render ButtonComponent.new(t("action.duplicate"),
+<%# <%= render Page::HeadingShowComponent.new(resource: @pdu, title: @pdu.name, breadcrumb:) do |heading| %>
+  <%# <% heading.with_extra_buttons do %>
+    <%# <%= render ButtonComponent.new(t("action.duplicate"),
                                   url: duplicate_power_distribution_unit_path(@pdu.slug),
                                   variant: :success,
                                   icon: "copy",
                                   is_responsive: true,
                                   extra_classes: "me-2") %>
-  <% # end %>
-<% # end %>
+  <%# end %>
+<%# end %>
 
 <%= render Page::HeadingComponent.new(
   title: @pdu.name,
@@ -376,21 +376,10 @@
   <div class="tab-pane fade" id="connections-tab-pane" role="tabpanel" aria-labelledby="connections-tab" tabindex="0">
     <%= render HasManyTurboFrameComponent.new(
       Connection.model_name.human.pluralize,
-      url: cables_path(server_ids: @pdu.id),
+      url: server_cables_path(@pdu.id),
       frame_id: dom_id(Connection, :table),
       extra_classes: "bg-body-tertiary"
-    ) do |c| %>
-      <% c.with_actions do %>
-        <%= render ButtonComponent.new(
-          t(".destroy_connections"),
-          url: destroy_connections_server_path(@pdu),
-          icon: "trash",
-          variant: :danger,
-          size: :sm,
-          data: { confirm: t(".destroy_connections_confirmation") }
-        ) if allowed_to?(:destroy_connections?, @pdu, with: PowerDistributionUnitPolicy) %>
-      <% end %>
-    <% end %>
+    ) %>
   </div>
 </div>
 

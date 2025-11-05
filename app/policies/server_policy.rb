@@ -13,10 +13,6 @@ class ServerPolicy < ApplicationPolicy
     manage?
   end
 
-  def destroy_connections?
-    manage?
-  end
-
   def sort?
     manage?
   end

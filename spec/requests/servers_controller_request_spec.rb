@@ -266,14 +266,6 @@ RSpec.describe ServersController do
     end
   end
 
-  describe "GET #destroy_connections" do
-    before { get destroy_connections_server_path(server) }
-
-    it { expect(response).to have_http_status(:redirect) }
-    it { expect(server.connections.count).to be_zero }
-    it { expect(flash[:notice]).to be_present }
-  end
-
   describe "GET #export_cables" do
     before { get export_cables_server_path(server) }
 

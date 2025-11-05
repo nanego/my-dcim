@@ -286,8 +286,6 @@ en:
       no_match_serial: "No match for this serial number: %{serial}"
       glpi_connection_error: "Problem connecting to GLPI :"
       toggle_vlans: Toggle Vlans
-      destroy_connections: Delete connections
-      destroy_connections_confirmation: Can you confirm that you want to remove all connections from this PDU?
       warning_no_frame: The current frame no longer exists, please enter a new one.
     new:
       title: Add a PDU
@@ -398,8 +396,6 @@ en:
       glpi_connection_error: "Problem connecting to GLPI :"
       moves_cta_tooltip: Planning its move
       export_cta_tooltip: PDF export for cable installers
-      destroy_connections: Delete connections
-      destroy_connections_confirmation: Can you confirm that you want to remove all connections to this IT equipment?
     new:
       title: Add I.T. equipment
     create:
