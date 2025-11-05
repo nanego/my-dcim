@@ -48,7 +48,7 @@ class UsersController < ApplicationController
   def reset_authentication_token
     @user.regenerate_authentication_token!
 
-    redirect_to edit_registration_path(@user), notice: t(".flashes.authentication_token_reset")
+    redirect_to edit_user_registration_path(@user), notice: t(".flashes.authentication_token_reset")
   end
 
   def suspend
