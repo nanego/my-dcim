@@ -101,11 +101,11 @@ RSpec.describe BaysController do
       let(:params) do
         {
           bay: { name: "Bay 1", bay_type_id: bay_types(:one).id, islet_id: islets(:one).id },
-          redirect_to_on_success: overview_rooms_path,
+          redirect_to_on_success: visualization_rooms_path,
         }
       end
 
-      it { expect(response).to redirect_to(overview_rooms_path) }
+      it { expect(response).to redirect_to(visualization_rooms_path) }
 
       it do
         expect do
@@ -183,7 +183,7 @@ RSpec.describe BaysController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete bay_path(bay), params:, headers: { REFERER: "/rooms/overview" }
+      delete bay_path(bay), params:, headers: { REFERER: "/visualization/rooms" }
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -221,7 +221,7 @@ RSpec.describe BaysController do
       let(:bay) { bays(:three) }
       let(:params) { { redirect_to_on_success: :back } }
 
-      it { expect(response).to redirect_to(overview_rooms_path) }
+      it { expect(response).to redirect_to(visualization_rooms_path) }
 
       it do
         expect do
@@ -233,7 +233,7 @@ RSpec.describe BaysController do
     context "when request back on failure" do
       let(:params) { { redirect_to_on_success: :back } }
 
-      it { expect(response).to redirect_to(overview_rooms_path) }
+      it { expect(response).to redirect_to(visualization_rooms_path) }
 
       it do
         expect do

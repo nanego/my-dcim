@@ -86,11 +86,7 @@ Rails.application.routes.draw do
   resources :servers_grids, only: [:index]
   resources :card_types
   resources :colors
-  resources :rooms do
-    collection do
-      get :overview
-    end
-  end
+  resources :rooms
   resources :bays
   resources :gestions
   resources :domaines
@@ -117,7 +113,7 @@ Rails.application.routes.draw do
   namespace :visualization do
     resource :infrastructure, only: :show
     resource :network_capacity, only: :show
-    resources :rooms, only: :show do
+    resources :rooms, only: %i[index show] do
       get :print, on: :member
     end
     resources :frames, only: :show do

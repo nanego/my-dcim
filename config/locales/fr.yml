@@ -649,8 +649,6 @@ fr:
       edit:
         title: Changez votre mot de passe
   rooms:
-    overview:
-      title: Aperçu des salles
     capacity_view:
       title: Vue capacité réseau
       networks:
@@ -866,6 +864,9 @@ fr:
     add_new: Ajouter une assignation
   visualization:
     title: Visualisation
+    rooms:
+      index:
+        title: Aperçu des salles
     network_capacities:
       show:
         loading: Chargement en cours ...

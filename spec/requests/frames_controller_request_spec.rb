@@ -99,11 +99,11 @@ RSpec.describe FramesController do
       let(:params) do
         {
           frame: { name: "Frame 1", bay_id: bays(:one).id },
-          redirect_to_on_success: overview_rooms_path,
+          redirect_to_on_success: visualization_rooms_path,
         }
       end
 
-      it { expect(response).to redirect_to(overview_rooms_path) }
+      it { expect(response).to redirect_to(visualization_rooms_path) }
 
       it do
         expect do

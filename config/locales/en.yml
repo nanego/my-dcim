@@ -456,3 +456,6 @@ en:
       show:
         loading: Loading ...
         edit_clusters: Edit clusters
+    rooms:
+      index:
+        title: Overview of the rooms

@@ -25,12 +25,10 @@
                                     "border-start-0": j.odd?,
                                     highlighted: should_be_highlighted) %>">
                   <%= link_to frame.name,
-                              visualization_room_path(
-                                frame.room,
+                              visualization_frame_path(
+                                frame,
                                 view: params[:view],
-                                islet: islet,
-                                "bay-id": bay,
-                                "frame-id": frame
+                                bg: params[:bg]
                               ),
                               class: class_names(
                                 "link-body-emphasis mx-auto text-center px-1",
