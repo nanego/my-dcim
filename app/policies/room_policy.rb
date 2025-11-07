@@ -6,8 +6,4 @@ class RoomPolicy < ApplicationPolicy
 
     relation.where(islets: authorized_scope(Islet.all))
   end
-
-  def overview?
-    index?
-  end
 end
