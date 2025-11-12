@@ -10,6 +10,8 @@ class ServerPolicy < ApplicationPolicy
   end
 
   def show?
+    return index? if user.writer?
+
     user.permitted_domains.include?(record.domaine)
   end
 
@@ -18,7 +20,7 @@ class ServerPolicy < ApplicationPolicy
   end
 
   def sort?
-    user.writer?
+    manage?
   end
 
   def import?

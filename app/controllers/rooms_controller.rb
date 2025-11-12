@@ -76,7 +76,7 @@ class RoomsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_room
-    authorize! @room = Room.all.friendly.find(params[:id].to_s.downcase)
+    authorize! @room = Room.friendly.find(params[:id].to_s.downcase)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

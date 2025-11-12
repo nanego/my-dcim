@@ -8,6 +8,8 @@ class FramePolicy < ApplicationPolicy
   end
 
   def show?
+    return index? if user.writer?
+
     record.servers.intersect?(authorized_scope(Server.all))
   end
 

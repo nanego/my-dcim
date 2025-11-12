@@ -8,6 +8,8 @@ class BayPolicy < ApplicationPolicy
   end
 
   def show?
+    return index? if user.writer?
+
     record.frames.intersect?(authorized_scope(Frame.all))
   end
 end

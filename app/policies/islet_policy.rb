@@ -8,6 +8,8 @@ class IsletPolicy < ApplicationPolicy
   end
 
   def show?
+    return index? if user.writer?
+
     record.bays.intersect?(authorized_scope(Bay.all))
   end
 
