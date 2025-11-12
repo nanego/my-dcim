@@ -100,7 +100,7 @@ gem "csv", "~> 3.3"
 gem "debug", group: %i[test development], platforms: %i[mri windows], require: "debug/prelude"
 gem "dekorator", "~> 1.4"
 gem "diffy", "~> 3.4"
-gem "hotwire-livereload", "~> 2.0", group: :development
+gem "hotwire-spark", group: :development
 gem "importmap-rails", "~> 2.0"
 gem "jquery-rails", "~> 4.6"
 gem "jquery-ui-rails", "~> 8.0"
