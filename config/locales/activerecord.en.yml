@@ -149,6 +149,8 @@ en:
       user/visualization_bay_default_orientation:
         front: Front
         back: Back
+      user/state:
+        suspended: Suspended
       room:
         access_control: Access control
         name: Name
