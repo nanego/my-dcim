@@ -56,8 +56,8 @@ class IsletDecorator < ApplicationDecorator
     I18n.t("access_control.#{a_c}")
   end
 
-  def overviewed_bays_array
-    @overviewed_bays_array ||= bays.sorted.group_by(&:lane).map do |lane, bays|
+  def overviewed_bays_array(user)
+    @overviewed_bays_array ||= BayDecorator.authorized_scope(bays, user:).sorted.group_by(&:lane).map do |lane, bays|
       [
         lane,
         Array.new(bays.last.position) do |i|

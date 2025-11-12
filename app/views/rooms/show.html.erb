@@ -97,7 +97,7 @@
     <div class="overview row row-cols-1 row-gap-4">
       <div class="col">
         <%= render CardComponent.new do |card| %>
-          <% islets = @room.islets.sorted %>
+          <% islets = authorized_scope(@room.islets).sorted %>
           <% islets.each_with_index do |islet, i| %>
             <div class="<%= class_names("islet", "pt-4": i > 0, "pt-2 px-2": islets.length == 1) %>">
               <% if islet.name.present? %>
@@ -108,7 +108,7 @@
                 </h6>
               <% end %>
               <%= render "visualization/rooms/bay_overview",
-                         bays_per_lane: islet.decorated.overviewed_bays_array,
+                         bays_per_lane: islet.decorated.overviewed_bays_array(current_user),
                          islet: islet %>
             </div>
           <% end %>

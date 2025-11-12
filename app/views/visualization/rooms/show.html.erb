@@ -88,7 +88,7 @@
                         <% if air_conditioner&.position == AirConditioner.positions[:left] %>
                           <%= render "rooms/air_conditioner", air_conditioner: %>
                         <% end %>
-                        <% bay.frames.sorted.each_with_index do |frame, index| %>
+                        <% authorized_scope(bay.frames).sorted.each_with_index do |frame, index| %>
                           <div class="<%= class_names("overviewed_frame border",
                                                       "no-margin": index > 0,
                                                       highlighted: @frames && @frames.include?(frame)) %>"

@@ -10,7 +10,7 @@
   editable: allowed_to?(:update?, @server)
 ) do |heading| %>
   <% heading.with_extra_buttons do %>
-    <% if allowed_to?(:export_cables?, @server) %>
+    <% if allowed_to?(:export?, @server) %>
       <button class="btn btn-outline-primary me-2 d-flex align-items-center export-button-server"
               data-bs-title="<%= t(".export_cta_tooltip") %>"
               data-aria-label="<%= t(".export_cta_tooltip") %>"

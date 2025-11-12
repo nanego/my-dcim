@@ -174,7 +174,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
 
   # Use callbacks to share common setup or constraints between actions.
   def set_server
-    authorize! @server = scoped_servers.friendly_find_by_numero_or_name(params[:id])
+    authorize! @server = Server.no_pdus.friendly_find_by_numero_or_name(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

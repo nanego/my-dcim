@@ -2,9 +2,13 @@
 
 class IsletPolicy < ApplicationPolicy
   relation_scope do |relation|
-    return relation if user.admin?
+    return relation if user.admin? || user.writer?
 
     relation.where(bays: authorized_scope(Bay.all))
+  end
+
+  def show?
+    record.bays.intersect?(authorized_scope(Bay.all))
   end
 
   def print?

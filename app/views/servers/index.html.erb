@@ -237,7 +237,7 @@
 
         <% table.with_column(text_align: :center, style: "min-width: 100px; width: 100px") do |server| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <% if allowed_to?(:export_cables?, server) %>
+            <% if allowed_to?(:export?, server) %>
               <button class="btn btn-outline-primary"
                       data-bs-title="<%= t("servers.show.export_cta_tooltip") %>"
                       data-aria-label="<%= t("servers.show.export_cta_tooltip") %>"
