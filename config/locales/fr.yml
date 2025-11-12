@@ -895,6 +895,9 @@ fr:
     update:
       flashes:
         updated: La permission a bien été mis à jour.
+    form:
+      domaine_ids:
+        blank: Sélectionnez un domaine
     destroy:
       flashes:
         destroyed: La permission a bien été supprimé.

@@ -342,9 +342,21 @@ en:
     update:
       flashes:
         updated: Permission Scope as been successfully updated.
+    form:
+      domaine_ids:
+        blank: Select a domain
     destroy:
       flashes:
         destroyed: Permission Scope as been successfully destroyed.
+    permission_scope_user_form:
+      user_select: Select a user to add
+  permission_scope_users:
+    create:
+      flashes:
+        created: User has been added to this Permission Scope.
+    destroy:
+      flashes:
+        destroyed: User has been remove from this Permission Scope.
 
   search:
     index:

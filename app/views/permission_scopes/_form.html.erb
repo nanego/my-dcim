@@ -15,7 +15,7 @@
 
     <fieldset class="<%= class_names("col-12 mt-4", "d-none": f.object.all_domains) %>" id="domaine_ids">
       <%= f.label :domaine_ids, class: "form-label" %>
-      <%= f.select :domaine_ids, Domaine.sorted.pluck(:name, :id), { include_blank: t("access_control.blank") },
+      <%= f.select :domaine_ids, Domaine.sorted.pluck(:name, :id), { include_blank: t(".domaine_ids.blank") },
                                  class: "form-select", multiple: true, data: { controller: :select } %>
     </fieldset>
 
