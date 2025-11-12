@@ -8,6 +8,8 @@ class SitePolicy < ApplicationPolicy
   end
 
   def show?
+    return index? if user.writer?
+
     record.rooms.intersect?(authorized_scope(Room.all))
   end
 end

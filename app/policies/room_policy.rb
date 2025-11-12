@@ -8,6 +8,8 @@ class RoomPolicy < ApplicationPolicy
   end
 
   def show?
+    return index? if user.writer?
+
     record.islets.intersect?(authorized_scope(Islet.all))
   end
 end

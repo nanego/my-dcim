@@ -18,6 +18,12 @@ RSpec.describe FramePolicy, type: :policy do
       it { is_expected.to match_array(target) }
     end
 
+    context "with writer user" do
+      let(:user) { users(:writer) }
+
+      it { is_expected.to match_array(target) }
+    end
+
     context "with reader user" do
       let(:user) { users(:reader) }
 
@@ -31,4 +37,23 @@ RSpec.describe FramePolicy, type: :policy do
 
   it_behaves_like "act as manage policy", for: :sort?
   it_behaves_like "act as index policy", for: :network?
+
+  describe_rule :show? do
+    succeed "when an admin user asks" do
+      let(:user) { users(:admin) }
+    end
+
+    succeed "when a writer user asks" do
+      let(:user) { users(:writer) }
+    end
+
+    failed "when a reader user asks" do
+      let(:user) { users(:reader) }
+    end
+
+    succeed "when a reader users asks on a permitted server" do
+      let(:user) { users(:reader) }
+      let(:frame) { frames(:one) }
+    end
+  end
 end
