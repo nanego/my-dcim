@@ -6,16 +6,15 @@ RSpec.describe PermissionScopeUserPolicy, type: :policy do
   let(:user) { users(:one) }
   let(:record) { users(:two) }
   let(:context) { { user: } }
-  let(:is_admin) { true }
-
-  before { user.is_admin = is_admin }
 
   %i[index? create? manage?].each do |rule|
     describe_rule rule do
-      succeed "when an admin user asks"
+      succeed "when an admin user asks" do
+        let(:user) { users(:admin) }
+      end
 
       failed "when user is not admin" do
-        let(:is_admin) { false }
+        let(:user) { users(:reader) }
       end
     end
   end
