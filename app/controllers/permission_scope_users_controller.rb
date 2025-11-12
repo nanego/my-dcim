@@ -12,10 +12,10 @@ class PermissionScopeUsersController < ApplicationController
       if @permission_scope_user.save
         flash[:notice] = t(".flashes.created")
 
-        format.html { redirect_to @permission_scope }
+        format.html { redirect_to @permission_scope, status: :see_other }
         format.turbo_stream { render status: :see_other }
       else
-        format.html { render :new, status: :unprocessable_content }
+        format.html { redirect_to @permission_scope, status: :see_other }
         format.turbo_stream { render :new, status: :unprocessable_content }
       end
     end

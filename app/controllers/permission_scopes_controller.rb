@@ -67,7 +67,7 @@ class PermissionScopesController < ApplicationController
   def permission_scope_params
     params.expect(
       permission_scope: [
-        :name, :role, :all_domains,
+        :name, :all_domains,
         { domaine_ids: [], user_ids: [] },
       ],
     )
