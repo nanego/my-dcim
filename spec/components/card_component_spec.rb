@@ -22,7 +22,23 @@ RSpec.describe CardComponent, type: :component do
       end
     end
 
-    it { expect(rendered_component.to_html).to have_text("Text as header") }
+    it do
+      expect(rendered_component.to_html)
+        .to have_tag("div.card > div.card-header", text: /Text as header/)
+    end
+  end
+
+  context "with body" do
+    let(:block) do
+      proc do |card|
+        card.with_body(extra_classes: "p-0") { "Text as body" }
+      end
+    end
+
+    it do
+      expect(rendered_component.to_html)
+        .to have_tag("div.card > div.card-body.p-0", text: /Text as body/)
+    end
   end
 
   context "with footer" do
@@ -32,7 +48,10 @@ RSpec.describe CardComponent, type: :component do
       end
     end
 
-    it { expect(rendered_component.to_html).to have_text("Text as footer") }
+    it do
+      expect(rendered_component.to_html)
+        .to have_tag("div.card > div.card-footer", text: /Text as footer/)
+    end
   end
 
   context "with valid type" do
