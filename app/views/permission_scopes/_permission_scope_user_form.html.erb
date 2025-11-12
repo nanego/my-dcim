@@ -1,0 +1,15 @@
+<%# locals: (permission_scope_user:) -%>
+
+<%= form_with model: [permission_scope_user.permission_scope, permission_scope_user], data: { turbo: true } do |f| %>
+  <div class="visually-hidden"><%= f.label :user_id, t(".user_select"), class: "form-label" %></div>
+
+  <div class="d-flex justify-content-between">
+    <fieldset class="flex-grow-1 me-3">
+      <%= f.select :user_id, PermissionScopeUserDecorator.users_options_for_select(permission_scope_user.permission_scope),
+                            { include_blank: t("access_control.blank") },
+                            class: "form-select", data: { controller: :select } %>
+    </fieldset>
+
+    <%= f.submit t("action.add"), class: "btn btn-success" %>
+  </div>
+<% end %>

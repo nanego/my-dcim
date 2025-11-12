@@ -898,6 +898,15 @@ fr:
     destroy:
       flashes:
         destroyed: La permission a bien été supprimé.
+    permission_scope_user_form:
+      user_select: Sélectionnez un utilisateur à ajouter
+  permission_scope_users:
+    create:
+      flashes:
+        created: L'utilisateur a bien été ajouté de cette permission.
+    destroy:
+      flashes:
+        destroyed: L'utilisateur a bien été retiré de cette permission.
 
   views:
     pagination:

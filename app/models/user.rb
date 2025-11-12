@@ -35,6 +35,7 @@ class User < ApplicationRecord
   validates :visualization_bay_default_background_color, inclusion: { in: AVAILABLE_BAY_BACKGROUND_COLORS }, allow_nil: true
   validates :visualization_bay_default_orientation, inclusion: { in: AVAILABLE_BAY_ORIENTATIONS }, allow_nil: true
 
+  scope :ordered, -> { order(email: :asc) }
   scope :admin, -> { where(is_admin: true) }
   scope :unsuspended, -> { where(suspended_at: nil) }
   scope :suspended, -> { where.not(suspended_at: nil) }

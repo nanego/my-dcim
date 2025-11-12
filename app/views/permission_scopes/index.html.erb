@@ -36,6 +36,14 @@
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |permission_scope| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
+        <%= link_to permission_scope_path(permission_scope), class: "btn btn-primary"  do %>
+          <span class="bi bi-eye"
+                title="<%= t("action.show") %>"
+                data-controller="tooltip"
+                data-bs-placement="left"
+                aria-hidden="true"></span>
+          <span class="visually-hidden"><%= t("action.show") %></span>
+        <% end %>
         <%= link_to edit_permission_scope_path(permission_scope), class: "btn btn-info" do %>
           <span class="bi bi-pencil"
                 title="<%= t("action.edit") %>"

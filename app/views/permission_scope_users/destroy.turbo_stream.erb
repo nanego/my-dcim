@@ -1,0 +1,5 @@
+<%= turbo_stream.remove @permission_scope_user %>
+
+<%= turbo_stream.update :ts_permission_scope_user_form do %>
+  <%= render partial: "permission_scopes/permission_scope_user_form", locals: { permission_scope_user: @permission_scope.permission_scope_users.build } %>
+<% end %>
