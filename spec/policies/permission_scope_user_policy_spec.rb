@@ -3,21 +3,20 @@
 require "rails_helper"
 
 RSpec.describe PermissionScopeUserPolicy, type: :policy do
-  # See https://actionpolicy.evilmartians.io/#/testing?id=rspec-dsl
-  #
-  # let(:user) { build_stubbed :user }
-  # let(:record) { build_stubbed :post, draft: false }
-  # let(:context) { {user: user} }
+  let(:user) { users(:one) }
+  let(:record) { users(:two) }
+  let(:context) { { user: } }
+  let(:is_admin) { true }
 
-  describe_rule :index? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
+  before { user.is_admin = is_admin }
 
-  describe_rule :create? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
+  %i[index? create? manage?].each do |rule|
+    describe_rule rule do
+      succeed "when an admin user asks"
 
-  describe_rule :manage? do
-    pending "add some examples to (or delete) #{__FILE__}"
+      failed "when user is not admin" do
+        let(:is_admin) { false }
+      end
+    end
   end
 end
