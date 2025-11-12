@@ -13,16 +13,16 @@
     <li role="menuitem">
       <%= link_to t(".infrastructure"), visualization_infrastructure_path, class: "dropdown-item" %>
     </li>
-    <% sites = Site.joins(:rooms).order(:position).distinct %>
+    <% sites = authorized_scope(Site.all).joins(:rooms).order(:position).distinct %>
     <% sites.each do |site| %>
       <li><hr class="dropdown-divider"></li>
       <li><h6 class="dropdown-header"><%= site %></h6></li>
-      <% rooms = site.rooms.sorted.distinct %>
+      <% rooms = authorized_scope(site.rooms).sorted.distinct %>
       <% rooms.each do |room| %>
         <li class="nav-item" role="menuitem">
           <%= link_to room.name, visualization_room_path(room, view: params[:view], bg: params[:bg]), class: "dropdown-item" %>
         </li>
-        <% islets = room.islets.sorted.has_name.distinct %>
+        <% islets = authorized_scope(room.islets).sorted.has_name.distinct %>
         <% if islets.size > 1 %>
           <% islets.each do |islet| %>
             <li class="nav-item" role="menuitem">

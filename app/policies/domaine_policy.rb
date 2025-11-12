@@ -2,7 +2,7 @@
 
 class DomainePolicy < ApplicationPolicy
   relation_scope do |relation|
-    return relation if user.admin?
+    return relation if user.admin? || user.writer?
 
     user.permitted_domains
   end

@@ -68,7 +68,7 @@
 
       <% table.with_column(Frame.model_name.human.pluralize) do |room| %>
         <%= link_to frames_path(room_ids: room.id), data: { turbo_frame: :_top } do %>
-          <%= Room.human_attribute_name(:frames_count, count: room.frames.count) %>
+          <%= Room.human_attribute_name(:frames_count, count: authorized_scope(room.frames).count) %>
         <% end %>
       <% end %>
 
@@ -82,9 +82,11 @@
         <%= render room.decorated.status_to_badge_component %>
       <% end %>
 
-      <% table.with_column(style: "min-width: 132px; width: 132px") do |room| %>
+      <% table.with_column(text_align: :center, style: "min-width: 132px; width: 132px") do |room| %>
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
-          <%= render partial: "rooms/export_button", locals: { room: decorate(room) } %>
+          <% if allowed_to?(:manage?, room) %>
+            <%= render partial: "rooms/export_button", locals: { room: decorate(room) } %>
+          <% end %>
 
           <% if allowed_to?(:show?, room, with: Visualization::RoomPolicy) %>
             <%= link_to visualization_room_path(room), class: "btn btn-primary", data: { turbo_frame: :_top } do %>

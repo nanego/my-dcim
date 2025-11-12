@@ -130,7 +130,7 @@
     </div>
   </div>
 
-  <% if (rooms = @site.rooms.order(:position).joins(:frames).distinct).any? %>
+  <% if (rooms = authorized_scope(@site.rooms).order(:position).joins(:frames).distinct).any? %>
     <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
       <% card.with_header do %>
         <%= t("show.cards.visualization") %>

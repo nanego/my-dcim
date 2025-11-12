@@ -8,11 +8,12 @@ class PowerDistributionUnitsController < ApplicationController
   end
 
   def index
-    authorize! @pdus = scoped_power_distribution_units.includes(:frame, :room, :islet, bay: :frames, modele: :category)
+    @pdus = scoped_power_distribution_units.includes(:frame, :room, :islet, bay: :frames, modele: :category)
       .references(:room, :islet, :bay, modele: :category)
       .order(:name)
-    @filter = ProcessorFilter.new(@pdus, params, with: PowerDistributionUnitsProcessor)
+    authorize! @pdus, with: PowerDistributionUnitPolicy
 
+    @filter = ProcessorFilter.new(@pdus, params, with: PowerDistributionUnitsProcessor)
     @pdus = @filter.results
 
     respond_to do |format|
@@ -24,13 +25,15 @@ class PowerDistributionUnitsController < ApplicationController
   def show; end
 
   def new
-    authorize! @pdu = Server.new
+    @pdu = Server.new
+    authorize! @pdu, with: PowerDistributionUnitPolicy
   end
 
   def edit; end
 
   def create
-    authorize! @pdu = Server.new(pdu_params)
+    @pdu = Server.new(pdu_params)
+    authorize! @pdu, with: PowerDistributionUnitPolicy
 
     respond_to do |format|
       if @pdu.save
@@ -68,7 +71,9 @@ class PowerDistributionUnitsController < ApplicationController
   end
 
   def duplicate
-    authorize! @original_pdu = scoped_power_distribution_units.friendly.find(params[:id].to_s.downcase)
+    @original_pdu = scoped_power_distribution_units.friendly.find(params[:id].to_s.downcase)
+    authorize! @original_pdu, with: PowerDistributionUnitPolicy
+
     @pdu = @original_pdu.deep_dup
   end
 
@@ -79,7 +84,8 @@ class PowerDistributionUnitsController < ApplicationController
   end
 
   def set_pdu
-    authorize! @pdu = scoped_power_distribution_units.friendly_find_by_numero_or_name(params[:id])
+    @pdu = scoped_power_distribution_units.friendly_find_by_numero_or_name(params[:id])
+    authorize! @pdu, with: PowerDistributionUnitPolicy
   end
 
   def pdu_params
@@ -97,9 +103,5 @@ class PowerDistributionUnitsController < ApplicationController
     params.permit(:sort, :sort_by, :page, :per_page, :q,
                   network_types: [], bay_ids: [], islet_ids: [], room_ids: [], frame_ids: [], cluster_ids: [],
                   gestion_ids: [], domaine_ids: [], modele_ids: [], stack_ids: [])
-  end
-
-  def default_authorization_policy_class
-    PowerDistributionUnitPolicy
   end
 end

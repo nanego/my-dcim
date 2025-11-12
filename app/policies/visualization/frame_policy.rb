@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module Visualization
-  class FramePolicy < ApplicationPolicy
+  class FramePolicy < ::FramePolicy
     def print?
-      index?
+      manage?
     end
   end
 end

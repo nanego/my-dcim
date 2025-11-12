@@ -1,7 +1,7 @@
 <% editable = true if local_assigns[:editable].nil? %>
 <% servers_ids = servers.map(&:id) %>
 <% if local_assigns[:highlighted_servers].nil?
-     highlighted_servers_ids = servers_ids
+     highlighted_servers_ids =  authorized_scope(Server.no_pdus).ids
    else
      highlighted_servers_ids = highlighted_servers.map(&:id)
    end

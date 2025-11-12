@@ -8,7 +8,7 @@ module Visualization
     before_action :set_servers_per_frames, only: %i[show print]
 
     def index
-      authorize! @sites = Site.order(:position).joins(rooms: :frames).distinct
+      authorize! @sites = authorized_scope(Site.all).order(:position).joins(rooms: :frames).distinct
 
       return unless params[:cluster_id].present? || params[:gestion_id].present? || params[:modele_id].present?
 
@@ -40,7 +40,7 @@ module Visualization
 
     def show
       @sites = authorized_scope(Site.all).joins(:rooms).includes(rooms: [bays: [:bay_type]]).order(:position).distinct
-      @islet = Islet.find_by(name: params[:islet], room_id: @room.id) if params[:islet].present?
+      authorize! @islet = Islet.find_by(name: params[:islet], room_id: @room.id) if params[:islet].present?
 
       @air_conditioners = AirConditioner.all
 

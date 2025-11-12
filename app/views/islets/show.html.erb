@@ -5,7 +5,18 @@
   title:,
   breadcrumb:,
   editable: allowed_to?(:update?, @islet)
-) %>
+) do |heading| %>
+  <% heading.with_extra_buttons do %>
+    <% render ButtonComponent.new(
+      t("visualization.title"),
+      url: visualization_room_path(@islet.room, islet: @islet.name),
+      variant: :primary,
+      icon: "diagram-3-fill",
+      is_responsive: true,
+      extra_classes: "me-2"
+    ) if allowed_to?(:show?, @islet, with: Visualization::IsletPolicy) %>
+  <% end %>
+<% end %>
 
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
@@ -80,7 +91,7 @@
 
     <div class="overview">
       <%= render CardComponent.new(extra_classes: "islet pt-2 px-2") do |card| %>
-        <%= render "visualization/rooms/bay_overview", bays_per_lane: @islet.decorated.overviewed_bays_array, islet: @islet %>
+        <%= render "visualization/rooms/bay_overview", bays_per_lane: @islet.decorated.overviewed_bays_array(current_user), islet: @islet %>
       <% end %>
     </div>
   <% end %>
