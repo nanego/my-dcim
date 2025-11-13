@@ -5,7 +5,7 @@ class MovedConnectionDecorator < ApplicationDecorator
     I18n.t("moved_connections.decorator.description",
            port_from_server: port_from.server.decorated.full_name,
            port_from_id:,
-           port_to_server: port_to.server.decorated.full_name,
+           port_to_server: port_to&.server&.decorated&.full_name, # rubocop:disable Style/SafeNavigationChainLength
            port_to_id:,
            vlans:,
            cablename:,
