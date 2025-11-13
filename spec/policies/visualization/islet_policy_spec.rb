@@ -26,5 +26,9 @@ RSpec.describe Visualization::IsletPolicy, type: :policy do
       let(:user) { users(:reader) }
       let(:islet) { islets(:one) }
     end
+
+    succeed "when a reader all users asks" do
+      let(:user) { users(:reader_all) }
+    end
   end
 end

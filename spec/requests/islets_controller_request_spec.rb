@@ -18,7 +18,7 @@ RSpec.describe IsletsController do
     it { expect(response).to render_template(:index) }
     it { expect(response.body).to include(islet.name) }
 
-    it { expect { response }.to have_authorized_scope(:active_record_relation).with(BayPolicy) }
+    it { expect { response }.to have_authorized_scope(:active_record_relation).with(IsletPolicy) }
     it { expect { response }.to have_rubanok_processed(Islet.all).with(IsletsProcessor) }
   end
 

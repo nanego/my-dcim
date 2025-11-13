@@ -3,7 +3,7 @@
 module Visualization
   class InfrastructurePolicy < ApplicationPolicy
     def show?
-      manage?
+      user.all_domains?
     end
   end
 end

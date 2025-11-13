@@ -39,6 +39,12 @@ without_permission_scope:
   email: nobody@yopmail.com
   encrypted_password: $2a$10$5iKaHrlajUNurPi/N7cHduDiufXpCz/9Aug3L660HdPpfUWgTeXju
 
+reader_all:
+  id: 7
+  name: Reader All
+  email: reader_all@yopmail.com
+  encrypted_password: $2a$10$5iKaHrlajUNurPi/N7cHduDiufXpCz/9Aug3L660HdPpfUWgTeXju
+
 suspended:
   id: 7
   name: Suspended

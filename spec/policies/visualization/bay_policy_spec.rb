@@ -29,5 +29,9 @@ RSpec.describe Visualization::BayPolicy, type: :policy do
       let(:user) { users(:reader) }
       let(:bay) { bays(:one) }
     end
+
+    succeed "when a reader all users asks" do
+      let(:user) { users(:reader_all) }
+    end
   end
 end

@@ -28,5 +28,9 @@ RSpec.describe Visualization::RoomPolicy, type: :policy do
       let(:user) { users(:reader) }
       let(:room) { rooms(:one) }
     end
+
+    succeed "when a reader all users asks" do
+      let(:user) { users(:reader_all) }
+    end
   end
 end
