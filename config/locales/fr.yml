@@ -133,8 +133,6 @@ fr:
     destroy:
       flashes:
         destroyed: L'ilôt a bien été supprimé.
-    infrastructure:
-      concentrator: Concentrateur
     add_new: Ajouter un ilôt
   connections:
     edit:
@@ -874,6 +872,8 @@ fr:
       show:
         loading: Chargement en cours ...
         edit_clusters: Modifier les clusters
+      islet:
+        concentrator: Concentrateur
     bays:
       show:
         title: Baie %{bay_type} %{bay}
