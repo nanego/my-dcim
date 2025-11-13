@@ -7,12 +7,16 @@
     <li role="menuitem">
       <%= link_to t(".overview"), visualization_rooms_path, class: "dropdown-item" %>
     </li>
-    <li role="menuitem">
-      <%= link_to t(".capacity"), visualization_network_capacity_path, class: "dropdown-item" %>
-    </li>
-    <li role="menuitem">
-      <%= link_to t(".infrastructure"), visualization_infrastructure_path, class: "dropdown-item" %>
-    </li>
+    <% if allowed_to?(:show, with: Visualization::NetworkCapacityPolicy) %>
+      <li role="menuitem">
+        <%= link_to t(".capacity"), visualization_network_capacity_path, class: "dropdown-item" %>
+      </li>
+    <% end %>
+    <% if allowed_to?(:show, with: Visualization::InfrastructurePolicy) %>
+      <li role="menuitem">
+        <%= link_to t(".infrastructure"), visualization_infrastructure_path, class: "dropdown-item" %>
+      </li>
+    <% end %>
     <% sites = authorized_scope(Site.all).joins(:rooms).order(:position).distinct %>
     <% sites.each do |site| %>
       <li><hr class="dropdown-divider"></li>

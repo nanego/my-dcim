@@ -2,5 +2,8 @@
 
 module Visualization
   class NetworkCapacityPolicy < ApplicationPolicy
+    def show?
+      manage?
+    end
   end
 end

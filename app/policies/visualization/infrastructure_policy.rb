@@ -2,5 +2,8 @@
 
 module Visualization
   class InfrastructurePolicy < ApplicationPolicy
+    def show?
+      manage?
+    end
   end
 end
