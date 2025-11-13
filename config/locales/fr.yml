@@ -686,6 +686,7 @@ fr:
       flashes:
         destroyed: La salle a bien été supprimée.
     add_new: Ajouter une salle
+    empty_overview: Aucune baie à afficher
 
   users:
     my_account:

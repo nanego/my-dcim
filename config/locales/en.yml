@@ -324,6 +324,7 @@ en:
       flashes:
         success: The room has successfully been updated
     add_new: Add a room
+    empty_overview: No bay to display
 
   permission_scopes:
     index:

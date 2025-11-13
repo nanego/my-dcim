@@ -29,8 +29,4 @@ RSpec.describe Islet do
   describe "#to_s" do
     pending
   end
-
-  describe "#name_with_room" do
-    pending
-  end
 end

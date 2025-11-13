@@ -39,11 +39,10 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:islet_ids, Islet.sorted,
-                                  :id,
-                                  :name_with_room,
-                                  { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.select :islet_ids,
+                       PowerDistributionUnitDecorator.islets_options_for_select(current_user),
+                       { prompt: true, multiple: true },
+                       { class: "form-select", data: { controller: :select } } %>
           <%= f.label :islet_ids %>
         </fieldset>
       </div>
