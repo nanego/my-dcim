@@ -28,5 +28,9 @@ RSpec.describe Visualization::FramePolicy, type: :policy do
       let(:user) { users(:reader) }
       let(:frame) { frames(:one) }
     end
+
+    succeed "when a reader all users asks" do
+      let(:user) { users(:reader_all) }
+    end
   end
 end

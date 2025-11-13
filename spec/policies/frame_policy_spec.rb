@@ -24,6 +24,12 @@ RSpec.describe FramePolicy, type: :policy do
       it { is_expected.to match_array(target) }
     end
 
+    context "with reader all user" do
+      let(:user) { users(:reader_all) }
+
+      it { is_expected.to match_array(target) }
+    end
+
     context "with reader user" do
       let(:user) { users(:reader) }
 
@@ -54,6 +60,10 @@ RSpec.describe FramePolicy, type: :policy do
     succeed "when a reader users asks on a permitted server" do
       let(:user) { users(:reader) }
       let(:frame) { frames(:one) }
+    end
+
+    succeed "when a reader all users asks" do
+      let(:user) { users(:reader_all) }
     end
   end
 end
