@@ -140,8 +140,6 @@ en:
     submit: Confirm
 
   islets:
-    infrastructure:
-      concentrator: Concentrator
     add_new: Add an islet
 
   layouts:
@@ -456,6 +454,8 @@ en:
       show:
         loading: Loading ...
         edit_clusters: Edit clusters
+      islet:
+        concentrator: Concentrator
     rooms:
       index:
         title: Overview of the rooms
