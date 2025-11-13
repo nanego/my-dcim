@@ -22,7 +22,7 @@ RSpec.describe ChangelogEntryPolicy, type: :policy do
 
       succeed "when a reader users asks with a scoped_object (ChangelogEntries::ObjectList context)" do
         let(:user) { users(:reader) }
-        let(:context) { { user:, scoped_object: Server.first } }
+        let(:context) { { user:, scoped_object: servers(:accesible_to_readers) } }
       end
 
       succeed "when a writer user asks" do

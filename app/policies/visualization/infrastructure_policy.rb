@@ -2,5 +2,8 @@
 
 module Visualization
   class InfrastructurePolicy < ApplicationPolicy
+    def show?
+      user.all_domains?
+    end
   end
 end

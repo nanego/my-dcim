@@ -51,7 +51,7 @@
     </button>
   <% end %>
 
-  <% if @room.present? && !@room.kind_of?(String) %>
+  <% if @room.present? && !@room.kind_of?(String) && allowed_to?(:manage?, @room) %>
     <div class="btn-group ms-auto" data-controller="dynamic-export-pdf">
       <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle d-flex align-items-center export-button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none me-2" role="status" aria-hidden="true" data-dynamic-export-pdf-target="spinner"></span>
@@ -126,20 +126,20 @@
   <% end %>
 
   <%= render CaptionComponent.new do %>
-    <h5><%= t(".caption.ports")%> :</h5>
+    <h5><%= t(".caption.ports") %> :</h5>
     <dl>
       <dt>
         <span class="pdu port_container unreferenced_client">
           <a class="port portFC empty">01</a>
         </span>
       </dt>
-      <dd><%= t(".caption.unreferenced_client")%></dd>
+      <dd><%= t(".caption.unreferenced_client") %></dd>
       <dt>
         <span class="pdu port_container no_client">
           <a class="port portFC empty">02</a>
         </span>
       </dt>
-      <dd><%= t(".caption.no_client")%></dd>
+      <dd><%= t(".caption.no_client") %></dd>
     </dl>
   <% end %>
 </span>

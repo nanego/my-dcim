@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module Visualization
-  class RoomPolicy < ApplicationPolicy
+  class RoomPolicy < ::RoomPolicy
     def print?
-      index?
+      manage?
     end
   end
 end

@@ -81,6 +81,10 @@ class User < ApplicationRecord
     !writer?
   end
 
+  def all_domains?
+    permission_scopes.where(all_domains: true).any?
+  end
+
   def permitted_domains
     @permitted_domains ||= begin
       scopes = permission_scopes.includes(:domaines)
