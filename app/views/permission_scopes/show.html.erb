@@ -9,6 +9,10 @@
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
       <%= render CardComponent.new do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.identification") %>
+        <% end %>
+
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <% %i[name].each do |attribute_name| %>
             <dt class="pb-2"><%= PermissionScope.human_attribute_name(attribute_name) %> :</dt>
@@ -26,7 +30,7 @@
           <% if @permission_scope.all_domains? %>
             <%= PermissionScope.human_attribute_name(:all_domains) %>
           <% else %>
-            <ul class="list-group list-group-flush">
+            <ul class="list-group list-group-flush show-page_list-group-flush">
               <% @permission_scope.domaines.each do |domain| %>
                 <li class="list-group-item list-group-item-action">
                   <%= link_to domain, domaine_path(domain) %>
@@ -52,7 +56,8 @@
 
         <% card.with_footer do %>
           <div id="ts_permission_scope_user_form" class="w-100 py-2">
-            <%= render partial: "permission_scope_user_form", locals: { permission_scope_user: @permission_scope.permission_scope_users.build } %>
+            <%= render partial: "permission_scope_user_form",
+                       locals: { permission_scope_user: @permission_scope.permission_scope_users.build } %>
           </div>
         <% end %>
       <% end %>

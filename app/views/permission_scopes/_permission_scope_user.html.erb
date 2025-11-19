@@ -2,11 +2,18 @@
   <div>
     <%= link_to permission_scope_user.user, user_path(permission_scope_user.user) %>
     <% if permission_scope_user.user.suspended? %>
-      <small class="text-body-secondary">(<%= User.human_attribute_name("state.suspended") %>)</small>
+      <span class="bi bi-lock"
+            title="<%= User.human_attribute_name("state.suspended") %>"
+            aria-hidden="true"
+            data-controller="tooltip"
+            data-bs-placement="right"></span>
     <% end %>
   </div>
 
-  <%= button_to permission_scope_permission_scope_user_path(permission_scope_user.permission_scope, permission_scope_user), method: :delete, class: "btn btn-link text-danger p-0", form: { class: "d-inline", data: { turbo: true, turbo_confirm: t("action.confirm") } } do %>
+  <%= button_to permission_scope_permission_scope_user_path(permission_scope_user.permission_scope, permission_scope_user),
+                method: :delete,
+                class: "btn btn-link link-danger p-0",
+                form: { class: "d-inline", data: { turbo: true, turbo_confirm: t("action.confirm") } } do %>
     <span class="visually-hidden"><%= t("action.delete") %></span>
     <span class="bi bi-x-lg"></span>
   <% end %>
