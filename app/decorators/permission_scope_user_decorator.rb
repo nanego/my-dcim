@@ -11,7 +11,7 @@ class PermissionScopeUserDecorator < ApplicationDecorator
           name = user.to_s
 
           if user.suspended?
-            name << " (#{User.human_attribute_name("state.suspended")})"
+            name << " 🔒"
             options[:disabled] = :disabled
           end
 

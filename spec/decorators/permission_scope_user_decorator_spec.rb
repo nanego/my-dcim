@@ -12,7 +12,7 @@ RSpec.describe PermissionScopeUserDecorator, type: :decorator do
       expect(described_class.users_options_for_select(permission_scope))
         .to contain_exactly(
           ["/dev/null", 6, {}], ["Admin", 135_138_680, {}], ["Reader", 4, {}],
-          ["Suspended (Suspendu)", 7, { disabled: :disabled }], ["User2", 298_486_374, {}], ["Writer", 5, {}],
+          ["Suspended 🔒", 7, { disabled: :disabled }], ["User2", 298_486_374, {}], ["Writer", 5, {}],
         )
     end
   end
