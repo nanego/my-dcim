@@ -6,7 +6,7 @@ module Visualization
 
     before_action :set_room, only: %i[show print]
     before_action :set_servers_per_frames, only: %i[show print]
-    before_action :set_scoped_sites, only: %i[index show]
+    before_action :set_sites, only: %i[index show]
 
     def index
       authorize! @sites
@@ -78,7 +78,7 @@ module Visualization
       end
     end
 
-    def set_scoped_sites
+    def set_sites
       @sites = authorized_scope(Site.all)
         .joins(:rooms)
         .includes(rooms: [bays: [:bay_type]])
