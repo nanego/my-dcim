@@ -46,6 +46,7 @@ RSpec.describe ServerPolicy, type: :policy do
   it_behaves_like "act as manage policy", for: :import?
   it_behaves_like "act as manage policy", for: :import_csv?
   it_behaves_like "act as manage policy", for: :export?
+  it_behaves_like "act as manage policy", for: :export_cables?
 
   describe_rule :show? do
     succeed "when an admin user asks" do

@@ -82,27 +82,25 @@ class User < ApplicationRecord
     !writer?
   end
 
-  def all_domains?
-    permission_scopes.where(all_domains: true).any?
+  def can_access_all_domains?
+    @can_access_all_domains ||= permission_scopes.where(all_domains: true).any?
   end
 
   def permitted_domains
-    @permitted_domains ||= begin
-      scopes = permission_scopes.includes(:domaines)
+    @permitted_domains ||= if can_access_all_domains?
+                             Domaine.all
+                           else
+                             scopes = permission_scopes.includes(:domaines)
 
-      if scopes.empty?
-        []
-      else
-        ids = scopes.map do |permission_scope|
-          if permission_scope.all_domains?
-            Domaine.all
-          else
-            permission_scope.domaines.ids
-          end
-        end
+                             if scopes.empty?
+                               []
+                             else
+                               ids = scopes.map do |permission_scope|
+                                 permission_scope.domaines.ids
+                               end
 
-        Domaine.where(id: ids.flatten)
-      end
-    end
+                               Domaine.where(id: ids.flatten)
+                             end
+                           end
   end
 end

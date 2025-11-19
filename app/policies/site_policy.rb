@@ -2,13 +2,13 @@
 
 class SitePolicy < ApplicationPolicy
   relation_scope do |relation|
-    return relation if user.admin? || user.all_domains?
+    return relation if user.admin? || user.can_access_all_domains?
 
     relation.where(rooms: authorized_scope(Room.all))
   end
 
   def show?
-    return index? if user.all_domains?
+    return index? if user.can_access_all_domains?
 
     record.rooms.intersect?(authorized_scope(Room.all))
   end

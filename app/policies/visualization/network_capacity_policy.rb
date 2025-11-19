@@ -3,7 +3,7 @@
 module Visualization
   class NetworkCapacityPolicy < ApplicationPolicy
     def show?
-      user.all_domains?
+      user.can_access_all_domains?
     end
   end
 end

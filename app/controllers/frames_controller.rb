@@ -116,7 +116,7 @@ class FramesController < ApplicationController # rubocop:disable Metrics/ClassLe
   end
 
   def set_frame
-    authorize! @frame = Frame.all.friendly.find(params[:id].to_s.downcase)
+    authorize! @frame = Frame.friendly.find(params[:id].to_s.downcase)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
