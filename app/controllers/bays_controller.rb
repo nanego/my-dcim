@@ -82,7 +82,7 @@ class BaysController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_bay
-    authorize! @bay = scoped_bays.find(params[:id])
+    authorize! @bay = Bay.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

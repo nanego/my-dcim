@@ -125,6 +125,20 @@ RSpec.describe User do
     end
   end
 
+  describe "#can_access_all_domains?" do
+    context "when user has all_domains" do
+      subject(:user) { users(:writer) }
+
+      it { expect(user.can_access_all_domains?).to be(true) }
+    end
+
+    context "when user has not all_domains" do
+      subject(:user) { users(:reader) }
+
+      it { expect(user.can_access_all_domains?).to be(false) }
+    end
+  end
+
   describe "#permitted_domains" do
     it { expect(user.permitted_domains).to be_empty }
 

@@ -78,29 +78,59 @@ RSpec.describe IsletDecorator, type: :decorator do
   end
 
   describe "#overviewed_bays_array" do
-    context "with one bay" do
-      let(:islet) { islets(:two) }
+    context "with admin user" do
+      context "with one bay" do
+        let(:islet) { islets(:two) }
 
-      it { expect(decorated_islet.overviewed_bays_array).to contain_exactly([1, [bays(:two)]]) }
-    end
+        it { expect(decorated_islet.overviewed_bays_array(user)).to contain_exactly([1, [bays(:two)]]) }
+      end
 
-    context "with several bays on one lane and with one missing bay" do
-      before { bays(:three).update(lane: 1, position: 4) }
+      context "with several bays on one lane and with one missing bay" do
+        before { bays(:three).update(lane: 1, position: 4) }
 
-      it do
-        expect(decorated_islet.overviewed_bays_array).to contain_exactly(
-          [1, [bays(:one), :no_bay, bays(:five), bays(:three)]],
-        )
+        it do
+          expect(decorated_islet.overviewed_bays_array(user)).to contain_exactly(
+            [1, [bays(:one), :no_bay, bays(:five), bays(:three)]],
+          )
+        end
+      end
+
+      context "with several bays on two lanes and with missing bays" do
+        before { bays(:three).update(lane: 2, position: 3) }
+
+        it do
+          expect(decorated_islet.overviewed_bays_array(user)).to contain_exactly(
+            [1, [bays(:one), :no_bay, bays(:five)]], [2, [:no_bay, :no_bay, bays(:three)]],
+          )
+        end
       end
     end
 
-    context "with several bays on two lanes and with missing bays" do
-      before { bays(:three).update(lane: 2, position: 3) }
+    context "with reader user" do
+      let(:user) { users(:reader) }
 
-      it do
-        expect(decorated_islet.overviewed_bays_array).to contain_exactly(
-          [1, [bays(:one), :no_bay, bays(:five)]], [2, [:no_bay, :no_bay, bays(:three)]],
-        )
+      context "with one bay not scopped" do
+        let(:islet) { islets(:two) }
+
+        it { expect(decorated_islet.overviewed_bays_array(user)).to be_empty }
+      end
+
+      context "with several bays on one lane and only one scopped (not first position)" do
+        before { bays(:one).update(lane: 1, position: 3) }
+
+        it do
+          expect(decorated_islet.overviewed_bays_array(user)).to contain_exactly(
+            [1, [bays(:one)]],
+          )
+        end
+      end
+
+      context "with one scopped bay" do
+        it do
+          expect(decorated_islet.overviewed_bays_array(user)).to contain_exactly(
+            [1, [bays(:one)]],
+          )
+        end
       end
     end
   end

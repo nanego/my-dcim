@@ -4,9 +4,15 @@ class ServerPolicy < ApplicationPolicy
   relation_scope do |relation|
     relation = relation.no_pdus
 
-    return relation if user.admin?
+    return relation if user.admin? || user.can_access_all_domains?
 
     relation.where(domaine: user.permitted_domains)
+  end
+
+  def show?
+    return index? if user.can_access_all_domains?
+
+    user.permitted_domains.include?(record.domaine)
   end
 
   def duplicate?
@@ -26,6 +32,10 @@ class ServerPolicy < ApplicationPolicy
   end
 
   def export?
-    index?
+    manage?
+  end
+
+  def export_cables?
+    export?
   end
 end
