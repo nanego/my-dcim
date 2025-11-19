@@ -157,7 +157,9 @@ Rails.application.routes.draw do
     patch :suspend, on: :member
     patch :unsuspend, on: :member
   end
-  resources :permission_scopes
+  resources :permission_scopes do
+    resources :permission_scope_users, only: %i[create destroy]
+  end
 
   get "search", to: "search#index"
 

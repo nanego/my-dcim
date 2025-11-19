@@ -1,4 +1,4 @@
-<%= form_for(@permission_scope, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+<%= form_for(@permission_scope, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: :form, data: { controller: "form--toggle" } }) do |f| %>
   <%= render FormErrorsComponent.new(@permission_scope) %>
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <fieldset class="col-12 ">
@@ -6,33 +6,26 @@
       <%= f.text_field :name, class: "form-control" %>
     </fieldset>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :role, class: "form-label" %>
-      <%= f.select(:role,
-                    PermissionScopeDecorator.roles_options_for_select,
-                    {},
-                    class: "form-select") %>
-    </fieldset>
+    <% if false %>
+      <fieldset class="col-12 mt-4">
+        <%= f.label :role, class: "form-label" %>
+        <%= f.select(:role, PermissionScopeDecorator.roles_options_for_select, {}, class: "form-select") %>
+      </fieldset>
+    <% end %>
 
-    <fieldset class="col-12 mt-4">
+    <fieldset class="<%= class_names("col-12 mt-4", "d-none": f.object.all_domains) %>" id="domaine_ids">
       <%= f.label :domaine_ids, class: "form-label" %>
-      <%= f.select :domaine_ids, Domaine.pluck(:name, :id),
-                            { include_blank: t("access_control.blank") },
-                            class: "form-select", multiple: true, data: { controller: :select } %>
+      <%= f.select :domaine_ids, Domaine.sorted.pluck(:name, :id), { include_blank: t(".domaine_ids.blank") },
+                                 class: "form-select", multiple: true, data: { controller: :select } %>
     </fieldset>
 
     <fieldset class="col-12 mt-4">
       <%= f.label :all_domains, class: "form-label" do |translation| %>
-        <%= f.checkbox :all_domains, class: "" %>
+        <%= f.checkbox :all_domains, class: "", data: { \
+          action: "form--toggle#toggle", form__toggle_target_element_param: "#domaine_ids",
+        } %>
         <%= translation %>
       <% end %>
-    </fieldset>
-
-    <fieldset class="col-12 mt-4">
-      <%= f.label :user_ids, class: "form-label" %>
-      <%= f.select :user_ids, PermissionScopeDecorator.users_options_for_select,
-                            { include_blank: t("access_control.blank") },
-                            class: "form-select", multiple: true, data: { controller: :select } %>
     </fieldset>
   <% end %>
 

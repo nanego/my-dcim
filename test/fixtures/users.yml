@@ -38,3 +38,10 @@ without_permission_scope:
   name: /dev/null
   email: nobody@yopmail.com
   encrypted_password: $2a$10$5iKaHrlajUNurPi/N7cHduDiufXpCz/9Aug3L660HdPpfUWgTeXju
+
+suspended:
+  id: 7
+  name: Suspended
+  email: suspended@yopmail.com
+  encrypted_password: $2a$10$5iKaHrlajUNurPi/N7cHduDiufXpCz/9Aug3L660HdPpfUWgTeXju
+  suspended_at: <%= Time.zone.now %>

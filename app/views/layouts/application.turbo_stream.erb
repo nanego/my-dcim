@@ -1,0 +1,4 @@
+<%= turbo_stream.replace :ts_flashes, partial: "layouts/messages", locals: { flashes: flash } %>
+<% flash.clear %>
+
+<%= yield %>

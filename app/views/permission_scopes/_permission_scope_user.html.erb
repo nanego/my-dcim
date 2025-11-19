@@ -1,0 +1,20 @@
+<%= tag.li id: dom_id(permission_scope_user), class: "list-group-item list-group-item-action d-flex flex-row justify-content-between align-items-center" do %>
+  <div>
+    <%= link_to permission_scope_user.user, user_path(permission_scope_user.user) %>
+    <% if permission_scope_user.user.suspended? %>
+      <span class="bi bi-lock"
+            title="<%= User.human_attribute_name("state.suspended") %>"
+            aria-hidden="true"
+            data-controller="tooltip"
+            data-bs-placement="right"></span>
+    <% end %>
+  </div>
+
+  <%= button_to permission_scope_permission_scope_user_path(permission_scope_user.permission_scope, permission_scope_user),
+                method: :delete,
+                class: "btn btn-link link-danger p-0",
+                form: { class: "d-inline", data: { turbo: true, turbo_confirm: t("action.confirm") } } do %>
+    <span class="visually-hidden"><%= t("action.delete") %></span>
+    <span class="bi bi-x-lg"></span>
+  <% end %>
+<% end %>
