@@ -18,8 +18,4 @@ class Islet < ApplicationRecord
   scope :has_name, -> { where.not(name: nil) }
 
   delegate :to_s, to: :name
-
-  def name_with_room
-    "#{[Islet.model_name.human, name].join(" ")} #{room}"
-  end
 end

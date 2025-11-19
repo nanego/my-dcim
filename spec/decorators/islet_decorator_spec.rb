@@ -49,6 +49,34 @@ RSpec.describe IsletDecorator, type: :decorator do
     it { expect(described_class.access_control_options_for_select.pluck(1)).to match_array(Islet.access_controls.keys) }
   end
 
+  describe "#full_name" do
+    subject(:full_name) { decorated_islet.full_name }
+
+    let(:islet) { Islet.new(name: "Islet1") }
+
+    context "with name" do
+      it { is_expected.to eq("Ilot Islet1") }
+    end
+
+    context "with empty name" do
+      let(:islet) { Islet.new(name: "") }
+
+      it { is_expected.to eq("Ilot") }
+    end
+
+    context "with nil name" do
+      let(:islet) { Islet.new(name: nil) }
+
+      it { is_expected.to eq("Ilot") }
+    end
+  end
+
+  describe "#name_with_room" do
+    subject(:name_with_room) { decorated_islet.name_with_room }
+
+    it { is_expected.to eq("Ilot Islet1 S1") }
+  end
+
   describe "#cooling_mode_to_human" do
     subject(:cooling_mode_sentence) { decorated_islet.cooling_mode_to_human }
 
