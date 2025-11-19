@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module Visualization
-  class BayPolicy < ApplicationPolicy
+  class BayPolicy < ::BayPolicy
     def print?
-      index?
+      manage?
     end
   end
 end

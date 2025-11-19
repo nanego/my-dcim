@@ -22,7 +22,7 @@
             data-max-fc='<%= settings[:max_fc] %>'>
 
           <div class="col-12 col-lg-4 pe-lg-4 view-front">
-            <%= render partial: 'frames/show_frame', locals: {frame: @frame, servers: @frame.servers, settings: settings, view_type: 'front'} %>
+            <%= render partial: 'frames/show_frame', locals: {frame: @frame, servers: @frame.servers, settings: settings, view_type: 'front' } %>
           </div>
           <div class="col-12 col-lg-6 flex-grow-1 view-back">
             <%= render partial: 'frames/show_frame', locals: {frame: @frame, servers: @frame.servers, settings: settings, view_type: 'back'} %>

@@ -14,7 +14,7 @@
       <div class="col-sm-12 text-center">
         <h3 class="my-3"><%= site %></h3>
       </div>
-      <% rooms = site.rooms.order(:position).joins(:frames).distinct %>
+      <% rooms = authorized_scope(site.rooms).order(:position).joins(:frames).distinct %>
       <% rooms.each do |room| %>
         <div class="col-sm-12 col-xxl-6">
           <%= render "visualization/rooms/room_overview", room: room %>

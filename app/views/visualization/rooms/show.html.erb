@@ -24,9 +24,9 @@
             <% @sites.each do |site| %>
               <li><%= site %></li>
               <ul>
-                <% rooms = site.rooms.sorted.distinct %>
+                <% rooms = authorized_scope(site.rooms).sorted.distinct %>
                 <% rooms.each do |room| %>
-                  <% islets = room.islets.sorted.has_name.distinct %>
+                  <% islets = authorized_scope(room.islets).sorted.has_name.distinct %>
                   <% islets.each do |islet| %>
                     <%- is_current_islet_active = islet == @islet || (@islet.blank? && @room == room) %>
                     <li role="presentation" class="<%= class_names(active: is_current_islet_active) %>">
@@ -48,7 +48,7 @@
               </ul>
             <% end %>
           </ul>
-          <hr />
+          <hr>
           <div>
             <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= t("rooms.action_buttons.background_color", bg: t("rooms.action_buttons.background_choices.#{bg}")) %>
@@ -74,13 +74,13 @@
         </div>
         <div class="tab-content bg-body overflow-auto p-3 m-auto" id="roomsTabContent">
           <% @sites.each do |site| %>
-            <% site.rooms.each do |room| %>
-              <% room.islets.sorted.each do |islet| %>
+            <% authorized_scope(site.rooms).each do |room| %>
+              <% authorized_scope(room.islets).sorted.each do |islet| %>
                 <div class="islet overflow-auto tab-pane fade <%= "show active" if islet == @islet || (@islet.blank? && @room == room) %>"
                     role="tabpanel"
                     id="tab-<%= room.id %><%= "-#{islet}" if room.islets.size > 1 %>">
                   <div class="rooms-overview">
-                    <% islet.bays.sorted.each do |bay| %>
+                    <% authorized_scope(islet.bays).sorted.each do |bay| %>
                       <% air_conditioner = @air_conditioners.find { _1.bay_id == bay.id } || nil %>
                       <div class="couple d-flex"
                           style="grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
@@ -88,20 +88,20 @@
                         <% if air_conditioner&.position == AirConditioner.positions[:left] %>
                           <%= render "rooms/air_conditioner", air_conditioner: %>
                         <% end %>
-                        <% bay.frames.sorted.each_with_index do |frame, index| %>
+                        <% authorized_scope(bay.frames).sorted.each_with_index do |frame, index| %>
                           <div class="<%= class_names("overviewed_frame border",
                                                       "no-margin": index > 0,
                                                       highlighted: @frames && @frames.include?(frame)) %>"
                               data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.slug %>">
                             <div class="title">
-                              <%= link_to frame.name, visualization_frame_path(frame, view: (params[:view])), data: { 'frame-id': frame.slug } %>
+                              <%= link_to frame.name, visualization_frame_path(frame, view: (params[:view])), data: { "frame-id": frame.slug } %>
                             </div>
                             <ul>
                               <% u_disponibles = frame.u || 41 %>
                               <% servers = @servers_per_frames[room.id][islet.name][bay.lane][bay][frame] %>
                               <% servers.each do |server| %>
                                 <% while server.position.present? && server.position < u_disponibles && u_disponibles > 0 %>
-                                  <li class="server truncate" style='height: <%= server_height %>px;background-color:white;' data-num-u="<%= u_disponibles %>"/>
+                                  <li class="server truncate" style="height: <%= server_height %>px;background-color:white;" data-num-u="<%= u_disponibles %>"></li>
                                   <% u_disponibles -= 1 %>
                                 <% end %>
 
@@ -118,7 +118,7 @@
                                 <% end %>
                               <% end %>
                               <% u_disponibles.times do |u| %>
-                                <li class="server truncate" style='height: <%= server_height %>px;background-color:white;' data-num-u="<%= u_disponibles %>"/>
+                                <li class="server truncate" style="height: <%= server_height %>px;background-color:white;" data-num-u="<%= u_disponibles %>"></li>
                                 <% u_disponibles -= 1 %>
                               <% end %>
                             </ul>

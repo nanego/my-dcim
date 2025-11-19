@@ -75,13 +75,22 @@
 
       <% table.with_column(Frame.model_name.human.pluralize) do |islet| %>
         <%= link_to frames_path(islet_ids: islet.id), data: { turbo_frame: :_top } do %>
-          <%= Islet.human_attribute_name(:frames_count, count: islet.frames.count) %>
+          <%= Islet.human_attribute_name(:frames_count, count: authorized_scope(islet.frames).count) %>
         <% end %>
       <% end %>
 
-      <% table.with_column(style: "min-width: 132px; width: 132px") do |islet| %>
+      <% table.with_column(text_align: :center, style: "min-width: 132px; width: 132px") do |islet| %>
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
-          <%= render partial: "islets/export_button", locals: { islet: decorate(islet) } %>
+          <% if allowed_to?(:manage?, islet) %>
+            <%= render partial: "islets/export_button", locals: { islet: decorate(islet) } %>
+          <% end %>
+
+          <% if allowed_to?(:show?, islet, with: Visualization::IsletPolicy) %>
+            <%= link_to visualization_room_path(islet.room, islet: islet.name), class: "btn btn-primary", data: { turbo_frame: :_top } do %>
+              <span class="bi bi-diagram-3-fill" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("visualization.title") %>"></span>
+              <span class="visually-hidden"><%= t("visualization.title") %></span>
+            <% end %>
+          <% end %>
 
           <% if allowed_to?(:update?, islet) %>
             <%= link_to edit_islet_path(islet), class: "btn btn-info", data: { turbo_frame: :_top } do %>

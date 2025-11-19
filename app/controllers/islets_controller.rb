@@ -90,7 +90,7 @@ class IsletsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_islet
-    authorize! @islet = scoped_islets.find(params[:id])
+    authorize! @islet = Islet.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

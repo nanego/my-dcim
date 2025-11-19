@@ -26,3 +26,9 @@ reader:
   id: 5
   name: Reader
   role: 0
+
+reader_all:
+  id: 6
+  name: Reader
+  role: 0
+  all_domains: true

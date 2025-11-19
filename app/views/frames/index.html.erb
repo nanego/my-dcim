@@ -79,7 +79,7 @@
       <% end %>
 
       <% table.with_column(Frame.human_attribute_name(:servers)) do |frame| %>
-        <%= safe_join(frame.servers.map { |s| link_to(s.name, s, data: { turbo_frame: :_top }) }, ", ") %>
+        <%= safe_join(authorized_scope(frame.servers).map { |s| link_to(s.name, s, data: { turbo_frame: :_top }) }, ", ") %>
       <% end %>
 
       <% table.with_column(Frame.human_attribute_name(:u), sort_by: :u) do |frame| %>
@@ -94,7 +94,7 @@
         <%= link_to frame.bay.islet, islet_path(frame.bay.islet), data: { turbo_frame: :_top } if frame.bay.present? %>
       <% end %>
 
-      <% table.with_column(style: "min-width: 70px; width: 70px") do |frame| %>
+      <% table.with_column(text_align: :center, style: "min-width: 70px; width: 70px") do |frame| %>
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
           <% if allowed_to?(:show?, frame, with: Visualization::FramePolicy) %>
             <%= link_to visualization_frame_path(frame), class: "btn btn-primary", data: { turbo_frame: :_top } do %>
