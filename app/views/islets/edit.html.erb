@@ -1,6 +1,6 @@
 <%
   breadcrumb
-    .add_step(@islet.name_with_room, islet_path(@islet))
+    .add_step(@islet.decorated.name_with_room, islet_path(@islet))
     .add_step(t("action.edit"))
 %>
 

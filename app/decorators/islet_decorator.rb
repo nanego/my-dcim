@@ -11,7 +11,7 @@ class IsletDecorator < ApplicationDecorator
           "rooms.site_id", "rooms.position", "rooms.name",
         )
 
-      authorized_scope(islets, user:).map { |i| [i.name_with_room, i.id] }
+      authorized_scope(islets, user:).map { |i| [i.decorated.name_with_room, i.id] }
     end
 
     def sites_options_for_select(user)
@@ -42,6 +42,14 @@ class IsletDecorator < ApplicationDecorator
     def access_control_options_for_select
       Room.access_controls.keys.map { |a_c| [I18n.t("access_control.#{a_c}"), a_c] }
     end
+  end
+
+  def full_name
+    [Islet.model_name.human, name].compact_blank.join(" ")
+  end
+
+  def name_with_room
+    "#{full_name} #{room}"
   end
 
   def cooling_mode_to_human

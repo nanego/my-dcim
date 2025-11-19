@@ -5,9 +5,9 @@
     .add_step(t("visualization.rooms.index.title"), visualization_rooms_path)
     .add_step(@room.name, ((@frame.present? || params[:islet].present?) ? visualization_room_path(@room, view: params[:view]) : ""))
 
-  if @frame.present? && @frame.bay.islet.name.present?
-    breadcrumb.add_step(t("layouts.breadcrumb.islet", name: @frame.bay.islet.name), visualization_room_path(@room, islet: @frame.bay.islet.name, view: params[:view]))
-  elsif params[:islet].present?
+  if @frame.present? && (islet = @frame.bay.islet.presence)
+    breadcrumb.add_step(islet.decorated.full_name, visualization_room_path(@room, islet: islet.name, view: params[:view]))
+  elsif params[:islet].present? # TODO: check that it's still used, couldn't find a call
     breadcrumb.add_step(t("layouts.breadcrumb.islet", name: params[:islet]))
   end
   breadcrumb.add_step(t("layouts.breadcrumb.bay.double", name: @frame.bay), visualization_bay_path(@frame.bay_id, view: params[:view])) if @frame.has_coupled_frame?

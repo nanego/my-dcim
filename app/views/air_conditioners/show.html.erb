@@ -81,7 +81,7 @@
 
           <dt class="pb-2"><%= Islet.model_name.human %></dt>
           <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
-            <%= link_to @air_conditioner.islet.name_with_room, islet_path(@air_conditioner.islet) %>
+            <%= link_to @air_conditioner.islet.decorated.name_with_room, islet_path(@air_conditioner.islet) %>
 
             <% if allowed_to?(:show?, @air_conditioner.room, with: Visualization::RoomPolicy) %>
               <%= link_to visualization_room_path(@air_conditioner.room, islet: @air_conditioner.islet.name),
