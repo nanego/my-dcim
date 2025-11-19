@@ -5,6 +5,7 @@ class ServerPolicy < ApplicationPolicy
     relation = relation.no_pdus
 
     return relation if user.admin?
+    return relation if user.reader_of_all_domains?
 
     relation.where(domaine: user.permitted_domains)
   end

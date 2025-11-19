@@ -81,6 +81,14 @@ class User < ApplicationRecord
     !writer?
   end
 
+  def editor_of_all_domains?
+    @editor_of_all_domains ||= permission_scopes.writer.exists?(all_domains: true)
+  end
+
+  def reader_of_all_domains?
+    @reader_of_all_domains ||= permission_scopes.exists?(all_domains: true)
+  end
+
   def permitted_domains
     @permitted_domains ||= begin
       scopes = permission_scopes.includes(:domaines)
