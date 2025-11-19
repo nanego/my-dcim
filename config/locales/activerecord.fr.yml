@@ -299,6 +299,8 @@ fr:
       user/visualization_bay_default_orientation:
         front: Avant
         back: Arrière
+      user/state:
+        suspended: Suspendu
       card/orientation:
         lr-td: Horizontal, de gauche à droite
         rl-td: Horizontal, de droite à gauche

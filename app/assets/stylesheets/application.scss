@@ -998,6 +998,18 @@ body {
     --bs-spinner-height: 0.875rem;
   }
 
+  ul.show-page_list-group-flush {
+    /* Fix rounded border not showing correctly when in card */
+    border-bottom-right-radius: var(--bs-border-radius) !important;
+    border-bottom-left-radius: var(--bs-border-radius) !important;
+  }
+
+  ul.list-group-flush {
+    li {
+      border-style: dashed;
+    }
+  }
+
   /* Tom-Select */
   /* Fix for dark mode */
   .ts-dropdown, .ts-control, .ts-control input {

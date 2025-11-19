@@ -1,0 +1,5 @@
+<%= turbo_stream.update :ts_permission_scope_user_form do %>
+  <%= render FormErrorsComponent.new(@permission_scope_user) %>
+
+  <%= render partial: "permission_scopes/permission_scope_user_form", locals: { permission_scope_user: @permission_scope_user } %>
+<% end %>

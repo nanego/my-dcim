@@ -9,7 +9,7 @@ class PermissionScopesController < ApplicationController
 
   # GET /permission_scopes
   def index
-    @permission_scopes = authorize! PermissionScope.all
+    @permission_scopes = authorize! PermissionScope.includes(:users)
   end
 
   # GET /permission_scopes/1
@@ -67,7 +67,7 @@ class PermissionScopesController < ApplicationController
   def permission_scope_params
     params.expect(
       permission_scope: [
-        :name, :role, :all_domains,
+        :name, :all_domains,
         { domaine_ids: [], user_ids: [] },
       ],
     )

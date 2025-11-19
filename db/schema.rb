@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_01_154348) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_12_141428) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -408,6 +408,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_01_154348) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["domaine_id"], name: "index_permission_scope_domains_on_domaine_id"
+    t.index ["permission_scope_id", "domaine_id"], name: "idx_on_permission_scope_id_domaine_id_4cc9e81621", unique: true
     t.index ["permission_scope_id"], name: "index_permission_scope_domains_on_permission_scope_id"
   end
 
@@ -416,6 +417,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_01_154348) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["permission_scope_id", "user_id"], name: "idx_on_permission_scope_id_user_id_adbba17dfd", unique: true
     t.index ["permission_scope_id"], name: "index_permission_scope_users_on_permission_scope_id"
     t.index ["user_id"], name: "index_permission_scope_users_on_user_id"
   end
