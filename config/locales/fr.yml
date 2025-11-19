@@ -906,7 +906,7 @@ fr:
   permission_scope_users:
     create:
       flashes:
-        created: L'utilisateur a bien été ajouté de cette permission.
+        created: L'utilisateur a bien été ajouté à cette permission.
     destroy:
       flashes:
         destroyed: L'utilisateur a bien été retiré de cette permission.
