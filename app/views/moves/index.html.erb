@@ -27,7 +27,7 @@
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= turbo_frame_tag(dom_id(Move, :table), data: { turbo_action: :advance }) do %>
     <div class="d-flex flex-column row-gap-4">
-      <%= render List::DataTableComponent.new(@moves) do |table| %>
+      <%= render List::DataTableComponent.new(decorate(@moves)) do |table| %>
         <% table.with_column(Server.model_name.human) do |move| %>
           <%= link_to move.moveable, server_path(move.moveable), data: { turbo_frame: :_top } %>
           <div class="small">
@@ -79,10 +79,14 @@
         <% table.with_column(Move.human_attribute_name(:status)) do |move| %>
           <span data-controller="tooltip"
                 data-bs-placement="top"
-                title="<%= l(move.executed_at) if move.executed_at.present?  %>"
+                title="<%= l(move.executed_at) if move.executed_at.present? %>"
           >
             <%= render move.decorated.status_to_badge_component %>
           </span>
+        <% end %>
+
+        <% table.with_column(t(".remove_connections")) do |move| %>
+          <%= render move.moved_connections_to_badge_component %>
         <% end %>
 
         <% table.with_column(style: "min-width: 120px; width: 120px") do |move| %>

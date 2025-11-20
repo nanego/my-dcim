@@ -3,6 +3,10 @@
 class MoveDecorator < ApplicationDecorator
   include ActionView::Helpers
 
+  def steps_options_for_select
+    options_for_select(moves_project.steps.pluck(:name, :id), { selected: moves_project_step_id })
+  end
+
   def status_to_badge_component
     text = I18n.t(".activerecord.attributes.move.statuses.#{status}")
     color = executed? ? :success : :primary
@@ -10,8 +14,11 @@ class MoveDecorator < ApplicationDecorator
     BadgeComponent.new(text, color:, variant: :pill)
   end
 
-  def steps_options_for_select
-    options_for_select(moves_project.steps.pluck(:name, :id), { selected: moves_project_step_id })
+  def moved_connections_to_badge_component
+    has_connections = moved_connections.any?
+    color = has_connections ? :success : :danger
+
+    BadgeComponent.new(I18n.t("boolean.#{has_connections}"), color:, variant: :pill)
   end
 
   def display_name
