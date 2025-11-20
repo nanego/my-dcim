@@ -79,10 +79,14 @@
         <% table.with_column(Move.human_attribute_name(:status)) do |move| %>
           <span data-controller="tooltip"
                 data-bs-placement="top"
-                title="<%= l(move.executed_at) if move.executed_at.present?  %>"
+                title="<%= l(move.executed_at) if move.executed_at.present? %>"
           >
             <%= render move.decorated.status_to_badge_component %>
           </span>
+        <% end %>
+
+        <% table.with_column(Move.human_attribute_name(:remove_connections)) do |move| %>
+          <%= t("boolean.#{move.moved_connections.any?}") %>
         <% end %>
 
         <% table.with_column(style: "min-width: 120px; width: 120px") do |move| %>
