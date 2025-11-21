@@ -2,6 +2,13 @@ en:
   card_empty_data_component:
     title: No data found
 
+  delete_dependency_component:
+    restrict_dependency_title: Related resources blocking deletion
+    destroy_dependency_title: Related resources that will be removed
+    show_all: Show all
+    hide_all: Hide all
+    confirm: Are you sure you want to delete this resource? This action cannot be undone
+
   export_dropdown_component:
     export:
       current_page: "Export the current page"
