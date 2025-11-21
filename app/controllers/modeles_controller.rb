@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ModelesController < ApplicationController
+class ModelesController < ApplicationController # rubocop:disable Metrics/ClassLength
   include ModelesHelper
 
   before_action :set_modele, only: %i[show edit update destroy]
@@ -79,6 +79,11 @@ class ModelesController < ApplicationController
   end
 
   def destroy
+    unless params["confirm"] == "true"
+      render
+      return
+    end
+
     if @modele.destroy
       respond_to do |format|
         format.html { redirect_to modeles_url, notice: t(".flashes.destroyed") }
