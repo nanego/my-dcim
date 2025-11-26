@@ -47,12 +47,8 @@ class SitesController < ApplicationController
     end
   end
 
+  destroy_confirmation
   def destroy
-    unless params["confirm"] == "true"
-      render
-      return
-    end
-
     if @site.destroy
       respond_to do |format|
         format.html { redirect_to sites_url, notice: t(".flashes.destroyed") }

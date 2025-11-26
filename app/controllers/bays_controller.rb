@@ -61,12 +61,8 @@ class BaysController < ApplicationController
     end
   end
 
+  destroy_confirmation
   def destroy
-    unless params["confirm"] == "true"
-      render
-      return
-    end
-
     if @bay.destroy
       respond_to do |format|
         format.html { form_redirect_to bays_url, notice: t(".flashes.destroyed") }

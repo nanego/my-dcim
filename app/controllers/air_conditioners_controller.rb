@@ -48,12 +48,8 @@ class AirConditionersController < ApplicationController
     end
   end
 
+  destroy_confirmation
   def destroy
-    unless params["confirm"] == "true"
-      render
-      return
-    end
-
     @air_conditioner.destroy!
 
     respond_to do |format|
