@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ModelesController < ApplicationController # rubocop:disable Metrics/ClassLength
+class ModelesController < ApplicationController
   include ModelesHelper
 
   before_action :set_modele, only: %i[show edit update destroy]
