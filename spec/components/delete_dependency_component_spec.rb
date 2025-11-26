@@ -3,8 +3,8 @@
 require "rails_helper"
 
 RSpec.describe DeleteDependencyComponent, type: :component do
-  let(:confirmation_path) { "/confirmation-path" }
-  let(:component) { described_class.new(record, confirmation_path:) }
+  let(:confirmation_path)  { "/confirmation-path" }
+  let(:component)          { described_class.new(record, confirmation_path:) }
   let(:rendered_component) { render_inline(component).to_html }
 
   context "with restricting dependency" do
