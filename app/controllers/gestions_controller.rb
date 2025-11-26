@@ -56,12 +56,8 @@ class GestionsController < ApplicationController
 
   # DELETE /gestions/1
   # DELETE /gestions/1.json
+  destroy_confirmation
   def destroy
-    unless params["confirm"] == "true"
-      render
-      return
-    end
-
     if @gestion.destroy
       respond_to do |format|
         format.html { redirect_to gestions_url, notice: t(".flashes.destroyed") }

@@ -56,12 +56,8 @@ class StacksController < ApplicationController
 
   # DELETE /stacks/1
   # DELETE /stacks/1.json
+  destroy_confirmation
   def destroy
-    unless params["confirm"] == "true"
-      render
-      return
-    end
-
     if @stack.destroy
       respond_to do |format|
         format.html { redirect_to stacks_url, notice: t(".flashes.destroyed") }

@@ -58,12 +58,8 @@ class PowerDistributionUnitsController < ApplicationController
     end
   end
 
+  destroy_confirmation
   def destroy
-    unless params["confirm"] == "true"
-      render
-      return
-    end
-
     respond_to do |format|
       if @pdu.destroy
         format.html { redirect_to power_distribution_units_path(search_params), notice: t(".flashes.destroyed") }
