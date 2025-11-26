@@ -30,13 +30,6 @@ class RecordDependencies
     @except = Array(except).map(&:to_sym) if except.present?
   end
 
-  def grouped_by_dependent
-    [
-      [:restrict, restricted_with_error],
-      [:destroy, destroyable],
-    ]
-  end
-
   def destroyable
     dependencies_per_type[:destroy] || []
   end
