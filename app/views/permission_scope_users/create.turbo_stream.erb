@@ -1,4 +1,4 @@
-<%= turbo_stream.append :ts_permission_scope_users do %>
+<%= turbo_stream.prepend :ts_permission_scope_users do %>
   <%= render partial: "permission_scopes/permission_scope_user", locals: { permission_scope_user: @permission_scope_user } %>
 <% end %>
 
