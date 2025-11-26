@@ -15,6 +15,10 @@ class RecordDependencies
       origin.public_send(association.name)
     end
 
+    def type
+      association.options[:dependent]
+    end
+
     def empty?
       records.blank?
     end
@@ -22,8 +26,8 @@ class RecordDependencies
 
   def initialize(record, only: nil, except: nil)
     @record = record
-    @only = only
-    @except = except
+    @only = Array(only).map(&:to_sym) if only.present?
+    @except = Array(except).map(&:to_sym) if except.present?
   end
 
   def grouped_by_dependent
@@ -73,6 +77,6 @@ class RecordDependencies
     return false if EXCLUDED_KLASSES.include?(association.klass)
 
     # exept is not above default config
-    @expect.nil? || @expect.exclude?(association.name)
+    @except.nil? || @except.exclude?(association.name)
   end
 end
