@@ -3,7 +3,7 @@ en:
     title: No data found
 
   delete_dependency_component:
-    restrict_dependency_title: Related resources blocking deletion
+    restrict_with_error_dependency_title: Related resources blocking deletion
     destroy_dependency_title: Related resources that will be removed
     show_all: Show all
     hide_all: Hide all
