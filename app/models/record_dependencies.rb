@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RecordDependencies
-  ALLOW_DEPEDENCY_OPTIONS = %i[restrict_with_error destroy].freeze
+  ALLOWED_DEPEDENT_OPTIONS = %i[restrict_with_error destroy].freeze
   EXCLUDED_KLASSES = [ActiveStorage::Blob, ActiveStorage::Attachment].freeze
 
   Dependency = Data.define(:association, :origin) do
@@ -55,14 +55,11 @@ class RecordDependencies
   def _load_dependencies
     @dependencies_per_type = {}
     @record.class.reflect_on_all_associations.each do |association|
-      # exclude according to config
-
       next unless association_valid?(association)
 
       dependency = Dependency.new(association, @record)
       next if dependency.empty?
 
-      # add dependency according to his type
       (@dependencies_per_type[association.options[:dependent]] ||= []) << dependency
     end
   end
@@ -72,7 +69,8 @@ class RecordDependencies
     return @only.include?(association.name) unless @only.nil?
 
     # default behavior
-    return false unless ALLOW_DEPEDENCY_OPTIONS.include?(association.options[:dependent])
+    return false if association.options.key?(:through)
+    return false unless ALLOWED_DEPEDENT_OPTIONS.include?(association.options[:dependent])
     return false if %i[changelog_entries slugs].include?(association.name)
     return false if EXCLUDED_KLASSES.include?(association.klass)
 

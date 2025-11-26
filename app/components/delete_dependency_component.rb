@@ -37,7 +37,7 @@ class DeleteDependencyComponent < ApplicationComponent
     {
       restrict_with_error: @record_dependencies.restricted_with_error,
       destroy: @record_dependencies.destroyable,
-      }.to_a
+    }.select { |_, dependencies| dependencies.any? }.to_a
   end
 
   class CollectionGroupComponent < ApplicationComponent
