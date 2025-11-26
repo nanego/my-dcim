@@ -2,16 +2,18 @@
 
 require "rails_helper"
 
-# Example:
-#
-# describe DocumentDecorator, type: :decorator do
-#   let(:object) { User.new(first_name: "John", last_name: "Doe") }
-#   let(:decorated_user) { described_class.new(object) }
-#
-#   describe "#full_name" do
-#     it { expect(decorated_user.full_name).to eq("John Doe") }
-#   end
-# end
 RSpec.describe DocumentDecorator, type: :decorator do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:document) { Document.new }
+  let(:decorated_document) { document.decorated }
+
+  before do
+    allow(document).to receive_messages(
+      document: instance_double(DocumentUploader::UploadedFile, metadata: { "filename" => "file.pdf" }),
+      document_url: "/fake/url",
+    )
+  end
+
+  describe "#display_name" do
+    it { expect(decorated_document.display_name).to eq("file.pdf") }
+  end
 end
