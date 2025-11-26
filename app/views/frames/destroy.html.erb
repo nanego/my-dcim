@@ -9,6 +9,7 @@
 <div class="col-12 p-4 border-top">
   <%= render DeleteDependencyComponent.new(
     @frame,
+    except: %i[materials],
     confirmation_path: frame_path(@frame, confirm: true)
   ) %>
 </div>
