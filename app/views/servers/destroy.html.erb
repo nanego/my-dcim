@@ -9,7 +9,7 @@
 <div class="col-12 p-4 border-top">
   <%= render DeleteDependencyComponent.new(
     @server,
-    except: %i[external_app_records],
+    except: %i[external_app_record],
     confirmation_path: server_path(@server, confirm: true)
   ) %>
 </div>
