@@ -236,10 +236,10 @@ GEM
       bigdecimal
       rake (>= 13)
     hashie (5.0.0)
-    hotwire-livereload (2.0.0)
-      actioncable (>= 7.0.0)
-      listen (>= 3.0.0)
-      railties (>= 7.0.0)
+    hotwire-spark (0.1.13)
+      listen
+      rails (>= 7.0.0)
+      zeitwerk
     htmlbeautifier (1.4.3)
     htmlentities (4.3.4)
     i18n (1.14.7)
@@ -395,7 +395,7 @@ GEM
     puma (7.0.4)
       nio4r (~> 2.0)
     racc (1.8.1)
-    rack (3.2.3)
+    rack (3.2.4)
     rack-mini-profiler (4.0.1)
       rack (>= 1.2.0)
     rack-oauth2 (2.2.1)
@@ -666,7 +666,7 @@ DEPENDENCIES
   formulaic
   friendly_id (~> 5.2)
   geocoder (~> 1.8)
-  hotwire-livereload (~> 2.0)
+  hotwire-spark
   image_processing (~> 1.2)
   importmap-rails (~> 2.0)
   jbuilder
@@ -796,7 +796,7 @@ CHECKSUMS
   google-protobuf (4.29.3-x86_64-darwin) sha256=2d1051fd88ca2c7f6a09d2f12feabe8ded7b13f049799423b62d83ee88f968b4
   google-protobuf (4.29.3-x86_64-linux) sha256=4ac194b06c59559457ce1d1d57d03760b50e009dbcfe5ef065a1af48ce4a2d0e
   hashie (5.0.0) sha256=9d6c4e51f2a36d4616cbc8a322d619a162d8f42815a792596039fc95595603da
-  hotwire-livereload (2.0.0) sha256=8ebdc603f92f8dc8e61ad6f263567a0e41b1d2a43b2a4fb462f75db7f3d47c96
+  hotwire-spark (0.1.13) sha256=0a24799b0942fc9b7ea3e560a5aba3f4dd9a6086958a25929894340f920fb499
   htmlbeautifier (1.4.3) sha256=b43d08f7e2aa6ae1b5a6f0607b4ed8954c8d4a8e85fd2336f975dda1e4db385b
   htmlentities (4.3.4) sha256=125a73c6c9f2d1b62100b7c3c401e3624441b663762afa7fe428476435a673da
   i18n (1.14.7) sha256=ceba573f8138ff2c0915427f1fc5bdf4aa3ab8ae88c8ce255eb3ecf0a11a5d0f
@@ -861,7 +861,7 @@ CHECKSUMS
   public_suffix (6.0.2) sha256=bfa7cd5108066f8c9602e0d6d4114999a5df5839a63149d3e8b0f9c1d3558394
   puma (7.0.4) sha256=b4c6ae11d1458052eeaa415176c3bf0000f4232287f413525ab2504446154b7a
   racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
-  rack (3.2.3) sha256=239a373da6584574f25f042d8ed4ba21e691c9799f1d2b5c8920bbbc23ca3d41
+  rack (3.2.4) sha256=5d74b6f75082a643f43c1e76b419c40f0e5527fcfee1e669ac1e6b73c0ccb6f6
   rack-mini-profiler (4.0.1) sha256=485810c23211f908196c896ea10cad72ed68780ee2998bec1f1dfd7558263d78
   rack-oauth2 (2.2.1) sha256=c73aa87c508043e2258f02b4fb110cacba9b37d2ccf884e22487d014a120d1a5
   rack-protection (4.0.0) sha256=d0db6185caa46a8c0d134c2c6b4803f4f392a67b2984da311409cb505f67bbf6
