@@ -44,12 +44,8 @@ class PortTypesController < ApplicationController
     end
   end
 
+  destroy_confirmation
   def destroy
-    unless params["confirm"] == "true"
-      render
-      return
-    end
-
     @port_type.destroy
     respond_to do |format|
       format.html { redirect_to port_types_path, notice: t(".flashes.destroyed") }

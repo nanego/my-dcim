@@ -73,12 +73,8 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
     end
   end
 
+  destroy_confirmation
   def destroy
-    unless params["confirm"] == "true"
-      render
-      return
-    end
-
     respond_to do |format|
       if @server.destroy
         format.html { redirect_to servers_path(search_params), notice: t(".flashes.destroyed") }

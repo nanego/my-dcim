@@ -57,12 +57,8 @@ class CategoriesController < ApplicationController
 
   # DELETE /categories/1
   # DELETE /categories/1.json
+  destroy_confirmation
   def destroy
-    unless params["confirm"] == "true"
-      render
-      return
-    end
-
     if @category.destroy
       respond_to do |format|
         format.html { redirect_to categories_url, notice: t(".flashes.destroyed") }

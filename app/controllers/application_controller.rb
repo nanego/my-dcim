@@ -123,4 +123,10 @@ class ApplicationController < ActionController::Base
 
     render "no_permission_scope", layout: "application"
   end
+
+  def self.destroy_confirmation(only: :destroy)
+    before_action only: do
+      render unless params[:confirm] == "true"
+    end
+  end
 end
