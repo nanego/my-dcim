@@ -32,10 +32,18 @@ en:
     show_all: Show all
     hide_all: Hide all
 
+  air_conditioners:
+    destroy:
+      title: Delete the air conditionner
+
   application:
     no_permission_scope:
       text: Permissions not configured
       subtext_html: Contact an <strong>administrator</strong>.
+
+  architectures:
+    destroy:
+      title: Delete the architecture
 
   bays:
     index:
@@ -55,6 +63,7 @@ en:
       flashes:
         updated: The bay has been updated.
     destroy:
+      title: Delete the bay
       flashes:
         destroyed: The bay has been removed.
     decorator:
@@ -72,15 +81,42 @@ en:
         flashes:
           destroyed: The selected %{resource} have successfully been deleted.
           not_destroyed: An error occured while deleting at least one %{resource}
+
   cables:
     index:
       title: Connections
 
+  card_types:
+    destroy:
+      title: Delete the card type
+
+  categories:
+    destroy:
+      title: Delete the category
+
   cluster:
     blank: No cluster
 
+  clusters:
+    destroy:
+      title: Delete the cluster
+
+  colors:
+    destroy:
+      title: Delete the color
+
   contact_assignments:
     add_new: Add an assignment
+    destroy:
+      title: Delete the assignment
+
+  contact_roles:
+    destroy:
+      title: Delete the role
+
+  contacts:
+    destroy:
+      title: Delete the contact
 
   devise:
     passwords:
@@ -88,6 +124,10 @@ en:
         help_text: We'll send password reset instructions.
       edit:
         title: Change your password
+
+  domaines:
+    destroy:
+      title: Delete the domaine
 
   export_button:
     label: Exports
@@ -141,8 +181,19 @@ en:
   form:
     submit: Confirm
 
+  frames:
+    add_new: Add a frame
+    destroy:
+      title: Delete the frame
+
+  gestions:
+    destroy:
+      title: Delete the manager
+
   islets:
     add_new: Add an islet
+    destroy:
+      title: Delete the islet
 
   layouts:
     breadcrumb:
@@ -181,10 +232,16 @@ en:
       contacts:
         title: Contacts
 
+  manufacturers:
+    destroy:
+      title: Delete the manufacturer
+
   modeles:
     add_new: Add a model
     decorator:
       no_enclosure: No Enclosure
+    destroy:
+      title: Delete the modele
 
   moved_connections:
     decorator:
@@ -274,6 +331,10 @@ en:
     flashes:
       archived: This project is archived
 
+  port_types:
+    destroy:
+      title: Delete the port type
+
   power_distribution_units:
     index:
       title: Electricity
@@ -295,7 +356,7 @@ en:
       add_card: Add a card
       add_document: Add an attached document
     edit:
-      title: Update PDU
+      title: Update the PDU
       delete_confirmation: All data concerning this PDU will be deleted, along with all associated connections. Would you like to confirm?
     update:
       flashes:
@@ -303,15 +364,13 @@ en:
     duplicate:
       title: Duplicate PDU %{pdu_name}
     destroy:
+      title: Delete the PDU
       flashes:
         destroyed: The PDU has been deleted.
         not_destroyed: An error occurred while deleting the PDU.
     flashes:
       connections_destroyed: The connections have been removed.
       connections_not_destroyed: An error prevented connections from being deleted.
-
-  frames:
-    add_new: Add a frame
 
   rooms:
     action_buttons:
@@ -324,6 +383,8 @@ en:
     update:
       flashes:
         success: The room has successfully been updated
+    destroy:
+      title: Delete the room
     add_new: Add a room
     empty_overview: No bay to display
 
@@ -346,6 +407,8 @@ en:
       domaine_ids:
         blank: Select a domain
     destroy:
+      destroy:
+        title: Delete the permissio scope
       flashes:
         destroyed: Permission Scope as been successfully destroyed.
     permission_scope_user_form:
@@ -422,6 +485,7 @@ en:
     duplicate:
       title: Duplicate I.T. equipment %{server_name}
     destroy:
+      title: Delete the I.T. equipment
       flashes:
         destroyed: The I.T. equipment has been removed.
         not_destroyed: An error occurred when deleting I.T. equipment.
@@ -434,6 +498,10 @@ en:
     index:
       title: Search for equipment
 
+  sites:
+    destroy:
+      title: Delete the site
+
   show:
     cards:
       display: Display
@@ -441,6 +509,10 @@ en:
       identification: Identification
       preview: Preview
       visualization: Representation
+
+  stacks:
+    destroy:
+      title: Delete the stack
 
   unit:
     square_meter: m²
