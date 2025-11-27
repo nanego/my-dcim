@@ -47,6 +47,7 @@ class SitesController < ApplicationController
     end
   end
 
+  destroy_confirmation
   def destroy
     if @site.destroy
       respond_to do |format|

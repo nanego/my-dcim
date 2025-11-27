@@ -162,13 +162,29 @@ RSpec.describe CardTypesController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete card_type_path(card_type)
+      delete card_type_path(card_type, confirm: true)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
     include_context "with authenticated admin"
+
+    context "without confirm" do
+      subject(:response) do
+        delete card_type_path(card_type)
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+
+      it do
+        expect do
+          response
+        end.not_to change(CardType, :count)
+      end
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(CardType.exists?(card_type.id)).to be true }
+    end
 
     context "with an card_type without cards" do
       let(:card_type) { card_types(:three) }

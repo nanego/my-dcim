@@ -56,6 +56,7 @@ class DomainesController < ApplicationController
 
   # DELETE /domaines/1
   # DELETE /domaines/1.json
+  destroy_confirmation
   def destroy
     if @domaine.destroy
       respond_to do |format|

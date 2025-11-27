@@ -57,6 +57,7 @@ class ContactsController < ApplicationController
 
   # DELETE /contacts/1
   # DELETE /contacts/1.json
+  destroy_confirmation
   def destroy
     if @contact.destroy
       respond_to do |format|
