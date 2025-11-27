@@ -121,21 +121,21 @@ fr:
   islets:
     index:
       new_islet: Ajouter un ilot
-      delete_confirmation: Cet ilôt ne pourra pas être supprimé tant qu'il sera associé à au moins une baie. Voulez-vous continuer ?
     new:
-      title: Nouvel îlot
+      title: Nouvel ilot
     create:
       flashes:
         created: L'ilôt a bien été créé.
     edit:
-      title: Modification de l'îlot
+      title: Modification de l'ilot
     update:
       flashes:
-        updated: L'ilôt a bien été modifié.
+        updated: L'ilot a bien été modifié.
     destroy:
+      title: Supprimer l'ilot
       flashes:
         destroyed: L'ilôt a bien été supprimé.
-    add_new: Ajouter un ilôt
+    add_new: Ajouter un ilot
   connections:
     edit:
       title: Modifier la connexion
@@ -166,6 +166,7 @@ fr:
     form:
       add_contact_assignment: Assigner un contact
     destroy:
+      title: Supprimer le site
       flashes:
         destroyed: Site a bien été supprimé.
   gestions:
@@ -183,6 +184,7 @@ fr:
       flashes:
         updated: Le gestionnaire a bien été modifié.
     destroy:
+      title: Supprimer le gestionnaire
       flashes:
         destroyed: Le gestionnaire a bien été supprimé.
   architectures:
@@ -200,6 +202,7 @@ fr:
       flashes:
         updated: L'architecture a bien été modifiée.
     destroy:
+      title: Supprimer l'architecture
       flashes:
         destroyed: L'architecture a bien été supprimée.
   clusters:
@@ -217,6 +220,7 @@ fr:
       flashes:
         updated: Le cluster a bien été modifié.
     destroy:
+      title: Supprimer le cluster
       flashes:
         destroyed: Le cluster a bien été supprimé.
   stacks:
@@ -234,7 +238,7 @@ fr:
       flashes:
         updated: La stack a bien été modifiée.
     destroy:
-      title: Suppression
+      title: Supprimer le stack
       delete-confirm: Voulez-vous vraiment supprimer cette Stack ?
       dependencies_title: "Materiel dépendants :"
       flashes:
@@ -255,6 +259,7 @@ fr:
       flashes:
         updated: Le type de carte a bien été modifié.
     destroy:
+      title: Supprimer le type de carte
       flashes:
         destroyed: Le type de carte a bien été supprimé.
   colors:
@@ -271,6 +276,7 @@ fr:
       flashes:
         updated: La couleur a bien été modifiée.
     destroy:
+      title: Supprimer la couleur
       flashes:
         destroyed: La couleur a bien été supprimé.
     show:
@@ -293,7 +299,7 @@ fr:
       flashes:
         updated: Le constructeur a bien été modifié.
     destroy:
-      title: Suppression
+      title: Supprimer le constructeur
       delete-confirm: Voulez-vous vraiment supprimer ce Constructeur ?
       flashes:
         destroyed: Le constructeur a bien été supprimé.
@@ -312,6 +318,7 @@ fr:
       flashes:
         updated: Le domaine a bien été modifié.
     destroy:
+      title: Supprimer le domaine
       flashes:
         destroyed: Le domaine a bien été supprimé.
   ports:
@@ -338,6 +345,7 @@ fr:
       flashes:
         updated: Le type de port a bien été modifié.
     destroy:
+      title: Supprimer le type de port
       flashes:
         destroyed: Le type de port a bien été supprimé.
   categories:
@@ -357,6 +365,7 @@ fr:
       flashes:
         updated: La catégorie a bien été modifiée.
     destroy:
+      title: Supprimer la catégorie
       flashes:
         destroyed: La catégorie a bien été supprimée.
   modeles:
@@ -381,6 +390,7 @@ fr:
       flashes:
         updated: Le modèle a été mis à jour.
     destroy:
+      title: Supprimer le modèle
       flashes:
         destroyed: Le modèle a bien été supprimé.
     duplicate:
@@ -459,6 +469,7 @@ fr:
     duplicate:
       title: Dupliquer le matériel I.T. %{server_name}
     destroy:
+      title: Supprimer le matériel I.T.
       flashes:
         destroyed: Le matériel I.T. a bien été supprimé.
         not_destroyed: Une erreur est survenue lors de la suppression du matériel I.T.
@@ -512,6 +523,7 @@ fr:
     duplicate:
       title: Dupliquer le PDU %{pdu_name}
     destroy:
+      title: Supprimer le PDU
       flashes:
         destroyed: Le PDU a bien été supprimé.
         not_destroyed: Une erreur est survenue lors de la suppression du PDU.
@@ -540,6 +552,7 @@ fr:
       flashes:
         created: Le châssis a été ajouté.
     destroy:
+      title: Supprimer le châssis
       flashes:
         destroyed: Frame a bien été supprimé.
     network:
@@ -689,6 +702,7 @@ fr:
       flashes:
         updated: La salle a été mise à jour.
     destroy:
+      title: Supprimer la salle
       flashes:
         destroyed: La salle a bien été supprimée.
     add_new: Ajouter une salle
@@ -757,6 +771,7 @@ fr:
       flashes:
         updated: La climatisation a bien été modifiée.
     destroy:
+      title: Supprimer la climatisation
       flashes:
         destroyed: La climatisation a bien été supprimée.
     form:
@@ -799,6 +814,7 @@ fr:
       flashes:
         updated: La baie a bien été mise à jour.
     destroy:
+      title: Supprimer la baie
       flashes:
         destroyed: La baie a bien été supprimée.
     decorator:
@@ -828,6 +844,7 @@ fr:
       flashes:
         updated: Le contact a bien été mis à jour.
     destroy:
+      title: Supprimer le contact
       flashes:
         destroyed: Le contact a bien été supprimé.
   contact_roles:
@@ -846,6 +863,7 @@ fr:
       flashes:
         updated: Le rôle a bien été mis à jour.
     destroy:
+      title: Supprimer le rôle
       flashes:
         destroyed: Le rôle a bien été supprimé.
   contact_assignments:
@@ -864,6 +882,7 @@ fr:
       flashes:
         updated: L'assignation a bien été mise à jour.
     destroy:
+      title: Supprimer l'assignation
       flashes:
         destroyed: L'assignation a bien été supprimée.
     add_new: Ajouter une assignation
