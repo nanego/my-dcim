@@ -37,6 +37,8 @@ fr:
     configure: Configurer
     continue: Continuer
     export: Exporter
+    show_all: Afficher tout
+    hide_all: Cacher tout
 
   export_button:
     label: Exports
@@ -443,7 +445,6 @@ fr:
       glpi_connection_error: "Problème lors de la connexion à GLPI :"
       moves_cta_tooltip: Prévoir son déplacement
       export_cta_tooltip: Export PDF pour les câbleurs
-      toggle_vlans: Afficher / Cacher les Vlans
     new:
       title: Ajouter un matériel I.T.
     create:

@@ -986,6 +986,10 @@ body {
     cursor: pointer;
   }
 
+  .border-dashed {
+    --bs-border-style: dashed;
+  }
+
   /* Bootstrap clean */
   ul.list-group.nested-form-list {
     .list-group-item:last-of-type {
