@@ -51,23 +51,24 @@ class DeleteDependencyComponent < ApplicationComponent
         <h5 class="m-0 text-<%= TYPES[@type] %>-emphasis"><%= t(".\#{@type}_dependency_title") %></h5>
         <span>
           <button class="btn btn-sm text-body-tertiary p-0"
-                  title=<%= t(".show_all") %>
+                  title="<%= t("action.show_all") %>"
                   type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target=".collapse_<%= @type %>"
-                  aria-expanded="false"
-                  aria-controls="collapse <%= @type %>">
-            <span class="bi bi-arrows-expand"></span>
+                  data-controller="collapse-all tooltip"
+                  data-collapse-all-elements-value="collapse_<%= @type %>"
+                  data-action="collapse-all#showAll"
+                  data-bs-placement="bottom"
+                  aria-hidden="true">
+            <span class="bi bi-arrows-expand fs-6"></span>
           </button>
-          |
           <button class="btn btn-sm text-body-tertiary p-0"
-                  title=<%= t(".hide_all") %>
+                  title="<%= t("action.hide_all") %>"
                   type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target=".collapse_<%= @type %>"
-                  aria-expanded="false"
-                  aria-controls="collapse <%= @type %>">
-            <span class="bi bi-arrows-collapse"></span>
+                  data-controller="collapse-all tooltip"
+                  data-collapse-all-elements-value="collapse_<%= @type %>"
+                  data-action="collapse-all#hideAll"
+                  data-bs-placement="bottom"
+                  aria-hidden="true">
+            <span class="bi bi-arrows-collapse fs-6"></span>
           </button>
         </span>
       </div>
@@ -104,7 +105,7 @@ class DeleteDependencyComponent < ApplicationComponent
     erb_template <<~ERB
       <%= render CardComponent.new(
         type: TYPES[@type],
-        extra_classes: "bg-body-tertiary mt-2 ms-5"
+        extra_classes: "bg-body-tertiary mt-2 ms-4"
       ) do |card| %>
         <% card.with_header do %>
           <div class="d-flex justify-content-between align-items-center btn-collapse cursor-pointer"
