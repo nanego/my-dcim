@@ -29,6 +29,8 @@ en:
     configure: Configure
     continue: Continue
     export: Export
+    show_all: Show all
+    hide_all: Hide all
 
   application:
     no_permission_scope:
@@ -283,7 +285,6 @@ en:
       glpi_visit_page: See the PDU page on GLPI
       no_match_serial: "No match for this serial number: %{serial}"
       glpi_connection_error: "Problem connecting to GLPI :"
-      toggle_vlans: Toggle Vlans
       warning_no_frame: The current frame no longer exists, please enter a new one.
     new:
       title: Add a PDU
