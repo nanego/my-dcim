@@ -3,20 +3,16 @@ name: Tests
 on:
   push:
     branches:
-      - "master"
+      - master
   pull_request:
 
 jobs:
   test:
-    name: ruby-${{ matrix.ruby-version }}
+    name: Mini tests tests
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        ruby-version: ['3.4.7']
-      fail-fast: false
-
     env:
+      RAILS_ENV: test
       RAILS_MASTER_KEY: "acf7c0d9c0f69afd05048c8a58b2e9ee"
       FERRUM_PROCESS_TIMEOUT: 25
       FERRUM_DEFAULT_TIMEOUT: 15
@@ -38,12 +34,12 @@ jobs:
 
     steps:
       - name: Checkout main app
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ matrix.ruby-version }}
+          ruby-version: .ruby-version
           rubygems: "latest"
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
@@ -54,22 +50,113 @@ jobs:
 
       - name: Set up Database
         env:
-          RAILS_ENV: test
           POSTGRES_PASSWORD: postgres
           POSTGRES_USER: postgres
         run: |
           cp test/support/database-postgres.yml config/database.yml
-          bundle exec rails db:setup
+          bin/rails db:setup
 
       - name: Run tests
+        run: bin/rails test
+
+  rspec:
+    name: RSpec tests
+    runs-on: ubuntu-latest
+
+    env:
+      RAILS_ENV: test
+      RAILS_MASTER_KEY: "acf7c0d9c0f69afd05048c8a58b2e9ee"
+      FERRUM_PROCESS_TIMEOUT: 25
+      FERRUM_DEFAULT_TIMEOUT: 15
+
+    services:
+      postgres:
+        image: postgres:13
         env:
-          RAILS_ENV: test
-        run: bundle exec rails test
+          POSTGRES_DB: dcim_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout main app
+        uses: actions/checkout@v6
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          rubygems: "latest"
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@latest
+        with:
+          chrome-version: stable
+
+      - name: Set up Database
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        run: |
+          cp test/support/database-postgres.yml config/database.yml
+          bin/rails db:setup
 
       - name: Run RSpec tests
-        env:
-          RAILS_ENV: test
         run: bin/rspec
 
-      - name: Rubocop
-        run: bin/rubocop
+  database_schema:
+    name: Verify schema
+    runs-on: ubuntu-latest
+
+    env:
+      RAILS_ENV: test
+      RAILS_MASTER_KEY: "acf7c0d9c0f69afd05048c8a58b2e9ee"
+      FERRUM_PROCESS_TIMEOUT: 25
+      FERRUM_DEFAULT_TIMEOUT: 15
+
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_DB: dcim_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout main app
+        uses: actions/checkout@v6
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          rubygems: "latest"
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+
+      - name: Set up Database
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        run: |
+          cp test/support/database-postgres.yml config/database.yml
+          bin/rails db:setup
+
+      - name: Run migration reset
+        run: bin/rails db:migrate:reset
+
+      - name: Verify schema
+        run: git diff --exit-code db/schema.rb

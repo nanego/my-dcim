@@ -12,6 +12,8 @@ end
 
 class MigrationEnclosure < ActiveRecord::Base
   self.table_name = :enclosures
+
+  belongs_to :modele, class_name: "MigrationModele"
 end
 
 class MigrationTypeComposant < ActiveRecord::Base
@@ -20,6 +22,9 @@ end
 
 class MigrationComposant < ActiveRecord::Base
   self.table_name = :composants
+
+  belongs_to :enclosure, class_name: "MigrationEnclosure"
+  belongs_to :type_composant, class_name: "MigrationTypeComposant"
 end
 
 class MigrationPortType < ActiveRecord::Base
@@ -28,6 +33,8 @@ end
 
 class MigrationCardType < ActiveRecord::Base
   self.table_name = :card_types
+
+  belongs_to :port_type, class_name: "MigrationPortType"
 end
 
 class MigrationFrame < ActiveRecord::Base
@@ -62,47 +69,40 @@ class AddAttributesToServers < ActiveRecord::Migration[5.0]
     MigrationCategory.reset_column_information
     MigrationModele.reset_column_information
 
-    category = MigrationCategory.create(name: "Pdu")
+    category = MigrationCategory.create!(name: "Pdu")
     puts "ERROR: #{category}" unless category.valid?
-    modele = MigrationModele.create(name: "Pdu 24",
-                                    category: category)
+
+    modele = MigrationModele.create!(name: "Pdu 24", category: category)
     puts "ERROR: #{modele}" unless modele.valid?
-    enclosure = MigrationEnclosure.create(modele: modele,
-                                          position: 1,
-                                          display: "vertical")
+
+    enclosure = MigrationEnclosure.create!(modele: modele, position: 1, display: "vertical")
     puts "ERROR: #{enclosure}" unless enclosure.valid?
-    type_composant = MigrationTypeComposant.find_by_name("SLOT")
+
+    type_composant = MigrationTypeComposant.find_by(name: "SLOT")
     puts "ERROR: #{type_composant}" unless type_composant.valid?
+
     4.times do |i|
       line = (i + 1).odd? ? "L1" : "L2"
-      composant = MigrationComposant.create(type_composant: type_composant,
-                                            position: i + 1,
-                                            enclosure: enclosure,
-                                            name: "ALIM_#{line}")
+      composant = MigrationComposant.create!(type_composant: type_composant, position: i + 1, enclosure: enclosure,
+                                             name: "ALIM_#{line}")
       puts "ERROR: #{composant}" unless composant.valid?
     end
 
-    port_type = MigrationPortType.find_by_name("ALIM")
+    port_type = MigrationPortType.find_or_create_by(name: "ALIM")
     puts "ERROR: #{port_type}" unless port_type.valid?
-    card_type = MigrationCardType.find_or_create_by(name: "6ALIM",
-                                                    port_quantity: 6,
-                                                    port_type: port_type)
+
+    card_type = MigrationCardType.find_or_create_by(name: "6ALIM", port_quantity: 6, port_type: port_type)
     puts "ERROR: #{card_type}" unless card_type.valid?
 
     MigrationFrame.find_each do |frame|
       %w[A B].each do |line_name|
         pdu_name = "PDU_#{frame}_#{line_name}"
-        pdu = MigrationServer.create(frame: frame,
-                                     modele: modele,
-                                     numero: pdu_name,
-                                     name: pdu_name,
-                                     side: Pdu.calculated_side(frame, line_name),
-                                     color: line_name == "A" ? "J" : "B")
+        pdu = MigrationServer.create!(frame: frame, modele: modele, numero: pdu_name, name: pdu_name,
+                                      side: Pdu.calculated_side(frame, line_name), color: line_name == "A" ? "J" : "B")
         puts "ERROR: #{pdu}" unless pdu.valid?
+
         enclosure.composants.each do |composant|
-          card = MigrationCard.create(card_type: card_type,
-                                      server: pdu,
-                                      composant: composant)
+          card = MigrationCard.create!(card_type: card_type, server: pdu, composant: composant)
           puts "ERROR: #{card}" unless card.valid?
         end
       end

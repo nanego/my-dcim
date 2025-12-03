@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Rails/BulkChangeTable
 class AddMissingNotNullableToExistingTables < ActiveRecord::Migration[7.0]
   def change
     # change_column_null :ports, :cart_id, false
@@ -55,4 +54,3 @@ class AddMissingNotNullableToExistingTables < ActiveRecord::Migration[7.0]
     change_column_null :card_types, :port_type_id, false
   end
 end
-# rubocop:enable Rails/BulkChangeTable
