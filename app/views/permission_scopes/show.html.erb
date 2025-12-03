@@ -50,7 +50,10 @@
 
         <% card.with_body(extra_classes: "p-0") do %>
           <div id="ts_permission_scope_user_form"
-               class="list-group-item list-group-item-action p-3 border-dashed border-bottom">
+              class="<%= class_names("list-group-item list-group-item-action p-3",
+                                     "border-dashed border-bottom": @permission_scope_users.any?)
+                      %>"
+          >
             <%= render partial: "permission_scope_user_form",
                        locals: { permission_scope_user: @permission_scope.permission_scope_users.build } %>
           </div>
