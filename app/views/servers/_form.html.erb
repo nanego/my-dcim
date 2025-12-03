@@ -163,7 +163,7 @@
 
   <!-- TODO: update -->
   <% if @server.modele %>
-    <% @server.modele.enclosures.each do |enclosure| %>
+    <% @server.modele.enclosures.with_composants.each do |enclosure| %>
       <div class="col-12 mt-4" data-controller="nested-form">
         <template data-nested-form-target="template">
           <%= f.fields_for :cards, f.object.cards.klass.new, child_index: '__NEW_RECORD__' do |card_fields| %>
@@ -177,7 +177,7 @@
           <% end %>
 
           <div class="row-gap-3 d-flex flex-column">
-            <% cards = @server.cards.select { |c| c.composant.enclosure == enclosure }
+            <% cards = @server.cards.select { |c| c.composant&.enclosure == enclosure }
                                     .sort_by! { |c| c.composant.position } %>
             <%= f.fields_for :cards, cards do |card_fields| %>
               <%= render partial: "card_fields", locals: { f: card_fields, server: @server, enclosure: enclosure } %>
