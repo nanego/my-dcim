@@ -46,7 +46,7 @@ class ArchitecturesControllerTest < ActionController::TestCase
     @architecture = Architecture.create
 
     assert_difference("Architecture.count", -1) do
-      delete :destroy, params: { id: @architecture }
+      delete :destroy, params: { id: @architecture, confirm: true }
     end
 
     assert_redirected_to architectures_path
@@ -54,7 +54,7 @@ class ArchitecturesControllerTest < ActionController::TestCase
 
   test "should not destroy architecture that have modeles" do
     assert_difference("Architecture.count", 0) do
-      delete :destroy, params: { id: @architecture }
+      delete :destroy, params: { id: @architecture, confirm: true }
     end
 
     assert_redirected_to architectures_path
