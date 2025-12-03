@@ -13,7 +13,11 @@ class PermissionScopesController < ApplicationController
   end
 
   # GET /permission_scopes/1
-  def show; end
+  def show
+    @permission_scope_users = @permission_scope.permission_scope_users
+      .where(user: User.unsuspended)
+      .order(created_at: :desc)
+  end
 
   # GET /permission_scopes/new
   def new

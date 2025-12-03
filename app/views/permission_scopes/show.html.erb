@@ -49,16 +49,14 @@
         <% end %>
 
         <% card.with_body(extra_classes: "p-0") do %>
-          <ul id="ts_permission_scope_users" class="list-group list-group-flush">
-            <%= render partial: "permission_scope_user", collection: @permission_scope.permission_scope_users %>
-          </ul>
-        <% end %>
-
-        <% card.with_footer do %>
-          <div id="ts_permission_scope_user_form" class="w-100 py-2">
+          <div id="ts_permission_scope_user_form"
+               class="list-group-item list-group-item-action p-3 border-dashed border-bottom">
             <%= render partial: "permission_scope_user_form",
                        locals: { permission_scope_user: @permission_scope.permission_scope_users.build } %>
           </div>
+          <ul id="ts_permission_scope_users" class="list-group list-group-flush">
+            <%= render partial: "permission_scope_user", collection: @permission_scope_users %>
+          </ul>
         <% end %>
       <% end %>
     </div>
