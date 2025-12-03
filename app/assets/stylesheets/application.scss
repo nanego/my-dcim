@@ -981,6 +981,21 @@ body {
     }
   }
 
+  ul.list-group-flush {
+    li {
+      border-style: dashed;
+    }
+  }
+
+  /* Helpers */
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  .border-dashed {
+    --bs-border-style: dashed;
+  }
+
   /* Bootstrap clean */
   ul.list-group.nested-form-list {
     .list-group-item:last-of-type {
@@ -1002,12 +1017,6 @@ body {
     /* Fix rounded border not showing correctly when in card */
     border-bottom-right-radius: var(--bs-border-radius) !important;
     border-bottom-left-radius: var(--bs-border-radius) !important;
-  }
-
-  ul.list-group-flush {
-    li {
-      border-style: dashed;
-    }
   }
 
   /* Tom-Select */
