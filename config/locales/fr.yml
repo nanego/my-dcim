@@ -552,7 +552,7 @@ fr:
       edit_connections: Modifier les connexions
       delete_confirmation: Voulez-vous vraiment supprimer ce déplacement ?
       execute_confirmation: Voulez-vous vraiment appliquer ce déplacement ?
-      remove_connections: Supprimer les connexion ?
+      remove_connections: Supprimer les connexions ?
       action:
         execute_move: Déplacer le serveur et ses connexions
     new:
