@@ -55,7 +55,7 @@
         <%= link_to permission_scope_path(permission_scope),
                     method: :delete,
                     data: { confirm: t(".delete_confirmation") },
-                    class: "btn btn-danger" do %>
+                    class: class_names("btn btn-danger", disabled: !allowed_to?(:destroy?, permission_scope)) do %>
           <span class="bi bi-trash"
                 title="<%= t("action.delete") %>"
                 data-controller="tooltip"

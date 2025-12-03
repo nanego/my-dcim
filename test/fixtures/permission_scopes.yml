@@ -29,6 +29,12 @@ reader:
 
 reader_all:
   id: 6
-  name: Reader
+  name: Reader All
   role: 0
   all_domains: true
+
+is_system:
+  id: 7
+  name: System permission scope
+  role: 0
+  is_system: true
