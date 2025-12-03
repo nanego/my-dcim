@@ -1,0 +1,14 @@
+<%
+  breadcrumb
+    .add_step(@port_type, port_type_path(@port_type))
+    .add_step(t("action.delete"))
+%>
+
+<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:) %>
+
+<div class="col-12 p-4 border-top">
+  <%= render DeleteDependencyComponent.new(
+    @port_type,
+    confirmation_path: port_type_path(@port_type, confirm: true)
+  ) %>
+</div>

@@ -65,6 +65,7 @@ class IsletsController < ApplicationController
 
   # DELETE /islets/1
   # DELETE /islets/1.json
+  destroy_confirmation
   def destroy
     if @islet.destroy
       respond_to do |format|

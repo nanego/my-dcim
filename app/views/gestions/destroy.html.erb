@@ -1,0 +1,14 @@
+<%
+  breadcrumb
+    .add_step(@gestion, gestion_path(@gestion))
+    .add_step(t("action.delete"))
+%>
+
+<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:) %>
+
+<div class="col-12 p-4 border-top">
+  <%= render DeleteDependencyComponent.new(
+    @gestion,
+    confirmation_path: gestion_path(@gestion, confirm: true)
+  ) %>
+</div>

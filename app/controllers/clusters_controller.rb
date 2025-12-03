@@ -58,6 +58,7 @@ class ClustersController < ApplicationController
 
   # DELETE /clusters/1
   # DELETE /clusters/1.json
+  destroy_confirmation
   def destroy
     if @cluster.destroy
       respond_to do |format|

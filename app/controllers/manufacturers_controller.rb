@@ -56,6 +56,7 @@ class ManufacturersController < ApplicationController
 
   # DELETE /manufacturers/1
   # DELETE /manufacturers/1.json
+  destroy_confirmation
   def destroy
     if @manufacturer.destroy
       respond_to do |format|
