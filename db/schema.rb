@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_12_03_163256) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_03_164807) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -593,33 +593,29 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_03_163256) do
   add_foreign_key "servers", "modeles"
   add_foreign_key "servers", "stacks"
 
-  create_view "servers_frames_view", sql_definition: <<-SQL
-      SELECT s.id,
-      s.name,
-      s.numero,
-      mo.name AS modele_name,
-      m.name AS manufacturer_name,
-      NULL::character varying AS islet_name,
-      NULL::character varying AS room_name,
-      'Server'::text AS record_type
-     FROM ((servers s
-       LEFT JOIN modeles mo ON ((mo.id = s.modele_id)))
-       LEFT JOIN manufacturers m ON ((m.id = mo.manufacturer_id)))
+  create_view "search_results", sql_definition: <<-SQL
+      SELECT servers.id AS searchable_id,
+      'Server'::text AS searchable_type,
+      servers.name,
+      ARRAY[servers.domaine_id] AS domaine_ids,
+      concat_ws(' '::text, servers.name, servers.numero, servers.numero, modeles.name, manufacturers.name) AS term
+     FROM ((servers
+       LEFT JOIN modeles ON ((modeles.id = servers.modele_id)))
+       LEFT JOIN manufacturers ON ((manufacturers.id = modeles.manufacturer_id)))
   UNION ALL
-   SELECT f.id,
-      f.name,
-      NULL::character varying AS numero,
-      NULL::character varying AS modele_name,
-      NULL::character varying AS manufacturer_name,
-      ( SELECT i.name
+   SELECT frames.id AS searchable_id,
+      'Frame'::text AS searchable_type,
+      frames.name,
+      ARRAY( SELECT DISTINCT s.domaine_id
+             FROM servers s
+            WHERE (s.frame_id = frames.id)) AS domaine_ids,
+      concat_ws(' '::text, frames.name, ( SELECT i.name
              FROM islets i
-            WHERE (i.id = f.id)
-           LIMIT 1) AS islet_name,
-      ( SELECT r.name
+            WHERE (i.id = frames.id)
+           LIMIT 1), ( SELECT r.name
              FROM rooms r
-            WHERE (r.id = f.id)
-           LIMIT 1) AS room_name,
-      'Frame'::text AS record_type
-     FROM frames f;
+            WHERE (r.id = frames.id)
+           LIMIT 1)) AS term
+     FROM frames;
   SQL
 end
