@@ -46,13 +46,13 @@ class GestionsControllerTest < ActionController::TestCase
     @gestion = Gestion.create
 
     assert_difference("Gestion.count", -1) do
-      delete :destroy, params: { id: @gestion }
+      delete :destroy, params: { id: @gestion, confirm: true }
     end
   end
 
   test "should not destroy gestion it has many servers Server n°1 & 2" do
     assert_difference("Gestion.count", 0) do
-      delete :destroy, params: { id: @gestion }
+      delete :destroy, params: { id: @gestion, confirm: true }
     end
 
     assert_redirected_to gestions_path
