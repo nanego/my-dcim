@@ -522,18 +522,6 @@ body {
   -webkit-print-color-adjust: exact;
 }
 
-/* Print and PDF exclusive CSS */
-.print-body {
-  a {
-    text-decoration: none !important;
-    color: black;
-
-    &[href]:after {
-      content: none !important;
-    }
-  }
-}
-
 /* Print exclusive CSS */
 @media print {
   .print-body {
@@ -559,33 +547,6 @@ body {
       position: static !important;
       display: inline;
       box-sizing: content-box !important;
-    }
-  }
-}
-
-/* PDF exclusive CSS */
-.html2pdf__container {
-  /* Forces the light theme for PDF */
-  @extend html, [data-bs-theme="light"];
-
-  max-width: 794px;
-  width: 100%;
-
-  .col-lg-6 {
-    width: 100% !important;
-  }
-
-  .frame .server {
-    background-color: white;
-  }
-
-  h1, h3 {
-    color: black;
-  }
-
-  .very-specific-design {
-    th {
-      color: black;
     }
   }
 }
