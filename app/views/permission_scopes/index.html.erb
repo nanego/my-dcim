@@ -1,6 +1,4 @@
-<%
-  breadcrumb.add_step(title = PermissionScope.model_name.human.pluralize)
-%>
+<% breadcrumb.add_step(title = PermissionScope.model_name.human.pluralize) %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
@@ -26,11 +24,7 @@
       <% if permission_scope.all_domains? %>
         <%= PermissionScope.human_attribute_name(:all_domains) %>
       <% else %>
-        <ul>
-        <% permission_scope.domaines.each do |domain| %>
-          <li><%= link_to domain, domaine_path(domain) %></li>
-        <% end %>
-        </ul>
+        <%= permission_scope.domaines.map(&:name).join(", ") %>
       <% end %>
     <% end %>
 
