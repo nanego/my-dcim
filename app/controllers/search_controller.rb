@@ -4,7 +4,8 @@ class SearchController < ApplicationController
   skip_verify_authorized
 
   def index
-    @results = SearchResult.search(params[:query]&.downcase).map(&:searchable)
+    @results = authorize! SearchResult.search(params[:query]&.downcase)
+    @results = authorized_scope(@results).map(&:searchable)
 
     respond_to do |format|
       format.html # normal rendering for non-Turbo requests
