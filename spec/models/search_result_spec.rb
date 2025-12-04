@@ -3,5 +3,11 @@
 require "rails_helper"
 
 RSpec.describe SearchResult do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "associations" do
+    it { is_expected.to belong_to(:searchable) }
+  end
+
+  describe ".search" do
+    pending
+  end
 end

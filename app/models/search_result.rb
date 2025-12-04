@@ -12,9 +12,7 @@ class SearchResult < ApplicationRecord
           modele: %i[manufacturer category],
           bay: { islet: { room: :site } },
         },
-      )
-      # .where("domaine_ids && array[?]", [5, 2, nil])
-      .order("lower(name) ASC")
+      ).order("lower(name) ASC")
   end
 
   def readonly?
