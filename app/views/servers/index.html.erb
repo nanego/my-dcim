@@ -238,22 +238,19 @@
         <% table.with_column(text_align: :center, style: "min-width: 100px; width: 100px") do |server| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
             <% if allowed_to?(:export_cables?, server) %>
-              <button class="btn btn-outline-primary"
-                      data-bs-title="<%= t("servers.show.export_cta_tooltip") %>"
-                      data-aria-label="<%= t("servers.show.export_cta_tooltip") %>"
-                      data-bs-trigger="hover"
-                      data-controller="dynamic-export-pdf tooltip"
-                      data-action="click->dynamic-export-pdf#export"
-                      data-dynamic-export-pdf-has-button-icon-value="true"
-                      data-dynamic-export-pdf-filename-param="<%= server.friendly_id %>"
-                      data-dynamic-export-pdf-urls-param="<%= [export_cables_server_path(server)].to_json %>"
-                      data-bs-placement="left">
-                <span class="spinner-border spinner-border-sm d-flex d-none"
-                      role="status"
-                      aria-hidden="true"
-                      data-dynamic-export-pdf-target="spinner"></span>
-                <span class="bi bi-file-earmark-pdf" data-dynamic-export-pdf-target="buttonIcon"></span>
-              </button>
+              <%= link_to export_cables_server_path(server),
+                          class: "btn btn-outline-primary",
+                          title: t("servers.show.export_cta_tooltip"),
+                          target: :_blank,
+                          rel: :noopener,
+                          data: {
+                            aria_label: t("servers.show.export_cta_tooltip"),
+                            bs_trigger: "hover",
+                            controller: "tooltip",
+                            bs_placement: "left"
+                          } do %>
+                <span class="bi bi-file-earmark-pdf"></span>
+              <% end %>
             <% end %>
 
             <% if allowed_to?(:duplicate?, server) %>
