@@ -470,8 +470,6 @@ GEM
     regexp_parser (2.11.3)
     reline (0.6.3)
       io-console (~> 0.5)
-    requestjs-rails (0.0.12)
-      railties (>= 6.1.0)
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
@@ -695,7 +693,6 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n (~> 8.1)
   record_tag_helper (~> 1.0)
-  requestjs-rails (~> 0.0.12)
   rspec-activemodel-mocks
   rspec-html-matchers
   rspec-rails

@@ -13,8 +13,6 @@ window.AnimEvent = AnimEvent
 import LeaderLine from "leader-line"
 window.LeaderLine = LeaderLine
 
-import "@rails/request.js"
-
 import Rails from "@rails/ujs"
 Rails.start()
 
