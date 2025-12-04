@@ -598,7 +598,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_03_164807) do
       'Server'::text AS searchable_type,
       servers.name,
       ARRAY[servers.domaine_id] AS domaine_ids,
-      concat_ws(' '::text, servers.name, servers.numero, servers.numero, modeles.name, manufacturers.name) AS term
+      concat_ws(' '::text, servers.name, servers.numero, modeles.name, manufacturers.name) AS term
      FROM ((servers
        LEFT JOIN modeles ON ((modeles.id = servers.modele_id)))
        LEFT JOIN manufacturers ON ((manufacturers.id = modeles.manufacturer_id)))

@@ -7,7 +7,6 @@ SELECT
     ' ',
     servers.name,
     servers.numero,
-    servers.numero,
     modeles.name,
     manufacturers.name
   ) AS term

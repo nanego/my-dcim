@@ -3,21 +3,39 @@
 require "rails_helper"
 
 RSpec.describe SearchResultPolicy, type: :policy do
-  # See https://actionpolicy.evilmartians.io/#/testing?id=rspec-dsl
-  #
-  # let(:user) { build_stubbed :user }
-  # let(:record) { build_stubbed :post, draft: false }
-  # let(:context) { {user: user} }
+  let(:search_result) { SearchResult.new(searchable: servers(:one)) }
+  let(:context) { { user: user } }
+  let(:policy) { described_class.new(search_result, user: user) }
 
-  describe_rule :index? do
-    pending "add some examples to (or delete) #{__FILE__}"
+  describe "relation scope" do
+    subject { policy.apply_scope(target, type: :active_record_relation) }
+
+    let(:target) { SearchResult.search("Server") }
+
+    context "with admin" do
+      let(:user) { users(:admin) }
+
+      it { is_expected.to match_array(target) }
+    end
+
+    context "with writer user" do
+      let(:user) { users(:writer) }
+
+      it { is_expected.to match_array(target) }
+    end
+
+    context "with reader user" do
+      let(:user) { users(:reader) }
+
+      it { is_expected.to contain_exactly(servers(:accesible_to_readers)) }
+    end
+
+    context "with reader all user" do
+      let(:user) { users(:reader_all) }
+
+      it { is_expected.to match_array(target) }
+    end
   end
 
-  describe_rule :create? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  describe_rule :manage? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
+  it_behaves_like "with default index policy"
 end
