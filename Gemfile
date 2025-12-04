@@ -10,7 +10,7 @@ gem "bootstrap", "~> 5.3.2"
 gem "dartsass-sprockets", "~> 3.1"
 gem "jbuilder"
 gem "nokogiri", "~> 1.18"
-gem "rails-i18n", "~> 8.0.x"
+gem "rails-i18n", "~> 8.1"
 gem "sprockets-rails", require: "sprockets/railtie"
 gem "terser"
 
