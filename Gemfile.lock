@@ -467,8 +467,8 @@ GEM
     regexp_parser (2.11.3)
     reline (0.6.3)
       io-console (~> 0.5)
-    requestjs-rails (0.0.12)
-      railties (>= 6.1.0)
+    requestjs-rails (0.0.13)
+      railties (>= 7.1.0)
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
@@ -691,7 +691,7 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n (~> 8.1)
   record_tag_helper (~> 1.0)
-  requestjs-rails (~> 0.0.12)
+  requestjs-rails (~> 0.0.13)
   rspec-activemodel-mocks
   rspec-html-matchers
   rspec-rails
@@ -884,7 +884,7 @@ CHECKSUMS
   redcarpet (3.6.1) sha256=d444910e6aa55480c6bcdc0cdb057626e8a32c054c29e793fa642ba2f155f445
   regexp_parser (2.11.3) sha256=ca13f381a173b7a93450e53459075c9b76a10433caadcb2f1180f2c741fc55a4
   reline (0.6.3) sha256=1198b04973565b36ec0f11542ab3f5cfeeec34823f4e54cebde90968092b1835
-  requestjs-rails (0.0.12) sha256=d3f863b16ae3469b2ebb83110b9831d74375f44e06b1194b5052a997fc2c48e7
+  requestjs-rails (0.0.13) sha256=27ea4a92a98d180139dcee50f46d11e2626ce95eb0472d143099b30f9d220321
   responders (3.1.1) sha256=92f2a87e09028347368639cfb468f5fefa745cb0dc2377ef060db1cdd79a341a
   rouge (4.6.0) sha256=10198622df0ef919796da5686a9cc116a49280805e1ed4b851c97ef677eddd7a
   rspec (3.13.1) sha256=b9f9a58fa915b8d94a1d6b3195fe6dd28c4c34836a6097015142c4a9ace72140
