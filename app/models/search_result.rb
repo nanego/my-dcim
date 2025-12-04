@@ -6,7 +6,7 @@ class SearchResult < ApplicationRecord
   def self.search(query)
     return none if query.blank?
 
-    where("term ILIKE :query", query: "%#{query}%")
+    where("term ILIKE :query", query: "%#{query.downcase}%")
       .includes(
         searchable: {
           modele: %i[manufacturer category],
