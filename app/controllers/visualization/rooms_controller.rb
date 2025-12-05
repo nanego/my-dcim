@@ -51,7 +51,15 @@ module Visualization
     end
 
     def print
-      render layout: "pdf"
+      respond_to do |format|
+        format.html { render layout: "pdf" }
+        format.pdf do
+          render ferrum_pdf: {},
+                 layout: "pdf",
+                 filename: "room_#{@room}_#{[params[:view], params[:bg]].compact.join("-")}.pdf",
+                 disposition: :inline
+        end
+      end
     end
 
     private
