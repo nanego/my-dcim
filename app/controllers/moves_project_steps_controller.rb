@@ -15,7 +15,12 @@ class MovesProjectStepsController < ApplicationController
   def frame; end
 
   def print
-    render ferrum_pdf: {}, layout: "pdf", filename: "move-frame_#{@frame.name}.pdf", disposition: :inline
+    respond_to do |format|
+      format.html { render layout: "pdf" }
+      format.pdf do
+        render ferrum_pdf: {}, layout: "pdf", filename: "move-frame_#{@frame.name}.pdf", disposition: :inline
+      end
+    end
   end
 
   def execute
