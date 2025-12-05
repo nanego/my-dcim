@@ -1,14 +1,10 @@
-<div class="btn-group btn-group-sm" data-controller="dynamic-export-pdf">
+<div class="btn-group btn-group-sm">
   <button type="button"
-          class="btn btn-outline-primary dropdown-toggle d-flex align-items-center export-button"
+          class="btn btn-outline-primary dropdown-toggle"
           data-bs-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false">
-    <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none me-" role="status" aria-hidden="true"
-          data-dynamic-export-pdf-target="spinner"></span>
-    <span class="text-truncate d-inline-block">
-      <%= t("export_button.label") %>
-    </span>
+    <%= t("export_button.label") %>
   </button>
 
   <ul class="dropdown-menu dropdown-menu-end">
@@ -17,36 +13,40 @@
     </li>
 
     <li>
-      <button type="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export"
-        data-dynamic-export-pdf-urls-param="<%= bay.print_frames_paths(view: :front).to_json %>"
-        data-dynamic-export-pdf-filename-param="bay-<%= bay.id %>-front">
-        <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+      <%= link_to print_visualization_bay_path(bay, format: :pdf, params: { view: :front }),
+                  class: "dropdown-item",
+                  target: :_blank,
+                  rel: :noopener do %>
+        <span class="bi bi-file-earmark-pdf"></span>
         <%= t("export_button.faces.front") %>
-      </button>
+      <% end %>
     </li>
     <li>
-      <button type="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export"
-        data-dynamic-export-pdf-urls-param="<%= bay.print_frames_paths(view: :back).to_json %>"
-        data-dynamic-export-pdf-filename-param="bay-<%= bay.id %>-back">
-        <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+      <%= link_to print_visualization_bay_path(bay, format: :pdf, params: { view: :back }),
+                  class: "dropdown-item",
+                  target: :_blank,
+                  rel: :noopener do %>
+        <span class="bi bi-file-earmark-pdf"></span>
         <%= t("export_button.faces.back") %>
-      </button>
+      <% end %>
     </li>
     <li>
-      <button type="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export"
-        data-dynamic-export-pdf-urls-param="<%= bay.print_frames_paths(view: :front, bg: :wiring).to_json %>"
-        data-dynamic-export-pdf-filename-param="bay-<%= bay.id %>-front_wiring">
-        <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+      <%= link_to print_visualization_bay_path(bay, format: :pdf, params: { view: :front, bg: :wiring }),
+                  class: "dropdown-item",
+                  target: :_blank,
+                  rel: :noopener do %>
+        <span class="bi bi-file-earmark-pdf"></span>
         <%= t("export_button.faces.front_wiring") %>
-      </button>
+      <% end %>
     </li>
     <li>
-      <button type="button" class="dropdown-item" data-action="click->dynamic-export-pdf#export"
-        data-dynamic-export-pdf-urls-param="<%= bay.print_frames_paths(view: :back, bg: :wiring).to_json %>"
-        data-dynamic-export-pdf-filename-param="bay-<%= bay.id %>-back_wiring">
-        <span class="bi bi-file-earmark-pdf" aria-hidden="true"></span>
+      <%= link_to print_visualization_bay_path(bay, format: :pdf, params: { view: :back, bg: :wiring }),
+                  class: "dropdown-item",
+                  target: :_blank,
+                  rel: :noopener do %>
+        <span class="bi bi-file-earmark-pdf"></span>
         <%= t("export_button.faces.back_wiring") %>
-      </button>
+      <% end %>
     </li>
 
     <li><hr class="dropdown-divider"></li>

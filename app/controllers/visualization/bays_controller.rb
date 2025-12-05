@@ -15,8 +15,18 @@ module Visualization
       end
     end
 
+    # TODO: move it to visualization and create a proper view
     def print
-      render "visualization/rooms/print", layout: "pdf"
+      respond_to do |format|
+        format.html { render "visualization/rooms/print", layout: "pdf" }
+        format.pdf do
+          render "visualization/rooms/print",
+                 ferrum_pdf: {},
+                 layout: "pdf",
+                 filename: "bay_#{@bay.id}_#{[params[:view], params[:bg]].compact.join("-")}.pdf",
+                 disposition: :inline
+        end
+      end
     end
 
     private
