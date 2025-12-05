@@ -79,8 +79,18 @@ class IsletsController < ApplicationController
     end
   end
 
+  # TODO: move it to visualization and create a proper view
   def print
-    render "visualization/rooms/print", layout: "pdf"
+    respond_to do |format|
+      format.html { render "visualization/rooms/print", layout: "pdf" }
+      format.pdf do
+        render "visualization/rooms/print",
+               ferrum_pdf: {},
+               layout: "pdf",
+               filename: "islet_#{@islet}_#{[params[:view], params[:bg]].compact.join("-")}.pdf",
+               disposition: :inline
+      end
+    end
   end
 
   private
