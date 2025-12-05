@@ -156,7 +156,6 @@
                                 data: { turbo_frame: :_top } %>
                   <% end %>
 
-                  <!--TODO: I'm wondering if this should stay, and it should, then it should be managed -->
                   <%= link_to print_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame),
                               class: "btn btn-sm btn-outline-primary",
                               data: { turbo_frame: :_top },
@@ -169,7 +168,9 @@
                     <span class="visually-hidden"><%= t("export_button.exports.print") %></span>
                   <% end %>
 
-                  <%= link_to print_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame),
+                  <%= link_to print_moves_project_moves_project_step_path(
+                                @moves_project, @moves_project_step, frame, format: :pdf
+                              ),
                               class: "btn btn-outline-primary d-flex align-items-center",
                               title: t("export_button.exports.pdf"),
                               target: :_blank,
