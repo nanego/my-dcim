@@ -14,7 +14,10 @@ module Visualization
     end
 
     def print
-      render layout: "pdf"
+      respond_to do |format|
+        format.html { render layout: "pdf" }
+        format.pdf { render ferrum_pdf: {}, layout: "pdf", filename: "frame_#{@frame}.pdf", disposition: :inline }
+      end
     end
 
     private
