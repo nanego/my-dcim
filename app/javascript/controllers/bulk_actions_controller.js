@@ -1,5 +1,4 @@
 import { Controller } from "@hotwired/stimulus"
-import { FetchRequest } from "@rails/request.js"
 
 export default class BulkActions extends Controller {
   static targets = ["checkboxAll", "checkedCount", "checkbox", "actionsContainer"]
