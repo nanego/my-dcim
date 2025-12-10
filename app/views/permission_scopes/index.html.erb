@@ -24,7 +24,7 @@
       <% if permission_scope.all_domains? %>
         <%= PermissionScope.human_attribute_name(:all_domains) %>
       <% else %>
-        <%= permission_scope.domaines.pluck(&:name).to_sentense %>
+        <%= permission_scope.domaines.pluck(:name).to_sentence %>
       <% end %>
     <% end %>
 
