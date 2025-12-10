@@ -987,6 +987,12 @@ body {
     }
   }
 
+  .simple-format {
+    p:last-of-type {
+      margin-bottom: 0 !important;
+    }
+  }
+
   /* Helpers */
   .cursor-pointer {
     cursor: pointer;
