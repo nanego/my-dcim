@@ -76,7 +76,7 @@ end
 group :production do
   gem "dalli", "~> 3.2"
   gem "mini_racer", "~> 0.16.0"
-  gem "passenger", "~> 6.0"
+  gem "passenger", "~> 6.1"
 end
 
 gem "active_storage_validations", "~> 3.0"
