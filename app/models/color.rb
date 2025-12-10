@@ -2,4 +2,8 @@
 
 class Color < ApplicationRecord
   has_changelog
+
+  def to_s
+    code
+  end
 end
