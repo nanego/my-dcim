@@ -100,8 +100,8 @@
 
     <% if @server.comment.present? %>
       <div class="mb-4">
-        <div class="alert alert-warning">
-          <%= @server.comment %>
+        <div class="alert alert-warning simple-format">
+          <%= simple_format @server.comment %>
         </div>
       </div>
     <% end %>
