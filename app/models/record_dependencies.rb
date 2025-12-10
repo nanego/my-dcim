@@ -2,7 +2,9 @@
 
 class RecordDependencies
   ALLOWED_DEPEDENT_OPTIONS = %i[restrict_with_error destroy].freeze
-  EXCLUDED_KLASSES = [ActiveStorage::Blob, ActiveStorage::Attachment].freeze
+  EXCLUDED_KLASSES = [
+    ActiveStorage::Blob, ActiveStorage::Attachment, ChangelogEntry, FriendlyId::Slug,
+  ].freeze
 
   Dependency = Data.define(:association, :origin) do
     delegate :name, to: :association
@@ -64,7 +66,6 @@ class RecordDependencies
     # default behavior
     return false if association.options.key?(:through)
     return false unless ALLOWED_DEPEDENT_OPTIONS.include?(association.options[:dependent])
-    return false if %i[changelog_entries slugs].include?(association.name)
     return false if EXCLUDED_KLASSES.include?(association.klass)
 
     # exept is not above default config

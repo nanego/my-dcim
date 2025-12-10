@@ -8,7 +8,7 @@ RSpec.describe DeleteDependencyComponent, type: :component do
   let(:rendered_component) { render_inline(component).to_html }
 
   context "with restricting dependency" do
-    let(:record) { Server.new(name: "Dummy name") }
+    let(:record)   { Server.new(name: "Dummy name") }
     let(:document) { Document.new }
 
     before do
@@ -17,16 +17,12 @@ RSpec.describe DeleteDependencyComponent, type: :component do
         document_url: "/fake/url",
       )
 
-      allow(record).to receive_messages(
-        external_app_record: [],
-        documents: [document],
-        moves: [],
-      )
+      allow(record).to receive_messages(documents: [document])
     end
 
     it do
       expect(rendered_component).to have_tag("h5.text-danger-emphasis",
-                                             ext: "Ressources liées bloquant la suppression")
+                                             text: "Ressources liées bloquant la suppression")
     end
 
     it { expect(rendered_component).to have_tag("button", with: { "data-action": "collapse-all#showAll" }) }
@@ -53,7 +49,7 @@ RSpec.describe DeleteDependencyComponent, type: :component do
       end
 
       it { expect(rendered_component).to have_tag("div#collapseCard-contact_assignments") }
-      it { expect(rendered_component).to have_tag("a.btn-danger", href: confirmation_path) }
+      it { expect(rendered_component).to have_tag("a.btn-danger", with: { href: confirmation_path }) }
       it { expect(rendered_component).not_to have_tag("a.btn-danger.disabled") }
       it { expect(rendered_component).to have_tag("li.list-group-item", text: /#{ContactAssignment.new}/i) }
       it { expect(rendered_component).not_to have_tag("div.card-header.text-bg-danger") }
@@ -75,7 +71,7 @@ RSpec.describe DeleteDependencyComponent, type: :component do
         end
       end
 
-      it { expect(rendered_component).to have_tag("a.btn-danger", href: "confirmation-path") }
+      it { expect(rendered_component).to have_tag("a.btn-danger", with: { href: "/confirmation-path" }) }
       it { expect(rendered_component).not_to have_tag("a.btn-danger.disabled") }
       it { expect(rendered_component).not_to have_tag("h5.text-danger-emphasis") }
       it { expect(rendered_component).not_to have_tag("h5.text-warning-emphasis") }

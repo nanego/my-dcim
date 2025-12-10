@@ -67,4 +67,72 @@ RSpec.describe RecordDependencies do
       end
     end
   end
+
+  describe "#association_valid?" do
+    subject(:record_dependencies) { described_class.new(record, only:, except:) }
+
+    let(:only) { nil }
+    let(:except) { nil }
+
+    context "with only and except nil" do
+      it do
+        expect(record_dependencies.send(:association_valid?, record.class.reflect_on_association(:cards))).to be(true)
+      end
+
+      it do
+        expect(record_dependencies.send(:association_valid?, record.class.reflect_on_association(:moves))).to be(true)
+      end
+
+      it do
+        expect(record_dependencies.send(:association_valid?, record.class.reflect_on_association(:changelog_entries)))
+          .to be(false)
+      end
+
+      it do
+        expect(record_dependencies.send(:association_valid?, record.class.reflect_on_association(:cables))).to be(false)
+      end
+    end
+
+    context "with only cards and changelog_entries" do
+      let(:only) { %i[cards changelog_entries] }
+
+      it do
+        expect(record_dependencies.send(:association_valid?, record.class.reflect_on_association(:cards))).to be(true)
+      end
+
+      it do
+        expect(record_dependencies.send(:association_valid?, record.class.reflect_on_association(:moves))).to be(false)
+      end
+
+      it do
+        expect(record_dependencies.send(:association_valid?, record.class.reflect_on_association(:changelog_entries)))
+          .to be(true)
+      end
+
+      it do
+        expect(record_dependencies.send(:association_valid?, record.class.reflect_on_association(:cables))).to be(false)
+      end
+    end
+
+    context "with except cards" do
+      let(:except) { :cards }
+
+      it do
+        expect(record_dependencies.send(:association_valid?, record.class.reflect_on_association(:cards))).to be(false)
+      end
+
+      it do
+        expect(record_dependencies.send(:association_valid?, record.class.reflect_on_association(:moves))).to be(true)
+      end
+
+      it do
+        expect(record_dependencies.send(:association_valid?, record.class.reflect_on_association(:changelog_entries)))
+          .to be(false)
+      end
+
+      it do
+        expect(record_dependencies.send(:association_valid?, record.class.reflect_on_association(:cables))).to be(false)
+      end
+    end
+  end
 end
