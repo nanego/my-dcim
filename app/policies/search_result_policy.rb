@@ -4,7 +4,7 @@ class SearchResultPolicy < ApplicationPolicy
   relation_scope do |relation|
     return relation if user.admin? || user.can_access_all_domains?
 
-    relation.where("domaine_ids && array[?]", user.permitted_domains.ids)
+    relation.where("domaine_ids && array[?]::int[]", user.permitted_domains.ids)
   end
 
   def index?

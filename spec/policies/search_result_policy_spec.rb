@@ -27,7 +27,7 @@ RSpec.describe SearchResultPolicy, type: :policy do
     context "with reader user" do
       let(:user) { users(:reader) }
 
-      it { is_expected.to contain_exactly(servers(:accesible_to_readers)) }
+      it { is_expected.to contain_exactly(SearchResult.find_by(searchable: servers(:accesible_to_readers))) }
     end
 
     context "with reader all user" do

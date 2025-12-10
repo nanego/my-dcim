@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SearchResult < ApplicationRecord
+  self.primary_key = %i[searchable_type searchable_id]
+
   belongs_to :searchable, polymorphic: true
 
   def self.search(query)
