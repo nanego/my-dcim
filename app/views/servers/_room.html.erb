@@ -18,7 +18,7 @@
                   <%= t(".title", room: room, islet: islet) %>
                 <% end %>
               </h3>
-              <%= render "rooms/action_buttons", view_side: params[:view] unless local_assigns[:pdf] == true %>
+              <%= render "visualization/action_buttons", view_side: params[:view] unless local_assigns[:pdf] == true %>
             </div>
           <% end %>
           <div class="frames row <%= view_side %>"

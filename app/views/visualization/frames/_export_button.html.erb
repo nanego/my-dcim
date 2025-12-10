@@ -1,0 +1,92 @@
+<%# locals: (frame:, in_table: true) -%>
+
+<% if allowed_to?(:manage?, frame) %>
+  <div class="<%= class_names("btn-group", "btn-group-sm": in_table, "ms-auto": !in_table) %>">
+    <button type="button"
+            class="<%= class_names("btn btn-outline-primary dropdown-toggle",
+                                  "btn-sm d-flex align-items-center": !in_table ) %>"
+            data-bs-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false">
+      <%= t("export_button.label") %>
+    </button>
+
+    <ul class="dropdown-menu dropdown-menu-end">
+      <li>
+        <h6 class="dropdown-header"><%= t("export_button.exports.pdf") %></h6>
+      </li>
+
+      <li>
+        <%= link_to print_visualization_frame_path(frame, format: :pdf, params: { view: :front }),
+                    class: "dropdown-item",
+                    target: :_blank,
+                    rel: :noopener do %>
+          <span class="bi bi-file-earmark-pdf"></span>
+          <%= t("export_button.faces.front") %>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to print_visualization_frame_path(frame, format: :pdf, params: { view: :back }),
+                    class: "dropdown-item",
+                    target: :_blank,
+                    rel: :noopener do %>
+          <span class="bi bi-file-earmark-pdf"></span>
+          <%= t("export_button.faces.back") %>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to print_visualization_frame_path(frame, format: :pdf, params: { view: :front, bg: :wiring }),
+                    class: "dropdown-item",
+                    target: :_blank,
+                    rel: :noopener do %>
+          <span class="bi bi-file-earmark-pdf"></span>
+          <%= t("export_button.faces.front_wiring") %>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to print_visualization_frame_path(frame, format: :pdf, params: { view: :back, bg: :wiring }),
+                    class: "dropdown-item",
+                    target: :_blank,
+                    rel: :noopener do %>
+          <span class="bi bi-file-earmark-pdf"></span>
+          <%= t("export_button.faces.back_wiring") %>
+        <% end %>
+      </li>
+
+      <li><hr class="dropdown-divider"></li>
+
+      <% if allowed_to?(:show?, frame, with: Visualization::FramePolicy) %>
+        <li>
+          <%= link_to visualization_frame_path(frame, format: :txt, view: "", bg: ""),
+                      class: "dropdown-item",
+                      data: { turbo_frame: :_top } do %>
+            <span class="bi bi-file-earmark-text" aria-hidden="true"></span>
+            <%= t("export_button.exports.txt") %>
+          <% end %>
+        </li>
+      <% end %>
+
+      <% if allowed_to?(:print?, frame, with: Visualization::FramePolicy) %>
+        <li>
+          <%= link_to print_visualization_frame_path(frame), class: "dropdown-item", target: :_blank do %>
+            <span class="bi bi-printer" aria-hidden="true"></span>
+            <%= t("export_button.exports.print") %>
+          <% end %>
+        </li>
+      <% end %>
+
+      <% if allowed_to?(:index?, with: PortPolicy) %>
+        <li><hr class="dropdown-divider"></li>
+
+        <li>
+          <%= link_to ports_path(room_id: frame.room.id, frame_id: frame.id),
+                      class: "dropdown-item",
+                      data: { turbo_frame: :_top } do %>
+            <span class="bi bi-card-list" aria-hidden="true"></span>
+            <%= t("export_button.port_list") %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
