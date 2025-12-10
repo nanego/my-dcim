@@ -56,6 +56,7 @@ class ArchitecturesController < ApplicationController
 
   # DELETE /architectures/1
   # DELETE /architectures/1.json
+  destroy_confirmation
   def destroy
     if @architecture.destroy
       respond_to do |format|

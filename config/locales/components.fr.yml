@@ -2,6 +2,12 @@ fr:
   card_empty_data_component:
     title: Aucune donnée trouvée
 
+  delete_dependency_component:
+    restrict_with_error_dependency_title: Ressources liées bloquant la suppression
+    destroy_dependency_title: Ressources liées qui seront supprimées
+    confirmation_message_html: Êtes-vous sûr de vouloir supprimer la ressource <b class="font-monospace">%{name}</b> ? Cette action est irréversible
+    empty_state_text: Aucun élément lié
+
   export_dropdown_component:
     export:
       current_page: "Exporter la page actuelle"

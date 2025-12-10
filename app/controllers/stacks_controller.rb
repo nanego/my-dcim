@@ -56,6 +56,7 @@ class StacksController < ApplicationController
 
   # DELETE /stacks/1
   # DELETE /stacks/1.json
+  destroy_confirmation
   def destroy
     if @stack.destroy
       respond_to do |format|

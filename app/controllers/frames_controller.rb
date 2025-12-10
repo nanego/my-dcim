@@ -64,6 +64,7 @@ class FramesController < ApplicationController # rubocop:disable Metrics/ClassLe
     head :ok
   end
 
+  destroy_confirmation
   def destroy
     if @frame.destroy
       respond_to do |format|

@@ -183,7 +183,7 @@ RSpec.describe BaysController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete bay_path(bay), params:, headers: { REFERER: "/visualization/rooms" }
+      delete bay_path(bay, confirm: true), params:, headers: { REFERER: "/visualization/rooms" }
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -192,6 +192,22 @@ RSpec.describe BaysController do
     let(:params) { {} }
 
     include_context "with authenticated admin"
+
+    context "without confirm" do
+      subject(:response) do
+        delete bay_path(bay), params:, headers: { REFERER: "/rooms/overview" }
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+
+      it do
+        expect do
+          response
+        end.not_to change(Bay, :count)
+      end
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(Bay.exists?(bay.id)).to be true }
+    end
 
     context "with bay without any frames" do
       let(:bay) { bays(:three) }

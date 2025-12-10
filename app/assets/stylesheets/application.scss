@@ -440,19 +440,6 @@ dd {
     padding-left: 37px;
   }
 
-  .btn-collapse-vlans {
-    span.bi {
-      display: inline-block;
-      transition: transform 0.3s ease-in-out;
-    }
-
-    &[aria-expanded="true"] {
-      span.bi {
-        transform: rotate(-180deg);
-      }
-    }
-  }
-
   .cable {
     &.R {
       border-color: #ee3b3b !important;
@@ -981,6 +968,19 @@ body {
     }
   }
 
+  .btn-collapse {
+    span.bi {
+      display: inline-block;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    &[aria-expanded="true"] {
+      span.bi {
+        transform: rotate(-180deg);
+      }
+    }
+  }
+
   ul.list-group-flush {
     li {
       border-style: dashed;
@@ -1019,7 +1019,7 @@ body {
     --bs-spinner-height: 0.875rem;
   }
 
-  ul.show-page_list-group-flush {
+  .card-body ul.list-group {
     /* Fix rounded border not showing correctly when in card */
     border-bottom-right-radius: var(--bs-border-radius) !important;
     border-bottom-left-radius: var(--bs-border-radius) !important;

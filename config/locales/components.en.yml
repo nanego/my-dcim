@@ -2,6 +2,12 @@ en:
   card_empty_data_component:
     title: No data found
 
+  delete_dependency_component:
+    restrict_with_error_dependency_title: Related resources blocking deletion
+    destroy_dependency_title: Related resources that will be removed
+    confirmation_message_html: Are you sure you want to delete the record <b class="font-monospace">%{name}</b>? This action cannot be undone
+    empty_state_text: No related items
+
   export_dropdown_component:
     export:
       current_page: "Export the current page"
