@@ -85,6 +85,8 @@ en:
   cables:
     index:
       title: Connections
+    destroy:
+      title: Delete the connection
 
   card_types:
     destroy:
