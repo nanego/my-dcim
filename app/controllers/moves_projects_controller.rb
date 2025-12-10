@@ -62,7 +62,7 @@ class MovesProjectsController < ApplicationController
   def archive
     @moves_project.archive!
 
-    redirect_back fallback_location: moves_projects_path, notice: t(".flashes.archived")
+    redirect_back_or_to moves_projects_path, notice: t(".flashes.archived")
   end
 
   private

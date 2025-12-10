@@ -18,7 +18,7 @@ module Authorization
       logger.debug "[Authorization] user unauthorized. #{exception.policy}##{exception.rule} returns false" \
                    "with message: #{exception.result.reasons.full_messages}"
 
-      redirect_back fallback_location: root_path, alert: exception.result.message
+      redirect_back_or_to root_path, alert: exception.result.message
     end
   end
 
