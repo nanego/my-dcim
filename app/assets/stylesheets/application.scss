@@ -372,12 +372,16 @@ table.card_layout {
   }
 }
 
-span.port_container.no_client a {
-  border: solid 2px #FF9000 !important;
+span.port_container.no_client {
+  a, span {
+    border: solid 2px #FF9000 !important;
+  }
 }
 
-span.port_container.unreferenced_client a {
-  border: solid 2px red !important;
+span.port_container.unreferenced_client {
+  a, span {
+    border: solid 2px red !important;
+  }
 }
 
 .scaleable-wrapper {

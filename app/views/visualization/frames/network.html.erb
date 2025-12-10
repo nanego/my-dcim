@@ -20,11 +20,7 @@
   settings = Frame::DEFAULT_SETTINGS.merge({ min_height: view_type == "back" ? 20 : 27 })
 %>
 
-<%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
-  <% heading.with_right_content do %>
-    <% render "rooms/action_buttons", view_side: params[:view] if formats != [:pdf] %>
-  <% end %>
-<% end %>
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
 <div class="container-fluid frames-network p-4 border-top">
   <% @servers_per_frames.each do |islet, lanes| %>
     <div class="row">

@@ -47,9 +47,6 @@ Rails.application.routes.draw do
     collection do
       post :sort
     end
-    member do
-      get :network
-    end
   end
 
   resources :ports, except: %i[create]
@@ -117,7 +114,10 @@ Rails.application.routes.draw do
       get :print, on: :member
     end
     resources :frames, only: :show do
-      get :print, on: :member
+      member do
+        get :print
+        get :network
+      end
     end
     resources :bays, only: :show do
       get :print, on: :member

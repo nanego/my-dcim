@@ -81,9 +81,7 @@
 
       <% table.with_column(text_align: :center, style: "min-width: 132px; width: 132px") do |islet| %>
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
-          <% if allowed_to?(:manage?, islet) %>
-            <%= render partial: "islets/export_button", locals: { islet: decorate(islet) } %>
-          <% end %>
+          <%= render partial: "visualization/islets/export_button", locals: { islet: decorate(islet) } %>
 
           <% if allowed_to?(:show?, islet, with: Visualization::IsletPolicy) %>
             <%= link_to visualization_room_path(islet.room, islet: islet.name), class: "btn btn-primary", data: { turbo_frame: :_top } do %>

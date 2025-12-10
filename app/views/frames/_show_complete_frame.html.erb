@@ -10,25 +10,28 @@
         <% if @room.present? && should_show_heading %>
           <div class="col-12 d-flex justify-content-between align-items-center mb-4">
             <h3><%= t(".title", room: @room, islet: @frame.islet) %></h3>
-            <%= render "rooms/action_buttons", view_side: Frame::VIEW_SIDES[:both] unless local_assigns[:pdf] == true %>
+            <span class="d-flex flex-wrap gap-2 flex-column flex-lg-row justify-content-end">
+              <%= render "visualization/action_buttons", view_side: Frame::VIEW_SIDES[:both] unless local_assigns[:pdf] == true %>
+              <%= render "visualization/frames/export_button", frame: @frame, in_table: false %>
+            </span>
           </div>
         <% end %>
 
         <div class="frames col-12 d-flex flex-row flex-wrap row-gap-4 <%= params[:view] %>"
             data-update-url="<%= sort_frames_path %>"
-            data-max-u='<%= settings[:max_u] %>'
-            data-max-elts='<%= settings[:max_elts] %>'
-            data-max-rj45='<%= settings[:max_rj45] %>'
-            data-max-fc='<%= settings[:max_fc] %>'>
+            data-max-u="<%= settings[:max_u] %>""
+            data-max-elts="<%= settings[:max_elts] %>""
+            data-max-rj45="<%= settings[:max_rj45] %>""
+            data-max-fc="<%= settings[:max_fc] %>"">
 
           <div class="col-12 col-lg-4 pe-lg-4 view-front">
-            <%= render partial: 'frames/show_frame', locals: {frame: @frame, servers: @frame.servers, settings: settings, view_type: 'front' } %>
+            <%= render partial: "frames/show_frame", locals: {frame: @frame, servers: @frame.servers, settings: settings, view_type: "front" } %>
           </div>
           <div class="col-12 col-lg-6 flex-grow-1 view-back">
-            <%= render partial: 'frames/show_frame', locals: {frame: @frame, servers: @frame.servers, settings: settings, view_type: 'back'} %>
+            <%= render partial: "frames/show_frame", locals: {frame: @frame, servers: @frame.servers, settings: settings, view_type: "back"} %>
           </div>
           <div class="d-none d-lg-block ps-lg-4 col-lg-2" style="max-width: 200px;">
-            <%= render partial: 'pdus/show', locals: {frame: @frame} %>
+            <%= render partial: "pdus/show", locals: {frame: @frame} %>
           </div>
         </div>
       </div>

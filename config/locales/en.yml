@@ -374,11 +374,6 @@ en:
       connections_not_destroyed: An error prevented connections from being deleted.
 
   rooms:
-    action_buttons:
-      caption:
-        ports: Ports
-        unreferenced_client: The corresponding port on the twin card is wired
-        no_client: The corresponding port on the twin card is not wired
     edit_clusters_modal:
       edit_clusters: Edit clusters
     update:
@@ -537,6 +532,21 @@ en:
       updated: User account updated
 
   visualization:
+    action_buttons:
+      background_color: "Background color: %{bg}"
+      background_choices:
+        modele: Modele
+        gestion: Manager
+        cluster: Cluster
+      dragn_drop:
+        enable: Activate drag'n drop
+      caption:
+        ports: Ports
+        unreferenced_client: The corresponding port on the twin card is wired
+        no_client: The corresponding port on the twin card is not wired
+    frames:
+      network:
+        title: Network view
     infrastructures:
       show:
         loading: Loading ...
