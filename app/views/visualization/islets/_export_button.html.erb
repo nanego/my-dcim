@@ -1,6 +1,6 @@
 <%# locals: (islet:, in_table: true) -%>
 
-<% if allowed_to?(:manage?, islet) %>
+<% if allowed_to?(:print?, islet, with: Visualization::IsletPolicy) %>
   <div class="<%= class_names("btn-group", "btn-group-sm": in_table, "ms-auto": !in_table) %>">
     <button type="button"
             class="<%= class_names("btn btn-outline-primary dropdown-toggle",
@@ -16,7 +16,7 @@
         <h6 class="dropdown-header"><%= t("export_button.exports.pdf") %></h6>
       </li>
       <li>
-        <%= link_to print_islet_path(islet, format: :pdf, params: { view: :front }),
+        <%= link_to print_visualization_islet_path(islet, format: :pdf, params: { view: :front }),
                     class: "dropdown-item",
                     target: :_blank,
                     rel: :noopener do %>
@@ -25,7 +25,7 @@
         <% end %>
       </li>
       <li>
-        <%= link_to print_islet_path(islet, format: :pdf, params: { view: :back }),
+        <%= link_to print_visualization_islet_path(islet, format: :pdf, params: { view: :back }),
                     class: "dropdown-item",
                     target: :_blank,
                     rel: :noopener do %>
@@ -34,7 +34,7 @@
         <% end %>
       </li>
       <li>
-        <%= link_to print_islet_path(islet, format: :pdf, params: { view: :front, bg: :wiring }),
+        <%= link_to print_visualization_islet_path(islet, format: :pdf, params: { view: :front, bg: :wiring }),
                     class: "dropdown-item",
                     target: :_blank,
                     rel: :noopener do %>
@@ -43,7 +43,7 @@
         <% end %>
       </li>
       <li>
-        <%= link_to print_islet_path(islet, format: :pdf, params: { view: :back, bg: :wiring }),
+        <%= link_to print_visualization_islet_path(islet, format: :pdf, params: { view: :back, bg: :wiring }),
                     class: "dropdown-item",
                     target: :_blank,
                     rel: :noopener do %>
@@ -63,14 +63,12 @@
         <% end %>
       </li>
 
-      <% if allowed_to?(:print?, islet) %>
-        <li>
-          <%= link_to print_islet_path(islet), class: "dropdown-item", target: :_blank do %>
-            <span class="bi bi-printer" aria-hidden="true"></span>
-            <%= t("export_button.exports.print") %>
-          <% end %>
-        </li>
-      <% end %>
+      <li>
+        <%= link_to print_visualization_islet_path(islet), class: "dropdown-item", target: :_blank do %>
+          <span class="bi bi-printer" aria-hidden="true"></span>
+          <%= t("export_button.exports.print") %>
+        <% end %>
+      </li>
 
       <% if allowed_to?(:index?, with: PortPolicy) %>
         <li><hr class="dropdown-divider"></li>
