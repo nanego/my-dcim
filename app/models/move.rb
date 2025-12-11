@@ -3,7 +3,7 @@
 class Move < ApplicationRecord
   has_changelog
 
-  attr_accessor :remove_connections
+  attribute :remove_connections, :boolean, default: false
 
   belongs_to :step, class_name: "MovesProjectStep", foreign_key: :moves_project_step_id, inverse_of: :moves
   belongs_to :moveable, polymorphic: true
@@ -11,6 +11,8 @@ class Move < ApplicationRecord
   belongs_to :prev_frame, class_name: "Frame"
 
   has_one :moves_project, through: :step
+
+  has_many :moved_connections, dependent: :destroy
 
   validates :moveable_id, uniqueness: { scope: %i[step moveable_type] }
 
@@ -21,10 +23,25 @@ class Move < ApplicationRecord
 
   scope :not_executed, -> { where(executed_at: nil) }
 
+  def clear_connections_and_save
+    clear_connections
+    save
+  end
+
+  def moveable_moved_connections
+    return [] unless moveable
+
+    moved_connections.per_servers([moveable])
+  end
+
   def clear_connections
     server = moveable
+
     # Delete current moved connections
-    MovedConnection.per_servers([server]).delete_all
+    moveable_moved_connections.delete_all
+
+    return unless remove_connections
+
     # Add moved connection for each port
     server.ports.each do |p|
       MovedConnection.create(
@@ -49,7 +66,7 @@ class Move < ApplicationRecord
       equipment.position = position
 
       if equipment.save!
-        MovedConnection.per_servers([equipment]).map(&:execute!) if apply_connections
+        moveable_moved_connections.map(&:execute!) if apply_connections
 
         # Update prev_frame and prev_position for incoming moves
         Move.not_executed
@@ -59,7 +76,7 @@ class Move < ApplicationRecord
             move.update(prev_frame_id: frame.id, prev_position: position)
           end
 
-        update!(executed_at: Time.zone.now)
+        update_columns(executed_at: Time.zone.now) # rubocop:disable Rails/SkipsModelValidations
       end
     end
   end
