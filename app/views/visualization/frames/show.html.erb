@@ -1,5 +1,4 @@
 <%
-
   breadcrumb
     .add_step(t("visualization.title"))
     .add_step(t("visualization.rooms.index.title"), visualization_rooms_path)
@@ -33,7 +32,7 @@
   <% end %>
 <% end %>
 <div class="container-fluid p-4 border-top" id="bay-container">
-  <%= render partial: "frames/show_complete_frame", locals: { should_show_heading: false } %>
+  <%= render partial: "visualization/frames/show_complete_frame", locals: { should_show_heading: false } %>
 </div>
 
 <%= render "ports/modal_edit_port" %>

@@ -1,4 +1,4 @@
-$("#frame").html("<%= escape_javascript(render partial: "frames/show_frame", locals: {
+$("#frame").html("<%= escape_javascript(render partial: "visualization/frames/show_frame", locals: {
   frame: @frame,
   servers: @servers,
   settings: Frame::DEFAULT_SETTINGS.merge({min_height: 27 }),
