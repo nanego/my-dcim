@@ -1,6 +1,6 @@
 <%# locals: (room:, in_table: true) -%>
 
-<% if allowed_to?(:manage?, room) %>
+<% if allowed_to?(:print?, with: Visualization::RoomPolicy) %>
   <div class="<%= class_names("btn-group", "btn-group-sm": in_table, "ms-auto": !in_table) %>">
     <button type="button"
             class="<%= class_names("btn btn-outline-primary dropdown-toggle",
@@ -65,14 +65,12 @@
         </li>
       <% end %>
 
-      <% if allowed_to?(:print?, with: Visualization::RoomPolicy) %>
-        <li>
-          <%= link_to print_visualization_room_path(room), class: "dropdown-item", target: :_blank do %>
-            <span class="bi bi-printer" aria-hidden="true"></span>
-            <%= t("export_button.exports.print") %>
-          <% end %>
-        </li>
-      <% end %>
+      <li>
+        <%= link_to print_visualization_room_path(room), class: "dropdown-item", target: :_blank do %>
+          <span class="bi bi-printer" aria-hidden="true"></span>
+          <%= t("export_button.exports.print") %>
+        <% end %>
+      </li>
 
       <% if allowed_to?(:show?, with: PortPolicy) %>
         <li><hr class="dropdown-divider"></li>
