@@ -66,7 +66,7 @@ RSpec.describe ServerPolicy, type: :policy do
       let(:server) { servers(:accesible_to_readers) }
     end
 
-    succeed "when a reader all users asks" do
+    succeed "when a reader all user asks" do
       let(:user) { users(:reader_all) }
     end
   end

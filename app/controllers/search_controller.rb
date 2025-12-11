@@ -4,14 +4,8 @@ class SearchController < ApplicationController
   skip_verify_authorized
 
   def index
-    query = params[:query]&.downcase
-
-    @results = if params[:query]
-                 search_result = ServerFrameView.search(query)
-                 (search_result.servers + search_result.frames).sort_by { |r| r.name&.downcase }
-               else
-                 []
-               end
+    @results = authorize! SearchResult.search(params[:query])
+    @results = authorized_scope(@results).map(&:searchable)
 
     respond_to do |format|
       format.html # normal rendering for non-Turbo requests

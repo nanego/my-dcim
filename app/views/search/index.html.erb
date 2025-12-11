@@ -9,7 +9,7 @@
     <% if @results.any? %>
       <ul class="list-group">
         <% @results.each do |record| %>
-          <% if record.is_a? Server %>
+          <% if record.is_a?(Server) %>
             <% if record.is_a_pdu? %>
               <%= link_to power_distribution_unit_path(record), data: { turbo_frame: "_top" } do %>
                 <li class="list-group-item d-flex align-items-start">
