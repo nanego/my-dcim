@@ -34,7 +34,7 @@
           <% bays.each do |bay, frames| %>
             <% frames.each do |frame, servers| %>
               <div class="bay col-12 col-lg-6 col-xxl-4 pe-0 pe-lg-3">
-                <%= render partial: "frames/show_frame",
+                <%= render partial: "visualization/frames/show_frame",
                             locals: { frame: , servers: , settings: , view_type: } %>
               </div>
             <% end %>
