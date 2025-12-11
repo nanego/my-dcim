@@ -1,6 +1,6 @@
 <%# locals: (frame:, in_table: true) -%>
 
-<% if allowed_to?(:manage?, frame) %>
+<% if allowed_to?(:print?, frame, with: Visualization::FramePolicy) %>
   <div class="<%= class_names("btn-group", "btn-group-sm": in_table, "ms-auto": !in_table) %>">
     <button type="button"
             class="<%= class_names("btn btn-outline-primary dropdown-toggle",
@@ -66,14 +66,12 @@
         </li>
       <% end %>
 
-      <% if allowed_to?(:print?, frame, with: Visualization::FramePolicy) %>
-        <li>
-          <%= link_to print_visualization_frame_path(frame), class: "dropdown-item", target: :_blank do %>
-            <span class="bi bi-printer" aria-hidden="true"></span>
-            <%= t("export_button.exports.print") %>
-          <% end %>
-        </li>
-      <% end %>
+      <li>
+        <%= link_to print_visualization_frame_path(frame), class: "dropdown-item", target: :_blank do %>
+          <span class="bi bi-printer" aria-hidden="true"></span>
+          <%= t("export_button.exports.print") %>
+        <% end %>
+      </li>
 
       <% if allowed_to?(:index?, with: PortPolicy) %>
         <li><hr class="dropdown-divider"></li>
