@@ -36,6 +36,9 @@
         <ul class="navbar-nav order-1 order-lg-0">
           <% if current_user_has_permission? %>
             <%= render "layouts/navigation/visualization_dropdown" %>
+          <% end %>
+
+          <% if allowed_to?(:index?, with: ServersGridPolicy) %>
             <%= render "layouts/navigation/devices_dropdown" %>
           <% end %>
 
