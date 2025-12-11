@@ -1,4 +1,6 @@
-<% view_side = Frame::VIEW_SIDES[:front] if local_assigns[:view_side].blank? %>
+<%# locals: (view_side:, remote: false) -%>
+
+<% view_side = Frame::VIEW_SIDES[:front] if view_side.nil? %>
 <% bg = params[:bg].presence || current_user.visualization_bay_default_background_color \
                              || User::AVAILABLE_BAY_BACKGROUND_COLORS[0] %>
 
@@ -18,19 +20,19 @@
                                     .permit(:view, :islet, :id, :bg, :format)
                                     .merge({ view: :front, bg: :modele, islet: params[:islet], id: params[:id] })),
                       class: "dropdown-item",
-                      remote: true %></li>
+                      remote: remote %></li>
       <li><%= link_to Gestion.model_name.human,
                       url_for(params.except(:controller, :action)
                                     .permit(:view, :islet, :id, :bg, :format)
                                     .merge({ view: :front, bg: :gestion, islet: params[:islet], id: params[:id] })),
                       class: "dropdown-item",
-                      remote: true %></li>
+                      remote: remote %></li>
       <li><%= link_to Cluster.model_name.human,
                       url_for(params.except(:controller, :action)
                                     .permit(:view, :islet, :id, :bg, :format)
                                     .merge({ view: :front, bg: :cluster, islet: params[:islet], id: params[:id] })),
                       class: "dropdown-item",
-                      remote: true %></li>
+                      remote: remote %></li>
     </ul>
   </div>
 <% end %>
@@ -51,7 +53,7 @@
                             })
                       ),
               class: "btn btn-sm btn-outline-primary align-items-center",
-              remote: true do %>
+              remote: remote do %>
     <span class="bi bi-back" aria-hidden="true"></span>
     <%= Frame.human_attribute_name("view_sides.#{view_side}") %>
   <% end %>
