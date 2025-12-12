@@ -17,7 +17,7 @@
   hide_inventories_sidebar!
 
   view_type = "back"
-  settings = Frame::DEFAULT_SETTINGS.merge({ min_height: view_type == "back" ? 20 : 27 })
+  settings = { min_height: view_type == "back" ? 20 : 27 }
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
@@ -25,11 +25,7 @@
   <% @servers_per_frames.each do |islet, lanes| %>
     <div class="row">
       <div class="frames col-12 d-flex flex-row flex-wrap row-gap-3 <%= view_type %>"
-          data-update-url="<%= sort_frames_path %>"
-          data-max-u="<%= settings[:max_u] %>"
-          data-max-elts="<%= settings[:max_elts] %>"
-          data-max-rj45="<%= settings[:max_rj45] %>"
-          data-max-fc="<%= settings[:max_fc] %>">
+          data-update-url="<%= sort_frames_path %>">
         <% lanes.each do |lane, bays| %>
           <% bays.each do |bay, frames| %>
             <% frames.each do |frame, servers| %>

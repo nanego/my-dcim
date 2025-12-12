@@ -1,5 +1,5 @@
 <%
-  settings = Frame::DEFAULT_SETTINGS.merge( { min_height: params[:view] == "back" ? 20 : 27} )
+  settings = { min_height: params[:view] == "back" ? 20 : 27}
   should_show_heading = local_assigns.fetch(:should_show_heading, true)
 %>
 
@@ -20,11 +20,7 @@
         <% end %>
 
         <div class="frames col-12 d-flex flex-row flex-wrap row-gap-4 <%= params[:view] %>"
-            data-update-url="<%= sort_frames_path %>"
-            data-max-u="<%= settings[:max_u] %>""
-            data-max-elts="<%= settings[:max_elts] %>""
-            data-max-rj45="<%= settings[:max_rj45] %>""
-            data-max-fc="<%= settings[:max_fc] %>"">
+             data-update-url="<%= sort_frames_path %>">
 
           <div class="col-12 col-lg-4 pe-lg-4 view-front">
             <%= render partial: "visualization/frames/show_frame",
