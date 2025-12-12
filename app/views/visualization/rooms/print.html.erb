@@ -1,5 +1,8 @@
 <div class="container-fluid">
-  <% @servers_per_frames.each do |room, islets| %>
-    <%= render partial: "servers/room", locals: { room: @room, islets: islets, view_side: params[:view], pdf: true } %>
+  <h3 class="mb-4"><%= @room.to_s %></h3>
+
+  <% @room.islets.sorted.each do |islet| %>
+    <h4 class="mb-2"><%= islet.decorated.full_name %></h4>
+    <%= render partial: "visualization/islets/islet", locals: { islet: islet, view_side: params[:view] } %>
   <% end %>
 </div>
