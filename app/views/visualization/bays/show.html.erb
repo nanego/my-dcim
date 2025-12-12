@@ -15,6 +15,9 @@
   breadcrumb.add_step(title)
 
   title = t("visualization.title") + " " + title
+
+  bg = params[:bg].presence || current_user.visualization_bay_default_background_color \
+                            || User::AVAILABLE_BAY_BACKGROUND_COLORS[0]
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
@@ -32,16 +35,7 @@
   <% end %>
 <% end %>
 <div class="container-fluid p-4 border-top">
-  <div class="row">
-    <div class="col-12" id="bay-container">
-      <%= render partial: "servers/room", locals: {
-                  room: @bay.room,
-                  islets: @servers_per_frames[@bay.islet.room_id],
-                  view_side: params[:view],
-                  should_show_heading: false
-      } %>
-    </div>
-  </div>
+  <%= render partial: "visualization/bays/bay", locals: { bay: @bay, view_side: params[:view] } %>
 </div>
 
 <%= render "ports/modal_edit_port" %>
