@@ -99,7 +99,7 @@
                     servers: (move.frame.servers.where.not(id: move.moveable) | [move.moveable]).sort_by { |server|
                       server.position.present? ? server.position : 0
                     }.reverse,
-                    settings: Frame::DEFAULT_SETTINGS.merge({ min_height: 27 }),
+                    settings: { min_height: 27 },
                     view_type: "front",
                     editable: false,
                     highlighted_servers: [move.moveable],
