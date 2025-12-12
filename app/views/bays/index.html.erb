@@ -129,9 +129,7 @@
 
       <% table.with_column(text_align: :center, style: "min-width: 132px; width: 132px") do |bay| %>
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
-          <% if allowed_to?(:manage?, bay) %>
-            <%= render partial: "bays/export_button", locals: { bay: decorate(bay) } %>
-          <% end %>
+          <%= render partial: "visualization/bays/export_button", locals: { bay: decorate(bay) } %>
 
           <% if allowed_to?(:show?, bay, with: Visualization::BayPolicy) %>
             <% has_frame = bay.frames.any? %>

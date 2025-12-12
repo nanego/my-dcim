@@ -39,16 +39,10 @@ Rails.application.routes.draw do
   post "data_import/ansible"
 
   resources :sites
-  resources :islets do
-    get :print, on: :member
-  end
-
+  resources :islets
   resources :frames do
     collection do
       post :sort
-    end
-    member do
-      get :network
     end
   end
 
@@ -117,9 +111,16 @@ Rails.application.routes.draw do
       get :print, on: :member
     end
     resources :frames, only: :show do
-      get :print, on: :member
+      member do
+        get :print
+        get :network
+      end
     end
     resources :bays, only: :show do
+      get :print, on: :member
+    end
+
+    resources :islets, only: [] do
       get :print, on: :member
     end
   end

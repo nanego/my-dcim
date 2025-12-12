@@ -11,11 +11,11 @@
     <% end %>
     <div class="frames row g-4 p-0">
       <div class="view-back col-12 col-lg-6">
-        <%= render partial: "frames/show_frame",
+        <%= render partial: "visualization/frames/show_frame",
                     locals: {
                       frame: @frame,
                       servers: @servers,
-                      settings: Frame::DEFAULT_SETTINGS.merge({ min_height: 20 }),
+                      settings: { min_height: 20 },
                       editable: false,
                       view_type: "back"
                     }

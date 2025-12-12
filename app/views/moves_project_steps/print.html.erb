@@ -3,11 +3,11 @@
     <div class="row">
       <ul class="frames" style="padding: 0;">
         <div class="col-sm-12 view-back">
-          <%= render partial: "frames/show_frame",
+          <%= render partial: "visualization/frames/show_frame",
                      locals: {
                        frame: @frame,
                        servers: @servers,
-                       settings: Frame::DEFAULT_SETTINGS.merge({ min_height: 20 }),
+                       settings: { min_height: 20 },
                        editable: false,
                        view_type: "back"
                      }

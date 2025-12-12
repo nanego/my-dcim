@@ -1,0 +1,8 @@
+<%# locals: (islet:, view_side:) -%>
+
+<div id="islet_<%= islet.id %>"> <!-- TODO: is id useful? -->
+  <% islet.bays.sorted.each do |bay| %>
+    <%= render partial: "visualization/bays/bay",
+                locals: { bay: bay, view_side: view_side } %>
+  <% end %>
+</div>

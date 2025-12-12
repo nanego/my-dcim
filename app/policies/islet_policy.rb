@@ -12,8 +12,4 @@ class IsletPolicy < ApplicationPolicy
 
     record.bays.intersect?(authorized_scope(Bay.all))
   end
-
-  def print?
-    index?
-  end
 end
