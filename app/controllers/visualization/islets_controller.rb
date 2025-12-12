@@ -10,10 +10,9 @@ module Visualization
 
     def print
       respond_to do |format|
-        format.html { render "visualization/rooms/print", layout: "pdf" }
+        format.html { render layout: "pdf" }
         format.pdf do
-          render "visualization/rooms/print",
-                 ferrum_pdf: {},
+          render ferrum_pdf: {},
                  layout: "pdf",
                  filename: "islet_#{@islet}_#{[params[:view], params[:bg]].compact.join("-")}.pdf",
                  disposition: :inline
