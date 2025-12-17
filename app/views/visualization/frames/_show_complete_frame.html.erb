@@ -6,7 +6,7 @@
 <div id="<%= @room.try(:name).try(:parameterize).try(:underscore) %>">
   <div>
     <div>
-      <div class="card-islet row">
+      <div class="row">
         <% if should_show_heading %>
           <div class="col-12 d-flex justify-content-between align-items-center mb-4">
             <h3><%= t("layouts.breadcrumb.bay.simple", name: @frame.name) %></h3>

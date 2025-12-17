@@ -537,21 +537,12 @@ body {
     .frame .server {
       break-inside: avoid;
     }
+  }
+}
 
-    .card-islet {
-      break-after: page;
-
-      .frames .frame {
-        break-after: page;
-      }
-    }
-
-    div {
-      float: none !important;
-      position: static !important;
-      display: inline;
-      box-sizing: content-box !important;
-    }
+.print-body {
+  a {
+    text-decoration: none !important;
   }
 }
 
@@ -785,7 +776,7 @@ body {
     }
   }
 
-  table, .card-islet {
+  table {
     a:not(.btn):not(.dropdown-item) {
       text-decoration: none;
 

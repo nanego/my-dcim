@@ -5,28 +5,26 @@
 ) %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
-  <div class="card-islet">
-    <% if @room.present? %>
-      <div><h3>Salle <%= @room.name %> - Ilot <%= @frame.islet %></h3></div>
-    <% end %>
-    <div class="frames row g-4 p-0">
-      <div class="view-back col-12 col-lg-6">
-        <%= render partial: "visualization/frames/show_frame",
-                    locals: {
-                      frame: @frame,
-                      servers: @servers,
-                      settings: { min_height: 20 },
-                      editable: false,
-                      view_type: "back"
-                    }
-        %>
+  <% if @room.present? %>
+    <div><h3>Salle <%= @room.name %> - Ilot <%= @frame.islet %></h3></div>
+  <% end %>
+  <div class="frames row g-4 p-0">
+    <div class="view-back col-12 col-lg-6">
+      <%= render partial: "visualization/frames/show_frame",
+                  locals: {
+                    frame: @frame,
+                    servers: @servers,
+                    settings: { min_height: 20 },
+                    editable: false,
+                    view_type: "back"
+                  }
+      %>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div id="moved_connection_form_loading" class="text-center text-bg-warning fw-bold pt-1">
+        <%= t(".loading") %>
       </div>
-      <div class="col-12 col-lg-6">
-        <div id="moved_connection_form_loading" class="text-center text-bg-warning fw-bold pt-1">
-          <%= t(".loading") %>
-        </div>
-        <div class="moved_connection_form" id="connection_form"></div>
-      </div>
+      <div class="moved_connection_form" id="connection_form"></div>
     </div>
   </div>
 

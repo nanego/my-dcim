@@ -11,8 +11,8 @@
   </div>
  <% end %>
 <div class="row">
-  <% bay.frames.each do |frame| %>
-    <div class="col-12 col-lg-6 pe-0 pe-lg-3">
+  <% bay.frames.each_with_index do |frame, i| %>
+    <div class="<%= class_names("col-12 col-lg-6", "pt-4 pt-lg-0": !i.zero?) %>">
       <%= render partial: "visualization/frames/show_frame",
                 locals: { frame:, servers: frame.servers, settings: , view_type: view_side } %>
     </div>

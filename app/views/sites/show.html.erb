@@ -62,12 +62,11 @@
           <div class="justify-content-between d-flex">
             <span><%= t("layouts.sidebar.location.title") %></span>
             <button type="button"
-                    class="btn btn-outline-light btn-sm d-flex align-items-center export-pdf-button"
+                    class="btn btn-outline-light btn-sm d-flex align-items-center export-pdf-button d-print-none"
                     title="<%= t("export_button.exports.pdf") %>"
                     data-controller="export-pdf"
                     data-action="click->export-pdf#export"
-                    data-export-pdf-filename-value="<%= "#{Site.model_name.human.downcase}_#{@site.name.parameterize}" %>"
-                    data-html2canvas-ignore="true">
+                    data-export-pdf-filename-value="<%= "#{Site.model_name.human.downcase}_#{@site.name.parameterize}" %>">
               <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
               <span class="text-truncate d-none d-md-inline-block ms-2">
                 <%= t("export_button.exports.pdf") %>
