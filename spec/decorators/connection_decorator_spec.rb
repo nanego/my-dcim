@@ -2,16 +2,11 @@
 
 require "rails_helper"
 
-# Example:
-#
-# describe ConnectionDecorator, type: :decorator do
-#   let(:object) { User.new(first_name: "John", last_name: "Doe") }
-#   let(:decorated_user) { described_class.new(object) }
-#
-#   describe "#full_name" do
-#     it { expect(decorated_user.full_name).to eq("John Doe") }
-#   end
-# end
 RSpec.describe ConnectionDecorator, type: :decorator do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:connection) { connections(:one) }
+  let(:decorated_connection) { connection.decorated }
+
+  describe "#display_name" do
+    it { expect(decorated_connection.display_name).to eq("ServerName1 - Carte ServerName1 / Card1 / compo1") }
+  end
 end

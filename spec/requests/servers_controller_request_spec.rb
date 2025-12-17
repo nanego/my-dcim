@@ -216,7 +216,7 @@ RSpec.describe ServersController do
       end
 
       it { expect(response).to have_http_status(:success) }
-      it { expect(Server.exists?(server.id)).to be true }
+      it { expect(Server.exists?(server.id)).to be(true) }
     end
 
     context "with a server without association" do

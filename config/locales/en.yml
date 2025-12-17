@@ -49,7 +49,6 @@ en:
     index:
       new_bay: Add a single or double bay
       title: Bays and double bays
-      delete_confirmation: This bay cannot be deleted as long as it is associated with at least one frame. Would you like to continue?
     new:
       title: New bay
     create:

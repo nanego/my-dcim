@@ -152,7 +152,6 @@ fr:
     index:
       title: Sites
       new_site: Ajouter un site
-      delete_confirmation: Ce site ne pourra pas être supprimé tant qu'il sera associé à au moins une salle. Voulez-vous continuer ?
     new:
       title: Nouveau site
     create:
@@ -172,7 +171,6 @@ fr:
   gestions:
     index:
       new_gestion: Ajouter un gestionnaire
-      delete_confirmation: Ce gestionnaire ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
     new:
       title: Nouveau gestionnaire
     create:
@@ -190,7 +188,6 @@ fr:
   architectures:
     index:
       new_architecture: Ajouter une architecture
-      delete_confirmation: Cette architecture ne pourra pas être supprimée tant qu'elle est associée à au moins un modèle. Voulez-vous continuer ?
     new:
       title: Nouvelle architecture
     create:
@@ -208,7 +205,6 @@ fr:
   clusters:
     index:
       new_cluster: Nouveau cluster
-      delete_confirmation: Ce cluster ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
     new:
       title: Nouveau cluster
     create:
@@ -226,7 +222,6 @@ fr:
   stacks:
     index:
       new_stack: Ajouter un stack
-      delete_confirmation: Ce stack ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
     new:
       title: Nouvelle stack
     create:
@@ -239,14 +234,11 @@ fr:
         updated: La stack a bien été modifiée.
     destroy:
       title: Supprimer le stack
-      delete-confirm: Voulez-vous vraiment supprimer cette Stack ?
-      dependencies_title: "Materiel dépendants :"
       flashes:
         destroyed: La stack a bien été supprimé.
   card_types:
     index:
       new_card_type: Ajouter un type de carte
-      delete_confirmation: Ce type de carte ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur (via une carte). Voulez-vous continuer ?
     new:
       title: Nouveau type de carte
     create:
@@ -263,8 +255,6 @@ fr:
       flashes:
         destroyed: Le type de carte a bien été supprimé.
   colors:
-    index:
-      delete_confirmation: Supprimer cette couleur la supprimera des données où elle est utilisée. Voulez-vous continuer ?
     new:
       title: Nouvelle couleur
     create:
@@ -287,7 +277,6 @@ fr:
       information_html: il faut remplacer le numéro de série dans l'URL par <code>%s</code>.
     index:
       new_manufacturer: Ajouter un constructeur
-      delete_confirmation: Ce constructeur ne pourra pas être supprimé tant qu'il sera associé à au moins un modèle. Voulez-vous continuer ?
     new:
       title: Nouveau constructeur
     create:
@@ -300,13 +289,11 @@ fr:
         updated: Le constructeur a bien été modifié.
     destroy:
       title: Supprimer le constructeur
-      delete-confirm: Voulez-vous vraiment supprimer ce Constructeur ?
       flashes:
         destroyed: Le constructeur a bien été supprimé.
   domaines:
     index:
       new_domaine: Ajouter un domaine
-      delete_confirmation: Ce domaine ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
     new:
       title: Nouveau domaine
     create:
@@ -333,7 +320,6 @@ fr:
   port_types:
     index:
       new_port_type: Ajouter un type de port
-      delete_confirmation: Ce type de port ne pourra pas être supprimé tant qu'il sera associé à au moins un type de carte. Voulez-vous continuer ?
     create:
       flashes:
         created: Le type de port a bien été créé.
@@ -352,7 +338,6 @@ fr:
     index:
       new_category: Ajouter une catégorie
       title: Catégories
-      delete_confirmation: Cette catégorie ne pourra pas être supprimé tant qu'il aura au moins un modèle associé. Voulez-vous continuer ?
       usage: Usage
     new:
       title: Nouvelle catégorie
@@ -378,7 +363,6 @@ fr:
       add_slot: Ajouter un slot
     index:
       new_modele: Ajouter un modèle
-      delete_confirmation: Ce modèle ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur ou une enclosure. Voulez-vous continuer ?'
     new:
       title: Nouveau modèle
     create:
@@ -462,7 +446,6 @@ fr:
         created: Le matériel I.T. a été créé avec succès.
     edit:
       title: Modifier le matériel I.T.
-      delete_confirmation: Toutes les données concernant ce matériel I.T. seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?
     update:
       flashes:
         updated: Le matériel I.T. a été mis à jour avec succès.
@@ -516,7 +499,6 @@ fr:
       add_document: Ajouter une pièce jointe
     edit:
       title: Modifier le PDU
-      delete_confirmation: Toutes les données concernant ce PDU seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?
     update:
       flashes:
         updated: Le PDU a été mis à jour avec succès.
@@ -538,7 +520,6 @@ fr:
     index:
       new_frame: Ajouter un châssis
       title: Tous les châssis
-      delete_confirmation: Ce châssis ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
     show:
       title: Châssis %{frame}
     edit:
@@ -689,7 +670,6 @@ fr:
     edit_clusters_modal:
       edit_clusters: Modifier les clusters
     index:
-      delete_confirmation: Cette salle ne pourra pas être supprimée tant qu'elle sera associée à au moins un ilôt. Voulez-vous continuer ?
       new_room: Ajouter une salle
     new:
       title: Nouvelle salle
@@ -759,7 +739,6 @@ fr:
     index:
       new_air_conditioner: Ajouter une climatisation
       title: Climatisation
-      delete_confirmation: Cette climatisation sera supprimée. Voulez-vous continuer ?
     create:
       flashes:
         created: La climatisation a bien été ajoutée.
@@ -800,7 +779,6 @@ fr:
     index:
       new_bay: Ajouter une baie ou un couple de baies
       title: Baies et doubles-baies
-      delete_confirmation: Cette baie ne pourra pas être supprimée tant qu'elle est associée à au moins un chassis. Voulez-vous continuer ?
     new:
       title: Nouvelle baie
     create:
@@ -833,7 +811,6 @@ fr:
     index:
       new_contact: Ajouter un contact
       title: Contacts
-      delete_confirmation: La suppression de ce contact entrainera la suppression de ses assignations. Voulez-vous continuer ?
     new:
       title: Nouveau contact
     create:
@@ -852,7 +829,6 @@ fr:
     index:
       new_contact_role: Ajouter un rôle
       title: Rôles de Contacts
-      delete_confirmation: Ce rôle ne pourra pas être supprimé tant qu'il est associé à au moins un Site. Voulez-vous continuer ?
     new:
       title: Nouveau rôle
     create:
@@ -871,7 +847,6 @@ fr:
     index:
       new_contact_assignment: Ajouter une assignation
       title: Assignations de Contacts
-      delete_confirmation: Êtes vous sûr de vouloir supprimer cette assignation ?
     new:
       title: Nouvelle assignation
     create:
