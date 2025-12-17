@@ -11,9 +11,13 @@ class Frame < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_changelog
 
   belongs_to :bay
+
   has_many :materials, -> { order("servers.position desc") }, class_name: "Server", dependent: :restrict_with_error
   has_many :pdus, -> { only_pdus }, class_name: "Server", dependent: :restrict_with_error
   has_many :servers, -> { no_pdus.order("servers.position desc") }, class_name: "Server", dependent: :restrict_with_error
+  has_many :target_moves, class_name: "Move", inverse_of: :frame, dependent: :destroy
+  has_many :origin_moves, class_name: "Move", foreign_key: :prev_frame_id, inverse_of: :prev_frame, dependent: :destroy
+
   has_one :islet, through: :bay
   has_one :room, through: :islet
   delegate :name, to: :room, prefix: true, allow_nil: true
