@@ -361,8 +361,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_08_143245) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.datetime "executed_at", precision: nil
+    t.bigint "step_id"
     t.index ["port_from_id"], name: "index_moved_connections_on_port_from_id"
     t.index ["port_to_id"], name: "index_moved_connections_on_port_to_id"
+    t.index ["step_id"], name: "index_moved_connections_on_step_id"
   end
 
   create_table "moves", id: :serial, force: :cascade do |t|
@@ -578,6 +580,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_08_143245) do
   add_foreign_key "modeles", "architectures"
   add_foreign_key "modeles", "categories"
   add_foreign_key "modeles", "manufacturers"
+  add_foreign_key "moved_connections", "moves_project_steps", column: "step_id"
   add_foreign_key "moves", "frames"
   add_foreign_key "moves", "frames", column: "prev_frame_id"
   add_foreign_key "moves", "moves_project_steps"
