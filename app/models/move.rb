@@ -33,15 +33,13 @@ class Move < ApplicationRecord
   end
 
   def clear_connections
-    server = moveable
+    return unless remove_connections
 
     # Delete current moved connections
     moved_connections.delete_all
 
-    return unless remove_connections
-
     # Add moved connection for each port
-    server.ports.each do |p|
+    moveable.ports.each do |p|
       MovedConnection.create(
         port_from_id: p.id,
         vlans: "",
