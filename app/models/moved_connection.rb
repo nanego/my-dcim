@@ -3,7 +3,7 @@
 class MovedConnection < ApplicationRecord
   has_changelog
 
-  belongs_to :step, class_name: "MoveProjectStep"
+  belongs_to :step, class_name: "MovesProjectStep"
   belongs_to :port_from, class_name: "Port"
   belongs_to :port_to, class_name: "Port", optional: true
 
