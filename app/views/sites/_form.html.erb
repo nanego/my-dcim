@@ -85,14 +85,14 @@
   <%= render CardComponent.new(type: :warning,
                                extra_classes: "mt-4 bg-body-tertiary contact_assignments",
                                id: :contact_assignments,
-                               data: { controller: "nested-form"}) do |card| %>
+                               data: { controller: "nested-form" }) do |card| %>
     <% card.with_header do %>
       <%= ContactAssignment.model_name.human.pluralize %>
     <% end %>
 
     <template data-nested-form-target="template">
       <%= f.fields_for :contact_assignments, f.object.contact_assignments.klass.new,
-                      child_index: "__NEW_RECORD__" do |contact_assignment_fields| %>
+                       child_index: "__NEW_RECORD__" do |contact_assignment_fields| %>
         <%= render partial: "contact_assignment_fields", locals: { f: contact_assignment_fields } %>
       <% end %>
     </template>

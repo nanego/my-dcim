@@ -1,5 +1,4 @@
-<%
-  title = t(".title", bay: @bay, bay_type: @bay.bay_type&.name)
+title = t(".title", bay: @bay, bay_type: @bay.bay_type&.name)
 
   breadcrumb
     .add_step(t("visualization.title"))
@@ -14,7 +13,7 @@
 
   breadcrumb.add_step(title)
 
-  title = t("visualization.title") + " " + title
+  title = "#{t("visualization.title")} #{title}"
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
@@ -34,11 +33,11 @@
   <div class="row">
     <div class="col-12" id="bay-container">
       <%= render partial: "servers/room", locals: {
-                  room: @bay.room,
-                  islets: @servers_per_frames[@bay.islet.room_id],
-                  view_side: params[:view],
-                  should_show_heading: false
-      } %>
+            room: @bay.room,
+            islets: @servers_per_frames[@bay.islet.room_id],
+            view_side: params[:view],
+            should_show_heading: false,
+          } %>
     </div>
   </div>
 </div>

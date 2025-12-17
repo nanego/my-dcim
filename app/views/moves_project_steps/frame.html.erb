@@ -1,8 +1,8 @@
 <% breadcrumb.add_step("#{Frame.model_name.human} #{@frame}") %>
 
 <%= render Page::HeadingComponent.new(
-  title: t(".title", frame: @frame), breadcrumb:, back_button_url: moves_project_step_moves_path(@moves_project_step)
-) %>
+      title: t(".title", frame: @frame), breadcrumb:, back_button_url: moves_project_step_moves_path(@moves_project_step),
+    ) %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <div class="card-islet">
@@ -12,14 +12,13 @@
     <div class="frames row g-4 p-0">
       <div class="view-back col-12 col-lg-6">
         <%= render partial: "frames/show_frame",
-                    locals: {
-                      frame: @frame,
-                      servers: @servers,
-                      settings: Frame::DEFAULT_SETTINGS.merge({ min_height: 20 }),
-                      editable: false,
-                      view_type: "back"
-                    }
-        %>
+                   locals: {
+                     frame: @frame,
+                     servers: @servers,
+                     settings: Frame::DEFAULT_SETTINGS.merge({ min_height: 20 }),
+                     editable: false,
+                     view_type: "back",
+                   } %>
       </div>
       <div class="col-12 col-lg-6">
         <div id="moved_connection_form_loading" class="text-center text-bg-warning fw-bold pt-1">

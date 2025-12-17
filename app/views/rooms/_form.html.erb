@@ -33,15 +33,15 @@
     <fieldset class="col-12 mt-4">
       <%= f.label :access_control, class: "form-label" %>
       <%= f.select :access_control, RoomDecorator.access_control_options_for_select,
-                            { include_blank: t("access_control.blank") },
-                            class: "form-select" %>
+                   { include_blank: t("access_control.blank") },
+                   class: "form-select" %>
     </fieldset>
 
     <fieldset class="col-12 mt-4">
       <%= f.label :network_cluster_ids, class: "form-label" %>
       <%= f.select :network_cluster_ids, RoomDecorator.network_clusters_options_for_select,
-                            { include_blank: t("access_control.blank") },
-                            class: "form-select", multiple: true, data: { controller: :select } %>
+                   { include_blank: t("access_control.blank") },
+                   class: "form-select", multiple: true, data: { controller: :select } %>
     </fieldset>
   <% end %>
 
@@ -52,7 +52,7 @@
 
     <fieldset class="col-12">
       <%= f.label :site_id, class: "form-label" %>
-      <%= f.select :site_id, Site.all.map{ |s| [s.name, s.id] }, { prompt: true }, class: "form-select" %>
+      <%= f.select :site_id, Site.all.map { |s| [s.name, s.id] }, { prompt: true }, class: "form-select" %>
     </fieldset>
   <% end %>
 
@@ -75,9 +75,9 @@
 
     <fieldset class="col-12 mt-4">
       <%= f.label :status, class: "form-label" %>
-      <%= f.select :status, RoomDecorator::statuses_options_for_select,
-                            { },
-                            class: "form-select" %>
+      <%= f.select :status, RoomDecorator.statuses_options_for_select,
+                   {},
+                   class: "form-select" %>
     </fieldset>
   <% end %>
 

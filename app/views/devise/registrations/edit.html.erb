@@ -3,12 +3,12 @@
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
 <div class="col-12 p-4 border-top">
   <%= form_for(resource, as: resource_name,
-                          url: edit_user_registration_path(resource),
-                          html: {
-                            method: :put,
-                            role: "form",
-                            class: "col-12 col-md-10 col-lg-8 mx-auto"
-                          }) do |f| %>
+                         url: edit_user_registration_path(resource),
+                         html: {
+                           method: :put,
+                           role: "form",
+                           class: "col-12 col-md-10 col-lg-8 mx-auto",
+                         }) do |f| %>
     <%= render FormErrorsComponent.new(resource) %>
 
     <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
@@ -29,10 +29,10 @@
                     reset_authentication_token_user_path(resource),
                     class: "btn btn-link btn-sm float-end",
                     data: { confirm: t(".confirm.reset_authentication_token") } %>
-        <%= f.text_field :authentication_token, value: "#{"*" * @user.authentication_token.length}", disabled: true,
+        <%= f.text_field :authentication_token, value: ("*" * @user.authentication_token.length).to_s, disabled: true,
                                                 class: "form-control", data: { reveal_target: "item" } %>
         <%= f.text_field :authentication_token, disabled: true, class: "form-control d-none",
-                                                                data: { reveal_target: "item" } %>
+                                                data: { reveal_target: "item" } %>
         <button class="btn btn-outline-primary btn-sm mt-2" data-action="click->reveal#toggle" type="button">
           <span data-reveal-target="item">
             <%= t(".action.show_authentication_token") %>
@@ -71,9 +71,9 @@
       <div class="text-center">
         <p><%= t(".cancel_account.text") %></p>
         <%= button_to t(".cancel_account.action"), user_registration_path(resource),
-                                            data: { confirm: t("action.confirm") },
-                                            method: :delete,
-                                            class: "btn btn-danger mt-2" %>
+                      data: { confirm: t("action.confirm") },
+                      method: :delete,
+                      class: "btn btn-danger mt-2" %>
       </div>
     <% end %>
   </div>

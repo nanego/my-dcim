@@ -1,19 +1,18 @@
-<%
-  breadcrumb
+breadcrumb
     .add_step(@pdu.name, power_distribution_unit_path(@pdu))
     .add_step(t("action.edit"))
 %>
 
 <%= render Page::HeadingComponent.new(
-  title: t(".title"), breadcrumb:, back_button_url: power_distribution_unit_path(@pdu)
-) do |heading| %>
+      title: t(".title"), breadcrumb:, back_button_url: power_distribution_unit_path(@pdu),
+    ) do |heading| %>
   <% heading.with_right_content do %>
     <div class="align-self-center d-inline-flex">
       <%= render ButtonComponent.new(t("action.show"),
-                                    url: power_distribution_unit_path(@pdu),
-                                    variant: :primary,
-                                    icon: "eye",
-                                    is_responsive: true) %>
+                                     url: power_distribution_unit_path(@pdu),
+                                     variant: :primary,
+                                     icon: "eye",
+                                     is_responsive: true) %>
     </div>
   <% end %>
 <% end %>

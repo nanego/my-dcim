@@ -4,8 +4,8 @@
   <fieldset class="col-12 mt-4">
     <%= form.label :network_cluster_ids, class: "form-label" %>
     <%= form.select :network_cluster_ids, RoomDecorator.network_clusters_options_for_select,
-                          { include_blank: t("cluster.blank") },
-                          class: "form-select", multiple: true, data: { controller: :select } %>
+                    { include_blank: t("cluster.blank") },
+                    class: "form-select", multiple: true, data: { controller: :select } %>
   </fieldset>
 
   <div class="modal-footer">

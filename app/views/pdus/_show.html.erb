@@ -8,7 +8,7 @@
   <div class="d-flex">
     <% frame.pdus.each do |pdu| %>
       <div class="pdu w-50 <%= pdu.color %>"
-           id="pdu-<%= pdu.id %>" >
+           id="pdu-<%= pdu.id %>">
         <%= render partial: "pdus/pdu", locals: { pdu: } %>
       </div>
     <% end %>

@@ -61,7 +61,7 @@
 
     <% if allowed_to?(:print?, with: Visualization::RoomPolicy) %>
       <li>
-        <%= link_to print_visualization_room_path(room), class: "dropdown-item", target: :_blank do %>
+        <%= link_to print_visualization_room_path(room), class: "dropdown-item", target: :_blank, rel: :noopener do %>
           <span class="bi bi-printer" aria-hidden="true"></span>
           <%= t("export_button.exports.print") %>
         <% end %>

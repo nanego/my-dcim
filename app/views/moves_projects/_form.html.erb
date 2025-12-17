@@ -13,7 +13,7 @@
       <div>
         <template data-nested-form-target="template">
           <%= f.fields_for :steps, f.object.steps.klass.new,
-                                        child_index: "__NEW_RECORD__" do |step_fields| %>
+                           child_index: "__NEW_RECORD__" do |step_fields| %>
             <%= render partial: "step_fields", locals: { f: step_fields } %>
           <% end %>
         </template>

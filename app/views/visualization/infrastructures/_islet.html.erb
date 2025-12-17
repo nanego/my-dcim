@@ -37,13 +37,13 @@
           <div>
             <div class="rooms-overview">
               <% islet.bays.sorted.each do |bay| %>
-                <div class="couple" style="grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
-                    grid-row: <%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;">
+                <div class="couple" style="grid-column: <%= "#{bay.position}/#{bay.position + 1}" %>;
+                    grid-row: <%= "#{bay.lane.to_i}/#{bay.lane.to_i + 1}" %>;">
                   <% bay.frames.sorted.each_with_index do |frame, index| %>
                     <% servers = frame.servers.includes(:bay, :modele, :stack)
-                                      .where("servers.network_types @> ?", "{#{network}}") # Switch LAN %>
+                         .where("servers.network_types @> ?", "{#{network}}") # Switch LAN %>
                     <div class="<%= class_names("overviewed_frame bg-secondary-subtle border-secondary-subtle border",
-                                                "no-margin": index > 0) %>"
+                                                "no-margin": index.positive?) %>"
                          data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.id %>">
                       <div id="frame-<%= frame.id %>-pre"
                            class="<%= class_names("intermediate-point pre", even: bay.lane.to_i.even?,
@@ -51,12 +51,12 @@
                            style="z-index: -3000;">.</div>
                       <div class="title">
                         <%= link_to frame.name, visualization_room_path(room,
-                                                          view: params[:view],
-                                                          islet: islet.name,
-                                                          "bay-id": bay.id,
-                                                          "frame-id": frame,
-                                                          bg: params[:bg]),
-                                                class: "link-body-emphasis", target: :_top %>
+                                                                        view: params[:view],
+                                                                        islet: islet.name,
+                                                                        "bay-id": bay.id,
+                                                                        "frame-id": frame,
+                                                                        bg: params[:bg]),
+                                    class: "link-body-emphasis", target: :_top %>
                       </div>
                       <div id="frame-<%= frame.id %>-post"
                            class="<%= class_names("intermediate-point post", even: bay.lane.to_i.even?,
@@ -70,11 +70,11 @@
                                                         bordered: server != servers.last),
                                      style: "direction:rtl;background-color:#{bgModeleColor} !important;
                                              #{"border: 2px solid ##{server.stack.color};" if server.stack.present?}",
-                                     title: h("#{server.name}"),
+                                     title: h(server.name.to_s),
                                      data: data do
-                            link_to server.name, server_path(server), class: "link-dark",
-                                                                      target: :_blank, rel: :noopener
-                          end %>
+                                link_to server.name, server_path(server), class: "link-dark",
+                                                                          target: :_blank, rel: :noopener
+                              end %>
                         <% end %>
                       </ul>
                     </div>
@@ -90,7 +90,7 @@
       <div id="infrastructure_filters" class="py-2">
         <%= Stack.model_name.human.pluralize %> :
         <% Stack.select(:id, :color).each do |stack| %>
-          <%= check_box_tag "stack_ids[]", stack.id, 1, value: stack.id, data: { color: "\##{stack.color}" } %>
+          <%= check_box_tag "stack_ids[]", stack.id, 1, value: stack.id, data: { color: "##{stack.color}" } %>
           <span style="<%= "color: ##{stack.try(:color)}" %>"
                 class="bi bi-square-fill me-2"
                 aria-hidden="true"></span>
@@ -113,7 +113,7 @@
 
     <% connections.each do |server_id, connections| %>
       <% connections.each do |connection| %>
-        <% unless concentrator_ids.include?(connection[:server_id]) && concentrator_ids.exclude?(server_id)  %>
+        <% unless concentrator_ids.include?(connection[:server_id]) && concentrator_ids.exclude?(server_id) %>
           if(disabled_stacks.indexOf(colors_hash['<%= connection[:cable_color] %>']) < 0) {
             drawInterSwitchsConnections('<%= server_id %>', '<%= connection[:server_id] %>', '<%= connection[:cable_color] %>')
           }

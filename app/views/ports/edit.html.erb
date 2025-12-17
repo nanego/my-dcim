@@ -1,9 +1,8 @@
-<%
-  breadcrumb
+breadcrumb
     .add_step(t("visualization.title"), rooms_path)
     .add_step(@port.card.server.frame.room.name, room_path(@port.card.server.frame.room))
     .add_step(
-      t("layouts.breadcrumb.bay.simple", name: @port.card.server.frame.name), frame_path(@port.card.server.frame)
+      t("layouts.breadcrumb.bay.simple", name: @port.card.server.frame.name), frame_path(@port.card.server.frame),
     )
     .add_step(@port.card.server.name, server_path(@port.card.server))
     .add_step("#{Port.model_name.human} #{@port.card.try(:composant).try(:name)} #{@port.position}")
@@ -11,4 +10,4 @@
 
 <%= render partial: "layouts/breadcrumb", locals: { breadcrumb: } %>
 
-<%= render 'ports/form' %>
+<%= render "ports/form" %>

@@ -1,5 +1,4 @@
-<%
-  hide_inventories_sidebar!
+hide_inventories_sidebar!
 
   breadcrumb
     .add_step(t("visualization.title"))
@@ -23,7 +22,7 @@
     </div>
     <div class="col-12 col-lg-6">
       <% @frames.each do |frame| %>
-        <% settings = Frame::DEFAULT_SETTINGS.merge({min_height: params[:view]=="back" ? 20 : 27 }) %>
+        <% settings = Frame::DEFAULT_SETTINGS.merge({ min_height: params[:view] == "back" ? 20 : 27 }) %>
           <%= render partial: "frames/show_frame",
                      locals: {
                        frame:,
@@ -31,7 +30,7 @@
                        settings:,
                        view_type: params[:view],
                        editable: false,
-                       highlighted_servers: @filtered_servers
+                       highlighted_servers: @filtered_servers,
                      } %>
       <% end %>
     </div>

@@ -1,5 +1,4 @@
-<%
-  if (first_connection = cable.connections.first).server == server
+if (first_connection = cable.connections.first).server == server
     from_connection = first_connection
     to_connection = cable.connections.second
   else

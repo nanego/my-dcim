@@ -15,7 +15,7 @@
     <div class="col-md-12">
       <ul class="nav nav-pills mb-2" role="tablist">
         <li role="presentation" class="nav-item">
-          <%= link_to users_path(@filter.attributes.except(:filter)), class: class_names("nav-link", "active": !params[:filter]) do %>
+          <%= link_to users_path(@filter.attributes.except(:filter)), class: class_names("nav-link", active: !params[:filter]) do %>
             <%= t(".unsuspended") %>
             <%= render BadgeComponent.new(User.unsuspended.count,
                                           color: params[:filter].present? ? :primary : :light) %>
@@ -23,7 +23,7 @@
         </li>
         <li role="presentation" class="nav-item">
           <%= link_to users_path(@filter.attributes.merge(filter: :suspended)),
-                      class: class_names("nav-link", "active": params[:filter] == "suspended") do %>
+                      class: class_names("nav-link", active: params[:filter] == "suspended") do %>
             <%= t(".suspended") %>
             <%= render BadgeComponent.new(User.suspended.count,
                                           color: params[:filter] == "suspended" ? :light : :primary) %>
@@ -48,7 +48,7 @@
 
     <% table.with_column(User.human_attribute_name(:last_sign_in_at), sort_by: :last_sign_in_at) do |user| %>
       <%- if user.last_sign_in_at.present? -%>
-        <%= l user.last_sign_in_at  %>
+        <%= l user.last_sign_in_at %>
       <%- else -%>
         <em>n/c</em>
       <%- end -%>
@@ -103,7 +103,7 @@
         <% end %>
         <% if allowed_to?(:destroy?, user) %>
           <%= link_to user_path(user, @filter.attributes), method: :delete, data: { confirm: t("action.confirm") },
-                                                        class: "btn btn-outline-danger" do %>
+                                                           class: "btn btn-outline-danger" do %>
             <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
                                                                         data-controller="tooltip"
                                                                         data-bs-placement="left"></span>

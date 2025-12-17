@@ -1,12 +1,11 @@
-<%
-  breadcrumb
+breadcrumb
     .add_step(@original_server.name, server_path(@original_server))
     .add_step(t("action.duplicate"))
 %>
 
 <%= render Page::HeadingEditComponent.new(
-  resource: @original_server, title: t(".title", server_name: @original_server.name), breadcrumb:
-) %>
+      resource: @original_server, title: t(".title", server_name: @original_server.name), breadcrumb:,
+    ) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>

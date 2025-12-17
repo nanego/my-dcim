@@ -2,13 +2,15 @@
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
-    <% render ButtonComponent.new(
-      t(".new_islet"),
-      url: new_islet_path,
-      variant: :success,
-      icon: "plus-lg",
-      is_responsive: true
-    ) if allowed_to?(:create?) %>
+    <% if allowed_to?(:create?)
+         render ButtonComponent.new(
+           t(".new_islet"),
+           url: new_islet_path,
+           variant: :success,
+           icon: "plus-lg",
+           is_responsive: true,
+         )
+       end %>
   <% end %>
 <% end %>
 
@@ -25,8 +27,8 @@
       <div>
         <fieldset class="form-floating">
           <%= f.select :site_ids, IsletDecorator.sites_options_for_select(current_user),
-                                  { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } } %>
+                       { prompt: true, multiple: true },
+                       { class: "form-select", data: { controller: :select } } %>
           <%= f.label :site_ids %>
         </fieldset>
       </div>
@@ -34,8 +36,8 @@
       <div>
         <fieldset class="form-floating">
           <%= f.select :room_ids, IsletDecorator.rooms_options_for_select(current_user),
-                                  { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } } %>
+                       { prompt: true, multiple: true },
+                       { class: "form-select", data: { controller: :select } } %>
           <%= f.label :room_ids %>
         </fieldset>
       </div>
@@ -46,11 +48,11 @@
     <%= render List::DataTableComponent.new(@islets) do |table| %>
       <% if allowed_to?(:destroy?) %>
         <% table.with_bulk_action(
-          url: bulk_islets_path,
-          method: :delete,
-          class: "btn btn-danger btn-sm",
-          data: { confirm: t("action.confirm") }
-        ) do %>
+             url: bulk_islets_path,
+             method: :delete,
+             class: "btn btn-danger btn-sm",
+             data: { confirm: t("action.confirm") },
+           ) do %>
           <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
         <% end %>
       <% end %>

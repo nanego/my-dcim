@@ -19,22 +19,21 @@
     <fieldset class="col-12">
       <%= f.label :category_id, class: "form-label" %>
       <%= f.collection_select(:category_id,
-                              Category.order(Arel.sql('LOWER(name)')),
+                              Category.order(Arel.sql("LOWER(name)")),
                               :id,
                               :name,
                               { prompt: true },
                               {
                                 class: "form-select",
                                 data: { controller: "select" },
-                                placeholder: t("select.placeholder")
-                              })
-      %>
+                                placeholder: t("select.placeholder"),
+                              }) %>
     </fieldset>
 
     <fieldset class="col-12 mt-4">
       <%= f.label :architecture_id, class: "form-label" %>
       <%= f.collection_select(:architecture_id,
-                              Architecture.order(Arel.sql('LOWER(name)')),
+                              Architecture.order(Arel.sql("LOWER(name)")),
                               :id,
                               :name,
                               {},
@@ -49,16 +48,15 @@
     <fieldset class="col-12 mt-4">
       <%= f.label :manufacturer_id, class: "form-label" %>
       <%= f.collection_select(:manufacturer_id,
-                              Manufacturer.order(Arel.sql('LOWER(name)')),
+                              Manufacturer.order(Arel.sql("LOWER(name)")),
                               :id,
                               :name,
                               { prompt: true },
                               {
                                 class: "form-select",
                                 data: { controller: "select" },
-                                placeholder: t("select.placeholder")
-                              })
-      %>
+                                placeholder: t("select.placeholder"),
+                              }) %>
     </fieldset>
 
     <fieldset class="col-12 mt-4">
@@ -74,15 +72,14 @@
     <fieldset class="col-12 mt-4">
       <%= f.label :network_types, class: "form-label" %>
       <%= f.select :network_types,
-                  Modele::Network::TYPES.map { |type| [Modele.human_attribute_name("network_types.#{type}"), type] },
-                  { prompt: true, include_blank: true },
-                  {
-                    class: "form-select",
-                    data: { controller: "select" },
-                    multiple: true,
-                    placeholder: Modele.human_attribute_name("network_types.blank")
-                  }
-      %>
+                   Modele::Network::TYPES.map { |type| [Modele.human_attribute_name("network_types.#{type}"), type] },
+                   { prompt: true, include_blank: true },
+                   {
+                     class: "form-select",
+                     data: { controller: "select" },
+                     multiple: true,
+                     placeholder: Modele.human_attribute_name("network_types.blank"),
+                   } %>
       <div id="networkTypesHelp" class="form-text fst-italic">
         <i class="bi bi-info-circle me-1"></i>
         <%= Modele.human_attribute_name("network_types.help") %>
@@ -105,7 +102,7 @@
       <div class="row g-3">
         <template data-nested-form-target="template">
           <%= f.fields_for :enclosures, f.object.enclosures.klass.new,
-                                        child_index: "__NEW_RECORD__" do |enclosure_fields| %>
+                           child_index: "__NEW_RECORD__" do |enclosure_fields| %>
             <%= render partial: "enclosure_fields", locals: { f: enclosure_fields } %>
           <% end %>
         </template>

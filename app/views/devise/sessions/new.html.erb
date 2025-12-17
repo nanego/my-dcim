@@ -1,7 +1,7 @@
 <% breadcrumb.add_step(title = t("users.login")) %>
 
 <h1 class="mb-3 h3 fw-normal text-center"><%= title %></h1>
-<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" } ) do |f| %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { role: "form" }) do |f| %>
   <% if Rails.env.development? %>
     <%= render FormErrorsComponent.new(resource) %>
     <fieldset class="form-floating">
@@ -23,7 +23,7 @@
     <div class="mb-5 mt-4 justify-content-center d-flex">
       <%- if devise_mapping.recoverable? %>
         <%= link_to t("devise.passwords.new.forgot_your_password"), new_password_path(resource_name),
-                                                                    class: "link-body-emphasis" %>
+                    class: "link-body-emphasis" %>
       <% end -%>
     </div>
   <% end %>

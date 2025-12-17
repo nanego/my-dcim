@@ -6,8 +6,8 @@
   <div class="d-flex justify-content-between">
     <fieldset class="flex-grow-1 me-3">
       <%= f.select :user_id, PermissionScopeUserDecorator.users_options_for_select(permission_scope_user.permission_scope),
-                            { include_blank: t(".user_select") },
-                            class: "form-select", data: { controller: :select } %>
+                   { include_blank: t(".user_select") },
+                   class: "form-select", data: { controller: :select } %>
     </fieldset>
 
     <%= f.submit t("action.add"), class: "btn btn-outline-success" %>

@@ -7,8 +7,8 @@
     <h1>Importation de données</h1>
 
       <h3>Ansible</h3>
-      <% # Content-Type JSON %>
-      <%= form_for :ansible, url: 'ansible', remote: true do |f| %>
+# Content-Type JSON %>
+      <%= form_for :ansible, url: "ansible", remote: true do |f| %>
           <p><%= f.file_field :file %></p>
           <p>
             <%= f.submit "Envoyer", class: "btn btn-primary" %>

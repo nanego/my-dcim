@@ -1,5 +1,4 @@
-<%
-  title = @bay.frames.map(&:name).join(" / ")
+title = @bay.frames.map(&:name).join(" / ")
 
   breadcrumb
     .add_step(title, bay_path(@bay))

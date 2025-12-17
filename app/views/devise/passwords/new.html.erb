@@ -3,10 +3,10 @@
 <h1 class="mb-3 h3 fw-normal text-center"><%= title %></h1>
 <%= render FormErrorsComponent.new(resource) %>
 <%= form_for(resource, as: resource_name, url: password_path(resource_name),
-                                          html: { role: "form", method: :post }) do |f| %>
+                       html: { role: "form", method: :post }) do |f| %>
   <fieldset class="form-floating mb-4">
     <%= f.text_field :email, autofocus: true, class: "form-control",
-                                             placeholder: User.human_attribute_name(:email) %>
+                             placeholder: User.human_attribute_name(:email) %>
     <%= f.label :email, class: "form-label" %>
     <p class="form-text"><%= t(".help_text") %></p>
   </fieldset>

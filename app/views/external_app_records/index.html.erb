@@ -149,10 +149,12 @@
     <% current_request = ExternalAppRequest.in_progress.first %>
     <% if current_request %>
     displaySyncStatus(<%= current_request.id %>);
-    document.getElementById('current_sync_status').innerHTML += '<%= button_to('Annuler',
-                external_app_request_path(current_request),
-                class: "btn btn-danger",
-                method: :delete) if current_request.created_at < 5.minutes.ago(Time.now) %>';
+    document.getElementById('current_sync_status').innerHTML += '<%= if current_request.created_at < 5.minutes.ago(Time.zone.now)
+                                                                       button_to("Annuler",
+                                                                                 external_app_request_path(current_request),
+                                                                                 class: "btn btn-danger",
+                                                                                 method: :delete)
+                                                                     end %>';
     <% end %>
   });
 
