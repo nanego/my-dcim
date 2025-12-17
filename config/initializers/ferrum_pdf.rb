@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
 FerrumPdf.configure do |config|
-  config.timeout = 20
+  config.timeout = 30
+
+  config.pdf_options.scale = 0.9
 end

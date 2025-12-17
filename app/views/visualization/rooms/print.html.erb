@@ -1,8 +1,8 @@
 <div class="container-fluid">
-  <h3 class="mb-4"><%= @room.to_s %></h3>
+  <h3><%= @room.to_s %></h3>
 
   <% @room.islets.sorted.each do |islet| %>
-    <h4 class="mb-2"><%= islet.decorated.full_name %></h4>
+    <h4 class="my-2"><%= islet.decorated.full_name %></h4>
     <%= render partial: "visualization/islets/islet", locals: { islet: islet, view_side: params[:view] } %>
   <% end %>
 </div>
