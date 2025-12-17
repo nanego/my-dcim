@@ -21,6 +21,7 @@
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
+
 <div class="container-fluid frames-network p-4 border-top">
   <% @servers_per_frames.each do |islet, lanes| %>
     <div class="row">
@@ -37,8 +38,8 @@
           <% end %>
         <% end %>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>
 
 <%= render "ports/modal_edit_port" %>
