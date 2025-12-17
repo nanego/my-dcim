@@ -55,11 +55,18 @@ module Visualization
     private
 
     def set_frame
-      authorize! @frame = Frame.includes(servers: [modele: %i[category composants],
-                                                   cards: [:composant,
-                                                           { ports: [connection: [cable: :connections]],
-                                                             card_type: [:port_type] }]],
-                                         bay: [islet: [:room]])
+      authorize! @frame = Frame.includes(
+        bay: [islet: :room],
+        servers: [
+          :gestion, :cluster,
+          { modele: %i[category composants],
+            cards: [
+              :composant,
+              { ports: [connection: [cable: :connections]],
+                card_type: :port_type },
+            ] },
+        ],
+      )
         .friendly
         .find(params[:id].to_s.downcase)
     end

@@ -30,7 +30,20 @@ module Visualization
     private
 
     def set_bay
-      authorize! @bay = Bay.find(params[:id])
+      authorize! @bay = Bay.includes(
+        :frames,
+        islet: :room,
+        materials: [
+          :gestion, :cluster,
+          { modele: %i[category composants],
+            cards: [
+              :composant,
+              { ports: [connection: [cable: :connections]],
+                card_type: [:port_type] },
+            ] },
+        ],
+      )
+        .find(params[:id])
     end
 
     def set_servers_per_frames
