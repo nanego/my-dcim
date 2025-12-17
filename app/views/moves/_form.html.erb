@@ -3,22 +3,21 @@
     <%= render FormErrorsComponent.new(move) %>
 
     <%= form_with(
-      model: [moves_project_step, move],
-      html: { class: "bg-body-tertiary p-4 rounded border moves_form server_form_fields", role: "form" },
-    ) do |f| %>
+          model: [moves_project_step, move],
+          html: { class: "bg-body-tertiary p-4 rounded border moves_form server_form_fields", role: "form" },
+        ) do |f| %>
       <div class="row g-3">
         <fieldset class="mb-4">
           <%= f.label :moves_project_step_id, class: "form-label" %>
           <%= f.select :moves_project_step_id,
-                      move.decorated.steps_options_for_select,
-                      {},
-                      {
-                        onchange: "select_frame(this.value, 'front')",
-                        class: "form-select",
-                        data: { controller: "select" },
-                        placeholder: t("select.placeholder")
-                      }
-          %>
+                       move.decorated.steps_options_for_select,
+                       {},
+                       {
+                         onchange: "select_frame(this.value, 'front')",
+                         class: "form-select",
+                         data: { controller: "select" },
+                         placeholder: t("select.placeholder"),
+                       } %>
         </fieldset>
 
         <hr class="border-1 border-secondary-subtle">
@@ -27,15 +26,14 @@
           <%= f.hidden_field :moveable_type, value: move.moveable_type %>
           <%= f.label :moveable_id, class: "form-label" %>
           <%= f.select :moveable_id,
-                      grouped_options_for_select(@all_servers_per_frame, { selected: move.moveable_id }),
-                      { include_blank: true },
-                      {
-                        onchange: "select_server(this.value);",
-                        class: "form-select",
-                        data: { controller: "select" },
-                        placeholder: t("select.placeholder")
-                      }
-          %>
+                       grouped_options_for_select(@all_servers_per_frame, { selected: move.moveable_id }),
+                       { include_blank: true },
+                       {
+                         onchange: "select_server(this.value);",
+                         class: "form-select",
+                         data: { controller: "select" },
+                         placeholder: t("select.placeholder"),
+                       } %>
         </fieldset>
 
         <div class="col-12 mt-0">
@@ -62,24 +60,22 @@
                          onchange: "select_frame(this.value, 'front')",
                          class: "form-select",
                          data: { controller: "select" },
-                         placeholder: t("select.placeholder")
-                       }
-          %>
+                         placeholder: t("select.placeholder"),
+                       } %>
         </fieldset>
 
         <div id="bay_size_container" class="col-12 mt-0">
           <% if move.frame %>
-            <%= render partial: "moves/select_bay_position", locals: { f: , move: move, frame_size: move.frame.u } %>
+            <%= render partial: "moves/select_bay_position", locals: { f:, move: move, frame_size: move.frame.u } %>
           <% end %>
         </div>
 
         <fieldset class="col-12 mt-4">
           <%= f.label :remove_connections, class: "form-label" %>
           <%= f.select :remove_connections,
-                       options_for_select(["Oui", "Non"], { selected: "Non" }),
+                       options_for_select(%w[Oui Non], { selected: "Non" }),
                        {},
-                       class: "form-select"
-          %>
+                       class: "form-select" %>
         </fieldset>
 
         <div class="col-12 mt-4 text-end">
@@ -94,18 +90,17 @@
     <% if move.persisted? %>
       <% move.moveable.position = move.position %>
       <%= render partial: "frames/show_frame",
-                  locals: {
-                    frame: move.frame,
-                    servers: (move.frame.servers.where.not(id: move.moveable) | [move.moveable]).sort_by { |server|
-                      server.position.present? ? server.position : 0
-                    }.reverse,
-                    settings: Frame::DEFAULT_SETTINGS.merge({ min_height: 27 }),
-                    view_type: "front",
-                    editable: false,
-                    highlighted_servers: [move.moveable],
-                    clickable_lines: true
-                  }
-      %>
+                 locals: {
+                   frame: move.frame,
+                   servers: (move.frame.servers.where.not(id: move.moveable) | [move.moveable]).sort_by do |server|
+                     server.position.presence || 0
+                   end.reverse,
+                   settings: Frame::DEFAULT_SETTINGS.merge({ min_height: 27 }),
+                   view_type: "front",
+                   editable: false,
+                   highlighted_servers: [move.moveable],
+                   clickable_lines: true,
+                 } %>
     <% end %>
   </div>
 </div>

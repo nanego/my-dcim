@@ -10,7 +10,7 @@
       <% breadcrumb.each_steps do |step| %>
         <% if step.url? %>
           <li class="breadcrumb-item">
-            <%= link_to step.title, step.url, class: "link-body-emphasis fw-semibold text-decoration-none"%>
+            <%= link_to step.title, step.url, class: "link-body-emphasis fw-semibold text-decoration-none" %>
           </li>
         <% else %>
           <li class="breadcrumb-item active" aria-current="page">

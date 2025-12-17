@@ -1,12 +1,11 @@
-<%
-  breadcrumb
+breadcrumb
     .add_step(@islet.decorated.name_with_room, islet_path(@islet))
     .add_step(t("action.edit"))
 %>
 
 <%= render Page::HeadingEditComponent.new(
-  resource: @islet, title: t(".title"), breadcrumb:
-) %>
+      resource: @islet, title: t(".title"), breadcrumb:,
+    ) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>

@@ -1,5 +1,4 @@
-<%
-  breadcrumb
+breadcrumb
     .add_step(@original_pdu.name, power_distribution_unit_path(@original_pdu))
     .add_step(t("action.duplicate"))
 %>
@@ -8,15 +7,15 @@
   resource: @original_pdu, title: t(".title", pdu_name: @original_pdu.name), breadcrumb:
 ) %>
 <%= render Page::HeadingComponent.new(
-  title: t(".title", pdu_name: @original_pdu.name), breadcrumb:, back_button_url: power_distribution_units_path
-) do |heading| %>
+      title: t(".title", pdu_name: @original_pdu.name), breadcrumb:, back_button_url: power_distribution_units_path,
+    ) do |heading| %>
   <% heading.with_right_content do %>
     <div class="align-self-center d-inline-flex">
       <%= render ButtonComponent.new(t("action.show"),
-                                    url: power_distribution_unit_path(@original_pdu),
-                                    variant: :primary,
-                                    icon: "eye",
-                                    is_responsive: true) %>
+                                     url: power_distribution_unit_path(@original_pdu),
+                                     variant: :primary,
+                                     icon: "eye",
+                                     is_responsive: true) %>
     </div>
   <% end %>
 <% end %>

@@ -1,6 +1,5 @@
-<%
-  view_side = "front" if local_assigns[:view_side].nil?
-  settings = Frame::DEFAULT_SETTINGS.merge( { min_height: view_side == "back" ? 20 : 27} )
+view_side = "front" if local_assigns[:view_side].nil?
+  settings = Frame::DEFAULT_SETTINGS.merge({ min_height: view_side == "back" ? 20 : 27 })
   should_show_heading = local_assigns.fetch(:should_show_heading, true)
 %>
 
@@ -30,20 +29,19 @@
             <% lanes.each do |lane, bays| %>
               <% bays.each do |bay, frames| %>
                 <% unless local_assigns[:pdf] == true %>
-                  <% if bays.size == 1 && lanes.size == 1
-                        layout_classes = "col-12"
-                      else
-                        layout_classes = "col-12 col-lg-6"
-                      end
-                  %>
+                  <% layout_classes = if bays.size == 1 && lanes.size == 1
+                                        "col-12"
+                                      else
+                                        "col-12 col-lg-6"
+                                      end %>
                   <div class="<%= layout_classes %> overflow-auto">
                   <div class="card couple overflow-auto"
-                        data-url="<%= room_path(room, islet: islet, 'bay-id': bay, view: params[:view]) %>">
+                        data-url="<%= room_path(room, islet: islet, "bay-id": bay, view: params[:view]) %>">
                   <div class="card-body d-flex flex-wrap row-gap-3">
                 <% end %>
                 <% frames.each do |frame, servers| %>
                   <div class="col-12 col-lg-6 pe-0 pe-lg-3">
-                    <%= render partial: 'frames/show_frame', locals: { frame: frame, servers: servers, settings: settings, view_type: view_side } %>
+                    <%= render partial: "frames/show_frame", locals: { frame: frame, servers: servers, settings: settings, view_type: view_side } %>
                   </div>
                 <% end %>
                 <% unless local_assigns[:pdf] == true %>

@@ -16,14 +16,14 @@
     <fieldset class="<%= class_names("col-12 mt-4", "d-none": f.object.all_domains) %>" id="domaine_ids">
       <%= f.label :domaine_ids, class: "form-label" %>
       <%= f.select :domaine_ids, Domaine.sorted.pluck(:name, :id), { include_blank: t(".domaine_ids.blank") },
-                                 class: "form-select", multiple: true, data: { controller: :select } %>
+                   class: "form-select", multiple: true, data: { controller: :select } %>
     </fieldset>
 
     <fieldset class="col-12 mt-4">
       <%= f.label :all_domains, class: "form-label" do |translation| %>
-        <%= f.checkbox :all_domains, class: "", data: { \
-          action: "form--toggle#toggle", form__toggle_target_element_param: "#domaine_ids",
-        } %>
+        <%= f.checkbox :all_domains, class: "", data: {
+              action: "form--toggle#toggle", form__toggle_target_element_param: "#domaine_ids",
+            } %>
         <%= translation %>
       <% end %>
     </fieldset>

@@ -1,6 +1,6 @@
 <fieldset class="nested-form-wrapper d-flex mb-4 align-items-center" data-new-record="<%= f.object.new_record? %>">
   <%- if f.object.document.present? %>
-    <span class="flex-grow-1"><%= f.object.document.metadata["filename"]%></span>
+    <span class="flex-grow-1"><%= f.object.document.metadata["filename"] %></span>
   <%- else %>
     <span class="flex-grow-1">
       <%= f.hidden_field :document, value: f.object.cached_document_data %>

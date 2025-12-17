@@ -15,18 +15,18 @@
 <div class="col-12 p-4 border-top">
   <%= form_for :import, url: import_servers_path, multipart: true, html: { role: "form" } do |f| %>
     <%= render CardComponent.new(
-      type: :success, extra_classes: "bg-body-tertiary col-12 col-md-10 col-lg-8 mx-auto"
-    ) do |card| %>
+          type: :success, extra_classes: "bg-body-tertiary col-12 col-md-10 col-lg-8 mx-auto",
+        ) do |card| %>
       <!-- Card Content: Form -->
       <fieldset>
         <%= f.label t(".room_id.label"), class: "form-label" %>
         <%= f.select :room_id,
-                      Room.order("id").all.collect { |p| [p.name, p.id] },
-                      {
-                        include_blank: false,
-                        selected: Room.find_by_name("Atelier").try(:id),
-                      },
-                      class: "form-select" %>
+                     Room.order(:id).all.collect { |p| [p.name, p.id] },
+                     {
+                       include_blank: false,
+                       selected: Room.find_by(name: "Atelier").try(:id),
+                     },
+                     class: "form-select" %>
         <span class="form-text"><%= t(".room_id.hint") %></span>
       </fieldset>
 
@@ -44,6 +44,6 @@
     <% end %>
   <% end %>
   <p class="col-12 col-md-10 col-lg-8 mx-auto mt-2 fst-italic">
-    <%= t(".download_example_html", link: link_to("fichier_exemple.csv", root_url + "files/format_exemple.csv")) %>
+    <%= t(".download_example_html", link: link_to("fichier_exemple.csv", "#{root_url}files/format_exemple.csv")) %>
   </p>
 </div>

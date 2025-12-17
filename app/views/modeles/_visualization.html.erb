@@ -1,18 +1,17 @@
 <div class="d-flex align-items-center flex-column">
   <% modele.enclosures.reject(&:marked_for_destruction?).each.with_index do |enclosure, index| %>
-    <%
-      composants_per_enclosure = enclosure.composants.reject(&:marked_for_destruction?)
+composants_per_enclosure = enclosure.composants.reject(&:marked_for_destruction?)
 
-      composants_per_enclosure = composants_per_enclosure.sort_by! do |c|
+      composants_per_enclosure.sort_by! do |c|
         c.try(:position) || (composants_per_enclosure.size + 1)
       end
     %>
     <% if enclosure.display == "grid" %>
       <style>
         .enclosure-container {
-          <% grid_rows = enclosure.grid_areas.delete("\r").split(/\n/) %>
-          <% grid_max_nb_of_columns = grid_rows.map { |row| row.split(" ").count }.max %>
-          grid-template-areas: <%= raw grid_rows.map{ |s| "\"#{s}\"" }.join(" ") %>;
+          <% grid_rows = enclosure.grid_areas.delete("\r").split("\n") %>
+          <% grid_max_nb_of_columns = grid_rows.map { |row| row.split.count }.max %>
+          grid-template-areas: <%= raw grid_rows.map { |s| "\"#{s}\"" }.join(" ") %>;
           grid-template-columns: repeat(<%= grid_max_nb_of_columns %>, 1fr); /* equal columns */
         }
       </style>
@@ -32,7 +31,7 @@
         <% end %>
       </div>
     <% else %>
-      <table class="<%= class_names("slots", "mt-2": index > 0) %>">
+      <table class="<%= class_names("slots", "mt-2": index.positive?) %>">
         <tbody>
         <% if enclosure.display == "horizontal" %>
           <% composants_per_enclosure.each do |component| %>

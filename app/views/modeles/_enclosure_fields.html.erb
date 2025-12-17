@@ -18,7 +18,7 @@
     <div data-controller="nested-form" data-nested-form-child-index-name-value="<%= child_index %>">
       <template data-nested-form-target="template">
         <%= f.fields_for :composants, f.object.composants.ordered.slots.klass.new,
-                                      child_index: child_index do |composant_fields| %>
+                         child_index: child_index do |composant_fields| %>
           <%= render partial: "composant_fields", locals: { f: composant_fields } %>
         <% end %>
       </template>
@@ -27,7 +27,7 @@
         <ul class="list-group bg-body-tertiary" data-controller="enclosure-fields" data-enclosure-fields-target="container">
           <li class="list-group-item bg-transparent filtered">
             <fieldset>
-              <%= f.label :display, class:"form-check-label" %>
+              <%= f.label :display, class: "form-check-label" %>
 
               <div class="btn-group btn-group-sm w-100 my-2"
                    role="group"
@@ -39,14 +39,13 @@
                                      class: "btn-check",
                                      data: {
                                        action: "change->enclosure-fields#displayValueChange",
-                                       "enclosure-fields-target": "displayRadioButton"
+                                       "enclosure-fields-target": "displayRadioButton",
                                      } %>
                   <%= f.label :display, value: display, class: "btn btn-outline-secondary" do %>
                     <i class="<%= class_names("bi",
                                               "bi-layout-three-columns": display == "vertical",
                                               "bi-layout-three-columns icon-rotated": display == "horizontal",
-                                              "bi-columns-gap": display == "grid"
-                    )%>"></i>
+                                              "bi-columns-gap": display == "grid") %>"></i>
                     <%= Enclosure.human_attribute_name("display.#{display}") %>
                   <% end %>
                 <% end %>
@@ -59,8 +58,7 @@
               <%= f.text_area :grid_areas, class: "font-monospace form-control", style: "height:110px;" %>
             </fieldset>
           </li>
-          <%
-            composants = f.object.composants.ordered
+composants = f.object.composants.ordered
           %>
           <%= f.fields_for :composants, composants do |composant_fields| %>
             <%= render partial: "composant_fields", locals: { f: composant_fields } %>

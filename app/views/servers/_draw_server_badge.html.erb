@@ -8,6 +8,6 @@
    end
   if current_filter_object %>
 <span class="server_badge" title="<%= @current_filter_object %>"
-      style="background-color:<%= Color.find_by(parent_type: parent_type, parent_id: current_filter_object.to_s).try(:code) %> !important;" >
+      style="background-color:<%= Color.find_by(parent_type: parent_type, parent_id: current_filter_object.to_s).try(:code) %> !important;">
 </span>
 <% end %>

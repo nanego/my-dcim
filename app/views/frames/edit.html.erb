@@ -1,12 +1,11 @@
-<%
-  breadcrumb
+breadcrumb
     .add_step(@frame.name, frame_path(@frame))
     .add_step(t("action.edit"))
 %>
 
 <%= render Page::HeadingEditComponent.new(
-  resource: @frame, title: t(".title"), breadcrumb:
-) %>
+      resource: @frame, title: t(".title"), breadcrumb:,
+    ) %>
 <div class="col-12 p-4 border-top">
   <%= render "form" %>
 </div>

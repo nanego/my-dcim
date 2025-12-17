@@ -1,15 +1,15 @@
 <div class="patch_panel list-group-item server">
-  <b><%= link_to h(server.name), server_path(server, :view => params[:view]) %></b>
+  <b><%= link_to h(server.name), server_path(server, view: params[:view]) %></b>
   <br>
 
   <% slots_sur_modele = server.modele.composants.ordered.slots.to_a %>
   <% half_slots = slots_sur_modele.length / 2 %>
 
   <% slots_sur_modele.slice(0, half_slots).each do |slot| %>
-      <%= render 'servers/draw_patch_panel_slot', server: server, slot: slot %>
+      <%= render "servers/draw_patch_panel_slot", server: server, slot: slot %>
   <% end %>
 
   <% slots_sur_modele.slice(half_slots, slots_sur_modele.length).each do |slot| %>
-      <%= render 'servers/draw_patch_panel_slot', server: server, slot: slot %>
+      <%= render "servers/draw_patch_panel_slot", server: server, slot: slot %>
   <% end %>
 </div>

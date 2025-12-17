@@ -2,13 +2,15 @@
 
 <%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
-    <% render ButtonComponent.new(
-      t(".new_site"),
-      url: new_site_path,
-      variant: :success,
-      icon: "plus-lg",
-      is_responsive: true
-    ) if allowed_to?(:create?) %>
+    <% if allowed_to?(:create?)
+         render ButtonComponent.new(
+           t(".new_site"),
+           url: new_site_path,
+           variant: :success,
+           icon: "plus-lg",
+           is_responsive: true,
+         )
+       end %>
   <% end %>
 <% end %>
 
@@ -18,11 +20,11 @@
   <%= render List::DataTableComponent.new(@sites) do |table| %>
     <% if allowed_to?(:destroy?) %>
       <% table.with_bulk_action(
-        url: bulk_sites_path,
-        method: :delete,
-        class: "btn btn-danger btn-sm",
-        data: { confirm: t("action.confirm") }
-      ) do %>
+           url: bulk_sites_path,
+           method: :delete,
+           class: "btn btn-danger btn-sm",
+           data: { confirm: t("action.confirm") },
+         ) do %>
         <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
       <% end %>
     <% end %>
@@ -67,7 +69,9 @@
 <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
         integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
         crossorigin=""></script>
-<%= javascript_tag do %>
+<script>
+//<![CDATA[
+
     var min_lat = <%= @sites.minimum(:latitude) %>;
     var max_lat = <%= @sites.maximum(:latitude) %>;
     var min_lon = <%= @sites.minimum(:longitude) %>;
@@ -83,9 +87,10 @@
         accessToken: '<%= Rails.application.credentials.mapbox[:access_token] %>'
     }).addTo(map);
 
-    <% @sites.reject{|s|s.latitude.blank? || s.longitude.blank?}.each do |site| %>
+    <% @sites.reject { |s| s.latitude.blank? || s.longitude.blank? }.each do |site| %>
     var marker<%= site.id %> = L.marker([<%= site.latitude %>, <%= site.longitude %>]).addTo(map);
     marker<%= site.id %>.bindPopup("<%= site.name %>"); //.openPopup();
     <% end %>
 
-<% end unless Rails.env.test? %>
+//]]>
+</script>

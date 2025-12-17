@@ -42,8 +42,11 @@
       <% if @frame.persisted? && @frame.bay %>
         <div class="col-12 mt-4">
           <span class="form-label d-block"><%= t("frames.coupled_frame_label") %></span>
-          <%= f.object.other_frame.present? ? link_to(f.object.other_frame.name, frame_path(f.object.other_frame))
-                                              : tag.span(t("frames.no_coupled_frame"), class: "fst-italic") %>
+          <%= if f.object.other_frame.present?
+                link_to(f.object.other_frame.name, frame_path(f.object.other_frame))
+              else
+                tag.span(t("frames.no_coupled_frame"), class: "fst-italic")
+              end %>
         </div>
       <% end %>
     </div>
@@ -64,8 +67,7 @@
       <%= f.select :bay_id,
                    options_from_collection_for_select(Bay.all, :id, :detailed_name, @frame.bay_id),
                    { prompt: true },
-                   { class: "form-select", data: { controller: "select" }, placeholder: t("select.placeholder") }
-      %>
+                   { class: "form-select", data: { controller: "select" }, placeholder: t("select.placeholder") } %>
     </fieldset>
   <% end %>
 

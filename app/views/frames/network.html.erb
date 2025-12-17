@@ -1,8 +1,7 @@
-<%
-  breadcrumb
+breadcrumb
     .add_step(t("visualization.title"))
     .add_step(t("visualization.rooms.index.title"), visualization_rooms_path)
-    .add_step(@frame.room.name, ((@frame.present? || params[:islet].present?) ? visualization_room_path(@frame.room, view: params[:view]) : ""))
+    .add_step(@frame.room.name, (@frame.present? || params[:islet].present? ? visualization_room_path(@frame.room, view: params[:view]) : ""))
 
   if @frame.present? && (islet = @frame.bay.islet.presence)
     breadcrumb.add_step(islet.decorated.full_name, visualization_room_path(@frame.room, islet: islet.name, view: params[:view]))
@@ -39,7 +38,7 @@
             <% frames.each do |frame, servers| %>
               <div class="bay col-12 col-lg-6 col-xxl-4 pe-0 pe-lg-3">
                 <%= render partial: "frames/show_frame",
-                            locals: { frame: , servers: , settings: , view_type: } %>
+                           locals: { frame:, servers:, settings:, view_type: } %>
               </div>
             <% end %>
           <% end %>

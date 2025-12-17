@@ -8,35 +8,34 @@
             <div class="rooms-overview">
               <% bays.each do |bay| %>
                 <% if (frames = bay.frames.sorted).any? %>
-                  <div class="couple" style="grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
-                    grid-row: <%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;">
+                  <div class="couple" style="grid-column: <%= "#{bay.position}/#{bay.position + 1}" %>;
+                    grid-row: <%= "#{bay.lane.to_i}/#{bay.lane.to_i + 1}" %>;">
                     <% frames.each_with_index do |frame, index| %>
                       <%# TODO: move in the action or a model method %>
                       <% servers = frame.servers.includes(:bay, :stack, modele: { enclosures: :composants },
-                                                                        cards:  [{ card_type: :port_type }, { ports: :cable }])
-                              .where("servers.network_types @> ?", "{#{network}}") # Switch LAN
-                      %>
-                      <div class="overviewed_frame bg-body text-body-emphasis <%= 'no-margin' if index > 0 %>"
+                                                                        cards: [{ card_type: :port_type }, { ports: :cable }])
+                           .where("servers.network_types @> ?", "{#{network}}") # Switch LAN %>
+                      <div class="overviewed_frame bg-body text-body-emphasis <%= "no-margin" if index.positive? %>"
                             data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.id %>">
                         <div class="title bg-success-subtle">
                           <%= link_to frame.name, visualization_room_path(room,
-                                                            view: params[:view],
-                                                            islet: islet.name,
-                                                            'bay-id': bay.id,
-                                                            'frame-id': frame),
-                                                  class: "link-body-emphasis", target: :_top %>
+                                                                          view: params[:view],
+                                                                          islet: islet.name,
+                                                                          "bay-id": bay.id,
+                                                                          "frame-id": frame),
+                                      class: "link-body-emphasis", target: :_top %>
                         </div>
 
                         <ul>
                           <% servers.each do |server| %>
                             <% cache ["server", server.id, server.updated_at, Port.maximum(:updated_at)] do %>
-                              <% data = { :url => server_url(server) } %>
+                              <% data = { url: server_url(server) } %>
                               <%= tag.li class: "server_#{server.id}
                                               lane-#{server.bay.lane}
                                               truncate
                                               #{"bordered" if server != servers.last}",
-                                          title: h("#{server.name}"),
-                                          data: data do %>
+                                         title: h(server.name.to_s),
+                                         data: data do %>
                                 <% if server.modele.present? %>
                                   <% server.modele.enclosures.each do |enclosure| %>
                                     <% cards = server.cards %>
@@ -55,7 +54,7 @@
                                       </table>
                                       <span class="sum">
                                       <%= cards.sum { |c| c.cables.size } %> /
-                                        <%= cards.sum { |c| c.port_quantity } %>
+                                        <%= cards.sum(&:port_quantity) %>
                                     </span>
                                     <% else %>
                                       <% components_per_enclosure.each do |component| %>
@@ -69,8 +68,8 @@
                                       <% end %>
                                     <% end %>
                                   <% end %>
-                                  <%= link_to server_path(server, :view => params[:view]),
-                                              class: 'float-end server_name link-body-emphasis', data: { controller: "tooltip", bs_placement: "top" }, title: server.numero, target: :_top do %>
+                                  <%= link_to server_path(server, view: params[:view]),
+                                              class: "float-end server_name link-body-emphasis", data: { controller: "tooltip", bs_placement: "top" }, title: server.numero, target: :_top do %>
                                       <small><%= h(server.name) %></small>
                                   <% end %>
                                 <% end %>

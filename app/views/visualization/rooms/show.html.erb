@@ -1,17 +1,16 @@
-<%
-  bg = params[:bg].presence || current_user.visualization_bay_default_background_color \
+bg = params[:bg].presence || current_user.visualization_bay_default_background_color \
                             || User::AVAILABLE_BAY_BACKGROUND_COLORS[0]
   view = params[:view].presence || current_user.visualization_bay_default_orientation
   server_height = 2.5
 
-  title = "#{@room.name} #{@islet ? " #{Islet.model_name.human} #{@islet}" : "" }"
+  title = "#{@room.name} #{" #{Islet.model_name.human} #{@islet}" if @islet}"
 
   breadcrumb
     .add_step(t("visualization.title"))
     .add_step(t("visualization.rooms.index.title"), visualization_rooms_path)
     .add_step(title.dup)
 
-  title = t("visualization.title") + " " + title
+  title = "#{t("visualization.title")} #{title}"
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
@@ -31,11 +30,15 @@
                     <%- is_current_islet_active = islet == @islet || (@islet.blank? && @room == room) %>
                     <li role="presentation" class="<%= class_names(active: is_current_islet_active) %>">
                       <% if islets.size == 1 %>
-                        <a href="#tab-<%= room.id %>" onclick="rewriteURL('/visualization/rooms/<%= room.slug %>', {'islet': ''})" aria-controls="room-<%= room %>" role="tab" data-bs-toggle="tab" data-bs-target="#tab-<%= room.id %>" class="<%= "active" if is_current_islet_active %>">
+                        <a href="#tab-<%= room.id %>" onclick="rewriteURL('/visualization/rooms/<%= room.slug %>', {'islet': ''})" aria-controls="room-<%= room %>" role="tab" data-bs-toggle="tab" data-bs-target="#tab-<%= room.id %>" class="<%= if is_current_islet_active
+                                                                                                                                                                                                                                                      "active"
+                                                                                                                                                                                                                                                    end %>">
                           <%= room.name %>
                         </a>
                       <% else %>
-                        <a href="#tab-<%= room.id %>-<%= islet %>" onclick="rewriteURL('/visualization/rooms/<%= room.slug %>', {'islet': '<%= islet.name %>'})" aria-controls="islet-<%= islet %>" role="tab" data-bs-toggle="tab" data-bs-target="#tab-<%= room.id %>-<%= islet %>" class="<%= "active" if is_current_islet_active %>">
+                        <a href="#tab-<%= room.id %>-<%= islet %>" onclick="rewriteURL('/visualization/rooms/<%= room.slug %>', {'islet': '<%= islet.name %>'})" aria-controls="islet-<%= islet %>" role="tab" data-bs-toggle="tab" data-bs-target="#tab-<%= room.id %>-<%= islet %>" class="<%= if is_current_islet_active
+                                                                                                                                                                                                                                                                                                   "active"
+                                                                                                                                                                                                                                                                                                 end %>">
                           <%= "#{room.name} #{Islet.model_name.human} #{islet.name}" %>
                         </a>
                       <% end %>
@@ -81,20 +84,20 @@
                     id="tab-<%= room.id %><%= "-#{islet}" if room.islets.size > 1 %>">
                   <div class="rooms-overview">
                     <% authorized_scope(islet.bays).sorted.each do |bay| %>
-                      <% air_conditioner = @air_conditioners.find { _1.bay_id == bay.id } || nil %>
+                      <% air_conditioner = @air_conditioners.find { it.bay_id == bay.id } || nil %>
                       <div class="couple d-flex"
-                          style="grid-column: <%= "#{bay.position}/#{bay.position+1}" %>;
-                                 grid-row: <%= "#{bay.lane.to_i}/#{bay.lane.to_i+1}" %>;">
+                          style="grid-column: <%= "#{bay.position}/#{bay.position + 1}" %>;
+                                 grid-row: <%= "#{bay.lane.to_i}/#{bay.lane.to_i + 1}" %>;">
                         <% if air_conditioner&.position == AirConditioner.positions[:left] %>
                           <%= render "rooms/air_conditioner", air_conditioner: %>
                         <% end %>
                         <% authorized_scope(bay.frames).sorted.each_with_index do |frame, index| %>
                           <div class="<%= class_names("overviewed_frame border",
-                                                      "no-margin": index > 0,
+                                                      "no-margin": index.positive?,
                                                       highlighted: @frames && @frames.include?(frame)) %>"
                               data-bay-id="<%= bay.id %>" data-frame-id="<%= frame.slug %>">
                             <div class="title">
-                              <%= link_to frame.name, visualization_frame_path(frame, view: (params[:view])), data: { "frame-id": frame.slug } %>
+                              <%= link_to frame.name, visualization_frame_path(frame, view: params[:view]), data: { "frame-id": frame.slug } %>
                             </div>
                             <ul>
                               <% u_disponibles = frame.u || 41 %>
@@ -106,13 +109,13 @@
                                 <% end %>
 
                                 <% bgModeleColor = define_background_color(server: server, mode: bg) %>
-                                <% u_server = server.modele.try(:u).to_i > 0 ? server.modele.u : 1 %>
+                                <% u_server = server.modele.try(:u).to_i.positive? ? server.modele.u : 1 %>
                                 <% data = { u: u_server,
                                             num_u: u_disponibles } %>
                                 <%= content_tag_for :li, server,
                                                     class: "server truncate #{server.modele.try(:category).try(:name).try(:parameterize)}",
                                                     style: "height: #{server_height * u_server}px;background-color:#{bgModeleColor} !important;",
-                                                    title: h("#{server.name}"),
+                                                    title: h(server.name.to_s),
                                                     data: data do %>
                                   <% u_disponibles -= u_server %>
                                 <% end %>

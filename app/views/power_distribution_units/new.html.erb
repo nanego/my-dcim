@@ -2,8 +2,8 @@
 
 <%#= render Page::HeadingNewComponent.new(resource: @server, title: t(".title"), breadcrumb:) %>
 <%= render Page::HeadingComponent.new(
-  title: t(".title"), breadcrumb:, back_button_url: power_distribution_units_path
-) %>
+      title: t(".title"), breadcrumb:, back_button_url: power_distribution_units_path,
+    ) %>
 
 <div class="col-12 p-4 border-top">
   <%= render "form" %>

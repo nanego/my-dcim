@@ -3,7 +3,7 @@
      data-server-id="<%= server.id %>"
      data-composant-id="<%= card.id %>"
      data-composant-type="<%= card.class %>"
-     data-composant-name="<%= component.name.present? ? component.name : component.position %>">
+     data-composant-name="<%= component.name.presence || component.position %>">
   <% if card.card_type && card.card_type.columns && card.card_type.rows %>
     <%= ports_by_card_minimal(card: card) %>
   <% else %>

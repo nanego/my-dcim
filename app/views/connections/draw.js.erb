@@ -12,7 +12,6 @@ $(document).ready(function () {
   resetLinesPositionOnScroll()
 })
 
-
 if (exists(currently_activated_servers[server_id])) { // TOGGLE
     delete_lines(server_id)
     log("currently_activated_servers", currently_activated_servers)
@@ -42,7 +41,6 @@ function create_lines(server_id) {
     <% end %>
     <% end %>
 }
-
 
 function resetLinesPositionOnScroll() {
   $("main.mydcim-main").on('scroll', AnimEvent.add(function() {

@@ -1,5 +1,4 @@
-<%
-  breadcrumb.add_step(title = t('.results'))
+breadcrumb.add_step(title = t(".results"))
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
@@ -45,7 +44,7 @@
         <% end %>
       </ul>
     <% else %>
-      <p><%= t('.no_results_found') %></p>
+      <p><%= t(".no_results_found") %></p>
     <% end %>
   </turbo-frame>
 </div>

@@ -1,5 +1,4 @@
-<%
-  breadcrumb.add_step(title = t("layouts.navigation.nav_links_administration.informations"))
+breadcrumb.add_step(title = t("layouts.navigation.nav_links_administration.informations"))
 %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
@@ -13,7 +12,7 @@
             <h3>Environnement :</h3>
 
             <p class="version">
-              <strong>Rails version:</strong> <%= Rails.version %><br />
+              <strong>Rails version:</strong> <%= Rails.version %><br>
               <strong>Ruby version:</strong> <%= RUBY_VERSION %> (<%= RUBY_PLATFORM %>)
             </p>
 
@@ -23,8 +22,8 @@
               <%= truncate(
                     simple_format(`git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short`),
                     length: 1600,
-                    escape: false)
-              %>
+                    escape: false,
+                  ) %>
               <br>...
             </div>
 

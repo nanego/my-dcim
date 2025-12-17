@@ -10,9 +10,9 @@
         <div>
           <fieldset class="form-floating">
             <%= f.select :server_ids, CableDecorator.servers_options_for_select(current_user),
-                                  { prompt: true, multiple: true },
-                                  { class: "form-select",
-                                    data: { controller: :select } } %>
+                         { prompt: true, multiple: true },
+                         { class: "form-select",
+                           data: { controller: :select } } %>
             <%= f.label :server_ids %>
           </fieldset>
         </div>
@@ -84,11 +84,11 @@
       <%= render List::DataTableComponent.new(@cables) do |table| %>
         <% if allowed_to?(:destroy?) %>
           <% table.with_bulk_action(
-            url: bulk_cables_path,
-            method: :delete,
-            class: "btn btn-danger btn-sm",
-            data: { confirm: t("action.confirm") }
-          ) do %>
+               url: bulk_cables_path,
+               method: :delete,
+               class: "btn btn-danger btn-sm",
+               data: { confirm: t("action.confirm") },
+             ) do %>
             <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
           <% end %>
         <% end %>
@@ -107,10 +107,11 @@
         <% end %>
 
         <% table.with_column(
-          Cable.human_attribute_name(:comments),
-          sort_by: :comments,
-          style: "width: 20%;",
-          v_align: :baseline) do |cable| %>
+             Cable.human_attribute_name(:comments),
+             sort_by: :comments,
+             style: "width: 20%;",
+             v_align: :baseline,
+           ) do |cable| %>
           <%= cable.comments %>
         <% end %>
 

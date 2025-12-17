@@ -1,5 +1,4 @@
-<%
-  title = t(".title")
+title = t(".title")
 
   breadcrumb
     .add_step(t("visualization.title"))
@@ -35,13 +34,13 @@
     <% @frames.each do |frame| %>
       <% card.with_header do %>
         <h3>
-          <%= link_to "#{frame.name_with_room_and_islet}",
+          <%= link_to frame.name_with_room_and_islet.to_s,
                       frame_path(frame, view: params[:view]),
                       class: "text-decoration-underline" %>
         </h3>
       <% end %>
       <div class="d-flex flex-column gap-4">
-        <% frame.servers.includes(:modele, cards: [:ports, :composant]).order("position desc").each do |s| %>
+        <% frame.servers.includes(:modele, cards: %i[ports composant]).order(position: :desc).each do |s| %>
           <div>
             <h4 class="d-inline"><%= s.name %></h4>
             <span> (<%= s.modele.try(:name) %>)</span>

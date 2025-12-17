@@ -2,13 +2,15 @@
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
-    <% render ButtonComponent.new(
-      t(".new_stack"),
-      url: new_stack_path,
-      variant: :success,
-      icon: "plus-lg",
-      is_responsive: true
-    ) if allowed_to?(:create?) %>
+    <% if allowed_to?(:create?)
+         render ButtonComponent.new(
+           t(".new_stack"),
+           url: new_stack_path,
+           variant: :success,
+           icon: "plus-lg",
+           is_responsive: true,
+         )
+       end %>
   <% end %>
 <% end %>
 
@@ -16,11 +18,11 @@
   <%= render List::DataTableComponent.new(@stacks) do |table| %>
     <% if allowed_to?(:destroy?) %>
       <% table.with_bulk_action(
-        url: bulk_stacks_path,
-        method: :delete,
-        class: "btn btn-danger btn-sm",
-        data: { confirm: t("action.confirm") }
-      ) do %>
+           url: bulk_stacks_path,
+           method: :delete,
+           class: "btn btn-danger btn-sm",
+           data: { confirm: t("action.confirm") },
+         ) do %>
         <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
       <% end %>
     <% end %>

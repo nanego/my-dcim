@@ -1,5 +1,4 @@
-<%
-  breadcrumb
+breadcrumb
     .add_step(@room.name, room_path(@room))
     .add_step(t("layouts.breadcrumb.bay.simple", name: @frame.name), frame_path(@frame))
     .add_step(Connection.model_name.human.pluralize, cables_path)
@@ -7,19 +6,21 @@
 %>
 
 <%= render Page::HeadingComponent.new(
-  title: t(".title"), breadcrumb:, back_button_url: cables_path
-) do |heading| %>
+      title: t(".title"), breadcrumb:, back_button_url: cables_path,
+    ) do |heading| %>
   <% heading.with_right_content do %>
     <% if @cable %>
-      <% render ButtonComponent.new(
-        t("action.delete"),
-        url: cable_path(id: @cable.id),
-        variant: :danger,
-        icon: "trash",
-        is_responsive: true,
-        method: :delete,
-        data: { confirm: t("connections.form.action.delete_confirmation") }
-      ) if allowed_to?(:destroy?, @cable) %>
+      <% if allowed_to?(:destroy?, @cable)
+           render ButtonComponent.new(
+             t("action.delete"),
+             url: cable_path(id: @cable.id),
+             variant: :danger,
+             icon: "trash",
+             is_responsive: true,
+             method: :delete,
+             data: { confirm: t("connections.form.action.delete_confirmation") },
+           )
+         end %>
     <% end %>
   <% end %>
 <% end %>

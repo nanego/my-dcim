@@ -1,5 +1,4 @@
-<%
-  title = "#{ChangelogEntry.model_name.human} ##{@changelog_entry.id}"
+title = "#{ChangelogEntry.model_name.human} ##{@changelog_entry.id}"
   breadcrumb
     .add_step(t("changelog_entries.title"), changelog_entries_path)
     .add_step(title)
@@ -27,7 +26,7 @@
           </dd>
 
           <dt class="pb-2"><%= ChangelogEntry.human_attribute_name(:created_at) %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%=l @changelog_entry.created_at %></dd>
+          <dd class="mb-0 pb-2 ps-3"><%= l @changelog_entry.created_at %></dd>
         </dl>
       <% end %>
     </div>
@@ -35,7 +34,7 @@
     <div class="col">
       <%= render CardComponent.new do |card| %>
         <% card.with_header do %>
-          <%=t ".metadatas" %>
+          <%= t ".metadatas" %>
         <% end %>
 
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
@@ -52,15 +51,15 @@
     <div class="col">
       <%= render CardComponent.new do |card| %>
         <% card.with_header do %>
-          <%=t ".changes" %>
+          <%= t ".changes" %>
         <% end %>
 
         <div class="row">
           <div class="col-md-6">
-            <%=sanitize @changelog_entry.split_diff.left %>
+            <%= sanitize @changelog_entry.split_diff.left %>
           </div>
           <div class="col-md-6">
-            <%=sanitize @changelog_entry.split_diff.right %>
+            <%= sanitize @changelog_entry.split_diff.right %>
           </div>
         </div>
       <% end %>

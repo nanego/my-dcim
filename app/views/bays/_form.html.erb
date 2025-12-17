@@ -11,8 +11,8 @@
       <fieldset class="col-12">
         <%= f.label :bay_type_id, class: "form-label" %>
         <%= f.select :bay_type_id, options_from_collection_for_select(BayType.all, :id, :to_s, @bay.bay_type_id),
-                                  {},
-                                  class: "form-select" %>
+                     {},
+                     class: "form-select" %>
       </fieldset>
 
       <fieldset class="col-12 mt-4">
@@ -23,9 +23,8 @@
                      {
                        class: "form-select",
                        data: { controller: "select" },
-                       placeholder: t("select.placeholder")
-                     }
-        %>
+                       placeholder: t("select.placeholder"),
+                     } %>
       </fieldset>
 
       <fieldset class="col-md-6 col-12 mt-4">
@@ -47,8 +46,8 @@
       <fieldset class="col-12 mt-4">
         <%= f.label :access_control, class: "form-label" %>
         <%= f.select :access_control, BayDecorator.access_control_options_for_select,
-                              { include_blank: t("access_control.blank") },
-                              class: "form-select" %>
+                     { include_blank: t("access_control.blank") },
+                     class: "form-select" %>
       </fieldset>
     </div>
   <% end %>

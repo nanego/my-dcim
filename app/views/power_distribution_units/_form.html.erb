@@ -1,5 +1,4 @@
-<%
-  is_edit = controller.action_name == "edit"
+is_edit = controller.action_name == "edit"
   is_new = !is_edit
 
   dynamic_url = is_edit ? power_distribution_unit_path(@pdu) : power_distribution_units_path
@@ -39,9 +38,8 @@
                                 {
                                   class: "form-select",
                                   data: { controller: "select" },
-                                  placeholder: t("select.placeholder")
-                                })
-        %>
+                                  placeholder: t("select.placeholder"),
+                                }) %>
       </fieldset>
     </div>
   <% end %>
@@ -75,9 +73,8 @@
                                 {
                                   class: "form-select",
                                   data: { controller: "select" },
-                                  placeholder: t("select.placeholder")
-                                })
-        %>
+                                  placeholder: t("select.placeholder"),
+                                }) %>
       </fieldset>
     </div>
   <% end %>
@@ -98,9 +95,8 @@
                                 {
                                   class: "form-select",
                                   data: { controller: "select" },
-                                  placeholder: t("select.placeholder")
-                                })
-        %>
+                                  placeholder: t("select.placeholder"),
+                                }) %>
       </fieldset>
     </div>
   <% end %>
@@ -110,7 +106,7 @@
     <% @pdu.modele.enclosures.each do |enclosure| %>
       <div class="col-12 mt-4" data-controller="nested-form">
         <template data-nested-form-target="template">
-          <%= f.fields_for :cards, f.object.cards.klass.new, child_index: '__NEW_RECORD__' do |card_fields| %>
+          <%= f.fields_for :cards, f.object.cards.klass.new, child_index: "__NEW_RECORD__" do |card_fields| %>
             <%= render partial: "servers/card_fields", locals: { f: card_fields, server: @pdu, enclosure: enclosure } %>
           <% end %>
         </template>
@@ -122,7 +118,7 @@
 
           <div class="row-gap-3 d-flex flex-column">
             <% cards = @pdu.cards.select { |c| c.composant.enclosure == enclosure }
-                                    .sort_by! { |c| c.composant.position } %>
+                 .sort_by! { |c| c.composant.position } %>
             <%= f.fields_for :cards, cards do |card_fields| %>
               <%= render partial: "servers/card_fields", locals: { f: card_fields, server: @pdu, enclosure: enclosure } %>
             <% end %>
@@ -150,7 +146,7 @@
 
   <fieldset class="col-12 mt-4" data-controller="nested-form">
     <template data-nested-form-target="template">
-      <%= f.fields_for :documents, f.object.documents.klass.new, child_index: '__NEW_RECORD__' do |document_fields| %>
+      <%= f.fields_for :documents, f.object.documents.klass.new, child_index: "__NEW_RECORD__" do |document_fields| %>
         <%= render partial: "servers/document_fields", locals: { f: document_fields } %>
       <% end %>
     </template>
@@ -161,7 +157,7 @@
       <% end %>
 
       <%= f.fields_for :documents do |document_fields| %>
-        <%= render partial: "servers/document_fields", locals: { f:  document_fields } %>
+        <%= render partial: "servers/document_fields", locals: { f: document_fields } %>
       <% end %>
 
       <div data-nested-form-target="target"></div>
@@ -193,7 +189,7 @@
       </span>
 
       <%= link_to(t("action.cancel"), dynamic_url, class: "btn btn-outline-secondary me-2") %>
-      <%= f.submit(class: class_names("btn", 'btn-info': is_edit, 'btn-success': is_new)) %>
+      <%= f.submit(class: class_names("btn", "btn-info": is_edit, "btn-success": is_new)) %>
     </span>
   </div>
 <% end %>
