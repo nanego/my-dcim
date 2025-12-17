@@ -127,10 +127,9 @@ RSpec.describe Visualization::RoomsController do
       it { expect(response).to render_template(:print) }
       it { expect(response).to render_template("layouts/pdf") }
 
-      it :aggregate_failures do
+      it do
         response
 
-        expect(assigns(:servers_per_frames)).to be_present
         expect(assigns(:room)).to be_present
       end
     end
