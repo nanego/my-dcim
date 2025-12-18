@@ -66,7 +66,7 @@ jobs:
     env:
       RAILS_ENV: test
       RAILS_MASTER_KEY: "acf7c0d9c0f69afd05048c8a58b2e9ee"
-      FERRUM_PROCESS_TIMEOUT: 30
+      FERRUM_PROCESS_TIMEOUT: 25
       FERRUM_DEFAULT_TIMEOUT: 15
 
     services:
