@@ -110,9 +110,11 @@ RSpec.describe Visualization::RoomsController do
 
   describe "GET #print" do
     subject(:response) do
-      get print_visualization_room_path(room)
+      get print_visualization_room_path(room, format:)
       @response # rubocop:disable RSpec/InstanceVariable
     end
+
+    let(:format) { nil }
 
     include_context "with authenticated admin"
 
@@ -127,12 +129,20 @@ RSpec.describe Visualization::RoomsController do
       it { expect(response).to render_template(:print) }
       it { expect(response).to render_template("layouts/pdf") }
 
-      it :aggregate_failures do
+      it do
         response
 
-        expect(assigns(:servers_per_frames)).to be_present
         expect(assigns(:room)).to be_present
       end
+    end
+
+    context "with pdf format" do
+      let(:format) { :pdf }
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(:print) }
+      it { expect(response).to render_template("layouts/pdf") }
+      it { expect(response.headers["Content-Type"]).to eq("application/pdf") }
     end
   end
 end

@@ -81,17 +81,6 @@ and use your application in browser by typing in url: localhost:3000
 
 You can also configure Apache, Nginx or any other web/application server of your choice to execute in production mode.
 
-## Frontend development
-
-### html2pdf
-
-To generate pdf we use [html2pdf.js](https://ekoopmans.github.io/html2pdf.js/). This library is bundle separatly with
-esbuild.
-
-If you change [`vendor/javascript/html2pdf.js.js`](vendor/javascript/html2pdf.js.js), then you need to run the following command:
-
-    yarn run build:html2pdf.js
-
 ## Contributing
 
 Here are some of the ways you can contribute:

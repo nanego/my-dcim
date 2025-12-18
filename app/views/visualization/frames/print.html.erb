@@ -1,16 +1,9 @@
-<%# TODO Remove this temporary variable as soons as @servers_per_frames references are removed in servers/room %>
-<% @servers_per_frames = {}
-  @frame.servers.each do |s|
-    islet = @frame.bay.islet.name
-    @servers_per_frames[islet] ||= {}
-    @servers_per_frames[islet][@frame.bay.lane] ||= {}
-    @servers_per_frames[islet][@frame.bay.lane][@frame.bay] ||= {}
-    @servers_per_frames[islet][@frame.bay.lane][@frame.bay][@frame] ||= []
-    @servers_per_frames[islet][@frame.bay.lane][@frame.bay][@frame] << s
-  end
+<%
+  view_side = params[:view].presence || "front"
+  settings = { min_height: view_side == "back" ? 20 : 27}
 %>
 
-<div class="container-fluid">
-  <%= render partial: "servers/room",
-             locals: { room: @room, islets: @servers_per_frames, pdf: true, view_side: params[:view] } %>
+<div class="container-fluid p-4">
+  <%= render partial: "visualization/frames/show_frame",
+            locals: { frame: @frame, servers: @frame.servers, settings: , view_type: view_side } %>
 </div>
