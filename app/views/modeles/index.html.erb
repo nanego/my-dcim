@@ -119,7 +119,7 @@
                 <% end %>
 
                 <% if allowed_to?(:destroy?, modele) %>
-                  <%= link_to modele, method: :delete, data: { confirm: t(".delete_confirmation"), turbo_frame: :_top }, class: 'btn btn-danger' do %>
+                  <%= link_to modele, method: :delete, data: { turbo_frame: :_top }, class: 'btn btn-danger' do %>
                     <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
                     <span class="visually-hidden"><%= t("action.delete") %></span>
                   <% end %>

@@ -24,6 +24,9 @@ fr:
       card_type:
         one: Type de carte
         other: Types de carte
+      cluster_room:
+        one: Cluster de concentrateurs réseau
+        other: Clusters de concentrateurs réseau
       port_type:
         one: Type de port
         other: Types de port

@@ -1,0 +1,14 @@
+<%
+  breadcrumb
+    .add_step(@cable.decorated.display_name, cable_path(@cable))
+    .add_step(t("action.delete"))
+%>
+
+<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:) %>
+
+<div class="col-12 p-4 border-top">
+  <%= render DeleteDependencyComponent.new(
+    @cable,
+    confirmation_path: cable_path(@cable, confirm: true)
+  ) %>
+</div>

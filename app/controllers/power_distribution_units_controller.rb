@@ -58,6 +58,7 @@ class PowerDistributionUnitsController < ApplicationController
     end
   end
 
+  destroy_confirmation
   def destroy
     respond_to do |format|
       if @pdu.destroy

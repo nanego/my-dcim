@@ -181,13 +181,29 @@ RSpec.describe FramesController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete frame_path(frame)
+      delete frame_path(frame, confirm: true)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
     include_context "with authenticated admin"
+
+    context "without confirm" do
+      subject(:response) do
+        delete frame_path(frame)
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+
+      it do
+        expect do
+          response
+        end.not_to change(Frame, :count)
+      end
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(Frame.exists?(frame.id)).to be true }
+    end
 
     context "with frame without any IT equipments" do
       let(:frame) { frames(:two) }

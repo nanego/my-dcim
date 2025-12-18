@@ -379,7 +379,32 @@
       url: server_cables_path(@pdu.id),
       frame_id: dom_id(Connection, :table),
       extra_classes: "bg-body-tertiary"
-    ) %>
+    ) do |c| %>
+      <% c.with_actions do %>
+        <span>
+          <button class="btn btn-sm text-body-tertiary p-0"
+                  title="<%= t("action.show_all") %>"
+                  type="button"
+                  data-controller="collapse-all tooltip"
+                  data-collapse-all-elements-value="collapse"
+                  data-action="collapse-all#showAll"
+                  data-bs-placement="bottom"
+                  aria-hidden="true">
+            <span class="bi bi-arrows-expand fs-6"></span>
+          </button>
+          <button class="btn btn-sm text-body-tertiary p-0"
+                  title="<%= t("action.hide_all") %>"
+                  type="button"
+                  data-controller="collapse-all tooltip"
+                  data-collapse-all-elements-value="collapse"
+                  data-action="collapse-all#hideAll"
+                  data-bs-placement="bottom"
+                  aria-hidden="true">
+            <span class="bi bi-arrows-collapse fs-6"></span>
+          </button>
+        </span>
+      <% end %>
+    <% end %>
   </div>
 </div>
 

@@ -10,6 +10,7 @@ RSpec.describe Frame do
 
   describe "associations" do
     it { is_expected.to belong_to(:bay) }
+
     it { is_expected.to have_one(:islet).through(:bay) }
     it { is_expected.to have_many(:materials) }
     it { is_expected.to have_many(:pdus) }

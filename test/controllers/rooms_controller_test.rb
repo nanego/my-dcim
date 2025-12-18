@@ -33,7 +33,7 @@ class RoomsControllerTest < ActionController::TestCase
     @room = rooms(:two)
 
     assert_difference("Room.count", -1) do
-      delete :destroy, params: { id: @room }
+      delete :destroy, params: { id: @room, confirm: true }
     end
 
     assert_redirected_to rooms_path
@@ -41,7 +41,7 @@ class RoomsControllerTest < ActionController::TestCase
 
   test "should not destroy room that have islets" do
     assert_difference("Room.count", 0) do
-      delete :destroy, params: { id: @room }
+      delete :destroy, params: { id: @room, confirm: true }
     end
 
     assert_redirected_to rooms_path

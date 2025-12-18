@@ -100,7 +100,7 @@
           <% end %>
 
           <% if allowed_to?(:destroy?, islet) %>
-            <%= link_to islet, method: :delete, data: { turbo_frame: :_top, confirm: t(".delete_confirmation") }, class: "btn btn-danger" do %>
+            <%= link_to islet, method: :delete, data: { turbo_frame: :_top }, class: "btn btn-danger" do %>
               <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
               <span class="visually-hidden"><%= t("action.delete") %></span>
             <% end %>

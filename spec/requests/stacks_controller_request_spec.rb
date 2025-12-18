@@ -145,13 +145,29 @@ RSpec.describe StacksController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete stack_path(stack)
+      delete stack_path(stack, confirm: true)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
     include_context "with authenticated admin"
+
+    context "without confirm" do
+      subject(:response) do
+        delete stack_path(stack)
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+
+      it do
+        expect do
+          response
+        end.not_to change(Stack, :count)
+      end
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(Stack.exists?(stack.id)).to be true }
+    end
 
     context "with an stack without servers" do
       let(:stack) { stacks(:orange) }

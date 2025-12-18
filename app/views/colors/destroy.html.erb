@@ -1,0 +1,14 @@
+<%
+  breadcrumb
+    .add_step(@color, color_path(@color))
+    .add_step(t("action.delete"))
+%>
+
+<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:) %>
+
+<div class="col-12 p-4 border-top">
+  <%= render DeleteDependencyComponent.new(
+    @color,
+    confirmation_path: color_path(@color, confirm: true)
+  ) %>
+</div>

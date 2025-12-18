@@ -27,6 +27,12 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_resource
 
+  def self.destroy_confirmation(only: :destroy)
+    before_action only: do
+      render unless params[:confirm] == "true"
+    end
+  end
+
   def after_sign_in_path_for(resource)
     # return request.env['omniauth.origin'] || stored_location_for(resource) || root_path
     #=> with our setup, omniauth.origin always contain sign_in page since user was first redirected on it

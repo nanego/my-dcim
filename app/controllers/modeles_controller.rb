@@ -78,6 +78,7 @@ class ModelesController < ApplicationController
     end
   end
 
+  destroy_confirmation
   def destroy
     if @modele.destroy
       respond_to do |format|

@@ -61,6 +61,7 @@ class BaysController < ApplicationController
     end
   end
 
+  destroy_confirmation
   def destroy
     if @bay.destroy
       respond_to do |format|

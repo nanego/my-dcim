@@ -1,0 +1,15 @@
+<%
+  breadcrumb
+    .add_step(@pdu, power_distribution_unit_path(@pdu))
+    .add_step(t("action.delete"))
+%>
+
+<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:) %>
+
+<div class="col-12 p-4 border-top">
+  <%= render DeleteDependencyComponent.new(
+    @pdu,
+    except: %i[external_app_record],
+    confirmation_path: power_distribution_unit_path(@pdu, confirm: true)
+  ) %>
+</div>

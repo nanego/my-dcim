@@ -44,6 +44,7 @@ class PortTypesController < ApplicationController
     end
   end
 
+  destroy_confirmation
   def destroy
     @port_type.destroy
     respond_to do |format|

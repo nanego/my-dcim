@@ -73,6 +73,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
     end
   end
 
+  destroy_confirmation
   def destroy
     respond_to do |format|
       if @server.destroy

@@ -79,4 +79,9 @@ class CableDecorator < ApplicationDecorator
                                cablename: port_from.cable_name,
                                color: port_from.color)
   end
+  alias to_s description
+
+  def display_name
+    "#{name.presence || (Cable.model_name.human + "##{id}")} (#{color.presence || "n/c"})"
+  end
 end
