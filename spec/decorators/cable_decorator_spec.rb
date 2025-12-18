@@ -138,4 +138,32 @@ RSpec.describe CableDecorator, type: :decorator do
         .to eq("Connexion entre MyString ServerName1 (port #1) et MyString ServerName1 (port #2) => vlans:123a cablename:cableXYZ couleur:P")
     end
   end
+
+  describe "#display_name" do
+    it { expect(decorated_cable.display_name).to eq("cableXYZ (N)") }
+
+    context "with nil name" do
+      before { cable.name = nil }
+
+      it { expect(decorated_cable.display_name).to eq("Câble#1 (N)") }
+    end
+
+    context "with empty name" do
+      before { cable.name = "" }
+
+      it { expect(decorated_cable.display_name).to eq("Câble#1 (N)") }
+    end
+
+    context "with no color" do
+      before { cable.color = nil }
+
+      it { expect(decorated_cable.display_name).to eq("cableXYZ (n/c)") }
+    end
+
+    context "with empty color" do
+      before { cable.color = "" }
+
+      it { expect(decorated_cable.display_name).to eq("cableXYZ (n/c)") }
+    end
+  end
 end

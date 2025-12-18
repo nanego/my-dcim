@@ -1,6 +1,6 @@
 <%
   breadcrumb
-    .add_step(@cable.decorated, cable_path(@cable))
+    .add_step(@cable.decorated.display_name, cable_path(@cable))
     .add_step(t("action.delete"))
 %>
 
