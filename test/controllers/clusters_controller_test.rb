@@ -46,7 +46,7 @@ class ClustersControllerTest < ActionController::TestCase
     @cluster = Cluster.create
 
     assert_difference("Cluster.count", -1) do
-      delete :destroy, params: { id: @cluster }
+      delete :destroy, params: { id: @cluster, confirm: true }
     end
 
     assert_redirected_to clusters_path
@@ -54,7 +54,7 @@ class ClustersControllerTest < ActionController::TestCase
 
   test "should not destroy cluster that have servers" do
     assert_difference("Cluster.count", 0) do
-      delete :destroy, params: { id: @cluster }
+      delete :destroy, params: { id: @cluster, confirm: true }
     end
 
     assert_redirected_to clusters_path

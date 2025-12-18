@@ -52,8 +52,7 @@
         <% end %>
 
         <% if allowed_to?(:destroy?, port_type) %>
-          <%= link_to port_type, method: :delete, data: { confirm: t(".delete_confirmation") },
-                                                  class: "btn btn-danger" do %>
+          <%= link_to port_type, method: :delete, class: "btn btn-danger" do %>
             <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
                                                                         data-controller="tooltip"
                                                                         data-bs-placement="left"></span>

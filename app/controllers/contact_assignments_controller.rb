@@ -59,6 +59,7 @@ class ContactAssignmentsController < ApplicationController
 
   # DELETE /contact_assignments/1
   # DELETE /contact_assignments/1.json
+  destroy_confirmation
   def destroy
     if @contact_assignment.destroy!
       respond_to do |format|

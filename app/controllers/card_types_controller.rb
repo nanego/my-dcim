@@ -54,6 +54,7 @@ class CardTypesController < ApplicationController
 
   # DELETE /card_types/1
   # DELETE /card_types/1.json
+  destroy_confirmation
   def destroy
     if @card_type.destroy
       respond_to do |format|

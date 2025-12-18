@@ -55,6 +55,7 @@ class RoomsController < ApplicationController
     end
   end
 
+  destroy_confirmation
   def destroy
     if @room.destroy
       respond_to do |format|

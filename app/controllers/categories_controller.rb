@@ -57,6 +57,7 @@ class CategoriesController < ApplicationController
 
   # DELETE /categories/1
   # DELETE /categories/1.json
+  destroy_confirmation
   def destroy
     if @category.destroy
       respond_to do |format|

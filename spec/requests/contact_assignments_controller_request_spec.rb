@@ -138,17 +138,38 @@ RSpec.describe ContactAssignmentsController do
   end
 
   describe "#destroy" do
-    before { contact_assignment }
+    subject(:response) do
+      delete contact_assignment_path(contact_assignment, confirm: true)
 
-    it "destroys the requested contact_assignment" do
-      expect do
-        delete contact_assignment_path(contact_assignment)
-      end.to change(ContactAssignment, :count).by(-1)
+      @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    it "redirects to the contact_assignments list" do
-      delete contact_assignment_path(contact_assignment)
-      expect(response).to redirect_to(contact_assignments_path)
+    before { contact_assignment }
+
+    context "without confirm" do
+      subject(:response) do
+        delete contact_assignment_path(contact_assignment)
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+
+      it do
+        expect do
+          response
+        end.not_to change(ContactAssignment, :count)
+      end
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(ContactAssignment.exists?(contact_assignment.id)).to be true }
+    end
+
+    context "with confirm" do
+      it "destroys the requested contact_assignment" do
+        expect { response }.to change(ContactAssignment, :count).by(-1)
+      end
+
+      it "redirects to the contact_assignments list" do
+        expect(response).to redirect_to(contact_assignments_path)
+      end
     end
   end
 end

@@ -37,6 +37,8 @@ fr:
     configure: Configurer
     continue: Continuer
     export: Exporter
+    show_all: Afficher tout
+    hide_all: Cacher tout
 
   export_button:
     label: Exports
@@ -119,21 +121,21 @@ fr:
   islets:
     index:
       new_islet: Ajouter un ilot
-      delete_confirmation: Cet ilôt ne pourra pas être supprimé tant qu'il sera associé à au moins une baie. Voulez-vous continuer ?
     new:
-      title: Nouvel îlot
+      title: Nouvel ilot
     create:
       flashes:
         created: L'ilôt a bien été créé.
     edit:
-      title: Modification de l'îlot
+      title: Modification de l'ilot
     update:
       flashes:
-        updated: L'ilôt a bien été modifié.
+        updated: L'ilot a bien été modifié.
     destroy:
+      title: Supprimer l'ilot
       flashes:
         destroyed: L'ilôt a bien été supprimé.
-    add_new: Ajouter un ilôt
+    add_new: Ajouter un ilot
   connections:
     edit:
       title: Modifier la connexion
@@ -150,7 +152,6 @@ fr:
     index:
       title: Sites
       new_site: Ajouter un site
-      delete_confirmation: Ce site ne pourra pas être supprimé tant qu'il sera associé à au moins une salle. Voulez-vous continuer ?
     new:
       title: Nouveau site
     create:
@@ -164,12 +165,12 @@ fr:
     form:
       add_contact_assignment: Assigner un contact
     destroy:
+      title: Supprimer le site
       flashes:
         destroyed: Site a bien été supprimé.
   gestions:
     index:
       new_gestion: Ajouter un gestionnaire
-      delete_confirmation: Ce gestionnaire ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
     new:
       title: Nouveau gestionnaire
     create:
@@ -181,12 +182,12 @@ fr:
       flashes:
         updated: Le gestionnaire a bien été modifié.
     destroy:
+      title: Supprimer le gestionnaire
       flashes:
         destroyed: Le gestionnaire a bien été supprimé.
   architectures:
     index:
       new_architecture: Ajouter une architecture
-      delete_confirmation: Cette architecture ne pourra pas être supprimée tant qu'elle est associée à au moins un modèle. Voulez-vous continuer ?
     new:
       title: Nouvelle architecture
     create:
@@ -198,12 +199,12 @@ fr:
       flashes:
         updated: L'architecture a bien été modifiée.
     destroy:
+      title: Supprimer l'architecture
       flashes:
         destroyed: L'architecture a bien été supprimée.
   clusters:
     index:
       new_cluster: Nouveau cluster
-      delete_confirmation: Ce cluster ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
     new:
       title: Nouveau cluster
     create:
@@ -215,12 +216,12 @@ fr:
       flashes:
         updated: Le cluster a bien été modifié.
     destroy:
+      title: Supprimer le cluster
       flashes:
         destroyed: Le cluster a bien été supprimé.
   stacks:
     index:
       new_stack: Ajouter un stack
-      delete_confirmation: Ce stack ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
     new:
       title: Nouvelle stack
     create:
@@ -232,12 +233,12 @@ fr:
       flashes:
         updated: La stack a bien été modifiée.
     destroy:
+      title: Supprimer le stack
       flashes:
         destroyed: La stack a bien été supprimé.
   card_types:
     index:
       new_card_type: Ajouter un type de carte
-      delete_confirmation: Ce type de carte ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur (via une carte). Voulez-vous continuer ?
     new:
       title: Nouveau type de carte
     create:
@@ -250,11 +251,10 @@ fr:
       flashes:
         updated: Le type de carte a bien été modifié.
     destroy:
+      title: Supprimer le type de carte
       flashes:
         destroyed: Le type de carte a bien été supprimé.
   colors:
-    index:
-      delete_confirmation: Supprimer cette couleur la supprimera des données où elle est utilisée. Voulez-vous continuer ?
     new:
       title: Nouvelle couleur
     create:
@@ -266,6 +266,7 @@ fr:
       flashes:
         updated: La couleur a bien été modifiée.
     destroy:
+      title: Supprimer la couleur
       flashes:
         destroyed: La couleur a bien été supprimé.
     show:
@@ -276,7 +277,6 @@ fr:
       information_html: il faut remplacer le numéro de série dans l'URL par <code>%s</code>.
     index:
       new_manufacturer: Ajouter un constructeur
-      delete_confirmation: Ce constructeur ne pourra pas être supprimé tant qu'il sera associé à au moins un modèle. Voulez-vous continuer ?
     new:
       title: Nouveau constructeur
     create:
@@ -288,12 +288,12 @@ fr:
       flashes:
         updated: Le constructeur a bien été modifié.
     destroy:
+      title: Supprimer le constructeur
       flashes:
         destroyed: Le constructeur a bien été supprimé.
   domaines:
     index:
       new_domaine: Ajouter un domaine
-      delete_confirmation: Ce domaine ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
     new:
       title: Nouveau domaine
     create:
@@ -305,6 +305,7 @@ fr:
       flashes:
         updated: Le domaine a bien été modifié.
     destroy:
+      title: Supprimer le domaine
       flashes:
         destroyed: Le domaine a bien été supprimé.
   ports:
@@ -319,7 +320,6 @@ fr:
   port_types:
     index:
       new_port_type: Ajouter un type de port
-      delete_confirmation: Ce type de port ne pourra pas être supprimé tant qu'il sera associé à au moins un type de carte. Voulez-vous continuer ?
     create:
       flashes:
         created: Le type de port a bien été créé.
@@ -331,13 +331,13 @@ fr:
       flashes:
         updated: Le type de port a bien été modifié.
     destroy:
+      title: Supprimer le type de port
       flashes:
         destroyed: Le type de port a bien été supprimé.
   categories:
     index:
       new_category: Ajouter une catégorie
       title: Catégories
-      delete_confirmation: Cette catégorie ne pourra pas être supprimé tant qu'il aura au moins un modèle associé. Voulez-vous continuer ?
       usage: Usage
     new:
       title: Nouvelle catégorie
@@ -350,6 +350,7 @@ fr:
       flashes:
         updated: La catégorie a bien été modifiée.
     destroy:
+      title: Supprimer la catégorie
       flashes:
         destroyed: La catégorie a bien été supprimée.
   modeles:
@@ -362,7 +363,6 @@ fr:
       add_slot: Ajouter un slot
     index:
       new_modele: Ajouter un modèle
-      delete_confirmation: Ce modèle ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur ou une enclosure. Voulez-vous continuer ?'
     new:
       title: Nouveau modèle
     create:
@@ -374,6 +374,7 @@ fr:
       flashes:
         updated: Le modèle a été mis à jour.
     destroy:
+      title: Supprimer le modèle
       flashes:
         destroyed: Le modèle a bien été supprimé.
     duplicate:
@@ -438,7 +439,6 @@ fr:
       glpi_connection_error: "Problème lors de la connexion à GLPI :"
       moves_cta_tooltip: Prévoir son déplacement
       export_cta_tooltip: Export PDF pour les câbleurs
-      toggle_vlans: Afficher / Cacher les Vlans
     new:
       title: Ajouter un matériel I.T.
     create:
@@ -446,13 +446,13 @@ fr:
         created: Le matériel I.T. a été créé avec succès.
     edit:
       title: Modifier le matériel I.T.
-      delete_confirmation: Toutes les données concernant ce matériel I.T. seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?
     update:
       flashes:
         updated: Le matériel I.T. a été mis à jour avec succès.
     duplicate:
       title: Dupliquer le matériel I.T. %{server_name}
     destroy:
+      title: Supprimer le matériel I.T.
       flashes:
         destroyed: Le matériel I.T. a bien été supprimé.
         not_destroyed: Une erreur est survenue lors de la suppression du matériel I.T.
@@ -499,13 +499,13 @@ fr:
       add_document: Ajouter une pièce jointe
     edit:
       title: Modifier le PDU
-      delete_confirmation: Toutes les données concernant ce PDU seront supprimées, ainsi que toutes les connexions associées. Souhaitez-vous confirmer ?
     update:
       flashes:
         updated: Le PDU a été mis à jour avec succès.
     duplicate:
       title: Dupliquer le PDU %{pdu_name}
     destroy:
+      title: Supprimer le PDU
       flashes:
         destroyed: Le PDU a bien été supprimé.
         not_destroyed: Une erreur est survenue lors de la suppression du PDU.
@@ -520,7 +520,6 @@ fr:
     index:
       new_frame: Ajouter un châssis
       title: Tous les châssis
-      delete_confirmation: Ce châssis ne pourra pas être supprimé tant qu'il sera associé à au moins un serveur. Voulez-vous continuer ?
     show:
       title: Châssis %{frame}
     edit:
@@ -534,6 +533,7 @@ fr:
       flashes:
         created: Le châssis a été ajouté.
     destroy:
+      title: Supprimer le châssis
       flashes:
         destroyed: Frame a bien été supprimé.
     network:
@@ -670,7 +670,6 @@ fr:
     edit_clusters_modal:
       edit_clusters: Modifier les clusters
     index:
-      delete_confirmation: Cette salle ne pourra pas être supprimée tant qu'elle sera associée à au moins un ilôt. Voulez-vous continuer ?
       new_room: Ajouter une salle
     new:
       title: Nouvelle salle
@@ -683,6 +682,7 @@ fr:
       flashes:
         updated: La salle a été mise à jour.
     destroy:
+      title: Supprimer la salle
       flashes:
         destroyed: La salle a bien été supprimée.
     add_new: Ajouter une salle
@@ -739,7 +739,6 @@ fr:
     index:
       new_air_conditioner: Ajouter une climatisation
       title: Climatisation
-      delete_confirmation: Cette climatisation sera supprimée. Voulez-vous continuer ?
     create:
       flashes:
         created: La climatisation a bien été ajoutée.
@@ -751,6 +750,7 @@ fr:
       flashes:
         updated: La climatisation a bien été modifiée.
     destroy:
+      title: Supprimer la climatisation
       flashes:
         destroyed: La climatisation a bien été supprimée.
     form:
@@ -779,7 +779,6 @@ fr:
     index:
       new_bay: Ajouter une baie ou un couple de baies
       title: Baies et doubles-baies
-      delete_confirmation: Cette baie ne pourra pas être supprimée tant qu'elle est associée à au moins un chassis. Voulez-vous continuer ?
     new:
       title: Nouvelle baie
     create:
@@ -793,6 +792,7 @@ fr:
       flashes:
         updated: La baie a bien été mise à jour.
     destroy:
+      title: Supprimer la baie
       flashes:
         destroyed: La baie a bien été supprimée.
     decorator:
@@ -804,13 +804,13 @@ fr:
       title: Connexions
       instructions_to_show_hide_vlans: Cliquer pour afficher / cacher les Vlans
     destroy:
+      title: Supprimer la connexion
       flashes:
         destroyed: La connexion a bien été supprimée.
   contacts:
     index:
       new_contact: Ajouter un contact
       title: Contacts
-      delete_confirmation: La suppression de ce contact entrainera la suppression de ses assignations. Voulez-vous continuer ?
     new:
       title: Nouveau contact
     create:
@@ -822,13 +822,13 @@ fr:
       flashes:
         updated: Le contact a bien été mis à jour.
     destroy:
+      title: Supprimer le contact
       flashes:
         destroyed: Le contact a bien été supprimé.
   contact_roles:
     index:
       new_contact_role: Ajouter un rôle
       title: Rôles de Contacts
-      delete_confirmation: Ce rôle ne pourra pas être supprimé tant qu'il est associé à au moins un Site. Voulez-vous continuer ?
     new:
       title: Nouveau rôle
     create:
@@ -840,13 +840,13 @@ fr:
       flashes:
         updated: Le rôle a bien été mis à jour.
     destroy:
+      title: Supprimer le rôle
       flashes:
         destroyed: Le rôle a bien été supprimé.
   contact_assignments:
     index:
       new_contact_assignment: Ajouter une assignation
       title: Assignations de Contacts
-      delete_confirmation: Êtes vous sûr de vouloir supprimer cette assignation ?
     new:
       title: Nouvelle assignation
     create:
@@ -858,6 +858,7 @@ fr:
       flashes:
         updated: L'assignation a bien été mise à jour.
     destroy:
+      title: Supprimer l'assignation
       flashes:
         destroyed: L'assignation a bien été supprimée.
     add_new: Ajouter une assignation

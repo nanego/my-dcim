@@ -48,6 +48,7 @@ class ColorsController < ApplicationController
 
   # DELETE /colors/1
   # DELETE /colors/1.json
+  destroy_confirmation
   def destroy
     @color.destroy
     respond_to do |format|

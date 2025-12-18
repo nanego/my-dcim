@@ -53,7 +53,7 @@ class AirConditionersControllerTest < ActionDispatch::IntegrationTest
 
   test "should destroy air_conditioner" do
     assert_difference("AirConditioner.count", -1) do
-      delete air_conditioner_url(@air_conditioner)
+      delete air_conditioner_url(@air_conditioner, confirm: true)
     end
 
     assert_redirected_to air_conditioners_url

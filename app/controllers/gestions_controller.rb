@@ -56,6 +56,7 @@ class GestionsController < ApplicationController
 
   # DELETE /gestions/1
   # DELETE /gestions/1.json
+  destroy_confirmation
   def destroy
     if @gestion.destroy
       respond_to do |format|

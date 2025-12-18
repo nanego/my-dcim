@@ -4,7 +4,7 @@ class ButtonComponent < ApplicationComponent
   VARIANTS = %i[
     default
     primary secondary success danger warning info light dark link
-    outline_primary outline_success outline_danger outline_info
+    outline_primary outline_secondary outline_success outline_danger outline_info
   ].freeze
   SIZES = %i[sm default lg].freeze
 
@@ -30,7 +30,7 @@ class ButtonComponent < ApplicationComponent
             title: @html_options&.dig(:data, :tooltip_title) || @title,
             **@html_options do
       concat(tag.span(class: "bi bi-#{@icon}")) if @icon
-      concat(tag.span(@title, class: class_names("ms-2", "d-none d-md-inline-flex": @is_responsive))) if @title
+      concat(tag.span(@title, class: class_names("ms-2": @icon, "d-none d-md-inline-flex": @is_responsive))) if @title
     end
   end
 end

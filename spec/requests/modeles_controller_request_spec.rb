@@ -202,13 +202,29 @@ RSpec.describe ModelesController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete modele_path(modele)
+      delete modele_path(modele, confirm: true)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
     include_context "with authenticated admin"
+
+    context "without confirm" do
+      subject(:response) do
+        delete modele_path(modele)
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+
+      it do
+        expect do
+          response
+        end.not_to change(Modele, :count)
+      end
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(Modele.exists?(modele.id)).to be true }
+    end
 
     context "with a modele not referenced on Server" do
       let(:modele) { modeles(:four) }

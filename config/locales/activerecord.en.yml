@@ -11,6 +11,9 @@ en:
       category: Category
       changelog_entry: Changelog
       cluster: Cluster
+      cluster_room:
+        one: Network hub cluster
+        other: Network hub clusters
       color: Color
       connection: Connection
       contact: Contact

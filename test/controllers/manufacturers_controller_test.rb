@@ -46,7 +46,7 @@ class ManufacturersControllerTest < ActionController::TestCase
     @manufacturer = Manufacturer.create
 
     assert_difference("Manufacturer.count", -1) do
-      delete :destroy, params: { id: @manufacturer }
+      delete :destroy, params: { id: @manufacturer, confirm: true }
     end
 
     assert_redirected_to manufacturers_path
@@ -54,7 +54,7 @@ class ManufacturersControllerTest < ActionController::TestCase
 
   test "should not destroy manufacturer that have modeles" do
     assert_difference("Manufacturer.count", 0) do
-      delete :destroy, params: { id: @manufacturer }
+      delete :destroy, params: { id: @manufacturer, confirm: true }
     end
 
     assert_redirected_to manufacturers_path
