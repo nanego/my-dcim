@@ -1,6 +1,5 @@
 <%
-  breadcrumb
-    .add_step(title = @permission_scope)
+  breadcrumb.add_step(title = @permission_scope)
 %>
 
 <%= render Page::HeadingShowComponent.new(resource: @permission_scope, title:, breadcrumb:) %>
