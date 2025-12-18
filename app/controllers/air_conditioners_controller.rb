@@ -48,6 +48,7 @@ class AirConditionersController < ApplicationController
     end
   end
 
+  destroy_confirmation
   def destroy
     @air_conditioner.destroy!
 

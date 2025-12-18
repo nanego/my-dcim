@@ -19,6 +19,7 @@ class CablesController < ApplicationController
     end
   end
 
+  destroy_confirmation
   def destroy
     @cable.ports.each do |port|
       if @from_server.nil?

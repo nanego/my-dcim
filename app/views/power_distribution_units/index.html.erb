@@ -150,7 +150,7 @@
             <% if allowed_to?(:destroy?, pdu, with: PowerDistributionUnitPolicy) %>
               <%= link_to power_distribution_unit_path(pdu, @filter.attributes),
                           method: :delete,
-                          data: { turbo_frame: :_top, confirm: t("action.confirm") },
+                          data: { turbo_frame: :_top },
                           class: "btn btn-danger" do %>
                 <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
                                                                             data-controller="tooltip"

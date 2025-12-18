@@ -1,4 +1,4 @@
-<% breadcrumb.add_step(title = @color.code) %>
+<% breadcrumb.add_step(title = @color) %>
 
 <%= render Page::HeadingShowComponent.new(
   resource: @color,
@@ -21,7 +21,7 @@
             <dd class="mb-0 pb-2 ps-3"><%= @color.public_send(attribute_name) %></dd>
           <% end %>
 
-          <input type="color" class="form-control form-control-color" id="" value="<%= @color.code %>" disabled>
+          <input type="color" class="form-control form-control-color" id="" value="<%= @color %>" disabled>
         </dl>
       <% end %>
     </div>

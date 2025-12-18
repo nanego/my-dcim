@@ -57,19 +57,41 @@ RSpec.describe CablesController do
   end
 
   describe "DELETE #destroy" do
-    subject(:response) do
-      delete cable_path(cable)
+    context "without confirm" do
+      subject(:response) do
+        delete cable_path(cable)
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
 
-      @response # rubocop:disable RSpec/InstanceVariable
+      it do
+        expect do
+          response
+        end.not_to change(Cable, :count)
+      end
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(Cable.exists?(cable.id)).to be(true) }
     end
 
     context "with not found cable" do
+      subject(:response) do
+        delete cable_path(cable, confirm: true)
+
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+
       before { cable.id = 999_999_999 }
 
       it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
     end
 
     context "with existing cable" do
+      subject(:response) do
+        delete cable_path(cable, confirm: true)
+
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+
       it { expect(response).to have_http_status(:redirect) }
 
       it do

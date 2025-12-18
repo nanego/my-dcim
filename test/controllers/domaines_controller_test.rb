@@ -46,7 +46,7 @@ class DomainesControllerTest < ActionController::TestCase
     @domaine = Domaine.create
 
     assert_difference("Domaine.count", -1) do
-      delete :destroy, params: { id: @domaine }
+      delete :destroy, params: { id: @domaine, confirm: true }
     end
 
     assert_redirected_to domaines_path
@@ -54,7 +54,7 @@ class DomainesControllerTest < ActionController::TestCase
 
   test "should not destroy domaine that have modeles" do
     assert_difference("Domaine.count", 0) do
-      delete :destroy, params: { id: @domaine }
+      delete :destroy, params: { id: @domaine, confirm: true }
     end
 
     assert_redirected_to domaines_path
