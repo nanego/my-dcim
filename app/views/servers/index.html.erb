@@ -131,6 +131,18 @@
           <%= f.label :category_ids %>
         </fieldset>
       </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:manufacturer_ids, Manufacturer.sorted,
+                                  :id,
+                                  :name,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :manufacturer_ids %>
+        </fieldset>
+      </div>
+
     <% end %>
   <% end %>
 
