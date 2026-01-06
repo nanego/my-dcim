@@ -17,7 +17,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   end
 
   def index
-    # Let server knows that now name is not used anymore for research
+    # let the server know that name isn't the correct search params anymore
     if params[:name].present?
       params[:q] = params[:name]
 

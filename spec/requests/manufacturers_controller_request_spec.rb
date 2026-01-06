@@ -3,6 +3,10 @@
 require "rails_helper"
 
 RSpec.describe ManufacturersController do
+  let(:manufacturer) { Manufacturer.create! }
+  let(:modele) { Modele.create!(manufacturer:, category: Category.create!, architecture: Architecture.create!) }
+  let(:server) { Server.create!(name: "A", numero: "numeroA", frame: frames(:one), modele:) }
+
   describe "GET #new" do
     subject(:response) do
       get new_manufacturer_path
@@ -47,5 +51,21 @@ RSpec.describe ManufacturersController do
 
       it { expect { response }.to raise_error(ActionController::ParameterMissing) }
     end
+  end
+
+  describe "GET #index" do
+    subject(:response) do
+      get manufacturers_path
+
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    before { server }
+
+    include_context "with authenticated admin"
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:index) }
+    it { expect(response.body).to include(I18n.t("activerecord.attributes.manufacturer.servers_count", count: 1)) }
   end
 end
