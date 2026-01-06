@@ -459,8 +459,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_14_150823) do
     t.boolean "display_on_home_page"
     t.integer "site_id", null: false
     t.integer "islets_count", default: 0
-    t.integer "surface_area"
     t.integer "status", default: 0, null: false
+    t.integer "surface_area"
     t.integer "access_control"
     t.index ["site_id"], name: "index_rooms_on_site_id"
     t.index ["slug"], name: "index_rooms_on_slug", unique: true
@@ -540,8 +540,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_14_150823) do
     t.datetime "invitation_sent_at", precision: nil
     t.datetime "invitation_accepted_at", precision: nil
     t.integer "invitation_limit"
-    t.integer "invited_by_id"
     t.string "invited_by_type"
+    t.integer "invited_by_id"
     t.integer "invitations_count", default: 0
     t.string "authentication_token", limit: 30
     t.datetime "suspended_at"
@@ -596,92 +596,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_14_150823) do
   add_foreign_key "servers", "modeles"
   add_foreign_key "servers", "stacks"
 
-  create_view "fc_count", sql_definition: <<-SQL
-      SELECT serveurs.id,
-      sum(cards.port_quantity) AS fc_count
-     FROM cards cards_serveurs,
-      servers serveurs,
-      card_types cards,
-      port_types
-    WHERE ((cards_serveurs.server_id = serveurs.id) AND (cards_serveurs.card_type_id = cards.id) AND (cards.port_type_id = port_types.id) AND ((port_types.name)::text = 'FC'::text))
-    GROUP BY serveurs.id;
-  SQL
-  create_view "fc_used_count", sql_definition: <<-SQL
-      SELECT serveurs.id,
-      count(cards.id) AS fc_used_count
-     FROM ports,
-      cards cards_serveurs,
-      servers serveurs,
-      card_types cards,
-      port_types
-    WHERE ((cards_serveurs.server_id = serveurs.id) AND (cards_serveurs.id = ports.card_id) AND (cards_serveurs.card_type_id = cards.id) AND (cards.port_type_id = port_types.id) AND ((port_types.name)::text = 'FC'::text))
-    GROUP BY serveurs.id;
-  SQL
-  create_view "port_count", sql_definition: <<-SQL
-      SELECT serveurs.id,
-      port_types.name,
-      sum(cards.port_quantity) AS port_count
-     FROM cards cards_serveurs,
-      servers serveurs,
-      card_types cards,
-      port_types
-    WHERE ((cards_serveurs.server_id = serveurs.id) AND (cards_serveurs.card_type_id = cards.id) AND (cards.port_type_id = port_types.id))
-    GROUP BY serveurs.id, port_types.name;
-  SQL
-  create_view "port_used_count", sql_definition: <<-SQL
-      SELECT serveurs.id,
-      port_types.name,
-      count(cards.id) AS port_user_count
-     FROM ports,
-      cards cards_serveurs,
-      servers serveurs,
-      card_types cards,
-      port_types
-    WHERE ((cards_serveurs.server_id = serveurs.id) AND (cards_serveurs.id = ports.card_id) AND (cards_serveurs.card_type_id = cards.id) AND (cards.port_type_id = port_types.id))
-    GROUP BY serveurs.id, port_types.name;
-  SQL
-  create_view "rj_count", sql_definition: <<-SQL
-      SELECT serveurs.id,
-      sum(cards.port_quantity) AS rj_count
-     FROM cards cards_serveurs,
-      servers serveurs,
-      card_types cards,
-      port_types
-    WHERE ((cards_serveurs.server_id = serveurs.id) AND (cards_serveurs.card_type_id = cards.id) AND (cards.port_type_id = port_types.id) AND ((port_types.name)::text = 'RJ'::text))
-    GROUP BY serveurs.id;
-  SQL
-  create_view "rj_used_count", sql_definition: <<-SQL
-      SELECT serveurs.id,
-      count(cards.id) AS rj_used_count
-     FROM ports,
-      cards cards_serveurs,
-      servers serveurs,
-      card_types cards,
-      port_types
-    WHERE ((cards_serveurs.server_id = serveurs.id) AND (cards_serveurs.id = ports.card_id) AND (cards_serveurs.card_type_id = cards.id) AND (cards.port_type_id = port_types.id) AND ((port_types.name)::text = 'RJ'::text))
-    GROUP BY serveurs.id;
-  SQL
-  create_view "xrj_count", sql_definition: <<-SQL
-      SELECT serveurs.id,
-      sum(cards.port_quantity) AS xrj_count
-     FROM cards cards_serveurs,
-      servers serveurs,
-      card_types cards,
-      port_types
-    WHERE ((cards_serveurs.server_id = serveurs.id) AND (cards_serveurs.card_type_id = cards.id) AND (cards.port_type_id = port_types.id) AND ((port_types.name)::text = 'XRJ'::text))
-    GROUP BY serveurs.id;
-  SQL
-  create_view "xrj_used_count", sql_definition: <<-SQL
-      SELECT serveurs.id,
-      count(cards.id) AS xrj_used_count
-     FROM ports,
-      cards cards_serveurs,
-      servers serveurs,
-      card_types cards,
-      port_types
-    WHERE ((cards_serveurs.server_id = serveurs.id) AND (cards_serveurs.id = ports.card_id) AND (cards_serveurs.card_type_id = cards.id) AND (cards.port_type_id = port_types.id) AND ((port_types.name)::text = 'XRJ'::text))
-    GROUP BY serveurs.id;
-  SQL
   create_view "search_results", sql_definition: <<-SQL
       SELECT servers.id AS searchable_id,
       'Server'::text AS searchable_type,
