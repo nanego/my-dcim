@@ -175,6 +175,7 @@ fr:
         name: Nom
         usage_modele: Usage (modèle)
         usage_bay: Usage (baie)
+        usage_server: Usage (Materiel)
         description: Description
         documentation_url: Documentation URL
         modeles_count:
@@ -185,6 +186,10 @@ fr:
           zero: 0 baie
           one: 1 baie
           other: "%{count} baies"
+        servers_count:
+          zero: 0 Materiel
+          one: 1 Materiel
+          other: "%{count} Materiels"
       domaine:
         name: Nom
         usage: Usage
