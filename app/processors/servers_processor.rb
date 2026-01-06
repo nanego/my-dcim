@@ -55,7 +55,7 @@ class ServersProcessor < ApplicationProcessor
   end
 
   map :manufacturer_ids, filter_with: :non_empty_array do |manufacturer_ids:|
-    raw.joins(:modele).where(modele: { manufacturer_id: manufacturer_ids })
+    raw.joins(:modele).where(modeles: { manufacturer_id: manufacturer_ids })
   end
 
   sortable fields: SORTABLE_FIELDS do
