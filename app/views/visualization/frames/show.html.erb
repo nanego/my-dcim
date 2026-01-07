@@ -1,5 +1,4 @@
 <%
-
   breadcrumb
     .add_step(t("visualization.title"))
     .add_step(t("visualization.rooms.index.title"), visualization_rooms_path)
@@ -20,7 +19,8 @@
   <% if @room.present? %>
     <% heading.with_right_content do %>
       <div class="d-flex flex-wrap gap-2 flex-column flex-lg-row">
-        <%= render "rooms/action_buttons", view_side: Frame::VIEW_SIDES[:both] %>
+        <%= render "visualization/action_buttons", view_side: Frame::VIEW_SIDES[:both] %>
+        <%= render "visualization/frames/export_button", frame: @frame, in_table: false %>
         <%= render(ButtonComponent.new(t("action.show"),
                                       url: @frame,
                                       size: :sm,
@@ -32,7 +32,7 @@
   <% end %>
 <% end %>
 <div class="container-fluid p-4 border-top" id="bay-container">
-  <%= render partial: "frames/show_complete_frame", locals: { should_show_heading: false } %>
+  <%= render partial: "visualization/frames/show_complete_frame", locals: { should_show_heading: false } %>
 </div>
 
 <%= render "ports/modal_edit_port" %>
