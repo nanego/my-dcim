@@ -7,7 +7,7 @@ ruby file: ".ruby-version"
 gem "rails", "~> 8.0.0"
 
 gem "bootstrap", "~> 5.3.2"
-gem "dartsass-sprockets", "~> 3.1"
+gem "dartsass-sprockets", "~> 3.2"
 gem "jbuilder"
 gem "nokogiri", "~> 1.18"
 gem "rails-i18n", "~> 8.1"
