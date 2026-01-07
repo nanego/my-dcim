@@ -21,7 +21,7 @@ class ButtonComponent < ApplicationComponent
     raise ArgumentError, "'#{@variant.inspect}' is not a valid variant type" unless VARIANTS.include?(@variant)
     raise ArgumentError, "'#{@size.inspect}' is not a valid size type" unless SIZES.include?(@size)
 
-    super
+    super()
   end
 
   def call
