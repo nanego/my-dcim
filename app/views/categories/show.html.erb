@@ -26,8 +26,8 @@
           <%= t("show.cards.features") %>
         <% end %>
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <dt class="pb-2"><%= Category.human_attribute_name(:glpi_sync_type) %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= decorate(@category).glpi_sync_type_human %></dd>
+          <dt class="pb-2"><%= Category.human_attribute_name(:glpi_sync) %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= decorate(@category).glpi_sync_human %></dd>
         </dl>
       <% end %>
     </div>
