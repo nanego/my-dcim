@@ -35,11 +35,11 @@
       <% end %>
     <% end %>
 
-    <% table.with_column(Category.human_attribute_name(:is_glpi_synchronizable),
-                         sort_by: :is_glpi_synchronizable,
+    <% table.with_column(Category.human_attribute_name(:glpi_sync),
+                         sort_by: :glpi_sync,
                          text_align: :center,
                          style: "width: 240px") do |category| %>
-      <input type="checkbox" <%= category.is_glpi_synchronizable ? "checked" : "" %> disabled>
+      <p><%= decorate(category).glpi_sync_human %></p>
     <% end %>
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |category| %>
