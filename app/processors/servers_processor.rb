@@ -3,7 +3,7 @@
 class ServersProcessor < ApplicationProcessor
   include Sortable
 
-  SORTABLE_FIELDS = %w[name numero categories.name rooms.name islets.name bays.id position critique comment critique side slug modele.u manufacturers.name].freeze
+  SORTABLE_FIELDS = %w[name numero categories.name rooms.name islets.name manufacturers.name bays.id position critique comment critique side slug modele.u].freeze
 
   map :q do |q:|
     server_table = Server.arel_table
@@ -24,6 +24,10 @@ class ServersProcessor < ApplicationProcessor
 
   map :islet_ids, filter_with: :non_empty_array do |islet_ids:|
     raw.joins(frame: { bay: :islet }).where(islets: { id: islet_ids })
+  end
+
+  map :manufacturer_ids, filter_with: :non_empty_array do |manufacturer_ids:|
+    raw.joins(:modele).where(modeles: { manufacturer_id: manufacturer_ids })
   end
 
   map :room_ids, filter_with: :non_empty_array do |room_ids:|
@@ -52,10 +56,6 @@ class ServersProcessor < ApplicationProcessor
 
   map :category_ids, filter_with: :non_empty_array do |category_ids:|
     raw.joins(:modele).where(modeles: { category_id: category_ids })
-  end
-
-  map :manufacturer_ids, filter_with: :non_empty_array do |manufacturer_ids:|
-    raw.joins(:modele).where(modeles: { manufacturer_id: manufacturer_ids })
   end
 
   sortable fields: SORTABLE_FIELDS do

@@ -374,7 +374,7 @@ RSpec.describe ServersProcessor do
       it { is_expected.to contain_exactly(server) }
     end
 
-    context "with many category_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+    context "with many manufacturer_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
       let(:another_manufacturer) { Manufacturer.create! }
       let(:another_modele) { Modele.create!(name: "Mod2", description: "Mod2 desc", category: Category.create!, manufacturer: another_manufacturer, architecture: Architecture.create!) }
       let(:another_server) { Server.create!(name: "server2", numero: 2, **attributes, modele: another_modele) }
