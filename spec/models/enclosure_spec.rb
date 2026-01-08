@@ -17,4 +17,19 @@ RSpec.describe Enclosure do
     it { expect(enclosure.deep_dup.position).to eq(enclosure.position) }
     it { expect(enclosure.deep_dup.composants.size).to eq(enclosure.composants.size) }
   end
+
+  describe "#with_composants" do
+    subject(:with_composants) { described_class.with_composants }
+
+    let(:enclosure) { described_class.create! position: 0, modele: modeles(:one) }
+
+    it { is_expected.not_to include(enclosure) }
+
+    it do
+      expect do
+        Composant.create!(position: 0, name: "c1", enclosure:)
+        Composant.create!(position: 1, name: "c2", enclosure:)
+      end.to change(with_composants, :count).by(1)
+    end
+  end
 end
