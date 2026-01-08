@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # Pin npm packages by running ./bin/importmap
+enable_integrity!
 
 pin "application"
 pin "@hotwired/turbo-rails", to: "turbo.min.js"

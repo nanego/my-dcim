@@ -13,3 +13,11 @@ stock:
 three:
   id: 3
   name: Three
+
+empty_domain:
+  id: 4
+  name: Empty domain
+
+empty_domain_two:
+  id: 5
+  name: Empty domain 2

@@ -23,7 +23,7 @@ gem "omniauth_openid_connect", "~> 0.7.0"
 gem "omniauth-rails_csrf_protection"
 gem "simple_token_authentication", github: "gonzalo-bulnes/simple_token_authentication"
 
-gem "datagrid"
+gem "datagrid", "~> 1.x"
 gem "dry-struct"
 gem "faraday"
 gem "kaminari" # TODO: Remove when removing datagrid
@@ -60,6 +60,7 @@ group :test do
   gem "capybara", ">= 2.15"
   gem "cuprite"
   gem "formulaic"
+  gem "minitest", "~> 5.x"
   gem "rails-controller-testing"
   gem "rspec-activemodel-mocks"
   gem "rspec-html-matchers"
