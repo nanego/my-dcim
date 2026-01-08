@@ -315,6 +315,7 @@ en:
       flashes:
         updated: The project has been updated.
     destroy:
+      title: Delete the project
       flashes:
         destroyed: The project has been removed.
     archive:

@@ -609,6 +609,7 @@ fr:
       flashes:
         updated: Le projet a été mis à jour.
     destroy:
+      title: Supprimer le project
       flashes:
         destroyed: Le projet a été supprimé.
     archive:
