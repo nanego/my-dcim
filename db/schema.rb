@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_12_03_164807) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_08_143245) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -589,6 +589,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_03_164807) do
   add_foreign_key "permission_scope_users", "users"
   add_foreign_key "rooms", "sites"
   add_foreign_key "servers", "clusters"
+  add_foreign_key "servers", "domaines"
+  add_foreign_key "servers", "frames"
   add_foreign_key "servers", "gestions"
   add_foreign_key "servers", "modeles"
   add_foreign_key "servers", "stacks"

@@ -56,7 +56,7 @@ RSpec.describe ServerDecorator, type: :decorator do
   describe ".domains_options_for_select" do
     it do
       expect(described_class.domains_options_for_select(user))
-        .to contain_exactly(["Stock", 2], ["Switch", 1], ["Three", 3])
+        .to contain_exactly(["Empty domain", 4], ["Empty domain 2", 5], ["Stock", 2], ["Switch", 1], ["Three", 3])
     end
   end
 
