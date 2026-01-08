@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby file: ".ruby-version"
 
-gem "rails", "~> 8.0.0"
+gem "rails", "~> 8.1.1"
 
 gem "bootstrap", "~> 5.3.2"
 gem "dartsass-sprockets", "~> 3.2"
