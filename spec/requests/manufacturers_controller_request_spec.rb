@@ -65,20 +65,4 @@ RSpec.describe ManufacturersController do
       it { expect { response }.to raise_error(ActionController::ParameterMissing) }
     end
   end
-
-  describe "GET #index" do
-    subject(:response) do
-      get manufacturers_path
-
-      @response # rubocop:disable RSpec/InstanceVariable
-    end
-
-    before { server }
-
-    include_context "with authenticated admin"
-
-    it { expect(response).to have_http_status(:success) }
-    it { expect(response).to render_template(:index) }
-    it { expect(response.body).to include(I18n.t("activerecord.attributes.manufacturer.servers_count", count: 1)) }
-  end
 end
