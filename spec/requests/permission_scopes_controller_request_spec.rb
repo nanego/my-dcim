@@ -115,15 +115,35 @@ RSpec.describe PermissionScopesController do
   end
 
   describe "DELETE #destroy" do
+    subject(:response) do
+      delete permission_scope_path(permission_scope, confirm: true)
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    context "without confirm" do
+      subject(:response) do
+        delete permission_scope_path(permission_scope)
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+
+      it do
+        expect do
+          response
+        end.not_to change(PermissionScope, :count)
+      end
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(PermissionScope.exists?(permission_scope.id)).to be true }
+    end
+
     context "with a permission_scope without association" do
       it "destroys the requested permission_scope" do
         expect do
-          delete permission_scope_path(permission_scope)
+          response
         end.to change(PermissionScope, :count).by(-1)
       end
 
       it "redirects to the permission_scopes list" do
-        delete permission_scope_path(permission_scope)
         expect(response).to redirect_to(permission_scopes_path)
       end
     end
