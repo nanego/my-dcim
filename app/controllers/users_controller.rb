@@ -39,6 +39,7 @@ class UsersController < ApplicationController
     end
   end
 
+  destroy_confirmation
   def destroy
     @user.destroy
 

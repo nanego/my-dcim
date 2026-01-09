@@ -534,6 +534,8 @@ en:
     logout: Log out
     edit:
       title: "Edit a user account"
+    destroy:
+      title: Delete this user
     flashes:
       updated: User account updated
 

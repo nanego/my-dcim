@@ -156,7 +156,7 @@ RSpec.describe MovesProjectsController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete moves_project_path(moves_project)
+      delete moves_project_path(moves_project, confirm: true)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -165,6 +165,22 @@ RSpec.describe MovesProjectsController do
     let(:moves_project) { moves_projects(:empty) }
 
     include_context "with authenticated admin"
+
+    context "without confirm" do
+      subject(:response) do
+        delete moves_project_path(moves_project)
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+
+      it do
+        expect do
+          response
+        end.not_to change(MovesProject, :count)
+      end
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(MovesProject.exists?(moves_project.id)).to be true }
+    end
 
     it do
       expect do
