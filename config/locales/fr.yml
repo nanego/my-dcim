@@ -569,7 +569,7 @@ fr:
       flashes:
         updated: Le déplacement a été mis à jour.
     destroy:
-      title: Suppression du déplacement
+      title: Supprimer ce déplacement
       flashes:
         destroyed: Le déplacement a été supprimé.
         already_executed: Le déplacement a déjà été exécuté, impossible de le supprimer.
@@ -905,6 +905,7 @@ fr:
       domaine_ids:
         blank: Sélectionnez un domaine
     destroy:
+      title: Supprimer cette permission
       flashes:
         destroyed: La permission a bien été supprimé.
     permission_scope_user_form:

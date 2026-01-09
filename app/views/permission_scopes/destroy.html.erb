@@ -1,0 +1,14 @@
+<%
+  breadcrumb
+    .add_step(@permission_scope, permission_scope_path(@permission_scope))
+    .add_step(t("action.delete"))
+%>
+
+<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:) %>
+
+<div class="col-12 p-4 border-top">
+  <%= render DeleteDependencyComponent.new(
+    @permission_scope,
+    confirmation_path: permission_scope_path(@permission_scope, confirm: true)
+  ) %>
+</div>
