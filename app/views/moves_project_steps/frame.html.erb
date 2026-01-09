@@ -42,7 +42,6 @@
         <td class="text-center" style="min-width: 50px; width: 50px;">
           <%= link_to moves_project_step_move_path(move),
                       method: :delete,
-                      data: { confirm: t("moves.index.delete_confirmation") },
                       class: "btn btn-danger btn-sm" do %>
             <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
                                                                         data-controller="tooltip"

@@ -569,6 +569,7 @@ fr:
       flashes:
         updated: Le déplacement a été mis à jour.
     destroy:
+      title: Suppression du déplacement
       flashes:
         destroyed: Le déplacement a été supprimé.
         already_executed: Le déplacement a déjà été exécuté, impossible de le supprimer.

@@ -273,6 +273,7 @@ en:
       flashes:
         updated: The move has been updated.
     destroy:
+      title: Delete this move
       flashes:
         destroyed: The move has been removed.
         already_executed: The move has already been executed, it can't be removed.
