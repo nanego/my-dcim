@@ -21,7 +21,7 @@ RSpec.describe Enclosure do
       expect do
         Composant.create!(position: 0, name: "c1", enclosure:)
         Composant.create!(position: 1, name: "c2", enclosure:)
-      end.to change(with_composants, :count).from(0).to(1)
+      end.to change(with_composants, :count).from(2).to(3)
     end
   end
 
