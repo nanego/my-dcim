@@ -20,6 +20,7 @@ RSpec.describe Server do
     it { is_expected.to have_one(:bay).through(:frame) }
     it { is_expected.to have_one(:islet).through(:frame) }
     it { is_expected.to have_one(:room).through(:islet) }
+    it { is_expected.to have_one(:manufacturer).through(:modele) }
 
     it { is_expected.to have_many(:cards) }
     it { is_expected.to have_many(:card_types).through(:cards) }
