@@ -77,23 +77,21 @@ RSpec.describe ExternalAppRecordsController do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    let(:params) do
-      { commit: "true", external_app_record_setting: { category_glpi_sync_types: { categories(:two).id => :server } } }
-    end
+    let(:params) { { commit: "true", category_glpi_syncs: { 2 => :server } } }
 
     it { expect(response).to have_http_status(:redirect) }
     it { expect(response).to redirect_to(external_app_records_path) }
 
     it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
-      expect(categories(:one).glpi_sync_type_server?).to be(true)
-      expect(categories(:two).glpi_sync_type_none?).to be(true)
+      expect(categories(:one).server_glpi_sync?).to be(true)
+      expect(categories(:two).no_glpi_sync?).to be(true)
 
       response
       categories(:one).reload
       categories(:two).reload
 
-      expect(categories(:one).glpi_sync_type_none?).to be(true)
-      expect(categories(:two).glpi_sync_type_server?).to be(true)
+      expect(categories(:one).no_glpi_sync?).to be(true)
+      expect(categories(:two).server_glpi_sync?).to be(true)
     end
   end
 end
