@@ -718,6 +718,8 @@ fr:
       action:
         show_authentication_token: Afficher la clé API
         hide_authentication_token: Cacher la clé API
+    destroy:
+      title: Supprimer cet utilisateur
     edit:
       title: "Modifier un compte utilisateur"
     flashes:
