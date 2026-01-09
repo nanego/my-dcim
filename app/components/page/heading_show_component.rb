@@ -10,7 +10,7 @@ module Page
       @breadcrumb = breadcrumb
       @editable = editable
 
-      super
+      super()
     end
 
     def call

@@ -10,7 +10,7 @@ module Overview
 
       @html_options = html_options
 
-      super
+      super()
     end
 
     def call

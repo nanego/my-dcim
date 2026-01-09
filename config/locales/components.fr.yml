@@ -3,10 +3,11 @@ fr:
     title: Aucune donnée trouvée
 
   delete_dependency_component:
-    restrict_with_error_dependency_title: Ressources liées bloquant la suppression
-    destroy_dependency_title: Ressources liées qui seront supprimées
     confirmation_message_html: Êtes-vous sûr de vouloir supprimer la ressource <b class="font-monospace">%{name}</b> ? Cette action est irréversible
     empty_state_text: Aucun élément lié
+    collection_group_component:
+      restrict_with_error_dependency_title: Ressources liées bloquant la suppression
+      destroy_dependency_title: Ressources liées qui seront supprimées
 
   export_dropdown_component:
     export:
@@ -38,12 +39,13 @@ fr:
         selected_elements: élément(s) sélectionné(s)
 
   overview:
-    shortcut_button_component:
+    create_frame_delete_bay_button_component:
       delete_frame:
         title: Supprimer la baie vide
         confirm: Êtes-vous sûr de vouloir supprimer cette baie ?
       create_frame:
         title: Ajouter un châssis
+    create_bay_button_component:
       create_bay:
         title: Ajouter une baie
 

@@ -29,7 +29,7 @@ class ExportDropdownComponent < ApplicationComponent
     @pagy = pagy
     @params = params
 
-    super
+    super()
   end
 
   private

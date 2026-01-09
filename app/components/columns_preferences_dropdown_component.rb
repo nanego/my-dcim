@@ -32,6 +32,6 @@ class ColumnsPreferencesDropdownComponent < ApplicationComponent
     @action_path = action_path
     @columns_preferences = columns_preferences
 
-    super
+    super()
   end
 end

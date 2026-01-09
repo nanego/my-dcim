@@ -8,7 +8,7 @@ module Page
       @breadcrumb = breadcrumb
       @back_button_url = back_button_url
 
-      super
+      super()
     end
 
     def call

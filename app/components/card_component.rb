@@ -40,7 +40,7 @@ class CardComponent < ApplicationComponent
     @html_attributes = html_attributes
     @html_attributes[:class] = class_names("card", extra_classes, "border-#{@type}": @type)
 
-    super
+    super()
   end
 
   class BodyComponent < ApplicationComponent
