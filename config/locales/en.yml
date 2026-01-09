@@ -410,8 +410,9 @@ en:
       domaine_ids:
         blank: Select a domain
     destroy:
+      title: Delete the permission scope
       destroy:
-        title: Delete the permissio scope
+        title: Delete the permission scope
       flashes:
         destroyed: Permission Scope as been successfully destroyed.
     permission_scope_user_form:
