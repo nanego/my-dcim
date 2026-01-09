@@ -9,7 +9,7 @@ class Enclosure < ApplicationRecord
 
   enum :display, { vertical: "vertical", horizontal: "horizontal", grid: "grid" }, validate: true
 
-  scope :with_composants, -> { where.associated(:composants) }
+  scope :with_composants, -> { where.associated(:composants).distinct }
 
   accepts_nested_attributes_for :composants,
                                 allow_destroy: true,
