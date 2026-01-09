@@ -142,8 +142,8 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    datagrid (1.8.2)
-      railties (>= 6.1)
+    datagrid (2.0.9)
+      railties (>= 7.0)
     date (3.5.1)
     debug (1.11.1)
       irb (~> 1.10)
@@ -659,7 +659,7 @@ DEPENDENCIES
   cuprite
   dalli (~> 3.2)
   dartsass-sprockets (~> 3.2)
-  datagrid (~> 1.x)
+  datagrid (~> 2)
   debug
   dekorator (~> 1.4)
   devise (~> 4.9)
@@ -766,7 +766,7 @@ CHECKSUMS
   cuprite (0.17) sha256=b140d5dc70d08b97ad54bcf45cd95d0bd430e291e9dffe76fff851fddd57c12b
   dalli (3.2.8) sha256=2e63595084d91fae2655514a02c5d4fc0f16c0799893794abe23bf628bebaaa5
   dartsass-sprockets (3.2.1) sha256=5163c59d155bfb834e2554bec00e2ff9ab97ad3ea82545cbacf650cf0469f3c3
-  datagrid (1.8.2) sha256=85612612761b449116dc6c941031762cc9f5d8831c1b8ad3df53bd338c31e3a7
+  datagrid (2.0.9) sha256=d76a8ef59bbb1288607cc0dfd62981c6f5cf9217ec6bf647ae7f10201c1b2a85
   date (3.5.1) sha256=750d06384d7b9c15d562c76291407d89e368dda4d4fff957eb94962d325a0dc0
   debug (1.11.1) sha256=2e0b0ac6119f2207a6f8ac7d4a73ca8eb4e440f64da0a3136c30343146e952b6
   dekorator (1.8.0) sha256=707f1aa4d2d0783f31068132b1765297b52cb321521c83637e9a7afe8e661c1e

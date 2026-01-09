@@ -23,7 +23,7 @@ gem "omniauth_openid_connect", "~> 0.7.0"
 gem "omniauth-rails_csrf_protection"
 gem "simple_token_authentication", github: "gonzalo-bulnes/simple_token_authentication"
 
-gem "datagrid", "~> 1.x"
+gem "datagrid", "~> 2"
 gem "dry-struct"
 gem "faraday"
 gem "kaminari" # TODO: Remove when removing datagrid
