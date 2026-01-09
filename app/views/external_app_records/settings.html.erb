@@ -17,17 +17,19 @@
       <% end %>
 
       <fieldset class="col-12">
-        <ul class="list-none p-0">
-          <% Category.sorted.each do |category| %>
-            <li class="d-flex align-items-center gap-2 my-2">
-              <%= select_tag "category_glpi_syncs[#{category.id}]",
-                    options_for_select(CategoryDecorator.glpi_sync_options_for_select, category.glpi_sync),
-                    class: "form-select",
-                    style: "width: 180px;" %>
-              <%= label_tag "category_glpi_syncs[#{category.id}]", category.name, class: "" %>
-            </li>
-          <% end %>
-        </ul>
+        <%= f.fields_for :category_glpi_syncs do |ff| %>
+          <ul class="list-none p-0">
+              <% Category.sorted.each do |category| %>
+                <li class="d-flex align-items-center gap-2 my-2">
+                  <%= ff.select category.id,
+                        options_for_select(CategoryDecorator.glpi_sync_options_for_select, category.glpi_sync),
+                        {},
+                        { class: "form-select", style: "width: 180px;" } %>
+                  <%= ff.label category.id, category.name %>
+                </li>
+              <% end %>
+          </ul>
+        <% end %>
       </fieldset>
     <% end %>
 
