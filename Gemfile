@@ -77,7 +77,7 @@ end
 group :production do
   gem "connection_pool", "~> 2.4.1" # Force compatible version, v3.0 is NOT currently compatible with Rails 8
   gem "dalli", "~> 3.2"
-  gem "mini_racer", "~> 0.16.0"
+  gem "mini_racer", "~> 0.19.2"
   gem "passenger", "~> 6.0"
 end
 
