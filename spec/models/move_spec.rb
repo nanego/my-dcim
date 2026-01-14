@@ -37,7 +37,17 @@ RSpec.describe Move do
   end
 
   describe "#clear_connections" do
-    pending
+    context "when remove_existing_connections_on_execution set to false" do
+      let(:move) { moves(:planned).tap { |m| m.remove_existing_connections_on_execution = false } }
+
+      it { expect { move.clear_connections }.not_to(change { move.moved_connections.count }) }
+    end
+
+    context "when remove_existing_connections_on_execution set to true" do
+      let(:move) { moves(:planned).tap { |m| m.remove_existing_connections_on_execution = true } }
+
+      it { expect { move.clear_connections }.to change { move.moved_connections.count }.from(2).to(4) }
+    end
   end
 
   describe "#status" do
