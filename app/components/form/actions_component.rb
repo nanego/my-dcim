@@ -8,7 +8,7 @@ module Form
       @is_new = !@is_edit
       @display_create_another_one = display_create_another_one
 
-      super
+      super()
     end
 
     def call
