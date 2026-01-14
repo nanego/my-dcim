@@ -17,7 +17,7 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
   belongs_to :cluster, optional: true, counter_cache: true
   belongs_to :stack, optional: true, counter_cache: true
 
-  has_many :cards, -> { joins(:composant).includes(:composant) }
+  has_many :cards, -> { joins(:composant).includes(:composant) }, dependent: :destroy
   has_many :card_types, through: :cards
   has_many :ports, through: :cards
   has_many :connections, through: :ports
