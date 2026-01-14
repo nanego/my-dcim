@@ -38,7 +38,7 @@ RSpec.describe MoveDecorator, type: :decorator do
     subject(:badge) { decorated_move.moved_connections_to_badge_component }
 
     context "with moved_connections" do
-      let(:object) { moves(:one) }
+      let(:object) { moves(:one).tap { |move| move.remove_existing_connections_on_execution = true } }
 
       it { is_expected.to be_a(BadgeComponent) }
       it { expect(badge.instance_variable_get(:@color)).to eq(:success) }
