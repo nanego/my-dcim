@@ -8,7 +8,7 @@ class Modele < ApplicationRecord
   has_changelog
 
   has_many :servers, dependent: :restrict_with_error
-  has_many :enclosures, dependent: :restrict_with_error
+  has_many :enclosures, dependent: :destroy
   has_many :composants, through: :enclosures
 
   belongs_to :manufacturer, counter_cache: true
