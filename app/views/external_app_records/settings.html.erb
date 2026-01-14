@@ -18,14 +18,14 @@
 
       <fieldset class="col-12">
         <%= f.fields_for :category_glpi_syncs do |ff| %>
-          <ul class="list-none p-0">
+          <ul class="list-group list-group-flush p-0">
               <% Category.sorted.each do |category| %>
-                <li class="d-flex align-items-center gap-2 my-2">
+                <li class="list-group-item d-flex align-items-center bg-body-tertiary">
+                  <%= ff.label category.id, category.name %>
                   <%= ff.select category.id,
                         options_for_select(CategoryDecorator.glpi_sync_options_for_select, category.glpi_sync),
                         {},
-                        { class: "form-select", style: "width: 180px;" } %>
-                  <%= ff.label category.id, category.name %>
+                        { class: "form-select ms-auto", style: "width: 180px;" } %>
                 </li>
               <% end %>
           </ul>
