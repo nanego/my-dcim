@@ -44,7 +44,7 @@ class DeleteDependencyComponent < ApplicationComponent
     @record_dependencies = RecordDependencies.new(record, only:, except:)
     @record = record
 
-    super
+    super()
   end
 
   private
@@ -161,7 +161,7 @@ class DeleteDependencyComponent < ApplicationComponent
       @type = dependency.type
       @collapse_id = "collapseCard-#{@dependency.name}"
 
-      super
+      super()
     end
 
     def records
