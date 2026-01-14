@@ -3,8 +3,6 @@
 class Move < ApplicationRecord
   has_changelog
 
-  attribute :remove_connections, :boolean, default: false
-
   belongs_to :step, class_name: "MovesProjectStep", foreign_key: :moves_project_step_id, inverse_of: :moves
   belongs_to :moveable, polymorphic: true
   belongs_to :frame

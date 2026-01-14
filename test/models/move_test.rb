@@ -25,7 +25,7 @@ class MoveTest < ActiveSupport::TestCase
     assert_empty(@moved_connections.select { |c| c.port_from_id == 2 })
 
     # Re-init moved connections
-    @move.remove_connections = true
+    @move.remove_existing_connections_on_execution = true
     @move.clear_connections
 
     # After
