@@ -8,7 +8,8 @@
 
 <div class="col-12 p-4 border-top">
   <%= render DeleteDependencyComponent.new(
-    @cluster,
-    confirmation_path: cluster_path(@cluster, confirm: true)
-  ) %>
+        @cluster,
+        except: %i[cluster_rooms],
+        confirmation_path: cluster_path(@cluster, confirm: true),
+      ) %>
 </div>

@@ -11,7 +11,7 @@ RSpec.describe Composant do
   describe "associations" do
     it { is_expected.to belong_to(:enclosure) }
     it { is_expected.to have_one(:modele).through(:enclosure) }
-    it { is_expected.to have_many(:cards) }
+    it { is_expected.to have_many(:cards).dependent(:restrict_with_error) }
   end
 
   describe "validations" do

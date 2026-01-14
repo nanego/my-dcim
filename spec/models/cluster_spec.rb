@@ -8,7 +8,8 @@ RSpec.describe Cluster do
   it_behaves_like "changelogable", new_attributes: { name: "New name" }
 
   describe "associations" do
-    it { is_expected.to have_many(:servers) }
+    it { is_expected.to have_many(:servers).dependent(:restrict_with_error) }
+    it { is_expected.to have_many(:cluster_rooms).dependent(:destroy) }
   end
 
   describe "#to_s" do

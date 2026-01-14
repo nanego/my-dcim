@@ -7,7 +7,7 @@ class Composant < ApplicationRecord
   belongs_to :enclosure
   has_one :modele, through: :enclosure
 
-  has_many :cards
+  has_many :cards, dependent: :restrict_with_error
 
   validates :name, format: { without: /\s/ }, allow_blank: true
 
