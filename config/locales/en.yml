@@ -155,7 +155,7 @@ en:
       synchronizing: Synchronizing...
     settings:
       title: Synchronisation configuration
-      category_ids: Select the categories to be activated for synchronisation
+      category_ids: Select the synchronisation type for each category
       flashes:
         saved: "The configuration has been updated successfully."
 
