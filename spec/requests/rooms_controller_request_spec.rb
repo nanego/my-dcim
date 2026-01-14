@@ -80,9 +80,9 @@ RSpec.describe RoomsController do
     end
   end
 
-  describe "GET #print" do
+  describe "GET #edit" do
     subject(:response) do
-      get print_visualization_room_path(room)
+      get edit_room_path(room)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -90,17 +90,8 @@ RSpec.describe RoomsController do
 
     include_context "with authenticated admin"
 
-    context "with not found room" do
-      let(:room) { Room.new(id: 999_999_999) }
-
-      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
-    end
-
-    context "with existing room" do
-      it { expect(response).to have_http_status(:success) }
-      it { expect(response).to render_template(:print) }
-      it { expect(response).to render_template("layouts/pdf") }
-    end
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:edit) }
   end
 
   describe "PATCH #update" do
@@ -147,6 +138,29 @@ RSpec.describe RoomsController do
           room.reload
         end.to change(room, :network_cluster_ids).from([]).to([cluster.id])
       end
+    end
+  end
+
+  describe "GET #print" do
+    subject(:response) do
+      get print_visualization_room_path(room)
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
+
+    context "with not found room" do
+      let(:room) { Room.new(id: 999_999_999) }
+
+      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
+    end
+
+    context "with existing room" do
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(:print) }
+      it { expect(response).to render_template("layouts/pdf") }
     end
   end
 end
