@@ -7,7 +7,7 @@ ruby file: ".ruby-version"
 gem "rails", "~> 8.0.0"
 
 gem "bootstrap", "~> 5.3.2"
-gem "dartsass-sprockets", "~> 3.1"
+gem "dartsass-sprockets", "~> 3.2"
 gem "jbuilder"
 gem "nokogiri", "~> 1.18"
 gem "rails-i18n", "~> 8.1"
@@ -23,7 +23,7 @@ gem "omniauth_openid_connect", "~> 0.7.0"
 gem "omniauth-rails_csrf_protection"
 gem "simple_token_authentication", github: "gonzalo-bulnes/simple_token_authentication"
 
-gem "datagrid"
+gem "datagrid", "~> 1.x"
 gem "dry-struct"
 gem "faraday"
 gem "kaminari" # TODO: Remove when removing datagrid
@@ -60,6 +60,7 @@ group :test do
   gem "capybara", ">= 2.15"
   gem "cuprite"
   gem "formulaic"
+  gem "minitest", "~> 5.x"
   gem "rails-controller-testing"
   gem "rspec-activemodel-mocks"
   gem "rspec-html-matchers"
@@ -74,8 +75,8 @@ group :test do
 end
 
 group :production do
+  gem "connection_pool", "~> 2.4.1" # Force compatible version, v3.0 is NOT currently compatible with Rails 8
   gem "dalli", "~> 3.2"
-  gem "mini_racer", "~> 0.16.0"
   gem "passenger", "~> 6.0"
 end
 

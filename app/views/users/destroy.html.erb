@@ -1,6 +1,6 @@
 <%
   breadcrumb
-    .add_step(@cable.decorated.display_name, cable_path(@cable))
+    .add_step(@user, user_path(@user))
     .add_step(t("action.delete"))
 %>
 
@@ -8,7 +8,8 @@
 
 <div class="col-12 p-4 border-top">
   <%= render DeleteDependencyComponent.new(
-    @cable,
-    confirmation_path: cable_path(@cable, confirm: true)
+    @user,
+    except: %i[permission_scope_users],
+    confirmation_path: user_path(@user, confirm: true)
   ) %>
 </div>

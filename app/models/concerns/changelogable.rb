@@ -54,10 +54,10 @@ module Changelogable
     changes.symbolize_keys
       .except(*self.class._changelogable_except_attributes)
       .to_h do |key, (before, after)|
-      [
-        key,
-        [parameter_filter.filter_param(key, before), parameter_filter.filter_param(key, after)],
-      ]
+        [
+          key,
+          [parameter_filter.filter_param(key, before), parameter_filter.filter_param(key, after)],
+        ]
     end
   end
 

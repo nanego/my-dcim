@@ -15,8 +15,9 @@ class PermissionScopesController < ApplicationController
   # GET /permission_scopes/1
   def show
     @permission_scope_users = @permission_scope.permission_scope_users
+      .joins(:user)
       .where(user: User.unsuspended)
-      .order(created_at: :desc)
+      .order(User.arel_table[:name] => :asc)
   end
 
   # GET /permission_scopes/new
@@ -52,6 +53,7 @@ class PermissionScopesController < ApplicationController
   end
 
   # DELETE /permission_scopes/1
+  destroy_confirmation
   def destroy
     @permission_scope.destroy!
 
