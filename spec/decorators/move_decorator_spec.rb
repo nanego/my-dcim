@@ -33,4 +33,8 @@ RSpec.describe MoveDecorator, type: :decorator do
     it { expect(options).to have_tag("option", text: "Step 2", with: { value: 7 }) }
     it { expect(options).to have_tag("option", text: "Step 3", with: { value: 8 }) }
   end
+
+  describe "#display_name" do
+    it { expect(decorated_move.display_name).to eq("Déplacement de ServerName1") }
+  end
 end

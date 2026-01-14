@@ -115,7 +115,6 @@
               <%= link_to moves_project_step_move_path(@moves_project_step, move),
                           method: :delete,
                           data: {
-                            confirm: t(".delete_confirmation"),
                             turbo_frame: :_top,
                           },
                           class: "btn btn-outline-danger" do %>

@@ -91,6 +91,8 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
         format.json { head :bad_request }
       end
     else
+      return render unless params[:confirm] == "true"
+
       @move.destroy
 
       respond_to do |format|
