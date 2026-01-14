@@ -3,7 +3,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: %i[show edit update destroy reset_authentication_token suspend unsuspend]
-  before_action only: %i[new show edit] do
+  before_action only: %i[new show edit destroy] do
     breadcrumb.add_step(User.model_name.human.pluralize, users_url)
   end
 
@@ -39,6 +39,7 @@ class UsersController < ApplicationController
     end
   end
 
+  destroy_confirmation
   def destroy
     @user.destroy
 

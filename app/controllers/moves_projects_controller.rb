@@ -50,6 +50,7 @@ class MovesProjectsController < ApplicationController
   end
 
   # DELETE /moves_projects/1 or /moves_projects/1.json
+  destroy_confirmation
   def destroy
     @moves_project.destroy!
 

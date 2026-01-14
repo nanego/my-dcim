@@ -53,6 +53,7 @@ class PermissionScopesController < ApplicationController
   end
 
   # DELETE /permission_scopes/1
+  destroy_confirmation
   def destroy
     @permission_scope.destroy!
 

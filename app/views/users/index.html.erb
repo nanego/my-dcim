@@ -102,8 +102,7 @@
           <% end %>
         <% end %>
         <% if allowed_to?(:destroy?, user) %>
-          <%= link_to user_path(user, @filter.attributes), method: :delete, data: { confirm: t("action.confirm") },
-                                                        class: "btn btn-outline-danger" do %>
+          <%= link_to user_path(user, @filter.attributes), method: :delete, class: "btn btn-outline-danger" do %>
             <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
                                                                         data-controller="tooltip"
                                                                         data-bs-placement="left"></span>

@@ -32,7 +32,7 @@
         <%% end %>
         <%%= link_to <%= singular_table_name %>_path(<%= singular_table_name %>),
                     method: :delete,
-                    data: { confirm: t(".delete_confirmation") },
+                    data: { confirm: t("action.confirm") },
                     class: "btn btn-danger" do %>
           <span class="bi bi-trash"
                 title="<%%= t("action.delete") %>"
