@@ -225,6 +225,27 @@ RSpec.describe UsersController do
 
     include_context "with authenticated admin"
 
+    context "with sort and filters params" do
+      let(:params) { { sort: "asc", sort_by: :created_at } }
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(users_path({ sort: "asc", sort_by: :created_at })) }
+    end
+
+    context "with regular user" do
+      include_context "with authenticated user"
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(root_path) }
+    end
+
+    context "when user asks for itself" do
+      let(:target_user) { admin_user }
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(root_path) }
+    end
+
     context "without confirm" do
       subject(:response) do
         delete user_path(target_user, params:)
@@ -249,27 +270,6 @@ RSpec.describe UsersController do
       end
 
       it { expect(response).to have_http_status(:redirect) }
-    end
-
-    context "with sort and filters params" do
-      let(:params) { { sort: "asc", sort_by: :created_at } }
-
-      it { expect(response).to have_http_status(:redirect) }
-      it { expect(response).to redirect_to(users_path({ sort: "asc", sort_by: :created_at })) }
-    end
-
-    context "with regular user" do
-      include_context "with authenticated user"
-
-      it { expect(response).to have_http_status(:redirect) }
-      it { expect(response).to redirect_to(root_path) }
-    end
-
-    context "when user asks for itself" do
-      let(:target_user) { admin_user }
-
-      it { expect(response).to have_http_status(:redirect) }
-      it { expect(response).to redirect_to(root_path) }
     end
   end
 

@@ -9,6 +9,7 @@
 <div class="col-12 p-4 border-top">
   <%= render DeleteDependencyComponent.new(
     @permission_scope,
+    except: %i[permission_scope_domains permission_scope_users],
     confirmation_path: permission_scope_path(@permission_scope, confirm: true)
   ) %>
 </div>

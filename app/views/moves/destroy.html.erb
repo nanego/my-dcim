@@ -1,6 +1,6 @@
 <%
   breadcrumb
-    .add_step(@move, moves_project_step_move_path(@moves_project_step, @move))
+    .add_step(@move.decorated.display_name, edit_moves_project_step_move_path(@moves_project_step, @move))
     .add_step(t("action.delete"))
 %>
 

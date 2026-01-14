@@ -146,7 +146,6 @@ fr:
       action:
         show_more_bay: Voir plus de baies
         show_less_bay: Voir moins de baies
-        delete_confirmation: Confirmez-vous vouloir supprimer la connexion ?
       delete_title: Supprimer la connexion
   sites:
     index:
@@ -550,7 +549,6 @@ fr:
       new_move: Prévoir un déplacement
       frame_table_title: Châssis après déplacements
       edit_connections: Modifier les connexions
-      delete_confirmation: Voulez-vous vraiment supprimer ce déplacement ?
       execute_confirmation: Voulez-vous vraiment appliquer ce déplacement ?
       action:
         execute_move: Déplacer le serveur et ses connexions
@@ -586,11 +584,12 @@ fr:
         delete: Supprimer cette connexion
     flashes:
       archived: Ce projet est archivé
+    decorator:
+      display_name: Déplacement de %{moveable}
 
   moves_projects:
     index:
       new_moves_project: Nouveau projet
-      delete_confirmation: Êtes-vous sûr de vouloir supprimer ce projet ?
       archive_confirmation: Êtes-vous sûr de vouloir archiver ce projet ?
     show:
       frame_table_title: Châssis après déplacements
@@ -610,7 +609,7 @@ fr:
       flashes:
         updated: Le projet a été mis à jour.
     destroy:
-      title: Supprimer le project
+      title: Supprimer le projet
       flashes:
         destroyed: Le projet a été supprimé.
     archive:
@@ -890,7 +889,6 @@ fr:
     index:
       title: Permissions
       new_permission_scope: Nouvelle permission
-      delete_confirmation: Vous êtes sûr de vouloir supprimer cette permission ?
     new:
       title: Nouvelle permission
     create:
