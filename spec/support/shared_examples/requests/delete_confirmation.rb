@@ -34,7 +34,7 @@ RSpec.shared_context "with delete confirmation view" do |record:, route: nil|
 
         it { expect(response).to have_http_status(:redirection) }
         it { expect { response }.to change(record.klass, :count).by(-1) }
-        it { expect {  record.reload }.to raise_error(ActiveRecord::RecordNotFound) }
+        it { expect { record.reload }.to raise_error(ActiveRecord::RecordNotFound) }
       end
     end
   end
