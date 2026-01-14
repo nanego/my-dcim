@@ -255,6 +255,7 @@ en:
       execute_confirmation: Do you really want to apply this move?
       frame_table_title: Frames after moving
       edit_connections: Update connections
+      remove_existing_connections_on_execution: Delete connections?
       action:
         execute_move: Move the server and its connections
     new:
