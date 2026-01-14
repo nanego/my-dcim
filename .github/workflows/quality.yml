@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-
   pull_request:
 
 jobs:
@@ -24,3 +23,21 @@ jobs:
 
       - name: Run rubocop
         run: bin/rubocop -f github
+
+  erb_lint:
+    runs-on: ubuntu-latest
+    name: ERB
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Run ERB lint
+        run: bin/erb_lint --lint-all
+        continue-on-error: true
