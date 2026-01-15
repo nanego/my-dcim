@@ -1,5 +1,8 @@
 <%= form_for(@modele, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }, data: { turbo: true }) do |f| %>
   <%= render FormErrorsComponent.new(@modele) %>
+
+  <%= f.submit class: "d-none", "aria-hidden": true %>
+
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <% card.with_header do %>
       <%= t("show.cards.identification") %>

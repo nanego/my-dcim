@@ -459,6 +459,8 @@ fr:
       connections_destroyed: Les connexions ont été supprimées.
       connections_not_destroyed: Une erreur a empêché la suppression des connexions.
     add_new: Ajouter un matériel I.T.
+    preview:
+      modal_title: Prévisualisation du matériel %{server_name}
   bulk:
     resource:
       destroy:
