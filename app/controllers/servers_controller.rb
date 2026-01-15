@@ -62,13 +62,19 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   end
 
   def update
-    respond_to do |format|
-      if @server.update(server_params)
-        format.html { redirect_to @server, notice: t(".flashes.updated") }
-        format.json { render :show, status: :ok, location: @server }
-      else
-        format.html { render :edit }
-        format.json { render json: @server.errors, status: :unprocessable_content }
+    if params[:preview]
+      respond_to do |format|
+        format.turbo_stream { render :preview, status: :unprocessable_content }
+      end
+    else
+      respond_to do |format|
+        if @server.update(server_params)
+          format.html { redirect_to @server, notice: t(".flashes.updated") }
+          format.json { render :show, status: :ok, location: @server }
+        else
+          format.html { render :edit }
+          format.json { render json: @server.errors, status: :unprocessable_content }
+        end
       end
     end
   end

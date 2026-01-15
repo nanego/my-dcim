@@ -1,4 +1,4 @@
-<%= form_for(@server, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+<%= form_for(@server, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }, data: { turbo: true }) do |f| %>
   <%= render FormErrorsComponent.new(@server) %>
 
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
@@ -173,7 +173,13 @@
 
         <%= render CardComponent.new(extra_classes: "bg-body") do |card| %>
           <% card.with_header do %>
-            <%= "#{Enclosure.model_name.human} #{enclosure.position}" %>
+            <div class="d-flex justify-content-between align-items-center">
+              <%= "#{Enclosure.model_name.human} #{enclosure.position}" %>
+              <%= f.submit t("action.preview"),
+                          class: "btn btn-outline-primary btn-sm",
+                          name: :preview,
+                          data: { "bs-toggle": "modal", "bs-target": "#previewModal" } %>
+            </div>
           <% end %>
 
           <div class="row-gap-3 d-flex flex-column">
@@ -184,6 +190,12 @@
             <% end %>
 
             <div data-nested-form-target="target" class="d-none"></div>
+          </div>
+
+          <div class="modal fade" tabindex="-1" id="previewModal">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content" id="ts_server_form_preview"></div>
+            </div>
           </div>
 
           <% card.with_footer do %>
