@@ -358,6 +358,38 @@ RSpec.describe ServersProcessor do
     end
   end
 
+  describe "when filtering by manufacturer_id" do
+    let(:manufacturer) { Manufacturer.create! }
+    let(:modele) { Modele.create!(name: "Mod", description: "Mod desc", category: Category.create!, manufacturer:, architecture: Architecture.create!) }
+    let(:server) { Server.create!(name: "server", numero: 1, **attributes, modele:) }
+
+    before do
+      server
+    end
+
+    context "with one manufacturer_id" do
+      let(:params) { { manufacturer_ids: [manufacturer.id] } }
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to contain_exactly(server) }
+    end
+
+    context "with many manufacturer_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+      let(:another_manufacturer) { Manufacturer.create! }
+      let(:another_modele) { Modele.create!(name: "Mod2", description: "Mod2 desc", category: Category.create!, manufacturer: another_manufacturer, architecture: Architecture.create!) }
+      let(:another_server) { Server.create!(name: "server2", numero: 2, **attributes, modele: another_modele) }
+
+      let(:params) { { manufacturer_ids: [manufacturer.id, another_manufacturer.id] } }
+
+      before do
+        another_server
+      end
+
+      it { expect(result.size).to eq(2) }
+      it { is_expected.to contain_exactly(server, another_server) }
+    end
+  end
+
   describe "when sorting" do
     pending "TODO"
   end
@@ -368,7 +400,8 @@ RSpec.describe ServersProcessor do
     let(:bay)      { Bay.create!(name: "A1", islet:, bay_type: bay_types(:one)) }
     let(:frame)    { Frame.create!(name: "A1", bay:) }
     let(:category) { Category.create! }
-    let(:modele)   { Modele.create!(name: "Mod", description: "Mod desc", category:, manufacturer: Manufacturer.create!, architecture: Architecture.create!) }
+    let(:manufacturer) { Manufacturer.create! }
+    let(:modele)   { Modele.create!(name: "Mod", description: "Mod desc", category:, manufacturer:, architecture: Architecture.create!) }
     let(:gestion)  { Gestion.create!(name: "G1") }
     let(:domaine)  { Domaine.create!(name: "D1") }
     let(:cluster)  { Cluster.create!(name: "C1") }
@@ -382,7 +415,7 @@ RSpec.describe ServersProcessor do
       {
         q: "wood", frame_ids: frame.id, bay_ids: bay.id, islet_ids: islet.id, room_ids: room.id, modele_ids: modele.id,
         gestion_ids: gestion.id, domaine_ids: domaine.id, cluster_ids: cluster.id, stack_ids: stack.id,
-        category_ids: category.id,
+        category_ids: category.id, manufacturer_ids: manufacturer.id,
       }
     end
 

@@ -64,6 +64,12 @@ en:
         grid: Grid
         horizontal: Horizontal
         vertical: Vertical
+      manufacturer:
+        usage_server: Usage (I.T. equipment)
+        servers_count:
+          zero: 0 I.T. equipment
+          one: 1 I.T. equipment
+          other: "%{count} I.T. equipments"
       external_app_record:
         external_id: GLPI ID
         external_name: GLPI name
