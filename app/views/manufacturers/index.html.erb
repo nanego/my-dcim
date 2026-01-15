@@ -35,15 +35,15 @@
       <% end %>
     <% end %>
 
-    <% table.with_column(Manufacturer.human_attribute_name(:usage_bay), sort_by: :bays_count) do |manufacturer| %>
+    <% table.with_column(Manufacturer.human_attribute_name(:usage_bay)) do |manufacturer| %>
       <%= link_to bays_path(manufacturer_ids: manufacturer) do %>
-        <%= Manufacturer.human_attribute_name(:bays_count, count: manufacturer.bays_count) %>
+        <%= Manufacturer.human_attribute_name(:bays_count, count: authorized_scope(manufacturer.bays).count) %>
       <% end %>
     <% end %>
 
-    <% table.with_column(Manufacturer.human_attribute_name(:usage_server), sort_by: :servers_count) do |manufacturer| %>
+    <% table.with_column(Manufacturer.human_attribute_name(:usage_server)) do |manufacturer| %>
       <%= link_to servers_path(manufacturer_ids: manufacturer) do %>
-        <%= Manufacturer.human_attribute_name(:servers_count, count: manufacturer.servers_count) %>
+        <%= Manufacturer.human_attribute_name(:servers_count, count: authorized_scope(manufacturer.servers).count) %>
       <% end %>
     <% end %>
 
