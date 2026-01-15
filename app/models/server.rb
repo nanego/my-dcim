@@ -8,27 +8,27 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_changelog
 
   belongs_to :frame
-  has_one :bay, through: :frame
-  has_one :islet, through: :frame
-  has_one :room, through: :islet
   belongs_to :gestion, optional: true, counter_cache: true
   belongs_to :domaine, optional: true, counter_cache: true
   belongs_to :modele, counter_cache: true
   belongs_to :cluster, optional: true, counter_cache: true
   belongs_to :stack, optional: true, counter_cache: true
 
-  has_many :cards, -> { joins(:composant).includes(:composant) }
+  has_one :bay, through: :frame
+  has_one :islet, through: :frame
+  has_one :room, through: :islet
+
+  has_many :cards, -> { joins(:composant).includes(:composant) }, dependent: :destroy
   has_many :card_types, through: :cards
   has_many :ports, through: :cards
   has_many :connections, through: :ports
   has_many :cables, through: :connections
-
   has_many :moves, as: :moveable, dependent: :destroy
-
   has_many :documents, dependent: :restrict_with_error
-  has_one_attached :photo
-
+  # TODO: should be plural
   has_many :external_app_record, dependent: :destroy
+
+  has_one_attached :photo
 
   validates :numero, presence: true, uniqueness: true
   validates :name, presence: true
