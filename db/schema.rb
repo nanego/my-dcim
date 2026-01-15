@@ -539,8 +539,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_15_101124) do
     t.datetime "invitation_sent_at", precision: nil
     t.datetime "invitation_accepted_at", precision: nil
     t.integer "invitation_limit"
-    t.string "invited_by_type"
     t.integer "invited_by_id"
+    t.string "invited_by_type"
     t.integer "invitations_count", default: 0
     t.string "authentication_token", limit: 30
     t.datetime "suspended_at"
