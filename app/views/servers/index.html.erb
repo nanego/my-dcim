@@ -175,7 +175,7 @@
                       data: { turbo_frame: :_top } if server.modele.try(:category) %>
         <% end %>
 
-        <% table.with_column(Server.human_attribute_name(:room), name: :room, sort_by: :"rooms.name") do |server| %>
+        <% table.with_column(Server.human_attribute_name(:room), name: :room_id, sort_by: :"rooms.name") do |server| %>
           <%= link_to server.room, room_path(server.room), data: { turbo_frame: :_top } if server.room %>
         <% end %>
 

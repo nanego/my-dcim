@@ -3,7 +3,7 @@
 class ServersProcessor < ApplicationProcessor
   include Sortable
 
-  SORTABLE_FIELDS = %w[name numero categories.name rooms.name islets.name manufacturers.name bays.id position critique comment critique side slug modele.u].freeze
+  SORTABLE_FIELDS = %w[name numero categories.name rooms.name islets.name manufacturers.name bays.id position modele.u slug side comment critique].freeze
 
   map :q do |q:|
     server_table = Server.arel_table
@@ -14,12 +14,8 @@ class ServersProcessor < ApplicationProcessor
     raw.where(combined_conditions)
   end
 
-  map :frame_ids, filter_with: :non_empty_array do |frame_ids:|
-    raw.where(frame_id: frame_ids)
-  end
-
-  map :bay_ids, filter_with: :non_empty_array do |bay_ids:|
-    raw.joins(frame: :bay).where(bays: { id: bay_ids })
+  map :room_ids, filter_with: :non_empty_array do |room_ids:|
+    raw.joins(frame: { bay: { islet: :room } }).where(rooms: { id: room_ids })
   end
 
   map :islet_ids, filter_with: :non_empty_array do |islet_ids:|
@@ -30,8 +26,12 @@ class ServersProcessor < ApplicationProcessor
     raw.joins(:modele).where(modeles: { manufacturer_id: manufacturer_ids })
   end
 
-  map :room_ids, filter_with: :non_empty_array do |room_ids:|
-    raw.joins(frame: { bay: { islet: :room } }).where(rooms: { id: room_ids })
+  map :bay_ids, filter_with: :non_empty_array do |bay_ids:|
+    raw.joins(frame: :bay).where(bays: { id: bay_ids })
+  end
+
+  map :frame_ids, filter_with: :non_empty_array do |frame_ids:|
+    raw.where(frame_id: frame_ids)
   end
 
   map :modele_ids, filter_with: :non_empty_array do |modele_ids:|
@@ -50,12 +50,12 @@ class ServersProcessor < ApplicationProcessor
     raw.where(cluster_id: cluster_ids)
   end
 
-  map :stack_ids do |stack_ids:|
-    raw.where(stack_id: stack_ids)
-  end
-
   map :category_ids, filter_with: :non_empty_array do |category_ids:|
     raw.joins(:modele).where(modeles: { category_id: category_ids })
+  end
+
+  map :stack_ids do |stack_ids:|
+    raw.where(stack_id: stack_ids)
   end
 
   sortable fields: SORTABLE_FIELDS do
