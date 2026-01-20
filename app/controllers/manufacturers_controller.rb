@@ -9,7 +9,7 @@ class ManufacturersController < ApplicationController
   # GET /manufacturers
   # GET /manufacturers.json
   def index
-    authorize! @manufacturers = sorted(Manufacturer.all)
+    authorize! @manufacturers = sorted(Manufacturer.sorted)
   end
 
   # GET /manufacturers/1
