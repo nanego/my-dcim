@@ -28,8 +28,11 @@ RSpec.describe ServersProcessor do
     it { expect(result.size).to eq(2) }
   end
 
-  describe "when filtering by frame_ids" do
-    let(:frame)  { Frame.create!(name: "A1", bay: bays(:one)) }
+  describe "when filtering by room_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+    let(:room)   { Room.create(name: "R1", site: sites(:one)) }
+    let(:islet)  { Islet.create!(name: "I1", room:) }
+    let(:bay)    { Bay.create!(name: "A1", islet: islet, bay_type: bay_types(:one)) }
+    let(:frame)  { Frame.create!(name: "A1", bay:) }
     let(:server) { Server.create!(name: "server", numero: 1, **attributes, frame:) }
 
     before do
@@ -37,51 +40,21 @@ RSpec.describe ServersProcessor do
       Server.create!(name: "server2", numero: 2, **attributes)
     end
 
-    context "with one frame_id" do
-      let(:params) { { frame_ids: frame.id } }
+    context "with one room_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+      let(:params) { { room_ids: room.id } }
 
       it { expect(result.size).to eq(1) }
       it { is_expected.to contain_exactly(server) }
     end
 
-    context "with many frame_ids" do
-      let(:frame_second) { Frame.create!(name: "A2", bay: bays(:one)) }
+    context "with many room_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+      let(:room_second)  { Room.create(name: "R2", site: sites(:one)) }
+      let(:islet_second) { Islet.create!(name: "I2", room: room_second) }
+      let(:bay_second)   { Bay.create!(name: "A2", islet: islet_second, bay_type: bay_types(:one)) }
+      let(:frame_second) { Frame.create!(name: "F2", bay: bay_second) }
       let(:another_server) { Server.create!(name: "server3", numero: 3, **attributes, frame: frame_second) }
 
-      let(:params) { { frame_ids: [frame.id, frame_second.id] } }
-
-      before do
-        another_server
-      end
-
-      it { expect(result.size).to eq(2) }
-      it { is_expected.to contain_exactly(server, another_server) }
-    end
-  end
-
-  describe "when filtering by bay_ids" do
-    let(:bay)    { Bay.create!(name: "A1", islet: islets(:one), bay_type: bay_types(:one)) }
-    let(:frame)  { Frame.create!(name: "F1", bay:) }
-    let(:server) { Server.create!(name: "server", numero: 1, **attributes, frame:) }
-
-    before do
-      server
-      Server.create!(name: "server2", numero: 2, **attributes)
-    end
-
-    context "with one bay_ids" do
-      let(:params) { { bay_ids: bay.id } }
-
-      it { expect(result.size).to eq(1) }
-      it { is_expected.to contain_exactly(server) }
-    end
-
-    context "with many bay_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
-      let(:bay_second)   { Bay.create!(name: "A2", islet: islets(:one), bay_type: bay_types(:one)) }
-      let(:frame_second) { Frame.create!(name: "F2", bay:) }
-      let(:another_server) { Server.create!(name: "server3", numero: 3, **attributes, frame: frame_second) }
-
-      let(:params) { { bay_ids: [bay.id, bay_second.id] } }
+      let(:params) { { room_ids: [room.id, room_second.id] } }
 
       before do
         another_server
@@ -127,11 +100,41 @@ RSpec.describe ServersProcessor do
     end
   end
 
-  describe "when filtering by room_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
-    let(:room)   { Room.create(name: "R1", site: sites(:one)) }
-    let(:islet)  { Islet.create!(name: "I1", room:) }
-    let(:bay)    { Bay.create!(name: "A1", islet: islet, bay_type: bay_types(:one)) }
-    let(:frame)  { Frame.create!(name: "A1", bay:) }
+  describe "when filtering by manufacturer_id" do
+    let(:manufacturer) { Manufacturer.create! }
+    let(:modele) { Modele.create!(name: "Mod", description: "Mod desc", category: Category.create!, manufacturer:, architecture: Architecture.create!) }
+    let(:server) { Server.create!(name: "server", numero: 1, **attributes, modele:) }
+
+    before do
+      server
+    end
+
+    context "with one manufacturer_id" do
+      let(:params) { { manufacturer_ids: [manufacturer.id] } }
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to contain_exactly(server) }
+    end
+
+    context "with many manufacturer_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+      let(:another_manufacturer) { Manufacturer.create! }
+      let(:another_modele) { Modele.create!(name: "Mod2", description: "Mod2 desc", category: Category.create!, manufacturer: another_manufacturer, architecture: Architecture.create!) }
+      let(:another_server) { Server.create!(name: "server2", numero: 2, **attributes, modele: another_modele) }
+
+      let(:params) { { manufacturer_ids: [manufacturer.id, another_manufacturer.id] } }
+
+      before do
+        another_server
+      end
+
+      it { expect(result.size).to eq(2) }
+      it { is_expected.to contain_exactly(server, another_server) }
+    end
+  end
+
+  describe "when filtering by bay_ids" do
+    let(:bay)    { Bay.create!(name: "A1", islet: islets(:one), bay_type: bay_types(:one)) }
+    let(:frame)  { Frame.create!(name: "F1", bay:) }
     let(:server) { Server.create!(name: "server", numero: 1, **attributes, frame:) }
 
     before do
@@ -139,21 +142,50 @@ RSpec.describe ServersProcessor do
       Server.create!(name: "server2", numero: 2, **attributes)
     end
 
-    context "with one room_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
-      let(:params) { { room_ids: room.id } }
+    context "with one bay_ids" do
+      let(:params) { { bay_ids: bay.id } }
 
       it { expect(result.size).to eq(1) }
       it { is_expected.to contain_exactly(server) }
     end
 
-    context "with many room_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
-      let(:room_second)  { Room.create(name: "R2", site: sites(:one)) }
-      let(:islet_second) { Islet.create!(name: "I2", room: room_second) }
-      let(:bay_second)   { Bay.create!(name: "A2", islet: islet_second, bay_type: bay_types(:one)) }
-      let(:frame_second) { Frame.create!(name: "F2", bay: bay_second) }
+    context "with many bay_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+      let(:bay_second)   { Bay.create!(name: "A2", islet: islets(:one), bay_type: bay_types(:one)) }
+      let(:frame_second) { Frame.create!(name: "F2", bay:) }
       let(:another_server) { Server.create!(name: "server3", numero: 3, **attributes, frame: frame_second) }
 
-      let(:params) { { room_ids: [room.id, room_second.id] } }
+      let(:params) { { bay_ids: [bay.id, bay_second.id] } }
+
+      before do
+        another_server
+      end
+
+      it { expect(result.size).to eq(2) }
+      it { is_expected.to contain_exactly(server, another_server) }
+    end
+  end
+
+  describe "when filtering by frame_ids" do
+    let(:frame)  { Frame.create!(name: "A1", bay: bays(:one)) }
+    let(:server) { Server.create!(name: "server", numero: 1, **attributes, frame:) }
+
+    before do
+      server
+      Server.create!(name: "server2", numero: 2, **attributes)
+    end
+
+    context "with one frame_id" do
+      let(:params) { { frame_ids: frame.id } }
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to contain_exactly(server) }
+    end
+
+    context "with many frame_ids" do
+      let(:frame_second) { Frame.create!(name: "A2", bay: bays(:one)) }
+      let(:another_server) { Server.create!(name: "server3", numero: 3, **attributes, frame: frame_second) }
+
+      let(:params) { { frame_ids: [frame.id, frame_second.id] } }
 
       before do
         another_server
@@ -295,37 +327,6 @@ RSpec.describe ServersProcessor do
     end
   end
 
-  describe "when filtering by stack_ids" do
-    let(:stack) { Stack.create!(name: "S1") }
-    let(:server)  { Server.create!(name: "server", numero: 1, **attributes, stack:) }
-
-    before do
-      server
-      Server.create!(name: "server2", numero: 2, **attributes)
-    end
-
-    context "with one stack_ids" do
-      let(:params) { { stack_ids: stack.id } }
-
-      it { expect(result.size).to eq(1) }
-      it { is_expected.to contain_exactly(server) }
-    end
-
-    context "with many stack_ids" do
-      let(:stack_second) { Stack.create!(name: "S2") }
-      let(:another_server) { Server.create!(name: "server3", numero: 3, **attributes, stack: stack_second) }
-
-      let(:params) { { stack_ids: [stack.id, stack_second.id] } }
-
-      before do
-        another_server
-      end
-
-      it { expect(result.size).to eq(2) }
-      it { is_expected.to contain_exactly(server, another_server) }
-    end
-  end
-
   describe "when filtering by category_id" do
     let(:category) { Category.create! }
     let(:modele) { Modele.create!(name: "Mod", description: "Mod desc", category:, manufacturer: Manufacturer.create!, architecture: Architecture.create!) }
@@ -358,28 +359,27 @@ RSpec.describe ServersProcessor do
     end
   end
 
-  describe "when filtering by manufacturer_id" do
-    let(:manufacturer) { Manufacturer.create! }
-    let(:modele) { Modele.create!(name: "Mod", description: "Mod desc", category: Category.create!, manufacturer:, architecture: Architecture.create!) }
-    let(:server) { Server.create!(name: "server", numero: 1, **attributes, modele:) }
+  describe "when filtering by stack_ids" do
+    let(:stack) { Stack.create!(name: "S1") }
+    let(:server)  { Server.create!(name: "server", numero: 1, **attributes, stack:) }
 
     before do
       server
+      Server.create!(name: "server2", numero: 2, **attributes)
     end
 
-    context "with one manufacturer_id" do
-      let(:params) { { manufacturer_ids: [manufacturer.id] } }
+    context "with one stack_ids" do
+      let(:params) { { stack_ids: stack.id } }
 
       it { expect(result.size).to eq(1) }
       it { is_expected.to contain_exactly(server) }
     end
 
-    context "with many manufacturer_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
-      let(:another_manufacturer) { Manufacturer.create! }
-      let(:another_modele) { Modele.create!(name: "Mod2", description: "Mod2 desc", category: Category.create!, manufacturer: another_manufacturer, architecture: Architecture.create!) }
-      let(:another_server) { Server.create!(name: "server2", numero: 2, **attributes, modele: another_modele) }
+    context "with many stack_ids" do
+      let(:stack_second) { Stack.create!(name: "S2") }
+      let(:another_server) { Server.create!(name: "server3", numero: 3, **attributes, stack: stack_second) }
 
-      let(:params) { { manufacturer_ids: [manufacturer.id, another_manufacturer.id] } }
+      let(:params) { { stack_ids: [stack.id, stack_second.id] } }
 
       before do
         another_server
