@@ -64,6 +64,14 @@ RSpec.describe MovesProjectsController do
 
     include_context "with authenticated admin"
 
+    context "without valid parameters" do
+      let(:params) { { moves_project: { name: "" } } }
+
+      it { expect { response }.not_to change(MovesProject, :count) }
+      it { expect(response).to have_http_status(:unprocessable_content) }
+      it { expect(response).to render_template(:new) }
+    end
+
     context "with valid parameters" do
       it { expect { response }.to change(MovesProject, :count).by(1) }
       it { expect(response).to redirect_to(moves_project_path(assigns(:moves_project))) }
@@ -121,6 +129,20 @@ RSpec.describe MovesProjectsController do
     let(:params) { { moves_project: valid_attributes } }
 
     include_context "with authenticated admin"
+
+    context "without valid parameters" do
+      let(:params) { { moves_project: { name: "" } } }
+
+      it do
+        expect do
+          response
+          moves_project.reload
+        end.not_to change(moves_project, :name)
+      end
+
+      it { expect(response).to have_http_status(:unprocessable_content) }
+      it { expect(response).to render_template(:edit) }
+    end
 
     context "with valid parameters" do
       it do
