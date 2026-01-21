@@ -65,7 +65,20 @@ en:
         horizontal: Horizontal
         vertical: Vertical
       manufacturer:
+        name: Name
+        usage_modele: Usage (model)
+        usage_bay: Usage (bay)
         usage_server: Usage (I.T. equipment)
+        description: Description
+        documentation_url: Documentation URL
+        modeles_count:
+          zero: 0 model
+          one: 1 model
+          other: "%{count} models"
+        bays_count:
+          zero: 0 bay
+          one: 1 bay
+          other: "%{count} bays"
         servers_count:
           zero: 0 I.T. equipment
           one: 1 I.T. equipment
