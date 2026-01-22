@@ -1,17 +1,17 @@
-<% server.cards.includes(ports: :cable).select { |card| card.composant_id == component.id }.each do |card| %>
+<% server.cards.select { |card| card.composant_id == component.id }.each do |card| %>
   <% if card.twin_card_id
        twin_card = Card.find(card.twin_card_id)
        connections = twin_card.ports.map(&:connection)
        twin_card_used_ports = []
-       connections.each { |c| twin_card_used_ports << c.port.position if c && c.port }
-  end %>
+       connections.each { |c| twin_card_used_ports << c.port.position if c&.port }
+     end %>
 
-  <span class="<%= class_names("server-component d-flex", "flex-column": (card.orientation == "td-lr" || card.orientation == "dt-lr")) %>"
+  <span class="<%= class_names("server-component d-flex", "flex-column": %w[td-lr dt-lr].include?(card.orientation)) %>"
         data-server-name="<%= server.name %>"
         data-server-id="<%= server.id %>"
         data-composant-id="<%= card.id %>"
         data-composant-type="<%= card.class %>"
-        data-composant-name="<%= component.name.present? ? component.name : component.position %>">
+        data-composant-name="<%= component.name.presence || component.position %>">
 
     <% if card.card_type && card.card_type.columns && card.card_type.rows %>
       <%= ports_by_card_with_presentation(card: card,
