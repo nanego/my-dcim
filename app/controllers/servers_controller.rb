@@ -6,8 +6,8 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   include ColumnsPreferences
 
   DEFAULT_COLUMNS = %w[name numero modele_category_id islet_id bay_id network_types position].freeze
-  AVAILABLE_COLUMNS = %w[name numero modele_category_id islet_id bay_id network_types position gestion_id frame_id cluster_id
-                         stack_id domaine_id modele_id u slug side color comment critique].freeze
+  AVAILABLE_COLUMNS = %w[name numero modele_category_id islet_id manufacturer_id bay_id network_types position gestion_id
+                         frame_id cluster_id stack_id domaine_id modele_id u slug side color comment critique].freeze
 
   columns_preferences_with model: Server, default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS, only: %i[index export]
 
@@ -17,7 +17,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   end
 
   def index
-    # Let server knows that now name is not used anymore for research
+    # let the server know that name isn't the correct search params anymore
     if params[:name].present?
       params[:q] = params[:name]
 

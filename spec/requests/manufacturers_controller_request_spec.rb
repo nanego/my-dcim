@@ -3,6 +3,21 @@
 require "rails_helper"
 
 RSpec.describe ManufacturersController do
+  let(:manufacturer) { manufacturers(:fortinet) }
+
+  describe "GET #index" do
+    subject(:response) do
+      get manufacturers_path
+
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:index) }
+    it { expect(response.body).to include(manufacturer.name) }
+  end
+
   describe "GET #new" do
     subject(:response) do
       get new_manufacturer_path
