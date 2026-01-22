@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_15_101124) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_22_143245) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -565,19 +565,27 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_15_101124) do
   add_foreign_key "bays", "manufacturers"
   add_foreign_key "card_types", "port_types"
   add_foreign_key "cards", "card_types"
+  add_foreign_key "cards", "composants"
+  add_foreign_key "cards", "servers"
   add_foreign_key "cluster_rooms", "clusters"
   add_foreign_key "cluster_rooms", "rooms"
+  add_foreign_key "composants", "enclosures"
   add_foreign_key "connections", "cables"
+  add_foreign_key "connections", "ports"
   add_foreign_key "contact_assignments", "contact_roles"
   add_foreign_key "contact_assignments", "contacts"
   add_foreign_key "contact_assignments", "sites"
   add_foreign_key "documents", "servers"
+  add_foreign_key "enclosures", "modeles"
   add_foreign_key "external_app_records", "servers"
   add_foreign_key "external_app_requests", "users"
   add_foreign_key "frames", "bays"
+  add_foreign_key "islets", "rooms"
   add_foreign_key "modeles", "architectures"
   add_foreign_key "modeles", "categories"
   add_foreign_key "modeles", "manufacturers"
+  add_foreign_key "moved_connections", "ports", column: "port_from_id"
+  add_foreign_key "moved_connections", "ports", column: "port_to_id"
   add_foreign_key "moves", "frames"
   add_foreign_key "moves", "frames", column: "prev_frame_id"
   add_foreign_key "moves", "moves_project_steps"
@@ -587,6 +595,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_15_101124) do
   add_foreign_key "permission_scope_domains", "permission_scopes"
   add_foreign_key "permission_scope_users", "permission_scopes"
   add_foreign_key "permission_scope_users", "users"
+  add_foreign_key "ports", "cards"
   add_foreign_key "rooms", "sites"
   add_foreign_key "servers", "clusters"
   add_foreign_key "servers", "domaines"

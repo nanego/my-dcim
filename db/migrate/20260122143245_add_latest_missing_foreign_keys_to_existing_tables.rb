@@ -4,8 +4,8 @@ class AddLatestMissingForeignKeysToExistingTables < ActiveRecord::Migration[7.0]
   def change
     add_foreign_key :ports, :cards
 
-    add_foreign_key :moved_connections, :port_froms
-    add_foreign_key :moved_connections, :port_tos
+    add_foreign_key :moved_connections, :ports, column: :port_from_id
+    add_foreign_key :moved_connections, :ports, column: :port_to_id
 
     add_foreign_key :islets, :rooms
 
@@ -17,8 +17,5 @@ class AddLatestMissingForeignKeysToExistingTables < ActiveRecord::Migration[7.0]
     add_foreign_key :cards, :composants
 
     add_foreign_key :composants, :enclosures
-
-    add_foreign_key :servers, :frames
-    add_foreign_key :servers, :domaines
   end
 end
