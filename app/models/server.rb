@@ -13,9 +13,11 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_one :room, through: :islet
   belongs_to :gestion, optional: true, counter_cache: true
   belongs_to :domaine, optional: true, counter_cache: true
-  belongs_to :modele, counter_cache: true
   belongs_to :cluster, optional: true, counter_cache: true
   belongs_to :stack, optional: true, counter_cache: true
+
+  belongs_to :modele, counter_cache: true
+  has_one :manufacturer, through: :modele
 
   has_many :cards, -> { joins(:composant).includes(:composant) }
   has_many :card_types, through: :cards

@@ -2,13 +2,15 @@
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
-    <% render ButtonComponent.new(
-      t(".new_manufacturer"),
-      url: new_manufacturer_path,
-      variant: :success,
-      icon: "plus-lg",
-      is_responsive: true
-    ) if allowed_to?(:create?) %>
+    <% if allowed_to?(:create?)
+         render ButtonComponent.new(
+           t(".new_manufacturer"),
+           url: new_manufacturer_path,
+           variant: :success,
+           icon: "plus-lg",
+           is_responsive: true,
+         )
+       end %>
   <% end %>
 <% end %>
 
@@ -16,11 +18,11 @@
   <%= render List::DataTableComponent.new(@manufacturers) do |table| %>
     <% if allowed_to?(:destroy?) %>
       <% table.with_bulk_action(
-        url: bulk_manufacturers_path,
-        method: :delete,
-        class: "btn btn-danger btn-sm",
-        data: { confirm: t("action.confirm") }
-      ) do %>
+           url: bulk_manufacturers_path,
+           method: :delete,
+           class: "btn btn-danger btn-sm",
+           data: { confirm: t("action.confirm") },
+         ) do %>
         <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
       <% end %>
     <% end %>
@@ -35,9 +37,15 @@
       <% end %>
     <% end %>
 
-    <% table.with_column(Manufacturer.human_attribute_name(:usage_bay), sort_by: :bays_count) do |manufacturer| %>
+    <% table.with_column(Manufacturer.human_attribute_name(:usage_bay)) do |manufacturer| %>
       <%= link_to bays_path(manufacturer_ids: manufacturer) do %>
-        <%= Manufacturer.human_attribute_name(:bays_count, count: manufacturer.bays_count) %>
+        <%= Manufacturer.human_attribute_name(:bays_count, count: @bays_counts[manufacturer.id] || 0) %>
+      <% end %>
+    <% end %>
+
+    <% table.with_column(Manufacturer.human_attribute_name(:usage_server)) do |manufacturer| %>
+      <%= link_to servers_path(manufacturer_ids: manufacturer) do %>
+        <%= Manufacturer.human_attribute_name(:servers_count, count: @servers_counts[manufacturer.id] || 0) %>
       <% end %>
     <% end %>
 

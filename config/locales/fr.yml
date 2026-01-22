@@ -273,7 +273,7 @@ fr:
   manufacturers:
     form:
       url_placeholder: "https://url_du_frabricant.com/suite_de_l_url/%s/reste_s_il_y_a"
-      information_html: il faut remplacer le numéro de série dans l'URL par <code>%s</code>.
+      information_html: Il faut remplacer le numéro de série dans l'URL par <code>%s</code>.
     index:
       new_manufacturer: Ajouter un constructeur
     new:

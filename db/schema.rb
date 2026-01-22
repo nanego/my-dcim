@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_14_150823) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_15_101124) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -329,7 +329,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_14_150823) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "documentation_url"
     t.integer "modeles_count", default: 0, null: false
-    t.integer "bays_count", default: 0, null: false
   end
 
   create_table "modeles", id: :serial, force: :cascade do |t|

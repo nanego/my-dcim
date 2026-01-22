@@ -234,8 +234,25 @@ en:
         title: Contacts
 
   manufacturers:
+    form:
+      url_placeholder: "https://manufacturer_url.com/rest_of_url/%s/remaining_if_there_is"
+      information_html: You must replace the serial number in the URL with <code>%s</code>.
+    index:
+      new_manufacturer: Add a manufacturer
+    new:
+      title: New manufacturer
+    create:
+      flashes:
+        created: The manufacturer has been created.
+    edit:
+      title: Update the manufacturer
+    update:
+      flashes:
+        updated: The manufacturer has been updated.
     destroy:
       title: Delete the manufacturer
+      flashes:
+        destroyed: The manufacturer has been removed.
 
   modeles:
     add_new: Add a model
