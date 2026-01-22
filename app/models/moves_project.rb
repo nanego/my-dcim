@@ -3,11 +3,11 @@
 class MovesProject < ApplicationRecord
   has_changelog
 
+  belongs_to :created_by, optional: true, class_name: "User"
+
   has_many :steps, -> { order(:position) }, class_name: "MovesProjectStep", dependent: :restrict_with_error,
                                             inverse_of: :moves_project
   has_many :moves, through: :steps
-
-  belongs_to :created_by, optional: true, class_name: "User"
 
   validates :name, presence: true
 
