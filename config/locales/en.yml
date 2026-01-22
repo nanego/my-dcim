@@ -496,7 +496,7 @@ en:
       connections_not_destroyed: An error prevented the connections from being deleted.
     add_new: Add an I.T. material
     preview:
-      modal_title: Material %{server_name} previer
+      modal_title: Material %{server_name} preview
 
   servers_grids:
     index:
