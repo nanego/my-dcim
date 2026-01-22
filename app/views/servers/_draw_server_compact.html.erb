@@ -1,4 +1,4 @@
-<%= render partial: "servers/draw_server", locals: { server: } %>
+<%= render partial: "servers/visualization", locals: { server: } %>
 
 <div class="ps-3 d-flex flex-column me-auto" data-html2canvas-ignore="true">
   <span class="mb-2">
@@ -22,8 +22,8 @@
   <!--
   <span class='float-start' style="padding-left: 8px;">
     <% twin_cards_ids = server.cards.map(&:twin_card_id).uniq.reject {|c| c.blank?} if false %>
-  <% twin_cards_ids.map {|id| Card.find(id).frame}.uniq.each do |frame| %>
-    <%= link_to frame_path(frame), title: "#{frame.to_s}" do %>
+  <% twin_cards_ids.map { |id| Card.find(id).frame }.uniq.each do |frame| %>
+    <%= link_to frame_path(frame), title: frame.to_s do %>
         <button type="button" class="btn btn-sm" aria-label="Link to twin card">
           <span class="bi bi-magnet-fill" aria-hidden="true"></span>
         </button>
