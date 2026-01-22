@@ -260,6 +260,8 @@ en:
       no_enclosure: No Enclosure
     destroy:
       title: Delete the modele
+    preview:
+      modal_title: Model %{modele_name} preview
 
   moved_connections:
     decorator:
@@ -391,6 +393,8 @@ en:
     flashes:
       connections_destroyed: The connections have been removed.
       connections_not_destroyed: An error prevented connections from being deleted.
+    preview:
+      modal_title: PDU %{pdu_name} preview
 
   rooms:
     action_buttons:
@@ -510,6 +514,8 @@ en:
       connections_destroyed: Connections have been deleted.
       connections_not_destroyed: An error prevented the connections from being deleted.
     add_new: Add an I.T. material
+    preview:
+      modal_title: Material %{server_name} preview
 
   servers_grids:
     index:

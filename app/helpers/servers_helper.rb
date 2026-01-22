@@ -4,8 +4,12 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
   MAX_PORTS_PER_LINE = 24
 
   def slot_label(server, component)
-    cards = server.cards.where(composant_id: component.id)
-    cards_names = cards.pluck(:name).compact_blank
+    cards = server.cards.select do |card|
+      card.composant_id == component.id
+    end
+
+    cards_names = cards.map(&:name).compact_blank
+
     if cards_names.present?
       if cards.first.twin_card_id.present?
         link_to network_frame_path(server.frame, network_frame_id: Card.find(cards.first.twin_card_id).server.frame_id) do

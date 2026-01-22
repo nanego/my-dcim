@@ -47,13 +47,21 @@ class PowerDistributionUnitsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @pdu.update(pdu_params)
-        format.html { redirect_to power_distribution_unit_path(@pdu), notice: t(".flashes.updated") }
-        format.json { render :show, status: :ok, location: @pdu }
-      else
-        format.html { render :edit }
-        format.json { render json: @pdu.errors, status: :unprocessable_content }
+    @pdu.assign_attributes(pdu_params)
+
+    if params[:preview]
+      respond_to do |format|
+        format.turbo_stream { render :preview, status: :unprocessable_content }
+      end
+    else
+      respond_to do |format|
+        if @pdu.save
+          format.html { redirect_to power_distribution_unit_path(@pdu), notice: t(".flashes.updated") }
+          format.json { render :show, status: :ok, location: @pdu }
+        else
+          format.html { render :edit }
+          format.json { render json: @pdu.errors, status: :unprocessable_content }
+        end
       end
     end
   end
