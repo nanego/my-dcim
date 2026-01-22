@@ -376,6 +376,8 @@ en:
     flashes:
       connections_destroyed: The connections have been removed.
       connections_not_destroyed: An error prevented connections from being deleted.
+    preview:
+      modal_title: PDU %{pdu_name} preview
 
   rooms:
     action_buttons:

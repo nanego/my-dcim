@@ -513,6 +513,8 @@ fr:
     flashes:
       connections_destroyed: Les connexions ont été supprimées.
       connections_not_destroyed: Une erreur a empêché la suppression des connexions.
+    preview:
+      modal_title: Prévisualisation du PDU %{pdu_name}
   frames:
     coupled_frame_label: Châssis couplé à
     no_coupled_frame: Aucun châssis couplé.
