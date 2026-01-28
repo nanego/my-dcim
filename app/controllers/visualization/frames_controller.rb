@@ -14,6 +14,9 @@ module Visualization
     end
 
     def print
+      @view_side = params[:view].presence || "front"
+      @settings = { min_height: @view_side == "back" ? 20 : 27 }
+
       respond_to do |format|
         format.html { render layout: "pdf" }
         format.pdf { render ferrum_pdf: {}, layout: "pdf", filename: "frame_#{@frame}.pdf", disposition: :inline }

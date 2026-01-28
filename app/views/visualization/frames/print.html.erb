@@ -1,9 +1,4 @@
-<%
-  view_side = params[:view].presence || "front"
-  settings = { min_height: view_side == "back" ? 20 : 27}
-%>
-
 <div class="container-fluid p-4">
   <%= render partial: "visualization/frames/show_frame",
-            locals: { frame: @frame, servers: @frame.servers, settings: , view_type: view_side } %>
+             locals: { frame: @frame, servers: @frame.servers, settings: @settings, view_type: @view_side } %>
 </div>
