@@ -19,10 +19,10 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
   belongs_to :modele, counter_cache: true
   has_one :manufacturer, through: :modele
 
-  has_many :cards, -> { joins(:composant).includes(:composant) }
+  has_many :cards, -> { joins(:composant).includes(:composant) }, dependent: :destroy
   has_many :card_types, through: :cards
   has_many :ports, through: :cards
-  has_many :connections, through: :ports
+  has_many :connections, through: :ports, source: :connection
   has_many :cables, through: :connections
 
   has_many :moves, as: :moveable, dependent: :destroy

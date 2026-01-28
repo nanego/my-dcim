@@ -13,7 +13,7 @@ class Card < ApplicationRecord
   belongs_to :composant
   delegate :frame, to: :server # TODO: replace by has_one?
 
-  has_many :ports
+  has_many :ports, dependent: :destroy
   has_many :cables, through: :ports
 
   validates :first_position, numericality: { only_integer: true, in: 0..100 }, allow_nil: true
