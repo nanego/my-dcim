@@ -107,6 +107,7 @@ gem "hotwire-spark", group: :development
 gem "importmap-rails", "~> 2.0"
 gem "jquery-rails", "~> 4.6"
 gem "jquery-ui-rails", "~> 8.0"
+gem "requestjs-rails", "~> 0.0.12"
 gem "rubanok", "~> 0.5"
 gem "scenic", "~> 1.8"
 gem "stimulus-rails", "~> 1.2"
