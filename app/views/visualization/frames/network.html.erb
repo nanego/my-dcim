@@ -1,38 +1,31 @@
-<%
-  breadcrumb
-    .add_step(t("visualization.title"))
-    .add_step(t("visualization.rooms.index.title"), visualization_rooms_path)
-    .add_step(@frame.room.name, ((@frame.present? || params[:islet].present?) ? visualization_room_path(@frame.room, view: params[:view]) : ""))
+ <% breadcrumb
+      .add_step(t("visualization.title"))
+      .add_step(t("visualization.rooms.index.title"), visualization_rooms_path)
+      .add_step(@frame.room.name, (@frame.present? || params[:islet].present? ? visualization_room_path(@frame.room, view: params[:view]) : ""))
 
-  if @frame.present? && (islet = @frame.bay.islet.presence)
-    breadcrumb.add_step(islet.decorated.full_name, visualization_room_path(@frame.room, islet: islet.name, view: params[:view]))
-  elsif params[:islet].present? # TODO: check that it's still used, couldn't find a call
-    breadcrumb.add_step(t("layouts.breadcrumb.islet", name: params[:islet]), "")
-  end
+    if @frame.present? && (islet = @frame.bay.islet.presence)
+      breadcrumb.add_step(islet.decorated.full_name, visualization_room_path(@frame.room, islet: islet.name, view: params[:view]))
+    end
 
-  breadcrumb.add_step(t("layouts.breadcrumb.bay.double", name: @frame.bay), visualization_bay_path(@frame.bay_id)) if @frame.has_coupled_frame?
-  breadcrumb.add_step(t("layouts.breadcrumb.bay.simple", name: @frame.name), visualization_frame_path(@frame)) if @frame.present?
-  breadcrumb.add_step(title = t(".title"))
+    breadcrumb.add_step(t("layouts.breadcrumb.bay.double", name: @frame.bay), visualization_bay_path(@frame.bay_id)) if @frame.has_coupled_frame?
+    breadcrumb.add_step(t("layouts.breadcrumb.bay.simple", name: @frame.name), visualization_frame_path(@frame)) if @frame.present?
+    breadcrumb.add_step(title = t(".title"))
 
-  hide_inventories_sidebar!
-
-  view_type = "back"
-  settings = { min_height: view_type == "back" ? 20 : 27 }
-%>
+    hide_inventories_sidebar! %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
 
 <div class="container-fluid frames-network p-4 border-top">
   <% @servers_per_frames.each do |islet, lanes| %>
     <div class="row">
-      <div class="frames col-12 d-flex flex-row flex-wrap row-gap-3 <%= view_type %>"
+      <div class="frames col-12 d-flex flex-row flex-wrap row-gap-3 back"
           data-update-url="<%= sort_frames_path %>">
         <% lanes.each do |lane, bays| %>
           <% bays.each do |bay, frames| %>
             <% frames.each do |frame, servers| %>
               <div class="bay col-12 col-lg-6 col-xxl-4 pe-0 pe-lg-3">
                 <%= render partial: "visualization/frames/show_frame",
-                            locals: { frame: , servers: , settings: , view_type: } %>
+                           locals: { frame:, servers:, settings: { min_height: 20 }, view_type: "back" } %>
               </div>
             <% end %>
           <% end %>
