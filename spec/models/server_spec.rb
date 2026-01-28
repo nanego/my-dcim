@@ -22,7 +22,7 @@ RSpec.describe Server do
     it { is_expected.to have_one(:room).through(:islet) }
     it { is_expected.to have_one(:manufacturer).through(:modele) }
 
-    it { is_expected.to have_many(:cards) }
+    it { is_expected.to have_many(:cards).dependent(:destroy) }
     it { is_expected.to have_many(:card_types).through(:cards) }
     it { is_expected.to have_many(:ports).through(:cards) }
     it { is_expected.to have_many(:connections).through(:ports) }
