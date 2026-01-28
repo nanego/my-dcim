@@ -234,8 +234,25 @@ en:
         title: Contacts
 
   manufacturers:
+    form:
+      url_placeholder: "https://manufacturer_url.com/rest_of_url/%s/remaining_if_there_is"
+      information_html: You must replace the serial number in the URL with <code>%s</code>.
+    index:
+      new_manufacturer: Add a manufacturer
+    new:
+      title: New manufacturer
+    create:
+      flashes:
+        created: The manufacturer has been created.
+    edit:
+      title: Update the manufacturer
+    update:
+      flashes:
+        updated: The manufacturer has been updated.
     destroy:
       title: Delete the manufacturer
+      flashes:
+        destroyed: The manufacturer has been removed.
 
   modeles:
     add_new: Add a model
@@ -243,6 +260,8 @@ en:
       no_enclosure: No Enclosure
     destroy:
       title: Delete the modele
+    preview:
+      modal_title: Model %{modele_name} preview
 
   moved_connections:
     decorator:
@@ -252,10 +271,10 @@ en:
     index:
       planned_on: Planned on
       new_move: Plan a move
-      delete_confirmation: Do you really want to delete this move?
       execute_confirmation: Do you really want to apply this move?
       frame_table_title: Frames after moving
       edit_connections: Update connections
+      remove_existing_connections_on_execution: Delete connections?
       action:
         execute_move: Move the server and its connections
     new:
@@ -273,6 +292,7 @@ en:
       flashes:
         updated: The move has been updated.
     destroy:
+      title: Delete this move
       flashes:
         destroyed: The move has been removed.
         already_executed: The move has already been executed, it can't be removed.
@@ -293,11 +313,12 @@ en:
         delete: Delete this connection
     flashes:
       archived: This project is archived
+    decorator:
+      display_name: Move of %{moveable}
 
   moves_projects:
     index:
       new_moves_project: New project
-      delete_confirmation: Are you sure you want to destroy this project?
       archive_confirmation: Are you sure you want to archive this project?
     show:
       frame_table_title: Frames after moving
@@ -315,6 +336,7 @@ en:
       flashes:
         updated: The project has been updated.
     destroy:
+      title: Delete this project
       flashes:
         destroyed: The project has been removed.
     archive:
@@ -358,7 +380,6 @@ en:
       add_document: Add an attached document
     edit:
       title: Update the PDU
-      delete_confirmation: All data concerning this PDU will be deleted, along with all associated connections. Would you like to confirm?
     update:
       flashes:
         updated: The PDU has been successfully updated.
@@ -372,6 +393,8 @@ en:
     flashes:
       connections_destroyed: The connections have been removed.
       connections_not_destroyed: An error prevented connections from being deleted.
+    preview:
+      modal_title: PDU %{pdu_name} preview
 
   rooms:
     edit_clusters_modal:
@@ -388,7 +411,6 @@ en:
     index:
       title: Permission Scope
       new_permission_scope: New permission scope
-      delete_confirmation: Are you sure to destroy this permission scope ?
     new:
       title: New Permission Scope
     create:
@@ -403,8 +425,7 @@ en:
       domaine_ids:
         blank: Select a domain
     destroy:
-      destroy:
-        title: Delete the permissio scope
+      title: Delete this permission scope
       flashes:
         destroyed: Permission Scope as been successfully destroyed.
     permission_scope_user_form:
@@ -474,7 +495,6 @@ en:
         created: The I.T. material has been successfully created.
     edit:
       title: Updating IT equipment
-      delete_confirmation: All data relating to this I.T. equipment will be deleted, along with all associated connections. Would you like to confirm?
     update:
       flashes:
         updated: The I.T. equipment has been successfully updated.
@@ -489,6 +509,8 @@ en:
       connections_destroyed: Connections have been deleted.
       connections_not_destroyed: An error prevented the connections from being deleted.
     add_new: Add an I.T. material
+    preview:
+      modal_title: Material %{server_name} preview
 
   servers_grids:
     index:
@@ -528,6 +550,8 @@ en:
     logout: Log out
     edit:
       title: "Edit a user account"
+    destroy:
+      title: Delete this user
     flashes:
       updated: User account updated
 

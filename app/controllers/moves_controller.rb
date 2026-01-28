@@ -51,12 +51,8 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
     authorize! @move = @moves_project_step.moves.build(move_params)
 
-    if params[:move][:remove_connections] == "Oui"
-      @move.clear_connections
-    end
-
     respond_to do |format|
-      if @move.save
+      if @move.clear_connections_and_save
         format.html { redirect_to moves_project_path(@moves_project_step.moves_project), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @move }
       else
@@ -68,12 +64,10 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   end
 
   def update
-    respond_to do |format|
-      if @move.update(move_params)
-        if params[:move][:remove_connections] == "Oui"
-          @move.clear_connections
-        end
+    @move.assign_attributes(move_params)
 
+    respond_to do |format|
+      if @move.clear_connections_and_save
         format.html { redirect_to moves_project_path(@moves_project_step.moves_project), notice: t(".flashes.updated") }
         format.json { render :show, status: :ok, location: @move }
       else
@@ -91,6 +85,8 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
         format.json { head :bad_request }
       end
     else
+      return render unless params[:confirm] == "true"
+
       @move.destroy
 
       respond_to do |format|
@@ -217,11 +213,11 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def move_params
-    params.expect(move: %i[moveable_type moveable_id frame_id moves_project_step_id position])
+    params.expect(move: %i[moveable_type moveable_id frame_id moves_project_step_id position remove_existing_connections_on_execution])
   end
 
   def unscoped_move_params
-    params.expect(move: %i[moveable_type moveable_id moves_project_step_id])
+    params.expect(move: %i[moveable_type moveable_id moves_project_step_id remove_existing_connections_on_execution])
   end
 
   def moved_connection_params

@@ -146,7 +146,6 @@ fr:
       action:
         show_more_bay: Voir plus de baies
         show_less_bay: Voir moins de baies
-        delete_confirmation: Confirmez-vous vouloir supprimer la connexion ?
       delete_title: Supprimer la connexion
   sites:
     index:
@@ -274,7 +273,7 @@ fr:
   manufacturers:
     form:
       url_placeholder: "https://url_du_frabricant.com/suite_de_l_url/%s/reste_s_il_y_a"
-      information_html: il faut remplacer le numéro de série dans l'URL par <code>%s</code>.
+      information_html: Il faut remplacer le numéro de série dans l'URL par <code>%s</code>.
     index:
       new_manufacturer: Ajouter un constructeur
     new:
@@ -460,6 +459,8 @@ fr:
       connections_destroyed: Les connexions ont été supprimées.
       connections_not_destroyed: Une erreur a empêché la suppression des connexions.
     add_new: Ajouter un matériel I.T.
+    preview:
+      modal_title: Prévisualisation du matériel %{server_name}
   bulk:
     resource:
       destroy:
@@ -512,6 +513,8 @@ fr:
     flashes:
       connections_destroyed: Les connexions ont été supprimées.
       connections_not_destroyed: Une erreur a empêché la suppression des connexions.
+    preview:
+      modal_title: Prévisualisation du PDU %{pdu_name}
   frames:
     coupled_frame_label: Châssis couplé à
     no_coupled_frame: Aucun châssis couplé.
@@ -548,8 +551,8 @@ fr:
       new_move: Prévoir un déplacement
       frame_table_title: Châssis après déplacements
       edit_connections: Modifier les connexions
-      delete_confirmation: Voulez-vous vraiment supprimer ce déplacement ?
       execute_confirmation: Voulez-vous vraiment appliquer ce déplacement ?
+      remove_existing_connections_on_execution: Supprimer les connexions ?
       action:
         execute_move: Déplacer le serveur et ses connexions
     new:
@@ -567,6 +570,7 @@ fr:
       flashes:
         updated: Le déplacement a été mis à jour.
     destroy:
+      title: Supprimer ce déplacement
       flashes:
         destroyed: Le déplacement a été supprimé.
         already_executed: Le déplacement a déjà été exécuté, impossible de le supprimer.
@@ -583,11 +587,12 @@ fr:
         delete: Supprimer cette connexion
     flashes:
       archived: Ce projet est archivé
+    decorator:
+      display_name: Déplacement de %{moveable}
 
   moves_projects:
     index:
       new_moves_project: Nouveau projet
-      delete_confirmation: Êtes-vous sûr de vouloir supprimer ce projet ?
       archive_confirmation: Êtes-vous sûr de vouloir archiver ce projet ?
     show:
       frame_table_title: Châssis après déplacements
@@ -607,6 +612,7 @@ fr:
       flashes:
         updated: Le projet a été mis à jour.
     destroy:
+      title: Supprimer le projet
       flashes:
         destroyed: Le projet a été supprimé.
     archive:
@@ -703,6 +709,8 @@ fr:
       action:
         show_authentication_token: Afficher la clé API
         hide_authentication_token: Cacher la clé API
+    destroy:
+      title: Supprimer cet utilisateur
     edit:
       title: "Modifier un compte utilisateur"
     flashes:
@@ -887,7 +895,6 @@ fr:
     index:
       title: Permissions
       new_permission_scope: Nouvelle permission
-      delete_confirmation: Vous êtes sûr de vouloir supprimer cette permission ?
     new:
       title: Nouvelle permission
     create:
@@ -902,6 +909,7 @@ fr:
       domaine_ids:
         blank: Sélectionnez un domaine
     destroy:
+      title: Supprimer cette permission
       flashes:
         destroyed: La permission a bien été supprimé.
     permission_scope_user_form:

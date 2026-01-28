@@ -9,7 +9,7 @@ module Page
       @title = title
       @breadcrumb = breadcrumb
 
-      super
+      super()
     end
 
     def call

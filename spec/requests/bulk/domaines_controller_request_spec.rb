@@ -16,7 +16,7 @@ RSpec.describe Bulk::DomainesController do
     let(:ids) { [] }
 
     context "with domains without associations" do
-      let(:ids) { [domaines(:three).id, domaines(:stock).id] }
+      let(:ids) { [domaines(:empty_domain).id, domaines(:empty_domain_two).id] }
 
       it { expect { response }.to have_authorized_scope(:active_record_relation).with(DomainePolicy) }
       it { expect { response }.to change(Domaine, :count).by(-2) }

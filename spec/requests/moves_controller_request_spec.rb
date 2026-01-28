@@ -18,23 +18,24 @@ RSpec.describe MovesController do
 
   describe "GET #show" do
     subject(:response) do
-      get moves_project_step_move_path(step, move)
+      get moves_project_step_move_path(step, move, format:)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
+    let(:format) { :html }
+
     include_context "with authenticated writer"
 
-    # TODO: test that JSON call is working fine
-    # context "with format = json" do
-    #   before { get move_path(move, format: :json) }
+    context "with json format" do
+      let(:format) { :json }
 
-    #   it { expect(response).to have_http_status(:success) }
-    #   it { expect(response).to render_template(:show) }
-    # end
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(:show) }
+    end
 
-    context "with format = html" do
+    context "with html format" do
       it { expect { response }.to raise_error(ActionController::UnknownFormat) }
     end
   end
@@ -107,6 +108,13 @@ RSpec.describe MovesController do
     let(:params) { { move: valid_attributes } }
 
     include_context "with authenticated admin"
+
+    context "without valid parameters" do
+      let(:params) { { move: { position: "" } } }
+
+      it { expect { response }.not_to change(Move, :count) }
+      it { expect(response).to render_template(:new) }
+    end
 
     context "with valid parameters" do
       it { expect { response }.to change(Move, :count).by(1) }
@@ -195,6 +203,20 @@ RSpec.describe MovesController do
 
     include_context "with authenticated admin"
 
+    context "without valid parameters" do
+      let(:valid_attributes) { { position: "" } }
+
+      it do
+        expect do
+          response
+          move.reload
+        end.not_to change(move, :position)
+      end
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(:edit) }
+    end
+
     context "with valid parameters" do
       it do
         expect do
@@ -229,7 +251,7 @@ RSpec.describe MovesController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete moves_project_step_move_path(step, move)
+      delete moves_project_step_move_path(step, move, confirm: true)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -264,6 +286,22 @@ RSpec.describe MovesController do
 
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(moves_projects_path) }
+    end
+
+    context "without confirm" do
+      subject(:response) do
+        delete moves_project_step_move_path(step, move)
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+
+      it do
+        expect do
+          response
+        end.not_to change(Move, :count)
+      end
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(Move.exists?(move.id)).to be true }
     end
   end
 

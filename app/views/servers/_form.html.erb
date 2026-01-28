@@ -1,5 +1,8 @@
-<%= form_for(@server, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+<%= form_for(@server, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }, data: { turbo: true }) do |f| %>
   <%= render FormErrorsComponent.new(@server) %>
+
+  <!--Note: Hidden submit to make it the first available -->
+  <%= f.submit class: "d-none", "aria-hidden": true %>
 
   <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <% card.with_header do %>
@@ -30,9 +33,8 @@
                                 {
                                   class: "form-select",
                                   data: { controller: "select" },
-                                  placeholder: t("select.placeholder")
-                                })
-        %>
+                                  placeholder: t("select.placeholder"),
+                                }) %>
       </fieldset>
 
       <fieldset class="col-md-6 col-12">
@@ -44,9 +46,8 @@
                        class: "form-select",
                        data: { controller: "select" },
                        multiple: true,
-                       placeholder: Modele.human_attribute_name("network_types.blank")
-                     }
-        %>
+                       placeholder: Modele.human_attribute_name("network_types.blank"),
+                     } %>
         <div id="networkTypesHelp" class="form-text fst-italic">
           <i class="bi bi-info-circle me-1"></i>
           <%= Modele.human_attribute_name("network_types.help") %>
@@ -69,7 +70,7 @@
       <fieldset class="col-md-6 col-12 mt-4">
         <%= f.label :stack_id, class: "form-label" %>
         <%= f.collection_select(:stack_id, Stack.order(:id), :id, :name, { prompt: true, include_blank: true },
-                                                                         { class: "form-select" }) %>
+                                { class: "form-select" }) %>
       </fieldset>
 
       <fieldset class="col-md-6 col-12 mt-4 align-self-end">
@@ -96,9 +97,8 @@
                                 {
                                   class: "form-select",
                                   data: { controller: "select" },
-                                  placeholder: t("select.placeholder")
-                                })
-        %>
+                                  placeholder: t("select.placeholder"),
+                                }) %>
       </fieldset>
 
       <fieldset class="col-md-3 col-12">
@@ -124,9 +124,8 @@
                                 {
                                   class: "form-select",
                                   data: { controller: "select" },
-                                  placeholder: t("select.placeholder")
-                                })
-        %>
+                                  placeholder: t("select.placeholder"),
+                                }) %>
       </fieldset>
 
       <fieldset class="col-md-6 col-12 mt-md-3 mt-4">
@@ -139,9 +138,8 @@
                                 {
                                   class: "form-select",
                                   data: { controller: "select" },
-                                  placeholder: t("select.placeholder")
-                                })
-        %>
+                                  placeholder: t("select.placeholder"),
+                                }) %>
       </fieldset>
 
       <fieldset class="col-md-6 col-12 mt-4">
@@ -154,9 +152,8 @@
                                 {
                                   class: "form-select",
                                   data: { controller: "select" },
-                                  placeholder: t("select.placeholder")
-                                })
-        %>
+                                  placeholder: t("select.placeholder"),
+                                }) %>
       </fieldset>
     </div>
   <% end %>
@@ -166,24 +163,36 @@
     <% @server.modele.enclosures.with_composants.each do |enclosure| %>
       <div class="col-12 mt-4" data-controller="nested-form">
         <template data-nested-form-target="template">
-          <%= f.fields_for :cards, f.object.cards.klass.new, child_index: '__NEW_RECORD__' do |card_fields| %>
+          <%= f.fields_for :cards, f.object.cards.klass.new, child_index: "__NEW_RECORD__" do |card_fields| %>
             <%= render partial: "card_fields", locals: { f: card_fields, server: @server, enclosure: enclosure } %>
           <% end %>
         </template>
 
         <%= render CardComponent.new(extra_classes: "bg-body") do |card| %>
           <% card.with_header do %>
-            <%= "#{Enclosure.model_name.human} #{enclosure.position}" %>
+            <div class="d-flex justify-content-between align-items-center">
+              <%= "#{Enclosure.model_name.human} #{enclosure.position}" %>
+              <%= f.submit t("action.preview"),
+                           class: "btn btn-outline-primary btn-sm",
+                           name: :preview,
+                           data: { "bs-toggle": "modal", "bs-target": "#previewModal" } %>
+            </div>
           <% end %>
 
           <div class="row-gap-3 d-flex flex-column">
             <% cards = @server.cards.select { |c| c.composant&.enclosure == enclosure }
-                                    .sort_by! { |c| c.composant.position } %>
+                 .sort_by! { |c| c.composant.position } %>
             <%= f.fields_for :cards, cards do |card_fields| %>
               <%= render partial: "card_fields", locals: { f: card_fields, server: @server, enclosure: enclosure } %>
             <% end %>
 
             <div data-nested-form-target="target" class="d-none"></div>
+          </div>
+
+          <div class="modal fade" tabindex="-1" id="previewModal">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content" id="ts_server_form_preview"></div>
+            </div>
           </div>
 
           <% card.with_footer do %>
@@ -206,7 +215,7 @@
 
   <fieldset class="col-12 mt-4" data-controller="nested-form">
     <template data-nested-form-target="template">
-      <%= f.fields_for :documents, f.object.documents.klass.new, child_index: '__NEW_RECORD__' do |document_fields| %>
+      <%= f.fields_for :documents, f.object.documents.klass.new, child_index: "__NEW_RECORD__" do |document_fields| %>
         <%= render partial: "document_fields", locals: { f: document_fields } %>
       <% end %>
     </template>
@@ -217,7 +226,7 @@
       <% end %>
 
       <%= f.fields_for :documents do |document_fields| %>
-        <%= render partial: "document_fields", locals: { f:  document_fields } %>
+        <%= render partial: "document_fields", locals: { f: document_fields } %>
       <% end %>
 
       <div data-nested-form-target="target"></div>

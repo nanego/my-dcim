@@ -74,11 +74,12 @@
         </div>
 
         <fieldset class="col-12 mt-4">
-          <%= f.label :remove_connections, class: "form-label" %>
-          <%= f.select :remove_connections,
-                       options_for_select(["Oui", "Non"], { selected: "Non" }),
-                       {},
-                       class: "form-select"
+          <%= f.label :remove_existing_connections_on_execution, class: "form-label" %>
+          <%= f.select :remove_existing_connections_on_execution,
+                       options_for_select(
+                         [["Oui", "true"], ["Non", "false"]], { selected: move.remove_existing_connections_on_execution ? "true" : "false" },
+                       ),
+                       {}, class: "form-select"
           %>
         </fieldset>
 

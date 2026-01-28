@@ -175,6 +175,7 @@ fr:
         name: Nom
         usage_modele: Usage (modèle)
         usage_bay: Usage (baie)
+        usage_server: Usage (Matériel I.T.)
         description: Description
         documentation_url: Documentation URL
         modeles_count:
@@ -185,6 +186,10 @@ fr:
           zero: 0 baie
           one: 1 baie
           other: "%{count} baies"
+        servers_count:
+          zero: 0 matériel I.T.
+          one: 1 matériel I.T.
+          other: "%{count} matériels I.T."
       domaine:
         name: Nom
         usage: Usage
@@ -385,7 +390,7 @@ fr:
         moveable_id: Équipement à déplacer
         frame_id: Châssis de destination
         prev_frame_id: Châssis de départ
-        remove_connections: Supprimer toutes les connexions vers cet équipement ?
+        remove_existing_connections_on_execution: Supprimer toutes les connexions vers cet équipement ?
         position: Position dans le châssis
         status: État
         statuses:
