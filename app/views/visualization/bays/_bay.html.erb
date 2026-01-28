@@ -1,0 +1,20 @@
+<%# locals: (bay:, view_side: "front", should_show_heading: false) -%>
+<% settings = { min_height: view_side == "back" ? 20 : 27} %>
+
+<% if should_show_heading %>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3><%= t("visualization.bays.show.title", bay: bay, bay_type: bay.bay_type&.name) %></h3>
+    <span class="d-flex flex-wrap gap-2 flex-column flex-lg-row">
+      <%= render "visualization/action_buttons", view_side: view_side, remote: true %>
+      <%= render "visualization/bays/export_button", bay: bay, in_table: false %>
+    </span>
+  </div>
+ <% end %>
+<div class="row">
+  <% bay.frames.each_with_index do |frame, i| %>
+    <div class="<%= class_names("col-12 col-lg-6", "pt-4 pt-lg-0": !i.zero?) %>">
+      <%= render partial: "visualization/frames/show_frame",
+                locals: { frame:, servers: frame.servers, settings: , view_type: view_side } %>
+    </div>
+  <% end %>
+</div>

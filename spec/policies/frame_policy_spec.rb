@@ -42,7 +42,6 @@ RSpec.describe FramePolicy, type: :policy do
   it_behaves_like "with default manage policy"
 
   it_behaves_like "act as manage policy", for: :sort?
-  it_behaves_like "act as index policy", for: :network?
 
   describe_rule :show? do
     succeed "when an admin user asks" do

@@ -102,6 +102,7 @@ gem "debug", group: %i[test development], platforms: %i[mri windows], require: "
 gem "dekorator", "~> 1.4"
 gem "diffy", "~> 3.4"
 gem "erb_lint", require: false
+gem "ferrum_pdf", "~> 3.0"
 gem "hotwire-spark", group: :development
 gem "importmap-rails", "~> 2.0"
 gem "jquery-rails", "~> 4.6"

@@ -3,9 +3,9 @@
 class IsletsController < ApplicationController
   include RoomsHelper
 
-  before_action :set_islet, only: %i[show edit update destroy print]
-  before_action :set_room, only: %i[show print]
-  before_action :set_servers_per_frames, only: %i[show print]
+  before_action :set_islet, only: %i[show edit update destroy]
+  before_action :set_room, only: %i[show]
+  before_action :set_servers_per_frames, only: %i[show]
   before_action except: %i[index] do
     breadcrumb.add_step(Islet.model_name.human.pluralize, islets_path)
   end
@@ -77,10 +77,6 @@ class IsletsController < ApplicationController
         format.html { redirect_to islets_url, alert: @islet.errors.full_messages_for(:base).join(", ") }
       end
     end
-  end
-
-  def print
-    render "visualization/rooms/print", layout: "pdf"
   end
 
   private

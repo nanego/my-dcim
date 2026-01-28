@@ -31,11 +31,13 @@ RSpec.describe MovesProjectStepsController do
 
   describe "GET #print" do
     subject(:response) do
-      get print_moves_project_moves_project_step_path(moves_project, moves_project_step, move.frame_id)
+      get print_moves_project_moves_project_step_path(moves_project, moves_project_step, move.frame_id, format:)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
+
+    let(:format) { nil }
 
     include_context "with authenticated admin"
 
@@ -49,6 +51,15 @@ RSpec.describe MovesProjectStepsController do
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:print) }
       it { expect(response).to render_template("layouts/pdf") }
+    end
+
+    context "with pdf format" do
+      let(:format) { :pdf }
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(:print) }
+      it { expect(response).to render_template("layouts/pdf") }
+      it { expect(response.headers["Content-Type"]).to eq("application/pdf") }
     end
   end
 

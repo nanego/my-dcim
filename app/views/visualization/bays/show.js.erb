@@ -2,25 +2,23 @@ if (typeof delete_all_lines === "function") {
     delete_all_lines()
 }
 
-$('.couple .overviewed_frame').removeClass('selected')
-$('.couple .overviewed_frame[data-bay-id=<%= @bay.id %>]').addClass('selected')
+$(".couple .overviewed_frame").removeClass("selected")
+$(".couple .overviewed_frame[data-bay-id=<%= @bay.id %>]").addClass("selected")
 
-$('#bay-container').html("<%= escape_javascript(render partial: 'servers/room', locals: {
-              room: @bay.room,
-              islets: @servers_per_frames[@bay.islet.room_id],
-              title: Bay.human_attribute_name(:bay_frames, count: @bay.frames.count, bay: @bay),
-              view_side: params[:view]}) %>")
+$("#bay-container").html("<%= escape_javascript(
+  render partial: "visualization/bays/bay", locals: { bay: @bay, view_side: params[:view], should_show_heading: true }
+) %>")
 
 var searchParams = new URLSearchParams(window.location.search)
-var view = '<%= params[:view] %>'
-searchParams.set('view', view)
-searchParams.set('bay-id', '<%= @bay.id %>')
-searchParams.set('frame-id', '')
-window.history.replaceState({}, '', location.pathname + '?' + searchParams)
+var view = "<%= params[:view] %>"
+searchParams.set("view", view)
+searchParams.set("bay-id", "<%= @bay.id %>")
+searchParams.set("frame-id", "")
+window.history.replaceState({}, "", location.pathname + "?" + searchParams)
 
 scale_large_slots()
 
 reset_u_heights()
-window.addEventListener('resize', function (event) {
+window.addEventListener("resize", function (event) {
     reset_u_heights()
 })

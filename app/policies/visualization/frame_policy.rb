@@ -5,5 +5,9 @@ module Visualization
     def print?
       manage?
     end
+
+    def network?
+      index?
+    end
   end
 end

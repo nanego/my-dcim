@@ -37,9 +37,11 @@ RSpec.describe Visualization::BaysController do
 
   describe "GET #print" do
     subject(:response) do
-      get print_visualization_bay_path(bay)
+      get print_visualization_bay_path(bay, format:)
       @response # rubocop:disable RSpec/InstanceVariable
     end
+
+    let(:format) { nil }
 
     include_context "with authenticated admin"
 
@@ -60,6 +62,15 @@ RSpec.describe Visualization::BaysController do
         expect(assigns(:servers_per_frames)).to be_present
         expect(assigns(:bay)).to be_present
       end
+    end
+
+    context "with pdf format" do
+      let(:format) { :pdf }
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(:print) }
+      it { expect(response).to render_template("layouts/pdf") }
+      it { expect(response.headers["Content-Type"]).to eq("application/pdf") }
     end
   end
 end

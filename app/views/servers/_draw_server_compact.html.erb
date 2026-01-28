@@ -1,6 +1,6 @@
 <%= render partial: "servers/visualization", locals: { server: } %>
 
-<div class="ps-3 d-flex flex-column me-auto" data-html2canvas-ignore="true">
+<div class="ps-3 d-flex flex-column me-auto d-print-none">
   <span class="mb-2">
     <%= link_to h(server.name),
                 server_path(server, view: params[:view]),
@@ -13,7 +13,7 @@
                   id: "draw_connections_link_#{server.id}",
                   title: "Dessiner les liaisons",
                   remote: true do %>
-        <button type="button" class="btn btn-outline-secondary btn-sm mb-2" aria-label="Draw connections" data-html2canvas-ignore="true">
+        <button type="button" class="btn btn-outline-secondary btn-sm mb-2 d-print-none" aria-label="Draw connections">
           <span class="bi bi-shuffle" aria-hidden="true"></span>
         </button>
       <% end %>

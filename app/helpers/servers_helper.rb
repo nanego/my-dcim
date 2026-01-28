@@ -12,7 +12,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
 
     if cards_names.present?
       if cards.first.twin_card_id.present?
-        link_to network_frame_path(server.frame, network_frame_id: Card.find(cards.first.twin_card_id).server.frame_id) do
+        link_to network_visualization_frame_path(server.frame, network_frame_id: Card.find(cards.first.twin_card_id).server.frame_id) do
           "<span class='bi bi-upload me-1' aria-hidden='true'></span>#{cards_names.join("-")}".html_safe # rubocop:disable Rails/OutputSafety
         end
       else

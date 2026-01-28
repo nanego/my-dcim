@@ -94,8 +94,10 @@
         <%= link_to frame.bay.islet, islet_path(frame.bay.islet), data: { turbo_frame: :_top } if frame.bay.present? %>
       <% end %>
 
-      <% table.with_column(text_align: :center, style: "min-width: 70px; width: 70px") do |frame| %>
+      <% table.with_column(text_align: :center, style: "min-width: 132px; width: 132px") do |frame| %>
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
+          <%= render partial: "visualization/frames/export_button", locals: { frame: decorate(frame) } %>
+
           <% if allowed_to?(:show?, frame, with: Visualization::FramePolicy) %>
             <%= link_to visualization_frame_path(frame), class: "btn btn-primary", data: { turbo_frame: :_top } do %>
               <span class="bi bi-diagram-3-fill" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("visualization.title") %>"></span>

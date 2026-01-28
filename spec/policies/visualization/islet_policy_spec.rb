@@ -8,6 +8,7 @@ RSpec.describe Visualization::IsletPolicy, type: :policy do
   let(:policy) { described_class.new(islet, user: user) }
 
   it_behaves_like "with default index policy"
+  it_behaves_like "act as manage policy", for: :print?
 
   describe_rule :show? do
     succeed "when an admin user asks" do

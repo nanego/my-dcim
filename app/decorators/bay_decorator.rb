@@ -39,10 +39,4 @@ class BayDecorator < ApplicationDecorator
       concat(tag.span(I18n.t(".bays.decorator.no_frame_warning_text"), class: "visually-hidden"))
     end
   end
-
-  def print_frames_paths(**)
-    frames.order(:name).pluck(:id).map do |frame_id|
-      print_visualization_frame_path(frame_id, **)
-    end
-  end
 end

@@ -172,7 +172,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
 
     @cables = decorate(@server.cables.sorted)
 
-    render layout: "pdf"
+    render ferrum_pdf: {}, layout: "pdf", filename: "export-cables_#{@server.friendly_id}.pdf", disposition: :inline
   end
 
   private

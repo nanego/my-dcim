@@ -302,5 +302,7 @@ RSpec.describe ServersController do
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:export_cables) }
+    it { expect(response).to render_template("layouts/pdf") }
+    it { expect(response.headers["Content-Type"]).to eq("application/pdf") }
   end
 end

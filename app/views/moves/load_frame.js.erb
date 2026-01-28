@@ -1,7 +1,7 @@
-$("#frame").html("<%= escape_javascript(render partial: "frames/show_frame", locals: {
+$("#frame").html("<%= escape_javascript(render partial: "visualization/frames/show_frame", locals: {
   frame: @frame,
   servers: @servers,
-  settings: Frame::DEFAULT_SETTINGS.merge({min_height: 27 }),
+  settings: { min_height: 27 },
   view_type: @view,
   editable: false,
   clickable_lines: true
@@ -12,7 +12,7 @@ $("#frame").html("<%= escape_javascript(render partial: "frames/show_frame", loc
 
 $("#bay_size_container").html("<%=
                                   escape_javascript(
-                                    render partial: 'moves/select_bay_position',
+                                    render partial: "moves/select_bay_position",
                                     locals: { f: f, move: @move, frame_size: @frame.u }
                                   )
                                 %>");

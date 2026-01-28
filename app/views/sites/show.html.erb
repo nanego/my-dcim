@@ -1,11 +1,11 @@
 <% breadcrumb.add_step(title = @site.name) %>
 
 <%= render Page::HeadingShowComponent.new(
-  resource: @site,
-  title:,
-  breadcrumb:,
-  editable: allowed_to?(:update?, @site)
-) %>
+      resource: @site,
+      title:,
+      breadcrumb:,
+      editable: allowed_to?(:update?, @site),
+    ) %>
 
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
@@ -38,12 +38,12 @@
       <% end %>
 
       <%= render HasManyTurboFrameComponent.new(
-        ContactAssignment.model_name.human.pluralize,
-        type: :warning,
-        url: contact_assignments_path(site_ids: @site.id),
-        frame_id: dom_id(ContactAssignment, :table),
-        extra_classes: "d-none d-lg-flex bg-body-tertiary mt-4"
-      ) do |c| %>
+            ContactAssignment.model_name.human.pluralize,
+            type: :warning,
+            url: contact_assignments_path(site_ids: @site.id),
+            frame_id: dom_id(ContactAssignment, :table),
+            extra_classes: "d-none d-lg-flex bg-body-tertiary mt-4",
+          ) do |c| %>
         <% c.with_actions do %>
           <% if allowed_to?(:update?, @site) %>
             <%= link_to edit_site_path(@site, anchor: "contact_assignments"),
@@ -56,44 +56,8 @@
       <% end %>
     </div>
 
-    <div class="col" id="export-to-pdf">
-      <%= render CardComponent.new(type: :primary) do |card| %>
-        <% card.with_header do %>
-          <div class="justify-content-between d-flex">
-            <span><%= t("layouts.sidebar.location.title") %></span>
-            <button type="button"
-                    class="btn btn-outline-light btn-sm d-flex align-items-center export-pdf-button"
-                    title="<%= t("export_button.exports.pdf") %>"
-                    data-controller="export-pdf"
-                    data-action="click->export-pdf#export"
-                    data-export-pdf-filename-value="<%= "#{Site.model_name.human.downcase}_#{@site.name.parameterize}" %>"
-                    data-html2canvas-ignore="true">
-              <i class="bi bi-file-earmark-pdf" aria-hidden="true"></i>
-              <span class="text-truncate d-none d-md-inline-block ms-2">
-                <%= t("export_button.exports.pdf") %>
-              </span>
-              <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none ms-2" role="status" aria-hidden="true"
-                    data-export-pdf-target="spinner"></span>
-            </button>
-          </div>
-        <% end %>
-
-        <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <% %i[street city country latitude longitude delivery_address delivery_times].each do |attribute_name| %>
-            <dt class="pb-2"><%= Site.human_attribute_name(attribute_name) %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= @site.public_send(attribute_name) %></dd>
-          <% end %>
-
-          <dt class="pb-2"><%= Site.human_attribute_name(:delivery_map) %></dt>
-          <dd class="mb-0 pb-2 ps-3">
-            <% if @site.delivery_map.attached? %>
-              <%= link_to @site.delivery_map, rel: :noopener, target: :_blank do %>
-                <%= image_tag @site.delivery_map.representation(resize_to_limit: [1200, 1200]), class: "w-100" %>
-              <% end %>
-            <% end %>
-          </dd>
-        </dl>
-      <% end %>
+    <div class="col">
+      <%= render partial: "sites/location_block" %>
     </div>
 
     <!-- Card shown on mobile, in 3rd and 4th position (Grid isn't working as Masonry) -->
@@ -112,11 +76,11 @@
       <% end %>
 
       <%= render HasManyTurboFrameComponent.new(
-        ContactAssignment.model_name.human.pluralize,
-        type: :warning,
-        url: contact_assignments_path(site_ids: @site.id),
-        frame_id: dom_id(ContactAssignment, :table),
-      ) do |c| %>
+            ContactAssignment.model_name.human.pluralize,
+            type: :warning,
+            url: contact_assignments_path(site_ids: @site.id),
+            frame_id: dom_id(ContactAssignment, :table),
+          ) do |c| %>
         <% c.with_actions do %>
           <% if allowed_to?(:update?, @site) %>
             <%= link_to edit_site_path(@site, anchor: "contact_assignments"),
@@ -149,12 +113,12 @@
   <% end %>
 
   <%= render HasManyTurboFrameComponent.new(
-    Room.model_name.human.pluralize,
-    url: rooms_path(site_ids: @site.id),
-    frame_id: dom_id(Room, :table),
-    new_path: (new_room_path(room: { site_id: @site.id }) if allowed_to?(:create?, with: RoomPolicy)),
-    new_label: t("rooms.add_new")
-  ) %>
+        Room.model_name.human.pluralize,
+        url: rooms_path(site_ids: @site.id),
+        frame_id: dom_id(Room, :table),
+        new_path: (new_room_path(room: { site_id: @site.id }) if allowed_to?(:create?, with: RoomPolicy)),
+        new_label: t("rooms.add_new"),
+      ) %>
 
   <%= render ChangelogEntries::ObjectListComponent.new(@site) %>
 </div>

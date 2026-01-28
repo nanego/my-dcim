@@ -539,8 +539,6 @@ fr:
       title: Supprimer le châssis
       flashes:
         destroyed: Frame a bien été supprimé.
-    network:
-      title: Vue réseau
     add_new: Ajouter un châssis
 
   moved_connections:
@@ -661,18 +659,6 @@ fr:
         10giga: 10Gb
     infrastructure_view:
       title: Vue infrastructure
-    action_buttons:
-      caption:
-        ports: Ports
-        unreferenced_client: Le port correspondant de la carte jumelle est câblé
-        no_client: Le port correspondant de la carte jumelle n'est pas câblé
-      background_color: "Couleur de fond : %{bg}"
-      background_choices:
-        modele: Modèle
-        gestion: Gestionnaire
-        cluster: Cluster
-      dragn_drop:
-        enable: Activer le drag'n drop
     edit_clusters_modal:
       edit_clusters: Modifier les clusters
     index:
@@ -872,6 +858,21 @@ fr:
     add_new: Ajouter une assignation
   visualization:
     title: Visualisation
+    action_buttons:
+      caption:
+        ports: Ports
+        unreferenced_client: Le port correspondant de la carte jumelle est câblé
+        no_client: Le port correspondant de la carte jumelle n'est pas câblé
+      background_color: "Couleur de fond : %{bg}"
+      background_choices:
+        modele: Modèle
+        gestion: Gestionnaire
+        cluster: Cluster
+      dragn_drop:
+        enable: Activer le drag'n drop
+    frames:
+      network:
+        title: Vue réseau
     rooms:
       index:
         title: Aperçu des salles

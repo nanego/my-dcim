@@ -19,9 +19,8 @@
     <%= cable.decorated.server_connected_with_link(to_connection) %>
   </div>
 
-  <button class="btn btn-collapse ms-auto"
+  <button class="btn btn-collapse ms-auto d-print-none"
           type="button"
-          data-html2canvas-ignore="true"
           data-bs-toggle="collapse"
           data-bs-target="#collapseVlansPanel-<%= cable.id %>"
           aria-expanded="false"
@@ -30,7 +29,7 @@
   </button>
 </div>
 
-<div class="collapse px-4" id="collapseVlansPanel-<%= cable.id %>" data-html2canvas-ignore="true">
+<div class="collapse px-4 d-print-none" id="collapseVlansPanel-<%= cable.id %>">
   <div class="vlans-card d-flex my-2 mx-auto pt-2">
     <div class="d-inline-flex justify-content-evenly mx-auto">
       <span class="text-end text-break">

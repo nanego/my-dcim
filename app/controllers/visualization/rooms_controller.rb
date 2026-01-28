@@ -5,7 +5,7 @@ module Visualization
     include RoomsHelper
 
     before_action :set_room, only: %i[show print]
-    before_action :set_servers_per_frames, only: %i[show print]
+    before_action :set_servers_per_frames, only: %i[show]
     before_action :set_sites, only: %i[index show]
 
     def index
@@ -40,7 +40,7 @@ module Visualization
     end
 
     def show
-      authorize! @islet = Islet.find_by(name: params[:islet], room_id: @room.id) if params[:islet].present?
+      authorize! @islet = @room.islets.find_by(name: params[:islet]) if params[:islet].present?
 
       @air_conditioners = AirConditioner.all
 
@@ -51,13 +51,34 @@ module Visualization
     end
 
     def print
-      render layout: "pdf"
+      respond_to do |format|
+        format.html { render layout: "pdf" }
+        format.pdf do
+          render ferrum_pdf: {},
+                 layout: "pdf",
+                 filename: "room_#{@room}_#{[params[:view], params[:bg]].compact.join("-")}.pdf",
+                 disposition: :inline
+        end
+      end
     end
 
     private
 
     def set_room
-      authorize! @room = Room.friendly.find(params[:id].to_s.downcase)
+      authorize! @room = Room.includes(
+        :islets, :bays, :frames,
+        materials: [
+          :gestion, :cluster,
+          { modele: %i[category composants],
+            cards: [
+              :composant,
+              { ports: [connection: [cable: :connections]],
+                card_type: [:port_type] },
+            ] },
+        ],
+      )
+        .friendly
+        .find(params[:id].to_s.downcase)
     end
 
     def set_servers_per_frames

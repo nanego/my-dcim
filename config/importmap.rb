@@ -17,7 +17,6 @@ pin "bootstrap", to: "bootstrap.js"
 pin "@rails/ujs", to: "@rails--ujs.js" # @7.1.3
 pin "form-request-submit-polyfill" # @2.0.0
 pin "@stimulus-components/reveal", to: "@stimulus-components--reveal.js" # @5.0.0
-pin "html2pdf.js", to: "html2pdf.js.bundle.js"
 
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin_all_from "app/javascript/src", under: "src", to: "src"
