@@ -1,51 +1,72 @@
-<%
-  breadcrumb.add_step(title = t('.results'))
-%>
+<% breadcrumb.add_step(title = t(".results")) %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <turbo-frame id="search_results">
     <% if @results.any? %>
-      <ul class="list-group">
+      <div class="list-group">
         <% @results.each do |record| %>
           <% if record.is_a?(Server) %>
             <% if record.is_a_pdu? %>
-              <%= link_to power_distribution_unit_path(record), data: { turbo_frame: "_top" } do %>
-                <li class="list-group-item d-flex align-items-start">
-                  <i class="bi bi-lightning-charge me-3" style="font-size: 2rem;"></i>
-                  <div>
-                    <h5><%= record.name %></h5>
-                    <%= record.modele&.name_with_brand %>
-                  </div>
-                </li>
+              <%= link_to power_distribution_unit_path(record),
+                          class: "list-group-item list-group-item-action d-flex align-items-center justify-content-between",
+                          data: { turbo_frame: "_top" } do %>
+                <span class="bi bi-lightning-charge text-warning fs-2 me-3"></span>
+                <span class="d-flex flex-column align-items-start flex-grow-1">
+                  <span class="d-flex align-items-start">
+                    <h5 class="me-3"><%= record.name %></h5>
+                    <p class="me-3"><%= record.modele&.name_with_brand %></p>
+                  </span>
+                  <span class="small mb-2">
+                    <span class="fw-light text-body-secondary"><%= Server.human_attribute_name(:numero) %> :</span>
+                    <span class="font-monospace text-body"><%= record.numero %></span>
+                  </span>
+                </span>
+                <%= render BadgeComponent.new(color: :primary, variant: :pill) do %>
+                  <span class="bi bi-geo-alt me-1"></span>
+                  <span><%= record.decorated.full_location %></span>
+                <% end %>
               <% end %>
             <% else %>
-              <%= link_to server_path(record), data: { turbo_frame: "_top" } do %>
-                <li class="list-group-item d-flex align-items-start">
-                  <i class="bi bi-hdd me-3" style="font-size: 2rem;"></i>
-                  <div>
-                    <h5><%= record.name %></h5>
-                    <%= record.modele&.name_with_brand %>
-                  </div>
-                </li>
+              <%= link_to server_path(record),
+                          class: "list-group-item list-group-item-action d-flex align-items-center justify-content-between",
+                          data: { turbo_frame: "_top" } do %>
+                <span class="bi bi-hdd text-info fs-2 me-3"></span>
+                <span class="d-flex flex-column align-items-start flex-grow-1">
+                  <span class="d-flex align-items-start">
+                    <h5 class="me-3"><%= record.decorated.full_name %></h5>
+                    <p class="me-3"><%= record.modele&.name_with_brand %></p>
+                  </span>
+                  <span class="small mb-2">
+                    <span class="fw-light text-body-secondary"><%= Server.human_attribute_name(:numero) %> :</span>
+                    <span class="font-monospace text-body"><%= record.numero %></span>
+                  </span>
+                </span>
+                <%= render BadgeComponent.new(color: :primary, variant: :pill) do %>
+                  <span class="bi bi-geo-alt me-1"></span>
+                  <span><%= record.decorated.full_location %></span>
+                <% end %>
               <% end %>
             <% end %>
           <% else %>
-            <%= link_to frame_path(record), data: { turbo_frame: "_top" } do %>
-              <li class="list-group-item d-flex align-items-start">
-                <i class="bi bi-geo-alt me-3" style="font-size: 2rem;"></i>
-                <div>
-                  <h5><%= record.name %></h5>
+            <%= link_to frame_path(record),
+                        class: "list-group-item list-group-item-action d-flex align-items-center justify-content-between",
+                        data: { turbo_frame: "_top" } do %>
+                <span class="bi bi-hdd-rack text-success fs-2 me-3"></span>
+                <span class="d-flex flex-column align-items-start flex-grow-1">
+                  <h5 class="m-0"><%= record.name %></h5>
+                </span>
+                <%= render BadgeComponent.new(color: :primary, variant: :pill) do %>
+                  <span class="bi bi-geo-alt me-1"></span>
                   <%= record.name_with_room_and_islet %>
-                </div>
-              </li>
+                <% end %>
             <% end %>
           <% end %>
         <% end %>
-      </ul>
+      </div>
     <% else %>
-      <p><%= t('.no_results_found') %></p>
+      <p><%= t(".no_results_found") %></p>
     <% end %>
   </turbo-frame>
 </div>

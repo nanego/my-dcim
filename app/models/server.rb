@@ -11,6 +11,7 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_one :bay, through: :frame
   has_one :islet, through: :frame
   has_one :room, through: :islet
+  has_one :site, through: :room
   belongs_to :gestion, optional: true, counter_cache: true
   belongs_to :domaine, optional: true, counter_cache: true
   belongs_to :cluster, optional: true, counter_cache: true
