@@ -1,0 +1,5 @@
+<div class="container-fluid p-4">
+  <h3 class="mb-4"><%= @islet.decorated.name_with_room %></h3>
+
+  <%= render partial: "visualization/islets/islet", locals: { islet: @islet, view_side: params[:view] } %>
+</div>

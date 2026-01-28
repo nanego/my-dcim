@@ -1,0 +1,8 @@
+<%# locals: (islet:, view_side:) -%>
+
+<div class="d-grid gap-4">
+  <% islet.bays.sorted.each do |bay| %>
+    <%= render partial: "visualization/bays/bay",
+               locals: { bay: bay, view_side: view_side } %>
+  <% end %>
+</div>
