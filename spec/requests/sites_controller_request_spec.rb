@@ -93,4 +93,20 @@ RSpec.describe SitesController do
       it { expect { response }.not_to change(Site, :count) }
     end
   end
+
+  describe "GET #print" do
+    subject(:response) do
+      get print_site_path(site)
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:print) }
+    it { expect(response).to render_template("layouts/pdf") }
+    it { expect(response.headers["Content-Type"]).to eq("application/pdf") }
+  end
 end

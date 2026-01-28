@@ -38,7 +38,9 @@ Rails.application.routes.draw do
   get "data_import", action: "index", controller: "data_import"
   post "data_import/ansible"
 
-  resources :sites
+  resources :sites do
+    get :print, on: :member
+  end
   resources :islets
   resources :frames do
     collection do
