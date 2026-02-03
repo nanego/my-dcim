@@ -8,7 +8,10 @@
     <%= javascript_importmap_tags "application" %>
 
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag "application", media: "all" %>
+
+    <%# Inline CSS for PDF generation to ensure it's loaded %>
+    <%= inline_stylesheet_tag("application") %>
+
   </head>
   <body class="mydcim print-body">
     <main role="main" class="mydcim-main">
