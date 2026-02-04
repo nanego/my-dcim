@@ -55,7 +55,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
         format.html { redirect_to_new_or_to(@server, notice: t(".flashes.created")) }
         format.json { render :show, status: :created, location: @server }
       else
-        format.html { render :new }
+        format.html { render :new, status: :unprocessable_content }
         format.json { render json: @server.errors, status: :unprocessable_content }
       end
     end
@@ -74,7 +74,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
           format.html { redirect_to @server, notice: t(".flashes.updated") }
           format.json { render :show, status: :ok, location: @server }
         else
-          format.html { render :edit }
+          format.html { render :edit, status: :unprocessable_content }
           format.json { render json: @server.errors, status: :unprocessable_content }
         end
       end
