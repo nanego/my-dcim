@@ -534,15 +534,21 @@ body {
       row-gap: 2rem;
     }
 
-    .frame .server {
-      break-inside: avoid;
+    .col-lg-6:has(.frame) {
+      width: 100% !important;
     }
-  }
-}
 
-.print-body {
-  a {
-    text-decoration: none !important;
+    .frame {
+      break-inside: avoid;
+
+      .server {
+        break-inside: avoid;
+      }
+    }
+
+    a {
+      text-decoration: none !important;
+    }
   }
 }
 
