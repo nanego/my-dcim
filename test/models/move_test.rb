@@ -25,6 +25,7 @@ class MoveTest < ActiveSupport::TestCase
     assert_empty(@moved_connections.select { |c| c.port_from_id == 2 })
 
     # Re-init moved connections
+    @move.remove_existing_connections_on_execution = true
     @move.clear_connections
 
     # After
@@ -48,12 +49,13 @@ class MoveTest < ActiveSupport::TestCase
   end
 
   test "execution of a movement with connections" do
-    @moved_connection = MovedConnection.per_servers([@move.moveable]).first
+    @moved_connection = @move.moved_connections.first
     @port_from = @moved_connection.port_from
     assert @port_from.cable_name != @moved_connection.cablename
     assert_nil @move.executed_at
 
     @move.execute!
+    @move.reload
     @moved_connection.reload
 
     assert @move.moveable.reload.frame == @move.frame
@@ -62,6 +64,6 @@ class MoveTest < ActiveSupport::TestCase
     assert @move.executed_at
     assert Move.where(id: @move.id)
     assert @moved_connection.executed_at
-    assert MovedConnection.where(id: @moved_connection.id)
+    assert MovedConnection.find_by(id: @moved_connection.id)
   end
 end

@@ -162,11 +162,4 @@ RSpec.describe IsletDecorator, type: :decorator do
       end
     end
   end
-
-  describe "#print_frames_paths" do
-    it do
-      expect(decorated_islet.print_frames_paths)
-        .to contain_exactly(print_visualization_frame_path(frames(:one).id), print_visualization_frame_path(frames(:two).id))
-    end
-  end
 end

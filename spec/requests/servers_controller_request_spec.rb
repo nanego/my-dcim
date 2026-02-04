@@ -200,6 +200,21 @@ RSpec.describe ServersController do
         expect(response).to render_template(:edit)
       end
     end
+
+    context "when preview button clicked with turbo_stream format" do
+      let(:params) do
+        {
+          server: { name: "Server#1" },
+          preview: "preview",
+          format: :turbo_stream,
+        }
+      end
+
+      before { patch server_path(server), params: params }
+
+      it { expect(response).to render_template(:preview) }
+      it { expect(response).to have_http_status(:unprocessable_content) }
+    end
   end
 
   describe "DELETE #destroy" do
@@ -287,5 +302,7 @@ RSpec.describe ServersController do
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:export_cables) }
+    it { expect(response).to render_template("layouts/pdf") }
+    it { expect(response.headers["Content-Type"]).to eq("application/pdf") }
   end
 end

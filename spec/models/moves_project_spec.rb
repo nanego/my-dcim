@@ -8,10 +8,10 @@ RSpec.describe MovesProject do
   subject(:move_project) { described_class.new(name: "A") }
 
   describe "associations" do
+    it { is_expected.to belong_to(:created_by).class_name("User").optional }
+
     it { is_expected.to have_many(:steps) }
     it { is_expected.to have_many(:moves).through(:steps) }
-
-    it { is_expected.to belong_to(:created_by).optional.class_name("User") }
   end
 
   describe "validations" do

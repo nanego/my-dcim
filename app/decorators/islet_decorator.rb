@@ -74,10 +74,4 @@ class IsletDecorator < ApplicationDecorator
       ]
     end
   end
-
-  def print_frames_paths(**)
-    frames.order(:name).pluck(:id).map do |frame_id|
-      print_visualization_frame_path(frame_id, **)
-    end
-  end
 end

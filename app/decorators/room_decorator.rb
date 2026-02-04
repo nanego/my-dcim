@@ -49,10 +49,4 @@ class RoomDecorator < ApplicationDecorator
   def network_clusters_to_sentence
     @network_clusters_to_sentence ||= network_clusters.pluck(:name).join(", ")
   end
-
-  def print_frames_paths(**)
-    frames.order(:islet_id, :name).pluck(:id).map do |frame_id|
-      print_visualization_frame_path(frame_id, **)
-    end
-  end
 end

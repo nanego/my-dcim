@@ -372,12 +372,16 @@ table.card_layout {
   }
 }
 
-span.port_container.no_client a {
-  border: solid 2px #FF9000 !important;
+span.port_container.no_client {
+  a, span {
+    border: solid 2px #FF9000 !important;
+  }
 }
 
-span.port_container.unreferenced_client a {
-  border: solid 2px red !important;
+span.port_container.unreferenced_client {
+  a, span {
+    border: solid 2px red !important;
+  }
 }
 
 .scaleable-wrapper {
@@ -522,18 +526,6 @@ body {
   -webkit-print-color-adjust: exact;
 }
 
-/* Print and PDF exclusive CSS */
-.print-body {
-  a {
-    text-decoration: none !important;
-    color: black;
-
-    &[href]:after {
-      content: none !important;
-    }
-  }
-}
-
 /* Print exclusive CSS */
 @media print {
   .print-body {
@@ -542,50 +534,20 @@ body {
       row-gap: 2rem;
     }
 
-    .frame .server {
-      break-inside: avoid;
+    .col-lg-6:has(.frame) {
+      width: 100% !important;
     }
 
-    .card-islet {
-      break-after: page;
+    .frame {
+      break-inside: avoid;
 
-      .frames .frame {
-        break-after: page;
+      .server {
+        break-inside: avoid;
       }
     }
 
-    div {
-      float: none !important;
-      position: static !important;
-      display: inline;
-      box-sizing: content-box !important;
-    }
-  }
-}
-
-/* PDF exclusive CSS */
-.html2pdf__container {
-  /* Forces the light theme for PDF */
-  @extend html, [data-bs-theme="light"];
-
-  max-width: 794px;
-  width: 100%;
-
-  .col-lg-6 {
-    width: 100% !important;
-  }
-
-  .frame .server {
-    background-color: white;
-  }
-
-  h1, h3 {
-    color: black;
-  }
-
-  .very-specific-design {
-    th {
-      color: black;
+    a {
+      text-decoration: none !important;
     }
   }
 }
@@ -820,7 +782,7 @@ body {
     }
   }
 
-  table, .card-islet {
+  table {
     a:not(.btn):not(.dropdown-item) {
       text-decoration: none;
 

@@ -6,7 +6,7 @@ ruby file: ".ruby-version"
 
 gem "rails", "~> 8.0.0"
 
-gem "bootstrap", "~> 5.3.2"
+gem "bootstrap", "~> 5.3.8"
 gem "dartsass-sprockets", "~> 3.2"
 gem "jbuilder"
 gem "nokogiri", "~> 1.18"
@@ -101,6 +101,8 @@ gem "csv", "~> 3.3"
 gem "debug", group: %i[test development], platforms: %i[mri windows], require: "debug/prelude"
 gem "dekorator", "~> 1.4"
 gem "diffy", "~> 3.4"
+gem "erb_lint", require: false
+gem "ferrum_pdf", "~> 3.0"
 gem "hotwire-spark", group: :development
 gem "importmap-rails", "~> 2.0"
 gem "jquery-rails", "~> 4.6"
@@ -111,4 +113,4 @@ gem "scenic", "~> 1.8"
 gem "stimulus-rails", "~> 1.2"
 gem "store_attribute", "~> 1.2"
 gem "turbo-rails", "~> 2.0"
-gem "view_component", "~> 3.21"
+gem "view_component", "~> 4.x"

@@ -12,10 +12,10 @@ RSpec.describe Move do
   end
 
   describe "associations" do
-    it { is_expected.to belong_to(:step) }
+    it { is_expected.to belong_to(:step).class_name("MovesProjectStep") }
     it { is_expected.to belong_to(:moveable) }
-    it { is_expected.to belong_to(:prev_frame) }
     it { is_expected.to belong_to(:frame) }
+    it { is_expected.to belong_to(:prev_frame).class_name("Frame") }
 
     it { is_expected.to have_one(:moves_project).through(:step) }
   end
@@ -36,8 +36,32 @@ RSpec.describe Move do
     end
   end
 
+  describe "#moved_connections" do
+    context "without moveable" do
+      subject(:move) { described_class.new }
+
+      it { expect(move.moved_connections).to eq([]) }
+    end
+
+    context "with moveable" do
+      subject(:move) { moves(:planned) }
+
+      it { expect(move.moved_connections).to contain_exactly(moved_connections(:one), moved_connections(:two)) }
+    end
+  end
+
   describe "#clear_connections" do
-    pending
+    context "when remove_existing_connections_on_execution set to false" do
+      let(:move) { moves(:planned).tap { |m| m.remove_existing_connections_on_execution = false } }
+
+      it { expect { move.clear_connections }.not_to(change { move.moved_connections.count }) }
+    end
+
+    context "when remove_existing_connections_on_execution set to true" do
+      let(:move) { moves(:planned).tap { |m| m.remove_existing_connections_on_execution = true } }
+
+      it { expect { move.clear_connections }.to change { move.moved_connections.count }.from(2).to(4) }
+    end
   end
 
   describe "#status" do
@@ -55,22 +79,65 @@ RSpec.describe Move do
 
     let(:move) { moves(:planned) }
 
-    it do
-      expect do
+    context "without apply_connections" do
+      subject(:execution) { move.execute!(apply_connections: false) }
+
+      it do
+        expect do
+          execution
+          move.reload
+        end.to change(move, :executed_at).from(nil)
+          .and change(move.moveable, :position)
+      end
+
+      it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
+        move.moved_connections.each do |moved_connection|
+          expect(moved_connection.executed_at).to be_nil
+        end
+
         execution
-        move.reload
-      end.to change(move, :executed_at).from(nil)
-        .and change(move.moveable, :position)
+
+        move.moved_connections.each do |moved_connection|
+          expect(moved_connection.executed_at).to be_nil
+        end
+      end
     end
 
-    context "with connections" do
-      pending "# TODO"
+    context "with apply_connections" do
+      subject(:execution) { move.execute!(apply_connections: true) }
+
+      it do
+        expect do
+          execution
+          move.reload
+        end.to change(move, :executed_at).from(nil)
+          .and change(move.moveable, :position)
+      end
+
+      it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
+        move.moved_connections.each do |moved_connection|
+          expect(moved_connection.executed_at).to be_nil
+        end
+
+        execution
+
+        move.moved_connections.each do |moved_connection|
+          expect(moved_connection.executed_at).not_to be_nil
+        end
+      end
     end
 
     context "when already executed" do
       let(:move) { moves(:executed) }
 
-      pending "# TODO"
+      it do
+        expect do
+          execution
+          move.reload
+        end.not_to change(move, :executed_at)
+      end
+
+      it { expect(execution).to be_nil }
     end
   end
 

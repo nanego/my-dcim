@@ -234,8 +234,25 @@ en:
         title: Contacts
 
   manufacturers:
+    form:
+      url_placeholder: "https://manufacturer_url.com/rest_of_url/%s/remaining_if_there_is"
+      information_html: You must replace the serial number in the URL with <code>%s</code>.
+    index:
+      new_manufacturer: Add a manufacturer
+    new:
+      title: New manufacturer
+    create:
+      flashes:
+        created: The manufacturer has been created.
+    edit:
+      title: Update the manufacturer
+    update:
+      flashes:
+        updated: The manufacturer has been updated.
     destroy:
       title: Delete the manufacturer
+      flashes:
+        destroyed: The manufacturer has been removed.
 
   modeles:
     add_new: Add a model
@@ -243,6 +260,8 @@ en:
       no_enclosure: No Enclosure
     destroy:
       title: Delete the modele
+    preview:
+      modal_title: Model %{modele_name} preview
 
   moved_connections:
     decorator:
@@ -255,6 +274,7 @@ en:
       execute_confirmation: Do you really want to apply this move?
       frame_table_title: Frames after moving
       edit_connections: Update connections
+      remove_existing_connections_on_execution: Delete connections?
       action:
         execute_move: Move the server and its connections
     new:
@@ -373,13 +393,10 @@ en:
     flashes:
       connections_destroyed: The connections have been removed.
       connections_not_destroyed: An error prevented connections from being deleted.
+    preview:
+      modal_title: PDU %{pdu_name} preview
 
   rooms:
-    action_buttons:
-      caption:
-        ports: Ports
-        unreferenced_client: The corresponding port on the twin card is wired
-        no_client: The corresponding port on the twin card is not wired
     edit_clusters_modal:
       edit_clusters: Edit clusters
     update:
@@ -492,6 +509,8 @@ en:
       connections_destroyed: Connections have been deleted.
       connections_not_destroyed: An error prevented the connections from being deleted.
     add_new: Add an I.T. material
+    preview:
+      modal_title: Material %{server_name} preview
 
   servers_grids:
     index:
@@ -537,6 +556,21 @@ en:
       updated: User account updated
 
   visualization:
+    action_buttons:
+      background_color: "Background color: %{bg}"
+      background_choices:
+        modele: Modele
+        gestion: Manager
+        cluster: Cluster
+      dragn_drop:
+        enable: Activate drag'n drop
+      caption:
+        ports: Ports
+        unreferenced_client: The corresponding port on the twin card is wired
+        no_client: The corresponding port on the twin card is not wired
+    frames:
+      network:
+        title: Network view
     infrastructures:
       show:
         loading: Loading ...

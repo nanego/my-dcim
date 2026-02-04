@@ -1,69 +1,6 @@
-<% selected_port ||= nil %>
+<%= render partial: "servers/visualization", locals: { server: } %>
 
-<% if server.modele.present? %>
-  <div class="very-specific-design" id="very-specific-design">
-    <% server.modele.enclosures.each_with_index do |enclosure, index| %>
-      <% composants_per_enclosure = enclosure.composants.ordered.slots %>
-      <% if enclosure.display == "grid" %>
-        <style>
-          .enclosure-container {
-            <% grid_rows = enclosure.grid_areas.split(/\r\n/) %>
-            <% grid_max_nb_of_columns = grid_rows.map { |row| row.split(' ').count }.max %>
-            grid-template-areas: <%= raw grid_rows.map{|s|'"'+s+'"'}.join(' ') %>;
-            grid-template-columns: repeat(<%= grid_max_nb_of_columns %>, 1fr); /* equal columns */
-          }
-        </style>
-        <div class="container enclosure-container bg-dark-subtle">
-          <% composants_per_enclosure.each do |component| %>
-            <% class_name = "item-#{server.id}-#{component.name}" %>
-            <style>
-              .<%= class_name %> {
-                grid-column: <%= component.name %>;
-                grid-row: <%= component.name %>;
-              }
-            </style>
-            <div class="component-label <%= class_name %>">
-              <%= slot_label(server, component) %>
-            </div>
-            <div class="item <%= class_name %> bg-light-subtle">
-              <%= render partial: "servers/draw_component", locals: { server: , component: , selected_port: } %>
-            </div>
-          <% end %>
-        </div>
-      <% else %>
-        <table class="<%= class_names("slots", "mt-2": index > 0) %>">
-          <tbody>
-          <% if enclosure.display != "horizontal" %>
-            <tr>
-              <% composants_per_enclosure.each do |component| %>
-                <th><%= slot_label(server, component) %></th>
-              <% end %>
-            </tr>
-            <tr>
-              <% composants_per_enclosure.each do |component| %>
-                <td class="slot_column">
-                  <%= render partial: "servers/draw_component", locals: { server: , component: , selected_port:  } %>
-                </td>
-              <% end %>
-            </tr>
-          <% else %>
-            <% composants_per_enclosure.each do |component| %>
-              <tr>
-                <th><%= slot_label(server, component) %></th>
-                <td>
-                  <%= render partial: "servers/draw_component", locals: { server: , component: , selected_port: } %>
-                </td>
-              </tr>
-            <% end %>
-          <% end %>
-          </tbody>
-        </table>
-      <% end %>
-    <% end %>
-  </div>
-<% end %>
-
-<div class="ps-3 d-flex flex-column me-auto" data-html2canvas-ignore="true">
+<div class="ps-3 d-flex flex-column me-auto d-print-none">
   <span class="mb-2">
     <%= link_to h(server.name),
                 server_path(server, view: params[:view]),
@@ -76,7 +13,7 @@
                   id: "draw_connections_link_#{server.id}",
                   title: "Dessiner les liaisons",
                   remote: true do %>
-        <button type="button" class="btn btn-outline-secondary btn-sm mb-2" aria-label="Draw connections" data-html2canvas-ignore="true">
+        <button type="button" class="btn btn-outline-secondary btn-sm mb-2 d-print-none" aria-label="Draw connections">
           <span class="bi bi-shuffle" aria-hidden="true"></span>
         </button>
       <% end %>
@@ -85,8 +22,8 @@
   <!--
   <span class='float-start' style="padding-left: 8px;">
     <% twin_cards_ids = server.cards.map(&:twin_card_id).uniq.reject {|c| c.blank?} if false %>
-  <% twin_cards_ids.map {|id| Card.find(id).frame}.uniq.each do |frame| %>
-    <%= link_to frame_path(frame), title: "#{frame.to_s}" do %>
+  <% twin_cards_ids.map { |id| Card.find(id).frame }.uniq.each do |frame| %>
+    <%= link_to frame_path(frame), title: frame.to_s do %>
         <button type="button" class="btn btn-sm" aria-label="Link to twin card">
           <span class="bi bi-magnet-fill" aria-hidden="true"></span>
         </button>
