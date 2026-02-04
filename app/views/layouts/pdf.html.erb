@@ -9,8 +9,12 @@
 
     <%= csrf_meta_tags %>
 
-    <%# Inline CSS for PDF generation to ensure it's loaded %>
-    <%= inline_stylesheet_tag("application") %>
+    <% if Rails.env.development? %>
+      <%= stylesheet_link_tag "application", media: "all" %>
+    <% else %>
+      <%# Inline CSS for PDF generation to ensure it's loaded %>
+      <%= inline_stylesheet_tag("application") %>
+    <% end %>
 
   </head>
   <body class="mydcim print-body">
