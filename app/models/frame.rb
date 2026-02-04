@@ -15,6 +15,11 @@ class Frame < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_many :servers, -> { no_pdus.order("servers.position desc") }, class_name: "Server", dependent: :restrict_with_error
   has_one :islet, through: :bay
   has_one :room, through: :islet
+
+  # TODO: Confirm this should be present and that we use dependent nullify. If yes, then we should update schema too.
+  has_many :target_moves, class_name: "Move", inverse_of: :frame, dependent: :nullify
+  has_many :origin_moves, class_name: "Move", foreign_key: :prev_frame_id, inverse_of: :prev_frame, dependent: :nullify
+
   delegate :name, to: :room, prefix: true, allow_nil: true
 
   validates :position, uniqueness: { scope: :bay_id }
