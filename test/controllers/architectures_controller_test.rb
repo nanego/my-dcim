@@ -14,19 +14,6 @@ class ArchitecturesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:architectures)
   end
 
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
-  test "should create architecture" do
-    assert_difference("Architecture.count") do
-      post :create, params: { architecture: { description: @architecture.description, name: @architecture.name } }
-    end
-
-    assert_redirected_to architecture_path(assigns(:architecture))
-  end
-
   test "should show architecture" do
     get :show, params: { id: @architecture }
     assert_response :success

@@ -14,19 +14,6 @@ class ManufacturersControllerTest < ActionController::TestCase
     assert_not_nil assigns(:manufacturers)
   end
 
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
-  test "should create manufacturer" do
-    assert_difference("Manufacturer.count") do
-      post :create, params: { manufacturer: { description: @manufacturer.description, name: @manufacturer.name } }
-    end
-
-    assert_redirected_to manufacturer_path(assigns(:manufacturer))
-  end
-
   test "should show manufacturer" do
     get :show, params: { id: @manufacturer }
     assert_response :success

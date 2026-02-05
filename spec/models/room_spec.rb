@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Room do
   # it_behaves_like "changelogable", new_attributes: { name: "New name" }
 
-  subject(:room) { described_class.new(name: "Petite salle") }
+  subject(:room) { rooms(:one) }
 
   describe "associations" do
     it { is_expected.to belong_to(:site) }
@@ -28,11 +28,11 @@ RSpec.describe Room do
   end
 
   describe "#to_s" do
-    it { expect(room.to_s).to eq room.name }
+    it { expect(room.to_s).to eq "S1" }
   end
 
   describe "#name_with_site" do
-    pending
+    it { expect(room.name_with_site).to eq("Site 1 - S1") }
   end
 
   describe "#should_generate_new_friendly_id?" do

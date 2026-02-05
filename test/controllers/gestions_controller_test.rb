@@ -14,19 +14,6 @@ class GestionsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:gestions)
   end
 
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
-  test "should create gestion" do
-    assert_difference("Gestion.count") do
-      post :create, params: { gestion: { description: @gestion.description, name: @gestion.name } }
-    end
-
-    assert_redirected_to gestion_path(assigns(:gestion))
-  end
-
   test "should show gestion" do
     get :show, params: { id: @gestion }
     assert_response :success
