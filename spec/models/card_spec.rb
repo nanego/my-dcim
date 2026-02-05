@@ -3,6 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Card do
+  let(:card) { cards(:one) }
   # it_behaves_like "changelogable", object: -> { described_class.new }, new_attributes: { name: "New name" }
 
   describe "associations" do
@@ -18,7 +19,7 @@ RSpec.describe Card do
   end
 
   describe "#to_s" do
-    pending
+    it { expect(card.to_s).to eq("Carte ServerName1 / Card1 / compo1") }
   end
 
   describe "#first_port_position" do
