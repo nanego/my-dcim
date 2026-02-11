@@ -36,4 +36,12 @@ class ServerDecorator < ApplicationDecorator
   def full_name
     [modele&.category, name].compact.join(" ")
   end
+
+  def full_location
+    [site, islet.decorated.name_with_room].compact_blank.join(" - ")
+  end
+
+  def in_frame_location
+    [frame.decorated.full_name, "U#{position || "?"}"].compact.join(" - ")
+  end
 end
