@@ -7,9 +7,14 @@ RSpec.describe Port do
 
   describe "associations" do
     it { is_expected.to belong_to(:card) }
+
     it { is_expected.to have_one(:server).through(:card) }
     it { is_expected.to have_one(:connection) }
     it { is_expected.to have_one(:cable).through(:connection) }
+
+    it { is_expected.to have_many(:connections).dependent(:destroy) }
+    it { is_expected.to have_many(:moved_connection_froms).dependent(:destroy) }
+    it { is_expected.to have_many(:moved_connection_tos).dependent(:nullify) }
   end
 
   describe "#network_conf" do
