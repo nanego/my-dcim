@@ -1,20 +1,22 @@
 <% breadcrumb.add_step(title = @islet.decorated.name_with_room) %>
 
 <%= render Page::HeadingShowComponent.new(
-  resource: @islet,
-  title:,
-  breadcrumb:,
-  editable: allowed_to?(:update?, @islet)
-) do |heading| %>
+      resource: @islet,
+      title:,
+      breadcrumb:,
+      editable: allowed_to?(:update?, @islet),
+    ) do |heading| %>
   <% heading.with_extra_buttons do %>
-    <% render ButtonComponent.new(
-      t("visualization.title"),
-      url: visualization_room_path(@islet.room, islet: @islet.name),
-      variant: :primary,
-      icon: "diagram-3-fill",
-      is_responsive: true,
-      extra_classes: "me-2"
-    ) if allowed_to?(:show?, @islet, with: Visualization::IsletPolicy) %>
+    <% if allowed_to?(:show?, @islet, with: Visualization::IsletPolicy)
+         render ButtonComponent.new(
+           t("visualization.title"),
+           url: visualization_room_path(@islet.room, islet: @islet.name),
+           variant: :primary,
+           icon: "diagram-3-fill",
+           is_responsive: true,
+           extra_classes: "me-2",
+         )
+       end %>
   <% end %>
 <% end %>
 
@@ -101,12 +103,12 @@
   <% end %>
 
   <%= render HasManyTurboFrameComponent.new(
-    Bay.model_name.human.pluralize,
-    url: bays_path(islet_ids: @islet.id),
-    frame_id: dom_id(Bay, :table),
-    new_path: (new_bay_path(bay: { islet_id: @islet.id }) if allowed_to?(:create?, with: BayPolicy)),
-    new_label: t("bays.add_new")
-  ) %>
+        Bay.model_name.human.pluralize,
+        url: bays_path(islet_ids: @islet.id),
+        frame_id: dom_id(Bay, :table),
+        new_path: (new_bay_path(bay: { islet_id: @islet.id }) if allowed_to?(:create?, with: BayPolicy)),
+        new_label: t("bays.add_new"),
+      ) %>
 
   <%= render ChangelogEntries::ObjectListComponent.new(@islet) %>
 </div>
