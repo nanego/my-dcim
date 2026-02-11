@@ -15,6 +15,9 @@ en:
         one: Network hub cluster
         other: Network hub clusters
       color: Color
+      composant:
+        one: Component
+        other: Components
       connection: Connection
       contact: Contact
       contact_assignment: Assignment

@@ -12,9 +12,11 @@ RSpec.describe Frame do
     it { is_expected.to belong_to(:bay) }
 
     it { is_expected.to have_one(:islet).through(:bay) }
-    it { is_expected.to have_many(:materials) }
-    it { is_expected.to have_many(:pdus) }
-    it { is_expected.to have_many(:servers) }
+    it { is_expected.to have_one(:room).through(:islet) }
+
+    it { is_expected.to have_many(:materials).dependent(:restrict_with_error) }
+    it { is_expected.to have_many(:pdus).dependent(:restrict_with_error) }
+    it { is_expected.to have_many(:servers).dependent(:restrict_with_error) }
   end
 
   describe "validations" do
