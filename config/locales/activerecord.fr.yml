@@ -12,6 +12,9 @@ fr:
         other: Châssis
       modele: Modèle
       category: Catégorie
+      composant:
+        one: Composant
+        other: Composants
       air_conditioner: Climatisation
       air_conditioner_model: Modèle de climatisation
       architecture: Architecture

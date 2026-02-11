@@ -8,7 +8,7 @@ RSpec.describe PortType do
   it_behaves_like "changelogable", new_attributes: { name: "New name" }
 
   describe "associations" do
-    it { is_expected.to have_many(:card_types) }
+    it { is_expected.to have_many(:card_types).dependent(:restrict_with_error) }
   end
 
   describe "#is_power_input?" do

@@ -10,11 +10,14 @@ class Frame < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_changelog
 
   belongs_to :bay
+
+  has_one :islet, through: :bay
+  has_one :room, through: :islet
+
   has_many :materials, -> { order("servers.position desc") }, class_name: "Server", dependent: :restrict_with_error
   has_many :pdus, -> { only_pdus }, class_name: "Server", dependent: :restrict_with_error
   has_many :servers, -> { no_pdus.order("servers.position desc") }, class_name: "Server", dependent: :restrict_with_error
-  has_one :islet, through: :bay
-  has_one :room, through: :islet
+
   delegate :name, to: :room, prefix: true, allow_nil: true
 
   validates :position, uniqueness: { scope: :bay_id }
