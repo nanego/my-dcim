@@ -1,20 +1,22 @@
 <% breadcrumb.add_step(@room.name) %>
 
 <%= render Page::HeadingShowComponent.new(
-  resource: @room,
-  title: "#{Room.model_name.human} #{@room.name}",
-  breadcrumb:,
-  editable: allowed_to?(:update?, @room)
-) do |heading| %>
+      resource: @room,
+      title: "#{Room.model_name.human} #{@room.name}",
+      breadcrumb:,
+      editable: allowed_to?(:update?, @room),
+    ) do |heading| %>
   <% heading.with_extra_buttons do %>
-   <% render ButtonComponent.new(
-     t("visualization.title"),
-    url: visualization_room_path(@room),
-    variant: :primary,
-    icon: "diagram-3-fill",
-    is_responsive: true,
-    extra_classes: "me-2"
-   ) if allowed_to?(:show?, @room, with: Visualization::RoomPolicy) %>
+   <% if allowed_to?(:show?, @room, with: Visualization::RoomPolicy)
+        render ButtonComponent.new(
+          t("visualization.title"),
+          url: visualization_room_path(@room),
+          variant: :primary,
+          icon: "diagram-3-fill",
+          is_responsive: true,
+          extra_classes: "me-2",
+        )
+      end %>
   <% end %>
 <% end %>
 
@@ -99,20 +101,20 @@
         <div class="col">
           <%= render CardComponent.new do |card| %>
             <% islets.each_with_index do |islet, i| %>
-              <div class="<%= class_names("islet", "pt-4": i > 0, "pt-2 px-2": islets.length == 1) %>">
+              <div class="<%= class_names("islet", "pt-4": i.positive?, "pt-2 px-2": islets.length == 1) %>">
                 <% if islet.name.present? %>
                   <h6 class="mb-2">
                     <%= render BadgeComponent.new(color: :primary) do %>
                       <%= link_to(
-                        islet.decorated.full_name,
-                        visualization_room_path(@room, islet: islet.name, view: params[:view], bg: params[:bg])
-                      ) %>
+                            islet.decorated.full_name,
+                            visualization_room_path(@room, islet: islet.name, view: params[:view], bg: params[:bg]),
+                          ) %>
                     <% end %>
                   </h6>
                 <% end %>
                 <%= render "visualization/rooms/bay_overview",
-                         bays_per_lane: islet.decorated.overviewed_bays_array(current_user),
-                         islet: islet %>
+                           bays_per_lane: islet.decorated.overviewed_bays_array(current_user),
+                           islet: islet %>
               </div>
             <% end %>
           <% end %>
@@ -124,12 +126,12 @@
   <% end %>
 
   <%= render HasManyTurboFrameComponent.new(
-    Islet.model_name.human.pluralize,
-    url: islets_path(room_ids: @room.id),
-    frame_id: dom_id(Islet, :table),
-    new_path: (new_islet_path(islet: { room_id: @room.id }) if allowed_to?(:create?, with: IsletPolicy)),
-    new_label: t("islets.add_new")
-  ) %>
+        Islet.model_name.human.pluralize,
+        url: islets_path(room_ids: @room.id),
+        frame_id: dom_id(Islet, :table),
+        new_path: (new_islet_path(islet: { room_id: @room.id }) if allowed_to?(:create?, with: IsletPolicy)),
+        new_label: t("islets.add_new"),
+      ) %>
 
   <%= render ChangelogEntries::ObjectListComponent.new(@room) %>
 </div>
