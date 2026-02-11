@@ -89,4 +89,18 @@ RSpec.describe ServerDecorator, type: :decorator do
       it { expect(decorated_server.full_name).to eq("ServerName1") }
     end
   end
+
+  describe "#full_location" do
+    it { expect(decorated_server.full_location).to eq("Site 1 - Ilot Islet1 S1") }
+  end
+
+  describe "#in_frame_location" do
+    it { expect(decorated_server.in_frame_location).to eq("Châssis MyFrame1 - U39") }
+
+    context "without position" do
+      before { server.position = nil }
+
+      it { expect(decorated_server.in_frame_location).to eq("Châssis MyFrame1 - U?") }
+    end
+  end
 end
