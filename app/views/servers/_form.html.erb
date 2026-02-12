@@ -1,162 +1,223 @@
-<%= form_for(@server, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }, data: { turbo: true }) do |f| %>
+<%= form_for(@server, html: { role: "form" }, data: { turbo: true }) do |f| %>
   <%= render FormErrorsComponent.new(@server) %>
 
   <!--Note: Hidden submit to make it the first available -->
   <%= f.submit class: "d-none", "aria-hidden": true %>
 
-  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("show.cards.identification") %>
-    <% end %>
+  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+    <div class="col">
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.identification") %>
+        <% end %>
 
-    <div class="row g-3">
-      <fieldset class="col-12">
-        <%= f.label :name, class: "form-label" %>
-        <%= f.text_field :name, class: "form-control" %>
-      </fieldset>
-    </div>
-  <% end %>
-
-  <%= render CardComponent.new(extra_classes: "mt-4 bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= Modele.model_name.human %>
-    <% end %>
-
-    <div class="row g-3">
-      <fieldset class="col-md-6 col-12">
-        <%= f.label :modele_id, class: "form-label" %>
-        <%= f.collection_select(:modele_id,
-                                Modele.no_pdus.all_sorted,
-                                :id,
-                                :name_with_brand,
-                                { prompt: true, include_blank: false },
-                                {
-                                  class: "form-select",
-                                  data: { controller: "select" },
-                                  placeholder: t("select.placeholder"),
-                                }) %>
-      </fieldset>
-
-      <fieldset class="col-md-6 col-12">
-        <%= f.label :network_types, class: "form-label" %>
-        <%= f.select :network_types,
-                     Modele::Network::TYPES.map { |type| [Modele.human_attribute_name("network_types.#{type}"), type] },
-                     { prompt: true, include_blank: true },
-                     {
-                       class: "form-select",
-                       data: { controller: "select" },
-                       multiple: true,
-                       placeholder: Modele.human_attribute_name("network_types.blank"),
-                     } %>
-        <div id="networkTypesHelp" class="form-text fst-italic">
-          <i class="bi bi-info-circle me-1"></i>
-          <%= Modele.human_attribute_name("network_types.help") %>
+        <div class="row g-3">
+          <fieldset class="col-12">
+            <%= f.label :name, class: "form-label" %>
+            <%= f.text_field :name, class: "form-control" %>
+          </fieldset>
         </div>
-      </fieldset>
-    </div>
-  <% end %>
+      <% end %>
 
-  <%= render CardComponent.new(extra_classes: "mt-4 bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("show.cards.features") %>
-    <% end %>
+      <%= render CardComponent.new(extra_classes: "mt-4 bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= Modele.model_name.human %>
+        <% end %>
 
-    <div class="row g-3">
-      <fieldset class="col-md-6 col-12">
-        <%= f.label :numero, class: "form-label" %>
-        <%= f.text_field :numero, class: "form-control" %>
-      </fieldset>
+        <div class="row g-3">
+          <fieldset class="col-md-6 col-12">
+            <%= f.label :modele_id, class: "form-label" %>
+            <%= f.collection_select(:modele_id,
+                                    Modele.no_pdus.all_sorted,
+                                    :id,
+                                    :name_with_brand,
+                                    { prompt: true, include_blank: false },
+                                    {
+                                      class: "form-select",
+                                      data: { controller: "select" },
+                                      placeholder: t("select.placeholder"),
+                                    }) %>
+          </fieldset>
 
-      <fieldset class="col-md-6 col-12 mt-4">
-        <%= f.label :stack_id, class: "form-label" %>
-        <%= f.collection_select(:stack_id, Stack.order(:id), :id, :name, { prompt: true, include_blank: true },
-                                { class: "form-select" }) %>
-      </fieldset>
-
-      <fieldset class="col-md-6 col-12 mt-4 align-self-end">
-        <div class="form-check">
-          <%= f.check_box :critique, class: "form-check-input" %>
-          <%= f.label :critique, class: "form-check-label" %>
+          <fieldset class="col-md-6 col-12">
+            <%= f.label :network_types, class: "form-label" %>
+            <%= f.select :network_types,
+                         Modele::Network::TYPES.map { |type|
+                           [Modele.human_attribute_name("network_types.#{type}"), type]
+                         },
+                         { prompt: true, include_blank: true },
+                         {
+                           class: "form-select",
+                           data: { controller: "select" },
+                           multiple: true,
+                           placeholder: Modele.human_attribute_name("network_types.blank"),
+                         } %>
+            <div id="networkTypesHelp" class="form-text fst-italic">
+              <i class="bi bi-info-circle me-1"></i>
+              <%= Modele.human_attribute_name("network_types.help") %>
+            </div>
+          </fieldset>
         </div>
+      <% end %>
+
+      <%= render CardComponent.new(extra_classes: "mt-4 bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.features") %>
+        <% end %>
+
+        <div class="row g-3">
+          <fieldset class="col-md-6 col-12">
+            <%= f.label :numero, class: "form-label" %>
+            <%= f.text_field :numero, class: "form-control" %>
+          </fieldset>
+
+          <fieldset class="col-md-6 col-12">
+            <%= f.label :stack_id, class: "form-label" %>
+            <%= f.collection_select(:stack_id,
+                                    Stack.order(:id),
+                                    :id,
+                                    :name,
+                                    { prompt: true, include_blank: true },
+                                    { class: "form-select" }) %>
+          </fieldset>
+
+          <fieldset class="col-md-6 col-12 mt-4 align-self-end">
+            <div class="form-check">
+              <%= f.check_box :critique, class: "form-check-input" %>
+              <%= f.label :critique, class: "form-check-label" %>
+            </div>
+          </fieldset>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="col">
+      <%= render CardComponent.new(type: :primary, extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("layouts.sidebar.location.title") %>
+        <% end %>
+
+        <div class="row g-3">
+          <fieldset class="col-md-9 col-12">
+            <%= f.label :frame_id, class: "form-label" %>
+            <%= f.collection_select(:frame_id,
+                                    Frame.all_sorted, :id,
+                                    :name_with_room_and_islet,
+                                    { prompt: true, include_blank: false },
+                                    {
+                                      class: "form-select",
+                                      data: { controller: "select" },
+                                      placeholder: t("select.placeholder"),
+                                    }) %>
+          </fieldset>
+
+          <fieldset class="col-md-3 col-12">
+            <%= f.label :position, class: "form-label" %>
+            <%= f.number_field :position, class: "form-control" %>
+          </fieldset>
+        </div>
+      <% end %>
+
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+        <fieldset class="col-12">
+          <%= f.label :photo, class: "form-label" %>
+          <%= f.file_field :photo, class: "form-control" %>
+
+          <% if @server.photo.attached? %>
+            <%= image_tag @server.photo.representation(resize_to_limit: [200, 200]), class: "ms-0 mt-2" %>
+          <% end %>
+        </fieldset>
+      <% end %>
+
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+        <fieldset class="col-12">
+          <%= f.label :comment, class: "form-label" %>
+          <%= f.text_area :comment, class: "form-control" %>
+        </fieldset>
+      <% end %>
+    </div>
+
+    <div class="col">
+      <%= render CardComponent.new(type: :success, extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("layouts.sidebar.operating.title") %>
+        <% end %>
+
+        <div class="row g-3">
+          <fieldset class="col-md-6 col-12">
+            <%= f.label :domaine_id, class: "form-label" %>
+            <%= f.collection_select(:domaine_id,
+                                    Domaine.sorted,
+                                    :id,
+                                    :name,
+                                    { prompt: true, include_blank: true },
+                                    {
+                                      class: "form-select",
+                                      data: { controller: "select" },
+                                      placeholder: t("select.placeholder"),
+                                    }) %>
+          </fieldset>
+
+          <fieldset class="col-md-6 col-12 mt-md-3 mt-4">
+            <%= f.label :gestion_id, class: "form-label" %>
+            <%= f.collection_select(:gestion_id,
+                                    Gestion.sorted,
+                                    :id,
+                                    :name,
+                                    { prompt: true, include_blank: true },
+                                    {
+                                      class: "form-select",
+                                      data: { controller: "select" },
+                                      placeholder: t("select.placeholder"),
+                                    }) %>
+          </fieldset>
+
+          <fieldset class="col-md-6 col-12 mt-4">
+            <%= f.label :cluster_id, class: "form-label" %>
+            <%= f.collection_select(:cluster_id,
+                                    Cluster.sorted,
+                                    :id,
+                                    :name,
+                                    { prompt: true, include_blank: true },
+                                    {
+                                      class: "form-select",
+                                      data: { controller: "select" },
+                                      placeholder: t("select.placeholder"),
+                                    }) %>
+          </fieldset>
+        </div>
+      <% end %>
+
+      <fieldset class="col-12 mt-4" data-controller="nested-form">
+        <template data-nested-form-target="template">
+          <%= f.fields_for :documents,
+                           f.object.documents.klass.new,
+                           child_index: "__NEW_RECORD__" do |document_fields| %>
+            <%= render partial: "document_fields", locals: { f: document_fields } %>
+          <% end %>
+        </template>
+
+        <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+          <% card.with_header do %>
+            <%= f.label :documents %>
+          <% end %>
+
+          <%= f.fields_for :documents do |document_fields| %>
+            <%= render partial: "document_fields", locals: { f: document_fields } %>
+          <% end %>
+
+          <div data-nested-form-target="target"></div>
+
+          <div class="d-flex">
+            <button type="button" class="btn btn-outline-success btn-sm mx-auto" data-action="nested-form#add">
+              <span class="bi bi-plus-lg" aria-hidden="true"></span>
+              <span><%= t(".add_document") %></span>
+            </button>
+          </div>
+        <% end %>
       </fieldset>
     </div>
-  <% end %>
-
-  <%= render CardComponent.new(type: :primary, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("layouts.sidebar.location.title") %>
-    <% end %>
-
-    <div class="row g-3">
-      <fieldset class="col-md-9 col-12">
-        <%= f.label :frame_id, class: "form-label" %>
-        <%= f.collection_select(:frame_id,
-                                Frame.all_sorted, :id,
-                                :name_with_room_and_islet,
-                                { prompt: true, include_blank: false },
-                                {
-                                  class: "form-select",
-                                  data: { controller: "select" },
-                                  placeholder: t("select.placeholder"),
-                                }) %>
-      </fieldset>
-
-      <fieldset class="col-md-3 col-12">
-        <%= f.label :position, class: "form-label" %>
-        <%= f.number_field :position, class: "form-control" %>
-      </fieldset>
-    </div>
-  <% end %>
-
-  <%= render CardComponent.new(type: :success, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("layouts.sidebar.operating.title") %>
-    <% end %>
-
-    <div class="row g-3">
-      <fieldset class="col-md-6 col-12">
-        <%= f.label :domaine_id, class: "form-label" %>
-        <%= f.collection_select(:domaine_id,
-                                Domaine.sorted,
-                                :id,
-                                :name,
-                                { prompt: true, include_blank: true },
-                                {
-                                  class: "form-select",
-                                  data: { controller: "select" },
-                                  placeholder: t("select.placeholder"),
-                                }) %>
-      </fieldset>
-
-      <fieldset class="col-md-6 col-12 mt-md-3 mt-4">
-        <%= f.label :gestion_id, class: "form-label" %>
-        <%= f.collection_select(:gestion_id,
-                                Gestion.sorted,
-                                :id,
-                                :name,
-                                { prompt: true, include_blank: true },
-                                {
-                                  class: "form-select",
-                                  data: { controller: "select" },
-                                  placeholder: t("select.placeholder"),
-                                }) %>
-      </fieldset>
-
-      <fieldset class="col-md-6 col-12 mt-4">
-        <%= f.label :cluster_id, class: "form-label" %>
-        <%= f.collection_select(:cluster_id,
-                                Cluster.sorted,
-                                :id,
-                                :name,
-                                { prompt: true, include_blank: true },
-                                {
-                                  class: "form-select",
-                                  data: { controller: "select" },
-                                  placeholder: t("select.placeholder"),
-                                }) %>
-      </fieldset>
-    </div>
-  <% end %>
+  </div>
 
   <!-- TODO: update -->
   <% if @server.modele %>
@@ -204,49 +265,6 @@
         <% end %>
       </div>
     <% end %>
-  <% end %>
-
-  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
-    <fieldset class="col-12">
-      <%= f.label :comment, class: "form-label" %>
-      <%= f.text_area :comment, class: "form-control" %>
-    </fieldset>
-  <% end %>
-
-  <fieldset class="col-12 mt-4" data-controller="nested-form">
-    <template data-nested-form-target="template">
-      <%= f.fields_for :documents, f.object.documents.klass.new, child_index: "__NEW_RECORD__" do |document_fields| %>
-        <%= render partial: "document_fields", locals: { f: document_fields } %>
-      <% end %>
-    </template>
-
-    <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-      <% card.with_header do %>
-        <%= f.label :documents %>
-      <% end %>
-
-      <%= f.fields_for :documents do |document_fields| %>
-        <%= render partial: "document_fields", locals: { f: document_fields } %>
-      <% end %>
-
-      <div data-nested-form-target="target"></div>
-
-      <button type="button" class="btn btn-outline-success btn-sm" data-action="nested-form#add">
-        <span class="bi bi-plus-lg" aria-hidden="true"></span>
-        <span><%= t(".add_document") %></span>
-      </button>
-    <% end %>
-  </fieldset>
-
-  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
-    <fieldset class="col-12">
-      <%= f.label :photo, class: "form-label" %>
-      <%= f.file_field :photo, class: "form-control" %>
-
-      <% if @server.photo.attached? %>
-        <%= image_tag @server.photo.representation(resize_to_limit: [200, 200]), class: "ms-0 mt-2" %>
-      <% end %>
-    </fieldset>
   <% end %>
 
   <%= render Form::ActionsComponent.new(f, display_create_another_one:) %>

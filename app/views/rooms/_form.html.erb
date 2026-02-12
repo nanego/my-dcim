@@ -1,85 +1,94 @@
-<%= form_for(@room, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+<%= form_for(@room, html: { role: "form" }) do |f| %>
   <%= render FormErrorsComponent.new(@room) %>
 
-  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("show.cards.identification") %>
-    <% end %>
+  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+    <div class="col">
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.identification") %>
+        <% end %>
 
-    <fieldset class="col-12">
-      <%= f.label :name, class: "form-label" %>
-      <%= f.text_field :name, class: "form-control" %>
-    </fieldset>
+        <fieldset class="col-12">
+          <%= f.label :name, class: "form-label" %>
+          <%= f.text_field :name, class: "form-control" %>
+        </fieldset>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :description, class: "form-label" %>
-      <%= f.text_area :description, class: "form-control" %>
-    </fieldset>
-  <% end %>
+        <fieldset class="col-12 mt-4">
+          <%= f.label :description, class: "form-label" %>
+          <%= f.text_area :description, class: "form-control" %>
+        </fieldset>
+      <% end %>
 
-  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
-    <% card.with_header do %>
-      <%= t("show.cards.features") %>
-    <% end %>
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.features") %>
+        <% end %>
 
-    <fieldset class="col-12">
-      <%= f.label :surface_area, class: "form-label" %>
-      <div class="input-group">
-        <%= f.number_field :surface_area, class: "form-control" %>
-        <span class="input-group-text"><%= t("unit.square_meter") %></span>
-      </div>
-    </fieldset>
+        <fieldset class="col-12">
+          <%= f.label :surface_area, class: "form-label" %>
+          <div class="input-group">
+            <%= f.number_field :surface_area, class: "form-control" %>
+            <span class="input-group-text"><%= t("unit.square_meter") %></span>
+          </div>
+        </fieldset>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :access_control, class: "form-label" %>
-      <%= f.select :access_control, RoomDecorator.access_control_options_for_select,
-                            { include_blank: t("access_control.blank") },
-                            class: "form-select" %>
-    </fieldset>
+        <fieldset class="col-12 mt-4">
+          <%= f.label :access_control, class: "form-label" %>
+          <%= f.select :access_control,
+                       RoomDecorator.access_control_options_for_select,
+                       { include_blank: t("access_control.blank") },
+                       class: "form-select" %>
+        </fieldset>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :network_cluster_ids, class: "form-label" %>
-      <%= f.select :network_cluster_ids, RoomDecorator.network_clusters_options_for_select,
-                            { include_blank: t("access_control.blank") },
-                            class: "form-select", multiple: true, data: { controller: :select } %>
-    </fieldset>
-  <% end %>
-
-  <%= render CardComponent.new(type: :primary, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("layouts.sidebar.location.title") %>
-    <% end %>
-
-    <fieldset class="col-12">
-      <%= f.label :site_id, class: "form-label" %>
-      <%= f.select :site_id, Site.all.map{ |s| [s.name, s.id] }, { prompt: true }, class: "form-select" %>
-    </fieldset>
-  <% end %>
-
-  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
-    <% card.with_header do %>
-      <%= t("show.cards.display") %>
-    <% end %>
-
-    <fieldset class="col-12">
-      <%= f.label :position, class: "form-label" %>
-      <%= f.number_field :position, class: "form-control" %>
-    </fieldset>
-
-    <div class="col-12 mt-4">
-      <fieldset class="form-check">
-        <%= f.check_box :display_on_home_page, class: "form-check-input" %>
-        <%= f.label :display_on_home_page, class: "form-check-label" %>
-      </fieldset>
+        <fieldset class="col-12 mt-4">
+          <%= f.label :network_cluster_ids, class: "form-label" %>
+          <%= f.select :network_cluster_ids,
+                       RoomDecorator.network_clusters_options_for_select,
+                       { include_blank: t("access_control.blank") },
+                       class: "form-select", multiple: true, data: { controller: :select } %>
+        </fieldset>
+      <% end %>
     </div>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :status, class: "form-label" %>
-      <%= f.select :status, RoomDecorator::statuses_options_for_select,
-                            { },
-                            class: "form-select" %>
-    </fieldset>
-  <% end %>
+    <div class="col">
+      <%= render CardComponent.new(type: :primary, extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("layouts.sidebar.location.title") %>
+        <% end %>
+
+        <fieldset class="col-12">
+          <%= f.label :site_id, class: "form-label" %>
+          <%= f.select :site_id, Site.all.map { |s| [s.name, s.id] }, { prompt: true }, class: "form-select" %>
+        </fieldset>
+      <% end %>
+
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.display") %>
+        <% end %>
+
+        <fieldset class="col-12">
+          <%= f.label :position, class: "form-label" %>
+          <%= f.number_field :position, class: "form-control" %>
+        </fieldset>
+
+        <div class="col-12 mt-4">
+          <fieldset class="form-check">
+            <%= f.check_box :display_on_home_page, class: "form-check-input" %>
+            <%= f.label :display_on_home_page, class: "form-check-label" %>
+          </fieldset>
+        </div>
+
+        <fieldset class="col-12 mt-4">
+          <%= f.label :status, class: "form-label" %>
+          <%= f.select :status,
+                       RoomDecorator.statuses_options_for_select,
+                       {},
+                       class: "form-select" %>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
 
   <%= render Form::ActionsComponent.new(f, display_create_another_one:) %>
 <% end %>

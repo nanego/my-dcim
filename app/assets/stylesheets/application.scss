@@ -851,10 +851,6 @@ body {
       :nth-child(1 of .contact_assignment-fields:not([style*="display: none"])) {
         border: none !important;
         padding-top: 0 !important;
-
-        & > * > * {
-          margin-top: .25rem !important;
-        }
       }
     }
   }
