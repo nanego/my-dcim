@@ -1,13 +1,18 @@
-<%%= form_with(model: @<%= singular_table_name %>, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+<%%= form_with(model: @<%= singular_table_name %>, html: { role: "form" }) do |f| %>
   <%%= render FormErrorsComponent.new(@<%= singular_table_name %>) %>
-  <%%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-    <% attributes.each_with_index do |attribute, index| -%>
-<fieldset class="col-12 <%= "mt-4" unless index.zero? %>">
-      <%%= f.label :<%= attribute.name %>, class: "form-label" %>
-      <%%= f.<%= attribute.field_type %> :<%= attribute.name %>, class: "form-control" %>
-    </fieldset>
-    <% end %>
-  <%% end %>
+
+  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+    <div class="col">
+      <%%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+        <% attributes.each_with_index do |attribute, index| -%>
+    <fieldset class="col-12 <%= "mt-4" unless index.zero? %>">
+          <%%= f.label :<%= attribute.name %>, class: "form-label" %>
+          <%%= f.<%= attribute.field_type %> :<%= attribute.name %>, class: "form-control" %>
+        </fieldset>
+        <% end %>
+      <%% end %>
+    </div>
+  </div>
 
   <%%= render Form::ActionsComponent.new(f) %>
 <%% end %>
