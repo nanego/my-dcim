@@ -1,59 +1,65 @@
-<%= form_for(@card_type, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+<%= form_for(@card_type, html: { role: "form" }) do |f| %>
   <%= render FormErrorsComponent.new(@card_type) %>
-  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("show.cards.identification") %>
-    <% end %>
 
-    <fieldset class="col-12">
-      <%= f.label :name, class: "form-label" %>
-      <%= f.text_field :name, class: "form-control" %>
-    </fieldset>
-  <% end %>
+  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+    <div class="col">
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.identification") %>
+        <% end %>
 
-  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
-    <% card.with_header do %>
-      <%= t("show.cards.features") %>
-    <% end %>
+        <fieldset class="col-12">
+          <%= f.label :name, class: "form-label" %>
+          <%= f.text_field :name, class: "form-control" %>
+        </fieldset>
+      <% end %>
+    </div>
 
-    <fieldset class="col-12">
-      <%= f.label :port_type, class: "form-label" %>
-      <%= f.select :port_type_id,
-                   PortType.sorted.map { |pt| [pt.name, pt.id] },
-                   { prompt: true },
-                   {
-                     class: "form-select",
-                     data: { controller: "select" },
-                     placeholder: t("select.placeholder")
-                   }
-      %>
-    </fieldset>
+    <div class="col">
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.features") %>
+        <% end %>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :port_quantity, class: "form-label" %>
-      <%= f.number_field :port_quantity, class: "form-control" %>
-    </fieldset>
+        <fieldset class="col-12">
+          <%= f.label :port_type, class: "form-label" %>
+          <%= f.select :port_type_id,
+                       PortType.sorted.map { |pt| [pt.name, pt.id] },
+                       { prompt: true },
+                       {
+                         class: "form-select",
+                         data: { controller: "select" },
+                         placeholder: t("select.placeholder"),
+                       } %>
+        </fieldset>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :columns, class: "form-label" %>
-      <%= f.number_field :columns, class: "form-control" %>
-    </fieldset>
+        <fieldset class="col-12 mt-4">
+          <%= f.label :port_quantity, class: "form-label" %>
+          <%= f.number_field :port_quantity, class: "form-control" %>
+        </fieldset>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :rows, class: "form-label" %>
-      <%= f.number_field :rows, class: "form-control" %>
-    </fieldset>
+        <fieldset class="col-12 mt-4">
+          <%= f.label :columns, class: "form-label" %>
+          <%= f.number_field :columns, class: "form-control" %>
+        </fieldset>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :max_aligned_ports, class: "form-label" %>
-      <%= f.number_field :max_aligned_ports, class: "form-control" %>
-    </fieldset>
+        <fieldset class="col-12 mt-4">
+          <%= f.label :rows, class: "form-label" %>
+          <%= f.number_field :rows, class: "form-control" %>
+        </fieldset>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :first_position, class: "form-label" %>
-      <%= f.select :first_position, [0, 1], {}, class: "form-select" %>
-    </fieldset>
-  <% end %>
+        <fieldset class="col-12 mt-4">
+          <%= f.label :max_aligned_ports, class: "form-label" %>
+          <%= f.number_field :max_aligned_ports, class: "form-control" %>
+        </fieldset>
+
+        <fieldset class="col-12 mt-4">
+          <%= f.label :first_position, class: "form-label" %>
+          <%= f.select :first_position, [0, 1], {}, class: "form-select" %>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
 
   <%= render Form::ActionsComponent.new(f, display_create_another_one:) %>
 <% end %>
