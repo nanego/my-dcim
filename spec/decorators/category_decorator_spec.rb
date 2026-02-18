@@ -6,9 +6,15 @@ RSpec.describe CategoryDecorator, type: :decorator do
   let(:object) { categories(:one) }
   let(:decorated_category) { described_class.decorate(object) }
 
-  describe ".glpi_sync_human" do
+  describe "#glpi_sync_human" do
     it do
       expect(decorated_category.glpi_sync_human).to eq(Category.human_attribute_name(:server_glpi_sync))
+    end
+  end
+
+  describe ".glpi_sync_human_for" do
+    it do
+      expect(described_class.glpi_sync_human_for(:no)).to eq(Category.human_attribute_name(:no_glpi_sync))
     end
   end
 
