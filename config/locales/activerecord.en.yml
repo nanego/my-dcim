@@ -215,16 +215,15 @@ en:
       category:
         name: Name
         description: Description
-        glpi_sync_type: GLPI synchronization type
+        glpi_sync: GLPI synchronization type
+        no_glpi_sync: None
+        server_glpi_sync: "Server"
+        network_equipment_glpi_sync: "Network equipment"
         modeles: Models
         modeles_count:
           zero: 0 model
           one: 1 model
           other: "%{count} models"
-      category/glpi_sync_type:
-        none: Nond
-        server: Server
-        network_equipment: Network equipment
 
     errors:
       models:
