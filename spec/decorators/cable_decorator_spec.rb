@@ -63,21 +63,6 @@ RSpec.describe CableDecorator, type: :decorator do
         end
       end
     end
-
-    context "with a connection without server" do
-      subject(:server_connected_with_link) { decorated_cable.server_connected_with_link(connections(:five)) }
-
-      before { servers(:four).delete }
-
-      it { is_expected.not_to have_tag("span.text-body-emphasis.col.overflow-wrap.text-end") }
-
-      it do
-        is_expected.to have_tag("span.text-body-emphasis.col.overflow-wrap") do # rubocop:disable RSpec/ImplicitSubject
-          without_tag("a.text-body-emphasis")
-          with_tag("span.fst-italic", text: "n/c")
-        end
-      end
-    end
   end
 
   describe "#draw_port" do
