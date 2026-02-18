@@ -1,7 +1,5 @@
 <div class="mb-5 text-center">
-  <p class="fs-1">
-    <%= "#{@server.modele.try(:category).try(:name)} #{@server.name} #{@server.bay.name} U#{@server.position}" %>
-  </p>
+  <p class="fs-1"><%= @server.decorated.full_name %></p>
   <p>
     <%= render BadgeComponent.new(color: :light, variant: :pill) do %>
       <span class="fw-light text-body-secondary">
