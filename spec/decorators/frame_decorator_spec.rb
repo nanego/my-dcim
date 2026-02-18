@@ -3,9 +3,6 @@
 require "rails_helper"
 
 RSpec.describe FrameDecorator, type: :decorator do
-  let(:frame) { frames(:one) }
-  let(:decorated_frame) { frame.decorated }
-
   let(:user) { users(:admin) }
 
   describe ".options_for_select" do
