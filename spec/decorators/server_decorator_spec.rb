@@ -95,12 +95,12 @@ RSpec.describe ServerDecorator, type: :decorator do
   end
 
   describe "#in_frame_location" do
-    it { expect(decorated_server.in_frame_location).to eq("Châssis MyFrame1 - U39") }
+    it { expect(decorated_server.in_frame_location).to eq("MyFrame1 - U39") }
 
     context "without position" do
       before { server.position = nil }
 
-      it { expect(decorated_server.in_frame_location).to eq("Châssis MyFrame1 - U?") }
+      it { expect(decorated_server.in_frame_location).to eq("MyFrame1 - U?") }
     end
   end
 end

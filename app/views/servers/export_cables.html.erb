@@ -4,8 +4,10 @@
   </p>
   <p>
     <%= render BadgeComponent.new(color: :light, variant: :pill) do %>
-      <span class="fw-light text-body-secondary"><%= Server.human_attribute_name(:numero_shrt) %></span>
-      <span class="font-monospace"><%= @server.numero %></span>
+      <span class="fw-light text-body-secondary">
+        <span><%= Server.human_attribute_name(:numero_short) %></span>
+        <span class="font-monospace"><%= @server.numero %></span>
+      </span>
     <% end %>
     <%= render BadgeComponent.new(color: :light, variant: :pill) do %>
       <span><%= @server.modele %></span>

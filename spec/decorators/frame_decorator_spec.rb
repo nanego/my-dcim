@@ -42,14 +42,4 @@ RSpec.describe FrameDecorator, type: :decorator do
         .to contain_exactly(%w[Badge badge], %w[Clé key], ["Clé Locken", "locken_key"])
     end
   end
-
-  describe "#full_name" do
-    it { expect(decorated_frame.full_name).to eq("Châssis MyFrame1") }
-
-    context "with frame without name" do
-      before { frame.name = nil }
-
-      it { expect(decorated_frame.full_name).to eq("Châssis n/c") }
-    end
-  end
 end

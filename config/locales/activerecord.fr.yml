@@ -97,7 +97,7 @@ fr:
       server:
         name: Nom
         numero: Numéro de série
-        numero_shrt: s/n
+        numero_short: s/n
         room: Salle
         islet: Ilot
         islet_id: Ilot

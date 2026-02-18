@@ -42,6 +42,6 @@ class ServerDecorator < ApplicationDecorator
   end
 
   def in_frame_location
-    [frame.decorated.full_name, "U#{position || "?"}"].compact.join(" - ")
+    [frame, "U#{position || "?"}"].compact_blank.join(" - ")
   end
 end

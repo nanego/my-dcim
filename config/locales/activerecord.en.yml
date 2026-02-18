@@ -118,7 +118,7 @@ en:
       server:
         name: Name
         numero: Serial number
-        numero_shrt: s/n
+        numero_short: s/n
         type: Type
         room: Room
         islet: Islet

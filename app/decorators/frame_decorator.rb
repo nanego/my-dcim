@@ -22,8 +22,4 @@ class FrameDecorator < ApplicationDecorator
       Bay.access_controls.keys.map { |a_c| [I18n.t("access_control.#{a_c}"), a_c] }
     end
   end
-
-  def full_name
-    "#{Frame.model_name.human} #{name.presence || "n/c"}"
-  end
 end
