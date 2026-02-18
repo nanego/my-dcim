@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PermissionScope < ApplicationRecord
-  has_changelog
+  has_changelog associations: { domaines: %i[name], users: %i[name] }
 
   enum :role, { reader: 0, writer: 1 }
 
