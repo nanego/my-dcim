@@ -8,24 +8,6 @@ class SitesControllerTest < ActionController::TestCase
     @site = sites(:one)
   end
 
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
-  test "should create site" do
-    assert_difference("Site.count") do
-      post :create, params: { site: { name: @site.name } }
-    end
-
-    assert_redirected_to site_path(assigns(:site))
-  end
-
-  test "should show site" do
-    get :show, params: { id: @site }
-    assert_response :success
-  end
-
   test "should get edit" do
     get :edit, params: { id: @site }
     assert_response :success

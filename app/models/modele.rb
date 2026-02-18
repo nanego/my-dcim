@@ -7,13 +7,14 @@ class Modele < ApplicationRecord
 
   has_changelog
 
-  has_many :servers, dependent: :restrict_with_error
-  has_many :enclosures, dependent: :destroy
-  has_many :composants, through: :enclosures
-
   belongs_to :manufacturer, counter_cache: true
   belongs_to :architecture, counter_cache: true
   belongs_to :category, counter_cache: true
+
+  has_many :servers, dependent: :restrict_with_error
+  has_many :enclosures, dependent: :destroy
+  has_many :composants, through: :enclosures
+  has_many :cards, through: :composants
 
   accepts_nested_attributes_for :enclosures,
                                 allow_destroy: true,
