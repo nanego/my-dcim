@@ -1,65 +1,17 @@
-<%
-  breadcrumb.add_step(title = t('.results'))
-%>
+<% breadcrumb.add_step(title = t(".results")) %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
-  <turbo-frame id="search_results">
+  <turbo-frame id="search-index" data-controller="search-results">
     <% if @results.any? %>
-      <ul class="list-group">
+      <div class="list-group">
         <% @results.each do |record| %>
-          <% if record.is_a?(Server) %>
-            <% if record.is_a_pdu? %>
-              <%= link_to power_distribution_unit_path(record), data: { turbo_frame: "_top" } do %>
-                <li class="list-group-item d-flex align-items-start">
-                  <i class="bi bi-lightning-charge me-3" style="font-size: 2rem;"></i>
-                  <div>
-                    <h5><%= record.name %></h5>
-                    <%= record.modele&.name_with_brand %>
-                  </div>
-                </li>
-              <% end %>
-            <% else %>
-              <%= link_to server_path(record), data: { turbo_frame: "_top" } do %>
-                <li class="list-group-item d-flex align-items-start">
-                  <i class="bi bi-hdd me-3" style="font-size: 2rem;"></i>
-                  <div>
-                    <h5><%= record.name %></h5>
-                    <%= record.modele&.name_with_brand %>
-                  </div>
-                </li>
-              <% end %>
-            <% end %>
-          <% else %>
-            <%= link_to frame_path(record), data: { turbo_frame: "_top" } do %>
-              <li class="list-group-item d-flex align-items-start">
-                <i class="bi bi-geo-alt me-3" style="font-size: 2rem;"></i>
-                <div>
-                  <h5><%= record.name %></h5>
-                  <%= record.name_with_room_and_islet %>
-                </div>
-              </li>
-            <% end %>
-          <% end %>
+          <%= render partial: "search_entry", locals: { record: } %>
         <% end %>
-      </ul>
+      </div>
     <% else %>
-      <p><%= t('.no_results_found') %></p>
+      <p><%= t(".no_results_found") %></p>
     <% end %>
   </turbo-frame>
 </div>
-
-<script>
-  // Focus on the first list item or at the end of the search input field if no results
-  window.onload = function () {
-    const firstItem = document.querySelector('#search_results a');
-    if (firstItem) {
-      firstItem.focus();
-    } else {
-      const input = document.querySelector('input[type="search"]');
-      input.focus()
-      input.setSelectionRange(input.value.length, input.value.length);
-    }
-  };
-</script>
