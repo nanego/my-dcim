@@ -40,7 +40,7 @@ class Frame < ApplicationRecord # rubocop:disable Metrics/ClassLength
     [
       room_name.present? ? "Salle #{room_name}" : "",
       bay.present? ? "Ilot #{bay.islet.name}" : "",
-      "#{Frame.model_name.human} #{name.presence || "non précisée"}",
+      "#{Frame.model_name.human} #{name.presence || "n/c"}",
     ].compact_blank.join(" ")
   end
 
