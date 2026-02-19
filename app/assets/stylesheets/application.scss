@@ -16,9 +16,9 @@
  *= require loader
  *= require palette-color-picker
  *= require rooms
- *= require quicksearch
  *= require_self
  *= require_tree ./components
+ *= require_tree ./pages
  *= require tom-select.bootstrap5
  */
 
