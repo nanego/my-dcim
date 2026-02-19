@@ -3,6 +3,20 @@
 require "rails_helper"
 
 RSpec.describe ArchitecturesController do
+  describe "#index" do
+    subject(:response) do
+      get architectures_path
+
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:index) }
+    it { expect(response.body).to include(contact.first_name) }
+
+    it { expect { response }.to have_rubanok_processed(Contact.all).with(ContactsProcessor) }
+  end
+
   describe "GET #new" do
     subject(:response) do
       get new_architecture_path

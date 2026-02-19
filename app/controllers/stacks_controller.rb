@@ -9,7 +9,8 @@ class StacksController < ApplicationController
   # GET /stacks
   # GET /stacks.json
   def index
-    authorize! @stacks = sorted(Stack.all)
+    @filter = ProcessorFilter.new(Stack.all, params)
+    authorize! @stacks = @filter.results
   end
 
   # GET /stacks/1

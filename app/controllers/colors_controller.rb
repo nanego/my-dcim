@@ -7,7 +7,8 @@ class ColorsController < ApplicationController
   end
 
   def index
-    authorize! @colors = sorted(Color.order(:parent_type, :parent_id))
+    @filter = ProcessorFilter.new(Color.order(:parent_type, :parent_id), params)
+    authorize! @colors = @filter.results
   end
 
   def show; end

@@ -18,6 +18,7 @@ RSpec.describe DomainesController do
     it { expect { response }.to have_authorized_scope(:active_record_relation).with(DomainePolicy) }
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
+    it { expect { response }.to have_rubanok_processed(Domaine.sorted).with(DomainesProcessor) }
 
     it do
       response
