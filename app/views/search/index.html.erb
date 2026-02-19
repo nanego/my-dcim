@@ -6,12 +6,10 @@
   <turbo-frame id="search-index" data-controller="search-results">
     <% if @results.any? %>
       <div class="list-group">
-        <% @results.each do |record| %>
-          <%= render partial: "search_entry", locals: { record: } %>
-        <% end %>
+        <%= render partial: "result", collection: @results %>
       </div>
     <% else %>
-      <p><%= t(".no_results_found") %></p>
+      <%= render CardEmptyDataComponent.new(text: t(".no_results_found")) %>
     <% end %>
   </turbo-frame>
 </div>
