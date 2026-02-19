@@ -17,12 +17,13 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_one :bay, through: :frame
   has_one :islet, through: :frame
   has_one :room, through: :islet
+  has_one :site, through: :room
   has_one :manufacturer, through: :modele
 
   has_many :cards, -> { joins(:composant).includes(:composant) }, dependent: :destroy
   has_many :card_types, through: :cards
   has_many :ports, through: :cards
-  has_many :connections, through: :ports
+  has_many :connections, through: :ports, source: :connection
   has_many :cables, through: :connections
   has_many :moves, as: :moveable, dependent: :destroy
   has_many :documents, dependent: :restrict_with_error
