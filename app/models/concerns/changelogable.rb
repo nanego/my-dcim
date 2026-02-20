@@ -6,14 +6,16 @@ module Changelogable
   CHANGELOGABLE_DEFAULT_SKIP_ATTRIBUTES = %i[id created_at updated_at].freeze
 
   module ClassMethods
-    attr_accessor :_changelogable_except_attributes
+    attr_accessor :_changelogable_except_attributes, :_changelogable_association_names
 
-    def has_changelog(except: [])
+    def has_changelog(except: [], associations: {})
       @_changelogable_except_attributes = CHANGELOGABLE_DEFAULT_SKIP_ATTRIBUTES.dup.append(*except)
+      @_changelogable_association_names = associations
 
       has_many :changelog_entries, -> { order(created_at: :desc) }, as: :object, dependent: nil,
                                                                     inverse_of: :object
 
+      after_initialize :store_associations_attributes
       after_create_commit :changelog_entry_on_create
       after_update_commit :changelog_entry_on_update
       before_destroy :changelog_entry_on_destroy
@@ -33,10 +35,16 @@ module Changelogable
   end
 
   def changelog_entry_on_destroy
-    _create_changelog_entry(:destroy, object_changes: _changelogable_parameter_filter(attributes.transform_values { |v| [v, nil] }))
+    changes = _changelogable_parameter_filter(attributes.transform_values { |v| [v, nil] })
+
+    _create_changelog_entry(:destroy, object_changes: changes)
   end
 
   private
+
+  def store_associations_attributes
+    @store_associations_attributes ||= associations_attributes
+  end
 
   def _create_changelog_entry(action, object_changes: _changeloagable_previous_changes, metadata: {})
     changelog_entries.create!(
@@ -47,7 +55,35 @@ module Changelogable
   end
 
   def _changeloagable_previous_changes
-    _changelogable_parameter_filter(previous_changes)
+    changes = previous_changes
+    changes[:associations] = associations_previous_changes
+
+    _changelogable_parameter_filter(changes)
+  end
+
+  def associations_previous_changes
+    before = self.class._changelogable_association_names.to_h do |name, _|
+      [name, (@store_associations_attributes[name] - associations_attributes[name])]
+    end
+
+    after = self.class._changelogable_association_names.to_h do |name, _|
+      [name, (associations_attributes[name] - @store_associations_attributes[name])]
+    end
+
+    [before, after]
+  end
+
+  def associations_attributes
+    self.class._changelogable_association_names.to_h do |name, attributes|
+      attributes = association(name).reflection.klass.attribute_names if attributes == "*"
+
+      values = public_send(name)
+        .select(*attributes)
+        .except(*self.class._changelogable_except_attributes)
+        .map { |r| attributes.index_with { |attribute| r.public_send(attribute) } }
+
+      [name, values]
+    end
   end
 
   def _changelogable_parameter_filter(changes)
