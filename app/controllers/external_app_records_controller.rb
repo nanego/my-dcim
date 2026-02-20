@@ -43,6 +43,6 @@ class ExternalAppRecordsController < ApplicationController
   private
 
   def settings_params
-    params[:external_app_record_setting]&.permit(category_ids: []) || {}
+    params[:external_app_record_setting]&.permit(category_glpi_syncs: {}) || {}
   end
 end

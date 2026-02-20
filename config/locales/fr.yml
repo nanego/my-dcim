@@ -393,7 +393,7 @@ fr:
       synchronizing: "Synchronisation en cours..."
     settings:
       title: Configuration de la synchronisation
-      category_ids: Sélectionner les catégories à activer pour la synchronisation
+      category_ids: Choisir le type de synchronisation pour chaque catégorie
       flashes:
         saved: "La configuration a bien été mise à jour."
   servers:

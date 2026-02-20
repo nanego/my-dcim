@@ -204,6 +204,18 @@ en:
       permission_scope/role:
         reader: Reader
         writer: Writer
+      category:
+        name: Name
+        description: Description
+        glpi_sync: GLPI synchronization type
+        no_glpi_sync: n/a
+        server_glpi_sync: "Server"
+        network_equipment_glpi_sync: "Network equipment"
+        modeles: Models
+        modeles_count:
+          zero: 0 model
+          one: 1 model
+          other: "%{count} models"
 
     errors:
       models:

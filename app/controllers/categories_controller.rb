@@ -80,6 +80,6 @@ class CategoriesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def category_params
-    params.expect(category: %i[name description is_glpi_synchronizable])
+    params.expect(category: %i[name description glpi_sync])
   end
 end
