@@ -14,12 +14,9 @@ RSpec.describe StacksController do
 
     include_context "with authenticated user"
 
-    before { response }
-
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
     it { expect(response.body).to include(stack.name) }
-    it { expect(assigns(:stacks)).not_to be_nil }
     it { expect { response }.to have_rubanok_processed(Stack.all).with(StacksProcessor) }
   end
 

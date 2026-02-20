@@ -3,18 +3,19 @@
 require "rails_helper"
 
 RSpec.describe ArchitecturesController do
-  describe "#index" do
+  describe "GET #index" do
     subject(:response) do
       get architectures_path
 
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
+    include_context "with authenticated user"
+
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
-    it { expect(response.body).to include(contact.first_name) }
 
-    it { expect { response }.to have_rubanok_processed(Contact.all).with(ContactsProcessor) }
+    it { expect { response }.to have_rubanok_processed(Architecture.all).with(ArchitecturesProcessor) }
   end
 
   describe "GET #new" do
