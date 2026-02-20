@@ -7,7 +7,8 @@ class PortTypesController < ApplicationController
   end
 
   def index
-    authorize! @port_types = sorted(PortType.order("lower(name)"))
+    @filter = ProcessorFilter.new(PortType.order("lower(name)"), params)
+    authorize! @port_types = @filter.results
   end
 
   def show; end

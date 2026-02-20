@@ -16,6 +16,7 @@ RSpec.describe ManufacturersController do
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
     it { expect(response.body).to include(manufacturer.name) }
+    it { expect { response }.to have_rubanok_processed(Manufacturer.sorted).with(ManufacturersProcessor) }
   end
 
   describe "GET #new" do

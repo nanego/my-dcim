@@ -9,7 +9,8 @@ class ArchitecturesController < ApplicationController
   # GET /architectures
   # GET /architectures.json
   def index
-    authorize! @architectures = sorted(Architecture.all)
+    @filter = ProcessorFilter.new(Architecture.all, params)
+    authorize! @architectures = @filter.results
   end
 
   # GET /architectures/1
