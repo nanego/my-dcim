@@ -128,7 +128,7 @@
             <% end %>
 
             <% if allowed_to?(:destroy?, cable) %>
-              <%= link_to cable_path(cable),
+              <%= link_to cable_path(cable, return_to: turbo_frame_request? ? request.referer || root_path : request.fullpath),
                           method: :delete,
                           data: { turbo_frame: :_top },
                           class: "btn btn-danger" do %>
