@@ -11,7 +11,7 @@ RSpec.describe MovesProjectStep do
 
   describe "associations" do
     it { is_expected.to belong_to(:moves_project) }
-    it { is_expected.to have_many(:moves) }
+    it { is_expected.to have_many(:moves).dependent(:destroy) }
   end
 
   describe "validations" do
