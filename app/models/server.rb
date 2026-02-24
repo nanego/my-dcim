@@ -32,6 +32,7 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_one_attached :photo
 
   validates :numero, presence: true, uniqueness: true
+  validates :numero, format: { without: /\s/ }
   validates :name, presence: true
   validate :numero_cannot_be_a_current_server_name
   validate :validate_network_types_values
