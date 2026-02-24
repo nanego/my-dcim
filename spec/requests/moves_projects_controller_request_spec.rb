@@ -174,6 +174,16 @@ RSpec.describe MovesProjectsController do
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(moves_projects_path) }
     end
+
+    context "with moves project step to destroy" do
+      let(:moves_project) { moves_projects(:with_steps) }
+      let(:step) { moves_project.steps.first }
+      let(:attributes) { { steps_attributes: [{ position: 0, id: step.id, _destroy: 1 }] } }
+      let(:params) { { moves_project: attributes } }
+
+      it { expect(response).to redirect_to(moves_project_path(moves_project)) }
+      it { expect(response).to have_http_status(:redirect) }
+    end
   end
 
   describe "DELETE #destroy" do

@@ -4,7 +4,7 @@ class MovesProjectStep < ApplicationRecord
   has_changelog
 
   belongs_to :moves_project
-  has_many :moves, dependent: :restrict_with_error
+  has_many :moves, dependent: :destroy
 
   acts_as_list scope: :moves_project
 
