@@ -29,6 +29,7 @@ class ApplicationController < ActionController::Base
 
   def self.destroy_confirmation(only: :destroy)
     before_action only: do
+      params[:return_to] ||= request.referer
       render unless params[:confirm] == "true"
     end
   end
