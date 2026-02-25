@@ -1,6 +1,4 @@
-<%
-  breadcrumb.add_step(title = @permission_scope)
-%>
+<% breadcrumb.add_step(title = @permission_scope) %>
 
 <%= render Page::HeadingShowComponent.new(resource: @permission_scope, title:, breadcrumb:) %>
 
@@ -25,7 +23,7 @@
           <%= PermissionScope.human_attribute_name(:domaine_ids) %>
         <% end %>
 
-        <% card.with_body(extra_classes: { "p-0": !@permission_scope.all_domains? } ) do %>
+        <% card.with_body(extra_classes: { "p-0": !@permission_scope.all_domains? }) do %>
           <% if @permission_scope.all_domains? %>
             <%= PermissionScope.human_attribute_name(:all_domains) %>
           <% else %>
@@ -50,9 +48,7 @@
         <% card.with_body(extra_classes: "p-0") do %>
           <div id="ts_permission_scope_user_form"
               class="<%= class_names("list-group-item list-group-item-action p-3",
-                                     "border-dashed border-bottom": @permission_scope_users.any?)
-                      %>"
-          >
+                                     "border-dashed border-bottom": @permission_scope_users.any?) %>">
             <%= render partial: "permission_scope_user_form",
                        locals: { permission_scope_user: @permission_scope.permission_scope_users.build } %>
           </div>
