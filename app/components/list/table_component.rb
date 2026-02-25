@@ -3,7 +3,7 @@
 module List
   class TableComponent < ApplicationComponent
     erb_template <<~ERB
-      <div class="table-responsive">
+      <div class="table-responsive table-component border rounded-2">
         <%= tag.table(**@html_attributes) do %>
           <% heads.each do |thead| %>
             <%= thead %>
@@ -28,7 +28,7 @@ module List
       css_classes = html_attributes.delete(:class)
 
       @html_attributes = html_attributes.merge(
-        class: class_names("table table-striped table-bordered table-hover mb-0", css_classes),
+        class: class_names("table table-striped mb-0 table-hover p-4", css_classes),
       )
     end
 
@@ -53,7 +53,7 @@ module List
 
     class TableHead < TableTag
       TAG_NAME = :thead
-      CSS_CLASSES = ""
+      CSS_CLASSES = "text-nowrap text-uppercase"
     end
 
     class TableBody < TableTag
@@ -67,7 +67,7 @@ module List
 
     class TableRow < TableTag
       TAG_NAME = :tr
-      CSS_CLASSES = "" # FIXME: should be applied only on body
+      CSS_CLASSES = ""
     end
 
     class TableCell < TableTag
@@ -85,6 +85,7 @@ module List
         center: "text-center",
         right: "text-end",
       }.freeze
+      CSS_CLASSES = "border-dashed"
 
       def initialize(text = nil, **html_attributes)
         super(**html_attributes)
@@ -96,9 +97,11 @@ module List
         css_text_align = TEXT_ALIGN_TYPES[html_attributes.delete(:text_align)&.to_sym || :left]
 
         @html_attributes = html_attributes.merge(
+          scope: "col",
           class: class_names(
             css_vertical_align,
             css_text_align,
+            self.class::CSS_CLASSES,
             css_classes,
           ),
         )
@@ -113,7 +116,7 @@ module List
 
     class TableHeadCell < TableCell
       TAG_NAME = :th
-      CSS_CLASSES = ""
+      CSS_CLASSES = "fw-light text-secondary-emphasis all-small-caps bg-body-tertiary border-bottom"
     end
   end
 end

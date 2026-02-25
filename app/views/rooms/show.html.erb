@@ -79,7 +79,7 @@
 
           <dt class="pb-2"><%= Room.human_attribute_name(:display_on_home_page) %></dt>
           <dd class="mb-0 pb-2 ps-3">
-            <span><%= t("boolean.#{@room.display_on_home_page}") %></span>
+            <%= render @room.decorated.display_on_room_to_badge_component %>
           </dd>
 
           <dt class="pb-2"><%= Room.human_attribute_name(:status) %></dt>

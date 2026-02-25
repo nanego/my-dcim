@@ -74,10 +74,10 @@ module List
 
     def render_head_cell(col)
       render(List::TableComponent::TableHeadCell.new(data: { name: col.name })) do
+        concat col.title
+
         if (sort_by = col.sort_by)
-          link_to_sort col.title, sort_by
-        else
-          col.title
+          links_to_sort sort_by
         end
       end
     end
@@ -102,26 +102,30 @@ module List
       col.call(row)
     end
 
-    def link_to_sort(label, attribute)
+    def links_to_sort(attribute)
       current_attribute = params[:sort_by]&.to_sym
-      current_direction = current_attribute == attribute ? params[:sort].to_sym : nil
+      is_current_attribute = current_attribute == attribute
+      current_direction = is_current_attribute ? params[:sort].to_sym : nil
 
-      parameters = case current_direction
-                   when nil then { sort_by: attribute, sort: :asc }
-                   when :asc then { sort_by: attribute, sort: :desc }
-                   else { sort_by: nil, sort: nil }
-                   end
+      concat(link_to_sort(attribute, is_current_attribute, :asc, current_direction))
+      concat(link_to_sort(attribute, is_current_attribute, :desc, current_direction))
+    end
 
+    def link_to_sort(attribute, is_current_attribute, direction, current_direction)
+      caret = direction == :asc ? "arrow-up-short" : "arrow-down-short"
+      is_current_direction = current_direction == direction
+
+      parameters = is_current_direction ? { sort_by: nil, sort: nil } : { sort_by: attribute, sort: direction }
       url = url_for(controller.request.query_parameters.merge(parameters))
 
       link_to(url) do
-        concat label
-        concat " #{sort_caret(current_direction)}" if current_attribute == attribute
+        # TODO: user tooltip ?
+        concat tag.span class: class_names("bi bi-#{caret}",
+                                           "ms-2": direction == :asc,
+                                           "link-primary": is_current_direction && is_current_attribute),
+                        title: direction,
+                        data: { controller: "tooltip" }
       end
-    end
-
-    def sort_caret(direction)
-      sanitize(direction == :desc ? "&#x2193;" : "&#x2191;")
     end
 
     def displayed_columns

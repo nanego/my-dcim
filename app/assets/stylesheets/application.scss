@@ -782,7 +782,7 @@ body {
     }
   }
 
-  table {
+  /* table {
     a:not(.btn):not(.dropdown-item) {
       text-decoration: none;
 
@@ -790,7 +790,7 @@ body {
         text-decoration: underline;
       }
     }
-  }
+  } */
 
   dl.show-page_dl {
     grid-template-columns: auto 1fr;
@@ -958,6 +958,11 @@ body {
 
   .border-dashed {
     --bs-border-style: dashed;
+    border-style: dashed;
+  }
+
+  .all-small-caps {
+    font-variant: all-small-caps;
   }
 
   /* Bootstrap clean */
@@ -990,7 +995,7 @@ body {
   }
 
   .ts-dropdown {
-    z-index: 9999;
+    z-index: 8888;
   }
 
   /* Tom-Select fix for bootstrap floating label */
