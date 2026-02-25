@@ -6,6 +6,7 @@ Turbo.session.drive = false
 import "controllers"
 import "popper"
 import "bootstrap"
+import "stream_actions"
 
 import AnimEvent from "anim-event"
 window.AnimEvent = AnimEvent

@@ -3,9 +3,10 @@
 require "rails_helper"
 
 RSpec.describe PermissionScope do
-  # it_behaves_like "changelogable", new_attributes: {  }
-
   subject(:permission_scope) { described_class.new(name: "A", all_domains: true) }
+
+  it_behaves_like "changelogable", object: -> { described_class.new(name: "A", domaines: [domaines(:switch)]) },
+                                   new_attributes: { name: "B", all_domains: true }
 
   describe "associations" do
     it { is_expected.to have_many(:permission_scope_domains) }
