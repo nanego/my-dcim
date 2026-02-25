@@ -5,7 +5,7 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   friendly_id :slug_candidates, use: %i[slugged history]
 
-  has_changelog
+  has_changelog associations: { cards: "*" }
 
   belongs_to :frame
   belongs_to :modele, counter_cache: true
