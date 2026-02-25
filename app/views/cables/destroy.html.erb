@@ -9,6 +9,6 @@
 <div class="col-12 p-4 border-top">
   <%= render DeleteDependencyComponent.new(
     @cable,
-    confirmation_path: cable_path(@cable, confirm: true, back_to: params["back_to"])
+    confirmation_path: cable_path(@cable, confirm: true, back_to: params[:back_to])
   ) %>
 </div>
