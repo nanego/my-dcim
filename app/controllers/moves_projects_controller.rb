@@ -46,6 +46,13 @@ class MovesProjectsController < ApplicationController
         format.html { render :edit, status: :unprocessable_content }
         format.json { render json: @moves_project.errors, status: :unprocessable_content }
       end
+    rescue ActiveRecord::RecordNotDestroyed => e
+      format.html do
+        flash.now[:alert] = "#{e.record.name} couldn't be destroyed"
+        render :edit, status: :unprocessable_content
+      end
+
+      format.json { render json: { steps: "#{e.record.name} couldn't be destroyed" }, status: :unprocessable_content }
     end
   end
 
