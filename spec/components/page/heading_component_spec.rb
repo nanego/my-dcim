@@ -14,7 +14,7 @@ RSpec.describe Page::HeadingComponent, type: :component do
   context "with title" do
     it "renders breadcrumb" do
       expect(rendered_component).to have_tag("ol.breadcrumb") do
-        with_tag("a", href: "#url_sites", text: "Sites")
+        with_tag("a", text: "Sites", with: { href: "#url_sites" })
       end
     end
 
@@ -55,7 +55,7 @@ RSpec.describe Page::HeadingComponent, type: :component do
     it "renders heading" do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component).to have_tag("div.col-12.bg-body") do
         with_tag("div.back-button-container") do
-          with_tag("a.btn.back-button", title: "Retour", href: "http://test.host/sites") do
+          with_tag("a.btn.back-button", with: { title: "Retour", href: "http://test.host/sites" }) do
             with_tag("span.bi-chevron-left")
             with_tag("span.ms-2", text: "Retour")
           end
