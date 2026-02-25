@@ -32,7 +32,7 @@ RSpec.describe CableDecorator, type: :decorator do
 
       it do
         is_expected.to have_tag("span.text-body-emphasis.col.overflow-wrap.text-end") do # rubocop:disable RSpec/ImplicitSubject
-          with_tag("a.text-body-emphasis", text: servers(:one).name, with: { href: "/servers/1" })
+          with_tag("a.text-body-emphasis", text: servers(:one).name, with: { href: "/servers/#{servers(:one).slug}" })
           without_tag("span.fst-italic", text: "n/c")
         end
       end
@@ -45,7 +45,7 @@ RSpec.describe CableDecorator, type: :decorator do
 
       it do
         is_expected.to have_tag("span.text-body-emphasis.col.overflow-wrap") do # rubocop:disable RSpec/ImplicitSubject
-          with_tag("a.text-body-emphasis", text: servers(:one).name, with: { href: "/servers/1" })
+          with_tag("a.text-body-emphasis", text: servers(:one).name, with: { href: "/servers/#{servers(:one).slug}" })
           without_tag("span.fst-italic", text: "n/c")
         end
       end
