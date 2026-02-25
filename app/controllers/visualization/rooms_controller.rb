@@ -17,7 +17,7 @@ module Visualization
         .preload(servers: [
                    :gestion,
                    :cluster,
-                   { modele: :category, card_types: :port_type, cards: [:composant, { ports: [connection: :cable] }] },
+                   { modele: :category, card_types: :port_type, cards: [:composant, { ports: [{ connection: :cable }] }] },
                  ])
         .includes(bay: [:frames, { islet: :room }])
         .order("rooms.position asc, islets.name asc, bays.position asc, frames.position asc")
@@ -72,7 +72,7 @@ module Visualization
           { modele: %i[category composants],
             cards: [
               :composant,
-              { ports: [connection: [cable: :connections]],
+              { ports: [{ connection: [{ cable: :connections }] }],
                 card_type: [:port_type] },
             ] },
         ],
@@ -102,7 +102,7 @@ module Visualization
     def set_sites
       @sites = authorized_scope(Site.all)
         .joins(:rooms)
-        .includes(rooms: [bays: [:bay_type]])
+        .includes(rooms: [{ bays: [:bay_type] }])
         .order(:position)
         .distinct
     end

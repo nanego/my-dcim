@@ -59,13 +59,13 @@ module Visualization
 
     def set_frame
       authorize! @frame = Frame.includes(
-        bay: [islet: :room],
+        bay: [{ islet: :room }],
         servers: [
           :gestion, :cluster,
           { modele: %i[category composants],
             cards: [
               :composant,
-              { ports: [connection: [cable: :connections]],
+              { ports: [{ connection: [{ cable: :connections }] }],
                 card_type: :port_type },
             ] },
         ],
