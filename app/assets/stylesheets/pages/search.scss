@@ -1,0 +1,18 @@
+#search-index {
+  a {
+    &:not(:first-child) {
+     border-top-style: dashed;
+    }
+
+    &:not(:last-child) {
+      border-bottom-style: dashed;
+    }
+
+    &:focus {
+      z-index: 10;
+      outline-width: 1px !important;
+      outline-color: var(--bs-primary) !important;
+      outline-style: groove !important;
+    }
+  }
+}

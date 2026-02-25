@@ -2,15 +2,17 @@
   <%= form_with url: search_path,
                 method: :get,
                 local: true,
-                data: { turbo_frame: "search_results" },
+                data: { turbo_frame: "search-index" },
                 class: "d-flex" do |f| %>
     <div class="input-group">
-      <%= f.text_field :query, value: params[:query], class: "form-control border-primary",
+      <%= f.text_field :search_query,
+                       value: params[:search_query],
+                       class: "form-control border-primary",
                        type: "search",
                        placeholder: t("filters.placeholder.quicksearch") %>
 
       <%= f.button class: "btn btn-primary", type: "submit" do %>
-        <i class="bi bi-search"></i>
+        <span class="bi bi-search"></span>
       <% end %>
     </div>
   <% end %>
