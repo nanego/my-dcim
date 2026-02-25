@@ -463,7 +463,8 @@ fr:
         server:
           attributes:
             numero:
-              invalid: ne peut pas être identique à un nom de machine
+              taken: ne peut pas être identique à un nom de machine
+              invalid: ne peut pas contenir d'espace
 
         user:
           attributes:

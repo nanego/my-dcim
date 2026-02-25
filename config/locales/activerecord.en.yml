@@ -220,7 +220,8 @@ en:
         server:
           attributes:
             numero:
-              invalid: cannot be identical to an equipment name
+              taken: cannot be identical to an equipment name
+              invalid: cannot contain any spaces
 
         user:
           attributes:
