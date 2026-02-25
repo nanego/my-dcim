@@ -1,11 +1,11 @@
 <% breadcrumb.add_step(@architecture) %>
 
 <%= render Page::HeadingShowComponent.new(
-  resource: @architecture,
-  title: @architecture,
-  breadcrumb:,
-  editable: allowed_to?(:update?, @architecture)
-) %>
+      resource: @architecture,
+      title: @architecture,
+      breadcrumb:,
+      editable: allowed_to?(:update?, @architecture),
+    ) %>
 
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
@@ -25,11 +25,11 @@
     </div>
   </div>
   <%= render HasManyTurboFrameComponent.new(
-    Modele.model_name.human.pluralize,
-    url: modeles_path(architecture_ids: @architecture.id),
-    frame_id: dom_id(Modele, :table),
-    new_path: (new_modele_path(modele: { architecture_id: @architecture.id }) if allowed_to?(:create?, with: ModelePolicy)),
-    new_label: t("modeles.add_new")
-  ) %>
+        Modele.model_name.human.pluralize,
+        url: modeles_path(architecture_ids: @architecture.id),
+        frame_id: dom_id(Modele, :table),
+        new_path: (new_modele_path(modele: { architecture_id: @architecture.id }) if allowed_to?(:create?, with: ModelePolicy)),
+        new_label: t("modeles.add_new"),
+      ) %>
   <%= render ChangelogEntries::ObjectListComponent.new(@architecture) %>
 </div>

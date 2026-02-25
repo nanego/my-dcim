@@ -1,73 +1,82 @@
-<%= form_for(@frame, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+<%= form_for(@frame, html: { role: "form" }) do |f| %>
+  <%= render FormErrorsComponent.new(@frame) %>
+
   <%= redirect_to_on_success_hidden_field_tag(params[:redirect_to_on_success]) %>
 
-  <%= render FormErrorsComponent.new(@frame) %>
-  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("show.cards.identification") %>
-    <% end %>
+  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+    <div class="col">
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.identification") %>
+        <% end %>
 
-    <div class="row g-3">
-      <fieldset class="col-12">
-        <%= f.label :name, class: "form-label" %>
-        <%= f.text_field :name, class: "form-control" %>
-      </fieldset>
-    </div>
-  <% end %>
+        <div class="row g-3">
+          <fieldset class="col-12">
+            <%= f.label :name, class: "form-label" %>
+            <%= f.text_field :name, class: "form-control" %>
+          </fieldset>
+        </div>
+      <% end %>
 
-  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
-    <% card.with_header do %>
-      <%= t("show.cards.features") %>
-    <% end %>
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.features") %>
+        <% end %>
 
-    <div class="row g-3">
-      <fieldset class="col-md-6 col-12">
-        <%= f.label :u, class: "form-label" %>
-        <%= f.number_field :u, class: "form-control" %>
-      </fieldset>
+        <div class="row g-3">
+          <fieldset class="col-md-6 col-12">
+            <%= f.label :u, class: "form-label" %>
+            <%= f.number_field :u, class: "form-control" %>
+          </fieldset>
 
-      <fieldset class="col-md-6 col-12">
-        <%= f.label :width, class: "form-label" %>
-          <div class="input-group">
-            <%= f.number_field :width, step: :any, class: "form-control" %>
-            <span class="input-group-text"><%= t("unit.inches") %></span>
-          </div>
-      </fieldset>
+          <fieldset class="col-md-6 col-12">
+            <%= f.label :width, class: "form-label" %>
+              <div class="input-group">
+                <%= f.number_field :width, step: :any, class: "form-control" %>
+                <span class="input-group-text"><%= t("unit.inches") %></span>
+              </div>
+          </fieldset>
 
-      <fieldset class="col-12 mt-4">
-        <%= f.label :switch_slot, class: "form-label" %>
-        <%= f.number_field :switch_slot, class: "form-control" %>
-      </fieldset>
+          <fieldset class="col-12 mt-4">
+            <%= f.label :switch_slot, class: "form-label" %>
+            <%= f.number_field :switch_slot, class: "form-control" %>
+          </fieldset>
 
-      <% if @frame.persisted? && @frame.bay %>
-        <div class="col-12 mt-4">
-          <span class="form-label d-block"><%= t("frames.coupled_frame_label") %></span>
-          <%= f.object.other_frame.present? ? link_to(f.object.other_frame.name, frame_path(f.object.other_frame))
-                                              : tag.span(t("frames.no_coupled_frame"), class: "fst-italic") %>
+          <% if @frame.persisted? && @frame.bay %>
+            <div class="col-12 mt-4">
+              <span class="form-label d-block"><%= t("frames.coupled_frame_label") %></span>
+              <%= if f.object.other_frame.present?
+                    link_to(f.object.other_frame.name, frame_path(f.object.other_frame))
+                  else
+                    tag.span(t("frames.no_coupled_frame"), class: "fst-italic")
+                  end %>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>
-  <% end %>
 
-  <%= render CardComponent.new(type: :primary, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("layouts.sidebar.location.title") %>
-    <% end %>
+    <div class="col">
+      <%= render CardComponent.new(type: :primary, extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("layouts.sidebar.location.title") %>
+        <% end %>
 
-    <fieldset class="col-12">
-      <%= f.label :position, class: "form-label" %>
-      <%= f.number_field :position, class: "form-control" %>
-    </fieldset>
+        <fieldset class="col-12">
+          <%= f.label :position, class: "form-label" %>
+          <%= f.number_field :position, class: "form-control" %>
+        </fieldset>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :bay_id, class: "form-label" %>
-      <%= f.select :bay_id,
-                   options_from_collection_for_select(Bay.all, :id, :detailed_name, @frame.bay_id),
-                   { prompt: true },
-                   { class: "form-select", data: { controller: "select" }, placeholder: t("select.placeholder") }
-      %>
-    </fieldset>
-  <% end %>
+        <fieldset class="col-12 mt-4">
+          <%= f.label :bay_id, class: "form-label" %>
+          <%= f.select :bay_id,
+                       options_from_collection_for_select(Bay.all, :id, :detailed_name, @frame.bay_id),
+                       { prompt: true },
+                       { class: "form-select", data: { controller: "select" }, placeholder: t("select.placeholder") } %>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
 
   <%= render Form::ActionsComponent.new(f, display_create_another_one:) %>
 <% end %>

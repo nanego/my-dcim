@@ -1,18 +1,29 @@
-<div class="nested-form-wrapper contact_assignment-fields mt-3 border-top pt-3" data-new-record="<%= f.object.new_record? %>">
+<div class="nested-form-wrapper contact_assignment-fields border-top mt-md-3 mt-lg-0 mt-xxl-3 pt-3"
+     data-new-record="<%= f.object.new_record? %>">
   <div class="row align-items-center">
-    <fieldset class="col-12 col-md-7">
-      <%= f.label :contact_id, ContactAssignment.human_attribute_name(:contact_id), class: "form-label col-form-label-sm p-0 d-md-none" %>
-      <%= f.select :contact_id, Contact.all.map{ |c| [c.to_s, c.id] }, { prompt: true }, class: "form-select" %>
+    <fieldset class="col-12 col-md-6 col-lg-12 col-xxl-7">
+      <%= f.label :contact_id,
+                  ContactAssignment.human_attribute_name(:contact_id),
+                  class: "form-label p-0 d-md-none d-lg-block d-xxl-none" %>
+      <%= f.select :contact_id, Contact.all.map { |c| [c.to_s, c.id] }, { prompt: true }, class: "form-select" %>
     </fieldset>
-    <fieldset class="col-10 col-md-4">
-      <%= f.label :contact_role_id, ContactAssignment.human_attribute_name(:contact_role_id), class: "form-label col-form-label-sm p-0 d-md-none" %>
-      <%= f.select :contact_role_id, ContactRole.all.map{ |cr| [cr.to_s, cr.id] }, { prompt: true }, class: "form-select" %>
+    <fieldset class="col-10 col-md-5 col-lg-10 col-xxl-4 mt-4 mt-md-0 mt-lg-4 mt-xxl-0">
+      <%= f.label :contact_role_id,
+                  ContactAssignment.human_attribute_name(:contact_role_id),
+                  class: "form-label p-0 d-md-none d-lg-block d-xxl-none" %>
+      <%= f.select :contact_role_id,
+                   ContactRole.all.map { |cr| [cr.to_s, cr.id] },
+                   { prompt: true },
+                   class: "form-select" %>
     </fieldset>
 
-    <span class="col-2 col-md-1 d-flex align-self-end align-self-md-center">
+    <span class="col-2 col-md-1 col-lg-2 col-xxl-1 d-flex align-self-end align-self-md-center align-self-lg-end align-self-xxl-center">
       <%= f.hidden_field :_destroy %>
 
-      <button type="button" data-action="nested-form#remove" title="<%= t("action.delete") %>" class="btn btn-danger btn-sm ms-auto">
+      <button type="button"
+              data-action="nested-form#remove"
+              title="<%= t("action.delete") %>"
+              class="btn btn-danger btn-sm ms-auto">
         <span class="bi bi-trash"></span>
       </button>
     </span>
