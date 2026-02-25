@@ -27,9 +27,19 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_resource
 
+  def redirect_back_to_param_or(fallback_location, allow_other_host: _allow_other_host, **)
+    if params[:back_to].presence && (allow_other_host || _url_host_allowed?(params[:back_to]))
+      redirect_to(params[:back_to], allow_other_host: allow_other_host, **)
+    else
+      # The method level `allow_other_host` doesn't apply in the fallback case, omit
+      # and let the `redirect_to` handling take over.
+      redirect_to(fallback_location, **)
+    end
+  end
+
   def self.destroy_confirmation(only: :destroy)
     before_action only: do
-      params[:return_to] ||= request.referer
+      params[:back_to] ||= request.referer
       render unless params[:confirm] == "true"
     end
   end
