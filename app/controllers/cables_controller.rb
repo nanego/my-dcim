@@ -33,9 +33,7 @@ class CablesController < ApplicationController
 
     respond_to do |format|
       format.html do
-        # TODO: create helper
-        return_to = params[:return_to] || cables_path
-        redirect_to return_to, notice: t(".flashes.destroyed")
+        redirect_back_to_param_or cables_path, notice: t(".flashes.destroyed")
       end
 
       format.js { render "connections/update" }
