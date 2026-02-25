@@ -1,133 +1,150 @@
-<%= form_for(@air_conditioner, html: { class: "air-conditioner-form col-12 col-md-10 col-lg-8 mx-auto",
-                                       role: "form" }) do |f| %>
+<%= form_for(@air_conditioner, html: { class: "air-conditioner-form", role: "form" }) do |f| %>
   <%= render FormErrorsComponent.new(@air_conditioner) %>
 
-  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("show.cards.identification") %>
-    <% end %>
+  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+    <div class="col">
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.identification") %>
+        <% end %>
 
-    <fieldset class="col-12">
-      <%= f.label :name, class: "form-label" %>
-      <%= f.text_field :name, class: "form-control" %>
-    </fieldset>
-  <% end %>
+        <fieldset class="col-12">
+          <%= f.label :name, class: "form-label" %>
+          <%= f.text_field :name, class: "form-control" %>
+        </fieldset>
+      <% end %>
 
-  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
-    <% card.with_header do %>
-      <%= t("show.cards.features") %>
-    <% end %>
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.features") %>
+        <% end %>
 
-    <fieldset class="col-12">
-      <%= f.label :air_conditioner_model_id, class: "form-label" %>
-      <%= f.select :air_conditioner_model_id,
-                    options_from_collection_for_select(AirConditionerModel.all, :id, :name, @air_conditioner.air_conditioner_model_id),
-                    {},
-                    class: "form-select" %>
-    </fieldset>
+        <fieldset class="col-12">
+          <%= f.label :air_conditioner_model_id, class: "form-label" %>
+          <%= f.select :air_conditioner_model_id,
+                       options_from_collection_for_select(
+                         AirConditionerModel.all,
+                         :id,
+                         :name,
+                         @air_conditioner.air_conditioner_model_id,
+                       ),
+                       {},
+                       class: "form-select" %>
+        </fieldset>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :status, class: "form-label" %>
-      <%= f.select :status,
-                    options_for_select(AirConditioner.statuses.values.map { |status| [t(".status-#{status}"), status] }, @air_conditioner.status),
-                    {},
-                    class: "form-select" %>
-    </fieldset>
+        <fieldset class="col-12 mt-4">
+          <%= f.label :status, class: "form-label" %>
+          <%= f.select :status,
+                       options_for_select(
+                         AirConditioner.statuses.values.map { |status| [t(".status-#{status}"), status] },
+                         @air_conditioner.status,
+                       ),
+                       {},
+                       class: "form-select" %>
+        </fieldset>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :last_service, class: "form-label" %>
-      <%= f.date_field :last_service, class: "form-control" %>
-    </fieldset>
+        <fieldset class="col-12 mt-4">
+          <%= f.label :last_service, class: "form-label" %>
+          <%= f.date_field :last_service, class: "form-control" %>
+        </fieldset>
 
-    <div class="col-12 mt-4">
-      <fieldset class="form-check">
-        <%= f.check_box :lift_pump, class: "form-check-input" %>
-        <%= f.label :lift_pump, class: "form-check-label" %>
-      </fieldset>
+        <div class="col-12 mt-4">
+          <fieldset class="form-check">
+            <%= f.check_box :lift_pump, class: "form-check-input" %>
+            <%= f.label :lift_pump, class: "form-check-label" %>
+          </fieldset>
+        </div>
+      <% end %>
     </div>
-  <% end %>
 
-  <%= render CardComponent.new(type: :primary, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("layouts.sidebar.location.title") %>
-    <% end %>
+    <div class="col">
+      <%= render CardComponent.new(type: :primary, extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("layouts.sidebar.location.title") %>
+        <% end %>
 
-    <fieldset>
-      <%= f.label :bay_id, class: "form-label" %>
-      <%= f.select :bay_id,
-                    options_from_collection_for_select(
-                      Bay.sorted_by_room, :id, :detailed_name, @air_conditioner.bay_id
-                    ),
-                    { prompt: true },
-                    { class: "form-select", data: { controller: "select" }, placeholder: t("select.placeholder") } %>
-    </fieldset>
+        <fieldset>
+          <%= f.label :bay_id, class: "form-label" %>
+          <%= f.select :bay_id,
+                       options_from_collection_for_select(
+                         Bay.sorted_by_room, :id, :detailed_name, @air_conditioner.bay_id,
+                       ),
+                       { prompt: true },
+                       { class: "form-select", data: { controller: "select" }, placeholder: t("select.placeholder") } %>
+        </fieldset>
 
-    <fieldset class="mt-4">
-      <%= f.label :position, class: "form-label" %>
-      <%= f.select :position,
-                    options_for_select(
-                      AirConditioner.positions.values.map { |position| [t(".#{position}"), position] },
-                      @air_conditioner.position
-                    ),
-                    {},
-                    class: "form-select" %>
-    </fieldset>
-  <% end %>
+        <fieldset class="mt-4">
+          <%= f.label :position, class: "form-label" %>
+          <%= f.select :position,
+                       options_for_select(
+                         AirConditioner.positions.values.map { |position| [t(".#{position}"), position] },
+                         @air_conditioner.position,
+                       ),
+                       {},
+                       class: "form-select" %>
+        </fieldset>
+      <% end %>
 
-  <%= render CardComponent.new(extra_classes: "mt-4 bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("air_conditioners.temperatures") %>
-    <% end %>
+      <%= render CardComponent.new(extra_classes: "mt-4 bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("air_conditioners.temperatures") %>
+        <% end %>
 
-    <fieldset>
-      <%= f.label :setpoint, class: "form-label" %>
-      <span class="form-text"><%= t(".help-setpoint") %></span>
+        <fieldset>
+          <%= f.label :setpoint, class: "form-label" %>
+          <span class="form-text"><%= t(".help-setpoint") %></span>
 
-      <div class="row gy-2">
-        <div class="col-12 col-sm-6 col-xxl-4">
-          <div class="input-group">
-            <span class="input-group-text"><%= t('.day') %></span>
-            <%= f.number_field :setpoint, class: "form-control", title: t('.info-setpoint'), in: 0..50, step: 1 %>
-            <span class="input-group-text">°C</span>
+          <div class="row gy-2">
+            <div class="col-12 col-sm-6 col-xxl-4">
+              <div class="input-group">
+                <span class="input-group-text"><%= t(".day") %></span>
+                <%= f.number_field :setpoint, class: "form-control", title: t(".info-setpoint"), in: 0..50, step: 1 %>
+                <span class="input-group-text">°C</span>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-xxl-4">
+              <div class="input-group">
+                <span class="input-group-text"><%= t(".night") %></span>
+                <%= f.number_field :min_setpoint,
+                                   class: "form-control",
+                                   title: t(".info-min-setpoint"),
+                                   in: 0..50,
+                                   step: 1 %>
+                <span class="input-group-text">°C</span>
+              </div>
+            </div>
           </div>
-        </div>
+        </fieldset>
 
-        <div class="col-12 col-sm-6 col-xxl-4">
-          <div class="input-group">
-            <span class="input-group-text"><%= t('.night') %></span>
-            <%= f.number_field :min_setpoint, class: "form-control", title: t('.info-min-setpoint'), in: 0..50, step: 1 %>
-            <span class="input-group-text">°C</span>
+        <fieldset class="mt-4">
+          <%= f.label :start, class: "form-label" %>
+          <span class="form-text"><%= t(".help-start") %></span>
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="input-group">
+              <%= f.number_field :start, class: "form-control", title: t(".info-start"), in: 0..20, step: 1 %>
+              <span class="input-group-text">°C</span>
+            </div>
           </div>
-        </div>
-      </div>
-    </fieldset>
+        </fieldset>
 
-    <fieldset class="mt-4">
-      <%= f.label :start, class: "form-label" %>
-      <span class="form-text"><%= t(".help-start") %></span>
-      <div class="col-12 col-sm-6 col-xl-3">
-        <div class="input-group">
-          <%= f.number_field :start, class: "form-control", title: t('.info-start'), in: 0..20, step: 1 %>
-          <span class="input-group-text">°C</span>
-        </div>
-      </div>
-    </fieldset>
+        <fieldset class="mt-4">
+          <%= f.label :range, class: "form-label" %>
+          <span class="form-text"><%= t(".help-range") %></span>
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="input-group">
+              <%= f.number_field :range, class: "form-control", title: t(".info-range"), in: 0..20, step: 1 %>
+              <span class="input-group-text">°C</span>
+            </div>
+          </div>
+        </fieldset>
 
-    <fieldset class="mt-4">
-      <%= f.label :range, class: "form-label" %>
-      <span class="form-text"><%= t(".help-range") %></span>
-      <div class="col-12 col-sm-6 col-xl-3">
-        <div class="input-group">
-          <%= f.number_field :range, class: "form-control", title: t('.info-range'), in: 0..20, step: 1 %>
-          <span class="input-group-text">°C</span>
+        <div class="alert alert-info mt-4 mb-0" role="alert">
+          <%= simple_format t(".info-temperatures") %>
         </div>
-      </div>
-    </fieldset>
-
-    <div class="alert alert-info mt-4 mb-0" role="alert">
-      <%= simple_format t('.info-temperatures') %>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 
   <%= render Form::ActionsComponent.new(f, display_create_another_one:) %>
 <% end %>

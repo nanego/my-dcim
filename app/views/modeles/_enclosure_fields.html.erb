@@ -1,4 +1,4 @@
-<div class="nested-form-wrapper col-12 col-md-6 col-xxl-4"
+<div class="nested-form-wrapper col-12 col-md-6 col-lg-12 col-xxl-6"
      data-new-record="<%= f.object.new_record? %>">
   <div class="card enclosure-fields">
     <div class="card-header d-flex justify-content-between align-items-center">
@@ -18,16 +18,18 @@
     <div data-controller="nested-form" data-nested-form-child-index-name-value="<%= child_index %>">
       <template data-nested-form-target="template">
         <%= f.fields_for :composants, f.object.composants.ordered.slots.klass.new,
-                                      child_index: child_index do |composant_fields| %>
+                         child_index: child_index do |composant_fields| %>
           <%= render partial: "composant_fields", locals: { f: composant_fields } %>
         <% end %>
       </template>
 
       <div class="card-body">
-        <ul class="list-group bg-body-tertiary" data-controller="enclosure-fields" data-enclosure-fields-target="container">
+        <ul class="list-group bg-body-tertiary"
+            data-controller="enclosure-fields"
+            data-enclosure-fields-target="container">
           <li class="list-group-item bg-transparent filtered">
             <fieldset>
-              <%= f.label :display, class:"form-check-label" %>
+              <%= f.label :display, class: "form-check-label" %>
 
               <div class="btn-group btn-group-sm w-100 my-2"
                    role="group"
@@ -39,14 +41,13 @@
                                      class: "btn-check",
                                      data: {
                                        action: "change->enclosure-fields#displayValueChange",
-                                       "enclosure-fields-target": "displayRadioButton"
+                                       "enclosure-fields-target": "displayRadioButton",
                                      } %>
                   <%= f.label :display, value: display, class: "btn btn-outline-secondary" do %>
                     <i class="<%= class_names("bi",
                                               "bi-layout-three-columns": display == "vertical",
                                               "bi-layout-three-columns icon-rotated": display == "horizontal",
-                                              "bi-columns-gap": display == "grid"
-                    )%>"></i>
+                                              "bi-columns-gap": display == "grid") %>"></i>
                     <%= Enclosure.human_attribute_name("display.#{display}") %>
                   <% end %>
                 <% end %>
@@ -59,9 +60,7 @@
               <%= f.text_area :grid_areas, class: "font-monospace form-control", style: "height:110px;" %>
             </fieldset>
           </li>
-          <%
-            composants = f.object.composants.ordered
-          %>
+          <% composants = f.object.composants.ordered %>
           <%= f.fields_for :composants, composants do |composant_fields| %>
             <%= render partial: "composant_fields", locals: { f: composant_fields } %>
           <% end %>
