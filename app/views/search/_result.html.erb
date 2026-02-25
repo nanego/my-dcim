@@ -1,0 +1,66 @@
+<% link = if result.is_a?(Server)
+            if result.is_a_pdu?
+              power_distribution_unit_path(result)
+            else
+              server_path(result)
+            end
+          else
+            frame_path(result)
+          end %>
+
+<%= link_to link,
+            class: "list-group-item list-group-item-action d-flex align-items-center overflow-x-scroll",
+            data: {
+              turbo_frame: "_top",
+              search_results_target: "result",
+            } do %>
+  <span class="<%= class_names("bi fs-2 me-3",
+                               "text-info bi-hdd": result.is_a?(Server) && !result.is_a_pdu?,
+                               "text-warning bi-lightning-charge": result.is_a?(Server) && result.is_a_pdu?,
+                               "text-success bi-file-minus": !result.is_a?(Server)) %>">
+  </span>
+  <span class="d-inline-flex justify-content-between flex-grow-1 flex-column flex-md-row row-gap-3 align-items-md-center">
+    <span class="d-inline-flex flex-column align-items-start flex-grow-1">
+      <span class="d-flex align-items-center mb-2">
+        <h5 class="me-2 mb-0"><%= result.name %></h5>
+
+        <% if result.is_a?(Server) %>
+          <%= render BadgeComponent.new(color: :light, variant: :pill) do %>
+            <span class="fw-light text-body-secondary">
+              <span><%= Server.human_attribute_name(:numero_short) %></span>
+              <span class="font-monospace"><%= result.numero %></span>
+            </span>
+          <% end %>
+        <% end %>
+      </span>
+      <p class="small mb-0">
+        <% if result.is_a?(Server) %>
+          <% if result.is_a_pdu? %>
+            <%= result.modele&.name_with_brand %>
+          <% else %>
+            <%= [result.modele&.category, result.modele&.name_with_brand].compact.join(" ") %>
+          <% end %>
+        <% else %>
+          <%= result.islet.decorated.name_with_room %>
+        <% end %>
+      </p>
+    </span>
+    <span class="d-inline-flex flex-column flex-sm-row flex-md-column flex-lg-row column-gap-1 row-gap-2 flex-shrink-0 ms-md-4 align-items-start align-items-md-end">
+      <% if result.is_a?(Server) %>
+        <%= render BadgeComponent.new(color: :primary, variant: :pill) do %>
+          <span class="bi bi-geo-alt me-1"></span>
+          <span><%= result.decorated.full_location %></span>
+        <% end %>
+        <%= render BadgeComponent.new(color: :success, variant: :pill) do %>
+          <span class="bi bi-file-minus me-1"></span>
+          <span><%= result.is_a_pdu? ? result.frame : result.decorated.in_frame_location %></span>
+        <% end %>
+      <% else %>
+        <%= render BadgeComponent.new(color: :primary, variant: :pill) do %>
+          <span class="bi bi-geo-alt me-1"></span>
+          <span><%= result.room.name_with_site %></span>
+        <% end %>
+      <% end %>
+    </span>
+  </span>
+<% end %>
