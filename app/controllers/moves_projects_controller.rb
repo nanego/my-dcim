@@ -48,11 +48,11 @@ class MovesProjectsController < ApplicationController
       end
     rescue ActiveRecord::RecordNotDestroyed => e
       format.html do
-        flash.now[:alert] = "#{e.record.name} couldn't be destroyed"
+        flash.now[:alert] = t(".flashes.connot_destroy", moves_project: e.record.name)
         render :edit, status: :unprocessable_content
       end
 
-      format.json { render json: { steps: "#{e.record.name} couldn't be destroyed" }, status: :unprocessable_content }
+      format.json { render json: { steps: t(".flashes.connot_destroy", moves_project: e.record.name) }, status: :unprocessable_content }
     end
   end
 
