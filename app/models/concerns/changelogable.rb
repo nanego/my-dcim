@@ -76,10 +76,10 @@ module Changelogable
   def associations_attributes
     self.class._changelogable_association_names.to_h do |name, attributes|
       attributes = association(name).reflection.klass.attribute_names if attributes == "*"
+      attributes = attributes.map(&:to_sym) - self.class._changelogable_except_attributes
 
       values = public_send(name)
         .select(*attributes)
-        .except(*self.class._changelogable_except_attributes)
         .map { |r| attributes.index_with { |attribute| r.public_send(attribute) } }
 
       [name, values]
