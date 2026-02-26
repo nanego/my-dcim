@@ -6,12 +6,10 @@ class CablesController < ApplicationController
 
   def index
     if @server
-      @filter = ProcessorFilter.new(
-        @server.cables.includes(:cards, :port_types, ports: { server: { modele: :category } }),
-        params,
-      )
+      authorize! @cables = @server.cables.includes(:cards, :port_types, ports: { server: { modele: :category } })
 
-      authorize! @cables = @filter.results
+      @filter = ProcessorFilter.new(@cables, params)
+      @cables = @filter.results
     else
       authorize! @cables = scoped_cables.includes(connections: %i[port server card],
                                                   cards: [:card_type],
