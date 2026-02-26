@@ -42,6 +42,7 @@ RSpec.describe Server do
     it { is_expected.to validate_presence_of(:numero) }
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_uniqueness_of(:numero) }
+    it { is_expected.not_to allow_value("numero with space").for(:numero) }
   end
 
   describe ".friendly_find_by_numero_or_name" do

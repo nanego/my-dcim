@@ -32,6 +32,7 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_one_attached :photo
 
   validates :numero, presence: true, uniqueness: true
+  validates :numero, format: { without: /\s/ }
   validates :name, presence: true
   validate :numero_cannot_be_a_current_server_name
   validate :validate_network_types_values
@@ -156,7 +157,7 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
   def numero_cannot_be_a_current_server_name
     servers = Server.friendly.where(slug: numero.to_s.downcase) - [self]
 
-    errors.add(:numero, :invalid) if servers.present?
+    errors.add(:numero, :same_as_server_name) if servers.present?
   end
 
   def set_default_network_types
