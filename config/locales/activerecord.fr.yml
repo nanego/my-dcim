@@ -61,7 +61,8 @@ fr:
         name: Nom
         position: Position
         content: Contenu
-        display_on_home_page: Afficher sur la page d'accueil
+        display_on_home_page: Afficher sur l'accueil
+        display_on_home_page_short: Sur l'accueil ?
         site_id: Site
         status: Statut
         surface_area: Superficie
