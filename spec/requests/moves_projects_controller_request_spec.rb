@@ -182,6 +182,11 @@ RSpec.describe MovesProjectsController do
 
       it { expect(response).to have_http_status(:unprocessable_content) }
       it { expect(response).to render_template(:edit) }
+
+      it do
+        response
+        expect(request.flash[:alert]).not_to be_nil
+      end
     end
   end
 

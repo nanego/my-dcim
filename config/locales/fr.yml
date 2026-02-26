@@ -611,6 +611,7 @@ fr:
     update:
       flashes:
         updated: Le projet a été mis à jour.
+        connot_destroy: "%{moves_project} n'a pas pu être supprimé"
     destroy:
       title: Supprimer le projet
       flashes:
