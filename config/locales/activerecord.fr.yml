@@ -463,7 +463,7 @@ fr:
         server:
           attributes:
             numero:
-              same_as_server_name: ne peut pas être identique à un nom de machine
+              same_as_server_name: ne peut pas être identique à un nom d'équipement
               invalid: ne peut pas contenir d'espace
 
         user:
