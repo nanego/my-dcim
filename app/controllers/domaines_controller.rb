@@ -9,7 +9,8 @@ class DomainesController < ApplicationController
   # GET /domaines
   # GET /domaines.json
   def index
-    authorize! @domaines = sorted(scoped_domains.sorted)
+    @filter = ProcessorFilter.new(scoped_domains.sorted, params)
+    authorize! @domaines = @filter.results
   end
 
   # GET /domaines/1

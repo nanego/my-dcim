@@ -9,7 +9,8 @@ class GestionsController < ApplicationController
   # GET /gestions
   # GET /gestions.json
   def index
-    authorize! @gestions = sorted(Gestion.all)
+    @filter = ProcessorFilter.new(Gestion.all, params)
+    authorize! @gestions = @filter.results
   end
 
   # GET /gestions/1

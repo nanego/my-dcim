@@ -3,7 +3,7 @@
 class CablesProcessor < ApplicationProcessor
   include Sortable
 
-  SORTABLE_FIELDS = %w[special_case].freeze
+  SORTABLE_FIELDS = %w[special_case comments].freeze
 
   map :cable_name do |cable_name:|
     raw.where(name: cable_name)

@@ -126,4 +126,8 @@ RSpec.describe ChangelogEntriesProcessor do
     it { expect(result.size).to eq(1) }
     it { is_expected.to contain_exactly(correct_date_changelog_entry) }
   end
+
+  describe "when sorting" do
+    pending "TODO"
+  end
 end
