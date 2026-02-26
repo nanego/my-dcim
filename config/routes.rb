@@ -145,6 +145,12 @@ Rails.application.routes.draw do
        contacts contact_roles contact_assignments].each do |res|
       resource res, only: :destroy
     end
+
+    resource :servers do
+      member do
+        get :export_cables
+      end
+    end
   end
 
   namespace :users do

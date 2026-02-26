@@ -15,6 +15,13 @@ module Bulk
       end
     end
 
+    def export_cables
+      render ferrum_pdf: { scale: 1.2 },
+             layout: "pdf",
+             filename: "export-cables.pdf",
+             disposition: :inline
+    end
+
     private
 
     def scoped_servers

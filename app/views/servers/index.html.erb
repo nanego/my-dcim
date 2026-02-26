@@ -176,6 +176,19 @@
           <% end %>
         <% end %>
 
+        <% if allowed_to?(:export_cables?) %>
+          <% table.with_bulk_action(
+               url: export_cables_bulk_servers_path,
+               method: :get,
+               class: "btn btn-outline-primary btn-sm",
+              target: :_blank,
+                rel: :noopener,
+               data: {}
+             ) do %>
+            <span class="bi bi-file-earmark-pdf pe-none" title="<%= t("servers.show.export_cta_tooltip") %>"></span>
+          <% end %>
+        <% end %>
+
         <% table.with_column(Server.human_attribute_name(:name), name: :name, sort_by: :name) do |server| %>
           <%= link_to server.name, server_path(server), class: "fw-bold", data: { turbo_frame: :_top } %>
         <% end %>
