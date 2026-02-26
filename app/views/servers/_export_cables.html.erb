@@ -1,0 +1,43 @@
+<%# locals: (server:) -%>
+
+<div class="mb-5 text-center">
+  <p class="fs-1"><%= server.decorated.full_name %></p>
+  <p>
+    <%= render BadgeComponent.new(color: :light, variant: :pill) do %>
+      <span class="fw-light text-body-secondary">
+        <span><%= Server.human_attribute_name(:numero_short) %></span>
+        <span class="font-monospace"><%= server.numero %></span>
+      </span>
+    <% end %>
+    <%= render BadgeComponent.new(color: :light, variant: :pill) do %>
+      <span><%= server.modele %></span>
+    <% end %>
+  </p>
+  <p>
+    <%= render BadgeComponent.new(color: :primary, variant: :pill) do %>
+      <span class="bi bi-geo-alt me-1"></span>
+      <span><%= server.decorated.full_location %></span>
+    <% end %>
+    <%= render BadgeComponent.new(color: :success, variant: :pill) do %>
+      <span class="bi bi-file-minus me-1"></span>
+      <span><%= server.decorated.in_frame_location %></span>
+    <% end %>
+  </p>
+</div>
+
+<div class="d-flex flex-column gap-5">
+  <%= render partial: "servers/draw_server_compact", locals: { server: server } %>
+
+  <% unless server.cables.empty? %>
+    <%= render List::DataTableComponent.new(server.cables) do |table| %>
+      <% table.with_column("", v_align: :center, text_align: :center) do |cable| %>
+        <%= check_box_tag("") %>
+      <% end %>
+      <% table.with_column("", v_align: :baseline) do |cable| %>
+        <div class="cable-index-servers">
+          <%= render partial: "cables/draw", locals: { cable:, server: server } %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
