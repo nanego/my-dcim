@@ -157,7 +157,7 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
   def numero_cannot_be_a_current_server_name
     servers = Server.friendly.where(slug: numero.to_s.downcase) - [self]
 
-    errors.add(:numero, :taken) if servers.present?
+    errors.add(:numero, :same_as_server_name) if servers.present?
   end
 
   def set_default_network_types
