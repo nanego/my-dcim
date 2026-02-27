@@ -8,11 +8,11 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_changelog
 
   belongs_to :frame
-  belongs_to :modele, counter_cache: true
   belongs_to :gestion, optional: true, counter_cache: true
   belongs_to :domaine, optional: true, counter_cache: true
   belongs_to :cluster, optional: true, counter_cache: true
   belongs_to :stack, optional: true, counter_cache: true
+  belongs_to :modele, counter_cache: true
 
   has_one :bay, through: :frame
   has_one :islet, through: :frame
@@ -27,6 +27,7 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_many :cables, through: :connections
   has_many :moves, as: :moveable, dependent: :destroy
   has_many :documents, dependent: :restrict_with_error
+  # TODO: should be plural
   has_many :external_app_record, dependent: :destroy
 
   has_one_attached :photo

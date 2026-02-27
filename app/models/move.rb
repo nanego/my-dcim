@@ -46,6 +46,10 @@ class Move < ApplicationRecord
     end
   end
 
+  def to_s
+    "#{moves_project} - #{step} - #{moveable}"
+  end
+
   def status
     executed? ? :executed : :planned
   end
