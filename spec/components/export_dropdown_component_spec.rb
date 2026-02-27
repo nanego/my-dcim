@@ -11,8 +11,8 @@ RSpec.describe ExportDropdownComponent, type: :component do
     it "renders the component" do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component.to_html).to have_tag("div.dropdown") do
         with_tag("ul.dropdown-menu") do
-          with_tag("a[href=\"/?format=csv&param=filter\"]", count: 1)
-          with_tag("a[href=\"/?format=csv&page=1&param=filter\"]", count: 1)
+          with_tag("a", count: 1, with: { href: "/?format=csv&param=filter" })
+          with_tag("a", count: 1, with: { href: "/?format=csv&page=1&param=filter" })
         end
       end
     end
@@ -24,8 +24,8 @@ RSpec.describe ExportDropdownComponent, type: :component do
     it "renders the component" do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component.to_html).to have_tag("div.dropdown") do
         with_tag("ul.dropdown-menu") do
-          with_tag("a[href=\"/?format=csv&param=filter\"]", count: 1)
-          without_tag("a[href=\"/?format=csv&page=1&param=filter\"]")
+          with_tag("a", count: 1, with: { href: "/?format=csv&param=filter" })
+          without_tag("a", with: { href: "/?format=csv&page=1&param=filter" })
         end
       end
     end
