@@ -20,9 +20,9 @@
                 <li class="list-group-item d-flex align-items-center bg-body-tertiary">
                   <%= ff.label category.id, category.name %>
                   <%= ff.select category.id,
-                        options_for_select(CategoryDecorator.glpi_sync_options_for_select, category.glpi_sync),
-                        {},
-                        { class: "form-select ms-auto", style: "width: 180px;" } %>
+                                options_for_select(CategoryDecorator.glpi_sync_options_for_select, category.glpi_sync),
+                                {},
+                                { class: "form-select ms-auto", style: "width: 180px;" } %>
                 </li>
               <% end %>
           </ul>
