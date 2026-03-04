@@ -11,7 +11,7 @@ RSpec.describe CategoryDecorator, type: :decorator do
       expect(decorated_category.glpi_sync_human).to eq(Category.human_attribute_name(:server_glpi_sync))
     end
 
-    with "glpi_sync is equal to no" do
+    context "with glpi_sync is equal to no" do
       before { object.glpi_sync = "no" }
 
       it do
