@@ -4,6 +4,7 @@ fr:
       text: Permissions non configurées
       subtext_html: Contactez un <strong>administrateur</strong>.
 
+  n_a: n/c
   boolean:
     true: Oui
     false: Non

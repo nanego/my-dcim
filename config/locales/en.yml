@@ -354,6 +354,8 @@ en:
     flashes:
       archived: This project is archived
 
+  n_a: n/a
+
   port_types:
     destroy:
       title: Delete the port type
@@ -396,17 +398,6 @@ en:
     preview:
       modal_title: PDU %{pdu_name} preview
 
-  rooms:
-    edit_clusters_modal:
-      edit_clusters: Edit clusters
-    update:
-      flashes:
-        success: The room has successfully been updated
-    destroy:
-      title: Delete the room
-    add_new: Add a room
-    empty_overview: No bay to display
-
   permission_scopes:
     index:
       title: Permission Scope
@@ -430,6 +421,7 @@ en:
         destroyed: Permission Scope as been successfully destroyed.
     permission_scope_user_form:
       user_select: Select a user to add
+
   permission_scope_users:
     create:
       flashes:
@@ -437,6 +429,17 @@ en:
     destroy:
       flashes:
         destroyed: User has been remove from this Permission Scope.
+
+  rooms:
+    edit_clusters_modal:
+      edit_clusters: Edit clusters
+    update:
+      flashes:
+        success: The room has successfully been updated
+    destroy:
+      title: Delete the room
+    add_new: Add a room
+    empty_overview: No bay to display
 
   search:
     index:
