@@ -1,15 +1,15 @@
 <% port_nb = server.ports_per_type %>
 
 <div class="d-flex justify-content-between">
-  <span class="d-flex flex-column row-gap-2 align-items-start ps-3">
+  <span class="d-flex flex-column row-gap-1 align-items-start ps-3">
     <span class="server_name text-wrap">
       <%= link_to h(server.name),
                   server_path(server, view: params[:view]),
                   class: "link-underline-opacity-0 link-underline-opacity-100-hover link-body-emphasis" %>
     </span>
-
-    <span class="font-monospace fw-light text-body-secondary small"><%= server.numero %></span>
+    <span class="font-monospace fw-light text-black small"><%= server.numero %></span>
   </span>
+
   <span class="d-flex flex-row-reverse align-items-center flex-wrap">
     <% if port_nb["RJ"].positive? || port_nb["FC"].positive? || port_nb["IPMI"].positive? %>
       <span class="<%= class_names("badge rounded-0 ms-2 text-bg-info",
