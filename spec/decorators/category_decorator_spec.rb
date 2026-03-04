@@ -10,6 +10,15 @@ RSpec.describe CategoryDecorator, type: :decorator do
     it do
       expect(decorated_category.glpi_sync_human).to eq(Category.human_attribute_name(:server_glpi_sync))
     end
+
+    with "glpi_sync is equal to no" do
+      before { object.glpi_sync = "no" }
+
+      it do
+        expect(decorated_category.glpi_sync_human)
+          .to have_tag("span.fst-italic.fw-light.text-body-secondary", text: "n/c")
+      end
+    end
   end
 
   describe ".glpi_sync_human_for" do
