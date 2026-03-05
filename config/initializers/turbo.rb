@@ -6,5 +6,7 @@ if Rails.env.development?
     # config.hotwire.spark.html_extensions += %w[ruby]
     config.hotwire.spark.html_paths += %w[app/components app/decorators]
     config.hotwire.spark.css_extensions += %w[scss]
+
+    config.hotwire.spark.enabled = false
   end
 end

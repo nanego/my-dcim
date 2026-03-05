@@ -165,6 +165,17 @@
   <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance }) do %>
     <div class="d-flex flex-column row-gap-4">
       <%= render List::DataTableComponent.new(@servers, columns_to_display: @columns_preferences.preferred) do |table| %>
+        <% if allowed_to?(:pdf_export?) %>
+          <% table.with_bulk_action(
+               url: pdf_export_bulk_servers_path,
+               method: :get,
+               class: "btn btn-outline-primary btn-sm",
+               data: { turbo_frame: :_top }
+             ) do %>
+            <span class="bi bi-file-earmark-pdf pe-none" title="<%= t("servers.show.export_cta_tooltip") %>"></span>
+          <% end %>
+        <% end %>
+
         <% if allowed_to?(:destroy?) %>
           <% table.with_bulk_action(
                url: bulk_servers_path,
@@ -269,8 +280,8 @@
 
         <% table.with_column(text_align: :center, style: "min-width: 100px; width: 100px") do |server| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <% if allowed_to?(:export_cables?, server) %>
-              <%= link_to export_cables_server_path(server),
+            <% if allowed_to?(:pdf_export?, server) %>
+              <%= link_to pdf_export_server_path(server),
                           class: "btn btn-outline-primary",
                           title: t("servers.show.export_cta_tooltip"),
                           target: :_blank,

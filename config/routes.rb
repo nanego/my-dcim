@@ -68,7 +68,7 @@ Rails.application.routes.draw do
 
     member do
       get :duplicate
-      get :export_cables
+      get :pdf_export
     end
 
     resources :cables, only: :index
@@ -144,6 +144,12 @@ Rails.application.routes.draw do
        architectures manufacturers stacks card_types port_types domaines gestions clusters colors cables
        contacts contact_roles contact_assignments].each do |res|
       resource res, only: :destroy
+    end
+
+    resource :servers do
+      member do
+        get :pdf_export
+      end
     end
   end
 
