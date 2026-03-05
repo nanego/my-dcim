@@ -55,7 +55,7 @@ module List
                 concat(tag.span(" #{t(".bulk.selected_elements")}"))
               end)
 
-              concat(tag.span(class:"d-inline-flex column-gap-1") do
+              concat(tag.span(class: "d-inline-flex column-gap-1") do
                 bulk_actions.each do |bulk_action|
                   concat(bulk_action)
                 end

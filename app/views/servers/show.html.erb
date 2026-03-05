@@ -87,10 +87,10 @@
 <div class="col-12 p-4 tab-content" id="serverShowTabsContent">
   <div class="tab-pane fade show active" id="details-tab-pane" role="tabpanel" aria-labelledby="details-tab" tabindex="0">
     <div class="mb-4">
-      <% bgModeleColor = define_background_color(server: @server, mode: params["bg"]) %>
+      <% bg_modele_color = define_background_color(server: @server, mode: params["bg"]) %>
       <div class="<%= class_names("rounded-top-1 border border-secondary-subtle p-2 mb-2",
-                                  colorized_background: bgModeleColor.present?) %>"
-            style="background-color:<%= bgModeleColor %> !important;">
+                                  colorized_background: bg_modele_color.present?) %>"
+            style="background-color:<%= bg_modele_color %> !important;">
         <%= render partial: "draw_server_compact_front", locals: { server: @server } %>
       </div>
 

@@ -170,7 +170,7 @@
                url: pdf_export_bulk_servers_path,
                method: :get,
                class: "btn btn-outline-primary btn-sm",
-               data: { turbo_frame: :_top }
+               data: { turbo_frame: :_top },
              ) do %>
             <span class="bi bi-file-earmark-pdf pe-none" title="<%= t("servers.show.export_cta_tooltip") %>"></span>
           <% end %>
@@ -290,7 +290,7 @@
                             aria_label: t("servers.show.export_cta_tooltip"),
                             bs_trigger: "hover",
                             controller: "tooltip",
-                            bs_placement: "left"
+                            bs_placement: "left",
                           } do %>
                 <span class="bi bi-file-earmark-pdf"></span>
               <% end %>
