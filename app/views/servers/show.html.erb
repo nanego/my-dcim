@@ -10,8 +10,8 @@
       editable: allowed_to?(:update?, @server),
     ) do |heading| %>
   <% heading.with_extra_buttons do %>
-    <% if allowed_to?(:export_cables?, @server) %>
-      <%= link_to export_cables_server_path(@server),
+    <% if allowed_to?(:pdf_export?, @server) %>
+      <%= link_to pdf_export_server_path(@server),
                   class: "btn btn-outline-primary me-2 d-flex align-items-center",
                   title: t(".export_cta_tooltip"),
                   target: :_blank,

@@ -55,9 +55,11 @@ module List
                 concat(tag.span(" #{t(".bulk.selected_elements")}"))
               end)
 
-              bulk_actions.each do |bulk_action|
-                concat(bulk_action)
-              end
+              concat(tag.span(class:"d-inline-flex column-gap-1") do
+                bulk_actions.each do |bulk_action|
+                  concat(bulk_action)
+                end
+              end)
             end)
           end)
         end)
@@ -148,6 +150,7 @@ module List
           bulk_actions_confirm_param: confirm,
           action: "bulk-actions#submit",
         }
+
         @options[:data] = data.merge(options[:data]) do |key, a, b|
           case key
           when :action
