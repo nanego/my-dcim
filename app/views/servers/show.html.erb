@@ -10,8 +10,8 @@
       editable: allowed_to?(:update?, @server),
     ) do |heading| %>
   <% heading.with_extra_buttons do %>
-    <% if allowed_to?(:export_cables?, @server) %>
-      <%= link_to export_cables_server_path(@server),
+    <% if allowed_to?(:pdf_export?, @server) %>
+      <%= link_to pdf_export_server_path(@server),
                   class: "btn btn-outline-primary me-2 d-flex align-items-center",
                   title: t(".export_cta_tooltip"),
                   target: :_blank,
@@ -87,10 +87,10 @@
 <div class="col-12 p-4 tab-content" id="serverShowTabsContent">
   <div class="tab-pane fade show active" id="details-tab-pane" role="tabpanel" aria-labelledby="details-tab" tabindex="0">
     <div class="mb-4">
-      <% bgModeleColor = define_background_color(server: @server, mode: params["bg"]) %>
+      <% bg_modele_color = define_background_color(server: @server, mode: params["bg"]) %>
       <div class="<%= class_names("rounded-top-1 border border-secondary-subtle p-2 mb-2",
-                                  colorized_background: bgModeleColor.present?) %>"
-            style="background-color:<%= bgModeleColor %> !important;">
+                                  colorized_background: bg_modele_color.present?) %>"
+            style="background-color:<%= bg_modele_color %> !important;">
         <%= render partial: "draw_server_compact_front", locals: { server: @server } %>
       </div>
 

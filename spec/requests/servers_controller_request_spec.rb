@@ -297,11 +297,11 @@ RSpec.describe ServersController do
     end
   end
 
-  describe "GET #export_cables" do
-    before { get export_cables_server_path(server) }
+  describe "GET #pdf_export" do
+    before { get pdf_export_server_path(server) }
 
     it { expect(response).to have_http_status(:success) }
-    it { expect(response).to render_template(:export_cables) }
+    it { expect(response).to render_template(:pdf_export) }
     it { expect(response).to render_template("layouts/pdf") }
     it { expect(response.headers["Content-Type"]).to eq("application/pdf") }
   end

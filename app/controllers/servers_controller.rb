@@ -11,8 +11,8 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
 
   columns_preferences_with model: Server, default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS, only: %i[index export]
 
-  before_action :set_server, only: %i[show edit update destroy export_cables]
-  before_action except: %i[index export_cables export] do
+  before_action :set_server, only: %i[show edit update destroy pdf_export]
+  before_action except: %i[index pdf_export export] do
     breadcrumb.add_step(Server.model_name.human, servers_path)
   end
 
@@ -152,7 +152,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
     end
   end
 
-  def export_cables
+  def pdf_export
     @servers_per_frames = {}
     sort_order = frames_sort_order(:back, @server.bay.lane)
 
@@ -174,7 +174,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
 
     render ferrum_pdf: { scale: 1.2 },
            layout: "pdf",
-           filename: "export-cables_#{@server.friendly_id}.pdf",
+           filename: "export-cableur_#{@server.friendly_id}.pdf",
            disposition: :inline
   end
 
