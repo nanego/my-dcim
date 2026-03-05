@@ -20,6 +20,28 @@ RSpec.describe MovesProject do
     it { is_expected.to validate_presence_of(:name) }
   end
 
+  describe "#save" do
+    let(:moves_project) { moves_projects(:with_steps) }
+
+    it :aggregate_failures do
+      moves_project.assign_attributes(steps_attributes: { id: moves_project.steps[0].id, _destroy: 1 })
+      moves_project.save
+      moves_project.reload
+
+      # expect(moves_project.valid?).to be(false)
+      expect(moves_project.errors.key?(:base)).to be(true)
+      expect(moves_project.errors.where(:base, :steps_cannot_be_destroyed).count).to eq(1)
+    end
+
+    it do
+      expect do
+        moves_project.assign_attributes(steps_attributes: { id: moves_project.steps[0].id, _destroy: 1 })
+        moves_project.save
+        moves_project.reload
+      end.not_to raise_error(ActiveRecord::RecordNotDestroyed)
+    end
+  end
+
   describe "#to_s" do
     it { expect(move_project.to_s).to eq("A") }
   end

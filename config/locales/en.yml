@@ -335,7 +335,6 @@ en:
     update:
       flashes:
         updated: The project has been updated.
-        connot_destroy: "%{moves_project} couldn't be destroyed"
     destroy:
       title: Delete this project
       flashes:
