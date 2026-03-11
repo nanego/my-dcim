@@ -28,8 +28,6 @@ RSpec.describe MovesProject do
       moves_project.save
       moves_project.reload
 
-      # expect(moves_project.valid?).to be(false)
-      expect(moves_project.errors.key?(:base)).to be(true)
       expect(moves_project.errors.where(:base, :steps_cannot_be_destroyed).count).to eq(1)
     end
 
