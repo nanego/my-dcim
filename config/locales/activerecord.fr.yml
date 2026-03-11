@@ -460,6 +460,9 @@ fr:
             moveable_id:
               taken: a déjà un déplacement de prévu dans cette étape
 
+        moves_project:
+          steps_cannot_be_destroyed: Les étapes avec des déplacements ne peuvent être supprimées
+
         server:
           attributes:
             numero:

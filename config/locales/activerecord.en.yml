@@ -217,6 +217,9 @@ en:
             moveable_id:
               taken: already has a move planned for this step
 
+        moves_project:
+          steps_cannot_be_destroyed: Steps with moves can't be deleted
+
         server:
           attributes:
             numero:
