@@ -17,7 +17,13 @@ RSpec.describe StacksController do
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
     it { expect(response.body).to include(stack.name) }
+
     it { expect { response }.to have_rubanok_processed(Stack.all).with(StacksProcessor) }
+
+    it do
+      response
+      expect(assigns(:stacks)).not_to be_nil
+    end
   end
 
   describe "GET #show" do
