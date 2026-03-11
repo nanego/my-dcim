@@ -3,6 +3,21 @@
 require "rails_helper"
 
 RSpec.describe ColorsController do
+  describe "GET #index" do
+    subject(:response) do
+      get colors_path
+
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated user"
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:index) }
+
+    it { expect { response }.to have_rubanok_processed(Color.all).with(ColorsProcessor) }
+  end
+
   describe "GET #new" do
     subject(:response) do
       get new_color_path

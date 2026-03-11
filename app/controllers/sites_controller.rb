@@ -7,7 +7,8 @@ class SitesController < ApplicationController
   end
 
   def index
-    authorize! @sites = sorted(scoped_sites.sorted)
+    @filter = ProcessorFilter.new(scoped_sites.sorted, params)
+    authorize! @sites = @filter.results
   end
 
   def show; end

@@ -15,9 +15,11 @@ RSpec.describe SitesController do
 
     before { sign_in users(:admin) }
 
-    it { expect { response }.to have_authorized_scope(:active_record_relation).with(SitePolicy) }
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
+
+    it { expect { response }.to have_authorized_scope(:active_record_relation).with(SitePolicy) }
+    it { expect { response }.to have_rubanok_processed(Site.all).with(SitesProcessor) }
 
     it do
       response

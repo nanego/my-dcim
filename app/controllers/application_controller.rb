@@ -39,16 +39,6 @@ class ApplicationController < ActionController::Base
     stored_location_for(resource) || root_path
   end
 
-  # TODO: remove when fully moved in processor
-  def sorted(collection)
-    direction = %w[asc desc].include?(params[:sort]) ? params[:sort] : "desc"
-    column = params[:sort_by]
-
-    return collection unless column
-
-    collection.reorder(column => direction)
-  end
-
   def breadcrumb
     @breadcrumb ||= Breadcrumb.new do |b|
       b.root("Gestion de salle #{Rails.env.development? ? "(dev)" : "DCIM"}")
