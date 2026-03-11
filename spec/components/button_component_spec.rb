@@ -10,7 +10,7 @@ RSpec.describe ButtonComponent, type: :component do
 
   context "with title and url" do
     it do
-      expect(rendered_component).to have_tag("a.btn-default.btn-default", href: "/url", title: "Title") do
+      expect(rendered_component).to have_tag("a.btn-default.btn-default", with: { href: "/url", title: "Title" }) do
         without_tag("span.bi")
         with_tag("span:not(.d-none)", text: "Title", without: { class: "ms-2" })
       end
@@ -21,7 +21,7 @@ RSpec.describe ButtonComponent, type: :component do
     context "with existing variant" do
       let(:component) { described_class.new(title, url:, variant: :primary) }
 
-      it { expect(rendered_component).to have_tag("a.btn-default.btn-primary", href: "/url", title: "Title") }
+      it { expect(rendered_component).to have_tag("a.btn-default.btn-primary", with: { href: "/url", title: "Title" }) }
     end
 
     context "with non-existing variant" do
@@ -35,7 +35,7 @@ RSpec.describe ButtonComponent, type: :component do
     context "with existing size" do
       let(:component) { described_class.new(title, url:, size: :sm) }
 
-      it { expect(rendered_component).to have_tag("a.btn-default.btn-sm", href: "/url", title: "Title") }
+      it { expect(rendered_component).to have_tag("a.btn-default.btn-sm", with: { href: "/url", title: "Title" }) }
     end
 
     context "with non-existing size" do
@@ -49,8 +49,8 @@ RSpec.describe ButtonComponent, type: :component do
     let(:component) { described_class.new(title, url:, icon: "eye") }
 
     it do
-      expect(rendered_component).to have_tag("a.btn-default.btn-default", href: "/url", title: "Title") do
-        with_tag("span", text: "Title", with: { class: "ms-2" })
+      expect(rendered_component).to have_tag("a.btn-default.btn-default", with: { href: "/url", title: "Title" }) do
+        with_tag("span.ms-2", text: "Title")
         with_tag("span.bi-eye")
       end
     end
@@ -60,7 +60,7 @@ RSpec.describe ButtonComponent, type: :component do
     let(:component) { described_class.new(title, url:, is_responsive: true) }
 
     it do
-      expect(rendered_component).to have_tag("a.btn-default.btn-default", href: "/url", title: "Title") do
+      expect(rendered_component).to have_tag("a.btn-default.btn-default", with: { href: "/url", title: "Title" }) do
         with_tag("span.d-none", text: "Title", without: { class: "ms-2" })
       end
     end
@@ -70,7 +70,7 @@ RSpec.describe ButtonComponent, type: :component do
     let(:component) { described_class.new(title, url:, extra_classes: "extra_class") }
 
     it do
-      expect(rendered_component).to have_tag("a.btn-default.btn-default.extra_class", href: "/url", title: "Title")
+      expect(rendered_component).to have_tag("a.btn-default.btn-default.extra_class", with: { href: "/url", title: "Title" })
     end
   end
 
@@ -78,7 +78,7 @@ RSpec.describe ButtonComponent, type: :component do
     let(:component) { described_class.new(title, url:, method: :delete) }
 
     it do
-      expect(rendered_component).to have_tag("a.btn-default.btn-default[data-method='delete']", href: "/url")
+      expect(rendered_component).to have_tag("a.btn-default.btn-default", with: { href: "/url", "data-method": "delete" })
     end
   end
 
@@ -86,7 +86,7 @@ RSpec.describe ButtonComponent, type: :component do
     let(:component) { described_class.new(title, url:, data: { tooltip_title: "Tooltip title" }) }
 
     it do
-      expect(rendered_component).to have_tag("a.btn-default.btn-default", title: "Tooltip title")
+      expect(rendered_component).to have_tag("a.btn-default.btn-default", with: { title: "Tooltip title" })
     end
   end
 end

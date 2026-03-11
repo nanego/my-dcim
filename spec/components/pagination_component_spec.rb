@@ -14,7 +14,7 @@ RSpec.describe PaginationComponent, type: :component do
   it do # rubocop:disable RSpec/ExampleLength
     expect(rendered_component.to_html).to have_tag("div.pagination-component") do
       with_tag("nav.pagy-bootstrap")
-      with_tag("select#limit") do
+      with_tag("select", with: { id: "limit" }) do
         User::AVAILABLE_ITEMS_PER_PAGE.each do |item|
           with_tag("option", text: item)
         end

@@ -15,7 +15,7 @@ RSpec.describe Page::HeadingNewComponent, type: :component do
     it do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component).to have_tag("div.col-12.bg-body") do
         with_tag("div.back-button-container") do
-          with_tag("a.btn.back-button", title: "Retour", href: "http://test.host/sites") do
+          with_tag("a.btn.back-button", with: { title: "Retour", href: "/sites" }) do
             with_tag("span.bi-chevron-left")
             with_tag("span.ms-2", text: "Retour")
           end
@@ -34,7 +34,7 @@ RSpec.describe Page::HeadingNewComponent, type: :component do
     it do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component).to have_tag("div.col-12.bg-body") do
         with_tag("div.back-button-container") do
-          with_tag("a.btn.back-button", title: "Retour", href: "/bays") do
+          with_tag("a.btn.back-button", with: { title: "Retour", href: "/bays" }) do
             with_tag("span.bi-chevron-left")
             with_tag("span.ms-2", text: "Retour")
           end
