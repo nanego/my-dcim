@@ -28,7 +28,7 @@ class PermissionScopeUsersController < ApplicationController
     flash[:notice] = t(".flashes.destroyed") # rubocop:disable Rails/ActionControllerFlashBeforeRender
 
     respond_to do |format|
-      format.html { redirect_to permission_scope_path(@permission_scope), status: :see_other }
+      format.html { redirect_back_to_param_or permission_scope_path(@permission_scope), status: :see_other }
       format.turbo_stream { render status: :see_other }
     end
   end

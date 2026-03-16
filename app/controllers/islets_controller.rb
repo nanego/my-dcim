@@ -69,12 +69,12 @@ class IsletsController < ApplicationController
   def destroy
     if @islet.destroy
       respond_to do |format|
-        format.html { redirect_to islets_url, notice: t(".flashes.destroyed") }
+        format.html { redirect_back_to_param_or islets_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to islets_url, alert: @islet.errors.full_messages_for(:base).join(", ") }
+        format.html { redirect_back_to_param_or islets_url, alert: @islet.errors.full_messages_for(:base).join(", ") }
       end
     end
   end
