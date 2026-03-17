@@ -4,18 +4,18 @@ class CategoryDecorator < ApplicationDecorator
   include ActionView::Helpers::AssetTagHelper
 
   class << self
-    def glpi_sync_options_for_select
-      Category.glpi_syncs.keys.map { |key| [glpi_sync_human_for(key), key] }
+    def glpi_sync_type_options_for_select
+      Category.glpi_sync_types.keys.map { |key| [glpi_sync_type_human_for(key), key] }
     end
 
-    def glpi_sync_human_for(glpi_sync)
-      Category.human_attribute_name("#{glpi_sync}_glpi_sync")
+    def glpi_sync_type_human_for(glpi_sync_type)
+      Category.human_attribute_name("glpi_sync_type_#{glpi_sync_type}")
     end
   end
 
-  def glpi_sync_human
-    return tag.span(I18n.t("n_a"), class: "fst-italic fw-light text-body-secondary") if glpi_sync == "no"
+  def glpi_sync_type_human
+    return tag.span(I18n.t("n_a"), class: "fst-italic fw-light text-body-secondary") if glpi_sync_type == "none"
 
-    CategoryDecorator.glpi_sync_human_for glpi_sync
+    CategoryDecorator.glpi_sync_type_human_for glpi_sync_type
   end
 end
