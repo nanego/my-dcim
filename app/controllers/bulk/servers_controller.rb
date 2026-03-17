@@ -18,8 +18,7 @@ module Bulk
     def pdf_export
       render ferrum_pdf: { scale: 1.2 },
              layout: "pdf",
-             filename: "export-cableur.pdf",
-             disposition: :inline
+             filename: "export-cableur.pdf"
     end
 
     private
