@@ -219,10 +219,10 @@ en:
       category:
         name: Name
         description: Description
-        glpi_sync: GLPI synchronization type
-        no_glpi_sync: Nond
-        server_glpi_sync: Server
-        network_equipment_glpi_sync: Network equipment
+        glpi_sync_type: GLPI synchronization type
+        glpi_sync_type_none: Nond
+        glpi_sync_type_server: Server
+        glpi_sync_type_network_equipment_: Network equipment
         modeles: Models
         modeles_count:
           zero: 0 model

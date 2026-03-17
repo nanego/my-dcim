@@ -32,12 +32,11 @@
         <%= Category.human_attribute_name(:modeles_count, count: category.modeles_count) %>
       <% end %>
     <% end %>
-
-    <% table.with_column(Category.human_attribute_name(:glpi_sync),
-                         sort_by: :glpi_sync,
+    <% table.with_column(Category.human_attribute_name(:glpi_sync_type),
+                         sort_by: :glpi_sync_type,
                          text_align: :center,
                          style: "width: 240px") do |category| %>
-      <p><%= decorate(category).glpi_sync_human %></p>
+      <p><%= decorate(category).glpi_sync_type_human %></p>
     <% end %>
     <% table.with_column(style: "min-width: 70px; width: 70px") do |category| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">

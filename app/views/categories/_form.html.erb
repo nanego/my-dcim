@@ -21,11 +21,10 @@
         <% card.with_header do %>
           <%= t("show.cards.features") %>
         <% end %>
-
         <fieldset class="col-12">
-          <%= f.label :glpi_sync, class: "form-label" %>
-          <%= f.select :glpi_sync,
-                       CategoryDecorator.glpi_sync_options_for_select,
+          <%= f.label :glpi_sync_type, class: "form-label" %>
+          <%= f.select :glpi_sync_type,
+                       CategoryDecorator.glpi_sync_type_options_for_select,
                        class: "form-select"
               { data: { controller: :select } } %>
         </fieldset>
