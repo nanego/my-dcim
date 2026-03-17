@@ -5,7 +5,7 @@ one:
   name: MyString
   description: MyText
   modeles_count: 1 # Workaround since servers_count not calculated
-  glpi_sync: :server
+  glpi_sync_type: :server
 
 two:
   id: 2
