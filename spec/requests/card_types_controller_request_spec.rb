@@ -162,52 +162,47 @@ RSpec.describe CardTypesController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete card_type_path(card_type, confirm: true)
+      delete card_type_path(card_type, params:)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
+    let(:card_type) { card_types(:three) }
+    let(:params) { { confirm: true } }
+
     include_context "with authenticated admin"
 
     context "without confirm" do
-      subject(:response) do
-        delete card_type_path(card_type)
-        @response # rubocop:disable RSpec/InstanceVariable
-      end
+      let(:params) { {} }
 
-      it do
-        expect do
-          response
-        end.not_to change(CardType, :count)
-      end
-
+      it { expect { response }.not_to change(CardType, :count) }
       it { expect(response).to have_http_status(:success) }
       it { expect(CardType.exists?(card_type.id)).to be true }
     end
 
-    context "with an card_type without cards" do
+    context "with a card_type without cards" do
       let(:card_type) { card_types(:three) }
 
-      it do
-        expect do
-          response
-        end.to change(CardType, :count).by(-1)
-      end
-
+      it { expect { response }.to change(CardType, :count).by(-1) }
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(card_types_path) }
     end
 
     context "with an card_type with cards" do
-      it do
-        expect do
-          response
-        end.not_to change(CardType, :count)
-      end
+      let(:card_type) { card_types(:one) }
 
+      it { expect { response }.not_to change(CardType, :count) }
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(card_types_path) }
+    end
+
+    context "with an card_type and custom back_to" do
+      let(:params) { { confirm: true, back_to: "/some_path" } }
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to("/some_path") }
+      it { expect { response }.to change(CardType, :count).by(-1) }
     end
   end
 end

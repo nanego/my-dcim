@@ -245,45 +245,45 @@ RSpec.describe ServersController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete server_path(server, confirm:, params:)
+      delete server_path(server, params:)
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    let(:confirm) { nil }
-    let(:params) { {} }
-
-    include_context "with authenticated admin"
+    let(:server) { servers(:two) }
+    let(:params) { { confirm: true } }
 
     context "without confirm" do
-      let(:server) { server2 }
+      let(:params) { {} }
 
-      it do
-        expect { response }.not_to change(Server, :count)
-      end
-
+      it { expect { response }.not_to change(Server, :count) }
       it { expect(response).to have_http_status(:success) }
       it { expect(Server.exists?(server.id)).to be(true) }
     end
 
     context "with a server without association" do
-      let(:confirm) { true }
-      let(:server) { server2 }
-
       it { expect { response }.to change(Server, :count).by(-1) }
       it { expect(response).to redirect_to(servers_path) }
+    end
 
-      context "with parameters" do
-        let(:params) { { sort: "asc", sort_by: "rooms.name" } }
+    context "with a server without association and params" do
+      let(:params) { { confirm: true, sort: "asc", sort_by: "rooms.name" } }
 
-        it { expect(response).to redirect_to(servers_path({ sort: "asc", sort_by: "rooms.name" })) }
-      end
+      it { expect(response).to redirect_to(servers_path({ sort: "asc", sort_by: "rooms.name" })) }
     end
 
     context "with a server with association" do
-      let(:confirm) { true }
+      let(:server) { servers(:one) }
 
       it { expect { response }.not_to change(Server, :count) }
       it { expect(response).to redirect_to(servers_path) }
+    end
+
+    context "with custom back_to" do
+      let(:params) { { confirm: true, back_to: "/some_path" } }
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to("/some_path") }
+      it { expect { response }.to change(Server, :count).by(-1) }
     end
   end
 

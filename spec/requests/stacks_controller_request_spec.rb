@@ -149,52 +149,45 @@ RSpec.describe StacksController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete stack_path(stack, confirm: true)
+      delete stack_path(stack, params:)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
+    let(:stack) { stacks(:orange) }
+    let(:params) { { confirm: true } }
+
     include_context "with authenticated admin"
 
     context "without confirm" do
-      subject(:response) do
-        delete stack_path(stack)
-        @response # rubocop:disable RSpec/InstanceVariable
-      end
+      let(:params) { {} }
 
-      it do
-        expect do
-          response
-        end.not_to change(Stack, :count)
-      end
-
+      it { expect { response }.not_to change(Stack, :count) }
       it { expect(response).to have_http_status(:success) }
       it { expect(Stack.exists?(stack.id)).to be true }
     end
 
     context "with an stack without servers" do
-      let(:stack) { stacks(:orange) }
-
-      it do
-        expect do
-          response
-        end.to change(Stack, :count).by(-1)
-      end
-
+      it { expect { response }.to change(Stack, :count).by(-1) }
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(stacks_path) }
     end
 
     context "with an stack with servers" do
-      it do
-        expect do
-          response
-        end.not_to change(Stack, :count)
-      end
+      let(:stack) { stacks(:red) }
 
+      it { expect { response }.not_to change(Stack, :count) }
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(stacks_path) }
+    end
+
+    context "with custom back_to" do
+      let(:params) { { confirm: true, back_to: "/some_path" } }
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to("/some_path") }
+      it { expect { response }.to change(Stack, :count).by(-1) }
     end
   end
 end

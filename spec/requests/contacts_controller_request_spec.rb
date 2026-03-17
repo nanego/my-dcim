@@ -130,34 +130,31 @@ RSpec.describe ContactsController do
 
   describe "#destroy" do
     subject(:response) do
-      delete contact_path(contact, confirm: true)
+      delete contact_path(contact, params:)
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
+    let(:params) { { confirm: true } }
+
     context "without confirm" do
-      subject(:response) do
-        delete contact_path(contact)
-        @response # rubocop:disable RSpec/InstanceVariable
-      end
+      let(:params) { {} }
 
-      it do
-        expect do
-          response
-        end.not_to change(Contact, :count)
-      end
-
+      it { expect { response }.not_to change(Contact, :count) }
       it { expect(response).to have_http_status(:success) }
       it { expect(Contact.exists?(contact.id)).to be true }
     end
 
     context "with confirm" do
-      it "destroys the requested contact" do
-        expect { response }.to change(Contact, :count).by(-1)
-      end
+      it { expect { response }.to change(Contact, :count).by(-1) }
+      it { expect(response).to redirect_to(contacts_path) }
+    end
 
-      it "redirects to the contacts list" do
-        expect(response).to redirect_to(contacts_path)
-      end
+    context "with custom back_to" do
+      let(:params) { { confirm: true, back_to: "/some_path" } }
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to("/some_path") }
+      it { expect { response }.to change(Contact, :count).by(-1) }
     end
   end
 end
