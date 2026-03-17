@@ -31,4 +31,20 @@ RSpec.describe Bulk::ServersController do
       it { expect(response).to redirect_to(servers_path) }
     end
   end
+
+  describe "GET #pdf_export" do
+    subject(:response) do
+      get pdf_export_bulk_servers_path(ids:)
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:ids) { [servers(:two).id, servers(:four).id] }
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:pdf_export) }
+    it { expect(response).to render_template("layouts/pdf") }
+    it { expect(response.headers["Content-Type"]).to eq("application/pdf") }
+  end
 end
