@@ -247,10 +247,10 @@ fr:
       category:
         name: Nom
         description: Description
-        glpi_sync: Type de synchronisation GLPI
-        no_glpi_sync: Aucun
-        server_glpi_sync: Serveur
-        network_equipment_glpi_sync: Équipement réseau
+        _type: Type de synchronisation GLPI
+        glpi_sync_type_none: Aucun
+        glpi_sync_type_server: Serveur
+        glpi_sync_type_network_equipment: Équipement réseau
         modeles: Modèles
         modeles_count:
           zero: 0 modèle

@@ -14,17 +14,17 @@
         <%= t(".category_ids") %>
       <% end %>
       <fieldset class="col-12">
-        <%= f.fields_for :category_glpi_syncs do |ff| %>
+        <%= f.fields_for :category_glpi_sync_types do |ff| %>
           <ul class="list-group list-group-flush p-0">
-              <% Category.sorted.each do |category| %>
-                <li class="list-group-item d-flex align-items-center bg-body-tertiary">
-                  <%= ff.label category.id, category.name %>
-                  <%= ff.select category.id,
-                                options_for_select(CategoryDecorator.glpi_sync_options_for_select, category.glpi_sync),
+            <% Category.sorted.each do |category| %>
+              <li class="list-group-item d-flex align-items-center bg-body-tertiary">
+                <%= ff.label category.id, category.name %>
+                <%= ff.select category.id,
+                                options_for_select(CategoryDecorator.glpi_sync_type_options_for_select, category.glpi_sync_type),
                                 {},
                                 { class: "form-select ms-auto", style: "width: 180px;" } %>
-                </li>
-              <% end %>
+              </li>
+            <% end %>
           </ul>
         <% end %>
       </fieldset>
