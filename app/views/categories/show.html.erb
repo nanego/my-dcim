@@ -1,12 +1,10 @@
 <% breadcrumb.add_step(@category) %>
-
 <%= render Page::HeadingShowComponent.new(
       resource: @category,
       title: @category,
       breadcrumb:,
       editable: allowed_to?(:update?, @category),
     ) %>
-
 <div class="col-12 p-4 border-top">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
@@ -14,7 +12,6 @@
         <% card.with_header do %>
           <%= t("show.cards.identification") %>
         <% end %>
-
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <% %i[name description].each do |attribute_name| %>
             <dt class="pb-2"><%= Category.human_attribute_name(attribute_name) %></dt>
@@ -23,21 +20,18 @@
         </dl>
       <% end %>
     </div>
-
     <div class="col">
       <%= render CardComponent.new do |card| %>
         <% card.with_header do %>
           <%= t("show.cards.features") %>
         <% end %>
-
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <dt class="pb-2"><%= Category.human_attribute_name(:glpi_sync) %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= decorate(@category).glpi_sync_human %></dd>
+          <dt class="pb-2"><%= Category.human_attribute_name(:glpi_sync_type) %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= decorate(@category).glpi_sync_type_human %></dd>
         </dl>
       <% end %>
     </div>
   </div>
-
   <%= render HasManyTurboFrameComponent.new(
         Modele.model_name.human.pluralize,
         url: modeles_path(category_ids: @category.id),
@@ -45,6 +39,5 @@
         new_path: (new_modele_path(modele: { category_id: @category.id }) if allowed_to?(:create?, with: ModelePolicy)),
         new_label: t("modeles.add_new"),
       ) %>
-
   <%= render ChangelogEntries::ObjectListComponent.new(@category) %>
 </div>
