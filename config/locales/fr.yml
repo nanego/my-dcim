@@ -770,6 +770,18 @@ fr:
         alors ventilation = débit maximal"
       day: Jour
       night: Nuit
+  air_conditioner_models:
+    index:
+      new_air_conditioner_model: Ajouter un modèle de climatisation
+    new:
+      title: Nouveau modèle de climatisation
+    create:
+      flashes:
+        created: Le modèle de aclimatisation a été ajouté.
+    edit:
+      title: Modifier le modèle
+    destroy:
+      title: Supprimer ce modèle
   bays:
     index:
       new_bay: Ajouter une baie ou un couple de baies

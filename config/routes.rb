@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :air_conditioner_models
   root to: "pages#index"
 
   resources :air_conditioners

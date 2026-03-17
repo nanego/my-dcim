@@ -36,6 +36,19 @@ en:
     destroy:
       title: Delete the air conditionner
 
+  air_conditioner_models:
+    index:
+      new_air_conditioner_model: Create a air conditionner model
+    new:
+      title: New air conditionner model
+    create:
+      flashes:
+        created: The air conditionner model has been created.
+    edit:
+      title: Edit the model
+    destroy:
+      title: Delete the model
+
   application:
     no_permission_scope:
       text: Permissions not configured
