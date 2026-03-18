@@ -5,5 +5,9 @@ module Visualization
     def print?
       manage?
     end
+
+    def cables_export?
+      manage?
+    end
   end
 end

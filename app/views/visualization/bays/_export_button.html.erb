@@ -52,6 +52,15 @@
           <%= t("export_button.faces.back_wiring") %>
         <% end %>
       </li>
+      <li>
+        <%= link_to cables_export_visualization_bay_path(bay, format: :pdf),
+                    class: "dropdown-item",
+                    target: :_blank,
+                    rel: :noopener do %>
+          <span class="bi bi-file-earmark-pdf"></span>
+          <%= t("export_button.exports.cables_export") %>
+        <% end %>
+      </li>
 
       <li><hr class="dropdown-divider"></li>
 

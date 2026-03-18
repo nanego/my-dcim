@@ -118,8 +118,12 @@ Rails.application.routes.draw do
         get :network
       end
     end
+
     resources :bays, only: :show do
-      get :print, on: :member
+      member do
+        get :print
+        get :cables_export
+      end
     end
 
     resources :islets, only: [] do
