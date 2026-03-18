@@ -780,8 +780,13 @@ fr:
         created: Le modèle de aclimatisation a été ajouté.
     edit:
       title: Modifier le modèle
+    update:
+      flashes:
+        updated: Le modèle a été mis à jour.
     destroy:
       title: Supprimer ce modèle
+      flashes:
+        destroyed: Le modèle a été supprimé.
   bays:
     index:
       new_bay: Ajouter une baie ou un couple de baies

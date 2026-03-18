@@ -2,10 +2,15 @@
 
 one:
   id: 1
-  name: X123456
+  name: MyString
   manufacturer_id: 1
 
 two:
   id: 2
-  name: Y456123
+  name: MyString
   manufacturer_id: 2
+
+unused:
+  id: 3
+  name: MyString
+  manufacturer_id: 1

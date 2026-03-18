@@ -46,8 +46,13 @@ en:
         created: The air conditionner model has been created.
     edit:
       title: Edit the model
+    update:
+      flashes:
+        updated: The model has been updated.
     destroy:
       title: Delete the model
+      flashes:
+        destroyed: The model has been removed.
 
   application:
     no_permission_scope:
