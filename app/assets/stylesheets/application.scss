@@ -16,9 +16,9 @@
  *= require loader
  *= require palette-color-picker
  *= require rooms
- *= require quicksearch
  *= require_self
  *= require_tree ./components
+ *= require_tree ./pages
  *= require tom-select.bootstrap5
  */
 
@@ -851,10 +851,6 @@ body {
       :nth-child(1 of .contact_assignment-fields:not([style*="display: none"])) {
         border: none !important;
         padding-top: 0 !important;
-
-        & > * > * {
-          margin-top: .25rem !important;
-        }
       }
     }
   }

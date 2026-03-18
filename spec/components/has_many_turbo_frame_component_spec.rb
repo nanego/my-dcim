@@ -13,11 +13,11 @@ RSpec.describe HasManyTurboFrameComponent, type: :component do
   context "with object" do
     it "renders component" do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component.to_html).to have_tag("div.card") do
-        with_tag("a.link-secondary", href: url) do
+        with_tag("a.link-secondary", with: { href: url }) do
           with_tag("span.bi-funnel-fill")
         end
 
-        without_tag("a.link-success", href: new_bay_path)
+        without_tag("a.link-success", with: { href: new_bay_path })
 
         with_tag("turbo-frame", with: {
           id: "table_islet",
@@ -35,7 +35,7 @@ RSpec.describe HasManyTurboFrameComponent, type: :component do
 
     it do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component.to_html).to have_tag("div.card") do
-        with_tag("a.link-success", href: new_bay_path) do
+        with_tag("a.link-success", with: { href: new_bay_path }) do
           with_tag("span.bi-plus-lg")
           with_tag("span", text: "New")
         end

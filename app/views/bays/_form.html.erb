@@ -1,81 +1,89 @@
-<%= form_for(@bay, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+<%= form_for(@bay, html: { role: "form" }) do |f| %>
+  <%= render FormErrorsComponent.new(@bay) %>
+
   <%= redirect_to_on_success_hidden_field_tag(params[:redirect_to_on_success]) %>
 
-  <%= render FormErrorsComponent.new(@bay) %>
-  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("show.cards.features") %>
-    <% end %>
+  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+    <div class="col">
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.features") %>
+        <% end %>
 
-    <div class="row g-3">
-      <fieldset class="col-12">
-        <%= f.label :bay_type_id, class: "form-label" %>
-        <%= f.select :bay_type_id, options_from_collection_for_select(BayType.all, :id, :to_s, @bay.bay_type_id),
-                                  {},
-                                  class: "form-select" %>
-      </fieldset>
+        <div class="row g-3">
+          <fieldset class="col-12">
+            <%= f.label :bay_type_id, class: "form-label" %>
+            <%= f.select :bay_type_id,
+                         options_from_collection_for_select(BayType.all, :id, :to_s, @bay.bay_type_id),
+                         {},
+                         class: "form-select" %>
+          </fieldset>
 
-      <fieldset class="col-12 mt-4">
-        <%= f.label :manufacturer_id, class: "form-label" %>
-        <%= f.select :manufacturer_id,
-                     options_from_collection_for_select(Manufacturer.all, :id, :to_s, @bay.manufacturer_id),
-                     { prompt: true },
-                     {
-                       class: "form-select",
-                       data: { controller: "select" },
-                       placeholder: t("select.placeholder")
-                     }
-        %>
-      </fieldset>
+          <fieldset class="col-12 mt-4">
+            <%= f.label :manufacturer_id, class: "form-label" %>
+            <%= f.select :manufacturer_id,
+                         options_from_collection_for_select(Manufacturer.all, :id, :to_s, @bay.manufacturer_id),
+                         { prompt: true },
+                         {
+                           class: "form-select",
+                           data: { controller: "select" },
+                           placeholder: t("select.placeholder"),
+                         } %>
+          </fieldset>
 
-      <fieldset class="col-md-6 col-12 mt-4">
-        <%= f.label :width, class: "form-label" %>
-        <div class="input-group">
-          <%= f.number_field :width, class: "form-control" %>
-          <span class="input-group-text"><%= t("unit.mm") %></span>
+          <fieldset class="col-md-6 col-12 mt-4">
+            <%= f.label :width, class: "form-label" %>
+            <div class="input-group">
+              <%= f.number_field :width, class: "form-control" %>
+              <span class="input-group-text"><%= t("unit.mm") %></span>
+            </div>
+          </fieldset>
+
+          <fieldset class="col-md-6 col-12 mt-4">
+            <%= f.label :depth, class: "form-label" %>
+            <div class="input-group">
+              <%= f.number_field :depth, class: "form-control" %>
+              <span class="input-group-text"><%= t("unit.mm") %></span>
+            </div>
+          </fieldset>
+
+          <fieldset class="col-12 mt-4">
+            <%= f.label :access_control, class: "form-label" %>
+            <%= f.select :access_control,
+                         BayDecorator.access_control_options_for_select,
+                         { include_blank: t("access_control.blank") },
+                         class: "form-select" %>
+          </fieldset>
         </div>
-      </fieldset>
-
-      <fieldset class="col-md-6 col-12 mt-4">
-        <%= f.label :depth, class: "form-label" %>
-        <div class="input-group">
-          <%= f.number_field :depth, class: "form-control" %>
-          <span class="input-group-text"><%= t("unit.mm") %></span>
-        </div>
-      </fieldset>
-
-      <fieldset class="col-12 mt-4">
-        <%= f.label :access_control, class: "form-label" %>
-        <%= f.select :access_control, BayDecorator.access_control_options_for_select,
-                              { include_blank: t("access_control.blank") },
-                              class: "form-select" %>
-      </fieldset>
+      <% end %>
     </div>
-  <% end %>
 
-  <%= render CardComponent.new(type: :primary, extra_classes: "bg-body-tertiary mt-4") do |card| %>
-    <% card.with_header do %>
-      <%= t("layouts.sidebar.location.title") %>
-    <% end %>
+    <div class="col">
+      <%= render CardComponent.new(type: :primary, extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("layouts.sidebar.location.title") %>
+        <% end %>
 
-    <fieldset class="col-12">
-      <%= f.label :islet_id, class: "form-label" %>
-      <%= f.select :islet_id,
-                   BayDecorator.islets_options_for_select(current_user),
-                   { prompt: true },
-                   { class: "form-select", data: { controller: "select" }, placeholder: t("select.placeholder") } %>
-    </fieldset>
+        <fieldset class="col-12">
+          <%= f.label :islet_id, class: "form-label" %>
+          <%= f.select :islet_id,
+                       BayDecorator.islets_options_for_select(current_user),
+                       { prompt: true },
+                       { class: "form-select", data: { controller: "select" }, placeholder: t("select.placeholder") } %>
+        </fieldset>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :lane, class: "form-label" %>
-      <%= f.number_field :lane, class: "form-control" %>
-    </fieldset>
+        <fieldset class="col-12 mt-4">
+          <%= f.label :lane, class: "form-label" %>
+          <%= f.number_field :lane, class: "form-control" %>
+        </fieldset>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :position, class: "form-label" %>
-      <%= f.number_field :position, class: "form-control" %>
-    </fieldset>
-  <% end %>
+        <fieldset class="col-12 mt-4">
+          <%= f.label :position, class: "form-label" %>
+          <%= f.number_field :position, class: "form-control" %>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
 
   <%= render Form::ActionsComponent.new(f, display_create_another_one:) %>
 <% end %>

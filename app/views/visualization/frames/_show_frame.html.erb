@@ -1,11 +1,10 @@
 <% editable = true if local_assigns[:editable].nil? %>
 <% servers_ids = servers.map(&:id) %>
-<% if local_assigns[:highlighted_servers].nil?
-     highlighted_servers_ids = current_user.can_access_all_domains? ? servers_ids : authorized_scope(Server.no_pdus).ids
-   else
-     highlighted_servers_ids = highlighted_servers.map(&:id)
-   end
-%>
+<% highlighted_servers_ids = if local_assigns[:highlighted_servers].nil?
+                               current_user.can_access_all_domains? ? servers_ids : authorized_scope(Server.no_pdus).ids
+                             else
+                               highlighted_servers.map(&:id)
+                             end %>
 <% view_type = "front" if local_assigns[:view_type].nil? %>
 <% clickable_lines = local_assigns[:clickable_lines].nil? ? false : local_assigns[:clickable_lines] %>
 
@@ -13,9 +12,11 @@
   <div class="card card-frame">
     <div class="card-header">
       <h5 class="card-title d-inline">
-        <%= link_to frame.name,
-                    visualization_frame_path(frame, view: view_type, bg: params[:bg]),
-                    style: "text-decoration: underline;" if frame.room.present? %>
+        <%= if frame.room.present?
+              link_to frame.name,
+                      visualization_frame_path(frame, view: view_type, bg: params[:bg]),
+                      style: "text-decoration: underline;"
+            end %>
       </h5>
     </div>
     <ul class="servers connectedFrames list-group"
@@ -32,8 +33,8 @@
           <% while server.position.present? && server.position < u_disponibles && u_disponibles > 0 %>
             <li class="server list-group-item truncate
                         <%= "relegated" if highlighted_servers_ids != servers_ids %>
-                        <%= "relegated" if params[:bg]=="wiring" && action_name == "print" %>"
-                style="height: <%= settings[:min_height] %>px;"
+                        <%= "relegated" if params[:bg] == "wiring" && action_name == "print" %>"
+                style="min-height: <%= settings[:min_height] %>px;"
                 data-num-u="<%= u_disponibles %>">
               <%= render partial: "servers/draw_u_scale_unit", locals: { i: 0, u_disponibles: u_disponibles, u_server: 1, clickable_lines: clickable_lines } %>
             </li>
@@ -41,19 +42,18 @@
           <% end %>
 
           <% bgModeleColor = define_background_color(server: server, mode: params["bg"]) %>
-          <% u_server = server.modele.try(:u).to_i > 0 ? server.modele.u : 1 %>
+          <% u_server = server.modele.try(:u).to_i.positive? ? server.modele.u : 1 %>
           <% data = {
-            u: u_server,
-            num_u: u_disponibles
-          } %>
+               u: u_server,
+               num_u: u_disponibles,
+             } %>
 
           <% if view_type == "back" %>
             <%= content_tag_for :li, server,
                                 class: class_names("list-group-item truncate server_back #{server.modele.try(:category).try(:name).try(:parameterize)}",
-                                                  relegated: highlighted_servers_ids.exclude?(server.id) || (params[:bg]=="wiring" && action_name == "print"),
-                                                  colorized_background: bgModeleColor.present?
-                                ),
-                                style: "min-height: #{settings[:min_height] * (server.modele.try(:u).to_i > 0 ? server.modele.u : 1)}px;padding: 3px 3px 3px 20px;",
+                                                   relegated: highlighted_servers_ids.exclude?(server.id) || (params[:bg] == "wiring" && action_name == "print"),
+                                                   colorized_background: bgModeleColor.present?),
+                                style: "min-height: #{settings[:min_height] * (server.modele.try(:u).to_i.positive? ? server.modele.u : 1)}px;padding: 3px 3px 3px 20px;",
                                 data: data do %>
               <% u_server.times do |i| %>
                 <%= render partial: "servers/draw_u_scale_unit", locals: { i: i, u_disponibles: u_disponibles, u_server: u_server, clickable_lines: clickable_lines } %>
@@ -69,10 +69,9 @@
           <% else %>
             <%= content_tag_for :li, server,
                                 class: class_names("list-group-item truncate #{server.modele.try(:category).try(:name).try(:parameterize)}",
-                                                   relegated: highlighted_servers_ids.exclude?(server.id) || (params[:bg]=="wiring" && action_name == "print"),
-                                                   colorized_background: bgModeleColor.present?
-                                ),
-                                style: "height: #{settings[:min_height] * u_server - (u_server - 1)}px;background-color:#{bgModeleColor} !important;",
+                                                   relegated: highlighted_servers_ids.exclude?(server.id) || (params[:bg] == "wiring" && action_name == "print"),
+                                                   colorized_background: bgModeleColor.present?),
+                                style: "min-height: #{(settings[:min_height] * u_server) - (u_server - 1)}px;background-color:#{bgModeleColor} !important;",
                                 data: data do %>
               <% u_server.times do |i| %>
                 <%= render partial: "servers/draw_u_scale_unit", locals: { i: i, u_disponibles: u_disponibles, u_server: u_server, clickable_lines: clickable_lines } %>
@@ -87,8 +86,8 @@
       <% u_disponibles.times do |u| %>
         <li class="server list-group-item truncate
                     <%= "relegated" if highlighted_servers_ids != servers_ids %>
-                    <%= "relegated" if params[:bg]=="wiring" && action_name == "print" %>
-                  " style="height: <%= settings[:min_height] %>px;" data-num-u="<%= u_disponibles %>">
+                    <%= "relegated" if params[:bg] == "wiring" && action_name == "print" %>
+                  " style="min-height: <%= settings[:min_height] %>px;" data-num-u="<%= u_disponibles %>">
           <%= render partial: "servers/draw_u_scale_unit", locals: { i: 0, u_disponibles: u_disponibles, u_server: 1, clickable_lines: clickable_lines } %>
         </li>
         <% u_disponibles -= 1 %>

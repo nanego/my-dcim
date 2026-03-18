@@ -210,17 +210,21 @@ en:
         composant:
           attributes:
             name:
-              invalid: cannot contain any spaces
+              invalid: can't contain any spaces
 
         move:
           attributes:
             moveable_id:
               taken: already has a move planned for this step
 
+        moves_project:
+          steps_cannot_be_destroyed: Steps with moves can't be deleted
+
         server:
           attributes:
             numero:
-              invalid: cannot be identical to an equipment name
+              same_as_server_name: can't be identical to an equipment name
+              invalid: can't contain any spaces
 
         user:
           attributes:

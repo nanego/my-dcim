@@ -15,6 +15,14 @@ class MovesProject < ApplicationRecord
 
   accepts_nested_attributes_for :steps, allow_destroy: true, reject_if: :all_blank
 
+  def save(**, &) # rubocop:disable Rails/ActiveRecordOverride
+    super
+  rescue ActiveRecord::RecordNotDestroyed
+    errors.add(:base, :steps_cannot_be_destroyed)
+
+    false
+  end
+
   def to_s
     name
   end

@@ -12,29 +12,33 @@
 <%# end %>
 
 <%= render Page::HeadingComponent.new(
-  title: @pdu.name,
-  breadcrumb:,
-  back_button_url: power_distribution_units_path
-) do |heading| %>
+      title: @pdu.name,
+      breadcrumb:,
+      back_button_url: power_distribution_units_path,
+    ) do |heading| %>
   <% heading.with_right_content do %>
     <div class="align-self-center d-inline-flex">
-      <%= render ButtonComponent.new(
-        t("action.duplicate"),
-        url: duplicate_power_distribution_unit_path(@pdu.slug),
-        variant: :success,
-        icon: "copy",
-        is_responsive: true,
-        extra_classes: "me-2"
-      ) if allowed_to?(:duplicate?, @pdu, with: PowerDistributionUnitPolicy) %>
+      <%= if allowed_to?(:duplicate?, @pdu, with: PowerDistributionUnitPolicy)
+            render ButtonComponent.new(
+              t("action.duplicate"),
+              url: duplicate_power_distribution_unit_path(@pdu.slug),
+              variant: :success,
+              icon: "copy",
+              is_responsive: true,
+              extra_classes: "me-2",
+            )
+          end %>
 
-      <%= render ButtonComponent.new(
-        t("action.edit"),
-        url: edit_power_distribution_unit_path(@pdu.slug),
-        variant: :info,
-        icon: "pencil",
-        is_responsive: true,
-        extra_classes: "me-2"
-      ) if allowed_to?(:update?, @pdu, with: PowerDistributionUnitPolicy) %>
+      <%= if allowed_to?(:update?, @pdu, with: PowerDistributionUnitPolicy)
+            render ButtonComponent.new(
+              t("action.edit"),
+              url: edit_power_distribution_unit_path(@pdu.slug),
+              variant: :info,
+              icon: "pencil",
+              is_responsive: true,
+              extra_classes: "me-2",
+            )
+          end %>
     </div>
   <% end %>
 <% end %>
@@ -70,10 +74,10 @@
 <div class="col-12 p-4 tab-content" id="pduShowTabsContent">
   <div class="tab-pane fade show active" id="details-tab-pane" role="tabpanel" aria-labelledby="details-tab" tabindex="0">
     <div class="mb-4">
-      <% bgModeleColor = define_background_color(server: @pdu, mode: params["bg"]) %>
+      <% bg_model_color = define_background_color(server: @pdu, mode: params["bg"]) %>
       <div class="<%= class_names("rounded-top-1 border border-secondary-subtle p-2 mb-2",
-                                  colorized_background: bgModeleColor.present?) %>"
-            style="background-color:<%= bgModeleColor %> !important;">
+                                  colorized_background: bg_model_color.present?) %>"
+            style="background-color:<%= bg_model_color %> !important;">
         <%= render partial: "servers/draw_server_compact_front", locals: { server: @pdu } %>
       </div>
 
@@ -152,9 +156,9 @@
             <dt class="pb-2"><%= Card.model_name.human.pluralize %></dt>
             <dd class="mb-0 pb-2 ps-3">
               <% @pdu.modele.composants.ordered.slots.each do |slot| %>
-                <% @pdu.cards.where(:composant_id => slot.id).each do |card| %>
+                <% @pdu.cards.where(composant_id: slot.id).find_each do |card| %>
                   <div>
-                    <%= card.composant.name ? card.composant.name : card.composant.position %>
+                    <%= card.composant.name || card.composant.position %>
                     :
                     <%= "#{card.card_type.try(:name)} (#{card.card_type.try(:port_quantity)}#{card.card_type.try(:port_type).try(:name)})" %>
                   </div>
@@ -288,7 +292,8 @@
             begin
               Timeout.timeout(3) do
                 client = GlpiClient.new
-                computer = client.computer(serial: Rails.env.production? ? @pdu.numero : "AZERTY") %>
+                computer = client.computer(serial: Rails.env.production? ? @pdu.numero : "AZERTY")
+          %>
               <% if computer.present? %>
                 <dl class="show-page_dl d-grid row-gap-2 mb-0">
                   <dt class="pb-2"><%= t("glpi.computer.name") %></dt>
@@ -308,25 +313,25 @@
                   <dd class="mb-0 pb-2 ps-3"><%= computer.hard_drives&.size %></dd>
 
                   <dt class="pb-2"><%= t("glpi.computer.disks_capacity") %></dt>
-                  <dd class="mb-0 pb-2 ps-3"><%= number_to_human_size(computer.hard_drives_total_capacity * 1048576) %></dd>
+                  <dd class="mb-0 pb-2 ps-3"><%= number_to_human_size(computer.hard_drives_total_capacity * 1_048_576) %></dd>
 
                   <dt class="pb-2"><%= t("glpi.computer.memories_count") %></dt>
                   <dd class="mb-0 pb-2 ps-3"><%= computer.memories&.size %></dd>
 
                   <dt class="pb-2"><%= t("glpi.computer.memories_total") %></dt>
-                  <dd class="mb-0 pb-2 ps-3"><%= number_to_human_size(computer.memories_total_size * 1048576) %></dd>
+                  <dd class="mb-0 pb-2 ps-3"><%= number_to_human_size(computer.memories_total_size * 1_048_576) %></dd>
 
                   <dt class="pb-2"><%= t("glpi.computer.cpus") %></dt>
                   <dd class="mb-0 pb-2 ps-3">
                     <%= computer.processors.group_by { |p| p[1]["designation"] }
-                                            .map { |designation, processors| "#{processors.size} x #{designation}" }
-                                            .join(", ") %>
+                          .map { |designation, processors| "#{processors.size} x #{designation}" }
+                          .join(", ") %>
                   </dd>
                 </dl>
                 <% card.with_footer do %>
                   <%= link_to t(".glpi_visit_page"),
                               "#{Rails.application.credentials.glpi_url}/front/computer.form.php?id=#{computer.id}",
-                              target: :_blank %>
+                              target: :_blank, rel: :noopener %>
                 <% end %>
               <% else %>
                 <%= t(".no_match_serial", serial: @pdu.numero) %>
@@ -337,6 +342,22 @@
                 rescue Exception => e
                 Rails.logger.warn "WARNING: couldn't get GLPI data because of an error: #{e.message}" %>
             <%= t(".glpi_connection_error") %> : <pre><code><%= e&.message.to_s %></code></pre>
+          <% end %>
+        <% end %>
+
+        <% if @pdu.documents.present? %>
+          <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
+            <% card.with_header do %>
+              <%= t(".attached_documents") %>
+            <% end %>
+            <ul>
+              <% @pdu.documents.each do |doc| %>
+                <%- next if doc.document.blank? %>
+                <li>
+                  <%= link_to(doc.document.metadata["filename"], doc.document_url, { target: :_blank, rel: :noopener }) %>
+                </li>
+              <% end %>
+            </ul>
           <% end %>
         <% end %>
 
@@ -352,22 +373,6 @@
             <% end %>
           <% end %>
         <% end %>
-
-        <% if @pdu.documents.present? %>
-          <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
-            <% card.with_header do %>
-              <%= t(".attached_documents") %>
-            <% end %>
-            <ul>
-              <% @pdu.documents.each do |doc| %>
-                <%- next unless doc.document.present? %>
-                <li>
-                  <%= link_to(doc.document.metadata["filename"], doc.document_url, { target: :_blank })  %>
-                </li>
-              <% end %>
-            </ul>
-          <% end %>
-        <% end %>
       </div>
     </div>
 
@@ -375,11 +380,11 @@
   </div>
   <div class="tab-pane fade" id="connections-tab-pane" role="tabpanel" aria-labelledby="connections-tab" tabindex="0">
     <%= render HasManyTurboFrameComponent.new(
-      Connection.model_name.human.pluralize,
-      url: server_cables_path(@pdu.id),
-      frame_id: dom_id(Connection, :table),
-      extra_classes: "bg-body-tertiary"
-    ) do |c| %>
+          Connection.model_name.human.pluralize,
+          url: server_cables_path(@pdu.id),
+          frame_id: dom_id(Connection, :table),
+          extra_classes: "bg-body-tertiary",
+        ) do |c| %>
       <% c.with_actions do %>
         <span>
           <button class="btn btn-sm text-body-tertiary p-0"
