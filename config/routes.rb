@@ -139,7 +139,7 @@ Rails.application.routes.draw do
     omniauth_callbacks: "users/omniauth_callbacks",
     sessions: "users/sessions",
     passwords: "users/passwords",
-  }
+  }, failure_app: DeviseFailureApp
   as :user do
     get "users/edit" => "users/registrations#edit", as: :edit_user_registration
     patch "users" => "users/registrations#update", as: :user_registration
