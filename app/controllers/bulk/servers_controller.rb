@@ -15,10 +15,14 @@ module Bulk
       end
     end
 
-    def pdf_export
-      render ferrum_pdf: { scale: 1.2 },
-             layout: "pdf",
-             filename: "export-cableur.pdf"
+    def cables_export
+      @servers.includes(connections: :cable)
+
+      respond_to do |format|
+        format.pdf do
+          render ferrum_pdf: { scale: 1.2 }, layout: "pdf", filename: "cables_#{params[:ids].join("-")}.pdf"
+        end
+      end
     end
 
     private

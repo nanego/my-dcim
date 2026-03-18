@@ -68,7 +68,7 @@ Rails.application.routes.draw do
 
     member do
       get :duplicate
-      get :pdf_export
+      get :cables_export
     end
 
     resources :cables, only: :index
@@ -148,7 +148,7 @@ Rails.application.routes.draw do
 
     resource :servers do
       member do
-        get :pdf_export
+        get :cables_export
       end
     end
   end
