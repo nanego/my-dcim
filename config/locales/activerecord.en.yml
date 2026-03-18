@@ -38,6 +38,7 @@ en:
       stack: Stack
       user: User
       permission_scope: Permission Scope
+      permission_scope_domain: Permission Scope
 
     attributes:
       bay:
