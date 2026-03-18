@@ -109,13 +109,16 @@ Rails.application.routes.draw do
   namespace :visualization do
     resource :infrastructure, only: :show
     resource :network_capacity, only: :show
+
     resources :rooms, only: %i[index show] do
       get :print, on: :member
     end
+
     resources :frames, only: :show do
       member do
         get :print
         get :network
+        get :cables_export
       end
     end
 
