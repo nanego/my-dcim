@@ -13,9 +13,9 @@ RSpec.describe Server do
     it { is_expected.to belong_to(:frame) }
     it { is_expected.to belong_to(:gestion).optional(true) }
     it { is_expected.to belong_to(:domaine).optional(true) }
-    it { is_expected.to belong_to(:modele) }
     it { is_expected.to belong_to(:cluster).optional(true) }
     it { is_expected.to belong_to(:stack).optional(true) }
+    it { is_expected.to belong_to(:modele) }
 
     it { is_expected.to have_one(:bay).through(:frame) }
     it { is_expected.to have_one(:islet).through(:frame) }
@@ -30,6 +30,7 @@ RSpec.describe Server do
     it { is_expected.to have_many(:cables).through(:connections) }
     it { is_expected.to have_many(:moves).dependent(:destroy) }
     it { is_expected.to have_many(:documents) }
+    it { is_expected.to have_many(:external_app_record) }
   end
 
   describe "attachement" do

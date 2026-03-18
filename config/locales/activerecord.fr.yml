@@ -54,6 +54,7 @@ fr:
       contact_role: Rôle
       contact_assignment: Assignation
       permission_scope: Permission
+      permission_scope_domain: Permission
 
     attributes:
       room:
