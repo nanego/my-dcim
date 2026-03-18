@@ -49,9 +49,8 @@
                               view: (view_side == Frame::VIEW_SIDES[:back] ? Frame::VIEW_SIDES[:front] : Frame::VIEW_SIDES[:back]),
                               islet: params[:islet],
                               id: params[:id],
-                              network_frame_id: params[:network_frame_id]
-                            })
-                      ),
+                              network_frame_id: params[:network_frame_id],
+                            })),
               class: "btn btn-sm btn-outline-primary align-items-center ms-auto",
               remote: remote do %>
     <span class="bi bi-back" aria-hidden="true"></span>

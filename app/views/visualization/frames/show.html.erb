@@ -2,7 +2,7 @@
   breadcrumb
     .add_step(t("visualization.title"))
     .add_step(t("visualization.rooms.index.title"), visualization_rooms_path)
-    .add_step(@room.name, ((@frame.present? || params[:islet].present?) ? visualization_room_path(@room, view: params[:view]) : ""))
+    .add_step(@room.name, (@frame.present? || params[:islet].present? ? visualization_room_path(@room, view: params[:view]) : ""))
 
   if @frame.present? && (islet = @frame.bay.islet.presence)
     breadcrumb.add_step(islet.decorated.full_name, visualization_room_path(@room, islet: islet.name, view: params[:view]))
@@ -22,11 +22,11 @@
         <%= render "visualization/action_buttons", view_side: Frame::VIEW_SIDES[:both] %>
         <%= render "visualization/frames/export_button", frame: @frame, in_table: false %>
         <%= render(ButtonComponent.new(t("action.show"),
-                                      url: @frame,
-                                      size: :sm,
-                                      variant: :primary,
-                                      icon: "eye",
-                                      extra_classes: "ms-auto")) %>
+                                       url: @frame,
+                                       size: :sm,
+                                       variant: :primary,
+                                       icon: "eye",
+                                       extra_classes: "ms-auto")) %>
       </div>
     <% end %>
   <% end %>

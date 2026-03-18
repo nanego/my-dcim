@@ -14,7 +14,7 @@
 
   breadcrumb.add_step(title)
 
-  title = t("visualization.title") + " " + title
+  title = "#{t("visualization.title")} #{title}"
 
   bg = params[:bg].presence || current_user.visualization_bay_default_background_color \
                             || User::AVAILABLE_BAY_BACKGROUND_COLORS[0]

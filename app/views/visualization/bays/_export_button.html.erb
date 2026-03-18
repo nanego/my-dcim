@@ -4,7 +4,7 @@
   <div class="<%= class_names("btn-group", "btn-group-sm": in_table, "ms-auto": !in_table) %>">
     <button type="button"
             class="<%= class_names("btn btn-outline-primary dropdown-toggle",
-                                  "btn-sm d-flex align-items-center": !in_table ) %>"
+                                   "btn-sm d-flex align-items-center": !in_table) %>"
             data-bs-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false">
@@ -76,7 +76,7 @@
       <% end %>
 
       <li>
-        <%= link_to print_visualization_bay_path(bay), class: "dropdown-item", target: :_blank do %>
+        <%= link_to print_visualization_bay_path(bay), class: "dropdown-item", target: :_blank, rel: :noopener do %>
           <span class="bi bi-printer" aria-hidden="true"></span>
           <%= t("export_button.exports.print") %>
         <% end %>
