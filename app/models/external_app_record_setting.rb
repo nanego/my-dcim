@@ -13,9 +13,9 @@ class ExternalAppRecordSetting
 
   def save
     Category.transaction do
-      Category.update_all(glpi_sync_type: 0) # rubocop:disable Rails/SkipsModelValidations
+      Category.update_all(glpi_sync_type: :none) # rubocop:disable Rails/SkipsModelValidations
       @category_glpi_sync_types.each do |id, glpi_sync_type|
-        Category.find(id).update(glpi_sync_type: Category.glpi_sync_types[glpi_sync_type] || 0)
+        Category.find(id).update(glpi_sync_type: glpi_sync_type.presence || :none)
       end
     end
   end
