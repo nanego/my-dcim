@@ -145,7 +145,7 @@ module List
         confirm = @options[:data].delete(:confirm) || @options[:data].delete(:turbo_confirm)
 
         data = {
-          bulk_actions_method_param: method || :post,
+          bulk_actions_method_param: method,
           bulk_actions_url_param: url,
           bulk_actions_confirm_param: confirm,
           action: "bulk-actions#submit",
