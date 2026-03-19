@@ -1,6 +1,6 @@
-<%# locals: (server:, should_hide_left_block: request.format.pdf?) -%>
+<%# locals: (server:, selected_port: nil, should_hide_left_block: request.format.pdf?) -%>
 
-<%= render partial: "servers/visualization", locals: { server: } %>
+<%= render partial: "servers/visualization", locals: { server:, selected_port: } %>
 
 <% unless should_hide_left_block %>
   <div class="ps-3 d-flex flex-column me-auto">
