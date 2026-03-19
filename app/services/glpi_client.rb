@@ -3,7 +3,7 @@
 require "faraday"
 require "json"
 
-class GlpiClient
+class GlpiClient # rubocop:disable Metrics/ClassLength
   API_URL = Rails.application.credentials.glpi_api_url
   API_KEY = Rails.application.credentials.glpi_apikey
   PROXY_URL = Rails.application.credentials.proxy_url
@@ -86,15 +86,24 @@ class GlpiClient
   end
 
   def get_computer_id_from_glpi(serial:)
+    get_id_from_glpi_for("Computer", serial:)
+  end
+
+  def get_network_equipment_id_from_glpi(serial:)
+    get_id_from_glpi_for("NetworkEquipment", serial:)
+  end
+
+  def get_id_from_glpi_for(endpoint, serial:)
     serial = "AZERTY" unless Rails.env.production?
 
-    resp = @connection.get("Computer?searchText[serial]=#{serial}") do |request|
+    resp = @connection.get("#{endpoint}?searchText[serial]=#{serial}") do |request|
       request.headers["Session-Token"] = session_token
       request.headers["App-Token"] = API_KEY
     end
-    computer_params = JSON.parse(resp.body).first
-    if computer_params.present?
-      computer_params["id"]
+
+    params = JSON.parse(resp.body).first
+    if params.present?
+      params["id"]
     end
   end
 
@@ -127,6 +136,30 @@ class GlpiClient
     attribute? :name, Types::Coercible::String
     attribute? :contact, Types::Coercible::String
     attribute? :disks, Types::Coercible::Hash
+    attribute? :hard_drives, Types::Coercible::Hash
+    attribute? :memories, Types::Coercible::Hash
+    attribute? :processors, Types::Coercible::Hash
+
+    def hard_drives_total_capacity
+      return 0 if hard_drives.blank?
+
+      hard_drives.sum { |_key, value| value["capacity"] }
+    end
+
+    def memories_total_size
+      return 0 if memories.blank?
+
+      memories.sum { |_key, value| value["size"] }
+    end
+  end
+
+  class NetworkEquipment < Dry::Struct
+    transform_keys(&:to_sym)
+
+    attribute? :id, Types::Coercible::Integer
+    attribute? :serial, Types::Coercible::String
+    attribute? :name, Types::Coercible::String
+    attribute? :contact, Types::Coercible::String
     attribute? :hard_drives, Types::Coercible::Hash
     attribute? :memories, Types::Coercible::Hash
     attribute? :processors, Types::Coercible::Hash
