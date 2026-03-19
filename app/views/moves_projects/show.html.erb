@@ -35,7 +35,7 @@
       <div class="col-12">
         <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
           <div class="d-flex justify-content-between align-items-center mb-4">
-            <span class="d-inline-flex align-items-center">
+            <span class="d-inline-flex align-items-center w-75">
               <h4 class="mb-0">
                 <%= link_to moves_project_step,
                             moves_project_step_moves_path(moves_project_step),
@@ -52,7 +52,7 @@
             </span>
 
             <% if @moves_project.unarchived? %>
-              <div class="small">
+              <div class="small flex-shrink-0 ms-4">
                 <%= link_to new_moves_project_step_move_path(moves_project_step),
                             class: "link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" do %>
                   <span class="bi bi-plus-lg"></span>
