@@ -37,7 +37,7 @@ RSpec.describe AirConditionerModelsController do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:new) }
@@ -49,7 +49,7 @@ RSpec.describe AirConditionerModelsController do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:edit) }
@@ -64,7 +64,7 @@ RSpec.describe AirConditionerModelsController do
     let(:manufacturer) { manufacturers(:juniper) }
     let(:params) { { air_conditioner_model: { name: "Name", manufacturer_id: manufacturer.id } } }
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with valid parameters" do
       it { expect { response }.to change(AirConditionerModel, :count).by(1) }
@@ -89,7 +89,7 @@ RSpec.describe AirConditionerModelsController do
     let(:manufacturer) { manufacturers(:juniper) }
     let(:params) { { air_conditioner_model: { name: "New name", manufacturer_id: manufacturer.id } } }
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "with valid parameters" do
       it { expect(response).to have_http_status(:redirect) }
@@ -127,7 +127,7 @@ RSpec.describe AirConditionerModelsController do
     let(:air_conditioner_model) { air_conditioner_models(:unused) }
     let(:params) { { confirm: true } }
 
-    include_context "with authenticated user"
+    include_context "with authenticated admin"
 
     context "without confirm" do
       let(:params) { {} }

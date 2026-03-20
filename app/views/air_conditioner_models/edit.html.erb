@@ -1,6 +1,6 @@
 <%
   breadcrumb
-    .add_step(AirConditionerModel.model_name.human.pluralize, air_conditioner_models_path)
+    .add_step(AirConditionerModel.model_name.human(count: 2), air_conditioner_models_path)
     .add_step(@air_conditioner_model, air_conditioner_model_path(@air_conditioner_model))
     .add_step(t("action.edit"))
 %>

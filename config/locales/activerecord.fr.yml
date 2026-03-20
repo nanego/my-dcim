@@ -16,7 +16,9 @@ fr:
         one: Composant
         other: Composants
       air_conditioner: Climatisation
-      air_conditioner_model: Modèle de climatisation
+      air_conditioner_model:
+        one: Modèle de climatisation
+        other: Modèles de climatisation
       architecture: Architecture
       manufacturer: Constructeur
       domaine: Domaine
@@ -154,6 +156,7 @@ fr:
         min_setpoint: Temperature de Consigne Nuit externe (froid)
       air_conditioner_model:
         name: Nom
+        manufacturer: Constructeur
       architecture:
         name: Nom
         usage: Usage

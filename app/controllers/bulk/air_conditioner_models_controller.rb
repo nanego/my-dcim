@@ -9,7 +9,7 @@ module Bulk
         if @air_conditioner_models.map(&:destroy).all?
           format.html do
             redirect_to air_conditioner_models_path,
-                        notice: t("bulk.resource.destroy.flashes.destroyed", resource: AirConditionerModel.model_name.human.pluralize),
+                        notice: t("bulk.resource.destroy.flashes.destroyed", resource: AirConditionerModel.model_name.human(count: 2)),
                         status: :see_other
           end
         else

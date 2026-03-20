@@ -2,7 +2,9 @@ en:
   activerecord:
     models:
       air_conditioner: Air conditioner
-      air_conditioner_model: Air conditioner model
+      air_conditioner_model:
+        one: Air conditioner model
+        other: Air conditioner models
       architecture: Architecture
       bay: Bay
       cable: Cable
@@ -41,6 +43,9 @@ en:
       permission_scope_domain: Permission Scope
 
     attributes:
+      air_conditioner_model:
+        name: Name
+        manufacturer: Manufacturer
       bay:
         access_control: Access control
         depth: Depth

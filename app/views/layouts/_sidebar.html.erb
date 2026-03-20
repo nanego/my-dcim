@@ -65,12 +65,6 @@
                                           active: controller.controller_name == "air_conditioners") %>
           </li>
           <li>
-            <%= link_to t("air_conditioner_models.index.title"),
-                        air_conditioner_models_path,
-                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                          active: controller.controller_name == "air_conditioner_models") %>
-          </li>
-          <li>
             <%= link_to t("power_distribution_units.index.title"),
                         power_distribution_units_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
@@ -90,6 +84,12 @@
                         modeles_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "modeles") %>
+          </li>
+          <li>
+            <%= link_to AirConditionerModel.model_name.human(count: 2),
+                        air_conditioner_models_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "air_conditioner_models") %>
           </li>
           <li>
             <%= link_to Category.model_name.human.pluralize,

@@ -38,7 +38,6 @@ en:
 
   air_conditioner_models:
     index:
-      title: Air conditionner model
       new_air_conditioner_model: Create an air conditionner model
     new:
       title: New air conditionner model

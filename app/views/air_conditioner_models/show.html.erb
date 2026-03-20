@@ -1,7 +1,5 @@
 <%
-  breadcrumb
-    .add_step(AirConditionerModel.model_name.human.pluralize, air_conditioner_models_path)
-    .add_step(title = @air_conditioner_model)
+  breadcrumb.add_step(title = @air_conditioner_model)
 %>
 
 <%= render Page::HeadingShowComponent.new(resource: @air_conditioner_model, title:, breadcrumb:) %>
