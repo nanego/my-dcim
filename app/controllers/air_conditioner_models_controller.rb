@@ -8,7 +8,7 @@ class AirConditionerModelsController < ApplicationController
 
   # GET /air_conditioner_models or /air_conditioner_models.json
   def index
-    authorize! @air_conditioner_models = AirConditionerModel.all
+    authorize! @air_conditioner_models = AirConditionerModel.joins(:manufacturer)
 
     @filter = ProcessorFilter.new(@air_conditioner_models, params)
     @air_conditioner_models = @filter.results

@@ -11,6 +11,26 @@
   <% end %>
 <% end %>
 <div class="p-4 border-top d-flex flex-column row-gap-4">
+  <%= render FilterComponent.new(@filter) do |c| %>
+    <% c.with_form do |f| %>
+      <div class="w-100">
+        <fieldset class="form-floating">
+          <%= f.search_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :q %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:manufacturer_ids, Manufacturer.sorted, :id, :to_s,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :manufacturer_ids %>
+        </fieldset>
+      </div>
+    <% end %>
+  <% end %>
+
   <%= render List::DataTableComponent.new(@air_conditioner_models) do |table| %>
     <% if allowed_to?(:destroy?) %>
       <% table.with_bulk_action(
@@ -23,12 +43,14 @@
       <% end %>
     <% end %>
 
-    <% table.with_column(AirConditionerModel.human_attribute_name(:name)) do |air_conditioner_model| %>
-      <%= air_conditioner_model.name %>
+    <% table.with_column(AirConditionerModel.human_attribute_name(:name), sort_by: :name) do |air_conditioner_model| %>
+      <%= link_to air_conditioner_model.name, air_conditioner_model_path(air_conditioner_model), class: "fw-bold" %>
     <% end %>
-    <% table.with_column(AirConditionerModel.human_attribute_name(:manufacturer_id)) do |air_conditioner_model| %>
-      <%= air_conditioner_model.manufacturer_id %>
+
+    <% table.with_column(Manufacturer.model_name.human, sort_by: :"manufacturers.name") do |air_conditioner_model| %>
+      <%= air_conditioner_model.manufacturer %>
     <% end %>
+
     <% table.with_column(style: "min-width: 70px; width: 70px") do |air_conditioner_model| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= link_to edit_air_conditioner_model_path(air_conditioner_model), class: "btn btn-info" do %>
@@ -39,6 +61,7 @@
                 aria-hidden="true"></span>
           <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
+
         <%= link_to air_conditioner_model_path(air_conditioner_model),
                     method: :delete,
                     class: "btn btn-danger" do %>
