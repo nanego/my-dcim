@@ -12,6 +12,17 @@
 <% end %>
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render List::DataTableComponent.new(@air_conditioner_models) do |table| %>
+    <% if allowed_to?(:destroy?) %>
+      <% table.with_bulk_action(
+        url: bulk_air_conditioner_models_path,
+        method: :delete,
+        class: "btn btn-danger btn-sm",
+        data: { confirm: t("action.confirm") }
+      ) do %>
+        <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
+      <% end %>
+    <% end %>
+
     <% table.with_column(AirConditionerModel.human_attribute_name(:name)) do |air_conditioner_model| %>
       <%= air_conditioner_model.name %>
     <% end %>
