@@ -9,15 +9,15 @@
         </fieldset>
         <fieldset class="col-12 mt-4">
           <%= f.label :manufacturer_id, class: "form-label" %>
-          <%= f.select :manufacturer_id,
-                       options_from_collection_for_select(
-                         Manufacturer.all,
-                         :id,
-                         :name,
-                         @air_conditioner_model.manufacturer_id,
-                       ),
-                       {},
-                       class: "form-select" %>
+          <%= f.collection_select(:manufacturer_id,
+                        Manufacturer.order(Arel.sql("LOWER(name)")),
+                        :id,
+                        :name,
+                        { prompt: true },
+                        {
+                          class: "form-select",
+                          placeholder: t("select.placeholder"),
+                        }) %>
         </fieldset>
       <% end %>
     </div>

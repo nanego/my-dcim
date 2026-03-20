@@ -38,21 +38,21 @@ en:
 
   air_conditioner_models:
     index:
-      new_air_conditioner_model: Create a air conditionner model
+      new_air_conditioner_model: Create an air conditionner model
     new:
       title: New air conditionner model
     create:
       flashes:
         created: The air conditionner model has been created.
     edit:
-      title: Edit the model
+      title: Edit the air conditionner model
     update:
       flashes:
-        updated: The model has been updated.
+        updated: The air conditionner model has been updated.
     destroy:
-      title: Delete the model
+      title: Delete the air conditionner model
       flashes:
-        destroyed: The model has been removed.
+        destroyed: The air conditionner model has been removed.
 
   application:
     no_permission_scope:

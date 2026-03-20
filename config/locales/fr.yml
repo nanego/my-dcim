@@ -777,16 +777,16 @@ fr:
       title: Nouveau modèle de climatisation
     create:
       flashes:
-        created: Le modèle de aclimatisation a été ajouté.
+        created: Le modèle de climatisation a été ajouté.
     edit:
-      title: Modifier le modèle
+      title: Modifier le modèle de climatisation
     update:
       flashes:
-        updated: Le modèle a été mis à jour.
+        updated: Le modèle de climatisation a été mis à jour.
     destroy:
-      title: Supprimer ce modèle
+      title: Supprimer ce modèle de climatisation
       flashes:
-        destroyed: Le modèle a été supprimé.
+        destroyed: Le modèle de climatisation a été supprimé.
   bays:
     index:
       new_bay: Ajouter une baie ou un couple de baies

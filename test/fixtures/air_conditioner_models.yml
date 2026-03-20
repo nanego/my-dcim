@@ -2,15 +2,15 @@
 
 one:
   id: 1
-  name: MyString
+  name: X123456
   manufacturer_id: 1
 
 two:
   id: 2
-  name: MyString
+  name: Y123456
   manufacturer_id: 2
 
 unused:
   id: 3
-  name: MyString
+  name: Unused AirConditionner Model
   manufacturer_id: 1
