@@ -772,6 +772,7 @@ fr:
       night: Nuit
   air_conditioner_models:
     index:
+      title: Modèle de climatisation
       new_air_conditioner_model: Ajouter un modèle de climatisation
     new:
       title: Nouveau modèle de climatisation
