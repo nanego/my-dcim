@@ -8,8 +8,7 @@ class CablesController < ApplicationController
     if @server
       authorize! @cables = @server.cables.includes(:cards, :port_types, ports: { server: { modele: :category } })
 
-      @filter = ProcessorFilter.new(@cables, params)
-      @cables = @filter.results
+      @cables = @cables.sorted
     else
       authorize! @cables = scoped_cables.includes(connections: %i[port server card],
                                                   cards: [:card_type],
