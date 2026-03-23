@@ -2,7 +2,7 @@
 
 class ChangelogEntriesController < ApplicationController
   def index
-    @changelog_entries = sorted(changelog_scope.includes(:author, :object).order(created_at: :desc))
+    @changelog_entries = changelog_scope.includes(:author, :object).order(created_at: :desc)
     authorize! @changelog_entries, context: { scoped_object: }
     @filter = ProcessorFilter.new(@changelog_entries, params)
 

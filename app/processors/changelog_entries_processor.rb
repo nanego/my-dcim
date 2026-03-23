@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class ChangelogEntriesProcessor < ApplicationProcessor
+  include Sortable
+
+  SORTABLE_FIELDS = %w[action author_id object_id created_at].freeze
+
   map :q do |q:|
     q = q.downcase
 
@@ -30,4 +34,6 @@ class ChangelogEntriesProcessor < ApplicationProcessor
   map :date do |date:|
     raw.where(created_at: Date.parse(date).all_day)
   end
+
+  sortable fields: SORTABLE_FIELDS
 end
