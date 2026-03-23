@@ -165,14 +165,35 @@
   <%= turbo_frame_tag(dom_id(Server, :table), data: { turbo_action: :advance }) do %>
     <div class="d-flex flex-column row-gap-4">
       <%= render List::DataTableComponent.new(@servers, columns_to_display: @columns_preferences.preferred) do |table| %>
+        <% if allowed_to?(:cables_export?) %>
+          <% table.with_bulk_action(
+               url: cables_export_bulk_servers_path(format: :pdf),
+               method: :get,
+               class: "btn btn-outline-primary btn-sm",
+               title: t("servers.show.export_cta_tooltip"),
+               data: {
+                 turbo_frame: :_top,
+                 controller: "tooltip",
+                 bs_placement: "left"
+               },
+             ) do %>
+            <span class="bi bi-file-earmark-pdf pe-none"></span>
+          <% end %>
+        <% end %>
+
         <% if allowed_to?(:destroy?) %>
           <% table.with_bulk_action(
                url: bulk_servers_path,
                method: :delete,
                class: "btn btn-danger btn-sm",
-               data: { confirm: t("action.confirm") },
+               title: t("action.delete"),
+               data: {
+                 confirm: t("action.confirm"),
+                 controller: "tooltip",
+                 bs_placement: "top"
+               },
              ) do %>
-            <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
+              <span class="bi bi-trash pe-none"></span>
           <% end %>
         <% end %>
 
@@ -269,8 +290,8 @@
 
         <% table.with_column(text_align: :center, style: "min-width: 100px; width: 100px") do |server| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <% if allowed_to?(:export_cables?, server) %>
-              <%= link_to export_cables_server_path(server),
+            <% if allowed_to?(:cables_export?, server) %>
+              <%= link_to cables_export_server_path(server, format: :pdf),
                           class: "btn btn-outline-primary",
                           title: t("servers.show.export_cta_tooltip"),
                           target: :_blank,
@@ -279,7 +300,7 @@
                             aria_label: t("servers.show.export_cta_tooltip"),
                             bs_trigger: "hover",
                             controller: "tooltip",
-                            bs_placement: "left"
+                            bs_placement: "left",
                           } do %>
                 <span class="bi bi-file-earmark-pdf"></span>
               <% end %>
@@ -287,18 +308,22 @@
 
             <% if allowed_to?(:duplicate?, server) %>
               <%= link_to duplicate_server_path(server), class: "btn btn-success", data: { turbo_frame: :_top } do %>
-                <span class="bi bi-copy" title="<%= t("action.duplicate") %>" aria-hidden="true"
-                                                                              data-controller="tooltip"
-                                                                              data-bs-placement="left"></span>
+                <span class="bi bi-copy"
+                      title="<%= t("action.duplicate") %>"
+                      aria-hidden="true"
+                      data-controller="tooltip"
+                      data-bs-placement="left"></span>
                 <span class="visually-hidden"><%= t("action.duplicate") %></span>
               <% end %>
             <% end %>
 
             <% if allowed_to?(:update?, server) %>
               <%= link_to edit_server_path(server), class: "btn btn-info", data: { turbo_frame: :_top } do %>
-                <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
-                                                                          data-controller="tooltip"
-                                                                          data-bs-placement="left"></span>
+                <span class="bi bi-pencil"
+                      title="<%= t("action.edit") %>"
+                      aria-hidden="true"
+                      data-controller="tooltip"
+                      data-bs-placement="left"></span>
                 <span class="visually-hidden"><%= t("action.edit") %></span>
               <% end %>
             <% end %>
@@ -308,9 +333,11 @@
                           method: :delete,
                           data: { turbo_frame: :_top },
                           class: "btn btn-danger" do %>
-                <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
-                                                                            data-controller="tooltip"
-                                                                            data-bs-placement="left"></span>
+                <span class="bi bi-trash"
+                      title="<%= t("action.delete") %>"
+                      aria-hidden="true"
+                      data-controller="tooltip"
+                      data-bs-placement="left"></span>
                 <span class="visually-hidden"><%= t("action.delete") %></span>
               <% end %>
             <% end %>

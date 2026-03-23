@@ -2,7 +2,7 @@
 
 module Visualization
   class FramesController < BaseController
-    before_action :set_frame, only: %i[show print]
+    before_action :set_frame, only: %i[show print cables_export]
     before_action :set_room, only: %i[show print]
 
     def show
@@ -52,6 +52,19 @@ module Visualization
       respond_to do |format|
         format.html
         format.txt { send_data Frame.to_txt(@servers_per_frames, params[:bg]) }
+      end
+    end
+
+    def cables_export
+      @servers = @frame.servers.sorted.includes(connections: :cable)
+
+      respond_to do |format|
+        format.pdf do
+          render ferrum_pdf: { scale: 1.2 },
+                 layout: "pdf",
+                 filename: "cables_#{@frame}.pdf",
+                 disposition: :inline
+        end
       end
     end
 

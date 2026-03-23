@@ -4,7 +4,7 @@ module Visualization
   class BaysController < BaseController
     include RoomsHelper
 
-    before_action :set_bay, only: %i[show print]
+    before_action :set_bay, only: %i[show print cables_export]
     before_action :set_servers_per_frames, only: %i[show print]
 
     def show
@@ -21,7 +21,20 @@ module Visualization
         format.pdf do
           render ferrum_pdf: {},
                  layout: "pdf",
-                 filename: "bay_#{@bay.id}_#{[params[:view], params[:bg]].compact.join("-")}.pdf",
+                 filename: "#{@bay}_#{[params[:view], params[:bg]].compact.join("-")}.pdf",
+                 disposition: :inline
+        end
+      end
+    end
+
+    def cables_export
+      @servers = @bay.materials.no_pdus.sorted.includes(connections: :cable)
+
+      respond_to do |format|
+        format.pdf do
+          render ferrum_pdf: { scale: 1.2 },
+                 layout: "pdf",
+                 filename: "cables_#{@bay}.pdf",
                  disposition: :inline
         end
       end

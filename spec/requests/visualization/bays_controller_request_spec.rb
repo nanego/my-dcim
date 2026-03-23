@@ -73,4 +73,28 @@ RSpec.describe Visualization::BaysController do
       it { expect(response.headers["Content-Type"]).to eq("application/pdf") }
     end
   end
+
+  describe "GET #cables_export" do
+    subject(:response) do
+      get cables_export_visualization_bay_path(bay, format:)
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:format) { nil }
+
+    include_context "with authenticated admin"
+
+    context "with pdf format" do
+      let(:format) { :pdf }
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(:cables_export) }
+      it { expect(response).to render_template("layouts/pdf") }
+      it { expect(response.headers["Content-Type"]).to eq("application/pdf") }
+    end
+
+    context "without format" do
+      it { expect { response }.to raise_error(ActionController::UnknownFormat) }
+    end
+  end
 end

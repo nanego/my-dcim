@@ -35,7 +35,7 @@ class ServerPolicy < ApplicationPolicy
     manage?
   end
 
-  def export_cables?
+  def cables_export?
     export?
   end
 end

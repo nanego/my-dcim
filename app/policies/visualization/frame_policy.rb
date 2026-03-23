@@ -9,5 +9,9 @@ module Visualization
     def network?
       index?
     end
+
+    def cables_export?
+      manage?
+    end
   end
 end

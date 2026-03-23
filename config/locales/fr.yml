@@ -47,6 +47,7 @@ fr:
       txt: Export Txt
       print: Impression
       csv: Export CSV
+      cables_export: Exports câbleur
     faces:
       front: Face avant
       back: Face arrière

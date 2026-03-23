@@ -137,6 +137,7 @@ en:
       txt: Txt export
       print: Print
       csv: CSV export
+      cables_export: Cable installer exports
     faces:
       front: Front panel
       back: Back panel
