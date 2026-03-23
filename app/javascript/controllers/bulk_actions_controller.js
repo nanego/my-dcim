@@ -87,7 +87,7 @@ export default class BulkActions extends Controller {
     this.showProgressBar()
     const response = await request.perform()
 
-    if (response.redirected && !response.isTurboStream) {
+    if ((response.redirected && !response.isTurboStream) || method == "get") {
       Turbo.visit(response.response.url, {
         action: "replace",
         response: {
