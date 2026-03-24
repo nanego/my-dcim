@@ -60,7 +60,7 @@ group :test do
   gem "capybara", ">= 2.15"
   gem "cuprite"
   gem "formulaic"
-  gem "minitest", "~> 5.x"
+  gem "minitest", "~> 6"
   gem "rails-controller-testing"
   gem "rspec-activemodel-mocks"
   gem "rspec-html-matchers"
