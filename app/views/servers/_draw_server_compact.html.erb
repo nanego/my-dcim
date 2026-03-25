@@ -1,37 +1,27 @@
-<%= render partial: "servers/visualization", locals: { server: } %>
+<%# locals: (server:, selected_port: nil, should_hide_left_block: request.format.pdf?) -%>
 
-<div class="ps-3 d-flex flex-column me-auto d-print-none">
-  <span class="mb-2">
-    <%= link_to h(server.name),
-                server_path(server, view: params[:view]),
-                { class: "server_name", data: { controller: "tooltip", bs_placement: "top" }, title: server.numero } %>
-  </span>
-  <% unless request.format.pdf? %>
+<%= render partial: "servers/visualization", locals: { server:, selected_port: } %>
+
+<% unless should_hide_left_block %>
+  <div class="ps-3 d-flex flex-column me-auto">
+    <span class="mb-2">
+      <%= link_to h(server.name),
+                  server_path(server, view: params[:view]),
+                  { class: "server_name", data: { controller: "tooltip", bs_placement: "top" }, title: server.numero } %>
+    </span>
     <span>
       <%= link_to draw_connections_path(server_id: server.id),
                   class: "draw_connections_link",
                   id: "draw_connections_link_#{server.id}",
                   title: "Dessiner les liaisons",
                   remote: true do %>
-        <button type="button" class="btn btn-outline-secondary btn-sm mb-2 d-print-none" aria-label="Draw connections">
+        <button type="button" class="btn btn-outline-secondary btn-sm mb-2" aria-label="Draw connections">
           <span class="bi bi-shuffle" aria-hidden="true"></span>
         </button>
       <% end %>
     </span>
-  <% end %>
-  <!--
-  <span class='float-start' style="padding-left: 8px;">
-    <% twin_cards_ids = server.cards.map(&:twin_card_id).uniq.reject {|c| c.blank?} if false %>
-  <% twin_cards_ids.map { |id| Card.find(id).frame }.uniq.each do |frame| %>
-    <%= link_to frame_path(frame), title: frame.to_s do %>
-        <button type="button" class="btn btn-sm" aria-label="Link to twin card">
-          <span class="bi bi-magnet-fill" aria-hidden="true"></span>
-        </button>
-      <% end %>
-  <% end if false %>
-  </span>
-  -->
-  <span class="fst-italic">
-    <%= link_to server.modele.try(:name), modele_path(server.modele_id) %>
-  </span>
-</div>
+    <span class="fst-italic">
+      <%= link_to server.modele.try(:name), modele_path(server.modele_id) %>
+    </span>
+  </div>
+<% end %>

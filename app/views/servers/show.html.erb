@@ -91,12 +91,13 @@
       <div class="<%= class_names("rounded-top-1 border border-secondary-subtle p-2 mb-2",
                                   colorized_background: bg_modele_color.present?) %>"
             style="background-color:<%= bg_modele_color %> !important;">
-        <%= render partial: "draw_server_compact_front", locals: { server: @server } %>
+        <%= render partial: "draw_server_compact_front", locals: { server: @server, should_show_name: false } %>
       </div>
 
-      <div class="server rounded-bottom-1 bg-body border border-secondary-subtle p-2 mb-2">
-        <span id="back_server_<%= @server.id %>" class="no-decoration-link d-flex flex-row-reverse flex-wrap">
-            <%= render partial: "servers/draw_server_compact", locals: { server: @server } %>
+      <div class="server rounded-bottom-1 bg-body border border-secondary-subtle p-2 mb-2 overflow-scroll">
+        <span id="back_server_<%= @server.id %>" class="no-decoration-link text-center">
+            <%= render partial: "servers/draw_server_compact",
+                       locals: { server: @server, should_hide_left_block: true } %>
         </span>
       </div>
     </div>
@@ -173,7 +174,7 @@
 
           <dl class="show-page_dl d-grid row-gap-2 mb-0">
             <dt class="pb-2"><%= Server.human_attribute_name(:numero) %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= @server.try(:numero) %></dd>
+            <dd class="mb-0 pb-2 ps-3 font-monospace"><%= @server.try(:numero) %></dd>
 
             <dt class="pb-2"><%= Server.human_attribute_name(:critique) %></dt>
             <dd class="mb-0 pb-2 ps-3">
