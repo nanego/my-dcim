@@ -426,7 +426,6 @@ fr:
       flashes:
         imported: Les nouveaux matériels I.T. ont été ajoutés.
     index:
-      new_server: Ajouter un matériel  I.T.
       add_server_via_csv: Ajouter par un fichier CSV
       sync_with_external_apps: Synchroniser avec GLPI
     show:
@@ -730,24 +729,24 @@ fr:
       changes: Changements
       metadatas: Metadonnées
   air_conditioners:
+    add_new: Ajouter un climatiseur
     temperatures: Températures
     index:
-      new_air_conditioner: Ajouter une climatisation
       title: Climatisation
     create:
       flashes:
-        created: La climatisation a bien été ajoutée.
+        created: Le climatiseur a bien été ajouté.
     new:
-      title: Ajouter une climatisation
+      title: Ajouter un climatiseur
     edit:
-      title: Modifier la climatisation
+      title: Modifier le climatiseur
     update:
       flashes:
-        updated: La climatisation a bien été modifiée.
+        updated: Le climatiseur a bien été modifié.
     destroy:
       title: Supprimer la climatisation
       flashes:
-        destroyed: La climatisation a bien été supprimée.
+        destroyed: Le climatiseur a bien été supprimé.
     form:
       status-on: "Service nominal"
       status-off: "Hors service"
@@ -772,21 +771,21 @@ fr:
       night: Nuit
   air_conditioner_models:
     index:
-      new_air_conditioner_model: Ajouter un modèle de climatisation
+      new_air_conditioner_model: Ajouter un modèle de climatiseur
     new:
-      title: Nouveau modèle de climatisation
+      title: Nouveau modèle de climatiseur
     create:
       flashes:
-        created: Le modèle de climatisation a été ajouté.
+        created: Le modèle de climatiseur a été ajouté.
     edit:
-      title: Modifier le modèle de climatisation
+      title: Modifier le modèle de climatiseur
     update:
       flashes:
-        updated: Le modèle de climatisation a été mis à jour.
+        updated: Le modèle de climatiseur a été mis à jour.
     destroy:
-      title: Supprimer ce modèle de climatisation
+      title: Supprimer ce modèle de climatiseur
       flashes:
-        destroyed: Le modèle de climatisation a été supprimé.
+        destroyed: Le modèle de climatiseur a été supprimé.
   bays:
     index:
       new_bay: Ajouter une baie ou un couple de baies
@@ -975,6 +974,7 @@ fr:
         frame_ids: Châssis
         bay_ids: Baie
         modele_ids: Modèle
+        air_conditioner_model_ids: Modèle de climatisation
         cluster_ids: Cluster
         site_ids: Site
         contact_ids: Contact

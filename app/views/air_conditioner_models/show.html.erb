@@ -1,18 +1,26 @@
-<%
-  breadcrumb.add_step(title = @air_conditioner_model)
-%>
+<% breadcrumb.add_step(title = @air_conditioner_model) %>
 
 <%= render Page::HeadingShowComponent.new(resource: @air_conditioner_model, title:, breadcrumb:) %>
+
 <div class="col-12 p-4 border-top">
   <div class="col-12 col-lg-6">
     <%= render CardComponent.new do |card| %>
       <dl class="show-page_dl d-grid row-gap-2 mb-0">
-        <% %i[name manufacturer_id].each do |attribute_name| %>
+        <% %i[name manufacturer].each do |attribute_name| %>
           <dt class="pb-2"><%= AirConditionerModel.human_attribute_name(attribute_name) %> :</dt>
           <dd class="mb-0 pb-2 ps-3"><%= @air_conditioner_model.public_send(attribute_name) %></dd>
         <% end %>
       </dl>
     <% end %>
   </div>
+
+  <%= render HasManyTurboFrameComponent.new(
+        AirConditioner.model_name.human,
+        url: air_conditioners_path(air_conditioner_model_ids: @air_conditioner_model.id),
+        frame_id: dom_id(AirConditioner, :table),
+        new_path: (new_air_conditioner_path(air_conditioner_model: { air_conditioner_model_id: @air_conditioner_model.id }) if allowed_to?(:create?, with: AirConditionerPolicy)),
+        new_label: t("air_conditioners.add_new"),
+      ) %>
+
   <%= render ChangelogEntries::ObjectListComponent.new(@air_conditioner_model) %>
 </div>

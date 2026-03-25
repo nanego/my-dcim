@@ -1,11 +1,11 @@
 <%
   breadcrumb
-    .add_step(AirConditionerModel.model_name.human(count: 2), air_conditioner_models_path)
     .add_step(@air_conditioner_model, air_conditioner_model_path(@air_conditioner_model))
     .add_step(t("action.edit"))
 %>
 
 <%= render Page::HeadingEditComponent.new(resource: @air_conditioner_model, title: t(".title"), breadcrumb:) %>
+
 <div class="col-12 p-4 border-top">
-  <%= render "form" %>
+  <%= render partial: "form", locals: { air_conditioner_model: @air_conditioner_model } %>
 </div>

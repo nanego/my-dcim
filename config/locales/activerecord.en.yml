@@ -45,7 +45,12 @@ en:
     attributes:
       air_conditioner_model:
         name: Name
+        manufacturer_id: Manufacturer
         manufacturer: Manufacturer
+        air_conditioners_count:
+          zero: 0 air conditioner
+          one: 1 air conditioner
+          other: "%{count} air conditioners"
       bay:
         access_control: Access control
         depth: Depth

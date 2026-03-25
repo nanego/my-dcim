@@ -33,8 +33,46 @@ en:
     hide_all: Hide all
 
   air_conditioners:
+    add_new: Add an air conditioner
+    temperatures: Temperatures
+    index:
+      title: Air conditioner
+    create:
+      flashes:
+        created: The air conditionner has been created.
+    new:
+      title: Add an air conditioner
+    edit:
+      title: Edit the air conditioner
+    update:
+      flashes:
+        updated: The air conditionner has been updated.
     destroy:
       title: Delete the air conditionner
+      flashes:
+        destroyed: The air conditionner has been removed.
+    form:
+      status-on: Rated service
+      status-off: Out of service
+      status-degraded: Reduced service
+      left: Left
+      right: Right
+      info-start: Delta-T°C
+      info-range: Operating range for maximum performance of the UR
+      info-setpoint: Maximum setpoint temperature
+      info-min-setpoint: Minimum setpoint temperature
+      help-start: Operate>Components>Air>Fan 1
+      help-range: Operate>Components>Air>Fan 1
+      help-setpoint: Operate>Values>Air>Setpoint Temperature
+      help-min-setpoint: Operate>Values>Air>Setpoint Temperature
+      info-temperatures:
+        "If T_(internal) - T_(external) < DTC start,
+                then ventilation = minimum flow rate
+                \n\r
+                If T_(internal) - T_(external) > DTC start + DTC range,
+                then ventilation = maximum flow rate"
+      day: Day
+      night: Night
 
   air_conditioner_models:
     index:
@@ -189,6 +227,7 @@ en:
         islet_id: Islet
         manufacturer_ids: Manufacturer
         modele_ids: Model
+        air_conditioner_model_ids: Air conditoner model
         room_ids: Room
         actions: Actions
         authors: Authors
@@ -494,7 +533,6 @@ en:
       flashes:
         imported: New I.T. equipment has been added.
     index:
-      new_server: Add I.T. equipment
       add_server_via_csv: Add via CSV file
       sync_with_external_apps: Synchronize with GLPI
     show:

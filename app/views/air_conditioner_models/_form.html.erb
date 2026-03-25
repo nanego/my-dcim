@@ -1,5 +1,8 @@
-<%= form_with(model: @air_conditioner_model, html: { role: "form" }) do |f| %>
-  <%= render FormErrorsComponent.new(@air_conditioner_model) %>
+<%# locals: (air_conditioner_model:) -%>
+
+<%= form_with(model: air_conditioner_model, html: { role: "form" }) do |f| %>
+  <%= render FormErrorsComponent.new(air_conditioner_model) %>
+
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
       <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
@@ -9,18 +12,18 @@
         </fieldset>
         <fieldset class="col-12 mt-4">
           <%= f.label :manufacturer_id, class: "form-label" %>
-          <%= f.collection_select(:manufacturer_id,
-                        Manufacturer.order(Arel.sql("LOWER(name)")),
-                        :id,
-                        :name,
-                        { prompt: true },
-                        {
-                          class: "form-select",
-                          placeholder: t("select.placeholder"),
-                        }) %>
+          <%= f.select :manufacturer_id,
+                       AirConditionerModelDecorator.manufacturers_options_for_select,
+                       { prompt: true },
+                       {
+                         class: "form-select",
+                         data: { controller: "select" },
+                         placeholder: t("select.placeholder"),
+                       } %>
         </fieldset>
       <% end %>
     </div>
   </div>
+
   <%= render Form::ActionsComponent.new(f) %>
 <% end %>

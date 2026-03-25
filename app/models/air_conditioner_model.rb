@@ -7,6 +7,8 @@ class AirConditionerModel < ApplicationRecord
 
   has_many :air_conditioners, dependent: :restrict_with_error
 
+  scope :sorted, -> { order(Arel.sql("LOWER(name)")) }
+
   def to_s
     name
   end
