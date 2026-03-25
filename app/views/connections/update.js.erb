@@ -1,6 +1,6 @@
 $("#edit_port_modal").modal("hide");
-$("#back_server_<%= @from_server.id %>").html("<%= escape_javascript(render 'servers/draw_server_compact', server: @from_server) %>");
-$("#back_server_<%= @to_server.id %>").html("<%= escape_javascript(render 'servers/draw_server_compact', server: @to_server) %>");
+$("#back_server_<%= @from_server.id %>").html("<%= escape_javascript(render partial: 'servers/draw_server_compact', locals: { server: @from_server }) %>");
+$("#back_server_<%= @to_server.id %>").html("<%= escape_javascript(render partial: 'servers/draw_server_compact', locals: { server: @to_server }) %>");
 $("#pdu-<%= @from_server.id %>").html("<%= escape_javascript(render 'pdus/pdu', pdu: @from_server) %>");
 $("#pdu-<%= @to_server.id %>").html("<%= escape_javascript(render 'pdus/pdu', pdu: @to_server) %>");
 document.querySelector("#connections-tab-pane turbo-frame#table_connection").reload();

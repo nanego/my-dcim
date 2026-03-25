@@ -78,12 +78,13 @@
       <div class="<%= class_names("rounded-top-1 border border-secondary-subtle p-2 mb-2",
                                   colorized_background: bg_model_color.present?) %>"
             style="background-color:<%= bg_model_color %> !important;">
-        <%= render partial: "servers/draw_server_compact_front", locals: { server: @pdu } %>
+        <%= render partial: "servers/draw_server_compact_front", locals: { server: @pdu, should_show_name: false } %>
       </div>
 
-      <div class="server rounded-bottom-1 bg-body border border-secondary-subtle p-2 mb-2">
-        <span id="back_server_<%= @pdu.id %>" class="no-decoration-link d-flex flex-row-reverse flex-wrap">
-            <%= render partial: "servers/draw_server_compact", locals: { server: @pdu } %>
+      <div class="server rounded-bottom-1 bg-body border border-secondary-subtle p-2 mb-2 overflow-scroll">
+        <span id="back_server_<%= @pdu.id %>" class="no-decoration-link text-center">
+            <%= render partial: "servers/draw_server_compact",
+                       locals: { server: @pdu, should_hide_left_block: true } %>
         </span>
       </div>
     </div>
@@ -151,7 +152,7 @@
 
           <dl class="show-page_dl d-grid row-gap-2 mb-0">
             <dt class="pb-2"><%= Server.human_attribute_name(:numero) %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= @pdu.try(:numero) %></dd>
+            <dd class="mb-0 pb-2 ps-3 font-monospace"><%= @pdu.try(:numero) %></dd>
 
             <dt class="pb-2"><%= Card.model_name.human.pluralize %></dt>
             <dd class="mb-0 pb-2 ps-3">
