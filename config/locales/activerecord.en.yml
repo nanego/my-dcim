@@ -131,6 +131,7 @@ en:
         frame: Frame
         position: Position
         modele_id: Model
+        manufacturer_id: Manufacturer
         critique: Critic
         gestion_id: Manager
         gestion: Manager

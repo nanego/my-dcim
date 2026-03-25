@@ -109,6 +109,7 @@ fr:
         frame_id: Châssis
         position: Position
         modele_id: Modèle
+        manufacturer_id: Constructeur
         critique: Critique
         gestion_id: Gestionnaire
         network_types: Composant réseau
