@@ -82,12 +82,12 @@ class ModelesController < ApplicationController
   def destroy
     if @modele.destroy
       respond_to do |format|
-        format.html { redirect_to modeles_url, notice: t(".flashes.destroyed") }
+        format.html { redirect_back_to_param_or modeles_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to({ action: "index" }, alert: @modele.errors.full_messages_for(:base).join(", ")) }
+        format.html { redirect_back_to_param_or({ action: "index" }, alert: @modele.errors.full_messages_for(:base).join(", ")) }
       end
     end
   end

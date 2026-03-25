@@ -53,7 +53,7 @@ class AirConditionersController < ApplicationController
     @air_conditioner.destroy!
 
     respond_to do |format|
-      format.html { redirect_to air_conditioners_url, notice: t(".flashes.destroyed") }
+      format.html { redirect_back_to_param_or air_conditioners_url, notice: t(".flashes.destroyed") }
       format.json { head :no_content }
     end
   end

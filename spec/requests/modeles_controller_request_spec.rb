@@ -202,52 +202,45 @@ RSpec.describe ModelesController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete modele_path(modele, confirm: true)
+      delete modele_path(modele, **params)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
+    let(:modele) { modeles(:four) }
+    let(:params) { { confirm: true } }
+
     include_context "with authenticated admin"
 
     context "without confirm" do
-      subject(:response) do
-        delete modele_path(modele)
-        @response # rubocop:disable RSpec/InstanceVariable
-      end
+      let(:params) { {} }
 
-      it do
-        expect do
-          response
-        end.not_to change(Modele, :count)
-      end
-
+      it { expect { response }.not_to change(Modele, :count) }
       it { expect(response).to have_http_status(:success) }
       it { expect(Modele.exists?(modele.id)).to be true }
     end
 
     context "with a modele not referenced on Server" do
-      let(:modele) { modeles(:four) }
-
-      it do
-        expect do
-          response
-        end.to change(Modele, :count).by(-1)
-      end
-
+      it { expect { response }.to change(Modele, :count).by(-1) }
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(modeles_path) }
     end
 
     context "with an modele referenced on at least one Server" do
-      it do
-        expect do
-          response
-        end.not_to change(Modele, :count)
-      end
+      let(:modele) { modeles(:one) }
 
+      it { expect { response }.not_to change(Modele, :count) }
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(modeles_path) }
+    end
+
+    context "with custom back_to" do
+      let(:params) { { confirm: true, back_to: "/some_path" } }
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to("/some_path") }
+      it { expect { response }.to change(Modele, :count).by(-1) }
     end
   end
 

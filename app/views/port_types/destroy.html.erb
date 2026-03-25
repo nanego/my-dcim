@@ -8,7 +8,7 @@
 
 <div class="col-12 p-4 border-top">
   <%= render DeleteDependencyComponent.new(
-    @port_type,
-    confirmation_path: port_type_path(@port_type, confirm: true)
-  ) %>
+        @port_type,
+        confirmation_path: port_type_path(@port_type, confirm: true, back_to: params[:back_to]),
+      ) %>
 </div>

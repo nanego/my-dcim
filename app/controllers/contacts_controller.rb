@@ -61,12 +61,12 @@ class ContactsController < ApplicationController
   def destroy
     if @contact.destroy
       respond_to do |format|
-        format.html { redirect_to contacts_path, notice: t(".flashes.destroyed") }
+        format.html { redirect_back_to_param_or contacts_path, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to(contacts_path, alert: @contact.errors.full_messages_for(:base).join(", ")) }
+        format.html { redirect_back_to_param_or(contacts_path, alert: @contact.errors.full_messages_for(:base).join(", ")) }
       end
     end
   end
