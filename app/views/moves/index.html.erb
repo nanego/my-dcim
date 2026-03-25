@@ -3,15 +3,16 @@
 %>
 
 <%= render Page::HeadingComponent.new(
-  title:, breadcrumb:, back_button_url: moves_project_path(@moves_project_step.moves_project)
-) do |heading| %>
+      title:, breadcrumb:, back_button_url: moves_project_path(@moves_project_step.moves_project),
+    ) do |heading| %>
   <% heading.with_right_content do %>
     <% if @moves_project.unarchived? %>
-      <% render ButtonComponent.new(t(".new_move"),
-                                    url: new_moves_project_step_move_path(@moves_project_step),
-                                    variant: :success,
-                                    icon: "plus-lg",
-                                    is_responsive: true) %>
+      <%= render ButtonComponent.new(t(".new_move"),
+                                     url: new_moves_project_step_move_path(@moves_project_step),
+                                     variant: :success,
+                                     icon: "plus-lg",
+                                     is_responsive: true,
+                                     extra_classes: "flex-shrink-0") %>
     <% end %>
   <% end %>
 
@@ -51,9 +52,8 @@
                       data: {
                         turbo_frame: :_top,
                         controller: "tooltip",
-                        bs_placement: "top"
-                      }
-          %>
+                        bs_placement: "top",
+                      } %>
           <div class="small">
             <span class="fw-light text-body-secondary"><%= Server.human_attribute_name(:position) %> :</span>
             <span class="font-monospace"><%= move.prev_position %></span>
@@ -67,9 +67,8 @@
                       data: {
                         turbo_frame: :_top,
                         controller: "tooltip",
-                        bs_placement: "top"
-                      }
-          %>
+                        bs_placement: "top",
+                      } %>
           <div class="small">
             <span class="fw-light text-body-secondary"><%= Server.human_attribute_name(:position) %> :</span>
             <span class="font-monospace"><%= move.position %></span>
@@ -79,8 +78,7 @@
         <% table.with_column(Move.human_attribute_name(:status)) do |move| %>
           <span data-controller="tooltip"
                 data-bs-placement="top"
-                title="<%= l(move.executed_at) if move.executed_at.present? %>"
-          >
+                title="<%= l(move.executed_at) if move.executed_at.present? %>">
             <%= render move.decorated.status_to_badge_component %>
           </span>
         <% end %>
@@ -101,11 +99,10 @@
                             confirm: t(".execute_confirmation"),
                             controller: "tooltip",
                             bs_placement: "left",
-                            turbo_frame: :_top
+                            turbo_frame: :_top,
                           },
                           class: "btn btn-outline-primary",
-                          aria: { hidden: true }
-              %>
+                          aria: { hidden: true } %>
               <%= link_to edit_moves_project_step_move_path(@moves_project_step, move),
                           class: "btn btn-outline-info",
                           data: { turbo_frame: :_top } do %>
@@ -147,8 +144,7 @@
               <td class="w-100">
                 <%= link_to frame,
                             frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame),
-                            data: { turbo_frame: :_top }
-                %>
+                            data: { turbo_frame: :_top } %>
               </td>
               <td class="d-flex justify-content-center column-gap-1">
                 <div class="btn-group btn-group-sm" role="group" aria-label="...">
@@ -162,7 +158,7 @@
                   <%= link_to print_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame),
                               class: "btn btn-sm btn-outline-primary",
                               data: { turbo_frame: :_top },
-                              target: :_blank do %>
+                              target: :_blank, rel: :noopener do %>
                     <span class="bi bi-printer"
                           title="<%= t("export_button.exports.print") %>"
                           aria-hidden="true"
@@ -172,8 +168,8 @@
                   <% end %>
 
                   <%= link_to print_moves_project_moves_project_step_path(
-                                @moves_project, @moves_project_step, frame, format: :pdf
-                              ),
+                        @moves_project, @moves_project_step, frame, format: :pdf,
+                      ),
                               class: "btn btn-outline-primary d-flex align-items-center",
                               title: t("export_button.exports.pdf"),
                               target: :_blank,
@@ -182,7 +178,7 @@
                                 aria_label: t("export_button.exports.pdf"),
                                 bs_trigger: "hover",
                                 controller: "tooltip",
-                                bs_placement: "left"
+                                bs_placement: "left",
                               } do %>
                     <span class="bi bi-file-earmark-pdf"></span>
                   <% end %>
