@@ -8,7 +8,7 @@
 
 <div class="col-12 p-4 border-top">
   <%= render DeleteDependencyComponent.new(
-    @stack,
-    confirmation_path: stack_path(@stack, confirm: true)
-  ) %>
+        @stack,
+        confirmation_path: stack_path(@stack, confirm: true, back_to: params[:back_to]),
+      ) %>
 </div>

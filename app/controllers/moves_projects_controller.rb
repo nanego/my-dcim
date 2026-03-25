@@ -55,7 +55,7 @@ class MovesProjectsController < ApplicationController
     @moves_project.destroy!
 
     respond_to do |format|
-      format.html { redirect_to moves_projects_path, status: :see_other, notice: t(".flashes.destroyed") }
+      format.html { redirect_back_to_param_or moves_projects_path, status: :see_other, notice: t(".flashes.destroyed") }
       format.json { head :no_content }
     end
   end

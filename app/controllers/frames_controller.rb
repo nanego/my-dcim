@@ -68,12 +68,12 @@ class FramesController < ApplicationController
   def destroy
     if @frame.destroy
       respond_to do |format|
-        format.html { redirect_to frames_url, notice: t(".flashes.destroyed") }
+        format.html { redirect_back_to_param_or frames_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to frames_url, alert: @frame.errors.full_messages_for(:base).join(", ") }
+        format.html { redirect_back_to_param_or frames_url, alert: @frame.errors.full_messages_for(:base).join(", ") }
       end
     end
   end

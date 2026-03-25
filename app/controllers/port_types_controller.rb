@@ -49,7 +49,7 @@ class PortTypesController < ApplicationController
   def destroy
     @port_type.destroy
     respond_to do |format|
-      format.html { redirect_to port_types_path, notice: t(".flashes.destroyed") }
+      format.html { redirect_back_to_param_or port_types_path, notice: t(".flashes.destroyed") }
       format.json { head :no_content }
     end
   end

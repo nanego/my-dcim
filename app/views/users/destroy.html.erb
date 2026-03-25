@@ -8,8 +8,8 @@
 
 <div class="col-12 p-4 border-top">
   <%= render DeleteDependencyComponent.new(
-    @user,
-    except: %i[permission_scope_users],
-    confirmation_path: user_path(@user, confirm: true)
-  ) %>
+        @user,
+        except: %i[permission_scope_users],
+        confirmation_path: user_path(@user, confirm: true, back_to: params[:back_to]),
+      ) %>
 </div>

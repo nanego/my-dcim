@@ -8,7 +8,7 @@
 
 <div class="col-12 p-4 border-top">
   <%= render DeleteDependencyComponent.new(
-    @bay,
-    confirmation_path: bay_path(@bay, confirm: true)
-  ) %>
+        @bay,
+        confirmation_path: bay_path(@bay, confirm: true, back_to: params[:back_to]),
+      ) %>
 </div>

@@ -43,7 +43,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
 
-    redirect_to users_path(search_params), notice: t(".flashes.destroyed")
+    redirect_back_to_param_or users_path(search_params), notice: t(".flashes.destroyed")
   end
 
   def reset_authentication_token

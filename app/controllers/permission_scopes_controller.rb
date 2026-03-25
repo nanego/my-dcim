@@ -58,7 +58,7 @@ class PermissionScopesController < ApplicationController
     @permission_scope.destroy!
 
     respond_to do |format|
-      format.html { redirect_to permission_scopes_path, status: :see_other, notice: t(".flashes.destroyed") }
+      format.html { redirect_back_to_param_or permission_scopes_path, status: :see_other, notice: t(".flashes.destroyed") }
     end
   end
 

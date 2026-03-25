@@ -8,7 +8,7 @@
 
 <div class="col-12 p-4 border-top">
   <%= render DeleteDependencyComponent.new(
-    @color,
-    confirmation_path: color_path(@color, confirm: true)
-  ) %>
+        @color,
+        confirmation_path: color_path(@color, confirm: true, back_to: params[:back_to]),
+      ) %>
 </div>

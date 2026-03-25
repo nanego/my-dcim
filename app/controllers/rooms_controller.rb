@@ -59,12 +59,12 @@ class RoomsController < ApplicationController
   def destroy
     if @room.destroy
       respond_to do |format|
-        format.html { redirect_to rooms_url, notice: t(".flashes.destroyed") }
+        format.html { redirect_back_to_param_or rooms_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to rooms_url, alert: @room.errors.full_messages_for(:base).join(", ") }
+        format.html { redirect_back_to_param_or rooms_url, alert: @room.errors.full_messages_for(:base).join(", ") }
       end
     end
   end

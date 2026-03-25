@@ -70,10 +70,10 @@ class PowerDistributionUnitsController < ApplicationController
   def destroy
     respond_to do |format|
       if @pdu.destroy
-        format.html { redirect_to power_distribution_units_path(search_params), notice: t(".flashes.destroyed") }
+        format.html { redirect_back_to_param_or power_distribution_units_path(search_params), notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       else
-        format.html { redirect_to power_distribution_units_path(search_params), alert: t(".flashes.not_destroyed") }
+        format.html { redirect_back_to_param_or power_distribution_units_path(search_params), alert: t(".flashes.not_destroyed") }
         format.json { head :bad_request }
       end
     end

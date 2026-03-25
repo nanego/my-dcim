@@ -10,6 +10,6 @@
   <%= render DeleteDependencyComponent.new(
         @cluster,
         except: %i[cluster_rooms],
-        confirmation_path: cluster_path(@cluster, confirm: true),
+        confirmation_path: cluster_path(@cluster, confirm: true, back_to: params[:back_to]),
       ) %>
 </div>

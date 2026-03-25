@@ -93,6 +93,22 @@ RSpec.describe CablesController do
       end
 
       it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(cables_path) }
+
+      it do
+        expect { response }.to change(Cable, :count).by(-1)
+      end
+    end
+
+    context "with existing cable and custom back_to" do
+      subject(:response) do
+        delete cable_path(cable, confirm: true, back_to: "/some_path")
+
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to("/some_path") }
 
       it do
         expect { response }.to change(Cable, :count).by(-1)

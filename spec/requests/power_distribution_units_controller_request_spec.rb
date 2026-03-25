@@ -212,51 +212,47 @@ RSpec.describe PowerDistributionUnitsController do
   end
 
   describe "DELETE #destroy" do
+    subject(:response) do
+      delete power_distribution_unit_path(pdu, **params)
+
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:pdu) { pdu2 }
+    let(:params) { { confirm: true } }
+
     context "without confirm" do
-      subject(:response) do
-        delete power_distribution_unit_path(pdu2)
-        @response # rubocop:disable RSpec/InstanceVariable
-      end
+      let(:params) { {} }
 
-      it do
-        expect do
-          response
-        end.not_to change(Server, :count)
-      end
-
+      it { expect { response }.not_to change(Server, :count) }
       it { expect(response).to have_http_status(:success) }
       it { expect(Server.exists?(pdu2.id)).to be true }
     end
 
     context "with a pdu without association" do
-      it "destroys the requested pdu" do
-        expect do
-          delete power_distribution_unit_path(pdu2, confirm: true)
-        end.to change(Server, :count).by(-1)
-      end
+      it { expect { response }.to change(Server, :count).by(-1) }
+      it { expect(response).to redirect_to(power_distribution_units_path) }
+    end
 
-      it "redirects to the pdus list" do
-        delete power_distribution_unit_path(pdu2, confirm: true)
-        expect(response).to redirect_to(power_distribution_units_path)
-      end
+    context "with a pdu without association and params" do
+      let(:params) { { confirm: true, sort: "asc", sort_by: "rooms.name" } }
 
-      it "redirects to the pdus list and keep params" do
-        delete power_distribution_unit_path(pdu2, confirm: true, params: { sort: "asc", sort_by: "rooms.name" })
-        expect(response).to redirect_to(power_distribution_units_path({ sort: "asc", sort_by: "rooms.name" }))
-      end
+      it { expect(response).to redirect_to(power_distribution_units_path({ sort: "asc", sort_by: "rooms.name" })) }
     end
 
     context "with a pdu with association" do
-      it "does not destroy the requested pdu" do
-        expect do
-          delete power_distribution_unit_path(pdu, confirm: true)
-        end.not_to change(Server, :count)
-      end
+      let(:pdu) { servers(:pdu) }
 
-      it "redirects to the pdus list" do
-        delete power_distribution_unit_path(pdu, confirm: true)
-        expect(response).to redirect_to(power_distribution_units_path)
-      end
+      it { expect { response }.not_to change(Server, :count) }
+      it { expect(response).to redirect_to(power_distribution_units_path) }
+    end
+
+    context "with custom back_to" do
+      let(:params) { { confirm: true, back_to: "/some_path" } }
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to("/some_path") }
+      it { expect { response }.to change(Server, :count).by(-1) }
     end
   end
 end

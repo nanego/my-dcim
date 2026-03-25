@@ -58,12 +58,12 @@ class CardTypesController < ApplicationController
   def destroy
     if @card_type.destroy
       respond_to do |format|
-        format.html { redirect_to card_types_path, notice: t(".flashes.destroyed") }
+        format.html { redirect_back_to_param_or card_types_path, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to card_types_path, alert: @card_type.errors.full_messages_for(:base).join(", ") }
+        format.html { redirect_back_to_param_or card_types_path, alert: @card_type.errors.full_messages_for(:base).join(", ") }
       end
     end
   end

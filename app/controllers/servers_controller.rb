@@ -85,10 +85,10 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   def destroy
     respond_to do |format|
       if @server.destroy
-        format.html { redirect_to servers_path(search_params), notice: t(".flashes.destroyed") }
+        format.html { redirect_back_to_param_or servers_path(search_params), notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       else
-        format.html { redirect_to servers_path(search_params), alert: t(".flashes.not_destroyed") }
+        format.html { redirect_back_to_param_or servers_path(search_params), alert: t(".flashes.not_destroyed") }
         format.json { head :bad_request }
       end
     end
