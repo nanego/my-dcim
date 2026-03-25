@@ -8,7 +8,7 @@
 
 <div class="col-12 p-4 border-top">
   <%= render DeleteDependencyComponent.new(
-    @architecture,
-    confirmation_path: architecture_path(@architecture, confirm: true)
-  ) %>
+        @architecture,
+        confirmation_path: architecture_path(@architecture, confirm: true, back_to: params[:back_to]),
+      ) %>
 </div>
