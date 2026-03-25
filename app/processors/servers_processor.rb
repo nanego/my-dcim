@@ -58,11 +58,5 @@ class ServersProcessor < ApplicationProcessor
     raw.joins(:modele).where(modeles: { category_id: category_ids })
   end
 
-  sortable fields: SORTABLE_FIELDS do
-    # having "name" do |sort: "asc"|
-    #   raise "Possible injection: #{sort}" unless SORT_ORDERS.include?(sort)
-
-    #   raw.order(name: sort)
-    # end
-  end
+  sortable fields: SORTABLE_FIELDS
 end
