@@ -245,15 +245,18 @@ RSpec.describe ServersController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete server_path(server, params:)
+      delete server_path(server, confirm:, **params)
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
     let(:server) { servers(:two) }
-    let(:params) { { confirm: true } }
+    let(:confirm)  { true }
+    let(:params) { {} }
+
+    include_context "with authenticated admin"
 
     context "without confirm" do
-      let(:params) { {} }
+      let(:confirm) { false }
 
       it { expect { response }.not_to change(Server, :count) }
       it { expect(response).to have_http_status(:success) }
@@ -266,7 +269,7 @@ RSpec.describe ServersController do
     end
 
     context "with a server without association and params" do
-      let(:params) { { confirm: true, sort: "asc", sort_by: "rooms.name" } }
+      let(:params) { { sort: "asc", sort_by: "rooms.name" } }
 
       it { expect(response).to redirect_to(servers_path({ sort: "asc", sort_by: "rooms.name" })) }
     end
@@ -279,7 +282,7 @@ RSpec.describe ServersController do
     end
 
     context "with custom back_to" do
-      let(:params) { { confirm: true, back_to: "/some_path" } }
+      let(:params) { { back_to: "/some_path" } }
 
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to("/some_path") }
