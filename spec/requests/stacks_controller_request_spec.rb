@@ -149,7 +149,7 @@ RSpec.describe StacksController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete stack_path(stack, params:)
+      delete stack_path(stack, **params)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable

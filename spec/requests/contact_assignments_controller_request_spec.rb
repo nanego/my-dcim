@@ -139,7 +139,7 @@ RSpec.describe ContactAssignmentsController do
 
   describe "#destroy" do
     subject(:response) do
-      delete contact_assignment_path(contact_assignment, params:)
+      delete contact_assignment_path(contact_assignment, **params)
 
       @response # rubocop:disable RSpec/InstanceVariable
     end

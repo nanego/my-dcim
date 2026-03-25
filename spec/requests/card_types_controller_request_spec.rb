@@ -162,7 +162,7 @@ RSpec.describe CardTypesController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete card_type_path(card_type, params:)
+      delete card_type_path(card_type, **params)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable

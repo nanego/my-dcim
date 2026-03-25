@@ -164,7 +164,7 @@ RSpec.describe IsletsController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete islet_path(islet, params:)
+      delete islet_path(islet, **params)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable

@@ -202,7 +202,7 @@ RSpec.describe ModelesController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete modele_path(modele, params:)
+      delete modele_path(modele, **params)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable

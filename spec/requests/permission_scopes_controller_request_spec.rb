@@ -116,7 +116,7 @@ RSpec.describe PermissionScopesController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete permission_scope_path(permission_scope, params:)
+      delete permission_scope_path(permission_scope, **params)
       @response # rubocop:disable RSpec/InstanceVariable
     end
 

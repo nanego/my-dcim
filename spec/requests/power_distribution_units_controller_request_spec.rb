@@ -213,7 +213,8 @@ RSpec.describe PowerDistributionUnitsController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete power_distribution_unit_path(pdu, params:)
+      delete power_distribution_unit_path(pdu, **params)
+
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
