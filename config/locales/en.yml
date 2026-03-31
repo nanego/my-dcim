@@ -206,13 +206,16 @@ en:
       title: GLPI synchronization
       start_synchronization: Synchronize with GLPI
       configuration: Configuration
-      synchronised_categories_list: "List of categories to be synchronised: %{categories}"
+      synchronised_categories_list:
+        title: "List of categories to be synchronised:"
+        item_html: "<b>%{type}</b>: <i>%{categories}</i>"
+        wip: "(synchronization coming soon, currently in development)"
       last_complete_synch: "Last complete synchronisation:"
       none: none
       synchronizing: Synchronizing...
     settings:
       title: Synchronisation configuration
-      category_ids: Select the categories to be activated for synchronisation
+      category_ids: Select the synchronisation type for each category
       flashes:
         saved: "The configuration has been updated successfully."
 
@@ -412,6 +415,8 @@ en:
     flashes:
       archived: This project is archived
 
+  n_a: n/a
+
   port_types:
     destroy:
       title: Delete the port type
@@ -454,17 +459,6 @@ en:
     preview:
       modal_title: PDU %{pdu_name} preview
 
-  rooms:
-    edit_clusters_modal:
-      edit_clusters: Edit clusters
-    update:
-      flashes:
-        success: The room has successfully been updated
-    destroy:
-      title: Delete the room
-    add_new: Add a room
-    empty_overview: No bay to display
-
   permission_scopes:
     index:
       title: Permission Scope
@@ -488,6 +482,7 @@ en:
         destroyed: Permission Scope as been successfully destroyed.
     permission_scope_user_form:
       user_select: Select a user to add
+
   permission_scope_users:
     create:
       flashes:
@@ -495,6 +490,17 @@ en:
     destroy:
       flashes:
         destroyed: User has been remove from this Permission Scope.
+
+  rooms:
+    edit_clusters_modal:
+      edit_clusters: Edit clusters
+    update:
+      flashes:
+        success: The room has successfully been updated
+    destroy:
+      title: Delete the room
+    add_new: Add a room
+    empty_overview: No bay to display
 
   search:
     index:

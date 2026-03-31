@@ -3,18 +3,20 @@
 class ExternalAppRecordSetting
   include ActiveModel::Model
 
-  attr_accessor :category_ids
+  attr_accessor :category_glpi_sync_types
 
   def initialize(attributes = {})
-    @category_ids = Category.glpi_synchronizable.ids
+    @category_glpi_sync_types = Category.glpi_synchronizable.to_h { |c| [c.id, c.glpi_sync_type] }
 
     super
   end
 
   def save
     Category.transaction do
-      Category.update_all(is_glpi_synchronizable: false) # rubocop:disable Rails/SkipsModelValidations
-      Category.where(id: @category_ids).update_all(is_glpi_synchronizable: true) # rubocop:disable Rails/SkipsModelValidations
+      Category.update_all(glpi_sync_type: :none) # rubocop:disable Rails/SkipsModelValidations
+      @category_glpi_sync_types.each do |id, glpi_sync_type|
+        Category.find(id).update(glpi_sync_type: glpi_sync_type.presence || :none)
+      end
     end
   end
 end

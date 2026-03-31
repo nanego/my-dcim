@@ -216,6 +216,19 @@ en:
       permission_scope/role:
         reader: Reader
         writer: Writer
+      category:
+        name: Name
+        description: Description
+        glpi_sync_type: GLPI synchronization type
+        modeles: Models
+        modeles_count:
+          zero: 0 model
+          one: 1 model
+          other: "%{count} models"
+      category/glpi_sync_type:
+        none: Nond
+        server: Server
+        network_equipment: Network equipment
 
     errors:
       models:
