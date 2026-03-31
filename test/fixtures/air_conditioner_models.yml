@@ -7,5 +7,10 @@ one:
 
 two:
   id: 2
-  name: Y456123
+  name: Y123456
   manufacturer_id: 2
+
+unused:
+  id: 3
+  name: Unused AirConditionner Model
+  manufacturer_id: 1

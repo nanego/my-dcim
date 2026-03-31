@@ -34,6 +34,13 @@ RSpec.describe BayDecorator, type: :decorator do
     it { expect(described_class.access_control_options_for_select.pluck(1)).to match_array(Islet.access_controls.keys) }
   end
 
+  describe ".manufacturers_options_for_select" do
+    it do
+      expect(described_class.manufacturers_options_for_select)
+        .to contain_exactly(["Fourth", 4], ["Third", 3], ["fortinet", 1], ["juniper", 2])
+    end
+  end
+
   describe "#access_control_to_human" do
     subject(:access_control_sentence) { decorated_bay.access_control_to_human }
 

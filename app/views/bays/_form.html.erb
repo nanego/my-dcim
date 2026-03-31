@@ -22,7 +22,7 @@
           <fieldset class="col-12 mt-4">
             <%= f.label :manufacturer_id, class: "form-label" %>
             <%= f.select :manufacturer_id,
-                         options_from_collection_for_select(Manufacturer.all, :id, :to_s, @bay.manufacturer_id),
+                         BayDecorator.manufacturers_options_for_select,
                          { prompt: true },
                          {
                            class: "form-select",

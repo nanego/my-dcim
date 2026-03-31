@@ -7,7 +7,7 @@ class Manufacturer < ApplicationRecord
   has_many :bays, dependent: :restrict_with_error
   has_many :servers, through: :modeles
 
-  scope :sorted, -> { order(:name) }
+  scope :sorted, -> { order(Arel.sql("LOWER(name)")) }
 
   delegate :to_s, to: :name
 end

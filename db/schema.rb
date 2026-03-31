@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_22_143245) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_25_112258) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -47,6 +47,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_22_143245) do
     t.bigint "manufacturer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "air_conditioners_count", default: 0, null: false
     t.index ["manufacturer_id"], name: "index_air_conditioner_models_on_manufacturer_id"
   end
 
