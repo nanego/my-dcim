@@ -22,6 +22,10 @@ class BayDecorator < ApplicationDecorator
     def access_control_options_for_select
       Bay.access_controls.keys.map { |a_c| [I18n.t("access_control.#{a_c}"), a_c] }
     end
+
+    def manufacturers_options_for_select
+      ManufacturerDecorator.options_for_select
+    end
   end
 
   def access_control_to_human

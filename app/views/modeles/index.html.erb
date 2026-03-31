@@ -42,9 +42,11 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:manufacturer_ids, Manufacturer.sorted, :id, :to_s,
-                                  { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.select :manufacturer_ids,
+                       ModeleDecorator.manufacturers_options_for_select,
+                       { prompt: true, multiple: true },
+                       { class: "form-select", data: { controller: :select } }
+          %>
           <%= f.label :manufacturer_ids %>
         </fieldset>
       </div>

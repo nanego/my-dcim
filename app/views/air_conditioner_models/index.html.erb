@@ -1,0 +1,85 @@
+<% breadcrumb.add_step(title = AirConditionerModel.model_name.human(count: 2)) %>
+
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
+  <% heading.with_right_content do %>
+    <%= render ButtonComponent.new(t(".new_air_conditioner_model"),
+                                   url: new_air_conditioner_model_path,
+                                   variant: :success,
+                                   icon: "plus-lg",
+                                   is_responsive: true) %>
+  <% end %>
+<% end %>
+<div class="p-4 border-top d-flex flex-column row-gap-4">
+  <%= render FilterComponent.new(@filter) do |c| %>
+    <% c.with_form do |f| %>
+      <div class="w-100">
+        <fieldset class="form-floating">
+          <%= f.search_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :q %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.select :manufacturer_ids,
+                       AirConditionerModelDecorator.manufacturers_options_for_select,
+                       { prompt: true, multiple: true },
+                       { class: "form-select", data: { controller: :select } } %>
+          <%= f.label :manufacturer_ids %>
+        </fieldset>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= render List::DataTableComponent.new(@air_conditioner_models) do |table| %>
+    <% if allowed_to?(:destroy?) %>
+      <% table.with_bulk_action(
+           url: bulk_air_conditioner_models_path,
+           method: :delete,
+           class: "btn btn-danger btn-sm",
+           data: { confirm: t("action.confirm") },
+         ) do %>
+        <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
+      <% end %>
+    <% end %>
+
+    <% table.with_column(AirConditionerModel.human_attribute_name(:name), sort_by: :name) do |air_conditioner_model| %>
+      <%= link_to air_conditioner_model.name, air_conditioner_model_path(air_conditioner_model), class: "fw-bold" %>
+    <% end %>
+
+    <% table.with_column(Manufacturer.model_name.human, sort_by: :"manufacturers.name") do |air_conditioner_model| %>
+      <%= air_conditioner_model.manufacturer %>
+    <% end %>
+
+    <% table.with_column(AirConditioner.model_name.human, sort_by: :air_conditioners_count) do |air_conditioner_model| %>
+      <%= link_to air_conditioners_path(air_conditioner_model_ids: air_conditioner_model.id) do %>
+        <%= AirConditionerModel.human_attribute_name(:air_conditioners_count,
+                                                     count: air_conditioner_model.air_conditioners_count) %>
+      <% end %>
+    <% end %>
+
+    <% table.with_column(style: "min-width: 70px; width: 70px") do |air_conditioner_model| %>
+      <div class="btn-group btn-group-sm" role="group" aria-label="...">
+        <%= link_to edit_air_conditioner_model_path(air_conditioner_model), class: "btn btn-info" do %>
+          <span class="bi bi-pencil"
+                title="<%= t("action.edit") %>"
+                data-controller="tooltip"
+                data-bs-placement="left"
+                aria-hidden="true"></span>
+          <span class="visually-hidden"><%= t("action.edit") %></span>
+        <% end %>
+
+        <%= link_to air_conditioner_model_path(air_conditioner_model),
+                    method: :delete,
+                    class: "btn btn-danger" do %>
+          <span class="bi bi-trash"
+                title="<%= t("action.delete") %>"
+                data-controller="tooltip"
+                data-bs-placement="left"
+                aria-hidden="true"></span>
+          <span class="visually-hidden"><%= t("action.delete") %></span>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

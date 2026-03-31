@@ -52,16 +52,14 @@
 
         <fieldset class="col-12 mt-4">
           <%= f.label :manufacturer_id, class: "form-label" %>
-          <%= f.collection_select(:manufacturer_id,
-                                  Manufacturer.order(Arel.sql("LOWER(name)")),
-                                  :id,
-                                  :name,
-                                  { prompt: true },
-                                  {
-                                    class: "form-select",
-                                    data: { controller: "select" },
-                                    placeholder: t("select.placeholder"),
-                                  }) %>
+          <%= f.select :manufacturer_id,
+                       ModeleDecorator.manufacturers_options_for_select,
+                       { prompt: true },
+                       {
+                         class: "form-select",
+                         data: { controller: "select" },
+                         placeholder: t("select.placeholder"),
+                       } %>
         </fieldset>
 
         <fieldset class="col-12 mt-4">

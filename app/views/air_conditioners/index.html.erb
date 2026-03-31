@@ -4,13 +4,15 @@
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
-    <% render ButtonComponent.new(
-      t(".new_air_conditioner"),
-      url: new_air_conditioner_path,
-      variant: :success,
-      icon: "plus-lg",
-      is_responsive: true
-    ) if allowed_to?(:create?) %>
+    <% if allowed_to?(:create?)
+         render ButtonComponent.new(
+           t("air_conditioners.add_new"),
+           url: new_air_conditioner_path,
+           variant: :success,
+           icon: "plus-lg",
+           is_responsive: true,
+         )
+       end %>
   <% end %>
 <% end %>
 
@@ -32,53 +34,68 @@
           <%= f.label :room_ids %>
         </fieldset>
       </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.collection_select(:air_conditioner_model_ids, AirConditionerModel.sorted, :id, :to_s,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } }) %>
+          <%= f.label :air_conditioner_model_ids %>
+        </fieldset>
+      </div>
     <% end %>
   <% end %>
 
-  <%= render List::DataTableComponent.new(@air_conditioners) do |table| %>
-    <% if allowed_to?(:destroy?) %>
-      <% table.with_bulk_action(
-        url: bulk_air_conditioners_path,
-        method: :delete,
-        class: "btn btn-danger btn-sm",
-        data: { confirm: t("action.confirm") }
-      ) do %>
-        <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
-      <% end %>
-    <% end %>
-
-    <% table.with_column(AirConditioner.human_attribute_name(:name), sort_by: :name) do |air_conditioner| %>
-      <%= link_to air_conditioner.name, air_conditioner_path(air_conditioner), class: "fw-bold" %>
-    <% end %>
-
-    <% table.with_column(Room.model_name.human, sort_by: :"rooms.name") do |air_conditioner| %>
-      <%= link_to air_conditioner.room, room_path(air_conditioner.room) %>
-    <% end %>
-
-    <% table.with_column(Islet.model_name.human, sort_by: :"islets.name") do |air_conditioner| %>
-      <%= link_to air_conditioner.islet, islet_path(air_conditioner.islet) %>
-    <% end %>
-
-    <% table.with_column(style: "min-width: 70px; width: 70px") do |air_conditioner| %>
-      <div class="btn-group btn-group-sm" role="group" aria-label="...">
-        <% if allowed_to?(:update?, air_conditioner) %>
-          <%= link_to edit_air_conditioner_path(air_conditioner), class: "btn btn-info" do %>
-            <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
-                                                                      data-controller="tooltip"
-                                                                      data-bs-placement="left"></span>
-            <span class="visually-hidden"><%= t("action.edit") %></span>
-          <% end %>
+  <%= turbo_frame_tag(dom_id(AirConditioner, :table), data: { turbo_action: :advance }) do %>
+    <%= render List::DataTableComponent.new(@air_conditioners) do |table| %>
+      <% if allowed_to?(:destroy?) %>
+        <% table.with_bulk_action(
+             url: bulk_air_conditioners_path,
+             method: :delete,
+             class: "btn btn-danger btn-sm",
+             data: { confirm: t("action.confirm") },
+           ) do %>
+          <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
         <% end %>
+      <% end %>
 
-        <% if allowed_to?(:destroy?, air_conditioner) %>
-          <%= link_to air_conditioner, method: :delete, class: "btn btn-danger" do %>
-            <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+      <% table.with_column(AirConditioner.human_attribute_name(:name), sort_by: :name) do |air_conditioner| %>
+        <%= link_to air_conditioner.name, air_conditioner_path(air_conditioner),
+                    class: "fw-bold",
+                    data: { turbo_frame: :_top } %>
+      <% end %>
+
+      <% table.with_column(Room.model_name.human, sort_by: :"rooms.name") do |air_conditioner| %>
+        <%= link_to air_conditioner.room, room_path(air_conditioner.room), data: { turbo_frame: :_top } %>
+      <% end %>
+
+      <% table.with_column(Islet.model_name.human, sort_by: :"islets.name") do |air_conditioner| %>
+        <%= link_to air_conditioner.islet, islet_path(air_conditioner.islet), data: { turbo_frame: :_top } %>
+      <% end %>
+
+      <% table.with_column(style: "min-width: 70px; width: 70px") do |air_conditioner| %>
+        <div class="btn-group btn-group-sm" role="group" aria-label="...">
+          <% if allowed_to?(:update?, air_conditioner) %>
+            <%= link_to edit_air_conditioner_path(air_conditioner),
+                        class: "btn btn-info",
+                        data: { turbo_frame: :_top } do %>
+              <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
                                                                         data-controller="tooltip"
                                                                         data-bs-placement="left"></span>
-            <span class="visually-hidden"><%= t("action.delete") %></span>
+              <span class="visually-hidden"><%= t("action.edit") %></span>
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
+
+          <% if allowed_to?(:destroy?, air_conditioner) %>
+            <%= link_to air_conditioner, method: :delete, class: "btn btn-danger", data: { turbo_frame: :_top } do %>
+              <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                          data-controller="tooltip"
+                                                                          data-bs-placement="left"></span>
+              <span class="visually-hidden"><%= t("action.delete") %></span>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 </div>

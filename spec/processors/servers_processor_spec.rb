@@ -177,14 +177,14 @@ RSpec.describe ServersProcessor do
       Server.create!(name: "server2", numero: 2, **attributes)
     end
 
-    context "with one room_ids" do
+    context "with one modele_ids" do
       let(:params) { { modele_ids: modele.id } }
 
       it { expect(result.size).to eq(1) }
       it { is_expected.to contain_exactly(server) }
     end
 
-    context "with many room_ids" do
+    context "with many modele_ids" do
       let(:modele_second) do
         Modele.create!(name: "M2", manufacturer: manufacturers(:fortinet), architecture: architectures(:rackable),
                        category: categories(:one))

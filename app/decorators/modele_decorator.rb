@@ -3,6 +3,12 @@
 class ModeleDecorator < ApplicationDecorator
   include ActionView::Helpers::AssetTagHelper
 
+  class << self
+    def manufacturers_options_for_select
+      ManufacturerDecorator.options_for_select
+    end
+  end
+
   def network_types_to_human
     return Modele.human_attribute_name("network_types.blank") unless (n_t = network_types.presence)
 

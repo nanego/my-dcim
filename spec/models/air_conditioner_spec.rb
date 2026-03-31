@@ -3,6 +3,21 @@
 require "rails_helper"
 
 RSpec.describe AirConditioner do
+  subject(:air_con) { air_conditioners(:one) }
+
+  describe "associations" do
+    it { is_expected.to belong_to(:bay) }
+    it { is_expected.to belong_to(:air_conditioner_model).counter_cache(true) }
+
+    it { is_expected.to have_one(:room).through(:bay) }
+    it { is_expected.to have_one(:islet).through(:bay) }
+  end
+
+  # describe "enum" do
+  #   it { is_expected.to define_enum_for(:status).with_values(on: "on", degraded: "degraded", off: "off") }
+  #   it { is_expected.to define_enum_for(:position).with_values(left: "left", right: "right") }
+  # end
+
   describe "status attribute" do
     it "is valid with a valid status" do
       ac = described_class.new(name: "X123456", status: "on", air_conditioner_model_id: 1, bay_id: 1, position: "left")

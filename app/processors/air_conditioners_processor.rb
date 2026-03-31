@@ -9,6 +9,10 @@ class AirConditionersProcessor < ApplicationProcessor
     raw.where(AirConditioner.arel_table[:name].matches("%#{q}%"))
   end
 
+  map :air_conditioner_model_ids, filter_with: :non_empty_array do |air_conditioner_model_ids:|
+    raw.where(air_conditioner_model_id: air_conditioner_model_ids)
+  end
+
   map :room_ids, filter_with: :non_empty_array do |room_ids:|
     raw.joins(bay: { islet: :room }).where(rooms: { id: room_ids })
   end

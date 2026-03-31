@@ -4,7 +4,7 @@ class AirConditioner < ApplicationRecord
   has_changelog
 
   belongs_to :bay
-  belongs_to :air_conditioner_model
+  belongs_to :air_conditioner_model, counter_cache: true
 
   has_one :room, through: :bay
   has_one :islet, through: :bay

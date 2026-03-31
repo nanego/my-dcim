@@ -8,6 +8,10 @@ RSpec.describe AirConditionersProcessor do
   let(:input) { AirConditioner.all }
   let(:params) { {} }
 
+  let(:attributes) do
+    { air_conditioner_model: air_conditioner_models(:one), bay: bays(:one), status: :on, position: :left }
+  end
+
   describe "when searching" do
     let(:bay) { bays(:one) }
     let(:air_conditioner_model) { air_conditioner_models(:one) }
@@ -22,6 +26,44 @@ RSpec.describe AirConditionersProcessor do
 
     # IMPROVE
     it { expect(result.size).to eq(2) }
+  end
+
+  describe "when filtering by air_conditioner_model_ids" do
+    let(:air_conditioner_model) do
+      AirConditionerModel.create!(name: "M1", manufacturer: manufacturers(:fortinet))
+    end
+
+    let(:air_conditioner) { AirConditioner.create!(name: "air_conditioner", **attributes, air_conditioner_model:) }
+
+    before do
+      air_conditioner
+      AirConditioner.create!(name: "air_conditioner2", **attributes)
+    end
+
+    context "with one air_conditioner_model_ids" do
+      let(:params) { { air_conditioner_model_ids: air_conditioner_model.id } }
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to contain_exactly(air_conditioner) }
+    end
+
+    context "with many air_conditioner_model_ids" do
+      let(:air_conditioner_model_second) do
+        AirConditionerModel.create!(name: "M2", manufacturer: manufacturers(:fortinet))
+      end
+      let(:another_air_conditioner) do
+        AirConditioner.create!(name: "air_conditioner3", **attributes, air_conditioner_model:)
+      end
+
+      let(:params) { { air_conditioner_model_ids: [air_conditioner_model.id, air_conditioner_model_second.id] } }
+
+      before do
+        another_air_conditioner
+      end
+
+      it { expect(result.size).to eq(2) }
+      it { is_expected.to contain_exactly(air_conditioner, another_air_conditioner) }
+    end
   end
 
   describe "when filtering by room_ids" do

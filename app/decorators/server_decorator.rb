@@ -25,6 +25,10 @@ class ServerDecorator < ApplicationDecorator
     def domains_options_for_select(user)
       DomaineDecorator.options_for_select(user)
     end
+
+    def manufacturers_options_for_select
+      ManufacturerDecorator.options_for_select
+    end
   end
 
   def network_types_to_human
