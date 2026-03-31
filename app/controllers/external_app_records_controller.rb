@@ -10,8 +10,6 @@ class ExternalAppRecordsController < ApplicationController
     @filter = ProcessorFilter.new(@external_app_records, params)
     @external_app_records = @filter.results
 
-    @synchronised_categories = Category.glpi_synchronizable.pluck(:name).compact_blank.join(", ")
-
     @pagy, @external_app_records = pagy(@external_app_records)
   end
 

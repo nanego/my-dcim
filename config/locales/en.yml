@@ -150,7 +150,10 @@ en:
       title: GLPI synchronization
       start_synchronization: Synchronize with GLPI
       configuration: Configuration
-      synchronised_categories_list: "List of categories to be synchronised: %{categories}"
+      synchronised_categories_list:
+        title: "List of categories to be synchronised:"
+        item_html: "%{type}: <i>%{categories}</i>"
+        wip: "(synchronization coming soon, currently in development)"
       last_complete_synch: "Last complete synchronisation:"
       none: none
       synchronizing: Synchronizing...

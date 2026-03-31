@@ -2,9 +2,15 @@
 
 class MigrationCategory < ActiveRecord::Base
   self.table_name = :categories
+
+  enum :glpi_sync_type, {
+    none: 0,
+    server: 1,
+    network_equipment: 2,
+  }, prefix: true
 end
 
-class ConvertGlpiSyncBoolToEnumOnCategory < ActiveRecord::Migration[8.0]
+class ConvertGlpiSyncBoolToEnumToCategories < ActiveRecord::Migration[8.0]
   def up
     add_column :categories, :glpi_sync_type, :integer, default: 0, null: false
 
@@ -12,10 +18,10 @@ class ConvertGlpiSyncBoolToEnumOnCategory < ActiveRecord::Migration[8.0]
       MigrationCategory.reset_column_information
 
       MigrationCategory.where(is_glpi_synchronizable: true)
-        .update_all(glpi_sync_type: 1)
+        .update_all(glpi_sync_type: :server)
 
       MigrationCategory.where(is_glpi_synchronizable: [false, nil])
-        .update_all(glpi_sync_type: 0)
+        .update_all(glpi_sync_type: :none)
     end
 
     remove_column :categories, :is_glpi_synchronizable
@@ -27,10 +33,10 @@ class ConvertGlpiSyncBoolToEnumOnCategory < ActiveRecord::Migration[8.0]
     say_with_time "Backfilling is_glpi_synchronizable from glpi_sync" do
       MigrationCategory.reset_column_information
 
-      MigrationCategory.where(glpi_sync_type: 1)
+      MigrationCategory.where(glpi_sync_type: :server)
         .update_all(is_glpi_synchronizable: true)
 
-      MigrationCategory.where(glpi_sync_type: [0, 2])
+      MigrationCategory.where(glpi_sync_type: %i[none network_equipment])
         .update_all(is_glpi_synchronizable: false)
     end
 
