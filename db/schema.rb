@@ -139,7 +139,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_25_112258) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "modeles_count", default: 0, null: false
-    t.boolean "is_glpi_synchronizable", default: false, null: false
+    t.integer "glpi_sync_type", default: 0, null: false
   end
 
   create_table "changelog_entries", force: :cascade do |t|

@@ -3,29 +3,32 @@
     .add_step(t("external_app_records.index.title"), external_app_records_path)
     .add_step(t("action.configure"))
 %>
-
 <%= render Page::HeadingComponent.new(
-  title: t(".title"), breadcrumb:, back_button_url: external_app_records_path
-) %>
+      title: t(".title"), breadcrumb:, back_button_url: external_app_records_path,
+    ) %>
 <div class="col-12 p-4 border-top">
   <%= form_with(model: @settings, url: settings_external_app_records_path, method: :put, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
     <%= render FormErrorsComponent.new(@settings) %>
-
     <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
       <% card.with_header do %>
         <%= t(".category_ids") %>
       <% end %>
-
       <fieldset class="col-12">
-        <%= f.collection_check_boxes :category_ids, Category.sorted, :id, :name  do |b| %>
-          <div class="form-check">
-            <%= b.check_box(class: "form-check-input") %>
-            <%= b.label(class: "form-check-label") %>
-          </div>
+        <%= f.fields_for :category_glpi_sync_types do |ff| %>
+          <ul class="list-group list-group-flush p-0">
+            <% Category.sorted.each do |category| %>
+              <li class="list-group-item d-flex align-items-center bg-body-tertiary">
+                <%= ff.label category.id, category.name %>
+                <%= ff.select category.id,
+                                options_for_select(CategoryDecorator.glpi_sync_type_options_for_select, category.glpi_sync_type),
+                                {},
+                                { class: "form-select ms-auto", style: "width: 180px;" } %>
+              </li>
+            <% end %>
+          </ul>
         <% end %>
       </fieldset>
     <% end %>
-
     <div class="col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top">
       <%= f.submit(t("action.apply"), class: "btn btn-info") %>
     </div>

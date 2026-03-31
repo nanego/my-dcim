@@ -1,38 +1,35 @@
 <%= form_for(@category, html: { role: "form" }) do |f| %>
   <%= render FormErrorsComponent.new(@category) %>
-
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
       <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
         <% card.with_header do %>
           <%= t("show.cards.identification") %>
         <% end %>
-
         <fieldset class="col-12">
           <%= f.label :name, class: "form-label" %>
           <%= f.text_field :name, class: "form-control" %>
         </fieldset>
-
         <fieldset class="col-12 mt-4">
           <%= f.label :description, class: "form-label" %>
           <%= f.text_area :description, class: "form-control" %>
         </fieldset>
       <% end %>
     </div>
-
     <div class="col">
       <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
         <% card.with_header do %>
           <%= t("show.cards.features") %>
         <% end %>
-
-        <fieldset class="col-12 form-check">
-          <%= f.check_box :is_glpi_synchronizable, class: "form-check-input" %>
-          <%= f.label :is_glpi_synchronizable, class: "form-check-label" %>
+        <fieldset class="col-12">
+          <%= f.label :glpi_sync_type, class: "form-label" %>
+          <%= f.select :glpi_sync_type,
+                       CategoryDecorator.glpi_sync_type_options_for_select,
+                       {},
+                       class: "form-select" %>
         </fieldset>
       <% end %>
     </div>
   </div>
-
   <%= render Form::ActionsComponent.new(f, display_create_another_one:) %>
 <% end %>

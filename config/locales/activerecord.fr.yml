@@ -248,12 +248,16 @@ fr:
       category:
         name: Nom
         description: Description
-        is_glpi_synchronizable: Synchronisation GLPI active
+        glpi_sync_type: Type de synchronisation GLPI
         modeles: Modèles
         modeles_count:
           zero: 0 modèle
           one: 1 modèle
           other: "%{count} modèles"
+      category/glpi_sync_type:
+        none: Aucun
+        server: Serveur
+        network_equipment: Équipement réseau
       modele:
         name: Nom
         category_id: Catégorie
