@@ -391,7 +391,7 @@ fr:
       configuration: Configuration
       synchronised_categories_list:
         title: "Liste des catégories qui seront synchronisées :"
-        item_html: "%{type} : <i>%{categories}</i>"
+        item_html: "<b>%{type}</b> : <i>%{categories}</i>"
         wip: "(synchronisation bientôt active, en cours de développement)"
       last_complete_synch: "Dernière synchronisation complète :"
       none: aucune
