@@ -10,6 +10,8 @@ class ColumnsPreferencesDropdownComponent < ApplicationComponent
 
         <div class="dropdown-menu p-4">
           <%= form_with url: @action_path, method: :get do |form| %>
+            <%= helpers.hash_to_hidden_fields(request.query_parameters.except(:columns)) %>
+
             <fieldset class="form-floating">
               <% @columns_preferences.available_columns_options.each do |column, column_name| %>
                 <div class="form-check">
