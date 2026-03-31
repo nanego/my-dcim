@@ -8,6 +8,6 @@
 <div class="col-12 p-4 border-top">
   <%= render DeleteDependencyComponent.new(
         @air_conditioner_model,
-        confirmation_path: air_conditioner_model_path(@air_conditioner_model, confirm: true),
+        confirmation_path: air_conditioner_model_path(@air_conditioner_model, confirm: true, back_to: params[:back_to]),
       ) %>
 </div>

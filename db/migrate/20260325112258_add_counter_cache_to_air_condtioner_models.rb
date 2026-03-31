@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddCounterCacheToAirCondtionerModel < ActiveRecord::Migration[8.0]
+class AddCounterCacheToAirCondtionerModels < ActiveRecord::Migration[8.0]
   class MigrationAirConditionerModel < ActiveRecord::Base
     self.table_name = :air_conditioner_models
 

@@ -56,12 +56,18 @@ class AirConditionerModelsController < ApplicationController
   # DELETE /air_conditioner_models/1 or /air_conditioner_models/1.json
   destroy_confirmation
   def destroy
-    @air_conditioner_model.destroy!
-
-    respond_to do |format|
-      # TODO: use redirect_back_to_param_or
-      format.html { redirect_to air_conditioner_models_path, notice: t(".flashes.destroyed"), status: :see_other }
-      format.json { head :no_content }
+    if @air_conditioner_model.destroy
+      respond_to do |format|
+        format.html { redirect_back_to_param_or air_conditioner_models_path, notice: t(".flashes.destroyed") }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html do
+          redirect_back_to_param_or air_conditioner_models_path,
+                                    alert: @air_conditioner_model.errors.full_messages_for(:base).join(", ")
+        end
+      end
     end
   end
 

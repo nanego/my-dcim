@@ -48,7 +48,7 @@ en:
         manufacturer_id: Manufacturer
         manufacturer: Manufacturer
         air_conditioners_count:
-          zero: 0 air conditioner
+          zero: 0 air conditioners
           one: 1 air conditioner
           other: "%{count} air conditioners"
       bay:

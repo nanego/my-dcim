@@ -8,6 +8,10 @@ RSpec.describe AirConditionerModelsProcessor do
   let(:input) { AirConditionerModel.all }
   let(:params) { {} }
 
+  let(:attributes) do
+    { manufacturer: manufacturers(:fortinet) }
+  end
+
   describe "when searching" do
     let(:manufacturer) { manufacturers(:fortinet) }
     let(:params) { { q: "wood" } }
@@ -24,6 +28,37 @@ RSpec.describe AirConditionerModelsProcessor do
 
   describe "when sorting" do
     pending "TODO"
+  end
+
+  describe "when filtering by manufacturer_ids" do
+    let(:manufacturer) { Manufacturer.create!(name: "M1") }
+    let(:acm) { AirConditionerModel.create!(name: "acm", **attributes, manufacturer:) }
+
+    before do
+      acm
+      AirConditionerModel.create!(name: "acm2", **attributes)
+    end
+
+    context "with one manufacturer_ids" do
+      let(:params) { { manufacturer_ids: manufacturer.id } }
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to contain_exactly(acm) }
+    end
+
+    context "with many manufacturer_ids" do
+      let(:manufacturer_second) { Manufacturer.create!(name: "M2") }
+      let(:acm_second) { AirConditionerModel.create!(name: "acm", **attributes, manufacturer: manufacturer_second) }
+
+      let(:params) { { manufacturer_ids: [manufacturer.id, manufacturer_second.id] } }
+
+      before do
+        acm_second
+      end
+
+      it { expect(result.size).to eq(2) }
+      it { is_expected.to contain_exactly(acm, acm_second) }
+    end
   end
 
   describe "When searching on every fields" do
