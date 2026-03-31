@@ -7,7 +7,7 @@ class PaginationComponent < ApplicationComponent
     <div class="pagination-component">
       <%== pagy_bootstrap_nav(@pagy) %>
 
-      <%= form_with url: url_for(toto: true), method: :get, data: { controller: "form-update" },
+      <%= form_with url: url_for, method: :get, data: { controller: "form-update" },
                     class: "d-flex align-items-baseline gap-2" do |f| %>
         <%= helpers.hash_to_hidden_fields(query_parameters) %>
 
