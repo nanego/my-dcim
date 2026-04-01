@@ -121,6 +121,7 @@
     <% table.with_column(ExternalAppRecord.human_attribute_name(:external_serial_status),
                          sort_by: :external_serial,
                          text_align: :center) do |record| %>
+      <%# TODO: remove the if case when network equipment will be implemented %>
       <% if record.server.modele.category.glpi_sync_type_network_equipment? %>
         <%= render BadgeComponent.new(t(".network_equipment_not_available_yet"), color: :warning, variant: :pill) %>
       <% else %>
