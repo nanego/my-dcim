@@ -396,6 +396,7 @@ fr:
       last_complete_synch: "Dernière synchronisation complète :"
       none: aucune
       synchronizing: "Synchronisation en cours..."
+      network_equipment_not_available_yet: Pas encore disponible
     settings:
       title: Configuration de la synchronisation
       category_ids: Choisir le type de synchronisation pour chaque catégorie
