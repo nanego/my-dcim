@@ -161,7 +161,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       port_type_name = "FC"
       cable_name = position.to_s.rjust(2, "0") if cable_name.blank?
     else
-      cable_name = (port_data&.cable_name.presence || port_type.try(:name)).to_s.html_safe # rubocop:disable Rails/OutputSafety
+      cable_name = (port_data&.cable_name.presence || port_type.try(:name)).to_s
       port_type_name = port_type.name
     end
 
