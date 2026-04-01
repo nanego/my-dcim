@@ -115,7 +115,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   def load_server
     authorize!
 
-    @server = Server.includes(cards: [card_type: :port_type], ports: [connection: :cable]).find(params[:server_id])
+    @server = Server.includes(cards: [{ card_type: :port_type }], ports: [{ connection: :cable }]).find(params[:server_id])
     @moved_connections = MovedConnection.per_servers([@server])
   end
 
