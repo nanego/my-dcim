@@ -16,7 +16,6 @@ module Changelogable
       has_many :changelog_entries, -> { order(created_at: :desc) }, as: :object, dependent: nil,
                                                                     inverse_of: :object
 
-      # after_initialize :store_associations_attributes
       after_create_commit :changelog_entry_on_create
       after_update_commit :changelog_entry_on_update
       before_destroy :changelog_entry_on_destroy
