@@ -121,7 +121,11 @@
     <% table.with_column(ExternalAppRecord.human_attribute_name(:external_serial_status),
                          sort_by: :external_serial,
                          text_align: :center) do |record| %>
-      <%= render record.decorated.external_serial_to_badge_component %>
+      <% if record.server.modele.category.glpi_sync_type_network_equipment? %>
+        <%= render BadgeComponent.new(t(".network_equipment_not_available_yet"), color: :warning, variant: :pill) %>
+      <% else %>
+        <%= render record.decorated.external_serial_to_badge_component %>
+      <% end %>
     <% end %>
     <% table.with_column(ExternalAppRecord.human_attribute_name(:external_name), sort_by: :external_name) do |record| %>
       <%= record.external_name %>
@@ -141,7 +145,7 @@
   <%== render PaginationComponent.new(pagy: @pagy) %>
 </div>
 
-<script>
+<script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
   //<![CDATA[
   $(document).ready(function () {
 
