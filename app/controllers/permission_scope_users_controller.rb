@@ -10,7 +10,6 @@ class PermissionScopeUsersController < ApplicationController
     # FIXME: change to make changelogable works on associations
     @permission_scope_user.assign_attributes(permission_scope: @permission_scope)
 
-
     respond_to do |format|
       if @permission_scope_user.save
         flash[:notice] = t(".flashes.created")
