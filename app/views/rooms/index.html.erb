@@ -15,7 +15,10 @@
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
-      <div class="w-100">
+      <div class="w-100 input-group">
+        <span class="input-group-text">
+          <i class="bi bi-search"></i>
+        </span>
         <fieldset class="form-floating">
           <%= f.text_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
           <%= f.label :q %>
@@ -47,7 +50,7 @@
       <% end %>
 
       <% table.with_column(Room.human_attribute_name(:name), sort_by: :name) do |room| %>
-        <b><%= link_to room, room_path(room), data: { turbo_frame: :_top } %></b>
+        <%= link_to room, room_path(room), class: "fw-semibold", data: { turbo_frame: :_top } %>
       <% end %>
 
       <% unless (turbo_frame_request? && @filter.filled?(:site_ids)) %>
@@ -56,26 +59,30 @@
         <% end %>
       <% end %>
 
-      <% table.with_column(Room.human_attribute_name(:position), sort_by: :position) do |room| %>
+      <% table.with_column(Room.human_attribute_name(:position), sort_by: :position, text_align: :right) do |room| %>
         <%= room.position %>
       <% end %>
 
-      <% table.with_column(Islet.model_name.human.pluralize, sort_by: :islets_count) do |room| %>
+      <% table.with_column(Islet.model_name.human.pluralize, sort_by: :islets_count, text_align: :right) do |room| %>
+      <%# table.with_column(Islet.model_name.human.pluralize, sort_by: :islets_count) do |room| # %>
         <%= link_to islets_path(room_ids: room.id), data: { turbo_frame: :_top } do %>
-          <%= Room.human_attribute_name(:islets_count, count: room.islets_count) %>
+          <%#= Room.human_attribute_name(:islets_count, count: room.islets_count) %>
+          <%= room.islets_count %>
         <% end %>
       <% end %>
 
-      <% table.with_column(Frame.model_name.human.pluralize) do |room| %>
+      <% table.with_column(Frame.model_name.human.pluralize, text_align: :right) do |room| %>
+      <%# table.with_column(Frame.model_name.human.pluralize) do |room| %>
         <%= link_to frames_path(room_ids: room.id), data: { turbo_frame: :_top } do %>
-          <%= Room.human_attribute_name(:frames_count, count: authorized_scope(room.frames).count) %>
+          <%#= Room.human_attribute_name(:frames_count, count: authorized_scope(room.frames).count) %>
+          <%= authorized_scope(room.frames).count %>
         <% end %>
       <% end %>
 
-      <% table.with_column(Room.human_attribute_name(:display_on_home_page),
+      <% table.with_column(Room.human_attribute_name(:display_on_home_page_short),
                            sort_by: :display_on_home_page,
                            text_align: :center) do |room| %>
-        <input type="checkbox" <%= room.display_on_home_page ? "checked" : "" %> disabled>
+        <%= render room.decorated.display_on_room_to_badge_component %>
       <% end %>
 
       <% table.with_column(Room.human_attribute_name(:status), sort_by: :status) do |room| %>
@@ -87,21 +94,21 @@
           <%= render partial: "visualization/rooms/export_button", locals: { room: decorate(room) } %>
 
           <% if allowed_to?(:show?, room, with: Visualization::RoomPolicy) %>
-            <%= link_to visualization_room_path(room), class: "btn btn-primary", data: { turbo_frame: :_top } do %>
+            <%= link_to visualization_room_path(room), class: "btn btn-outline-primary", data: { turbo_frame: :_top } do %>
               <span class="bi bi-diagram-3-fill" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("visualization.title") %>"></span>
               <span class="visually-hidden"><%= t("visualization.title") %></span>
             <% end %>
           <% end %>
 
           <% if allowed_to?(:update?, room) %>
-            <%= link_to edit_room_path(room), class: "btn btn-info", data: { turbo_frame: :_top } do %>
+            <%= link_to edit_room_path(room), class: "btn btn-outline-info", data: { turbo_frame: :_top } do %>
               <span class="bi bi-pencil" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.edit") %>"></span>
               <span class="visually-hidden"><%= t("action.edit") %></span>
             <% end %>
           <% end %>
 
           <% if allowed_to?(:destroy?, room) %>
-            <%= link_to room, method: :delete, data: { turbo_frame: :_top }, class: "btn btn-danger" do %>
+            <%= link_to room, method: :delete, data: { turbo_frame: :_top }, class: "btn btn-outline-danger" do %>
               <span class="bi bi-trash" aria-hidden="true" data-controller="tooltip" data-bs-placement="left" title="<%= t("action.delete") %>"></span>
               <span class="visually-hidden"><%= t("action.delete") %></span>
             <% end %>
