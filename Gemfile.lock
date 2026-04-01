@@ -665,6 +665,7 @@ DEPENDENCIES
   active_record_doctor
   active_storage_validations (~> 3.0)
   acts_as_list (~> 1.2)
+  addressable (~> 2.8)
   bootsnap
   bootstrap (~> 5.3.8)
   brakeman
