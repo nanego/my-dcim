@@ -6,8 +6,11 @@ module Users
 
     def openid_connect
       auth = request.env["omniauth.auth"]
-      @user = User.where("lower(email) = ?", auth["info"]["email"].downcase).first
+      @user = User.find_by(oidc_uid: auth.uid) ||
+              User.find_by("lower(email) = ?", auth.info.email.downcase)
+
       if @user.present?
+        @user.update_column(:oidc_uid, auth.uid) if @user.oidc_uid.blank?
         sign_in_and_redirect @user, event: :authentication
         set_flash_message(:notice, :success, kind: "OpenID Connect") if is_navigational_format?
       else
