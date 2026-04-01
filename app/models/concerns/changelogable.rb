@@ -6,21 +6,53 @@ module Changelogable
   CHANGELOGABLE_DEFAULT_SKIP_ATTRIBUTES = %i[id created_at updated_at].freeze
 
   module ClassMethods
-    attr_accessor :_changelogable_except_attributes, :_changelogable_association_names
+    attr_accessor :_changelogable_except_attributes, :_changelogable_association_names, :_changelogable_associated_to
 
-    def has_changelog(except: [], associations: {})
+    def has_changelog(except: [], associations: {}, associated_to: [])
       @_changelogable_except_attributes = CHANGELOGABLE_DEFAULT_SKIP_ATTRIBUTES.dup.append(*except)
-      @_changelogable_association_names = associations
+      @_changelogable_association_names = Hash(associations)
+      @_changelogable_associated_to = Array(associated_to)
 
       has_many :changelog_entries, -> { order(created_at: :desc) }, as: :object, dependent: nil,
                                                                     inverse_of: :object
 
-      after_initialize :store_associations_attributes
+      # after_initialize :store_associations_attributes
       after_create_commit :changelog_entry_on_create
       after_update_commit :changelog_entry_on_update
       before_destroy :changelog_entry_on_destroy
+
+      class_eval <<-CODE, __FILE__, __LINE__ + 1
+        def assign_attributes(attributes)
+
+          store_associations_attributes
+
+          super
+
+          self.class._changelogable_associated_to.each do |association_name|
+            association(association_name.to_sym).reader.store_associations_attributes
+          end
+        end
+
+        def destroy
+          self.class._changelogable_associated_to.each do |association_name|
+            association(association_name.to_sym).reader.store_associations_attributes
+          end
+
+          super
+        end
+      CODE
     end
   end
+
+  # def assign_attributes(attributes)
+  #   self.class._changelogable_associated_to.each do |association_name|
+  #     association(association_name.to_sym).reeader.store_associations_attributes
+  #   end
+
+  #   store_associations_attributes
+
+  #   super
+  # end
 
   def changelog_entry_on_create
     _create_changelog_entry(:create)
@@ -40,11 +72,11 @@ module Changelogable
     _create_changelog_entry(:destroy, object_changes: changes)
   end
 
-  private
-
   def store_associations_attributes
     @store_associations_attributes ||= associations_attributes
   end
+
+  private
 
   def _create_changelog_entry(action, object_changes: _changeloagable_previous_changes, metadata: {})
     changelog_entries.create!(
@@ -56,7 +88,8 @@ module Changelogable
 
   def _changeloagable_previous_changes
     changes = previous_changes
-    changes[:associations] = associations_previous_changes
+    # binding.b
+    changes[:associations] = associations_previous_changes if self.class._changelogable_association_names && @store_associations_attributes
 
     _changelogable_parameter_filter(changes)
   end
