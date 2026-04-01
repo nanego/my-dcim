@@ -42,6 +42,7 @@
             <% Category.glpi_synchronizable.select(:glpi_sync_type, :name).group_by(&:glpi_sync_type).each do |type, categories| %>
               <li>
                 <%= t(".synchronised_categories_list.item_html", type: CategoryDecorator.glpi_sync_type_human_for(type), categories: categories.pluck(:name).to_sentence) %>
+                <%# TODO: remove next line when network equipment will be implemented %>
                 <%= t(".synchronised_categories_list.wip") if type.to_sym == :network_equipment %>
               </li>
             <% end %>
