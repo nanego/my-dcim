@@ -96,6 +96,7 @@ gem "letter_opener", group: :development
 gem "geocoder", "~> 1.8"
 
 gem "action_policy", "~> 0.7"
+gem "addressable", "~> 2.8"
 gem "brakeman", group: %i[test development], require: false
 gem "csv", "~> 3.3"
 gem "debug", group: %i[test development], platforms: %i[mri windows], require: "debug/prelude"
