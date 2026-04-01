@@ -29,13 +29,13 @@ module Changelogable
           super
 
           self.class._changelogable_associated_to.each do |association_name|
-            association(association_name.to_sym).reader.store_associations_attributes
+            association(association_name.to_sym).reader&.store_associations_attributes
           end
         end
 
         def destroy
           self.class._changelogable_associated_to.each do |association_name|
-            association(association_name.to_sym).reader.store_associations_attributes
+            association(association_name.to_sym).reader&.store_associations_attributes
           end
 
           super
@@ -43,16 +43,6 @@ module Changelogable
       CODE
     end
   end
-
-  # def assign_attributes(attributes)
-  #   self.class._changelogable_associated_to.each do |association_name|
-  #     association(association_name.to_sym).reeader.store_associations_attributes
-  #   end
-
-  #   store_associations_attributes
-
-  #   super
-  # end
 
   def changelog_entry_on_create
     _create_changelog_entry(:create)
@@ -88,7 +78,7 @@ module Changelogable
 
   def _changeloagable_previous_changes
     changes = previous_changes
-    # binding.b
+
     changes[:associations] = associations_previous_changes if self.class._changelogable_association_names && @store_associations_attributes
 
     _changelogable_parameter_filter(changes)
