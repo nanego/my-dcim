@@ -627,6 +627,10 @@ body {
       margin-right: -38.5px;
     }
 
+    &.sticky-top {
+      z-index: 1050;
+    }
+
     @include media-breakpoint-up(lg) {
       .navbar-brand {
         margin-right: 0px;
