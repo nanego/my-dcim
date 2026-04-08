@@ -9,7 +9,8 @@ class User < ApplicationRecord
   AVAILABLE_BAY_ORIENTATIONS = %w[front back].freeze
 
   acts_as_token_authenticatable
-  has_changelog except: %i[sign_in_count current_sign_in_at last_sign_in_at current_sign_in_ip last_sign_in_ip]
+  has_changelog except: %i[sign_in_count current_sign_in_at last_sign_in_at current_sign_in_ip last_sign_in_ip],
+                associations: { permission_scopes: %i[name] }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
