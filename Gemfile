@@ -37,7 +37,7 @@ gem "bootsnap", require: false
 gem "image_processing", "~> 1.2"
 
 group :development do
-  gem "listen", "~> 3.3"
+  gem "listen", "~> 3.10"
   gem "web-console", ">= 4.1.0"
 end
 
