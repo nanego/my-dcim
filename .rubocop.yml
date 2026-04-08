@@ -80,6 +80,11 @@ Rails/SkipsModelValidations:
 Style/Documentation:
   Enabled: false
 
+Style/OneClassPerFile:
+  Exclude:
+    - "db/**/*.rb"
+    - "test/**/*.rb"
+
 Style/QuotedSymbols:
   EnforcedStyle: double_quotes
 
