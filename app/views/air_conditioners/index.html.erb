@@ -73,6 +73,12 @@
         <%= link_to air_conditioner.islet, islet_path(air_conditioner.islet), data: { turbo_frame: :_top } %>
       <% end %>
 
+      <% table.with_column(AirConditionerModel.model_name.human, sort_by: :"air_conditioner_model.name") do |air_conditioner| %>
+        <%= link_to air_conditioner.air_conditioner_model,
+                    air_conditioner_model_path(air_conditioner.air_conditioner_model),
+                    data: { turbo_frame: :_top } %>
+      <% end %>
+
       <% table.with_column(style: "min-width: 70px; width: 70px") do |air_conditioner| %>
         <div class="btn-group btn-group-sm" role="group" aria-label="...">
           <% if allowed_to?(:update?, air_conditioner) %>

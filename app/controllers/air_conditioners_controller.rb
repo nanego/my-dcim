@@ -7,7 +7,8 @@ class AirConditionersController < ApplicationController
   end
 
   def index
-    authorize! @air_conditioners = AirConditioner.joins(bay: { islet: :room })
+    authorize! @air_conditioners = AirConditioner
+      .joins(:air_conditioner_model, bay: { islet: :room })
       .order("rooms.position, islets.name, air_conditioners.name")
 
     @filter = ProcessorFilter.new(@air_conditioners, params)
