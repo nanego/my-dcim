@@ -1,0 +1,9 @@
+<%= turbo_stream.update :ts_pdu_form_preview do %>
+  <div class="modal-header">
+    <h5 class="modal-title"><%= t(".modal_title", pdu_name: @pdu.name) %></h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<% t("action.close") %>"></button>
+  </div>
+  <div class="modal-body">
+    <%= render partial: "servers/visualization", locals: { server: @pdu } %>
+  </div>
+<% end %>

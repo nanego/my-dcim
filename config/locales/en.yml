@@ -33,8 +33,64 @@ en:
     hide_all: Hide all
 
   air_conditioners:
+    add_new: Add an air conditioner
+    temperatures: Temperatures
+    index:
+      title: Air conditioner
+    create:
+      flashes:
+        created: The air conditionner has been created.
+    new:
+      title: Add an air conditioner
+    edit:
+      title: Edit the air conditioner
+    update:
+      flashes:
+        updated: The air conditionner has been updated.
     destroy:
       title: Delete the air conditionner
+      flashes:
+        destroyed: The air conditionner has been removed.
+    form:
+      status-on: Rated service
+      status-off: Out of service
+      status-degraded: Reduced service
+      left: Left
+      right: Right
+      info-start: Delta-T°C
+      info-range: Operating range for maximum performance of the UR
+      info-setpoint: Maximum setpoint temperature
+      info-min-setpoint: Minimum setpoint temperature
+      help-start: Operate>Components>Air>Fan 1
+      help-range: Operate>Components>Air>Fan 1
+      help-setpoint: Operate>Values>Air>Setpoint Temperature
+      help-min-setpoint: Operate>Values>Air>Setpoint Temperature
+      info-temperatures:
+        "If T_(internal) - T_(external) < DTC start,
+                then ventilation = minimum flow rate
+                \n\r
+                If T_(internal) - T_(external) > DTC start + DTC range,
+                then ventilation = maximum flow rate"
+      day: Day
+      night: Night
+
+  air_conditioner_models:
+    index:
+      new_air_conditioner_model: Create an air conditionner model
+    new:
+      title: New air conditionner model
+    create:
+      flashes:
+        created: The air conditionner model has been created.
+    edit:
+      title: Edit the air conditionner model
+    update:
+      flashes:
+        updated: The air conditionner model has been updated.
+    destroy:
+      title: Delete the air conditionner model
+      flashes:
+        destroyed: The air conditionner model has been removed.
 
   application:
     no_permission_scope:
@@ -137,6 +193,7 @@ en:
       txt: Txt export
       print: Print
       csv: CSV export
+      cables_export: Cable installer exports
     faces:
       front: Front panel
       back: Back panel
@@ -149,13 +206,17 @@ en:
       title: GLPI synchronization
       start_synchronization: Synchronize with GLPI
       configuration: Configuration
-      synchronised_categories_list: "List of categories to be synchronised: %{categories}"
+      synchronised_categories_list:
+        title: "List of categories to be synchronised:"
+        item_html: "<b>%{type}</b>: <i>%{categories}</i>"
+        wip: "(synchronization coming soon, currently in development)"
       last_complete_synch: "Last complete synchronisation:"
       none: none
       synchronizing: Synchronizing...
+      network_equipment_not_available_yet: Not available yet
     settings:
       title: Synchronisation configuration
-      category_ids: Select the categories to be activated for synchronisation
+      category_ids: Select the synchronisation type for each category
       flashes:
         saved: "The configuration has been updated successfully."
 
@@ -170,6 +231,7 @@ en:
         islet_id: Islet
         manufacturer_ids: Manufacturer
         modele_ids: Model
+        air_conditioner_model_ids: Air conditoner model
         room_ids: Room
         actions: Actions
         authors: Authors
@@ -234,8 +296,25 @@ en:
         title: Contacts
 
   manufacturers:
+    form:
+      url_placeholder: "https://manufacturer_url.com/rest_of_url/%s/remaining_if_there_is"
+      information_html: You must replace the serial number in the URL with <code>%s</code>.
+    index:
+      new_manufacturer: Add a manufacturer
+    new:
+      title: New manufacturer
+    create:
+      flashes:
+        created: The manufacturer has been created.
+    edit:
+      title: Update the manufacturer
+    update:
+      flashes:
+        updated: The manufacturer has been updated.
     destroy:
       title: Delete the manufacturer
+      flashes:
+        destroyed: The manufacturer has been removed.
 
   modeles:
     add_new: Add a model
@@ -243,6 +322,8 @@ en:
       no_enclosure: No Enclosure
     destroy:
       title: Delete the modele
+    preview:
+      modal_title: Model %{modele_name} preview
 
   moved_connections:
     decorator:
@@ -335,6 +416,8 @@ en:
     flashes:
       archived: This project is archived
 
+  n_a: n/a
+
   port_types:
     destroy:
       title: Delete the port type
@@ -374,22 +457,8 @@ en:
     flashes:
       connections_destroyed: The connections have been removed.
       connections_not_destroyed: An error prevented connections from being deleted.
-
-  rooms:
-    action_buttons:
-      caption:
-        ports: Ports
-        unreferenced_client: The corresponding port on the twin card is wired
-        no_client: The corresponding port on the twin card is not wired
-    edit_clusters_modal:
-      edit_clusters: Edit clusters
-    update:
-      flashes:
-        success: The room has successfully been updated
-    destroy:
-      title: Delete the room
-    add_new: Add a room
-    empty_overview: No bay to display
+    preview:
+      modal_title: PDU %{pdu_name} preview
 
   permission_scopes:
     index:
@@ -414,6 +483,7 @@ en:
         destroyed: Permission Scope as been successfully destroyed.
     permission_scope_user_form:
       user_select: Select a user to add
+
   permission_scope_users:
     create:
       flashes:
@@ -421,6 +491,17 @@ en:
     destroy:
       flashes:
         destroyed: User has been remove from this Permission Scope.
+
+  rooms:
+    edit_clusters_modal:
+      edit_clusters: Edit clusters
+    update:
+      flashes:
+        success: The room has successfully been updated
+    destroy:
+      title: Delete the room
+    add_new: Add a room
+    empty_overview: No bay to display
 
   search:
     index:
@@ -459,7 +540,6 @@ en:
       flashes:
         imported: New I.T. equipment has been added.
     index:
-      new_server: Add I.T. equipment
       add_server_via_csv: Add via CSV file
       sync_with_external_apps: Synchronize with GLPI
     show:
@@ -493,6 +573,8 @@ en:
       connections_destroyed: Connections have been deleted.
       connections_not_destroyed: An error prevented the connections from being deleted.
     add_new: Add an I.T. material
+    preview:
+      modal_title: Material %{server_name} preview
 
   servers_grids:
     index:
@@ -538,6 +620,21 @@ en:
       updated: User account updated
 
   visualization:
+    action_buttons:
+      background_color: "Background color: %{bg}"
+      background_choices:
+        modele: Modele
+        gestion: Manager
+        cluster: Cluster
+      dragn_drop:
+        enable: Activate drag'n drop
+      caption:
+        ports: Ports
+        unreferenced_client: The corresponding port on the twin card is wired
+        no_client: The corresponding port on the twin card is not wired
+    frames:
+      network:
+        title: Network view
     infrastructures:
       show:
         loading: Loading ...

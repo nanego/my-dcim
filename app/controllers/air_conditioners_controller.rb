@@ -7,7 +7,8 @@ class AirConditionersController < ApplicationController
   end
 
   def index
-    authorize! @air_conditioners = AirConditioner.joins(bay: { islet: :room })
+    authorize! @air_conditioners = AirConditioner
+      .joins(:air_conditioner_model, bay: { islet: :room })
       .order("rooms.position, islets.name, air_conditioners.name")
 
     @filter = ProcessorFilter.new(@air_conditioners, params)
@@ -53,7 +54,7 @@ class AirConditionersController < ApplicationController
     @air_conditioner.destroy!
 
     respond_to do |format|
-      format.html { redirect_to air_conditioners_url, notice: t(".flashes.destroyed") }
+      format.html { redirect_back_to_param_or air_conditioners_url, notice: t(".flashes.destroyed") }
       format.json { head :no_content }
     end
   end

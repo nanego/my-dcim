@@ -5,51 +5,54 @@
 %>
 
 <%= render Page::HeadingShowComponent.new(
-  resource: @server,
-  title:, breadcrumb:,
-  editable: allowed_to?(:update?, @server)
-) do |heading| %>
+      resource: @server,
+      title:, breadcrumb:,
+      editable: allowed_to?(:update?, @server),
+    ) do |heading| %>
   <% heading.with_extra_buttons do %>
-    <% if allowed_to?(:export_cables?, @server) %>
-      <button class="btn btn-outline-primary me-2 d-flex align-items-center export-button-server"
-              data-bs-title="<%= t(".export_cta_tooltip") %>"
-              data-aria-label="<%= t(".export_cta_tooltip") %>"
-              data-bs-trigger="hover"
-              data-controller="dynamic-export-pdf tooltip"
-              data-action="click->dynamic-export-pdf#export"
-              data-dynamic-export-pdf-has-button-icon-value="true"
-              data-dynamic-export-pdf-filename-param="<%= @server.friendly_id %>"
-              data-dynamic-export-pdf-urls-param="<%= [export_cables_server_path(@server)].to_json %>"
-              data-bs-placement="bottom">
-        <span class="spinner-border spinner-border-sm flex-shrink-0 d-flex d-none me-2" role="status" aria-hidden="true"
-              data-dynamic-export-pdf-target="spinner"></span>
-        <span class="bi bi-file-earmark-pdf" data-dynamic-export-pdf-target="buttonIcon"></span>
+    <% if allowed_to?(:cables_export?, @server) %>
+      <%= link_to cables_export_server_path(@server, format: :pdf),
+                  class: "btn btn-outline-primary me-2 d-flex align-items-center",
+                  title: t(".export_cta_tooltip"),
+                  target: :_blank,
+                  rel: :noopener,
+                  data: {
+                    aria_label: t(".export_cta_tooltip"),
+                    bs_trigger: "hover",
+                    controller: "tooltip",
+                    bs_placement: "bottom",
+                  } do %>
+        <span class="bi bi-file-earmark-pdf"></span>
         <span class="ms-2 d-none d-md-inline-flex"><%= t("action.export") %></span>
-      </button>
+      <% end %>
     <% end %>
 
-    <%= render ButtonComponent.new(
-      t("action.move"),
-      url: new_move_path(server_id: @server.id),
-      variant: :outline_primary,
-      icon: "box-seam",
-      is_responsive: true,
-      extra_classes: "me-2",
-      aria: { hidden: true },
-      data: {
-        controller: "tooltip",
-        bs_placement: :bottom,
-        tooltip_title: t(".moves_cta_tooltip")
-      }
-    ) if allowed_to?(:create?, with: MovePolicy) %>
-    <%= render ButtonComponent.new(
-      t("action.duplicate"),
-      url: duplicate_server_path(@server.slug),
-      variant: :success,
-      icon: "copy",
-      is_responsive: true,
-      extra_classes: "me-2"
-    ) if allowed_to?(:duplicate?, @server) %>
+    <%= if allowed_to?(:create?, with: MovePolicy)
+          render ButtonComponent.new(
+            t("action.move"),
+            url: new_move_path(server_id: @server.id),
+            variant: :outline_primary,
+            icon: "box-seam",
+            is_responsive: true,
+            extra_classes: "me-2",
+            aria: { hidden: true },
+            data: {
+              controller: "tooltip",
+              bs_placement: :bottom,
+              tooltip_title: t(".moves_cta_tooltip"),
+            },
+          )
+        end %>
+    <%= if allowed_to?(:duplicate?, @server)
+          render ButtonComponent.new(
+            t("action.duplicate"),
+            url: duplicate_server_path(@server.slug),
+            variant: :success,
+            icon: "copy",
+            is_responsive: true,
+            extra_classes: "me-2",
+          )
+        end %>
   <% end %>
 <% end %>
 
@@ -84,16 +87,17 @@
 <div class="col-12 p-4 tab-content" id="serverShowTabsContent">
   <div class="tab-pane fade show active" id="details-tab-pane" role="tabpanel" aria-labelledby="details-tab" tabindex="0">
     <div class="mb-4">
-      <% bgModeleColor = define_background_color(server: @server, mode: params["bg"]) %>
+      <% bg_modele_color = define_background_color(server: @server, mode: params["bg"]) %>
       <div class="<%= class_names("rounded-top-1 border border-secondary-subtle p-2 mb-2",
-                                  colorized_background: bgModeleColor.present?) %>"
-            style="background-color:<%= bgModeleColor %> !important;">
-        <%= render partial: "draw_server_compact_front", locals: { server: @server } %>
+                                  colorized_background: bg_modele_color.present?) %>"
+            style="background-color:<%= bg_modele_color %> !important;">
+        <%= render partial: "draw_server_compact_front", locals: { server: @server, should_show_name: false } %>
       </div>
 
-      <div class="server rounded-bottom-1 bg-body border border-secondary-subtle p-2 mb-2">
-        <span id="back_server_<%= @server.id %>" class="no-decoration-link d-flex flex-row-reverse flex-wrap">
-            <%= render partial: "servers/draw_server_compact", locals: { server: @server } %>
+      <div class="server rounded-bottom-1 bg-body border border-secondary-subtle p-2 mb-2 overflow-scroll">
+        <span id="back_server_<%= @server.id %>" class="no-decoration-link text-center">
+            <%= render partial: "servers/draw_server_compact",
+                       locals: { server: @server, should_hide_left_block: true } %>
         </span>
       </div>
     </div>
@@ -170,7 +174,7 @@
 
           <dl class="show-page_dl d-grid row-gap-2 mb-0">
             <dt class="pb-2"><%= Server.human_attribute_name(:numero) %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= @server.try(:numero) %></dd>
+            <dd class="mb-0 pb-2 ps-3 font-monospace"><%= @server.try(:numero) %></dd>
 
             <dt class="pb-2"><%= Server.human_attribute_name(:critique) %></dt>
             <dd class="mb-0 pb-2 ps-3">
@@ -193,9 +197,9 @@
             <dt class="pb-2"><%= Card.model_name.human.pluralize %></dt>
             <dd class="mb-0 pb-2 ps-3">
               <% @server.modele.composants.ordered.slots.each do |slot| %>
-                <% @server.cards.where(:composant_id => slot.id).each do |card| %>
+                <% @server.cards.where(composant_id: slot.id).find_each do |card| %>
                   <div>
-                    <%= card.composant.name ? card.composant.name : card.composant.position %>
+                    <%= card.composant.name || card.composant.position %>
                     :
                     <%= "#{card.card_type.try(:name)} (#{card.card_type.try(:port_quantity)}#{card.card_type.try(:port_type).try(:name)})" %>
                   </div>
@@ -230,9 +234,9 @@
             <% end %>
             <ul>
               <% @server.documents.each do |doc| %>
-                <%- next unless doc.document.present? %>
+                <%- next if doc.document.blank? %>
                 <li>
-                  <%= link_to(doc.document.metadata["filename"], doc.document_url, { target: :_blank })  %>
+                  <%= link_to(doc.document.metadata["filename"], doc.document_url, { target: :_blank, rel: :noopener }) %>
                 </li>
               <% end %>
             </ul>
@@ -335,7 +339,8 @@
             begin
               Timeout.timeout(3) do
                 client = GlpiClient.new
-                computer = client.computer(serial: Rails.env.production? ? @server.numero : "AZERTY") %>
+                computer = client.computer(serial: Rails.env.production? ? @server.numero : "AZERTY")
+          %>
               <% if computer.present? %>
                 <dl class="show-page_dl d-grid row-gap-2 mb-0">
                   <dt class="pb-2"><%= t("glpi.computer.name") %></dt>
@@ -355,25 +360,25 @@
                   <dd class="mb-0 pb-2 ps-3"><%= computer.hard_drives&.size %></dd>
 
                   <dt class="pb-2"><%= t("glpi.computer.disks_capacity") %></dt>
-                  <dd class="mb-0 pb-2 ps-3"><%= number_to_human_size(computer.hard_drives_total_capacity * 1048576) %></dd>
+                  <dd class="mb-0 pb-2 ps-3"><%= number_to_human_size(computer.hard_drives_total_capacity * 1_048_576) %></dd>
 
                   <dt class="pb-2"><%= t("glpi.computer.memories_count") %></dt>
                   <dd class="mb-0 pb-2 ps-3"><%= computer.memories&.size %></dd>
 
                   <dt class="pb-2"><%= t("glpi.computer.memories_total") %></dt>
-                  <dd class="mb-0 pb-2 ps-3"><%= number_to_human_size(computer.memories_total_size * 1048576) %></dd>
+                  <dd class="mb-0 pb-2 ps-3"><%= number_to_human_size(computer.memories_total_size * 1_048_576) %></dd>
 
                   <dt class="pb-2"><%= t("glpi.computer.cpus") %></dt>
                   <dd class="mb-0 pb-2 ps-3">
                     <%= computer.processors.group_by { |p| p[1]["designation"] }
-                                            .map { |designation, processors| "#{processors.size} x #{designation}" }
-                                            .join(", ") %>
+                          .map { |designation, processors| "#{processors.size} x #{designation}" }
+                          .join(", ") %>
                   </dd>
                 </dl>
                 <% card.with_footer do %>
                   <%= link_to t(".glpi_visit_page"),
                               "#{Rails.application.credentials.glpi_url}/front/computer.form.php?id=#{computer.id}",
-                              target: :_blank %>
+                              target: :_blank, rel: :noopener %>
                 <% end %>
               <% else %>
                 <%= t(".no_match_serial", serial: @server.numero) %>
@@ -395,9 +400,9 @@
             <% end %>
             <ul>
               <% @server.documents.each do |doc| %>
-                <%- next unless doc.document.present? %>
+                <%- next if doc.document.blank? %>
                 <li>
-                  <%= link_to(doc.document.metadata["filename"], doc.document_url, { target: :_blank })  %>
+                  <%= link_to(doc.document.metadata["filename"], doc.document_url, { target: :_blank, rel: :noopener }) %>
                 </li>
               <% end %>
             </ul>
@@ -423,11 +428,11 @@
 
   <div class="tab-pane fade" id="connections-tab-pane" role="tabpanel" aria-labelledby="connections-tab" tabindex="0">
     <%= render HasManyTurboFrameComponent.new(
-      Connection.model_name.human.pluralize,
-      url: server_cables_path(@server.id),
-      frame_id: dom_id(Connection, :table),
-      extra_classes: "bg-body-tertiary"
-    ) do |c| %>
+          Connection.model_name.human.pluralize,
+          url: server_cables_path(@server.id),
+          frame_id: dom_id(Connection, :table),
+          extra_classes: "bg-body-tertiary",
+        ) do |c| %>
       <% c.with_actions do %>
         <span>
           <button class="btn btn-sm text-body-tertiary p-0"

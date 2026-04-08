@@ -12,8 +12,13 @@ fr:
         other: Châssis
       modele: Modèle
       category: Catégorie
+      composant:
+        one: Composant
+        other: Composants
       air_conditioner: Climatisation
-      air_conditioner_model: Modèle de climatisation
+      air_conditioner_model:
+        one: Modèle de climatiseur
+        other: Modèles de climatiseur
       architecture: Architecture
       manufacturer: Constructeur
       domaine: Domaine
@@ -51,6 +56,7 @@ fr:
       contact_role: Rôle
       contact_assignment: Assignation
       permission_scope: Permission
+      permission_scope_domain: Permission
 
     attributes:
       room:
@@ -97,6 +103,7 @@ fr:
       server:
         name: Nom
         numero: Numéro de série
+        numero_short: s/n
         room: Salle
         islet: Ilot
         islet_id: Ilot
@@ -104,6 +111,7 @@ fr:
         frame_id: Châssis
         position: Position
         modele_id: Modèle
+        manufacturer_id: Constructeur
         critique: Critique
         gestion_id: Gestionnaire
         network_types: Composant réseau
@@ -148,6 +156,12 @@ fr:
         min_setpoint: Temperature de Consigne Nuit externe (froid)
       air_conditioner_model:
         name: Nom
+        manufacturer_id: Constructeur
+        manufacturer: Constructeur
+        air_conditioners_count:
+          zero: 0 climatiseur
+          one: 1 climatiseur
+          other: "%{count} climatiseurs"
       architecture:
         name: Nom
         usage: Usage
@@ -175,6 +189,7 @@ fr:
         name: Nom
         usage_modele: Usage (modèle)
         usage_bay: Usage (baie)
+        usage_server: Usage (Matériel I.T.)
         description: Description
         documentation_url: Documentation URL
         modeles_count:
@@ -185,6 +200,10 @@ fr:
           zero: 0 baie
           one: 1 baie
           other: "%{count} baies"
+        servers_count:
+          zero: 0 matériel I.T.
+          one: 1 matériel I.T.
+          other: "%{count} matériels I.T."
       domaine:
         name: Nom
         usage: Usage
@@ -229,12 +248,16 @@ fr:
       category:
         name: Nom
         description: Description
-        is_glpi_synchronizable: Synchronisation GLPI active
+        glpi_sync_type: Type de synchronisation GLPI
         modeles: Modèles
         modeles_count:
           zero: 0 modèle
           one: 1 modèle
           other: "%{count} modèles"
+      category/glpi_sync_type:
+        none: Aucun
+        server: Serveur
+        network_equipment: Équipement réseau
       modele:
         name: Nom
         category_id: Catégorie
@@ -451,10 +474,14 @@ fr:
             moveable_id:
               taken: a déjà un déplacement de prévu dans cette étape
 
+        moves_project:
+          steps_cannot_be_destroyed: Les étapes avec des déplacements ne peuvent être supprimées
+
         server:
           attributes:
             numero:
-              invalid: ne peut pas être identique à un nom de machine
+              same_as_server_name: ne peut pas être identique à un nom d'équipement
+              invalid: ne peut pas contenir d'espace
 
         user:
           attributes:

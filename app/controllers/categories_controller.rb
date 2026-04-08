@@ -61,12 +61,12 @@ class CategoriesController < ApplicationController
   def destroy
     if @category.destroy
       respond_to do |format|
-        format.html { redirect_to categories_url, notice: t(".flashes.destroyed") }
+        format.html { redirect_back_to_param_or categories_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to({ action: "index" }, alert: @category.errors.full_messages_for(:base).join(", ")) }
+        format.html { redirect_back_to_param_or({ action: "index" }, alert: @category.errors.full_messages_for(:base).join(", ")) }
       end
     end
   end
@@ -80,6 +80,6 @@ class CategoriesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def category_params
-    params.expect(category: %i[name description is_glpi_synchronizable])
+    params.expect(category: %i[name description glpi_sync_type])
   end
 end

@@ -60,6 +60,13 @@ RSpec.describe ServerDecorator, type: :decorator do
     end
   end
 
+  describe ".manufacturers_options_for_select" do
+    it do
+      expect(described_class.manufacturers_options_for_select)
+        .to contain_exactly(["Fourth", 4], ["Third", 3], ["fortinet", 1], ["juniper", 2])
+    end
+  end
+
   describe "#network_types_to_human" do
     subject(:network_types_sentence) { decorated_server.network_types_to_human }
 
@@ -87,6 +94,20 @@ RSpec.describe ServerDecorator, type: :decorator do
       before { server.modele = nil }
 
       it { expect(decorated_server.full_name).to eq("ServerName1") }
+    end
+  end
+
+  describe "#full_location" do
+    it { expect(decorated_server.full_location).to eq("Site 1 - Ilot Islet1 S1") }
+  end
+
+  describe "#in_frame_location" do
+    it { expect(decorated_server.in_frame_location).to eq("MyFrame1 - U39") }
+
+    context "without position" do
+      before { server.position = nil }
+
+      it { expect(decorated_server.in_frame_location).to eq("MyFrame1 - U?") }
     end
   end
 end

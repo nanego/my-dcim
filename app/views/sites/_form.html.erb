@@ -1,123 +1,136 @@
-<%= form_for(@site, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+<%= form_for(@site, html: { role: "form" }) do |f| %>
   <%= render FormErrorsComponent.new(@site) %>
-  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("show.cards.identification") %>
-    <% end %>
 
-    <fieldset class="col-12">
-      <%= f.label :name, class: "form-label" %>
-      <%= f.text_field :name, class: "form-control" %>
-    </fieldset>
+  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+    <div class="col">
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.identification") %>
+        <% end %>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :description, class: "form-label" %>
-      <%= f.text_area :description, class: "form-control" %>
-    </fieldset>
-  <% end %>
+        <fieldset class="col-12">
+          <%= f.label :name, class: "form-label" %>
+          <%= f.text_field :name, class: "form-control" %>
+        </fieldset>
 
-  <%= render CardComponent.new(type: :primary, extra_classes: "mt-4 bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("layouts.sidebar.location.title") %>
-    <% end %>
-
-    <fieldset class="col-12">
-      <%= f.label :street, class: "form-label" %>
-      <%= f.text_field :street, class: "form-control" %>
-    </fieldset>
-
-    <div class="row g-3">
-      <fieldset class="col-md-6 col-12 mt-4">
-        <%= f.label :city, class: "form-label" %>
-        <%= f.text_field :city, class: "form-control" %>
-      </fieldset>
-
-      <fieldset class="col-md-6 col-12 mt-4">
-        <%= f.label :country, class: "form-label" %>
-        <%= f.text_field :country, class: "form-control" %>
-      </fieldset>
-    </div>
-
-    <div class="row g-3">
-      <fieldset class="col-md-6 col-12 mt-4">
-        <%= f.label :latitude, class: "form-label" %>
-        <%= f.text_field :latitude, class: "form-control" %>
-      </fieldset>
-
-      <fieldset class="col-md-6 col-12 mt-4">
-        <%= f.label :longitude, class: "form-label" %>
-        <%= f.text_field :longitude, class: "form-control" %>
-      </fieldset>
-    </div>
-
-    <fieldset class="col-12 mt-4">
-      <%= f.label :delivery_address, class: "form-label" %>
-      <%= f.text_area :delivery_address, class: "form-control" %>
-    </fieldset>
-
-    <fieldset class="col-12 mt-4">
-      <%= f.label :delivery_times, class: "form-label" %>
-      <%= f.text_area :delivery_times, class: "form-control" %>
-    </fieldset>
-
-    <fieldset class="col-12 mt-4">
-      <%= f.label :delivery_map, class: "form-label" %>
-      <%= f.file_field :delivery_map,
-                       class: "form-control",
-                       accept: accepted_format_for_attachment(@site.class, "delivery_map") %>
-      <% if @site.delivery_map.attached? && @site.persisted? %>
-        <%= image_tag @site.delivery_map.representation(resize_to_limit: [200, 200]), class: "ms-0 mt-2" %>
+        <fieldset class="col-12 mt-4">
+          <%= f.label :description, class: "form-label" %>
+          <%= f.text_area :description, class: "form-control" %>
+        </fieldset>
       <% end %>
-    </fieldset>
-  <% end %>
 
-  <%= render CardComponent.new(extra_classes: "mt-4 bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("show.cards.display") %>
-    <% end %>
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.display") %>
+        <% end %>
 
-    <fieldset class="col-12">
-      <%= f.label :position, class: "form-label" %>
-      <%= f.text_field :position, class: "form-control" %>
-    </fieldset>
-  <% end %>
-
-  <%= render CardComponent.new(type: :warning,
-                               extra_classes: "mt-4 bg-body-tertiary contact_assignments",
-                               id: :contact_assignments,
-                               data: { controller: "nested-form"}) do |card| %>
-    <% card.with_header do %>
-      <%= ContactAssignment.model_name.human.pluralize %>
-    <% end %>
-
-    <template data-nested-form-target="template">
-      <%= f.fields_for :contact_assignments, f.object.contact_assignments.klass.new,
-                      child_index: "__NEW_RECORD__" do |contact_assignment_fields| %>
-        <%= render partial: "contact_assignment_fields", locals: { f: contact_assignment_fields } %>
+        <fieldset class="col-12">
+          <%= f.label :position, class: "form-label" %>
+          <%= f.text_field :position, class: "form-control" %>
+        </fieldset>
       <% end %>
-    </template>
 
-    <div class="d-none d-md-block border-bottom pb-3">
-      <div class="row">
-        <span class="col-7"><%= ContactAssignment.human_attribute_name(:contact_id) %></span>
-        <span class="col-4"><%= ContactAssignment.human_attribute_name(:contact_role_id) %></span>
-        <span class="col-1"></span>
-      </div>
+      <%= render CardComponent.new(type: :warning,
+                                   extra_classes: "bg-body-tertiary contact_assignments mt-4",
+                                   id: :contact_assignments,
+                                   data: { controller: "nested-form" }) do |card| %>
+        <% card.with_header do %>
+          <%= ContactAssignment.model_name.human.pluralize %>
+        <% end %>
+
+        <div class="d-flex flex-column gap-3 gap-md-0 gap-lg-3 gap-xxl-0">
+          <template data-nested-form-target="template">
+            <%= f.fields_for :contact_assignments, f.object.contact_assignments.klass.new,
+                             child_index: "__NEW_RECORD__" do |contact_assignment_fields| %>
+              <%= render partial: "contact_assignment_fields", locals: { f: contact_assignment_fields } %>
+            <% end %>
+          </template>
+
+          <div class="d-none d-md-block d-lg-none d-xxl-block border-bottom pb-3">
+            <div class="row">
+              <span class="col-5 col-md-6 col-xxl-7"><%= ContactAssignment.human_attribute_name(:contact_id) %></span>
+              <span class="col-5 col-md-5 col-xxl-4"><%= ContactAssignment.human_attribute_name(:contact_role_id) %></span>
+              <span class="col-2 col-md-1"></span>
+            </div>
+          </div>
+
+          <%= f.fields_for :contact_assignments do |contact_assignment_fields| %>
+            <%= render partial: "contact_assignment_fields", locals: { f: contact_assignment_fields } %>
+          <% end %>
+          <div data-nested-form-target="target"></div>
+        </div>
+
+        <% card.with_footer do %>
+          <span class="ms-auto me-auto">
+            <button type="button" class="btn btn-outline-success btn-sm" data-action="nested-form#add">
+              <span class="bi bi-person-plus" aria-hidden="true"></span> <%= t(".add_contact_assignment") %>
+            </button>
+          </span>
+        <% end %>
+      <% end %>
     </div>
 
-    <%= f.fields_for :contact_assignments do |contact_assignment_fields| %>
-      <%= render partial: "contact_assignment_fields", locals: { f: contact_assignment_fields } %>
-    <% end %>
-    <div data-nested-form-target="target"></div>
+    <div class="col">
+      <%= render CardComponent.new(type: :primary, extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("layouts.sidebar.location.title") %>
+        <% end %>
 
-    <% card.with_footer do %>
-      <span class="ms-auto me-auto">
-        <button type="button" class="btn btn-outline-success btn-sm" data-action="nested-form#add">
-          <span class="bi bi-person-plus" aria-hidden="true"></span> <%= t(".add_contact_assignment") %>
-        </button>
-      </span>
-    <% end %>
-  <% end %>
+        <fieldset class="col-12">
+          <%= f.label :street, class: "form-label" %>
+          <%= f.text_field :street, class: "form-control" %>
+        </fieldset>
+
+        <div class="col-12 mt-4">
+          <div class="row mt-0 column-g-3">
+            <fieldset class="col-md-6 col-12">
+              <%= f.label :city, class: "form-label" %>
+              <%= f.text_field :city, class: "form-control" %>
+            </fieldset>
+
+            <fieldset class="col-md-6 col-12 mt-4 mt-md-0">
+              <%= f.label :country, class: "form-label" %>
+              <%= f.text_field :country, class: "form-control" %>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="col-12 mt-4">
+          <div class="row mt-0 column-g-3">
+            <fieldset class="col-md-6 col-12">
+              <%= f.label :latitude, class: "form-label" %>
+              <%= f.text_field :latitude, class: "form-control" %>
+            </fieldset>
+
+            <fieldset class="col-md-6 col-12 mt-4 mt-md-0">
+              <%= f.label :longitude, class: "form-label" %>
+              <%= f.text_field :longitude, class: "form-control" %>
+            </fieldset>
+          </div>
+        </div>
+
+        <fieldset class="col-12 mt-4">
+          <%= f.label :delivery_address, class: "form-label" %>
+          <%= f.text_area :delivery_address, class: "form-control" %>
+        </fieldset>
+
+        <fieldset class="col-12 mt-4">
+          <%= f.label :delivery_times, class: "form-label" %>
+          <%= f.text_area :delivery_times, class: "form-control" %>
+        </fieldset>
+
+        <fieldset class="col-12 mt-4">
+          <%= f.label :delivery_map, class: "form-label" %>
+          <%= f.file_field :delivery_map,
+                           class: "form-control",
+                           accept: accepted_format_for_attachment(@site.class, "delivery_map") %>
+          <% if @site.delivery_map.attached? && @site.persisted? %>
+            <%= image_tag @site.delivery_map.representation(resize_to_limit: [200, 200]), class: "ms-0 mt-2" %>
+          <% end %>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
 
   <%= render Form::ActionsComponent.new(f, display_create_another_one:) %>
 <% end %>

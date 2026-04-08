@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 class SitesController < ApplicationController
-  before_action :set_site, only: %i[show edit update destroy]
-  before_action except: %i[index] do
+  before_action :set_site, only: %i[show edit update destroy print]
+  before_action except: %i[index print] do
     breadcrumb.add_step(Site.model_name.human.pluralize, sites_path)
   end
 
   def index
-    authorize! @sites = sorted(scoped_sites.sorted)
+    @filter = ProcessorFilter.new(scoped_sites.sorted, params)
+    authorize! @sites = @filter.results
   end
 
   def show; end
@@ -51,14 +52,21 @@ class SitesController < ApplicationController
   def destroy
     if @site.destroy
       respond_to do |format|
-        format.html { redirect_to sites_url, notice: t(".flashes.destroyed") }
+        format.html { redirect_back_to_param_or sites_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to sites_url, alert: @site.errors.full_messages_for(:base).join(", ") }
+        format.html { redirect_back_to_param_or sites_url, alert: @site.errors.full_messages_for(:base).join(", ") }
       end
     end
+  end
+
+  def print
+    render ferrum_pdf: {},
+           layout: "pdf",
+           filename: "#{Site.model_name.human.downcase}_#{@site.name.parameterize}.pdf",
+           disposition: :inline
   end
 
   private

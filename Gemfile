@@ -6,10 +6,10 @@ ruby file: ".ruby-version"
 
 gem "rails", "~> 8.0.0"
 
-gem "bootstrap", "~> 5.3.2"
+gem "bootstrap", "~> 5.3.8"
 gem "dartsass-sprockets", "~> 3.2"
 gem "jbuilder"
-gem "nokogiri", "~> 1.18"
+gem "nokogiri", "~> 1.19"
 gem "rails-i18n", "~> 8.1"
 gem "sprockets-rails", require: "sprockets/railtie"
 gem "terser"
@@ -18,8 +18,8 @@ gem "terser"
 gem "devise", "~> 4.9"
 gem "devise-i18n"
 gem "devise_invitable"
-gem "omniauth", "~> 2.1.0"
-gem "omniauth_openid_connect", "~> 0.7.0"
+gem "omniauth", "~> 2.1"
+gem "omniauth_openid_connect", "~> 0.8"
 gem "omniauth-rails_csrf_protection"
 gem "simple_token_authentication", github: "gonzalo-bulnes/simple_token_authentication"
 
@@ -37,7 +37,7 @@ gem "bootsnap", require: false
 gem "image_processing", "~> 1.2"
 
 group :development do
-  gem "listen", "~> 3.3"
+  gem "listen", "~> 3.10"
   gem "web-console", ">= 4.1.0"
 end
 
@@ -60,7 +60,7 @@ group :test do
   gem "capybara", ">= 2.15"
   gem "cuprite"
   gem "formulaic"
-  gem "minitest", "~> 5.x"
+  gem "minitest", "~> 6"
   gem "rails-controller-testing"
   gem "rspec-activemodel-mocks"
   gem "rspec-html-matchers"
@@ -75,7 +75,6 @@ group :test do
 end
 
 group :production do
-  gem "connection_pool", "~> 2.4.1" # Force compatible version, v3.0 is NOT currently compatible with Rails 8
   gem "dalli", "~> 3.2"
   gem "passenger", "~> 6.0"
 end
@@ -96,11 +95,14 @@ gem "letter_opener", group: :development
 gem "geocoder", "~> 1.8"
 
 gem "action_policy", "~> 0.7"
+gem "addressable", "~> 2.9"
 gem "brakeman", group: %i[test development], require: false
 gem "csv", "~> 3.3"
 gem "debug", group: %i[test development], platforms: %i[mri windows], require: "debug/prelude"
 gem "dekorator", "~> 1.4"
 gem "diffy", "~> 3.4"
+gem "erb_lint", require: false
+gem "ferrum_pdf", "~> 3.0"
 gem "hotwire-spark", group: :development
 gem "importmap-rails", "~> 2.0"
 gem "jquery-rails", "~> 4.6"
@@ -109,6 +111,6 @@ gem "requestjs-rails", "~> 0.0.12"
 gem "rubanok", "~> 0.5"
 gem "scenic", "~> 1.8"
 gem "stimulus-rails", "~> 1.2"
-gem "store_attribute", "~> 1.2"
+gem "store_attribute", "~> 2.1"
 gem "turbo-rails", "~> 2.0"
 gem "view_component", "~> 4.x"

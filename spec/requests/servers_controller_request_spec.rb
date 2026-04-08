@@ -7,12 +7,6 @@ RSpec.describe ServersController do
   let(:server2) { servers(:two) }
   let(:pdu) { servers(:pdu) }
 
-  before do
-    sign_in users(:admin)
-
-    server.save!
-  end
-
   describe "GET #index" do
     subject(:response) do
       get servers_path(params)
@@ -22,6 +16,8 @@ RSpec.describe ServersController do
     end
 
     let(:params) { {} }
+
+    include_context "with authenticated user"
 
     it_behaves_like "with preferred columns", ServersController::AVAILABLE_COLUMNS, route: :servers_path
 
@@ -45,7 +41,13 @@ RSpec.describe ServersController do
   end
 
   describe "GET #show" do
-    before { get server_path(server) }
+    subject(:response) do
+      get server_path(server)
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated user"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:show) }
@@ -75,190 +77,241 @@ RSpec.describe ServersController do
   end
 
   describe "GET #new" do
-    before { get new_server_path }
+    subject(:response) do
+      get new_server_path
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:new) }
   end
 
   describe "GET #duplicate" do
-    before { get duplicate_server_path(server) }
+    subject(:response) do
+      get duplicate_server_path(server)
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:duplicate) }
   end
 
   describe "POST #create" do
+    subject(:response) do
+      post servers_path, params: params
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:params) { { server: valid_attributes } }
+    let(:valid_attributes) do
+      server.attributes.except(%w[id numero name]).merge(numero: "new_numero", name: "NewServerName")
+    end
+
+    include_context "with authenticated admin"
+
     context "with valid parameters" do
-      subject(:response) do
-        post servers_path, params: params
-
-        # NOTE: used to simplify usage and custom test done in final spec file.
-        @response # rubocop:disable RSpec/InstanceVariable
-      end
-
-      let(:params) { { server: server.attributes.except(%w[id numero name]).merge(numero: "new_numero", name: "NewServerName") } }
-
       it_behaves_like "with create another one"
 
-      it "creates a new Server" do
-        expect do
-          response
-        end.to change(Server, :count).by(1)
+      it do
+        expect { response }.to change(Server, :count).by(1)
       end
 
-      it "redirects to the created server" do
+      it do
         expect(response).to redirect_to(server_path(assigns(:server)))
       end
     end
 
     context "with invalid parameters" do
-      let(:invalid_attributes) { { name: "" } }
+      let(:params) { { server: { name: "" } } }
 
-      it "does not create a new Server without attributes" do
-        expect { post servers_path, params: { server: {} } }
-          .to raise_error(ActionController::ParameterMissing)
-      end
+      it { expect(response).to render_template(:new) }
+    end
 
-      it "does not create a new Server without parameters" do
-        expect { post servers_path, params: {} }
-          .to raise_error(ActionController::ParameterMissing)
-      end
+    context "without attributes" do
+      let(:params) { { server: {} } }
 
-      it "does not create a new Server with invalid parameters" do
-        post servers_path, params: { server: invalid_attributes }
-        expect(response).to render_template(:new)
-      end
+      it { expect { response }.to raise_error(ActionController::ParameterMissing) }
+    end
+
+    context "without parameters" do
+      let(:params) { {} }
+
+      it { expect { response }.to raise_error(ActionController::ParameterMissing) }
     end
   end
 
   describe "GET #edit" do
-    before { get edit_server_path(server) }
+    subject(:response) do
+      get edit_server_path(server)
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:edit) }
   end
 
   describe "PATCH #update" do
+    subject(:response) do
+      patch server_path(server), params: params
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:params) { { server: valid_attributes } }
+    let(:valid_attributes) do
+      server.attributes.except("name").merge(name: "New name")
+    end
+
+    include_context "with authenticated admin"
+
     context "with valid parameters" do
-      let(:new_attributes) { server.attributes.except("name").merge(name: "New name") }
-
-      it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
-        patch server_path(server), params: { server: new_attributes }
-        server.reload
-        assigns(:server).reload
-
-        expect(response).to be_redirection
-        expect(response).to redirect_to(server_path(assigns(:server)))
-        expect(server.name).to eq(new_attributes[:name])
-
-        # old name should continue to work
-        get server_path("ServerName1")
-        expect(response).to have_http_status(:success)
-        expect(server).to eq(assigns(:server))
-      end
-
-      it "does update cards in a server", :aggregate_failures do # rubocop:disable RSpec/ExampleLength
-        patch server_path(server), params: {
-          server: {
-            name: server.name,
-            cards_attributes: [{ id: 1, composant_id: 1, twin_card_id: 2, orientation: "lr-td" }],
-          },
-        }
-
-        assigns(:server).reload
-        server.reload
-
-        expect(response).to be_redirection
-        expect(response).to redirect_to(server_path(assigns(:server)))
-
-        # Test new card
-        get server_path(server)
-        expect(response).to have_http_status(:success)
-        expect(server).to eq(assigns(:server))
-        expect(Card.find(1).twin_card_id).to eq 2
-
-        # Test twin card
-        expect(Card.find(2).twin_card_id).to eq 1
-      end
-    end
-
-    context "with invalid parameters" do
-      it "does not update a Server without attributes" do
-        expect { patch server_path(server), params: { server: {} } }
-          .to raise_error(ActionController::ParameterMissing)
-      end
-
-      it "does not update a Server without parameters" do
-        expect { patch server_path(server), params: {} }
-          .to raise_error(ActionController::ParameterMissing)
-      end
-
-      it "does not update a Server with invalid parameters", :aggregate_failures do
-        patch server_path(server), params: { server: { name: "" } }
-
-        expect(response).to render_template(:edit)
-      end
-    end
-  end
-
-  describe "DELETE #destroy" do
-    context "without confirm" do
-      subject(:response) do
-        delete server_path(server2)
-        @response # rubocop:disable RSpec/InstanceVariable
-      end
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(server_path(server.reload)) }
 
       it do
         expect do
           response
-        end.not_to change(Server, :count)
+          server.reload
+        end.to change(server, :name).to("New name")
       end
 
+      # old name should continue to work
+      it do
+        get server_path("ServerName1")
+        expect(@response).to have_http_status(:success) # rubocop:disable RSpec/InstanceVariable
+      end
+    end
+
+    context "with valid parameters, and an update on a card attributes" do
+      let(:valid_attributes) do
+        {
+          name: server.name,
+          cards_attributes: [{ composant_id: 1, twin_card_id: 2, orientation: "lr-td", card_type_id: 3 }],
+        }
+      end
+
+      before { response }
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(server_path(server.reload)) }
+
+      # Test new card
+      it { expect(Card.last.twin_card_id).to eq 2 }
+      # Test twin card
+      it { expect(Card.find(2).twin_card_id).to eq Card.last.id }
+    end
+
+    context "with invalid parameters" do
+      let(:params) { { server: { name: "" } } }
+
+      it { expect(response).to render_template(:edit) }
+    end
+
+    context "without attributes" do
+      let(:params) { { server: {} } }
+
+      it { expect { response }.to raise_error(ActionController::ParameterMissing) }
+    end
+
+    context "without parameters" do
+      let(:params) { {} }
+
+      it { expect { response }.to raise_error(ActionController::ParameterMissing) }
+    end
+
+    context "when preview button clicked with turbo_stream format" do
+      let(:params) do
+        {
+          server: { name: "Server#1" },
+          preview: "preview",
+          format: :turbo_stream,
+        }
+      end
+
+      it { expect(response).to render_template(:preview) }
+      it { expect(response).to have_http_status(:unprocessable_content) }
+    end
+  end
+
+  describe "DELETE #destroy" do
+    subject(:response) do
+      delete server_path(server, confirm:, **params)
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:server) { servers(:two) }
+    let(:confirm)  { true }
+    let(:params) { {} }
+
+    include_context "with authenticated admin"
+
+    context "without confirm" do
+      let(:confirm) { false }
+
+      it { expect { response }.not_to change(Server, :count) }
       it { expect(response).to have_http_status(:success) }
       it { expect(Server.exists?(server.id)).to be(true) }
     end
 
     context "with a server without association" do
-      it "destroys the requested server" do
-        expect do
-          delete server_path(server2, confirm: true)
-        end.to change(Server, :count).by(-1)
-      end
+      it { expect { response }.to change(Server, :count).by(-1) }
+      it { expect(response).to redirect_to(servers_path) }
+    end
 
-      it "redirects to the servers list" do
-        delete server_path(server2, confirm: true)
-        expect(response).to redirect_to(servers_path)
-      end
+    context "with a server without association and params" do
+      let(:params) { { sort: "asc", sort_by: "rooms.name" } }
 
-      it "redirects to the servers list and keep params" do
-        delete server_path(server2, params: { sort: "asc", sort_by: "rooms.name" }, confirm: true)
-        expect(response).to redirect_to(servers_path({ sort: "asc", sort_by: "rooms.name" }))
-      end
+      it { expect(response).to redirect_to(servers_path({ sort: "asc", sort_by: "rooms.name" })) }
     end
 
     context "with a server with association" do
-      it "does not destroy the requested server" do
-        expect do
-          delete server_path(server, confirm: true)
-        end.not_to change(Server, :count)
-      end
+      let(:server) { servers(:one) }
 
-      it "redirects to the servers list" do
-        delete server_path(server, confirm: true)
-        expect(response).to redirect_to(servers_path)
-      end
+      it { expect { response }.not_to change(Server, :count) }
+      it { expect(response).to redirect_to(servers_path) }
+    end
+
+    context "with custom back_to" do
+      let(:params) { { back_to: "/some_path" } }
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to("/some_path") }
+      it { expect { response }.to change(Server, :count).by(-1) }
     end
   end
 
   describe "GET #import_csv" do
-    before { get import_csv_servers_path }
+    subject(:response) do
+      get import_csv_servers_path
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:import_csv) }
   end
 
   describe "POST #import" do
+    subject(:response) do
+      post import_servers_path, params: {
+        import: { file: csv, room_id: Room.first.id },
+      }
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
     let(:csv) { Rack::Test::UploadedFile.new(Rails.root.join("test/files/orders.csv").to_s) }
     let(:destination_frame) { Frame.find_by(name: "MyFrame2") }
     let(:nb_of_servers_in_frame) { destination_frame.servers.count }
@@ -266,12 +319,10 @@ RSpec.describe ServersController do
 
     before { nb_of_servers_in_frame }
 
+    include_context "with authenticated admin"
+
     it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
-      expect do
-        post import_servers_path, params: {
-          import: { file: csv, room_id: Room.first.id },
-        }
-      end.to change(Server, :count).by(26).and change(Frame, :count).and change(Bay, :count)
+      expect { response }.to change(Server, :count).by(26).and change(Frame, :count).and change(Bay, :count)
 
       expect(response).to have_http_status(:found)
       expect(response).to redirect_to(frame_path("orders"))
@@ -282,10 +333,27 @@ RSpec.describe ServersController do
     end
   end
 
-  describe "GET #export_cables" do
-    before { get export_cables_server_path(server) }
+  describe "GET #cables_export" do
+    subject(:response) do
+      get cables_export_server_path(server, format:)
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
 
-    it { expect(response).to have_http_status(:success) }
-    it { expect(response).to render_template(:export_cables) }
+    let(:format) { nil }
+
+    include_context "with authenticated admin"
+
+    context "with pdf format" do
+      let(:format) { :pdf }
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(:cables_export) }
+      it { expect(response).to render_template("layouts/pdf") }
+      it { expect(response.headers["Content-Type"]).to eq("application/pdf") }
+    end
+
+    context "without format" do
+      it { expect { response }.to raise_error(ActionController::UnknownFormat) }
+    end
   end
 end

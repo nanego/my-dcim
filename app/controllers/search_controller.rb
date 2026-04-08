@@ -4,7 +4,7 @@ class SearchController < ApplicationController
   skip_verify_authorized
 
   def index
-    @results = authorize! SearchResult.search(params[:query])
+    @results = authorize! SearchResult.search(params[:search_query])
     @results = authorized_scope(@results).map(&:searchable)
 
     respond_to do |format|

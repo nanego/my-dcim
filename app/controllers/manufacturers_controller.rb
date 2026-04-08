@@ -9,7 +9,11 @@ class ManufacturersController < ApplicationController
   # GET /manufacturers
   # GET /manufacturers.json
   def index
-    authorize! @manufacturers = sorted(Manufacturer.all)
+    @filter = ProcessorFilter.new(Manufacturer.sorted, params)
+    authorize! @manufacturers = @filter.results
+
+    @bays_counts = authorized_scope(Bay.all).group(:manufacturer_id).count(:manufacturer_id)
+    @servers_counts = authorized_scope(Server.all).group(:manufacturer_id).count(:manufacturer_id)
   end
 
   # GET /manufacturers/1
@@ -60,12 +64,12 @@ class ManufacturersController < ApplicationController
   def destroy
     if @manufacturer.destroy
       respond_to do |format|
-        format.html { redirect_to manufacturers_url, notice: t(".flashes.destroyed") }
+        format.html { redirect_back_to_param_or manufacturers_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to manufacturers_url, alert: @manufacturer.errors.full_messages_for(:base).join(", ") }
+        format.html { redirect_back_to_param_or manufacturers_url, alert: @manufacturer.errors.full_messages_for(:base).join(", ") }
       end
     end
   end

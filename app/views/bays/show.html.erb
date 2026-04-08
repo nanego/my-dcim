@@ -2,27 +2,29 @@
   breadcrumb.add_step(@bay)
 
   title = if @bay.frames.empty?
-    t("bays.empty").concat(@bay.decorated.no_frame_warning_icon).html_safe
-  else
-    t(".title", type: @bay.bay_type&.name, frames: @bay)
-  end
+            t("bays.empty").concat(@bay.decorated.no_frame_warning_icon).html_safe
+          else
+            t(".title", type: @bay.bay_type&.name, frames: @bay)
+          end
 %>
 
 <%= render Page::HeadingShowComponent.new(
-  resource: @bay,
-  title:, breadcrumb:,
-  editable: allowed_to?(:update?, @bay)
-) do |heading| %>
+      resource: @bay,
+      title:, breadcrumb:,
+      editable: allowed_to?(:update?, @bay),
+    ) do |heading| %>
   <% if @bay.frames.any? %>
     <% heading.with_extra_buttons do %>
-      <% render ButtonComponent.new(
-        t("visualization.title"),
-        url: visualization_bay_path(@bay),
-        variant: :primary,
-        icon: "diagram-3-fill",
-        is_responsive: true,
-        extra_classes: "me-2"
-      ) if allowed_to?(:show?, @bay, with: Visualization::BayPolicy) %>
+      <% if allowed_to?(:show?, @bay, with: Visualization::BayPolicy)
+           render ButtonComponent.new(
+             t("visualization.title"),
+             url: visualization_bay_path(@bay),
+             variant: :primary,
+             icon: "diagram-3-fill",
+             is_responsive: true,
+             extra_classes: "me-2",
+           )
+         end %>
     <% end %>
   <% end %>
 <% end %>
@@ -120,12 +122,12 @@
   </div>
 
   <%= render HasManyTurboFrameComponent.new(
-    Frame.model_name.human.pluralize,
-    url: frames_path(bay_ids: @bay.id),
-    frame_id: dom_id(Frame, :table),
-    new_path: (new_frame_path(frame: { bay_id: @bay.id }) if allowed_to?(:create?, with: FramePolicy)),
-    new_label: t("frames.add_new")
-  ) %>
+        Frame.model_name.human.pluralize,
+        url: frames_path(bay_ids: @bay.id),
+        frame_id: dom_id(Frame, :table),
+        new_path: (new_frame_path(frame: { bay_id: @bay.id }) if allowed_to?(:create?, with: FramePolicy)),
+        new_label: t("frames.add_new"),
+      ) %>
 
   <%= render ChangelogEntries::ObjectListComponent.new(@bay) %>
 </div>

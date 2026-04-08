@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-class FramesController < ApplicationController # rubocop:disable Metrics/ClassLength
+class FramesController < ApplicationController
   include ServersHelper
   include RoomsHelper
 
   before_action :set_frame, only: %i[show edit update destroy]
-  before_action except: %i[index network] do
+  before_action except: %i[index] do
     breadcrumb.add_step(Frame.model_name.human.pluralize, frames_path)
   end
 
@@ -68,45 +68,13 @@ class FramesController < ApplicationController # rubocop:disable Metrics/ClassLe
   def destroy
     if @frame.destroy
       respond_to do |format|
-        format.html { redirect_to frames_url, notice: t(".flashes.destroyed") }
+        format.html { redirect_back_to_param_or frames_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to frames_url, alert: @frame.errors.full_messages_for(:base).join(", ") }
+        format.html { redirect_back_to_param_or frames_url, alert: @frame.errors.full_messages_for(:base).join(", ") }
       end
-    end
-  end
-
-  def network
-    # Set frames for this network
-    authorize! @frame = Frames::IncludingServersQuery.call(Frame).friendly.find(params[:id].to_s.downcase)
-    @coupled_frame = @frame.other_frame
-    if @coupled_frame.present?
-      @network_frame = Frames::IncludingServersQuery.call(Frame).friendly.find(params[:network_frame_id].to_s.downcase)
-    else
-      @network_frame = @frame
-      @frame = Frames::IncludingServersQuery.call(Frame).friendly.find(params[:network_frame_id].to_s.downcase)
-      @coupled_frame = @frame.other_frame
-    end
-
-    @frames = [@frame, @coupled_frame, @network_frame].compact_blank
-    @servers_per_frames = {}
-
-    @frames.each do |frame|
-      islet = t(".title")
-      @servers_per_frames[islet] ||= {}
-      @servers_per_frames[islet][0] ||= {}
-      @servers_per_frames[islet][0][frame.bay] ||= {}
-      @servers_per_frames[islet][0][frame.bay][frame] ||= []
-      frame.servers.each do |s|
-        @servers_per_frames[islet][0][frame.bay][frame] << s
-      end
-    end
-
-    respond_to do |format|
-      format.html
-      format.txt { send_data Frame.to_txt(@servers_per_frames, params[:bg]) }
     end
   end
 

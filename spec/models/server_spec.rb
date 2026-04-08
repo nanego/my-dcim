@@ -13,21 +13,24 @@ RSpec.describe Server do
     it { is_expected.to belong_to(:frame) }
     it { is_expected.to belong_to(:gestion).optional(true) }
     it { is_expected.to belong_to(:domaine).optional(true) }
-    it { is_expected.to belong_to(:modele) }
     it { is_expected.to belong_to(:cluster).optional(true) }
     it { is_expected.to belong_to(:stack).optional(true) }
+    it { is_expected.to belong_to(:modele) }
 
     it { is_expected.to have_one(:bay).through(:frame) }
     it { is_expected.to have_one(:islet).through(:frame) }
     it { is_expected.to have_one(:room).through(:islet) }
+    it { is_expected.to have_one(:site).through(:room) }
+    it { is_expected.to have_one(:manufacturer).through(:modele) }
 
-    it { is_expected.to have_many(:cards) }
+    it { is_expected.to have_many(:cards).dependent(:destroy) }
     it { is_expected.to have_many(:card_types).through(:cards) }
     it { is_expected.to have_many(:ports).through(:cards) }
     it { is_expected.to have_many(:connections).through(:ports) }
     it { is_expected.to have_many(:cables).through(:connections) }
     it { is_expected.to have_many(:moves).dependent(:destroy) }
     it { is_expected.to have_many(:documents) }
+    it { is_expected.to have_many(:external_app_record) }
   end
 
   describe "attachement" do
@@ -40,6 +43,7 @@ RSpec.describe Server do
     it { is_expected.to validate_presence_of(:numero) }
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_uniqueness_of(:numero) }
+    it { is_expected.not_to allow_value("numero with space").for(:numero) }
   end
 
   describe ".friendly_find_by_numero_or_name" do

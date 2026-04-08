@@ -25,6 +25,10 @@ class ServerDecorator < ApplicationDecorator
     def domains_options_for_select(user)
       DomaineDecorator.options_for_select(user)
     end
+
+    def manufacturers_options_for_select
+      ManufacturerDecorator.options_for_select
+    end
   end
 
   def network_types_to_human
@@ -35,5 +39,13 @@ class ServerDecorator < ApplicationDecorator
 
   def full_name
     [modele&.category, name].compact.join(" ")
+  end
+
+  def full_location
+    [site, islet.decorated.name_with_room].compact_blank.join(" - ")
+  end
+
+  def in_frame_location
+    [frame, "U#{position || "?"}"].compact_blank.join(" - ")
   end
 end

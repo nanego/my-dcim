@@ -4,11 +4,15 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
   MAX_PORTS_PER_LINE = 24
 
   def slot_label(server, component)
-    cards = server.cards.where(composant_id: component.id)
-    cards_names = cards.pluck(:name).compact_blank
+    cards = server.cards.select do |card|
+      card.composant_id == component.id
+    end
+
+    cards_names = cards.map(&:name).compact_blank
+
     if cards_names.present?
       if cards.first.twin_card_id.present?
-        link_to network_frame_path(server.frame, network_frame_id: Card.find(cards.first.twin_card_id).server.frame_id) do
+        link_to network_visualization_frame_path(server.frame, network_frame_id: Card.find(cards.first.twin_card_id).server.frame_id) do
           "<span class='bi bi-upload me-1' aria-hidden='true'></span>#{cards_names.join("-")}".html_safe # rubocop:disable Rails/OutputSafety
         end
       else
@@ -157,7 +161,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       port_type_name = "FC"
       cable_name = position.to_s.rjust(2, "0") if cable_name.blank?
     else
-      cable_name = (port_data&.cable_name.presence || port_type.try(:name)).to_s.html_safe # rubocop:disable Rails/OutputSafety
+      cable_name = (port_data&.cable_name.presence || port_type.try(:name)).to_s
       port_type_name = port_type.name
     end
 

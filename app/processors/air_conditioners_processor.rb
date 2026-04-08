@@ -3,10 +3,14 @@
 class AirConditionersProcessor < ApplicationProcessor
   include Sortable
 
-  SORTABLE_FIELDS = %w[rooms.name islets.name name].freeze
+  SORTABLE_FIELDS = %w[name rooms.name islets.name air_conditioner_model.name].freeze
 
   map :q do |q:|
     raw.where(AirConditioner.arel_table[:name].matches("%#{q}%"))
+  end
+
+  map :air_conditioner_model_ids, filter_with: :non_empty_array do |air_conditioner_model_ids:|
+    raw.where(air_conditioner_model_id: air_conditioner_model_ids)
   end
 
   map :room_ids, filter_with: :non_empty_array do |room_ids:|

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root to: "pages#index"
 
   resources :air_conditioners
+  resources :air_conditioner_models
 
   resources :moves_projects do
     member do
@@ -38,17 +39,13 @@ Rails.application.routes.draw do
   get "data_import", action: "index", controller: "data_import"
   post "data_import/ansible"
 
-  resources :sites
-  resources :islets do
+  resources :sites do
     get :print, on: :member
   end
-
+  resources :islets
   resources :frames do
     collection do
       post :sort
-    end
-    member do
-      get :network
     end
   end
 
@@ -72,7 +69,7 @@ Rails.application.routes.draw do
 
     member do
       get :duplicate
-      get :export_cables
+      get :cables_export
     end
 
     resources :cables, only: :index
@@ -113,13 +110,27 @@ Rails.application.routes.draw do
   namespace :visualization do
     resource :infrastructure, only: :show
     resource :network_capacity, only: :show
+
     resources :rooms, only: %i[index show] do
       get :print, on: :member
     end
+
     resources :frames, only: :show do
-      get :print, on: :member
+      member do
+        get :print
+        get :network
+        get :cables_export
+      end
     end
+
     resources :bays, only: :show do
+      member do
+        get :print
+        get :cables_export
+      end
+    end
+
+    resources :islets, only: [] do
       get :print, on: :member
     end
   end
@@ -129,7 +140,7 @@ Rails.application.routes.draw do
     omniauth_callbacks: "users/omniauth_callbacks",
     sessions: "users/sessions",
     passwords: "users/passwords",
-  }
+  }, failure_app: DeviseFailureApp
   as :user do
     get "users/edit" => "users/registrations#edit", as: :edit_user_registration
     patch "users" => "users/registrations#update", as: :user_registration
@@ -137,10 +148,16 @@ Rails.application.routes.draw do
   end
 
   namespace :bulk do
-    %i[servers sites rooms islets bays frames air_conditioners power_distribution_units modeles categories
+    %i[sites rooms islets bays frames air_conditioners air_conditioner_models power_distribution_units modeles categories
        architectures manufacturers stacks card_types port_types domaines gestions clusters colors cables
        contacts contact_roles contact_assignments].each do |res|
       resource res, only: :destroy
+    end
+
+    resource :servers, only: :destroy do
+      member do
+        get :cables_export
+      end
     end
   end
 

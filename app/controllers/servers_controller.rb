@@ -6,18 +6,18 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   include ColumnsPreferences
 
   DEFAULT_COLUMNS = %w[name numero modele_category_id islet_id bay_id network_types position].freeze
-  AVAILABLE_COLUMNS = %w[name numero modele_category_id islet_id bay_id network_types position gestion_id frame_id cluster_id
-                         stack_id domaine_id modele_id u slug side color comment critique].freeze
+  AVAILABLE_COLUMNS = %w[name numero modele_category_id islet_id bay_id network_types position manufacturer_id gestion_id
+                         frame_id cluster_id stack_id domaine_id modele_id u slug side color comment critique].freeze
 
   columns_preferences_with model: Server, default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS, only: %i[index export]
 
-  before_action :set_server, only: %i[show edit update destroy export_cables]
-  before_action except: %i[index export_cables export] do
+  before_action :set_server, only: %i[show edit update destroy cables_export]
+  before_action except: %i[index cables_export export] do
     breadcrumb.add_step(Server.model_name.human, servers_path)
   end
 
   def index
-    # Let server knows that now name is not used anymore for research
+    # let the server know that name isn't the correct search params anymore
     if params[:name].present?
       params[:q] = params[:name]
 
@@ -25,8 +25,8 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
     end
 
     authorize! @servers = scoped_servers
-      .includes(frame: { bay: { islet: :room } }, modele: :category)
-      .references(frame: { bay: { islet: :room } }, modele: :category)
+      .includes(frame: { bay: { islet: :room } }, modele: %i[category manufacturer])
+      .references(frame: { bay: { islet: :room } }, modele: %i[category manufacturer])
       .order(:name)
 
     @filter = ProcessorFilter.new(@servers, params)
@@ -55,20 +55,28 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
         format.html { redirect_to_new_or_to(@server, notice: t(".flashes.created")) }
         format.json { render :show, status: :created, location: @server }
       else
-        format.html { render :new }
+        format.html { render :new, status: :unprocessable_content }
         format.json { render json: @server.errors, status: :unprocessable_content }
       end
     end
   end
 
   def update
-    respond_to do |format|
-      if @server.update(server_params)
-        format.html { redirect_to @server, notice: t(".flashes.updated") }
-        format.json { render :show, status: :ok, location: @server }
-      else
-        format.html { render :edit }
-        format.json { render json: @server.errors, status: :unprocessable_content }
+    @server.assign_attributes(server_params)
+
+    if params[:preview]
+      respond_to do |format|
+        format.turbo_stream { render :preview, status: :unprocessable_content }
+      end
+    else
+      respond_to do |format|
+        if @server.save
+          format.html { redirect_to @server, notice: t(".flashes.updated") }
+          format.json { render :show, status: :ok, location: @server }
+        else
+          format.html { render :edit, status: :unprocessable_content }
+          format.json { render json: @server.errors, status: :unprocessable_content }
+        end
       end
     end
   end
@@ -77,10 +85,10 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   def destroy
     respond_to do |format|
       if @server.destroy
-        format.html { redirect_to servers_path(search_params), notice: t(".flashes.destroyed") }
+        format.html { redirect_back_to_param_or servers_path(search_params), notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       else
-        format.html { redirect_to servers_path(search_params), alert: t(".flashes.not_destroyed") }
+        format.html { redirect_back_to_param_or servers_path(search_params), alert: t(".flashes.not_destroyed") }
         format.json { head :bad_request }
       end
     end
@@ -144,27 +152,34 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
     end
   end
 
-  def export_cables
-    @servers_per_frames = {}
-    sort_order = frames_sort_order(:back, @server.bay.lane)
+  def cables_export
+    respond_to do |format|
+      format.pdf do
+        @servers_per_frames = {}
+        sort_order = frames_sort_order(:back, @server.bay.lane)
 
-    Frames::IncludingServersQuery.call(@server.bay.frames, "frames.position #{sort_order}").each do |frame|
-      room = @server.bay.islet.room_id
-      islet = frame.bay.islet.name
-      @servers_per_frames[room] ||= {}
-      @servers_per_frames[room][islet] ||= {}
-      @servers_per_frames[room][islet][frame.bay.lane] ||= {}
-      @servers_per_frames[room][islet][frame.bay.lane][frame.bay] ||= {}
-      @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] ||= []
+        Frames::IncludingServersQuery.call(@server.bay.frames, "frames.position #{sort_order}").each do |frame|
+          room = @server.bay.islet.room_id
+          islet = frame.bay.islet.name
+          @servers_per_frames[room] ||= {}
+          @servers_per_frames[room][islet] ||= {}
+          @servers_per_frames[room][islet][frame.bay.lane] ||= {}
+          @servers_per_frames[room][islet][frame.bay.lane][frame.bay] ||= {}
+          @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] ||= []
 
-      frame.servers.each do |s|
-        @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] << s
+          frame.servers.each do |s|
+            @servers_per_frames[room][islet][frame.bay.lane][frame.bay][frame] << s
+          end
+        end
+
+        @cables = decorate(@server.cables.sorted)
+
+        render ferrum_pdf: { scale: 1.2 },
+               layout: "pdf",
+               filename: "cables_#{@server.friendly_id}.pdf",
+               disposition: :inline
       end
     end
-
-    @cables = decorate(@server.cables.sorted)
-
-    render layout: "pdf"
   end
 
   private

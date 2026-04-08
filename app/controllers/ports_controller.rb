@@ -10,6 +10,7 @@ class PortsController < ApplicationController
     else
       @room = Room.find_by_id(params[:room_id])
       @frames = @room.frames
+
       if params[:islet].present?
         @frames = @frames.joins(bay: :islet).where(islets: { name: params[:islet] })
       elsif params[:bay_id].present?
@@ -65,7 +66,7 @@ class PortsController < ApplicationController
     @port.destroy
 
     respond_to do |format|
-      format.html { redirect_to server_path(server), notice: t(".flashes.destroyed") }
+      format.html { redirect_back_to_param_or server_path(server), notice: t(".flashes.destroyed") }
       format.json { head :no_content }
     end
   end

@@ -9,7 +9,8 @@ class StacksController < ApplicationController
   # GET /stacks
   # GET /stacks.json
   def index
-    authorize! @stacks = sorted(Stack.all)
+    @filter = ProcessorFilter.new(Stack.all, params)
+    authorize! @stacks = @filter.results
   end
 
   # GET /stacks/1
@@ -60,12 +61,12 @@ class StacksController < ApplicationController
   def destroy
     if @stack.destroy
       respond_to do |format|
-        format.html { redirect_to stacks_url, notice: t(".flashes.destroyed") }
+        format.html { redirect_back_to_param_or stacks_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to stacks_url, alert: @stack.errors.full_messages_for(:base).join(", ") }
+        format.html { redirect_back_to_param_or stacks_url, alert: @stack.errors.full_messages_for(:base).join(", ") }
       end
     end
   end

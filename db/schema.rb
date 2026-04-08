@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_14_150823) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_01_115217) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -47,6 +47,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_14_150823) do
     t.bigint "manufacturer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "air_conditioners_count", default: 0, null: false
     t.index ["manufacturer_id"], name: "index_air_conditioner_models_on_manufacturer_id"
   end
 
@@ -138,7 +139,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_14_150823) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "modeles_count", default: 0, null: false
-    t.boolean "is_glpi_synchronizable", default: false, null: false
+    t.integer "glpi_sync_type", default: 0, null: false
   end
 
   create_table "changelog_entries", force: :cascade do |t|
@@ -329,7 +330,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_14_150823) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "documentation_url"
     t.integer "modeles_count", default: 0, null: false
-    t.integer "bays_count", default: 0, null: false
   end
 
   create_table "modeles", id: :serial, force: :cascade do |t|
@@ -549,12 +549,14 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_14_150823) do
     t.datetime "suspended_at"
     t.jsonb "settings", default: {}
     t.boolean "is_admin", default: false
+    t.string "oidc_uid"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["invited_by_id", "invited_by_type"], name: "index_users_on_invited_by_id_and_invited_by_type"
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["oidc_uid"], name: "index_users_on_oidc_uid", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -568,20 +570,28 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_14_150823) do
   add_foreign_key "bays", "manufacturers"
   add_foreign_key "card_types", "port_types"
   add_foreign_key "cards", "card_types"
+  add_foreign_key "cards", "composants"
+  add_foreign_key "cards", "servers"
   add_foreign_key "cluster_rooms", "clusters"
   add_foreign_key "cluster_rooms", "rooms"
+  add_foreign_key "composants", "enclosures"
   add_foreign_key "connections", "cables"
+  add_foreign_key "connections", "ports"
   add_foreign_key "contact_assignments", "contact_roles"
   add_foreign_key "contact_assignments", "contacts"
   add_foreign_key "contact_assignments", "sites"
   add_foreign_key "documents", "servers"
+  add_foreign_key "enclosures", "modeles"
   add_foreign_key "external_app_records", "servers"
   add_foreign_key "external_app_requests", "users"
   add_foreign_key "frames", "bays"
+  add_foreign_key "islets", "rooms"
   add_foreign_key "modeles", "architectures"
   add_foreign_key "modeles", "categories"
   add_foreign_key "modeles", "manufacturers"
   add_foreign_key "moved_connections", "moves_project_steps", column: "step_id"
+  add_foreign_key "moved_connections", "ports", column: "port_from_id"
+  add_foreign_key "moved_connections", "ports", column: "port_to_id"
   add_foreign_key "moves", "frames"
   add_foreign_key "moves", "frames", column: "prev_frame_id"
   add_foreign_key "moves", "moves_project_steps"
@@ -591,6 +601,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_14_150823) do
   add_foreign_key "permission_scope_domains", "permission_scopes"
   add_foreign_key "permission_scope_users", "permission_scopes"
   add_foreign_key "permission_scope_users", "users"
+  add_foreign_key "ports", "cards"
   add_foreign_key "rooms", "sites"
   add_foreign_key "servers", "clusters"
   add_foreign_key "servers", "domaines"

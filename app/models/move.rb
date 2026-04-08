@@ -13,7 +13,6 @@ class Move < ApplicationRecord
   has_many :moved_connections, through: :step
 
   validates :moveable_id, uniqueness: { scope: %i[step moveable_type] }
-
   validates :position, presence: true
 
   before_validation :refresh_prev_data

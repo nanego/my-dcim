@@ -19,7 +19,7 @@ RSpec.shared_context "with preferred columns" do |available_columns, route: nil|
 
     it "renders all available columns" do
       columns.each do |column|
-        expect(response.body).to have_tag("th[data-name='#{column}']")
+        expect(response.body).to have_tag("th", with: { "data-name": column })
       end
     end
 
@@ -33,12 +33,12 @@ RSpec.shared_context "with preferred columns" do |available_columns, route: nil|
 
       it "renders preferred columns" do
         columns.each do |column|
-          expect(response.body).to have_tag("th[data-name='#{column}']")
+          expect(response.body).to have_tag("th", with: { "data-name": column })
         end
       end
 
       it "does not render non-preferred columns" do
-        expect(response.body).not_to have_tag("th[data-name='#{hidden_column}']")
+        expect(response.body).not_to have_tag("th", with: { "data-name": hidden_column })
       end
     end
   end

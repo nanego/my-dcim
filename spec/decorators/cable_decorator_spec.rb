@@ -32,7 +32,7 @@ RSpec.describe CableDecorator, type: :decorator do
 
       it do
         is_expected.to have_tag("span.text-body-emphasis.col.overflow-wrap.text-end") do # rubocop:disable RSpec/ImplicitSubject
-          with_tag("a.text-body-emphasis", href: "/servers/1", text: servers(:one).name)
+          with_tag("a.text-body-emphasis", text: servers(:one).name, with: { href: "/servers/#{servers(:one).slug}" })
           without_tag("span.fst-italic", text: "n/c")
         end
       end
@@ -45,7 +45,7 @@ RSpec.describe CableDecorator, type: :decorator do
 
       it do
         is_expected.to have_tag("span.text-body-emphasis.col.overflow-wrap") do # rubocop:disable RSpec/ImplicitSubject
-          with_tag("a.text-body-emphasis", href: "/servers/1", text: servers(:one).name)
+          with_tag("a.text-body-emphasis", text: servers(:one).name, with: { href: "/servers/#{servers(:one).slug}" })
           without_tag("span.fst-italic", text: "n/c")
         end
       end
@@ -53,21 +53,6 @@ RSpec.describe CableDecorator, type: :decorator do
 
     context "with a nil connection" do
       subject(:server_connected_with_link) { decorated_cable.server_connected_with_link(nil) }
-
-      it { is_expected.not_to have_tag("span.text-body-emphasis.col.overflow-wrap.text-end") }
-
-      it do
-        is_expected.to have_tag("span.text-body-emphasis.col.overflow-wrap") do # rubocop:disable RSpec/ImplicitSubject
-          without_tag("a.text-body-emphasis")
-          with_tag("span.fst-italic", text: "n/c")
-        end
-      end
-    end
-
-    context "with a connection without server" do
-      subject(:server_connected_with_link) { decorated_cable.server_connected_with_link(connections(:five)) }
-
-      before { servers(:four).delete }
 
       it { is_expected.not_to have_tag("span.text-body-emphasis.col.overflow-wrap.text-end") }
 

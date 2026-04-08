@@ -1,32 +1,38 @@
-<%= form_for(@color, html: { class: "col-12 col-md-10 col-lg-8 mx-auto", role: "form" }) do |f| %>
+<%= form_for(@color, html: { role: "form" }) do |f| %>
   <%= render FormErrorsComponent.new(@color) %>
 
-  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("show.cards.identification") %>
-    <% end %>
+  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+    <div class="col">
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.identification") %>
+        <% end %>
 
-    <fieldset class="col-12">
-      <%= f.label :code, class: "forml-label" %>
-      <%= f.text_field :code, class: "form-control" %>
-    </fieldset>
-  <% end %>
+        <fieldset class="col-12">
+          <%= f.label :code, class: "form-label" %>
+          <%= f.text_field :code, class: "form-control" %>
+        </fieldset>
+      <% end %>
+    </div>
 
-  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
-    <% card.with_header do %>
-      <%= t("show.cards.features") %>
-    <% end %>
+    <div class="col">
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.features") %>
+        <% end %>
 
-    <fieldset class="col-12">
-      <%= f.label :parent_type, class: "form-label" %>
-      <%= f.text_field :parent_type, class: "form-control" %>
-    </fieldset>
+        <fieldset class="col-12">
+          <%= f.label :parent_type, class: "form-label" %>
+          <%= f.text_field :parent_type, class: "form-control" %>
+        </fieldset>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :parent_id, class: "forml-label" %>
-      <%= f.text_field :parent_id, class: "form-control" %>
-    </fieldset>
-  <% end %>
+        <fieldset class="col-12 mt-4">
+          <%= f.label :parent_id, class: "form-label" %>
+          <%= f.text_field :parent_id, class: "form-control" %>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
 
   <%= render Form::ActionsComponent.new(f, display_create_another_one:) %>
 <% end %>

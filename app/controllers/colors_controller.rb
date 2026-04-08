@@ -7,7 +7,8 @@ class ColorsController < ApplicationController
   end
 
   def index
-    authorize! @colors = sorted(Color.order(:parent_type, :parent_id))
+    @filter = ProcessorFilter.new(Color.order(:parent_type, :parent_id), params)
+    authorize! @colors = @filter.results
   end
 
   def show; end
@@ -52,7 +53,7 @@ class ColorsController < ApplicationController
   def destroy
     @color.destroy
     respond_to do |format|
-      format.html { redirect_to colors_url, notice: t(".flashes.destroyed") }
+      format.html { redirect_back_to_param_or colors_url, notice: t(".flashes.destroyed") }
       format.json { head :no_content }
     end
   end

@@ -9,7 +9,8 @@ class DomainesController < ApplicationController
   # GET /domaines
   # GET /domaines.json
   def index
-    authorize! @domaines = sorted(scoped_domains.sorted)
+    @filter = ProcessorFilter.new(scoped_domains.sorted, params)
+    authorize! @domaines = @filter.results
   end
 
   # GET /domaines/1
@@ -60,12 +61,12 @@ class DomainesController < ApplicationController
   def destroy
     if @domaine.destroy
       respond_to do |format|
-        format.html { redirect_to domaines_url, notice: t(".flashes.destroyed") }
+        format.html { redirect_back_to_param_or domaines_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to domaines_url, alert: @domaine.errors.full_messages_for(:base).join(", ") }
+        format.html { redirect_back_to_param_or domaines_url, alert: @domaine.errors.full_messages_for(:base).join(", ") }
       end
     end
   end

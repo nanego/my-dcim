@@ -1,28 +1,32 @@
-<%= form_for(@user, html: { class: "col-12 col-md-10 col-lg-8 mx-auto" }, url:) do |f| %>
+<%= form_for(@user, html: { role: "form" }, url:) do |f| %>
   <%= render FormErrorsComponent.new(@user) %>
 
-  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-    <% card.with_header do %>
-      <%= t("show.cards.identification") %>
-    <% end %>
+  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+    <div class="col">
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.identification") %>
+        <% end %>
 
-    <fieldset class="col-12">
-      <%= f.label :name, class: "form-label" %>
-      <%= f.text_field :name, class: "form-control" %>
-    </fieldset>
+        <fieldset class="col-12">
+          <%= f.label :name, class: "form-label" %>
+          <%= f.text_field :name, class: "form-control" %>
+        </fieldset>
 
-    <fieldset class="col-12 mt-4">
-      <%= f.label :email, class: "form-label" %>
-      <%= f.email_field :email, class: "form-control" %>
-    </fieldset>
+        <fieldset class="col-12 mt-4">
+          <%= f.label :email, class: "form-label" %>
+          <%= f.email_field :email, class: "form-control" %>
+        </fieldset>
 
-    <fieldset class="col-12 mt-4">
-      <div class="form-check">
-        <%= f.label :is_admin, class: "form-check-label" %>
-        <%= f.check_box :is_admin, class: "form-check-input form-check-sm" %>
-      </div>
-    </fieldset>
-  <% end %>
+        <fieldset class="col-12 mt-4">
+          <div class="form-check">
+            <%= f.label :is_admin, class: "form-check-label" %>
+            <%= f.check_box :is_admin, class: "form-check-input form-check-sm" %>
+          </div>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
 
   <%= render Form::ActionsComponent.new(f, display_create_another_one:) %>
 <% end %>

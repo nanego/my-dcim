@@ -282,7 +282,7 @@ Devise.setup do |config|
   # should add them to the navigational formats lists.
   #
   # The "*/*" below is required to match Internet Explorer requests.
-  # config.navigational_formats = ['*/*', :html]
+  config.navigational_formats = ["*/*", :html, :pdf]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
@@ -293,7 +293,7 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :openid_connect, {
     name: :openid_connect,
-    scope: %i[openid email profile address phone cerbere_utilisateur cerbere_autorisations],
+    scope: %i[openid email profile cerbere_utilisateur cerbere_autorisations],
     response_type: :code,
     discovery: true,
     issuer: "https://#{Rails.application.credentials.dig(:oidc, :server_host)}",

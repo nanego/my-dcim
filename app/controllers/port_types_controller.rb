@@ -7,7 +7,8 @@ class PortTypesController < ApplicationController
   end
 
   def index
-    authorize! @port_types = sorted(PortType.order("lower(name)"))
+    @filter = ProcessorFilter.new(PortType.order("lower(name)"), params)
+    authorize! @port_types = @filter.results
   end
 
   def show; end
@@ -48,7 +49,7 @@ class PortTypesController < ApplicationController
   def destroy
     @port_type.destroy
     respond_to do |format|
-      format.html { redirect_to port_types_path, notice: t(".flashes.destroyed") }
+      format.html { redirect_back_to_param_or port_types_path, notice: t(".flashes.destroyed") }
       format.json { head :no_content }
     end
   end

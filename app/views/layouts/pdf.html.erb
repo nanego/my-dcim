@@ -4,8 +4,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
+    <%= javascript_include_tag "vendors" %>
+    <%= javascript_importmap_tags "application" %>
+
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag "application", media: "all" %>
+
+    <% if Rails.env.development? %>
+      <%= stylesheet_link_tag "application", media: "all" %>
+    <% else %>
+      <%# Inline CSS for PDF generation to ensure it's loaded %>
+      <%= inline_stylesheet_tag("application") %>
+    <% end %>
+
   </head>
   <body class="mydcim print-body">
     <main role="main" class="mydcim-main">

@@ -66,7 +66,7 @@ jobs:
     env:
       RAILS_ENV: test
       RAILS_MASTER_KEY: "acf7c0d9c0f69afd05048c8a58b2e9ee"
-      FERRUM_PROCESS_TIMEOUT: 25
+      FERRUM_PROCESS_TIMEOUT: 30
       FERRUM_DEFAULT_TIMEOUT: 15
 
     services:
@@ -85,6 +85,9 @@ jobs:
           --health-retries 5
 
     steps:
+      - name: Install packages
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl libjemalloc2 libvips
+
       - name: Checkout main app
         uses: actions/checkout@v6
 
@@ -94,11 +97,6 @@ jobs:
           ruby-version: .ruby-version
           rubygems: "latest"
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-
-      - name: Setup Chrome
-        uses: browser-actions/setup-chrome@latest
-        with:
-          chrome-version: stable
 
       - name: Set up Database
         env:
@@ -118,8 +116,6 @@ jobs:
     env:
       RAILS_ENV: test
       RAILS_MASTER_KEY: "acf7c0d9c0f69afd05048c8a58b2e9ee"
-      FERRUM_PROCESS_TIMEOUT: 25
-      FERRUM_DEFAULT_TIMEOUT: 15
 
     services:
       postgres:

@@ -7,6 +7,7 @@ class CablesController < ApplicationController
   def index
     if @server
       authorize! @cables = @server.cables.includes(:cards, :port_types, ports: { server: { modele: :category } })
+
       @cables = @cables.sorted
     else
       authorize! @cables = scoped_cables.includes(connections: %i[port server card],
@@ -33,7 +34,7 @@ class CablesController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to cables_path, notice: t(".flashes.destroyed")
+        redirect_back_to_param_or cables_path, notice: t(".flashes.destroyed")
       end
 
       format.js { render "connections/update" }

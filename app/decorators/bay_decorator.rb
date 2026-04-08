@@ -22,6 +22,10 @@ class BayDecorator < ApplicationDecorator
     def access_control_options_for_select
       Bay.access_controls.keys.map { |a_c| [I18n.t("access_control.#{a_c}"), a_c] }
     end
+
+    def manufacturers_options_for_select
+      ManufacturerDecorator.options_for_select
+    end
   end
 
   def access_control_to_human
@@ -37,12 +41,6 @@ class BayDecorator < ApplicationDecorator
                       aria: { hidden: true },
                       data: { controller: "tooltip", bs_placement: "right" }))
       concat(tag.span(I18n.t(".bays.decorator.no_frame_warning_text"), class: "visually-hidden"))
-    end
-  end
-
-  def print_frames_paths(**)
-    frames.order(:name).pluck(:id).map do |frame_id|
-      print_visualization_frame_path(frame_id, **)
     end
   end
 end

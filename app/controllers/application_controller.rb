@@ -29,6 +29,7 @@ class ApplicationController < ActionController::Base
 
   def self.destroy_confirmation(only: :destroy)
     before_action only: do
+      params[:back_to] ||= request.referer
       render unless params[:confirm] == "true"
     end
   end
@@ -37,16 +38,6 @@ class ApplicationController < ActionController::Base
     # return request.env['omniauth.origin'] || stored_location_for(resource) || root_path
     #=> with our setup, omniauth.origin always contain sign_in page since user was first redirected on it
     stored_location_for(resource) || root_path
-  end
-
-  # TODO: remove when fully moved in processor
-  def sorted(collection)
-    direction = %w[asc desc].include?(params[:sort]) ? params[:sort] : "desc"
-    column = params[:sort_by]
-
-    return collection unless column
-
-    collection.reorder(column => direction)
   end
 
   def breadcrumb
@@ -60,6 +51,16 @@ class ApplicationController < ActionController::Base
     options = url_for(action: :new, create_another_one: "1") if params[:create_another_one].present?
 
     redirect_to options, response_options
+  end
+
+  def redirect_back_to_param_or(fallback_location, allow_other_host: _allow_other_host, **)
+    if params[:back_to].presence && (allow_other_host || _url_host_allowed?(params[:back_to]))
+      redirect_to(params[:back_to], allow_other_host: allow_other_host, **)
+    else
+      # The method level `allow_other_host` doesn't apply in the fallback case, omit
+      # and let the `redirect_to` handling take over.
+      redirect_to(fallback_location, **)
+    end
   end
 
   def form_redirect_to(options = {}, response_options = {})

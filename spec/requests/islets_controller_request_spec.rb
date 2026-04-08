@@ -164,75 +164,45 @@ RSpec.describe IsletsController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete islet_path(islet, confirm: true)
+      delete islet_path(islet, **params)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
+    let(:islet) { islets(:three) }
+    let(:params) { { confirm: true } }
+
     include_context "with authenticated admin"
 
     context "without confirm" do
-      subject(:response) do
-        delete islet_path(islet)
-        @response # rubocop:disable RSpec/InstanceVariable
-      end
+      let(:params) { {} }
 
-      it do
-        expect do
-          response
-        end.not_to change(Islet, :count)
-      end
-
+      it { expect { response }.not_to change(Islet, :count) }
       it { expect(response).to have_http_status(:success) }
       it { expect(Islet.exists?(islet.id)).to be true }
     end
 
     context "with an islet without bays" do
-      let(:islet) { islets(:three) }
-
-      it do
-        expect do
-          response
-        end.to change(Islet, :count).by(-1)
-      end
-
+      it { expect { response }.to change(Islet, :count).by(-1) }
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(islets_path) }
     end
 
     context "with an islet with bays" do
-      it do
-        expect do
-          response
-        end.not_to change(Islet, :count)
-      end
+      let(:islet) { islets(:one) }
 
+      it { expect { response }.not_to change(Islet, :count) }
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(islets_path) }
     end
-  end
 
-  describe "GET #print" do
-    subject(:response) do
-      get print_islet_path(islet)
+    context "with custom back_to" do
+      let(:params) { { confirm: true, back_to: "/some_path" } }
 
-      # NOTE: used to simplify usage and custom test done in final spec file.
-      @response # rubocop:disable RSpec/InstanceVariable
-    end
-
-    include_context "with authenticated admin"
-
-    context "with not found islet" do
-      let(:islet) { Islet.new(id: 999_999_999) }
-
-      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
-    end
-
-    context "with existing islet" do
-      it { expect(response).to have_http_status(:success) }
-      it { expect(response).to render_template(:print) }
-      it { expect(response).to render_template("layouts/pdf") }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to("/some_path") }
+      it { expect { response }.to change(Islet, :count).by(-1) }
     end
   end
 end

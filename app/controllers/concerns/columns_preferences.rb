@@ -14,7 +14,10 @@ module ColumnsPreferences
       before_action(only:) do
         if params[:reset]
           session[key] = nil
-          redirect_to URI.parse(request.referer || root_path).path
+          uri = Addressable::URI.parse(request.referer || root_path)
+          uri.query = request.query_parameters.except(:columns, :reset, :save).to_query
+
+          redirect_to uri.request_uri
         elsif params[:save]
           session[key] = params[:columns]
         end

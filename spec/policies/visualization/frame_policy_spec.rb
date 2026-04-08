@@ -10,6 +10,8 @@ RSpec.describe Visualization::FramePolicy, type: :policy do
   it_behaves_like "with default index policy"
 
   it_behaves_like "act as manage policy", for: :print?
+  it_behaves_like "act as index policy", for: :network?
+  it_behaves_like "act as manage policy", for: :cables_export?
 
   describe_rule :show? do
     succeed "when an admin user asks" do

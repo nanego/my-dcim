@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Frame < ApplicationRecord # rubocop:disable Metrics/ClassLength
-  DEFAULT_SETTINGS = { max_u: 38, max_elts: 24, max_rj45: 48, max_fc: 12 }.freeze
   VIEW_SIDES = { both: "both", front: "front", back: "back" }.freeze
 
   extend FriendlyId
@@ -11,9 +10,11 @@ class Frame < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_changelog
 
   belongs_to :bay
+
   has_many :materials, -> { order("servers.position desc") }, class_name: "Server", dependent: :restrict_with_error
   has_many :pdus, -> { only_pdus }, class_name: "Server", dependent: :restrict_with_error
   has_many :servers, -> { no_pdus.order("servers.position desc") }, class_name: "Server", dependent: :restrict_with_error
+
   has_one :islet, through: :bay
   has_one :room, through: :islet
   delegate :name, to: :room, prefix: true, allow_nil: true
@@ -38,7 +39,7 @@ class Frame < ApplicationRecord # rubocop:disable Metrics/ClassLength
     [
       room_name.present? ? "Salle #{room_name}" : "",
       bay.present? ? "Ilot #{bay.islet.name}" : "",
-      "#{Frame.model_name.human} #{name.presence || "non précisée"}",
+      "#{Frame.model_name.human} #{name.presence || "n/c"}",
     ].compact_blank.join(" ")
   end
 

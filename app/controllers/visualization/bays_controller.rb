@@ -4,7 +4,7 @@ module Visualization
   class BaysController < BaseController
     include RoomsHelper
 
-    before_action :set_bay, only: %i[show print]
+    before_action :set_bay, only: %i[show print cables_export]
     before_action :set_servers_per_frames, only: %i[show print]
 
     def show
@@ -16,13 +16,47 @@ module Visualization
     end
 
     def print
-      render "visualization/rooms/print", layout: "pdf"
+      respond_to do |format|
+        format.html { render layout: "pdf" }
+        format.pdf do
+          render ferrum_pdf: {},
+                 layout: "pdf",
+                 filename: "#{@bay}_#{[params[:view], params[:bg]].compact.join("-")}.pdf",
+                 disposition: :inline
+        end
+      end
+    end
+
+    def cables_export
+      @servers = @bay.materials.no_pdus.sorted.includes(connections: :cable)
+
+      respond_to do |format|
+        format.pdf do
+          render ferrum_pdf: { scale: 1.2 },
+                 layout: "pdf",
+                 filename: "cables_#{@bay}.pdf",
+                 disposition: :inline
+        end
+      end
     end
 
     private
 
     def set_bay
-      authorize! @bay = Bay.find(params[:id])
+      authorize! @bay = Bay.includes(
+        :frames,
+        islet: :room,
+        materials: [
+          :gestion, :cluster,
+          { modele: %i[category composants],
+            cards: [
+              :composant,
+              { ports: [connection: [cable: :connections]],
+                card_type: [:port_type] },
+            ] },
+        ],
+      )
+        .find(params[:id])
     end
 
     def set_servers_per_frames

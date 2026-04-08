@@ -214,19 +214,19 @@ RSpec.describe UsersController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete user_path(target_user, confirm: true, params:)
+      delete user_path(target_user, **params)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
     let(:target_user) { users(:two) }
-    let(:params) { {} }
+    let(:params) { { confirm: true } }
 
     include_context "with authenticated admin"
 
     context "with sort and filters params" do
-      let(:params) { { sort: "asc", sort_by: :created_at } }
+      let(:params) { { confirm: true, sort: "asc", sort_by: :created_at } }
 
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(users_path({ sort: "asc", sort_by: :created_at })) }
@@ -247,29 +247,24 @@ RSpec.describe UsersController do
     end
 
     context "without confirm" do
-      subject(:response) do
-        delete user_path(target_user, params:)
-        @response # rubocop:disable RSpec/InstanceVariable
-      end
+      let(:params) { {} }
 
-      it do
-        expect do
-          response
-        end.not_to change(User, :count)
-      end
-
+      it { expect { response }.not_to change(User, :count) }
       it { expect(response).to have_http_status(:success) }
       it { expect(User.exists?(target_user.id)).to be true }
     end
 
     context "with admin user" do
-      it do
-        expect do
-          response
-        end.to change(User, :count).by(-1)
-      end
+      it { expect { response }.to change(User, :count).by(-1) }
+      it { expect(response).to have_http_status(:redirect) }
+    end
+
+    context "with custom back_to" do
+      let(:params) { { confirm: true, back_to: "/some_path" } }
 
       it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to("/some_path") }
+      it { expect { response }.to change(User, :count).by(-1) }
     end
   end
 

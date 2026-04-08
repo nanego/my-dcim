@@ -3,9 +3,9 @@
 class IsletsController < ApplicationController
   include RoomsHelper
 
-  before_action :set_islet, only: %i[show edit update destroy print]
-  before_action :set_room, only: %i[show print]
-  before_action :set_servers_per_frames, only: %i[show print]
+  before_action :set_islet, only: %i[show edit update destroy]
+  before_action :set_room, only: %i[show]
+  before_action :set_servers_per_frames, only: %i[show]
   before_action except: %i[index] do
     breadcrumb.add_step(Islet.model_name.human.pluralize, islets_path)
   end
@@ -69,18 +69,14 @@ class IsletsController < ApplicationController
   def destroy
     if @islet.destroy
       respond_to do |format|
-        format.html { redirect_to islets_url, notice: t(".flashes.destroyed") }
+        format.html { redirect_back_to_param_or islets_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to islets_url, alert: @islet.errors.full_messages_for(:base).join(", ") }
+        format.html { redirect_back_to_param_or islets_url, alert: @islet.errors.full_messages_for(:base).join(", ") }
       end
     end
-  end
-
-  def print
-    render "visualization/rooms/print", layout: "pdf"
   end
 
   private

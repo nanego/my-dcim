@@ -9,7 +9,8 @@ class ArchitecturesController < ApplicationController
   # GET /architectures
   # GET /architectures.json
   def index
-    authorize! @architectures = sorted(Architecture.all)
+    @filter = ProcessorFilter.new(Architecture.all, params)
+    authorize! @architectures = @filter.results
   end
 
   # GET /architectures/1
@@ -60,12 +61,12 @@ class ArchitecturesController < ApplicationController
   def destroy
     if @architecture.destroy
       respond_to do |format|
-        format.html { redirect_to architectures_url, notice: t(".destroy.flashes.destroyed") }
+        format.html { redirect_back_to_param_or architectures_url, notice: t(".destroy.flashes.destroyed") }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to architectures_url, alert: @architecture.errors.full_messages_for(:base).join(", ") }
+        format.html { redirect_back_to_param_or architectures_url, alert: @architecture.errors.full_messages_for(:base).join(", ") }
       end
     end
   end

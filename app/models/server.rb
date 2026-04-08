@@ -5,32 +5,35 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   friendly_id :slug_candidates, use: %i[slugged history]
 
-  has_changelog
+  has_changelog associations: { cards: "*" }
 
   belongs_to :frame
+  belongs_to :gestion, optional: true, counter_cache: true
+  belongs_to :domaine, optional: true, counter_cache: true
+  belongs_to :cluster, optional: true, counter_cache: true
+  belongs_to :stack, optional: true, counter_cache: true
+  belongs_to :modele, counter_cache: true
+
   has_one :bay, through: :frame
   has_one :islet, through: :frame
   has_one :room, through: :islet
-  belongs_to :gestion, optional: true, counter_cache: true
-  belongs_to :domaine, optional: true, counter_cache: true
-  belongs_to :modele, counter_cache: true
-  belongs_to :cluster, optional: true, counter_cache: true
-  belongs_to :stack, optional: true, counter_cache: true
+  has_one :site, through: :room
+  has_one :manufacturer, through: :modele
 
-  has_many :cards, -> { joins(:composant).includes(:composant) }
+  has_many :cards, -> { joins(:composant).includes(:composant) }, dependent: :destroy
   has_many :card_types, through: :cards
   has_many :ports, through: :cards
-  has_many :connections, through: :ports
+  has_many :connections, through: :ports, source: :connection
   has_many :cables, through: :connections
-
   has_many :moves, as: :moveable, dependent: :destroy
-
   has_many :documents, dependent: :restrict_with_error
-  has_one_attached :photo
-
+  # TODO: should be plural
   has_many :external_app_record, dependent: :destroy
 
+  has_one_attached :photo
+
   validates :numero, presence: true, uniqueness: true
+  validates :numero, format: { without: /\s/ }
   validates :name, presence: true
   validate :numero_cannot_be_a_current_server_name
   validate :validate_network_types_values
@@ -155,7 +158,7 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
   def numero_cannot_be_a_current_server_name
     servers = Server.friendly.where(slug: numero.to_s.downcase) - [self]
 
-    errors.add(:numero, :invalid) if servers.present?
+    errors.add(:numero, :same_as_server_name) if servers.present?
   end
 
   def set_default_network_types

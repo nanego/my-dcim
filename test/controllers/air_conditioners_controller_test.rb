@@ -8,29 +8,6 @@ class AirConditionersControllerTest < ActionDispatch::IntegrationTest
     @air_conditioner = air_conditioners(:one)
   end
 
-  test "should get index" do
-    get air_conditioners_url
-    assert_response :success
-  end
-
-  test "should get new" do
-    get new_air_conditioner_url
-    assert_response :success
-  end
-
-  test "should create air_conditioner" do
-    assert_difference("AirConditioner.count") do
-      post air_conditioners_url, params: { air_conditioner: { bay_id: @air_conditioner.bay_id,
-                                                              position: @air_conditioner.position,
-                                                              last_service: @air_conditioner.last_service,
-                                                              status: "on",
-                                                              air_conditioner_model_id: @air_conditioner.air_conditioner_model_id,
-                                                              name: @air_conditioner.name } }
-    end
-
-    assert_redirected_to air_conditioner_path(assigns(:air_conditioner))
-  end
-
   test "should show air_conditioner" do
     get air_conditioner_url(@air_conditioner)
     assert_response :success

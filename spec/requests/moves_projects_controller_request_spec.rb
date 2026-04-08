@@ -64,6 +64,14 @@ RSpec.describe MovesProjectsController do
 
     include_context "with authenticated admin"
 
+    context "without valid parameters" do
+      let(:params) { { moves_project: { name: "" } } }
+
+      it { expect { response }.not_to change(MovesProject, :count) }
+      it { expect(response).to have_http_status(:unprocessable_content) }
+      it { expect(response).to render_template(:new) }
+    end
+
     context "with valid parameters" do
       it { expect { response }.to change(MovesProject, :count).by(1) }
       it { expect(response).to redirect_to(moves_project_path(assigns(:moves_project))) }
@@ -122,6 +130,20 @@ RSpec.describe MovesProjectsController do
 
     include_context "with authenticated admin"
 
+    context "without valid parameters" do
+      let(:params) { { moves_project: { name: "" } } }
+
+      it do
+        expect do
+          response
+          moves_project.reload
+        end.not_to change(moves_project, :name)
+      end
+
+      it { expect(response).to have_http_status(:unprocessable_content) }
+      it { expect(response).to render_template(:edit) }
+    end
+
     context "with valid parameters" do
       it do
         expect do
@@ -156,24 +178,30 @@ RSpec.describe MovesProjectsController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete moves_project_path(moves_project, confirm: true)
+      delete moves_project_path(moves_project, **params)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
     let(:moves_project) { moves_projects(:empty) }
+    let(:params) { { confirm: true } }
 
     include_context "with authenticated admin"
 
-    it do
-      expect do
-        response
-      end.to change(MovesProject, :count).by(-1)
+    context "without confirm" do
+      let(:params) { {} }
+
+      it { expect { response }.not_to change(MovesProject, :count) }
+      it { expect(response).to have_http_status(:success) }
+      it { expect(MovesProject.exists?(moves_project.id)).to be true }
     end
 
-    it { expect(response).to have_http_status(:redirect) }
-    it { expect(response).to redirect_to(moves_projects_path) }
+    context "with an empty move project" do
+      it { expect { response }.to change(MovesProject, :count).by(-1) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_projects_path) }
+    end
 
     context "with archived moves project" do
       let(:moves_project) { moves_projects(:archived) }
@@ -182,20 +210,13 @@ RSpec.describe MovesProjectsController do
       it { expect(response).to redirect_to(moves_projects_path) }
     end
 
-    context "without confirm" do
-      subject(:response) do
-        delete moves_project_path(moves_project)
-        @response # rubocop:disable RSpec/InstanceVariable
-      end
+    context "with custom back_to" do
+      let(:params) { { confirm: true, back_to: "/some_path" } }
 
-      it do
-        expect do
-          response
-        end.not_to change(MovesProject, :count)
-      end
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to("/some_path") }
 
-      it { expect(response).to have_http_status(:success) }
-      it { expect(MovesProject.exists?(moves_project.id)).to be true }
+      it { expect { response }.to change(MovesProject, :count).by(-1) }
     end
   end
 

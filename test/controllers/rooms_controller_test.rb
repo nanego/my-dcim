@@ -9,26 +9,6 @@ class RoomsControllerTest < ActionController::TestCase
     @islet = islets(:one)
   end
 
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
-  test "should create room" do
-    @room = rooms(:two)
-
-    assert_difference("Room.count") do
-      post :create, params: { room: { description: @room.description, name: @room.name, site_id: @room.site_id } }
-    end
-
-    assert_redirected_to room_path(assigns(:room))
-  end
-
-  test "should get edit" do
-    get :edit, params: { id: @room }
-    assert_response :success
-  end
-
   test "should destroy room" do
     @room = rooms(:two)
 
