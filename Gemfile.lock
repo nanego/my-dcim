@@ -675,7 +675,6 @@ DEPENDENCIES
   brakeman
   byebug
   capybara (>= 2.15)
-  connection_pool (~> 3.0.2)
   csv (~> 3.3)
   cuprite
   dalli (~> 3.2)
