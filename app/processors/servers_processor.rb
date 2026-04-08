@@ -3,7 +3,7 @@
 class ServersProcessor < ApplicationProcessor
   include Sortable
 
-  SORTABLE_FIELDS = %w[name numero categories.name rooms.name islets.name manufacturers.name bays.id position modele.u slug side comment critique].freeze
+  SORTABLE_FIELDS = %w[name numero categories.name rooms.name islets.name manufacturers.name bays.id position modele.u slug comment critique].freeze
 
   map :q do |q:|
     server_table = Server.arel_table
