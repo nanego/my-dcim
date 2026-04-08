@@ -43,6 +43,7 @@ end
 
 group :development, :test do
   gem "active_record_doctor"
+  gem "bundler-audit", require: false
   gem "byebug"
   gem "lookbook"
   gem "puma"
