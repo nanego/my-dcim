@@ -10,25 +10,6 @@ RSpec.describe Overview::ShortcutButtonComponent, type: :component do
   let(:component) { described_class.new(id, position, redirection, lane) }
   let(:rendered_component) { render_inline(component).to_html }
 
-  describe "CreateBayButtonComponent" do
-    it do # rubocop:disable RSpec/ExampleLength
-      expect(rendered_component).to have_tag("span.shortcut-button-component") do
-        with_tag(
-          "a.link-success",
-          with: {
-            href: "/bays/new?bay%5Bislet_id%5D=1&bay%5Blane%5D=1&bay%5Bposition%5D=&redirect_to_on_success=%2Fvisualization%2Frooms",
-            title: "Ajouter une baie",
-            "data-controller": "tooltip",
-          },
-        ) do
-          with_tag("span.bi.bi-plus-circle-fill")
-        end
-
-        without_tag("a.link-danger")
-      end
-    end
-  end
-
   describe "CreateFrameDeleteBayButtonComponent" do
     let(:position) { 2 }
     let(:lane) { nil }
@@ -58,6 +39,25 @@ RSpec.describe Overview::ShortcutButtonComponent, type: :component do
         ) do
           with_tag("span.bi.bi-plus-circle-fill")
         end
+      end
+    end
+  end
+
+  describe "CreateBayButtonComponent" do
+    it do # rubocop:disable RSpec/ExampleLength
+      expect(rendered_component).to have_tag("span.shortcut-button-component") do
+        with_tag(
+          "a.link-success",
+          with: {
+            href: "/bays/new?bay%5Bislet_id%5D=1&bay%5Blane%5D=1&bay%5Bposition%5D&redirect_to_on_success=%2Fvisualization%2Frooms",
+            title: "Ajouter une baie",
+            "data-controller": "tooltip",
+          },
+        ) do
+          with_tag("span.bi.bi-plus-circle-fill")
+        end
+
+        without_tag("a.link-danger")
       end
     end
   end
