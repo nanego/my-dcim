@@ -57,7 +57,7 @@ GEM
       rails-html-sanitizer (~> 1.6)
     active_record_doctor (2.0.1)
       activerecord (>= 7.0.0)
-    active_storage_validations (3.0.3)
+    active_storage_validations (3.0.4)
       activejob (>= 6.1.4)
       activemodel (>= 6.1.4)
       activestorage (>= 6.1.4)
@@ -110,7 +110,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (4.1.0)
+    bigdecimal (4.1.1)
     bindata (2.5.1)
     bindex (0.8.1)
     bootsnap (1.21.1)
@@ -751,7 +751,7 @@ CHECKSUMS
   actiontext (8.0.4.1) sha256=6abf7368f4dfe82290cfb9f18982174fb5632d9a5ebf5f2791332fbd4e4c250d
   actionview (8.0.4.1) sha256=bdd726498c12174c4ba8fb489c630ea9bf2f4db1f09d59ec227f318d1ec78d80
   active_record_doctor (2.0.1) sha256=7af0ac02195385c8f2f67d0e4ebe72b1fc79d65eaaf329e0db07f4d12a84069a
-  active_storage_validations (3.0.3) sha256=b5be3c8b553a37c885f3ca4de7a63c5a1602987441ee92c89f57d7a2bae7f8c3
+  active_storage_validations (3.0.4) sha256=134ba51d5166cd419311fe1510d7eb64af6996e7041d8d56c26a2f151abb6522
   activejob (8.0.4.1) sha256=1980d6241c9aeae112943de960bc8c41cf1c3741408c60709caed7a795976fb9
   activemodel (8.0.4.1) sha256=1ee25e1241bfd48b2682fa14aadb399065dc4f045dc234422344c408b3394af5
   activerecord (8.0.4.1) sha256=182582af961c3877017477d1ff14bba7fabc634ba4e3f257da4d8aab963ae7bd
@@ -767,7 +767,7 @@ CHECKSUMS
   bcrypt (3.1.22) sha256=1f0072e88c2d705d94aff7f2c5cb02eb3f1ec4b8368671e19112527489f29032
   benchmark (0.5.0) sha256=465df122341aedcb81a2a24b4d3bd19b6c67c1530713fd533f3ff034e419236c
   better_html (2.2.0) sha256=e68ab66ab09696b708333bbf35e8aa3c107500ba7892f528e2111624bdd8cf76
-  bigdecimal (4.1.0) sha256=6dc07767aa3dc456ccd48e7ae70a07b474e9afd7c5bc576f80bd6da5c8dd6cae
+  bigdecimal (4.1.1) sha256=1c09efab961da45203c8316b0cdaec0ff391dfadb952dd459584b63ebf8054ca
   bindata (2.5.1) sha256=53186a1ec2da943d4cb413583d680644eb810aacbf8902497aac8f191fad9e58
   bindex (0.8.1) sha256=7b1ecc9dc539ed8bccfc8cb4d2732046227b09d6f37582ff12e50a5047ceb17e
   bootsnap (1.21.1) sha256=9373acfe732da35846623c337d3481af8ce77c7b3a927fb50e9aa92b46dbc4c4
