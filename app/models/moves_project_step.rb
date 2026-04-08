@@ -40,8 +40,8 @@ class MovesProjectStep < ApplicationRecord
       .where(frame:, moveable_type: "Server")
       .sort_by { |move| move.step.position }
       .map do |move|
-      move.moveable.position = move.position
-      move.moveable
+        move.moveable.position = move.position
+        move.moveable
     end
 
     removed = Move.includes(:prev_frame)
