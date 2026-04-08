@@ -163,10 +163,10 @@ GEM
       actionview (>= 7.2, < 8.2)
       activerecord (>= 7.2, < 8.2)
       activesupport (>= 7.2, < 8.2)
-    devise (4.9.4)
+    devise (5.0.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (>= 4.1.0)
+      railties (>= 7.0)
       responders
       warden (~> 1.2.3)
     devise-i18n (1.15.0)
@@ -686,7 +686,7 @@ DEPENDENCIES
   datagrid (~> 1.x)
   debug
   dekorator (~> 1.4)
-  devise (~> 4.9)
+  devise (~> 5.0)
   devise-i18n
   devise_invitable
   diffy (~> 3.4)
@@ -796,7 +796,7 @@ CHECKSUMS
   date (3.5.1) sha256=750d06384d7b9c15d562c76291407d89e368dda4d4fff957eb94962d325a0dc0
   debug (1.11.1) sha256=2e0b0ac6119f2207a6f8ac7d4a73ca8eb4e440f64da0a3136c30343146e952b6
   dekorator (1.8.0) sha256=707f1aa4d2d0783f31068132b1765297b52cb321521c83637e9a7afe8e661c1e
-  devise (4.9.4) sha256=920042fe5e704c548aa4eb65ebdd65980b83ffae67feb32c697206bfd975a7f8
+  devise (5.0.3) sha256=c4c065051cdc4ace11547b2b7f5c3c4c97d0f1269250f5fe90f614ff78f29546
   devise-i18n (1.15.0) sha256=aff406e8a2941cd1d7614643b1619031a403b2855bb6057e391d1c7c273205cd
   devise_invitable (2.0.11) sha256=780014f74b8848218d93a297300590120f1742984396acf3d6799ab49b9a6a3f
   diff-lcs (1.6.2) sha256=9ae0d2cba7d4df3075fe8cd8602a8604993efc0dfa934cff568969efb1909962

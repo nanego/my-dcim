@@ -15,7 +15,7 @@ gem "sprockets-rails", require: "sprockets/railtie"
 gem "terser"
 
 # Authentication
-gem "devise", "~> 4.9"
+gem "devise", "~> 5.0"
 gem "devise-i18n"
 gem "devise_invitable"
 gem "omniauth", "~> 2.1"
