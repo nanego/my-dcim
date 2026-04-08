@@ -5,7 +5,7 @@ class Modele < ApplicationRecord
 
   friendly_id :slug_candidates, use: %i[slugged history]
 
-  has_changelog
+  has_changelog associations: { enclosures: "*", composants: "*" }
 
   belongs_to :manufacturer, counter_cache: true
   belongs_to :architecture, counter_cache: true

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Contact < ApplicationRecord
-  has_changelog
+  has_changelog associations: { contact_assignments: "*" }
 
   has_many :contact_assignments, dependent: :destroy
 

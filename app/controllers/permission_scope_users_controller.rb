@@ -7,6 +7,8 @@ class PermissionScopeUsersController < ApplicationController
   # POST /permission_scope_users
   def create
     @permission_scope_user = authorize! @permission_scope.permission_scope_users.build(permission_scope_user_params)
+    # FIXME: change to make changelogable works on associations
+    @permission_scope_user.assign_attributes(permission_scope: @permission_scope)
 
     respond_to do |format|
       if @permission_scope_user.save

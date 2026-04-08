@@ -29,7 +29,7 @@ shared_examples_for "changelogable" do |new_attributes:, object: nil|
       new_object.save!
     end
 
-    it { expect { updated }.to change(ChangelogEntry, :count).by(1) }
+    it { expect { updated }.to change(ChangelogEntry.where(object: new_object), :count).by(1) }
     it { expect(updated.changelog_entries.count).to eq(2) }
     it { expect(updated.changelog_entries.order(created_at: :desc).first.action).to eq("update") }
   end
@@ -44,7 +44,7 @@ shared_examples_for "changelogable" do |new_attributes:, object: nil|
       new_object.save!
     end
 
-    it { expect { destroyed }.to change(ChangelogEntry, :count).by(1) }
+    it { expect { destroyed }.to change(ChangelogEntry.where(object: new_object), :count).by(1) }
     it { expect(destroyed.changelog_entries.count).to eq(2) }
     it { expect(destroyed.changelog_entries.order(created_at: :desc).first.action).to eq("destroy") }
   end
