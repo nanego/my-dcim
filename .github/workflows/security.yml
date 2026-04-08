@@ -38,7 +38,7 @@ jobs:
           bundler-cache: true
 
       - name: Scan for known security vulnerabilities in gems used
-+       run: bin/bundler-audit
+        run: bin/bundler-audit
 
   # npm:
   #   runs-on: ubuntu-latest
