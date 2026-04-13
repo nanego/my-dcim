@@ -77,7 +77,9 @@ RSpec.describe ExternalAppRecordsController do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    let(:params) { { commit: "true", external_app_record_setting: { category_glpi_sync_types: { 2 => :server } } } }
+    let(:params) do
+      { commit: "true", external_app_record_setting: { category_glpi_sync_types: { categories(:two).id => :server } } }
+    end
 
     it { expect(response).to have_http_status(:redirect) }
     it { expect(response).to redirect_to(external_app_records_path) }
