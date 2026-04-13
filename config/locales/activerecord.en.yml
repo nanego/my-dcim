@@ -220,14 +220,15 @@ en:
         name: Name
         description: Description
         glpi_sync_type: GLPI synchronization type
-        glpi_sync_type_none: Nond
-        glpi_sync_type_server: Server
-        glpi_sync_type_network_equipment_: Network equipment
         modeles: Models
         modeles_count:
           zero: 0 model
           one: 1 model
           other: "%{count} models"
+      category/glpi_sync_type:
+        none: Nond
+        server: Server
+        network_equipment: Network equipment
 
     errors:
       models:

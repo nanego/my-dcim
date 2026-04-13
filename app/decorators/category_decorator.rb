@@ -9,13 +9,13 @@ class CategoryDecorator < ApplicationDecorator
     end
 
     def glpi_sync_type_human_for(glpi_sync_type)
-      Category.human_attribute_name("glpi_sync_type_#{glpi_sync_type}")
+      Category.human_attribute_name("glpi_sync_type.#{glpi_sync_type}")
     end
   end
 
   def glpi_sync_type_human
-    return tag.span(I18n.t("n_a"), class: "fst-italic fw-light text-body-secondary") if glpi_sync_type == "none"
+    return tag.span(I18n.t("n_a"), class: "fst-italic fw-light text-body-secondary") if glpi_sync_type_none?
 
-    CategoryDecorator.glpi_sync_type_human_for glpi_sync_type
+    CategoryDecorator.glpi_sync_type_human_for(glpi_sync_type)
   end
 end
