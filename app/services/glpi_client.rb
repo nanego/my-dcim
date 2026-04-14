@@ -43,9 +43,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
       raise
     end
 
-    attributes = clean_body(body)
-    data_class = endpoint == "Computer" ? Computer : NetworkEquipment
-    data_class.new attributes
+    Equipment.new clean_body(body)
   end
 
   def init_session
@@ -143,7 +141,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     include Dry.Types()
   end
 
-  class Computer < Dry::Struct
+  class Equipment < Dry::Struct
     transform_keys(&:to_sym)
 
     attribute? :id, Types::Coercible::Integer
@@ -151,30 +149,6 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     attribute? :name, Types::Coercible::String
     attribute? :contact, Types::Coercible::String
     attribute? :disks, Types::Coercible::Hash
-    attribute? :hard_drives, Types::Coercible::Hash
-    attribute? :memories, Types::Coercible::Hash
-    attribute? :processors, Types::Coercible::Hash
-
-    def hard_drives_total_capacity
-      return 0 if hard_drives.blank?
-
-      hard_drives.sum { |_key, value| value["capacity"] }
-    end
-
-    def memories_total_size
-      return 0 if memories.blank?
-
-      memories.sum { |_key, value| value["size"] }
-    end
-  end
-
-  class NetworkEquipment < Dry::Struct
-    transform_keys(&:to_sym)
-
-    attribute? :id, Types::Coercible::Integer
-    attribute? :serial, Types::Coercible::String
-    attribute? :name, Types::Coercible::String
-    attribute? :contact, Types::Coercible::String
     attribute? :hard_drives, Types::Coercible::Hash
     attribute? :memories, Types::Coercible::Hash
     attribute? :processors, Types::Coercible::Hash
