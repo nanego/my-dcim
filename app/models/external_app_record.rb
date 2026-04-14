@@ -9,6 +9,9 @@ class ExternalAppRecord < ApplicationRecord
   before_create :set_external_app_name
 
   def self.sync_server_with_glpi(server, client)
+    server_category = server.modele.category
+    return if server_category.glpi_sync_type_none?
+
     params = [
       "with_devices=false", # Only for [Computer, NetworkEquipment, Peripheral, Phone, Printer], retrieve the associated components. Optional.
       "with_disks=false", # Only for Computer, retrieve the associated file-systems. Optional.
@@ -25,12 +28,16 @@ class ExternalAppRecord < ApplicationRecord
       "with_logs=false", # Retrieve historical. Optional.
     ]
 
-    computer = client.computer(serial: server.numero, params: params)
+    equipment = if server_category.glpi_sync_type_server?
+                  client.computer(serial: server.numero, params: params)
+                else
+                  client.network_equipment(serial: server.numero, params: params)
+                end
 
-    record = ExternalAppRecord.find_or_create_by(server: server)
+    record = ExternalAppRecord.find_or_create_by(server:)
 
-    if computer.present?
-      record.assign_attributes(external_name: computer.name, external_id: computer.id, external_serial: computer.serial)
+    if equipment.present?
+      record.assign_attributes(external_name: equipment.name, external_id: equipment.id, external_serial: equipment.serial)
     else
       record.assign_attributes(external_name: "", external_id: "", external_serial: "")
     end
