@@ -209,11 +209,9 @@ en:
       synchronised_categories_list:
         title: "List of categories to be synchronised:"
         item_html: "<b>%{type}</b>: <i>%{categories}</i>"
-        wip: "(synchronization coming soon, currently in development)"
       last_complete_synch: "Last complete synchronisation:"
       none: none
       synchronizing: Synchronizing...
-      network_equipment_not_available_yet: Not available yet
     settings:
       title: Synchronisation configuration
       category_ids: Select the synchronisation type for each category
