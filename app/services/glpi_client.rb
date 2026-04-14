@@ -43,7 +43,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
       raise
     end
 
-    attributes = body_to_attributes(body)
+    attributes = clean_body(body)
     data_class = endpoint == "Computer" ? Computer : NetworkEquipment
     data_class.new attributes
   end
@@ -97,7 +97,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     end
   end
 
-  def body_to_attributes(body)
+  def clean_body(body)
     body.deep_transform_keys(&:underscore)
 
     attributes = body
