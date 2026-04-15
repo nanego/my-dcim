@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_01_115217) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_15_101024) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -359,10 +359,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_01_115217) do
     t.datetime "executed_at", precision: nil
     t.integer "port_from_id"
     t.integer "port_to_id"
+    t.bigint "step_id"
     t.datetime "updated_at", precision: nil, null: false
     t.string "vlans"
     t.index ["port_from_id"], name: "index_moved_connections_on_port_from_id"
     t.index ["port_to_id"], name: "index_moved_connections_on_port_to_id"
+    t.index ["step_id"], name: "index_moved_connections_on_step_id"
   end
 
   create_table "moves", id: :serial, force: :cascade do |t|
@@ -587,6 +589,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_01_115217) do
   add_foreign_key "modeles", "architectures"
   add_foreign_key "modeles", "categories"
   add_foreign_key "modeles", "manufacturers"
+  add_foreign_key "moved_connections", "moves_project_steps", column: "step_id"
   add_foreign_key "moved_connections", "ports", column: "port_from_id"
   add_foreign_key "moved_connections", "ports", column: "port_to_id"
   add_foreign_key "moves", "frames"
@@ -611,7 +614,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_01_115217) do
       SELECT servers.id AS searchable_id,
       'Server'::text AS searchable_type,
       servers.name,
-      ARRAY[servers.domaine_id] AS domaine_ids,
+      ARRAY[servers.domaine_id] AS domain_ids,
       concat_ws(' '::text, servers.name, servers.numero, modeles.name, manufacturers.name) AS term
      FROM ((servers
        LEFT JOIN modeles ON ((modeles.id = servers.modele_id)))
@@ -620,9 +623,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_01_115217) do
    SELECT frames.id AS searchable_id,
       'Frame'::text AS searchable_type,
       frames.name,
-      ARRAY( SELECT DISTINCT s.domaine_id
+      ARRAY( SELECT DISTINCT s.domaine_id AS domain_id
              FROM servers s
-            WHERE (s.frame_id = frames.id)) AS domaine_ids,
+            WHERE (s.frame_id = frames.id)) AS domain_ids,
       concat_ws(' '::text, frames.name, ( SELECT i.name
              FROM islets i
             WHERE (i.id = frames.id)

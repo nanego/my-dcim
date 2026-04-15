@@ -8,7 +8,7 @@ one:
   modele_id: 1
   numero: CZ31535FEY
   critique: false
-  domaine_id: 1
+  domain_id: 1
   gestion_id: 1
   position: 39
   stack_id: 1
@@ -21,7 +21,7 @@ two:
   modele_id: 1
   numero: ABCDEFG32
   critique: false
-  domaine_id: 1
+  domain_id: 1
   gestion_id: 1
   position: 38
   stack_id: 1
@@ -42,7 +42,7 @@ with_cluster:
   numero: ABCDEFG33
   cluster_id: 1
   critique: false
-  domaine_id: 1
+  domain_id: 1
   gestion_id: 1
   position: 40
   stack_id: 1
@@ -55,7 +55,7 @@ four:
   modele_id: 1
   numero: CZ31535FEZ
   critique: false
-  domaine_id: 1
+  domain_id: 1
   gestion_id: 1
   position: 39
   stack_id: 1
@@ -68,7 +68,7 @@ hub_network1:
   modele_id: 2
   numero: 1234567890
   critique: false
-  domaine_id: 1
+  domain_id: 1
   gestion_id: 1
   position: 1
   stack_id: 1
@@ -83,7 +83,7 @@ hub_network2:
   modele_id: 2
   numero: 1234567891
   critique: false
-  domaine_id: 1
+  domain_id: 1
   gestion_id: 1
   position: 1
   stack_id: 1
@@ -107,7 +107,7 @@ accesible_to_readers:
   modele_id: 1
   numero: CZ81535FEY
   critique: false
-  domaine_id: 3
+  domain_id: 3
   gestion_id: 1
   position: 39
   stack_id: 1

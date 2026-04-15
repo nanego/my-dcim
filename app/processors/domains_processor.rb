@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DomainesProcessor < ApplicationProcessor
+class DomainsProcessor < ApplicationProcessor
   include Sortable
 
   SORTABLE_FIELDS = %w[name servers_count].freeze
