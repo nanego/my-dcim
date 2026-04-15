@@ -22,7 +22,7 @@ fr:
       architecture: Architecture
       manufacturer: Constructeur
       domaine: Domaine
-      gestion: Gestionnaire
+      manager: Managernaire
       cluster: Cluster
       stack: Stack
       card: Carte
@@ -113,7 +113,7 @@ fr:
         modele_id: Modèle
         manufacturer_id: Constructeur
         critique: Critique
-        gestion_id: Gestionnaire
+        manager_id: Managernaire
         network_types: Composant réseau
         stack: Stack
         stack_id: Stack
@@ -170,7 +170,7 @@ fr:
           zero: 0 modèle
           one: 1 modèle
           other: "%{count} modèles"
-      gestion:
+      manager:
         name: Nom
         description: Description
         usage: Usage
@@ -321,7 +321,7 @@ fr:
       user/visualization_bay_default_background_color:
         modele: Modèle
         cluster: Cluster
-        gestion: Gestionnaire
+        manager: Managernaire
       user/visualization_bay_default_orientation:
         front: Avant
         back: Arrière

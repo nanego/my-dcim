@@ -11,11 +11,11 @@ module Visualization
     def index
       authorize! @sites
 
-      return unless params[:cluster_id].present? || params[:gestion_id].present? || params[:modele_id].present?
+      return unless params[:cluster_id].present? || params[:manager_id].present? || params[:modele_id].present?
 
       @frames = Frame
         .preload(servers: [
-                   :gestion,
+                   :manager,
                    :cluster,
                    { modele: :category, card_types: :port_type, cards: [:composant, { ports: [{ connection: :cable }] }] },
                  ])
@@ -26,10 +26,10 @@ module Visualization
         @frames = @frames.joins(:materials).where("servers.cluster_id = ? ", params[:cluster_id])
         @filtered_servers = Server.where("servers.cluster_id = ? ", params[:cluster_id])
         @current_filters << "Cluster #{Cluster.find_by(id: params[:cluster_id])} "
-      elsif params[:gestion_id].present?
-        @frames = @frames.joins(:materials).where("servers.gestion_id = ? ", params[:gestion_id])
-        @filtered_servers = Server.where("servers.gestion_id = ? ", params[:gestion_id])
-        @current_filters << "Gestionnaire #{Gestion.find_by(id: params[:gestion_id])} "
+      elsif params[:manager_id].present?
+        @frames = @frames.joins(:materials).where("servers.manager_id = ? ", params[:manager_id])
+        @filtered_servers = Server.where("servers.manager_id = ? ", params[:manager_id])
+        @current_filters << "Managernaire #{Manager.find_by(id: params[:manager_id])} "
       elsif params[:modele_id].present?
         @frames = @frames.joins(:materials).where("servers.modele_id = ? ", params[:modele_id])
         @filtered_servers = Server.where("servers.modele_id = ? ", params[:modele_id])
@@ -68,7 +68,7 @@ module Visualization
       authorize! @room = Room.includes(
         :islets, :bays, :frames,
         materials: [
-          :gestion, :cluster,
+          :manager, :cluster,
           { modele: %i[category composants],
             cards: [
               :composant,

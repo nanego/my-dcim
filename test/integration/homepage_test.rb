@@ -12,7 +12,7 @@ class HomepageTest < ActionDispatch::IntegrationTest
     sign_in users(:reader)
     visit root_url
 
-    assert page.first("main").has_content?("Gestion de salle")
+    assert page.first("main").has_content?("Manager de salle")
     assert page.first("main").has_link?("S1")
     assert page.first("main").has_no_link?("S3")
   end

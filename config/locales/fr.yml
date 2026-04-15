@@ -118,7 +118,7 @@ fr:
 
   pages:
     index:
-      title: Gestion de salle
+      title: Manager de salle
 
   islets:
     index:
@@ -169,23 +169,23 @@ fr:
       title: Supprimer le site
       flashes:
         destroyed: Site a bien été supprimé.
-  gestions:
+  managers:
     index:
-      new_gestion: Ajouter un gestionnaire
+      new_manager: Ajouter un managernaire
     new:
-      title: Nouveau gestionnaire
+      title: Nouveau managernaire
     create:
       flashes:
-        created: Le gestionnaire a bien été créé.
+        created: Le managernaire a bien été créé.
     edit:
-      title: Modifier le gestionnaire
+      title: Modifier le managernaire
     update:
       flashes:
-        updated: Le gestionnaire a bien été modifié.
+        updated: Le managernaire a bien été modifié.
     destroy:
-      title: Supprimer le gestionnaire
+      title: Supprimer le managernaire
       flashes:
-        destroyed: Le gestionnaire a bien été supprimé.
+        destroyed: Le managernaire a bien été supprimé.
   architectures:
     index:
       new_architecture: Ajouter une architecture
@@ -889,7 +889,7 @@ fr:
       background_color: "Couleur de fond : %{bg}"
       background_choices:
         modele: Modèle
-        gestion: Gestionnaire
+        manager: Managernaire
         cluster: Cluster
       dragn_drop:
         enable: Activer le drag'n drop
@@ -976,7 +976,7 @@ fr:
         islet_id: Ilot
         room_ids: Salle
         domaine_ids: Domaine
-        gestion_ids: Gestionnaire
+        manager_ids: Managernaire
         frame_ids: Châssis
         bay_ids: Baie
         modele_ids: Modèle

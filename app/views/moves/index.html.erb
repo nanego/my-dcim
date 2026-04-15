@@ -37,8 +37,8 @@
           </div>
         <% end %>
 
-        <% table.with_column(Gestion.model_name.human) do |move| %>
-          <%= move.moveable.gestion %>
+        <% table.with_column(Manager.model_name.human) do |move| %>
+          <%= move.moveable.manager %>
         <% end %>
 
         <% table.with_column(Domaine.model_name.human) do |move| %>

@@ -249,7 +249,7 @@ en:
     destroy:
       title: Delete the frame
 
-  gestions:
+  managers:
     destroy:
       title: Delete the manager
 
@@ -625,7 +625,7 @@ en:
       background_color: "Background color: %{bg}"
       background_choices:
         modele: Modele
-        gestion: Manager
+        manager: Manager
         cluster: Cluster
       dragn_drop:
         enable: Activate drag'n drop

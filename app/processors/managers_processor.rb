@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class GestionsProcessor < ApplicationProcessor
+class ManagersProcessor < ApplicationProcessor
   include Sortable
 
   SORTABLE_FIELDS = %w[name servers_count].freeze

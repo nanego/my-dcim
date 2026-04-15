@@ -25,7 +25,7 @@ RSpec.describe User do
     it { is_expected.to validate_inclusion_of(:items_per_page).in_array([25, 50, 100, 150, 200]) }
     it { is_expected.to allow_value(nil).for(:items_per_page) }
 
-    it { is_expected.to validate_inclusion_of(:visualization_bay_default_background_color).in_array(%w[modele gestion cluster]) }
+    it { is_expected.to validate_inclusion_of(:visualization_bay_default_background_color).in_array(%w[modele manager cluster]) }
     it { is_expected.to allow_value(nil).for(:visualization_bay_default_background_color) }
 
     it { is_expected.to validate_inclusion_of(:visualization_bay_default_orientation).in_array(%w[front back]) }

@@ -82,12 +82,12 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:gestion_ids, Gestion.sorted,
+          <%= f.collection_select(:manager_ids, Manager.sorted,
                                   :id,
                                   :name,
                                   { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
-          <%= f.label :gestion_ids %>
+          <%= f.label :manager_ids %>
         </fieldset>
       </div>
     <% end %>
