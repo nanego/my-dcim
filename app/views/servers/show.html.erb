@@ -336,23 +336,16 @@
             <%= t(".glpi_data") %>
           <% end %>
 
-          <%# TODO: remove next line when network equipment will be implemented %>
-          <% if @server.modele.category.glpi_sync_type_network_equipment? %>
-            <div class="alert alert-info mb-0">
-              <span class="bi bi-info-circle me-1"></span>
-              <%= t(".network_equipment_not_available_yet") %>
-            </div>
-          <% else %>
-            <%
-              begin
-                Timeout.timeout(3) do
-                  client = GlpiClient.new
-                  computer = client.computer(serial: Rails.env.production? ? @server.numero : "AZERTY")
-            %>
-                <% if computer.present? %>
-                  <dl class="show-page_dl d-grid row-gap-2 mb-0">
-                    <dt class="pb-2"><%= t("glpi.computer.name") %></dt>
-                    <dd class="mb-0 pb-2 ps-3"><%= computer.name %></dd>
+          <%
+            begin
+              Timeout.timeout(3) do
+                client = GlpiClient.new
+                computer = client.computer(serial: @server.numero)
+          %>
+              <% if computer.present? %>
+                <dl class="show-page_dl d-grid row-gap-2 mb-0">
+                  <dt class="pb-2"><%= t("glpi.computer.name") %></dt>
+                  <dd class="mb-0 pb-2 ps-3"><%= computer.name %></dd>
 
                     <dt class="pb-2"><%= t("glpi.computer.id") %></dt>
                     <dd class="mb-0 pb-2 ps-3"><%= computer.id %></dd>
