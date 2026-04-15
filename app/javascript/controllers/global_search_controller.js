@@ -40,7 +40,7 @@ export default class extends Controller {
 
     this.startLoading()
     setTimeout(async () => {
-      // another key has been pressed
+      // another input has been modified since
       if (this.#fetchKey != currentKey) return
 
       // don't accept short queries
