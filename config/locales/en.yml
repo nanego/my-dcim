@@ -552,6 +552,7 @@ en:
       glpi_connection_error: "Problem connecting to GLPI :"
       moves_cta_tooltip: Planning its move
       export_cta_tooltip: PDF export for cable installers
+      network_equipment_not_available_yet: GLPI synchronization of network equipment is not yet operational
     new:
       title: Add I.T. equipment
     create:
