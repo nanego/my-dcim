@@ -1,6 +1,6 @@
 <%
   breadcrumb
-    .add_step(@domaine, domaine_path(@domaine))
+    .add_step(@domain, domain_path(@domain))
     .add_step(t("action.delete"))
 %>
 
@@ -8,7 +8,7 @@
 
 <div class="col-12 p-4 border-top">
   <%= render DeleteDependencyComponent.new(
-        @domaine,
-        confirmation_path: manufacturer_path(@domaine, confirm: true, back_to: params[:back_to]),
+        @domain,
+        confirmation_path: manufacturer_path(@domain, confirm: true, back_to: params[:back_to]),
       ) %>
 </div>

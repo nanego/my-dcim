@@ -182,9 +182,9 @@ en:
       edit:
         title: Change your password
 
-  domaines:
+  domains:
     destroy:
-      title: Delete the domaine
+      title: Delete the domain
 
   export_button:
     label: Exports
@@ -475,7 +475,7 @@ en:
       flashes:
         updated: Permission Scope as been successfully updated.
     form:
-      domaine_ids:
+      domain_ids:
         blank: Select a domain
     destroy:
       title: Delete this permission scope

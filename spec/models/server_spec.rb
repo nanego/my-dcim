@@ -12,7 +12,7 @@ RSpec.describe Server do
   describe "associations" do
     it { is_expected.to belong_to(:frame) }
     it { is_expected.to belong_to(:gestion).optional(true) }
-    it { is_expected.to belong_to(:domaine).optional(true) }
+    it { is_expected.to belong_to(:domain).optional(true) }
     it { is_expected.to belong_to(:cluster).optional(true) }
     it { is_expected.to belong_to(:stack).optional(true) }
     it { is_expected.to belong_to(:modele) }

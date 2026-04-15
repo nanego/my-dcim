@@ -125,11 +125,11 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.select(:domaine_ids,
+          <%= f.select(:domain_ids,
                        ServerDecorator.domains_options_for_select(current_user),
                        { prompt: true, multiple: true },
                        { class: "form-select", data: { controller: :select } }) %>
-          <%= f.label :domaine_ids %>
+          <%= f.label :domain_ids %>
         </fieldset>
       </div>
 
@@ -240,8 +240,8 @@
           <%= link_to server.gestion, gestion_path(server.gestion), data: { turbo_frame: :_top } if server.gestion %>
         <% end %>
 
-        <% table.with_column(Domaine.model_name.human, name: :domaine_id) do |server| %>
-          <%= link_to server.domaine, domaine_path(server.domaine), data: { turbo_frame: :_top } if server.domaine %>
+        <% table.with_column(Domain.model_name.human, name: :domain_id) do |server| %>
+          <%= link_to server.domain, domain_path(server.domain), data: { turbo_frame: :_top } if server.domain %>
         <% end %>
 
         <% table.with_column(Modele.model_name.human, name: :modele_id) do |server| %>

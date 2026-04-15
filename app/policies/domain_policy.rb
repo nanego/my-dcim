@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DomainePolicy < ApplicationPolicy
+class DomainPolicy < ApplicationPolicy
   relation_scope do |relation|
     return relation if user.admin?
 

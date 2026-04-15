@@ -145,9 +145,9 @@
 
         <div class="row g-3">
           <fieldset class="col-md-6 col-12">
-            <%= f.label :domaine_id, class: "form-label" %>
-            <%= f.collection_select(:domaine_id,
-                                    Domaine.sorted,
+            <%= f.label :domain_id, class: "form-label" %>
+            <%= f.collection_select(:domain_id,
+                                    Domain.sorted,
                                     :id,
                                     :name,
                                     { prompt: true, include_blank: true },

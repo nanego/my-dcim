@@ -23,7 +23,7 @@
 
       <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
         <% card.with_header do %>
-          <%= PermissionScope.human_attribute_name(:domaine_ids) %>
+          <%= PermissionScope.human_attribute_name(:domain_ids) %>
         <% end %>
 
         <fieldset class="col-12">
@@ -31,18 +31,18 @@
             <%= f.checkbox :all_domains,
                            class: "",
                            data: {
-                             action: "form--toggle#toggle", form__toggle_target_element_param: "#domaine_ids",
+                             action: "form--toggle#toggle", form__toggle_target_element_param: "#domain_ids",
                            } %>
             <%= translation %>
           <% end %>
         </fieldset>
 
         <fieldset class="<%= class_names("col-12 mt-2 pt-2 border-top border-dashed", "d-none": f.object.all_domains) %>"
-                  id="domaine_ids">
-          <%= f.label :domaine_ids, class: "form-label" %>
-          <%= f.select :domaine_ids,
-                       Domaine.sorted.pluck(:name, :id),
-                       { include_blank: t(".domaine_ids.blank") },
+                  id="domain_ids">
+          <%= f.label :domain_ids, class: "form-label" %>
+          <%= f.select :domain_ids,
+                       Domain.sorted.pluck(:name, :id),
+                       { include_blank: t(".domain_ids.blank") },
                        class: "form-select",
                        multiple: true,
                        data: { controller: :select } %>

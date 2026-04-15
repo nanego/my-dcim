@@ -4,12 +4,12 @@ require "rails_helper"
 
 RSpec.describe PermissionScopeDomain do
   subject(:permission_scope_user) do
-    described_class.new(permission_scope: permission_scopes(:all), domaine: domaines(:three))
+    described_class.new(permission_scope: permission_scopes(:all), domain: domains(:three))
   end
 
   describe "associations" do
     it { is_expected.to belong_to(:permission_scope) }
-    it { is_expected.to belong_to(:domaine) }
+    it { is_expected.to belong_to(:domain) }
   end
 
   describe "validations" do

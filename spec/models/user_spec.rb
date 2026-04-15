@@ -145,7 +145,7 @@ RSpec.describe User do
     context "with permission_scopes" do
       subject(:user) { users(:writer) }
 
-      it { expect(user.permitted_domains).to match_array(Domaine.all) }
+      it { expect(user.permitted_domains).to match_array(Domain.all) }
     end
   end
 end

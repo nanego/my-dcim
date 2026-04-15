@@ -2,8 +2,8 @@
 
 require "rails_helper"
 
-RSpec.describe Domaine do
-  subject(:domaine) { described_class.new(name: "Eco") }
+RSpec.describe Domain do
+  subject(:domain) { described_class.new(name: "Eco") }
 
   it_behaves_like "changelogable", new_attributes: { name: "New name" }
 
