@@ -443,6 +443,7 @@ fr:
       glpi_connection_error: "Problème lors de la connexion à GLPI :"
       moves_cta_tooltip: Prévoir son déplacement
       export_cta_tooltip: Export PDF pour les câbleurs
+      network_equipment_not_available_yet: La synchronisation GLPI des équipements réseaux n'est pas encore opérationnelle
     new:
       title: Ajouter un matériel I.T.
     create:
