@@ -293,7 +293,7 @@
             begin
               Timeout.timeout(3) do
                 client = GlpiClient.new
-                computer = client.computer(serial: Rails.env.production? ? @pdu.numero : "AZERTY")
+                computer = client.computer(serial: @pdu.numero)
           %>
               <% if computer.present? %>
                 <dl class="show-page_dl d-grid row-gap-2 mb-0">
