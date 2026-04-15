@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_15_101024) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_15_135219) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -614,7 +614,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_15_101024) do
       SELECT servers.id AS searchable_id,
       'Server'::text AS searchable_type,
       servers.name,
-      ARRAY[servers.domaine_id] AS domain_ids,
+      ARRAY[servers.domain_id] AS domain_ids,
       concat_ws(' '::text, servers.name, servers.numero, modeles.name, manufacturers.name) AS term
      FROM ((servers
        LEFT JOIN modeles ON ((modeles.id = servers.modele_id)))
@@ -623,7 +623,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_15_101024) do
    SELECT frames.id AS searchable_id,
       'Frame'::text AS searchable_type,
       frames.name,
-      ARRAY( SELECT DISTINCT s.domaine_id AS domain_id
+      ARRAY( SELECT DISTINCT s.domain_id
              FROM servers s
             WHERE (s.frame_id = frames.id)) AS domain_ids,
       concat_ws(' '::text, frames.name, ( SELECT i.name
