@@ -26,12 +26,12 @@ RSpec.describe Visualization::RoomsController do
       expect(assigns(:frames)).to be_nil
     end
 
-    context "with params gestion_id" do
-      let(:params) { { gestion_id: 1 } }
+    context "with params manager_id" do
+      let(:params) { { manager_id: 1 } }
 
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:filtered_index) }
-      it { expect(response.body).to include("Gestionnaire #{gestions(:one).name}") }
+      it { expect(response.body).to include("Managernaire #{managers(:one).name}") }
 
       it :aggregate_failures do
         response

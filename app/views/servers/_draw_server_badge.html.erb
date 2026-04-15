@@ -2,9 +2,9 @@
 <% if @cluster && server.cluster == @cluster
      current_filter_object = @cluster
      parent_type = current_filter_object.class.name
-   elsif @gestion && server.gestion == @gestion
-     current_filter_object = @gestion
-     parent_type = "Gestionnaire"
+   elsif @manager && server.manager == @manager
+     current_filter_object = @manager
+     parent_type = "Managernaire"
    end
   if current_filter_object %>
 <span class="server_badge" title="<%= @current_filter_object %>"

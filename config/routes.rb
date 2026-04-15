@@ -86,7 +86,7 @@ Rails.application.routes.draw do
   resources :colors
   resources :rooms
   resources :bays
-  resources :gestions
+  resources :managers
   resources :domains
   resources :modeles do
     get :duplicate, on: :member
@@ -150,7 +150,11 @@ Rails.application.routes.draw do
 
   namespace :bulk do
     %i[sites rooms islets bays frames air_conditioners air_conditioner_models power_distribution_units modeles categories
+<<<<<<< HEAD
        architectures manufacturers stacks card_types port_types domains gestions clusters colors cables
+=======
+       architectures manufacturers stacks card_types port_types domaines managers clusters colors cables
+>>>>>>> 39a028b8 (raw renaming)
        contacts contact_roles contact_assignments].each do |res|
       resource res, only: :destroy
     end

@@ -2,10 +2,10 @@
 
 require "rails_helper"
 
-RSpec.describe GestionsController do
+RSpec.describe ManagersController do
   describe "GET #index" do
     subject(:response) do
-      get gestions_path
+      get managers_path
 
       @response # rubocop:disable RSpec/InstanceVariable
     end
@@ -15,12 +15,12 @@ RSpec.describe GestionsController do
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
 
-    it { expect { response }.to have_rubanok_processed(Gestion.all).with(GestionsProcessor) }
+    it { expect { response }.to have_rubanok_processed(Manager.all).with(ManagersProcessor) }
   end
 
   describe "GET #new" do
     subject(:response) do
-      get new_gestion_path
+      get new_manager_path
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -34,25 +34,25 @@ RSpec.describe GestionsController do
 
   describe "POST #create" do
     subject(:response) do
-      post(gestions_path, params:)
+      post(managers_path, params:)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    let(:params) { { gestion: { name: "Gestion 1", description: "Description 1" } } }
+    let(:params) { { manager: { name: "Manager 1", description: "Description 1" } } }
 
     include_context "with authenticated admin"
     it_behaves_like "with create another one"
 
     context "with valid parameters" do
       it { expect(response).to have_http_status(:redirect) }
-      it { expect(response).to redirect_to(gestion_path(assigns(:gestion))) }
-      it { expect { response }.to change(Gestion, :count).by(1) }
+      it { expect(response).to redirect_to(manager_path(assigns(:manager))) }
+      it { expect { response }.to change(Manager, :count).by(1) }
     end
 
     context "without attributes" do
-      let(:params) { { gestion: {} } }
+      let(:params) { { manager: {} } }
 
       it { expect { response }.to raise_error(ActionController::ParameterMissing) }
     end

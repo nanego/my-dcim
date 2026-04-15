@@ -6,7 +6,7 @@ module Frames
       ar_relation = relation.includes(islet: [:room],
                                       bay: [:frames],
                                       servers: [
-                                        :frame, :gestion, :cluster,
+                                        :frame, :manager, :cluster,
                                         { modele: %i[category composants],
                                           cards: [
                                             :composant,

@@ -5,7 +5,7 @@ class User < ApplicationRecord
   AVAILABLE_THEMES = %w[auto dark light].freeze
   AVAILABLE_ITEMS_PER_PAGE = [25, 50, 100, 150, 200].freeze
   DEFAULT_ITEMS_PER_PAGE = 100
-  AVAILABLE_BAY_BACKGROUND_COLORS = %w[modele gestion cluster].freeze
+  AVAILABLE_BAY_BACKGROUND_COLORS = %w[modele manager cluster].freeze
   AVAILABLE_BAY_ORIENTATIONS = %w[front back].freeze
 
   acts_as_token_authenticatable
