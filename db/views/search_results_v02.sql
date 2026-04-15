@@ -2,7 +2,7 @@ SELECT
   servers.id AS searchable_id,
   'Server' AS searchable_type,
   servers.name AS name,
-  ARRAY[servers.domaine_id] AS domaine_ids,
+  ARRAY[servers.domain_id] AS domain_ids,
   CONCAT_WS(
     ' ',
     servers.name,
@@ -20,7 +20,7 @@ SELECT
   frames.id AS searchable_id,
   'Frame' AS searchable_type,
   frames.name AS name,
-  ARRAY(SELECT DISTINCT domaine_id FROM servers s WHERE s.frame_id = frames.id) AS domaine_ids,
+  ARRAY(SELECT DISTINCT domain_id FROM servers s WHERE s.frame_id = frames.id) AS domain_ids,
   CONCAT_WS(
     ' ',
     frames.name,
@@ -28,3 +28,5 @@ SELECT
     (SELECT name FROM rooms r WHERE r.id = frames.id LIMIT 1)
   ) AS term
 FROM frames;
+
+/* CENIQUE ALLER VOIR */
