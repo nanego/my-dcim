@@ -28,5 +28,3 @@ SELECT
     (SELECT name FROM rooms r WHERE r.id = frames.id LIMIT 1)
   ) AS term
 FROM frames;
-
-/* CENIQUE ALLER VOIR */
