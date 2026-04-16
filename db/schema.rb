@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_15_135219) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_15_101024) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -237,7 +237,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_15_135219) do
     t.index ["server_id"], name: "index_documents_on_server_id"
   end
 
-  create_table "domaines", id: :serial, force: :cascade do |t|
+  create_table "domains", id: :serial, force: :cascade do |t|
     t.datetime "created_at", precision: nil, null: false
     t.text "description"
     t.string "name"
@@ -359,12 +359,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_15_135219) do
     t.datetime "executed_at", precision: nil
     t.integer "port_from_id"
     t.integer "port_to_id"
-    t.bigint "step_id"
     t.datetime "updated_at", precision: nil, null: false
     t.string "vlans"
     t.index ["port_from_id"], name: "index_moved_connections_on_port_from_id"
     t.index ["port_to_id"], name: "index_moved_connections_on_port_to_id"
-    t.index ["step_id"], name: "index_moved_connections_on_step_id"
   end
 
   create_table "moves", id: :serial, force: :cascade do |t|
@@ -407,11 +405,11 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_15_135219) do
 
   create_table "permission_scope_domains", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.bigint "domaine_id", null: false
+    t.bigint "domain_id", null: false
     t.bigint "permission_scope_id", null: false
     t.datetime "updated_at", null: false
-    t.index ["domaine_id"], name: "index_permission_scope_domains_on_domaine_id"
-    t.index ["permission_scope_id", "domaine_id"], name: "idx_on_permission_scope_id_domaine_id_4cc9e81621", unique: true
+    t.index ["domain_id"], name: "index_permission_scope_domains_on_domain_id"
+    t.index ["permission_scope_id", "domain_id"], name: "idx_on_permission_scope_id_domain_id_aa6a76d898", unique: true
     t.index ["permission_scope_id"], name: "index_permission_scope_domains_on_permission_scope_id"
   end
 
@@ -474,7 +472,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_15_135219) do
     t.string "comment"
     t.datetime "created_at", precision: nil, null: false
     t.boolean "critique"
-    t.integer "domaine_id"
+    t.integer "domain_id"
     t.integer "frame_id", null: false
     t.integer "gestion_id"
     t.integer "modele_id"
@@ -487,7 +485,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_15_135219) do
     t.integer "stack_id"
     t.datetime "updated_at", precision: nil, null: false
     t.index ["cluster_id"], name: "index_servers_on_cluster_id"
-    t.index ["domaine_id"], name: "index_servers_on_domaine_id"
+    t.index ["domain_id"], name: "index_servers_on_domain_id"
     t.index ["frame_id"], name: "index_servers_on_frame_id"
     t.index ["gestion_id"], name: "index_servers_on_gestion_id"
     t.index ["modele_id"], name: "index_servers_on_modele_id"
@@ -589,7 +587,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_15_135219) do
   add_foreign_key "modeles", "architectures"
   add_foreign_key "modeles", "categories"
   add_foreign_key "modeles", "manufacturers"
-  add_foreign_key "moved_connections", "moves_project_steps", column: "step_id"
   add_foreign_key "moved_connections", "ports", column: "port_from_id"
   add_foreign_key "moved_connections", "ports", column: "port_to_id"
   add_foreign_key "moves", "frames"
@@ -597,14 +594,14 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_15_135219) do
   add_foreign_key "moves", "moves_project_steps"
   add_foreign_key "moves_project_steps", "moves_projects"
   add_foreign_key "moves_projects", "users", column: "created_by_id"
-  add_foreign_key "permission_scope_domains", "domaines"
+  add_foreign_key "permission_scope_domains", "domains"
   add_foreign_key "permission_scope_domains", "permission_scopes"
   add_foreign_key "permission_scope_users", "permission_scopes"
   add_foreign_key "permission_scope_users", "users"
   add_foreign_key "ports", "cards"
   add_foreign_key "rooms", "sites"
   add_foreign_key "servers", "clusters"
-  add_foreign_key "servers", "domaines"
+  add_foreign_key "servers", "domains"
   add_foreign_key "servers", "frames"
   add_foreign_key "servers", "gestions"
   add_foreign_key "servers", "modeles"
