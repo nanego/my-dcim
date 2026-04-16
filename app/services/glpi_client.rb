@@ -7,6 +7,25 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
   API_URL = Rails.application.credentials.glpi_api_url
   API_KEY = Rails.application.credentials.glpi_apikey
   PROXY_URL = Rails.application.credentials.proxy_url
+  DEFAULT_PARAMS = [
+    "expand_dropdowns=false", # (default: false) Show dropdown name instead of id. Optional.
+    "get_hateoas=true", # (default: true) Show relations of the item in a links attribute. Optional.
+    "get_sha1=false", # (default: false) Get a sha1 signature instead of the full answer. Optional.
+    "with_devices=true", # Only for [Computer, NetworkEquipment, Peripheral, Phone, Printer], retrieve the associated components. Optional.
+    "with_disks=true", # Only for Computer, retrieve the associated file-systems. Optional.
+    "with_softwares=true", # Only for Computer, retrieve the associated software's installations. Optional.
+    "with_connections=true", # Only for Computer, retrieve the associated direct connections (like peripherals and printers) .Optional.
+    "with_networkports=true", # Retrieve all network's connections and advanced network's informations. Optional.
+    "with_infocoms=true", # Retrieve financial and administrative informations. Optional.
+    "with_contracts=true", # Retrieve associated contracts. Optional.
+    "with_documents=true", # Retrieve associated external documents. Optional.
+    "with_tickets=false", # Retrieve associated ITIL tickets. Optional.
+    "with_problems=false", # Retrieve associated ITIL problems. Optional.
+    "with_changes=false", # Retrieve associated ITIL changes. Optional.
+    "with_notes=true", # Retrieve Notes. Optional.
+    "with_logs=false", # Retrieve historical. Optional.
+    # "add_keys_names=[]", # Retrieve friendly names. Array containing fkey(s) and/or "id". Optional.
+  ].freeze
 
   attr_reader :connection, :session_token
 
@@ -19,32 +38,23 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     @session_token = init_session
   end
 
-  def computer(serial:, params: nil)
-    equipment("Computer", serial:, params:)
+  def computer_glpi_id(serial:)
+    get_glpi_id_for("Computer", serial:)
   end
 
-  def network_equipment(serial:, params: nil)
-    equipment("NetworkEquipment", serial:, params:)
+  def computer(glpi_id:, params: nil)
+    equipment("Computer", glpi_id:, params:)
+  end
+
+  def network_equipment_glpi_id(serial:)
+    get_glpi_id_for("NetworkEquipment", serial:)
+  end
+
+  def network_equipment(glpi_id:, params: nil)
+    equipment("NetworkEquipment", glpi_id:, params:)
   end
 
   private
-
-  def equipment(endpoint, serial:, params: nil)
-    glpi_id = get_id_from_glpi_for(endpoint, serial:)
-    return nil if glpi_id.blank?
-
-    resp = get_equipment_from_glpi_for(endpoint, glpi_id:, params:)
-    begin
-      body = JSON.parse(resp.body)
-      return nil if body.blank?
-    rescue JSON::ParserError => e
-      Rails.logger.warn "Error parsing JSON: #{e}"
-      Rails.logger.warn "Response body: #{resp.inspect}"
-      raise
-    end
-
-    Equipment.new clean_body(body)
-  end
 
   def init_session
     resp = @connection.get("initSession") do |request|
@@ -54,7 +64,23 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     JSON.parse(resp.body)["session_token"]
   end
 
-  def get_id_from_glpi_for(endpoint, serial:)
+  def equipment(endpoint, glpi_id:, params: nil)
+    return nil if glpi_id.blank?
+
+    resp = get_equipment_for(endpoint, glpi_id:, params:)
+    begin
+      body = JSON.parse(resp.body)
+      return nil if body.blank?
+    rescue JSON::ParserError => e
+      Rails.logger.warn "Error parsing JSON: #{e}"
+      Rails.logger.warn "Response body: #{resp.inspect}"
+      raise
+    end
+
+    Equipment.new format_body(body)
+  end
+
+  def get_glpi_id_for(endpoint, serial:)
     serial = "AZERTY" unless Rails.env.production?
 
     resp = @connection.get("#{endpoint}?searchText[serial]=#{serial}") do |request|
@@ -68,26 +94,8 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     end
   end
 
-  def get_equipment_from_glpi_for(endpoint, glpi_id:, params:)
-    params ||= [
-      "expand_dropdowns=false", # (default: false) Show dropdown name instead of id. Optional.
-      "get_hateoas=true", # (default: true) Show relations of the item in a links attribute. Optional.
-      "get_sha1=false", # (default: false) Get a sha1 signature instead of the full answer. Optional.
-      "with_devices=true", # Only for [Computer, NetworkEquipment, Peripheral, Phone, Printer], retrieve the associated components. Optional.
-      "with_disks=true", # Only for Computer, retrieve the associated file-systems. Optional.
-      "with_softwares=true", # Only for Computer, retrieve the associated software's installations. Optional.
-      "with_connections=true", # Only for Computer, retrieve the associated direct connections (like peripherals and printers) .Optional.
-      "with_networkports=true", # Retrieve all network's connections and advanced network's informations. Optional.
-      "with_infocoms=true", # Retrieve financial and administrative informations. Optional.
-      "with_contracts=true", # Retrieve associated contracts. Optional.
-      "with_documents=true", # Retrieve associated external documents. Optional.
-      "with_tickets=false", # Retrieve associated ITIL tickets. Optional.
-      "with_problems=false", # Retrieve associated ITIL problems. Optional.
-      "with_changes=false", # Retrieve associated ITIL changes. Optional.
-      "with_notes=true", # Retrieve Notes. Optional.
-      "with_logs=false", # Retrieve historical. Optional.
-      # "add_keys_names=[]", # Retrieve friendly names. Array containing fkey(s) and/or "id". Optional.
-    ]
+  def get_equipment_for(endpoint, glpi_id:, params:)
+    params ||= DEFAULT_PARAMS
 
     @connection.get("#{endpoint}/#{glpi_id}?#{params.join("&")}") do |request|
       request.headers["Session-Token"] = session_token
@@ -95,7 +103,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     end
   end
 
-  def clean_body(body)
+  def format_body(body)
     body.deep_transform_keys(&:underscore)
 
     attributes = body
@@ -104,7 +112,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     processors = body["_devices"].present? ? body["_devices"]["Item_DeviceProcessor"] : {}
     attributes[:processors] = if processors.present?
                                 processors.each_value do |proc|
-                                  proc["designation"] = get_processor_designation_from_glpi(id: proc["deviceprocessors_id"])
+                                  proc["designation"] = get_processor_designation_for(id: proc["deviceprocessors_id"])
                                 end
                               else
                                 {}
@@ -113,7 +121,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     attributes
   end
 
-  def get_processor_designation_from_glpi(id:)
+  def get_processor_designation_for(id:)
     return if id.blank?
 
     resp = @connection.get("DeviceProcessor/#{id}") do |request|
