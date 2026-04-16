@@ -2,6 +2,7 @@
 
 class ExternalAppRecord < ApplicationRecord
   EXTERNAL_SERIAL_STATUSES = %i[found not_found].freeze
+  GLPI_APP_NAME = "glpi"
 
   belongs_to :server
   has_one :frame, through: :server
@@ -48,6 +49,6 @@ class ExternalAppRecord < ApplicationRecord
   private
 
   def set_external_app_name
-    self.app_name = "glpi" # Only one external app supported for now
+    self.app_name = GLPI_APP_NAME # Only one external app supported for now
   end
 end

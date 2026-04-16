@@ -31,6 +31,21 @@ class ServerDecorator < ApplicationDecorator
     end
   end
 
+  def glpi_equipment(glpi_client: nil)
+    server_category = modele.category
+    return nil if server_category.glpi_sync_type_none?
+
+    glpi_client ||= GlpiClient.new
+    glpi_external_app_record = external_app_records.find_by(app_name: ExternalAppRecord::GLPI_APP_NAME)
+    glpi_id = glpi_external_app_record&.external_id
+
+    if server_category.glpi_sync_type_server?
+      glpi_client.computer(glpi_id: glpi_id || glpi_client.computer_glpi_id(serial: numero))
+    else
+      glpi_client.network_equipment(glpi_id: glpi_id || glpi_client.network_equipment_glpi_id(serial: numero))
+    end
+  end
+
   def network_types_to_human
     return Modele.human_attribute_name("network_types.blank") unless (n_t = network_types.presence)
 
