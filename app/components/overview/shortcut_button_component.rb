@@ -28,7 +28,7 @@ module Overview
     def call
       tag.span(class: "shortcut-button-component") do
         concat(
-          link_to(bay_path(@id, params: { redirect_to_on_success: :back }),
+          link_to(bay_path(@id, redirect_to_on_success: :back),
                   method: :delete,
                   class: "link-danger",
                   title: t(".delete_frame.title"),

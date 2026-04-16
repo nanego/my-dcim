@@ -36,7 +36,7 @@ RSpec.describe MovesProject do
         moves_project.assign_attributes(steps_attributes: { id: moves_project.steps[0].id, _destroy: 1 })
         moves_project.save
         moves_project.reload
-      end.not_to raise_error(ActiveRecord::RecordNotDestroyed)
+      end.not_to raise_error
     end
   end
 
