@@ -18,7 +18,7 @@ class PowerDistributionUnitsController < ApplicationController
 
     respond_to do |format|
       format.json
-      format.html { @pagy, @pdus = pagy(@pdus) }
+      format.html { @pagy, @pdus = pagy(@pdus, limit: pagy_get_limit(params)) }
     end
   end
 

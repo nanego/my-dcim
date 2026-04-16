@@ -36,11 +36,11 @@ class ExportDropdownComponent < ApplicationComponent
 
   def current_page_export(format:)
     params = @params.dup
-    params[@pagy.vars[:page_param].to_s] = @pagy.page
+    params[@pagy.options[:page_key]] = @pagy.page
     public_send(@url, format:, **params)
   end
 
   def all_pages_export(format:)
-    public_send(@url, format:, **@params.except(@pagy.vars[:page_param].to_s))
+    public_send(@url, format:, **@params.except(@pagy.options[:page_key]))
   end
 end

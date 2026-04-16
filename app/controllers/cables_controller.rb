@@ -16,7 +16,7 @@ class CablesController < ApplicationController
         .order(created_at: :desc)
       @filter = ProcessorFilter.new(@cables, params)
 
-      @pagy, @cables = pagy(@filter.results.distinct)
+      @pagy, @cables = pagy(:countish, @filter.results.distinct, limit: pagy_get_limit(params))
     end
   end
 

@@ -6,7 +6,7 @@ class ChangelogEntriesController < ApplicationController
     authorize! @changelog_entries, context: { scoped_object: }
     @filter = ProcessorFilter.new(@changelog_entries, params)
 
-    @pagy, @changelog_entries = pagy(@filter.results)
+    @pagy, @changelog_entries = pagy(:countish, @filter.results, limit: pagy_get_limit(params))
   end
 
   def show

@@ -3,9 +3,11 @@
 require "rails_helper"
 
 RSpec.describe PaginationComponent, type: :component do
+  require "pagy/console"
+
   let(:rendered_component) { render_inline(component) }
   let(:component) { described_class.new(pagy:) }
-  let(:pagy) { Pagy.new(count: 101, limit: 100) }
+  let(:pagy) { Pagy::Offset.new(count: 101, limit: 100) }
 
   before do
     allow(component).to receive(:url_for).and_return("/path")

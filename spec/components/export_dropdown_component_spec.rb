@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe ExportDropdownComponent, type: :component do
   let(:component) { described_class.new(url: :root_path, pagy:, param: :filter) }
   let(:rendered_component) { render_inline(component) }
-  let(:pagy) { Pagy.new(count: 101, vars: { page_param: :page }) }
+  let(:pagy) { Pagy.new(count: 101, vars: { page_key: "page" }) }
 
   context "with next page" do
     it "renders the component" do # rubocop:disable RSpec/ExampleLength
@@ -19,7 +19,7 @@ RSpec.describe ExportDropdownComponent, type: :component do
   end
 
   context "with no next page" do
-    let(:pagy) { Pagy.new(count: 10, vars: { page_param: :page }) }
+    let(:pagy) { Pagy.new(count: 10, vars: { page_key: "page" }) }
 
     it "renders the component" do # rubocop:disable RSpec/ExampleLength
       expect(rendered_component.to_html).to have_tag("div.dropdown") do

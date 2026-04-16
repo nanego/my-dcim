@@ -7,7 +7,7 @@ module FormHelper
 
   def pagy_to_hidden_fields(pagy)
     hash_to_hidden_fields(
-      pagy.vars[:limit_param] => pagy.vars[pagy.vars[:limit_param]],
+      pagy.options[:limit_key] => pagy.options[pagy.options[:limit_key]],
     )
   end
 
