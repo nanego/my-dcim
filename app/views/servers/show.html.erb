@@ -339,8 +339,7 @@
           <%
             begin
               Timeout.timeout(3) do
-                client = GlpiClient.new
-                computer = client.computer(serial: @server.numero)
+                computer = @server.decorated.glpi_equipment
           %>
               <% if computer.present? %>
                 <dl class="show-page_dl d-grid row-gap-2 mb-0">
