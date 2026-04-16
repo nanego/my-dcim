@@ -9,7 +9,7 @@ class ExternalAppRecord < ApplicationRecord
 
   before_create :set_external_app_name
 
-  def self.sync_server_with_glpi(server, client)
+  def self.sync_server_with_glpi(server, glpi_client)
     server_category = server.modele.category
     return if server_category.glpi_sync_type_none?
 
@@ -29,12 +29,7 @@ class ExternalAppRecord < ApplicationRecord
       "with_logs=false", # Retrieve historical. Optional.
     ]
 
-    equipment = if server_category.glpi_sync_type_server?
-                  client.computer(serial: server.numero, params: params)
-                else
-                  client.network_equipment(serial: server.numero, params: params)
-                end
-
+    equipment = server.decorated.glpi_equipment(glpi_client:, params:)
     record = ExternalAppRecord.find_or_create_by(server:)
 
     if equipment.present?
