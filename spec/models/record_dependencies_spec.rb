@@ -16,7 +16,7 @@ RSpec.describe RecordDependencies do
 
     context "when destroyable records associated" do
       before do
-        allow(record).to receive_messages(external_app_record: [], documents: [], moves: [move])
+        allow(record).to receive_messages(external_app_records: [], documents: [], moves: [move])
       end
 
       it { expect(record_dependencies.destroyable).not_to be_empty }
@@ -48,7 +48,7 @@ RSpec.describe RecordDependencies do
           document_url: "/fake/url",
         )
 
-        allow(record).to receive_messages(external_app_record: [], documents: [document], moves: [])
+        allow(record).to receive_messages(external_app_records: [], documents: [document], moves: [])
       end
 
       it { expect(record_dependencies.restricted_with_error).not_to be_empty }

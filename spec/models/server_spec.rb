@@ -30,7 +30,7 @@ RSpec.describe Server do
     it { is_expected.to have_many(:cables).through(:connections) }
     it { is_expected.to have_many(:moves).dependent(:destroy) }
     it { is_expected.to have_many(:documents) }
-    it { is_expected.to have_many(:external_app_record) }
+    it { is_expected.to have_many(:external_app_records) }
   end
 
   describe "attachement" do
