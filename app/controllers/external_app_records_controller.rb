@@ -10,7 +10,7 @@ class ExternalAppRecordsController < ApplicationController
     @filter = ProcessorFilter.new(@external_app_records, params)
     @external_app_records = @filter.results
 
-    @pagy, @external_app_records = pagy(@external_app_records)
+    @pagy, @external_app_records = pagy(@external_app_records, limit: pagy_get_limit(params))
   end
 
   def settings
