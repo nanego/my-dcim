@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby file: ".ruby-version"
 
-gem "rails", "~> 8.0.0"
+gem "rails", "~> 8.1.0"
 
 gem "bootstrap", "~> 5.3.8"
 gem "dartsass-sprockets", "~> 3.2"
@@ -15,7 +15,7 @@ gem "sprockets-rails", require: "sprockets/railtie"
 gem "terser"
 
 # Authentication
-gem "devise", "~> 4.9"
+gem "devise", "~> 5.0"
 gem "devise-i18n"
 gem "devise_invitable"
 gem "omniauth", "~> 2.1"
@@ -43,6 +43,7 @@ end
 
 group :development, :test do
   gem "active_record_doctor"
+  gem "bundler-audit", require: false
   gem "byebug"
   gem "lookbook"
   gem "puma"

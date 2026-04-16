@@ -51,7 +51,7 @@ module Visualization
           { modele: %i[category composants],
             cards: [
               :composant,
-              { ports: [connection: [cable: :connections]],
+              { ports: [{ connection: [{ cable: :connections }] }],
                 card_type: [:port_type] },
             ] },
         ],
