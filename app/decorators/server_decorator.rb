@@ -31,7 +31,7 @@ class ServerDecorator < ApplicationDecorator
     end
   end
 
-  def glpi_equipment(glpi_client: nil)
+  def glpi_equipment(glpi_client: nil, params: nil)
     server_category = modele.category
     return nil if server_category.glpi_sync_type_none?
 
@@ -40,9 +40,15 @@ class ServerDecorator < ApplicationDecorator
     glpi_id = glpi_external_app_record&.external_id
 
     if server_category.glpi_sync_type_server?
-      glpi_client.computer(glpi_id: glpi_id || glpi_client.computer_glpi_id(serial: numero))
+      glpi_client.computer(
+        glpi_id: glpi_id || glpi_client.computer_glpi_id(serial: numero),
+        params:,
+      )
     else
-      glpi_client.network_equipment(glpi_id: glpi_id || glpi_client.network_equipment_glpi_id(serial: numero))
+      glpi_client.network_equipment(
+        glpi_id: glpi_id || glpi_client.network_equipment_glpi_id(serial: numero),
+        params:,
+      )
     end
   end
 
