@@ -31,7 +31,7 @@ RSpec.describe Visualization::RoomsController do
 
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:filtered_index) }
-      it { expect(response.body).to include("Managernaire #{managers(:one).name}") }
+      it { expect(response.body).to include("Gestionnaire #{managers(:one).name}") }
 
       it :aggregate_failures do
         response

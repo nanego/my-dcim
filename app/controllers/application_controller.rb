@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
 
   def breadcrumb
     @breadcrumb ||= Breadcrumb.new do |b|
-      b.root("Manager de salle #{Rails.env.development? ? "(dev)" : "DCIM"}")
+      b.root("Gestion de salle #{Rails.env.development? ? "(dev)" : "DCIM"}")
     end
   end
   helper_method :breadcrumb
