@@ -29,7 +29,7 @@ module Visualization
       elsif params[:manager_id].present?
         @frames = @frames.joins(:materials).where("servers.manager_id = ? ", params[:manager_id])
         @filtered_servers = Server.where("servers.manager_id = ? ", params[:manager_id])
-        @current_filters << "Managernaire #{Manager.find_by(id: params[:manager_id])} "
+        @current_filters << "Gestionnaire #{Manager.find_by(id: params[:manager_id])} "
       elsif params[:modele_id].present?
         @frames = @frames.joins(:materials).where("servers.modele_id = ? ", params[:modele_id])
         @filtered_servers = Server.where("servers.modele_id = ? ", params[:modele_id])

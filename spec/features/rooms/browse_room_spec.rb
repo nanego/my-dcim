@@ -51,16 +51,16 @@ RSpec.describe "Rooms::BrowseRoom", :js do
         .to eq("rgb(252, 252, 253)").or eq("rgb(205, 120, 156)").or eq("rgb(183, 247, 255)").or eq("rgb(52, 58, 64)")
     end
 
-    # 3. Change background color to 'managernaire'
+    # 3. Change background color to 'gestionnaire'
     bg_dropdown_button = first(".btn-group > button[data-bs-toggle='dropdown']")
     bg_dropdown_button.click
 
-    bg_dropdown_managernaire = all(".dropdown-menu > li")[1]
-    bg_dropdown_managernaire.click
+    bg_dropdown_gestionnaire = all(".dropdown-menu > li")[1]
+    bg_dropdown_gestionnaire.click
 
     sleep 1
 
-    # For background color set to 'managernaire', we check for a green/white background-color
+    # For background color set to 'gestionnaire', we check for a green/white background-color
     colored_lines = all("ul.servers > li.server.mystring")
 
     colored_lines.each do |line|
