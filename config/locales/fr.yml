@@ -171,21 +171,21 @@ fr:
         destroyed: Site a bien été supprimé.
   managers:
     index:
-      new_manager: Ajouter un managernaire
+      new_manager: Ajouter un gestionnaire
     new:
-      title: Nouveau managernaire
+      title: Nouveau gestionnaire
     create:
       flashes:
-        created: Le managernaire a bien été créé.
+        created: Le gestionnaire a bien été créé.
     edit:
-      title: Modifier le managernaire
+      title: Modifier le gestionnaire
     update:
       flashes:
-        updated: Le managernaire a bien été modifié.
+        updated: Le gestionnaire a bien été modifié.
     destroy:
-      title: Supprimer le managernaire
+      title: Supprimer le gestionnaire
       flashes:
-        destroyed: Le managernaire a bien été supprimé.
+        destroyed: Le gestionnaire a bien été supprimé.
   architectures:
     index:
       new_architecture: Ajouter une architecture
@@ -889,7 +889,7 @@ fr:
       background_color: "Couleur de fond : %{bg}"
       background_choices:
         modele: Modèle
-        manager: Managernaire
+        manager: Gestionnaire
         cluster: Cluster
       dragn_drop:
         enable: Activer le drag'n drop
@@ -976,7 +976,7 @@ fr:
         islet_id: Ilot
         room_ids: Salle
         domaine_ids: Domaine
-        manager_ids: Managernaire
+        manager_ids: Gestionnaire
         frame_ids: Châssis
         bay_ids: Baie
         modele_ids: Modèle

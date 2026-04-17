@@ -112,7 +112,7 @@ class ServersGrid # rubocop:disable Metrics/ClassLength
   column(:domaine, order: proc { |scope|
     scope.joins(:domaine).order("domaines.name")
   }, &:domaine)
-  column(:managernaire, order: proc { |scope|
+  column(:manager, order: proc { |scope|
     scope.joins(:manager).order("managers.name")
   }, &:manager)
   column(:frame, order: proc { |scope|

@@ -246,7 +246,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     if %w[manager cluster].include?(mode)
       case mode
       when "manager"
-        parent_type = "Managernaire"
+        parent_type = "Gestionnaire"
         parent_id = server.manager.try(:name)
       when "cluster"
         parent_type = "Cluster"
