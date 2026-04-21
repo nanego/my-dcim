@@ -361,7 +361,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_01_115217) do
     t.integer "port_to_id"
     t.datetime "updated_at", precision: nil, null: false
     t.string "vlans"
-    t.bigint "step_id"
     t.index ["port_from_id"], name: "index_moved_connections_on_port_from_id"
     t.index ["port_to_id"], name: "index_moved_connections_on_port_to_id"
   end
