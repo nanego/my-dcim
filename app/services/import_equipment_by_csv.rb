@@ -48,7 +48,7 @@ class ImportEquipmentByCsv # rubocop:disable Metrics/ClassLength
           server.numero = data["Numero"]
           server.critique = (data["Critique"] == "oui")
           server.cluster = Cluster.find_or_create_by!(name: data["Cluster"])
-          server.domain = Domain.find_or_create_by!(name: data["Domain"])
+          server.domain = Domain.find_or_create_by!(name: data["Domaine"])
           server.comment = data["Comment"] if data["Comment"].present?
           init_slots(data, server)
           unless server.save
