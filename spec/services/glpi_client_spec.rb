@@ -32,15 +32,14 @@ RSpec.describe GlpiClient, type: :service do
   describe "#network_equipment" do
     subject(:network_equipment) { client.network_equipment(glpi_id: 5000) }
 
-    it { expect(network_equipment).to eq 5000 }
-    it { expect(network_equipment.id).to eq 4090 }
-    it { expect(network_equipment.serial).to eq "c27xmq1" }
-    it { expect(network_equipment.name).to eq "argoli" }
-    it { expect(network_equipment.hard_drives.size).to eq 17 }
-    it { expect(network_equipment.memories.size).to eq 16 }
-    it { expect(network_equipment.hard_drives_total_capacity).to eq 20_441_348 }
-    it { expect(network_equipment.memories_total_size).to eq 262_144 }
-    it { expect(network_equipment.processors.size).to eq 2 }
-    it { expect(network_equipment.processors.first[1]["designation"]).to eq "Intel(R) Xeon(R) CPU E5-2660 0 @ 2.20GHz" }
+    it { expect(network_equipment.id).to eq 5000 }
+    it { expect(network_equipment.serial).to eq "654321" }
+    it { expect(network_equipment.name).to eq "network argoli" }
+    it { expect(network_equipment.hard_drives.size).to eq 0 }
+    it { expect(network_equipment.memories.size).to eq 0 }
+    it { expect(network_equipment.hard_drives_total_capacity).to eq 0 }
+    it { expect(network_equipment.memories_total_size).to eq 0 }
+    it { expect(network_equipment.processors.size).to eq 0 }
+    it { expect(network_equipment.processors).to eq({}) }
   end
 end
