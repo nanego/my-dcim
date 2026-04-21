@@ -29,8 +29,8 @@ class BaseExporter
   private
 
   def model_klass
-    @model_klass ||= self.class.model_klass \
-        || self.class.name.chomp("Exporter").safe_constantize \
+    @model_klass ||= self.class.model_klass
+        || self.class.name.chomp("Exporter").safe_constantize
         || raise("Can't find model for #{self.class.name}")
   end
 
