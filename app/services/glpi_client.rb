@@ -134,10 +134,10 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
 
   def stubs
     Faraday::Adapter::Test::Stubs.new do |stub|
-      stub.get("/Computer?.*") { |_env| [200, {}, Rails.root.join("test/services/computers_results.json").read] }
-      stub.get("/NetworkEquipment?.*") { |_env| [200, {}, Rails.root.join("test/services/network_equipments_results.json").read] }
+      stub.get(%r{/Computer\?.*}) { |_env| [200, {}, Rails.root.join("test/services/computers_results.json").read] }
+      stub.get(%r{/NetworkEquipment\?.*}) { |_env| [200, {}, Rails.root.join("test/services/network_equipments_results.json").read] }
       stub.get(%r{/Computer/.*}) { |_env| [200, {}, Rails.root.join("test/services/computer_algori.json").read] }
-      stub.get("/NetworkEquipment/.*") { |_env| [200, {}, Rails.root.join("test/services/network_equipment_algori.json").read] }
+      stub.get(%r{/NetworkEquipment/.*}) { |_env| [200, {}, Rails.root.join("test/services/network_equipment_algori.json").read] }
       stub.get(%r{/DeviceProcessor/.*}) { |_env| [200, {}, Rails.root.join("test/services/processor.json").read] }
       stub.get("/initSession") { |_env| [200, {}, '{"session_token":"kuji8uh4v77lgghqoj2c0r2848"}'] }
     end
