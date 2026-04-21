@@ -116,3 +116,6 @@ gem "stimulus-rails", "~> 1.2"
 gem "store_attribute", "~> 2.1"
 gem "turbo-rails", "~> 2.0"
 gem "view_component", "~> 4"
+
+# NOTE: for macos 12.7.6 compatibility
+gem "sass-embedded", "1.97.2"
