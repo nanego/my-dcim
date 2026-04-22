@@ -1,4 +1,4 @@
-<%# locals: (server:, selected_port: nil, should_hide_left_block: request.format.pdf?) -%>
+<%# locals: (server:, selected_port: nil, should_hide_left_block: false) -%>
 
 <%= render partial: "servers/visualization", locals: { server:, selected_port: } %>
 
@@ -9,7 +9,7 @@
                   server_path(server, view: params[:view]),
                   { class: "server_name", data: { controller: "tooltip", bs_placement: "top" }, title: server.numero } %>
     </span>
-    <span>
+    <span class="d-print-none">
       <%= link_to draw_connections_path(server_id: server.id),
                   class: "draw_connections_link",
                   id: "draw_connections_link_#{server.id}",
