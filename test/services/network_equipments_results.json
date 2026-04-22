@@ -1,0 +1,182 @@
+[
+  {
+    "id": 5000,
+    "entities_id": 0,
+    "is_recursive": 0,
+    "name": "network argoli",
+    "ram": 2,
+    "serial": "654321",
+    "otherserial": "0001",
+    "contact": "",
+    "contact_num": "123456",
+    "users_id_tech": 2,
+    "date_mod": "2026-04-14 12:00:41",
+    "comment": "",
+    "locations_id": 1,
+    "networks_id": 1,
+    "networkequipmenttypes_id": 1,
+    "networkequipmentmodels_id": 1,
+    "manufacturers_id": 1,
+    "is_deleted": 0,
+    "is_template": 0,
+    "template_name": null,
+    "users_id": 2,
+    "states_id": 1,
+    "ticket_tco": "0.0000",
+    "is_dynamic": 0,
+    "uuid": "ce2404fc-99a7-4ba1-8a12-adc80bdde231",
+    "date_creation": "2026-03-19 13:53:54",
+    "autoupdatesystems_id": 1,
+    "sysdescr": "",
+    "cpu": 0,
+    "uptime": "0",
+    "last_inventory_update": null,
+    "snmpcredentials_id": 1,
+    "links": [
+      {
+        "rel": "Entity",
+        "href": "http://localhost/api.php/v1/Entity/0"
+      },
+      {
+        "rel": "User",
+        "href": "http://localhost/api.php/v1/User/2"
+      },
+      {
+        "rel": "Location",
+        "href": "http://localhost/api.php/v1/Location/1"
+      },
+      {
+        "rel": "Network",
+        "href": "http://localhost/api.php/v1/Network/1"
+      },
+      {
+        "rel": "NetworkEquipmentType",
+        "href": "http://localhost/api.php/v1/NetworkEquipmentType/1"
+      },
+      {
+        "rel": "NetworkEquipmentModel",
+        "href": "http://localhost/api.php/v1/NetworkEquipmentModel/1"
+      },
+      {
+        "rel": "Manufacturer",
+        "href": "http://localhost/api.php/v1/Manufacturer/1"
+      },
+      {
+        "rel": "User",
+        "href": "http://localhost/api.php/v1/User/2"
+      },
+      {
+        "rel": "State",
+        "href": "http://localhost/api.php/v1/State/1"
+      },
+      {
+        "rel": "AutoUpdateSystem",
+        "href": "http://localhost/api.php/v1/AutoUpdateSystem/1"
+      },
+      {
+        "rel": "SNMPCredential",
+        "href": "http://localhost/api.php/v1/SNMPCredential/1"
+      },
+      {
+        "rel": "ReservationItem",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/ReservationItem/"
+      },
+      {
+        "rel": "Document_Item",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Document_Item/"
+      },
+      {
+        "rel": "Contract_Item",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Contract_Item/"
+      },
+      {
+        "rel": "Infocom",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Infocom/"
+      },
+      {
+        "rel": "Item_Ticket",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_Ticket/"
+      },
+      {
+        "rel": "Item_Project",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_Project/"
+      },
+      {
+        "rel": "NetworkPort",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/NetworkPort/"
+      },
+      {
+        "rel": "Item_DeviceMotherboard",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_DeviceMotherboard/"
+      },
+      {
+        "rel": "Item_DeviceFirmware",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_DeviceFirmware/"
+      },
+      {
+        "rel": "Item_DeviceProcessor",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_DeviceProcessor/"
+      },
+      {
+        "rel": "Item_DeviceMemory",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_DeviceMemory/"
+      },
+      {
+        "rel": "Item_DeviceHardDrive",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_DeviceHardDrive/"
+      },
+      {
+        "rel": "Item_DeviceNetworkCard",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_DeviceNetworkCard/"
+      },
+      {
+        "rel": "Item_DeviceDrive",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_DeviceDrive/"
+      },
+      {
+        "rel": "Item_DeviceBattery",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_DeviceBattery/"
+      },
+      {
+        "rel": "Item_DeviceGraphicCard",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_DeviceGraphicCard/"
+      },
+      {
+        "rel": "Item_DeviceSoundCard",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_DeviceSoundCard/"
+      },
+      {
+        "rel": "Item_DeviceControl",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_DeviceControl/"
+      },
+      {
+        "rel": "Item_DevicePci",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_DevicePci/"
+      },
+      {
+        "rel": "Item_DeviceCase",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_DeviceCase/"
+      },
+      {
+        "rel": "Item_DevicePowerSupply",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_DevicePowerSupply/"
+      },
+      {
+        "rel": "Item_DeviceGeneric",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_DeviceGeneric/"
+      },
+      {
+        "rel": "Item_DeviceSimcard",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_DeviceSimcard/"
+      },
+      {
+        "rel": "Item_DeviceSensor",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_DeviceSensor/"
+      },
+      {
+        "rel": "Item_DeviceCamera",
+        "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_DeviceCamera/"
+      }
+    ]
+  }
+]
