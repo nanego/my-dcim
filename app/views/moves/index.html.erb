@@ -31,18 +31,24 @@
       <%= render List::DataTableComponent.new(decorate(@moves)) do |table| %>
         <% table.with_column(Server.model_name.human) do |move| %>
           <%= link_to move.moveable, server_path(move.moveable), data: { turbo_frame: :_top } %>
+          <span data-controller="tooltip"
+                data-bs-placement="top"
+                title="<%= l(move.executed_at) if move.executed_at.present? %>">
+            <%= render move.decorated.status_to_badge_component %>
+          </span>
+
           <div class="small">
             <span class="fw-light text-body-secondary"><%= Server.human_attribute_name(:numero) %> :</span>
             <span class="font-monospace text-body"><%= move.moveable.numero %></span>
           </div>
-        <% end %>
-
-        <% table.with_column(Gestion.model_name.human) do |move| %>
-          <%= move.moveable.gestion %>
-        <% end %>
-
-        <% table.with_column(Domaine.model_name.human) do |move| %>
-          <%= move.moveable.domaine %>
+          <div class="small">
+            <span class="fw-light text-body-secondary">Gestionnaire :</span>
+            <span class="font-monospace text-body"><%= move.moveable.gestion %></span>
+          </div>
+          <div class="small">
+            <span class="fw-light text-body-secondary">Domaine :</span>
+            <span class="font-monospace text-body"><%= move.moveable.domaine %></span>
+          </div>
         <% end %>
 
         <% table.with_column(Move.human_attribute_name(:prev_frame_id)) do |move| %>
@@ -58,6 +64,17 @@
             <span class="fw-light text-body-secondary"><%= Server.human_attribute_name(:position) %> :</span>
             <span class="font-monospace"><%= move.prev_position %></span>
           </div>
+
+          <%= link_to "#",
+                      class: "",
+                      data: { turbo_frame: :_top } do %>
+            <span class="bi bi-diagram-3-fill"
+                  aria-hidden="true"
+                  data-controller="tooltip"
+                  data-bs-placement="left"
+                  title="<%= t("visualization.title") %>"></span>
+            <span class="visually-hidden"><%= t("visualization.title") %></span>
+          <% end %>
         <% end %>
 
         <% table.with_column(Move.human_attribute_name(:frame_id)) do |move| %>
@@ -69,18 +86,21 @@
                         controller: "tooltip",
                         bs_placement: "top",
                       } %>
+                      -
+                      <%= link_to "#",
+                                  class: "",
+                                  data: { turbo_frame: :_top } do %>
+                        <span class="bi bi-diagram-3-fill"
+                              aria-hidden="true"
+                              data-controller="tooltip"
+                              data-bs-placement="left"
+                              title="<%= t("visualization.title") %>"></span>
+                        <span class="visually-hidden"><%= t("visualization.title") %></span>
+                      <% end %>
           <div class="small">
             <span class="fw-light text-body-secondary"><%= Server.human_attribute_name(:position) %> :</span>
             <span class="font-monospace"><%= move.position %></span>
           </div>
-        <% end %>
-
-        <% table.with_column(Move.human_attribute_name(:status)) do |move| %>
-          <span data-controller="tooltip"
-                data-bs-placement="top"
-                title="<%= l(move.executed_at) if move.executed_at.present? %>">
-            <%= render move.decorated.status_to_badge_component %>
-          </span>
         <% end %>
 
         <% table.with_column(t(".remove_existing_connections_on_execution"), text_align: :center) do |move| %>
@@ -90,6 +110,9 @@
         <% table.with_column(style: "min-width: 120px; width: 120px") do |move| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
             <% unless @moves_project.archived? || move.executed? %>
+              <%= link_to "Modifier les connexions", "#",
+                          class: "btn btn-outline-primary",
+                          aria: { hidden: true } %>
               <%= link_to t("action.execute"),
                           execute_moves_project_step_move_path(@moves_project_step, move),
                           title: t(".action.execute_move"),
@@ -148,13 +171,6 @@
               </td>
               <td class="d-flex justify-content-center column-gap-1">
                 <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                  <% if @moves_project.unarchived? %>
-                    <%= link_to t(".edit_connections"),
-                                frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame),
-                                class: "btn btn-outline-primary text-nowrap",
-                                data: { turbo_frame: :_top } %>
-                  <% end %>
-
                   <%= link_to print_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame),
                               class: "btn btn-sm btn-outline-primary",
                               data: { turbo_frame: :_top },
