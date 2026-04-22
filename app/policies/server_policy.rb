@@ -6,13 +6,13 @@ class ServerPolicy < ApplicationPolicy
 
     return relation if user.admin? || user.can_access_all_domains?
 
-    relation.where(domaine: user.permitted_domains)
+    relation.where(domain: user.permitted_domains)
   end
 
   def show?
     return index? if user.can_access_all_domains?
 
-    user.permitted_domains.include?(record.domaine)
+    user.permitted_domains.include?(record.domain)
   end
 
   def duplicate?

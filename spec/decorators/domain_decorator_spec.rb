@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe DomaineDecorator, type: :decorator do
+RSpec.describe DomainDecorator, type: :decorator do
   let(:user) { users(:admin) }
 
   describe ".options_for_select" do

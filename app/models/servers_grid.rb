@@ -41,7 +41,7 @@ class ServersGrid # rubocop:disable Metrics/ClassLength
   filter(:position, :integer)
   filter(:cluster, :enum, multiple: true, select: Cluster.sorted.map { |r| [r.to_s, r.id] })
   filter(:critique, :xboolean)
-  filter(:domaine, :enum, multiple: true, select: Domaine.sorted.map { |r| [r.to_s, r.id] })
+  filter(:domain, :enum, multiple: true, select: Domain.sorted.map { |r| [r.to_s, r.id] })
   filter(:gestion, :enum, multiple: true, select: Gestion.sorted.map { |r| [r.to_s, r.id] })
   filter(:frame, :enum, multiple: true, select: Frame.all_sorted.map { |b| [b.name_with_room_and_islet, b.id] })
 
@@ -109,9 +109,9 @@ class ServersGrid # rubocop:disable Metrics/ClassLength
   column(:cluster, order: proc { |scope|
     scope.joins(:cluster).order("clusters.name")
   }, &:cluster)
-  column(:domaine, order: proc { |scope|
-    scope.joins(:domaine).order("domaines.name")
-  }, &:domaine)
+  column(:domain, order: proc { |scope|
+    scope.joins(:domain).order("domains.name")
+  }, &:domain)
   column(:gestionnaire, order: proc { |scope|
     scope.joins(:gestion).order("gestions.name")
   }, &:gestion)

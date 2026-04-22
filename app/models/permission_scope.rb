@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class PermissionScope < ApplicationRecord
-  has_changelog associations: { domaines: %i[name], users: %i[name] }
+  has_changelog associations: { domains: %i[name], users: %i[name] }
 
   enum :role, { reader: 0, writer: 1 }
 
   has_many :permission_scope_domains, dependent: :destroy
-  has_many :domaines, through: :permission_scope_domains
+  has_many :domains, through: :permission_scope_domains
   has_many :permission_scope_users, dependent: :destroy
   has_many :users, through: :permission_scope_users
 
@@ -21,8 +21,8 @@ class PermissionScope < ApplicationRecord
 
   def validate_domains
     return if all_domains?
-    return unless domaines.empty?
+    return unless domains.empty?
 
-    errors.add(:domaine_ids, :blank)
+    errors.add(:domain_ids, :blank)
   end
 end

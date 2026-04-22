@@ -5,12 +5,12 @@ require "rails_helper"
 RSpec.describe PermissionScope do
   subject(:permission_scope) { described_class.new(name: "A", all_domains: true) }
 
-  it_behaves_like "changelogable", object: -> { described_class.new(name: "A", domaines: [domaines(:switch)]) },
+  it_behaves_like "changelogable", object: -> { described_class.new(name: "A", domains: [domains(:switch)]) },
                                    new_attributes: { name: "B", all_domains: true }
 
   describe "associations" do
     it { is_expected.to have_many(:permission_scope_domains) }
-    it { is_expected.to have_many(:domaines).through(:permission_scope_domains) }
+    it { is_expected.to have_many(:domains).through(:permission_scope_domains) }
     it { is_expected.to have_many(:permission_scope_users) }
     it { is_expected.to have_many(:users).through(:permission_scope_users) }
   end
@@ -21,23 +21,23 @@ RSpec.describe PermissionScope do
     it { is_expected.to validate_presence_of(:name) }
 
     describe "validate domains" do
-      context "when all_domains false and domaines empty" do
+      context "when all_domains false and domains empty" do
         subject(:permission_scope) { described_class.new(name: "A", all_domains: false) }
 
         it { is_expected.not_to be_valid }
       end
 
-      context "when all_domains true and domaines empty" do
+      context "when all_domains true and domains empty" do
         subject(:permission_scope) do
-          described_class.new(name: "A", all_domains: true, domaines: [])
+          described_class.new(name: "A", all_domains: true, domains: [])
         end
 
         it { is_expected.to be_valid }
       end
 
-      context "when all_domains false and domaines not empty" do
+      context "when all_domains false and domains not empty" do
         subject(:permission_scope) do
-          described_class.new(name: "A", all_domains: false, domaines: [domaines(:switch)])
+          described_class.new(name: "A", all_domains: false, domains: [domains(:switch)])
         end
 
         it { is_expected.to be_valid }
