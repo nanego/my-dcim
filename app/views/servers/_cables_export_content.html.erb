@@ -27,7 +27,7 @@
   </div>
 
   <div class="d-flex flex-column gap-5">
-    <%= render partial: "servers/draw_server_compact", locals: { server: server } %>
+    <%= render partial: "servers/draw_server_compact", locals: { server: server, should_hide_left_block: true } %>
 
     <% unless server.cables.empty? %>
       <%= render List::DataTableComponent.new(server.cables) do |table| %>
