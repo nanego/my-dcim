@@ -18,6 +18,8 @@ RSpec.describe Move do
     it { is_expected.to belong_to(:prev_frame).class_name("Frame") }
 
     it { is_expected.to have_one(:moves_project).through(:step) }
+
+    it { is_expected.to have_many(:moved_connections).through(:step) }
   end
 
   describe "validations" do

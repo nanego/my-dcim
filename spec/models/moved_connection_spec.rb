@@ -5,9 +5,12 @@ require "rails_helper"
 RSpec.describe MovedConnection do
   # it_behaves_like "changelogable", new_attributes: {  }
 
-  subject(:moved_connection) { described_class.new(color: "bleu", cablename: "cable") }
+  subject(:moved_connection) { described_class.new(color: "bleu", cablename: "cable", step:) }
+
+  let(:step) { move_project_steps(:one) }
 
   describe "associations" do
+    it { is_expected.to belong_to(:step) }
     it { is_expected.to belong_to(:port_from) }
     it { is_expected.to belong_to(:port_to).optional(true) }
   end
