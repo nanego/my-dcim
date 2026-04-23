@@ -21,6 +21,8 @@ RSpec.describe GlpiClient, type: :service do
     it { expect(computer.id).to eq(4090) }
     it { expect(computer.serial).to eq("c27xmq1") }
     it { expect(computer.name).to eq("argoli") }
+    it { expect(computer.state).to eq("state argoli") }
+    it { expect(computer.groups).to eq("group argoli") }
     it { expect(computer.hard_drives.size).to eq(17) }
     it { expect(computer.memories.size).to eq(16) }
     it { expect(computer.hard_drives_total_capacity).to eq(20_441_348) }
@@ -35,6 +37,8 @@ RSpec.describe GlpiClient, type: :service do
     it { expect(network_equipment.id).to eq(5000) }
     it { expect(network_equipment.serial).to eq("654321") }
     it { expect(network_equipment.name).to eq("network argoli") }
+    it { expect(computer.state).to eq("state argoli") }
+    it { expect(computer.groups).to eq("group argoli") }
     it { expect(network_equipment.hard_drives.size).to eq(0) }
     it { expect(network_equipment.memories.size).to eq(0) }
     it { expect(network_equipment.hard_drives_total_capacity).to eq(0) }

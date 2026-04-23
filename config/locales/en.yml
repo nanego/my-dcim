@@ -425,7 +425,7 @@ en:
       name: Name
       id: GLPI Id
       serial: Serial number
-      contact: Contact
+      groups: Responsible groups
       state: State
       disks_count: Disks count
       disks_capacity: Disks capacity

@@ -1,0 +1,34 @@
+{
+  "id": 1,
+  "entities_id": 0,
+  "is_recursive": 0,
+  "name": "group argoli",
+  "code": "",
+  "comment": "",
+  "ldap_field": null,
+  "ldap_value": null,
+  "ldap_group_dn": null,
+  "date_mod": "2026-03-19 13:50:02",
+  "groups_id": 0,
+  "completename": "groupe argoli",
+  "level": 1,
+  "ancestors_cache": null,
+  "sons_cache": "{\"1\":1}",
+  "is_requester": 1,
+  "is_watcher": 1,
+  "is_assign": 1,
+  "is_task": 1,
+  "is_notify": 1,
+  "is_itemgroup": 1,
+  "is_usergroup": 1,
+  "is_manager": 1,
+  "date_creation": "2026-03-19 13:50:02",
+  "recursive_membership": 0,
+  "2fa_enforced": 0,
+  "links": [
+    {
+      "rel": "Entity",
+      "href": "http://localhost/api.php/v1/Entity/0"
+    }
+  ]
+}
