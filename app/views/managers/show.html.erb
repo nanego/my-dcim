@@ -1,10 +1,10 @@
-<% breadcrumb.add_step(@gestion) %>
+<% breadcrumb.add_step(@manager) %>
 
 <%= render Page::HeadingShowComponent.new(
-      resource: @gestion,
-      title: @gestion.name,
+      resource: @manager,
+      title: @manager.name,
       breadcrumb:,
-      editable: allowed_to?(:update?, @gestion),
+      editable: allowed_to?(:update?, @manager),
     ) %>
 
 <div class="col-12 p-4 border-top">
@@ -17,8 +17,8 @@
 
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <% %i[name description].each do |attribute_name| %>
-            <dt class="pb-2"><%= Gestion.human_attribute_name(attribute_name) %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= @gestion.public_send(attribute_name) %></dd>
+            <dt class="pb-2"><%= Manager.human_attribute_name(attribute_name) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= @manager.public_send(attribute_name) %></dd>
           <% end %>
         </dl>
       <% end %>
@@ -27,11 +27,11 @@
 
   <%= render HasManyTurboFrameComponent.new(
         Server.model_name.human(count: 2),
-        url: servers_path(gestion_ids: @gestion.id),
+        url: servers_path(manager_ids: @manager.id),
         frame_id: dom_id(Server, :table),
-        new_path: (new_server_path(server: { gestion_id: @gestion.id }) if allowed_to?(:create?, with: ServerPolicy)),
+        new_path: (new_server_path(server: { manager_id: @manager.id }) if allowed_to?(:create?, with: ServerPolicy)),
         new_label: t("servers.add_new"),
       ) %>
 
-  <%= render ChangelogEntries::ObjectListComponent.new(@gestion) %>
+  <%= render ChangelogEntries::ObjectListComponent.new(@manager) %>
 </div>

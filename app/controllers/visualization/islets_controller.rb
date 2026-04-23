@@ -23,7 +23,7 @@ module Visualization
         :room,
         bays: :frames,
         servers: [
-          :gestion, :cluster,
+          :manager, :cluster,
           { modele: %i[category composants],
             cards: [
               :composant,

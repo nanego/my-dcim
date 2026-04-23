@@ -143,10 +143,10 @@
                                           active: controller.controller_name == "domaines") %>
           </li>
           <li>
-            <%= link_to Gestion.model_name.human.pluralize,
-                        gestions_path,
+            <%= link_to Manager.model_name.human.pluralize,
+                        managers_path,
                         class: class_names("mydcim-sidebar-links-link mydcim-sidebar-links-link-exploitation d-inline-block rounded",
-                                          active: controller.controller_name == "gestions") %>
+                                          active: controller.controller_name == "managers") %>
           </li>
           <li>
             <%= link_to Cluster.model_name.human.pluralize,

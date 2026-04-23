@@ -27,7 +27,7 @@ en:
       domaine: Domain
       enclosure: Enclosure
       frame: Frame
-      gestion: Manager
+      manager: Manager
       islet: Islet
       manufacturer: Manufacturer
       modele: Model
@@ -143,8 +143,8 @@ en:
         modele_id: Model
         manufacturer_id: Manufacturer
         critique: Critic
-        gestion_id: Manager
-        gestion: Manager
+        manager_id: Manager
+        manager: Manager
         network_types: Network type
         stack: Stack
         stack_id: Stack
@@ -183,7 +183,7 @@ en:
       user/visualization_bay_default_background_color:
         modele: Model
         cluster: Cluster
-        gestion: Manager
+        manager: Manager
       user/visualization_bay_default_orientation:
         front: Front
         back: Back

@@ -113,13 +113,13 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.collection_select(:gestion_ids,
-                                  Gestion.sorted,
+          <%= f.collection_select(:manager_ids,
+                                  Manager.sorted,
                                   :id,
                                   :name,
                                   { prompt: true, multiple: true },
                                   { class: "form-select", data: { controller: :select } }) %>
-          <%= f.label :gestion_ids %>
+          <%= f.label :manager_ids %>
         </fieldset>
       </div>
 
@@ -236,8 +236,8 @@
           <%= server.position %>
         <% end %>
 
-        <% table.with_column(Gestion.model_name.human, name: :gestion_id) do |server| %>
-          <%= link_to server.gestion, gestion_path(server.gestion), data: { turbo_frame: :_top } if server.gestion %>
+        <% table.with_column(Manager.model_name.human, name: :manager_id) do |server| %>
+          <%= link_to server.manager, manager_path(server.manager), data: { turbo_frame: :_top } if server.manager %>
         <% end %>
 
         <% table.with_column(Domaine.model_name.human, name: :domaine_id) do |server| %>

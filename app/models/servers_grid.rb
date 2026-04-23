@@ -42,7 +42,7 @@ class ServersGrid # rubocop:disable Metrics/ClassLength
   filter(:cluster, :enum, multiple: true, select: Cluster.sorted.map { |r| [r.to_s, r.id] })
   filter(:critique, :xboolean)
   filter(:domaine, :enum, multiple: true, select: Domaine.sorted.map { |r| [r.to_s, r.id] })
-  filter(:gestion, :enum, multiple: true, select: Gestion.sorted.map { |r| [r.to_s, r.id] })
+  filter(:manager, :enum, multiple: true, select: Manager.sorted.map { |r| [r.to_s, r.id] })
   filter(:frame, :enum, multiple: true, select: Frame.all_sorted.map { |b| [b.name_with_room_and_islet, b.id] })
 
   filter(:condition, :dynamic, header: "Condition dynamique")
@@ -113,8 +113,8 @@ class ServersGrid # rubocop:disable Metrics/ClassLength
     scope.joins(:domaine).order("domaines.name")
   }, &:domaine)
   column(:gestionnaire, order: proc { |scope|
-    scope.joins(:gestion).order("gestions.name")
-  }, &:gestion)
+    scope.joins(:manager).order("managers.name")
+  }, &:manager)
   column(:frame, order: proc { |scope|
     scope.joins(:frame).order("frames.name")
   }) do |record|
