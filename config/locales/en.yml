@@ -420,6 +420,19 @@ en:
     destroy:
       title: Delete the port type
 
+  glpi:
+    computer:
+      name: Name
+      id: GLPI Id
+      serial: Serial number
+      contact: Contact
+      state: State
+      disks_count: Disks count
+      disks_capacity: Disks capacity
+      memories_count: Memories count
+      memories_total: Memories total
+      cpus: Cpus
+
   power_distribution_units:
     index:
       title: Electricity

@@ -479,11 +479,13 @@ fr:
       id: Id GLPI
       serial: Numéro de série
       contact: Contact
+      state: Status
       disks_count: Nombre de disques
       disks_capacity: Capacité disques
       memories_count: Nombre de barettes
       memories_total: Ram totale
       cpus: Processeurs
+
   power_distribution_units:
     index:
       title: Électricité
