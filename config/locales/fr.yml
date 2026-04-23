@@ -479,7 +479,7 @@ fr:
       name: Nom
       id: Id GLPI
       serial: Numéro de série
-      contact: Contact
+      groups: Groupe(s) responsable(s)
       state: Status
       disks_count: Nombre de disques
       disks_capacity: Capacité disques

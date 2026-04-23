@@ -113,6 +113,10 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     attributes[:hard_drives] = body["_devices"].present? ? body["_devices"]["Item_DeviceHardDrive"] : {}
     attributes[:memories] = body["_devices"].present? ? body["_devices"]["Item_DeviceMemory"] : {}
     attributes[:state] = get_state_for(id: body["states_id"])
+
+    group_ids = body["groups_id_tech"].is_a?(Array) ? body["groups_id_tech"] : []
+    attributes[:groups] = group_ids.map { |id| get_group_for(id:) }.to_sentence
+
     processors = body["_devices"].present? ? body["_devices"]["Item_DeviceProcessor"] : {}
     attributes[:processors] = if processors.present?
                                 processors.each_value do |proc|
@@ -126,28 +130,27 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
   end
 
   def get_processor_designation_for(id:)
-    return if id.blank?
-
-    resp = @connection.get("DeviceProcessor/#{id}") do |request|
-      request.headers["Session-Token"] = session_token
-      request.headers["App-Token"] = API_KEY
-    end
-    processor_params = JSON.parse(resp.body)
-    if processor_params.present?
-      processor_params["designation"]
-    end
+    get_item_field_for("DeviceProcessor", id:, field: "designation")
   end
 
   def get_state_for(id:)
+    get_item_field_for("State", id:, field: "name")
+  end
+
+  def get_group_for(id:)
+    get_item_field_for("Group", id:, field: "name")
+  end
+
+  def get_item_field_for(endpoint, id:, field:)
     return if id.blank?
 
-    resp = @connection.get("State/#{id}") do |request|
+    resp = @connection.get("#{endpoint}/#{id}") do |request|
       request.headers["Session-Token"] = session_token
       request.headers["App-Token"] = API_KEY
     end
-    state_body = JSON.parse(resp.body)
-    if state_body.present?
-      state_body["name"]
+    resp_body = JSON.parse(resp.body)
+    if resp_body.present?
+      resp_body[field]
     end
   end
 
@@ -158,6 +161,8 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
       stub.get(%r{Computer/.*}) { |_env| [200, {}, Rails.root.join("test/services/computer_algori.json").read] }
       stub.get(%r{NetworkEquipment/.*}) { |_env| [200, {}, Rails.root.join("test/services/network_equipment_algori.json").read] }
       stub.get(%r{DeviceProcessor/.*}) { |_env| [200, {}, Rails.root.join("test/services/processor.json").read] }
+      stub.get(%r{State/.*}) { |_env| [200, {}, Rails.root.join("test/services/state.json").read] }
+      stub.get(%r{Group/.*}) { |_env| [200, {}, Rails.root.join("test/services/group.json").read] }
       stub.get("/initSession") { |_env| [200, {}, '{"session_token":"kuji8uh4v77lgghqoj2c0r2848"}'] }
     end
   end
@@ -174,6 +179,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     attribute? :name, Types::Coercible::String
     attribute? :state, Types::Coercible::String
     attribute? :contact, Types::Coercible::String
+    attribute? :groups, Types::Coercible::String
     attribute? :disks, Types::Coercible::Hash
     attribute? :hard_drives, Types::Coercible::Hash
     attribute? :memories, Types::Coercible::Hash
