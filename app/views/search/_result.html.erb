@@ -1,3 +1,5 @@
+<%# locals: (result:) -%>
+
 <% link = if result.is_a?(Server)
             if result.is_a_pdu?
               power_distribution_unit_path(result)
