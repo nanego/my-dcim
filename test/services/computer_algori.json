@@ -9,7 +9,9 @@
   "contact": "amouta",
   "contact_num": null,
   "users_id_tech": 0,
-  "groups_id_tech": 0,
+  "groups_id_tech": [
+    1
+  ],
   "comment": "x86_64/00-10-12 19:04:09",
   "date_mod": "2021-09-04 01:24:13",
   "autoupdatesystems_id": 0,
