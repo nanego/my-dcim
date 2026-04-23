@@ -112,6 +112,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     attributes = body
     attributes[:hard_drives] = body["_devices"].present? ? body["_devices"]["Item_DeviceHardDrive"] : {}
     attributes[:memories] = body["_devices"].present? ? body["_devices"]["Item_DeviceMemory"] : {}
+    attributes[:state] = get_state_for(id: body["states_id"])
     processors = body["_devices"].present? ? body["_devices"]["Item_DeviceProcessor"] : {}
     attributes[:processors] = if processors.present?
                                 processors.each_value do |proc|
@@ -137,6 +138,19 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     end
   end
 
+  def get_state_for(id:)
+    return if id.blank?
+
+    resp = @connection.get("State/#{id}") do |request|
+      request.headers["Session-Token"] = session_token
+      request.headers["App-Token"] = API_KEY
+    end
+    state_body = JSON.parse(resp.body)
+    if state_body.present?
+      state_body["name"]
+    end
+  end
+
   def stubs
     Faraday::Adapter::Test::Stubs.new do |stub|
       stub.get(%r{^/?Computer(\?.*)?$}) { |_env| [200, {}, Rails.root.join("test/services/computers_results.json").read] }
@@ -158,6 +172,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     attribute? :id, Types::Coercible::Integer
     attribute? :serial, Types::Coercible::String
     attribute? :name, Types::Coercible::String
+    attribute? :state, Types::Coercible::String
     attribute? :contact, Types::Coercible::String
     attribute? :disks, Types::Coercible::Hash
     attribute? :hard_drives, Types::Coercible::Hash
