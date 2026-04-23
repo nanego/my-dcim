@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_15_155120) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_01_115217) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -303,6 +303,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_155120) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
+  create_table "gestions", id: :serial, force: :cascade do |t|
+    t.datetime "created_at", precision: nil, null: false
+    t.text "description"
+    t.string "name"
+    t.integer "servers_count", default: 0, null: false
+    t.datetime "updated_at", precision: nil, null: false
+  end
+
   create_table "islets", id: :serial, force: :cascade do |t|
     t.integer "access_control"
     t.integer "cooling_mode"
@@ -313,14 +321,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_155120) do
     t.integer "room_id", null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["room_id"], name: "index_islets_on_room_id"
-  end
-
-  create_table "managers", id: :serial, force: :cascade do |t|
-    t.datetime "created_at", precision: nil, null: false
-    t.text "description"
-    t.string "name"
-    t.integer "servers_count", default: 0, null: false
-    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "manufacturers", id: :serial, force: :cascade do |t|
@@ -359,10 +359,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_155120) do
     t.datetime "executed_at", precision: nil
     t.integer "port_from_id"
     t.integer "port_to_id"
+    t.bigint "step_id"
     t.datetime "updated_at", precision: nil, null: false
     t.string "vlans"
     t.index ["port_from_id"], name: "index_moved_connections_on_port_from_id"
     t.index ["port_to_id"], name: "index_moved_connections_on_port_to_id"
+    t.index ["step_id"], name: "index_moved_connections_on_step_id"
   end
 
   create_table "moves", id: :serial, force: :cascade do |t|
@@ -474,7 +476,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_155120) do
     t.boolean "critique"
     t.integer "domaine_id"
     t.integer "frame_id", null: false
-    t.integer "manager_id"
+    t.integer "gestion_id"
     t.integer "modele_id"
     t.string "name"
     t.string "network_types", default: [], array: true
@@ -487,7 +489,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_155120) do
     t.index ["cluster_id"], name: "index_servers_on_cluster_id"
     t.index ["domaine_id"], name: "index_servers_on_domaine_id"
     t.index ["frame_id"], name: "index_servers_on_frame_id"
-    t.index ["manager_id"], name: "index_servers_on_manager_id"
+    t.index ["gestion_id"], name: "index_servers_on_gestion_id"
     t.index ["modele_id"], name: "index_servers_on_modele_id"
     t.index ["numero"], name: "index_servers_on_numero", unique: true
     t.index ["slug"], name: "index_servers_on_slug", unique: true
@@ -587,6 +589,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_155120) do
   add_foreign_key "modeles", "architectures"
   add_foreign_key "modeles", "categories"
   add_foreign_key "modeles", "manufacturers"
+  add_foreign_key "moved_connections", "moves_project_steps", column: "step_id"
   add_foreign_key "moved_connections", "ports", column: "port_from_id"
   add_foreign_key "moved_connections", "ports", column: "port_to_id"
   add_foreign_key "moves", "frames"
@@ -603,7 +606,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_155120) do
   add_foreign_key "servers", "clusters"
   add_foreign_key "servers", "domaines"
   add_foreign_key "servers", "frames"
-  add_foreign_key "servers", "managers"
+  add_foreign_key "servers", "gestions"
   add_foreign_key "servers", "modeles"
   add_foreign_key "servers", "stacks"
 
@@ -612,7 +615,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_15_155120) do
       'Server'::text AS searchable_type,
       servers.name,
       ARRAY[servers.domaine_id] AS domaine_ids,
-      concat_ws(' '::text, servers.name, servers.numero, modeles.name, manufacturers.name) AS term
+      concat_ws(' '::text, servers.name, servers.numero, servers.numero, modeles.name, manufacturers.name) AS term
      FROM ((servers
        LEFT JOIN modeles ON ((modeles.id = servers.modele_id)))
        LEFT JOIN manufacturers ON ((manufacturers.id = modeles.manufacturer_id)))

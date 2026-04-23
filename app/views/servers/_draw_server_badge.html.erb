@@ -4,7 +4,7 @@
      parent_type = current_filter_object.class.name
    elsif @manager && server.manager == @manager
      current_filter_object = @manager
-     parent_type = I18n.t("activerecord.models.manager")
+     parent_type = Manager.model_name.human
    end
   if current_filter_object %>
 <span class="server_badge" title="<%= @current_filter_object %>"

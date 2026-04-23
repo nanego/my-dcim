@@ -5,23 +5,15 @@ class MigrationChangelogEntry < ActiveRecord::Base
 end
 
 class RenameGestionsToManagers < ActiveRecord::Migration[8.0]
-  def up
+  def change
     rename_table :gestions, :managers
     rename_column :servers, :gestion_id, :manager_id
 
-    say_with_time "Changing Gestion changelog entries type to Manager" do
-      MigrationChangelogEntry.where(object_type: "Gestion")
-        .update_all(object_type: "Manager")
-    end
-  end
-
-  def down
-    rename_table :managers, :gestions
-    rename_column :servers, :manager_id, :gestion_id
-
-    say_with_time "Changing Manager changelog entries type to Gestion" do
-      MigrationChangelogEntry.where(object_type: "Manager")
-        .update_all(object_type: "Gestion")
+    reversible do |dir|
+      say_with_time "Updating changelog entries type" do
+        dir.up { MigrationChangelogEntry.where(object_type: "Gestion").update_all(object_type: "Manager") }
+        dir.down { MigrationChangelogEntry.where(object_type: "Manager").update_all(object_type: "Gestion") }
+      end
     end
   end
 end
