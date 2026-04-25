@@ -402,7 +402,10 @@ GEM
       validate_url
       webfinger (~> 2.0)
     orm_adapter (0.5.0)
-    pagy (9.3.3)
+    pagy (43.5.2)
+      json
+      uri
+      yaml
     parallel (2.0.1)
     parser (3.3.11.1)
       ast (~> 2.4.1)
@@ -665,6 +668,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    yaml (0.4.0)
     yard (0.9.42)
     zeitwerk (2.7.5)
 
@@ -888,7 +892,7 @@ CHECKSUMS
   omniauth_openid_connect (0.8.0) sha256=1f2f3890386e2a742221cee0d2e903b78d874e6fab9ea3bfa31c1462f4793d25
   openid_connect (2.3.1) sha256=5d808380cff80d78e3d3d54cfaebe2d6461d835c674faa29e2314a402c1b2182
   orm_adapter (0.5.0) sha256=aa5d0be5d540cbb46d3a93e88061f4ece6a25f6e97d6a47122beb84fe595e9b9
-  pagy (9.3.3) sha256=4831418eb4ec7cc5658ea57de559cc3a960286db36f98d4c1c65e19db0e2bb60
+  pagy (43.5.2) sha256=acefbbcddcb2c0a1d99e9f4c889e3b1c93a866483ecf8092d9fc2ea01e770386
   parallel (2.0.1) sha256=337782d3e39f4121e67563bf91dd8ece67f48923d90698614773a0ec9a5b2c7d
   parser (3.3.11.1) sha256=d17ace7aabe3e72c3cc94043714be27cc6f852f104d81aa284c2281aecc65d54
   passenger (6.1.2) sha256=235a5ab2ad6dd56000ff401cb2f8ec92d67d17390a99425806cce6618405ee55
@@ -989,6 +993,7 @@ CHECKSUMS
   websocket-driver (0.8.0) sha256=ed0dba4b943c22f17f9a734817e808bc84cdce6a7e22045f5315aa57676d4962
   websocket-extensions (0.1.5) sha256=1c6ba63092cda343eb53fc657110c71c754c56484aad42578495227d717a8241
   xpath (3.2.0) sha256=6dfda79d91bb3b949b947ecc5919f042ef2f399b904013eb3ef6d20dd3a4082e
+  yaml (0.4.0) sha256=240e69d1e6ce3584d6085978719a0faa6218ae426e034d8f9b02fb54d3471942
   yard (0.9.42) sha256=4e2be01f8623556093497731d44c801e600d7c9759ec7a35a2dd5dd83bbbba68
   zeitwerk (2.7.5) sha256=d8da92128c09ea6ec62c949011b00ed4a20242b255293dd66bf41545398f73dd
 
