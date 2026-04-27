@@ -100,7 +100,7 @@ class PowerDistributionUnitsController < ApplicationController
   def pdu_params
     params.expect(
       power_distribution_unit: [
-        :photo, :comment, :position, :frame_id, :gestion_id, :name, :modele_id, :numero, :critique, :domaine_id,
+        :photo, :comment, :position, :frame_id, :manager_id, :name, :modele_id, :numero, :critique, :domaine_id,
         :frame, # TODO: Check if it should be removed or if it's used somewhere
         { cards_attributes: [%i[composant_id card_type_id twin_card_id orientation name first_position _destroy id]] },
         { documents_attributes: [%i[document id _destroy]] },
@@ -111,6 +111,6 @@ class PowerDistributionUnitsController < ApplicationController
   def search_params
     params.permit(:sort, :sort_by, :page, :per_page, :q,
                   network_types: [], bay_ids: [], islet_ids: [], room_ids: [], frame_ids: [], cluster_ids: [],
-                  gestion_ids: [], domaine_ids: [], modele_ids: [], stack_ids: [])
+                  manager_ids: [], domaine_ids: [], modele_ids: [], stack_ids: [])
   end
 end

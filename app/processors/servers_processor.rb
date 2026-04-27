@@ -38,8 +38,8 @@ class ServersProcessor < ApplicationProcessor
     raw.where(modele_id: modele_ids)
   end
 
-  map :gestion_ids, filter_with: :non_empty_array do |gestion_ids:|
-    raw.where(gestion_id: gestion_ids)
+  map :manager_ids, filter_with: :non_empty_array do |manager_ids:|
+    raw.where(manager_id: manager_ids)
   end
 
   map :domaine_ids, filter_with: :non_empty_array do |domaine_ids:|

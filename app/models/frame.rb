@@ -66,8 +66,8 @@ class Frame < ApplicationRecord # rubocop:disable Metrics/ClassLength
       txt << "---------------\r\n"
       servers.each do |server|
         case detail
-        when "gestion"
-          addition = server.gestion.try(:name)
+        when "manager"
+          addition = server.manager.try(:name)
         when "cluster"
           addition = server.cluster.try(:name)
         end

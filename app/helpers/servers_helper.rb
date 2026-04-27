@@ -243,11 +243,11 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
   end
 
   def define_background_color(server:, mode: nil)
-    if %w[gestion cluster].include?(mode)
+    if %w[manager cluster].include?(mode)
       case mode
-      when "gestion"
+      when "manager"
         parent_type = "Gestionnaire"
-        parent_id = server.gestion.try(:name)
+        parent_id = server.manager.try(:name)
       when "cluster"
         parent_type = "Cluster"
         parent_id = server.cluster.try(:name)

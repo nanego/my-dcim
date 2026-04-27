@@ -47,7 +47,7 @@ module Visualization
         :frames,
         islet: :room,
         materials: [
-          :gestion, :cluster,
+          :manager, :cluster,
           { modele: %i[category composants],
             cards: [
               :composant,

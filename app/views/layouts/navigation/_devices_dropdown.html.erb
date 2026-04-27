@@ -13,14 +13,14 @@
     <li class="nav-item dropdown-submenu" role="menuitem">
       <button class="dropdown-toggle dropdown-item" data-bs-toggle="dropdown" type="button" aria-haspopup="true"
         aria-expanded="false">
-        <%= Gestion.model_name.human %>
+        <%= Manager.model_name.human %>
       </button>
       <ul class="dropdown-menu">
-        <% Gestion.order(Gestion.arel_table[:name].lower).each do |c| %>
+        <% Manager.order(Manager.arel_table[:name].lower).each do |c| %>
           <li>
             <%= link_to c.name,
-                        visualization_rooms_path(gestion_id: c.id, view: params[:view], bg: (params[:bg] || "modele") ),
-                        class: class_names("dropdown-item", active: params[:gestion_id] == c.id.to_s) %>
+                        visualization_rooms_path(manager_id: c.id, view: params[:view], bg: (params[:bg] || "modele") ),
+                        class: class_names("dropdown-item", active: params[:manager_id] == c.id.to_s) %>
           </li>
         <% end %>
       </ul>

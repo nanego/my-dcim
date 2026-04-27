@@ -74,7 +74,7 @@ module Visualization
       authorize! @frame = Frame.includes(
         bay: [{ islet: :room }],
         servers: [
-          :gestion, :cluster,
+          :manager, :cluster,
           { modele: %i[category composants],
             cards: [
               :composant,
