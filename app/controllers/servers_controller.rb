@@ -7,7 +7,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
 
   DEFAULT_COLUMNS = %w[name numero modele_category_id islet_id bay_id network_types position].freeze
   AVAILABLE_COLUMNS = %w[name numero modele_category_id islet_id bay_id network_types position manufacturer_id gestion_id
-                         frame_id cluster_id stack_id domaine_id modele_id u slug side color comment critique].freeze
+                         frame_id cluster_id stack_id domain_id modele_id u slug side color comment critique].freeze
 
   columns_preferences_with model: Server, default: DEFAULT_COLUMNS, available: AVAILABLE_COLUMNS, only: %i[index export]
 
@@ -198,7 +198,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
     params.expect(
       server: [
         :photo, :stack_id, :comment, :cluster_id, :position, :frame_id, :gestion_id, :name, :modele_id,
-        :numero, :critique, :domaine_id,
+        :numero, :critique, :domain_id,
         :frame, # TODO: Check if it should be removed or if it's used somewhere
         { network_types: [] },
         { cards_attributes: [%i[composant_id card_type_id twin_card_id orientation name first_position _destroy id]] },
@@ -210,6 +210,6 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   def search_params
     params.permit(:sort, :sort_by, :page, :per_page, :q,
                   network_types: [], bay_ids: [], islet_ids: [], room_ids: [], frame_ids: [], cluster_ids: [],
-                  gestion_ids: [], domaine_ids: [], modele_ids: [], stack_ids: [], category_ids: [])
+                  gestion_ids: [], domain_ids: [], modele_ids: [], stack_ids: [], category_ids: [])
   end
 end

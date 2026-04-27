@@ -10,7 +10,7 @@ RSpec.describe ServersProcessor do
 
   let(:attributes) do
     {
-      frame: frames(:one), gestion: gestions(:one), domaine: domaines(:switch), modele: modeles(:one),
+      frame: frames(:one), gestion: gestions(:one), domain: domains(:switch), modele: modeles(:one),
       cluster: clusters(:cloud_c1), stack: stacks(:red),
     }
   end
@@ -233,27 +233,27 @@ RSpec.describe ServersProcessor do
     end
   end
 
-  describe "when filtering by domaine_ids" do
-    let(:domaine) { Domaine.create!(name: "D1") }
-    let(:server)  { Server.create!(name: "server", numero: 1, **attributes, domaine:) }
+  describe "when filtering by domain_ids" do
+    let(:domain) { Domain.create!(name: "D1") }
+    let(:server) { Server.create!(name: "server", numero: 1, **attributes, domain:) }
 
     before do
       server
       Server.create!(name: "server2", numero: 2, **attributes)
     end
 
-    context "with one domaine_ids" do
-      let(:params) { { domaine_ids: domaine.id } }
+    context "with one domain_ids" do
+      let(:params) { { domain_ids: domain.id } }
 
       it { expect(result.size).to eq(1) }
       it { is_expected.to contain_exactly(server) }
     end
 
-    context "with many domaine_ids" do
-      let(:domaine_second) { Domaine.create!(name: "D2") }
-      let(:another_server) { Server.create!(name: "server3", numero: 3, **attributes, domaine: domaine_second) }
+    context "with many domain_ids" do
+      let(:domain_second) { Domain.create!(name: "D2") }
+      let(:another_server) { Server.create!(name: "server3", numero: 3, **attributes, domain: domain_second) }
 
-      let(:params) { { domaine_ids: [domaine.id, domaine_second.id] } }
+      let(:params) { { domain_ids: [domain.id, domain_second.id] } }
 
       before do
         another_server
@@ -403,18 +403,18 @@ RSpec.describe ServersProcessor do
     let(:manufacturer) { Manufacturer.create! }
     let(:modele)   { Modele.create!(name: "Mod", description: "Mod desc", category:, manufacturer:, architecture: Architecture.create!) }
     let(:gestion)  { Gestion.create!(name: "G1") }
-    let(:domaine)  { Domaine.create!(name: "D1") }
+    let(:domain) { Domain.create!(name: "D1") }
     let(:cluster)  { Cluster.create!(name: "C1") }
     let(:stack)    { Stack.create!(name: "S1") }
 
     let(:server) do
-      Server.create!(name: "wood", numero: 1, **attributes, frame:, modele:, gestion:, domaine:, cluster:, stack:)
+      Server.create!(name: "wood", numero: 1, **attributes, frame:, modele:, gestion:, domain:, cluster:, stack:)
     end
 
     let(:params) do
       {
         q: "wood", frame_ids: frame.id, bay_ids: bay.id, islet_ids: islet.id, room_ids: room.id, modele_ids: modele.id,
-        gestion_ids: gestion.id, domaine_ids: domaine.id, cluster_ids: cluster.id, stack_ids: stack.id,
+        gestion_ids: gestion.id, domain_ids: domain.id, cluster_ids: cluster.id, stack_ids: stack.id,
         category_ids: category.id, manufacturer_ids: manufacturer.id,
       }
     end
@@ -429,7 +429,7 @@ RSpec.describe ServersProcessor do
         let(:params) do
           {
             q: "wood", frame_ids: frame.id, bay_ids: bay.id, islet_ids: islet.id, room_ids: room.id, modele_ids: modele.id,
-            gestion_ids: gestion.id, domaine_ids: domaine.id, cluster_ids: cluster.id, stack_ids: stack.id,
+            gestion_ids: gestion.id, domain_ids: domain.id, cluster_ids: cluster.id, stack_ids: stack.id,
             category_ids: category.id, sort_by: field,
           }
         end

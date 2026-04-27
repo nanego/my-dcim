@@ -23,7 +23,7 @@ class ServerDecorator < ApplicationDecorator
     end
 
     def domains_options_for_select(user)
-      DomaineDecorator.options_for_select(user)
+      DomainDecorator.options_for_select(user)
     end
 
     def manufacturers_options_for_select

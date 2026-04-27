@@ -21,7 +21,7 @@ fr:
         other: Modèles de climatiseur
       architecture: Architecture
       manufacturer: Constructeur
-      domaine: Domaine
+      domain: Domain
       gestion: Gestionnaire
       cluster: Cluster
       stack: Stack
@@ -204,7 +204,7 @@ fr:
           zero: 0 matériel I.T.
           one: 1 matériel I.T.
           other: "%{count} matériels I.T."
-      domaine:
+      domain:
         name: Nom
         usage: Usage
         description: Description
@@ -455,8 +455,8 @@ fr:
       permission_scope:
         name: Nom
         role: Rôle
-        all_domains: Tous les domaines
-        domaine_ids: Domaines
+        all_domains: Tous les domains
+        domain_ids: Domains
         user_ids: Utilisateurs
       permission_scope/role:
         reader: Lecteur
@@ -490,5 +490,5 @@ fr:
 
         permission_scope:
           attributes:
-            domaine_ids:
-              blank: doit être rempli, ou "Tous les domaines" doit être coché
+            domain_ids:
+              blank: doit être rempli, ou "Tous les domains" doit être coché

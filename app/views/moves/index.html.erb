@@ -41,8 +41,8 @@
           <%= move.moveable.gestion %>
         <% end %>
 
-        <% table.with_column(Domaine.model_name.human) do |move| %>
-          <%= move.moveable.domaine %>
+        <% table.with_column(Domain.model_name.human) do |move| %>
+          <%= move.moveable.domain %>
         <% end %>
 
         <% table.with_column(Move.human_attribute_name(:prev_frame_id)) do |move| %>

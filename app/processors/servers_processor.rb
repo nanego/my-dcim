@@ -42,8 +42,8 @@ class ServersProcessor < ApplicationProcessor
     raw.where(gestion_id: gestion_ids)
   end
 
-  map :domaine_ids, filter_with: :non_empty_array do |domaine_ids:|
-    raw.where(domaine_id: domaine_ids)
+  map :domain_ids, filter_with: :non_empty_array do |domain_ids:|
+    raw.where(domain_id: domain_ids)
   end
 
   map :cluster_ids, filter_with: :non_empty_array do |cluster_ids:|

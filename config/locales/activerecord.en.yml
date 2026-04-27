@@ -24,7 +24,7 @@ en:
       contact: Contact
       contact_assignment: Assignment
       contact_role: Role
-      domaine: Domain
+      domain: Domain
       enclosure: Enclosure
       frame: Frame
       gestion: Manager
@@ -211,7 +211,7 @@ en:
         name: Name
         role: Role
         all_domains: All domains
-        domaine_ids: Domains
+        domain_ids: Domains
         user_ids: Users
       permission_scope/role:
         reader: Reader
@@ -258,5 +258,5 @@ en:
 
         permission_scope:
           attributes:
-            domaine_ids:
+            domain_ids:
               blank: can't be blank, or "All domains" must be checked
