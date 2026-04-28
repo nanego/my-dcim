@@ -243,23 +243,19 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
   end
 
   def define_background_color(server:, mode: nil)
-    if %w[gestion cluster].include?(mode)
-      case mode
-      when "gestion"
-        parent_type = "Gestionnaire"
-        parent_id = server.gestion.try(:name)
-      when "cluster"
-        parent_type = "Cluster"
-        parent_id = server.cluster.try(:name)
-      end
-      color = Color.where(parent_type: parent_type, parent_id: parent_id).first
-      if color.blank? || color.code.blank?
-        color = Color.create!(parent_type: parent_type, parent_id: parent_id, code: lighten_color("##{Digest::MD5.hexdigest(parent_id.to_s.presence || "test")[0..5]}", 0.4))
-      end
-      bg_color = color.code
-    else
-      bg_color = server.modele.try(:color) || lighten_color("##{Digest::MD5.hexdigest(server.modele.try(:name) || "test")[0..5]}", 0.4)
+    modes = {
+      gestion: ["Gestionnaire", -> { server.gestion.try(:name) }],
+      cluster: ["Cluster", -> { server.cluster.try(:name) }],
+    }
+
+    parent_type, parent_id_proc = modes[mode&.to_sym]
+    return server.modele.decorated.bg_color if parent_type.nil?
+
+    parent_id = parent_id_proc.call
+    color = Color.find_or_create_by(parent_type:, parent_id:) do |color|
+      color.code = color_representation_of(parent_id)
     end
-    bg_color
+
+    color.code
   end
 end

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ModelesController < ApplicationController
-  include ModelesHelper
-
   before_action :set_modele, only: %i[show edit update destroy]
   before_action except: %i[index] do
     breadcrumb.add_step(Modele.model_name.human.pluralize, modeles_path)
@@ -32,11 +30,7 @@ class ModelesController < ApplicationController
     end
   end
 
-  def edit
-    if @modele.color.blank?
-      @modele.color = lighten_color("##{Digest::MD5.hexdigest(@modele.name || "test")[0..5]}", 0.4)
-    end
-  end
+  def edit; end
 
   def create
     authorize! @modele = Modele.new(modele_params)
