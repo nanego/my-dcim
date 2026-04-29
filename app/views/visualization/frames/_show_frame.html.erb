@@ -1,14 +1,11 @@
-<%# locals: (editable: nil, highlighted_servers: nil, view_type: nil, clickable_lines: nil, frame: nil, servers: nil, settings: nil) -%>
+<%# locals: (frame:, servers:, editable: true, view_type: "front", clickable_lines: false, highlighted_servers: nil, settings: nil) -%>
 
-<% editable = true if editable.nil? %>
 <% servers_ids = servers.map(&:id) %>
 <% highlighted_servers_ids = if highlighted_servers.nil?
                                current_user.can_access_all_domains? ? servers_ids : authorized_scope(Server.no_pdus).ids
                              else
                                highlighted_servers.map(&:id)
                              end %>
-<% view_type = "front" if view_type.nil? %>
-<% clickable_lines = false if clickable_lines.nil? %>
 
 <div class="frame" id="frame_<%= frame.id %>" data-view="<%= view_type %>">
   <div class="card card-frame">
