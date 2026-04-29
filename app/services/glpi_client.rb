@@ -39,19 +39,19 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
   end
 
   def computer_glpi_id(serial:)
-    get_glpi_id_for("Computer", serial:)
+    get_glpi_id_for(Computer::ENDPOINT, serial:)
   end
 
   def computer(glpi_id:, params: nil)
-    equipment("Computer", glpi_id:, params:)
+    equipment(Computer, glpi_id:, params:)
   end
 
   def network_equipment_glpi_id(serial:)
-    get_glpi_id_for("NetworkEquipment", serial:)
+    get_glpi_id_for(NetworkEquipment::ENDPOINT, serial:)
   end
 
   def network_equipment(glpi_id:, params: nil)
-    equipment("NetworkEquipment", glpi_id:, params:)
+    equipment(NetworkEquipment, glpi_id:, params:)
   end
 
   private
@@ -64,10 +64,10 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     JSON.parse(resp.body)["session_token"]
   end
 
-  def equipment(endpoint, glpi_id:, params: nil)
+  def equipment(klass, glpi_id:, params: nil)
     return nil if glpi_id.blank?
 
-    resp = get_equipment_for(endpoint, glpi_id:, params:)
+    resp = get_equipment_for(klass::ENDPOINT, glpi_id:, params:)
     begin
       body = JSON.parse(resp.body)
       return nil if body.blank?
@@ -77,7 +77,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
       raise
     end
 
-    Equipment.new format_body(body)
+    klass.new format_body(body)
   end
 
   def get_glpi_id_for(endpoint, serial:)
@@ -170,5 +170,13 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
 
       memories.sum { |_key, value| value["size"] }
     end
+  end
+
+  class Computer < Equipment
+    ENDPOINT = "Computer"
+  end
+
+  class NetworkEquipment < Equipment
+    ENDPOINT = "NetworkEquipment"
   end
 end
