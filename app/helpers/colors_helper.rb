@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
-module ModelesHelper
+module ColorsHelper
+  def color_representation_of(value)
+    lighten_color("##{Digest::MD5.hexdigest(value.to_s.presence || "test")[0..5]}", 0.4)
+  end
+
   def lighten_color(hex_color, amount = 0.6)
     hex_color = hex_color.delete("#")
     rgb = hex_color.scan(/../).map(&:hex)

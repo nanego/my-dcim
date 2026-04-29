@@ -52,4 +52,20 @@ RSpec.describe ModeleDecorator, type: :decorator do
       it { is_expected.to eq("Verticale, Verticale") }
     end
   end
+
+  describe "#color" do
+    subject(:color) { decorated_modele.color }
+
+    context "with object color" do
+      let(:modele) { Modele.new(color: "#ffffff") }
+
+      it { is_expected.to eq("#ffffff") }
+    end
+
+    context "without object color" do
+      let(:modele) { Modele.new }
+
+      it { is_expected.to eq("#6ff5d1") }
+    end
+  end
 end

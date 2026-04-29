@@ -45,6 +45,7 @@ module Demenagement
 
     config.generators do |g|
       g.test_framework :rspec, fixtures: true
+      g.helper false
     end
   end
 end
