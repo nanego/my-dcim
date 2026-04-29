@@ -252,7 +252,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     return server.modele.decorated.color if parent_type.nil?
 
     parent_id = parent_id_proc.call
-    color = Color.find_or_create_by(parent_type:, parent_id:) do |color|
+    color = Color.find_or_create_by!(parent_type:, parent_id:) do |color|
       color.code = color_representation_of(parent_id)
     end
 
