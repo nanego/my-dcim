@@ -9,7 +9,6 @@ class SearchController < ApplicationController
 
     respond_to do |format|
       format.html # normal rendering for non-Turbo requests
-      format.turbo_stream # turbo frame updates
     end
   end
 end

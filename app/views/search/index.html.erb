@@ -3,7 +3,7 @@
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
-  <turbo-frame id="search-index" data-controller="search-results">
+  <turbo-frame id="search-index" data-controller="search-results" data-turbo-action="advance">
     <% if @results.any? %>
       <div class="list-group">
         <%= render partial: "result", collection: @results %>

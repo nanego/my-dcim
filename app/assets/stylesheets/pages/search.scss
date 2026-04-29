@@ -16,3 +16,17 @@
     }
   }
 }
+
+#search-form button > .loading {
+  display: none;
+}
+
+#search-form[aria-busy] {
+  button > .loading {
+    display: block;
+  }
+
+  button > :not(.loading) {
+    display: none;
+  }
+}
