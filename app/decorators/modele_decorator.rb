@@ -2,7 +2,7 @@
 
 class ModeleDecorator < ApplicationDecorator
   include ActionView::Helpers::AssetTagHelper
-  include ApplicationHelper
+  include ColorsHelper
 
   class << self
     def manufacturers_options_for_select
