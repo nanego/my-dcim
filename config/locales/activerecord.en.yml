@@ -134,19 +134,15 @@ en:
         numero: Serial number
         numero_short: s/n
         type: Type
-        room: Room
-        islet: Islet
+        room_id: Room
         islet_id: Islet
         frame_id: Frame
-        frame: Frame
         position: Position
         modele_id: Model
         manufacturer_id: Manufacturer
         critique: Critic
         gestion_id: Manager
-        gestion: Manager
         network_types: Network type
-        stack: Stack
         stack_id: Stack
         comment: Comment
         documents: Documents

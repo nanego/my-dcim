@@ -605,6 +605,7 @@ en:
   users:
     my_account:
       title: My account
+      edit: Edit my account
       settings: My preferences
     settings:
       edit:

@@ -104,8 +104,7 @@ fr:
         name: Nom
         numero: Numéro de série
         numero_short: s/n
-        room: Salle
-        islet: Ilot
+        room_id: Salle
         islet_id: Ilot
         bay_id: Baie
         frame_id: Châssis
@@ -115,7 +114,6 @@ fr:
         critique: Critique
         gestion_id: Gestionnaire
         network_types: Composant réseau
-        stack: Stack
         stack_id: Stack
         comment: Commentaire
         documents: Documents
@@ -124,6 +122,7 @@ fr:
         span: Slots
         u: Nb de U
         modele_category_id: Catégorie
+        color: Couleur
       site:
         name: Nom
         description: Description
