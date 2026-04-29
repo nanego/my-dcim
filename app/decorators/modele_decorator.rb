@@ -25,7 +25,6 @@ class ModeleDecorator < ApplicationDecorator
   end
 
   def color
-    stored_color = object.try(:color)
-    stored_color.presence || color_representation_of(object.name)
+    object.color.presence || color_representation_of(name)
   end
 end
