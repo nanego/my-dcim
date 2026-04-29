@@ -116,7 +116,7 @@ module List
 
       url = url_for(controller.request.query_parameters.merge(parameters))
 
-      link_to(url) do
+      link_to(url, data: { turbo_frame: dom_id(Server, :index) }) do
         concat label
         concat " #{sort_caret(current_direction)}" if current_attribute == attribute
       end
