@@ -5,7 +5,12 @@ if (typeof delete_all_lines === "function") {
 $('.couple .overviewed_frame').removeClass('selected')
 $('.couple .overviewed_frame[data-frame-id=<%= @frame.slug %>]').addClass('selected')
 
-$('#bay-container').html("<%= escape_javascript(render 'visualization/frames/show_complete_frame') %>")
+$('#bay-container').html(
+  "<%= escape_javascript(render partial: 'visualization/frames/show_complete_frame', locals: {
+    room: @room,
+    frame: @frame,
+  }) %>"
+)
 
 var searchParams = new URLSearchParams(window.location.search)
 var view = 'front'
