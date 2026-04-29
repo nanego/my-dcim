@@ -17,16 +17,16 @@
   }
 }
 
-#search-form button>.loading {
+#search-form button > .loading {
   display: none;
 }
 
 #search-form[aria-busy] {
-  button>.loading {
+  button > .loading {
     display: block;
   }
 
-  button>:not(.loading) {
+  button > :not(.loading) {
     display: none;
   }
 }
