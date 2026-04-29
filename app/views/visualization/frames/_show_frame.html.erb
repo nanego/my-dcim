@@ -8,7 +8,7 @@
                                highlighted_servers.map(&:id)
                              end %>
 <% view_type = "front" if view_type.nil? %>
-<% clickable_lines = clickable_lines.nil? ? false : clickable_lines %>
+<% clickable_lines = false if clickable_lines.nil? %>
 
 <div class="frame" id="frame_<%= frame.id %>" data-view="<%= view_type %>">
   <div class="card card-frame">
