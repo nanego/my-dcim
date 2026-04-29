@@ -1,4 +1,4 @@
-<%# locals: (room:, frame:, should_show_heading: true, pdf: false) -%>
+<%# locals: (room:, frame:, should_show_heading: true) -%>
 
 <%
   settings = { min_height: params[:view] == "back" ? 20 : 27 }
@@ -11,12 +11,10 @@
         <% if should_show_heading %>
           <div class="col-12 d-flex justify-content-between align-items-center mb-4">
             <h3><%= t("layouts.breadcrumb.bay.simple", name: frame.name) %></h3>
-            <% unless pdf == true %>
-              <span class="d-flex flex-wrap gap-2 flex-column flex-lg-row justify-content-end">
-                <%= render "visualization/action_buttons", view_side: Frame::VIEW_SIDES[:both], remote: true %>
-                <%= render "visualization/frames/export_button", frame: frame, in_table: false %>
-              </span>
-            <% end %>
+            <span class="d-flex flex-wrap gap-2 flex-column flex-lg-row justify-content-end">
+              <%= render "visualization/action_buttons", view_side: Frame::VIEW_SIDES[:both], remote: true %>
+              <%= render "visualization/frames/export_button", frame: frame, in_table: false %>
+            </span>
           </div>
         <% end %>
 
