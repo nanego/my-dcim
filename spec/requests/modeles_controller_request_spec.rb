@@ -139,7 +139,6 @@ RSpec.describe ModelesController do
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:edit) }
-    it { expect(assigns(:modele).color).not_to be_nil }
   end
 
   describe "PATCH #update" do

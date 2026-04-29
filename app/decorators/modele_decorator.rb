@@ -2,6 +2,7 @@
 
 class ModeleDecorator < ApplicationDecorator
   include ActionView::Helpers::AssetTagHelper
+  include ColorsHelper
 
   class << self
     def manufacturers_options_for_select
@@ -21,5 +22,9 @@ class ModeleDecorator < ApplicationDecorator
     enclosures.map do |enclosure|
       Enclosure.human_attribute_name("display.#{enclosure.display}")
     end.join(", ")
+  end
+
+  def color
+    object.color.presence || color_representation_of(name)
   end
 end
