@@ -24,8 +24,8 @@ class ModeleDecorator < ApplicationDecorator
     end.join(", ")
   end
 
-  def bg_color
+  def color
     stored_color = object.try(:color)
-    stored_color || color_representation_of(stored_color)
+    stored_color.presence || color_representation_of(object.name)
   end
 end

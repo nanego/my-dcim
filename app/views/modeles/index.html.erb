@@ -74,7 +74,7 @@
             <% end %>
 
             <% table.with_column(class: "p-0", style: "width: 40px; height: 40px;") do |modele| %>
-              <div class="h-100" style="background-color: <%= modele.decorated.bg_color %> !important;"></div>
+              <div class="h-100" style="background-color: <%= modele.decorated.color %> !important;"></div>
             <% end %>
 
             <% table.with_column(Modele.model_name.human, sort_by: :name) do |modele| %>
