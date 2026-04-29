@@ -1,5 +1,7 @@
+<%# locals: (f:, server:, enclosure:) -%>
+
 <%
-  composants = if local_assigns[:enclosure].present?
+  composants = if enclosure.present?
                  enclosure.composants.ordered.slots
                else
                  server.modele.composants.ordered.slots

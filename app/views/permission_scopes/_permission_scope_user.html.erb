@@ -1,3 +1,5 @@
+<%# locals: (permission_scope_user:) -%>
+
 <%= tag.li id: dom_id(permission_scope_user), class: "list-group-item list-group-item-action d-flex flex-row justify-content-between align-items-center" do %>
   <div>
     <%= link_to permission_scope_user.user, user_path(permission_scope_user.user) %>
