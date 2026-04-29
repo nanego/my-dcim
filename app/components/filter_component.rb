@@ -13,6 +13,8 @@ class FilterComponent < ApplicationComponent
                       method: :get,
                       class: "filters-component row row-cols-lg-auto g-3 align-items-start",
                       id: :filters do |f| %>
+          <%= helpers.hash_to_hidden_fields(request.query_parameters.slice(:sort, :sort_by)) %>
+
           <%= form&.call(f) %>
 
           <% card.with_footer do %>
