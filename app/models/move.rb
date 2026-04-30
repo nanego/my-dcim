@@ -78,10 +78,12 @@ class Move < ApplicationRecord
     executed_at?
   end
 
-  def previous_moves
-    return nil unless step&.previous_step
+  def previous_step_moves
+    step&.previous_step&.moves
+  end
 
-    step.previous_step.moves
+  def previous_moves
+    moves_project&.moves&.where(step: step.previous_steps)
   end
 
   def refresh_prev_data
