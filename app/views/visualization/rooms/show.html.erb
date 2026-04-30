@@ -217,6 +217,9 @@ function menuRoomsClick(e) {
 
   // Update page title
   document.querySelector("h1").textContent = visualization_title + " " + islet_name
+
+  // empty bay container
+  $('#bay-container').empty()
 }
 
 function loadBay(bay_id) {
