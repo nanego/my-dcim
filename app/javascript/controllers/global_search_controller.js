@@ -15,10 +15,9 @@ export default class extends Controller {
 
     this.useDebounce(300, () => {
       // don't accept short queries
-      let queryValue = this.searchInputTarget.value
-      if (queryValue.length < 2) { queryValue = "" }
-
-      this.element.requestSubmit()
+      if (this.searchInputTarget.value.length >= 2) {
+        this.element.requestSubmit()
+      }
     })
   }
 
