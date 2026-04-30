@@ -42,8 +42,6 @@
             <% Category.glpi_synchronizable.select(:glpi_sync_type, :name).group_by(&:glpi_sync_type).each do |type, categories| %>
               <li>
                 <%= t(".synchronised_categories_list.item_html", type: CategoryDecorator.glpi_sync_type_human_for(type), categories: categories.pluck(:name).to_sentence) %>
-                <%# TODO: remove next line when network equipment will be implemented %>
-                <%= t(".synchronised_categories_list.wip") if type.to_sym == :network_equipment %>
               </li>
             <% end %>
           </ul>
@@ -122,12 +120,7 @@
     <% table.with_column(ExternalAppRecord.human_attribute_name(:external_serial_status),
                          sort_by: :external_serial,
                          text_align: :center) do |record| %>
-      <%# TODO: remove the if case when network equipment will be implemented %>
-      <% if record.server.modele.category.glpi_sync_type_network_equipment? %>
-        <%= render BadgeComponent.new(t(".network_equipment_not_available_yet"), color: :warning, variant: :pill) %>
-      <% else %>
-        <%= render record.decorated.external_serial_to_badge_component %>
-      <% end %>
+      <%= render record.decorated.external_serial_to_badge_component %>
     <% end %>
     <% table.with_column(ExternalAppRecord.human_attribute_name(:external_name), sort_by: :external_name) do |record| %>
       <%= record.external_name %>

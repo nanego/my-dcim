@@ -331,23 +331,15 @@
           </dl>
         <% end %>
 
-        <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
-          <% card.with_header do %>
-            <%= t(".glpi_data") %>
-          <% end %>
-
-          <%# TODO: remove next line when network equipment will be implemented %>
-          <% if @server.modele.category.glpi_sync_type_network_equipment? %>
-            <div class="alert alert-info mb-0">
-              <span class="bi bi-info-circle me-1"></span>
-              <%= t(".network_equipment_not_available_yet") %>
-            </div>
-          <% else %>
+        <% unless @server.modele.category.glpi_sync_type_none? %>
+          <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
+            <% card.with_header do %>
+              <%= t(".glpi_data") %>
+            <% end %>
             <%
               begin
                 Timeout.timeout(3) do
-                  client = GlpiClient.new
-                  computer = client.computer(serial: Rails.env.production? ? @server.numero : "AZERTY")
+                  computer = @server.decorated.glpi_equipment
             %>
                 <% if computer.present? %>
                   <dl class="show-page_dl d-grid row-gap-2 mb-0">

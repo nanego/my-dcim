@@ -2,13 +2,17 @@
 
 class ExternalAppRecord < ApplicationRecord
   EXTERNAL_SERIAL_STATUSES = %i[found not_found].freeze
+  GLPI_APP_NAME = "glpi"
 
   belongs_to :server
   has_one :frame, through: :server
 
   before_create :set_external_app_name
 
-  def self.sync_server_with_glpi(server, client)
+  def self.sync_server_with_glpi(server, glpi_client)
+    server_category = server.modele.category
+    return if server_category.glpi_sync_type_none?
+
     params = [
       "with_devices=false", # Only for [Computer, NetworkEquipment, Peripheral, Phone, Printer], retrieve the associated components. Optional.
       "with_disks=false", # Only for Computer, retrieve the associated file-systems. Optional.
@@ -25,12 +29,11 @@ class ExternalAppRecord < ApplicationRecord
       "with_logs=false", # Retrieve historical. Optional.
     ]
 
-    computer = client.computer(serial: server.numero, params: params)
+    equipment = server.decorated.glpi_equipment(glpi_client:, params:)
+    record = ExternalAppRecord.find_or_create_by(server:)
 
-    record = ExternalAppRecord.find_or_create_by(server: server)
-
-    if computer.present?
-      record.assign_attributes(external_name: computer.name, external_id: computer.id, external_serial: computer.serial)
+    if equipment.present?
+      record.assign_attributes(external_name: equipment.name, external_id: equipment.id, external_serial: equipment.serial)
     else
       record.assign_attributes(external_name: "", external_id: "", external_serial: "")
     end
@@ -41,6 +44,6 @@ class ExternalAppRecord < ApplicationRecord
   private
 
   def set_external_app_name
-    self.app_name = "glpi" # Only one external app supported for now
+    self.app_name = GLPI_APP_NAME # Only one external app supported for now
   end
 end
