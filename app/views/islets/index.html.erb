@@ -75,7 +75,8 @@
 
       <% table.with_column(Frame.model_name.human.pluralize) do |islet| %>
         <%= link_to frames_path(islet_ids: islet.id), data: { turbo_frame: :_top } do %>
-          <%= Islet.human_attribute_name(:frames_count, count: authorized_scope(islet.frames).count) %>
+          <% frames = @frames_per_islet.fetch(islet.id, []) %>
+          <%= Islet.human_attribute_name(:frames_count, count: frames.count) %>
         <% end %>
       <% end %>
 
