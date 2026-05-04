@@ -13,7 +13,7 @@ class FramesController < ApplicationController
     authorize! @frames = scoped_frames.includes(bay: { islet: :room }).references(bay: { islet: :room })
     @filter = ProcessorFilter.new(@frames, params)
     @frames = @filter.results
-    @authorized_serveur_per_frame = authorized_scope(
+    @authorized_servers_per_frame = authorized_scope(
       Server.where(frame_id: @frames.map(&:id)),
     ).group_by(&:frame_id)
   end

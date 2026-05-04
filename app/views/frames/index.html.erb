@@ -79,7 +79,7 @@
       <% end %>
 
       <% table.with_column(Frame.human_attribute_name(:servers)) do |frame| %>
-        <% authorized_servers = @authorized_serveur_per_frame[frame.id] || []%>
+        <% authorized_servers = @authorized_servers_per_frame[frame.id] || []%>
         <%= safe_join(authorized_servers.map { |s| link_to(s.name, s, data: { turbo_frame: :_top }) }, ", ") %>
       <% end %>
 
