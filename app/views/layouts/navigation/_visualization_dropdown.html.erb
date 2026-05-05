@@ -26,12 +26,12 @@
     <% sites.each do |site| %>
       <li><hr class="dropdown-divider"></li>
       <li><h6 class="dropdown-header"><%= site %></h6></li>
-      <% rooms = rooms_per_site[site.id] || [] %>
+      <% rooms = rooms_per_site.fetch(site.id, []) %>
       <% rooms.each do |room| %>
         <li class="nav-item" role="menuitem">
           <%= link_to room.name, visualization_room_path(room, view: params[:view], bg: params[:bg]), class: "dropdown-item" %>
         </li>
-        <% islets = islets_per_room[room.id] || [] %>
+        <% islets = islets_per_room.fetch(room.id, []) %>
         <% if islets.size > 1 %>
           <% islets.each do |islet| %>
             <li class="nav-item" role="menuitem">
