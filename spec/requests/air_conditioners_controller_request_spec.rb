@@ -133,12 +133,12 @@ RSpec.describe AirConditionersController do
         expect do
           response
           air_conditioner.reload
-        end.to change(air_conditioner, :status).to(:on)
+        end.to change(air_conditioner, :status).to("on")
       end
     end
 
     context "with invalid parameters" do
-      let(:params) { { air_conditioner: { status: :on, position: "invalid" } } }
+      let(:params) { { air_conditioner: { air_conditioner_model_id: 999 } } }
 
       it { expect(response).to render_template(:edit) }
 
@@ -160,6 +160,43 @@ RSpec.describe AirConditionersController do
       let(:params) { {} }
 
       it { expect { response }.to raise_error(ActionController::ParameterMissing) }
+    end
+  end
+
+  describe "DELETE #destroy" do
+    subject(:response) do
+      delete air_conditioner_path(air_conditioner, confirm: true, params:)
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:params) { {} }
+
+    include_context "with authenticated admin"
+
+    context "without confirm" do
+      subject(:response) do
+        delete(air_conditioner_path(air_conditioner), params:)
+        @response # rubocop:disable RSpec/InstanceVariable
+      end
+
+      it { expect { response }.not_to change(AirConditioner, :count) }
+      it { expect(response).to have_http_status(:success) }
+      it { expect(AirConditioner.exists?(air_conditioner.id)).to be true }
+    end
+
+    context "with confirm" do
+      it { expect { response }.to change(AirConditioner, :count) }
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(air_conditioners_path) }
+    end
+
+    context "when request back on succes" do
+      let(:params) { { back_to: "/some_path" } }
+
+      it { expect(response).to redirect_to("/some_path") }
+      it { expect { response }.to change(AirConditioner, :count).by(-1) }
     end
   end
 end
