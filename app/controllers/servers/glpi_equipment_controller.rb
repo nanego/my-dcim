@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Servers
-  class GlpiController < ApplicationController
+  class GlpiEquipmentController < ApplicationController
     before_action :set_server
 
     def show
