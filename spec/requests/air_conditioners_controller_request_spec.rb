@@ -26,6 +26,20 @@ RSpec.describe AirConditionersController do
     end
   end
 
+  describe "GET #show" do
+    subject(:response) do
+      get air_conditioner_path(air_conditioner)
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:show) }
+  end
+
   describe "GET #new" do
     subject(:response) do
       get new_air_conditioner_path
@@ -68,6 +82,72 @@ RSpec.describe AirConditionersController do
       let(:params) { { air_conditioner: { status: :on, position: "invalid" } } }
 
       it { expect { response }.to raise_error(ArgumentError) }
+    end
+
+    context "without attributes" do
+      let(:params) { { air_conditioner: {} } }
+
+      it { expect { response }.to raise_error(ActionController::ParameterMissing) }
+    end
+
+    context "without parameters" do
+      let(:params) { {} }
+
+      it { expect { response }.to raise_error(ActionController::ParameterMissing) }
+    end
+  end
+
+  describe "GET #edit" do
+    subject(:response) do
+      get edit_air_conditioner_path(air_conditioner)
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:edit) }
+  end
+
+  describe "PATCH #update" do
+    subject(:response) do
+      patch(air_conditioner_path(air_conditioner), params:)
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:params) do
+      { air_conditioner: { status: :on } }
+    end
+
+    include_context "with authenticated admin"
+
+    context "with valid parameters" do
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(air_conditioner_path(assigns(:air_conditioner))) }
+
+      it do
+        expect do
+          response
+          air_conditioner.reload
+        end.to change(air_conditioner, :status).to(:on)
+      end
+    end
+
+    context "with invalid parameters" do
+      let(:params) { { air_conditioner: { status: :on, position: "invalid" } } }
+
+      it { expect(response).to render_template(:edit) }
+
+      it do
+        expect do
+          response
+          air_conditioner.reload
+        end.not_to change(air_conditioner, :status)
+      end
     end
 
     context "without attributes" do
