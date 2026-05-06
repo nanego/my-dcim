@@ -6,7 +6,7 @@
       <% end %>
 
       <% if @connection_error.present? %>
-        <%= t(".glpi_connection_error") %> : <pre><code><%= @connection_error %></code></pre>
+        <%= t(".connection_error") %> : <pre><code><%= @connection_error %></code></pre>
       <% elsif @equipment.present? %>
         <dl class="show-page_dl d-grid row-gap-2 mb-0">
           <dt class="pb-2"><%= t("glpi.computer.name") %></dt>

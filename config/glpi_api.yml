@@ -1,0 +1,13 @@
+default: &default
+#  api_url: ""
+#  apikey: ""
+#  url: ""
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
