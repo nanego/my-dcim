@@ -154,7 +154,7 @@
 </div>
 <%= render "ports/modal_edit_port" %>
 
-<script>
+<script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
 (function () {
   var searchParams = new URLSearchParams(window.location.search)
   var bay_id = searchParams.get('bay-id')
@@ -217,6 +217,15 @@ function menuRoomsClick(e) {
 
   // Update page title
   document.querySelector("h1").textContent = visualization_title + " " + islet_name
+
+  // empty bay container
+  const bayContainer = document.getElementById("bay-container")
+  bayContainer.childNodes.forEach((c) => bayContainer.removeChild(c))
+
+  // remove bay container url params
+  const searchParams = new URLSearchParams(window.location.search)
+  ;["bay-id", "view", "frame-id"].forEach(p => searchParams.delete(p))
+  window.history.replaceState({}, "", location.pathname + '?' + searchParams)
 }
 
 function loadBay(bay_id) {
