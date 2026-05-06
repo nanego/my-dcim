@@ -73,6 +73,7 @@ Rails.application.routes.draw do
     end
 
     resources :cables, only: :index
+    resource :glpi, only: :show, module: :servers, controller: :glpi
   end
   resources :power_distribution_units do
     member do
