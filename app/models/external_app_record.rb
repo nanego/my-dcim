@@ -10,8 +10,7 @@ class ExternalAppRecord < ApplicationRecord
   before_create :set_external_app_name
 
   def self.sync_server_with_glpi(server, glpi_client)
-    server_category = server.modele.category
-    return if server_category.glpi_sync_type_none?
+    return if server.modele.category.glpi_sync_type_none?
 
     params = [
       "with_devices=false", # Only for [Computer, NetworkEquipment, Peripheral, Phone, Printer], retrieve the associated components. Optional.
