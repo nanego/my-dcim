@@ -5,7 +5,12 @@ module Servers
     before_action :set_server
 
     def show
-      @computer = @server.decorated.glpi_equipment
+      return head :ok if server.modele.category.glpi_sync_type_none?
+
+      @equipment = @server.decorated.glpi_equipment
+    rescue Exception => e # rubocop:disable Lint/RescueException
+      Rails.logger.warn "WARNING: couldn't get GLPI data because of an error: #{e.message}"
+      @connection_error = e.message.to_s
     end
 
     private
