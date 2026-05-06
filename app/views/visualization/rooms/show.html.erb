@@ -224,7 +224,7 @@ function menuRoomsClick(e) {
 
   // remove bay container url params
   const searchParams = new URLSearchParams(window.location.search)
-  searchParams.delete("bay-id")
+  ;["bay-id", "view", "frame-id"].forEach(p => searchParams.delete(p))
   window.history.replaceState({}, "", location.pathname + '?' + searchParams)
 }
 
