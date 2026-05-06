@@ -41,12 +41,12 @@ class ServerDecorator < ApplicationDecorator
 
     if server_category.glpi_sync_type_server?
       glpi_client.computer(
-        glpi_id: glpi_id || glpi_client.computer_glpi_id(serial: numero),
+        glpi_id: glpi_id.presence || glpi_client.computer_glpi_id(serial: numero),
         params:,
       )
     else
       glpi_client.network_equipment(
-        glpi_id: glpi_id || glpi_client.network_equipment_glpi_id(serial: numero),
+        glpi_id: glpi_id.presence || glpi_client.network_equipment_glpi_id(serial: numero),
         params:,
       )
     end

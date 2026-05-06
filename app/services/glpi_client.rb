@@ -4,6 +4,7 @@ require "faraday"
 require "json"
 
 class GlpiClient # rubocop:disable Metrics/ClassLength
+  APP_URL = Rails.application.credentials.glpi_url
   API_URL = Rails.application.credentials.glpi_api_url
   API_KEY = Rails.application.credentials.glpi_apikey
   PROXY_URL = Rails.application.credentials.proxy_url
@@ -174,9 +175,17 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
 
   class Computer < Equipment
     ENDPOINT = "Computer"
+
+    def url
+      "#{APP_URL}/front/computer.form.php?id=#{id}"
+    end
   end
 
   class NetworkEquipment < Equipment
     ENDPOINT = "NetworkEquipment"
+
+    def url
+      "#{APP_URL}/front/network_equipment.form.php?id=#{id}"
+    end
   end
 end
