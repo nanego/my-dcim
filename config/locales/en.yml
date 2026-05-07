@@ -506,7 +506,7 @@ en:
     placeholder: Type to filter...
 
   servers:
-    glpi:
+    glpi_equipment:
       data: GLPI data
       visit_page: See the I.T. equipment page on GLPI
       connection_error: "Problem connecting to GLPI :"

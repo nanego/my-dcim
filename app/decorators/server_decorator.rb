@@ -31,28 +31,18 @@ class ServerDecorator < ApplicationDecorator
     end
   end
 
-  def glpi_equipment(glpi_client: nil, params: nil)
-    server_category = modele.category
-    return nil if server_category.glpi_sync_type_none?
+  def glpi_equipment(with_client: nil, params: nil)
+    return nil if modele.category.glpi_sync_type_none?
 
+    @glpi_client = with_client if with_client
     glpi_external_app_record = external_app_records.find_by(app_name: ExternalAppRecord::GLPI_APP_NAME)
-    glpi_id = glpi_external_app_record&.external_id || glpi_equipment_id(glpi_client: nil)
+    glpi_id = glpi_external_app_record&.external_id || glpi_equipment_id
 
-    endpoint = if server_category.glpi_sync_type_server?
-                 :computer
-               else
-                 :network_equipment
-               end
-
-    glpi_client.public_send(endpoint, glpi_id:, params:)
+    glpi_client.public_send(glpi_endpoint, glpi_id:, params:)
   end
 
-  def glpi_equipment_id(glpi_client: nil)
-    if server_category.glpi_sync_type_server?
-      glpi_client.computer_glpi_id(serial: numero)
-    else
-      glpi_client.network_equipment_glpi_id(serial: numero)
-    end
+  def glpi_equipment_id
+    glpi_client.public_send(:"#{glpi_endpoint}_glpi_id", serial: numero)
   end
 
   def network_types_to_human
@@ -77,5 +67,13 @@ class ServerDecorator < ApplicationDecorator
 
   def glpi_client
     @glpi_client ||= GlpiClient.new
+  end
+
+  def glpi_endpoint
+    if modele.category.glpi_sync_type_server?
+      :computer
+    else
+      :network_equipment
+    end
   end
 end

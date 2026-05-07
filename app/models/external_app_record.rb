@@ -28,7 +28,7 @@ class ExternalAppRecord < ApplicationRecord
       "with_logs=false", # Retrieve historical. Optional.
     ]
 
-    equipment = server.decorated.glpi_equipment(glpi_client:, params:)
+    equipment = server.decorated.glpi_equipment(with_client: glpi_client, params:)
     record = ExternalAppRecord.find_or_create_by(server:)
 
     if equipment.present?
