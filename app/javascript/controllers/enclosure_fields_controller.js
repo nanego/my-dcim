@@ -7,6 +7,7 @@ export default class EnclosureFields extends SortableController {
     super.connect()
 
     this.sortable.options.filter = ".filtered"
+    this.sortable.options.preventOnFilter = false
     this.sortable.options.onMove = function (evt) {
       return evt.related.className.indexOf("filtered") === -1;
     }
