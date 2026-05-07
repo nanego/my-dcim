@@ -10,7 +10,7 @@
     <% if enclosure.display == "grid" %>
       <style>
         .enclosure-container {
-          <% grid_rows = enclosure.grid_areas.delete("\r").split(/\n/) %>
+          <% grid_rows = enclosure.grid_areas.split(/\R/) %>
           <% grid_max_nb_of_columns = grid_rows.map { |row| row.split(" ").count }.max %>
           grid-template-areas: <%= raw grid_rows.map{ |s| "\"#{s}\"" }.join(" ") %>;
           grid-template-columns: repeat(<%= grid_max_nb_of_columns %>, 1fr); /* equal columns */
