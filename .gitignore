@@ -109,3 +109,6 @@ public/uploads/
 .byebug_history
 
 /config/credentials/test.key
+
+/config/*.local.yml
+/config/credentials/local.*

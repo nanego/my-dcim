@@ -35,20 +35,23 @@ class ServerDecorator < ApplicationDecorator
     server_category = modele.category
     return nil if server_category.glpi_sync_type_none?
 
-    glpi_client ||= GlpiClient.new
     glpi_external_app_record = external_app_records.find_by(app_name: ExternalAppRecord::GLPI_APP_NAME)
-    glpi_id = glpi_external_app_record&.external_id
+    glpi_id = glpi_external_app_record&.external_id || glpi_equipment_id(glpi_client: nil)
 
+    endpoint = if server_category.glpi_sync_type_server?
+                 :computer
+               else
+                 :network_equipment
+               end
+
+    glpi_client.public_send(endpoint, glpi_id:, params:)
+  end
+
+  def glpi_equipment_id(glpi_client: nil)
     if server_category.glpi_sync_type_server?
-      glpi_client.computer(
-        glpi_id: glpi_id.presence || glpi_client.computer_glpi_id(serial: numero),
-        params:,
-      )
+      glpi_client.computer_glpi_id(serial: numero)
     else
-      glpi_client.network_equipment(
-        glpi_id: glpi_id.presence || glpi_client.network_equipment_glpi_id(serial: numero),
-        params:,
-      )
+      glpi_client.network_equipment_glpi_id(serial: numero)
     end
   end
 
@@ -68,5 +71,11 @@ class ServerDecorator < ApplicationDecorator
 
   def in_frame_location
     [frame, "U#{position || "?"}"].compact_blank.join(" - ")
+  end
+
+  private
+
+  def glpi_client
+    @glpi_client ||= GlpiClient.new
   end
 end

@@ -4,10 +4,11 @@ require "faraday"
 require "json"
 
 class GlpiClient # rubocop:disable Metrics/ClassLength
-  APP_URL = Rails.application.credentials.glpi_url
-  API_URL = Rails.application.credentials.glpi_api_url
-  API_KEY = Rails.application.credentials.glpi_apikey
+  APP_URL = GlpiApiConfig.url
+  API_URL = GlpiApiConfig.api_url
+  API_KEY = GlpiApiConfig.apikey
   PROXY_URL = Rails.application.credentials.proxy_url
+
   DEFAULT_PARAMS = [
     "expand_dropdowns=false", # (default: false) Show dropdown name instead of id. Optional.
     "get_hateoas=true", # (default: true) Show relations of the item in a links attribute. Optional.
@@ -30,9 +31,11 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
 
   attr_reader :connection, :session_token
 
-  def initialize(connection = Faraday.new(API_URL, { ssl: { verify: false }, proxy: PROXY_URL }))
-    @connection = if Rails.env.production?
-                    connection
+  def initialize
+    @connection = if Rails.env.production? || GlpiApiConfig.local_server
+                    Faraday.new(API_URL, { ssl: { verify: false }, proxy: PROXY_URL }) do |f|
+                      f.response :raise_error
+                    end
                   else
                     Faraday.new { |b| b.adapter(:test, stubs) }
                   end
@@ -69,16 +72,16 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     return nil if glpi_id.blank?
 
     resp = get_equipment_for(klass::ENDPOINT, glpi_id:, params:)
-    begin
-      body = JSON.parse(resp.body)
-      return nil if body.blank?
-    rescue JSON::ParserError => e
-      Rails.logger.warn "Error parsing JSON: #{e}"
-      Rails.logger.warn "Response body: #{resp.inspect}"
-      raise
-    end
+    body = JSON.parse(resp.body)
+    return nil if body.blank?
 
     klass.new format_body(body)
+  rescue Faraday::ResourceNotFound
+    nil
+  rescue JSON::ParserError => e
+    Rails.logger.warn "Error parsing JSON: #{e}"
+    Rails.logger.warn "Response body: #{resp.inspect}"
+    raise
   end
 
   def get_glpi_id_for(endpoint, serial:)

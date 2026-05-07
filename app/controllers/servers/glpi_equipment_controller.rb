@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 module Servers
-  class GlpiController < ApplicationController
+  class GlpiEquipmentController < ApplicationController
     before_action :set_server
 
     def show
-      return head :ok if server.modele.category.glpi_sync_type_none?
+      return head :ok if @server.modele.category.glpi_sync_type_none?
 
       @equipment = @server.decorated.glpi_equipment
-    rescue Exception => e # rubocop:disable Lint/RescueException
+    rescue StandardError => e
       Rails.logger.warn "WARNING: couldn't get GLPI data because of an error: #{e.message}"
       @connection_error = e.message.to_s
     end
