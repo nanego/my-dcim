@@ -244,7 +244,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
 
   def define_background_color(server:, mode: nil)
     modes = {
-      gestion: ["Gestionnaire", -> { server.gestion.try(:name) }],
+      manager: ["Gestionnaire", -> { server.manager.try(:name) }],
       cluster: ["Cluster", -> { server.cluster.try(:name) }],
     }
 
