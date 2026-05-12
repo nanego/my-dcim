@@ -439,6 +439,7 @@ en:
       id: GLPI Id
       serial: Serial number
       groups: Responsible groups
+      contract: Contract %{type}
       state: State
       disks_count: Disks count
       disks_capacity: Disks capacity
