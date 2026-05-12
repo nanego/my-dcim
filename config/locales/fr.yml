@@ -480,6 +480,7 @@ fr:
       id: Id GLPI
       serial: Numéro de série
       groups: Groupe(s) responsable(s)
+      contract: Contrat %{type}
       state: Status
       disks_count: Nombre de disques
       disks_capacity: Capacité disques
