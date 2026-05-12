@@ -36,7 +36,7 @@ class ServerDecorator < ApplicationDecorator
 
     @glpi_client = with_client if with_client
     glpi_external_app_record = external_app_records.find_by(app_name: ExternalAppRecord::GLPI_APP_NAME)
-    glpi_id = glpi_external_app_record&.external_id || glpi_equipment_id
+    glpi_id = glpi_external_app_record&.external_id.presence || glpi_equipment_id
 
     glpi_client.public_send(glpi_endpoint, glpi_id:, params:)
   end
