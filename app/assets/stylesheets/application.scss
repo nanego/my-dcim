@@ -964,6 +964,21 @@ body {
     overscroll-behavior: none;
     max-height: 50vh;
     width: 800px;
+    opacity: 0;
+  }
+
+  .search-dropdown:has(.list-group) {
+    opacity: 1;
+  }
+
+  @media (max-width: 991px) {
+    .search-dropdown {
+      width: 100%;
+      position: static !important;
+      margin-top: 16px !important;
+      display: block !important;
+      transform: none !important;
+    }
   }
 
   /* Helpers */

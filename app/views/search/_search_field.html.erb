@@ -12,6 +12,7 @@
     <div class="input-group">
       <%= f.search_field :search_query,
                          value: params[:search_query],
+                         autocomplete: "off",
                          data: {
                            global_search_target: "searchInput",
                            action: "input->global-search#submit",
@@ -24,15 +25,15 @@
         <span class="loading spinner-border spinner-border-sm"></span>
       <% end %>
     </div>
+  <% end %>
 
-    <% if request.path != search_path %>
-      <turbo-frame
-        id="search-index"
-        class="position-absolute top-100 start-50 translate-middle-x overflow-auto z-3 mt-3 search-dropdown border-top-0"
-        data-controller="search-results"
-        data-turbo="true"
-        data-search-results-target="popup"
-      />
-    <% end %>
+  <% if request.path != search_path %>
+    <turbo-frame
+      id="search-index"
+      class="search-dropdown position-absolute top-100 start-50 translate-middle-x overflow-auto z-3 mt-3 border-bottom rounded-bottom"
+      data-controller="search-results"
+      data-turbo="true"
+      data-search-results-target="popup"
+    />
   <% end %>
 </div>
