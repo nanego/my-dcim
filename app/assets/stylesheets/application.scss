@@ -959,6 +959,13 @@ body {
     }
   }
 
+  /* search-dropdown */
+  .search-dropdown {
+    overscroll-behavior: none;
+    max-height: 50vh;
+    width: 800px;
+  }
+
   /* Helpers */
   .cursor-pointer {
     cursor: pointer;
