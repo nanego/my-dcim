@@ -3,6 +3,9 @@
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
+  <div class="d-lg-none">
+    <%= render partial: "search_field" %>
+  </div>
   <turbo-frame
     id="search-index"
     data-controller="search-results"
