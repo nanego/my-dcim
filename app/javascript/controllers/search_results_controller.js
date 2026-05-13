@@ -4,16 +4,6 @@ export default class SearchResults extends Controller {
   static targets = ["result", "popup"]
 
   connect() {
-    if (this.hasPopupTarget) {
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") this.popupTarget.innerHTML = ""
-      })
-
-      document.addEventListener("click", (e) => {
-        if (!this.popupTarget.contains(e.target)) this.popupTarget.innerHTML = ""
-      })
-    }
-
     if (this.hasResultTarget) {
       this.resultTarget.focus()
     } else {
@@ -22,5 +12,13 @@ export default class SearchResults extends Controller {
       input.focus()
       input.setSelectionRange(input.value.length, input.value.length)
     }
+  }
+
+  closeForEscape(e) {
+    if (e.key === "Escape") this.popupTarget.innerHTML = ""
+  }
+
+  closeForOusideClick(e) {
+    if (!this.popupTarget.contains(e.target)) this.popupTarget.innerHTML = ""
   }
 }

@@ -32,8 +32,9 @@
       id="search-index"
       class="search-dropdown position-absolute top-100 start-50 translate-middle-x overflow-auto z-3 mt-3 border-bottom rounded-bottom"
       data-controller="search-results"
-      data-turbo="true"
       data-search-results-target="popup"
+      data-action="click@document->search-results#closeForOusideClick"
+      data-action="keydown@document->search-results#closeForEscape"
     />
   <% end %>
 </div>
