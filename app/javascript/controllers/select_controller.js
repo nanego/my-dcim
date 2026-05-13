@@ -20,9 +20,7 @@ export default class extends Controller {
   plugins() {
     const plugins = []
 
-    if (this.isMultiple()) {
-      plugins.push("remove_button")
-    }
+    plugins.push("remove_button")
 
     return plugins
   }
