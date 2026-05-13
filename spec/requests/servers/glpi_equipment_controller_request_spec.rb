@@ -14,20 +14,20 @@ RSpec.describe Servers::GlpiEquipmentController do
 
     include_context "with authenticated user"
 
-    context "with default" do
+    context "with regular server present in GLPI" do
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:show) }
       it { expect(response.body).to include("argoli") }
     end
 
-    context "with server sync type no" do
+    context "with glpi_sync_type none" do
       let(:server) { servers(:hub_network1) }
 
       it { expect(response).to have_http_status(:ok) }
       it { expect(response.body).to be_empty }
     end
 
-    context "when exception raised by decorator" do
+    context "when exception raised" do
       before do
         allow(GlpiClient).to receive(:new).and_raise(StandardError.new("custom error"))
         response

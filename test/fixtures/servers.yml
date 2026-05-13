@@ -8,6 +8,7 @@ one:
   modele_id: 1
   numero: CZ31535FEY
   critique: false
+  domaine_id: 1
   gestion_id: 1
   position: 39
   stack_id: 1

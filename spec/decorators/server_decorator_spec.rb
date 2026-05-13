@@ -85,7 +85,7 @@ RSpec.describe ServerDecorator, type: :decorator do
       it { expect(equipment).to eq("computer") }
     end
 
-    context "with sync type none" do
+    context "with glpi_sync_type none" do
       let(:server) { servers(:hub_network1) }
 
       it { expect(equipment).to be_nil }
@@ -102,7 +102,7 @@ RSpec.describe ServerDecorator, type: :decorator do
       it { expect(equipment).to eq("computer") }
     end
 
-    context "when sync type is network equipment" do
+    context "when glpi_sync_type is network_equipment" do
       let(:server) do
         servers(:one).tap do |server|
           server.modele.category.glpi_sync_type = :network_equipment
@@ -111,6 +111,19 @@ RSpec.describe ServerDecorator, type: :decorator do
 
       it { expect(equipment).to eq("network_equipment") }
     end
+  end
+
+  describe "#glpi_equipment_id" do
+    subject(:id) { decorated_server.glpi_equipment_id }
+
+    let(:client) { GlpiClient.new }
+
+    before do
+      allow(client).to receive_messages(computer_glpi_id: "computer")
+      decorated_server.instance_variable_set(:@glpi_client, client)
+    end
+
+    it { expect(id).to eq("computer") }
   end
 
   describe "#network_types_to_human" do
