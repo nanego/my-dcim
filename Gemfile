@@ -97,6 +97,7 @@ gem "geocoder", "~> 1.8"
 
 gem "action_policy", "~> 0.7"
 gem "addressable", "~> 2.9"
+gem "anyway_config", "~> 2.8"
 gem "benchmark", "~> 0.5.0"
 gem "brakeman", group: %i[test development], require: false
 gem "csv", "~> 3.3"

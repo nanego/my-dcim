@@ -392,17 +392,21 @@ fr:
       synchronised_categories_list:
         title: "Liste des catégories qui seront synchronisées :"
         item_html: "<b>%{type}</b> : <i>%{categories}</i>"
-        wip: "(synchronisation bientôt active, en cours de développement)"
       last_complete_synch: "Dernière synchronisation complète :"
       none: aucune
       synchronizing: "Synchronisation en cours..."
-      network_equipment_not_available_yet: Pas encore disponible
     settings:
       title: Configuration de la synchronisation
       category_ids: Choisir le type de synchronisation pour chaque catégorie
       flashes:
         saved: "La configuration a bien été mise à jour."
   servers:
+    glpi_equipment:
+      show:
+        title: Données GLPI
+        connection_error: "Problème lors de la connexion à GLPI :"
+        visit_page: Voir la page du matériel I.T. sur GLPI
+        no_match_serial: "Aucune correspondance pour ce numéro de série : %{serial}"
     form:
       network_type: Réseau %{type}
       edit_confirmation: Modifier ce matériel I.T.
@@ -437,10 +441,6 @@ fr:
       back_to_bay: Baie %{name}
       documentation: Documentation
       attached_documents: "Documents attachés :"
-      glpi_data: Données GLPI
-      glpi_visit_page: Voir la page du matériel I.T. sur GLPI
-      no_match_serial: "Aucune correspondance pour ce numéro de série : %{serial}"
-      glpi_connection_error: "Problème lors de la connexion à GLPI :"
       moves_cta_tooltip: Prévoir son déplacement
       export_cta_tooltip: Export PDF pour les câbleurs
       network_equipment_not_available_yet: La synchronisation GLPI des équipements réseaux n'est pas encore opérationnelle
@@ -491,10 +491,6 @@ fr:
     show:
       documentation: Documentation
       attached_documents: "Documents attachés :"
-      glpi_data: Données GLPI
-      glpi_visit_page: Voir la page de la machine sur GLPI
-      no_match_serial: "Aucune correspondance pour ce numéro de série : %{serial}"
-      glpi_connection_error: "Problème lors de la connexion à GLPI :"
       warning_no_frame: Le châssis actuel n'existe plus, veuillez en renseigner un.
     new:
       title: Ajouter un PDU

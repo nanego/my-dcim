@@ -27,8 +27,7 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_many :cables, through: :connections
   has_many :moves, as: :moveable, dependent: :destroy
   has_many :documents, dependent: :restrict_with_error
-  # TODO: should be plural
-  has_many :external_app_record, dependent: :destroy
+  has_many :external_app_records, dependent: :destroy
 
   has_one_attached :photo
 
