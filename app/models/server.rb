@@ -9,7 +9,7 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   belongs_to :frame
   belongs_to :gestion, optional: true, counter_cache: true
-  belongs_to :domaine, optional: true, counter_cache: true
+  belongs_to :domain, optional: true, counter_cache: true
   belongs_to :cluster, optional: true, counter_cache: true
   belongs_to :stack, optional: true, counter_cache: true
   belongs_to :modele, counter_cache: true

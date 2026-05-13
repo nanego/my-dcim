@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe DomainesProcessor do
+RSpec.describe DomainsProcessor do
   describe "when sorting" do
     pending "TODO"
   end

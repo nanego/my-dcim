@@ -137,10 +137,10 @@
         </strong>
         <ul class="list-unstyled fw-normal pb-2 small">
           <li>
-            <%= link_to Domaine.model_name.human.pluralize,
-                        domaines_path,
+            <%= link_to Domain.model_name.human.pluralize,
+                        domains_path,
                         class: class_names("mydcim-sidebar-links-link mydcim-sidebar-links-link-exploitation d-inline-block rounded",
-                                          active: controller.controller_name == "domaines") %>
+                                          active: controller.controller_name == "domains") %>
           </li>
           <li>
             <%= link_to Gestion.model_name.human.pluralize,

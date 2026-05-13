@@ -20,7 +20,7 @@
 
       <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
         <% card.with_header do %>
-          <%= PermissionScope.human_attribute_name(:domaine_ids) %>
+          <%= PermissionScope.human_attribute_name(:domain_ids) %>
         <% end %>
 
         <% card.with_body(extra_classes: { "p-0": !@permission_scope.all_domains? }) do %>
@@ -28,9 +28,9 @@
             <%= PermissionScope.human_attribute_name(:all_domains) %>
           <% else %>
             <ul class="list-group list-group-flush show-page_list-group-flush">
-              <% @permission_scope.domaines.each do |domain| %>
+              <% @permission_scope.domains.each do |domain| %>
                 <li class="list-group-item list-group-item-action">
-                  <%= link_to domain, domaine_path(domain) %>
+                  <%= link_to domain, domain_path(domain) %>
                 </li>
               <% end %>
             </ul>

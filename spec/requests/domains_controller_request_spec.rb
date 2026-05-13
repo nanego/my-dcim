@@ -2,12 +2,12 @@
 
 require "rails_helper"
 
-RSpec.describe DomainesController do
-  let(:domaine) { domaines(:stock) }
+RSpec.describe DomainsController do
+  let(:domain) { domains(:stock) }
 
   describe "GET #index" do
     subject(:response) do
-      get domaines_path
+      get domains_path
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -18,18 +18,18 @@ RSpec.describe DomainesController do
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
 
-    it { expect { response }.to have_authorized_scope(:active_record_relation).with(DomainePolicy) }
-    it { expect { response }.to have_rubanok_processed(Domaine.sorted).with(DomainesProcessor) }
+    it { expect { response }.to have_authorized_scope(:active_record_relation).with(DomainPolicy) }
+    it { expect { response }.to have_rubanok_processed(Domain.sorted).with(DomainsProcessor) }
 
     it do
       response
-      expect(assigns(:domaines)).to be_present
+      expect(assigns(:domains)).to be_present
     end
   end
 
   describe "GET #show" do
     subject(:response) do
-      get domaine_path(domaine)
+      get domain_path(domain)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -43,7 +43,7 @@ RSpec.describe DomainesController do
 
   describe "GET #new" do
     subject(:response) do
-      get new_domaine_path
+      get new_domain_path
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -57,25 +57,25 @@ RSpec.describe DomainesController do
 
   describe "POST #create" do
     subject(:response) do
-      post(domaines_path, params:)
+      post(domains_path, params:)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    let(:params) { { domaine: { name: "Domaine 1", description: "Description 1" } } }
+    let(:params) { { domain: { name: "Domain 1", description: "Description 1" } } }
 
     include_context "with authenticated admin"
     it_behaves_like "with create another one"
 
     context "with valid parameters" do
       it { expect(response).to have_http_status(:redirect) }
-      it { expect(response).to redirect_to(domaine_path(assigns(:domaine))) }
-      it { expect { response }.to change(Domaine, :count).by(1) }
+      it { expect(response).to redirect_to(domain_path(assigns(:domain))) }
+      it { expect { response }.to change(Domain, :count).by(1) }
     end
 
     context "without attributes" do
-      let(:params) { { domaine: {} } }
+      let(:params) { { domain: {} } }
 
       it { expect { response }.to raise_error(ActionController::ParameterMissing) }
     end

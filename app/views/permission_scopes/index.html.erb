@@ -20,11 +20,11 @@
       <%= permission_scope.users.size %>
     <% end %>
 
-    <% table.with_column(PermissionScope.human_attribute_name(:domaine_ids)) do |permission_scope| %>
+    <% table.with_column(PermissionScope.human_attribute_name(:domain_ids)) do |permission_scope| %>
       <% if permission_scope.all_domains? %>
         <%= PermissionScope.human_attribute_name(:all_domains) %>
       <% else %>
-        <%= permission_scope.domaines.pluck(:name).to_sentence %>
+        <%= permission_scope.domains.pluck(:name).to_sentence %>
       <% end %>
     <% end %>
 

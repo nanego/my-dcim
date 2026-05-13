@@ -65,7 +65,7 @@ Rails/ActionControllerTestCase:
     - 'test/controllers/categories_controller_test.rb'
     - 'test/controllers/clusters_controller_test.rb'
     - 'test/controllers/data_import_controller_test.rb'
-    - 'test/controllers/domaines_controller_test.rb'
+    - 'test/controllers/domains_controller_test.rb'
     - 'test/controllers/gestions_controller_test.rb'
     - 'test/controllers/manufacturers_controller_test.rb'
     - 'test/controllers/rooms_controller_test.rb'
