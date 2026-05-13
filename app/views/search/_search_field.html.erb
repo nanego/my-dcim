@@ -1,4 +1,4 @@
-<div class="my-4 my-lg-0 mx-lg-auto order-0 order-lg-1">
+<div class="my-4 my-lg-0 mx-lg-auto order-0 order-lg-1 position-relative">
   <%= form_with url: search_path,
                 id: "search-form",
                 method: :get,
@@ -6,7 +6,6 @@
                   turbo: true,
                   turbo_frame: "search-index",
                   controller: "global-search",
-                  global_search_on_search_page_value: request.path == search_path,
                 },
                 class: "d-flex" do |f| %>
 
@@ -15,7 +14,7 @@
                          value: params[:search_query],
                          data: {
                            global_search_target: "searchInput",
-                           action: "focus->global-search#goToSearch click->global-search#goToSearch input->global-search#submit",
+                           action: "input->global-search#submit",
                          },
                          class: "form-control border-primary",
                          placeholder: t("filters.placeholder.quicksearch") %>
@@ -25,5 +24,16 @@
         <span class="loading spinner-border spinner-border-sm"></span>
       <% end %>
     </div>
+
+    <% if request.path != search_path %>
+      <turbo-frame
+        id="search-index"
+        class="position-absolute top-100 start-50 translate-middle-x overflow-auto z-3 mt-3"
+        style="max-height: 50vh; width: 800px"
+        data-controller="search-results"
+        data-turbo="true"
+        data-search-results-target="popup"
+      />
+    <% end %>
   <% end %>
 </div>
