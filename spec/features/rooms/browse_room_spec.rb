@@ -18,11 +18,11 @@ RSpec.describe "Rooms::BrowseRoom", :js do
     overview_frame.click
 
     # Waits for the overview to fully load
-    expect(page).to have_content("Visualisation #{room.name}")
+    expect(page).to have_text("Visualisation #{room.name}")
     find("div#bay-container")
 
     frame.servers.each do |server|
-      expect(page).to have_content(server.name)
+      expect(page).to have_text(server.name)
     end
 
     # 2. Change view to 'back'
@@ -34,7 +34,7 @@ RSpec.describe "Rooms::BrowseRoom", :js do
 
     # On the back view, we should see some server cards (only the 2nd server has cards)
     frame.servers.first.cards.pluck(:name).each do |card_name|
-      expect(page).to have_content(card_name)
+      expect(page).to have_text(card_name)
     end
 
     # Modele background color
