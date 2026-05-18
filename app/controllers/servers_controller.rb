@@ -97,18 +97,18 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
   end
 
   def duplicate
-    authorize! @original_server = scoped_servers.friendly.find(params[:id].to_s.downcase)
+    authorize! @original_server = scoped_servers.friendly.find(params.expect(:id).to_s.downcase)
     @server = @original_server.deep_dup
   end
 
   def sort
     authorize!
 
-    room = Room.find_by_name(params[:room]) unless params[:room].include?("non ")
+    room = Room.find_by_name(params[:room]) unless params.expect(:room).include?("non ")
     frame = room.frames.where("islets.name = ? AND frames.name = ?", params[:islet], params[:frame]).first
-    positions = params[:positions].split(",")
+    positions = params.expect(:positions).split(",")
 
-    params[:server].each_with_index do |id, index|
+    params.expect(:server).each_with_index do |id, index|
       if positions[index].present?
         server = scoped_servers.find_by_id(id)
         new_params = { position: positions[index] }

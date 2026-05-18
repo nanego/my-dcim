@@ -25,13 +25,13 @@ module Visualization
 
     def network
       # Set frames for this network
-      authorize! @frame = Frames::IncludingServersQuery.call(Frame).friendly.find(params[:id].to_s.downcase)
+      authorize! @frame = Frames::IncludingServersQuery.call(Frame).friendly.find(params.expect(:id).to_s.downcase)
       @coupled_frame = @frame.other_frame
       if @coupled_frame.present?
-        @network_frame = Frames::IncludingServersQuery.call(Frame).friendly.find(params[:network_frame_id].to_s.downcase)
+        @network_frame = Frames::IncludingServersQuery.call(Frame).friendly.find(params.expect(:network_frame_id).to_s.downcase)
       else
         @network_frame = @frame
-        @frame = Frames::IncludingServersQuery.call(Frame).friendly.find(params[:network_frame_id].to_s.downcase)
+        @frame = Frames::IncludingServersQuery.call(Frame).friendly.find(params.expect(:network_frame_id).to_s.downcase)
         @coupled_frame = @frame.other_frame
       end
 
@@ -84,7 +84,7 @@ module Visualization
         ],
       )
         .friendly
-        .find(params[:id].to_s.downcase)
+        .find(params.expect(:id).to_s.downcase)
     end
 
     def set_room

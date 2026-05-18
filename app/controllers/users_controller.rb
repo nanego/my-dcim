@@ -75,6 +75,6 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    authorize! @user = User.find(params[:id])
+    authorize! @user = User.find(params.expect(:id))
   end
 end

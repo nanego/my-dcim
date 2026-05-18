@@ -41,6 +41,6 @@ class ExternalAppRecordsController < ApplicationController
   private
 
   def settings_params
-    params[:external_app_record_setting]&.permit(category_glpi_sync_types: {}) || {}
+    params.expect(:external_app_record_setting)&.permit(category_glpi_sync_types: {}) || {}
   end
 end

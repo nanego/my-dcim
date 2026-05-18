@@ -75,7 +75,7 @@ class ContactRolesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_contact_role
-    authorize! @contact_role = ContactRole.find(params[:id])
+    authorize! @contact_role = ContactRole.find(params.expect(:id))
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

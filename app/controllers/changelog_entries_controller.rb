@@ -10,7 +10,7 @@ class ChangelogEntriesController < ApplicationController
   end
 
   def show
-    authorize! @changelog_entry = decorate(ChangelogEntry.find(params[:id]))
+    authorize! @changelog_entry = decorate(ChangelogEntry.find(params.expect(:id)))
   end
 
   private
@@ -19,12 +19,12 @@ class ChangelogEntriesController < ApplicationController
     return unless params[:object_type] && params[:object_id]
 
     @scoped_object ||= begin
-      klass = params[:object_type].camelize.singularize.safe_constantize
+      klass = params.expect(:object_type).camelize.singularize.safe_constantize
 
       if klass.respond_to?(:friendly)
-        klass&.friendly&.find(params[:object_id])
+        klass&.friendly&.find(params.expect(:object_id))
       else
-        klass&.find(params[:object_id])
+        klass&.find(params.expect(:object_id))
       end
     end
   end

@@ -78,7 +78,7 @@ module Visualization
         ],
       )
         .friendly
-        .find(params[:id].to_s.downcase)
+        .find(params.expect(:id).to_s.downcase)
     end
 
     def set_servers_per_frames

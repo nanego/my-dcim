@@ -35,7 +35,7 @@ class MovesProjectStepsController < ApplicationController
   private
 
   def set_moves_project
-    @moves_project = MovesProject.find(params[:moves_project_id])
+    @moves_project = MovesProject.find(params.expect(:moves_project_id))
   end
 
   def redirect_if_archived
@@ -50,7 +50,7 @@ class MovesProjectStepsController < ApplicationController
   end
 
   def set_frame_updated
-    authorize! @frame = Frame.friendly.find(params[:frame_id]), with: FramePolicy, to: :show?
+    authorize! @frame = Frame.friendly.find(params.expect(:frame_id)), with: FramePolicy, to: :show?
     @servers = @moves_project_step.servers_moves_for_frame_at_current_step(@frame)
     @moved_connections = MovedConnection.per_servers(@servers)
     @moves = @moves_project_step.moves.where(frame: @frame, moveable_type: "Server")
