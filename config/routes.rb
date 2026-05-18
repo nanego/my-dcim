@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :power_distribution_unit_types
   root to: "pages#index"
 
   resources :air_conditioners

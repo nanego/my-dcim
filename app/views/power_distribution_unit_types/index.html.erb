@@ -1,0 +1,87 @@
+<%
+  breadcrumb.add_step(title = PowerDistributionUnitType.model_name.human.pluralize)
+%>
+
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
+  <% heading.with_right_content do %>
+    <% render ButtonComponent.new(t(".new_power_distribution_unit_type"),
+                                  url: new_power_distribution_unit_type_path,
+                                  variant: :success,
+                                  icon: "plus-lg",
+                                  is_responsive: true) %>
+  <% end %>
+<% end %>
+
+<div class="p-4 border-top d-flex flex-column row-gap-4">
+  <%= render List::DataTableComponent.new(@power_distribution_unit_types) do |table| %>
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:manufacturer_id)) do |power_distribution_unit_type| %>
+      <%= power_distribution_unit_type.manufacturer %>
+    <% end %>
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:name)) do |power_distribution_unit_type| %>
+      <%= power_distribution_unit_type.name %>
+    <% end %>
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:current_type)) do |power_distribution_unit_type| %>
+      <%= power_distribution_unit_type.current_type %>
+    <% end %>
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:documentation_url)) do |power_distribution_unit_type| %>
+      <%= power_distribution_unit_type.documentation_url %>
+    <% end %>
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:meter_global)) do |power_distribution_unit_type| %>
+      <%= power_distribution_unit_type.meter_global %>
+    <% end %>
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:meter_per_socket)) do |power_distribution_unit_type| %>
+      <%= power_distribution_unit_type.meter_per_socket %>
+    <% end %>
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:meter_per_circuit)) do |power_distribution_unit_type| %>
+      <%= power_distribution_unit_type.meter_per_circuit %>
+    <% end %>
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:socket_control)) do |power_distribution_unit_type| %>
+      <%= power_distribution_unit_type.socket_control %>
+    <% end %>
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:socket_lock)) do |power_distribution_unit_type| %>
+      <%= power_distribution_unit_type.socket_lock %>
+    <% end %>
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:ip_snmp)) do |power_distribution_unit_type| %>
+      <%= power_distribution_unit_type.ip_snmp %>
+    <% end %>
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:ip_modbus)) do |power_distribution_unit_type| %>
+      <%= power_distribution_unit_type.ip_modbus %>
+    <% end %>
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:ip_ssh)) do |power_distribution_unit_type| %>
+      <%= power_distribution_unit_type.ip_ssh %>
+    <% end %>
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:ip_webui)) do |power_distribution_unit_type| %>
+      <%= power_distribution_unit_type.ip_webui %>
+    <% end %>
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:rs485_modbus)) do |power_distribution_unit_type| %>
+      <%= power_distribution_unit_type.rs485_modbus %>
+    <% end %>
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:max_power_per_circuit)) do |power_distribution_unit_type| %>
+      <%= power_distribution_unit_type.max_power_per_circuit %>
+    <% end %>
+  
+    <% table.with_column(style: "min-width: 70px; width: 70px") do |power_distribution_unit_type| %>
+      <div class="btn-group btn-group-sm" role="group" aria-label="...">
+        <%= link_to edit_power_distribution_unit_type_path(power_distribution_unit_type), class: "btn btn-info" do %>
+          <span class="bi bi-pencil"
+                title="<%= t("action.edit") %>"
+                data-controller="tooltip"
+                data-bs-placement="left"
+                aria-hidden="true"></span>
+          <span class="visually-hidden"><%= t("action.edit") %></span>
+        <% end %>
+        <%= link_to power_distribution_unit_type_path(power_distribution_unit_type),
+                    method: :delete,
+                    data: { confirm: t("action.confirm") },
+                    class: "btn btn-danger" do %>
+          <span class="bi bi-trash"
+                title="<%= t("action.delete") %>"
+                data-controller="tooltip"
+                data-bs-placement="left"
+                aria-hidden="true"></span>
+          <span class="visually-hidden"><%= t("action.delete") %></span>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
