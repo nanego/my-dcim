@@ -14,16 +14,23 @@
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render List::DataTableComponent.new(@moves_projects) do |table| %>
-    <% table.with_column(MovesProject.human_attribute_name(:name)) do |moves_project| %>
+    <% table.with_column(MovesProject.human_attribute_name(:name), sort_by: :name) do |moves_project| %>
       <%= link_to moves_project.name, moves_project_path(moves_project) %>
+      <div class="small">
+        <span class="fw-light text-body-secondary"><%= MovesProjectStep.model_name.human %> :</span>
+        <span class="font-monospace text-body"><%= moves_project.steps.size %></span><br>
+
+        <span class="fw-light text-body-secondary"><%= Move.model_name.human(count: 2) %> :</span>
+        <span class="font-monospace text-body"><%= moves_project.moves.size %></span><br>
+      </div>
     <% end %>
 
-    <% table.with_column(MovesProjectStep.model_name.human) do |moves_project| %>
-      <%= moves_project.steps.size %>
+    <% table.with_column(MovesProject.human_attribute_name(:created_at), sort_by: :created_at) do |moves_project| %>
+      <%= l moves_project.created_at %>
     <% end %>
 
-    <% table.with_column(Move.model_name.human(count: 2)) do |moves_project| %>
-      <%= moves_project.moves.size %>
+    <% table.with_column(MovesProject.human_attribute_name(:updated_at), sort_by: :updated_at) do |moves_project| %>
+      <%= l moves_project.updated_at %>
     <% end %>
 
     <% table.with_column(MovesProject.human_attribute_name(:created_by)) do |moves_project| %>
