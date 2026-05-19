@@ -294,21 +294,21 @@ fr:
         destroyed: Le constructeur a bien été supprimé.
   domains:
     index:
-      new_domain: Ajouter un domain
+      new_domain: Ajouter un domaine
     new:
-      title: Nouveau domain
+      title: Nouveau domaine
     create:
       flashes:
-        created: Le domain a bien été créé.
+        created: Le domaine a bien été créé.
     edit:
-      title: Modifier le domain
+      title: Modifier le domaine
     update:
       flashes:
-        updated: Le domain a bien été modifié.
+        updated: Le domaine a bien été modifié.
     destroy:
-      title: Supprimer le domain
+      title: Supprimer le domaine
       flashes:
-        destroyed: Le domain a bien été supprimé.
+        destroyed: Le domaine a bien été supprimé.
   ports:
     index:
       title: Liste des ports cablés
@@ -926,7 +926,7 @@ fr:
         updated: La permission a bien été mis à jour.
     form:
       domain_ids:
-        blank: Sélectionnez un domain
+        blank: Sélectionnez un domaine
     destroy:
       title: Supprimer cette permission
       flashes:
@@ -971,7 +971,7 @@ fr:
         islet_ids: Ilot
         islet_id: Ilot
         room_ids: Salle
-        domain_ids: Domain
+        domain_ids: Domaine
         gestion_ids: Gestionnaire
         frame_ids: Châssis
         bay_ids: Baie
