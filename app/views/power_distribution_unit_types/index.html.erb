@@ -13,53 +13,37 @@
 <% end %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
-  <%= render List::DataTableComponent.new(@power_distribution_unit_types) do |table| %>
-    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:manufacturer_id)) do |power_distribution_unit_type| %>
-      <%= power_distribution_unit_type.manufacturer %>
+  <%= render FilterComponent.new(@filter) do |c| %>
+    <% c.with_form do |f| %>
+      <div class="w-100">
+        <fieldset class="form-floating">
+          <%= f.text_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :q %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.select :manufacturer_ids, PowerDistributionUnitTypeDecorator.manufacturers_options_for_select,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select", data: { controller: :select } } %>
+          <%= f.label :manufacturer_ids %>
+        </fieldset>
+      </div>
     <% end %>
-    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:name)) do |power_distribution_unit_type| %>
+  <% end %>
+
+  <%= render List::DataTableComponent.new(@power_distribution_unit_types) do |table| %>
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:manufacturer_id), sort_by: :"manufacturers.name") do |power_distribution_unit_type| %>
+      <%= link_to manufacturer_path(power_distribution_unit_type.manufacturer.id) do %>
+        <%= power_distribution_unit_type.manufacturer %>
+      <% end %>
+    <% end %>
+
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:name), sort_by: :name) do |power_distribution_unit_type| %>
       <%= power_distribution_unit_type.name %>
     <% end %>
-    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:current_type)) do |power_distribution_unit_type| %>
-      <%= power_distribution_unit_type.current_type %>
-    <% end %>
-    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:documentation_url)) do |power_distribution_unit_type| %>
-      <%= power_distribution_unit_type.documentation_url %>
-    <% end %>
-    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:meter_global)) do |power_distribution_unit_type| %>
-      <%= power_distribution_unit_type.meter_global %>
-    <% end %>
-    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:meter_per_socket)) do |power_distribution_unit_type| %>
-      <%= power_distribution_unit_type.meter_per_socket %>
-    <% end %>
-    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:meter_per_circuit)) do |power_distribution_unit_type| %>
-      <%= power_distribution_unit_type.meter_per_circuit %>
-    <% end %>
-    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:socket_control)) do |power_distribution_unit_type| %>
-      <%= power_distribution_unit_type.socket_control %>
-    <% end %>
-    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:socket_lock)) do |power_distribution_unit_type| %>
-      <%= power_distribution_unit_type.socket_lock %>
-    <% end %>
-    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:ip_snmp)) do |power_distribution_unit_type| %>
-      <%= power_distribution_unit_type.ip_snmp %>
-    <% end %>
-    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:ip_modbus)) do |power_distribution_unit_type| %>
-      <%= power_distribution_unit_type.ip_modbus %>
-    <% end %>
-    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:ip_ssh)) do |power_distribution_unit_type| %>
-      <%= power_distribution_unit_type.ip_ssh %>
-    <% end %>
-    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:ip_webui)) do |power_distribution_unit_type| %>
-      <%= power_distribution_unit_type.ip_webui %>
-    <% end %>
-    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:rs485_modbus)) do |power_distribution_unit_type| %>
-      <%= power_distribution_unit_type.rs485_modbus %>
-    <% end %>
-    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:max_power_per_circuit)) do |power_distribution_unit_type| %>
-      <%= power_distribution_unit_type.max_power_per_circuit %>
-    <% end %>
-  
+
     <% table.with_column(style: "min-width: 70px; width: 70px") do |power_distribution_unit_type| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= link_to edit_power_distribution_unit_type_path(power_distribution_unit_type), class: "btn btn-info" do %>

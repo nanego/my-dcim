@@ -6,6 +6,8 @@ class PowerDistributionUnitTypesController < ApplicationController
   # GET /power_distribution_unit_types or /power_distribution_unit_types.json
   def index
     authorize! @power_distribution_unit_types = PowerDistributionUnitType.all
+    @filter = ProcessorFilter.new(@power_distribution_unit_types, params)
+    @power_distribution_unit_types = @filter.results
   end
 
   # GET /power_distribution_unit_types/1 or /power_distribution_unit_types/1.json
