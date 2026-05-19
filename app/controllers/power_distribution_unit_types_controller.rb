@@ -5,7 +5,7 @@ class PowerDistributionUnitTypesController < ApplicationController
 
   # GET /power_distribution_unit_types or /power_distribution_unit_types.json
   def index
-    @power_distribution_unit_types = PowerDistributionUnitType.all
+    authorize! @power_distribution_unit_types = PowerDistributionUnitType.all
   end
 
   # GET /power_distribution_unit_types/1 or /power_distribution_unit_types/1.json
@@ -13,7 +13,7 @@ class PowerDistributionUnitTypesController < ApplicationController
 
   # GET /power_distribution_unit_types/new
   def new
-    @power_distribution_unit_type = PowerDistributionUnitType.new
+    authorize! @power_distribution_unit_type = PowerDistributionUnitType.new
   end
 
   # GET /power_distribution_unit_types/1/edit
@@ -21,7 +21,7 @@ class PowerDistributionUnitTypesController < ApplicationController
 
   # POST /power_distribution_unit_types or /power_distribution_unit_types.json
   def create
-    @power_distribution_unit_type = PowerDistributionUnitType.new(power_distribution_unit_type_params)
+    authorize! @power_distribution_unit_type = PowerDistributionUnitType.new(power_distribution_unit_type_params)
 
     respond_to do |format|
       if @power_distribution_unit_type.save
@@ -61,7 +61,7 @@ class PowerDistributionUnitTypesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_power_distribution_unit_type
-    @power_distribution_unit_type = PowerDistributionUnitType.find(params.expect(:id))
+    authorize! @power_distribution_unit_type = PowerDistributionUnitType.find(params.expect(:id))
   end
 
   # Only allow a list of trusted parameters through.

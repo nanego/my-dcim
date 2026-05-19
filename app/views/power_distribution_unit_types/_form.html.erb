@@ -4,67 +4,73 @@
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
       <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-            <fieldset class="col-12 ">
-          <%= f.label :manufacturer, class: "form-label" %>
-          <%= f.text_field :manufacturer, class: "form-control" %>
+        <fieldset class="col-12 ">
+          <%= f.label :manufacturer_id, class: "form-label" %>
+          <%= f.select :manufacturer_id,
+                         PowerDistributionUnitTypeDecorator.manufacturers_options_for_select,
+                         { include_blank: t("access_control.blank") },
+                         class: "form-select" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
+        <fieldset class="col-12 mt-4">
           <%= f.label :name, class: "form-label" %>
           <%= f.text_field :name, class: "form-control" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
+        <fieldset class="col-12 mt-4">
           <%= f.label :current_type, class: "form-label" %>
-          <%= f.number_field :current_type, class: "form-control" %>
+          <%= f.select :current_type,
+                         PowerDistributionUnitTypeDecorator.current_type_options_for_select,
+                         {},
+                         class: "form-select" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
+        <fieldset class="col-12 mt-4">
           <%= f.label :documentation_url, class: "form-label" %>
           <%= f.text_field :documentation_url, class: "form-control" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
+        <fieldset class="col-12 mt-4">
+          <%= f.checkbox :meter_global %>
           <%= f.label :meter_global, class: "form-label" %>
-          <%= f.checkbox :meter_global, class: "form-control" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
+        <fieldset class="col-12 mt-4">
+          <%= f.checkbox :meter_per_socket %>
           <%= f.label :meter_per_socket, class: "form-label" %>
-          <%= f.checkbox :meter_per_socket, class: "form-control" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
+        <fieldset class="col-12 mt-4">
+          <%= f.checkbox :meter_per_circuit %>
           <%= f.label :meter_per_circuit, class: "form-label" %>
-          <%= f.checkbox :meter_per_circuit, class: "form-control" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
+        <fieldset class="col-12 mt-4">
+          <%= f.checkbox :socket_control %>
           <%= f.label :socket_control, class: "form-label" %>
-          <%= f.checkbox :socket_control, class: "form-control" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
+        <fieldset class="col-12 mt-4">
+          <%= f.checkbox :socket_lock %>
           <%= f.label :socket_lock, class: "form-label" %>
-          <%= f.checkbox :socket_lock, class: "form-control" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
+        <fieldset class="col-12 mt-4">
+          <%= f.checkbox :ip_snmp %>
           <%= f.label :ip_snmp, class: "form-label" %>
-          <%= f.checkbox :ip_snmp, class: "form-control" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
+        <fieldset class="col-12 mt-4">
+          <%= f.checkbox :ip_modbus %>
           <%= f.label :ip_modbus, class: "form-label" %>
-          <%= f.checkbox :ip_modbus, class: "form-control" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
+        <fieldset class="col-12 mt-4">
+          <%= f.checkbox :ip_ssh %>
           <%= f.label :ip_ssh, class: "form-label" %>
-          <%= f.checkbox :ip_ssh, class: "form-control" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
+        <fieldset class="col-12 mt-4">
+          <%= f.checkbox :ip_webui %>
           <%= f.label :ip_webui, class: "form-label" %>
-          <%= f.checkbox :ip_webui, class: "form-control" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
+        <fieldset class="col-12 mt-4">
+          <%= f.checkbox :rs485_modbus %>
           <%= f.label :rs485_modbus, class: "form-label" %>
-          <%= f.checkbox :rs485_modbus, class: "form-control" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
+        <fieldset class="col-12 mt-4">
           <%= f.label :max_power_per_circuit, class: "form-label" %>
           <%= f.number_field :max_power_per_circuit, class: "form-control" %>
         </fieldset>
-        
+
       <% end %>
     </div>
   </div>

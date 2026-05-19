@@ -4,4 +4,6 @@ class PowerDistributionUnitType < ApplicationRecord
   belongs_to :manufacturer
 
   enum :current_type, { three_phase: 0, single_phase: 1 }
+
+  delegate :to_s, to: :name
 end

@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+class PowerDistributionUnitTypeDecorator < ApplicationDecorator
+  class << self
+    def manufacturers_options_for_select
+      ManufacturerDecorator.options_for_select
+    end
+
+    def current_type_options_for_select
+      PowerDistributionUnitType.current_types.keys.map { |c_t| [I18n.t("current_type.#{c_t}"), c_t] }
+    end
+  end
+end

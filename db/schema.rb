@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_06_125949) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_18_150238) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -464,6 +464,27 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_06_125949) do
     t.index ["card_id"], name: "index_ports_on_card_id"
   end
 
+  create_table "power_distribution_unit_types", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "current_type"
+    t.string "documentation_url"
+    t.boolean "ip_modbus"
+    t.boolean "ip_snmp"
+    t.boolean "ip_ssh"
+    t.boolean "ip_webui"
+    t.bigint "manufacturer_id", null: false
+    t.integer "max_power_per_circuit"
+    t.boolean "meter_global"
+    t.boolean "meter_per_circuit"
+    t.boolean "meter_per_socket"
+    t.string "name"
+    t.boolean "rs485_modbus"
+    t.boolean "socket_control"
+    t.boolean "socket_lock"
+    t.datetime "updated_at", null: false
+    t.index ["manufacturer_id"], name: "index_power_distribution_unit_types_on_manufacturer_id"
+  end
+
   create_table "rooms", id: :serial, force: :cascade do |t|
     t.integer "access_control"
     t.datetime "created_at", precision: nil, null: false
@@ -617,6 +638,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_06_125949) do
   add_foreign_key "permission_scope_users", "permission_scopes"
   add_foreign_key "permission_scope_users", "users"
   add_foreign_key "ports", "cards"
+  add_foreign_key "power_distribution_unit_types", "manufacturers"
   add_foreign_key "rooms", "sites"
   add_foreign_key "servers", "clusters"
   add_foreign_key "servers", "domains"

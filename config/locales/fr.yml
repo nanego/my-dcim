@@ -1014,3 +1014,15 @@ fr:
       no_results_found: Aucun résultat trouvé
   select:
     placeholder: Tapez pour filtrer...
+
+  power_distribution_unit_types:
+    index:
+      new_power_distribution_unit_type: "Nouveau type de PDU"
+    new:
+      title: "Nouveau type de PDU"
+    edit:
+      title: Modifier le type de PDU
+
+  current_type:
+    single_phase: Une phase
+    three_phase: Trois phases

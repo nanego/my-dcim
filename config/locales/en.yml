@@ -651,3 +651,15 @@ en:
     rooms:
       index:
         title: Overview of the rooms
+
+  power_distribution_unit_types:
+    index:
+      new_power_distribution_unit_type: New PDU type
+    new:
+      title: New PDU type
+    edit:
+      title: Edit a PDU type
+
+  current_type:
+    single_phase: One phase
+    three_phase: Three phases
