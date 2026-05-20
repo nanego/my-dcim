@@ -1,3 +1,3 @@
 import TomSelect from "tom-select"
 
-export { TomSelect }
+export default TomSelect

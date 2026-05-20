@@ -4474,6 +4474,9 @@ TomSelect.define("remove_button", plugin12);
 TomSelect.define("restore_on_backspace", plugin13);
 TomSelect.define("virtual_scroll", plugin14);
 var tom_select_complete_default = TomSelect;
+
+// vendor/javascript/tom-select.js
+var tom_select_default = tom_select_complete_default;
 export {
-  tom_select_complete_default as TomSelect
+  tom_select_default as default
 };
