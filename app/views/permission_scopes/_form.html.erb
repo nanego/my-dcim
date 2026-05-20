@@ -45,7 +45,10 @@
                        { include_blank: t(".domain_ids.blank") },
                        class: "form-select",
                        multiple: true,
-                       data: { controller: :select } %>
+                       data: {
+                         controller: :select,
+                         select_clear_button_title_value: t("action.clear_all"),
+                       } %>
         </fieldset>
       <% end %>
     </div>

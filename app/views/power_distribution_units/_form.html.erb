@@ -40,7 +40,10 @@
                                     { prompt: true, include_blank: false },
                                     {
                                       class: "form-select",
-                                      data: { controller: "select" },
+                                      data: {
+                                        controller: :select,
+                                        select_clear_button_title_value: t("action.clear_all"),
+                                      },
                                       placeholder: t("select.placeholder"),
                                     }) %>
           </fieldset>
@@ -75,7 +78,10 @@
                                     { prompt: true, include_blank: true },
                                     {
                                       class: "form-select",
-                                      data: { controller: "select" },
+                                      data: {
+                                        controller: :select,
+                                        select_clear_button_title_value: t("action.clear_all"),
+                                      },
                                       placeholder: t("select.placeholder"),
                                     }) %>
           </fieldset>
@@ -99,7 +105,10 @@
                                     { prompt: true, include_blank: true },
                                     {
                                       class: "form-select",
-                                      data: { controller: "select" },
+                                      data: {
+                                        controller: :select,
+                                        select_clear_button_title_value: t("action.clear_all"),
+                                      },
                                       placeholder: t("select.placeholder"),
                                     }) %>
           </fieldset>

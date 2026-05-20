@@ -21,7 +21,12 @@
                                   :to_s,
                                   :to_s,
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
+                                  { class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  }) %>
           <%= f.label :actions %>
         </fieldset>
       </div>
@@ -32,7 +37,12 @@
                                   :first,
                                   :second,
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
+                                  { class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  }) %>
           <%= f.label :authors %>
         </fieldset>
       </div>
@@ -43,7 +53,12 @@
                                   :second,
                                   :first,
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
+                                  { class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  }) %>
           <%= f.label :object_types %>
         </fieldset>
       </div>

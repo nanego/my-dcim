@@ -31,6 +31,7 @@ en:
     export: Export
     show_all: Show all
     hide_all: Hide all
+    clear_all: Clear all
 
   air_conditioners:
     add_new: Add an air conditioner

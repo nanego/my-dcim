@@ -7,7 +7,12 @@
     <fieldset class="flex-grow-1 me-3">
       <%= f.select :user_id, PermissionScopeUserDecorator.users_options_for_select(permission_scope_user.permission_scope),
                             { include_blank: t(".user_select") },
-                            class: "form-select", data: { controller: :select } %>
+                            { class: "form-select",
+                              data: {
+                                controller: :select,
+                                select_clear_button_title_value: t("action.clear_all"),
+                              }
+                            } %>
     </fieldset>
 
     <%= f.submit t("action.add"), class: "btn btn-outline-success" %>

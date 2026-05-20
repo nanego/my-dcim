@@ -32,7 +32,12 @@
                                   :id,
                                   :name,
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
+                                  { class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  }) %>
           <%= f.label :room_ids %>
         </fieldset>
       </div>
@@ -42,7 +47,12 @@
           <%= f.select :islet_ids,
                        PowerDistributionUnitDecorator.islets_options_for_select(current_user),
                        { prompt: true, multiple: true },
-                       { class: "form-select", data: { controller: :select } } %>
+                       { class: "form-select",
+                         data: {
+                           controller: :select,
+                           select_clear_button_title_value: t("action.clear_all"),
+                         }
+                       } %>
           <%= f.label :islet_ids %>
         </fieldset>
       </div>
@@ -53,7 +63,12 @@
                                   :id,
                                   :to_s,
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
+                                  { class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  }) %>
           <%= f.label :bay_ids %>
         </fieldset>
       </div>
@@ -64,7 +79,12 @@
                                   :id,
                                   :name,
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
+                                  { class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  }) %>
           <%= f.label :frame_ids %>
         </fieldset>
       </div>
@@ -75,7 +95,12 @@
                                   :id,
                                   :name,
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
+                                  { class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  }) %>
           <%= f.label :modele_ids %>
         </fieldset>
       </div>
@@ -86,7 +111,12 @@
                                   :id,
                                   :name,
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
+                                  { class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  }) %>
           <%= f.label :gestion_ids %>
         </fieldset>
       </div>

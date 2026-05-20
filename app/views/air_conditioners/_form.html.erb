@@ -70,7 +70,14 @@
                          Bay.sorted_by_room, :id, :detailed_name, @air_conditioner.bay_id,
                        ),
                        { prompt: true },
-                       { class: "form-select", data: { controller: "select" }, placeholder: t("select.placeholder") } %>
+                       {
+                         class: "form-select",
+                         data: {
+                           controller: :select,
+                           select_clear_button_title_value: t("action.clear_all"),
+                         },
+                         placeholder: t("select.placeholder"),
+                       } %>
         </fieldset>
 
         <fieldset class="mt-4">

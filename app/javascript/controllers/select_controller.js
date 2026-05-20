@@ -4,6 +4,7 @@ import TomSelect from "tom-select"
 export default class extends Controller {
   static values = {
     options: Object,
+    clearButtonTitle: String,
   }
 
   connect() {
@@ -18,13 +19,15 @@ export default class extends Controller {
   }
 
   plugins() {
-    const plugins = []
+    const plugins = {}
 
     if (this.isMultiple()) {
-      plugins.push("remove_button")
+      plugins["remove_button"] = ""
     }
 
-    plugins.push("clear_button")
+    plugins["clear_button"] = {
+      "title": this.clearButtonTitleValue,
+    }
 
     return plugins
   }
@@ -34,7 +37,7 @@ export default class extends Controller {
       hidePlaceholder: true,
       maxOptions: null,
       plugins: this.plugins(),
-      searchField: ['text', 'groupName'],
+      searchField: ["text", "groupName"],
       lockOptgroupOrder: true,
       onInitialize: function() {
         Object.keys(this.options).forEach((key) => {

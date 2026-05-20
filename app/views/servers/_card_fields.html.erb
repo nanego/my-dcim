@@ -37,7 +37,12 @@
                        options_for_select(CardType.sorted.map { |card_type| [card_type.name, card_type.id] },
                                           f.object.card_type_id),
                        {},
-                       { class: "form-select", data: { controller: :select } } %>
+                       { class: "form-select",
+                         data: {
+                           controller: :select,
+                           select_clear_button_title_value: t("action.clear_all"),
+                         }
+                       } %>
         </span>
         <span class="col-12 mt-2 col-sm-3 col-xl-2">
           <%= f.label Enclosure.human_attribute_name(:first_position), class: "form-label col-form-label-sm p-0" %>
@@ -51,7 +56,12 @@
                                                .on_patch_panels.sort_by(&:to_s).map { |card| [card.to_s, card.id] },
                                           f.object.twin_card_id),
                        { include_blank: true },
-                       { class: "form-select", data: { controller: :select } } %>
+                       { class: "form-select",
+                         data: {
+                           controller: :select,
+                           select_clear_button_title_value: t("action.clear_all"),
+                         }
+                       } %>
         </span>
       </div>
 

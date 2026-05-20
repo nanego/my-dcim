@@ -72,7 +72,12 @@
                                   :id,
                                   :name,
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
+                                  { class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  }) %>
           <%= f.label :external_app_record_frame_ids %>
         </fieldset>
       </div>
@@ -82,7 +87,12 @@
           <%= f.select(:external_serial_status,
                        ExternalAppRecordDecorator.external_serial_status_options_for_select,
                        { prompt: true },
-                       { class: "form-select", data: { controller: :select } }) %>
+                       { class: "form-select",
+                         data: {
+                           controller: :select,
+                           select_clear_button_title_value: t("action.clear_all"),
+                         }
+                       }) %>
           <%= f.label :external_serial_status %>
         </fieldset>
       </div>
@@ -93,7 +103,12 @@
                                   :id,
                                   :name,
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
+                                  { class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  }) %>
           <%= f.label :modele_ids %>
         </fieldset>
       </div>

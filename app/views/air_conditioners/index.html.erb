@@ -4,7 +4,7 @@
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
-    <% if allowed_to?(:create?)
+    <%= if allowed_to?(:create?)
          render ButtonComponent.new(
            t("air_conditioners.add_new"),
            url: new_air_conditioner_path,
@@ -30,7 +30,14 @@
         <fieldset class="form-floating">
           <%= f.collection_select(:room_ids, Room.sorted, :id, :to_s,
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
+                                  {
+                                    class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  }
+          ) %>
           <%= f.label :room_ids %>
         </fieldset>
       </div>
@@ -39,7 +46,14 @@
         <fieldset class="form-floating">
           <%= f.collection_select(:air_conditioner_model_ids, AirConditionerModel.sorted, :id, :to_s,
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
+                                  {
+                                    class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  }
+          ) %>
           <%= f.label :air_conditioner_model_ids %>
         </fieldset>
       </div>
