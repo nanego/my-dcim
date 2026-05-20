@@ -11,6 +11,8 @@ pin "stimulus-reveal-controller" # @4.1.0
 pin "tom-select" # @2.6.1
 pin "leader-line" # @1.0.5
 pin "sortablejs" # @1.14.0
+pin "leader-line" # @1.0.8
+pin "sortablejs" # @1.15.7
 pin "anim-event" # @1.0.17
 pin "popper", to: "popper.js"
 pin "bootstrap", to: "bootstrap.js"
