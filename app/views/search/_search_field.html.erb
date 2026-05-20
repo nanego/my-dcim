@@ -33,8 +33,7 @@
       class="search-dropdown position-absolute top-100 start-50 translate-middle-x overflow-auto z-3 mt-3 border-bottom rounded-bottom"
       data-controller="search-results"
       data-search-results-target="popup"
-      data-action="click@document->search-results#close"
-      data-action="keydown.esc@document->search-results#close"
+      data-action="click@document->search-results#close keydown.esc@document->search-results#close"
     />
   <% end %>
 </div>
