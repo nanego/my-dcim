@@ -14,11 +14,14 @@ export default class SearchResults extends Controller {
     }
   }
 
-  closeForEscape(e) {
-    if (e.key === "Escape") this.popupTarget.innerHTML = ""
-  }
+  close(e) {
+    if (e.type === "keydown") {
+      this.popupTarget.innerHTML = ""
+      return
+    }
 
-  closeForOustideClick(e) {
-    if (!this.popupTarget.contains(e.target)) this.popupTarget.innerHTML = ""
+    if (!this.popupTarget.contains(e.target)) {
+      this.popupTarget.innerHTML = ""
+    }
   }
 }
