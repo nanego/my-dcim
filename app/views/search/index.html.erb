@@ -9,7 +9,7 @@
   <turbo-frame
     id="search-index"
     data-controller="search-results"
-    data-turbo-action="<%= request.path == search_path ? "advance" : "replace" %>"
+    data-turbo-action="advance"
   >
     <% if @results.any? %>
       <div class="list-group">
