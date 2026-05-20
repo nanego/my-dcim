@@ -18,7 +18,7 @@ export default class SearchResults extends Controller {
     if (e.key === "Escape") this.popupTarget.innerHTML = ""
   }
 
-  closeForOusideClick(e) {
+  closeForOustideClick(e) {
     if (!this.popupTarget.contains(e.target)) this.popupTarget.innerHTML = ""
   }
 }
