@@ -8,7 +8,7 @@ pin "@hotwired/turbo-rails", to: "turbo.min.js"
 pin "@hotwired/stimulus", to: "stimulus.min.js"
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
 pin "stimulus-reveal-controller" # @4.1.0
-pin "tom-select" # @2.3.1
+pin "tom-select" # @2.6.1
 pin "leader-line" # @1.0.5
 pin "sortablejs" # @1.14.0
 pin "anim-event" # @1.0.17
