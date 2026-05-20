@@ -26,7 +26,12 @@
         <fieldset class="form-floating">
           <%= f.collection_select(:port_type_ids, PortType.sorted, :id, :name,
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select }  }) %>
+                                  { class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all")
+                                    }
+                                  }) %>
           <%= f.label :port_type_ids %>
         </fieldset>
       </div>

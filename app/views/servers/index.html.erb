@@ -52,9 +52,14 @@
         <div>
           <fieldset class="form-floating">
             <%= f.select(:room_ids,
-                        ServerDecorator.rooms_options_for_select(current_user),
-                        { prompt: true, multiple: true },
-                        { class: "form-select", data: { controller: :select } }) %>
+                         ServerDecorator.rooms_options_for_select(current_user),
+                         { prompt: true, multiple: true },
+                         { class: "form-select",
+                           data: {
+                             controller: :select,
+                             select_clear_button_title_value: t("action.clear_all"),
+                           }
+                         }) %>
             <%= f.label :room_ids %>
           </fieldset>
         </div>
@@ -62,9 +67,14 @@
         <div>
           <fieldset class="form-floating">
             <%= f.select(:islet_ids,
-                        ServerDecorator.islets_options_for_select(current_user),
-                        { prompt: true, multiple: true },
-                        { class: "form-select", data: { controller: :select } }) %>
+                         ServerDecorator.islets_options_for_select(current_user),
+                         { prompt: true, multiple: true },
+                         { class: "form-select",
+                           data: {
+                             controller: :select,
+                             select_clear_button_title_value: t("action.clear_all"),
+                           }
+                         }) %>
             <%= f.label :islet_ids %>
           </fieldset>
         </div>
@@ -72,9 +82,14 @@
         <div>
           <fieldset class="form-floating">
             <%= f.select :manufacturer_ids,
-                        ServerDecorator.manufacturers_options_for_select,
-                        { prompt: true, multiple: true },
-                        { class: "form-select", data: { controller: :select } }
+                         ServerDecorator.manufacturers_options_for_select,
+                         { prompt: true, multiple: true },
+                         { class: "form-select",
+                           data: {
+                             controller: :select,
+                             select_clear_button_title_value: t("action.clear_all"),
+                           }
+                         }
             %>
             <%= f.label :manufacturer_ids %>
           </fieldset>
@@ -83,9 +98,14 @@
         <div>
           <fieldset class="form-floating">
             <%= f.select(:bay_ids,
-                        ServerDecorator.bays_options_for_select(current_user),
-                        { prompt: true, multiple: true },
-                        { class: "form-select", data: { controller: :select } }) %>
+                         ServerDecorator.bays_options_for_select(current_user),
+                         { prompt: true, multiple: true },
+                         { class: "form-select",
+                           data: {
+                             controller: :select,
+                             select_clear_button_title_value: t("action.clear_all"),
+                           }
+                         }) %>
             <%= f.label :bay_ids %>
           </fieldset>
         </div>
@@ -93,9 +113,14 @@
         <div>
           <fieldset class="form-floating">
             <%= f.select(:frame_ids,
-                        ServerDecorator.frames_options_for_select(current_user),
-                        { prompt: true, multiple: true },
-                        { class: "form-select", data: { controller: :select } }) %>
+                         ServerDecorator.frames_options_for_select(current_user),
+                         { prompt: true, multiple: true },
+                         { class: "form-select",
+                           data: {
+                             controller: :select,
+                             select_clear_button_title_value: t("action.clear_all"),
+                           }
+                         }) %>
             <%= f.label :frame_ids %>
           </fieldset>
         </div>
@@ -107,7 +132,12 @@
                                     :id,
                                     :name,
                                     { prompt: true, multiple: true },
-                                    { class: "form-select", data: { controller: :select } }) %>
+                                    { class: "form-select",
+                                      data: {
+                                        controller: :select,
+                                        select_clear_button_title_value: t("action.clear_all"),
+                                      }
+                                    }) %>
             <%= f.label :modele_ids %>
           </fieldset>
         </div>
@@ -119,7 +149,12 @@
                                     :id,
                                     :name,
                                     { prompt: true, multiple: true },
-                                    { class: "form-select", data: { controller: :select } }) %>
+                                    { class: "form-select",
+                                      data: {
+                                        controller: :select,
+                                        select_clear_button_title_value: t("action.clear_all"),
+                                      }
+                                    }) %>
             <%= f.label :gestion_ids %>
           </fieldset>
         </div>
@@ -127,9 +162,14 @@
         <div>
           <fieldset class="form-floating">
             <%= f.select(:domain_ids,
-                        ServerDecorator.domains_options_for_select(current_user),
-                        { prompt: true, multiple: true },
-                        { class: "form-select", data: { controller: :select } }) %>
+                         ServerDecorator.domains_options_for_select(current_user),
+                         { prompt: true, multiple: true },
+                         { class: "form-select",
+                           data: {
+                             controller: :select,
+                             select_clear_button_title_value: t("action.clear_all"),
+                           }
+                         }) %>
             <%= f.label :domain_ids %>
           </fieldset>
         </div>
@@ -141,7 +181,12 @@
                                     :id,
                                     :name,
                                     { prompt: true, multiple: true },
-                                    { class: "form-select", data: { controller: :select } }) %>
+                                    { class: "form-select",
+                                      data: {
+                                        controller: :select,
+                                        select_clear_button_title_value: t("action.clear_all"),
+                                      }
+                                    }) %>
             <%= f.label :cluster_ids %>
           </fieldset>
         </div>
@@ -153,11 +198,16 @@
                                     :id,
                                     :name,
                                     { prompt: true, multiple: true },
-                                    { class: "form-select", data: { controller: :select } }) %>
+                                    { class: "form-select",
+                                      data: {
+                                        controller: :select,
+                                        select_clear_button_title_value: t("action.clear_all"),
+                                      }
+                                    }) %>
             <%= f.label :category_ids %>
           </fieldset>
         </div>
-
+        
       <% end %>
     <% end %>
 

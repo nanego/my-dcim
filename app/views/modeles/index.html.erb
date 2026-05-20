@@ -26,7 +26,13 @@
         <fieldset class="form-floating">
           <%= f.collection_select(:architecture_ids, Architecture.sorted, :id, :to_s,
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
+                                  { class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  }
+          ) %>
           <%= f.label :architecture_ids %>
         </fieldset>
       </div>
@@ -35,7 +41,13 @@
         <fieldset class="form-floating">
           <%= f.collection_select(:category_ids, Category.sorted, :id, :to_s,
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }) %>
+                                  { class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  }
+          ) %>
           <%= f.label :category_ids %>
         </fieldset>
       </div>
@@ -45,7 +57,12 @@
           <%= f.select :manufacturer_ids,
                        ModeleDecorator.manufacturers_options_for_select,
                        { prompt: true, multiple: true },
-                       { class: "form-select", data: { controller: :select } }
+                       { class: "form-select",
+                         data: {
+                           controller: :select,
+                           select_clear_button_title_value: t("action.clear_all"),
+                         }
+                       }
           %>
           <%= f.label :manufacturer_ids %>
         </fieldset>

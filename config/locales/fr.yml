@@ -40,6 +40,7 @@ fr:
     export: Exporter
     show_all: Afficher tout
     hide_all: Cacher tout
+    clear_all: Tout effacer
 
   export_button:
     label: Exports

@@ -26,7 +26,12 @@
         <fieldset class="form-floating">
           <%= f.select :room_ids, FrameDecorator.rooms_options_for_select(current_user),
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } } %>
+                                  { class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  } %>
           <%= f.label :room_ids %>
         </fieldset>
       </div>
@@ -35,7 +40,12 @@
         <fieldset class="form-floating">
           <%= f.select :islet_ids, FrameDecorator.islets_options_for_select(current_user),
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } } %>
+                                  { class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  } %>
           <%= f.label :islet_ids %>
         </fieldset>
       </div>
@@ -44,15 +54,28 @@
         <fieldset class="form-floating">
           <%= f.select :bay_ids, FrameDecorator.bays_options_for_select(current_user),
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } } %>
+                                  { class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  } %>
           <%= f.label :bay_ids %>
         </fieldset>
       </div>
 
       <div>
         <fieldset class="form-floating">
-          <%= f.select(:u, Frame.group(:u).order(:u).pluck(:u), { prompt: true, include_blank: true },
-                                                                { class: "form-select" }) %>
+          <%= f.select(:u,
+                       Frame.group(:u).order(:u).pluck(:u),
+                       { prompt: true, include_blank: true },
+                       { class: "form-select",
+                         data: {
+                           controller: :select,
+                           select_clear_button_title_value: t("action.clear_all"),
+                         }
+                       }
+          ) %>
           <%= f.label :u %>
         </fieldset>
       </div>

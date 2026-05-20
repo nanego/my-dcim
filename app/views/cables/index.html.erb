@@ -12,7 +12,11 @@
             <%= f.select :server_ids, CableDecorator.servers_options_for_select(current_user),
                                   { prompt: true, multiple: true },
                                   { class: "form-select",
-                                    data: { controller: :select } } %>
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  } %>
             <%= f.label :server_ids %>
           </fieldset>
         </div>
@@ -22,7 +26,8 @@
             <%= f.select :special_case,
                          CableDecorator.special_case_options_for_select,
                          { prompt: true },
-                         { class: "form-select", data: { controller: :select } } %>
+                         { class: "form-select",
+                           data: { controller: :select, select_clear_button_title_value: t("action.clear_all") } } %>
             <%= f.label :special_case %>
           </fieldset>
         </div>
@@ -33,7 +38,12 @@
                                     :id,
                                     :name,
                                     { prompt: true, multiple: true },
-                                    { class: "form-select", data: { controller: :select } }) %>
+                                    { class: "form-select",
+                                      data: {
+                                        controller: :select,
+                                        select_clear_button_title_value: t("action.clear_all")
+                                      }
+                                    }) %>
             <%= f.label :port_type_ids %>
           </fieldset>
         </div>
@@ -43,7 +53,8 @@
             <%= f.select :colors,
                          CableDecorator.colors_options_for_select,
                          { prompt: true, multiple: true },
-                         { class: "form-select", data: { controller: :select } } %>
+                         { class: "form-select",
+                           data: { controller: :select, select_clear_button_title_value: t("action.clear_all") } } %>
             <%= f.label :colors %>
           </fieldset>
         </div>

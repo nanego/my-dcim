@@ -26,7 +26,13 @@
         <fieldset class="form-floating">
           <%= f.select :room_ids, BayDecorator.rooms_options_for_select(current_user),
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }
+                                  {
+                                    class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  }
           %>
           <%= f.label :room_ids %>
         </fieldset>
@@ -36,7 +42,13 @@
         <fieldset class="form-floating">
           <%= f.select :islet_ids, BayDecorator.islets_options_for_select(current_user),
                                   { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } }
+                                  {
+                                    class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  }
           %>
           <%= f.label :islet_ids %>
         </fieldset>
@@ -47,7 +59,10 @@
           <%= f.select :manufacturer_ids,
                        BayDecorator.manufacturers_options_for_select,
                        { prompt: true, multiple: true },
-                       { class: "form-select", data: { controller: :select }  }
+                       {
+                         class: "form-select",
+                         data: { controller: :select, select_clear_button_title_value: t("action.clear_all") }
+                       }
           %>
           <%= f.label :manufacturer_ids %>
         </fieldset>
