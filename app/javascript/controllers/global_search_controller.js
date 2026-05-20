@@ -12,6 +12,16 @@ export default class extends Controller {
     })
   }
 
+  navigate(event) {
+    event.preventDefault()
+    this.element.dataset.turboFrame = "_top"
+
+    this.element.requestSubmit()
+
+    // reset dataset after for when turbo drive is used
+    this.element.dataset.turboFrame = "results"
+  }
+
   #lastDebounceKey
   useDebounce(duration, callback) {
     if (this.#lastDebounceKey) clearTimeout(this.#lastDebounceKey)
