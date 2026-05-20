@@ -1,0 +1,13 @@
+{
+  "name": "my-dcim",
+  "private": true,
+  "dependencies": {
+    "tom-select": "^2.6.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.0"
+  },
+  "scripts": {
+    "build:tom-select": "esbuild vendor/javascript/tom-select.js --bundle --outfile=vendor/javascript/tom-select.esm.js --format=esm"
+  }
+}
