@@ -51,3 +51,12 @@ height:
   position: 1
   card_id: 8
   color: 0
+
+nine:
+  id: 9
+  card_id: 8
+  vlans: 123z
+
+ten:
+  id: 10
+  card_id: 8
