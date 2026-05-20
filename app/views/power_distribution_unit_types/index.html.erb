@@ -34,14 +34,16 @@
   <% end %>
 
   <%= render List::DataTableComponent.new(@power_distribution_unit_types) do |table| %>
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:name), sort_by: :name) do |power_distribution_unit_type| %>
+      <%= link_to power_distribution_unit_type_path(power_distribution_unit_type) do %>
+        <%= power_distribution_unit_type.name %>
+      <% end %>
+    <% end %>
+
     <% table.with_column(PowerDistributionUnitType.human_attribute_name(:manufacturer_id), sort_by: :"manufacturers.name") do |power_distribution_unit_type| %>
       <%= link_to manufacturer_path(power_distribution_unit_type.manufacturer.id) do %>
         <%= power_distribution_unit_type.manufacturer %>
       <% end %>
-    <% end %>
-
-    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:name), sort_by: :name) do |power_distribution_unit_type| %>
-      <%= power_distribution_unit_type.name %>
     <% end %>
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |power_distribution_unit_type| %>
@@ -56,7 +58,6 @@
         <% end %>
         <%= link_to power_distribution_unit_type_path(power_distribution_unit_type),
                     method: :delete,
-                    data: { confirm: t("action.confirm") },
                     class: "btn btn-danger" do %>
           <span class="bi bi-trash"
                 title="<%= t("action.delete") %>"

@@ -657,8 +657,17 @@ en:
       new_power_distribution_unit_type: New PDU type
     new:
       title: New PDU type
+    destroy:
+      title: Delete this PDU type
+      flashes:
+        destroyed: PDU type have been deleted.
     edit:
       title: Edit a PDU type
+      flashes:
+        created: PDU type have been created.
+    update:
+      flashes:
+        updated: PDU type have been updated.
 
   current_type:
     single_phase: One phase
