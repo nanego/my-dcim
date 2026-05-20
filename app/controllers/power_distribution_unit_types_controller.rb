@@ -60,6 +60,11 @@ class PowerDistributionUnitTypesController < ApplicationController
     end
   end
 
+  def duplicate
+    authorize! @original_power_distribution_unit_type = PowerDistributionUnitType.find(params[:id].to_s.downcase)
+    @power_distribution_unit_type = @original_power_distribution_unit_type.deep_dup
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

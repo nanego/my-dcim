@@ -34,6 +34,15 @@
   <% end %>
 
   <%= render List::DataTableComponent.new(@power_distribution_unit_types) do |table| %>
+    <% table.with_bulk_action(
+      url: bulk_power_distribution_unit_types_path,
+      method: :delete,
+      class: "btn btn-danger btn-sm",
+      data: { confirm: t("action.confirm") }
+      ) do %>
+      <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
+    <% end %>
+
     <% table.with_column(PowerDistributionUnitType.human_attribute_name(:name), sort_by: :name) do |power_distribution_unit_type| %>
       <%= link_to power_distribution_unit_type_path(power_distribution_unit_type) do %>
         <%= power_distribution_unit_type.name %>
@@ -55,6 +64,16 @@
                 data-bs-placement="left"
                 aria-hidden="true"></span>
           <span class="visually-hidden"><%= t("action.edit") %></span>
+        <% end %>
+        <%= link_to duplicate_power_distribution_unit_type_path(power_distribution_unit_type),
+                    class: "btn btn-success",
+                    data: { turbo_frame: :_top } do %>
+          <span class="bi bi-copy"
+                title="<%= t("action.duplicate") %>"
+                aria-hidden="true"
+                data-controller="tooltip"
+                data-bs-placement="left"></span>
+          <span class="visually-hidden"><%= t("action.duplicate") %></span>
         <% end %>
         <%= link_to power_distribution_unit_type_path(power_distribution_unit_type),
                     method: :delete,

@@ -956,6 +956,9 @@ fr:
       new_power_distribution_unit_type: "Nouveau type de PDU"
     new:
       title: "Nouveau type de PDU"
+    create:
+      flashes:
+        created: Le type de PDU a bien été mis à crée.
     destroy:
       title: Supprimer ce type de PDU
       flashes:
@@ -967,6 +970,8 @@ fr:
     update:
       flashes:
         updated: Le type de PDU a bien été mis à jour.
+    duplicate:
+      title: Dupliquer le type de PDU %{power_distribution_unit_type_name}
 
   current_type:
     single_phase: Une phase
