@@ -14,6 +14,10 @@ class IsletsController < ApplicationController
     authorize! @islets = scoped_islets.joins(room: :site).order("rooms.site_id asc, rooms.position asc, islets.name asc")
     @filter = ProcessorFilter.new(@islets, params)
     @islets = @filter.results
+
+    @frames_per_islet = authorized_scope(
+      Frame.includes(:bay).where(bay: { islet_id: @islets.ids }),
+    ).group_by { |f| f.bay.islet_id }
   end
 
   def show
