@@ -403,7 +403,7 @@ RSpec.describe ServersProcessor do
     let(:manufacturer) { Manufacturer.create! }
     let(:modele)   { Modele.create!(name: "Mod", description: "Mod desc", category:, manufacturer:, architecture: Architecture.create!) }
     let(:manager)  { Manager.create!(name: "G1") }
-    let(:domain)  { Domain.create!(name: "D1") }
+    let(:domain)   { Domain.create!(name: "D1") }
     let(:cluster)  { Cluster.create!(name: "C1") }
     let(:stack)    { Stack.create!(name: "S1") }
 
