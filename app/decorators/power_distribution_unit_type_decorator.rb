@@ -7,7 +7,9 @@ class PowerDistributionUnitTypeDecorator < ApplicationDecorator
     end
 
     def current_type_options_for_select
-      PowerDistributionUnitType.current_types.keys.map { |c_t| [I18n.t("current_type.#{c_t}"), c_t] }
+      PowerDistributionUnitType.current_types.keys.map do |c_t|
+        [PowerDistributionUnitType.human_attribute_name("current_type.#{c_t}"), c_t]
+      end
     end
   end
 end

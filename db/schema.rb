@@ -468,19 +468,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_18_150238) do
     t.datetime "created_at", null: false
     t.integer "current_type"
     t.string "documentation_url"
-    t.boolean "ip_modbus"
-    t.boolean "ip_snmp"
-    t.boolean "ip_ssh"
-    t.boolean "ip_webui"
+    t.boolean "ip_modbus", default: false
+    t.boolean "ip_snmp", default: false
+    t.boolean "ip_ssh", default: false
+    t.boolean "ip_webui", default: false
     t.bigint "manufacturer_id", null: false
     t.integer "max_power_per_circuit"
-    t.boolean "meter_global"
-    t.boolean "meter_per_circuit"
-    t.boolean "meter_per_socket"
-    t.string "name"
-    t.boolean "rs485_modbus"
-    t.boolean "socket_control"
-    t.boolean "socket_lock"
+    t.boolean "meter_global", default: false
+    t.boolean "meter_per_circuit", default: false
+    t.boolean "meter_per_socket", default: false
+    t.string "name", null: false
+    t.boolean "rs485_modbus", default: false
+    t.boolean "socket_control", default: false
+    t.boolean "socket_lock", default: false
     t.datetime "updated_at", null: false
     t.index ["manufacturer_id"], name: "index_power_distribution_unit_types_on_manufacturer_id"
   end

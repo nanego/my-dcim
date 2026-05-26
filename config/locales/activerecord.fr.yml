@@ -463,6 +463,24 @@ fr:
       permission_scope/role:
         reader: Lecteur
         writer: Éditeur
+      power_distribution_unit_type:
+        name: Nom
+        manufacturer: Constructeur
+        current_type: Type
+        documentation_url: Documentation
+        meter_global: Mètres global
+        meter_per_socket: Mètres par socket
+        meter_per_circuit: Mètres par circuit
+        socket_control: Control de socket
+        ip_snmp: Ip snmp
+        ip_modbus: Ip modbus
+        ip_ssh: Ip ssh
+        ip_webui: Ip WebUI
+        rs485_modbus: Rs485 modbus
+        max_power_per_circuit: Puissance max par curcuit
+      power_distribution_unit_type/current_type:
+        single_phase: Monophasé
+        three_phase: Triphasé
 
     errors:
       models:

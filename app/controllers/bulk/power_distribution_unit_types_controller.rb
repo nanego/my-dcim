@@ -6,7 +6,7 @@ module Bulk
 
     def destroy
       respond_to do |format|
-        if @power_distribution_units.map(&:destroy).all?
+        if @power_distribution_unit_types.map(&:destroy).all?
           format.html do
             redirect_to power_distribution_unit_types_path,
                         notice: t("bulk.resource.destroy.flashes.destroyed", resource: PowerDistributionUnitType.model_name.human.pluralize),
@@ -26,7 +26,7 @@ module Bulk
     private
 
     def set_power_distribution_unit_types
-      authorize! @power_distribution_units = PowerDistributionUnitType.where(id: params[:ids])
+      authorize! @power_distribution_unit_types = PowerDistributionUnitType.where(id: params[:ids])
     end
 
     def default_authorization_policy_class

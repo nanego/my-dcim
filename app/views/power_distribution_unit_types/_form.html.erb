@@ -19,7 +19,7 @@
           <%= f.label :current_type, class: "form-label" %>
           <%= f.select :current_type,
                          PowerDistributionUnitTypeDecorator.current_type_options_for_select,
-                         {},
+                         { include_blank: t("access_control.blank") },
                          class: "form-select" %>
         </fieldset>
         <fieldset class="col-12 mt-4">

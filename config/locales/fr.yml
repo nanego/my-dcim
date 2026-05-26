@@ -973,10 +973,6 @@ fr:
     duplicate:
       title: Dupliquer le type de PDU %{power_distribution_unit_type_name}
 
-  current_type:
-    single_phase: Une phase
-    three_phase: Trois phases
-
   views:
     pagination:
       previous: "&lt; Précédent"
