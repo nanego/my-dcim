@@ -12,9 +12,9 @@ RSpec.describe PowerDistributionUnitTypesProcessor do
     let(:params) { { q: "wood" } }
 
     before do
-      PowerDistributionUnitType.create!(name: "brick", manufacturer: manufacturers(:fortinet))
-      PowerDistributionUnitType.create!(name: "wood", manufacturer: manufacturers(:fortinet))
-      PowerDistributionUnitType.create!(name: "wooden", manufacturer: manufacturers(:fortinet))
+      PowerDistributionUnitType.create!(name: "brick", manufacturer: manufacturers(:fortinet), documentation_url: "http://exemple.com")
+      PowerDistributionUnitType.create!(name: "wood", manufacturer: manufacturers(:fortinet), documentation_url: "http://exemple.com")
+      PowerDistributionUnitType.create!(name: "wooden", manufacturer: manufacturers(:fortinet), documentation_url: "http://exemple.com")
     end
 
     it { expect(result.size).to eq(2) }
@@ -22,11 +22,11 @@ RSpec.describe PowerDistributionUnitTypesProcessor do
 
   describe "when filtering by manufacturer_ids" do
     let(:manufacturer) { Manufacturer.create!(name: "M1") }
-    let(:power_distribution_unit_type) { PowerDistributionUnitType.create!(name: "PDUType1", manufacturer:) }
+    let(:power_distribution_unit_type) { PowerDistributionUnitType.create!(name: "PDUType1", manufacturer:, documentation_url: "http://exemple.com") }
 
     before do
       power_distribution_unit_type
-      PowerDistributionUnitType.create!(name: "PDUType2", manufacturer: manufacturers(:juniper))
+      PowerDistributionUnitType.create!(name: "PDUType2", manufacturer: manufacturers(:juniper), documentation_url: "http://exemple.com")
     end
 
     context "with one manufacturer_ids" do
@@ -39,7 +39,7 @@ RSpec.describe PowerDistributionUnitTypesProcessor do
     context "with many site_ids" do
       let(:manufacturer_second) { Manufacturer.create!(name: "M2") }
       let(:power_distribution_unit_type_second) do
-        PowerDistributionUnitType.create!(name: "PDUType2", manufacturer: manufacturer_second)
+        PowerDistributionUnitType.create!(name: "PDUType2", manufacturer: manufacturer_second, documentation_url: "http://exemple.com")
       end
 
       let(:params) { { manufacturer_ids: [manufacturer.id, manufacturer_second.id] } }

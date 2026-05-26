@@ -13,7 +13,7 @@ RSpec.describe PowerDistributionUnitTypeDecorator, type: :decorator do
   describe ".current_type_options_for_select" do
     it do
       expect(described_class.current_type_options_for_select)
-        .to contain_exactly(["Trois phases", "three_phase"], ["Une phase", "single_phase"])
+        .to contain_exactly(%w[Triphasé three_phase], %w[Monophasé single_phase])
     end
   end
 end
