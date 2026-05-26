@@ -403,7 +403,7 @@ RSpec.describe ServersProcessor do
     let(:manufacturer) { Manufacturer.create! }
     let(:modele)   { Modele.create!(name: "Mod", description: "Mod desc", category:, manufacturer:, architecture: Architecture.create!) }
     let(:manager)  { Manager.create!(name: "G1") }
-    let(:domaine)  { Domain.create!(name: "D1") }
+    let(:domain)  { Domain.create!(name: "D1") }
     let(:cluster)  { Cluster.create!(name: "C1") }
     let(:stack)    { Stack.create!(name: "S1") }
 
@@ -414,7 +414,7 @@ RSpec.describe ServersProcessor do
     let(:params) do
       {
         q: "wood", frame_ids: frame.id, bay_ids: bay.id, islet_ids: islet.id, room_ids: room.id, modele_ids: modele.id,
-        manager_ids: manager.id, domain_ids: domaine.id, cluster_ids: cluster.id, stack_ids: stack.id,
+        manager_ids: manager.id, domain_ids: domain.id, cluster_ids: cluster.id, stack_ids: stack.id,
         category_ids: category.id, manufacturer_ids: manufacturer.id,
       }
     end
@@ -429,7 +429,7 @@ RSpec.describe ServersProcessor do
         let(:params) do
           {
             q: "wood", frame_ids: frame.id, bay_ids: bay.id, islet_ids: islet.id, room_ids: room.id, modele_ids: modele.id,
-            manager_ids: manager.id, domain_ids: domaine.id, cluster_ids: cluster.id, stack_ids: stack.id,
+            manager_ids: manager.id, domain_ids: domain.id, cluster_ids: cluster.id, stack_ids: stack.id,
             category_ids: category.id, sort_by: field,
           }
         end
