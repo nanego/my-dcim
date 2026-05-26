@@ -6,7 +6,7 @@ class MovesProjectsController < ApplicationController
 
   # GET /moves_projects or /moves_projects.json
   def index
-    authorize! @moves_projects = MovesProject.unarchived.order(created_at: :desc).all
+    authorize! @moves_projects = MovesProject.unarchived.order(created_at: :desc)
     @filter = ProcessorFilter.new(@moves_projects, params)
     @moves_projects = @filter.results
   end

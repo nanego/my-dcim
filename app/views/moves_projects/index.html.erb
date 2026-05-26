@@ -29,12 +29,12 @@
       <%= l moves_project.created_at %>
     <% end %>
 
-    <% table.with_column(MovesProject.human_attribute_name(:updated_at), sort_by: :updated_at) do |moves_project| %>
-      <%= l moves_project.updated_at %>
+    <% table.with_column(MovesProject.human_attribute_name(:created_by), sort_by: :created_by) do |moves_project| %>
+      <%= moves_project.created_by %>
     <% end %>
 
-    <% table.with_column(MovesProject.human_attribute_name(:created_by)) do |moves_project| %>
-      <%= moves_project.created_by %>
+    <% table.with_column(MovesProject.human_attribute_name(:updated_at), sort_by: :updated_at) do |moves_project| %>
+      <%= l moves_project.updated_at %>
     <% end %>
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |moves_project| %>

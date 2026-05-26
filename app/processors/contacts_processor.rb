@@ -9,7 +9,7 @@ class ContactsProcessor < ApplicationProcessor
     having "full_name" do |sort: "asc"|
       valid_sort_value!(sort)
 
-      raw.order(first_name: sort, last_name: sort)
+      raw.reorder(first_name: sort, last_name: sort)
     end
   end
 end

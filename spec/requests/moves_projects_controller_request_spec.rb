@@ -17,7 +17,7 @@ RSpec.describe MovesProjectsController do
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
 
-    it { expect { response }.to have_rubanok_processed(MovesProject.unarchived.all).with(MovesProjectsProcessor) }
+    it { expect { response }.to have_rubanok_processed(MovesProject.unarchived).with(MovesProjectsProcessor) }
   end
 
   describe "GET #show" do
