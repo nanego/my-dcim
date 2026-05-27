@@ -230,7 +230,7 @@ en:
         network_equipment: Network equipment
       power_distribution_unit_type:
         name: Name
-        manufacturer: Manufacturer
+        manufacturer_id: Manufacturer
         current_type: Type
         documentation_url: Documentation
         meter_global: Global Meter

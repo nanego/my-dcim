@@ -468,7 +468,7 @@ fr:
         writer: Éditeur
       power_distribution_unit_type:
         name: Nom
-        manufacturer: Constructeur
+        manufacturer_id: Constructeur
         current_type: Type
         documentation_url: Documentation
         meter_global: Mètres global
