@@ -92,6 +92,12 @@
                                           active: controller.controller_name == "air_conditioner_models") %>
           </li>
           <li>
+            <%= link_to PowerDistributionUnitType.model_name.human(count: 2),
+                        power_distribution_unit_types_path,
+                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
+                                          active: controller.controller_name == "power_distribution_unit_types") %>
+          </li>
+          <li>
             <%= link_to Category.model_name.human.pluralize,
                         categories_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
@@ -126,12 +132,6 @@
                         port_types_path,
                         class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
                                           active: controller.controller_name == "port_types") %>
-          </li>
-          <li>
-            <%= link_to PowerDistributionUnitType.model_name.human(count: 2),
-                        power_distribution_unit_types_path,
-                        class: class_names("mydcim-sidebar-links-link d-inline-block rounded",
-                                          active: controller.controller_name == "power_distribution_unit_types") %>
           </li>
         </ul>
       </li>
