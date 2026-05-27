@@ -112,6 +112,7 @@ fr:
         modele_id: Modèle
         manufacturer_id: Constructeur
         critique: Critique
+        domain_id: Domaine
         manager_id: Gestionnaire
         network_types: Composant réseau
         stack_id: Stack
