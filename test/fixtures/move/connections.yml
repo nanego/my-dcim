@@ -1,0 +1,14 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  port_from_id: 9
+  port_to_id: 10
+  move: one
+  vlans: vlan01
+  cable_name: NouveauNomDuCableUn
+  cable_color: Blue
+
+two:
+  port_from_id: 9
+  port_to_id: 10
+  move: two
