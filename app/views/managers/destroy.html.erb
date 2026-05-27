@@ -1,6 +1,6 @@
 <%
   breadcrumb
-    .add_step(@gestion, gestion_path(@gestion))
+    .add_step(@manager, manager_path(@manager))
     .add_step(t("action.delete"))
 %>
 
@@ -8,7 +8,7 @@
 
 <div class="col-12 p-4 border-top">
   <%= render DeleteDependencyComponent.new(
-        @gestion,
-        confirmation_path: gestion_path(@gestion, confirm: true, back_to: params[:back_to]),
+        @manager,
+        confirmation_path: manager_path(@manager, confirm: true, back_to: params[:back_to]),
       ) %>
 </div>

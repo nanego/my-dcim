@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Gestion < ApplicationRecord
+class Manager < ApplicationRecord
   has_changelog
 
   has_many :servers, dependent: :restrict_with_error
