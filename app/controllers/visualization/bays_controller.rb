@@ -56,7 +56,7 @@ module Visualization
             ] },
         ],
       )
-        .find(params[:id])
+        .find(params.expect(:id))
     end
 
     def set_servers_per_frames

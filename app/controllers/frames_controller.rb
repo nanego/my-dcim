@@ -58,7 +58,7 @@ class FramesController < ApplicationController
   def sort
     authorize!
 
-    params[:frame].each_with_index do |id, index|
+    params.expect(:frame).each_with_index do |id, index|
       Frame.where(id: id).update_all(position: index + 1) # rubocop:disable Rails/SkipsModelValidations
     end if params[:frame].present?
     head :ok
@@ -85,7 +85,7 @@ class FramesController < ApplicationController
   end
 
   def set_frame
-    authorize! @frame = Frame.friendly.find(params[:id].to_s.downcase)
+    authorize! @frame = Frame.friendly.find(params.expect(:id).to_s.downcase)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

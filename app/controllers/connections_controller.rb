@@ -4,7 +4,7 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
   def edit # rubocop:disable Metrics/AbcSize
     authorize!
 
-    @from_port = if params[:from_port_id].present? && params[:from_port_id].to_i.positive?
+    @from_port = if params[:from_port_id].present? && params.expect(:from_port_id).to_i.positive?
                    Port.find_by_id(params[:from_port_id])
                  else
                    Port.create(position: params["position"],
@@ -54,8 +54,8 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
   def update
     authorize!
 
-    from_port = Port.find(params[:connection][:from_port_id])
-    to_port = Port.find(params[:connection][:to_port_id])
+    from_port = Port.find(params.expect(:connection)[:from_port_id])
+    to_port = Port.find(params.expect(:connection)[:to_port_id])
 
     from_port.connect_to_port(to_port,
                               params[:connection][:cablename],

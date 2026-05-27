@@ -80,7 +80,7 @@ class PowerDistributionUnitsController < ApplicationController
   end
 
   def duplicate
-    @original_pdu = scoped_power_distribution_units.friendly.find(params[:id].to_s.downcase)
+    @original_pdu = scoped_power_distribution_units.friendly.find(params.expect(:id).to_s.downcase)
     authorize! @original_pdu, with: PowerDistributionUnitPolicy
 
     @pdu = @original_pdu.deep_dup

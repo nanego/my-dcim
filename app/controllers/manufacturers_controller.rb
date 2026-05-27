@@ -78,7 +78,7 @@ class ManufacturersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_manufacturer
-    authorize! @manufacturer = Manufacturer.find(params[:id])
+    authorize! @manufacturer = Manufacturer.find(params.expect(:id))
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

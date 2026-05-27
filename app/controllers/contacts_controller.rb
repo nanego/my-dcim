@@ -75,7 +75,7 @@ class ContactsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_contact
-    authorize! @contact = Contact.find(params[:id])
+    authorize! @contact = Contact.find(params.expect(:id))
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

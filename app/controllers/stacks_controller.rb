@@ -75,7 +75,7 @@ class StacksController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_stack
-    authorize! @stack = Stack.find(params[:id])
+    authorize! @stack = Stack.find(params.expect(:id))
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

@@ -30,7 +30,7 @@ module Bulk
         format.pdf do
           render ferrum_pdf: { scale: 1.2 },
                  layout: "pdf",
-                 filename: "cables_#{params[:ids].join("-")}.pdf",
+                 filename: "cables_#{params.expect(:ids).join("-")}.pdf",
                  disposition: :attachment
         end
       end

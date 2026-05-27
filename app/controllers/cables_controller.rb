@@ -51,11 +51,11 @@ class CablesController < ApplicationController
   def set_server
     return unless params[:server_id]
 
-    @server = Server.find(params[:server_id])
+    @server = Server.find(params.expect(:server_id))
   end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_cable
-    authorize! @cable = scoped_cables.find(params[:id])
+    authorize! @cable = scoped_cables.find(params.expect(:id))
   end
 end

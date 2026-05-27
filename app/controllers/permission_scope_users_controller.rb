@@ -38,12 +38,12 @@ class PermissionScopeUsersController < ApplicationController
   private
 
   def set_permission_scope
-    @permission_scope = PermissionScope.find(params[:permission_scope_id])
+    @permission_scope = PermissionScope.find(params.expect(:permission_scope_id))
   end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_permission_scope_user
-    @permission_scope_user = authorize! @permission_scope.permission_scope_users.find(params[:id])
+    @permission_scope_user = authorize! @permission_scope.permission_scope_users.find(params.expect(:id))
   end
 
   # Only allow a list of trusted parameters through.

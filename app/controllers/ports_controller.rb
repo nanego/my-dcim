@@ -32,7 +32,7 @@ class PortsController < ApplicationController
   def edit
     authorize!
 
-    if params[:id].present? && params[:id].to_i.positive?
+    if params[:id].present? && params.expect(:id).to_i.positive?
       redirect_to connections_edit_path(from_port_id: params[:id])
     else
       @port = Port.find_or_create_by(position: params["position"],
