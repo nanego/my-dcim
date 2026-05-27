@@ -12,9 +12,9 @@ RSpec.describe PowerDistributionUnitTypesProcessor do
     let(:params) { { q: "wood" } }
 
     before do
-      PowerDistributionUnitType.create!(name: "brick", manufacturer: manufacturers(:fortinet))
-      PowerDistributionUnitType.create!(name: "wood", manufacturer: manufacturers(:fortinet))
-      PowerDistributionUnitType.create!(name: "wooden", manufacturer: manufacturers(:fortinet))
+      PowerDistributionUnitType.create!(name: "brick", current_type: :three_phase, manufacturer: manufacturers(:fortinet))
+      PowerDistributionUnitType.create!(name: "wood", current_type: :three_phase, manufacturer: manufacturers(:fortinet))
+      PowerDistributionUnitType.create!(name: "wooden", current_type: :three_phase, manufacturer: manufacturers(:fortinet))
     end
 
     it { expect(result.size).to eq(2) }
@@ -22,11 +22,11 @@ RSpec.describe PowerDistributionUnitTypesProcessor do
 
   describe "when filtering by manufacturer_ids" do
     let(:manufacturer) { Manufacturer.create!(name: "M1") }
-    let(:power_distribution_unit_type) { PowerDistributionUnitType.create!(name: "PDUType1", manufacturer:) }
+    let(:power_distribution_unit_type) { PowerDistributionUnitType.create!(name: "PDUType1", current_type: :three_phase, manufacturer:) }
 
     before do
       power_distribution_unit_type
-      PowerDistributionUnitType.create!(name: "PDUType2", manufacturer: manufacturers(:juniper))
+      PowerDistributionUnitType.create!(name: "PDUType2", current_type: :three_phase, manufacturer: manufacturers(:juniper))
     end
 
     context "with one manufacturer_ids" do
@@ -39,7 +39,7 @@ RSpec.describe PowerDistributionUnitTypesProcessor do
     context "with many site_ids" do
       let(:manufacturer_second) { Manufacturer.create!(name: "M2") }
       let(:power_distribution_unit_type_second) do
-        PowerDistributionUnitType.create!(name: "PDUType2", manufacturer: manufacturer_second)
+        PowerDistributionUnitType.create!(name: "PDUType2", current_type: :three_phase, manufacturer: manufacturer_second)
       end
 
       let(:params) { { manufacturer_ids: [manufacturer.id, manufacturer_second.id] } }
