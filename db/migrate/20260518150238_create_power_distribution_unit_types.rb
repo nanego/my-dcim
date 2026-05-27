@@ -5,7 +5,7 @@ class CreatePowerDistributionUnitTypes < ActiveRecord::Migration[8.1]
     create_table :power_distribution_unit_types do |t|
       t.belongs_to :manufacturer, null: false, foreign_key: true
       t.string :name, null: false
-      t.integer :current_type
+      t.integer :current_type, null: false
       t.string :documentation_url
       t.boolean :meter_global, null: false, default: false
       t.boolean :meter_per_socket, null: false, default: false

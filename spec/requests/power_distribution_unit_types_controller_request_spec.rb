@@ -84,9 +84,7 @@ RSpec.describe PowerDistributionUnitTypesController do
 
     let(:params) do
       {
-        power_distribution_unit_type: power_distribution_unit_type
-          .attributes
-          .except(%w[id name])
+        power_distribution_unit_type: power_distribution_unit_type.attributes.except(%w[id name])
           .merge(name: "New PDU Type Name"),
       }
     end
@@ -113,6 +111,7 @@ RSpec.describe PowerDistributionUnitTypesController do
     context "with invalid parameters" do
       let(:params) { { power_distribution_unit_type: { name: "" } } }
 
+      it { expect { response }.not_to change(PowerDistributionUnitType, :count) }
       it { expect(response).to render_template(:new) }
     end
   end
@@ -192,5 +191,18 @@ RSpec.describe PowerDistributionUnitTypesController do
       it { expect(response).to redirect_to("/some_path") }
       it { expect { response }.to change(PowerDistributionUnitType, :count).by(-1) }
     end
+  end
+
+  describe "GET #duplicate" do
+    subject(:response) do
+      get duplicate_power_distribution_unit_type_path(power_distribution_unit_type)
+
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:duplicate) }
   end
 end
