@@ -115,6 +115,8 @@ en:
       moves_project:
         name: Name
         created_by: Created by
+        created_at: Created at
+        updated_at: Updated at
       moves_project_step:
         name: Name
         date: Planned on

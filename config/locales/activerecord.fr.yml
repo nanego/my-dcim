@@ -399,6 +399,8 @@ fr:
       moves_project:
         name: Nom
         created_by: Créé par
+        created_at: Date de création
+        updated_at: Date de mise à jour
       moves_project_step:
         name: Nom
         date: Planifié le

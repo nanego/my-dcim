@@ -6,12 +6,18 @@ RSpec.describe MovesProjectsController do
   let(:moves_project) { moves_projects(:one) }
 
   describe "GET #index" do
-    include_context "with authenticated admin"
+    subject(:response) do
+      get moves_projects_path
 
-    before { get moves_projects_path }
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
+
+    it { expect { response }.to have_rubanok_processed(MovesProject.unarchived).with(MovesProjectsProcessor) }
   end
 
   describe "GET #show" do
