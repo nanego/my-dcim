@@ -4,7 +4,7 @@
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
-    <% render ButtonComponent.new(t(".new_power_distribution_unit_type"),
+    <%= render ButtonComponent.new(t(".new_power_distribution_unit_type"),
                                   url: new_power_distribution_unit_type_path,
                                   variant: :success,
                                   icon: "plus-lg",
@@ -39,7 +39,7 @@
       method: :delete,
       class: "btn btn-danger btn-sm",
       data: { confirm: t("action.confirm") }
-      ) do %>
+    ) do %>
       <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
     <% end %>
 
@@ -50,7 +50,7 @@
     <% end %>
 
     <% table.with_column(PowerDistributionUnitType.human_attribute_name(:manufacturer_id), sort_by: :"manufacturers.name") do |power_distribution_unit_type| %>
-      <%= link_to manufacturer_path(power_distribution_unit_type.manufacturer.id) do %>
+      <%= link_to manufacturer_path(power_distribution_unit_type.manufacturer) do %>
         <%= power_distribution_unit_type.manufacturer %>
       <% end %>
     <% end %>
