@@ -15,7 +15,7 @@
     ) do |heading| %>
   <% if @bay.frames.any? %>
     <% heading.with_extra_buttons do %>
-      <% if allowed_to?(:show?, @bay, with: Visualization::BayPolicy)
+      <%= if allowed_to?(:show?, @bay, with: Visualization::BayPolicy)
            render ButtonComponent.new(
              t("visualization.title"),
              url: visualization_bay_path(@bay),

@@ -7,7 +7,7 @@
       editable: allowed_to?(:update?, @islet),
     ) do |heading| %>
   <% heading.with_extra_buttons do %>
-    <% if allowed_to?(:show?, @islet, with: Visualization::IsletPolicy)
+    <%= if allowed_to?(:show?, @islet, with: Visualization::IsletPolicy)
          render ButtonComponent.new(
            t("visualization.title"),
            url: visualization_room_path(@islet.room, islet: @islet.name),

@@ -7,7 +7,7 @@
       editable: allowed_to?(:update?, @frame),
     ) do |heading| %>
   <% heading.with_extra_buttons do %>
-    <% if allowed_to?(:show?, @frame, with: Visualization::FramePolicy)
+    <%= if allowed_to?(:show?, @frame, with: Visualization::FramePolicy)
          render ButtonComponent.new(
            t("visualization.title"),
            url: visualization_frame_path(@frame),
