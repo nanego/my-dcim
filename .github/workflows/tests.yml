@@ -33,6 +33,9 @@ jobs:
           --health-retries 5
 
     steps:
+      - name: Install packages
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y curl libjemalloc2 libvips
+
       - name: Checkout main app
         uses: actions/checkout@v6
 
@@ -133,6 +136,9 @@ jobs:
           --health-retries 5
 
     steps:
+      - name: Install packages
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y curl libjemalloc2 libvips
+
       - name: Checkout main app
         uses: actions/checkout@v6
 
