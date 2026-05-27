@@ -7,10 +7,11 @@ class ChangelogEntryDecorator < ApplicationDecorator
     end
 
     def object_types_options
-      ChangelogEntry.distinct.pluck(:object_type).map do |type|
-        model = type.safe_constantize
-
-        [model.model_name.human, model.name]
+      ChangelogEntry.distinct.pluck(:object_type)
+        .map(&:safe_constantize)
+        .compact_blank
+        .map do |model|
+          [model.model_name.human, model.name]
       end.sort
     end
   end
