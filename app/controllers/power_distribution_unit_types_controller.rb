@@ -2,6 +2,9 @@
 
 class PowerDistributionUnitTypesController < ApplicationController
   before_action :set_power_distribution_unit_type, only: %i[show edit update destroy]
+  before_action except: %i[index] do
+    breadcrumb.add_step(PowerDistributionUnitType.model_name.human, power_distribution_unit_types_path)
+  end
 
   # GET /power_distribution_unit_types or /power_distribution_unit_types.json
   def index

@@ -1,6 +1,5 @@
 <%
   breadcrumb
-    .add_step(PowerDistributionUnitType.model_name.human.pluralize, power_distribution_unit_types_path)
     .add_step(@power_distribution_unit_type, power_distribution_unit_type_path(@power_distribution_unit_type))
     .add_step(t("action.edit"))
 %>
