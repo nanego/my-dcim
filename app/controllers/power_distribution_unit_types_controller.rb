@@ -30,7 +30,7 @@ class PowerDistributionUnitTypesController < ApplicationController
 
     respond_to do |format|
       if @power_distribution_unit_type.save
-        format.html { redirect_to @power_distribution_unit_type, notice: t(".flashes.created") }
+        format.html { redirect_to power_distribution_unit_type_path(@power_distribution_unit_type), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @power_distribution_unit_type }
       else
         format.html { render :new, status: :unprocessable_content }
@@ -43,7 +43,7 @@ class PowerDistributionUnitTypesController < ApplicationController
   def update
     respond_to do |format|
       if @power_distribution_unit_type.update(power_distribution_unit_type_params)
-        format.html { redirect_to @power_distribution_unit_type, notice: t(".flashes.updated"), status: :see_other }
+        format.html { redirect_to power_distribution_unit_type_path(@power_distribution_unit_type), notice: t(".flashes.updated"), status: :see_other }
         format.json { render :show, status: :ok, location: @power_distribution_unit_type }
       else
         format.html { render :edit, status: :unprocessable_content }
