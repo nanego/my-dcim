@@ -24,6 +24,16 @@ RSpec.describe ChangelogEntryDecorator, type: :decorator do
         [User.model_name.human, User.name], [Room.model_name.human, Room.name],
       )
     end
+
+    context "with ... model name" do
+      before { ChangelogEntry.create!(object_type: "OldName", object_id: 1, action: "create") }
+
+      it do
+        expect(described_class.object_types_options).to contain_exactly(
+          [User.model_name.human, User.name], [Room.model_name.human, Room.name],
+        )
+      end
+    end
   end
 
   describe "#object_link_to" do
