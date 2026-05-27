@@ -142,7 +142,6 @@ en:
         manufacturer_id: Manufacturer
         critique: Critic
         manager_id: Manager
-        manager: Manager
         network_types: Network type
         stack_id: Stack
         comment: Comment

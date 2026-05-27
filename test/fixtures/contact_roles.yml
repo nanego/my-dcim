@@ -2,8 +2,8 @@
 
 one:
   name: CFO
-  description: Manager Courant fort
+  description: Gestion Courant fort
 
 two:
   name: CVC
-  description: Manager Climatisations
+  description: Gestion Climatisations
