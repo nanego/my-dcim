@@ -7,16 +7,16 @@ class CreatePowerDistributionUnitTypes < ActiveRecord::Migration[8.1]
       t.string :name, null: false
       t.integer :current_type
       t.string :documentation_url
-      t.boolean :meter_global, default: false
-      t.boolean :meter_per_socket, default: false
-      t.boolean :meter_per_circuit, default: false
-      t.boolean :socket_control, default: false
-      t.boolean :socket_lock, default: false
-      t.boolean :ip_snmp, default: false
-      t.boolean :ip_modbus, default: false
-      t.boolean :ip_ssh, default: false
-      t.boolean :ip_webui, default: false
-      t.boolean :rs485_modbus, default: false
+      t.boolean :meter_global, null: false, default: false
+      t.boolean :meter_per_socket, null: false, default: false
+      t.boolean :meter_per_circuit, null: false, default: false
+      t.boolean :socket_control, null: false, default: false
+      t.boolean :socket_lock, null: false, default: false
+      t.boolean :ip_snmp, null: false, default: false
+      t.boolean :ip_modbus, null: false, default: false
+      t.boolean :ip_ssh, null: false, default: false
+      t.boolean :ip_webui, null: false, default: false
+      t.boolean :rs485_modbus, null: false, default: false
       t.integer :max_power_per_circuit
 
       t.timestamps
