@@ -7,7 +7,7 @@
       editable: allowed_to?(:update?, @room),
     ) do |heading| %>
   <% heading.with_extra_buttons do %>
-   <% if allowed_to?(:show?, @room, with: Visualization::RoomPolicy)
+   <%= if allowed_to?(:show?, @room, with: Visualization::RoomPolicy)
         render ButtonComponent.new(
           t("visualization.title"),
           url: visualization_room_path(@room),

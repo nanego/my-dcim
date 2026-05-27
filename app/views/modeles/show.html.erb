@@ -7,7 +7,7 @@
       editable: allowed_to?(:update?, @modele),
     ) do |heading| %>
   <% heading.with_extra_buttons do %>
-    <% if allowed_to?(:duplicate?, @modele)
+    <%= if allowed_to?(:duplicate?, @modele)
          render ButtonComponent.new(
            t("action.duplicate"),
            url: duplicate_modele_path(@modele),
