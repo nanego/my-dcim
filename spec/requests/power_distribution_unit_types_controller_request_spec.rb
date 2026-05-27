@@ -16,6 +16,7 @@ RSpec.describe PowerDistributionUnitTypesController do
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
+    it { expect(response.body).to include(power_distribution_unit_type.name) }
 
     it { expect { response }.to have_rubanok_processed(PowerDistributionUnitType.all).with(PowerDistributionUnitTypesProcessor) }
 

@@ -5,5 +5,5 @@
 <%= render Page::HeadingNewComponent.new(resource: @power_distribution_unit_type, title: t(".title"), breadcrumb:) %>
 
 <div class="col-12 p-4 border-top">
-  <%= render partials: "form", locals: { power_distribution_unit_type: @power_distribution_unit_type } %>
+  <%= render partial: "form", locals: { power_distribution_unit_type: @power_distribution_unit_type } %>
 </div>
