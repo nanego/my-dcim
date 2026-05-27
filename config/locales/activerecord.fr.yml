@@ -58,8 +58,8 @@ fr:
       permission_scope: Permission
       permission_scope_domain: Permission
       power_distribution_unit_type:
-        one: Type de PDU
-        other: Types de PDU
+        one: Modèle de PDU
+        other: Modèles de PDU
 
     attributes:
       room:
