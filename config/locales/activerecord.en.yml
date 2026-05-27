@@ -143,6 +143,7 @@ en:
         modele_id: Model
         manufacturer_id: Manufacturer
         critique: Critic
+        domain_id: Domain
         manager_id: Manager
         network_types: Network type
         stack_id: Stack
