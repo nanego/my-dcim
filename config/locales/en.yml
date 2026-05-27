@@ -666,8 +666,6 @@ en:
         destroyed: PDU type have been deleted.
     edit:
       title: Edit a PDU type
-      flashes:
-        created: PDU type have been created.
     update:
       flashes:
         updated: PDU type have been updated.

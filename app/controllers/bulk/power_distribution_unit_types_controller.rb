@@ -28,9 +28,5 @@ module Bulk
     def set_power_distribution_unit_types
       authorize! @power_distribution_unit_types = PowerDistributionUnitType.where(id: params[:ids])
     end
-
-    def default_authorization_policy_class
-      PowerDistributionUnitTypePolicy
-    end
   end
 end

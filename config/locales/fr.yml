@@ -965,8 +965,6 @@ fr:
         destroyed: Le type de PDU a bien été supprimé.
     edit:
       title: Modifier le type de PDU
-      flashes:
-        created: Le type de PDU a bien été mis à crée.
     update:
       flashes:
         updated: Le type de PDU a bien été mis à jour.
