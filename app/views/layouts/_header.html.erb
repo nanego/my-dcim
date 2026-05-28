@@ -13,7 +13,7 @@
     <% end %>
     <span>
       <% if current_user_has_permission? %>
-        <%= link_to search_path, class: "btn" do %>
+        <%= link_to search_path, class: "btn d-lg-none" do %>
             <i class="bi bi-search"></i>
         <% end %>
       <% end %>
@@ -46,7 +46,7 @@
           <% end %>
         </ul>
 
-        <div class="d-none d-lg-block">
+        <div class="d-none d-lg-block ">
           <%= render "search/search_field" if current_user_has_permission? %>
         </div>
 
