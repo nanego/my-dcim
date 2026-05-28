@@ -13,6 +13,10 @@
 <% end %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
+  <div class="alert alert-warning">
+    Cette section est actuellement en cours de développement. Les données peuvent être amenées à être supprimées ou altérées par des changements le temps du développement.
+  </div>
+  
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
       <div class="w-100">
