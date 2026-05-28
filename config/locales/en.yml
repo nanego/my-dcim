@@ -502,6 +502,7 @@ en:
     index:
       results: Search results
       no_results_found: No results found
+      see_more: See more
 
   select:
     placeholder: Type to filter...

@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["searchInput"]
+  static targets = ["searchInput", "quickSearchInput"]
 
   submit() {
     this.useDebounce(300, () => {
@@ -14,12 +14,9 @@ export default class extends Controller {
 
   navigate(event) {
     event.preventDefault()
+    this.quickSearchInputTarget.value = "false"
     this.element.dataset.turboFrame = "_top"
-
     this.element.requestSubmit()
-
-    // reset dataset after for when turbo drive is used
-    this.element.dataset.turboFrame = "results"
   }
 
   #lastDebounceKey

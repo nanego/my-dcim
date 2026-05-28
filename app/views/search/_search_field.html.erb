@@ -9,6 +9,8 @@
                 },
                 class: "d-flex" do |f| %>
 
+    <%= f.hidden_field :quick_search, value: request.path != search_path, data: { global_search_target: "quickSearchInput" } %>
+
     <div class="input-group">
       <%= f.search_field :search_query,
                          value: params[:search_query],

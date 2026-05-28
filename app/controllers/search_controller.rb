@@ -7,7 +7,8 @@ class SearchController < ApplicationController
     @results = authorize! SearchResult.search(params[:search_query])
     @results = authorized_scope(@results)
 
-    @results = @results.limit(10) unless request.referer.nil? || URI(request.referer).path == search_path
+    @quick_search = params[:quick_search] == "true"
+    @results = @results.limit(11) if @quick_search
 
     @results = @results.map(&:searchable)
 
