@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  AVAILABLE_LOCALES = I18n.available_locales.map(&:to_s).freeze
+  AVAILABLE_LOCALES = Rails.application.config.i18n.available_locales.map(&:to_s).freeze
   AVAILABLE_THEMES = %w[auto dark light].freeze
   AVAILABLE_ITEMS_PER_PAGE = [25, 50, 100, 150, 200].freeze
   DEFAULT_ITEMS_PER_PAGE = 100
