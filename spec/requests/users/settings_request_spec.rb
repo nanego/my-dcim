@@ -15,6 +15,18 @@ RSpec.describe "Users::Settings" do
     it { expect(response).to render_template(:edit) }
   end
 
+  describe "GET #edit when the stored locale is no longer supported" do
+    before do
+      user.locale = "it"
+      user.save!(validate: false)
+
+      get edit_users_settings_path
+    end
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(I18n.locale).to eq(I18n.default_locale) }
+  end
+
   describe "PATCH #update" do
     subject(:response) do
       patch(users_settings_path(user), params:)
