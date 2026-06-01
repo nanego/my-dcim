@@ -15,8 +15,7 @@ class MovesProjectStep < ApplicationRecord
   end
 
   def execute!(apply_connections: true)
-    not_executed_prev_moves_count = previous_moves.where(executed_at: nil).count
-    raise unless not_executed_prev_moves_count.zero?
+    raise unless prev_moves_all_executed?
 
     transaction do
       moves.find_each { |move| move.execute!(apply_connections:) }
@@ -25,6 +24,10 @@ class MovesProjectStep < ApplicationRecord
 
   def executed?
     moves.any?(&:executed?)
+  end
+
+  def prev_moves_all_executed?
+    @prev_moves_all_executed ||= previous_moves.where(executed_at: nil).none?
   end
 
   def frames_with_moves_at_current_step
