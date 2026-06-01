@@ -27,7 +27,7 @@ class MovesProjectStep < ApplicationRecord
   end
 
   def prev_moves_all_executed?
-    @prev_moves_all_executed ||= previous_moves.where(executed_at: nil).none?
+    @prev_moves_all_executed ||= Move.where(step: previous_steps, executed_at: nil).none?
   end
 
   def frames_with_moves_at_current_step
@@ -68,9 +68,5 @@ class MovesProjectStep < ApplicationRecord
 
   def previous_step
     previous_steps&.last
-  end
-
-  def previous_moves
-    Move.where(step: previous_steps)
   end
 end
