@@ -68,6 +68,6 @@ class MovesProjectStep < ApplicationRecord
   end
 
   def previous_moves
-    Move.joins(:step).where(moves_project_steps: previous_steps)
+    Move.where(step: previous_steps)
   end
 end
