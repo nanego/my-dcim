@@ -51,8 +51,9 @@ class MovesProjectStepsController < ApplicationController
 
   def set_frame_updated
     authorize! @frame = Frame.friendly.find(params[:frame_id]), with: FramePolicy, to: :show?
+
     @servers = @moves_project_step.frame_servers_at_current_step_for(@frame)
-    @move_connections = Move::Connection.per_servers(@servers)
-    @moves = @moves_project_step.moves.where(frame: @frame, moveable_type: "Server")
+    @moves = @moves_project_step.server_moves_involved_at_current_step.where(frame: @frame)
+    @move_connections = Move::Connection.per_moves_and_servers(@moves, @servers)
   end
 end
