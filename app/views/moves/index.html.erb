@@ -84,7 +84,7 @@
         <% end %>
 
         <% table.with_column(t(".remove_existing_connections_on_execution"), text_align: :center) do |move| %>
-          <%= render move.moved_connections_to_badge_component %>
+          <%= render move.move_connections_to_badge_component %>
         <% end %>
 
         <% table.with_column(style: "min-width: 120px; width: 120px") do |move| %>

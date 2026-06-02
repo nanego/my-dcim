@@ -85,8 +85,8 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
       @server.reload
     end
 
-    if params[:with_moved_connection]
-      @moved_connections = MovedConnection.per_servers([@server])
+    if params[:with_move_connection]
+      @move_connections = Move::Connection.per_servers([@server])
     end
   end
 

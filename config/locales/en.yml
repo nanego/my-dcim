@@ -324,9 +324,9 @@ en:
     preview:
       modal_title: Model %{modele_name} preview
 
-  moved_connections:
+  move_connections:
     decorator:
-      description: "Connection between %{port_from_server} (port #%{port_from_id}) and %{port_to_server} (port #%{port_to_id}) => vlans: %{vlans} // cablename: %{cablename} // color: %{color}"
+      description: "Connection between %{port_from_server} (port #%{port_from_id}) and %{port_to_server} (port #%{port_to_id}) => vlans: %{vlans} // cable name: %{cable_name} // cable color: %{cable_color}"
 
   moves:
     index:
@@ -369,7 +369,7 @@ en:
       title: Frame %{frame} after move
       applied_moves: Applied moves
       loading: LOADING IN PROGRESS
-    moved_connection_form:
+    move_connection_form:
       action:
         delete: Delete this connection
     flashes:

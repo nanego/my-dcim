@@ -21,20 +21,20 @@ class MoveTest < ActiveSupport::TestCase
 
   test "clear current connections" do
     # Before
-    @moved_connections = MovedConnection.per_servers([@move.moveable])
-    assert_empty(@moved_connections.select { |c| c.port_from_id == 2 })
+    @move_connections = Move::Connection.per_servers([@move.moveable])
+    assert_empty(@move_connections.select { |c| c.port_from_id == 2 })
 
     # Re-init moved connections
     @move.remove_existing_connections_on_execution = true
     @move.clear_connections
 
     # After
-    @moved_connections = MovedConnection.per_servers([@move.moveable])
+    @move_connections = Move::Connection.per_servers([@move.moveable])
     @move.moveable.ports.each do |port|
-      moved_connection = @moved_connections.find { |c| c.port_from_id == port.id }
-      assert_not_nil moved_connection
-      assert moved_connection.cablename == ""
-      assert moved_connection.color == ""
+      move_connection = @move_connections.find { |c| c.port_from_id == port.id }
+      assert_not_nil move_connection
+      assert move_connection.cablename == ""
+      assert move_connection.color == ""
     end
   end
 
@@ -49,21 +49,21 @@ class MoveTest < ActiveSupport::TestCase
   end
 
   test "execution of a movement with connections" do
-    @moved_connection = @move.moved_connections.first
-    @port_from = @moved_connection.port_from
-    assert @port_from.cable_name != @moved_connection.cablename
+    @move_connection = @move.move_connections.first
+    @port_from = @move_connection.port_from
+    assert @port_from.cable_name != @move_connection.cablename
     assert_nil @move.executed_at
 
     @move.execute!
     @move.reload
-    @moved_connection.reload
+    @move_connection.reload
 
     assert @move.moveable.reload.frame == @move.frame
-    assert @port_from.reload.cable_name == @moved_connection.cablename
+    assert @port_from.reload.cable_name == @move_connection.cablename
 
     assert @move.executed_at
     assert Move.where(id: @move.id)
-    assert @moved_connection.executed_at
-    assert MovedConnection.find_by(id: @moved_connection.id)
+    assert @move_connection.executed_at
+    assert Move::Connection.find_by(id: @move_connection.id)
   end
 end

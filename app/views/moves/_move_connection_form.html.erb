@@ -1,7 +1,7 @@
-<%= form_for(@moved_connection, url: update_connection_moves_project_step_moves_path(@moves_project_step),
+<%= form_for(@move_connection, url: update_connection_moves_project_step_moves_path(@moves_project_step),
                                 remote: true,
                                 html: {
-                                  class: "moved_connection p-4 rounded border bg-body-tertiary", role: "form"
+                                  class: "move_connection p-4 rounded border bg-body-tertiary", role: "form"
                                 }) do |f| %>
   <div class="row g-3">
     <fieldset class="col-12">
@@ -47,17 +47,17 @@
 
   <fieldset class="col-12 mt-4">
     <%= f.label :vlans, class: "form-label" %>
-    <%= f.text_field :vlans, class: "form-control", value: @moved_connection.vlans %>
+    <%= f.text_field :vlans, class: "form-control", value: @move_connection.vlans %>
   </fieldset>
 
   <fieldset class="col-12 mt-4">
     <%= f.label :color, class: "form-label" %>
-    <%= f.hidden_field :color, value: @moved_connection.color %>
+    <%= f.hidden_field :color, value: @move_connection.color %>
   </fieldset>
 
   <fieldset class="col-12 mt-4">
     <%= f.label :cablename, class: "form-label" %>
-    <%= f.text_field :cablename, class: "form-control", value: @moved_connection.cablename %>
+    <%= f.text_field :cablename, class: "form-control", value: @move_connection.cablename %>
   </fieldset>
 
   <div class="col-12 mt-4 justify-content-between d-flex align-items-center">
@@ -76,7 +76,7 @@
 
 <script>
 $(document).ready(function(){
-    loadPaletteColorPicker('[name="moved_connection[color]"]');
+    loadPaletteColorPicker('[name="move_connection[color]"]');
     $("#back_departure_server").on('click', 'a.port', function(e) {
         e.preventDefault();
     });
@@ -92,9 +92,9 @@ function select_destination_server(server_id){
         $.ajax({
             method: "POST",
             url: "<%= connections_update_destination_server_path %>",
-            data: { server_id: server_id, with_moved_connection: 1 }
+            data: { server_id: server_id, with_move_connection: 1 }
         }).done(function(){
-            select_destination_port($('input[name="moved_connection[port_to_id]"]').val());
+            select_destination_port($('input[name="move_connection[port_to_id]"]').val());
         });
     }
 }
@@ -107,14 +107,14 @@ function select_destination_port(port_id){
         var server_name = $("#back_destination_server .server_name").text();
         var component_name = selected_port.closest("td").find("span:first").data("composant-name");
         var position = selected_port.data("position");
-        $('[name="moved_connection[port_to_id]"]').val(port_id);
+        $('[name="move_connection[port_to_id]"]').val(port_id);
         selected_port.closest("form").find('input[type="submit"]').prop('disabled', false);
     }
 }
 
 function remove_connection(){
-  $('form #moved_connection_remove_connection')[0].value = '1';
+  $('form #move_connection_remove_connection')[0].value = '1';
   // TODO: calling submit crash the page, because it search for a view "update_connection"
-  $('form.moved_connection').trigger('submit.rails');
+  $('form.move_connection').trigger('submit.rails');
 }
 </script>

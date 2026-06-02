@@ -2,8 +2,8 @@
 
 require "rails_helper"
 
-RSpec.describe MovedConnectionDecorator, type: :decorator do
-  let(:object) { moved_connections(:one) }
+RSpec.describe Move::ConnectionDecorator, type: :decorator do
+  let(:object) { move_connections(:one) }
   let(:decorated_mc) { described_class.decorate(object) }
 
   describe "#description" do
@@ -13,7 +13,7 @@ RSpec.describe MovedConnectionDecorator, type: :decorator do
     end
 
     context "without port_to" do
-      let(:object) { moved_connections(:one).tap { |c| c.port_to = nil } }
+      let(:object) { move_connections(:one).tap { |c| c.port_to = nil } }
 
       it do
         expect(decorated_mc.description)

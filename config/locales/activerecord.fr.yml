@@ -416,7 +416,7 @@ fr:
         statuses:
           executed: Exécuté
           planned: Planifié
-      moved_connection:
+      move_connection:
         port_from_id: Port de départ
         port_to_id: Port de destination
         vlans: Vlans

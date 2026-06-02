@@ -38,17 +38,17 @@ RSpec.describe Move do
     end
   end
 
-  describe "#moved_connections" do
+  describe "#move_connections" do
     context "without moveable" do
       subject(:move) { described_class.new }
 
-      it { expect(move.moved_connections).to eq([]) }
+      it { expect(move.move_connections).to eq([]) }
     end
 
     context "with moveable" do
       subject(:move) { moves(:planned) }
 
-      it { expect(move.moved_connections).to contain_exactly(moved_connections(:one), moved_connections(:two)) }
+      it { expect(move.move_connections).to contain_exactly(move_connections(:one), move_connections(:two)) }
     end
   end
 
@@ -56,13 +56,13 @@ RSpec.describe Move do
     context "when remove_existing_connections_on_execution set to false" do
       let(:move) { moves(:planned).tap { |m| m.remove_existing_connections_on_execution = false } }
 
-      it { expect { move.clear_connections }.not_to(change { move.moved_connections.count }) }
+      it { expect { move.clear_connections }.not_to(change { move.move_connections.count }) }
     end
 
     context "when remove_existing_connections_on_execution set to true" do
       let(:move) { moves(:planned).tap { |m| m.remove_existing_connections_on_execution = true } }
 
-      it { expect { move.clear_connections }.to change { move.moved_connections.count }.from(2).to(4) }
+      it { expect { move.clear_connections }.to change { move.move_connections.count }.from(2).to(4) }
     end
   end
 
@@ -93,14 +93,14 @@ RSpec.describe Move do
       end
 
       it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
-        move.moved_connections.each do |moved_connection|
-          expect(moved_connection.executed_at).to be_nil
+        move.move_connections.each do |move_connection|
+          expect(move_connection.executed_at).to be_nil
         end
 
         execution
 
-        move.moved_connections.each do |moved_connection|
-          expect(moved_connection.executed_at).to be_nil
+        move.move_connections.each do |move_connection|
+          expect(move_connection.executed_at).to be_nil
         end
       end
     end
@@ -117,14 +117,14 @@ RSpec.describe Move do
       end
 
       it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
-        move.moved_connections.each do |moved_connection|
-          expect(moved_connection.executed_at).to be_nil
+        move.move_connections.each do |move_connection|
+          expect(move_connection.executed_at).to be_nil
         end
 
         execution
 
-        move.moved_connections.each do |moved_connection|
-          expect(moved_connection.executed_at).not_to be_nil
+        move.move_connections.each do |move_connection|
+          expect(move_connection.executed_at).not_to be_nil
         end
       end
     end

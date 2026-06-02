@@ -13,8 +13,8 @@ RSpec.describe Port do
     it { is_expected.to have_one(:cable).through(:connection) }
 
     it { is_expected.to have_many(:connections).dependent(:destroy) }
-    it { is_expected.to have_many(:moved_connection_froms).dependent(:destroy) }
-    it { is_expected.to have_many(:moved_connection_tos).dependent(:nullify) }
+    it { is_expected.to have_many(:move_connection_froms).dependent(:destroy) }
+    it { is_expected.to have_many(:move_connection_tos).dependent(:nullify) }
   end
 
   describe "#network_conf" do

@@ -116,7 +116,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
     authorize!
 
     @server = Server.includes(cards: [{ card_type: :port_type }], ports: [{ connection: :cable }]).find(params[:server_id])
-    @moved_connections = MovedConnection.per_servers([@server])
+    @move_connections = Move::Connection.per_servers([@server])
   end
 
   def load_frame
@@ -136,14 +136,14 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
     @frame = Frame.friendly.find(params[:frame_id])
     @servers = @moves_project_step.servers_moves_for_frame_at_current_step(@frame)
 
-    @moved_connections = MovedConnection.per_servers([@server])
+    @move_connections = Move::Connection.per_servers([@server])
     # TODO: Deal with conflicts if there is more than 1 result
-    @moved_connection = @moved_connections.where(port_from_id: params[:port_id])
-      .or(MovedConnection.where(port_to_id: params[:port_id])).first
-    if @moved_connection.present?
-      @destination_port = (@moved_connection.ports - [@selected_port]).first
+    @move_connection = @move_connections.where(port_from_id: params[:port_id])
+      .or(Move::Connection.where(port_to_id: params[:port_id])).first
+    if @move_connection.present?
+      @destination_port = (@move_connection.ports - [@selected_port]).first
     else
-      @moved_connection = MovedConnection.new(port_from_id: params[:port_id],
+      @move_connection = Move::Connection.new(port_from_id: params[:port_id],
                                               vlans: @selected_port.vlans,
                                               cablename: @selected_port.cablename || @selected_port.cable_name,
                                               color: @selected_port.color || @selected_port.cable_color)
@@ -154,39 +154,39 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   def update_connection
     authorize!
 
-    @port_from = Port.find(params[:moved_connection][:port_from_id])
-    @port_to = Port.find(params[:moved_connection][:port_to_id])
+    @port_from = Port.find(params[:move_connection][:port_from_id])
+    @port_to = Port.find(params[:move_connection][:port_to_id])
     @servers = [@port_from.server, @port_to.try(:server)].compact
 
     # Current connections for all servers, necessary to refresh visible servers ports
-    @moved_connections = MovedConnection.per_servers(@servers)
+    @move_connections = Move::Connection.per_servers(@servers)
 
-    @current_moved_connections = @moved_connections.where("port_from_id IN (?) OR port_to_id IN (?)",
-                                                          [params[:moved_connection][:port_from_id], params[:moved_connection][:port_to_id]],
-                                                          [params[:moved_connection][:port_from_id], params[:moved_connection][:port_to_id]])
+    @current_move_connections = @move_connections.where("port_from_id IN (?) OR port_to_id IN (?)",
+                                                        [params[:move_connection][:port_from_id], params[:move_connection][:port_to_id]],
+                                                        [params[:move_connection][:port_from_id], params[:move_connection][:port_to_id]])
 
-    if @current_moved_connections.present?
-      if @current_moved_connections.size > 1
-        @current_moved_connections.delete_all
-        @moved_connection = MovedConnection.new
+    if @current_move_connections.present?
+      if @current_move_connections.size > 1
+        @current_move_connections.delete_all
+        @move_connection = Move::Connection.new
       else
-        @moved_connection = @current_moved_connections.first
+        @move_connection = @current_move_connections.first
       end
     else
-      @moved_connection = MovedConnection.new
+      @move_connection = Move::Connection.new
     end
 
-    if params[:moved_connection][:remove_connection] == "1"
-      @moved_connection.update({ vlans: "",
-                                 cablename: "",
-                                 color: "",
-                                 port_from_id: @port_from.id,
-                                 port_to_id: @port_to.try(:id) })
+    if params[:move_connection][:remove_connection] == "1"
+      @move_connection.update({ vlans: "",
+                                cablename: "",
+                                color: "",
+                                port_from_id: @port_from.id,
+                                port_to_id: @port_to.try(:id) })
     else
-      @moved_connection.update(moved_connection_params)
+      @move_connection.update(move_connection_params)
     end
-    @selected_port = @moved_connection.port_from
-    @destination_port = @moved_connection.port_to
+    @selected_port = @move_connection.port_from
+    @destination_port = @move_connection.port_to
   end
 
   private
@@ -220,8 +220,8 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
     params.expect(move: %i[moveable_type moveable_id moves_project_step_id remove_existing_connections_on_execution])
   end
 
-  def moved_connection_params
-    params.expect(moved_connection: %i[port_from_id port_to_id vlans color cablename])
+  def move_connection_params
+    params.expect(move_connection: %i[port_from_id port_to_id vlans color cablename])
   end
 
   def load_form_data

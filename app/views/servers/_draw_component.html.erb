@@ -16,7 +16,7 @@
     <% if card.card_type && card.card_type.columns && card.card_type.rows %>
       <%= ports_by_card_with_presentation(card: card,
                                           selected_port: selected_port,
-                                          moved_connections: @moved_connections,
+                                          move_connections: @move_connections,
                                           twin_card_used_ports: twin_card_used_ports) %>
     <% else %>
       <%= ports_by_card(port_type: card.card_type.try(:port_type),
@@ -24,7 +24,7 @@
                         card_id: card.id,
                         ports_data: card.ports,
                         selected_port: selected_port,
-                        moved_connections: @moved_connections,
+                        move_connections: @move_connections,
                         twin_card_used_ports: twin_card_used_ports) %>
     <% end %>
   </span>

@@ -58,7 +58,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     html.html_safe # rubocop:disable Rails/OutputSafety
   end
 
-  def ports_by_card_with_presentation(card:, selected_port: nil, moved_connections: [], twin_card_used_ports: [])
+  def ports_by_card_with_presentation(card:, selected_port: nil, move_connections: [], twin_card_used_ports: [])
     card_type = card.card_type
     ports_per_cell = card_type.port_quantity.to_i / (card_type.rows * card_type.columns)
 
@@ -72,7 +72,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
           position = get_current_position(card.orientation, card_type, cell_index, row_index, column_index, ports_per_cell)
           port_data = card.ports.detect { |p| p.position == position }
           port_id = port_data.try(:id)
-          port_data = include_moved_connections(moved_connections, port_data, port_id) # Add moved connections if any
+          port_data = include_move_connections(move_connections, port_data, port_id) # Add moved connections if any
           type = card_type.port_type
           is_vertical_card = %w[td-lr dt-lr].include?(card.orientation)
 
@@ -109,13 +109,13 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     html.html_safe # rubocop:disable Rails/OutputSafety
   end
 
-  def ports_by_card(port_type:, port_quantity:, ports_data:, card_id: nil, selected_port: nil, moved_connections: [], twin_card_used_ports: [])
+  def ports_by_card(port_type:, port_quantity:, ports_data:, card_id: nil, selected_port: nil, move_connections: [], twin_card_used_ports: [])
     html = ""
     port_quantity.to_i.times do |index|
       port_data = ports_data.detect { |p| p.position == index + 1 }
       port_id = port_data.try(:id)
       is_vertical_card = %w[td-lr dt-lr].include?(port_data&.card&.orientation)
-      port_data = include_moved_connections(moved_connections, port_data, port_id) # Add moved connections if any
+      port_data = include_move_connections(move_connections, port_data, port_id) # Add moved connections if any
 
       html_content = link_to_port(index + 1, port_data, port_type, card_id, port_id)
 
@@ -234,9 +234,9 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     end
   end
 
-  def include_moved_connections(moved_connections, port_data, port_id)
-    if port_data.present? && moved_connections.present?
-      connection = moved_connections.find { |c| c.port_from_id == port_id || c.port_to_id == port_id }
+  def include_move_connections(move_connections, port_data, port_id)
+    if port_data.present? && move_connections.present?
+      connection = move_connections.find { |c| c.port_from_id == port_id || c.port_to_id == port_id }
       port_data = connection if connection.present?
     end
     port_data
