@@ -16,7 +16,7 @@ class Move
 
     def self.per_moves_and_servers(moves, servers)
       servers_ports_ids = servers.map(&:ports).flatten.map(&:id)
-      MovedConnection.where(moves:).where("port_from_id IN (?) OR port_to_id IN (?)", servers_ports_ids, servers_ports_ids)
+      Move::Connection.where(move: moves).where("port_from_id IN (?) OR port_to_id IN (?)", servers_ports_ids, servers_ports_ids)
     end
 
     def execute!
