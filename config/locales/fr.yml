@@ -544,9 +544,9 @@ fr:
         destroyed: Frame a bien été supprimé.
     add_new: Ajouter un châssis
 
-  moved_connections:
+  move_connections:
     decorator:
-      description: "Connexion entre %{port_from_server} (port #%{port_from_id}) et %{port_to_server} (port #%{port_to_id}) => vlans : %{vlans} // nom du câble : %{cablename} // couleur : %{color}"
+      description: "Connexion entre %{port_from_server} (port #%{port_from_id}) et %{port_to_server} (port #%{port_to_id}) => vlans : %{vlans} // nom du câble : %{cable_name} // couleur : %{cable_color}"
 
   moves:
     index:
@@ -585,7 +585,7 @@ fr:
       title: Châssis %{frame} après déplacement
       applied_moves: Déplacements appliqués
       loading: CHARGEMENT EN COURS
-    moved_connection_form:
+    move_connection_form:
       action:
         delete: Supprimer cette connexion
     flashes:

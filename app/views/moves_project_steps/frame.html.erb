@@ -19,10 +19,10 @@
                  } %>
     </div>
     <div class="col-12 col-lg-6">
-      <div id="moved_connection_form_loading" class="text-center text-bg-warning fw-bold pt-1">
+      <div id="move_connection_form_loading" class="text-center text-bg-warning fw-bold pt-1">
         <%= t(".loading") %>
       </div>
-      <div class="moved_connection_form" id="connection_form"></div>
+      <div class="move_connection_form" id="connection_form"></div>
     </div>
   </div>
 
@@ -46,7 +46,7 @@
           <% end %>
         </td>
       <% end %>
-      <%= content_tag_for(:tr, @moved_connections) do |connection| %>
+      <%= content_tag_for(:tr, @move_connections) do |connection| %>
         <td><%= connection.decorated.description %></td>
         <td></td>
       <% end %>
@@ -57,7 +57,7 @@
 
 <script>
   $(document).ready(function() {
-    $('#moved_connection_form_loading').hide();
+    $('#move_connection_form_loading').hide();
     loadPaletteColorPicker('[name="move[color]"]');
 
     $(".frame").on('click', '.port', function(e) {
@@ -69,7 +69,7 @@
 
   function loadConnectionForm(port_id) {
     if (port_id != undefined && port_id != '') {
-      $('#moved_connection_form_loading').show();
+      $('#move_connection_form_loading').show();
       console.debug("Selected port : " + JSON.stringify(port_id));
       $.ajax({
         method: "GET",
@@ -77,7 +77,7 @@
         data: { port_id: port_id, frame_id: <%= @frame.id %> }
       }).done(function(){
         $('.connection_form').show();
-        $('#moved_connection_form_loading').hide();
+        $('#move_connection_form_loading').hide();
       });
     } else {
       $('.connection_form').hide();

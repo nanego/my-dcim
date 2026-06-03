@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_06_125949) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_02_130552) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -367,19 +367,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_06_125949) do
     t.index ["port_to_id"], name: "index_move_connections_on_port_to_id"
   end
 
-  create_table "moved_connections", id: :serial, force: :cascade do |t|
-    t.string "cablename"
-    t.string "color"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "executed_at", precision: nil
-    t.integer "port_from_id"
-    t.integer "port_to_id"
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "vlans"
-    t.index ["port_from_id"], name: "index_moved_connections_on_port_from_id"
-    t.index ["port_to_id"], name: "index_moved_connections_on_port_to_id"
-  end
-
   create_table "moves", id: :serial, force: :cascade do |t|
     t.datetime "created_at", precision: nil, null: false
     t.datetime "executed_at"
@@ -462,6 +449,27 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_06_125949) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "vlans"
     t.index ["card_id"], name: "index_ports_on_card_id"
+  end
+
+  create_table "power_distribution_unit_types", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "current_type"
+    t.string "documentation_url"
+    t.boolean "ip_modbus", default: false
+    t.boolean "ip_snmp", default: false
+    t.boolean "ip_ssh", default: false
+    t.boolean "ip_webui", default: false
+    t.bigint "manufacturer_id", null: false
+    t.integer "max_power_per_circuit"
+    t.boolean "meter_global", default: false
+    t.boolean "meter_per_circuit", default: false
+    t.boolean "meter_per_socket", default: false
+    t.string "name", null: false
+    t.boolean "rs485_modbus", default: false
+    t.boolean "socket_control", default: false
+    t.boolean "socket_lock", default: false
+    t.datetime "updated_at", null: false
+    t.index ["manufacturer_id"], name: "index_power_distribution_unit_types_on_manufacturer_id"
   end
 
   create_table "rooms", id: :serial, force: :cascade do |t|
@@ -605,8 +613,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_06_125949) do
   add_foreign_key "move_connections", "moves"
   add_foreign_key "move_connections", "ports", column: "port_from_id"
   add_foreign_key "move_connections", "ports", column: "port_to_id"
-  add_foreign_key "moved_connections", "ports", column: "port_from_id"
-  add_foreign_key "moved_connections", "ports", column: "port_to_id"
   add_foreign_key "moves", "frames"
   add_foreign_key "moves", "frames", column: "prev_frame_id"
   add_foreign_key "moves", "moves_project_steps"
@@ -617,6 +623,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_06_125949) do
   add_foreign_key "permission_scope_users", "permission_scopes"
   add_foreign_key "permission_scope_users", "users"
   add_foreign_key "ports", "cards"
+  add_foreign_key "power_distribution_unit_types", "manufacturers"
   add_foreign_key "rooms", "sites"
   add_foreign_key "servers", "clusters"
   add_foreign_key "servers", "domains"

@@ -14,6 +14,15 @@ class Move
       [port_from, port_to].compact
     end
 
+    def self.per_servers(servers)
+      servers_ports_ids = servers.map(&:ports).flatten.map(&:id)
+      Move::Connection.where("port_from_id IN (?) OR port_to_id IN (?)", servers_ports_ids, servers_ports_ids)
+    end
+
+    def self.per_moves_and_servers(moves, servers)
+      per_servers(servers).where(move: moves)
+    end
+
     def execute!
       return if executed?
 

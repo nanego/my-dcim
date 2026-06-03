@@ -11,6 +11,7 @@ class Move < ApplicationRecord
   has_one :moves_project, through: :step
 
   has_many :connections, dependent: :destroy
+  has_many :move_connections, dependent: :destroy, class_name: "Move::Connection"
 
   validates :moveable_id, uniqueness: { scope: %i[step moveable_type] }
   validates :position, presence: true
@@ -25,25 +26,19 @@ class Move < ApplicationRecord
     save
   end
 
-  def moved_connections
-    return [] unless moveable
-
-    MovedConnection.per_servers([moveable])
-  end
-
   def clear_connections
     return unless remove_existing_connections_on_execution
 
     # Delete current moved connections
-    moved_connections.delete_all
+    move_connections.delete_all
 
-    # Add moved connection for each port
+    # Add move connection for each port
     moveable.ports.each do |p|
-      MovedConnection.create(
+      move_connections.create(
         port_from_id: p.id,
         vlans: "",
-        color: "",
-        cablename: "",
+        cable_color: "",
+        cable_name: "",
       )
     end
   end
@@ -61,7 +56,7 @@ class Move < ApplicationRecord
       equipment.position = position
 
       if equipment.save!
-        moved_connections.map(&:execute!) if apply_connections
+        move_connections.map(&:execute!) if apply_connections
 
         # Update prev_frame and prev_position for incoming moves
         Move.not_executed

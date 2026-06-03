@@ -34,10 +34,10 @@ RSpec.describe MoveDecorator, type: :decorator do
     end
   end
 
-  describe "#moved_connections_to_badge_component" do
-    subject(:badge) { decorated_move.moved_connections_to_badge_component }
+  describe "#move_connections_to_badge_component" do
+    subject(:badge) { decorated_move.move_connections_to_badge_component }
 
-    context "with moved_connections" do
+    context "with move_connections" do
       let(:object) { moves(:one).tap { |move| move.remove_existing_connections_on_execution = true } }
 
       it { is_expected.to be_a(BadgeComponent) }
@@ -45,7 +45,7 @@ RSpec.describe MoveDecorator, type: :decorator do
       it { expect(badge.content).to eq("Oui") }
     end
 
-    context "without moved_connections" do
+    context "without move_connections" do
       let(:object) { Move.new }
 
       it { is_expected.to be_a(BadgeComponent) }

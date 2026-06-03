@@ -14,7 +14,7 @@ class MoveDecorator < ApplicationDecorator
     BadgeComponent.new(text, color:, variant: :pill)
   end
 
-  def moved_connections_to_badge_component
+  def move_connections_to_badge_component
     color = remove_existing_connections_on_execution ? :success : :danger
 
     BadgeComponent.new(I18n.t("boolean.#{remove_existing_connections_on_execution}"), color:, variant: :pill)
