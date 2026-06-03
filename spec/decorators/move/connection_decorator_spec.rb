@@ -9,7 +9,7 @@ RSpec.describe Move::ConnectionDecorator, type: :decorator do
   describe "#description" do
     it do
       expect(decorated_mc.description)
-        .to eq("Connexion entre MyString ServerName1 (port #1) et MyString ServerName1 (port #2) => vlans : vlan01 // nom du câble : NouveauNomDuCableUn // couleur : Blue")
+        .to eq("Connexion entre MyString ReadableServer (port #9) et MyString ReadableServer (port #10) => vlans : vlan01 // nom du câble : NouveauNomDuCableUn // couleur : Blue")
     end
 
     context "without port_to" do
@@ -17,7 +17,7 @@ RSpec.describe Move::ConnectionDecorator, type: :decorator do
 
       it do
         expect(decorated_mc.description)
-          .to eq("Connexion entre MyString ServerName1 (port #1) et  (port #) => vlans : vlan01 // nom du câble : NouveauNomDuCableUn // couleur : Blue")
+          .to eq("Connexion entre MyString ReadableServer (port #9) et  (port #) => vlans : vlan01 // nom du câble : NouveauNomDuCableUn // couleur : Blue")
       end
     end
   end

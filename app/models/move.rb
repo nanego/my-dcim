@@ -32,7 +32,7 @@ class Move < ApplicationRecord
     # Delete current moved connections
     move_connections.delete_all
 
-    # Add moved connection for each port
+    # Add move connection for each port
     moveable.ports.each do |p|
       move_connections.create(
         port_from_id: p.id,

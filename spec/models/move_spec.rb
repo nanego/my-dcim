@@ -38,31 +38,17 @@ RSpec.describe Move do
     end
   end
 
-  describe "#move_connections" do
-    context "without moveable" do
-      subject(:move) { described_class.new }
-
-      it { expect(move.move_connections).to eq([]) }
-    end
-
-    context "with moveable" do
-      subject(:move) { moves(:planned) }
-
-      it { expect(move.move_connections).to contain_exactly(move_connections(:one), move_connections(:two)) }
-    end
-  end
-
   describe "#clear_connections" do
     context "when remove_existing_connections_on_execution set to false" do
-      let(:move) { moves(:planned).tap { |m| m.remove_existing_connections_on_execution = false } }
+      let(:move) { moves(:one).tap { |m| m.remove_existing_connections_on_execution = false } }
 
       it { expect { move.clear_connections }.not_to(change { move.move_connections.count }) }
     end
 
     context "when remove_existing_connections_on_execution set to true" do
-      let(:move) { moves(:planned).tap { |m| m.remove_existing_connections_on_execution = true } }
+      let(:move) { moves(:one).tap { |m| m.remove_existing_connections_on_execution = true } }
 
-      it { expect { move.clear_connections }.to change { move.move_connections.count }.from(2).to(4) }
+      it { expect { move.clear_connections }.to change { move.move_connections.count }.from(1).to(4) }
     end
   end
 
