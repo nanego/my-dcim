@@ -116,7 +116,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
     authorize!
 
     @server = Server.includes(cards: [{ card_type: :port_type }], ports: [{ connection: :cable }]).find(params[:server_id])
-    @move_connections = Move::Connection.per_servers([@server])
+    @move_connections = @move.move_connections
   end
 
   def load_frame
@@ -136,7 +136,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
     @frame = Frame.friendly.find(params[:frame_id])
     @servers = @moves_project_step.frame_servers_at_current_step_for(@frame)
 
-    @move_connections = Move::Connection.per_servers([@server])
+    @move_connections = @move.move_connections
     # TODO: Deal with conflicts if there is more than 1 result
     @move_connection = @move_connections.where(port_from_id: params[:port_id])
       .or(Move::Connection.where(port_to_id: params[:port_id])).first
@@ -159,7 +159,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
     @servers = [@port_from.server, @port_to.try(:server)].compact
 
     # Current connections for all servers, necessary to refresh visible servers ports
-    @move_connections = Move::Connection.per_servers(@servers)
+    @move_connections = @move.move_connections
 
     @current_move_connections = @move_connections.where("port_from_id IN (?) OR port_to_id IN (?)",
                                                         [params[:move_connection][:port_from_id], params[:move_connection][:port_to_id]],

@@ -21,7 +21,7 @@ class MoveTest < ActiveSupport::TestCase
 
   test "clear current connections" do
     # Before
-    @move_connections = Move::Connection.per_servers([@move.moveable])
+    @move_connections = @move.move_connections
     assert_empty(@move_connections.select { |c| c.port_from_id == 2 })
 
     # Re-init moved connections
@@ -29,7 +29,7 @@ class MoveTest < ActiveSupport::TestCase
     @move.clear_connections
 
     # After
-    @move_connections = Move::Connection.per_servers([@move.moveable])
+    @move_connections = @move.move_connections
     @move.moveable.ports.each do |port|
       move_connection = @move_connections.find { |c| c.port_from_id == port.id }
       assert_not_nil move_connection
