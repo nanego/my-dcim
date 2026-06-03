@@ -24,18 +24,16 @@ class MovesProjectStepsController < ApplicationController
   end
 
   def execute
-    if @moves_project_step.prev_moves_all_executed?
-      @moves_project_step.execute!
+    @moves_project_step.execute!
 
-      respond_to do |format|
-        format.html { redirect_to moves_project_path(@moves_project), notice: t(".flashes.executed") }
-        format.json { head :no_content }
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_to moves_project_path(@moves_project), alert: t(".flashes.prev_moves_not_all_executed") }
-        format.json { head :bad_request }
-      end
+    respond_to do |format|
+      format.html { redirect_to moves_project_path(@moves_project), notice: t(".flashes.executed") }
+      format.json { head :no_content }
+    end
+  rescue MovesProjectStep::PreviousMovesNotExecutedError
+    respond_to do |format|
+      format.html { redirect_to moves_project_path(@moves_project), alert: t(".flashes.prev_moves_not_all_executed") }
+      format.json { head :bad_request }
     end
   end
 

@@ -36,11 +36,11 @@ RSpec.describe MovesProjectStep do
     end
   end
 
-  describe "#prev_moves_all_executed?" do
-    it { expect(moves_project_steps(:step_two).prev_moves_all_executed?).to be(false) }
+  describe "#prev_moves_executed?" do
+    it { expect(moves_project_steps(:step_two).prev_moves_executed?).to be(false) }
 
     context "when previous moves are all executed" do
-      it { expect(moves_project_steps(:one).prev_moves_all_executed?).to be(true) }
+      it { expect(moves_project_steps(:one).prev_moves_executed?).to be(true) }
     end
   end
 

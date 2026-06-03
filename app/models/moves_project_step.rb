@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class MovesProjectStep < ApplicationRecord
+  class PreviousMovesNotExecutedError < StandardError
+  end
+
   has_changelog
 
   belongs_to :moves_project
@@ -15,7 +18,7 @@ class MovesProjectStep < ApplicationRecord
   end
 
   def execute!(apply_connections: true)
-    raise unless prev_moves_all_executed?
+    raise PreviousMovesNotExecutedError unless prev_moves_executed?
 
     transaction do
       moves.find_each { |move| move.execute!(apply_connections:) }
@@ -26,8 +29,8 @@ class MovesProjectStep < ApplicationRecord
     moves.any?(&:executed?)
   end
 
-  def prev_moves_all_executed?
-    @prev_moves_all_executed ||= Move.where(step: previous_steps, executed_at: nil).none?
+  def prev_moves_executed?
+    Move.where(step: previous_steps, executed_at: nil).none?
   end
 
   def frames_with_moves_at_current_step
