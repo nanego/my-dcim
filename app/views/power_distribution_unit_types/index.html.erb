@@ -5,10 +5,10 @@
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
     <%= render ButtonComponent.new(t(".new_power_distribution_unit_type"),
-                                  url: new_power_distribution_unit_type_path,
-                                  variant: :success,
-                                  icon: "plus-lg",
-                                  is_responsive: true) %>
+                                   url: new_power_distribution_unit_type_path,
+                                   variant: :success,
+                                   icon: "plus-lg",
+                                   is_responsive: true) %>
   <% end %>
 <% end %>
 
@@ -16,7 +16,7 @@
   <div class="alert alert-warning">
     Cette section est actuellement en cours de développement. Les données peuvent être amenées à être supprimées ou altérées par des changements le temps du développement.
   </div>
-  
+
   <%= render FilterComponent.new(@filter) do |c| %>
     <% c.with_form do |f| %>
       <div class="w-100">
@@ -29,8 +29,8 @@
       <div>
         <fieldset class="form-floating">
           <%= f.select :manufacturer_ids, PowerDistributionUnitTypeDecorator.manufacturers_options_for_select,
-                                  { prompt: true, multiple: true },
-                                  { class: "form-select", data: { controller: :select } } %>
+                       { prompt: true, multiple: true },
+                       { class: "form-select", data: { controller: :select } } %>
           <%= f.label :manufacturer_ids %>
         </fieldset>
       </div>
@@ -39,11 +39,11 @@
 
   <%= render List::DataTableComponent.new(@power_distribution_unit_types) do |table| %>
     <% table.with_bulk_action(
-      url: bulk_power_distribution_unit_types_path,
-      method: :delete,
-      class: "btn btn-danger btn-sm",
-      data: { confirm: t("action.confirm") }
-    ) do %>
+         url: bulk_power_distribution_unit_types_path,
+         method: :delete,
+         class: "btn btn-danger btn-sm",
+         data: { confirm: t("action.confirm") },
+       ) do %>
       <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
     <% end %>
 

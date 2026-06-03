@@ -9,16 +9,16 @@
       editable: allowed_to?(:update?, @power_distribution_unit_type),
     ) do |heading| %>
   <% heading.with_extra_buttons do %>
-    <%= if allowed_to?(:duplicate?, @power_distribution_unit_type)
-         render ButtonComponent.new(
-           t("action.duplicate"),
-           url: duplicate_power_distribution_unit_type_path(@power_distribution_unit_type),
-           variant: :success,
-           icon: "copy",
-           is_responsive: true,
-           extra_classes: "me-2",
-         )
-       end %>
+    <% if allowed_to?(:duplicate?, @power_distribution_unit_type) %>
+      <%= render ButtonComponent.new(
+            t("action.duplicate"),
+            url: duplicate_power_distribution_unit_type_path(@power_distribution_unit_type),
+            variant: :success,
+            icon: "copy",
+            is_responsive: true,
+            extra_classes: "me-2",
+          ) %>
+    <% end %>
   <% end %>
 <% end %>
 
