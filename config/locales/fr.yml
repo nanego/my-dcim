@@ -597,6 +597,15 @@ fr:
     index:
       new_moves_project: Nouveau projet
       archive_confirmation: Êtes-vous sûr de vouloir archiver ce projet ?
+      badges:
+        steps_count_title:
+          zero: 0 étape
+          one: 1 étape
+          other: "%{count} étapes"
+        moves_count_title:
+          zero: 0 déplacement prévu
+          one: 1 déplacement prévu
+          other: "%{count} déplacements prévus"
     show:
       frame_table_title: Châssis après déplacements
       edit_connections: Modifier les connexions

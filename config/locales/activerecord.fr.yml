@@ -400,8 +400,8 @@ fr:
       moves_project:
         name: Nom
         created_by: Créé par
-        created_at: Date de création
-        updated_at: Date de mise à jour
+        created_at: Créé le
+        updated_at: Mis à jour le
       moves_project_step:
         name: Nom
         date: Planifié le
