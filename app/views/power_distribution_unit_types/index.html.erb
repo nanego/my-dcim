@@ -1,0 +1,95 @@
+<%
+  breadcrumb.add_step(title = PowerDistributionUnitType.model_name.human(count: 2))
+%>
+
+<%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
+  <% heading.with_right_content do %>
+    <%= render ButtonComponent.new(t(".new_power_distribution_unit_type"),
+                                   url: new_power_distribution_unit_type_path,
+                                   variant: :success,
+                                   icon: "plus-lg",
+                                   is_responsive: true) %>
+  <% end %>
+<% end %>
+
+<div class="p-4 border-top d-flex flex-column row-gap-4">
+  <div class="alert alert-warning">
+    Cette section est actuellement en cours de développement. Les données peuvent être amenées à être supprimées ou altérées par des changements le temps du développement.
+  </div>
+
+  <%= render FilterComponent.new(@filter) do |c| %>
+    <% c.with_form do |f| %>
+      <div class="w-100">
+        <fieldset class="form-floating">
+          <%= f.text_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :q %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.select :manufacturer_ids, PowerDistributionUnitTypeDecorator.manufacturers_options_for_select,
+                       { prompt: true, multiple: true },
+                       { class: "form-select", data: { controller: :select } } %>
+          <%= f.label :manufacturer_ids %>
+        </fieldset>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= render List::DataTableComponent.new(@power_distribution_unit_types) do |table| %>
+    <% table.with_bulk_action(
+         url: bulk_power_distribution_unit_types_path,
+         method: :delete,
+         class: "btn btn-danger btn-sm",
+         data: { confirm: t("action.confirm") },
+       ) do %>
+      <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
+    <% end %>
+
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:name), sort_by: :name) do |power_distribution_unit_type| %>
+      <%= link_to power_distribution_unit_type_path(power_distribution_unit_type), class: "fw-bold" do %>
+        <%= power_distribution_unit_type.name %>
+      <% end %>
+    <% end %>
+
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:manufacturer_id), sort_by: :"manufacturers.name") do |power_distribution_unit_type| %>
+      <%= link_to manufacturer_path(power_distribution_unit_type.manufacturer) do %>
+        <%= power_distribution_unit_type.manufacturer %>
+      <% end %>
+    <% end %>
+
+    <% table.with_column(style: "min-width: 70px; width: 70px") do |power_distribution_unit_type| %>
+      <div class="btn-group btn-group-sm" role="group" aria-label="...">
+        <%= link_to edit_power_distribution_unit_type_path(power_distribution_unit_type), class: "btn btn-info" do %>
+          <span class="bi bi-pencil"
+                title="<%= t("action.edit") %>"
+                data-controller="tooltip"
+                data-bs-placement="left"
+                aria-hidden="true"></span>
+          <span class="visually-hidden"><%= t("action.edit") %></span>
+        <% end %>
+        <%= link_to duplicate_power_distribution_unit_type_path(power_distribution_unit_type),
+                    class: "btn btn-success",
+                    data: { turbo_frame: :_top } do %>
+          <span class="bi bi-copy"
+                title="<%= t("action.duplicate") %>"
+                aria-hidden="true"
+                data-controller="tooltip"
+                data-bs-placement="left"></span>
+          <span class="visually-hidden"><%= t("action.duplicate") %></span>
+        <% end %>
+        <%= link_to power_distribution_unit_type_path(power_distribution_unit_type),
+                    method: :delete,
+                    class: "btn btn-danger" do %>
+          <span class="bi bi-trash"
+                title="<%= t("action.delete") %>"
+                data-controller="tooltip"
+                data-bs-placement="left"
+                aria-hidden="true"></span>
+          <span class="visually-hidden"><%= t("action.delete") %></span>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

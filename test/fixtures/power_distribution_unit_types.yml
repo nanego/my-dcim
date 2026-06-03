@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  manufacturer_id: 1
+  name: "PDU type name 1"
+  current_type: 0
+  documentation_url: "https://exemple.com/doc/pdu_typ_1"
+  meter_global: false
+  meter_per_socket: false
+  meter_per_circuit: false
+  socket_control: false
+  socket_lock: false
+  ip_snmp: false
+  ip_modbus: false
+  ip_ssh: false
+  ip_webui: false
+  rs485_modbus: false
+  max_power_per_circuit: 1
+
+two:
+  id: 2
+  manufacturer_id: 2
+  name: "PDU type name 2"
+  current_type: 0
+  documentation_url: "https://exemple.com/doc/pdu_typ_2"
+  meter_global: false
+  meter_per_socket: false
+  meter_per_circuit: false
+  socket_control: false
+  socket_lock: false
+  ip_snmp: false
+  ip_modbus: false
+  ip_ssh: false
+  ip_webui: false
+  rs485_modbus: false
+  max_power_per_circuit: 1

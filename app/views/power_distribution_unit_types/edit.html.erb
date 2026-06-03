@@ -1,0 +1,14 @@
+<%
+  breadcrumb
+    .add_step(@power_distribution_unit_type, power_distribution_unit_type_path(@power_distribution_unit_type))
+    .add_step(t("action.edit"))
+%>
+
+<%= render Page::HeadingEditComponent.new(resource: @power_distribution_unit_type, title: t(".title"), breadcrumb:) %>
+<div class="col-12 p-4 border-top">
+  <div class="alert alert-warning">
+    Cette section est actuellement en cours de développement. Les données peuvent être amenées à être supprimées ou altérées par des changements le temps du développement.
+  </div>
+
+  <%= render partial: "form", locals: { power_distribution_unit_type: @power_distribution_unit_type } %>
+</div>

@@ -651,3 +651,23 @@ en:
     rooms:
       index:
         title: Overview of the rooms
+
+  power_distribution_unit_types:
+    index:
+      new_power_distribution_unit_type: New PDU type
+    new:
+      title: New PDU type
+    create:
+      flashes:
+        created: PDU type have been created.
+    destroy:
+      title: Delete this PDU type
+      flashes:
+        destroyed: PDU type have been deleted.
+    edit:
+      title: Edit a PDU type
+    update:
+      flashes:
+        updated: PDU type have been updated.
+    duplicate:
+      title: Duplicate PDU type %{power_distribution_unit_type_name}

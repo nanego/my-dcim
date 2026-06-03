@@ -1,0 +1,19 @@
+<%
+  breadcrumb
+    .add_step(@original_power_distribution_unit_type.name, power_distribution_unit_type_path(@original_power_distribution_unit_type))
+    .add_step(t("action.duplicate"))
+%>
+
+<%= render Page::HeadingEditComponent.new(
+      resource: @original_power_distribution_unit_type,
+      title: t(".title", power_distribution_unit_type_name: @original_power_distribution_unit_type.name),
+      breadcrumb:,
+    ) %>
+
+<div class="col-12 p-4 border-top">
+  <div class="alert alert-warning">
+    Cette section est actuellement en cours de développement. Les données peuvent être amenées à être supprimées ou altérées par des changements le temps du développement.
+  </div>
+
+  <%= render partial: "form", locals: { power_distribution_unit_type: @power_distribution_unit_type } %>
+</div>

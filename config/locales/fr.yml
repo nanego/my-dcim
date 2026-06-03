@@ -951,6 +951,26 @@ fr:
       flashes:
         destroyed: L'utilisateur a bien été retiré de cette permission.
 
+  power_distribution_unit_types:
+    index:
+      new_power_distribution_unit_type: "Nouveau type de PDU"
+    new:
+      title: "Nouveau type de PDU"
+    create:
+      flashes:
+        created: Le type de PDU a bien été mis à crée.
+    destroy:
+      title: Supprimer ce type de PDU
+      flashes:
+        destroyed: Le type de PDU a bien été supprimé.
+    edit:
+      title: Modifier le type de PDU
+    update:
+      flashes:
+        updated: Le type de PDU a bien été mis à jour.
+    duplicate:
+      title: Dupliquer le type de PDU %{power_distribution_unit_type_name}
+
   views:
     pagination:
       previous: "&lt; Précédent"

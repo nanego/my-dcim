@@ -75,6 +75,13 @@ Rails.application.routes.draw do
     resources :cables, only: :index
     resource :glpi_equipment, only: :show, module: :servers, controller: :glpi_equipment
   end
+
+  resources :power_distribution_unit_types do
+    member do
+      get :duplicate
+    end
+  end
+
   resources :power_distribution_units do
     member do
       get :duplicate
@@ -149,9 +156,9 @@ Rails.application.routes.draw do
   end
 
   namespace :bulk do
-    %i[sites rooms islets bays frames air_conditioners air_conditioner_models power_distribution_units modeles categories
-       architectures manufacturers stacks card_types port_types domains managers clusters colors cables
-       contacts contact_roles contact_assignments].each do |res|
+    %i[sites rooms islets bays frames air_conditioners air_conditioner_models power_distribution_unit_types
+       power_distribution_units modeles categories architectures manufacturers stacks card_types port_types
+       domains managers clusters colors cables contacts contact_roles contact_assignments].each do |res|
       resource res, only: :destroy
     end
 

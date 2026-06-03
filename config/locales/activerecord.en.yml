@@ -228,6 +228,24 @@ en:
         none: Nond
         server: Server
         network_equipment: Network equipment
+      power_distribution_unit_type:
+        name: Name
+        manufacturer_id: Manufacturer
+        current_type: Type
+        documentation_url: Documentation
+        meter_global: Global Meter
+        meter_per_socket: Meter par Socket
+        meter_per_circuit: Meter per Circuit
+        socket_control: Socket Control
+        ip_snmp: SNMP Ip
+        ip_modbus: MODBUS Ip
+        ip_ssh: SSH Ip
+        ip_webui: WebUI Ip
+        rs485_modbus: Rs485 modbus
+        max_power_per_circuit: Max power per circuit
+      power_distribution_unit_type/current_type:
+        single_phase: One phase
+        three_phase: Three phases
 
     errors:
       models:

@@ -1,0 +1,75 @@
+<%
+  breadcrumb.add_step(title = @power_distribution_unit_type)
+%>
+
+<%= render Page::HeadingShowComponent.new(
+      resource: @power_distribution_unit_type,
+      title: @power_distribution_unit_type,
+      breadcrumb:,
+      editable: allowed_to?(:update?, @power_distribution_unit_type),
+    ) do |heading| %>
+  <% heading.with_extra_buttons do %>
+    <% if allowed_to?(:duplicate?, @power_distribution_unit_type) %>
+      <%= render ButtonComponent.new(
+            t("action.duplicate"),
+            url: duplicate_power_distribution_unit_type_path(@power_distribution_unit_type),
+            variant: :success,
+            icon: "copy",
+            is_responsive: true,
+            extra_classes: "me-2",
+          ) %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<div class="col-12 p-4 border-top">
+  <div class="alert alert-warning">
+    Cette section est actuellement en cours de développement. Les données peuvent être amenées à être supprimées ou altérées par des changements le temps du développement.
+  </div>
+
+  <div class="col-12 col-lg-6">
+    <%= render CardComponent.new do |card| %>
+      <dl class="show-page_dl d-grid row-gap-2 mb-0">
+        <% card.with_header do %>
+          <%= t("show.cards.identification") %>
+        <% end %>
+
+        <% %i[name].each do |attribute_name| %>
+          <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(attribute_name) %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @power_distribution_unit_type.public_send(attribute_name) %></dd>
+        <% end %>
+      </dl>
+    <% end %>
+
+    <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
+      <% card.with_header do %>
+        <%= t("show.cards.features") %>
+      <% end %>
+
+      <dl class="show-page_dl d-grid row-gap-2 mb-0">
+        <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(:manufacturer_id) %> :</dt>
+        <dd class="mb-0 pb-2 ps-3"><%= link_to @power_distribution_unit_type.manufacturer %></dd>
+
+        <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(:documentation_url) %> :</dt>
+        <dd class="mb-0 pb-2 ps-3">
+          <% if @power_distribution_unit_type.documentation_url? %>
+            <%= link_to @power_distribution_unit_type.documentation_url.to_s, @power_distribution_unit_type.documentation_url.to_s %>
+          <% end %>
+        </dd>
+
+        <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(:max_power_per_circuit) %> :</dt>
+        <dd class="mb-0 pb-2 ps-3"><%= @power_distribution_unit_type.max_power_per_circuit %></dd>
+
+        <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(:current_type) %> :</dt>
+        <dd class="mb-0 pb-2 ps-3"><%= PowerDistributionUnitType.human_attribute_name("current_type.#{@power_distribution_unit_type.current_type}") %></dd>
+
+        <% %i[meter_global meter_per_socket meter_per_circuit socket_control socket_lock ip_snmp ip_modbus ip_ssh ip_webui rs485_modbus].each do |attribute_name| %>
+          <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(attribute_name) %> :</dt>
+          <dd class="mb-0 pb-2 ps-3"><%= I18n.t("boolean.#{@power_distribution_unit_type.public_send(attribute_name)}") %></dd>
+        <% end %>
+      </dl>
+    <% end %>
+
+  </div>
+  <%= render ChangelogEntries::ObjectListComponent.new(@power_distribution_unit_type) %>
+</div>
