@@ -30,7 +30,7 @@ class PowerDistributionUnitTypesController < ApplicationController
 
     respond_to do |format|
       if @power_distribution_unit_type.save
-        format.html { redirect_to power_distribution_unit_type_path(@power_distribution_unit_type), notice: t(".flashes.created") }
+        format.html { redirect_to_new_or_to power_distribution_unit_type_path(@power_distribution_unit_type), notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @power_distribution_unit_type }
       else
         format.html { render :new, status: :unprocessable_content }

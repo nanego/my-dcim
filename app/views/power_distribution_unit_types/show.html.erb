@@ -47,13 +47,14 @@
       <% end %>
 
       <dl class="show-page_dl d-grid row-gap-2 mb-0">
-        <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(:manufacturer) %> :</dt>
+        <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(:manufacturer_id) %> :</dt>
         <dd class="mb-0 pb-2 ps-3"><%= link_to @power_distribution_unit_type.manufacturer %></dd>
 
-        <% %i[documentation_url max_power_per_circuit].each do |attribute_name| %>
-          <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(attribute_name) %> :</dt>
-          <dd class="mb-0 pb-2 ps-3"><%= @power_distribution_unit_type.public_send(attribute_name) %></dd>
-        <% end %>
+        <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(:documentation_url) %> :</dt>
+        <dd class="mb-0 pb-2 ps-3"><%= link_to @power_distribution_unit_type.documentation_url, @power_distribution_unit_type.documentation_url %></dd>
+
+        <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(:max_power_per_circuit) %> :</dt>
+        <dd class="mb-0 pb-2 ps-3"><%= @power_distribution_unit_type.max_power_per_circuit %></dd>
 
         <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(:current_type) %> :</dt>
         <dd class="mb-0 pb-2 ps-3"><%= PowerDistributionUnitType.human_attribute_name("current_type.#{@power_distribution_unit_type.current_type}") %></dd>

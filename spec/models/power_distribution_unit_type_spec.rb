@@ -15,24 +15,24 @@ RSpec.describe PowerDistributionUnitType do
     it { is_expected.to define_enum_for(:current_type).with_values(%i[three_phase single_phase]) }
 
     describe "documentation_url format" do
-      before { composant.valid? }
+      before { power_distribution_unit_type.valid? }
 
       describe "with empty documentation_url" do
-        subject(:composant) { described_class.new(documentation_url: "") }
+        subject(:power_distribution_unit_type) { described_class.new(documentation_url: "") }
 
-        it { expect(composant.errors.where(:name, :invalid).count).to eq(0) }
+        it { expect(power_distribution_unit_type.errors.where(:name, :invalid).count).to eq(0) }
       end
 
       describe "with valid documentation_url" do
-        subject(:composant) { described_class.new(documentation_url: "http://exemple.com/doc/1") }
+        subject(:power_distribution_unit_type) { described_class.new(documentation_url: "http://exemple.com/doc/1") }
 
-        it { expect(composant.errors.where(:name, :invalid).count).to eq(0) }
+        it { expect(power_distribution_unit_type.errors.where(:name, :invalid).count).to eq(0) }
       end
 
       describe "with invalid documentation_url" do
-        subject(:composant) { described_class.new(documentation_url: "some invalid url") }
+        subject(:power_distribution_unit_type) { described_class.new(documentation_url: "some invalid url") }
 
-        it { expect(composant.errors.where(:documentation_url, :invalid).count).to eq(1) }
+        it { expect(power_distribution_unit_type.errors.where(:documentation_url, :invalid).count).to eq(1) }
       end
     end
   end

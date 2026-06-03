@@ -671,7 +671,3 @@ en:
         updated: PDU type have been updated.
     duplicate:
       title: Duplicate PDU type %{power_distribution_unit_type_name}
-
-  current_type:
-    single_phase: One phase
-    three_phase: Three phases
