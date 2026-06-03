@@ -53,7 +53,7 @@
         <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(:documentation_url) %> :</dt>
         <dd class="mb-0 pb-2 ps-3">
           <% if @power_distribution_unit_type.documentation_url? %>
-            <%= link_to @power_distribution_unit_type.documentation_url, @power_distribution_unit_type.documentation_url %>
+            <%= link_to @power_distribution_unit_type.documentation_url.to_s, @power_distribution_unit_type.documentation_url.to_s %>
           <% end %>
         </dd>
 
