@@ -3,11 +3,22 @@
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
-  <turbo-frame id="search-index" data-controller="search-results" data-turbo-action="advance">
+  <div class="d-lg-none">
+    <%= render partial: "search_field", locals: { quick_search: false } %>
+  </div>
+  <turbo-frame
+    id="search-index"
+    data-controller="search-results"
+    data-turbo-action="advance">
     <% if @results.any? %>
       <div class="list-group">
         <%= render partial: "result", collection: @results %>
       </div>
+      <% if @more_results %>
+        <div class="bg-body-tertiary py-2 px-4 text-center">
+          <%= link_to t(".see_more"), search_path(search_query: params[:search_query]), data: { turbo_frame: "_top" } %>
+        </div>
+      <% end %>
     <% else %>
       <%= render CardEmptyDataComponent.new(text: t(".no_results_found")) %>
     <% end %>

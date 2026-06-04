@@ -5,7 +5,14 @@ class SearchController < ApplicationController
 
   def index
     @results = authorize! SearchResult.search(params[:search_query])
-    @results = authorized_scope(@results).map(&:searchable)
+    @results = authorized_scope(@results)
+
+    if (@quick_search = params[:quick_search] == "true")
+      @more_results = @results.limit(11).count > 10
+      @results = @results.limit(10)
+    end
+
+    @results = @results.map(&:searchable)
 
     respond_to do |format|
       format.html # normal rendering for non-Turbo requests

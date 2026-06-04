@@ -13,12 +13,9 @@
     <% end %>
     <span>
       <% if current_user_has_permission? %>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mydcim-navbar"
-                aria-controls="mydcim-navbar"
-                aria-label="Toggle Main navigation with focus on search bar"
-                onclick="document.getElementById('query').focus();">
-          <i class="bi bi-search"></i>
-        </button>
+        <%= link_to search_path, class: "btn d-lg-none" do %>
+            <i class="bi bi-search"></i>
+        <% end %>
       <% end %>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mydcim-navbar"
               aria-controls="mydcim-navbar"
@@ -49,7 +46,9 @@
           <% end %>
         </ul>
 
-        <%= render "search/search_field" if current_user_has_permission? %>
+        <div class="d-none d-lg-block">
+          <%= render partial: "search/search_field", locals: { quick_search: request.path != search_path } if current_user_has_permission? %>
+        </div>
 
         <ul class="navbar-nav order-2">
           <%= render "layouts/navigation/nav_links_administration" %>

@@ -1033,5 +1033,6 @@ fr:
     index:
       results: Résultats de la recherche
       no_results_found: Aucun résultat trouvé
+      see_more: Voir plus
   select:
     placeholder: Tapez pour filtrer...

@@ -1,4 +1,6 @@
-<div class="my-4 my-lg-0 mx-lg-auto order-0 order-lg-1">
+<%# locals: (quick_search: false) -%>
+
+<div class="my-4 my-lg-0 mx-lg-auto order-0 order-lg-1 position-relative">
   <%= form_with url: search_path,
                 id: "search-form",
                 method: :get,
@@ -6,16 +8,18 @@
                   turbo: true,
                   turbo_frame: "search-index",
                   controller: "global-search",
-                  global_search_on_search_page_value: request.path == search_path,
                 },
                 class: "d-flex" do |f| %>
+
+    <%= f.hidden_field :quick_search, value: quick_search, data: { global_search_target: "quickSearchInput" } %>
 
     <div class="input-group">
       <%= f.search_field :search_query,
                          value: params[:search_query],
+                         autocomplete: "off",
                          data: {
                            global_search_target: "searchInput",
-                           action: "focus->global-search#goToSearch click->global-search#goToSearch input->global-search#submit",
+                           action: "input->global-search#submit keydown.enter@document->global-search#navigate",
                          },
                          class: "form-control border-primary",
                          placeholder: t("filters.placeholder.quicksearch") %>
@@ -25,5 +29,14 @@
         <span class="loading spinner-border spinner-border-sm"></span>
       <% end %>
     </div>
+  <% end %>
+
+  <% if quick_search %>
+    <turbo-frame
+      id="search-index"
+      class="search-dropdown position-absolute top-100 start-50 translate-middle-x overflow-auto z-3 mt-3 border-bottom rounded-bottom"
+      data-controller="search-results"
+      data-search-results-target="popup"
+      data-action="click@document->search-results#close keydown.esc@document->search-results#close"></turbo-frame>
   <% end %>
 </div>

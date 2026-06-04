@@ -1,24 +1,22 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["searchInput"]
-  static values = { onSearchPage: Boolean }
-
-  goToSearch() {
-    if (!this.onSearchPageValue) {
-      this.element.requestSubmit()
-    }
-  }
+  static targets = ["searchInput", "quickSearchInput"]
 
   submit() {
-    if (!this.onSearchPageValue) return
-
     this.useDebounce(300, () => {
       // don't accept short queries
       if (this.searchInputTarget.value.length >= 2) {
         this.element.requestSubmit()
       }
     })
+  }
+
+  navigate(event) {
+    event.preventDefault()
+    this.quickSearchInputTarget.value = "false"
+    this.element.dataset.turboFrame = "_top"
+    this.element.requestSubmit()
   }
 
   #lastDebounceKey

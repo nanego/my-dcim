@@ -959,6 +959,18 @@ body {
     }
   }
 
+  /* search-dropdown */
+  .search-dropdown {
+    overscroll-behavior: none;
+    max-height: 50vh;
+    width: 800px;
+    opacity: 0;
+  }
+
+  .search-dropdown:has(.list-group) {
+    opacity: 1;
+  }
+
   /* Helpers */
   .cursor-pointer {
     cursor: pointer;
