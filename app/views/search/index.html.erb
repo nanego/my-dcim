@@ -13,7 +13,7 @@
   >
     <% if @results.any? %>
       <div class="list-group">
-        <%= render partial: "result", collection: @results.slice : @results %>
+        <%= render partial: "result", collection: @results %>
       </div>
       <% if @more_results %>
         <div class="bg-body-tertiary py-2 px-4 text-center">
