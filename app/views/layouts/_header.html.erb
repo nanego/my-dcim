@@ -46,7 +46,7 @@
           <% end %>
         </ul>
 
-        <div class="d-none d-lg-block ">
+        <div class="d-none d-lg-block">
           <%= render partial: "search/search_field", locals: { on_search_page: request.path == search_path } if current_user_has_permission? %>
         </div>
 
