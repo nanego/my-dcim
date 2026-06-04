@@ -105,5 +105,12 @@ RSpec.describe MovesProjectStepsController do
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(moves_projects_path) }
     end
+
+    context "when previous moves aren't all executed" do
+      let(:moves_project_step) { moves_project_steps(:step_two) }
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(moves_project_path(moves_project_step.moves_project)) }
+    end
   end
 end

@@ -25,7 +25,24 @@ RSpec.describe MovesProjectStep do
   end
 
   describe "#execute!" do
-    pending
+    let(:move_project_step) { moves_project_steps(:one) }
+
+    context "with prev moves executed" do
+      it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
+        move_project_step.moves.each do |move|
+          expect do
+            move_project_step.execute!
+            move.reload
+          end.to change(move, :executed?).from(false).to(true)
+        end
+      end
+    end
+
+    context "with prev moves not executed" do
+      let(:move_project_step) { moves_project_steps(:step_two) }
+
+      it { expect { move_project_step.execute! }.to raise_error(MovesProjectStep::PreviousMovesNotExecutedError) }
+    end
   end
 
   describe "#executed?" do
@@ -33,6 +50,14 @@ RSpec.describe MovesProjectStep do
 
     context "when executed" do
       it { expect(moves_project_steps(:executed).executed?).to be(true) }
+    end
+  end
+
+  describe "#prev_moves_executed?" do
+    it { expect(moves_project_steps(:step_two).prev_moves_executed?).to be(false) }
+
+    context "when previous moves are all executed" do
+      it { expect(moves_project_steps(:one).prev_moves_executed?).to be(true) }
     end
   end
 

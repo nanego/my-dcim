@@ -643,6 +643,7 @@ fr:
     execute:
       flashes:
         executed: Les déplacements ont été exécutés avec succès.
+        prev_moves_not_all_executed: Certaines des étapes précédentes n'ont pas encore été exécutées.
     flashes:
       archived: Ce projet est archivé
 

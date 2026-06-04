@@ -30,6 +30,11 @@ class MovesProjectStepsController < ApplicationController
       format.html { redirect_to moves_project_path(@moves_project), notice: t(".flashes.executed") }
       format.json { head :no_content }
     end
+  rescue MovesProjectStep::PreviousMovesNotExecutedError
+    respond_to do |format|
+      format.html { redirect_to moves_project_path(@moves_project), alert: t(".flashes.prev_moves_not_all_executed") }
+      format.json { head :bad_request }
+    end
   end
 
   private
