@@ -28,7 +28,7 @@ RSpec.describe MovesProjectStep do
     let(:move_project_step) { moves_project_steps(:one) }
 
     context "with prev moves executed" do
-      it :aggregate_failures do
+      it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
         move_project_step.moves.each do |move|
           expect do
             move_project_step.execute!
