@@ -13,9 +13,9 @@
   >
     <% if @results.any? %>
       <div class="list-group">
-        <%= render partial: "result", collection: @quick_search ? @results.slice(0, 10) : @results %>
+        <%= render partial: "result", collection: @results.slice : @results %>
       </div>
-      <% if @quick_search && @results.size > 10 %>
+      <% if @more_results %>
         <div class="bg-body-tertiary py-2 px-4 text-center">
           <%= link_to t(".see_more"), search_path(search_query: params[:search_query]), data: { turbo_frame: "_top" } %>
         </div>

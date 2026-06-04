@@ -7,8 +7,10 @@ class SearchController < ApplicationController
     @results = authorize! SearchResult.search(params[:search_query])
     @results = authorized_scope(@results)
 
-    @quick_search = params[:quick_search] == "true"
-    @results = @results.limit(11) if @quick_search
+    if (@quick_search = params[:quick_search] == "true")
+      @more_results = @results.limit(11).count > 10
+      @results = @results.limit(10)
+    end
 
     @results = @results.map(&:searchable)
 
