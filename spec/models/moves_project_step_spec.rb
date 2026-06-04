@@ -28,13 +28,13 @@ RSpec.describe MovesProjectStep do
     let(:move_project_step) { moves_project_steps(:one) }
 
     context "with prev moves executed" do
-      let(:move) { moves(:one) }
-
-      it do
-        expect do
-          move_project_step.execute!
-          move.reload
-        end.to change(move, :executed?).from(false).to(true)
+      it :aggregate_failures do
+        move_project_step.moves.each do |move|
+          expect do
+            move_project_step.execute!
+            move.reload
+          end.to change(move, :executed?).from(false).to(true)
+        end
       end
     end
 
