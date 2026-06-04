@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class MovesProjectStep < ApplicationRecord
-  class PreviousMovesNotExecutedError < StandardError
-  end
+  class PreviousMovesNotExecutedError < StandardError; end
 
   has_changelog
 
