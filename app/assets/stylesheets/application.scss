@@ -18,7 +18,6 @@
  *= require rooms
  *= require_self
  *= require_tree ./components
- *= require_tree ./pages
  *= require tom-select.bootstrap5
  */
 
@@ -959,12 +958,63 @@ body {
     }
   }
 
+  /* SEARCH */
+  #search-index {
+    a {
+      &:not(:first-child) {
+       border-top-style: dashed;
+      }
+
+      &:not(:last-child) {
+        border-bottom-style: dashed;
+      }
+    }
+
+    &:not(.search-dropdown) {
+      a:focus {
+        z-index: 10;
+        outline-width: 1px !important;
+        outline-color: var(--bs-primary) !important;
+        outline-style: groove !important;
+      }
+    }
+  }
+
+  #search-form button > .loading {
+    display: none;
+  }
+
+  #search-form[aria-busy] {
+    button > .loading {
+      display: block;
+    }
+
+    button > :not(.loading) {
+      display: none;
+    }
+  }
+
   /* search-dropdown */
   .search-dropdown {
     overscroll-behavior: none;
     max-height: 50vh;
     width: 800px;
     opacity: 0;
+
+    .list-group {
+      .list-group-item {
+        border-left: none !important;
+        border-right: none !important;
+
+        &:first-child {
+          border-top: none !important;
+        }
+
+        &:last-child {
+          border-bottom: none !important;
+        }
+      }
+    }
   }
 
   .search-dropdown:has(.list-group) {

@@ -1,6 +1,6 @@
 <%# locals: (quick_search: false) -%>
 
-<div class="my-4 my-lg-0 mx-lg-auto order-0 order-lg-1 position-relative">
+<div class="my-4 my-lg-0 mx-lg-auto order-0 order-lg-1">
   <%= form_with url: search_path,
                 id: "search-form",
                 method: :get,
@@ -24,7 +24,7 @@
                          class: "form-control border-primary",
                          placeholder: t("filters.placeholder.quicksearch") %>
 
-      <%= f.button class: "btn btn-primary", type: "submit" do %>
+      <%= f.button class: "btn btn-outline-primary", type: "submit" do %>
         <span class="bi bi-search"></span>
         <span class="loading spinner-border spinner-border-sm"></span>
       <% end %>
@@ -34,7 +34,7 @@
   <% if quick_search %>
     <turbo-frame
       id="search-index"
-      class="search-dropdown position-absolute top-100 start-50 translate-middle-x overflow-auto z-3 mt-3 border-bottom rounded-bottom"
+      class="search-dropdown position-absolute top-100 start-50 translate-middle-x overflow-auto shadow-lg rounded-bottom rounded-3 border"
       data-controller="search-results"
       data-search-results-target="popup"
       data-action="click@document->search-results#close keydown.esc@document->search-results#close"></turbo-frame>
