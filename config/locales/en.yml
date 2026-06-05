@@ -512,7 +512,7 @@ en:
     index:
       results: Search results
       no_results_found: No results found
-      see_more: See more
+      see_more: See more results for "%{query}"
 
   select:
     placeholder: Type to filter...
