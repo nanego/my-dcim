@@ -13,6 +13,15 @@ RSpec.describe GlpiClient, type: :service do
     subject(:id_ress) { client.network_equipment_glpi_id(serial: "AZERTY") }
 
     it { expect(id_ress).to eq(5000) }
+
+    context "when the serial contains URL-reserved characters" do
+      it "url-encodes the serial in the query string" do
+        expect(client.connection).to receive(:get)
+          .with("NetworkEquipment?searchText[serial]=A%2BB%2FC%233")
+          .and_call_original
+        client.network_equipment_glpi_id(serial: "A+B/C#3")
+      end
+    end
   end
 
   describe "#computer" do

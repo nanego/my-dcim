@@ -102,6 +102,18 @@ RSpec.describe ServerDecorator, type: :decorator do
       it { expect(equipment).to eq("computer") }
     end
 
+    context "with an external app record whose external_id is blank" do
+      let(:server) { servers(:two) }
+
+      # with an existing record whose external_id is an empty string
+      before { server.external_app_records.create!(external_id: "") }
+
+      it "looks the equipment up by serial instead of using the blank id" do
+        expect(decorated_server).to receive(:glpi_equipment_id).and_return(4090)
+        expect(equipment).to eq("computer")
+      end
+    end
+
     context "when glpi_sync_type is network_equipment" do
       let(:server) do
         servers(:one).tap do |server|

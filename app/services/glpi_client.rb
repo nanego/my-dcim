@@ -2,6 +2,7 @@
 
 require "faraday"
 require "json"
+require "cgi"
 
 class GlpiClient # rubocop:disable Metrics/ClassLength
   APP_URL = GlpiApiConfig.url
@@ -85,7 +86,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
   end
 
   def get_glpi_id_for(endpoint, serial:)
-    resp = @connection.get("#{endpoint}?searchText[serial]=#{serial}") do |request|
+    resp = @connection.get("#{endpoint}?searchText[serial]=#{CGI.escape(serial.to_s)}") do |request|
       request.headers["Session-Token"] = session_token
       request.headers["App-Token"] = API_KEY
     end
