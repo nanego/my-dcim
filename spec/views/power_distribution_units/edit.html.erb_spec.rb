@@ -25,9 +25,9 @@ RSpec.describe "power_distribution_units/edit" do
     render
 
     assert_select "form[action=?][method=?]", power_distribution_unit_path(power_distribution_unit), "post" do
-      assert_select "input[name=?]", "power_distribution_unit[type_id_id]"
+      assert_select "input[name=?]", "power_distribution_unit[type_id]"
 
-      assert_select "input[name=?]", "power_distribution_unit[bay_id_id]"
+      assert_select "input[name=?]", "power_distribution_unit[bay_id]"
 
       assert_select "input[name=?]", "power_distribution_unit[side]"
 

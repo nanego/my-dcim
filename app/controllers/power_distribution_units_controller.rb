@@ -2,10 +2,13 @@
 
 class PowerDistributionUnitsController < ApplicationController
   before_action :set_power_distribution_unit, only: %i[show edit update destroy]
+  before_action except: %i[index] do
+    breadcrumb.add_step(PowerDistributionUnit.model_name.human, power_distribution_units_path)
+  end
 
   # GET /power_distribution_units or /power_distribution_units.json
   def index
-    @power_distribution_units = PowerDistributionUnit.all
+    authorize! @power_distribution_units = PowerDistributionUnit.all
   end
 
   # GET /power_distribution_units/1 or /power_distribution_units/1.json
@@ -13,7 +16,7 @@ class PowerDistributionUnitsController < ApplicationController
 
   # GET /power_distribution_units/new
   def new
-    @power_distribution_unit = PowerDistributionUnit.new
+    authorize! @power_distribution_unit = PowerDistributionUnit.new
   end
 
   # GET /power_distribution_units/1/edit
@@ -21,7 +24,7 @@ class PowerDistributionUnitsController < ApplicationController
 
   # POST /power_distribution_units or /power_distribution_units.json
   def create
-    @power_distribution_unit = PowerDistributionUnit.new(power_distribution_unit_params)
+    authorize! @power_distribution_unit = PowerDistributionUnit.new(power_distribution_unit_params)
 
     respond_to do |format|
       if @power_distribution_unit.save
@@ -48,6 +51,7 @@ class PowerDistributionUnitsController < ApplicationController
   end
 
   # DELETE /power_distribution_units/1 or /power_distribution_units/1.json
+  destroy_confirmation
   def destroy
     @power_distribution_unit.destroy!
 
@@ -57,15 +61,20 @@ class PowerDistributionUnitsController < ApplicationController
     end
   end
 
+  def duplicate
+    authorize! @original_power_distribution_unit = PowerDistributionUnit.find(params[:id])
+    @power_distribution_unit = @original_power_distribution_unit.deep_dup
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_power_distribution_unit
-    @power_distribution_unit = PowerDistributionUnit.find(params.expect(:id))
+    authorize! @power_distribution_unit = PowerDistributionUnit.find(params.expect(:id))
   end
 
   # Only allow a list of trusted parameters through.
   def power_distribution_unit_params
-    params.expect(power_distribution_unit: %i[type_id_id bay_id_id side orientation name slug ipmi_url serial_number comment])
+    params.expect(power_distribution_unit: %i[type_id bay_id side orientation name slug ipmi_url serial_number comment])
   end
 end
