@@ -3,8 +3,8 @@
 class CreatePowerDistributionUnits < ActiveRecord::Migration[8.1]
   def change
     create_table :power_distribution_units do |t|
-      t.belongs_to :type_id, null: false, foreign_key: true
-      t.belongs_to :bay_id, null: false, foreign_key: true
+      t.references :type, null: false, foreign_key: { to_table: :power_distribution_unit_types }
+      t.references :bay, null: false, foreign_key: true
       t.integer :side, null: false
       t.integer :orientation, null: false
       t.string :name, null: false
