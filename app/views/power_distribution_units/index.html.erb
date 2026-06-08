@@ -14,10 +14,10 @@
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <%= render List::DataTableComponent.new(@power_distribution_units) do |table| %>
-    <% table.with_column(PowerDistributionUnit.human_attribute_name(:type_id_id)) do |power_distribution_unit| %>
+    <% table.with_column(PowerDistributionUnit.human_attribute_name(:type_id)) do |power_distribution_unit| %>
       <%= power_distribution_unit.type_id %>
     <% end %>
-    <% table.with_column(PowerDistributionUnit.human_attribute_name(:bay_id_id)) do |power_distribution_unit| %>
+    <% table.with_column(PowerDistributionUnit.human_attribute_name(:bay_id)) do |power_distribution_unit| %>
       <%= power_distribution_unit.bay_id %>
     <% end %>
     <% table.with_column(PowerDistributionUnit.human_attribute_name(:side)) do |power_distribution_unit| %>
@@ -41,7 +41,7 @@
     <% table.with_column(PowerDistributionUnit.human_attribute_name(:comment)) do |power_distribution_unit| %>
       <%= power_distribution_unit.comment %>
     <% end %>
-  
+
     <% table.with_column(style: "min-width: 70px; width: 70px") do |power_distribution_unit| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <%= link_to edit_power_distribution_unit_path(power_distribution_unit), class: "btn btn-info" do %>
