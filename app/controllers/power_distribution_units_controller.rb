@@ -8,7 +8,9 @@ class PowerDistributionUnitsController < ApplicationController
 
   # GET /power_distribution_units or /power_distribution_units.json
   def index
-    authorize! @power_distribution_units = PowerDistributionUnit.all
+    authorize! @power_distribution_units = PowerDistributionUnit.includes(type: :manufacturer, bay: %i[islet room])
+    @filter = ProcessorFilter.new(@power_distribution_units, params)
+    @power_distribution_units = @filter.results
   end
 
   # GET /power_distribution_units/1 or /power_distribution_units/1.json
@@ -28,7 +30,7 @@ class PowerDistributionUnitsController < ApplicationController
 
     respond_to do |format|
       if @power_distribution_unit.save
-        format.html { redirect_to @power_distribution_unit, notice: "Power distribution unit was successfully created." }
+        format.html { redirect_to_new_or_to @power_distribution_unit, notice: t(".flashes.created") }
         format.json { render :show, status: :created, location: @power_distribution_unit }
       else
         format.html { render :new, status: :unprocessable_content }
@@ -41,7 +43,7 @@ class PowerDistributionUnitsController < ApplicationController
   def update
     respond_to do |format|
       if @power_distribution_unit.update(power_distribution_unit_params)
-        format.html { redirect_to @power_distribution_unit, notice: "Power distribution unit was successfully updated.", status: :see_other }
+        format.html { redirect_to power_distribution_unit_path(@power_distribution_unit), notice: t(".flashes.updated"), status: :see_other }
         format.json { render :show, status: :ok, location: @power_distribution_unit }
       else
         format.html { render :edit, status: :unprocessable_content }
@@ -56,7 +58,7 @@ class PowerDistributionUnitsController < ApplicationController
     @power_distribution_unit.destroy!
 
     respond_to do |format|
-      format.html { redirect_to power_distribution_units_path, notice: "Power distribution unit was successfully destroyed.", status: :see_other }
+      format.html { redirect_to power_distribution_units_path, notice: t(".flashes.destroyed"), status: :see_other }
       format.json { head :no_content }
     end
   end
