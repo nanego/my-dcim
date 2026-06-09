@@ -16,10 +16,10 @@ RSpec.describe GlpiClient, type: :service do
 
     context "when the serial contains URL-reserved characters" do
       it "url-encodes the serial in the query string" do
-        expect(client.connection).to receive(:get)
-          .with("NetworkEquipment?searchText[serial]=A%2BB%2FC%233")
-          .and_call_original
+        allow(client.connection).to receive(:get).and_call_original
         client.network_equipment_glpi_id(serial: "A+B/C#3")
+        expect(client.connection).to have_received(:get)
+          .with("NetworkEquipment?searchText[serial]=A%2BB%2FC%233")
       end
     end
   end

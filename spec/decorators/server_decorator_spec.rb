@@ -109,7 +109,7 @@ RSpec.describe ServerDecorator, type: :decorator do
       before { server.external_app_records.create!(external_id: "") }
 
       it "looks the equipment up by serial instead of using the blank id" do
-        expect(decorated_server).to receive(:glpi_equipment_id).and_return(4090)
+        allow(decorated_server).to receive(:glpi_equipment_id).and_return(4090)
         expect(equipment).to eq("computer")
       end
     end
