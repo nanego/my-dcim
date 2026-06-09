@@ -1,49 +1,83 @@
-<%= form_with(model: @power_distribution_unit, html: { role: "form" }) do |f| %>
-  <%= render FormErrorsComponent.new(@power_distribution_unit) %>
+<%# locals: (power_distribution_unit:) -%>
+
+<%= form_with(model: power_distribution_unit, html: { role: "form" }) do |f| %>
+  <%= render FormErrorsComponent.new(power_distribution_unit) %>
 
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
       <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-            <fieldset class="col-12 ">
+        <% card.with_header do %>
+          <%= t("show.cards.identification") %>
+        <% end %>
+
+        <div class="row g-3">
+          <fieldset class="col-12">
+            <%= f.label :name, class: "form-label" %>
+            <%= f.text_field :name, class: "form-control" %>
+          </fieldset>
+        </div>
+      <% end %>
+
+      <%= render CardComponent.new(extra_classes: "mt-4 bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.features") %>
+        <% end %>
+
+        <fieldset class="col-12">
           <%= f.label :type_id, class: "form-label" %>
-          <%= f.text_field :type_id, class: "form-control" %>
+          <%= f.select :type_id,
+                       PowerDistributionUnitDecorator.power_distribution_unit_types_options_for_select,
+                       { prompt: true },
+                       class: "form-select" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
+
+        <fieldset class="col-12">
           <%= f.label :bay_id, class: "form-label" %>
-          <%= f.text_field :bay_id, class: "form-control" %>
+          <%= f.select :bay_id,
+                       PowerDistributionUnitDecorator.bays_options_for_select(current_user),
+                       { prompt: true },
+                       class: "form-select" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
+
+        <fieldset class="col-12">
           <%= f.label :side, class: "form-label" %>
-          <%= f.number_field :side, class: "form-control" %>
+          <%= f.select :side,
+                       PowerDistributionUnitDecorator.sides_options_for_select,
+                       { prompt: true },
+                       class: "form-select" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
+
+        <fieldset class="col-12">
           <%= f.label :orientation, class: "form-label" %>
-          <%= f.number_field :orientation, class: "form-control" %>
+          <%= f.select :orientation,
+                       PowerDistributionUnitDecorator.orientations_options_for_select,
+                       { prompt: true },
+                       class: "form-select" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
-          <%= f.label :name, class: "form-label" %>
-          <%= f.text_field :name, class: "form-control" %>
-        </fieldset>
-            <fieldset class="col-12 mt-4">
+
+        <fieldset class="col-12 mt-4">
           <%= f.label :slug, class: "form-label" %>
           <%= f.text_field :slug, class: "form-control" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
+
+        <fieldset class="col-12 mt-4">
           <%= f.label :ipmi_url, class: "form-label" %>
           <%= f.text_field :ipmi_url, class: "form-control" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
+
+        <fieldset class="col-12 mt-4">
           <%= f.label :serial_number, class: "form-label" %>
           <%= f.text_field :serial_number, class: "form-control" %>
         </fieldset>
-            <fieldset class="col-12 mt-4">
+
+        <fieldset class="col-12 mt-4">
           <%= f.label :comment, class: "form-label" %>
           <%= f.textarea :comment, class: "form-control" %>
         </fieldset>
-        
+
       <% end %>
     </div>
   </div>
 
-  <%= render Form::ActionsComponent.new(f) %>
+  <%= render Form::ActionsComponent.new(f, display_create_another_one:) %>
 <% end %>

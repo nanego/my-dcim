@@ -13,10 +13,79 @@
 <% end %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
+  <div class="alert alert-warning">
+    Cette section est actuellement en cours de développement. Les données peuvent être amenées à être supprimées ou altérées par des changements le temps du développement.
+  </div>
+
+  <%= render FilterComponent.new(@filter) do |c| %>
+    <% c.with_form do |f| %>
+      <div class="w-100">
+        <fieldset class="form-floating">
+          <%= f.text_field :q, class: "form-control", placeholder: t("filters.placeholder.search") %>
+          <%= f.label :q %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.select :type_ids, PowerDistributionUnitDecorator.power_distribution_unit_types_options_for_select,
+                       { prompt: true, multiple: true },
+                       { class: "form-select", data: { controller: :select } } %>
+          <%= f.label :type_ids %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.select :bay_ids, PowerDistributionUnitDecorator.bays_options_for_select,
+                       { prompt: true, multiple: true },
+                       { class: "form-select", data: { controller: :select } } %>
+          <%= f.label :bay_ids %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.select :side_ids, PowerDistributionUnitDecorator.sides_options_for_select,
+                       { prompt: true, multiple: true },
+                       { class: "form-select", data: { controller: :select } } %>
+          <%= f.label :side_ids %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.select :orientation_ids, PowerDistributionUnitDecorator.orientations_options_for_select,
+                       { prompt: true, multiple: true },
+                       { class: "form-select", data: { controller: :select } } %>
+          <%= f.label :orientation_ids %>
+        </fieldset>
+      </div>
+
+
+    <% end %>
+  <% end %>
+
   <%= render List::DataTableComponent.new(@power_distribution_units) do |table| %>
+    <% table.with_bulk_action(
+         url: bulk_power_distribution_units_path,
+         method: :delete,
+         class: "btn btn-danger btn-sm",
+         data: { confirm: t("action.confirm") },
+       ) do %>
+      <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
+    <% end %>
+
+    <% table.with_column(PowerDistributionUnit.human_attribute_name(:name), sort_by: :name) do |power_distribution_unit| %>
+      <%= link_to power_distribution_unit_path(power_distribution_unit), class: "fw-bold" do %>
+        <%= power_distribution_unit_type.name %>
+      <% end %>
+    <% end %>
+
     <% table.with_column(PowerDistributionUnit.human_attribute_name(:type_id)) do |power_distribution_unit| %>
       <%= power_distribution_unit.type_id %>
     <% end %>
+
     <% table.with_column(PowerDistributionUnit.human_attribute_name(:bay_id)) do |power_distribution_unit| %>
       <%= power_distribution_unit.bay_id %>
     <% end %>
@@ -26,9 +95,7 @@
     <% table.with_column(PowerDistributionUnit.human_attribute_name(:orientation)) do |power_distribution_unit| %>
       <%= power_distribution_unit.orientation %>
     <% end %>
-    <% table.with_column(PowerDistributionUnit.human_attribute_name(:name)) do |power_distribution_unit| %>
-      <%= power_distribution_unit.name %>
-    <% end %>
+
     <% table.with_column(PowerDistributionUnit.human_attribute_name(:slug)) do |power_distribution_unit| %>
       <%= power_distribution_unit.slug %>
     <% end %>

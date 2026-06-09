@@ -2,6 +2,10 @@
 
 class PowerDistributionUnitTypeDecorator < ApplicationDecorator
   class << self
+    def options_for_select
+      PowerDistributionUnitType.select(:id, :name).sorted.map { |r| [r.to_s, r.id] }
+    end
+
     def manufacturers_options_for_select
       ManufacturerDecorator.options_for_select
     end
