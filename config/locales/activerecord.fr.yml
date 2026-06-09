@@ -414,11 +414,13 @@ fr:
         frame_id: Châssis de destination
         prev_frame_id: Châssis de départ
         remove_existing_connections_on_execution: Supprimer toutes les connexions vers cet équipement ?
+        remove_existing_connections_on_execution_short: Supprimer les connexions ?
         position: Position dans le châssis
         status: État
-        statuses:
-          executed: Exécuté
-          planned: Planifié
+        executed_at: Exécuté le
+      move/status:
+        executed: Exécuté
+        planned: Planifié
       moved_connection:
         port_from_id: Port de départ
         port_to_id: Port de destination

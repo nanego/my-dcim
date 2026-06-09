@@ -1,0 +1,532 @@
+<% breadcrumb.add_step(title = @move.decorated.display_name) %>
+
+<%= render Page::HeadingComponent.new(
+      title:,
+      breadcrumb:,
+      back_button_url: moves_project_step_moves_path(@moves_project_step),
+    ) do |heading| %>
+  <% heading.with_right_content do %>
+    <% unless @move.executed? %>
+      <%= render ButtonComponent.new(
+            t("action.edit"),
+            url: edit_moves_project_step_move_path(@moves_project_step, @move),
+            variant: :info,
+            icon: :pencil,
+            is_responsive: true,
+          ) %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<div class="col-12 p-4 border-top d-grid row-gap-4">
+  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+    <div class="col">
+      <%= render CardComponent.new do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.identification") %>
+        <% end %>
+
+        <dl class="show-page_dl d-grid row-gap-2 mb-0">
+          <dt class="pb-2"><%= MovesProject.model_name.human %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @move.moves_project %></dd>
+
+          <dt class="pb-2"><%= Move.human_attribute_name(:moves_project_step_id) %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @move.step %></dd>
+
+          <!--<dt class="pb-2"><%= Move.human_attribute_name(:moveable_id) %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= link_to @move.moveable %></dd>-->
+
+          <dt class="pb-2"><%= Move.human_attribute_name(:status) %></dt>
+          <dd class="mb-0 pb-2 ps-3">
+            <%= render @move.decorated.status_to_badge_component %>
+            <% if date = (@move.executed_at || @move.step.date) %>
+              <span class="mx-1 fw-light text-body-secondary"><%= t("at") %></span>
+              <span class="font-monospace"><%= l(date) %></span>
+            <% end %>
+          </dd>
+
+          <dt class="pb-2"><%= Move.human_attribute_name(:remove_existing_connections_on_execution_short) %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= render @move.decorated.moved_connections_to_badge_component %></dd>
+        </dl>
+      <% end %>
+    </div>
+
+    <div class="col">
+      <%= render CardComponent.new do |card| %>
+        <% card.with_header do %>
+          <%= t("show.cards.visualization") %>
+        <% end %>
+
+        <% card.with_body(extra_classes: "bg-body-tertiary rounded-bottom") do %>
+          <span class="row align-items-center">
+            <span class="col-5 d-inline-flex justify-content-start">
+              <span class="d-inline-flex bg-body border rounded-3 p-3 flex-column flex-grow-1 text-center row-gap-1">
+                <!--<h5 class="text-decoration-underline">Départ</h5>-->
+                <!--<h5><%= Move.human_attribute_name(:prev_frame_id) %></h5>-->
+                <span>
+                  <span class="bi bi-geo-alt text-primary me-1"></span>
+                  <span><%= @move.prev_frame.room.name_with_site %></span>
+                </span>
+                <span class="fw-light">
+                  <span class="bi bi-file-minus text-success me-1"></span>
+                  <span><%= @move.prev_frame %></span>
+                </span>
+                <span>
+                  <span class="fw-light text-secondary me-1">U</span>
+                  <span class="font-monospace"><%= @move.prev_position %></span>
+                </span>
+              </span>
+            </span>
+            <span class="d-inline-flex col-2 align-items-center justify-content-center fs-4">
+              <%= render BadgeComponent.new(color: :light, variant: :pill) do %>
+                <span class="bi bi-box"></span>
+                <span class="bi bi-arrow-right-short ms-1"></span>
+              <% end %>
+            </span>
+            <span class="col-5 d-inline-flex justify-content-end">
+              <span class="d-inline-flex bg-body border rounded-3 p-3 flex-column flex-grow-1 text-center row-gap-1">
+                <!--<h5><%= Move.human_attribute_name(:frame_id) %></h5>-->
+                <!--<h5 class="text-decoration-underline">Arrivée</h5>-->
+                <span>
+                  <span class="bi bi-geo-alt text-primary me-1"></span>
+                  <span><%= @move.frame.room.name_with_site %></span>
+                  <!--<span class="bi bi-geo-alt text-primary ms-1"></span>-->
+                </span>
+                <span class="fw-light">
+                  <span class="bi bi-file-minus text-success me-1"></span>
+                  <span><%= @move.frame %></span>
+                  <!--<span class="bi bi-file-minus text-success ms-1"></span>-->
+                </span>
+                <span>
+                  <span class="fw-light text-secondary me-1">U</span>
+                  <span class="font-monospace"><%= @move.position %></span>
+                  <!--<span class="fw-light text-secondary ms-1">U</span>-->
+                </span>
+              </span>
+            </span>
+          </span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= render CardComponent.new do |card| %>
+    <% card.with_header do %>
+      <!--<%= t("show.cards.visualization") %>-->
+      <%= link_to @move.moveable, @move.moveable, class: "link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" %>
+    <% end %>
+
+    <% card.with_body(extra_classes: "bg-body-tertiary rounded-bottom") do %>
+      <% bg_modele_color = define_background_color(server: @move.moveable, mode: params["bg"]) %>
+      <div class="<%= class_names("rounded-top-1 border border-secondary-subtle p-2 mb-2",
+                                  colorized_background: bg_modele_color.present?) %>"
+            style="background-color:<%= bg_modele_color %> !important;">
+        <%= render partial: "servers/draw_server_compact_front",
+                   locals: { server: @move.moveable, should_show_name: false } %>
+      </div>
+
+      <div class="server rounded-bottom-1 bg-body border border-secondary-subtle p-2 mb-2 overflow-scroll">
+        <span id="back_server_<%= @move.moveable.id %>" class="no-decoration-link text-center">
+            <%= render partial: "servers/draw_server_compact",
+                       locals: { server: @move.moveable, should_hide_left_block: true } %>
+        </span>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%#= render HasManyTurboFrameComponent.new(
+        Move::Connection.model_name.human.pluralize,
+        url: move_connections_path(move_ids: @move.id),
+        frame_id: dom_id(Move::Connection, :table),
+        new_path: (new_move_connection_path(move_connection: { move_id: @move.id }) if allowed_to?(:create?, with: Move::ConnectionPolicy)),
+        new_label: t("move_connections.add_new"),
+      ) %>
+
+  <!-- TODO: Remove margin from changelog component + clean how show pages are built (follow this example) -->
+  <div class="mt-n4">
+    <%= render ChangelogEntries::ObjectListComponent.new(@move) %>
+  </div>
+
+</div>
+
+<div class="col">
+  <%= render CardComponent.new do |card| %>
+    <% card.with_header do %>
+      <%= t("show.cards.features") %>
+    <% end %>
+
+    <dl class="show-page_dl d-grid row-gap-2 mb-0">
+      <dt class="pb-2"><%= Move.human_attribute_name(:prev_frame_id) %></dt>
+      <dd class="mb-0 pb-2 ps-3">
+        <span class="d-inline-flex align-items-center">
+          <%= render BadgeComponent.new(color: :success, variant: :pill) do %>
+            <span class="bi bi-file-minus me-1"></span>
+            <span><%= @move.moveable.decorated.in_frame_location %></span>
+          <% end %>
+          <span class="bi bi-arrow-right mx-2 fs-5"></span>
+          <%= render BadgeComponent.new(color: :success, variant: :pill) do %>
+            <span class="bi bi-file-minus me-1"></span>
+            <span><%= @move.frame %> - U<%= @move.position %></span>
+          <% end %>
+        </span>
+      </dd>
+
+      <dt class="pb-2"><%= Move.human_attribute_name(:prev_frame_id) %></dt>
+      <dd class="mb-0 pb-2 ps-3">
+        <span class="d-inline-flex align-items-center">
+          <%= render BadgeComponent.new(color: :success, variant: :pill) do %>
+            <span class="bi bi-file-minus me-1"></span>
+            <span><%= @move.moveable.decorated.in_frame_location %></span>
+          <% end %>
+          <span class="bi bi-file-minus mx-2"></span>
+          <span class="bi bi-arrow-right fs-5"></span>
+          <span class="bi bi-file-minus mx-2"></span>
+          <%= render BadgeComponent.new(color: :success, variant: :pill) do %>
+            <span class="bi bi-file-minus me-1"></span>
+            <span><%= @move.frame %> - U<%= @move.position %></span>
+          <% end %>
+        </span>
+      </dd>
+
+      <dt class="pb-2"><%= Move.human_attribute_name(:prev_frame_id) %></dt>
+      <dd class="mb-0 pb-2 ps-3">
+        <span class="d-inline-flex align-items-center">
+          <%= render BadgeComponent.new(color: :success, variant: :pill) do %>
+            <span class="bi bi-file-minus me-1"></span>
+            <span><%= @move.moveable.decorated.in_frame_location %></span>
+          <% end %>
+          <span class="bi bi-box ms-2"></span>
+          <span class="bi bi-arrow-right-short me-2 fs-5"></span>
+          <%= render BadgeComponent.new(color: :success, variant: :pill) do %>
+            <span class="bi bi-file-minus me-1"></span>
+            <span><%= @move.frame %> - U<%= @move.position %></span>
+          <% end %>
+        </span>
+      </dd>
+
+      <dt class="pb-2"><%= Move.human_attribute_name(:prev_frame_id) %></dt>
+      <dd class="mb-0 pb-2 ps-3">
+        <span class="d-inline-flex align-items-center">
+          <span><%= @move.prev_frame %></span>
+          <span class="bi bi-box ms-2"></span>
+          <span class="bi bi-arrow-right-short me-2 fs-5"></span>
+          <span><%= @move.frame %></span>
+        </span>
+      </dd>
+
+      <dt class="pb-2"><%= Move.human_attribute_name(:prev_frame_id) %></dt>
+      <dd class="mb-0 pb-2 ps-3">
+        <span class="d-inline-flex align-items-center">
+          <span>
+            <%= render BadgeComponent.new(color: :success, variant: :pill) do %>
+              <span class="bi bi-file-minus me-1"></span>
+              <span><%= @move.prev_frame %></span>
+            <% end %>
+          </span>
+          <span class="d-inline-flex align-items-center mx-2">
+            <span class="bi bi-box"></span>
+            <span class="bi bi-arrow-right-short ms-1"></span>
+          </span>
+          <span>
+            <%= render BadgeComponent.new(color: :success, variant: :pill) do %>
+              <span class="bi bi-file-minus me-1"></span>
+              <span><%= @move.frame %></span>
+            <% end %>
+          </span>
+        </span>
+      </dd>
+
+      <dt class="pb-2"><%= Move.human_attribute_name(:prev_frame_id) %></dt>
+      <dd class="mb-0 pb-2 ps-3">
+        <span class="d-inline-flex align-items-center justify-content-center">
+          <span class="d-inline-flex flex-column text-center border rounded-3 small p-2 fw-normal">
+            <span>
+              <span class="bi bi-geo-alt me-1"></span>
+              <span><%= @move.prev_frame.room.name_with_site %></span>
+            </span>
+            <span class="fw-light">
+              <span class="bi bi-file-minus me-1"></span>
+              <span><%= @move.prev_frame %></span>
+            </span>
+            <span>
+              <span class="fw-light">U</span>
+              <span class="font-monospace">
+                <%= @move.prev_position %>
+              </span>
+            </span>
+          </span>
+          <span class="d-inline-flex align-items-center mx-3">
+            <span class="bi bi-box"></span>
+            <span class="bi bi-arrow-right-short ms-1"></span>
+          </span>
+          <span class="d-inline-flex flex-column text-center border rounded-3 small p-2 fw-normal">
+            <span>
+              <span class="bi bi-geo-alt me-1"></span>
+              <span><%= @move.frame.room.name_with_site %></span>
+            </span>
+            <span class="fw-light">
+              <span class="bi bi-file-minus me-1"></span>
+              <span><%= @move.frame %></span>
+            </span>
+            <span>
+              <span class="fw-light">U</span>
+              <span class="font-monospace">
+                <%= @move.position %>
+              </span>
+            </span>
+          </span>
+        </span>
+      </dd>
+
+      <dt class="pb-2"><%= Move.human_attribute_name(:prev_frame_id) %></dt>
+      <dd class="mb-0 pb-2 ps-3">
+        <span class="d-inline-flex align-items-center justify-content-center">
+          <span class="d-inline-flex flex-column text-center small p-2 fw-normal">
+            <span>
+              <span class="bi bi-geo-alt me-1"></span>
+              <span><%= @move.prev_frame.room.name_with_site %></span>
+            </span>
+            <span class="fw-light">
+              <span class="bi bi-file-minus me-1"></span>
+              <span><%= @move.prev_frame %></span>
+            </span>
+            <span>
+              <span class="fw-light">U</span>
+              <span class="font-monospace">
+                <%= @move.prev_position %>
+              </span>
+            </span>
+          </span>
+          <span class="d-inline-flex align-items-center mx-3">
+            <%= render BadgeComponent.new(color: :light, variant: :pill) do %>
+              <span class="bi bi-box"></span>
+              <span class="bi bi-arrow-right ms-1"></span>
+            <% end %>
+          </span>
+          <span class="d-inline-flex flex-column text-center small p-2 fw-normal">
+            <span>
+              <span class="bi bi-geo-alt me-1"></span>
+              <span><%= @move.frame.room.name_with_site %></span>
+            </span>
+            <span class="fw-light">
+              <span class="bi bi-file-minus me-1"></span>
+              <span><%= @move.frame %></span>
+            </span>
+            <span>
+              <span class="fw-light">U</span>
+              <span class="font-monospace">
+                <%= @move.position %>
+              </span>
+            </span>
+          </span>
+        </span>
+      </dd>
+
+      <dt class="pb-2"><%= Move.human_attribute_name(:prev_frame_id) %></dt>
+      <dd class="mb-0 pb-2 ps-3">
+        <span class="d-inline-flex align-items-center justify-content-center">
+          <span class="d-inline-flex flex-column small p-2 fw-normal">
+            <span>
+              <span class="bi bi-geo-alt me-1"></span>
+              <span><%= @move.prev_frame.room.name_with_site %></span>
+            </span>
+            <span class="fw-light">
+              <span class="bi bi-file-minus me-1"></span>
+              <span><%= @move.prev_frame %></span>
+            </span>
+            <span>
+              <span class="fw-light">U</span>
+              <span class="font-monospace">
+                <%= @move.prev_position %>
+              </span>
+            </span>
+          </span>
+          <span class="d-inline-flex align-items-center mx-3">
+            <%= render BadgeComponent.new(color: :light, variant: :pill) do %>
+              <span class="bi bi-box"></span>
+              <span class="bi bi-arrow-right ms-1"></span>
+            <% end %>
+          </span>
+          <span class="d-inline-flex flex-column text-end small p-2 fw-normal">
+            <span>
+              <span class="bi bi-geo-alt me-1"></span>
+              <span><%= @move.frame.room.name_with_site %></span>
+            </span>
+            <span class="fw-light">
+              <span class="bi bi-file-minus me-1"></span>
+              <span><%= @move.frame %></span>
+            </span>
+            <span>
+              <span class="fw-light">U</span>
+              <span class="font-monospace">
+                <%= @move.position %>
+              </span>
+            </span>
+          </span>
+        </span>
+      </dd>
+
+      <dt class="pb-2"><%= Move.human_attribute_name(:prev_frame_id) %></dt>
+      <dd class="mb-0 pb-2 ps-3">
+        <span class="d-inline-flex align-items-center justify-content-center">
+          <span class="d-inline-flex flex-column small p-2 fw-normal rounded-3 border">
+            <span>
+              <span class="bi bi-geo-alt me-1"></span>
+              <span><%= @move.prev_frame.room.name_with_site %></span>
+            </span>
+            <span class="fw-light">
+              <span class="bi bi-file-minus me-1"></span>
+              <span><%= @move.prev_frame %></span>
+            </span>
+            <span>
+              <span class="fw-light me-1">U</span>
+              <span class="font-monospace">
+                <%= @move.prev_position %>
+              </span>
+            </span>
+          </span>
+          <span class="d-inline-flex align-items-center mx-3">
+            <%= render BadgeComponent.new(color: :light, variant: :pill) do %>
+              <span class="bi bi-box"></span>
+              <span class="bi bi-arrow-right ms-1"></span>
+            <% end %>
+          </span>
+          <span class="d-inline-flex flex-column text-end small p-2 fw-normal rounded-3 border">
+            <span>
+              <span class="bi bi-geo-alt me-1"></span>
+              <span><%= @move.frame.room.name_with_site %></span>
+            </span>
+            <span class="fw-light">
+              <span class="bi bi-file-minus me-1"></span>
+              <span><%= @move.frame %></span>
+            </span>
+            <span>
+              <span class="fw-light me-1">U</span>
+              <span class="font-monospace">
+                <%= @move.position %>
+              </span>
+            </span>
+          </span>
+        </span>
+      </dd>
+
+      <dt class="pb-2"><%= Move.human_attribute_name(:prev_frame_id) %></dt>
+      <dd class="mb-0 pb-2 ps-3">
+        <span class="d-inline-flex align-items-center justify-content-center">
+          <span class="d-inline-flex flex-column small p-2 fw-normal rounded-3 border">
+            <span>
+              <span class="bi bi-geo-alt me-1"></span>
+              <span><%= @move.prev_frame.room.name_with_site %></span>
+            </span>
+            <span class="fw-light">
+              <span class="bi bi-file-minus me-1"></span>
+              <span><%= @move.prev_frame %></span>
+            </span>
+            <span>
+              <span class="fw-light me-1">U</span>
+              <span class="font-monospace">
+                <%= @move.prev_position %>
+              </span>
+            </span>
+          </span>
+          <span class="d-inline-flex align-items-center mx-3">
+            <%= render BadgeComponent.new(color: :light, variant: :pill) do %>
+              <span class="bi bi-box"></span>
+              <span class="bi bi-arrow-right ms-1"></span>
+            <% end %>
+          </span>
+          <span class="d-inline-flex flex-column text-end small p-2 fw-normal rounded-3 border">
+            <span>
+              <span><%= @move.frame.room.name_with_site %></span>
+              <span class="bi bi-geo-alt ms-1"></span>
+            </span>
+            <span class="fw-light">
+              <span><%= @move.frame %></span>
+              <span class="bi bi-file-minus ms-1"></span>
+            </span>
+            <span>
+              <span class="font-monospace"><%= @move.position %></span>
+              <span class="fw-light ms-1">U</span>
+            </span>
+          </span>
+        </span>
+      </dd>
+
+      <dt class="pb-2"><%= Move.human_attribute_name(:prev_frame_id) %></dt>
+      <dd class="mb-0 pb-2 ps-3">
+        <span class="d-inline-flex">
+          <span class="d-inline-flex flex-column align-items-start row-gap-1">
+            <%= render BadgeComponent.new(color: :primary, variant: :pill) do %>
+              <span class="bi bi-geo-alt me-1"></span>
+              <span><%= @move.prev_frame.room.name_with_site %></span>
+            <% end %>
+            <%= render BadgeComponent.new(color: :success, variant: :pill) do %>
+              <span class="bi bi-file-minus me-1"></span>
+              <span><%= @move.prev_frame %></span>
+            <% end %>
+            <%= render BadgeComponent.new(color: :light, variant: :pill) do %>
+              <span class="bi bi-hash"></span>
+              <span><%= @move.prev_position %></span>
+            <% end %>
+          </span>
+          <span class="d-inline-flex mx-4">
+            <span class="bi bi-box"></span>
+            <span class="bi bi-arrow-right-short ms-1"></span>
+          </span>
+          <span class="d-inline-flex flex-column align-items-end row-gap-1">
+            <%= render BadgeComponent.new(color: :primary, variant: :pill) do %>
+              <span class="bi bi-geo-alt me-1"></span>
+              <span><%= @move.frame.room.name_with_site %></span>
+            <% end %>
+            <%= render BadgeComponent.new(color: :success, variant: :pill) do %>
+              <span class="bi bi-file-minus me-1"></span>
+              <span><%= @move.frame %></span>
+            <% end %>
+            <%= render BadgeComponent.new(color: :light, variant: :pill) do %>
+              <span class="bi bi-hash"></span>
+              <span><%= @move.position %></span>
+            <% end %>
+          </span>
+        </span>
+      </dd>
+
+      <dt class="pb-2"><%= Move.human_attribute_name(:prev_frame_id) %></dt>
+      <dd class="mb-0 pb-2 ps-3">
+        <span class="d-inline-flex">
+          <span class="d-inline-flex flex-column align-items-start row-gap-1">
+            <%= render BadgeComponent.new(color: :primary, variant: :pill) do %>
+              <span class="bi bi-geo-alt me-1"></span>
+              <span><%= @move.prev_frame.room.name_with_site %></span>
+            <% end %>
+            <%= render BadgeComponent.new(color: :success, variant: :pill) do %>
+              <span class="bi bi-file-minus me-1"></span>
+              <span><%= @move.prev_frame %></span>
+            <% end %>
+            <%= render BadgeComponent.new(color: :light, variant: :pill) do %>
+              <span class="bi bi-hash"></span>
+              <span><%= @move.prev_position %></span>
+            <% end %>
+          </span>
+          <span class="d-inline-flex mx-4">
+            <span class="bi bi-box"></span>
+            <span class="bi bi-arrow-right-short ms-1"></span>
+          </span>
+          <span class="d-inline-flex flex-column align-items-start row-gap-1">
+            <%= render BadgeComponent.new(color: :primary, variant: :pill) do %>
+              <span class="bi bi-geo-alt me-1"></span>
+              <span><%= @move.frame.room.name_with_site %></span>
+            <% end %>
+            <%= render BadgeComponent.new(color: :success, variant: :pill) do %>
+              <span class="bi bi-file-minus me-1"></span>
+              <span><%= @move.frame %></span>
+            <% end %>
+            <%= render BadgeComponent.new(color: :light, variant: :pill) do %>
+              <span class="bi bi-hash"></span>
+              <span><%= @move.position %></span>
+            <% end %>
+          </span>
+        </span>
+      </dd>
+    </dl>
+  <% end %>
+</div>

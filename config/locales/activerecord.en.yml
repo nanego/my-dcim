@@ -125,12 +125,14 @@ en:
         moveable_id: Equipment to move
         prev_frame_id: Departure frame
         frame_id: Destination frame
-        remove_existing_connections_on_execution: Delete all connections to this equipment?
+        remove_existing_connections_on_execution: Remove all connections to this equipment?
+        remove_existing_connections_on_execution_short: Remove connections?
         position: Position in frame
         status: State
-        statuses:
-          executed: Executed
-          planned: Planned
+        executed_at: Executed at
+      move/status:
+        executed: Executed
+        planned: Planned
       server:
         name: Name
         numero: Serial number

@@ -5,6 +5,7 @@ fr:
       subtext_html: Contactez un <strong>administrateur</strong>.
 
   n_a: n/c
+  at: le
   boolean:
     true: Oui
     false: Non
@@ -555,7 +556,6 @@ fr:
       frame_table_title: Châssis après déplacements
       edit_connections: Modifier les connexions
       execute_confirmation: Voulez-vous vraiment appliquer ce déplacement ?
-      remove_existing_connections_on_execution: Supprimer les connexions ?
       action:
         execute_move: Déplacer le serveur et ses connexions
     new:

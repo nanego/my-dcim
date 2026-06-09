@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class MoveDecorator < ApplicationDecorator
+  include ActionView::Context
   include ActionView::Helpers
 
   def steps_options_for_select
@@ -8,10 +9,16 @@ class MoveDecorator < ApplicationDecorator
   end
 
   def status_to_badge_component
-    text = I18n.t(".activerecord.attributes.move.statuses.#{status}")
+    text = Move.human_attribute_name("status.#{status}")
     color = executed? ? :success : :primary
+    icon = "bi-calendar-#{executed? ? "check" : "event"}"
 
-    BadgeComponent.new(text, color:, variant: :pill)
+    BadgeComponent.new(color:, variant: :pill).with_content(
+      tag.span do
+        concat(tag.span(class: "bi #{icon} me-1"))
+        concat(tag.span(text))
+      end,
+    )
   end
 
   def moved_connections_to_badge_component
