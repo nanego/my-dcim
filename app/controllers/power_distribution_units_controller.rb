@@ -8,7 +8,7 @@ class PowerDistributionUnitsController < ApplicationController
 
   # GET /power_distribution_units or /power_distribution_units.json
   def index
-    authorize! @power_distribution_units = PowerDistributionUnit.includes(type: :manufacturer, bay: %i[islet room])
+    authorize! @power_distribution_units = PowerDistributionUnit.includes(:type, :manufacturer, :bay, :islet, :room)
     @filter = ProcessorFilter.new(@power_distribution_units, params)
     @power_distribution_units = @filter.results
   end
