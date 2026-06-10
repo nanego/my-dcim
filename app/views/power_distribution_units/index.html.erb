@@ -2,7 +2,7 @@
   breadcrumb.add_step(title = PowerDistributionUnit.model_name.human.pluralize)
 %>
 
-<%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
+<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
     <% render ButtonComponent.new(t(".new_power_distribution_unit"),
                                   url: new_power_distribution_unit_path,
@@ -46,10 +46,10 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.select :side_ids, PowerDistributionUnitDecorator.side_options_for_select,
+          <%= f.select :side, PowerDistributionUnitDecorator.side_options_for_select,
                        { prompt: true, multiple: true },
                        { class: "form-select", data: { controller: :select } } %>
-          <%= f.label :side_ids %>
+          <%= f.label :side %>
         </fieldset>
       </div>
 
