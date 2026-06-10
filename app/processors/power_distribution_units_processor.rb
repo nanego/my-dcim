@@ -3,34 +3,30 @@
 class PowerDistributionUnitsProcessor < ApplicationProcessor
   include Sortable
 
-  SORTABLE_FIELDS = %w[name power_distribution_unit_types.name manufacturers.name bays.name islets.name rooms.name].freeze
+  SORTABLE_FIELDS = %w[name rooms.name islets.name bays.id power_distribution_unit_types.name manufacturers.name].freeze
 
   map :q do |q:|
     raw.where(PowerDistributionUnit.arel_table[:name].matches("%#{q}%"))
   end
 
-  map :types_ids, filter_with: :non_empty_array do |types_ids:|
-    where(type_id: types_ids)
+  map :room_ids, filter_with: :non_empty_array do |room_ids:|
+    raw.joins(:room).where(rooms: { id: room_ids })
+  end
+
+  map :islet_ids, filter_with: :non_empty_array do |islet_ids:|
+    raw.joins(:islet).where(islets: { id: islet_ids })
   end
 
   map :bay_ids, filter_with: :non_empty_array do |bay_ids:|
     raw.where(bay_id: bay_ids)
   end
 
-  map :side do |side|
-    where(side:)
-  end
-
-  map :orientation do |orientation|
-    where(orientation:)
-  end
-
-  map :islet_ids, filter_with: :non_empty_array do |islet_ids:|
-    raw.joins(:islet).where(islet_id: islet_ids)
+  map :type_ids, filter_with: :non_empty_array do |type_ids:|
+    raw.where(type_id: type_ids)
   end
 
   map :manufacturer_ids, filter_with: :non_empty_array do |manufacturer_ids:|
-    raw.joins(:manufacturer).where(manufacturer_id: manufacturer_ids)
+    raw.joins(:manufacturer).where(manufacturer: { id: manufacturer_ids })
   end
 
   sortable fields: SORTABLE_FIELDS
