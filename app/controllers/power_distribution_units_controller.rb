@@ -64,7 +64,7 @@ class PowerDistributionUnitsController < ApplicationController
   end
 
   def duplicate
-    authorize! @original_power_distribution_unit = PowerDistributionUnit.find(params[:id])
+    authorize! @original_power_distribution_unit = PowerDistributionUnit.friendly.find(params[:id].to_s.downcase)
     @power_distribution_unit = @original_power_distribution_unit.deep_dup
   end
 
@@ -72,7 +72,7 @@ class PowerDistributionUnitsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_power_distribution_unit
-    authorize! @power_distribution_unit = PowerDistributionUnit.find(params.expect(:id))
+    authorize! @power_distribution_unit = PowerDistributionUnit.friendly.find(params[:id].to_s.downcase)
   end
 
   # Only allow a list of trusted parameters through.
