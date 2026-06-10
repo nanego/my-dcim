@@ -120,7 +120,7 @@ RSpec.describe CablesProcessor do
     let(:card) do
       Card.create!(server:, card_type:, composant: composants(:one))
     end
-    let(:port) { Port.create!(card:) }
+    let(:port) { Port.create!(attachable: card) }
     let(:cable) { Cable.create!(name: "cableA") }
     let(:connection) { Connection.create!(cable:, port:) }
     let(:card_type) { CardType.create!(port_type:) }
@@ -161,7 +161,7 @@ RSpec.describe CablesProcessor do
     let(:card) do
       Card.create!(server: servers(:one), card_type: card_types(:one), composant: composants(:one), name: "Card A")
     end
-    let(:port) { Port.create!(card:) }
+    let(:port) { Port.create!(attachable: card) }
     let(:cable) { Cable.create!(name: "cableA") }
     let(:connection) { Connection.create!(cable:, port:) }
 
