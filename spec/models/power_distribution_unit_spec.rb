@@ -3,5 +3,48 @@
 require "rails_helper"
 
 RSpec.describe PowerDistributionUnit do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject(:power_distribution_unit) { power_distribution_units(:one) }
+
+  it_behaves_like "changelogable", object: lambda {
+    described_class.new(
+      name: "name",
+      bay: bays(:one),
+      type: power_distribution_unit_types(:one),
+      orientation: :asc,
+      side: :left,
+      serial_number: "A1",
+      comment: "",
+      ipmi_url: "",
+    )
+  }, new_attributes: { name: "new name" }
+
+  describe "associations" do
+    it { is_expected.to belong_to(:type) }
+    it { is_expected.to belong_to(:bay) }
+
+    it { is_expected.to have_one(:manufacturer).through(:type) }
+    it { is_expected.to have_one(:islet).through(:bay) }
+    it { is_expected.to have_one(:room).through(:bay) }
+  end
+
+  describe "validations" do
+    it { is_expected.to define_enum_for(:orientation).with_values(%i[asc desc]) }
+    it { is_expected.to define_enum_for(:side).with_values(%i[left right]) }
+
+    it { is_expected.to validate_presence_of(:serial_number) }
+    it { is_expected.to validate_uniqueness_of(:serial_number) }
+    it { is_expected.to validate_presence_of(:name) }
+
+    it { is_expected.to allow_value("").for(:ipmi_url) }
+    it { is_expected.to allow_value("http://exemple.com/doc/1").for(:ipmi_url) }
+    it { is_expected.not_to allow_value("some invalid url").for(:ipmi_url) }
+  end
+
+  describe "#to_s" do
+    it { expect(power_distribution_unit.to_s).to eq power_distribution_unit.name }
+  end
+
+  describe "#should_generate_new_friendly_id?" do
+    pending
+  end
 end

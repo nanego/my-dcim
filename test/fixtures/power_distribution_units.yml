@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  name: PDU1
+  slug: pdu1
+  serial_number: pdu1
+  type_id: 1
+  bay_id: 1
+  orientation: asc
+  side: left
+  comment: ""
+  ipmi_url: ""
