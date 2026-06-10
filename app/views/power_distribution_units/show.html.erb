@@ -1,7 +1,5 @@
 <%
-  breadcrumb
-    .add_step(PowerDistributionUnit.model_name.human.pluralize, power_distribution_units_path)
-    .add_step(title = @power_distribution_unit)
+  breadcrumb.add_step(title = @power_distribution_unit)
 %>
 
 <%= render Page::HeadingShowComponent.new(resource: @power_distribution_unit, title:, breadcrumb:) %>

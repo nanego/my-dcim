@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PowerDistributionUnitProcessor < ApplicationProcessor
+class PowerDistributionUnitsProcessor < ApplicationProcessor
   include Sortable
 
   SORTABLE_FIELDS = %w[name power_distribution_unit_types.name manufacturers.name bays.name islets.name rooms.name].freeze
