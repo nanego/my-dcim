@@ -16,6 +16,14 @@
             <%= f.text_field :name, class: "form-control" %>
           </fieldset>
         </div>
+
+
+        <div class="row g-3">
+          <fieldset class="col-12 mt-4">
+            <%= f.label :slug, class: "form-label" %>
+            <%= f.text_field :slug, class: "form-control" %>
+          </fieldset>
+        </div>
       <% end %>
 
       <%= render CardComponent.new(extra_classes: "mt-4 bg-body-tertiary") do |card| %>
@@ -42,7 +50,7 @@
         <fieldset class="col-12">
           <%= f.label :side, class: "form-label" %>
           <%= f.select :side,
-                       PowerDistributionUnitDecorator.sides_options_for_select,
+                       PowerDistributionUnitDecorator.side_options_for_select,
                        { prompt: true },
                        class: "form-select" %>
         </fieldset>
@@ -50,14 +58,9 @@
         <fieldset class="col-12">
           <%= f.label :orientation, class: "form-label" %>
           <%= f.select :orientation,
-                       PowerDistributionUnitDecorator.orientations_options_for_select,
+                       PowerDistributionUnitDecorator.orientation_options_for_select,
                        { prompt: true },
                        class: "form-select" %>
-        </fieldset>
-
-        <fieldset class="col-12 mt-4">
-          <%= f.label :slug, class: "form-label" %>
-          <%= f.text_field :slug, class: "form-control" %>
         </fieldset>
 
         <fieldset class="col-12 mt-4">

@@ -954,12 +954,12 @@ fr:
 
   power_distribution_unit_types:
     index:
-      new_power_distribution_unit_type: "Nouveau type de PDU"
+      new_power_distribution_unit_type: Nouveau type de PDU
     new:
-      title: "Nouveau type de PDU"
+      title: Nouveau type de PDU
     create:
       flashes:
-        created: Le type de PDU a bien été mis à crée.
+        created: Le type de PDU a bien été crée.
     destroy:
       title: Supprimer ce type de PDU
       flashes:
@@ -971,6 +971,27 @@ fr:
         updated: Le type de PDU a bien été mis à jour.
     duplicate:
       title: Dupliquer le type de PDU %{power_distribution_unit_type_name}
+
+  power_distribution_units:
+    index:
+      title: PDU
+      new_power_distribution_unit: Nouveau PDU
+    new:
+      title: Nouveau PDU
+    create:
+      flashes:
+        created: Le PDU a bien été crée.
+    destroy:
+      title: Supprimer ce PDU
+      flashes:
+        destroyed: Le PDU a bien été supprimé.
+    edit:
+      title: Modifier le PDU
+    update:
+      flashes:
+        updated: Le PDU a bien été mis à jour.
+    duplicate:
+      title: Dupliquer le PDU %{power_distribution_unit_name}
 
   views:
     pagination:

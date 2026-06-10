@@ -484,6 +484,20 @@ fr:
       power_distribution_unit_type/current_type:
         single_phase: Monophasé
         three_phase: Triphasé
+      power_distribution_unit:
+        name: Nom
+        serial_number: Numéro de série
+        comment: Commentaire
+        type_id: Type
+        bay_id: Bay
+        side: Face
+        orientation: Orientation
+      power_distribution_unit/side:
+        left: Gauche
+        right: Droite
+      power_distribution_unit/orientation:
+        asc: ASC
+        desc: DESC
 
     errors:
       models:

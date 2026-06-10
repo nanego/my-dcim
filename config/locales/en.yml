@@ -656,6 +656,7 @@ en:
 
   power_distribution_unit_types:
     index:
+      title: PDU
       new_power_distribution_unit_type: New PDU type
     new:
       title: New PDU type
@@ -673,3 +674,24 @@ en:
         updated: PDU type have been updated.
     duplicate:
       title: Duplicate PDU type %{power_distribution_unit_type_name}
+
+
+  power_distribution_units:
+    index:
+      new_power_distribution_unit: New PDU
+    new:
+      title: New PDU
+    create:
+      flashes:
+        created: PDU have been created.
+    destroy:
+      title: Delete this PDU
+      flashes:
+        destroyed: PDU have been deleted.
+    edit:
+      title: Edit a PDU
+    update:
+      flashes:
+        updated: PDU have been updated.
+    duplicate:
+      title: Duplicate PDU %{power_distribution_unit_name}

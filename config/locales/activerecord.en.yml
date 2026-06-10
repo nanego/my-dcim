@@ -246,6 +246,20 @@ en:
       power_distribution_unit_type/current_type:
         single_phase: One phase
         three_phase: Three phases
+      power_distribution_unit:
+        name: Name
+        serial_number: Serial number
+        comment: Comment
+        type_id: Type
+        bay_id: Bay
+        side: Side
+        orientation: Orientation
+      power_distribution_unit/side:
+        left: Left
+        right: Right
+      power_distribution_unit/orientation:
+        asc: ASC
+        desc: DESC
 
     errors:
       models:
