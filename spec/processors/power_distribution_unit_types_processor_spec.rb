@@ -36,7 +36,7 @@ RSpec.describe PowerDistributionUnitTypesProcessor do
       it { is_expected.to contain_exactly(power_distribution_unit_type) }
     end
 
-    context "with many site_ids" do
+    context "with many manufacturer_ids" do
       let(:manufacturer_second) { Manufacturer.create!(name: "M2") }
       let(:power_distribution_unit_type_second) do
         PowerDistributionUnitType.create!(name: "PDUType2", current_type: :three_phase, manufacturer: manufacturer_second)
