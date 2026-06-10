@@ -15,5 +15,7 @@ class CreatePowerDistributionUnits < ActiveRecord::Migration[8.1]
 
       t.timestamps
     end
+
+    add_index :power_distribution_units, :serial_number, unique: true
   end
 end

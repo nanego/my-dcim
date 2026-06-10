@@ -16,14 +16,6 @@
             <%= f.text_field :name, class: "form-control" %>
           </fieldset>
         </div>
-
-
-        <div class="row g-3">
-          <fieldset class="col-12 mt-4">
-            <%= f.label :slug, class: "form-label" %>
-            <%= f.text_field :slug, class: "form-control" %>
-          </fieldset>
-        </div>
       <% end %>
 
       <%= render CardComponent.new(extra_classes: "mt-4 bg-body-tertiary") do |card| %>
