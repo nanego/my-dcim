@@ -28,10 +28,19 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.select :type_ids, PowerDistributionUnitDecorator.power_distribution_unit_types_options_for_select,
+          <%= f.select :room_ids, PowerDistributionUnitDecorator.rooms_options_for_select(current_user),
                        { prompt: true, multiple: true },
                        { class: "form-select", data: { controller: :select } } %>
-          <%= f.label :type_ids %>
+          <%= f.label :room_ids %>
+        </fieldset>
+      </div>
+
+      <div>
+        <fieldset class="form-floating">
+          <%= f.select :islet_ids, PowerDistributionUnitDecorator.islets_options_for_select(current_user),
+                       { prompt: true, multiple: true },
+                       { class: "form-select", data: { controller: :select } } %>
+          <%= f.label :islet_ids %>
         </fieldset>
       </div>
 
@@ -46,22 +55,21 @@
 
       <div>
         <fieldset class="form-floating">
-          <%= f.select :side, PowerDistributionUnitDecorator.side_options_for_select,
+          <%= f.select :type_ids, PowerDistributionUnitDecorator.power_distribution_unit_types_options_for_select,
                        { prompt: true, multiple: true },
                        { class: "form-select", data: { controller: :select } } %>
-          <%= f.label :side %>
+          <%= f.label :type_ids %>
         </fieldset>
       </div>
 
       <div>
         <fieldset class="form-floating">
-          <%= f.select :orientation_ids, PowerDistributionUnitDecorator.orientation_options_for_select,
+          <%= f.select :manufacturer_ids, PowerDistributionUnitDecorator.manufacturers_options_for_select,
                        { prompt: true, multiple: true },
                        { class: "form-select", data: { controller: :select } } %>
-          <%= f.label :orientation_ids %>
+          <%= f.label :manufacturer_ids %>
         </fieldset>
       </div>
-
 
     <% end %>
   <% end %>
@@ -82,34 +90,34 @@
       <% end %>
     <% end %>
 
-    <% table.with_column(PowerDistributionUnit.human_attribute_name(:type_id), sort_by: :"power_distribution_unit_types.name") do |power_distribution_unit| %>
-      <%= link_to power_distribution_unit_type_path(power_distribution_unit.type), class: "fw-bold" do %>
-        <%= power_distribution_unit.type.name %>
+    <% table.with_column(PowerDistributionUnit.human_attribute_name(:room_id), sort_by: :"rooms.name") do |power_distribution_unit| %>
+      <%= link_to room_path(power_distribution_unit.room), class: "fw-bold" do %>
+        <%= power_distribution_unit.room %>
       <% end %>
     <% end %>
 
-    <% table.with_column(PowerDistributionUnit.human_attribute_name(:bay_id), sort_by: :"bays.name") do |power_distribution_unit| %>
+    <% table.with_column(PowerDistributionUnit.human_attribute_name(:islet_id), sort_by: :"islets.name") do |power_distribution_unit| %>
+      <%= link_to islet_path(power_distribution_unit.islet), class: "fw-bold" do %>
+        <%= power_distribution_unit.islet %>
+      <% end %>
+    <% end %>
+
+    <% table.with_column(PowerDistributionUnit.human_attribute_name(:bay_id), sort_by: :"bays.id") do |power_distribution_unit| %>
       <%= link_to bay_path(power_distribution_unit.bay), class: "fw-bold" do %>
         <%= power_distribution_unit.bay %>
       <% end %>
     <% end %>
 
-    <% table.with_column(PowerDistributionUnit.human_attribute_name(:side)) do |power_distribution_unit| %>
-      <%= power_distribution_unit.side %>
+    <% table.with_column(PowerDistributionUnit.human_attribute_name(:type_id), sort_by: :"power_distribution_unit_types.name") do |power_distribution_unit| %>
+      <%= link_to power_distribution_unit_type_path(power_distribution_unit.type), class: "fw-bold" do %>
+        <%= power_distribution_unit.type %>
+      <% end %>
     <% end %>
 
-    <% table.with_column(PowerDistributionUnit.human_attribute_name(:orientation)) do |power_distribution_unit| %>
-      <%= power_distribution_unit.orientation %>
-    <% end %>
-
-    <% table.with_column(PowerDistributionUnit.human_attribute_name(:slug)) do |power_distribution_unit| %>
-      <%= power_distribution_unit.slug %>
-    <% end %>
-    <% table.with_column(PowerDistributionUnit.human_attribute_name(:ipmi_url)) do |power_distribution_unit| %>
-      <%= power_distribution_unit.ipmi_url %>
-    <% end %>
-    <% table.with_column(PowerDistributionUnit.human_attribute_name(:serial_number)) do |power_distribution_unit| %>
-      <%= power_distribution_unit.serial_number %>
+    <% table.with_column(PowerDistributionUnit.human_attribute_name(:manufacturer_id), sort_by: :"manufacturers.name") do |power_distribution_unit| %>
+      <%= link_to manufacturer_path(power_distribution_unit.manufacturer), class: "fw-bold" do %>
+        <%= power_distribution_unit.manufacturer %>
+      <% end %>
     <% end %>
 
     <% table.with_column(style: "min-width: 70px; width: 70px") do |power_distribution_unit| %>

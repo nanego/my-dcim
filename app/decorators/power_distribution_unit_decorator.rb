@@ -2,12 +2,24 @@
 
 class PowerDistributionUnitDecorator < ApplicationDecorator
   class << self
-    def power_distribution_unit_types_options_for_select
-      PowerDistributionUnitTypeDecorator.options_for_select
+    def rooms_options_for_select(user)
+      RoomDecorator.options_for_select(user)
+    end
+
+    def islets_options_for_select(user)
+      IsletDecorator.options_for_select(user)
     end
 
     def bays_options_for_select(user)
       BayDecorator.options_for_select(user)
+    end
+
+    def power_distribution_unit_types_options_for_select
+      PowerDistributionUnitTypeDecorator.options_for_select
+    end
+
+    def manufacturers_options_for_select
+      ManufacturerDecorator.options_for_select
     end
 
     def side_options_for_select
