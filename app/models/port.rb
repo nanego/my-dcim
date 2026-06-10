@@ -15,7 +15,7 @@ class Port < ApplicationRecord
   has_many :moved_connection_froms, class_name: "MovedConnection", foreign_key: :port_from_id, inverse_of: :port_from, dependent: :destroy
   has_many :moved_connection_tos, class_name: "MovedConnection", foreign_key: :port_to_id, inverse_of: :port_to, dependent: :nullify
 
-  # delegate :server, to: :card
+  delegate :server, to: :card
   delegate :is_power_input?, to: :card, allow_nil: true
   delegate :paired_connection, to: :connection, allow_nil: true
   delegate :color, to: :cable, prefix: true, allow_nil: true
