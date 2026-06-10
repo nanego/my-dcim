@@ -58,7 +58,7 @@ class PowerDistributionUnitsController < ApplicationController
     @power_distribution_unit.destroy!
 
     respond_to do |format|
-      format.html { redirect_to power_distribution_units_path, notice: t(".flashes.destroyed"), status: :see_other }
+      format.html { redirect_back_to_param_or power_distribution_units_path, notice: t(".flashes.destroyed"), status: :see_other }
       format.json { head :no_content }
     end
   end
