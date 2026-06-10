@@ -370,11 +370,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_153116) do
   create_table "moved_connections", id: :serial, force: :cascade do |t|
     t.string "cablename"
     t.string "color"
-    t.datetime "created_at", null: false
-    t.datetime "executed_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "executed_at", precision: nil
     t.integer "port_from_id"
     t.integer "port_to_id"
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "vlans"
     t.index ["port_from_id"], name: "index_moved_connections_on_port_from_id"
     t.index ["port_to_id"], name: "index_moved_connections_on_port_to_id"
