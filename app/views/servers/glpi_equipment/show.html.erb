@@ -18,8 +18,16 @@
           <dt class="pb-2"><%= t("glpi.computer.serial") %></dt>
           <dd class="mb-0 pb-2 ps-3"><%= @equipment.serial %></dd>
 
-          <dt class="pb-2"><%= t("glpi.computer.contact") %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= @equipment.contact %></dd>
+          <dt class="pb-2"><%= t("glpi.computer.state") %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @equipment.state %></dd>
+
+          <dt class="pb-2"><%= t("glpi.computer.groups") %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @equipment.groups %></dd>
+
+          <% @equipment.contracts.each do |contract| %>
+            <dt class="pb-2"><%= t("glpi.computer.contract", type: contract[:type]) %></dt>
+            <dd class="mb-0 pb-2 ps-3"><%= contract[:name] %></dd>
+          <% end %>
         </dl>
         <dl class="show-page_dl d-grid row-gap-2 pt-3 border-top mb-0">
           <dt class="pb-2"><%= t("glpi.computer.disks_count") %></dt>

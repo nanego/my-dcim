@@ -9,7 +9,9 @@
   "contact": "amouta",
   "contact_num": null,
   "users_id_tech": 0,
-  "groups_id_tech": 0,
+  "groups_id_tech": [
+    1
+  ],
   "comment": "x86_64/00-10-12 19:04:09",
   "date_mod": "2021-09-04 01:24:13",
   "autoupdatesystems_id": 0,
@@ -17816,7 +17818,24 @@
       }
     ]
   },
-  "_contracts": [],
+  "_contracts": [
+    {
+      "id": 2,
+      "contracts_id": 1,
+      "items_id": 1,
+      "itemtype": "Computer",
+      "links": [
+        {
+          "rel": "Contract",
+          "href": "http://localhost/api.php/v1/Contract/1"
+        },
+        {
+          "rel": "Computer",
+          "href": "http://localhost/api.php/v1/Computer/1"
+        }
+      ]
+    }
+  ],
   "_documents": [],
   "_notes": [],
   "links": [
