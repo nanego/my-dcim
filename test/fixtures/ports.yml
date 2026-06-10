@@ -45,11 +45,13 @@ five:
   color: O
   cablename: v32o
 
-# six:
-#   id: 6
+six:
+  id: 6
+  attachable_type: Card
 
-# seven:
-#   id: 7
+seven:
+  id: 7
+  attachable_type: Card
 
 height:
   id: 8
