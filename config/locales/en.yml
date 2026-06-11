@@ -655,7 +655,6 @@ en:
 
   power_distribution_unit_types:
     index:
-      title: PDU
       new_power_distribution_unit_type: New PDU type
     new:
       title: New PDU type
@@ -677,6 +676,7 @@ en:
 
   power_distribution_units:
     index:
+      title: PDU
       new_power_distribution_unit: New PDU
     new:
       title: New PDU
