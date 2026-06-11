@@ -3,7 +3,8 @@
 one:
   id: 1
   position: 1
-  card_id: 1
+  attachable_id: 1
+  attachable_type: Card
   vlans: 123a
   color: P
   cablename: v32r
@@ -11,7 +12,8 @@ one:
 two:
   id: 2
   position: 2
-  card_id: 1
+  attachable_id: 1
+  attachable_type: Card
   vlans: 123z
   color: B
   cablename: v33R
@@ -19,7 +21,8 @@ two:
 three:
   id: 3
   position: 3
-  card_id: 2
+  attachable_id: 2
+  attachable_type: Card
   vlans: 123e
   color: W
   cablename: v31F
@@ -27,7 +30,8 @@ three:
 four:
   id: 4
   position: 6
-  card_id: 3
+  attachable_id: 3
+  attachable_type: Card
   vlans: u123
   color: R
   cablename: v32F
@@ -35,28 +39,34 @@ four:
 five:
   id: 5
   position: 1
-  card_id: 5
+  attachable_id: 5
+  attachable_type: Card
   vlans: 123a
   color: O
   cablename: v32o
 
 six:
   id: 6
+  attachable_type: Card
 
 seven:
   id: 7
+  attachable_type: Card
 
 height:
   id: 8
   position: 1
-  card_id: 8
+  attachable_id: 8
+  attachable_type: Card
   color: 0
 
 nine:
   id: 9
-  card_id: 8
+  attachable_id: 8
+  attachable_type: Card
   vlans: 123z
 
 ten:
   id: 10
-  card_id: 8
+  attachable_id: 8
+  attachable_type: Card

@@ -65,7 +65,7 @@ RSpec.describe CablesProcessor do
   end
 
   describe "when searching by vlans" do
-    let(:port) { Port.create!(vlans: "vlan1", card: cards(:one)) }
+    let(:port) { Port.create!(vlans: "vlan1", attachable: cards(:one)) }
     let(:cable) { Cable.create!(name: "cableA") }
     let(:connection) { Connection.create!(cable:, port:) }
 
@@ -82,7 +82,7 @@ RSpec.describe CablesProcessor do
     let(:card) do
       Card.create!(server:, card_type: card_types(:one), composant: composants(:one))
     end
-    let(:port) { Port.create!(card:) }
+    let(:port) { Port.create!(attachable: card) }
     let(:cable) { Cable.create!(name: "cableA") }
     let(:connection) { Connection.create!(cable:, port:) }
 
@@ -100,7 +100,7 @@ RSpec.describe CablesProcessor do
       let(:card_second) do
         Card.create!(server: server_second, card_type: card_types(:one), composant: composants(:one))
       end
-      let(:port_second) { Port.create!(card: card_second) }
+      let(:port_second) { Port.create!(attachable: card_second) }
       let(:cable_second) { Cable.create!(name: "cableB") }
       let(:connection_second) { Connection.create!(cable: cable_second, port: port_second) }
 
@@ -120,7 +120,7 @@ RSpec.describe CablesProcessor do
     let(:card) do
       Card.create!(server:, card_type:, composant: composants(:one))
     end
-    let(:port) { Port.create!(card:) }
+    let(:port) { Port.create!(attachable: card) }
     let(:cable) { Cable.create!(name: "cableA") }
     let(:connection) { Connection.create!(cable:, port:) }
     let(:card_type) { CardType.create!(port_type:) }
@@ -140,7 +140,7 @@ RSpec.describe CablesProcessor do
       let(:card_second) do
         Card.create!(server: server_second, card_type: card_type_second, composant: composants(:one))
       end
-      let(:port_second) { Port.create!(card: card_second) }
+      let(:port_second) { Port.create!(attachable: card_second) }
       let(:cable_second) { Cable.create!(name: "cableB") }
       let(:connection_second) { Connection.create!(cable: cable_second, port: port_second) }
       let(:card_type_second) { CardType.create!(port_type: port_type_second) }
@@ -161,7 +161,7 @@ RSpec.describe CablesProcessor do
     let(:card) do
       Card.create!(server: servers(:one), card_type: card_types(:one), composant: composants(:one), name: "Card A")
     end
-    let(:port) { Port.create!(card:) }
+    let(:port) { Port.create!(attachable: card) }
     let(:cable) { Cable.create!(name: "cableA") }
     let(:connection) { Connection.create!(cable:, port:) }
 
@@ -210,7 +210,7 @@ RSpec.describe CablesProcessor do
     let(:card_type)  { CardType.create!(port_type:) }
     let(:port_type)  { PortType.create!(name: "PortType A") }
     let(:card)       { Card.create!(name: "Card A", server:, card_type:, composant: composants(:one)) }
-    let(:port)       { Port.create!(vlans: "vlan1", card:) }
+    let(:port)       { Port.create!(vlans: "vlan1", attachable: card) }
     let(:cable)      { Cable.create!(name: "cableA", special_case: true, color: "V", comments: "This is a comment") }
     let(:connection) { Connection.create!(cable:, port:) }
 
