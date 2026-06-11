@@ -1,1 +1,5 @@
+<% if @server %>
 $("#back_destination_server").html("<%= escape_javascript(render partial: 'servers/draw_server_compact', locals: { server: @server }) %>");
+<% else %>
+$("#back_destination_server").empty();
+<% end %>
