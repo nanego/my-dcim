@@ -12,7 +12,7 @@ RSpec.describe Bulk::PowerDistributionUnitTypesController do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    let(:ids) { [power_distribution_unit_types(:one).id, power_distribution_unit_types(:two).id] }
+    let(:ids) { [power_distribution_unit_types(:two).id, power_distribution_unit_types(:three).id] }
 
     it { expect { response }.to change(PowerDistributionUnitType, :count).by(-2) }
     it { expect(response).to redirect_to(power_distribution_unit_types_path) }

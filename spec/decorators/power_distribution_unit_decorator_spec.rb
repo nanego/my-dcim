@@ -22,7 +22,7 @@ RSpec.describe PowerDistributionUnitDecorator, type: :decorator do
   describe ".power_distribution_unit_types_options_for_select" do
     it do
       expect(described_class.power_distribution_unit_types_options_for_select)
-        .to contain_exactly(["PDU type name 1", 1], ["PDU type name 2", 2])
+        .to contain_exactly(["PDU type name 1", 1], ["PDU type name 2", 2], ["PDU type name 3", 3])
     end
   end
 
