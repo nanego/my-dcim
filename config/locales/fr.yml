@@ -485,39 +485,28 @@ fr:
       memories_count: Nombre de barettes
       memories_total: Ram totale
       cpus: Processeurs
+
   power_distribution_units:
     index:
       title: Électricité
-      new_power_distributon_unit: Ajouter un PDU
-    show:
-      documentation: Documentation
-      attached_documents: "Documents attachés :"
-      warning_no_frame: Le châssis actuel n'existe plus, veuillez en renseigner un.
+      new_power_distribution_unit: Ajouter un PDU
     new:
-      title: Ajouter un PDU
+      title: Nouveau PDU
     create:
       flashes:
         created: Le PDU a été créé avec succès.
-    form:
-      add_card: Ajouter une carte
-      add_document: Ajouter une pièce jointe
+    destroy:
+      title: Supprimer ce PDU
+      flashes:
+        destroyed: Le PDU a bien été supprimé.
     edit:
       title: Modifier le PDU
     update:
       flashes:
-        updated: Le PDU a été mis à jour avec succès.
+        updated: Le PDU a bien été mis à jour.
     duplicate:
-      title: Dupliquer le PDU %{pdu_name}
-    destroy:
-      title: Supprimer le PDU
-      flashes:
-        destroyed: Le PDU a bien été supprimé.
-        not_destroyed: Une erreur est survenue lors de la suppression du PDU.
-    flashes:
-      connections_destroyed: Les connexions ont été supprimées.
-      connections_not_destroyed: Une erreur a empêché la suppression des connexions.
-    preview:
-      modal_title: Prévisualisation du PDU %{pdu_name}
+      title: Dupliquer le PDU %{power_distribution_unit_name}
+
   frames:
     coupled_frame_label: Châssis couplé à
     no_coupled_frame: Aucun châssis couplé.
@@ -954,12 +943,12 @@ fr:
 
   power_distribution_unit_types:
     index:
-      new_power_distribution_unit_type: "Nouveau type de PDU"
+      new_power_distribution_unit_type: Nouveau type de PDU
     new:
-      title: "Nouveau type de PDU"
+      title: Nouveau type de PDU
     create:
       flashes:
-        created: Le type de PDU a bien été mis à crée.
+        created: Le type de PDU a bien été crée.
     destroy:
       title: Supprimer ce type de PDU
       flashes:

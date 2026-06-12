@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_18_150238) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_04_153116) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -485,6 +485,23 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_18_150238) do
     t.index ["manufacturer_id"], name: "index_power_distribution_unit_types_on_manufacturer_id"
   end
 
+  create_table "power_distribution_units", force: :cascade do |t|
+    t.bigint "bay_id", null: false
+    t.text "comment", null: false
+    t.datetime "created_at", null: false
+    t.string "ipmi_url", null: false
+    t.string "name", null: false
+    t.integer "orientation", null: false
+    t.string "serial_number", null: false
+    t.integer "side", null: false
+    t.string "slug", null: false
+    t.bigint "type_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bay_id"], name: "index_power_distribution_units_on_bay_id"
+    t.index ["serial_number"], name: "index_power_distribution_units_on_serial_number", unique: true
+    t.index ["type_id"], name: "index_power_distribution_units_on_type_id"
+  end
+
   create_table "rooms", id: :serial, force: :cascade do |t|
     t.integer "access_control"
     t.datetime "created_at", precision: nil, null: false
@@ -639,6 +656,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_18_150238) do
   add_foreign_key "permission_scope_users", "users"
   add_foreign_key "ports", "cards"
   add_foreign_key "power_distribution_unit_types", "manufacturers"
+  add_foreign_key "power_distribution_units", "bays"
+  add_foreign_key "power_distribution_units", "power_distribution_unit_types", column: "type_id"
   add_foreign_key "rooms", "sites"
   add_foreign_key "servers", "clusters"
   add_foreign_key "servers", "domains"

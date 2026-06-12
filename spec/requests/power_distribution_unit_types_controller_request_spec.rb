@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe PowerDistributionUnitTypesController do
-  let(:power_distribution_unit_type) { power_distribution_unit_types(:one) }
+  let(:power_distribution_unit_type) { power_distribution_unit_types(:three) }
 
   describe "GET #index" do
     subject(:response) do
