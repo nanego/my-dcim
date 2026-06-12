@@ -431,39 +431,26 @@ en:
     destroy:
       title: Delete the port type
 
-  power_distribution_units:
+    power_distribution_units:
     index:
-      title: Electricity
-      new_power_distributon_unit: Add a PDU
-    show:
-      documentation: Documentation
-      attached_documents: "Attached documents:"
-      warning_no_frame: The current frame no longer exists, please enter a new one.
+      title: PDU
+      new_power_distribution_unit: New PDU
     new:
-      title: Add a PDU
+      title: New PDU
     create:
       flashes:
-        created: The PDU has been successfully created.
-    form:
-      add_card: Add a card
-      add_document: Add an attached document
+        created: PDU have been created.
+    destroy:
+      title: Delete this PDU
+      flashes:
+        destroyed: PDU have been deleted.
     edit:
-      title: Update the PDU
+      title: Edit a PDU
     update:
       flashes:
-        updated: The PDU has been successfully updated.
+        updated: PDU have been updated.
     duplicate:
-      title: Duplicate PDU %{pdu_name}
-    destroy:
-      title: Delete the PDU
-      flashes:
-        destroyed: The PDU has been deleted.
-        not_destroyed: An error occurred while deleting the PDU.
-    flashes:
-      connections_destroyed: The connections have been removed.
-      connections_not_destroyed: An error prevented connections from being deleted.
-    preview:
-      modal_title: PDU %{pdu_name} preview
+      title: Duplicate PDU %{power_distribution_unit_name}
 
   permission_scopes:
     index:
@@ -673,25 +660,3 @@ en:
         updated: PDU type have been updated.
     duplicate:
       title: Duplicate PDU type %{power_distribution_unit_type_name}
-
-
-  power_distribution_units:
-    index:
-      title: PDU
-      new_power_distribution_unit: New PDU
-    new:
-      title: New PDU
-    create:
-      flashes:
-        created: PDU have been created.
-    destroy:
-      title: Delete this PDU
-      flashes:
-        destroyed: PDU have been deleted.
-    edit:
-      title: Edit a PDU
-    update:
-      flashes:
-        updated: PDU have been updated.
-    duplicate:
-      title: Duplicate PDU %{power_distribution_unit_name}
