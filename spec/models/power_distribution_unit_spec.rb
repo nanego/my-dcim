@@ -22,6 +22,8 @@ RSpec.describe PowerDistributionUnit do
     it { is_expected.to belong_to(:type) }
     it { is_expected.to belong_to(:bay) }
 
+    it { is_expected.to have_many(:circuits) }
+
     it { is_expected.to have_one(:manufacturer).through(:type) }
     it { is_expected.to have_one(:islet).through(:bay) }
     it { is_expected.to have_one(:room).through(:bay) }
