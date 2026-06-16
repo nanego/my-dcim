@@ -13,8 +13,7 @@ class PowerDistributionUnitType < ApplicationRecord
   scope :sorted, -> { order(Arel.sql("LOWER(name)")) }
 
   accepts_nested_attributes_for :circuits,
-                                allow_destroy: true,
-                                reject_if: :all_blank
+                                allow_destroy: true
 
   validates :name, presence: true
   validates :documentation_url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https]), allow_blank: true

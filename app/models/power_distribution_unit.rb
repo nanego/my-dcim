@@ -20,8 +20,7 @@ class PowerDistributionUnit < ApplicationRecord
   enum :side, { left: 0, right: 1 }, validate: true
 
   accepts_nested_attributes_for :circuits,
-                                allow_destroy: true,
-                                reject_if: :all_blank
+                                allow_destroy: true
 
   validates :serial_number, presence: true, uniqueness: true
   validates :serial_number, format: { without: /\s/ }

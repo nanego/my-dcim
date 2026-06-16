@@ -21,4 +21,8 @@ RSpec.describe PowerDistributionUnitType do
     it { is_expected.to allow_value("http://exemple.com/doc/1").for(:documentation_url) }
     it { is_expected.not_to allow_value("some invalid url").for(:documentation_url) }
   end
+
+  describe "nested attributes" do
+    it { is_expected.to accept_nested_attributes_for(:circuits) }
+  end
 end

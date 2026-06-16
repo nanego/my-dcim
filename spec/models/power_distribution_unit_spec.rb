@@ -45,6 +45,10 @@ RSpec.describe PowerDistributionUnit do
     it { is_expected.not_to allow_value("some invalid url").for(:ipmi_url) }
   end
 
+  describe "nested attributes" do
+    it { is_expected.to accept_nested_attributes_for(:circuits) }
+  end
+
   describe "#to_s" do
     it { expect(power_distribution_unit.to_s).to eq power_distribution_unit.name }
   end
