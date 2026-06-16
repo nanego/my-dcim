@@ -493,6 +493,8 @@ fr:
       new_power_distribution_unit: Ajouter un PDU
     new:
       title: Nouveau PDU
+    form:
+      add_circuit: Nouveau circuit
     create:
       flashes:
         created: Le PDU a été créé avec succès.
@@ -947,6 +949,8 @@ fr:
       new_power_distribution_unit_type: Nouveau modèle de PDU
     new:
       title: Nouveau modèle de PDU
+    form:
+      add_circuit: Nouveau circuit
     create:
       flashes:
         created: Le modèle de PDU a bien été crée.

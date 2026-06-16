@@ -83,6 +83,11 @@ class PowerDistributionUnitsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def power_distribution_unit_params
-    params.expect(power_distribution_unit: %i[type_id bay_id side orientation name ipmi_url serial_number comment])
+    params.expect(
+      power_distribution_unit: [
+        :type_id, :bay_id, :side, :orientation, :name, :ipmi_url, :serial_number, :comment,
+        { circuits_attributes: [%i[id circuit_id _destroy name]] },
+      ],
+    )
   end
 end
