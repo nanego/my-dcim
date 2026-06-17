@@ -487,9 +487,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_153116) do
 
   create_table "power_distribution_units", force: :cascade do |t|
     t.bigint "bay_id", null: false
-    t.text "comment", null: false
+    t.text "comment"
     t.datetime "created_at", null: false
-    t.string "ipmi_url", null: false
+    t.string "ipmi_url"
     t.string "name", null: false
     t.integer "orientation", null: false
     t.string "serial_number", null: false

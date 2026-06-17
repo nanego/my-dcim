@@ -231,6 +231,7 @@ en:
         manufacturer_ids: Manufacturer
         modele_ids: Model
         air_conditioner_model_ids: Air conditoner model
+        type_ids: PDU Type
         room_ids: Room
         actions: Actions
         authors: Authors
@@ -431,9 +432,10 @@ en:
     destroy:
       title: Delete the port type
 
-    power_distribution_units:
+  power_distribution_units:
+    add_new: Add a PDU
     index:
-      title: PDU
+      title: Electricity
       new_power_distribution_unit: New PDU
     new:
       title: New PDU

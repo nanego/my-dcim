@@ -31,9 +31,12 @@ RSpec.describe PowerDistributionUnit do
     it { is_expected.to define_enum_for(:orientation).with_values(%i[asc desc]) }
     it { is_expected.to define_enum_for(:side).with_values(%i[left right]) }
 
+    it { is_expected.to validate_presence_of(:name) }
+
     it { is_expected.to validate_presence_of(:serial_number) }
     it { is_expected.to validate_uniqueness_of(:serial_number) }
-    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to allow_value("1234").for(:serial_number) }
+    it { is_expected.not_to allow_value("1 234").for(:serial_number) }
 
     it { is_expected.to allow_value("").for(:ipmi_url) }
     it { is_expected.to allow_value("http://exemple.com/doc/1").for(:ipmi_url) }

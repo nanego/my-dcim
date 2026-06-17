@@ -17,9 +17,8 @@ class PowerDistributionUnit < ApplicationRecord
   enum :orientation, { asc: 0, desc: 1 }, validate: true
   enum :side, { left: 0, right: 1 }, validate: true
 
-  validates :serial_number, presence: true, uniqueness: true
-  validates :serial_number, format: { without: /\s/ }
   validates :name, presence: true
+  validates :serial_number, presence: true, uniqueness: true, format: { without: /\s/ }
   validates :ipmi_url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https]), allow_blank: true
 
   delegate :to_s, to: :name

@@ -69,7 +69,15 @@
         <% end %>
       </dl>
     <% end %>
-
   </div>
+
+  <%= render HasManyTurboFrameComponent.new(
+        PowerDistributionUnit.model_name.human(count: 2),
+        url: power_distribution_units_path(type_ids: @power_distribution_unit_type.id),
+        frame_id: dom_id(PowerDistributionUnit, :table),
+        new_path: (new_power_distribution_unit_path(power_distribution_unit: { type_id: @power_distribution_unit_type.id }) if allowed_to?(:create?, with: PowerDistributionUnitPolicy)),
+        new_label: t("power_distribution_units.add_new"),
+      ) %>
+
   <%= render ChangelogEntries::ObjectListComponent.new(@power_distribution_unit_type) %>
 </div>

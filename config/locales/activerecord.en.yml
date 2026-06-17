@@ -35,6 +35,12 @@ en:
       moves_project: Moves project
       moves_project_steps: Project step
       port_type: Port type
+      power_distribution_unit_type:
+        one: PDU type
+        other: PDU types
+      power_distribution_unit:
+        one: PDU
+        other: PDU
       room: Room
       server: I.T. equipment
       stack: Stack
@@ -229,37 +235,35 @@ en:
         server: Server
         network_equipment: Network equipment
       power_distribution_unit_type:
-        name: Name
-        manufacturer_id: Manufacturer
-        current_type: Type
+        current_type: Current type
         documentation_url: Documentation
         meter_global: Global Meter
         meter_per_socket: Meter par Socket
         meter_per_circuit: Meter per Circuit
         socket_control: Socket Control
-        ip_snmp: SNMP Ip
-        ip_modbus: MODBUS Ip
-        ip_ssh: SSH Ip
-        ip_webui: WebUI Ip
-        rs485_modbus: Rs485 modbus
+        socket_lock: Socket lock
+        ip_snmp: IP SNMP
+        ip_modbus: IP ModBus
+        ip_ssh: IP SSH
+        ip_webui: IP WebUI
+        rs485_modbus: RS485 ModBus
         max_power_per_circuit: Max power per circuit
       power_distribution_unit_type/current_type:
-        single_phase: One phase
-        three_phase: Three phases
+        single_phase: Single-phase
+        three_phase: Three-phase
       power_distribution_unit:
-        name: Name
+        type_id: PDU Type
         serial_number: Serial number
-        comment: Comment
-        type_id: Type
-        bay_id: Bay
         side: Side
         orientation: Orientation
+        ipmi_url: IPMI URL
+        comment: Comment
       power_distribution_unit/side:
         left: Left
         right: Right
       power_distribution_unit/orientation:
-        asc: ASC
-        desc: DESC
+        asc: Ascendant
+        desc: Descendant
 
     errors:
       models:
@@ -291,3 +295,15 @@ en:
           attributes:
             domain_ids:
               blank: can't be blank, or "All domains" must be checked
+
+  # Common attributes
+  attributes:
+    bay_id: Bay
+    bay: Bay
+    room_id: Room
+    romm: Room
+    islet_id: Islet
+    islet: Islet
+    manufacturer_id: Manufacturer
+    manufacturer: Manufacturer
+    name: Name

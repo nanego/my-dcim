@@ -60,6 +60,9 @@ fr:
       power_distribution_unit_type:
         one: Modèle de PDU
         other: Modèles de PDU
+      power_distribution_unit:
+        one: PDU
+        other: PDU
 
     attributes:
       room:
@@ -467,37 +470,35 @@ fr:
         reader: Lecteur
         writer: Éditeur
       power_distribution_unit_type:
-        name: Nom
-        manufacturer_id: Constructeur
-        current_type: Type
+        current_type: Type de courant
         documentation_url: Documentation
         meter_global: Mètres global
-        meter_per_socket: Mètres par socket
+        meter_per_socket: Mètres par prise
         meter_per_circuit: Mètres par circuit
-        socket_control: Control de socket
-        ip_snmp: Ip snmp
-        ip_modbus: Ip modbus
-        ip_ssh: Ip ssh
-        ip_webui: Ip WebUI
-        rs485_modbus: Rs485 modbus
-        max_power_per_circuit: Puissance max par curcuit
+        socket_control: Contrôle de prise
+        socket_lock: Vérrou de prise
+        ip_snmp: IP SNMP
+        ip_modbus: IP ModBus
+        ip_ssh: IP SSH
+        ip_webui: IP WebUI
+        rs485_modbus: RS485 ModBus
+        max_power_per_circuit: Puissance max par circuit
       power_distribution_unit_type/current_type:
         single_phase: Monophasé
         three_phase: Triphasé
       power_distribution_unit:
-        name: Nom
+        type_id: Modèle
         serial_number: Numéro de série
-        comment: Commentaire
-        type_id: Type
-        bay_id: Bay
-        side: Face
+        side: Côté
         orientation: Orientation
+        ipmi_url: URL IPMI
+        comment: Commentaire
       power_distribution_unit/side:
         left: Gauche
         right: Droite
       power_distribution_unit/orientation:
-        asc: ASC
-        desc: DESC
+        asc: Ascendant
+        desc: Descendant
 
     errors:
       models:
@@ -529,3 +530,15 @@ fr:
           attributes:
             domain_ids:
               blank: doit être rempli, ou "Tous les domaines" doit être coché
+
+  # Common attributes
+  attributes:
+    bay_id: Baie
+    bay: Baie
+    room_id: Salle
+    romm: Salle
+    islet_id: Ilôt
+    islet: Ilôt
+    manufacturer_id: Constructeur
+    manufacturer: Constructeur
+    name: Nom

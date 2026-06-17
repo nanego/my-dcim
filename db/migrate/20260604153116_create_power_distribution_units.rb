@@ -9,9 +9,9 @@ class CreatePowerDistributionUnits < ActiveRecord::Migration[8.1]
       t.integer :orientation, null: false
       t.string :name, null: false
       t.string :slug, null: false
-      t.string :ipmi_url, null: false
+      t.string :ipmi_url
       t.string :serial_number, null: false
-      t.text :comment, null: false
+      t.text :comment
 
       t.timestamps
     end

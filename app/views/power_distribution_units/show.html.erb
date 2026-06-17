@@ -2,7 +2,26 @@
   breadcrumb.add_step(title = @power_distribution_unit)
 %>
 
-<%= render Page::HeadingShowComponent.new(resource: @power_distribution_unit, title:, breadcrumb:) %>
+<%= render Page::HeadingShowComponent.new(
+      resource: @power_distribution_unit,
+      title: @power_distribution_unit,
+      breadcrumb:,
+      editable: allowed_to?(:update?, @power_distribution_unit),
+    ) do |heading| %>
+  <% heading.with_extra_buttons do %>
+    <% if allowed_to?(:duplicate?, @power_distribution_unit) %>
+      <%= render ButtonComponent.new(
+            t("action.duplicate"),
+            url: duplicate_power_distribution_unit_path(@power_distribution_unit),
+            variant: :success,
+            icon: "copy",
+            is_responsive: true,
+            extra_classes: "me-2",
+          ) %>
+    <% end %>
+  <% end %>
+<% end %>
+
 <div class="col-12 p-4 border-top">
   <div class="alert alert-warning">
     Cette section est actuellement en cours de développement. Les données peuvent être amenées à être supprimées ou altérées par des changements le temps du développement.
@@ -134,5 +153,6 @@
       <% end %>
     </div>
   </div>
+
   <%= render ChangelogEntries::ObjectListComponent.new(@power_distribution_unit) %>
 </div>

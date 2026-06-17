@@ -9,7 +9,6 @@
 <div class="col-12 p-4 border-top">
   <%= render DeleteDependencyComponent.new(
         @power_distribution_unit,
-        except: %i[external_app_records],
         confirmation_path: power_distribution_unit_path(@power_distribution_unit, confirm: true, back_to: params[:back_to]),
       ) %>
 </div>

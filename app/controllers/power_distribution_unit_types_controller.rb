@@ -3,7 +3,7 @@
 class PowerDistributionUnitTypesController < ApplicationController
   before_action :set_power_distribution_unit_type, only: %i[show edit update destroy]
   before_action except: %i[index] do
-    breadcrumb.add_step(PowerDistributionUnitType.model_name.human, power_distribution_unit_types_path)
+    breadcrumb.add_step(PowerDistributionUnitType.model_name.human(count: 2), power_distribution_unit_types_path)
   end
 
   # GET /power_distribution_unit_types or /power_distribution_unit_types.json
@@ -31,7 +31,7 @@ class PowerDistributionUnitTypesController < ApplicationController
     respond_to do |format|
       if @power_distribution_unit_type.save
         format.html { redirect_to_new_or_to power_distribution_unit_type_path(@power_distribution_unit_type), notice: t(".flashes.created") }
-        format.json { render :show, status: :created, location: @power_distribution_unit_type }
+        format.json { render :show, status: :created, location: power_distribution_unit_type_path(@power_distribution_unit_type) }
       else
         format.html { render :new, status: :unprocessable_content }
         format.json { render json: @power_distribution_unit_type.errors, status: :unprocessable_content }
@@ -44,7 +44,7 @@ class PowerDistributionUnitTypesController < ApplicationController
     respond_to do |format|
       if @power_distribution_unit_type.update(power_distribution_unit_type_params)
         format.html { redirect_to power_distribution_unit_type_path(@power_distribution_unit_type), notice: t(".flashes.updated"), status: :see_other }
-        format.json { render :show, status: :ok, location: @power_distribution_unit_type }
+        format.json { render :show, status: :ok, location: power_distribution_unit_type_path(@power_distribution_unit_type) }
       else
         format.html { render :edit, status: :unprocessable_content }
         format.json { render json: @power_distribution_unit_type.errors, status: :unprocessable_content }

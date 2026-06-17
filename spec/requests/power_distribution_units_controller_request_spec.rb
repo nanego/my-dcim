@@ -91,6 +91,8 @@ RSpec.describe PowerDistributionUnitsController do
 
     include_context "with authenticated admin"
 
+    it_behaves_like "with create another one"
+
     context "with valid parameters" do
       it { expect { response }.to change(PowerDistributionUnit, :count).by(1) }
       it { expect(response).to redirect_to(power_distribution_unit_path(assigns(:power_distribution_unit))) }
@@ -175,7 +177,7 @@ RSpec.describe PowerDistributionUnitsController do
 
       it { expect { response }.not_to change(PowerDistributionUnit, :count) }
       it { expect(response).to have_http_status(:success) }
-      it { expect(PowerDistributionUnit.exists?(power_distribution_unit.id)).to be true }
+      it { expect(PowerDistributionUnit.exists?(power_distribution_unit.id)).to be(true) }
     end
 
     context "with confirm" do

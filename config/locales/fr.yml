@@ -487,6 +487,7 @@ fr:
       cpus: Processeurs
 
   power_distribution_units:
+    add_new: Ajouter un PDU
     index:
       title: Électricité
       new_power_distribution_unit: Ajouter un PDU
@@ -943,23 +944,23 @@ fr:
 
   power_distribution_unit_types:
     index:
-      new_power_distribution_unit_type: Nouveau type de PDU
+      new_power_distribution_unit_type: Nouveau modèle de PDU
     new:
-      title: Nouveau type de PDU
+      title: Nouveau modèle de PDU
     create:
       flashes:
-        created: Le type de PDU a bien été crée.
+        created: Le modèle de PDU a bien été crée.
     destroy:
-      title: Supprimer ce type de PDU
+      title: Supprimer ce modèle de PDU
       flashes:
-        destroyed: Le type de PDU a bien été supprimé.
+        destroyed: Le modèle de PDU a bien été supprimé.
     edit:
-      title: Modifier le type de PDU
+      title: Modifier le modèle de PDU
     update:
       flashes:
-        updated: Le type de PDU a bien été mis à jour.
+        updated: Le modèle de PDU a bien été mis à jour.
     duplicate:
-      title: Dupliquer le type de PDU %{power_distribution_unit_type_name}
+      title: Dupliquer le modèle de PDU %{power_distribution_unit_type_name}
 
   views:
     pagination:
@@ -997,6 +998,7 @@ fr:
         bay_ids: Baie
         modele_ids: Modèle
         air_conditioner_model_ids: Modèle de climatisation
+        type_ids: Modèle de PDU
         cluster_ids: Cluster
         site_ids: Site
         contact_ids: Contact

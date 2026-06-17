@@ -23,14 +23,14 @@ class PowerDistributionUnitDecorator < ApplicationDecorator
     end
 
     def side_options_for_select
-      PowerDistributionUnit.sides.keys.map do |c_t|
-        [PowerDistributionUnit.human_attribute_name("side.#{c_t}"), c_t]
+      PowerDistributionUnit.sides.keys.map do |side|
+        [PowerDistributionUnit.human_attribute_name("side.#{side}"), side]
       end
     end
 
     def orientation_options_for_select
-      PowerDistributionUnit.orientations.keys.map do |c_t|
-        [PowerDistributionUnit.human_attribute_name("orientation.#{c_t}"), c_t]
+      PowerDistributionUnit.orientations.keys.map do |orientation|
+        [PowerDistributionUnit.human_attribute_name("orientation.#{orientation}"), orientation]
       end
     end
   end

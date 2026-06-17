@@ -3,7 +3,7 @@
 class PowerDistributionUnitsController < ApplicationController
   before_action :set_power_distribution_unit, only: %i[show edit update destroy]
   before_action except: %i[index] do
-    breadcrumb.add_step(PowerDistributionUnit.model_name.human, power_distribution_units_path)
+    breadcrumb.add_step(t("power_distribution_units.index.title"), power_distribution_units_path)
   end
 
   # GET /power_distribution_units or /power_distribution_units.json
@@ -11,6 +11,11 @@ class PowerDistributionUnitsController < ApplicationController
     authorize! @power_distribution_units = PowerDistributionUnit.includes(:type, :manufacturer, :bay, :islet, :room)
     @filter = ProcessorFilter.new(@power_distribution_units, params)
     @power_distribution_units = @filter.results
+
+    respond_to do |format|
+      format.json
+      format.html { @pagy, @power_distribution_units = pagy(@power_distribution_units) }
+    end
   end
 
   # GET /power_distribution_units/1 or /power_distribution_units/1.json
@@ -19,6 +24,7 @@ class PowerDistributionUnitsController < ApplicationController
   # GET /power_distribution_units/new
   def new
     authorize! @power_distribution_unit = PowerDistributionUnit.new
+    @power_distribution_unit.assign_attributes(power_distribution_unit_params) if params[:power_distribution_unit]
   end
 
   # GET /power_distribution_units/1/edit
@@ -30,8 +36,8 @@ class PowerDistributionUnitsController < ApplicationController
 
     respond_to do |format|
       if @power_distribution_unit.save
-        format.html { redirect_to_new_or_to @power_distribution_unit, notice: t(".flashes.created") }
-        format.json { render :show, status: :created, location: @power_distribution_unit }
+        format.html { redirect_to_new_or_to power_distribution_unit_path(@power_distribution_unit), notice: t(".flashes.created") }
+        format.json { render :show, status: :created, location: power_distribution_unit_path(@power_distribution_unit) }
       else
         format.html { render :new, status: :unprocessable_content }
         format.json { render json: @power_distribution_unit.errors, status: :unprocessable_content }
@@ -44,7 +50,7 @@ class PowerDistributionUnitsController < ApplicationController
     respond_to do |format|
       if @power_distribution_unit.update(power_distribution_unit_params)
         format.html { redirect_to power_distribution_unit_path(@power_distribution_unit), notice: t(".flashes.updated"), status: :see_other }
-        format.json { render :show, status: :ok, location: @power_distribution_unit }
+        format.json { render :show, status: :ok, location: power_distribution_unit_path(@power_distribution_unit) }
       else
         format.html { render :edit, status: :unprocessable_content }
         format.json { render json: @power_distribution_unit.errors, status: :unprocessable_content }
@@ -77,6 +83,6 @@ class PowerDistributionUnitsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def power_distribution_unit_params
-    params.expect(power_distribution_unit: %i[type_id bay_id side orientation name slug ipmi_url serial_number comment])
+    params.expect(power_distribution_unit: %i[type_id bay_id side orientation name ipmi_url serial_number comment])
   end
 end

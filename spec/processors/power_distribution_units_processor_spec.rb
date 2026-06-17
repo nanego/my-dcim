@@ -206,7 +206,7 @@ RSpec.describe PowerDistributionUnitsProcessor do
     let(:params) do
       {
         q: "wood", room_ids: room.id, islet_ids: islet.id, bay_ids: bay.id,
-        manufacturer_ids: manufacturer.id, type_ids: type.id,
+        type_ids: type.id, manufacturer_ids: manufacturer.id,
       }
     end
 
