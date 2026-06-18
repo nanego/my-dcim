@@ -1,7 +1,3 @@
 # frozen_string_literal: true
 
-json.array!(@pdus) do |pdu|
-  json.extract! pdu, :id, :name, :modele_id,
-                :numero, :cluster, :critique
-  json.url power_distribution_unit_url(pdu, format: :json)
-end
+json.array! @power_distribution_units, partial: "power_distribution_units/power_distribution_unit", as: :power_distribution_unit

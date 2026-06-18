@@ -2,8 +2,36 @@
 
 class PowerDistributionUnitDecorator < ApplicationDecorator
   class << self
+    def rooms_options_for_select(user)
+      RoomDecorator.options_for_select(user)
+    end
+
     def islets_options_for_select(user)
       IsletDecorator.options_for_select(user)
+    end
+
+    def bays_options_for_select(user)
+      BayDecorator.options_for_select(user)
+    end
+
+    def power_distribution_unit_types_options_for_select
+      PowerDistributionUnitTypeDecorator.options_for_select
+    end
+
+    def manufacturers_options_for_select
+      ManufacturerDecorator.options_for_select
+    end
+
+    def side_options_for_select
+      PowerDistributionUnit.sides.keys.map do |side|
+        [PowerDistributionUnit.human_attribute_name("side.#{side}"), side]
+      end
+    end
+
+    def orientation_options_for_select
+      PowerDistributionUnit.orientations.keys.map do |orientation|
+        [PowerDistributionUnit.human_attribute_name("orientation.#{orientation}"), orientation]
+      end
     end
   end
 end

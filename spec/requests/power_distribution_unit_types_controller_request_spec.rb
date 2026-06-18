@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe PowerDistributionUnitTypesController do
-  let(:power_distribution_unit_type) { power_distribution_unit_types(:one) }
+  let(:power_distribution_unit_type) { power_distribution_unit_types(:three) }
 
   describe "GET #index" do
     subject(:response) do
@@ -91,6 +91,8 @@ RSpec.describe PowerDistributionUnitTypesController do
 
     include_context "with authenticated admin"
 
+    it_behaves_like "with create another one"
+
     context "with valid parameters" do
       it { expect { response }.to change(PowerDistributionUnitType, :count).by(1) }
       it { expect(response).to redirect_to(power_distribution_unit_type_path(assigns(:power_distribution_unit_type))) }
@@ -175,7 +177,7 @@ RSpec.describe PowerDistributionUnitTypesController do
 
       it { expect { response }.not_to change(PowerDistributionUnitType, :count) }
       it { expect(response).to have_http_status(:success) }
-      it { expect(PowerDistributionUnitType.exists?(power_distribution_unit_type.id)).to be true }
+      it { expect(PowerDistributionUnitType.exists?(power_distribution_unit_type.id)).to be(true) }
     end
 
     context "with confirm" do

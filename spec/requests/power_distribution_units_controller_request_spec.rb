@@ -3,108 +3,99 @@
 require "rails_helper"
 
 RSpec.describe PowerDistributionUnitsController do
-  let(:pdu) { servers(:pdu) }
-  let(:pdu2) { Server.create(name: "PDU 2", frame_id: 2, modele_id: 3, numero: "PDU_2") }
-  let(:server) { servers(:one) }
-
-  before do
-    sign_in users(:admin)
-
-    pdu.save
-    server.save
-    pdu2
-  end
+  let(:power_distribution_unit) { power_distribution_units(:one) }
 
   describe "GET #index" do
     subject(:response) do
-      get power_distribution_units_path(params)
+      get power_distribution_units_path
 
-      # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    let(:params) { {} }
+    include_context "with authenticated user"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:index) }
-    it { expect(response.body).to include(pdu.name) }
-    it { expect(response.body).to include(pdu2.name) }
-    it { expect(response.body).not_to include(server.name) }
+    it { expect(response.body).to include(power_distribution_unit.name) }
 
-    it { expect { response }.to have_rubanok_processed(Server.only_pdus).with(PowerDistributionUnitsProcessor) }
+    it { expect { response }.to have_rubanok_processed(PowerDistributionUnit.all).with(PowerDistributionUnitsProcessor) }
 
-    context "when searching on name" do
-      let(:params) { { q: "PDU_FRAME" } }
-
-      it { expect(response).to have_http_status(:success) }
-      it { expect(response).to render_template(:index) }
-      it { expect(response.body).to include(pdu.name) }
-      it { expect(response.body).not_to include(pdu2.name) }
-      it { expect(response.body).not_to include(server.name) }
+    it do
+      response
+      expect(assigns(:filter)).to be_present
     end
   end
 
   describe "GET #show" do
-    before { get power_distribution_unit_path(pdu) }
+    subject(:response) do
+      get power_distribution_unit_path(power_distribution_unit)
 
-    it { expect(response).to have_http_status(:success) }
-    it { expect(response).to render_template(:show) }
-    it { expect(response.body).to include(pdu.name) }
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
 
-    context "when using id" do
-      before { get power_distribution_unit_path(pdu.id) }
+    include_context "with authenticated user"
+
+    context "with not found power distribution unit" do
+      let(:power_distribution_unit) { PowerDistributionUnit.new(id: 999_999_999) }
+
+      it { expect { response }.to raise_error(ActiveRecord::RecordNotFound) }
+    end
+
+    context "with existing power distribution unit" do
+      before { response }
 
       it { expect(response).to have_http_status(:success) }
-    end
-
-    context "when using name" do
-      before { get power_distribution_unit_path(pdu.name) }
-
       it { expect(response).to render_template(:show) }
-    end
-
-    context "when using serial number" do
-      before { get power_distribution_unit_path(pdu.numero) }
-
-      it { expect(response).to render_template(:show) }
-    end
-
-    context "with an id not set" do
-      it { expect { get power_distribution_unit_path("unknown-id") }.to raise_error(ActiveRecord::RecordNotFound) }
     end
   end
 
   describe "GET #new" do
-    before { get new_power_distribution_unit_path }
+    subject(:response) do
+      get new_power_distribution_unit_path
+
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
     it { expect(response).to render_template(:new) }
   end
 
-  describe "GET #duplicate" do
-    before { get duplicate_power_distribution_unit_path(pdu) }
+  describe "GET #edit" do
+    subject(:response) do
+      get edit_power_distribution_unit_path(power_distribution_unit)
+
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
 
     it { expect(response).to have_http_status(:success) }
-    it { expect(response).to render_template(:duplicate) }
+    it { expect(response).to render_template(:edit) }
   end
 
   describe "POST #create" do
     subject(:response) do
       post(power_distribution_units_path, params:)
 
-      # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
     let(:params) do
-      { power_distribution_unit: pdu.attributes.except(%w[id numero name]).merge(numero: "new_numero", name: "NewServerName") }
+      {
+        power_distribution_unit: power_distribution_unit.attributes.except(%w[id name serial_number])
+          .merge(name: "New PDU  Name", serial_number: "321"),
+      }
     end
+
+    include_context "with authenticated admin"
 
     it_behaves_like "with create another one"
 
     context "with valid parameters" do
-      it { expect { response }.to change(Server, :count).by(1) }
-      it { expect(response).to redirect_to(power_distribution_unit_path(assigns(:pdu))) }
+      it { expect { response }.to change(PowerDistributionUnit, :count).by(1) }
+      it { expect(response).to redirect_to(power_distribution_unit_path(assigns(:power_distribution_unit))) }
     end
 
     context "with no attributes" do
@@ -122,128 +113,76 @@ RSpec.describe PowerDistributionUnitsController do
     context "with invalid parameters" do
       let(:params) { { power_distribution_unit: { name: "" } } }
 
+      it { expect { response }.not_to change(PowerDistributionUnit, :count) }
       it { expect(response).to render_template(:new) }
     end
   end
 
-  describe "GET #edit" do
-    before { get edit_power_distribution_unit_path(pdu) }
-
-    it { expect(response).to have_http_status(:success) }
-    it { expect(response).to render_template(:edit) }
-  end
-
   describe "PATCH #update" do
+    subject(:response) do
+      patch(power_distribution_unit_path(power_distribution_unit), params:)
+
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:attributes) { { bay_id: "2" } }
+    let(:params) { { power_distribution_unit: attributes } }
+
+    include_context "with authenticated admin"
+
     context "with valid parameters" do
-      let(:new_attributes) { pdu.attributes.except("name").merge(name: "New name") }
-
-      it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
-        patch power_distribution_unit_path(pdu), params: { power_distribution_unit: new_attributes }
-        pdu.reload
-        assigns(:pdu).reload
-
-        expect(response).to be_redirection
-        expect(response).to redirect_to(power_distribution_unit_path(assigns(:pdu)))
-        expect(pdu.name).to eq(new_attributes[:name])
-
-        # old name should continue to work
-        get power_distribution_unit_path("PDU_FRAME-1_A")
-        expect(response).to have_http_status(:success)
-        expect(pdu).to eq(assigns(:pdu))
+      it do
+        expect do
+          response
+          power_distribution_unit.reload
+        end.to change(power_distribution_unit, :bay_id).to(2)
       end
 
-      it "does update cards in a server", :aggregate_failures do # rubocop:disable RSpec/ExampleLength
-        patch power_distribution_unit_path(pdu), params: {
-          power_distribution_unit: {
-            name: pdu.name,
-            cards_attributes: [{ id: 7, composant_id: 1, twin_card_id: 2, orientation: "lr-td" }],
-          },
-        }
-
-        assigns(:pdu).reload
-        pdu.reload
-
-        expect(response).to be_redirection
-        expect(response).to redirect_to(power_distribution_unit_path(assigns(:pdu)))
-
-        # Test new card
-        get power_distribution_unit_path(pdu)
-        expect(response).to have_http_status(:success)
-        expect(pdu).to eq(assigns(:pdu))
-        expect(Card.find(7).twin_card_id).to eq 2
-
-        # Test twin card
-        expect(Card.find(2).twin_card_id).to eq 7
-      end
+      it { expect(response).to redirect_to(power_distribution_unit_path(assigns(:power_distribution_unit))) }
+      it { expect(response).to have_http_status(:redirect) }
     end
 
-    context "with invalid parameters" do
-      it "does not update a PDU without attributes" do
-        expect { patch power_distribution_unit_path(pdu), params: { power_distribution_unit: {} } }
-          .to raise_error(ActionController::ParameterMissing)
-      end
+    context "without attributes" do
+      let(:attributes) { {} }
 
-      it "does not update a PDU without parameters" do
-        expect { patch power_distribution_unit_path(pdu), params: {} }
-          .to raise_error(ActionController::ParameterMissing)
-      end
-
-      it "does not update a PDU with invalid parameters", :aggregate_failures do
-        patch power_distribution_unit_path(pdu), params: { power_distribution_unit: { name: "" } }
-
-        expect(response).to render_template(:edit)
-      end
+      it { expect { response }.to raise_error(ActionController::ParameterMissing) }
     end
 
-    context "when preview button clicked with turbo_stream format" do
-      let(:params) do
-        {
-          power_distribution_unit: { name: "PDU#1" },
-          preview: "preview",
-          format: :turbo_stream,
-        }
-      end
+    context "without parameters" do
+      let(:params) { {} }
 
-      before { patch power_distribution_unit_path(pdu), params: params }
+      it { expect { response }.to raise_error(ActionController::ParameterMissing) }
+    end
 
-      it { expect(response).to render_template(:preview) }
-      it { expect(response).to have_http_status(:unprocessable_content) }
+    context "with invalid attributes" do
+      let(:attributes) { { bay_id: "" } }
+
+      it { expect(response).to render_template(:edit) }
     end
   end
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete power_distribution_unit_path(pdu, **params)
+      delete power_distribution_unit_path(power_distribution_unit, **params)
 
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    let(:pdu) { pdu2 }
     let(:params) { { confirm: true } }
+
+    include_context "with authenticated admin"
 
     context "without confirm" do
       let(:params) { {} }
 
-      it { expect { response }.not_to change(Server, :count) }
+      it { expect { response }.not_to change(PowerDistributionUnit, :count) }
       it { expect(response).to have_http_status(:success) }
-      it { expect(Server.exists?(pdu2.id)).to be true }
+      it { expect(PowerDistributionUnit.exists?(power_distribution_unit.id)).to be(true) }
     end
 
-    context "with a pdu without association" do
-      it { expect { response }.to change(Server, :count).by(-1) }
-      it { expect(response).to redirect_to(power_distribution_units_path) }
-    end
-
-    context "with a pdu without association and params" do
-      let(:params) { { confirm: true, sort: "asc", sort_by: "rooms.name" } }
-
-      it { expect(response).to redirect_to(power_distribution_units_path({ sort: "asc", sort_by: "rooms.name" })) }
-    end
-
-    context "with a pdu with association" do
-      let(:pdu) { servers(:pdu) }
-
-      it { expect { response }.not_to change(Server, :count) }
+    context "with confirm" do
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect { response }.to change(PowerDistributionUnit, :count).by(-1) }
       it { expect(response).to redirect_to(power_distribution_units_path) }
     end
 
@@ -252,7 +191,20 @@ RSpec.describe PowerDistributionUnitsController do
 
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to("/some_path") }
-      it { expect { response }.to change(Server, :count).by(-1) }
+      it { expect { response }.to change(PowerDistributionUnit, :count).by(-1) }
     end
+  end
+
+  describe "GET #duplicate" do
+    subject(:response) do
+      get duplicate_power_distribution_unit_path(power_distribution_unit)
+
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:duplicate) }
   end
 end
