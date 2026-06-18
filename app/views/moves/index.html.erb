@@ -35,6 +35,10 @@
             <span class="fw-light text-body-secondary"><%= Server.human_attribute_name(:numero) %> :</span>
             <span class="font-monospace text-body"><%= move.moveable.numero %></span>
           </div>
+          <div class="small">
+            <span class="fw-light text-body-secondary"><%= Modele.model_name.human %> :</span>
+            <span class="text-body"><%= move.moveable.modele %></span>
+          </div>
         <% end %>
 
         <% table.with_column(Manager.model_name.human) do |move| %>
