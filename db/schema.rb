@@ -160,7 +160,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_15_151510) do
 
   create_table "circuits", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.string "name"
+    t.string "name", null: false
     t.bigint "record_id", null: false
     t.string "record_type", null: false
     t.datetime "updated_at", null: false
@@ -379,11 +379,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_15_151510) do
   create_table "moved_connections", id: :serial, force: :cascade do |t|
     t.string "cablename"
     t.string "color"
-    t.datetime "created_at", null: false
-    t.datetime "executed_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "executed_at", precision: nil
     t.integer "port_from_id"
     t.integer "port_to_id"
-    t.datetime "updated_at", null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "vlans"
     t.index ["port_from_id"], name: "index_moved_connections_on_port_from_id"
     t.index ["port_to_id"], name: "index_moved_connections_on_port_to_id"
@@ -496,9 +496,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_15_151510) do
 
   create_table "power_distribution_units", force: :cascade do |t|
     t.bigint "bay_id", null: false
-    t.text "comment", null: false
+    t.text "comment"
     t.datetime "created_at", null: false
-    t.string "ipmi_url", null: false
+    t.string "ipmi_url"
     t.string "name", null: false
     t.integer "orientation", null: false
     t.string "serial_number", null: false
