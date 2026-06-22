@@ -483,6 +483,7 @@ fr:
         ip_webui: IP WebUI
         rs485_modbus: RS485 ModBus
         max_power_per_circuit: Puissance max par circuit
+        circuits: Circuits
       power_distribution_unit_type/current_type:
         single_phase: Monophasé
         three_phase: Triphasé
@@ -493,6 +494,7 @@ fr:
         orientation: Orientation
         ipmi_url: URL IPMI
         comment: Commentaire
+        circuits: Circuits
       power_distribution_unit/side:
         left: Gauche
         right: Droite
