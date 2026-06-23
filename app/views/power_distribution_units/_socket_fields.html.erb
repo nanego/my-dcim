@@ -1,14 +1,29 @@
-<li class="nested-form-wrapper list-group-item d-flex align-items-center bg-transparent"
+<li class="nested-form-wrapper list-group-item bg-transparent"
     data-new-record="<%= f.object.new_record? %>">
 
-  <span class="input-group input-group-sm">
+  <div class="d-flex align-items-center">
+    <span class="input-group input-group-sm">
+      <%= f.text_field :name, { class: "form-control", placeholder: true } %>
 
-    <%= f.text_field :name, { class: "form-control", placeholder: true } %>
-    <%= f.text_field :name, { class: "form-control", placeholder: true } %>
+      <%= f.hidden_field :_destroy %>
+      <button type="button" data-action="nested-form#remove" class="btn btn-danger" id="input-group-delete-btn">
+        <span class="bi bi-trash" title="<%= t("action.delete") %>"></span>
+      </button>
+    </span>
+  </div>
 
-    <%= f.hidden_field :_destroy %>
-    <button type="button" data-action="nested-form#remove" class="btn btn-danger" id="input-group-delete-btn">
-      <span class="bi bi-trash" title="<%= t("action.delete") %>"></span>
-    </button>
-  </span>
+  <div>
+    <%= f.label :port_type_id, class: "form-label" %>
+    <%= f.select :port_type_id,
+                 PowerDistributionUnitSocketDecorator.grouped_by_port_type_options_for_select,
+                 { prompt: true },
+                 {
+                   class: "form-select",
+                   data: {
+                     controller: :select,
+                     select_clear_button_title_value: t("action.clear_all"),
+                   },
+                   placeholder: t("select.placeholder"),
+                 } %>
+  <div>
 </li>
