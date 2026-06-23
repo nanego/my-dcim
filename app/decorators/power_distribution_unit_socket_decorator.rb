@@ -2,6 +2,8 @@
 
 class PowerDistributionUnitSocketDecorator < ApplicationDecorator
   class << self
-    delegate :grouped_by_port_type_options_for_select, to: :CardTypeDecorator
+    def port_type_options_for_select
+      PortTypeDecorator.options_for_select
+    end
   end
 end

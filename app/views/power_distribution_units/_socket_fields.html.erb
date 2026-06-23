@@ -15,7 +15,7 @@
   <div>
     <%= f.label :port_type_id, class: "form-label" %>
     <%= f.select :port_type_id,
-                 PowerDistributionUnitSocketDecorator.grouped_by_port_type_options_for_select,
+                 PowerDistributionUnitSocketDecorator.port_type_options_for_select,
                  { prompt: true },
                  {
                    class: "form-select",
