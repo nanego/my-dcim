@@ -4,6 +4,7 @@ class PortType < ApplicationRecord
   has_changelog
 
   has_many :card_types, dependent: :restrict_with_error
+  has_many :sockets, class_name: "PowerDistributionUnit::Socket", dependent: :restrict_with_error
 
   scope :sorted, -> { order(name: :asc) }
 
