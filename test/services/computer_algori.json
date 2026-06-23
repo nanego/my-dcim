@@ -17960,5 +17960,7 @@
       "href": "https://apirest.php/Computer/695/Item_DeviceSensor/"
     }
   ],
-  "_keys_names": []
+  "_keys_names": {
+    "states_id": "state argoli"
+  }
 }

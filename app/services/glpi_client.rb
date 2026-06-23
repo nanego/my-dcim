@@ -96,38 +96,49 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     end
   end
 
+  def with_error_handling
+    proc do
+      yield
+    rescue Faraday::ResourceNotFound
+      nil
+    rescue JSON::ParserError => e
+      Rails.logger.warn "Error parsing JSON: #{e}"
+      raise
+    end
+  end
+
   def format_body(body)
     body.deep_transform_keys(&:underscore)
 
     attributes = body
+    attributes[:_lazy] = {}
+
     attributes[:hard_drives] = body["_devices"].present? ? body["_devices"]["Item_DeviceHardDrive"] : {}
     attributes[:memories] = body["_devices"].present? ? body["_devices"]["Item_DeviceMemory"] : {}
-    attributes[:state] = body["states_id"].zero? ? "" : get_state_for(id: body["states_id"])
+    attributes[:state] = body["_keys_names"].present? ? body["_keys_names"]["states_id"] : ""
 
     group_ids = body["groups_id_tech"].is_a?(Array) ? body["groups_id_tech"] : []
-    attributes[:groups] = group_ids.map { |id| get_group_for(id:) }.to_sentence
+    attributes[:_lazy][:groups] = with_error_handling { group_ids.map { |id| get_group_for(id:) }.to_sentence }
 
     contract_ids = body["_contracts"].is_a?(Array) ? body["_contracts"].pluck("contracts_id") : []
-    attributes[:contracts] = contract_ids.map { |id| get_contract_for(id:) }
+    attributes[:_lazy][:contracts] = with_error_handling { contract_ids.map { |id| get_contract_for(id:) } }
 
     processors = body["_devices"].present? ? body["_devices"]["Item_DeviceProcessor"] : {}
-    attributes[:processors] = if processors.present?
-                                processors.each_value do |proc|
-                                  proc["designation"] = get_processor_designation_for(id: proc["deviceprocessors_id"])
-                                end
-                              else
-                                {}
-                              end
+    attributes[:_lazy][:processors] = with_error_handling do
+      next {} if processors.blank?
+
+      processors.tap do |processors|
+        processors.each_value do |proc|
+          proc["designation"] = get_processor_designation_for(id: proc["deviceprocessors_id"])
+        end
+      end
+    end
 
     attributes
   end
 
   def get_processor_designation_for(id:)
     get_glpi_item_for("DeviceProcessor", id:)["designation"]
-  end
-
-  def get_state_for(id:)
-    get_glpi_item_for("State", id:)["name"]
   end
 
   def get_group_for(id:)
@@ -160,7 +171,6 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
       stub.get(%r{Computer/.*}) { |_env| [200, {}, Rails.root.join("test/services/computer_algori.json").read] }
       stub.get(%r{NetworkEquipment/.*}) { |_env| [200, {}, Rails.root.join("test/services/network_equipment_algori.json").read] }
       stub.get(%r{DeviceProcessor/.*}) { |_env| [200, {}, Rails.root.join("test/services/processor.json").read] }
-      stub.get(%r{State/.*}) { |_env| [200, {}, Rails.root.join("test/services/state.json").read] }
       stub.get(%r{Group/.*}) { |_env| [200, {}, Rails.root.join("test/services/group.json").read] }
       stub.get(%r{Contract/.*}) { |_env| [200, {}, Rails.root.join("test/services/contracts_results.json").read] }
       stub.get("/initSession") { |_env| [200, {}, '{"session_token":"kuji8uh4v77lgghqoj2c0r2848"}'] }
@@ -178,13 +188,11 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     attribute? :serial, Types::Coercible::String
     attribute? :name, Types::Coercible::String
     attribute? :state, Types::Coercible::String
-    attribute? :contact, Types::Coercible::String
-    attribute? :groups, Types::Coercible::String
     attribute? :disks, Types::Coercible::Hash
     attribute? :hard_drives, Types::Coercible::Hash
     attribute? :memories, Types::Coercible::Hash
-    attribute? :contracts, Types::Coercible::Array
-    attribute? :processors, Types::Coercible::Hash
+
+    attribute? :_lazy, Types::Coercible::Hash
 
     def hard_drives_total_capacity
       return 0 if hard_drives.blank?
@@ -196,6 +204,18 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
       return 0 if memories.blank?
 
       memories.sum { |_key, value| value["size"] }
+    end
+
+    def groups
+      @groups ||= _lazy[:groups].call
+    end
+
+    def contracts
+      @contracts ||= _lazy[:contracts].call
+    end
+
+    def processors
+      @processors ||= _lazy[:processors].call
     end
   end
 
