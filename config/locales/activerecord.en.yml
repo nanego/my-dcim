@@ -48,7 +48,7 @@ en:
       user: User
       permission_scope: Permission Scope
       permission_scope_domain: Permission Scope
-      socket:
+      power_distribution_unit/socket:
         one: Socket
         others: Sockets
 
@@ -270,6 +270,8 @@ en:
       power_distribution_unit/orientation:
         asc: Ascendant
         desc: Descendant
+      power_distribution_unit/socket:
+        port_type: Port type
 
     errors:
       models:
