@@ -5,10 +5,10 @@ class PowerDistributionUnit
     has_changelog
 
     belongs_to :record, polymorphic: true
-    has_many :sockets, class_name: "PowerDistributionUnit::Socket", dependent: :destroy
+    has_many :sockets, dependent: :destroy
 
     accepts_nested_attributes_for :sockets,
-                                allow_destroy: true
+                                  allow_destroy: true
 
     validates :name, presence: true
   end
