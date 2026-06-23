@@ -158,15 +158,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_15_151510) do
     t.index ["object_type", "object_id"], name: "index_changelog_entries_on_object_type_and_object_id"
   end
 
-  create_table "circuits", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "name", null: false
-    t.bigint "record_id", null: false
-    t.string "record_type", null: false
-    t.datetime "updated_at", null: false
-    t.index ["record_type", "record_id"], name: "index_circuits_on_record"
-  end
-
   create_table "cluster_rooms", force: :cascade do |t|
     t.bigint "cluster_id", null: false
     t.datetime "created_at", null: false
