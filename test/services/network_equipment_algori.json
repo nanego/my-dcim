@@ -215,5 +215,8 @@
       "rel": "Item_DeviceCamera",
       "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_DeviceCamera/"
     }
-  ]
+  ],
+  "_keys_names": {
+    "states_id": "state argoli"
+  }
 }
