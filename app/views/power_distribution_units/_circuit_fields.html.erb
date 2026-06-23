@@ -8,4 +8,12 @@
       <span class="bi bi-trash" title="<%= t("action.delete") %>"></span>
     </button>
   </span>
+
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+    <% card.with_header do %>
+      <div class="d-flex justify-content-between align-items-center">
+         <%= Socket.model_name.human.pluralize %>
+      </div>
+    <% end %>
+  <% end %>
 </li>

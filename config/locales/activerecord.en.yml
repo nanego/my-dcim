@@ -48,6 +48,9 @@ en:
       user: User
       permission_scope: Permission Scope
       permission_scope_domain: Permission Scope
+      socket:
+        one: Socket
+        others: Sockets
 
     attributes:
       air_conditioner_model:
