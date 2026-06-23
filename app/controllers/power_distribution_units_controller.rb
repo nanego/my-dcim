@@ -86,7 +86,7 @@ class PowerDistributionUnitsController < ApplicationController
     params.expect(
       power_distribution_unit: [
         :type_id, :bay_id, :side, :orientation, :name, :ipmi_url, :serial_number, :comment,
-        { circuits_attributes: [%i[id circuit_id _destroy name]] },
+        { circuits_attributes: [%i[id _destroy name]] },
       ],
     )
   end
