@@ -121,7 +121,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     attributes[:_lazy][:groups] = with_error_handling { group_ids.map { |id| get_group_for(id:) }.to_sentence }
 
     contract_ids = body["_contracts"].is_a?(Array) ? body["_contracts"].pluck("contracts_id") : []
-    attributes[:_lazy][:contracts] = with_error_handling { contract_ids.map { |id| get_contract_for(id:) } }
+    attributes[:_lazy][:contracts] = with_error_handling { contract_ids.filter_map { |id| get_contract_for(id:) } }
 
     processors = body["_devices"].present? ? body["_devices"]["Item_DeviceProcessor"] : {}
     attributes[:_lazy][:processors] = with_error_handling do
@@ -148,6 +148,9 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
   def get_contract_for(id:)
     params = ["get_hateoas=false", "add_keys_names[]=contracttypes_id"]
     raw = get_glpi_item_for("Contract", id:, params:)
+
+    begin_date = Date.iso8601(raw["begin_date"])
+    return nil unless begin_date.past? && (begin_date + raw["duration"].months).future?
 
     { name: raw["name"], type: raw["_keys_names"]["contracttypes_id"] }
   end
