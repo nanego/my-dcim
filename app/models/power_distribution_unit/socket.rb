@@ -2,6 +2,8 @@
 
 class PowerDistributionUnit
   class Socket < ApplicationRecord
+    has_changelog
+
     belongs_to :circuit
     belongs_to :port_type
 

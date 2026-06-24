@@ -84,7 +84,7 @@ class PowerDistributionUnitTypesController < ApplicationController
         {
           circuits_attributes: [[
             :id, :_destroy, :name,
-            { sockets_attributes: [%i[id name circuit_id port_type_id]] },
+            { sockets_attributes: [%i[id name port_type_id _destroy]] },
           ]],
         },
       ],
