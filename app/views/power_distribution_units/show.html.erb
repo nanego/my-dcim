@@ -74,11 +74,8 @@
 
           <dt><%= PowerDistributionUnitType.human_attribute_name(:documentation_url) %> :</dt>
           <dd class="mb-0 ps-3">
-            <% if @power_distribution_unit.type.documentation_url? %>
-              <%= link_to @power_distribution_unit.type.documentation_url,
-                          @power_distribution_unit.type.documentation_url,
-                          target: :_blank,
-                          rel: :noopener %>
+            <% if (documentation_url = @power_distribution_unit.type.documentation_url.to_s).present? %>
+              <%= link_to documentation_url, documentation_url, target: :_blank, rel: :noopener %>
               <span class="bi bi-box-arrow-up-right small text-secondary ms-1"></span>
             <% else %>
               <span class="fst-italic fw-light text-body-secondary"><%= I18n.t("n_a") %></span>
@@ -103,15 +100,13 @@
 
           <dt><%= PowerDistributionUnit.human_attribute_name(:ipmi_url) %> :</dt>
           <dd class="mb-0 ps-3">
-            <% if @power_distribution_unit.ipmi_url? %>
-              <%= link_to @power_distribution_unit.ipmi_url,
-                          @power_distribution_unit.ipmi_url,
-                          target: :_blank,
-                          rel: :noopener %>
+            <% if (ipmi_url = @power_distribution_unit.ipmi_url.to_s).present? %>
+              <%= link_to ipmi_url, ipmi_url, target: :_blank, rel: :noopener %>
               <span class="bi bi-box-arrow-up-right small text-secondary ms-1"></span>
             <% else %>
               <span class="fst-italic fw-light text-body-secondary"><%= I18n.t("n_a") %></span>
             <% end %>
+          </dd>
         </dl>
       <% end %>
     </div>
