@@ -6,9 +6,9 @@ RSpec.describe PortTypeDecorator, type: :decorator do
   let(:port_type) { port_types(:one) }
   let(:decorated_port_type) { port_type.decorated }
 
-  describe ".options_for_select" do
+  describe ".alim_options_for_select" do
     it do
-      expect(described_class.options_for_select).to contain_exactly(["ALIM", 4], ["FC", 1], ["Five", 5], ["IPMI", 3], ["RJ", 2], ["Six", 6])
+      expect(described_class.alim_options_for_select).to contain_exactly(["ALIM", 4])
     end
   end
 

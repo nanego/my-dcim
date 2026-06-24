@@ -2,7 +2,7 @@
 
 class PortTypeDecorator < ApplicationDecorator
   def self.alim_options_for_select
-    PortType.select(:id, :name).sorted.map { |p| [p.to_s, p.id] }
+    PortType.where(power: true).select(:id, :name).sorted.map { |p| [p.to_s, p.id] }
   end
 
   def css_class_name
