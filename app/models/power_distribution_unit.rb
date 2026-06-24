@@ -5,12 +5,13 @@ class PowerDistributionUnit < ApplicationRecord
 
   friendly_id :slug_candidates, use: %i[slugged history]
 
-  has_changelog
+  has_changelog associations: { circuits: "*", sockets: "*" }
 
   belongs_to :type, class_name: "PowerDistributionUnitType"
   belongs_to :bay
 
   has_many :circuits, as: :record, class_name: "PowerDistributionUnit::Circuit", dependent: :destroy
+  has_many :sockets, class_name: "PowerDistributionUnit::Socket", through: :circuits
 
   has_one :manufacturer, through: :type
   has_one :islet, through: :bay
