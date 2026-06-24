@@ -41,6 +41,7 @@ en:
       power_distribution_unit:
         one: PDU
         other: PDU
+      power_distribution_unit/circuit: Circuit
       room: Room
       server: I.T. equipment
       stack: Stack
@@ -248,7 +249,6 @@ en:
         ip_webui: IP WebUI
         rs485_modbus: RS485 ModBus
         max_power_per_circuit: Max power per circuit
-        circuits: Circuits
       power_distribution_unit_type/current_type:
         single_phase: Single-phase
         three_phase: Three-phase
@@ -259,7 +259,6 @@ en:
         orientation: Orientation
         ipmi_url: IPMI URL
         comment: Comment
-        circuits: Circuits
       power_distribution_unit/side:
         left: Left
         right: Right

@@ -68,7 +68,7 @@
           <dd class="mb-0 pb-2 ps-3"><%= I18n.t("boolean.#{@power_distribution_unit_type.public_send(attribute_name)}") %></dd>
         <% end %>
 
-        <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(:circuits) %> :</dt>
+        <dt class="pb-2"><%= PowerDistributionUnit::Circuit.model_name.human.pluralize %> :</dt>
         <dd class="mb-0 pb-2 ps-3"><%= @power_distribution_unit_type.circuits.count %></dd>
       </dl>
     <% end %>
