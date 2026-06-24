@@ -102,12 +102,12 @@
             <template data-nested-form-target="template">
               <%= f.fields_for :circuits, f.object.circuits.klass.new,
                                child_index: "__NEW_RECORD__" do |circuit_fields| %>
-                <%= render partial: "circuit_fields", locals: { f: circuit_fields } %>
+                <%= render partial: "power_distribution_units/circuit_fields", locals: { f: circuit_fields } %>
               <% end %>
             </template>
 
             <%= f.fields_for :circuits do |circuit_fields| %>
-              <%= render partial: "circuit_fields", locals: { f: circuit_fields } %>
+              <%= render partial: "power_distribution_units/circuit_fields", locals: { f: circuit_fields } %>
             <% end %>
 
             <div data-nested-form-target="target"></div>

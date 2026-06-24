@@ -21,12 +21,12 @@
         <template data-nested-form-target="template">
           <%= f.fields_for :sockets, f.object.sockets.klass.new,
                            child_index: "__NEW_RECORD__" do |socket_fields| %>
-            <%= render partial: "socket_fields", locals: { f: socket_fields } %>
+            <%= render partial: "power_distribution_units/socket_fields", locals: { f: socket_fields } %>
           <% end %>
         </template>
 
         <%= f.fields_for :sockets do |socket_fields| %>
-          <%= render partial: "socket_fields", locals: { f: socket_fields } %>
+          <%= render partial: "power_distribution_units/socket_fields", locals: { f: socket_fields } %>
         <% end %>
 
         <div data-nested-form-target="target"></div>
