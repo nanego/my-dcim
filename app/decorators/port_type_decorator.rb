@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class PortTypeDecorator < ApplicationDecorator
-  def self.alim_options_for_select
-    PortType.where(power: true).select(:id, :name).sorted.map { |p| [p.to_s, p.id] }
+  def self.options_for_select(collection = PortType)
+    collection.select(:id, :name).sorted.map { |p| [p.to_s, p.id] }
   end
 
   def css_class_name

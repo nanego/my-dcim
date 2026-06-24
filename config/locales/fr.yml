@@ -495,8 +495,6 @@ fr:
       title: Nouveau PDU
     form:
       add_circuit: Nouveau circuit
-    circuit_fields:
-      add_socket: Nouvelle prise
     create:
       flashes:
         created: Le PDU a été créé avec succès.
@@ -511,6 +509,8 @@ fr:
         updated: Le PDU a bien été mis à jour.
     duplicate:
       title: Dupliquer le PDU %{power_distribution_unit_name}
+    circuit_fields:
+      add_socket: Nouvelle prise
 
   frames:
     coupled_frame_label: Châssis couplé à

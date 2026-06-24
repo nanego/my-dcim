@@ -42,13 +42,13 @@ en:
         one: PDU
         other: PDU
       power_distribution_unit/circuit: Circuit
+      power_distribution_unit/socket: Socket
       room: Room
       server: I.T. equipment
       stack: Stack
       user: User
       permission_scope: Permission Scope
       permission_scope_domain: Permission Scope
-      power_distribution_unit/socket: Socket
 
     attributes:
       air_conditioner_model:

@@ -9,6 +9,7 @@ RSpec.describe PowerDistributionUnit::Circuit do
 
   describe "associations" do
     it { is_expected.to belong_to(:record) }
+    it { is_expected.to have_many(:sockets).dependent(:destroy) }
   end
 
   describe "validations" do
