@@ -5,17 +5,16 @@
 <%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
     <%= render ButtonComponent.new(t(".new_power_distribution_unit"),
-                                  url: new_power_distribution_unit_path,
-                                  variant: :success,
-                                  icon: "plus-lg",
-                                  is_responsive: true) %>
+                                   url: new_power_distribution_unit_path,
+                                   variant: :success,
+                                   icon: "plus-lg",
+                                   is_responsive: true) %>
   <% end %>
 <% end %>
 
-
 <%= turbo_frame_tag(dom_id(PowerDistributionUnit, :index), data: { turbo_action: :advance }) do %>
   <div class="p-4 border-top d-flex flex-column row-gap-4">
-    <div class="alert alert-warning">
+    <div class="alert alert-warning mb-0">
       Cette section est actuellement en cours de développement. Les données peuvent être amenées à être supprimées ou altérées par des changements le temps du développement.
     </div>
 
@@ -31,8 +30,8 @@
         <div>
           <fieldset class="form-floating">
             <%= f.select :room_ids, PowerDistributionUnitDecorator.rooms_options_for_select(current_user),
-                        { prompt: true, multiple: true },
-                        { class: "form-select", data: { controller: :select } } %>
+                         { prompt: true, multiple: true },
+                         { class: "form-select", data: { controller: :select } } %>
             <%= f.label :room_ids %>
           </fieldset>
         </div>
@@ -40,8 +39,8 @@
         <div>
           <fieldset class="form-floating">
             <%= f.select :islet_ids, PowerDistributionUnitDecorator.islets_options_for_select(current_user),
-                        { prompt: true, multiple: true },
-                        { class: "form-select", data: { controller: :select } } %>
+                         { prompt: true, multiple: true },
+                         { class: "form-select", data: { controller: :select } } %>
             <%= f.label :islet_ids %>
           </fieldset>
         </div>
@@ -49,8 +48,8 @@
         <div>
           <fieldset class="form-floating">
             <%= f.select :bay_ids, PowerDistributionUnitDecorator.bays_options_for_select(current_user),
-                        { prompt: true, multiple: true },
-                        { class: "form-select", data: { controller: :select } } %>
+                         { prompt: true, multiple: true },
+                         { class: "form-select", data: { controller: :select } } %>
             <%= f.label :bay_ids %>
           </fieldset>
         </div>
@@ -58,8 +57,8 @@
         <div>
           <fieldset class="form-floating">
             <%= f.select :type_ids, PowerDistributionUnitDecorator.power_distribution_unit_types_options_for_select,
-                        { prompt: true, multiple: true },
-                        { class: "form-select", data: { controller: :select } } %>
+                         { prompt: true, multiple: true },
+                         { class: "form-select", data: { controller: :select } } %>
             <%= f.label :type_ids %>
           </fieldset>
         </div>
@@ -67,8 +66,8 @@
         <div>
           <fieldset class="form-floating">
             <%= f.select :manufacturer_ids, PowerDistributionUnitDecorator.manufacturers_options_for_select,
-                        { prompt: true, multiple: true },
-                        { class: "form-select", data: { controller: :select } } %>
+                         { prompt: true, multiple: true },
+                         { class: "form-select", data: { controller: :select } } %>
             <%= f.label :manufacturer_ids %>
           </fieldset>
         </div>
@@ -76,87 +75,109 @@
       <% end %>
     <% end %>
 
-    <%= turbo_frame_tag(dom_id(PowerDistributionUnit, :table), data: { turbo_action: :advance }, target: dom_id(PowerDistributionUnit, :index)) do %>
+    <%= turbo_frame_tag(
+          dom_id(PowerDistributionUnit, :table),
+          data: { turbo_action: :advance },
+          target: dom_id(PowerDistributionUnit, :index),
+        ) do %>
       <div class="d-flex flex-column row-gap-4">
         <%= render List::DataTableComponent.new(@power_distribution_units) do |table| %>
           <% table.with_bulk_action(
-              url: bulk_power_distribution_units_path,
-              method: :delete,
-              class: "btn btn-danger btn-sm",
-              data: { confirm: t("action.confirm") },
-            ) do %>
+               url: bulk_power_distribution_units_path,
+               method: :delete,
+               class: "btn btn-danger btn-sm",
+               data: { confirm: t("action.confirm") },
+             ) do %>
             <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
           <% end %>
 
-          <% table.with_column(PowerDistributionUnit.human_attribute_name(:name), sort_by: :name) do |power_distribution_unit| %>
-            <%= link_to power_distribution_unit_path(power_distribution_unit), class: "fw-bold", data: { turbo_frame: :_top } do %>
-              <%= power_distribution_unit.name %>
+          <% table.with_column(PowerDistributionUnit.human_attribute_name(:name), sort_by: :name) do |pdu| %>
+            <%= link_to power_distribution_unit_path(pdu), class: "fw-bold", data: { turbo_frame: :_top } do %>
+              <%= pdu.name %>
             <% end %>
           <% end %>
 
-          <% table.with_column(PowerDistributionUnit.human_attribute_name(:room_id), sort_by: :"rooms.name") do |power_distribution_unit| %>
-            <%= link_to room_path(power_distribution_unit.room), data: { turbo_frame: :_top } do %>
-              <%= power_distribution_unit.room %>
+          <% table.with_column(PowerDistributionUnit.human_attribute_name(:room_id), sort_by: :"rooms.name") do |pdu| %>
+            <%= link_to room_path(pdu.room), data: { turbo_frame: :_top } do %>
+              <%= pdu.room %>
             <% end %>
           <% end %>
 
-          <% table.with_column(PowerDistributionUnit.human_attribute_name(:islet_id), sort_by: :"islets.name") do |power_distribution_unit| %>
-            <%= link_to islet_path(power_distribution_unit.islet), data: { turbo_frame: :_top } do %>
-              <%= power_distribution_unit.islet %>
+          <% table.with_column(
+               PowerDistributionUnit.human_attribute_name(:islet_id), sort_by: :"islets.name",
+             ) do |pdu| %>
+            <%= link_to islet_path(pdu.islet), data: { turbo_frame: :_top } do %>
+              <%= pdu.islet %>
             <% end %>
           <% end %>
 
-          <% table.with_column(PowerDistributionUnit.human_attribute_name(:bay_id), sort_by: :"bays.id") do |power_distribution_unit| %>
-            <%= link_to bay_path(power_distribution_unit.bay), data: { turbo_frame: :_top } do %>
-              <%= power_distribution_unit.bay %>
+          <% table.with_column(PowerDistributionUnit.human_attribute_name(:bay_id), sort_by: :"bays.id") do |pdu| %>
+            <%= link_to bay_path(pdu.bay), data: { turbo_frame: :_top } do %>
+              <%= pdu.bay %>
             <% end %>
           <% end %>
 
           <% unless (turbo_frame_request? && @filter.filled?(:type_ids)) %>
-            <% table.with_column(PowerDistributionUnit.human_attribute_name(:type_id), sort_by: :"power_distribution_unit_types.name") do |power_distribution_unit| %>
-              <%= link_to power_distribution_unit_type_path(power_distribution_unit.type), data: { turbo_frame: :_top } do %>
-                <%= power_distribution_unit.type %>
+            <% table.with_column(
+                 PowerDistributionUnit.human_attribute_name(:type_id), sort_by: :"power_distribution_unit_types.name",
+               ) do |pdu| %>
+              <%= link_to power_distribution_unit_type_path(pdu.type), data: { turbo_frame: :_top } do %>
+                <%= pdu.type %>
               <% end %>
             <% end %>
           <% end %>
 
-          <% table.with_column(PowerDistributionUnit.human_attribute_name(:manufacturer_id), sort_by: :"manufacturers.name") do |power_distribution_unit| %>
-            <%= link_to manufacturer_path(power_distribution_unit.manufacturer), data: { turbo_frame: :_top } do %>
-              <%= power_distribution_unit.manufacturer %>
+          <% table.with_column(
+               PowerDistributionUnit.human_attribute_name(:manufacturer_id), sort_by: :"manufacturers.name",
+             ) do |pdu| %>
+            <%= link_to manufacturer_path(pdu.manufacturer), data: { turbo_frame: :_top } do %>
+              <%= pdu.manufacturer %>
             <% end %>
           <% end %>
 
-          <% table.with_column(style: "min-width: 70px; width: 70px") do |power_distribution_unit| %>
+          <% table.with_column(style: "min-width: 70px; width: 70px") do |pdu| %>
             <div class="btn-group btn-group-sm" role="group" aria-label="...">
-              <%= link_to edit_power_distribution_unit_path(power_distribution_unit),
+              <%= link_to edit_power_distribution_unit_path(pdu),
                           class: "btn btn-info",
-                          data: { turbo_frame: :_top } do %>
-                <span class="bi bi-pencil"
-                      title="<%= t("action.edit") %>"
-                      data-controller="tooltip"
-                      data-bs-placement="left"
-                      aria-hidden="true"></span>
+                          title: t("action.edit"),
+                          data: {
+                            turbo_frame: :_top,
+                            controller: "tooltip",
+                            bs_placement: "left",
+                          },
+                          aria: {
+                            label: t("action.edit"),
+                          } do %>
+                <span class="bi bi-pencil" aria-hidden="true"></span>
                 <span class="visually-hidden"><%= t("action.edit") %></span>
               <% end %>
-              <%= link_to duplicate_power_distribution_unit_path(power_distribution_unit),
+              <%= link_to duplicate_power_distribution_unit_path(pdu),
                           class: "btn btn-success",
-                          data: { turbo_frame: :_top } do %>
-                <span class="bi bi-copy"
-                      title="<%= t("action.duplicate") %>"
-                      aria-hidden="true"
-                      data-controller="tooltip"
-                      data-bs-placement="left"></span>
+                          title: t("action.duplicate"),
+                          data: {
+                            turbo_frame: :_top,
+                            controller: "tooltip",
+                            bs_placement: "left",
+                          },
+                          aria: {
+                            label: t("action.duplicate"),
+                          } do %>
+                <span class="bi bi-copy" aria-hidden="true"></span>
                 <span class="visually-hidden"><%= t("action.duplicate") %></span>
               <% end %>
-              <%= link_to power_distribution_unit_path(power_distribution_unit),
+              <%= link_to power_distribution_unit_path(pdu),
                           method: :delete,
                           class: "btn btn-danger",
-                          data: { turbo_frame: :_top } do %>
-                <span class="bi bi-trash"
-                      title="<%= t("action.delete") %>"
-                      data-controller="tooltip"
-                      data-bs-placement="left"
-                      aria-hidden="true"></span>
+                          title: t("action.delete"),
+                          data: {
+                            turbo_frame: :_top,
+                            controller: "tooltip",
+                            bs_placement: "left",
+                          },
+                          aria: {
+                            label: t("action.delete"),
+                          } do %>
+                <span class="bi bi-trash" aria-hidden="true"></span>
                 <span class="visually-hidden"><%= t("action.delete") %></span>
               <% end %>
             </div>
