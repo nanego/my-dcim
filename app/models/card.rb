@@ -9,6 +9,7 @@ class Card < ApplicationRecord
   delegate :port_quantity, to: :card_type, allow_nil: true
   delegate :is_power_input?, to: :card_type, allow_nil: true
 
+  belongs_to :twin_card, class_name: "Card", optional: true
   belongs_to :server
   belongs_to :composant
   delegate :frame, to: :server # TODO: replace by has_one?
