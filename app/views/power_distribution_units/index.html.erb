@@ -4,7 +4,7 @@
 
 <%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
-    <% render ButtonComponent.new(t(".new_power_distribution_unit"),
+    <%= render ButtonComponent.new(t(".new_power_distribution_unit"),
                                   url: new_power_distribution_unit_path,
                                   variant: :success,
                                   icon: "plus-lg",
@@ -112,9 +112,11 @@
             <% end %>
           <% end %>
 
-          <% table.with_column(PowerDistributionUnit.human_attribute_name(:type_id), sort_by: :"power_distribution_unit_types.name") do |power_distribution_unit| %>
-            <%= link_to power_distribution_unit_type_path(power_distribution_unit.type), data: { turbo_frame: :_top } do %>
-              <%= power_distribution_unit.type %>
+          <% unless (turbo_frame_request? && @filter.filled?(:type_ids)) %>
+            <% table.with_column(PowerDistributionUnit.human_attribute_name(:type_id), sort_by: :"power_distribution_unit_types.name") do |power_distribution_unit| %>
+              <%= link_to power_distribution_unit_type_path(power_distribution_unit.type), data: { turbo_frame: :_top } do %>
+                <%= power_distribution_unit.type %>
+              <% end %>
             <% end %>
           <% end %>
 

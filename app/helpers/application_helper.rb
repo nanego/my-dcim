@@ -28,4 +28,23 @@ module ApplicationHelper
   def display_create_another_one # rubocop:disable Naming/PredicateMethod
     action_name.in?(CREATE_ANOTHER_ONE_ACTIONS)
   end
+
+  def boolean_to_badge_component(boolean)
+    color = boolean ? :success : :danger
+    icon = "bi-#{boolean ? "check" : "x"}"
+    text = I18n.t("boolean.#{boolean}")
+
+    BadgeComponent.new(color:, variant: :pill).with_content(
+      tag.span(class: "d-inline-flex align-items-center") do
+        concat(tag.span(class: "bi #{icon}-circle-fill text-#{color} me-2"))
+        concat(tag.span(text))
+      end,
+    )
+  end
+
+  def value_or_nc(value)
+    return tag.span(I18n.t("n_a"), class: "fst-italic fw-light text-body-secondary") if value.blank?
+
+    value
+  end
 end
