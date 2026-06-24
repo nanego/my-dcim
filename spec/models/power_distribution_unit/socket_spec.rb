@@ -9,6 +9,8 @@ RSpec.describe PowerDistributionUnit::Socket do
                         port_type: port_types(:one))
   end
 
+  it_behaves_like "changelogable", object: -> { socket }, new_attributes: { name: "New name" }
+
   describe "associations" do
     it { is_expected.to belong_to(:port_type) }
     it { is_expected.to belong_to(:circuit) }
