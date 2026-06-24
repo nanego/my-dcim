@@ -10,12 +10,17 @@ class PowerDistributionUnit < ApplicationRecord
   belongs_to :type, class_name: "PowerDistributionUnitType"
   belongs_to :bay
 
+  has_many :circuits, as: :record, class_name: "PowerDistributionUnit::Circuit", dependent: :destroy
+
   has_one :manufacturer, through: :type
   has_one :islet, through: :bay
   has_one :room, through: :bay
 
   enum :orientation, { asc: 0, desc: 1 }, validate: true
   enum :side, { left: 0, right: 1 }, validate: true
+
+  accepts_nested_attributes_for :circuits,
+                                allow_destroy: true
 
   validates :name, presence: true
   validates :serial_number, presence: true, uniqueness: true, format: { without: /\s/ }

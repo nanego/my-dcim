@@ -439,6 +439,8 @@ en:
       new_power_distribution_unit: New PDU
     new:
       title: New PDU
+    form:
+      add_circuit: Add a circuit
     create:
       flashes:
         created: PDU have been created.
@@ -648,6 +650,8 @@ en:
       new_power_distribution_unit_type: New PDU type
     new:
       title: New PDU type
+    form:
+      add_circuit: Add a circuit
     create:
       flashes:
         created: PDU type have been created.

@@ -41,6 +41,7 @@ en:
       power_distribution_unit:
         one: PDU
         other: PDU
+      power_distribution_unit/circuit: Circuit
       room: Room
       server: I.T. equipment
       stack: Stack

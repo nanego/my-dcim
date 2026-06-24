@@ -22,6 +22,8 @@ RSpec.describe PowerDistributionUnit do
     it { is_expected.to belong_to(:type) }
     it { is_expected.to belong_to(:bay) }
 
+    it { is_expected.to have_many(:circuits).dependent(:destroy) }
+
     it { is_expected.to have_one(:manufacturer).through(:type) }
     it { is_expected.to have_one(:islet).through(:bay) }
     it { is_expected.to have_one(:room).through(:bay) }
@@ -41,6 +43,10 @@ RSpec.describe PowerDistributionUnit do
     it { is_expected.to allow_value("").for(:ipmi_url) }
     it { is_expected.to allow_value("http://exemple.com/doc/1").for(:ipmi_url) }
     it { is_expected.not_to allow_value("some invalid url").for(:ipmi_url) }
+  end
+
+  describe "nested attributes" do
+    it { is_expected.to accept_nested_attributes_for(:circuits) }
   end
 
   describe "#to_s" do

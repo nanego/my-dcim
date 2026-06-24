@@ -63,6 +63,7 @@ fr:
       power_distribution_unit:
         one: PDU
         other: PDU
+      power_distribution_unit/circuit: Circuit
 
     attributes:
       room:
