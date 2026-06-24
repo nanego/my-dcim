@@ -455,6 +455,8 @@ en:
         updated: PDU have been updated.
     duplicate:
       title: Duplicate PDU %{power_distribution_unit_name}
+    circuit_fields:
+      add_socket: New Socket
 
   permission_scopes:
     index:
