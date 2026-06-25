@@ -1,6 +1,4 @@
-<%
-  breadcrumb.add_step(title = PowerDistributionUnitType.model_name.human(count: 2))
-%>
+<% breadcrumb.add_step(title = PowerDistributionUnitType.model_name.human(count: 2)) %>
 
 <%= render Page::HeadingComponent.new(title:, breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
@@ -13,7 +11,7 @@
 <% end %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
-  <div class="alert alert-warning">
+  <div class="alert alert-warning mb-0">
     Cette section est actuellement en cours de développement. Les données peuvent être amenées à être supprimées ou altérées par des changements le temps du développement.
   </div>
 
@@ -47,46 +45,74 @@
       <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
     <% end %>
 
-    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:name), sort_by: :name) do |power_distribution_unit_type| %>
-      <%= link_to power_distribution_unit_type_path(power_distribution_unit_type), class: "fw-bold" do %>
-        <%= power_distribution_unit_type.name %>
+    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:name), sort_by: :name) do |pdu_type| %>
+      <%= link_to power_distribution_unit_type_path(pdu_type), class: "fw-bold" do %>
+        <%= pdu_type.name %>
       <% end %>
     <% end %>
 
-    <% table.with_column(PowerDistributionUnitType.human_attribute_name(:manufacturer_id), sort_by: :"manufacturers.name") do |power_distribution_unit_type| %>
-      <%= link_to manufacturer_path(power_distribution_unit_type.manufacturer) do %>
-        <%= power_distribution_unit_type.manufacturer %>
+    <% table.with_column(
+         PowerDistributionUnitType.human_attribute_name(:manufacturer_id),
+         sort_by: :"manufacturers.name",
+       ) do |pdu_type| %>
+      <%= link_to manufacturer_path(pdu_type.manufacturer) do %>
+        <%= pdu_type.manufacturer %>
       <% end %>
     <% end %>
 
-    <% table.with_column(style: "min-width: 70px; width: 70px") do |power_distribution_unit_type| %>
+    <% table.with_column(PowerDistributionUnit.model_name.human) do |pdu_type| %>
+      <%= link_to power_distribution_units_path(type_ids: pdu_type.id), data: { turbo_frame: :_top } do %>
+        <%= pluralize(
+              pdu_type.power_distribution_units.count,
+              PowerDistributionUnit.model_name.human,
+              PowerDistributionUnit.model_name.human(count: 2),
+            ) %>
+      <% end %>
+    <% end %>
+
+    <% table.with_column(style: "min-width: 70px; width: 70px") do |pdu_type| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
-        <%= link_to edit_power_distribution_unit_type_path(power_distribution_unit_type), class: "btn btn-info" do %>
-          <span class="bi bi-pencil"
-                title="<%= t("action.edit") %>"
-                data-controller="tooltip"
-                data-bs-placement="left"
-                aria-hidden="true"></span>
+        <%= link_to edit_power_distribution_unit_type_path(pdu_type),
+                    class: "btn btn-info",
+                    title: t("action.edit"),
+                    data: {
+                      controller: "tooltip",
+                      bs_placement: "left",
+                      turbo_frame: :_top,
+                    },
+                    aria: {
+                      label: t("action.edit"),
+                    } do %>
+          <span class="bi bi-pencil" aria-hidden="true"></span>
           <span class="visually-hidden"><%= t("action.edit") %></span>
         <% end %>
-        <%= link_to duplicate_power_distribution_unit_type_path(power_distribution_unit_type),
+        <%= link_to duplicate_power_distribution_unit_type_path(pdu_type),
                     class: "btn btn-success",
-                    data: { turbo_frame: :_top } do %>
-          <span class="bi bi-copy"
-                title="<%= t("action.duplicate") %>"
-                aria-hidden="true"
-                data-controller="tooltip"
-                data-bs-placement="left"></span>
+                    title: t("action.duplicate"),
+                    data: {
+                      controller: "tooltip",
+                      bs_placement: "left",
+                      turbo_frame: :_top,
+                    },
+                    aria: {
+                      label: t("action.duplicate"),
+                    } do %>
+          <span class="bi bi-copy" aria-hidden="true"></span>
           <span class="visually-hidden"><%= t("action.duplicate") %></span>
         <% end %>
-        <%= link_to power_distribution_unit_type_path(power_distribution_unit_type),
+        <%= link_to power_distribution_unit_type_path(pdu_type),
                     method: :delete,
-                    class: "btn btn-danger" do %>
-          <span class="bi bi-trash"
-                title="<%= t("action.delete") %>"
-                data-controller="tooltip"
-                data-bs-placement="left"
-                aria-hidden="true"></span>
+                    class: "btn btn-danger",
+                    title: t("action.delete"),
+                    data: {
+                      controller: "tooltip",
+                      bs_placement: "left",
+                      turbo_frame: :_top,
+                    },
+                    aria: {
+                      label: t("action.delete"),
+                    } do %>
+          <span class="bi bi-trash" aria-hidden="true"></span>
           <span class="visually-hidden"><%= t("action.delete") %></span>
         <% end %>
       </div>
