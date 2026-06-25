@@ -19,4 +19,12 @@ class PowerDistributionUnitType < ApplicationRecord
   accepts_nested_attributes_for :circuits, allow_destroy: true
 
   delegate :to_s, to: :name
+
+  def deep_dup
+    copy = dup
+
+    copy.tap do |pdu|
+      pdu.circuits = circuits.map(&:deep_dup)
+    end
+  end
 end

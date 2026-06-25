@@ -29,8 +29,18 @@ class PowerDistributionUnit < ApplicationRecord
 
   delegate :to_s, to: :name
 
+  before_create :build_circuits_and_sockets_from_type
+
   def should_generate_new_friendly_id?
     slug.blank? || name_changed?
+  end
+
+  def deep_dup
+    copy = dup
+
+    copy.tap do |pdu|
+      pdu.circuits = circuits.map(&:deep_dup)
+    end
   end
 
   private
@@ -40,5 +50,9 @@ class PowerDistributionUnit < ApplicationRecord
       :name,
       %i[name id],
     ]
+  end
+
+  def build_circuits_and_sockets_from_type
+    self.circuits = type.circuits.map(&:deep_dup)
   end
 end
