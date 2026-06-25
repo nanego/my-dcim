@@ -8,14 +8,15 @@ class PowerDistributionUnit < ApplicationRecord
   has_changelog associations: { circuits: "*", sockets: "*" }
 
   belongs_to :type, class_name: "PowerDistributionUnitType"
-  belongs_to :bay
+  belongs_to :frame
 
   has_many :circuits, as: :record, class_name: "PowerDistributionUnit::Circuit", dependent: :destroy
   has_many :sockets, class_name: "PowerDistributionUnit::Socket", through: :circuits
 
   has_one :manufacturer, through: :type
-  has_one :islet, through: :bay
-  has_one :room, through: :bay
+  has_one :bay, through: :frame
+  has_one :islet, through: :frame
+  has_one :room, through: :frame
 
   enum :orientation, { asc: 0, desc: 1 }, validate: true
   enum :side, { left: 0, right: 1 }, validate: true

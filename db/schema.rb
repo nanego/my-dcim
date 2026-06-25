@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_23_120018) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_25_093301) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -505,9 +505,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_23_120018) do
   end
 
   create_table "power_distribution_units", force: :cascade do |t|
-    t.bigint "bay_id", null: false
     t.text "comment"
     t.datetime "created_at", null: false
+    t.bigint "frame_id", null: false
     t.string "ipmi_url"
     t.string "name", null: false
     t.integer "orientation", null: false
@@ -516,7 +516,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_23_120018) do
     t.string "slug", null: false
     t.bigint "type_id", null: false
     t.datetime "updated_at", null: false
-    t.index ["bay_id"], name: "index_power_distribution_units_on_bay_id"
+    t.index ["frame_id"], name: "index_power_distribution_units_on_frame_id"
     t.index ["serial_number"], name: "index_power_distribution_units_on_serial_number", unique: true
     t.index ["type_id"], name: "index_power_distribution_units_on_type_id"
   end
@@ -677,7 +677,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_23_120018) do
   add_foreign_key "power_distribution_unit_sockets", "port_types"
   add_foreign_key "power_distribution_unit_sockets", "power_distribution_unit_circuits", column: "circuit_id"
   add_foreign_key "power_distribution_unit_types", "manufacturers"
-  add_foreign_key "power_distribution_units", "bays"
+  add_foreign_key "power_distribution_units", "frames"
   add_foreign_key "power_distribution_units", "power_distribution_unit_types", column: "type_id"
   add_foreign_key "rooms", "sites"
   add_foreign_key "servers", "clusters"

@@ -14,6 +14,10 @@ class PowerDistributionUnitDecorator < ApplicationDecorator
       BayDecorator.options_for_select(user)
     end
 
+    def frames_options_for_select(user)
+      FrameDecorator.options_for_select(user)
+    end
+
     def power_distribution_unit_types_options_for_select
       PowerDistributionUnitTypeDecorator.options_for_select
     end

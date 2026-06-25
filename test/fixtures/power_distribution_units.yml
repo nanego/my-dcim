@@ -6,7 +6,7 @@ one:
   slug: pdu1
   serial_number: pdu1
   type_id: 1
-  bay_id: 1
+  frame_id: 1
   orientation: asc
   side: left
   comment: ""
@@ -18,7 +18,7 @@ two:
   slug: pdu2
   serial_number: pdu2
   type_id: 1
-  bay_id: 1
+  frame_id: 1
   orientation: asc
   side: left
   comment: ""

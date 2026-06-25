@@ -132,7 +132,7 @@ RSpec.describe PowerDistributionUnitsController do
 
     let(:attributes) do
       {
-        bay_id: "2",
+        frame_id: "2",
         circuits_attributes: [
           { name: "c1" },
           { name: "c2", sockets_attributes: [{ name: "s1", port_type_id: 1 }] },
@@ -148,7 +148,7 @@ RSpec.describe PowerDistributionUnitsController do
         expect do
           response
           power_distribution_unit.reload
-        end.to change(power_distribution_unit, :bay_id).to(2)
+        end.to change(power_distribution_unit, :frame_id).to(2)
       end
 
       it { expect(response).to redirect_to(power_distribution_unit_path(assigns(:power_distribution_unit))) }
@@ -168,7 +168,7 @@ RSpec.describe PowerDistributionUnitsController do
     end
 
     context "with invalid attributes" do
-      let(:attributes) { { bay_id: "" } }
+      let(:attributes) { { frame_id: "" } }
 
       it { expect(response).to render_template(:edit) }
     end

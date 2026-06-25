@@ -35,6 +35,15 @@ RSpec.describe PowerDistributionUnitDecorator, type: :decorator do
     end
   end
 
+  describe ".frames_options_for_select" do
+    it do
+      expect(described_class.frames_options_for_select(user))
+        .to contain_exactly(
+          ["MyFrame1", 1], ["MyFrame2", 2], ["MyFrame3", 3], ["MyFrame4", 4], ["MyFrame5", 5],
+        )
+    end
+  end
+
   describe ".power_distribution_unit_types_options_for_select" do
     it do
       expect(described_class.power_distribution_unit_types_options_for_select)

@@ -8,7 +8,7 @@ class PowerDistributionUnitsController < ApplicationController
 
   # GET /power_distribution_units or /power_distribution_units.json
   def index
-    authorize! @power_distribution_units = PowerDistributionUnit.includes(:type, :manufacturer, :bay, :islet, :room)
+    authorize! @power_distribution_units = PowerDistributionUnit.includes(:type, :manufacturer, :bay, :frame, :islet, :room)
     @filter = ProcessorFilter.new(@power_distribution_units, params)
     @power_distribution_units = @filter.results
 
@@ -85,7 +85,7 @@ class PowerDistributionUnitsController < ApplicationController
   def power_distribution_unit_params
     params.expect(
       power_distribution_unit: [
-        :type_id, :bay_id, :side, :orientation, :name, :ipmi_url, :serial_number, :comment,
+        :type_id, :frame_id, :side, :orientation, :name, :ipmi_url, :serial_number, :comment,
         {
           circuits_attributes: [[
             :id, :_destroy, :name,

@@ -98,11 +98,11 @@
 
         <div class="row row-gap-3">
           <fieldset class="col-12">
-            <%= f.label :bay_id, class: "form-label" %>
-            <%= f.select :bay_id,
-                         PowerDistributionUnitDecorator.bays_options_for_select(current_user),
-                         { prompt: true },
-                         class: "form-select" %>
+            <%= f.label :frame_id, class: "form-label" %>
+            <%= f.select :frame_id,
+                        PowerDistributionUnitDecorator.frames_options_for_select(current_user),
+                        { prompt: true },
+                        class: "form-select" %>
           </fieldset>
 
           <fieldset class="col-12">

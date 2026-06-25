@@ -3,7 +3,7 @@
 class PowerDistributionUnitsProcessor < ApplicationProcessor
   include Sortable
 
-  SORTABLE_FIELDS = %w[name rooms.name islets.name bays.id power_distribution_unit_types.name manufacturers.name].freeze
+  SORTABLE_FIELDS = %w[name rooms.name islets.name bays.id frames.id power_distribution_unit_types.name manufacturers.name].freeze
 
   map :q do |q:|
     raw.where(PowerDistributionUnit.arel_table[:name].matches("%#{q}%"))
@@ -18,7 +18,11 @@ class PowerDistributionUnitsProcessor < ApplicationProcessor
   end
 
   map :bay_ids, filter_with: :non_empty_array do |bay_ids:|
-    raw.where(bay_id: bay_ids)
+    raw.joins(:bay).where(bays: { id: bay_ids })
+  end
+
+  map :frame_ids, filter_with: :non_empty_array do |frame_ids:|
+    raw.where(frame_id: frame_ids)
   end
 
   map :type_ids, filter_with: :non_empty_array do |type_ids:|
