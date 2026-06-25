@@ -12,7 +12,7 @@ end
 class BayMigration < ActiveRecord::Base
   self.table_name = "bays"
 
-  has_many :frames, class_name: "FrameMigration"
+  has_many :frames, class_name: "FrameMigration", foreign_key: :bay_id
 end
 
 class FrameMigration < ActiveRecord::Base
