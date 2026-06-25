@@ -2,13 +2,15 @@
 
 class MigrationPort < ActiveRecord::Base
   self.table_name = :ports
+
+  delegated_type :attachable, types: %w[Card], touch: true
 end
 
 class MakeCardReferenceAsPolymorphicToPorts < ActiveRecord::Migration[8.1]
   def change
     remove_foreign_key :ports, :cards
 
-    change_table :ports, bluk: true do |t|
+    change_table :ports, bulk: false do |t|
       t.rename :card_id, :attachable_id
       t.string :attachable_type
 

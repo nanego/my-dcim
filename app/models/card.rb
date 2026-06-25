@@ -10,7 +10,7 @@ class Card < ApplicationRecord
   delegate :is_power_input?, to: :card_type, allow_nil: true
 
   belongs_to :twin_card, class_name: "Card", optional: true
-  belongs_to :server
+  belongs_to :server, touch: true
   belongs_to :composant
   delegate :frame, to: :server # TODO: replace by has_one?
 

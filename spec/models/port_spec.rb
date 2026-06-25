@@ -8,7 +8,6 @@ RSpec.describe Port do
   describe "associations" do
     it { is_expected.to belong_to(:attachable) }
 
-    # it { is_expected.to have_one(:server).through(:card) }
     it { is_expected.to have_one(:connection) }
     it { is_expected.to have_one(:cable).through(:connection) }
 
