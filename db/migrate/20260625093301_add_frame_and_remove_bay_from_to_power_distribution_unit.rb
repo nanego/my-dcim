@@ -36,7 +36,7 @@ class AddFrameAndRemoveBayFromToPowerDistributionUnit < ActiveRecord::Migration[
   end
 
   def down
-    add_reference :power_distribution_units, :bay_id, foreign_key: true, null: true
+    add_reference :power_distribution_units, :bay, foreign_key: true, null: true
     PowerDistributionUnitMigration.reset_column_information
 
     PowerDistributionUnitMigration.includes(:frame).find_each do |record|
