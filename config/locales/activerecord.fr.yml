@@ -491,6 +491,8 @@ fr:
       power_distribution_unit:
         type_id: Modèle
         type: Modèle
+        frame: Châssis
+        frame_id: Châssis
         serial_number: Numéro de série
         side: Côté
         orientation: Orientation
