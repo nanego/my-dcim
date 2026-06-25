@@ -89,7 +89,7 @@ RSpec.describe PowerDistributionUnitsController do
                  serial_number: "321",
                  circuits_attributes: [
                    { name: "c1" },
-                   { name: "c2", sockets_attributes: [{ name: "s1", port_type_id: 1 }] },
+                   { name: "c2", sockets_attributes: [{ number: 1, port_type_id: 1 }] },
                  ]),
       }
     end
@@ -135,7 +135,7 @@ RSpec.describe PowerDistributionUnitsController do
         frame_id: "2",
         circuits_attributes: [
           { name: "c1" },
-          { name: "c2", sockets_attributes: [{ name: "s1", port_type_id: 1 }] },
+          { name: "c2", sockets_attributes: [{ number: 1, port_type_id: 1 }] },
         ],
       }
     end

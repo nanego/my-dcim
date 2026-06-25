@@ -2,24 +2,24 @@
 
 one:
   id: 1
-  name: C1
+  number: 1
   circuit_id: 1
   port_type_id: 1
 
 two:
   id: 2
-  name: C2
+  number: 2
   circuit_id: 1
   port_type_id: 1
 
 three:
   id: 3
-  name: C1
+  number: 3
   circuit_id: 2
   port_type_id: 1
 
 four:
   id: 4
-  name: C2
+  number: 4
   circuit_id: 2
   port_type_id: 1

@@ -7,6 +7,6 @@ class PowerDistributionUnit
     belongs_to :circuit
     belongs_to :port_type
 
-    validates :name, presence: true
+    validates :number, presence: true
   end
 end
