@@ -26,7 +26,8 @@
           <%= f.select :type_id,
                        PowerDistributionUnitDecorator.power_distribution_unit_types_options_for_select,
                        { prompt: true },
-                       class: "form-select" %>
+                       class: "form-select",
+                       data: { controller: "select" } %>
         </fieldset>
       <% end %>
 
@@ -64,20 +65,20 @@
             </div>
           <% end %>
 
-          <ul class="list-group bg-body-tertiary">
+          <div class="row g-3">
             <template data-nested-form-target="template">
               <%= f.fields_for :circuits, f.object.circuits.klass.new,
                                child_index: "__NEW_RECORD__" do |circuit_fields| %>
-                <%= render partial: "circuit_fields", locals: { f: circuit_fields } %>
+                <%= render partial: "power_distribution_units/circuit_fields", locals: { f: circuit_fields } %>
               <% end %>
             </template>
 
             <%= f.fields_for :circuits do |circuit_fields| %>
-              <%= render partial: "circuit_fields", locals: { f: circuit_fields } %>
+              <%= render partial: "power_distribution_units/circuit_fields", locals: { f: circuit_fields } %>
             <% end %>
 
             <div data-nested-form-target="target"></div>
-          </ul>
+          </div>
 
           <% card.with_footer do %>
             <span class="mx-auto">
@@ -102,7 +103,8 @@
             <%= f.select :frame_id,
                          PowerDistributionUnitDecorator.frames_options_for_select(current_user),
                          { prompt: true },
-                         class: "form-select" %>
+                         class: "form-select",
+                         data: { controller: "select" } %>
           </fieldset>
 
           <fieldset class="col-12">

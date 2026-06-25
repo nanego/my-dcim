@@ -456,6 +456,7 @@ en:
     duplicate:
       title: Duplicate PDU %{power_distribution_unit_name}
     circuit_fields:
+      new_circuit: New circuit
       add_socket: New Socket
 
   permission_scopes:

@@ -25,12 +25,31 @@
     Cette section est actuellement en cours de développement. Les données peuvent être amenées à être supprimées ou altérées par des changements le temps du développement.
   </div>
 
-  <div>
-    <div class="rounded bg-body border border-secondary-subtle p-2">
-      <span class="bi bi-cone-striped text-warning"></span>
-      <span>Prévisualisation à venir ...</span>
+  <%= render CardComponent.new do |card| %>
+    <% card.with_header do %>
+      <%= t("show.cards.preview") %>
+    <% end %>
+
+    <div class="d-flex">
+      <span class="d-inline-flex mx-auto">
+        <ul class="list-group">
+
+          <% @power_distribution_unit.sockets.order(number: @power_distribution_unit.orientation).each do |socket| %>
+            <li class="list-group-item bg-body-tertiary">
+              <span title="<%= PowerDistributionUnit::Circuit.model_name.human %> <%= socket.circuit.name %>"
+                    data-controller="tooltip"
+                    aria-label="<%= PowerDistributionUnit::Circuit.model_name.human %> <%= socket.circuit.name %>">
+                <%= render BadgeComponent.new(color: :light) do %>
+                  <span><%= socket.port_type %></span>
+                  <span>#<%= socket.number %></span>
+                <% end %>
+              </span>
+            </li>
+          <% end %>
+        </ul>
+      </span>
     </div>
-  </div>
+  <% end %>
 
   <% if @power_distribution_unit.comment.present? %>
     <div class="alert alert-warning mb-0 simple-format">
@@ -71,6 +90,12 @@
                   "current_type.#{@power_distribution_unit.type.current_type}",
                 ) %>
           </dd>
+
+          <dt class="pb-2"><%= PowerDistributionUnit::Circuit.model_name.human.pluralize %> :</dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @power_distribution_unit.type.circuits.count %></dd>
+
+          <dt class="pb-2"><%= PowerDistributionUnit::Socket.model_name.human.pluralize %> :</dt>
+          <dd class="mb-0 pb-2 ps-3"><%= @power_distribution_unit.type.sockets.count %></dd>
 
           <dt><%= PowerDistributionUnitType.human_attribute_name(:documentation_url) %> :</dt>
           <dd class="mb-0 ps-3">

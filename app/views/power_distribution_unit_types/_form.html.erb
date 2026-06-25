@@ -26,7 +26,10 @@
           <%= f.select :manufacturer_id,
                        PowerDistributionUnitTypeDecorator.manufacturers_options_for_select,
                        { prompt: true },
-                       class: "form-select" %>
+                       class: "form-select",
+                       data: {
+                         controller: "select",
+                       } %>
         </fieldset>
 
         <fieldset class="col-12 mt-4">
@@ -113,7 +116,7 @@
             </div>
           <% end %>
 
-          <ul class="list-group bg-body-tertiary">
+          <div class="row g-3">
             <template data-nested-form-target="template">
               <%= f.fields_for :circuits, f.object.circuits.klass.new,
                                child_index: "__NEW_RECORD__" do |circuit_fields| %>
@@ -126,7 +129,7 @@
             <% end %>
 
             <div data-nested-form-target="target"></div>
-          </ul>
+          </div>
 
           <% card.with_footer do %>
             <span class="mx-auto">

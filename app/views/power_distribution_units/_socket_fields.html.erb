@@ -1,29 +1,32 @@
 <li class="nested-form-wrapper list-group-item bg-transparent"
     data-new-record="<%= f.object.new_record? %>">
 
-  <div class="d-flex align-items-center">
-    <span class="input-group input-group-sm">
-      <%= f.text_field :name, { class: "form-control", placeholder: true } %>
+  <div class="d-flex flex-column">
+    <fieldset class="d-flex">
+      <%= f.select :port_type_id,
+                   PowerDistributionUnitSocketDecorator.alim_port_type_options_for_select,
+                   { prompt: true },
+                   {
+                     class: "form-select form-select-sm",
+                     data: {
+                       controller: :select,
+                       select_clear_button_title_value: t("action.clear_all"),
+                     },
+                     placeholder: PowerDistributionUnit::Socket.human_attribute_name(:port_type_id),
+                   } %>
+    </fieldset>
 
-      <%= f.hidden_field :_destroy %>
-      <button type="button" data-action="nested-form#remove" class="btn btn-danger" id="input-group-delete-btn">
-        <span class="bi bi-trash" title="<%= t("action.delete") %>"></span>
-      </button>
+    <span class="d-inline-flex align-items-center justify-content-between mt-2">
+      <fieldset>
+        <%= f.number_field :number, { class: "form-control form-control-sm", placeholder: true } %>
+      </fieldset>
+
+      <fieldset class="text-end">
+        <%= f.hidden_field :_destroy %>
+        <button type="button" data-action="nested-form#remove" class="btn text-danger btn-sm" id="input-group-delete-btn">
+          <span class="bi bi-trash" title="<%= t("action.delete") %>"></span>
+        </button>
+      </fieldset>
     </span>
   </div>
-
-  <div>
-    <%= f.label :port_type_id, class: "form-label" %>
-    <%= f.select :port_type_id,
-                 PowerDistributionUnitSocketDecorator.alim_port_type_options_for_select,
-                 { prompt: true },
-                 {
-                   class: "form-select",
-                   data: {
-                     controller: :select,
-                     select_clear_button_title_value: t("action.clear_all"),
-                   },
-                   placeholder: t("select.placeholder"),
-                 } %>
-  <div>
 </li>
