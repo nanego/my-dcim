@@ -9,6 +9,7 @@ RSpec.describe PortType do
 
   describe "associations" do
     it { is_expected.to have_many(:card_types).dependent(:restrict_with_error) }
+    it { is_expected.to have_many(:sockets).dependent(:restrict_with_error) }
   end
 
   describe "#is_power_input?" do

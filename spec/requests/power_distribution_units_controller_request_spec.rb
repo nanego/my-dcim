@@ -85,7 +85,12 @@ RSpec.describe PowerDistributionUnitsController do
     let(:params) do
       {
         power_distribution_unit: power_distribution_unit.attributes.except(%w[id name serial_number])
-          .merge(name: "New PDU  Name", serial_number: "321"),
+          .merge(name: "PDU Name",
+                 serial_number: "321",
+                 circuits_attributes: [
+                   { name: "c1" },
+                   { name: "c2", sockets_attributes: [{ name: "s1", port_type_id: 1 }] },
+                 ]),
       }
     end
 
@@ -125,7 +130,15 @@ RSpec.describe PowerDistributionUnitsController do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    let(:attributes) { { bay_id: "2" } }
+    let(:attributes) do
+      {
+        bay_id: "2",
+        circuits_attributes: [
+          { name: "c1" },
+          { name: "c2", sockets_attributes: [{ name: "s1", port_type_id: 1 }] },
+        ],
+      }
+    end
     let(:params) { { power_distribution_unit: attributes } }
 
     include_context "with authenticated admin"

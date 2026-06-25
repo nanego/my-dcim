@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  name: "pdu circuit"
+  record_id: 1
+  record_type: "PowerDistributionUnit"
+
+two:
+  id: 2
+  name: "pdu type circuit"
+  record_id: 1
+  record_type: "PowerDistributionUnitType"

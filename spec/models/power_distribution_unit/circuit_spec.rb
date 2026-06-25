@@ -9,11 +9,16 @@ RSpec.describe PowerDistributionUnit::Circuit do
 
   describe "associations" do
     it { is_expected.to belong_to(:record) }
+    it { is_expected.to have_many(:sockets).dependent(:destroy) }
   end
 
   describe "validations" do
     it { is_expected.to be_valid }
 
     it { is_expected.to validate_presence_of(:name) }
+  end
+
+  describe "nested attributes" do
+    it { is_expected.to accept_nested_attributes_for(:sockets) }
   end
 end
