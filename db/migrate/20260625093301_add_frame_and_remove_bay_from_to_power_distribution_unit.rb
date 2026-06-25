@@ -3,8 +3,8 @@
 class PowerDistributionUnitMigration < ActiveRecord::Base
   self.table_name = "power_distribution_units"
 
-  belongs_to :bay, optional: true
-  belongs_to :frame, optional: true
+  belongs_to :bay, optional: true, class_name: "BayMigration"
+  belongs_to :frame, optional: true, class_name: "FrameMigration"
 
   enum :side, { left: 0, right: 1 }
 end
@@ -12,7 +12,7 @@ end
 class BayMigration < ActiveRecord::Base
   self.table_name = "bays"
 
-  has_many :frames
+  has_many :frames, class_name: "FrameMigration"
 end
 
 class FrameMigration < ActiveRecord::Base
@@ -27,7 +27,7 @@ class AddFrameAndRemoveBayFromToPowerDistributionUnit < ActiveRecord::Migration[
     PowerDistributionUnitMigration.includes(:bay).find_each do |record|
       record.update_column(
         :frame_id,
-        record.left? ? record.bay.frames.first.id : record.bay.frames.last.id,
+        record.side == "left" ? record.bay.frames.first.id : record.bay.frames.last.id,
       )
     end
 
