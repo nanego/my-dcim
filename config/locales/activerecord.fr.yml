@@ -490,6 +490,7 @@ fr:
         three_phase: Triphasé
       power_distribution_unit:
         type_id: Modèle
+        type: Modèle
         serial_number: Numéro de série
         side: Côté
         orientation: Orientation
