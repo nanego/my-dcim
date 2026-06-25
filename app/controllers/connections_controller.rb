@@ -22,8 +22,8 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
     @possible_destination_servers = []
     @all_servers_per_frame = []
     if @from_port.is_power_input? && @from_server.is_not_a_pdu?
-      @coupled_frames.each { |frame| @possible_destination_servers << [frame.name, frame.pdus.collect { |v| [v.name, v.id] }] }
-      Frame.order(:name).each { |frame| @all_servers_per_frame << [frame.name, frame.pdus.collect { |v| [v.name, v.id] }] }
+      # @coupled_frames.each { |frame| @possible_destination_servers << [frame.name, frame.pdus.collect { |v| [v.name, v.id] }] }
+      # Frame.order(:name).each { |frame| @all_servers_per_frame << [frame.name, frame.pdus.collect { |v| [v.name, v.id] }] }
     else
       @coupled_frames.each { |frame| @possible_destination_servers << [frame.name, frame.servers.collect { |v| [v.name, v.id] }] }
       Frame.order(:name).each { |frame| @all_servers_per_frame << [frame.name, frame.servers.collect { |v| [v.name, v.id] }] }
@@ -40,7 +40,7 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
     @to_server = if @to_port.present?
                    @to_port.server
                  elsif @from_port.is_power_input?
-                   @frame.pdus.first
+                   nil # @frame.pdus.first
                  else
                    @frame.servers.where("position IS NOT NULL AND modele_id IS NOT NULL").order(:position).first
                  end
