@@ -192,6 +192,28 @@
             <% end %>
           </dd>
 
+          <dt class="pb-2"><%= Frame.model_name.human %></dt>
+          <dd class="mb-0 ps-3 pb-2 d-flex justify-content-between">
+            <%= link_to @power_distribution_unit.frame, frame_path(@power_distribution_unit.frame) %>
+
+            <% if allowed_to?(:show?, @power_distribution_unit.frame, with: Visualization::FramePolicy) %>
+              <%= link_to visualization_frame_path(@power_distribution_unit.frame),
+                          class: "btn btn-primary btn-sm",
+                          title: t("visualization.title"),
+                          data: {
+                            turbo_frame: :_top,
+                            controller: "tooltip",
+                            bs_placement: "left",
+                          },
+                          aria: {
+                            label: t("visualization.title"),
+                          } do %>
+                <span class="bi bi-diagram-3-fill" aria-hidden="true"></span>
+                <span class="visually-hidden"><%= t("visualization.title") %></span>
+              <% end %>
+            <% end %>
+          </dd>
+
           <dt><%= PowerDistributionUnit.human_attribute_name(:side) %> :</dt>
           <dd class="mb-0 ps-3">
             <%= PowerDistributionUnit.human_attribute_name("side.#{@power_distribution_unit.side}") %>

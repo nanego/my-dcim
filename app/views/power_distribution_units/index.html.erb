@@ -56,6 +56,15 @@
 
         <div>
           <fieldset class="form-floating">
+            <%= f.select :frame_ids, PowerDistributionUnitDecorator.frames_options_for_select(current_user),
+                         { prompt: true, multiple: true },
+                         { class: "form-select", data: { controller: :select } } %>
+            <%= f.label :frame_ids %>
+          </fieldset>
+        </div>
+
+        <div>
+          <fieldset class="form-floating">
             <%= f.select :type_ids, PowerDistributionUnitDecorator.power_distribution_unit_types_options_for_select,
                          { prompt: true, multiple: true },
                          { class: "form-select", data: { controller: :select } } %>
@@ -111,9 +120,9 @@
             <% end %>
           <% end %>
 
-          <% table.with_column(PowerDistributionUnit.human_attribute_name(:bay_id), sort_by: :"bays.id") do |pdu| %>
-            <%= link_to bay_path(pdu.bay), data: { turbo_frame: :_top } do %>
-              <%= pdu.bay %>
+          <% table.with_column(PowerDistributionUnit.human_attribute_name(:frame_id), sort_by: :"frames.id") do |pdu| %>
+            <%= link_to frame_path(pdu.frame), data: { turbo_frame: :_top } do %>
+              <%= pdu.frame %>
             <% end %>
           <% end %>
 

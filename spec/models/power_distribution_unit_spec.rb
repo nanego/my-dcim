@@ -20,14 +20,15 @@ RSpec.describe PowerDistributionUnit do
 
   describe "associations" do
     it { is_expected.to belong_to(:type) }
-    it { is_expected.to belong_to(:bay) }
+    it { is_expected.to belong_to(:frame) }
 
     it { is_expected.to have_many(:circuits).dependent(:destroy) }
     it { is_expected.to have_many(:sockets).through(:circuits) }
 
     it { is_expected.to have_one(:manufacturer).through(:type) }
-    it { is_expected.to have_one(:islet).through(:bay) }
-    it { is_expected.to have_one(:room).through(:bay) }
+    it { is_expected.to have_one(:bay).through(:frame) }
+    it { is_expected.to have_one(:islet).through(:frame) }
+    it { is_expected.to have_one(:room).through(:frame) }
   end
 
   describe "validations" do

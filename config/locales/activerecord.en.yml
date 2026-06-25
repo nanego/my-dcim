@@ -255,6 +255,7 @@ en:
         three_phase: Three-phase
       power_distribution_unit:
         type_id: PDU Type
+        frame_id: Frame
         serial_number: Serial number
         side: Side
         orientation: Orientation
