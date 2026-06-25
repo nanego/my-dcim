@@ -20,12 +20,11 @@ class PowerDistributionUnit < ApplicationRecord
   enum :orientation, { asc: 0, desc: 1 }, validate: true
   enum :side, { left: 0, right: 1 }, validate: true
 
-  accepts_nested_attributes_for :circuits,
-                                allow_destroy: true
-
   validates :name, presence: true
   validates :serial_number, presence: true, uniqueness: true, format: { without: /\s/ }
   validates :ipmi_url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https]), allow_blank: true
+
+  accepts_nested_attributes_for :circuits, allow_destroy: true
 
   delegate :to_s, to: :name
 

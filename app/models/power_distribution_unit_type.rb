@@ -4,8 +4,8 @@ class PowerDistributionUnitType < ApplicationRecord
   has_changelog associations: { circuits: "*", sockets: "*" }
 
   belongs_to :manufacturer
-  has_many :power_distribution_units, dependent: :restrict_with_error, foreign_key: :type_id, inverse_of: :type
 
+  has_many :power_distribution_units, dependent: :restrict_with_error, foreign_key: :type_id, inverse_of: :type
   has_many :circuits, as: :record, class_name: "PowerDistributionUnit::Circuit", dependent: :destroy
   has_many :sockets, class_name: "PowerDistributionUnit::Socket", through: :circuits
 
@@ -13,11 +13,10 @@ class PowerDistributionUnitType < ApplicationRecord
 
   scope :sorted, -> { order(Arel.sql("LOWER(name)")) }
 
-  accepts_nested_attributes_for :circuits,
-                                allow_destroy: true
-
   validates :name, presence: true
   validates :documentation_url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https]), allow_blank: true
+
+  accepts_nested_attributes_for :circuits, allow_destroy: true
 
   delegate :to_s, to: :name
 end

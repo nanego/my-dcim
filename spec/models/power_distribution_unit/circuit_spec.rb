@@ -17,4 +17,8 @@ RSpec.describe PowerDistributionUnit::Circuit do
 
     it { is_expected.to validate_presence_of(:name) }
   end
+
+  describe "nested attributes" do
+    it { is_expected.to accept_nested_attributes_for(:sockets) }
+  end
 end
