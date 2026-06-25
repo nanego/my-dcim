@@ -57,8 +57,8 @@
         <div>
           <fieldset class="form-floating">
             <%= f.select :frame_ids, PowerDistributionUnitDecorator.frames_options_for_select(current_user),
-                        { prompt: true, multiple: true },
-                        { class: "form-select", data: { controller: :select } } %>
+                         { prompt: true, multiple: true },
+                         { class: "form-select", data: { controller: :select } } %>
             <%= f.label :frame_ids %>
           </fieldset>
         </div>
