@@ -2,12 +2,12 @@
 
 one:
   id: 1
-  name: "one"
+  name: "pdu circuit"
   record_id: 1
   record_type: "PowerDistributionUnit"
 
-one:
+two:
   id: 2
-  name: "two"
+  name: "pdu type circuit"
   record_id: 1
   record_type: "PowerDistributionUnitType"
