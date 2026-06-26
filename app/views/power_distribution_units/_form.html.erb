@@ -57,6 +57,40 @@
         </div>
       <% end %>
 
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+        <fieldset class="col-12">
+          <%= f.label :comment, class: "form-label" %>
+          <%= f.text_area :comment, class: "form-control" %>
+        </fieldset>
+      <% end %>
+    </div>
+
+    <div class="col d-flex flex-column row-gap-4">
+      <%= render CardComponent.new(type: :primary, extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <%= t("layouts.sidebar.location.title") %>
+        <% end %>
+
+        <div class="row row-gap-3">
+          <fieldset class="col-12">
+            <%= f.label :frame_id, class: "form-label" %>
+            <%= f.select :frame_id,
+                         PowerDistributionUnitDecorator.frames_options_for_select(current_user),
+                         { prompt: true },
+                         class: "form-select",
+                         data: { controller: "select" } %>
+          </fieldset>
+
+          <fieldset class="col-12">
+            <%= f.label :side, class: "form-label" %>
+            <%= f.select :side,
+                         PowerDistributionUnitDecorator.side_options_for_select,
+                         { prompt: true },
+                         class: "form-select" %>
+          </fieldset>
+        </div>
+      <% end %>
+
       <% if power_distribution_unit.persisted? %>
         <fieldset data-controller="nested-form">
           <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
@@ -89,40 +123,6 @@
               </span>
             <% end %>
           <% end %>
-        </fieldset>
-      <% end %>
-    </div>
-
-    <div class="col d-flex flex-column row-gap-4">
-      <%= render CardComponent.new(type: :primary, extra_classes: "bg-body-tertiary") do |card| %>
-        <% card.with_header do %>
-          <%= t("layouts.sidebar.location.title") %>
-        <% end %>
-
-        <div class="row row-gap-3">
-          <fieldset class="col-12">
-            <%= f.label :frame_id, class: "form-label" %>
-            <%= f.select :frame_id,
-                         PowerDistributionUnitDecorator.frames_options_for_select(current_user),
-                         { prompt: true },
-                         class: "form-select",
-                         data: { controller: "select" } %>
-          </fieldset>
-
-          <fieldset class="col-12">
-            <%= f.label :side, class: "form-label" %>
-            <%= f.select :side,
-                         PowerDistributionUnitDecorator.side_options_for_select,
-                         { prompt: true },
-                         class: "form-select" %>
-          </fieldset>
-        </div>
-      <% end %>
-
-      <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-        <fieldset class="col-12">
-          <%= f.label :comment, class: "form-label" %>
-          <%= f.text_area :comment, class: "form-control" %>
         </fieldset>
       <% end %>
     </div>
