@@ -58,4 +58,29 @@ RSpec.describe PowerDistributionUnit do
   describe "#should_generate_new_friendly_id?" do
     pending
   end
+
+  describe "#deep_dup" do
+    subject(:power_distribution_unit) { power_distribution_units(:one) }
+
+    it { expect(power_distribution_unit.deep_dup).not_to eq(power_distribution_unit) }
+    it { expect(power_distribution_unit.deep_dup.name).to eq(power_distribution_unit.name) }
+    it { expect(power_distribution_unit.deep_dup.circuits.size).to eq(power_distribution_unit.circuits.size) }
+
+    it do
+      expect(power_distribution_unit.deep_dup.circuits.map(&:sockets).flatten.size)
+        .to eq(power_distribution_unit.sockets.size)
+    end
+  end
+
+  describe "#build_circuits_and_sockets_from_type" do
+    let!(:power_distribution_unit) do
+      described_class.create!(**power_distribution_units(:one).attributes, id: nil, type:, serial_number: "test123456789")
+    end
+    let(:type) { power_distribution_unit_types(:one) }
+
+    it { expect(power_distribution_unit.circuits.size).to eq(1) }
+    it { expect(power_distribution_unit.circuits.first.name).to eq(type.circuits.first.name) }
+    it { expect(power_distribution_unit.sockets.size).to eq(2) }
+    it { expect(power_distribution_unit.sockets.first.number).to eq(type.sockets.first.number) }
+  end
 end

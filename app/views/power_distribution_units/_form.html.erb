@@ -57,38 +57,12 @@
         </div>
       <% end %>
 
-      <fieldset data-controller="nested-form">
-        <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-          <% card.with_header do %>
-            <div class="d-flex justify-content-between align-items-center">
-               <%= PowerDistributionUnit::Circuit.model_name.human.pluralize %>
-            </div>
-          <% end %>
-
-          <div class="row g-3">
-            <template data-nested-form-target="template">
-              <%= f.fields_for :circuits, f.object.circuits.klass.new,
-                               child_index: "__NEW_RECORD__" do |circuit_fields| %>
-                <%= render partial: "power_distribution_units/circuit_fields", locals: { f: circuit_fields } %>
-              <% end %>
-            </template>
-
-            <%= f.fields_for :circuits do |circuit_fields| %>
-              <%= render partial: "power_distribution_units/circuit_fields", locals: { f: circuit_fields } %>
-            <% end %>
-
-            <div data-nested-form-target="target"></div>
-          </div>
-
-          <% card.with_footer do %>
-            <span class="mx-auto">
-              <button type="button" class="btn btn-outline-success btn-sm" data-action="nested-form#add">
-                <span class="bi bi-plus-lg" aria-hidden="true"></span> <%= t(".add_circuit") %>
-              </button>
-            </span>
-          <% end %>
-        <% end %>
-      </fieldset>
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+        <fieldset class="col-12">
+          <%= f.label :comment, class: "form-label" %>
+          <%= f.text_area :comment, class: "form-control" %>
+        </fieldset>
+      <% end %>
     </div>
 
     <div class="col d-flex flex-column row-gap-4">
@@ -117,10 +91,38 @@
         </div>
       <% end %>
 
-      <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-        <fieldset class="col-12">
-          <%= f.label :comment, class: "form-label" %>
-          <%= f.text_area :comment, class: "form-control" %>
+      <% if power_distribution_unit.persisted? %>
+        <fieldset data-controller="nested-form">
+          <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+            <% card.with_header do %>
+              <div class="d-flex justify-content-between align-items-center">
+                <%= PowerDistributionUnit::Circuit.model_name.human.pluralize %>
+              </div>
+            <% end %>
+
+            <div class="row g-3">
+              <template data-nested-form-target="template">
+                <%= f.fields_for :circuits, f.object.circuits.klass.new,
+                                 child_index: "__NEW_RECORD__" do |circuit_fields| %>
+                  <%= render partial: "power_distribution_units/circuit_fields", locals: { f: circuit_fields } %>
+                <% end %>
+              </template>
+
+              <%= f.fields_for :circuits do |circuit_fields| %>
+                <%= render partial: "power_distribution_units/circuit_fields", locals: { f: circuit_fields } %>
+              <% end %>
+
+              <div data-nested-form-target="target"></div>
+            </div>
+
+            <% card.with_footer do %>
+              <span class="mx-auto">
+                <button type="button" class="btn btn-outline-success btn-sm" data-action="nested-form#add">
+                  <span class="bi bi-plus-lg" aria-hidden="true"></span> <%= t(".add_circuit") %>
+                </button>
+              </span>
+            <% end %>
+          <% end %>
         </fieldset>
       <% end %>
     </div>

@@ -21,4 +21,12 @@ RSpec.describe PowerDistributionUnit::Circuit do
   describe "nested attributes" do
     it { is_expected.to accept_nested_attributes_for(:sockets) }
   end
+
+  describe "#deep_dup" do
+    subject(:circuit) { power_distribution_unit_circuits(:one) }
+
+    it { expect(circuit.deep_dup).not_to eq(circuit) }
+    it { expect(circuit.deep_dup.name).to eq(circuit.name) }
+    it { expect(circuit.deep_dup.sockets.size).to eq(circuit.sockets.size) }
+  end
 end
