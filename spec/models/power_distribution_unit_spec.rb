@@ -81,6 +81,6 @@ RSpec.describe PowerDistributionUnit do
     it { expect(power_distribution_unit.circuits.size).to eq(1) }
     it { expect(power_distribution_unit.circuits.first.name).to eq(type.circuits.first.name) }
     it { expect(power_distribution_unit.sockets.size).to eq(2) }
-    it { expect(power_distribution_unit.sockets.first.name).to eq(type.sockets.first.name) }
+    it { expect(power_distribution_unit.sockets.first.number).to eq(type.sockets.first.number) }
   end
 end
