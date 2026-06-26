@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ConnectionsController < ApplicationController # rubocop:disable Metrics/ClassLength
+class ConnectionsController < ApplicationController
   def edit # rubocop:disable Metrics/AbcSize
     authorize!
 
@@ -96,16 +96,14 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
     @server = Server.find_by_id(params[:server_id])
     @connections_through_twin_cards = {}
     @server.cards.each do |card|
-      twin_card_id = card.try(:twin_card_id)
       card.ports.each do |port|
         twin_card_ports = []
-        if twin_card_id.present?
-          twin_card_ports << Port.where(card_id: twin_card_id, position: port.position).first
+        if card.twin_card
+          twin_card_ports << Port.where(attachable: card.twin_card, position: port.position).first
         end
         if port.paired_connection.present?
           paired_connection_port = port.paired_connection.port
-          twin_card_id_through_connection = paired_connection_port.card.try(:twin_card_id)
-          twin_card_ports << Port.where(card_id: twin_card_id_through_connection, position: paired_connection_port.position).first
+          twin_card_ports << Port.where(attachable: paired_connection_port.card.twin_card, position: paired_connection_port.position).first
         end
         twin_card_ports.compact.uniq.each do |twin_card_port|
           if twin_card_port.present? && twin_card_port.connection.present?
@@ -120,6 +118,7 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
         end
       end
     end
+
     respond_to do |format|
       format.js
     end

@@ -454,14 +454,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_25_165753) do
   end
 
   create_table "ports", id: :serial, force: :cascade do |t|
+    t.integer "attachable_id"
+    t.string "attachable_type", null: false
     t.string "cablename"
-    t.integer "card_id"
     t.string "color"
     t.datetime "created_at", precision: nil, null: false
     t.integer "position"
     t.datetime "updated_at", precision: nil, null: false
     t.string "vlans"
-    t.index ["card_id"], name: "index_ports_on_card_id"
+    t.index ["attachable_id", "attachable_type"], name: "index_ports_on_attachable_id_and_attachable_type"
+    t.index ["attachable_id"], name: "index_ports_on_attachable_id"
   end
 
   create_table "power_distribution_unit_circuits", force: :cascade do |t|
@@ -673,7 +675,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_25_165753) do
   add_foreign_key "permission_scope_domains", "permission_scopes"
   add_foreign_key "permission_scope_users", "permission_scopes"
   add_foreign_key "permission_scope_users", "users"
-  add_foreign_key "ports", "cards"
   add_foreign_key "power_distribution_unit_sockets", "port_types"
   add_foreign_key "power_distribution_unit_sockets", "power_distribution_unit_circuits", column: "circuit_id"
   add_foreign_key "power_distribution_unit_types", "manufacturers"

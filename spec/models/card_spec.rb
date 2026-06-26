@@ -8,8 +8,10 @@ RSpec.describe Card do
 
   describe "associations" do
     it { is_expected.to belong_to(:card_type) }
+    it { is_expected.to belong_to(:twin_card).optional }
     it { is_expected.to belong_to(:server) }
     it { is_expected.to belong_to(:composant) }
+
     it { is_expected.to have_many(:ports).dependent(:destroy) }
     it { is_expected.to have_many(:cables).through(:ports) }
   end

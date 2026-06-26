@@ -78,4 +78,21 @@ RSpec.describe ConnectionsController do
   describe "POST #update_destination_server" do
     pending "TODO"
   end
+
+  describe "GET #draw" do
+    subject(:response) do
+      get draw_connections_path(format:, **params)
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
+
+    let(:params) { { server_id: servers(:one).id } }
+    let(:format) { :js }
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:draw) }
+  end
 end

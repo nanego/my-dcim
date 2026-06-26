@@ -9,11 +9,12 @@ class Card < ApplicationRecord
   delegate :port_quantity, to: :card_type, allow_nil: true
   delegate :is_power_input?, to: :card_type, allow_nil: true
 
-  belongs_to :server
+  belongs_to :twin_card, class_name: "Card", optional: true
+  belongs_to :server, touch: true
   belongs_to :composant
   delegate :frame, to: :server # TODO: replace by has_one?
 
-  has_many :ports, dependent: :destroy
+  has_many :ports, as: :attachable, dependent: :destroy
   has_many :cables, through: :ports
 
   validates :first_position, numericality: { only_integer: true, in: 0..100 }, allow_nil: true
@@ -47,7 +48,7 @@ class Card < ApplicationRecord
       unless positions_with_ports.include?(current_position)
         # puts "create port #{current_position}"
         Port.create(position: current_position,
-                    card_id: id,
+                    attachable: self,
                     vlans: nil,
                     color: nil,
                     cablename: nil)

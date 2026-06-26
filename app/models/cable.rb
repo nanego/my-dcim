@@ -20,8 +20,8 @@ class Cable < ApplicationRecord
 
   has_many :connections, dependent: :destroy
   has_many :ports, through: :connections
-  has_many :servers, through: :connections
   has_many :cards, through: :connections
+  has_many :servers, through: :cards
   has_many :card_types, through: :cards
   has_many :port_types, through: :card_types
 

@@ -8,6 +8,7 @@ RSpec.shared_context "with authenticated user" do
 
   context "with logged out user" do
     let(:_keep_user_logged_out) { true }
+    let(:format) { :html }
 
     it { expect(response).to have_http_status(:redirect) }
     it { expect(response).to redirect_to(new_user_session_path) }

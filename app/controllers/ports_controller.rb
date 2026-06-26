@@ -35,8 +35,9 @@ class PortsController < ApplicationController
     if params[:id].present? && params[:id].to_i.positive?
       redirect_to connections_edit_path(from_port_id: params[:id])
     else
+      card = Card.find(params["card_id"])
       @port = Port.find_or_create_by(position: params["position"],
-                                     card_id: params["card_id"],
+                                     attachable: card,
                                      vlans: params["vlans"],
                                      color: params["color"],
                                      cablename: params["cablename"])
