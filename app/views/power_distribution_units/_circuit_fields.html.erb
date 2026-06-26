@@ -1,45 +1,56 @@
-<li class="nested-form-wrapper list-group-item bg-transparent"
-    data-new-record="<%= f.object.new_record? %>">
-  <span class="input-group input-group-sm">
-    <%= f.text_field :name, { class: "form-control", placeholder: true } %>
+<div class="nested-form-wrapper col-12 col-md-6 col-lg-12 col-xxl-6"
+     data-new-record="<%= f.object.new_record? %>">
+  <div class="card enclosure-fields">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h6 class="mb-0">
+        <%= if f.object.name.present?
+              "#{PowerDistributionUnit::Circuit.model_name.human} #{f.object.name}"
+            else
+              t(".new_circuit")
+            end %>
+      </h6>
 
-    <%= f.hidden_field :_destroy %>
-    <button type="button" data-action="nested-form#remove" class="btn btn-danger" id="input-group-delete-btn">
-      <span class="bi bi-trash" title="<%= t("action.delete") %>"></span>
-    </button>
-  </span>
+      <span>
+        <%= f.hidden_field :_destroy %>
 
-  <% child_index = "__#{Digest::MD5.hexdigest("Circuit_socket")}_NEW_RECORD__" %>
-  <fieldset data-controller="nested-form" data-nested-form-child-index-name-value="<%= child_index %>">
-    <%= render CardComponent.new(extra_classes: "bg-body-tercary") do |card| %>
-      <% card.with_header do %>
-        <div class="d-flex justify-content-between align-items-center">
-          <%= PowerDistributionUnit::Socket.model_name.human.pluralize %>
-        </div>
-      <% end %>
+        <button type="button" data-action="nested-form#remove" class="btn text-danger btn-sm ms-4">
+          <span class="bi bi-trash" title="<%= t("action.delete") %>"></span>
+        </button>
+      </span>
+    </div>
 
-      <ul class="list-group bg-body-tertiary">
-        <template data-nested-form-target="template">
-          <%= f.fields_for :sockets, f.object.sockets.klass.new,
-                           child_index: do |socket_fields| %>
-            <%= render partial: "power_distribution_units/socket_fields", locals: { f: socket_fields } %>
-          <% end %>
-        </template>
-
-        <%= f.fields_for :sockets do |socket_fields| %>
+    <% child_index = "__#{Digest::MD5.hexdigest("Circuit_socket")}_NEW_RECORD__" %>
+    <div data-controller="nested-form" data-nested-form-child-index-name-value="<%= child_index %>">
+      <template data-nested-form-target="template">
+        <%= f.fields_for :sockets, f.object.sockets.klass.new,
+                         child_index: do |socket_fields| %>
           <%= render partial: "power_distribution_units/socket_fields", locals: { f: socket_fields } %>
         <% end %>
+      </template>
 
-        <div data-nested-form-target="target"></div>
-      </ul>
+      <div class="card-body">
+        <ul class="list-group bg-body-tertiary"
+            data-controller="enclosure-fields"
+            data-enclosure-fields-target="container">
+          <li class="list-group-item bg-transparent filtered">
+            <fieldset>
+              <%= f.label :name, class: "form-label" %>
+              <%= f.text_field :name, class: "form-control" %>
+            </fieldset>
+          </li>
+          <%= f.fields_for :sockets do |socket_fields| %>
+            <%= render partial: "power_distribution_units/socket_fields", locals: { f: socket_fields } %>
+          <% end %>
 
-      <% card.with_footer do %>
-        <span class="mx-auto">
-          <button type="button" class="btn btn-outline-success btn-sm" data-action="nested-form#add">
-            <span class="bi bi-plus-lg" aria-hidden="true"></span> <%= t(".add_socket") %>
-          </button>
-        </span>
-      <% end %>
-    <% end %>
-  </fieldset>
-</li>
+          <li class="list-group-item bg-transparent" data-nested-form-target="target"></li>
+        </ul>
+      </div>
+      <div class="card-footer d-flex">
+        <button type="button" class="btn btn-outline-success btn-sm mx-auto" data-action="nested-form#add">
+          <span class="bi bi-plus-lg"></span>
+          <span><%= t(".add_socket") %></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
