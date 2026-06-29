@@ -112,5 +112,6 @@ public/uploads/
 
 /config/*.local.yml
 /config/credentials/local.*
+/config/credentials.yml.*
 
 node_modules/
