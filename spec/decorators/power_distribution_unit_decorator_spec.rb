@@ -5,6 +5,13 @@ require "rails_helper"
 RSpec.describe PowerDistributionUnitDecorator, type: :decorator do
   let(:user) { users(:admin) }
 
+  describe ".options_for_select" do
+    it do
+      expect(described_class.options_for_select)
+        .to contain_exactly(["PDU1", 1], ["PDU2", 2])
+    end
+  end
+
   describe ".rooms_options_for_select" do
     it do
       expect(described_class.rooms_options_for_select(user))

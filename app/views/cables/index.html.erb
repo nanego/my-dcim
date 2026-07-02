@@ -23,6 +23,20 @@
 
         <div>
           <fieldset class="form-floating">
+            <%= f.select :power_distribution_unit_ids, CableDecorator.power_distribution_units_options_for_select,
+                                  { prompt: true, multiple: true },
+                                  { class: "form-select",
+                                    data: {
+                                      controller: :select,
+                                      select_clear_button_title_value: t("action.clear_all"),
+                                    }
+                                  } %>
+            <%= f.label :power_distribution_unit_ids %>
+          </fieldset>
+        </div>
+
+        <div>
+          <fieldset class="form-floating">
             <%= f.select :special_case,
                          CableDecorator.special_case_options_for_select,
                          { prompt: true },

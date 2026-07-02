@@ -12,6 +12,10 @@ class CableDecorator < ApplicationDecorator
       ServerDecorator.options_for_select(user)
     end
 
+    def power_distribution_units_options_for_select
+      PowerDistributionUnitDecorator.options_for_select
+    end
+
     def special_case_options_for_select
       [true, false].map do |s|
         [I18n.t("boolean.#{s}"), s]

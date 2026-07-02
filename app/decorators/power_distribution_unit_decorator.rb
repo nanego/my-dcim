@@ -2,6 +2,10 @@
 
 class PowerDistributionUnitDecorator < ApplicationDecorator
   class << self
+    def options_for_select
+      PowerDistributionUnit.select(:id, :name).map { |p| [p.name, p.id] }
+    end
+
     def rooms_options_for_select(user)
       RoomDecorator.options_for_select(user)
     end

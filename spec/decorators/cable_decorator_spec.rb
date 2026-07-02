@@ -17,6 +17,13 @@ RSpec.describe CableDecorator, type: :decorator do
     end
   end
 
+  describe ".power_distribution_units_options_for_select" do
+    it do
+      expect(described_class.power_distribution_units_options_for_select)
+        .to contain_exactly(["PDU1", 1], ["PDU2", 2])
+    end
+  end
+
   describe ".special_case_options_for_select" do
     it { expect(described_class.special_case_options_for_select.pluck(1)).to contain_exactly(true, false) }
     it { expect(described_class.special_case_options_for_select.pluck(0)).to match_array(%w[Non Oui]) }
