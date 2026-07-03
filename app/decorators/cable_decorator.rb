@@ -57,7 +57,6 @@ class CableDecorator < ApplicationDecorator
     end
 
     if (port = connection&.port)
-      card_type = connection&.card&.card_type
       port_type = connection&.port_type
 
       # TODO: improve this

@@ -16,9 +16,9 @@
                 search_results_target: "result",
               } do %>
     <span class="<%= class_names("bi fs-2 me-3",
-                                "text-info bi-hdd": result.is_a?(Server),
-                                "text-warning bi-lightning-charge": result.is_a?(PowerDistributionUnit),
-                                "text-success bi-file-minus": !result.is_a?(Server)) %>">
+                                 "text-info bi-hdd": result.is_a?(Server),
+                                 "text-warning bi-lightning-charge": result.is_a?(PowerDistributionUnit),
+                                 "text-success bi-file-minus": !result.is_a?(Server)) %>">
     </span>
     <span class="d-inline-flex justify-content-between flex-grow-1 flex-column flex-md-row row-gap-3 align-items-md-center">
       <span class="d-inline-flex flex-column align-items-start flex-grow-1">

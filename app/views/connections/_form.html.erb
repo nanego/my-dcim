@@ -34,12 +34,12 @@
                             aria-label="<%= PowerDistributionUnit::Circuit.model_name.human %> <%= socket.circuit.name %>">
 
                         <% color = if @from_port.attachable == socket
-                          :primary
-                        elsif socket&.port&.connection.present?
-                          :secondary
-                        else
-                          :light
-                        end %>
+                                     :primary
+                                   elsif socket&.port&.connection.present?
+                                     :secondary
+                                   else
+                                     :light
+                                   end %>
 
                         <%= render BadgeComponent.new(color:) do %>
                           <span><%= socket.port_type %></span>
@@ -54,7 +54,7 @@
           <% else %>
             <div id="back_departure_server" class="back_server d-flex flex-row-reverse flex-wrap no-decoration-link">
               <%= render partial: "servers/draw_server_compact",
-                        locals: { server: @from_server, selected_port: @from_port } %>
+                         locals: { server: @from_server, selected_port: @from_port } %>
             </div>
           <% end %>
           <%= f.hidden_field :from_port_id, value: @from_port.id %>

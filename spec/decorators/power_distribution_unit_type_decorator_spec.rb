@@ -28,6 +28,6 @@ RSpec.describe PowerDistributionUnitTypeDecorator, type: :decorator do
   end
 
   describe "#name_with_brand" do
-    it { expect(decorated_pdu_type.name_with_brand).to eq("fortinet PDU type name 1")}
+    it { expect(decorated_pdu_type.name_with_brand).to eq("fortinet PDU type name 1") }
   end
 end

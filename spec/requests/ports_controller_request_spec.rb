@@ -33,7 +33,7 @@ RSpec.describe PortsController do
 
     context "with new port from socket" do
       let(:port)   { 0 }
-      let(:params) { { socket_id: power_distribution_unit_sockets(:one) } }
+      let(:params) { { socket_id: power_distribution_unit_sockets(:two) } }
 
       it { expect { response }.to change(Port, :count).by(1) }
 
