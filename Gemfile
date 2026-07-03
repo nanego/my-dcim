@@ -87,7 +87,7 @@ gem "friendly_id", "~> 5.7"
 gem "record_tag_helper", "~> 1.0" # Add helpers removed from Rails core in Rails 5
 
 # Manage file uploads
-gem "shrine", "~> 3.7"
+gem "shrine", "~> 3.8"
 
 # Add email notifications on errors
 gem "exception_notification"
