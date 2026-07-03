@@ -494,6 +494,7 @@ fr:
         frame: Châssis
         frame_id: Châssis
         serial_number: Numéro de série
+        serial_number_short: s/n
         side: Côté
         orientation: Orientation
         ipmi_url: URL IPMI

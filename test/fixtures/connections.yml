@@ -29,3 +29,8 @@ six:
   id: 6
   cable_id: 5
   port_id: 8
+
+seven:
+  id: 7
+  cable_id: 6
+  port_id: 11

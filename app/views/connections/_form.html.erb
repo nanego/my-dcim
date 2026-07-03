@@ -7,7 +7,11 @@
     <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
       <% card.with_header do %>
         <div class="d-flex">
-          <span id="port_status"></span>
+          <% if @from_pdu.present? %>
+            <%= @from_pdu.name %>
+          <% else %>
+            <span id="port_status"></span>
+          <% end %>
           <% if remote %>
             <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal"
                                                             aria-label="<%= t("action.close") %>"></button>
@@ -18,10 +22,41 @@
       <div class="col-12">
         <%= f.label Connection.human_attribute_name(:from_port_id), class: "form-label" %>
         <%= render CardComponent.new do |card| %>
-          <div id="back_departure_server" class="back_server d-flex flex-row-reverse flex-wrap no-decoration-link">
-            <%= render partial: "servers/draw_server_compact",
-                       locals: { server: @from_server, selected_port: @from_port } %>
-          </div>
+          <% if @from_pdu.present? %>
+            <div class="d-flex">
+              <span class="d-inline-flex mx-auto">
+                <ul class="list-group">
+
+                  <% @from_pdu.sockets.order(number: @from_pdu.orientation).each do |socket| %>
+                    <li class="list-group-item bg-body-tertiary">
+                      <span title="<%= PowerDistributionUnit::Circuit.model_name.human %> <%= socket.circuit.name %>"
+                            data-controller="tooltip"
+                            aria-label="<%= PowerDistributionUnit::Circuit.model_name.human %> <%= socket.circuit.name %>">
+
+                        <% color = if @from_port.attachable == socket
+                          :primary
+                        elsif socket&.port&.connection.present?
+                          :secondary
+                        else
+                          :light
+                        end %>
+
+                        <%= render BadgeComponent.new(color:) do %>
+                          <span><%= socket.port_type %></span>
+                          <span>#<%= socket.number %></span>
+                        <% end %>
+                      </span>
+                    </li>
+                  <% end %>
+                </ul>
+              </span>
+            </div>
+          <% else %>
+            <div id="back_departure_server" class="back_server d-flex flex-row-reverse flex-wrap no-decoration-link">
+              <%= render partial: "servers/draw_server_compact",
+                        locals: { server: @from_server, selected_port: @from_port } %>
+            </div>
+          <% end %>
           <%= f.hidden_field :from_port_id, value: @from_port.id %>
         <% end %>
       </div>
@@ -144,7 +179,9 @@
           url: "<%= connections_update_destination_server_path %>",
           data: { server_id: selected_server }
       }).done(function () {
-          select_destination_port($('input[name="connection[to_port_id]"]').val());
+        if (port_id = $('input[name="connection[to_port_id]"]').val()) {
+          select_destination_port(port_id);
+        }
       });
   }
 
@@ -200,16 +237,21 @@
   }
 
   $(document).ready(function () {
-      loadPaletteColorPicker('[name="connection[color]"]');
+    loadPaletteColorPicker('[name="connection[color]"]');
 
+    let from_server = <%= @from_server.present? %>;
+
+    if (from_server) {
       updateConnectionStateMessage("<%= @frame.name %>", "<%= @from_port.cable.try(:name) %>");
 
       $("#back_departure_server").on('click', 'a.port', function (e) {
           e.preventDefault();
       });
-      $("#back_destination_server").on('click', 'a.port', function (e) {
-          e.preventDefault();
-          select_destination_port(e.target.id);
-      });
+    };
+
+    $("#back_destination_server").on('click', 'a.port', function (e) {
+        e.preventDefault();
+        select_destination_port(e.target.id);
+    });
   });
   </script>

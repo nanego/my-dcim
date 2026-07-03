@@ -31,6 +31,7 @@ RSpec.describe PowerDistributionUnit do
     it { is_expected.to have_one(:bay).through(:frame) }
     it { is_expected.to have_one(:islet).through(:frame) }
     it { is_expected.to have_one(:room).through(:frame) }
+    it { is_expected.to have_one(:site).through(:room) }
   end
 
   describe "validations" do

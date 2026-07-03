@@ -7,16 +7,20 @@ class ConnectionsController < ApplicationController
     @from_port = if params[:from_port_id].present? && params[:from_port_id].to_i.positive?
                    Port.find_by_id(params[:from_port_id])
                  else
+                   card = Card.find(params["card_id"]) if params["card_id"]
+                   socket = PowerDistributionUnit::Socket.find(paramas["socket_id"]) if params["socket_id"]
+
                    Port.create(position: params["position"],
-                               card_id: params["card_id"],
+                               attachable: card || socket,
                                vlans: params["vlans"],
                                color: params["color"],
                                cablename: params["cablename"])
                  end
 
-    @frame = @from_port.server.frame
+    @frame = @from_port.server&.frame || @from_port.circuit&.record&.frame
     @room = @frame.room
     @from_server = @from_port.server
+    @from_pdu = @from_port.circuit&.record unless @from_server
 
     @coupled_frames = @frame.bay.frames
     @possible_destination_servers = []
@@ -65,6 +69,8 @@ class ConnectionsController < ApplicationController
                               params[:connection][:comments])
 
     @from_server = from_port.server
+    @from_pdu = from_port.circuit&.record unless @from_server
+
     @to_server = to_port.server
 
     respond_to do |format|
@@ -103,6 +109,8 @@ class ConnectionsController < ApplicationController
         end
         if port.paired_connection.present?
           paired_connection_port = port.paired_connection.port
+          next if paired_connection_port.attachable.is_a?(PowerDistributionUnit::Socket)
+
           twin_card_ports << Port.where(attachable: paired_connection_port.card.twin_card, position: paired_connection_port.position).first
         end
         twin_card_ports.compact.uniq.each do |twin_card_port|

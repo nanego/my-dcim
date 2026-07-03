@@ -42,4 +42,12 @@ class PowerDistributionUnitDecorator < ApplicationDecorator
       end
     end
   end
+
+  def full_location
+    [site, islet.decorated.name_with_room].compact_blank.join(" - ")
+  end
+
+  def in_frame_location
+    [frame, PowerDistributionUnit.human_attribute_name("side.#{side}").first].compact_blank.join(" - ")
+  end
 end

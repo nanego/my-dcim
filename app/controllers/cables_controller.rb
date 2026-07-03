@@ -6,7 +6,10 @@ class CablesController < ApplicationController
 
   def index
     if @server
-      authorize! @cables = @server.cables.includes(:ports, :port_types, cards: { server: { modele: :category } })
+      # TODO: improve this
+      authorize! @cables = @server.cables.joins(:ports,
+                                                :port_types,
+                                                cards: { server: { modele: :category } })
 
       @cables = @cables.sorted
     else

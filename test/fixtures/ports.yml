@@ -70,3 +70,8 @@ ten:
   id: 10
   attachable_id: 8
   attachable_type: Card
+
+eleven:
+  id: 11
+  attachable_id: 1
+  attachable_type: PowerDistributionUnit::Socket

@@ -257,6 +257,7 @@ en:
         type_id: PDU Type
         frame_id: Frame
         serial_number: Serial number
+        serial_number_short: s/n
         side: Side
         orientation: Orientation
         ipmi_url: IPMI URL

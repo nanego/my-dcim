@@ -16,4 +16,8 @@ class PowerDistributionUnitTypeDecorator < ApplicationDecorator
       end
     end
   end
+
+  def name_with_brand
+    "#{manufacturer} #{name}"
+  end
 end

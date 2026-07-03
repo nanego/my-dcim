@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_25_165753) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_02_150559) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -711,6 +711,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_25_165753) do
              FROM rooms r
             WHERE (r.id = frames.id)
            LIMIT 1)) AS term
-     FROM frames;
+     FROM frames
+  UNION ALL
+   SELECT power_distribution_units.id AS searchable_id,
+      'PowerDistributionUnit'::text AS searchable_type,
+      power_distribution_units.name,
+      NULL::integer[] AS domain_ids,
+      concat_ws(' '::text, power_distribution_units.name, power_distribution_units.serial_number, power_distribution_unit_types.name, manufacturers.name) AS term
+     FROM ((power_distribution_units
+       LEFT JOIN power_distribution_unit_types ON ((power_distribution_unit_types.id = power_distribution_units.type_id)))
+       LEFT JOIN manufacturers ON ((manufacturers.id = power_distribution_unit_types.manufacturer_id)));
   SQL
 end

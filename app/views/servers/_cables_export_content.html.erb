@@ -30,7 +30,7 @@
     <%= render partial: "servers/draw_server_compact", locals: { server: server, should_hide_left_block: true } %>
 
     <% unless server.cables.empty? %>
-      <%= render List::DataTableComponent.new(server.cables) do |table| %>
+      <%= render List::DataTableComponent.new(server.cables.sorted) do |table| %>
         <% table.with_column("", v_align: :center, text_align: :center) do |cable| %>
           <%= check_box_tag("") %>
         <% end %>

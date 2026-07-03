@@ -1,0 +1,31 @@
+<%# locals: (power_distribution_unit:) -%>
+
+<div class="d-flex pdu_preview">
+  <span class="d-inline-flex mx-auto">
+    <ul class="list-group">
+
+      <% power_distribution_unit.sockets.order(number: power_distribution_unit.orientation).each do |socket| %>
+        <li class="list-group-item bg-body-tertiary pdu">
+          <span title="<%= PowerDistributionUnit::Circuit.model_name.human %> <%= socket.circuit.name %>"
+                data-controller="tooltip"
+                aria-label="<%= PowerDistributionUnit::Circuit.model_name.human %> <%= socket.circuit.name %>">
+            <% edit_port_url = socket.port ? connections_edit_path(from_port_id: socket.port.id) : edit_port_path(id: 0, socket_id: socket) %>
+
+            <%= link_to edit_port_url,
+                        class: "port",
+                        id: socket.port&.id,
+                        data: {
+                          url: edit_port_url,
+                        },
+                        target: :_top do %>
+              <%= render BadgeComponent.new(color: (socket&.port&.connection.present? ? :secondary : :light)) do %>
+                <span><%= socket.port_type %></span>
+                <span>#<%= socket.number %></span>
+              <% end %>
+            <% end %>
+          </span>
+        </li>
+      <% end %>
+    </ul>
+  </span>
+</div>
