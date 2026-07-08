@@ -7,11 +7,14 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
     @from_port = if params[:from_port_id].present? && params[:from_port_id].to_i.positive?
                    Port.find_by_id(params[:from_port_id])
                  else
-                   card = Card.find(params["card_id"]) if params["card_id"]
-                   socket = PowerDistributionUnit::Socket.find(paramas["socket_id"]) if params["socket_id"]
+                   attachable = if params["card_id"]
+                                  Card.find(params["card_id"])
+                                elsif params["socket_id"]
+                                  PowerDistributionUnit::Socket.find(params["socket_id"])
+                                end
 
                    Port.create(position: params["position"],
-                               attachable: card || socket,
+                               attachable:,
                                vlans: params["vlans"],
                                color: params["color"],
                                cablename: params["cablename"])

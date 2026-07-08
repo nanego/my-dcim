@@ -15,7 +15,7 @@ class Port < ApplicationRecord
   has_many :moved_connection_tos, class_name: "MovedConnection", foreign_key: :port_to_id, inverse_of: :port_to, dependent: :nullify
 
   delegate :server, to: :card, allow_nil: true
-  delegate :circuit, to: :attachable, allow_nil: true
+  delegate :circuit, to: :power_distribution_unit_socket, allow_nil: true
   delegate :is_power_input?, to: :card, allow_nil: true
   delegate :paired_connection, to: :connection, allow_nil: true
   delegate :color, to: :cable, prefix: true, allow_nil: true

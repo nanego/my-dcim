@@ -34,3 +34,8 @@ seven:
   id: 7
   cable_id: 6
   port_id: 11
+
+eight:
+  id: 8
+  cable_id: 6
+  port_id: 12

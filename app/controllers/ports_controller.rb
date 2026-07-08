@@ -35,11 +35,14 @@ class PortsController < ApplicationController
     if params[:id].present? && params[:id].to_i.positive?
       redirect_to connections_edit_path(from_port_id: params[:id])
     else
-      card = Card.find(params["card_id"]) if params["card_id"]
-      socket = PowerDistributionUnit::Socket.find(params["socket_id"]) if params["socket_id"]
+      attachable = if params["card_id"]
+                     Card.find(params["card_id"])
+                   elsif params["socket_id"]
+                     PowerDistributionUnit::Socket.find(params["socket_id"])
+                   end
 
       @port = Port.find_or_create_by(position: params["position"],
-                                     attachable: card || socket,
+                                     attachable:,
                                      vlans: params["vlans"],
                                      color: params["color"],
                                      cablename: params["cablename"])

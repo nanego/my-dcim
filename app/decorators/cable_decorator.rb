@@ -59,8 +59,12 @@ class CableDecorator < ApplicationDecorator
     if (port = connection&.port)
       port_type = connection&.port_type
 
-      # TODO: improve this
-      port_type_class = connection.socket.present? ? "portALIM" : port_type&.decorated&.css_class_name
+      # TODO-PDU: improve this
+      port_type_class = if connection.port.power_distribution_unit_socket?
+                          "portALIM"
+                        else
+                          port_type&.decorated&.css_class_name
+                        end
 
       span_text = name.presence || "n/c"
 
