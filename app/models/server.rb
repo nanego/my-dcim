@@ -169,7 +169,7 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def validate_network_types_values
     return if network_types.empty?
-    return if network_types.any? { |n| Modele::Network::TYPES.include?(n) }
+    return if network_types.intersect?(Modele::Network::TYPES)
 
     errors.add(:network_types, :invalid)
   end
