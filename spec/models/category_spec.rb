@@ -11,6 +11,10 @@ RSpec.describe Category do
     it { is_expected.to have_many(:modeles) }
   end
 
+  describe "validations" do
+    it { is_expected.to define_enum_for(:glpi_sync_type).with_values(%i[none server network_equipment]).with_prefix.validating }
+  end
+
   describe "#to_s" do
     it { expect(category.to_s).to eq category.name }
   end

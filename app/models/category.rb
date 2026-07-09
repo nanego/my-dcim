@@ -7,7 +7,7 @@ class Category < ApplicationRecord
     none: 0,
     server: 1,
     network_equipment: 2,
-  }, prefix: true
+  }, prefix: true, validate: true
 
   has_many :modeles, dependent: :restrict_with_error
 
