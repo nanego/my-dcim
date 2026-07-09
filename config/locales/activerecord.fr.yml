@@ -540,6 +540,11 @@ fr:
             domain_ids:
               blank: doit être rempli, ou "Tous les domaines" doit être coché
 
+        power_distribution_unit:
+          attributes:
+            type:
+              cannot_change_if_connections_present: ne peut pas être changé s'il y a des connections
+
   # Common attributes
   attributes:
     bay_id: Baie
