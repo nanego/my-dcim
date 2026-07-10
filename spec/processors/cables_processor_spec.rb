@@ -115,6 +115,51 @@ RSpec.describe CablesProcessor do
     end
   end
 
+  describe "when filtering by power_distribution_unit_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+    let(:default_pdu_param) do
+      { bay: bays(:one), type: power_distribution_unit_types(:one), orientation: :asc,
+        side: :left,
+        comment: "",
+        ipmi_url: "" }
+    end
+
+    let(:pdu) { PowerDistributionUnit.create!(**default_pdu_param, name: "P1", serial_number: "p1") }
+    let(:circuit) { PowerDistributionUnit::Circuit.create!(record: pdu, name: "C1") }
+    let(:socket) { PowerDistributionUnit::Socket.create!(circuit:, port_type: port_types(:one), number: 0) }
+    let(:port) { Port.create!(attachable: socket) }
+    let(:cable) { Cable.create!(name: "cableA") }
+    let(:connection) { Connection.create!(cable:, port:) }
+
+    before { connection }
+
+    context "with one power_distribution_unit_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+      let(:params) { { power_distribution_unit_ids: pdu.id } }
+
+      it { expect(result.size).to eq(1) }
+      it { is_expected.to contain_exactly(cable) }
+    end
+
+    context "with many server_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
+      let(:port_second) { Port.create!(attachable: socket_second) }
+      let(:cable_second) { Cable.create!(name: "cableB") }
+      let(:connection_second) { Connection.create!(cable: cable_second, port: port_second) }
+      let(:pdu_second) { PowerDistributionUnit.create!(**default_pdu_param, name: "P2", serial_number: "p2") }
+      let(:circuit_second) { PowerDistributionUnit::Circuit.create!(record: pdu_second, name: "C2") }
+      let(:socket_second) do
+        PowerDistributionUnit::Socket.create!(circuit: circuit_second, port_type: port_types(:one), number: 0)
+      end
+
+      let(:params) { { power_distribution_unit_ids: [pdu.id, pdu_second.id] } }
+
+      before do
+        connection_second
+      end
+
+      it { expect(result.size).to eq(2) }
+      it { is_expected.to contain_exactly(cable, cable_second) }
+    end
+  end
+
   describe "when filtering by port_type_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
     let(:server) { Server.create!(name: "A", numero: "numeroA", frame: frames(:one), modele: modeles(:one)) }
     let(:card) do
@@ -212,16 +257,35 @@ RSpec.describe CablesProcessor do
     let(:card)       { Card.create!(name: "Card A", server:, card_type:, composant: composants(:one)) }
     let(:port)       { Port.create!(vlans: "vlan1", attachable: card) }
     let(:cable)      { Cable.create!(name: "cableA", special_case: true, color: "V", comments: "This is a comment") }
+
+    let(:pdu) do
+      PowerDistributionUnit.create(
+        bay: bays(:one),
+        type: power_distribution_unit_types(:one),
+        orientation: :asc,
+        side: :left,
+        comment: "",
+        ipmi_url: "", name: "P1", serial_number: "p1",
+      )
+    end
+    let(:circuit) { PowerDistributionUnit::Circuit.create(record: pdu, name: "C1") }
+    let(:socket) { PowerDistributionUnit::Socket.create(circuit:, port_type: port_types(:one), number: 0) }
+    let(:port2) { Port.create!(attachable: socket) }
+
     let(:connection) { Connection.create!(cable:, port:) }
+    let(:connection2) { Connection.create!(cable:, port: port2) }
 
     let(:params) do
       {
         cable_name: "cableA", special_case: "true", color: "V", comments: "comment", vlans: "vlan1",
-        server_ids: server.id, port_type_ids: port_type.id, card_query: "Card A",
+        server_ids: server.id, port_type_ids: port_type.id, card_query: "Card A", power_distribution_unit_ids: pdu.id,
       }
     end
 
-    before { connection }
+    before do
+      connection
+      connection2
+    end
 
     it { expect(result.size).to eq(1) }
     it { is_expected.to contain_exactly(cable) }

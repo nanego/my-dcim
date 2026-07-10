@@ -2,6 +2,10 @@
 
 class PowerDistributionUnitDecorator < ApplicationDecorator
   class << self
+    def options_for_select
+      PowerDistributionUnit.select(:id, :name).map { |p| [p.name, p.id] }
+    end
+
     def rooms_options_for_select(user)
       RoomDecorator.options_for_select(user)
     end
@@ -37,5 +41,13 @@ class PowerDistributionUnitDecorator < ApplicationDecorator
         [PowerDistributionUnit.human_attribute_name("orientation.#{orientation}"), orientation]
       end
     end
+  end
+
+  def full_location
+    [site, islet.decorated.name_with_room].compact_blank.join(" - ")
+  end
+
+  def in_frame_location
+    [frame, PowerDistributionUnit.human_attribute_name("side.#{side}").first].compact_blank.join(" - ")
   end
 end

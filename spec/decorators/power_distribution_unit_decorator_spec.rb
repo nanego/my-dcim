@@ -4,6 +4,15 @@ require "rails_helper"
 
 RSpec.describe PowerDistributionUnitDecorator, type: :decorator do
   let(:user) { users(:admin) }
+  let(:pdu) { power_distribution_units(:one) }
+  let(:decorated_pdu) { pdu.decorated }
+
+  describe ".options_for_select" do
+    it do
+      expect(described_class.options_for_select)
+        .to contain_exactly(["PDU1", 1], ["PDU2", 2])
+    end
+  end
 
   describe ".rooms_options_for_select" do
     it do
@@ -70,5 +79,13 @@ RSpec.describe PowerDistributionUnitDecorator, type: :decorator do
       expect(described_class.orientation_options_for_select)
         .to contain_exactly(%w[Ascendant asc], %w[Descendant desc])
     end
+  end
+
+  describe "#full_location" do
+    it { expect(decorated_pdu.full_location).to eq("Site 1 - Ilot Islet1 S1") }
+  end
+
+  describe "#in_frame_location" do
+    it { expect(decorated_pdu.in_frame_location).to eq("MyFrame1 - G") }
   end
 end

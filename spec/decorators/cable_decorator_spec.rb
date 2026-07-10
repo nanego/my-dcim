@@ -17,6 +17,13 @@ RSpec.describe CableDecorator, type: :decorator do
     end
   end
 
+  describe ".power_distribution_units_options_for_select" do
+    it do
+      expect(described_class.power_distribution_units_options_for_select)
+        .to contain_exactly(["PDU1", 1], ["PDU2", 2])
+    end
+  end
+
   describe ".special_case_options_for_select" do
     it { expect(described_class.special_case_options_for_select.pluck(1)).to contain_exactly(true, false) }
     it { expect(described_class.special_case_options_for_select.pluck(0)).to match_array(%w[Non Oui]) }
@@ -26,9 +33,9 @@ RSpec.describe CableDecorator, type: :decorator do
     it { expect(described_class.colors_options_for_select.pluck(1)).to match_array(Cable::COLORS.keys) }
   end
 
-  describe "#server_connected_with_link" do
+  describe "#equipment_connected_with_link" do
     context "with from option to true" do
-      subject(:server_connected_with_link) { decorated_cable.server_connected_with_link(connections(:one), from: true) }
+      subject(:equipment_connected_with_link) { decorated_cable.equipment_connected_with_link(connections(:one), from: true) }
 
       it do
         is_expected.to have_tag("span.text-body-emphasis.col.overflow-wrap.text-end") do # rubocop:disable RSpec/ImplicitSubject
@@ -39,7 +46,7 @@ RSpec.describe CableDecorator, type: :decorator do
     end
 
     context "with from option to false" do
-      subject(:server_connected_with_link) { decorated_cable.server_connected_with_link(connections(:one)) }
+      subject(:equipment_connected_with_link) { decorated_cable.equipment_connected_with_link(connections(:one)) }
 
       it { is_expected.not_to have_tag("span.text-body-emphasis.col.overflow-wrap.text-end") }
 
@@ -52,7 +59,7 @@ RSpec.describe CableDecorator, type: :decorator do
     end
 
     context "with a nil connection" do
-      subject(:server_connected_with_link) { decorated_cable.server_connected_with_link(nil) }
+      subject(:equipment_connected_with_link) { decorated_cable.equipment_connected_with_link(nil) }
 
       it { is_expected.not_to have_tag("span.text-body-emphasis.col.overflow-wrap.text-end") }
 
@@ -71,7 +78,7 @@ RSpec.describe CableDecorator, type: :decorator do
     let(:connection) { connections(:one) }
 
     context "with a connection with a port" do
-      it { is_expected.to have_tag("span.me-0.port.N.port.portSCSI", text: "cableXYZ") }
+      it { is_expected.to have_tag("span.me-0.N.port.portSCSI", text: "cableXYZ") }
       it { is_expected.not_to have_tag("span.badge.empty", text: "n/c") }
     end
 
@@ -85,7 +92,7 @@ RSpec.describe CableDecorator, type: :decorator do
     context "with a cable with no name" do
       before { cable.name = "" }
 
-      it { is_expected.to have_tag("span.me-0.port.N.port.portSCSI", text: "n/c") }
+      it { is_expected.to have_tag("span.me-0.N.port.portSCSI", text: "n/c") }
       it { is_expected.not_to have_tag("span.badge.empty", text: "n/c") }
     end
 
@@ -99,8 +106,8 @@ RSpec.describe CableDecorator, type: :decorator do
     context "with a connection with a twin card cabled" do
       before { cards(:one).twin_card_id = 5 }
 
-      it { is_expected.to have_tag("span.me-0.port.N.port.portSCSI", text: "cableXYZ") }
-      it { is_expected.not_to have_tag("span.me-0.port.N.port.portSCSI.no_client", text: "cableXYZ") }
+      it { is_expected.to have_tag("span.me-0.N.port.portSCSI", text: "cableXYZ") }
+      it { is_expected.not_to have_tag("span.me-0.N.port.portSCSI.no_client", text: "cableXYZ") }
       it { is_expected.not_to have_tag("span.badge.empty", text: "n/c") }
     end
 
@@ -112,7 +119,15 @@ RSpec.describe CableDecorator, type: :decorator do
         connection.port.card.update(twin_card_id: 1)
       end
 
-      it { is_expected.to have_tag("span.me-0.port.T.port.portRJ.no_client", text: "T00") }
+      it { is_expected.to have_tag("span.me-0.T.port.portRJ.no_client", text: "T00") }
+      it { is_expected.not_to have_tag("span.badge.empty", text: "n/c") }
+    end
+
+    context "with a connection from a socket" do
+      let(:connection) { connections(:seven) }
+      let(:cable) { cables(:six) }
+
+      it { is_expected.to have_tag("span.me-0.J.port.portALIM", text: "n/c") }
       it { is_expected.not_to have_tag("span.badge.empty", text: "n/c") }
     end
   end

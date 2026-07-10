@@ -30,5 +30,15 @@ RSpec.describe PortsController do
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(connections_edit_path(from_port_id: assigns(:port))) }
     end
+
+    context "with new port from socket" do
+      let(:port)   { 0 }
+      let(:params) { { socket_id: power_distribution_unit_sockets(:two) } }
+
+      it { expect { response }.to change(Port, :count).by(1) }
+
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to(connections_edit_path(from_port_id: assigns(:port))) }
+    end
   end
 end

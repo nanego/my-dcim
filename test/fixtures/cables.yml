@@ -24,3 +24,7 @@ five:
   id: 5
   name: cable5
   color: O
+
+six:
+  id: 6
+  color: J

@@ -1012,6 +1012,7 @@ fr:
         network_type: Type de réseaux
         port_type_ids: Type de port
         port_ids: Port
+        power_distribution_unit_ids: PDU
         cable_name: Nom du câble
         server_ids: Matériel
         server_name: Nom du matériel

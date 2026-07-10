@@ -3,6 +3,9 @@
 require "rails_helper"
 
 RSpec.describe PowerDistributionUnitTypeDecorator, type: :decorator do
+  let(:pdu_type) { power_distribution_unit_types(:one) }
+  let(:decorated_pdu_type) { pdu_type.decorated }
+
   describe ".options_for_select" do
     it do
       expect(described_class.options_for_select)
@@ -22,5 +25,9 @@ RSpec.describe PowerDistributionUnitTypeDecorator, type: :decorator do
       expect(described_class.current_type_options_for_select)
         .to contain_exactly(%w[Triphasé three_phase], %w[Monophasé single_phase])
     end
+  end
+
+  describe "#name_with_brand" do
+    it { expect(decorated_pdu_type.name_with_brand).to eq("fortinet PDU type name 1") }
   end
 end

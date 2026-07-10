@@ -237,6 +237,7 @@ en:
         authors: Authors
         object_types: Object types
         date: Date
+        power_distribution_unit_ids: PDU
     placeholder:
       search: Search...
       quicksearch: Quick search

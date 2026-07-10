@@ -15,8 +15,37 @@ RSpec.describe ConnectionsController do
 
     include_context "with authenticated admin"
 
-    it { expect(response).to have_http_status(:success) }
-    it { expect(response).to render_template(:edit) }
+    context "with a port from a server" do
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(:edit) }
+
+      it do
+        response
+        expect(assigns(:from_server)).to be_present
+      end
+
+      it do
+        response
+        expect(assigns(:from_pdu)).not_to be_present
+      end
+    end
+
+    context "with a port from a PDU" do
+      let(:connection) { connections(:seven) }
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(:edit) }
+
+      it do
+        response
+        expect(assigns(:from_server)).not_to be_present
+      end
+
+      it do
+        response
+        expect(assigns(:from_pdu)).to be_present
+      end
+    end
   end
 
   describe "POST #update" do
@@ -50,6 +79,32 @@ RSpec.describe ConnectionsController do
 
       it { expect(response).to redirect_to(connections_edit_path(from_port_id: connection.port_id)) }
       it { expect(response).to have_http_status(:redirect) }
+    end
+
+    context "with PDU info" do
+      let(:connection) { connections(:seven) }
+
+      it do
+        expect do
+          response
+          connection.reload
+        end.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+      it do
+        expect do
+          response
+          connection.port.reload
+        end.to change(connection.port, :connection)
+      end
+
+      it { expect(response).to redirect_to(connections_edit_path(from_port_id: connection.port_id)) }
+      it { expect(response).to have_http_status(:redirect) }
+
+      it do
+        response
+        expect(assigns(:from_pdu)).to be_present
+      end
     end
 
     # context "without attributes" do

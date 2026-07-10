@@ -12,11 +12,14 @@ class PowerDistributionUnit < ApplicationRecord
 
   has_many :circuits, as: :record, class_name: "PowerDistributionUnit::Circuit", dependent: :destroy
   has_many :sockets, class_name: "PowerDistributionUnit::Socket", through: :circuits
+  has_many :ports, through: :sockets
+  has_many :cables, through: :ports, source: :cable
 
   has_one :manufacturer, through: :type
   has_one :bay, through: :frame
   has_one :islet, through: :frame
   has_one :room, through: :frame
+  has_one :site, through: :room
 
   enum :orientation, { asc: 0, desc: 1 }, validate: true
   enum :side, { left: 0, right: 1 }, validate: true

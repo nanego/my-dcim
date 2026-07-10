@@ -10,6 +10,7 @@ RSpec.describe Cable do
     it { is_expected.to have_many(:ports).through(:connections) }
     it { is_expected.to have_many(:cards).through(:connections) }
     it { is_expected.to have_many(:servers).through(:cards) }
+    it { is_expected.to have_many(:power_distribution_units).through(:connections) }
     it { is_expected.to have_many(:card_types).through(:cards) }
     it { is_expected.to have_many(:port_types).through(:card_types) }
   end

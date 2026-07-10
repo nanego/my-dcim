@@ -14,6 +14,9 @@ RSpec.describe PowerDistributionUnit::Socket do
   describe "associations" do
     it { is_expected.to belong_to(:circuit) }
     it { is_expected.to belong_to(:port_type) }
+
+    it { is_expected.to have_one(:port).dependent(:destroy) }
+    it { is_expected.to have_one(:power_distribution_unit).through(:circuit).source(:record) }
   end
 
   describe "validations" do

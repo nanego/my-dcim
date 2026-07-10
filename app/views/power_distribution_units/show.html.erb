@@ -20,236 +20,285 @@
   <% end %>
 <% end %>
 
-<div class="col-12 p-4 border-top d-flex flex-column row-gap-4">
-  <div class="alert alert-warning mb-0">
-    Cette section est actuellement en cours de développement. Les données peuvent être amenées à être supprimées ou altérées par des changements le temps du développement.
-  </div>
+<div class="page-show__tabs" id="pduShowTabs">
+  <ul class="nav nav-tabs ps-4">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active"
+              id="details-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#details-tab-pane"
+              type="button"
+              role="tab"
+              aria-controls="details-tab-pane"
+              aria-selected="true">
+        <%= t("show.tabs.details") %>
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link"
+              id="connections-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#connections-tab-pane"
+              type="button"
+              role="tab"
+              aria-controls="connections-tab-pane"
+              aria-selected="true">
+        <%= Connection.model_name.human.pluralize %>
+      </button>
+    </li>
+  </ul>
+</div>
+<div class="col-12 p-4 tab-content" id="pduShowTabsContent">
+  <div class="tab-pane fade show active" id="details-tab-pane" role="tabpanel" aria-labelledby="details-tab" tabindex="0">
+    <div class="d-flex flex-column row-gap-4">
+      <div class="alert alert-warning mb-0">
+        Cette section est actuellement en cours de développement. Les données peuvent être amenées à être supprimées ou altérées par des changements le temps du développement.
+      </div>
 
-  <%= render CardComponent.new do |card| %>
-    <% card.with_header do %>
-      <%= t("show.cards.preview") %>
-    <% end %>
-
-    <div class="d-flex">
-      <span class="d-inline-flex mx-auto">
-        <ul class="list-group">
-
-          <% @power_distribution_unit.sockets.order(number: @power_distribution_unit.orientation).each do |socket| %>
-            <li class="list-group-item bg-body-tertiary">
-              <span title="<%= PowerDistributionUnit::Circuit.model_name.human %> <%= socket.circuit.name %>"
-                    data-controller="tooltip"
-                    aria-label="<%= PowerDistributionUnit::Circuit.model_name.human %> <%= socket.circuit.name %>">
-                <%= render BadgeComponent.new(color: :light) do %>
-                  <span><%= socket.port_type %></span>
-                  <span>#<%= socket.number %></span>
-                <% end %>
-              </span>
-            </li>
-          <% end %>
-        </ul>
-      </span>
-    </div>
-  <% end %>
-
-  <% if @power_distribution_unit.comment.present? %>
-    <div class="alert alert-warning mb-0 simple-format">
-      <%= simple_format @power_distribution_unit.comment %>
-    </div>
-  <% end %>
-
-  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
-    <div class="col">
       <%= render CardComponent.new do |card| %>
-        <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <% card.with_header do %>
-            <%= t("show.cards.identification") %>
+        <% card.with_header do %>
+          <%= t("show.cards.preview") %>
+        <% end %>
+
+        <div id="pdu-vizualisation-<%= @power_distribution_unit.id %>">
+          <%= render partial: "visualization", locals: { power_distribution_unit: @power_distribution_unit } %>
+        </div>
+      <% end %>
+
+      <% if @power_distribution_unit.comment.present? %>
+        <div class="alert alert-warning mb-0 simple-format">
+          <%= simple_format @power_distribution_unit.comment %>
+        </div>
+      <% end %>
+
+      <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+        <div class="col">
+          <%= render CardComponent.new do |card| %>
+            <dl class="show-page_dl d-grid row-gap-2 mb-0">
+              <% card.with_header do %>
+                <%= t("show.cards.identification") %>
+              <% end %>
+
+              <% %i[name].each do |attribute_name| %>
+                <dt><%= PowerDistributionUnit.human_attribute_name(attribute_name) %></dt>
+                <dd class="mb-0 ps-3"><%= @power_distribution_unit.public_send(attribute_name) %></dd>
+              <% end %>
+            </dl>
           <% end %>
 
-          <% %i[name].each do |attribute_name| %>
-            <dt><%= PowerDistributionUnit.human_attribute_name(attribute_name) %></dt>
-            <dd class="mb-0 ps-3"><%= @power_distribution_unit.public_send(attribute_name) %></dd>
+          <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
+            <% card.with_header do %>
+              <%= PowerDistributionUnitType.model_name.human %>
+            <% end %>
+
+            <dl class="show-page_dl d-grid row-gap-2 mb-0">
+              <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(:name) %> :</dt>
+              <dd class="mb-0 pb-2 ps-3"><%= link_to @power_distribution_unit.type %></dd>
+
+              <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(:manufacturer_id) %> :</dt>
+              <dd class="mb-0 pb-2 ps-3"><%= link_to @power_distribution_unit.type.manufacturer %></dd>
+
+              <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(:current_type) %> :</dt>
+              <dd class="mb-0 ps-3">
+                <%= PowerDistributionUnitType.human_attribute_name(
+                      "current_type.#{@power_distribution_unit.type.current_type}",
+                    ) %>
+              </dd>
+
+              <dt class="pb-2"><%= PowerDistributionUnit::Circuit.model_name.human.pluralize %> :</dt>
+              <dd class="mb-0 pb-2 ps-3"><%= @power_distribution_unit.type.circuits.count %></dd>
+
+              <dt class="pb-2"><%= PowerDistributionUnit::Socket.model_name.human.pluralize %> :</dt>
+              <dd class="mb-0 pb-2 ps-3"><%= @power_distribution_unit.type.sockets.count %></dd>
+
+              <dt><%= PowerDistributionUnitType.human_attribute_name(:documentation_url) %> :</dt>
+              <dd class="mb-0 ps-3">
+                <% if (documentation_url = @power_distribution_unit.type.documentation_url.to_s).present? %>
+                  <%= link_to documentation_url, documentation_url, target: :_blank, rel: :noopener %>
+                  <span class="bi bi-box-arrow-up-right small text-secondary ms-1"></span>
+                <% else %>
+                  <span class="fst-italic fw-light text-body-secondary"><%= I18n.t("n_a") %></span>
+                <% end %>
+              </dd>
+            </dl>
           <% end %>
-        </dl>
-      <% end %>
 
-      <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
-        <% card.with_header do %>
-          <%= PowerDistributionUnitType.model_name.human %>
-        <% end %>
-
-        <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(:name) %> :</dt>
-          <dd class="mb-0 pb-2 ps-3"><%= link_to @power_distribution_unit.type %></dd>
-
-          <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(:manufacturer_id) %> :</dt>
-          <dd class="mb-0 pb-2 ps-3"><%= link_to @power_distribution_unit.type.manufacturer %></dd>
-
-          <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(:current_type) %> :</dt>
-          <dd class="mb-0 ps-3">
-            <%= PowerDistributionUnitType.human_attribute_name(
-                  "current_type.#{@power_distribution_unit.type.current_type}",
-                ) %>
-          </dd>
-
-          <dt class="pb-2"><%= PowerDistributionUnit::Circuit.model_name.human.pluralize %> :</dt>
-          <dd class="mb-0 pb-2 ps-3"><%= @power_distribution_unit.type.circuits.count %></dd>
-
-          <dt class="pb-2"><%= PowerDistributionUnit::Socket.model_name.human.pluralize %> :</dt>
-          <dd class="mb-0 pb-2 ps-3"><%= @power_distribution_unit.type.sockets.count %></dd>
-
-          <dt><%= PowerDistributionUnitType.human_attribute_name(:documentation_url) %> :</dt>
-          <dd class="mb-0 ps-3">
-            <% if (documentation_url = @power_distribution_unit.type.documentation_url.to_s).present? %>
-              <%= link_to documentation_url, documentation_url, target: :_blank, rel: :noopener %>
-              <span class="bi bi-box-arrow-up-right small text-secondary ms-1"></span>
-            <% else %>
-              <span class="fst-italic fw-light text-body-secondary"><%= I18n.t("n_a") %></span>
+          <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
+            <% card.with_header do %>
+              <%= t("show.cards.features") %>
             <% end %>
-          </dd>
-        </dl>
-      <% end %>
 
-      <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
-        <% card.with_header do %>
-          <%= t("show.cards.features") %>
-        <% end %>
+            <dl class="show-page_dl d-grid row-gap-2 mb-0">
+              <dt class="pb-2"><%= PowerDistributionUnit.human_attribute_name(:serial_number) %> :</dt>
+              <dd class="mb-0 ps-3 pb-2 font-monospace"><%= value_or_nc(@power_distribution_unit.serial_number) %></dd>
 
-        <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <dt class="pb-2"><%= PowerDistributionUnit.human_attribute_name(:serial_number) %> :</dt>
-          <dd class="mb-0 ps-3 pb-2 font-monospace"><%= value_or_nc(@power_distribution_unit.serial_number) %></dd>
+              <dt class="pb-2"><%= PowerDistributionUnit.human_attribute_name(:orientation) %> :</dt>
+              <dd class="mb-0 pb-2 ps-3">
+                <%= PowerDistributionUnit.human_attribute_name("orientation.#{@power_distribution_unit.orientation}") %>
+              </dd>
 
-          <dt class="pb-2"><%= PowerDistributionUnit.human_attribute_name(:orientation) %> :</dt>
-          <dd class="mb-0 pb-2 ps-3">
-            <%= PowerDistributionUnit.human_attribute_name("orientation.#{@power_distribution_unit.orientation}") %>
-          </dd>
+              <dt><%= PowerDistributionUnit.human_attribute_name(:ipmi_url) %> :</dt>
+              <dd class="mb-0 ps-3">
+                <% if (ipmi_url = @power_distribution_unit.ipmi_url.to_s).present? %>
+                  <%= link_to ipmi_url, ipmi_url, target: :_blank, rel: :noopener %>
+                  <span class="bi bi-box-arrow-up-right small text-secondary ms-1"></span>
+                <% else %>
+                  <span class="fst-italic fw-light text-body-secondary"><%= I18n.t("n_a") %></span>
+                <% end %>
+              </dd>
+            </dl>
+          <% end %>
+        </div>
 
-          <dt><%= PowerDistributionUnit.human_attribute_name(:ipmi_url) %> :</dt>
-          <dd class="mb-0 ps-3">
-            <% if (ipmi_url = @power_distribution_unit.ipmi_url.to_s).present? %>
-              <%= link_to ipmi_url, ipmi_url, target: :_blank, rel: :noopener %>
-              <span class="bi bi-box-arrow-up-right small text-secondary ms-1"></span>
-            <% else %>
-              <span class="fst-italic fw-light text-body-secondary"><%= I18n.t("n_a") %></span>
+        <div class="col">
+          <%= render CardComponent.new(type: :primary) do |card| %>
+            <% card.with_header do %>
+              <%= t("layouts.sidebar.location.title") %>
             <% end %>
-          </dd>
-        </dl>
-      <% end %>
-    </div>
 
-    <div class="col">
-      <%= render CardComponent.new(type: :primary) do |card| %>
-        <% card.with_header do %>
-          <%= t("layouts.sidebar.location.title") %>
-        <% end %>
+            <dl class="show-page_dl d-grid row-gap-2 mb-0">
+              <dt class="pb-2"><%= Site.model_name.human %></dt>
+              <dd class="mb-0 pb-2 ps-3">
+                <%= link_to @power_distribution_unit.site, site_path(@power_distribution_unit.site) %>
+              </dd>
 
-        <dl class="show-page_dl d-grid row-gap-2 mb-0">
-          <dt class="pb-2"><%= Site.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3">
-            <%= link_to @power_distribution_unit.room.site, site_path(@power_distribution_unit.room.site) %>
-          </dd>
+              <dt class="pb-2"><%= Room.model_name.human %></dt>
+              <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
+                <%= link_to @power_distribution_unit.room.try(:name), @power_distribution_unit.room %>
 
-          <dt class="pb-2"><%= Room.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
-            <%= link_to @power_distribution_unit.room.try(:name), @power_distribution_unit.room %>
+                <% if allowed_to?(:show?, @power_distribution_unit.room, with: Visualization::RoomPolicy) %>
+                  <%= link_to visualization_room_path(@power_distribution_unit.room),
+                              class: "btn btn-primary btn-sm",
+                              title: t("visualization.title"),
+                              data: {
+                                turbo_frame: :_top,
+                                controller: "tooltip",
+                                bs_placement: "left",
+                              },
+                              aria: {
+                                label: t("visualization.title"),
+                              } do %>
+                    <span class="bi bi-diagram-3-fill" aria-hidden="true"></span>
+                    <span class="visually-hidden"><%= t("visualization.title") %></span>
+                  <% end %>
+                <% end %>
+              </dd>
 
-            <% if allowed_to?(:show?, @power_distribution_unit.room, with: Visualization::RoomPolicy) %>
-              <%= link_to visualization_room_path(@power_distribution_unit.room),
-                          class: "btn btn-primary btn-sm",
-                          title: t("visualization.title"),
-                          data: {
-                            turbo_frame: :_top,
-                            controller: "tooltip",
-                            bs_placement: "left",
-                          },
-                          aria: {
-                            label: t("visualization.title"),
-                          } do %>
-                <span class="bi bi-diagram-3-fill" aria-hidden="true"></span>
-                <span class="visually-hidden"><%= t("visualization.title") %></span>
-              <% end %>
-            <% end %>
-          </dd>
+              <dt class="pb-2"><%= Islet.model_name.human %></dt>
+              <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
+                <%= link_to @power_distribution_unit.islet.decorated.name_with_room,
+                            islet_path(@power_distribution_unit.islet) %>
 
-          <dt class="pb-2"><%= Islet.model_name.human %></dt>
-          <dd class="mb-0 pb-2 ps-3 d-flex justify-content-between">
-            <%= link_to @power_distribution_unit.islet.decorated.name_with_room,
-                        islet_path(@power_distribution_unit.islet) %>
+                <% if allowed_to?(:show?, @power_distribution_unit.room, with: Visualization::RoomPolicy) %>
+                  <%= link_to visualization_room_path(
+                        @power_distribution_unit.room, islet: @power_distribution_unit.islet.name,
+                      ),
+                              class: "btn btn-primary btn-sm",
+                              title: t("visualization.title"),
+                              data: {
+                                turbo_frame: :_top,
+                                controller: "tooltip",
+                                bs_placement: "left",
+                              },
+                              aria: {
+                                label: t("visualization.title"),
+                              } do %>
+                    <span class="bi bi-diagram-3-fill" aria-hidden="true"></span>
+                    <span class="visually-hidden"><%= t("visualization.title") %></span>
+                  <% end %>
+                <% end %>
+              </dd>
 
-            <% if allowed_to?(:show?, @power_distribution_unit.room, with: Visualization::RoomPolicy) %>
-              <%= link_to visualization_room_path(
-                    @power_distribution_unit.room, islet: @power_distribution_unit.islet.name,
-                  ),
-                          class: "btn btn-primary btn-sm",
-                          title: t("visualization.title"),
-                          data: {
-                            turbo_frame: :_top,
-                            controller: "tooltip",
-                            bs_placement: "left",
-                          },
-                          aria: {
-                            label: t("visualization.title"),
-                          } do %>
-                <span class="bi bi-diagram-3-fill" aria-hidden="true"></span>
-                <span class="visually-hidden"><%= t("visualization.title") %></span>
-              <% end %>
-            <% end %>
-          </dd>
+              <dt class="pb-2"><%= Bay.model_name.human %></dt>
+              <dd class="mb-0 ps-3 pb-2 d-flex justify-content-between">
+                <%= link_to @power_distribution_unit.bay, bay_path(@power_distribution_unit.bay) %>
 
-          <dt class="pb-2"><%= Bay.model_name.human %></dt>
-          <dd class="mb-0 ps-3 pb-2 d-flex justify-content-between">
-            <%= link_to @power_distribution_unit.bay, bay_path(@power_distribution_unit.bay) %>
+                <% if allowed_to?(:show?, @power_distribution_unit.bay, with: Visualization::BayPolicy) %>
+                  <%= link_to visualization_bay_path(@power_distribution_unit.bay),
+                              class: "btn btn-primary btn-sm",
+                              title: t("visualization.title"),
+                              data: {
+                                turbo_frame: :_top,
+                                controller: "tooltip",
+                                bs_placement: "left",
+                              },
+                              aria: {
+                                label: t("visualization.title"),
+                              } do %>
+                    <span class="bi bi-diagram-3-fill" aria-hidden="true"></span>
+                    <span class="visually-hidden"><%= t("visualization.title") %></span>
+                  <% end %>
+                <% end %>
+              </dd>
 
-            <% if allowed_to?(:show?, @power_distribution_unit.bay, with: Visualization::BayPolicy) %>
-              <%= link_to visualization_bay_path(@power_distribution_unit.bay),
-                          class: "btn btn-primary btn-sm",
-                          title: t("visualization.title"),
-                          data: {
-                            turbo_frame: :_top,
-                            controller: "tooltip",
-                            bs_placement: "left",
-                          },
-                          aria: {
-                            label: t("visualization.title"),
-                          } do %>
-                <span class="bi bi-diagram-3-fill" aria-hidden="true"></span>
-                <span class="visually-hidden"><%= t("visualization.title") %></span>
-              <% end %>
-            <% end %>
-          </dd>
+              <dt class="pb-2"><%= Frame.model_name.human %></dt>
+              <dd class="mb-0 ps-3 pb-2 d-flex justify-content-between">
+                <%= link_to @power_distribution_unit.frame, frame_path(@power_distribution_unit.frame) %>
 
-          <dt class="pb-2"><%= Frame.model_name.human %></dt>
-          <dd class="mb-0 ps-3 pb-2 d-flex justify-content-between">
-            <%= link_to @power_distribution_unit.frame, frame_path(@power_distribution_unit.frame) %>
+                <% if allowed_to?(:show?, @power_distribution_unit.frame, with: Visualization::FramePolicy) %>
+                  <%= link_to visualization_frame_path(@power_distribution_unit.frame),
+                              class: "btn btn-primary btn-sm",
+                              title: t("visualization.title"),
+                              data: {
+                                turbo_frame: :_top,
+                                controller: "tooltip",
+                                bs_placement: "left",
+                              },
+                              aria: {
+                                label: t("visualization.title"),
+                              } do %>
+                    <span class="bi bi-diagram-3-fill" aria-hidden="true"></span>
+                    <span class="visually-hidden"><%= t("visualization.title") %></span>
+                  <% end %>
+                <% end %>
+              </dd>
 
-            <% if allowed_to?(:show?, @power_distribution_unit.frame, with: Visualization::FramePolicy) %>
-              <%= link_to visualization_frame_path(@power_distribution_unit.frame),
-                          class: "btn btn-primary btn-sm",
-                          title: t("visualization.title"),
-                          data: {
-                            turbo_frame: :_top,
-                            controller: "tooltip",
-                            bs_placement: "left",
-                          },
-                          aria: {
-                            label: t("visualization.title"),
-                          } do %>
-                <span class="bi bi-diagram-3-fill" aria-hidden="true"></span>
-                <span class="visually-hidden"><%= t("visualization.title") %></span>
-              <% end %>
-            <% end %>
-          </dd>
+              <dt><%= PowerDistributionUnit.human_attribute_name(:side) %> :</dt>
+              <dd class="mb-0 ps-3">
+                <%= PowerDistributionUnit.human_attribute_name("side.#{@power_distribution_unit.side}") %>
+              </dd>
+            </dl>
+          <% end %>
+        </div>
+      </div>
 
-          <dt><%= PowerDistributionUnit.human_attribute_name(:side) %> :</dt>
-          <dd class="mb-0 ps-3">
-            <%= PowerDistributionUnit.human_attribute_name("side.#{@power_distribution_unit.side}") %>
-          </dd>
-        </dl>
-      <% end %>
+      <%= render ChangelogEntries::ObjectListComponent.new(@power_distribution_unit) %>
     </div>
   </div>
 
-  <!-- TODO: Remove margin from changelog component + clean how show pages are built (again) by following this example -->
-  <div class="mt-n4">
-    <%= render ChangelogEntries::ObjectListComponent.new(@power_distribution_unit) %>
+  <div class="tab-pane fade" id="connections-tab-pane" role="tabpanel" aria-labelledby="connections-tab" tabindex="0">
+    <%= render HasManyTurboFrameComponent.new(
+          Connection.model_name.human.pluralize,
+          url: cables_path(power_distribution_unit_ids: @power_distribution_unit.id),
+          frame_id: dom_id(Connection, :table),
+          extra_classes: "bg-body-tertiary",
+        ) do |c| %>
+      <% c.with_actions do %>
+        <span>
+          <button class="btn btn-sm text-body-tertiary p-0"
+                  title="<%= t("action.show_all") %>"
+                  type="button"
+                  data-controller="collapse-all tooltip"
+                  data-collapse-all-elements-value="collapse"
+                  data-action="collapse-all#showAll"
+                  data-bs-placement="bottom"
+                  aria-hidden="true">
+            <span class="bi bi-arrows-expand fs-6"></span>
+          </button>
+          <button class="btn btn-sm text-body-tertiary p-0"
+                  title="<%= t("action.hide_all") %>"
+                  type="button"
+                  data-controller="collapse-all tooltip"
+                  data-collapse-all-elements-value="collapse"
+                  data-action="collapse-all#hideAll"
+                  data-bs-placement="bottom"
+                  aria-hidden="true">
+            <span class="bi bi-arrows-collapse fs-6"></span>
+          </button>
+        </span>
+      <% end %>
+    <% end %>
   </div>
 </div>
+
+<%= render "ports/modal_edit_port" %>

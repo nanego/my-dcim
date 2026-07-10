@@ -24,11 +24,14 @@ RSpec.describe PowerDistributionUnit do
 
     it { is_expected.to have_many(:circuits).dependent(:destroy) }
     it { is_expected.to have_many(:sockets).through(:circuits) }
+    it { is_expected.to have_many(:ports).through(:sockets) }
+    it { is_expected.to have_many(:cables).through(:ports) }
 
     it { is_expected.to have_one(:manufacturer).through(:type) }
     it { is_expected.to have_one(:bay).through(:frame) }
     it { is_expected.to have_one(:islet).through(:frame) }
     it { is_expected.to have_one(:room).through(:frame) }
+    it { is_expected.to have_one(:site).through(:room) }
   end
 
   describe "validations" do
