@@ -183,7 +183,7 @@ RSpec.describe BaysController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete bay_path(bay, confirm: true), params:, headers: { REFERER: "/visualization/rooms" }
+      delete(bay_path(bay, confirm: true), params:)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -195,16 +195,11 @@ RSpec.describe BaysController do
 
     context "without confirm" do
       subject(:response) do
-        delete bay_path(bay), params:, headers: { REFERER: "/rooms/overview" }
+        delete(bay_path(bay), params:)
         @response # rubocop:disable RSpec/InstanceVariable
       end
 
-      it do
-        expect do
-          response
-        end.not_to change(Bay, :count)
-      end
-
+      it { expect { response }.not_to change(Bay, :count) }
       it { expect(response).to have_http_status(:success) }
       it { expect(Bay.exists?(bay.id)).to be true }
     end
@@ -212,50 +207,24 @@ RSpec.describe BaysController do
     context "with bay without any frames" do
       let(:bay) { bays(:three) }
 
-      it do
-        expect do
-          response
-        end.to change(Bay, :count).by(-1)
-      end
-
+      it { expect { response }.to change(Bay, :count).by(-1) }
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(bays_path) }
     end
 
     context "with bay with frames" do
-      it do
-        expect do
-          response
-        end.not_to change(Bay, :count)
-      end
-
+      it { expect { response }.not_to change(Bay, :count) }
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(bays_path) }
     end
 
-    context "when request back on succes" do
+    context "with custom back_to" do
       let(:bay) { bays(:three) }
-      let(:params) { { redirect_to_on_success: :back } }
+      let(:params) { { confirm: true, back_to: "/some_path" } }
 
-      it { expect(response).to redirect_to(visualization_rooms_path) }
-
-      it do
-        expect do
-          response
-        end.to change(Bay, :count).by(-1)
-      end
-    end
-
-    context "when request back on failure" do
-      let(:params) { { redirect_to_on_success: :back } }
-
-      it { expect(response).to redirect_to(visualization_rooms_path) }
-
-      it do
-        expect do
-          response
-        end.not_to change(Bay, :count)
-      end
+      it { expect(response).to have_http_status(:redirect) }
+      it { expect(response).to redirect_to("/some_path") }
+      it { expect { response }.to change(Bay, :count).by(-1) }
     end
   end
 
