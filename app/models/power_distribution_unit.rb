@@ -31,6 +31,7 @@ class PowerDistributionUnit < ApplicationRecord
   accepts_nested_attributes_for :circuits, allow_destroy: true
 
   delegate :to_s, to: :name
+  delegate :phases_count, to: :type
 
   before_create :build_circuits_and_sockets_from_type
 
@@ -44,6 +45,10 @@ class PowerDistributionUnit < ApplicationRecord
     copy.tap do |pdu|
       pdu.circuits = circuits.map(&:deep_dup)
     end
+  end
+
+  def circuits_per_phase
+    circuits.size / phases_count
   end
 
   private

@@ -75,6 +75,32 @@ RSpec.describe PowerDistributionUnit do
     end
   end
 
+  describe "#circuits_per_phase" do
+    subject(:power_distribution_unit) { described_class.new(type:) }
+
+    let(:type) { PowerDistributionUnitType.new(current_type:) }
+
+    context "with single phase" do
+      let(:current_type) { "single_phase" }
+
+      before do
+        3.times { |i| power_distribution_unit.circuits.build(name: i) }
+      end
+
+      it { expect(power_distribution_unit.circuits_per_phase).to eq(3) }
+    end
+
+    context "with three phase" do
+      let(:current_type) { "three_phase" }
+
+      before do
+        6.times { |i| power_distribution_unit.circuits.build(name: i) }
+      end
+
+      it { expect(power_distribution_unit.circuits_per_phase).to eq(2) }
+    end
+  end
+
   describe "#build_circuits_and_sockets_from_type" do
     let!(:power_distribution_unit) do
       described_class.create!(**power_distribution_units(:one).attributes, id: nil, type:, serial_number: "test123456789")

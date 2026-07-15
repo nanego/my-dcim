@@ -27,4 +27,17 @@ class PowerDistributionUnitType < ApplicationRecord
       pdu.circuits = circuits.map(&:deep_dup)
     end
   end
+
+  def phases_count
+    case current_type.to_sym
+    when :three_phase then 3
+    when :single_phase then 1
+    else
+      raise "Can't define phases count for current_type '#{current_type}'"
+    end
+  end
+
+  def circuits_per_phase
+    circuits.size / phases_count
+  end
 end
