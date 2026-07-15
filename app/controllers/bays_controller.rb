@@ -65,12 +65,12 @@ class BaysController < ApplicationController
   def destroy
     if @bay.destroy
       respond_to do |format|
-        format.html { form_redirect_to bays_url, notice: t(".flashes.destroyed") }
+        format.html { redirect_back_to_param_or bays_url, notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { form_redirect_to bays_url, alert: @bay.errors.full_messages_for(:base).join(", ") }
+        format.html { redirect_back_to_param_or bays_url, alert: @bay.errors.full_messages_for(:base).join(", ") }
       end
     end
   end
