@@ -20,7 +20,7 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
                                cablename: params["cablename"])
                  end
 
-    @frame = @from_port.server&.frame || @from_port.circuit&.record&.frame
+    @frame = @from_port.frame
     @room = @frame.room
     @from_server = @from_port.server
     @from_pdu = @from_port.circuit&.record unless @from_server

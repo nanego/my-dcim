@@ -2,7 +2,7 @@
 
 require "csv"
 
-class Port < ApplicationRecord
+class Port < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_changelog
 
   delegated_type :attachable, types: %w[Card PowerDistributionUnit::Socket], touch: true
@@ -23,43 +23,6 @@ class Port < ApplicationRecord
   delegate :server_id, to: :card, prefix: false
 
   scope :sorted, -> { order(:position) }
-
-  def network_conf(switch_slot)
-    cable_name = connection.try(:cable).try(:name)
-    if cable_name.present?
-      "#{connection.cable.try(:color)} - #{cable_name} - Switch #{cable_name[0]} - Port #{switch_slot}:#{cable_name[1..]} - #{vlans}"
-    end
-  end
-
-  def connect_to_port(other_port, cable_name, cable_color, vlans, special_case = nil, comments = nil)
-    remove_unused_connections([self, other_port])
-
-    if other_port
-      cable = nil
-      if connection.present?
-        cable ||= connection.cable
-      end
-      if other_port.connection.present?
-        cable ||= other_port.connection.cable
-      end
-      if cable.present? && !cable.destroyed?
-        cable.name = cable_name
-        cable.color = cable_color
-        cable.special_case = special_case
-        cable.comments = comments
-        cable.save
-      else
-        cable = Cable.create(name: cable_name, color: cable_color)
-      end
-
-      self.connection = Connection.find_or_create_by(port: self, cable: cable)
-      other_port.connection = Connection.find_or_create_by(port: other_port, cable: cable)
-      self.vlans = vlans
-      other_port.vlans = self.vlans
-
-      save && other_port.save
-    end
-  end
 
   def self.to_txt(frames)
     txt = []
@@ -106,6 +69,52 @@ class Port < ApplicationRecord
           end
         end
       end
+    end
+  end
+
+  def frame
+    case attachable
+    when Card
+      server.frame
+    when PowerDistributionUnit::Socket
+      circuit.frame
+    end
+  end
+
+  def network_conf(switch_slot)
+    cable_name = connection.try(:cable).try(:name)
+    if cable_name.present?
+      "#{connection.cable.try(:color)} - #{cable_name} - Switch #{cable_name[0]} - Port #{switch_slot}:#{cable_name[1..]} - #{vlans}"
+    end
+  end
+
+  def connect_to_port(other_port, cable_name, cable_color, vlans, special_case = nil, comments = nil)
+    remove_unused_connections([self, other_port])
+
+    if other_port
+      cable = nil
+      if connection.present?
+        cable ||= connection.cable
+      end
+      if other_port.connection.present?
+        cable ||= other_port.connection.cable
+      end
+      if cable.present? && !cable.destroyed?
+        cable.name = cable_name
+        cable.color = cable_color
+        cable.special_case = special_case
+        cable.comments = comments
+        cable.save
+      else
+        cable = Cable.create(name: cable_name, color: cable_color)
+      end
+
+      self.connection = Connection.find_or_create_by(port: self, cable: cable)
+      other_port.connection = Connection.find_or_create_by(port: other_port, cable: cable)
+      self.vlans = vlans
+      other_port.vlans = self.vlans
+
+      save && other_port.save
     end
   end
 
