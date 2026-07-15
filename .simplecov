@@ -2,22 +2,25 @@
 
 require "simplecov-console"
 
-SimpleCov.start :rails do
+SimpleCov.configure do
   project_name "MyDCIM"
 
-  # add_group "Admin", "app/admin"
-  # add_group "Channels", "app/channels"
-  # add_group "Components", "app/components"
-  # add_group "Decorators", "app/decorators"
-  # add_group "Policies", "app/policies"
-  add_group "Services", "app/services"
-  # add_group "Validators", "app/validators"
-  add_group "Long files" do |src_file|
+  # group "Channels", "app/channels"
+  group "Components", "app/components"
+  group "Decorators", "app/decorators"
+  group "Exporters", "app/exporters"
+  group "Policies", "app/policies"
+  group "Processors", "app/processors"
+  group "Services", "app/services"
+  # group "Validators", "app/validators"
+  group "Long files" do |src_file|
     src_file.lines.count > 500
   end
 
-  # minimum_coverage 80
-  # minimum_coverage_by_file 50
+  # minimum_coverage 85
+  # converage :line do
+  #   minimum_per_file 50
+  # end
 
   # formatter SimpleCov::Formatter::MultiFormatter.new([
   #                                                      SimpleCov::Formatter::HTMLFormatter,
