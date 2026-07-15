@@ -591,7 +591,7 @@ GEM
     securerandom (0.4.1)
     shoulda-matchers (8.0.1)
       activesupport (>= 7.2)
-    shrine (3.8.0)
+    shrine (3.9.0)
       content_disposition (~> 1.0)
       down (~> 5.1)
     simplecov (0.22.0)
@@ -746,7 +746,7 @@ DEPENDENCIES
   ruby-vips (~> 2.0)
   scenic (~> 1.8)
   shoulda-matchers
-  shrine (~> 3.8)
+  shrine (~> 3.9)
   simple_token_authentication!
   simplecov
   simplecov-console
@@ -958,7 +958,7 @@ CHECKSUMS
   scenic (1.9.0) sha256=6eec3aa049ba2a137e7eb0b4c4f0200b77f7765fc82e08ad44c01da7905563d9
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
   shoulda-matchers (8.0.1) sha256=5dbb46e5765b9da225111b085e0819e8c8a121ff94bba430a153eb1ea2c60288
-  shrine (3.8.0) sha256=658cc1fe1c5ec836a6c10bace7f214313e7d878acea09b6b658fe15fa19ea109
+  shrine (3.9.0) sha256=3ccc2dd1cff89efc034449675f6524017084485b8b387059d68b4f303c848aa7
   simple_token_authentication (1.18.1)
   simplecov (0.22.0) sha256=fe2622c7834ff23b98066bb0a854284b2729a569ac659f82621fc22ef36213a5
   simplecov-console (0.9.5) sha256=b1108bcfff5f210143e2b8301698c367b01586f20d25a73e95475a5df6fc6ff6
