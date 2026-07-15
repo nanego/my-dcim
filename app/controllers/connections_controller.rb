@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ConnectionsController < ApplicationController # rubocop:disable Metrics/ClassLength
-  def edit # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def edit # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
     authorize!
 
     @from_port = if params[:from_port_id].present? && params[:from_port_id].to_i.positive?
