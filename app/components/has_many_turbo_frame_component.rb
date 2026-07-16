@@ -39,14 +39,14 @@ class HasManyTurboFrameComponent < ApplicationComponent
     <% end %>
   ERB
 
-  def initialize(title, url:, frame_id:, new_path: nil, new_label: nil, type: :primary, extra_classes: "", **html_options) # rubocop:disable Metrics/ParameterLists
+  def initialize(title, url:, frame_id:, new_path: nil, new_label: nil, type: :primary, **html_options)
     @title = title
     @url = url
     @frame_id = frame_id
     @type = type
     @new_path = new_path
     @new_label = new_label
-    @extra_classes = class_names("mt-4", "bg-body-tertiary", extra_classes)
+    @extra_classes = class_names("mt-4", "bg-body-tertiary")
     @html_options = html_options
 
     super()
