@@ -20,7 +20,7 @@
   <% end %>
 <% end %>
 
-<div class="col-12 p-4 border-top">
+<div class="p-4 border-top d-flex flex-column row-gap-4">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
       <%= render CardComponent.new do |card| %>
@@ -91,7 +91,7 @@
     </div>
   </div>
 
-  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-4") do |card| %>
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
     <% card.with_header do %>
       <%= t("show.cards.visualization") %>
     <% end %>
