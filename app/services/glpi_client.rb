@@ -123,6 +123,8 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     contract_ids = body["_contracts"].is_a?(Array) ? body["_contracts"].pluck("contracts_id") : []
     attributes[:_lazy][:contracts] = with_error_handling { contract_ids.filter_map { |id| get_contract_for(id:) } }
 
+    attributes[:_lazy][:warranties] = with_error_handling { get_warranties_for(computer_id: body["id"]) }
+
     processors = body["_devices"].present? ? body["_devices"]["Item_DeviceProcessor"] : {}
     attributes[:_lazy][:processors] = with_error_handling do
       next {} if processors.blank?
@@ -165,6 +167,19 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     end
 
     JSON.parse(resp.body)
+  end
+
+  def get_warranties_for(computer_id:)
+    resp = @connection.get("#{Computer::ENDPOINT}/#{computer_id}/Infocom") do |request|
+      request.headers["Session-Token"] = session_token
+      request.headers["App-Token"] = API_KEY
+    end
+
+    raw_list = JSON.parse(resp.body)
+    raw_list.map do |raw|
+      start_date = Date.iso8601(raw.warranty_date)
+      { start_date:, end_date: start_date + raw.warranty_duration.months }
+    end
   end
 
   def stubs
@@ -219,6 +234,18 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
 
     def processors
       @processors ||= _lazy[:processors].call
+    end
+
+    def under_warranty?
+      warranties.any? { |w| w[:start_date].past? && w[:end_date].future? }
+    end
+
+    def last_warranty_end_date
+      warranties.filter_map { |w| w[:end_date] if w[:end_date].future? }.max
+    end
+
+    def warranties
+      @warranties ||= _lazy[:warranties].call
     end
   end
 
