@@ -6,7 +6,7 @@ class HasManyTurboFrameComponent < ApplicationComponent
   renders_one :actions
 
   erb_template <<~ERB
-    <%= render CardComponent.new(type: @type, extra_classes: @extra_classes, **@html_options) do |c| %>
+    <%= render CardComponent.new(type: @type, extra_classes: "bg-body-tertiary", **@html_options) do |c| %>
       <div class="d-flex justify-content-between align-items-center mb-3">
         <span class="d-inline-flex align-items-center">
           <h4 class="mb-0"><%= @title %></h4>
@@ -46,7 +46,6 @@ class HasManyTurboFrameComponent < ApplicationComponent
     @type = type
     @new_path = new_path
     @new_label = new_label
-    @extra_classes = class_names("mt-4", "bg-body-tertiary")
     @html_options = html_options
 
     super()
