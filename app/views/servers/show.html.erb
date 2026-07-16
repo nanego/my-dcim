@@ -331,7 +331,9 @@
           </dl>
         <% end %>
 
-        <%= turbo_frame_tag "glpi_equipment", loading: :lazy, src: server_glpi_equipment_path(@server) %>
+        <div class="mt-4">
+          <%= turbo_frame_tag "glpi_equipment", loading: :lazy, src: server_glpi_equipment_path(@server) %>
+        </div>
 
         <% if @server.documents.present? %>
           <!-- Card shown on mobile, in 3rd position (Grid isn't working as Masonry) -->

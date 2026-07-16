@@ -5,8 +5,6 @@ module Servers
     before_action :set_server
 
     def show
-      return head :ok if @server.modele.category.glpi_sync_type_none?
-
       @equipment = @server.decorated.glpi_equipment
     rescue StandardError => e
       Rails.logger.warn "WARNING: couldn't get GLPI data because of an error: #{e.message}"
