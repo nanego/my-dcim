@@ -24,7 +24,7 @@ RSpec.describe Servers::GlpiEquipmentController do
       let(:server) { servers(:hub_network1) }
 
       it { expect(response).to have_http_status(:ok) }
-      it { expect(response.body).to be_empty }
+      it { expect(response.body).to include("bi-slash-circle") }
     end
 
     context "when exception raised" do
