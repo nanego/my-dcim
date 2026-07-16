@@ -2,7 +2,7 @@
 
 <%= render Page::HeadingShowComponent.new(resource: @air_conditioner_model, title:, breadcrumb:) %>
 
-<div class="col-12 p-4 border-top">
+<div class="p-4 border-top d-flex flex-column row-gap-4">
   <div class="col-12 col-lg-6">
     <%= render CardComponent.new do |card| %>
       <dl class="show-page_dl d-grid row-gap-2 mb-0">

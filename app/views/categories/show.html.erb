@@ -5,7 +5,7 @@
       breadcrumb:,
       editable: allowed_to?(:update?, @category),
     ) %>
-<div class="col-12 p-4 border-top">
+<div class="p-4 border-top d-flex flex-column row-gap-4">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
       <%= render CardComponent.new do |card| %>
@@ -32,6 +32,7 @@
       <% end %>
     </div>
   </div>
+
   <%= render HasManyTurboFrameComponent.new(
         Modele.model_name.human.pluralize,
         url: modeles_path(category_ids: @category.id),
@@ -39,5 +40,6 @@
         new_path: (new_modele_path(modele: { category_id: @category.id }) if allowed_to?(:create?, with: ModelePolicy)),
         new_label: t("modeles.add_new"),
       ) %>
+
   <%= render ChangelogEntries::ObjectListComponent.new(@category) %>
 </div>

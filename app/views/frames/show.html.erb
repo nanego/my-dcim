@@ -20,7 +20,7 @@
   <% end %>
 <% end %>
 
-<div class="col-12 p-4 border-top">
+<div class="p-4 border-top d-flex flex-column row-gap-4">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
       <%= render CardComponent.new do |card| %>
@@ -131,6 +131,7 @@
       <% end %>
     </div>
   </div>
+
   <%= render HasManyTurboFrameComponent.new(
         Server.model_name.human(count: 2),
         url: servers_path(frame_ids: @frame.id, sort_by: :position, sort: "desc"),
@@ -138,5 +139,6 @@
         new_path: (new_server_path(server: { frame_id: @frame.id }) if allowed_to?(:create?, with: ServerPolicy)),
         new_label: t("servers.add_new"),
       ) %>
+
   <%= render ChangelogEntries::ObjectListComponent.new(@frame) %>
 </div>

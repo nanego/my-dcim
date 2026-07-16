@@ -7,7 +7,7 @@
       editable: allowed_to?(:update?, @port_type),
     ) %>
 
-<div class="col-12 p-4 border-top">
+<div class="p-4 border-top d-flex flex-column row-gap-4">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
       <%= render CardComponent.new do |card| %>
