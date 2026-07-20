@@ -27,7 +27,8 @@
                        PowerDistributionUnitDecorator.power_distribution_unit_types_options_for_select,
                        { prompt: true },
                        class: "form-select",
-                       data: { controller: "select" } %>
+                       data: { controller: "select" },
+                       disabled: f.object.connections.present? %>
         </fieldset>
       <% end %>
 

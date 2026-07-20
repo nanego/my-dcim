@@ -304,6 +304,11 @@ en:
             domain_ids:
               blank: can't be blank, or "All domains" must be checked
 
+        power_distribution_unit:
+          attributes:
+            type:
+              cannot_change_if_connections_present: cannot bed changed if there is connections
+
   # Common attributes
   attributes:
     bay_id: Bay

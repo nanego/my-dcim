@@ -28,6 +28,8 @@ class PowerDistributionUnit < ApplicationRecord
   validates :serial_number, presence: true, uniqueness: true, format: { without: /\s/ }
   validates :ipmi_url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https]), allow_blank: true
 
+  validate :type_cannot_change_if_connections_present
+
   accepts_nested_attributes_for :circuits, allow_destroy: true
 
   delegate :to_s, to: :name
@@ -46,7 +48,18 @@ class PowerDistributionUnit < ApplicationRecord
     end
   end
 
+  # TODO: remove me when connections are implemented
+  def connections
+    []
+  end
+
   private
+
+  def type_cannot_change_if_connections_present
+    return unless connections.present? && will_save_change_to_type?
+
+    errors.add(:type, :cannot_change_if_connections_present)
+  end
 
   def slug_candidates
     [
