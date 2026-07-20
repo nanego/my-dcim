@@ -85,8 +85,7 @@ RSpec.describe PowerDistributionUnitsController do
     let(:params) do
       {
         power_distribution_unit: power_distribution_unit.attributes.except(%w[id name serial_number])
-          .merge(name: "PDU Name",
-                 serial_number: "321",
+          .merge(serial_number: "321",
                  circuits_attributes: [
                    { name: "c1" },
                    { name: "c2", sockets_attributes: [{ number: 1, port_type_id: 1 }] },
@@ -116,7 +115,7 @@ RSpec.describe PowerDistributionUnitsController do
     end
 
     context "with invalid parameters" do
-      let(:params) { { power_distribution_unit: { name: "" } } }
+      let(:params) { { power_distribution_unit: { ipmi_url: "none-url" } } }
 
       it { expect { response }.not_to change(PowerDistributionUnit, :count) }
       it { expect(response).to render_template(:new) }

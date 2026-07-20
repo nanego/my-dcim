@@ -10,7 +10,7 @@ RSpec.describe PowerDistributionUnitDecorator, type: :decorator do
   describe ".options_for_select" do
     it do
       expect(described_class.options_for_select)
-        .to contain_exactly(["PDU1", 1], ["PDU2", 2])
+        .to contain_exactly(["MyFrame1-A", 1], ["MyFrame1-B", 2])
     end
   end
 
