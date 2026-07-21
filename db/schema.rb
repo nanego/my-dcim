@@ -512,12 +512,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_20_131449) do
     t.bigint "frame_id", null: false
     t.string "ipmi_url"
     t.integer "orientation", null: false
-    t.string "power_line", default: "a", null: false
+    t.string "power_line", null: false
     t.string "serial_number", null: false
     t.integer "side", null: false
     t.string "slug", null: false
     t.bigint "type_id", null: false
     t.datetime "updated_at", null: false
+    t.index ["frame_id", "power_line"], name: "index_power_distribution_units_on_frame_id_and_power_line", unique: true
     t.index ["frame_id"], name: "index_power_distribution_units_on_frame_id"
     t.index ["serial_number"], name: "index_power_distribution_units_on_serial_number", unique: true
     t.index ["type_id"], name: "index_power_distribution_units_on_type_id"

@@ -26,6 +26,7 @@ class PowerDistributionUnit < ApplicationRecord
   enum :power_line, { a: "a", b: "b" }, validates: true
 
   validates :serial_number, presence: true, uniqueness: true, format: { without: /\s/ }
+  validates :power_line, uniqueness: true, scope: :frame_id
   validates :ipmi_url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https]), allow_blank: true
 
   accepts_nested_attributes_for :circuits, allow_destroy: true
