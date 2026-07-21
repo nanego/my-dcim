@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "items_id": 1,
+        "itemtype": "Computer",
+        "entities_id": 0,
+        "is_recursive": 0,
+        "buy_date": null,
+        "use_date": null,
+        "warranty_duration": 3,
+        "warranty_info": null,
+        "suppliers_id": 0,
+        "order_number": null,
+        "delivery_number": null,
+        "immo_number": null,
+        "value": "0.0000",
+        "warranty_value": "0.0000",
+        "sink_time": 0,
+        "sink_type": 0,
+        "sink_coeff": 0,
+        "comment": null,
+        "bill": null,
+        "budgets_id": 0,
+        "alert": 0,
+        "order_date": null,
+        "delivery_date": null,
+        "inventory_date": null,
+        "warranty_date": "2026-07-22",
+        "date_mod": "2026-07-16 15:03:16",
+        "date_creation": "2026-06-22 16:04:59",
+        "decommission_date": null,
+        "businesscriticities_id": 0,
+        "links": [
+            {
+                "rel": "Computer",
+                "href": "http://localhost/api.php/v1/Computer/1"
+            },
+            {
+                "rel": "Entity",
+                "href": "http://localhost/api.php/v1/Entity/0"
+            }
+        ]
+    }
+]

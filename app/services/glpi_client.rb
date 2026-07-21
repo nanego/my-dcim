@@ -177,21 +177,24 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
 
     raw_list = JSON.parse(resp.body)
     raw_list.map do |raw|
-      start_date = Date.iso8601(raw.warranty_date)
-      { start_date:, end_date: start_date + raw.warranty_duration.months }
+      start_date = Date.iso8601(raw["warranty_date"])
+      { start_date:, end_date: start_date + raw["warranty_duration"].months }
     end
   end
 
   def stubs
     Faraday::Adapter::Test::Stubs.new do |stub|
-      stub.get(%r{^/?Computer(\?.*)?$}) { |_env| [200, {}, Rails.root.join("test/services/computers_results.json").read] }
-      stub.get(%r{^/?NetworkEquipment(\?.*)?$}) { |_env| [200, {}, Rails.root.join("test/services/network_equipments_results.json").read] }
-      stub.get(%r{Computer/.*}) { |_env| [200, {}, Rails.root.join("test/services/computer_algori.json").read] }
-      stub.get(%r{NetworkEquipment/.*}) { |_env| [200, {}, Rails.root.join("test/services/network_equipment_algori.json").read] }
-      stub.get(%r{DeviceProcessor/.*}) { |_env| [200, {}, Rails.root.join("test/services/processor.json").read] }
-      stub.get(%r{Group/.*}) { |_env| [200, {}, Rails.root.join("test/services/group.json").read] }
-      stub.get(%r{Contract/.*}) { |_env| [200, {}, Rails.root.join("test/services/contracts_results.json").read] }
-      stub.get("/initSession") { |_env| [200, {}, '{"session_token":"kuji8uh4v77lgghqoj2c0r2848"}'] }
+      stub.get(%r{\A/?Computer\z})               { |_env| [200, {}, Rails.root.join("test/services/computers_results.json").read] }
+      stub.get(%r{\A/?Computer/[^/]+\z})         { |_env| [200, {}, Rails.root.join("test/services/computer_algori.json").read] }
+      stub.get(%r{\A/?Computer/[^/]+/Infocom\z}) { |_env| [200, {}, Rails.root.join("test/services/infocom.json").read] }
+
+      stub.get(%r{\A/?NetworkEquipment\z})       { |_env| [200, {}, Rails.root.join("test/services/network_equipments_results.json").read] }
+      stub.get(%r{\A/?NetworkEquipment/[^/]+\z}) { |_env| [200, {}, Rails.root.join("test/services/network_equipment_algori.json").read] }
+
+      stub.get(%r{\A/?DeviceProcessor/[^/]+\z})  { |_env| [200, {}, Rails.root.join("test/services/processor.json").read] }
+      stub.get(%r{\A/?Group/[^/]+\z})            { |_env| [200, {}, Rails.root.join("test/services/group.json").read] }
+      stub.get(%r{\A/?Contract/[^/]+\z})         { |_env| [200, {}, Rails.root.join("test/services/contracts_results.json").read] }
+      stub.get(%r{\A/?initSession\z})            { |_env| [200, {}, '{"session_token":"kuji8uh4v77lgghqoj2c0r2848"}'] }
     end
   end
 

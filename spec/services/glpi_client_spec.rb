@@ -31,6 +31,8 @@ RSpec.describe GlpiClient, type: :service do
     it { expect(computer.serial).to eq("c27xmq1") }
     it { expect(computer.name).to eq("argoli") }
     it { expect(computer.state).to eq("state argoli") }
+    it { expect(computer.under_warranty?).to be(false) }
+    it { expect(computer.warranties.count).to eq(1) }
     it { expect(computer.groups).to eq("group argoli") }
     it { expect(computer.contracts).to eq([{ name: "contract test", type: "contract type test" }]) }
     it { expect(computer.hard_drives.size).to eq(17) }
