@@ -29,7 +29,7 @@ RSpec.describe PowerDistributionUnit::Socket do
     before { power_distribution_unit_sockets(:one).save }
 
     context "when number is free" do
-      subject(:server) do
+      subject(:socket) do
         described_class.new(number: 999, circuit_id: 1, port_type_id: 1)
       end
 
@@ -37,7 +37,7 @@ RSpec.describe PowerDistributionUnit::Socket do
     end
 
     context "when number is taken" do
-      subject(:server) do
+      subject(:socket) do
         described_class.new(number: 1, circuit_id: 1, port_type_id: 1)
       end
 
