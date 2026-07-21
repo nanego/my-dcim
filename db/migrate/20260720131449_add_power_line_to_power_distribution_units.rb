@@ -20,7 +20,7 @@ class AddPowerLineToPowerDistributionUnits < ActiveRecord::Migration[8.1]
 
     MigrationFrame.reset_column_information
     MigrationFrame.with_pdus.find_each do |frame|
-      raise "More than 2 pdu for a frame (frame_id=#{frame.id})" if frame.power_distribution_units.count > 2
+      raise "More than 2 pdu for frame with id=#{frame.id}" if frame.power_distribution_units.count > 2
 
       frame.power_distribution_units.each_with_index do |pdu, i|
         pdu.power_line = i.even? ? "a" : "b"
