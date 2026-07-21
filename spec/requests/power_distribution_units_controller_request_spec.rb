@@ -84,8 +84,9 @@ RSpec.describe PowerDistributionUnitsController do
 
     let(:params) do
       {
-        power_distribution_unit: power_distribution_unit.attributes.except(%w[id name serial_number])
+        power_distribution_unit: power_distribution_unit.attributes.except(%w[id name serial_number power_line])
           .merge(serial_number: "321",
+                 power_line: :b,
                  circuits_attributes: [
                    { name: "c1" },
                    { name: "c2", sockets_attributes: [{ number: 1, port_type_id: 1 }] },

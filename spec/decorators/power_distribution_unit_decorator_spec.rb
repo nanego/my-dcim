@@ -10,7 +10,7 @@ RSpec.describe PowerDistributionUnitDecorator, type: :decorator do
   describe ".options_for_select" do
     it do
       expect(described_class.options_for_select)
-        .to contain_exactly(["MyFrame1-A", 1], ["MyFrame1-B", 2])
+        .to contain_exactly(["MyFrame1-A", 1], ["MyFrame4-B", 2])
     end
   end
 
@@ -78,6 +78,13 @@ RSpec.describe PowerDistributionUnitDecorator, type: :decorator do
     it do
       expect(described_class.orientation_options_for_select)
         .to contain_exactly(%w[Ascendant asc], %w[Descendant desc])
+    end
+  end
+
+  describe ".power_line_options_for_select" do
+    it do
+      expect(described_class.power_line_options_for_select)
+        .to contain_exactly(%w[A a], %w[B b])
     end
   end
 

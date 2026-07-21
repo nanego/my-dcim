@@ -120,7 +120,8 @@ RSpec.describe CablesProcessor do
       { bay: bays(:one), type: power_distribution_unit_types(:one), orientation: :asc,
         side: :left,
         comment: "",
-        ipmi_url: "" }
+        ipmi_url: "",
+        power_line: :a }
     end
 
     let(:pdu) { PowerDistributionUnit.create!(**default_pdu_param, serial_number: "p1") }
@@ -267,6 +268,7 @@ RSpec.describe CablesProcessor do
         comment: "",
         ipmi_url: "",
         serial_number: "p1",
+        power_line: :a,
       )
     end
     let(:circuit) { PowerDistributionUnit::Circuit.create(record: pdu, name: "C1") }

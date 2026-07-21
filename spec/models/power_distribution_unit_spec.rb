@@ -14,6 +14,7 @@ RSpec.describe PowerDistributionUnit do
       serial_number: "A1",
       comment: "",
       ipmi_url: "",
+      power_line: :a,
     )
   }, new_attributes: { comment: "new comment" }
 
@@ -75,7 +76,7 @@ RSpec.describe PowerDistributionUnit do
 
   describe "#build_circuits_and_sockets_from_type" do
     let!(:power_distribution_unit) do
-      described_class.create!(**power_distribution_units(:one).attributes, id: nil, type:, serial_number: "test123456789")
+      described_class.create!(**power_distribution_units(:one).attributes, id: nil, type:, serial_number: "test123456789", power_line: :b)
     end
     let(:type) { power_distribution_unit_types(:one) }
 

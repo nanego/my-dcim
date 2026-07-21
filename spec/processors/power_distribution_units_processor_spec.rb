@@ -5,16 +5,16 @@ require "rails_helper"
 RSpec.describe PowerDistributionUnitsProcessor do
   subject(:result) { described_class.call(input, params) }
 
-  let(:pdu_attr) { { type_id: 1, frame_id: 1, orientation: :asc, side: :left, comment: "", ipmi_url: "", power_line: :a } }
+  let(:pdu_attr) { { type_id: 1, frame_id: 3, orientation: :asc, side: :left, comment: "", ipmi_url: "", power_line: :a } }
   let(:input) { PowerDistributionUnit.all }
   let(:params) { {} }
 
   describe "when searching" do
-    let(:params) { { q: "MyFrame2" } }
+    let(:params) { { q: "MyFrame5" } }
 
     before do
-      PowerDistributionUnit.create!(serial_number: "101", **pdu_attr, frame_id: 2)
-      PowerDistributionUnit.create!(serial_number: "102", **pdu_attr, frame_id: 2)
+      PowerDistributionUnit.create!(serial_number: "101", **pdu_attr, frame_id: 5)
+      PowerDistributionUnit.create!(serial_number: "102", **pdu_attr, frame_id: 5, power_line: :b)
       PowerDistributionUnit.create!(serial_number: "103", **pdu_attr)
     end
 
@@ -30,7 +30,7 @@ RSpec.describe PowerDistributionUnitsProcessor do
 
     before do
       power_distribution_unit
-      PowerDistributionUnit.create!(serial_number: "11", **pdu_attr, frame: frames(:one))
+      PowerDistributionUnit.create!(serial_number: "11", **pdu_attr, frame: frames(:one), power_line: :b)
     end
 
     context "with one room_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
@@ -68,7 +68,7 @@ RSpec.describe PowerDistributionUnitsProcessor do
 
     before do
       power_distribution_unit
-      PowerDistributionUnit.create!(serial_number: "11", **pdu_attr, frame: frames(:one))
+      PowerDistributionUnit.create!(serial_number: "11", **pdu_attr, frame: frames(:one), power_line: :b)
     end
 
     context "with one islet_ids" do
@@ -104,7 +104,7 @@ RSpec.describe PowerDistributionUnitsProcessor do
 
     before do
       power_distribution_unit
-      PowerDistributionUnit.create!(serial_number: "11", **pdu_attr, frame: frames(:one))
+      PowerDistributionUnit.create!(serial_number: "11", **pdu_attr, frame: frames(:one), power_line: :b)
     end
 
     context "with one bay_ids" do
@@ -138,7 +138,7 @@ RSpec.describe PowerDistributionUnitsProcessor do
 
     before do
       power_distribution_unit
-      PowerDistributionUnit.create!(serial_number: "11", **pdu_attr, frame: frames(:one))
+      PowerDistributionUnit.create!(serial_number: "11", **pdu_attr, frame: frames(:one), power_line: :b)
     end
 
     context "with one frame_ids" do
@@ -171,7 +171,7 @@ RSpec.describe PowerDistributionUnitsProcessor do
 
     before do
       power_distribution_unit
-      PowerDistributionUnit.create!(serial_number: "11", **pdu_attr, type: power_distribution_unit_types(:one))
+      PowerDistributionUnit.create!(serial_number: "11", **pdu_attr, type: power_distribution_unit_types(:one), frame: frames(:one), power_line: :b)
     end
 
     context "with one type_ids" do
@@ -183,7 +183,7 @@ RSpec.describe PowerDistributionUnitsProcessor do
 
     context "with many type_ids" do
       let(:type_second) { PowerDistributionUnitType.create!(name: "T2", current_type: :three_phase, manufacturer: manufacturers(:fortinet)) }
-      let(:power_distribution_unit_second) { PowerDistributionUnit.create!(serial_number: "12", **pdu_attr, type: type_second) }
+      let(:power_distribution_unit_second) { PowerDistributionUnit.create!(serial_number: "12", **pdu_attr, type: type_second, power_line: :b) }
 
       let(:params) { { type_ids: [type.id, type_second.id] } }
 
@@ -203,7 +203,7 @@ RSpec.describe PowerDistributionUnitsProcessor do
 
     before do
       power_distribution_unit
-      PowerDistributionUnit.create!(serial_number: "11", **pdu_attr, type: power_distribution_unit_types(:one))
+      PowerDistributionUnit.create!(serial_number: "11", **pdu_attr, type: power_distribution_unit_types(:one), frame: frames(:one), power_line: :b)
     end
 
     context "with one manufacturer_ids" do
@@ -217,7 +217,7 @@ RSpec.describe PowerDistributionUnitsProcessor do
       let(:manufacturer_second) { Manufacturer.create!(name: "M1") }
       let(:type_second) { PowerDistributionUnitType.create!(name: "T1", current_type: :three_phase, manufacturer: manufacturer_second) }
       let(:power_distribution_unit_second) do
-        PowerDistributionUnit.create!(serial_number: "12", **pdu_attr, type: type_second)
+        PowerDistributionUnit.create!(serial_number: "12", **pdu_attr, type: type_second, power_line: :b)
       end
 
       let(:params) { { manufacturer_ids: [manufacturer.id, manufacturer_second.id] } }
