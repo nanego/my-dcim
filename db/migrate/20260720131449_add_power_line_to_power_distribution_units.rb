@@ -20,11 +20,12 @@ class AddPowerLineToPowerDistributionUnits < ActiveRecord::Migration[8.1]
 
     MigrationFrame.reset_column_information
     MigrationFrame.with_pdus.find_each do |frame|
-      raise "More than 2 pdu for frame with id=#{frame.id}" if frame.power_distribution_units.count > 2
+      pdus = frame.power_distribution_units
+      raise "More than 2 pdu for frame with id=#{frame.id}" if pdus.count > 2
 
-      frame.power_distribution_units.each_with_index do |pdu, i|
-        pdu.power_line = i.even? ? "a" : "b"
-        pdu.save!
+      pdus.each_with_index do |pdu, i|
+        power_line = i.even? ? "a" : "b"
+        pdu.update!(power_line:, slug: "#{frame.name}-#{power_line.upcase}".parameterize)
       end
     end
 
@@ -39,10 +40,7 @@ class AddPowerLineToPowerDistributionUnits < ActiveRecord::Migration[8.1]
     add_column :power_distribution_units, :name, :string
 
     MigrationPowerDistributionUnit.reset_column_information
-    MigrationPowerDistributionUnit.find_each do |p|
-      p.name = "#{p.frame.name}-#{p.power_line.upcase}"
-      p.save!
-    end
+    MigrationPowerDistributionUnit.find_each { |p| p.update!(name: "#{p.frame.name}-#{p.power_line.upcase}") }
 
     change_column_null :power_distribution_units, :name, false
     update_view :search_results, version: 3
