@@ -408,6 +408,8 @@ fr:
         connection_error: "Problème lors de la connexion à GLPI :"
         visit_page: Voir la page du matériel I.T. sur GLPI
         no_match_serial: "Aucune correspondance pour ce numéro de série : %{serial}"
+        sync_type_none_message: Ce matériel I.T. n'est pas configuré comme syncronisable avec GLPI
+        edit_settings: Éditer la configuration de syncronisation
     form:
       network_type: Réseau %{type}
       edit_confirmation: Modifier ce matériel I.T.
