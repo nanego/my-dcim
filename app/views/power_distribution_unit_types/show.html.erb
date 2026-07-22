@@ -20,7 +20,7 @@
   <% end %>
 <% end %>
 
-<div class="col-12 p-4 border-top d-grid row-gap-4">
+<div class="p-4 border-top d-flex flex-column row-gap-4">
   <div class="alert alert-warning mb-0">
     Cette section est actuellement en cours de développement. Les données peuvent être amenées à être supprimées ou altérées par des changements le temps du développement.
   </div>
@@ -117,20 +117,14 @@
     </div>
   </div>
 
-  <!-- TODO: Remove margin from has many component + clean how show pages are built (again) by following this example -->
-  <div class="mt-n4">
-    <%= render HasManyTurboFrameComponent.new(
-          PowerDistributionUnit.model_name.human(count: 2),
-          url: power_distribution_units_path(type_ids: @power_distribution_unit_type.id),
-          frame_id: dom_id(PowerDistributionUnit, :table),
-          new_path: (
-            new_power_distribution_unit_path(power_distribution_unit: { type_id: @power_distribution_unit_type.id }) if allowed_to?(:create?, with: PowerDistributionUnitPolicy)),
-          new_label: t("power_distribution_units.add_new"),
-        ) %>
-  </div>
+  <%= render HasManyTurboFrameComponent.new(
+        PowerDistributionUnit.model_name.human(count: 2),
+        url: power_distribution_units_path(type_ids: @power_distribution_unit_type.id),
+        frame_id: dom_id(PowerDistributionUnit, :table),
+        new_path: (
+          new_power_distribution_unit_path(power_distribution_unit: { type_id: @power_distribution_unit_type.id }) if allowed_to?(:create?, with: PowerDistributionUnitPolicy)),
+        new_label: t("power_distribution_units.add_new"),
+      ) %>
 
-  <!-- TODO: Remove margin from changelog component + clean how show pages are built (again) by following this example -->
-  <div class="mt-n4">
-    <%= render ChangelogEntries::ObjectListComponent.new(@power_distribution_unit_type) %>
-  </div>
+  <%= render ChangelogEntries::ObjectListComponent.new(@power_distribution_unit_type) %>
 </div>
