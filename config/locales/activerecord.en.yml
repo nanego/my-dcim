@@ -262,6 +262,7 @@ en:
         orientation: Orientation
         ipmi_url: IPMI URL
         comment: Comment
+        power_line: Power line
       power_distribution_unit/side:
         left: Left
         right: Right

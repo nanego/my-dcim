@@ -3,7 +3,7 @@
 class PowerDistributionUnitDecorator < ApplicationDecorator
   class << self
     def options_for_select
-      PowerDistributionUnit.select(:id, :name).map { |p| [p.name, p.id] }
+      PowerDistributionUnit.includes(:frame).select(:id, :frame_id, :power_line).map { |p| [p.name, p.id] }
     end
 
     def rooms_options_for_select(user)
@@ -39,6 +39,12 @@ class PowerDistributionUnitDecorator < ApplicationDecorator
     def orientation_options_for_select
       PowerDistributionUnit.orientations.keys.map do |orientation|
         [PowerDistributionUnit.human_attribute_name("orientation.#{orientation}"), orientation]
+      end
+    end
+
+    def power_line_options_for_select
+      PowerDistributionUnit.power_lines.keys.map do |power_line|
+        [power_line.upcase, power_line]
       end
     end
   end

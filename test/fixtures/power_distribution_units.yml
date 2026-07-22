@@ -2,7 +2,6 @@
 
 one:
   id: 1
-  name: PDU1
   slug: pdu1
   serial_number: pdu1
   type_id: 1
@@ -11,15 +10,16 @@ one:
   side: left
   comment: ""
   ipmi_url: ""
+  power_line: a
 
 two:
   id: 2
-  name: PDU2
   slug: pdu2
   serial_number: pdu2
   type_id: 1
-  frame_id: 1
+  frame_id: 4
   orientation: asc
   side: left
   comment: ""
   ipmi_url: ""
+  power_line: b

@@ -7,7 +7,6 @@ RSpec.describe PowerDistributionUnit do
 
   it_behaves_like "changelogable", object: lambda {
     described_class.new(
-      name: "name",
       bay: bays(:one),
       type: power_distribution_unit_types(:one),
       orientation: :asc,
@@ -15,8 +14,9 @@ RSpec.describe PowerDistributionUnit do
       serial_number: "A1",
       comment: "",
       ipmi_url: "",
+      power_line: :a,
     )
-  }, new_attributes: { name: "new name" }
+  }, new_attributes: { comment: "new comment" }
 
   describe "associations" do
     it { is_expected.to belong_to(:type) }
@@ -37,8 +37,7 @@ RSpec.describe PowerDistributionUnit do
   describe "validations" do
     it { is_expected.to define_enum_for(:orientation).with_values(%i[asc desc]) }
     it { is_expected.to define_enum_for(:side).with_values(%i[left right]) }
-
-    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to define_enum_for(:power_line).with_values(a: "a", b: "b").backed_by_column_of_type(:string) }
 
     it { is_expected.to validate_presence_of(:serial_number) }
     it { is_expected.to validate_uniqueness_of(:serial_number) }
@@ -77,7 +76,7 @@ RSpec.describe PowerDistributionUnit do
 
   describe "#build_circuits_and_sockets_from_type" do
     let!(:power_distribution_unit) do
-      described_class.create!(**power_distribution_units(:one).attributes, id: nil, type:, serial_number: "test123456789")
+      described_class.create!(**power_distribution_units(:one).attributes, id: nil, type:, serial_number: "test123456789", power_line: :b)
     end
     let(:type) { power_distribution_unit_types(:one) }
 
@@ -85,5 +84,11 @@ RSpec.describe PowerDistributionUnit do
     it { expect(power_distribution_unit.circuits.first.name).to eq(type.circuits.first.name) }
     it { expect(power_distribution_unit.sockets.size).to eq(2) }
     it { expect(power_distribution_unit.sockets.first.number).to eq(type.sockets.first.number) }
+  end
+
+  describe "#name" do
+    subject(:power_distribution_unit) { power_distribution_units(:one) }
+
+    it { expect(power_distribution_unit.name).to eq("MyFrame1-A") }
   end
 end
