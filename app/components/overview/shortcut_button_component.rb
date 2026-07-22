@@ -28,13 +28,12 @@ module Overview
     def call
       tag.span(class: "shortcut-button-component") do
         concat(
-          link_to(bay_path(@id, redirect_to_on_success: :back),
+          link_to(bay_path(@id, back_to: request.path),
                   method: :delete,
                   class: "link-danger",
                   title: t(".delete_frame.title"),
                   aria: { hidden: true },
                   data: {
-                    confirm: t(".delete_frame.confirm"),
                     controller: "tooltip",
                     bs_placement: "bottom",
                   }) do

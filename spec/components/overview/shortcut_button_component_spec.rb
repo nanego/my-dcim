@@ -19,10 +19,9 @@ RSpec.describe Overview::ShortcutButtonComponent, type: :component do
         with_tag(
           "a.link-danger",
           with: {
-            href: "/bays/1?redirect_to_on_success=back",
+            href: "/bays/1?back_to=%2F",
             title: "Supprimer la baie vide",
             "data-method": "delete",
-            "data-confirm": "Êtes-vous sûr de vouloir supprimer cette baie ?",
             "data-controller": "tooltip",
           },
         ) do
