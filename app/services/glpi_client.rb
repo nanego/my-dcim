@@ -72,8 +72,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
   def equipment(klass, glpi_id:, params: nil)
     return nil if glpi_id.blank?
 
-    resp = get_equipment_for(klass::ENDPOINT, glpi_id:, params:)
-    body = JSON.parse(resp.body)
+    body = get_glpi_item_for(klass::ENDPOINT, id: glpi_id, params:)
     return nil if body.blank?
 
     klass.new format_body(body)
@@ -97,12 +96,14 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     end
   end
 
-  def get_equipment_for(endpoint, glpi_id:, params:)
-    params ||= DEFAULT_PARAMS
-
-    @connection.get("#{endpoint}/#{glpi_id}?#{params.join("&")}") do |request|
-      request.headers["Session-Token"] = session_token
-      request.headers["App-Token"] = API_KEY
+  def with_error_handling
+    proc do
+      yield
+    rescue Faraday::ResourceNotFound
+      nil
+    rescue JSON::ParserError => e
+      Rails.logger.warn "Error parsing JSON: #{e}"
+      raise
     end
   end
 
@@ -110,41 +111,90 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     body.deep_transform_keys(&:underscore)
 
     attributes = body
+    attributes[:_lazy] = {}
+
     attributes[:hard_drives] = body["_devices"].present? ? body["_devices"]["Item_DeviceHardDrive"] : {}
     attributes[:memories] = body["_devices"].present? ? body["_devices"]["Item_DeviceMemory"] : {}
+    attributes[:state] = body["_keys_names"].present? ? body["_keys_names"]["states_id"] : ""
+
+    group_ids = body["groups_id_tech"].is_a?(Array) ? body["groups_id_tech"] : []
+    attributes[:_lazy][:groups] = with_error_handling { group_ids.map { |id| get_group_for(id:) }.to_sentence }
+
+    contract_ids = body["_contracts"].is_a?(Array) ? body["_contracts"].pluck("contracts_id") : []
+    attributes[:_lazy][:contracts] = with_error_handling { contract_ids.filter_map { |id| get_contract_for(id:) } }
+
+    attributes[:_lazy][:warranties] = with_error_handling { get_warranties_for(computer_id: body["id"]) }
+
     processors = body["_devices"].present? ? body["_devices"]["Item_DeviceProcessor"] : {}
-    attributes[:processors] = if processors.present?
-                                processors.each_value do |proc|
-                                  proc["designation"] = get_processor_designation_for(id: proc["deviceprocessors_id"])
-                                end
-                              else
-                                {}
-                              end
+    attributes[:_lazy][:processors] = with_error_handling do
+      next {} if processors.blank?
+
+      processors.tap do |processors|
+        processors.each_value do |proc|
+          proc["designation"] = get_processor_designation_for(id: proc["deviceprocessors_id"])
+        end
+      end
+    end
 
     attributes
   end
 
   def get_processor_designation_for(id:)
+    get_glpi_item_for("DeviceProcessor", id:)["designation"]
+  end
+
+  def get_group_for(id:)
+    get_glpi_item_for("Group", id:)["name"]
+  end
+
+  def get_contract_for(id:)
+    params = ["get_hateoas=false", "add_keys_names[]=contracttypes_id"]
+    raw = get_glpi_item_for("Contract", id:, params:)
+
+    begin_date = Date.iso8601(raw["begin_date"])
+    return nil unless begin_date.past? && (begin_date + raw["duration"].months).future?
+
+    { name: raw["name"], type: raw["_keys_names"]["contracttypes_id"] }
+  end
+
+  def get_glpi_item_for(endpoint, id:, params: nil)
     return if id.blank?
 
-    resp = @connection.get("DeviceProcessor/#{id}") do |request|
+    params ||= DEFAULT_PARAMS
+    resp = @connection.get("#{endpoint}/#{id}?#{params.join("&")}") do |request|
       request.headers["Session-Token"] = session_token
       request.headers["App-Token"] = API_KEY
     end
-    processor_params = JSON.parse(resp.body)
-    if processor_params.present?
-      processor_params["designation"]
+
+    JSON.parse(resp.body)
+  end
+
+  def get_warranties_for(computer_id:)
+    resp = @connection.get("#{Computer::ENDPOINT}/#{computer_id}/Infocom") do |request|
+      request.headers["Session-Token"] = session_token
+      request.headers["App-Token"] = API_KEY
+    end
+
+    raw_list = JSON.parse(resp.body)
+    raw_list.map do |raw|
+      start_date = Date.iso8601(raw["warranty_date"])
+      { start_date:, end_date: start_date + raw["warranty_duration"].months }
     end
   end
 
   def stubs
     Faraday::Adapter::Test::Stubs.new do |stub|
-      stub.get(%r{^/?Computer(\?.*)?$}) { |_env| [200, {}, Rails.root.join("test/services/computers_results.json").read] }
-      stub.get(%r{^/?NetworkEquipment(\?.*)?$}) { |_env| [200, {}, Rails.root.join("test/services/network_equipments_results.json").read] }
-      stub.get(%r{Computer/.*}) { |_env| [200, {}, Rails.root.join("test/services/computer_algori.json").read] }
-      stub.get(%r{NetworkEquipment/.*}) { |_env| [200, {}, Rails.root.join("test/services/network_equipment_algori.json").read] }
-      stub.get(%r{DeviceProcessor/.*}) { |_env| [200, {}, Rails.root.join("test/services/processor.json").read] }
-      stub.get("/initSession") { |_env| [200, {}, '{"session_token":"kuji8uh4v77lgghqoj2c0r2848"}'] }
+      stub.get(%r{\A/?Computer\z})               { |_env| [200, {}, Rails.root.join("test/services/computers_results.json").read] }
+      stub.get(%r{\A/?Computer/[^/]+\z})         { |_env| [200, {}, Rails.root.join("test/services/computer_algori.json").read] }
+      stub.get(%r{\A/?Computer/[^/]+/Infocom\z}) { |_env| [200, {}, Rails.root.join("test/services/infocom.json").read] }
+
+      stub.get(%r{\A/?NetworkEquipment\z})       { |_env| [200, {}, Rails.root.join("test/services/network_equipments_results.json").read] }
+      stub.get(%r{\A/?NetworkEquipment/[^/]+\z}) { |_env| [200, {}, Rails.root.join("test/services/network_equipment_algori.json").read] }
+
+      stub.get(%r{\A/?DeviceProcessor/[^/]+\z})  { |_env| [200, {}, Rails.root.join("test/services/processor.json").read] }
+      stub.get(%r{\A/?Group/[^/]+\z})            { |_env| [200, {}, Rails.root.join("test/services/group.json").read] }
+      stub.get(%r{\A/?Contract/[^/]+\z})         { |_env| [200, {}, Rails.root.join("test/services/contracts_results.json").read] }
+      stub.get(%r{\A/?initSession\z})            { |_env| [200, {}, '{"session_token":"kuji8uh4v77lgghqoj2c0r2848"}'] }
     end
   end
 
@@ -158,11 +208,12 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     attribute? :id, Types::Coercible::Integer
     attribute? :serial, Types::Coercible::String
     attribute? :name, Types::Coercible::String
-    attribute? :contact, Types::Coercible::String
+    attribute? :state, Types::Coercible::String
     attribute? :disks, Types::Coercible::Hash
     attribute? :hard_drives, Types::Coercible::Hash
     attribute? :memories, Types::Coercible::Hash
-    attribute? :processors, Types::Coercible::Hash
+
+    attribute? :_lazy, Types::Coercible::Hash
 
     def hard_drives_total_capacity
       return 0 if hard_drives.blank?
@@ -174,6 +225,30 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
       return 0 if memories.blank?
 
       memories.sum { |_key, value| value["size"] }
+    end
+
+    def groups
+      @groups ||= _lazy[:groups].call
+    end
+
+    def contracts
+      @contracts ||= _lazy[:contracts].call
+    end
+
+    def processors
+      @processors ||= _lazy[:processors].call
+    end
+
+    def under_warranty?
+      warranties.any? { |w| w[:start_date].past? && w[:end_date].future? }
+    end
+
+    def last_warranty_end_date
+      warranties.filter_map { |w| w[:end_date] if w[:end_date].future? }.max
+    end
+
+    def warranties
+      @warranties ||= _lazy[:warranties].call
     end
   end
 

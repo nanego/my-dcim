@@ -50,7 +50,24 @@
     "NetworkPortFiberchannel": []
   },
   "_infocoms": [],
-  "_contracts": [],
+   "_contracts": [
+    {
+      "id": 2,
+      "contracts_id": 1,
+      "items_id": 1,
+      "itemtype": "Computer",
+      "links": [
+        {
+          "rel": "Contract",
+          "href": "http://localhost/api.php/v1/Contract/1"
+        },
+        {
+          "rel": "Computer",
+          "href": "http://localhost/api.php/v1/Computer/1"
+        }
+      ]
+    }
+  ],
   "_documents": [],
   "_notes": [],
   "links": [
@@ -198,5 +215,8 @@
       "rel": "Item_DeviceCamera",
       "href": "http://localhost/api.php/v1/NetworkEquipment/1/Item_DeviceCamera/"
     }
-  ]
+  ],
+  "_keys_names": {
+    "states_id": "state argoli"
+  }
 }

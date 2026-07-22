@@ -433,6 +433,22 @@ en:
     destroy:
       title: Delete the port type
 
+  glpi:
+    computer:
+      name: Name
+      id: GLPI Id
+      serial: Serial number
+      groups: Responsible groups
+      contract: Contract %{type}
+      state: State
+      warranty: Warranty
+      warranty_exprired: Expired
+      disks_count: Disks count
+      disks_capacity: Disks capacity
+      memories_count: Memories count
+      memories_total: Memories total
+      cpus: Cpus
+
   power_distribution_units:
     add_new: Add a PDU
     index:
