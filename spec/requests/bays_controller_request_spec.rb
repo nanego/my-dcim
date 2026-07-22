@@ -183,7 +183,7 @@ RSpec.describe BaysController do
 
   describe "DELETE #destroy" do
     subject(:response) do
-      delete(bay_path(bay, confirm: true), params:)
+      delete bay_path(bay, confirm: true, **params)
 
       # NOTE: used to simplify usage and custom test done in final spec file.
       @response # rubocop:disable RSpec/InstanceVariable
@@ -195,7 +195,7 @@ RSpec.describe BaysController do
 
     context "without confirm" do
       subject(:response) do
-        delete(bay_path(bay), params:)
+        delete bay_path(bay, **params)
         @response # rubocop:disable RSpec/InstanceVariable
       end
 
