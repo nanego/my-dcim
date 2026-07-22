@@ -120,9 +120,11 @@
             <% end %>
           <% end %>
 
-          <% table.with_column(PowerDistributionUnit.human_attribute_name(:frame_id), sort_by: :"frames.id") do |pdu| %>
-            <%= link_to frame_path(pdu.frame), data: { turbo_frame: :_top } do %>
-              <%= pdu.frame %>
+          <% unless (turbo_frame_request? && @filter.filled?(:frame_ids)) %>
+            <% table.with_column(PowerDistributionUnit.human_attribute_name(:frame_id), sort_by: :"frames.id") do |pdu| %>
+              <%= link_to frame_path(pdu.frame), data: { turbo_frame: :_top } do %>
+                <%= pdu.frame %>
+              <% end %>
             <% end %>
           <% end %>
 
