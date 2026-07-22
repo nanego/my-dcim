@@ -105,6 +105,12 @@
                     ) %>
               </dd>
 
+              <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(:phases_count) %> :</dt>
+              <dd class="mb-0 pb-2 ps-3"><%= value_or_nc(@power_distribution_unit.type.phases_count) %></dd>
+
+              <dt class="pb-2"><%= PowerDistributionUnitType.human_attribute_name(:circuits_per_phase) %> :</dt>
+              <dd class="mb-0 pb-2 ps-3"><%= value_or_nc(@power_distribution_unit.type.circuits_per_phase) %></dd>
+
               <dt class="pb-2"><%= PowerDistributionUnit::Circuit.model_name.human.pluralize %> :</dt>
               <dd class="mb-0 pb-2 ps-3"><%= @power_distribution_unit.type.circuits.count %></dd>
 

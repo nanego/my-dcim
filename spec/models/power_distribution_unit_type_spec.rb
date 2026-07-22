@@ -40,4 +40,44 @@ RSpec.describe PowerDistributionUnitType do
         .to eq(power_distribution_unit_type.sockets.size)
     end
   end
+
+  describe "#phases_count" do
+    subject(:power_distribution_unit_type) { described_class.new(current_type:) }
+
+    context "with single phase" do
+      let(:current_type) { "single_phase" }
+
+      it { expect(power_distribution_unit_type.phases_count).to eq(1) }
+    end
+
+    context "with three phase" do
+      let(:current_type) { "three_phase" }
+
+      it { expect(power_distribution_unit_type.phases_count).to eq(3) }
+    end
+  end
+
+  describe "#circuits_per_phase" do
+    subject(:power_distribution_unit_type) { described_class.new(current_type:) }
+
+    context "with single phase" do
+      let(:current_type) { "single_phase" }
+
+      before do
+        3.times { |i| power_distribution_unit_type.circuits.build(name: i) }
+      end
+
+      it { expect(power_distribution_unit_type.circuits_per_phase).to eq(3) }
+    end
+
+    context "with three phase" do
+      let(:current_type) { "three_phase" }
+
+      before do
+        6.times { |i| power_distribution_unit_type.circuits.build(name: i) }
+      end
+
+      it { expect(power_distribution_unit_type.circuits_per_phase).to eq(2) }
+    end
+  end
 end

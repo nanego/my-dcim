@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ConnectionsController < ApplicationController # rubocop:disable Metrics/ClassLength
-  def edit # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def edit # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
     authorize!
 
     @from_port = if params[:from_port_id].present? && params[:from_port_id].to_i.positive?
@@ -20,7 +20,7 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
                                cablename: params["cablename"])
                  end
 
-    @frame = @from_port.server&.frame || @from_port.circuit&.record&.frame
+    @frame = @from_port.frame
     @room = @frame.room
     @from_server = @from_port.server
     @from_pdu = @from_port.circuit&.record unless @from_server

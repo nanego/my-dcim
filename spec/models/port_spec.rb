@@ -16,6 +16,30 @@ RSpec.describe Port do
     it { is_expected.to have_many(:moved_connection_tos).dependent(:nullify) }
   end
 
+  describe ".to_txt" do
+    pending
+  end
+
+  describe ".to_csv" do
+    pending
+  end
+
+  describe "#frame" do
+    subject(:port) { described_class.new(attachable:) }
+
+    context "when attachable is a Card" do
+      let(:attachable) { cards(:one) }
+
+      it { expect(port.frame).to eq(attachable.server.frame) }
+    end
+
+    context "when attachable is a PowerDistributionUnit::Socket" do
+      let(:attachable) { power_distribution_unit_sockets(:one) }
+
+      it { expect(port.frame).to eq(attachable.circuit.record.frame) }
+    end
+  end
+
   describe "#network_conf" do
     pending
   end
