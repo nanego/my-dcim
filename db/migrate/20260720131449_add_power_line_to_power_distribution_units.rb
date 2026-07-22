@@ -25,7 +25,7 @@ class AddPowerLineToPowerDistributionUnits < ActiveRecord::Migration[8.1]
 
       pdus.each_with_index do |pdu, i|
         power_line = i.even? ? "a" : "b"
-        pdu.update!(power_line:, slug: "#{frame.name}-#{power_line.upcase}".parameterize)
+        pdu.update!(power_line:, slug: "#{frame.name}-#{power_line}".parameterize)
       end
     end
 
