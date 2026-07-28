@@ -1,16 +1,19 @@
 one:
   id: 1
   name: FC
+  is_power: false
   attachable_to: ["server"]
 
 two:
   id: 2
   name: RJ
+  is_power: false
   attachable_to: ["server"]
 
 three:
   id: 3
   name: IPMI
+  is_power: false
   attachable_to: ["server"]
 
 four:
@@ -22,9 +25,11 @@ four:
 five:
   id: 5
   name: Five
+  is_power: false
   attachable_to: ["server"]
 
 six:
   id: 6
   name: Six
+  is_power: false
   attachable_to: ["server"]

@@ -19,9 +19,11 @@ class RenamePowerToIsPowerForPortType < ActiveRecord::Migration[8.1]
     end
 
     change_table :port_types, bulk: true do |t|
+      t.change_default :is_power, from: nil, to: false
       t.change_null :is_power, false
-      t.change_null :attachable_to, false
+
       t.change_default :attachable_to, from: nil, to: []
+      t.change_null :attachable_to, false
     end
   end
 end

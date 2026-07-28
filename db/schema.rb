@@ -454,7 +454,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_28_132556) do
   create_table "port_types", id: :serial, force: :cascade do |t|
     t.enum "attachable_to", default: [], null: false, array: true, enum_type: "port_attachable_type"
     t.integer "card_types_count", default: 0, null: false
-    t.boolean "is_power", null: false
+    t.boolean "is_power", default: false, null: false
     t.string "name"
   end
 
