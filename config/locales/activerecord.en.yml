@@ -307,6 +307,9 @@ en:
             domain_ids:
               blank: can't be blank, or "All domains" must be checked
 
+      messages:
+        array_inclusion: "includes unauthorized values : %{wrong_values}"
+
   # Common attributes
   attributes:
     bay_id: Bay
