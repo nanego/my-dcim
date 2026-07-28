@@ -30,7 +30,7 @@
     <% end %>
 
     <% table.with_column(PortType.human_attribute_name(:power), sort_by: :power) do |port_type| %>
-      <%= t("boolean.#{port_type.power?}") %>
+      <%= t("boolean.#{port_type.is_power?}") %>
     <% end %>
 
     <% table.with_column(PortType.human_attribute_name(:usage), sort_by: :card_types_count) do |port_type| %>

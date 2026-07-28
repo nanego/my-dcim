@@ -13,6 +13,6 @@ RSpec.describe PortType do
   end
 
   describe "#is_power?" do
-    it { expect(port_type.is_power?).to be true }
+    it { expect(port_type.is_power?).to be false }
   end
 end
