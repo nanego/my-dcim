@@ -16,7 +16,7 @@ class Port < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   delegate :server, to: :card, allow_nil: true
   delegate :circuit, to: :power_distribution_unit_socket, allow_nil: true
-  delegate :is_power_input?, to: :card, allow_nil: true
+  delegate :is_power?, to: :card, allow_nil: true
   delegate :paired_connection, to: :connection, allow_nil: true
   delegate :color, to: :cable, prefix: true, allow_nil: true
   delegate :name, to: :cable, prefix: true, allow_nil: true

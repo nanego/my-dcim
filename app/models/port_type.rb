@@ -10,7 +10,7 @@ class PortType < ApplicationRecord
 
   delegate :to_s, to: :name
 
-  def is_power_input?
-    name == "ALIM"
+  def is_power?
+    is_power
   end
 end

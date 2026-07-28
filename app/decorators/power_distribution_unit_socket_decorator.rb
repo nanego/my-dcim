@@ -3,7 +3,7 @@
 class PowerDistributionUnitSocketDecorator < ApplicationDecorator
   class << self
     def port_type_options_for_select
-      PortTypeDecorator.options_for_select(PortType.where(power: true))
+      PortTypeDecorator.options_for_select(PortType.where(is_power: true))
     end
   end
 end
