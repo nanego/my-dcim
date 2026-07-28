@@ -129,5 +129,13 @@
         new_label: t("frames.add_new"),
       ) %>
 
+  <%= render HasManyTurboFrameComponent.new(
+        PowerDistributionUnit.model_name.human(count: 2),
+        url: power_distribution_units_path(bay_ids: @bay.id, sort_by: :name, sort: "desc"),
+        frame_id: dom_id(PowerDistributionUnit, :table),
+        new_path: (new_power_distribution_unit_path if allowed_to?(:create?, with: PowerDistributionUnitPolicy)),
+        new_label: t("power_distribution_units.add_new"),
+      ) %>
+
   <%= render ChangelogEntries::ObjectListComponent.new(@bay) %>
 </div>

@@ -138,5 +138,12 @@
         new_path: (new_server_path(server: { frame_id: @frame.id }) if allowed_to?(:create?, with: ServerPolicy)),
         new_label: t("servers.add_new"),
       ) %>
+  <%= render HasManyTurboFrameComponent.new(
+        PowerDistributionUnit.model_name.human(count: 2),
+        url: power_distribution_units_path(frame_ids: @frame.id, sort_by: :name, sort: "desc"),
+        frame_id: dom_id(PowerDistributionUnit, :table),
+        new_path: (new_power_distribution_unit_path(power_distribution_unit: { frame_id: @frame.id }) if allowed_to?(:create?, with: PowerDistributionUnitPolicy)),
+        new_label: t("power_distribution_units.add_new"),
+      ) %>
   <%= render ChangelogEntries::ObjectListComponent.new(@frame) %>
 </div>

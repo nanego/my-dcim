@@ -19,16 +19,16 @@ class HasManyTurboFrameComponent < ApplicationComponent
             ></span>
           <% end %>
         </span>
-      <% if actions? %>
-        <%= actions %>
-      <% elsif @new_path %>
-        <%= link_to @new_path,
-                    class: "link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover small" do %>
-          <span class="bi bi-plus-lg"></span>
-          <span><%= @new_label %></span>
+        <% if actions? %>
+          <%= actions %>
+        <% elsif @new_path %>
+          <%= link_to @new_path,
+                      class: "link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover small" do %>
+            <span class="bi bi-plus-lg"></span>
+            <span><%= @new_label %></span>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
+      </div>
 
       <%= turbo_frame_tag(@frame_id, loading: :lazy, src: @url) do %>
         <div class="w-100 d-flex justify-content-center align-items-center gap-3">
