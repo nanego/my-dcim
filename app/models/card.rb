@@ -7,7 +7,7 @@ class Card < ApplicationRecord
 
   belongs_to :card_type
   delegate :port_quantity, to: :card_type, allow_nil: true
-  delegate :is_power_input?, to: :card_type, allow_nil: true
+  delegate :is_power?, to: :card_type, allow_nil: true
 
   belongs_to :twin_card, class_name: "Card", optional: true
   belongs_to :server, touch: true

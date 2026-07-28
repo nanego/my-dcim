@@ -12,7 +12,7 @@ RSpec.describe PortType do
     it { is_expected.to have_many(:sockets).dependent(:restrict_with_error) }
   end
 
-  describe "#is_power_input?" do
-    it { expect(port_type.is_power_input?).to be true }
+  describe "#is_power?" do
+    it { expect(port_type.is_power?).to be true }
   end
 end
