@@ -11,11 +11,10 @@ class RenamePowerToIsPowerForPortType < ActiveRecord::Migration[8.1]
     create_enum :port_attachable_type, %w[pdu server]
     add_column :port_types, :attachable_to, :enum, enum_type: :port_attachable_type, array: true
 
-    reversible do |dir|
-      dir.up do
-        PortTypeMigration.find_each do |p|
-          p.update!(is_power: p.name == "ALIM", attachable_to: [:server])
-        end
+    up_only do
+      PortTypeMigration.reset_column_information
+      PortTypeMigration.find_each do |port_type|
+        port_type.update!(is_power: port_type.name == "ALIM", attachable_to: ["server"])
       end
     end
 

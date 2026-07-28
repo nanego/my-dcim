@@ -1,24 +1,30 @@
 one:
   id: 1
   name: FC
+  attachable_to: ["server"]
 
 two:
   id: 2
   name: RJ
+  attachable_to: ["server"]
 
 three:
   id: 3
   name: IPMI
+  attachable_to: ["server"]
 
 four:
   id: 4
   name: ALIM
   is_power: true
+  attachable_to: ["server"]
 
 five:
   id: 5
   name: Five
+  attachable_to: ["server"]
 
 six:
   id: 6
   name: Six
+  attachable_to: ["server"]
