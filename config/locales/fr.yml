@@ -479,7 +479,7 @@ fr:
   glpi:
     computer:
       name: Nom
-      id: Id GLPI
+      id: ID GLPI
       serial: Numéro de série
       groups: Groupe(s) responsable(s)
       contract: Contrat %{type}

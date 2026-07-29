@@ -436,7 +436,7 @@ en:
   glpi:
     computer:
       name: Name
-      id: GLPI Id
+      id: GLPI ID
       serial: Serial number
       groups: Responsible groups
       contract: Contract %{type}
@@ -445,9 +445,9 @@ en:
       warranty_exprired: Expired
       disks_count: Disks count
       disks_capacity: Disks capacity
-      memories_count: Memories count
-      memories_total: Memories total
-      cpus: Cpus
+      memories_count: RAM modules
+      memories_total: RAM total
+      cpus: CPUs
 
   power_distribution_units:
     add_new: Add a PDU
