@@ -42,7 +42,7 @@ module ModelMatchers
     def invalid_value
       @invalid_value ||= begin
         value = "__invalid_value__"
-        value += "_" while @values.include?(value)
+        value = "_#{value}_" while @values.include?(value)
         value
       end
     end
