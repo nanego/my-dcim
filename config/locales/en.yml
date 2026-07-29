@@ -519,7 +519,7 @@ en:
       connection_error: "Problem connecting to GLPI :"
       no_match_serial: "No match for t  his serial number: %{serial}"
       sync_type_none_message: This I.T. equipment is not configured to be synchronized with GLPI
-      edit_settings: Edit synchronisation configuration
+      edit_settings: Edit synchronization configuration
     form:
       network_type: "%{type} network"
       edit_confirmation: Edit this I.T. equipment
