@@ -24,7 +24,7 @@
         <fieldset class="col-12">
           <%= f.label :port_type, class: "form-label" %>
           <%= f.select :port_type_id,
-                       PortType.sorted.map { |pt| [pt.name, pt.id] },
+                       CardTypeDecorator.port_types_options_for_select,
                        { prompt: true },
                        {
                          class: "form-select",

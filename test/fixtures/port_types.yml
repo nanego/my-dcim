@@ -20,7 +20,7 @@ four:
   id: 4
   name: ALIM
   is_power: true
-  attachable_to: ["server"]
+  attachable_to: ["server", "pdu"]
 
 five:
   id: 5
