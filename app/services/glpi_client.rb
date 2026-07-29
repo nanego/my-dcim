@@ -118,7 +118,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     attributes[:state] = body["_keys_names"].present? ? body["_keys_names"]["states_id"] : ""
 
     group_ids = body["groups_id_tech"].is_a?(Array) ? body["groups_id_tech"] : []
-    attributes[:_lazy][:groups] = with_error_handling { group_ids.map { |id| get_group_for(id:) }.to_sentence }
+    attributes[:_lazy][:groups] = with_error_handling { group_ids.map { |id| get_group_for(id:) } }
 
     contract_ids = body["_contracts"].is_a?(Array) ? body["_contracts"].pluck("contracts_id") : []
     attributes[:_lazy][:contracts] = with_error_handling { contract_ids.filter_map { |id| get_contract_for(id:) } }
