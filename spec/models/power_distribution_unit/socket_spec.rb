@@ -25,8 +25,6 @@ RSpec.describe PowerDistributionUnit::Socket do
     it { is_expected.to validate_presence_of(:number) }
 
     describe "number_unique_within_circuit_record" do
-      before { power_distribution_unit_sockets(:one).save }
-
       context "when number is free" do
         subject(:socket) do
           described_class.new(number: 999, circuit_id: 1, port_type_id: 1)
