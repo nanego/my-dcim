@@ -126,7 +126,7 @@ class ImportEquipmentByCsv # rubocop:disable Metrics/ClassLength
     # SLOTS ALIM
     valeur = "ALIM"
     nb_ports = data["Alim"].to_s.gsub(valeur, "").to_i
-    port_type = PortType.find_or_create_by!(name: valeur)
+    port_type = PortType.find_or_create_by!(name: valeur, is_power: true)
     card_alim = CardType.find_or_create_by!(name: "#{nb_ports}#{valeur}", port_quantity: nb_ports, port_type: port_type)
     Card.find_or_create_by!(card_type: card_alim, server: server, composant: composant_slot_alim)
   end
