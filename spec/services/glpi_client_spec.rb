@@ -33,7 +33,7 @@ RSpec.describe GlpiClient, type: :service do
     it { expect(computer.state).to eq("state argoli") }
     it { expect(computer.under_warranty?).to be(false) }
     it { expect(computer.warranties.count).to eq(1) }
-    it { expect(computer.groups).to eq("group argoli") }
+    it { expect(computer.groups).to eq(["group argoli"]) }
     it { expect(computer.contracts).to eq([{ name: "contract test", type: "contract type test" }]) }
     it { expect(computer.hard_drives.size).to eq(17) }
     it { expect(computer.memories.size).to eq(16) }
@@ -50,7 +50,9 @@ RSpec.describe GlpiClient, type: :service do
     it { expect(network_equipment.serial).to eq("654321") }
     it { expect(network_equipment.name).to eq("network argoli") }
     it { expect(network_equipment.state).to eq("state argoli") }
-    it { expect(network_equipment.groups).to eq("group argoli") }
+    it { expect(network_equipment.under_warranty?).to be(false) }
+    it { expect(network_equipment.warranties.count).to eq(1) }
+    it { expect(network_equipment.groups).to eq(["group argoli"]) }
     it { expect(network_equipment.contracts).to eq([{ name: "contract test", type: "contract type test" }]) }
     it { expect(network_equipment.hard_drives.size).to eq(0) }
     it { expect(network_equipment.memories.size).to eq(0) }

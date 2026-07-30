@@ -75,7 +75,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     body = get_glpi_item_for(klass::ENDPOINT, id: glpi_id, params:)
     return nil if body.blank?
 
-    klass.new format_body(body)
+    klass.new format_body(body, nested_enpoint: klass::ENDPOINT)
   rescue Faraday::ResourceNotFound
     nil
   rescue JSON::ParserError => e
@@ -107,7 +107,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     end
   end
 
-  def format_body(body)
+  def format_body(body, nested_enpoint:)
     body.deep_transform_keys(&:underscore)
 
     attributes = body
@@ -123,7 +123,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     contract_ids = body["_contracts"].is_a?(Array) ? body["_contracts"].pluck("contracts_id") : []
     attributes[:_lazy][:contracts] = with_error_handling { contract_ids.filter_map { |id| get_contract_for(id:) } }
 
-    attributes[:_lazy][:warranties] = with_error_handling { get_warranties_for(computer_id: body["id"]) }
+    attributes[:_lazy][:warranties] = with_error_handling { get_warranties_for(body["id"], nested_enpoint:) }
 
     processors = body["_devices"].present? ? body["_devices"]["Item_DeviceProcessor"] : {}
     attributes[:_lazy][:processors] = with_error_handling do
@@ -169,8 +169,8 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     JSON.parse(resp.body)
   end
 
-  def get_warranties_for(computer_id:)
-    resp = @connection.get("#{Computer::ENDPOINT}/#{computer_id}/Infocom") do |request|
+  def get_warranties_for(id, nested_enpoint:)
+    resp = @connection.get("#{nested_enpoint}/#{id}/Infocom") do |request|
       request.headers["Session-Token"] = session_token
       request.headers["App-Token"] = API_KEY
     end
@@ -190,6 +190,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
 
       stub.get(%r{\A/?NetworkEquipment\z})       { |_env| [200, {}, Rails.root.join("test/services/network_equipments_results.json").read] }
       stub.get(%r{\A/?NetworkEquipment/[^/]+\z}) { |_env| [200, {}, Rails.root.join("test/services/network_equipment_algori.json").read] }
+      stub.get(%r{\A/?NetworkEquipment/[^/]+/Infocom\z}) { |_env| [200, {}, Rails.root.join("test/services/infocom.json").read] }
 
       stub.get(%r{\A/?DeviceProcessor/[^/]+\z})  { |_env| [200, {}, Rails.root.join("test/services/processor.json").read] }
       stub.get(%r{\A/?Group/[^/]+\z})            { |_env| [200, {}, Rails.root.join("test/services/group.json").read] }
