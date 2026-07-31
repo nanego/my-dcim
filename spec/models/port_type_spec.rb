@@ -13,7 +13,7 @@ RSpec.describe PortType do
   end
 
   describe "validations" do
-    it { is_expected.to validate_array_inclusion_of(:attachable_to).in(%w[pdu server]) }
+    it { is_expected.to validate_array_inclusion_of(:usable_by).in(%w[pdu server]) }
   end
 
   describe "#is_power?" do

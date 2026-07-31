@@ -16,7 +16,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_28_132556) do
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
-  create_enum "port_attachable_type", ["pdu", "server"]
+  create_enum "port_types_usable_by", ["pdu", "server"]
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
@@ -452,10 +452,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_28_132556) do
   end
 
   create_table "port_types", id: :serial, force: :cascade do |t|
-    t.enum "attachable_to", default: [], null: false, array: true, enum_type: "port_attachable_type"
     t.integer "card_types_count", default: 0, null: false
     t.boolean "is_power", default: false, null: false
     t.string "name"
+    t.enum "usable_by", default: [], null: false, array: true, enum_type: "port_types_usable_by"
   end
 
   create_table "ports", id: :serial, force: :cascade do |t|

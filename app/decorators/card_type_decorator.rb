@@ -5,7 +5,7 @@ class CardTypeDecorator < ApplicationDecorator
     include ActionView::Helpers::FormOptionsHelper
 
     def port_types_options_for_select
-      PortTypeDecorator.options_for_select(PortType.attachable_to_server)
+      PortTypeDecorator.options_for_select(PortType.usable_by(:server))
     end
 
     def grouped_by_port_type_options_for_select(selected = nil)

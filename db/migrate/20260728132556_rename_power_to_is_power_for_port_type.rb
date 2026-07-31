@@ -8,13 +8,13 @@ class RenamePowerToIsPowerForPortType < ActiveRecord::Migration[8.1]
   def change
     rename_column :port_types, :power, :is_power
 
-    create_enum :port_attachable_type, %w[pdu server]
-    add_column :port_types, :attachable_to, :enum, enum_type: :port_attachable_type, array: true
+    create_enum :port_types_usable_by, %w[pdu server]
+    add_column :port_types, :usable_by, :enum, enum_type: :port_types_usable_by, array: true
 
     up_only do
       PortTypeMigration.reset_column_information
       PortTypeMigration.find_each do |port_type|
-        port_type.update!(is_power: port_type.name == "ALIM", attachable_to: ["server"])
+        port_type.update!(is_power: port_type.name == "ALIM", usable_by: ["server"])
       end
     end
 
@@ -22,8 +22,8 @@ class RenamePowerToIsPowerForPortType < ActiveRecord::Migration[8.1]
       t.change_default :is_power, from: nil, to: false
       t.change_null :is_power, false
 
-      t.change_default :attachable_to, from: nil, to: []
-      t.change_null :attachable_to, false
+      t.change_default :usable_by, from: nil, to: []
+      t.change_null :usable_by, false
     end
   end
 end
