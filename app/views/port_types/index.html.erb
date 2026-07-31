@@ -40,6 +40,10 @@
       <% end %>
     <% end %>
 
+    <% table.with_column(PortType.human_attribute_name(:usable_by)) do |port_type| %>
+      <%= port_type.usable_by.to_sentence %>
+    <% end %>
+
     <% table.with_column(style: "min-width: 70px; width: 70px;") do |port_type| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <% if allowed_to?(:update?, port_type) %>

@@ -6,7 +6,8 @@ class PortType < ApplicationRecord
   has_many :card_types, dependent: :restrict_with_error
   has_many :sockets, class_name: "PowerDistributionUnit::Socket", dependent: :restrict_with_error
 
-  validates :usable_by, array_inclusion: { in: %w[pdu server] }
+  USABLE_BY_VALUES = %w[pdu server].freeze
+  validates :usable_by, array_inclusion: { in: USABLE_BY_VALUES }
 
   scope :sorted, -> { order(name: :asc) }
   scope :power_ones, -> { where(is_power: true) }
