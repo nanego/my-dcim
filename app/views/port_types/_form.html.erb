@@ -27,6 +27,16 @@
             <%= f.label :is_power, class: "form-check-label" %>
           </fieldset>
         </div>
+
+        <fieldset class="col-12 mt-4">
+          <%= f.label :usable_by, class: "form-check-label" %>
+          <%= f.select :usable_by, PortTypeDecorator.usable_by_options_for_select,
+              { prompt: true, multiple: true },
+              {
+                class: "form-select",
+                data: { controller: :select, select_clear_button_title_value: t("action.clear_all"), }
+              } %>
+        </fieldset>
       <% end %>
     </div>
   </div>

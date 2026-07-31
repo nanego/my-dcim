@@ -253,6 +253,9 @@ fr:
         name: Nom
         power: Alimentation
         usage: Types de carte compatibles
+        usable_by: Utilisation
+        usable_by/server: Serveur
+        usable_by/pdu: Pdu
       category:
         name: Nom
         description: Description
