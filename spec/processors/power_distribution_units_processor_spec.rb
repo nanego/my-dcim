@@ -5,17 +5,17 @@ require "rails_helper"
 RSpec.describe PowerDistributionUnitsProcessor do
   subject(:result) { described_class.call(input, params) }
 
-  let(:pdu_attr) { { type_id: 1, frame_id: 1, orientation: :asc, side: :left, comment: "", ipmi_url: "" } }
+  let(:pdu_attr) { { type_id: 1, frame_id: 3, orientation: :asc, side: :left, comment: "", ipmi_url: "", power_line: :a } }
   let(:input) { PowerDistributionUnit.all }
   let(:params) { {} }
 
   describe "when searching" do
-    let(:params) { { q: "wood" } }
+    let(:params) { { q: "MyFrame5" } }
 
     before do
-      PowerDistributionUnit.create!(name: "brick", serial_number: "101", **pdu_attr)
-      PowerDistributionUnit.create!(name: "wood", serial_number: "102", **pdu_attr)
-      PowerDistributionUnit.create!(name: "wooden", serial_number: "103", **pdu_attr)
+      PowerDistributionUnit.create!(serial_number: "101", **pdu_attr, frame_id: 5)
+      PowerDistributionUnit.create!(serial_number: "102", **pdu_attr, frame_id: 5, power_line: :b)
+      PowerDistributionUnit.create!(serial_number: "103", **pdu_attr)
     end
 
     it { expect(result.size).to eq(2) }
@@ -26,11 +26,11 @@ RSpec.describe PowerDistributionUnitsProcessor do
     let(:islet) { Islet.create!(name: "I1", room:) }
     let(:bay) { Bay.create!(name: "B1", islet:, bay_type: bay_types(:one)) }
     let(:frame) { Frame.create!(name: "F1", bay:) }
-    let(:power_distribution_unit) { PowerDistributionUnit.create!(name: "PDU1", serial_number: "10", **pdu_attr, frame:) }
+    let(:power_distribution_unit) { PowerDistributionUnit.create!(serial_number: "10", **pdu_attr, frame:) }
 
     before do
       power_distribution_unit
-      PowerDistributionUnit.create!(name: "PDU1", serial_number: "11", **pdu_attr, frame: frames(:one))
+      PowerDistributionUnit.create!(serial_number: "11", **pdu_attr, frame: frames(:one), power_line: :b)
     end
 
     context "with one room_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
@@ -46,7 +46,7 @@ RSpec.describe PowerDistributionUnitsProcessor do
       let(:bay_second) { Bay.create!(name: "B2", islet: islet_second, bay_type: bay_types(:one)) }
       let(:frame_second) { Frame.create!(name: "F2", bay: bay_second) }
       let(:power_distribution_unit_second) do
-        PowerDistributionUnit.create!(name: "PDU1", serial_number: "12", **pdu_attr, frame: frame_second)
+        PowerDistributionUnit.create!(serial_number: "12", **pdu_attr, frame: frame_second)
       end
 
       let(:params) { { room_ids: [room.id, room_second.id] } }
@@ -64,11 +64,11 @@ RSpec.describe PowerDistributionUnitsProcessor do
     let(:islet) { Islet.create!(name: "I1", room: rooms(:one)) }
     let(:bay) { Bay.create!(name: "B1", islet:, bay_type: bay_types(:one)) }
     let(:frame) { Frame.create!(name: "F1", bay:) }
-    let(:power_distribution_unit) { PowerDistributionUnit.create!(name: "PDU1", serial_number: "10", **pdu_attr, frame:) }
+    let(:power_distribution_unit) { PowerDistributionUnit.create!(serial_number: "10", **pdu_attr, frame:) }
 
     before do
       power_distribution_unit
-      PowerDistributionUnit.create!(name: "PDU1", serial_number: "11", **pdu_attr, frame: frames(:one))
+      PowerDistributionUnit.create!(serial_number: "11", **pdu_attr, frame: frames(:one), power_line: :b)
     end
 
     context "with one islet_ids" do
@@ -83,7 +83,7 @@ RSpec.describe PowerDistributionUnitsProcessor do
       let(:bay_second) { Bay.create!(name: "B2", islet: islet_second, bay_type: bay_types(:one)) }
       let(:frame_second) { Frame.create!(name: "F2", bay: bay_second) }
       let(:power_distribution_unit_second) do
-        PowerDistributionUnit.create!(name: "PDU1", serial_number: "12", **pdu_attr, frame: frame_second)
+        PowerDistributionUnit.create!(serial_number: "12", **pdu_attr, frame: frame_second)
       end
 
       let(:params) { { islet_ids: [islet.id, islet_second.id] } }
@@ -100,11 +100,11 @@ RSpec.describe PowerDistributionUnitsProcessor do
   describe "when filtering by bay_ids" do
     let(:bay) { Bay.create!(name: "B1", islet: islets(:one), bay_type: bay_types(:one)) }
     let(:frame) { Frame.create!(name: "F1", bay:) }
-    let(:power_distribution_unit) { PowerDistributionUnit.create!(name: "PDU1", serial_number: "10", **pdu_attr, frame:) }
+    let(:power_distribution_unit) { PowerDistributionUnit.create!(serial_number: "10", **pdu_attr, frame:) }
 
     before do
       power_distribution_unit
-      PowerDistributionUnit.create!(name: "PDU1", serial_number: "11", **pdu_attr, frame: frames(:one))
+      PowerDistributionUnit.create!(serial_number: "11", **pdu_attr, frame: frames(:one), power_line: :b)
     end
 
     context "with one bay_ids" do
@@ -118,7 +118,7 @@ RSpec.describe PowerDistributionUnitsProcessor do
       let(:bay_second) { Bay.create!(name: "B2", islet: islets(:one), bay_type: bay_types(:one)) }
       let(:frame_second) { Frame.create!(name: "F2", bay: bay_second) }
       let(:power_distribution_unit_second) do
-        PowerDistributionUnit.create!(name: "PDU1", serial_number: "12", **pdu_attr, frame: frame_second)
+        PowerDistributionUnit.create!(serial_number: "12", **pdu_attr, frame: frame_second)
       end
 
       let(:params) { { bay_ids: [bay.id, bay_second.id] } }
@@ -134,11 +134,11 @@ RSpec.describe PowerDistributionUnitsProcessor do
 
   describe "when filtering by frame_ids" do
     let(:frame) { Frame.create!(name: "F1", bay: bays(:one)) }
-    let(:power_distribution_unit) { PowerDistributionUnit.create!(name: "PDU1", serial_number: "10", **pdu_attr, frame:) }
+    let(:power_distribution_unit) { PowerDistributionUnit.create!(serial_number: "10", **pdu_attr, frame:) }
 
     before do
       power_distribution_unit
-      PowerDistributionUnit.create!(name: "PDU1", serial_number: "11", **pdu_attr, frame: frames(:one))
+      PowerDistributionUnit.create!(serial_number: "11", **pdu_attr, frame: frames(:one), power_line: :b)
     end
 
     context "with one frame_ids" do
@@ -151,7 +151,7 @@ RSpec.describe PowerDistributionUnitsProcessor do
     context "with many frame_ids" do
       let(:frame_second) { Frame.create!(name: "F2", bay: bays(:one)) }
       let(:power_distribution_unit_second) do
-        PowerDistributionUnit.create!(name: "PDU1", serial_number: "12", **pdu_attr, frame: frame_second)
+        PowerDistributionUnit.create!(serial_number: "12", **pdu_attr, frame: frame_second)
       end
 
       let(:params) { { frame_ids: [frame.id, frame_second.id] } }
@@ -167,11 +167,11 @@ RSpec.describe PowerDistributionUnitsProcessor do
 
   describe "when filtering by type_ids" do
     let(:type) { PowerDistributionUnitType.create!(name: "T1", current_type: :three_phase, manufacturer: manufacturers(:fortinet)) }
-    let(:power_distribution_unit) { PowerDistributionUnit.create!(name: "PDU1", serial_number: "10", **pdu_attr, type:) }
+    let(:power_distribution_unit) { PowerDistributionUnit.create!(serial_number: "10", **pdu_attr, type:) }
 
     before do
       power_distribution_unit
-      PowerDistributionUnit.create!(name: "PDU1", serial_number: "11", **pdu_attr, type: power_distribution_unit_types(:one))
+      PowerDistributionUnit.create!(serial_number: "11", **pdu_attr, type: power_distribution_unit_types(:one), frame: frames(:one), power_line: :b)
     end
 
     context "with one type_ids" do
@@ -183,7 +183,7 @@ RSpec.describe PowerDistributionUnitsProcessor do
 
     context "with many type_ids" do
       let(:type_second) { PowerDistributionUnitType.create!(name: "T2", current_type: :three_phase, manufacturer: manufacturers(:fortinet)) }
-      let(:power_distribution_unit_second) { PowerDistributionUnit.create!(name: "PDU1", serial_number: "12", **pdu_attr, type: type_second) }
+      let(:power_distribution_unit_second) { PowerDistributionUnit.create!(serial_number: "12", **pdu_attr, type: type_second, power_line: :b) }
 
       let(:params) { { type_ids: [type.id, type_second.id] } }
 
@@ -199,11 +199,11 @@ RSpec.describe PowerDistributionUnitsProcessor do
   describe "when filtering by manufacturer_ids" do
     let(:manufacturer) { Manufacturer.create!(name: "M1") }
     let(:type) { PowerDistributionUnitType.create!(name: "T1", current_type: :three_phase, manufacturer:) }
-    let(:power_distribution_unit) { PowerDistributionUnit.create!(name: "PDU1", serial_number: "10", **pdu_attr, type:) }
+    let(:power_distribution_unit) { PowerDistributionUnit.create!(serial_number: "10", **pdu_attr, type:) }
 
     before do
       power_distribution_unit
-      PowerDistributionUnit.create!(name: "PDU1", serial_number: "11", **pdu_attr, type: power_distribution_unit_types(:one))
+      PowerDistributionUnit.create!(serial_number: "11", **pdu_attr, type: power_distribution_unit_types(:one), frame: frames(:one), power_line: :b)
     end
 
     context "with one manufacturer_ids" do
@@ -217,7 +217,7 @@ RSpec.describe PowerDistributionUnitsProcessor do
       let(:manufacturer_second) { Manufacturer.create!(name: "M1") }
       let(:type_second) { PowerDistributionUnitType.create!(name: "T1", current_type: :three_phase, manufacturer: manufacturer_second) }
       let(:power_distribution_unit_second) do
-        PowerDistributionUnit.create!(name: "PDU1", serial_number: "12", **pdu_attr, type: type_second)
+        PowerDistributionUnit.create!(serial_number: "12", **pdu_attr, type: type_second, power_line: :b)
       end
 
       let(:params) { { manufacturer_ids: [manufacturer.id, manufacturer_second.id] } }
@@ -240,12 +240,12 @@ RSpec.describe PowerDistributionUnitsProcessor do
     let(:type) { PowerDistributionUnitType.create!(name: "T1", current_type: :three_phase, manufacturer:) }
 
     let(:power_distribution_unit) do
-      PowerDistributionUnit.create!(name: "wood", serial_number: 1, **pdu_attr, type:, frame:)
+      PowerDistributionUnit.create!(serial_number: 1, **pdu_attr, type:, frame:)
     end
 
     let(:params) do
       {
-        q: "wood", room_ids: room.id, islet_ids: islet.id, bay_ids: bay.id,
+        q: "F1", room_ids: room.id, islet_ids: islet.id, bay_ids: bay.id,
         frame_ids: frame.id, type_ids: type.id, manufacturer_ids: manufacturer.id,
       }
     end
@@ -259,7 +259,7 @@ RSpec.describe PowerDistributionUnitsProcessor do
       context "and sort on #{field}" do # rubocop:disable RSpec/ContextWording, RSpec/MultipleMemoizedHelpers
         let(:params) do
           {
-            q: "wood", room_ids: room.id, islet_ids: islet.id, bay_ids: bay.id,
+            q: "F1", room_ids: room.id, islet_ids: islet.id, bay_ids: bay.id,
             frame_ids: frame.id, manufacturer_ids: manufacturer.id, type_ids: type.id,
             sort_by: field,
           }

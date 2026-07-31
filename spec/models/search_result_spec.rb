@@ -20,6 +20,8 @@ RSpec.describe SearchResult do
         frames(:three),
         frames(:four),
         frames(:five),
+        power_distribution_units(:one),
+        power_distribution_units(:two),
       )
     end
   end
