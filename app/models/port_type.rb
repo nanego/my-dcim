@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 class PortType < ApplicationRecord
+  include Enum::Array
+
   has_changelog
 
   has_many :card_types, dependent: :restrict_with_error
   has_many :sockets, class_name: "PowerDistributionUnit::Socket", dependent: :restrict_with_error
 
   USABLE_BY_VALUES = %w[pdu server].freeze
-  validates :usable_by, array_inclusion: { in: USABLE_BY_VALUES }
+  array_enum :usable_by, USABLE_BY_VALUES.index_with(&:to_s)
 
   scope :sorted, -> { order(name: :asc) }
   scope :power_ones, -> { where(is_power: true) }

@@ -63,6 +63,6 @@ class PortTypesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def port_type_params
-    params.expect(port_type: %i[name power usable_by])
+    params.expect(port_type: [:name, :is_power, { usable_by: [] }])
   end
 end
