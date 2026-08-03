@@ -8,7 +8,7 @@ module Enum
     private_constant :MISSING_VALUE_MESSAGE
 
     class_methods do
-      def array_enum(name = nil, mapping = nil)
+      def array_enum(name = nil, mapping = nil, validate: true)
         name = name.to_s
         mapping_hash = ActiveSupport::HashWithIndifferentAccess.new(mapping)
 
@@ -18,19 +18,21 @@ module Enum
           mapping_hash
         end
 
-        define_method(name) do
-          Array(self[name]).map { |value| mapping_hash.key(value) }
+        unless validate
+          define_method(name) do
+            Array(self[name]).map { |value| mapping_hash.key(value) }
+          end
         end
 
         define_method(:"#{name}=") do |values|
           self[name] = Array(values).compact_blank.map do |value|
-            raise_missing_value(name, value) unless mapping_hash.key?(value)
+            raise_missing_value(name, value) unless validate || mapping_hash.key?(value)
 
-            mapping_hash[value]
+            mapping_hash[value] || value
           end.uniq
         end
 
-        validates name, array_inclusion: { in: mapping_hash.keys }
+        validates name, array_inclusion: { in: mapping_hash.keys } if validate
       end
 
       private
