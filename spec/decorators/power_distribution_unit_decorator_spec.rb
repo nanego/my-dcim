@@ -88,6 +88,24 @@ RSpec.describe PowerDistributionUnitDecorator, type: :decorator do
     end
   end
 
+  describe "#power_line_badge_component" do
+    subject(:component) { decorated_pdu.power_line_badge_component }
+
+    context "with A power line" do
+      it { expect(component.instance_variable_get(:@text)).to eq("A") }
+      it { expect(component.instance_variable_get(:@variant)).to eq(:default) }
+      it { expect(component.instance_variable_get(:@color)).to eq(:warning) }
+    end
+
+    context "with B power line" do
+      let(:pdu) { power_distribution_units(:two) }
+
+      it { expect(component.instance_variable_get(:@text)).to eq("B") }
+      it { expect(component.instance_variable_get(:@variant)).to eq(:default) }
+      it { expect(component.instance_variable_get(:@color)).to eq(:primary) }
+    end
+  end
+
   describe "#full_location" do
     it { expect(decorated_pdu.full_location).to eq("Site 1 - Ilot Islet1 S1") }
   end

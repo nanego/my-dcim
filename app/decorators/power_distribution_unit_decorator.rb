@@ -49,6 +49,11 @@ class PowerDistributionUnitDecorator < ApplicationDecorator
     end
   end
 
+  def power_line_badge_component
+    color = power_line == "a" ? :warning : :primary
+    BadgeComponent.new(power_line.upcase, color:)
+  end
+
   def full_location
     [site, islet.decorated.name_with_room].compact_blank.join(" - ")
   end
