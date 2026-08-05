@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class PowerDistributionUnitDecorator < ApplicationDecorator
-  A_POWER_LINE_BADGE_COLOR = :warning
-  B_POWER_LINE_BADGE_COLOR = :primary
+  POWER_LINES_COLORS = {
+    a: :warning,
+    b: :primary,
+  }
 
   class << self
     def options_for_select
@@ -53,8 +55,7 @@ class PowerDistributionUnitDecorator < ApplicationDecorator
   end
 
   def power_line_badge_component
-    color = power_line == "a" ? A_POWER_LINE_BADGE_COLOR : B_POWER_LINE_BADGE_COLOR
-    BadgeComponent.new(power_line.upcase, color:)
+    BadgeComponent.new(power_line.upcase, color: POWER_LINES_COLORS[power_line.to_sym])
   end
 
   def full_location
