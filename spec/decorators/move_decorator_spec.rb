@@ -22,7 +22,12 @@ RSpec.describe MoveDecorator, type: :decorator do
     context "with move planned" do
       it { is_expected.to be_a(BadgeComponent) }
       it { expect(badge.instance_variable_get(:@color)).to eq(:primary) }
-      it { expect(badge.content).to eq("Planifié") }
+
+      it do
+        expect(badge.content).to eq(
+          "<span><span class=\"bi bi-calendar-event me-1\"></span><span>Planifié</span></span>",
+        )
+      end
     end
 
     context "with move executed" do
@@ -30,7 +35,12 @@ RSpec.describe MoveDecorator, type: :decorator do
 
       it { is_expected.to be_a(BadgeComponent) }
       it { expect(badge.instance_variable_get(:@color)).to eq(:success) }
-      it { expect(badge.content).to eq("Exécuté") }
+
+      it do
+        expect(badge.content).to eq(
+          "<span><span class=\"bi bi-calendar-check me-1\"></span><span>Exécuté</span></span>",
+        )
+      end
     end
   end
 
