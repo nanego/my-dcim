@@ -92,6 +92,7 @@ RSpec.describe PowerDistributionUnitDecorator, type: :decorator do
     subject(:component) { decorated_pdu.power_line_badge_component }
 
     context "with A power line" do
+      it { is_expected.to be_a(BadgeComponent) }
       it { expect(component.instance_variable_get(:@text)).to eq("A") }
       it { expect(component.instance_variable_get(:@variant)).to eq(:default) }
       it { expect(component.instance_variable_get(:@color)).to eq(:warning) }
@@ -100,6 +101,7 @@ RSpec.describe PowerDistributionUnitDecorator, type: :decorator do
     context "with B power line" do
       let(:pdu) { power_distribution_units(:two) }
 
+      it { is_expected.to be_a(BadgeComponent) }
       it { expect(component.instance_variable_get(:@text)).to eq("B") }
       it { expect(component.instance_variable_get(:@variant)).to eq(:default) }
       it { expect(component.instance_variable_get(:@color)).to eq(:primary) }

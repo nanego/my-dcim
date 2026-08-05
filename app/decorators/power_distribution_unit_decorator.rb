@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class PowerDistributionUnitDecorator < ApplicationDecorator
+  A_POWER_LINE_BADGE_COLOR = :warning
+  B_POWER_LINE_BADGE_COLOR = :primary
+
   class << self
     def options_for_select
       PowerDistributionUnit.includes(:frame).select(:id, :frame_id, :power_line).map { |p| [p.name, p.id] }
@@ -50,7 +53,7 @@ class PowerDistributionUnitDecorator < ApplicationDecorator
   end
 
   def power_line_badge_component
-    color = power_line == "a" ? :warning : :primary
+    color = power_line == "a" ? A_POWER_LINE_BADGE_COLOR : B_POWER_LINE_BADGE_COLOR
     BadgeComponent.new(power_line.upcase, color:)
   end
 
