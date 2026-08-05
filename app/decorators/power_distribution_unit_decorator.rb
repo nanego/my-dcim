@@ -4,7 +4,7 @@ class PowerDistributionUnitDecorator < ApplicationDecorator
   POWER_LINES_COLORS = {
     a: :warning,
     b: :primary,
-  }
+  }.freeze
 
   class << self
     def options_for_select
