@@ -102,6 +102,8 @@ en:
     destroy:
       title: Delete the architecture
 
+  at: at
+
   bays:
     index:
       new_bay: Add a single or double bay
@@ -370,12 +372,8 @@ en:
     index:
       planned_on: Planned on
       new_move: Plan a move
-      execute_confirmation: Do you really want to apply this move?
       frame_table_title: Frames after moving
       edit_connections: Update connections
-      remove_existing_connections_on_execution: Delete connections?
-      action:
-        execute_move: Move the server and its connections
     new:
       title: New move
     new_unscoped:
@@ -412,6 +410,11 @@ en:
         delete: Delete this connection
     flashes:
       archived: This project is archived
+    decorator:
+      display_name: Move of %{moveable}
+    action:
+      execute_move: Move the server and its connections
+    execute_confirmation: Do you really want to apply this move?
 
   moves_projects:
     index:

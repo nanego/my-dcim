@@ -23,7 +23,7 @@
             icon: :archive,
             is_responsive: true,
             extra_classes: "me-2",
-            data: { confirm: t(".archive_confirmation") },
+            data: { turbo_confirm: t(".archive_confirmation") },
           ) %>
     <% end %>
   <% end %>
@@ -71,20 +71,25 @@
 
           <% if @moves_project.unarchived? && moves_project_step.moves.any? && !moves_project_step.executed? %>
             <% card.with_footer do %>
-              <%= link_to(
-                    t("action.execute"), execute_moves_project_moves_project_step_path(@moves_project, moves_project_step),
-                    title: t(".action.execute_step_moves"),
-                    data: {
-                      turbo: true,
-                      turbo_method: :patch,
-                      turbo_confirm: t(".execute_confirmation"),
-                      controller: "tooltip",
-                      bs_placement: "left",
-                      turbo_frame: :_top,
-                    },
-                    class: "btn btn-sm btn-outline-primary ms-auto",
-                    aria: { hidden: true },
-                  ) %>
+              <%= render ButtonComponent.new(
+                t("action.execute"),
+                url: execute_moves_project_moves_project_step_path(@moves_project, moves_project_step),
+                variant: :outline_primary,
+                title: t(".action.execute_step_moves"),
+                icon: :"check2-square",
+                size: :sm,
+                is_responsive: true,
+                extra_classes: "ms-auto",
+                aria: { hidden: true },
+                data: {
+                  turbo: true,
+                  turbo_method: :patch,
+                  turbo_confirm: t(".execute_confirmation"),
+                  controller: "tooltip",
+                  bs_placement: "left",
+                  turbo_frame: :_top,
+                },
+              ) %>
             <% end %>
           <% end %>
         <% end %>

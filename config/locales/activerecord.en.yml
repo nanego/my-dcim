@@ -117,38 +117,14 @@ en:
       external_app_record/external_serial:
         found: Found
         not_found: Not found in GLPI
-      netsight_sync_result:
-        applied_at: Applied on
-        dcim_path: DCIM path
-        dcim_value: DCIM value
-        dcim_vlans: DCIM VLANs
-        netsight_vlans: Netsight VLANs
-        dcim_serial: DCIM serial
-        netsight_serial: Netsight serial
-        netsight_device: Netsight device
-        frame_id: Location
-        if_name: Netsight port
-        kind: Kind
-        netsight_peer: Other end according to Netsight
-        netsight_value: Netsight value
-        port_id: DCIM port
-        port: Port (DCIM, Netsight)
-        server_id: Switch
-        status: Status
-      netsight_sync_result/status:
-        matches: Matches
-        differs: Differs
-        default_vlan_only: Default VLAN
-        no_netsight_vlans: No VLAN in Netsight
-        free_text: Free text in DCIM
-        unknown_port: Port unknown to Netsight
-        not_cabled_in_dcim: Not cabled in DCIM
-        broken_path: Broken path
-        not_in_netsight: Unknown to Netsight
-        netsight_unreachable: Netsight unreachable
-        serial_to_complete: Serial to fill in
-        name_serial_mismatch: Name and serial disagree
-        serial_not_in_netsight: Serial unknown to Netsight
+      frame:
+        name: name
+        servers: Equipments
+        room: Room
+        position: Position
+        bay_id: Bay
+        u: U
+        width: Width
       manufacturer:
         name: Name
         usage_modele: Usage (model)
@@ -184,12 +160,46 @@ en:
         moveable_id: Equipment to move
         prev_frame_id: Departure frame
         frame_id: Destination frame
-        remove_existing_connections_on_execution: Delete all connections to this equipment?
+        remove_existing_connections_on_execution: Remove all connections to this equipment?
+        remove_existing_connections_on_execution_short: Remove connections?
         position: Position in frame
         status: State
-        statuses:
-          executed: Executed
-          planned: Planned
+        executed_at: Executed at
+      move/status:
+        executed: Executed
+        planned: Planned
+      netsight_sync_result:
+        applied_at: Applied on
+        dcim_path: DCIM path
+        dcim_value: DCIM value
+        dcim_vlans: DCIM VLANs
+        netsight_vlans: Netsight VLANs
+        dcim_serial: DCIM serial
+        netsight_serial: Netsight serial
+        netsight_device: Netsight device
+        frame_id: Location
+        if_name: Netsight port
+        kind: Kind
+        netsight_peer: Other end according to Netsight
+        netsight_value: Netsight value
+        port_id: DCIM port
+        port: Port (DCIM, Netsight)
+        server_id: Switch
+        status: Status
+      netsight_sync_result/status:
+        matches: Matches
+        differs: Differs
+        default_vlan_only: Default VLAN
+        no_netsight_vlans: No VLAN in Netsight
+        free_text: Free text in DCIM
+        unknown_port: Port unknown to Netsight
+        not_cabled_in_dcim: Not cabled in DCIM
+        broken_path: Broken path
+        not_in_netsight: Unknown to Netsight
+        netsight_unreachable: Netsight unreachable
+        serial_to_complete: Serial to fill in
+        name_serial_mismatch: Name and serial disagree
+        serial_not_in_netsight: Serial unknown to Netsight
       permission_scope:
         name: Name
         role: Role
