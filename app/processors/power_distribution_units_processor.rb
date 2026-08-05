@@ -33,5 +33,11 @@ class PowerDistributionUnitsProcessor < ApplicationProcessor
     raw.joins(:manufacturer).where(manufacturer: { id: manufacturer_ids })
   end
 
-  sortable fields: SORTABLE_FIELDS
+  sortable fields: SORTABLE_FIELDS do
+    having "name" do |sort: "asc"|
+      valid_sort_value!(sort)
+
+      raw.left_joins(:frame).reorder(frames: { name: sort }, power_line: sort)
+    end
+  end
 end
