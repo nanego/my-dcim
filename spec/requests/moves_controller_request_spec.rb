@@ -36,7 +36,8 @@ RSpec.describe MovesController do
     end
 
     context "with html format" do
-      it { expect { response }.to raise_error(ActionController::UnknownFormat) }
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(:show) }
     end
   end
 
