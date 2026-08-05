@@ -22,7 +22,7 @@
             <dd class="mb-0 pb-2 ps-3"><%= @equipment.id %></dd>
 
             <dt class="pb-2"><%= t("glpi.computer.serial") %></dt>
-            <dd class="mb-0 pb-2 ps-3"><%= @equipment.serial %></dd>
+            <dd class="mb-0 pb-2 ps-3 font-monospace"><%= @equipment.serial %></dd>
 
             <dt class="pb-2"><%= t("glpi.computer.state") %></dt>
             <dd class="mb-0 pb-2 ps-3"><%= @equipment.state %></dd>
@@ -34,7 +34,7 @@
               <% elsif @equipment.under_warranty? %>
                 <%= l @equipment.last_warranty_end_date %>
               <% else %>
-                <strong><%= t("glpi.computer.warranty_exprired") %></strong>
+                <span class="text-danger"><%= t("glpi.computer.warranty_exprired") %></span>
               <% end %>
             </dd>
 

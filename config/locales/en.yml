@@ -439,7 +439,7 @@ en:
       id: GLPI ID
       serial: Serial number
       groups: Responsible groups
-      contract: Contract %{type}
+      contract: Contract "%{type}"
       state: State
       warranty: Warranty
       warranty_exprired: Expired
