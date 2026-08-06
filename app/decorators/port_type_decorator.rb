@@ -6,9 +6,11 @@ class PortTypeDecorator < ApplicationDecorator
   end
 
   def self.usable_by_options_for_select
-    PortType::USABLE_BY_VALUES.map do |value|
-      [I18n.t(".activerecord.attributes.port_type.usable_by/#{value}"), value]
-    end
+    PortType::USABLE_BY_VALUES.map { |value| [PortType.human_attribute_name("usable_by.#{value}"), value] }
+  end
+
+  def human_usable_by
+    usable_by.map { |value| PortType.human_attribute_name("usable_by.#{value}") }.to_sentence
   end
 
   def css_class_name

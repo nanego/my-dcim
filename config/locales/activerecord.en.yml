@@ -18,9 +18,13 @@ en:
         other: Network hub clusters
       color: Color
       port_type:
-        usable_by: Utilisation
-        usable_by/server: Server
-        usable_by/pdu: Pdu
+        name: Name
+        power: Power
+        usage: Usage
+        usable_by: Usable by
+      port_type/usable_by:
+        server: Server
+        pdu: Pdu
       composant:
         one: Component
         other: Components
@@ -312,7 +316,7 @@ en:
               blank: can't be blank, or "All domains" must be checked
 
       messages:
-        array_inclusion: "includes unauthorized values : %{wrong_values}"
+        contains_unpermitted_values: "includes unauthorized values: %{wrong_values}"
 
   # Common attributes
   attributes:

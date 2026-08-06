@@ -13,7 +13,6 @@ class PortType < ApplicationRecord
 
   scope :sorted, -> { order(name: :asc) }
   scope :power_ones, -> { where(is_power: true) }
-  scope :usable_by, ->(usable_by) { where("? = ANY(usable_by)", usable_by) }
 
   delegate :to_s, to: :name
 end

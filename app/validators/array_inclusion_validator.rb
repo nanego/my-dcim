@@ -7,6 +7,6 @@ class ArrayInclusionValidator < ActiveModel::EachValidator
     return if not_allowed_values.empty?
 
     wrong_values = not_allowed_values.join(", ")
-    record.errors.add(attribute, :array_inclusion, wrong_values:)
+    record.errors.add(attribute, :contains_unpermitted_values, wrong_values:)
   end
 end

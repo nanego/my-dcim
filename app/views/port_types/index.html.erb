@@ -41,7 +41,7 @@
     <% end %>
 
     <% table.with_column(PortType.human_attribute_name(:usable_by)) do |port_type| %>
-      <%= port_type.usable_by.to_sentence %>
+      <%= port_type.decorated.human_usable_by %>
     <% end %>
 
     <% table.with_column(style: "min-width: 70px; width: 70px;") do |port_type| %>
