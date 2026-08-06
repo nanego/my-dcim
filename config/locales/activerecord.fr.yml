@@ -254,8 +254,9 @@ fr:
         power: Alimentation
         usage: Types de carte compatibles
         usable_by: Utilisation
-        usable_by/server: Serveur
-        usable_by/pdu: Pdu
+      port_type/usable_by:
+        server: Serveur
+        pdu: Pdu
       category:
         name: Nom
         description: Description
@@ -548,7 +549,7 @@ fr:
               blank: doit être rempli, ou "Tous les domaines" doit être coché
 
       messages:
-        array_inclusion: "contient des valeurs non autorisées : %{wrong_values}"
+        contains_unpermitted_values: "contient des valeurs non autorisées : %{wrong_values}"
 
   # Common attributes
   attributes:

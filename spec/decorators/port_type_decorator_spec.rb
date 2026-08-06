@@ -20,6 +20,18 @@ RSpec.describe PortTypeDecorator, type: :decorator do
     end
   end
 
+  describe "#human_usable_by" do
+    context "with one" do
+      it { expect(decorated_port_type.human_usable_by).to eq("Serveur") }
+    end
+
+    context "with multiple" do
+      let(:port_type) { port_types(:four) }
+
+      it { expect(decorated_port_type.human_usable_by).to eq("Serveur et Pdu") }
+    end
+  end
+
   describe "#css_class_name" do
     subject(:css_class_name) { decorated_port_type.css_class_name }
 

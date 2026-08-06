@@ -17,12 +17,12 @@ module ModelMatchers
       @record = record
 
       @record.public_send("#{@attribute}=", @values)
-      raise "AAAAAAAAAAAA" unless @record.valid?
+      return false unless @record.valid?
 
       @record.public_send("#{@attribute}=", @values + [invalid_value])
-      raise "BBBBBBBBBBB" if @record.valid?
+      return false if @record.valid?
 
-      @record.errors.added?(@attribute, :array_inclusion, wrong_values: invalid_value)
+      @record.errors.added?(@attribute, :contains_unpermitted_values, wrong_values: invalid_value)
     end
 
     def description

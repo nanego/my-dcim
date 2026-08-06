@@ -8,7 +8,7 @@ module Enum
     private_constant :MISSING_VALUE_MESSAGE
 
     class_methods do
-      def array_enum(name = nil, mapping = nil, validate: true)
+      def array_enum(name = nil, mapping = nil, validate: false)
         name = name.to_s
         mapping_hash = ActiveSupport::HashWithIndifferentAccess.new(mapping)
 
@@ -18,10 +18,22 @@ module Enum
           mapping_hash
         end
 
-        unless validate
-          define_method(name) do
-            Array(self[name]).map { |value| mapping_hash.key(value) }
+        define_singleton_method("with_#{name}") do |*values|
+          db_values = values.map do |value|
+            raise_missing_value(name, value) unless mapping_hash.key?(value)
+
+            mapping_hash[value]
           end
+
+          # get sql type to cast properly
+          # It returns the array's element type
+          sql_type = columns_hash[name.to_s].sql_type
+
+          where("#{name} @> ?::#{sql_type}[]", "{#{db_values.join(", ")}}")
+        end
+
+        define_method(name) do
+          Array(self[name]).map { |value| mapping_hash.key(value) || value }
         end
 
         define_method(:"#{name}=") do |values|
@@ -38,7 +50,7 @@ module Enum
       private
 
       def raise_missing_value(name, value)
-        raise ArgumentError, "#{value} is not a valid value for #{name}"
+        raise ArgumentError, format(MISSING_VALUE_MESSAGE, name:, value:)
       end
     end
   end
