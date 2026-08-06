@@ -27,9 +27,16 @@ module Enum
 
           # get sql type to cast properly
           # It returns the array's element type
-          sql_type = columns_hash[name.to_s].sql_type
+          element_type = columns_hash[name.to_s].sql_type
 
-          where("#{name} @> ?::#{sql_type}[]", "{#{db_values.join(", ")}}")
+          # encode array so it can be understood by PG
+          encoder = PG::TextEncoder::Array.new
+          encoded = encoder.encode(db_values)
+
+          where(
+            "#{name} @> ?::#{element_type}[]",
+            encoded,
+          )
         end
 
         define_method(name) do
