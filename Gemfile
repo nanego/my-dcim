@@ -81,7 +81,7 @@ group :production do
   gem "passenger", "~> 6.0"
 end
 
-gem "active_storage_validations", "~> 3.0"
+gem "active_storage_validations", "~> 4.0"
 gem "acts_as_list", "~> 1.2"
 gem "friendly_id", "~> 5.7"
 gem "record_tag_helper", "~> 1.0" # Add helpers removed from Rails core in Rails 5
