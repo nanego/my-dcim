@@ -55,6 +55,9 @@ fr:
       moves_project_step:
         one: Étape du projet
         other: Étapes du projet
+      move/connection:
+        one: Connexion modifiée
+        other: Connexions modifiées
       contact: Contact
       contact_role: Rôle
       contact_assignment: Assignation
@@ -430,8 +433,8 @@ fr:
         moveable_id: Équipement à déplacer
         frame_id: Châssis de destination
         prev_frame_id: Châssis de départ
-        remove_existing_connections_on_execution: Supprimer toutes les connexions vers cet équipement ?
-        remove_existing_connections_on_execution_short: Supprimer les connexions ?
+        remove_existing_connections_on_execution: Supprimer les connexions de l'équipement ?
+        remove_existing_connections_on_execution_short: Connexions supprimées ?
         position: Position dans le châssis
         status: État
         executed_at: Exécuté le

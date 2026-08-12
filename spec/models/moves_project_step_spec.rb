@@ -61,6 +61,20 @@ RSpec.describe MovesProjectStep do
     end
   end
 
+  describe "#frames" do
+    it do
+      expect(moves_project_steps(:one).frames)
+        .to contain_exactly(frames(:one), frames(:three))
+    end
+
+    context "with moves in a same frame" do
+      it do
+        expect(moves_project_steps(:step_same_frame_move).frames)
+          .to contain_exactly(frames(:one))
+      end
+    end
+  end
+
   describe "#frames_with_moves_at_current_step" do
     it do
       expect(moves_project_steps(:planned).frames_with_moves_at_current_step)

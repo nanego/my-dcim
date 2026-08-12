@@ -19,18 +19,16 @@
           <%= render BadgeComponent.new(variant: :pill, color: :light) do %>
             <span title="<%= t(".badges.steps_count_title", count: moves_project.steps.size) %>"
                   data-controller="tooltip"
-                  data-bs-placement="top"
-                  aria-hidden="true">
-              <span class="bi bi-bar-chart"></span>
+                  data-bs-placement="top">
+              <span class="bi bi-bar-chart-fill text-body-tertiary"></span>
               <span class="font-monospace ms-1"><%= moves_project.steps.size %></span>
             </span>
           <% end %>
           <%= render BadgeComponent.new(variant: :pill, color: :light) do %>
             <span title="<%= t(".badges.moves_count_title", count: moves_project.moves.size) %>"
                   data-controller="tooltip"
-                  data-bs-placement="top"
-                  aria-hidden="true">
-              <span class="bi bi-box-seam"></span>
+                  data-bs-placement="top">
+              <span class="bi bi-box-seam text-body-tertiary"></span>
               <span class="font-monospace ms-1"><%= moves_project.moves.size %></span>
             </span>
           <% end %>
