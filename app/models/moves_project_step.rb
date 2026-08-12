@@ -32,12 +32,16 @@ class MovesProjectStep < ApplicationRecord
     Move.where(step: previous_steps, executed_at: nil).none?
   end
 
+  def frames
+    @frames = Frame.where(id: moves.select(:frame_id)).or(Frame.where(id: moves.select(:prev_frame_id))).order(:name)
+  end
+
   def frames_with_moves_at_current_step
     @frames_with_moves_at_current_step ||= begin
       moves = Move.includes(:frame, :prev_frame)
         .where(step: moves_project.steps.where(position: ..position))
 
-      (moves.map(&:frame) | moves.map(&:prev_frame)).compact.uniq
+      (moves.map(&:frame) | moves.map(&:prev_frame)).compact.uniq.sort_by(&:name)
     end
   end
 
