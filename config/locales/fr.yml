@@ -617,7 +617,6 @@ fr:
     index:
       planned_on: Planifié le
       new_move: Prévoir un déplacement
-      frame_table_title: Châssis après déplacements
       edit_connections: Modifier les connexions
     new:
       title: Nouveau déplacement
@@ -671,12 +670,12 @@ fr:
           one: 1 déplacement prévu
           other: "%{count} déplacements prévus"
     show:
-      frame_table_title: Châssis après déplacements
       edit_connections: Modifier les connexions
       execute_confirmation: Voulez-vous vraiment appliquer ces déplacements ?
       archive_confirmation: Êtes-vous sûr de vouloir archiver ce projet ?
       action:
-        execute_step_moves: Déplacer les serveurs et leurs connexions
+        execute_step_moves: Déplacer les matériels I.T. et leurs connexions
+        execute_all: Exécuter tous les déplacements
     new:
       title: Nouveau projet
     create:
@@ -710,6 +709,10 @@ fr:
         prev_moves_not_all_executed: Certaines des étapes précédentes n'ont pas encore été exécutées.
     flashes:
       archived: Ce projet est archivé
+    frames_grid:
+      frames_grid_title: Résumé des déplacements par châssis
+      visualization_after_step: Visualisation après déplacements
+      show_page: Voir le châssis
 
   devise:
     registrations:

@@ -1,0 +1,111 @@
+<%# locals: (moves_project_step:, frames:, moves:) -%>
+
+<%= render CardComponent.new do |card| %>
+  <% card.with_header do %>
+    <%= t(".frames_grid_title") %>
+  <% end %>
+
+  <% card.with_body(extra_classes: "bg-body-tertiary rounded") do %>
+    <% if moves.any? %>
+      <div class="container-fluid p-2">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-4">
+          <% frames.each do |frame| %>
+            <div class="col">
+              <%= render CardComponent.new do |card| %>
+                <div class="d-flex justify-content-between align-items-center border-bottom mb-2 pb-2">
+                  <h5 class="mb-0 d-flex align-items-start">
+                    <span class="bi bi-file-minus text-success me-2"></span>
+                    <span title="<%= frame.room.name_with_site %>"
+                          aria-label="<%= frame.room.name_with_site %>"
+                          data-controller="tooltip">
+                      <%= frame %>
+                    </span>
+                  </h5>
+
+                  <span>
+                    <button type="button" class="btn link-secondary" data-bs-toggle="dropdown" aria-expanded="false">
+                      <span class="bi bi-three-dots"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <%= link_to print_moves_project_moves_project_step_path(
+                              moves_project_step.moves_project, moves_project_step, frame,
+                            ),
+                                    class: "dropdown-item",
+                                    data: { turbo_frame: :_top },
+                                    target: :_blank,
+                                    rel: :noopener do %>
+                          <span class="bi bi-printer me-1"></span>
+                          <span><%= t("export_button.exports.print") %></span>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to print_moves_project_moves_project_step_path(
+                              moves_project_step.moves_project, moves_project_step, frame,
+                            ),
+                                    class: "dropdown-item",
+                                    data: { turbo_frame: :_top } do %>
+                          <span class="bi bi-file-earmark-pdf me-1"></span>
+                          <span><%= t("export_button.exports.pdf") %></span>
+                        <% end %>
+                      </li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li>
+                        <%= link_to visualization_frame_path(frame),
+                                    class: "dropdown-item",
+                                    data: { turbo_frame: :_top } do %>
+                          <span class="bi bi-diagram-3-fill me-1"></span>
+                          <span><%= t("visualization.title") %></span>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to frame_moves_project_moves_project_step_path(
+                              moves_project_step.moves_project, moves_project_step, frame,
+                            ),
+                                    class: "dropdown-item",
+                                    data: { turbo_frame: :_top } do %>
+                          <span class="bi bi-diagram-3-fill me-1"></span>
+                          <span><%= t(".visualization_after_step") %></span>
+                        <% end %>
+                      </li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li>
+                        <%= link_to frame_path(frame),
+                                    class: "dropdown-item",
+                                    data: { turbo_frame: :_top } do %>
+                          <span class="bi bi-eye me-1"></span>
+                          <span><%= t(".show_page") %></span>
+                        <% end %>
+                      </li>
+                    </ul>
+                  </span>
+                </div>
+
+                <ul class="list-group list-group-flush">
+                  <% moves.where(frame_id: frame.id).or(moves.where(prev_frame_id: frame.id)).find_each do |move| %>
+                    <li class="list-group-item"
+                        title="<%= move.step %>"
+                        aria-label="<%= move.step %>"
+                        data-controller="tooltip">
+                      <div class="d-flex align-items-start">
+                        <span class="bi bi-box-seam me-2 text-primary"></span>
+
+                        <%= link_to move.decorated.display_name,
+                                    moves_project_step_move_path(move.step, move),
+                                    class: "link-body-emphasis link-offset-2 link-underline-opacity-0 \
+                                            link-underline-opacity-75-hover",
+                                    data: { turbo_frame: :_top } %>
+                      </div>
+                    </li>
+                  <% end %>
+                </ul>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <% else %>
+        <%= render CardEmptyDataComponent.new %>
+      <% end %>
+    <% end %>
+<% end %>

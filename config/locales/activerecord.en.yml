@@ -35,6 +35,7 @@ en:
       manufacturer: Manufacturer
       modele: Model
       move: Planned move
+      move/connection: Edited connection
       moves_project: Moves project
       moves_project_steps: Project step
       port_type: Port type
@@ -160,8 +161,8 @@ en:
         moveable_id: Equipment to move
         prev_frame_id: Departure frame
         frame_id: Destination frame
-        remove_existing_connections_on_execution: Remove all connections to this equipment?
-        remove_existing_connections_on_execution_short: Remove connections?
+        remove_existing_connections_on_execution: Delete all equipment connections?
+        remove_existing_connections_on_execution_short: Connections deleted?
         position: Position in frame
         status: State
         executed_at: Executed at

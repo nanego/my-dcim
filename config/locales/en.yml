@@ -372,6 +372,7 @@ en:
     index:
       planned_on: Planned on
       new_move: Plan a move
+      execute_confirmation: Do you really want to apply this move?
       frame_table_title: Frames after moving
       edit_connections: Update connections
     new:
@@ -430,10 +431,12 @@ en:
           one: 1 planned move
           other: "%{count} planned moves"
     show:
-      frame_table_title: Frames after moving
       edit_connections: Edit connections
       execute_confirmation: Do you really want to apply these moves?
       archive_confirmation: Are you sure you want to archive this project?
+      action:
+        execute_step_moves: Moving I.T. equipments and their connections
+        execute_all: Execute all moves
     new:
       title: New project
     create:
@@ -463,6 +466,10 @@ en:
         prev_moves_not_all_executed: Some previous steps haven't been executed yet.
     flashes:
       archived: This project is archived
+    frames_grid:
+      frames_grid_title: Moves summary per frame
+      visualization_after_step: Visualization after moves
+      show_page: Show frame
 
   n_a: n/a
 

@@ -1,9 +1,7 @@
-<%
-  breadcrumb.add_step(title = @moves_project_step)
-%>
+<% breadcrumb.add_step(title = @moves_project_step) %>
 
 <%= render Page::HeadingComponent.new(
-      title:, breadcrumb:, back_button_url: moves_project_path(@moves_project_step.moves_project),
+      title:, breadcrumb:, back_button_url: moves_project_path(@moves_project),
     ) do |heading| %>
   <% heading.with_right_content do %>
     <% if @moves_project.unarchived? %>
@@ -29,36 +27,65 @@
   <%= turbo_frame_tag(dom_id(Move, :table), data: { turbo_action: :advance }) do %>
     <div class="d-flex flex-column row-gap-4">
       <%= render List::DataTableComponent.new(decorate(@moves)) do |table| %>
-        <% table.with_column(Server.model_name.human) do |move| %>
-          <%= link_to move.moveable, server_path(move.moveable), data: { turbo_frame: :_top } %>
-          <div class="small">
-            <span class="fw-light text-body-secondary"><%= Server.human_attribute_name(:numero) %> :</span>
-            <span class="font-monospace text-body"><%= move.moveable.numero %></span>
+        <% table.with_column(Move.model_name.human) do |move| %>
+          <strong class="d-flex ms-2 my-2 align-items-center ">
+            <span class="bi bi-box-seam me-2 text-primary"></span>
+
+            <%= link_to move.decorated.display_name,
+                        moves_project_step_move_path(move.step, move),
+                        data: { turbo_frame: :_top } %>
+          </strong>
+
+          <div class="m-1">
+            <%= render CardComponent.new(extra_classes: "d-inline-flex m-1") do |card| %>
+              <% card.with_body(extra_classes: "p-2") do %>
+                <div class="d-flex align-items-center">
+                  <span class="d-none d-lg-inline-block">
+                    <span class="bi bi-info-circle text-body-tertiary"
+                      title="<%= move.moveable %>"
+                      aria-label="<%= move.moveable %>"
+                      data-controller="tooltip">
+                    </span>
+                  </span>
+
+                  <div class="vr text-body-tertiary d-none d-lg-block mx-2"></div>
+
+                  <ul class="list-unstyled mb-0 small">
+                    <li class="small text-nowrap">
+                      <span class="fw-light text-body-secondary"><%= Server.human_attribute_name(:numero_short) %> :</span>
+                      <span class="font-monospace text-body"><%= move.moveable.numero %></span>
+                    </li>
+
+                    <li class="small text-nowrap">
+                      <span class="fw-light text-body-secondary"><%= Modele.model_name.human %> :</span>
+                      <span class="text-body"><%= move.moveable.modele %></span>
+                    </li>
+
+                    <li class="small text-nowrap">
+                      <span class="fw-light text-body-secondary"><%= Manager.model_name.human %> :</span>
+                      <span class="text-body"><%= move.moveable.manager %></span>
+                    </li>
+
+                    <li class="small text-nowrap">
+                      <span class="fw-light text-body-secondary"><%= Domain.model_name.human %> :</span>
+                      <span class="text-body"><%= move.moveable.domain %></span>
+                    </li>
+                  </ul>
+                </div>
+              <% end %>
+            <% end %>
           </div>
-          <div class="small">
-            <span class="fw-light text-body-secondary"><%= Modele.model_name.human %> :</span>
-            <span class="text-body"><%= move.moveable.modele %></span>
-          </div>
         <% end %>
-
-        <% table.with_column(Manager.model_name.human) do |move| %>
-          <%= move.moveable.manager %>
-        <% end %>
-
-        <% table.with_column(Domain.model_name.human) do |move| %>
-          <%= move.moveable.domain %>
-        <% end %>
-
+-
         <% table.with_column(Move.human_attribute_name(:prev_frame_id)) do |move| %>
           <%= link_to move.prev_frame,
                       frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, move.prev_frame),
-                      title: move.prev_frame.name_with_room_and_islet,
+                      title: move.prev_frame.room.name_with_site,
                       data: {
                         turbo_frame: :_top,
                         controller: "tooltip",
-                        bs_placement: "top",
                       } %>
-          <div class="small">
+          <div class="small text-nowrap">
             <span class="fw-light text-body-secondary"><%= Server.human_attribute_name(:position) %> :</span>
             <span class="font-monospace"><%= move.prev_position %></span>
           </div>
@@ -67,136 +94,101 @@
         <% table.with_column(Move.human_attribute_name(:frame_id)) do |move| %>
           <%= link_to move.frame,
                       frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, move.frame),
-                      title: move.frame.name_with_room_and_islet,
+                      title: move.frame.room.name_with_site,
                       data: {
                         turbo_frame: :_top,
                         controller: "tooltip",
-                        bs_placement: "top",
                       } %>
-          <div class="small">
+          <div class="small text-nowrap">
             <span class="fw-light text-body-secondary"><%= Server.human_attribute_name(:position) %> :</span>
             <span class="font-monospace"><%= move.position %></span>
           </div>
         <% end %>
 
-        <% table.with_column(Move.human_attribute_name(:status)) do |move| %>
+        <% table.with_column(Move.human_attribute_name(:status), text_align: :center) do |move| %>
           <span data-controller="tooltip"
-                data-bs-placement="top"
-                title="<%= l(move.executed_at) if move.executed_at.present? %>">
+                title="<%= l(move.executed_at) if move.executed_at.present? %>"
+                aria-label="<%= l(move.executed_at) if move.executed_at.present? %>">
             <%= render move.decorated.status_to_badge_component %>
           </span>
         <% end %>
 
         <% table.with_column(
-          Move.human_attribute_name(:remove_existing_connections_on_execution_short),
-          text_align: :center
-        ) do |move| %>
+             Move.human_attribute_name(:remove_existing_connections_on_execution_short),
+             text_align: :center,
+           ) do |move| %>
           <%= render move.moved_connections_to_badge_component %>
         <% end %>
 
-        <% table.with_column(style: "min-width: 120px; width: 120px") do |move| %>
-          <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <% unless @moves_project.archived? || move.executed? %>
-              <%= link_to execute_moves_project_step_move_path(@moves_project_step, move),
-                          data: {
-                            turbo: true,
-                            turbo_method: :patch,
-                            turbo_confirm: t("moves.execute_confirmation"),
-                            turbo_frame: :_top,
-                          },
-                          class: "btn btn-outline-primary" do %>
-                <span class="bi bi-check2-square"
-                      title="<%= t("moves.action.execute_move") %>"
-                      aria-hidden="true"
-                      data-controller="tooltip"
-                      data-bs-placement="left"></span>
-                <span class="visually-hidden"><%= t("moves.action.execute_move") %></span>
-              <% end %>
-              <%= link_to edit_moves_project_step_move_path(@moves_project_step, move),
-                          class: "btn btn-outline-info",
-                          data: { turbo_frame: :_top } do %>
-                <span class="bi bi-pencil"
-                      title="<%= t("action.edit") %>"
-                      aria-hidden="true"
-                      data-controller="tooltip"
-                      data-bs-placement="left"></span>
-                <span class="visually-hidden"><%= t("action.edit") %></span>
-              <% end %>
-              <%= link_to moves_project_step_move_path(@moves_project_step, move),
-                          method: :delete,
-                          data: {
-                            turbo_frame: :_top,
-                          },
-                          class: "btn btn-outline-danger" do %>
-                <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
-                                                                            data-controller="tooltip"
-                                                                            data-bs-placement="left"></span>
-                <span class="visually-hidden"><%= t("action.delete") %></span>
-              <% end %>
+        <% table.with_column(Move::Connection.model_name.human(count: 2), text_align: :right) do |move| %>
+          <% if allowed_to?(:update?, move) && !(@moves_project.archived? || move.executed?) %>
+            <!-- TODO: Add link to edit move::connection -->
+            <%= link_to "#",
+                        title: t(".edit_connections"),
+                        data: {
+                          turbo_frame: :_top,
+                          controller: "tooltip",
+                          bs_placement: "top",
+                        } do %>
+              <span><%= move.connections.count %></span>
+              <span class="visually-hidden"><%= t(".edit_connections") %></span>
             <% end %>
-          </div>
+          <% else %>
+            <%= move.connections.count %>
+          <% end %>
+        <% end %>
+
+        <% table.with_column(style: "min-width: 100px; width: 100px") do |move| %>
+          <% unless @moves_project.archived? || move.executed? %>
+            <div class="btn-group btn-group-sm" role="group" aria-label="...">
+              <% unless @moves_project.archived? || move.executed? %>
+                <%= link_to execute_moves_project_step_move_path(@moves_project_step, move),
+                            title: t("action.execute"),
+                            data: {
+                              turbo: true,
+                              turbo_method: :patch,
+                              turbo_confirm: t("moves.execute_confirmation"),
+                              controller: "tooltip",
+                              turbo_frame: :_top,
+                            },
+                            class: "btn btn-outline-primary",
+                            aria: { hidden: true } do %>
+                  <span class="bi bi-check2-square" aria-hidden="true"></span>
+                  <span class="visually-hidden"><%= t("moves.action.execute_move") %></span>
+                <% end %>
+                <%= link_to edit_moves_project_step_move_path(@moves_project_step, move),
+                            class: "btn btn-outline-info",
+                            title: t("action.edit"),
+                            data: {
+                              turbo_frame: :_top,
+                              controller: "tooltip",
+                            } do %>
+                  <span class="bi bi-pencil" aria-hidden="true"></span>
+                  <span class="visually-hidden"><%= t("action.edit") %></span>
+                <% end %>
+                <%= link_to moves_project_step_move_path(@moves_project_step, move),
+                            method: :delete,
+                            class: "btn btn-outline-danger",
+                            title: t("action.delete"),
+                            data: {
+                              turbo_frame: :_top,
+                              controller: "tooltip",
+                            } do %>
+                  <span class="bi bi-trash" aria-hidden="true"></span>
+                  <span class="visually-hidden"><%= t("action.delete") %></span>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
         <% end %>
       <% end %>
     </div>
   <% end %>
 
-  <%= turbo_frame_tag(dom_id(Move, :frames), data: { turbo_action: :advance }) do %>
-    <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
-      <% card.with_header do %>
-        <%= t(".frame_table_title") %>
-      <% end %>
-
-      <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover align_middle mb-0">
-          <tbody>
-            <%= content_tag_for(:tr, @moves_project_step.frames_with_moves_at_current_step) do |frame| %>
-              <td class="w-100">
-                <%= link_to frame,
-                            frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame),
-                            data: { turbo_frame: :_top } %>
-              </td>
-              <td class="d-flex justify-content-center column-gap-1">
-                <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                  <% if @moves_project.unarchived? %>
-                    <%= link_to t(".edit_connections"),
-                                frame_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame),
-                                class: "btn btn-outline-primary text-nowrap",
-                                data: { turbo_frame: :_top } %>
-                  <% end %>
-
-                  <%= link_to print_moves_project_moves_project_step_path(@moves_project, @moves_project_step, frame),
-                              class: "btn btn-sm btn-outline-primary",
-                              data: { turbo_frame: :_top },
-                              target: :_blank, rel: :noopener do %>
-                    <span class="bi bi-printer"
-                          title="<%= t("export_button.exports.print") %>"
-                          aria-hidden="true"
-                          data-controller="tooltip"
-                          data-bs-placement="left"></span>
-                    <span class="visually-hidden"><%= t("export_button.exports.print") %></span>
-                  <% end %>
-
-                  <%= link_to print_moves_project_moves_project_step_path(
-                        @moves_project, @moves_project_step, frame, format: :pdf,
-                      ),
-                              class: "btn btn-outline-primary d-flex align-items-center",
-                              title: t("export_button.exports.pdf"),
-                              target: :_blank,
-                              rel: :noopener,
-                              data: {
-                                aria_label: t("export_button.exports.pdf"),
-                                bs_trigger: "hover",
-                                controller: "tooltip",
-                                bs_placement: "left",
-                              } do %>
-                    <span class="bi bi-file-earmark-pdf"></span>
-                  <% end %>
-                </div>
-              </td>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    <% end %>
-  <% end %>
+  <%= render partial: "moves_project_steps/frames_grid",
+             locals: {
+               moves_project_step: @moves_project_step,
+               frames: @moves_project_step.frames,
+               moves: @moves,
+             } %>
 </div>
