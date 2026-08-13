@@ -41,7 +41,6 @@
             type: :warning,
             url: contact_assignments_path(site_ids: @site.id),
             frame_id: dom_id(ContactAssignment, :table),
-            extra_classes: "bg-body-tertiary mt-4",
           ) do |c| %>
         <% c.with_actions do %>
           <% if allowed_to?(:update?, @site) %>
