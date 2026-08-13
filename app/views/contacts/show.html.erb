@@ -7,7 +7,7 @@
       editable: allowed_to?(:update?, @contact),
     ) %>
 
-<div class="col-12 p-4 border-top">
+<div class="p-4 border-top d-flex flex-column row-gap-4">
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
     <div class="col">
       <%= render CardComponent.new do |card| %>
@@ -45,7 +45,6 @@
         type: :warning,
         url: contact_assignments_path(contact_ids: @contact.id),
         frame_id: dom_id(ContactAssignment, :table),
-        extra_classes: "bg-body-tertiary mt-4",
         new_path: (new_contact_assignment_path(contact_assignment: { contact_id: @contact.id }) if allowed_to?(:create?, with: ContactAssignmentPolicy)),
         new_label: t("contact_assignments.add_new"),
       ) %>

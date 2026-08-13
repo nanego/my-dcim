@@ -29,8 +29,8 @@
   <% end %>
 <% end %>
 
-<div class="col-12 pb-4 px-4 border-top">
-  <div class="row row-gap-4 pt-4">
+<div class="p-4 border-top d-flex flex-column row-gap-4">
+  <div class="row row-gap-4">
     <% @moves_project.steps.each do |moves_project_step| %>
       <div class="col-12">
         <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
@@ -96,7 +96,6 @@
             dom_id(Move, :frames),
             loading: :lazy,
             src: moves_project_step_moves_path(@moves_project.steps.last),
-            class: "pt-4",
           ) do %>
         <div class="w-100 d-flex justify-content-center align-items-center gap-3">
           <span role="status"><%= t("has_many_turbo_frame_component.loading") %></span>
@@ -110,7 +109,5 @@
     <% end %>
   </div>
 
-  <div class="pt-4">
-    <%= render ChangelogEntries::ObjectListComponent.new(@moves_project) %>
-  </div>
+  <%= render ChangelogEntries::ObjectListComponent.new(@moves_project) %>
 </div>
