@@ -157,8 +157,5 @@
         new_label: t("move_connections.add_new"),
       ) %>
 
-  <!-- TODO: Remove margin from changelog component + clean how show pages are built (again) by following this example -->
-  <div class="mt-n4">
-    <%= render ChangelogEntries::ObjectListComponent.new(@move) %>
-  </div>
+  <%= render ChangelogEntries::ObjectListComponent.new(@move) %>
 </div>
