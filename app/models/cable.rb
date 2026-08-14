@@ -29,7 +29,7 @@ class Cable < ApplicationRecord
   after_update :touch_ports
 
   scope :sorted, lambda {
-    alim_cables = joins(:port_types).where(port_types: PortType.where(name: "ALIM")).uniq
+    alim_cables = joins(:port_types).merge(PortType.power_ones).distinct
     other_cables = order(:cards, ports: { position: :asc }).select { |c| alim_cables.exclude?(c) }
 
     other_cables + alim_cables

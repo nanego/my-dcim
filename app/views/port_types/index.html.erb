@@ -30,7 +30,7 @@
     <% end %>
 
     <% table.with_column(PortType.human_attribute_name(:power), sort_by: :power) do |port_type| %>
-      <%= t("boolean.#{port_type.power?}") %>
+      <%= t("boolean.#{port_type.is_power?}") %>
     <% end %>
 
     <% table.with_column(PortType.human_attribute_name(:usage), sort_by: :card_types_count) do |port_type| %>
@@ -38,6 +38,10 @@
         <% usage_count = CardType.where(port_type: port_type).count %>
         <%= "#{usage_count} #{CardType.model_name.human(count: usage_count).downcase}" %>
       <% end %>
+    <% end %>
+
+    <% table.with_column(PortType.human_attribute_name(:usable_by)) do |port_type| %>
+      <%= port_type.decorated.human_usable_by %>
     <% end %>
 
     <% table.with_column(style: "min-width: 70px; width: 70px;") do |port_type| %>

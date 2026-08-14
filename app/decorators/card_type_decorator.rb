@@ -4,6 +4,10 @@ class CardTypeDecorator < ApplicationDecorator
   class << self
     include ActionView::Helpers::FormOptionsHelper
 
+    def port_types_options_for_select
+      PortTypeDecorator.options_for_select(PortType.with_usable_by(:server))
+    end
+
     def grouped_by_port_type_options_for_select(selected = nil)
       grouped_card_types = CardType.includes(:port_type)
         .sorted

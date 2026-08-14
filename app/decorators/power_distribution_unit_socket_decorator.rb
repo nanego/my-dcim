@@ -2,8 +2,8 @@
 
 class PowerDistributionUnitSocketDecorator < ApplicationDecorator
   class << self
-    def port_type_options_for_select
-      PortTypeDecorator.options_for_select(PortType.where(power: true))
+    def port_types_options_for_select
+      PortTypeDecorator.options_for_select(PortType.power_ones.with_usable_by(:pdu))
     end
   end
 end
