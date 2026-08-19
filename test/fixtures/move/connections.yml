@@ -12,3 +12,8 @@ two:
   port_from_id: 9
   port_to_id: 10
   move: two
+
+three:
+  port_from_id: 8
+  port_to_id: 9
+  move: one

@@ -11,6 +11,7 @@ class Move < ApplicationRecord
   has_one :moves_project, through: :step
 
   has_many :connections, dependent: :destroy
+  has_many :move_connections, class_name: "Move::Connection", dependent: :destroy
 
   validates :moveable_id, uniqueness: { scope: %i[step moveable_type] }
   validates :position, presence: true

@@ -663,6 +663,25 @@ fr:
     action:
       execute_move: Déplacer le serveur et ses connexions
 
+    connections:
+      index:
+        new_move_connection: Nouvelle connection
+        representation_title: Représentation
+      new:
+        title: Nouvelle connection
+      create:
+        flashes:
+          created: La connection a été créée avec succès.
+      destroy:
+        title: Supprimer la connection
+        flashes:
+          destroyed: La connection a été supprimée.
+      edit:
+        title: Modifier la connection
+      update:
+        flashes:
+          updated: La connection a été mise à jour.
+
   moves_projects:
     index:
       new_moves_project: Nouveau projet

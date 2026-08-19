@@ -49,15 +49,15 @@ fr:
       move:
         one: Déplacement prévu
         other: Déplacements prévus
+      move/connection:
+        one: Connexion modifiée
+        other: Connexions modifiées
       moves_project:
         one: Projet de déplacement
         other: Projets de déplacement
       moves_project_step:
         one: Étape du projet
         other: Étapes du projet
-      move/connection:
-        one: Connexion modifiée
-        other: Connexions modifiées
       contact: Contact
       contact_role: Rôle
       contact_assignment: Assignation
@@ -439,6 +439,12 @@ fr:
         status: État
         executed_at: Exécuté le
       move/status:
+        executed: Exécuté
+        planned: Planifié
+      move/connection:
+        status: État
+        executed_at: Exécuté le
+      move/connection/status:
         executed: Exécuté
         planned: Planifié
       moved_connection:

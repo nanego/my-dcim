@@ -1,0 +1,14 @@
+<%
+  breadcrumb
+    .add_step(@move_connection.port_from.cable_name)
+    .add_step(t("action.delete"))
+%>
+
+<%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:) %>
+
+<div class="col-12 p-4 border-top">
+  <%= render DeleteDependencyComponent.new(
+        @move,
+        confirmation_path: move_connection_path(@move, @move_connection, confirm: true, back_to: params[:back_to]),
+      ) %>
+</div>

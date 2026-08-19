@@ -149,13 +149,11 @@
     <% end %>
   <% end %>
 
-  <%#= render HasManyTurboFrameComponent.new(
-        Move::Connection.model_name.human.pluralize,
-        url: move_connections_path(move_ids: @move.id),
-        frame_id: dom_id(Move::Connection, :table),
-        new_path: (new_move_connection_path(move_connection: { move_id: @move.id }) if allowed_to?(:create?, with: Move::ConnectionPolicy)),
-        new_label: t("move_connections.add_new"),
-      ) %>
+  <%= render HasManyTurboFrameComponent.new(
+    Move::Connection.model_name.human.pluralize,
+    url: move_connections_path(@move),
+    frame_id: dom_id(Move::Connection, :table),
+  ) %>
 
   <%= render ChangelogEntries::ObjectListComponent.new(@move) %>
 </div>
