@@ -12,8 +12,11 @@ class Frame < ApplicationRecord # rubocop:disable Metrics/ClassLength
   belongs_to :bay
 
   has_many :materials, -> { order("servers.position desc") }, class_name: "Server", dependent: :restrict_with_error
-  has_many :pdus, -> { only_pdus }, class_name: "Server", dependent: :restrict_with_error
   has_many :servers, -> { no_pdus.order("servers.position desc") }, class_name: "Server", dependent: :restrict_with_error
+
+  has_many :power_distribution_units, dependent: :restrict_with_error
+  has_many :left_power_distribution_units, -> { left }, class_name: "PowerDistributionUnit"
+  has_many :right_power_distribution_units, -> { right }, class_name: "PowerDistributionUnit"
 
   has_one :islet, through: :bay
   has_one :room, through: :islet

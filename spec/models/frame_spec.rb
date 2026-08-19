@@ -15,8 +15,11 @@ RSpec.describe Frame do
     it { is_expected.to have_one(:room).through(:islet) }
 
     it { is_expected.to have_many(:materials).dependent(:restrict_with_error) }
-    it { is_expected.to have_many(:pdus).dependent(:restrict_with_error) }
     it { is_expected.to have_many(:servers).dependent(:restrict_with_error) }
+
+    it { is_expected.to have_many(:power_distribution_units).dependent(:restrict_with_error) }
+    it { is_expected.to have_many(:left_power_distribution_units) }
+    it { is_expected.to have_many(:right_power_distribution_units) }
   end
 
   describe "validations" do
