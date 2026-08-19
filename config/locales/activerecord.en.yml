@@ -114,9 +114,9 @@ en:
         frame_ids: Location
         id: ID
         server_id: I.T. equipment
-        external_serials:
-          found: Found
-          not_found: Not found in GLPI
+      external_app_record/external_serial:
+        found: Found
+        not_found: Not found in GLPI
       modele:
         category_id: Category
         category: Category
