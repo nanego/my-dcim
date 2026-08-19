@@ -122,8 +122,6 @@ en:
       title: Delete the bay
       flashes:
         destroyed: The bay has been removed.
-    decorator:
-      no_frame_warning_text: Please enter a frame for this bay
     empty: Empty bay
     add_new: Add a bay
 
@@ -319,16 +317,10 @@ en:
 
   modeles:
     add_new: Add a model
-    decorator:
-      no_enclosure: No Enclosure
     destroy:
       title: Delete the modele
     preview:
       modal_title: Model %{modele_name} preview
-
-  moved_connections:
-    decorator:
-      description: "Connection between %{port_from_server} (port #%{port_from_id}) and %{port_to_server} (port #%{port_to_id}) => vlans: %{vlans} // cablename: %{cablename} // color: %{color}"
 
   moves:
     index:
@@ -376,8 +368,6 @@ en:
         delete: Delete this connection
     flashes:
       archived: This project is archived
-    decorator:
-      display_name: Move of %{moveable}
 
   moves_projects:
     index:
