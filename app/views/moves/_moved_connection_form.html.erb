@@ -6,7 +6,7 @@
   <div class="row g-3">
     <fieldset class="col-12">
       <%= f.label :port_from_id, class: "form-label" %>
-      <%= render CardComponent.new() do |card| %>
+      <%= render CardComponent.new do |card| %>
         <div id="back_departure_server" class="back_server overflow-scroll">
           <%= render partial: "servers/draw_server_compact",
                       locals: { server: @selected_port.server, selected_port: @selected_port } %>
@@ -18,7 +18,7 @@
 
   <fieldset class="col-12 mt-4">
     <%= f.label :port_to_id, class: "form-label" %>
-    <%= render CardComponent.new() do |card| %>
+    <%= render CardComponent.new do |card| %>
       <% card.with_header do %>
         <div id="select_destination_bay">
           <span id="all_destinations">

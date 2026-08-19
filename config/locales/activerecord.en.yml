@@ -169,6 +169,12 @@ en:
       move/status:
         executed: Executed
         planned: Planned
+      move/connection:
+        status: State
+        executed_at: Executed at
+      move/connection/status:
+        executed: Executed
+        planned: Planned
       netsight_sync_result:
         applied_at: Applied on
         dcim_path: DCIM path

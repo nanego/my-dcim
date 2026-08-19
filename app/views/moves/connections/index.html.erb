@@ -1,0 +1,69 @@
+<% breadcrumb.add_step(title = @move.decorated.display_name) %>
+
+<%= render Page::HeadingComponent.new(
+  title:, breadcrumb:,
+  back_button_url: moves_project_step_move_path(@move.step, @move)) %>
+
+<div class="p-4 border-top d-flex flex-column row-gap-4">
+  <%= turbo_frame_tag(dom_id(Move::Connection, :table), data: { turbo_action: :advance }) do %>
+    <% # Temporary for dev %>
+    <% # Todo: remove %>
+    <div class="d-flex gap-4 flex-nowrap">
+      <p class="fw-bold m-0"><%= @move.moveable.name %></p>
+
+      <div class="flex gap-4">
+      <% @move.moveable.ports.each do |port_from| %>
+        <%= link_to port_from.position, new_move_connection_path(@move, port_from_id: port_from.id), data: { turbo_frame: :_top } %>
+      <% end %>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column row-gap-4">
+      <%= render List::DataTableComponent.new(@move_connections) do |table| %>
+        <% if allowed_to?(:destroy?, with: Move::ConnectionPolicy) %>
+          <% table.with_bulk_action(
+            url: bulk_move_connections_path(@move),
+            method: :delete,
+            class: "btn btn-danger btn-sm",
+            data: { confirm: t("action.confirm") }
+          ) do %>
+            <span class="bi bi-trash pe-none" title="<%= t("action.delete") %>"></span>
+          <% end %>
+        <% end %>
+
+        <% table.with_column(t(".representation_title")) do |move_connection| %>
+          <%= render partial: "draw", locals: { move_connection: } %>
+        <% end %>
+
+        <% table.with_column(Move::Connection.human_attribute_name(:executed_at)) do |move_connection| %>
+          <%= render move_connection.decorated.status_to_badge_component %>
+        <% end %>
+
+        <% table.with_column(style: "min-width: 100px; width: 100px") do |move_connection| %>
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <% if allowed_to?(:update?, move_connection, with: Move::ConnectionPolicy) %>
+              <%= link_to edit_move_connection_path(@move, move_connection), class: "btn btn-info", data: { turbo_frame: :_top } do %>
+                <span class="bi bi-pencil" title="<%= t("action.edit") %>" aria-hidden="true"
+                                                                          data-controller="tooltip"
+                                                                          data-bs-placement="left"></span>
+                <span class="visually-hidden"><%= t("action.edit") %></span>
+              <% end %>
+            <% end %>
+
+            <% if allowed_to?(:destroy?, move_connection, with: Move::ConnectionPolicy) %>
+              <%= link_to move_connection_path(@move, move_connection),
+                          method: :delete,
+                          data: { turbo_frame: :_top },
+                          class: "btn btn-danger" do %>
+                <span class="bi bi-trash" title="<%= t("action.delete") %>" aria-hidden="true"
+                                                                            data-controller="tooltip"
+                                                                            data-bs-placement="left"></span>
+                <span class="visually-hidden"><%= t("action.delete") %></span>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

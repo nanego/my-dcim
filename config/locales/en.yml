@@ -417,6 +417,25 @@ en:
       execute_move: Move the server and its connections
     execute_confirmation: Do you really want to apply this move?
 
+    connections:
+      index:
+        new_move_connection: New connection
+        representation_title: Representation
+      new:
+        title: New connection
+      create:
+        flashes:
+          created: Connection was successfully created.
+      destroy:
+        title: Supprimer la connection
+        flashes:
+          destroyed: Connection has been removed.
+      edit:
+        title: Delete this connection
+      update:
+        flashes:
+          updated: Connection has been updated.
+
   moves_projects:
     index:
       new_moves_project: New project

@@ -777,7 +777,7 @@ body {
     }
   }
 
-  .moved_connection_form {
+  .move_connection_form, .moved_connection_form {
     .selected {
       transform: scale(1.2);
       z-index: 10;
