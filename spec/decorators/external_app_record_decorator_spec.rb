@@ -18,7 +18,7 @@ RSpec.describe ExternalAppRecordDecorator, type: :decorator do
     context "with external_serial is not present" do
       it { is_expected.to be_a BadgeComponent }
       it { expect(badge.instance_variable_get(:@color)).to eq :danger }
-      it { expect(badge.content).to eq "NON TROUVÉ DANS GLPI" }
+      it { expect(badge.content).to eq "NOT FOUND" }
     end
 
     context "with external_serial is present" do
@@ -26,7 +26,7 @@ RSpec.describe ExternalAppRecordDecorator, type: :decorator do
 
       it { is_expected.to be_a BadgeComponent }
       it { expect(badge.instance_variable_get(:@color)).to eq :success }
-      it { expect(badge.content).to eq "TROUVÉ" }
+      it { expect(badge.content).to eq "FOUND" }
     end
   end
 end
