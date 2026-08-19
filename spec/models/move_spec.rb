@@ -20,6 +20,7 @@ RSpec.describe Move do
     it { is_expected.to have_one(:moves_project).through(:step) }
 
     it { is_expected.to have_many(:connections).dependent(:destroy) }
+    it { is_expected.to have_many(:move_connections).dependent(:destroy) }
   end
 
   describe "validations" do

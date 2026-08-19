@@ -1,0 +1,17 @@
+<%
+  breadcrumb
+    .add_step(@move_connection.port_from&.cable_name)
+    .add_step(t("action.edit"))
+%>
+
+<%= render Page::HeadingComponent.new(
+  title: t(".title"), breadcrumb:, back_button_url: move_connections_path(@move)
+) %>
+
+<div class="col-12 p-4 border-top">
+  <%= render partial: "form",
+             locals: {
+               move_connection: @move_connection,
+               url: move_connection_path(@move, @move_connection)
+             } %>
+</div>

@@ -8,5 +8,5 @@ en:
   move_decorator:
     display_name: Move of %{moveable}
 
-  moved_connection_decorator:
-    description: "Connection between %{port_from_server} (port #%{port_from_id}) and %{port_to_server} (port #%{port_to_id}) => vlans: %{vlans} // cablename: %{cablename} // color: %{color}"
+  move_connections_decorator:
+      description: "Connection between %{port_from_server} (port #%{port_from_id}) and %{port_to_server} (port #%{port_to_id}) => vlans: %{vlans} // cablename: %{cable_name} // color: %{cable_color}"

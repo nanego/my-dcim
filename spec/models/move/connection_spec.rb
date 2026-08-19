@@ -9,6 +9,7 @@ RSpec.describe Move::Connection do
 
   describe "validations" do
     it { is_expected.to be_valid }
+    it { is_expected.to validate_uniqueness_of(:port_from_id).scoped_to(:move_id) }
   end
 
   describe "associations" do
