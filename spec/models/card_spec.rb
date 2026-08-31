@@ -20,6 +20,29 @@ RSpec.describe Card do
     it { is_expected.to validate_numericality_of(:first_position).only_integer.is_in(0..100).allow_nil }
   end
 
+  describe "#ensure_card_type_have_enough_ports" do
+    context "when enough ports" do
+      before do
+        card.card_type = card_types(:four)
+        card.validate
+      end
+
+      it { expect(card).to be_valid }
+    end
+
+    context "when not enough ports" do
+      let(:card) { cards(:one) }
+
+      before do
+        card.card_type = card_types(:two)
+        card.validate
+      end
+
+      it { expect(card).not_to be_valid }
+      it { expect(card.errors.where(:card_type_id, :not_enough_ports).count).to eq(1) }
+    end
+  end
+
   describe "#to_s" do
     it { expect(card.to_s).to eq("Carte ServerName1 / Card1 / compo1") }
   end
