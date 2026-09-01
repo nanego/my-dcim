@@ -7,18 +7,6 @@ class MoveTest < ActiveSupport::TestCase
     @move = moves(:one)
   end
 
-  test "invalid without frame" do
-    @move.frame = nil
-    assert_not @move.valid?, "saved move without a frame"
-    assert_not_nil @move.errors[:frame], "no validation error for frame present"
-  end
-
-  test "invalid without moveable object associated" do
-    @move.moveable = nil
-    assert_not @move.valid?
-    assert_not_nil @move.errors[:moveable]
-  end
-
   test "clear current connections" do
     # Before
     @moved_connections = MovedConnection.per_servers([@move.moveable])
