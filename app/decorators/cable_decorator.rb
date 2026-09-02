@@ -24,7 +24,7 @@ class CableDecorator < ApplicationDecorator
 
     def colors_options_for_select
       Cable::COLORS.map do |k, v|
-        [I18n.t(".activerecord.attributes.cable/color.#{v}"), k]
+        [Cable.human_attribute_name("color.#{v}"), k]
       end
     end
   end

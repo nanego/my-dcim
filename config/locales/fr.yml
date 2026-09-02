@@ -383,8 +383,6 @@ fr:
       title: Dupliquer le modèle %{modele_name}
     preview:
       modal_title: Prévisualisation du modèle %{modele_name}
-    decorator:
-      no_enclosure: Aucune enclosure
   external_app_records:
     index:
       title: Synchronisation avec GLPI
@@ -545,10 +543,6 @@ fr:
         destroyed: Frame a bien été supprimé.
     add_new: Ajouter un châssis
 
-  moved_connections:
-    decorator:
-      description: "Connexion entre %{port_from_server} (port #%{port_from_id}) et %{port_to_server} (port #%{port_to_id}) => vlans : %{vlans} // nom du câble : %{cablename} // couleur : %{color}"
-
   moves:
     index:
       planned_on: Planifié le
@@ -591,8 +585,6 @@ fr:
         delete: Supprimer cette connexion
     flashes:
       archived: Ce projet est archivé
-    decorator:
-      display_name: Déplacement de %{moveable}
 
   moves_projects:
     index:
@@ -820,8 +812,6 @@ fr:
       title: Supprimer la baie
       flashes:
         destroyed: La baie a bien été supprimée.
-    decorator:
-      no_frame_warning_text: Veuillez renseigner un châssis à cette baie
     empty: Baie vide
     add_new: Ajouter une baie
   cables:

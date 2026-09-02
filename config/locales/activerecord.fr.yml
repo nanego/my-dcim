@@ -439,9 +439,9 @@ fr:
         frame_ids: Emplacement
         id: ID
         server_id: Matériel I.T.
-        external_serials:
-          found: Trouvé
-          not_found: Non trouvé dans GLPI
+      external_app_record/external_serial:
+        found: Trouvé
+        not_found: Non trouvé dans GLPI
       contact:
         first_name: Prénom
         last_name: Nom
