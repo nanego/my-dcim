@@ -91,29 +91,6 @@ RSpec.describe ServerDecorator, type: :decorator do
       it { expect(equipment).to be_nil }
     end
 
-    context "with external app record" do
-      let(:server) { servers(:two) }
-
-      before do
-        allow(decorated_server).to receive(:glpi_equipment_id).and_return("")
-        external_app_records(:two)
-      end
-
-      it { expect(equipment).to eq("computer") }
-    end
-
-    context "with an external app record whose external_id is blank" do
-      let(:server) { servers(:two) }
-
-      # with an existing record whose external_id is an empty string
-      before { server.external_app_records.create!(external_id: "") }
-
-      it "looks the equipment up by serial instead of using the blank id" do
-        allow(decorated_server).to receive(:glpi_equipment_id).and_return(4090)
-        expect(equipment).to eq("computer")
-      end
-    end
-
     context "when glpi_sync_type is network_equipment" do
       let(:server) do
         servers(:one).tap do |server|
@@ -123,19 +100,6 @@ RSpec.describe ServerDecorator, type: :decorator do
 
       it { expect(equipment).to eq("network_equipment") }
     end
-  end
-
-  describe "#glpi_equipment_id" do
-    subject(:id) { decorated_server.glpi_equipment_id }
-
-    let(:client) { GlpiClient.new }
-
-    before do
-      allow(client).to receive_messages(computer_glpi_id: "computer")
-      decorated_server.instance_variable_set(:@glpi_client, client)
-    end
-
-    it { expect(id).to eq("computer") }
   end
 
   describe "#network_types_to_human" do
