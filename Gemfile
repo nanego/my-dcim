@@ -77,7 +77,7 @@ group :test do
 end
 
 group :production do
-  gem "dalli", "~> 5.0"
+  gem "dalli", "~> 5.1"
   gem "passenger", "~> 6.0"
 end
 
