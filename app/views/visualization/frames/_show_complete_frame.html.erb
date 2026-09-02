@@ -1,8 +1,6 @@
 <%# locals: (room:, frame:, should_show_heading: true) -%>
 
-<%
-  settings = { min_height: params[:view] == "back" ? 20 : 27 }
-%>
+<% settings = { min_height: params[:view] == "back" ? 20 : 27 } %>
 
 <div id="<%= room.try(:name).try(:parameterize).try(:underscore) %>">
   <div>
@@ -20,24 +18,59 @@
 
         <div class="frames col-12 d-flex flex-row flex-wrap row-gap-4 <%= params[:view] %>"
              data-update-url="<%= sort_frames_path %>">
-
-          <div class="col-12 col-lg-4 pe-lg-4 view-front">
+          <div class="col-12 col-md-6 col-lg-8 col-xxl-3 flex-grow-1 flex-xxl-grow-0 order-md-2 pe-xxl-4 view-front">
             <%= render partial: "visualization/frames/show_frame",
                        locals: {
                          frame:, servers: frame.servers, settings:, view_type: "front",
                        } %>
           </div>
-          <div class="col-12 col-lg-6 flex-grow-1 view-back">
+
+          <div class="col-12 col-xxl-5 order-md-4 flex-grow-1 view-back">
             <%= render partial: "visualization/frames/show_frame",
                        locals: {
                          frame:, servers: frame.servers, settings:, view_type: "back",
                        } %>
           </div>
-          <!--
-          <div class="d-none d-lg-block ps-lg-4 col-lg-2" style="max-width: 200px;">
-            <%#= render partial: "pdus/show", locals: { frame: } %>
-          </div>
-          -->
+
+          <% if frame.left_power_distribution_units.any? %>
+            <div class="col-6 col-md-3 col-lg-2 order-md-1 pe-4 mx-auto d-flex flex-column row-gap-4"
+                 style="min-width: fit-content; max-width: 150px; height: fit-content;">
+              <% frame.left_power_distribution_units.each do |power_distribution_unit| %>
+                <%= render CardComponent.new(extra_classes: "bg-body-tertiary rounded-bottom") do |card| %>
+                  <% card.with_header do %>
+                    <div class="text-center">
+                      <%= link_to power_distribution_unit_path(power_distribution_unit) do %>
+                        <%= render power_distribution_unit.decorated.power_line_badge_component %>
+                      <% end %>
+                    </div>
+                  <% end %>
+
+                  <%= render partial: "power_distribution_units/visualization",
+                             locals: { power_distribution_unit: } %>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+
+          <% if frame.right_power_distribution_units.any? %>
+            <div class="col-6 col-md-3 col-lg-2 order-md-3 order-xxl-4 ps-md-4 mx-auto d-inline-flex column-gap-4"
+                 style="min-width: fit-content; max-width: 150px; height: fit-content;">
+              <% frame.right_power_distribution_units.each do |power_distribution_unit| %>
+                <%= render CardComponent.new(extra_classes: "bg-body-tertiary rounded-bottom") do |card| %>
+                  <% card.with_header do %>
+                    <div class="text-center">
+                      <%= link_to power_distribution_unit_path(power_distribution_unit) do %>
+                        <%= render power_distribution_unit.decorated.power_line_badge_component %>
+                      <% end %>
+                    </div>
+                  <% end %>
+
+                  <%= render partial: "power_distribution_units/visualization",
+                             locals: { power_distribution_unit: } %>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
