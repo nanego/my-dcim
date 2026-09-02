@@ -35,14 +35,9 @@ class ServerDecorator < ApplicationDecorator
     return nil if modele.category.glpi_sync_type_none?
 
     @glpi_client = with_client if with_client
-    glpi_external_app_record = external_app_records.find_by(app_name: ExternalAppRecord::GLPI_APP_NAME)
-    glpi_id = glpi_external_app_record&.external_id.presence || glpi_equipment_id
 
+    glpi_id = glpi_client.public_send(:"#{glpi_endpoint}_glpi_id", serial: numero)
     glpi_client.public_send(glpi_endpoint, glpi_id:, params:)
-  end
-
-  def glpi_equipment_id
-    glpi_client.public_send(:"#{glpi_endpoint}_glpi_id", serial: numero)
   end
 
   def network_types_to_human
