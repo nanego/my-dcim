@@ -16,8 +16,10 @@ class Card < ApplicationRecord
 
   has_many :ports, as: :attachable, dependent: :destroy
   has_many :cables, through: :ports
+  has_many :connections, through: :ports, source: "connections"
 
   validates :first_position, numericality: { only_integer: true, in: 0..100 }, allow_nil: true
+  validate :ensure_card_type_have_enough_ports
 
   after_commit :set_twin_card
 
@@ -68,5 +70,13 @@ class Card < ApplicationRecord
         .where.not(id: [id, twin_card_id])
         .update_all({ twin_card_id: nil }) # rubocop:disable Rails/SkipsModelValidations
     end
+  end
+
+  private
+
+  def ensure_card_type_have_enough_ports
+    port_quantity = card_type&.port_quantity || 0
+
+    errors.add(:card_type_id, :not_enough_ports) if connections.count > port_quantity
   end
 end

@@ -283,6 +283,8 @@ en:
         port_type: Port type
         port_type_id: Port type
         number: Number
+      cards:
+        card_type_id: Card type
 
     errors:
       models:
@@ -314,6 +316,11 @@ en:
           attributes:
             domain_ids:
               blank: can't be blank, or "All domains" must be checked
+
+        card:
+          attributes:
+            card_type_id:
+              not_enough_ports: doesn't contain enough ports
 
       messages:
         contains_unpermitted_values: "includes unauthorized values: %{wrong_values}"

@@ -2,7 +2,7 @@ one:
   id: 1
   name: Card1
   port_type_id: 3
-  port_quantity: 2
+  port_quantity: 3
 
 two:
   id: 2
