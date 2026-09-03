@@ -283,6 +283,8 @@ en:
         port_type: Port type
         port_type_id: Port type
         number: Number
+      cards:
+        card_type_id: Card type
 
     errors:
       models:
