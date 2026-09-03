@@ -516,6 +516,8 @@ fr:
         port_type_id: Type de port
         port_type: Type de port
         number: Numéro
+      cards:
+        card_type_id: "Type de carte"
 
     errors:
       models:
