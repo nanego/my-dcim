@@ -62,10 +62,12 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
     authorize!
 
     from_port = Port.find(params[:connection][:from_port_id])
-    to_port = params[:connection][:to_port_id]
+    to_port_id = params[:connection][:to_port_id]
 
-    if to_port.present?
+    if to_port_id.present?
+      to_port = Port.find(to_port_id)
       @to_server = to_port.server
+
       from_port.connect_to_port(to_port,
                                 params[:connection][:cablename],
                                 params[:connection][:color],
