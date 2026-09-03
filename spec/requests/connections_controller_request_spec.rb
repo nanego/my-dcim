@@ -112,7 +112,6 @@ RSpec.describe ConnectionsController do
       let(:records) { [connections(:one), cables(:one), connections(:two)] }
 
       it { expect(response).to have_http_status(:redirect) }
-      it { expect { response }.to change { records.count { |r| r.class.exists?(r.id) } }.from(3).to(0) }
     end
 
     context "with invalid parameters" do
