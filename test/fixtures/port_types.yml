@@ -1,24 +1,35 @@
 one:
   id: 1
   name: FC
+  is_power: false
+  usable_by: ["server"]
 
 two:
   id: 2
   name: RJ
+  is_power: false
+  usable_by: ["server"]
 
 three:
   id: 3
   name: IPMI
+  is_power: false
+  usable_by: ["server"]
 
 four:
   id: 4
   name: ALIM
-  power: true
+  is_power: true
+  usable_by: ["server", "pdu"]
 
 five:
   id: 5
   name: Five
+  is_power: false
+  usable_by: ["server"]
 
 six:
   id: 6
   name: Six
+  is_power: false
+  usable_by: ["server"]

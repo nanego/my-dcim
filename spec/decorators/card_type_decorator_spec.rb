@@ -6,6 +6,10 @@ RSpec.describe CardTypeDecorator, type: :decorator do
   let(:card_type) { card_types(:one) }
   let(:decorated_card_type) { card_type.decorated }
 
+  describe ".port_types_options_for_select" do
+    it { expect(described_class.port_types_options_for_select).to contain_exactly(["ALIM", 4], ["FC", 1], ["Five", 5], ["IPMI", 3], ["RJ", 2], ["Six", 6]) }
+  end
+
   describe ".grouped_by_port_type_options_for_select" do
     it do
       expect(described_class.grouped_by_port_type_options_for_select)

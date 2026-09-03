@@ -253,6 +253,10 @@ fr:
         name: Nom
         power: Alimentation
         usage: Types de carte compatibles
+        usable_by: Utilisation
+      port_type/usable_by:
+        server: Serveur
+        pdu: Pdu
       category:
         name: Nom
         description: Description
@@ -543,6 +547,9 @@ fr:
           attributes:
             domain_ids:
               blank: doit être rempli, ou "Tous les domaines" doit être coché
+
+      messages:
+        contains_unpermitted_values: "contient des valeurs non autorisées : %{wrong_values}"
 
   # Common attributes
   attributes:
