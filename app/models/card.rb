@@ -16,6 +16,7 @@ class Card < ApplicationRecord
 
   has_many :ports, as: :attachable, dependent: :destroy
   has_many :cables, through: :ports
+  has_many :connections, through: :ports, source: "connections"
 
   validates :first_position, numericality: { only_integer: true, in: 0..100 }, allow_nil: true
   validate :ensure_card_type_have_enough_ports
@@ -74,9 +75,8 @@ class Card < ApplicationRecord
   private
 
   def ensure_card_type_have_enough_ports
-    connection_count = ports.joins(:connections).count
     port_quantity = card_type&.port_quantity || 0
 
-    errors.add(:card_type_id, :not_enough_ports) if connection_count > port_quantity
+    errors.add(:card_type_id, :not_enough_ports) if connections.count > port_quantity
   end
 end
