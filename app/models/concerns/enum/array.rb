@@ -10,6 +10,7 @@ module Enum
     class_methods do
       def array_enum(name = nil, mapping = nil, validate: false)
         name = name.to_s
+        column = connection.quote_column_name(name)
         mapping_hash = ActiveSupport::HashWithIndifferentAccess.new(mapping)
 
         defined_enums[name] = mapping_hash
@@ -18,25 +19,8 @@ module Enum
           mapping_hash
         end
 
-        define_singleton_method("with_#{name}") do |*values|
-          db_values = values.map do |value|
-            raise_missing_value(name, value) unless mapping_hash.key?(value)
-
-            mapping_hash[value]
-          end
-
-          # get sql type to cast properly
-          # It returns the array's element type
-          element_type = columns_hash[name.to_s].sql_type
-
-          # encode array so it can be understood by PG
-          encoder = PG::TextEncoder::Array.new
-          encoded = encoder.encode(db_values)
-
-          where(
-            "#{name} @> ?::#{element_type}[]",
-            encoded,
-          )
+        mapping.each_key do |key|
+          scope :"#{name}_#{key}", -> { where("? = ANY(#{column})", key) }
         end
 
         define_method(name) do

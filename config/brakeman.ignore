@@ -7,7 +7,7 @@
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/servers/show.html.erb",
-      "line": 149,
+      "line": 145,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
       "code": "link_to(t(\".documentation\"), Server.new(server_params).documentation_url, :target => :_blank, :rel => :noopener)",
       "render_path": [
@@ -15,7 +15,7 @@
           "type": "controller",
           "class": "ServersController",
           "method": "create",
-          "line": 58,
+          "line": 56,
           "file": "app/controllers/servers_controller.rb",
           "rendered": {
             "name": "servers/show",
@@ -35,36 +35,13 @@
       "note": ""
     },
     {
-      "warning_type": "SQL Injection",
-      "warning_code": 0,
-      "fingerprint": "36b99e7859715196aa366a9663589fb7067c66d5e23a87e68e8c922f42779b52",
-      "check_name": "SQL",
-      "message": "Possible SQL injection",
-      "file": "app/models/concerns/enum/array.rb",
-      "line": 37,
-      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
-      "code": "where(\"#{name.to_s} @> ?::#{columns_hash[name.to_s].sql_type}[]\", PG::TextEncoder::Array.new.encode(values.map do\n unless ActiveSupport::HashWithIndifferentAccess.new(mapping).key?(value) then\n  raise_missing_value(name.to_s, value)\nend\nActiveSupport::HashWithIndifferentAccess.new(mapping)[value]\n end))",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Enum::Array",
-        "method": "array_enum"
-      },
-      "user_input": "name",
-      "confidence": "Medium",
-      "cwe_id": [
-        89
-      ],
-      "note": ""
-    },
-    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
       "fingerprint": "3e9d9fb05d8227b081e1dfbc8b809e72309f3b815a746874a42fc2fdac2399c9",
       "check_name": "LinkToHref",
       "message": "Unsafe parameter value in `link_to` href",
       "file": "app/components/filter_component.rb",
-      "line": 54,
+      "line": 52,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
       "code": "link_to(url_for(request.query_parameters))",
       "render_path": null,
@@ -75,6 +52,40 @@
       },
       "user_input": "request.query_parameters",
       "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "cc17201c40c767e98b13ea607f86fb6cc27b4fad3f56433e55652409ac274331",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/power_distribution_units/show.html.erb",
+      "line": 126,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(t(\".documentation\"), Server.new(pdu_params).documentation_url, :target => :_blank, :rel => :noopener)",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "PowerDistributionUnitsController",
+          "method": "create",
+          "line": 41,
+          "file": "app/controllers/power_distribution_units_controller.rb",
+          "rendered": {
+            "name": "power_distribution_units/show",
+            "file": "app/views/power_distribution_units/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "power_distribution_units/show"
+      },
+      "user_input": "Server.new(pdu_params).documentation_url",
+      "confidence": "Weak",
       "cwe_id": [
         79
       ],
@@ -104,5 +115,5 @@
       "note": ""
     }
   ],
-  "brakeman_version": "8.0.5"
+  "brakeman_version": "7.1.1"
 }
