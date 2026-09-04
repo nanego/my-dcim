@@ -107,17 +107,12 @@ RSpec.describe ConnectionsController do
       end
     end
 
-    # context "without attributes" do
-    #   let(:params) { { connection: {} } }
+    context "without to_port_id" do
+      let(:params) { { connection: { from_port_id: "1" } } }
+      let(:records) { [connections(:one), cables(:one), connections(:two)] }
 
-    #   it { expect { response }.to raise_error(ActionController::ParameterMissing) }
-    # end
-
-    # context "without parameters" do
-    #   let(:params) { {} }
-
-    #   it { expect { response }.to raise_error(ActionController::ParameterMissing) }
-    # end
+      it { expect(response).to have_http_status(:redirect) }
+    end
 
     context "with invalid parameters" do
       let(:params) { { connection: invalid_attributes } }
