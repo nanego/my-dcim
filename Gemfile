@@ -34,7 +34,7 @@ gem "pg"
 gem "bootsnap", require: false
 
 # Use ActiveStorage variant
-gem "image_processing", "~> 2.0"
+gem "image_processing", "~> 2.1"
 gem "ruby-vips", "~> 2.0"
 
 group :development do
