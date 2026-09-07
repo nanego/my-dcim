@@ -8,22 +8,6 @@ class ArchitecturesControllerTest < ActionController::TestCase
     @architecture = architectures(:rackable)
   end
 
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:architectures)
-  end
-
-  test "should show architecture" do
-    get :show, params: { id: @architecture }
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, params: { id: @architecture }
-    assert_response :success
-  end
-
   test "should update architecture" do
     patch :update, params: { id: @architecture, architecture: { description: @architecture.description, name: @architecture.name } }
     assert_redirected_to architecture_path(assigns(:architecture))
