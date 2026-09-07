@@ -29,6 +29,7 @@ gem "faraday"
 gem "kaminari" # TODO: Remove when removing datagrid
 gem "pagy"
 gem "pg"
+gem "puma"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -47,7 +48,6 @@ group :development, :test do
   gem "bundler-audit", require: false
   gem "byebug"
   gem "lookbook"
-  gem "puma"
   gem "rack-mini-profiler", require: false
   gem "rubocop", require: false
   gem "rubocop-capybara", require: false
