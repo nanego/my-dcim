@@ -5,7 +5,7 @@ require "csv"
 class Port < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_changelog
 
-  delegated_type :attachable, types: %w[Card PowerDistributionUnit::Socket], touch: true
+  delegated_type :attachable, types: %w[Card PowerDistributionUnit::Socket PowerDistributionUnit::Card], touch: true
 
   has_one :connection
   has_one :cable, through: :connection
