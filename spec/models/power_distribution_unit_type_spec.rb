@@ -12,6 +12,7 @@ RSpec.describe PowerDistributionUnitType do
     it { is_expected.to have_many(:power_distribution_units).dependent(:restrict_with_error) }
     it { is_expected.to have_many(:circuits).dependent(:destroy) }
     it { is_expected.to have_many(:sockets).through(:circuits) }
+    it { is_expected.to have_many(:cards).dependent(:destroy) }
   end
 
   describe "validations" do

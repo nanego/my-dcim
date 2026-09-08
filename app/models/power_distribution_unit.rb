@@ -12,10 +12,11 @@ class PowerDistributionUnit < ApplicationRecord
 
   has_many :circuits, as: :record, class_name: "PowerDistributionUnit::Circuit", dependent: :destroy
   has_many :sockets, class_name: "PowerDistributionUnit::Socket", through: :circuits
-  has_many :cards, class_name: "PowerDistributionUnit::Card", dependent: :destroy
+  has_many :cards, as: :record, class_name: "PowerDistributionUnit::Card", dependent: :destroy
   has_many :sockets_ports, class_name: "Port", through: :sockets, source: :port
   has_many :cards_ports, class_name: "Port", through: :cards, source: :ports
-  has_many :cables, through: :ports, source: :cable
+  has_many :sockets_cables, class_name: "Cable", through: :sockets_ports, source: :cable
+  has_many :cards_cables, class_name: "Cable", through: :cards_ports, source: :cable
 
   has_one :manufacturer, through: :type
   has_one :bay, through: :frame
@@ -65,6 +66,11 @@ class PowerDistributionUnit < ApplicationRecord
   def ports
     Port.where(id: sockets_ports.select(:id))
       .or(Port.where(id: cards_ports.select(:id)))
+  end
+
+  def cables
+    Cable.where(id: sockets_cables.select(:id))
+      .or(Cable.where(id: cards_cables.select(:id)))
   end
 
   private
