@@ -448,6 +448,7 @@ en:
       title: New PDU
     form:
       add_circuit: Add a circuit
+      add_card: Add a card
     create:
       flashes:
         created: PDU have been created.
@@ -465,6 +466,8 @@ en:
     circuit_fields:
       new_circuit: New circuit
       add_socket: New Socket
+    card_fields:
+      new_card: New card
 
   permission_scopes:
     index:
@@ -664,6 +667,7 @@ en:
       title: New PDU type
     form:
       add_circuit: Add a circuit
+      add_card: Add a card
     create:
       flashes:
         created: PDU type have been created.
