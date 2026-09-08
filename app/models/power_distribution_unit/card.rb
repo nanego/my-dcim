@@ -2,10 +2,10 @@
 
 class PowerDistributionUnit
   class Card < CardAbstract
-    belongs_to :power_distribution_unit
+    belongs_to :record, polymorphic: true
 
     def to_s
-      "Carte #{power_distribution_unit} / #{card_type}"
+      "Carte #{record} / #{card_type}"
     end
   end
 end
