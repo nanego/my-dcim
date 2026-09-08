@@ -1,25 +1,13 @@
 # frozen_string_literal: true
 
-class Card < ApplicationRecord
-  ORIENTATIONS = %i[lr-td rl-td dt-lr td-lr].freeze
-
+class Card < CardAbstract
   has_changelog
 
-  belongs_to :card_type
-  delegate :port_quantity, to: :card_type, allow_nil: true
-  delegate :is_power?, to: :card_type, allow_nil: true
-
-  belongs_to :twin_card, class_name: "Card", optional: true
   belongs_to :server, touch: true
   belongs_to :composant
+  belongs_to :twin_card, class_name: "Card", optional: true
+
   delegate :frame, to: :server # TODO: replace by has_one?
-
-  has_many :ports, as: :attachable, dependent: :destroy
-  has_many :cables, through: :ports
-  has_many :connections, through: :ports, source: "connections"
-
-  validates :first_position, numericality: { only_integer: true, in: 0..100 }, allow_nil: true
-  validate :ensure_card_type_have_enough_ports
 
   after_commit :set_twin_card
 
@@ -29,54 +17,20 @@ class Card < ApplicationRecord
     "Carte #{server} / #{card_type} / #{composant}"
   end
 
-  def first_port_position
-    if first_position.present?
-      first_position
-    else
-      if card_type.present? && card_type.first_position.present?
-        card_type.first_position
-      else
-        1
-      end
-    end
-  end
-
-  def positions_with_ports
-    ports.map(&:position)
-  end
-
-  def create_missing_ports
-    (1..port_quantity).each do |current_position|
-      unless positions_with_ports.include?(current_position)
-        # puts "create port #{current_position}"
-        Port.create(position: current_position,
-                    attachable: self,
-                    vlans: nil,
-                    color: nil,
-                    cablename: nil)
-      end
-    end
-  end
-
-  def set_twin_card
-    if twin_card_id.present?
-      twin_card = Card.where(id: twin_card_id).first
-      if twin_card.present? && twin_card.twin_card_id.blank?
-        twin_card.twin_card_id = id
-        twin_card.save
-      end
-      # Remove potential duplications
-      Card.where(twin_card_id: [id, twin_card_id])
-        .where.not(id: [id, twin_card_id])
-        .update_all({ twin_card_id: nil }) # rubocop:disable Rails/SkipsModelValidations
-    end
-  end
-
   private
 
-  def ensure_card_type_have_enough_ports
-    port_quantity = card_type&.port_quantity || 0
+  def set_twin_card
+    return if twin_card_id.blank?
 
-    errors.add(:card_type_id, :not_enough_ports) if connections.count > port_quantity
+    twin_card = Card.where(id: twin_card_id).first
+    if twin_card.twin_card_id != id
+      twin_card.twin_card_id = id
+      twin_card.save
+    end
+
+    # Remove potential duplications
+    Card.where(twin_card_id: [id, twin_card_id])
+      .where.not(id: [id, twin_card_id])
+      .update_all({ twin_card_id: nil }) # rubocop:disable Rails/SkipsModelValidations
   end
 end
