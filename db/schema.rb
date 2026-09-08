@@ -477,10 +477,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_08_114349) do
     t.integer "first_position"
     t.string "name"
     t.string "orientation"
-    t.bigint "power_distribution_unit_id", null: false
+    t.bigint "record_id", null: false
+    t.string "record_type", null: false
     t.datetime "updated_at", null: false
     t.index ["card_type_id"], name: "index_power_distribution_unit_cards_on_card_type_id"
-    t.index ["power_distribution_unit_id"], name: "idx_on_power_distribution_unit_id_e908311f91"
+    t.index ["record_type", "record_id"], name: "index_power_distribution_unit_cards_on_record"
   end
 
   create_table "power_distribution_unit_circuits", force: :cascade do |t|
@@ -694,7 +695,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_08_114349) do
   add_foreign_key "permission_scope_users", "permission_scopes"
   add_foreign_key "permission_scope_users", "users"
   add_foreign_key "power_distribution_unit_cards", "card_types"
-  add_foreign_key "power_distribution_unit_cards", "power_distribution_units"
   add_foreign_key "power_distribution_unit_sockets", "port_types"
   add_foreign_key "power_distribution_unit_sockets", "power_distribution_unit_circuits", column: "circuit_id"
   add_foreign_key "power_distribution_unit_types", "manufacturers"
