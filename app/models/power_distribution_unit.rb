@@ -12,7 +12,9 @@ class PowerDistributionUnit < ApplicationRecord
 
   has_many :circuits, as: :record, class_name: "PowerDistributionUnit::Circuit", dependent: :destroy
   has_many :sockets, class_name: "PowerDistributionUnit::Socket", through: :circuits
-  has_many :ports, through: :sockets
+  has_many :cards, class_name: "PowerDistributionUnit::Card", dependent: :destroy
+  has_many :sockets_ports, class_name: "Port", through: :sockets, source: :port
+  has_many :cards_ports, class_name: "Port", through: :cards, source: :ports
   has_many :cables, through: :ports, source: :cable
 
   has_one :manufacturer, through: :type
@@ -30,6 +32,7 @@ class PowerDistributionUnit < ApplicationRecord
   validates :ipmi_url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https]), allow_blank: true
 
   accepts_nested_attributes_for :circuits, allow_destroy: true
+  accepts_nested_attributes_for :cards, allow_destroy: true
 
   delegate :to_s, to: :name
   delegate :phases_count, to: :type
@@ -57,6 +60,11 @@ class PowerDistributionUnit < ApplicationRecord
 
   def circuits_per_phase
     circuits.size / phases_count
+  end
+
+  def ports
+    Port.where(id: sockets_ports.select(:id))
+      .or(Port.where(id: cards_ports.select(:id)))
   end
 
   private
