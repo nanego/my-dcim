@@ -27,5 +27,29 @@
         </li>
       <% end %>
     </ul>
+
+    <ul class="list-group">
+      <% power_distribution_unit.cards.each do |card|%>
+        <li class="list-group-item bg-body-secondary">
+          <p><%= card %></p>
+          <% card.create_missing_ports %>
+          <ul class="d-flex">
+            <% card.ports.each do |port| %>
+              <li class="list-group-item bg-body-tertiary">
+                <%= link_to connections_edit_path(from_port_id: port.id),
+                            class: "port",
+                            id: port&.id,
+                            data: {
+                              url: edit_port_url,
+                            },
+                            target: :_top do %>
+                    <%= port.position %>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
   </span>
 </div>
