@@ -140,6 +140,39 @@
           <% end %>
         <% end %>
       </fieldset>
+
+      <fieldset data-controller="nested-form" class="mt-4">
+        <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+          <% card.with_header do %>
+            <div class="d-flex justify-content-between align-items-center">
+              <%= PowerDistributionUnit::Card.model_name.human.pluralize %>
+            </div>
+          <% end %>
+
+          <div class="row g-3">
+            <template data-nested-form-target="template">
+              <%= f.fields_for :cards, f.object.cards.klass.new,
+                               child_index: "__NEW_RECORD__" do |card_fields| %>
+                <%= render partial: "power_distribution_units/card_fields", locals: { f: card_fields } %>
+              <% end %>
+            </template>
+
+            <%= f.fields_for :cards do |card_fields| %>
+              <%= render partial: "power_distribution_units/card_fields", locals: { f: card_fields } %>
+            <% end %>
+
+            <div data-nested-form-target="target"></div>
+          </div>
+
+          <% card.with_footer do %>
+            <span class="mx-auto">
+              <button type="button" class="btn btn-outline-success btn-sm" data-action="nested-form#add">
+                <span class="bi bi-plus-lg" aria-hidden="true"></span> <%= t(".add_card") %>
+              </button>
+            </span>
+          <% end %>
+        <% end %>
+      </fieldset>
     </div>
   </div>
 
