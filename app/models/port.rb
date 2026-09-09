@@ -78,6 +78,8 @@ class Port < ApplicationRecord # rubocop:disable Metrics/ClassLength
       server.frame
     when PowerDistributionUnit::Socket
       circuit.record.frame
+    when PowerDistributionUnit::Card
+      power_distribution_unit_card.record&.frame
     end
   end
 

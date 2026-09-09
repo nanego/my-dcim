@@ -23,7 +23,11 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
     @frame = @from_port.frame
     @room = @frame.room
     @from_server = @from_port.server
-    @from_pdu = @from_port.circuit&.record unless @from_server
+
+    unless @from_server
+      @from_pdu = @from_port.circuit&.record
+      @from_pdu ||= @from_port.power_distribution_unit_card&.record
+    end
 
     @coupled_frames = @frame.bay.frames
     @possible_destination_servers = []
