@@ -81,6 +81,32 @@ and use your application in browser by typing in url: localhost:3000
 
 You can also configure Apache, Nginx or any other web/application server of your choice to execute in production mode.
 
+## Maintenance mode
+
+The application switches to a static maintenance page as soon as `tmp/maintenance.txt` exists on
+the server, and comes back as soon as the file is removed. No restart, no deploy:
+
+    touch tmp/maintenance.txt   # enable
+    rm tmp/maintenance.txt      # disable
+
+Every request then gets `public/maintenance.html` with a `503 Service Unavailable` status.
+
+#### Serving the page when the application is down
+
+The middleware only answers while Puma runs. To keep the page served during a restart, add this to the Apache vhost, with
+`DocumentRoot` pointing at `public/`:
+
+```apache
+RewriteEngine On
+RewriteCond %{DOCUMENT_ROOT}/../tmp/maintenance.txt -f
+RewriteCond %{REQUEST_URI} !^/maintenance\.html$
+RewriteRule ^ - [R=503,L]
+ErrorDocument 503 /maintenance.html
+
+# Apache serves the page itself, it must not be proxied to the application
+ProxyPass /maintenance.html !
+```
+
 ## Contributing
 
 Here are some of the ways you can contribute:
