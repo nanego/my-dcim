@@ -18,7 +18,17 @@ RSpec.describe Connection do
   end
 
   describe "#paired_connection" do
-    pending
+    let(:connection) { connections(:one) }
+
+    context "when cable has multiple connections" do
+      it { expect(connection.paired_connection).to eq(connections(:two)) }
+    end
+
+    context "when cable has only one connection" do
+      let(:connection) { connections(:three) }
+
+      it { expect(connection.paired_connection).to be_nil }
+    end
   end
 
   describe "#port_type" do
