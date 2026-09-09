@@ -18,9 +18,5 @@ module Users
         redirect_to root_path
       end
     end
-
-    def failure
-      redirect_to root_path
-    end
   end
 end
