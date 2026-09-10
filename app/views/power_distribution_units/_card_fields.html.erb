@@ -1,0 +1,58 @@
+<div class="nested-form-wrapper" data-new-record="<%= f.object.new_record? %>">
+  <%= render CardComponent.new(extra_classes: "bg-body-tertiary mt-2") do |card| %>
+    <% card.with_header do %>
+      <div class="d-flex justify-content-between align-items-center">
+        <h6 class="mb-0">
+          <%= if f.object.name.present?
+                "#{PowerDistributionUnit::Card.model_name.human} #{f.object.name}"
+              else
+                t(".new_card")
+              end %>
+        </h6>
+
+        <span>
+          <%= f.hidden_field :_destroy %>
+
+          <button type="button" data-action="nested-form#remove" class="btn text-danger btn-sm ms-4">
+            <span class="bi bi-trash" title="<%= t("action.delete") %>"></span>
+          </button>
+        </span>
+      </div>
+    <% end %>
+
+    <div class="row g-2">
+      <span class="col-12 mt-2 col-xl-5 mt-0">
+        <%= f.label :name, class: "form-label" %>
+        <%= f.text_field :name, class: "form-control" %>
+      </span>
+
+      <span class="col-12 mt-2 col-xl-7 mt-0">
+        <%= f.label Card.human_attribute_name(:card_type_id), class: "form-label col-form-label-sm p-0" %>
+        <%= f.select :card_type_id,
+                     CardTypeDecorator.grouped_by_port_type_options_for_select(f.object.card_type_id),
+                     {},
+                     { class: "form-select",
+                       data: {
+                         controller: :select,
+                         select_clear_button_title_value: t("action.clear_all"),
+                       }
+                     } %>
+      </span>
+    </div>
+
+    <div class="row g-2 mt-2">
+      <span class="col-12 mt-2 col-xl-5 mt-0">
+        <%= f.label Card.human_attribute_name(:orientation), class: "form-label col-form-label-sm p-0" %>
+        <%= f.select :orientation,
+                    Card::ORIENTATIONS.map { |o| [Card.human_attribute_name("orientation.#{o}"), o] },
+                    {},
+                    { class: "form-select" } %>
+      </span>
+
+      <span class="col-12 mt-2 col-xl-7 mt-0">
+        <%= f.label :first_position, class: "form-label" %>
+        <%= f.select :first_position, [0, 1], {}, class: "form-select" %>
+      </span>
+    </div>
+  <% end %>
+</div>
