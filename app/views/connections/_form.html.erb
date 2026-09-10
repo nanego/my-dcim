@@ -24,7 +24,7 @@
         <%= render CardComponent.new do |card| %>
           <% if @from_pdu.present? %>
             <div class="d-flex">
-              <span class="d-inline-flex mx-auto">
+              <span class="d-flex align-items-center mx-auto flex-column gap-2">
                 <ul class="list-group">
 
                   <% @from_pdu.sockets.order(number: @from_pdu.orientation).each do |socket| %>
@@ -47,6 +47,22 @@
                         <% end %>
                       </span>
                     </li>
+                  <% end %>
+                </ul>
+
+                <ul class="list-group back_pdu">
+                  <% @from_pdu.cards.each do |card|%>
+                    <span class="<%= class_names("list-group-item d-flex pdu", "flex-column": %w[td-lr dt-lr].include?(card.orientation)) %>">
+                      <% if card.card_type && card.card_type.columns && card.card_type.rows %>
+                        <%= ports_by_card_with_presentation(card: card, selected_port: @from_port) %>
+                      <% else %>
+                        <%= ports_by_card(port_type: card.card_type.try(:port_type),
+                                          port_quantity: card.card_type.try(:port_quantity),
+                                          card_id: card.id,
+                                          ports_data: card.ports,
+                                          selected_port: @from_port) %>
+                      <% end %>
+                    </span>
                   <% end %>
                 </ul>
               </span>

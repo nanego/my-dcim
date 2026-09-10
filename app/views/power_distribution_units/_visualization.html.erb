@@ -1,7 +1,7 @@
 <%# locals: (power_distribution_unit:) -%>
 
 <div class="d-flex pdu_preview">
-  <span class="d-inline-flex mx-auto">
+  <span class="d-flex align-items-center mx-auto flex-column gap-2">
     <ul class="list-group">
 
       <% power_distribution_unit.sockets.order(number: power_distribution_unit.orientation).each do |socket| %>
@@ -28,29 +28,18 @@
       <% end %>
     </ul>
 
-    <% # TODO: improuve %>
     <ul class="list-group">
       <% power_distribution_unit.cards.each do |card|%>
-        <li class="list-group-item bg-body-secondary">
-          <p><%= card %></p>
-          <% card.create_missing_ports %>
-          <ul class="d-flex">
-            <% card.ports.each do |port| %>
-              <li class="list-group-item bg-body-tertiary pdu">
-                <% edit_port_url = connections_edit_path(from_port_id: port.id) %>
-                <%= link_to edit_port_url,
-                            class: "port",
-                            id: port.id,
-                            data: {
-                              url: edit_port_url,
-                            },
-                            target: :_top do %>
-                  <%= port.position %>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
-        </li>
+        <span class="<%= class_names("list-group-item d-flex pdu", "flex-column": %w[td-lr dt-lr].include?(card.orientation)) %>">
+          <% if card.card_type && card.card_type.columns && card.card_type.rows %>
+            <%= ports_by_card_with_presentation(card: card) %>
+          <% else %>
+            <%= ports_by_card(port_type: card.card_type.try(:port_type),
+                              port_quantity: card.card_type.try(:port_quantity),
+                              card_id: card.id,
+                              ports_data: card.ports,) %>
+          <% end %>
+        </span>
       <% end %>
     </ul>
   </span>
