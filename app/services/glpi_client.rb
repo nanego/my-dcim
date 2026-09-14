@@ -151,8 +151,8 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     params = ["get_hateoas=false", "add_keys_names[]=contracttypes_id"]
     raw = get_glpi_item_for("Contract", id:, params:)
 
-    begin_date = Date.iso8601(raw["begin_date"])
-    return nil unless begin_date.past? && (begin_date + raw["duration"].months).future?
+    begin_date = parse_date(raw["begin_date"])
+    return nil unless begin_date&.past? && (begin_date + raw["duration"].months).future?
 
     { name: raw["name"], type: raw["_keys_names"]["contracttypes_id"] }
   end
@@ -176,10 +176,19 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
     end
 
     raw_list = JSON.parse(resp.body)
-    raw_list.map do |raw|
-      start_date = Date.iso8601(raw["warranty_date"])
+    raw_list.filter_map do |raw|
+      # warranty_date may be null in GLPI
+      start_date = parse_date(raw["warranty_date"])
+      next if start_date.nil?
+
       { start_date:, end_date: start_date + raw["warranty_duration"].months }
     end
+  end
+
+  def parse_date(value)
+    Date.iso8601(value.to_s)
+  rescue Date::Error
+    nil
   end
 
   def stubs
