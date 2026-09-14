@@ -39,3 +39,8 @@ eight:
   id: 8
   cable_id: 6
   port_id: 12
+
+nine:
+  id: 9
+  cable_id: 6
+  port_id: 13
