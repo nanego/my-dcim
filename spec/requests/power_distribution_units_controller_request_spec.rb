@@ -90,6 +90,9 @@ RSpec.describe PowerDistributionUnitsController do
                  circuits_attributes: [
                    { name: "c1" },
                    { name: "c2", sockets_attributes: [{ number: 1, port_type_id: 1 }] },
+                 ],
+                 cards_attributes: [
+                   { name: "card1", card_type_id: 1, first_position: 1, orientation: "lr-td" },
                  ]),
       }
     end
@@ -136,6 +139,9 @@ RSpec.describe PowerDistributionUnitsController do
         circuits_attributes: [
           { name: "c1" },
           { name: "c2", sockets_attributes: [{ number: 999, port_type_id: 1 }] },
+        ],
+        cards_attributes: [
+          { name: "card1", card_type_id: 1, first_position: 1, orientation: "lr-td" },
         ],
       }
     end
