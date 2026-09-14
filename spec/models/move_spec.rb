@@ -63,6 +63,17 @@ RSpec.describe Move do
       let(:move) { moves(:planned).tap { |m| m.remove_existing_connections_on_execution = true } }
 
       it { expect { move.clear_connections }.to change { move.moved_connections.count }.from(2).to(5) }
+
+      it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
+        move.clear_connections
+
+        move.moveable.ports.each do |port|
+          moved_connection = MovedConnection.where(port_from_id: port.id).first
+          expect(moved_connection).not_to be_nil
+          expect(moved_connection.cablename).to eq("")
+          expect(moved_connection.color).to eq("")
+        end
+      end
     end
   end
 
@@ -84,12 +95,13 @@ RSpec.describe Move do
     context "without apply_connections" do
       subject(:execution) { move.execute!(apply_connections: false) }
 
-      it do
+      it do # rubocop:disable RSpec/ExampleLength
         expect do
           execution
           move.reload
         end.to change(move, :executed_at).from(nil)
           .and change(move.moveable, :position)
+          .and change(move.moveable, :frame)
       end
 
       it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
@@ -108,12 +120,13 @@ RSpec.describe Move do
     context "with apply_connections" do
       subject(:execution) { move.execute!(apply_connections: true) }
 
-      it do
+      it do # rubocop:disable RSpec/ExampleLength
         expect do
           execution
           move.reload
         end.to change(move, :executed_at).from(nil)
           .and change(move.moveable, :position)
+          .and change(move.moveable, :frame)
       end
 
       it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
