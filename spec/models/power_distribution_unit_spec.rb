@@ -103,7 +103,7 @@ RSpec.describe PowerDistributionUnit do
     end
   end
 
-  describe "#build_circuits_and_sockets_from_type" do
+  describe "#build_extras_from_type" do
     let!(:power_distribution_unit) do
       described_class.create!(**power_distribution_units(:one).attributes, id: nil, type:, serial_number: "test123456789", power_line: :b)
     end
@@ -113,6 +113,9 @@ RSpec.describe PowerDistributionUnit do
     it { expect(power_distribution_unit.circuits.first.name).to eq(type.circuits.first.name) }
     it { expect(power_distribution_unit.sockets.size).to eq(2) }
     it { expect(power_distribution_unit.sockets.first.number).to eq(type.sockets.first.number) }
+
+    it { expect(power_distribution_unit.cards.size).to eq(1) }
+    it { expect(power_distribution_unit.cards.first.name).to eq(type.cards.first.name) }
   end
 
   describe "#name" do
