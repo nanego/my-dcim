@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_28_132556) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_08_114349) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -471,6 +471,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_28_132556) do
     t.index ["attachable_id"], name: "index_ports_on_attachable_id"
   end
 
+  create_table "power_distribution_unit_cards", force: :cascade do |t|
+    t.bigint "card_type_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "first_position"
+    t.string "name"
+    t.string "orientation"
+    t.bigint "record_id", null: false
+    t.string "record_type", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_type_id"], name: "index_power_distribution_unit_cards_on_card_type_id"
+    t.index ["record_type", "record_id"], name: "index_power_distribution_unit_cards_on_record"
+  end
+
   create_table "power_distribution_unit_circuits", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name", null: false
@@ -681,6 +694,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_28_132556) do
   add_foreign_key "permission_scope_domains", "permission_scopes"
   add_foreign_key "permission_scope_users", "permission_scopes"
   add_foreign_key "permission_scope_users", "users"
+  add_foreign_key "power_distribution_unit_cards", "card_types"
   add_foreign_key "power_distribution_unit_sockets", "port_types"
   add_foreign_key "power_distribution_unit_sockets", "power_distribution_unit_circuits", column: "circuit_id"
   add_foreign_key "power_distribution_unit_types", "manufacturers"

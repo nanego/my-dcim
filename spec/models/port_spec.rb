@@ -38,6 +38,12 @@ RSpec.describe Port do
 
       it { expect(port.frame).to eq(attachable.circuit.record.frame) }
     end
+
+    context "when attachable is a PowerDistributionUnit::Card" do
+      let(:attachable) { power_distribution_unit_cards(:one) }
+
+      it { expect(port.frame).to eq(attachable.record.frame) }
+    end
   end
 
   describe "#network_conf" do

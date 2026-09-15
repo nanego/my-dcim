@@ -30,8 +30,25 @@ RSpec.describe ConnectionsController do
       end
     end
 
-    context "with a port from a PDU" do
+    context "with a port from a PDU socket" do
       let(:connection) { connections(:seven) }
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(:edit) }
+
+      it do
+        response
+        expect(assigns(:from_server)).not_to be_present
+      end
+
+      it do
+        response
+        expect(assigns(:from_pdu)).to be_present
+      end
+    end
+
+    context "with a port from a PDU card" do
+      let(:connection) { connections(:nine) }
 
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:edit) }

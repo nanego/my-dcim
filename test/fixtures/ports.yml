@@ -80,3 +80,8 @@ twelve:
   id: 12
   attachable_id: 2
   attachable_type: Card
+
+thirteen:
+  id: 13
+  attachable_id: 1
+  attachable_type: PowerDistributionUnit::Card
