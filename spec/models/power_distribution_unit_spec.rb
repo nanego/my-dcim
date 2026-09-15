@@ -54,6 +54,7 @@ RSpec.describe PowerDistributionUnit do
 
   describe "nested attributes" do
     it { is_expected.to accept_nested_attributes_for(:circuits) }
+    it { is_expected.to accept_nested_attributes_for(:cards) }
   end
 
   describe "#to_s" do
