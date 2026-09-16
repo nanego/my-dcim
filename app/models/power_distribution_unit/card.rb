@@ -5,7 +5,7 @@ class PowerDistributionUnit
     belongs_to :record, polymorphic: true
 
     def to_s
-      "Carte #{record} / #{card_type}"
+      "#{model_name.human} #{record} / #{card_type}"
     end
   end
 end
