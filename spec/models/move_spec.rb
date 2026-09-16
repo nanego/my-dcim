@@ -68,7 +68,7 @@ RSpec.describe Move do
         move.clear_connections
 
         move.moveable.ports.each do |port|
-          moved_connection = MovedConnection.where(port_from_id: port.id).first
+          moved_connection = MovedConnection.find_by(port_from: port)
           expect(moved_connection).not_to be_nil
           expect(moved_connection.cablename).to eq("")
           expect(moved_connection.color).to eq("")
@@ -100,8 +100,8 @@ RSpec.describe Move do
           execution
           move.reload
         end.to change(move, :executed_at).from(nil)
-          .and change(move.moveable, :position)
-          .and change(move.moveable, :frame)
+          .and change(move.moveable, :position).to(move.position)
+          .and change(move.moveable, :frame).to(move.frame)
       end
 
       it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
@@ -125,8 +125,8 @@ RSpec.describe Move do
           execution
           move.reload
         end.to change(move, :executed_at).from(nil)
-          .and change(move.moveable, :position)
-          .and change(move.moveable, :frame)
+          .and change(move.moveable, :position).to(move.position)
+          .and change(move.moveable, :frame).to(move.frame)
       end
 
       it :aggregate_failures do # rubocop:disable RSpec/ExampleLength
