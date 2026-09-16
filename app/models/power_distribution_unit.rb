@@ -12,7 +12,7 @@ class PowerDistributionUnit < ApplicationRecord
 
   has_many :circuits, as: :record, class_name: "PowerDistributionUnit::Circuit", dependent: :destroy
   has_many :sockets, class_name: "PowerDistributionUnit::Socket", through: :circuits
-  has_many :cards, as: :record, class_name: "PowerDistributionUnit::Card", dependent: :destroy
+  has_many :cards, -> { order(created_at: :asc) }, as: :record, class_name: "PowerDistributionUnit::Card", inverse_of: :record, dependent: :destroy
   has_many :sockets_ports, class_name: "Port", through: :sockets, source: :port
   has_many :cards_ports, class_name: "Port", through: :cards, source: :ports
   has_many :sockets_cables, class_name: "Cable", through: :sockets_ports, source: :cable
