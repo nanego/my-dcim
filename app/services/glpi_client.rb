@@ -85,15 +85,13 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
   end
 
   def get_glpi_id_for(endpoint, serial:)
-    resp = @connection.get("#{endpoint}?searchText[serial]=#{CGI.escape(serial.to_s)}") do |request|
+    # Use ^ and $ to ensure we search the exact serial with GLPI searchText method
+    resp = @connection.get("#{endpoint}?searchText[serial]=#{CGI.escape("^#{serial}$")}") do |request|
       request.headers["Session-Token"] = session_token
       request.headers["App-Token"] = API_KEY
     end
 
-    params = JSON.parse(resp.body).first
-    if params.present?
-      params["id"]
-    end
+    JSON.parse(resp.body).find { |item| item["serial"].to_s.casecmp?(serial.to_s) }&.dig("id")
   end
 
   def with_error_handling

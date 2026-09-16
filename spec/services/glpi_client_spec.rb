@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
+require "rails_helper"
+
 RSpec.describe GlpiClient, type: :service do
   let(:client) { described_class.new }
 
   describe "#computer_glpi_id" do
-    subject(:id_ress) { client.computer_glpi_id(serial: "AZERTY") }
+    subject(:id_ress) { client.computer_glpi_id(serial: "CZ31535FEY") }
 
     it { expect(id_ress).to eq(4090) }
   end
 
   describe "#network_equipment_glpi_id" do
-    subject(:id_ress) { client.network_equipment_glpi_id(serial: "AZERTY") }
+    subject(:id_ress) { client.network_equipment_glpi_id(serial: "654321") }
 
     it { expect(id_ress).to eq(5000) }
 
@@ -19,7 +21,7 @@ RSpec.describe GlpiClient, type: :service do
         allow(client.connection).to receive(:get).and_call_original
         client.network_equipment_glpi_id(serial: "A+B/C#3")
         expect(client.connection).to have_received(:get)
-          .with("NetworkEquipment?searchText[serial]=A%2BB%2FC%233")
+          .with("NetworkEquipment?searchText[serial]=%5EA%2BB%2FC%233%24")
       end
     end
   end
