@@ -56,7 +56,7 @@ class PowerDistributionUnit < ApplicationRecord
 
     copy.tap do |pdu|
       pdu.circuits = circuits.map(&:deep_dup)
-      pdu.circuits = type.cards.map(&:dup)
+      pdu.cards = type.cards.map(&:dup)
     end
   end
 
