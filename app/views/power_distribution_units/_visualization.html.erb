@@ -37,7 +37,8 @@
             <%= ports_by_card(port_type: card.card_type.try(:port_type),
                               port_quantity: card.card_type.try(:port_quantity),
                               card_id: card.id,
-                              ports_data: card.ports,) %>
+                              ports_data: card.ports,
+                              is_pdu_card: true) %>
           <% end %>
         </span>
       <% end %>
