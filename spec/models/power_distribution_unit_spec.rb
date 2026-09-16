@@ -71,6 +71,7 @@ RSpec.describe PowerDistributionUnit do
     it { expect(power_distribution_unit.deep_dup).not_to eq(power_distribution_unit) }
     it { expect(power_distribution_unit.deep_dup.name).to eq(power_distribution_unit.name) }
     it { expect(power_distribution_unit.deep_dup.circuits.size).to eq(power_distribution_unit.circuits.size) }
+    it { expect(power_distribution_unit.deep_dup.cards.size).to eq(power_distribution_unit.cards.size) }
 
     it do
       expect(power_distribution_unit.deep_dup.circuits.map(&:sockets).flatten.size)
