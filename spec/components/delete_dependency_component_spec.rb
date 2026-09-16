@@ -32,7 +32,7 @@ RSpec.describe DeleteDependencyComponent, type: :component do
     it { expect(rendered_component).to have_tag("li.list-group-item", count: 1) }
     it { expect(rendered_component).to have_tag("a.btn-danger.disabled", text: "Supprimer") }
     it { expect(rendered_component).to have_tag("a.btn-default", text: "Annuler") }
-    it { expect(rendered_component).not_to have_tag("div.card.text-secondary-emphasis") }
+    it { expect(rendered_component).not_to have_tag("div.text-center.text-secondary-emphasis") }
     it { expect(rendered_component).not_to have_tag("span.bi-exclamation-circle.text-danger") }
   end
 
@@ -54,7 +54,7 @@ RSpec.describe DeleteDependencyComponent, type: :component do
       it { expect(rendered_component).to have_tag("li.list-group-item", text: /#{ContactAssignment.new}/i) }
       it { expect(rendered_component).not_to have_tag("div.card-header.text-bg-danger") }
       it { expect(rendered_component).to have_tag("div.card-header.text-bg-warning") }
-      it { expect(rendered_component).not_to have_tag("div.card.text-secondary-emphasis") }
+      it { expect(rendered_component).not_to have_tag("div.text-center.text-secondary-emphasis") }
       it { expect(rendered_component).to have_tag("span.bi-exclamation-circle.text-danger") }
     end
 
@@ -66,8 +66,8 @@ RSpec.describe DeleteDependencyComponent, type: :component do
       end
 
       it do
-        expect(rendered_component).to have_tag("div.card.text-secondary-emphasis") do
-          with_tag("div.card-body > span.bi-check2-circle")
+        expect(rendered_component).to have_tag("div.text-center.text-secondary-emphasis") do
+          with_tag("span.bi-check2-circle.text-secondary")
         end
       end
 

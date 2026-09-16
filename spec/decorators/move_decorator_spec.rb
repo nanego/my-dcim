@@ -25,7 +25,7 @@ RSpec.describe MoveDecorator, type: :decorator do
 
       it do
         expect(badge.content).to eq(
-          "<span><span class=\"bi bi-calendar-event me-1\"></span><span>Planifié</span></span>",
+          "<span><span class=\"bi bi-calendar-event\"></span><span class=\"ms-1\">Planifié</span></span>",
         )
       end
     end
@@ -38,7 +38,19 @@ RSpec.describe MoveDecorator, type: :decorator do
 
       it do
         expect(badge.content).to eq(
-          "<span><span class=\"bi bi-calendar-check me-1\"></span><span>Exécuté</span></span>",
+          "<span><span class=\"bi bi-calendar-check\"></span><span class=\"ms-1\">Exécuté</span></span>",
+        )
+      end
+    end
+
+    context "without text" do
+      subject(:badge) { decorated_move.status_to_badge_component(with_text: false) }
+
+      it { is_expected.to be_a(BadgeComponent) }
+
+      it do
+        expect(badge.content).to eq(
+          "<span><span class=\"bi bi-calendar-event\"></span></span>",
         )
       end
     end
@@ -66,5 +78,31 @@ RSpec.describe MoveDecorator, type: :decorator do
 
   describe "#display_name" do
     it { expect(decorated_move.display_name).to eq("Déplacement de ServerName1") }
+  end
+
+  describe "#planned_or_executed_date" do
+    context "with not executed move and no planned date" do
+      it { expect(decorated_move.planned_or_executed_date).to be_nil }
+    end
+
+    context "with executed move and no planned date" do
+      let(:object) { moves(:executed) }
+
+      it { expect(decorated_move.planned_or_executed_date).to eq("01/05/25 à 02h00") }
+    end
+
+    context "with executed move and planned date" do
+      let(:object) { moves(:move_step_one) }
+
+      before { object.executed_at = "2025-05-01 00:00:00" }
+
+      it { expect(decorated_move.planned_or_executed_date).to eq("01/05/25 à 00h00") }
+    end
+
+    context "with not executed move and planned date" do
+      let(:object) { moves(:move_step_one) }
+
+      it { expect(decorated_move.planned_or_executed_date).to eq("06/06/2025") }
+    end
   end
 end

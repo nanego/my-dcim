@@ -59,9 +59,9 @@
           <dt class="pb-2"><%= Move.human_attribute_name(:status) %></dt>
           <dd class="mb-0 pb-2 ps-3">
             <%= render @move.decorated.status_to_badge_component %>
-            <% if date = (@move.executed_at || @move.step.date) %>
+            <% if date = @move.decorated.planned_or_executed_date %>
               <span class="mx-1 fw-light text-body-secondary"><%= t("at") %></span>
-              <span class="font-monospace"><%= l(date) %></span>
+              <span class="font-monospace"><%= date %></span>
             <% end %>
           </dd>
 

@@ -82,6 +82,13 @@ RSpec.describe MovesProjectStep do
     end
   end
 
+  describe "#moves_for_frame" do
+    it do
+      expect(moves_project_steps(:step_two).moves_for_frame(frames(:five)))
+        .to contain_exactly(moves(:move_step_two), moves(:move_step_three))
+    end
+  end
+
   describe "#servers_at_current_step_for" do
     context "with a move in a one-step project" do
       it do
