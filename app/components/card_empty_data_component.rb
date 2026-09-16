@@ -1,22 +1,17 @@
 # frozen_string_literal: true
 
 class CardEmptyDataComponent < ApplicationComponent
-  def initialize(icon: :slash_circle, text: I18n.t("card_empty_data_component.title"), **_options)
-    @icon = icon.to_s.dasherize
+  def initialize(icon: :slash_circle, text: nil, **options)
+    @icon = icon
     @text = text
+    @options = options
 
     super()
   end
 
   def call
-    render CardComponent.new(extra_classes: "text-center text-secondary-emphasis") do
-      concat(tag.span(class: "bi bi-#{@icon} fs-1 text-secondary text-opacity-25"))
-
-      if content?
-        concat(tag.div(class: "card-title mt-3") { content })
-      elsif @text.present?
-        concat(tag.h5(@text, class: "card-title mt-3"))
-      end
+    render CardComponent.new do
+      render EmptyDataComponent.new(icon: @icon, text: @text, **@options)
     end
   end
 end

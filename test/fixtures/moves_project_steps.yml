@@ -30,6 +30,7 @@ step_one:
   moves_project_id: 7
   name: "Step 1"
   position: 1
+  date: "2025-06-06"
 
 step_two:
   id: 7

@@ -8,15 +8,15 @@ class MoveDecorator < ApplicationDecorator
     options_for_select(moves_project.steps.pluck(:name, :id), { selected: moves_project_step_id })
   end
 
-  def status_to_badge_component
+  def status_to_badge_component(with_text: true)
     text = Move.human_attribute_name("status.#{status}")
     color = executed? ? :success : :primary
     icon = "bi-calendar-#{executed? ? "check" : "event"}"
 
     BadgeComponent.new(color:, variant: :pill).with_content(
       tag.span do
-        concat(tag.span(class: "bi #{icon} me-1"))
-        concat(tag.span(text))
+        concat(tag.span(class: "bi #{icon}"))
+        concat(tag.span(text, class: "ms-1")) if with_text
       end,
     )
   end
@@ -29,5 +29,11 @@ class MoveDecorator < ApplicationDecorator
 
   def display_name
     I18n.t("move_decorator.display_name", moveable:)
+  end
+
+  def planned_or_executed_date
+    if (date = executed_at || step.date)
+      l(date)
+    end
   end
 end
