@@ -37,6 +37,8 @@ class PortsController < ApplicationController
     else
       attachable = if params["card_id"]
                      Card.find(params["card_id"])
+                   elsif params["pdu_card_id"]
+                     PowerDistributionUnit::Card.find(params["pdu_card_id"])
                    elsif params["socket_id"]
                      PowerDistributionUnit::Socket.find(params["socket_id"])
                    end
