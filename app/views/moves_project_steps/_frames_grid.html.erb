@@ -74,7 +74,7 @@
                                     class: "dropdown-item",
                                     data: { turbo_frame: :_top } do %>
                           <span class="bi bi-eye me-1"></span>
-                          <span><%= t(".show_page") %></span>
+                          <span><%= t("action.show") %></span>
                         <% end %>
                       </li>
                     </ul>
@@ -88,11 +88,13 @@
                         aria-label="<%= move.step %>"
                         data-controller="tooltip">
                       <div class="d-flex align-items-start">
-                        <span class="bi bi-box-seam me-2 text-primary"></span>
+                        <span class="<%= class_names("bi bi-box-seam text-primary",
+                                                     "text-success": move.executed?) %>">
+                        </span>
 
                         <%= link_to move.decorated.display_name,
                                     moves_project_step_move_path(move.step, move),
-                                    class: "link-body-emphasis link-offset-2 link-underline-opacity-0 \
+                                    class: "mx-2 link-body-emphasis link-offset-2 link-underline-opacity-0 \
                                             link-underline-opacity-75-hover",
                                     data: { turbo_frame: :_top } %>
                       </div>

@@ -403,7 +403,7 @@ en:
       action:
         execute_step_moves: Move servers and their connections
     frame:
-      title: Frame %{frame} after move
+      title: "%{frame} state at step \"%{step}\""
       applied_moves: Applied moves
       loading: LOADING IN PROGRESS
     moved_connection_form:
@@ -411,8 +411,6 @@ en:
         delete: Delete this connection
     flashes:
       archived: This project is archived
-    decorator:
-      display_name: Move of %{moveable}
     action:
       execute_move: Move the server and its connections
     execute_confirmation: Do you really want to apply this move?
@@ -488,7 +486,6 @@ en:
     frames_grid:
       frames_grid_title: Moves summary per frame
       visualization_after_step: Visualization after moves
-      show_page: Show frame
 
   n_a: n/a
 

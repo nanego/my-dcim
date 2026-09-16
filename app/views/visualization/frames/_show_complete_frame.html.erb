@@ -1,4 +1,4 @@
-<%# locals: (room:, frame:, should_show_heading: true) -%>
+<%# locals: (room:, frame:, servers: frame.servers, should_show_heading: true) -%>
 
 <% settings = { min_height: params[:view] == "back" ? 20 : 27 } %>
 
@@ -21,14 +21,14 @@
           <div class="col-12 col-md-6 col-lg-8 col-xxl-3 flex-grow-1 flex-xxl-grow-0 order-md-2 pe-xxl-4 view-front">
             <%= render partial: "visualization/frames/show_frame",
                        locals: {
-                         frame:, servers: frame.servers, settings:, view_type: "front",
+                         frame:, servers: servers, settings:, view_type: "front",
                        } %>
           </div>
 
           <div class="col-12 col-xxl-5 order-md-4 flex-grow-1 view-back">
             <%= render partial: "visualization/frames/show_frame",
                        locals: {
-                         frame:, servers: frame.servers, settings:, view_type: "back",
+                         frame:, servers: servers, settings:, view_type: "back",
                        } %>
           </div>
 
@@ -81,3 +81,13 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
+  window.onload = function () {
+    reset_u_heights()
+
+    window.addEventListener("resize", function (event) {
+      reset_u_heights()
+    })
+  }
+</script>
