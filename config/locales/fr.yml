@@ -499,7 +499,6 @@ fr:
       title: Nouveau PDU
     form:
       add_circuit: Nouveau circuit
-      add_card: Nouvelle carte
     create:
       flashes:
         created: Le PDU a été créé avec succès.
@@ -518,7 +517,9 @@ fr:
       new_circuit: Nouveau circuit
       add_socket: Nouvelle prise
     card_fields:
-      new_card: Nouvelle carte
+      new_card: Ajouter une carte
+    card_nested_fieldset:
+      add_card: Ajouter une carte
 
   frames:
     coupled_frame_label: Châssis couplé à
@@ -953,7 +954,6 @@ fr:
       title: Nouveau modèle de PDU
     form:
       add_circuit: Nouveau circuit
-      add_card: Nouvelle carte
     create:
       flashes:
         created: Le modèle de PDU a bien été crée.
