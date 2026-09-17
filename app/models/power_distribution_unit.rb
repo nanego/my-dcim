@@ -38,7 +38,7 @@ class PowerDistributionUnit < ApplicationRecord
   delegate :to_s, to: :name
   delegate :phases_count, to: :type
 
-  before_create :build_extras_from_type
+  before_create :build_associations_from_type
 
   def should_generate_new_friendly_id?
     return true if slug.blank? || power_line_changed?
@@ -73,7 +73,7 @@ class PowerDistributionUnit < ApplicationRecord
     ]
   end
 
-  def build_extras_from_type
+  def build_associations_from_type
     self.circuits = type.circuits.map(&:deep_dup)
     self.cards = type.cards.map(&:dup)
   end
