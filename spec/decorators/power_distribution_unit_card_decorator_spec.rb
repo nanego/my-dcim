@@ -6,14 +6,30 @@ RSpec.describe PowerDistributionUnitCardDecorator, type: :decorator do
   describe ".card_type_grouped_by_port_type_options_for_select" do
     it do
       expect(described_class.card_type_grouped_by_port_type_options_for_select)
-        .to have_tag("optgroup", with: { label: "ALIM" }) do
-          with_tag("option", with: { value: "6" }, text: "Card6")
+        .to have_tag("optgroup", with: { label: "FC" }) do
+          with_tag("option", with: { value: "3" }, text: "Card3")
+        end
+    end
+
+    it do
+      expect(described_class.card_type_grouped_by_port_type_options_for_select)
+        .to have_tag("optgroup", with: { label: "RJ" }) do
+          with_tag("option", with: { value: "2" }, text: "Card2")
+        end
+    end
+
+    it do # rubocop:disable RSpec/ExampleLength
+      expect(described_class.card_type_grouped_by_port_type_options_for_select)
+        .to have_tag("optgroup", with: { label: "IPMI" }) do
+          with_tag("option", with: { value: "1" }, text: "Card1")
+          with_tag("option", with: { value: "4" }, text: "6ALIM")
+          with_tag("option", with: { value: "5" }, text: "Card5")
         end
     end
 
     it "marks the given option as selected" do
-      expect(described_class.card_type_grouped_by_port_type_options_for_select(6))
-        .to have_tag("option", with: { value: "6", selected: "selected" })
+      expect(described_class.card_type_grouped_by_port_type_options_for_select(2))
+        .to have_tag("option", with: { value: "2", selected: "selected" })
     end
   end
 end
