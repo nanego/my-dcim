@@ -23,7 +23,7 @@ class Card < CardAbstract
     return unless twin_card_id
 
     twin_card = Card.where(id: twin_card_id).first
-    if twin_card.twin_card_id != id
+    if twin_card.present? && twin_card.twin_card_id.blank?
       twin_card.twin_card_id = id
       twin_card.save
     end
