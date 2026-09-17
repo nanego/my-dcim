@@ -345,6 +345,14 @@ fr:
         rl-td: Horizontal, de droite à gauche
         dt-lr: Vertical, de bas en haut
         td-lr: Vertical, de haut en bas
+      power_distribution_unit/card:
+        first_position: N° du 1er port
+        card_type_id: Type de carte
+      power_distribution_unit/card/orientation:
+          lr-td: Horizontal, de gauche à droite
+          rl-td: Horizontal, de droite à gauche
+          dt-lr: Vertical, de bas en haut
+          td-lr: Vertical, de haut en bas
       changelog_entry:
         object: Objet
         object_id: Objet ID
