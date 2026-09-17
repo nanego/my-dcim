@@ -54,13 +54,14 @@
                   <% @from_pdu.cards.each do |card|%>
                     <span class="<%= class_names("list-group-item d-flex pdu", "flex-column": %w[td-lr dt-lr].include?(card.orientation)) %>">
                       <% if card.card_type && card.card_type.columns && card.card_type.rows %>
-                        <%= ports_by_card_with_presentation(card: card, selected_port: @from_port) %>
+                        <%= ports_by_card_with_presentation(card: card, selected_port: @from_port, twin_card_used_ports: nil) %>
                       <% else %>
                         <%= ports_by_card(port_type: card.card_type.try(:port_type),
                                           port_quantity: card.card_type.try(:port_quantity),
                                           card_id: card.id,
                                           ports_data: card.ports,
-                                          selected_port: @from_port) %>
+                                          selected_port: @from_port,
+                              twin_card_used_ports: nil) %>
                       <% end %>
                     </span>
                   <% end %>
