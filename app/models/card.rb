@@ -20,7 +20,7 @@ class Card < CardAbstract
   private
 
   def set_twin_card
-    return if twin_card_id.blank?
+    return unless twin_card_id
 
     twin_card = Card.where(id: twin_card_id).first
     if twin_card.twin_card_id != id
