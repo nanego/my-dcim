@@ -4,32 +4,15 @@ require "rails_helper"
 
 RSpec.describe PowerDistributionUnitCardDecorator, type: :decorator do
   describe ".card_type_grouped_by_port_type_options_for_select" do
-    it do
-      expect(described_class.card_type_grouped_by_port_type_options_for_select)
-        .to have_tag("optgroup", with: { label: "FC" }) do
-          with_tag("option", with: { value: "3" }, text: "Card3")
-        end
-    end
-
-    it do
-      expect(described_class.card_type_grouped_by_port_type_options_for_select)
-        .to have_tag("optgroup", with: { label: "RJ" }) do
-          with_tag("option", with: { value: "2" }, text: "Card2")
-        end
-    end
-
     it do # rubocop:disable RSpec/ExampleLength
       expect(described_class.card_type_grouped_by_port_type_options_for_select)
-        .to have_tag("optgroup", with: { label: "IPMI" }) do
-          with_tag("option", with: { value: "1" }, text: "Card1")
-          with_tag("option", with: { value: "4" }, text: "6ALIM")
-          with_tag("option", with: { value: "5" }, text: "Card5")
-        end
-    end
-
-    it "marks the given option as selected" do
-      expect(described_class.card_type_grouped_by_port_type_options_for_select(2))
-        .to have_tag("option", with: { value: "2", selected: "selected" })
+        .to contain_exactly(
+          ["ALIM", [["Card6", 6]]], ["FC", [["Card3", 3]]],
+          ["Five", []],
+          ["IPMI", [["Card1", 1], ["6ALIM", 4], ["Card5", 5]]],
+          ["RJ", [["Card2", 2]]],
+          ["Six", []],
+        )
     end
   end
 end
