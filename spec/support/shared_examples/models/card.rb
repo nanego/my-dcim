@@ -74,7 +74,7 @@ shared_examples_for "a card" do
     let(:port_quantity) { 4 }
     let(:created_port_positions) { [2] }
 
-    let(:create_base) { { attachable: card, vlans: nil, color: nil, cablename: nil } }
+    let(:attributes) { { attachable: card, vlans: nil, color: nil, cablename: nil } }
 
     before do
       allow(Port).to receive(:create)
@@ -91,7 +91,7 @@ shared_examples_for "a card" do
       it { expect(Port).to have_received(:create).exactly(4).times }
 
       (1..4).each do |position|
-        it { expect(Port).to have_received(:create).with(create_base.merge(position:)) }
+        it { expect(Port).to have_received(:create).with(attributes.merge(position:)) }
       end
     end
 
@@ -101,7 +101,7 @@ shared_examples_for "a card" do
       it { expect(Port).to have_received(:create).exactly(3).times }
 
       [1, 2, 4].each do |position|
-        it { expect(Port).to have_received(:create).with(create_base.merge(position:)) }
+        it { expect(Port).to have_received(:create).with(attributes.merge(position:)) }
       end
     end
 
