@@ -45,8 +45,10 @@
                     </div>
                   <% end %>
 
-                  <%= render partial: "power_distribution_units/visualization",
-                             locals: { power_distribution_unit: } %>
+                  <div id="pdu-vizualisation-<%= power_distribution_unit.id %>">
+                    <%= render partial: "power_distribution_units/visualization",
+                              locals: { power_distribution_unit: } %>
+                  </div>
                 <% end %>
               <% end %>
             </div>
@@ -65,8 +67,11 @@
                     </div>
                   <% end %>
 
-                  <%= render partial: "power_distribution_units/visualization",
-                             locals: { power_distribution_unit: } %>
+
+                  <div id="pdu-vizualisation-<%= power_distribution_unit.id %>">
+                    <%= render partial: "power_distribution_units/visualization",
+                              locals: { power_distribution_unit: } %>
+                  </div>
                 <% end %>
               <% end %>
             </div>

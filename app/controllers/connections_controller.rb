@@ -83,7 +83,11 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
     end
 
     @from_server = from_port.server
-    @from_pdu = from_port.circuit&.record unless @from_server
+
+    unless @from_server
+      @from_pdu = from_port.circuit&.record
+      @from_pdu ||= from_port.power_distribution_unit_card&.record
+    end
 
     respond_to do |format|
       format.html do
