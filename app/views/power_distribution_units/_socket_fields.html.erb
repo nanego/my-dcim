@@ -4,7 +4,7 @@
   <div class="d-flex flex-column">
     <fieldset class="d-flex">
       <%= f.select :port_type_id,
-                   PowerDistributionUnitSocketDecorator.port_types_options_for_select,
+                   PowerDistributionUnit::SocketDecorator.port_types_options_for_select,
                    { prompt: true },
                    {
                      class: "form-select form-select-sm",
