@@ -14,7 +14,32 @@ RSpec.describe Connection do
     it { is_expected.to have_one(:card_type).through(:card) }
 
     it { is_expected.to have_one(:socket).through(:port).source(:attachable) }
-    it { is_expected.to have_one(:power_distribution_unit).through(:socket) }
+    it { is_expected.to have_one(:socket_power_distribution_unit).through(:socket) }
+
+    it { is_expected.to have_one(:power_distribution_unit_card).through(:port).source(:attachable) }
+    it { is_expected.to have_one(:card_power_distribution_unit).through(:power_distribution_unit_card).source(:record) }
+  end
+
+  describe "#power_distribution_unit" do
+    subject(:power_distribution_unit) { connection.power_distribution_unit }
+
+    context "with socket" do
+      let(:connection) { connections(:seven) }
+
+      it { expect(power_distribution_unit).to eq(power_distribution_units(:one)) }
+    end
+
+    context "with card" do
+      let(:connection) { connections(:nine) }
+
+      it { expect(power_distribution_unit).to eq(power_distribution_units(:one)) }
+    end
+
+    context "with server" do
+      let(:connection) { connections(:one) }
+
+      it { expect(power_distribution_unit).to be_nil }
+    end
   end
 
   describe "#paired_connection" do
