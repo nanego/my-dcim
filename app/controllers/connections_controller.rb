@@ -125,7 +125,7 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
         end
         if port.paired_connection.present?
           paired_connection_port = port.paired_connection.port
-          next if paired_connection_port.attachable.is_a?(PowerDistributionUnit::Socket)
+          next if [PowerDistributionUnit::Socket, PowerDistributionUnit::Card].any? { |klass| paired_connection_port.attachable.is_a?(klass) }
 
           twin_card_ports << Port.where(attachable: paired_connection_port.card.twin_card, position: paired_connection_port.position).first
         end
