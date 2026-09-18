@@ -10,8 +10,15 @@ RSpec.describe Cable do
     it { is_expected.to have_many(:ports).through(:connections) }
     it { is_expected.to have_many(:cards).through(:connections) }
     it { is_expected.to have_many(:servers).through(:cards) }
-    it { is_expected.to have_many(:power_distribution_units).through(:connections) }
+    it { is_expected.to have_many(:socket_power_distribution_units).through(:connections) }
+    it { is_expected.to have_many(:card_power_distribution_units).through(:connections) }
     it { is_expected.to have_many(:card_types).through(:cards) }
     it { is_expected.to have_many(:port_types).through(:card_types) }
+  end
+
+  describe "#power_distribution_units" do
+    let(:cable) { cables(:six) }
+
+    it { expect(cable.power_distribution_units).to contain_exactly(power_distribution_units(:one)) }
   end
 end

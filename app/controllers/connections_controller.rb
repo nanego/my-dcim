@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ConnectionsController < ApplicationController # rubocop:disable Metrics/ClassLength
-  def edit # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
+  def edit # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
     authorize!
 
     @from_port = if params[:from_port_id].present? && params[:from_port_id].to_i.positive?
@@ -23,7 +23,11 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
     @frame = @from_port.frame
     @room = @frame.room
     @from_server = @from_port.server
-    @from_pdu = @from_port.circuit&.record unless @from_server
+
+    unless @from_server
+      @from_pdu = @from_port.circuit&.record
+      @from_pdu ||= @from_port.power_distribution_unit_card&.record
+    end
 
     @coupled_frames = @frame.bay.frames
     @possible_destination_servers = []
@@ -79,7 +83,11 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
     end
 
     @from_server = from_port.server
-    @from_pdu = from_port.circuit&.record unless @from_server
+
+    unless @from_server
+      @from_pdu = from_port.circuit&.record
+      @from_pdu ||= from_port.power_distribution_unit_card&.record
+    end
 
     respond_to do |format|
       format.html do
@@ -117,7 +125,7 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
         end
         if port.paired_connection.present?
           paired_connection_port = port.paired_connection.port
-          next if paired_connection_port.attachable.is_a?(PowerDistributionUnit::Socket)
+          next if [PowerDistributionUnit::Socket, PowerDistributionUnit::Card].any? { |klass| paired_connection_port.attachable.is_a?(klass) }
 
           twin_card_ports << Port.where(attachable: paired_connection_port.card.twin_card, position: paired_connection_port.position).first
         end
