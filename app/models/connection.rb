@@ -11,7 +11,14 @@ class Connection < ApplicationRecord
   has_one :card_type, through: :card
 
   has_one :socket, through: :port, source: :attachable, source_type: "PowerDistributionUnit::Socket"
-  has_one :power_distribution_unit, through: :socket
+  has_one :socket_power_distribution_unit, through: :socket, source: :power_distribution_unit
+
+  has_one :power_distribution_unit_card, through: :port, source: :attachable, source_type: "PowerDistributionUnit::Card"
+  has_one :card_power_distribution_unit, through: :power_distribution_unit_card, source: :record, source_type: "PowerDistributionUnit"
+
+  def power_distribution_unit
+    socket_power_distribution_unit || card_power_distribution_unit
+  end
 
   def paired_connection
     cable.connections.where.not(id: id).first

@@ -30,7 +30,8 @@ class CablesProcessor < ApplicationProcessor
   end
 
   map :power_distribution_unit_ids, filter_with: :non_empty_array do |power_distribution_unit_ids:|
-    raw.joins(:power_distribution_units).where(power_distribution_units: { id: power_distribution_unit_ids })
+    Cable.where(id: raw.joins(:socket_power_distribution_units).where(power_distribution_units: { id: power_distribution_unit_ids }))
+      .or(Cable.where(id: raw.joins(:card_power_distribution_units).where(power_distribution_units: { id: power_distribution_unit_ids })))
   end
 
   map :port_type_ids, filter_with: :non_empty_array do |port_type_ids:|
