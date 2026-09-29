@@ -225,7 +225,7 @@ GEM
       actionmailer (>= 7.1, < 9)
       activesupport (>= 7.1, < 9)
     execjs (2.10.1)
-    faraday (2.14.3)
+    faraday (2.14.4)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
@@ -824,7 +824,7 @@ CHECKSUMS
   erubi (1.13.1) sha256=a082103b0885dbc5ecf1172fede897f9ebdb745a4b97a5e8dc63953db1ee4ad9
   exception_notification (5.0.1) sha256=a9698c8d4670ec50f1714fd14a61a9f83da082d3b5535fd830baf3dc75ba28f9
   execjs (2.10.1) sha256=abe0ae028467eb8e30c10814eb934d07876a691aae7e803d813b7ce5a75e73f1
-  faraday (2.14.3) sha256=1882247e6766615c8220b4392bf1d27f6ebb63d8e28267587cef1fb0bf37f278
+  faraday (2.14.4) sha256=9bb4408c44621b0dbaaaa39e5dbfc4dbe58cc6751b6eb94d16ae9e1f2f2fab6e
   faraday-follow_redirects (0.5.0) sha256=5cde93c894b30943a5d2b93c2fe9284216a6b756f7af406a1e55f211d97d10ad
   faraday-net_http (3.4.4) sha256=0e78af151747ed1b00f33e25973b4bc220d7f16c00c39676817c8b12331eb588
   ferrum (0.18.0) sha256=4cb8be16e352fc1d75f087e9214b34ec1b93ba932410c730a4724909ca89d7c6
