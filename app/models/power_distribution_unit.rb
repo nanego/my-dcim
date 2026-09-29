@@ -11,7 +11,7 @@ class PowerDistributionUnit < ApplicationRecord
   belongs_to :frame
 
   has_many :circuits, as: :record, class_name: "PowerDistributionUnit::Circuit", dependent: :destroy
-  has_many :sockets, class_name: "PowerDistributionUnit::Socket", through: :circuits
+  has_many :sockets, ->(pdu) { order(number: pdu.orientation.presence || :asc) }, class_name: "PowerDistributionUnit::Socket", through: :circuits
   has_many :cards, -> { order(created_at: :asc) }, as: :record, class_name: "PowerDistributionUnit::Card", inverse_of: :record, dependent: :destroy
   has_many :sockets_ports, class_name: "Port", through: :sockets, source: :port
   has_many :cards_ports, class_name: "Port", through: :cards, source: :ports

@@ -4,7 +4,7 @@
   <span class="d-flex align-items-center mx-auto flex-column gap-2">
     <ul class="list-group">
 
-      <% power_distribution_unit.sockets.order(number: power_distribution_unit.orientation).each do |socket| %>
+      <% power_distribution_unit.sockets.each do |socket| %>
         <li class="list-group-item bg-body-tertiary pdu">
           <span title="<%= PowerDistributionUnit::Circuit.model_name.human %> <%= socket.circuit.name %>"
                 data-controller="tooltip"
