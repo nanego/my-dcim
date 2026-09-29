@@ -238,7 +238,7 @@ GEM
       base64 (~> 0.2)
       concurrent-ruby (~> 1.1)
       websocket-driver (~> 0.7)
-    ferrum_pdf (3.1.0)
+    ferrum_pdf (3.2.0)
       actionpack (>= 6.0.0)
       ferrum (~> 0.15)
     ffi (1.17.4-arm64-darwin)
@@ -698,7 +698,7 @@ DEPENDENCIES
   erb_lint
   exception_notification
   faraday
-  ferrum_pdf (~> 3.0)
+  ferrum_pdf (~> 3.2)
   formulaic
   friendly_id (~> 5.7)
   geocoder (~> 1.8)
@@ -828,7 +828,7 @@ CHECKSUMS
   faraday-follow_redirects (0.5.0) sha256=5cde93c894b30943a5d2b93c2fe9284216a6b756f7af406a1e55f211d97d10ad
   faraday-net_http (3.4.4) sha256=0e78af151747ed1b00f33e25973b4bc220d7f16c00c39676817c8b12331eb588
   ferrum (0.18.0) sha256=4cb8be16e352fc1d75f087e9214b34ec1b93ba932410c730a4724909ca89d7c6
-  ferrum_pdf (3.1.0) sha256=5e2e7adf70ffef0c78dd5f9431cc38061984926968f012725b885f453f634945
+  ferrum_pdf (3.2.0) sha256=af127863830c34faa7647624c165801d77c96263f642680fea19a53214ab11a7
   ffi (1.17.4-arm64-darwin) sha256=19071aaf1419251b0a46852abf960e77330a3b334d13a4ab51d58b31a937001b
   ffi (1.17.4-x86_64-darwin) sha256=aa70390523cf3235096cf64962b709b4cfbd5c082a2cb2ae714eb0fe2ccda496
   ffi (1.17.4-x86_64-linux-gnu) sha256=9d3db14c2eae074b382fa9c083fe95aec6e0a1451da249eab096c34002bc752d
