@@ -4,7 +4,7 @@
   <%= render FormErrorsComponent.new(power_distribution_unit_type) %>
 
   <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
-    <div class="col">
+    <div class="col d-flex flex-column row-gap-4">
       <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
         <% card.with_header do %>
           <%= t("show.cards.identification") %>
@@ -16,7 +16,7 @@
         </fieldset>
       <% end %>
 
-      <%= render CardComponent.new(extra_classes: "mt-4 bg-body-tertiary") do |card| %>
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
         <% card.with_header do %>
           <%= t("show.cards.features") %>
         <% end %>
@@ -107,7 +107,7 @@
       <% end %>
     </div>
 
-    <div class="col">
+    <div class="col d-flex flex-column row-gap-4">
       <fieldset data-controller="nested-form">
         <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
           <% card.with_header do %>
@@ -140,7 +140,6 @@
           <% end %>
         <% end %>
       </fieldset>
-
 
       <%= render partial: "power_distribution_units/card_nested_fieldset", locals: { f: } %>
     </div>
