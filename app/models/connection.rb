@@ -28,6 +28,8 @@ class Connection < ApplicationRecord
     case port.attachable
     when Card
       card_type.port_type
+    when PowerDistributionUnit::Card
+      power_distribution_unit_card.card_type.port_type
     when PowerDistributionUnit::Socket
       socket.port_type
     end

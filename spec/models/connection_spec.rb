@@ -55,6 +55,12 @@ RSpec.describe Connection do
       it { expect(connection.port_type).to eq(connection.card_type.port_type) }
     end
 
+    context "when attachable is a PowerDistributionUnit::Card" do
+      let(:port) { ports(:thirteen) }
+
+      it { expect(connection.port_type).to eq(connection.power_distribution_unit_card.card_type.port_type) }
+    end
+
     context "when attachable is a PowerDistributionUnit::Socket" do
       let(:port) { ports(:eleven) }
 
