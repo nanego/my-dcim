@@ -349,7 +349,7 @@ table.card_layout {
 }
 
 .connection_form {
-  .back_server {
+  .back_server, .back_pdu {
     .selected {
       transform: scale(1.2);
       z-index: 10;

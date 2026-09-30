@@ -12,6 +12,7 @@ RSpec.describe PowerDistributionUnitType do
     it { is_expected.to have_many(:power_distribution_units).dependent(:restrict_with_error) }
     it { is_expected.to have_many(:circuits).dependent(:destroy) }
     it { is_expected.to have_many(:sockets).through(:circuits) }
+    it { is_expected.to have_many(:cards).dependent(:destroy) }
   end
 
   describe "validations" do
@@ -26,6 +27,7 @@ RSpec.describe PowerDistributionUnitType do
 
   describe "nested attributes" do
     it { is_expected.to accept_nested_attributes_for(:circuits) }
+    it { is_expected.to accept_nested_attributes_for(:cards) }
   end
 
   describe "#deep_dup" do
@@ -34,6 +36,7 @@ RSpec.describe PowerDistributionUnitType do
     it { expect(power_distribution_unit_type.deep_dup).not_to eq(power_distribution_unit_type) }
     it { expect(power_distribution_unit_type.deep_dup.name).to eq(power_distribution_unit_type.name) }
     it { expect(power_distribution_unit_type.deep_dup.circuits.size).to eq(power_distribution_unit_type.circuits.size) }
+    it { expect(power_distribution_unit_type.deep_dup.cards.size).to eq(power_distribution_unit_type.cards.size) }
 
     it do
       expect(power_distribution_unit_type.deep_dup.circuits.map(&:sockets).flatten.size)

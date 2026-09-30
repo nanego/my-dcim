@@ -24,8 +24,11 @@ RSpec.describe PowerDistributionUnit do
 
     it { is_expected.to have_many(:circuits).dependent(:destroy) }
     it { is_expected.to have_many(:sockets).through(:circuits) }
-    it { is_expected.to have_many(:ports).through(:sockets) }
-    it { is_expected.to have_many(:cables).through(:ports) }
+    it { is_expected.to have_many(:cards).dependent(:destroy) }
+    it { is_expected.to have_many(:sockets_ports).through(:sockets) }
+    it { is_expected.to have_many(:cards_ports).through(:cards) }
+    it { is_expected.to have_many(:sockets_cables).through(:sockets_ports) }
+    it { is_expected.to have_many(:cards_cables).through(:cards_ports) }
 
     it { is_expected.to have_one(:manufacturer).through(:type) }
     it { is_expected.to have_one(:bay).through(:frame) }
@@ -51,6 +54,7 @@ RSpec.describe PowerDistributionUnit do
 
   describe "nested attributes" do
     it { is_expected.to accept_nested_attributes_for(:circuits) }
+    it { is_expected.to accept_nested_attributes_for(:cards) }
   end
 
   describe "#to_s" do
@@ -67,6 +71,7 @@ RSpec.describe PowerDistributionUnit do
     it { expect(power_distribution_unit.deep_dup).not_to eq(power_distribution_unit) }
     it { expect(power_distribution_unit.deep_dup.name).to eq(power_distribution_unit.name) }
     it { expect(power_distribution_unit.deep_dup.circuits.size).to eq(power_distribution_unit.circuits.size) }
+    it { expect(power_distribution_unit.deep_dup.cards.size).to eq(power_distribution_unit.cards.size) }
 
     it do
       expect(power_distribution_unit.deep_dup.circuits.map(&:sockets).flatten.size)
@@ -100,7 +105,7 @@ RSpec.describe PowerDistributionUnit do
     end
   end
 
-  describe "#build_circuits_and_sockets_from_type" do
+  describe "#build_extras_from_type" do
     let!(:power_distribution_unit) do
       described_class.create!(**power_distribution_units(:one).attributes, id: nil, type:, serial_number: "test123456789", power_line: :b)
     end
@@ -110,6 +115,9 @@ RSpec.describe PowerDistributionUnit do
     it { expect(power_distribution_unit.circuits.first.name).to eq(type.circuits.first.name) }
     it { expect(power_distribution_unit.sockets.size).to eq(2) }
     it { expect(power_distribution_unit.sockets.first.number).to eq(type.sockets.first.number) }
+
+    it { expect(power_distribution_unit.cards.size).to eq(1) }
+    it { expect(power_distribution_unit.cards.first.name).to eq(type.cards.first.name) }
   end
 
   describe "#name" do

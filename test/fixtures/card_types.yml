@@ -27,3 +27,9 @@ five:
   name: Card5
   port_type_id: 3
   port_quantity: 6
+
+six:
+  id: 6
+  name: Card6
+  port_type_id: 4
+  port_quantity: 6

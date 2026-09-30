@@ -22,7 +22,8 @@ class Cable < ApplicationRecord
   has_many :ports, through: :connections
   has_many :cards, through: :connections
   has_many :servers, through: :cards
-  has_many :power_distribution_units, through: :connections
+  has_many :socket_power_distribution_units, through: :connections
+  has_many :card_power_distribution_units, through: :connections
   has_many :card_types, through: :cards
   has_many :port_types, through: :card_types
 
@@ -34,6 +35,10 @@ class Cable < ApplicationRecord
 
     other_cables + alim_cables
   }
+
+  def power_distribution_units
+    (socket_power_distribution_units + card_power_distribution_units).uniq
+  end
 
   def touch_ports
     ports.each(&:touch)

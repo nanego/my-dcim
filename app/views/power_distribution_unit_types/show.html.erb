@@ -94,30 +94,8 @@
           <%= t("show.cards.preview") %>
         <% end %>
 
-        <div class="d-flex">
-          <span class="d-inline-flex mx-auto">
-            <ul class="list-group">
-              <% @power_distribution_unit_type.circuits.each do |circuit| %>
-                <li class="list-group-item bg-body-tertiary">
-                  <h6>
-                    <%= PowerDistributionUnit::Circuit.model_name.human %>
-                    <%= circuit.name %>
-                  </h6>
-
-                  <ul class="list-group list-group-flush">
-                    <% circuit.sockets.each do |socket| %>
-                      <li class="list-group-item bg-body-tertiary">
-                        <%= render BadgeComponent.new(color: :light) do %>
-                          <span><%= socket.port_type %></span>
-                          <span>#<%= socket.number %></span>
-                        <% end %>
-                      </li>
-                    <% end %>
-                  </ul>
-                </li>
-              <% end %>
-            </ul>
-          </span>
+        <div id="pdu-vizualisation-<%= @power_distribution_unit_type.id %>">
+          <%= render partial: "power_distribution_units/visualization", locals: { power_distribution_unit: @power_distribution_unit_type } %>
         </div>
       <% end %>
     </div>

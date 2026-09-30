@@ -77,7 +77,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
           is_vertical_card = %w[td-lr dt-lr].include?(card.orientation)
 
           html_content = link_to_port(
-            position, port_data, type, card.id, port_id, (position - 1 + card.first_port_position).to_s.rjust(2, "0"),
+            position, port_data, type, card.id, port_id, (position - 1 + card.first_port_position).to_s.rjust(2, "0"), is_pdu_card: card.instance_of?(PowerDistributionUnit::Card),
           )
           if %w[RJ XRJ].include?(type.to_s) && (2..10).cover?(card_type.port_quantity)
             html_content += content_tag(:small,
@@ -109,7 +109,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     html.html_safe # rubocop:disable Rails/OutputSafety
   end
 
-  def ports_by_card(port_type:, port_quantity:, ports_data:, card_id: nil, selected_port: nil, moved_connections: [], twin_card_used_ports: [])
+  def ports_by_card(port_type:, port_quantity:, ports_data:, card_id: nil, selected_port: nil, moved_connections: [], twin_card_used_ports: [], is_pdu_card: false) # rubocop:disable Metrics/ParameterLists
     html = ""
     port_quantity.to_i.times do |index|
       port_data = ports_data.detect { |p| p.position == index + 1 }
@@ -117,7 +117,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       is_vertical_card = %w[td-lr dt-lr].include?(port_data&.card&.orientation)
       port_data = include_moved_connections(moved_connections, port_data, port_id) # Add moved connections if any
 
-      html_content = link_to_port(index + 1, port_data, port_type, card_id, port_id)
+      html_content = link_to_port(index + 1, port_data, port_type, card_id, port_id, is_pdu_card:)
 
       if %w[RJ XRJ].include?(port_type.to_s) && (2..10).cover?(port_quantity)
         html_content += content_tag(:small,
@@ -139,7 +139,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
     html.html_safe # rubocop:disable Rails/OutputSafety
   end
 
-  def link_to_port_without_label(position, port_data, port_type, card_id, port_id)
+  def link_to_port_without_label(position, port_data, port_type, card_id, port_id, is_pdu_card: false)
     port_type_name = case port_type.name
                      when "RJ", "XRJ"
                        "RJ"
@@ -148,10 +148,10 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
                      else
                        port_type.name
                      end
-    link_to_port_by_type("", port_type_name, port_data, position, card_id, port_id)
+    link_to_port_by_type("", port_type_name, port_data, position, card_id, port_id, is_pdu_card:)
   end
 
-  def link_to_port(position, port_data, port_type, card_id, port_id, default_label = "")
+  def link_to_port(position, port_data, port_type, card_id, port_id, default_label = "", is_pdu_card: false)
     cable_name = port_data&.cable_name.presence || default_label
 
     case port_type.name
@@ -165,11 +165,16 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       port_type_name = port_type.name
     end
 
-    link_to_port_by_type(cable_name, port_type_name, port_data, position, card_id, port_id)
+    link_to_port_by_type(cable_name, port_type_name, port_data, position, card_id, port_id, is_pdu_card:)
   end
 
-  def link_to_port_by_type(label, type, port_data, position, card_id, port_id)
-    edit_port_url = port_id ? connections_edit_path(from_port_id: port_id) : edit_port_path(id: 0, card_id: card_id, position: position)
+  def link_to_port_by_type(label, type, port_data, position, card_id, port_id, is_pdu_card: false)
+    edit_port_url = if port_id
+                      connections_edit_path(from_port_id: port_id)
+                    else
+                      card_params = is_pdu_card ? { pdu_card_id: card_id } : { card_id: card_id }
+                      edit_port_path(id: 0, position: position, **card_params)
+                    end
 
     port_class = if %w[RJ XRJ FC ALIM].include? type
                    type

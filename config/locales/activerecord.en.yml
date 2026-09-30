@@ -51,6 +51,7 @@ en:
         other: PDU
       power_distribution_unit/circuit: Circuit
       power_distribution_unit/socket: Socket
+      power_distribution_unit/card: Card
       room: Room
       server: I.T. equipment
       stack: Stack
@@ -283,6 +284,14 @@ en:
         port_type: Port type
         port_type_id: Port type
         number: Number
+      power_distribution_unit/card:
+        first_position: First port position
+        card_type_id: Card type
+      power_distribution_unit/card/orientation:
+          lr-td: Left to right, top to bottom
+          rl-td: Right to Left, top to bottom
+          dt-lr: Bottom to top, left to right
+          td-lr: Top to bottom, left to right
       cards:
         card_type_id: Card type
 
