@@ -17,14 +17,6 @@ en:
         one: Network hub cluster
         other: Network hub clusters
       color: Color
-      port_type:
-        name: Name
-        power: Power
-        usage: Usage
-        usable_by: Usable by
-      port_type/usable_by:
-        server: Server
-        pdu: Pdu
       composant:
         one: Component
         other: Components
