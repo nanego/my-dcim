@@ -252,7 +252,7 @@ fr:
         code: Code
       port_type:
         name: Nom
-        power: Alimentation
+        is_power: Alimentation
         usage: Types de carte compatibles
       category:
         name: Nom
