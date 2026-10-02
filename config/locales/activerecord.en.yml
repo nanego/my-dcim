@@ -17,14 +17,6 @@ en:
         one: Network hub cluster
         other: Network hub clusters
       color: Color
-      port_type:
-        name: Name
-        power: Power
-        usage: Usage
-        usable_by: Usable by
-      port_type/usable_by:
-        server: Server
-        pdu: Pdu
       composant:
         one: Component
         other: Components
@@ -91,10 +83,37 @@ en:
         server_id: I.T. Equipment
       cable:
         description: "Connection between %{from_server_category} %{from_server} (port #%{from_port_id}) and %{to_server_category} %{to_server} (port #%{to_port_id}) => vlans:%{vlans} cablename:%{cablename} color:%{color}"
+      cards:
+        card_type_id: Card type
+      category:
+        name: Name
+        description: Description
+        glpi_sync_type: GLPI synchronization type
+        modeles: Models
+        modeles_count:
+          zero: 0 model
+          one: 1 model
+          other: "%{count} models"
+      category/glpi_sync_type:
+        none: Nond
+        server: Server
+        network_equipment: Network equipment
       enclosure/display:
         grid: Grid
         horizontal: Horizontal
         vertical: Vertical
+      external_app_record:
+        external_id: GLPI ID
+        external_name: GLPI name
+        external_serial: GLPI serial number
+        external_serial_status: GLPI Synchronization
+        frame_id: Location
+        frame_ids: Location
+        id: ID
+        server_id: I.T. equipment
+      external_app_record/external_serial:
+        found: Found
+        not_found: Not found in GLPI
       manufacturer:
         name: Name
         usage_modele: Usage (model)
@@ -114,18 +133,6 @@ en:
           zero: 0 I.T. equipment
           one: 1 I.T. equipment
           other: "%{count} I.T. equipments"
-      external_app_record:
-        external_id: GLPI ID
-        external_name: GLPI name
-        external_serial: GLPI serial number
-        external_serial_status: GLPI Synchronization
-        frame_id: Location
-        frame_ids: Location
-        id: ID
-        server_id: I.T. equipment
-      external_app_record/external_serial:
-        found: Found
-        not_found: Not found in GLPI
       modele:
         category_id: Category
         category: Category
@@ -148,6 +155,84 @@ en:
         statuses:
           executed: Executed
           planned: Planned
+      permission_scope:
+        name: Name
+        role: Role
+        all_domains: All domains
+        domain_ids: Domains
+        user_ids: Users
+      permission_scope/role:
+        reader: Reader
+        writer: Writer
+      port_type:
+        name: Name
+        is_power: Power
+        usage: Usage
+      power_distribution_unit_type:
+        current_type: Current type
+        documentation_url: Documentation
+        meter_global: Global Meter
+        meter_per_socket: Meter par Socket
+        meter_per_circuit: Meter per Circuit
+        socket_control: Socket Control
+        socket_lock: Socket lock
+        ip_snmp: IP SNMP
+        ip_modbus: IP ModBus
+        ip_ssh: IP SSH
+        ip_webui: IP WebUI
+        rs485_modbus: RS485 ModBus
+        max_power_per_circuit: Max power per circuit
+        circuits_per_phase: Circuits per phase
+        phases_count: Phases count
+      power_distribution_unit_type/current_type:
+        single_phase: Single-phase
+        three_phase: Three-phase
+      power_distribution_unit:
+        type_id: PDU Type
+        frame_id: Frame
+        serial_number: Serial number
+        serial_number_short: s/n
+        side: Side
+        orientation: Orientation
+        ipmi_url: IPMI URL
+        comment: Comment
+        power_line: Power line
+      power_distribution_unit/side:
+        left: Left
+        right: Right
+      power_distribution_unit/orientation:
+        asc: Ascendant
+        desc: Descendant
+      power_distribution_unit/socket:
+        port_type: Port type
+        port_type_id: Port type
+        number: Number
+      power_distribution_unit/card:
+        first_position: First port position
+        card_type_id: Card type
+      power_distribution_unit/card/orientation:
+        lr-td: Left to right, top to bottom
+        rl-td: Right to Left, top to bottom
+        dt-lr: Bottom to top, left to right
+        td-lr: Top to bottom, left to right
+      room:
+        access_control: Access control
+        name: Name
+        position: Position
+        content: Content
+        display_on_home_page: Display on home page
+        site_id: Site
+        status: Status
+        surface_area: Surface area
+        network_cluster_ids: Network hub clusters
+        islets_count:
+          zero: 0 islets
+          one: 1 islet
+          other: "%{count} islets"
+        frames_count:
+          zero: 0 frames
+          one: 1 frame
+          other: "%{count} frames"
       server:
         name: Name
         numero: Serial number
@@ -205,95 +290,6 @@ en:
         back: Back
       user/state:
         suspended: Suspended
-      room:
-        access_control: Access control
-        name: Name
-        position: Position
-        content: Content
-        display_on_home_page: Display on home page
-        site_id: Site
-        status: Status
-        surface_area: Surface area
-        network_cluster_ids: Network hub clusters
-        islets_count:
-          zero: 0 islets
-          one: 1 islet
-          other: "%{count} islets"
-        frames_count:
-          zero: 0 frames
-          one: 1 frame
-          other: "%{count} frames"
-      permission_scope:
-        name: Name
-        role: Role
-        all_domains: All domains
-        domain_ids: Domains
-        user_ids: Users
-      permission_scope/role:
-        reader: Reader
-        writer: Writer
-      category:
-        name: Name
-        description: Description
-        glpi_sync_type: GLPI synchronization type
-        modeles: Models
-        modeles_count:
-          zero: 0 model
-          one: 1 model
-          other: "%{count} models"
-      category/glpi_sync_type:
-        none: Nond
-        server: Server
-        network_equipment: Network equipment
-      power_distribution_unit_type:
-        current_type: Current type
-        documentation_url: Documentation
-        meter_global: Global Meter
-        meter_per_socket: Meter par Socket
-        meter_per_circuit: Meter per Circuit
-        socket_control: Socket Control
-        socket_lock: Socket lock
-        ip_snmp: IP SNMP
-        ip_modbus: IP ModBus
-        ip_ssh: IP SSH
-        ip_webui: IP WebUI
-        rs485_modbus: RS485 ModBus
-        max_power_per_circuit: Max power per circuit
-        circuits_per_phase: Circuits per phase
-        phases_count: Phases count
-      power_distribution_unit_type/current_type:
-        single_phase: Single-phase
-        three_phase: Three-phase
-      power_distribution_unit:
-        type_id: PDU Type
-        frame_id: Frame
-        serial_number: Serial number
-        serial_number_short: s/n
-        side: Side
-        orientation: Orientation
-        ipmi_url: IPMI URL
-        comment: Comment
-        power_line: Power line
-      power_distribution_unit/side:
-        left: Left
-        right: Right
-      power_distribution_unit/orientation:
-        asc: Ascendant
-        desc: Descendant
-      power_distribution_unit/socket:
-        port_type: Port type
-        port_type_id: Port type
-        number: Number
-      power_distribution_unit/card:
-        first_position: First port position
-        card_type_id: Card type
-      power_distribution_unit/card/orientation:
-          lr-td: Left to right, top to bottom
-          rl-td: Right to Left, top to bottom
-          dt-lr: Bottom to top, left to right
-          td-lr: Top to bottom, left to right
-      cards:
-        card_type_id: Card type
 
     errors:
       models:

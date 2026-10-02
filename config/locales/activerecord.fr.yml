@@ -252,12 +252,8 @@ fr:
         code: Code
       port_type:
         name: Nom
-        power: Alimentation
+        is_power: Alimentation
         usage: Types de carte compatibles
-        usable_by: Utilisation
-      port_type/usable_by:
-        server: Serveur
-        pdu: Pdu
       category:
         name: Nom
         description: Description

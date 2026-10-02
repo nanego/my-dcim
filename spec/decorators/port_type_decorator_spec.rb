@@ -13,25 +13,6 @@ RSpec.describe PortTypeDecorator, type: :decorator do
     end
   end
 
-  describe ".usable_by_options_for_select" do
-    it do
-      expect(described_class.usable_by_options_for_select)
-        .to contain_exactly(%w[Pdu pdu], %w[Serveur server])
-    end
-  end
-
-  describe "#human_usable_by" do
-    context "with one" do
-      it { expect(decorated_port_type.human_usable_by).to eq("Serveur") }
-    end
-
-    context "with multiple" do
-      let(:port_type) { port_types(:four) }
-
-      it { expect(decorated_port_type.human_usable_by).to eq("Serveur et Pdu") }
-    end
-  end
-
   describe "#css_class_name" do
     subject(:css_class_name) { decorated_port_type.css_class_name }
 

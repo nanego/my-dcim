@@ -10,13 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_08_114349) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_30_153825) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
-
-  # Custom types defined in this database.
-  # Note that some types may not work with other database engines. Be careful if changing database.
-  create_enum "port_types_usable_by", ["pdu", "server"]
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
@@ -455,7 +451,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_08_114349) do
     t.integer "card_types_count", default: 0, null: false
     t.boolean "is_power", default: false, null: false
     t.string "name"
-    t.enum "usable_by", default: [], null: false, array: true, enum_type: "port_types_usable_by"
   end
 
   create_table "ports", id: :serial, force: :cascade do |t|
