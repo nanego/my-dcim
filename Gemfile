@@ -35,7 +35,7 @@ gem "puma"
 gem "bootsnap", require: false
 
 # Use ActiveStorage variant
-gem "image_processing", "~> 2.1"
+gem "image_processing", "~> 2.2"
 gem "ruby-vips", "~> 2.0"
 
 group :development do
