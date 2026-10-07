@@ -29,7 +29,7 @@
       <%= link_to port_type, port_type_path(port_type), class: "fw-bold" %>
     <% end %>
 
-    <% table.with_column(PortType.human_attribute_name(:power), sort_by: :power) do |port_type| %>
+    <% table.with_column(PortType.human_attribute_name(:is_power), sort_by: :is_power) do |port_type| %>
       <%= t("boolean.#{port_type.is_power?}") %>
     <% end %>
 
