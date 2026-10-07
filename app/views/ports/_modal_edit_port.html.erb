@@ -10,6 +10,7 @@
 
 <script type="text/javascript">
 $("body").on("click", ".servers a.port, .server a.port, .pdu a.port, .js_connection_edit_link_to", function (event) {
+  debugger;
   event.preventDefault();
   var url = $(this).data("url");
   if (url.length > 0) {

@@ -23,7 +23,7 @@
         <%= f.label Connection.human_attribute_name(:from_port_id), class: "form-label" %>
         <%= render CardComponent.new do |card| %>
           <% if @from_pdu.present? %>
-            <div class="d-flex">
+            <div id="back_departure_server" class="d-flex">
               <span class="d-flex align-items-center mx-auto flex-column gap-2">
                 <ul class="list-group">
 
@@ -51,7 +51,7 @@
                 </ul>
 
                 <ul class="list-group back_pdu">
-                  <% @from_pdu.cards.each do |card|%>
+                  <% @from_pdu.cards.each do |card| %>
                     <span class="<%= class_names("list-group-item d-flex pdu", "flex-column": %w[td-lr dt-lr].include?(card.orientation)) %>">
                       <% if card.card_type && card.card_type.columns && card.card_type.rows %>
                         <%= ports_by_card_with_presentation(card: card, selected_port: @from_port, twin_card_used_ports: nil) %>
@@ -61,7 +61,7 @@
                                           card_id: card.id,
                                           ports_data: card.ports,
                                           selected_port: @from_port,
-                              twin_card_used_ports: nil) %>
+                                          twin_card_used_ports: nil) %>
                       <% end %>
                     </span>
                   <% end %>
@@ -79,16 +79,14 @@
       </div>
 
       <div class="col-12 mt-4" data-controller="reveal" data-reveal-hidden-class="d-none">
-        <%= f.label Connection.human_attribute_name(:to_port_id), class: "form-label" %>
+        <%= f.label :to_port_id, Connection.human_attribute_name(:to_port_id), class: "form-label" %>
         <%= render CardComponent.new do |card| %>
           <% card.with_header do %>
             <div class="d-flex justify-content-between" id="select_destination_bay">
               <span id="restricted_destinations" class="w-50" data-reveal-target="item">
-                <%= select_tag "to_server",
-                               grouped_options_for_select(
-                                 @possible_destination_servers, { selected: @to_server.try(:id) },
-                               ),
-                               include_blank: true,
+                <%= f.select :to_server,
+                               @possible_destination_servers,
+                               { include_blank: true },
                                class: "form-select",
                                data: {
                                  controller: :select,
@@ -98,9 +96,9 @@
                                onchange: "select_destination_server(0)" %>
               </span>
               <span id="all_destinations" class="d-none w-50" data-reveal-target="item">
-                <%= select_tag "to_server",
-                               grouped_options_for_select(@all_servers_per_frame, { selected: @to_server.try(:id) }),
-                               include_blank: true,
+                <%= f.select :to_server,
+                               @all_servers_per_frame,
+                               { include_blank: true },
                                class: "form-select",
                                data: {
                                  controller: :select,
@@ -183,21 +181,21 @@
   <% end %>
 </div>
 
-  <script>
+  <script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
   function select_destination_server(see_all) {
       if (see_all == 1) {
-          selected_server = $("#all_destinations select[name='to_server']").val();
+          selected_server = $("#all_destinations select[name='connection[to_server]']").val();
       } else {
-          selected_server = $("#restricted_destinations select[name='to_server']").val();
+          selected_server = $("#restricted_destinations select[name='connection[to_server]']").val();
       }
 
       $.ajax({
           method: "POST",
           url: "<%= connections_update_destination_server_path %>",
-          data: { server_id: selected_server }
+          data: { attachable_id: selected_server }
       }).done(function () {
         if (port_id = $('input[name="connection[to_port_id]"]').val()) {
-          select_destination_port(port_id);
+          // select_destination_port(port_id);
         }
       });
   }
@@ -260,15 +258,15 @@
 
     if (from_server) {
       updateConnectionStateMessage("<%= @frame.name %>", "<%= @from_port.cable.try(:name) %>");
-
-      $("#back_departure_server").on('click', 'a.port', function (e) {
-          e.preventDefault();
-      });
     };
 
+    $("#back_departure_server").on('click', 'a.port', function (e) {
+      e.preventDefault();
+    });
+
     $("#back_destination_server").on('click', 'a.port', function (e) {
-        e.preventDefault();
-        select_destination_port(e.target.id);
+      e.preventDefault();
+      select_destination_port(e.target.id);
     });
   });
   </script>
