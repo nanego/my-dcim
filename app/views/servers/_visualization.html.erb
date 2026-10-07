@@ -9,14 +9,14 @@
          end %>
       <% if enclosure.display == "grid" %>
         <style>
-          .enclosure-container {
+          #enclosure-container-<%= enclosure.id %> {
             <% grid_rows = enclosure.grid_areas.split(/\R/) %>
             <% grid_max_nb_of_columns = grid_rows.map { |row| row.split.count }.max %>
             grid-template-areas: <%= raw grid_rows.map { |s| "\"#{s}\"" }.join(" ") %>;
             grid-template-columns: repeat(<%= grid_max_nb_of_columns %>, 1fr); /* equal columns */
           }
         </style>
-        <div class="container enclosure-container bg-dark-subtle">
+        <div id="enclosure-container-<%= enclosure.id %>" class="container enclosure-container bg-dark-subtle">
           <% composants_per_enclosure.each do |component| %>
             <% class_name = "item-#{server.id}-#{component.name}" %>
             <style>
