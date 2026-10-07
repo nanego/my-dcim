@@ -29,7 +29,7 @@
     </ul>
 
     <ul class="list-group">
-      <% power_distribution_unit.cards.each do |card|%>
+      <% power_distribution_unit.cards.each do |card| %>
         <span class="<%= class_names("list-group-item d-flex pdu", "flex-column": %w[td-lr dt-lr].include?(card.orientation)) %>">
           <% if card.card_type && card.card_type.columns && card.card_type.rows %>
             <%= ports_by_card_with_presentation(card: card, twin_card_used_ports: nil) %>

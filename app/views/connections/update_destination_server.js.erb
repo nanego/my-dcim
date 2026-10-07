@@ -1,5 +1,8 @@
-<% if @server %>
-$("#back_destination_server").html("<%= escape_javascript(render partial: 'servers/draw_server_compact', locals: { server: @server }) %>");
+<% case @attachable %>
+<% when Server %>
+$("#back_destination_server").html("<%= escape_javascript(render partial: 'servers/draw_server_compact', locals: { server: @attachable }) %>");
+<% when PowerDistributionUnit %>
+$("#back_destination_server").html("<%= escape_javascript(render partial: 'power_distribution_units/visualization', locals: { power_distribution_unit: @attachable }) %>");
 <% else %>
 $("#back_destination_server").empty();
 <% end %>
