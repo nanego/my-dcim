@@ -3,7 +3,7 @@
 class PortTypesProcessor < ApplicationProcessor
   include Sortable
 
-  SORTABLE_FIELDS = %w[name power card_types_count].freeze
+  SORTABLE_FIELDS = %w[name is_power card_types_count].freeze
 
   sortable fields: SORTABLE_FIELDS
 end
