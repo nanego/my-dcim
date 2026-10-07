@@ -32,12 +32,12 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
     @coupled_frames = @frame.bay.frames
     @possible_destination_servers = []
     @all_servers_per_frame = []
-    if @from_port.is_power? && @from_server.is_not_a_pdu?
-      # @coupled_frames.each { |frame| @possible_destination_servers << [frame.name, frame.pdus.collect { |v| [v.name, v.id] }] }
-      # Frame.order(:name).each { |frame| @all_servers_per_frame << [frame.name, frame.pdus.collect { |v| [v.name, v.id] }] }
+    if @from_port.is_power? # && @from_server.is_not_a_pdu?
+      @coupled_frames.each { |frame| @possible_destination_servers << [frame.name, frame.power_distribution_units.collect { |v| [v.name, v.to_gid] }] }
+      Frame.order(:name).each { |frame| @all_servers_per_frame << [frame.name, frame.power_distribution_units.collect { |v| [v.name, v.to_gid] }] }
     else
-      @coupled_frames.each { |frame| @possible_destination_servers << [frame.name, frame.servers.collect { |v| [v.name, v.id] }] }
-      Frame.order(:name).each { |frame| @all_servers_per_frame << [frame.name, frame.servers.collect { |v| [v.name, v.id] }] }
+      @coupled_frames.each { |frame| @possible_destination_servers << [frame.name, frame.servers.collect { |v| [v.name, v.to_gid] }] }
+      Frame.order(:name).each { |frame| @all_servers_per_frame << [frame.name, frame.servers.collect { |v| [v.name, v.to_gid] }] }
     end
 
     # Destination port
@@ -100,15 +100,15 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
   def update_destination_server
     authorize!
 
-    @server = Server.find_by_id(params[:server_id])
+    @attachable = GlobalID::Locator.locate(params[:attachable_id])
 
-    if @server
-      @server.create_missing_ports
-      @server.reload
+    if @attachable.is_a?(Server)
+      @attachable.create_missing_ports
+      @attachable.reload
     end
 
-    if params[:with_moved_connection]
-      @moved_connections = MovedConnection.per_servers([@server])
+    if @attachable.is_a?(Server) && params[:with_moved_connection]
+      @moved_connections = MovedConnection.per_servers([@attachable])
     end
   end
 
