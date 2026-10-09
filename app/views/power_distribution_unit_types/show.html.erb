@@ -94,8 +94,9 @@
           <%= t("show.cards.preview") %>
         <% end %>
 
-        <div id="pdu-vizualisation-<%= @power_distribution_unit_type.id %>">
-          <%= render partial: "power_distribution_units/visualization", locals: { power_distribution_unit: @power_distribution_unit_type } %>
+        <div id="pdu-vizualisation-<%= @power_distribution_unit_type.id %>" class="pe-none">
+          <%= render partial: "power_distribution_units/visualization",
+                     locals: { power_distribution_unit: @power_distribution_unit_type } %>
         </div>
       <% end %>
     </div>
