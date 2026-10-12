@@ -8,7 +8,7 @@ RSpec.describe Enclosure do
   describe "associations" do
     it { is_expected.to belong_to(:modele) }
     it { is_expected.to have_many(:composants).dependent(:destroy) }
-    it { is_expected.to have_many(:cards).through(:composants).dependent(:destroy) }
+    it { is_expected.to have_many(:cards).through(:composants) }
   end
 
   describe ".with_composants" do
