@@ -134,7 +134,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
     @selected_port = Port.find(params[:port_id])
     @server = @selected_port.server
     @frame = Frame.friendly.find(params[:frame_id])
-    @servers = @moves_project_step.servers_moves_for_frame_at_current_step(@frame)
+    load_destination_servers
 
     @moved_connections = MovedConnection.per_servers([@server])
     # TODO: Deal with conflicts if there is more than 1 result
@@ -187,6 +187,8 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
     end
     @selected_port = @moved_connection.port_from
     @destination_port = @moved_connection.port_to
+    @frame = Frame.friendly.find(params[:frame_id])
+    load_destination_servers
   end
 
   private
@@ -229,6 +231,12 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
     get_all_servers_per_frame
     get_all_frames_per_room
+  end
+
+  def load_destination_servers
+    get_all_servers_per_frame
+
+    @possible_destination_servers = @all_servers_per_frame.slice(*@frame.bay.frames.order(:name).pluck(:name))
   end
 
   def get_all_frames_per_room # rubocop:disable Naming/AccessorMethodName

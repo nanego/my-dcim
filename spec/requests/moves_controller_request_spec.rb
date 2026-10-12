@@ -340,4 +340,57 @@ RSpec.describe MovesController do
       it { expect(response).to redirect_to(moves_projects_path) }
     end
   end
+
+  describe "GET #load_connection" do
+    subject(:response) do
+      get load_connection_moves_project_step_moves_path(step, format:),
+          params: { port_id: port.id, frame_id: port.server.frame.id },
+          xhr: format == :js
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:format) { :js }
+    let(:port) { ports(:one) }
+
+    include_context "with authenticated admin"
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response.body).to include("restricted_destinations") }
+    it { expect(response.body).to include("all_destinations") }
+    it { expect(response.body).to include(I18n.t("moves.moved_connection_form.action.show_more_bay")) }
+
+    it "groups the default destinations by the frames of the port's bay" do
+      response
+
+      expect(assigns(:possible_destination_servers).keys).to contain_exactly(frames(:one).name, frames(:two).name)
+    end
+
+    it "lists every frame in the full destinations" do
+      response
+
+      expect(assigns(:all_servers_per_frame).keys).to include(frames(:three).name)
+    end
+  end
+
+  describe "POST #update_connection" do
+    subject(:response) do
+      post update_connection_moves_project_step_moves_path(step, format:),
+           params: { moved_connection: { port_from_id: ports(:one).id, port_to_id: ports(:two).id,
+                                         vlans: "", color: "", cablename: "" },
+                     frame_id: frames(:one).id },
+           xhr: format == :js
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:format) { :js }
+
+    include_context "with authenticated admin"
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response.body).to include("all_destinations") }
+  end
 end

@@ -366,6 +366,8 @@ en:
     moved_connection_form:
       action:
         delete: Delete this connection
+        show_more_bay: Show more bays
+        show_less_bay: Show fewer bays
     flashes:
       archived: This project is archived
 

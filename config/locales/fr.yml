@@ -587,6 +587,8 @@ fr:
     moved_connection_form:
       action:
         delete: Supprimer cette connexion
+        show_more_bay: Voir plus de baies
+        show_less_bay: Voir moins de baies
     flashes:
       archived: Ce projet est archivé
 

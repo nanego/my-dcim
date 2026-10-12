@@ -16,23 +16,47 @@
     </fieldset>
   </div>
 
-  <fieldset class="col-12 mt-4">
+  <fieldset class="col-12 mt-4" data-controller="reveal" data-reveal-hidden-class="d-none">
     <%= f.label :port_to_id, class: "form-label" %>
     <%= render CardComponent.new() do |card| %>
       <% card.with_header do %>
-        <div id="select_destination_bay">
-          <span id="all_destinations">
+        <div id="select_destination_bay" class="d-flex justify-content-between align-items-center">
+          <span id="restricted_destinations" class="w-50" data-reveal-target="item">
             <%= select_tag "to_server",
-                          options_for_select(
-                            @servers.map { |v| [v.name, v.id] },
-                            { selected: @destination_port.present? ? @destination_port.server&.id : nil }
-                          ),
-                          include_blank: true,
-                          onchange: "select_destination_server(this.value)",
-                          class: "form-select mx-auto",
-                          style: "max-width: 185px;"
-            %>
+                           grouped_options_for_select(
+                             @possible_destination_servers, { selected: @destination_port&.server&.id },
+                           ),
+                           include_blank: true,
+                           class: "form-select",
+                           data: {
+                             controller: :select,
+                             select_clear_button_title_value: t("action.clear_all"),
+                           },
+                           placeholder: t("select.placeholder"),
+                           onchange: "select_destination_server(this.value)" %>
           </span>
+          <span id="all_destinations" class="d-none w-50" data-reveal-target="item">
+            <%= select_tag "to_server",
+                           grouped_options_for_select(
+                             @all_servers_per_frame, { selected: @destination_port&.server&.id },
+                           ),
+                           include_blank: true,
+                           class: "form-select",
+                           data: {
+                             controller: :select,
+                             select_clear_button_title_value: t("action.clear_all"),
+                           },
+                           placeholder: t("select.placeholder"),
+                           onchange: "select_destination_server(this.value)" %>
+          </span>
+          <button class="btn btn-link btn-sm" data-action="click->reveal#toggle" type="button">
+            <span data-reveal-target="item">
+              <%= t(".action.show_more_bay") %>
+            </span>
+            <span data-reveal-target="item" class="d-none">
+              <%= t(".action.show_less_bay") %>
+            </span>
+          </button>
         </div>
       <% end %>
       <div id="back_destination_server" class="back_server overflow-scroll">
@@ -43,6 +67,7 @@
       </div>
     <% end %>
     <%= f.hidden_field :port_to_id, value: @destination_port.try(:id) %>
+    <%= hidden_field_tag :frame_id, @frame.id %>
   </fieldset>
 
   <fieldset class="col-12 mt-4">
