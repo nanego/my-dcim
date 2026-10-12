@@ -21,6 +21,7 @@ class Modele < ApplicationRecord
                                 reject_if: :all_blank
 
   validate :validate_network_types_values
+  validate :cannot_destroy_enclosure_or_composant_with_cards
   normalizes :network_types, with: ->(values) { values.compact_blank }
 
   scope :sorted, -> { order(:name) }
@@ -75,5 +76,17 @@ class Modele < ApplicationRecord
     return if network_types.intersect?(Modele::Network::TYPES)
 
     errors.add(:network_types, :invalid)
+  end
+
+  def cannot_destroy_enclosure_or_composant_with_cards
+    enclosures.each do |enclosure|
+      if enclosure.marked_for_destruction?
+        errors.add(:enclosures, :have_cards) if enclosure.cards.any?
+      else
+        enclosure.composants.each do |composant|
+          errors.add(:composants, :have_cards) if composant.marked_for_destruction? && composant.cards.any?
+        end
+      end
+    end
   end
 end

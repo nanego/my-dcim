@@ -6,6 +6,7 @@ class Enclosure < ApplicationRecord
 
   belongs_to :modele
   has_many :composants, dependent: :destroy
+  has_many :cards, through: :composants
 
   enum :display, { vertical: "vertical", horizontal: "horizontal", grid: "grid" }, validate: true
 

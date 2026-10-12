@@ -560,6 +560,13 @@ fr:
             card_type_id:
               not_enough_ports: ne contient pas assez de ports
 
+        modele:
+          attributes:
+            enclosures:
+              have_cards: ne peux pas être supprimé car il possède des cartes
+            composants:
+              have_cards: ne peux pas être supprimé car il possède des cartes
+
       messages:
         contains_unpermitted_values: "contient des valeurs non autorisées : %{wrong_values}"
 
