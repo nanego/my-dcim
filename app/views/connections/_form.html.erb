@@ -139,9 +139,13 @@
         <%= f.text_field :cablename, class: "form-control", value: @from_port.cable.try(:name) %>
       </fieldset>
 
-      <fieldset class="col-12 mt-4">
+      <fieldset class="col-12 mt-4" data-controller="netsight-vlans">
         <%= f.label Port.human_attribute_name(:vlans), class: "form-label" %>
-        <%= f.text_field :vlans, class: "form-control", value: @from_port.vlans %>
+        <%= f.text_field :vlans, class: "form-control", value: @from_port.vlans, data: { netsight_vlans_target: "input" } %>
+
+        <% if @from_port.persisted? && @from_port.card.present? && !@from_port.is_power? %>
+          <%= turbo_frame_tag "netsight_port", loading: :lazy, src: port_netsight_port_path(@from_port) %>
+        <% end %>
       </fieldset>
 
       <div class="col-12 mt-4">

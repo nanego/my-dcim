@@ -1,4 +1,7 @@
 fr:
+  card_component:
+    source: "Source : %{source}"
+
   card_empty_data_component:
     title: Aucune donnée trouvée
 

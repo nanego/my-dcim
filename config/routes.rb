@@ -49,7 +49,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :ports, except: %i[create]
+  resources :ports, except: %i[create] do
+    resource :netsight_port, only: :show, module: :ports, controller: :netsight_port
+  end
   get "connections/edit", action: "edit", controller: "connections"
   post "connections/update_destination_server", action: "update_destination_server", controller: "connections"
   post "connections/update", action: "update", controller: "connections"

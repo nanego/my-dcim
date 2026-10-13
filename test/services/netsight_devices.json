@@ -1,0 +1,13 @@
+{
+  "data": {
+    "network": {
+      "devices": [
+        { "ip": "10.128.5.63", "sysName": "SXT_SEQ63a", "nickName": "SXT_SEQ63a" },
+        { "ip": "10.128.5.40", "sysName": "SXT_SEQ40c", "nickName": "SXT_SEQ40c" },
+        { "ip": "10.128.5.141", "sysName": "SXT_APS41a", "nickName": "SXT_APS00o" },
+        { "ip": "10.128.2.254", "sysName": "SWT_BIA01", "nickName": "SXT_SEQ40c" },
+        { "ip": "10.128.15.114", "sysName": "", "nickName": "" }
+      ]
+    }
+  }
+}

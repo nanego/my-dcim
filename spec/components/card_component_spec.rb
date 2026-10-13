@@ -72,6 +72,18 @@ RSpec.describe CardComponent, type: :component do
     it { expect(rendered_component.to_html).to have_css("div.card.test") }
   end
 
+  context "with an external source" do
+    let(:component) { described_class.new(source: "GLPI") }
+    let(:block) do
+      proc do |card|
+        card.with_header { "Text as header" }
+      end
+    end
+
+    it { expect(rendered_component.to_html).to have_css("div.card.card-external") }
+    it { expect(rendered_component.to_html).to have_tag("div.card-header", text: /Source : GLPI/) }
+  end
+
   context "with html attributes" do
     let(:component) { described_class.new(data: { key: :value }, id: "custom") }
 

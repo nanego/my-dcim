@@ -1,0 +1,26 @@
+{
+  "data": {
+    "network": {
+      "device": {
+        "sysName": "SXT_SEQ63a",
+        "entityData": {
+          "port": {
+            "ifName": "2:1",
+            "formattedOperStatus": "Up",
+            "formattedSpeed": "1 Gbps",
+            "ifAlias": "DSP-NETAPP-1 CTRL",
+            "isLagContributor": false,
+            "lagMasterIndex": 0
+          }
+        },
+        "deviceData": {
+          "port": {
+            "tagged": [1194, 1192],
+            "untagged": [],
+            "portPvid": 0
+          }
+        }
+      }
+    }
+  }
+}

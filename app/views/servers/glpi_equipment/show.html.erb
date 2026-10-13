@@ -8,7 +8,7 @@
         <% end %>
       </div>
     <% else %>
-      <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
+      <%= render CardComponent.new(extra_classes: "mt-4", source: "GLPI") do |card| %>
         <% card.with_header do %>
           <%= t(".title") %>
         <% end %>

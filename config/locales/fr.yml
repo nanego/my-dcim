@@ -319,6 +319,27 @@ fr:
     destroy:
       flashes:
         destroyed: Le port a été supprimé.
+    netsight_port:
+      show:
+        title: Données Netsight
+        demo: Exemple
+        not_configured: L'accès à Netsight n'est pas configuré.
+        no_switch: Aucun switch connu de Netsight sur ce port ni à l'autre bout du câble.
+        unsupported_card: "Le port %{port} du switch %{switch} est sur une carte d'uplink : sa numérotation Netsight n'est pas encore prise en charge."
+        port_not_found: "Le port %{if_index} est introuvable sur le switch %{switch} dans Netsight."
+        connection_error: "Problème lors de la connexion à Netsight :"
+        switch: Switch
+        port: Port
+        status: Statut
+        speed: Vitesse
+        description: Description
+        lag: Agrégat (LAG)
+        lag_member: Membre du LAG, port maître %{master}
+        vlans: VLAN
+        default_vlan: VLAN par défaut (1)
+        no_vlan: Aucun VLAN
+        differs_from_dcim: Différent de DCIM
+        apply_vlans: Mettre à jour DCIM
   port_types:
     index:
       new_port_type: Ajouter un type de port

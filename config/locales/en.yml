@@ -523,6 +523,28 @@ en:
   select:
     placeholder: Type to filter...
 
+  ports:
+    netsight_port:
+      show:
+        title: Netsight data
+        demo: Sample
+        not_configured: Netsight access is not configured.
+        no_switch: No switch known to Netsight on this port or at the other end of its cable.
+        unsupported_card: "Port %{port} of switch %{switch} is on an uplink card: its Netsight numbering is not supported yet."
+        port_not_found: "Port %{if_index} could not be found on switch %{switch} in Netsight."
+        connection_error: "Problem connecting to Netsight:"
+        switch: Switch
+        port: Port
+        status: Status
+        speed: Speed
+        description: Description
+        lag: Link aggregation (LAG)
+        lag_member: LAG member, master port %{master}
+        vlans: VLANs
+        default_vlan: Default VLAN (1)
+        no_vlan: No VLAN
+        differs_from_dcim: Differs from DCIM
+        apply_vlans: Update DCIM
   servers:
     glpi_equipment:
       data: GLPI data

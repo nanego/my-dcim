@@ -1,0 +1,11 @@
+.card-external {
+  border-style: dashed;
+
+  > .card-header {
+    border-bottom-style: dashed;
+  }
+
+  > .card-footer {
+    border-top-style: dashed;
+  }
+}

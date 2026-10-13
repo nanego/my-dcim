@@ -11,8 +11,17 @@ class CardComponent < ApplicationComponent
   erb_template <<~ERB
     <%= tag.div(**@html_attributes) do %>
       <% if header? %>
-        <div class="<%= class_names("card-header fw-bold", "text-bg-\#{@type}": @type) %>">
-          <%= header %>
+        <div class="<%= class_names("card-header fw-bold", "text-bg-\#{@type}": @type,
+                                    "d-flex align-items-center gap-2": @source) %>">
+          <% if @source %>
+            <div><%= header %></div>
+            <span class="ms-auto small fw-normal text-body-secondary text-nowrap">
+              <span class="bi bi-cloud-download" aria-hidden="true"></span>
+              <%= t(".source", source: @source) %>
+            </span>
+          <% else %>
+            <%= header %>
+          <% end %>
         </div>
       <% end %>
 
@@ -33,12 +42,13 @@ class CardComponent < ApplicationComponent
     <% end %>
   ERB
 
-  def initialize(type: :default, extra_classes: "", **html_attributes)
+  def initialize(type: :default, extra_classes: "", source: nil, **html_attributes)
     raise ArgumentError, "#{type} is not a valid type" unless TYPES.include?(type)
 
     @type = type unless type == :default
+    @source = source
     @html_attributes = html_attributes
-    @html_attributes[:class] = class_names("card", extra_classes, "border-#{@type}": @type)
+    @html_attributes[:class] = class_names("card", extra_classes, "border-#{@type}": @type, "card-external": source)
 
     super()
   end

@@ -9,6 +9,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
   API_URL = GlpiApiConfig.api_url
   API_KEY = GlpiApiConfig.apikey
   PROXY_URL = Rails.application.credentials.proxy_url
+  TIMEOUTS = { open_timeout: 3, timeout: 15 }.freeze
 
   DEFAULT_PARAMS = [
     "expand_dropdowns=false", # (default: false) Show dropdown name instead of id. Optional.
@@ -34,7 +35,7 @@ class GlpiClient # rubocop:disable Metrics/ClassLength
 
   def initialize
     @connection = if Rails.env.production? || GlpiApiConfig.local_server
-                    Faraday.new(API_URL, { ssl: { verify: false }, proxy: PROXY_URL }) do |f|
+                    Faraday.new(API_URL, { ssl: { verify: false }, proxy: PROXY_URL, request: TIMEOUTS }) do |f|
                       f.response :raise_error
                     end
                   else

@@ -1,0 +1,63 @@
+<%= turbo_frame_tag "netsight_port" do %>
+  <%= render CardComponent.new(extra_classes: "mt-3", source: "Netsight") do |card| %>
+    <% card.with_header do %>
+      <%= t(".title") %>
+      <% if @demo %>
+        <span class="badge text-bg-secondary ms-2"><%= t(".demo") %></span>
+      <% end %>
+    <% end %>
+
+    <% if !@configured %>
+      <%= t(".not_configured") %>
+    <% elsif @connection_error.present? %>
+      <%= t(".connection_error") %> <pre><code><%= @connection_error %></code></pre>
+    <% elsif @location.status == :no_switch %>
+      <%= t(".no_switch") %>
+    <% elsif @location.status == :unsupported_card %>
+      <%= t(".unsupported_card", switch: @location.port.server.name, port: @location.port.position) %>
+    <% elsif @netsight_port.nil? %>
+      <%= t(".port_not_found", switch: @location.sys_name, if_index: @location.if_index) %>
+    <% else %>
+      <dl class="show-page_dl d-grid row-gap-2 mb-0">
+        <dt class="pb-2"><%= t(".switch") %></dt>
+        <dd class="mb-0 pb-2 ps-3"><%= @netsight_port.sys_name %></dd>
+
+        <dt class="pb-2"><%= t(".port") %></dt>
+        <dd class="mb-0 pb-2 ps-3 font-monospace"><%= @netsight_port.if_name %></dd>
+
+        <dt class="pb-2"><%= t(".status") %></dt>
+        <dd class="mb-0 pb-2 ps-3"><%= value_or_nc @netsight_port.oper_status %></dd>
+
+        <dt class="pb-2"><%= t(".speed") %></dt>
+        <dd class="mb-0 pb-2 ps-3"><%= value_or_nc @netsight_port.speed %></dd>
+
+        <dt class="pb-2"><%= t(".description") %></dt>
+        <dd class="mb-0 pb-2 ps-3"><%= value_or_nc @netsight_port.description %></dd>
+
+        <% if @netsight_port.lag_member? %>
+          <dt class="pb-2"><%= t(".lag") %></dt>
+          <dd class="mb-0 pb-2 ps-3"><%= t(".lag_member", master: @netsight_port.lag_master_name) %></dd>
+        <% end %>
+
+        <dt class="pb-2"><%= t(".vlans") %></dt>
+        <dd class="mb-0 pb-2 ps-3">
+          <% if @netsight_port.default_vlan_only? %>
+            <%= t(".default_vlan") %>
+          <% else %>
+            <span class="font-monospace"><%= @netsight_port.dcim_vlans.presence || t(".no_vlan") %></span>
+
+            <% unless @netsight_port.matches_dcim?(@port.vlans) %>
+              <span class="badge text-bg-warning ms-2"><%= t(".differs_from_dcim") %></span>
+              <button type="button"
+                      class="btn btn-sm btn-outline-primary ms-2"
+                      data-action="netsight-vlans#apply"
+                      data-netsight-vlans-value-param="<%= @netsight_port.dcim_vlans %>">
+                <%= t(".apply_vlans") %>
+              </button>
+            <% end %>
+          <% end %>
+        </dd>
+      </dl>
+    <% end %>
+  <% end %>
+<% end %>
