@@ -76,5 +76,8 @@ Rails.application.configure do
   config.generators.apply_rubocop_autocorrect_after_generate!
 
   config.action_mailer.delivery_method = :letter_opener
-  config.action_mailer.default_url_options = { host: Rails.application.credentials.domain_name }
+  config.action_mailer.default_url_options = {
+    host: Rails.application.credentials.domain_name || "localhost",
+    port: ENV.fetch("PORT", 3000),
+  }
 end
