@@ -106,10 +106,6 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
       @server.create_missing_ports
       @server.reload
     end
-
-    if params[:with_moved_connection]
-      @moved_connections = MovedConnection.per_servers([@server])
-    end
   end
 
   def draw
