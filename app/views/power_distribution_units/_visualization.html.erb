@@ -9,7 +9,7 @@
           <span title="<%= PowerDistributionUnit::Circuit.model_name.human %> <%= socket.circuit.name %>"
                 data-controller="tooltip"
                 aria-label="<%= PowerDistributionUnit::Circuit.model_name.human %> <%= socket.circuit.name %>">
-            <% edit_port_url = socket.port ? connections_edit_path(from_port_id: socket.port.id) : edit_port_path(id: 0, socket_id: socket) %>
+            <% edit_port_url = socket.port ? connections_edit_path(from_port_id: socket.port.id) : edit_port_path(id: 0, attachable_id: socket.to_gid) %>
 
             <%= link_to edit_port_url,
                         class: "port",
@@ -36,9 +36,8 @@
           <% else %>
             <%= ports_by_card(port_type: card.card_type.try(:port_type),
                               port_quantity: card.card_type.try(:port_quantity),
-                              card_id: card.id,
+                              card: card,
                               ports_data: card.ports,
-                              is_pdu_card: true,
                               twin_card_used_ports: nil) %>
           <% end %>
         </span>
