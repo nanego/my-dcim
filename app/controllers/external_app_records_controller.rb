@@ -11,6 +11,10 @@ class ExternalAppRecordsController < ApplicationController
     @external_app_records = @filter.results
 
     @pagy, @external_app_records = pagy(@external_app_records)
+
+    @last_sync = requests.completed.order(:updated_at).last
+    @running_request = requests.active.first
+    @last_failure = requests.failed.where(updated_at: (@last_sync&.updated_at || Time.zone.at(0))..).last
   end
 
   def settings
@@ -28,10 +32,12 @@ class ExternalAppRecordsController < ApplicationController
   def sync_all_servers_with_glpi
     authorize!
 
-    if ExternalAppRequest.exists?(status: %w[pending in_progress], external_app_name: "glpi")
-      render json: { error: "Another request is already in progress" }
+    requests.stale.find_each { |request| request.fail!(t(".abandoned")) }
+
+    if requests.active.exists?
+      render json: { error: t(".already_running") }
     else
-      request = ExternalAppRequest.create!(status: :pending, user: current_user, external_app_name: "glpi")
+      request = requests.create!(status: :pending, user: current_user)
       SyncWithGlpiJob.perform_later
 
       render json: { request_id: request.id, status: request.status, progress: request.progress }
@@ -39,6 +45,10 @@ class ExternalAppRecordsController < ApplicationController
   end
 
   private
+
+  def requests
+    ExternalAppRequest.where(external_app_name: ExternalAppRecord::GLPI_APP_NAME)
+  end
 
   def settings_params
     params[:external_app_record_setting]&.permit(category_glpi_sync_types: {}) || {}

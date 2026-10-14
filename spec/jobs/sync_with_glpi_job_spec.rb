@@ -28,4 +28,20 @@ RSpec.describe SyncWithGlpiJob do
     it { expect(request.status).to eq("completed") }
     it { expect(request.progress).to eq(100) }
   end
+
+  context "without a pending request" do
+    before { request.update!(status: :completed) }
+
+    it { expect { described_class.perform_now }.not_to raise_error }
+  end
+
+  context "when GLPI cannot be reached" do
+    before do
+      allow(GlpiClient).to receive(:new).and_raise(Faraday::ConnectionFailed, "Failed to open TCP connection")
+      described_class.perform_now
+      request.reload
+    end
+
+    it { expect(request).to have_attributes(status: "failed", error_message: "Failed to open TCP connection") }
+  end
 end

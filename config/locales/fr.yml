@@ -450,9 +450,14 @@ fr:
       synchronised_categories_list:
         title: "Liste des catégories qui seront synchronisées :"
         item_html: "<b>%{type}</b> : <i>%{categories}</i>"
-      last_complete_synch: "Dernière synchronisation complète :"
+      last_complete_sync: "Dernière synchronisation complète :"
       none: aucune
       synchronizing: "Synchronisation en cours..."
+      failed: Synchronisation en erreur
+      last_failure: "Dernière tentative en erreur le %{date} :"
+    sync_all_servers_with_glpi:
+      already_running: Une synchronisation est déjà en cours.
+      abandoned: "Synchronisation abandonnée : elle ne progressait plus (redémarrage du serveur ?)."
     settings:
       title: Configuration de la synchronisation
       category_ids: Choisir le type de synchronisation pour chaque catégorie

@@ -4,7 +4,7 @@ class SyncWithGlpiJob < ApplicationJob
   queue_as :default
 
   def perform
-    request = ExternalAppRequest.find_by(status: "pending", external_app_name: "glpi")
+    request = ExternalAppRequest.find_by(status: "pending", external_app_name: ExternalAppRecord::GLPI_APP_NAME) or return
     request.update(status: :in_progress)
 
     begin
@@ -28,7 +28,7 @@ class SyncWithGlpiJob < ApplicationJob
 
       request.update(status: :completed, progress: 100)
     rescue StandardError => e
-      request.update(status: :failed)
+      request.fail!(e.message)
 
       Rails.logger.error "ExternalAppRequest failed: #{e.message}"
     end

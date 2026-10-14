@@ -3,16 +3,6 @@
 <%= render Page::HeadingComponent.new(title:, breadcrumb:, back_button_url: servers_path) do |heading| %>
   <% heading.with_right_content do %>
     <div class="d-flex align-self-center column-gap-2">
-      <%= button_to sync_with_glpi_external_app_records_path,
-                    id: "sync_with_glpi_button",
-                    class: "btn btn-outline-primary d-inline-block",
-                    title: t(".start_synchronization"),
-                    remote: true,
-                    method: :put do %>
-        <i class="bi bi-arrow-repeat"></i>
-        <span class="ms-2 d-none d-md-inline-flex"><%= t(".start_synchronization") %></span>
-      <% end %>
-
       <%= render ButtonComponent.new(t(".configuration"),
                                      url: settings_external_app_records_path,
                                      variant: :secondary,
@@ -23,42 +13,54 @@
 <% end %>
 
 <div class="p-4 border-top d-flex flex-column row-gap-4">
-  <div class="alert alert-primary mb-0" role="alert" id="sync_alert">
-    <div id="sync_latest_text">
-      <i class="bi bi-info-circle-fill me-2"></i>
-      <span>
+  <div class="alert alert-primary mb-0"
+       role="alert"
+       id="glpi_sync"
+       data-controller="external-app-sync"
+       data-external-app-sync-sync-url-value="<%= sync_with_glpi_external_app_records_path %>"
+       data-external-app-sync-request-url-value="<%= external_app_request_path("__id__") %>"
+       data-external-app-sync-request-id-value="<%= @running_request&.id %>"
+       data-external-app-sync-failed-message-value="<%= t(".failed") %>">
+    <div class="d-flex align-items-start column-gap-3" data-external-app-sync-target="latest">
+      <div class="flex-grow-1">
+        <i class="bi bi-info-circle-fill me-2"></i>
         <span class="fst-italic">
-          <%= t(".last_complete_synch") %>
-          <%- if date = ExternalAppRequest.completed.order('updated_at desc').limit(1).pluck(:updated_at).last %>
-            <%= l(date) %>
-          <%- else %>
-            <%= t(".none") %>
-          <%- end %>
+          <%= t(".last_complete_sync") %> <%= @last_sync ? l(@last_sync.updated_at) : t(".none") %>
         </span>
+        <% if @last_failure %>
+          <p class="mb-0 mt-2 text-danger">
+            <i class="bi bi-x-circle-fill me-2"></i><%= t(".last_failure", date: l(@last_failure.updated_at)) %>
+            <span class="font-monospace small"><%= @last_failure.error_message %></span>
+          </p>
+        <% end %>
         <hr>
-        <div>
-          <p><%= t(".synchronised_categories_list.title") %></p>
-          <ul>
-            <% Category.glpi_synchronizable.select(:glpi_sync_type, :name).group_by(&:glpi_sync_type).each do |type, categories| %>
-              <li>
-                <%= t(".synchronised_categories_list.item_html", type: CategoryDecorator.glpi_sync_type_human_for(type), categories: categories.pluck(:name).to_sentence) %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </span>
+        <p><%= t(".synchronised_categories_list.title") %></p>
+        <ul class="mb-0">
+          <% Category.glpi_synchronizable.select(:glpi_sync_type, :name).group_by(&:glpi_sync_type).each do |type, categories| %>
+            <li>
+              <%= t(".synchronised_categories_list.item_html", type: CategoryDecorator.glpi_sync_type_human_for(type), categories: categories.pluck(:name).to_sentence) %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+      <% if allowed_to?(:sync_all_servers_with_glpi?) %>
+        <button type="button" class="btn btn-outline-primary text-nowrap" data-action="external-app-sync#start">
+          <i class="bi bi-arrow-repeat"></i>
+          <span class="ms-2 d-none d-md-inline-flex"><%= t(".start_synchronization") %></span>
+        </button>
+      <% end %>
     </div>
 
-    <div id="current_sync_status" class="d-none">
-      <span id="current_sync_status_label"><%= t(".synchronizing") %></span>
+    <div class="d-none" data-external-app-sync-target="status">
+      <span data-external-app-sync-target="label"><%= t(".synchronizing") %></span>
       <span class="progress mt-2">
-        <span id="current_sync_progress_bar"
-              class="progress-bar progress-bar-striped"
+        <span class="progress-bar progress-bar-striped"
               role="progressbar"
-              aria-valuenow="0%"
               aria-valuemin="0"
               aria-valuemax="100"
-              style="width: 0%"></span>
+              style="width: 0%"
+              data-external-app-sync-target="bar"></span>
       </span>
     </div>
   </div>
@@ -154,61 +156,3 @@
 
   <%== render PaginationComponent.new(pagy: @pagy) %>
 </div>
-
-<script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
-  //<![CDATA[
-  $(document).ready(function () {
-
-    document.getElementById('sync_with_glpi_button').addEventListener('click', function (event) {
-      event.preventDefault();
-      fetch('<%= sync_with_glpi_external_app_records_path %>', {
-        method: 'PUT'
-      }).then(response => response.json())
-        .then(data => {
-          const requestId = data.request_id;
-          displaySyncStatus(requestId);
-        });
-    });
-
-    <% current_request = ExternalAppRequest.in_progress.first %>
-    <% if current_request %>
-    displaySyncStatus(<%= current_request.id %>);
-    document.getElementById('current_sync_status').innerHTML += '<%= if current_request.created_at < 5.minutes.ago(Time.zone.now)
-                                                                       button_to("Annuler",
-                                                                                 external_app_request_path(current_request),
-                                                                                 class: "btn btn-danger",
-                                                                                 method: :delete)
-                                                                     end %>';
-    <% end %>
-  });
-
-  function displaySyncStatus(requestId) {
-    document.getElementById('current_sync_status').classList.remove("d-none");
-    document.getElementById('sync_latest_text').classList.add("d-none");
-
-    checkRequestProgress(requestId);
-  }
-
-  function checkRequestProgress(requestId) {
-    fetch(`/external_app_requests/${requestId}`)
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('current_sync_progress_bar').style.width = data.progress + '%';
-        if (data.status === 'completed') {
-          document.getElementById('current_sync_status_label').innerText = 'Synchronisation terminée. Rechargez la page pour consulter les nouvelles données.';
-          document.getElementById('current_sync_progress_bar').classList.add('bg-success');
-          document.getElementById('sync_alert').classList.replace('alert-primary', 'alert-success');
-        } else {
-          if (data.status === 'failed') {
-            document.getElementById('current_sync_status_label').innerText = 'Synchronisation en erreur';
-            document.getElementById('current_sync_progress_bar').classList.add('bg-danger');
-            document.getElementById('sync_alert').classList.replace('alert-primary', 'alert-danger');
-          } else {
-            setTimeout(() => checkRequestProgress(requestId), 1000);
-          }
-        }
-      });
-  }
-
-  //]]>
-</script>

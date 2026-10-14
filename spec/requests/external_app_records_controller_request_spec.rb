@@ -26,6 +26,34 @@ RSpec.describe ExternalAppRecordsController do
 
     it { expect { response }.to have_rubanok_processed(ExternalAppRecord.all).with(ExternalAppRecordsProcessor) }
 
+    context "when a Netsight synchronization completed after the GLPI one" do
+      before do
+        ExternalAppRequest.create!(user: users(:admin), external_app_name: "glpi", status: :completed,
+                                   updated_at: Time.zone.local(2026, 1, 2, 10, 0))
+        ExternalAppRequest.create!(user: users(:admin), external_app_name: "netsight", status: :completed,
+                                   updated_at: Time.zone.local(2026, 3, 4, 10, 0))
+      end
+
+      it { expect(response.body).to include(I18n.l(Time.zone.local(2026, 1, 2, 10, 0))) }
+      it { expect(response.body).not_to include(I18n.l(Time.zone.local(2026, 3, 4, 10, 0))) }
+    end
+
+    context "when a Netsight synchronization is running" do
+      let!(:netsight_request) do
+        ExternalAppRequest.create!(user: users(:admin), external_app_name: "netsight", status: :in_progress)
+      end
+
+      it { expect(response.body).not_to include(%(data-external-app-sync-request-id-value="#{netsight_request.id}")) }
+    end
+
+    context "when the last attempt failed" do
+      before do
+        ExternalAppRequest.create!(user: users(:admin), external_app_name: "glpi").fail!("Failed to open TCP connection")
+      end
+
+      it { expect(response.body).to include("Failed to open TCP connection") }
+    end
+
     context "when searching on external_serial_status" do
       let(:params) { { external_serial_status: "found" } }
 
@@ -60,6 +88,34 @@ RSpec.describe ExternalAppRecordsController do
       expect(response.parsed_body).to include("request_id" => ExternalAppRequest.last.id,
                                               "status" => "pending",
                                               "progress" => 0)
+    end
+
+    context "when a GLPI synchronization is running" do
+      before { ExternalAppRequest.create!(user: users(:admin), external_app_name: "glpi", status: :in_progress) }
+
+      it { expect { response }.not_to have_enqueued_job(SyncWithGlpiJob) }
+      it { expect(response.parsed_body).to eq("error" => I18n.t("external_app_records.sync_all_servers_with_glpi.already_running")) }
+    end
+
+    context "when only a Netsight synchronization is running" do
+      before { ExternalAppRequest.create!(user: users(:admin), external_app_name: "netsight", status: :in_progress) }
+
+      it { expect { response }.to have_enqueued_job(SyncWithGlpiJob) }
+    end
+
+    context "when a GLPI synchronization stopped making progress" do
+      let!(:stale_request) do
+        ExternalAppRequest.create!(user: users(:admin), external_app_name: "glpi", status: :in_progress).tap do |request|
+          request.update_columns(updated_at: 1.hour.ago) # rubocop:disable Rails/SkipsModelValidations
+        end
+      end
+
+      it { expect { response }.to have_enqueued_job(SyncWithGlpiJob) }
+
+      it do
+        response
+        expect(stale_request.reload).to have_attributes(status: "failed", error_message: be_present)
+      end
     end
   end
 
