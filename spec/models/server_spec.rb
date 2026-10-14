@@ -162,6 +162,26 @@ RSpec.describe Server do
     pending
   end
 
+  describe "#documentation_url" do
+    context "with no documentation_url value on manufacturer" do
+      let(:server) { described_class.new({ numero: "some" }) }
+
+      it { expect(server.documentation_url).to be_nil }
+    end
+
+    context "with no numero on server" do
+      let(:server) { described_class.new({ modele_id: 1 }) }
+
+      it { expect(server.documentation_url).to be_nil }
+    end
+
+    context "with documentation_url value on manufacturer" do
+      let(:server) { servers(:one) }
+
+      it { expect(server.documentation_url).to eq("https://fortinet.com/CZ31535FEY/document") }
+    end
+  end
+
   describe "#deep_dup" do
     pending
   end
