@@ -13,8 +13,6 @@
       <%= t(".connection_error") %> <pre><code><%= @connection_error %></code></pre>
     <% elsif @location.status == :no_switch %>
       <%= t(".no_switch") %>
-    <% elsif @location.status == :unsupported_card %>
-      <%= t(".unsupported_card", switch: @location.port.server.name, port: @location.port.position) %>
     <% elsif @netsight_port.nil? %>
       <%= t(".port_not_found", switch: @location.sys_name, if_index: @location.if_index) %>
     <% else %>
@@ -58,6 +56,12 @@
           <% end %>
         </dd>
       </dl>
+    <% end %>
+
+    <% if allowed_to?(:index?, with: NetsightSyncResultPolicy) %>
+      <% card.with_footer do %>
+        <%= link_to t(".sync_page"), netsight_sync_results_path, class: "small netsight-sync-page-link", data: { turbo_frame: "_top" } %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

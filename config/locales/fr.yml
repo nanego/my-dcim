@@ -325,7 +325,6 @@ fr:
         demo: Exemple
         not_configured: L'accès à Netsight n'est pas configuré.
         no_switch: Aucun switch connu de Netsight sur ce port ni à l'autre bout du câble.
-        unsupported_card: "Le port %{port} du switch %{switch} est sur une carte d'uplink : sa numérotation Netsight n'est pas encore prise en charge."
         port_not_found: "Le port %{if_index} est introuvable sur le switch %{switch} dans Netsight."
         connection_error: "Problème lors de la connexion à Netsight :"
         switch: Switch
@@ -340,6 +339,7 @@ fr:
         no_vlan: Aucun VLAN
         differs_from_dcim: Différent de DCIM
         apply_vlans: Mettre à jour DCIM
+        sync_page: Voir la synchronisation de tous les switchs
   port_types:
     index:
       new_port_type: Ajouter un type de port
@@ -404,6 +404,44 @@ fr:
       title: Dupliquer le modèle %{modele_name}
     preview:
       modal_title: Prévisualisation du modèle %{modele_name}
+  netsight_sync_results:
+    index:
+      title: Synchronisation avec Netsight
+      description: "Compare les switchs DCIM avec Netsight : identité (numéro de série, puis nom), VLAN des ports et liens entre switchs (y compris à travers les patch panels et leurs cartes jumelles). Rien n'est modifié dans DCIM sans validation."
+      start_synchronization: Synchroniser avec Netsight
+      last_complete_sync: "Dernière synchronisation complète :"
+      none: aucune
+      synchronizing: "Synchronisation en cours..."
+      failed: Synchronisation en erreur
+      kinds:
+        vlan: VLAN
+        link: Liens entre switchs
+        switch: Identité des switchs
+      apply: Mettre à jour DCIM
+      apply_confirmation: Remplacer les valeurs DCIM des lignes sélectionnées par celles de Netsight ?
+      apply_help:
+        vlan: "Remplace les VLAN DCIM (%{dcim}) par ceux de Netsight (%{netsight}), aussi sur le port à l'autre bout du câble."
+        switch: "Remplace le N° Série DCIM (%{dcim}) par celui de Netsight (%{netsight})."
+        none: aucun
+      applied_at: Appliqué le %{date}
+      edit_connection: Modifier la connexion
+      show_switch: Voir le switch
+      edit_switch: Modifier le switch
+      notes:
+        netsight_unreachable: Relancer la synchro plus tard
+      not_configured: "L'accès à Netsight n'est pas configuré (identifiants netsight absents des credentials) : la synchronisation est désactivée."
+      last_failure: "Dernière tentative en erreur le %{date} :"
+      unreachable_details: "Anciens résultats de ce switch conservés. Erreur : %{error}"
+    sync:
+      not_configured: L'accès à Netsight n'est pas configuré.
+      abandoned: "Synchronisation abandonnée : elle ne progressait plus (redémarrage du serveur ?)."
+      already_running: Une synchronisation est déjà en cours.
+    apply:
+      flashes:
+        applied:
+          zero: Aucune mise à jour (déjà appliquée, valeur modifiée dans DCIM depuis la synchronisation, ou numéro de série déjà utilisé).
+          one: 1 mise à jour effectuée.
+          other: "%{count} mises à jour effectuées."
   external_app_records:
     index:
       title: Synchronisation avec GLPI
@@ -459,6 +497,7 @@ fr:
     index:
       add_server_via_csv: Ajouter par un fichier CSV
       sync_with_external_apps: Synchroniser avec GLPI
+      sync_with_netsight: Synchroniser avec Netsight
     show:
       back_to_bay: Baie %{name}
       documentation: Documentation
@@ -1037,6 +1076,7 @@ fr:
         cable_name: Nom du câble
         server_ids: Matériel
         server_name: Nom du matériel
+        statuses: Statut
         card_query: "Carte : nom, type ou composant"
         colors: Couleurs du câble
         special_case: Backbone réseau

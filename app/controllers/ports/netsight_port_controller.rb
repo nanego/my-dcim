@@ -5,12 +5,12 @@ module Ports
     before_action :set_port
 
     def show
-      return unless (@configured = NetsightClient.configured?)
+      return unless (@configured = Netsight::Client.configured?)
 
-      @demo = NetsightClient.demo?
+      @demo = Netsight::Client.demo?
 
-      client = NetsightClient.new
-      @location = NetsightPortLocator.new(client:).call(@port)
+      client = Netsight::Client.new
+      @location = Netsight::PortLocator.new(client:).call(@port)
       @netsight_port = client.port(ip: @location.ip, if_index: @location.if_index) if @location.found?
     rescue StandardError => e
       Rails.logger.warn "WARNING: couldn't get Netsight data because of an error: #{e.message}"

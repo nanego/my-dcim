@@ -7,9 +7,10 @@ module List
       DatatableColumn.new(title, **options, &block)
     }
 
-    def initialize(data, columns_to_display: nil, empty_icon: :table, **_options)
+    def initialize(data, columns_to_display: nil, empty_icon: :table, table_class: nil, **_options)
       @data = data
       @empty_icon = empty_icon
+      @table_class = table_class
       @columns_to_display = columns_to_display&.map(&:to_sym)
 
       super()
@@ -20,7 +21,7 @@ module List
         render CardEmptyDataComponent.new(icon: @empty_icon)
       else
         bulk_actions_wrapper do
-          render List::TableComponent.new do |table|
+          render List::TableComponent.new(class: @table_class) do |table|
             table.with_head do
               render List::TableComponent::TableRow.new do
                 concat(render_bulk_head_checkbox) if bulk_actions?

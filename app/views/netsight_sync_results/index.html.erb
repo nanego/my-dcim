@@ -1,0 +1,180 @@
+<% breadcrumb.add_step(title = t(".title")) %>
+
+<%= render Page::HeadingComponent.new(title:, breadcrumb:, back_button_url: servers_path) %>
+
+<div class="netsight-sync-results p-4 border-top d-flex flex-column row-gap-4">
+  <% unless @configured %>
+    <div class="alert alert-warning mb-0" role="alert">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i><%= t(".not_configured") %>
+    </div>
+  <% end %>
+
+  <div class="alert alert-primary mb-0"
+       role="alert"
+       id="netsight_sync"
+       data-controller="external-app-sync"
+       data-external-app-sync-sync-url-value="<%= sync_netsight_sync_results_path %>"
+       data-external-app-sync-request-url-value="<%= external_app_request_path("__id__") %>"
+       data-external-app-sync-request-id-value="<%= @running_request&.id %>"
+       data-external-app-sync-failed-message-value="<%= t(".failed") %>">
+    <div class="d-flex align-items-start column-gap-3" data-external-app-sync-target="latest">
+      <div class="flex-grow-1">
+        <i class="bi bi-info-circle-fill me-2"></i>
+        <span class="fst-italic">
+          <%= t(".last_complete_sync") %> <%= @last_sync ? l(@last_sync.updated_at) : t(".none") %>
+        </span>
+        <p class="mb-0 mt-2"><%= t(".description") %></p>
+        <% if @last_failure %>
+          <p class="mb-0 mt-2 text-danger">
+            <i class="bi bi-x-circle-fill me-2"></i><%= t(".last_failure", date: l(@last_failure.updated_at)) %>
+            <span class="font-monospace small"><%= @last_failure.error_message %></span>
+          </p>
+        <% end %>
+      </div>
+
+      <% if @configured && allowed_to?(:sync?) %>
+        <button type="button" class="btn btn-outline-primary text-nowrap" data-action="external-app-sync#start">
+          <i class="bi bi-arrow-repeat"></i>
+          <span class="ms-2 d-none d-md-inline-flex"><%= t(".start_synchronization") %></span>
+        </button>
+      <% end %>
+    </div>
+
+    <div class="d-none" data-external-app-sync-target="status">
+      <span data-external-app-sync-target="label"><%= t(".synchronizing") %></span>
+      <span class="progress mt-2">
+        <span class="progress-bar progress-bar-striped"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style="width: 0%"
+              data-external-app-sync-target="bar"></span>
+      </span>
+    </div>
+  </div>
+
+  <ul class="nav nav-tabs">
+    <% NetsightSyncResult.kinds.each_key do |kind| %>
+      <li class="nav-item">
+        <%= link_to netsight_sync_results_path(kind:),
+                    class: class_names("nav-link", active: kind == @kind),
+                    aria: { current: (kind == @kind ? "page" : nil) } do %>
+          <%= t(".kinds.#{kind}") %>
+          <span class="badge rounded-pill text-bg-secondary ms-1"><%= @counts.fetch(kind, 0) %></span>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+
+    <%= render FilterComponent.new(@filter) do |c| %>
+      <% c.with_form do |f| %>
+        <%= pagy_to_hidden_fields(@pagy) %>
+        <%= hidden_field_tag :kind, @kind %>
+
+        <div>
+          <fieldset class="form-floating">
+            <%= f.select(:statuses,
+                         NetsightSyncResultDecorator.status_options_for_select(@kind),
+                         { prompt: true },
+                         { class: "form-select",
+                           multiple: true,
+                           data: { controller: :select, select_clear_button_title_value: t("action.clear_all") } }) %>
+            <%= f.label :statuses %>
+          </fieldset>
+        </div>
+
+        <div>
+          <fieldset class="form-floating">
+            <%= f.collection_select(:frame_ids, Frame.order(:name),
+                                    :id,
+                                    :name,
+                                    { prompt: true, multiple: true },
+                                    { class: "form-select",
+                                      data: { controller: :select, select_clear_button_title_value: t("action.clear_all") } }) %>
+            <%= f.label :frame_ids %>
+          </fieldset>
+        </div>
+
+        <div>
+          <fieldset class="form-floating">
+            <%= f.text_field :server_name, class: "form-control", placeholder: t("filters.placeholder.search") %>
+            <%= f.label :server_name %>
+          </fieldset>
+        </div>
+      <% end %>
+    <% end %>
+
+    <%= render List::DataTableComponent.new(@results, table_class: "table-sm align-middle table-nowrap-head") do |table| %>
+      <% if @kind.in?(%w[vlan switch]) && allowed_to?(:apply?) %>
+        <% table.with_bulk_action(url: apply_netsight_sync_results_path,
+                                  method: :patch,
+                                  class: "btn btn-primary btn-sm",
+                                  data: { confirm: t(".apply_confirmation") }) do %>
+          <%= t(".apply") %>
+        <% end %>
+      <% end %>
+
+      <% table.with_column(NetsightSyncResult.human_attribute_name(:server_id), sort_by: :"servers.name") do |result| %>
+        <%= link_to result.server, server_path(result.server), class: "text-nowrap" %>
+      <% end %>
+
+      <% if @kind == "switch" %>
+        <% table.with_column(Server.human_attribute_name(:modele)) do |result| %>
+          <span class="text-nowrap"><%= result.server.modele %></span>
+        <% end %>
+
+        <% table.with_column(NetsightSyncResult.human_attribute_name(:dcim_serial)) do |result| %>
+          <span class="font-monospace text-nowrap"><%= value_or_nc result.dcim_value %></span>
+        <% end %>
+
+        <% table.with_column(NetsightSyncResult.human_attribute_name(:netsight_serial)) do |result| %>
+          <span class="font-monospace text-nowrap"><%= value_or_nc(result.netsight_value) unless result.status_netsight_unreachable? %></span>
+        <% end %>
+
+        <% table.with_column(NetsightSyncResult.human_attribute_name(:netsight_device)) do |result| %>
+          <span class="text-nowrap"><%= value_or_nc result.netsight_peer %></span>
+        <% end %>
+      <% else %>
+        <% table.with_column(NetsightSyncResult.human_attribute_name(:port), sort_by: :if_name) do |result| %>
+          <span class="d-inline-flex align-items-center column-gap-2 text-nowrap">
+            <%= netsight_dcim_port_tag(result.port) if result.port %>
+            <span class="font-monospace text-body-secondary" title="<%= NetsightSyncResult.human_attribute_name(:if_name) %>"><%= result.if_name %></span>
+          </span>
+        <% end %>
+      <% end %>
+
+      <% if @kind == "vlan" %>
+        <% table.with_column(NetsightSyncResult.human_attribute_name(:dcim_vlans), class: "w-25") do |result| %>
+          <span class="font-monospace"><%= netsight_vlans_tag(result.dcim_value) %></span>
+        <% end %>
+
+        <% table.with_column(NetsightSyncResult.human_attribute_name(:netsight_vlans), class: "w-25") do |result| %>
+          <span class="font-monospace"><%= netsight_vlans_tag(result.netsight_value) %></span>
+        <% end %>
+      <% elsif @kind == "link" %>
+        <% table.with_column(NetsightSyncResult.human_attribute_name(:netsight_peer)) do |result| %>
+          <span class="text-nowrap"><%= result.netsight_peer %></span>
+        <% end %>
+
+        <% table.with_column(NetsightSyncResult.human_attribute_name(:dcim_path)) do |result| %>
+          <%= value_or_nc result.dcim_path %>
+        <% end %>
+      <% end %>
+
+      <% table.with_column(NetsightSyncResult.human_attribute_name(:status), sort_by: :status) do |result| %>
+        <span class="text-nowrap" title="<%= result.decorated.status_details %>"><%= render result.decorated.status_to_badge_component %></span>
+      <% end %>
+
+      <% table.with_column(NetsightSyncResult.human_attribute_name(:frame_id), sort_by: :"frames.name") do |result| %>
+        <span class="text-nowrap"><%= result.frame %></span>
+      <% end %>
+
+      <% table.with_column(text_align: :center) do |result| %>
+        <%= netsight_result_action(result) %>
+      <% end %>
+    <% end %>
+
+    <%== render PaginationComponent.new(pagy: @pagy) %>
+
+  <%= render "ports/modal_edit_port" %>
+</div>

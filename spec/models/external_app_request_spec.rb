@@ -21,4 +21,23 @@ RSpec.describe ExternalAppRequest do
   it "sets default progress to 0" do
     expect(request.progress).to eq(0)
   end
+
+  describe "#fail!" do
+    before { request.save! }
+
+    it { expect { request.fail!("boom") }.to change(request, :status).to("failed") }
+    it { expect { request.fail!("x" * 600) }.to change { request.error_message.to_s.size }.to(500) }
+  end
+
+  describe ".stale and .active" do
+    before { request.update!(status: :in_progress) }
+
+    it { expect(described_class.active).to include(request) }
+
+    it "considers a request without progress for too long as stale" do
+      request.update_columns(updated_at: 11.minutes.ago) # rubocop:disable Rails/SkipsModelValidations
+
+      expect(described_class.stale).to include(request)
+    end
+  end
 end

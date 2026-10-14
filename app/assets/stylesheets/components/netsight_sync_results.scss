@@ -1,0 +1,5 @@
+// The Netsight block of a port links to this page, pointless in its modal.
+// !important overrides the d-flex utility of the card footer.
+.netsight-sync-results .card-footer:has(.netsight-sync-page-link) {
+  display: none !important;
+}

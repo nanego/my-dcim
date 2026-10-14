@@ -1,0 +1,28 @@
+{
+  "192.0.2.63": {
+    "ip": "192.0.2.63",
+    "deviceData": { "serialNumber": "0002G-00001" },
+    "entityData": {
+      "deviceTopology": [
+        { "entPhysicalClass": 11, "entPhysicalName": "Stack", "entPhysicalSerialNum": "0002G-00001" },
+        { "entPhysicalClass": 5, "entPhysicalName": "Slot-1", "entPhysicalSerialNum": "0002G-00001" },
+        { "entPhysicalClass": 5, "entPhysicalName": "Slot-2", "entPhysicalSerialNum": "0002G-00002 " },
+        { "entPhysicalClass": 8, "entPhysicalName": "QSFP+", "entPhysicalSerialNum": "0005X-00053     " }
+      ]
+    }
+  },
+  "192.0.2.60": {
+    "ip": "192.0.2.60",
+    "deviceData": { "serialNumber": "0003N-00026" },
+    "entityData": {
+      "deviceTopology": [
+        { "entPhysicalClass": 5, "entPhysicalName": "Switch", "entPhysicalSerialNum": "0003N-00026" }
+      ]
+    }
+  },
+  "192.0.2.40": {
+    "ip": "192.0.2.40",
+    "deviceData": { "serialNumber": "0004N-00000" },
+    "entityData": { "deviceTopology": [] }
+  }
+}

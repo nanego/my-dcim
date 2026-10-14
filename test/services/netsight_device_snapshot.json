@@ -1,0 +1,33 @@
+{
+  "data": {
+    "network": {
+      "device": {
+        "sysName": "SW_TEST01",
+        "entityData": {
+          "allPorts": [
+            { "ifIndex": 1001, "ifName": "1:1", "formattedOperStatus": "Up", "formattedSpeed": "1 Gbps", "ifAlias": "SERVER-1", "isLagContributor": false, "lagMasterIndex": 0 },
+            { "ifIndex": 1002, "ifName": "1:2", "formattedOperStatus": "Down", "formattedSpeed": "", "ifAlias": "", "isLagContributor": false, "lagMasterIndex": 0 },
+            { "ifIndex": 1051, "ifName": "1:51", "formattedOperStatus": "Up", "formattedSpeed": "10 Gbps", "ifAlias": "MLAG SW_TEST03", "isLagContributor": true, "lagMasterIndex": 1051 },
+            { "ifIndex": 1052, "ifName": "1:52", "formattedOperStatus": "Up", "formattedSpeed": "10 Gbps", "ifAlias": "UPLINK SW_TEST02", "isLagContributor": true, "lagMasterIndex": 1052 },
+            { "ifIndex": 2001, "ifName": "2:1", "formattedOperStatus": "Up", "formattedSpeed": "1 Gbps", "ifAlias": "STORAGE-1 CTRL", "isLagContributor": false, "lagMasterIndex": 0 },
+            { "ifIndex": 1000001, "ifName": "", "formattedOperStatus": "Up", "formattedSpeed": "", "ifAlias": "", "isLagContributor": false, "lagMasterIndex": 0 }
+          ]
+        },
+        "deviceData": {
+          "ports": [
+            { "ifIndex": 1001, "tagged": [], "untagged": [201], "portPvid": 201 },
+            { "ifIndex": 1002, "tagged": [], "untagged": [1], "portPvid": 1 },
+            { "ifIndex": 1051, "tagged": [201, 1192, 1194], "untagged": [], "portPvid": 0 },
+            { "ifIndex": 1052, "tagged": [201, 1192, 1194], "untagged": [], "portPvid": 0 },
+            { "ifIndex": 2001, "tagged": [1194, 1192], "untagged": [], "portPvid": 0 }
+          ]
+        },
+        "links": [
+          { "ifName1": "1:3", "deviceIp1": "192.0.2.60", "ifName2": "1:52", "deviceIp2": "192.0.2.63", "discoveryProto": "EDP", "formattedType": "Interswitch (LAG Member)", "status": "up" },
+          { "ifName1": "1:3", "deviceIp1": "192.0.2.60", "ifName2": "1:52", "deviceIp2": "192.0.2.63", "discoveryProto": "EDP", "formattedType": "Interswitch (LAG Member)", "status": "up" },
+          { "ifName1": "1:51", "deviceIp1": "192.0.2.73", "ifName2": "1:51", "deviceIp2": "192.0.2.63", "discoveryProto": "EDP", "formattedType": "MLAG Control / LAG", "status": "up" }
+        ]
+      }
+    }
+  }
+}

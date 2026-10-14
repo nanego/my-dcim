@@ -4,7 +4,8 @@ class ExternalAppRequestsController < ApplicationController
   def show
     authorize! @external_app_request = ExternalAppRequest.find(params[:id])
     render json: { status: @external_app_request.status,
-                   progress: @external_app_request.progress }
+                   progress: @external_app_request.progress,
+                   error_message: @external_app_request.error_message }
   end
 
   def destroy

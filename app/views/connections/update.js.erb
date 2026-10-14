@@ -2,7 +2,7 @@ $("#edit_port_modal").modal("hide");
 
 <% if @from_server.present? %>
   $("#back_server_<%= @from_server.id %>").html("<%= escape_javascript(render partial: 'servers/draw_server_compact', locals: { server: @from_server, should_hide_left_block: true }) %>");
-  document.querySelector("#connections-tab-pane turbo-frame#table_connection").reload();
+  document.querySelector("#connections-tab-pane turbo-frame#table_connection")?.reload();
 <% elsif @from_pdu.present? %>
   $("#pdu-vizualisation-<%= @from_pdu.id %>").html("<%= escape_javascript(render partial: "power_distribution_units/visualization", locals: { power_distribution_unit: @from_pdu }) %>");
 <% end %>

@@ -200,6 +200,44 @@ en:
       back_wiring: Wiring - Back panel
     port_list: Ports list
 
+  netsight_sync_results:
+    index:
+      title: Netsight synchronization
+      description: "Compares DCIM switches with Netsight: identity (serial number, then name), port VLANs and links between switches (including through patch panels and their twin cards). Nothing changes in DCIM without a validation."
+      start_synchronization: Synchronize with Netsight
+      last_complete_sync: "Last complete synchronization:"
+      none: none
+      synchronizing: "Synchronizing..."
+      failed: Synchronization failed
+      kinds:
+        vlan: VLANs
+        link: Links between switches
+        switch: Switch identity
+      apply: Update DCIM
+      apply_confirmation: Replace the DCIM values of the selected rows with the Netsight ones?
+      apply_help:
+        vlan: "Replaces the DCIM VLANs (%{dcim}) with the Netsight ones (%{netsight}), also on the port at the other end of the cable."
+        switch: "Replaces the DCIM serial (%{dcim}) with the Netsight one (%{netsight})."
+        none: none
+      applied_at: Applied on %{date}
+      edit_connection: Edit the connection
+      show_switch: See the switch
+      edit_switch: Edit the switch
+      notes:
+        netsight_unreachable: Run the synchronization again later
+      not_configured: "Netsight access is not configured (no netsight credentials): synchronization is disabled."
+      last_failure: "Last attempt failed on %{date}:"
+      unreachable_details: "Previous results of this switch kept. Error: %{error}"
+    sync:
+      not_configured: Netsight access is not configured.
+      abandoned: "Synchronization abandoned: it stopped making progress (server restart?)."
+      already_running: A synchronization is already running.
+    apply:
+      flashes:
+        applied:
+          zero: Nothing updated (already applied, value changed in DCIM since the synchronization, or serial number already used).
+          one: 1 update done.
+          other: "%{count} updates done."
   external_app_records:
     index:
       title: GLPI synchronization
@@ -222,6 +260,7 @@ en:
       filter:
         q: Search
         server_name: Material's name
+        statuses: Status
         external_app_record_frame_ids: Location
         external_serial_status: Synchronization
         islet_ids: Islet
@@ -530,7 +569,6 @@ en:
         demo: Sample
         not_configured: Netsight access is not configured.
         no_switch: No switch known to Netsight on this port or at the other end of its cable.
-        unsupported_card: "Port %{port} of switch %{switch} is on an uplink card: its Netsight numbering is not supported yet."
         port_not_found: "Port %{if_index} could not be found on switch %{switch} in Netsight."
         connection_error: "Problem connecting to Netsight:"
         switch: Switch
@@ -545,6 +583,7 @@ en:
         no_vlan: No VLAN
         differs_from_dcim: Differs from DCIM
         apply_vlans: Update DCIM
+        sync_page: See the synchronization of every switch
   servers:
     glpi_equipment:
       data: GLPI data
@@ -583,6 +622,7 @@ en:
     index:
       add_server_via_csv: Add via CSV file
       sync_with_external_apps: Synchronize with GLPI
+      sync_with_netsight: Synchronize with Netsight
     show:
       back_to_bay: Bay %{name}
       documentation: Documentation

@@ -112,6 +112,12 @@ Rails.application.routes.draw do
     end
   end
   resources :external_app_requests, only: %i[show destroy]
+  resources :netsight_sync_results, only: %i[index] do
+    collection do
+      put :sync
+      patch :apply
+    end
+  end
 
   resources :contacts
   resources :contact_roles

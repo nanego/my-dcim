@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_30_153825) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_13_190000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -273,6 +273,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_30_153825) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "error_message"
     t.index ["user_id"], name: "index_external_app_requests_on_user_id"
   end
 
@@ -416,6 +417,26 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_30_153825) do
     t.bigint "created_by_id"
     t.datetime "archived_at"
     t.index ["created_by_id"], name: "index_moves_projects_on_created_by_id"
+  end
+
+  create_table "netsight_sync_results", force: :cascade do |t|
+    t.bigint "external_app_request_id", null: false
+    t.integer "server_id", null: false
+    t.integer "port_id"
+    t.string "kind", null: false
+    t.string "status", null: false
+    t.string "if_name"
+    t.string "dcim_value"
+    t.string "netsight_value"
+    t.string "netsight_peer"
+    t.string "dcim_path"
+    t.datetime "applied_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["external_app_request_id"], name: "index_netsight_sync_results_on_external_app_request_id"
+    t.index ["kind", "status"], name: "index_netsight_sync_results_on_kind_and_status"
+    t.index ["port_id"], name: "index_netsight_sync_results_on_port_id"
+    t.index ["server_id"], name: "index_netsight_sync_results_on_server_id"
   end
 
   create_table "permission_scope_domains", force: :cascade do |t|
@@ -685,6 +706,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_30_153825) do
   add_foreign_key "moves", "moves_project_steps"
   add_foreign_key "moves_project_steps", "moves_projects"
   add_foreign_key "moves_projects", "users", column: "created_by_id"
+  add_foreign_key "netsight_sync_results", "external_app_requests", on_delete: :cascade
+  add_foreign_key "netsight_sync_results", "ports", on_delete: :cascade
+  add_foreign_key "netsight_sync_results", "servers", on_delete: :cascade
   add_foreign_key "permission_scope_domains", "domains"
   add_foreign_key "permission_scope_domains", "permission_scopes"
   add_foreign_key "permission_scope_users", "permission_scopes"

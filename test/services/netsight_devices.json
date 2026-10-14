@@ -2,11 +2,13 @@
   "data": {
     "network": {
       "devices": [
-        { "ip": "10.128.5.63", "sysName": "SXT_SEQ63a", "nickName": "SXT_SEQ63a" },
-        { "ip": "10.128.5.40", "sysName": "SXT_SEQ40c", "nickName": "SXT_SEQ40c" },
-        { "ip": "10.128.5.141", "sysName": "SXT_APS41a", "nickName": "SXT_APS00o" },
-        { "ip": "10.128.2.254", "sysName": "SWT_BIA01", "nickName": "SXT_SEQ40c" },
-        { "ip": "10.128.15.114", "sysName": "", "nickName": "" }
+        { "ip": "192.0.2.63", "sysName": "SW_TEST01", "nickName": "SW_TEST01" },
+        { "ip": "192.0.2.40", "sysName": "SW_TEST04", "nickName": "SW_TEST04" },
+        { "ip": "192.0.2.60", "sysName": "SW_TEST02", "nickName": "SW_TEST02" },
+        { "ip": "192.0.2.73", "sysName": "SW_TEST03", "nickName": "SW_TEST03" },
+        { "ip": "192.0.2.141", "sysName": "SW_TEST05", "nickName": "SW_ALIAS05" },
+        { "ip": "192.0.2.254", "sysName": "SW_TEST06", "nickName": "SW_TEST04" },
+        { "ip": "192.0.2.114", "sysName": "", "nickName": "" }
       ]
     }
   }

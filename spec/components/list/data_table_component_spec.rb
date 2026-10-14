@@ -43,6 +43,12 @@ RSpec.describe List::DataTableComponent, type: :component do
     end
   end
 
+  context "with a table class" do
+    let(:component) { described_class.new(data, table_class: "table-sm") }
+
+    it { expect(rendered_component).to have_table(class: "table-sm") }
+  end
+
   context "with bulk_actions" do
     let(:block) do
       proc do |table|

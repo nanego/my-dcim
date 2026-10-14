@@ -1,6 +1,9 @@
 en:
   activerecord:
     models:
+      netsight_sync_result:
+        one: Netsight synchronization result
+        other: Netsight synchronization results
       air_conditioner: Air conditioner
       air_conditioner_model:
         one: Air conditioner model
@@ -114,6 +117,38 @@ en:
       external_app_record/external_serial:
         found: Found
         not_found: Not found in GLPI
+      netsight_sync_result:
+        applied_at: Applied on
+        dcim_path: DCIM path
+        dcim_value: DCIM value
+        dcim_vlans: DCIM VLANs
+        netsight_vlans: Netsight VLANs
+        dcim_serial: DCIM serial
+        netsight_serial: Netsight serial
+        netsight_device: Netsight device
+        frame_id: Location
+        if_name: Netsight port
+        kind: Kind
+        netsight_peer: Other end according to Netsight
+        netsight_value: Netsight value
+        port_id: DCIM port
+        port: Port (DCIM, Netsight)
+        server_id: Switch
+        status: Status
+      netsight_sync_result/status:
+        matches: Matches
+        differs: Differs
+        default_vlan_only: Default VLAN
+        no_netsight_vlans: No VLAN in Netsight
+        free_text: Free text in DCIM
+        unknown_port: Port unknown to Netsight
+        not_cabled_in_dcim: Not cabled in DCIM
+        broken_path: Broken path
+        not_in_netsight: Unknown to Netsight
+        netsight_unreachable: Netsight unreachable
+        serial_to_complete: Serial to fill in
+        name_serial_mismatch: Name and serial disagree
+        serial_not_in_netsight: Serial unknown to Netsight
       manufacturer:
         name: Name
         usage_modele: Usage (model)

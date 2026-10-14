@@ -1,6 +1,9 @@
 fr:
   activerecord:
     models:
+      netsight_sync_result:
+        one: Résultat de synchronisation Netsight
+        other: Résultats de synchronisation Netsight
       server:
         one: Matériel I.T.
         other: Matériels I.T.
@@ -451,6 +454,38 @@ fr:
       external_app_record/external_serial:
         found: Trouvé
         not_found: Non trouvé dans GLPI
+      netsight_sync_result:
+        applied_at: Appliqué le
+        dcim_path: Chemin dans DCIM
+        dcim_value: Valeur DCIM
+        dcim_vlans: VLAN DCIM
+        netsight_vlans: VLAN Netsight
+        dcim_serial: N° Série DCIM
+        netsight_serial: N° Série Netsight
+        netsight_device: Équipement Netsight
+        frame_id: Emplacement
+        if_name: Port Netsight
+        kind: Type
+        netsight_peer: Extrémité selon Netsight
+        netsight_value: Valeur Netsight
+        port_id: Port DCIM
+        port: Port (DCIM, Netsight)
+        server_id: Switch
+        status: Statut
+      netsight_sync_result/status:
+        matches: Conforme
+        differs: Différent
+        default_vlan_only: VLAN par défaut
+        no_netsight_vlans: Aucun VLAN dans Netsight
+        free_text: Texte libre dans DCIM
+        unknown_port: Port inconnu de Netsight
+        not_cabled_in_dcim: Non câblé dans DCIM
+        broken_path: Chemin interrompu
+        not_in_netsight: Inconnu de Netsight
+        netsight_unreachable: Netsight injoignable
+        serial_to_complete: N° Série à compléter
+        name_serial_mismatch: Nom et N° Série en désaccord
+        serial_not_in_netsight: N° Série inconnu de Netsight
       contact:
         first_name: Prénom
         last_name: Nom

@@ -13,6 +13,16 @@
             )
           end %>
 
+      <%= if allowed_to?(:index?, with: NetsightSyncResultPolicy)
+            render ButtonComponent.new(
+              t(".sync_with_netsight"),
+              url: netsight_sync_results_path,
+              variant: :outline_primary,
+              icon: "hdd-network",
+              is_responsive: true,
+            )
+          end %>
+
       <%= if allowed_to?(:import_csv?)
             render ButtonComponent.new(
               t(".add_server_via_csv"),

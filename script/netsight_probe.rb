@@ -3,14 +3,14 @@
 
 # Explores the Netsight GraphQL API. Standalone, stdlib only.
 #
-#   export NETSIGHT_URL=https://...  # optional, defaults to DEFAULT_URL
-#   export NETSIGHT_USERNAME=apiread
+#   export NETSIGHT_URL=https://.../netsight
+#   export NETSIGHT_USERNAME=...
 #   export NETSIGHT_PASSWORD=...     # prompted if missing
 #
-#   ruby scripts/netsight_probe.rb devices
-#   ruby scripts/netsight_probe.rb ports --ip 10.1.2.3
-#   ruby scripts/netsight_probe.rb port --ip 10.1.2.3 --if-index 2024
-#   ruby scripts/netsight_probe.rb query '{ network { devices { ip } } }'
+#   ruby script/netsight_probe.rb devices
+#   ruby script/netsight_probe.rb ports --ip 10.1.2.3
+#   ruby script/netsight_probe.rb port --ip 10.1.2.3 --if-index 2024
+#   ruby script/netsight_probe.rb query '{ network { devices { ip } } }'
 #
 # Net::HTTP ignores https_proxy, hence the explicit --proxy / NETSIGHT_PROXY fallback.
 
@@ -20,8 +20,6 @@ require "net/http"
 require "optparse"
 require "uri"
 
-DEFAULT_URL = "https://supervision-reseau-ac.cs.e2.rie.gouv.fr/netsight"
-
 ENTITY_PORT_FIELDS = %w[ifIndex ifName formattedOperStatus formattedSpeed isLag isLagMaster isLagContributor lagMasterIndex lagId ifAlias].freeze
 DATA_PORT_FIELDS = %w[ifIndex tagged untagged portPvid].freeze
 PORT_COLUMNS = %w[ifIndex ifName formattedOperStatus formattedSpeed lag tagged untagged portPvid ifAlias].freeze
@@ -29,7 +27,7 @@ PORT_COLUMNS = %w[ifIndex ifName formattedOperStatus formattedSpeed lag tagged u
 MAX_LISTED_VLANS = 8
 
 options = {
-  url: ENV.fetch("NETSIGHT_URL", DEFAULT_URL),
+  url: ENV.fetch("NETSIGHT_URL", nil),
   proxy: ENV["NETSIGHT_PROXY"] || ENV["https_proxy"] || ENV.fetch("HTTPS_PROXY", nil),
   insecure: false,
   json: false,
@@ -39,7 +37,7 @@ parser = OptionParser.new do |opts|
   opts.banner = "Usage: #{$PROGRAM_NAME} devices|ports|port|query [QUERY] [options]"
   opts.on("--ip IP", "Device IP (ports, port)") { |v| options[:ip] = v }
   opts.on("--if-index N", Integer, "Port ifIndex (port)") { |v| options[:if_index] = v }
-  opts.on("--url URL", "GraphQL endpoint (default: #{DEFAULT_URL})") { |v| options[:url] = v }
+  opts.on("--url URL", "GraphQL endpoint (default: NETSIGHT_URL)") { |v| options[:url] = v }
   opts.on("--proxy URL", "HTTP proxy, 'none' to disable") { |v| options[:proxy] = v }
   opts.on("--insecure", "Skip TLS certificate verification") { options[:insecure] = true }
   opts.on("--json", "Print the raw JSON response") { options[:json] = true }
@@ -91,8 +89,10 @@ query = case command
           ARGV.shift || abort("query needs a GraphQL query string")
         end
 
-username = ENV["NETSIGHT_USERNAME"] || "apiread"
+username = ENV["NETSIGHT_USERNAME"] || abort("NETSIGHT_USERNAME is required")
 password = ENV["NETSIGHT_PASSWORD"] || $stdin.getpass("Netsight password for #{username}: ")
+
+abort("NETSIGHT_URL (or --url) is required") if options[:url].to_s.empty?
 
 uri = URI(options[:url])
 uri.query = URI.encode_www_form(query:)

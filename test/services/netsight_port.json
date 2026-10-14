@@ -2,13 +2,13 @@
   "data": {
     "network": {
       "device": {
-        "sysName": "SXT_SEQ63a",
+        "sysName": "SW_TEST01",
         "entityData": {
           "port": {
             "ifName": "2:1",
             "formattedOperStatus": "Up",
             "formattedSpeed": "1 Gbps",
-            "ifAlias": "DSP-NETAPP-1 CTRL",
+            "ifAlias": "STORAGE-1 CTRL",
             "isLagContributor": false,
             "lagMasterIndex": 0
           }
