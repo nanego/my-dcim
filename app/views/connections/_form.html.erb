@@ -22,7 +22,7 @@
 
       <div class="col-12">
         <%= f.label Connection.human_attribute_name(:from_port_id), class: "form-label" %>
-        <%= render CardComponent.new do |card| %>
+        <%= render CardComponent.new do %>
           <% if @from_pdu.present? %>
             <div id="back_departure_server" class="d-flex">
               <span class="d-flex align-items-center mx-auto flex-column gap-2">
