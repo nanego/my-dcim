@@ -119,4 +119,4 @@ gem "store_attribute", "~> 2.2"
 gem "turbo-rails", "~> 2.0"
 gem "view_component", "~> 4"
 
-gem "json", "~> 2.0"
+gem "json", "~> 3.0"
