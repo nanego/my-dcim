@@ -1,28 +1,35 @@
 <div class="modal fade edit_port" id="edit_port_modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-body bg-body-tertiary">
-        <p>Chargement en cours ...</p>
+  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+    <div class="modal-content h-100">
+      <div class="modal-body bg-body-tertiary p-0 h-100 align-content-center">
+        <div class="w-100 d-flex flex-column align-items-center">
+          <span role="status"><%= t("has_many_turbo_frame_component.loading") %></span>
+          <span class="spinner-grow text-primary m-4" aria-hidden="true"></span>
+        </div>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<script type="text/javascript">
+<script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
 $("body").on("click", ".servers a.port, .server a.port, .pdu a.port, .js_connection_edit_port a.port, .js_connection_edit_link_to", function (event) {
   event.preventDefault();
+
   var url = $(this).data("url");
+
   if (url.length > 0) {
-    $("#edit_port_modal .modal-body").html("<p>Chargement en cours ...</p>");
+    $("#edit_port_modal .modal-body").html("<div class=\"w-100 d-flex flex-column align-items-center\"><span class=\"spinner-grow text-primary m-4\" aria-hidden=\"true\"></span><span role=\"status\"><%= t("has_many_turbo_frame_component.loading") %></span></div>");
     $("#edit_port_modal").modal("show");
     return $.getScript(url);
   }
 });
+
 $("body").on("click", "a#close_modal", function (event) {
   event.preventDefault();
   $("#edit_port_modal").modal("hide");
 });
-$("#edit_port_modal").on('hidden.bs.modal', function () {
-  $("#edit_port_modal .modal-body").html("<p>Chargement en cours ...</p>");
+
+$("#edit_port_modal").on("hidden.bs.modal", function () {
+  $("#edit_port_modal .modal-body").html("<div class=\"w-100 d-flex flex-column align-items-center\"><span class=\"spinner-grow text-primary m-4\" aria-hidden=\"true\"></span><span role=\"status\"><%= t("has_many_turbo_frame_component.loading") %></span></div>");
 })
 </script>
