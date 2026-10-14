@@ -8,6 +8,17 @@
   </button>
   <ul class="dropdown-menu">
     <li><%= link_to t(".search_equipment"), servers_grids_path, class: "dropdown-item" %></li>
+    <% glpi_allowed = allowed_to?(:index?, with: ExternalAppRecordPolicy) %>
+    <% netsight_allowed = allowed_to?(:index?, with: NetsightSyncResultPolicy) %>
+    <% if glpi_allowed || netsight_allowed %>
+      <li><hr class="dropdown-divider"></li>
+      <% if glpi_allowed %>
+        <li><%= link_to t("external_app_records.index.title"), external_app_records_path, class: "dropdown-item" %></li>
+      <% end %>
+      <% if netsight_allowed %>
+        <li><%= link_to t("netsight_sync_results.index.title"), netsight_sync_results_path, class: "dropdown-item" %></li>
+      <% end %>
+    <% end %>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header"><%= t(".filter_by") %></h6></li>
     <li class="nav-item dropdown-submenu" role="menuitem">
@@ -31,7 +42,7 @@
         <%= Cluster.model_name.human %>
       </button>
       <ul class="dropdown-menu overflow-auto" style="max-height:70vh;">
-        <li>
+        <li class="d-flex">
           <% Cluster.order(Cluster.arel_table[:name].lower).in_groups(3).each do |clusters| %>
               <ul class="list-unstyled">
                 <% clusters.each do |c| %>
@@ -57,15 +68,21 @@
       </button>
       <ul class="dropdown-menu overflow-auto modeles"
           style="max-height:70vh;">
-        <% Modele.all_sorted_with_servers.each do |modele| %>
-          <li>
-            <%= link_to modele.name_with_brand,
-                        visualization_rooms_path(modele_id: modele.id,
-                                            view: params[:view],
-                                            bg: (params[:bg] || "modele")),
-                       class: class_names("dropdown-item", active: params[:modele_id] == modele.id.to_s) %>
-          </li>
-        <% end %>
+        <li class="d-flex">
+          <% Modele.all_sorted_with_servers.to_a.in_groups(3, false).each do |modeles| %>
+            <ul class="list-unstyled" style="width: 16rem;">
+              <% modeles.each do |modele| %>
+                <li>
+                  <%= link_to modele.name_with_brand,
+                              visualization_rooms_path(modele_id: modele.id,
+                                                       view: params[:view],
+                                                       bg: params[:bg] || "modele"),
+                              class: class_names("dropdown-item text-wrap", active: params[:modele_id] == modele.id.to_s) %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        </li>
       </ul>
     </li>
   </ul>
