@@ -40,6 +40,12 @@ class RoomDecorator < ApplicationDecorator
     BadgeComponent.new(text, color:, variant: :pill)
   end
 
+  def display_on_room_to_badge_component
+    color = display_on_home_page ? :success : :danger
+
+    BadgeComponent.new(I18n.t("boolean.#{display_on_home_page}"), color:, variant: :pill)
+  end
+
   def access_control_to_human
     return I18n.t("access_control.blank") unless (a_c = access_control.presence)
 
