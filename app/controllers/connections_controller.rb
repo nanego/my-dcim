@@ -7,6 +7,7 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
     @from_port = if params[:from_port_id].present? && params[:from_port_id].to_i.positive?
                    Port.find_by_id(params[:from_port_id])
                  else
+                   # TODO: use global_id instead
                    attachable = if params["card_id"]
                                   Card.find(params["card_id"])
                                 elsif params["socket_id"]
@@ -32,10 +33,11 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
     @coupled_frames = @frame.bay.frames
     @possible_destination_servers = []
     @all_servers_per_frame = []
-    if @from_port.is_power? # && @from_server.is_not_a_pdu?
-      @coupled_frames.each { |frame| @possible_destination_servers << [frame.name, frame.power_distribution_units.collect { |v| [v.name, v.to_gid] }] }
-      Frame.order(:name).each { |frame| @all_servers_per_frame << [frame.name, frame.power_distribution_units.collect { |v| [v.name, v.to_gid] }] }
-    else
+
+    @coupled_frames.each { |frame| @possible_destination_servers << [frame.name, frame.power_distribution_units.collect { |v| [v.name, v.to_gid] }] }
+    Frame.order(:name).each { |frame| @all_servers_per_frame << [frame.name, frame.power_distribution_units.collect { |v| [v.name, v.to_gid] }] }
+
+    if !@from_port.is_power? || @from_port.attachable.is_a?(Server)
       @coupled_frames.each { |frame| @possible_destination_servers << [frame.name, frame.servers.collect { |v| [v.name, v.to_gid] }] }
       Frame.order(:name).each { |frame| @all_servers_per_frame << [frame.name, frame.servers.collect { |v| [v.name, v.to_gid] }] }
     end
