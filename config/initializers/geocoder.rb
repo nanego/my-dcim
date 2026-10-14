@@ -7,8 +7,8 @@ Geocoder.configure(
   # ip_lookup: :ipinfo_io,      # name of IP address geocoding service (symbol)
   # language: :en,              # ISO-639 language code
   # use_https: false,           # use HTTPS for lookup requests? (if supported)
-  http_proxy: Rails.env.production? ? Rails.application.credentials.proxy_url : "",            # HTTP proxy server (user:pass@host:port)
-  https_proxy: Rails.env.production? ? Rails.application.credentials.proxy_url : "",           # HTTPS proxy server (user:pass@host:port)
+  http_proxy: Rails.env.production? ? Rails.application.credentials.proxy_url : nil,           # HTTP proxy URL (http://user:pass@host:port)
+  https_proxy: Rails.env.production? ? Rails.application.credentials.proxy_url : nil,          # HTTPS proxy URL (http://user:pass@host:port)
   api_key: Rails.env.production? ? Rails.application.credentials.mapbox[:access_token] : "", # API key for geocoding service
   # cache: nil,                 # cache object (must respond to #[], #[]=, and #del)
 
@@ -27,3 +27,23 @@ Geocoder.configure(
   #   prefix: 'geocoder:'
   # }
 )
+
+# Geocoder prefixes the lookup protocol to a proxy URL with another scheme
+# ("https://http://...") and passes percent-encoded credentials as is.
+module GeocoderProxyUrl
+  private
+
+  def http_client
+    proxy = configuration.send("#{protocol}_proxy")
+    return Net::HTTP if proxy.blank?
+
+    uri = URI.parse(proxy)
+    Net::HTTP::Proxy(uri.host, uri.port, decode_proxy_credential(uri.user), decode_proxy_credential(uri.password))
+  end
+
+  def decode_proxy_credential(value)
+    URI.decode_uri_component(value) if value
+  end
+end
+
+Geocoder::Lookup::Base.prepend(GeocoderProxyUrl)
