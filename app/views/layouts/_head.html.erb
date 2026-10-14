@@ -2,6 +2,8 @@
 <title><%= breadcrumb.to_title(with_root: true) %></title>
 <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "My DCIM" %>">
 
+<%= favicon_link_tag %>
+
 <%- if !current_user || current_user.theme == "auto" %>
   <script>
     function getTheme() {
