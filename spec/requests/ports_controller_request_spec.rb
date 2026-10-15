@@ -23,7 +23,7 @@ RSpec.describe PortsController do
 
     context "with new port" do
       let(:port)   { 0 }
-      let(:params) { { card_id: cards(:one) } }
+      let(:params) { { attachable_id: cards(:one).to_gid } }
 
       it { expect { response }.to change(Port, :count).by(1) }
 
@@ -33,7 +33,7 @@ RSpec.describe PortsController do
 
     context "with new port from socket" do
       let(:port)   { 0 }
-      let(:params) { { socket_id: power_distribution_unit_sockets(:two) } }
+      let(:params) { { attachable_id: power_distribution_unit_sockets(:two).to_gid } }
 
       it { expect { response }.to change(Port, :count).by(1) }
 
@@ -43,7 +43,7 @@ RSpec.describe PortsController do
 
     context "with new port from pdu card" do
       let(:port)   { 0 }
-      let(:params) { { pdu_card_id: power_distribution_unit_cards(:two) } }
+      let(:params) { { attachable_id: power_distribution_unit_cards(:two).to_gid } }
 
       it { expect { response }.to change(Port, :count).by(1) }
 
