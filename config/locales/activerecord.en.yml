@@ -341,6 +341,9 @@ en:
             moveable_id:
               taken: already has a move planned for this step
 
+        modele:
+          composant_used_by_cards: "The composant %{composant} can't be deleted because cards of I.T. equipments are installed in it"
+
         moves_project:
           steps_cannot_be_destroyed: Steps with moves can't be deleted
 

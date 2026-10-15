@@ -185,6 +185,26 @@ RSpec.describe ModelesController do
       it { expect(response).to render_template(:edit) }
     end
 
+    context "when removing a composant used by cards" do
+      let(:composant) { composants(:one) }
+      let(:params) do
+        {
+          modele: {
+            enclosures_attributes: {
+              "0" => {
+                id: composant.enclosure_id,
+                composants_attributes: { "0" => { id: composant.id, _destroy: "1" } },
+              },
+            },
+          },
+        }
+      end
+
+      it { expect { response }.not_to change(Composant, :count) }
+      it { expect(response).to have_http_status(:unprocessable_content) }
+      it { expect(response).to render_template(:edit) }
+    end
+
     context "when preview button clicked with turbo_stream format" do
       let(:params) do
         {
