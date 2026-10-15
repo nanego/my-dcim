@@ -35,13 +35,7 @@ class PortsController < ApplicationController
     if params[:id].present? && params[:id].to_i.positive?
       redirect_to connections_edit_path(from_port_id: params[:id])
     else
-      attachable = if params["card_id"]
-                     Card.find(params["card_id"])
-                   elsif params["pdu_card_id"]
-                     PowerDistributionUnit::Card.find(params["pdu_card_id"])
-                   elsif params["socket_id"]
-                     PowerDistributionUnit::Socket.find(params["socket_id"])
-                   end
+      attachable = GlobalID::Locator.locate(params[:attachable_id])
 
       @port = Port.find_or_create_by(position: params["position"],
                                      attachable:,
