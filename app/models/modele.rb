@@ -21,6 +21,7 @@ class Modele < ApplicationRecord
                                 reject_if: :all_blank
 
   validate :validate_network_types_values
+  validate :validate_removed_composants_have_no_cards
   normalizes :network_types, with: ->(values) { values.compact_blank }
 
   scope :sorted, -> { order(:name) }
@@ -75,5 +76,17 @@ class Modele < ApplicationRecord
     return if network_types.intersect?(Modele::Network::TYPES)
 
     errors.add(:network_types, :invalid)
+  end
+
+  # Composants restrict their destruction while cards use them
+  def validate_removed_composants_have_no_cards
+    enclosures.each do |enclosure|
+      enclosure.composants.each do |composant|
+        next unless enclosure.marked_for_destruction? || composant.marked_for_destruction?
+        next unless composant.persisted? && composant.cards.exists?
+
+        errors.add(:base, :composant_used_by_cards, composant: composant.name)
+      end
+    end
   end
 end

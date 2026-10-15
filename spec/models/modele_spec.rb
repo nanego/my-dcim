@@ -18,6 +18,38 @@ RSpec.describe Modele do
     it { is_expected.to have_many(:cards).through(:composants) }
   end
 
+  describe "#validate_removed_composants_have_no_cards" do
+    let(:modele) { modeles(:one) }
+    let(:enclosure) { enclosures(:one) }
+
+    context "when removing a composant used by cards" do
+      before do
+        modele.update(enclosures_attributes: [{ id: enclosure.id, composants_attributes: [{ id: composants(:one).id, _destroy: "1" }] }])
+      end
+
+      it { expect(modele.errors.where(:base, :composant_used_by_cards).count).to eq(1) }
+      it { expect(Composant.exists?(composants(:one).id)).to be true }
+    end
+
+    context "when removing an enclosure with composants used by cards" do
+      before { modele.update(enclosures_attributes: [{ id: enclosure.id, _destroy: "1" }]) }
+
+      it { expect(modele.errors.where(:base, :composant_used_by_cards).count).to eq(3) }
+      it { expect(Enclosure.exists?(enclosure.id)).to be true }
+    end
+
+    context "when removing a composant without cards" do
+      let!(:composant) { Composant.create!(name: "free", enclosure:) }
+
+      before do
+        modele.update(enclosures_attributes: [{ id: enclosure.id, composants_attributes: [{ id: composant.id, _destroy: "1" }] }])
+      end
+
+      it { expect(modele.errors).to be_empty }
+      it { expect(Composant.exists?(composant.id)).to be false }
+    end
+  end
+
   describe "#validate_network_types_values" do
     let(:modele) { modeles(:one) }
 
