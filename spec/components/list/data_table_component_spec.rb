@@ -25,7 +25,7 @@ RSpec.describe List::DataTableComponent, type: :component do
   end
 
   it do # rubocop:disable RSpec/ExampleLength
-    expect(rendered_component).to have_tag("div.table-responsive") do
+    expect(rendered_component).to have_tag("div.table-responsive-xl") do
       with_tag("table.table") do
         with_tag("thead") do
           with_tag("tr") do

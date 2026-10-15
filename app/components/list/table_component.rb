@@ -3,7 +3,7 @@
 module List
   class TableComponent < ApplicationComponent
     erb_template <<~ERB
-      <div class="table-responsive">
+      <div class="table-responsive-xl mydcim-table-sticky-head">
         <%= tag.table(**@html_attributes) do %>
           <% heads.each do |thead| %>
             <%= thead %>

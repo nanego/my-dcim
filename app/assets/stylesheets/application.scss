@@ -1136,9 +1136,17 @@ body {
     }
   }
 
-  .table-responsive .dropdown,
-  .table-responsive .btn-group,
-  .table-responsive .btn-group-vertical {
+  // Headers stick to main
+  &-table-sticky-head > .table > thead > tr > * {
+    position: sticky;
+    top: calc(-1 * var(--bs-border-width));
+    z-index: 2;
+    box-shadow: inset 0 calc(-1 * var(--bs-border-width)) 0 var(--bs-border-color);
+  }
+
+  [class*="table-responsive"] .dropdown,
+  [class*="table-responsive"] .btn-group,
+  [class*="table-responsive"] .btn-group-vertical {
       position: static;
   }
 }
