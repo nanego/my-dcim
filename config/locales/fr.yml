@@ -1061,7 +1061,7 @@ fr:
         architecture_ids: Architecture
         category_ids: Catégorie
         external_app_record_frame_ids: Emplacement
-        external_serial_status: Synchronisation
+        external_serial_status: Statut
         manufacturer_ids: Constructeur
         islet_ids: Ilot
         islet_id: Ilot

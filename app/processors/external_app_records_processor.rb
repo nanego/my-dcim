@@ -19,14 +19,13 @@ class ExternalAppRecordsProcessor < ApplicationProcessor
     raw.joins(:server).where(Server.arel_table[:name].matches("%#{server_name}%"))
   end
 
-  match :external_serial_status, fail_when_no_matches: true do
-    having "found" do
-      raw.where.not(external_serial: nil).where.not(external_serial: "")
-    end
+  map :external_serial_status, filter_with: :non_empty_array do |external_serial_status:|
+    scopes = {
+      "found" => raw.where.not(external_serial: [nil, ""]),
+      "not_found" => raw.where(external_serial: [nil, ""]),
+    }
 
-    having "not_found" do
-      raw.where(external_serial: nil).or(raw.where(external_serial: ""))
-    end
+    scopes.values_at(*external_serial_status).compact.reduce(:or) || raw
   end
 
   sortable fields: SORTABLE_FIELDS
