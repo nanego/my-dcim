@@ -91,7 +91,7 @@
                                     { prompt: true, multiple: true },
                                     { class: "form-select",
                                       data: { controller: :select, select_clear_button_title_value: t("action.clear_all") } }) %>
-            <%= f.label :frame_ids %>
+            <%= f.label :frame_ids, @filter.class.human_attribute_name(:external_app_record_frame_ids) %>
           </fieldset>
         </div>
 

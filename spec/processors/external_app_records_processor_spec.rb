@@ -113,6 +113,18 @@ RSpec.describe ExternalAppRecordsProcessor do
       it { expect(result.size).to eq(2) }
       it { is_expected.to contain_exactly(external_app_records(:one), external_app_records(:three)) }
     end
+
+    context "with both statuses" do
+      let(:params) { { external_serial_status: %w[found not_found] } }
+
+      it { expect(result.size).to eq(3) }
+    end
+
+    context "with an unknown status" do
+      let(:params) { { external_serial_status: ["unknown"] } }
+
+      it { expect(result.size).to eq(3) }
+    end
   end
 
   describe "when sorting" do
