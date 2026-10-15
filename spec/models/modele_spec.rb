@@ -42,6 +42,60 @@ RSpec.describe Modele do
     end
   end
 
+  describe "#cannot_destroy_enclosure_or_composant_with_cards" do
+    let(:modele) { modeles(:one) }
+
+    context "when no enclosure or composant marked for destruction" do
+      it { expect(modele).to be_valid }
+    end
+
+    context "when composants marked for destruction have no cards" do
+      let(:modele) { modeles(:three) }
+
+      before do
+        modele.update(
+          enclosures_attributes: [
+            { id: "3", composants_attributes: [{ id: "3", _destroy: "1" }] },
+          ],
+        )
+      end
+
+      it { expect(modele).to be_valid }
+    end
+
+    context "when composants marked for destruction have cards" do
+      before do
+        modele.update(
+          enclosures_attributes: [
+            { id: "1", composants_attributes: [{ id: "1", _destroy: "1" }] },
+          ],
+        )
+      end
+
+      it { expect(modele).not_to be_valid }
+      it { expect(modele.errors.key?(:composants)).to be(true) }
+    end
+
+    context "when enclosure marked for destruction have no cards" do
+      let(:modele) { modeles(:three) }
+
+      before do
+        modele.update(enclosures_attributes: [{ id: "3", _destroy: "1" }])
+      end
+
+      it { expect(modele).to be_valid }
+    end
+
+    context "when enclosure marked for destruction have cards" do
+      before do
+        modele.update(enclosures_attributes: [{ id: "1", _destroy: "1" }])
+      end
+
+      it { expect(modele).not_to be_valid }
+      it { expect(modele.errors.key?(:enclosures)).to be(true) }
+    end
+  end
+
   describe ".glpi_synchronizable" do
     it { expect(described_class.glpi_synchronizable).to contain_exactly(modeles(:one), modeles(:four)) }
   end

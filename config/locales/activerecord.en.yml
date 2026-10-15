@@ -365,6 +365,13 @@ en:
             card_type_id:
               not_enough_ports: doesn't contain enough ports
 
+        modele:
+          attributes:
+            enclosures:
+              have_cards: have cards and so cannot be destroyed
+            composants:
+              have_cards: have cards and so cannot be destroyed
+
       messages:
         contains_unpermitted_values: "includes unauthorized values: %{wrong_values}"
 
