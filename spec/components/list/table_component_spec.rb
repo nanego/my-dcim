@@ -25,7 +25,7 @@ RSpec.describe List::TableComponent, type: :component do
   end
 
   it do # rubocop:disable RSpec/ExampleLength
-    expect(rendered_component).to have_tag("div.table-responsive") do
+    expect(rendered_component).to have_tag("div.table-responsive-xl") do
       with_tag("table.table") do
         with_tag("thead") do
           with_tag("tr") do
@@ -44,7 +44,7 @@ RSpec.describe List::TableComponent, type: :component do
   describe "tests on vertical alignment options" do
     context "with no argument given" do
       it do # rubocop:disable RSpec/ExampleLength
-        expect(rendered_component).to have_tag("div.table-responsive") do
+        expect(rendered_component).to have_tag("div.table-responsive-xl") do
           with_tag("table.table") do
             with_tag("tbody") do
               with_tag("tr") do
@@ -62,7 +62,7 @@ RSpec.describe List::TableComponent, type: :component do
       end
 
       it do # rubocop:disable RSpec/ExampleLength
-        expect(rendered_component).to have_tag("div.table-responsive") do
+        expect(rendered_component).to have_tag("div.table-responsive-xl") do
           with_tag("table.table") do
             with_tag("tbody") do
               with_tag("tr") do
@@ -80,7 +80,7 @@ RSpec.describe List::TableComponent, type: :component do
       end
 
       it do # rubocop:disable RSpec/ExampleLength
-        expect(rendered_component).to have_tag("div.table-responsive") do
+        expect(rendered_component).to have_tag("div.table-responsive-xl") do
           with_tag("table.table") do
             with_tag("tbody") do
               with_tag("tr") do
@@ -97,7 +97,7 @@ RSpec.describe List::TableComponent, type: :component do
   describe "tests on text alignment options" do
     context "with no argument given" do
       it do # rubocop:disable RSpec/ExampleLength
-        expect(rendered_component).to have_tag("div.table-responsive") do
+        expect(rendered_component).to have_tag("div.table-responsive-xl") do
           with_tag("table.table") do
             with_tag("tbody") do
               with_tag("tr") do
@@ -115,7 +115,7 @@ RSpec.describe List::TableComponent, type: :component do
       end
 
       it do # rubocop:disable RSpec/ExampleLength
-        expect(rendered_component).to have_tag("div.table-responsive") do
+        expect(rendered_component).to have_tag("div.table-responsive-xl") do
           with_tag("table.table") do
             with_tag("tbody") do
               with_tag("tr") do
@@ -133,7 +133,7 @@ RSpec.describe List::TableComponent, type: :component do
       end
 
       it do # rubocop:disable RSpec/ExampleLength
-        expect(rendered_component).to have_tag("div.table-responsive") do
+        expect(rendered_component).to have_tag("div.table-responsive-xl") do
           with_tag("table.table") do
             with_tag("tbody") do
               with_tag("tr") do
