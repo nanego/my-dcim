@@ -349,6 +349,9 @@ en:
           attributes:
             name:
               invalid: can't contain any spaces
+            position:
+              outside_frame: "puts the equipment at %{units}, outside the frame"
+              overlaps: "puts the equipment at %{units}, already used by: %{servers}"
 
         move:
           attributes:

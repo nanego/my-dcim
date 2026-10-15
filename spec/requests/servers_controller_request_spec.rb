@@ -111,7 +111,7 @@ RSpec.describe ServersController do
 
     let(:params) { { server: valid_attributes } }
     let(:valid_attributes) do
-      server.attributes.except(%w[id numero name]).merge(numero: "new_numero", name: "NewServerName")
+      server.attributes.except(%w[id numero name]).merge(numero: "new_numero", name: "NewServerName", position: 10)
     end
 
     include_context "with authenticated admin"
@@ -190,6 +190,13 @@ RSpec.describe ServersController do
         get server_path("ServerName1")
         expect(@response).to have_http_status(:success) # rubocop:disable RSpec/InstanceVariable
       end
+    end
+
+    context "with a position overlapping another server" do
+      let(:valid_attributes) { { position: server2.position } }
+
+      it { expect(response).to have_http_status(:unprocessable_content) }
+      it { expect { response }.not_to(change { server.reload.position }) }
     end
 
     context "with valid parameters, and an update on a card attributes" do

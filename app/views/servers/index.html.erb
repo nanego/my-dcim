@@ -294,7 +294,7 @@
           <% end %>
 
           <% table.with_column(Server.human_attribute_name(:position), name: :position, sort_by: :position) do |server| %>
-            <%= server.position %>
+            <%= server.rack_units_label %>
           <% end %>
 
           <% table.with_column(Manager.model_name.human, name: :manager_id) do |server| %>

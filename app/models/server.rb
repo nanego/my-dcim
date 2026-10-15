@@ -36,6 +36,8 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validates :name, presence: true
   validate :numero_cannot_be_a_current_server_name
   validate :validate_network_types_values
+  # Only checked when a user types the position in a form
+  validate :rack_units_within_frame, :rack_units_available, on: :rack_placement, if: :rack_placement_changed?
 
   accepts_nested_attributes_for :cards,
                                 allow_destroy: true,
@@ -137,6 +139,33 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
     format(modele&.manufacturer&.documentation_url, numero)
   end
 
+  # Position is the top U of the equipment, which spans modele.u units downwards.
+  def height_in_u
+    modele&.u.to_i.positive? ? modele.u : 1
+  end
+
+  def rack_units
+    return if position.blank?
+
+    (position - height_in_u + 1)..position
+  end
+
+  def rack_units_label
+    return if rack_units.nil?
+
+    rack_units.one? ? "U#{position}" : "U#{rack_units.first}-#{rack_units.last}"
+  end
+
+  def overlapping_servers
+    return Server.none if rack_units.nil? || frame_id.blank?
+
+    Server.joins(:modele)
+      .where(frame_id:)
+      .where.not(id:)
+      .where(position: rack_units.first..)
+      .where("servers.position - COALESCE(NULLIF(modeles.u, 0), 1) + 1 <= ?", rack_units.last)
+  end
+
   def deep_dup
     copy = dup
 
@@ -165,6 +194,24 @@ class Server < ApplicationRecord # rubocop:disable Metrics/ClassLength
     return if modele.blank?
 
     self.network_types = modele.network_types
+  end
+
+  def rack_placement_changed?
+    position_changed? || frame_id_changed? || modele_id_changed?
+  end
+
+  def rack_units_within_frame
+    return if rack_units.nil?
+    return if rack_units.first >= 1 && (frame&.u.blank? || position <= frame.u)
+
+    errors.add(:position, :outside_frame, units: rack_units_label)
+  end
+
+  def rack_units_available
+    servers = overlapping_servers.order(position: :desc).pluck(:name)
+    return if servers.empty?
+
+    errors.add(:position, :overlaps, units: rack_units_label, servers: servers.to_sentence)
   end
 
   def validate_network_types_values

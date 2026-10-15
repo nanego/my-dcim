@@ -122,6 +122,83 @@ RSpec.describe Server do
     it { expect(server.to_s).to eq server.name }
   end
 
+  describe "#rack_units" do
+    it { expect(described_class.new(modele: Modele.new(u: 3), position: 12).rack_units).to eq 10..12 }
+    it { expect(described_class.new(modele: Modele.new(u: 1), position: 12).rack_units).to eq 12..12 }
+    it { expect(described_class.new(modele: Modele.new(u: 0), position: 12).rack_units).to eq 12..12 }
+    it { expect(described_class.new(modele: Modele.new(u: nil), position: 12).rack_units).to eq 12..12 }
+    it { expect(described_class.new(modele: Modele.new(u: 3)).rack_units).to be_nil }
+  end
+
+  describe "#rack_units_label" do
+    it { expect(described_class.new(modele: Modele.new(u: 3), position: 12).rack_units_label).to eq "U10-12" }
+    it { expect(described_class.new(modele: Modele.new(u: 1), position: 12).rack_units_label).to eq "U12" }
+    it { expect(described_class.new(modele: Modele.new(u: 3)).rack_units_label).to be_nil }
+  end
+
+  describe "rack placement validations" do
+    # Frame one is 48U high, servers(:two) is at U38 and servers(:one) at U39
+    subject(:server) do
+      described_class.new(name: "ACTARUS", numero: "1245", frame: frames(:one), modele: Modele.new(u: 3), position:)
+    end
+
+    let(:position) { 37 }
+
+    context "without the rack placement context" do
+      let(:position) { 39 }
+
+      it { is_expected.to be_valid }
+    end
+
+    context "when units are free" do
+      it { expect(server.valid?(:rack_placement)).to be true }
+    end
+
+    context "when units overlap another server" do
+      let(:position) { 40 }
+
+      it do
+        server.valid?(:rack_placement)
+        expect(server.errors.details[:position]).to contain_exactly(a_hash_including(error: :overlaps))
+      end
+    end
+
+    context "when the other server is in another frame" do
+      before { server.frame = frames(:two) }
+
+      let(:position) { 40 }
+
+      it { expect(server.valid?(:rack_placement)).to be true }
+    end
+
+    context "when units go below U1" do
+      let(:position) { 2 }
+
+      it do
+        server.valid?(:rack_placement)
+        expect(server.errors.details[:position]).to contain_exactly(a_hash_including(error: :outside_frame))
+      end
+    end
+
+    context "when units go above the frame" do
+      let(:position) { 49 }
+
+      it do
+        server.valid?(:rack_placement)
+        expect(server.errors.details[:position]).to contain_exactly(a_hash_including(error: :outside_frame))
+      end
+    end
+
+    context "when the placement is unchanged on an existing overlap" do
+      # servers(:accesible_to_readers) shares U39 with servers(:one)
+      subject(:server) { servers(:one) }
+
+      before { server.name = "Renamed" }
+
+      it { expect(server.valid?(:rack_placement)).to be true }
+    end
+  end
+
   describe "#should_generate_new_friendly_id?" do
     pending
   end

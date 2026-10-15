@@ -421,8 +421,8 @@ fr:
       apply: Mettre à jour DCIM
       apply_confirmation: Remplacer les valeurs DCIM des lignes sélectionnées par celles de Netsight ?
       apply_help:
-        vlan: "Remplace les VLAN DCIM (%{dcim}) par ceux de Netsight (%{netsight}), aussi sur le port à l'autre bout du câble."
-        switch: "Remplace le N° Série DCIM (%{dcim}) par celui de Netsight (%{netsight})."
+        vlan: "Remplace les VLAN DCIM (%{dcim}) par ceux de Netsight (%{netsight}), aussi sur le port à l'autre bout du câble"
+        switch: "Remplace le N° Série DCIM (%{dcim}) par celui de Netsight (%{netsight})"
         none: aucun
       applied_at: Appliqué le %{date}
       edit_connection: Modifier la connexion
@@ -478,6 +478,8 @@ fr:
       edit_confirmation: Modifier ce matériel I.T.
       add_card: Ajouter une carte
       add_document: Ajouter une pièce jointe
+      rack_units_hint: "%{units} (la position est le U du haut de l'équipement)"
+      rack_units_empty_hint: "Saisir le U du haut de l'équipement"
     room:
       title: Salle %{room} - Ilot %{islet}
     slot_fields:
