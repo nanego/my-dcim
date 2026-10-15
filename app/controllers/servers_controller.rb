@@ -53,7 +53,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
     authorize! @server = Server.new(server_params)
 
     respond_to do |format|
-      if @server.save
+      if @server.save(context: %i[create rack_placement])
         format.html { redirect_to_new_or_to(@server, notice: t(".flashes.created")) }
         format.json { render :show, status: :created, location: @server }
       else
@@ -72,7 +72,7 @@ class ServersController < ApplicationController # rubocop:disable Metrics/ClassL
       end
     else
       respond_to do |format|
-        if @server.save
+        if @server.save(context: %i[update rack_placement])
           format.html { redirect_to @server, notice: t(".flashes.updated") }
           format.json { render :show, status: :ok, location: @server }
         else

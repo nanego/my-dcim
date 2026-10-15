@@ -4,7 +4,13 @@
   <!--Note: Hidden submit to make it the first available -->
   <%= f.submit class: "d-none", "aria-hidden": true %>
 
-  <div class="row row-cols-1 row-cols-lg-2 row-gap-4">
+  <%= tag.div class: "row row-cols-1 row-cols-lg-2 row-gap-4",
+              data: {
+                controller: "rack-position",
+                rack_position_heights_value: Modele.no_pdus.pluck(:id, :u).to_h.to_json,
+                rack_position_hint_value: t(".rack_units_hint"),
+                rack_position_empty_hint_value: t(".rack_units_empty_hint"),
+              } do %>
     <div class="col">
       <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
         <% card.with_header do %>
@@ -37,6 +43,8 @@
                                       data: {
                                         controller: "select",
                                         select_clear_button_title_value: t("action.clear_all"),
+                                        rack_position_target: "modele",
+                                        action: "rack-position#refresh",
                                       },
                                       placeholder: t("select.placeholder"),
                                     }) %>
@@ -122,7 +130,11 @@
 
           <fieldset class="col-md-3 col-12">
             <%= f.label :position, class: "form-label" %>
-            <%= f.number_field :position, class: "form-control" %>
+            <%= f.number_field :position,
+                               class: "form-control",
+                               aria: { describedby: "server_position_hint" },
+                               data: { rack_position_target: "position", action: "rack-position#refresh" } %>
+            <div id="server_position_hint" class="form-text" data-rack-position-target="hint"></div>
           </fieldset>
         </div>
       <% end %>
@@ -235,7 +247,7 @@
         <% end %>
       </fieldset>
     </div>
-  </div>
+  <% end %>
 
   <!-- TODO: update -->
   <% if @server.modele %>

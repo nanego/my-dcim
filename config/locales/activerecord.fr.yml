@@ -579,6 +579,9 @@ fr:
             numero:
               same_as_server_name: ne peut pas être identique à un nom d'équipement
               invalid: ne peut pas contenir d'espace
+            position:
+              outside_frame: "place l'équipement en %{units}, hors des limites de la baie"
+              overlaps: "place l'équipement en %{units}, déjà occupé par : %{servers}"
 
         user:
           attributes:

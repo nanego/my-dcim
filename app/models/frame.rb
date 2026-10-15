@@ -83,7 +83,7 @@ class Frame < ApplicationRecord # rubocop:disable Metrics/ClassLength
         when "cluster"
           addition = server.cluster.try(:name)
         end
-        txt << "[#{server.position.to_s.rjust(2, "0")}] #{server.name} #{"(#{addition})" if addition.present?}\r\n"
+        txt << "[#{server.rack_units_label}] #{server.name} #{"(#{addition})" if addition.present?}\r\n"
       end
     end
     txt.join

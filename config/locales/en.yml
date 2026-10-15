@@ -602,6 +602,8 @@ en:
       edit_confirmation: Edit this I.T. equipment
       add_card: Add a card
       add_document: Add an attachment
+      rack_units_hint: "Occupies %{units} (the position is the top U of the equipment)"
+      rack_units_empty_hint: "Enter the top U of the equipment"
     room:
       title: Romm %{room} - Islet %{islet}
     slot_fields:
