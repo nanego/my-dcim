@@ -45,7 +45,7 @@
                     </div>
                   <% end %>
 
-                  <div id="pdu-vizualisation-<%= power_distribution_unit.id %>">
+                  <div id="pdu-vizualisation-<%= power_distribution_unit.id %>" class="pdu">
                     <%= render partial: "power_distribution_units/visualization",
                               locals: { power_distribution_unit: } %>
                   </div>
@@ -68,7 +68,7 @@
                   <% end %>
 
 
-                  <div id="pdu-vizualisation-<%= power_distribution_unit.id %>">
+                  <div id="pdu-vizualisation-<%= power_distribution_unit.id %>", class="pdu">
                     <%= render partial: "power_distribution_units/visualization",
                               locals: { power_distribution_unit: } %>
                   </div>

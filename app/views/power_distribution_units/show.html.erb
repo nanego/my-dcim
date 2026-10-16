@@ -60,7 +60,7 @@
           <%= t("show.cards.preview") %>
         <% end %>
 
-        <div id="pdu-vizualisation-<%= @power_distribution_unit.id %>">
+        <div id="pdu-vizualisation-<%= @power_distribution_unit.id %>" class="pdu">
           <%= render partial: "visualization", locals: { power_distribution_unit: @power_distribution_unit } %>
         </div>
       <% end %>

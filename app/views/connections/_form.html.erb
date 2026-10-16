@@ -53,7 +53,7 @@
 
                 <ul class="list-group back_pdu">
                   <% @from_pdu.cards.each do |card| %>
-                    <span class="<%= class_names("list-group-item d-flex pdu", "flex-column": %w[td-lr dt-lr].include?(card.orientation)) %>">
+                    <span class="<%= class_names("list-group-item d-flex", "flex-column": %w[td-lr dt-lr].include?(card.orientation)) %>">
                       <% if card.card_type && card.card_type.columns && card.card_type.rows %>
                         <%= ports_by_card_with_presentation(card: card, selected_port: @from_port, twin_card_used_ports: nil) %>
                       <% else %>
@@ -203,7 +203,9 @@
           url: "<%= connections_update_destination_server_path %>",
           data: { attachable_id: selected_server }
       }).done(function () {
-        if (port_id = $('input[name="connection[to_port_id]"]').val()) {
+        port_id = $('input[name="connection[to_port_id]"]').val()
+
+        if (port_id !== null && port_id !== "") {
           select_destination_port(port_id);
         }
       });
@@ -250,7 +252,7 @@
 
   function select_destination_port(port_id) {
       var selected_ports = $("#back_destination_server #" + port_id);
-      selected_ports.closest("table").find("span.selected").removeClass("selected");
+      $("#back_destination_server").find("span.selected").removeClass("selected");
       selected_ports.closest("span").addClass("selected");
       var server_name = $("#back_destination_server .server_name").text();
       var component_name = selected_ports.closest("td").find("span:first").data("composant-name");
@@ -275,7 +277,7 @@
 
     $("#back_destination_server").on('click', 'a.port', function (e) {
       e.preventDefault();
-      select_destination_port(e.target.id);
+      select_destination_port(e.currentTarget.id);
     });
   });
   </script>

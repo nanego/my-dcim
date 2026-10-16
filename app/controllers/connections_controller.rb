@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class ConnectionsController < ApplicationController # rubocop:disable Metrics/ClassLength
-  def edit # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
+  def edit # rubocop:disable Metrics/AbcSize,Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
     authorize!
 
     @from_port = if params[:from_port_id].present? && params[:from_port_id].to_i.positive?
                    Port.find_by_id(params[:from_port_id])
                  else
-                   # TODO: use global_id instead
+                   # TODO: seems to be dead code
                    attachable = if params["card_id"]
                                   Card.find(params["card_id"])
                                 elsif params["socket_id"]
@@ -31,15 +31,16 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
     end
 
     @coupled_frames = @frame.bay.frames
-    @possible_destination_servers = []
-    @all_servers_per_frame = []
+    @frames = Frame.order(:name)
+    @possible_destination_servers = (@coupled_frames + @frames).flatten.uniq.to_h { |f| [f.name, {}] }
+    @all_servers_per_frame = (@coupled_frames + @frames).flatten.uniq.to_h { |f| [f.name, {}] }
 
-    @coupled_frames.each { |frame| @possible_destination_servers << [frame.name, frame.power_distribution_units.collect { |v| [v.name, v.to_gid] }] }
-    Frame.order(:name).each { |frame| @all_servers_per_frame << [frame.name, frame.power_distribution_units.collect { |v| [v.name, v.to_gid] }] }
+    @coupled_frames.each { |frame| @possible_destination_servers[frame.name].merge!(frame.power_distribution_units.to_h { |v| [v.name, v.to_gid] }) }
+    @frames.each { |frame| @all_servers_per_frame[frame.name].merge!(frame.power_distribution_units.to_h { |v| [v.name, v.to_gid] }) }
 
     if !@from_port.is_power? || @from_port.attachable.is_a?(Server)
-      @coupled_frames.each { |frame| @possible_destination_servers << [frame.name, frame.servers.collect { |v| [v.name, v.to_gid] }] }
-      Frame.order(:name).each { |frame| @all_servers_per_frame << [frame.name, frame.servers.collect { |v| [v.name, v.to_gid] }] }
+      @coupled_frames.each { |frame| @possible_destination_servers[frame.name].merge!(frame.servers.to_h { |v| [v.name, v.to_gid] }) }
+      @frames.each { |frame| @all_servers_per_frame[frame.name].merge!(frame.servers.to_h { |v| [v.name, v.to_gid] }) }
     end
 
     # Destination port
@@ -104,10 +105,8 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
 
     @attachable = GlobalID::Locator.locate(params[:attachable_id])
 
-    if @attachable.is_a?(Server)
-      @attachable.create_missing_ports
-      @attachable.reload
-    end
+    @attachable.create_missing_ports
+    @attachable.reload
 
     if @attachable.is_a?(Server) && params[:with_moved_connection]
       @moved_connections = MovedConnection.per_servers([@attachable])

@@ -5,7 +5,7 @@
     <ul class="list-group">
 
       <% power_distribution_unit.sockets.each do |socket| %>
-        <li class="list-group-item bg-body-tertiary pdu">
+        <li class="list-group-item bg-body-tertiary ">
           <span title="<%= PowerDistributionUnit::Circuit.model_name.human %> <%= socket.circuit.name %>"
                 data-controller="tooltip"
                 aria-label="<%= PowerDistributionUnit::Circuit.model_name.human %> <%= socket.circuit.name %>">
@@ -30,7 +30,7 @@
 
     <ul class="list-group">
       <% power_distribution_unit.cards.each do |card| %>
-        <span class="<%= class_names("list-group-item d-flex pdu", "flex-column": %w[td-lr dt-lr].include?(card.orientation)) %>">
+        <span class="<%= class_names("list-group-item d-flex", "flex-column": %w[td-lr dt-lr].include?(card.orientation)) %>">
           <% if card.card_type && card.card_type.columns && card.card_type.rows %>
             <%= ports_by_card_with_presentation(card: card, twin_card_used_ports: nil) %>
           <% else %>
