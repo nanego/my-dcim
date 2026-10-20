@@ -8,8 +8,6 @@ class Move
     belongs_to :port_from, class_name: "Port"
     belongs_to :port_to, class_name: "Port", optional: true
 
-    enum :status, { create: 0, update: 1, destroy: 2 }, prefix: true
-
     scope :not_executed, -> { where(executed_at: nil) }
 
     validates :port_from_id, uniqueness: { scope: %i[move_id] }
