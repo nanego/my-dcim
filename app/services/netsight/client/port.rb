@@ -18,12 +18,14 @@ module Netsight
       attribute :lag_master_if_index, Types::Integer.optional
       attribute :tagged, Types::Array.of(Types::Integer)
       attribute :untagged, Types::Array.of(Types::Integer)
+      attribute? :scanned_at, Types::Time.optional
 
       def self.from_api(device)
-        build(device["sysName"], device.dig("entityData", "port") || {}, device.dig("deviceData", "port") || {})
+        build(device["sysName"], device.dig("entityData", "port") || {}, device.dig("deviceData", "port") || {},
+              scanned_at: scan_time(device.dig("entityData", "lastFullScan")))
       end
 
-      def self.build(sys_name, entity, data)
+      def self.build(sys_name, entity, data, scanned_at: nil)
         new(sys_name:,
             if_name: entity["ifName"],
             oper_status: entity["formattedOperStatus"],
@@ -31,7 +33,13 @@ module Netsight
             description: entity["ifAlias"].presence,
             lag_master_if_index: (entity["lagMasterIndex"] if entity["isLagContributor"]),
             tagged: data["tagged"].to_a.sort,
-            untagged: data["untagged"].to_a.sort)
+            untagged: data["untagged"].to_a.sort,
+            scanned_at:)
+      end
+
+      # Netsight gives epoch milliseconds, and nothing for a switch it can't reach
+      def self.scan_time(milliseconds)
+        Time.zone.at(milliseconds / 1000.0) if milliseconds.to_i.positive?
       end
 
       def self.normalize_vlans(vlans)

@@ -339,6 +339,7 @@ fr:
         no_vlan: Aucun VLAN
         differs_from_dcim: Différent de DCIM
         apply_vlans: Mettre à jour DCIM
+        scanned_at: Dernier scan du switch
         sync_page: Voir la synchronisation de tous les switchs
   port_types:
     index:

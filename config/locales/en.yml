@@ -588,6 +588,7 @@ en:
         no_vlan: No VLAN
         differs_from_dcim: Differs from DCIM
         apply_vlans: Update DCIM
+        scanned_at: Last switch scan
         sync_page: See the synchronization of every switch
   servers:
     glpi_equipment:

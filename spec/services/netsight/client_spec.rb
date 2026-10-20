@@ -50,6 +50,10 @@ RSpec.describe Netsight::Client, type: :service do
                                       lag_master_if_index: nil)
     end
 
+    it "reads when Netsight last scanned the switch" do
+      expect(port.scanned_at).to eq(Time.zone.at(1_792_502_100))
+    end
+
     it "rejects an IP that is not one" do
       expect { client.port(ip: '1.2.3.4") { x', if_index: 1001) }.to raise_error(ArgumentError)
     end
@@ -122,6 +126,12 @@ RSpec.describe Netsight::Client, type: :service do
       it { expect(port.matches_dcim?("u201, t1192")).to be(false) }
       it { expect(port.matches_dcim?(nil)).to be(false) }
       it { expect(port.matches_dcim?("u201 t1192 t1194")).to be(true) }
+    end
+
+    describe ".scan_time" do
+      it { expect(described_class.scan_time(1_792_502_100_000)).to eq(Time.zone.at(1_792_502_100)) }
+      it { expect(described_class.scan_time(nil)).to be_nil }
+      it { expect(described_class.scan_time(0)).to be_nil }
     end
 
     describe ".vlan_list?" do

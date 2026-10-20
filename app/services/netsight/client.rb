@@ -65,7 +65,7 @@ module Netsight
       port_filter = "port(ifIndex: #{Integer(if_index)})"
       device = graphql(<<~GRAPHQL).dig("network", "device")
         { network { device(ip: "#{ip}") { sysName
-          entityData { #{port_filter} { ifName formattedOperStatus formattedSpeed ifAlias isLagContributor lagMasterIndex } }
+          entityData { lastFullScan #{port_filter} { ifName formattedOperStatus formattedSpeed ifAlias isLagContributor lagMasterIndex } }
           deviceData { #{port_filter} { tagged untagged portPvid } }
         } } }
       GRAPHQL

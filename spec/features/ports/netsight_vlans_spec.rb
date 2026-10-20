@@ -18,6 +18,7 @@ RSpec.describe "Ports::NetsightVlans", :js do
     within("turbo-frame#netsight_port") do
       expect(page).to have_text(netsight_t(:title))
       expect(page).to have_text("STORAGE-1 CTRL")
+      expect(page).to have_text(I18n.l(Time.zone.at(1_792_502_100), locale: user.locale))
       expect(page).to have_text(netsight_t(:differs_from_dcim))
       expect(page).to have_link(netsight_t(:sync_page))
 

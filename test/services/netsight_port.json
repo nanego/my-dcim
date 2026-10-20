@@ -4,6 +4,7 @@
       "device": {
         "sysName": "SW_TEST01",
         "entityData": {
+          "lastFullScan": 1792502100000,
           "port": {
             "ifName": "2:1",
             "formattedOperStatus": "Up",
