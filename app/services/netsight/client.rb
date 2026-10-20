@@ -12,6 +12,7 @@ module Netsight
     SERIALS_CACHE_KEY = "netsight/serials"
     SERIALS_BATCH_SIZE = 25
     DEVICES_QUERY = "{ network { devices { ip sysName nickName } } }"
+    PORT_FIELDS = "ifName formattedOperStatus formattedSpeed ifAlias isLagContributor lagMasterIndex vlanList"
     TIMEOUTS = { open_timeout: 3, timeout: 10 }.freeze
     DEMO_IP = "192.0.2.63"
 
@@ -62,11 +63,9 @@ module Netsight
     def port(ip:, if_index:)
       validate_ip!(ip)
 
-      port_filter = "port(ifIndex: #{Integer(if_index)})"
       device = graphql(<<~GRAPHQL).dig("network", "device")
         { network { device(ip: "#{ip}") { sysName
-          entityData { lastFullScan #{port_filter} { ifName formattedOperStatus formattedSpeed ifAlias isLagContributor lagMasterIndex } }
-          deviceData { #{port_filter} { tagged untagged portPvid } }
+          entityData { lastFullScan vlanSupported port(ifIndex: #{Integer(if_index)}) { #{PORT_FIELDS} } }
         } } }
       GRAPHQL
 
@@ -91,8 +90,7 @@ module Netsight
 
       device = graphql(<<~GRAPHQL).dig("network", "device") or return
         { network { device(ip: "#{ip}") { sysName
-          entityData { allPorts { ifIndex ifName formattedOperStatus formattedSpeed ifAlias isLagContributor lagMasterIndex } }
-          deviceData { ports { ifIndex tagged untagged portPvid } }
+          entityData { vlanSupported allPorts { #{PORT_FIELDS} } }
           links { ifName1 deviceIp1 ifName2 deviceIp2 discoveryProto formattedType status }
         } } }
       GRAPHQL

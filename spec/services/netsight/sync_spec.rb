@@ -49,6 +49,16 @@ RSpec.describe Netsight::Sync, type: :service do
       end
     end
 
+    context "when Netsight does not poll the VLANs of the switch" do
+      before do
+        port.update!(vlans: "u300")
+        allow(client).to receive(:device_snapshot).with(ip: "10.0.0.1")
+          .and_return(Netsight::Client::DeviceSnapshot.new(ports: {}, links:, vlans_collected: false))
+      end
+
+      it { expect { sync }.not_to change(results(:vlan), :count) }
+    end
+
     context "when the VLANs match" do
       let(:netsight_ports) { { "1:7" => netsight_port(untagged: [201]) } }
 

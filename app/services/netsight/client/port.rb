@@ -9,6 +9,9 @@ module Netsight
     class Port < Dry::Struct
       DEFAULT_VLAN = 1
       PORTS_PER_SLOT = 1000
+      # entityData.vlanSupported of a switch whose VLANs Netsight reads over SNMP
+      VLANS_COLLECTED = 1
+      VLAN_ENTRY = /\A(?<vid>\d+)\[.*\] (?<mode>Tagged|Untagged)\z/
 
       attribute :sys_name, Types::String.optional
       attribute :if_name, Types::String.optional
@@ -18,23 +21,43 @@ module Netsight
       attribute :lag_master_if_index, Types::Integer.optional
       attribute :tagged, Types::Array.of(Types::Integer)
       attribute :untagged, Types::Array.of(Types::Integer)
+      attribute :vlans_collected, Types::Bool.default(true)
       attribute? :scanned_at, Types::Time.optional
 
       def self.from_api(device)
-        build(device["sysName"], device.dig("entityData", "port") || {}, device.dig("deviceData", "port") || {},
-              scanned_at: scan_time(device.dig("entityData", "lastFullScan")))
+        entity_data = device["entityData"] || {}
+
+        build(device["sysName"], entity_data["port"] || {}, vlans_collected: vlans_collected?(entity_data),
+                                                            scanned_at: scan_time(entity_data["lastFullScan"]))
       end
 
-      def self.build(sys_name, entity, data, scanned_at: nil)
+      # The VLANs come from what Netsight polls on the switch: deviceData holds
+      # the VLANs Netsight would configure, which drift from the switch
+      def self.build(sys_name, entity, vlans_collected:, scanned_at: nil)
+        vlans = vlans_collected ? parse_vlan_list(entity["vlanList"]) : { tagged: [], untagged: [] }
+
         new(sys_name:,
             if_name: entity["ifName"],
             oper_status: entity["formattedOperStatus"],
             speed: entity["formattedSpeed"],
             description: entity["ifAlias"].presence,
             lag_master_if_index: (entity["lagMasterIndex"] if entity["isLagContributor"]),
-            tagged: data["tagged"].to_a.sort,
-            untagged: data["untagged"].to_a.sort,
+            tagged: vlans[:tagged].sort,
+            untagged: vlans[:untagged].sort,
+            vlans_collected:,
             scanned_at:)
+      end
+
+      def self.vlans_collected?(entity_data)
+        entity_data["vlanSupported"] == VLANS_COLLECTED
+      end
+
+      # ["1573[CS_1573] Tagged", "1656[ADMIN] Untagged"] => { tagged: [1573], untagged: [1656] }
+      def self.parse_vlan_list(entries)
+        entries.to_a.each_with_object({ tagged: [], untagged: [] }) do |entry, vlans|
+          match = VLAN_ENTRY.match(entry) or raise Error, "unexpected Netsight VLAN entry: #{entry.inspect}"
+          vlans[match[:mode].downcase.to_sym] << match[:vid].to_i
+        end
       end
 
       # Netsight gives epoch milliseconds, and nothing for a switch it can't reach

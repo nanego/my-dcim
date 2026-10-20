@@ -569,6 +569,8 @@ en:
 
   ports:
     netsight_port:
+      loading:
+        message: Loading Netsight data…
       show:
         title: Netsight data
         demo: Sample
@@ -581,14 +583,14 @@ en:
         status: Status
         speed: Speed
         description: Description
-        lag: Link aggregation (LAG)
         lag_member: LAG member, master port %{master}
         vlans: VLANs
         default_vlan: Default VLAN (1)
         no_vlan: No VLAN
+        vlans_not_collected: Netsight does not read the VLANs of this switch
         differs_from_dcim: Differs from DCIM
         apply_vlans: Update DCIM
-        scanned_at: Last switch scan
+        scanned_at: "Last switch scan: %{date}"
         sync_page: See the synchronization of every switch
   servers:
     glpi_equipment:

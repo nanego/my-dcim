@@ -43,6 +43,19 @@ RSpec.describe Ports::NetsightPortController do
       it { expect(response.body).not_to include("netsight-vlans#apply") }
     end
 
+    context "when Netsight does not poll the VLANs of the switch" do
+      before do
+        servers(:one).update!(name: "SW_TEST01:Slot2")
+        allow_any_instance_of(Netsight::Client).to receive(:port) # rubocop:disable RSpec/AnyInstance
+          .and_return(Netsight::Client::Port.new(sys_name: "SW_OLD", if_name: "2:11", oper_status: "Up", speed: nil,
+                                                 description: nil, lag_master_if_index: nil, tagged: [], untagged: [],
+                                                 vlans_collected: false))
+      end
+
+      it { expect(response.body).to include(I18n.t("ports.netsight_port.show.vlans_not_collected")) }
+      it { expect(response.body).not_to include("netsight-vlans#apply") }
+    end
+
     context "without any switch around the port" do
       it { expect(response).to have_http_status(:success) }
       it { expect(response.body).to include(I18n.t("ports.netsight_port.show.no_switch")) }

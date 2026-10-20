@@ -16,54 +16,59 @@
     <% elsif @netsight_port.nil? %>
       <%= t(".port_not_found", switch: @location.sys_name, if_index: @location.if_index) %>
     <% else %>
-      <dl class="show-page_dl d-grid row-gap-2 mb-0">
-        <dt class="pb-2"><%= t(".switch") %></dt>
-        <dd class="mb-0 pb-2 ps-3"><%= @netsight_port.sys_name %></dd>
-
-        <dt class="pb-2"><%= t(".port") %></dt>
-        <dd class="mb-0 pb-2 ps-3 font-monospace"><%= @netsight_port.if_name %></dd>
-
-        <dt class="pb-2"><%= t(".status") %></dt>
-        <dd class="mb-0 pb-2 ps-3"><%= value_or_nc @netsight_port.oper_status %></dd>
-
-        <dt class="pb-2"><%= t(".speed") %></dt>
-        <dd class="mb-0 pb-2 ps-3"><%= value_or_nc @netsight_port.speed %></dd>
-
-        <dt class="pb-2"><%= t(".description") %></dt>
-        <dd class="mb-0 pb-2 ps-3"><%= value_or_nc @netsight_port.description %></dd>
-
-        <% if @netsight_port.lag_member? %>
-          <dt class="pb-2"><%= t(".lag") %></dt>
-          <dd class="mb-0 pb-2 ps-3"><%= t(".lag_member", master: @netsight_port.lag_master_name) %></dd>
+      <div class="d-flex flex-wrap align-items-baseline column-gap-3 row-gap-1">
+        <span class="fw-semibold" title="<%= t(".switch") %> / <%= t(".port") %>">
+          <%= @netsight_port.sys_name %> <span class="font-monospace"><%= @netsight_port.if_name %></span>
+        </span>
+        <% if @netsight_port.oper_status.present? %>
+          <span class="badge <%= @netsight_port.oper_status == "Up" ? "text-bg-success" : "text-bg-secondary" %>"
+                title="<%= t(".status") %>"><%= @netsight_port.oper_status %></span>
         <% end %>
+        <% if @netsight_port.speed.present? %>
+          <span class="small text-body-secondary" title="<%= t(".speed") %>"><%= @netsight_port.speed %></span>
+        <% end %>
+        <% if @netsight_port.description.present? %>
+          <span class="small text-body-secondary text-break" title="<%= t(".description") %>"><%= @netsight_port.description %></span>
+        <% end %>
+        <% if @netsight_port.lag_member? %>
+          <span class="small text-body-secondary"><%= t(".lag_member", master: @netsight_port.lag_master_name) %></span>
+        <% end %>
+      </div>
 
-        <dt class="pb-2"><%= t(".vlans") %></dt>
-        <dd class="mb-0 pb-2 ps-3">
-          <% if @netsight_port.default_vlan_only? %>
-            <%= t(".default_vlan") %>
-          <% else %>
-            <span class="font-monospace"><%= @netsight_port.dcim_vlans.presence || t(".no_vlan") %></span>
+      <div class="d-flex flex-wrap align-items-baseline gap-2 mt-2">
+        <span class="text-body-secondary"><%= t(".vlans") %></span>
+        <% if !@netsight_port.vlans_collected %>
+          <span class="fst-italic text-body-secondary"><%= t(".vlans_not_collected") %></span>
+        <% elsif @netsight_port.default_vlan_only? %>
+          <%= t(".default_vlan") %>
+        <% else %>
+          <span class="font-monospace"><%= @netsight_port.dcim_vlans.presence || t(".no_vlan") %></span>
 
-            <% unless @netsight_port.matches_dcim?(@port.vlans) %>
-              <span class="badge text-bg-warning ms-2"><%= t(".differs_from_dcim") %></span>
-              <button type="button"
-                      class="btn btn-sm btn-outline-primary ms-2"
-                      data-action="netsight-vlans#apply"
-                      data-netsight-vlans-value-param="<%= @netsight_port.dcim_vlans %>">
-                <%= t(".apply_vlans") %>
-              </button>
-            <% end %>
+          <% unless @netsight_port.matches_dcim?(@port.vlans) %>
+            <span class="badge text-bg-warning"><%= t(".differs_from_dcim") %></span>
+            <button type="button"
+                    class="btn btn-sm btn-outline-primary"
+                    data-action="netsight-vlans#apply"
+                    data-netsight-vlans-value-param="<%= @netsight_port.dcim_vlans %>">
+              <%= t(".apply_vlans") %>
+            </button>
           <% end %>
-        </dd>
-
-        <dt class="pb-2"><%= t(".scanned_at") %></dt>
-        <dd class="mb-0 pb-2 ps-3"><%= value_or_nc(@netsight_port.scanned_at && l(@netsight_port.scanned_at)) %></dd>
-      </dl>
+        <% end %>
+      </div>
     <% end %>
 
-    <% if allowed_to?(:index?, with: NetsightSyncResultPolicy) %>
+    <% scanned_at = @netsight_port&.scanned_at %>
+    <% sync_page = allowed_to?(:index?, with: NetsightSyncResultPolicy) %>
+    <% if scanned_at || sync_page %>
       <% card.with_footer do %>
-        <%= link_to t(".sync_page"), netsight_sync_results_path, class: "small netsight-sync-page-link", data: { turbo_frame: "_top" } %>
+        <% if scanned_at %>
+          <span class="small text-body-secondary" title="<%= l(scanned_at, format: :long) %>">
+            <%= t(".scanned_at", date: l(scanned_at, format: :short)) %>
+          </span>
+        <% end %>
+        <% if sync_page %>
+          <%= link_to t(".sync_page"), netsight_sync_results_path, class: "small netsight-sync-page-link ms-auto", data: { turbo_frame: "_top" } %>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>

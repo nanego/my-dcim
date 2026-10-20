@@ -320,6 +320,8 @@ fr:
       flashes:
         destroyed: Le port a été supprimé.
     netsight_port:
+      loading:
+        message: Chargement des données Netsight…
       show:
         title: Données Netsight
         demo: Exemple
@@ -332,14 +334,14 @@ fr:
         status: Statut
         speed: Vitesse
         description: Description
-        lag: Agrégat (LAG)
         lag_member: Membre du LAG, port maître %{master}
         vlans: VLAN
         default_vlan: VLAN par défaut (1)
         no_vlan: Aucun VLAN
+        vlans_not_collected: Netsight ne relève pas les VLAN de ce switch
         differs_from_dcim: Différent de DCIM
         apply_vlans: Mettre à jour DCIM
-        scanned_at: Dernier scan du switch
+        scanned_at: "Dernier scan du switch : %{date}"
         sync_page: Voir la synchronisation de tous les switchs
   port_types:
     index:
