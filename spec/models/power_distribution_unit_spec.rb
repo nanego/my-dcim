@@ -79,6 +79,14 @@ RSpec.describe PowerDistributionUnit do
     end
   end
 
+  describe "#create_missing_ports" do
+    it do
+      expect do
+        power_distribution_unit.create_missing_ports
+      end.to change(Port, :count).by(5)
+    end
+  end
+
   describe "#circuits_per_phase" do
     subject(:power_distribution_unit) { described_class.new(type:) }
 

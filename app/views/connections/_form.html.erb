@@ -127,7 +127,7 @@
                          locals: { server: @to_port_attached, selected_port: @to_port } %>
             <% when PowerDistributionUnit %>
               <%= render partial: "power_distribution_units/visualization",
-                        locals: { power_distribution_unit: @to_port_attached, selected_port: @to_port } %>
+                         locals: { power_distribution_unit: @to_port_attached, selected_port: @to_port } %>
             <% end %>
           </div>
           <%= f.hidden_field :to_port_id, value: @to_port&.id %>

@@ -21,6 +21,7 @@ class Port < ApplicationRecord # rubocop:disable Metrics/ClassLength
   delegate :color, to: :cable, prefix: true, allow_nil: true
   delegate :name, to: :cable, prefix: true, allow_nil: true
   delegate :server_id, to: :card, prefix: false
+  delegate :frame, to: :attached
 
   scope :sorted, -> { order(:position) }
 
@@ -70,10 +71,6 @@ class Port < ApplicationRecord # rubocop:disable Metrics/ClassLength
         end
       end
     end
-  end
-
-  def frame
-    attached.frame
   end
 
   def attached
