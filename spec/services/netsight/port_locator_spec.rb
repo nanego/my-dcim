@@ -8,6 +8,7 @@ RSpec.describe Netsight::PortLocator, type: :service do
   let(:switch) { servers(:one) }
   let(:client) { instance_double(Netsight::Client) }
   let(:port) { ports(:four) }
+  let(:stack_type) { CardType.create!(name: "4QSFP+", port_quantity: 4, port_type: PortType.create!(name: "STACK")) }
 
   before do
     allow(client).to receive(:device_ip).and_return(nil)
@@ -74,6 +75,14 @@ RSpec.describe Netsight::PortLocator, type: :service do
     it { expect(result.status).to eq(:no_switch) }
   end
 
+  context "with a port on a stack card" do
+    let(:port) { Port.create!(position: 1, attachable: Card.create!(server: switch, composant: composants(:one), card_type: stack_type)) }
+
+    before { switch.update!(name: "SW_TEST") }
+
+    it { expect(result.status).to eq(:no_switch) }
+  end
+
   describe ".numbered_ports" do
     subject(:numbered_ports) { described_class.numbered_ports(switch) }
 
@@ -90,6 +99,12 @@ RSpec.describe Netsight::PortLocator, type: :service do
     it "skips the fan cards" do
       fan_type = CardType.create!(name: "1FAN", port_quantity: 1, port_type: PortType.create!(name: "FAN"))
       Card.create!(server: switch, composant: composants(:one), card_type: fan_type)
+
+      expect(numbered_ports.slice(1, 11)).to eq(1 => ports(:one), 11 => ports(:four))
+    end
+
+    it "skips the stack cards" do
+      Card.create!(server: switch, composant: composants(:one), card_type: stack_type)
 
       expect(numbered_ports.slice(1, 11)).to eq(1 => ports(:one), 11 => ports(:four))
     end

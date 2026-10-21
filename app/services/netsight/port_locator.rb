@@ -5,7 +5,8 @@ module Netsight
   class PortLocator
     SWITCH_NAME = /\A\s*(?<sys_name>[\w-]+)(?::slot(?<slot>\d+))?/i
     PORTS_PER_SLOT = 1000
-    NON_DATA_PORT_TYPES = %w[FAN].freeze
+    # Stack links are not front ports in Netsight, so they would shift the numbering
+    NON_DATA_PORT_TYPES = %w[FAN STACK].freeze
 
     Result = Data.define(:status, :port, :sys_name, :ip, :if_index, :if_name) do
       def found? = status == :found
@@ -39,7 +40,7 @@ module Netsight
       candidates(port).each do |candidate|
         sys_name, slot = self.class.parse_name(candidate.server.name)
         ip = sys_name && @client.device_ip(sys_name) or next
-        number = self.class.numbered_ports(candidate.server).key(candidate)
+        number = self.class.numbered_ports(candidate.server).key(candidate) or next
 
         return Result.new(status: :found, port: candidate, sys_name:, ip:,
                           if_index: (slot * PORTS_PER_SLOT) + number, if_name: "#{slot}:#{number}")
