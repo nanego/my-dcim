@@ -73,13 +73,17 @@ class Port < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   def frame
+    attached.frame
+  end
+
+  def attached
     case attachable
     when Card
-      server.frame
+      server
     when PowerDistributionUnit::Socket
-      circuit.record.frame
+      circuit.record
     when PowerDistributionUnit::Card
-      power_distribution_unit_card.record.frame
+      power_distribution_unit_card.record
     end
   end
 

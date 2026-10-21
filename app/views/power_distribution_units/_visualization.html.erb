@@ -1,4 +1,4 @@
-<%# locals: (power_distribution_unit:) -%>
+<%# locals: (power_distribution_unit:,selected_port: nil) -%>
 
 <div class="d-flex pdu-preview mx-auto">
   <span class="d-flex align-items-center mx-auto flex-column gap-2">
@@ -32,10 +32,11 @@
       <% power_distribution_unit.cards.each do |card| %>
         <span class="<%= class_names("list-group-item d-flex", "flex-column": %w[td-lr dt-lr].include?(card.orientation)) %>">
           <% if card.card_type && card.card_type.columns && card.card_type.rows %>
-            <%= ports_by_card_with_presentation(card: card, twin_card_used_ports: nil) %>
+            <%= ports_by_card_with_presentation(card: card, twin_card_used_ports: nil, selected_port: selected_port) %>
           <% else %>
             <%= ports_by_card(port_type: card.card_type.try(:port_type),
                               port_quantity: card.card_type.try(:port_quantity),
+                              selected_port: selected_port,
                               card: card,
                               ports_data: card.ports,
                               twin_card_used_ports: nil) %>

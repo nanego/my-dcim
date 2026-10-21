@@ -59,9 +59,9 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
                    @frame.servers.where("position IS NOT NULL AND modele_id IS NOT NULL").order(:position).first
                  end
 
-    if @to_server
-      @to_server.create_missing_ports
-      @to_server.reload
+    if (@to_port_attached = @to_port&.attached)
+      @to_port_attached.create_missing_ports
+      @to_port_attached.reload
     end
   end
 
