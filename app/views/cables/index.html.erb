@@ -105,7 +105,7 @@
   <% end %>
 
   <%= turbo_frame_tag(dom_id(Connection, :table), data: { turbo_action: :advance }) do %>
-    <div class="cable-index-servers d-flex flex-column row-gap-4">
+    <div class="cables-index d-flex flex-column row-gap-4">
       <%= render List::DataTableComponent.new(@cables) do |table| %>
         <% if allowed_to?(:destroy?) %>
           <% table.with_bulk_action(
@@ -119,7 +119,7 @@
         <% end %>
 
         <% table.with_column("Matériels connectés", v_align: :baseline) do |cable| %>
-          <div class="cable-index-servers">
+          <div class="cables-draw">
             <%= render partial: "draw", locals: { cable:, server: @server } %>
           </div>
         <% end %>
