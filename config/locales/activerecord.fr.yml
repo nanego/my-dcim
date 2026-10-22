@@ -433,7 +433,7 @@ fr:
         moveable_id: Équipement à déplacer
         frame_id: Châssis de destination
         prev_frame_id: Châssis de départ
-        remove_existing_connections_on_execution: Supprimer les connexions de l'équipement ?
+        remove_existing_connections_on_execution: Supprimer les connexions existantes de l'équipement
         remove_existing_connections_on_execution_short: Connexions supprimées ?
         position: Position dans le châssis
         status: État
