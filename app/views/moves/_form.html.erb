@@ -6,6 +6,8 @@
           model: [moves_project_step, move],
           html: { class: "bg-body-tertiary p-4 rounded border moves_form server_form_fields", role: "form" },
         ) do |f| %>
+      <%= redirect_to_on_success_hidden_field_tag(params[:redirect_to_on_success]) %>
+
       <div class="row g-3">
         <fieldset class="mb-4">
           <%= f.label :moves_project_step_id, class: "form-label" %>

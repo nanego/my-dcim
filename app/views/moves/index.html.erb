@@ -6,7 +6,7 @@
   <% heading.with_right_content do %>
     <% if @moves_project.unarchived? %>
       <%= render ButtonComponent.new(t(".new_move"),
-                                     url: new_moves_project_step_move_path(@moves_project_step),
+                                     url: new_moves_project_step_move_path(@moves_project_step, redirect_to_on_success: request.path),
                                      variant: :success,
                                      icon: "plus-lg",
                                      is_responsive: true,
@@ -138,48 +138,46 @@
           <% end %>
         <% end %>
 
-        <% table.with_column(style: "min-width: 100px; width: 100px") do |move| %>
-          <% unless @moves_project.archived? || move.executed? %>
-            <div class="btn-group btn-group-sm" role="group" aria-label="...">
-              <% unless @moves_project.archived? || move.executed? %>
-                <%= link_to execute_moves_project_step_move_path(@moves_project_step, move),
-                            title: t("action.execute"),
-                            data: {
-                              turbo: true,
-                              turbo_method: :patch,
-                              turbo_confirm: t("moves.execute_confirmation"),
-                              controller: "tooltip",
-                              turbo_frame: :_top,
-                            },
-                            class: "btn btn-outline-primary",
-                            aria: { hidden: true } do %>
-                  <span class="bi bi-check2-square" aria-hidden="true"></span>
-                  <span class="visually-hidden"><%= t("moves.action.execute_move") %></span>
-                <% end %>
-                <%= link_to edit_moves_project_step_move_path(@moves_project_step, move),
-                            class: "btn btn-outline-info",
-                            title: t("action.edit"),
-                            data: {
-                              turbo_frame: :_top,
-                              controller: "tooltip",
-                            } do %>
-                  <span class="bi bi-pencil" aria-hidden="true"></span>
-                  <span class="visually-hidden"><%= t("action.edit") %></span>
-                <% end %>
-                <%= link_to moves_project_step_move_path(@moves_project_step, move),
-                            method: :delete,
-                            class: "btn btn-outline-danger",
-                            title: t("action.delete"),
-                            data: {
-                              turbo_frame: :_top,
-                              controller: "tooltip",
-                            } do %>
-                  <span class="bi bi-trash" aria-hidden="true"></span>
-                  <span class="visually-hidden"><%= t("action.delete") %></span>
-                <% end %>
+        <% table.with_column(text_align: :right, style: "min-width: 100px; width: 100px") do |move| %>
+          <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <% unless @moves_project.archived? || move.executed? %>
+              <%= link_to execute_moves_project_step_move_path(@moves_project_step, move),
+                          title: t("action.execute"),
+                          data: {
+                            turbo: true,
+                            turbo_method: :patch,
+                            turbo_confirm: t("moves.execute_confirmation"),
+                            controller: "tooltip",
+                            turbo_frame: :_top,
+                          },
+                          class: "btn btn-outline-primary",
+                          aria: { hidden: true } do %>
+                <span class="bi bi-check2-square" aria-hidden="true"></span>
+                <span class="visually-hidden"><%= t("moves.action.execute_move") %></span>
               <% end %>
-            </div>
-          <% end %>
+              <%= link_to edit_moves_project_step_move_path(@moves_project_step, move, redirect_to_on_success: request.path),
+                          class: "btn btn-outline-info",
+                          title: t("action.edit"),
+                          data: {
+                            turbo_frame: :_top,
+                            controller: "tooltip",
+                          } do %>
+                <span class="bi bi-pencil" aria-hidden="true"></span>
+                <span class="visually-hidden"><%= t("action.edit") %></span>
+              <% end %>
+            <% end %>
+            <%= link_to moves_project_step_move_path(@moves_project_step, move),
+                        method: :delete,
+                        class: "btn btn-outline-danger",
+                        title: t("action.delete"),
+                        data: {
+                          turbo_frame: :_top,
+                          controller: "tooltip",
+                        } do %>
+              <span class="bi bi-trash" aria-hidden="true"></span>
+              <span class="visually-hidden"><%= t("action.delete") %></span>
+              <% end %>
+          </div>
         <% end %>
       <% end %>
     </div>
