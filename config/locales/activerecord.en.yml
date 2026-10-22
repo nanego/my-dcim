@@ -161,7 +161,7 @@ en:
         moveable_id: Equipment to move
         prev_frame_id: Departure frame
         frame_id: Destination frame
-        remove_existing_connections_on_execution: Delete all equipment connections?
+        remove_existing_connections_on_execution: Delete all existing equipment connections
         remove_existing_connections_on_execution_short: Connections deleted?
         position: Position in frame
         status: State

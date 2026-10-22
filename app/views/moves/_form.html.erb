@@ -80,12 +80,8 @@
         </div>
 
         <fieldset class="col-12 mt-4">
-          <%= f.label :remove_existing_connections_on_execution, class: "form-label" %>
-          <%= f.select :remove_existing_connections_on_execution,
-                       options_for_select(
-                         [%w[Oui true], %w[Non false]], { selected: move.remove_existing_connections_on_execution ? "true" : "false" },
-                       ),
-                       {}, class: "form-select" %>
+          <%= f.checkbox :remove_existing_connections_on_execution, class: "form-check-input" %>
+          <%= f.label :remove_existing_connections_on_execution, class: "form-check-label" %>
         </fieldset>
 
         <div class="col-12 mt-4 text-end">
@@ -115,7 +111,7 @@
   </div>
 </div>
 
-<script>
+<script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
 $(document).ready(function(){
   loadPaletteColorPicker('[name="move[color]"]');
   select_server(<%= move.moveable_id %>);
