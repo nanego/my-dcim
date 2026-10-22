@@ -15,6 +15,8 @@ class NetsightSyncResultDecorator < ApplicationDecorator
     "serial_to_complete" => :info,
     "name_serial_mismatch" => :danger,
     "serial_not_in_netsight" => :warning,
+    "shifted" => :danger,
+    "unknown_ports" => :warning,
   }.freeze
 
   class << self
@@ -29,7 +31,9 @@ class NetsightSyncResultDecorator < ApplicationDecorator
 
   # The Netsight error is stored as the Netsight value of an unreachable switch
   def status_details
-    I18n.t("netsight_sync_results.index.unreachable_details", error: netsight_value) if status_netsight_unreachable?
+    return I18n.t("netsight_sync_results.index.unreachable_details", error: netsight_value) if status_netsight_unreachable?
+
+    I18n.t("netsight_sync_results.index.numbering_details") if kind_numbering?
   end
 
   def status_to_badge_component

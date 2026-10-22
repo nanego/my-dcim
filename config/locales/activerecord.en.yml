@@ -119,6 +119,11 @@ en:
         not_found: Not found in GLPI
       netsight_sync_result:
         applied_at: Applied on
+        card: Card
+        current_agreement: Current agreement
+        expected_if_name: Likely Netsight port
+        first_port: First port (DCIM, Netsight)
+        shifted_agreement: Agreement once shifted
         dcim_path: DCIM path
         dcim_value: DCIM value
         dcim_vlans: DCIM VLANs
@@ -149,6 +154,8 @@ en:
         serial_to_complete: Serial to fill in
         name_serial_mismatch: Name and serial disagree
         serial_not_in_netsight: Serial unknown to Netsight
+        shifted: Shifted numbering
+        unknown_ports: Ports unknown to Netsight
       manufacturer:
         name: Name
         usage_modele: Usage (model)

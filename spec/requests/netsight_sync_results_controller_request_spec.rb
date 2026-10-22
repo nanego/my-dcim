@@ -32,6 +32,19 @@ RSpec.describe NetsightSyncResultsController do
       it { expect(response.body).not_to include("u201") }
     end
 
+    context "with the port numbering tab" do
+      let(:params) { { kind: "numbering" } }
+
+      before do
+        NetsightSyncResult.create!(external_app_request: request_record, server: port.server, port:, kind: :numbering,
+                                   status: :shifted, if_name: "1:6", netsight_peer: "1:10", dcim_value: "3/45",
+                                   netsight_value: "41/45")
+      end
+
+      it { expect(response.body).to include("1:10", "3/45", "41/45", server_path(port.server)) }
+      it { expect(response.body).not_to include("u201") }
+    end
+
     context "when filtering on another status" do
       let(:params) { { statuses: ["free_text"] } }
 

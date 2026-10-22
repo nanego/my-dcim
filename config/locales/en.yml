@@ -203,7 +203,7 @@ en:
   netsight_sync_results:
     index:
       title: Netsight synchronization
-      description: "Compares DCIM switches with Netsight: identity (serial number, then name), port VLANs and links between switches (including through patch panels and their twin cards). Nothing changes in DCIM without a validation."
+      description: "Compares DCIM switches with Netsight: identity (serial number, then name), port numbering and VLANs, and links between switches (including through patch panels and their twin cards). Nothing changes in DCIM without a validation."
       start_synchronization: Synchronize with Netsight
       last_complete_sync: "Last complete synchronization:"
       none: none
@@ -213,6 +213,7 @@ en:
         vlan: VLANs
         link: Links between switches
         switch: Switch identity
+        numbering: Port numbering
       apply: Update DCIM
       apply_confirmation: Replace the DCIM values of the selected rows with the Netsight ones?
       apply_help:
@@ -228,6 +229,7 @@ en:
       not_configured: "Netsight access is not configured (no netsight credentials): synchronization is disabled."
       last_failure: "Last attempt failed on %{date}:"
       unreachable_details: "Previous results of this switch kept. Error: %{error}"
+      numbering_details: "Ports of the card that agree with Netsight: same VLANs or, failing that, cabled in DCIM and up in Netsight. Check the order and the first number of the switch cards."
     sync:
       not_configured: Netsight access is not configured.
       abandoned: "Synchronization abandoned: it stopped making progress (server restart?)."

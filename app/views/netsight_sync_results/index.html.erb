@@ -134,6 +134,33 @@
         <% table.with_column(NetsightSyncResult.human_attribute_name(:netsight_device)) do |result| %>
           <span class="text-nowrap"><%= value_or_nc result.netsight_peer %></span>
         <% end %>
+      <% elsif @kind == "numbering" %>
+        <% table.with_column(Server.human_attribute_name(:modele)) do |result| %>
+          <span class="text-nowrap"><%= result.server.modele %></span>
+        <% end %>
+
+        <% table.with_column(NetsightSyncResult.human_attribute_name(:card)) do |result| %>
+          <span class="text-nowrap"><%= result.port&.card&.composant %> <span class="text-body-secondary"><%= result.port&.card&.card_type %></span></span>
+        <% end %>
+
+        <% table.with_column(NetsightSyncResult.human_attribute_name(:first_port), sort_by: :if_name) do |result| %>
+          <span class="d-inline-flex align-items-center column-gap-2 text-nowrap">
+            <%= netsight_dcim_port_tag(result.port) if result.port %>
+            <span class="font-monospace text-body-secondary"><%= result.if_name %></span>
+            <% if result.netsight_peer %>
+              <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              <span class="font-monospace" title="<%= NetsightSyncResult.human_attribute_name(:expected_if_name) %>"><%= result.netsight_peer %></span>
+            <% end %>
+          </span>
+        <% end %>
+
+        <% table.with_column(NetsightSyncResult.human_attribute_name(:current_agreement)) do |result| %>
+          <span class="font-monospace"><%= result.dcim_value %></span>
+        <% end %>
+
+        <% table.with_column(NetsightSyncResult.human_attribute_name(:shifted_agreement)) do |result| %>
+          <span class="font-monospace"><%= value_or_nc result.netsight_value %></span>
+        <% end %>
       <% else %>
         <% table.with_column(NetsightSyncResult.human_attribute_name(:port), sort_by: :if_name) do |result| %>
           <span class="d-inline-flex align-items-center column-gap-2 text-nowrap">

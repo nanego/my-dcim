@@ -13,7 +13,7 @@ module NetsightSyncResultsHelper
   end
 
   CONNECTION_STATUSES = %w[default_vlan_only free_text differs not_cabled_in_dcim broken_path].freeze
-  SWITCH_PAGE_STATUSES = %w[unknown_port not_in_netsight].freeze
+  SWITCH_PAGE_STATUSES = %w[unknown_port not_in_netsight shifted unknown_ports].freeze
   SWITCH_EDIT_STATUSES = %w[name_serial_mismatch serial_not_in_netsight].freeze
   NOTE_STATUSES = %w[netsight_unreachable].freeze
 

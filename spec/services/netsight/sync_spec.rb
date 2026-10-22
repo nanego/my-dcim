@@ -104,6 +104,20 @@ RSpec.describe Netsight::Sync, type: :service do
     end
   end
 
+  describe "numbering check" do
+    # SW_A 1:6 to 1:8 in DCIM are 1:7 to 1:9 in Netsight, the fixture port 1:11 carries VLANs too
+    let(:netsight_ports) { (1..3).to_h { |n| ["1:#{6 + n}", netsight_port(untagged: [300 + n])] } }
+
+    before { (1..3).each { |n| Port.create!(position: n, attachable: cards(:three), vlans: "u#{300 + n}") } }
+
+    it do
+      sync
+      expect(NetsightSyncResult.kind_numbering.sole)
+        .to have_attributes(status: "shifted", server: servers(:one), if_name: "1:6", netsight_peer: "1:7",
+                            dcim_value: "0/4", netsight_value: "3/4")
+    end
+  end
+
   describe "link comparison" do
     let(:links) do
       [Netsight::Client::Link.new(if_name: "1:7", peer_ip: "10.0.0.2", peer_if_name: "1:1", protocol: "EDP",

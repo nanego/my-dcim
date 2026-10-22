@@ -2,7 +2,7 @@
 
 module Netsight
   # Compares every DCIM switch known to Netsight with the live data: identity
-  # (serial number, name), port VLANs and inter-switch links. Results are stored
+  # (serial number, name), port numbering, port VLANs and inter-switch links. Results are stored
   # for review, nothing is written to DCIM.
   class Sync
     def initialize(request, client: Client.new)
@@ -85,11 +85,20 @@ module Netsight
     def sync_switch(ip, members)
       snapshot = @client.device_snapshot(ip:) or return
       dcim_ports = dcim_ports_by_if_name(members)
+      check_numbering(snapshot, members)
 
       # Without polled VLANs, Netsight only has its own, unreliable, configuration
       dcim_ports.each { |if_name, port| compare_vlans(port, if_name, snapshot.ports[if_name]) } if snapshot.vlans_collected
       snapshot.links.each do |link|
         attributes = link_comparator.call(ip, dcim_ports[link.if_name], link) and record(kind: :link, **attributes)
+      end
+    end
+
+    def check_numbering(snapshot, members)
+      checker = NumberingChecker.new(snapshot)
+      members.each do |match|
+        findings = checker.call(match.slot, @numbered_ports[match.server])
+        findings.each { |finding| record(server: match.server, **finding.result_attributes) }
       end
     end
 

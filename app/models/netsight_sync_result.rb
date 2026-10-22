@@ -5,6 +5,7 @@ class NetsightSyncResult < ApplicationRecord
     "vlan" => %w[differs default_vlan_only no_netsight_vlans free_text unknown_port],
     "link" => %w[matches differs not_cabled_in_dcim broken_path],
     "switch" => %w[netsight_unreachable serial_to_complete name_serial_mismatch serial_not_in_netsight not_in_netsight],
+    "numbering" => %w[shifted unknown_ports],
   }.freeze
 
   belongs_to :external_app_request
