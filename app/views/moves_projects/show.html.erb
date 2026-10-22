@@ -56,7 +56,7 @@
 
             <% if @moves_project.unarchived? %>
               <div class="small flex-shrink-0 ms-4">
-                <%= link_to new_moves_project_step_move_path(moves_project_step),
+                <%= link_to new_moves_project_step_move_path(moves_project_step, redirect_to_on_success: request.path),
                             class: "link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"\
                 do %>
                   <span class="bi bi-plus-lg"></span>

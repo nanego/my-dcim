@@ -119,7 +119,7 @@ RSpec.describe MovesController do
 
     context "with valid parameters" do
       it { expect { response }.to change(Move, :count).by(1) }
-      it { expect(response).to redirect_to(moves_project_path(step)) }
+      it { expect(response).to redirect_to(moves_project_step_move_path(step, assigns(:move))) }
     end
 
     context "without attributes" do
@@ -226,7 +226,7 @@ RSpec.describe MovesController do
         end.to change(move, :position).to(8)
       end
 
-      it { expect(response).to redirect_to(moves_project_path(step)) }
+      it { expect(response).to redirect_to(moves_project_step_move_path(step, move)) }
       it { expect(response).to have_http_status(:redirect) }
     end
 
