@@ -60,6 +60,11 @@ class PowerDistributionUnit < ApplicationRecord
     end
   end
 
+  def create_missing_ports
+    sockets.each(&:create_missing_ports)
+    cards.each(&:create_missing_ports)
+  end
+
   def circuits_per_phase
     circuits.size / phases_count
   end

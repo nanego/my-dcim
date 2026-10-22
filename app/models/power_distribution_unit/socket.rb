@@ -13,6 +13,10 @@ class PowerDistributionUnit
     validates :number, presence: true
     validate :number_unique_within_circuit_record
 
+    def create_missing_ports
+      Port.create(attachable: self)
+    end
+
     private
 
     def number_unique_within_circuit_record

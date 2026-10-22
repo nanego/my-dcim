@@ -21,6 +21,7 @@ class Port < ApplicationRecord # rubocop:disable Metrics/ClassLength
   delegate :color, to: :cable, prefix: true, allow_nil: true
   delegate :name, to: :cable, prefix: true, allow_nil: true
   delegate :server_id, to: :card, prefix: false
+  delegate :frame, to: :attached
 
   scope :sorted, -> { order(:position) }
 
@@ -72,14 +73,14 @@ class Port < ApplicationRecord # rubocop:disable Metrics/ClassLength
     end
   end
 
-  def frame
+  def attached
     case attachable
     when Card
-      server.frame
+      server
     when PowerDistributionUnit::Socket
-      circuit.record.frame
+      circuit.record
     when PowerDistributionUnit::Card
-      power_distribution_unit_card.record.frame
+      power_distribution_unit_card.record
     end
   end
 

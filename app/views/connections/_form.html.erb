@@ -24,7 +24,7 @@
         <%= f.label Connection.human_attribute_name(:from_port_id), class: "form-label" %>
         <%= render CardComponent.new do |card| %>
           <% if @from_pdu.present? %>
-            <div class="d-flex">
+            <div id="back_departure_server" class="d-flex">
               <span class="d-flex align-items-center mx-auto flex-column gap-2">
                 <ul class="list-group">
 
@@ -52,8 +52,8 @@
                 </ul>
 
                 <ul class="list-group back_pdu">
-                  <% @from_pdu.cards.each do |card|%>
-                    <span class="<%= class_names("list-group-item d-flex pdu", "flex-column": %w[td-lr dt-lr].include?(card.orientation)) %>">
+                  <% @from_pdu.cards.each do |card| %>
+                    <span class="<%= class_names("list-group-item d-flex", "flex-column": %w[td-lr dt-lr].include?(card.orientation)) %>">
                       <% if card.card_type && card.card_type.columns && card.card_type.rows %>
                         <%= ports_by_card_with_presentation(card: card, selected_port: @from_port, twin_card_used_ports: nil) %>
                       <% else %>
@@ -62,7 +62,7 @@
                                           card: card,
                                           ports_data: card.ports,
                                           selected_port: @from_port,
-                              twin_card_used_ports: nil) %>
+                                          twin_card_used_ports: nil) %>
                       <% end %>
                     </span>
                   <% end %>
@@ -80,14 +80,14 @@
       </div>
 
       <div class="col-12 mt-4" data-controller="reveal" data-reveal-hidden-class="d-none">
-        <%= f.label Connection.human_attribute_name(:to_port_id), class: "form-label" %>
+        <%= f.label :to_port_id, Connection.human_attribute_name(:to_port_id), class: "form-label" %>
         <%= render CardComponent.new do |card| %>
           <% card.with_header do %>
             <div class="d-flex justify-content-between" id="select_destination_bay">
               <span id="restricted_destinations" class="w-50" data-reveal-target="item">
-                <%= select_tag "to_server",
+                <%= select_tag :to_server,
                                grouped_options_for_select(
-                                 @possible_destination_servers, { selected: @to_server.try(:id) },
+                                 @possible_destination_servers, { selected: @to_server&.id },
                                ),
                                include_blank: true,
                                class: "form-select",
@@ -99,8 +99,8 @@
                                onchange: "select_destination_server(0)" %>
               </span>
               <span id="all_destinations" class="d-none w-50" data-reveal-target="item">
-                <%= select_tag "to_server",
-                               grouped_options_for_select(@all_servers_per_frame, { selected: @to_server.try(:id) }),
+                <%= select_tag :to_server,
+                               grouped_options_for_select(@all_servers_per_frame, { selected: @to_server&.id }),
                                include_blank: true,
                                class: "form-select",
                                data: {
@@ -121,12 +121,16 @@
             </div>
           <% end %>
           <div id="back_destination_server" class="back_server d-flex flex-row-reverse flex-wrap no-decoration-link">
-            <%= if @to_server
-                  render(partial: "servers/draw_server_compact",
-                         locals: { server: @to_server, selected_port: @to_port })
-                end %>
+            <% case @to_port_attached %>
+            <% when Server %>
+              <%= render partial: "servers/draw_server_compact",
+                         locals: { server: @to_port_attached, selected_port: @to_port } %>
+            <% when PowerDistributionUnit %>
+              <%= render partial: "power_distribution_units/visualization",
+                         locals: { power_distribution_unit: @to_port_attached, selected_port: @to_port } %>
+            <% end %>
           </div>
-          <%= f.hidden_field :to_port_id, value: @to_port.try(:id) %>
+          <%= f.hidden_field :to_port_id, value: @to_port&.id %>
         <% end %>
       </div>
 
@@ -190,7 +194,7 @@
   <% end %>
 </div>
 
-  <script>
+  <script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
   function select_destination_server(see_all) {
       if (see_all == 1) {
           selected_server = $("#all_destinations select[name='to_server']").val();
@@ -201,9 +205,11 @@
       $.ajax({
           method: "POST",
           url: "<%= connections_update_destination_server_path %>",
-          data: { server_id: selected_server }
+          data: { attachable_id: selected_server }
       }).done(function () {
-        if (port_id = $('input[name="connection[to_port_id]"]').val()) {
+        port_id = $('input[name="connection[to_port_id]"]').val()
+
+        if (port_id !== null && port_id !== "") {
           select_destination_port(port_id);
         }
       });
@@ -250,7 +256,7 @@
 
   function select_destination_port(port_id) {
       var selected_ports = $("#back_destination_server #" + port_id);
-      selected_ports.closest("table").find("span.selected").removeClass("selected");
+      $("#back_destination_server").find("span.selected").removeClass("selected");
       selected_ports.closest("span").addClass("selected");
       var server_name = $("#back_destination_server .server_name").text();
       var component_name = selected_ports.closest("td").find("span:first").data("composant-name");
@@ -267,15 +273,15 @@
 
     if (from_server) {
       updateConnectionStateMessage("<%= @frame.name %>", "<%= @from_port.cable.try(:name) %>");
-
-      $("#back_departure_server").on('click', 'a.port', function (e) {
-          e.preventDefault();
-      });
     };
 
+    $("#back_departure_server").on('click', 'a.port', function (e) {
+      e.preventDefault();
+    });
+
     $("#back_destination_server").on('click', 'a.port', function (e) {
-        e.preventDefault();
-        select_destination_port(e.target.id);
+      e.preventDefault();
+      select_destination_port(e.currentTarget.id);
     });
   });
   </script>

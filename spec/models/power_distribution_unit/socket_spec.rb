@@ -42,4 +42,12 @@ RSpec.describe PowerDistributionUnit::Socket do
       end
     end
   end
+
+  describe "#create_missing_ports" do
+    it do
+      expect do
+        socket.create_missing_ports
+      end.to change(Port, :count).by(1)
+    end
+  end
 end

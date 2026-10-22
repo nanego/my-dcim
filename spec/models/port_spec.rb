@@ -24,25 +24,25 @@ RSpec.describe Port do
     pending
   end
 
-  describe "#frame" do
+  describe "#attached" do
     subject(:port) { described_class.new(attachable:) }
 
     context "when attachable is a Card" do
       let(:attachable) { cards(:one) }
 
-      it { expect(port.frame).to eq(attachable.server.frame) }
+      it { expect(port.attached).to eq(attachable.server) }
     end
 
     context "when attachable is a PowerDistributionUnit::Socket" do
       let(:attachable) { power_distribution_unit_sockets(:one) }
 
-      it { expect(port.frame).to eq(attachable.circuit.record.frame) }
+      it { expect(port.attached).to eq(attachable.circuit.record) }
     end
 
     context "when attachable is a PowerDistributionUnit::Card" do
       let(:attachable) { power_distribution_unit_cards(:one) }
 
-      it { expect(port.frame).to eq(attachable.record.frame) }
+      it { expect(port.attached).to eq(attachable.record) }
     end
   end
 
