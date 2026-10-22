@@ -37,6 +37,10 @@
   word-wrap: break-word ;
 }
 
+.flex-basis-100 {
+  flex-basis: 100%;
+}
+
 .datagrid-form {
   background-color: transparent;
 }
@@ -348,7 +352,8 @@ table.card_layout {
   clear: both;
 }
 
-.connection_form {
+.connection_form,
+.move_connection_form {
   .back_server, .back_pdu {
     .selected {
       transform: scale(1.2);
@@ -438,11 +443,8 @@ dd {
 }
 
 /* Cable index */
-.cable-index-servers {
-  & > .d-flex {
-    padding-left: 37px;
-  }
-
+.cables-index,
+.moves-connections-index {
   .cable {
     &.R {
       border-color: #ee3b3b !important;
@@ -487,13 +489,20 @@ dd {
       border: solid 2px #FF9000 !important;
     }
   }
+}
+
+.cables-draw,
+.moves-connections-draw {
+  & > .d-flex {
+    padding-left: 37px;
+  }
 
   .vlans-card {
     width: min-content;
     min-width: fit-content;
 
-    & > .d-flex {
-      min-width: 400px;
+    & > .d-inline-flex {
+      min-width: 200px;
     }
   }
 }
@@ -777,8 +786,8 @@ body {
     }
   }
 
-  .move_connection_form, .moved_connection_form {
-    .selected {
+  .move_connection_form {
+    .port_container.selected {
       transform: scale(1.2);
       z-index: 10;
 

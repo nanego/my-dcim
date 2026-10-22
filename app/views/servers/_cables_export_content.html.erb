@@ -35,7 +35,7 @@
           <%= check_box_tag("") %>
         <% end %>
         <% table.with_column("", v_align: :baseline) do |cable| %>
-          <div class="cable-index-servers">
+          <div class="cables-draw">
             <%= render partial: "cables/draw", locals: { cable:, server: server } %>
           </div>
         <% end %>
