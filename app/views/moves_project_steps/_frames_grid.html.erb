@@ -88,8 +88,13 @@
                         aria-label="<%= move.step %>"
                         data-controller="tooltip">
                       <div class="d-flex align-items-start">
-                        <span class="<%= class_names("bi bi-box-seam text-primary",
-                                                     "text-success": move.executed?) %>">
+                        <span class="bi bi-box-seam text-primary position-relative me-1">
+                          <% if move.executed? %>
+                            <span class="position-absolute top-50 mt-2 start-100 translate-middle badge rounded-pill p-0 bg-success small">
+                              <span class="bi bi-check"></span>
+                              <span class="visually-hidden"><%= Move.human_attribute_name("status.#{move.status}") %></span>
+                            </span>
+                          <% end %>
                         </span>
 
                         <%= link_to move.decorated.display_name,
