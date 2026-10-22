@@ -103,6 +103,13 @@ RSpec.describe Netsight::PortLocator, type: :service do
       expect(numbered_ports.slice(1, 11)).to eq(1 => ports(:one), 11 => ports(:four))
     end
 
+    it "numbers the chassis ports first" do
+      composants(:four).update!(name: "CM")
+
+      after_chassis = cards(:three).port_quantity + 1
+      expect(numbered_ports.slice(6, after_chassis)).to eq(6 => ports(:four), after_chassis => ports(:one))
+    end
+
     it "skips the stack cards" do
       Card.create!(server: switch, composant: composants(:one), card_type: stack_type)
 

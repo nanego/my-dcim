@@ -7,6 +7,8 @@ module Netsight
     PORTS_PER_SLOT = 1000
     # Stack links are not front ports in Netsight, so they would shift the numbering
     NON_DATA_PORT_TYPES = %w[FAN STACK].freeze
+    # The ports built into the chassis, numbered first by Netsight
+    MAIN_COMPOSANT = "CM"
 
     Result = Data.define(:status, :port, :sys_name, :ip, :if_index, :if_name) do
       def found? = status == :found
@@ -17,19 +19,25 @@ module Netsight
       [match[:sys_name], (match[:slot] || 1).to_i]
     end
 
-    # Switch ports are numbered across the data cards in composant order: a 48RJ
-    # card holds ports 1 to 48, and the 4FC card after it ports 49 to 52. A card
-    # whose first position is set in DCIM starts at that number.
+    # Switch ports are numbered across the data cards, the chassis ports first and
+    # then in composant order: a 48RJ card holds ports 1 to 48, and the 4FC card
+    # after it ports 49 to 52. A card whose first position is set in DCIM starts
+    # at that number.
     def self.numbered_ports(server)
       offset = 0
       data_cards = server.cards.includes(card_type: :port_type, composant: [], ports: :connection).select do |card|
         !card.is_power? && NON_DATA_PORT_TYPES.exclude?(card.card_type&.port_type&.name.to_s.upcase)
       end
-      data_cards.sort_by { |card| [card.composant&.position.to_i, card.id] }.each_with_object({}) do |card, numbered|
+      data_cards.sort_by { |card| card_order(card) }.each_with_object({}) do |card, numbered|
         offset = card.first_position - 1 if card.first_position.to_i.positive?
         card.ports.each { |port| numbered[offset + port.position.to_i] = port }
         offset += card.port_quantity.to_i
       end
+    end
+
+    def self.card_order(card)
+      main = card.composant&.name.to_s.strip.casecmp?(MAIN_COMPOSANT) ? 0 : 1
+      [main, card.composant&.position.to_i, card.id]
     end
 
     def initialize(client: Client.new)
