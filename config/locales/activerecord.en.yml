@@ -343,6 +343,12 @@ en:
               outside_frame: "puts the equipment at %{units}, outside the frame"
               overlaps: "puts the equipment at %{units}, already used by: %{servers}"
 
+        enclosure:
+          attributes:
+            grid_areas:
+              lack_composants: lacks some composants
+              unknown_composants: has unknown composants
+
         move:
           attributes:
             moveable_id:

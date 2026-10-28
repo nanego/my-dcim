@@ -573,6 +573,12 @@ fr:
             name:
               invalid: ne peut pas contenir d'espace
 
+        enclosure:
+          attributes:
+            grid_areas:
+              lack_composants: n'inclue pas certains composants
+              unknown_composants: comprend des composants inconnus
+
         move:
           attributes:
             moveable_id:
