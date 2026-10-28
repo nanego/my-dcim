@@ -4,6 +4,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   before_action :set_moves_project_step
   before_action :redirect_if_archived, except: %i[index show load_server load_frame load_connection]
   before_action :set_move, only: %i[show edit update destroy execute]
+  before_action :set_move_connections, only: %i[show]
   before_action :load_form_data, only: %i[new edit]
 
   before_action do
@@ -210,6 +211,10 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   # Use callbacks to share common setup or constraints between actions.
   def set_move
     authorize! @move = @moves_project_step.moves.find(params[:id])
+  end
+
+  def set_move_connections
+    authorize! @move_connections = Move::Connection.where(move: @move)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

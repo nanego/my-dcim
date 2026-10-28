@@ -6,6 +6,7 @@
   <%= render partial: "form",
              locals: {
                move_connection: @move_connection,
-               url: move_connections_path(@move)
+               url: move_connections_path(@move),
+               all_servers_per_frames: @all_servers_per_frames,
              } %>
 </div>

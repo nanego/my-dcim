@@ -28,7 +28,7 @@
 <div class="collapse px-4 d-print-none" id="collapseVlansPanel-<%= move_connection.id %>">
   <div class="vlans-card d-flex my-2 mx-auto pt-2">
     <div class="d-inline-flex justify-content-evenly mx-auto">
-      <span class="text-end text-break">
+      <span class="text-end text-break flex-basis-100">
         <% if from_connection&.port&.vlans.present? %>
           <%= from_connection.port.vlans %>
         <% else %>
@@ -38,7 +38,7 @@
       <span class="text-center fw-bold user-select-none mx-2">
         <%= Port.human_attribute_name(:vlans) %>
       </span>
-      <span class="text-break">
+      <span class="text-break flex-basis-100">
         <% if to_connection&.port&.vlans.present? %>
           <%= to_connection.port.vlans %>
         <% else %>

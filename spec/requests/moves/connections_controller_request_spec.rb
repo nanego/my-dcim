@@ -59,7 +59,7 @@ RSpec.describe Moves::ConnectionsController do
 
     context "with valid parameters" do
       it { expect { response }.to change(Move::Connection, :count).by(1) }
-      it { expect(response).to redirect_to(move_connections_path(move)) }
+      it { expect(response).to redirect_to(moves_project_step_move_path(move.step, move)) }
     end
 
     context "with no attributes" do
@@ -102,7 +102,7 @@ RSpec.describe Moves::ConnectionsController do
         end.to change(move_connection, :cable_name).to("new name")
       end
 
-      it { expect(response).to redirect_to(move_connections_path(move)) }
+      it { expect(response).to redirect_to(moves_project_step_move_path(move.step, move)) }
       it { expect(response).to have_http_status(:redirect) }
     end
 
@@ -118,7 +118,7 @@ RSpec.describe Moves::ConnectionsController do
       it { expect { response }.to raise_error(ActionController::ParameterMissing) }
     end
 
-    context "with invalid attributes" do
+    context "with invalid parameters" do
       let(:attributes) { { port_from_id: "" } }
 
       it { expect(response).to render_template(:edit) }
@@ -147,7 +147,7 @@ RSpec.describe Moves::ConnectionsController do
     context "with confirm" do
       it { expect(response).to have_http_status(:redirect) }
       it { expect { response }.to change(Move::Connection, :count).by(-1) }
-      it { expect(response).to redirect_to(move_connections_path(move)) }
+      it { expect(response).to redirect_to(moves_project_step_move_path(move.step, move)) }
     end
 
     context "with custom back_to" do
