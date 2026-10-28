@@ -4,6 +4,9 @@ module Moves
   class ConnectionsController < ApplicationController
     before_action :set_move
     before_action :set_move_connection, only: %i[edit update destroy]
+    before_action :set_move_connections, only: %i[new create edit update update_destination_server]
+    before_action :set_all_servers_per_frames, only: %i[new create edit update]
+
     before_action do
       breadcrumb.add_step(MovesProject.model_name.human.pluralize, moves_projects_path)
       breadcrumb.add_step(@move.moves_project, moves_project_path(@move.moves_project))
@@ -19,8 +22,19 @@ module Moves
     end
 
     def new
+      if (move_connection = Move::Connection.where(move: @move).find_by(port_from_id: params[:port_from_id]))
+        redirect_to edit_move_connection_path(@move, move_connection)
+      end
+
       authorize! @move_connection = scoped_move_connections.new
-      @move_connection.port_from = Port.find(params[:port_from_id])
+      @move_connection.port_from = port = Port.find(params[:port_from_id])
+      @move_connection.vlans = port.vlans
+
+      if (connection = port.connection.presence)
+        @move_connection.port_to = connection.paired_connection&.port
+        @move_connection.cable_name = connection.cable.name
+        @move_connection.cable_color = connection.cable.color
+      end
     end
 
     def edit; end
@@ -30,7 +44,7 @@ module Moves
 
       respond_to do |format|
         if @move_connection.save
-          format.html { redirect_to_new_or_to(move_connections_path(@move), notice: t(".flashes.created")) }
+          format.html { redirect_to_new_or_to(moves_project_step_move_path(@move.step, @move), notice: t(".flashes.created")) }
           format.json { render :show, status: :created, location: move_connections_path(@move) }
         else
           format.html { render :new, status: :unprocessable_content }
@@ -42,7 +56,7 @@ module Moves
     def update
       respond_to do |format|
         if @move_connection.update(move_connection_params)
-          format.html { redirect_to move_connections_path(@move), notice: t(".flashes.updated") }
+          format.html { redirect_to moves_project_step_move_path(@move.step, @move), notice: t(".flashes.updated") }
           format.json { render :show, status: :ok, location: move_connections_path(@move) }
         else
           format.html { render :edit, status: :unprocessable_content }
@@ -55,9 +69,20 @@ module Moves
     def destroy
       @move_connection.destroy
       respond_to do |format|
-        format.html { redirect_back_to_param_or move_connections_path(@move), notice: t(".flashes.destroyed") }
+        format.html { redirect_back_to_param_or moves_project_step_move_path(@move.step, @move), notice: t(".flashes.destroyed") }
         format.json { head :no_content }
       end
+    end
+
+    def update_destination_server
+      authorize!
+
+      @server = Server.find_by(id: params[:server_id])
+
+      return unless @server
+
+      @server.create_missing_ports
+      @server.reload
     end
 
     private
@@ -66,12 +91,24 @@ module Moves
       authorize! @move = Move.find(params[:move_id])
     end
 
+    def set_move_connections
+      authorize! @move_connections = Move::Connection.where(move: @move)
+    end
+
     def scoped_move_connections
       @move.move_connections
     end
 
     def set_move_connection
       authorize! @move_connection = scoped_move_connections.find(params[:id])
+    end
+
+    def set_all_servers_per_frames
+      # TODO: should be scope for current step
+
+      @all_servers_per_frames = Frame.order(:name).map do |frame|
+        [frame.name, frame.servers.collect { |v| [v.name, v.id] }]
+      end
     end
 
     def move_connection_params

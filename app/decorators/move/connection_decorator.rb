@@ -2,6 +2,8 @@
 
 class Move
   class ConnectionDecorator < ApplicationDecorator
+    include ActionView::Helpers::FormOptionsHelper
+
     def status_to_badge_component
       color = executed_at.nil? ? :primary : :success
       locale_key = executed_at.nil? ? :planned : :executed
@@ -23,6 +25,17 @@ class Move
 
     def display_name
       description
+    end
+
+    def available_servers_options_for_select
+      servers = move.frame.bay.frames.map do |frame|
+        [frame.name, move.step.servers_at_current_step_for(frame).collect { |v| [v.name, v.id] }]
+      end
+
+      grouped_options_for_select(
+        servers,
+        { selected: port_to&.server_id },
+      )
     end
   end
 end

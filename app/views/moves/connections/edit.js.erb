@@ -1,0 +1,9 @@
+$("#edit_port_modal .modal-body").html("<%= escape_javascript(
+                                              render(partial: "moves/connections/form",
+                                                     locals: {
+                                                       remote: true,
+                                                       move_connection: @move_connection,
+                                                       url: move_connection_path(@move, @move_connection),
+                                                       all_servers_per_frames: @all_servers_per_frames,
+                                                     }),
+                                            ) %>");

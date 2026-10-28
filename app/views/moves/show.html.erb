@@ -150,10 +150,22 @@
   <% end %>
 
   <%= render HasManyTurboFrameComponent.new(
-    Move::Connection.model_name.human.pluralize,
-    url: move_connections_path(@move),
-    frame_id: dom_id(Move::Connection, :table),
-  ) %>
+        Move::Connection.model_name.human.pluralize,
+        url: move_connections_path(@move),
+        frame_id: dom_id(Move::Connection, :table),
+      ) %>
 
   <%= render ChangelogEntries::ObjectListComponent.new(@move) %>
 </div>
+
+<%= render "ports/modal_edit_port" %>
+
+<script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
+  let base_url = "<%= new_move_connection_path(@move) %>";
+
+  document.querySelectorAll(".server .port").forEach((port) => {
+    let url = base_url + "?port_from_id=" + port.id
+
+    port.href = port.dataset.url = url
+  })
+</script>

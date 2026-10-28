@@ -1,104 +1,184 @@
-<%= form_with(model: move_connection,
-              url:,
-              html: { class: "move_connection_form p-4 rounded border bg-body-tertiary", role: "form" }) do |f| %>
-  <%= render FormErrorsComponent.new(move_connection) %>
-  <div class="row g-3">
-    <fieldset class="col-12">
-      <%= f.label :port_from_id, class: "form-label" %>
-      <%= render CardComponent.new do |card| %>
-        <div id="back_departure_server" class="back_server overflow-scroll">
-          <%= render partial: "servers/draw_server_compact",
-                      locals: { server: move_connection.move.moveable, selected_port: move_connection.port_from } %>
-        </div>
-      <% end %>
-      <%= f.hidden_field :port_from_id, value: move_connection.port_from_id %>
-    </fieldset>
-  </div>
+<div class="move_connection_form p-4 pb-0">
+  <%= form_with(model: move_connection,
+                url:,
+                html: { role: "form" }) do |f| %>
+    <%= render FormErrorsComponent.new(move_connection) %>
 
-  <fieldset class="col-12 mt-4">
-    <%= f.label :port_to_id, class: "form-label" %>
-    <%= render CardComponent.new do |card| %>
+    <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
       <% card.with_header do %>
-        <div id="select_destination_bay">
-          <span id="all_destinations">
-            <%= select_tag "to_server",
-                          options_for_select(
-                            move_connection.move.step.servers_at_current_step_for(move_connection.move.frame).map { |v| [v.name, v.id] },
-                            { selected: move_connection.port_to&.server_id }
-                          ),
-                          include_blank: true,
-                          onchange: "select_destination_server(this.value)",
-                          class: "form-select mx-auto",
-                          style: "max-width: 185px;"
-            %>
-          </span>
+        <div class="d-flex">
+          <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal"
+                                                          aria-label="<%= t("action.close") %>"></button>
         </div>
       <% end %>
-      <div id="back_destination_server" class="back_server overflow-scroll">
-        <% if move_connection.port_to %>
-            <%= render partial: "servers/draw_server_compact",
-                       locals: { server: move_connection.port_to.server, selected_port: move_connection.port_to } %>
-        <% end %>
+
+      <div class="row g-3">
+        <fieldset class="col-12">
+          <%= f.label :port_from_id, class: "form-label" %>
+          <%= render CardComponent.new do %>
+            <div id="back_departure_server"
+                 class="back_server d-flex flex-row-reverse flex-wrap no-decoration-link">
+              <%= render partial: "servers/draw_server_compact",
+                         locals: {
+                           server: move_connection.move.moveable,
+                           selected_port: move_connection.port_from,
+                           should_hide_left_block: true,
+                         } %>
+            </div>
+          <% end %>
+          <%= f.hidden_field :port_from_id, value: move_connection.port_from_id %>
+        </fieldset>
       </div>
+
+      <fieldset class="col-12 mt-4" data-controller="reveal" data-reveal-hidden-class="d-none">
+        <%= f.label :port_to_id, class: "form-label" %>
+        <%= render CardComponent.new do |c| %>
+          <% c.with_header do %>
+            <div class="d-flex justify-content-between" id="select_destination_bay">
+              <span id="restricted_destinations" class="w-50" data-reveal-target="item">
+                <%= select_tag "to_server",
+                               move_connection.decorated.available_servers_options_for_select,
+                               include_blank: true,
+                               class: "form-select",
+                               data: {
+                                 controller: :select,
+                                 select_clear_button_title_value: t("action.clear_all"),
+                               },
+                               placeholder: t("select.placeholder"),
+                               onchange: "update_destination_server(this.value)" %>
+              </span>
+              <span id="all_destinations" class="d-none w-50" data-reveal-target="item">
+                <%= select_tag "to_server",
+                               grouped_options_for_select(
+                                 all_servers_per_frames,
+                                 { selected: move_connection.port_to&.server_id },
+                               ),
+                               include_blank: true,
+                               class: "form-select",
+                               data: {
+                                 controller: :select,
+                                 select_clear_button_title_value: t("action.clear_all"),
+                               },
+                               placeholder: t("select.placeholder"),
+                               onchange: "update_destination_server(this.value)" %>
+              </span>
+              <button class="btn btn-link btn-sm me-auto" data-action="click->reveal#toggle" type="button">
+                <span data-reveal-target="item">
+                  <%= t("connections.form.action.show_more_bay") %>
+                </span>
+                <span data-reveal-target="item" class="d-none">
+                  <%= t("connections.form.action.show_less_bay") %>
+                </span>
+              </button>
+            </div>
+          <% end %>
+          <div id="back_destination_server" class="back_server overflow-scroll">
+            <% if move_connection.port_to %>
+              <%= render partial: "servers/draw_server_compact",
+                         locals: {
+                           server: move_connection.port_to.server,
+                           selected_port: move_connection.port_to,
+                           should_hide_left_block: true,
+                         } %>
+            <% end %>
+          </div>
+        <% end %>
+        <%= f.hidden_field :port_to_id, value: move_connection.port_to_id %>
+      </fieldset>
+
+      <fieldset class="col-12 mt-4">
+        <%= f.label :vlans, class: "form-label" %>
+        <%= f.text_field :vlans, class: "form-control", value: move_connection.vlans %>
+      </fieldset>
+
+      <fieldset class="col-12 mt-4">
+        <%= f.label :cable_color, class: "form-label" %>
+        <%= f.hidden_field :cable_color, value: move_connection.cable_color %>
+      </fieldset>
+
+      <fieldset class="col-12 mt-4">
+        <%= f.label :cable_name, class: "form-label" %>
+        <%= f.text_field :cable_name, class: "form-control", value: move_connection.cable_name %>
+      </fieldset>
     <% end %>
-    <%= f.hidden_field :port_to_id, value: move_connection.port_to_id %>
-  </fieldset>
 
-  <fieldset class="col-12 mt-4">
-    <%= f.label :vlans, class: "form-label" %>
-    <%= f.text_field :vlans, class: "form-control", value: move_connection.vlans %>
-  </fieldset>
+    <div class="col-12 d-flex py-4 mt-4 sticky-bottom bg-body-tertiary border-top">
+      <% if move_connection.persisted? %>
+        <%= link_to move_connection_path(move_connection.move, move_connection),
+                    method: :delete,
+                    class: "btn btn-outline-danger" do %>
+          <span class="bi bi-trash"></span>
+          <span class="ms-1"><%= t("action.delete") %></span>
+        <% end %>
+      <% else %>
+        <%= link_to move_connections_path(
+              move_connection.move,
+              move_connection: { port_from_id: move_connection.port_from, vlans: move_connection.vlans },
+            ),
+                    method: :post,
+                    class: "btn btn-outline-danger" do %>
+          <span class="bi bi-trash"></span>
+          <span class="ms-1"><%= t("action.delete") %></span>
+        <% end %>
+      <% end %>
 
-  <fieldset class="col-12 mt-4">
-    <%= f.label :cable_color, class: "form-label" %>
-    <%= f.hidden_field :cable_color, value: move_connection.cable_color %>
-  </fieldset>
+      <span class="d-inline-flex ms-auto gap-2">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+          <%= t("action.cancel") %>
+        </button>
 
-  <fieldset class="col-12 mt-4">
-    <%= f.label :cable_name, class: "form-label" %>
-    <%= f.text_field :cable_name, class: "form-control", value: move_connection.cable_name %>
-  </fieldset>
+        <%= f.submit t("action.save"),
+                     class: "btn btn-outline-primary",
+                     disabled: move_connection.port_to_id.present? ? false : :disabled %>
+      </span>
+    </div>
+  <% end %>
+</div>
 
-  <div class="col-12 mt-4 justify-content-between d-flex align-items-center">
-    <%= f.submit t("action.save"), class: "btn btn-primary", disabled: move_connection.port_to_id.present? ? false : :disabled %>
-  </div>
-<% end %>
+<script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
+  loadPaletteColorPicker('[name="move_connection[cable_color]"]');
 
-<script>
-$(document).ready(function(){
-    loadPaletteColorPicker('[name="move_connection[cable_color]"]');
-    $("#back_departure_server").on('click', 'a.port', function(e) {
-        e.preventDefault();
-    });
-    $("#back_destination_server").on('click', 'a.port', function(e){
-        e.preventDefault();
-        select_destination_port(e.target.id);
-    });
-});
+  document.getElementById("back_departure_server").addEventListener("click", (e) => {
+    e.preventDefault();
+  })
 
-function select_destination_server(server_id){
-    $("#back_destination_server").closest("form").find('input[type="submit"]').prop('disabled', true);
-    if(server_id!=undefined && server_id!=''){
-        $.ajax({
-            method: "POST",
-            url: "<%= connections_update_destination_server_path %>",
-            data: { server_id: server_id, with_move_connection: 1 }
-        }).done(function(){
-            select_destination_port($('input[name="move_connection[port_to_id]"]').val());
-        });
+  document.getElementById("back_destination_server").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    if (e.target.classList.contains("port")) {
+      select_destination_port(e.target);
     }
-}
+  })
 
-function select_destination_port(port_id){
-    if(port_id!=undefined && port_id!=''){
-        var selected_port = $("#back_destination_server #"+port_id);
-        selected_port.closest("form").find("#back_destination_server span.port_container.selected").removeClass("selected");
-        selected_port.closest("span").addClass("selected");
-        var server_name = $("#back_destination_server .server_name").text();
-        var component_name = selected_port.closest("td").find("span:first").data("composant-name");
-        var position = selected_port.data("position");
-        $('[name="move_connection[port_to_id]"]').val(port_id);
-        selected_port.closest("form").find('input[type="submit"]').prop('disabled', false);
+  function update_destination_server(server_id) {
+    let submit = document.querySelector("#back_destination_server")
+                         .closest("form")
+                         .querySelector("input[type=\"submit\"]");
+    submit.disabled = true;
+
+    if (server_id != undefined && server_id != "") {
+      $.ajax({
+          method: "POST",
+          url: "<%= update_destination_server_move_connections_path(move_connection.move) %>",
+          data: { server_id: server_id, with_move_connection: 1 }
+      }).done(function () {
+        let port_id = document.querySelector("input[name=\"move_connection[port_to_id]\"]");
+
+        if (port = document.getElementById(port_id.value)) {
+          select_destination_port(port);
+        }
+      });
     }
-}
+  }
+
+  function select_destination_port(port) {
+    if (selected_port = document.querySelector("#back_destination_server span.port_container.selected")) {
+      selected_port.classList.remove("selected");
+    }
+    port.closest("span").classList.add("selected");
+
+    document.querySelector("[name=\"move_connection[port_to_id]\"]").value = port.id;
+
+    port.closest("form").querySelector("input[type=\"submit\"]").disabled = false;
+  }
 </script>
