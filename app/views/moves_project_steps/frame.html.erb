@@ -1,10 +1,34 @@
 <% breadcrumb.add_step("#{Frame.model_name.human} #{@frame}") %>
 
 <%= render Page::HeadingComponent.new(
-      title: t(".title", frame: @frame, step: @moves_project_step),
       breadcrumb:,
       back_button_url: moves_project_step_moves_path(@moves_project_step),
     )  do |heading| %>
+
+  <% heading.with_title do %>
+    <h1 class="d-flex align-items-center gap-2">
+      <%= t(".title", frame: @frame) %>
+
+      <span class="dropdown">
+        <button class="btn dropdown-toggle fs-2"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+          <%= @moves_project_step %>
+        </button>
+
+        <ul class="dropdown-menu">
+          <% @moves_project.steps.each do |step| %>
+            <li>
+              <a class="dropdown-item"
+                href="<%= frame_moves_project_moves_project_step_path(@moves_project, step, @frame) %>">
+                <%= step %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </span>
+    </h1>
+  <% end %>
 
   <% heading.with_right_content do %>
     <span>

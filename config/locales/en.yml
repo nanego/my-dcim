@@ -405,7 +405,7 @@ en:
       action:
         execute_step_moves: Move servers and their connections
     frame:
-      title: "%{frame} state at step \"%{step}\""
+      title: "%{frame} state at step"
       applied_moves: Applied moves
       loading: LOADING IN PROGRESS
     moved_connection_form:

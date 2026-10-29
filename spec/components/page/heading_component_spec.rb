@@ -27,6 +27,22 @@ RSpec.describe Page::HeadingComponent, type: :component do
     end
   end
 
+  context "with title and title block" do
+    let(:block) do
+      proc do |heading|
+        heading.with_title { "<div>Some custom title</div>".html_safe }
+      end
+    end
+
+    it "renders heading" do
+      expect(rendered_component).to have_tag("div.col-12.bg-body") do
+        with_tag("div.d-flex") do
+          with_tag("h1", text: "Title")
+        end
+      end
+    end
+  end
+
   context "without title" do
     let(:title) { nil }
 
@@ -34,6 +50,23 @@ RSpec.describe Page::HeadingComponent, type: :component do
       expect(rendered_component).to have_tag("div.col-12.bg-body") do
         with_tag("div.d-flex") do
           without_tag("h1", text: "Title")
+        end
+      end
+    end
+  end
+
+  context "without title and with title block" do
+    let(:title) { nil }
+    let(:block) do
+      proc do |heading|
+        heading.with_title { "<div>Some custom title</div>".html_safe }
+      end
+    end
+
+    it "renders heading block" do
+      expect(rendered_component).to have_tag("div.col-12.bg-body") do
+        with_tag("div.d-flex") do
+          with_tag("div", text: "Some custom title")
         end
       end
     end
