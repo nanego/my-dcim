@@ -19,6 +19,12 @@ RSpec.describe Move::Connection do
     it { is_expected.to belong_to(:port_to).optional(true).class_name("Port") }
   end
 
+  describe "default scope" do
+    it "orders by ascending created_at" do
+      expect(described_class.first(2)).to eq([move_connections(:two), move_connections(:one)])
+    end
+  end
+
   describe "#ports" do
     context "with port_from and port_to specified" do
       it { expect(move_connection.ports).to eq([ports(:nine), ports(:ten)]) }

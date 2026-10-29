@@ -7,11 +7,13 @@ one:
   vlans: vlan01
   cable_name: NouveauNomDuCableUn
   cable_color: Blue
+  created_at: "2026-05-01 00:00:00"
 
 two:
   port_from_id: 9
   port_to_id: 10
   move: two
+  created_at: "2025-05-01 00:00:00"
 
 three:
   port_from_id: 8

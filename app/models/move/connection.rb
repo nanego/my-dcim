@@ -8,6 +8,7 @@ class Move
     belongs_to :port_from, class_name: "Port"
     belongs_to :port_to, class_name: "Port", optional: true
 
+    default_scope { order(created_at: :asc) }
     scope :not_executed, -> { where(executed_at: nil) }
 
     validates :port_from_id, uniqueness: { scope: %i[move_id] }
