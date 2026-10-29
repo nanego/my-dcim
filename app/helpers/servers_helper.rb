@@ -240,7 +240,7 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
 
   def include_move_connections(move_connections, port_data, port_id)
     if port_data.present? && move_connections.present?
-      connection = move_connections.find { |c| c.port_from_id == port_id || c.port_to_id == port_id }
+      connection = move_connections.rfind { |c| c.port_from_id == port_id || c.port_to_id == port_id }
       port_data = connection if connection.present?
     end
 
