@@ -20,6 +20,23 @@
           <% end %>
         <% end %>
 
+        <% table.with_column(Move::Connection.human_attribute_name(:action)) do |move_connection| %>
+          <% move_connection = move_connection.decorated %>
+
+          <%= render BadgeComponent.new(color: move_connection.action_badge_color) do %>
+            <span><%= move_connection.human_action %></span>
+            <% if move_connection.extra_connection_destroyed? %>
+              <span class="d-none d-lg-inline-block ms-1">
+                <span class="bi bi-info-circle"
+                  title="<%= t(".extra_connection_destroyed") %>"
+                  aria-label="<%= t(".extra_connection_destroyed") %>"
+                  data-controller="tooltip">
+                </span>
+              </span>
+            <% end %>
+          <% end %>
+        <% end %>
+
         <% table.with_column(t(".representation_title"), v_align: :baseline) do |move_connection| %>
           <div class="moves-connections-draw">
             <%= render partial: "draw", locals: { move_connection: } %>

@@ -665,6 +665,7 @@ fr:
       index:
         new_move_connection: Nouvelle connection
         representation_title: Représentation
+        extra_connection_destroyed: La connexion existante du port de destination sera supprimée
       new:
         title: Nouvelle connection
       create:

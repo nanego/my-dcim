@@ -17,3 +17,12 @@ three:
   port_from_id: 8
   port_to_id: 9
   move: one
+
+four:
+  port_from_id: 9
+  move: executed
+
+five:
+  port_from_id: 10
+  port_to_id: 8
+  move: two

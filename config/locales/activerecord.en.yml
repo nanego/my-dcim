@@ -172,6 +172,7 @@ en:
       move/connection:
         status: State
         executed_at: Executed at
+        action: Action
         port_from_id: Departure port
         port_to_id: Destination port
         vlans: Vlans
@@ -180,6 +181,10 @@ en:
       move/connection/status:
         executed: Executed
         planned: Planned
+      move/connection/action:
+        destroy: Delete
+        update: Update
+        create: Create
       netsight_sync_result:
         applied_at: Applied on
         card: Card
