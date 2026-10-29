@@ -92,7 +92,7 @@ module Moves
     end
 
     def set_move_connections
-      authorize! @move_connections = Move::Connection.where(move: @move)
+      @move_connections = @move.step.moves_planned_at_current_step.map(&:connections).flatten
     end
 
     def scoped_move_connections

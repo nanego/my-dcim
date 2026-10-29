@@ -54,7 +54,7 @@ class MovesProjectStep < ApplicationRecord
   # execution of current and previous steps.
   def servers_at_current_step_for(frame)
     # Servers that will arrive on the frame
-    moved = server_moves_planned_at_current_step
+    moved = moves_planned_at_current_step
       .where(frame:)
       .sort_by { |move| move.step.position }
       .map do |move|
@@ -63,7 +63,7 @@ class MovesProjectStep < ApplicationRecord
       end
 
     # Servers that will leave frame or stay in the same frame
-    removed = server_moves_planned_at_current_step
+    removed = moves_planned_at_current_step
       .where(prev_frame: frame)
       .where.not(frame:)
       .map(&:moveable)
@@ -83,11 +83,11 @@ class MovesProjectStep < ApplicationRecord
     previous_steps&.last
   end
 
-  private
-
-  def server_moves_planned_at_current_step
+  def moves_planned_at_current_step
     Move.not_executed
+      .left_joins(:step)
       .where(step: moves_project.steps.where(position: ..position))
       .where(moveable_type: "Server")
+      .order(step: { position: :asc })
   end
 end

@@ -170,13 +170,15 @@ RSpec.describe MovesProjectStep do
     end
   end
 
-  describe "#previous_step" do
-    context "with a project with many steps" do
-      let(:step_one) { moves_project_steps(:step_one) }
-      let(:step_two) { moves_project_steps(:step_two) }
+  describe "#moves_planned_at_current_step" do
+    let(:step) { moves_project_steps(:step_three) }
 
-      it { expect(step_one.previous_step).to be_nil }
-      it { expect(step_two.previous_step).to eq(step_one) }
-    end
+    before { moves(:move_step_three).execute! }
+
+    it {
+      expect(step.moves_planned_at_current_step).to eq([
+                                                         moves(:move_step_one), moves(:move_step_two), moves(:move_step_four),
+                                                       ])
+    }
   end
 end
