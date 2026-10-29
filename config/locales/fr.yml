@@ -724,7 +724,7 @@ fr:
 
   moves_project_steps:
     frame:
-      title: État de %{frame} à l'étape "%{step}"
+      title: État de %{frame} à l'étape
       applied_moves: Déplacements appliqués
       loading: CHARGEMENT EN COURS
     execute:

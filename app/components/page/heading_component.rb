@@ -2,6 +2,7 @@
 
 module Page
   class HeadingComponent < ApplicationComponent
+    renders_one :title
     renders_one :right_content
 
     erb_template <<~ERB
@@ -19,6 +20,8 @@ module Page
         <div class="d-flex justify-content-between align-items-center column-gap-4">
           <% if @title %>
             <h1><%= @title %></h1>
+          <% elsif title? %>
+            <%= title %>
           <% end %>
 
           <% if right_content? %>
@@ -30,7 +33,7 @@ module Page
       </div>
     ERB
 
-    def initialize(title:, breadcrumb:, back_button_url: nil)
+    def initialize(breadcrumb:, title: nil, back_button_url: nil)
       @title = title
       @breadcrumb = breadcrumb
       @back_button_url = back_button_url
