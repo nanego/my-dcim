@@ -26,7 +26,7 @@ module Bulk
       private
 
       def scoped_move_connections
-        @move.move_connections
+        @move.connections
       end
 
       def set_move
