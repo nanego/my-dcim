@@ -104,10 +104,13 @@ module Moves
     end
 
     def set_all_servers_per_frames
-      # TODO: should be scope for current step
-
-      @all_servers_per_frames = Frame.order(:name).map do |frame|
-        [frame.name, frame.servers.collect { |v| [v.name, v.id] }]
+      @all_servers_per_frames = Frame.order(:name).to_h do |frame|
+        [
+          frame.name,
+          @move.step.servers_at_current_step_for(frame).map do |v|
+            [v.name, v.id]
+          end,
+        ]
       end
     end
 
