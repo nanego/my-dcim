@@ -421,6 +421,7 @@ en:
       index:
         new_move_connection: New connection
         representation_title: Representation
+        extra_connection_destroyed: The existing connection on the destination port will be deleted
       new:
         title: New connection
       create:

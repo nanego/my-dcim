@@ -31,4 +31,92 @@ RSpec.describe Move::ConnectionDecorator, type: :decorator do
       TEXT
     end
   end
+
+  describe "#action" do
+    subject(:action) { decorated_mc.action }
+
+    context "when port to nil" do
+      let(:object) { move_connections(:four) }
+
+      it { is_expected.to be(:destroy) }
+    end
+
+    context "when port to not nil and port from has a connection" do
+      let(:object) { move_connections(:three) }
+
+      it { is_expected.to be(:update) }
+    end
+
+    context "when port to not nil and port from has no connection" do
+      let(:object) { move_connections(:one) }
+
+      it { is_expected.to be(:create) }
+    end
+  end
+
+  describe "#human_action" do
+    subject(:human_action) { decorated_mc.human_action }
+
+    context "when port to nil" do
+      let(:object) { move_connections(:four) }
+
+      it { is_expected.to eq("Suppression") }
+    end
+
+    context "when port to not nil and port from has a connection" do
+      let(:object) { move_connections(:three) }
+
+      it { is_expected.to eq("Modification") }
+    end
+
+    context "when port to not nil and port from has no connection" do
+      let(:object) { move_connections(:one) }
+
+      it { is_expected.to eq("Création") }
+    end
+  end
+
+  describe "#action_badge_color" do
+    subject(:action) { decorated_mc.action_badge_color }
+
+    context "when port to nil" do
+      let(:object) { move_connections(:four) }
+
+      it { is_expected.to be(:danger) }
+    end
+
+    context "when port to not nil and port from has a connection" do
+      let(:object) { move_connections(:three) }
+
+      it { is_expected.to be(:info) }
+    end
+
+    context "when port to not nil and port from has no connection" do
+      let(:object) { move_connections(:one) }
+
+      it { is_expected.to be(:success) }
+    end
+  end
+
+  describe "#extra_connection_destroyed?" do
+    subject(:action) { decorated_mc.extra_connection_destroyed? }
+
+    context "when port to has a connection" do
+      let(:object) { move_connections(:five) }
+
+      it { is_expected.to be(true) }
+    end
+
+    context "when port to has no connection" do
+      let(:object) { move_connections(:one) }
+
+      it { is_expected.to be(false) }
+    end
+
+    context "when port to is nil" do
+      let(:object) { move_connections(:four) }
+
+      it { is_expected.to be(false) }
+    end
+  end
 end
