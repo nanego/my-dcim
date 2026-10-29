@@ -643,7 +643,6 @@ fr:
       title: Supprimer ce déplacement
       flashes:
         destroyed: Le déplacement a été supprimé.
-        already_executed: Le déplacement a déjà été exécuté, impossible de le supprimer.
     execute:
       flashes:
         executed: Le déplacement a été exécuté avec succès.

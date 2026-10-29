@@ -279,7 +279,7 @@ RSpec.describe MovesController do
     context "when executed" do
       let(:move) { moves(:executed) }
 
-      it { expect { response }.not_to change(Move, :count) }
+      it { expect { response }.to change(Move, :count).by(-1) }
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(moves_project_path(step)) }
     end

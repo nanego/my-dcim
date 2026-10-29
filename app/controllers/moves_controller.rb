@@ -80,21 +80,13 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
     end
   end
 
+  destroy_confirmation
   def destroy
-    if @move.executed?
-      respond_to do |format|
-        format.html { redirect_back_to_param_or moves_project_path(@moves_project_step.moves_project), alert: t(".flashes.already_executed") }
-        format.json { head :bad_request }
-      end
-    else
-      return render unless params[:confirm] == "true"
+    @move.destroy
 
-      @move.destroy
-
-      respond_to do |format|
-        format.html { redirect_back_to_param_or moves_project_path(@moves_project_step.moves_project), notice: t(".flashes.destroyed") }
-        format.json { head :no_content }
-      end
+    respond_to do |format|
+      format.html { redirect_back_to_param_or moves_project_path(@moves_project_step.moves_project), notice: t(".flashes.destroyed") }
+      format.json { head :no_content }
     end
   end
 
