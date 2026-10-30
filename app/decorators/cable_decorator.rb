@@ -30,7 +30,7 @@ class CableDecorator < ApplicationDecorator
   end
 
   def equipment_connected_with_link(connection, from: false)
-    tag.span class: class_names("text-body-emphasis col overflow-wrap", "text-end": from) do
+    tag.span class: class_names("text-body-emphasis col overflow-wrap no-decoration-link", "text-end": from) do
       if (server = connection&.server)
         link_to server.to_s,
                 server_path(server),

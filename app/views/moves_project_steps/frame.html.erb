@@ -150,11 +150,9 @@
         <% if @move_connections.any? %>
           <% card.with_body(extra_classes: "p-0") do %>
             <ul class="list-group list-group-flush">
-              <% @move_connections.each do |connection| %>
+              <% @move_connections.each do |move_connection| %>
                 <li class="list-group-item">
-                  <span>
-                    <%= connection.decorated.description %>
-                  </span>
+                  <%= render partial: "moves/connections/draw", locals: { move_connection: } %>
                 </li>
               <% end %>
             </ul>
