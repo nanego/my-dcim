@@ -1,0 +1,5 @@
+<%= turbo_stream.replace :moveable do %>
+  <%= render partial: "moveable", locals: { moveable: @move.moveable } %>
+<% end %>
+
+<%= turbo_stream.frame_reload "table_move_connection" %>

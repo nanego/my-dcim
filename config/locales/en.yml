@@ -377,6 +377,8 @@ en:
       execute_confirmation: Do you really want to apply this move?
       frame_table_title: Frames after moving
       edit_connections: Update connections
+    show:
+      remove_existing_connections: Remove existing connections
     new:
       title: New move
     new_unscoped:
@@ -415,6 +417,9 @@ en:
     action:
       execute_move: Move the server and its connections
     execute_confirmation: Do you really want to apply this move?
+    remove_existing_connections:
+      flashes:
+        existing_connections_removed: Existing connections have been removed
 
     connections:
       index:

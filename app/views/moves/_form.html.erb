@@ -81,11 +81,6 @@
           <% end %>
         </div>
 
-        <fieldset class="col-12 mt-4">
-          <%= f.checkbox :remove_existing_connections_on_execution, class: "form-check-input" %>
-          <%= f.label :remove_existing_connections_on_execution, class: "form-check-label" %>
-        </fieldset>
-
         <div class="col-12 mt-4 text-end">
           <% submit_text = move.persisted? ? t("action.edit") : t("action.create") %>
           <%= f.submit submit_text, class: class_names("btn", "btn-info": move.persisted?, "btn-success": !move.persisted?) %>

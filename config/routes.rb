@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   resources :moves_project_steps, only: [] do
     resources :moves do
       member do
+        post :remove_existing_connections
         patch :execute
       end
       collection do
@@ -36,9 +37,7 @@ Rails.application.routes.draw do
 
   resources :moves, only: %i[new create] do
     resources :move_connections, except: %i[show], controller: "moves/connections", as: :connections, path: :connections do
-      collection do
-        post :update_destination_server
-      end
+      post :update_destination_server, on: :collection
     end
   end
 

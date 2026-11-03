@@ -1,0 +1,26 @@
+<%# locals: (moveable:) -%>
+
+<%= render CardComponent.new(id: "moveable") do |card| %>
+  <% card.with_body(extra_classes: "bg-body-tertiary rounded") do %>
+    <h5 class="mb-4">
+      <%= link_to moveable,
+                  moveable,
+                  class: "link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" %>
+    </h5>
+
+    <% bg_modele_color = define_background_color(server: moveable, mode: params["bg"]) %>
+    <div class="<%= class_names("rounded-top-1 border border-secondary-subtle p-2 mb-2",
+                                colorized_background: bg_modele_color.present?) %>"
+          style="background-color:<%= bg_modele_color %> !important;">
+      <%= render partial: "servers/draw_server_compact_front",
+                 locals: { server: moveable, should_show_name: false } %>
+    </div>
+
+    <div class="server rounded-bottom-1 bg-body border border-secondary-subtle p-2 mb-2 overflow-scroll">
+      <span id="back_server_<%= moveable.id %>" class="no-decoration-link text-center">
+          <%= render partial: "servers/draw_server_compact",
+                     locals: { server: moveable, should_hide_left_block: true } %>
+      </span>
+    </div>
+  <% end %>
+<% end %>

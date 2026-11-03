@@ -545,7 +545,7 @@ fr:
     resource:
       destroy:
         flashes:
-          destroyed: Les %{resource} sélectionné(e)s ont bien été supprimés.
+          destroyed: Les %{resource} sélectionné(e)s ont bien été supprimé(e)s.
           not_destroyed: Une erreur est survenue lors de la suppression d'au moins un(e) %{resource}
   glpi:
     computer:
@@ -625,6 +625,8 @@ fr:
       planned_on: Planifié le
       new_move: Prévoir un déplacement
       edit_connections: Modifier les connexions
+    show:
+      remove_existing_connections: Supprimer les connexions existantes
     new:
       title: Nouveau déplacement
     new_unscoped:
@@ -659,6 +661,9 @@ fr:
     execute_confirmation: Voulez-vous vraiment appliquer ce déplacement ?
     action:
       execute_move: Déplacer le serveur et ses connexions
+    remove_existing_connections:
+      flashes:
+        existing_connections_removed: Les connexions existantes ont été supprimées
 
     connections:
       index:

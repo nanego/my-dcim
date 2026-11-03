@@ -10,7 +10,8 @@ RSpec.describe Bulk::Moves::ConnectionsController do
       @response # rubocop:disable RSpec/InstanceVariable
     end
 
-    let(:move_id) { moves(:one).id }
+    let(:move) { moves(:one) }
+    let(:move_id) { move.id }
     let(:ids) { [move_connections(:one).id, move_connections(:three).id] }
 
     include_context "with authenticated admin"
@@ -29,7 +30,7 @@ RSpec.describe Bulk::Moves::ConnectionsController do
 
     context "with move connections with no associations" do
       it { expect { response }.to change(Move::Connection, :count).by(-2) }
-      it { expect(response).to redirect_to(move_connections_path(move_id:)) }
+      it { expect(response).to redirect_to(moves_project_step_move_path(move.step, move)) }
     end
   end
 end

@@ -111,13 +111,6 @@
           </span>
         <% end %>
 
-        <% table.with_column(
-             Move.human_attribute_name(:remove_existing_connections_on_execution_short),
-             text_align: :center,
-           ) do |move| %>
-          <%= render move.moved_connections_to_badge_component %>
-        <% end %>
-
         <% table.with_column(text_align: :right, style: "min-width: 110px; width: 110px") do |move| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
             <% unless @moves_project.archived? || move.executed? %>

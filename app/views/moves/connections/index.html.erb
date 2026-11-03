@@ -49,7 +49,7 @@
 
         <% table.with_column(style: "min-width: 70px; width: 70px") do |move_connection| %>
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
-            <% if allowed_to?(:update?, move_connection, with: Move::ConnectionPolicy) %>
+            <% if allowed_to?(:update?, move_connection) %>
               <%= link_to edit_move_connection_path(@move, move_connection),
                           class: "btn btn-outline-info",
                           title: t("action.edit"),
@@ -62,7 +62,7 @@
               <% end %>
             <% end %>
 
-            <% if allowed_to?(:destroy?, move_connection, with: Move::ConnectionPolicy) %>
+            <% if allowed_to?(:destroy?, move_connection) %>
               <%= link_to move_connection_path(@move, move_connection),
                           title: t("action.delete"),
                           method: :delete,

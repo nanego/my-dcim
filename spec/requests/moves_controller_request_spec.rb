@@ -300,7 +300,7 @@ RSpec.describe MovesController do
     end
   end
 
-  describe "GET #execute" do
+  describe "PATCH #execute" do
     subject(:response) do
       patch execute_moves_project_step_move_path(step, move)
 
@@ -339,6 +339,50 @@ RSpec.describe MovesController do
 
       it { expect(response).to have_http_status(:redirect) }
       it { expect(response).to redirect_to(moves_projects_path) }
+    end
+  end
+
+  describe "POST #remove_existing_connections" do
+    subject(:response) do
+      post remove_existing_connections_moves_project_step_move_path(step, move), as: format
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:format) { :html }
+
+    include_context "with authenticated admin"
+
+    it { expect(response).to have_http_status(:redirect) }
+    it { expect(response.content_type).to eq("text/html; charset=utf-8") }
+    it { expect(response).to redirect_to(moves_project_step_move_path(step, move)) }
+
+    it do
+      expect do
+        response
+        move.reload
+      end.to change(Move::Connection, :count).by(4)
+    end
+
+    context "with turbo_stream request" do
+      let(:format) { :turbo_stream }
+
+      it { expect(response).to have_http_status(:ok) }
+      it { expect(response.content_type).to eq("text/vnd.turbo-stream.html; charset=utf-8") }
+      it { expect(response).to render_template(:remove_existing_connections) }
+    end
+
+    context "with json request" do
+      let(:format) { :json }
+
+      it { expect(response).to have_http_status(:ok) }
+      it { expect(response.content_type).to eq("application/json; charset=utf-8") }
+      it { expect(response).to render_template(:remove_existing_connections) }
+
+      it do
+        expect(response.parsed_body.size).to eq(4)
+      end
     end
   end
 end

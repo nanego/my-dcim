@@ -10,14 +10,14 @@ module Bulk
         respond_to do |format|
           if @move_connections.map(&:destroy).all?
             format.html do
-              flash[:notice] = t("bulk.resource.destroy.flashes.destroyed", resource: Move::Connection.model_name.human.pluralize)
-              redirect_to move_connections_path(@move), status: :see_other
+              flash[:notice] = t("bulk.resource.destroy.flashes.destroyed", resource: Move::Connection.model_name.human(count: 2).downcase)
+              redirect_back_to_param_or moves_project_step_move_path(@move.step, @move), status: :see_other
             end
           else
             # TODO: tell which records has not been removed
             format.html do
-              flash[:alert] = t("bulk.resource.destroy.flashes.not_destroyed", resource: Move::Connection.model_name.human)
-              redirect_to move_connections_path(@move), status: :see_other
+              flash[:alert] = t("bulk.resource.destroy.flashes.not_destroyed", resource: Move::Connection.model_name.human.downcase)
+              redirect_back_to_param_or moves_project_step_move_path(@move.step, @move), status: :see_other
             end
           end
         end
