@@ -38,6 +38,12 @@ RSpec.describe Move do
     end
   end
 
+  describe "default scope" do
+    it "orders by ascending created_at" do
+      expect(described_class.first(2)).to eq([moves(:two), moves(:one)])
+    end
+  end
+
   describe "#moved_connections" do
     context "without moveable" do
       subject(:move) { described_class.new }

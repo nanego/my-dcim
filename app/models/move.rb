@@ -18,6 +18,7 @@ class Move < ApplicationRecord
   before_validation :refresh_prev_data
   before_save :refresh_prev_data
 
+  default_scope { order(created_at: :asc) }
   scope :not_executed, -> { where(executed_at: nil) }
 
   def clear_connections_and_save
