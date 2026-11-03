@@ -158,4 +158,36 @@ RSpec.describe Moves::ConnectionsController do
       it { expect { response }.to change(Move::Connection, :count).by(-1) }
     end
   end
+
+  describe "POST #load_destination_server" do
+    subject(:response) do
+      post(update_destination_server_move_connections_path(move, format:), params:)
+
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    let(:format) { :js }
+    let(:params) { { attachable_id: } }
+    let(:attachable_id) { Server.first.to_gid }
+
+    include_context "with authenticated admin"
+
+    context "when attachable is serveur" do
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(partial: "servers/_draw_server_compact") }
+    end
+
+    context "when attachable is pdu" do
+      let(:attachable_id) { PowerDistributionUnit.first.to_gid }
+
+      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to render_template(partial: "power_distribution_units/_visualization") }
+    end
+
+    context "when attachable is nil" do
+      let(:attachable_id) { nil }
+
+      it { expect(response).to have_http_status(:success) }
+    end
+  end
 end

@@ -55,7 +55,7 @@
                   <%= select_tag "to_server",
                                  grouped_options_for_select(
                                    all_servers_per_frames,
-                                   { selected: move_connection.port_to&.server_id },
+                                   { selected: move_connection.port_to&.attached&.to_gid },
                                  ),
                                  include_blank: true,
                                  class: "form-select",
@@ -78,12 +78,21 @@
             <% end %>
             <div id="back_destination_server" class="back_server overflow-scroll">
               <% if move_connection.port_to %>
-                <%= render partial: "servers/draw_server_compact",
-                           locals: {
-                             server: move_connection.port_to.server,
-                             selected_port: move_connection.port_to,
-                             should_hide_left_block: true,
-                           } %>
+                <% case move_connection.port_to.attached %>
+                  <% when Server %>
+                    <%= render partial: "servers/draw_server_compact",
+                                locals: {
+                                  server: move_connection.port_to.attached,
+                                  selected_port: move_connection.port_to,
+                                  should_hide_left_block: true,
+                                } %>
+                  <% when PowerDistributionUnit %>
+                    <%= render partial: "power_distribution_units/visualization",
+                                locals: {
+                                  power_distribution_unit: move_connection.port_to.attached,
+                                  selected_port: move_connection.port_to
+                                } %>
+                <% end %>
               <% end %>
             </div>
           <% end %>
@@ -155,17 +164,17 @@
     }
   })
 
-  function update_destination_server(server_id) {
+  function update_destination_server(attachable_id) {
     let submit = document.querySelector("#back_destination_server")
                          .closest("form")
                          .querySelector("input[type=\"submit\"]");
     submit.disabled = true;
 
-    if (server_id != undefined && server_id != "") {
+    if (attachable_id != undefined && attachable_id != "") {
       $.ajax({
           method: "POST",
           url: "<%= update_destination_server_move_connections_path(move_connection.move) %>",
-          data: { server_id: server_id, with_move_connection: 1 }
+          data: { attachable_id, with_move_connection: 1 }
       }).done(function () {
         let port_id = document.querySelector("input[name=\"move_connection[port_to_id]\"]");
 

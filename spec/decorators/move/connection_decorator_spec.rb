@@ -32,6 +32,24 @@ RSpec.describe Move::ConnectionDecorator, type: :decorator do
     end
   end
 
+  describe "#available_servers_options_for_select" do
+    it do
+      expect(decorated_mc.available_servers_options_for_select)
+        .to have_tag("optgroup", with: { label: "MyFrame3" }) do
+          with_tag("option", with: { value: "gid://demenagement/Server/1" }, text: "ServerName1")
+        end
+    end
+
+    it do # rubocop:disable RSpec/ExampleLength
+      expect(decorated_mc.available_servers_options_for_select)
+        .to have_tag("optgroup", with: { label: "MyFrame4" }) do
+          with_tag("option", with: { value: "gid://demenagement/Server/4" }, text: "ServerName4")
+          with_tag("option", with: { value: "gid://demenagement/Server/6" }, text: "ServerName6")
+          with_tag("option", with: { value: "gid://demenagement/PowerDistributionUnit/2" }, text: "MyFrame4-B")
+        end
+    end
+  end
+
   describe "#action" do
     subject(:action) { decorated_mc.action }
 

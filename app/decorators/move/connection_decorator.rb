@@ -53,12 +53,16 @@ class Move
 
     def available_servers_options_for_select
       servers = move.frame.bay.frames.map do |frame|
-        [frame.name, move.step.servers_at_current_step_for(frame).collect { |v| [v.name, v.id] }]
+        [
+          frame.name,
+          move.step.servers_at_current_step_for(frame).map { |v| [v.name, v.to_gid] } +
+            frame.power_distribution_units.map { |p| [p.name, p.to_gid] },
+        ]
       end
 
       grouped_options_for_select(
         servers,
-        { selected: port_to&.server_id },
+        { selected: port_to&.attached&.to_gid },
       )
     end
   end
