@@ -4,8 +4,8 @@
     .add_step(title = @moves_project)
 %>
 
-<%= render Page::HeadingShowComponent.new(
-      resource: @moves_project, title:, breadcrumb:, editable: !@moves_project.archived?,
+<%= render Page::HeadingComponent.new(
+      breadcrumb:, title:, back_button_url: moves_projects_path,
     ) do |heading| %>
   <% if created_by = @moves_project.created_by %>
     <p class="mt-2">
@@ -15,18 +15,33 @@
     </p>
   <% end %>
 
-  <% heading.with_extra_buttons do %>
+  <% heading.with_right_content do %>
     <% if @moves_project.unarchived? %>
-      <%= render ButtonComponent.new(
-            t("action.archive"),
-            url: archive_moves_project_path(@moves_project),
-            method: :patch,
-            variant: :primary,
-            icon: :archive,
-            is_responsive: true,
-            extra_classes: "me-2",
-            data: { turbo_confirm: t(".archive_confirmation") },
-          ) %>
+      <span>
+        <button type="button" class="btn btn-lg link-secondary" data-bs-toggle="dropdown" aria-expanded="false">
+          <span class="bi bi-three-dots-vertical"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <%= link_to archive_moves_project_path(@moves_project),
+                        class: "dropdown-item",
+                        method: :patch,
+                        data: {
+                          confirm: t(".archive_confirmation"),
+                        } do %>
+              <span class="bi bi-archive text-primary me-1"></span>
+              <span><%= t("action.archive") %></span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to edit_moves_project_path(@moves_project),
+                        class: "dropdown-item" do %>
+              <span class="bi bi-pencil text-info me-1"></span>
+              <span><%= t("action.edit") %></span>
+            <% end %>
+          </li>
+        </ul>
+      </span>
     <% end %>
   <% end %>
 <% end %>

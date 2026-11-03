@@ -105,4 +105,22 @@ RSpec.describe MoveDecorator, type: :decorator do
       it { expect(decorated_move.planned_or_executed_date).to eq("06/06/2025") }
     end
   end
+
+  describe "#text_color_related_to_frame" do
+    context "with destination frame" do
+      it { expect(decorated_move.text_color_related_to_frame(frames(:three))).to eq("text-success") }
+    end
+
+    context "with departure frame" do
+      let(:object) { moves(:executed) }
+
+      it { expect(decorated_move.text_color_related_to_frame(frames(:one))).to eq("text-danger") }
+    end
+
+    context "with same frame move" do
+      before { object.prev_frame_id = 3 }
+
+      it { expect(decorated_move.text_color_related_to_frame(frames(:one))).to eq("text-secondary") }
+    end
+  end
 end

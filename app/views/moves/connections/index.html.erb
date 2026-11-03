@@ -20,7 +20,11 @@
           <% end %>
         <% end %>
 
-        <% table.with_column(Move::Connection.human_attribute_name(:action)) do |move_connection| %>
+        <% table.with_column(
+             Move::Connection.human_attribute_name(:action),
+             style: "min-width: 120px; width: 120px",
+             text_align: :center,
+           ) do |move_connection| %>
           <% move_connection = move_connection.decorated %>
 
           <%= render BadgeComponent.new(color: move_connection.action_badge_color) do %>

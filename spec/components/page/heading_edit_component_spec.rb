@@ -31,9 +31,9 @@ RSpec.describe Page::HeadingEditComponent, type: :component do
       expect(rendered_component).to have_tag("div.col-12.bg-body") do
         with_tag("div.d-flex") do
           with_tag("div.align-self-center.d-inline-flex") do
-            with_tag("a.btn-primary", with: { title: "Voir", href: "/sites/1" }) do
+            with_tag("a.btn-primary", with: { title: "Voir les détails", href: "/sites/1" }) do
               with_tag("span.bi-eye")
-              with_tag("span.ms-2.d-none", text: "Voir")
+              with_tag("span.ms-2.d-none", text: "Voir les détails")
             end
           end
         end
@@ -55,9 +55,9 @@ RSpec.describe Page::HeadingEditComponent, type: :component do
         with_tag("div.d-flex") do
           with_tag("a.btn", text: "Button")
           with_tag("div.align-self-center.d-inline-flex") do
-            with_tag("a.btn-primary", with: { title: "Voir", href: "/sites/1" }) do
+            with_tag("a.btn-primary", with: { title: "Voir les détails", href: "/sites/1" }) do
               with_tag("span.bi-eye")
-              with_tag("span.ms-2.d-none", text: "Voir")
+              with_tag("span.ms-2.d-none", text: "Voir les détails")
             end
           end
         end

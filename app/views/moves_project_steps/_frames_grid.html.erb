@@ -13,12 +13,16 @@
             <div class="col">
               <%= render CardComponent.new do |card| %>
                 <div class="d-flex justify-content-between align-items-center border-bottom mb-2 pb-2">
-                  <h5 class="mb-0 d-flex align-items-start">
+                  <h5 class="mb-0 d-flex align-items-start no-decoration-link">
                     <span class="bi bi-file-minus text-success me-2"></span>
                     <span title="<%= frame.room.name_with_site %>"
                           aria-label="<%= frame.room.name_with_site %>"
                           data-controller="tooltip">
-                      <%= frame %>
+                      <%= link_to frame,
+                                  frame_moves_project_moves_project_step_path(
+                                    moves_project_step.moves_project, moves_project_step, frame,
+                                  ),
+                                  class: "text-body-emphasis" %>
                     </span>
                   </h5>
 
@@ -41,7 +45,7 @@
                       </li>
                       <li>
                         <%= link_to print_moves_project_moves_project_step_path(
-                              moves_project_step.moves_project, moves_project_step, frame,
+                              moves_project_step.moves_project, moves_project_step, frame, format: :pdf,
                             ),
                                     class: "dropdown-item",
                                     data: { turbo_frame: :_top } do %>
@@ -54,7 +58,7 @@
                         <%= link_to visualization_frame_path(frame),
                                     class: "dropdown-item",
                                     data: { turbo_frame: :_top } do %>
-                          <span class="bi bi-diagram-3-fill me-1"></span>
+                          <span class="bi bi-diagram-3-fill text-primary me-1"></span>
                           <span><%= t("visualization.title") %></span>
                         <% end %>
                       </li>
@@ -64,16 +68,15 @@
                             ),
                                     class: "dropdown-item",
                                     data: { turbo_frame: :_top } do %>
-                          <span class="bi bi-diagram-3-fill me-1"></span>
+                          <span class="bi bi-diagram-3-fill text-primary me-1"></span>
                           <span><%= t(".visualization_after_step") %></span>
                         <% end %>
                       </li>
-                      <li><hr class="dropdown-divider"></li>
                       <li>
                         <%= link_to frame_path(frame),
                                     class: "dropdown-item",
                                     data: { turbo_frame: :_top } do %>
-                          <span class="bi bi-eye me-1"></span>
+                          <span class="bi bi-eye text-primary me-1"></span>
                           <span><%= t("action.show") %></span>
                         <% end %>
                       </li>
@@ -88,7 +91,7 @@
                         aria-label="<%= move.step %>"
                         data-controller="tooltip">
                       <div class="d-flex align-items-start">
-                        <span class="bi bi-box-seam text-primary position-relative me-1">
+                        <span class="bi bi-box-seam position-relative me-1 <%= move.decorated.text_color_related_to_frame(frame) %>">
                           <% if move.executed? %>
                             <span class="position-absolute top-50 mt-2 start-100 translate-middle badge rounded-pill p-0 bg-success small">
                               <span class="bi bi-check"></span>

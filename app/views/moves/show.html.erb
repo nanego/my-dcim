@@ -7,35 +7,38 @@
     ) do |heading| %>
   <% heading.with_right_content do %>
     <% unless @move.executed? || @move.moves_project.archived? %>
-      <span class="d-inline-flex align-self-center column-gap-2">
-        <% if allowed_to?(:execute?, @move) %>
-          <%= render ButtonComponent.new(
-                t("action.execute"),
-                url: execute_moves_project_step_move_path(@moves_project_step, @move),
-                variant: :primary,
-                title: t("moves.action.execute_move"),
-                icon: :"check2-square",
-                is_responsive: true,
-                data: {
-                  turbo: true,
-                  turbo_method: :patch,
-                  confirm: t("moves.execute_confirmation"),
-                  controller: "tooltip",
-                  bs_placement: "top",
-                  turbo_frame: :_top,
-                },
-              ) %>
-        <% end %>
-
-        <% if allowed_to?(:manage?, @move) %>
-          <%= render ButtonComponent.new(
-                t("action.edit"),
-                url: edit_moves_project_step_move_path(@moves_project_step, @move),
-                variant: :info,
-                icon: :pencil,
-                is_responsive: true,
-              ) %>
-        <% end %>
+      <span>
+        <button type="button" class="btn btn-lg link-secondary" data-bs-toggle="dropdown" aria-expanded="false">
+          <span class="bi bi-three-dots-vertical"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <% if allowed_to?(:execute?, @move) %>
+            <li>
+              <%= link_to execute_moves_project_step_move_path(@moves_project_step, @move),
+                          class: "dropdown-item",
+                          data: {
+                            turbo: true,
+                            turbo_method: :patch,
+                            confirm: t("moves.execute_confirmation"),
+                            turbo_frame: :_top,
+                            controller: "tooltip",
+                          },
+                          title: t("moves.action.execute_move") do %>
+                <span class="bi bi-check2-square text-primary me-1"></span>
+                <span><%= t("action.execute") %></span>
+              <% end %>
+            </li>
+          <% end %>
+          <% if allowed_to?(:manage?, @move) %>
+            <li>
+              <%= link_to edit_moves_project_step_move_path(@moves_project_step, @move),
+                          class: "dropdown-item" do %>
+                <span class="bi bi-pencil text-info me-1"></span>
+                <span><%= t("action.edit") %></span>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
       </span>
     <% end %>
   <% end %>
@@ -123,7 +126,6 @@
     </div>
   </div>
 
-  <!-- TODO: faire qu'au clic sur les ports ça modifie / créé une Move::Connection, ou désactiver le clic -->
   <%= render CardComponent.new do |card| %>
     <% card.with_body(extra_classes: "bg-body-tertiary rounded") do %>
       <h5 class="mb-4">

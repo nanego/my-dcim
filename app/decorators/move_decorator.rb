@@ -36,4 +36,11 @@ class MoveDecorator < ApplicationDecorator
       l(date)
     end
   end
+
+  def text_color_related_to_frame(related_frame)
+    return "text-secondary" if prev_frame == frame
+    return "text-success" if frame == related_frame
+
+    "text-danger"
+  end
 end
