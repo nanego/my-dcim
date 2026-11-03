@@ -1,10 +1,18 @@
 <% remote ||= false %>
 
-<div class="connection_form p-4">
+<div class="<%= class_names("connection_form", "h-100 p-4 pb-0": remote) %>">
   <%= form_for("connection", url: connections_update_path,
                              remote: remote,
-                             html: { class: "col-12 mx-auto", role: :form }) do |f| %>
-    <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+                             html: {
+                               class: class_names(
+                                 "d-flex flex-column justify-content-between h-100 overflow-hidden": remote,
+                                 "col-12 mx-auto": !remote,
+                               ),
+                               role: :form,
+                             }) do |f| %>
+    <%= render CardComponent.new(
+          extra_classes: class_names("d-flex overflow-y-auto h-100 bg-body-tertiary": remote),
+        ) do |card| %>
       <% card.with_header do %>
         <div class="d-flex">
           <% if @from_pdu.present? %>
@@ -20,177 +28,180 @@
         </div>
       <% end %>
 
-      <div class="col-12">
-        <%= f.label Connection.human_attribute_name(:from_port_id), class: "form-label" %>
-        <%= render CardComponent.new do %>
-          <% if @from_pdu.present? %>
-            <div id="back_departure_server" class="d-flex">
-              <span class="d-flex align-items-center mx-auto flex-column gap-2">
-                <ul class="list-group">
+      <% card.with_body(extra_classes: "overflow-y-scroll") do %>
+        <div class="col-12">
+          <%= f.label Connection.human_attribute_name(:from_port_id), class: "form-label" %>
+          <%= render CardComponent.new do %>
+            <% if @from_pdu.present? %>
+              <div id="back_departure_server" class="d-flex">
+                <span class="d-flex align-items-center mx-auto flex-column gap-2">
+                  <ul class="list-group">
 
-                  <% @from_pdu.sockets.each do |socket| %>
-                    <li class="list-group-item bg-body-tertiary">
-                      <span title="<%= PowerDistributionUnit::Circuit.model_name.human %> <%= socket.circuit.name %>"
-                            data-controller="tooltip"
-                            aria-label="<%= PowerDistributionUnit::Circuit.model_name.human %> <%= socket.circuit.name %>">
+                    <% @from_pdu.sockets.each do |socket| %>
+                      <li class="list-group-item bg-body-tertiary">
+                        <span title="<%= PowerDistributionUnit::Circuit.model_name.human %> <%= socket.circuit.name %>"
+                              data-controller="tooltip"
+                              aria-label="<%= PowerDistributionUnit::Circuit.model_name.human %> <%= socket.circuit.name %>">
 
-                        <% color = if @from_port.attachable == socket
-                                     :primary
-                                   elsif socket&.port&.connection.present?
-                                     :secondary
-                                   else
-                                     :light
-                                   end %>
+                          <% color = if @from_port.attachable == socket
+                                       :primary
+                                     elsif socket&.port&.connection.present?
+                                       :secondary
+                                     else
+                                       :light
+                                     end %>
 
-                        <%= render BadgeComponent.new(color:) do %>
-                          <span><%= socket.port_type %></span>
-                          <span>#<%= socket.number %></span>
+                          <%= render BadgeComponent.new(color:) do %>
+                            <span><%= socket.port_type %></span>
+                            <span>#<%= socket.number %></span>
+                          <% end %>
+                        </span>
+                      </li>
+                    <% end %>
+                  </ul>
+
+                  <ul class="list-group back_pdu">
+                    <% @from_pdu.cards.each do |card| %>
+                      <span class="<%= class_names("list-group-item d-flex", "flex-column": %w[td-lr dt-lr].include?(card.orientation)) %>">
+                        <% if card.card_type && card.card_type.columns && card.card_type.rows %>
+                          <%= ports_by_card_with_presentation(card: card, selected_port: @from_port, twin_card_used_ports: nil) %>
+                        <% else %>
+                          <%= ports_by_card(port_type: card.card_type.try(:port_type),
+                                            port_quantity: card.card_type.try(:port_quantity),
+                                            card: card,
+                                            ports_data: card.ports,
+                                            selected_port: @from_port,
+                                            twin_card_used_ports: nil) %>
                         <% end %>
                       </span>
-                    </li>
-                  <% end %>
-                </ul>
-
-                <ul class="list-group back_pdu">
-                  <% @from_pdu.cards.each do |card| %>
-                    <span class="<%= class_names("list-group-item d-flex", "flex-column": %w[td-lr dt-lr].include?(card.orientation)) %>">
-                      <% if card.card_type && card.card_type.columns && card.card_type.rows %>
-                        <%= ports_by_card_with_presentation(card: card, selected_port: @from_port, twin_card_used_ports: nil) %>
-                      <% else %>
-                        <%= ports_by_card(port_type: card.card_type.try(:port_type),
-                                          port_quantity: card.card_type.try(:port_quantity),
-                                          card: card,
-                                          ports_data: card.ports,
-                                          selected_port: @from_port,
-                                          twin_card_used_ports: nil) %>
-                      <% end %>
-                    </span>
-                  <% end %>
-                </ul>
-              </span>
-            </div>
-          <% else %>
-            <div id="back_departure_server" class="back_server d-flex flex-row-reverse flex-wrap no-decoration-link">
-              <%= render partial: "servers/draw_server_compact",
-                         locals: { server: @from_server, selected_port: @from_port } %>
-            </div>
-          <% end %>
-          <%= f.hidden_field :from_port_id, value: @from_port.id %>
-        <% end %>
-      </div>
-
-      <div class="col-12 mt-4" data-controller="reveal" data-reveal-hidden-class="d-none">
-        <%= f.label :to_port_id, Connection.human_attribute_name(:to_port_id), class: "form-label" %>
-        <%= render CardComponent.new do |card| %>
-          <% card.with_header do %>
-            <div class="d-flex justify-content-between" id="select_destination_bay">
-              <span id="restricted_destinations" class="w-50" data-reveal-target="item">
-                <%= select_tag :to_server,
-                               grouped_options_for_select(
-                                 @possible_destination_servers, { selected: @to_server&.id },
-                               ),
-                               include_blank: true,
-                               class: "form-select",
-                               data: {
-                                 controller: :select,
-                                 select_clear_button_title_value: t("action.clear_all"),
-                               },
-                               placeholder: t("select.placeholder"),
-                               onchange: "select_destination_server(0)" %>
-              </span>
-              <span id="all_destinations" class="d-none w-50" data-reveal-target="item">
-                <%= select_tag :to_server,
-                               grouped_options_for_select(@all_servers_per_frame, { selected: @to_server&.id }),
-                               include_blank: true,
-                               class: "form-select",
-                               data: {
-                                 controller: :select,
-                                 select_clear_button_title_value: t("action.clear_all"),
-                               },
-                               placeholder: t("select.placeholder"),
-                               onchange: "select_destination_server(1)" %>
-              </span>
-              <button class="btn btn-link btn-sm me-auto" data-action="click->reveal#toggle" type="button">
-                <span data-reveal-target="item">
-                  <%= t(".action.show_more_bay") %>
+                    <% end %>
+                  </ul>
                 </span>
-                <span data-reveal-target="item" class="d-none">
-                  <%= t(".action.show_less_bay") %>
-                </span>
-              </button>
-            </div>
-          <% end %>
-          <div id="back_destination_server" class="back_server d-flex flex-row-reverse flex-wrap no-decoration-link">
-            <% case @to_port_attached %>
-            <% when Server %>
-              <%= render partial: "servers/draw_server_compact",
-                         locals: { server: @to_port_attached, selected_port: @to_port } %>
-            <% when PowerDistributionUnit %>
-              <%= render partial: "power_distribution_units/visualization",
-                         locals: { power_distribution_unit: @to_port_attached, selected_port: @to_port } %>
+              </div>
+            <% else %>
+              <div id="back_departure_server" class="back_server d-flex flex-row-reverse flex-wrap no-decoration-link">
+                <%= render partial: "servers/draw_server_compact",
+                           locals: { server: @from_server, selected_port: @from_port } %>
+              </div>
             <% end %>
-          </div>
-          <%= f.hidden_field :to_port_id, value: @to_port&.id %>
-        <% end %>
-      </div>
-
-      <fieldset class="col-12 mt-4">
-        <%= f.label Port.human_attribute_name(:color), class: "form-label" %>
-        <%= f.hidden_field :color, value: @from_port.cable.try(:color) %>
-      </fieldset>
-
-      <fieldset class="col-12 mt-4">
-        <%= f.label Port.human_attribute_name(:cablename), class: "form-label" %>
-        <%= f.text_field :cablename, class: "form-control", value: @from_port.cable.try(:name) %>
-      </fieldset>
-
-      <fieldset class="col-12 mt-4" data-controller="netsight-vlans">
-        <%= f.label Port.human_attribute_name(:vlans), class: "form-label" %>
-        <%= f.text_field :vlans, class: "form-control", value: @from_port.vlans, data: { netsight_vlans_target: "input" } %>
-
-        <% if @from_port.persisted? && @from_port.card.present? && !@from_port.is_power? %>
-          <%= turbo_frame_tag "netsight_port", loading: :lazy, src: port_netsight_port_path(@from_port) do %>
-            <%= render "ports/netsight_port/loading" %>
+            <%= f.hidden_field :from_port_id, value: @from_port.id %>
           <% end %>
-        <% end %>
-      </fieldset>
+        </div>
 
-      <div class="col-12 mt-4">
-        <fieldset class="form-check">
-          <%= f.check_box :special_case, class: "form-check-input", checked: @from_port.cable.try(:special_case) %>
-          <%= f.label Cable.human_attribute_name(:special_case), class: "form-check-label" %>
+        <div class="col-12 mt-4" data-controller="reveal" data-reveal-hidden-class="d-none">
+          <%= f.label :to_port_id, Connection.human_attribute_name(:to_port_id), class: "form-label" %>
+          <%= render CardComponent.new do |card| %>
+            <% card.with_header do %>
+              <div class="d-flex justify-content-between" id="select_destination_bay">
+                <span id="restricted_destinations" class="w-50" data-reveal-target="item">
+                  <%= select_tag :to_server,
+                                 grouped_options_for_select(
+                                   @possible_destination_servers, { selected: @to_server&.id },
+                                 ),
+                                 include_blank: true,
+                                 class: "form-select",
+                                 data: {
+                                   controller: :select,
+                                   select_clear_button_title_value: t("action.clear_all"),
+                                 },
+                                 placeholder: t("select.placeholder"),
+                                 onchange: "select_destination_server(0)" %>
+                </span>
+                <span id="all_destinations" class="d-none w-50" data-reveal-target="item">
+                  <%= select_tag :to_server,
+                                 grouped_options_for_select(@all_servers_per_frame, { selected: @to_server&.id }),
+                                 include_blank: true,
+                                 class: "form-select",
+                                 data: {
+                                   controller: :select,
+                                   select_clear_button_title_value: t("action.clear_all"),
+                                 },
+                                 placeholder: t("select.placeholder"),
+                                 onchange: "select_destination_server(1)" %>
+                </span>
+                <button class="btn btn-link btn-sm me-auto" data-action="click->reveal#toggle" type="button">
+                  <span data-reveal-target="item">
+                    <%= t(".action.show_more_bay") %>
+                  </span>
+                  <span data-reveal-target="item" class="d-none">
+                    <%= t(".action.show_less_bay") %>
+                  </span>
+                </button>
+              </div>
+            <% end %>
+            <div id="back_destination_server" class="back_server d-flex flex-row-reverse flex-wrap no-decoration-link">
+              <% case @to_port_attached %>
+              <% when Server %>
+                <%= render partial: "servers/draw_server_compact",
+                           locals: { server: @to_port_attached, selected_port: @to_port } %>
+              <% when PowerDistributionUnit %>
+                <%= render partial: "power_distribution_units/visualization",
+                           locals: { power_distribution_unit: @to_port_attached, selected_port: @to_port } %>
+              <% end %>
+            </div>
+            <%= f.hidden_field :to_port_id, value: @to_port&.id %>
+          <% end %>
+        </div>
+
+        <fieldset class="col-12 mt-4">
+          <%= f.label Port.human_attribute_name(:color), class: "form-label" %>
+          <%= f.hidden_field :color, value: @from_port.cable.try(:color) %>
         </fieldset>
-      </div>
 
-      <fieldset class="col-12 mt-4">
-        <%= f.label Cable.human_attribute_name(:comments), class: "form-label" %>
-        <%= f.text_field :comments, class: "form-control", value: @from_port.cable.try(:comments) %>
-      </fieldset>
+        <fieldset class="col-12 mt-4">
+          <%= f.label Port.human_attribute_name(:cablename), class: "form-label" %>
+          <%= f.text_field :cablename, class: "form-control", value: @from_port.cable.try(:name) %>
+        </fieldset>
+
+        <fieldset class="col-12 mt-4" data-controller="netsight-vlans">
+          <%= f.label Port.human_attribute_name(:vlans), class: "form-label" %>
+          <%= f.text_field :vlans, class: "form-control", value: @from_port.vlans, data: { netsight_vlans_target: "input" } %>
+
+          <% if @from_port.persisted? && @from_port.card.present? && !@from_port.is_power? %>
+            <%= turbo_frame_tag "netsight_port", loading: :lazy, src: port_netsight_port_path(@from_port) do %>
+              <%= render "ports/netsight_port/loading" %>
+            <% end %>
+          <% end %>
+        </fieldset>
+
+        <div class="col-12 mt-4">
+          <fieldset class="form-check">
+            <%= f.check_box :special_case, class: "form-check-input", checked: @from_port.cable.try(:special_case) %>
+            <%= f.label Cable.human_attribute_name(:special_case), class: "form-check-label" %>
+          </fieldset>
+        </div>
+
+        <fieldset class="col-12 mt-4">
+          <%= f.label Cable.human_attribute_name(:comments), class: "form-label" %>
+          <%= f.text_field :comments, class: "form-control", value: @from_port.cable.try(:comments) %>
+        </fieldset>
+      <% end %>
     <% end %>
 
-    <div class="col-12 py-4 mt-4 text-end sticky-bottom bg-body-tertiary border-top">
-      <%- if remote %>
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-          <%= t("action.cancel") %>
-        </button>
-      <% else %>
-        <%= link_to t("action.cancel"), cables_path, class: "btn btn-outline-secondary" %>
-      <% end %>
-
-      <%= f.submit t("action.edit"), class: "btn btn-primary" %>
-    </div>
-
-    <% if @cable && remote %>
-      <div class="col-12 mt-4 border-top pt-4 text-center">
-        <h5 class="mb-4"><%= t(".delete_title") %></h5>
+    <div class="<%= class_names("py-4 mt-4 bg-body-tertiary border-top",
+                                "d-flex flex-shrink-0": remote,
+                                "col-12 text-end sticky-bottom": !remote) %>">
+      <% if @cable && remote %>
         <%= link_to cable_path(id: @cable.id),
                     method: :delete,
-                    class: "btn btn-danger" do %>
+                    class: "btn btn-outline-danger" do %>
           <span class="bi bi-trash"></span>
           <span class="ms-1"><%= t("action.delete") %></span>
         <% end %>
-      </div>
-    <% end %>
+      <% end %>
+
+      <span class="d-inline-flex ms-auto gap-2">
+        <%- if remote %>
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+            <%= t("action.cancel") %>
+          </button>
+        <% else %>
+          <%= link_to t("action.cancel"), cables_path, class: "btn btn-outline-secondary" %>
+        <% end %>
+
+        <%= f.submit t("action.edit"), class: "btn btn-outline-primary" %>
+      </span>
+    </div>
   <% end %>
 </div>
 
