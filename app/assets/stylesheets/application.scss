@@ -376,6 +376,20 @@ table.card_layout {
   }
 }
 
+.move-step_frame_dropdown {
+  .btn.dropdown-toggle .text-truncate {
+    max-width: 10rem;
+
+    @include media-breakpoint-up(md) {
+      max-width: 15rem;
+    }
+
+    @include media-breakpoint-up(lg) {
+      max-width: 20rem;
+    }
+  }
+}
+
 span.port_container.no_client {
   a, span {
     border: solid 2px #FF9000 !important;
@@ -766,6 +780,15 @@ body {
   &-messages {
     margin-top: calc(1rem + var(--navbar-height));
     margin-right: 1rem;
+  }
+
+  ol.breadcrumb {
+    .breadcrumb-item {
+      max-width: 20rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   /* TODO: to remove if a MessageComponent is created */
