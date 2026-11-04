@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class ProcessorFilter < Filter
-  def initialize(records, params, with: nil)
+  def initialize(records, params, with: nil, defaults: {})
     @records = records
     @rubanok_class = with || guess_processor_from_records(records)
 
     raise "Processor class missing" unless @rubanok_class
 
-    super(params, @rubanok_class.fields_set.to_a)
+    super(params, @rubanok_class.fields_set.to_a, defaults:)
   end
 
   def results
