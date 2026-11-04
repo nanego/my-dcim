@@ -51,9 +51,12 @@
           <div class="btn-group btn-group-sm" role="group" aria-label="...">
             <% if allowed_to?(:update?, move_connection) %>
               <%= link_to edit_move_connection_path(@move, move_connection),
-                          class: "btn btn-outline-info",
+                          class: "btn btn-outline-info js_connection_edit_link_to",
                           title: t("action.edit"),
-                          data: { turbo_frame: :_top, controller: "tooltip" },
+                          data: {
+                            controller: "tooltip",
+                            url: edit_move_connection_path(@move, move_connection),
+                          },
                           aria: {
                             label: t("action.edit"),
                           } do %>
@@ -83,4 +86,6 @@
       <% end %>
     </div>
   <% end %>
+
+  <%= render "ports/modal_edit_port" %>
 </div>
