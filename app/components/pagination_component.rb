@@ -1,21 +1,20 @@
 # frozen_string_literal: true
 
 class PaginationComponent < ApplicationComponent
-  include Pagy::Frontend
-
   erb_template <<~ERB
     <div class="pagination-component">
-      <%== pagy_bootstrap_nav(@pagy) %>
+      <%== @pagy.series_nav(:bootstrap) %>
 
       <%= form_with url: url_for, method: :get, data: { controller: "form-update" },
                     class: "d-flex align-items-baseline gap-2" do |f| %>
         <%= helpers.hash_to_hidden_fields(query_parameters) %>
 
-        <%= f.label @pagy.vars[:limit_param], t(".items_per_page"), class: "form-label text-nowrap text-secondary" %>
-        <%= f.select @pagy.vars[:limit_param], options_for_select(User::AVAILABLE_ITEMS_PER_PAGE, @pagy.limit),
-                                      {},
-                                      class: "form-select form-select-sm",
-                                      data: { action: "change->form-update#update" } %>
+        <%= f.label @pagy.options[:limit_key], t(".items_per_page"), class: "form-label text-nowrap text-secondary" %>
+        <%= f.select @pagy.options[:limit_key],
+                     options_for_select(User::AVAILABLE_ITEMS_PER_PAGE, @pagy.limit),
+                     {},
+                     class: "form-select form-select-sm",
+                     data: { action: "change->form-update#update" } %>
       <% end %>
     </div>
   ERB
@@ -30,6 +29,6 @@ class PaginationComponent < ApplicationComponent
   private
 
   def query_parameters
-    (@params || request.query_parameters).merge(@pagy.vars[:page_param] => 1)
+    (@params || request.query_parameters).merge(@pagy.options[:page_key] => 1)
   end
 end

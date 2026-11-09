@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  include Pagy::Frontend
-
   CREATE_ANOTHER_ONE_ACTIONS = %w[new create].freeze
 
   def accepted_format_for_attachment(model_klass, attribute_name)

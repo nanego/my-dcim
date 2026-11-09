@@ -27,7 +27,7 @@ gem "datagrid", "~> 1.x"
 gem "dry-struct"
 gem "faraday"
 gem "kaminari" # TODO: Remove when removing datagrid
-gem "pagy"
+gem "pagy", "~> 43.8"
 gem "pg"
 gem "puma"
 

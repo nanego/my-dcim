@@ -3,7 +3,7 @@
 class ApplicationController < ActionController::Base
   include ChangelogContextApplication
   include Localization
-  include Pagy::Backend
+  include Pagy::Method
   include Authorization
 
   acts_as_token_authentication_handler_for User
@@ -91,13 +91,14 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user_has_permission?
 
-  private
+  protected
 
-  def pagy_get_limit(vars)
-    limit_params = vars[:limit] || Pagy::DEFAULT[:limit_param]
-
-    params[limit_params] || current_user.items_per_page
+  # Default to the user's preferred limit; a "limit" param still takes precedence
+  def pagy(*, **)
+    super(*, limit: current_user.items_per_page, **)
   end
+
+  private
 
   def prepare_exception_notifier
     request.env["exception_notifier.exception_data"] = {

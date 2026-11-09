@@ -22,7 +22,7 @@ RSpec.describe FormHelper do
   end
 
   describe "#pagy_to_hidden_fields" do
-    let(:pagy) { Pagy.new(count: 1, limit: 50) }
+    let(:pagy) { Pagy::Offset.new(count: 1, limit: 50) }
 
     it do
       expect(helper.pagy_to_hidden_fields(pagy)).to eq <<~HTML.chomp
