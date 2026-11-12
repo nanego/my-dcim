@@ -26,7 +26,6 @@ class PowerDistributionUnit < ApplicationRecord
 
   enum :orientation, { asc: 0, desc: 1 }, validate: true
   enum :side, { left: 0, right: 1 }, validate: true
-  enum :power_line, { a: "a", b: "b" }, validates: true
 
   validates :serial_number, presence: true, uniqueness: true, format: { without: /\s/ }
   validates :power_line, uniqueness: { scope: :frame_id }

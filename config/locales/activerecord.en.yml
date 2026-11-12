@@ -382,6 +382,7 @@ en:
   attributes:
     bay_id: Bay
     bay: Bay
+    color: Color
     room_id: Room
     romm: Room
     islet_id: Islet
