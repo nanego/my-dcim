@@ -117,14 +117,18 @@ RSpec.describe CablesProcessor do
 
   describe "when filtering by power_distribution_unit_ids" do # rubocop:disable RSpec/MultipleMemoizedHelpers
     let(:default_pdu_param) do
-      { bay: bays(:one), type: power_distribution_unit_types(:one), orientation: :asc,
+      {
+        bay: bays(:one),
+        type: power_distribution_unit_types(:one),
+        orientation: :asc,
         side: :left,
         comment: "",
         ipmi_url: "",
-        power_line: :a }
+        power_line: :a,
+      }
     end
 
-    let(:pdu) { PowerDistributionUnit.create!(**default_pdu_param, serial_number: "p1") }
+    let(:pdu) { PowerDistributionUnit.create!(**default_pdu_param, name: "PDU name 1", serial_number: "p1") }
     let(:circuit) { PowerDistributionUnit::Circuit.create!(record: pdu, name: "C1") }
     let(:socket) { PowerDistributionUnit::Socket.create!(circuit:, port_type: port_types(:one), number: 0) }
     let(:port) { Port.create!(attachable: socket) }
@@ -144,7 +148,7 @@ RSpec.describe CablesProcessor do
       let(:port_second) { Port.create!(attachable: socket_second) }
       let(:cable_second) { Cable.create!(name: "cableB") }
       let(:connection_second) { Connection.create!(cable: cable_second, port: port_second) }
-      let(:pdu_second) { PowerDistributionUnit.create!(**default_pdu_param, serial_number: "p2") }
+      let(:pdu_second) { PowerDistributionUnit.create!(**default_pdu_param, name: "PDU name 2", serial_number: "p2") }
       let(:circuit_second) { PowerDistributionUnit::Circuit.create!(record: pdu_second, name: "C2") }
       let(:socket_second) do
         PowerDistributionUnit::Socket.create!(circuit: circuit_second, port_type: port_types(:one), number: 0)
@@ -269,6 +273,7 @@ RSpec.describe CablesProcessor do
         ipmi_url: "",
         serial_number: "p1",
         power_line: :a,
+        name: "PDU name 1",
       )
     end
     let(:circuit) { PowerDistributionUnit::Circuit.create(record: pdu, name: "C1") }

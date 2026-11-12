@@ -12,6 +12,6 @@ RSpec.describe PowerDistributionUnit::Card do
   end
 
   describe "#to_s" do
-    it { expect(card.to_s).to eq("Carte MyFrame1-A / Card1") }
+    it { expect(card.to_s).to eq("Carte PDU frame 1 / Card1") }
   end
 end

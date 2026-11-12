@@ -8,7 +8,7 @@ class PowerDistributionUnitDecorator < ApplicationDecorator
 
   class << self
     def options_for_select
-      PowerDistributionUnit.includes(:frame).select(:id, :frame_id, :power_line).map { |p| [p.name, p.id] }
+      PowerDistributionUnit.select(:id, :name).map { |p| [p.name, p.id] }
     end
 
     def rooms_options_for_select(user)
