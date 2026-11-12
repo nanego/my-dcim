@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PortTypeMigration < ApplicationRecord
+class MigrationPortType < ApplicationRecord
   self.table_name = :port_types
 end
 
@@ -12,8 +12,8 @@ class RenamePowerToIsPowerForPortType < ActiveRecord::Migration[8.1]
     add_column :port_types, :usable_by, :enum, enum_type: :port_types_usable_by, array: true
 
     up_only do
-      PortTypeMigration.reset_column_information
-      PortTypeMigration.find_each do |port_type|
+      MigrationPortType.reset_column_information
+      MigrationPortType.find_each do |port_type|
         port_type.update!(is_power: port_type.name == "ALIM", usable_by: ["server"])
       end
     end

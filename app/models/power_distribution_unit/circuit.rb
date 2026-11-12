@@ -8,15 +8,5 @@ class PowerDistributionUnit
     has_many :sockets, dependent: :destroy
 
     validates :name, presence: true
-
-    accepts_nested_attributes_for :sockets, allow_destroy: true
-
-    def deep_dup
-      copy = dup
-
-      copy.tap do |circuit|
-        circuit.sockets = sockets.map(&:dup)
-      end
-    end
   end
 end

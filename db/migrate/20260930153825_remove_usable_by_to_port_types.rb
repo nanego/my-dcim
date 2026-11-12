@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-class PortTypeMigration < ApplicationRecord
-  self.table_name = :port_types
-end
-
 class RemoveUsableByToPortTypes < ActiveRecord::Migration[8.1]
   def change
     revert do
