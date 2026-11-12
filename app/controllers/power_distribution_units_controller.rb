@@ -85,7 +85,7 @@ class PowerDistributionUnitsController < ApplicationController
   def power_distribution_unit_params
     params.expect(
       power_distribution_unit: [
-        :type_id, :frame_id, :side, :orientation, :ipmi_url, :serial_number, :comment, :power_line,
+        :type_id, :frame_id, :side, :orientation, :ipmi_url, :serial_number, :comment, :power_line, :color,
         {
           circuits_attributes: [[
             :id, :_destroy, :name,
