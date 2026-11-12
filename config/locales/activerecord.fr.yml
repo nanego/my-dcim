@@ -527,9 +527,9 @@ fr:
         documentation_url: Documentation
         meter_global: Mètres global
         meter_per_socket: Mètres par prise
-        meter_per_circuit: Mètres par circuit
+        meter_per_circuit: Mesures par circuit
         socket_control: Contrôle de prise
-        socket_lock: Vérrou de prise
+        socket_lock: Verrou de prise
         ip_snmp: IP SNMP
         ip_modbus: IP ModBus
         ip_ssh: IP SSH
