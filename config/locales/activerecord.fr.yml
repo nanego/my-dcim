@@ -135,7 +135,6 @@ fr:
         span: Slots
         u: Nb de U
         modele_category_id: Catégorie
-        color: Couleur
       site:
         name: Nom
         description: Description
@@ -226,7 +225,6 @@ fr:
           other: "%{count} serveurs"
       stack:
         name: Nom
-        color: Couleur
         servers: Nombre de machines
         servers_count:
           zero: 0 machine
@@ -279,7 +277,6 @@ fr:
         manufacturer: Constructeur
         manufacturer_id: Constructeur
         nb_elts: Nb d'éléments
-        color: Couleur
         network_types: Composant réseau
       modele/network_types:
         gbe: Backbone Gbps
@@ -396,7 +393,6 @@ fr:
         to_port_id: Port de destination
       cable:
         name: Nom
-        color: Couleur
         special_case: Backbone réseau
         comments: Commentaires
         description: "Connexion entre %{from_server_category} %{from_server} (port #%{from_port_id}) et %{to_server_category} %{to_server} (port #%{to_port_id}) => vlans:%{vlans} cablename:%{cablename} couleur:%{color}"
@@ -415,7 +411,6 @@ fr:
         white: Blanc
       port:
         cablename: Nom du câble
-        color: Couleur
         vlans: Vlans
       moves_project:
         name: Nom
@@ -440,7 +435,6 @@ fr:
         port_from_id: Port de départ
         port_to_id: Port de destination
         vlans: Vlans
-        color: Couleur
         cablename: Nom du câble
       external_app_record:
         external_id: ID GLPI
@@ -535,7 +529,7 @@ fr:
         ip_ssh: IP SSH
         ip_webui: IP WebUI
         rs485_modbus: RS485 ModBus
-        max_power_per_circuit: Puissance max par circuit
+        max_power_per_circuit: Courant max par circuit (A)
         circuits_per_phase: Circuits par phase
         phases_count: Nombre de phases
       power_distribution_unit_type/current_type:
@@ -615,6 +609,7 @@ fr:
   attributes:
     bay_id: Baie
     bay: Baie
+    color: Couleur
     room_id: Salle
     romm: Salle
     islet_id: Ilôt

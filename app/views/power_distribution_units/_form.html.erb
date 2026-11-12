@@ -28,10 +28,7 @@
         <div class="row row-gap-3">
           <fieldset class="col-12">
             <%= f.label :power_line, class: "form-label" %>
-            <%= f.select :power_line,
-                         PowerDistributionUnitDecorator.power_line_options_for_select,
-                         { prompt: true },
-                         class: "form-select" %>
+            <%= f.text_field :power_line, class: "form-control" %>
           </fieldset>
 
           <fieldset class="col-12">
@@ -45,6 +42,11 @@
                          PowerDistributionUnitDecorator.orientation_options_for_select,
                          { prompt: true },
                          class: "form-select" %>
+          </fieldset>
+
+          <fieldset class="col-12">
+            <%= f.label :color, class: "form-label" %>
+            <%= f.text_field :color, class: "form-control" %>
           </fieldset>
 
           <fieldset class="col-12">

@@ -81,13 +81,6 @@ RSpec.describe PowerDistributionUnitDecorator, type: :decorator do
     end
   end
 
-  describe ".power_line_options_for_select" do
-    it do
-      expect(described_class.power_line_options_for_select)
-        .to contain_exactly(%w[A a], %w[B b])
-    end
-  end
-
   describe "#power_line_badge_component" do
     subject(:component) { decorated_pdu.power_line_badge_component }
 
@@ -95,7 +88,7 @@ RSpec.describe PowerDistributionUnitDecorator, type: :decorator do
       it { is_expected.to be_a(BadgeComponent) }
       it { expect(component.instance_variable_get(:@text)).to eq("A") }
       it { expect(component.instance_variable_get(:@variant)).to eq(:default) }
-      it { expect(component.instance_variable_get(:@color)).to eq(:warning) }
+      it { expect(component.instance_variable_get(:@color)).to eq(:light) }
     end
 
     context "with B power line" do
@@ -104,7 +97,7 @@ RSpec.describe PowerDistributionUnitDecorator, type: :decorator do
       it { is_expected.to be_a(BadgeComponent) }
       it { expect(component.instance_variable_get(:@text)).to eq("B") }
       it { expect(component.instance_variable_get(:@variant)).to eq(:default) }
-      it { expect(component.instance_variable_get(:@color)).to eq(:primary) }
+      it { expect(component.instance_variable_get(:@color)).to eq(:light) }
     end
   end
 

@@ -223,7 +223,7 @@ en:
         ip_ssh: IP SSH
         ip_webui: IP WebUI
         rs485_modbus: RS485 ModBus
-        max_power_per_circuit: Max power per circuit
+        max_power_per_circuit: Max current per circuit (A)
         circuits_per_phase: Circuits per phase
         phases_count: Phases count
       power_distribution_unit_type/current_type:
@@ -382,6 +382,7 @@ en:
   attributes:
     bay_id: Bay
     bay: Bay
+    color: Color
     room_id: Room
     romm: Room
     islet_id: Islet

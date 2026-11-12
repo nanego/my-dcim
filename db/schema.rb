@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_13_190000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_12_132530) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -552,6 +552,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_190000) do
     t.datetime "updated_at", null: false
     t.bigint "frame_id", null: false
     t.string "power_line", null: false
+    t.string "color"
     t.index ["frame_id", "power_line"], name: "index_power_distribution_units_on_frame_id_and_power_line", unique: true
     t.index ["frame_id"], name: "index_power_distribution_units_on_frame_id"
     t.index ["serial_number"], name: "index_power_distribution_units_on_serial_number", unique: true

@@ -46,16 +46,10 @@ class PowerDistributionUnitDecorator < ApplicationDecorator
         [PowerDistributionUnit.human_attribute_name("orientation.#{orientation}"), orientation]
       end
     end
-
-    def power_line_options_for_select
-      PowerDistributionUnit.power_lines.keys.map do |power_line|
-        [power_line.upcase, power_line]
-      end
-    end
   end
 
   def power_line_badge_component
-    BadgeComponent.new(power_line.upcase, color: POWER_LINES_COLORS[power_line.to_sym])
+    BadgeComponent.new(power_line, color: :light) # TODO: make badge color dynamic
   end
 
   def full_location
