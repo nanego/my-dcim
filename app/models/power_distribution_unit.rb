@@ -41,10 +41,7 @@ class PowerDistributionUnit < ApplicationRecord
   before_create :build_associations_from_type
 
   def should_generate_new_friendly_id?
-    return true if slug.blank? || power_line_changed?
-
-    frame_name = frame&.name
-    frame_name.nil? || !slug.starts_with?(frame.name)
+    slug.blank? || name_changed?
   end
 
   def deep_dup
