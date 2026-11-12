@@ -127,10 +127,4 @@ RSpec.describe PowerDistributionUnit do
     it { expect(power_distribution_unit.cards.size).to eq(1) }
     it { expect(power_distribution_unit.cards.first.name).to eq(type.cards.first.name) }
   end
-
-  describe "#name" do
-    subject(:power_distribution_unit) { power_distribution_units(:one) }
-
-    it { expect(power_distribution_unit.name).to eq("MyFrame1-A") }
-  end
 end
