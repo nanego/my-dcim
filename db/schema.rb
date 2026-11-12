@@ -363,6 +363,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_19_092840) do
     t.bigint "port_to_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["move_id", "port_from_id"], name: "index_move_connections_on_move_id_and_port_from_id", unique: true
     t.index ["move_id"], name: "index_move_connections_on_move_id"
     t.index ["port_from_id"], name: "index_move_connections_on_port_from_id"
     t.index ["port_to_id"], name: "index_move_connections_on_port_to_id"
@@ -377,8 +378,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_19_092840) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.datetime "executed_at", precision: nil
+    t.bigint "step_id"
     t.index ["port_from_id"], name: "index_moved_connections_on_port_from_id"
     t.index ["port_to_id"], name: "index_moved_connections_on_port_to_id"
+    t.index ["step_id"], name: "index_moved_connections_on_step_id"
   end
 
   create_table "moves", id: :serial, force: :cascade do |t|
@@ -487,6 +490,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_19_092840) do
     t.index ["attachable_id"], name: "index_ports_on_attachable_id"
   end
 
+  create_table "power_distribution_unit_blocks", force: :cascade do |t|
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_id", "position"], name: "index_power_distribution_unit_blocks_on_record_id_and_position", unique: true
+    t.index ["record_type", "record_id"], name: "index_power_distribution_unit_blocks_on_record"
+  end
+
   create_table "power_distribution_unit_cards", force: :cascade do |t|
     t.bigint "card_type_id", null: false
     t.string "record_type", null: false
@@ -515,6 +528,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_19_092840) do
     t.integer "number", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "block_id", null: false
+    t.index ["block_id"], name: "index_power_distribution_unit_sockets_on_block_id"
     t.index ["circuit_id"], name: "index_power_distribution_unit_sockets_on_circuit_id"
     t.index ["port_type_id"], name: "index_power_distribution_unit_sockets_on_port_type_id"
   end
@@ -703,6 +718,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_19_092840) do
   add_foreign_key "move_connections", "moves"
   add_foreign_key "move_connections", "ports", column: "port_from_id"
   add_foreign_key "move_connections", "ports", column: "port_to_id"
+  add_foreign_key "moved_connections", "moves_project_steps", column: "step_id"
   add_foreign_key "moved_connections", "ports", column: "port_from_id"
   add_foreign_key "moved_connections", "ports", column: "port_to_id"
   add_foreign_key "moves", "frames"
@@ -719,6 +735,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_19_092840) do
   add_foreign_key "permission_scope_users", "users"
   add_foreign_key "power_distribution_unit_cards", "card_types"
   add_foreign_key "power_distribution_unit_sockets", "port_types"
+  add_foreign_key "power_distribution_unit_sockets", "power_distribution_unit_blocks", column: "block_id"
   add_foreign_key "power_distribution_unit_sockets", "power_distribution_unit_circuits", column: "circuit_id"
   add_foreign_key "power_distribution_unit_types", "manufacturers"
   add_foreign_key "power_distribution_units", "frames"
