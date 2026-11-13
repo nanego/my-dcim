@@ -10,7 +10,7 @@ one:
   side: left
   comment: ""
   ipmi_url: ""
-  power_line: a
+  power_line: A
 
 two:
   id: 2
@@ -22,4 +22,4 @@ two:
   side: left
   comment: ""
   ipmi_url: ""
-  power_line: b
+  power_line: B

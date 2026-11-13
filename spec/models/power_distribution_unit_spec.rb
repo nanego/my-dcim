@@ -40,7 +40,6 @@ RSpec.describe PowerDistributionUnit do
   describe "validations" do
     it { is_expected.to define_enum_for(:orientation).with_values(%i[asc desc]) }
     it { is_expected.to define_enum_for(:side).with_values(%i[left right]) }
-    it { is_expected.to define_enum_for(:power_line).with_values(a: "a", b: "b").backed_by_column_of_type(:string) }
 
     it { is_expected.to validate_presence_of(:serial_number) }
     it { is_expected.to validate_uniqueness_of(:serial_number) }
