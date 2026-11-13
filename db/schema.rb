@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_13_190000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_12_112203) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -552,8 +552,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_190000) do
     t.datetime "updated_at", null: false
     t.bigint "frame_id", null: false
     t.string "power_line", null: false
-    t.index ["frame_id", "power_line"], name: "index_power_distribution_units_on_frame_id_and_power_line", unique: true
+    t.string "name", null: false
     t.index ["frame_id"], name: "index_power_distribution_units_on_frame_id"
+    t.index ["name"], name: "index_power_distribution_units_on_name", unique: true
     t.index ["serial_number"], name: "index_power_distribution_units_on_serial_number", unique: true
     t.index ["type_id"], name: "index_power_distribution_units_on_type_id"
   end
@@ -754,12 +755,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_190000) do
   UNION ALL
    SELECT power_distribution_units.id AS searchable_id,
       'PowerDistributionUnit'::text AS searchable_type,
-      concat_ws('-'::text, frames.name, power_distribution_units.power_line) AS name,
+      power_distribution_units.name,
       NULL::integer[] AS domain_ids,
-      concat_ws(' '::text, concat_ws('-'::text, frames.name, upper((power_distribution_units.power_line)::text)), power_distribution_units.serial_number, power_distribution_unit_types.name, manufacturers.name) AS term
-     FROM (((power_distribution_units
+      concat_ws(' '::text, power_distribution_units.name, power_distribution_units.serial_number, power_distribution_unit_types.name, manufacturers.name) AS term
+     FROM ((power_distribution_units
        LEFT JOIN power_distribution_unit_types ON ((power_distribution_unit_types.id = power_distribution_units.type_id)))
-       LEFT JOIN manufacturers ON ((manufacturers.id = power_distribution_unit_types.manufacturer_id)))
-       LEFT JOIN frames ON ((frames.id = power_distribution_units.frame_id)));
+       LEFT JOIN manufacturers ON ((manufacturers.id = power_distribution_unit_types.manufacturer_id)));
   SQL
 end

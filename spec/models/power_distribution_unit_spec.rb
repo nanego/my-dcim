@@ -15,6 +15,7 @@ RSpec.describe PowerDistributionUnit do
       comment: "",
       ipmi_url: "",
       power_line: :a,
+      name: "PDU A1",
     )
   }, new_attributes: { comment: "new comment" }
 
@@ -115,7 +116,14 @@ RSpec.describe PowerDistributionUnit do
 
   describe "#build_extras_from_type" do
     let!(:power_distribution_unit) do
-      described_class.create!(**power_distribution_units(:one).attributes, id: nil, type:, serial_number: "test123456789", power_line: :b)
+      described_class.create!(
+        **power_distribution_units(:one).attributes,
+        id: nil,
+        type:,
+        serial_number: "test123456789",
+        name: "test 123456789",
+        power_line: :b,
+      )
     end
     let(:type) { power_distribution_unit_types(:one) }
 
@@ -126,11 +134,5 @@ RSpec.describe PowerDistributionUnit do
 
     it { expect(power_distribution_unit.cards.size).to eq(1) }
     it { expect(power_distribution_unit.cards.first.name).to eq(type.cards.first.name) }
-  end
-
-  describe "#name" do
-    subject(:power_distribution_unit) { power_distribution_units(:one) }
-
-    it { expect(power_distribution_unit.name).to eq("MyFrame1-A") }
   end
 end

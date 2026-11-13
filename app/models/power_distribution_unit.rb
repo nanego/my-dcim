@@ -28,8 +28,8 @@ class PowerDistributionUnit < ApplicationRecord
   enum :side, { left: 0, right: 1 }, validate: true
   enum :power_line, { a: "a", b: "b" }, validates: true
 
+  validates :name, presence: true, uniqueness: true
   validates :serial_number, presence: true, uniqueness: true, format: { without: /\s/ }
-  validates :power_line, uniqueness: { scope: :frame_id }
   validates :ipmi_url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https]), allow_blank: true
 
   accepts_nested_attributes_for :circuits, allow_destroy: true
@@ -41,14 +41,7 @@ class PowerDistributionUnit < ApplicationRecord
   before_create :build_associations_from_type
 
   def should_generate_new_friendly_id?
-    return true if slug.blank? || power_line_changed?
-
-    frame_name = frame&.name
-    frame_name.nil? || !slug.starts_with?(frame.name)
-  end
-
-  def name
-    "#{frame&.name}-#{power_line&.upcase}"
+    slug.blank? || name_changed?
   end
 
   def deep_dup
