@@ -589,7 +589,7 @@ fr:
     circuit_fields:
       new_circuit: Nouveau circuit
     block_fields:
-      new_block: Nouveau block
+      new_block: Nouveau bloc
       add_socket: Nouvelle prise
     card_fields:
       new_card: Ajouter une carte

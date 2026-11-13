@@ -45,6 +45,7 @@ en:
         one: PDU
         other: PDU
       power_distribution_unit/circuit: Circuit
+      power_distribution_unit/block: Block
       power_distribution_unit/socket: Socket
       power_distribution_unit/card: Card
       room: Room
@@ -389,3 +390,4 @@ en:
     manufacturer_id: Manufacturer
     manufacturer: Manufacturer
     name: Name
+    position: Position

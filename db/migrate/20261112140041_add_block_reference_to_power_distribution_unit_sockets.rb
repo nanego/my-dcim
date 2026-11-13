@@ -28,7 +28,9 @@ class AddBlockReferenceToPowerDistributionUnitSockets < ActiveRecord::Migration[
     up_only do
       say_with_time "Add block for existing PDU sockets" do
         MigrationPowerDistributionSocket.find_each do |socket|
-          block = MigrationPowerDistributionBlock.find_or_create_by!(record_type: socket.circuit.record_type, record_id: socket.circuit.record_id)
+          block = MigrationPowerDistributionBlock.find_or_create_by!(record_type: socket.circuit.record_type, record_id: socket.circuit.record_id) do |block|
+            block.position = 1
+          end
 
           socket.update!(block:)
         end

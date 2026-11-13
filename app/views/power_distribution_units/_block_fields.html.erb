@@ -4,15 +4,13 @@
      data-new-record="<%= f.object.new_record? %>">
   <div class="card enclosure-fields">
     <div class="card-header d-flex justify-content-between align-items-center">
-      <% if false %>
       <h6 class="mb-0">
-        <%= if f.object.name.present?
-              "#{PowerDistributionUnit::Block.model_name.human} #{f.object.name}"
+        <%= if f.object.position.present?
+              "#{PowerDistributionUnit::Block.model_name.human} #{f.object.position}"
             else
               t(".new_block")
             end %>
       </h6>
-      <% end %>
 
       <span>
         <%= f.hidden_field :_destroy %>
@@ -36,14 +34,6 @@
         <ul class="list-group bg-body-tertiary"
             data-controller="enclosure-fields"
             data-enclosure-fields-target="container">
-          <% if false %>
-          <li class="list-group-item bg-transparent filtered">
-            <fieldset>
-              <%= f.label :name, class: "form-label" %>
-              <%= f.text_field :name, class: "form-control" %>
-            </fieldset>
-          </li>
-          <% end %>
           <%= f.fields_for :sockets do |socket_fields| %>
             <%= render partial: "power_distribution_units/socket_fields", locals: { f: socket_fields, record: } %>
           <% end %>
