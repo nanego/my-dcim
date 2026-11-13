@@ -1,0 +1,52 @@
+<%# locals: (f:, record:) -%>
+
+<div class="nested-form-wrapper col-12 col-md-6 col-lg-12 col-xxl-6"
+     data-new-record="<%= f.object.new_record? %>">
+  <div class="card enclosure-fields">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h6 class="mb-0">
+        <%= if f.object.position.present?
+              "#{PowerDistributionUnit::Block.model_name.human} #{f.object.position}"
+            else
+              t(".new_block")
+            end %>
+      </h6>
+
+      <span>
+        <%= f.hidden_field :_destroy %>
+
+        <button type="button" data-action="nested-form#remove" class="btn text-danger btn-sm ms-4">
+          <span class="bi bi-trash" title="<%= t("action.delete") %>"></span>
+        </button>
+      </span>
+    </div>
+
+    <% child_index = "__#{Digest::MD5.hexdigest("Block_socket")}_NEW_RECORD__" %>
+    <div data-controller="nested-form" data-nested-form-child-index-name-value="<%= child_index %>">
+      <template data-nested-form-target="template">
+        <%= f.fields_for :sockets, f.object.sockets.klass.new,
+                         child_index: do |socket_fields| %>
+          <%= render partial: "power_distribution_units/socket_fields", locals: { f: socket_fields, record: } %>
+        <% end %>
+      </template>
+
+      <div class="card-body">
+        <ul class="list-group bg-body-tertiary"
+            data-controller="enclosure-fields"
+            data-enclosure-fields-target="container">
+          <%= f.fields_for :sockets do |socket_fields| %>
+            <%= render partial: "power_distribution_units/socket_fields", locals: { f: socket_fields, record: } %>
+          <% end %>
+
+          <li class="list-group-item bg-transparent" data-nested-form-target="target"></li>
+        </ul>
+      </div>
+      <div class="card-footer d-flex">
+        <button type="button" class="btn btn-outline-success btn-sm mx-auto" data-action="nested-form#add">
+          <span class="bi bi-plus-lg"></span>
+          <span><%= t(".add_socket") %></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

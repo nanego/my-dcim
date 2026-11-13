@@ -1,3 +1,5 @@
+<%# locals: (f:, record:) -%>
+
 <li class="nested-form-wrapper list-group-item bg-transparent"
     data-new-record="<%= f.object.new_record? %>">
 
@@ -14,6 +16,17 @@
                      },
                      placeholder: PowerDistributionUnit::Socket.human_attribute_name(:port_type_id),
                    } %>
+      <%= f.select :circuit_id,
+                  PowerDistributionUnit::CircuitDecorator.options_for_select(record.circuits),
+                  { prompt: true },
+                  {
+                    class: "form-select form-select-sm",
+                    data: {
+                      controller: :select,
+                      select_clear_button_title_value: t("action.clear_all"),
+                    },
+                    placeholder: PowerDistributionUnit::Socket.human_attribute_name(:port_type_id),
+                  } %>
     </fieldset>
 
     <span class="d-inline-flex align-items-center justify-content-between mt-2">

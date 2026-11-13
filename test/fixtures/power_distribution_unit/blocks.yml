@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  position: 1
+  record_id: 1
+  record_type: "PowerDistributionUnit"
+
+two:
+  id: 2
+  position: 2
+  record_id: 1
+  record_type: "PowerDistributionUnitType"

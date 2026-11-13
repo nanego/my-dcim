@@ -11,6 +11,7 @@ class PowerDistributionUnit < ApplicationRecord
   belongs_to :frame
 
   has_many :circuits, as: :record, class_name: "PowerDistributionUnit::Circuit", dependent: :destroy
+  has_many :blocks, as: :record, class_name: "PowerDistributionUnit::Block", dependent: :destroy
   has_many :sockets, ->(pdu) { order(number: pdu.orientation.presence || :asc) }, class_name: "PowerDistributionUnit::Socket", through: :circuits
   has_many :cards, -> { order(created_at: :asc) }, as: :record, class_name: "PowerDistributionUnit::Card", inverse_of: :record, dependent: :destroy
   has_many :sockets_ports, class_name: "Port", through: :sockets, source: :port
@@ -33,6 +34,7 @@ class PowerDistributionUnit < ApplicationRecord
   validates :ipmi_url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https]), allow_blank: true
 
   accepts_nested_attributes_for :circuits, allow_destroy: true
+  accepts_nested_attributes_for :blocks, allow_destroy: true
   accepts_nested_attributes_for :cards, allow_destroy: true
 
   delegate :to_s, to: :name

@@ -101,12 +101,12 @@
               <template data-nested-form-target="template">
                 <%= f.fields_for :circuits, f.object.circuits.klass.new,
                                  child_index: "__NEW_RECORD__" do |circuit_fields| %>
-                  <%= render partial: "power_distribution_units/circuit_fields", locals: { f: circuit_fields } %>
+                  <%= render partial: "power_distribution_units/circuit_fields", locals: { f: circuit_fields, record: f.object } %>
                 <% end %>
               </template>
 
               <%= f.fields_for :circuits do |circuit_fields| %>
-                <%= render partial: "power_distribution_units/circuit_fields", locals: { f: circuit_fields } %>
+                <%= render partial: "power_distribution_units/circuit_fields", locals: { f: circuit_fields, record: f.object } %>
               <% end %>
 
               <div data-nested-form-target="target"></div>
@@ -116,6 +116,39 @@
               <span class="mx-auto">
                 <button type="button" class="btn btn-outline-success btn-sm" data-action="nested-form#add">
                   <span class="bi bi-plus-lg" aria-hidden="true"></span> <%= t(".add_circuit") %>
+                </button>
+              </span>
+            <% end %>
+          <% end %>
+        </fieldset>
+
+        <fieldset data-controller="nested-form">
+          <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+            <% card.with_header do %>
+              <div class="d-flex justify-content-between align-items-center">
+                <%= PowerDistributionUnit::Block.model_name.human.pluralize %>
+              </div>
+            <% end %>
+
+            <div class="row g-3">
+              <template data-nested-form-target="template">
+                <%= f.fields_for :blocks, f.object.blocks.klass.new,
+                                 child_index: "__NEW_RECORD__" do |block_fields| %>
+                  <%= render partial: "power_distribution_units/block_fields", locals: { f: block_fields, record: f.object } %>
+                <% end %>
+              </template>
+
+              <%= f.fields_for :blocks do |block_fields| %>
+                <%= render partial: "power_distribution_units/block_fields", locals: { f: block_fields, record: f.object } %>
+              <% end %>
+
+              <div data-nested-form-target="target"></div>
+            </div>
+
+            <% card.with_footer do %>
+              <span class="mx-auto">
+                <button type="button" class="btn btn-outline-success btn-sm" data-action="nested-form#add">
+                  <span class="bi bi-plus-lg" aria-hidden="true"></span> <%= t(".add_block") %>
                 </button>
               </span>
             <% end %>

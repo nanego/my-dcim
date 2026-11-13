@@ -4,14 +4,15 @@ class PowerDistributionUnit
   class Socket < ApplicationRecord
     has_changelog
 
+    belongs_to :block
     belongs_to :circuit
     belongs_to :port_type
 
     has_one :port, as: :attachable, dependent: :destroy
-    has_one :power_distribution_unit, through: :circuit, source: :record, source_type: "PowerDistributionUnit"
+    has_one :power_distribution_unit, through: :block, source: :record, source_type: "PowerDistributionUnit"
 
     validates :number, presence: true
-    validate :number_unique_within_circuit_record
+    validate :number_unique
 
     def create_missing_ports
       Port.create(attachable: self)
@@ -19,13 +20,13 @@ class PowerDistributionUnit
 
     private
 
-    def number_unique_within_circuit_record
-      return unless circuit
-
-      errors.add(:number, :taken) if circuit.record.sockets
+    def number_unique
+      return unless block.record.sockets
         .where(number:)
         .where.not(id:)
         .any?
+
+      errors.add(:number, :taken)
     end
   end
 end

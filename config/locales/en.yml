@@ -494,6 +494,7 @@ en:
       title: New PDU
     form:
       add_circuit: Add a circuit
+      add_block: Add a block
     create:
       flashes:
         created: PDU have been created.
@@ -508,7 +509,7 @@ en:
         updated: PDU have been updated.
     duplicate:
       title: Duplicate PDU %{power_distribution_unit_name}
-    circuit_fields:
+    block_fields:
       new_circuit: New circuit
       add_socket: New Socket
     card_fields:
@@ -743,6 +744,7 @@ en:
       title: New PDU type
     form:
       add_circuit: Add a circuit
+      add_block: Add a block
     create:
       flashes:
         created: PDU type have been created.

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SocketMigration < ActiveRecord::Base
+class MigrationSocket < ActiveRecord::Base
   self.table_name = "power_distribution_unit_sockets"
 end
 
@@ -11,7 +11,7 @@ class RenamePduSocketName < ActiveRecord::Migration[8.1]
     reversible do |direction|
       change_table :power_distribution_unit_sockets do |t|
         direction.up do
-          SocketMigration.find_each do |socket|
+          MigrationSocket.find_each do |socket|
             socket.update_columns(number: socket.number.gsub(/\D*/, ""))
           end
 
