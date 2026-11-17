@@ -88,8 +88,8 @@ class PowerDistributionUnitsController < ApplicationController
         :type_id, :frame_id, :name, :side, :orientation, :ipmi_url, :serial_number, :comment, :power_line, :color,
         :grafana_url, :position,
         {
-          circuits_attributes: [[
-            :id, :_destroy, :name,
+          circuits_attributes: [%i[
+            id _destroy name
           ]],
         },
       ],
