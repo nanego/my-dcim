@@ -14,7 +14,7 @@ class PowerDistributionUnit < ApplicationRecord
 
   has_many :circuits, as: :record, class_name: "PowerDistributionUnit::Circuit", dependent: :destroy
   has_many :blocks, as: :record, class_name: "PowerDistributionUnit::Block", dependent: :destroy
-  has_many :sockets, ->(pdu) { order(number: pdu.orientation.presence || :asc) }, class_name: "PowerDistributionUnit::Socket", through: :circuits
+  has_many :sockets, ->(pdu) { order(number: pdu.orientation.presence || :asc) }, class_name: "PowerDistributionUnit::Socket", through: :blocks
   has_many :cards, -> { order(created_at: :asc) }, as: :record, class_name: "PowerDistributionUnit::Card", inverse_of: :record, dependent: :destroy
   has_many :sockets_ports, class_name: "Port", through: :sockets, source: :port
   has_many :cards_ports, class_name: "Port", through: :cards, source: :ports
@@ -53,7 +53,8 @@ class PowerDistributionUnit < ApplicationRecord
     copy = dup
 
     copy.tap do |pdu|
-      pdu.circuits = circuits.map(&:deep_dup)
+      pdu.circuits = circuits.map(&:dup)
+      pdu.blocks = blocks.map(&:deep_dup)
       pdu.cards = cards.map(&:dup)
     end
   end
