@@ -4,7 +4,7 @@ module PowerDistributionUnitTypes
   class BlocksController < ApplicationController
     before_action :set_power_distribution_unit_type, only: %i[edit update]
     before_action do
-      breadcrumb.add_step(t("power_distribution_unit_types.index.title"), power_distribution_unit_types_path)
+      breadcrumb.add_step(PowerDistributionUnitType.model_name.human(count: 2), power_distribution_unit_types_path)
       breadcrumb.add_step(@power_distribution_unit_type, power_distribution_unit_type_path(@power_distribution_unit_type))
     end
 
@@ -26,7 +26,7 @@ module PowerDistributionUnitTypes
 
     # Use callbacks to share common setup or constraints between actions.
     def set_power_distribution_unit_type
-      authorize! @power_distribution_unit_type = PowerDistributionUnit.friendly.find(params[:power_distribution_unit_type_id].to_s.downcase)
+      authorize! @power_distribution_unit_type = PowerDistributionUnitType.find(params[:power_distribution_unit_type_id])
     end
 
     # Only allow a list of trusted parameters through.

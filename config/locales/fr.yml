@@ -1047,6 +1047,13 @@ fr:
         updated: Le modèle de PDU a bien été mis à jour.
     duplicate:
       title: Dupliquer le modèle de PDU %{power_distribution_unit_type_name}
+    blocks:
+      edit:
+        title: Modifier les prises du PDU
+        add_block: Nouveau bloc
+      update:
+        flashes:
+          updated: Les prises et blocs du PDU ont bien étés mis à jour.
 
   views:
     pagination:
