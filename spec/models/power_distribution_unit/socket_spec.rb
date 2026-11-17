@@ -35,7 +35,7 @@ RSpec.describe PowerDistributionUnit::Socket do
 
       context "when number is taken" do
         subject(:socket) do
-          described_class.new(number: 1, circuit_id: 1, port_type_id: 1)
+          described_class.new(number: 1, circuit_id: 3, port_type_id: 1)
         end
 
         it { is_expected.not_to be_valid }
