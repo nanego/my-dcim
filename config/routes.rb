@@ -82,12 +82,14 @@ Rails.application.routes.draw do
     member do
       get :duplicate
     end
+    resource :blocks, only: %i[edit update], module: :power_distribution_unit_types
   end
 
   resources :power_distribution_units do
     member do
       get :duplicate
     end
+    resource :blocks, only: %i[edit update], module: :power_distribution_units
   end
 
   resources :servers_grids, only: [:index]
