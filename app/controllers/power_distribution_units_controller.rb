@@ -88,11 +88,9 @@ class PowerDistributionUnitsController < ApplicationController
         :type_id, :frame_id, :name, :side, :orientation, :ipmi_url, :serial_number, :comment, :power_line, :color,
         :grafana_url, :position,
         {
-          blocks_attributes: [[
+          circuits_attributes: [[
             :id, :_destroy, :name,
-            { sockets_attributes: [%i[id number port_type_id circuit_id _destroy]] },
           ]],
-          cards_attributes: [%i[id _destroy card_type_id name first_position orientation]],
         },
       ],
     )

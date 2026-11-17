@@ -571,7 +571,6 @@ fr:
       title: Nouveau PDU
     form:
       add_circuit: Nouveau circuit
-      add_block: Nouveau bloc
     create:
       flashes:
         created: Le PDU a été créé avec succès.
@@ -595,6 +594,13 @@ fr:
       new_card: Ajouter une carte
     card_nested_fieldset:
       add_card: Ajouter une carte
+    blocks:
+      edit:
+        title: Modifier les prises du PDU
+        add_block: Nouveau bloc
+      update:
+        flashes:
+          updated: Les prises et blocs du PDU ont bien étés mis à jour.
 
   frames:
     coupled_frame_label: Châssis couplé à
