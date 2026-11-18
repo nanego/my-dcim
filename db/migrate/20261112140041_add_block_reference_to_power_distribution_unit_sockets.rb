@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-class MigrationPowerDistributionSocket < ApplicationRecord
+class MigrationPowerDistributionSocket < ActiveRecord::Base
   self.table_name = :power_distribution_unit_sockets
 
   belongs_to :circuit, optional: true, class_name: "MigrationPowerDistributionCircuit"
   belongs_to :block, optional: true, class_name: "MigrationPowerDistributionBlock"
 end
 
-class MigrationPowerDistributionBlock < ApplicationRecord
+class MigrationPowerDistributionBlock < ActiveRecord::Base
   self.table_name = :power_distribution_unit_blocks
 
   belongs_to :record, polymorphic: true
   has_many :sockets, class_name: "MigrationPowerDistributionSocket", foreign_key: :block_id
 end
 
-class MigrationPowerDistributionCircuit < ApplicationRecord
+class MigrationPowerDistributionCircuit < ActiveRecord::Base
   self.table_name = :power_distribution_unit_circuits
 
   belongs_to :record, polymorphic: true
