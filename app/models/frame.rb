@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Frame < ApplicationRecord # rubocop:disable Metrics/ClassLength
-  VIEW_SIDES = { both: "both", front: "front", back: "back" }.freeze
+  VIEW_SIDES = { front: "front", back: "back" }.freeze
 
   extend FriendlyId
 

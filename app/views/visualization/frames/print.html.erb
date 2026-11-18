@@ -1,4 +1,8 @@
 <div class="container-fluid p-4">
-  <%= render partial: "visualization/frames/show_frame",
-             locals: { frame: @frame, servers: @frame.servers, settings: @settings, view_type: @view_side } %>
+  <%= render partial: "visualization/frames/frame",
+             locals: {
+               frame: @frame,
+               servers: @frame.servers,
+               view_type: @view_side,
+             } %>
 </div>

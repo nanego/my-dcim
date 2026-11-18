@@ -23,16 +23,14 @@
     </div>
     <div class="col-12 col-lg-6">
       <% @frames.each do |frame| %>
-        <% settings = { min_height: params[:view]=="back" ? 20 : 27 } %>
-          <%= render partial: "visualization/frames/show_frame",
-                     locals: {
-                       frame:,
-                       servers: frame.servers,
-                       settings:,
-                       view_type: params[:view],
-                       editable: false,
-                       highlighted_servers: @filtered_servers
-                     } %>
+        <%= render partial: "visualization/frames/frame",
+                   locals: {
+                     frame:,
+                     servers: frame.servers,
+                     view_type: params[:view],
+                     editable: false,
+                     highlighted_servers: @filtered_servers,
+                   } %>
       <% end %>
     </div>
   </div>

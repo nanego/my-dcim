@@ -15,7 +15,6 @@ module Visualization
 
     def print
       @view_side = params[:view].presence || "front"
-      @settings = { min_height: @view_side == "back" ? 20 : 27 }
 
       respond_to do |format|
         format.html { render layout: "pdf" }

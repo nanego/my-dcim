@@ -1,0 +1,161 @@
+<%# locals: (
+  frame:,
+  servers:,
+  highlighted_servers: nil,
+  left_power_distribution_units: [],
+  right_power_distribution_units: [],
+  editable: true,
+  view_type: "back",
+  clickable_lines: false,
+  should_show_heading: false
+) -%>
+
+<% servers_ids = servers.map(&:id) %>
+<% highlighted_servers_ids = if highlighted_servers.nil?
+                               current_user.can_access_all_domains? ? servers_ids : authorized_scope(Server.no_pdus).ids
+                             else
+                               highlighted_servers.map(&:id)
+                             end %>
+<% settings = { min_height: view_type == "back" ? 20 : 27 } %>
+
+<% if should_show_heading %>
+  <div class="col-12 d-flex justify-content-between align-items-center mb-4">
+    <h3><%= t("layouts.breadcrumb.bay.simple", name: frame.name) %></h3>
+    <span class="d-flex flex-wrap gap-2 flex-column flex-lg-row justify-content-end">
+      <%= render "visualization/action_buttons", view_side: view_type, remote: true %>
+      <%= render "visualization/frames/export_button", frame: frame, in_table: false %>
+    </span>
+  </div>
+<% end %>
+
+<div class="d-flex flex-column flex-lg-row gap-4">
+  <div class="frame order-lg-2 flex-grow-1" id="frame_<%= frame.id %>" style="min-width: 0" data-view="<%= view_type %>">
+    <div class="card card-frame">
+      <div class="card-header">
+        <h5 class="card-title d-inline">
+          <%= if frame.room.present?
+                link_to frame.name,
+                        visualization_frame_path(frame, view: view_type, bg: params[:bg]),
+                        style: "text-decoration: underline;"
+              end %>
+        </h5>
+      </div>
+      <ul class="servers connectedFrames list-group"
+          data-room="<%= frame.room&.name %>"
+          data-islet="<%= frame.bay.islet.name %>"
+          data-frame="<%= frame.name %>"
+          data-update-url="<%= sort_servers_path %>">
+
+        <% u_disponibles = frame.u || 41 %>
+        <% servers.each do |server| %>
+
+          <% if server.modele.try(:name).present? %>
+
+            <% while server.position.present? && server.position < u_disponibles && u_disponibles > 0 %>
+              <li class="server list-group-item truncate
+                          <%= "relegated" if highlighted_servers_ids != servers_ids %>
+                          <%= "relegated" if params[:bg] == "wiring" && action_name == "print" %>"
+                  style="min-height: <%= settings[:min_height] %>px;"
+                  data-num-u="<%= u_disponibles %>">
+                <%= render partial: "servers/draw_u_scale_unit", locals: { i: 0, u_disponibles: u_disponibles, u_server: 1, clickable_lines: clickable_lines } %>
+              </li>
+              <% u_disponibles -= 1 %>
+            <% end %>
+
+            <% bgModeleColor = define_background_color(server: server, mode: params["bg"]) %>
+            <% u_server = server.modele.try(:u).to_i.positive? ? server.modele.u : 1 %>
+            <% data = {
+                 u: u_server,
+                 num_u: u_disponibles,
+               } %>
+
+            <% if view_type == "back" %>
+              <%= content_tag_for :li, server,
+                                  class: class_names("list-group-item truncate server_back #{server.modele.try(:category).try(:name).try(:parameterize)}",
+                                                     relegated: highlighted_servers_ids.exclude?(server.id) || (params[:bg] == "wiring" && action_name == "print"),
+                                                     colorized_background: bgModeleColor.present?),
+                                  style: "min-height: #{settings[:min_height] * (server.modele.try(:u).to_i.positive? ? server.modele.u : 1)}px;padding: 3px 3px 3px 20px;",
+                                  data: data do %>
+                <% u_server.times do |i| %>
+                  <%= render partial: "servers/draw_u_scale_unit", locals: { i: i, u_disponibles: u_disponibles, u_server: u_server, clickable_lines: clickable_lines } %>
+                  <% u_disponibles -= 1 %>
+                <% end %>
+                <%= render partial: "servers/draw_server_badge", locals: { server: server } %>
+                <span id="back_server_<%= server.id %>" class="no-decoration-link">
+                  <div id="scaleable-wrapper" class="scaleable-wrapper d-flex flex-row-reverse flex-wrap">
+                    <%= render partial: "servers/draw_server_compact", locals: { server: server } %>
+                  </div>
+                </span>
+              <% end %>
+            <% else %>
+              <%= content_tag_for :li, server,
+                                  class: class_names("list-group-item truncate #{server.modele.try(:category).try(:name).try(:parameterize)}",
+                                                     relegated: highlighted_servers_ids.exclude?(server.id) || (params[:bg] == "wiring" && action_name == "print"),
+                                                     colorized_background: bgModeleColor.present?),
+                                  style: "min-height: #{(settings[:min_height] * u_server) - (u_server - 1)}px;background-color:#{bgModeleColor} !important;",
+                                  data: data do %>
+                <% u_server.times do |i| %>
+                  <%= render partial: "servers/draw_u_scale_unit", locals: { i: i, u_disponibles: u_disponibles, u_server: u_server, clickable_lines: clickable_lines } %>
+                  <% u_disponibles -= 1 %>
+                <% end %>
+                <%= render partial: "servers/draw_server_badge", locals: { server: server } %>
+                <%= render partial: "servers/draw_server_compact_front", locals: { server: server } %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <% u_disponibles.times do |u| %>
+          <li class="server list-group-item truncate
+                      <%= "relegated" if highlighted_servers_ids != servers_ids %>
+                      <%= "relegated" if params[:bg] == "wiring" && action_name == "print" %>
+                    " style="min-height: <%= settings[:min_height] %>px;" data-num-u="<%= u_disponibles %>">
+            <%= render partial: "servers/draw_u_scale_unit", locals: { i: 0, u_disponibles: u_disponibles, u_server: 1, clickable_lines: clickable_lines } %>
+          </li>
+          <% u_disponibles -= 1 %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <% if left_power_distribution_units.any? %>
+    <div class="order-lg-1 d-inline-flex flex-shrink-0 justify-content-center justify-content-lg-start column-gap-4">
+      <% frame.left_power_distribution_units.each do |power_distribution_unit| %>
+        <%= render CardComponent.new(extra_classes: "bg-body-tertiary rounded-bottom") do |card| %>
+          <% card.with_header do %>
+            <div class="text-center">
+              <%= link_to power_distribution_unit_path(power_distribution_unit) do %>
+                <%= render power_distribution_unit.decorated.power_line_badge_component %>
+              <% end %>
+            </div>
+          <% end %>
+
+          <div id="pdu-vizualisation-<%= power_distribution_unit.id %>" class="pdu">
+            <%= render partial: "power_distribution_units/visualization",
+                       locals: { power_distribution_unit: } %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if right_power_distribution_units.any? %>
+    <div class="order-lg-3 order-xxl-4 flex-shrink-0 justify-content-center justify-content-lg-end d-inline-flex column-gap-4">
+      <% frame.right_power_distribution_units.each do |power_distribution_unit| %>
+        <%= render CardComponent.new(extra_classes: "bg-body-tertiary rounded-bottom") do |card| %>
+          <% card.with_header do %>
+            <div class="text-center">
+              <%= link_to power_distribution_unit_path(power_distribution_unit) do %>
+                <%= render power_distribution_unit.decorated.power_line_badge_component %>
+              <% end %>
+            </div>
+          <% end %>
+
+          <div id="pdu-vizualisation-<%= power_distribution_unit.id %>">
+            <%= render partial: "power_distribution_units/visualization",
+                       locals: { power_distribution_unit: } %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
