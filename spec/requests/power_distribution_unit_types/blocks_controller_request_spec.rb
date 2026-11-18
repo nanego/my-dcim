@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe PowerDistributionUnitTypes::Blocks do
+RSpec.describe PowerDistributionUnitTypes::BlocksController do
   describe "GET #edit" do
     pending "add some examples (or delete) #{__FILE__}"
   end
