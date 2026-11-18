@@ -223,7 +223,7 @@ en:
         ip_ssh: IP SSH
         ip_webui: IP WebUI
         rs485_modbus: RS485 ModBus
-        max_power_per_circuit: Max current per circuit (A)
+        max_power_per_circuit: Max power per circuit
         circuits_per_phase: Circuits per phase
         phases_count: Phases count
       power_distribution_unit_type/current_type:
@@ -239,6 +239,7 @@ en:
         ipmi_url: IPMI URL
         comment: Comment
         power_line: Power line
+        grafana_url: Grafana URL
       power_distribution_unit/side:
         left: Left
         right: Right
