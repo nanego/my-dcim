@@ -17,13 +17,13 @@ class Frame < ApplicationRecord # rubocop:disable Metrics/ClassLength
            class_name: "Server",
            dependent: :restrict_with_error
 
-  has_many :power_distribution_units, dependent: :restrict_with_error
+  has_many :power_distribution_units, -> { ordered }, dependent: :restrict_with_error
   has_many :left_power_distribution_units,
-           -> { left },
+           -> { left.ordered },
            class_name: "PowerDistributionUnit",
            dependent: :restrict_with_error
   has_many :right_power_distribution_units,
-           -> { right },
+           -> { right.ordered },
            class_name: "PowerDistributionUnit",
            dependent: :restrict_with_error
 

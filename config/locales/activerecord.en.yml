@@ -68,7 +68,6 @@ en:
         depth: Depth
         lane: Lane
         name: Name
-        position: Position
         width: Width
         room: Room
         islet: Islet
@@ -260,7 +259,6 @@ en:
       room:
         access_control: Access control
         name: Name
-        position: Position
         content: Content
         display_on_home_page: Display on home page
         site_id: Site
@@ -283,7 +281,6 @@ en:
         room_id: Room
         islet_id: Islet
         frame_id: Frame
-        position: Position
         modele_id: Model
         manufacturer_id: Manufacturer
         critique: Critic
@@ -380,13 +377,14 @@ en:
 
   # Common attributes
   attributes:
-    bay_id: Bay
     bay: Bay
+    bay_id: Bay
     color: Color
-    room_id: Room
-    romm: Room
-    islet_id: Islet
     islet: Islet
-    manufacturer_id: Manufacturer
+    islet_id: Islet
     manufacturer: Manufacturer
+    manufacturer_id: Manufacturer
     name: Name
+    position: Position
+    romm: Room
+    room_id: Room

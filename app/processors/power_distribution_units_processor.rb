@@ -3,7 +3,9 @@
 class PowerDistributionUnitsProcessor < ApplicationProcessor
   include Sortable
 
-  SORTABLE_FIELDS = %w[rooms.name islets.name bays.id frames.id power_distribution_unit_types.name manufacturers.name].freeze
+  SORTABLE_FIELDS = %w[
+    rooms.name islets.name bays.id frames.id power_distribution_unit_types.name manufacturers.name position
+  ].freeze
 
   map :q do |q:|
     raw.joins(:frame).where("CONCAT_WS('-', frames.name, power_line) ILIKE ?", "%#{q}%")
