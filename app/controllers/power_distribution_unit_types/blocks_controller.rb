@@ -35,7 +35,7 @@ module PowerDistributionUnitTypes
         power_distribution_unit_type: [
           {
             blocks_attributes: [[
-              :id, :_destroy,
+              :id, :position, :_destroy,
               { sockets_attributes: [%i[id number port_type_id circuit_id _destroy]] },
             ]],
             cards_attributes: [%i[id _destroy card_type_id name first_position orientation]],

@@ -23,14 +23,14 @@
               </div>
             <% end %>
 
-            <div class="row g-3">
-              <template data-nested-form-target="template">
-                <%= f.fields_for :blocks, f.object.blocks.klass.new,
-                                  child_index: "__NEW_RECORD__" do |block_fields| %>
-                  <%= render partial: "power_distribution_units/block_fields", locals: { f: block_fields, record: f.object } %>
-                <% end %>
-              </template>
+            <template data-nested-form-target="template">
+              <%= f.fields_for :blocks, f.object.blocks.klass.new,
+                                child_index: "__NEW_RECORD__" do |block_fields| %>
+                <%= render partial: "power_distribution_units/block_fields", locals: { f: block_fields, record: f.object } %>
+              <% end %>
+            </template>
 
+            <div class="row g-3" data-controller="sortable" data-sortable-target="container">
               <%= f.fields_for :blocks do |block_fields| %>
                 <%= render partial: "power_distribution_units/block_fields", locals: { f: block_fields, record: f.object } %>
               <% end %>
