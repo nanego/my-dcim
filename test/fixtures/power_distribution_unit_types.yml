@@ -16,7 +16,7 @@ one:
   ip_ssh: false
   ip_webui: false
   rs485_modbus: false
-  max_current_per_circuit: 1
+  max_power_per_circuit: 1
 
 two:
   id: 2
@@ -34,7 +34,7 @@ two:
   ip_ssh: false
   ip_webui: false
   rs485_modbus: false
-  max_current_per_circuit: 1
+  max_power_per_circuit: 1
 
 three:
   id: 3
@@ -52,4 +52,4 @@ three:
   ip_ssh: false
   ip_webui: false
   rs485_modbus: false
-  max_current_per_circuit: 1
+  max_power_per_circuit: 1
