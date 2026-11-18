@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MigrationPortType < ApplicationRecord
+class MigrationPortType < ActiveRecord::Base
   self.table_name = :port_types
 end
 
