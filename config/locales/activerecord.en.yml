@@ -239,6 +239,7 @@ en:
         ipmi_url: IPMI URL
         comment: Comment
         power_line: Power line
+        grafana_url: Grafana URL
       power_distribution_unit/side:
         left: Left
         right: Right

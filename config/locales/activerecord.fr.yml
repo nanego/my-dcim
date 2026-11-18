@@ -547,6 +547,7 @@ fr:
         ipmi_url: URL IPMI
         comment: Commentaire
         power_line: Voie
+        grafana_url: URL Grafana
       power_distribution_unit/side:
         left: Gauche
         right: Droite
