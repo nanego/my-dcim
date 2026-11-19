@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_13_190000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_19_092840) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -358,25 +358,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_190000) do
     t.string "cable_color"
     t.string "vlans"
     t.datetime "executed_at"
-    t.bigint "move_id", null: false
     t.bigint "port_from_id", null: false
     t.bigint "port_to_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["move_id"], name: "index_move_connections_on_move_id"
+    t.integer "move_id", null: false
     t.index ["port_from_id"], name: "index_move_connections_on_port_from_id"
     t.index ["port_to_id"], name: "index_move_connections_on_port_to_id"
   end
 
   create_table "moved_connections", id: :serial, force: :cascade do |t|
-    t.integer "port_from_id"
-    t.integer "port_to_id"
-    t.string "vlans"
     t.string "cablename"
     t.string "color"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.datetime "executed_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "executed_at"
+    t.integer "port_from_id"
+    t.integer "port_to_id"
+    t.datetime "updated_at", null: false
+    t.string "vlans"
     t.index ["port_from_id"], name: "index_moved_connections_on_port_from_id"
     t.index ["port_to_id"], name: "index_moved_connections_on_port_to_id"
   end
@@ -534,9 +533,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_190000) do
     t.boolean "ip_ssh", default: false, null: false
     t.boolean "ip_webui", default: false, null: false
     t.boolean "rs485_modbus", default: false, null: false
-    t.integer "max_power_per_circuit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "max_current"
     t.index ["manufacturer_id"], name: "index_power_distribution_unit_types_on_manufacturer_id"
   end
 
@@ -545,9 +544,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_190000) do
     t.integer "side", null: false
     t.integer "orientation", null: false
     t.string "slug", null: false
-    t.string "ipmi_url"
+    t.string "ipmi_url", null: false
     t.string "serial_number", null: false
-    t.text "comment"
+    t.text "comment", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "frame_id", null: false
@@ -696,7 +695,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_190000) do
   add_foreign_key "modeles", "architectures"
   add_foreign_key "modeles", "categories"
   add_foreign_key "modeles", "manufacturers"
-  add_foreign_key "move_connections", "moves"
   add_foreign_key "move_connections", "ports", column: "port_from_id"
   add_foreign_key "move_connections", "ports", column: "port_to_id"
   add_foreign_key "moved_connections", "ports", column: "port_from_id"
