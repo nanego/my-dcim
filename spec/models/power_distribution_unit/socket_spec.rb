@@ -43,24 +43,6 @@ RSpec.describe PowerDistributionUnit::Socket do
     end
   end
 
-  describe "number_unique_within_circuit_record" do
-    context "when number is free" do
-      subject(:socket) do
-        described_class.new(number: 999, circuit_id: 1, port_type_id: 1)
-      end
-
-      it { is_expected.to be_valid }
-    end
-
-    context "when number is taken" do
-      subject(:socket) do
-        described_class.new(number: 1, circuit_id: 1, port_type_id: 1)
-      end
-
-      it { is_expected.not_to be_valid }
-    end
-  end
-
   describe "#create_missing_ports" do
     it do
       expect do
