@@ -6,7 +6,11 @@ class PowerDistributionUnitsProcessor < ApplicationProcessor
   SORTABLE_FIELDS = %w[rooms.name islets.name bays.id frames.id power_distribution_unit_types.name manufacturers.name].freeze
 
   map :q do |q:|
-    raw.joins(:frame).where("CONCAT_WS('-', frames.name, power_line) ILIKE ?", "%#{q}%")
+    pdu_table = PowerDistributionUnit.arel_table
+    name_condition = pdu_table[:name].matches("%#{q}%")
+    sn_condition = pdu_table[:serial_number].matches("%#{q}%")
+    combined_conditions = name_condition.or(sn_condition)
+    raw.where(combined_conditions)
   end
 
   map :room_ids, filter_with: :non_empty_array do |room_ids:|
