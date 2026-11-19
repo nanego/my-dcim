@@ -534,7 +534,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_17_104150) do
     t.boolean "ip_ssh", default: false, null: false
     t.boolean "ip_webui", default: false, null: false
     t.boolean "rs485_modbus", default: false, null: false
-    t.integer "max_current_per_circuit"
+    t.integer "max_power_per_circuit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["manufacturer_id"], name: "index_power_distribution_unit_types_on_manufacturer_id"
