@@ -6,8 +6,10 @@ end
 
 class AddAttributesToPowerDistributionUnits < ActiveRecord::Migration[8.1]
   def up
-    add_column :power_distribution_units, :color, :string
-    add_column :power_distribution_units, :grafana_url, :string
+    change_table :power_distribution_units, bulk: true do |t|
+      t.string :color
+      t.string :grafana_url
+    end
 
     MigrationPowerDistributionUnit.find_each { |p| p.update!(power_line: p.power_line.capitalize) }
   end
@@ -17,7 +19,8 @@ class AddAttributesToPowerDistributionUnits < ActiveRecord::Migration[8.1]
       p.update!(power_line: p.power_line.downcase)
     end
 
-    remove_column :power_distribution_units, :color
-    remove_column :power_distribution_units, :grafana_url
+    change_table :power_distribution_units, bulk: true do |t|
+      t.remove :color, :grafana_url
+    end
   end
 end
