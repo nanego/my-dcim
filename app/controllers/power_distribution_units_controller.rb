@@ -89,7 +89,7 @@ class PowerDistributionUnitsController < ApplicationController
         {
           circuits_attributes: [[
             :id, :_destroy, :name,
-            { sockets_attributes: [%i[id number port_type_id _destroy]] },
+            { sockets_attributes: [%i[id position port_type_id name _destroy]] },
           ]],
           cards_attributes: [%i[id _destroy card_type_id name first_position orientation]],
         },

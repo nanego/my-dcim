@@ -562,7 +562,7 @@ fr:
       power_distribution_unit/socket:
         port_type_id: Type de port
         port_type: Type de port
-        number: Numéro
+        position: Position
       cards:
         card_type_id: "Type de carte"
 
