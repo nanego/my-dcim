@@ -11,3 +11,9 @@ two:
   name: "pdu type circuit"
   record_id: 1
   record_type: "PowerDistributionUnitType"
+
+three:
+  id: 3
+  name: "second circuit per pdu"
+  record_id: 1
+  record_type: "PowerDistributionUnit"
