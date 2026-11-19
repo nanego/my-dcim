@@ -135,10 +135,20 @@
                 <%= PowerDistributionUnit.human_attribute_name("orientation.#{@power_distribution_unit.orientation}") %>
               </dd>
 
-              <dt><%= PowerDistributionUnit.human_attribute_name(:ipmi_url) %> :</dt>
+              <dt class="pb-2"><%= PowerDistributionUnit.human_attribute_name(:ipmi_url) %> :</dt>
               <dd class="mb-0 ps-3">
                 <% if (ipmi_url = @power_distribution_unit.ipmi_url.to_s).present? %>
                   <%= link_to ipmi_url, ipmi_url, target: :_blank, rel: :noopener %>
+                  <span class="bi bi-box-arrow-up-right small text-secondary ms-1"></span>
+                <% else %>
+                  <span class="fst-italic fw-light text-body-secondary"><%= I18n.t("n_a") %></span>
+                <% end %>
+              </dd>
+
+              <dt><%= PowerDistributionUnit.human_attribute_name(:grafana_url) %> :</dt>
+              <dd class="mb-0 ps-3">
+                <% if (grafana_url = @power_distribution_unit.grafana_url.to_s).present? %>
+                  <%= link_to grafana_url, grafana_url, target: :_blank, rel: :noopener %>
                   <span class="bi bi-box-arrow-up-right small text-secondary ms-1"></span>
                 <% else %>
                   <span class="fst-italic fw-light text-body-secondary"><%= I18n.t("n_a") %></span>

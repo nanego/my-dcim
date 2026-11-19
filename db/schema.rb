@@ -553,6 +553,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_17_104150) do
     t.bigint "frame_id", null: false
     t.string "power_line", null: false
     t.string "color"
+    t.string "grafana_url"
     t.integer "position"
     t.index ["frame_id", "power_line"], name: "index_power_distribution_units_on_frame_id_and_power_line", unique: true
     t.index ["frame_id"], name: "index_power_distribution_units_on_frame_id"

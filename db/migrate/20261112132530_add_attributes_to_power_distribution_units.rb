@@ -6,22 +6,18 @@ end
 
 class AddAttributesToPowerDistributionUnits < ActiveRecord::Migration[8.1]
   def up
-    rename_column :power_distribution_unit_types, :max_power_per_circuit, :max_current_per_circuit
-
     add_column :power_distribution_units, :color, :string
+    add_column :power_distribution_units, :grafana_url, :string
 
     MigrationPowerDistributionUnit.find_each { |p| p.update!(power_line: p.power_line.capitalize) }
   end
 
   def down
     MigrationPowerDistributionUnit.find_each do |p|
-      power_line = %w[a b].include?(p.power_line.downcase) ? p.power_line.downcase : "a"
-
-      p.update!(power_line:)
+      p.update!(power_line: p.power_line.downcase)
     end
 
     remove_column :power_distribution_units, :color
-
-    rename_column :power_distribution_unit_types, :max_current_per_circuit, :max_power_per_circuit
+    remove_column :power_distribution_units, :grafana_url
   end
 end

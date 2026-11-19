@@ -18,7 +18,7 @@ gem "terser"
 gem "devise", "~> 5.0"
 gem "devise-i18n"
 gem "devise_invitable"
-gem "omniauth", "~> 2.1"
+gem "omniauth", "~> 2.4"
 gem "omniauth_openid_connect", "~> 0.8"
 gem "omniauth-rails_csrf_protection"
 gem "simple_token_authentication", github: "gonzalo-bulnes/simple_token_authentication"
@@ -77,7 +77,7 @@ group :test do
 end
 
 group :production do
-  gem "dalli", "~> 5.2"
+  gem "dalli", "~> 5.3"
   gem "passenger", "~> 6.0"
 end
 
