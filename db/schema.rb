@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_19_092840) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_19_143838) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -521,11 +521,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_19_092840) do
   create_table "power_distribution_unit_sockets", force: :cascade do |t|
     t.bigint "circuit_id", null: false
     t.bigint "port_type_id", null: false
-    t.integer "number", null: false
+    t.integer "position", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "block_id", null: false
     t.index ["block_id"], name: "index_power_distribution_unit_sockets_on_block_id"
+    t.string "name", null: false
     t.index ["circuit_id"], name: "index_power_distribution_unit_sockets_on_circuit_id"
     t.index ["port_type_id"], name: "index_power_distribution_unit_sockets_on_port_type_id"
   end

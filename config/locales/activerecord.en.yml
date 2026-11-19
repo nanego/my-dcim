@@ -250,7 +250,7 @@ en:
         port_type: Port type
         port_type_id: Port type
         circuit_id: Circuit
-        number: Number
+        position: Position
       power_distribution_unit/card:
         first_position: First port position
         card_type_id: Card type

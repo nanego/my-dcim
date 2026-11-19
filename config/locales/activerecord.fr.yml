@@ -552,7 +552,7 @@ fr:
         port_type_id: Type de port
         port_type: Type de port
         circuit_id: Circuit
-        number: Numéro
+        position: Position
       cards:
         card_type_id: "Type de carte"
 

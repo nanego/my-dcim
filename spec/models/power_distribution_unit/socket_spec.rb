@@ -4,13 +4,14 @@ require "rails_helper"
 
 RSpec.describe PowerDistributionUnit::Socket do
   subject(:socket) do
-    described_class.new(number: 999,
+    described_class.new(position: 999,
                         block: power_distribution_unit_blocks(:one),
                         circuit: power_distribution_unit_circuits(:one),
-                        port_type: port_types(:one))
+                        port_type: port_types(:one),
+                        name: "some")
   end
 
-  it_behaves_like "changelogable", object: -> { socket }, new_attributes: { number: 888 }
+  it_behaves_like "changelogable", object: -> { socket }, new_attributes: { position: 888 }
 
   describe "associations" do
     it { is_expected.to belong_to(:block) }
@@ -24,20 +25,20 @@ RSpec.describe PowerDistributionUnit::Socket do
   describe "validations" do
     it { is_expected.to be_valid }
 
-    it { is_expected.to validate_presence_of(:number) }
+    it { is_expected.to validate_presence_of(:position) }
 
-    describe "number_uniqueness" do
-      context "when number is free" do
+    describe "position_uniqueness" do
+      context "when position is free" do
         subject(:socket) do
-          described_class.new(number: 999, block_id: 1, circuit_id: 1, port_type_id: 1)
+          described_class.new(position: 999, block_id: 1, circuit_id: 1, port_type_id: 1)
         end
 
         it { is_expected.to be_valid }
       end
 
-      context "when number is taken" do
+      context "when position is taken" do
         subject(:socket) do
-          described_class.new(number: 3, block_id: 2, circuit_id: 2, port_type_id: 1)
+          described_class.new(position: 3, block_id: 2, circuit_id: 2, port_type_id: 1)
         end
 
         it { is_expected.not_to be_valid }
