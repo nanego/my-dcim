@@ -535,7 +535,7 @@ fr:
         ip_ssh: IP SSH
         ip_webui: IP WebUI
         rs485_modbus: RS485 ModBus
-        max_power_per_circuit: Puissance max par circuit
+        max_current: Courent max (A)
         circuits_per_phase: Circuits par phase
         phases_count: Nombre de phases
       power_distribution_unit_type/current_type:
