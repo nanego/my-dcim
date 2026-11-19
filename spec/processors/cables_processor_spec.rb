@@ -126,7 +126,7 @@ RSpec.describe CablesProcessor do
 
     let(:pdu) { PowerDistributionUnit.create!(**default_pdu_param, serial_number: "p1") }
     let(:circuit) { PowerDistributionUnit::Circuit.create!(record: pdu, name: "C1") }
-    let(:socket) { PowerDistributionUnit::Socket.create!(circuit:, port_type: port_types(:one), number: 0) }
+    let(:socket) { PowerDistributionUnit::Socket.create!(circuit:, port_type: port_types(:one), position: 0, name: "some") }
     let(:port) { Port.create!(attachable: socket) }
     let(:cable) { Cable.create!(name: "cableA") }
     let(:connection) { Connection.create!(cable:, port:) }
@@ -147,7 +147,7 @@ RSpec.describe CablesProcessor do
       let(:pdu_second) { PowerDistributionUnit.create!(**default_pdu_param, serial_number: "p2") }
       let(:circuit_second) { PowerDistributionUnit::Circuit.create!(record: pdu_second, name: "C2") }
       let(:socket_second) do
-        PowerDistributionUnit::Socket.create!(circuit: circuit_second, port_type: port_types(:one), number: 0)
+        PowerDistributionUnit::Socket.create!(circuit: circuit_second, port_type: port_types(:one), position: 0, name: "some")
       end
 
       let(:params) { { power_distribution_unit_ids: [pdu.id, pdu_second.id] } }
@@ -272,7 +272,7 @@ RSpec.describe CablesProcessor do
       )
     end
     let(:circuit) { PowerDistributionUnit::Circuit.create(record: pdu, name: "C1") }
-    let(:socket) { PowerDistributionUnit::Socket.create(circuit:, port_type: port_types(:one), number: 0) }
+    let(:socket) { PowerDistributionUnit::Socket.create(circuit:, port_type: port_types(:one), position: 0, name: "some") }
     let(:port2) { Port.create!(attachable: socket) }
 
     let(:connection) { Connection.create!(cable:, port:) }

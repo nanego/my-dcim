@@ -2,24 +2,28 @@
 
 one:
   id: 1
-  number: 1
+  name: one
+  position: 1
   circuit_id: 1
   port_type_id: 4
 
 two:
   id: 2
-  number: 2
+  name: two
+  position: 2
   circuit_id: 1
   port_type_id: 4
 
 three:
   id: 3
-  number: 3
+  name: three
+  position: 3
   circuit_id: 2
   port_type_id: 4
 
 four:
   id: 4
-  number: 4
+  name: four
+  position: 4
   circuit_id: 2
   port_type_id: 4
