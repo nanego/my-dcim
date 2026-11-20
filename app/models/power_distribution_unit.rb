@@ -13,7 +13,9 @@ class PowerDistributionUnit < ApplicationRecord
   belongs_to :frame
 
   has_many :circuits, as: :record, class_name: "PowerDistributionUnit::Circuit", dependent: :destroy
-  has_many :sockets, ->(pdu) { order(number: pdu.orientation.presence || :asc) }, class_name: "PowerDistributionUnit::Socket", through: :circuits
+  has_many :blocks, as: :record, class_name: "PowerDistributionUnit::Block", dependent: :destroy
+  # TODO: rename number in position
+  has_many :sockets, ->(pdu) { order(number: pdu.orientation.presence || :asc) }, class_name: "PowerDistributionUnit::Socket", through: :blocks
   has_many :cards, -> { order(created_at: :asc) }, as: :record, class_name: "PowerDistributionUnit::Card", inverse_of: :record, dependent: :destroy
   has_many :sockets_ports, class_name: "Port", through: :sockets, source: :port
   has_many :cards_ports, class_name: "Port", through: :cards, source: :ports
@@ -34,6 +36,7 @@ class PowerDistributionUnit < ApplicationRecord
   validates :ipmi_url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https]), allow_blank: true
 
   accepts_nested_attributes_for :circuits, allow_destroy: true
+  accepts_nested_attributes_for :blocks, allow_destroy: true
   accepts_nested_attributes_for :cards, allow_destroy: true
 
   delegate :to_s, to: :name
@@ -51,7 +54,8 @@ class PowerDistributionUnit < ApplicationRecord
     copy = dup
 
     copy.tap do |pdu|
-      pdu.circuits = circuits.map(&:deep_dup)
+      pdu.circuits = circuits.map(&:dup)
+      pdu.blocks = blocks.map(&:deep_dup)
       pdu.cards = cards.map(&:dup)
     end
   end
@@ -76,6 +80,7 @@ class PowerDistributionUnit < ApplicationRecord
 
   def build_associations_from_type
     self.circuits = type.circuits.map(&:deep_dup)
+    self.blocks = type.blocks.map(&:deep_dup)
     self.cards = type.cards.map(&:dup)
   end
 end

@@ -57,7 +57,10 @@
 
       <%= render CardComponent.new do |card| %>
         <% card.with_header do %>
-          <%= t("show.cards.preview") %>
+          <div class="d-flex justify-content-between align-items-center">
+            <%= t("show.cards.preview") %>
+            <%= link_to t("action.edit"), edit_power_distribution_unit_blocks_path(@power_distribution_unit), class: "btn btn-outline-success btn-sm" %>
+          </div>
         <% end %>
 
         <div id="pdu-vizualisation-<%= @power_distribution_unit.id %>" class="pdu">
@@ -271,6 +274,21 @@
                   <span class="mb-0 ps-3"><%= @power_distribution_unit.position %></span>
                 </span>
               </dd>
+            </dl>
+          <% end %>
+
+          <%= render CardComponent.new(extra_classes: "mt-4") do |card| %>
+            <% card.with_header do %>
+              <%= PowerDistributionUnit::Circuit.model_name.human.pluralize %>
+            <% end %>
+
+            <dl class="show-page_dl d-grid row-gap-2 mb-0">
+              <% @power_distribution_unit.circuits.each do |circuit| %>
+                <dt><%= circuit.name %></dt>
+                <dd class="mb-0 pb-2 ps-3">
+                  <%# TODO: color and phase info %>
+                </dd>
+              <% end %>
             </dl>
           <% end %>
         </div>

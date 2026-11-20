@@ -22,7 +22,7 @@ export default class extends Controller {
       wrapper.remove()
     } else {
       wrapper.classList.add("d-none")
-      wrapper.querySelector("input[name*='_destroy']").value="1"
+      wrapper.querySelector("input[name*='_destroy']").value = "1"
     }
   }
 

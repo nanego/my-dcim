@@ -13,8 +13,8 @@ export default class SortableController extends Controller {
   }
 
   reorder() {
-    this.containerTarget.querySelectorAll("[data-sortable-item]").forEach((item, index) => {
-      const positionField = item.querySelector("[data-sortable-field]")
+    this.containerTarget.querySelectorAll(":scope > [data-sortable-item]").forEach((item, index) => {
+      const positionField = item.querySelector(":scope > [data-sortable-field]")
       positionField.value = index + 1
     })
   }
