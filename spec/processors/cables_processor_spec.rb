@@ -130,7 +130,8 @@ RSpec.describe CablesProcessor do
 
     let(:pdu) { PowerDistributionUnit.create!(**default_pdu_param, name: "PDU name 1", serial_number: "p1") }
     let(:circuit) { PowerDistributionUnit::Circuit.create!(record: pdu, name: "C1") }
-    let(:socket) { PowerDistributionUnit::Socket.create!(circuit:, port_type: port_types(:one), number: 0) }
+    let(:block) { PowerDistributionUnit::Block.create!(record: pdu) }
+    let(:socket) { PowerDistributionUnit::Socket.create!(block:, circuit:, port_type: port_types(:one), number: 0) }
     let(:port) { Port.create!(attachable: socket) }
     let(:cable) { Cable.create!(name: "cableA") }
     let(:connection) { Connection.create!(cable:, port:) }
@@ -150,8 +151,9 @@ RSpec.describe CablesProcessor do
       let(:connection_second) { Connection.create!(cable: cable_second, port: port_second) }
       let(:pdu_second) { PowerDistributionUnit.create!(**default_pdu_param, name: "PDU name 2", serial_number: "p2") }
       let(:circuit_second) { PowerDistributionUnit::Circuit.create!(record: pdu_second, name: "C2") }
+      let(:block_second) { PowerDistributionUnit::Block.create!(record: pdu_second) }
       let(:socket_second) do
-        PowerDistributionUnit::Socket.create!(circuit: circuit_second, port_type: port_types(:one), number: 0)
+        PowerDistributionUnit::Socket.create!(block: block_second, circuit: circuit_second, port_type: port_types(:one), number: 0)
       end
 
       let(:params) { { power_distribution_unit_ids: [pdu.id, pdu_second.id] } }
@@ -277,7 +279,8 @@ RSpec.describe CablesProcessor do
       )
     end
     let(:circuit) { PowerDistributionUnit::Circuit.create(record: pdu, name: "C1") }
-    let(:socket) { PowerDistributionUnit::Socket.create(circuit:, port_type: port_types(:one), number: 0) }
+    let(:block) { PowerDistributionUnit::Block.create(record: pdu) }
+    let(:socket) { PowerDistributionUnit::Socket.create(block:, circuit:, port_type: port_types(:one), number: 0) }
     let(:port2) { Port.create!(attachable: socket) }
 
     let(:connection) { Connection.create!(cable:, port:) }
