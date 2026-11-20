@@ -12,7 +12,7 @@ class PowerDistributionUnit
     has_one :power_distribution_unit, through: :block, source: :record, source_type: "PowerDistributionUnit"
 
     validates :number, presence: true
-    validate :number_unique
+    validate :number_uniqueness
 
     def create_missing_ports
       Port.create(attachable: self)
@@ -20,7 +20,9 @@ class PowerDistributionUnit
 
     private
 
-    def number_unique
+    def number_uniqueness
+      return unless block
+
       return unless block.record.sockets
         .where(number:)
         .where.not(id:)
