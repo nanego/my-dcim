@@ -1,7 +1,4 @@
-<%
-  breadcrumb
-    .add_step(t("action.edit"))
-%>
+<% breadcrumb.add_step(t("action.edit")) %>
 
 <%= render Page::HeadingEditComponent.new(resource: @power_distribution_unit, title: t(".title"), breadcrumb:) %>
 
