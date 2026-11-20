@@ -610,5 +610,5 @@ fr:
     manufacturer_id: Constructeur
     name: Nom
     position: Position
-    romm: Salle
+    room: Salle
     room_id: Salle

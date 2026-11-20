@@ -387,5 +387,5 @@ en:
     manufacturer_id: Manufacturer
     name: Name
     position: Position
-    romm: Room
+    room: Room
     room_id: Room
