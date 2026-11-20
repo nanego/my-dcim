@@ -6,26 +6,26 @@ $('.couple .overviewed_frame').removeClass('selected')
 $('.couple .overviewed_frame[data-frame-id=<%= @frame.slug %>]').addClass('selected')
 
 $('#bay-container').html(
-  "<%= escape_javascript(render partial: 'visualization/frames/show_complete_frame', locals: {
-    room: @room,
-    frame: @frame,
-  }) %>"
+  <% view_type = params[:view].presence || "back" %>
+  "<%= escape_javascript(render(partial: "visualization/frames/frame", locals: {
+         frame: @frame,
+         servers: @frame.servers,
+         left_power_distribution_units: @frame.left_power_distribution_units,
+         right_power_distribution_units: @frame.right_power_distribution_units,
+         should_show_heading: true,
+         view_type:,
+       })) %>"
 )
 
 var searchParams = new URLSearchParams(window.location.search)
-var view = 'front'
-if (searchParams.has('view')) {
-    view = searchParams.get('view')
-} else {
-    searchParams.set('view', view)
-}
 searchParams.set('bay-id', '<%= @frame.bay_id %>')
 searchParams.set('frame-id', '<%= @frame.slug %>')
+searchParams.set('view', '<%= view_type %>')
 window.history.replaceState({}, '', location.pathname + '?' + searchParams)
 
 scale_large_slots()
 
 reset_u_heights()
 window.addEventListener('resize', function (event) {
-    reset_u_heights()
+  reset_u_heights()
 })

@@ -555,6 +555,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_19_092840) do
     t.string "name", null: false
     t.string "color"
     t.string "grafana_url"
+    t.integer "position"
     t.index ["frame_id"], name: "index_power_distribution_units_on_frame_id"
     t.index ["name"], name: "index_power_distribution_units_on_name", unique: true
     t.index ["serial_number"], name: "index_power_distribution_units_on_serial_number", unique: true

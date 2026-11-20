@@ -86,7 +86,7 @@ class PowerDistributionUnitsController < ApplicationController
     params.expect(
       power_distribution_unit: [
         :type_id, :frame_id, :name, :side, :orientation, :ipmi_url, :serial_number, :comment, :power_line, :color,
-        :grafana_url,
+        :grafana_url, :position,
         {
           circuits_attributes: [[
             :id, :_destroy, :name,

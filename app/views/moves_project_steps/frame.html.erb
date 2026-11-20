@@ -9,13 +9,11 @@
 <div class="p-4 border-top d-flex flex-column row-gap-4">
   <div class="frames row g-4 p-0">
     <div class="view-back col-12 col-lg-6">
-      <%= render partial: "visualization/frames/show_frame",
+      <%= render partial: "visualization/frames/frame",
                  locals: {
                    frame: @frame,
                    servers: @servers,
-                   settings: { min_height: 20 },
                    editable: false,
-                   view_type: "back",
                  } %>
     </div>
     <div class="col-12 col-lg-6">

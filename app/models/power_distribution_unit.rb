@@ -3,6 +3,8 @@
 class PowerDistributionUnit < ApplicationRecord
   extend FriendlyId
 
+  acts_as_list scope: [:frame_id]
+
   friendly_id :slug_candidates, use: %i[slugged history]
 
   has_changelog associations: { circuits: "*", sockets: "*" }
@@ -38,6 +40,8 @@ class PowerDistributionUnit < ApplicationRecord
   delegate :phases_count, to: :type
 
   before_create :build_associations_from_type
+
+  scope :ordered, -> { order(position: :asc) }
 
   def should_generate_new_friendly_id?
     slug.blank? || name_changed?

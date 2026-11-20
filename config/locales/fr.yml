@@ -596,8 +596,6 @@ fr:
   frames:
     coupled_frame_label: Châssis couplé à
     no_coupled_frame: Aucun châssis couplé.
-    show_complete_frame:
-      title: Salle %{room} - Ilot %{islet}
     index:
       new_frame: Ajouter un châssis
       title: Tous les châssis

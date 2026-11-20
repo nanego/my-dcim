@@ -262,8 +262,14 @@
               </dd>
 
               <dt><%= PowerDistributionUnit.human_attribute_name(:side) %> :</dt>
-              <dd class="mb-0 ps-3">
-                <%= PowerDistributionUnit.human_attribute_name("side.#{@power_distribution_unit.side}") %>
+              <dd class="mb-0 ps-3 d-flex justify-content-between">
+                <span class="w-50">
+                  <%= PowerDistributionUnit.human_attribute_name("side.#{@power_distribution_unit.side}") %>
+                </span>
+                <span class="w-50">
+                  <span class="fw-normal"><%= PowerDistributionUnit.human_attribute_name(:position) %> :</span>
+                  <span class="mb-0 ps-3"><%= @power_distribution_unit.position %></span>
+                </span>
               </dd>
             </dl>
           <% end %>

@@ -8,15 +8,15 @@
     ) do |heading| %>
   <% heading.with_extra_buttons do %>
     <%= if allowed_to?(:show?, @frame, with: Visualization::FramePolicy)
-         render ButtonComponent.new(
-           t("visualization.title"),
-           url: visualization_frame_path(@frame),
-           variant: :primary,
-           icon: "diagram-3-fill",
-           is_responsive: true,
-           extra_classes: "me-2",
-         )
-       end %>
+          render ButtonComponent.new(
+            t("visualization.title"),
+            url: visualization_frame_path(@frame),
+            variant: :primary,
+            icon: "diagram-3-fill",
+            is_responsive: true,
+            extra_classes: "me-2",
+          )
+        end %>
   <% end %>
 <% end %>
 
@@ -142,7 +142,7 @@
 
   <%= render HasManyTurboFrameComponent.new(
         PowerDistributionUnit.model_name.human(count: 2),
-        url: power_distribution_units_path(frame_ids: @frame.id, sort_by: :name, sort: "desc"),
+        url: power_distribution_units_path(frame_ids: @frame.id),
         frame_id: dom_id(PowerDistributionUnit, :table),
         new_path: (new_power_distribution_unit_path(power_distribution_unit: { frame_id: @frame.id }) if allowed_to?(:create?, with: PowerDistributionUnitPolicy)),
         new_label: t("power_distribution_units.add_new"),

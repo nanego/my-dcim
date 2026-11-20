@@ -254,7 +254,7 @@ function loadFrame(frame_id, bay_id, frame_title) {
   $('.couple .overviewed_frame[data-frame-id='+frame_id+']').addClass('selected')
 
   const searchParams = new URLSearchParams(window.location.search)
-  let view = 'front'
+  let view = 'back'
 
   if (searchParams.has('view')) {
     view = searchParams.get('view')

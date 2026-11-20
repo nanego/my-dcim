@@ -74,7 +74,6 @@ fr:
       room:
         access_control: Contrôle d'accès
         name: Nom
-        position: Position
         content: Contenu
         display_on_home_page: Afficher sur la page d'accueil
         site_id: Site
@@ -98,7 +97,6 @@ fr:
         name: Nom
         room_id: Salle
         room: Salle # TODO: check if we should keep this line?
-        position: Position
         cooling_mode: Mode de refroidissement
         frames_count:
           zero: 0 châssis
@@ -120,7 +118,6 @@ fr:
         islet_id: Ilot
         bay_id: Baie
         frame_id: Châssis
-        position: Position
         modele_id: Modèle
         manufacturer_id: Constructeur
         critique: Critique
@@ -138,7 +135,6 @@ fr:
       site:
         name: Nom
         description: Description
-        position: Position
         street: Rue
         city: Ville
         country: Pays
@@ -154,7 +150,6 @@ fr:
       air_conditioner:
         name: Nom
         room: Salle
-        position: Position
         power: Puissance
         status: État
         bay_id: Baie la plus proche
@@ -360,7 +355,6 @@ fr:
         name: Nom
         servers: Matériels
         room: Salle
-        position: Position
         bay_id: Baie
         u: U
         width: Largeur
@@ -369,7 +363,6 @@ fr:
         depth: Profondeur
         lane: Ligne
         name: Nom
-        position: Position
         width: Largeur
         materials_count:
           zero: 0 matériel
@@ -608,13 +601,14 @@ fr:
 
   # Common attributes
   attributes:
-    bay_id: Baie
     bay: Baie
+    bay_id: Baie
     color: Couleur
-    room_id: Salle
-    romm: Salle
-    islet_id: Ilôt
     islet: Ilôt
-    manufacturer_id: Constructeur
+    islet_id: Ilôt
     manufacturer: Constructeur
+    manufacturer_id: Constructeur
     name: Nom
+    position: Position
+    room: Salle
+    room_id: Salle
