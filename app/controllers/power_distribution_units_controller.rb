@@ -89,7 +89,7 @@ class PowerDistributionUnitsController < ApplicationController
         :grafana_url, :position,
         {
           circuits_attributes: [%i[
-            id _destroy name
+            id _destroy name max_current color phase
           ]],
         },
       ],

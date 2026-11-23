@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_19_143838) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_23_141209) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -515,6 +515,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_19_143838) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "max_current"
+    t.string "color"
+    t.integer "phase"
     t.index ["record_type", "record_id"], name: "index_power_distribution_unit_circuits_on_record"
   end
 

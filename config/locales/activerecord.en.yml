@@ -246,6 +246,8 @@ en:
       power_distribution_unit/orientation:
         asc: Ascendant
         desc: Descendant
+      power_distribution_unit/circuit:
+        phase: Phase
       power_distribution_unit/socket:
         port_type: Port type
         port_type_id: Port type
