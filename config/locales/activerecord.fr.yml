@@ -196,6 +196,7 @@ fr:
         usage_modele: Usage (modèle)
         usage_bay: Usage (baie)
         usage_server: Usage (Matériel I.T.)
+        usage_power_distribution_unit: Usage (PDU)
         description: Description
         documentation_url: Documentation URL
         modeles_count:
@@ -210,6 +211,7 @@ fr:
           zero: 0 matériel I.T.
           one: 1 matériel I.T.
           other: "%{count} matériels I.T."
+        power_distribution_units_count: "%{count} PDU"
       domain:
         name: Nom
         usage: Usage

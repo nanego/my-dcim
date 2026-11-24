@@ -49,6 +49,12 @@
       <% end %>
     <% end %>
 
+    <% table.with_column(Manufacturer.human_attribute_name(:usage_power_distribution_unit)) do |manufacturer| %>
+      <%= link_to power_distribution_units_path(manufacturer_ids: manufacturer) do %>
+        <%= Manufacturer.human_attribute_name(:power_distribution_units_count, count: @power_distribution_units_counts[manufacturer.id] || 0) %>
+      <% end %>
+    <% end %>
+
     <% table.with_column(style: "min-width: 70px; width: 70px") do |manufacturer| %>
       <div class="btn-group btn-group-sm" role="group" aria-label="...">
         <% if allowed_to?(:update?, manufacturer) %>
