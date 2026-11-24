@@ -79,7 +79,7 @@ class PowerDistributionUnit < ApplicationRecord
   end
 
   def build_associations_from_type
-    self.circuits = type.circuits.map(&:deep_dup)
+    self.circuits = type.circuits.map(&:dup)
     self.blocks = type.blocks.map(&:deep_dup)
     self.cards = type.cards.map(&:dup)
   end

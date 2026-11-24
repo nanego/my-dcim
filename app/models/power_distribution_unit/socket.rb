@@ -20,6 +20,7 @@ class PowerDistributionUnit
 
     private
 
+    # TODO: rename un name
     def number_uniqueness
       return unless block
 
