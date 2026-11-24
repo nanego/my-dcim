@@ -8,7 +8,7 @@ class CreatePowerDistributionUnitBlocks < ActiveRecord::Migration[8.1]
 
       t.timestamps
 
-      t.index %i[record_id position], unique: true
+      t.index %i[record_type record_id position], unique: true
     end
   end
 end

@@ -493,7 +493,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_19_092840) do
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["record_id", "position"], name: "index_power_distribution_unit_blocks_on_record_id_and_position", unique: true
+    t.index ["record_type", "record_id", "position"], name: "idx_on_record_type_record_id_position_4e55e691c2", unique: true
     t.index ["record_type", "record_id"], name: "index_power_distribution_unit_blocks_on_record"
   end
 
