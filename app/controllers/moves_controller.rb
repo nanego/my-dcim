@@ -28,7 +28,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
   def new
     authorize! @move = @moves_project_step.moves.build(moveable_type: "Server")
-    @move.moveable = Server.friendly.select(:id, :slug, :name).find(params[:server_id]) if params[:server_id]
+    @move.moveable = Server.friendly.select(:id, :slug, :name).find(params.expect(:server_id)) if params[:server_id]
 
     render :new_unscoped unless @moves_project_step.persisted?
   end
@@ -115,14 +115,14 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   def load_server
     authorize!
 
-    @server = Server.includes(cards: [{ card_type: :port_type }], ports: [{ connection: :cable }]).find(params[:server_id])
+    @server = Server.includes(cards: [{ card_type: :port_type }], ports: [{ connection: :cable }]).find(params.expect(:server_id))
     @moved_connections = MovedConnection.per_servers([@server])
   end
 
   def load_frame
     authorize!
 
-    @frame = Frame.friendly.find(params[:frame_id])
+    @frame = Frame.friendly.find(params.expect(:frame_id))
     @view = params[:view]
     @move = @moves_project_step.moves.build(moveable_type: "Server")
     @servers = @moves_project_step.servers_moves_for_frame_at_current_step(@frame)
@@ -131,9 +131,9 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   def load_connection
     authorize!
 
-    @selected_port = Port.find(params[:port_id])
+    @selected_port = Port.find(params.expect(:port_id))
     @server = @selected_port.server
-    @frame = Frame.friendly.find(params[:frame_id])
+    @frame = Frame.friendly.find(params.expect(:frame_id))
     @servers = @moves_project_step.servers_moves_for_frame_at_current_step(@frame)
 
     @moved_connections = MovedConnection.per_servers([@server])
@@ -154,8 +154,8 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
   def update_connection
     authorize!
 
-    @port_from = Port.find(params[:moved_connection][:port_from_id])
-    @port_to = Port.find(params[:moved_connection][:port_to_id])
+    @port_from = Port.find(params.expect(:moved_connection)[:port_from_id])
+    @port_to = Port.find(params.expect(:moved_connection)[:port_to_id])
     @servers = [@port_from.server, @port_to.try(:server)].compact
 
     # Current connections for all servers, necessary to refresh visible servers ports
@@ -193,7 +193,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
   def set_moves_project_step
     @moves_project_step = if params[:moves_project_step_id]
-                            MovesProjectStep.find(params[:moves_project_step_id])
+                            MovesProjectStep.find(params.expect(:moves_project_step_id))
                           else
                             MovesProjectStep.new
                           end
@@ -208,7 +208,7 @@ class MovesController < ApplicationController # rubocop:disable Metrics/ClassLen
 
   # Use callbacks to share common setup or constraints between actions.
   def set_move
-    authorize! @move = @moves_project_step.moves.find(params[:id])
+    authorize! @move = @moves_project_step.moves.find(params.expect(:id))
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

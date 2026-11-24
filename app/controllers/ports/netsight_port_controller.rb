@@ -20,7 +20,7 @@ module Ports
     private
 
     def set_port
-      authorize! @port = Port.find(params[:port_id]), to: :show?
+      authorize! @port = Port.find(params.expect(:port_id)), to: :show?
     end
   end
 end

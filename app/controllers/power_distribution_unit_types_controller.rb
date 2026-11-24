@@ -64,7 +64,7 @@ class PowerDistributionUnitTypesController < ApplicationController
   end
 
   def duplicate
-    authorize! @original_power_distribution_unit_type = PowerDistributionUnitType.find(params[:id])
+    authorize! @original_power_distribution_unit_type = PowerDistributionUnitType.find(params.expect(:id))
     @power_distribution_unit_type = @original_power_distribution_unit_type.deep_dup
   end
 

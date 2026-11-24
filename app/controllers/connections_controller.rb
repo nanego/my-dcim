@@ -9,9 +9,9 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
                  else
                    # TODO: seems to be dead code
                    attachable = if params["card_id"]
-                                  Card.find(params["card_id"])
+                                  Card.find(params.expect("card_id"))
                                 elsif params["socket_id"]
-                                  PowerDistributionUnit::Socket.find(params["socket_id"])
+                                  PowerDistributionUnit::Socket.find(params.expect("socket_id"))
                                 end
 
                    Port.create(position: params["position"],
@@ -68,7 +68,7 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
   def update
     authorize!
 
-    from_port = Port.find(params[:connection][:from_port_id])
+    from_port = Port.find(params[:connection][:from_port_id]) # rubocop:disable Rails/StrongParametersExpect
     to_port_id = params[:connection][:to_port_id]
 
     if to_port_id.present?

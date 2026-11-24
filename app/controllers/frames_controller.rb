@@ -85,7 +85,7 @@ class FramesController < ApplicationController
   end
 
   def set_frame
-    authorize! @frame = Frame.friendly.find(params[:id].to_s.downcase)
+    authorize! @frame = Frame.friendly.find(params.expect(:id).to_s.downcase)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

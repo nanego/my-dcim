@@ -26,7 +26,7 @@ module PowerDistributionUnitTypes
 
     # Use callbacks to share common setup or constraints between actions.
     def set_power_distribution_unit_type
-      authorize! @power_distribution_unit_type = PowerDistributionUnitType.find(params[:power_distribution_unit_type_id])
+      authorize! @power_distribution_unit_type = PowerDistributionUnitType.find(params.expect(:power_distribution_unit_type_id))
     end
 
     # Only allow a list of trusted parameters through.

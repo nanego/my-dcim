@@ -72,7 +72,7 @@ class CardTypesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_card_type
-    authorize! @card_type = CardType.find(params[:id])
+    authorize! @card_type = CardType.find(params.expect(:id))
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
