@@ -141,7 +141,15 @@
         <% end %>
       </fieldset>
 
-      <%= render partial: "power_distribution_units/card_nested_fieldset", locals: { f: } %>
+      <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+        <% card.with_header do %>
+          <div class="d-flex justify-content-between align-items-center">
+            <%= t(".blocks_and_cards") %>
+          </div>
+        <% end %>
+
+        TODO: lien vers édition sockets + cards avec data-confirm
+      <% end %>
     </div>
   </div>
 

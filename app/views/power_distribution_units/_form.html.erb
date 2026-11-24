@@ -118,12 +118,12 @@
               <template data-nested-form-target="template">
                 <%= f.fields_for :circuits, f.object.circuits.klass.new,
                                  child_index: "__NEW_RECORD__" do |circuit_fields| %>
-                  <%= render partial: "power_distribution_units/circuit_fields", locals: { f: circuit_fields } %>
+                  <%= render partial: "power_distribution_units/circuit_fields", locals: { f: circuit_fields, record: f.object } %>
                 <% end %>
               </template>
 
               <%= f.fields_for :circuits do |circuit_fields| %>
-                <%= render partial: "power_distribution_units/circuit_fields", locals: { f: circuit_fields } %>
+                <%= render partial: "power_distribution_units/circuit_fields", locals: { f: circuit_fields, record: f.object } %>
               <% end %>
 
               <div data-nested-form-target="target"></div>
@@ -139,7 +139,15 @@
           <% end %>
         </fieldset>
 
-        <%= render partial: "card_nested_fieldset", locals: { f: } %>
+        <%= render CardComponent.new(extra_classes: "bg-body-tertiary") do |card| %>
+          <% card.with_header do %>
+            <div class="d-flex justify-content-between align-items-center">
+              <%= t(".blocks_and_cards") %>
+            </div>
+          <% end %>
+
+          TODO: lien vers édition sockets + cards avec data-confirm
+        <% end %>
       <% end %>
     </div>
   </div>
