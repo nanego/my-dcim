@@ -10,7 +10,7 @@ class NetsightSyncResultsController < ApplicationController
   def index
     authorize!
 
-    @kind = params[:kind].presence_in(NetsightSyncResult.kinds.keys) || "vlan"
+    @kind = params[:kind].presence_in(NetsightSyncResult.kinds.keys) || "vlan" # rubocop:disable Rails/StrongParametersExpect
     @counts = visible_results.group(:kind).count
     results = visible_results.where(kind: @kind).eager_load(:server, :frame).preload(port: [{ attachable: { card_type: :port_type } }, { connection: :cable }])
     @filter = ProcessorFilter.new(results, params)

@@ -77,7 +77,7 @@ class SitesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_site
-    authorize! @site = Site.find(params[:id])
+    authorize! @site = Site.find(params.expect(:id))
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

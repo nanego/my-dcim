@@ -62,7 +62,7 @@ class AirConditionersController < ApplicationController
   private
 
   def set_air_conditioner
-    authorize! @air_conditioner = AirConditioner.find(params[:id])
+    authorize! @air_conditioner = AirConditioner.find(params.expect(:id))
   end
 
   def air_conditioner_params

@@ -32,7 +32,7 @@ module Visualization
             ] },
         ],
       )
-        .find(params[:id])
+        .find(params.expect(:id))
     end
   end
 end

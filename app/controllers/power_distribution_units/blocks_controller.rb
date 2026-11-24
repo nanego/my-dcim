@@ -26,7 +26,7 @@ module PowerDistributionUnits
 
     # Use callbacks to share common setup or constraints between actions.
     def set_power_distribution_unit
-      authorize! @power_distribution_unit = PowerDistributionUnit.friendly.find(params[:power_distribution_unit_id].to_s.downcase)
+      authorize! @power_distribution_unit = PowerDistributionUnit.friendly.find(params.expect(:power_distribution_unit_id).to_s.downcase)
     end
 
     # Only allow a list of trusted parameters through.

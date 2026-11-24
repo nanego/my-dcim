@@ -79,7 +79,7 @@ class DomainsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_domain
-    authorize! @domain = scoped_domains.find(params[:id])
+    authorize! @domain = scoped_domains.find(params.expect(:id))
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
