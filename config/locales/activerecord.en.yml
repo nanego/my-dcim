@@ -249,6 +249,7 @@ en:
       power_distribution_unit/socket:
         port_type: Port type
         port_type_id: Port type
+        circuit_id: Circuit
         number: Number
       power_distribution_unit/card:
         first_position: First port position
