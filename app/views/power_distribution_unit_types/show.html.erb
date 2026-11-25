@@ -93,7 +93,9 @@
         <% card.with_header do %>
           <div class="d-flex justify-content-between align-items-center">
             <%= t("show.cards.preview") %>
-            <%= link_to t("action.edit"), edit_power_distribution_unit_type_blocks_path(@power_distribution_unit_type), class: "btn btn-outline-success btn-sm" %>
+            <% if allowed_to?(:update?, @power_distribution_unit_type) %>
+              <%= link_to t("action.edit"), edit_power_distribution_unit_type_blocks_path(@power_distribution_unit_type), class: "btn btn-outline-success btn-sm" %>
+            <% end %>
           </div>
         <% end %>
 
