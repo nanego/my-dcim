@@ -11,7 +11,7 @@ RSpec.describe PowerDistributionUnit::Socket do
                         name: "some")
   end
 
-  it_behaves_like "changelogable", object: -> { socket }, new_attributes: { position: 888 }
+  it_behaves_like "changelogable", object: -> { socket }, new_attributes: { name: "new" }
 
   describe "associations" do
     it { is_expected.to belong_to(:block) }

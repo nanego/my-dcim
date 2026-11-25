@@ -133,7 +133,7 @@ RSpec.describe PowerDistributionUnit do
     it { expect(power_distribution_unit.circuits.first.name).to eq(type.circuits.first.name) }
 
     it { expect(power_distribution_unit.sockets.size).to eq(2) }
-    it { expect(power_distribution_unit.sockets.first.position).to eq(type.sockets.first.position) }
+    it { expect(power_distribution_unit.sockets.first.name).to eq(type.sockets.first.name) }
 
     it { expect(power_distribution_unit.cards.size).to eq(1) }
     it { expect(power_distribution_unit.cards.first.name).to eq(type.cards.first.name) }
