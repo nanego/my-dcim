@@ -83,7 +83,7 @@ class PowerDistributionUnitTypesController < ApplicationController
         :socket_control, :socket_lock, :ip_snmp, :ip_modbus, :ip_ssh, :ip_webui, :rs485_modbus, :max_current,
         {
           circuits_attributes: [%i[
-            id _destroy name
+            id _destroy name max_current color phase
           ]],
         },
       ],
