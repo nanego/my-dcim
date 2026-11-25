@@ -36,7 +36,7 @@ module PowerDistributionUnits
           {
             blocks_attributes: [[
               :id, :position, :_destroy,
-              { sockets_attributes: [%i[id number port_type_id circuit_id _destroy]] },
+              { sockets_attributes: [%i[id position name port_type_id circuit_id _destroy]] },
             ]],
             cards_attributes: [%i[id _destroy card_type_id name first_position orientation]],
           },

@@ -4,15 +4,19 @@ class PowerDistributionUnit
   class Socket < ApplicationRecord
     has_changelog
 
+    acts_as_list scope: [:block_id]
+
     belongs_to :block
+
     belongs_to :circuit
     belongs_to :port_type
 
     has_one :port, as: :attachable, dependent: :destroy
     has_one :power_distribution_unit, through: :block, source: :record, source_type: "PowerDistributionUnit"
 
-    validates :number, presence: true
-    validate :number_uniqueness
+    validates :name, presence: true
+    validates :position, presence: true
+    validate :name_uniqueness
 
     def create_missing_ports
       Port.create(attachable: self)
@@ -20,16 +24,15 @@ class PowerDistributionUnit
 
     private
 
-    # TODO: rename un name
-    def number_uniqueness
+    def name_uniqueness
       return unless block
 
       return unless block.record.sockets
-        .where(number:)
+        .where(name:)
         .where.not(id:)
         .any?
 
-      errors.add(:number, :taken)
+      errors.add(:name, :taken)
     end
   end
 end

@@ -29,7 +29,7 @@ RSpec.describe PowerDistributionUnitTypes::BlocksController do
       {
         blocks_attributes: [
           { position: 2 },
-          { position: 3, sockets_attributes: [{ number: 999, port_type_id: 1, circuit_id: 1 }] },
+          { position: 3, sockets_attributes: [{ position: 999, name: "some", port_type_id: 1, circuit_id: 1 }] },
         ],
         cards_attributes: [
           { name: "card1", card_type_id: 1, first_position: 1, orientation: "lr-td" },
