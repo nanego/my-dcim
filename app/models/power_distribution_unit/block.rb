@@ -6,7 +6,7 @@ class PowerDistributionUnit
     acts_as_list scope: %i[record_type record_id]
 
     belongs_to :record, polymorphic: true
-    has_many :sockets, -> { order(:number) }, dependent: :destroy, inverse_of: :block
+    has_many :sockets, -> { order(:position) }, dependent: :destroy, inverse_of: :block
 
     accepts_nested_attributes_for :sockets, allow_destroy: true
 

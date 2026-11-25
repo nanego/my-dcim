@@ -525,8 +525,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_19_143838) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "block_id", null: false
-    t.index ["block_id"], name: "index_power_distribution_unit_sockets_on_block_id"
     t.string "name", null: false
+    t.index ["block_id"], name: "index_power_distribution_unit_sockets_on_block_id"
     t.index ["circuit_id"], name: "index_power_distribution_unit_sockets_on_circuit_id"
     t.index ["port_type_id"], name: "index_power_distribution_unit_sockets_on_port_type_id"
   end
