@@ -87,7 +87,7 @@
               <span id="restricted_destinations" class="w-50" data-reveal-target="item">
                 <%= select_tag :to_server,
                                grouped_options_for_select(
-                                 @possible_destination_servers, { selected: @to_server&.id },
+                                 @possible_destination_servers, { selected: @to_server&.to_gid },
                                ),
                                include_blank: true,
                                class: "form-select",
@@ -100,7 +100,7 @@
               </span>
               <span id="all_destinations" class="d-none w-50" data-reveal-target="item">
                 <%= select_tag :to_server,
-                               grouped_options_for_select(@all_servers_per_frame, { selected: @to_server&.id }),
+                               grouped_options_for_select(@all_servers_per_frame, { selected: @to_server&.to_gid }),
                                include_blank: true,
                                class: "form-select",
                                data: {

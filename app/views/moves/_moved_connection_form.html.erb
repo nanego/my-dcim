@@ -24,8 +24,8 @@
           <span id="all_destinations">
             <%= select_tag "to_server",
                           options_for_select(
-                            @servers.map { |v| [v.name, v.id] },
-                            { selected: @destination_port.present? ? @destination_port.server&.id : nil }
+                            @servers.map { |v| [v.name, v.to_gid] },
+                            { selected: @destination_port&.server&.to_gid }
                           ),
                           include_blank: true,
                           onchange: "select_destination_server(this.value)",
@@ -92,7 +92,7 @@ function select_destination_server(server_id){
         $.ajax({
             method: "POST",
             url: "<%= connections_update_destination_server_path %>",
-            data: { server_id: server_id, with_moved_connection: 1 }
+            data: { attachable_id: server_id, with_moved_connection: 1 }
         }).done(function(){
             select_destination_port($('input[name="moved_connection[port_to_id]"]').val());
         });

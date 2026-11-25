@@ -143,7 +143,63 @@ RSpec.describe ConnectionsController do
   end
 
   describe "POST #update_destination_server" do
-    pending "TODO"
+    subject(:response) do
+      # NOTE: mimic the jQuery $.ajax call, which sends no explicit format.
+      post(connections_update_destination_server_path, params:, headers: { "Accept" => "*/*" })
+
+      # NOTE: used to simplify usage and custom test done in final spec file.
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
+
+    let(:params) { { attachable_id: servers(:one).to_gid.to_s } }
+
+    context "with a server" do
+      it { expect(response).to have_http_status(:success) }
+
+      it do
+        response
+        expect(assigns(:attachable)).to eq(servers(:one))
+      end
+    end
+
+    context "with a server and moved connections" do
+      let(:params) { { attachable_id: servers(:one).to_gid.to_s, with_moved_connection: 1 } }
+
+      it { expect(response).to have_http_status(:success) }
+
+      it do
+        response
+        expect(assigns(:moved_connections)).not_to be_nil
+      end
+    end
+
+    context "with a PDU" do
+      let(:params) { { attachable_id: power_distribution_units(:one).to_gid.to_s } }
+
+      it { expect(response).to have_http_status(:success) }
+
+      it do
+        response
+        expect(assigns(:attachable)).to eq(power_distribution_units(:one))
+      end
+    end
+
+    context "without attachable" do
+      let(:params) { { attachable_id: "" } }
+
+      it { expect(response).to have_http_status(:success) }
+    end
+
+    context "with a GlobalID of a non-attachable model" do
+      let(:params) { { attachable_id: connection.to_gid.to_s } }
+
+      it do
+        response
+        expect(assigns(:attachable)).to be_nil
+      end
+    end
   end
 
   describe "GET #draw" do

@@ -103,10 +103,12 @@ class ConnectionsController < ApplicationController # rubocop:disable Metrics/Cl
   def update_destination_server
     authorize!
 
-    @attachable = GlobalID::Locator.locate(params[:attachable_id])
+    @attachable = GlobalID::Locator.locate(params[:attachable_id], only: [Server, PowerDistributionUnit])
 
-    @attachable.create_missing_ports
-    @attachable.reload
+    if @attachable
+      @attachable.create_missing_ports
+      @attachable.reload
+    end
 
     if @attachable.is_a?(Server) && params[:with_moved_connection]
       @moved_connections = MovedConnection.per_servers([@attachable])
