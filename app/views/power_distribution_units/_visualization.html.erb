@@ -20,7 +20,7 @@
                         target: :_top do %>
               <%= render BadgeComponent.new(color: (socket&.port&.connection.present? ? :secondary : :light)) do %>
                 <span><%= socket.port_type %></span>
-                <span>#<%= socket.position %></span>
+                <span>#<%= socket.name %></span>
               <% end %>
             <% end %>
           </span>
