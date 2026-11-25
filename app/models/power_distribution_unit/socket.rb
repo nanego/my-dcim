@@ -15,7 +15,7 @@ class PowerDistributionUnit
     has_one :power_distribution_unit, through: :block, source: :record, source_type: "PowerDistributionUnit"
 
     validates :name, presence: true
-    validates :position, presence: true, uniqueness: { scope: [:block_id] }
+    validates :position, presence: true
     validate :name_uniqueness
 
     def create_missing_ports

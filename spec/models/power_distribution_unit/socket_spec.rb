@@ -25,8 +25,8 @@ RSpec.describe PowerDistributionUnit::Socket do
   describe "validations" do
     it { is_expected.to be_valid }
 
+    it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:position) }
-    it { is_expected.to validate_uniqueness_of(:position).scoped_to(:block_id) }
 
     describe "name_uniqueness" do
       context "when name is free" do
