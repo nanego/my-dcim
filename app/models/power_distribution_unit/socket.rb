@@ -32,7 +32,7 @@ class PowerDistributionUnit
         .where.not(id:)
         .any?
 
-      errors.add(:position, :taken)
+      errors.add(:name, :taken)
     end
   end
 end

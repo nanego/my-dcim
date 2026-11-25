@@ -26,19 +26,20 @@ RSpec.describe PowerDistributionUnit::Socket do
     it { is_expected.to be_valid }
 
     it { is_expected.to validate_presence_of(:position) }
+    it { is_expected.to validate_uniqueness_of(:position).scoped_to(:block_id) }
 
-    describe "position_uniqueness" do
-      context "when position is free" do
+    describe "name_uniqueness" do
+      context "when name is free" do
         subject(:socket) do
-          described_class.new(position: 999, name: "some", block_id: 1, circuit_id: 1, port_type_id: 1)
+          described_class.new(position: 999, name: "uniq name", block_id: 1, circuit_id: 1, port_type_id: 1)
         end
 
         it { is_expected.to be_valid }
       end
 
-      context "when position is taken" do
+      context "when name is taken" do
         subject(:socket) do
-          described_class.new(position: 3, block_id: 2, circuit_id: 2, port_type_id: 1)
+          described_class.new(position: 999, name: "one", block_id: 1, circuit_id: 2, port_type_id: 1)
         end
 
         it { is_expected.not_to be_valid }
