@@ -43,18 +43,6 @@ RSpec.describe AirConditionerModelsController do
     it { expect(response).to render_template(:new) }
   end
 
-  describe "GET #edit" do
-    subject(:response) do
-      get edit_air_conditioner_model_url(air_conditioner_model)
-      @response # rubocop:disable RSpec/InstanceVariable
-    end
-
-    include_context "with authenticated admin"
-
-    it { expect(response).to have_http_status(:success) }
-    it { expect(response).to render_template(:edit) }
-  end
-
   describe "POST #create" do
     subject(:response) do
       post(air_conditioner_models_url, params:)
@@ -77,6 +65,18 @@ RSpec.describe AirConditionerModelsController do
       it { expect { response }.not_to change(AirConditionerModel, :count) }
       it { expect(response).to have_http_status(:unprocessable_content) }
     end
+  end
+
+  describe "GET #edit" do
+    subject(:response) do
+      get edit_air_conditioner_model_url(air_conditioner_model)
+      @response # rubocop:disable RSpec/InstanceVariable
+    end
+
+    include_context "with authenticated admin"
+
+    it { expect(response).to have_http_status(:success) }
+    it { expect(response).to render_template(:edit) }
   end
 
   describe "PATCH #update" do
