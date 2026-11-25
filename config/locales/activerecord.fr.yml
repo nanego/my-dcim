@@ -550,6 +550,7 @@ fr:
         desc: Descendant
       power_distribution_unit/circuit:
         phase: Phase
+        max_current: Courant max (A)
       power_distribution_unit/socket:
         port_type_id: Type de port
         port_type: Type de port
