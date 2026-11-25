@@ -4,13 +4,24 @@ class Filter
   include ActiveModel::Conversion
   extend ActiveModel::Translation
 
-  attr_reader :attribute_names
+  attr_reader :attributes, :attribute_names
 
   delegate :model_name, to: :class
 
-  def initialize(params, attribute_names)
-    @params = params.dup
+  def initialize(params, attribute_names, defaults: {})
     @attribute_names = attribute_names
+
+    params = if params.respond_to?(:permit)
+                      _compact_attributes params.permit(*_permitted_attributes_names).to_h
+                    else
+                      _compact_attributes params.with_indifferent_access
+                    end
+
+    @attributes = defaults.with_indifferent_access
+      .select { |k, v| attribute_names.include?(k.to_sym) }
+      .deep_transform_values(&:to_s)
+      .merge(params)
+            # raise
   end
 
   class << self
@@ -40,14 +51,6 @@ class Filter
 
   def filled_attributes
     @filled_attributes ||= attributes.compact_blank
-  end
-
-  def attributes
-    @attributes ||= if @params.respond_to?(:permit)
-                      _compact_attributes @params.permit(*_permitted_attributes_names).to_h
-                    else
-                      _compact_attributes @params.with_indifferent_access
-                    end
   end
   alias to_h attributes
 
