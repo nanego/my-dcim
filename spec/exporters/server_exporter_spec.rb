@@ -23,6 +23,12 @@ RSpec.describe ServerExporter do
       it { expect { exporter.to_csv }.to raise_error(BaseExporter::UndefinedAttributeError) }
     end
 
+    context "with every column available on the servers index" do
+      let(:attributes) { ServersController::AVAILABLE_COLUMNS }
+
+      it { expect { exporter.to_csv }.not_to raise_error }
+    end
+
     context "with no records" do
       let(:records) { [] }
 
