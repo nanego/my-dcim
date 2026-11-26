@@ -128,11 +128,30 @@ module ServersHelper # rubocop:disable Metrics/ModuleLength
       html += content_tag(:span,
                           html_content,
                           class: class_names(
-                            "port_container float-start d-flex align-items-center",
+                            "port_container float-start d-flex align-items-center justify-content-center",
                             no_client: twin_card_used_ports && port_data && port_data.cable_name && twin_card_used_ports.exclude?(port_data.position),
                             unreferenced_client: twin_card_used_ports && (port_data.blank? || port_data.cable_name.blank?) && twin_card_used_ports.include?(index + 1),
                             selected: selected_port.present? && port_id == selected_port.try(:id),
                             "flex-column": !is_vertical_card,
+                          ))
+    end
+
+    html.html_safe # rubocop:disable Rails/OutputSafety
+  end
+
+  def sockets_by_block(block:, selected_port: nil)
+    html = ""
+
+    block.sockets.each do |socket|
+      html_content = link_to_port_by_type(
+        socket.name, socket.port_type.name, socket.port, socket.position, socket, socket.port&.id,
+      )
+
+      html += content_tag(:span,
+                          html_content,
+                          class: class_names(
+                            "port_container d-flex justify-content-center p-1",
+                            selected: selected_port.present? && socket.port&.id == selected_port.try(:id),
                           ))
     end
 
