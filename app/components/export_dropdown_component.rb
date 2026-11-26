@@ -12,7 +12,7 @@ class ExportDropdownComponent < ApplicationComponent
       </button>
 
       <ul class="dropdown-menu dropdown-menu-end">
-        <% if @pagy.next %>
+        <% if @pagy.pages > 1 %>
           <li>
             <%= link_to t(".export.current_page"), current_page_export(format: :csv), class: "dropdown-item" %>
           </li>
