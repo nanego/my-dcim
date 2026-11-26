@@ -41,18 +41,50 @@ RSpec.describe ServerExporter do
   end
 
   describe "#modele_category_id" do
-    it { expect(exporter.modele_category_id(servers(:one))).to eq(1) }
+    it { expect(exporter.modele_category_id(servers(:one))).to eq("MyString") }
+  end
+
+  describe "#room_id" do
+    it { expect(exporter.room_id(servers(:one))).to eq("S1") }
   end
 
   describe "#islet_id" do
-    it { expect(exporter.islet_id(servers(:one))).to eq(1) }
+    it { expect(exporter.islet_id(servers(:one))).to eq("Islet1") }
   end
 
   describe "#bay_id" do
-    it { expect(exporter.bay_id(servers(:one))).to eq(1) }
+    it { expect(exporter.bay_id(servers(:one))).to eq("MyFrame1 / MyFrame2") }
   end
 
   describe "#u" do
     it { expect(exporter.u(servers(:one))).to eq(1) }
+  end
+
+  describe "#manager_id" do
+    it { expect(exporter.manager_id(servers(:one))).to eq("MyString") }
+  end
+
+  describe "#domain_id" do
+    it { expect(exporter.domain_id(servers(:one))).to eq("Switch") }
+  end
+
+  describe "#modele_id" do
+    it { expect(exporter.modele_id(servers(:one))).to eq("PowerEdge R730") }
+  end
+
+  describe "#frame_id" do
+    it { expect(exporter.frame_id(servers(:one))).to eq("MyFrame1") }
+  end
+
+  describe "#cluster_id" do
+    it { expect(exporter.cluster_id(servers(:one))).to eq("Cloud C1") }
+  end
+
+  describe "#stack_id" do
+    it { expect(exporter.stack_id(servers(:one))).to eq("rouge") }
+  end
+
+  describe "#critique" do
+    it { expect(exporter.critique(servers(:one))).to eq("Non") }
   end
 end
