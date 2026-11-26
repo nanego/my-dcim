@@ -59,4 +59,28 @@ RSpec.describe ServerExporter do
   describe "#u" do
     it { expect(exporter.u(servers(:one))).to eq(1) }
   end
+
+  describe "#manager_id" do
+    it { expect(exporter.manager_id(servers(:one))).to eq("MyString") }
+  end
+
+  describe "#domain_id" do
+    it { expect(exporter.domain_id(servers(:one))).to eq("Switch") }
+  end
+
+  describe "#modele_id" do
+    it { expect(exporter.modele_id(servers(:one))).to eq("PowerEdge R730") }
+  end
+
+  describe "#frame_id" do
+    it { expect(exporter.frame_id(servers(:one))).to eq("MyFrame1") }
+  end
+
+  describe "#cluster_id" do
+    it { expect(exporter.cluster_id(servers(:one))).to eq("Cloud C1") }
+  end
+
+  describe "#stack_id" do
+    it { expect(exporter.stack_id(servers(:one))).to eq("rouge") }
+  end
 end

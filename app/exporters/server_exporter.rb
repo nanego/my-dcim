@@ -24,4 +24,28 @@ class ServerExporter < BaseExporter
   def u(record)
     record.modele.u
   end
+
+  def manager_id(record)
+    record.manager.to_s
+  end
+
+  def domain_id(record)
+    record.domain.to_s
+  end
+
+  def modele_id(record)
+    record.modele.to_s
+  end
+
+  def frame_id(record)
+    record.frame.to_s
+  end
+
+  def cluster_id(record)
+    record.cluster.to_s
+  end
+
+  def stack_id(record)
+    record.stack.to_s
+  end
 end

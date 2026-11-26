@@ -12,6 +12,7 @@ one:
   manager_id: 1
   position: 39
   stack_id: 1
+  cluster_id: 1
 
 two:
   id: 2
