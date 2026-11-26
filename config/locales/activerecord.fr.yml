@@ -576,7 +576,7 @@ fr:
         enclosure:
           attributes:
             grid_areas:
-              lack_composants: n'inclue pas certains composants
+              missing_composants: n'inclue pas certains composants
               unknown_composants: comprend des composants inconnus
 
         move:

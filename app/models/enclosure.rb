@@ -31,7 +31,7 @@ class Enclosure < ApplicationRecord
     text_set = grid_areas.split.to_set
     composants_set = composants.filter_map { |c| c.name.presence }.to_set
 
-    errors.add(:grid_areas, :lack_composants) unless (composants_set - text_set).empty?
+    errors.add(:grid_areas, :missing_composants) unless (composants_set - text_set).empty?
     errors.add(:grid_areas, :unknown_composants) unless (text_set - composants_set).empty?
   end
 end

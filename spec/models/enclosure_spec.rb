@@ -10,6 +10,47 @@ RSpec.describe Enclosure do
     it { is_expected.to have_many(:composants).dependent(:destroy) }
   end
 
+  describe "#validate_grid_areas_match_composants" do
+    let(:enclosure) { enclosures(:grid) }
+
+    context "when grid matches" do
+      before { enclosure.valid? }
+
+      it { expect(enclosure.errors.where(:grid_areas, :missing_composants).count).to eq(0) }
+      it { expect(enclosure.errors.where(:grid_areas, :unknown_composants).count).to eq(0) }
+    end
+
+    context "when a composant is missing" do
+      before do
+        enclosure.grid_areas = ""
+        enclosure.valid?
+      end
+
+      it { expect(enclosure.errors.where(:grid_areas, :missing_composants).count).to eq(1) }
+      it { expect(enclosure.errors.where(:grid_areas, :unknown_composants).count).to eq(0) }
+    end
+
+    context "when unknown composant" do
+      before do
+        enclosure.grid_areas = "unknown SL5"
+        enclosure.valid?
+      end
+
+      it { expect(enclosure.errors.where(:grid_areas, :missing_composants).count).to eq(0) }
+      it { expect(enclosure.errors.where(:grid_areas, :unknown_composants).count).to eq(1) }
+    end
+
+    context "when unknown composant and a composant missing" do
+      before do
+        enclosure.grid_areas = "unknown"
+        enclosure.valid?
+      end
+
+      it { expect(enclosure.errors.where(:grid_areas, :missing_composants).count).to eq(1) }
+      it { expect(enclosure.errors.where(:grid_areas, :unknown_composants).count).to eq(1) }
+    end
+  end
+
   describe ".with_composants" do
     subject(:with_composants) { modele.enclosures.with_composants }
 

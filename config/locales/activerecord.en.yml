@@ -346,7 +346,7 @@ en:
         enclosure:
           attributes:
             grid_areas:
-              lack_composants: lacks some composants
+              missing_composants: lacks some composants
               unknown_composants: has unknown composants
 
         move:
