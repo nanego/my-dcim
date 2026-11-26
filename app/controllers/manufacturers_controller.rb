@@ -14,6 +14,10 @@ class ManufacturersController < ApplicationController
 
     @bays_counts = authorized_scope(Bay.all).group(:manufacturer_id).count(:manufacturer_id)
     @servers_counts = authorized_scope(Server.all).group(:manufacturer_id).count(:manufacturer_id)
+    @power_distribution_units_counts = authorized_scope(PowerDistributionUnit.all)
+      .joins(:type)
+      .group(:manufacturer_id)
+      .count(:manufacturer_id)
   end
 
   # GET /manufacturers/1

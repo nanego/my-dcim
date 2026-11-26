@@ -161,6 +161,7 @@ en:
         usage_modele: Usage (model)
         usage_bay: Usage (bay)
         usage_server: Usage (I.T. equipment)
+        usage_power_distribution_unit: Usage (PDU)
         description: Description
         documentation_url: Documentation URL
         modeles_count:
@@ -175,6 +176,7 @@ en:
           zero: 0 I.T. equipment
           one: 1 I.T. equipment
           other: "%{count} I.T. equipments"
+        power_distribution_units_count: "%{count} PDU"
       modele:
         category_id: Category
         category: Category
