@@ -4,11 +4,13 @@
 
 <%= render Page::HeadingComponent.new(title: t(".title"), breadcrumb:) do |heading| %>
   <% heading.with_right_content do %>
-    <%= render ButtonComponent.new(t(".new_power_distribution_unit"),
-                                   url: new_power_distribution_unit_path,
-                                   variant: :success,
-                                   icon: "plus-lg",
-                                   is_responsive: true) %>
+    <% if allowed_to?(:create?) %>
+      <%= render ButtonComponent.new(t(".new_power_distribution_unit"),
+                                     url: new_power_distribution_unit_path,
+                                     variant: :success,
+                                     icon: "plus-lg",
+                                     is_responsive: true) %>
+    <% end %>
   <% end %>
 <% end %>
 
@@ -148,48 +150,56 @@
 
           <% table.with_column(style: "min-width: 70px; width: 70px") do |pdu| %>
             <div class="btn-group btn-group-sm" role="group" aria-label="...">
-              <%= link_to edit_power_distribution_unit_path(pdu),
-                          class: "btn btn-info",
-                          title: t("action.edit"),
-                          data: {
-                            turbo_frame: :_top,
-                            controller: "tooltip",
-                            bs_placement: "left",
-                          },
-                          aria: {
-                            label: t("action.edit"),
-                          } do %>
-                <span class="bi bi-pencil" aria-hidden="true"></span>
-                <span class="visually-hidden"><%= t("action.edit") %></span>
+              <% if allowed_to?(:update?, pdu) %>
+                <%= link_to edit_power_distribution_unit_path(pdu),
+                            class: "btn btn-info",
+                            title: t("action.edit"),
+                            data: {
+                              turbo_frame: :_top,
+                              controller: "tooltip",
+                              bs_placement: "left",
+                            },
+                            aria: {
+                              label: t("action.edit"),
+                            } do %>
+                  <span class="bi bi-pencil" aria-hidden="true"></span>
+                  <span class="visually-hidden"><%= t("action.edit") %></span>
+                <% end %>
               <% end %>
-              <%= link_to duplicate_power_distribution_unit_path(pdu),
-                          class: "btn btn-success",
-                          title: t("action.duplicate"),
-                          data: {
-                            turbo_frame: :_top,
-                            controller: "tooltip",
-                            bs_placement: "left",
-                          },
-                          aria: {
-                            label: t("action.duplicate"),
-                          } do %>
-                <span class="bi bi-copy" aria-hidden="true"></span>
-                <span class="visually-hidden"><%= t("action.duplicate") %></span>
+
+              <% if allowed_to?(:duplicate?, pdu) %>
+                <%= link_to duplicate_power_distribution_unit_path(pdu),
+                            class: "btn btn-success",
+                            title: t("action.duplicate"),
+                            data: {
+                              turbo_frame: :_top,
+                              controller: "tooltip",
+                              bs_placement: "left",
+                            },
+                            aria: {
+                              label: t("action.duplicate"),
+                            } do %>
+                  <span class="bi bi-copy" aria-hidden="true"></span>
+                  <span class="visually-hidden"><%= t("action.duplicate") %></span>
+                <% end %>
               <% end %>
-              <%= link_to power_distribution_unit_path(pdu),
-                          method: :delete,
-                          class: "btn btn-danger",
-                          title: t("action.delete"),
-                          data: {
-                            turbo_frame: :_top,
-                            controller: "tooltip",
-                            bs_placement: "left",
-                          },
-                          aria: {
-                            label: t("action.delete"),
-                          } do %>
-                <span class="bi bi-trash" aria-hidden="true"></span>
-                <span class="visually-hidden"><%= t("action.delete") %></span>
+
+              <% if allowed_to?(:destroy?, pdu) %>
+                <%= link_to power_distribution_unit_path(pdu),
+                            method: :delete,
+                            class: "btn btn-danger",
+                            title: t("action.delete"),
+                            data: {
+                              turbo_frame: :_top,
+                              controller: "tooltip",
+                              bs_placement: "left",
+                            },
+                            aria: {
+                              label: t("action.delete"),
+                            } do %>
+                  <span class="bi bi-trash" aria-hidden="true"></span>
+                  <span class="visually-hidden"><%= t("action.delete") %></span>
+                <% end %>
               <% end %>
             </div>
           <% end %>
