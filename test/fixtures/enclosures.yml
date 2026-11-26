@@ -21,3 +21,10 @@ four:
   modele_id: 2
   position: 4
   display: horizontal
+
+grid:
+  id: 5
+  modele_id: 1
+  position: 3
+  display: grid
+  grid_areas: SL5

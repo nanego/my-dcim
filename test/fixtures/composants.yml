@@ -21,3 +21,9 @@ four:
   name: SL3
   enclosure_id: 1
   position: 4
+
+five:
+  id: 5
+  name: SL5
+  enclosure_id: 5
+  position: 1

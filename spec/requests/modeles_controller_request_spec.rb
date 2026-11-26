@@ -47,7 +47,7 @@ RSpec.describe ModelesController do
 
       it { expect(response).to have_http_status(:success) }
       it { expect(response).to render_template(:show) }
-      it { expect(assigns(:modele).enclosures.length).to eq 2 }
+      it { expect(assigns(:modele).enclosures.length).to eq(3) }
     end
   end
 
