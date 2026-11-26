@@ -33,7 +33,7 @@
   <div class="form-group">
     <%= f.label 'Couleur', class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.hidden_field :color %>
+      <%= f.hidden_field :color, data: { controller: "color-palette" }  %>
     </div>
   </div>
 
@@ -59,9 +59,3 @@
   </div>
 
 <% end %>
-
-<script>
-$(document).ready(function(){
-    loadPaletteColorPicker('[name="port[color]"]');
-});
-</script>

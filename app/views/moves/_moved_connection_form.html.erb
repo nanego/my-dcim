@@ -52,7 +52,7 @@
 
   <fieldset class="col-12 mt-4">
     <%= f.label :color, class: "form-label" %>
-    <%= f.hidden_field :color, value: @moved_connection.color %>
+    <%= f.hidden_field :color, value: @moved_connection.color, data: { controller: "color-palette" }  %>
   </fieldset>
 
   <fieldset class="col-12 mt-4">
@@ -76,7 +76,6 @@
 
 <script>
 $(document).ready(function(){
-    loadPaletteColorPicker('[name="moved_connection[color]"]');
     $("#back_departure_server").on('click', 'a.port', function(e) {
         e.preventDefault();
     });
