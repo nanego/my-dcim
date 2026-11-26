@@ -2,15 +2,19 @@
 
 class ServerExporter < BaseExporter
   def modele_category_id(record)
-    record.modele.category_id
+    record.modele.category.to_s
+  end
+
+  def room_id(record)
+    record.room.to_s
   end
 
   def islet_id(record)
-    record.frame.bay.islet.id
+    record.islet.to_s
   end
 
   def bay_id(record)
-    record.frame.bay.id
+    record.bay.to_s
   end
 
   def u(record)

@@ -41,15 +41,19 @@ RSpec.describe ServerExporter do
   end
 
   describe "#modele_category_id" do
-    it { expect(exporter.modele_category_id(servers(:one))).to eq(1) }
+    it { expect(exporter.modele_category_id(servers(:one))).to eq("MyString") }
+  end
+
+  describe "#room_id" do
+    it { expect(exporter.room_id(servers(:one))).to eq("S1") }
   end
 
   describe "#islet_id" do
-    it { expect(exporter.islet_id(servers(:one))).to eq(1) }
+    it { expect(exporter.islet_id(servers(:one))).to eq("Islet1") }
   end
 
   describe "#bay_id" do
-    it { expect(exporter.bay_id(servers(:one))).to eq(1) }
+    it { expect(exporter.bay_id(servers(:one))).to eq("MyFrame1 / MyFrame2") }
   end
 
   describe "#u" do
