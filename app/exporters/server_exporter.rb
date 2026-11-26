@@ -48,4 +48,10 @@ class ServerExporter < BaseExporter
   def stack_id(record)
     record.stack.to_s
   end
+
+  def critique(record)
+    return if record.critique.nil?
+
+    I18n.t("boolean.#{record.critique}")
+  end
 end

@@ -83,4 +83,8 @@ RSpec.describe ServerExporter do
   describe "#stack_id" do
     it { expect(exporter.stack_id(servers(:one))).to eq("rouge") }
   end
+
+  describe "#critique" do
+    it { expect(exporter.critique(servers(:one))).to eq("Non") }
+  end
 end
