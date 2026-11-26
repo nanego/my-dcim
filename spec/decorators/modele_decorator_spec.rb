@@ -49,7 +49,7 @@ RSpec.describe ModeleDecorator, type: :decorator do
     end
 
     context "when modele has several enclosures" do
-      it { is_expected.to eq("Verticale, Verticale") }
+      it { is_expected.to eq("Verticale, Verticale, Grille") }
     end
   end
 
