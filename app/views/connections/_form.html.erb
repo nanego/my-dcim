@@ -95,7 +95,9 @@
 
       <fieldset class="col-12 mt-4">
         <%= f.label Port.human_attribute_name(:color), class: "form-label" %>
-        <%= f.hidden_field :color, value: @from_port.cable.try(:color), data: { controller: "color-palette" }  %>
+        <%= f.hidden_field :color, value: @from_port.cable.try(:color), data: {
+              controller: "form--color-palette", form__color_palette_colors_value: CableDecorator::COLORS_VALUES,
+            } %>
       </fieldset>
 
       <fieldset class="col-12 mt-4">
