@@ -5,6 +5,10 @@ class ServerExporter < BaseExporter
     record.modele.category.to_s
   end
 
+  def manufacturer_id(record)
+    record.manufacturer.to_s
+  end
+
   def room_id(record)
     record.room.to_s
   end
