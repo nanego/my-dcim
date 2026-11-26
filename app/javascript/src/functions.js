@@ -13,21 +13,6 @@ var colors_hash = {"N": "#000000",
 }
 window.colors_hash = colors_hash
 
-var loadPaletteColorPicker = function(selector){
-    let colors = []
-    for(let color_key in colors_hash){
-        let tmp_hash = {}
-        tmp_hash[color_key] = colors_hash[color_key]
-        colors.push(tmp_hash)
-    }
-    $(selector).paletteColorPicker({
-        colors: colors,
-        timeout: 2000,
-        position: 'upside'
-    })
-}
-window.loadPaletteColorPicker = loadPaletteColorPicker
-
 function findByAttribute(array, attr, value) {
     if(array != undefined){
 
