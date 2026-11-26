@@ -107,6 +107,69 @@ table.slots th {
   font-size: 12px;
 }
 
+table.slots {
+  &.R {
+    td {
+      border-color: #ee3b3b !important;
+    }
+  }
+  &.G {
+    td {
+      border-color: #AAAAAA !important;
+    }
+  }
+  &.V {
+    td {
+      border-color: green !important;
+    }
+  }
+  &.T {
+    td {
+      border-color: #3B9C9C !important;
+    }
+  }
+  &.Vi {
+    td {
+      border-color: #663399 !important;
+    }
+  }
+  &.M {
+    td {
+      border-color: #8b4c39 !important;
+    }
+  }
+  &.B {
+    td {
+      border-color: #4876ff !important;
+    }
+  }
+  &.N {
+    td {
+      border-color: #000000 !important;
+    }
+  }
+  &.O {
+    td {
+      border-color: #FF9000 !important;
+    }
+  }
+  &.W {
+    td {
+      border-color: #FFFFFF !important;
+    }
+  }
+  &.J {
+    td {
+      border-color: #FFDD00 !important;
+    }
+  }
+  &.P {
+    td {
+     border-color: #ff9ee5 !important;
+    }
+  }
+}
+
 table.slots .slot_column {
   width: 32px;
 }
@@ -114,27 +177,10 @@ table.slots .slot_column {
 table.card_layout {
   border-collapse: collapse;
   border-style: hidden;
+  width: 100%;
+
   td, th {
     border: 1px solid #999999;
-  }
-}
-
-.pdu {
-  &.J {
-    .pdu-line .badge {
-      color: var(--bs-gray-500) !important;
-      background-color: #ffed7e !important;
-    }
-  }
-  &.B {
-    .pdu-line .badge {
-      background-color: #a2b9ff !important;
-    }
-  }
-
-  .server-component {
-    display: inherit;
-    flex-direction: inherit;
   }
 }
 
@@ -235,6 +281,7 @@ table.card_layout {
   -webkit-border-radius: 4px 4px 8px 8px;
   -moz-border-radius: 4px 4px 8px 8px;
   border-radius: 4px 4px 8px 8px;
+  min-width: 30px;
 }
 
 .alims {

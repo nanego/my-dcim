@@ -12,6 +12,7 @@ one:
   comment: ""
   ipmi_url: ""
   power_line: A
+  color: J
 
 two:
   id: 2

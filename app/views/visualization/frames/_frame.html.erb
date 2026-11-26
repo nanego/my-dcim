@@ -32,11 +32,11 @@
   <div class="frame order-lg-2 flex-grow-1" id="frame_<%= frame.id %>" style="min-width: 0" data-view="<%= view_type %>">
     <div class="card card-frame">
       <div class="card-header">
-        <h5 class="card-title d-inline">
+        <h5 class="card-title d-inline no-decoration-link">
           <%= if frame.room.present?
                 link_to frame.name,
                         visualization_frame_path(frame, view: view_type, bg: params[:bg]),
-                        style: "text-decoration: underline;"
+                        class: "text-body-emphasis"
               end %>
         </h5>
       </div>
@@ -117,44 +117,42 @@
     </div>
   </div>
 
-  <% if left_power_distribution_units.any? %>
-    <div class="order-lg-1 d-inline-flex flex-shrink-0 justify-content-center justify-content-lg-start column-gap-4">
-      <% frame.left_power_distribution_units.each do |power_distribution_unit| %>
-        <%= render CardComponent.new(extra_classes: "bg-body-tertiary rounded-bottom") do |card| %>
-          <% card.with_header do %>
-            <div class="text-center">
-              <%= link_to power_distribution_unit_path(power_distribution_unit) do %>
-                <%= render power_distribution_unit.decorated.power_line_badge_component %>
-              <% end %>
-            </div>
+  <% if left_pdus = left_power_distribution_units.presence %>
+    <div class="order-lg-1 d-inline-flex flex-shrink-0 justify-content-center justify-content-lg-end d-inline-flex column-gap-4">
+      <% left_pdus.each do |power_distribution_unit| %>
+        <div class="d-flex flex-column align-items-center row-gap-2 mt-lg-2">
+          <%= render BadgeComponent.new(color: :light) do %>
+            <span class="no-decoration-link">
+              <%= link_to power_distribution_unit.name,
+                          power_distribution_unit_path(power_distribution_unit),
+                          class: "text-body fw-medium" %>
+            </span>
           <% end %>
-
-          <div id="pdu-vizualisation-<%= power_distribution_unit.id %>" class="pdu">
+          <div id="pdu-vizualisation-<%= power_distribution_unit.id %>" class="pdu mt-1">
             <%= render partial: "power_distribution_units/visualization",
                        locals: { power_distribution_unit: } %>
           </div>
-        <% end %>
+        </div>
       <% end %>
     </div>
   <% end %>
 
-  <% if right_power_distribution_units.any? %>
-    <div class="order-lg-3 order-xxl-4 flex-shrink-0 justify-content-center justify-content-lg-end d-inline-flex column-gap-4">
-      <% frame.right_power_distribution_units.each do |power_distribution_unit| %>
-        <%= render CardComponent.new(extra_classes: "bg-body-tertiary rounded-bottom") do |card| %>
-          <% card.with_header do %>
-            <div class="text-center">
-              <%= link_to power_distribution_unit_path(power_distribution_unit) do %>
-                <%= render power_distribution_unit.decorated.power_line_badge_component %>
-              <% end %>
-            </div>
+  <% if right_pdus = right_power_distribution_units.presence %>
+    <div class="order-lg-3 order-xxl-4  flex-shrink-0 justify-content-center justify-content-lg-end d-inline-flex column-gap-4">
+      <% right_pdus.each do |power_distribution_unit| %>
+        <div class="d-flex flex-column align-items-center row-gap-2 mt-lg-2">
+          <%= render BadgeComponent.new(color: :light) do %>
+            <span class="no-decoration-link">
+              <%= link_to power_distribution_unit.name,
+                          power_distribution_unit_path(power_distribution_unit),
+                          class: "text-body fw-medium" %>
+            </span>
           <% end %>
-
-          <div id="pdu-vizualisation-<%= power_distribution_unit.id %>">
+          <div id="pdu-vizualisation-<%= power_distribution_unit.id %>" class="pdu mt-1">
             <%= render partial: "power_distribution_units/visualization",
                        locals: { power_distribution_unit: } %>
           </div>
-        <% end %>
+        </div>
       <% end %>
     </div>
   <% end %>
