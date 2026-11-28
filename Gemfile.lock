@@ -185,9 +185,10 @@ GEM
       devise (>= 4.6)
     diff-lcs (1.6.2)
     diffy (3.4.4)
-    down (5.6.0)
+    down (6.0.0)
       addressable (~> 2.8)
       base64 (~> 0.3)
+      tempfile (>= 0.3.1)
     drb (2.2.3)
     dry-core (1.2.0)
       concurrent-ruby (~> 1.0)
@@ -615,9 +616,9 @@ GEM
     securerandom (0.4.1)
     shoulda-matchers (8.0.1)
       activesupport (>= 7.2)
-    shrine (3.10.2)
+    shrine (3.11.1)
       content_disposition (~> 1.0)
-      down (~> 5.1)
+      down (>= 5.1, < 7)
     simplecov (1.3.2)
     simplecov-console (0.9.5)
       ansi
@@ -643,6 +644,7 @@ GEM
       attr_required (>= 0.0.5)
       faraday (~> 2.0)
       faraday-follow_redirects
+    tempfile (0.3.2)
     terminal-table (4.0.0)
       unicode-display_width (>= 1.1.1, < 4)
     terser (1.2.8)
@@ -766,7 +768,7 @@ DEPENDENCIES
   ruby-vips (~> 2.0)
   scenic (~> 1.8)
   shoulda-matchers
-  shrine (~> 3.10)
+  shrine (~> 3.11)
   simple_token_authentication!
   simplecov
   simplecov-console
@@ -835,7 +837,7 @@ CHECKSUMS
   devise_invitable (2.0.12) sha256=3ff1cb9dc85b5675e49c733399872916fc0a60b9e8a4c42ac04828d36c114e78
   diff-lcs (1.6.2) sha256=9ae0d2cba7d4df3075fe8cd8602a8604993efc0dfa934cff568969efb1909962
   diffy (3.4.4) sha256=79384ab5ca82d0e115b2771f0961e27c164c456074bd2ec46b637ebf7b6e47e3
-  down (5.6.0) sha256=48ec6ddb078cbf3b425d02596bb388303316f976143c6e94a7b3169d6712b593
+  down (6.0.0) sha256=20bd223788d5c29f891539b698d0886b7b10a58dc3c62b324f872ae54b420be1
   drb (2.2.3) sha256=0b00d6fdb50995fe4a45dea13663493c841112e4068656854646f418fda13373
   dry-core (1.2.0) sha256=0cc5a7da88df397f153947eeeae42e876e999c1e30900f3c536fb173854e96a1
   dry-inflector (1.3.1) sha256=7fb0c2bb04f67638f25c52e7ba39ab435d922a3a5c3cd196120f63accb682dcc
@@ -986,7 +988,7 @@ CHECKSUMS
   scenic (1.9.0) sha256=6eec3aa049ba2a137e7eb0b4c4f0200b77f7765fc82e08ad44c01da7905563d9
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
   shoulda-matchers (8.0.1) sha256=5dbb46e5765b9da225111b085e0819e8c8a121ff94bba430a153eb1ea2c60288
-  shrine (3.10.2) sha256=c41f392ee55609575e0fd4634fdb6a144aa37b29db6c6cd90e9bf92ae117e6aa
+  shrine (3.11.1) sha256=01ce366066013c226a88f1e078328e59b58812ba14193acec9f14fdd4b04e41e
   simple_token_authentication (1.18.1)
   simplecov (1.3.2) sha256=2a22ec1759f1b8db60881a2e038758956fc69ef93ed669be0bde0678de6d0e85
   simplecov-console (0.9.5) sha256=b1108bcfff5f210143e2b8301698c367b01586f20d25a73e95475a5df6fc6ff6
@@ -998,6 +1000,7 @@ CHECKSUMS
   store_attribute (2.2.0) sha256=4491f341e2fc1a3e2dc092728aa979c8101a497c9736886066b1f81dc480626e
   strscan (3.1.8) sha256=aae2db611a225559f21ffbb71765c9a4e60fd262534a9ea84f4f11c7f32f679e
   swd (2.0.3) sha256=4cdbe2a4246c19f093fce22e967ec3ebdd4657d37673672e621bf0c7eb770655
+  tempfile (0.3.2) sha256=5c35f90a620e429fb948ef54decf774dc26d36c2d63d285a2914884c42d80482
   terminal-table (4.0.0) sha256=f504793203f8251b2ea7c7068333053f0beeea26093ec9962e62ea79f94301d2
   terser (1.2.8) sha256=64931851d173bc5be0a90bd4570d751be5e83b2b063ccb750dbdc11a7b1d14db
   thor (1.5.0) sha256=e3a9e55fe857e44859ce104a84675ab6e8cd59c650a49106a05f55f136425e73
